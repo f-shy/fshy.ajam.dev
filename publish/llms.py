@@ -36,7 +36,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 # The site's origin and its source repository. A fork sets both in the environment of the build; every absolute
 # link of the wiki, the sitemap, the feed and these files comes from them.
 BASE = os.environ.get("FSHY_ORIGIN", "https://fshy.ajam.dev").rstrip("/")
-REPO = os.environ.get("FSHY_REPO", "https://github.com/Azathothas/fshy.ajam.dev").rstrip("/")
+REPO = os.environ.get("FSHY_REPO", "https://github.com/f-shy/fshy.ajam.dev").rstrip("/")
 LICENCE = "0BSD"
 
 # The most bytes one file holds: what an agent can read whole and still work. The corpus measures 3.7 bytes

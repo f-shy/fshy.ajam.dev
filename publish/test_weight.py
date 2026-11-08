@@ -24,7 +24,7 @@ ASSET_LIMIT = 25 * 1024 * 1024  # the largest static asset of Workers (publish/b
 # reviewed change of a limit.
 LIMITS = {
     "shared": ("style.css plus app.js, gzip", 12_200),  # (12,072: the footer's commit adds the hover-date code)
-    "shell": ("the page shell (header, topic bar, footer), raw", 2_200),  # (1,968)
+    "shell": ("the page shell (header, topic bar, footer), raw", 2_400),  # (2,213 with the commit link)
     "topic": ("a topic page or its paid page, gzip", 80_000),  # (58,175: t/compute/)
     "rejected": ("a rejected page, gzip", 160_000),  # (121,007: t/storage/rejected/)
     "need": ("a best-per-need page, gzip", 40_000),  # (29,209: need/debrid-cheapest/)

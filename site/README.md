@@ -166,6 +166,13 @@ merges deploys the new data. A failed build, for example a leak hit, keeps the p
 | `FSHY_ORIGIN` | repository variable, optional | the origin that the job checks; the default is `https://fshy.ajam.dev` |
 | `production` | environment | only `main` can use it, so a pull request never gets the token |
 
+The platform's limits, read from Cloudflare's Workers limits page on 2026-11-08: one static asset file is at
+most 25 MiB, and one version carries at most 20,000 files on the free plan and 100,000 on the paid one. The
+build writes 7,322 files and its largest page stays under 80,000 bytes, which `../publish/test_weight.py`
+checks. `limits.cpu_ms` is 2500, under the paid plan's default of 30 seconds a request; the free plan's
+ceiling is 10 ms, and the store's costliest routes measured 700 ms and answer, so the account is on the paid
+plan.
+
 `preview_urls` is `false` in `wrangler.jsonc`, so a deploy makes no public version URL on `workers.dev`.
 
 To deploy again without a change, run the workflow `build` by hand on `main`. To go back to an earlier version:
