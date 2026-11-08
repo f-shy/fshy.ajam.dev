@@ -490,7 +490,8 @@ def html_checks(dist, man, st=None):
         ids = collections.Counter(re.findall(r'\sid="([^"]+)"', body))
         if any(n > 1 for n in ids.values()):
             dupid.append((rel, [i for i, n in ids.items() if n > 1][:3]))
-        if man.get("commit") and man["commit"][:10] in h:
+        # the footer's commit span names the build commit on every page; any other mention still fails (P-03)
+        if man.get("commit") and man["commit"][:10] in re.sub(r'<span class="commit"[^>]*>[^<]*</span>', "", h):
             commit.append(rel)
         for href in re.findall(r'href="(/[^"#?]*)', h):
             if href.startswith(WORKER) or href in ("/api/v1/",):
