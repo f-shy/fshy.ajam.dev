@@ -294,4 +294,7 @@
       });
     }
   }
+
+  // the footer's commit: the tooltip is the commit time, in the browser's own time zone
+  $$('.commit[data-ts]').forEach(function (el) { el.title = new Date(el.dataset.ts).toLocaleString(undefined, { dateStyle: 'full', timeStyle: 'long' }); });
 })();

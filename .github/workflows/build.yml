@@ -118,11 +118,13 @@ jobs:
             python3 publish/test_publish.py --db "$fx/public.db"
           fi
 
-      # the job deploy deploys these files, so it deploys the bytes that the steps above checked. The upload leaves out
-      # a path that starts with a dot unless told otherwise, and .well-known/security.txt is one (issue #36)
-      - name: keep the site for the job deploy
+      # the jobs deploy and gh-pages ship these files, so they ship the bytes that the steps above checked. The
+      # upload leaves out a path that starts with a dot unless told otherwise, and .well-known/security.txt is one
+      # (issue #36). The upload runs with no FSHY_DEPLOY check: the gh-pages mirror publishes even while the Worker
+      # deploy is off.
+      - name: keep the site for the jobs deploy and gh-pages
         if: >-
-          github.ref == 'refs/heads/main' && vars.FSHY_DEPLOY == 'on' &&
+          github.ref == 'refs/heads/main' &&
           (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
@@ -258,3 +260,40 @@ jobs:
             echo "The new version can be live. site/README.md, section Deploy, says how to go back." >&2
             exit 1
           }
+
+  # The gh-pages branch is the GitHub Pages mirror of the site: one commit, force-pushed on every push to main, so
+  # the mirror never falls behind the Worker. The CNAME file must be in every push, because without it GitHub Pages
+  # drops the custom domain gh.fshy.ajam.dev. The job runs with no FSHY_DEPLOY check: the mirror publishes even
+  # while the Worker deploy is off. A newer push cancels this job and ships its own build instead.
+  gh-pages:
+    needs: build
+    if: >-
+      github.ref == 'refs/heads/main' &&
+      (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-26.04
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    concurrency:
+      group: gh-pages
+      cancel-in-progress: true
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: site-dist
+          path: site-dist
+
+      - name: push the site to gh-pages
+        env:
+          TOKEN: ${{ github.token }}
+        run: |
+          cd site-dist
+          git init -q -b gh-pages
+          git config user.name "fshy build"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          echo "gh.fshy.ajam.dev" > CNAME
+          git add -A
+          git commit -q -m "site: build from data/ at $GITHUB_SHA"
+          git remote add origin "https://x-access-token:$TOKEN@github.com/$GITHUB_REPOSITORY.git"
+          git push -q -f origin gh-pages
+          echo "gh-pages: $GITHUB_SHA"
