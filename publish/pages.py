@@ -303,10 +303,11 @@ class Site:
         self.manifest = ctx["manifest"]
         self.voc = {(d, t): m for d, rows in ctx["vocab"].items() for t, m in rows}
         self.css, self.js = asset("style.css"), asset("app.js")
-        # the build commit of the footer: the hash is the text, and app.js puts the commit time, in the reader's own
-        # time zone, in the tooltip. No commit (a build outside git) adds nothing.
+        # the build commit of the footer: the hash is the text and links to the commit on GitHub, and app.js puts
+        # the commit time, in the reader's own time zone, in the tooltip. No commit (a build outside git) adds nothing.
         c, t = self.manifest.get("commit") or "", self.manifest.get("commit_time") or ""
-        self.commit_html = (' <span class="commit" data-ts="%s">%s</span>' % (e(t), e(c[:12]))) if c else ""
+        self.commit_html = (' <a class="commit" data-ts="%s" href="%s/commit/%s">%s</a>'
+                            % (e(t), e(llms.REPO), e(c), e(c[:12]))) if c else ""
         self.n = 0
         cards = ctx["cards"]
         self.have = {c["topic"] for c in cards.values()}  # topics with records: the topic bar names only these

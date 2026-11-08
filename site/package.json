@@ -6,7 +6,7 @@
     "node": ">=22.15"
   },
   "scripts": {
-    "build": "python3 ../publish/build.py --site dist",
+    "build": "python ../publish/build.py --site dist",
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
     "test": "node worker/test/run.mjs",

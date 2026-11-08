@@ -6,7 +6,7 @@
 stays in notifications and in archives after the issue is edited.
 
 Use the private report form of this repository:
-<https://github.com/Azathothas/fshy.ajam.dev/security/advisories/new>. Only the maintainers of the repository
+<https://github.com/f-shy/fshy.ajam.dev/security/advisories/new>. Only the maintainers of the repository
 can read the report. Give the file, the page or the API route, and what you found.
 
 If the form is not available, open an issue with the title "Private report" and no other text. A maintainer
