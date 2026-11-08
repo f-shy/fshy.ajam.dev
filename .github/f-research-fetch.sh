@@ -11,21 +11,28 @@
 #   all   every branch and tag, for the bundle, with no checkout
 set -eu
 mode=${1:?usage: f-research-fetch.sh head|main|all}
-: "${KEY:?the deploy key is missing: the secret F_RESEARCH_DEPLOY_KEY of this job's environment}"
+# The source repository is public. The key is optional: when the environment still supplies one the
+# fetch uses SSH, otherwise it clones over HTTPS with no credential.
+: "${KEY:=}"
 if [ "$mode" = head ]; then
   printf '%s\n' "${SHA:-}" | grep -qxE '[0-9a-f]{40}' && printf '%s\n' "${BASE:-}" | grep -qxE '[0-9a-f]{40}' ||
     { echo "FAIL inputs (sha and base must each be a commit of 40 hex digits)"; exit 1; }
 fi
-t=$(cygpath -u "$RUNNER_TEMP" 2>/dev/null || printf '%s' "$RUNNER_TEMP")
-k="$t/f-research-key"
-h="$t/f-research-known-hosts"
-umask 077
-trap 'rm -f "$k"' EXIT
-printf '%s\n' "$KEY" > "$k"
-printf '%s\n' 'github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl' > "$h"
-export GIT_SSH_COMMAND="ssh -i $k -o IdentitiesOnly=yes -o UserKnownHostsFile=$h -o StrictHostKeyChecking=yes"
+if [ -n "$KEY" ]; then
+  t=$(cygpath -u "$RUNNER_TEMP" 2>/dev/null || printf '%s' "$RUNNER_TEMP")
+  k="$t/f-research-key"
+  h="$t/f-research-known-hosts"
+  umask 077
+  trap 'rm -f "$k"' EXIT
+  printf '%s\n' "$KEY" > "$k"
+  printf '%s\n' 'github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl' > "$h"
+  export GIT_SSH_COMMAND="ssh -i $k -o IdentitiesOnly=yes -o UserKnownHostsFile=$h -o StrictHostKeyChecking=yes"
+  url=git@github.com:f-shy/raw.git
+else
+  url=https://github.com/f-shy/raw.git
+fi
 git init -q f-research
-git -C f-research remote add origin git@github.com:Azathothas/f-research.git
+git -C f-research remote add origin "$url"
 specs='+refs/heads/*:refs/remotes/origin/*'
 [ "$mode" = all ] && specs="$specs +refs/tags/*:refs/tags/*"
 ok=0
