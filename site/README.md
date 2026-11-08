@@ -181,7 +181,10 @@ To deploy again without a change, run the workflow `build` by hand on `main`. To
 - or, for 7 days, re-run the job `deploy` of the run of an earlier commit, which deploys that run's artifact;
 - or run `npx wrangler rollback` in `site/` with a token that can edit Workers.
 
-⚠ Workers Builds in the Cloudflare dashboard must stay off for this Worker, or two deploys race.
+⚠ Two paths can deploy this Worker: the job `deploy` here, and the build of the Workers Builds
+connection in the Cloudflare dashboard (auto-build on, the same commands, the same commit). Both
+carry the same bytes, so their race is harmless; to keep one deployer, set `FSHY_DEPLOY` to `off`
+or turn the build off in the dashboard.
 
 ## What the Worker serves
 
