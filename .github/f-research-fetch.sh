@@ -38,7 +38,7 @@ specs='+refs/heads/*:refs/remotes/origin/*'
 ok=0
 # shellcheck disable=SC2086
 git -C f-research fetch -q --no-tags origin $specs > /dev/null 2>&1 && ok=1
-rm -f "$k"
+if [ -n "$KEY" ]; then rm -f "$k"; fi
 unset GIT_SSH_COMMAND KEY
 [ "$ok" = 1 ] || { echo "FAIL fetch (the deploy key, the host key or the network)"; exit 1; }
 case $mode in
