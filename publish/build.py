@@ -182,7 +182,7 @@ def git_info():
     ts = run("log", "-1", "--format=%ct")
     when = (datetime.datetime.fromtimestamp(int(ts), datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
             if ts.isdigit() else "")
-    return os.environ.get("WORKERS_CI_COMMIT_SHA") or run("rev-parse", "HEAD"), when
+    return run("rev-parse", "HEAD") or (os.environ.get("WORKERS_CI_COMMIT_SHA") or ""), when
 
 
 def older_defaults(version):
