@@ -292,6 +292,7 @@ jobs:
           git config user.name "fshy build"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           echo "gh.fshy.ajam.dev" > CNAME
+          touch .nojekyll
           git add -A
           git commit -q -m "site: build from data/ at $GITHUB_SHA"
           git remote add origin "https://x-access-token:$TOKEN@github.com/$GITHUB_REPOSITORY.git"
