@@ -9,3 +9,6 @@ __pycache__/
 *.db
 .claude/
 .codegraph/
+
+# the cf CLI writes account state here; never publish it
+.cloudflare/

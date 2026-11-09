@@ -2,7 +2,7 @@
 """export.py: one commit of the research corpus -> data/, the published corpus. Only a merge session runs it.
 
 usage:
-  python publish/export.py --source PATH                PATH is a checkout of the private research repository
+  python publish/export.py --source PATH                PATH is a checkout of the research repository
   python publish/export.py --source PATH --ref COMMIT   export another commit; it must be on origin/main
 
 1. Fetch origin in PATH and resolve the ref (default origin/main) to one commit. A commit that is not on
