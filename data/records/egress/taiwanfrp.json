@@ -130,7 +130,7 @@
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-11-04T06:52:59.172Z",
   "price_per_tb_month": "USD 0",
-  "notes": "The only Taiwanese free service found that forwards UDP on a public port without a public IP, and the cheapest identity cost: a Discord account, with the Taiwanese mobile number explicitly optional and needed only for some features. Two gaps. Every page is silent on volume. And the account appears to carry an expiry a user must renew, which the status panel reports as a hard stop. Country: Taiwan; the operator writes in Traditional Chinese, and the terms invoke the law of the Republic of China. A user is frp-based: a 'custom client FRPC file' is offered for download.",
+  "notes": "The only Taiwanese free service found that forwards UDP on a public port without a public IP, and the cheapest identity cost: a Discord account, with the Taiwanese mobile number explicitly optional and needed only for some features. Two gaps. Every page is silent on volume. And the account appears to carry an expiry that must be renewed, which the status panel reports as a hard stop. Country: Taiwan; the operator writes in Traditional Chinese, and the terms invoke the law of the Republic of China. A user is frp-based: a 'custom client FRPC file' is offered for download.",
   "extras": {
     "wg_path": "inside-udp",
     "wg_detail": "[translated] 'Register an account and create a proxy, and you can host a Minecraft or other TCP/UDP server.' A UDP proxy on a public port would carry a WireGuard datagram; the vendor issues no .conf and a user is their own build.",
@@ -138,6 +138,6 @@
     "volume_tib_month": null,
     "volume_stated": "[translated] No byte allowance, rate or session length is published on the front page, the how-to page, the terms page or the client download page. The only limit visible is an account expiry, which the status panel reports.",
     "bytes_transit": "yes",
-    "transit_note": "The vendor's Taiwanese public node relays to the client's machine."
+    "transit_note": "The vendor's Taiwanese public node relays to the local machine."
   }
 }

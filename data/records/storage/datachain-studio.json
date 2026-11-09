@@ -5,7 +5,7 @@
   "url": "https://docs.datachain.ai/studio",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Control plane only — it connects to your own Git remotes and your own cloud storage. No free byte pool was found on any page, and the self-hosted helm chart is for running the UI, not for…",
+    "stated": "none reachable: Control plane only — it connects to your own Git remotes and your own cloud storage. No free byte pool was found on any page, and the self-hosted helm chart is for running the UI, not for…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.datachain.ai/studio",

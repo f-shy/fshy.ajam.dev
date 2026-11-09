@@ -5,7 +5,7 @@
   "url": "https://jottacloud.com/en/pricing/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "5 GB free; the genuinely interesting 'Unlimited' plan is NOK 129/mo and throttles upload after 5 TB. Not free.",
+    "stated": "none reachable: 5 GB free; the genuinely interesting 'Unlimited' plan is NOK 129/mo and throttles upload after 5 TB. Not free.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://jottacloud.com/en/pricing/",

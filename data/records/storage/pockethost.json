@@ -34,7 +34,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "PocketBase REST/realtime API, `pocketbase` JS/Dart SDKs, SFTP file access on PocketHost, S3 storage backend supported (like standalone PocketBase)",
-  "chaining": "Storage pools across slots ('Storage adds to your account pool, shared across every PocketBase you run'), so 10 slots = 100 GB for ~$50-100/mo. Not free, but the only entrant here with unmetered egress. Self-hosting PocketBase is free/MIT — that is the free path, on compute he already has.",
+  "chaining": "Storage pools across slots ('Storage adds to your account pool, shared across every PocketBase you run'), so 10 slots = 100 GB for ~$50-100/mo. Not free, but the only entrant here with unmetered egress. Self-hosting PocketBase is free/MIT — that is the free path, on compute that is already available.",
   "limits": [
     {
       "kind": "per-ip-shaping",

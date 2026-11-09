@@ -48,7 +48,7 @@
   ],
   "limits_note": "",
   "binding": "volume-quota",
-  "binding_note": "the 60-day expiry binds, not the volume: at 1 TiB a month the 60 days spend 2 TiB of an 18.2 TiB credit. At a user's volume the credit is nine times larger than the window it lives in.",
+  "binding_note": "the 60-day expiry binds, not the volume: at 1 TiB a month the 60 days spend 2 TiB of an 18.2 TiB credit. At this volume the credit is nine times larger than the window it lives in.",
   "identity_cost": {
     "kind": "card",
     "detail": "Maintaining a valid credit card on file with your account is a requirement of our Master Services Agreement.",

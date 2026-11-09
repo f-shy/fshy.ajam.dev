@@ -5,7 +5,7 @@
   "url": "https://surge.sh/docs/cli/publishing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "450 MB / 10,100 files per project and every publish is a full gzipped-tarball replace, so a 450 MB project costs 450 MB of upload per change. Only viable if projects are written once and…",
+    "stated": "none reachable: 450 MB / 10,100 files per project and every publish is a full gzipped-tarball replace, so a 450 MB project costs 450 MB of upload per change. Only viable if projects are written once and…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://surge.sh/docs/cli/publishing",

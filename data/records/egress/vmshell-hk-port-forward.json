@@ -130,7 +130,7 @@
     "volume_tib_month": null,
     "volume_stated": "[translated] 'Free for one month', with no traffic allowance, rate or session length stated. The notice describes it as a test product with no technical support.",
     "bytes_transit": "yes",
-    "transit_note": "VmShell's Hong Kong CMI address forwards to the client's machine.",
+    "transit_note": "VmShell's Hong Kong CMI address forwards to the local machine.",
     "death": {
       "on": "2026-10-30",
       "cause": "free-tier-removed"

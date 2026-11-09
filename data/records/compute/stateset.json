@@ -45,7 +45,7 @@
     "detail": "The Hobby plan is USD 0 plus usage, which normally needs a card on file to meter beyond the included hours; no card, hold or debit statement was read on the pricing page. Unverified.",
     "country": null
   },
-  "reliability_note": "Shared sandboxes 'burst on Spot capacity at the lowest price and can be preempted', which is an interruption a user cannot schedule around.",
+  "reliability_note": "Shared sandboxes 'burst on Spot capacity at the lowest price and can be preempted', which is an interruption that cannot be scheduled around.",
   "confidence": "documented",
   "confidence_note": "The runtime caps, concurrency, included hours and the spot-preemption sentence are quoted from the pricing page read. The unit rates, the card requirement and SSH access are not established.",
   "evidence": [

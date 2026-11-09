@@ -5,7 +5,7 @@
   "url": "https://www.pq.hosting/storage-vps",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "https://www.pq.hosting/storage-vps returned HTTP 404 through the reader. No storage product at that path.",
+    "stated": "none reachable: https://www.pq.hosting/storage-vps returned HTTP 404 through the reader. No storage product at that path.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.pq.hosting/storage-vps",

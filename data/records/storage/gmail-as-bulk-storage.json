@@ -5,7 +5,7 @@
   "url": "https://support.google.com/accounts/answer/9312312",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Gmail shares the same 15 GB (or pooled Workspace) quota as Drive, and attachments are capped at 50 MB inbound / 25 MB outbound — so it multiplies nothing while consuming the same bytes.…",
+    "stated": "none reachable: Gmail shares the same 15 GB (or pooled Workspace) quota as Drive, and attachments are capped at 50 MB inbound / 25 MB outbound — so it multiplies nothing while consuming the same bytes.…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://support.google.com/accounts/answer/9312312",

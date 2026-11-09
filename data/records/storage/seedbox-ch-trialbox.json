@@ -5,7 +5,7 @@
   "url": "https://www.seedbox.ch/trialbox.php",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "48-hour trial, 15 GB: 'Try a real managed seedbox free for 48 hours — no credit card. 15 GB'. Fails on both capacity and duration.",
+    "stated": "none reachable: 48-hour trial, 15 GB: 'Try a real managed seedbox free for 48 hours — no credit card. 15 GB'. Fails on both capacity and duration.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.seedbox.ch/trialbox.php",

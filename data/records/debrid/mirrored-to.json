@@ -45,7 +45,7 @@
       "source": "https://www.mirrored.to/"
     }
   ],
-  "limits_note": "Uploading into the user's own accounts means the destination host's quota, not Mirrorcreator's, is what runs out first. Anonymous destinations avoid that at the cost of the files being outside a user's control.",
+  "limits_note": "Uploading into the user's own accounts means the destination host's quota, not Mirrorcreator's, is what runs out first. Anonymous destinations avoid that at the cost of the files being outside the account's control.",
   "binding": "none",
   "binding_note": "Mirrorcreator stores nothing itself, so no byte counter of its own can bind at 1 TiB. The constraint moves to whichever destination host is selected.",
   "identity_cost": {

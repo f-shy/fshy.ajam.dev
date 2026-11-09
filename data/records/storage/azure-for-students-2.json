@@ -5,7 +5,7 @@
   "url": "https://azure.microsoft.com/en-us/free/students/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "$100 credit valid 12 months plus free monthly service amounts - a credit, not storage. Expires to pay-go.",
+    "stated": "none reachable: $100 credit valid 12 months plus free monthly service amounts - a credit, not storage. Expires to pay-go.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://azure.microsoft.com/en-us/free/students/",

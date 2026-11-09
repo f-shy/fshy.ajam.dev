@@ -32,7 +32,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "Euro pricing plus crypto is the composition that matters for a client without a Russian instrument: a machine in Moscow or Amsterdam at EUR 5.93 a month paid in USDT, with hourly billing for the testing day, and traffic the provider advertises as unlimited, which is the one claim that would remove the egress ceiling that binds everywhere else.",
+  "chaining": "Euro pricing plus crypto is the composition that matters for a registrant without a Russian instrument: a machine in Moscow or Amsterdam at EUR 5.93 a month paid in USDT, with hourly billing for the testing day, and traffic the provider advertises as unlimited, which is the one claim here that would remove the egress ceiling that binds everywhere else.",
   "limits": [
     {
       "kind": "volume-quota",
@@ -40,7 +40,7 @@
       "source": "https://aeza.net/en/virtual-servers"
     }
   ],
-  "limits_note": null,
+  "limits_note": "Nothing in the published terms binds above the scale: the provider advertises unlimited traffic on 25 Gbit/s links, and the constraint that does exist is commercial rather than technical, because the hourly rate is roughly five times the monthly rate for the same machine.",
   "binding": "none",
   "binding_note": "the price binds: the smallest orderable shape is over USD 5, so the unlimited traffic never gets used",
   "identity_cost": {

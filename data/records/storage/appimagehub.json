@@ -5,7 +5,7 @@
   "url": "https://www.appimagehub.com/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Whole site sits behind an Anubis proof-of-work bot wall (upstream_status 200 but body is 'Making sure you're not a bot!'). Also it only indexes AppImages hosted elsewhere - it is a…",
+    "stated": "none reachable: Whole site sits behind an Anubis proof-of-work bot wall (upstream_status 200 but body is 'Making sure you're not a bot!'). Also it only indexes AppImages hosted elsewhere - it is a…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.appimagehub.com/",

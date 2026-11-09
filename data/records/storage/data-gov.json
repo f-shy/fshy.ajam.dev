@@ -5,7 +5,7 @@
   "url": "https://data.gov/contact/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Metadata-only harvester. It does not host data files and has no self-service publisher path at all: sources are federal agency data.json inventories. The contact page states plainly that it",
+    "stated": "none reachable: Metadata-only harvester. It does not host data files and has no self-service publisher path at all: sources are federal agency data.json inventories. The contact page states plainly that it",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://data.gov/contact/",

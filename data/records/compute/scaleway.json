@@ -167,7 +167,7 @@
         "source_url": "https://www.vpsbenchmarks.com/yabs/scaleway-2c-4gb-20260116-tg9279",
         "source_date": "2026-01-16",
         "rung": "reported",
-        "note": "Ampere Neoverse-N1. Arm, so its Geekbench 6 score is not comparable to x86 in absolute terms; it is included because the operator may run Arm."
+        "note": "Ampere Neoverse-N1. Arm, so its Geekbench 6 score is not comparable to x86 in absolute terms; it is included because Arm may be the target."
       }
     ],
     "payment_methods": {

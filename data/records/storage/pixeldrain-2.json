@@ -5,7 +5,7 @@
   "url": "https://pixeldrain.com/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Re-checked because rclone has a native `pixeldrain` backend and the free tier says storage 'No limit'. But free egress is 6 GB/day per IP, files expire 60 days after last download…",
+    "stated": "none reachable: Re-checked because rclone has a native `pixeldrain` backend and the free tier says storage 'No limit'. But free egress is 6 GB/day per IP, files expire 60 days after last download…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://pixeldrain.com/",

@@ -70,7 +70,7 @@
   "verdict": "fails-identity",
   "verified_at": "2026-10-23T00:00:00.000Z",
   "price_per_tb_month": "USD 0",
-  "notes": "This is the successor to tunnelbroker.li and to route48.org. It is a transit product, not a tunnel broker: a user would need an ASN and PI space first, which NetAssist sells for EUR 300/year. That cost is what makes it unusable rather than the service.",
+  "notes": "This is the successor to tunnelbroker.li and to route48.org. It is a transit product, not a tunnel broker: an ASN and PI space would be needed first, which NetAssist sells for EUR 300/year. That cost is what makes it unusable rather than the service.",
   "extras": {
     "wg_path": "none",
     "wg_detail": "no WireGuard is described on the landing page; the third-party list credits it with WireGuard but the vendor page names GRE tunnels and BGP transit only",
@@ -78,6 +78,6 @@
     "volume_tib_month": null,
     "volume_stated": "no traffic allowance is published on the landing page",
     "bytes_transit": "yes",
-    "transit_note": "AS209533 announces and carries the client prefix."
+    "transit_note": "AS209533 announces and carries the customer prefix."
   }
 }

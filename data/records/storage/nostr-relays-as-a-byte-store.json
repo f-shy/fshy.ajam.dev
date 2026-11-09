@@ -5,7 +5,7 @@
   "url": "https://raw.githubusercontent.com/nostr-protocol/nips/master/94.md",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "NIP-94 is metadata only, and the relay event size ceiling (~64 KB) caps any inline payload at roughly 48 KB after base64 expansion. Chainable as an index for Blossom, worthless as storage.",
+    "stated": "none reachable: NIP-94 is metadata only, and the relay event size ceiling (~64 KB) caps any inline payload at roughly 48 KB after base64 expansion. Chainable as an index for Blossom, worthless as storage.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://raw.githubusercontent.com/nostr-protocol/nips/master/94.md",

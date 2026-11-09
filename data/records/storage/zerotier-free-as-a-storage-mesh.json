@@ -5,7 +5,7 @@
   "url": "https://www.zerotier.com/llms-full.txt",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Cut to 10 devices / 1 network, non-commercial, and the self-hostable controller was removed from the default open-source build. Cannot host a shard farm.",
+    "stated": "none reachable: Cut to 10 devices / 1 network, non-commercial, and the self-hostable controller was removed from the default open-source build. Cannot host a shard farm.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.zerotier.com/llms-full.txt",

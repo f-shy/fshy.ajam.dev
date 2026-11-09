@@ -89,7 +89,7 @@
   "notes": "The free allowance is a speed and a session length, not a byte quota. Because the endpoint is a vendor hostname plus a port, PortPlay demultiplexes UDP by port on a shared edge instead of spending an IP per customer, which is the structural reason it can give UDP away. Windows 10/11 only. Nothing on the site says what happens at the end of the 24h session.",
   "extras": {
     "wg_path": "inside-udp",
-    "wg_detail": "No WireGuard mode of its own, but the free port forwards any UDP a user names, so a WireGuard datagram addressed to the assigned host and port would pass. That is a reading of 'Any TCP/UDP port', not a test.",
+    "wg_detail": "No WireGuard mode of its own, but the free port forwards any UDP named, so a WireGuard datagram addressed to the assigned host and port would pass. That is a reading of 'Any TCP/UDP port', not a test.",
     "ingress": "tcp+udp",
     "volume_tib_month": null,
     "volume_stated": "No byte allowance is published, on the pricing table or in the FAQ. The free plan states Session 24h, Max players 10, Ports 1, Speed 10 Mbps.",

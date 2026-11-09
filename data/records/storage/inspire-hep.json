@@ -5,7 +5,7 @@
   "url": "https://help.inspirehep.net/knowledge-base/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Metadata and literature index only — it hosts no files at all, so there is no storage to gain regardless of quota. Its whole content model is records pointing at external full text.",
+    "stated": "none reachable: Metadata and literature index only — it hosts no files at all, so there is no storage to gain regardless of quota. Its whole content model is records pointing at external full text.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://help.inspirehep.net/knowledge-base/",

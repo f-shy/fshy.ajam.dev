@@ -183,5 +183,5 @@
   "verified_at": "2026-10-31T00:12:52.378Z",
   "notes": "A pipeline sized on RPM alone meets TPD first: 200,000 tokens a day is 6.0M a month against a 52.5M-token target.",
   "binding": "request-rate",
-  "binding_note": "The 30 rpm and 8,000 tpm figures are both workable for an interactive session"
+  "binding_note": "TPD binds on the workload: 200,000 tokens a day is 6.0M a month, which is 11.4 per cent of a 52.5M-token monthly target. The 30 rpm and 8,000 tpm figures are both workable for an interactive session"
 }

@@ -5,7 +5,7 @@
   "url": "https://freidata.uni-freiburg.de/api/records?size=1",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Unreachable — the host stopped completing TLS handshakes mid-research (curl: 'Failed to connect to freidata.uni-freiburg.de port 443 after 21086 ms'). It answered the…",
+    "stated": "none reachable: Unreachable — the host stopped completing TLS handshakes mid-research (curl: 'Failed to connect to freidata.uni-freiburg.de port 443 after 21086 ms'). It answered the…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://freidata.uni-freiburg.de/api/records?size=1",

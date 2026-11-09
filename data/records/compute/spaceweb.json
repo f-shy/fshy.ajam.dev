@@ -41,13 +41,13 @@
   "limits": [
     {
       "kind": "per-ip-shaping",
-      "value": null,
+      "value": "The 10 Mbit/s channel cap is what fails first: at 1.25 MB/s a trial machine can move about 108 GB in a day, so the trial cannot be used to measure the throughput the workload needs, and it lasts three days.",
       "source": "https://sweb.ru/web/testvps/"
     }
   ],
-  "limits_note": null,
+  "limits_note": "The 10 Mbit/s channel cap is what fails first: at 1.25 MB/s a trial machine can move about 108 GB in a day, so the trial cannot be used to measure the throughput the workload needs, and it lasts three days.",
   "binding": "per-ip-shaping",
-  "binding_note": null,
+  "binding_note": "The 10 Mbit/s channel cap is what fails first: at 1.25 MB/s a trial machine can move about 108 GB in a day, so the trial cannot be used to measure the throughput the workload needs, and it lasts three days.",
   "identity_cost": {
     "kind": "any-phone",
     "detail": "phone: the campaign page requires confirming a phone number before the three-day trial is activated, and the page says only 'confirm a phone number', so whether a foreign number can confirm is not established in the record. No card requirement and no hold are stated, and the trial is activated from the control panel rather than by a payment method: unknown whether one is ever requested.",

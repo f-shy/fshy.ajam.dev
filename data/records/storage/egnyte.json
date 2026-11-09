@@ -5,7 +5,7 @@
   "url": "https://www.egnyte.com/pricing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Trial only — every plan tier says 'Start Free Trial' with no perpetual free plan. The '100GB/150GB' figures on the pricing page appear to be trial or add-on storage allowances, not a free…",
+    "stated": "none reachable: Trial only — every plan tier says 'Start Free Trial' with no perpetual free plan. The '100GB/150GB' figures on the pricing page appear to be trial or add-on storage allowances, not a free…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.egnyte.com/pricing",

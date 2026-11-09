@@ -5,7 +5,7 @@
   "url": "https://docs.zilliz.com/docs/select-zilliz-cloud-service-plan",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The free tier is denominated in Capacity Units (compute), not bytes, and the product stores embeddings rather than arbitrary objects. No blob/object API, no anonymous download, so it fails…",
+    "stated": "none reachable: The free tier is denominated in Capacity Units (compute), not bytes, and the product stores embeddings rather than arbitrary objects. No blob/object API, no anonymous download, so it fails…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.zilliz.com/docs/select-zilliz-cloud-service-plan",

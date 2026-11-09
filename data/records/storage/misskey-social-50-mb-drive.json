@@ -5,7 +5,7 @@
   "url": "https://misskey.social/api/meta",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Live and open, but driveCapacityMb=50 and maxFileSize=16 MB. Listed to show the family's low end and that 'Misskey' does not imply 'gigabytes'.",
+    "stated": "none reachable: Live and open, but driveCapacityMb=50 and maxFileSize=16 MB. Listed to show the family's low end and that 'Misskey' does not imply 'gigabytes'.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://misskey.social/api/meta",

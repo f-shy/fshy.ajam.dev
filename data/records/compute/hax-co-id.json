@@ -16,10 +16,10 @@
     "stated": "not applicable"
   },
   "retention": {
-    "stated": "the site advertises renewal: 'Renewable — Extend your server duration to keep your free server online'; the default duration is not published on the pages read",
-    "days": null,
-    "source_url": "https://hax.co.id/",
-    "notes": "an expiry-and-renew model, not a permanent account"
+    "stated": "the provider wiki states 'All VPS are created for 1 week. You can extend lifetime of VPS not longer than 1 week after day of renewal'; expired servers are removed by the daily cleanup at 17:00 UTC, so a server lives 1 week from creation unless it is renewed, and a renewal keeps it no more than 1 week past the renewal day",
+    "days": 7,
+    "source_url": "https://wiki.hax.co.id/ipv6-servers/getting-started/",
+    "notes": "an expiry-and-renew model, not a permanent account: a server is created for 1 week, a renewal keeps it no more than 1 week past the renewal day, and expired servers are removed by the daily cleanup"
   },
   "egress": {
     "terms": "unmetered: 'All data centers provide Unlimited bandwidth'; no overage price applies",
@@ -36,19 +36,19 @@
   "limits": [
     {
       "kind": "retention-clamped",
-      "value": "server duration must be extended by renewal; the default term is not published",
-      "source": "https://hax.co.id/"
+      "value": "a server is created for 1 week; a renewal keeps it no more than 1 week past the renewal day",
+      "source": "https://wiki.hax.co.id/ipv6-servers/getting-started/"
     }
   ],
   "limits_note": "Each VPS is provisioned for 7 days and a renewal extends it no more than a week past the renewal day, so an always-on server needs a manual renewal about weekly; the vendor wording at least 3 days before it expires is read by third-party users as a window that opens in the last 3 days, and expired servers are deleted daily at 17:00 UTC with no backup.",
   "binding": "retention-clamped",
-  "binding_note": "the server expires and must be renewed, and the term is not published, so it cannot be planned around.",
+  "binding_note": "the server expires 1 week after it is created and must be renewed, and a renewal keeps it no more than 1 week past the renewal day, so an always-on server needs a manual renewal about…",
   "identity_cost": {
     "kind": "any-phone",
-    "detail": "unverified. The create form asks for a data centre, an operating system, a password, a purpose and four agreement checkboxes; it has no email field. The site's operations (create, renew, status) run through a Telegram identity, and no page read states the exact gate. A phone-linked Telegram account is the likely requirement, and it is not proved here.",
+    "detail": "any-phone: registration takes a Telegram ID and nothing else. The form carries one field, 'Telegram ID:', marked required, filled from the provider's own bot ('Send private message to @HaxTG_bot, type this command:'), and the provider's walkthrough states 'To register on the Hax.co.id site, you need a Telegram ID.' The login page states 'Please login using your telegram account'. Phone: required, because Telegram states 'Please also note that Telegram accounts can only be connected to a mobile number.' Card: not published: https://hax.co.id/register (2026-11-06) carries no card field. Country: not published: the registration page states no country restriction.",
     "country": null
   },
-  "reliability_note": "no reliability event recorded",
+  "reliability_note": "no suspension, throttle or data-loss event observed; an unrenewed server is terminated at the daily cleanup, which the provider wiki times at 17:00 UTC",
   "confidence": "unverified",
   "evidence": [
     {
@@ -94,11 +94,81 @@
       "proved": "the free VPS gives SSH access",
       "capture": "sha256:3e5c1d0402f7f3f1fc5585c903a504e3b5ef3591358e9c203522f34bfcc94634",
       "quote": "Full SSH access to manage and install your application"
+    },
+    {
+      "url": "https://hax.co.id/register",
+      "date": "2026-11-04",
+      "proved": "the registration page's only identity field is a Telegram ID, taken from the provider's own bot",
+      "capture": "sha256:2fb98b110fe9b694b4e97540e3bc1ab3a092aa5856ff46c0c25dcd9cd3264ba8",
+      "quote": "Send private message to @HaxTG_bot, type this command:"
+    },
+    {
+      "url": "https://hax.co.id/login",
+      "date": "2026-11-04",
+      "proved": "login is by Telegram account only, with no email-and-password form",
+      "capture": "sha256:6628bcc84a83404fe2731b5ce9fd1e4a0e24a654457322f8980eb4b0d77db9c5",
+      "quote": "Please login using your telegram account"
+    },
+    {
+      "url": "https://wiki.hax.co.id/ipv6-servers/how-to-create-a-free-vps/",
+      "date": "2026-11-04",
+      "proved": "the provider's own walkthrough states the Telegram ID requirement",
+      "capture": "sha256:36fda1b601ede4be6195c81cc2462a768e1d27179743b11dda7c40ba7df8ae20",
+      "quote": "To register on the Hax.co.id site, you need a Telegram ID."
+    },
+    {
+      "url": "https://telegram.org/faq",
+      "date": "2026-11-04",
+      "proved": "a Telegram account, and so the Hax identity, requires a mobile number that receives a code",
+      "capture": null,
+      "quote": "Please also note that Telegram accounts can only be connected to a mobile number."
+    },
+    {
+      "url": "https://hax.co.id/register",
+      "date": "2026-11-04",
+      "proved": "the identity gate is a Telegram ID, so the gate is a phone and not an email address",
+      "capture": "sha256:2fb98b110fe9b694b4e97540e3bc1ab3a092aa5856ff46c0c25dcd9cd3264ba8",
+      "quote": "Send private message to @HaxTG_bot, type this command:"
+    },
+    {
+      "url": "https://hax.co.id/register",
+      "date": "2026-11-04",
+      "proved": "registration needs a Telegram ID and no email, which is the kind any-phone",
+      "capture": "sha256:2fb98b110fe9b694b4e97540e3bc1ab3a092aa5856ff46c0c25dcd9cd3264ba8",
+      "quote": "Send private message to @HaxTG_bot, type this command:"
+    },
+    {
+      "url": "https://wiki.hax.co.id/ipv6-servers/getting-started/",
+      "date": "2026-11-04",
+      "proved": "the provider wiki publishes the 1-week default term and the 1-week renewal limit",
+      "capture": "sha256:bd295239ff1e1556827e58802793e9918cd43c639983b4e3142c77f528f28170",
+      "quote": "All VPS are created for 1 week. You can extend lifetime of VPS not longer than 1 week after day of renewal."
+    },
+    {
+      "url": "https://wiki.hax.co.id/ipv6-servers/getting-started/",
+      "date": "2026-11-04",
+      "proved": "an unrenewed server is terminated at the daily cleanup, whose stated time is 17:00 UTC",
+      "capture": "sha256:bd295239ff1e1556827e58802793e9918cd43c639983b4e3142c77f528f28170",
+      "quote": "If you won’t extend your VPS lifetime, it will be terminated when cleanup at mentioned date will happen."
+    },
+    {
+      "url": "https://hax.co.id/vps-renew/",
+      "date": "2026-11-04",
+      "proved": "the renewal window opens at least 3 days before the server expires",
+      "capture": "sha256:16c6cd32c8ed70f3d050c6972aecf1e13121abc0a60936b1b3cb6eeba9ff6182",
+      "quote": "You can renew your VPS at least 3 days before it expires"
+    },
+    {
+      "url": "https://hax.co.id/register",
+      "date": "2026-11-06",
+      "proved": "the registration form's only identity field is a Telegram ID, filled from the provider's own bot, and the form carries no email, phone, card or country field",
+      "capture": "sha256:554dd95087129b12d746f53a0b8c9cb8cc8dcea44183e02d66a89ecd7d19048c",
+      "quote": "Send private message to @HaxTG_bot, type this command:"
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-04T02:24:02.038Z",
-  "notes": "Listed as unverified rather than recommended. The shape, the term and the renewal count are the three fields that matter and all three are missing.",
+  "verified_at": "2026-11-06T17:42:12.762Z",
+  "notes": "The identity gate is read: registration takes a Telegram ID belonging to a Telegram account, and a Telegram account needs a mobile number, so the gate is a phone rather than an email address. The term is published on the provider's own wiki: 'All VPS are created for 1 week', and a renewal keeps the server no more than 1 week past the renewal day, so an always-on server needs a weekly renewal. The machine shape (vCPU, RAM and disk) is not published on the pages read, so the record stays at the unverified rung behind a sign-up.",
   "extras": {
     "facets": {
       "class": "perpetual-renewal-gated",
@@ -114,7 +184,7 @@
     },
     "shape_note": "not published on the pages read",
     "billing_model": "free",
-    "term": "renewable, term not published",
+    "term": "renewable, 1-week term",
     "m10h_usd": 0.0,
     "m24h_usd": 0.0,
     "price_arithmetic": "no charge stated",
@@ -131,9 +201,9 @@
       "wall_clock_min": null,
       "idle_reap_s": null,
       "restart_required": false,
-      "note": "expiry by renewal, term unpublished"
+      "note": "expiry by renewal, 1-week term"
     }
   },
   "tier": "Free IPv6 VPS",
-  "confidence_note": "the create form's fields and the IPv6-only checkbox were read; the shape, the term and the identity gate were not. Nothing is filled in from memory."
+  "confidence_note": "the registration form, the login page, the provider's walkthrough and the provider's wiki were read on 2026-11-04 and fix the identity gate and the 1-week term; the machine shape was not read, and nothing is filled in from memory"
 }

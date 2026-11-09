@@ -5,7 +5,7 @@
   "url": "https://support.gog.com/hc/en-us/articles/18730340487709",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Hard 200 MB per game, and GOG actively purges the oldest files once a game exceeds it — capacity shrinks over time rather than growing. No public write API.",
+    "stated": "none reachable: Hard 200 MB per game, and GOG actively purges the oldest files once a game exceeds it — capacity shrinks over time rather than growing. No public write API.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://support.gog.com/hc/en-us/articles/18730340487709",

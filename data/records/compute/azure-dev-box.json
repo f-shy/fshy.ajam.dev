@@ -78,7 +78,7 @@
       "wall_clock_min": null,
       "idle_reap_s": null,
       "restart_required": false,
-      "note": "a dev box has a built-in hibernate-on-disconnect schedule that a user sets; the page states no vendor-imposed reap"
+      "note": "a dev box has a built-in hibernate-on-disconnect schedule that the user sets; the page states no vendor-imposed reap"
     },
     "persistent_storage": null,
     "network_out": null,

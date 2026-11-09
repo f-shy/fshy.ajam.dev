@@ -55,8 +55,8 @@
   ],
   "limits_note": "not stated",
   "identity_cost": {
-    "kind": "email",
-    "detail": null,
+    "kind": "card",
+    "detail": "an Alibaba Cloud international-site account: registration takes an email address and a password, then a mobile number or an email code; 'If you registered your Alibaba Cloud account with an email address, you must complete secure phone number verification', and that number must match the Country/Region chosen at registration. The completed sign-up needs 'Mobile number, payment method, billing address', because the account must 'add payment information before you can buy paid cloud services in regions outside the Chinese mainland or activate the free trial of most paid services'. The Basic plan meters compute, 'you are still charged for any compute resources', so the payment method is the gate; the payment FAQ lists the method as 'such as a credit card or PayPal', and the international site 'does not support binding a mobile number of the Chinese mainland'.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -86,10 +86,52 @@
       "proved": "egress terms re-read",
       "capture": "sha256:91b7eadf74e2ff1e356257f2728a7c740c7c55c954bc2148b1827aa51672d5b5",
       "quote": "Each instance comes with free basic bandwidth with a peak of 10 Mbps. It is measured based on inbound traffic and does not include a Service-Level Agreement (SLA)."
+    },
+    {
+      "url": "https://www.alibabacloud.com/help/en/account/sign-up-with-alibaba-cloud",
+      "date": "2026-11-04",
+      "proved": "a completed Alibaba Cloud sign-up needs a payment method before paid services or the free trial, which is the highest gate",
+      "capture": "sha256:fa10b975414fd7f7cdce9f3a9e51cbfdd64d72e13cc28f9c0347bfa4d55b39c4",
+      "quote": "you must also complete security authentication and add payment information before you can buy paid cloud services in regions outside the Chinese mainland or activate the free trial of most paid services"
+    },
+    {
+      "url": "https://www.alibabacloud.com/help/en/account/sign-up-with-alibaba-cloud",
+      "date": "2026-11-04",
+      "proved": "the completed sign-up stage collects a mobile number and a payment method",
+      "capture": "sha256:fa10b975414fd7f7cdce9f3a9e51cbfdd64d72e13cc28f9c0347bfa4d55b39c4",
+      "quote": "| Complete sign-up | Mobile number, payment method, billing address, tax information (optional) | 10 minutes |"
+    },
+    {
+      "url": "https://www.alibabacloud.com/help/en/agentbay/mcp-access-guide",
+      "date": "2026-11-04",
+      "proved": "AgentBay documents an activated Alibaba Cloud account as a prerequisite",
+      "capture": "sha256:64827dfb51c3ff150d1c99d995aa108f8096b485bf62a485e45c4c17e428ae8f",
+      "quote": "You have [activated your Alibaba Cloud account]"
+    },
+    {
+      "url": "https://www.alibabacloud.com/help/en/account/sign-up-with-alibaba-cloud",
+      "date": "2026-11-04",
+      "proved": "a mobile number is required in addition to the email address",
+      "capture": "sha256:fa10b975414fd7f7cdce9f3a9e51cbfdd64d72e13cc28f9c0347bfa4d55b39c4",
+      "quote": "If you registered your Alibaba Cloud account with an email address, you must complete secure phone number verification."
+    },
+    {
+      "url": "https://www.alibabacloud.com/help/en/account/sign-up-with-alibaba-cloud",
+      "date": "2026-11-04",
+      "proved": "the mobile number must be outside the Chinese mainland and follow the registration country",
+      "capture": "sha256:fa10b975414fd7f7cdce9f3a9e51cbfdd64d72e13cc28f9c0347bfa4d55b39c4",
+      "quote": "The Alibaba Cloud international site does not support selecting the Chinese mainland as the registration region, and does not support binding a mobile number of the Chinese mainland."
+    },
+    {
+      "url": "https://www.alibabacloud.com/help/en/agentbay/product-overview/agentbay-billing-instructions",
+      "date": "2026-11-04",
+      "proved": "the free Basic plan still charges pay-as-you-go compute, so a payment method is needed to run it",
+      "capture": "sha256:91b7eadf74e2ff1e356257f2728a7c740c7c55c954bc2148b1827aa51672d5b5",
+      "quote": "The Basic plan itself is free and provides access to basic AgentBay features and a 100 GiB storage quota. However, you are still charged for any compute resources"
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-04T05:24:39.480Z",
+  "verified_at": "2026-11-04T15:51:56.482Z",
   "price_per_tb_month": null,
   "notes": "",
   "extras": {

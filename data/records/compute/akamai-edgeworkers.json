@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "Nothing for a user without a contract. The 60 million events are real but sit behind a sales relationship, which is the same class as an institutional quota.",
+  "chaining": "Nothing without a contract. The 60 million events are real but sit behind a sales relationship, which is the same class as an institutional quota.",
   "limits": [
     {
       "kind": "write-gated",

@@ -5,7 +5,7 @@
   "url": "https://www.transloadit.com/pricing/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Free 'Community' is 5 GB of processing per month, 0.5 GB per file, watermarked output images and trimmed A/V — it is a transcoding pipeline with a hard stop at 5 GB, not a store",
+    "stated": "none reachable: Free 'Community' is 5 GB of processing per month, 0.5 GB per file, watermarked output images and trimmed A/V — it is a transcoding pipeline with a hard stop at 5 GB, not a store",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.transloadit.com/pricing/",

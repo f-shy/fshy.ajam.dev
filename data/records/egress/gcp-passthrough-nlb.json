@@ -48,7 +48,7 @@
   ],
   "limits_note": "",
   "binding": "write-gated",
-  "binding_note": "At 1 TiB/month the first thing that stops a user is not a byte count but the backend requirement: the service must already run in the same GCP project and region, which means the origin already has a public address of its own.",
+  "binding_note": "At 1 TiB/month the first thing that fails is not a byte count but the backend requirement: the service must already run in the same GCP project and region, which means the origin already has a public address of its own.",
   "identity_cost": {
     "kind": "card",
     "detail": "A Google Cloud project with billing enabled; the free trial credit is a credit, not a free tier for this product.",

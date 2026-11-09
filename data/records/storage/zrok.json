@@ -5,7 +5,7 @@
   "url": "https://zrok.io/pricing/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Free plan is bandwidth-metered at 5 GB/day over a rolling 24-hour window, with 50 share backends. It is a tunnelling service, so all traffic transits their edge.",
+    "stated": "none reachable: Free plan is bandwidth-metered at 5 GB/day over a rolling 24-hour window, with 50 share backends. It is a tunnelling service, so all traffic transits their edge.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://zrok.io/pricing/",

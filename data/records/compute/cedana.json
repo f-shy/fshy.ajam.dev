@@ -52,7 +52,7 @@
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
-  "confidence_note": "the site was read on 2026-10-22.",
+  "confidence_note": "the site was read on 2026-10-22. It sells checkpoint-and-migrate software for GPUs already in place, so there is no hosted capacity and no free tier to have",
   "evidence": [
     {
       "url": "https://cedana.com/",

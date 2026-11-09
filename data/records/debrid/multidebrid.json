@@ -37,7 +37,7 @@
   ],
   "interface_detail": "The plan page lists 'Acesso a API - Use o MultiDebrid nos seus proprios apps e ferramentas' as a Premium feature. The endpoint is not published on the page; a member must obtain it.",
   "tooling": "The vendor's own API, plus the web panel and link history. Output is an HTTP direct link.",
-  "chaining": "52-host coverage behind one API key is the shape a batch archiver needs: a script posts a list of host URLs and gets direct links back, instead of a user holding logins at each host.",
+  "chaining": "52-host coverage behind one API key is the shape a batch archiver needs: a script posts a list of host URLs and gets direct links back, instead of holding logins at each host.",
   "limits": [
     {
       "kind": "volume-quota",

@@ -5,7 +5,7 @@
   "url": "https://c17.io/compare/object-storage",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "These are self-hosted software, not storage services — there is no per-TB price because there is no storage included. MinIO and Garage are software you run on someone else's disk so the…",
+    "stated": "none reachable: These are self-hosted software, not storage services — there is no per-TB price because there is no storage included. MinIO and Garage are software you run on someone else's disk (so the…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://c17.io/compare/object-storage",

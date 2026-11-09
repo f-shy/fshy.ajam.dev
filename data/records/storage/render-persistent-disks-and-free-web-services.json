@@ -5,7 +5,7 @@
   "url": "https://render.com/docs/disks",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Persistent disks are paid-only: 'You can attach a persistent disk to a paid Render web service'. Free web services have an ephemeral filesystem — 'any changes to your web service's…",
+    "stated": "none reachable: Persistent disks are paid-only: 'You can attach a persistent disk to a paid Render web service'. Free web services have an ephemeral filesystem — 'any changes to your web service's…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://render.com/docs/disks",

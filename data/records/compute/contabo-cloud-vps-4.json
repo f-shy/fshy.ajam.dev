@@ -42,7 +42,7 @@
   "binding_note": "the 200 Mbit/s port is the real ceiling on this rung; traffic is unlimited but the pipe is the narrowest in the range.",
   "identity_cost": {
     "kind": "card",
-    "detail": "the checkout takes card, PayPal or SEPA and stores the card with the payment provider for future renewals. The page states 'No identity verification required. No order notes accepted. Automated payments only.' No ID document and no company. Card hold not stated: unverified rather than none.",
+    "detail": "a card or PayPal, with a preauthorisation hold and a telephone number at order: 'We use a preauthorization process to verify that your payment method is valid and that funds are available.' and 'Please note that this is not an actual charge, it's a temporary hold placed by your bank or card provider to confirm fund availability. Your invoice will still be charged only on the due date, and for the correct billing period.' Hold amount: not published; the help-centre article names no figure and no currency. Charged or verified: charged on the due date, after the temporary hold. Prepaid and virtual cards: not published on the payment-methods article or the unknown-charge article. Phone: required at order, 'Fill in the required fields under Personal Data ... These may include: ... Telephone number'.",
     "country": null
   },
   "reliability_note": "no reliability event observed; the vendor advertises 99.9% uptime",
@@ -93,10 +93,45 @@
       "url": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml",
       "date": "2026-10-24",
       "proved": "time='2026-10-23' currency='USD' rate='1.1193'"
+    },
+    {
+      "url": "https://help.contabo.com/en/support/solutions/articles/103000358015-why-do-i-see-an-unknown-charge-",
+      "date": "2026-11-06",
+      "proved": "a preauthorisation hold is placed before the invoice is charged",
+      "capture": "sha256:0d222b4e3a601a4adb08728710c8de58d03e26eaea2245b91f68d33998cca5e0",
+      "quote": "We use a preauthorization process to verify that your payment method is valid and that funds are available."
+    },
+    {
+      "url": "https://help.contabo.com/en/support/solutions/articles/103000394299-how-to-order-a-contabo-product",
+      "date": "2026-11-06",
+      "proved": "the order form lists a telephone number among the required personal-data fields",
+      "capture": "sha256:d836a2ffdd7dd97cf8c0c50097fa948069647d9a6da238563e01071257b925bd",
+      "quote": "- Telephone number"
+    },
+    {
+      "url": "https://help.contabo.com/en/support/solutions/articles/103000348466-why-do-i-need-to-verify-my-purchase-",
+      "date": "2026-11-06",
+      "proved": "a manual verification can be required, and it asks for a telephone number and a proof of address",
+      "capture": "sha256:94cbf1d4305ab73c967d71748b3cda2333160dafbb14470ce9df4f88e5390885",
+      "quote": "In some cases, your order may require a manual verification."
+    },
+    {
+      "url": "https://help.contabo.com/en/support/solutions/articles/103000269311-which-currencies-payment-methods-are-accepted-by-contabo-",
+      "date": "2026-11-06",
+      "proved": "the EUR account takes a credit card, PayPal, Skrill, bank transfer and direct debit",
+      "capture": "sha256:3e413841f0fd25bfc37b7fa8fdcbc50bcb8121bb3d3d30121fcf431d4d33dea0",
+      "quote": "Credit Card\nPayPal\nSkrill\nBank Transfer\nDirect Debit (for qualifying customers)"
+    },
+    {
+      "url": "https://help.contabo.com/en/support/solutions/articles/103000358015-why-do-i-see-an-unknown-charge-",
+      "date": "2026-11-06",
+      "proved": "the hold is temporary and the invoice is charged on the due date",
+      "capture": "sha256:0d222b4e3a601a4adb08728710c8de58d03e26eaea2245b91f68d33998cca5e0",
+      "quote": "Please note that this is not an actual charge, it's a temporary hold placed by your bank or card provider to confirm fund availability. Your invoice will still be charged only on the due date, and for the correct billing period."
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-24T06:30:00.000Z",
+  "verified_at": "2026-11-06T17:42:09.298Z",
   "price_per_tb_month": null,
   "notes": "The price is the whole difficulty and the arithmetic decides the verdict. The page prints EUR 5.50 for the 1, 3 and 6 month terms, EUR 4.68 on 12 months and EUR 4.40 on 24 months, all marked 'for the first 24 months'. At the ECB rate EUR 4.40 = USD 4.92, which is under the line by 8 cents. But Contabo's own JSON-LD publishes a USD price for the same product of USD 6.60 against EUR 5.50, which implies a rate of 1.20 rather than 1.1193; at that rate EUR 4.40 = USD 5.28, over the line. So the row is under the line or over it depending on which of the vendor's two published conversions is used, and that is the caveat. The second caveat is the discount: 'for the first 24 months' means the EUR 4.40 is a first-term price, and the vendor's own checkout text says the contract 'automatically renews on a monthly basis at the standard prices' after the initial term, which is EUR 5.50 = USD 6.16 at the ECB rate. Worst case exposure is 6.16 / 4.92 = 1.25x. Third: whether a non-EU buyer pays the 'Including VAT' or 'Excluding VAT' figure is not settled here, because the card prints both against the same EUR 5.50.",
   "extras": {
@@ -121,7 +156,7 @@
       "pair": "EUR/USD",
       "rate": 1.1193,
       "date": "2026-10-23",
-      "source": "ECB reference via frankfurter.app"
+      "source": null
     },
     "port_mbps": 200,
     "ipv4_included": true,
@@ -151,7 +186,7 @@
       "derivation": "the vendor's JSON-LD lists EUR lowPrice 5.5 and USD lowPrice 6.6 for the same product; 6.6 / 5.5 = 1.20",
       "why_it_matters": "at 1.20 the 24-month EUR 4.40 is USD 5.28 and the row is over the line, so the two published conversions disagree about the verdict"
     },
-    "payment_methods": "card, PayPal, SEPA direct debit and bank transfer, from the checkout's own payment tabs ('Use Credit Card to pay ... any future subscription renewals automatically', 'Use PayPal to pay ...')",
+    "payment_methods": "EUR: credit card, PayPal, Skrill, bank transfer and direct debit for qualifying customers; USD and GBP: credit card and PayPal; cryptocurrencies are not accepted",
     "stock": "in stock: the JSON-LD states availability InStock for all three currency offers, and the configurator renders every term with a selectable control. Read at https://contabo.com/en-us/vps/cloud-vps-core-4",
     "vat": "the card prints both 'Including VAT' and 'Excluding VAT' against the same EUR 5.50 and the toggle's default state was not readable in the static HTML; the checkout applies VAT by tax country. If EUR 4.40 is net, it is USD 4.92; if 19% VAT is added it is USD 5.86, over the line. So the VAT basis alone can flip this row"
   }

@@ -20,7 +20,7 @@
     "notes": ""
   },
   "retention": {
-    "stated": "not applicable: the library is a user's debrid account",
+    "stated": "not applicable: the library is the debrid account",
     "days": null,
     "source_url": "https://debridstream.com/",
     "notes": ""
@@ -37,7 +37,7 @@
   ],
   "interface_detail": "The site's 'Configure your account' button points at account.debridstream.com, which is where a debrid key is entered (third-party write-ups describe that portal and the Google TV app as the two ways to paste a key into a TV). No browser playback is advertised: the screens are Android TV, Fire TV and mobile.",
   "tooling": "an installable app per platform plus the web portal. The portal exists precisely so a TV remote never has to type a 40-character key.",
-  "chaining": null,
+  "chaining": "The alternative front end when a television-shaped app is wanted rather than a Stremio addon list: it holds the debrid key centrally and adds Trakt scrobbling and OpenSubtitles on the paid tier.",
   "limits": [
     {
       "kind": "write-gated",
@@ -76,7 +76,7 @@
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-23T02:28:11.000Z",
   "price_per_tb_month": "USD 0",
-  "notes": "Included because it is the one front end found that is neither an addon nor a browser tab: a hosted account service plus native TV apps. Its weakness for a user is the same as every app: it needs a device, and the free tier is the shell rather than the engine.",
+  "notes": "Included because it is the one front end found that is neither an addon nor a browser tab: a hosted account service plus native TV apps. Its weakness here is the same as every app: it needs a device, and the free tier is the shell rather than the engine.",
   "extras": {
     "portal": "https://account.debridstream.com/",
     "play_store": "https://play.google.com/store/apps/details?id=com.debridstream.tv",

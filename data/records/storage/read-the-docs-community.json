@@ -5,7 +5,7 @@
   "url": "https://about.readthedocs.com/pricing/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Free for public OSS docs, but no published output-size quota; build limits are 30 min / 7 GB RAM and builds are per-version with default-version-only retention. Cannot verify a storage…",
+    "stated": "none reachable: Free for public OSS docs, but no published output-size quota; build limits are 30 min / 7 GB RAM and builds are per-version with default-version-only retention. Cannot verify a storage…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://about.readthedocs.com/pricing/",

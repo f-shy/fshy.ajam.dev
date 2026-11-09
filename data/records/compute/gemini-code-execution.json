@@ -47,7 +47,7 @@
   "limits_note": null,
   "identity_cost": {
     "kind": "email",
-    "detail": null,
+    "detail": "email: a Google account, because the API key page redirects to Google's sign-in, which asks for a Google Account, and AI Studio then creates the project and the key. No card is required for the free tier: linking a billing account is what moving to the paid tier means. No phone is named, and access is limited to the countries and territories Google lists.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -119,10 +119,31 @@
       "proved": "google-genai is the documented Python SDK for the Gemini API",
       "capture": "sha256:9e8df22992ad56933ddeae4a9d91bf3c8b8652e43063d528d3adf11fb29bcd0c",
       "quote": "Installation: `pip install google-genai`"
+    },
+    {
+      "url": "https://aistudio.google.com/apikey",
+      "date": "2026-11-04",
+      "proved": "the API key page sends the visitor to Google's sign-in, which asks for a Google Account",
+      "capture": "sha256:e1e6c96d69a53501d7db2a20a5a0ef783ffa89bcaa3ab91d9786b9c3e05e7e4e",
+      "quote": "Use your Google Account"
+    },
+    {
+      "url": "https://ai.google.dev/gemini-api/docs/available-regions",
+      "date": "2026-11-04",
+      "proved": "the service is offered only in the listed countries and territories",
+      "capture": "sha256:16fe97734c44c3907864cb292c14c55f55e91c1bae07a0cb13489905ee25a891",
+      "quote": "The Gemini API and Google AI Studio are available in the following countries and territories."
+    },
+    {
+      "url": "https://ai.google.dev/gemini-api/docs/billing",
+      "date": "2026-11-04",
+      "proved": "a billing account belongs to the paid tier, not to the free tier where code execution is used",
+      "capture": "sha256:fce5df7e18606f4d34abc098916442b901b3b124c1a23ab16ef1bee3e9e34e73",
+      "quote": "Upgrading from the Free Tier to the Paid Tier means linking a billing account"
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-04T02:24:12.148Z",
+  "verified_at": "2026-11-04T15:51:59.409Z",
   "price_per_tb_month": null,
   "notes": "",
   "extras": {

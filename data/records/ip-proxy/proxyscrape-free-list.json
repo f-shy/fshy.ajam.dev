@@ -6,12 +6,12 @@
   "category": "public proxy list",
   "tier": "free",
   "free_tier": {
-    "stated": "Free, no account: the page states 20,000+ live proxies. The format=text endpoint returned exactly 2,000 rows on 2026-10-24, so the offer a client can actually pull is 2,000 addresses per response: 1,357 SOCKS5, 409 HTTP, 234 SOCKS4.",
+    "stated": "Free, no account: the page states 20,000+ live proxies. The format=text endpoint returned exactly 2,000 rows on 2026-10-24, so the offer that can actually be pulled is 2,000 addresses per response: 1,357 SOCKS5, 409 HTTP, 234 SOCKS4.",
     "unit": "requests",
     "metered_on": "none",
     "source_url": "https://proxyscrape.com/free-proxy-list",
     "read_on": "2026-10-24",
-    "notes": "The 2,000 is a per-response row cap, not a metered allowance: nothing is charged and nothing is counted against a user. Two pulls five minutes apart were both served, with no refusal observed in either."
+    "notes": "The 2,000 is a per-response row cap, not a metered allowance: nothing is charged and nothing is metered. Two pulls five minutes apart were both served, with no refusal observed in either."
   },
   "per_object_cap": {
     "stated": "not applicable",
@@ -48,7 +48,7 @@
   ],
   "limits_note": "Two further constraints were found that name no vocabulary kind, so they are kept here rather than forced into one. First, yield: of 100 sampled addresses, 38 completed a handshake and 32 carried a payload, and five minutes later 34 and 30, so about 70% of the list cannot move a byte at the moment it is pulled. Second, attribution: the response carries no ASN field, so there is no way to know whose network an address belongs to without spending a request on it. That absence is what puts rung 5 out of reach before the first use.",
   "binding": "request-rate",
-  "binding_note": "The response is capped at 2,000 rows against an advertised 20,000+, so the ceiling a client can reach is the size of one response, not the size of the published pool; that cap arrives before any byte quota, which does not exist, and before any per-address shaping, which no evidence here shows. The 30% payload rate then cuts the working set to roughly 600 addresses, which is the figure that actually decides the gateway, but it is a yield property of the addresses rather than a limit the vendor sets.",
+  "binding_note": "The response is capped at 2,000 rows against an advertised 20,000+, so the ceiling that can be reached is the size of one response, not the size of the published pool; that cap arrives before any byte quota, which does not exist, and before any per-address shaping, which no evidence here shows. The 30% payload rate then cuts the working set to roughly 600 addresses, which is the figure that actually decides the gateway, but it is a yield property of the addresses rather than a limit the vendor sets.",
   "identity_cost": {
     "kind": "anonymous",
     "detail": "No account, key or email: the format=text endpoint answered an unauthenticated GET on 2026-10-24 and the 2,000-row body was used as returned.",
@@ -85,7 +85,7 @@
   "notes": "The verdict rests on (2) with (3) still open. One caveat on weight: each rate is one sample of 100 addresses out of 2,000, taken twice five minutes apart, which is enough to show the yield is low and repeatable and not enough to put a tight interval on it. The 2,000-row cap rests on a single measured response whose length is exactly the round number, which is what a server-side cap looks like; Rung 5 is unknowable before a request is spent, because the response has no ASN field; that absence is a property of the product, not a gap in the probe. None exists, so this record corrects nothing outside itself.",
   "extras": {
     "rung": 2,
-    "rung_note": "The product is a supply of single addresses rather than a subnet or an ASN block, so rung 2 is the furthest a user can get before spending a request on an address.",
+    "rung_note": "The product is a supply of single addresses rather than a subnet or an ASN block, so rung 2 is the furthest reachable before spending a request on an address.",
     "protocol_split": {
       "socks5": 1357,
       "http": 409,

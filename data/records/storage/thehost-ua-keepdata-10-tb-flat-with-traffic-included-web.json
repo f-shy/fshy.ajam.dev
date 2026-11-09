@@ -44,7 +44,7 @@
       "source": "https://www.thehost.ua/en/hosting/cloud-storage"
     }
   ],
-  "limits_note": "Not S3 — no bucket API, no presigned URLs, so a user's CDN/CF fronting has to go through WebDAV or an rclone `serve` layer. Inode ceilings matter for a 20 TiB corpus of small files: 1,000 K inodes at 10 TB is 1 M files, which a dataset archive of many small parquet/JSON shards will exhaust long before 10 TB. Per-file size not published on the pricing page.",
+  "limits_note": "Not S3 — no bucket API, no presigned URLs, so CDN/CF fronting has to go through WebDAV or an rclone `serve` layer. Inode ceilings matter for a 20 TiB corpus of small files: 1,000 K inodes at 10 TB is 1 M files, which a dataset archive of many small parquet/JSON shards will exhaust long before 10 TB. Per-file size not published on the pricing page.",
   "identity_cost": {
     "kind": "card",
     "detail": "card",

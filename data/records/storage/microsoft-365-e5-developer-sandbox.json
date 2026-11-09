@@ -5,7 +5,7 @@
   "url": "https://learn.microsoft.com/en-us/office/developer-program/microsoft-365-developer-program-faq",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Cut from 1 TB/user to 10 GB/user OneDrive plus a 300 GB pooled tenant cap; setup now requires a linked Azure billing account, and that requirement cannot be skipped; eligibility needs a paid Visual Studio or ISV/",
+    "stated": "none reachable: Cut from 1 TB/user to 10 GB/user OneDrive plus a 300 GB pooled tenant cap; setup now requires a linked Azure billing account, and that requirement cannot be skipped; eligibility needs a paid Visual Studio or ISV/",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://learn.microsoft.com/en-us/office/developer-program/microsoft-365-developer-program-faq",

@@ -5,7 +5,7 @@
   "url": "https://docs.databricks.com/aws/en/getting-started/free-edition-limitations",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Free Edition is perpetual in the sense that it does not expire, and hitting quota does not delete data ('your data and settings will not be deleted'). But it is serverless-only with…",
+    "stated": "none reachable: Free Edition is perpetual in the sense that it does not expire, and hitting quota does not delete data ('your data and settings will not be deleted'). But it is serverless-only with…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.databricks.com/aws/en/getting-started/free-edition-limitations",

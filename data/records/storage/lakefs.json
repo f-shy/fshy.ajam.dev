@@ -5,7 +5,7 @@
   "url": "https://docs.lakefs.io/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Self-hosted data-versioning over an existing object store — it versions data, it does not store any. Zero free bytes; it is a layer above whatever S3 you already pay for. Useful…",
+    "stated": "none reachable: Self-hosted data-versioning over an existing object store — it versions data, it does not store any. Zero free bytes; it is a layer above whatever S3 you already pay for. Useful…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.lakefs.io/",

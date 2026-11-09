@@ -40,7 +40,7 @@
   "interface_detail": "https://1fichier.com/?<id> 302s straight to a node URL a-NN.1fichier.com/<token> that streams and honours Range; public folders export as JSON with ?json=1",
   "endpoint": "https://1fichier.com/dir/<folderid>?json=1",
   "tooling": "rclone has no 1fichier backend; JDownloader, aria2 and a 10-line wrapper all work; the JSON folder export makes listing scriptable without an account",
-  "chaining": "the fastest free host measured at a user, so it is the right cold-storage mirror for anything a debrid can also read; pair it with a rented debrid for the hosts that rate-limit",
+  "chaining": "the fastest free host measured here, so it is the right cold-storage mirror for anything a debrid can also read; pair it with a rented debrid for the hosts that rate-limit",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -54,7 +54,7 @@
     }
   ],
   "binding": "per-ip-shaping",
-  "binding_note": "Nothing counts bytes on the free tier; the measured 6.40 MiB/s aggregate is the only thing between a user and 5.3 TB/month, and the paid tier exists to remove the speed limit rather than a quota.",
+  "binding_note": "Nothing counts bytes on the free tier; the measured 6.40 MiB/s aggregate is the only thing between the account and 5.3 TB/month, and the paid tier exists to remove the speed limit rather than a quota.",
   "identity_cost": {
     "kind": "anonymous",
     "detail": "no account, cookie or captcha was presented: a bare GET on https://1fichier.com/?29nsorxu2te2sen8ulvq returned 200 with 35,895,659 bytes, twice in a row",

@@ -51,7 +51,7 @@
   "limits_note": "not stated",
   "identity_cost": {
     "kind": "email",
-    "detail": null,
+    "detail": "email: the dashboard signs in with GitHub ('Continue with GitHub'), and the account behind that sign-in is identified by an email address, which its alerts go to. A payment method is required to run anything: the platform sells prepaid credits, and 'A saved payment method alone does not enable automatic recharge.' No phone or identity document is named.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -74,10 +74,31 @@
       "proved": "a CLI starts agent sessions",
       "capture": "sha256:13f1d552ed3eeb61fe3edf2e0f03f430155c460b331cb2f6be91f06205a85ccc",
       "quote": "Quick start Install the CLI and start an agent session"
+    },
+    {
+      "url": "https://app.ellipsis.dev/login",
+      "date": "2026-11-04",
+      "proved": "the only sign-in offered is a GitHub account, so the identity is an email account behind GitHub",
+      "capture": "sha256:aa0d3235ce6e6c13a579164276fcba55e4c7f124821f1946a94b7fa39eb13269",
+      "quote": "Continue with GitHub"
+    },
+    {
+      "url": "https://www.ellipsis.dev/docs/pricing",
+      "date": "2026-11-04",
+      "proved": "nothing runs without a prepaid balance",
+      "capture": "sha256:ac5b24db7f345ddaa564e33112e1090919799d1f2780ab32efef857c69e06e6e",
+      "quote": "Ellipsis uses prepaid credits. Model usage and compute are paid from your balance."
+    },
+    {
+      "url": "https://www.ellipsis.dev/docs/pricing",
+      "date": "2026-11-04",
+      "proved": "a payment method is what a paying account holds, and buying credits needs one",
+      "capture": "sha256:ac5b24db7f345ddaa564e33112e1090919799d1f2780ab32efef857c69e06e6e",
+      "quote": "A saved payment method alone does not enable automatic recharge."
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-04T02:24:12.147Z",
+  "verified_at": "2026-11-04T15:51:59.408Z",
   "price_per_tb_month": null,
   "notes": "",
   "extras": {

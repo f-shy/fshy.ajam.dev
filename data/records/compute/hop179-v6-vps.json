@@ -52,7 +52,7 @@
     }
   ],
   "binding": "per-ip-shaping",
-  "binding_note": "No IPv4 address is included, so a client without IPv6 connectivity must buy the IPv4 add-on; the 1 TB allowance is the second constraint and the price is not one.",
+  "binding_note": "No IPv4 address is included, so without IPv6 connectivity the IPv4 add-on must be bought; the 1 TB allowance is the second constraint and the price is not one.",
   "identity_cost": {
     "kind": "email",
     "detail": "no card at registration. The order flow's own signup step at my.hop179.net/order/signup/index/v6-vps collects Contact Information (First Name, Last Name, Company/Org., Title, Address 1, Address 2, City, State, Zip, Country, Phone, Email), a Tax ID/VATIN field, a 'VM Panel Password', then Authentication (username, password, confirm, optional recovery email). The only required identifiers beyond email are a name and a postal address; no card number, no ID document and no phone verification step is on the form, and no card hold or authorisation amount is stated. Payment rails: 'Payments are accepted via PayPal, Credit Card, and Bank Transfer.'",

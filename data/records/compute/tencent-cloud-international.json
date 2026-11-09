@@ -46,7 +46,7 @@
   ],
   "limits_note": "3 months on the machine, 6 months on the COS bucket, 14 days on EdgeOne; the campaign ends Dec 31, 2026 24:00 GMT+8, and the discounted renewal is not available on a trial purchase",
   "binding": "retention-clamped",
-  "binding_note": "the machine is gone at 3 months and the campaign closes on Dec 31, 2026, so the clock binds before the money does; but the gate that decides whether a user gets in at all is the real-name document, which is why the verdict is fails-identity rather than trial-only",
+  "binding_note": "the machine is gone at 3 months and the campaign closes on Dec 31, 2026, so the clock binds before the money does; but the gate that decides whether a signup gets in at all is the real-name document, which is why the verdict is fails-identity rather than trial-only",
   "identity_cost": {
     "kind": "national-id",
     "detail": "TWO GATES, and only the second one costs a document. GATE 1, opening an account: an email address (or a Google account, or WeChat) with an emailed code; a registration location, which 'cannot be changed' once set; the individual's name and address; 'the mobile number of the registration location', which must receive an SMS code and is capped at 'at most 5 Tencent Cloud accounts' per number; and a bound card - 'Seven types of credit cards/debit cards/prepaid cards are supported: VISA, MasterCard, AMEX, UnionPay, JCB, DISCOVER, and Diners Club', with 'a 1.00 USD pre-authorization' that is 'automatically canceled ... within 1 to 5 business days'. No ID document at this step. Virtual and gift cards are refused: 'Tencent Cloud does not support virtual cards or gift cards', and 'Some card brands may not support debit cards'.",

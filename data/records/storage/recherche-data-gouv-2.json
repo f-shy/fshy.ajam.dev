@@ -5,7 +5,7 @@
   "url": "https://entrepot.recherche.data.gouv.fr/api/info/version",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Deposit must go into the institutional space of the establishment a contributor belongs to; the 'generic space' exists only for French institutions lacking their own space. Dataverse 6.0…",
+    "stated": "none reachable: Deposit must go into the institutional space of the establishment a contributor belongs to; the 'generic space' exists only for French institutions lacking their own space. Dataverse 6.0…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://entrepot.recherche.data.gouv.fr/api/info/version",

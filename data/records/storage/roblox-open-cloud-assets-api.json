@@ -5,7 +5,7 @@
   "url": "https://create.roblox.com/docs/cloud/guides/usage-assets",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "20 MB per asset, and the asset types that matter are throttled monthly: audio 10 total uploads/month without ID verification (100 with), video 20/day. Asset delivery requires auth…",
+    "stated": "none reachable: 20 MB per asset, and the asset types that matter are throttled monthly: audio 10 total uploads/month without ID verification (100 with), video 20/day. Asset delivery requires auth…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://create.roblox.com/docs/cloud/guides/usage-assets",

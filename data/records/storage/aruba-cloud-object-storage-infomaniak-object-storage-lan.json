@@ -5,7 +5,7 @@
   "url": "https://www.aruba.it/en/cloud/cloud-object-storage.aspx",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Both product URLs 404; Infomaniak's real numbers sit on a Public Cloud price page EUR 0.01/GB = EUR 10/TB, egress free only to 10 TB/month per organisation, metered",
+    "stated": "none reachable: Both product URLs 404; Infomaniak's real numbers sit on a Public Cloud price page EUR 0.01/GB = EUR 10/TB, egress free only to 10 TB/month per organisation, metered",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.aruba.it/en/cloud/cloud-object-storage.aspx",

@@ -5,7 +5,7 @@
   "url": "https://github.com/minio/minio/issues/14331",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Removed, not merely deprecated: 'MinIO Gateway will be removed by June 1st, 2022 from the MinIO repository'. There is a documented migration path away from it, and the entire minio/minio…",
+    "stated": "none reachable: Removed, not merely deprecated: 'MinIO Gateway will be removed by June 1st, 2022 from the MinIO repository'. There is a documented migration path away from it, and the entire minio/minio…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://github.com/minio/minio/issues/14331",

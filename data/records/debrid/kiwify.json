@@ -6,7 +6,7 @@
   "category": "checkout / payment processor used by Brazilian resellers",
   "tier": "checkout",
   "free_tier": {
-    "stated": "Not a service a user buys. Kiwify charges the seller, not the buyer; the buyer's cost is the product price. No fee schedule was read.",
+    "stated": "Not a service bought from the vendor. Kiwify charges the seller, not the buyer; the buyer's cost is the product price. No fee schedule was read.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://ajuda.kiwify.com.br/pt-br/article/o-checkout-funciona-fora-do-brasil-1cdb1ri/",

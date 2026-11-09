@@ -54,7 +54,7 @@
     "detail": "card",
     "country": null
   },
-  "reliability_note": "Cost: aggressive new-account KYC. LET threads document ID-card scans being requested and accounts silently refused for country/risk reasons; UnionPay accepted but does not waive KYC.",
+  "reliability_note": "Cost: aggressive new-account KYC. LET threads document ID-card scans being requested and accounts silently refused for country/risk reasons; UnionPay accepted but does not waive KYC. This is the single biggest adoption risk for a non-EU buyer.",
   "confidence": "documented",
   "confidence_note": "The page states the number in the record; the claim is documented, not measured. | re-read 2026-10-22 from the raw HTML (HTTP 200, 116,243 bytes, sha256 recorded in the capture). The price is documented; it is not a measured transaction.",
   "evidence": [
@@ -96,7 +96,7 @@
     {
       "url": "https://fsn1-speed.hetzner.com/10GB.bin",
       "date": "2026-10-21",
-      "proved": "Single-stream ranged GET of 200 MB from a residential line measured 1.05 MB/s (47 MB in 45 s) — i.e. a user's own uplink was the limiter, not Hetzner; do not read this as a Hetzner throughput figure."
+      "proved": "Single-stream ranged GET of 200 MB from a residential line measured 1.05 MB/s (47 MB in 45 s) — i.e. the local uplink was the limiter, not Hetzner; do not read this as a Hetzner throughput figure."
     },
     {
       "url": "https://www.hetzner.com/storage/storage-box/bx41/",

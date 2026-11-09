@@ -88,7 +88,7 @@
       "wall_clock_min": null,
       "idle_reap_s": null,
       "restart_required": false,
-      "note": "always on by default with hibernate and wake as a user's choice; the page states no reap, and it sells the persistence"
+      "note": "always on by default with hibernate and wake as a user choice; the page states no reap, and it sells the persistence"
     },
     "keep_rate": null,
     "persistent_storage": null,

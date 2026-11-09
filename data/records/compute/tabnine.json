@@ -40,13 +40,13 @@
   "limits": [
     {
       "kind": "write-gated",
-      "value": "the only route to a price is a sales conversation, so one person with an email cannot reach any tier.",
+      "value": "the only route to a price is a sales conversation, so an individual with an email cannot reach any tier.",
       "source": "https://www.tabnine.com/pricing/"
     }
   ],
-  "limits_note": "the only route to a price is a sales conversation, so one person with an email cannot reach any tier.",
+  "limits_note": "the only route to a price is a sales conversation, so an individual with an email cannot reach any tier.",
   "binding": "write-gated",
-  "binding_note": "the only route to a price is a sales conversation, so one person with an email cannot reach any tier.",
+  "binding_note": "the only route to a price is a sales conversation, so an individual with an email cannot reach any tier.",
   "identity_cost": {
     "kind": "institution",
     "detail": "a sales-led enterprise contract: Tabnine Enterprise (SaaS) accounts are set up together with the Tabnine team, and the plans page lists only Enterprise (SaaS) and Enterprise (private installation); no self-serve signup page exists",

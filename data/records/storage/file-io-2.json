@@ -5,7 +5,7 @@
   "url": "https://www.file.io/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The REST flow printed in its own /about page no longer works: POST to both file.io and www.file.io returns 405 MethodNotAllowed from an S3-style object store.",
+    "stated": "none reachable: The REST flow printed in its own /about page no longer works: POST to both file.io and www.file.io returns 405 MethodNotAllowed from an S3-style object store.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.file.io/",

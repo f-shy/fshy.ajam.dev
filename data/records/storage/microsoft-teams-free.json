@@ -5,7 +5,7 @@
   "url": "https://support.microsoft.com/en-us/teams/free/troubleshoot/where-is-my-microsoft-teams-free-data-stored",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Files are stored in OneDrive and share the same 5 GB consumer quota - not an additional pool. The 'images/videos have no storage limit' line is a possible smuggling route but unverified.",
+    "stated": "none reachable: Files are stored in OneDrive and share the same 5 GB consumer quota - not an additional pool. The 'images/videos have no storage limit' line is a possible smuggling route but unverified.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://support.microsoft.com/en-us/teams/free/troubleshoot/where-is-my-microsoft-teams-free-data-stored",

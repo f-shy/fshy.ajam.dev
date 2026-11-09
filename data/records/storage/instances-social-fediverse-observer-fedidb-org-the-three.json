@@ -5,7 +5,7 @@
   "url": null,
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "All three were unreachable at probe time, so the sweep had to be done host-by-host. instances.social requires a manually-issued OAuth token and its list API is gone; api.fediverse.observer…",
+    "stated": "none reachable: All three were unreachable at probe time, so the sweep had to be done host-by-host. instances.social requires a manually-issued OAuth token and its list API is gone; api.fediverse.observer…",
     "unit": "none",
     "metered_on": "none",
     "source_url": null,

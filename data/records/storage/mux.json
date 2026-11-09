@@ -5,7 +5,7 @@
   "url": "https://www.mux.com/pricing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Pure pay-as-you-go across four meters (ingest/storage/delivery/encoding). No free storage allowance of any size; fails on cost before any storage question.",
+    "stated": "none reachable: Pure pay-as-you-go across four meters (ingest/storage/delivery/encoding). No free storage allowance of any size; fails on cost before any storage question.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.mux.com/pricing",

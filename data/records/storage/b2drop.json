@@ -5,7 +5,7 @@
   "url": "https://b2drop.eudat.eu/themes/b2drop/apps/core/templates/faq.html",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "20 GB per user ('For the current prototype there is a limit of 20GB per user'). Well and the FAQ still calls the service a prototype.",
+    "stated": "none reachable: 20 GB per user ('For the current prototype there is a limit of 20GB per user'). Well and the FAQ still calls the service a prototype.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://b2drop.eudat.eu/themes/b2drop/apps/core/templates/faq.html",

@@ -5,7 +5,7 @@
   "url": "https://www.geldata.com/pricing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Free Cloud tier is 1 GB disk, ~1/4 compute unit. Pro starts at $19.50/mo with 10 GiB. No project multiplication documented.",
+    "stated": "none reachable: Free Cloud tier is 1 GB disk, ~1/4 compute unit. Pro starts at $19.50/mo with 10 GiB. No project multiplication documented.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.geldata.com/pricing",

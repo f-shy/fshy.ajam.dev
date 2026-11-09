@@ -246,10 +246,73 @@
       "proved": "payment choices are card via Stripe, PayPal or on-chain Bitcoin",
       "capture": "sha256:70319d932fd7a5da65d20121e5e5dc05cf2e1a1c86f0622ace1d56af987685f7",
       "quote": "Pay by card via Stripe, with PayPal, or on-chain Bitcoin via our self-hosted BTCPay."
+    },
+    {
+      "url": "https://servercrate.net/cloud-servers/",
+      "date": "2026-11-07",
+      "proved": "the SC-0 card prints $3/mo and $30/yr",
+      "capture": "sha256:3d7e68f6cb7121e2a03c4efae04ff6972761967462204563a443eaf79f247343",
+      "quote": "$3/mo$30/yr"
+    },
+    {
+      "url": "https://servercrate.net/cloud-servers/",
+      "date": "2026-11-07",
+      "proved": "the SC-0 card prints the yearly option and its monthly equivalent",
+      "capture": "sha256:3d7e68f6cb7121e2a03c4efae04ff6972761967462204563a443eaf79f247343",
+      "quote": "or $30/yr, 2 months free$2.50/mo, billed yearly"
+    },
+    {
+      "url": "https://servercrate.net/cloud-servers/",
+      "date": "2026-11-07",
+      "proved": "the only billing-term sentence on the page; no renewal figure beside it",
+      "capture": "sha256:3d7e68f6cb7121e2a03c4efae04ff6972761967462204563a443eaf79f247343",
+      "quote": "Annual billing is ten months for twelve."
+    },
+    {
+      "url": "https://servercrate.net/cloud-servers/",
+      "date": "2026-11-07",
+      "proved": "the page states the annual billing rule",
+      "capture": "sha256:3d7e68f6cb7121e2a03c4efae04ff6972761967462204563a443eaf79f247343",
+      "quote": "Annual billing is ten months for twelve."
+    },
+    {
+      "url": "https://servercrate.net/cloud-servers/",
+      "date": "2026-11-07",
+      "proved": "the SC-0 card's deploy link is live",
+      "capture": "sha256:3d7e68f6cb7121e2a03c4efae04ff6972761967462204563a443eaf79f247343",
+      "quote": "[Deploy SC-0](https://portal.servercrate.net/register?plan=sc-0&billing=monthly)"
+    },
+    {
+      "url": "probe:cart-servercrate-sc0",
+      "date": "2026-11-07",
+      "proved": "the cart answers a Create Account page and prints no price",
+      "capture": "sha256:8bc00380c8f454852beb6c657159cd330eba8d78af84df147699dba0b4c3ed99",
+      "quote": "\"title\": \"Create Account - ServerCrate\""
+    },
+    {
+      "url": "https://servercrate.net/cloud-servers/",
+      "date": "2026-11-07",
+      "proved": "the SC-0 prices are unchanged on 2026-11-07",
+      "capture": "sha256:3d7e68f6cb7121e2a03c4efae04ff6972761967462204563a443eaf79f247343",
+      "quote": "$3/mo$30/yr"
+    },
+    {
+      "url": "https://servercrate.net/vps-with-backups/",
+      "date": "2026-11-08",
+      "proved": "the vendor's backup-servers page states that renewal is the signup price, so 'not published' was false",
+      "capture": "sha256:9bb0c692f41118cac8bd62a6ed1c3de9ac4a8a236fd6c588e37147bd1d96630d",
+      "quote": "Monthly prices shown. Yearly billing is 10 times monthly, two months free. Renewal is always the signup price, with a 30-day money-back guarantee."
+    },
+    {
+      "url": "https://servercrate.net/vps-with-backups/",
+      "date": "2026-11-08",
+      "proved": "the page still states renewal is the signup price and still prices SC-0 at $3 a month",
+      "capture": "sha256:9bb0c692f41118cac8bd62a6ed1c3de9ac4a8a236fd6c588e37147bd1d96630d",
+      "quote": "Monthly prices shown. Yearly billing is 10 times monthly, two months free. Renewal is always the signup price, with a 30-day money-back guarantee."
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-11-04T00:11:55.481Z",
+  "verified_at": "2026-11-08T05:19:54.793Z",
   "notes": "The vendor's domain is servercrate.net. The compute line is paid: SC-0 USD 3 a month, SC-1 USD 7, SC-2 USD 12 and SC-3 USD 20, on hardware in Los Angeles; the dedicated IPv4 of SC-1 and up is routed through Ashburn, Virginia and carried to Los Angeles over an encrypted tunnel, so latency follows an East Coast path. The vendor also sells a free 10 GB Restic backup vault (2 devices, 7-day snapshot history, no card, no expiry), a separate offer from these servers.",
   "extras": {
     "facets": {
@@ -262,7 +325,15 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "monthly_price": "USD 3 per month on SC-0; USD 7 on SC-1, USD 12 on SC-2 and USD 20 on SC-3",
+    "annual_price": "USD 30 per year on SC-0 (USD 70 SC-1, USD 120 SC-2, USD 200 SC-3), printed as 'or $30/yr, 2 months free $2.50/mo, billed yearly'",
+    "renewal_price": "not published: no page read prints a renewal price",
+    "billing_term": "monthly or yearly; 'Annual billing is ten months for twelve.'",
+    "stock": "no stock state is printed on the page; every plan shows a live Deploy link",
+    "cart_price": "unverified: behind a sign-up - the register page prints no price (probe:cart-servercrate-sc0, title 'Create Account - ServerCrate')",
+    "price_on_page": "USD 3/month for SC-0",
+    "renewal_usd": "the signup price: the vendor's backup-servers page states 'Renewal is always the signup price, with a 30-day money-back guarantee', and its hero line says 'renewing at the price you started on'; no separate renewal figure is printed"
   },
   "tier": "SC-0"
 }

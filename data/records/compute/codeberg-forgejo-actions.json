@@ -139,7 +139,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-30T12:41:24.479Z",
-  "notes": "The smallest compute ceiling, and the record is worth keeping precisely because it is small: 0.67 vCPU-hours per job against GitHub's 24 vCPU-hours, a factor of 36. Two things make it worse than the arithmetic suggests for a user. First, there is no published monthly allowance, so the aggregate is 'fair use', which is a discretionary throttle with no threshold to design against. What the record does is state the sentence. Not established: the egress term; whether the container is destroyed at job end (the 2 GB per-container temp storage grant implies it, but no sentence says so); and whether a job queued on a lazy runner counts against any aggregate at all, because no aggregate is published.",
+  "notes": "The smallest compute ceiling in this class, and the record is worth keeping precisely because it is small: 0.67 vCPU-hours per job against GitHub's 24 vCPU-hours, a factor of 36. Two things make it worse than the arithmetic suggests. First, there is no published monthly allowance, so the aggregate is 'fair use', which is a discretionary throttle with no threshold to design against. What the record does is state the sentence. Not established: the egress term; whether the container is destroyed at job end (the 2 GB per-container temp storage grant implies it, but no sentence says so); and whether a job queued on a lazy runner counts against any aggregate at all, because no aggregate is published.",
   "extras": {
     "facets": {
       "class": "ci-runner-capacity",

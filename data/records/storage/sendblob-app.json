@@ -5,7 +5,7 @@
   "url": "https://github.com/hboisgibault/sendblob",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Browser-to-browser is not actually P2P today: 'Browsers cannot open direct QUIC/TCP connections, so traffic is relayed through public iroh relays ... no relay, no transfer.' Uses a per-tab…",
+    "stated": "none reachable: Browser-to-browser is not actually P2P today: 'Browsers cannot open direct QUIC/TCP connections, so traffic is relayed through public iroh relays ... no relay, no transfer.' Uses a per-tab…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://github.com/hboisgibault/sendblob",

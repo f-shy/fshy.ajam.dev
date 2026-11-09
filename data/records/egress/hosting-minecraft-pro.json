@@ -52,7 +52,7 @@
   ],
   "limits_note": "",
   "binding": "write-gated",
-  "binding_note": "The proxy is free but only for a server hosted in the provider's panel, so the first thing that fails is the account: a paid plan from EUR 1/month stands between a user and the free UDP tunnel. No volume figure exists to fail next.",
+  "binding_note": "The proxy is free but only for a server hosted in the provider's panel, so the first thing that fails is the account: a paid plan from EUR 1/month stands between an account and the free UDP tunnel. No volume figure exists to fail next.",
   "identity_cost": {
     "kind": "card",
     "detail": "A hosting account with a Minecraft server: 'You only need to create a domain in the Minecraft server control panel', and the cheapest panel plan is EUR 1/month.",

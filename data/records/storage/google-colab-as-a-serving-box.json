@@ -5,7 +5,7 @@
   "url": "https://research.google.com/colaboratory/faq.html",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Both disqualifiers land at once: file hosting and media serving are in the provider's published list of restricted activities, and the VM is deleted on idle.",
+    "stated": "none reachable: Both disqualifiers land at once: file hosting and media serving are in the provider's published list of restricted activities, and the VM is deleted on idle.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://research.google.com/colaboratory/faq.html",

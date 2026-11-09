@@ -5,7 +5,7 @@
   "url": "https://aws.amazon.com/free/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The current AWS free-tier page and S3 pricing page no longer present a perpetual or 12-month 5 GB S3 allowance; the programme is now $200 of credits over 6 months and the account closes at…",
+    "stated": "none reachable: The current AWS free-tier page and S3 pricing page no longer present a perpetual or 12-month 5 GB S3 allowance; the programme is now $200 of credits over 6 months and the account closes at…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://aws.amazon.com/free/",

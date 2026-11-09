@@ -5,7 +5,7 @@
   "url": "https://getstream.io/chat/docs/node/storage-and-bandwidth/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Fair-usage storage ceiling with per-GB overage; converting free into an invoice is a fail, not a qualification.",
+    "stated": "none reachable: Fair-usage storage ceiling with per-GB overage; converting free into an invoice is a fail, not a qualification.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://getstream.io/chat/docs/node/storage-and-bandwidth/",

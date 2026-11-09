@@ -5,7 +5,7 @@
   "url": "https://ipfs.family/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "First 100 MB free, and the free tier is explicitly a 12-month pin ('Paid Free tier - 12 mo', 'Kept until Oct 8, 2027'). Per-GB payment on-chain after that..",
+    "stated": "none reachable: First 100 MB free, and the free tier is explicitly a 12-month pin ('Paid Free tier - 12 mo', 'Kept until Oct 8, 2027'). Per-GB payment on-chain after that..",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://ipfs.family/",

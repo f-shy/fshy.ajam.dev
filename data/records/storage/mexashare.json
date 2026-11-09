@@ -5,7 +5,7 @@
   "url": "https://www.mexashare.com/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Every provider in the read walk failed with dial-failed / 502; origin unreachable. Cannot verify limits.",
+    "stated": "none reachable: Every provider in the read walk failed with dial-failed / 502; origin unreachable. Cannot verify limits.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.mexashare.com/",

@@ -5,7 +5,7 @@
   "url": "https://www.akamai.com/cloud/pricing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "No managed registry product exists. Akamai's own docs route users to self-hosting Harbor or running a private Docker registry on paid Compute + paid Object Storage; the cloud pricing page…",
+    "stated": "none reachable: No managed registry product exists. Akamai's own docs route users to self-hosting Harbor or running a private Docker registry on paid Compute + paid Object Storage; the cloud pricing page…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.akamai.com/cloud/pricing",

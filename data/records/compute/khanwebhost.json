@@ -5,7 +5,7 @@
   "url": "https://vpspricetracker.com/provider/KhanWebHost/vps",
   "category": "cloud VM",
   "free_tier": {
-    "stated": "DE_256MB_IPV6_Only at USD 0.42/month billed yearly at USD 4.99/year: 1 Intel core shared, 256 MB RAM, 5 GB SSD, 800 GB/month bandwidth, 10 Gbps port, IPv6 only behind NAT, Germany. The tracker's line reads \"starting at $4.99 per year\". The Netherlands variant at the same USD 0.42 has IPv4 (NAT) + IPv6 and a 1 Gbps port, which makes it the better buy at the same money, and a third variant is USD 0.44/month.",
+    "stated": "The vendor's WHMCS store nat-kvm group (2026-11-07) lists no Germany or Netherlands variant: SG 400MB NAT '36 Available' at USD 6.99 Annually, India 256MB NAT '53 Available' USD 6.99, Turkey 256MB NAT '24 Available' USD 6.99, Texas 300 MB NAT USD 6.99, Canada NAT 256MB '65 Available' USD 6.99 (1 TB bandwidth @10 Gbps), UK 256 MB NAT '13 Available' USD 6.99, FR 256 MB NAT '68 Available' USD 5.99 (unmetered bandwidth @1 Gbps), 512 MB NAT USD 9.99, 1024 MB NAT USD 13.99, and monthly NAT KVM plans at USD 1.30/1.90/2.30/5.00. Cart reads priced UK 256 MB at USD 6.99 and FR 256 MB at USD 5.99 (cart.php?a=confproduct&i=0). The tracker's DE_256MB_IPV6_Only at USD 0.42/month billed USD 4.99/year is not orderable in the store today. No renewal price is published on the store pages. Both carts accepted the add with no stock warning (store counts today: UK 13 Available, FR 68 Available). Derived monthly equivalents of the annual prices: USD 6.99 / 12 = USD 0.58 per month (UK 256 MB), USD 5.99 / 12 = USD 0.50 per month (FR 256 MB).",
     "unit": "GiB",
     "metered_on": "wall-clock",
     "source_url": "https://vpspricetracker.com/provider/KhanWebHost/vps",
@@ -69,10 +69,59 @@
       "url": "https://khanwebhost.com/",
       "date": "2026-10-22",
       "proved": "the homepage routes VPS buyers to two country pages only: \"Deploy Your VPS NOW in UK\" to /uk-kvm-vps.php and \"Deploy Your VPS NOW in USA\" to /us-kvm-vps.php, and states \"Instant Activation\" and \"Choice of Operating System\" for KVM VPS"
+    },
+    {
+      "url": "https://khanwebhost.com/store/nat-kvm/",
+      "date": "2026-11-07",
+      "proved": "the vendor's WHMCS store nat-kvm group lists the NAT plans with availability counts and 'Starting from USD 6.99 Annually' (FR 256 MB at USD 5.99); no Germany variant is listed, so the tracker's USD 0.42/month plan is not orderable in the store today",
+      "capture": "sha256:f1c9a80a9c9803f79ddaf0ec75d8d4e53d2dbfd7f32c8172f78cef38a595ae1a",
+      "quote": "SG 400MB NAT 36 Available Starting from $6.99 USD Annually ... FR 256 MB NAT 68 Available Starting from $5.99 USD Annually"
+    },
+    {
+      "url": "https://khanwebhost.com/store/nat-kvm/uk-256mb-nat-promo",
+      "date": "2026-11-07",
+      "proved": "the WHMCS cart resolved the UK 256 MB NAT add (final URL cart.php?a=confproduct&i=0) and priced it $6.99, the store's annual price",
+      "capture": "sha256:6aaa3045791c2c1152f0fec4c46796c53b0747488618abcbdffb53771008b316",
+      "quote": "Shopping Cart - KhanWebHost LTD ... $6.99"
+    },
+    {
+      "url": "https://khanwebhost.com/store/nat-kvm/",
+      "date": "2026-11-07",
+      "proved": "the store's nat-kvm group prices the 256 MB NAT plans USD 5.99-6.99 annually with availability counts, and lists no Germany variant",
+      "capture": "sha256:f1c9a80a9c9803f79ddaf0ec75d8d4e53d2dbfd7f32c8172f78cef38a595ae1a",
+      "quote": "SG 400MB NAT 36 Available Starting from $6.99 USD Annually ... FR 256 MB NAT 68 Available Starting from $5.99 USD Annually"
+    },
+    {
+      "url": "probe:https://khanwebhost.com/store/nat-kvm/uk-256mb-nat-promo",
+      "date": "2026-11-07",
+      "proved": "the cart resolved the UK 256 MB NAT add (final URL cart.php?a=confproduct&i=0) and priced it $6.99 with no stock warning",
+      "capture": "sha256:fcab1e617e1710206fc5fc9614c67a2d84b51ec97cf22e482a8b9ab4aab8b4ac",
+      "quote": "\"prices\": [\n  \"$6.99\"\n ]"
+    },
+    {
+      "url": "probe:https://khanwebhost.com/store/nat-kvm/fr-256-mb-nat",
+      "date": "2026-11-07",
+      "proved": "the cart resolved the FR 256 MB NAT add (final URL cart.php?a=confproduct&i=0) and priced it $5.99 with no stock warning",
+      "capture": "sha256:41c0dfcf28617f6412de95f8b04f98884b2c482a8ab5bd0a990b4a20511dcc98",
+      "quote": "\"prices\": [\n  \"$5.99\"\n ]"
+    },
+    {
+      "url": "https://khanwebhost.com/store/nat-kvm/",
+      "date": "2026-11-07",
+      "proved": "the store lists UK 256 MB NAT at 13 Available and FR 256 MB NAT at 68 Available, priced 'Starting from $6.99/$5.99 USD Annually'",
+      "capture": "sha256:43466c15c82c9f093e2ee21186337135f3aec2025220f867d0f8c980a57b1c68",
+      "quote": "UK 256 MB NAT ... 13 Available ... Starting from ... $6.99 USD ... Annually"
+    },
+    {
+      "url": "probe:https://khanwebhost.com/store/nat-kvm/uk-256mb-nat-promo",
+      "date": "2026-11-07",
+      "proved": "the cart still prices the UK 256 MB NAT plan $6.99, unchanged",
+      "capture": "sha256:fcab1e617e1710206fc5fc9614c67a2d84b51ec97cf22e482a8b9ab4aab8b4ac",
+      "quote": "\"prices\": [\n  \"$6.99\"\n ]"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T11:15:35.517Z",
   "notes": "Price is tracker-only: the vendor's UK VPS page answered 200 and rendered prose and FAQ without the plan table, and the homepage links only the UK and USA VPS pages while the tracker's cheapest rows are Germany and the Netherlands, which are not linked from the homepage at all. The 3-day guarantee is a refund, so it does not make this trial-only.",
   "extras": {
     "facets": {

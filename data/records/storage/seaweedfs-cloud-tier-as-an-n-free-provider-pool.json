@@ -5,7 +5,7 @@
   "url": "https://github.com/seaweedfs/seaweedfs/wiki/Cloud-Tier",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Cloud Tier moves whole 1 GB volume .dat files to ONE configured remote provider; it is a hot/warm tiering mechanism, and the chunk files it writes 'are not usable outside of SeaweedFS'.…",
+    "stated": "none reachable: Cloud Tier moves whole 1 GB volume .dat files to ONE configured remote provider; it is a hot/warm tiering mechanism, and the chunk files it writes 'are not usable outside of SeaweedFS'.…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://github.com/seaweedfs/seaweedfs/wiki/Cloud-Tier",

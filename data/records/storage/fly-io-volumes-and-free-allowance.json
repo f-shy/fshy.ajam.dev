@@ -5,7 +5,7 @@
   "url": "https://fly.io/docs/about/pricing/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "There is no free tier for new organizations, full stop: 'Is there a free tier? No. New organizations don't have a free tier or a monthly free usage allowance.' New accounts get a trial of…",
+    "stated": "none reachable: There is no free tier for new organizations, full stop: 'Is there a free tier? No. New organizations don't have a free tier or a monthly free usage allowance.' New accounts get a trial of…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://fly.io/docs/about/pricing/",

@@ -58,7 +58,7 @@
   "limits_note": "not stated",
   "identity_cost": {
     "kind": "email",
-    "detail": null,
+    "detail": "email: sign-up is held by Clerk and accepts an email address, Google or GitHub, with no phone number field and a password required; a first and last name are required fields, and the dashboard issues the API key. The Hobby offer states that no card is required, and no identity document is named.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -88,10 +88,38 @@
       "proved": "SSH access to a machine is documented",
       "capture": "sha256:b32410d04fea25048cb1b616dc1047718fbb63831f1b6497c4fb7d805dfe4bf7",
       "quote": "[SSH](https://docs.dedaluslabs.ai/dcs/dm/ssh.md): Open temporary Secure Shell (SSH) access."
+    },
+    {
+      "url": "https://clerk.dedaluslabs.ai/v1/environment",
+      "date": "2026-11-04",
+      "proved": "the sign-up form identifies a person by an email address, a GitHub account or a Google account",
+      "capture": "sha256:110fc3417c9b8c2c4f6404465997b37e2c0058e759c8e1f42f152f895edfa1bb",
+      "quote": "\"identification_requirements\":[[\"email_address\",\"oauth_github\",\"oauth_google\"]"
+    },
+    {
+      "url": "https://clerk.dedaluslabs.ai/v1/environment",
+      "date": "2026-11-04",
+      "proved": "the sign-up form has no phone number field",
+      "capture": "sha256:110fc3417c9b8c2c4f6404465997b37e2c0058e759c8e1f42f152f895edfa1bb",
+      "quote": "\"phone_number\":\"off\""
+    },
+    {
+      "url": "https://www.dedaluslabs.ai/pricing",
+      "date": "2026-11-04",
+      "proved": "the Hobby tier grants the credit with no card",
+      "capture": "sha256:9d04b5825a8c4a9ece5f4cf6f042cd9e55a7cde55b1a111d5909ce9024c027b0",
+      "quote": "\"description\":\"$20 one-time sign-up credit. No credit card required.\""
+    },
+    {
+      "url": "https://www.dedaluslabs.ai/pricing",
+      "date": "2026-11-04",
+      "proved": "the credit is granted at sign-up, to the account the sign-up form creates",
+      "capture": "sha256:9d04b5825a8c4a9ece5f4cf6f042cd9e55a7cde55b1a111d5909ce9024c027b0",
+      "quote": "$20 one-time sign-up credit."
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-04T02:24:12.146Z",
+  "verified_at": "2026-11-04T15:51:59.407Z",
   "price_per_tb_month": null,
   "notes": "",
   "extras": {

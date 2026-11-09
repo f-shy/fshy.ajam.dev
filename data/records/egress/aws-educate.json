@@ -41,13 +41,13 @@
   "limits": [
     {
       "kind": "write-gated",
-      "value": "access is to curated lab sessions rather than to an account a user controls",
+      "value": "access is to curated lab sessions rather than to an account the caller controls",
       "source": "https://aws.amazon.com/education/awseducate/"
     }
   ],
   "limits_note": "",
   "binding": "write-gated",
-  "binding_note": "there is no volume to run out of: a user never gets an instance or a public address, so 1 TiB a month is not reachable at any price through this programme.",
+  "binding_note": "there is no volume to run out of: no instance or public address is ever issued, so 1 TiB a month is not reachable at any price through this programme.",
   "identity_cost": {
     "kind": "email",
     "detail": "No credit card needed. Learners as young as 13 can register for AWS Educate with just an email address.",

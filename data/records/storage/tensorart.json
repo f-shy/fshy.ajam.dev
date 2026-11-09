@@ -5,7 +5,7 @@
   "url": "https://tensor.art/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Bot-walled beyond use: tensor.art/ returns 403 with the extraction flagging paywall:status, /models likewise, /upload returns 422. Its landing page claims 'model hosting' but no limits page",
+    "stated": "none reachable: Bot-walled beyond use: tensor.art/ returns 403 with the extraction flagging paywall:status, /models likewise, /upload returns 422. Its landing page claims 'model hosting' but no limits page",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://tensor.art/",

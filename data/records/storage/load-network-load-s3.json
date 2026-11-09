@@ -32,7 +32,7 @@
   ],
   "interface_detail": "S3-compatible; an HTTP agent at load-s3-agent.load.network with bearer-key auth; load-pools CLI for bulk dataset pushes (explicit HF and GitHub import).",
   "tooling": "aws-cli / any S3 SDK; pip install load-pools.",
-  "chaining": null,
+  "chaining": "The pools CLI is designed for exactly the workload shape — push an entire existing dataset tree into S3.",
   "limits": [],
   "limits_note": "No free allowance. $3/TB/month with an S3 API is at the same price floor as HostBrr.",
   "identity_cost": {

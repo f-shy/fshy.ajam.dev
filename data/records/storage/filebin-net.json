@@ -5,7 +5,7 @@
   "url": "https://filebin.net/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Hard 6-day automatic deletion of every bin, and bins require approval before downloads are allowed. No persistence path at any price.",
+    "stated": "none reachable: Hard 6-day automatic deletion of every bin, and bins require approval before downloads are allowed. No persistence path at any price.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://filebin.net/",

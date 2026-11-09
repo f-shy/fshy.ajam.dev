@@ -5,7 +5,7 @@
   "url": "https://akash.network/docs/learn/core-concepts/persistent-storage/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "It is a compute marketplace, not storage: persistent storage is a paid resource attached to a deployment (per-GB-month in AKT), ephemeral by default, and there is no object-storage or IPFS…",
+    "stated": "none reachable: It is a compute marketplace, not storage: persistent storage is a paid resource attached to a deployment (per-GB-month in AKT), ephemeral by default, and there is no object-storage or IPFS…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://akash.network/docs/learn/core-concepts/persistent-storage/",

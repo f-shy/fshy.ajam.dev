@@ -16,7 +16,7 @@
   "limits_note": "Included plan time expires at the end of the month; credit packs cost USD 20 and never expire, which is the only way to bank time.",
   "reliability_note": "A stopped box loses its disk after 14 days, which is shorter than most providers here and is stated in a warning block rather than a footnote.",
   "confidence": "documented",
-  "verified_at": "2026-10-24T01:52:56.000Z",
+  "verified_at": "2026-11-06T17:20:15.330Z",
   "price_per_tb_month": null,
   "slug": "boat",
   "provider": "boat",
@@ -109,6 +109,76 @@
       "url": "https://docs.boat.dev/pricing",
       "date": "2026-10-24",
       "proved": "quoted comparison table pricing the same machine elsewhere: 'Daytona $0.331' and 'E2B $0.331' for the 4 vCPU / 8 GB class, against boat's '$0.036'."
+    },
+    {
+      "url": "https://docs.boat.dev/pricing",
+      "date": "2026-11-06",
+      "proved": "the entry plan is USD 20 a month and includes 555 hours of the default size",
+      "capture": "sha256:1d011157d6ae53d7e220e6a8eedef9cf44aa3663ef8bf8a5a2b62a43da0bd968",
+      "quote": "| \\$20/mo | 100 | 12 / 60 / 200 | 555 h of `default` (\\$20) | 10 |"
+    },
+    {
+      "url": "https://docs.boat.dev/pricing",
+      "date": "2026-11-06",
+      "proved": "the plan table prices every plan by the month and prints no annual cycle",
+      "capture": "sha256:1d011157d6ae53d7e220e6a8eedef9cf44aa3663ef8bf8a5a2b62a43da0bd968",
+      "quote": "A plan is a monthly price that your card pays."
+    },
+    {
+      "url": "https://docs.boat.dev/pricing",
+      "date": "2026-11-06",
+      "proved": "the plan is a monthly charge with no renewal sentence",
+      "capture": "sha256:1d011157d6ae53d7e220e6a8eedef9cf44aa3663ef8bf8a5a2b62a43da0bd968",
+      "quote": "A plan is a monthly price that your card pays."
+    },
+    {
+      "url": "https://docs.boat.dev/pricing",
+      "date": "2026-11-06",
+      "proved": "the included time expires at the end of the billing period and is not carried over",
+      "capture": "sha256:1d011157d6ae53d7e220e6a8eedef9cf44aa3663ef8bf8a5a2b62a43da0bd968",
+      "quote": "Included VM time expires at the end of the billing period. boat does not carry it over."
+    },
+    {
+      "url": "https://docs.boat.dev/pricing",
+      "date": "2026-11-06",
+      "proved": "machine time is billed per second against the plan's included amount",
+      "capture": "sha256:1d011157d6ae53d7e220e6a8eedef9cf44aa3663ef8bf8a5a2b62a43da0bd968",
+      "quote": "You pay per second, only while a sandbox runs."
+    },
+    {
+      "url": "https://docs.boat.dev/pricing",
+      "date": "2026-11-06",
+      "proved": "the plan table prints no stock or capacity state",
+      "capture": "sha256:1d011157d6ae53d7e220e6a8eedef9cf44aa3663ef8bf8a5a2b62a43da0bd968",
+      "quote": "A plan is a monthly price that your card pays."
+    },
+    {
+      "url": "https://docs.boat.dev/pricing",
+      "date": "2026-11-06",
+      "proved": "the page sends a plan change to the dashboard billing tab",
+      "capture": "sha256:1d011157d6ae53d7e220e6a8eedef9cf44aa3663ef8bf8a5a2b62a43da0bd968",
+      "quote": "[Dashboard > Billing](https://boat.dev/dashboard?tab=billing)"
+    },
+    {
+      "url": "https://docs.boat.dev/pricing",
+      "date": "2026-11-06",
+      "proved": "the USD 20 plan includes 555 hours of the default size",
+      "capture": "sha256:1d011157d6ae53d7e220e6a8eedef9cf44aa3663ef8bf8a5a2b62a43da0bd968",
+      "quote": "555 h of `default`"
+    },
+    {
+      "url": "https://docs.boat.dev/pricing",
+      "date": "2026-11-06",
+      "proved": "the 14-day disk clock and the card requirement are on the pricing page",
+      "capture": "sha256:1d011157d6ae53d7e220e6a8eedef9cf44aa3663ef8bf8a5a2b62a43da0bd968",
+      "quote": "A stopped sandbox keeps its disk for at least 14 days."
+    },
+    {
+      "url": "https://docs.boat.dev/pricing",
+      "date": "2026-11-06",
+      "proved": "the entry plan is still USD 20 a month with 555 hours of the default size",
+      "capture": "sha256:1d011157d6ae53d7e220e6a8eedef9cf44aa3663ef8bf8a5a2b62a43da0bd968",
+      "quote": "A plan is a monthly price that your card pays."
     }
   ],
   "verdict": "paid-only",
@@ -161,14 +231,21 @@
     "price_basis": "10 h/day x 30 = 300 h; 24/7 x 30 = 730 h",
     "burst_x": 1.0,
     "facets": {},
-    "term": "monthly prepaid",
+    "term": "monthly plan; machine time counted per second against the included amount",
     "credit_usd": 0,
     "credit_months_at_shape": null,
     "credit_hours_at_shape": 555,
-    "credit_expiry": "plan time expires at the end of the month; USD 20 credit packs never expire"
+    "credit_expiry": "plan time expires at the end of the month; USD 20 credit packs never expire",
+    "monthly_usd": 20.0,
+    "annual_usd": "not published: the plan table prices four plans by the month and prints no annual or yearly cycle; read at https://docs.boat.dev/pricing",
+    "renewal_usd": "not published: the plan table prints a monthly price and no renewal sentence; read at https://docs.boat.dev/pricing",
+    "renewal_note": "a plan is a monthly charge and the machine time it buys expires at the end of the billing period, so an unused balance is not carried over; the wallet pays for time beyond the included amount",
+    "stock": "not applicable: the plan table prints a price and an included amount per plan with no stock or capacity state",
+    "cart_url": "https://boat.dev/dashboard?tab=billing",
+    "price_on_page": "USD 20/mo plan (555 h of default included); USD 0.018/h small, USD 0.036/h default, USD 0.072/h large, USD 0.200/h xlarge"
   },
   "binding": "volume-quota",
   "binding_note": "The prepaid balance is what ends the month: 555 hours of the default size against the 730 a month needs.",
   "tier": "USD 20 plan",
-  "confidence_note": "Sizes, rates, the expiring plan time, the 14-day disk deletion and the card requirement are all on the docs pricing page read. The trial's own limits are on a separate page not read."
+  "confidence_note": "sizes, rates, the expiring plan time, the 14-day disk deletion and the card requirement are on the docs pricing page; the trial's own limits are on a separate page"
 }

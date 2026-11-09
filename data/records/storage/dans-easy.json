@@ -5,7 +5,7 @@
   "url": "https://easy.dans.knaw.nl/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Retired. 'As of 2 December 2024, EASY will no longer be accessible' — datasets migrated to the domain-specific DANS Data Stations. Any EASY quota figure found in third-party guides is dead.",
+    "stated": "none reachable: Retired. 'As of 2 December 2024, EASY will no longer be accessible' — datasets migrated to the domain-specific DANS Data Stations. Any EASY quota figure found in third-party guides is dead.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://easy.dans.knaw.nl/",

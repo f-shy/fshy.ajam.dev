@@ -5,7 +5,7 @@
   "url": "https://api.gbif.org/v1/occurrence/download/request",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Publishes Darwin Core occurrences and derived download archives, not arbitrary blobs. Anonymous download requests are refused (403), and the synchronous API caps at 100,000 records. The…",
+    "stated": "none reachable: Publishes Darwin Core occurrences and derived download archives, not arbitrary blobs. Anonymous download requests are refused (403), and the synchronous API caps at 100,000 records. The…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://api.gbif.org/v1/occurrence/download/request",

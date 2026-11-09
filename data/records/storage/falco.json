@@ -5,7 +5,7 @@
   "url": "https://falco.io/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "No storage provider named Falco exists to verify. falco.io and falco.org both resolve to the CNCF runtime-security project falco.io serves 'Falco — Why Falco? Strengthen container security'",
+    "stated": "none reachable: No storage provider named Falco exists to verify. falco.io and falco.org both resolve to the CNCF runtime-security project (falco.io serves 'Falco — Why Falco? Strengthen container security'",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://falco.io/",

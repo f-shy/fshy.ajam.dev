@@ -5,7 +5,7 @@
   "url": "https://github.com/riffcc/lis",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "FUSE filesystem over iroh described as 'Life is short, but data should live forever' — exactly the shape wanted, but the README exposes only put/list/get/mount with a read-only FUSE mount…",
+    "stated": "none reachable: FUSE filesystem over iroh described as 'Life is short, but data should live forever' — exactly the shape wanted, but the README exposes only put/list/get/mount with a read-only FUSE mount…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://github.com/riffcc/lis",

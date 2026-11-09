@@ -40,13 +40,13 @@
   "limits": [
     {
       "kind": "volume-quota",
-      "value": "There is no free lane at all, so the binding constraint is the first dollar: a user must fund a prepaid balance before any container runs.",
+      "value": "There is no free lane at all, so the binding constraint is the first dollar: a prepaid balance must be funded before any container runs.",
       "source": "https://salad.com/pricing/"
     }
   ],
-  "limits_note": "There is no free lane at all, so the binding constraint is the first dollar: a user must fund a prepaid balance before any container runs.",
+  "limits_note": "There is no free lane at all, so the binding constraint is the first dollar: a prepaid balance must be funded before any container runs.",
   "binding": "volume-quota",
-  "binding_note": "There is no free lane at all, so the binding constraint is the first dollar: a user must fund a prepaid balance before any container runs.",
+  "binding_note": "There is no free lane at all, so the binding constraint is the first dollar: a prepaid balance must be funded before any container runs.",
   "identity_cost": {
     "kind": "email",
     "detail": null,

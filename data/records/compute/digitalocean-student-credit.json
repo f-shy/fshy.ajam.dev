@@ -38,9 +38,9 @@
   "tooling": "not stated",
   "chaining": "Nothing durable. What remains in the pack is a set of one-shot coupons, mostly software licences rather than compute, and each starts a clock when redeemed.",
   "limits": [],
-  "limits_note": "Two doors close: the USD 200 DigitalOcean credit ended on 2026-07-31, and the whole pack requires verified full-time student status at an accredited institution, which a user does not hold.",
+  "limits_note": "Two doors close: the USD 200 DigitalOcean credit ended on 2026-07-31, and the whole pack requires verified full-time student status at an accredited institution.",
   "binding": "none",
-  "binding_note": "Two doors close: the USD 200 DigitalOcean credit ended on 2026-07-31, and the whole pack requires verified full-time student status at an accredited institution, which a user does not hold.",
+  "binding_note": "Two doors close: the USD 200 DigitalOcean credit ended on 2026-07-31, and the whole pack requires verified full-time student status at an accredited institution.",
   "identity_cost": {
     "kind": "institution",
     "detail": null,
@@ -67,7 +67,7 @@
   ],
   "verdict": "dead",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "The DigitalOcean offer page now redirects to the homepage and a new account gets USD 5 for 90 days, which is the trial that replaced USD 200.",
+  "notes": "The DigitalOcean offer page now redirects to the homepage and a new account gets USD 5 for 90 days, which is the trial that replaced USD 200. This is a refutation twice over: the credit is gone, and the pack was never open to a developer without an institution.",
   "extras": {
     "facets": {
       "class": "refutation-identity-gated",

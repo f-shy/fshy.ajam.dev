@@ -87,7 +87,7 @@
   ],
   "verdict": "fails-identity",
   "verified_at": "2026-11-04T05:38:57.839Z",
-  "notes": null,
+  "notes": "The 20M-tokens-a-day Developer Tier figure is recorded here only as what the docs claim, not as capacity that is available.",
   "extras": {
     "facets": {
       "class": "refutation",

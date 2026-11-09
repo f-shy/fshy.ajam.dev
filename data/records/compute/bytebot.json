@@ -5,7 +5,7 @@
   "url": "https://www.bytebot.ai/",
   "category": "container and VM sandbox",
   "free_tier": {
-    "stated": "the software is free and open source under Apache 2.0 with no licensing fee, subscription or usage limit; the only cost is the machine a user runs it on and the model API key",
+    "stated": "the software is free and open source under Apache 2.0 with no licensing fee, subscription or usage limit; the only cost is the machine it runs on and the model API key",
     "unit": "unlimited",
     "metered_on": "none",
     "source_url": "https://www.bytebot.ai/",
@@ -39,14 +39,14 @@
   "limits": [
     {
       "kind": "write-gated",
-      "value": "the free product is a repository a user runs in Docker with its own model API key; there is no hosted capacity",
+      "value": "the free product is a repository run in Docker with its own model API key; there is no hosted capacity",
       "source": "https://www.bytebot.ai/"
     }
   ],
   "limits_note": "not stated",
   "identity_cost": {
-    "kind": "email",
-    "detail": null,
+    "kind": "anonymous",
+    "detail": "none at Bytebot, which issues no account: the stack is run by the user from Docker Compose and its prerequisites are Docker, Docker Compose, memory and an 'AI API key from one of these providers'. The site states 'no credit card required' and 'Bytebot itself is completely free and open source under the Apache 2.0 license'. The model provider behind the key does need an account of its own.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -76,10 +76,31 @@
       "proved": "Bytebot runs on infrastructure the user supplies",
       "capture": "sha256:b0ccce2811dc514ff65c7a8df9d31cfab728a7003673fc31f67ed87f5dfac9ab",
       "quote": "Bytebot is completely self-hosted on your own infrastructure, meaning your data never leaves your servers."
+    },
+    {
+      "url": "https://docs.bytebot.ai/quickstart.md",
+      "date": "2026-11-04",
+      "proved": "the only credential the stack needs is a model provider's API key; Bytebot itself issues no account",
+      "capture": "sha256:7f4079b54164be68d3fa4b7fee52f31e80249589508fd27450f6d36179186866",
+      "quote": "AI API key from one of these providers"
+    },
+    {
+      "url": "https://www.bytebot.ai/",
+      "date": "2026-11-04",
+      "proved": "the start page names no card requirement",
+      "capture": "sha256:b0ccce2811dc514ff65c7a8df9d31cfab728a7003673fc31f67ed87f5dfac9ab",
+      "quote": "no credit card required."
+    },
+    {
+      "url": "https://www.bytebot.ai/",
+      "date": "2026-11-04",
+      "proved": "the software is a free open-source download with no licence account",
+      "capture": "sha256:b0ccce2811dc514ff65c7a8df9d31cfab728a7003673fc31f67ed87f5dfac9ab",
+      "quote": "Bytebot itself is completely free and open source under the Apache 2.0 license."
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-04T05:24:08.725Z",
+  "verified_at": "2026-11-04T15:51:56.486Z",
   "price_per_tb_month": null,
   "notes": "",
   "extras": {
@@ -91,7 +112,7 @@
       "wall_clock_min": null,
       "idle_reap_s": null,
       "restart_required": false,
-      "note": "the container runs on a user's own machine; no vendor clock"
+      "note": "the container runs locally; no vendor clock"
     },
     "persistent_storage": null,
     "network_out": null,
@@ -99,11 +120,11 @@
     "free_tier_kind": "allowance",
     "ps": {
       "gib": null,
-      "price": "a user's own disk",
-      "durability": "a user's own machine",
+      "price": "local disk",
+      "durability": "the local machine",
       "on_stop": true,
       "on_destroy": false,
-      "max_retention": "as long as a user keeps it"
+      "max_retention": "as long as it is kept"
     },
     "net": {
       "out": true,

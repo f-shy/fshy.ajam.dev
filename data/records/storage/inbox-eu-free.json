@@ -5,7 +5,7 @@
   "url": "https://help.inbox.eu/mailbox-size?language=en",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Messaging docs say 20 GB (\"Mailbox size ... is the same - 20Gb\") but the pricing page's 100 GB is the 30-day Business trial with a 3-emails-per-day send throttle — classic trial-vs-free…",
+    "stated": "none reachable: Messaging docs say 20 GB (\"Mailbox size ... is the same - 20Gb\") but the pricing page's 100 GB is the 30-day Business trial with a 3-emails-per-day send throttle — classic trial-vs-free…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://help.inbox.eu/mailbox-size?language=en",

@@ -20,7 +20,7 @@
     "notes": "The page says max file, not max job. Whether a multi-file torrent summing above 3 GB is refused, or whether each file inside it is checked, is not stated."
   },
   "retention": {
-    "stated": "'6hr server storage (no storage cap)' on free; 'We delete our copy immediately' once the file lands in a user's cloud drive",
+    "stated": "'6hr server storage (no storage cap)' on free; 'We delete our copy immediately' once the file lands in the destination cloud drive",
     "days": null,
     "source_url": "https://cloudpipe.app/pricing"
   },
@@ -35,7 +35,7 @@
     "rest",
     "cli"
   ],
-  "interface_detail": "web dashboard that authorises against a user's Google Drive; no documented public API on the free plan",
+  "interface_detail": "web dashboard that authorises against the account's Google Drive; no documented public API on the free plan",
   "tooling": "browser dashboard plus a Drive OAuth grant; the Drive side is then reachable by rclone",
   "chaining": "The largest step in the ladder and the only one that stages through a free Google Drive of 15 GB, so the 450 GB is a monthly flow rather than a monthly store.",
   "limits": [
@@ -83,7 +83,7 @@
     "detail": "'No credit card required for free plan'; the destination is a Google Drive account connected by OAuth after signup. A Google account is itself the identity gate, and Google may ask for a phone number at creation.",
     "country": null
   },
-  "reliability_note": "files are on CloudPipe's servers for 6 hours on free and then gone; one download at a time; the Drive permission is read-only for existing files, so a user must delete through Drive, not through CloudPipe.",
+  "reliability_note": "files are on CloudPipe's servers for 6 hours on free and then gone; one download at a time; the Drive permission is read-only for existing files, so deletion must go through Drive, not through CloudPipe.",
   "confidence": "documented",
   "confidence_note": "Both the pricing and home pages were read. No job was run, so the Drive churn is arithmetic, not measurement.",
   "evidence": [

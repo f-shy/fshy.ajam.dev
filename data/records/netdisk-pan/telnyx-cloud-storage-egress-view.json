@@ -50,7 +50,7 @@
     "detail": "an email address. The forum reports the 10 GB tier needs no card: '免费10G 不用绑卡好像也没流量费'. A public bucket adds a KYC step",
     "country": null
   },
-  "reliability_note": "A telecom company diversifying into object storage, and the zero-egress term is real. The 10 GB cap and the KYC step on public buckets are what close it for a user. The pricing page now frames the product around egress to inference, so the object-storage-only customer is no longer the commercial focus",
+  "reliability_note": "A telecom company diversifying into object storage, and the zero-egress term is real. The 10 GB cap and the KYC step on public buckets are what close it. The pricing page now frames the product around egress to inference, so the object-storage-only customer is no longer the commercial focus",
   "confidence": "reported",
   "evidence": [
     {

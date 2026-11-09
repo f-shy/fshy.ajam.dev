@@ -5,7 +5,7 @@
   "url": "https://cyberdrop.me/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The .me domain is dead — Cloudflare 1016, origin hostname does not resolve. The service lives on at cyberdrop.cr; the .me records are a trap for anyone copying old links.",
+    "stated": "none reachable: The .me domain is dead — Cloudflare 1016, origin hostname does not resolve. The service lives on at cyberdrop.cr; the .me records are a trap for anyone copying old links.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://cyberdrop.me/",

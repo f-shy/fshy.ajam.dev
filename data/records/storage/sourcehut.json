@@ -5,7 +5,7 @@
   "url": "https://man.sr.ht/git.sr.ht/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "No published quota, but the resource guidance is 'aim to have repos no larger than the Linux kernel git repo, which is 6 GiB' and 'Don't store lots of large binary objects'. Payment is…",
+    "stated": "none reachable: No published quota, but the resource guidance is 'aim to have repos no larger than the Linux kernel git repo, which is 6 GiB' and 'Don't store lots of large binary objects'. Payment is…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://man.sr.ht/git.sr.ht/",

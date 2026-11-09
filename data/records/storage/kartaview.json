@@ -5,7 +5,7 @@
   "url": "https://api.openstreetcam.org/2.0/photo/?itemsPerPage=2",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Read API is closed to unauthenticated clients: `GET /2.0/photo/?itemsPerPage=2` returns HTTP 200 with the body {\"apiCode\":400,\"apiMessage\":\"Restricted access!\"} — a 200 carrying an error…",
+    "stated": "none reachable: Read API is closed to unauthenticated clients: `GET /2.0/photo/?itemsPerPage=2` returns HTTP 200 with the body {\"apiCode\":400,\"apiMessage\":\"Restricted access!\"} — a 200 carrying an error…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://api.openstreetcam.org/2.0/photo/?itemsPerPage=2",

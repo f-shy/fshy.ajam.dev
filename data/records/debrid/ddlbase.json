@@ -48,7 +48,7 @@
   ],
   "limits_note": "Anonymous posts show 'Mirror 1: Link 1' and 'Mirror 2: Link 2' then '(login for more mirrors)'. The wider mirror set sits behind an account.",
   "binding": "request-rate",
-  "binding_note": "As with any index, the only thing that can throttle a user is page rate; the wider mirror set is an identity gate recorded in identity_cost rather than one of the seven constraints.",
+  "binding_note": "As with any index, the only thing that can throttle a caller is page rate; the wider mirror set is an identity gate recorded in identity_cost rather than one of the seven constraints.",
   "identity_cost": {
     "kind": "email",
     "detail": "A login is what unlocks mirrors beyond the first two. The registration form was not opened, so whether it asks for email alone or email plus captcha was not established.",

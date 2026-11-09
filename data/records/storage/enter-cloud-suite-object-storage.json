@@ -5,7 +5,7 @@
   "url": "https://docs.cyberduck.io/protocols/openstack/enter_cloud_suite/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "OpenStack Swift, pay-per-use IaaS, no public price list — only protocol documentation exists. Zero pricing transparency, and Swift is not S3.",
+    "stated": "none reachable: OpenStack Swift, pay-per-use IaaS, no public price list — only protocol documentation exists. Zero pricing transparency, and Swift is not S3.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.cyberduck.io/protocols/openstack/enter_cloud_suite/",

@@ -5,7 +5,7 @@
   "url": "https://developers.line.biz/en/docs/messaging-api/receiving-messages/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Auto-deleted after an undisclosed period, no listing endpoint, token-only access. Cannot be addressed as storage even short-term.",
+    "stated": "none reachable: Auto-deleted after an undisclosed period, no listing endpoint, token-only access. Cannot be addressed as storage even short-term.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://developers.line.biz/en/docs/messaging-api/receiving-messages/",

@@ -40,13 +40,13 @@
   "limits": [
     {
       "kind": "volume-quota",
-      "value": null,
+      "value": "Five terabytes a month is the ceiling on the cheapest shape and it is generous for the price, so what fails first is not the link but the monthly allowance: 5 TB is about 167 GB a day, and the daily test volume is 500 GB to 1 TB, so the smallest shape carries roughly a fifth of the daily load before the port at 200 Mbit/s becomes the limit.",
       "source": "https://cloudvps.by/servers/cloud/cloud_vps.php"
     }
   ],
-  "limits_note": null,
+  "limits_note": "Five terabytes a month is the ceiling on the cheapest shape and it is generous for the price, so what fails first is not the link but the monthly allowance: 5 TB is about 167 GB a day, and the daily test volume is 500 GB to 1 TB, so the smallest shape carries roughly a fifth of the daily load before the port at 200 Mbit/s becomes the limit.",
   "binding": "volume-quota",
-  "binding_note": null,
+  "binding_note": "Five terabytes a month is the ceiling on the cheapest shape and it is generous for the price, so what fails first is not the link but the monthly allowance: 5 TB is about 167 GB a day, and the daily test volume is 500 GB to 1 TB, so the smallest shape carries roughly a fifth of the daily load before the port at 200 Mbit/s becomes the limit.",
   "identity_cost": {
     "kind": "card",
     "detail": "the free seven-day test needs an application form and nothing else that is stated: the trial page says choose a configuration and fill in a simple form, with credentials arriving by email once the application is checked, and it names no card, phone or identity document. The card statement belongs to the paid catalogue, where payment \"is accepted by international and Russian cards in any currency\"; no hold or authorisation is stated, whether debit or prepaid cards are accepted is not stated, and whether the trial repeats once per person is not established",

@@ -5,7 +5,7 @@
   "url": "https://www.contentful.com/help/admin/usage/usage-limit/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Files are capped at 50 MB each and asset bandwidth at 50 GB/month with NO overage purchasable on Free; only 1 Starter space, 100k API calls/month. Storage size itself is not published as a…",
+    "stated": "none reachable: Files are capped at 50 MB each and asset bandwidth at 50 GB/month with NO overage purchasable on Free; only 1 Starter space, 100k API calls/month. Storage size itself is not published as a…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.contentful.com/help/admin/usage/usage-limit/",

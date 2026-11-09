@@ -36,7 +36,7 @@
     "rest"
   ],
   "interface_detail": "Stremio addon over HTTPS; underlying indexer access is through Jackett, which ElfHosted also sells as its own USD 9 app.",
-  "tooling": "no install; add manifest to Stremio. The private-tracker part needs a user's own Jackett/Indexer credentials - 'Indexer-backed Stremio addon using Jackett, delivered via Real-Debrid, AllDebrid, or Debrid-Link'.",
+  "tooling": "no install; add manifest to Stremio. The private-tracker part needs the account's own Jackett/Indexer credentials - 'Indexer-backed Stremio addon using Jackett, delivered via Real-Debrid, AllDebrid, or Debrid-Link'.",
   "chaining": "The private-tracker route: it reaches indexers Torrentio does not, so it is the addon a client adds when public trackers have gone thin for a title.",
   "limits": [
     {
@@ -53,7 +53,7 @@
     "detail": "Nothing to install; a debrid account and, for private trackers, indexer credentials are the real gates.",
     "country": "None"
   },
-  "reliability_note": "Public instance was over its limit on first contact. Private trackers additionally require accounts a user may not be able to obtain, which is an identity cost outside this host's control.",
+  "reliability_note": "Public instance was over its limit on first contact. Private trackers additionally require accounts that may not be obtainable, which is an identity cost outside this host's control.",
   "confidence": "documented",
   "confidence_note": "The manifest URL was fetched and returned the placeholder instead of a manifest. Not measured: the paid instance, and whether the public limit resets.",
   "evidence": [

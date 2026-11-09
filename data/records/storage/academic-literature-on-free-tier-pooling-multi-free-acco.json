@@ -5,7 +5,7 @@
   "url": null,
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Does not exist.",
+    "stated": "none reachable: Does not exist.",
     "unit": "none",
     "metered_on": "none",
     "source_url": null,

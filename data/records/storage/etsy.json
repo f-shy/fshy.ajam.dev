@@ -5,7 +5,7 @@
   "url": "https://help.etsy.com/hc/en-us/articles/115015628347-How-to-Manage-Your-Digital-Listings",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "5 files per listing at 20 MB each = 100 MB per listing ceiling, plus a $0.20 listing fee per shard, so sharding costs more than the storage is worth. No programmatic way to attach files.",
+    "stated": "none reachable: 5 files per listing at 20 MB each = 100 MB per listing ceiling, plus a $0.20 listing fee per shard, so sharding costs more than the storage is worth. No programmatic way to attach files.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://help.etsy.com/hc/en-us/articles/115015628347-How-to-Manage-Your-Digital-Listings",

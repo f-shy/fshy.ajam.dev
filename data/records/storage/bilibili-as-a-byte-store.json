@@ -5,7 +5,7 @@
   "url": "https://bilibili.apifox.cn/api-23693239",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "8 GB sounds good but every upload is transcoded and content-reviewed; playback is signed m3u8. Cannot return the uploaded bytes",
+    "stated": "none reachable: 8 GB sounds good but every upload is transcoded and content-reviewed; playback is signed m3u8. Cannot return the uploaded bytes",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://bilibili.apifox.cn/api-23693239",

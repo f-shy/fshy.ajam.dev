@@ -89,11 +89,53 @@
       "proved": "the RTX4090 24G 1 GPU 14C 32G row is unchanged: 1.92 on demand, 42.33 per day, 1154.64 per month, 1.31 preemptible (CNY)",
       "capture": "sha256:a448f54d962328fae7e592c2b905a936edca4639b37af6cda4c8031418fb9f15",
       "quote": "| 1*GPU | 14C 32G | 1.92 | 42.33 | 1154.64 | 1.31 |"
+    },
+    {
+      "url": "https://www.compshare.cn/price-list",
+      "date": "2026-11-06",
+      "proved": "the RTX4090 24G section prices one GPU with 14C 32G at CNY 1.92 per hour on demand",
+      "capture": "sha256:8d4ce04cea3648650f3a83bff17d28b4b28d0f842c3ec81bd38ac6cefb3cb6ef",
+      "quote": "<td>1*GPU</td><td>14C 32G</td><td class=\"pl-price\">1.92</td>"
+    },
+    {
+      "url": "https://www.compshare.cn/price-list",
+      "date": "2026-11-06",
+      "proved": "the last card section is headed A100 80G",
+      "capture": "sha256:8d4ce04cea3648650f3a83bff17d28b4b28d0f842c3ec81bd38ac6cefb3cb6ef",
+      "quote": "<span class=\"pl-table-name\">A100</span><span class=\"pl-table-spec\">80G</span>"
+    },
+    {
+      "url": "https://www.compshare.cn/price-list",
+      "date": "2026-11-06",
+      "proved": "the A100 80G section prices one GPU with 16C 64G at CNY 10.75 per hour on demand",
+      "capture": "sha256:8d4ce04cea3648650f3a83bff17d28b4b28d0f842c3ec81bd38ac6cefb3cb6ef",
+      "quote": "<td>1*GPU</td><td>16C 64G</td><td class=\"pl-price\">10.75</td>"
+    },
+    {
+      "url": "https://www.compshare.cn/price-list",
+      "date": "2026-11-06",
+      "proved": "the page's card list runs RTX4090, RTX4090 48G, RTX5090, RTX3080Ti, RTX3090, RTX2080, RTX2080Ti, A800, H20, P40, V100S and A100, with no H100, L40S or L4",
+      "capture": "sha256:8d4ce04cea3648650f3a83bff17d28b4b28d0f842c3ec81bd38ac6cefb3cb6ef",
+      "quote": "class=\"pl-anchor-item\">A800</button></li><li><button type=\"button\" class=\"pl-anchor-item\">H20</button></li><li><button type=\"button\" class=\"pl-anchor-item\">P40</button></li><li><button type=\"button\" class=\"pl-anchor-item\">V100S</button></li><li><button type=\"button\" class=\"pl-anchor-item\">A100</button></li>"
+    },
+    {
+      "url": "https://www.compshare.cn/docs/uaccount/identity/authentication",
+      "date": "2026-11-06",
+      "proved": "individual real-name certification pays a one-off CNY 5 credit, which is account credit and not GPU hours",
+      "capture": "sha256:906592932b389b0eb3fc4116a9bdc9bc91be0874fc93d103201e1eadd1ac66cf",
+      "quote": "实名成功后系统自动发放5元赠金"
+    },
+    {
+      "url": "https://www.compshare.cn/price-list",
+      "date": "2026-11-06",
+      "proved": "the first card section is headed RTX4090 24G",
+      "capture": "sha256:8d4ce04cea3648650f3a83bff17d28b4b28d0f842c3ec81bd38ac6cefb3cb6ef",
+      "quote": "<span class=\"pl-table-name\">RTX4090</span><span class=\"pl-table-spec\">24G</span>"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-11-03T08:50:26.529Z",
-  "notes": "The later tables on the page are other cards and were not attributed. Open question: which card the CNY 0.42/hour 8C 40G row belongs to.",
+  "verified_at": "2026-11-06T18:41:34.656Z",
+  "notes": "Per-card rates on the price list read on 2026-11-06: RTX4090 24G CNY 1.92 per hour on demand (1 GPU, 14C 32G), A100 80G CNY 10.75 per hour on demand (1 GPU, 16C 64G); H100, L40S and L4 are not listed. The page's card sections are RTX4090, RTX4090 48G, RTX5090, RTX3080Ti, RTX3090, RTX2080, RTX2080Ti, A800, H20, P40, V100S and A100, and the CNY 0.42 per hour 8C 40G row sits in the RTX2080 8G section. No free GPU hours are stated; individual real-name certification pays a one-off CNY 5 credit.",
   "extras": {
     "facets": {
       "class": "regional-floor-price",

@@ -5,7 +5,7 @@
   "url": "https://jsr.io/docs/quotas-and-limits",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "20 MB per package tarball, 20 MB sum of all files, 20 MB per individual file; plus scope quotas (3 scopes/account, 100 packages/scope, 20 new packages/week). Quotas are raisable by email…",
+    "stated": "none reachable: 20 MB per package tarball, 20 MB sum of all files, 20 MB per individual file; plus scope quotas (3 scopes/account, 100 packages/scope, 20 new packages/week). Quotas are raisable by email…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://jsr.io/docs/quotas-and-limits",

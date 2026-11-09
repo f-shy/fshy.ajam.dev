@@ -84,7 +84,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "price_per_tb_month": "$1.58/TB/mo at 1 TB ($18.95/TB/yr) as advertised, $1.19/TB/mo on the ₹1,650/yr annual.",
+  "price_per_tb_month": "$1.58/TB/mo at 1 TB ($18.95/TB/yr) as advertised, $1.19/TB/mo on the ₹1,650/yr annual. At 5 TB and 20 TB: NO PUBLISHED PLAN — the ladder stops at 1 TB and «Enterprise pooled storage» is quote-only, so the 5 TB and 20 TB figures do not exist and the number cannot be used for the sizing.",
   "notes": "Starter 50 GB ₹20/mo; Freelancer 100 GB ₹35/mo; 500 GB ₹100/mo; Studio Pro 1 TB ₹150/mo (or ₹1,650/yr); 25 GB free forever. Enterprise pooled storage on request.",
   "extras": {
     "dead_end": {
@@ -93,7 +93,7 @@
       "retry_when": null,
       "first_recorded": "2026-10-21"
     },
-    "price_verbatim": "$1.58/TB/mo at 1 TB ($18.95/TB/yr) as advertised, $1.19/TB/mo on the ₹1,650/yr annual."
+    "price_verbatim": "$1.58/TB/mo at 1 TB ($18.95/TB/yr) as advertised, $1.19/TB/mo on the ₹1,650/yr annual. At 5 TB and 20 TB: NO PUBLISHED PLAN — the ladder stops at 1 TB and «Enterprise pooled storage» is quote-only, so the 5 TB and 20 TB figures do not exist and the number cannot be used for the sizing."
   },
   "binding": "none",
   "binding_note": null

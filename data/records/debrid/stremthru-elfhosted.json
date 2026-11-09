@@ -36,8 +36,8 @@
     "rest"
   ],
   "interface_detail": "HTTP service titled 'Companion for Stremio'; it sits behind an addon (AIOStreams or Torrentio-style) and forwards store requests through one IP.",
-  "tooling": "no install on the public instance; the client pastes the base URL into the addon that uses it. Self-hosting is possible but not needed, which is why it is here.",
-  "chaining": "The piece that hides the client's IP from the debrid provider: one exit IP for every addon call, which is what avoids the multi-IP bans Real-Debrid applies to shared or rotating addresses.",
+  "tooling": "no install on the public instance; the base URL is pasted into the addon that uses it. Self-hosting is possible but not needed, which is why it is here.",
+  "chaining": "The piece that hides the caller's IP from the debrid provider: one exit IP for every addon call, which is what avoids the multi-IP bans Real-Debrid applies to shared or rotating addresses.",
   "limits": [
     {
       "kind": "request-rate",
@@ -50,7 +50,7 @@
   "binding_note": "It carries no bytes of its own, so the only thing that can fail first is the shared request rate on the sponsor's instance.",
   "identity_cost": {
     "kind": "anonymous",
-    "detail": "No account to use the public instance. The debrid credentials it proxies are a user's own.",
+    "detail": "No account to use the public instance. The debrid credentials it proxies are the account's own.",
     "country": "None"
   },
   "reliability_note": "One sponsor, one instance: if ElfHosted retires it, the addon that depends on it loses its exit IP. Version drifted to v0.105.3, so the public instance tracks upstream closely.",

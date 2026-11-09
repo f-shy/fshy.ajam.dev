@@ -36,7 +36,7 @@
     "unknown"
   ],
   "interface_detail": "A web upload form at /upload with no documented API on the pages read. A referral URL pattern exists (/api/ref/<code>) which is a marketing link, not an endpoint.",
-  "tooling": "Browser upload only as read. For a user that is a tooling note, not a verdict: the form is a POST and could be driven by a script.",
+  "tooling": "Browser upload only as read. Here that is a tooling note, not a verdict: the form is a POST and could be driven by a script.",
   "chaining": "Not a storage answer at three days.",
   "limits": [
     {

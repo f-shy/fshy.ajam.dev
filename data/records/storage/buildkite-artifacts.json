@@ -5,7 +5,7 @@
   "url": "https://buildkite.com/docs/pipelines/configure/artifact-retention",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Metered both ways: storage billed per GB-month and transfer billed per GB beyond plan inclusion, and retention maxes at 7/30/90 days depending on plan. Full custom retention is an…",
+    "stated": "none reachable: Metered both ways: storage billed per GB-month and transfer billed per GB beyond plan inclusion, and retention maxes at 7/30/90 days depending on plan. Full custom retention is an…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://buildkite.com/docs/pipelines/configure/artifact-retention",

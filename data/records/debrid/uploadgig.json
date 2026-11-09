@@ -52,7 +52,7 @@
   ],
   "limits_note": "The vendor publishes no free-tier number at all; the only free figure is a third-party browser measurement.",
   "binding": "volume-quota",
-  "binding_note": "At 1 TiB/month the 100 GB/day allowance is 2.7x the requirement, so the first thing to fail is the daily counter only if the client bursts; otherwise the price does.",
+  "binding_note": "At 1 TiB/month the 100 GB/day allowance is 2.7x the requirement, so the first thing to fail is the daily counter only if usage bursts; otherwise the price does.",
   "identity_cost": {
     "kind": "email",
     "detail": "Account is an e-mail signup. Payment is by card or crypto through the vendor's payment page; no phone or identity document is asked for.",

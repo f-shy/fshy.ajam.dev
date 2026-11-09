@@ -38,7 +38,7 @@
   ],
   "interface_detail": "Web player plus a documented Stremio addon, Torznab/Jackett/Prowlarr integration ('Добавьте Torznab-ссылку своего индексера в профиле'), and an embeddable player SDK. The whole stack is MIT-licensed ('Все компоненты Webtor.io распространяются под лицензией MIT'), so a client can run the player or talk to the same API surface.",
   "tooling": "Browser; Stremio addon; Torznab feed for Jackett/Prowlarr; open-source components under MIT. The Torznab integration means a client's existing indexer stack can drive it.",
-  "chaining": "It removes a user's own BitTorrent exposure: the vendor's servers join the swarm and hand back HTTPS. That composes with a seedbox for private trackers and with a debrid for file hosts, and its Vault covers the zero-seeder case a debrid cache often misses.",
+  "chaining": "It removes local BitTorrent exposure: the vendor's servers join the swarm and hand back HTTPS. That composes with a seedbox for private trackers and with a debrid for file hosts, and its Vault covers the zero-seeder case a debrid cache often misses.",
   "limits": [
     {
       "kind": "per-ip-shaping",

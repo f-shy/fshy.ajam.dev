@@ -38,7 +38,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "documented first-party CLI and HTTP API: `curl -fsSL https://cli.sfcompute.com | bash` installs `sf`, `sf login` stores credentials, and the API is api.sfcompute.com `/v2` behind Bearer tokens. Object storage is S3-compatible and the docs use rclone against it. Nothing about the CLI was installed or run here, so the commands are read, not exercised.",
-  "chaining": "The 8-GPU minimum is the whole story for a user: there is no single-GPU lane here, and every purchase is a node for a window. The resale market is the compensating feature, because a reservation can be sold back at a limit price and the money returns as credits, which is the only way a solo buyer can commit to a long window without the idle time being pure loss. Object storage at USD 0.14 per GiB-month is expensive beside the storage topic's free tiers, so it is a place to cache a checkpoint for the length of a run, not to keep 10 TiB.",
+  "chaining": "The 8-GPU minimum is the whole story: there is no single-GPU lane here, and every purchase is a node for a window. The resale market is the compensating feature, because a reservation can be sold back at a limit price and the money returns as credits, which is the only way a solo buyer can commit to a long window without the idle time being pure loss. Object storage at USD 0.14 per GiB-month is expensive beside the storage topic's free tiers, so it is a place to cache a checkpoint for the length of a run, not to keep 10 TiB.",
   "limits": [
     {
       "kind": "volume-quota",

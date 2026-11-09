@@ -58,7 +58,7 @@
   "limits_note": "",
   "identity_cost": {
     "kind": "any-phone",
-    "detail": "The client's login offers a phone number plus 微信/QQ QR login. No email-only path was found and the login page at i.xunlei.com returned an empty document to every reader tried, so whether a non-mainland number is accepted was not established. Phone is the gate; the country rule is unverified.",
+    "detail": "The login offers a phone number plus 微信/QQ QR login. No email-only path was found and the login page at i.xunlei.com returned an empty document to every reader tried, so whether a non-mainland number is accepted was not established. Phone is the gate; the country rule is unverified.",
     "country": null
   },
   "reliability_note": "a lapsed membership stops retrieval of files already stored.",
@@ -145,5 +145,5 @@
     "parallel_downloads": 10
   },
   "binding": "volume-quota",
-  "binding_note": "10 TB/month of high-speed retrieval is the first wall at 1 TiB/month only if a user also counts uploads; the real constraint for a user is that retrieval is inside a membership, not sold per byte, so the quota binds before any shaping does."
+  "binding_note": "10 TB/month of high-speed retrieval is the first wall at 1 TiB/month only if uploads are also counted; the real constraint is that retrieval is inside a membership, not sold per byte, so the quota binds before any shaping does."
 }

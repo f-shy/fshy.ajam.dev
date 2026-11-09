@@ -71,7 +71,7 @@
   ],
   "verdict": "qualifies",
   "verified_at": "2026-10-23T01:51:00.000Z",
-  "price_per_tb_month": "USD 0 for a user",
+  "price_per_tb_month": "USD 0 for the caller",
   "notes": null,
   "extras": {
     "arr_integration": "Torznab and Newznab indexer for Prowlarr, Sonarr and Radarr",

@@ -34,7 +34,7 @@
     "cli"
   ],
   "tooling": "zerotier-one",
-  "chaining": "signalling for a small private mesh; it composes with a user's own devices and carries no bytes once they connect.",
+  "chaining": "signalling for a small private mesh; it composes with a private set of devices and carries no bytes once they connect.",
   "limits": [],
   "identity_cost": {
     "kind": "email",

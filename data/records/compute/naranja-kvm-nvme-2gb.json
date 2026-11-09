@@ -91,7 +91,7 @@
       "pair": "EUR/USD",
       "rate": 1.1193,
       "date": "2026-10-23",
-      "source": "ECB reference via frankfurter.app"
+      "source": null
     },
     "port_mbps": 1000,
     "ipv4_included": true,

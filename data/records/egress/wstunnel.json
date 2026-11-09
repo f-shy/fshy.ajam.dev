@@ -37,7 +37,7 @@
   ],
   "interface_detail": "wstunnel client / wstunnel server subcommands",
   "tooling": "static binary per platform; a systemd unit is the documented server form",
-  "chaining": "a websocket upgrade passes through any TCP or HTTP forwarder that does not buffer, so a free HTTP-only hosted tunnel plus a wstunnel server converts a TCP-only path into a WireGuard path; the wstunnel server still has to run somewhere a user controls.",
+  "chaining": "a websocket upgrade passes through any TCP or HTTP forwarder that does not buffer, so a free HTTP-only hosted tunnel plus a wstunnel server converts a TCP-only path into a WireGuard path; the wstunnel server still has to run somewhere controlled locally.",
   "limits": [],
   "limits_note": "",
   "binding": "none",

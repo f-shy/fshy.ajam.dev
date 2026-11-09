@@ -5,7 +5,7 @@
   "url": "https://forum.rclone.org/t/alternative-free-drive-to-uloz/53751",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The rclone forum's canonical 'free drive' lost its appeal: free storage cut from 20 GB to ~1 GB (needs a bank card). Tracked as a live migration event by rclone users, not a provider.",
+    "stated": "none reachable: The rclone forum's canonical 'free drive' lost its appeal: free storage cut from 20 GB to ~1 GB (needs a bank card). Tracked as a live migration event by rclone users, not a provider.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://forum.rclone.org/t/alternative-free-drive-to-uloz/53751",

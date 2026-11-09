@@ -5,7 +5,7 @@
   "url": "https://developers.kakao.com/docs/latest/en/kakaotalk-channel/common",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Same inversion as Viber — image supplied as an external URL, no upload/store endpoint anywhere in the channel API.",
+    "stated": "none reachable: Same inversion as Viber — image supplied as an external URL, no upload/store endpoint anywhere in the channel API.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://developers.kakao.com/docs/latest/en/kakaotalk-channel/common",

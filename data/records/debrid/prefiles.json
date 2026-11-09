@@ -57,7 +57,7 @@
   ],
   "limits_note": "The 10 MB/s figure on Pro is a speed cap, not a byte cap, and it is the number that decides whether a 50 GB day is reachable in a day: 50 GB at 10 MB/s takes 1.4 hours.",
   "binding": "volume-quota",
-  "binding_note": "Free's 5 GB/day is 150 GB a month, which fails by a factor of seven.",
+  "binding_note": "Pro's 50 GB/day is 1.46 TB a month,, so Pro clears this scale. Free's 5 GB/day is 150 GB a month, which fails by a factor of seven.",
   "identity_cost": {
     "kind": "card",
     "detail": "Checkout through Paddle as merchant of record, which also carries the refund terms. The pricing page's checkout step asks only 'Enter your email'.",

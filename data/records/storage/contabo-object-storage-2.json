@@ -5,7 +5,7 @@
   "url": "https://contabo.com/en/object-storage/order/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The 'unlimited free egress' claim is real but the price is €2.49 per 250 GB slice = €9.96/TB/mo, roughly 5× Hetzner Storage Box and 10× the 1fichier floor. Independent trackers split on…",
+    "stated": "none reachable: The 'unlimited free egress' claim is real but the price is €2.49 per 250 GB slice = €9.96/TB/mo, roughly 5× Hetzner Storage Box and 10× the 1fichier floor. Independent trackers split on…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://contabo.com/en/object-storage/order/",

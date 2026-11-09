@@ -20,13 +20,13 @@
     "notes": ""
   },
   "retention": {
-    "stated": "not applicable: nothing is stored for a user on the public instance",
+    "stated": "not applicable: nothing is stored for the caller on the public instance",
     "days": null,
     "source_url": "https://comet.elfhosted.com/manifest.json",
     "notes": ""
   },
   "egress": {
-    "terms": "Not metered for a user: the instance returns links and, if proxying is enabled, streams through ElfHosted's IP. The public instance publishes no bandwidth figure and sells none.",
+    "terms": "Not metered to the caller: the instance returns links and, if proxying is enabled, streams through ElfHosted's IP. The public instance publishes no bandwidth figure and sells none.",
     "metered": false,
     "free_allowance": "not published",
     "price_per_tb": null,
@@ -37,7 +37,7 @@
   ],
   "interface_detail": "Stremio addon protocol over HTTPS: GET /manifest.json, GET /{config}/stream/{type}/{id}.json. Configure page renders quality filters, 'Add Debrid Service', 'Show Cached Only', 'Scrape Debrid Account Torrents' and an Install button that pushes the addon into Stremio.",
   "tooling": "works from Stremio Web or any Stremio client with no local server; no addon-side install and no key needed to browse, a debrid key needed to resolve cached streams.",
-  "chaining": "Sits between Stremio (or AIOStreams as an aggregator) and a user's debrid account; pairs with a bundled ElfHosted proxy to hide the client's IP from the debrid provider.",
+  "chaining": "Sits between Stremio (or AIOStreams as an aggregator) and the debrid account; pairs with a bundled ElfHosted proxy to hide the caller's IP from the debrid provider.",
   "limits": [
     {
       "kind": "request-rate",
@@ -83,7 +83,7 @@
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-30T13:11:55.961Z",
   "price_per_tb_month": "USD 0",
-  "notes": "Comet is the strongest free front-door found that is still alive: manifest served, configure page live, no account. Its two failures are the 403 on the unconfigured path and the absence of any way to stream peer-to-peer from a browser, which pushes a user back to a debrid key.",
+  "notes": "Comet is the strongest free front-door found that is still alive: manifest served, configure page live, no account. Its two failures are the 403 on the unconfigured path and the absence of any way to stream peer-to-peer from a browser, which pushes the setup back to a debrid key.",
   "extras": {
     "endpoint": "https://comet.elfhosted.com",
     "paid_upgrade": "https://store.elfhosted.com/product/comet/ - USD 9/month, 7-day trial at USD 1",

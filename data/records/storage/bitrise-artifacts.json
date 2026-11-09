@@ -5,7 +5,7 @@
   "url": "https://docs.bitrise.io/en/bitrise-ci/run-and-analyze-builds/managing-build-files/artifact-retention-policy",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Time-boxed and aggressively shortened in 2026: non-installable artifacts 90 days, installables 150 days, HTML reports and pipeline intermediates 7 days. Removal is permanent with no…",
+    "stated": "none reachable: Time-boxed and aggressively shortened in 2026: non-installable artifacts 90 days, installables 150 days, HTML reports and pipeline intermediates 7 days. Removal is permanent with no…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.bitrise.io/en/bitrise-ci/run-and-analyze-builds/managing-build-files/artifact-retention-policy",

@@ -5,7 +5,7 @@
   "url": "https://radicle.network/nodes/iris.radicle.network",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "P2P, no hosted storage quota to spend — capacity is whatever seeders choose to hold. Public nodes run restrictive policies; the team node lists a 'Restrictive' seeding policy and specific…",
+    "stated": "none reachable: P2P, no hosted storage quota to spend — capacity is whatever seeders choose to hold. Public nodes run restrictive policies; the team node lists a 'Restrictive' seeding policy and specific…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://radicle.network/nodes/iris.radicle.network",

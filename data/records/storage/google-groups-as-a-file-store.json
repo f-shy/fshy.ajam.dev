@@ -5,7 +5,7 @@
   "url": "https://knowledge.workspace.google.com/admin/groups/understand-groups-policies-and-limits",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "There is no file storage. Limits are message-activity limits: \"Individual message size 25 MB\", \"Total message size 2.4 GB per hour\" per group, \"Total inbound emails per group 300 per 5…",
+    "stated": "none reachable: There is no file storage. Limits are message-activity limits: \"Individual message size 25 MB\", \"Total message size 2.4 GB per hour\" per group, \"Total inbound emails per group 300 per 5…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://knowledge.workspace.google.com/admin/groups/understand-groups-policies-and-limits",

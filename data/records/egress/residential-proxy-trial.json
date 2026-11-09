@@ -59,7 +59,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-22T03:20:00.000Z",
-  "notes": null,
+  "notes": "At USD 0.80/GB one day of the workload is USD 879.61 and a month is USD 26,388. Not a capacity source at any price available, and the search results for 'free proxy trial' are confidently wrong.",
   "extras": {
     "stale_after_days": 180,
     "bytes_transit": "yes",

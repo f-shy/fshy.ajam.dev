@@ -52,7 +52,7 @@
   ],
   "limits_note": "Port forwarding and P2P are both confined to servers marked with a star in the app, so a BitTorrent session needs a P2P server and a forwarded port needs a (possibly different) selected server. The 'Connect unlimited devices in your household' line is a household wording, not a number. The SOCKS5 row is a documented absence: the vendor's blog says it does not provide SOCKS5 proxy settings or credentials.",
   "binding": "per-ip-shaping",
-  "binding_note": "No byte quota exists ('Unlimited bandwidth'), so the constraint that binds first for a client is the star-marked server set that carries port forwarding and P2P; no rate was measured.",
+  "binding_note": "No byte quota exists ('Unlimited bandwidth'), so the constraint that binds first is the star-marked server set that carries port forwarding and P2P; no rate was measured.",
   "identity_cost": {
     "kind": "email",
     "detail": "The sign-up form on the pricing page asks for 'Your name', 'Your e-mail', password and confirm password, an ALTCHA check, then 'We have sent you a confirmation message with a sign-up link'; it lists Visa, Mastercard, Maestro, American Express, Cirrus, PayPal, Bitcoin, Monero and bank transfer as payment methods. No phone number or identity document is asked on the form. A card is one option among cryptocurrencies, so the structured kind is email.",

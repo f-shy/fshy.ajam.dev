@@ -89,7 +89,7 @@
   "notes": "Cheapest per TiB with a real included terabyte: EUR 0.35 per extra TB is about USD 0.40 per TiB at the campaign rate, and mitigated DDoS traffic is excluded from the count. The price is a campaign price with a struck-through list price, so it can end. Registration collects a phone number even though the form marks optional fields as optional.",
   "extras": {
     "wg_path": "extractable",
-    "wg_detail": "The tunnel is ordered in the panel and configured on the client's side: \"Each endpoint has a public and private key\", and the product page describes routed delivery: \"It keeps configuration readable, establishes sessions quickly, and carries routed IPv4 or IPv6 traffic\". IPv4 is a separate line item at \"0.70 [EUR]/IP\".",
+    "wg_detail": "The tunnel is ordered in the panel and configured at the customer end: \"Each endpoint has a public and private key\", and the product page describes routed delivery: \"It keeps configuration readable, establishes sessions quickly, and carries routed IPv4 or IPv6 traffic\". IPv4 is a separate line item at \"0.70 [EUR]/IP\".",
     "ingress": "tcp+udp",
     "volume_tib_month": 0.909,
     "volume_stated": "\"Included transit 1 TB free\", then \"Additional transit 0.35 [EUR]/TB\" at the campaign rate (list 0.50). Capacity is \"up to 1 Gbit/s\".",

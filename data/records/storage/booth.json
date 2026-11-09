@@ -32,7 +32,7 @@
   ],
   "interface_detail": "Web; pixiv account.",
   "tooling": "Web only.",
-  "chaining": null,
+  "chaining": "10 GB/shop with a paid storage-upgrade path is negligible at the scale, but the ¥540/mo add-on is a rare published per-block price in this niche.",
   "limits": [
     {
       "kind": "per-object-cap",

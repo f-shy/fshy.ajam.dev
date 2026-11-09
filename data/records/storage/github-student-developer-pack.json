@@ -5,7 +5,7 @@
   "url": "https://education.github.com/pack",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "No bulk storage in the pack. The only storage lines are GitHub Pro's 2 GB Packages + 10 GB LFS, plus a Microsoft 365 seat that is tied to a personal account and not API-friendly at scale.…",
+    "stated": "none reachable: No bulk storage in the pack. The only storage lines are GitHub Pro's 2 GB Packages + 10 GB LFS, plus a Microsoft 365 seat that is tied to a personal account and not API-friendly at scale.…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://education.github.com/pack",

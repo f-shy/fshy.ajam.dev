@@ -5,7 +5,7 @@
   "url": "https://laion.ai/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Read-only corpus publisher, not a host. laion.ai/data/ is a 404; everything is a link out to Hugging Face datasets (excluded as already known). No upload path, no account, no quota of yours",
+    "stated": "none reachable: Read-only corpus publisher, not a host. laion.ai/data/ is a 404; everything is a link out to Hugging Face datasets (excluded as already known). No upload path, no account, no quota of yours",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://laion.ai/",

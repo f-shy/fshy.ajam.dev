@@ -5,7 +5,7 @@
   "url": "https://meta.miraheze.org/w/api.php?action=query&meta=siteinfo",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Quota was the best in the niche — FAQ (archived 2026-06-04) says 'There are no hard limits except \"be reasonable\"' on wiki storage — but the entire farm is OFFLINE today. meta.miraheze.org",
+    "stated": "none reachable: Quota was the best in the niche — FAQ (archived 2026-06-04) says 'There are no hard limits except \"be reasonable\"' on wiki storage — but the entire farm is OFFLINE today. meta.miraheze.org,",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://meta.miraheze.org/w/api.php?action=query&meta=siteinfo",

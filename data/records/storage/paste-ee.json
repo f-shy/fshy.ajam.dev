@@ -5,7 +5,7 @@
   "url": "https://paste.ee/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Offline for a migration with no ETA: 'Paste.ee is offline while we migrate ... There is no estimated time for the site to return.' Reads still work, writes do not.",
+    "stated": "none reachable: Offline for a migration with no ETA: 'Paste.ee is offline while we migrate ... There is no estimated time for the site to return.' Reads still work, writes do not.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://paste.ee/",

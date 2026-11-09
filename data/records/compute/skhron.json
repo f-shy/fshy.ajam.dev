@@ -5,7 +5,7 @@
   "url": "https://skhron.eu/services/sweden",
   "category": "cloud VM",
   "free_tier": {
-    "stated": "XSIG-SE-0 at EUR 1.69/month: 1 shared Intel Xeon Skylake core (0.06 vCPU guaranteed, burst to 1 under the fair-use policy), 512 MiB RAM, 6 GiB SSD, 1 TiB traffic inbound plus outbound counted together, 1 Gbps shared uplink, Stockholm Sweden. XSIG-SE-1 is EUR 2.90 with 1 GiB and 12 GiB.",
+    "stated": "XSIG-SE-0: the store cart read 2026-11-07 prices the order form's only billing cycle (12-month pre-pay) at EUR 1.35/month, EUR 16.20 due today; 1 shared Intel Xeon Skylake core (continuous usage of 6% for FUP), 512 MiB RAM, 6 GiB SSD, 1 TiB traffic inbound plus outbound counted together, 1 Gbps shared uplink, Stockholm Sweden; the services page prints EUR 1.69/month with no billing term; renewal price not published; in stock.",
     "unit": "GiB",
     "metered_on": "wall-clock",
     "source_url": "https://skhron.eu/services/sweden",
@@ -74,11 +74,25 @@
       "url": "https://vpspricetracker.com/provider/Skhron/vps",
       "date": "2026-10-22",
       "proved": "tracker row 'EUR 1.35 / month, 1 Intel Cores (shared), 512 MB RAM, 6 GB SSD, 1,024 GB/month bandwidth, 1 Gbps port speed, IPv6, Stockholm Sweden', which is EUR 0.34 below the vendor page"
+    },
+    {
+      "url": "https://skhron.com.ua/store/sweden-kvm-vps/xsig-se-0",
+      "date": "2026-11-07",
+      "proved": "the store cart prices XSIG-SE-0's only billing cycle (12-month pre-pay) at EUR 1.35/month",
+      "capture": "sha256:124a1fdd6873d140befc51be4af61573914bda77b2be1868f945a11d0ad58657",
+      "quote": "12 Month Price - €1.35"
+    },
+    {
+      "url": "https://skhron.eu/services/sweden",
+      "date": "2026-11-07",
+      "proved": "the services page prints EUR 1.69 for XSIG-SE-0 on 2026-11-07",
+      "capture": "sha256:2633667588f795c43a1a6f9f8fa66a47ab9296397c4c0cb0d4371b6da39b2e4e",
+      "quote": "€ 1.69"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "The tracker and the vendor disagree: EUR 1.35 against EUR 1.69 for this plan and EUR 2.54 against EUR 2.90 for the 1 GiB. The vendor page is the record and the gap suggests the tracker holds a discount that has expired. Traffic is counted in both directions, which halves the usable 1 TiB for a mirror.",
+  "verified_at": "2026-11-07T06:08:41.346Z",
+  "notes": "The cart read 2026-11-07 prices the order form's only billing cycle at EUR 1.35/month (EUR 16.20 due today), which matches the tracker's EUR 1.35; the services page still prints EUR 1.69/month with no billing term. Traffic is counted in both directions, which halves the usable 1 TiB for a mirror.",
   "extras": {
     "facets": {
       "class": null,
@@ -90,6 +104,12 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "monthly_eur": 1.35,
+    "annual_eur": "not published: the cart prices the 12-month term at EUR 1.35 a month and its summary shows EUR 16.20 due today, with no annual total printed as a separate figure",
+    "renewal_eur": "not published: the cart prices the 12-month term at EUR 1.35 a month and no page names a renewal rate",
+    "stock": "in stock: the cart priced the plan and accepted it",
+    "price_on_page": "EUR 1.69/month (the services page's plan row)",
+    "term": "12-month pre-pay only: the order form offers no monthly cycle"
   }
 }

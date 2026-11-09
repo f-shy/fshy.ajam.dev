@@ -129,7 +129,7 @@
   ],
   "verdict": "trial-only",
   "verified_at": "2026-11-04T06:20:49.285Z",
-  "notes": "The one Iranian provider found where the door is an email address rather than an Iranian mobile number, which makes it the exception in a market where national identity is usually the first gate. And paying beyond the credit needs an Iranian card or gateway, which the pricing pages do not enumerate. The PaaS lane is more useful than the VPS lane for a user because it does not need an IPv4 surcharge. The one recorded is the better-evidenced.",
+  "notes": "The one Iranian provider found where the door is an email address rather than an Iranian mobile number, which makes it the exception in a market where national identity is usually the first gate. And paying beyond the credit needs an Iranian card or gateway, which the pricing pages do not enumerate. The PaaS lane is more useful than the VPS lane because it does not need an IPv4 surcharge. The one recorded is the better-evidenced.",
   "extras": {
     "facets": {
       "class": "regional",

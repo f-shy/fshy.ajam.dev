@@ -32,7 +32,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "clearml Python SDK + clearml-agent; `Dataset.create()` / `dataset.add_files()` / `dataset.upload()` against any S3/GCS/Azure/HTTP/NAS backend. Mature and well documented.",
-  "chaining": "There is nothing to multiply — the storage is a user's own account at AWS/GCS/Azure, all of which are excluded on cost grounds.",
+  "chaining": "There is nothing to multiply — the storage is a pre-existing account at AWS/GCS/Azure, all of which are excluded on cost grounds.",
   "limits": [],
   "limits_note": "Differential/dedup versioning means versions store only the change set from the parent, which is a genuine byte-saver. Free plan feature-limited (SSO and configuration vault are paid/enterprise). No included storage at all.",
   "identity_cost": {

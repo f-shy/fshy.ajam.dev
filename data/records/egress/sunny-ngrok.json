@@ -81,7 +81,7 @@
   "verdict": "fails-quota",
   "verified_at": "2026-10-23T00:00:00.000Z",
   "price_per_tb_month": "USD 0",
-  "notes": "Email-only registration and UDP ingress, so it is testable by a user; the byte quota is what rules it out. Fixed TCP ports are listed only on the CNY 15/month tier.",
+  "notes": "Email-only registration and UDP ingress, so it is testable; the byte quota is what rules it out. Fixed TCP ports are listed only on the CNY 15/month tier.",
   "extras": {
     "wg_path": "inside-udp",
     "wg_detail": "The site states support for TCP and UDP, with UDP named for game hosting, so a WG datagram can ride a UDP tunnel. No WG config is issued, and the free tier assigns a random port.",

@@ -5,7 +5,7 @@
   "url": "https://www.dropbox.com/plans",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "2 GB free at signup; referral bonuses are capped and the account is capped well under 500 GB. rclone backend exists (Tier 1) but the quota is fatal.",
+    "stated": "none reachable: 2 GB free at signup; referral bonuses are capped and the account is capped well under 500 GB. rclone backend exists (Tier 1) but the quota is fatal.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.dropbox.com/plans",

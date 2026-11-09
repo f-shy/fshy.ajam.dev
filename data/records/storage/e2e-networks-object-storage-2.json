@@ -5,7 +5,7 @@
   "url": "https://docs.e2enetworks.com/docs/tir/object-storage/Pricing/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "₹2.5/GB/month is $26.95/TB/mo — 6.6× Utho's archive tier and 17× its own archive — and data transfer is ₹3/GB, i.e. $32.24 per TB read. Worse, billing is on PEAK usage per calendar month…",
+    "stated": "none reachable: ₹2.5/GB/month is $26.95/TB/mo — 6.6× Utho's archive tier and 17× its own archive — and data transfer is ₹3/GB, i.e. $32.24 per TB read. Worse, billing is on PEAK usage per calendar month…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.e2enetworks.com/docs/tir/object-storage/Pricing/",

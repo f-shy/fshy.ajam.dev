@@ -38,9 +38,9 @@
   "tooling": "not stated",
   "chaining": "hourly billing at EUR 0.0041 for a 0.1 vCPU service means a six-hour job costs about EUR 0.03, so this is a cheap place to park a short-lived web endpoint beside the free static site.",
   "limits": [],
-  "limits_note": "the free tier carries static hosting only, so the first wall is EUR 3 for a 0.1 vCPU web service.",
+  "limits_note": "nothing binds above the scale at the paid floor; the free tier carries static hosting only, so the first wall is EUR 3 for a 0.1 vCPU web service.",
   "binding": "none",
-  "binding_note": "the free tier carries static hosting only, so the first wall is EUR 3 for a 0.1 vCPU web service.",
+  "binding_note": "nothing binds above the scale at the paid floor; the free tier carries static hosting only, so the first wall is EUR 3 for a 0.1 vCPU web service.",
   "identity_cost": {
     "kind": "email",
     "detail": null,

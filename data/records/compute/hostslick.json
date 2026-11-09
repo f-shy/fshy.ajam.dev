@@ -69,10 +69,24 @@
       "url": "https://hostslick.com/",
       "date": "2026-10-22",
       "proved": null
+    },
+    {
+      "url": "https://vpspricetracker.com/provider/HostSlick/vps",
+      "date": "2026-11-07",
+      "proved": "the tracker still lists KVM AMD Ryzen I at EUR 9.99 a month",
+      "capture": "sha256:786b2d50cc63888ff9a875964f8a8f5a08be614629ea7c5a0840562eb1c285f7",
+      "quote": "These are the cheapest VPSs currently offered by HostSlick, starting at €9.99 per month:"
+    },
+    {
+      "url": "https://hostslick.com/clients/store/amd-ryzen-linux-kvm-vps-netherlands",
+      "date": "2026-11-07",
+      "proved": "the vendor store page shows the Ryzen plans at 0 available",
+      "capture": "sha256:2d49b2f25bb04367f4d71f13fed35d36785a716517c1ae88b95e22fe7cfc9b4c",
+      "quote": "0 Available"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T06:08:33.037Z",
   "notes": "Price is tracker-only: the vendor's own product page for KVM AMD Ryzen I rendered its specs but no price in the HTML read, so the EUR 9.99 stays reported rather than documented. The search result for the same URL carried a snippet with \"EUR 9.99EUR Monthly\", which is a search index and not a page read, and it was not used as evidence.",
   "extras": {
     "facets": {
@@ -85,6 +99,12 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "term": "monthly",
+    "price_on_page": "EUR 9.99/mo (tracker; the vendor store page rendered no price in the read)",
+    "out_of_pocket_usd": 11.15,
+    "renewal_usd": "not published: no page read prints a renewal price",
+    "stock": "0 Available on every Ryzen plan at the vendor store read 2026-11-07",
+    "cart_url": "https://hostslick.com/clients/store/amd-ryzen-linux-kvm-vps-netherlands"
   }
 }

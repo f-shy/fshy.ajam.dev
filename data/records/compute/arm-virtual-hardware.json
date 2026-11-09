@@ -38,7 +38,7 @@
   ],
   "interface_detail": "REST API with an API token; AVH CLI installed from npm (@corellium/corellium-cli); SSH to a virtual device over the AVH VPN or an SSH tunnel",
   "tooling": "the provider documents its own CLI, the AVH CLI, per https://support.avh.corellium.com/sdk/cli/: \"The AVH CLI is a command line tool that allows you to manage your AVH instances from the terminal.\"",
-  "chaining": "It breaks at throughput, because a virtual Ethos-U is a functional model and its latency numbers are not silicon numbers.",
+  "chaining": "It chains with a free CI runner: the same 25 device slots make a firmware or model test suite run in a build, which is the shape the workload needs. It breaks at throughput, because a virtual Ethos-U is a functional model and its latency numbers are not silicon numbers.",
   "limits": [
     {
       "kind": "retention-clamped",

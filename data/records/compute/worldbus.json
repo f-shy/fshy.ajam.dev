@@ -5,7 +5,7 @@
   "url": "https://worldbus.ge/vps/turkey/",
   "category": "cloud VM",
   "free_tier": {
-    "stated": "Turkey VPS SSD (A) at USD 8.49 per month, reduced from USD 16.99: 1 vCPU at 2 GHz guaranteed, 2 GB guaranteed RAM, 30 GB SSD RAID10, 1 Gbps port, 2 TB a month of traffic, 1 IPv4 and 4 IPv6, KVM with SolusVM, in Istanbul. The Georgia equivalent is USD 18.99 for the same shape and the B plans are USD 11.49 in Turkey and USD 24.99 in Georgia.",
+    "stated": "Turkey VPS SSD (A) (portal product TR - SSD VPS 01) at USD 8.49 per month, struck from a higher list price on the marketing page: 1 vCore at 2 GHz, 2 GB RAM, 30 GB SSD RAID10, 1 Gbps port, 2TB monthly traffic, 1 IPv4 and 4 IPv6, KVM with SolusVM, in Istanbul. Order page read 2026-11-07: monthly USD 8.49, quarterly USD 25.47, semi-annually USD 50.94, annually USD 101.88; renewal price not published; plan in stock (the order page renders every cycle with no out-of-stock marker). The Georgia equivalent and the B plan keep the prices quoted in the record's evidence rows.",
     "unit": "GiB",
     "metered_on": "wall-clock",
     "source_url": "https://worldbus.ge/vps/turkey/",
@@ -69,11 +69,81 @@
       "url": "https://vpspricetracker.com/provider/WorldBus/vps",
       "date": "2026-10-22",
       "proved": "tracker lists a different, cheaper row the vendor's VPS pages do not show: '$8.00 / month 2 Intel Cores (shared) 2,048 MB RAM 30 GB SSD 51,200 GB/month bandwidth 1 Gbps port speed IPv4 + IPv6 Istanbul Turkey' as plan SPECIAL_VPS"
+    },
+    {
+      "url": "https://portal.worldbus.ge/store/ssd-vps-in-turkey/ssd-vps-01",
+      "date": "2026-11-07",
+      "proved": "the order page prints four billing cycles for TR - SSD VPS 01, the annual term at USD 101.88",
+      "capture": "sha256:5dfe808796aca366575b2740fa4db8c17356ee603fb98e81e596c47afb8a8750",
+      "quote": "Monthly    $8.49 USD Quarterly    $25.47 USD Semi-Annually    $50.94 USD Annually    $101.88 USD"
+    },
+    {
+      "url": "https://portal.worldbus.ge/store/ssd-vps-in-turkey?currency=1",
+      "date": "2026-11-07",
+      "proved": "the WHMCS portal store prices TR - SSD VPS 01 from USD 8.49 monthly, matching the marketing page",
+      "capture": "sha256:1462283daad44c1d75596316edf93d9b27a86a4a7dd540031e518b7c5cc6b053",
+      "quote": "TR - SSD VPS 01 Starting from $8.49 USD Monthly"
+    },
+    {
+      "url": "https://worldbus.ge/vps/turkey/",
+      "date": "2026-11-07",
+      "proved": "the marketing page still displays the pre-promotion price struck through",
+      "capture": "sha256:a3874089bf46beff74f8199c1f7d107fb1c5d142a96815ab480c81f125181169",
+      "quote": "~~$16.99~~"
+    },
+    {
+      "url": "https://worldbus.ge/vps/turkey/",
+      "date": "2026-11-07",
+      "proved": "the marketing page prices Turkey VPS SSD (A) at USD 8.49 monthly",
+      "capture": "sha256:a3874089bf46beff74f8199c1f7d107fb1c5d142a96815ab480c81f125181169",
+      "quote": "$8.49MONTHLY"
+    },
+    {
+      "url": "https://portal.worldbus.ge/store/ssd-vps-in-turkey?currency=1",
+      "date": "2026-11-07",
+      "proved": "the portal store states the monthly bandwidth included on the Turkey plans",
+      "capture": "sha256:1462283daad44c1d75596316edf93d9b27a86a4a7dd540031e518b7c5cc6b053",
+      "quote": "2TB Monthly Included"
+    },
+    {
+      "url": "https://portal.worldbus.ge/store/ssd-vps-in-turkey?currency=1",
+      "date": "2026-11-07",
+      "proved": "the portal price agrees with the marketing price, and no renewal price exists on either",
+      "capture": "sha256:1462283daad44c1d75596316edf93d9b27a86a4a7dd540031e518b7c5cc6b053",
+      "quote": "TR - SSD VPS 01 Starting from $8.49 USD Monthly"
+    },
+    {
+      "url": "https://portal.worldbus.ge/store/ssd-vps-in-turkey/ssd-vps-01",
+      "date": "2026-11-07",
+      "proved": "the entry plan price is unchanged on the order page",
+      "capture": "sha256:5dfe808796aca366575b2740fa4db8c17356ee603fb98e81e596c47afb8a8750",
+      "quote": "Monthly    $8.49 USD"
+    },
+    {
+      "url": "https://portal.worldbus.ge/store/ssd-vps-in-turkey?currency=1",
+      "date": "2026-11-07",
+      "proved": "the WHMCS portal store prices TR - SSD VPS 01 from USD 8.49 monthly",
+      "capture": "sha256:1462283daad44c1d75596316edf93d9b27a86a4a7dd540031e518b7c5cc6b053",
+      "quote": "TR - SSD VPS 01 Starting from $8.49 USD Monthly"
+    },
+    {
+      "url": "https://portal.worldbus.ge/store/ssd-vps-in-turkey/ssd-vps-01",
+      "date": "2026-11-07",
+      "proved": "the portal order page prints the four billing cycles and no renewal figure",
+      "capture": "sha256:5dfe808796aca366575b2740fa4db8c17356ee603fb98e81e596c47afb8a8750",
+      "quote": "Monthly    $8.49 USD Quarterly    $25.47 USD Semi-Annually    $50.94 USD Annually    $101.88 USD"
+    },
+    {
+      "url": "https://portal.worldbus.ge/store/ssd-vps-in-turkey?currency=1",
+      "date": "2026-11-07",
+      "proved": "the portal store prices TR - SSD VPS 01 from USD 8.49 monthly",
+      "capture": "sha256:1462283daad44c1d75596316edf93d9b27a86a4a7dd540031e518b7c5cc6b053",
+      "quote": "TR - SSD VPS 01 Starting from $8.49 USD Monthly"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "The tracker's cheapest row is a SPECIAL_VPS at USD 8.00 with 2 cores and 51,200 GB a month. The vendor's Turkey and Georgia pages do not show that plan at all: the cheapest VPS the vendor itself lists is USD 8.49 for 1 core and 2 TB. Either the special is sold on a page not read or the tracker's figure is stale; both are recorded and neither is called wrong. Note the discount is displayed as a strike-through, so the USD 16.99 renewal price is what a reader should expect if the promotion ends.",
+  "verified_at": "2026-11-07T14:17:00.739Z",
+  "notes": "The marketing page displays the discount as a strike-through (a higher list price struck beside the current monthly price, read 2026-11-07) and the portal store prices TR - SSD VPS 01 'Starting from' the same monthly figure; no page prints a renewal price, so the struck figure is the pre-promotion list price, not a stated renewal. The tracker's SPECIAL row (a cheaper plan with a far larger quota) still appears on no vendor page read on either date.",
   "extras": {
     "facets": {
       "class": null,
@@ -85,6 +155,8 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "price_on_page": "USD 8.49/month for Turkey VPS SSD (A) (TR - SSD VPS 01)",
+    "renewal_usd": "not published: the portal order page prints the four billing cycles (monthly, quarterly, semi-annually, annually) and no renewal figure"
   }
 }

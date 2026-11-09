@@ -5,7 +5,7 @@
   "url": "https://blog.abv.bg/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Blog states the quota evolution 6 GB -> 10 GB (7 GB mailbox + 3 GB drive), and the live IMAP port did not complete a CAPABILITY handshake. Under threshold regardless.",
+    "stated": "none reachable: Blog states the quota evolution 6 GB -> 10 GB (7 GB mailbox + 3 GB drive), and the live IMAP port did not complete a CAPABILITY handshake. Under threshold regardless.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://blog.abv.bg/",

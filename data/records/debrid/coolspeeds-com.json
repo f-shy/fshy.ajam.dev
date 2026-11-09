@@ -57,7 +57,7 @@
   ],
   "limits_note": "The FAQ says premium traffic is only needed 'when a file host requires a premium account and you do not have one'; your own host accounts can be plugged in instead.",
   "binding": "volume-quota",
-  "binding_note": "At 1 TiB a month the disk plan is irrelevant (100 GB is $34.80/month) but the premium pool is $36.86 per TiB, prepaid in 10 GB steps, and every byte is billed. That purchase, not a rate limit, is what a user meets first. The old documentation page still states '$0.30 per GB'; the live pricing page says $0.36 per 10 GB, and this record keeps the live number.",
+  "binding_note": "At 1 TiB a month the disk plan is irrelevant (100 GB is $34.80/month) but the premium pool is $36.86 per TiB, prepaid in 10 GB steps, and every byte is billed. That purchase, not a rate limit, is what is met first. The old documentation page still states '$0.30 per GB'; the live pricing page says $0.36 per 10 GB, and this record keeps the live number.",
   "identity_cost": {
     "kind": "email",
     "detail": "An account in the cabinet is required to hold a plan and a traffic balance. The signup form itself was not read; email is the minimum such a cabinet implies and is not confirmed.",
@@ -85,7 +85,7 @@
     {
       "url": "https://docs.coolspeeds.com/books/rabota-s-fayloobmennikami/page/skachivanie-faylov-s-fayloobmennikov",
       "date": "2026-10-23",
-      "proved": "the service downloads either through a user's own premium host accounts or through 'premium traffic' bought from external link-unrestricting services"
+      "proved": "the service downloads either through the account's own premium host accounts or through 'premium traffic' bought from external link-unrestricting services"
     }
   ],
   "verdict": "qualifies-with-caveat",

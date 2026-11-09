@@ -5,7 +5,7 @@
   "url": "https://waterservices.usgs.gov/nwis/iv/?format=json&sites=01646500&parameterCd=00060",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Both are read-only public data services (verified live: waterservices.usgs.gov returns real JSON). NOAA's NCEI 'data' endpoints 301-redirect to AWS Open Data buckets. No user deposit, so…",
+    "stated": "none reachable: Both are read-only public data services (verified live: waterservices.usgs.gov returns real JSON). NOAA's NCEI 'data' endpoints 301-redirect to AWS Open Data buckets. No user deposit, so…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://waterservices.usgs.gov/nwis/iv/?format=json&sites=01646500&parameterCd=00060",

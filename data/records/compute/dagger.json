@@ -51,7 +51,7 @@
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
-  "confidence_note": "the site was read on 2026-10-22 and describes a portable pipeline engine that a user can run locally or in the vendor's cloud. It publishes no plan or price, so the free half is the software rather than capacity",
+  "confidence_note": "the site was read on 2026-10-22 and describes a portable pipeline engine that runs locally or in the vendor's cloud. It publishes no plan or price, so the free half is the software rather than capacity",
   "evidence": [
     {
       "url": "https://dagger.io",

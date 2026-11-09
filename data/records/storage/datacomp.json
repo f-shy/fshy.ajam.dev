@@ -5,7 +5,7 @@
   "url": "https://www.datacomp.ai/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "A benchmark definition, not a data host: 'the models are fixed and the challenge is to find the best possible data'. The pools (DataComp-1B CLIP pool, LM pool) live on Hugging Face. No…",
+    "stated": "none reachable: A benchmark definition, not a data host: 'the models are fixed and the challenge is to find the best possible data'. The pools (DataComp-1B CLIP pool, LM pool) live on Hugging Face. No…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.datacomp.ai/",

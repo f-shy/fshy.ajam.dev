@@ -69,10 +69,31 @@
       "url": "https://portal.cloudnium.net/index.php?rp=/store",
       "date": "2026-10-22",
       "proved": "the storefront lists categories 'Dallas, TX. - KVM VPS', 'Dallas IPV6 VPS', 'Buffalo, NY IPV6 VPS', 'Seattle IPV6 VPS', 'Los Angeles IPV6 VPS' and others, and prints no plan price on the index"
+    },
+    {
+      "url": "https://portal.cloudnium.net/cart/dallas-ipv6-vps/",
+      "date": "2026-11-07",
+      "proved": "the cart prices IPv6-1 at USD 1.50 a month, recurring",
+      "capture": "sha256:6ba42775025fc22b08304dd2bf61f3758ec53d98c8499ba863e0a2c817168b6f",
+      "quote": "$1.50 USD"
+    },
+    {
+      "url": "https://portal.cloudnium.net/cart/dallas-ipv6-vps/",
+      "date": "2026-11-07",
+      "proved": "the vendor's own cart prices IPv6-1 (1 vCPU, 512 MB RAM, 10 GB) at USD 1.50 a month recurring",
+      "capture": "sha256:6ba42775025fc22b08304dd2bf61f3758ec53d98c8499ba863e0a2c817168b6f",
+      "quote": "$1.50 USD"
+    },
+    {
+      "url": "https://portal.cloudnium.net/cart/dallas-ipv6-vps/",
+      "date": "2026-11-07",
+      "proved": "the page prints the list price and no renewal sentence",
+      "capture": "sha256:6ba42775025fc22b08304dd2bf61f3758ec53d98c8499ba863e0a2c817168b6f",
+      "quote": "$1.50 USD"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T06:08:28.415Z",
   "notes": "Confidence stays reported. Walls hit: https://cloudnium.net/ and https://cloudnium.net/hosting/vps both returned 200 with marketing text and no plan table; the store paths https://portal.cloudnium.net/index.php?rp=/store/vps, ?rp=/store/dallas-ipv6-vps and ?rp=/store/dallas-ipv6-vps/ each returned the same 85-line storefront shell with no prices, so the price list sits behind a category selection that did not resolve to a priced page.",
   "extras": {
     "facets": {
@@ -85,6 +106,11 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "monthly_usd": 1.5,
+    "annual_usd": "not published: the cart prints a monthly cycle only",
+    "billing_term": "monthly",
+    "in_stock": true,
+    "renewal_usd": "not published: no page read prints a renewal or month-13 sentence"
   }
 }

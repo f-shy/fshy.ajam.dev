@@ -40,13 +40,13 @@
   "limits": [
     {
       "kind": "write-gated",
-      "value": "The application form fails first, then KYC: withdrawal requires identity verification run through ComPilot and Sumsub, which is a real-name check a user cannot complete.",
+      "value": "The application form fails first, then KYC: withdrawal requires identity verification run through ComPilot and Sumsub, which is a real-name check that a registrant without verified identity cannot complete.",
       "source": "https://dappatlas.com/projects/aethir/"
     }
   ],
-  "limits_note": "The application form fails first, then KYC: withdrawal requires identity verification run through ComPilot and Sumsub, which is a real-name check a user cannot complete.",
+  "limits_note": "The application form fails first, then KYC: withdrawal requires identity verification run through ComPilot and Sumsub, which is a real-name check that a registrant without verified identity cannot complete.",
   "binding": "write-gated",
-  "binding_note": "The application form fails first, then KYC: withdrawal requires identity verification run through ComPilot and Sumsub, which is a real-name check a user cannot complete.",
+  "binding_note": "The application form fails first, then KYC: withdrawal requires identity verification run through ComPilot and Sumsub, which is a real-name check that a registrant without verified identity cannot complete.",
   "identity_cost": {
     "kind": "national-id",
     "detail": "access runs through the Cloud Customer Application Form plus prepaid ATH, so there is no self-service signup, and a real-name KYC check is a second gate that attaches to moving funds rather than to the form: 'KYC is required before claiming or withdrawing ATH from Aethir products', run through ComPilot and Sumsub. No card, hold, debit or prepaid term is stated, and whether the application form itself asks for an email, a phone or a document is not stated.",

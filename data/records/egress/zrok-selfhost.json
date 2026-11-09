@@ -62,7 +62,7 @@
     "stale_after_days": 180,
     "bytes_transit": "self-hosted",
     "transit_note": "the software runs on the operator's host and the bytes transit that host's NIC",
-    "hosting_requirement": "a rented or free compute service"
+    "hosting_requirement": "a rented or free compute service; no local machine is assumed"
   },
   "binding": "volume-quota",
   "interface_detail": "zrok share public against your own controller",

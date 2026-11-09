@@ -5,7 +5,7 @@
   "url": "https://vpspricetracker.com/provider/George_DC/vps",
   "category": "cloud VM",
   "free_tier": {
-    "stated": "The tracker lists USD 10.99 per year, shown as USD 0.92 a month on a yearly term, for 2 Intel cores (shared), 4,000 MB RAM, 40 GB NVMe, 2,000 GB a month on a 1 Gbps port in the U.S.A. That plan is not on the vendor's own pages read the same day. The vendor's cheap-VPS page prices GeorgeStarter at USD 4.60 per month, or USD 3.83 a month with annual payment: 2 vCPU, 4 GB DDR4, 80 GB NVMe, bandwidth stated as unmetered, 1 Gbps port, 1 IPv4 plus a /64 IPv6, KVM, Las Vegas. Its Dallas EPYC 7443P line starts at GeorgeLite at USD 6.60 per month (2 vCPU, 4 GB, 80 GB).",
+    "stated": "The vendor's cheap-VPS page (2026-11-07) lists only the Dallas EPYC line: GeorgeLite USD 6.60 per month, or USD 5.50 a month with annual payment (2 vCPU, 4 GB DDR4, 80 GB NVMe, unmetered bandwidth, 1 Gbps port, 1 IPv4 plus a /64 IPv6, KVM); GeorgePro USD 13.20 per month or USD 10.33 with annual; GeorgeFlex USD 24.00 per month or USD 20.00 with annual. The GeorgeStarter Las Vegas plan and the tracker's yearly row, both read 2026-10-22, are not re-confirmed by today's page: GeorgeStarter is no longer listed, and the tracker row stays unverified at the vendor.",
     "unit": "GiB",
     "metered_on": "wall-clock",
     "source_url": "https://vpspricetracker.com/provider/George_DC/vps",
@@ -69,10 +69,80 @@
       "url": "https://www.georgedatacenter.com/promo.php",
       "date": "2026-10-22",
       "proved": "the promotions page is headed 'Exclusive Yearly Promotions' with a countdown at zero, and its first listing is a 4 vCPU / 8GB DDR3 / 3TB HDD Las Vegas plan at '$10.00 / mon' with 'Only 1 units left'"
+    },
+    {
+      "url": "https://www.georgedatacenter.com/cheapvps.php",
+      "date": "2026-11-07",
+      "proved": "today's cheap-VPS page prices GeorgeLite at USD 6.60 monthly and no longer lists GeorgeStarter",
+      "capture": "sha256:b8567a8eadeac9136c0c350309646b67397578c3a1b6710af5a2723b6a2be5b7",
+      "quote": "$6.60 /monthly"
+    },
+    {
+      "url": "https://www.georgedatacenter.com/cheapvps.php",
+      "date": "2026-11-07",
+      "proved": "the GeorgeLite card prices USD 6.60 a month",
+      "capture": "sha256:b8567a8eadeac9136c0c350309646b67397578c3a1b6710af5a2723b6a2be5b7",
+      "quote": "$6.60 /monthly"
+    },
+    {
+      "url": "https://www.georgedatacenter.com/cheapvps.php",
+      "date": "2026-11-07",
+      "proved": "the GeorgeLite card prices the annual term at USD 5.50 a month",
+      "capture": "sha256:b8567a8eadeac9136c0c350309646b67397578c3a1b6710af5a2723b6a2be5b7",
+      "quote": "or $5.50/mo with annual payment"
+    },
+    {
+      "url": "https://www.georgedatacenter.com/cheapvps.php",
+      "date": "2026-11-07",
+      "proved": "the page's order lines state no contract and print no renewal figure",
+      "capture": "sha256:b8567a8eadeac9136c0c350309646b67397578c3a1b6710af5a2723b6a2be5b7",
+      "quote": "No contract required, cancel any time"
+    },
+    {
+      "url": "https://www.georgedatacenter.com/cheapvps.php",
+      "date": "2026-11-07",
+      "proved": "the card states the two billing terms",
+      "capture": "sha256:b8567a8eadeac9136c0c350309646b67397578c3a1b6710af5a2723b6a2be5b7",
+      "quote": "or $5.50/mo with annual payment"
+    },
+    {
+      "url": "https://desk.georgedatacenter.com/store/dallas-amd-7443p/georgelite",
+      "date": "2026-11-07",
+      "proved": "the vendor's own store suspends orders for GeorgeLite",
+      "capture": "sha256:4ad5255b0e31f250814d261af3f010036dfa968b102f582cb2b28b1ab3c41bb8",
+      "quote": "We are currently out of stock on this item so orders for it have been suspended until more stock is available"
+    },
+    {
+      "url": "https://www.georgedatacenter.com/cheapvps.php",
+      "date": "2026-11-07",
+      "proved": "the cheap-VPS page's Order Now button for GeorgeLite links this store page",
+      "capture": "sha256:b8567a8eadeac9136c0c350309646b67397578c3a1b6710af5a2723b6a2be5b7",
+      "quote": "[Order Now](https://desk.georgedatacenter.com/store/dallas-amd-7443p/georgelite)"
+    },
+    {
+      "url": "probe:https://desk.georgedatacenter.com/store/dallas-amd-7443p/georgepro",
+      "date": "2026-11-07",
+      "proved": "the GeorgePro cart probe found the out-of-stock marker and no price, matching the GeorgeLite probe",
+      "capture": "sha256:63292032e02a1592824bddbea06d1f52e39ff8254f55c8aa739473b0642268e5",
+      "quote": "\"stock\": [\"out of stock\"]"
+    },
+    {
+      "url": "probe:https://desk.georgedatacenter.com/store/dallas-amd-7443p/georgelite",
+      "date": "2026-11-07",
+      "proved": "the session-warmed GeorgeLite cart resolves but carries no price string, only the out-of-stock marker",
+      "capture": "sha256:02cb0ea243f3afb582bff038e6def341f0f0fd36e6f1505fad11fe09e4b8d5d3",
+      "quote": "\"verdict\": \"no-price\""
+    },
+    {
+      "url": "https://www.georgedatacenter.com/cheapvps.php",
+      "date": "2026-11-07",
+      "proved": "the Dallas line's entry card still prices USD 6.60 monthly, and the page now also prints annual rates",
+      "capture": "sha256:b8567a8eadeac9136c0c350309646b67397578c3a1b6710af5a2723b6a2be5b7",
+      "quote": "$6.60 /monthly"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T11:15:33.098Z",
   "notes": "The tracker's yearly plan was not found on the cheap-VPS page or on the promotions page, both read the same day, so the headline figure is reported and the vendor's own prices are carried beside it.",
   "extras": {
     "facets": {
@@ -85,6 +155,13 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "monthly_usd": 6.6,
+    "annual_usd": 66.0,
+    "renewal_usd": "not published: the plan cards print no renewal price and the carts price nothing (out of stock)",
+    "term": "monthly USD 6.60, or annual at USD 5.50/mo (USD 66.00 a year) as the card states; the cart prices nothing because the product is out of stock",
+    "in_stock": "no: the GeorgeLite and GeorgePro order pages answer the WHMCS out-of-stock page and price nothing",
+    "cart_url": "https://desk.georgedatacenter.com/store/dallas-amd-7443p/georgelite",
+    "cart_note": "the WHMCS store answers 200 with an 'Out of Stock' page for GeorgeLite and GeorgePro alike and prices nothing; the session-warmed cart probes found no price string in either body"
   }
 }

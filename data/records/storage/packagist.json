@@ -5,7 +5,7 @@
   "url": "https://packagist.org/about",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "It is an index, not a store. /about states packages are described by composer.json in 'your package's git/svn/.. repository' — Packagist hosts metadata only and dist URLs point back at…",
+    "stated": "none reachable: It is an index, not a store. /about states packages are described by composer.json in 'your package's git/svn/.. repository' — Packagist hosts metadata only and dist URLs point back at…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://packagist.org/about",

@@ -95,7 +95,7 @@
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-11-04T06:52:57.443Z",
   "price_per_tb_month": "USD 0",
-  "notes": "Chooses no number at all on the public pages, which is itself the finding: the whole commercial surface is the console. Listed as a candidate for a user to test with one throwaway account rather than dismissed.",
+  "notes": "Chooses no number at all on the public pages, which is itself the finding: the whole commercial surface is the console. Listed as a candidate to test with one throwaway account rather than dismissed.",
   "extras": {
     "wg_path": "inside-udp",
     "wg_detail": "The site lists TCP / UDP / HTTP / HTTPS / Websocket / P2P as the protocol stack, so a WG datagram can ride a UDP tunnel. No WG config is issued.",

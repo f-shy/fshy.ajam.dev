@@ -91,7 +91,7 @@
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "notes": "The oldest OpenSSH in this set and the longest retention clock. 1 GB is not storage for a user, but it is a stable shell with a cron. The tier moved from T1 to T2 on review because T1 means no archival and this row archives at five years.",
+  "notes": "The oldest OpenSSH in this set and the longest retention clock. 1 GB is not storage, but it is a stable shell with a cron. The tier moved from T1 to T2 on review because T1 means no archival and this row archives at five years.",
   "extras": {
     "shape": {
       "vcpu": null,

@@ -5,7 +5,7 @@
   "url": "https://www.mail-archive.com/modules@perl.org/msg53837.html",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "No published quota, but the whole of CPAN was only 29.0 GB in 2021 and PAUSE has publicly run out of disk. A 2 MB distribution was rejected with 413 'Request Entity Too Large' in a public…",
+    "stated": "none reachable: No published quota, but the whole of CPAN was only 29.0 GB in 2021 and PAUSE has publicly run out of disk. A 2 MB distribution was rejected with 413 'Request Entity Too Large' in a public…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.mail-archive.com/modules@perl.org/msg53837.html",

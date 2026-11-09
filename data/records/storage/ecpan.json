@@ -5,7 +5,7 @@
   "url": "https://www.ecpan.cn/statics/information/service_contract/index.html",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Listed by netdisk-fast-download and qaiu's parser as a resolvable drive (`ec`), and it does accept share links, but the product is enterprise SaaS with a trial, not a consumer free tier…",
+    "stated": "none reachable: Listed by netdisk-fast-download and qaiu's parser as a resolvable drive (`ec`), and it does accept share links, but the product is enterprise SaaS with a trial, not a consumer free tier…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.ecpan.cn/statics/information/service_contract/index.html",

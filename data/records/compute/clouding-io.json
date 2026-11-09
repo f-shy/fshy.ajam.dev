@@ -83,10 +83,73 @@
       "proved": "a EUR 5 balance gift is added at signup on the same form",
       "capture": "sha256:360503e39f2d1ba7b04e1305198aac244bce6028fb86b869474fe2891286def0",
       "quote": "Start with a 5€ gift to your balance upon signup."
+    },
+    {
+      "url": "https://clouding.io/",
+      "date": "2026-11-07",
+      "proved": "the vendor's homepage prices the smallest cloud server at EUR 0.004 an hour capped at EUR 3 a month",
+      "capture": "sha256:a8d868afa5d74abca09b781bc05c1b6d85043f8a0c17e8a30c5b7e1b3ba0d9a5",
+      "quote": "0.004"
+    },
+    {
+      "url": "https://clouding.io/",
+      "date": "2026-11-07",
+      "proved": "the homepage still prices the smallest cloud server at EUR 0.004 an hour capped at EUR 3 a month",
+      "capture": "sha256:a8d868afa5d74abca09b781bc05c1b6d85043f8a0c17e8a30c5b7e1b3ba0d9a5",
+      "quote": "0.004"
+    },
+    {
+      "url": "https://portal.clouding.io/register?lang=en",
+      "date": "2026-11-02",
+      "proved": "the portal's registration form asks for an email and a password before any configurator is reachable",
+      "capture": "sha256:360503e39f2d1ba7b04e1305198aac244bce6028fb86b869474fe2891286def0",
+      "quote": "Email\n\nPlease fill this input\n\nPassword\n\nPlease fill this input"
+    },
+    {
+      "url": "https://clouding.io/",
+      "date": "2026-11-07",
+      "proved": "the page prints the list price and no renewal sentence",
+      "capture": "sha256:a8d868afa5d74abca09b781bc05c1b6d85043f8a0c17e8a30c5b7e1b3ba0d9a5",
+      "quote": "0.004"
+    },
+    {
+      "url": "https://clouding.io/",
+      "date": "2026-11-07",
+      "proved": "the page prices the smallest server hourly with a monthly cap and prints no annual term",
+      "capture": "sha256:6838359f9a05ad8c77cdec463988c9f1583ff72d08db4dae86122b9e2ef4c1c2",
+      "quote": "0.004€\n\n/hora\n\n\n(máx.\n3€\n/mes)"
+    },
+    {
+      "url": "https://clouding.io/",
+      "date": "2026-11-07",
+      "proved": "the page still prices the smallest server at EUR 0.004 an hour capped at EUR 3 a month",
+      "capture": "sha256:6838359f9a05ad8c77cdec463988c9f1583ff72d08db4dae86122b9e2ef4c1c2",
+      "quote": "0.004€\n\n/hora\n\n\n(máx.\n3€\n/mes)"
+    },
+    {
+      "url": "https://clouding.io/",
+      "date": "2026-11-07",
+      "proved": "the public configurator renders the entry shape's total as 3.00 EUR a month from RAM 1.25 plus Procesador 1.25 plus SSD NVMe 0.50",
+      "capture": "sha256:6838359f9a05ad8c77cdec463988c9f1583ff72d08db4dae86122b9e2ef4c1c2",
+      "quote": "| 3.00€<br> /mes<br> <br> /hora |"
+    },
+    {
+      "url": "https://clouding.io/",
+      "date": "2026-11-07",
+      "proved": "the configurator states 4 TB of monthly transfer included",
+      "capture": "sha256:6838359f9a05ad8c77cdec463988c9f1583ff72d08db4dae86122b9e2ef4c1c2",
+      "quote": "4 TB mensuales de transferencia incluidos."
+    },
+    {
+      "url": "https://clouding.io/",
+      "date": "2026-11-07",
+      "proved": "the page still advertises EUR 5 of free balance at signup",
+      "capture": "sha256:2bed048e8df298c468252cb2d11cac1cda21636a957c0d44427ec705761cb495",
+      "quote": "¡5€ de saldo GRATIS al registrarte!"
     }
   ],
   "verdict": "trial-only",
-  "verified_at": "2026-11-02T02:17:33.709Z",
+  "verified_at": "2026-11-07T11:15:30.076Z",
   "notes": "The vendor page states 4 TB of monthly transfer where the tracker states 2,560 GB, so the vendor figure is recorded and the tracked figure stays in evidence. The EUR 5 signup credit is a one-off balance, not a recurring free tier, which is why the verdict is trial-only rather than paid-only. Company details on the page: Cloudi NextGen S.L., Barcelona.",
   "extras": {
     "facets": {
@@ -99,6 +162,12 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "monthly_eur": 3.0,
+    "billing_term": "hourly, capped at EUR 3 per month",
+    "in_stock": "unverified: behind a sign-up; the configurator that prices the plan lives at portal.clouding.io and needs an account",
+    "cart_note": "unverified: behind a sign-up; the hourly configurator at portal.clouding.io prices the plan only for a signed-in account",
+    "renewal_eur": "not published: no page read prints a renewal or month-13 sentence",
+    "annual_eur": "not published: billing is hourly with a monthly cap and no page read prints an annual term or figure"
   }
 }

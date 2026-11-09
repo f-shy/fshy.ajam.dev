@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "Because the deliverable is engineers rather than credits, 100E does not compose with a cloud free tier in the usual way: the compute sits inside AI Singapore's own environment, so the only thing a user takes away is the model and the code, not a billing account.",
+  "chaining": "Because the deliverable is engineers rather than credits, 100E does not compose with a cloud free tier in the usual way: the compute sits inside AI Singapore's own environment, so the only thing taken away is the model and the code, not a billing account.",
   "limits": [
     {
       "kind": "write-gated",

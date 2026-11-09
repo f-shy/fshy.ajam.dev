@@ -6,7 +6,7 @@
   "category": "checkout / payment processor used by Brazilian and Spanish-language resellers",
   "tier": "checkout",
   "free_tier": {
-    "stated": "Not a service a user buys. Hotmart charges the seller; the buyer pays the product price, with 'taxas especificas que podem ser aplicadas a compras internacionais e de produtos digitais'.",
+    "stated": "Not a service bought from the vendor. Hotmart charges the seller; the buyer pays the product price, with 'taxas especificas que podem ser aplicadas a compras internacionais e de produtos digitais'.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://suportehotmart.zendesk.com/hc/pt-br/articles/25648853025037-Quais-s%C3%A3o-os-m%C3%A9todos-de-pagamento-dispon%C3%ADveis-para-comprar-na-Hotmart",

@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "The 40% is a discount on an empanelled provider's list price, so it composes with the provider's own trial rather than replacing it: the same GPU appears at E2E Networks, NxtGen and Yotta, and a user can price the undiscounted lane directly with those vendors while the subsidy is unavailable.",
+  "chaining": "The 40% is a discount on an empanelled provider's list price, so it composes with the provider's own trial rather than replacing it: the same GPU appears at E2E Networks, NxtGen and Yotta, and the undiscounted lane can be priced directly with those vendors while the subsidy is unavailable.",
   "limits": [
     {
       "kind": "write-gated",

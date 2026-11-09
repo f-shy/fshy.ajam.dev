@@ -37,7 +37,7 @@
   ],
   "interface_detail": "web admin plus the desktop client",
   "tooling": "defguard server, defguard desktop client, standard WireGuard configs",
-  "chaining": "a control plane for a user's own WireGuard mesh; it composes with a public ingress on the same VPS",
+  "chaining": "a control plane for a private WireGuard mesh; it composes with a public ingress on the same VPS",
   "limits": [
     {
       "kind": "request-rate",

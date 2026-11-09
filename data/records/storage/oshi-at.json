@@ -5,7 +5,7 @@
   "url": "https://oshi.at/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Domain has been dropped and is now on a domain auction ('Bid on the domain oshi.at now / nicsell'). Also had an untrusted TLS chain (SEC_E_UNTRUSTED_ROOT). POST returns the auction page.",
+    "stated": "none reachable: Domain has been dropped and is now on a domain auction ('Bid on the domain oshi.at now / nicsell'). Also had an untrusted TLS chain (SEC_E_UNTRUSTED_ROOT). POST returns the auction page.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://oshi.at/",

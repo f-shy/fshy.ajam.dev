@@ -31,7 +31,7 @@
   ],
   "interface_detail": "s3",
   "tooling": "S3 API; 'Seamless integration with CDN77 delivery platform'. Growth plan is $990/mo for 250 TB traffic with $3.96/TB overage.",
-  "chaining": "The free-to-own-CDN egress is the same architectural trick as Bunny and Gcore: keep the origin on CDN77 and never pay egress, because the CDN absorbs it.",
+  "chaining": "The free-to-own-CDN egress is the same architectural trick as Bunny and Gcore: keep the origin on CDN77 and never pay egress, because the CDN absorbs it. At $20/TB at rest it is 2x Telnyx and 3x Hetzner, so it only wins if you need 250 TB/month of delivery — which is.",
   "limits": [],
   "limits_note": "per-object-cap: none published. Storage at $0.03/10k requests after 1M free. Request pricing exists, unlike Bunny/CacheFly.",
   "identity_cost": {

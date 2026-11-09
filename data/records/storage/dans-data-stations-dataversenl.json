@@ -5,7 +5,7 @@
   "url": "https://dans.knaw.nl/en/deposit/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Both sit behind Anubis proof-of-work ('Beveiligde verbinding wordt gecontroleerd...'), and DANS deposit is scope- and institution-oriented (archaeology, SSH, life sciences) with no open…",
+    "stated": "none reachable: Both sit behind Anubis proof-of-work ('Beveiligde verbinding wordt gecontroleerd...'), and DANS deposit is scope- and institution-oriented (archaeology, SSH, life sciences) with no open…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://dans.knaw.nl/en/deposit/",

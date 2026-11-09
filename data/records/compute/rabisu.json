@@ -5,7 +5,7 @@
   "url": "https://www.rabisu.com/vps",
   "category": "cloud VM",
   "free_tier": {
-    "stated": "Aydin VPS x4 at USD 2.99/month on monthly billing, shown as 'Starting at: USD 2.39/mo' with 20 percent off on annual billing: 2 Ryzen cores, 4 GB RAM, 40 GB NVMe, dedicated IPv4, free backup with 2 backup points, quoted. The vendor advertises 'unlimited traffic' and 'Fair Usage Traffic'; the tracker row states 10240 GB/month on a 1 Gbps port in Istanbul or Sofia. Aydin VPS x8 is USD 5.99/month with 4 cores, 8 GB and 60 GB.",
+    "stated": "Aydin VPS x4 at USD 2.99 a month on the cart's monthly term, USD 2.69 on the quarterly term, USD 2.54 on the semi-annual term and USD 2.39 on the annual term (the vendor page shows the same 20 percent off annual): 2 Ryzen cores, 4 GB RAM, 40 GB NVMe, dedicated IPv4, free backup with 2 backup points, quoted. The vendor advertises 'unlimited traffic' and 'Fair Usage Traffic'; the tracker row states 10240 GB/month on a 1 Gbps port in Istanbul or Sofia; the cart's region selector prices Istanbul with no surcharge and twelve regions extra (Karachi +USD 11.98; London, Falkenstein, Dublin, New York, Los Angeles, Miami, Dallas and Beauharnois +USD 3.20; Sydney, Singapore and Hong Kong +USD 4.64) and lists no Sofia. Aydin VPS x8 is USD 5.99/month with 4 cores, 8 GB and 60 GB. The cart shows no out-of-stock badge. Renewal: not published on any page.",
     "unit": "GiB",
     "metered_on": "wall-clock",
     "source_url": "https://www.rabisu.com/vps",
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "instant setup, dedicated IPv4, free backup with 2 backup points, 24/7 support; no API was stated on the page read",
-  "chaining": "USD 2.99 for 2 Ryzen cores, 4 GB and 40 GB of NVMe is the best RAM per dollar and the cheapest box here that can hold a Docker Compose stack with a database. At 10240 GB a month it is a worker rather than a serving host, and its two listed countries, Turkey and Bulgaria, give a crawl an egress geography none of the other providers offers.",
+  "chaining": "USD 2.99 a month, USD 2.39 on the annual term, for 2 Ryzen cores, 4 GB and 40 GB of NVMe is the best RAM per dollar here and the cheapest box here that can hold a Docker Compose stack with a database. At 10240 GB a month it is a worker rather than a serving host, and the cart region list, Istanbul with no surcharge plus twelve surcharged regions, gives a crawl an egress geography none of the other providers here offers at this price.",
   "limits": [
     {
       "kind": "volume-quota",
@@ -69,10 +69,45 @@
       "url": "https://vpspricetracker.com/provider/Rabisu/vps",
       "date": "2026-10-22",
       "proved": "cheapest row: '$2.99 / month', '2 Intel Cores (shared)', '4,096 MB RAM', '40 GB NVMe', '10,240 GB/month bandwidth', '1 Gbps port speed', 'IPv4', Istanbul Turkey; the same plan is also listed for Sofia Bulgaria"
+    },
+    {
+      "url": "https://www.rabisu.com/panel/store/vps",
+      "date": "2026-11-07",
+      "proved": "the WHMCS store lists Aydın VPS x4 starting at USD 2.99 monthly, the plan and price free_tier.stated records",
+      "capture": "sha256:47eedcdcefa36a53e81489ef2c6ec5efdd3e61a38f966774b39d04b311863a48",
+      "quote": "Aydın VPS x4\n\nStarting from\n\n$2.99\n\nMonthly"
+    },
+    {
+      "url": "https://www.rabisu.com/panel/store/vps/aydin-vps-x4",
+      "date": "2026-11-07",
+      "proved": "the Aydin VPS x4 cart prices the monthly term at 2.99 USD, quarterly 2.69, semi-annual 2.54 and annual 2.39 per month, with Istanbul at no surcharge and no out-of-stock badge",
+      "capture": "sha256:5ee764cb446a99460ab47aa9a7d590a2ea6466ba6fdb88c35b3755b543666e78",
+      "quote": "Annually <br> $2.39/mo"
+    },
+    {
+      "url": "https://www.rabisu.com/panel/store/vps/aydin-vps-x4",
+      "date": "2026-11-07",
+      "proved": "the cart's region selector prices Istanbul with no surcharge and other regions at surcharges",
+      "capture": "sha256:5ee764cb446a99460ab47aa9a7d590a2ea6466ba6fdb88c35b3755b543666e78",
+      "quote": "Türkiye - Istanbul Pakistan - Karachi $11.98 United Kingdom - London $3.20"
+    },
+    {
+      "url": "https://vpspricetracker.com/provider/Rabisu/vps",
+      "date": "2026-11-07",
+      "proved": "the tracker's Rabisu page lists the 2.99 USD plan at 10,240 GB/month on a 1 Gbps port in Istanbul and Sofia",
+      "capture": "sha256:2bc27bde266a326304dbc8b7108719dc77df6fe53697025dccc25bcdb6660551",
+      "quote": "bandwidth 10,240 GB/month"
+    },
+    {
+      "url": "https://www.rabisu.com/panel/store/vps/aydin-vps-x4",
+      "date": "2026-11-07",
+      "proved": "the Aydin VPS x4 cart prices the annual term at 2.39 USD a month",
+      "capture": "sha256:5ee764cb446a99460ab47aa9a7d590a2ea6466ba6fdb88c35b3755b543666e78",
+      "quote": "Annually <br> $2.39/mo"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T14:16:58.955Z",
   "notes": "The tracker labels the cores 'Intel' while the vendor names Ryzen and the plan is called 'Aydin VPS x4 Ryzen CPU'. Traffic is the open question: 'unlimited' on the vendor page and 10240 GB on the tracker. The operator is 2E TELEKOMUNIKASYON LTD. The plan name carries a Turkish dotless i and is transliterated to 'Aydin' here because this record is ASCII-only.",
   "extras": {
     "facets": {
@@ -85,6 +120,7 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "price_on_page": "USD 2.99/month for Aydin VPS x4; USD 2.39/month on the annual term; renewal: not published"
   }
 }

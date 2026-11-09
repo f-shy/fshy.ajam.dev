@@ -71,7 +71,7 @@
   "verdict": "paid-only",
   "verified_at": "2026-10-23T00:00:00.000Z",
   "price_per_tb_month": "unpublished (sales contract)",
-  "notes": "The useful sentence on this page is the one that names a user's exact situation: 'less than a routable IPv4 /24 ... or cloud-hosting provider'. IP Protect is therefore the only Akamai shape that could apply, and it is contracted. techdocs.akamai.com/ip-protect exists as a configuration API but the welcome page 404s; the API index was reachable and describes mapped IP addresses.",
+  "notes": "The useful sentence on this page is the one that names the exact situation: 'less than a routable IPv4 /24 ... or cloud-hosting provider'. IP Protect is therefore the only Akamai shape that could apply, and it is contracted. techdocs.akamai.com/ip-protect exists as a configuration API but the welcome page 404s; the API index was reachable and describes mapped IP addresses.",
   "extras": {
     "wg_path": "inside-udp",
     "wg_detail": "Prolexic IP Protect routes symmetric traffic through Akamai scrubbing centres by IP anycast, which carries any UDP listener on that address; the routed option uses GRE instead.",

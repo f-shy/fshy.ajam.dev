@@ -5,7 +5,7 @@
   "url": "https://www.opencadc.org/canfar/edge/platform/storage/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Storage is per-deployment and per-project and the docs explicitly defer the number: 'The exact mounts, quotas, and retention policy belong to the deployment and your project' and 'ask…",
+    "stated": "none reachable: Storage is per-deployment and per-project and the docs explicitly defer the number: 'The exact mounts, quotas, and retention policy belong to the deployment and your project' and 'ask…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.opencadc.org/canfar/edge/platform/storage/",

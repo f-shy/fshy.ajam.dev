@@ -5,7 +5,7 @@
   "url": "https://www.bytescale.com/pricing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "No free tier at all any more — cheapest plan is $7/mo Basic with 10 GB storage and 10 GB download bandwidth; over-quota returns HTTP 400",
+    "stated": "none reachable: No free tier at all any more — cheapest plan is $7/mo Basic with 10 GB storage and 10 GB download bandwidth; over-quota returns HTTP 400",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.bytescale.com/pricing",

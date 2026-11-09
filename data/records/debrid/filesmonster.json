@@ -38,7 +38,7 @@
   ],
   "interface_detail": "Download managers and multi-threaded clients are explicitly supported, which is the practical programme path: the host serves plain HTTP links to an authorised client. 'Download managers supported' and 'Multi-thread downloads are supported' appear in the premium rules.",
   "tooling": "JDownloader class clients. No first-party API is advertised; the file host model is link-in, file-out.",
-  "chaining": "A file host that a debrid broker or a link site points at, not a service that chains outward. For a user it is a price reference for the bucket model: 15 days buys 105 GB, which is the same shape as EX-LOAD's daily traffic but sold as a block.",
+  "chaining": "A file host that a debrid broker or a link site points at, not a service that chains outward. Here it is a price reference for the bucket model: 15 days buys 105 GB, which is the same shape as EX-LOAD's daily traffic but sold as a block.",
   "limits": [
     {
       "kind": "volume-quota",

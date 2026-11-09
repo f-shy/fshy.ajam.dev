@@ -47,7 +47,7 @@
     "source_url": "https://linuxontab.com/"
   },
   "egress": {
-    "terms": "a user's own connection",
+    "terms": "the user's own connection",
     "metered": false,
     "free_allowance": null,
     "price_per_tb": null,

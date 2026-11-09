@@ -5,7 +5,7 @@
   "url": "https://github.com/juicedata/juicefs/issues/345",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "A single JuiceFS volume binds to exactly ONE object-storage endpoint; multi-bucket/multi-provider backend has been an open feature request since 2021-04-23 and is still open with no…",
+    "stated": "none reachable: A single JuiceFS volume binds to exactly ONE object-storage endpoint; multi-bucket/multi-provider backend has been an open feature request since 2021-04-23 and is still open with no…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://github.com/juicedata/juicefs/issues/345",

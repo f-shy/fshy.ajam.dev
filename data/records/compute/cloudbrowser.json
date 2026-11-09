@@ -56,7 +56,7 @@
   "limits_note": "not stated",
   "identity_cost": {
     "kind": "email",
-    "detail": null,
+    "detail": "email: an account needs an email address and authentication ('An email address and authentication information are necessary for an account; payment and usage information are necessary for a paid plan.'). A card is not required for the 7-day trial: the same statement makes payment information necessary for a paid plan, and the trial page states 'Start a 7-day free trial on Basic. No browser to install, no servers to run.'. A phone is not required: the policy's account data is 'your email address, password authentication records, language preferences, account identifiers, API credentials and security events', which names no phone. Country: not published at https://cloudbrowser.ai/privacy-policy.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -86,10 +86,45 @@
       "proved": "browsers are opened over an HTTP API and driven over CDP",
       "capture": "sha256:7145d4284d77d8f8bbbccc5f177efc19de817856ad00fc079cf71c4bd76d5a97",
       "quote": "Open stealth Chrome with one HTTP call, then drive it over CDP with Puppeteer or Playwright."
+    },
+    {
+      "url": "https://cloudbrowser.ai/sdk",
+      "date": "2026-11-04",
+      "proved": "the first step of the documented quickstart is an account",
+      "capture": "sha256:69540af350abe495fc12b77a1ec1f7426d01a829f87e9b448beff8892a3376d4",
+      "quote": "Create an account"
+    },
+    {
+      "url": "https://cloudbrowser.ai/privacy-policy",
+      "date": "2026-11-04",
+      "proved": "the account needs an email and authentication, and payment details only for a paid plan",
+      "capture": "sha256:3153cd6069cbb6ff6d83d7e3e563bfabd8ada91dd44c3da69723a9faedc552c6",
+      "quote": "An email address and authentication information are necessary for an account; payment and usage information are necessary for a paid plan."
+    },
+    {
+      "url": "https://cloudbrowser.ai/privacy-policy",
+      "date": "2026-11-06",
+      "proved": "an email address and authentication are necessary for an account, and payment information only for a paid plan",
+      "capture": "sha256:3153cd6069cbb6ff6d83d7e3e563bfabd8ada91dd44c3da69723a9faedc552c6",
+      "quote": "An email address and authentication information are necessary for an account; payment and usage information are necessary for a paid plan."
+    },
+    {
+      "url": "https://cloudbrowser.ai/sdk",
+      "date": "2026-11-06",
+      "proved": "the trial starts on Basic with nothing installed and no server",
+      "capture": "sha256:69540af350abe495fc12b77a1ec1f7426d01a829f87e9b448beff8892a3376d4",
+      "quote": "Start a 7-day free trial on Basic. No browser to install, no servers to run."
+    },
+    {
+      "url": "https://cloudbrowser.ai/privacy-policy",
+      "date": "2026-11-06",
+      "proved": "the account data the policy lists is an email address and authentication records, with no phone",
+      "capture": "sha256:3153cd6069cbb6ff6d83d7e3e563bfabd8ada91dd44c3da69723a9faedc552c6",
+      "quote": "your email address, password authentication records, language preferences, account identifiers, API credentials and security events"
     }
   ],
   "verdict": "trial-only",
-  "verified_at": "2026-11-04T05:24:24.919Z",
+  "verified_at": "2026-11-06T17:48:23.920Z",
   "price_per_tb_month": null,
   "notes": null,
   "extras": {

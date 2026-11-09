@@ -41,7 +41,7 @@
   "binding_note": "traffic is unlimited and the port is 10 Gbit/s, so the shared CPU is the only published throttle; 2 GB is the real ceiling at this price.",
   "identity_cost": {
     "kind": "card",
-    "detail": "The vendor publishes an Istanbul address and an 0850 support number.",
+    "detail": "the order page was not opened on 2026-10-24, so card acceptance, debit acceptance and any hold are unverified. The vendor publishes an Istanbul address and an 0850 support number.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -62,10 +62,24 @@
       "url": "https://etbis.ticaret.gov.tr/tr/Home/SearchSiteResult?siteId=3d2063e9-7d1c-4ce8-a0dc-ed2a681f690d",
       "date": "2026-10-24",
       "proved": "quoted: 'Isletme Adi: NETLEN INTERNET HIZMETLERI LIMITED SIRKETI' and 'ETBIS'e Kayit Tarihi: 20.09.2023'"
+    },
+    {
+      "url": "https://web.archive.org/web/20260929152621/https://www.netlen.com.tr/vps-sunucu",
+      "date": "2026-11-06",
+      "proved": "the vendor's archived plan card lists VPS - 2 at USD 3.99 a month on a 10 Gbit/s port with unlimited traffic",
+      "capture": "sha256:fab486bda7216406a6bfc236976f30a194bdb759c13e08a3a5709e7543b56184",
+      "quote": "### VPS - 2\n\nIntel® Xeon® Platinum$3.99/Aylıkveya $0.006/saat\n\nCPU1 CoreRAM2GBDİSK25GB SSDPORT10 Gbit/s"
+    },
+    {
+      "url": "https://www.netlen.com.tr/iletisim",
+      "date": "2026-11-06",
+      "proved": "the vendor publishes an Istanbul address",
+      "capture": "sha256:3fbee1481a8f57df2672f05efe76ea0476b2223b1a9fb9373f8e27cf0055c146",
+      "quote": "Atatürk Mh. Ertuğrul Gazi Sk. No: 2E/331 Ataşehir/İstanbul, TÜRKİYE"
     }
   ],
   "verdict": "qualifies",
-  "verified_at": "2026-10-24T03:25:00.000Z",
+  "verified_at": "2026-11-06T19:44:20.937Z",
   "price_per_tb_month": null,
   "notes": "The vendor shows both currencies; 197 TRY and USD 3.99 are the same price at the rate used here, which is a useful check that the TRY figure is not a stale cache. Netlen is the only host that publishes a 10 Gbit/s port on a sub-USD-4 plan. Not established: payment rails and any card hold, and whether the 10 Gbit/s is per-VM or a shared uplink.",
   "extras": {

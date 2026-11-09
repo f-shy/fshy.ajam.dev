@@ -20,7 +20,7 @@
     "notes": ""
   },
   "retention": {
-    "stated": "not applicable: the addon list and library live in the Stremio account, not on the client device",
+    "stated": "not applicable: the addon list and library live in the Stremio account, not on the local device",
     "days": null,
     "source_url": "https://blog.stremio.com/using-stremio-web-on-iphone-ipad/",
     "notes": ""
@@ -37,7 +37,7 @@
   ],
   "interface_detail": "A single-page web app (10,759-byte HTML shell titled 'Stremio - Freedom to Stream') that speaks the Stremio addon protocol to whatever manifests the account has installed. PWA-installable in Safari for iOS/iPadOS.",
   "tooling": "runs in the browser. Its missing half is Stremio Service, the local daemon: 'Stremio Web will still not be fully featured without connecting it to Stremio Service ... some missing features include: converting videos to support the browser, torrent streaming, etc'.",
-  "chaining": "The free front end for the whole pipeline: install Torrentio/Comet/MediaFusion/AIOStreams manifest URLs into the account, and a debrid key inside one of them turns Stremio Web into a player with no hardware anywhere.",
+  "chaining": "The free front end for the whole pipeline: install Torrentio/Comet/MediaFusion/AIOStreams manifest URLs into the account, and a debrid key inside one of them turns Stremio Web into a player that needs no local machine.",
   "limits": [
     {
       "kind": "request-rate",

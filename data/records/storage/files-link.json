@@ -5,7 +5,7 @@
   "url": "https://files.link/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Could not be verified at all: TLS handshake fails through both the reader and the fetcher (Cloudflare 525), and the http:// variant 404s. The 'unlimited' claim in the search snippet is…",
+    "stated": "none reachable: Could not be verified at all: TLS handshake fails through both the reader and the fetcher (Cloudflare 525), and the http:// variant 404s. The 'unlimited' claim in the search snippet is…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://files.link/",

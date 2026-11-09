@@ -5,7 +5,7 @@
   "url": "https://aws.amazon.com/sqs/pricing/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "1M requests/month free and 1 MiB max message sound workable, but max retention is 14 days (default 4). It is a buffer, not storage — anything written is gone in two weeks. Free-tier request",
+    "stated": "none reachable: 1M requests/month free and 1 MiB max message sound workable, but max retention is 14 days (default 4). It is a buffer, not storage — anything written is gone in two weeks. Free-tier request",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://aws.amazon.com/sqs/pricing/",

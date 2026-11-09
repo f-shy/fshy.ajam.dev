@@ -5,7 +5,7 @@
   "url": "https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-rubygems-registry",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Documented cap is on metadata, not payload ('maximum uncompressed size of a gem's metadata.gz file must be less than 2 MB'), and gems are a poor container for bulk bytes. No bulk-win over…",
+    "stated": "none reachable: Documented cap is on metadata, not payload ('maximum uncompressed size of a gem's metadata.gz file must be less than 2 MB'), and gems are a poor container for bulk bytes. No bulk-win over…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-rubygems-registry",

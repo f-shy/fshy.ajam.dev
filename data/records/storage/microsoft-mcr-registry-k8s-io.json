@@ -5,7 +5,7 @@
   "url": "https://mcr.microsoft.com/v2/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Anonymous pulls work (MCR returns 200 at /v2/), but both are read-only mirrors of vendor images — no push, no account, no writable namespace.",
+    "stated": "none reachable: Anonymous pulls work (MCR returns 200 at /v2/), but both are read-only mirrors of vendor images — no push, no account, no writable namespace.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://mcr.microsoft.com/v2/",

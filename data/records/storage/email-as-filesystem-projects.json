@@ -5,7 +5,7 @@
   "url": null,
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "All real, all abandoned or trivial, none production-grade. waweber/imapfs (7 stars, last push 2024-03) documents the fatal economics itself: base64 means \"a 33% overhead only 75% of server",
+    "stated": "none reachable: All real, all abandoned or trivial, none production-grade. waweber/imapfs (7 stars, last push 2024-03) documents the fatal economics itself: base64 means \"a 33% overhead (only 75% of server",
     "unit": "none",
     "metered_on": "none",
     "source_url": null,

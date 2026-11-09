@@ -83,5 +83,5 @@
     "priced_per": "file"
   },
   "binding": "request-rate",
-  "binding_note": "Nothing here meters bytes and nothing here has a programmatic rate; one human order buys one file, which is the constraint the vocabulary can name. The constraint that actually excludes a user is identity - a Taobao account needs a +86 number - and the seven-value vocabulary has no kind for it, so it is carried in identity_cost and not here."
+  "binding_note": "Nothing here meters bytes and nothing here has a programmatic rate; one human order buys one file, which is the constraint the vocabulary can name. The constraint that actually excludes it is identity - a Taobao account needs a +86 number - and the seven-value vocabulary has no kind for it, so it is carried in identity_cost and not here."
 }

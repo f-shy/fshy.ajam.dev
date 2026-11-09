@@ -84,6 +84,6 @@
     "volume_tib_month": null,
     "volume_stated": "No transfer allowance and no fair-use figure are published in the announcement, the product explainer or the homepage. The plan is priced per address per year only.",
     "bytes_transit": "yes",
-    "transit_note": "The vendor's gateway carries the address and terminates the tunnel; a user's ISP only sees outbound."
+    "transit_note": "The vendor's gateway carries the address and terminates the tunnel; the local ISP only sees outbound."
   }
 }

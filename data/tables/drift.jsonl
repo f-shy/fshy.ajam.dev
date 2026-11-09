@@ -11,7 +11,6 @@
 {"a":"card","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"compute/alphavps-c2g","subject":"compute/alphavps"}
 {"a":"card","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"compute/buyvm-slice-512","subject":"compute/buyvm"}
 {"a":"card","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"compute/buyvm-slice-512","subject":"compute/buyvm-slice-2048"}
-{"a":"card","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"compute/cheap-host-nat-start-de","subject":"compute/cheap-host-nat-start"}
 {"a":"card","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"compute/dedirock-promo-vps-saver","subject":"compute/dedirock-black-friday"}
 {"a":"card","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"compute/dedirock-promo-vps-saver","subject":"compute/dedirock-cyber-monday"}
 {"a":"card","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"compute/dedirock-promo-vps-saver-ny-bf31","subject":"compute/dedirock-black-friday"}
@@ -58,6 +57,7 @@
 {"a":"email","b":"anonymous","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"data-apis/allratestoday-open","subject":"data-apis/allratestoday"}
 {"a":"email","b":"anonymous","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"data-apis/exchangerate-api-open","subject":"data-apis/exchangerate-api"}
 {"a":"email","b":"anonymous","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/ena-webin","subject":"storage/ena"}
+{"a":"email","b":"any-phone","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"compute/trumvps-global","subject":"compute/trumvps"}
 {"a":"email","b":"any-phone","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"debrid/77file-vip","subject":"debrid/77file-free"}
 {"a":"email","b":"any-phone","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"debrid/telegram-debridmasterbot","subject":"debrid/debridmaster"}
 {"a":"email","b":"card","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"coding-subs/bolt-pro","subject":"coding-subs/bolt-free"}

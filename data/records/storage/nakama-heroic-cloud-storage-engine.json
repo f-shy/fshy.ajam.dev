@@ -5,7 +5,7 @@
   "url": "https://forum.heroiclabs.com/t/storage-max-size-in-megabytes/3459",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Storage objects are jsonb rows in Postgres — 'theoretically store up to 255 megabytes' but Heroic Labs explicitly advises against it ('we don't guarantee it will perform well at scale'). No",
+    "stated": "none reachable: Storage objects are jsonb rows in Postgres — 'theoretically store up to 255 megabytes' but Heroic Labs explicitly advises against it ('we don't guarantee it will perform well at scale'). No",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://forum.heroiclabs.com/t/storage-max-size-in-megabytes/3459",

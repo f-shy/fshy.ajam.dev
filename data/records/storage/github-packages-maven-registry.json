@@ -5,7 +5,7 @@
   "url": "https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "No file-size figure published on the doc page at all, so no quotable ceiling — cannot be reported as verified. Anonymous read denied (probed 401 Basic realm=\"GitHub Package Registry\").",
+    "stated": "none reachable: No file-size figure published on the doc page at all, so no quotable ceiling — cannot be reported as verified. Anonymous read denied (probed 401 Basic realm=\"GitHub Package Registry\").",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry",

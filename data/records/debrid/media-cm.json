@@ -36,8 +36,8 @@
     "unknown"
   ],
   "interface_detail": "The page read describes the player, the upload form and embedding only. No API, FTP or CLI is mentioned on the homepage; the premium page path /premium returns 404, so the paid tier's terms were not read.",
-  "tooling": "Browser upload and an embed code. No API was found, which for a user is a tooling note and not a verdict: the page's own HTTP endpoints would have to be reversed or driven by a browser session.",
-  "chaining": "It pairs with a downloader front end that never touches the bytes.",
+  "tooling": "Browser upload and an embed code. No API was found, which here is a tooling note and not a verdict: the page's own HTTP endpoints would have to be reversed or driven by a browser session.",
+  "chaining": "An egress surface rather than a retrieval one: it takes 500 GB to 1 TB of served video a day off a paid CDN and puts it on a free host that monetises somewhere else. It pairs with a downloader front end that never touches the bytes.",
   "limits": [
     {
       "kind": "per-ip-shaping",

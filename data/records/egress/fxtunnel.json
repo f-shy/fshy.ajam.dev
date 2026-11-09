@@ -58,7 +58,7 @@
     "detail": "The free plan issues 1 access key, which implies an account. The signup form was not read, so the exact identity requirement (email, OAuth, card) is not established.",
     "country": "None"
   },
-  "reliability_note": "Single-vendor service with a Russian billing provider and no published SLA; the plan matrix changed between the English copy and the live page, so entitlement can move under a user.",
+  "reliability_note": "Single-vendor service with a Russian billing provider and no published SLA; the plan matrix changed between the English copy and the live page, so entitlement can move under the account.",
   "confidence": "documented",
   "confidence_note": null,
   "evidence": [
@@ -84,6 +84,6 @@
     "volume_tib_month": null,
     "volume_stated": "Bez limitov na zaprosy i trafik (no limits on requests or traffic) on all plans, and Bez taimauta sessiy (no session timeout).",
     "bytes_transit": "yes",
-    "transit_note": "The vendor edge relays the bytes; the client opens an outbound connection to it."
+    "transit_note": "The vendor edge relays the bytes; an outbound connection is opened to it."
   }
 }

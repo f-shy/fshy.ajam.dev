@@ -50,7 +50,7 @@
   "binding_note": "Nothing meters the bytes, so at 1 TiB/month the limit is the peer's uplink and NAT behaviour, not a vendor counter.",
   "identity_cost": {
     "kind": "anonymous",
-    "detail": "No account, email or card: the connection string is a public key derived from a keypair the client generates.",
+    "detail": "No account, email or card: the connection string is a public key derived from a keypair generated locally.",
     "country": "None"
   },
   "reliability_note": "Depends on public HyperDHT bootstrap nodes; symmetric NAT defeats the holepunch and falls back to TCP, which breaks UDP-only protocols.",
@@ -90,7 +90,7 @@
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-11-04T06:53:00.065Z",
   "price_per_tb_month": "USD 0",
-  "notes": "Not a hosted ingress: a third party cannot connect unless they run holesail with the connection string. It qualifies as free UDP capacity between two machines a user controls, which covers a WireGuard endpoint only if the far side also runs it.",
+  "notes": "Not a hosted ingress: a third party cannot connect unless they run holesail with the connection string. It qualifies as free UDP capacity between two machines under one control, which covers a WireGuard endpoint only if the far side also runs it.",
   "extras": {
     "wg_path": "inside-udp",
     "wg_detail": "The transport after holepunching is UDX, a custom UDP protocol, with a TCP fallback. A WireGuard datagram can ride that path between two peers running holesail.",

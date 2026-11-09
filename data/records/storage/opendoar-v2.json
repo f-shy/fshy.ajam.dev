@@ -5,7 +5,7 @@
   "url": "https://v2.sherpa.ac.uk/cgi/search/repository/advanced?software%5B%5D=Invenio&format=json",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Jisc now blocks automated access at the edge. Returns a 'Jisc - Error 403 / Web page blocked' HTML page regardless of query parameters, including format=json. Not usable as a registry…",
+    "stated": "none reachable: Jisc now blocks automated access at the edge. Returns a 'Jisc - Error 403 / Web page blocked' HTML page regardless of query parameters, including format=json. Not usable as a registry…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://v2.sherpa.ac.uk/cgi/search/repository/advanced?software%5B%5D=Invenio&format=json",

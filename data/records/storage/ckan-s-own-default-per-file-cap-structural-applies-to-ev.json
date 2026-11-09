@@ -5,7 +5,7 @@
   "url": null,
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The default deployment is hostile to bulk storage before any policy gate applies: ckan.max_resource_size defaults to 10 MB and ckan.max_image_size to 2 MB. Any portal that merely 'allows…",
+    "stated": "none reachable: The default deployment is hostile to bulk storage before any policy gate applies: ckan.max_resource_size defaults to 10 MB and ckan.max_image_size to 2 MB. Any portal that merely 'allows…",
     "unit": "none",
     "metered_on": "none",
     "source_url": null,

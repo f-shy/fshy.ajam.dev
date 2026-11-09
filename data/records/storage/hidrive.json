@@ -5,7 +5,7 @@
   "url": "https://www.strato.de/cloud-speicher/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "free 5 GB tier was discontinued — the free plan ended 2020-04-30; current entry plan is 500 GB at 6 EUR/month. WebDAV endpoint still live (PROPFIND -> 405 unauthenticated) and rclone has a…",
+    "stated": "none reachable: free 5 GB tier was discontinued — the free plan ended 2020-04-30; current entry plan is 500 GB at 6 EUR/month. WebDAV endpoint still live (PROPFIND -> 405 unauthenticated) and rclone has a…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.strato.de/cloud-speicher/",

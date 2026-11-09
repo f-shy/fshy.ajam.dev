@@ -48,7 +48,7 @@
   ],
   "limits_note": "The forum is a separate login.",
   "binding": "request-rate",
-  "binding_note": "An index holds no bytes to meter, so the only constraint a user meets here is the page rate while enumerating posts. None was observed at about 0.8 req/s; the per-host quotas behind the links belong to the storage topic.",
+  "binding_note": "An index holds no bytes to meter, so the only constraint met here is the page rate while enumerating posts. None was observed at about 0.8 req/s; the per-host quotas behind the links belong to the storage topic.",
   "identity_cost": {
     "kind": "anonymous",
     "detail": "No account, cookie or captcha on the feed or the post read. The comment form asks for a name and email; reading does not.",

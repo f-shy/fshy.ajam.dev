@@ -5,7 +5,7 @@
   "url": "https://bonsai.io/pricing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "No free tier at all any more — the cheapest plan is Staging at $15/month for 1 GB storage / 100K documents. The historical 1 GB free cluster is not on the current pricing page.",
+    "stated": "none reachable: No free tier at all any more — the cheapest plan is Staging at $15/month for 1 GB storage / 100K documents. The historical 1 GB free cluster is not on the current pricing page.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://bonsai.io/pricing",

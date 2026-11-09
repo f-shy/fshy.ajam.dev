@@ -75,7 +75,7 @@
   ],
   "verdict": "qualifies",
   "verified_at": "2026-10-22T03:20:00.000Z",
-  "notes": "A control download from proof.ovh.net on the same machine at the same time reached 29.5 MiB/s, so this is not the machine's ceiling.",
+  "notes": "14.11 MiB/s at 4 connections is 1.16 TiB/day, which clears the serving floor on one account. A control download from proof.ovh.net on the same machine at the same time reached 29.5 MiB/s, so this is not the machine's ceiling.",
   "extras": {
     "stale_after_days": 180,
     "bytes_transit": "yes",

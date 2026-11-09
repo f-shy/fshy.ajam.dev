@@ -241,7 +241,7 @@
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-11-02T10:52:56.733Z",
   "binding": "write-gated",
-  "binding_note": "The resolver is free, keyless and fast, and it stores nothing, so what binds is that it only resolves: there is no write path, and the pans a client would most want are behind the keyed endpoint.",
+  "binding_note": "The resolver is free, keyless and fast, and it stores nothing, so what binds is that it only resolves: there is no write path, and the pans most in demand are behind the keyed endpoint.",
   "notes": "The single highest-leverage piece of glue in the topic and the reason the pan survey is usable at all. Two endpoints, and the split is the finding: the free one covers lanzou, ilanzou, ctfile, wenshushu, feijipan and ecpan, and the keyed one adds Baidu, Xunlei, Quark, UC, 139, 189 and Unicom.",
   "extras": {
     "access_mode": "anonymous",

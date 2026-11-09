@@ -5,7 +5,7 @@
   "url": "https://vpspanda.com/pricing",
   "category": "cloud VM",
   "free_tier": {
-    "stated": "KVM-1G at USD 4.50 per month list, printed as USD 4.05/mo beside it with the 12-month cycle (10% off) selected by default: 1 vCore on an Intel Xeon E5-2697A v4 at up to 3.60 GHz, 1 GB RAM, 15 GB NVMe, 2 TB a month of bandwidth, 1 Gbps port, in the U.S.A. or Dhaka, Bangladesh. KVM-2G is USD 6.29 list with 2 GB RAM, 30 GB NVMe and 5 TB.",
+    "stated": "KVM-1G at USD 4.50 per month (store: 'Starting from $4.50 USD Monthly'): 1 vCore, 1 GB RAM, 15 GB NVMe, 2 TB bandwidth, in Phoenix US or Dhaka Bangladesh at USD 0.00 location fee. Order page read 2026-11-07: monthly USD 4.50, quarterly USD 13.50, semi-annually USD 27.00, annually USD 54.00, biennially USD 108.00, triennially USD 162.00; no setup fee; renewal price not published; plan in stock (the configuration summary totals USD 4.50 due today). The marketing page read 2026-10-22 printed a struck list price beside a lower per-month figure at the annual cycle; that lower figure appears on no store or order page read 2026-11-07, where the annual term costs exactly twelve times the monthly price. KVM-2G sits above it (prices in the record's evidence rows).",
     "unit": "GiB",
     "metered_on": "wall-clock",
     "source_url": "https://vpspanda.com/pricing",
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "a client area at cloud.vpspanda.com is linked; no API or client is documented on the page read",
-  "chaining": "the Dhaka location is the unusual part: USD 4.50 for a Bangladesh-facing box is cheap latency to a South Asian audience, and the 2 TB allowance covers a small API or mirror without touching a user's storage budget",
+  "chaining": "the Dhaka location is the unusual part: USD 4.50 for a Bangladesh-facing box is cheap latency to a South Asian audience, and the 2 TB allowance covers a small API or mirror without touching the storage budget",
   "limits": [
     {
       "kind": "volume-quota",
@@ -69,11 +69,53 @@
       "url": "https://vpspricetracker.com/provider/VPS_Panda/vps",
       "date": "2026-10-22",
       "proved": "tracker shows the list price: '$4.50 / month 1 Intel Cores (shared) 1,024 MB RAM 15 GB NVMe 2,048 GB/month bandwidth 1 Gbps port speed IPv4' in the U.S.A. and Dhaka"
+    },
+    {
+      "url": "https://cloud.vpspanda.com/store/basic-vps/kvm-1g",
+      "date": "2026-11-07",
+      "proved": "the order page prints six billing cycles for KVM-1G, the annual term at USD 54.00",
+      "capture": "sha256:7df14fc09bfe26de2e42932c37b340381d0ab2a1f22b4608e2caf90d8f20f431",
+      "quote": "Monthly    $4.50 USD Quarterly    $13.50 USD Semi-Annually    $27.00 USD Annually    $54.00 USD Biennially    $108.00 USD Triennially    $162.00 USD"
+    },
+    {
+      "url": "https://cloud.vpspanda.com/store/basic-vps/kvm-1g",
+      "date": "2026-11-07",
+      "proved": "the configuration summary names the due-today total, USD 4.50 in the same block",
+      "capture": "sha256:7df14fc09bfe26de2e42932c37b340381d0ab2a1f22b4608e2caf90d8f20f431",
+      "quote": "Configuration Total Due Today"
+    },
+    {
+      "url": "https://cloud.vpspanda.com/store",
+      "date": "2026-11-07",
+      "proved": "the store index prices KVM-1G from USD 4.50 monthly",
+      "capture": "sha256:b8d8618c4eb4c5cc3b3615b58cf06c171c40d86016305008cfbcdeaa81f3a44e",
+      "quote": "KVM-1G Starting from $4.50 USD Monthly"
+    },
+    {
+      "url": "https://cloud.vpspanda.com/store",
+      "date": "2026-11-07",
+      "proved": "the store index states 2 TB bandwidth for KVM-1G",
+      "capture": "sha256:b8d8618c4eb4c5cc3b3615b58cf06c171c40d86016305008cfbcdeaa81f3a44e",
+      "quote": "**2 **TB Bandwidth"
+    },
+    {
+      "url": "https://cloud.vpspanda.com/store/basic-vps/kvm-1g",
+      "date": "2026-11-07",
+      "proved": "the cart-side annual price contradicts the lower per-month figure the earlier notes described",
+      "capture": "sha256:7df14fc09bfe26de2e42932c37b340381d0ab2a1f22b4608e2caf90d8f20f431",
+      "quote": "Annually    $54.00 USD"
+    },
+    {
+      "url": "https://cloud.vpspanda.com/store",
+      "date": "2026-11-07",
+      "proved": "the entry plan price is unchanged on the store index",
+      "capture": "sha256:b8d8618c4eb4c5cc3b3615b58cf06c171c40d86016305008cfbcdeaa81f3a44e",
+      "quote": "KVM-1G Starting from $4.50 USD Monthly"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "The page's headline price is the discounted one and the list price is struck through; both are recorded because a reader comparing tables will otherwise see USD 4.05 and a tracker showing USD 4.50. The 4.05 is not a promo code, it is the default 12-month cycle, and whether the monthly price is really 4.50 at 1-month billing was not opened in the cart.",
+  "verified_at": "2026-11-07T17:40:47.147Z",
+  "notes": "The marketing page read 2026-10-22 printed a struck list price beside a lower per-month figure at the annual cycle, and a tracker row shows the list price; the order page read 2026-11-07 shows the annual term at exactly twelve times the monthly price, no discount, and the lower figure appears on no store or order page read that day. The cart shows the monthly price with no setup fee. The tracker's list price agrees with the store.",
   "extras": {
     "facets": {
       "class": null,
@@ -85,6 +127,8 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "price_on_page": "USD 4.50/month for KVM-1G",
+    "renewal_usd": "not published: the order page prices six billing cycles and prints no renewal price"
   }
 }

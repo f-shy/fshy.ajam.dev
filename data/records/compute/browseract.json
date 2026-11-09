@@ -52,7 +52,7 @@
   "limits_note": "not stated",
   "identity_cost": {
     "kind": "email",
-    "detail": null,
+    "detail": "email: the sign-up form's identity field is an email address, with a password, its confirmation and an emailed code ('<input autoComplete=\"email\" placeholder=\"Email\" id=\"formRegister_email\"'; 'id=\"formRegister_code\"'), beside Google and Github single sign-on; the form carries no phone field and no card field, so a card and a phone are not required at sign-up. Country: not published at https://www.browseract.com/pricing.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -89,10 +89,38 @@
       "proved": "the pricing page names a Local CLI that runs on the user's own machine",
       "capture": "sha256:4b7831759501415a384df8a0b49e4bb805fe75771b6ae62fb4ccf2cc3a812fdb",
       "quote": "Local CLI runs on your own machine with no BrowserAct runtime fee."
+    },
+    {
+      "url": "https://www.browseract.com/reception",
+      "date": "2026-11-04",
+      "proved": "the registration form's first field is an email address",
+      "capture": "sha256:3fc0d1606fc9130d55b7c3aa599c7abf2e9074f489f02cc7adce6f77d2bbb072",
+      "quote": "<input autoComplete=\"email\" placeholder=\"Email\" id=\"formRegister_email\""
+    },
+    {
+      "url": "https://www.browseract.com/reception",
+      "date": "2026-11-04",
+      "proved": "an emailed six-digit code verifies the address",
+      "capture": "sha256:3fc0d1606fc9130d55b7c3aa599c7abf2e9074f489f02cc7adce6f77d2bbb072",
+      "quote": "<button type=\"button\" ><span>Send Code</span></button>"
+    },
+    {
+      "url": "https://www.browseract.com/reception",
+      "date": "2026-11-06",
+      "proved": "the sign-up form's first field is an email address",
+      "capture": "sha256:72b5f932b143bf7535519f0f133ef15fe30f86ca34af45eccb403bc7666099ff",
+      "quote": "<input autoComplete=\"email\" placeholder=\"Email\" id=\"formRegister_email\""
+    },
+    {
+      "url": "https://www.browseract.com/reception",
+      "date": "2026-11-06",
+      "proved": "an emailed code is the only other identity step in the sign-up form",
+      "capture": "sha256:72b5f932b143bf7535519f0f133ef15fe30f86ca34af45eccb403bc7666099ff",
+      "quote": "id=\"formRegister_code\""
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-04T05:24:22.991Z",
+  "verified_at": "2026-11-06T17:48:23.919Z",
   "price_per_tb_month": null,
   "notes": "",
   "extras": {

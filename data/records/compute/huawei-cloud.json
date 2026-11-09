@@ -89,7 +89,7 @@
       "wall_clock_min": null,
       "idle_reap_s": null,
       "restart_required": false,
-      "note": "billing runs from the start-session call to the stop-session call, so the clock is a user's to close; 20 CU is 20 vCPU-hours in total"
+      "note": "billing runs from the start-session call to the stop-session call, so the clock is closed by the caller; 20 CU is 20 vCPU-hours in total"
     },
     "persistent_storage": null,
     "network_out": null,

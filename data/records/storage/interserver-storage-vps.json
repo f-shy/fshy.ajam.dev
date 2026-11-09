@@ -23,7 +23,7 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Metered per slice: 'Each storage VPS slice adds 1TB SATA storage, 2GB memory, 2TB transfer'. A 2:1 ratio. Overage rate not published on the page.",
+    "terms": "Metered per slice: 'Each storage VPS slice adds 1TB SATA storage, 2GB memory, 2TB transfer'. A 2:1 ratio. At 10 slices = 10 TB storage and only 20 TB/mo transfer — below the 30 TB/mo serving requirement. Overage rate not published on the page.",
     "metered": true,
     "free_allowance": "20 TB per month"
   },

@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": null,
+  "chaining": "The compute benefit is a credit on partner infrastructure, and the partner named elsewhere in the same programme family is Galaxy Backbone, which means the credit is only useful inside Nigeria's national data centre network rather than on a commercial cloud.",
   "limits": [
     {
       "kind": "write-gated",

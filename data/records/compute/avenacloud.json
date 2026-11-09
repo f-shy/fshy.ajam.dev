@@ -74,11 +74,74 @@
       "url": "https://vpspricetracker.com/provider/AvenaCloud/vps",
       "date": "2026-10-22",
       "proved": "tracker's cheapest row: 'AvenaCloud - 5.50 / month', 'cpu 1 Intel Cores (shared)', 'ram 1,024 MB RAM', 'disk 10 GB HDD', 'bandwidth 31,641 GB/month bandwidth', 'rj45 0.1 Gbps port speed', city Moldova"
+    },
+    {
+      "url": "https://secure.avenacloud.com/cart/",
+      "date": "2026-11-07",
+      "proved": "the vendor's own cart lists the VDS 10 ladder with all four billing cycles",
+      "capture": "sha256:9bcd25eb51a0fb102ca905b22bfbe7c04d9d4e9c384197c9fd7652b59df2951a",
+      "quote": "KVM VPS/VDS 10 €5.50 EUR €16.02 EUR €31.13 EUR €58.93 EUR / Monthly Quarterly Semi-Annually Annually"
+    },
+    {
+      "url": "https://secure.avenacloud.com/cart/vps-vds-hosting/?id=1",
+      "date": "2026-11-07",
+      "proved": "the cart's VDS 10 ladder prices the four cycles; the first is the monthly cycle per the cycle line beside it",
+      "capture": "sha256:b1fc8fa70a7f68b90f3d7521f517e6cb1541cadba569b97009d98937118010ef",
+      "quote": "€5.50 EUR €16.02 EUR €31.13 EUR €58.93 EUR"
+    },
+    {
+      "url": "https://secure.avenacloud.com/cart/vps-vds-hosting/?id=1",
+      "date": "2026-11-07",
+      "proved": "the cart's VDS 10 ladder prices the annual cycle last",
+      "capture": "sha256:b1fc8fa70a7f68b90f3d7521f517e6cb1541cadba569b97009d98937118010ef",
+      "quote": "€5.50 EUR €16.02 EUR €31.13 EUR €58.93 EUR"
+    },
+    {
+      "url": "https://secure.avenacloud.com/cart/vps-vds-hosting/?id=1",
+      "date": "2026-11-07",
+      "proved": "the cart prints the four cycle prices and no renewal figure",
+      "capture": "sha256:b1fc8fa70a7f68b90f3d7521f517e6cb1541cadba569b97009d98937118010ef",
+      "quote": "€5.50 EUR €16.02 EUR €31.13 EUR €58.93 EUR"
+    },
+    {
+      "url": "https://secure.avenacloud.com/cart/vps-vds-hosting/?id=1",
+      "date": "2026-11-07",
+      "proved": "the cart's cycle line names the four cycles in the ladder's order",
+      "capture": "sha256:b1fc8fa70a7f68b90f3d7521f517e6cb1541cadba569b97009d98937118010ef",
+      "quote": "Monthly Quarterly Semi-Annually Annually"
+    },
+    {
+      "url": "probe:https://secure.avenacloud.com/?cmd=module&module=27&cid=240",
+      "date": "2026-11-07",
+      "proved": "the cart resolves and prices the VPS/VDS group",
+      "capture": "sha256:cfc2199ae854b7910953608b9ddfacf913ab65ff4e74cc5df76f96082a12b8c6",
+      "quote": "\"verdict\": \"priced\""
+    },
+    {
+      "url": "probe:https://secure.avenacloud.com/?cmd=module&module=27&cid=240",
+      "date": "2026-11-07",
+      "proved": "the VPS page's order link lands on the cart's VPS/VDS group page",
+      "capture": "sha256:cfc2199ae854b7910953608b9ddfacf913ab65ff4e74cc5df76f96082a12b8c6",
+      "quote": "\"final_url\": \"https://secure.avenacloud.com/cart/vps-vds-hosting/?id=1\""
+    },
+    {
+      "url": "https://avenacloud.com/vps/",
+      "date": "2026-11-07",
+      "proved": "the VPS page still prices KVM VPS/VDS 10 at 5.50 EUR monthly and 58.93 EUR a year",
+      "capture": "sha256:d28169731a003674abfa375370f411dc085f5d6ad7e9679ef1ecefeb84485c04",
+      "quote": "5.50 €/ month"
+    },
+    {
+      "url": "https://secure.avenacloud.com/cart/vps-vds-hosting/?id=1",
+      "date": "2026-11-07",
+      "proved": "the vendor's own cart lists the VDS 10 ladder with all four billing cycles, the first the monthly one at €5.50",
+      "capture": "sha256:9bcd25eb51a0fb102ca905b22bfbe7c04d9d4e9c384197c9fd7652b59df2951a",
+      "quote": "KVM VPS/VDS 10 €5.50 EUR €16.02 EUR €31.13 EUR €58.93 EUR / Monthly Quarterly Semi-Annually Annually"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "Three first-party pages disagree on the entry price for VPS: the homepage says '11.50 EUR / year or monthly at 2.50 EUR', the VPS page's meta description says 'starting at just 3.50 EUR/mo', and the itemised plan card says 5.50 EUR per month / 58.93 per year. The itemised plan is recorded because it is the only one with specs attached; no average of the three is taken.",
+  "verified_at": "2026-11-07T14:17:02.760Z",
+  "notes": "The cart read fixes the entry price: no addable product carries the homepage's entry figures - the cart's store index prices the VPS/VDS category 'From €5.50', its itemised ladder starts at VDS 10 at €5.50 monthly / €58.93 annually, and its cheapest addable row is the promo product PROMO VDS 10 at €5.00 monthly (all four cycles priced €5.00). Open: whether the 100 Mbps port is upgradeable - no page read states an upgrade path; no renewal price is printed; no stock counter is printed on the plan rows.",
   "extras": {
     "facets": {
       "class": null,
@@ -90,6 +153,13 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "monthly_eur": 5.5,
+    "annual_eur": 58.93,
+    "renewal_eur": "not published: neither the VPS page nor the cart prints a renewal price; read at https://secure.avenacloud.com/cart/vps-vds-hosting/?id=1",
+    "term": "monthly, quarterly, semi-annually and annually: EUR 5.50 / 16.02 / 31.13 / 58.93 on VDS 10",
+    "in_stock": "no stock counter is printed on the VPS page or the cart; the cart resolves the VPS/VDS group with all cycles priced, so the plan is orderable",
+    "cart_url": "https://secure.avenacloud.com/cart/vps-vds-hosting/?id=1",
+    "price_on_page": "EUR 5.50/month for KVM VPS/VDS 10"
   }
 }

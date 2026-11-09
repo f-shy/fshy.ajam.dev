@@ -48,7 +48,7 @@
   ],
   "limits_note": "",
   "binding": "volume-quota",
-  "binding_note": "the 60-day expiry binds, not the bandwidth: $200 at $0.01 a GiB is 20,000 GiB, and at 1 TiB a month only 2 TiB of it is used before the credit dies. The credit is nine times larger than the 60 days can spend at a user's volume.",
+  "binding_note": "the 60-day expiry binds, not the bandwidth: $200 at $0.01 a GiB is 20,000 GiB, and at 1 TiB a month only 2 TiB of it is used before the credit dies. The credit is nine times larger than the 60 days can spend at this volume.",
   "identity_cost": {
     "kind": "card",
     "detail": "a credit card or PayPal to activate the credit, with a small verification hold; reported by the two third-party pages that carry the offer's terms",

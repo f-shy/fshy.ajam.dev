@@ -26,7 +26,7 @@
     "notes": "A line is durable only while the maintainer leaves it in the file, and 92 of 100 sampled lines were already dead when read, so the file's existence says nothing about whether its lines answer."
   },
   "egress": {
-    "terms": "No traffic position is published: the list is a text file with no terms, quota or meter attached to it, and every byte the client sends crosses the exit host of whichever line it dials, not the list.",
+    "terms": "No traffic position is published: the list is a text file with no terms, quota or meter attached to it, and every byte sent crosses the exit host of whichever line it dials, not the list.",
     "metered": false,
     "free_allowance": "none published",
     "price_per_tb": null,

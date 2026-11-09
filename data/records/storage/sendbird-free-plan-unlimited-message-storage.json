@@ -5,7 +5,7 @@
   "url": "https://sendbird.com/pricing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Unlimited is a rate allowance; retention is 6 months and the same pricing page says so twice. Extended retention is the paid upsell.",
+    "stated": "none reachable: Unlimited is a rate allowance; retention is 6 months and the same pricing page says so twice. Extended retention is the paid upsell.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://sendbird.com/pricing",

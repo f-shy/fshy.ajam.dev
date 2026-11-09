@@ -36,9 +36,9 @@
     "ssh",
     "cli"
   ],
-  "interface_detail": "A VPS is reached by SSH into a root shell, plus the vendor's web control panel: RackNerd, DediRock and Datalix sell KVM guests with root; VolpaByte sells KVM with a WHMCS client area. The egress leaves from the guest's own address, so a SOCKS5 or HTTP proxy is something a user runs on the guest, not a protocol the host sells.",
-  "tooling": "Any SSH client, plus whatever proxy a user runs on the guest: a SOCKS5 or HTTP listener, an SSH -D tunnel, or a WireGuard server if the host allows it. No host in this set sells a proxy endpoint or a proxy wrapper, and no wrapper existing is not a rejection: the resource is a machine with a routable address, which is what a proxy needs.",
-  "chaining": null,
+  "interface_detail": "A VPS is reached by SSH into a root shell, plus the vendor's web control panel: RackNerd, DediRock and Datalix sell KVM guests with root; VolpaByte sells KVM with a WHMCS client area. The egress leaves from the guest's own address, so a SOCKS5 or HTTP proxy is software run on the guest, not a protocol the host sells.",
+  "tooling": "Any SSH client, plus whatever proxy runs on the guest: a SOCKS5 or HTTP listener, an SSH -D tunnel, or a WireGuard server if the host allows it. No host in this set sells a proxy endpoint or a proxy wrapper, and no wrapper existing is not a rejection: the resource is a machine with a routable address, which is what a proxy needs.",
+  "chaining": "One cheap VPS per ASN to hold, each running a SOCKS5 or HTTP proxy, fronted by the Cloudflare-Workers AI gateway as the egress pool: the gateway picks the upstream, the guest supplies the address, and the ASN seen by the far end is whatever the location's upstream announces, which is the fact this record establishes.",
   "limits": [
     {
       "kind": "volume-quota",
@@ -68,7 +68,7 @@
   ],
   "limits_note": "The constraint this record is actually about names no kind in the vocabulary: the ASN is not a property of the host. DediRock holds none and its test addresses sit in AS36352 and AS40676; VolpaByte's Frankfurt location exits from AS24940 Hetzner; Datalix's own AS218841 announces zero prefixes and its traffic leaves via AS58087. A field that names one ASN per host therefore cannot describe any of the four, and the same host answers differently depending on which location was bought.",
   "binding": "none",
-  "binding_note": "The others are 10 TB a month and 3000 GB a month. What fails first is not a quota but the record shape: an ASN is per location and sometimes not the host's at all, so a single-ASN field per host is wrong before any traffic is sent.",
+  "binding_note": "At about 45 GB a month across about 599,000 requests no volume quota in this set is close: the smallest allowance is DediRock's 1 TB, whose period the card does not print, and even read as a monthly figure that is roughly 22 times the monthly volume; the others are 10 TB a month and 3000 GB a month. What fails first is not a quota but the record shape: an ASN is per location and sometimes not the host's at all, so a single-ASN field per host is wrong before any traffic is sent.",
   "identity_cost": {
     "kind": "email",
     "detail": "The set does not share one gate, and the weakest documented is an email address. Datalix's order page shows the sign-up fields 'Nutzername', 'E-Mail', 'Passwort' and 'Sprache', with no phone field and no identity document; payment is a prepaid account balance. VolpaByte's registration form asks for name, email, phone with a full country selector and address, and its payment step could not be read because the order store was empty: unverified rather than none. RackNerd's signup requirement and DediRock's were not read in their lanes and are recorded there as unverified and not read, so this record does not claim a gate for them.",

@@ -38,9 +38,9 @@
   "tooling": "not stated",
   "chaining": "the per-second rate capped at a monthly maximum makes this a burst host: an hour of the 8 vCPU / 8 GB L box costs USD 0.092 and a full month costs USD 69, so an afternoon job is billed in cents.",
   "limits": [],
-  "limits_note": "the free tier carries no compute, so the first wall is the USD 6 monthly minimum.",
+  "limits_note": "nothing binds above the scale at the paid floor; the free tier carries no compute, so the first wall is the USD 6 monthly minimum.",
   "binding": "none",
-  "binding_note": "the free tier carries no compute, so the first wall is the USD 6 monthly minimum.",
+  "binding_note": "nothing binds above the scale at the paid floor; the free tier carries no compute, so the first wall is the USD 6 monthly minimum.",
   "identity_cost": {
     "kind": "card",
     "detail": "a card is required even for the free tier: the pricing page states \"Account verification requires a credit or debit card, including for free sites. Prepaid cards are not accepted.\", so a debit card is accepted and a prepaid card is rejected. The record does not state whether the card is charged or authorised for any amount at verification, whether a hold is placed, or whether an email address is also required",

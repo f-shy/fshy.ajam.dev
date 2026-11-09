@@ -37,7 +37,7 @@
   ],
   "interface_detail": "A Stremio addon endpoint configured at https://aradeb.518878.xyz; the Stremio client calls it over HTTP. Installation orders are distributed through the project's Discord.",
   "tooling": "Stremio desktop and mobile; a Discord bot for keys; no CLI and no API documentation beyond the addon protocol.",
-  "chaining": "It is the Arabic-language layer on top of a global debrid subscription: the addon supplies Arabic catalogs and private-tracker sources, the debrid account supplies the bytes, and a user never buys a regional service.",
+  "chaining": "It is the Arabic-language layer on top of a global debrid subscription: the addon supplies Arabic catalogs and private-tracker sources, the debrid account supplies the bytes, and no regional service is bought.",
   "limits": [
     {
       "kind": "write-gated",

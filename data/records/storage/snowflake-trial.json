@@ -5,7 +5,7 @@
   "url": "https://docs.snowflake.com/en/user-guide/admin-trial-account",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Thirty days then suspension. Storage is billed from the credit balance, so $400 buys a few TB-months at most and then the account is suspended rather than downgraded. Trial, not free tier.",
+    "stated": "none reachable: Thirty days then suspension. Storage is billed from the credit balance, so $400 buys a few TB-months at most and then the account is suspended rather than downgraded. Trial, not free tier.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.snowflake.com/en/user-guide/admin-trial-account",

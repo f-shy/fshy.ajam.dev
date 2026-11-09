@@ -5,7 +5,7 @@
   "url": "https://fromsmash.com/pricing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "2 GB before queueing; the '100 GB free' claim is a 14-day developer TRIAL, not a free tier. API access requires a paid account.",
+    "stated": "none reachable: 2 GB before queueing; the '100 GB free' claim is a 14-day developer TRIAL, not a free tier. API access requires a paid account.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://fromsmash.com/pricing",

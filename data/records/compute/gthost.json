@@ -69,10 +69,24 @@
       "url": "https://vpspricetracker.com/provider/GTHost/vps",
       "date": "2026-10-22",
       "proved": "row quoted from the Cheapest VPSs table: '$4.00 / month', '1 Intel Cores (shared)', '1,024 MB RAM', '20 GB NVMe', '8,192 GB/month bandwidth', '1 Gbps port speed', 'Dallas Texas U.S.A.'"
+    },
+    {
+      "url": "https://gthost.com/vps",
+      "date": "2026-11-07",
+      "proved": "the vendor's live VPS table prices the VPS-4 row at 4 USD a month",
+      "capture": "sha256:3d94987fd414fe523d5dec53e5ae1c3b8749ed9491520ac78c0cb59f4fc4d05e",
+      "quote": "4 USD"
+    },
+    {
+      "url": "https://gthost.com/vps",
+      "date": "2026-11-07",
+      "proved": "the live table row is as the record states",
+      "capture": "sha256:3d94987fd414fe523d5dec53e5ae1c3b8749ed9491520ac78c0cb59f4fc4d05e",
+      "quote": "4 USD"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T14:17:07.272Z",
   "notes": "The table above was read from the rendered DOM in a browser, so the numbers are observed rather than extracted from markup.",
   "extras": {
     "facets": {
@@ -85,6 +99,8 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "price_on_page": "USD 4/month for VPS-4",
+    "renewal_note": "not published; the vendor's VPS page prices monthly terms only and the order page requires login before it shows a price"
   }
 }

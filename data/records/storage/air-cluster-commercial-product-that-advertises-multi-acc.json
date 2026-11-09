@@ -31,7 +31,7 @@
   ],
   "interface_detail": "wrapper-only",
   "tooling": "Windows desktop app (AirCluster-Installer.exe). No API, no Linux, no rclone backend.",
-  "chaining": "N accounts, including N accounts of the same provider, presented as one large-capacity 'cluster'.",
+  "chaining": "N accounts, including N accounts of the same provider, presented as one large-capacity 'cluster'. This is the clearest commercial statement of the hypothesis: 'Unlike standard file managers, Air Cluster allows you to create a \"Cluster\", which combines the storage space of all your cloud accounts. This lets you manage the total space as if it were a single, large-capacity hard drive.'",
   "limits": [],
   "limits_note": "Whether it stripes a single large file or only spreads files across accounts is not stated on the page, and for a Windows GUI tool the answer is almost certainly file-level.",
   "identity_cost": {

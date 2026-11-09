@@ -5,7 +5,7 @@
   "url": "https://kdp.amazon.com/en_US/help/topic/G200735140",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "650 MB conversion cap and 8,000-page cap; large files are actively discouraged and conversion fails above the limit.",
+    "stated": "none reachable: 650 MB conversion cap and 8,000-page cap; large files are actively discouraged and conversion fails above the limit.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://kdp.amazon.com/en_US/help/topic/G200735140",

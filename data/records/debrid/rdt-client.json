@@ -14,7 +14,7 @@
     "notes": ""
   },
   "per_object_cap": {
-    "stated": "not applicable for a user; the provider's cap applies.",
+    "stated": "not applicable to the caller; the provider's cap applies.",
     "bytes": null,
     "source_url": "https://github.com/rogerfar/rdt-client",
     "notes": ""
@@ -71,7 +71,7 @@
   ],
   "verdict": "qualifies",
   "verified_at": "2026-10-23T01:51:00.000Z",
-  "price_per_tb_month": "USD 0 for a user",
+  "price_per_tb_month": "USD 0 for the caller",
   "notes": "Named separately from Decypharr because the two make different tradeoffs: rdt-client downloads to disk, Decypharr serves in place over NFS/SMB. The client-side false-429 finding belongs for a user, not to Real-Debrid.",
   "extras": {
     "providers": "real-debrid, alldebrid, premiumize, torbox, debrid-link, high-way",

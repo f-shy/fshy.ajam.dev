@@ -5,7 +5,7 @@
   "url": "https://docs.streamlit.io/deploy/streamlit-community-cloud/manage-your-app",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Listed as a candidate for the serving angle only. The 50 GB 'storage' maximum is the container's disk ceiling, not an allocation: files written at runtime are lost on reboot and apps sleep.",
+    "stated": "none reachable: Listed as a candidate for the serving angle only. The 50 GB 'storage' maximum is the container's disk ceiling, not an allocation: files written at runtime are lost on reboot and apps sleep.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.streamlit.io/deploy/streamlit-community-cloud/manage-your-app",

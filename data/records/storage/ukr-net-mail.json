@@ -5,7 +5,7 @@
   "url": "https://accounts.ukr.net/registration",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Fixed-country dial code on the registration form: the phone field is pre-set to '+380' with the note 'На цей номер ми надішлемо код підтвердження' we will send a confirmation code to this…",
+    "stated": "none reachable: Fixed-country dial code on the registration form: the phone field is pre-set to '+380' with the note 'На цей номер ми надішлемо код підтвердження' (we will send a confirmation code to this…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://accounts.ukr.net/registration",

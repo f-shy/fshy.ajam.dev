@@ -5,7 +5,7 @@
   "url": "https://hasura.io/pricing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "DDN Free is a control-plane/API tier — it exposes GraphQL over a database he already pays for. It provides no storage of its own; the storage limit is whatever the connected DB has.…",
+    "stated": "none reachable: DDN Free is a control-plane/API tier — it exposes GraphQL over a database that is already paid for. It provides no storage of its own; the storage limit is whatever the connected DB has. Rendered",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://hasura.io/pricing",
@@ -41,23 +41,23 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "DDN Free is a control-plane/API tier — it exposes GraphQL over a database he already pays for. It provides no storage of its own; the storage limit is whatever the connected DB has.…",
+  "reliability_note": "DDN Free is a control-plane/API tier — it exposes GraphQL over a database that is already paid for. It provides no storage of its own; the storage limit is whatever the connected DB has. Rendered",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
     {
       "url": "https://hasura.io/pricing",
       "date": "2026-10-21",
-      "proved": "DDN Free is a control-plane/API tier — it exposes GraphQL over a database he already pays for. It provides no storage of its own; the storage limit is whatever the connected DB has.…"
+      "proved": "DDN Free is a control-plane/API tier — it exposes GraphQL over a database that is already paid for. It provides no storage of its own; the storage limit is whatever the connected DB has. Rendered"
     }
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "DDN Free is a control-plane/API tier — it exposes GraphQL over a database he already pays for. It provides no storage of its own; the storage limit is whatever the connected DB has.…",
+  "notes": "DDN Free is a control-plane/API tier — it exposes GraphQL over a database that is already paid for. It provides no storage of its own; the storage limit is whatever the connected DB has. Rendered",
   "extras": {
     "dead_end": {
       "failure_class": "quota",
-      "why": "DDN Free is a control-plane/API tier — it exposes GraphQL over a database he already pays for. It provides no storage of its own; the storage limit is whatever the connected DB has.…",
+      "why": "DDN Free is a control-plane/API tier — it exposes GraphQL over a database that is already paid for. It provides no storage of its own; the storage limit is whatever the connected DB has. Rendered",
       "retry_when": null,
       "first_recorded": "2026-10-21"
     }

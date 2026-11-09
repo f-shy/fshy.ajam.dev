@@ -62,7 +62,7 @@
       "source": "https://evoseedbox.com/pricing/"
     }
   ],
-  "limits_note": "The cheapest plan's own upload figure is the one number this record could not read: the FAQ gives the range and says most users never reach it.",
+  "limits_note": "The cheapest plan's own upload figure is the one number this record could not read: the FAQ gives the range and says most users never reach it. At 1 TiB/month the requirement is 3.39 Mbit/s sustained, which fits every plan in the range.",
   "binding": "volume-quota",
   "binding_note": "The monthly upload allowance is the only byte counter.",
   "identity_cost": {

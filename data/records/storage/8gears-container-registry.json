@@ -5,7 +5,7 @@
   "url": "https://container-registry.com/pricing/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Per-user dedicated Harbor instances with project-level storage quotas; the pricing markdown twin renders empty (JS-gated) and signup provisions a paid subscription instance rather than a…",
+    "stated": "none reachable: Per-user dedicated Harbor instances with project-level storage quotas; the pricing markdown twin renders empty (JS-gated) and signup provisions a paid subscription instance rather than a…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://container-registry.com/pricing/",

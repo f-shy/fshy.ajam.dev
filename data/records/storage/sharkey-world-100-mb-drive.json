@@ -5,7 +5,7 @@
   "url": "https://sharkey.world/api/meta",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Live, open, 250 MiB objects — but only 100 MB of drive per user. Seven uploads and you are done.",
+    "stated": "none reachable: Live, open, 250 MiB objects — but only 100 MB of drive per user. Seven uploads and you are done.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://sharkey.world/api/meta",

@@ -5,7 +5,7 @@
   "url": "https://www.racknerd.com/kvm-vps",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "On the named list, checked, and there is no storage VPS product. The whole KVM line is RAID-10 SSD with 30-75 GB disks; the cheapest 20 GB plan is $21.99/yr. The only big-disk offering is a",
+    "stated": "none reachable: On the named list, checked, and there is no storage VPS product. The whole KVM line is RAID-10 SSD with 30-75 GB disks; the cheapest 20 GB plan is $21.99/yr. The only big-disk offering is a",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.racknerd.com/kvm-vps",

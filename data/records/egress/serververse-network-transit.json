@@ -38,7 +38,7 @@
   ],
   "interface_detail": "Install command plus dashboard; \"Manage your account and tunnels from your own scripts. Premium feature.\"",
   "tooling": "one-line installer; customer API as a premium feature",
-  "chaining": "Designed exactly for a user's shape: a Linux box anywhere gets a routed public IP without moving into a datacentre.",
+  "chaining": "Designed exactly for this shape: a Linux box anywhere gets a routed public IP without moving into a datacentre.",
   "limits": [
     {
       "kind": "volume-quota",

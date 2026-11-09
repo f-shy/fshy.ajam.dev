@@ -5,7 +5,7 @@
   "url": "https://github.com/n0-computer/pigeons",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Tunnel products, not stores. dumbpipe's own tagline is 'Unix pipes between devices'; pigeons is SSH-over-iroh; iroh-ssh is 'SSH to any machine without ip'. They pass bytes and keep none…",
+    "stated": "none reachable: Tunnel products, not stores. dumbpipe's own tagline is 'Unix pipes between devices'; pigeons is SSH-over-iroh; iroh-ssh is 'SSH to any machine without ip'. They pass bytes and keep none…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://github.com/n0-computer/pigeons",

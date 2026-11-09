@@ -5,7 +5,7 @@
   "url": "https://docs.travis-ci.com/user/uploading-artifacts/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The artifacts addon uploads to YOUR OWN S3 bucket — you supply ARTIFACTS_KEY/ARTIFACTS_SECRET/ARTIFACTS_BUCKET. Travis provides no storage at all; it is a BYO-bucket shim. Also unavailable…",
+    "stated": "none reachable: The artifacts addon uploads to YOUR OWN S3 bucket — you supply ARTIFACTS_KEY/ARTIFACTS_SECRET/ARTIFACTS_BUCKET. Travis provides no storage at all; it is a BYO-bucket shim. Also unavailable…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.travis-ci.com/user/uploading-artifacts/",

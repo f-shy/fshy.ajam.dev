@@ -5,7 +5,7 @@
   "url": "https://timeweb.cloud/services/s3-storage",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The 'Unlimited' storage tier is 639 ₽/mo and immediately reveals itself: «В тариф включено 250 ГБ. Свыше лимита — 4 ₽/ГБ» — 250 GB included, then ₽4/GB, so 'unlimited' costs ₽4,096 per TB…",
+    "stated": "none reachable: The 'Unlimited' storage tier is 639 ₽/mo and immediately reveals itself: «В тариф включено 250 ГБ. Свыше лимита — 4 ₽/ГБ» — 250 GB included, then ₽4/GB, so 'unlimited' costs ₽4,096 per TB…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://timeweb.cloud/services/s3-storage",

@@ -5,7 +5,7 @@
   "url": "https://www.chainguard.dev/pricing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Read-only. Free images are pull-only base images — no push path for user artifacts, and the free entitlement is '5 images of your choice, including previous versions' from Chainguard's…",
+    "stated": "none reachable: Read-only. Free images are pull-only base images — no push path for user artifacts, and the free entitlement is '5 images of your choice, including previous versions' from Chainguard's…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.chainguard.dev/pricing",

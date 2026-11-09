@@ -5,7 +5,7 @@
   "url": null,
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "It is an index over captures, not a blob store. Useful only as a free listing/manifest source for items you already uploaded (1.7s-38s per query in probes).",
+    "stated": "none reachable: It is an index over captures, not a blob store. Useful only as a free listing/manifest source for items you already uploaded (1.7s-38s per query in probes).",
     "unit": "none",
     "metered_on": "none",
     "source_url": null,

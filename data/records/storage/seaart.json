@@ -5,7 +5,7 @@
   "url": "https://www.seaart.ai/api/v1/model/detail",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Model metadata is readable anonymously (POST /api/v1/model/detail returns a full JSON object with model_ver_info_v2, file_id, hashs) but there is no anonymous file download…",
+    "stated": "none reachable: Model metadata is readable anonymously (POST /api/v1/model/detail returns a full JSON object with model_ver_info_v2, file_id, hashs) but there is no anonymous file download…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.seaart.ai/api/v1/model/detail",

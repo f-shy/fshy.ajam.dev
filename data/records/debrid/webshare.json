@@ -38,7 +38,7 @@
   "interface_detail": "HTTP and SOCKS5 proxy endpoints, authenticated per plan, with a dashboard API for listing the proxies.",
   "endpoint": "https://proxy.webshare.io/",
   "tooling": "any HTTP or SOCKS5 client; the per-plan proxy list is an API call",
-  "chaining": null,
+  "chaining": "The cheapest address in the set at $0.30 per proxy per month, but the plan carries 250 GB, which is a quarter of the month: the unlimited upgrade clause is the only thing that makes it usable at 1 TiB.",
   "limits": [
     {
       "kind": "volume-quota",

@@ -5,7 +5,7 @@
   "url": "https://lists.defectivebydesign.org/archive/html/savannah-announce/2023-11/msg00000.html",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The transport everybody assumes works does not: SFTP was disabled outright in 2023-11 after a vulnerability, and scp only works with `-O` (legacy protocol) on OpenSSH >= 9.0. A modern…",
+    "stated": "none reachable: The transport everybody assumes works does not: SFTP was disabled outright in 2023-11 after a vulnerability, and scp only works with `-O` (legacy protocol) on OpenSSH >= 9.0. A modern…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://lists.defectivebydesign.org/archive/html/savannah-announce/2023-11/msg00000.html",

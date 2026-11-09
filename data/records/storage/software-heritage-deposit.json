@@ -5,7 +5,7 @@
   "url": "https://deposit.softwareheritage.org/1/softwareheritage/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Upload capped at 100 MiB documented / 200 MiB default in config, and requires HTTP Basic auth - anonymous POST to deposit.softwareheritage.org/1/<collection>/ returns 401. Only useful for…",
+    "stated": "none reachable: Upload capped at 100 MiB documented / 200 MiB default in config, and requires HTTP Basic auth - anonymous POST to deposit.softwareheritage.org/1/<collection>/ returns 401. Only useful for…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://deposit.softwareheritage.org/1/softwareheritage/",

@@ -5,7 +5,7 @@
   "url": "https://www.huaweicloud.com/intl/en-us/activity/free_packages/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The vendor's own free-OBS landing page (special/free-obs-pro.html) returns 404 and has no archive capture. What remains is a 100 GB / 12-month new-user package and a third-party claim of…",
+    "stated": "none reachable: The vendor's own free-OBS landing page (special/free-obs-pro.html) returns 404 and has no archive capture. What remains is a 100 GB / 12-month new-user package and a third-party claim of…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.huaweicloud.com/intl/en-us/activity/free_packages/",

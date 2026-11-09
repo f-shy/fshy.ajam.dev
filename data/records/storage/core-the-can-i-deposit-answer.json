@@ -5,7 +5,7 @@
   "url": "https://core.ac.uk/faq",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "No deposit path at all. CORE is a harvester: it indexes full text from repositories it already crawls and explicitly refuses author submissions. The API key is free and the fulltext is…",
+    "stated": "none reachable: No deposit path at all. CORE is a harvester: it indexes full text from repositories it already crawls and explicitly refuses author submissions. The API key is free and the fulltext is…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://core.ac.uk/faq",

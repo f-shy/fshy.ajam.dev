@@ -53,7 +53,7 @@
       "source": "probe:https://huggingface.co/openai-community/gpt2/resolve/main/pytorch_model.bin"
     }
   ],
-  "limits_note": "Whether the 8-connection drop is Hugging Face's CDN, the ISP shaping parallel flows, or the line itself was not established: the Cloudflare speed test endpoint refused a user with 403, so there is no independent line-ceiling measurement.",
+  "limits_note": "Whether the 8-connection drop is Hugging Face's CDN, the ISP shaping parallel flows, or the line itself was not established: the Cloudflare speed test endpoint refused this network with 403, so there is no independent line-ceiling measurement.",
   "binding": "per-ip-shaping",
   "binding_note": "Request counts never bind at this scale - 3,000 resolver calls per 5 minutes is 864,000 a day, far more files than a TiB holds. What limits a day is the ~36-40 MiB/s ceiling, and adding connections lowers it rather than raising it.",
   "identity_cost": {

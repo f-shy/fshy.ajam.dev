@@ -37,7 +37,7 @@
   ],
   "interface_detail": "No API documentation reachable; the site presents FileFactory Transfer (send files by email or link) and serves its Premium pricing at /premium.",
   "tooling": "browser; download managers supported per the premium feature list",
-  "chaining": "Only useful if a user's links are FileFactory links; its 2025-era share of link-site posts is small next to Rapidgator and 1fichier.",
+  "chaining": "Only useful if the links are FileFactory links; its 2025-era share of link-site posts is small next to Rapidgator and 1fichier.",
   "limits": [
     {
       "kind": "per-ip-shaping",

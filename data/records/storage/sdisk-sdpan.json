@@ -5,7 +5,7 @@
   "url": "http://sdpan.zhfblog.top/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "A '白嫖闪电盘做对象储存' (use SDisk as free object storage) wrapper that '突破了原有一次性上传20个文件的限制'. The service endpoint is gone: sdpan.zhfblog.top returns 530 through the proxy, and the repo directs…",
+    "stated": "none reachable: A '白嫖闪电盘做对象储存' (use SDisk as free object storage) wrapper that '突破了原有一次性上传20个文件的限制'. The service endpoint is gone: sdpan.zhfblog.top returns 530 through the proxy, and the repo directs…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "http://sdpan.zhfblog.top/",

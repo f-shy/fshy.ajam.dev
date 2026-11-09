@@ -5,7 +5,7 @@
   "url": "https://docs.val.town/std/blob/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Blob storage counts against total Val Town storage, which is tiny: 'Blob-stored data counts towards your total Val Town storage – 10mb on the free plan and 1gb on pro.' Three orders of…",
+    "stated": "none reachable: Blob storage counts against total Val Town storage, which is tiny: 'Blob-stored data counts towards your total Val Town storage – 10mb on the free plan and 1gb on pro.' Three orders of…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.val.town/std/blob/",

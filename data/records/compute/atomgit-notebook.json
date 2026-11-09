@@ -5,11 +5,11 @@
   "url": "https://www.openatom.cn/journalism/detail/Q5U5ZPm9veBs",
   "category": "GPU cloud",
   "free_tier": {
-    "stated": "\" Notebook Space 1000 \" - 1,000 core-hours of free compute a month for Notebook and Space, on Ascend 910B NPU cards as well as CPU.",
-    "unit": "hours",
+    "stated": "'Notebook Space 1000': 1,000 core-hours of free compute a month for Notebook and Space, with GPU/NPU acceleration named in general and no accelerator model named. The announcement prices no card and no hour in currency, so H100, A100 80 GB, L40S, RTX 4090 and L4: not listed.",
+    "unit": "core-hours",
     "metered_on": "wall-clock",
     "source_url": "https://www.openatom.cn/journalism/detail/Q5U5ZPm9veBs",
-    "read_on": "2026-10-22",
+    "read_on": "2026-11-06",
     "notes": "recurring-allowance"
   },
   "per_object_cap": {
@@ -95,11 +95,46 @@
       "proved": "the signup field for the account is a mobile number, which is the country-phone kind",
       "capture": "sha256:8f4a73f3e8362a1fe497b08bd56b171c2f77bb2888e7d5b0237192d8c29f54e3",
       "quote": "手机号（暂不支持国外手机号）"
+    },
+    {
+      "url": "https://www.openatom.cn/journalism/detail/Q5U5ZPm9veBs",
+      "date": "2026-11-06",
+      "proved": "Notebook and Space carry 1,000 core-hours of free compute a month, with no accelerator model named",
+      "capture": "sha256:6ce72eed9c95314013b0675741f2cb4370b9e04b2108eb40b56da1b40dfb1eee",
+      "quote": "平台还为开发者提供Notebook与Space每月1000核时免费算力"
+    },
+    {
+      "url": "https://www.openatom.cn/journalism/detail/Q5U5ZPm9veBs",
+      "date": "2026-11-06",
+      "proved": "the allowance is denominated in core-hours, not hours of wall clock or GPU-hours",
+      "capture": "sha256:6ce72eed9c95314013b0675741f2cb4370b9e04b2108eb40b56da1b40dfb1eee",
+      "quote": "平台还为开发者提供Notebook与Space每月1000核时免费算力"
+    },
+    {
+      "url": "https://www.openatom.cn/journalism/detail/Q5U5ZPm9veBs",
+      "date": "2026-11-06",
+      "proved": "the monthly core-hour allowance is unchanged",
+      "capture": "sha256:6ce72eed9c95314013b0675741f2cb4370b9e04b2108eb40b56da1b40dfb1eee",
+      "quote": "平台还为开发者提供Notebook与Space每月1000核时免费算力"
+    },
+    {
+      "url": "https://www.openatom.cn/journalism/detail/Q5U5ZPm9veBs",
+      "date": "2026-11-06",
+      "proved": "the allowance is 1,000 core-hours a month and the page names no accelerator model",
+      "capture": "sha256:6ce72eed9c95314013b0675741f2cb4370b9e04b2108eb40b56da1b40dfb1eee",
+      "quote": "平台还为开发者提供Notebook与Space每月1000核时免费算力"
+    },
+    {
+      "url": "https://www.openatom.cn/journalism/detail/Q5U5ZPm9veBs",
+      "date": "2026-11-06",
+      "proved": "the 1,000 core-hour monthly allowance is unchanged",
+      "capture": "sha256:6ce72eed9c95314013b0675741f2cb4370b9e04b2108eb40b56da1b40dfb1eee",
+      "quote": "平台还为开发者提供Notebook与Space每月1000核时免费算力"
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-02T02:17:25.931Z",
-  "notes": "The unit is the finding: 1,000 core-hours a month is not 1,000 GPU-hours. GitCode and AtomGit merged in 2026 and both names appear for this product. The figures rest on the foundation announcement plus two hands-on accounts.",
+  "verified_at": "2026-11-06T17:18:19.273Z",
+  "notes": "The announcement names GPU/NPU support in general and no accelerator model, so the Ascend attribution rests on the third-party hands-on row in evidence, not on the announcement. The unit is the finding: a core-hour is not a GPU-hour, and the per-shape vCPU count is published on no page read, so the allowance in instance-hours is unresolved. GitCode and AtomGit merged and both names appear for this product.",
   "extras": {
     "facets": {
       "class": "recurring-monthly-quota",

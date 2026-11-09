@@ -5,7 +5,7 @@
   "url": "https://support.conoha.jp/vps/faq/objectstorage-q/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "₩450/100 GB/mo = ¥4,500/TB = $28.50/TB. Its headline pitch is 'unlimited capacity, free data transfer', which is true and irrelevant at 6x the floor. Requires a Japanese payment method.",
+    "stated": "none reachable: ₩450/100 GB/mo = ¥4,500/TB = $28.50/TB. Its headline pitch is 'unlimited capacity, free data transfer', which is true and irrelevant at 6x the floor. Requires a Japanese payment method.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://support.conoha.jp/vps/faq/objectstorage-q/",

@@ -5,7 +5,7 @@
   "url": "https://docs.rs/crate/opendal-service-compfs/latest/source/src/backend.rs",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Two separate misconceptions to kill. (1) `compfs` is not 'composed filesystem over services' — its source is a `compio`-based local-filesystem backend. (2) RFC-7740 'Operator Composition'…",
+    "stated": "none reachable: Two separate misconceptions to kill. (1) `compfs` is not 'composed filesystem over services' — its source is a `compio`-based local-filesystem backend. (2) RFC-7740 'Operator Composition'…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.rs/crate/opendal-service-compfs/latest/source/src/backend.rs",

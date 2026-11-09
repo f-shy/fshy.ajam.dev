@@ -94,7 +94,7 @@
     "volume_tib_month": null,
     "volume_stated": "No allowance and no meter: \"We do not meter requests or bandwidth, so the plan decides how many addresses and machines you get and nothing decides how much you may send.\"",
     "bytes_transit": "yes",
-    "transit_note": "AnchoredIP announces AS41800, whose holder is an individual, and the space is a personal PA assignment in Kazakhstan. A user can check the AS in public routing data. This says nothing about registration class, which is neither ISP nor organisation.",
+    "transit_note": "AnchoredIP announces AS41800, whose holder is an individual, and the space is a personal PA assignment in Kazakhstan. The AS can be checked in public routing data. This says nothing about registration class, which is neither ISP nor organisation.",
     "registration_class": "ASSIGNED PA under an individual, Kazakhstan. Not ISP-registered. Measured with RIPE RDAP 2026-10-24; see ip-proxy/anchoredip-registration-corrected."
   }
 }

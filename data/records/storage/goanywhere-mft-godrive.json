@@ -34,7 +34,7 @@
   ],
   "interface_detail": "sftp / ftp / webdav / rest (GoDrive web UI)",
   "tooling": "GoAnywhere MFT installer + GoDrive module; FileCatalyst Service as an accelerator",
-  "chaining": "Same shape as ExaVault: free software that runs on hardware a user does not own, so it is not an option here. 'Unlimited users' multiplies nothing that costs the vendor money, which is why the software is free. The vendor's own 'your hardware' phrasing is quoted in limits_verbatim, not repeated as advice.",
+  "chaining": "Same shape as ExaVault: free software that runs on hardware the service does not provide, so it is not an option here. 'Unlimited users' multiplies nothing that costs the vendor money, which is why the software is free. The vendor's own 'your hardware' phrasing is quoted in limits_verbatim, not repeated as advice.",
   "limits": [],
   "limits_note": "Bounded by your hardware. No per-object or retention cap stated.",
   "identity_cost": {

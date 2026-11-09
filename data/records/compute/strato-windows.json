@@ -99,7 +99,7 @@
       "pair": "EUR/USD",
       "rate": 1.1193,
       "date": "2026-10-23",
-      "source": "ECB reference via frankfurter.app"
+      "source": null
     },
     "vat_note": "19% German VAT is included in the printed price; a non-EU buyer may pay the net figure, which was not confirmed at checkout",
     "windows_licence": "included; derived from the EUR 40.00 Linux-to-Windows gap",

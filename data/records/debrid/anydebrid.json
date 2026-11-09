@@ -35,7 +35,7 @@
   ],
   "interface_detail": "A single web form: paste a host link, press Generate link, receive a time-limited download URL. No API, CLI or plugin is documented.",
   "tooling": "Browser only; the site names no download-manager integration.",
-  "chaining": "With no account it is the only option that leaves no identity trail, so it works as a one-off fetch for a file a user cannot get any other way - not as infrastructure.",
+  "chaining": "With no account it is the only option that leaves no identity trail, so it works as a one-off fetch for a file otherwise unreachable - not as infrastructure.",
   "limits": [
     {
       "kind": "request-rate",
@@ -48,7 +48,7 @@
   "binding_note": null,
   "identity_cost": {
     "kind": "anonymous",
-    "detail": "No registration form, no login, no email field on the generator. The only identifier is the client IP, and generated links are bound to it ('only the user that started the process can download it').",
+    "detail": "No registration form, no login, no email field on the generator. The only identifier is the caller IP, and generated links are bound to it ('only the user that started the process can download it').",
     "country": null
   },
   "reliability_note": "Generated links are IP-locked and deleted on completion, so a failed or interrupted transfer costs one of the eight daily slots; the site publishes no status page.",

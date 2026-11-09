@@ -5,7 +5,7 @@
   "url": "https://dspace.org/instances",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "404 — the registry moved. The live registry is dspace.org/registry/ (3,485 entries, 35 pages).",
+    "stated": "none reachable: 404 — the registry moved. The live registry is dspace.org/registry/ (3,485 entries, 35 pages).",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://dspace.org/instances",

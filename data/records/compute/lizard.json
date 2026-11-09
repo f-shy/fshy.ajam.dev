@@ -97,7 +97,7 @@
     }
   ],
   "verdict": "trial-only",
-  "notes": "At USD 0.0324 an hour the Medium sandbox is USD 23.65 a month, so the USD 19 credit is 586 hours; the Small at USD 0.0162 is USD 11.83 a month and 1,173 hours, so USD 19 covers a full month with about USD 7 spare. The 7-day trial is card-gated, which makes this a paid row for a user.",
+  "notes": "At USD 0.0324 an hour the Medium sandbox is USD 23.65 a month, so the USD 19 credit is 586 hours; the Small at USD 0.0162 is USD 11.83 a month and 1,173 hours, so USD 19 covers a full month with about USD 7 spare. The 7-day trial is card-gated, which makes this a paid row.",
   "extras": {
     "shape": {
       "vcpu": 4,

@@ -5,7 +5,7 @@
   "url": "https://cloudsmith.com/pricing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Free Core plan is 500 MB artifact storage and 1 GB package delivery, and the pricing page 429'd on first fetch, requiring escalation.",
+    "stated": "none reachable: Free Core plan is 500 MB artifact storage and 1 GB package delivery, and the pricing page 429'd on first fetch, requiring escalation.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://cloudsmith.com/pricing",

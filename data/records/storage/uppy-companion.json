@@ -5,7 +5,7 @@
   "url": "https://uppy.io/docs/companion/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Not a provider — it is a self-hosted OAuth bridge that pulls files from the user's own Drive/Dropbox/Instagram into your upload target. Zero storage of its own, so it cannot be multiplied…",
+    "stated": "none reachable: Not a provider — it is a self-hosted OAuth bridge that pulls files from the user's own Drive/Dropbox/Instagram into your upload target. Zero storage of its own, so it cannot be multiplied…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://uppy.io/docs/companion/",

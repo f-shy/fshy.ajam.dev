@@ -5,7 +5,7 @@
   "url": "https://groups.io/helpcenter/single/storagespace/storagespace_allotted.htm",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Basic plans: 1 GB. Worse, the storage is unreachable on a new free group: \"Restriction: This feature is available only in Premium groups, Enterprise groups, and legacy Free groups.\" Groups…",
+    "stated": "none reachable: Basic plans: 1 GB. Worse, the storage is unreachable on a new free group: \"Restriction: This feature is available only in Premium groups, Enterprise groups, and legacy Free groups.\" Groups…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://groups.io/helpcenter/single/storagespace/storagespace_allotted.htm",

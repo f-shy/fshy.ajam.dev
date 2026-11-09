@@ -5,7 +5,7 @@
   "url": "https://api.video/pricing/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Encoding free but hosting is $0.00285 per minute per month and delivery $0.0017 per minute. Per-minute-of-video pricing, so it is both paid and duration-shaped; 10,000 hours would be…",
+    "stated": "none reachable: Encoding free but hosting is $0.00285 per minute per month and delivery $0.0017 per minute. Per-minute-of-video pricing, so it is both paid and duration-shaped; 10,000 hours would be…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://api.video/pricing/",

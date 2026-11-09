@@ -51,7 +51,7 @@
   "limits_note": "not stated",
   "identity_cost": {
     "kind": "email",
-    "detail": null,
+    "detail": "email: the login page offers only a GitHub or a Google account, and the signed-in account carries an email address; the CLI signs in through a browser and prints the account email. Whether the sign-up form requires a card is unverified. No phone or identity document is named.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -67,10 +67,31 @@
       "url": "https://www.dexto.ai/docs/models/",
       "date": "2026-10-22",
       "proved": "the model documentation was read on 2026-10-22 and is a per-model price and capability table: 'Apodex 1.1 Mini (free) openrouter/apodex/apodex-1.1-mini:free 262K $0.00 / $0.00' beside 'Claude Haiku 5.5 $0.10 / $0.50'. It prices models, not machines"
+    },
+    {
+      "url": "https://app.dexto.ai/login",
+      "date": "2026-11-04",
+      "proved": "the login page offers only GitHub and Google, so the identity is an email account behind one of them",
+      "capture": "sha256:dac2585328cf744b9784daa1c2d6239da6342fd224342a9fadb9b540c07ac88a",
+      "quote": "GitHub\n\nGoogle"
+    },
+    {
+      "url": "https://www.dexto.ai/docs/cli/sign-in/",
+      "date": "2026-11-04",
+      "proved": "the signed-in account is identified by an email address",
+      "capture": "sha256:42a784030e7164a7a7278a6bd19d216a78af07eb3ec0c55285e47ed5ab083915",
+      "quote": "\"account\": { \"email\": \" ada@example.com\" }"
+    },
+    {
+      "url": "https://www.dexto.ai/docs/cli/sign-in/",
+      "date": "2026-11-04",
+      "proved": "sign-in is a browser approval of the account, not a separate registration form",
+      "capture": "sha256:42a784030e7164a7a7278a6bd19d216a78af07eb3ec0c55285e47ed5ab083915",
+      "quote": "The CLI opens your browser, you approve, and it saves the sign-in on this machine."
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-22T04:46:47.495Z",
+  "verified_at": "2026-11-04T15:51:59.408Z",
   "price_per_tb_month": null,
   "notes": "",
   "extras": {

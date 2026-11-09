@@ -54,7 +54,7 @@
   ],
   "limits_note": "A file type allow-list runs before the size check: the same 1 MiB payload sent as payload-1mib.bin was refused with HTTP 400 {\"message\":\"file type is not allowed\",\"success\":false}, and accepted once renamed to .txt. The download side is referer-gated: GET /x/leM7o.txt without a Referer answers 200 with an 8 254-byte HTML page, and the same request with Referer: https://qu.ax/leM7o answers 200 with the 1 048 576 bytes.",
   "binding": "retention-clamped",
-  "binding_note": "At 1 TiB a month the 256 MB cap only means 4 000 uploads, which a loop handles; the hard stop is that nothing on the service extends a file past 30 days, so a re-fetch after a month needs the original bytes, which a user no longer has if this was the only copy.",
+  "binding_note": "At 1 TiB a month the 256 MB cap only means 4 000 uploads, which a loop handles; the hard stop is that nothing on the service extends a file past 30 days, so a re-fetch after a month needs the original bytes, which is no longer held if this was the only copy.",
   "identity_cost": {
     "kind": "anonymous",
     "detail": "No account, no email, no cookie was sent; the upload was one POST from a bare HTTP client and a URL came back.",
@@ -98,7 +98,7 @@
     "status": 200,
     "download_requirements": "Referer header; the API URL itself is a landing page"
   },
-  "notes": "The caveat is the extension allow-list, the 30-day ceiling and the referer-gated download.",
+  "notes": "The caveat is the extension allow-list, the 30-day ceiling and the referer-gated download. For an archive of 20 TiB this is a distribution mirror, not storage: 80 000 files at 256 MB.",
   "extras": {
     "api_reply_fields": "files[0].url, .file_name, .hash (sha1), .size, .expires",
     "largest_upload_tested_bytes": 1048576

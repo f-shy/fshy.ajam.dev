@@ -5,7 +5,7 @@
   "url": "https://www.iheart.com/content/iheartradio-destination-content-license-agreement/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "No free self-serve hosting product to verify. iheart.com/podcast-hosting/ returns HTTP 406 through the reader and the only hosting-shaped documents surfaced are content licence agreements…",
+    "stated": "none reachable: No free self-serve hosting product to verify. iheart.com/podcast-hosting/ returns HTTP 406 through the reader and the only hosting-shaped documents surfaced are content licence agreements…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.iheart.com/content/iheartradio-destination-content-license-agreement/",

@@ -5,7 +5,7 @@
   "url": "https://www.tencentcloud.com/document/product/1145/70405",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Two separate failures.",
+    "stated": "none reachable: Two separate failures.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.tencentcloud.com/document/product/1145/70405",

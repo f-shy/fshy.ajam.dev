@@ -5,7 +5,7 @@
   "url": "https://www.hathitrust.org/member-libraries",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "No individual ingest at all: content can only be contributed by member libraries. Explicit: 'We are unable to work with individuals at this time to add digitized materials to our collection.",
+    "stated": "none reachable: No individual ingest at all: content can only be contributed by member libraries. Explicit: 'We are unable to work with individuals at this time to add digitized materials to our collection.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.hathitrust.org/member-libraries",

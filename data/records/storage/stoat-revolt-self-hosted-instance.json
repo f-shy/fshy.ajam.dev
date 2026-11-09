@@ -23,7 +23,7 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Whatever your own host costs — not free, so this is self-hosting rather than a free tier.",
+    "terms": "Whatever your own host costs — not free, so this is self-hosting rather than a free tier. Only interesting if a box with unmetered bandwidth is already available.",
     "metered": false
   },
   "interface": [

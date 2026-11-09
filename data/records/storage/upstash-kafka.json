@@ -5,7 +5,7 @@
   "url": "https://upstash.com/blog/workflow-kafka",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Discontinued. Deprecated 2024-09-11, shut down 2025-03-11. Do not plan around it; Upstash now points users at Workflow/QStash instead.",
+    "stated": "none reachable: Discontinued. Deprecated 2024-09-11, shut down 2025-03-11. Do not plan around it; Upstash now points users at Workflow/QStash instead.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://upstash.com/blog/workflow-kafka",

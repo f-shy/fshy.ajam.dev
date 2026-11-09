@@ -69,10 +69,17 @@
       "url": "https://vpspricetracker.com/provider/HostNamaste/vps",
       "date": "2026-10-22",
       "proved": "the tracker row quoted: \"HostNamaste - $2.00 / month\" / \"yearly Service\" / \"cpu 1 Intel Cores (shared)\" / \"ram 256 MB RAM\" / \"disk 10 GB HDD\" / \"bandwidth 256 GB/month bandwidth\" / \"rj45 0.1 Gbps port speed\" / \"city Los Angeles California U.S.A.\", under the line \"starting at $24.00 per year\""
+    },
+    {
+      "url": "https://www.hostnamaste.com/openvz-vps.php",
+      "date": "2026-11-07",
+      "proved": "the OpenVZ page still states plans start at USD 3.49 a month",
+      "capture": "sha256:98f65ea4b407db0ee439927a6ce9dabca457561bf87f8f87b720c183a111f1a6",
+      "quote": "Plans starting at $3.49/Month"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T06:08:33.037Z",
   "notes": "The tracker and the vendor disagree on the floor: the tracker sells an OpenVZ_256 row at USD 2.00 a month, and the vendor's own OpenVZ page says plans start at USD 3.49 and lists no 256 MB plan. A record that led with USD 2.00 would have quoted a plan nobody could order from the page read.",
   "extras": {
     "facets": {
@@ -85,6 +92,12 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "term": "monthly USD 3.49, quarterly USD 10.47, semi-annually USD 20.94, annually USD 41.88",
+    "monthly_usd": 3.49,
+    "annual_usd": 41.88,
+    "renewal_usd": "not published: no renewal price is printed on the order page or the cart",
+    "stock": "orderable: the cart renders the product block (512 MB RAM, 15 GB RAID10, 1 TB bandwidth)",
+    "cart_url": "https://www.hostnamaste.com/clients/cart.php?a=add&pid=43"
   }
 }

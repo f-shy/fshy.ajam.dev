@@ -32,7 +32,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "A real API for model import jobs, then InvokeModel. The import job reads from an S3 URI you supply.",
-  "chaining": "None for storage — this is a consumer of S3 capacity, not a provider of it.",
+  "chaining": "None for storage — this is a consumer of S3 capacity, not a provider of it. Chaining it to the requirement would require owning the S3 bucket first, which is a paid resource.",
   "limits": [],
   "limits_note": "fails-quota and fails the model: the catalog does not host third-party bytes. Also architecturally constrained (transformer 4.51.3, <128K context, no embedding models).",
   "identity_cost": {

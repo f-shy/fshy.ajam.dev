@@ -5,7 +5,7 @@
   "url": "https://learn.microsoft.com/en-us/azure/open-datasets/overview-what-is-azure-open-datasets",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Retired as a programme. Microsoft Learn's overview page 404s and the product page no longer exposes a dataset catalogue or an intake form; what remains is the Planetary Computer, which…",
+    "stated": "none reachable: Retired as a programme. Microsoft Learn's overview page 404s and the product page no longer exposes a dataset catalogue or an intake form; what remains is the Planetary Computer, which…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://learn.microsoft.com/en-us/azure/open-datasets/overview-what-is-azure-open-datasets",

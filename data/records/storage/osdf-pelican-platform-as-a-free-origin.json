@@ -5,7 +5,7 @@
   "url": "https://docs.pelicanplatform.org/federating-your-data/origin",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "You can federate your own data by running a Pelican origin, but that means YOU supply the storage, the certificate and the host — the platform is a distribution layer, not a storage grant.…",
+    "stated": "none reachable: You can federate your own data by running a Pelican origin, but that means YOU supply the storage, the certificate and the host — the platform is a distribution layer, not a storage grant.…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.pelicanplatform.org/federating-your-data/origin",

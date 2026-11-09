@@ -5,7 +5,7 @@
   "url": "https://docs.pixeldrain.com/filesystem/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Prepaid storage is genuinely €4/TB/mo but egress is metered at €1/TB with NO free download allowance on the filesystem — 'Downloads from the filesystem are charged at €1 / TB for prepaid.'…",
+    "stated": "none reachable: Prepaid storage is genuinely €4/TB/mo but egress is metered at €1/TB with NO free download allowance on the filesystem — 'Downloads from the filesystem are charged at €1 / TB for prepaid.'…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.pixeldrain.com/filesystem/",

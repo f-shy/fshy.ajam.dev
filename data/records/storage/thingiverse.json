@@ -5,7 +5,7 @@
   "url": "https://forum.thingiverse.com/t/is-there-a-maximum-file-size-for-thingiverse-uploads/622",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "No published limit but uploads stall/fail on large files with no progress indicator — unreliable rather than capped.",
+    "stated": "none reachable: No published limit but uploads stall/fail on large files with no progress indicator — unreliable rather than capped.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://forum.thingiverse.com/t/is-there-a-maximum-file-size-for-thingiverse-uploads/622",

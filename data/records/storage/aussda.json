@@ -5,7 +5,7 @@
   "url": "https://data.aussda.at/api/dataverses/1/storage/quota?showInherited=true",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Self-deposit is limited to researchers at partner universities (Vienna, Graz, Linz, Innsbruck, Salzburg, Krems, WU, OeAW) who sign an archive contract. Not an open door despite 'no quota…",
+    "stated": "none reachable: Self-deposit is limited to researchers at partner universities (Vienna, Graz, Linz, Innsbruck, Salzburg, Krems, WU, OeAW) who sign an archive contract. Not an open door despite 'no quota…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://data.aussda.at/api/dataverses/1/storage/quota?showInherited=true",

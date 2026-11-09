@@ -40,13 +40,13 @@
   "limits": [
     {
       "kind": "write-gated",
-      "value": null,
+      "value": "The product assumes nodes the customer operates, and the analysis assumes no local hardware, so the first failure is the premise rather than a price.",
       "source": "https://www.expanso.io/"
     }
   ],
-  "limits_note": null,
+  "limits_note": "The product assumes nodes the customer operates, and the analysis assumes no local hardware, so the first failure is the premise rather than a price.",
   "binding": "write-gated",
-  "binding_note": null,
+  "binding_note": "The product assumes nodes the customer operates, and the analysis assumes no local hardware, so the first failure is the premise rather than a price.",
   "identity_cost": {
     "kind": "institution",
     "detail": null,

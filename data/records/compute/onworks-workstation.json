@@ -29,7 +29,7 @@
   ],
   "interface_detail": "A browser-delivered desktop inside a virtualised workstation, with a file manager for upload and download and Google Drive image export. No SSH, no API, and no way to attach from outside.",
   "tooling": "a browser only",
-  "chaining": "Nothing for a user's stack: no SSH, no inbound port, and a five-minute idle reap, so it cannot be a node, a monitor or a build runner.",
+  "chaining": "Nothing for a stack: no SSH, no inbound port, and a five-minute idle reap, so it cannot be a node, a monitor or a build runner.",
   "limits": [
     {
       "kind": "retention-clamped",
@@ -82,7 +82,7 @@
   "verdict": "fails-quota",
   "verified_at": "2026-10-24T06:59:00.000Z",
   "price_per_tb_month": null,
-  "notes": "Anonymous, free, and unusable for a user: browser-only desktop, no SSH, no inbound port, and a five-minute idle destruction. The workstation's shape is unpublished.",
+  "notes": "Anonymous, free, and unusable: browser-only desktop, no SSH, no inbound port, and a five-minute idle destruction. The workstation's shape is unpublished.",
   "extras": {
     "shape": {
       "vcpu": null,

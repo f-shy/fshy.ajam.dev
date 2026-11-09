@@ -5,7 +5,7 @@
   "url": "https://developers.cloudflare.com/queues/platform/limits/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Tempting because per-queue backlog is 25 GB, but on Workers Free message retention is 'non-configurable at 24 hours' — everything written is deleted within a day. Charged at 1 operation per",
+    "stated": "none reachable: Tempting because per-queue backlog is 25 GB, but on Workers Free message retention is 'non-configurable at 24 hours' — everything written is deleted within a day. Charged at 1 operation per",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://developers.cloudflare.com/queues/platform/limits/",

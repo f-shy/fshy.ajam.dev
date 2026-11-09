@@ -36,7 +36,7 @@
     "webdav",
     "cli"
   ],
-  "interface_detail": "The server runs on the client's machine and exposes WebDAV; '独立 WebDAV 用户管理' is a Pro feature. Supported sources include 阿里云盘, 百度网盘, 115网盘, 天翼云盘, 123云盘, 迅雷云盘, OneDrive, Google Drive and WebDAV.",
+  "interface_detail": "The server runs on the local machine and exposes WebDAV; '独立 WebDAV 用户管理' is a Pro feature. Supported sources include 阿里云盘, 百度网盘, 115网盘, 天翼云盘, 123云盘, 迅雷云盘, OneDrive, Google Drive and WebDAV.",
   "tooling": "Windows/macOS/Linux/Docker server plus apps for phone, TV and headset. WebDAV means rclone, Infuse, VidHub and any player can mount it.",
   "chaining": "One licence turns five Chinese pans into one WebDAV endpoint, which is the piece AList does not sell: paid support, encrypted folders and cross-cloud copy in one binary.",
   "limits": [
@@ -75,7 +75,7 @@
   "verdict": "qualifies",
   "verified_at": "2026-10-23T01:56:12.307Z",
   "price_per_tb_month": "CNY 4.99/month; CNY 49.99/year; CNY 499 lifetime",
-  "notes": "Runs on a free VM or a user's own machine - it is software on somebody else's hardware either way. The 视障用户 lifetime tier at ¥299 is a real discount route documented on the page.",
+  "notes": "Runs on a free VM or a local machine - it is software on somebody else's hardware either way. The 视障用户 lifetime tier at ¥299 is a real discount route documented on the page.",
   "extras": {
     "supports": [
       "阿里云盘",

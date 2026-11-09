@@ -37,7 +37,7 @@
   ],
   "interface_detail": "udp2raw_amd64 -s / -c",
   "tooling": "static binaries for x86, ARM, Android and some OpenWrt routers",
-  "chaining": "only composes with a host a user rents or gets free, such as a free-tier VM, and adds nothing to a hosted tunnel.",
+  "chaining": "only composes with a host rented or obtained free, such as a free-tier VM, and adds nothing to a hosted tunnel.",
   "limits": [],
   "limits_note": "",
   "binding": "none",

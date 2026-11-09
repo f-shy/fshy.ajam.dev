@@ -5,7 +5,7 @@
   "url": "https://www.mail.com/mail/email-storage/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The 65 GB is real and the largest free mailbox found: \"mail.com offers you up to 65 GB of email storage\". But the read/write path is closed on the free tier: \"these protocols POP3, IMAP…",
+    "stated": "none reachable: The 65 GB is real and the largest free mailbox found: \"mail.com offers you up to 65 GB of email storage\". But the read/write path is closed on the free tier: \"these protocols [POP3, IMAP…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.mail.com/mail/email-storage/",

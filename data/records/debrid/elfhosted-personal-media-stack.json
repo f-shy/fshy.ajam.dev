@@ -20,7 +20,7 @@
     "notes": ""
   },
   "retention": {
-    "stated": "not applicable to ElfHosted: media is held by the debrid or Usenet account a user brings, so retention is that provider's policy, not the host's",
+    "stated": "not applicable to ElfHosted: media is held by the debrid or Usenet account behind it, so retention is that provider's policy, not the host's",
     "days": null,
     "source_url": "https://store.elfhosted.com/product/hobbit/",
     "notes": ""
@@ -36,12 +36,12 @@
     "rest"
   ],
   "interface_detail": "Plex, Emby, Jellyfin or Remux as the player; each exposes its own HTTP API. Radarr/Sonarr, Prowlarr, Seerr and Rclone are provisioned alongside. SSO through the ElfHosted account and HTTPS on a vendor subdomain.",
-  "tooling": "nothing to install: the stack is provisioned at checkout from three dropdowns (media player, automation, storage provider). No rclone mount, no Docker, no VPS, no reverse proxy. A user still needs its own debrid or Usenet account except where a TorBox or NzbDAV variation bundles one.",
-  "chaining": "The hosted replacement for Zurg + Rclone + Plex on a home box: debrid/Usenet holds the bytes, ElfHosted runs the *arr half, and the client watches through Plex/Jellyfin apps from any device.",
+  "tooling": "nothing to install: the stack is provisioned at checkout from three dropdowns (media player, automation, storage provider). No rclone mount, no Docker, no VPS, no reverse proxy. A debrid or Usenet account is still needed except where a TorBox or NzbDAV variation bundles one.",
+  "chaining": "The hosted replacement for Zurg + Rclone + Plex on a home box: debrid/Usenet holds the bytes, ElfHosted runs the *arr half, and playback is through Plex/Jellyfin apps from any device.",
   "limits": [],
   "limits_note": "Concurrent-stream caps are the real ceiling and the seven-kind vocabulary has no name for them: 2xHD/1x4K (Zurgling, Starter), 4xHD/2x4K (Hobbit, JellyGoblin Pro), 8xHD/4x4K (Ranger), 16xHD/8x4K (Halfling, Nazgul, the last on dedicated hardware). 'Hardware transcoding up to 1080p' on Hobbit. Remux variation is 'Direct play only'.",
   "binding": "none",
-  "binding_note": "Nothing in the vocabulary fails at 1 TiB/month because the host carries no bytes: the library sits in a user's debrid account, and the constraint sold is stream count plus tier capacity, which the vocabulary cannot name. The thing that actually fails is availability, not a counter: two of the nine stack products were 'Sold out' on the read date.",
+  "binding_note": "Nothing in the vocabulary fails at 1 TiB/month because the host carries no bytes: the library sits in the debrid account, and the constraint sold is stream count plus tier capacity, which the vocabulary cannot name. The thing that actually fails is availability, not a counter: two of the nine stack products were 'Sold out' on the read date.",
   "identity_cost": {
     "kind": "card",
     "detail": "A paid order: ElfHosted account plus a payment method. No identity document. Plex and Emby variations add their own requirement downstream - 'remote streaming requires a PlexPass' or 'Emby Premiere' - while the Jellyfin and Remux variations need no extra subscription.",

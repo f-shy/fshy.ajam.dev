@@ -34,7 +34,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "Appwrite SDKs (web, flutter, node, python, dart), REST + GraphQL API, `appwrite` CLI; storage buckets expose file preview/download endpoints; S3-compatible adapter exists for self-host",
-  "chaining": "2 projects x 2 GB = 4 GB per account; per-project caps on buckets ('1 Database, 1 Bucket, 2 Functions per project') mean a bucket cannot be sharded inside a project. Accounts are the only multiplier. Self-hosting is free and unlimited but that is compute he pays for, not a free tier.",
+  "chaining": "2 projects x 2 GB = 4 GB per account; per-project caps on buckets ('1 Database, 1 Bucket, 2 Functions per project') mean a bucket cannot be sharded inside a project. Accounts are the only multiplier. Self-hosting is free and unlimited but that is paid compute, not a free tier.",
   "limits": [],
   "limits_note": "1 bucket per project on Free; 1 member; 750K executions; free projects paused after 1 week inactivity; 2-project cap.",
   "identity_cost": {

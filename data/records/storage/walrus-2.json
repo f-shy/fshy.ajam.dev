@@ -5,7 +5,7 @@
   "url": "https://docs.wal.app/docs/system-overview/storage-costs",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "$0.023/GB/month with no free tier, billed on encoded size which is ~4.5x the file plus 64 MB per-blob overhead. A 50 GB file for a year is ~$62; 20 TiB would be ~$25,000/yr and rising with…",
+    "stated": "none reachable: $0.023/GB/month with no free tier, billed on encoded size which is ~4.5x the file plus 64 MB per-blob overhead. A 50 GB file for a year is ~$62; 20 TiB would be ~$25,000/yr and rising with…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.wal.app/docs/system-overview/storage-costs",

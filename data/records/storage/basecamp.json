@@ -5,7 +5,7 @@
   "url": "https://basecamp.com/pricing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Free is 1 GB and 1 project, 3 users. Paid tops out at 1 TB for $199/mo. No free path to bulk and no API for arbitrary binaries.",
+    "stated": "none reachable: Free is 1 GB and 1 project, 3 users. Paid tops out at 1 TB for $199/mo. No free path to bulk and no API for arbitrary binaries.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://basecamp.com/pricing",

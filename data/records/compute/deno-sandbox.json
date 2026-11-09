@@ -56,7 +56,7 @@
   "limits_note": "not stated",
   "identity_cost": {
     "kind": "email",
-    "detail": null,
+    "detail": "email: sign-in is a GitHub account, or a Google account for users who then still supply GitHub credentials, and the contact email is the one on GitHub ('Deno Deploy supports logging in with GitHub. Your primary contact email address and name are synced from GitHub.'). No card is needed to create the account and use the restricted Free plan limits; linking a credit card to verify the organization is what lifts them. No phone or identity document is named.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -86,10 +86,38 @@
       "proved": "sandbox compute uses the same egress meter",
       "capture": "sha256:1af6151eba5d134daad85c6d67ec6e9b1c164d69a552d47445570ba254f9d8c9",
       "quote": "Sandbox compute bills through the same CPU, memory, and egress meters at your plan's rates"
+    },
+    {
+      "url": "https://docs.deno.com/deploy/reference/accounts/",
+      "date": "2026-11-04",
+      "proved": "the account is a GitHub identity and its email address comes from GitHub",
+      "capture": "sha256:f3cf031f65f27fb2808f5b35d873bf9ae54e9157097f8088fd080facac09b23c",
+      "quote": "Deno Deploy supports logging in with GitHub. Your primary contact email address and name are synced from GitHub."
+    },
+    {
+      "url": "https://docs.deno.com/llms-full.txt",
+      "date": "2026-11-04",
+      "proved": "the unrestricted Free plan sits behind a card",
+      "capture": "sha256:26efbec0f2c4eb34f73aa1e54c8fb80aba9bb96a1eb5819fc238327ecdcfcb55",
+      "quote": "Organizations can only make use of restricted Free plan limits until they verify their organization by linking a credit card."
+    },
+    {
+      "url": "https://docs.deno.com/deploy/reference/organizations/",
+      "date": "2026-11-04",
+      "proved": "creating the account is signing in with GitHub",
+      "capture": "sha256:cea9cb19e55a5370b9f7ee8ed4e28d7d655cf00565ef5a619aa546bdf39c2184",
+      "quote": "If you do not yet have a Deno Deploy account, you can create one by visiting the Deno Deploy dashboard and signing in with your GitHub account."
+    },
+    {
+      "url": "https://docs.deno.com/deploy/reference/organizations/",
+      "date": "2026-11-04",
+      "proved": "signing up creates the account and its organization, with no card in the step",
+      "capture": "sha256:cea9cb19e55a5370b9f7ee8ed4e28d7d655cf00565ef5a619aa546bdf39c2184",
+      "quote": "Organizations in Deno Deploy are created when you sign up for a Deno Deploy account."
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-04T05:24:41.666Z",
+  "verified_at": "2026-11-04T15:51:59.408Z",
   "price_per_tb_month": null,
   "notes": "",
   "extras": {

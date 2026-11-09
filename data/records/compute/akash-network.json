@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "The permissionless path is the composable half: no KYC, no 30-day clock, funded in ACT, so it is the only decentralized lane here that a wallet alone opens with no identity check. It composes with any card-priced workload a user cannot run locally.",
+  "chaining": "The permissionless path is the composable half: no KYC, no 30-day clock, funded in ACT, so it is the only decentralized lane here that a wallet alone opens with no identity check. It composes with any card-priced workload that cannot run locally.",
   "limits": [
     {
       "kind": "retention-clamped",
@@ -109,11 +109,18 @@
       "url": "https://skycisa.com/providers/akash-network",
       "date": "2026-10-22",
       "proved": "a second index lists RTX 3090 24Gi at USD 0.090 and an RTX 3060 12Gi at USD 0.080 from the Akash marketplace, giving the 0.09 to 0.15 range used in the division"
+    },
+    {
+      "url": "https://akash.network/docs/getting-started/quick-start/",
+      "date": "2026-11-06",
+      "proved": "the trial caps each deployment at 24 hours and reaches only GPUs up to the RTX 3090",
+      "capture": "sha256:cfaca1dd4ff5818a97864f9fe2fab4d8020fcd551a3478ef7de3d1967a3e2a75",
+      "quote": "Deployments run up to 24 hours each, and you can redeploy as many times as you like inside the 30-day window. GPUs up to the RTX 3090 are available."
     }
   ],
   "verdict": "trial-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "Recon's USD 1 is confirmed and is the current figure. An older blog post still advertises USD 10, so the trial was cut by 10x; a reader who finds the blog first will overestimate by 10x. The GPU price table at /pricing/gpus is client-rendered and returned empty rows through both read and raw fetch, so individual rates below the RTX 3090 tier were not read off Akash's own page. One inconsistency to carry forward: Akash homepage marketing states H100s for USD 1.33 per hour while its own H100 pricing page states USD 2.73 as of October 20 2026. The pricing page is the specific claim and the homepage line is undated, so the page wins. Egress does not bind at Akash: it documents zero egress fees, so the constraint here is the credit and the 24-hour deployment cap, not bandwidth.",
+  "verified_at": "2026-11-06T19:39:36.653Z",
+  "notes": "The USD 1 trial credit is the current figure. An older blog post still advertises USD 10, so the trial was cut by 10x; a reader who finds the blog first will overestimate by 10x. The GPU price table at /pricing/gpus is client-rendered and returns empty rows, so individual rates below the RTX 3090 tier are not read off Akash's own page. Akash's own usage calculator computes the exact USD/GPU-hour. One inconsistency: Akash homepage marketing states H100s for USD 1.33 per hour while its own H100 pricing page states USD 2.73 as of 2026-10-20. The pricing page is the specific claim and the homepage line is undated, so the page wins. Egress does not bind at Akash: it documents zero egress fees, so the constraint here is the credit and the 24-hour deployment cap, not bandwidth.",
   "extras": {
     "facets": {
       "class": "decentralized-marketplace",

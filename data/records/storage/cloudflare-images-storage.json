@@ -5,7 +5,7 @@
   "url": "https://developers.cloudflare.com/images/pricing/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The Free plan explicitly has NO storage: 'The Paid plan allows transformations, as well as access to storage in Images.' Free is transformations-only, 'up to 5,000 unique transformations…",
+    "stated": "none reachable: The Free plan explicitly has NO storage: 'The Paid plan allows transformations, as well as access to storage in Images.' Free is transformations-only, 'up to 5,000 unique transformations…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://developers.cloudflare.com/images/pricing/",

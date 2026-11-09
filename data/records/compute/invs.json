@@ -38,9 +38,9 @@
   "tooling": "not stated",
   "chaining": "A Russian machine at RUB 1200 with IPMI and unlimited traffic is the cheapest dedicated hardware found anywhere, and it composes with a Western front end because the machine is the back end and latency does not matter for batch work.",
   "limits": [],
-  "limits_note": "The traffic claim is 'absolutely unlimited' with no rate, which is a discretionary throttle and not a quota.",
+  "limits_note": "No published limit binds above the scale on this page; the traffic claim is 'absolutely unlimited' with no rate, which is a discretionary throttle and not a quota.",
   "binding": "none",
-  "binding_note": "The traffic claim is 'absolutely unlimited' with no rate, which is a discretionary throttle and not a quota.",
+  "binding_note": "No published limit binds above the scale on this page; the traffic claim is 'absolutely unlimited' with no rate, which is a discretionary throttle and not a quota.",
   "identity_cost": {
     "kind": "card",
     "detail": "unverified: no page stating the signup requirement was read; the record's evidence covers the dedicated-server rate card (the page title quotes '1200 rub.' and the body line reads 'Vsego ot 1200 rub./mes.', with the listed configurations, 'Absolyutno bezlimitnyy trafik' and prepayment discounts) but not the order form. Whether a card is required, what hold applies, and whether debit or prepaid is accepted are all not stated, so the stored card kind is unsupported by this record's evidence.",

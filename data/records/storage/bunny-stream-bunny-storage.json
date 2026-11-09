@@ -5,7 +5,7 @@
   "url": "https://bunny.net/pricing/stream/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "No free tier — Stream is 'only pay for the traffic' plus $1/month minimum and a 14-day trial; Storage is $0.01/GB/mo with free traffic to Bunny CDN only. Note for the swarm: Bunny Storage",
+    "stated": "none reachable: No free tier — Stream is 'only pay for the traffic' plus $1/month minimum and a 14-day trial; Storage is $0.01/GB/mo with free traffic to Bunny CDN only. Note for the swarm: Bunny Storage",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://bunny.net/pricing/stream/",

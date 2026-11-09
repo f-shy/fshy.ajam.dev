@@ -5,7 +5,7 @@
   "url": "https://docs.discord.com/developers/resources/message#signed-attachment-cdn-urls",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Signed attachment URLs expire in exactly 24 hours (measured ex-is = 86400) and unsigned fetches 404. A URL cannot be stored in a catalog and reused; every read needs an authenticated…",
+    "stated": "none reachable: Signed attachment URLs expire in exactly 24 hours (measured ex-is = 86400) and unsigned fetches 404. A URL cannot be stored in a catalog and reused; every read needs an authenticated…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.discord.com/developers/resources/message#signed-attachment-cdn-urls",

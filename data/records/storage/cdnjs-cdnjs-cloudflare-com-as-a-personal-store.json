@@ -5,7 +5,7 @@
   "url": "https://hopjs.bunny.net/about/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Not open-write: packages are added by maintainer PR against the cdnjs/cdnjs repo, i.e. write-gated by review. Its free mirror hop.js is useful (see candidate 1) but the underlying store is…",
+    "stated": "none reachable: Not open-write: packages are added by maintainer PR against the cdnjs/cdnjs repo, i.e. write-gated by review. Its free mirror hop.js is useful (see candidate 1) but the underlying store is…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://hopjs.bunny.net/about/",

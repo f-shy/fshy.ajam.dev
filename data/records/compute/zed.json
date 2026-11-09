@@ -39,9 +39,9 @@
   "tooling": "not stated",
   "chaining": "the editor is free and the tokens come from whichever vendor is granting them.",
   "limits": [],
-  "limits_note": "nothing binds because the vendor serves no model on this tier; the ceiling is the endpoint a user points it at.",
+  "limits_note": "nothing binds because the vendor serves no model on this tier; the ceiling is the endpoint it is pointed at.",
   "binding": "none",
-  "binding_note": "nothing binds because the vendor serves no model on this tier; the ceiling is the endpoint a user points it at.",
+  "binding_note": "nothing binds because the vendor serves no model on this tier; the ceiling is the endpoint it is pointed at.",
   "identity_cost": {
     "kind": "anonymous",
     "detail": "no account for the editor or for AI on the user's own API keys: the docs say signing in is not required and that AI without signing in uses the user's own keys. Sign-in, needed for Zed-hosted models and collaboration, is GitHub OAuth with the read:user scope, and the account email is the GitHub one",
