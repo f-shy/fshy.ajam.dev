@@ -5,7 +5,7 @@
   "url": "https://docs.gitlab.com/user/gitlab_com/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Hard 1 GB maximum site size on GitLab.com regardless of tier, plus a 200,000 file-entry cap and a 150 custom-domain cap. The 1 GB limit is a product-wide constant that an open GitLab issue…",
+    "stated": "none reachable: Hard 1 GB maximum site size on GitLab.com regardless of tier, plus a 200,000 file-entry cap and a 150 custom-domain cap. The 1 GB limit is a product-wide constant that an open GitLab issue…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.gitlab.com/user/gitlab_com/",

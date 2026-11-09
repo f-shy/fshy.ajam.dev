@@ -37,7 +37,7 @@
   ],
   "interface_detail": "Green-build Windows client download; no API or Linux client is described on the page.",
   "tooling": "vendor Windows client",
-  "chaining": "A UDP-capable reverse proxy for a WG listener, with P2P as the fast path between a user's own devices.",
+  "chaining": "A UDP-capable reverse proxy for a WG listener, with P2P as the fast path between the account's own devices.",
   "limits": [
     {
       "kind": "per-ip-shaping",

@@ -5,7 +5,7 @@
   "url": "https://www.microsoft.com/en-us/microsoft-365/onedrive/compare-onedrive-plans",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "5 GB per Microsoft account, 2,000 accounts would be needed for 10 TB - not trivially repeatable, and no documented bulk-signup path.",
+    "stated": "none reachable: 5 GB per Microsoft account, 2,000 accounts would be needed for 10 TB - not trivially repeatable, and no documented bulk-signup path.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.microsoft.com/en-us/microsoft-365/onedrive/compare-onedrive-plans",

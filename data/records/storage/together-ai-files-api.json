@@ -46,7 +46,7 @@
     "detail": "card",
     "country": null
   },
-  "reliability_note": "Together has no free tier — 'no free trials', $5 minimum prepaid credit required. That already fails a user's constraint. Read path unverified: /v1/files/{id}/content exists but every probe returns 401.",
+  "reliability_note": "Together has no free tier — 'no free trials', $5 minimum prepaid credit required. That already fails the constraint. Read path unverified: /v1/files/{id}/content exists but every probe returns 401.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

@@ -40,13 +40,13 @@
   "limits": [
     {
       "kind": "write-gated",
-      "value": "the hosted lane has no self-serve price at all, so the only free path is running the desktop app on a machine a user must supply.",
+      "value": "the hosted lane has no self-serve price at all, so the only free path is running the desktop app locally.",
       "source": "https://www.onlook.com/pricing"
     }
   ],
-  "limits_note": "the hosted lane has no self-serve price at all, so the only free path is running the desktop app on a machine a user must supply.",
+  "limits_note": "the hosted lane has no self-serve price at all, so the only free path is running the desktop app locally.",
   "binding": "write-gated",
-  "binding_note": "the hosted lane has no self-serve price at all, so the only free path is running the desktop app on a machine a user must supply.",
+  "binding_note": "the hosted lane has no self-serve price at all, so the only free path is running the desktop app locally.",
   "identity_cost": {
     "kind": "anonymous",
     "detail": "anonymous for the free form: the Free card is 'Download Onlook and start designing in your code' with no usage allowance, and 'Yes, Onlook can be self-hosted for free on GitHub', so no account is created and no identity is checked. The hosted cloud lane publishes no signup at all - 'please contact our team or book a demo' - so what it would require is unknown. No card, hold, phone number or ID document is stated.",

@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "If a user held a mainland identity and a filed domain, this is 4 cores and 4 GiB for the price of two coffees a year; without them it is unreachable, which is the whole finding.",
+  "chaining": "With a mainland identity and a filed domain, this is 4 cores and 4 GiB for the price of two coffees a year; without them it is unreachable, which is the whole finding.",
   "limits": [
     {
       "kind": "volume-quota",
@@ -73,7 +73,7 @@
   ],
   "verdict": "fails-identity",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "CNY 99 a year is quoted as written and not converted. The 1 TB cap and the 10 Mbps throttle are the vendor's own words in the offer post, not a measurement.",
+  "notes": "The floor of the Chinese annual market, with its spec intact: the number is what makes it interesting and the gates are what make it unusable. CNY 99 a year is quoted as written and not converted. The 1 TB cap and the 10 Mbps throttle are the vendor's own words in the offer post, not a measurement.",
   "extras": {
     "facets": {
       "class": "regional-floor-price",

@@ -5,7 +5,7 @@
   "url": "https://speedypage.com/vps",
   "category": "cloud VM",
   "free_tier": {
-    "stated": "AMD Ryzen VPS at GBP 3.50/month: 1 Ryzen core (AMD Ryzen 7900 / 9700X, up to 5.4 GHz), 1 GB DDR5, 15 GB NVMe, 2 TB bandwidth on a 10 Gbps port, London UK. The same card shows the annual term at GBP 38.50/year and the parallel USD display at 4.29/month. The next plan is GBP 4.99/month with 1 core, 2 GB, 30 GB NVMe and 5 TB.",
+    "stated": "AMD Ryzen VPS at GBP 3.50/month: 1 Ryzen core (AMD Ryzen 7900 / 9700X, up to 5.4 GHz), 1 GB DDR5, 15 GB NVMe, 2 TB bandwidth on a 10 Gbps port, London UK. The same card shows the annual term at GBP 38.50/year and the parallel USD display at 4.29/month. The next plan is GBP 4.99/month with 1 core, 2 GB, 30 GB NVMe and 5 TB. No renewal price is printed on the pages read.",
     "unit": "GiB",
     "metered_on": "wall-clock",
     "source_url": "https://speedypage.com/vps",
@@ -74,10 +74,31 @@
       "url": "https://speedypage.com/",
       "date": "2026-10-22",
       "proved": "home page: the Virtual Servers block reads 'STARTING AT GBP 6.99/mo', struck through, then 'GBP 3.50 /mo', matching the plan card"
+    },
+    {
+      "url": "https://speedypage.com/vps",
+      "date": "2026-11-07",
+      "proved": "the vps page product schema still states the GBP low price 3.50 beside priceCurrency GBP on 2026-11-07",
+      "capture": "sha256:6e4471decb1e5d3cbb7d8f5396cffcc1397ee46851d25876945e74d1a6db86aa",
+      "quote": "\"lowPrice\": \"3.50\","
+    },
+    {
+      "url": "https://my.speedypage.com/cart.php?a=add&pid=41",
+      "date": "2026-11-07",
+      "proved": "the cheapest plan's cart prices are unchanged",
+      "capture": "sha256:995a408b65d332d4160c4d2b583552233ccf2aa73ef2006a1429d44c3a9c54c0",
+      "quote": "### Monthly   \n £3.50 GBP"
+    },
+    {
+      "url": "https://my.speedypage.com/cart.php?a=add&pid=41",
+      "date": "2026-11-07",
+      "proved": "the cart configuration page for pid 41 prices monthly, quarterly, semi-annual and annual terms, prints no renewal price and shows no out-of-stock notice",
+      "capture": "sha256:995a408b65d332d4160c4d2b583552233ccf2aa73ef2006a1429d44c3a9c54c0",
+      "quote": "### Monthly   \n £3.50 GBP\n\n### Quarterly   \n £10.50 GBP\n\n### Semi-Annually   \n £21.00 GBP\n\n### Annually   \n £38.50 GBP"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T06:08:42.897Z",
   "notes": "The tracker row and the vendor card agree on price, shape, bandwidth, port speed and location, so no figure in this record rests on the tracker alone. The quoting currency is the pound sterling; the page prints a USD figure beside it and no conversion was done here. The tracker also lists the same GBP 3.50 in Singapore with 1,024 GB of bandwidth rather than 2,048, so the allowance varies by location and the London figure is the one recorded. Rendering and provenance: currency symbols are written out (EUR, GBP, RUB, VND), diacritics in place names are folded to ASCII, and a price the page splits across two lines is joined as value/period; the tracker page stated 'Database update: 7 hours ago' when it was read on 2026-10-22.",
   "extras": {
     "facets": {
@@ -90,6 +111,7 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "price_on_page": "GBP 3.50/month for UK-KVM-1G"
   }
 }

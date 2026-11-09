@@ -5,7 +5,7 @@
   "url": "https://cn.dataone.org/cn/v2/node",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "It is a federation of member nodes, not a depositor. The Coordinating Node answers (cn.dataone.org/cn/v2/node -> 200 XML) but there is no general deposit endpoint; you must go through a…",
+    "stated": "none reachable: It is a federation of member nodes, not a depositor. The Coordinating Node answers (cn.dataone.org/cn/v2/node -> 200 XML) but there is no general deposit endpoint; you must go through a…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://cn.dataone.org/cn/v2/node",

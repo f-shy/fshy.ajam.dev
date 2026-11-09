@@ -5,7 +5,7 @@
   "url": "https://fjord.sh/commons",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "5 GB per account and 'Git LFS is not enabled' at all. Free and non-expiring, but the LFS layer is simply absent.",
+    "stated": "none reachable: 5 GB per account and 'Git LFS is not enabled' at all. Free and non-expiring, but the LFS layer is simply absent.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://fjord.sh/commons",

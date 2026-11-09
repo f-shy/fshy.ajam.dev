@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "1 vCPU and 1 GB always-on with a nightly backup covers the self-hosted service that otherwise needs a VPS: uptime monitoring, a newsletter, a password vault or an analytics endpoint, with no maintenance on the client's side.",
+  "chaining": "1 vCPU and 1 GB always-on with a nightly backup covers the self-hosted service that otherwise needs a VPS: uptime monitoring, a newsletter, a password vault or an analytics endpoint, with no maintenance.",
   "limits": [
     {
       "kind": "per-object-cap",

@@ -36,7 +36,7 @@
     "cli"
   ],
   "interface_detail": "'freehold --relay freehold.lit.app:9999 --port 8080 --backend 127.0.0.1:3000'",
-  "tooling": "The freehold Rust client; the relay itself needs a Linux host with eBPF and root, which is the operator's problem and not a user's",
+  "tooling": "The freehold Rust client; the relay itself needs a Linux host with eBPF and root, which is the relay operator's problem, not a client-side one",
   "chaining": "Nothing to chain until the datagram question is settled.",
   "limits": [
     {

@@ -5,7 +5,7 @@
   "url": "https://www.gitpod.io/pricing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "gitpod.io now redirects to ona.com, which routes to 'Contact sales' with no public pricing and no free tier. The free-tier Gitpod that people remember is gone.",
+    "stated": "none reachable: gitpod.io now redirects to ona.com, which routes to 'Contact sales' with no public pricing and no free tier. The free-tier Gitpod that people remember is gone.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.gitpod.io/pricing",

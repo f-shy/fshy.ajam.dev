@@ -37,7 +37,7 @@
   "interface_detail": "REST over HTTPS at https://api.jdownloader.org; the API document states 'The API is REST based, but currently only GET and POST routes are offered'. Every call carries a request id and an HMAC-SHA256 signature built from the AES-CBC session tokens; email must be lower case.",
   "endpoint": "https://api.jdownloader.org",
   "tooling": "myjdapi (Python), the official Android/iOS apps and browser extensions, and third-party clients over the same API. A wrapper must implement AES128-CBC key exchange plus HMAC-SHA256 per call, so the barrier is the signing handshake, not a missing client.",
-  "chaining": "One MyJD account drives any JDownloader device a user can start elsewhere (a free VM), which removes a user's own machine from the path but not the requirement that some machine runs JD.",
+  "chaining": "One MyJD account drives any JDownloader device that can be started elsewhere (a free VM), which removes the local machine from the path but not the requirement that some machine runs JD.",
   "limits": [
     {
       "kind": "request-rate",
@@ -52,7 +52,7 @@
   ],
   "limits_note": "The free tier's 'limited scope' is never enumerated. Features for free users can be added, changed or withdrawn at any time ('Ein Anspruch auf die Zusatzfunktionen hat der Kunde jedoch nicht').",
   "binding": "none",
-  "binding_note": "Nothing in the seven-kind vocabulary fails at 1 TiB/month because no bytes cross this service: a JDownloader device does the transfer on its own connection. What fails first is architectural, not a quota: a user must supply a running JD instance, and the free tier's feature set is unpublished.",
+  "binding_note": "Nothing in the seven-kind vocabulary fails at 1 TiB/month because no bytes cross this service: a JDownloader device does the transfer on its own connection. What fails first is architectural, not a quota: a running JD instance must be supplied, and the free tier's feature set is unpublished.",
   "identity_cost": {
     "kind": "email",
     "detail": "Self-registration on the website, free. The API document exposes /captcha/getCaptcha and an account-registration route, and lists ERROR_EMAIL_NOT_CONFIRMED and EMAIL_FORBIDDEN as server errors, so a working email address is the gate.",

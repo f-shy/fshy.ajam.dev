@@ -5,7 +5,7 @@
   "url": "https://data.scielo.org/api/info/version",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Bunny Shield challenge on every route including the API.",
+    "stated": "none reachable: Bunny Shield challenge on every route including the API.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://data.scielo.org/api/info/version",

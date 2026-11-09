@@ -5,7 +5,7 @@
   "url": "https://vpsdime.com/linux-vps",
   "category": "cloud VM",
   "free_tier": {
-    "stated": "Linux VPS at USD 5.00 per month: 2 CPU cores on Intel Xeon Gold, 4 GB ECC RAM, 20 GB SSD, 1 TB a month of transfer, 10 Gbps uplink. The next plan is USD 7.00 for 6 GB ECC and 2 TB. The tracker lists the same plan at the same price in Dallas, Los Angeles and Amsterdam; the vendor page states the specs and not the locations.",
+    "stated": "Linux VPS (order product Linux4GB) at USD 5.00 per month: 2 vCPU, 4 GB fully dedicated memory, 20 GB SSD in RAID10, 1 TB traffic limit, 1 public IPv4, orderable in Dallas, Los Angeles, Amsterdam and London. Order page read 2026-11-07: monthly USD 5.00, quarterly USD 15.00, semi-annually USD 30.00, annually USD 60.00; setup fee USD 0.00; recurring charge USD 5.00 monthly; renewal price beyond that not published; plan in stock ('Deploy Now', no out-of-stock marker). The next plan is USD 7.00 for 6 GB ECC and 2 TB.",
     "unit": "GiB",
     "metered_on": "wall-clock",
     "source_url": "https://vpsdime.com/linux-vps",
@@ -84,10 +84,66 @@
       "url": "https://vpsdime.com/storage-vps/",
       "date": "2026-10-22",
       "proved": "the trailing-slash path returned 404 from the origin before any extractor ran; the path without the slash answered 403 and was extracted"
+    },
+    {
+      "url": "https://vpsdime.com/buy/linux4gb",
+      "date": "2026-11-07",
+      "proved": "the order page's configuration summary prints the four billing cycles and their prices",
+      "capture": "sha256:e817cd45308b6c4d06df764a5c6588c143a14cf132bbb742300b4964e876921b",
+      "quote": "Monthly$5.00 USD Quarterly$15.00 USD Semi-Annually$30.00 USD Annually$60.00 USD"
+    },
+    {
+      "url": "https://vpsdime.com/buy/linux4gb",
+      "date": "2026-11-07",
+      "proved": "the cart totals USD 5.00 due today for Linux4GB",
+      "capture": "sha256:e817cd45308b6c4d06df764a5c6588c143a14cf132bbb742300b4964e876921b",
+      "quote": "Total Due Today$5.00 USD"
+    },
+    {
+      "url": "https://vpsdime.com/buy/linux4gb",
+      "date": "2026-11-07",
+      "proved": "no setup fee on the order page",
+      "capture": "sha256:e817cd45308b6c4d06df764a5c6588c143a14cf132bbb742300b4964e876921b",
+      "quote": "Setup Fees$0.00 USD"
+    },
+    {
+      "url": "https://vpsdime.com/buy/linux4gb",
+      "date": "2026-11-07",
+      "proved": "the plan is orderable, no out-of-stock marker",
+      "capture": "sha256:e817cd45308b6c4d06df764a5c6588c143a14cf132bbb742300b4964e876921b",
+      "quote": "Deploy Now"
+    },
+    {
+      "url": "https://vpsdime.com/buy/linux4gb",
+      "date": "2026-11-07",
+      "proved": "the order page states the traffic limit for Linux4GB",
+      "capture": "sha256:e817cd45308b6c4d06df764a5c6588c143a14cf132bbb742300b4964e876921b",
+      "quote": "1TB Traffic Limit"
+    },
+    {
+      "url": "https://vpsdime.com/buy/linux4gb",
+      "date": "2026-11-07",
+      "proved": "the order page's location picker offers Dallas among its options",
+      "capture": "sha256:e817cd45308b6c4d06df764a5c6588c143a14cf132bbb742300b4964e876921b",
+      "quote": "Dallas, US"
+    },
+    {
+      "url": "https://vpsdime.com/linux-vps",
+      "date": "2026-11-07",
+      "proved": "the plan table still prices the next plan at USD 7.00 monthly",
+      "capture": "sha256:effd39f039e687195bb8d147dcf65095a5420516e6c378f6b6ee44df766afe9f",
+      "quote": "$7.00/mo"
+    },
+    {
+      "url": "https://vpsdime.com/buy/linux4gb",
+      "date": "2026-11-07",
+      "proved": "the entry plan price is unchanged on the order page",
+      "capture": "sha256:e817cd45308b6c4d06df764a5c6588c143a14cf132bbb742300b4964e876921b",
+      "quote": "Monthly$5.00 USD Quarterly$15.00 USD Semi-Annually$30.00 USD Annually$60.00 USD"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T17:40:47.147Z",
   "notes": "The provider's own pages also sell a Storage VPS and a Windows VPS line that were not read, so the USD 5.00 row is the cheapest Linux plan, not the cheapest product on the site.",
   "extras": {
     "facets": {
@@ -100,6 +156,8 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "price_on_page": "USD 5.00/month for Linux VPS (Linux4GB)",
+    "renewal_usd": "not published: the order page prices monthly, quarterly, semi-annual and annual terms and prints no renewal price"
   }
 }

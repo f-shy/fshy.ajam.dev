@@ -97,7 +97,7 @@
   "verdict": "fails-egress",
   "verified_at": "2026-10-24T06:41:00.000Z",
   "price_per_tb_month": null,
-  "notes": "The disqualifier is explicit and repeated on the vendor's own page: 'no outgoing traffic is supported'. That makes it a lab for learning Linux, which is what it says it is, and not a machine for a user's stack. A second constraint is the control-panel reap: the VM dies within minutes if no browser window is showing a control panel, so it cannot run unattended even inside the two-hour window. The per-VM shape is unpublished. The front page showed a transient 'Having a disaster' error block on the same read, so the service is live but rough.",
+  "notes": "The disqualifier is explicit and repeated on the vendor's own page: 'no outgoing traffic is supported'. That makes it a lab for learning Linux, which is what it says it is, and not a machine for a stack. A second constraint is the control-panel reap: the VM dies within minutes if no browser window is showing a control panel, so it cannot run unattended even inside the two-hour window. The per-VM shape is unpublished. The front page showed a transient 'Having a disaster' error block on the same read, so the service is live but rough.",
   "extras": {
     "shape": {
       "vcpu": null,

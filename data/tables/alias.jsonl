@@ -265,6 +265,8 @@
 {"alias":"AaITR","eid":"aaitr","kind":"provider"}
 {"alias":"Abacus.AI ChatLLM Teams","eid":"abacus","kind":"name"}
 {"alias":"Abacus.AI ChatLLM Teams","eid":"abacus","kind":"provider"}
+{"alias":"Abeiyun","eid":"abeiyun","kind":"name"}
+{"alias":"Abeiyun","eid":"abeiyun","kind":"provider"}
 {"alias":"Ably","eid":"ably","kind":"name"}
 {"alias":"Ably","eid":"ably","kind":"provider"}
 {"alias":"Abstract API IP Geolocation","eid":"abstractapi","kind":"name"}
@@ -538,15 +540,16 @@
 {"alias":"Associated Press","eid":"ap","kind":"name"}
 {"alias":"Astrill VPN","eid":"astrill","kind":"name"}
 {"alias":"Astrill VPN","eid":"astrill","kind":"provider"}
-{"alias":"Atlantic.net","eid":"gpuperhour","kind":"provider"}
+{"alias":"Atlantic.net","eid":"atlantic","kind":"name"}
+{"alias":"Atlantic.net","eid":"atlantic","kind":"provider"}
 {"alias":"Atlas Cloud open","eid":"atlascloud","kind":"name"}
 {"alias":"Atlas Cloud open","eid":"atlascloud","kind":"provider"}
 {"alias":"Atlassian Confluence Cloud Free","eid":"atlassian","kind":"provider"}
 {"alias":"Atlassian Confluence Premium via Social Impact (nonprofit) License — unlimited file storage","eid":"atlassian","kind":"provider"}
 {"alias":"AtomGit Notebook","eid":"openatom","kind":"name"}
 {"alias":"AtomGit Notebook","eid":"openatom","kind":"provider"}
-{"alias":"Atomic_Net","eid":"atomic-net","kind":"name"}
-{"alias":"Atomic_Net","eid":"atomic-net","kind":"provider"}
+{"alias":"Atomic_Net","eid":"atomicnetworks","kind":"name"}
+{"alias":"Atomic_Net","eid":"atomicnetworks","kind":"provider"}
 {"alias":"Audiomack","eid":"audiomack","kind":"name"}
 {"alias":"Audiomack","eid":"audiomack","kind":"provider"}
 {"alias":"Audiovisual / heritage: Open Heritage 3D (CyArk + UC San Diego CHEI)","eid":"openheritage3d","kind":"provider"}
@@ -568,7 +571,8 @@
 {"alias":"AvaxHome","eid":"avxhm","kind":"provider"}
 {"alias":"AvenaCloud","eid":"avenacloud","kind":"name"}
 {"alias":"AvenaCloud","eid":"avenacloud","kind":"provider"}
-{"alias":"Avian Compute","eid":"computeprices","kind":"provider"}
+{"alias":"Avian Compute","eid":"avian","kind":"name"}
+{"alias":"Avian Compute","eid":"avian","kind":"provider"}
 {"alias":"Avoro","eid":"avoro","kind":"name"}
 {"alias":"Avoro","eid":"avoro","kind":"provider"}
 {"alias":"AwardSpace","eid":"awardspace","kind":"name"}
@@ -584,6 +588,8 @@
 {"alias":"Axivora Cloud (AXIVORA CONNECT LTD)","eid":"axivora","kind":"provider"}
 {"alias":"Axivora Cloud","eid":"axivora","kind":"name"}
 {"alias":"Axivora Cloud","eid":"axivora","kind":"provider"}
+{"alias":"AyooCloud","eid":"ayoocloud","kind":"name"}
+{"alias":"AyooCloud","eid":"ayoocloud","kind":"provider"}
 {"alias":"Azion","eid":"azion","kind":"name"}
 {"alias":"Azion","eid":"azion","kind":"provider"}
 {"alias":"AzireVPN","eid":"azirevpn","kind":"name"}
@@ -1567,6 +1573,8 @@
 {"alias":"Dothome","eid":"dothome","kind":"provider"}
 {"alias":"Download.gg","eid":"download","kind":"name"}
 {"alias":"Download.gg","eid":"download","kind":"provider"}
+{"alias":"Dreamify AI (Dreamifly, now Imagifly)","eid":"imagifly","kind":"provider"}
+{"alias":"Dreamify AI","eid":"imagifly","kind":"name"}
 {"alias":"Drime (Advanced / 10 TB lifetime)","eid":"drime","kind":"provider"}
 {"alias":"Drime Secure Cloud Storage 10 TB lifetime (StackSocial)","eid":"stacksocial","kind":"provider"}
 {"alias":"Drime","eid":"drime","kind":"name"}
@@ -2891,8 +2899,8 @@
 {"alias":"Kiro","eid":"kiro","kind":"provider"}
 {"alias":"Kiwify","eid":"kiwify","kind":"name"}
 {"alias":"Kiwify","eid":"kiwify","kind":"provider"}
-{"alias":"Kling AI","eid":"klingai","kind":"name"}
-{"alias":"Kling AI","eid":"klingai","kind":"provider"}
+{"alias":"Kling AI","eid":"kling","kind":"name"}
+{"alias":"Kling AI","eid":"kling","kind":"provider"}
 {"alias":"Knaben","eid":"knaben","kind":"name"}
 {"alias":"Knaben","eid":"knaben","kind":"provider"}
 {"alias":"Knowledge Network for Biocomplexity (KNB, NCEAS / UC Santa Barbara)","eid":"ecoinformatics","kind":"provider"}
@@ -2992,6 +3000,8 @@
 {"alias":"LayerStack","eid":"vpsbenchmarks","kind":"provider"}
 {"alias":"LeaderGPU","eid":"leadergpu","kind":"name"}
 {"alias":"LeaderGPU","eid":"leadergpu","kind":"provider"}
+{"alias":"Leafcloud","eid":"leaf","kind":"name"}
+{"alias":"Leafcloud","eid":"leaf","kind":"provider"}
 {"alias":"Leap0","eid":"leap0","kind":"name"}
 {"alias":"Leap0","eid":"leap0","kind":"provider"}
 {"alias":"LeapSwitch","eid":"leapswitch","kind":"name"}
@@ -3369,6 +3379,7 @@
 {"alias":"ModDB / IndieDB (dbolical) file downloads","eid":"moddb","kind":"provider"}
 {"alias":"ModDB","eid":"moddb","kind":"name"}
 {"alias":"Modal Volumes","eid":"modal","kind":"provider"}
+{"alias":"Modal for Academics","eid":"modal","kind":"provider"}
 {"alias":"Modal","eid":"modal","kind":"name"}
 {"alias":"Modal","eid":"modal","kind":"provider"}
 {"alias":"ModelScope API-Inference","eid":"modelscope-2","kind":"name"}
@@ -5984,6 +5995,8 @@
 {"alias":"abNZB","eid":"abnzb","kind":"provider"}
 {"alias":"abacus-chatllm","eid":"abacus","kind":"slug"}
 {"alias":"abacus.ai","eid":"abacus","kind":"domain"}
+{"alias":"abeiyun","eid":"abeiyun","kind":"slug"}
+{"alias":"abeiyun.com","eid":"abeiyun","kind":"domain"}
 {"alias":"ablenet-vps","eid":"ablenet","kind":"slug"}
 {"alias":"ablenet.jp","eid":"ablenet","kind":"domain"}
 {"alias":"ably","eid":"ably","kind":"slug"}
@@ -6486,6 +6499,7 @@
 {"alias":"asiavm-nat-eu-hetzner-1gb","eid":"asiavm","kind":"slug"}
 {"alias":"asiavm.net","eid":"asiavm","kind":"domain"}
 {"alias":"aspirehosting","eid":"aspirehosting","kind":"slug"}
+{"alias":"aspirehosting.net","eid":"aspirehosting","kind":"domain"}
 {"alias":"assemblyai","eid":"assemblyai","kind":"slug"}
 {"alias":"assemblyai.com","eid":"assemblyai","kind":"domain"}
 {"alias":"associated-press-media-api","eid":"ap","kind":"slug"}
@@ -6500,7 +6514,8 @@
 {"alias":"asu-dataverse-unc-dataverse-uva-dataverse","eid":"dataverse-asu-edu","kind":"slug"}
 {"alias":"asus-webstorage","eid":"asuswebstorage","kind":"slug"}
 {"alias":"asuswebstorage.com","eid":"asuswebstorage","kind":"domain"}
-{"alias":"atlantic-net","eid":"gpuperhour","kind":"slug"}
+{"alias":"atlantic-net","eid":"atlantic","kind":"slug"}
+{"alias":"atlantic.net","eid":"atlantic","kind":"domain"}
 {"alias":"atlas-cloud-open","eid":"atlascloud","kind":"slug"}
 {"alias":"atlascloud.ai","eid":"atlascloud","kind":"domain"}
 {"alias":"atlassian anonymous media-upload token (jira service desk portal)","eid":"atlassian-anonymous-media-upload-token","kind":"provider"}
@@ -6514,7 +6529,8 @@
 {"alias":"atomgit","eid":"atomgit","kind":"slug"}
 {"alias":"atomgit-notebook","eid":"openatom","kind":"slug"}
 {"alias":"atomgit.com","eid":"atomgit","kind":"domain"}
-{"alias":"atomic-net","eid":"atomic-net","kind":"slug"}
+{"alias":"atomic-net","eid":"atomicnetworks","kind":"slug"}
+{"alias":"atomicnetworks.co","eid":"atomicnetworks","kind":"domain"}
 {"alias":"audiomack","eid":"audiomack","kind":"slug"}
 {"alias":"audiomack.com","eid":"audiomack","kind":"domain"}
 {"alias":"audiovisual-heritage-open-heritage-3d","eid":"openheritage3d","kind":"slug"}
@@ -6542,7 +6558,8 @@
 {"alias":"avaxhome","eid":"avxhm","kind":"slug"}
 {"alias":"avenacloud","eid":"avenacloud","kind":"slug"}
 {"alias":"avenacloud.com","eid":"avenacloud","kind":"domain"}
-{"alias":"avian-compute","eid":"computeprices","kind":"slug"}
+{"alias":"avian-compute","eid":"avian","kind":"slug"}
+{"alias":"avian.io","eid":"avian","kind":"domain"}
 {"alias":"avoro","eid":"avoro","kind":"slug"}
 {"alias":"avoro.eu","eid":"avoro","kind":"domain"}
 {"alias":"avxhm.se","eid":"avxhm","kind":"domain"}
@@ -6599,6 +6616,8 @@
 {"alias":"ayaya.beauty","eid":"ayaya","kind":"domain"}
 {"alias":"ayaya.beauty","eid":"ayaya","kind":"name"}
 {"alias":"ayaya.beauty","eid":"ayaya","kind":"provider"}
+{"alias":"ayoo-cloud","eid":"ayoocloud","kind":"slug"}
+{"alias":"ayoocloud.com.br","eid":"ayoocloud","kind":"domain"}
 {"alias":"azion","eid":"azion","kind":"slug"}
 {"alias":"azion.com","eid":"azion","kind":"domain"}
 {"alias":"azirevpn","eid":"azirevpn","kind":"slug"}
@@ -6663,7 +6682,7 @@
 {"alias":"bacloud-openvz-vps","eid":"bacloud","kind":"slug"}
 {"alias":"bacloud.com","eid":"bacloud","kind":"domain"}
 {"alias":"bagevm","eid":"bagevm","kind":"slug"}
-{"alias":"bagevm.net","eid":"bagevm","kind":"domain"}
+{"alias":"bagevm.com","eid":"bagevm","kind":"domain"}
 {"alias":"baidu cloud ccr personal edition","eid":"baidu","kind":"provider"}
 {"alias":"baidu pan","eid":"ithome","kind":"name"}
 {"alias":"baidu pan","eid":"ithome","kind":"provider"}
@@ -8277,6 +8296,7 @@
 {"alias":"draft2digital","eid":"draft2digital","kind":"name"}
 {"alias":"draft2digital-smashwords","eid":"draft2digital","kind":"slug"}
 {"alias":"draft2digital.com","eid":"draft2digital","kind":"domain"}
+{"alias":"dreamify-ai","eid":"imagifly","kind":"slug"}
 {"alias":"drime","eid":"drime","kind":"slug"}
 {"alias":"drime-secure-cloud-storage-10-tb-lifetime","eid":"stacksocial","kind":"slug"}
 {"alias":"drime.cloud","eid":"drime","kind":"domain"}
@@ -10238,6 +10258,7 @@
 {"alias":"imagekit.io","eid":"imagekit","kind":"domain"}
 {"alias":"imageshack","eid":"imageshack","kind":"slug"}
 {"alias":"imageshack.com","eid":"imageshack","kind":"domain"}
+{"alias":"imagifly.net","eid":"imagifly","kind":"domain"}
 {"alias":"imgbb","eid":"imgbb","kind":"slug"}
 {"alias":"imgbb.com","eid":"imgbb","kind":"domain"}
 {"alias":"imgur as byte-exact storage","eid":"imgur","kind":"provider"}
@@ -10774,8 +10795,8 @@
 {"alias":"kiro.dev","eid":"kiro","kind":"domain"}
 {"alias":"kiwify","eid":"kiwify","kind":"slug"}
 {"alias":"kiwify.com.br","eid":"kiwify","kind":"domain"}
-{"alias":"kling-ai","eid":"klingai","kind":"slug"}
-{"alias":"klingai.com","eid":"klingai","kind":"domain"}
+{"alias":"kling-ai","eid":"kling","kind":"slug"}
+{"alias":"kling.ai","eid":"kling","kind":"domain"}
 {"alias":"knaben","eid":"knaben","kind":"slug"}
 {"alias":"knaben.org","eid":"knaben","kind":"domain"}
 {"alias":"knaw.nl","eid":"knaw","kind":"domain"}
@@ -10904,6 +10925,8 @@
 {"alias":"lccf.tacc.utexas.edu","eid":"lccf-tacc-utexas-edu","kind":"domain"}
 {"alias":"leadergpu","eid":"leadergpu","kind":"slug"}
 {"alias":"leadergpu.com","eid":"leadergpu","kind":"domain"}
+{"alias":"leaf.cloud","eid":"leaf","kind":"domain"}
+{"alias":"leafcloud-run","eid":"leaf","kind":"slug"}
 {"alias":"leap0","eid":"leap0","kind":"slug"}
 {"alias":"leap0.dev","eid":"leap0","kind":"domain"}
 {"alias":"leapcell","eid":"leapcell","kind":"slug"}
@@ -11568,6 +11591,7 @@
 {"alias":"moark-model-dataset-hub","eid":"moark","kind":"slug"}
 {"alias":"moark.com","eid":"moark","kind":"domain"}
 {"alias":"modal","eid":"modal","kind":"slug"}
+{"alias":"modal-for-academics","eid":"modal","kind":"slug"}
 {"alias":"modal-volumes","eid":"modal","kind":"slug"}
 {"alias":"modal.com","eid":"modal","kind":"domain"}
 {"alias":"moddb","eid":"moddb","kind":"slug"}
@@ -12646,8 +12670,12 @@
 {"alias":"pgrok/pgrok","eid":"github-pgrok","kind":"name"}
 {"alias":"pgrok/pgrok","eid":"github-pgrok","kind":"provider"}
 {"alias":"ph24 (ProHosting24)","eid":"prohosting24","kind":"provider"}
+{"alias":"ph24 Cloud (ProHosting24)","eid":"ph24","kind":"provider"}
+{"alias":"ph24 Cloud","eid":"ph24","kind":"name"}
 {"alias":"ph24","eid":"prohosting24","kind":"name"}
 {"alias":"ph24","eid":"prohosting24","kind":"slug"}
+{"alias":"ph24-cloud","eid":"ph24","kind":"slug"}
+{"alias":"ph24.io","eid":"ph24","kind":"domain"}
 {"alias":"phala-cloud","eid":"phala","kind":"slug"}
 {"alias":"phala.com","eid":"phala","kind":"domain"}
 {"alias":"phare","eid":"phare","kind":"slug"}
@@ -14675,6 +14703,7 @@
 {"alias":"tierhive.com","eid":"tierhive","kind":"domain"}
 {"alias":"tiernet","eid":"tier","kind":"slug"}
 {"alias":"tietokettu","eid":"tietokettu","kind":"slug"}
+{"alias":"tietokettu.net","eid":"tietokettu","kind":"domain"}
 {"alias":"tiger-cloud","eid":"tigerdata","kind":"slug"}
 {"alias":"tigerdata.com","eid":"tigerdata","kind":"domain"}
 {"alias":"tigris","eid":"tigrisdata","kind":"slug"}
@@ -14864,6 +14893,7 @@
 {"alias":"true-digital-park","eid":"truedigitalpark","kind":"slug"}
 {"alias":"truedigitalpark.com","eid":"truedigitalpark","kind":"domain"}
 {"alias":"trumvps","eid":"trumvps","kind":"slug"}
+{"alias":"trumvps-global","eid":"trumvps","kind":"slug"}
 {"alias":"trumvps.vn","eid":"trumvps","kind":"domain"}
 {"alias":"trust-zone","eid":"trust","kind":"slug"}
 {"alias":"trust-zone-exits","eid":"trust","kind":"slug"}

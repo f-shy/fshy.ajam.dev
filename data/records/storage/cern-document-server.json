@@ -5,7 +5,7 @@
   "url": "https://repository.cern/api/records?q=files.size:[1000000000",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "CERN institutional repository — submissions are internal. Also holds no large files: querying files.size >= 1GB returned 0 records out of 73,837, so even as a read source it offers nothing…",
+    "stated": "none reachable: CERN institutional repository — submissions are internal. Also holds no large files: querying files.size >= 1GB returned 0 records out of 73,837, so even as a read source it offers nothing…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://repository.cern/api/records?q=files.size:[1000000000",

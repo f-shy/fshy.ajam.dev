@@ -5,7 +5,7 @@
   "url": "https://contabo.com/en-us/pricing/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Checked and rejected on price, not availability: $13.44/TB at the 1 TB tier versus €2.03/TB at Hetzner BX41. The 'Unlimited Traffic*' asterisk is a discretionary-throttle clause, not a…",
+    "stated": "none reachable: Checked and rejected on price, not availability: $13.44/TB at the 1 TB tier versus €2.03/TB at Hetzner BX41. The 'Unlimited Traffic*' asterisk is a discretionary-throttle clause, not a…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://contabo.com/en-us/pricing/",

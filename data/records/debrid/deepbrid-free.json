@@ -20,7 +20,7 @@
     "notes": ""
   },
   "retention": {
-    "stated": "not applicable: no storage is offered on the free account; downloads are proxied for a user",
+    "stated": "not applicable: no storage is offered on the free account; downloads are proxied to the caller",
     "days": null,
     "source_url": "https://www.deepbrid.com/service",
     "notes": ""
@@ -39,7 +39,7 @@
   "interface_detail": "REST API v1 (https://www.deepbrid.com/api/v1) with an apikey, documented publicly, including a /user/limits endpoint.",
   "endpoint": "https://www.deepbrid.com/api/v1",
   "tooling": "Documented REST API with per-account rate limits and X-RateLimit headers; browser extensions for Chrome, Firefox, Opera and Edge; a WebDAV path advertised in the integrations strip.",
-  "chaining": "Enough to fetch a handful of small files a day from hosts a user does not subscribe to, and not enough for anything larger than a 1.2 GB file, which rules out most media and any dataset.",
+  "chaining": "Enough to fetch a handful of small files a day from hosts not subscribed to, and not enough for anything larger than a 1.2 GB file, which rules out most media and any dataset.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -118,7 +118,7 @@
   "verdict": "fails-quota",
   "verified_at": "2026-10-23T01:57:49.000Z",
   "price_per_tb_month": "EUR 0 for 5 files a day, 1.2 GB each",
-  "notes": "The numbers are on the vendor's own downloader page and the per-file cap is the one that matters: it is the only service whose free tier refuses a file by size rather than by count. The ladder multiplies 5 x 1.2 x 30 = 180 GB, which stands as a per-session ceiling but is not proven repeatable across two accounts or two addresses.",
+  "notes": "The numbers are on the vendor's own downloader page and the per-file cap is the one that matters: it is the only service whose free tier refuses a file by size rather than by count. The ladder multiplies 5 x 1.2 x 30 = 180 GB, which stands as a per-session ceiling but is not proven repeatable across two accounts or two addresses. The 1.2 GB cap is the number hit first, and it is 300 MB on two of the listed hosts.",
   "extras": {
     "usenet": "no (usenet is a paid feature: the free account covers 'cloud provider links' only)",
     "torrent": "no on free",

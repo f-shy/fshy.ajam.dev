@@ -5,7 +5,7 @@
   "url": "https://archive.org/download/nasa/nasa_meta.xml",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "You can only capture what a URL already serves, so it is a second copy, not primary storage; and item-file URLs under archive.org/download/<item>/<file> are not crawlable through the replay",
+    "stated": "none reachable: You can only capture what a URL already serves, so it is a second copy, not primary storage; and item-file URLs under archive.org/download/<item>/<file> are not crawlable through the replay",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://archive.org/download/nasa/nasa_meta.xml",

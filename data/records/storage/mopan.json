@@ -5,7 +5,7 @@
   "url": "https://github.com/OpenListTeam/OpenList/blob/main/drivers/mopan/meta.go",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Has a dedicated OpenList driver (`mopan`, reverse-engineered, with an explicit provider warning 'This network disk may store your password in clear text'), so it is technically mountable…",
+    "stated": "none reachable: Has a dedicated OpenList driver (`mopan`, reverse-engineered, with an explicit provider warning 'This network disk may store your password in clear text'), so it is technically mountable…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://github.com/OpenListTeam/OpenList/blob/main/drivers/mopan/meta.go",

@@ -95,10 +95,45 @@
       "url": "https://hosting.gullo.me/plugin/support_manager/knowledgebase/view/4/nat-ipv4-help-page/4/",
       "date": "2026-10-24",
       "proved": "quoted: 'Options do exist for connecting over IPv4 such as DNAT port forwarding and console connectivity. In one of the first emails you get from us after signing up, you will find details on which ports have been configured to forward IPv4 connections to your VPS' - the forwarding is described, the protocol is not"
+    },
+    {
+      "url": "https://hosting.gullo.me/order/config/index/nat-vps/?group_id=43&pricing_id=352&coupon=LEB-NAT-128MB",
+      "date": "2026-11-04",
+      "proved": "the cart prints a renewal line",
+      "capture": "sha256:7b431b032af8ca7d5f6233e7f377fa25add1790aa994e32dabb576385daa1dd4",
+      "quote": "Total When Renewing:"
+    },
+    {
+      "url": "probe:https://hosting.gullo.me/order/config/index/nat-vps/?group_id=43&pricing_id=352&coupon=LEB-NAT-128MB",
+      "date": "2026-11-04",
+      "proved": "the cart resolved and rendered its price with a warmed session",
+      "capture": "sha256:73fc4c846af95bd7cb326bdff0832b77c5a656fc11fcac73f6ff9f6ddf27f7b8",
+      "quote": "\"verdict\": \"priced\""
+    },
+    {
+      "url": "https://hosting.gullo.me/order/config/index/nat-vps/?group_id=43&pricing_id=352&coupon=LEB-NAT-128MB",
+      "date": "2026-11-04",
+      "proved": "the only term sold is one year at USD 3.50",
+      "capture": "sha256:7b431b032af8ca7d5f6233e7f377fa25add1790aa994e32dabb576385daa1dd4",
+      "quote": "1 Year @ $3.50"
+    },
+    {
+      "url": "https://hosting.gullo.me/order/main/packages/nat-vps/?group_id=43",
+      "date": "2026-11-04",
+      "proved": "the package page states the 128 MB shape and its 125 GB allowance",
+      "capture": "sha256:faf8139b5baedc217be25d7244a31080f3511607686445aafabe8544bca9dd9c",
+      "quote": "128MB RAM 2GB Storage 125GB Bandwidth 1 NAT IPv4 w/ 20 Ports /80 Block IPv6 OpenVZ Virtualization"
+    },
+    {
+      "url": "probe:https://hosting.gullo.me/order/config/index/nat-vps/?group_id=43&pricing_id=352&coupon=LEB-NAT-128MB",
+      "date": "2026-11-04",
+      "proved": "a cart check with a warmed session resolved the configure page and found the price $3.50",
+      "capture": "sha256:73fc4c846af95bd7cb326bdff0832b77c5a656fc11fcac73f6ff9f6ddf27f7b8",
+      "quote": "\"verdict\": \"priced\""
     }
   ],
   "verdict": "qualifies",
-  "verified_at": "2026-10-24T03:19:06.000Z",
+  "verified_at": "2026-11-04T18:45:35.795Z",
   "price_per_tb_month": null,
   "notes": "The order page sells this plan at USD 3.50 a year. It renews at the same rate. There is no refund at all: the order form carries a mandatory 'I understand that there are no refunds' checkbox. The operator names no company and is a single person. It is the only vendor in the sub-dollar band with a first-hand public report of WireGuard running on it: a LowEndTalk user installed precompiled wireguard-go and ran it with shadowsocks 'without running out of ram' over 255 days of uptime, and another confirms TUN/TAP can be enabled. That is a report that somebody did it, not a measurement that it works today. UDP on the 20 forwarded ports is still unstated by the vendor. | 2026-10-24: the UDP question is still open. Five pages were read - the packages page, the pricing table, the NAT IPv4 help page, the knowledge-base index and the WireGuard how-to - and none of them says whether the 20 forwarded ports carry UDP. What the vendor does say is that WireGuard should be installed with wireguard-go, which is the userspace implementation an OpenVZ guest needs when the host kernel has no module. The pricing table also puts the 256 MB rung at USD 6.50-10.00 a year (USD 0.54-0.83 a month), so a beefier Gullo box is available inside the band if UDP turns out to be fine.",
   "extras": {
@@ -147,6 +182,9 @@
     "cart_url": "https://hosting.gullo.me/order/config/index/nat-vps/?group_id=43&pricing_id=352&coupon=LEB-NAT-128MB",
     "signup_url": "https://hosting.gullo.me/order/",
     "cart_evidence": "configure page titled 'OpenVZ NAT VPS' renders 'Configuration Select desired options, and continue to checkout. Term and Price 1 Year @ $3.50'",
-    "needs_account_first": false
+    "needs_account_first": false,
+    "renewal_note": "published in the cart: 'Total When Renewing: 1 Year @ $3.50', so the year-2 charge is the same USD 3.50 for 12 months, and the order line dates the term 2026-11-04 to 2027-11-04.",
+    "stock": "orderable: the configure page priced the plan at $3.50, rendered Continue, and prints no stock counter",
+    "annual_usd": 3.5
   }
 }

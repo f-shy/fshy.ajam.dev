@@ -5,7 +5,7 @@
   "url": "https://cloud.7so.top/api/v3/site/config",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Marketed as 1 TB free with WebDAV; its own Cloudreve site config now returns title '长青云盘·11月19下线' (shutting down Nov 19) and registerEnabled=false. Dead mid-flight. The sibling 银杏云盘…",
+    "stated": "none reachable: Marketed as 1 TB free with WebDAV; its own Cloudreve site config now returns title '长青云盘·11月19下线' (shutting down Nov 19) and registerEnabled=false. Dead mid-flight. The sibling 银杏云盘…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://cloud.7so.top/api/v3/site/config",

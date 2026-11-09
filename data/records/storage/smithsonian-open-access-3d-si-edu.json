@@ -5,7 +5,7 @@
   "url": "https://3d.si.edu/open-source-resources",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Read-only. The Open Access corpus (2.8M 2D images + ~2,346 3D assets as of the FAQ) is downloadable, but there is no contributor upload path at all — the 3D API is described as…",
+    "stated": "none reachable: Read-only. The Open Access corpus (2.8M 2D images + ~2,346 3D assets as of the FAQ) is downloadable, but there is no contributor upload path at all — the 3D API is described as…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://3d.si.edu/open-source-resources",

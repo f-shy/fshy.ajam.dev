@@ -5,7 +5,7 @@
   "url": "https://webtorrent.io/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Same structural failure as Hypercore: no host, no quota, no persistence guarantee. WebTorrent needs an active seeder (you) and browser peers; a torrent with no seeder is a 0-byte download.…",
+    "stated": "none reachable: Same structural failure as Hypercore: no host, no quota, no persistence guarantee. WebTorrent needs an active seeder (you) and browser peers; a torrent with no seeder is a 0-byte download.…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://webtorrent.io/",

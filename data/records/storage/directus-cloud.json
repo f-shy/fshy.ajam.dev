@@ -5,7 +5,7 @@
   "url": "https://directus.io/pricing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Core is $0/mo but is capped on seats/collections (3 seats, 25 collections, 5 flows) and provides no advertised free storage allowance — assets go to the storage adapter he configures.…",
+    "stated": "none reachable: Core is $0/mo but is capped on seats/collections (3 seats, 25 collections, 5 flows) and provides no advertised free storage allowance — assets go to a storage adapter the deployment configures. Self-h",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://directus.io/pricing",
@@ -41,23 +41,23 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Core is $0/mo but is capped on seats/collections (3 seats, 25 collections, 5 flows) and provides no advertised free storage allowance — assets go to the storage adapter he configures.…",
+  "reliability_note": "Core is $0/mo but is capped on seats/collections (3 seats, 25 collections, 5 flows) and provides no advertised free storage allowance — assets go to a storage adapter the deployment configures. Self-h",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
     {
       "url": "https://directus.io/pricing",
       "date": "2026-10-21",
-      "proved": "Core is $0/mo but is capped on seats/collections (3 seats, 25 collections, 5 flows) and provides no advertised free storage allowance — assets go to the storage adapter he configures.…"
+      "proved": "Core is $0/mo but is capped on seats/collections (3 seats, 25 collections, 5 flows) and provides no advertised free storage allowance — assets go to a storage adapter the deployment configures. Self-h"
     }
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Core is $0/mo but is capped on seats/collections (3 seats, 25 collections, 5 flows) and provides no advertised free storage allowance — assets go to the storage adapter he configures.…",
+  "notes": "Core is $0/mo but is capped on seats/collections (3 seats, 25 collections, 5 flows) and provides no advertised free storage allowance — assets go to a storage adapter the deployment configures. Self-h",
   "extras": {
     "dead_end": {
       "failure_class": "quota",
-      "why": "Core is $0/mo but is capped on seats/collections (3 seats, 25 collections, 5 flows) and provides no advertised free storage allowance — assets go to the storage adapter he configures.…",
+      "why": "Core is $0/mo but is capped on seats/collections (3 seats, 25 collections, 5 flows) and provides no advertised free storage allowance — assets go to a storage adapter the deployment configures. Self-h",
       "retry_when": null,
       "first_recorded": "2026-10-21"
     }

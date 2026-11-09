@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "Morpheus also pays up to 12% APR on deposited stETH, WETH, USDC or USDT, so capital placed there earns MOR that can be restaked for inference; the loop needs capital at the start, which a user does not have.",
+  "chaining": "Morpheus also pays up to 12% APR on deposited stETH, WETH, USDC or USDT, so capital placed there earns MOR that can be restaked for inference; the loop needs capital at the start.",
   "limits": [
     {
       "kind": "write-gated",

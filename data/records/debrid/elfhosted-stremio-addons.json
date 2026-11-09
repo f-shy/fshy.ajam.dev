@@ -47,10 +47,10 @@
   ],
   "limits_note": "Only 10 addons show per page of 51 products, so the full catalogue was not enumerated. Each product is one instance; stacking Comet + MediaFusion + AIOStreams means stacking USD 9 subscriptions unless the USD 29 bundle covers them.",
   "binding": "request-rate",
-  "binding_note": "At 1 TiB/month nothing byte-based binds - the bytes come from a user's debrid account - but every request the addon makes is counted against an unpublished rate limit, and that is the limit ElfHosted itself sells the upgrade on ('10x higher rate-limits').",
+  "binding_note": "At 1 TiB/month nothing byte-based binds - the bytes come from the debrid account - but every request the addon makes is counted against an unpublished rate limit, and that is the limit ElfHosted itself sells the upgrade on ('10x higher rate-limits').",
   "identity_cost": {
     "kind": "card",
-    "detail": "Store account plus payment. The addon still needs a user's own debrid key, so a debrid subscription is a second gate that ElfHosted does not remove.",
+    "detail": "Store account plus payment. The addon still needs the account's own debrid key, so a debrid subscription is a second gate that ElfHosted does not remove.",
     "country": "None"
   },
   "reliability_note": "Public instances are shared and rate-limited, and ElfHosted has retired a public instance before when upstream archived the project (WebStreamr, recorded separately). Private instances are sold as the fix for multi-IP debrid bans, so the ban risk is real on the public ones.",

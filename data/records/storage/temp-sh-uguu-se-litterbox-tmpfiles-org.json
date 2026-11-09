@@ -5,7 +5,7 @@
   "url": "https://temp.sh/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "All are short-TTL transfer services, not storage: temp.sh 4 GB but 3-day expiry; uguu.se 128 MiB and 3 hours; Litterbox 1 GB but 1 hour-3 days; tmpfiles.org 100 MB and 60 min-48 h. transfer.",
+    "stated": "none reachable: All are short-TTL transfer services, not storage: temp.sh 4 GB but 3-day expiry; uguu.se 128 MiB and 3 hours; Litterbox 1 GB but 1 hour-3 days; tmpfiles.org 100 MB and 60 min-48 h. transfer.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://temp.sh/",

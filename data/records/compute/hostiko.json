@@ -69,10 +69,38 @@
       "url": "https://hostiko.com.ua/vps",
       "date": "2026-10-22",
       "proved": "the page states it does not provide VPS for tests, transliterated from \"My ne nadaiemo virtualni servery dlia testiv\", but that any plan can be ordered for a day to check quality; Windows Server 2025, 2022 and 2019 are available on all plans except UA-XS and PL-XS"
+    },
+    {
+      "url": "https://vpspricetracker.com/provider/Hostiko/vps",
+      "date": "2026-11-07",
+      "proved": "the tracker still lists the XS plan at EUR 3.35 a month for Warsaw and Stockholm",
+      "capture": "sha256:d7fb6bef51af071bcc28ae21c2406527613e3656aabd70c068c1796ab00bd43a",
+      "quote": "These are the cheapest VPSs currently offered by Hostiko, starting at €3.35 per month:"
+    },
+    {
+      "url": "https://hostiko.com.ua/en/vps?p=1050978",
+      "date": "2026-11-07",
+      "proved": "the vendor's own plan data for PL-XS (1 vCPU, 1 GB RAM, 25 GB NVMe, 5 TB @ 2Gbps) carries the order URL my.hstk.net/virtual/order#plan=f6abf4f7-d956-428b-a8a3-cf2023a7cbab&period=monthly&location=751da6ee-6673-4456-93af-7d85de20145c",
+      "capture": "sha256:37319957d04c9ab8ad0aaaec210347e40a04015ba8ed4d91994afd6f915ec690",
+      "quote": "id\\u0022:4007,\\u0022name\\u0022:\\u0022PL-XS\\u0022,\\u0022price\\u0022:{\\u0022daily\\u0022:0.87,\\u0022monthly\\u0022:210"
+    },
+    {
+      "url": "https://vpspricetracker.com/provider/Hostiko/vps",
+      "date": "2026-11-07",
+      "proved": "the tracker still lists the XS plan at EUR 3.35 a month",
+      "capture": "sha256:d7fb6bef51af071bcc28ae21c2406527613e3656aabd70c068c1796ab00bd43a",
+      "quote": "These are the cheapest VPSs currently offered by Hostiko, starting at €3.35 per month:"
+    },
+    {
+      "url": "https://vpspricetracker.com/provider/Hostiko/vps",
+      "date": "2026-11-07",
+      "proved": "the tracker lists the XS plan as currently offered and states no stock count",
+      "capture": "sha256:d7fb6bef51af071bcc28ae21c2406527613e3656aabd70c068c1796ab00bd43a",
+      "quote": "These are the cheapest VPSs currently offered by Hostiko, starting at €3.35 per month:"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T06:08:33.037Z",
   "notes": "Price is tracker-only: the vendor's /vps page answered 200 and rendered its FAQ and plan prose, but the prices are templated client-side and no number reached the text extraction. A day-rate trial exists and is paid, so it is not a free tier.",
   "extras": {
     "facets": {
@@ -85,6 +113,12 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "term": "monthly",
+    "price_on_page": "EUR 3.35/mo (tracker; the vendor page renders prices client-side and none reached the read)",
+    "out_of_pocket_usd": 3.74,
+    "renewal_usd": "not published: no page read prints a renewal price",
+    "cart_url": "https://my.hstk.net/virtual/order#plan=f6abf4f7-d956-428b-a8a3-cf2023a7cbab&period=monthly&location=751da6ee-6673-4456-93af-7d85de20145c",
+    "stock": "unverified: the vendor order page answers a JS app no read could render; the tracker carries no stock line"
   }
 }

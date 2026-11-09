@@ -5,7 +5,7 @@
   "url": "https://help.printful.com/hc/en-us/articles/360014066319",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "200 MB per print file, max 20,000x20,000 px, PNG/JPG only, and PDF is explicitly prohibited on every print method. The REST API is excellent and completely irrelevant — the file is an input",
+    "stated": "none reachable: 200 MB per print file, max 20,000x20,000 px, PNG/JPG only, and PDF is explicitly prohibited on every print method. The REST API is excellent and completely irrelevant — the file is an input",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://help.printful.com/hc/en-us/articles/360014066319",

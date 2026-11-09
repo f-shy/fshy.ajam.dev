@@ -37,7 +37,7 @@
   ],
   "interface_detail": "agent install plus a licence key",
   "tooling": "the Enclave agent; no .conf documented",
-  "chaining": "a private overlay for a user's own machines, so it sits behind whatever public ingress is chosen",
+  "chaining": "a private overlay for a private set of machines, so it sits behind whatever public ingress is chosen",
   "limits": [
     {
       "kind": "request-rate",

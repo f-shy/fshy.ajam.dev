@@ -5,7 +5,7 @@
   "url": "https://vpspricetracker.com/provider/Info_Fractal/vps",
   "category": "cloud VM",
   "free_tier": {
-    "stated": "VPS Basic Xeon E5 v4 at USD 2.50/month: 1 Intel core shared, 1,024 MB RAM, 10 GB NVMe, 1,000 GB/month bandwidth, 0.5 Gbps port, IPv4 + IPv6, Santiago Chile. The tracker's line reads \"starting at $2.50 per month\". Stepping up inside the same family: USD 3.40 buys 20 GB of NVMe at the same 1 GB and 1,000 GB/month, and USD 3.50 buys 2,048 MB at 10 GB, all on 0.5 Gbps.",
+    "stated": "VPS_Xeon_8368_Linux at USD 4.00/month: 1 Intel core shared, 1,024 MB RAM, 10 GB NVMe, 1,024 GB/month bandwidth, 0.98 Gbps port, IPv4 + IPv6, Santiago Chile. The tracker's line reads \"starting at $4.00 per month\". A second row at the same USD 4.00 is VPS_Basic_EPYC_74F3 (1 Epyc core shared, 1,024 MB RAM, 12 GB NVMe, 1,000 GB/month bandwidth, 0.5 Gbps port), and USD 5.00 buys 20 GB of NVMe at 1,024 GB/month.",
     "unit": "GiB",
     "metered_on": "wall-clock",
     "source_url": "https://vpspricetracker.com/provider/Info_Fractal/vps",
@@ -52,7 +52,7 @@
     "detail": "not stated",
     "country": null
   },
-  "reliability_note": "no reliability event recorded",
+  "reliability_note": "the vendor's own WHMCS store answered Out of Stock for the Basic VPS product on 2026-11-07 (orders suspended until restock), so the plan could not be ordered and the tracker's price stayed unverified at the vendor",
   "confidence": "reported",
   "evidence": [
     {
@@ -69,10 +69,52 @@
       "url": "https://infofractal.io/",
       "date": "2026-10-22",
       "proved": "the homepage links the product groups the record is priced from: \"Contratar\" to /clients/store/basic-vps/vps-basic-linux and to /clients/store/cloud-vps/vps-epyc-74f3-linux, and \"Mas informacion\" to /clients/store/cloud-vps"
+    },
+    {
+      "url": "https://infofractal.io/clients/store/basic-vps/vps-basic-linux",
+      "date": "2026-11-07",
+      "proved": "the vendor's own WHMCS store answered Out of Stock for the Basic VPS product, orders suspended until restock",
+      "capture": "sha256:04394eab2e902cc67da99eac0f1ab43d8e1b39dce2125f8efae4234c82ea60c8",
+      "quote": "We are currently out of stock on this item so orders for it have been suspended until more stock is available"
+    },
+    {
+      "url": "https://infofractal.io/clients/store/basic-vps/vps-basic-linux",
+      "date": "2026-11-07",
+      "proved": "the vendor's own store suspends orders for the Basic VPS product",
+      "capture": "sha256:04394eab2e902cc67da99eac0f1ab43d8e1b39dce2125f8efae4234c82ea60c8",
+      "quote": "We are currently out of stock on this item so orders for it have been suspended until more stock is available"
+    },
+    {
+      "url": "https://vpspricetracker.com/provider/Info_Fractal/vps",
+      "date": "2026-11-07",
+      "proved": "the tracker's cheapest Info Fractal row today is USD 4.00 a month and the USD 2.50 VPS_Basic_Xeon_E5_v4 row is no longer listed",
+      "capture": "sha256:8729c010eb4543376f5f42f96f03e25e9c442a7f17f5c7296c9799165d65c264",
+      "quote": "starting at $4.00 per month"
+    },
+    {
+      "url": "https://vpspricetracker.com/provider/Info_Fractal/vps",
+      "date": "2026-11-07",
+      "proved": "the tracker's cheapest Info Fractal row today is USD 4.00 a month",
+      "capture": "sha256:8729c010eb4543376f5f42f96f03e25e9c442a7f17f5c7296c9799165d65c264",
+      "quote": "starting at $4.00 per month"
+    },
+    {
+      "url": "https://vpspricetracker.com/provider/Info_Fractal/vps",
+      "date": "2026-11-07",
+      "proved": "the tracker's rows print monthly prices only, no renewal price",
+      "capture": "sha256:8729c010eb4543376f5f42f96f03e25e9c442a7f17f5c7296c9799165d65c264",
+      "quote": "starting at $4.00 per month"
+    },
+    {
+      "url": "https://vpspricetracker.com/provider/Info_Fractal/vps",
+      "date": "2026-11-07",
+      "proved": "the tracker's cheapest row is as the record states",
+      "capture": "sha256:8729c010eb4543376f5f42f96f03e25e9c442a7f17f5c7296c9799165d65c264",
+      "quote": "starting at $4.00 per month"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T14:17:07.273Z",
   "notes": "Price is tracker-only: the vendor's WHMCS store rendered its catalogue without prices in the HTML read, so nothing upgraded the figure. The vendor is Spanish-language (J AND J SpA, Chile), which matters for a support path more than for the price.",
   "extras": {
     "facets": {
@@ -85,6 +127,8 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "price_on_page": "USD 4.00/month for VPS_Xeon_8368_Linux",
+    "renewal_note": "not published; the tracker's rows print monthly prices only"
   }
 }

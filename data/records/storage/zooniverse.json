@@ -45,7 +45,7 @@
     "detail": "email for a volunteer account ('Only your name and email are captured'), but publishing a project is `write-gated` — internal review + beta test + launch scheduling, typically weeks.",
     "country": null
   },
-  "reliability_note": "Dead as a storage target for a user. It is a volunteer-compute platform: the storage is incidental to the classification task and cannot be addressed as a bucket.",
+  "reliability_note": "Dead as a storage target. It is a volunteer-compute platform: the storage is incidental to the classification task and cannot be addressed as a bucket.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

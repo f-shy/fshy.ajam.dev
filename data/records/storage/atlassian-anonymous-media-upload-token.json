@@ -5,7 +5,7 @@
   "url": null,
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "A promising-looking wrapper that dies on probe. Public Jira Service Desk portals emit an anonymous, 20-minute 'mediaApiUploadInformation' bearer token scoped to 'urn:filestore:upload:*' and",
+    "stated": "none reachable: A promising-looking wrapper that dies on probe. Public Jira Service Desk portals emit an anonymous, 20-minute 'mediaApiUploadInformation' bearer token scoped to 'urn:filestore:upload:*' and",
     "unit": "none",
     "metered_on": "none",
     "source_url": null,

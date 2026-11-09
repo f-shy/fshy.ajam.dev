@@ -5,7 +5,7 @@
   "url": "https://help.sendowl.com/help/how-do-i-upload-large-files",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "No per-file limit and SFTP ingest is genuinely good, but storage is ~1 TB before the plan is moved to a custom/enterprise plan, and there is no free tier ($9/mo minimum).",
+    "stated": "none reachable: No per-file limit and SFTP ingest is genuinely good, but storage is ~1 TB before the plan is moved to a custom/enterprise plan, and there is no free tier ($9/mo minimum).",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://help.sendowl.com/help/how-do-i-upload-large-files",

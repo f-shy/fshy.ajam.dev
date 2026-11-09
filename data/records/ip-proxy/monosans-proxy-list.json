@@ -11,7 +11,7 @@
     "metered_on": "none",
     "source_url": "https://github.com/monosans/proxy-list",
     "read_on": "2026-10-24",
-    "notes": "The unit is addresses: the 1,751 is the whole published list, counted row by row from the response read on 2026-10-24, not an allowance. Nothing is charged and nothing is counted against a user. The schema's unit enum has no token for an address, so the nearest one is used and the count is stated here in full."
+    "notes": "The unit is addresses: the 1,751 is the whole published list, counted row by row from the response read on 2026-10-24, not an allowance. Nothing is charged and nothing is metered. The schema's unit enum has no token for an address, so the nearest one is used and the count is stated here in full."
   },
   "per_object_cap": {
     "stated": "not applicable",
@@ -56,7 +56,7 @@
   "binding_note": "Nothing the vendor meters fails first: no key, no account, no published rate limit and no byte quota exist to hit. The ceiling is how long an address stays usable. 29% of a verified working set was still working 22 minutes later, and 11 of the 21 addresses working at the second check had failed at the first, so the list has to be re-pulled and re-verified far more often than the vendor's hourly refresh, and that churn rather than any allowance is what limits the gateway.",
   "identity_cost": {
     "kind": "anonymous",
-    "detail": "No account, key or email: the endpoint answered an unauthenticated GET on 2026-10-24 and the 1,751-row JSON was used as returned. Nothing identifies a user and nothing about the list costs a registration.",
+    "detail": "No account, key or email: the endpoint answered an unauthenticated GET on 2026-10-24 and the 1,751-row JSON was used as returned. Nothing identifies the caller and nothing about the list costs a registration.",
     "country": null
   },
   "reliability_note": "Open proxies of unknown ownership that churn as well as shrink: 35 of 100 sampled addresses carried a payload at the first check and 21 of 100 22 minutes later, with 25 stopping and 11 starting, and 24 of the 59 measured exits sat in consumer ISP or mobile ASNs (China Mobile AS9808, Viettel AS7552, Cox AS22773, Biznet AS17451, TATTELECOM AS28840, Superonline AS34984) rather than in datacentres.",

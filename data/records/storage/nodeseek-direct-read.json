@@ -5,7 +5,7 @@
   "url": "https://www.nodeseek.com/post-382621-1",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Cloudflare/geo wall plus a hard IPv6 block: every fetch redirects to warning.nodeseek.com/ipv6-is-disabled and returns a 29-word apology page with HTTP 200 — the exact 'status-code theatre'",
+    "stated": "none reachable: Cloudflare/geo wall plus a hard IPv6 block: every fetch redirects to warning.nodeseek.com/ipv6-is-disabled and returns a 29-word apology page with HTTP 200 — the exact 'status-code theatre'",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.nodeseek.com/post-382621-1",

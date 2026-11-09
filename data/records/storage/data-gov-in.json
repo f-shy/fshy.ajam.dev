@@ -5,7 +5,7 @@
   "url": "https://data.gov.in/api/3/action/package_search",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Host did not resolve/connect at all (curl exit 6/000) from this network, so nothing could be verified. India's public-data policy routes publication through ministry nodal officers under…",
+    "stated": "none reachable: Host did not resolve/connect at all (curl exit 6/000) from this network, so nothing could be verified. India's public-data policy routes publication through ministry nodal officers under…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://data.gov.in/api/3/action/package_search",

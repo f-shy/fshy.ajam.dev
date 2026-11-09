@@ -95,10 +95,59 @@
       "url": "https://lowendtalk.com/discussion/173094/natvps-net-ipv6-nat-ipv4-vps-switzerland-hong-kong-singapore-netherlands-poland-usa",
       "date": "2026-10-24",
       "proved": "reported, posted 2021-08-05 by the provider's account: 'Support tun/tap/fuse ? Yes, can be enabled from control panel.' and 'VPS-NAT256 - $7 per YEAR'"
+    },
+    {
+      "url": "https://clients.natvps.net/?/cart/kvm-france/",
+      "date": "2026-11-07",
+      "proved": "the France cart's NAT768 card carries the out-of-stock badge inside its own card and the NAT512 card (data-value 71) carries none",
+      "capture": "sha256:b863cd3b1940842a2baea4809acfd0c8ce46f2772fc7bc6355f5d25d01c047cc",
+      "quote": "cart-product-outofstock-badge\">Out</br>of stock</div></div><div class=\"text-center cart-product-section py-4\"><h4 class=\"\">VPS-NAT768-KVM (France)</h4>"
+    },
+    {
+      "url": "https://clients.natvps.net/?/cart/kvm-france/",
+      "date": "2026-11-07",
+      "proved": "the cart's recurring total for NAT512 equals its listed price",
+      "capture": "sha256:5bbbd7ca34760f8edfdfdcc4fdfc1eaf9e7480d4cd7883c441f955f30f896ef5",
+      "quote": "Total Recurring: $7.50 USD Annually"
+    },
+    {
+      "url": "https://clients.natvps.net/?/cart/kvm-france/",
+      "date": "2026-11-07",
+      "proved": "the cart's cycle control lists a single Annually option",
+      "capture": "sha256:5bbbd7ca34760f8edfdfdcc4fdfc1eaf9e7480d4cd7883c441f955f30f896ef5",
+      "quote": "Change billing cycle $7.50 USD Annually"
+    },
+    {
+      "url": "https://natvps.net",
+      "date": "2026-11-07",
+      "proved": "the vendor home page prices NAT512 at USD 7.50 a year",
+      "capture": "sha256:4523ed68ff559ff21dac55a1da2a3515e6c0e716fbbcca052a5cbc3b318ca123",
+      "quote": "$7.5 / year"
+    },
+    {
+      "url": "https://natvps.net",
+      "date": "2026-11-07",
+      "proved": "the only printed rate is the annual one",
+      "capture": "sha256:4523ed68ff559ff21dac55a1da2a3515e6c0e716fbbcca052a5cbc3b318ca123",
+      "quote": "$7.5 / year"
+    },
+    {
+      "url": "https://clients.natvps.net/?/cart/kvm-france/",
+      "date": "2026-11-07",
+      "proved": "the cart page links one cart URL per location",
+      "capture": "sha256:b863cd3b1940842a2baea4809acfd0c8ce46f2772fc7bc6355f5d25d01c047cc",
+      "quote": "href=\"?/cart/kvm-canada/\""
+    },
+    {
+      "url": "https://clients.natvps.net/?/cart/kvm-france/",
+      "date": "2026-11-07",
+      "proved": "the cart prices NAT512 at USD 7.50 a year with the same 512 MB RAM, 5 GB SSD, 20-port NAT IPv4 and 750 GB a month the record states",
+      "capture": "sha256:5bbbd7ca34760f8edfdfdcc4fdfc1eaf9e7480d4cd7883c441f955f30f896ef5",
+      "quote": "VPS-NAT512-KVM (France) $7.50 USD / Annually Location France Disk 5GB SSD RAM 512MB CPU 1 Core(s) (fair use) IPv6 /80 IPv4 NAT IPv4 (20 usable ports) Monthly Bandwidth 750GB"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-24T03:19:06.000Z",
+  "verified_at": "2026-11-07T11:15:23.466Z",
   "notes": "Wall: the order page at clients.natvps.net renders as an empty shell to both the raw fetch and the text extractor, so per-location stock could not be read; the vendor home page carries price, specs and locations. The tracker names the firm as WebHorizon IT Broadband Limited. Not established: whether all 8 locations are in stock at USD 7.50, and the enforcement after 750 GB. | 2026-10-24: the vendor FAQ answers the WireGuard question directly ('Yes, it can!') and the footer names 'NatVPS Services' with a GSTIN, which is an Indian tax registration rather than a company number. That is more than Gullo's or luo_cloud's pages give, and less than a Companies House or CVR hit. UDP on the 20 ports is still not stated. Verdict left at 'paid-only'; in the sub-dollar price band it reads as qualifies-with-caveat.",
   "extras": {
     "facets": {
@@ -112,7 +161,14 @@
         "gpu_count": null
       }
     },
-    "udp": "not stated. The vendor documents WireGuard on this product and says it can be used, but no page read names UDP on the 20 forwarded ports."
+    "udp": "not stated. The vendor documents WireGuard on this product and says it can be used, but no page read names UDP on the 20 forwarded ports.",
+    "stock": "NAT512 (USD 7.50/yr) in stock at all eight locations the cart lists; NAT768 (USD 10.00/yr) out of stock at all eight; cart DOM read on 2026-11-07 (France, Canada, Netherlands, Norway, New York, Los Angeles, Singapore, Japan)",
+    "renewal_usd": "USD 7.50 a year on NAT512: the cart prints 'Total Recurring: $7.50 USD Annually' for the plan it prices; NAT768: not published, the plan is out of stock at every location read and no cart summary renders for it",
+    "term": "Annually is the only billing cycle the cart offers for the plan ('Change billing cycle' lists one option at $7.50 USD Annually)",
+    "price_on_page": "the vendor home page prints '$7.5 / year' (NAT512) and '$10 / year' (NAT768); the cart prints '$7.50 USD / Annually' (NAT512) and '$10.00 USD / Annually' (NAT768) per location",
+    "monthly_usd": "not published: the vendor sells the annual term only; USD 7.50 / 12 = USD 0.63 a month is arithmetic, which the tracker row also prints",
+    "annual_usd": 7.5,
+    "cart_url": "https://clients.natvps.net/?/cart/kvm-france/ (one cart per location: kvm-canada, kvm-netherlands, kvm-norway, usa-new-york, usa-los-angeles, kvm-singapore, kvm-japan)"
   },
   "confidence_note": "price, shape, port count and traffic quoted from the vendor page read; the entity is the vendor's own footer line plus a GSTIN, which is a registration number but was not checked against the Indian registry; UDP on the forwarded ports is not stated anywhere read"
 }

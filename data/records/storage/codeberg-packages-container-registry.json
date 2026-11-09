@@ -5,7 +5,7 @@
   "url": "https://codeberg.org/v2/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Caps are tiny and hard: 750 MiB git repo, plus 1.5 GiB combined for LFS/Packages/Releases/Attachments, and non-promoted personal repos capped at 100 MiB. Quotas enforced by Forgejo with…",
+    "stated": "none reachable: Caps are tiny and hard: 750 MiB git repo, plus 1.5 GiB combined for LFS/Packages/Releases/Attachments, and non-promoted personal repos capped at 100 MiB. Quotas enforced by Forgejo with…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://codeberg.org/v2/",

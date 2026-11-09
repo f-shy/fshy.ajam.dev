@@ -40,13 +40,13 @@
   "limits": [
     {
       "kind": "volume-quota",
-      "value": "The included traffic is the first thing to fail at a user's volume: 3 TB a month is about 100 GB a day, and the port at 1 Gbit/s could move thirty times that, so the allowance rather than the link is the ceiling.",
+      "value": null,
       "source": "https://hostkey.ru/vps/vps-vds-testovyy-period/"
     }
   ],
-  "limits_note": "The included traffic is the first thing to fail at a user's volume: 3 TB a month is about 100 GB a day, and the port at 1 Gbit/s could move thirty times that, so the allowance rather than the link is the ceiling.",
+  "limits_note": null,
   "binding": "volume-quota",
-  "binding_note": "The included traffic is the first thing to fail at a user's volume: 3 TB a month is about 100 GB a day, and the port at 1 Gbit/s could move thirty times that, so the allowance rather than the link is the ceiling.",
+  "binding_note": null,
   "identity_cost": {
     "kind": "card",
     "detail": "payment is in roubles by Russian bank cards including Mir, by bank transfer and by electronic payment systems, so a card is one accepted rail rather than a stated requirement; there is no free tier to gate. The record does not state whether signup asks for an email, a phone or an ID document, whether a card issued outside Russia works — its notes say the payment page names Mir and Russian transfers only — or any hold, debit or prepaid answer",

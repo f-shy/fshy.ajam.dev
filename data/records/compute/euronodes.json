@@ -70,10 +70,17 @@
       "url": "https://euronodes.com/cloud",
       "date": "2026-10-22",
       "proved": "structured data on the page: 'priceCurrency: EUR, lowPrice: 4.54, highPrice: 117.12, offerCount: 8, availability: InStock', areaServed Lisbon and Prague"
+    },
+    {
+      "url": "https://euronodes.com/cloud",
+      "date": "2026-11-07",
+      "proved": "the first table row prices the 2 vCores / 4 GB entry at EUR 4.54 IPv6-only and EUR 5.24 with a dedicated IPv4",
+      "capture": "sha256:e75bc0372343f1a0db78ae066862d3e513e156c93f42aadab96a5ea260da677b",
+      "quote": "| 2 vCores | 4 GB | 100 GB | 20 TB | €4.54€5.24 |"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T14:17:06.321Z",
   "notes": "The IPv6-only price is the cheap one and the dedicated IPv4 costs EUR 0.70 more, which matters because a large share of the web is still IPv4-only; the tracker row that pairs EUR 4.54 with IPv6 and EUR 5.24 with IPv4+IPv6 matches the vendor's two-column price cell exactly. The bandwidth figures disagree: vendor 20 TB, tracker 30,720 GB. The euro sign is written as EUR because every string in this record is ASCII; no price was converted.",
   "extras": {
     "facets": {
@@ -86,6 +93,8 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "price_on_page": "EUR 4.54/month: the entry 2 vCores / 4 GB row (IPv6 only); EUR 5.24/month with a dedicated IPv4",
+    "renewal_note": "not published: the pricing page read on 2026-11-07 prints a monthly price per row and no renewal price"
   }
 }

@@ -47,7 +47,7 @@
     "detail": "'Connect Minecraft with the device code first (More -> Account)', which is a Microsoft account device-code flow.",
     "country": "None"
   },
-  "reliability_note": "Latency to the featured servers is shown per server; nothing is stated about a user's own server.",
+  "reliability_note": "Latency to the featured servers is shown per server; nothing is stated about a locally run server.",
   "confidence": "documented",
   "confidence_note": "The page states what the product is and shows no server-side product; whether a paid tier exists is unread because no pricing page is linked.",
   "evidence": [

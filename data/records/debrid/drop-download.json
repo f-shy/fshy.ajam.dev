@@ -57,7 +57,7 @@
   ],
   "limits_note": "The storage row reads 'Unlimited' for premium and '10240 GB' for registered; only the free column is blank.",
   "binding": "volume-quota",
-  "binding_note": "Volume-quota is named because it is the only counter the vendor states and the first one a larger client would meet.",
+  "binding_note": "60 GB/day is 1.76 TB a month,, so at this scale nothing in the vocabulary breaks. Volume-quota is named because it is the only counter the vendor states and the first one a larger workload would meet.",
   "identity_cost": {
     "kind": "card",
     "detail": "Premium at $15 for 30 days; the page shows no payment-method list beyond checkout. Signup is a form with an email.",

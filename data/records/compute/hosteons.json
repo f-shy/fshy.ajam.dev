@@ -70,10 +70,17 @@
       "url": "https://my.hosteons.com/store/ryzen-vps-special",
       "date": "2026-10-22",
       "proved": "the stock clearance page lists Ryzen SP1 at 'From $3.00/mo', Ryzen SP2 at 'From $4.00/mo' and Ryzen SP3 at 'From $6.00/mo', each labelled 'Out of Stock'"
+    },
+    {
+      "url": "https://my.hosteons.com/store/budget-gigabit-ssd-kvm-vps-la-ny-jax-dal-and-lv/gigabit-kvm-vps-1",
+      "date": "2026-11-07",
+      "proved": "the cart prices Gigabit KVM VPS 1 at USD 21.00 annually, USD 40.00 biennially and USD 55.00 triennially, with no out-of-stock marker",
+      "capture": "sha256:a11d0d60f23cb91507618f689eeab5ea4acfd07c3998f374d85cef4ac86ab757",
+      "quote": "$21.00 USD Annually $40.00 USD Biennially $55.00 USD Triennially"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T06:08:33.035Z",
   "notes": "The tracker's USD 17.99 a year for the 512 MB Ryzen shape was not found at that price on any vendor page read; the vendor prices the same shape at USD 24 a year, and the separate stock-clearance store that did sell cheaper tiers is out of stock on every line.",
   "extras": {
     "facets": {
@@ -86,6 +93,12 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "term": "annually USD 21.00, biennially USD 40.00, triennially USD 55.00; the cart lists no monthly cycle",
+    "annual_usd": 21.0,
+    "renewal_usd": "not published: no renewal price is printed on the order page or the cart read 2026-11-07",
+    "stock": "orderable: the cart renders the product config with billing cycles and no out-of-stock marker",
+    "cart_url": "https://my.hosteons.com/store/budget-gigabit-ssd-kvm-vps-la-ny-jax-dal-and-lv/gigabit-kvm-vps-1",
+    "price_on_page": "USD 21.00/yr on kvm_vps.php; the cart prices the same plan USD 21.00 annually"
   }
 }

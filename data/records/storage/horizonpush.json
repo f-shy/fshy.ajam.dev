@@ -5,7 +5,7 @@
   "url": "https://github.com/lupuszr/horizon",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Self-described 'Experimental & Work in Progress ... Expect breaking changes, incomplete features, and evolving APIs'. It is a thin iroh-blobs front end whose cold path falls through to AWS…",
+    "stated": "none reachable: Self-described 'Experimental & Work in Progress ... Expect breaking changes, incomplete features, and evolving APIs'. It is a thin iroh-blobs front end whose cold path falls through to AWS…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://github.com/lupuszr/horizon",

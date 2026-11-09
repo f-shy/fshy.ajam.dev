@@ -5,7 +5,7 @@
   "url": "https://saturncloud.io/plans/saturn_cloud_plans/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "No free tier on the current plans page — it opens directly into a paid GPU/CPU rate table (cheapest listed is a 4 GB / 2 vCPU t3.medium at $0.15/hr, then nebius boxes). No storage allowance",
+    "stated": "none reachable: No free tier on the current plans page — it opens directly into a paid GPU/CPU rate table (cheapest listed is a 4 GB / 2 vCPU t3.medium at $0.15/hr, then nebius boxes). No storage allowance",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://saturncloud.io/plans/saturn_cloud_plans/",

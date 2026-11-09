@@ -5,7 +5,7 @@
   "url": "https://vpspricetracker.com/provider/Linveo/vps",
   "category": "cloud VM",
   "free_tier": {
-    "stated": "USD 3.85/month: 2 Intel cores (shared), 4,096 MB RAM, 25 GB NVMe, 4,000 GB/month bandwidth, 10 Gbps port, IPv4 and IPv6, Ohio USA. The same price is offered in Texas, and a Windows variant of the 4 GB plan is USD 4.00. The vendor's own Intel page does not list a 4 GB plan: its cheapest card is 'Intel KVM VPS 8GB' at USD 5.50 for 4 cores, 50 GB NVMe and 4,000 GB, and its AMD page starts at USD 6.60 for 1 GB, 25 GB NVMe and 4,000 GB.",
+    "stated": "USD 3.85/month (Intel KVM VPS 4GB - Ohio): 4,096 MB RAM, 2 CPU cores, 25 GB NVMe SSD, 4,000 GB bandwidth, 10 Gigabit port. The vendor's own Blesta order form (billing.linveo.com) lists the plan at USD 3.85 for 1 Month and USD 46.20 for 1 Year with no other term, and shows it in stock (an Order Now submit button; only the 60 GB Ohio plan carries an Out of Stock marker); the same price is offered in Texas. Renewal: not published. The marketing Intel page (linveo.com/intel) still starts at the 8 GB plan at USD 5.50 and lists no 4 GB card (re-read 2026-11-07).",
     "unit": "GiB",
     "metered_on": "wall-clock",
     "source_url": "https://vpspricetracker.com/provider/Linveo/vps",
@@ -69,11 +69,53 @@
       "url": "https://linveo.com/amd",
       "date": "2026-10-22",
       "proved": "the AMD page starts at 'AMD RYZEN KVM VPS 1GB', '$6.60', '1024 MB RAM', '1 CPU Core (9950X)', '25 GB NVMe', '4000 GB Bandwidth', '10 Gigabit Port'"
+    },
+    {
+      "url": "https://billing.linveo.com/order/main/index/intel-kvm-vps",
+      "date": "2026-11-07",
+      "proved": "the vendor order form lists the 4 GB Ohio plan at USD 3.85 a month and USD 46.20 a year",
+      "capture": "sha256:954bd2e07df4cdf9395516a8a4b801b7f9410832d852cb906068baf407dead74",
+      "quote": "Intel KVM VPS 4GB - Ohio ... 1 Month @ $3.85 ... 1 Year @ $46.20"
+    },
+    {
+      "url": "https://billing.linveo.com/order/main/index/intel-kvm-vps",
+      "date": "2026-11-07",
+      "proved": "the Texas variant of the 4 GB plan is offered at the same USD 3.85 a month",
+      "capture": "sha256:954bd2e07df4cdf9395516a8a4b801b7f9410832d852cb906068baf407dead74",
+      "quote": "Intel KVM VPS 4GB - Texas ... 1 Month @ $3.85"
+    },
+    {
+      "url": "https://billing.linveo.com/order/main/index/intel-kvm-vps",
+      "date": "2026-11-07",
+      "proved": "the order form states the plan's 4 GB RAM, 25 GB NVMe, 4000 GB bandwidth and 10 Gigabit port",
+      "capture": "sha256:954bd2e07df4cdf9395516a8a4b801b7f9410832d852cb906068baf407dead74",
+      "quote": "4096 MB RAM ... 25 GB NVMe SSD ... 4000 GB Bandwidth ... 10 Gigabit port"
+    },
+    {
+      "url": "https://billing.linveo.com/order/main/index/intel-kvm-vps",
+      "date": "2026-11-07",
+      "proved": "the vendor order form renders an Order Now submit button for the Intel KVM VPS 4GB - Ohio plan, so the plan is orderable",
+      "capture": "sha256:57a1a1bbc5ca5234db077398d023ae34c4a87de1b137fad57bbe51fb020026c7",
+      "quote": "<button type=\"submit\" class=\"btn btn-lg btn-success float-right\">Order Now <i class=\"fas fa-angle-double-right\"></i></button>"
+    },
+    {
+      "url": "https://billing.linveo.com/order/main/index/intel-kvm-vps",
+      "date": "2026-11-07",
+      "proved": null,
+      "capture": "sha256:57a1a1bbc5ca5234db077398d023ae34c4a87de1b137fad57bbe51fb020026c7",
+      "quote": "<option data-period=\"1 Month @ \" data-display-price=\"$3.85\" value=\"104\">1 Month @ $3.85</option>\n<option data-period=\"1 Year @ \" data-display-price=\"$46.20\" value=\"84\">1 Year @ $46.20</option>"
+    },
+    {
+      "url": "https://billing.linveo.com/order/main/index/intel-kvm-vps",
+      "date": "2026-11-07",
+      "proved": "the vendor order form lists the 4 GB Ohio plan at USD 3.85 for 1 Month and USD 46.20 for 1 Year",
+      "capture": "sha256:57a1a1bbc5ca5234db077398d023ae34c4a87de1b137fad57bbe51fb020026c7",
+      "quote": "<option data-period=\"1 Month @ \" data-display-price=\"$3.85\" value=\"104\">1 Month @ $3.85</option>\n<option data-period=\"1 Year @ \" data-display-price=\"$46.20\" value=\"84\">1 Year @ $46.20</option>"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "The tracker's USD 3.85 plan is a real mismatch with the vendor's product pages, which is why confidence is reported rather than documented: the vendor's cheapest Intel plan is USD 5.50 for 8 GB and its cheapest AMD plan is USD 6.60 for 1 GB, so either the 4 GB plan is a promotional or order-form-only configuration or the tracker is stale. The Windows card at USD 4.00 suggests the family exists at that price point.",
+  "verified_at": "2026-11-07T11:15:38.153Z",
+  "notes": "The tracker's USD 3.85 plan is a real mismatch with the vendor's product pages, which is why confidence is reported rather than documented: the vendor's cheapest Intel plan is USD 5.50 for 8 GB and its cheapest AMD plan is USD 6.60 for 1 GB, so the 4 GB plan is an order-form-only configuration. The order form (read 2026-11-07) names the plan, prices it at USD 3.85 for 1 Month and USD 46.20 for 1 Year, and shows it in stock with an Order Now button; only the 60 GB Ohio plan carries an Out of Stock marker. The Windows card at USD 4.00 suggests the family exists at that price point.",
   "extras": {
     "facets": {
       "class": null,

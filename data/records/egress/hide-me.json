@@ -58,7 +58,7 @@
     "detail": "Premium purchase with card, PayPal, Google Pay, Apple Pay, SEPA, SOFORT, bank transfer or crypto; the free tier needs no payment.",
     "country": "None"
   },
-  "reliability_note": "UPnP negotiation is per session; if a user's UPnP request is not repeated the mapping disappears with no server-side notice.",
+  "reliability_note": "UPnP negotiation is per session; if the UPnP request is not repeated the mapping disappears with no server-side notice.",
   "confidence": "documented",
   "confidence_note": "Measured would need a Premium account and a UPnP negotiation observed. Prices were taken from the vendor page as indexed rather than rendered, because the page body served was FAQ text only; the forwarding sentences were read directly.",
   "evidence": [

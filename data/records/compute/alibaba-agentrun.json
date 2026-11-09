@@ -55,9 +55,9 @@
   ],
   "limits_note": "not stated",
   "identity_cost": {
-    "kind": "email",
-    "detail": null,
-    "country": null
+    "kind": "national-id",
+    "detail": "a China-site Alibaba Cloud account: registration needs a mobile number that can receive an SMS code, '注册前只需要准备一个...可以接收短信验证码的手机号码...即可，注册账号流程相同。', and '注册完成后，在充值和购买云产品之前需要完成账号的实名认证'. Individual verification takes '输入个人认证的姓名和身份证号码，开始认证，个人身份校验成功后进行扫脸', that is a name, an identity-card number and a face scan. The sandbox bills per second from the account balance ('账户余额不足导致欠费时，系统将发送欠费通知'), so the real-name check comes before use.",
+    "country": "CN"
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
@@ -86,10 +86,38 @@
       "proved": "the page names an API and no other access interface",
       "capture": "sha256:0ba5638e5ac8343e0d93f7a027f9cdf5c3f9fd73d9fa905606ae8d8d8a5b64f7",
       "quote": "自定义模板可通过 API 主动预热（Template Cache），减少沙箱首次启动耗时。"
+    },
+    {
+      "url": "https://help.aliyun.com/zh/account/ali-cloud-account-registration-process",
+      "date": "2026-11-04",
+      "proved": "a China-site account must pass real-name verification before any recharge or purchase, and the sandbox bills from the account balance",
+      "capture": "sha256:b159830a3ef0c3e1f58629d5641376bea1bc6a65c433aa1ec7e15573252a9b98",
+      "quote": "注册完成后，在充值和购买云产品之前需要完成账号的实名认证"
+    },
+    {
+      "url": "https://help.aliyun.com/zh/account/ali-cloud-account-registration-process",
+      "date": "2026-11-04",
+      "proved": "a mobile number able to receive an SMS code is all that registration requires",
+      "capture": "sha256:b159830a3ef0c3e1f58629d5641376bea1bc6a65c433aa1ec7e15573252a9b98",
+      "quote": "注册前只需要准备一个...可以接收短信验证码的手机号码...即可，注册账号流程相同。"
+    },
+    {
+      "url": "https://help.aliyun.com/zh/account/verify-your-identity-individual-account",
+      "date": "2026-11-04",
+      "proved": "individual verification is a Chinese identity-card number plus a face scan, on the China site",
+      "capture": "sha256:fa61514d3943af491990bf35a4447df5567f1c43d925df8f1ddc438a9d689e2b",
+      "quote": "输入个人认证的姓名和身份证号码，开始认证，个人身份校验成功后进行扫脸。"
+    },
+    {
+      "url": "https://help.aliyun.com/zh/agent-sandbox/product-overview/billing-overview",
+      "date": "2026-11-04",
+      "proved": "the sandbox bills against an account balance, so the account and its verification precede use",
+      "capture": "sha256:0ba5638e5ac8343e0d93f7a027f9cdf5c3f9fd73d9fa905606ae8d8d8a5b64f7",
+      "quote": "账户余额不足导致欠费时，系统将发送欠费通知。"
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-04T11:01:13.167Z",
+  "verified_at": "2026-11-04T15:51:56.483Z",
   "price_per_tb_month": null,
   "notes": "",
   "extras": {
@@ -101,7 +129,7 @@
       "wall_clock_min": null,
       "idle_reap_s": null,
       "restart_required": false,
-      "note": "no vendor wall-clock cap: a user sets the caps. The automatic transition is shallow sleep, triggered by the same activity test Azure uses: under 0.01 core of CPU, under 1,000 bytes a second, or no request"
+      "note": "no vendor wall-clock cap: the caps are user-set. The automatic transition is shallow sleep, triggered by the same activity test Azure uses: under 0.01 core of CPU, under 1,000 bytes a second, or no request"
     },
     "persistent_storage": null,
     "network_out": null,

@@ -37,7 +37,7 @@
   ],
   "interface_detail": "The vendor sells a proxy endpoint. Which protocol that endpoint speaks was not established from the pages read, and no API, SDK or port number is recorded.",
   "tooling": "An account, then a client that speaks the endpoint's protocol, which was not established. No SDK, rclone backend or documented API is recorded. The absent wrapper is a note about tooling, not a verdict: it is a weekend of work against capacity that already exists.",
-  "chaining": "The proxy would be the exit for traffic a user's gateway sends out. It fixes the country and carrier of the source address and supplies no storage or compute of its own, so it combines with any service that judges a request by the nationality of the exit.",
+  "chaining": "The proxy would be the exit for traffic the gateway sends out. It fixes the country and carrier of the source address and supplies no storage or compute of its own, so it combines with any service that judges a request by the nationality of the exit.",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -47,7 +47,7 @@
   ],
   "limits_note": "The vendor's /en/ page publishes the price (EUR 67 per proxy per 30 days, 72-hour trial at EUR 9.90) and lists 'Unlimited Bandwith' in the plan; it publishes no request-rate, volume or write constraint, so limits[] carries the one constraint the vendor states. The identity gate is recorded in identity_cost and the price in free_tier and extras; neither is a kind in this vocabulary.",
   "binding": "per-ip-shaping",
-  "binding_note": "About 599,000 requests and 45 GB a month is a low request rate, so no rate limit or byte quota would fail first; the exit is one dedicated SIM, shaped by its carrier and carrying every request a user makes through it, so per-address throughput decides the design. The identity wall stops a user before any capacity constraint is reached, which is why the verdict is fails-identity and not fails-quota.",
+  "binding_note": "About 599,000 requests and 45 GB a month is a low request rate, so no rate limit or byte quota would fail first; the exit is one dedicated SIM, shaped by its carrier and carrying every request made through it, so per-address throughput decides the design. The identity wall arrives before any capacity constraint, which is why the verdict is fails-identity and not fails-quota.",
   "identity_cost": {
     "kind": "national-id",
     "detail": "Vendor's own words: 'we recommend to verify your identity by submitting valid id proof and selfie'. Italian customers must supply a VAT number or fiscal code. The recommendation is worded as advice and the tax identifier is worded as a requirement. The pair is recorded as national-id because the mandatory half is an Italian tax identifier, not an email address or a phone number.",
@@ -55,7 +55,7 @@
   },
   "reliability_note": "No reliability observation was recorded: no endpoint was reached, so throttle behaviour, rotation interval and drop rate are unverified.",
   "confidence": "documented",
-  "confidence_note": "The verdict rests on identity alone, which is quoted from the vendor's own page, so the record is documented. Egress and interface were not established and say so; neither can move the verdict, because a client that cannot register never reaches them. Measured would need an account and a request through an endpoint, and neither was attempted. The soft spot is the word 'recommend': the ID and selfie clause is advice, and the mandatory clause is the tax identifier.",
+  "confidence_note": "The verdict rests on identity alone, which is quoted from the vendor's own page, so the record is documented. Egress and interface were not established and say so; neither can move the verdict, because without an account neither is reachable. Measured would need an account and a request through an endpoint, and neither was attempted. The soft spot is the word 'recommend': the ID and selfie clause is advice, and the mandatory clause is the tax identifier.",
   "evidence": [
     {
       "url": "https://airproxy.io/en/",

@@ -58,7 +58,6 @@
 {"dst":"compute/666clouds","kind":"mentions","src":"ip-proxy/ippeak-dual-ntt"}
 {"dst":"compute/access","kind":"mentions","src":"compute/jetstream2"}
 {"dst":"compute/ai-horde","kind":"mentions","src":"inference/ai-horde-text"}
-{"dst":"compute/aircloud","kind":"mentions","src":"compute/aircloud-dev"}
 {"dst":"compute/alphavps-c2g","kind":"same-product","src":"compute/alphavps"}
 {"dst":"compute/alphavps-c6g","kind":"same-product","src":"compute/alphavps"}
 {"dst":"compute/alphavps-c6g","kind":"same-product","src":"compute/alphavps-c2g"}
@@ -208,6 +207,7 @@
 {"dst":"compute/lambda","kind":"mentions","src":"compute/zoltan-s-flops-gpu"}
 {"dst":"compute/layer7-windows","kind":"same-product","src":"compute/layer7"}
 {"dst":"compute/linveo-windows","kind":"same-product","src":"compute/linveo"}
+{"dst":"compute/little-creek-hosting","kind":"duplicate_of","src":"compute/littlecreek"}
 {"dst":"compute/lovable","kind":"mentions","src":"coding-subs/lovable"}
 {"dst":"compute/manus-cloud-computer","kind":"mentions","src":"compute/manus"}
 {"dst":"compute/natvps-net-nat512","kind":"mentions","src":"compute/natvps-net-kvm-512-recheck"}
@@ -272,6 +272,7 @@
 {"dst":"compute/tmhhost","kind":"mentions","src":"ip-proxy/ippeak-dual-ntt"}
 {"dst":"compute/tothost","kind":"mentions","src":"compute/nocthost-gpu"}
 {"dst":"compute/trigger-dev","kind":"mentions","src":"dev-services/trigger-dev"}
+{"dst":"compute/trumvps-global","kind":"same-product","src":"compute/trumvps"}
 {"dst":"compute/v0","kind":"mentions","src":"coding-subs/v0-free"}
 {"dst":"compute/val-town","kind":"mentions","src":"dev-services/val-town"}
 {"dst":"compute/vdsina-cloud-configurator","kind":"same-product","src":"compute/vdsina"}

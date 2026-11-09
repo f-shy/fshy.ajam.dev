@@ -57,7 +57,7 @@
   "limits_note": "not stated",
   "identity_cost": {
     "kind": "email",
-    "detail": null,
+    "detail": "an email address at sign-up: the sign-up page asks for 'Email address'. No credit card is required: '$8 free in your wallet — no credit card required'. The phone requirement is not published on https://agent.tinyfish.ai/sign-up. Country: not published on https://agent.tinyfish.ai/sign-up.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -87,10 +87,31 @@
       "proved": "the pricing page lists SDKs, a CLI and MCP",
       "capture": "sha256:ab9fc67de4212d5cf874737ec0e26197ebc2177851e36f8346ce43f34f857fe4",
       "quote": "–SDKs, CLI, and MCP"
+    },
+    {
+      "url": "https://agent.tinyfish.ai/sign-up",
+      "date": "2026-11-04",
+      "proved": "the sign-up form asks for an email address",
+      "capture": "sha256:cbc00e28a0a5cf0a63137d0884bc77ef45b4a327cb3c6f78da14c59d969785dc",
+      "quote": "Email address"
+    },
+    {
+      "url": "https://agent.tinyfish.ai/sign-up",
+      "date": "2026-11-06",
+      "proved": "the free wallet grant needs no credit card",
+      "capture": "sha256:cbc00e28a0a5cf0a63137d0884bc77ef45b4a327cb3c6f78da14c59d969785dc",
+      "quote": "$8 free in your wallet — no credit card required"
+    },
+    {
+      "url": "https://agent.tinyfish.ai/sign-up",
+      "date": "2026-11-06",
+      "proved": "the sign-up form asks for an email address",
+      "capture": "sha256:cbc00e28a0a5cf0a63137d0884bc77ef45b4a327cb3c6f78da14c59d969785dc",
+      "quote": "Email address"
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-04T10:36:15.608Z",
+  "verified_at": "2026-11-06T17:42:10.985Z",
   "price_per_tb_month": null,
   "notes": "",
   "extras": {

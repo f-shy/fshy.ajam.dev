@@ -48,7 +48,7 @@
   ],
   "limits_note": "v2 moved from POST to GET so the edge can cache the responses, which is a bandwidth measure rather than a per-client quota. The 300-result ceiling is the only hard number, and six concurrent requests drew no 429.",
   "binding": "request-rate",
-  "binding_note": "The operator names CPU and bandwidth as the failure mode and refuses to publish a number, so a user's own restraint is the only limit; no byte quota exists on this side.",
+  "binding_note": "The operator names CPU and bandwidth as the failure mode and refuses to publish a number, so voluntary restraint is the only limit; no byte quota exists on this side.",
   "identity_cost": {
     "kind": "anonymous",
     "detail": "No key, no account, no captcha on the GET requests made today.",

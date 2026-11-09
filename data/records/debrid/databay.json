@@ -53,7 +53,7 @@
   ],
   "limits_note": "Rotation per connection is the wrong shape for a long download: a single HTTP transfer holds one connection, so a rotation policy that only changes on a new connection leaves the transfer on one address, which is what a debrid IP check wants.",
   "binding": "volume-quota",
-  "binding_note": null,
+  "binding_note": "USD 0.95/GB is the cheapest large-package rate except Rayobyte's disputed headline, and it is still USD 973 for half the month.",
   "identity_cost": {
     "kind": "card",
     "detail": "Self-service checkout at app.databay.com with card; no identity document mentioned on the page read.",

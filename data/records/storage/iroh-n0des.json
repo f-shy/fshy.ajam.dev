@@ -5,7 +5,7 @@
   "url": "https://crates.io/crates/iroh-n0des",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The old standalone rendezvous/discovery crate for 'p2p quic connections dialed by public key'. Superseded by the iroh 1.x address-lookup/pkarr path; repo README now just renders…",
+    "stated": "none reachable: The old standalone rendezvous/discovery crate for 'p2p quic connections dialed by public key'. Superseded by the iroh 1.x address-lookup/pkarr path; repo README now just renders…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://crates.io/crates/iroh-n0des",

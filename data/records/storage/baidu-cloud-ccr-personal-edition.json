@@ -5,7 +5,7 @@
   "url": "https://cloud.baidu.com/doc/CCR/s/jkw60wx3m",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Dead since 2024-04-25: personal-edition instances no longer accept new namespaces or repositories at all, and no external image migration is allowed. Only pre-existing images keep working.",
+    "stated": "none reachable: Dead since 2024-04-25: personal-edition instances no longer accept new namespaces or repositories at all, and no external image migration is allowed. Only pre-existing images keep working.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://cloud.baidu.com/doc/CCR/s/jkw60wx3m",

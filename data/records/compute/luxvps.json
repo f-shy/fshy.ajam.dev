@@ -10,7 +10,7 @@
     "metered_on": "wall-clock",
     "source_url": "https://luxvps.net/",
     "read_on": "2026-10-22",
-    "notes": "none"
+    "notes": "the cart (billing.luxvps.net, WHMCS) prices KVM Rootserver Tiny at EUR 4.50 for 1 Month, EUR 4.28 per month for 3 Months, EUR 4.05 per month for 6 Months and EUR 3.83 per month for 12 Months, with EUR 0.00 setup and EUR 4.50 total due today on the monthly term; no renewal price is printed and the cart shows no stock marker"
   },
   "per_object_cap": {
     "stated": "not applicable",
@@ -74,10 +74,45 @@
       "url": "https://luxvps.net/",
       "date": "2026-10-22",
       "proved": "inclusions listed under 'All plans include': 1 Gbit Uplink, IPv4 + /64 IPv6, 3.2 Tbit/s Premium DDoS Protection, 4 Daily Backups, Free Setup, NVMe RAID-1, 48-hr Refund Policy; and quoted verbatim, 'quarterly, 6-month and annual terms are discounted at checkout (up to 15% off)'"
+    },
+    {
+      "url": "https://billing.luxvps.net/index.php?rp=/store/kvm-rootservers/kvm-rootserver-tiny",
+      "date": "2026-11-07",
+      "proved": "the cart prices KVM Rootserver Tiny across four billing cycles",
+      "capture": "sha256:f44aceed9d6865d8f62a8eba7191e14e8426d27b8ddc2c63602f6fad9548aa6c",
+      "quote": "1 Month Price - €4.50 EUR ... 3 Month Price - €4.28 EUR ... 6 Month Price - €4.05 EUR ... 12 Month Price - €3.83 EUR"
+    },
+    {
+      "url": "https://billing.luxvps.net/index.php?rp=/store/kvm-rootservers/kvm-rootserver-tiny",
+      "date": "2026-11-07",
+      "proved": "the cart prices KVM Rootserver Tiny at EUR 4.50 on the monthly term",
+      "capture": "sha256:f44aceed9d6865d8f62a8eba7191e14e8426d27b8ddc2c63602f6fad9548aa6c",
+      "quote": "1 Month Price - €4.50 EUR"
+    },
+    {
+      "url": "https://billing.luxvps.net/index.php?rp=/store/kvm-rootservers/kvm-rootserver-tiny",
+      "date": "2026-11-07",
+      "proved": "the cart prices KVM Rootserver Tiny across four terms, the 12-month term at EUR 3.83 per month, with no out-of-stock marker",
+      "capture": "sha256:4db0693cf91326ae27ae45b1e8b32e2cc51008eb5de0dfd40d5e63b2fda18fb8",
+      "quote": "1 Month Price - €4.50 EUR 3 Month Price - €4.28 EUR 6 Month Price - €4.05 EUR 12 Month Price - €3.83 EUR"
+    },
+    {
+      "url": "https://billing.luxvps.net/index.php?rp=/store/kvm-rootservers/kvm-rootserver-tiny",
+      "date": "2026-11-07",
+      "proved": "the cart prices the KVM Rootserver Tiny plan at EUR 4.50 on the monthly term",
+      "capture": "sha256:f44aceed9d6865d8f62a8eba7191e14e8426d27b8ddc2c63602f6fad9548aa6c",
+      "quote": "1 Month Price - €4.50 EUR"
+    },
+    {
+      "url": "https://billing.luxvps.net/index.php?rp=/store/kvm-rootservers/kvm-rootserver-tiny",
+      "date": "2026-11-07",
+      "proved": "the cart's printed prices are the four term prices; no renewal price appears among them",
+      "capture": "sha256:f44aceed9d6865d8f62a8eba7191e14e8426d27b8ddc2c63602f6fad9548aa6c",
+      "quote": "1 Month Price - €4.50 EUR ... 3 Month Price - €4.28 EUR ... 6 Month Price - €4.05 EUR ... 12 Month Price - €3.83 EUR"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T14:16:57.716Z",
   "notes": "The vendor homepage publishes both plan tables in the served HTML, so the tracker row and the vendor row agree line for line: EUR 4.50, 1 vCore, 4 GB, 30 GB NVMe, 5 TB, 1 Gbit, Frankfurt. The page's own comparison table prices Hetzner, Contabo and OVH as of 1 August 2026 and is the vendor's claim about competitors, not a measurement of them.",
   "extras": {
     "facets": {
@@ -90,6 +125,8 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "price_on_page": "EUR 4.50/month for KVM Rootserver Tiny",
+    "renewal_usd": "not published: the cart prints the four term prices and no renewal price; read at https://billing.luxvps.net/index.php?rp=/store/kvm-rootservers/kvm-rootserver-tiny"
   }
 }

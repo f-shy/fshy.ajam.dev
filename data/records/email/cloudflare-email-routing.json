@@ -35,7 +35,7 @@
     "rest"
   ],
   "tooling": "the Cloudflare dashboard, wrangler for Worker handlers",
-  "chaining": "Its scarce link is the 200 verified destinations at the account level.",
+  "chaining": "the inbound half of the free mail chain and the only unmetered thing in this topic: unlimited inbound on a domain already held, forwarded to a mailbox. Its scarce link is the 200 verified destinations at the account level.",
   "limits": [
     {
       "kind": "per-object-cap",

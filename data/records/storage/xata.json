@@ -5,7 +5,7 @@
   "url": "https://xata.io/pricing.md",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Explicitly no free tier. Xata Cloud is a 14-day trial then $0.012/hr compute + $0.28/GB/mo storage. The open-source engine is Apache 2.0 (self-host only, no hosted storage).",
+    "stated": "none reachable: Explicitly no free tier. Xata Cloud is a 14-day trial then $0.012/hr compute + $0.28/GB/mo storage. The open-source engine is Apache 2.0 (self-host only, no hosted storage).",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://xata.io/pricing.md",

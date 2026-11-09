@@ -36,8 +36,8 @@
     "cli"
   ],
   "interface_detail": "Client-configured tunnel; billing portal is a standard hosting cart.",
-  "tooling": "wg-quick on a user's own router; L2TP, GRE and WireGuard are all offered",
-  "chaining": null,
+  "tooling": "wg-quick on the router at the customer end; L2TP, GRE and WireGuard are all offered",
+  "chaining": "Only worth it if a custom block and BGP are needed, which a free-tier VM cannot provide on its own.",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -71,14 +71,14 @@
   "verdict": "paid-only",
   "verified_at": "2026-10-23T00:00:00.000Z",
   "price_per_tb_month": "USD 38 per month for a WireGuard tunnel; USD 10 per month for a BGP session",
-  "notes": "Enterprise tier is USD 99/month plus USD 279 setup with a 12-month minimum and a managed device; that tier is out of reach for a user but confirms the vendor ships real L2 handoff. Competitor GetAStatic's table lists Core Transit at \"$38/mo (WireGuard)\" and \"Any port\", which agrees with the vendor's own page. Not a free or nearly-free answer at any tier.",
+  "notes": "Enterprise tier is USD 99/month plus USD 279 setup with a 12-month minimum and a managed device; that tier is out of reach here but confirms the vendor ships real L2 handoff. Competitor GetAStatic's table lists Core Transit at \"$38/mo (WireGuard)\" and \"Any port\", which agrees with the vendor's own page. Not a free or nearly-free answer at any tier.",
   "extras": {
     "wg_path": "extractable",
-    "wg_detail": "The product is an encrypted tunnel with custom addressing, configured on a user's own router: \"Encrypted Tunnels\", \"Bring Your Own Router\", \"Custom IP Allocations\", \"IPv4 & IPv6\". A BGP session is a paid add-on at \"$10 /Month\".",
+    "wg_detail": "The product is an encrypted tunnel with custom addressing, configured on the router at the customer end: \"Encrypted Tunnels\", \"Bring Your Own Router\", \"Custom IP Allocations\", \"IPv4 & IPv6\". A BGP session is a paid add-on at \"$10 /Month\".",
     "ingress": "tcp+udp",
     "volume_tib_month": null,
     "volume_stated": "No transfer allowance is published. The plan lists a rate: \"100Mbps & Upgrade to 1Gbps\", and \"IPv4 Addresses: Available on Request\".",
     "bytes_transit": "yes",
-    "transit_note": "Core Transit routes a user's allocation from its own N+1 redundant network."
+    "transit_note": "Core Transit routes the customer's allocation from its own N+1 redundant network."
   }
 }

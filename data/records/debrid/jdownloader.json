@@ -24,7 +24,7 @@
     "source_url": "https://jdownloader.org/download/index"
   },
   "egress": {
-    "terms": "The transfer runs between a user's JD host and the file host. JD meters nothing and resells nothing.",
+    "terms": "The transfer runs between the JD host and the file host. JD meters nothing and resells nothing.",
     "metered": false,
     "free_allowance": "none: no service-side bytes",
     "price_per_tb": null,
@@ -35,7 +35,7 @@
     "rest"
   ],
   "interface_detail": "GUI and headless (jar) modes; a Click'n'Load listener on port 9666 that accepts container posts from a browser; and a 'Deprecated API' the MyJD docs say can be enabled in Advanced Options to bypass the connection server and reach JD directly.",
-  "tooling": "First-party installers and JAR; MyJDownloader for remote control; Docker images by third parties (jlesage/docker-jdownloader-2, junkerderprovinz/jdownloader) that expose the GUI over VNC in a browser. A wrapper needs a machine to install on, which a user does not have.",
+  "tooling": "First-party installers and JAR; MyJDownloader for remote control; Docker images by third parties (jlesage/docker-jdownloader-2, junkerderprovinz/jdownloader) that expose the GUI over VNC in a browser. A wrapper needs a machine to install on, which is not available.",
   "chaining": "JD is the decrypter layer of last resort: one tool covers roughly a hundred hosters and several hundred container/decrypter plugins, so it composes with any storage or debrid service that hands it links.",
   "limits": [
     {
@@ -51,15 +51,15 @@
   ],
   "limits_note": "Every cap that matters is imposed by the target host, not by JD. The tool adds a 20-connection ceiling per file and a default concurrency limit.",
   "binding": "none",
-  "binding_note": "No JD-side quota binds at 1 TiB/month; the host's free-tier limits and a user's lack of a machine bind first. Public instances exist but are private containers behind credentials (see evidence), so they are not a route.",
+  "binding_note": "No JD-side quota binds at 1 TiB/month; the host's free-tier limits and the absence of a local machine bind first. Public instances exist but are private containers behind credentials (see evidence), so they are not a route.",
   "identity_cost": {
     "kind": "anonymous",
     "detail": "No account needed to install and use JDownloader. A MyJDownloader account is optional and only needed for remote control. The support FAQ states: 'Do I need to register an account to use JDownloader? No! You only need an account when you use MyJDownloader which is completely optional!'",
     "country": null
   },
-  "reliability_note": "Public web instances found in the wild are other people's containers: one answered HTTP 200 with a 'Credentials needed' gate, one answered 530, one 502. They are not a service, they disappear without notice, and using one puts a user's links on a stranger's disk.",
+  "reliability_note": "Public web instances found in the wild are other people's containers: one answered HTTP 200 with a 'Credentials needed' gate, one answered 530, one 502. They are not a service, they disappear without notice, and using one puts the links on a stranger's disk.",
   "confidence": "documented",
-  "confidence_note": "The vendor page, the board thread and three probes are in hand. A measured rung needs a JD install downloading a real link, which needs a machine a user does not have.",
+  "confidence_note": "The vendor page, the board thread and three probes are in hand. A measured rung needs a JD install downloading a real link, which needs a machine that is not available.",
   "evidence": [
     {
       "url": "https://jdownloader.org/download/index",

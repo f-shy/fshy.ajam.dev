@@ -5,7 +5,7 @@
   "url": "https://pin.filecoin.cloud/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The public demo is Calibration testnet only: 'data isn't permanent and infrastructure resets regularly', and the UI caps uploads at 200 MB. Mainnet use runs through Filecoin Onchain Cloud…",
+    "stated": "none reachable: The public demo is Calibration testnet only: 'data isn't permanent and infrastructure resets regularly', and the UI caps uploads at 200 MB. Mainnet use runs through Filecoin Onchain Cloud…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://pin.filecoin.cloud/",

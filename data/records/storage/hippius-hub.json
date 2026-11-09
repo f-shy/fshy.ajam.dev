@@ -5,7 +5,7 @@
   "url": "https://registry.hippius.com/v2/_catalog?n=3",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The most interesting-looking find that fails on both counts. It indexes 11,452 public models and 1,741 containers and is pullable with docker/oras — exactly the ORAS-as-storage shape this…",
+    "stated": "none reachable: The most interesting-looking find that fails on both counts. It indexes 11,452 public models and 1,741 containers and is pullable with docker/oras — exactly the ORAS-as-storage shape this…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://registry.hippius.com/v2/_catalog?n=3",

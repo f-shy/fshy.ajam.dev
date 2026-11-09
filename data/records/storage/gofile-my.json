@@ -5,7 +5,7 @@
   "url": "https://api.gofile.my/getServer",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Markets 'Free unlimited storage with no file size restrictions', but its TLS certificate expired 2026-09-30 and its upload API host does not answer — and it is a different operator from…",
+    "stated": "none reachable: Markets 'Free unlimited storage with no file size restrictions', but its TLS certificate expired 2026-09-30 and its upload API host does not answer — and it is a different operator from…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://api.gofile.my/getServer",

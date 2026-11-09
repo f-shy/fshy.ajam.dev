@@ -5,7 +5,7 @@
   "url": "https://api.github.com/orgs/n0-computer/repos",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Media livestreaming over iroh (134 stars). Live media is a stream fan-out problem, not a stored-object problem; nothing is retained.",
+    "stated": "none reachable: Media livestreaming over iroh (134 stars). Live media is a stream fan-out problem, not a stored-object problem; nothing is retained.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://api.github.com/orgs/n0-computer/repos",

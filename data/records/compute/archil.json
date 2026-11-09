@@ -58,7 +58,7 @@
   "limits_note": null,
   "identity_cost": {
     "kind": "email",
-    "detail": null,
+    "detail": "an email address and nothing further: 'Signing up for Archil is free with no credit card required.', and a console session is opened with 'Enter the email address associated with your Archil account, then enter the verification code we send you.' The pricing page prints 'No credit card required.' for the Free plan, and an API key is created from the console after sign-up.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -109,10 +109,31 @@
       "proved": "Free gives 1 hour of sandbox compute a month, 30 minutes per session",
       "capture": "sha256:8799c616dd075f5300a7f9aeb697919f3feb29a289988981b2e0f4ef76aea07a",
       "quote": "Free includes 5 disks of up to 10 GB each, 1,000 serverless tool calls, and 1 hour of sandbox compute a month"
+    },
+    {
+      "url": "https://docs.archil.com/api-reference/introduction",
+      "date": "2026-11-04",
+      "proved": "sign-up is free and takes no credit card; an account is still created to hold the API key",
+      "capture": "sha256:62e69cb6d7ff5056815e659ed0c990284fdcaaf1fa8d2c4f658fbb07442e0406",
+      "quote": "Signing up for Archil is free with no credit card required."
+    },
+    {
+      "url": "https://archil.com/pricing",
+      "date": "2026-11-04",
+      "proved": "the Free plan is advertised without a card",
+      "capture": "sha256:8799c616dd075f5300a7f9aeb697919f3feb29a289988981b2e0f4ef76aea07a",
+      "quote": "No credit card required."
+    },
+    {
+      "url": "https://docs.archil.com/mounting/macos",
+      "date": "2026-11-04",
+      "proved": "the account is keyed to an email address and its code",
+      "capture": "sha256:47d6b7e06b637519bf759455eec38e93504751b8916e6cdcc304b45a3d9c4c3f",
+      "quote": "Enter the email address associated with your Archil account, then enter the verification code we send you."
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-04T05:24:08.723Z",
+  "verified_at": "2026-11-04T15:51:56.484Z",
   "price_per_tb_month": null,
   "notes": "",
   "extras": {

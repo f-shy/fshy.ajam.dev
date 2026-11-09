@@ -5,7 +5,7 @@
   "url": "https://www.thruinc.com/pricing/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "No free tier; the pricing page is a Boomi MFT trial funnel ('Start free trial' links all point at boomi.com/form/boomi-mft-trial). Acquired and re-packaged as enterprise MFT.",
+    "stated": "none reachable: No free tier; the pricing page is a Boomi MFT trial funnel ('Start free trial' links all point at boomi.com/form/boomi-mft-trial). Acquired and re-packaged as enterprise MFT.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.thruinc.com/pricing/",

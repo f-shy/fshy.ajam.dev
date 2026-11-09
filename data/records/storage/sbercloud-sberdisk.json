@@ -5,7 +5,7 @@
   "url": "https://docs.sbercloud.ru/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "SberCloud was rebranded into Cloud.ru (docs.sbercloud.ru now serves Cloud.ru Evolution docs), so it is the same 15 GB free tier, not a second provider. The consumer SberDisk is 15 GB free…",
+    "stated": "none reachable: SberCloud was rebranded into Cloud.ru (docs.sbercloud.ru now serves Cloud.ru Evolution docs), so it is the same 15 GB free tier, not a second provider. The consumer SberDisk is 15 GB free…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.sbercloud.ru/",

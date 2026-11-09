@@ -5,7 +5,7 @@
   "url": "https://blog.codeberg.org/new-storage-limits-on-codeberg-what-you-need-to-know.html",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Hard caps: 750 MiB git repository storage plus 1.5 GiB combined for LFS/Packages/Releases/Attachments per user or org, and non-promoted personal repos capped at 100 MiB. Exceptions require…",
+    "stated": "none reachable: Hard caps: 750 MiB git repository storage plus 1.5 GiB combined for LFS/Packages/Releases/Attachments per user or org, and non-promoted personal repos capped at 100 MiB. Exceptions require…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://blog.codeberg.org/new-storage-limits-on-codeberg-what-you-need-to-know.html",

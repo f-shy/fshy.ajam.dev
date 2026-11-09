@@ -5,7 +5,7 @@
   "url": "https://filebase.com/blog/infura-ipfs-is-shutting-down-how-to-migrate/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Discontinued. New uploads and pinning stopped 2026-08-03; the IPFS API and dedicated gateway ended 2026-08-15, after which unmigrated content is no longer available. Infura's own docs URL…",
+    "stated": "none reachable: Discontinued. New uploads and pinning stopped 2026-08-03; the IPFS API and dedicated gateway ended 2026-08-15, after which unmigrated content is no longer available. Infura's own docs URL…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://filebase.com/blog/infura-ipfs-is-shutting-down-how-to-migrate/",

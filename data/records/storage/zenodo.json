@@ -54,7 +54,7 @@
   ],
   "limits_note": "A second record is the alternative route and it costs a second DOI.",
   "binding": "write-gated",
-  "binding_note": "The cap is generous for a user's shard sizes; the gate is what decides the workflow, because a mistake after publication cannot be corrected in place, only superseded by a new version.",
+  "binding_note": "The cap is generous for the shard sizes; the gate is what decides the workflow, because a mistake after publication cannot be corrected in place, only superseded by a new version.",
   "identity_cost": {
     "kind": "email",
     "detail": "A local account asks for a username, full name, affiliation, email address and password, and the email must be confirmed before the first upload; ORCID and GitHub logins are offered as alternatives and neither is required. No card and no institutional check.",

@@ -2,6 +2,7 @@
 {"ccy":"CNY","date":"2026-10-23","source":"ECB reference via frankfurter.app","usd_per_unit":0.14992054211268027}
 {"ccy":"EUR","date":"2026-10-23","source":"ECB reference via frankfurter.app","usd_per_unit":1.1193}
 {"ccy":"EUR","date":"2026-10-24","source":"open.er-api.com/v6/latest/USD","usd_per_unit":1.1200917579168086}
+{"ccy":"EUR","date":"2026-11-04","source":"ECB reference via frankfurter.app","usd_per_unit":1.1267}
 {"ccy":"GBP","date":"2026-10-23","source":"ECB reference via frankfurter.app","usd_per_unit":1.3368269076519972}
 {"ccy":"IDR","date":"2026-10-24","source":"open.er-api.com/v6/latest/USD","usd_per_unit":5.528e-05}
 {"ccy":"INR","date":"2026-10-24","source":"open.er-api.com/v6/latest/USD","usd_per_unit":0.010522273907163999}

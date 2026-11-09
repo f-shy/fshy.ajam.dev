@@ -69,10 +69,24 @@
       "url": "https://vpspricetracker.com/provider/Gullo_s_Hosting/vps",
       "date": "2026-10-22",
       "proved": "row quoted from the Cheapest VPSs table: '$0.29 / month', 'yearly Service', '1 Intel Cores (shared)', '128 MB RAM', '2 GB HDD', '125 GB/month bandwidth', '0.1 Gbps port speed', 'IPv4 (NAT) + IPv6', 'U.S.A.'"
+    },
+    {
+      "url": "https://hosting.gullo.me/pricing",
+      "date": "2026-11-07",
+      "proved": "the vendor's own pricing page prices the NAT IPv4 128 MB entry row at USD 3.50 to 5.00 a year",
+      "capture": "sha256:07e51a0dc62616529e8d52eff4b23e6ca040e2b4a19a4d0ab9fe32be9ca72825",
+      "quote": "$3.5-$5 / Year"
+    },
+    {
+      "url": "https://hosting.gullo.me/pricing",
+      "date": "2026-11-07",
+      "proved": "the NAT table prices are as the record states",
+      "capture": "sha256:07e51a0dc62616529e8d52eff4b23e6ca040e2b4a19a4d0ab9fe32be9ca72825",
+      "quote": "$3.5-$5 / Year"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T14:17:07.272Z",
   "notes": "The tracker's USD 0.29 a month is the USD 3.50 a year row divided by twelve, which is consistent with the low end of the vendor's per-location range.",
   "extras": {
     "facets": {
@@ -85,6 +99,8 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "monthly_usd": 0.29,
+    "renewal_note": "not published; the pricing page prints the yearly price and no renewal price"
   }
 }

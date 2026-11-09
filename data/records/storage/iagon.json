@@ -5,7 +5,7 @@
   "url": "https://docs.iagon.com/iagon-storage/subscription",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Cheapest plan is $2.20/month for 500 GB — no free tier at all. Closest thing is a token-hold discount ('Per GB dollar value of tokens to be held = 0.2USD'), i.e. staking.",
+    "stated": "none reachable: Cheapest plan is $2.20/month for 500 GB — no free tier at all. Closest thing is a token-hold discount ('Per GB dollar value of tokens to be held = 0.2USD'), i.e. staking.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.iagon.com/iagon-storage/subscription",

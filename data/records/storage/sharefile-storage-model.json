@@ -5,7 +5,7 @@
   "url": "https://www.sharefile.com/pricing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Storage is sold as 3 TB account blocks plus $ per TB packs; there is no free byte anywhere in the product.",
+    "stated": "none reachable: Storage is sold as 3 TB account blocks plus $ per TB packs; there is no free byte anywhere in the product.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.sharefile.com/pricing",

@@ -5,7 +5,7 @@
   "url": "https://static.telepedia.net/metawiki/1/18/favicon.ico",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "15 MB per file (live siteinfo) and the media CDN is 403 to everything: `static.telepedia.net/metawiki/1/18/favicon.ico` returns 403 both direct and through the fetch proxy. Upload-open /…",
+    "stated": "none reachable: 15 MB per file (live siteinfo) and the media CDN is 403 to everything: `static.telepedia.net/metawiki/1/18/favicon.ico` returns 403 both direct and through the fetch proxy. Upload-open /…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://static.telepedia.net/metawiki/1/18/favicon.ico",

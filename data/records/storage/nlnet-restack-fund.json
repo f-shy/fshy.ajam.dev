@@ -31,7 +31,7 @@
   ],
   "interface_detail": "n/a",
   "tooling": "n/a",
-  "chaining": "Restack's scope includes 'actual services and their client-side counterparts' and infrastructure layers, which covers a hosting/storage service.",
+  "chaining": "Explicitly open to individuals, so an unaffiliated individual can hold the grant directly - no fiscal sponsor needed. Restack's scope includes 'actual services and their client-side counterparts' and infrastructure layers, which covers a hosting/storage service.",
   "limits": [],
   "limits_note": "Deadline 3rd of every odd month; next 3 Nov 2026 12:00 CET. EU-supported funds 'require a strong European dimension... applicants should (mostly) be from Horizon Europe-eligible countries' - a non-EU applicant should apply to the open call / non-EU-funded strand. AI projects out of scope. Must release everything under an open licence.",
   "identity_cost": {

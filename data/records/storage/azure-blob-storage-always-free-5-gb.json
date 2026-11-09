@@ -5,7 +5,7 @@
   "url": "https://azure.microsoft.com/en-gb/pricing/free-services",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "5 GB per subscription with card verification, and the grant is labelled 12 months on the free-services page. Egress is metered at $0.087/GB after the first 100 GB/month, which alone kills…",
+    "stated": "none reachable: 5 GB per subscription with card verification, and the grant is labelled 12 months on the free-services page. Egress is metered at $0.087/GB after the first 100 GB/month, which alone kills…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://azure.microsoft.com/en-gb/pricing/free-services",

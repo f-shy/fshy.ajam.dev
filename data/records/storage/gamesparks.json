@@ -5,7 +5,7 @@
   "url": "https://aws.amazon.com/gamesparks/getting-started/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Retired. AWS states 'Amazon GameSparks (Preview) is no longer accepting new customers'; the AWS SDK has removed the service entirely. Nothing to sign up for.",
+    "stated": "none reachable: Retired. AWS states 'Amazon GameSparks (Preview) is no longer accepting new customers'; the AWS SDK has removed the service entirely. Nothing to sign up for.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://aws.amazon.com/gamesparks/getting-started/",

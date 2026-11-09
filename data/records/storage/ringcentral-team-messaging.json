@@ -5,7 +5,7 @@
   "url": "https://developers.ringcentral.com/api-reference/Message-Store/readGlipPosts",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Seat-licensed UCaaS with a trial, not a free tier; auth-only reads; no published storage allowance.",
+    "stated": "none reachable: Seat-licensed UCaaS with a trial, not a free tier; auth-only reads; no published storage allowance.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://developers.ringcentral.com/api-reference/Message-Store/readGlipPosts",

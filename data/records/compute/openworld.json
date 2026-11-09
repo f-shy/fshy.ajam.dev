@@ -47,7 +47,7 @@
   ],
   "limits_note": "The lifetime is seven days and renewal is a manual click that can be done once every 24 hours, so an unattended container is suspended within a week.",
   "binding": "retention-clamped",
-  "binding_note": "a 7-day clock that resets only when a human renews is the first thing that fails: any outage of a user's own attention past 7 days suspends the machine",
+  "binding_note": "a 7-day clock that resets only when a human renews is the first thing that fails: any lapse in renewal past 7 days suspends the machine",
   "identity_cost": {
     "kind": "email",
     "detail": "No card and no hold: the home page says 'no card required just Discord', and the FAQ says 'no trial, no card required'. Sign-in is through Clerk (clerk.openworld.eu.org) on the /login page, whose form is a single 'Sign in' button and carries no card, phone or document field; the page footer credits the builder. Whether the Clerk instance offers an email-only sign-up or requires a social account was not established: the button is rendered disabled until the Clerk JavaScript loads, so the flow could not be read from the markup.",

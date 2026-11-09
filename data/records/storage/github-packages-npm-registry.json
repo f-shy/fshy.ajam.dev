@@ -5,7 +5,7 @@
   "url": "https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "256 MB per tarball version, and it does not fall under the free-container carve-out; a private package on Free gets 500 MB storage + 1 GB/month transfer shared with Actions artifacts.…",
+    "stated": "none reachable: 256 MB per tarball version, and it does not fall under the free-container carve-out; a private package on Free gets 500 MB storage + 1 GB/month transfer shared with Actions artifacts.…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry",

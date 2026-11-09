@@ -5,7 +5,7 @@
   "url": "https://catalog.ngc.nvidia.com/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Curated by NVIDIA, not user-writable: containers, models and Helm charts published by NVIDIA and partners. api.ngc.nvidia.com is an authenticated pull path (404/401 unauthenticated), and…",
+    "stated": "none reachable: Curated by NVIDIA, not user-writable: containers, models and Helm charts published by NVIDIA and partners. api.ngc.nvidia.com is an authenticated pull path (404/401 unauthenticated), and…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://catalog.ngc.nvidia.com/",

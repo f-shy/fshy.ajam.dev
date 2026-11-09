@@ -37,7 +37,7 @@
     "rest"
   ],
   "interface_detail": "HTTP(S) and SOCKS5 proxy endpoints; static residential IPs authenticate by username and password only. The home page lists API access for the GB product and API reselling support; whether the static product has an API is unverified.",
-  "tooling": "Any client that speaks SOCKS5 or an HTTP proxy. A Cloudflare Worker fetch() takes no proxy option, so the client reaches the endpoint through a relay that dials SOCKS5 for it. No vendor SDK or rclone backend; that is a note on tooling, not a reason to reject.",
+  "tooling": "Any client that speaks SOCKS5 or an HTTP proxy. A Cloudflare Worker fetch() takes no proxy option, so the endpoint is reached through a relay that dials SOCKS5 for it. No vendor SDK or rclone backend; that is a note on tooling, not a reason to reject.",
   "chaining": "The upstream sees the leased address instead of a Cloudflare range. The Native label and the Dual NTT location names are the vendor's own words about registration; no delivered address was seen, so the registration class is unverified.",
   "limits": [
     {

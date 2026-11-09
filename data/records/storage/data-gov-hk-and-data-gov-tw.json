@@ -5,7 +5,7 @@
   "url": "https://data.gov.hk/api/3/action/package_search?rows=0",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Neither exposes the CKAN action API (404 on package_search) and both have no /user/register route. Data.Gov.HK is a DATA.GOV.HK publishing platform for bureaux and departments; data.gov.tw…",
+    "stated": "none reachable: Neither exposes the CKAN action API (404 on package_search) and both have no /user/register route. Data.Gov.HK is a DATA.GOV.HK publishing platform for bureaux and departments; data.gov.tw…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://data.gov.hk/api/3/action/package_search?rows=0",

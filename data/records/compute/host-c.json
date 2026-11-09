@@ -69,10 +69,31 @@
       "url": "https://host-c.com/",
       "date": "2026-10-22",
       "proved": "\"Activation in ~45 seconds\", \"IPv4 + IPv6 included\", \"RAID 10 / RAID 60\", and \"Dell server platforms using Intel Xeon Scalable Generation 2 Processors\""
+    },
+    {
+      "url": "https://vpspricetracker.com/provider/Host_C/vps",
+      "date": "2026-11-07",
+      "proved": "the tracker's cheapest Host-C row is USD 6.99 a month",
+      "capture": "sha256:a1d5cbaa44aed214cfbebb31fde76f6870aae03b0af3abb22dd2706408956ca2",
+      "quote": "starting at $6.99 per month"
+    },
+    {
+      "url": "https://vpspricetracker.com/provider/Host_C/vps",
+      "date": "2026-11-07",
+      "proved": "the tracker's rows print monthly prices only, no renewal price",
+      "capture": "sha256:a1d5cbaa44aed214cfbebb31fde76f6870aae03b0af3abb22dd2706408956ca2",
+      "quote": "starting at $6.99 per month"
+    },
+    {
+      "url": "https://vpspricetracker.com/provider/Host_C/vps",
+      "date": "2026-11-07",
+      "proved": "the tracker's cheapest row is as the record states",
+      "capture": "sha256:a1d5cbaa44aed214cfbebb31fde76f6870aae03b0af3abb22dd2706408956ca2",
+      "quote": "starting at $6.99 per month"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T14:17:07.272Z",
   "notes": "Price is tracker-only. The vendor homepage says in terms that its prices are loaded from the live client catalog, which is the reason this record is reported rather than documented.",
   "extras": {
     "facets": {
@@ -85,6 +106,8 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "price_on_page": "USD 6.99/month for Event Horizon NX 01 Storage 1 TB G2",
+    "renewal_note": "not published; the tracker's rows print monthly prices only"
   }
 }

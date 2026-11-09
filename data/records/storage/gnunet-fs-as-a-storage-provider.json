@@ -5,7 +5,7 @@
   "url": "https://docs.gnunet.org/master/users/configuration.html",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Files are addressed by hash onto a DHT with no hosting guarantee — retrievability requires live peers holding the blocks, and the local QUOTA setting governs only your own datastore.…",
+    "stated": "none reachable: Files are addressed by hash onto a DHT with no hosting guarantee — retrievability requires live peers holding the blocks, and the local QUOTA setting governs only your own datastore.…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.gnunet.org/master/users/configuration.html",

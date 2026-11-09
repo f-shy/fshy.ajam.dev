@@ -46,7 +46,7 @@
   "limits_note": "not stated",
   "identity_cost": {
     "kind": "email",
-    "detail": null,
+    "detail": "an email address, a first name and a username at sign-up, 'Email address First name Last nameoptional Username Referral codeoptional', behind a Cloudflare security check, with GitHub, Google, GitLab or Bitbucket sign-in as the alternative. The free plan needs no card: 'Paid plans need a payment method and an active subscription. Free does not.' The form asks for no phone number.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -76,10 +76,31 @@
       "proved": "object storage egress carries no bandwidth fees",
       "capture": "sha256:c24ed1c652a3252c0b2f1df3bda09daebdd2096eca4d76449801d03e1359669a",
       "quote": "no bandwidth fees"
+    },
+    {
+      "url": "https://app.brimble.io/signup",
+      "date": "2026-11-04",
+      "proved": "the sign-up form collects an email address, a first name and a username",
+      "capture": "sha256:cea12c5d131a7016e454820b12ff49bf14b29b800246b6801ffce7d5b0b7be46",
+      "quote": "Email address First name Last nameoptional Username Referral codeoptional"
+    },
+    {
+      "url": "https://paper.brimble.io/billing/plans",
+      "date": "2026-11-04",
+      "proved": "the free plan carries no payment method while paid plans do",
+      "capture": "sha256:0f295cf96261b77266976b666667a7db9f84feeaec896f9e269fd1fe6c6fb781",
+      "quote": "Paid plans need a payment method and an active subscription. Free does not."
+    },
+    {
+      "url": "https://brimble.io/pricing",
+      "date": "2026-11-04",
+      "proved": "the free start is advertised on the pricing page with no card named",
+      "capture": "sha256:aaa98dd4253b392395bc244941aec40a869d383dceb6031eaf95de9cdec586e0",
+      "quote": "Start for free, and upgrade when you're ready."
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-04T05:24:41.664Z",
+  "verified_at": "2026-11-04T15:51:56.485Z",
   "price_per_tb_month": null,
   "notes": null,
   "extras": {

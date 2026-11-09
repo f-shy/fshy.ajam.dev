@@ -23,7 +23,7 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": null,
+    "terms": "N/A by construction — everything served through Cloudflare's edge, which is the egress-free property the requirement turns on.",
     "metered": false
   },
   "interface": [

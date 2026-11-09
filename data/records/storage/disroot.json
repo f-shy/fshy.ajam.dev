@@ -5,7 +5,7 @@
   "url": "https://disroot.org/services/nextcloud",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "free Nextcloud (so WebDAV works out of the box) but only 2 GB; extra space is granted by an application form, not by scaling accounts, and the instance is donation-funded and rate-conscious",
+    "stated": "none reachable: free Nextcloud (so WebDAV works out of the box) but only 2 GB; extra space is granted by an application form, not by scaling accounts, and the instance is donation-funded and rate-conscious",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://disroot.org/services/nextcloud",

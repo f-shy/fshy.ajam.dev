@@ -69,11 +69,88 @@
       "url": "https://aws.amazon.com/lightsail/pricing/",
       "date": "2026-10-22",
       "proved": "a case-insensitive grep for free, trial, 3 months and hourly over the extracted text returned nothing, and the first row of the Linux ladder is USD 5; that is absence of a free lane in the extraction, not proof that no trial exists elsewhere on the site"
+    },
+    {
+      "url": "https://aws.amazon.com/lightsail/pricing/",
+      "date": "2026-11-06",
+      "proved": "the first Linux/Unix general purpose bundle is priced USD 5 a month",
+      "capture": "sha256:ddb7b4c857ce5e207fe8eaf8994876e6c11b68cead11d78a7013c9200eda5436",
+      "quote": "$5 USD/mo"
+    },
+    {
+      "url": "https://aws.amazon.com/lightsail/pricing/",
+      "date": "2026-11-06",
+      "proved": "every standard bundle prints a monthly price and no annual term",
+      "capture": "sha256:ddb7b4c857ce5e207fe8eaf8994876e6c11b68cead11d78a7013c9200eda5436",
+      "quote": "USD/mo"
+    },
+    {
+      "url": "https://aws.amazon.com/lightsail/pricing/",
+      "date": "2026-11-06",
+      "proved": "the page prints a monthly bundle price and no renewal statement",
+      "capture": "sha256:ddb7b4c857ce5e207fe8eaf8994876e6c11b68cead11d78a7013c9200eda5436",
+      "quote": "USD/mo"
+    },
+    {
+      "url": "https://aws.amazon.com/lightsail/pricing/",
+      "date": "2026-11-06",
+      "proved": "the hourly worked example belongs to Lightsail for Research, priced separately",
+      "capture": "sha256:ddb7b4c857ce5e207fe8eaf8994876e6c11b68cead11d78a7013c9200eda5436",
+      "quote": "**Lightsail for Research offers virtual servers and is priced separately."
+    },
+    {
+      "url": "https://aws.amazon.com/lightsail/pricing/",
+      "date": "2026-11-06",
+      "proved": "the bundles are priced per month with no annual term",
+      "capture": "sha256:ddb7b4c857ce5e207fe8eaf8994876e6c11b68cead11d78a7013c9200eda5436",
+      "quote": "USD/mo"
+    },
+    {
+      "url": "https://aws.amazon.com/lightsail/pricing/",
+      "date": "2026-11-06",
+      "proved": "the bundles are priced per month",
+      "capture": "sha256:ddb7b4c857ce5e207fe8eaf8994876e6c11b68cead11d78a7013c9200eda5436",
+      "quote": "USD/mo"
+    },
+    {
+      "url": "https://aws.amazon.com/lightsail/pricing/",
+      "date": "2026-11-06",
+      "proved": "the pricing page prints no stock or capacity state",
+      "capture": "sha256:ddb7b4c857ce5e207fe8eaf8994876e6c11b68cead11d78a7013c9200eda5436",
+      "quote": "USD/mo"
+    },
+    {
+      "url": "https://aws.amazon.com/lightsail/pricing/",
+      "date": "2026-11-06",
+      "proved": "the USD 5 bundle is 0.5 GB memory, 2 vCPU, 20 GB SSD and 1 TB transfer",
+      "capture": "sha256:ddb7b4c857ce5e207fe8eaf8994876e6c11b68cead11d78a7013c9200eda5436",
+      "quote": "**0.5 GB **Memory"
+    },
+    {
+      "url": "https://aws.amazon.com/lightsail/pricing/",
+      "date": "2026-11-06",
+      "proved": "the hourly example is Lightsail for Research, priced separately",
+      "capture": "sha256:ddb7b4c857ce5e207fe8eaf8994876e6c11b68cead11d78a7013c9200eda5436",
+      "quote": "**Lightsail for Research offers virtual servers and is priced separately."
+    },
+    {
+      "url": "https://aws.amazon.com/lightsail/pricing/",
+      "date": "2026-11-06",
+      "proved": "the entry IPv4 bundle is USD 5 for 0.5 GB memory",
+      "capture": "sha256:ddb7b4c857ce5e207fe8eaf8994876e6c11b68cead11d78a7013c9200eda5436",
+      "quote": "**0.5 GB **Memory"
+    },
+    {
+      "url": "https://aws.amazon.com/lightsail/pricing/",
+      "date": "2026-11-06",
+      "proved": "the entry Linux/Unix bundle is still USD 5 a month",
+      "capture": "sha256:ddb7b4c857ce5e207fe8eaf8994876e6c11b68cead11d78a7013c9200eda5436",
+      "quote": "$5 USD/mo"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "The first rung on the extracted ladder is USD 5 for 0.5 GB.",
+  "verified_at": "2026-11-06T17:20:15.329Z",
+  "notes": "The first rung on the Linux/Unix ladder is USD 5 for 0.5 GB; no USD 3.50 rung appears on the IPv4 ladder, and the IPv6-only ladder starts at USD 3.50 for 512 MB. The pricing page prints no free trial and no withdrawal date for an earlier one.",
   "extras": {
     "facets": {
       "class": "price-floor",
@@ -85,6 +162,15 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
-  }
+    },
+    "monthly_usd": 5.0,
+    "annual_usd": "not published: every standard bundle on the pricing page is priced USD/mo and no annual or fixed term is printed; read at https://aws.amazon.com/lightsail/pricing/",
+    "renewal_usd": "not published: the pricing page prints a monthly bundle price and no renewal, contract or term statement; read at https://aws.amazon.com/lightsail/pricing/",
+    "renewal_note": "the page prices each bundle USD/mo and prints no renewal sentence; the only hourly figures are in the Lightsail for Research worked example, which the page's own footnote says is priced separately",
+    "term": "monthly bundle; every standard bundle is priced USD/mo and no annual or fixed term is printed",
+    "billing_model": "monthly bundle",
+    "stock": "not applicable: a cloud bundle is provisioned on demand and the pricing page prints no stock, capacity or availability state",
+    "price_on_page": "USD 5/mo: 0.5 GB RAM, 2 vCPU, 20 GB SSD, 1 TB transfer"
+  },
+  "confidence_note": "the bundle ladder, the transfer allowances and the monthly pricing are quoted from the pricing page; the hourly figures on the page belong to Lightsail for Research, which the page's footnote prices separately; the renewal terms are not printed"
 }

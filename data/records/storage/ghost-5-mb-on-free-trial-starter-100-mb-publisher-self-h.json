@@ -32,7 +32,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "Ghost Content API + Admin API (REST), official JS SDK. Self-hosted Ghost has no file-count or size limit except the web server config: \"The upload limit is effectively determined by the web server that's serving your Ghost site.\"",
-  "chaining": "The interesting half is not Ghost(Pro) — it is that Ghost's unlimited-file design means a self-hosted Ghost on any free host inherits an unbounded media library.",
+  "chaining": "The interesting half is not Ghost(Pro) — it is that Ghost's unlimited-file design means a self-hosted Ghost on any free host inherits an unbounded media library. That chains Ghost's admin API to whatever free compute/storage is already available, rather than being storage itself.",
   "limits": [
     {
       "kind": "per-object-cap",

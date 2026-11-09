@@ -36,7 +36,7 @@
   ],
   "interface_detail": "The host answers HTML only; there is no API under this domain any more.",
   "endpoint": "https://scenenzbs.com/",
-  "tooling": "An existing Prowlarr or NZBHydra2 entry pointed at scenenzbs.com still resolves, so a user keeps the old host and silently loses the index; the fix is to edit the URL to treasure-maps.com.",
+  "tooling": "An existing Prowlarr or NZBHydra2 entry pointed at scenenzbs.com still resolves, so the old host stays configured and the index is silently lost; the fix is to edit the URL to treasure-maps.com.",
   "chaining": "Retired in favour of treasure-maps.com; nothing else.",
   "limits": [
     {

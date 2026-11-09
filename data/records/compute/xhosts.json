@@ -5,7 +5,7 @@
   "url": "https://xhosts.uk/budget-vps-uk",
   "category": "cloud VM",
   "free_tier": {
-    "stated": "GBP 3.50/month for Budget 1G, printed as 'From GBP 3.50/month' with the locations Maidenhead, Manchester and Glasgow and no specification list for that plan. The tracker's row for the same plan states 1 Intel core, 1,024 MB RAM, 30 GB SSD, 5,120 GB/month on a 1 Gbps port, Maidenhead. The next vendor row, Budget 2G at GBP 5.50/month, is specified: 1 vCPU Intel Xeon, 2 GB dedicated RAM, 50 GB SSD, 1 Gbps network, 8 TB bandwidth, 1 IPv4. Above it: Budget 4G GBP 10.00 (4 GB, 75 GB SSD), 8G GBP 15.00 (8 GB, 100 GB), 16G GBP 25.00 (16 GB, 160 GB), 32G GBP 35.00 (32 GB, 350 GB), 64G GBP 55.00 (64 GB, 640 GB), 128G GBP 100.00 (128 GB, 1,000 GB).",
+    "stated": "Budget 1G at GBP 3.50 a month in the cart ('Monthly£3.50 GBP'), setup fee GBP 0.00, cart subtotal GBP 3.50, in stock (the cart accepts the item): 1 vCPU Intel Xeon E5-2630v4, 1 GB dedicated RAM, 30 GB SSD, 1 Gbps, 5 TB bandwidth, 1 IPv4 + /64 IPv6, in Maidenhead, Manchester or Glasgow. Annual and renewal prices not published on the pages read 2026-11-07 (the cart's billing-cycle dropdown options did not render). Higher Budget tiers sit above it; their prices are quoted in the record's evidence rows.",
     "unit": "GiB",
     "metered_on": "wall-clock",
     "source_url": "https://xhosts.uk/budget-vps-uk",
@@ -25,9 +25,9 @@
     "notes": null
   },
   "egress": {
-    "terms": "5,120 GB a month on Budget 1G as the tracker states it, at a 1 Gbps port; the vendor page prints no bandwidth for the 1G plan and the 2G plan above it prints '8TB bandwidth'. No overage price is stated",
+    "terms": "5 TB a month on Budget 1G, stated by the vendor's cart page read 2026-11-07 ('5 TB Bandwidth'), at a 1 Gbps port; the marketing page prints no bandwidth for this plan and the next tier up prints a larger allowance. The tracker's monthly figure agrees to GB/TB rounding. No overage price is stated",
     "metered": true,
-    "free_allowance": "5,120 GB per month (tracker figure; the vendor page states none for this plan)",
+    "free_allowance": "5 TB a month (vendor cart, read 2026-11-07)",
     "price_per_tb": null,
     "source_url": "https://vpspricetracker.com/provider/xHosts/vps"
   },
@@ -40,13 +40,13 @@
   "limits": [
     {
       "kind": "volume-quota",
-      "value": "5,120 GB a month is the allowance the tracker states for Budget 1G, and the vendor page prints no bandwidth for that row at all, so the figure is third-party; the Budget 2G row above it prints 8 TB, so the allowance rises with the plan even though the 1G number is unconfirmed. No overage price is stated.",
+      "value": "5 TB a month on Budget 1G, now stated by the vendor's own cart ('5 TB Bandwidth' with a 1 Gbps connection); the tracker's monthly figure agrees to rounding. The next tier up prints a larger allowance, so the allowance rises with the plan. No overage price is stated.",
       "source": "https://xhosts.uk/budget-vps-uk"
     }
   ],
-  "limits_note": "5,120 GB a month is the allowance the tracker states for Budget 1G, and the vendor page prints no bandwidth for that row at all, so the figure is third-party; the Budget 2G row above it prints 8 TB, so the allowance rises with the plan even though the 1G number is unconfirmed. No overage price is stated.",
+  "limits_note": "5 TB a month on Budget 1G, now stated by the vendor's own cart ('5 TB Bandwidth' with a 1 Gbps connection); the tracker's monthly figure agrees to rounding. The next tier up prints a larger allowance, so the allowance rises with the plan. No overage price is stated.",
   "binding": "volume-quota",
-  "binding_note": "5,120 GB a month is the allowance the tracker states for Budget 1G, and the vendor page prints no bandwidth for that row at all, so the figure is third-party; the Budget 2G row above it prints 8 TB, so the allowance rises with the plan even though the 1G number is unconfirmed. No overage price is stated.",
+  "binding_note": "5 TB a month on Budget 1G, now stated by the vendor's own cart ('5 TB Bandwidth' with a 1 Gbps connection); the tracker's monthly figure agrees to rounding. The next tier up prints a larger allowance, so the allowance rises with the plan. No overage price is stated.",
   "identity_cost": {
     "kind": "email",
     "detail": "not stated",
@@ -74,10 +74,73 @@
       "url": "https://xhosts.uk/",
       "date": "2026-10-22",
       "proved": "homepage blocks, quoted: 'Budget VPS From GBP 3.50 /month ... View VPS plans', 'AMD EPYC VPS From GBP 4.00 /month', and a third block 'From GBP 3.00 /month' whose heading is not in the extract"
+    },
+    {
+      "url": "https://my.xhosts.uk/?cmd=cart&action=add&id=680",
+      "date": "2026-11-07",
+      "proved": "the cart prices Budget 1G VPS at GBP 3.50 monthly",
+      "capture": "sha256:6d15bd15693dd4b393ab51d7ebab16e7a3b02cb230b6801ef42aaf146380d02d",
+      "quote": "Monthly£3.50 GBP"
+    },
+    {
+      "url": "https://my.xhosts.uk/?cmd=cart&action=add&id=680",
+      "date": "2026-11-07",
+      "proved": "no setup fee in the cart",
+      "capture": "sha256:6d15bd15693dd4b393ab51d7ebab16e7a3b02cb230b6801ef42aaf146380d02d",
+      "quote": "Setup Fee£0.00 GBP"
+    },
+    {
+      "url": "https://my.xhosts.uk/?cmd=cart&action=add&id=680",
+      "date": "2026-11-07",
+      "proved": "the cart names a subtotal line, GBP 3.50, for Budget 1G VPS",
+      "capture": "sha256:6d15bd15693dd4b393ab51d7ebab16e7a3b02cb230b6801ef42aaf146380d02d",
+      "quote": "Cart subtotal today:"
+    },
+    {
+      "url": "https://my.xhosts.uk/?cmd=cart&action=add&id=680",
+      "date": "2026-11-07",
+      "proved": "the vendor's own cart states the bandwidth for Budget 1G VPS",
+      "capture": "sha256:6d15bd15693dd4b393ab51d7ebab16e7a3b02cb230b6801ef42aaf146380d02d",
+      "quote": "5 TB Bandwidth"
+    },
+    {
+      "url": "https://my.xhosts.uk/?cmd=cart&action=add&id=680",
+      "date": "2026-11-07",
+      "proved": "the vendor's own cart states the Budget 1G CPU",
+      "capture": "sha256:6d15bd15693dd4b393ab51d7ebab16e7a3b02cb230b6801ef42aaf146380d02d",
+      "quote": "1 vCPU Intel Xeon E5-2630v4"
+    },
+    {
+      "url": "https://xhosts.uk/budget-vps-uk",
+      "date": "2026-11-07",
+      "proved": "the marketing page still prints Budget 1G from GBP 3.50/month",
+      "capture": "sha256:217e341b96cf637ef19f3a28f2d37fa1be5c2d96c8c719acacad0b9d11e3f901",
+      "quote": "£3.50/month"
+    },
+    {
+      "url": "https://my.xhosts.uk/?cmd=cart&action=add&id=680",
+      "date": "2026-11-07",
+      "proved": "the vendor's own cart states the allowance",
+      "capture": "sha256:6d15bd15693dd4b393ab51d7ebab16e7a3b02cb230b6801ef42aaf146380d02d",
+      "quote": "5 TB Bandwidth"
+    },
+    {
+      "url": "https://my.xhosts.uk/?cmd=cart&action=add&id=680",
+      "date": "2026-11-07",
+      "proved": "the entry plan price is unchanged in the cart",
+      "capture": "sha256:6d15bd15693dd4b393ab51d7ebab16e7a3b02cb230b6801ef42aaf146380d02d",
+      "quote": "Monthly£3.50 GBP"
+    },
+    {
+      "url": "https://my.xhosts.uk/?cmd=cart&action=add&id=680",
+      "date": "2026-11-07",
+      "proved": "the vendor's own cart prices Budget 1G VPS at GBP 3.50 monthly",
+      "capture": "sha256:6d15bd15693dd4b393ab51d7ebab16e7a3b02cb230b6801ef42aaf146380d02d",
+      "quote": "Monthly£3.50 GBP"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T14:17:00.739Z",
   "notes": "Wall: https://xhosts.uk/vps/ returns a 404 'That route reached a dead end. /vps/' and the real plan page is /budget-vps-uk, found from the homepage link. The vendor page confirms the price and the three locations but prints no cores, RAM, disk or bandwidth for Budget 1G, so the shape fields in this record come from the tracker and the record is documented only for the price; that split is deliberate and is the one weakness here. The homepage's third block 'From GBP 3.00 /month' has no heading in the extract, so it is not attributed to a product.",
   "extras": {
     "facets": {
@@ -90,6 +153,8 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "price_on_page": "GBP 3.50/month for Budget 1G VPS",
+    "renewal_usd": "not published: the cart prints the monthly price and no renewal figure; the billing-cycle dropdown options did not render"
   }
 }

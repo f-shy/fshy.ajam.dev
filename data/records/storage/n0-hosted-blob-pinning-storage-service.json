@@ -5,7 +5,7 @@
   "url": "https://www.iroh.computer/pricing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Does not exist. n0 sells coordination (relays, metrics, diagnostics) and never bytes at rest. Checked the pricing table, the hosting page, the services dashboard, the org's 100-repo…",
+    "stated": "none reachable: Does not exist. n0 sells coordination (relays, metrics, diagnostics) and never bytes at rest. Checked the pricing table, the hosting page, the services dashboard, the org's 100-repo…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.iroh.computer/pricing",

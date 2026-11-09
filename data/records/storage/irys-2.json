@@ -5,7 +5,7 @@
   "url": "https://docs.irys.xyz/economics/economics-pricing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Permanent on-chain storage priced by the protocol in IRYS tokens; docs describe a fee market and price-stabilisation mechanism, not a free tier. Uploads require a funded wallet.",
+    "stated": "none reachable: Permanent on-chain storage priced by the protocol in IRYS tokens; docs describe a fee market and price-stabilisation mechanism, not a free tier. Uploads require a funded wallet.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.irys.xyz/economics/economics-pricing",

@@ -5,7 +5,7 @@
   "url": "https://replicate.com/docs/topics/predictions/output-files",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Output files are ephemeral by design: 'output files are automatically deleted after an hour' for API-created predictions, and replicate.delivery URLs 'expire after one hour'. Custom models…",
+    "stated": "none reachable: Output files are ephemeral by design: 'output files are automatically deleted after an hour' for API-created predictions, and replicate.delivery URLs 'expire after one hour'. Custom models…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://replicate.com/docs/topics/predictions/output-files",

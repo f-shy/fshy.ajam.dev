@@ -5,7 +5,7 @@
   "url": "https://www.file.io/plans",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "file.io redirects into LimeWire. Free plan is 40 GB storage with a 4 GB upload cap and files expire after 3 days; 20 downloads per file per day. Retention makes it unusable as storage, and…",
+    "stated": "none reachable: file.io redirects into LimeWire. Free plan is 40 GB storage with a 4 GB upload cap and files expire after 3 days; 20 downloads per file per day. Retention makes it unusable as storage, and…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.file.io/plans",

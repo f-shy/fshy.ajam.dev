@@ -90,10 +90,24 @@
       "url": "https://cvm.dogyun.com/server/create",
       "date": "2026-10-22",
       "proved": "WALL: the elastic-cloud configurator answered 200 with 7,944 bytes that render a sign-in form ('DogYun - Login', 'Email', '+86', 'Remember Me', 'Forgot password?', 'Register'), not a configurator. The per-GB traffic rate, the add-on prices and the hourly bill breakdown were therefore not read. One attempt."
+    },
+    {
+      "url": "https://www.dogyun.com/product/vps",
+      "date": "2026-11-07",
+      "proved": "the four Hong Kong large-disk rows print the recorded prices with annual totals and buy links (in stock) on 2026-11-07",
+      "capture": "sha256:15f8ec08c2b29f5405de0ee98498d16a59f84f3f005b513bed4f634566219537",
+      "quote": "hk.st.s | 1 vCPUXeon® Gold | 1 GiB | 250 GiB | 1000 Mbps | 5000 GB/月 | 国际-原生 v4 v6 | ￥30.00/月 年付 - ￥300.00 | [购买](https://vm.dogyun.com/server/create/150)"
+    },
+    {
+      "url": "probe:https://vm.dogyun.com/server/create/150",
+      "date": "2026-11-07",
+      "proved": "the order form at vm.dogyun.com/server/create/150 redirects to account.dogyun.com/login and answers 468, so the cart's own prices stay behind a sign-in",
+      "capture": "sha256:97aa95aa89943679d02420cadd605c3e9fb6392ab28df6249671ea196fcfd199",
+      "quote": "\"status\": 468"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T11:15:43.796Z",
   "notes": "The vendor table reads EPYC 7003 for all of the MG rows. (4) Availability: the elastic-vs-classic seed marks the whole MG BGP series, the whole MG international series, all three Korea rows and Chongqing cq.s / cq.m / cq.l as sold out; every one of those rows reads 'buy' on the vendor table, and only the three US-LA rows and the three Japan rows are marked sold out. The SSD seed separately marks hk.kc.s and Korea as sold out, and both read 'buy'. The elastic starting prices for six of seven datacenters; the machine-age table; the classic no-resize, destroy and traffic-throttle rules; the 2012 / 2014 / 2019 company dates; and the seventh-anniversary mechanics. The per-GB traffic rate of RMB 0.3-0.4 (console sign-in wall); the elastic hardware reference prices of RMB 47.38 / 89 / 168 for 2c2g / 4c4g / 8c8g (console sign-in wall); real-name verification for some plans; it ran 21-27 July 2026 and its window closed three months before this read, although the news page still displays it as the latest item. Rendering and provenance: the vendor's tables are Chinese; every quote here is translated and labelled, prices stay in yuan, and no currency conversion is performed.",
   "extras": {
     "facets": {

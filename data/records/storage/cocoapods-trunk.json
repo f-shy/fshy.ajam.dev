@@ -5,7 +5,7 @@
   "url": "https://guides.cocoapods.org/making/getting-setup-with-trunk",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Trunk accepts a .podspec (JSON metadata, a few KB) and nothing else; the pod's source is a URL field pointing at your own host. 'pod trunk push [NAME.podspec] will deploy your Podspec to…",
+    "stated": "none reachable: Trunk accepts a .podspec (JSON metadata, a few KB) and nothing else; the pod's source is a URL field pointing at your own host. 'pod trunk push [NAME.podspec] will deploy your Podspec to…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://guides.cocoapods.org/making/getting-setup-with-trunk",

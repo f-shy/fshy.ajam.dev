@@ -50,7 +50,7 @@
   "binding_note": "the Cloud VPS line is unlimited traffic on a 1 Gbps port, so there the port binds. The shared line carries a monthly allowance that is the wall on the cheapest plan: the vendor page states 50 GB a month for Pioneer Start against 250 GB for Grow and 500 GB for Pro, and the offer post states 250 GB for every one of the three, so the ceiling on the entry plan is disputed between the two pages. The trial is 3 days.",
   "identity_cost": {
     "kind": "email",
-    "detail": "not stated",
+    "detail": "email: the registration form requires an email address ('placeholder=\"Email Address\"') and the account also collects a name, a postal address, a phone number and an optional company name ('Name, email address, postal address, phone number, and company name if you provide one.'). Phone: not published: the form carries a 'Phone Number' field and no page read states that it is required. Card: not published: the form carries no card field, and the terms state 'If you have provided card details, we will attempt to take payment automatically from three days before the due date.'. Country: not published: the form's country selector offers a full country list and no page read restricts the account to one country.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -65,10 +65,45 @@
       "url": "https://lowendbox.com/blog/vpspioneer-directadmin-cloudlinux-hosting-in-france-starting-at-2-49-month/",
       "date": "2026-10-22",
       "proved": "third-party offer post, published 2026-10-11: shared table gives 'Monthly traffic 250 GB | 250 GB | 500 GB' and 'NVMe storage 5 GB | 10 GB | 25 GB'; body text: 'Every plan has a 3-day free trial and a 30-day money-back guarantee'; 'Annual billing includes two months free'; code 'LET10PERCENT' takes 10 percent off"
+    },
+    {
+      "url": "https://vpspioneer.com/legal/privacy-policy",
+      "date": "2026-11-04",
+      "proved": "opening an account collects a name, an email address, a postal address, a phone number and an optional company name",
+      "capture": "sha256:9a817d8d8ded7cf3a2093c26746263ba31c4d8eceb72cb5ed0bb1e72efefa283",
+      "quote": "Name, email address, postal address, phone number, and company name if you provide one."
+    },
+    {
+      "url": "https://customer.vpspioneer.com/register.php",
+      "date": "2026-11-04",
+      "proved": "the registration form marks the company name optional and carries a phone number field, a billing address and a Google sign-in button",
+      "capture": "sha256:f4df6c3fef4a0dcb618bc4479d6e38d95e2fd6a7a8d05cb9a5e455ce7d73f960",
+      "quote": "placeholder=\"Company Name (Optional)\""
+    },
+    {
+      "url": "https://vpspioneer.com/legal/terms-of-service",
+      "date": "2026-11-04",
+      "proved": "the account's contact channel is its email address",
+      "capture": "sha256:d5bc81d1df799ca4c30d01e44683c19a7df47e706c853c1f85af526426016812",
+      "quote": "We send important notices, including suspension warnings, to the email address on your account."
+    },
+    {
+      "url": "https://customer.vpspioneer.com/register.php",
+      "date": "2026-11-04",
+      "proved": "the registration form requires an email address and needs no company, which is the email kind",
+      "capture": "sha256:f4df6c3fef4a0dcb618bc4479d6e38d95e2fd6a7a8d05cb9a5e455ce7d73f960",
+      "quote": "placeholder=\"Email Address\""
+    },
+    {
+      "url": "https://customer.vpspioneer.com/register.php",
+      "date": "2026-11-06",
+      "proved": "the registration form requires an email address, carries a phone field and no card field, and offers a full country list",
+      "capture": "sha256:a7f6dd0cfb1f7d96d3bc864823314459b19f023e947b1f79cb49a60a0014a722",
+      "quote": "placeholder=\"Email Address\""
     }
   ],
   "verdict": "trial-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-06T17:42:12.769Z",
   "notes": null,
   "extras": {
     "facets": {

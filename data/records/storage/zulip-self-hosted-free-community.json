@@ -5,7 +5,7 @@
   "url": "https://zulip.readthedocs.io/en/stable/production/upload-backends.html",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Self-hosted means the disk is yours to pay for. The only interesting artifact is the S3 upload backend, which points at a bucket you already pay for.",
+    "stated": "none reachable: Self-hosted means the disk is yours to pay for. The only interesting artifact is the S3 upload backend, which points at a bucket you already pay for.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://zulip.readthedocs.io/en/stable/production/upload-backends.html",

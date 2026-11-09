@@ -5,7 +5,7 @@
   "url": "https://raw.githubusercontent.com/hoangvu12/free-s3/master/RESEARCH.md",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Not a file host at all — it is a `ptpb/pb` text pastebin and warns 'do NOT post large files'. A useful warning about the catalog itself: one of its 19 rows is wrong, so verify each row…",
+    "stated": "none reachable: Not a file host at all — it is a `ptpb/pb` text pastebin and warns 'do NOT post large files'. A useful warning about the catalog itself: one of its 19 rows is wrong, so verify each row…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://raw.githubusercontent.com/hoangvu12/free-s3/master/RESEARCH.md",

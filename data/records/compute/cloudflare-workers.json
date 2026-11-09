@@ -12,7 +12,7 @@
   "interface_detail": "a JavaScript or WASM module; fetch handler, cron triggers, queue consumers",
   "tooling": "Wrangler; the runtime API; ctx.waitUntil for work after the response",
   "chaining": "the only free tier here that answers 100,000 HTTP requests a day and can hold a WebSocket",
-  "limits_note": "there is no duration limit for an HTTP-triggered Worker while a user stays connected; cron and queue handlers are capped at 15 minutes",
+  "limits_note": "there is no duration limit for an HTTP-triggered Worker while the connection stays open; cron and queue handlers are capped at 15 minutes",
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
   "verified_at": "2026-10-22T00:00:00.000Z",
@@ -98,7 +98,7 @@
       "wall_clock_min": null,
       "idle_reap_s": null,
       "restart_required": false,
-      "note": "no duration limit while a user is connected; 10 ms of CPU per request on Free"
+      "note": "no duration limit while the connection is open; 10 ms of CPU per request on Free"
     },
     "keep_rate": {
       "value": 0.0,

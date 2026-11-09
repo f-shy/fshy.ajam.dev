@@ -37,7 +37,7 @@
   ],
   "interface_detail": "Root SSH; the vendor sells annual plans and one free plan.",
   "tooling": "ssh, wg-quick",
-  "chaining": "A European WG endpoint with no byte cap, if the Asia block does not matter for a user's users.",
+  "chaining": "A European WG endpoint with no byte cap, if the Asia block does not matter for the audience.",
   "limits": [
     {
       "kind": "volume-quota",

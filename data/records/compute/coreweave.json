@@ -24,9 +24,9 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": "not stated",
+    "terms": "no egress charge: data transfer between CoreWeave and the internet is listed as Free, as are egress and input/output operations per second and the NAT gateway",
     "metered": false,
-    "free_allowance": null,
+    "free_allowance": "unmetered: data transfer between CoreWeave and the internet is Free",
     "price_per_tb": null,
     "source_url": "https://www.coreweave.com/pricing"
   },
@@ -142,12 +142,47 @@
       "proved": "HGX B200 8-GPU node: on demand $68.80 per hour, the highest 8-GPU on-demand price listed",
       "capture": "sha256:93b95f326539af056f2839f881057a44efc5ca542a2d698295f9d3e7d3803250",
       "quote": "On-Demand Price: $68.80 / Hour  \nSpot Price: $34.11 / Hour"
+    },
+    {
+      "url": "https://www.coreweave.com/pricing",
+      "date": "2026-11-06",
+      "proved": "an HGX H100 node of 8 GPUs is USD 49.24 per hour on demand and the page's single-GPU price is USD 6.16 per hour",
+      "capture": "sha256:cd21170e75938f104fccb563ba66b9bd95eec248f3b7dc4cc4e08e637a450bcf",
+      "quote": "On-Demand Price: $49.24 / Hour  \nSpot Price: $19.71 / Hour  \nInference Single CPU Price: $6.16 / Hour"
+    },
+    {
+      "url": "https://www.coreweave.com/pricing",
+      "date": "2026-11-06",
+      "proved": "an A100 80GB node of 8 GPUs is USD 21.60 per hour on demand, USD 2.70 per GPU-hour",
+      "capture": "sha256:cd21170e75938f104fccb563ba66b9bd95eec248f3b7dc4cc4e08e637a450bcf",
+      "quote": "On-Demand Price: $21.60 / Hour  \nSpot Price: $9.65 / Hour  \nInference Single CPU Price: $2.70 / Hour"
+    },
+    {
+      "url": "https://www.coreweave.com/pricing",
+      "date": "2026-11-06",
+      "proved": "an L40S node of 8 GPUs is USD 18.00 per hour on demand, USD 2.25 per GPU-hour",
+      "capture": "sha256:cd21170e75938f104fccb563ba66b9bd95eec248f3b7dc4cc4e08e637a450bcf",
+      "quote": "On-Demand Price: $18.00 / Hour  \nSpot Price: $7.88 / Hour  \nInference Single CPU Price: $2.25 / Hour"
+    },
+    {
+      "url": "https://www.coreweave.com/pricing",
+      "date": "2026-11-06",
+      "proved": "data transfer between CoreWeave and the internet is listed as Free",
+      "capture": "sha256:cd21170e75938f104fccb563ba66b9bd95eec248f3b7dc4cc4e08e637a450bcf",
+      "quote": "### Data transfer between CoreWeave and internet\n\nFree"
+    },
+    {
+      "url": "https://www.coreweave.com/pricing",
+      "date": "2026-11-06",
+      "proved": "the A100 row is 8 GPUs of 80 GB VRAM at USD 21.60 an hour, so the per-card figure is the node price divided by 8",
+      "capture": "sha256:cd21170e75938f104fccb563ba66b9bd95eec248f3b7dc4cc4e08e637a450bcf",
+      "quote": "### NVIDIA A100\n\n8\n\n80\n\n128\n\n2,048\n\n7.68\n\n$21.60"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-11-03T10:24:20.555Z",
+  "verified_at": "2026-11-06T18:41:34.658Z",
   "price_per_tb_month": null,
-  "notes": null,
+  "notes": "No free tier makes this a paid-only product, not a closed one; `dead` is reserved for a product that is withdrawn or unreachable. Per-card rates on the pricing page read on 2026-11-06: HGX H100 USD 49.24 per hour for an 8-GPU node, USD 6.16 per GPU-hour; A100 80GB USD 21.60 per hour for an 8-GPU node, USD 2.70 per GPU-hour; L40S USD 18.00 per hour for an 8-GPU node, USD 2.25 per GPU-hour; L40 USD 10.00 per hour for an 8-GPU node, USD 1.25 per GPU-hour; RTX 4090 and L4 are not listed. Egress is free: data transfer between CoreWeave and the internet is listed as Free.",
   "extras": {
     "keep_rate": null,
     "keep_rate_basis": "no field in the source",

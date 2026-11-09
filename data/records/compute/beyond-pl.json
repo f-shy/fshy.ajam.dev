@@ -123,9 +123,16 @@
       "proved": "the Beyond.pl site links its Customer Panel to my.beyond.pl, the host where the registration guide sends the account sign-up",
       "capture": "sha256:38069281bec52621bd87d22e0673e99c41c57e34a615730e695289958c0eacee",
       "quote": "*   [Customer Panel](https://my.beyond.pl/login)"
+    },
+    {
+      "url": "https://www.beyond.pl/en/services/gpu-as-a-service-gpuaas/",
+      "date": "2026-11-06",
+      "proved": "the GPUaaS pricing table prices one card only, the reserved 8-GPU DGX B200 at USD 5.10 per GPU-hour; the page prices no H100, A100 80GB, L40S, RTX 4090 or L4 and states no free or credit-backed GPU hours",
+      "capture": "sha256:3b13ab8f66fd9081a650e69e194c23ddd23415053cb6c33940c32f27ff687c5c",
+      "quote": "NVIDIA DGX B200 (8 GPUs) Reserved Instances pricing $5.10 /hour/GPU"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-11-03T10:24:19.002Z",
+  "verified_at": "2026-11-06T18:41:34.652Z",
   "notes": "Per-card rates on the vendor's own page: NVIDIA DGX B200 (8 GPUs) reserved USD 5.10 per GPU-hour, net of taxes; dedicated clusters custom quote; AI storage USD 146 per TB per month. H100, A100 80GB, L40S, RTX 4090 and L4: not listed. A third-party index lists a single B200 row with 1 month and 12 month reserved terms at the same rate."
 }

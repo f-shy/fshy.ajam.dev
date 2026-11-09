@@ -36,7 +36,7 @@
     "rest"
   ],
   "interface_detail": "Stremio addon protocol. Both /manifest.json and /stream/movie/tt1254207.json returned the same 24,382-byte HTML retirement page.",
-  "tooling": "self-hosting the archived source remains possible, but that needs a machine - which is the one thing a user does not have.",
+  "tooling": "self-hosting the archived source remains possible, but that needs a machine - which is the one thing not available here.",
   "chaining": "It was the only free hosted addon found that needed no debrid key at all, so its death removes the no-key HTTP branch of the free floor.",
   "limits": [
     {

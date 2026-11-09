@@ -5,7 +5,7 @@
   "url": "https://www.icos-cp.eu/data-services/data-portal/data-licence",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Download requires login; content is a fixed set of atmospheric/ecosystem variables from registered stations. Not a deposit target at all.",
+    "stated": "none reachable: Download requires login; content is a fixed set of atmospheric/ecosystem variables from registered stations. Not a deposit target at all.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.icos-cp.eu/data-services/data-portal/data-licence",

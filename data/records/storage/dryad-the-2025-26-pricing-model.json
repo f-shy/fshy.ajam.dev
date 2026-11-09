@@ -5,7 +5,7 @@
   "url": "https://datadryad.org/publishers",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Large-data fees: $259 for >10–50 GB, $464 to 100 GB, $1,123 to 250 GB, $2,153 to 500 GB…",
+    "stated": "none reachable: Pay-to-publish, and the price scales with size, so it is anti-correlated with the requirement. Large-data fees: $259 for >10–50 GB, $464 to 100 GB, $1,123 to 250 GB, $2,153 to 500 GB, $4,3",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://datadryad.org/publishers",
@@ -41,28 +41,28 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Large-data fees: $259 for >10–50 GB, $464 to 100 GB, $1,123 to 250 GB, $2,153 to 500 GB…",
+  "reliability_note": "Pay-to-publish, and the price scales with size, so it is anti-correlated with the requirement. Large-data fees: $259 for >10–50 GB, $464 to 100 GB, $1,123 to 250 GB, $2,153 to 500 GB, $4,3",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
     {
       "url": "https://datadryad.org/publishers",
       "date": "2026-10-21",
-      "proved": "Large-data fees: $259 for >10–50 GB, $464 to 100 GB, $1,123 to 250 GB, $2,153 to 500 GB, $4,3"
+      "proved": "Pay-to-publish, and the price scales with size, so it is anti-correlated with the requirement. Large-data fees: $259 for >10–50 GB, $464 to 100 GB, $1,123 to 250 GB, $2,153 to 500 GB, $4,3"
     },
     {
       "url": "https://libraries.ou.edu/get-help/help-research/research-lifecycle/dryad",
       "date": "2026-10-21",
-      "proved": "Large-data fees: $259 for >10–50 GB, $464 to 100 GB, $1,123 to 250 GB, $2,153 to 500 GB, $4,3"
+      "proved": "cited as the basis of the rejection: Pay-to-publish, and the price scales with size, so it is anti-correlated with the requirement. Large-data fees: $259 for >10–50 GB, $464 to 100 GB, $1,123 to 250 GB, $2,153 to 500 GB, $4,3"
     }
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Large-data fees: $259 for >10–50 GB, $464 to 100 GB, $1,123 to 250 GB, $2,153 to 500 GB…",
+  "notes": "Pay-to-publish, and the price scales with size, so it is anti-correlated with the requirement. Large-data fees: $259 for >10–50 GB, $464 to 100 GB, $1,123 to 250 GB, $2,153 to 500 GB, $4,3",
   "extras": {
     "dead_end": {
       "failure_class": "quota",
-      "why": "Large-data fees: $259 for >10–50 GB, $464 to 100 GB, $1,123 to 250 GB, $2,153 to 500 GB…",
+      "why": "Pay-to-publish, and the price scales with size, so it is anti-correlated with the requirement. Large-data fees: $259 for >10–50 GB, $464 to 100 GB, $1,123 to 250 GB, $2,153 to 500 GB, $4,3",
       "retry_when": null,
       "first_recorded": "2026-10-21"
     }

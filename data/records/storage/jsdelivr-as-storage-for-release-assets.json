@@ -5,7 +5,7 @@
   "url": null,
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The GitHub proxy only indexes git repo files. Release assets return 404, so the >2 GiB objects that make Releases interesting cannot be fronted by jsDelivr — they stay on GitHub's own…",
+    "stated": "none reachable: The GitHub proxy only indexes git repo files. Release assets return 404, so the >2 GiB objects that make Releases interesting cannot be fronted by jsDelivr — they stay on GitHub's own…",
     "unit": "none",
     "metered_on": "none",
     "source_url": null,

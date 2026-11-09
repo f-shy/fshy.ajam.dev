@@ -73,10 +73,45 @@
       "url": "https://gocloud.africa/services",
       "date": "2026-10-24",
       "proved": "quoted: 'From $6/month', 'Basic VM: $0.00595/hr' and '$6.00/mo', '1 vCPU 512 MiB Memory 10 GiB SSD Storage 500 GiB Transfer', 'vGPU Computing' listed with no price or spec"
+    },
+    {
+      "url": "https://gocloud.africa/",
+      "date": "2026-11-06",
+      "proved": "the homepage badge row still carries the USD 300 startup credit",
+      "capture": "sha256:fb5ba4598880ba5acf0b0e5282cc821a1b9d553055a22f407015fe0275aabba2",
+      "quote": "$300 startup credits"
+    },
+    {
+      "url": "https://gocloud.africa/services",
+      "date": "2026-11-06",
+      "proved": "the named Basic VM is still priced at USD 6.00 a month",
+      "capture": "sha256:0aade3edec477a08e48df07389b5d40be10eaee3bbea8326257b68467841ee4f",
+      "quote": "Basic VM: $0.00595/hr • $6.00/mo"
+    },
+    {
+      "url": "https://gocloud.africa/services",
+      "date": "2026-11-06",
+      "proved": "the Basic VM still carries 500 GiB of transfer",
+      "capture": "sha256:0aade3edec477a08e48df07389b5d40be10eaee3bbea8326257b68467841ee4f",
+      "quote": "500 GiB Transfer"
+    },
+    {
+      "url": "https://gocloud.africa/signup",
+      "date": "2026-11-06",
+      "proved": "/signup answers 200 with the shared navigation and footer only, 1,619 bytes and no form field, so no registration gate is readable",
+      "capture": "sha256:e9ded85df8b912f70a587201ebfadb43653f80048b69593d1e8b56a88528f42f",
+      "quote": "Get updates on new datacentres, features, and African cloud insights."
+    },
+    {
+      "url": "https://gocloud.africa/pricing",
+      "date": "2026-11-06",
+      "proved": "/pricing answers with the footer only, no price and no form",
+      "capture": "sha256:367def810c63080009edab288ec6c762629f73fec1f95ff818aed7eea9d9396a",
+      "quote": "© 2024 GoCloud Africa. All rights reserved."
     }
   ],
   "verdict": "trial-only",
-  "verified_at": "2026-10-24T04:34:13.000Z",
+  "verified_at": "2026-11-06T15:56:55.347Z",
   "notes": "The smallest published machine is the Basic VM at USD 0.00595/hour or USD 6.00 a month, 1 vCPU, 512 MiB, 10 GiB and 500 GiB of transfer, read on 2026-10-24 from gocloud.africa/services. The entry-tier figure is superseded by the named Basic VM. A vGPU line is listed with no price and no spec. The docs send API calls to api.gocloud.ng, a different TLD that did not answer. Not ranked.",
   "extras": {
     "facets": {
@@ -90,5 +125,5 @@
       }
     }
   },
-  "confidence_note": "the amount is a marketing badge on the vendor's own homepage; the identity gate, the expiry and a usable price are all unpublished, so the weakest field sets the rung"
+  "confidence_note": "the amount is a badge on the vendor's own homepage and the Basic VM price is quoted from /services; identity is the weakest field, because /signup and /pricing answer with the shared navigation and footer only and carry no form, so no registration gate was read and the rung stays unverified"
 }

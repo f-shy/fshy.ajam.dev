@@ -5,7 +5,7 @@
   "url": null,
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The t.me/s preview path carries photos and videos only. Probed seven public channels for tgme_widget_message_document: zero hits, zero .pdf links. There is no anonymous HTTP URL for a…",
+    "stated": "none reachable: The t.me/s preview path carries photos and videos only. Probed seven public channels for tgme_widget_message_document: zero hits, zero .pdf links. There is no anonymous HTTP URL for a…",
     "unit": "none",
     "metered_on": "none",
     "source_url": null,

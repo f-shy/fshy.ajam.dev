@@ -64,7 +64,7 @@
     "detail": "No account, no email, no cookie. The reply body is the URL and the X-Token header is the only credential, for deletion of that one object.",
     "country": null
   },
-  "reliability_note": "A single hobby instance behind Caddy on Hunchentoot, with no published rate limit; the operating system of the service is one person's server, so an outage is silent and unannounced.",
+  "reliability_note": "A single hobby instance behind Caddy on Hunchentoot, with no published rate limit; the service runs on one privately operated server, so an outage is silent and unannounced.",
   "confidence": "measured",
   "confidence_note": "Both paths measured: a multipart local upload and a 'url' field pull from a Catbox link, each read back at 1 048 576 bytes with a matching SHA-256.",
   "evidence": [

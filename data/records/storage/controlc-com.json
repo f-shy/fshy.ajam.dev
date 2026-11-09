@@ -5,7 +5,7 @@
   "url": "https://controlc.com/faq",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "100 KB per text paste, guest pastes expire in 48 hours max, and even media uploads cap at 500 MB/day guest / 2 GB/day member with 50 MB per image. Expiry and per-file cap both fatal.",
+    "stated": "none reachable: 100 KB per text paste, guest pastes expire in 48 hours max, and even media uploads cap at 500 MB/day guest / 2 GB/day member with 50 MB per image. Expiry and per-file cap both fatal.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://controlc.com/faq",

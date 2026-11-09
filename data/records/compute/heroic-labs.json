@@ -40,7 +40,7 @@
   "limits": [
     {
       "kind": "write-gated",
-      "value": "no plan and no price: the hosted product is reached by signup, and the framework itself is open source a user runs",
+      "value": "no plan and no price: the hosted product is reached by signup, and the framework itself is open source and run locally",
       "source": "http://heroiclabs.com"
     }
   ],

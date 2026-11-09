@@ -37,7 +37,7 @@
   ],
   "interface_detail": "NNTP over SSL. The schema has no nntp token, so the array says unknown.",
   "tooling": "any NNTP client",
-  "chaining": "The $3.99 week is the shortest paid unit in the set, useful when a job needs four days of access and a user will not start a monthly subscription.",
+  "chaining": "The $3.99 week is the shortest paid unit in the set, useful when a job needs four days of access and no monthly subscription is wanted.",
   "limits": [
     {
       "kind": "request-rate",

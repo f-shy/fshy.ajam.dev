@@ -84,7 +84,7 @@
       "wall_clock_min": null,
       "idle_reap_s": null,
       "restart_required": false,
-      "note": "a dedicated Mac; a user can reboot, power on and reach Recovery Mode, so the state is theirs"
+      "note": "a dedicated Mac; the machine can be rebooted, powered on and driven into Recovery Mode, so the state belongs to the account"
     },
     "persistent_storage": null,
     "network_out": null,

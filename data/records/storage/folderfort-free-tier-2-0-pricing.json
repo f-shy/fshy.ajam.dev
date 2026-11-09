@@ -46,7 +46,7 @@
     "detail": "email",
     "country": null
   },
-  "reliability_note": "The StackSocial 2 TB lifetime listing (f/18179782, $109.97) now 404s — the lifetime SKU line has been retired in favour of 'Folder Fort 2.0' subscriptions.",
+  "reliability_note": "The StackSocial 2 TB lifetime listing (f/18179782, $109.97) now 404s — the lifetime SKU line has been retired in favour of 'Folder Fort 2.0' subscriptions. Bandwidth-metered model is the opposite of the egress-free requirement.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

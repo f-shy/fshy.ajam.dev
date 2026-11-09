@@ -5,7 +5,7 @@
   "url": "https://opendata.cern.ch/docs/terms-of-use",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Read-only for outsiders. It disseminates LHC experiment data under experiment data policies; there is no deposit path for a member of the public. Excellent free reads, zero write capacity…",
+    "stated": "none reachable: Read-only for outsiders. It disseminates LHC experiment data under experiment data policies; there is no deposit path for a member of the public. Excellent free reads, zero write capacity…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://opendata.cern.ch/docs/terms-of-use",

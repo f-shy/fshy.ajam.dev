@@ -39,7 +39,7 @@
   ],
   "interface_detail": "The plan table lists 'Remote access · SFTP / FTP / RPC' on the 1 TB tier, and the site advertises 'AI API' and an apps layer (Plex, Jellyfin, Sonarr, n8n) on top of the drive. The API endpoint itself was not read.",
   "tooling": "rclone-over-SFTP is the obvious mount for the paid tiers; the site states SFTP, FTP and RPC access. No official client was read.",
-  "chaining": "The Seedr shape: a torrent is added server-side, the client's IP never joins the swarm, and the file arrives over SFTP. At 1 TB for $14.99 it is the cheapest storage-per-dollar seedbox and it composes with a debrid that cannot seed.",
+  "chaining": "The Seedr shape: a torrent is added server-side, the local IP never joins the swarm, and the file arrives over SFTP. At 1 TB for $14.99 it is the cheapest storage-per-dollar seedbox and it composes with a debrid that cannot seed.",
   "limits": [
     {
       "kind": "volume-quota",

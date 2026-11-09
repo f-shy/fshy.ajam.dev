@@ -58,7 +58,7 @@
     "detail": "Basic is obtained by 'Verify your email'. The rungs above it are not bought: 'Plus and Pro are switched on after a chat with the maintainer.'",
     "country": "None"
   },
-  "reliability_note": "early access run by one person; every rung above Basic depends on that person's availability; the wiki is the only operational documentation and the member pages require a session.",
+  "reliability_note": "early access run by a single operator; every rung above Basic depends on that operator's availability; the wiki is the only operational documentation and the member pages require a session.",
   "confidence": "documented",
   "confidence_note": "The tier table is documented. Whether an nSolo address forwards UDP is not stated anywhere read, so a UDP probe would move that field from inferred to measured.",
   "evidence": [

@@ -47,7 +47,7 @@
   ],
   "limits_note": "The page tells the buyer to check the card's use, currency and region on the product page before buying, which is an admission that a card can be wrong for the intended checkout.",
   "binding": "write-gated",
-  "binding_note": "No byte quota exists at this layer.",
+  "binding_note": "No byte quota exists at this layer; the constraint is that the instrument is issued by a third party and can be refused by the merchant that is actually being paid.",
   "identity_cost": {
     "kind": "email",
     "detail": "A customer account on the shop; the registration form was not read, so email as the minimum is inferred.",
@@ -71,5 +71,5 @@
   "verdict": "paid-only",
   "verified_at": "2026-10-23T03:17:21.000Z",
   "price_per_tb_month": null,
-  "notes": "The Iranian answer to a card-only foreign checkout is not a bank product; it is a shop that sells a US card. This composes with the AllDebrid record (card + Bitcoin) and with any service that refuses Iranian-issued cards: a user pays Toman, the shop pays the foreign merchant with a US card."
+  "notes": "The Iranian answer to a card-only foreign checkout is not a bank product; it is a shop that sells a US card. This composes with the AllDebrid record (card + Bitcoin) and with any service that refuses Iranian-issued cards: payment is in Toman, the shop pays the foreign merchant with a US card."
 }

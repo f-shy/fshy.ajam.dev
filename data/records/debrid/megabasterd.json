@@ -35,7 +35,7 @@
   ],
   "interface_detail": "A Java Swing desktop application launched from the jar or the packaged executable. No API documentation and no server mode were found in the repository or README; the closest thing to a machine interface is driving the jar under a virtual framebuffer, or the third-party Docker images that expose its window over VNC.",
   "tooling": "Jar plus platform executables; AppImage build; community Docker images (vttc08/megabasterd) that wrap the GUI in noVNC. Automating it needs a display server or a wrapper around its GUI, which is a tooling note and not a reason to reject the provider.",
-  "chaining": "It is the MEGA leg of a pipeline: pair it with a hosted relay (saveindrive-style MEGA-to-Drive streaming) when no machine of a user's own can run the jar.",
+  "chaining": "It is the MEGA leg of a pipeline: pair it with a hosted relay (saveindrive-style MEGA-to-Drive streaming) when no local machine can run the jar.",
   "limits": [
     {
       "kind": "per-ip-shaping",

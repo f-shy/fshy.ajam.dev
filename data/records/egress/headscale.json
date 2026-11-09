@@ -34,7 +34,7 @@
     "cli"
   ],
   "tooling": "tailscale clients against headscale",
-  "chaining": "signalling for a private mesh: it composes with a user's own machines and carries no bytes once they hole-punch.",
+  "chaining": "signalling for a private mesh: it composes with a private set of machines and carries no bytes once they hole-punch.",
   "limits": [],
   "identity_cost": {
     "kind": "anonymous",
@@ -62,7 +62,7 @@
     "stale_after_days": 180,
     "bytes_transit": "no",
     "transit_note": "a control server for Tailscale clients: it distributes keys and endpoints and sees no payload",
-    "hosting_requirement": "a rented or free compute service"
+    "hosting_requirement": "a rented or free compute service; no local machine is assumed"
   },
   "binding": "volume-quota",
   "interface_detail": "tailscale up --login-server against your own headscale",

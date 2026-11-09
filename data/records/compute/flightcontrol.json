@@ -73,7 +73,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "The gate is the AWS account and its card, which is a payment relationship a user can enter but not for nothing.",
+  "notes": "The gate is the AWS account and its card, which is a payment relationship that can be entered, but not for nothing.",
   "extras": {
     "facets": {
       "class": "bring-your-own-cloud",

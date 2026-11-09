@@ -49,7 +49,7 @@
   ],
   "limits_note": "",
   "binding": "write-gated",
-  "binding_note": "A control-panel action every day stands between a user and the server surviving. That is a manual act, not a byte count, so it binds before any volume does. It is also moot today: the signup button for the free plans reads 'not accepting applications'.",
+  "binding_note": "A control-panel action every day stands between the account and the server surviving. That is a manual act, not a byte count, so it binds before any volume does. It is also moot today: the signup button for the free plans reads 'not accepting applications'.",
   "identity_cost": {
     "kind": "card",
     "detail": "[translated] 'A credit card must be registered to use this service.'",

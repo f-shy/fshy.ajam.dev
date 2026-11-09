@@ -31,7 +31,7 @@
     "webdav"
   ],
   "tooling": "a documented REST API and a WebDAV endpoint; WebDAV needs an app password rather than the account password, and from 2026-06-22 it needs a Yandex 360 plan",
-  "chaining": null,
+  "chaining": "a 5 GB tier cannot hold anything at the scale, so its only role is as a small always-available store for the state of a bridge",
   "limits": [
     {
       "kind": "per-object-cap",

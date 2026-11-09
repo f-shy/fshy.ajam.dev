@@ -97,7 +97,7 @@
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-24T01:53:22.000Z",
   "price_per_tb_month": null,
-  "notes": "The 10 TB egress figure is not on the Always Free Resources page: a full read of that page returned 2,119 words and no data-transfer section. The figure is on the VCN pricing page and in the price table on the networking pricing page. Any record that cites the Always Free document for the 10 TB figure has cited a page that does not carry it. Whether Oracle blocks inbound UDP 51820 by default on a VCN security list was not tested; the security list is a user's to configure and the docs do not single out UDP.",
+  "notes": "The 10 TB egress figure is not on the Always Free Resources page: a full read of that page returned 2,119 words and no data-transfer section. The figure is on the VCN pricing page and in the price table on the networking pricing page. Any record that cites the Always Free document for the 10 TB figure has cited a page that does not carry it. Whether Oracle blocks inbound UDP 51820 by default on a VCN security list was not tested; the security list is the account's to configure and the docs do not single out UDP.",
   "extras": {
     "shape": {
       "vcpu": 1,
@@ -115,7 +115,7 @@
     "network_out": {
       "allow_outbound": true,
       "allow_inbound_listen": true,
-      "ports": "all, subject to the VCN security list a user writes",
+      "ports": "all, subject to the VCN security list configured on the account",
       "static_ip": true,
       "ipv6": true,
       "per_session_bytes": null

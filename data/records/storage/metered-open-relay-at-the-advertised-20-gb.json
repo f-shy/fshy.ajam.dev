@@ -5,7 +5,7 @@
   "url": "https://www.metered.ca/tools/openrelay/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The 20 GB/month figure on the Open Relay landing page is stale; the billing page sells a 500 MB/month free tier shared ingress+egress. 40x overstatement on the vendor's own site.",
+    "stated": "none reachable: The 20 GB/month figure on the Open Relay landing page is stale; the billing page sells a 500 MB/month free tier shared ingress+egress. 40x overstatement on the vendor's own site.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.metered.ca/tools/openrelay/",

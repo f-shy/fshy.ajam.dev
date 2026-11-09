@@ -48,7 +48,7 @@
   ],
   "limits_note": "",
   "binding": "volume-quota",
-  "binding_note": "Nothing is documented, so the first wall at 1 TiB/month is an unpublished the provider judgement rather than a counter a user can watch. That is worse than a number: capacity cannot be planned against a clause.",
+  "binding_note": "Nothing is documented, so the first wall at 1 TiB/month is an unpublished the provider judgement rather than a counter that can be watched. That is worse than a number: capacity cannot be planned against a clause.",
   "identity_cost": {
     "kind": "card",
     "detail": "\"Your payment method will be charged without further action from you until you cancel\" (refund policy). The sign-up form was not read, so card-versus-other is inferred from a paid monthly subscription rather than observed.",

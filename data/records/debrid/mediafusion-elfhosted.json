@@ -36,7 +36,7 @@
     "rest"
   ],
   "interface_detail": "Stremio addon protocol: resources include catalog, stream (types movie, series, tv, events; idPrefixes tt, tmdb:, tvdb:, mal:, mf, dl) and meta. Contact address published as abuse@elfhosted.com.",
-  "tooling": "no install; add the manifest URL to Stremio. Requires a user's own debrid key for cached playback, and a MediaFlow proxy for household-wide sharing on the paid tier.",
+  "tooling": "no install; add the manifest URL to Stremio. Requires the account's own debrid key for cached playback, and a MediaFlow proxy for household-wide sharing on the paid tier.",
   "chaining": "The broadest scraper of the free hosted addons found - it carries catalogs and live events, not just streams - so it can stand alone as a Stremio front end without AIOStreams in front of it.",
   "limits": [
     {

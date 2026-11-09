@@ -57,7 +57,7 @@
   ],
   "limits_note": "Bandwidth is consumed by downloads only; storage is a separate figure on the same plan.",
   "binding": "volume-quota",
-  "binding_note": null,
+  "binding_note": "One 30-day plan is exactly one TiB of bytes, so the counter lands at the monthly requirement with nothing spare.",
   "identity_cost": {
     "kind": "email",
     "detail": "E-mail signup for the account and token; payment by card.",

@@ -40,13 +40,13 @@
   "limits": [
     {
       "kind": "write-gated",
-      "value": "Two things failed, in order: access required a conda-forge feedstock and a maintainer listed in the project's access file, which is an institutional affiliation a user does not hold, and then the hardware was decommissioned on 2026-03-13, so the capacity is now zero on both counts.",
+      "value": "Two things failed, in order: access required a conda-forge feedstock and a maintainer listed in the project's access file, which requires an institutional affiliation, and then the hardware was decommissioned on 2026-03-13, so the capacity is now zero on both counts.",
       "source": "https://github.com/Quansight/open-gpu-server"
     }
   ],
-  "limits_note": "Two things failed, in order: access required a conda-forge feedstock and a maintainer listed in the project's access file, which is an institutional affiliation a user does not hold, and then the hardware was decommissioned on 2026-03-13, so the capacity is now zero on both counts.",
+  "limits_note": "Two things failed, in order: access required a conda-forge feedstock and a maintainer listed in the project's access file, which requires an institutional affiliation, and then the hardware was decommissioned on 2026-03-13, so the capacity is now zero on both counts.",
   "binding": "write-gated",
-  "binding_note": "Two things failed, in order: access required a conda-forge feedstock and a maintainer listed in the project's access file, which is an institutional affiliation a user does not hold, and then the hardware was decommissioned on 2026-03-13, so the capacity is now zero on both counts.",
+  "binding_note": "Two things failed, in order: access required a conda-forge feedstock and a maintainer listed in the project's access file, which requires an institutional affiliation, and then the hardware was decommissioned on 2026-03-13, so the capacity is now zero on both counts.",
   "identity_cost": {
     "kind": "institution",
     "detail": null,

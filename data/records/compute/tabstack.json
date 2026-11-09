@@ -48,7 +48,7 @@
   "limits_note": "not stated",
   "identity_cost": {
     "kind": "email",
-    "detail": null,
+    "detail": "an account created with an email address: the console sign-up form carries one visible field, 'type=\"email\" name=\"user_signup[email_address]\"'. No credit card is required: 'No. Every new account includes the 10,000 credits without one.' The phone requirement is not published on https://console.tabstack.ai/signup. Country: not published on https://console.tabstack.ai/signup.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -85,10 +85,31 @@
       "proved": "the site lists a TypeScript SDK",
       "capture": "sha256:7748631d85ca3cb04a170d7d3932ec356737876961ed13107b8c69aecf122421",
       "quote": "- [Tabstack TypeScript SDK](https://www.npmjs.com/package/@tabstack/sdk): npm install @tabstack/sdk"
+    },
+    {
+      "url": "https://console.tabstack.ai/signup",
+      "date": "2026-11-04",
+      "proved": "the sign-up form takes an email address",
+      "capture": "sha256:8521234a76743a64bc2b1b028f74ef86708fb00900510cf2d834127cecdeacc9",
+      "quote": "type=\"email\" name=\"user_signup[email_address]\""
+    },
+    {
+      "url": "https://tabstack.ai/pricing",
+      "date": "2026-11-06",
+      "proved": "a new account needs no card for its free credits",
+      "capture": "sha256:0907f094e1a89e602d8d9ab24df75a4c05cc80be630ceb2c9239e10bcd482c9a",
+      "quote": "No. Every new account includes the 10,000 credits without one."
+    },
+    {
+      "url": "https://console.tabstack.ai/signup",
+      "date": "2026-11-06",
+      "proved": "the sign-up form takes an email address and carries no card or phone field",
+      "capture": "sha256:30e821cc7c5139e1ba0506f3a7cda201faa59cd4a6f1a7bb90bd6a7a6fd020cd",
+      "quote": "type=\"email\" name=\"user_signup[email_address]\""
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-04T10:36:15.608Z",
+  "verified_at": "2026-11-06T17:42:10.985Z",
   "price_per_tb_month": null,
   "notes": "",
   "extras": {

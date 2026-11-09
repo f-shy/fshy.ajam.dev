@@ -67,7 +67,7 @@
   "verdict": "fails-egress",
   "verified_at": "2026-10-21T00:00:00.000Z",
   "binding": "per-ip-shaping",
-  "binding_note": "The storage is irrelevant at that egress allowance.",
+  "binding_note": "10 GB a month is 0.3 GB a day, which is. The storage is irrelevant at that egress allowance.",
   "notes": "An S3-compatible Chinese host with a real free tier, and the free tier cannot serve.",
   "extras": {
     "access_mode": "registration-gated",

@@ -57,7 +57,7 @@
   "limits_note": "not stated",
   "identity_cost": {
     "kind": "email",
-    "detail": null,
+    "detail": "email: a cloud account is created at declaw.ai or console.declaw.ai before an API key exists ('A Declaw Cloud account — sign up at declaw.ai to get an API key'), and the account record carries an email address. No card is needed for the free credits, and no phone or identity document is named.",
     "country": null
   },
   "reliability_note": "unverified: docs.declaw.ai answered DNS status 3 (NXDOMAIN) on 2026-11-04 and declaw.ai has no address record, so the billing page is readable only in archived copies of 2026-05-26 and 2026-10-13",
@@ -101,10 +101,38 @@
       "proved": "the plans table caps egress connections per sandbox and carries no traffic volume row",
       "capture": "sha256:c41f997b0f3ccc2fd57dfeefeb7b977010499abb91022331560e68ee141c892a",
       "quote": "| Max egress connections / sandbox | 50 | 200 | Custom |"
+    },
+    {
+      "url": "https://web.archive.org/web/2026/https://docs.declaw.ai/quickstart",
+      "date": "2026-11-04",
+      "proved": "a Declaw account is a precondition of the API key, and it is created by signing up at the vendor site",
+      "capture": "sha256:f0ea2b198883fd03817820120c7511b741565d356b53c51cb80550638ea3e8ee",
+      "quote": "A Declaw Cloud account — sign up at declaw.ai to get an API key"
+    },
+    {
+      "url": "https://web.archive.org/web/2026/https://declaw.ai/",
+      "date": "2026-11-04",
+      "proved": "the managed cloud credits are granted without a card",
+      "capture": "sha256:22984cb90fb6e2d1d28b04854d4f5a3476038737bab7ad1e6a9bead37204d9cc",
+      "quote": "$300 in free credits — no credit card"
+    },
+    {
+      "url": "https://web.archive.org/web/2026/https://docs.declaw.ai/platform/usage",
+      "date": "2026-11-04",
+      "proved": "the account object carries an email address",
+      "capture": "sha256:c0ce5c5a16bd6aff3f77e9bac88c547c3cb64f0ad67e4a80741a9824483f6437",
+      "quote": "Account email."
+    },
+    {
+      "url": "https://web.archive.org/web/2026/https://docs.declaw.ai/cli/overview",
+      "date": "2026-11-04",
+      "proved": "sign-up happens on the console, and the API key is self-service from the dashboard",
+      "capture": "sha256:036ca9a465fa99b32ba5ec15cf4d31f6c4958666858c44e701fd73e13cc3a968",
+      "quote": "Sign up at console.declaw.ai"
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-04T05:24:08.726Z",
+  "verified_at": "2026-11-04T15:51:59.407Z",
   "price_per_tb_month": null,
   "notes": "",
   "extras": {

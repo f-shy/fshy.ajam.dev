@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "This is the multiplier in a chain that does not open for a user: USD 150 a month is 18 times the Azure for Students base credit and renews monthly rather than yearly, so if the identity gate were passable the yearly value would be USD 1,800 of Azure compute against USD 100.",
+  "chaining": "This is the multiplier in a chain that does not open: USD 150 a month is 18 times the Azure for Students base credit and renews monthly rather than yearly, so if the identity gate were passable the yearly value would be USD 1,800 of Azure compute against USD 100.",
   "limits": [
     {
       "kind": "write-gated",

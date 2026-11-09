@@ -64,10 +64,24 @@
       "url": "https://ihostart.com/",
       "date": "2026-10-22",
       "proved": "vendor homepage text, fragments quoted separately: the storage product card reads 'Cheap Storage VPS' with 'Storage 4-100TB HDD SAS 4kn RAID', 'Network 1+Gbps', 'Starting at $1.00 /TB per month' and, in the page's opening line, 'Starting at $1.00 per TB'; the other card reads 'VPS KVM SSD' with 'Starting at $9.69 /mo'; the page places both in 'Bucharest, Romania', datacenter 'M247 EUROPE'. The 3 TB row itself is not on the homepage"
+    },
+    {
+      "url": "https://vpspricetracker.com/provider/iHostArt/vps",
+      "date": "2026-11-07",
+      "proved": "the tracker still lists the cheapest plan at EUR 3.97 a month billed yearly (EUR 47.69 a year)",
+      "capture": "sha256:1c526b0603e7f32cca272433bdb206325672030589bec3c99cded141aea6af00",
+      "quote": "These are the cheapest VPSs currently offered by iHostArt, starting at €47.69 per year:"
+    },
+    {
+      "url": "https://vpspricetracker.com/provider/iHostArt/vps",
+      "date": "2026-11-07",
+      "proved": "the tracker lists the cheapest plan as currently sold and states no stock count",
+      "capture": "sha256:1c526b0603e7f32cca272433bdb206325672030589bec3c99cded141aea6af00",
+      "quote": "These are the cheapest VPSs currently offered by iHostArt, starting at €47.69 per year:"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T06:08:33.037Z",
   "notes": "The page prints the euro sign; every figure here is spelled EUR to keep the strings ASCII. Walls: the HTML fetch of ihostart.com returned a Cloudflare 'Checking your browser' interstitial, 4,484 bytes, on both / and /vps/; the exa-backed read returned the homepage text, so the site is reachable by text extraction but not by raw fetch. The plan row is tracker-only, which is why the confidence is reported and not documented.",
   "extras": {
     "facets": {
@@ -80,6 +94,11 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "term": "yearly",
+    "price_on_page": "EUR 3.97/mo billed yearly (EUR 47.69/yr)",
+    "out_of_pocket_usd": 4.43,
+    "renewal_usd": "not published: no page read prints a renewal price",
+    "stock": "unverified: the vendor site is Cloudflare-walled and the tracker carries no stock line"
   }
 }

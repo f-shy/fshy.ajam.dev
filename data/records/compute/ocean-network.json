@@ -63,7 +63,7 @@
     {
       "url": "https://docs.oncompute.ai/ocean-network-dashboard/wallets-and-fiat-on-ramp.md",
       "date": "2026-10-22",
-      "proved": "quoted: signing in with email, Google or passkey creates a smart wallet automatically with 'No extension or seed phrase' and sponsored gas, so the grant needs no crypto wallet of a user's own"
+      "proved": "quoted: signing in with email, Google or passkey creates a smart wallet automatically with 'No extension or seed phrase' and sponsored gas, so the grant needs no separate crypto wallet"
     },
     {
       "url": "https://docs.oncompute.ai/ocean-orchestrator/using-ocean-orchestrator-with-ocean-dashboard.md",

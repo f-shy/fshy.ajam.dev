@@ -5,7 +5,7 @@
   "url": "https://github.com/scaleway/c14-cli",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Discontinued.",
+    "stated": "none reachable: Discontinued.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://github.com/scaleway/c14-cli",

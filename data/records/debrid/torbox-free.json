@@ -38,7 +38,7 @@
   "interface_detail": "REST API at api.torbox.app with a bearer API key; 'API Access' and '3rd Party Apps' are listed on every plan including Free.",
   "endpoint": "https://api.torbox.app/v1/api/",
   "tooling": "Documented REST API (api-docs.torbox.app), a Postman collection, and third-party integrations. TorBox publishes its own open-source repositories on GitHub.",
-  "chaining": "Cheap way to test whether TorBox's cache and a user's trackers agree: one torrent every 24 hours, ten a month, no card. It cannot carry a real workload and is not meant to.",
+  "chaining": "Cheap way to test whether TorBox's cache and the trackers agree: one torrent every 24 hours, ten a month, no card. It cannot carry a real workload and is not meant to.",
   "limits": [
     {
       "kind": "volume-quota",

@@ -74,10 +74,94 @@
       "url": "https://alexhost.com/vps/",
       "date": "2026-10-22",
       "proved": "FAQ, quoted: 'Each AlexHost VPS includes dedicated bandwidth. Standard plans provide 100 Mbps, while selected European locations - including the Netherlands and Sweden - support port speeds up to 1 Gbps.' The billing selector reads '1 month 1 mon. 3 months 3 mon. 6 months 6 mon. Yearly Year'."
+    },
+    {
+      "url": "https://alexhost.com/vps/",
+      "date": "2026-11-07",
+      "proved": "the vendor plan table prices U1 in Moldova at 6.00 EUR a month with the 1 vCore, 1.5 GB DDR4, 10 GB NVMe and Shared 100 Mbps figures the record states",
+      "capture": "sha256:a9ffbab67759a8af4ef4926325208a0ea7414aa8391b755dbc2745374ceb4da3",
+      "quote": "| U1 | Moldova | 1 vCores | DDR4 1.5 GB | 10 GB NVMe | Shared 100 Mbps | 6.00 € per month |"
+    },
+    {
+      "url": "https://alexhost.com/vps/",
+      "date": "2026-11-07",
+      "proved": "the vendor table still prices U1 in Moldova at 6.00 EUR a month with the shape the record states",
+      "capture": "sha256:91f73d3a0de72e7609094e79080a8247c70661958796aca38e9e5910a5e923e9",
+      "quote": "| U1 | Moldova | 1 vCores | DDR4 1.5 GB | 10 GB NVMe | Shared 100 Mbps | 6.00 € per month |"
+    },
+    {
+      "url": "https://bill.alexhost.com/?cmd=module&module=111&cid=3644",
+      "date": "2026-11-07",
+      "proved": "the cart's U1 block prices the monthly cycle at 6.00 EUR",
+      "capture": "sha256:8f1232dc847a6d11d9f45b08acc026a93b23c82d36740899b34327c83b7b772a",
+      "quote": "<span class=\"product-price cycle-m\">€6.00 EUR</span><span class=\"product-price cycle-q\">€11.40 EUR</span><span class=\"product-price cycle-s\">€21.60 EUR</span><span class=\"product-price cycle-a\">€40.80 EUR</span>"
+    },
+    {
+      "url": "https://bill.alexhost.com/?cmd=module&module=111&cid=3644",
+      "date": "2026-11-07",
+      "proved": "the cart's U1 block prices the annually cycle at 40.80 EUR (cycle-a)",
+      "capture": "sha256:8f1232dc847a6d11d9f45b08acc026a93b23c82d36740899b34327c83b7b772a",
+      "quote": "<span class=\"product-price cycle-m\">€6.00 EUR</span><span class=\"product-price cycle-q\">€11.40 EUR</span><span class=\"product-price cycle-s\">€21.60 EUR</span><span class=\"product-price cycle-a\">€40.80 EUR</span>"
+    },
+    {
+      "url": "https://bill.alexhost.com/?cmd=module&module=111&cid=3644",
+      "date": "2026-11-07",
+      "proved": "the cart carries one price per cycle class and no renewal field",
+      "capture": "sha256:8f1232dc847a6d11d9f45b08acc026a93b23c82d36740899b34327c83b7b772a",
+      "quote": "<span class=\"product-price cycle-m\">€6.00 EUR</span><span class=\"product-price cycle-q\">€11.40 EUR</span><span class=\"product-price cycle-s\">€21.60 EUR</span><span class=\"product-price cycle-a\">€40.80 EUR</span>"
+    },
+    {
+      "url": "https://bill.alexhost.com/?cmd=module&module=111&cid=3644",
+      "date": "2026-11-07",
+      "proved": "the cart's U1 block names the four cycles",
+      "capture": "sha256:8f1232dc847a6d11d9f45b08acc026a93b23c82d36740899b34327c83b7b772a",
+      "quote": "<span class=\"product-cycle cycle-m\">Monthly</span><span class=\"product-cycle cycle-q\">Quarterly</span><span class=\"product-cycle cycle-s\">Semi-Annually</span><span class=\"product-cycle cycle-a\">Annually</span>"
+    },
+    {
+      "url": "https://alexhost.com/vps/",
+      "date": "2026-11-07",
+      "proved": "the vendor page's structured data marks the U1 offer in stock at EUR 6.00",
+      "capture": "sha256:bdc41998311ee3e71b9d7314c0136ebb403292ce72e351ad0ef51444cbf3839a",
+      "quote": "\"url\":\"https://bill.alexhost.com/?cmd=module&module=111&cid=3644\",\"priceCurrency\":\"EUR\",\"price\":\"6.00\",\"availability\":\"https://schema.org/InStock\""
+    },
+    {
+      "url": "https://alexhost.com/vps/",
+      "date": "2026-11-07",
+      "proved": "the U2 offer carries the same InStock mark at EUR 10.00",
+      "capture": "sha256:bdc41998311ee3e71b9d7314c0136ebb403292ce72e351ad0ef51444cbf3839a",
+      "quote": "\"url\":\"https://bill.alexhost.com/?cmd=module&module=111&cid=3648\",\"priceCurrency\":\"EUR\",\"price\":\"10.00\",\"availability\":\"https://schema.org/InStock\""
+    },
+    {
+      "url": "https://alexhost.com/vps/",
+      "date": "2026-11-07",
+      "proved": "the vendor page's product data links the U1 order URL",
+      "capture": "sha256:bdc41998311ee3e71b9d7314c0136ebb403292ce72e351ad0ef51444cbf3839a",
+      "quote": "\"url\":\"https://bill.alexhost.com/?cmd=module&module=111&cid=3644\",\"priceCurrency\":\"EUR\",\"price\":\"6.00\",\"availability\":\"https://schema.org/InStock\""
+    },
+    {
+      "url": "https://alexhost.com/vps/",
+      "date": "2026-11-07",
+      "proved": "the vendor table's printed price",
+      "capture": "sha256:91f73d3a0de72e7609094e79080a8247c70661958796aca38e9e5910a5e923e9",
+      "quote": "| U1 | Moldova | 1 vCores | DDR4 1.5 GB | 10 GB NVMe | Shared 100 Mbps | 6.00 € per month |"
+    },
+    {
+      "url": "https://bill.alexhost.com/?cmd=module&module=111&cid=3644",
+      "date": "2026-11-07",
+      "proved": "the cart's U2 block prices the four cycles at 10.00, 25.00, 45.00 and 60.00 EUR",
+      "capture": "sha256:8f1232dc847a6d11d9f45b08acc026a93b23c82d36740899b34327c83b7b772a",
+      "quote": "<span class=\"product-price cycle-m\">€10.00 EUR</span><span class=\"product-price cycle-q\">€25.00 EUR</span><span class=\"product-price cycle-s\">€45.00 EUR</span><span class=\"product-price cycle-a\">€60.00 EUR</span>"
+    },
+    {
+      "url": "https://bill.alexhost.com/?cmd=module&module=111&cid=3644",
+      "date": "2026-11-07",
+      "proved": "the cart's U4 block prices the four cycles at 16.00, 46.00, 89.00 and 144.00 EUR",
+      "capture": "sha256:8f1232dc847a6d11d9f45b08acc026a93b23c82d36740899b34327c83b7b772a",
+      "quote": "<span class=\"product-price cycle-m\">€16.00 EUR</span><span class=\"product-price cycle-q\">€46.00 EUR</span><span class=\"product-price cycle-s\">€89.00 EUR</span><span class=\"product-price cycle-a\">€144.00 EUR</span>"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T14:17:02.758Z",
   "notes": "The vendor table and the tracker agree on price, cores, disk and location, and the vendor's '1.5 GB' and the tracker's '1,536 MB RAM' are the same figure. The tracker's 31,641 GB is read here as a conversion of the 100 Mbps port rather than as a published quota, because the vendor page sells a port and no bytes; that reading is arithmetic and is the one claim in this record that is not quoted. The one hit is compute/fossvps, which cites a LowEndTalk thread titled 'fossvps-updates-free-server-for-open-source-developers-from-alexhost-hosteroid-and-st-hosting' in an evidence row - a lead about a free program for open-source developers that was not read, so free_tier_kind stays none here.",
   "extras": {
     "facets": {
@@ -90,6 +174,13 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "monthly_eur": 6.0,
+    "annual_eur": 40.8,
+    "renewal_eur": "not published: the cart prints one price per term and no renewal line",
+    "term": "the cart prices four cycles: Monthly, Quarterly, Semi-Annually, Annually",
+    "stock": "in stock: the vendor page's own product data marks the U1 offer InStock; the U2 offer carries the same mark",
+    "cart_url": "https://bill.alexhost.com/?cmd=module&module=111&cid=3644",
+    "price_on_page": "EUR 6.00/month for U1"
   }
 }

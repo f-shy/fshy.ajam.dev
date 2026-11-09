@@ -5,7 +5,7 @@
   "url": null,
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "A cluster of national/state portals that fail at the very first probe — 404 on the CKAN action API and either 404/403 on /user/register. data.gouv.fr has its own API (not CKAN)…",
+    "stated": "none reachable: A cluster of national/state portals that fail at the very first probe — 404 on the CKAN action API and either 404/403 on /user/register. data.gouv.fr has its own API (not CKAN)…",
     "unit": "none",
     "metered_on": "none",
     "source_url": null,

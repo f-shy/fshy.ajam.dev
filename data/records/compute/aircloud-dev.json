@@ -9,7 +9,7 @@
     "unit": "none",
     "metered_on": "wall-clock",
     "source_url": "https://docs.aircloud.dev/quickstart",
-    "read_on": "2026-11-03"
+    "read_on": "2026-11-06"
   },
   "per_object_cap": {
     "stated": "not applicable",
@@ -37,7 +37,7 @@
   ],
   "interface_detail": "the air CLI, the REST API and the dashboard drive the same control plane; containers are reached over SSH. Not probed.",
   "tooling": "the `air` CLI (for example `air price --gpu h100:2`, `air gpu list`, `air job submit`), a REST API at api.aircloud.dev, a dashboard at app.aircloud.dev, and SSH into a GPU container",
-  "chaining": "On-demand containers and jobs bill per second against a prepaid balance with free egress, from USD 2.49 per H100 SXM GPU-hour and USD 1.39 per A100 80GB GPU-hour. The same account also reserves whole clusters, but only on 48 or 60 month terms.",
+  "chaining": "Reserved clusters are the purchasable route on the marketing pricing page: 60 months, single tenant, one exit at month 36, from USD 3.00 per GPU-hour for an HGX B200 and USD 3.50 for an HGX B300, with H200, H100 and A100 nodes quoted per cluster. On-demand containers, jobs and dedicated endpoints, which the docs price per GPU-hour with egress unmetered, are listed as 'opening soon' behind a waitlist.",
   "limits": [
     {
       "kind": "volume-quota",
@@ -139,9 +139,58 @@
       "capture": "sha256:8f6e047f7f889857612dd49b61661d571d8c23e5e7525806e178570b121c57bc",
       "quote": "Aircloud offers dedicated GPU clusters and private nodes tailored for specific customer needs.",
       "proved": "a third-party index lists only the reserved-cluster rates for this provider, not the on-demand containers"
+    },
+    {
+      "url": "https://aircloud.dev/pricing",
+      "date": "2026-11-06",
+      "proved": "the marketing pricing page quotes the H100 SXM per cluster instead of publishing a rate",
+      "capture": "sha256:9ee6b22df9cbe161f2287f2d7017cee8e13d31616a78dc6500a5979058184d31",
+      "quote": "| H100 SXM | Nodes of 8 GPUs | Quoted |"
+    },
+    {
+      "url": "https://aircloud.dev/pricing",
+      "date": "2026-11-06",
+      "proved": "on-demand is not purchasable: the marketing page puts it behind a waitlist",
+      "capture": "sha256:9ee6b22df9cbe161f2287f2d7017cee8e13d31616a78dc6500a5979058184d31",
+      "quote": "On-demand and small jobs run on the Aircloud Platform, opening soon."
+    },
+    {
+      "url": "https://docs.aircloud.dev/pricing",
+      "date": "2026-11-06",
+      "proved": "the docs pricing table still prices an H100 SXM at USD 2.49 per GPU-hour on demand",
+      "capture": "sha256:b485e6d61161a120a48e3f8ad1dfe2200487d1e7440eb9cac965e317a9026f60",
+      "quote": "| H100 SXM | $2.49 |"
+    },
+    {
+      "url": "https://aircloud.dev/pricing",
+      "date": "2026-11-06",
+      "proved": "the marketing page quotes H200, H100 and A100 nodes per cluster with no published rate",
+      "capture": "sha256:9ee6b22df9cbe161f2287f2d7017cee8e13d31616a78dc6500a5979058184d31",
+      "quote": "H200, H100 and A100 nodes are quoted per cluster."
+    },
+    {
+      "url": "https://aircloud.dev/pricing",
+      "date": "2026-11-06",
+      "proved": "on-demand and small jobs are announced as opening soon, behind a waitlist",
+      "capture": "sha256:9ee6b22df9cbe161f2287f2d7017cee8e13d31616a78dc6500a5979058184d31",
+      "quote": "On-demand and small jobs run on the Aircloud Platform, opening soon."
+    },
+    {
+      "url": "https://docs.aircloud.dev/pricing",
+      "date": "2026-11-06",
+      "proved": "the docs on-demand table ends at GB200, so it lists six classes and no L40S, RTX 4090 or L4",
+      "capture": "sha256:b485e6d61161a120a48e3f8ad1dfe2200487d1e7440eb9cac965e317a9026f60",
+      "quote": "| GB200 | $6.60 |"
+    },
+    {
+      "url": "https://aircloud.dev/pricing",
+      "date": "2026-11-06",
+      "proved": "the reserved term is 60 months only, with no one-year or pilot term",
+      "capture": "sha256:9ee6b22df9cbe161f2287f2d7017cee8e13d31616a78dc6500a5979058184d31",
+      "quote": "No. Every cluster is reserved for 60 months, with one exit at the end of month 36. There are no one-year or pilot terms."
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-11-03T07:36:20.827Z",
-  "notes": "A different company from the AirCloud of aieev.com held in compute/aircloud. Per-card rates on the vendor's own pages (on-demand 'from' rates per GPU-hour, metered per second): H100 SXM USD 2.49; A100 80GB USD 1.39; H200 SXM USD 3.09; B200 USD 4.90; B300 USD 5.90; GB200 USD 6.60. L40S, RTX 4090 and L4: not in the published rate table. Reserved clusters, 48 or 60 month terms, one customer per cluster: HGX B300 from USD 3.50, HGX B200 from USD 3.00, GB200 NVL72 from USD 4.00, GB300 NVL72 from USD 5.00 per GPU-hour on 60 months; H200, H100 and A100 nodes quoted. A third-party index lists only the reserved rates for this provider."
+  "verified_at": "2026-11-06T18:39:12.190Z",
+  "notes": "Per-card rates, USD per GPU-hour. The marketing pricing page prices reserved clusters only, on a 60-month term, single tenant: HGX B300 from USD 3.50, HGX B200 from USD 3.00, GB200 NVL72 from USD 4.00, GB300 NVL72 from USD 5.00 and VR200 NVL72 from USD 6.50, with one exit at month 36. On that page H100 SXM and A100 are quoted per cluster with no rate, L40S, RTX 4090 and L4 are not listed, and on-demand and small jobs are 'opening soon' behind a waitlist. The docs pricing page still publishes on-demand from-rates for its six accelerator classes and states that those rates are published at aircloud.dev/pricing, which does not publish them; the docs rows in this record's evidence carry the figures. No free tier is stated on either page."
 }

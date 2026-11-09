@@ -5,7 +5,7 @@
   "url": "https://cloud-help.typesense.org/article/how-does-the-free-tier-work",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The 'free tier' is a one-time 720 hours (30 days) of compute plus 10 GB of bandwidth, consumed once for the lifetime of the account — a trial in disguise, not a recurring free allowance.",
+    "stated": "none reachable: The 'free tier' is a one-time 720 hours (30 days) of compute plus 10 GB of bandwidth, consumed once for the lifetime of the account — a trial in disguise, not a recurring free allowance.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://cloud-help.typesense.org/article/how-does-the-free-tier-work",

@@ -5,7 +5,7 @@
   "url": "https://www.iwinv.kr/storage/obj",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Priced per GB and it is expensive: ₩20/GB/mo = $15.09/TB for object, ₩39,000/TB = $29.42/TB for SATA block. On top of that, egress is separately metered on a declining scale ₩60/GB for the",
+    "stated": "none reachable: Priced per GB and it is expensive: ₩20/GB/mo = $15.09/TB for object, ₩39,000/TB = $29.42/TB for SATA block. On top of that, egress is separately metered on a declining scale (₩60/GB for the",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.iwinv.kr/storage/obj",

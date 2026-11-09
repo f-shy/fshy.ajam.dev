@@ -5,7 +5,7 @@
   "url": "https://iceperf.com/providers/xirsys",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "500 MB/month, single region after 30 days. 16 MB/day — a sandbox, not a transport.",
+    "stated": "none reachable: 500 MB/month, single region after 30 days. 16 MB/day — a sandbox, not a transport.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://iceperf.com/providers/xirsys",

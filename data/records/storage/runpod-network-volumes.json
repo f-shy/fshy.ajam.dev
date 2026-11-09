@@ -5,7 +5,7 @@
   "url": "https://docs.runpod.io/storage/network-volumes",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Correct architecture, wrong economics: network volumes are $0.07/GB/mo for the first 1 TB ($0.05 beyond), i.e. ~$72/TB/mo, and there is no free allowance. An account at $0 balance has its…",
+    "stated": "none reachable: Correct architecture, wrong economics: network volumes are $0.07/GB/mo for the first 1 TB ($0.05 beyond), i.e. ~$72/TB/mo, and there is no free allowance. An account at $0 balance has its…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.runpod.io/storage/network-volumes",

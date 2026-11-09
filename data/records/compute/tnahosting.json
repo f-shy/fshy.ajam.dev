@@ -5,7 +5,7 @@
   "url": "https://tnahosting.net/kvm-ssd-vps/",
   "category": "cloud VM",
   "free_tier": {
-    "stated": "SSD KVM 1GB at USD 1.33/month billed USD 16 annually: 2 vCPU, 1 GB RAM, 30 GB SSD, 15 TB traffic, 1 IPv4 with IPv6 available, SolusVM control panel, Chicago Illinois (the tracker's location; the site's own menu names 'Looking Glass (Chicago, IL)'). The 2 GB plan is USD 2.00/month billed USD 24 annually with 2 vCPU, 50 GB SSD and 20 TB. Monthly plans sit above it: USD 5 for 4 vCPU, 4 GB, 100 GB SSD and 30 TB, and USD 9 for 4 vCPU, 8 GB, 200 GB SSD and 45 TB. The tracker's cheapest row is the 2 GB plan, so the vendor page carries a cheaper plan than the tracker lists, and its transfer allowances are much larger than the tracker shows.",
+    "stated": "SSD KVM 1GB at USD 1.33/month billed USD 16 annually: 2 vCPU, 1 GB RAM, 30 GB SSD, 15 TB traffic, 1 IPv4 with IPv6 available, SolusVM control panel, Chicago Illinois (the tracker's location; the site's own menu names 'Looking Glass (Chicago, IL)'). The 2 GB plan is USD 2.00/month billed USD 24 annually with 2 vCPU, 50 GB SSD and 20 TB. Monthly plans sit above it: USD 5 for 4 vCPU, 4 GB, 100 GB SSD and 30 TB, and USD 9 for 4 vCPU, 8 GB, 200 GB SSD and 45 TB. The tracker's cheapest row is the 2 GB plan, so the vendor page carries a cheaper plan than the tracker lists, and its transfer allowances are much larger than the tracker shows. No renewal price is printed on the pages read, and on 2026-11-07 the order pages of the record's plans answer out of stock.",
     "unit": "GiB",
     "metered_on": "wall-clock",
     "source_url": "https://tnahosting.net/kvm-ssd-vps/",
@@ -52,7 +52,7 @@
     "detail": "not stated",
     "country": null
   },
-  "reliability_note": "no reliability event recorded",
+  "reliability_note": "the order pages of the record's SSD KVM plans answered WHMCS 'Out of Stock' with orders suspended on 2026-11-07; the marketing cards still print the prices.",
   "confidence": "documented",
   "evidence": [
     {
@@ -69,10 +69,31 @@
       "url": "https://tnahosting.net/kvm-ssd-vps/",
       "date": "2026-10-22",
       "proved": "next cards: 'SSD KVM 2GB' at 'USD 2 / month' billed 'USD 24 annually' with '50 GB SSD', '2 vCPU', '20 TB Traffic'; 'SSD KVM 4GB' at 'USD 5 / month'"
+    },
+    {
+      "url": "https://tnahosting.net/billing/index.php/store/kvm-ssd/ssd-kvm-1gb",
+      "date": "2026-11-07",
+      "proved": "the SSD KVM order page suspends orders out of stock; the 2 GB page served the same body",
+      "capture": "sha256:74fcb6826cecf64453b37e2567e91d98f668a7e45878eb24edaa1a4598dbaa5e",
+      "quote": "We are currently out of stock on this item so orders for it have been suspended until more stock is available."
+    },
+    {
+      "url": "https://tnahosting.net/kvm-ssd-vps/",
+      "date": "2026-11-07",
+      "proved": "the 1 GB card still prints the monthly and billed-annual prices and no renewal price",
+      "capture": "sha256:580edf1fff9a0ccb529493a5ac2a7798bf3d69e29c2796752d72249b8499a38a",
+      "quote": "Only **$1.33 **/ month"
+    },
+    {
+      "url": "https://tnahosting.net/kvm-ssd-vps/",
+      "date": "2026-11-07",
+      "proved": "the 1 GB card prices are unchanged",
+      "capture": "sha256:580edf1fff9a0ccb529493a5ac2a7798bf3d69e29c2796752d72249b8499a38a",
+      "quote": "Only **$1.33 **/ month"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T06:08:42.901Z",
   "notes": "This is the clearest tracker gap: the vendor sells a USD 16/year plan that the tracker does not list, so the tracker's USD 24 entry is not the floor. The 15 TB figure is traffic, not storage, and the disk is 30 GB, which is why the annual plan is cheap. The USD 5 monthly 4 GB plan is the better value at 30 TB, and the tracker lists neither plan. Rendering and provenance: currency symbols are written out (EUR, GBP, RUB, VND), diacritics in place names are folded to ASCII, and a price the page splits across two lines is joined as value/period; the tracker page stated 'Database update: 7 hours ago' when it was read on 2026-10-22.",
   "extras": {
     "facets": {
@@ -85,6 +106,7 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "price_on_page": "USD 1.33/month for SSD KVM 1GB, billed USD 16 annually"
   }
 }

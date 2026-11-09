@@ -33,7 +33,7 @@
     "webdav"
   ],
   "tooling": "first-party S3 credentials with an AccessKey from 客户端访问, plus WebDAV and MCP. A rclone S3 mounting walkthrough exists and sccache over CSTCloud is documented for Rust builds",
-  "chaining": "20 GB per verified identity and each data space is a separate bucket, so the only multiplier is identities. The identity is 国家网络身份认证, a national digital ID app, which makes it non-multiplicable for a user",
+  "chaining": "20 GB per verified identity and each data space is a separate bucket, so the only multiplier is identities. The identity is 国家网络身份认证, a national digital ID app, which makes it non-multiplicable",
   "limits": [
     {
       "kind": "write-gated",

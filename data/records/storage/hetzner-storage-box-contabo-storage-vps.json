@@ -5,7 +5,7 @@
   "url": "https://contabo.com/en/storage-vps/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Neither has a free tier or a trial. Contabo's cheapest storage VPS is EUR 5.50/mo for 300 GB SSD; Hetzner's Storage Box page returned no free offer. This is the 'free VPS with big disk'…",
+    "stated": "none reachable: Neither has a free tier or a trial. Contabo's cheapest storage VPS is EUR 5.50/mo for 300 GB SSD; Hetzner's Storage Box page returned no free offer. This is the 'free VPS with big disk'…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://contabo.com/en/storage-vps/",

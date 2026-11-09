@@ -167,9 +167,30 @@
       "proved": "computeprices.com lists CloudGPU as a GPU rental provider with 11 GPU models, prices collected 2026-11-03",
       "capture": "sha256:206e5c483427c9b2a37d593b2f441d1c95712908396509895a7de8247ef3eda0",
       "quote": "CloudGPU offers GPU rentals and model APIs for various AI applications"
+    },
+    {
+      "url": "https://cloudgpu.app/pricing",
+      "date": "2026-11-06",
+      "proved": "the price table prices an A100 80G at USD 1.59 per hour",
+      "capture": "sha256:f21bcac6debd6d80e86bebec4404fb1aca71897db1401e8e1b07a291ec824466",
+      "quote": "| A100 80G | $1.59/hr |"
+    },
+    {
+      "url": "https://cloudgpu.app/pricing",
+      "date": "2026-11-06",
+      "proved": "the price table prices an RTX 4090 24G at USD 0.39 per hour and lists no H100, L40S or L4",
+      "capture": "sha256:f21bcac6debd6d80e86bebec4404fb1aca71897db1401e8e1b07a291ec824466",
+      "quote": "| RTX 4090 24G | $0.39/hr |"
+    },
+    {
+      "url": "https://cloudgpu.app/faq",
+      "date": "2026-11-06",
+      "proved": "there is no signup credit and no free GPU hours; the smallest purchase is a USD 5 top-up",
+      "capture": "sha256:705e3f139dcfe57872bd1d9b104e8eddef061cd333d79f4e25366874962a2ddd",
+      "quote": "The suggested minimum top-up is $5. There is no signup credit."
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-11-03T07:36:21.177Z",
-  "notes": "The vendor price table read on 2026-11-03 names 20 cards and prices the A100 80G at USD 1.59/hr and the RTX 4090 24G at USD 0.39/hr; it names no H100, L40S or L4. The 4090 also comes as a 48 GB card at USD 0.69/hr. The aggregator computeprices.com lists the same A100 SXM and RTX 4090 rates for this host under the region Asia-Pacific."
+  "verified_at": "2026-11-06T18:41:34.655Z",
+  "notes": "The vendor price table read on 2026-11-06 prices the A100 80G at USD 1.59/hr and the RTX 4090 24G at USD 0.39/hr; it names no H100, L40S or L4. The 4090 also comes as a 48 GB card at USD 0.69/hr. The aggregator computeprices.com lists the same A100 SXM and RTX 4090 rates for this host under the region Asia-Pacific."
 }

@@ -33,7 +33,7 @@
   ],
   "interface_detail": "s3",
   "tooling": "S3 endpoint https://s3.hi168.com with an AccessKey and SecretKey issued from the 存储管理 app inside their cloud desktop; path-style addressing must be forced (OpenList lists no files otherwise); works with rclone s3, s3cmd, aws-cli, OpenClaw. No named first-party client.",
-  "chaining": "1 TB per account after real-name. Bucket count per account unverified (the article shows bucket creation, count not stated). The only way the total grows is another account, and each one costs a 实名 identity — so this does NOT multiply for a user.",
+  "chaining": "1 TB per account after real-name. Bucket count per account unverified (the article shows bucket creation, count not stated). The only way the total grows is another account, and each one costs a 实名 identity — so this does NOT multiply.",
   "limits": [
     {
       "kind": "per-ip-shaping",

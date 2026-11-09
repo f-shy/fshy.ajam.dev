@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "The $250,000 grant plus free AWS is the largest per-team compute and cash package in the competition lane, and it is unreachable without a university affiliation. The chain available for a user runs the other way: contribute to a university team as an enrolled student, which is an enrolment decision rather than a compute decision.",
+  "chaining": "The $250,000 grant plus free AWS is the largest per-team compute and cash package in the competition lane, and it is unreachable without a university affiliation. The chain available runs the other way: contribute to a university team as an enrolled student, which is an enrolment decision rather than a compute decision.",
   "limits": [
     {
       "kind": "write-gated",

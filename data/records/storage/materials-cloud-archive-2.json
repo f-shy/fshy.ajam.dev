@@ -5,7 +5,7 @@
   "url": "https://archive.materialscloud.org/uploads/new",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "InvenioRDM node with a hard login wall before any upload; publishing is tied to a Materials Cloud workflow rather than open deposit.",
+    "stated": "none reachable: InvenioRDM node with a hard login wall before any upload; publishing is tied to a Materials Cloud workflow rather than open deposit.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://archive.materialscloud.org/uploads/new",

@@ -5,7 +5,7 @@
   "url": "https://roar.eprints.org/rawlist.txt",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Cloudflare 522/403 on the raw endpoints. rawlist.txt (the one machine-readable dump) times out at 22 s; /view/software/dspace.html returns a 7 KB Cloudflare error page. Only recoverable via",
+    "stated": "none reachable: Cloudflare 522/403 on the raw endpoints. rawlist.txt (the one machine-readable dump) times out at 22 s; /view/software/dspace.html returns a 7 KB Cloudflare error page. Only recoverable via",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://roar.eprints.org/rawlist.txt",

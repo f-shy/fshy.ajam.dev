@@ -5,7 +5,7 @@
   "url": "https://github.com/replicate/replicate-javascript/blob/main/README.md",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "100 MiB per file, and prediction inputs/outputs are auto-deleted after one hour on the API path. The files API objects are described by the SDK as write-only inputs.",
+    "stated": "none reachable: 100 MiB per file, and prediction inputs/outputs are auto-deleted after one hour on the API path. The files API objects are described by the SDK as write-only inputs.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://github.com/replicate/replicate-javascript/blob/main/README.md",

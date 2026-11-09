@@ -85,6 +85,6 @@
     "volume_tib_month": null,
     "volume_stated": "Free Sandbox is a $20/month resource credit; network egress is $0.06/GB for everyone, so the credit buys at most 333 GB of egress if nothing else is spent.",
     "bytes_transit": "yes",
-    "transit_note": "Northflank's cloud provisions the L4 balancer; the datagrams land on a user's service."
+    "transit_note": "Northflank's cloud provisions the L4 balancer; the datagrams land on the service."
   }
 }

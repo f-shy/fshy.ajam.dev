@@ -36,17 +36,17 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "None available for a user as a PI. The only route in is as a named user on a project led by an eligible US-based researcher, which requires a US collaborator and PI justification for each non-US user.",
+  "chaining": "None available as a PI. The only route in is as a named user on a project led by an eligible US-based researcher, which requires a US collaborator and PI justification for each non-US user.",
   "limits": [
     {
       "kind": "write-gated",
-      "value": "The allocations portal refuses a request from any person based outside the US or holding a non-organisational email address, and the policy bans unaffiliated, self-employed and retired people outright, so no identity a user can produce passes the first screen.",
+      "value": "The allocations portal refuses a request from any person based outside the US or holding a non-organisational email address, and the policy bans unaffiliated, self-employed and retired people outright, so no identity a registrant can produce passes the first screen.",
       "source": "https://allocations.access-ci.org/allocations-policy"
     }
   ],
-  "limits_note": "The allocations portal refuses a request from any person based outside the US or holding a non-organisational email address, and the policy bans unaffiliated, self-employed and retired people outright, so no identity a user can produce passes the first screen.",
+  "limits_note": "The allocations portal refuses a request from any person based outside the US or holding a non-organisational email address, and the policy bans unaffiliated, self-employed and retired people outright, so no identity a registrant can produce passes the first screen.",
   "binding": "write-gated",
-  "binding_note": "The allocations portal refuses a request from any person based outside the US or holding a non-organisational email address, and the policy bans unaffiliated, self-employed and retired people outright, so no identity a user can produce passes the first screen.",
+  "binding_note": "The allocations portal refuses a request from any person based outside the US or holding a non-organisational email address, and the policy bans unaffiliated, self-employed and retired people outright, so no identity a registrant can produce passes the first screen.",
   "identity_cost": {
     "kind": "institution",
     "detail": "institution: the allocations policy states 'Principal Investigators (PIs) and users must now be affiliated with an eligible organization' and 'Unaffiliated individuals are no longer eligible to request or be added to an ACCESS allocation'; A card, hold, phone number or ID document is not mentioned in any evidence row: unknown. Country: United States only.",

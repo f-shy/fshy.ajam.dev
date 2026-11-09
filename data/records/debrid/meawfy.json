@@ -26,7 +26,7 @@
     "notes": ""
   },
   "egress": {
-    "terms": "no byte allowance: the site returns MEGA links, and the bytes come from mega.nz under a user's own MEGA transfer quota",
+    "terms": "no byte allowance: the site returns MEGA links, and the bytes come from mega.nz under the account's own MEGA transfer quota",
     "metered": false,
     "free_allowance": "none",
     "price_per_tb": null,
@@ -47,7 +47,7 @@
   ],
   "limits_note": "The credit model is the limit that binds, and it is counted per identity rather than per IP or per byte.",
   "binding": "none",
-  "binding_note": "The constraint that stops a user is the account and its credit balance, which is identity, not one of the seven byte or rate constraints.",
+  "binding_note": "The constraint that stops a caller is the account and its credit balance, which is identity, not one of the seven byte or rate constraints.",
   "identity_cost": {
     "kind": "email",
     "detail": "An account is required before a real link is revealed: the home page says an account gets 3 credits to unlock real links. Whether email alone is enough was not established, because the signup flow was not entered.",

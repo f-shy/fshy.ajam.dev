@@ -5,7 +5,7 @@
   "url": "https://www.wenshushu.cn/faq",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Free space is 40 GB, explicitly: '免费提供网络硬盘空间 40GB'. Its 'never throttled' promise is real but irrelevant at this quota.",
+    "stated": "none reachable: Free space is 40 GB, explicitly: '免费提供网络硬盘空间 40GB'. Its 'never throttled' promise is real but irrelevant at this quota.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.wenshushu.cn/faq",

@@ -38,7 +38,7 @@
   "interface_detail": "RSS at /?page=rss with the usual query parameters (q, c, f); each item's <link> is a .torrent download and <guid> is the view page.",
   "endpoint": "https://nyaa.si/?page=rss&q=ubuntu&c=0_0&f=0",
   "tooling": "Any RSS reader; the item link is already the .torrent, so no page fetch is needed.",
-  "chaining": "A saved search as an RSS feed is the cheapest possible subscription: the client polls one URL per interest and gets .torrent links, which a debrid service then turns into cached playback.",
+  "chaining": "A saved search as an RSS feed is the cheapest possible subscription: one URL per interest is polled and returns .torrent links, which a debrid service then turns into cached playback.",
   "limits": [
     {
       "kind": "request-rate",
@@ -51,7 +51,7 @@
   "binding_note": "No byte accounting exists on an index; polling a saved search is a handful of requests a day, far below anything that would throttle.",
   "identity_cost": {
     "kind": "anonymous",
-    "detail": "No account for search or RSS; uploading and commenting need one, which a user does not need.",
+    "detail": "No account for search or RSS; uploading and commenting need one, which is not needed here.",
     "country": null
   },
   "reliability_note": "A query with no match returns a valid feed with zero items rather than an error, so a client must check item count rather than status. The one match for 'ubuntu' was dated 2009, so the index holds very old items and a fresh-looking feed says nothing about freshness.",

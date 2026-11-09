@@ -5,7 +5,7 @@
   "url": "https://github.com/jpetazzo/registrish",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Not a provider — a trick for serving a read-only registry off static hosting. Interesting as an amplifier (point it at a free static host to get registry-shaped URLs), but it stores nothing",
+    "stated": "none reachable: Not a provider — a trick for serving a read-only registry off static hosting. Interesting as an amplifier (point it at a free static host to get registry-shaped URLs), but it stores nothing",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://github.com/jpetazzo/registrish",

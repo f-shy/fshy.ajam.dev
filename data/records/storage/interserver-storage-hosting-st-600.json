@@ -46,7 +46,7 @@
     "detail": "card",
     "country": null
   },
-  "reliability_note": "Long-established (InterServer, since 1999), ZFS + RAID-Z2, 99.9% uptime claim, 24/7 support. Very stable operator.",
+  "reliability_note": "Long-established (InterServer, since 1999), ZFS + RAID-Z2, 99.9% uptime claim, 24/7 support. Very stable operator. The product is priced to make capacity cheap and bandwidth expensive, which is the opposite of the requirement.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

@@ -5,7 +5,7 @@
   "url": "https://aispace.sh/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Free tier is 10 MB of storage and 100 uploads/month, max 7-day file lifetime, explicitly 'nothing lingers'. Off by 5 orders of magnitude.",
+    "stated": "none reachable: Free tier is 10 MB of storage and 100 uploads/month, max 7-day file lifetime, explicitly 'nothing lingers'. Off by 5 orders of magnitude.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://aispace.sh/",

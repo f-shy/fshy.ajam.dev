@@ -56,7 +56,7 @@
     "detail": "SMS only. POST /v1/auth/verification returns 400 'Email or phone_number must be set' when empty, and every email-shaped path returns 404, and the driver's own code only ever sends phone_number. So there is no email-only path",
     "country": null
   },
-  "reliability_note": "Xunlei's two previous netdisks both died, and the price rose from CNY 108 to 188 within months of launch",
+  "reliability_note": "Auth is SMS-only, so an account with only an email address cannot register. The OpenList docs carry an explicit danger block: use for multi-person sharing, image hosting, software hosting or video external links causes the provider to close accounts, which is the exact workload this survey targets. Xunlei's two previous netdisks both died, and the price rose from CNY 108 to 188 within months of launch",
   "confidence": "reported",
   "evidence": [
     {
@@ -95,7 +95,7 @@
   "price_per_tb_month": "CNY 108/yr promotional and CNY 480/yr list for 500 TB of capacity, but the 1 TB a month member egress makes a per-terabyte price meaningless",
   "binding": "per-ip-shaping",
   "binding_note": "2 TB of capacity is the largest free allocation in this survey after Ctfile, and 2 GB a day at high speed is. The traffic cap is what decides the plan, and as a cold archive it never binds.",
-  "notes": "The two numbers the marketing merges are capacity and traffic, and they are ten thousand times apart in practical effect. The SMS-only registration is what closes it for a user.",
+  "notes": "The two numbers the marketing merges are capacity and traffic, and they are ten thousand times apart in practical effect. The SMS-only registration is what closes it.",
   "extras": {
     "access_mode": "registration-gated",
     "launched": "2026-04-20",

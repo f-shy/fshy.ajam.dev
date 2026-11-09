@@ -2,7 +2,7 @@
   "topic": "compute",
   "slug": "kling-ai",
   "provider": "Kling AI",
-  "url": "https://klingai.com/pricing",
+  "url": "https://kling.ai/pricing",
   "category": "inference API",
   "free_tier": {
     "stated": "A free plan is claimed at 66 credits a day, and it is not confirmable from the vendor: three routes to the price list failed on 2026-10-22. Third-party accounts conflict. One review states 'The free plan gives all logged-in users 66 daily credits that expire after 24 hours' with a 5-second 720p clip at 30 credits. Another, dated 2026-09-26, states the opposite: 'the 66 free credits a day figure repeated across the web does not appear on any official Kling page we checked' and quotes Kling's own credits policy as granting daily credits to 'subscribers ... during the event (as shown in the interface)'.",
@@ -79,11 +79,46 @@
       "url": "https://www.kensa.cc/blog/ai-video-generator-free-credits",
       "date": "2026-10-22",
       "proved": "'the 66 free credits a day figure repeated across the web does not appear on any official Kling page we checked on September 26, 2026', and Kling's credits policy restricts daily login credits to subscribers during events, reported"
+    },
+    {
+      "url": "https://klingai.com/pricing",
+      "date": "2026-11-06",
+      "proved": "the record's URL now serves a migration notice to the new global site",
+      "capture": "sha256:ce1fc3d995374daf74e52767f652ec40a8cc1d7f3f983790558b472d383d6d7a",
+      "quote": "Kling's global website has officially migrated to kling.ai."
+    },
+    {
+      "url": "https://klingai.com/pricing",
+      "date": "2026-11-06",
+      "proved": "the vendor's own notice names kling.ai as the successor site",
+      "capture": "sha256:ce1fc3d995374daf74e52767f652ec40a8cc1d7f3f983790558b472d383d6d7a",
+      "quote": "Kling's global website has officially migrated to kling.ai."
+    },
+    {
+      "url": "https://kling.ai/pricing",
+      "date": "2026-11-06",
+      "proved": "the new pricing path answers with marketing copy and no credits table",
+      "capture": "sha256:9c561f317d7bf545a9fda9668132c73581871d6d4dab36bdbfd434d8099cee91",
+      "quote": "Cannes-Winning AI Short Film: L’Ultimo Uomo Reale"
+    },
+    {
+      "url": "https://app.klingai.com/pricing",
+      "date": "2026-11-06",
+      "proved": "the app pricing path renders the app home, 24,992 bytes, with no credits table",
+      "capture": "sha256:1546e11782e77cc355ddb5f9bf0aa4a1e3614e15015703827032ebf1278515f1",
+      "quote": "Create Videos, Images and More in One Workspace"
+    },
+    {
+      "url": "https://kling.ai/dev/pricing",
+      "date": "2026-11-06",
+      "proved": "the developer pricing link redirects to id.kling.ai/pass/ksi18n/login/passToken, a Kuaishou SSO login, and the page fails to load",
+      "capture": "sha256:7d355ba5c242f5c395185932f60590b00b022f9df0b5f6fd9140b1aba84c85df",
+      "quote": "This site can’t be reached"
     }
   ],
   "verdict": "fails-quota",
-  "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "These are inference credits, not general compute. The record exists to stop the next reader chasing a number that half the web repeats and no official page confirms. Routes tried: the app pricing URL, the site pricing URL, and a September 2026 archive.",
+  "verified_at": "2026-11-06T15:56:55.348Z",
+  "notes": "These are inference credits, not general compute. The record exists to stop the next reader chasing a number that half the web repeats and no official page confirms. The global site moved from klingai.com to kling.ai and the new site publishes no credits table either: /pricing and /membership return marketing copy, app.klingai.com/pricing renders the app home, and kling.ai/dev/pricing redirects to a Kuaishou SSO login that does not load. The membership page of a logged-in free account is the only place the credit balance is published, and the balance before and after one generation is the measurement that decides the figure.",
   "extras": {
     "facets": {
       "class": "credit-too-small-for-a-workload",

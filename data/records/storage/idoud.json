@@ -5,7 +5,7 @@
   "url": "https://idoud.cc/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "mydearniko/idoud markets 'absolutely free, unlimited cloud storage' with a Go CLI and a curl-pipe installer, but both the site and the install host are down (530/502 in two separate probes).",
+    "stated": "none reachable: mydearniko/idoud markets 'absolutely free, unlimited cloud storage' with a Go CLI and a curl-pipe installer, but both the site and the install host are down (530/502 in two separate probes).",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://idoud.cc/",

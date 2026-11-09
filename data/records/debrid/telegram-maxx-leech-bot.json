@@ -25,7 +25,7 @@
     "source_url": "https://telegram.org/faq"
   },
   "egress": {
-    "terms": "Free; the operator pulls the torrent and uploads the result to Telegram, so a user's own bandwidth is only the download.",
+    "terms": "Free; the operator pulls the torrent and uploads the result to Telegram, so the local bandwidth is only the download.",
     "metered": false,
     "free_allowance": "not published",
     "price_per_tb": null,
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "A Telegram chat: send a magnet or .torrent, pick files, receive them as Telegram documents.",
   "tooling": "Any Telegram client. Two handles exist for the same bot (@maxxleech_bot and @MaxxLeech_Bot) and both resolve.",
-  "chaining": "Turns a magnet into a Telegram object without a user running a BitTorrent client or a seedbox; the 4 GB claim is the only public statement that a hosted bot beats Telegram's free 2 GB ceiling.",
+  "chaining": "Turns a magnet into a Telegram object without running a BitTorrent client or a seedbox; the 4 GB claim is the only public statement that a hosted bot beats Telegram's free 2 GB ceiling.",
   "limits": [
     {
       "kind": "per-object-cap",

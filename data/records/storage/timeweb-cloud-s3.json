@@ -5,7 +5,7 @@
   "url": "https://timeweb.cloud/services/s3-storage",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Priced from 1 RUB/GB/mo with an auto-upgrade ladder (79 RUB for 10 GB, 349 for 100 GB, 'unlimited' 639 RUB/mo capped at 250 GB included then 4 RUB/GB), and egress is only 100 GB/month free.",
+    "stated": "none reachable: Priced from 1 RUB/GB/mo with an auto-upgrade ladder (79 RUB for 10 GB, 349 for 100 GB, 'unlimited' 639 RUB/mo capped at 250 GB included then 4 RUB/GB), and egress is only 100 GB/month free.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://timeweb.cloud/services/s3-storage",

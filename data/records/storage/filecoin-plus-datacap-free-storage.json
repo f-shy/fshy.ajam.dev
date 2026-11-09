@@ -5,7 +5,7 @@
   "url": "https://fil.org/filecoin-plus",
   "category": "contributed storage - subsidised free deals",
   "free_tier": {
-    "stated": "was: DataCap granted by allocators, deals free or near-free for a user because SPs got 10x quality-adjusted power",
+    "stated": "was: DataCap granted by allocators, deals free or near-free because SPs got 10x quality-adjusted power",
     "unit": "mixed",
     "metered_on": "unstated",
     "source_url": "https://fil.org/filecoin-plus",
@@ -66,11 +66,11 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "was: DataCap granted by allocators, deals free or near-free for a user because SPs got 10x quality-adjusted power",
+  "notes": "was: DataCap granted by allocators, deals free or near-free because SPs got 10x quality-adjusted power",
   "extras": {
     "dead_end": {
       "failure_class": "quota",
-      "why": "was: DataCap granted by allocators, deals free or near-free for a user because SPs got 10x quality-adjusted power",
+      "why": "was: DataCap granted by allocators, deals free or near-free because SPs got 10x quality-adjusted power",
       "retry_when": null,
       "first_recorded": "2026-10-21"
     },

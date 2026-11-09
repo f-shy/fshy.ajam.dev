@@ -87,7 +87,7 @@
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-23T03:15:33.000Z",
   "price_per_tb_month": "USD 0",
-  "notes": "The number that matters to the ladder is 150 GB/month programmatic, not 600: a user drives the service with a script, and the vendor caps every programmatic path at 25% of the daily allowance.",
+  "notes": "The number that matters to the ladder is 150 GB/month programmatic, not 600: the service is driven with a script, and the vendor caps every programmatic path at 25% of the daily allowance.",
   "extras": {
     "ladder_status": null,
     "gb_month_programmatic": 150,

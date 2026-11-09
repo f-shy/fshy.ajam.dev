@@ -5,7 +5,7 @@
   "url": "https://desec.readthedocs.io/en/latest/dns/rrsets.html",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Works as a protocol but the ceiling is ~1 MB per name: one RRset allows max 4091 record values and 64,000 characters total after JSON encoding, and RRset writes are capped at 300/day/domain.",
+    "stated": "none reachable: Works as a protocol but the ceiling is ~1 MB per name: one RRset allows max 4091 record values and 64,000 characters total after JSON encoding, and RRset writes are capped at 300/day/domain.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://desec.readthedocs.io/en/latest/dns/rrsets.html",

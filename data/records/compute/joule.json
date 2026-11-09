@@ -40,13 +40,13 @@
   "limits": [
     {
       "kind": "write-gated",
-      "value": "Access requires proving donated GPU contribution first, so the binding constraint is hardware a user does not have. A CPU-only node is documented as 'lab only'.",
+      "value": "Access requires proving donated GPU contribution first, so the binding constraint is hardware, which the analysis assumes is absent. A CPU-only node is documented as 'lab only'.",
       "source": "https://github.com/f00-sh/joule"
     }
   ],
-  "limits_note": "Access requires proving donated GPU contribution first, so the binding constraint is hardware a user does not have. A CPU-only node is documented as 'lab only'.",
+  "limits_note": "Access requires proving donated GPU contribution first, so the binding constraint is hardware, which the analysis assumes is absent. A CPU-only node is documented as 'lab only'.",
   "binding": "write-gated",
-  "binding_note": "Access requires proving donated GPU contribution first, so the binding constraint is hardware a user does not have. A CPU-only node is documented as 'lab only'.",
+  "binding_note": "Access requires proving donated GPU contribution first, so the binding constraint is hardware, which the analysis assumes is absent. A CPU-only node is documented as 'lab only'.",
   "identity_cost": {
     "kind": "anonymous",
     "detail": null,

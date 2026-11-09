@@ -38,9 +38,9 @@
   "tooling": "not stated",
   "chaining": null,
   "limits": [],
-  "limits_note": "The price does. It is roughly three times the OVH SYS-1 for the same core count and RAM.",
+  "limits_note": "Nothing published on this list binds above the scale; the price does. It is roughly three times the OVH SYS-1 for the same core count and RAM.",
   "binding": "none",
-  "binding_note": "The price does. It is roughly three times the OVH SYS-1 for the same core count and RAM.",
+  "binding_note": "Nothing published on this list binds above the scale; the price does. It is roughly three times the OVH SYS-1 for the same core count and RAM.",
   "identity_cost": {
     "kind": "card",
     "detail": null,

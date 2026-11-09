@@ -10,7 +10,7 @@
     "metered_on": "wall-clock",
     "source_url": "https://leapswitch.com/mumbai-india/unmanaged-vps-hosting/linux.php",
     "read_on": "2026-10-22",
-    "notes": "none"
+    "notes": "the cart (manage.leapswitch.com, USD store) prices G2-LU-4G at USD 9.00 monthly, USD 25.00 quarterly, USD 48.00 semi-annually, USD 93.00 annually, USD 168.00 biennially and USD 235.00 triennially, with USD 0.00 setup and USD 9.00 total due today on the monthly term; no renewal price is printed and the cart shows no stock marker"
   },
   "per_object_cap": {
     "stated": "not applicable",
@@ -69,10 +69,31 @@
       "url": "https://vpspricetracker.com/provider/LeapSwitch/vps",
       "date": "2026-10-22",
       "proved": "three cards quoted at '$9.00 / month' for Mumbai, Lisbon and Barcelona, each '2 Epyc Cores (shared)', '4,096 MB RAM', '60 GB NVMe', '1,024 GB/month bandwidth', '1 Gbps port speed', matching the vendor page"
+    },
+    {
+      "url": "https://manage.leapswitch.com/cart/self-managed-nvme-cloud-vm-usd?id=6078",
+      "date": "2026-11-07",
+      "proved": "the cart prices G2-LU-4G across six billing cycles",
+      "capture": "sha256:c866ddf117b4cb3474b247e781ebd97a825325ac783edfab51dece3dda4bcbc2",
+      "quote": "$9.00 </span><span class=\"product-price cycle-q\">$25.00 </span><span class=\"product-price cycle-s\">$48.00 </span><span class=\"product-price cycle-a\">$93.00 </span><span class=\"product-price cycle-b\">$168.00 </span><span class=\"product-price cycle-t\">$235.00"
+    },
+    {
+      "url": "https://manage.leapswitch.com/cart/self-managed-nvme-cloud-vm-usd?id=6078",
+      "date": "2026-11-07",
+      "proved": "the cart lists G2-LU-4G at USD 9.00 with 2 allocated CPUs, 4 GB RAM, 60 GB NVMe and 1 TB bandwidth",
+      "capture": "sha256:c866ddf117b4cb3474b247e781ebd97a825325ac783edfab51dece3dda4bcbc2",
+      "quote": "G2-LU-4G ... Allocated CPUs ... 4 GB ... 60 GB ... 1 TB"
+    },
+    {
+      "url": "https://manage.leapswitch.com/cart/self-managed-nvme-cloud-vm-usd?id=6078",
+      "date": "2026-11-07",
+      "proved": "the cart prices G2-LU-4G at USD 9.00 monthly, 25.00 quarterly, 48.00 semi-annually, 93.00 annually, 168.00 biennially and 235.00 triennially, with no renewal price printed and no out-of-stock marker",
+      "capture": "sha256:3690212579ef7864ab4e6b98731aa7dc3cf8d30a1700e48d0dc7ae29f16796e8",
+      "quote": "<span class=\"product-price cycle-m\">$9.00 </span><span class=\"product-price cycle-q\">$25.00 </span><span class=\"product-price cycle-s\">$48.00 </span><span class=\"product-price cycle-a\">$93.00 </span><span class=\"product-price cycle-b\">$168.00 </span><span class=\"product-price cycle-t\">$235.00 </span>"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T11:15:38.153Z",
   "notes": "The homepage prices only bare metal, reseller and email hosting and shows no VPS price, so the per-location product page is the first-party source. The tracker lists this plan at USD 9.00 in Mumbai, Lisbon and Barcelona, and the vendor page read is the Mumbai one.",
   "extras": {
     "facets": {

@@ -5,7 +5,7 @@
   "url": "https://cloud.google.com/free/docs/free-cloud-features",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "50 GB/month storage and 50 GB/month egress on the free tier, but the product is end-of-sale and being replaced by Secure Source Manager. Also a git-only interface — poor fit for 10 TiB of…",
+    "stated": "none reachable: 50 GB/month storage and 50 GB/month egress on the free tier, but the product is end-of-sale and being replaced by Secure Source Manager. Also a git-only interface — poor fit for 10 TiB of…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://cloud.google.com/free/docs/free-cloud-features",

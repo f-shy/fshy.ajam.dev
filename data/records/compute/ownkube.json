@@ -49,7 +49,7 @@
   "binding_note": "the USD 5 credit is spent by the minute at about USD 0.0246 per vCPU-hour and USD 0.006 per GiB-hour, so it buys about 203 vCPU-hours and then the account pauses.",
   "identity_cost": {
     "kind": "email",
-    "detail": "unverified: no page stating the signup requirement was read; the record's evidence covers the prepaid wallet terms ('USD 0 / month - No subscription, top up from USD 5'), the per-vCPU and per-GiB metering, the reserved-box prices, and the USD 5 signup credit, and states nothing about what creating the account asks for. The word prepaid in that evidence describes the credit wallet, not prepaid card acceptance",
+    "detail": "email: the only sign-in methods are a GitHub account and a Google account ('Continue with GitHubContinue with Google'), each of which needs an email address; the page carries no email-and-password form. Card: not published: https://app.ownkube.io/login (2026-11-06) carries no card field. Phone: not published: the same page states no phone requirement. Country: not published: the same page states no country restriction.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -74,10 +74,38 @@
       "url": "https://ownkube.io/",
       "date": "2026-10-22",
       "proved": "'Start with USD 5 of signup credit' and 'Usage draws prepaid credit, and a monthly cap can pause everything with your data kept', quoted"
+    },
+    {
+      "url": "https://app.ownkube.io/login",
+      "date": "2026-11-04",
+      "proved": "the only sign-in methods are a GitHub account and a Google account",
+      "capture": "sha256:1c342e36cf4c547aa313cd8046d66d47d11d3fc45523bf94a9b62b5f388c24cd",
+      "quote": "Continue with GitHubContinue with Google"
+    },
+    {
+      "url": "https://ownkube.io/",
+      "date": "2026-11-04",
+      "proved": "the wallet is prepaid credit, which is the spending model the account gate leads to",
+      "capture": "sha256:f7dde95d773261ff2230aa99446766d5d7f02fdefdec5240d4dfca9f633c1e9a",
+      "quote": "Usage draws prepaid credit"
+    },
+    {
+      "url": "https://app.ownkube.io/login",
+      "date": "2026-11-04",
+      "proved": "an account created through GitHub or Google, which is the email kind, is still the gate",
+      "capture": "sha256:1c342e36cf4c547aa313cd8046d66d47d11d3fc45523bf94a9b62b5f388c24cd",
+      "quote": "Sign in or create an account."
+    },
+    {
+      "url": "https://app.ownkube.io/login",
+      "date": "2026-11-06",
+      "proved": "the only sign-in methods are a GitHub account and a Google account, so an email address is the gate, and the page carries no card, phone or country field",
+      "capture": "sha256:1c342e36cf4c547aa313cd8046d66d47d11d3fc45523bf94a9b62b5f388c24cd",
+      "quote": "Continue with GitHubContinue with Google"
     }
   ],
   "verdict": "trial-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-06T17:42:12.766Z",
   "notes": "Aggregator claim checked: free-for.dev says 'Free tier: the Starter plan runs everything on one instance in your own AWS account, no credit card needed (you pay AWS for the instance)'. That description is stale. The vendor now sells its own metered compute with a prepaid wallet, and the AWS bring-your-own-account arrangement is no longer on the site. The USD 5 signup credit is the only free capacity, and it is a one-off, not a monthly grant.",
   "extras": {
     "facets": {

@@ -25,7 +25,7 @@
     "notes": ""
   },
   "egress": {
-    "terms": null,
+    "terms": "No byte metering: the aggregator returns pointers from the indexers already held.",
     "metered": false,
     "free_allowance": null,
     "price_per_tb": null,
@@ -37,7 +37,7 @@
   "interface_detail": "A running Prowlarr or NZBHydra 2 served over HTTPS at a private link per user: 'On ElfHosted, it comes pre-configured and connected to your other apps.' The aggregator software itself is unchanged, so it speaks the same Newznab and Torznab API for a user.",
   "endpoint": "https://<instance>.elfhosted.com (per-user)",
   "tooling": "Prowlarr and NZBHydra 2 are the tools; this is only a managed host for them. A client still supplies its own indexer accounts, so the aggregator does not remove the identity cost of any indexer.",
-  "chaining": "Replaces a container a user would otherwise run: USD 9/month buys a running Prowlarr with no Docker, no reverse proxy and no TLS, and it then fans out to whatever indexers a user holds.",
+  "chaining": "Replaces a container that would otherwise be run: USD 9/month buys a running Prowlarr with no Docker, no reverse proxy and no TLS, and it then fans out to whatever indexers are held.",
   "limits": [
     {
       "kind": "write-gated",
@@ -50,7 +50,7 @@
   "binding_note": "Payment is the gate: the instance does not start without a plan. Nothing in the seven-kind vocabulary describes a subscription, so write-gated is used for the access gate and the price is carried in extras.",
   "identity_cost": {
     "kind": "card",
-    "detail": "A paid order with a card and a USD 1 sign-up fee; a 7-day trial is offered first. Indexer accounts are separate and are a user's own.",
+    "detail": "A paid order with a card and a USD 1 sign-up fee; a 7-day trial is offered first. Indexer accounts are separate and are the account's own.",
     "country": null
   },
   "reliability_note": "A managed instance is somebody else's uptime: the aggregator going down stops every indexer at once, which a local install would not.",

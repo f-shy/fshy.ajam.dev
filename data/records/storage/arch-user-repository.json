@@ -5,7 +5,7 @@
   "url": "https://raw.githubusercontent.com/archlinux/aurweb/master/conf/config.defaults",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Git only, PKGBUILDs and small aux files; hard 256,000-byte (250 KiB) per-blob limit enforced in aurweb's git hook. No binaries at all.",
+    "stated": "none reachable: Git only, PKGBUILDs and small aux files; hard 256,000-byte (250 KiB) per-blob limit enforced in aurweb's git hook. No binaries at all.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://raw.githubusercontent.com/archlinux/aurweb/master/conf/config.defaults",

@@ -47,7 +47,7 @@
   ],
   "limits_note": "",
   "binding": "volume-quota",
-  "binding_note": "No counter is published, so the first thing that fails at 1 TiB/month is an unpublished policy. The address and port shape does not fail: every port is open and a user's firewall decides.",
+  "binding_note": "No counter is published, so the first thing that fails at 1 TiB/month is an unpublished policy. The address and port shape does not fail: every port is open and the firewall decides.",
   "identity_cost": {
     "kind": "card",
     "detail": "The trial takes no card: \"No credit card required\", and the paid plan bills monthly. The order form itself was not read.",

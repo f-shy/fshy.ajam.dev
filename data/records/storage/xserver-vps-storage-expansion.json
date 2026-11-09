@@ -5,7 +5,7 @@
   "url": "https://vps.xserver.ne.jp/support/manual/man_server_storage_expansion.php",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The 200 GB storage add-on was discontinued for all new signups on 2025-02-03; the maximum disk on any current plan is 2,400 GB and only on 4 GB+ plans. Not purchasable for a new customer…",
+    "stated": "none reachable: The 200 GB storage add-on was discontinued for all new signups on 2025-02-03; the maximum disk on any current plan is 2,400 GB and only on 4 GB+ plans. Not purchasable for a new customer…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://vps.xserver.ne.jp/support/manual/man_server_storage_expansion.php",

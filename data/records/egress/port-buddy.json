@@ -127,6 +127,6 @@
     "volume_tib_month": null,
     "volume_stated": "The vendor publishes no monthly byte allowance for the free UDP tunnel; the only stated limits are tunnel count and TCP being paid.",
     "bytes_transit": "yes",
-    "transit_note": "Port Buddy relays the datagrams; the client's local process terminates them."
+    "transit_note": "Port Buddy relays the datagrams; the local process terminates them."
   }
 }

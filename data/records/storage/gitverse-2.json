@@ -5,7 +5,7 @@
   "url": "https://gitverse.ru/docs/limits-lfs-cicd/limits-lfs",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "2 GB/month LFS storage per user AND per organization, 100 MB per file over HTTP, 1 GB per file over SSH. Too small, hard-capped, monthly.",
+    "stated": "none reachable: 2 GB/month LFS storage per user AND per organization, 100 MB per file over HTTP, 1 GB per file over SSH. Too small, hard-capped, monthly.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://gitverse.ru/docs/limits-lfs-cicd/limits-lfs",

@@ -170,7 +170,7 @@
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-11-04T01:03:29.207Z",
   "binding": "write-gated",
-  "binding_note": "The resolver is free and fast and stores nothing, so what binds is the auth table: the pans a user would most want, including Baidu, Quark and UC, need a cookie or sit behind the paid professional endpoint.",
+  "binding_note": "The resolver is free and fast and stores nothing, so what binds is the auth table: the pans most in demand, including Baidu, Quark and UC, need a cookie or sit behind the paid professional endpoint.",
   "notes": "Not storage and recorded as such: it is the fetch path for other people's storage. Two endpoints exist and the split is the finding: lz.qaiu.top is free and covers lanzou, ilanzou, ctfile, wenshushu, feijipan and ecpan, while 189.qaiu.top needs an API key and adds Baidu, Xunlei, Quark, UC, 139, 189 and Unicom. The program can also be self-hosted (the docker span), and lz.qaiu.top is a free public instance.",
   "extras": {
     "access_mode": "anonymous",

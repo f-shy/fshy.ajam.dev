@@ -5,7 +5,7 @@
   "url": "https://docs.zus.network/zus-docs/webapps/blimp",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The free-ish path requires you to contribute hardware — 'Launch a node ... as little as 4 vCPU and a single 100 GB attached disk' — so it is rent-seeking capacity, not a free tier, and it…",
+    "stated": "none reachable: The free-ish path requires you to contribute hardware — 'Launch a node ... as little as 4 vCPU and a single 100 GB attached disk' — so it is rent-seeking capacity, not a free tier, and it…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.zus.network/zus-docs/webapps/blimp",

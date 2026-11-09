@@ -35,7 +35,7 @@
   ],
   "interface_detail": "Web application plus 'Apps' for Smart TV; the site also runs a companion 'generator premium - lista hostingów' page. No API is documented.",
   "tooling": "Browser, Smart TV apps and a host-list generator page; no JDownloader plugin or CLI is named on the reachable pages.",
-  "chaining": "A 30-day 600 GB package covers a single heavy week and then stops, so it composes with a monthly host subscription only as an overflow: a user buys the Polish package for one burst and keeps the always-on account elsewhere.",
+  "chaining": "A 30-day 600 GB package covers a single heavy week and then stops, so it composes with a monthly host subscription only as an overflow: a Polish package buys one burst and the always-on account stays elsewhere.",
   "limits": [
     {
       "kind": "volume-quota",

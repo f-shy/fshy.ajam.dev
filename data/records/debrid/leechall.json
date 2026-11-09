@@ -50,7 +50,7 @@
       "source": "https://leechall.com/"
     }
   ],
-  "limits_note": "A host not on the list cannot be fetched at all.",
+  "limits_note": "Every listed host carries its own daily byte ceiling, so the binding number depends on which host is targeted. A host not on the list cannot be fetched at all.",
   "binding": "volume-quota",
   "binding_note": "The daily byte ceiling on each host is what fails first.",
   "identity_cost": {

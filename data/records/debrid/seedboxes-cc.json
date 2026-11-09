@@ -23,7 +23,7 @@
     "stated": "until the subscription ends; no inactivity deletion is stated",
     "days": null,
     "source_url": "https://www.seedboxes.cc/",
-    "notes": "not applicable in the debrid sense: the box holds what a user puts on it while it is paid"
+    "notes": "not applicable in the debrid sense: the box holds what is put on it while it is paid"
   },
   "egress": {
     "terms": "Bat Box includes 10 TB of upload traffic per month on a 50Gbit/50Gbit server uplink; 'After using your monthly traffic quota, upload speed is limited to 10 Mbit/s for the remainder of the month. Download speed remains unlimited.' No overage price is published.",

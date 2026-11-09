@@ -5,7 +5,7 @@
   "url": "https://raw.githubusercontent.com/farcasterxyz/protocol/main/docs/SPECIFICATION.md",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Fails on first principles, not on a URL: the protocol stores no media. A cast embed is a URL to somebody else's host, and message acceptance is gated on rented storage units bought on…",
+    "stated": "none reachable: Fails on first principles, not on a URL: the protocol stores no media. A cast embed is a URL to somebody else's host, and message acceptance is gated on rented storage units bought on…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://raw.githubusercontent.com/farcasterxyz/protocol/main/docs/SPECIFICATION.md",

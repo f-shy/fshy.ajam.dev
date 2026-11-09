@@ -5,7 +5,7 @@
   "url": "https://uploadcare.com/pricing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Free plan is 10 GB storage / 25 GB traffic / 5,000 operations per month, 1 GB max file, and operations are consumed…",
+    "stated": "none reachable: Free plan is 10 GB storage / 25 GB traffic / 5,000 operations per month, 1 GB max file, and operations are consumed…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://uploadcare.com/pricing",

@@ -5,7 +5,7 @@
   "url": "https://gitea.com/v2/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "No container registry endpoint at all: GET https://gitea.com/v2/ returns 404. Gitea's cloud offering is a 30-day trial, and the self-hosted product is free software, not free storage.",
+    "stated": "none reachable: No container registry endpoint at all: GET https://gitea.com/v2/ returns 404. Gitea's cloud offering is a 30-day trial, and the self-hosted product is free software, not free storage.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://gitea.com/v2/",

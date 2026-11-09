@@ -5,7 +5,7 @@
   "url": "https://docs.github.com/en/actions/reference/limits",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "500 MB on Free, 90-day retention, token required for download. It is a build handoff medium, not storage.",
+    "stated": "none reachable: 500 MB on Free, 90-day retention, token required for download. It is a build handoff medium, not storage.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.github.com/en/actions/reference/limits",

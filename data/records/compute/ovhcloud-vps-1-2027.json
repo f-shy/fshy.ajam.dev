@@ -43,12 +43,12 @@
   "binding_note": "unlimited in the EU and US, so the traffic term only binds if the box is placed in APAC.",
   "identity_cost": {
     "kind": "card",
-    "detail": "the order goes through a configurator that requires an OVHcloud account with billing details; a card is the standard rail. No ID document is stated on the pricing page. Card hold not stated: unverified rather than none.",
+    "detail": "the order goes through a configurator that requires an OVHcloud account with billing details; a card is the standard rail. No ID document is stated on the pricing page. Card hold not stated: unverified rather than none. The configurator could not be read on 2026-10-24, so this is from the pricing page only.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
-  "confidence_note": "price, shape, port and the APAC quota carve-out are quoted from the vendor's own pricing page read.",
+  "confidence_note": "price, shape, port and the APAC quota carve-out are quoted from the vendor's own pricing page read on 2026-10-24. The configurator, which would carry the renewal and the tax basis, was not readable on 2026-10-24: its DNS lookup timed out.",
   "evidence": [
     {
       "url": "https://www.ovhcloud.com/en/vps/",
@@ -89,10 +89,24 @@
       "url": "https://www.ovhcloud.com/en/vps/",
       "date": "2026-10-24",
       "proved": "the page's own language map: 'en' maps to {\"currencyCode\":\"USD\",\"country\":\"World\"}, so the '$' figures are USD for a rest-of-world visitor"
+    },
+    {
+      "url": "https://www.ovhcloud.com/en/terms-and-conditions/payment/",
+      "date": "2026-11-06",
+      "proved": "OVHcloud accepts Visa, Mastercard and Maestro cards",
+      "capture": "sha256:1bb040f010d78fc15cad2155da6cdc0195337f3af99e51d70c12b68810997e37",
+      "quote": "Cards accepted are Visa, Mastercard, Maestro."
+    },
+    {
+      "url": "https://www.ovhcloud.com/en/vps/",
+      "date": "2026-11-06",
+      "proved": "the pricing page states the VPS-1 price, its port and the APAC quota carve-out",
+      "capture": "sha256:77b859d778c9e0c773d96d5fcd6b93406e78b762fde6cc0cc8911b6d4f937ad0",
+      "quote": "From $4.54 /month ... Unlimited traffic ... 500 Mbps public bandwidth ... 500 GB for VPS-1, 1 TB for VPS-2 and VPS-3, 3 TB for VPS-4. Beyond this, the bandwidth is capped at 10 Mbps."
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-24T06:30:00.000Z",
+  "verified_at": "2026-11-06T19:33:06.062Z",
   "price_per_tb_month": null,
   "notes": "CHANGED in shape, not in price. USD 4.54 a month is confirmed and it is the 12-month-upfront rate. But VPS-1 is 4 GB of RAM and 2 vCPU, not 8 GiB: it is under the line on price and under the beefy bar on memory, so it does not compete with the 8 GiB rows. The next rung up, VPS-2 at USD 8.50, is 8 GB and 4 vCPU and over the line. Two things were not settled: the renewal after the 12-month term (the configurator that would show it refused to load), and whether VAT is added (the page prints no VAT line at all, and the 'World [$]' locale implies no EU VAT for a non-EU buyer). Worst case exposure is not computable without the renewal.",
   "extras": {
@@ -117,7 +131,7 @@
       "pair": "EUR/USD",
       "rate": 1.1193,
       "date": "2026-10-23",
-      "source": "ECB reference via frankfurter.app"
+      "source": null
     },
     "port_mbps": 500,
     "ipv4_included": true,

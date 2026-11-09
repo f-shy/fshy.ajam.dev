@@ -5,7 +5,7 @@
   "url": "https://mail.163.com/help/help_mail_08.htm",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "3 GB mailbox with a 280 MB bundled netdisk, attachment cap 20 MB: \"3G（送280兆免费网盘）的超大空间 ... 附件支持高达 20兆\". IMAP is live (`imap.163.com:993` -> `APPENDLIMIT=71680000`, 68.4 MiB), so the protocol",
+    "stated": "none reachable: 3 GB mailbox with a 280 MB bundled netdisk, attachment cap 20 MB: \"3G（送280兆免费网盘）的超大空间 ... 附件支持高达 20兆\". IMAP is live (`imap.163.com:993` -> `APPENDLIMIT=71680000`, 68.4 MiB), so the protocol",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://mail.163.com/help/help_mail_08.htm",

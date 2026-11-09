@@ -41,13 +41,13 @@
   "limits": [
     {
       "kind": "write-gated",
-      "value": "USD 200 is the whole reachable slice; the next milestone is gated on business verification and everything above it on Azure spend a user does not have.",
+      "value": "USD 200 is the whole reachable slice; the next milestone is gated on business verification and everything above it on Azure spend.",
       "source": "https://learn.microsoft.com/en-us/startups/microsoft-for-startups/getting-started-mfs"
     }
   ],
-  "limits_note": "USD 200 is the whole reachable slice; the next milestone is gated on business verification and everything above it on Azure spend a user does not have.",
+  "limits_note": "USD 200 is the whole reachable slice; the next milestone is gated on business verification and everything above it on Azure spend.",
   "binding": "write-gated",
-  "binding_note": "USD 200 is the whole reachable slice; the next milestone is gated on business verification and everything above it on Azure spend a user does not have.",
+  "binding_note": "USD 200 is the whole reachable slice; the next milestone is gated on business verification and everything above it on Azure spend.",
   "identity_cost": {
     "kind": "email",
     "detail": "A personal LinkedIn account plus an Azure signup.",

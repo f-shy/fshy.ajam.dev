@@ -37,7 +37,7 @@
   ],
   "interface_detail": "GUI clients plus a CLI.",
   "tooling": "desktop and mobile clients.",
-  "chaining": null,
+  "chaining": "Private access between boxes already held.",
   "limits": [],
   "limits_note": "",
   "binding": "none",
@@ -60,7 +60,7 @@
   "verdict": "fails-egress",
   "verified_at": "2026-10-23T00:00:00.000Z",
   "price_per_tb_month": "USD 0",
-  "notes": "The hosted control plane does not carry a user's public ingress; that would need a Gateway a user runs.",
+  "notes": "The hosted control plane does not carry public ingress; that would need a Gateway run locally.",
   "extras": {
     "wg_path": "none",
     "wg_detail": "",

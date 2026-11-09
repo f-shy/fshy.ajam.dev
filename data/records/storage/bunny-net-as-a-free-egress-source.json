@@ -5,7 +5,7 @@
   "url": "https://docs.bunny.net/storage/pricing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Free transit applies only from Bunny Storage into Bunny CDN. There is no free public egress: end-user delivery is $0.01/GB EU/NA and $0.03/GB Asia, with a $1/month minimum, so Bunny is…",
+    "stated": "none reachable: Free transit applies only from Bunny Storage into Bunny CDN. There is no free public egress: end-user delivery is $0.01/GB EU/NA and $0.03/GB Asia, with a $1/month minimum, so Bunny is…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.bunny.net/storage/pricing",

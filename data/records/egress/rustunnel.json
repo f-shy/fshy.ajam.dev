@@ -48,7 +48,7 @@
   ],
   "limits_note": "",
   "binding": "volume-quota",
-  "binding_note": "A metered service with no published free allowance binds on bytes by construction: at one TiB a month a user is a paying customer. Self-hosting moves the cost to a VM, which is a compute-lane answer rather than an egress answer.",
+  "binding_note": "A metered service with no published free allowance binds on bytes by construction: at one TiB a month the account is a paying customer. Self-hosting moves the cost to a VM, which is a compute-lane answer rather than an egress answer.",
   "identity_cost": {
     "kind": "email",
     "detail": "a free account and a generated auth token: 'Access to the hosted service requires an auth token. Create a free account and generate one yourself.' https://www.rustunnel.com/docs/quickstart.md",
@@ -77,7 +77,7 @@
   "verdict": "paid-only",
   "verified_at": "2026-10-23T00:00:00.000Z",
   "price_per_tb_month": "USD 0",
-  "notes": "The UDP implementation is the best documented of any free-or-cheap tunnel found, and it is the wrong side of a paywall for a user. There is no pricing page: /pricing and /pricing.html both 404, so the only price statement is the homepage sentence.",
+  "notes": "The UDP implementation is the best documented of any free-or-cheap tunnel found, and it is the wrong side of a paywall here. There is no pricing page: /pricing and /pricing.html both 404, so the only price statement is the homepage sentence.",
   "extras": {
     "wg_path": "unknown",
     "wg_detail": "UDP tunnels are real and documented: 'rustunnel UDP tunnels forward datagrams from a public port on the tunnel server to a local UDP service', with 'Public port - allocated from a dedicated UDP port range on the server' and a 60-second session idle timeout. Whether a free hosted account gets a port, and whether the port is fixed, is not stated. https://www.rustunnel.com/docs/reference/udp-tunnels.md",

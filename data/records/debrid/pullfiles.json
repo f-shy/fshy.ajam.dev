@@ -35,7 +35,7 @@
   ],
   "interface_detail": "One web form: paste a direct file URL, press start, watch a progress panel. No API documentation.",
   "tooling": "Browser only. A wrapper would need a headless browser because the transfer is streamed through the page.",
-  "chaining": "It solves the case where a user's own connection cannot reach a host but the relay can: the relay fetches and re-serves over HTTPS. It is a proxy, not storage, so it must be followed immediately by a real download.",
+  "chaining": "It solves the case where the local connection cannot reach a host but the relay can: the relay fetches and re-serves over HTTPS. It is a proxy, not storage, so it must be followed immediately by a real download.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -102,7 +102,7 @@
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-11-03T11:28:32.907Z",
   "price_per_tb_month": "USD 0",
-  "notes": "Answers a narrower question than asked: it will not resolve a Rapidgator page into a direct link, but it will fetch a direct link a user cannot reach. Worth keeping as the last hop.",
+  "notes": "Answers a narrower question than asked: it will not resolve a Rapidgator page into a direct link, but it will fetch a direct link that is otherwise unreachable. Worth keeping as the last hop.",
   "extras": {
     "max_file_bytes": 1073741824,
     "account": "none",

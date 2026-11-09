@@ -5,7 +5,7 @@
   "url": "https://www.hostsailor.com/seedbox.html",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Site renders entirely client-side; /seedbox.html returned only the section headings ('features', 'products', 'testimonials') with no plan data, and the homepage is a JS spec sheet. No price",
+    "stated": "none reachable: Site renders entirely client-side; /seedbox.html returned only the section headings ('features', 'products', 'testimonials') with no plan data, and the homepage is a JS spec sheet. No price",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.hostsailor.com/seedbox.html",

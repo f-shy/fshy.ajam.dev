@@ -52,7 +52,7 @@
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
-  "confidence_note": "the site was read on 2026-10-22.",
+  "confidence_note": "the site was read on 2026-10-22. It sells a prediction tool for infrastructure that is already running, with no free tier and no compute product, which confirms paid-only",
   "evidence": [
     {
       "url": "https://expanse.sh",

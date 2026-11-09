@@ -69,10 +69,24 @@
       "url": "https://vpspricetracker.com/provider/ReadyDedis/vps",
       "date": "2026-10-22",
       "proved": "cheapest row: '$5.00 / month', '1 Epyc Cores (shared)', '1,024 MB RAM', '20 GB SSD', '1,024 GB/month bandwidth', '1 Gbps port speed', 'IPv4', New Jersey; the same plan is listed for Los Angeles"
+    },
+    {
+      "url": "https://service.readydedis.com/?cmd=cart&action=add&id=222",
+      "date": "2026-11-07",
+      "proved": "the cart's cycle selector prices cloud.1g (AMD-1) at USD 5.00 monthly or USD 50.00 annually with a USD 0.00 setup fee",
+      "capture": "sha256:d637d8bfe2987b1cd0a224bb94091df8cb8d4fa537de0488015d2d097fbd24bb",
+      "quote": "<option value=\"m\" selected=\"selected\">$5.00 USD Monthly</option><option value=\"a\" >$50.00 USD Annually</option>"
+    },
+    {
+      "url": "https://service.readydedis.com/?cmd=cart&action=add&id=222",
+      "date": "2026-11-07",
+      "proved": "the cart prices AMD-1 at 5.00 USD a month or 50.00 USD a year",
+      "capture": "sha256:d637d8bfe2987b1cd0a224bb94091df8cb8d4fa537de0488015d2d097fbd24bb",
+      "quote": "<option value=\"m\" selected=\"selected\">$5.00 USD Monthly</option><option value=\"a\" >$50.00 USD Annually</option>"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T14:16:58.956Z",
   "notes": "The page carries a second plan table below the AMD one that extracted empty, presumably for the Intel Xeon line the copy mentions, so no Intel row was read.",
   "extras": {
     "facets": {
@@ -85,6 +99,7 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "price_on_page": "USD 5.00/month for AMD-1; renewal: not published"
   }
 }

@@ -47,7 +47,7 @@
   "limits_note": "not stated",
   "identity_cost": {
     "kind": "email",
-    "detail": null,
+    "detail": "an email address, or a Google or GitHub account: the dashboard sign-in lists an email provider beside Google and GitHub. The free key needs no card: 'sign up to get a free key, no credit card required', and the docs state 'Unlock your free welcome credits. No credit card required.' The phone requirement is not published on https://app.smooth.sh/api/auth/providers. Country: not published on https://app.smooth.sh/api/auth/providers.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -84,10 +84,31 @@
       "proved": "the docs name Python and TypeScript SDKs",
       "capture": "sha256:07ad39112a3109fb8a9750572e56ca99038383f5e2568d860831af72ef0f852f",
       "quote": "Smooth has both a Python and a Typescript SDK."
+    },
+    {
+      "url": "https://docs.smooth.sh/quickstart",
+      "date": "2026-11-04",
+      "proved": "a free API key for an account needs no credit card",
+      "capture": "sha256:07ad39112a3109fb8a9750572e56ca99038383f5e2568d860831af72ef0f852f",
+      "quote": "Unlock your free welcome credits. No credit card required."
+    },
+    {
+      "url": "https://app.smooth.sh/api/auth/providers",
+      "date": "2026-11-06",
+      "proved": "the dashboard sign-in offers an email provider beside Google and GitHub",
+      "capture": "sha256:2ae423831ea8b8bc05c4995ded7f2a0a064d61b393bce1129558d72fa77558d8",
+      "quote": "{\"email\":{\"id\":\"email\",\"name\":\"Email\",\"type\":\"email\",\"signinUrl\":\"https://app.smooth.sh/api/auth/signin/email\""
+    },
+    {
+      "url": "https://www.smooth.sh/",
+      "date": "2026-11-06",
+      "proved": "a free key needs no credit card",
+      "capture": "sha256:2c6224ccaec03359e3b0276f95e9abc8d9cae1d08fceb330c145fd53dda921f0",
+      "quote": "sign up to get a free key, no credit card required"
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-04T10:36:15.608Z",
+  "verified_at": "2026-11-06T17:42:10.984Z",
   "price_per_tb_month": null,
   "notes": "",
   "extras": {

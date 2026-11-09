@@ -37,7 +37,7 @@
   ],
   "interface_detail": "Root SSH on Debian 12.",
   "tooling": "ssh, wg-quick, nftables",
-  "chaining": "WG over the IPv6 SLAAC address would avoid the NAT port allocation entirely, if a user's network has IPv6.",
+  "chaining": "WG over the IPv6 SLAAC address would avoid the NAT port allocation entirely, if the local network has IPv6.",
   "limits": [
     {
       "kind": "volume-quota",

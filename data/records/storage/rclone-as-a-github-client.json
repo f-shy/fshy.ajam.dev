@@ -5,7 +5,7 @@
   "url": null,
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "No GitHub/Gist/Releases backend exists — verified by listing rclone's backend directory (alias, archive, azureblob, b2, ... s3, sftp, webdav, yandex, zoho; nothing for github). Any…",
+    "stated": "none reachable: No GitHub/Gist/Releases backend exists — verified by listing rclone's backend directory (alias, archive, azureblob, b2, ... s3, sftp, webdav, yandex, zoho; nothing for github). Any…",
     "unit": "none",
     "metered_on": "none",
     "source_url": null,

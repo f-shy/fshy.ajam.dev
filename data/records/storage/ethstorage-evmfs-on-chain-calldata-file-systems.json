@@ -5,7 +5,7 @@
   "url": "https://chainscorelabs.com/da",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Real systems (EthStorage mainnet chain 333, FlatDirectory contracts; EVMFS 20 KB chunks per call) but pricing is per-calldata-byte. Calldata is $11.01/MB live — 10 TiB would be ~$115…",
+    "stated": "none reachable: Real systems (EthStorage mainnet chain 333, FlatDirectory contracts; EVMFS 20 KB chunks per call) but pricing is per-calldata-byte. Calldata is $11.01/MB live — 10 TiB would be ~$115…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://chainscorelabs.com/da",

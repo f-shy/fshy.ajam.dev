@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "a daily 30-credit allowance plus a free runner is a slow synthetic image feed, and it composes with a free vector tool because Recraft generates SVG natively. What breaks: the ownership term at the free tier, which makes the outputs unusable as a training set a user owns, and the public gallery, which exposes every prompt.",
+  "chaining": "a daily 30-credit allowance plus a free runner is a slow synthetic image feed, and it composes with a free vector tool because Recraft generates SVG natively. What breaks: the ownership term at the free tier, which makes the outputs unusable as an owned training set, and the public gallery, which exposes every prompt.",
   "limits": [
     {
       "kind": "request-rate",

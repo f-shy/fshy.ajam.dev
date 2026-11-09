@@ -69,10 +69,31 @@
       "url": "https://inet.ws/vps/",
       "date": "2026-10-22",
       "proved": "the account terms quoted: \"In some instances, outbound traffic to the SMTP port may be blocked for new accounts\"; \"Weekly backup for free\", automatic daily backups at \"a 20% higher base monthly fee\"; stopped instances \"continue to reserve dedicated system resources (RAM, SSD storage, IP aliases, vCPU)\"; \"We utilize KVM virtualization on all of our infrastructure.\""
+    },
+    {
+      "url": "https://vpspricetracker.com/provider/Inet_ws/vps",
+      "date": "2026-11-07",
+      "proved": "the tracker's cheapest Inet.ws row is USD 4.00 a month",
+      "capture": "sha256:7da801eb01bad24ca3efeb2522402c6f72e5d9caa80f2fbd8140691d0df9ecf7",
+      "quote": "starting at $4.00 per month"
+    },
+    {
+      "url": "https://vpspricetracker.com/provider/Inet_ws/vps",
+      "date": "2026-11-07",
+      "proved": "the tracker's rows print monthly prices only, no renewal price",
+      "capture": "sha256:7da801eb01bad24ca3efeb2522402c6f72e5d9caa80f2fbd8140691d0df9ecf7",
+      "quote": "starting at $4.00 per month"
+    },
+    {
+      "url": "https://vpspricetracker.com/provider/Inet_ws/vps",
+      "date": "2026-11-07",
+      "proved": "the tracker's cheapest row is as the record states",
+      "capture": "sha256:7da801eb01bad24ca3efeb2522402c6f72e5d9caa80f2fbd8140691d0df9ecf7",
+      "quote": "starting at $4.00 per month"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T14:17:07.273Z",
   "notes": "Price is tracker-only: inet.ws/pricing answered a 404 (\"Page not found\"), and inet.ws/vps/ answered 200 but rendered its FAQ without the plan table, so the USD 4.00 is reported. The FAQ facts are documented and are the useful part of this record: the throttle, the SMTP block on new accounts, and the free weekly backup. Payment methods stated on the site are Visa, Mastercard, American Express, JCB, Discover, Diners, China UnionPay, bank transfer and PayPal, which says nothing about what registration requires.",
   "extras": {
     "facets": {
@@ -85,6 +106,8 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "price_on_page": "USD 4.00/month for the entry Linux VPS (2,048 MB RAM, 30 GB SSD)",
+    "renewal_note": "not published; the vendor's own order path is walled (Cloudflare challenge on every route, read 2026-11-07)"
   }
 }

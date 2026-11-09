@@ -5,7 +5,7 @@
   "url": "https://developers.cloudflare.com/hyperdrive/platform/pricing/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Not a store — it is a connection pooler/cache in front of YOUR origin database. It carries no storage of its own, so it adds nothing to the byte budget. Its 100,000 queries/day free quota…",
+    "stated": "none reachable: Not a store — it is a connection pooler/cache in front of YOUR origin database. It carries no storage of its own, so it adds nothing to the byte budget. Its 100,000 queries/day free quota…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://developers.cloudflare.com/hyperdrive/platform/pricing/",

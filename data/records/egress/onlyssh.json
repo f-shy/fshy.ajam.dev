@@ -41,7 +41,7 @@
   "limits": [],
   "limits_note": "",
   "binding": "none",
-  "binding_note": "Nothing binds because the offer is not ingress: there is no public address and port that reaches a service a user runs.",
+  "binding_note": "Nothing binds because the offer is not ingress: there is no public address and port that reaches a service run locally.",
   "identity_cost": {
     "kind": "anonymous",
     "detail": "an account is issued per server country through the site",
@@ -63,7 +63,7 @@
   "notes": "This is the shape most search results for free UDP tunnels return: a proxy account for reaching the internet, not a relay that reaches you. The distinction is the whole point.",
   "extras": {
     "wg_path": "none",
-    "wg_detail": "the product is a QUIC-based proxy account (VLESS and VMess endpoints), which is a client-side outbound proxy, not a public port forwarded to a service a user runs",
+    "wg_detail": "the product is a QUIC-based proxy account (VLESS and VMess endpoints), which is a client-side outbound proxy, not a public port forwarded to a service run locally",
     "ingress": "none",
     "volume_tib_month": null,
     "volume_stated": "no allowance is published on the selection page; the service hands out per-country proxy accounts",

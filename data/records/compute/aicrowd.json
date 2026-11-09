@@ -49,7 +49,7 @@
   "binding_note": "the gate is a qualifying leaderboard submission before the credit round closes: a team must first beat a published baseline, then wait 7 to 14 days for manual verification, and credits are first come first served, so the pool can close before a slow entrant applies.",
   "identity_cost": {
     "kind": "email",
-    "detail": "unverified: no page stating the signup requirement was read; the record's evidence covers the USD 100 sponsor credit and its first-come-first-served allocation, the baseline-submission eligibility rule and the manual verification of a submitted score against the leaderboard, and states nothing about an email, phone, card or ID document",
+    "detail": "an AIcrowd account: 'Such information includes your email and username (display name), which are required for creating an Account'. The sign-up form asks for a full name, a username, an email address and a password, and no payment detail. The account is also the delivery address for the credits: 'If approved, your credit code and redemption instructions will be sent to the AIcrowd linked email you provided in the form.' The phone requirement is not published on https://www.aicrowd.com/participants/sign_up.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -64,10 +64,24 @@
       "url": "https://www.aicrowd.com/challenges/orak-game-agent-challenge-2025",
       "date": "2026-10-22",
       "proved": "the challenge page links 'Claim compute credits to improve your solution' and names two tracks with a separate 'sponsored credit pool'; the cash prize structure is separate from the credits; page 200"
+    },
+    {
+      "url": "https://design.aicrowd.com/pages/privacy-policy",
+      "date": "2026-11-04",
+      "proved": "an AIcrowd account requires an email address and a username",
+      "capture": "sha256:14f11959c1bac19f004ce0ad06cecd2b8b34bcf8b916ccbfdeb64038cf4535e4",
+      "quote": "Such information includes your email and username (display name), which are required for creating an Account"
+    },
+    {
+      "url": "https://www.aicrowd.com/participants/sign_up",
+      "date": "2026-11-06",
+      "proved": "the sign-up form takes an email address, a username and a password and no payment detail",
+      "capture": "sha256:283be41852956ce3d03fc6776fc19374d5b5bea150279bf8c8ffe17479aec47c",
+      "quote": "type=\"text\" name=\"participant[user_email]\""
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-06T17:42:10.985Z",
   "notes": "The smallest credit and the most repeatable: AIcrowd runs several credit-backed challenges a year with the same claim-form pattern. Three explanations for the size were considered: a fixed marketing budget per team, anti-farming through the baseline requirement, and platform economics. The page states the second explicitly and is silent on the other two. What would change the verdict is the additional round, quoted: 'If credits remain in the middle of the competition, we will open an additional round for extra credit applications', which did not appear on the page read.",
   "extras": {
     "facets": {

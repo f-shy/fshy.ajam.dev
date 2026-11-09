@@ -5,7 +5,7 @@
   "url": "https://powderwireless.net/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "A city-scale wireless/5G testbed (shuttles, indoor over-the-air lab, ORAN stack). The resource is radios and mobility, not disk; there is no multi-TB storage allocation and the experiments…",
+    "stated": "none reachable: A city-scale wireless/5G testbed (shuttles, indoor over-the-air lab, ORAN stack). The resource is radios and mobility, not disk; there is no multi-TB storage allocation and the experiments…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://powderwireless.net/",

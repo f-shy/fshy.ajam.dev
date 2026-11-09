@@ -5,12 +5,12 @@
   "url": "https://developer.agiopen.org/docs/pricing",
   "category": "computer-use model API",
   "free_tier": {
-    "stated": "unverified: the vendor pricing path returns 404 and no free-credit amount is stated on a readable first-party page",
+    "stated": "the console states free credits to get started with no amount published; the console prices input tokens at USD 0.10 and output tokens at USD 0.90 per 1M",
     "unit": "none",
     "metered_on": "wall-clock",
     "source_url": "https://developer.agiopen.org/docs/pricing",
     "read_on": "2026-10-02",
-    "notes": null
+    "notes": "not published"
   },
   "per_object_cap": {
     "stated": "not stated",
@@ -22,7 +22,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://developer.agiopen.org/docs/pricing",
-    "notes": "not stated"
+    "notes": "durability of the sandbox disk on stop and on delete is not published"
   },
   "egress": {
     "terms": "not stated",
@@ -32,21 +32,21 @@
     "source_url": "https://developer.agiopen.org/docs/pricing"
   },
   "interface": [
-    "unknown"
+    "rest"
   ],
-  "interface_detail": null,
-  "tooling": "not stated",
-  "chaining": "not stated",
+  "interface_detail": "OpenAI-compatible /v1/chat/completions endpoint at api.agiopen.org, documented in the console's OpenAPI bundle",
+  "tooling": "not published",
+  "chaining": "not established; the console prices input and output tokens (USD 0.10 per 1M input, USD 0.90 per 1M output) and names no route into another offer",
   "limits": [],
   "limits_note": "not stated",
   "identity_cost": {
     "kind": "email",
-    "detail": null,
+    "detail": "email: an account is required for certain features ('you may be required to create a Lux Account') and holds 'a username; a password; an email address or phone number and your preferred language', so an email address or a phone number is the gate. Phone: not required: the account accepts 'an email address or phone number'. Country: not published: the terms state no country requirement at registration.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "unverified",
-  "confidence_note": null,
+  "confidence_note": "The rung stays unverified because the free tier is what the verdict rests on and it is not established",
   "evidence": [
     {
       "url": "https://developer.agiopen.org/docs/pricing",
@@ -85,12 +85,89 @@
       "proved": "the developer console documents Lux from OpenAGI, unchanged",
       "capture": "sha256:99b0bc46b652781a294134d6c7860311b604b790bf21fca11e25364673349a87",
       "quote": "Lux is an AI model that operates computers like a human."
+    },
+    {
+      "url": "https://agiopen.org/privacy",
+      "date": "2026-11-04",
+      "proved": "an account is created with a username, a password and an email address or phone number",
+      "capture": "sha256:08270e76e96f964230b1ee771517be6fb01a51650b8e16a4d6780bddfefe8a08",
+      "quote": "a username; a password; an email address or phone number and your preferred language"
+    },
+    {
+      "url": "https://agiopen.org/terms",
+      "date": "2026-11-04",
+      "proved": "the terms make an account a condition of using the service",
+      "capture": "sha256:6daedeff92886bbe7075ab5879500ef3aa5621eaa1ad970726b89d8363994237",
+      "quote": "you may be required to create a Lux Account"
+    },
+    {
+      "url": "https://agiopen.org/terms",
+      "date": "2026-11-04",
+      "proved": "no institution or enterprise route exists, so the gate is an individual account",
+      "capture": "sha256:6daedeff92886bbe7075ab5879500ef3aa5621eaa1ad970726b89d8363994237",
+      "quote": "At present, Lux provides only individual developer accounts and does not offer enterprise accounts"
+    },
+    {
+      "url": "probe:https://developer.agiopen.org/docs/pricing",
+      "date": "2026-11-04",
+      "proved": "no pricing document exists at the vendor's pricing path, so no free-credit amount can be read there",
+      "capture": "sha256:56e73929ca660cb7267199e137c8756887a643209f52aedba3a57cb7c5522419",
+      "quote": "\"status\": 404"
+    },
+    {
+      "url": "https://agiopen.org/privacy",
+      "date": "2026-11-04",
+      "proved": "the account gate is an email address or a phone number, and the email kind holds",
+      "capture": "sha256:08270e76e96f964230b1ee771517be6fb01a51650b8e16a4d6780bddfefe8a08",
+      "quote": "a username; a password; an email address or phone number and your preferred language"
+    },
+    {
+      "url": "https://agiopen.org/privacy",
+      "date": "2026-11-06",
+      "proved": "an account holds an email address or a phone number, and a card is required only to buy paid Services",
+      "capture": "sha256:08270e76e96f964230b1ee771517be6fb01a51650b8e16a4d6780bddfefe8a08",
+      "quote": "a username; a password; an email address or phone number and your preferred language"
+    },
+    {
+      "url": "https://developer.agiopen.org/assets/index-BVU6vPQ6.js",
+      "date": "2026-11-07",
+      "proved": "the console offers free credits to get started and states no amount",
+      "capture": "sha256:c1cc99c37b50f7ea6abdea7bff496dad7ff8ab967209a571aba4dcdb314dc006",
+      "quote": "Your API key provides access to Lux foundation models and includes free credits to get started."
+    },
+    {
+      "url": "https://developer.agiopen.org/assets/index-BVU6vPQ6.js",
+      "date": "2026-11-07",
+      "proved": "the API is an OpenAI-compatible REST endpoint",
+      "capture": "sha256:c1cc99c37b50f7ea6abdea7bff496dad7ff8ab967209a571aba4dcdb314dc006",
+      "quote": "description:\"Using the OpenAI-compatible chat completions endpoint for computer use\""
+    },
+    {
+      "url": "https://developer.agiopen.org/assets/index-BVU6vPQ6.js",
+      "date": "2026-11-07",
+      "proved": "the production server is api.agiopen.org",
+      "capture": "sha256:c1cc99c37b50f7ea6abdea7bff496dad7ff8ab967209a571aba4dcdb314dc006",
+      "quote": "url:\"https://api.agiopen.org\",description:\"Production server\""
+    },
+    {
+      "url": "https://developer.agiopen.org/assets/index-BVU6vPQ6.js",
+      "date": "2026-11-07",
+      "proved": "the console prices tokens, not machines",
+      "capture": "sha256:c1cc99c37b50f7ea6abdea7bff496dad7ff8ab967209a571aba4dcdb314dc006",
+      "quote": "e.strong,{children:\"Input tokens\"})}),n.jsx(e.td,{children:\"$0.10 / 1M tokens\"})]}),n.jsxs(e.tr,{children:[n.jsx(e.td,{children:n.jsx(e.strong,{children:\"Output tokens\"})}),n.jsx(e.td,{children:\"$0.90 / 1M tokens\"})"
+    },
+    {
+      "url": "https://developer.agiopen.org/assets/index-BVU6vPQ6.js",
+      "date": "2026-11-07",
+      "proved": "the offer is a computer-use model API",
+      "capture": "sha256:c1cc99c37b50f7ea6abdea7bff496dad7ff8ab967209a571aba4dcdb314dc006",
+      "quote": "operates computers like a human. It views the screen, understands natural language goals, and outputs actions (clicks, typing, scrolling) to complete tasks across any application."
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-28T04:48:00.559Z",
+  "verified_at": "2026-11-07T00:31:33.900Z",
   "price_per_tb_month": null,
-  "notes": "Do not call the provider dead on this alone.",
+  "notes": "The pricing document is a 404 with no body, which is the one case where a 404 is not evidence of a withdrawal: AGI Open's docs live under a path that may have moved, and no replacement path was found. Do not call the provider dead on this alone.",
   "extras": {
     "keep_rate": null,
     "keep_rate_basis": "no field in the source",

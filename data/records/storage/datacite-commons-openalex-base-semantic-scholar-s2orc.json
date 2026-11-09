@@ -5,7 +5,7 @@
   "url": "https://casrai.org/guides/datacite-commons-searching-pid-graph",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "All four are discovery/index layers with zero writable storage. DataCite Commons is the PID graph over DOIs; OpenAlex and BASE are harvesters; S2ORC bulk access is per-release S3 partitions",
+    "stated": "none reachable: All four are discovery/index layers with zero writable storage. DataCite Commons is the PID graph over DOIs; OpenAlex and BASE are harvesters; S2ORC bulk access is per-release S3 partitions",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://casrai.org/guides/datacite-commons-searching-pid-graph",

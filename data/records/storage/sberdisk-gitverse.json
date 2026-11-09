@@ -5,7 +5,7 @@
   "url": "https://gitverse.ru/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Both authenticate through Sber ID, which is phone+SMS ('Введите свой номер телефона... или отсканируйте QR-код в приложении Сбербанк Онлайн'), and GitVerse's own sign-in endpoint answers…",
+    "stated": "none reachable: Both authenticate through Sber ID, which is phone+SMS ('Введите свой номер телефона... или отсканируйте QR-код в приложении Сбербанк Онлайн'), and GitVerse's own sign-in endpoint answers…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://gitverse.ru/",

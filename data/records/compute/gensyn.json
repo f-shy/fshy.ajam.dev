@@ -36,17 +36,17 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "None. Gensyn is a market for selling compute, not buying it, and it has no live swarm. A chain that includes Gensyn would need a user to own the GPU.",
+  "chaining": "None. Gensyn is a market for selling compute, not buying it, and it has no live swarm. A chain that includes Gensyn would need a GPU already in place.",
   "limits": [
     {
       "kind": "write-gated",
-      "value": "The direction is inverted: Gensyn pays suppliers who bring hardware, so it consumes the one thing a user does not have. Even as a supplier lane it fails first on the 32 GB RAM or supported-GPU floor, then on 'no official swarms running right now'.",
+      "value": "The direction is inverted: Gensyn pays suppliers who bring hardware, so it consumes hardware rather than supplying it. Even as a supplier lane it fails first on the 32 GB RAM or supported-GPU floor, then on 'no official swarms running right now'.",
       "source": "https://docs.gensyn.ai/testnet/rl-swarm/getting-started"
     }
   ],
-  "limits_note": "The direction is inverted: Gensyn pays suppliers who bring hardware, so it consumes the one thing a user does not have. Even as a supplier lane it fails first on the 32 GB RAM or supported-GPU floor, then on 'no official swarms running right now'.",
+  "limits_note": "The direction is inverted: Gensyn pays suppliers who bring hardware, so it consumes hardware rather than supplying it. Even as a supplier lane it fails first on the 32 GB RAM or supported-GPU floor, then on 'no official swarms running right now'.",
   "binding": "write-gated",
-  "binding_note": "The direction is inverted: Gensyn pays suppliers who bring hardware, so it consumes the one thing a user does not have. Even as a supplier lane it fails first on the 32 GB RAM or supported-GPU floor, then on 'no official swarms running right now'.",
+  "binding_note": "The direction is inverted: Gensyn pays suppliers who bring hardware, so it consumes hardware rather than supplying it. Even as a supplier lane it fails first on the 32 GB RAM or supported-GPU floor, then on 'no official swarms running right now'.",
   "identity_cost": {
     "kind": "email",
     "detail": "a Hugging Face write token: the getting-started page is quoted as requiring 'a Hugging Face write token', which in turn implies a Hugging Face account that issues it. No card, hold, phone or ID is stated, and the email kind rests on that Hugging Face account rather than on a quoted signup form. Debit and prepaid do not arise because no payment method is mentioned. The 32 GB RAM or listed NVIDIA GPU requirement is a capacity gate, not an identity one.",

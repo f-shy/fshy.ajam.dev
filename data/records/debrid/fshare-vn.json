@@ -58,7 +58,7 @@
   ],
   "limits_note": "Fcode validity is short by construction: 12 hours for the 50 GB wallet-code bucket, 4 hours for the single SMS purchase.",
   "binding": "none",
-  "binding_note": "What stops an outside client is payment, recorded in identity_cost.",
+  "binding_note": "At 1 TiB/month the requirement is 34 GB/day and the VIP allowance is 300 GB/day, so no throughput constraint binds. What stops a registrant outside the country is payment, recorded in identity_cost.",
   "identity_cost": {
     "kind": "country-phone",
     "detail": "Every published rail is Vietnamese: 'Mua Fcode bằng MoMo/ShopeePay/FPT Pay/VNPAY' or SMS 'FCODE gửi 8700 (Áp dụng cho các mạng Viettel, Mobifone, Vinaphone)'; VIP is also sold by domestic bank transfer to a named account. No card, PayPal or crypto rail appears on the Fcode or VIP pages.",

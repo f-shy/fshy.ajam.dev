@@ -26,7 +26,7 @@
     "notes": ""
   },
   "egress": {
-    "terms": "No traffic of its own: each result is a share link on the pan that holds the file, so the pan's egress terms apply once the client opens it.",
+    "terms": "No traffic of its own: each result is a share link on the pan that holds the file, so the pan's egress terms apply once the link is opened.",
     "metered": false,
     "free_allowance": null,
     "price_per_tb": null,
@@ -36,7 +36,7 @@
     "rest"
   ],
   "interface_detail": "HTTP GET /search?q=... returns an HTML page of share links; no JSON endpoint was found.",
-  "tooling": "Browser. Results are pan share links with extraction codes, so a user still needs a way to open them (a pan account or a 代下).",
+  "tooling": "Browser. Results are pan share links with extraction codes, so a way to open them is still needed (a pan account or a 代下).",
   "chaining": "The discovery half of retrieval: this is where a share link comes from, and every result it returns is subject to the identity wall of the pan behind it.",
   "limits": [
     {
@@ -82,5 +82,5 @@
     ]
   },
   "binding": "none",
-  "binding_note": "No quota of its own; the pan behind each link is what a user meets next."
+  "binding_note": "No quota of its own; the pan behind each link is what comes next."
 }

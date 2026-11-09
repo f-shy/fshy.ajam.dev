@@ -5,7 +5,7 @@
   "url": "https://vercel.com/docs/storage/edge-config/edge-config-limits",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Renamed to Global Config, and the Free limits are absurd for storage: 'Maximum store size / 1 MB' and 'Maximum number of stores (total) / 1' on Hobby. One megabyte. This is a feature-flag…",
+    "stated": "none reachable: Renamed to Global Config, and the Free limits are absurd for storage: 'Maximum store size / 1 MB' and 'Maximum number of stores (total) / 1' on Hobby. One megabyte. This is a feature-flag…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://vercel.com/docs/storage/edge-config/edge-config-limits",

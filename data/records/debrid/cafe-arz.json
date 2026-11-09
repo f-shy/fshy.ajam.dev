@@ -26,7 +26,7 @@
     "notes": ""
   },
   "egress": {
-    "terms": null,
+    "terms": "not applicable: the firm pays a foreign merchant, it does not carry the traffic.",
     "metered": false,
     "free_allowance": null,
     "price_per_tb": null,
@@ -53,7 +53,7 @@
     "detail": "A customer account with the firm. Iranian exchange businesses normally verify identity, but the KYC fields were not read here, so the tier is recorded as email and flagged as probably higher.",
     "country": "Iran"
   },
-  "reliability_note": "A user's subscription depends on the intermediary's own foreign accounts staying open; when an intermediary loses its settlement path, every subscription it paid for lapses at once.",
+  "reliability_note": "The subscription depends on the intermediary's own foreign accounts staying open; when an intermediary loses its settlement path, every subscription it paid for lapses at once.",
   "confidence": "documented",
   "confidence_note": "The article's statement of the problem and the existence of the subscription service were read. Fees, settlement time and the identity fields are unread, so the record documents the rail's existence rather than its price.",
   "evidence": [

@@ -5,7 +5,7 @@
   "url": "https://web.archive.org/web/202506/osdn.net/docs/FileRelease_Guide",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The SourceForge-Japan equivalent — would have been the obvious sibling candidate — is gone. DNS does not resolve (probe: Could not resolve host: osdn.net), read/fetch both 530, and the last",
+    "stated": "none reachable: The SourceForge-Japan equivalent — would have been the obvious sibling candidate — is gone. DNS does not resolve (probe: Could not resolve host: osdn.net), read/fetch both 530, and the last",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://web.archive.org/web/202506/osdn.net/docs/FileRelease_Guide",

@@ -49,7 +49,7 @@
   "binding_note": "The Activate Provider Org ID fails first: without a VC or accelerator that is a registered provider, no application can be submitted at all.",
   "identity_cost": {
     "kind": "institution",
-    "detail": "Requires an Organizational ID issued by an Activate Provider, which is a VC, accelerator or startup organization. That is an investor relationship, not a document a user can produce alone.",
+    "detail": "Requires an Organizational ID issued by an Activate Provider, which is a VC, accelerator or startup organization. That is an investor relationship, not a document a registrant can produce.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",

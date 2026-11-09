@@ -5,7 +5,7 @@
   "url": "https://help.wekeo.eu/en/articles/17674494-wekeo-account-features",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Free account gives 'up to 20 GB of storage in your home directory' on JupyterHub. The larger Innovation Lab tier is a competitive call, not a quota.",
+    "stated": "none reachable: Free account gives 'up to 20 GB of storage in your home directory' on JupyterHub. The larger Innovation Lab tier is a competitive call, not a quota.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://help.wekeo.eu/en/articles/17674494-wekeo-account-features",

@@ -32,7 +32,7 @@
     "unknown"
   ],
   "tooling": "none. iCloud Drive for Managed Apple Accounts is reachable only through iCloud for Windows, the web app, or a managed device: there is no CloudKit-for-drive path and no WebDAV. This is the blocker, not the quota",
-  "chaining": "200 GB times N accounts, where every account needs a school. Since no programmatic read path exists, the capacity cannot enter any stack a user runs",
+  "chaining": "200 GB times N accounts, where every account needs a school. Since no programmatic read path exists, the capacity cannot enter any programmatic stack",
   "limits": [
     {
       "kind": "write-gated",
@@ -45,7 +45,7 @@
     "detail": "an institution enrolled in Apple School Manager. The docs state Managed Apple IDs are created and owned by the school",
     "country": "any Apple School Manager country"
   },
-  "reliability_note": "The account is owned by the institution, so the bytes are not yours and do not survive leaving it.",
+  "reliability_note": "The account is owned by the institution, so the bytes are not yours and do not survive leaving it. 200 GB is also below a 500 GB threshold unless multiplied, and no API exists to multiply it with",
   "confidence": "reported",
   "evidence": [
     {
@@ -103,7 +103,7 @@
   "verified_at": "2026-11-04T00:20:56.366Z",
   "binding": "write-gated",
   "binding_note": "The quota is real and 200 GB is respectable, but the account belongs to a school and the interface list is empty. Either the identity gate or the absent API would stop it alone.",
-  "notes": "A faculty member could obtain this; a user cannot, and even with a school the bytes are not portable.",
+  "notes": "A faculty member could obtain this; an individual registrant cannot, and even with a school the bytes are not portable.",
   "extras": {
     "access_mode": "institution",
     "api": "none",

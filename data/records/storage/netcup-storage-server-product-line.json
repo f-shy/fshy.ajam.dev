@@ -5,7 +5,7 @@
   "url": "https://www.netcup.com/en/server/virtual-server-storage",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The product page exists and advertises '1 GB storage space for less than 0.007 Euro per month including VAT, traffic and RAID level' (= ~€7.17/TB) but publishes no plan table, no tier…",
+    "stated": "none reachable: The product page exists and advertises '1 GB storage space for less than 0.007 Euro per month including VAT, traffic and RAID level' (= ~€7.17/TB) but publishes no plan table, no tier…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.netcup.com/en/server/virtual-server-storage",

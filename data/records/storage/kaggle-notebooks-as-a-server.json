@@ -5,7 +5,7 @@
   "url": "https://www.kaggle.com/docs/notebooks",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "No inbound networking and no port exposure — Kaggle notebooks cannot listen for HTTP. The storage story (20 GB /kaggle/working + 200 GB datasets) is real, the CDN-origin story is not. Split",
+    "stated": "none reachable: No inbound networking and no port exposure — Kaggle notebooks cannot listen for HTTP. The storage story (20 GB /kaggle/working + 200 GB datasets) is real, the CDN-origin story is not. Split",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.kaggle.com/docs/notebooks",

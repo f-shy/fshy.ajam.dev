@@ -5,7 +5,7 @@
   "url": "https://hackage.haskell.org/upload",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "No documented size limit and no documented quota — could not establish any number from the upload page, the FAQ, or the server source the upload handler has no size guard visible in…",
+    "stated": "none reachable: No documented size limit and no documented quota — could not establish any number from the upload page, the FAQ, or the server source (the upload handler has no size guard visible in…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://hackage.haskell.org/upload",

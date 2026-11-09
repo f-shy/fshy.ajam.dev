@@ -59,7 +59,7 @@
   "binding_note": null,
   "identity_cost": {
     "kind": "institution",
-    "detail": "No card - 'No credit card required' - but the registration form at client.vpswala.org/register.php requires 'First Name *', 'Last Name *', 'Email Address', 'Street Address *', 'City *', 'State/Region *', 'Postcode *', a country and a password, with company name and phone present. A verification gate of '.edu or .ac email, a linked GitHub profile, or a company email' is advertised on the Hindi page. A GitHub profile is producible by a user, so the gate is passable; the obstacle is that passing it did not produce a machine for the reporters. Nothing was signed up for.",
+    "detail": "No card - 'No credit card required' - but the registration form at client.vpswala.org/register.php requires 'First Name *', 'Last Name *', 'Email Address', 'Street Address *', 'City *', 'State/Region *', 'Postcode *', a country and a password, with company name and phone present. A verification gate of '.edu or .ac email, a linked GitHub profile, or a company email' is advertised on the Hindi page. A GitHub profile is producible, so the gate is passable; the obstacle is that passing it did not produce a machine for the reporters. Nothing was signed up for.",
     "country": null
   },
   "reliability_note": "no server was ever observed to exist. A hands-on account reports the order and the ticket both 'pending' after almost three weeks; a forum account reports an instance that cannot be logged into; two Trustpilot reviewers in 2026 report no VPS and a redirect to a Kamatera affiliate link; and the LowEndTalk list of data-harvesting free-VPS providers names vpswala.org.",

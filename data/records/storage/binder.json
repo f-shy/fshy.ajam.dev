@@ -5,7 +5,7 @@
   "url": "https://mybinder.readthedocs.io/en/latest/about/user-guidelines.html",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Explicitly no persistence of any kind, and egress is throttled to ~1 mbit per session to stop it being used as a DDoS vector. Sessions die after 10 min idle / 6 h max, 1-2 GB RAM. A pure…",
+    "stated": "none reachable: Explicitly no persistence of any kind, and egress is throttled to ~1 mbit per session to stop it being used as a DDoS vector. Sessions die after 10 min idle / 6 h max, 1-2 GB RAM. A pure…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://mybinder.readthedocs.io/en/latest/about/user-guidelines.html",

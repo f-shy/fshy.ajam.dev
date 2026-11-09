@@ -46,7 +46,7 @@
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "unverified",
-  "confidence_note": "The sale page was read and its prices are quoted. The cart was not readable, so the price at checkout is unverified rather than confirmed. The record's weakest field is the cart, which makes it unverified.",
+  "confidence_note": "The sale page was read on 2026-11-06 and its prices are quoted. The cart is still unreadable: the deploy route answers 200 with 2,006 bytes and no price string, so the price at checkout is unverified rather than confirmed. The weakest field is the cart, which keeps the record unverified.",
   "evidence": [
     {
       "url": "https://www.hostodo.com/black-friday-2025",
@@ -67,10 +67,45 @@
       "url": "https://www.hostodo.com/black-friday",
       "date": "2026-10-24",
       "proved": "redirects to /black-friday-2025, so the short path is the same page"
+    },
+    {
+      "url": "https://www.hostodo.com/black-friday-2025",
+      "date": "2026-11-06",
+      "proved": "the 1 GB tier is still USD 12 a year on the live sale page",
+      "capture": "sha256:a302cce7c26c0259dee6a4c9c36db11a3aca3d062b490a1d99f61d22c254fca6",
+      "quote": "$12/year"
+    },
+    {
+      "url": "https://www.hostodo.com/black-friday-2025",
+      "date": "2026-11-06",
+      "proved": "the 1 GB tier still carries 3 TB a month at 1 Gbit/s",
+      "capture": "sha256:a302cce7c26c0259dee6a4c9c36db11a3aca3d062b490a1d99f61d22c254fca6",
+      "quote": "3TB @ 1Gbit/s"
+    },
+    {
+      "url": "https://www.hostodo.com/black-friday-2025",
+      "date": "2026-11-06",
+      "proved": "the sale page still lists the accepted payment methods, a card among them",
+      "capture": "sha256:a302cce7c26c0259dee6a4c9c36db11a3aca3d062b490a1d99f61d22c254fca6",
+      "quote": "Credit Card, PayPal, AliPay, and Crypto Accepted"
+    },
+    {
+      "url": "probe:https://console.hostodo.com/instances/deploy/DET01/2025BF-1G20G1C",
+      "date": "2026-11-06",
+      "proved": "the deploy route answers 200 with 2,006 bytes and no price string, the same answer the record's 2026-10-24 probe got, so the cart still cannot be read without an account",
+      "capture": "sha256:a01458ed4a8a080ce0062b6b3af96a8739fb7b764de85049d9d6b9bbdf08ad7d",
+      "quote": "\"verdict\": \"no-price\""
+    },
+    {
+      "url": "probe:https://console.hostodo.com/instances/deploy/DET01/2025BF-1G20G1C",
+      "date": "2026-11-06",
+      "proved": "the cart still returns no price, which is the caveat the verdict rests on",
+      "capture": "sha256:a01458ed4a8a080ce0062b6b3af96a8739fb7b764de85049d9d6b9bbdf08ad7d",
+      "quote": "\"verdict\": \"no-price\""
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-24T06:20:13.000Z",
+  "verified_at": "2026-11-06T15:56:55.347Z",
   "price_per_tb_month": null,
   "notes": "The sale page is live, dated 2025 and priced, and the order links are real console routes, but the console is a client-rendered app: the deploy URL returns the same 2,006 bytes for a valid plan code and a made-up one, so nothing about price or stock can be read without signing in. That control is the reason this row is unverified rather than a finding - without it the HTTP 200 would have looked like a working cart. Does not create accounts. The verdict is qualifies-with-caveat rather than dead because the page and its prices are first-party and current; it is not qualifies because nothing confirms the cart still charges them.",
   "extras": {

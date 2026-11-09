@@ -5,7 +5,7 @@
   "url": "https://docs.deno.com/deploy/pricing_and_limits/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The deployment bundle cap is 1 GB for ALL files in a deployment: 'the total size of all files within the deployment (source files and static files) should not exceed 1 gigabyte.' 'Revision…",
+    "stated": "none reachable: The deployment bundle cap is 1 GB for ALL files in a deployment: 'the total size of all files within the deployment (source files and static files) should not exceed 1 gigabyte.' 'Revision…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.deno.com/deploy/pricing_and_limits/",

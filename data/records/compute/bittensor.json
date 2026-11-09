@@ -40,13 +40,13 @@
   "limits": [
     {
       "kind": "write-gated",
-      "value": "There is no free lane: a subnet slot costs 605.7 TAO at the 2026-10-22 chain state, and mining needs a GPU a user does not own, so capital fails before identity does.",
+      "value": "There is no free lane: a subnet slot costs 605.7 TAO at the 2026-10-22 chain state, and mining needs a GPU, so capital fails before identity does.",
       "source": "https://www.bittensor.com/docs/tx/register-subnet"
     }
   ],
-  "limits_note": "There is no free lane: a subnet slot costs 605.7 TAO at the 2026-10-22 chain state, and mining needs a GPU a user does not own, so capital fails before identity does.",
+  "limits_note": "There is no free lane: a subnet slot costs 605.7 TAO at the 2026-10-22 chain state, and mining needs a GPU, so capital fails before identity does.",
   "binding": "write-gated",
-  "binding_note": "There is no free lane: a subnet slot costs 605.7 TAO at the 2026-10-22 chain state, and mining needs a GPU a user does not own, so capital fails before identity does.",
+  "binding_note": "There is no free lane: a subnet slot costs 605.7 TAO at the 2026-10-22 chain state, and mining needs a GPU, so capital fails before identity does.",
   "identity_cost": {
     "kind": "card",
     "detail": null,
@@ -79,11 +79,25 @@
       "url": "https://www.bittensor.com/docs/guides/mining/burn",
       "date": "2026-10-22",
       "proved": "miner burn clamped between min_burn 500,000 rao (0.0005 TAO) and max_burn 100 TAO, per subnet"
+    },
+    {
+      "url": "https://www.bittensor.com/docs/tx/register-subnet",
+      "date": "2026-11-06",
+      "proved": "the page is the register-subnet CLI reference: it prices subnet registration in TAO and lists no GPU card, no hourly GPU rate and no free GPU hours",
+      "capture": "sha256:338cf3cb666b3b86b63152a560f7a2095ed1b0894fc0a7142a5658d7e592c69e",
+      "quote": "The network registration cost — potentially thousands of TAO — is taken from the coldkey"
+    },
+    {
+      "url": "https://www.bittensor.com/docs/tx/register-subnet",
+      "date": "2026-11-06",
+      "proved": "the page is the subnet-registration reference and carries no GPU price table",
+      "capture": "sha256:338cf3cb666b3b86b63152a560f7a2095ed1b0894fc0a7142a5658d7e592c69e",
+      "quote": "Registers a brand-new subnet with the signing coldkey as its owner and the wallet's hotkey as the subnet-owner hotkey."
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "605.7 TAO at USD 256.94 is USD 155,629 for one subnet slot; the maximum miner burn of 100 TAO is USD 25,694 on the most contested subnet. The registration cost is a third-party chain read rather than a vendor page, so the dollar figure rests on a dashboard plus a price quote. Per-subnet emission rates were not read.",
+  "verified_at": "2026-11-06T18:41:34.653Z",
+  "notes": "605.7 TAO at USD 256.94 is USD 155,629 for one subnet slot; the maximum miner burn of 100 TAO is USD 25,694 on the most contested subnet. The registration cost is a third-party chain read rather than a vendor page, so the dollar figure rests on a dashboard plus a price quote. Per-subnet emission rates were not read. The page prices no GPU card: H100, A100 80GB, L40S, RTX 4090 and L4 are not listed, and it states no free or credit-backed GPU hours.",
   "extras": {
     "facets": {
       "class": "depin-marketplace",

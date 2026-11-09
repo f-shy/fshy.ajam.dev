@@ -73,7 +73,7 @@
   ],
   "verdict": "fails-identity",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "Third-party summaries publish two different ceilings, USD 100,000 from the rules and USD 60,000 from the launch announcement, and one describes a Latin America rollout tied to OPN membership. The separate Oracle for Startups offer of USD 500 in OCI credits plus a 70% discount is a different product and was not read on a vendor page.",
+  "notes": "Third-party summaries publish two different ceilings, USD 100,000 from the rules and USD 60,000 from the launch announcement, and one describes a Latin America rollout tied to OPN membership. The UK terms page states USD 5,000 to USD 60,000, so that is the number recorded, and the regional scope is unverified by country. The separate Oracle for Startups offer of USD 500 in OCI credits plus a 70% discount is a different product and was not read on a vendor page.",
   "extras": {
     "facets": {
       "class": "startup-credit",

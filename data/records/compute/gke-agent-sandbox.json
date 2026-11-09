@@ -19,7 +19,7 @@
     "notes": null
   },
   "retention": {
-    "stated": "not stated",
+    "stated": "suspending a sandbox deletes its Pod and keeps the Sandbox resource and its persistent volumes; in-memory data and container file system changes are lost unless a Pod snapshot is taken…",
     "days": null,
     "source_url": "https://cloud.google.com/kubernetes-engine/docs/concepts/agent-sandbox",
     "notes": "not stated"
@@ -35,7 +35,7 @@
     "cli"
   ],
   "interface_detail": "Agent Sandbox Python client on a GKE cluster (Autopilot or Standard); the cluster is created and managed with the Google Cloud console and Cloud Shell",
-  "tooling": "not stated",
+  "tooling": "the user installs the Agent Sandbox controller on a GKE cluster with kubectl and upgrades it; the Agent Sandbox Python client requests sandboxes from a pre-warmed pool",
   "chaining": "not stated",
   "limits": [
     {
@@ -51,8 +51,8 @@
     "country": null
   },
   "reliability_note": "no reliability event recorded",
-  "confidence": "unverified",
-  "confidence_note": "documented from first-party Google Cloud pages: the Agent Sandbox how-to (no extra charge), the Free Trial terms (USD 300, 90 days, payment method at signup) and the GKE pricing page (free tier); the earlier concept page URL is not found",
+  "confidence": "documented",
+  "confidence_note": "documented from first-party Google Cloud pages: the Agent Sandbox how-to (no extra charge, kubectl setup), the concept page (the controller is installed in the user's cluster and the user upgrades it), the GKE pricing page (the monthly free-tier cluster credit) and the Free Trial terms (the welcome credit, its expiry and the credit card at signup). Egress is published on none of them, so it is not asserted.",
   "evidence": [
     {
       "url": "https://cloud.google.com/kubernetes-engine/docs/concepts/agent-sandbox",
@@ -154,12 +154,89 @@
       "proved": "the sandbox setup is driven with kubectl",
       "capture": "sha256:ca4d53cfd40531a2f8c7bc14d295865de9214d9485a27a8d8e67b7429f82f6eb",
       "quote": "kubectl apply -f sandbox-template-and-pool.yaml"
+    },
+    {
+      "url": "https://docs.cloud.google.com/free/docs/free-cloud-features",
+      "date": "2026-11-06",
+      "proved": "the Free Trial credit and its 90-day life are unchanged on the live page",
+      "capture": null,
+      "quote": "Signing up for the Free Trial creates a Free Trial billing account that is preloaded with $300 in free Welcome credit which is valid for 90 days."
+    },
+    {
+      "url": "https://docs.cloud.google.com/kubernetes-engine/docs/how-to/agent-sandbox",
+      "date": "2026-11-06",
+      "proved": "the agent-sandbox product is documented and adds no charge of its own",
+      "capture": "sha256:ca4d53cfd40531a2f8c7bc14d295865de9214d9485a27a8d8e67b7429f82f6eb",
+      "quote": "Agent Sandbox on GKE is open source software that you can use at no extra charge."
+    },
+    {
+      "url": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/machine-learning/agent-sandbox",
+      "date": "2026-11-06",
+      "proved": "the concept page is live at the machine-learning path and describes the product",
+      "capture": "sha256:ede4d8fddd38d1b5c67029cd7ea61d2d158d18d33f3e52223f9acdf5e0f0d0ac",
+      "quote": "To use Agent Sandbox on GKE, you install the Agent Sandbox controller on your cluster. You're responsible for upgrading the controller."
+    },
+    {
+      "url": "https://cloud.google.com/kubernetes-engine/pricing",
+      "date": "2026-11-06",
+      "proved": "the GKE free tier is unchanged",
+      "capture": "sha256:a7b512ee9ae21ef2996e6341e0edfbef0f6f67a41edbaa6c2bcbf34989bb481e",
+      "quote": "The GKE free tier provides $74.40 in monthly credits per billing account, which is equivalent to one free Autopilot or zonal Standard cluster per month."
+    },
+    {
+      "url": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/machine-learning/agent-sandbox",
+      "date": "2026-11-06",
+      "proved": "the controller is installed and upgraded by the user, and a user is the documented route",
+      "capture": "sha256:ede4d8fddd38d1b5c67029cd7ea61d2d158d18d33f3e52223f9acdf5e0f0d0ac",
+      "quote": "To use Agent Sandbox on GKE, you install the Agent Sandbox controller on your cluster. You're responsible for upgrading the controller."
+    },
+    {
+      "url": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/machine-learning/agent-sandbox",
+      "date": "2026-11-06",
+      "proved": "what survives a suspend and what does not",
+      "capture": "sha256:ede4d8fddd38d1b5c67029cd7ea61d2d158d18d33f3e52223f9acdf5e0f0d0ac",
+      "quote": "the controller deletes the Pod but keeps the Sandbox resource and its persistent volumes. In-memory data and container file system changes are lost unless you take a Pod snapshot first."
+    },
+    {
+      "url": "https://docs.cloud.google.com/free/docs/free-cloud-features",
+      "date": "2026-11-06",
+      "proved": "the Free Trial gate is a credit card or other payment method",
+      "capture": null,
+      "quote": "During the sign up, you must provide a credit card or other payment method that is valid for the period of the Free Trial."
+    },
+    {
+      "url": "https://docs.cloud.google.com/kubernetes-engine/docs/how-to/agent-sandbox",
+      "date": "2026-11-06",
+      "proved": "the sandbox template and pool are applied with kubectl",
+      "capture": "sha256:ca4d53cfd40531a2f8c7bc14d295865de9214d9485a27a8d8e67b7429f82f6eb",
+      "quote": "kubectl apply -f sandbox-template-and-pool.yaml"
+    },
+    {
+      "url": "https://docs.cloud.google.com/free/docs/free-cloud-features",
+      "date": "2026-11-06",
+      "proved": "the GKE free tier row states the same one-cluster allowance",
+      "capture": null,
+      "quote": "One free Autopilot or zonal Standard cluster per month."
+    },
+    {
+      "url": "https://cloud.google.com/kubernetes-engine/pricing",
+      "date": "2026-11-06",
+      "proved": "the free unit is a monthly cluster credit, the volume-quota row the record already carries",
+      "capture": "sha256:a7b512ee9ae21ef2996e6341e0edfbef0f6f67a41edbaa6c2bcbf34989bb481e",
+      "quote": "The GKE free tier provides $74.40 in monthly credits per billing account, which is equivalent to one free Autopilot or zonal Standard cluster per month."
+    },
+    {
+      "url": "https://docs.cloud.google.com/free/docs/free-cloud-features",
+      "date": "2026-11-06",
+      "proved": "the credit is scoped to the cluster charge, so the cluster allowance is the first thing that runs out",
+      "capture": null,
+      "quote": "One free Autopilot or zonal Standard cluster per month."
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-04T02:24:02.040Z",
+  "verified_at": "2026-11-06T15:56:55.346Z",
   "price_per_tb_month": null,
-  "notes": "The GKE free tier is documented at cloud.google.com/free/docs/free-cloud-features: one Autopilot or zonal Standard cluster per month, and the credit applies to the cluster charge only. What is not documented is an agent-sandbox product: kubernetes-engine/docs/concepts/agent-sandbox returns 404 as of 2026-10-22. Do not read the cluster allowance as an agent sandbox until a page states one.",
+  "notes": "The agent-sandbox product is documented. The how-to at docs.cloud.google.com/kubernetes-engine/docs/how-to/agent-sandbox and the concept page at docs.cloud.google.com/kubernetes-engine/docs/concepts/machine-learning/agent-sandbox describe it; the older .../concepts/agent-sandbox path answers not-found and the concept page moved to the machine-learning path. Agent Sandbox adds no charge of its own and GKE pricing applies to the resources created, including the compute the controller uses. The free unit is Google's: the GKE free tier covers one Autopilot or zonal Standard cluster and nothing else, and the Free Trial credit expires and is gated on a credit card.",
   "extras": {
     "keep_rate": 1.0,
     "keep_rate_basis": null,
@@ -175,5 +252,7 @@
       "rounding_s": null
     },
     "burst_x": 1.0
-  }
+  },
+  "binding": "volume-quota",
+  "binding_note": "the monthly cluster credit is what runs out first: it covers one cluster's management fee and nothing else, so compute, networking and egress are billed on top of it before any sandbox limit could bind"
 }

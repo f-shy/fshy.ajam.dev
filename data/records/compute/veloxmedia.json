@@ -5,7 +5,7 @@
   "url": "https://veloxmedia.co.uk/vps/",
   "category": "cloud VM",
   "free_tier": {
-    "stated": "Micro at USD 5.00 per month: 1 vCPU, 2 GB RAM, 20 GB NVMe, unmetered data transfer, one dedicated IPv4, full root access, in four regions (London from USD 5, Amsterdam from USD 6). Six uniform plans up to USD 26; annual billing includes two months free and there is no setup fee.",
+    "stated": "Micro at USD 5.00 per month: 1 vCPU, 2 GB RAM, 20 GB SSD, unmetered data transfer, one dedicated IPv4, full root access, in four regions (London from USD 5, Amsterdam from USD 6). Six uniform plans up to USD 26; annual billing includes two months free and there is no setup fee.",
     "unit": "GiB",
     "metered_on": "wall-clock",
     "source_url": "https://veloxmedia.co.uk/vps/",
@@ -63,10 +63,31 @@
       "url": "https://vpspricetracker.com/provider/VeloxMedia/vps",
       "date": "2026-10-22",
       "proved": "tracker card carries class 'card fire' with title 'Reliability problems were reported for this service': '$5.00 / month 1 Intel Cores (shared) 2,048 MB RAM 20 GB NVMe 50,000 GB/month bandwidth 10 Gbps port speed IPv4 United Kingdom'"
+    },
+    {
+      "url": "https://veloxmedia.co.uk/vps/",
+      "date": "2026-11-07",
+      "proved": "the plan table's Micro row pairs 1 vCPU, 2 GB RAM, 20 GB SSD and unmetered transfer with $5/mo",
+      "capture": "sha256:328347ff4fbcd41bf0d54444b755cb07bb064e4e84205f76c1f5d227f93cb15d",
+      "quote": "MicroDev boxes and small services | 1 | 2 GB | 20 GB | Unmetered | $5/mo"
+    },
+    {
+      "url": "https://veloxmedia.co.uk/vps/",
+      "date": "2026-11-07",
+      "proved": "the plan list reads Micro at 1 vCPU, 2 GB RAM and 20 GB SSD, where the record's text said NVMe",
+      "capture": "sha256:328347ff4fbcd41bf0d54444b755cb07bb064e4e84205f76c1f5d227f93cb15d",
+      "quote": "Micro: 1 vCPU, 2 GB RAM, 20 GB SSD. Small: 2 vCPU, 4 GB RAM, 40 GB SSD."
+    },
+    {
+      "url": "https://veloxmedia.co.uk/vps/",
+      "date": "2026-11-07",
+      "proved": "the pricing paragraph states monthly prices, no setup fees and two months free on annual billing; the page prints no renewal price",
+      "capture": "sha256:328347ff4fbcd41bf0d54444b755cb07bb064e4e84205f76c1f5d227f93cb15d",
+      "quote": "Pricing is in USD and starts at $5 per month, with Amsterdam from $6. There are no setup fees on any plan, and annual billing includes two months free."
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T17:40:47.141Z",
   "notes": "Unmetered and unlimited are different claims and the vendor uses only the first, so the absence of a cap here is the vendor's wording rather than a measured absence of enforcement. The reliability flag is the strongest reason to probe this provider before trusting it with anything that must stay up.",
   "extras": {
     "facets": {
@@ -79,6 +100,8 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "price_on_page": "USD 5.00/month for Micro",
+    "renewal_usd": "not published: the plan page prices the six plans monthly and gives two months free on annual billing; no renewal price appears on the page"
   }
 }

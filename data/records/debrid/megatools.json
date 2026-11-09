@@ -45,7 +45,7 @@
   ],
   "limits_note": "MEGA's help page lists third-party tools as a hazard: 'these tools can't detect your quota', and using them with account credentials can lock the account. Public-link download avoids the credential risk.",
   "binding": "per-ip-shaping",
-  "binding_note": "The six-hour per-IP window is the only quota in the path; megatools does not rotate proxies, so a user meets it directly and must wait for the reset.",
+  "binding_note": "The six-hour per-IP window is the only quota in the path; megatools does not rotate proxies, so it is met directly and the reset must be waited for.",
   "identity_cost": {
     "kind": "anonymous",
     "detail": "'megatools dl' takes a public link and needs no login. Account subcommands exist for private files but are not required for the public-link path.",

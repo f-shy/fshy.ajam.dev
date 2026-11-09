@@ -37,7 +37,7 @@
   ],
   "interface_detail": "'Every plan includes HTTPS, the CLI, the desktop GUI, and request inspection.'",
   "tooling": "CLI, desktop GUI and request inspection; HTTPS on every plan.",
-  "chaining": null,
+  "chaining": "Nothing here reaches 1 TiB and the free tier cannot carry UDP, so it does not compose with the workload.",
   "limits": [
     {
       "kind": "volume-quota",
@@ -52,7 +52,7 @@
   ],
   "limits_note": "",
   "binding": "volume-quota",
-  "binding_note": "For a byte-only workload the 4 GB monthly allowance binds, about 275 times below 1 TiB. For a user the HTTP-only free tier refuses a UDP workload before a byte is counted, and the constraint vocabulary has no kind that names an ingress protocol.",
+  "binding_note": "For a byte-only workload the 4 GB monthly allowance binds, about 275 times below 1 TiB. Here the HTTP-only free tier refuses a UDP workload before a byte is counted, and the constraint vocabulary has no kind that names an ingress protocol.",
   "identity_cost": {
     "kind": "email",
     "detail": "An account through the signup link on the pricing page; the form was not opened.",

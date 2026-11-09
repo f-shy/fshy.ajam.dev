@@ -5,7 +5,7 @@
   "url": "https://www.qiniu.com/prices/kodo",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Structurally identical trap to Tencent and marginally cheaper on storage. Standard ¥0.115/GB/mo ($17.60/TB/mo), archive ¥0.031, deep archive ¥0.012 — but egress ¥0.26/GB = $39.79/TB per…",
+    "stated": "none reachable: Structurally identical trap to Tencent and marginally cheaper on storage. Standard ¥0.115/GB/mo ($17.60/TB/mo), archive ¥0.031, deep archive ¥0.012 — but egress ¥0.26/GB = $39.79/TB per…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.qiniu.com/prices/kodo",

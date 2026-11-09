@@ -11,7 +11,7 @@
   "tooling": "Jupyter; the Colab client; no shell beyond the notebook's",
   "chaining": "a notebook is not a machine: nothing survives the runtime, so it cannot hold state or serve",
   "limits_note": "a documented absence: 'Colab does not publish these limits' is a discretionary throttle, not a quota",
-  "reliability_note": "Colab states outright that it prioritises interactive users and that runtimes time out when idle, so a long job is cut for reasons a user cannot see",
+  "reliability_note": "Colab states outright that it prioritises interactive users and that runtimes time out when idle, so a long job is cut for reasons that are not visible",
   "confidence": "documented",
   "verified_at": "2026-10-24T01:52:00.000Z",
   "price_per_tb_month": null,

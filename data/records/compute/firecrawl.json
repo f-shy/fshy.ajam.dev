@@ -53,12 +53,22 @@
       "kind": "request-rate",
       "value": "Free plan: 10 requests a minute on /scrape, /map and /search and 2 requests a minute on /crawl, /agent and /interact; 2 concurrent browsers",
       "source": "https://docs.firecrawl.dev/billing"
+    },
+    {
+      "kind": "per-ip-shaping",
+      "value": "keyless tier: a maximum number of requests per IP address per day, value not published; exceeding it returns 429",
+      "source": "https://docs.firecrawl.dev/rate-limits"
+    },
+    {
+      "kind": "volume-quota",
+      "value": "keyless tier: a maximum number of credits per IP address per day, value not published; operations that cost more credits reach the cap sooner",
+      "source": "https://docs.firecrawl.dev/rate-limits"
     }
   ],
   "limits_note": "Interact sessions expire after a default TTL of 10 minutes or a default inactivity timeout of 5 minutes",
   "identity_cost": {
     "kind": "email",
-    "detail": "Account created with an email address or GitHub login, with the email verified if prompted; no card required on the free plan; Search, Scrape and Interact also work with no API key through a keyless tier capped per IP address per day",
+    "detail": "Account created with an email address and a password, or with GitHub or Google sign-in, with the email verified if prompted; no card required on the free plan; Search, Scrape and Interact also work with no API key through a keyless tier capped per IP address per day",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -167,10 +177,66 @@
       "proved": "a CLI exists",
       "capture": "sha256:8df418114745271491139b23c603826fae321ce3fffa0493a47dbbe4464b3de7",
       "quote": "Search, scrape, parse, crawl, map, interact, run agent jobs, and monitor changes directly from the terminal."
+    },
+    {
+      "url": "https://docs.firecrawl.dev/rate-limits",
+      "date": "2026-11-06",
+      "proved": "the keyless tier carries a per-IP daily cap on requests and a per-IP daily cap on credits, and exceeding either returns 429; the page gives no value for either",
+      "capture": "sha256:91b799ecb7b8a147c955062d4fd1080a7f0050417794be79589edae31245bcb2",
+      "quote": "Keyless usage is free and capped per IP address per day by two limits, and exceeding either returns a `429`:"
+    },
+    {
+      "url": "https://docs.firecrawl.dev/rate-limits",
+      "date": "2026-11-06",
+      "proved": "the keyless tier has a per-IP daily credit cap, and an operation that costs more credits reaches it sooner; the page gives no value",
+      "capture": "sha256:91b799ecb7b8a147c955062d4fd1080a7f0050417794be79589edae31245bcb2",
+      "quote": "- A maximum number of credits per day. Operations cost different amounts of credits (for example, Interact and JSON extraction cost more than a basic scrape), so heavier usage reaches the credit cap sooner."
+    },
+    {
+      "url": "https://www.firecrawl.dev/signup",
+      "date": "2026-11-06",
+      "proved": "the sign-up form asks for an email address, beside a password field and GitHub and Google sign-in",
+      "capture": "sha256:4462769e3c1137049e061177128f26fdbe8ae784d6e8596ab93a3b3d2eff7182",
+      "quote": "placeholder=\"name@example.com\" type=\"email\" autoCapitalize=\"none\" autoComplete=\"email\" autoCorrect=\"off\" name=\"email\" value=\"\""
+    },
+    {
+      "url": "https://www.firecrawl.dev/signup",
+      "date": "2026-11-06",
+      "proved": "the sign-up form has a password field, so the account is created with an email address and a password",
+      "capture": "sha256:4462769e3c1137049e061177128f26fdbe8ae784d6e8596ab93a3b3d2eff7182",
+      "quote": "type=\"password\" autoComplete=\"new-password\" name=\"password\" value=\"\""
+    },
+    {
+      "url": "https://www.firecrawl.dev/signup",
+      "date": "2026-11-06",
+      "proved": "the sign-up form offers GitHub sign-in",
+      "capture": "sha256:4462769e3c1137049e061177128f26fdbe8ae784d6e8596ab93a3b3d2eff7182",
+      "quote": "<span>Continue with <!-- -->GitHub</span>"
+    },
+    {
+      "url": "https://www.firecrawl.dev/signup",
+      "date": "2026-11-06",
+      "proved": "the sign-up form offers Google sign-in",
+      "capture": "sha256:4462769e3c1137049e061177128f26fdbe8ae784d6e8596ab93a3b3d2eff7182",
+      "quote": "<input type=\"hidden\" name=\"provider\" value=\"google\"/>"
+    },
+    {
+      "url": "https://docs.firecrawl.dev/billing",
+      "date": "2026-11-06",
+      "proved": "the free plan costs nothing and needs no card; unchanged",
+      "capture": "sha256:d1def2716aa685ebae0e3a57d5709fe10deb10103e8f2f140d2a295ed60a2dd2",
+      "quote": "New accounts start on the free plan. It costs nothing and does not need a card."
+    },
+    {
+      "url": "https://www.firecrawl.dev/signup",
+      "date": "2026-11-06",
+      "proved": "registration takes an email address or a GitHub or Google login, so the identity cost is an email address",
+      "capture": "sha256:4462769e3c1137049e061177128f26fdbe8ae784d6e8596ab93a3b3d2eff7182",
+      "quote": "<span>Continue with <!-- -->GitHub</span>"
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-04T05:24:20.762Z",
+  "verified_at": "2026-11-06T18:37:39.729Z",
   "price_per_tb_month": null,
   "notes": "Re-read on 2026-10-22: the free plan is 1,000 monthly credits with no card. An earlier table row called this paid-only and the browser document said it had no free tier; neither was right.",
   "extras": {

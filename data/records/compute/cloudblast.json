@@ -70,10 +70,59 @@
       "url": "https://vpspricetracker.com/provider/CloudBlast/vps",
       "date": "2026-10-22",
       "proved": "tracker row quoted: 'CloudBlast - EUR3.60 / month', '1 Epyc Cores (shared)', '3,072 MB RAM', '20 GB NVMe', '5,120 GB/month bandwidth', '2 Gbps port speed', 'Amsterdam Netherlands'; info page marks it 'In stock now' and lists Windows 'Yes (unlicensed)'"
+    },
+    {
+      "url": "https://cloudblast.io/pricing",
+      "date": "2026-11-07",
+      "proved": "the pricing page prices VMA11 at EUR 3.6 a month or EUR 0.0058 an hour",
+      "capture": "sha256:e5bed064c4236e705d7c32ff50428db4290bc2da0d27dffebf57cf8dec7b4c62",
+      "quote": "VMA11"
+    },
+    {
+      "url": "https://cloudblast.io/pricing",
+      "date": "2026-11-07",
+      "proved": "the pricing page's own schema.org Offer for the EUR 3.60 VPS states availability InStock",
+      "capture": "sha256:e5bed064c4236e705d7c32ff50428db4290bc2da0d27dffebf57cf8dec7b4c62",
+      "quote": "\"availability\":\"https://schema.org/InStock\""
+    },
+    {
+      "url": "https://cloudblast.io/pricing",
+      "date": "2026-11-07",
+      "proved": "the pricing page still prices VMA11 at EUR 3.6 a month or EUR 0.0058 an hour with 3 GB RAM and 20 GB NVMe",
+      "capture": "sha256:e5bed064c4236e705d7c32ff50428db4290bc2da0d27dffebf57cf8dec7b4c62",
+      "quote": "VMA11"
+    },
+    {
+      "url": "https://console.cloudblast.io/create/server",
+      "date": "2026-11-07",
+      "proved": "the console order page renders an empty client-side application shell with no price a read can see",
+      "capture": "sha256:6402a29291a82a1cc5d19f3b133038e554ba2a5224a3be644404c65da5a0aa77",
+      "quote": "<div id=\"root\"></div>"
+    },
+    {
+      "url": "https://cloudblast.io/pricing",
+      "date": "2026-11-07",
+      "proved": "the page prints the list price and no renewal sentence",
+      "capture": "sha256:e5bed064c4236e705d7c32ff50428db4290bc2da0d27dffebf57cf8dec7b4c62",
+      "quote": "VMA11"
+    },
+    {
+      "url": "https://cloudblast.io/pricing",
+      "date": "2026-11-07",
+      "proved": "the pricing page still prices VMA11 at EUR 3.6 a month or EUR 0.0058 an hour",
+      "capture": "sha256:605b6818901505c24a1695c7e704e32f7b104d250d25033dd6247e7d2e1c4368",
+      "quote": "| VMA11 | 1x AMD EPYC 7C13 | 3 GB | 20 GB | 10 Gbps 5 TB of traffic per month | €3.6/month€0.0058/hour | Order Now |"
+    },
+    {
+      "url": "probe:https://console.cloudblast.io/create/server",
+      "date": "2026-11-07",
+      "proved": "the console order page answers a 2538-byte client-side shell with no price or stock phrase a read can see",
+      "capture": "sha256:e3885d7d9d1242bf8c6d8769b962cb65f1dd7c875d9fd9ceaa7756b3382de6e0",
+      "quote": "no-price"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T11:15:30.075Z",
   "notes": "The vendor and the tracker agree on price, RAM, disk and traffic and differ on the port (10 Gbps against 2 Gbps), so the vendor figure is recorded in the offer and the tracked figure stays in evidence. CloudBlast also sells a per-second serverless worker at EUR 0.011 per core-hour and EUR 0.004 per GB-hour, which is a different product from the VPS line and is not modelled in this record.",
   "extras": {
     "facets": {
@@ -86,6 +135,12 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "monthly_eur": 3.6,
+    "annual_eur": "not published: the pricing page prints an hourly rate and a monthly rate with no annual total",
+    "billing_term": "hourly or monthly",
+    "in_stock": true,
+    "cart_note": "unverified: behind a sign-up; the Order Now button leads to console.cloudblast.io/create/server, a JavaScript console that prices the plan only for a signed-in account",
+    "renewal_eur": "not published: no page read prints a renewal or month-13 sentence"
   }
 }

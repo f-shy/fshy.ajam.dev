@@ -5,7 +5,7 @@
   "url": "https://xeno-canto.org/api/3/recordings?query=cnt:%22Common%20Blackbird%22",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Both the API and every documentation page sit behind an Anubis proof-of-work wall. `/api/3/recordings` without a key returns 401 asking for a `key` parameter, and /explore/api +…",
+    "stated": "none reachable: Both the API and every documentation page sit behind an Anubis proof-of-work wall. `/api/3/recordings` without a key returns 401 asking for a `key` parameter, and /explore/api +…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://xeno-canto.org/api/3/recordings?query=cnt:%22Common%20Blackbird%22",

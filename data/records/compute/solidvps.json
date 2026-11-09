@@ -69,11 +69,25 @@
       "url": "https://vpspricetracker.com/provider/SolidVPS/vps",
       "date": "2026-10-22",
       "proved": "tracker row 'USD 6.95 / month, 2 Intel Cores (shared), 2,048 MB RAM, 250 GB HDD, 2,000 GB/month bandwidth, 10 Gbps port speed, Tampa Florida'"
+    },
+    {
+      "url": "https://solidvps.com/starter-kvm-cloud-vps.php",
+      "date": "2026-11-07",
+      "proved": "the plan table prices LNX-CS-2GB at USD 5.95 a month on 2026-11-07",
+      "capture": "sha256:7b89e3ea2cf9af5bd1c474bb917422113ef662659f927f6a36ac68e13cf0b387",
+      "quote": "<td data-label=\"Price\"><span class=\"\">$5.95</span>/mo</td>"
+    },
+    {
+      "url": "https://my.solidvps.com/store/solid-cloud-budget/linux-cloud-vshared-2gb-1",
+      "date": "2026-11-07",
+      "proved": "the store page marks the entry plan sold out and suspends orders for it on 2026-11-07",
+      "capture": "sha256:199cd08a3f1518833234f1c1f629b94906da013bf1f42708688875ed79728a20",
+      "quote": "SOLDOUT - Out of Stock"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "Three prices circulate on the vendor's own pages: USD 2.95 in headline prose with no plan behind it, USD 5.95 for the cheapest listed plan, and USD 6.95 on the tracker for a 250 GB HDD row that matches the storage range rather than the starter range. The listed plan is the record.",
+  "verified_at": "2026-11-07T06:08:41.346Z",
+  "notes": "The plan table prices LNX-CS-2GB at USD 5.95 a month, but the cart read 2026-11-07 marks it sold out with orders suspended, so the entry row cannot be ordered today. The page's own prose says 'Scale from $2.95/month' with no plan at that price in the table.",
   "extras": {
     "facets": {
       "class": null,
@@ -85,6 +99,11 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "monthly_usd": 5.95,
+    "annual_usd": "not published: the page prints monthly prices only",
+    "renewal_usd": "not published: no page names a renewal rate",
+    "stock": "sold out: the store page suspends orders for the entry plan until more stock is available",
+    "term": "monthly"
   }
 }

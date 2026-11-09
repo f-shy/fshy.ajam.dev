@@ -33,7 +33,7 @@
   "tooling": "A real developer API (developer.data.world) plus SQL over datasets, so it is programmatically clean. The API surface is the best part of the product and the quota is the worst.",
   "chaining": "20 private projects/datasets × 3 GB, or the 100 GB aggregate if per-unit limits were the only constraint. In practice 1 GB per dataset × 100 units is the ceiling, so sharding to 500 GB means 500 units — three times the published unit count.",
   "limits": [],
-  "limits_note": "Free tier is aimed at public data projects, not private bulk storage.",
+  "limits_note": "fails-quota by ~500x for the requirement, and the platform is mid-acquisition ('ServiceNow to acquire data.world'), which is a reliability signal. Free tier is aimed at public data projects, not private bulk storage.",
   "identity_cost": {
     "kind": "email",
     "detail": "email",

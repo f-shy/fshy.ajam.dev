@@ -5,7 +5,7 @@
   "url": "https://cnab.io/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "A packaging spec for distributed apps, not a storage provider; it defines a bundle format you push to a registry you already have. Adds nothing beyond ORAS itself.",
+    "stated": "none reachable: A packaging spec for distributed apps, not a storage provider; it defines a bundle format you push to a registry you already have. Adds nothing beyond ORAS itself.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://cnab.io/",

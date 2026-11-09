@@ -5,7 +5,7 @@
   "url": "https://mybox.kakao.com/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Origin DNS fails from this network; cannot verify any quota. Kakao's corporate site only describes KakaoTalk, not a storage product with a free tier.",
+    "stated": "none reachable: Origin DNS fails from this network; cannot verify any quota. Kakao's corporate site only describes KakaoTalk, not a storage product with a free tier.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://mybox.kakao.com/",

@@ -5,7 +5,7 @@
   "url": "https://www.fil.one/pricing/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Marketed as cheap S3 ($5.99/TB/month, $0 egress) but the free component is a 30-day 1 TB trial, not a free tier. Below the archive requirement and time-boxed.",
+    "stated": "none reachable: Marketed as cheap S3 ($5.99/TB/month, $0 egress) but the free component is a 30-day 1 TB trial, not a free tier. Below the archive requirement and time-boxed.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.fil.one/pricing/",

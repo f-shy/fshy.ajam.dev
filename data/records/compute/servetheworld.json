@@ -69,10 +69,17 @@
       "url": "https://vpspricetracker.com/provider/ServeTheWorld/vps",
       "date": "2026-10-22",
       "proved": "tracker row 'NKr39.50 / month, 1 Epyc Cores (shared), 2,048 MB RAM, 60 GB NVMe, 25,000 GB/month bandwidth, 0.1 Gbps port speed, IPv4, Oslo Norway'"
+    },
+    {
+      "url": "https://stw.no/no/ssd-vps/",
+      "date": "2026-11-07",
+      "proved": "the GP3 table still prices GP32 at NOK 79 list with the 50 percent introductory rate at NOK 39 for the first three months",
+      "capture": "sha256:685579619deefbd53ab1f065729a1bd6e1dd52f95d0d47567494dc52ca45e403",
+      "quote": "79 NOK39 NOK"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T06:08:39.722Z",
   "notes": "The tracker's NKr39.50 is the introductory rate; the list price on the vendor page is NOK 79 and both are recorded rather than averaged. Norwegian-language page, and the quotes above are transliterated from it without accents in the evidence line. The offer is priced in NOK and no conversion is made.",
   "extras": {
     "facets": {

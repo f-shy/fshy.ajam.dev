@@ -5,7 +5,7 @@
   "url": "https://www.langchain.com/pricing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Free Developer plan is 5,000 base traces/month with 14-day base-trace retention, 1 seat, 1 workspace. Storage is billed as traces, not bytes, and the retention window is shorter than any…",
+    "stated": "none reachable: Free Developer plan is 5,000 base traces/month with 14-day base-trace retention, 1 seat, 1 workspace. Storage is billed as traces, not bytes, and the retention window is shorter than any…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.langchain.com/pricing",

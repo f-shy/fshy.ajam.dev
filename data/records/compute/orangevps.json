@@ -5,7 +5,7 @@
   "url": "https://orangevps.com/nvme-vps/",
   "category": "cloud VM",
   "free_tier": {
-    "stated": "The tracker's cheapest row is USD 5.88/quarter (USD 1.96/month on quarterly billing): 1 Intel core (shared), 1024 MB RAM, 20 GB NVMe, 2000 GB/month, 0.1 Gbps, IPv4 plus IPv6, Kansas City, Missouri. The vendor's own NVMe VPS page lists BASIC 1 at USD 4/month: 1 vCPU, 2 GB RAM, 25 GB NVMe, 2 TB transfer, 1 Gbps.",
+    "stated": "SP26-1 at USD 1.96/month on the 3-month term (USD 5.88 charged per quarter), USD 1.81/month on 6 months and USD 1.41/month on 12 months: 1 vCPU, 1 GB RAM, 20 GB NVMe, 2 TB transfer, 100 Mbps; locations Kansas City (no surcharge), Singapore +USD 2.00/month, Hong Kong +USD 3.00/month; 1 available on the cart's category page; strictly no refunds. The vendor page's BASIC 1 is out of stock on the US cart at its listed price, and the Asia cart's BASIC-AP-1 is in stock (both in the evidence rows). Annual: USD 1.41/month on the 12-month term (USD 16.92 a year). Renewal: not published.",
     "unit": "GiB",
     "metered_on": "wall-clock",
     "source_url": "https://orangevps.com/nvme-vps/",
@@ -69,11 +69,81 @@
       "url": "https://orangevps.com/nvme-vps/",
       "date": "2026-10-22",
       "proved": "FAQ quoted: 'Is there any discount for pre-paying? Yes, if you buy a package for more than 1 month it will be cheaper.' and 'the price for each additional IP address is $2/month'"
+    },
+    {
+      "url": "https://portal.orangevps.com/store/vps-budget/sp26-1",
+      "date": "2026-11-07",
+      "proved": "the SP26-1 cart prices USD 1.96 per month on the 3-month term, USD 1.81 on 6 months, USD 1.41 on 12 months",
+      "capture": "sha256:055174f9a5614109c35f775513d7d6f4158749eaf308f9381a20ce908968b4c8",
+      "quote": "3 Month Price - $1.96 USD 6 Month Price - $1.81 USD 12 Month Price - $1.41 USD"
+    },
+    {
+      "url": "https://portal.orangevps.com/store/vps-budget",
+      "date": "2026-11-07",
+      "proved": "the cart's VPS BUDGET page lists SP26-1 with 1 available, 20 GB NVMe, 1 GB RAM, 1 vCPU, 2 TB, 100 Mbps, from USD 1.96 a month",
+      "capture": "sha256:9e4ac10eec5e65c755290a4a7d831f2d3eccafda3bfc32abd22939efd2e37301",
+      "quote": "SP26-1 1 Available 20 GB NVMe SSD 1 GB RAM DDR4 1 vCPU 2 TB Transfer Data 100 Mbps Bandwidth IP Addresses Features Location US, SG, HK, TY Strictly no refunds / 不退款退Credits Starting from $1.96 USD Monthly Order Now"
+    },
+    {
+      "url": "https://portal.orangevps.com/store/vps-us-basic-cpu",
+      "date": "2026-11-07",
+      "proved": "BASIC-US-1's cart price is USD 4.00 a month but the plan shows 0 available",
+      "capture": "sha256:96816ef27dae2de7e9b01f64049dcc95796e44083665277d40be7d8618d24759",
+      "quote": "BASIC-US-1 0 Available 25 GB NVMe SSD Storage 2 GB RAM 1 vCPU IP Addresses 2 TB Transfer Data KVM Virtualization Location Kansas City, Missouri, USA Starting from $4.00 USD"
+    },
+    {
+      "url": "https://portal.orangevps.com/store/vps-ap-basic-cpu",
+      "date": "2026-11-07",
+      "proved": "the Asia cart's BASIC-AP-1 is USD 6.00 a month, in stock (Order Now, no stock badge)",
+      "capture": "sha256:8d918a2c6dab7a9af98b630b321facf1ef240a7a6c45cd88d5e3ec88feb1ac63",
+      "quote": "BASIC-AP-1 25 GB NVMe SSD Storage 2 GB RAM 1 vCPU 2 TB Transfer Data 1 Gbps Bandwidth IP Addresses Features Starting from $6.00 USD Monthly Order Now"
+    },
+    {
+      "url": "https://portal.orangevps.com/store/vps-budget/sp26-1",
+      "date": "2026-11-07",
+      "proved": "the SP26-1 cart prices the 3-, 6- and 12-month terms at 1.96, 1.81 and 1.41 USD per month, and its order summary charges 5.88 USD for the 3-month term",
+      "capture": "sha256:055174f9a5614109c35f775513d7d6f4158749eaf308f9381a20ce908968b4c8",
+      "quote": "3 Month Price - $1.96 USD 6 Month Price - $1.81 USD 12 Month Price - $1.41 USD"
+    },
+    {
+      "url": "https://portal.orangevps.com/store/vps-budget/sp26-1",
+      "date": "2026-11-07",
+      "proved": "the SP26-1 cart order summary charges 5.88 USD for the 3-month term at 1.96 USD a month",
+      "capture": "sha256:055174f9a5614109c35f775513d7d6f4158749eaf308f9381a20ce908968b4c8",
+      "quote": "Quarterly: $5.88 USD"
+    },
+    {
+      "url": "https://portal.orangevps.com/store/vps-budget",
+      "date": "2026-11-07",
+      "proved": "the cart category page lists SP26-1 with one available and a from-price of 1.96 USD a month",
+      "capture": "sha256:2723906e774f440b402d1389094f8c7973d5dd3df4b4e424daa10139cf51c2a0",
+      "quote": "SP26-1 1 Available"
+    },
+    {
+      "url": "https://portal.orangevps.com/store/vps-us-basic-cpu",
+      "date": "2026-11-07",
+      "proved": "the US cart lists BASIC-US-1 at 4.00 USD a month with none available",
+      "capture": "sha256:1f6a325b70cd9bb8d2a3e1e0c66ef780d5f3d0cbf90769fe644200243ac1ac5a",
+      "quote": "BASIC-US-1 0 Available"
+    },
+    {
+      "url": "https://portal.orangevps.com/store/vps-ap-basic-cpu",
+      "date": "2026-11-07",
+      "proved": "the Asia cart's BASIC-AP-1 card prices 6.00 USD a month with an Order button and no stock badge",
+      "capture": "sha256:394010b8d084710afd68419313bc4b78772ad585f916e3a9de95f9c82120a0b7",
+      "quote": "$6.00 USD"
+    },
+    {
+      "url": "https://portal.orangevps.com/store/vps-budget/sp26-1",
+      "date": "2026-11-07",
+      "proved": "the SP26-1 cart prices the 3-, 6- and 12-month terms at 1.96, 1.81 and 1.41 USD per month",
+      "capture": "sha256:055174f9a5614109c35f775513d7d6f4158749eaf308f9381a20ce908968b4c8",
+      "quote": "3 Month Price - $1.96 USD 6 Month Price - $1.81 USD 12 Month Price - $1.41 USD"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "The vendor plan cards render as bare 'Order Now' buttons to the text extractor, so the BASIC 1 row was recovered from the page's own HTML rather than from the rendered text.",
+  "verified_at": "2026-11-07T14:16:58.954Z",
+  "notes": "The vendor plan cards render as bare 'Order Now' buttons to the text extractor; the order links live in a WordPress AJAX endpoint and the plans sell through the WHMCS portal at portal.orangevps.com, whose store categories carry the prices and stock counts. SP26-1 is a current offer in the portal's 'VPS BUDGET (ALWAYS PROMO)' category with 1 available and a 100 Mbps port, so the tracker's row is neither stale nor mis-speeded.",
   "extras": {
     "facets": {
       "class": null,
@@ -85,6 +155,7 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "price_on_page": "USD 1.96/month for SP26-1 on the 3-month term; USD 1.81/month on 6 months; USD 1.41/month on 12 months; renewal: not published"
   }
 }

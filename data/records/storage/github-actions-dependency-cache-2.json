@@ -5,7 +5,7 @@
   "url": "https://docs.github.com/en/actions/reference/workflows-and-actions/dependency-caching",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Explicitly a cache with an eviction policy: 10 GB per repo free, entries not accessed for 7 days are removed, LRU eviction at the cap, and caches are never publicly downloadable. Raising…",
+    "stated": "none reachable: Explicitly a cache with an eviction policy: 10 GB per repo free, entries not accessed for 7 days are removed, LRU eviction at the cap, and caches are never publicly downloadable. Raising…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.github.com/en/actions/reference/workflows-and-actions/dependency-caching",

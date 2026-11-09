@@ -5,7 +5,7 @@
   "url": "https://www.microsoft.com/en-us/microsoft-teams/essentials",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "10 GB per user (Essentials) or 1 TB per user (Business) but they are paid products - a trial at best. Only the Developer Program sandbox is actually free, and it is listed as a candidate…",
+    "stated": "none reachable: 10 GB per user (Essentials) or 1 TB per user (Business) but they are paid products - a trial at best. Only the Developer Program sandbox is actually free, and it is listed as a candidate…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.microsoft.com/en-us/microsoft-teams/essentials",

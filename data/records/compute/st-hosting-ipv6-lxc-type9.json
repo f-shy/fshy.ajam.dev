@@ -32,7 +32,7 @@
   ],
   "interface_detail": "Root shell in an unprivileged LXC container, reached over the IPv6 address. A web control panel at cp.st-hosting.com handles reinstall, rDNS and credit top-up. Delivery is stated at 60 seconds.",
   "tooling": "any SSH client; the vendor's own panel for reinstall and rDNS. No API is documented.",
-  "chaining": "The cheapest IPv6-only root shell found at USD 1.109 a month with a full 20 GB of disk, which makes it the natural WireGuard endpoint or health-monitor box for a client who already has IPv6 at the edge. The EUR 1.29 / USD 1.445 rung doubles RAM to 1 GB and disk to 30 GB for 0.336 USD more.",
+  "chaining": "The cheapest IPv6-only root shell found at USD 1.109 a month with a full 20 GB of disk, which makes it the natural WireGuard endpoint or health-monitor box where IPv6 is already in place at the edge. The EUR 1.29 / USD 1.445 rung doubles RAM to 1 GB and disk to 30 GB for 0.336 USD more.",
   "limits": [
     {
       "kind": "per-ip-shaping",

@@ -64,10 +64,73 @@
       "url": "https://littlecreekhosting.com/vps-hosting",
       "date": "2026-10-22",
       "proved": "the page states 'No introductory tricks - your price is locked forever' and 'Enterprise-grade NVMe storage'"
+    },
+    {
+      "url": "https://littlecreekhosting.com/vps-hosting",
+      "date": "2026-11-07",
+      "proved": "the vendor page prices the three NVMe plans at USD 7.95, 14.95 and 21.95 a month, all out of stock in the store",
+      "capture": "sha256:ece34e99b91431f3922d31313d7cbf4582eacfdceb21349916320e918202d1df",
+      "quote": "$7.95/mo"
+    },
+    {
+      "url": "https://littlecreekhosting.com/vps-hosting",
+      "date": "2026-11-07",
+      "proved": "the vendor page still prices the Starter VPS at USD 7.95 a month",
+      "capture": "sha256:ece34e99b91431f3922d31313d7cbf4582eacfdceb21349916320e918202d1df",
+      "quote": "$7.95/mo"
+    },
+    {
+      "url": "https://www.littlecreekhosting.com/clients/index.php?rp=/store/vps-hosting/starter-vps-1",
+      "date": "2026-11-07",
+      "proved": "the store suspends orders for the product",
+      "capture": "sha256:a778a316b8db16acebdf5ecc2a16752cce97ffcedfcc278bdd9596cc64d017b1",
+      "quote": "We are currently out of stock on this item so orders for it have been suspended until more stock is available."
+    },
+    {
+      "url": "https://littlecreekhosting.com/vps-hosting",
+      "date": "2026-11-07",
+      "proved": "the Starter plan's printed monthly price",
+      "capture": "sha256:ece34e99b91431f3922d31313d7cbf4582eacfdceb21349916320e918202d1df",
+      "quote": "$7.95/mo"
+    },
+    {
+      "url": "https://littlecreekhosting.com/vps-hosting",
+      "date": "2026-11-07",
+      "proved": "the only printed term is the monthly one",
+      "capture": "sha256:ece34e99b91431f3922d31313d7cbf4582eacfdceb21349916320e918202d1df",
+      "quote": "$7.95/mo"
+    },
+    {
+      "url": "https://www.littlecreekhosting.com/clients/index.php?rp=/store/vps-hosting/starter-vps-1",
+      "date": "2026-11-07",
+      "proved": "no cart price renders while the product is out of stock",
+      "capture": "sha256:a778a316b8db16acebdf5ecc2a16752cce97ffcedfcc278bdd9596cc64d017b1",
+      "quote": "We are currently out of stock on this item so orders for it have been suspended until more stock is available."
+    },
+    {
+      "url": "https://littlecreekhosting.com/vps-hosting",
+      "date": "2026-11-07",
+      "proved": "the printed term is monthly",
+      "capture": "sha256:ece34e99b91431f3922d31313d7cbf4582eacfdceb21349916320e918202d1df",
+      "quote": "$7.95/mo"
+    },
+    {
+      "url": "https://littlecreekhosting.com/vps-hosting",
+      "date": "2026-11-07",
+      "proved": "the Starter plan's order link",
+      "capture": "sha256:ece34e99b91431f3922d31313d7cbf4582eacfdceb21349916320e918202d1df",
+      "quote": "[Order Now](https://www.littlecreekhosting.com/clients/index.php?rp=/store/vps-hosting/starter-vps-1)"
+    },
+    {
+      "url": "https://littlecreekhosting.com/vps-hosting",
+      "date": "2026-11-07",
+      "proved": "the Starter plan's printed price",
+      "capture": "sha256:ece34e99b91431f3922d31313d7cbf4582eacfdceb21349916320e918202d1df",
+      "quote": "$7.95/mo"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T11:15:23.466Z",
   "notes": "Its own page sells NVMe compute only, so this record closes that question. The client area (clients.littlecreekhosting.com) may list a separate storage product; it was not opened.",
   "extras": {
     "facets": {
@@ -80,6 +143,13 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "stock": "out of stock: the WHMCS store answers its out-of-stock page for the starter, business and professional products on 2026-11-07",
+    "monthly_usd": 7.95,
+    "annual_usd": "not published: the vendor page prints a monthly rate only",
+    "renewal_usd": "not published: no page prints a renewal price; the store is out of stock and renders no cart price",
+    "term": "monthly: the page's only printed term is '/mo'; the store renders no cycle selector while the products are out of stock",
+    "cart_url": "https://www.littlecreekhosting.com/clients/index.php?rp=/store/vps-hosting/starter-vps-1",
+    "price_on_page": "Starter VPS $7.95/mo, Business VPS $14.95/mo, Professional VPS $21.95/mo on the vendor page"
   }
 }
