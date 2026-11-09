@@ -26,7 +26,7 @@
   },
   "files_sha256": "c0cb43b06f67192c21c77381f1273caa58e7acb9f8140505b30680ca5baabdf1",
   "schema_version": "3",
-  "source_commit": "579ac52e760f46b2bc7829f669e212cec9ed8f52",
+  "source_commit": "471b98e66a0d79c2b547509b45ce4263587051c1",
   "tables": {
     "alias": 16179,
     "capture": 26,
