@@ -23,7 +23,7 @@ another session.
 Put the two checkouts side by side, and enable the commit hooks in both:
 
 ```bash
-git clone https://github.com/Azathothas/f-research
+git clone https://github.com/f-shy/raw
 git clone https://github.com/Azathothas/fshy.ajam.dev
 git -C f-research config core.hooksPath .githooks
 git -C fshy.ajam.dev config core.hooksPath .githooks
@@ -76,11 +76,10 @@ scripts/rq review RUN
 
 Read all of it. Then check these, in this order:
 
-1. **The gate and CI.** `scripts/rq ci RUN` must be green: the run of the workflow `f-research-ci` of this
-   repository on the run's head. `f-research` runs no Actions of its own; that run's log prints only check names and
-   PASS or FAIL: its fetch of `f-research` is quiet, so the log shows no branch name, tag or commit subject of it, and
-   `scripts/rq merge` merges only when the jobs `gate`, `harness-windows` and `parity` all succeeded. A red check is a
-   stop. Read its detail in your own clone with `scripts/rq gatecmp --base origin/main`.
+1. **The gate and CI.** `scripts/rq ci RUN` must be green: the run of the workflow `gate` of `f-shy/raw` on the run's
+   head, which a push of the run branch starts. Its log prints only check names and PASS or FAIL, and `scripts/rq
+   merge` merges only when the jobs `gate`, `harness-windows` and `parity` all succeeded. A red check is a stop. Read
+   its detail in your own clone with `scripts/rq gatecmp --base origin/main`.
 2. **The audit.** Every work unit of the run has an audit line. A unit marked `reverted` is already undone.
    A run with no audit line for a unit is a stop.
 3. **Drafts merged into existing records.** For each line under "drafts merged into existing records", open
@@ -133,7 +132,7 @@ Read all of it. Then check these, in this order:
    Then apply the label, and run the check again (a label starts no check by itself):
 
    ```bash
-   gh pr edit NUMBER --repo Azathothas/f-research --add-label rq:baseline
+   gh pr edit NUMBER --repo f-shy/raw --add-label rq:baseline
    scripts/rq ci --pr NUMBER --wait
    ```
 
@@ -157,9 +156,10 @@ scripts/rq merge RUN
 
 `merge` brings the branch up to date with main in git objects, with no worktree. It renders the tables of the
 topics that the run touched with the render of main, pushes, runs the light checks (the commit hook on every
-commit and on the pull request's text, the baseline rows), waits for the run of `f-research-ci` on that head (it
-starts one when there is none) and merges the head that run checked (`gh pr merge --match-head-commit`). The gate
-comparison, the render check, the selftests and the parity check run in that workflow and nowhere else, so a red,
+commit and on the pull request's text, the baseline rows), waits for the run of `gate` in `f-shy/raw` on that head
+(the push starts it; a fork's push starts nothing, so `merge` dispatches one) and merges the head that run checked
+(`gh pr merge --match-head-commit`). The gate comparison, the render check, the selftests and the parity check run in
+that workflow and nowhere else, so a red,
 cancelled or missing run stops the merge, and so does one that skips a required job or does not finish within 60
 minutes. `scripts/rq merge RUN --no-ci` skips the remote run (the light checks still run), and only on purpose.
 
@@ -226,7 +226,7 @@ gh pr merge NUMBER --merge --author-email "$(gh api user --jq '"\(.id)+\(.login)
 ⚠ A pull request runs the workflow, the hook and the leak rules of its own head. Read a change of `.github/`,
 `.githooks/` or `publish/rules/leak.json` as a change of the checks that judge it. In `f-research` the same holds
 for `scripts/research/ci-checks.sh`, `scripts/research/ci.py` and the `ci_` keys of `scripts/research/settings.json`:
-the workflow `f-research-ci` runs the check script of the tested head, and its output reaches the public log.
+the workflow `gate` runs the check script of the tested head, and its output reaches the public log.
 In `f-research`, also do step 7 of section 3, the baseline.
 
 A research agent does not write a tool. It comments the specification on its issue, and the operator starts a

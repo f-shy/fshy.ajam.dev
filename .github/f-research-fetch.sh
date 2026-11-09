@@ -1,9 +1,9 @@
 #!/bin/sh
-# Fetches the private repository Azathothas/f-research into ./f-research for the workflow f-research-ci, quietly: the
-# log of this public repository shows no branch name, tag or commit subject of it. The read-only deploy key comes in
-# the environment variable KEY; it is written to a file only the runner user can read, used for one fetch and deleted
-# before any code of f-research runs. GitHub's host key is pinned here (docs.github.com, "GitHub's SSH key
-# fingerprints"), so the fetch trusts no key that a network path offers.
+# Fetches the research repository f-shy/raw into ./f-research for the workflow f-research-ci, quietly. The source is
+# public, so the fetch uses HTTPS and needs no credential. An environment that still supplies KEY ($KEY, a read-only
+# deploy key) fetches over SSH instead, writes the key to a file only the runner user can read, uses it for one fetch
+# and deletes it before any code of the repository runs. GitHub's host key is pinned here (docs.github.com, "GitHub's
+# SSH key fingerprints"), so the fetch trusts no key that a network path offers.
 #
 # usage: sh .github/f-research-fetch.sh head|main|all
 #   head  every branch, then a detached checkout of $SHA; $SHA and $BASE must be commits of 40 hex digits on a branch
@@ -18,7 +18,7 @@ if [ "$mode" = head ]; then
   printf '%s\n' "${SHA:-}" | grep -qxE '[0-9a-f]{40}' && printf '%s\n' "${BASE:-}" | grep -qxE '[0-9a-f]{40}' ||
     { echo "FAIL inputs (sha and base must each be a commit of 40 hex digits)"; exit 1; }
 fi
-if [ -n "$KEY" ]; then
+if [ -n "${KEY:-}" ]; then
   t=$(cygpath -u "$RUNNER_TEMP" 2>/dev/null || printf '%s' "$RUNNER_TEMP")
   k="$t/f-research-key"
   h="$t/f-research-known-hosts"
@@ -38,9 +38,9 @@ specs='+refs/heads/*:refs/remotes/origin/*'
 ok=0
 # shellcheck disable=SC2086
 git -C f-research fetch -q --no-tags origin $specs > /dev/null 2>&1 && ok=1
-if [ -n "$KEY" ]; then rm -f "$k"; fi
+if [ -n "${KEY:-}" ]; then rm -f "$k"; fi
 unset GIT_SSH_COMMAND KEY
-[ "$ok" = 1 ] || { echo "FAIL fetch (the deploy key, the host key or the network)"; exit 1; }
+[ "$ok" = 1 ] || { echo "FAIL fetch (a deploy key, the host key or the network)"; exit 1; }
 case $mode in
   head)
     for c in "$SHA" "$BASE"; do

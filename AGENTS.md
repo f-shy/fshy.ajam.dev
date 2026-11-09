@@ -6,8 +6,10 @@ the repository is, what never bends, and which document answers which question.
 ## 1. What this repository is
 
 The public, published corpus of fshy, and the tools that publish it and serve it. Nothing is researched here.
-The research happens in the private repository `Azathothas/f-research`, where every change lands as a pull
-request. A merge session reviews that pull request, merges it, and exports the projection of the corpus here.
+The research happens in the repository `f-shy/raw`, where every change lands as a pull request. A merge session
+reviews that pull request, merges it, and exports the projection of the corpus here. The checks of a research
+pull request run in `f-shy/raw`'s own workflow `gate`; this repository's `f-research-ci` keeps only the daily
+pin check and the weekly backup.
 
 ## 2. The absolutes
 
