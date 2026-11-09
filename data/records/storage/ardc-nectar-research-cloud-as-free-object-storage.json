@@ -5,7 +5,7 @@
   "url": "https://support.ehelp.edu.au/support/solutions/articles/6000055380-resources-available-to-you",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Every researcher gets a 'project trial with 4 VCPUs allocated for six months', but object storage is not part of the trial — it is an RC-NAS allocation item reviewed by the Nectar…",
+    "stated": "none reachable: Every researcher gets a 'project trial with 4 VCPUs allocated for six months', but object storage is not part of the trial — it is an RC-NAS allocation item reviewed by the Nectar…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://support.ehelp.edu.au/support/solutions/articles/6000055380-resources-available-to-you",

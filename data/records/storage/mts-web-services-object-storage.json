@@ -5,7 +5,7 @@
   "url": "https://docs.cloud.mts.ru/docum/promo-cdn-s3.html",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "No free tier found; S3 is a paid enterprise product sold with a CDN bundle discount. Nothing to multiply.",
+    "stated": "none reachable: No free tier found; S3 is a paid enterprise product sold with a CDN bundle discount. Nothing to multiply.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.cloud.mts.ru/docum/promo-cdn-s3.html",

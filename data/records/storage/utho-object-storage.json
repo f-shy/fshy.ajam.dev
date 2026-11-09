@@ -5,7 +5,7 @@
   "url": "https://utho.com/pricing?tab=object",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "₹500/mo for 100 GB then ₹4/GB = $42.34/TB. 'No egress fees in India' is genuinely attractive but the storage rate is 20x the floor.",
+    "stated": "none reachable: ₹500/mo for 100 GB then ₹4/GB = $42.34/TB. 'No egress fees in India' is genuinely attractive but the storage rate is 20x the floor.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://utho.com/pricing?tab=object",

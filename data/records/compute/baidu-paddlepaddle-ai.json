@@ -92,7 +92,7 @@
   ],
   "verdict": "fails-identity",
   "verified_at": "2026-11-03T08:50:49.064Z",
-  "notes": "480 hours a month is 16 x 30, arithmetic on the published daily grant. Two open items: the official page does not state how long the daily 8 points stay valid (one forum post says 24 hours, unverified), and the weekly ceiling in the levelling table (48 hours a week at bronze) may bind before the daily grant does at low account levels.",
+  "notes": "The daily grant is the largest number here and it is unreachable: registration is a mainland phone number and the account behind it carries a real-name check, and the platform's own third-party guides state the frameworks are restricted to the PaddlePaddle ecosystem. 480 hours a month is 16 x 30, arithmetic on the published daily grant. Two open items: the official page does not state how long the daily 8 points stay valid (one forum post says 24 hours, unverified), and the weekly ceiling in the levelling table (48 hours a week at bronze) may bind before the daily grant does at low account levels.",
   "extras": {
     "facets": {
       "class": "recurring-daily-quota",

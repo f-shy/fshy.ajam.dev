@@ -58,7 +58,7 @@
   "binding_note": "At 1 TiB/month the main site blocks the caller long before any byte cap; the mirror network is the only path that carries that volume, and the mirror list is what makes the quota effectively unlimited.",
   "identity_cost": {
     "kind": "anonymous",
-    "detail": "The home page states 'No fees, no registration, completely free'. No account exists to create.",
+    "detail": "The home page states 'No fees, no registration, completely free'. No account exists to create; a mirror operator is a volunteer arrangement, not a registration that is needed.",
     "country": null
   },
   "reliability_note": "Main-site IP blocks are automatic and last days; the generated collection is rebuilt in batches, so a mirror refresh sees traffic spikes rather than a steady delta.",
@@ -94,7 +94,7 @@
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-23T03:24:34.450Z",
   "price_per_tb_month": "USD 0",
-  "notes": "Caveat is the main site, not the catalogue. The abandoned route is 'scrape gutenberg.org with parallel connections': the robot policy names it as a blockable offence and the mirror path costs nothing.",
+  "notes": "Caveat is the main site, not the catalogue. The catalogue is 2.44 TB and mirrorable, which is more than the stated archive of 20 TiB needs from this one source, but the main site will block a bulk puller within a day. The abandoned route is 'scrape gutenberg.org with parallel connections': the robot policy names it as a blockable offence and the mirror path costs nothing.",
   "extras": {
     "total_bytes": 2440305961068,
     "total_files": 6124539,

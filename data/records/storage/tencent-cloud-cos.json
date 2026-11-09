@@ -5,7 +5,7 @@
   "url": "https://cloud.tencent.com/document/product/436/50201",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Storage is cheap, egress is the entire cost and it is the worst ratio in the set. Standard storage ¥0.118/GB/mo ($18.06/TB/mo) but outbound traffic ¥0.5/GB — that is ¥512/TB = $76.54 per TB",
+    "stated": "none reachable: Storage is cheap, egress is the entire cost and it is the worst ratio in the set. Standard storage ¥0.118/GB/mo ($18.06/TB/mo) but outbound traffic ¥0.5/GB — that is ¥512/TB = $76.54 per TB",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://cloud.tencent.com/document/product/436/50201",

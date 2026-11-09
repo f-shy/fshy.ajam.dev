@@ -54,7 +54,7 @@
   "binding_note": "there is no byte quota, so the first real limit is the fair-share clause on a 1 Gbit/s port, whose enforcement threshold is unpublished.",
   "identity_cost": {
     "kind": "card",
-    "detail": "the pricing page states no identity gate; the order flow was not opened, so card versus PayPal and any hold are unverified.",
+    "detail": "an account with a phone number and a card or PayPal: the registration form marks 'Phone Number' as a required field ('<label for=\"inputPhone\" class=\"label-required\" > Phone Number </label>'), and payment is 'All major credit and debit cards and PayPal. Additionally customers who have made their first payment via credit card or paypal, can pay via Bitcoin as well.' Charged or verified: charged; no authorisation or deposit is described. Prepaid and virtual cards: not published; account credit is a prepaid route ('The funds you add to your account do not expire and can be used to pay for your future invoices or purchases.').",
     "country": null
   },
   "reliability_note": "no reliability event observed; the vendor's promotional copy names hosting a personal VPN as a use of the plan",
@@ -75,10 +75,38 @@
       "url": "https://servercheap.net/",
       "date": "2026-10-24",
       "proved": null
+    },
+    {
+      "url": "https://cloudfanatic.net/legal",
+      "date": "2026-11-06",
+      "proved": "the card is charged every month, and no authorisation amount is described",
+      "capture": "sha256:3e57b9e71c87966959cf3a480bd03d37007763914dc1caff724fadf63e319c9d",
+      "quote": "Subscriber agrees that Cloudfanatic may automatically charge subscriber’s credit card every month."
+    },
+    {
+      "url": "https://my.cloudfanatic.net/register.php",
+      "date": "2026-11-06",
+      "proved": "the registration form marks the phone number as required",
+      "capture": "sha256:c4256089280fcde3ffd1b9404a19056514118f4ebb482f057d6f747a9a4e1fb3",
+      "quote": "<label for=\"inputPhone\" class=\"label-required\" > Phone Number </label>"
+    },
+    {
+      "url": "https://cloudfanatic.net/pricing/",
+      "date": "2026-11-06",
+      "proved": "the accepted instruments are the major credit and debit cards, PayPal and Bitcoin after a first card or PayPal payment",
+      "capture": "sha256:5b6d5fdbe117895e424a58ca360ecb1257f9809982bc3f90b3ffd6be2f6290de",
+      "quote": "All major credit and debit cards and PayPal. Additionally customers who have made their first payment via credit card or paypal, can pay via Bitcoin as well."
+    },
+    {
+      "url": "https://cloudfanatic.net/pricing/",
+      "date": "2026-11-06",
+      "proved": "a card or PayPal is accepted, and the registration form requires a phone number",
+      "capture": "sha256:5b6d5fdbe117895e424a58ca360ecb1257f9809982bc3f90b3ffd6be2f6290de",
+      "quote": "All major credit and debit cards and PayPal. Additionally customers who have made their first payment via credit card or paypal, can pay via Bitcoin as well."
     }
   ],
   "verdict": "qualifies",
-  "verified_at": "2026-10-24T01:53:22.000Z",
+  "verified_at": "2026-11-06T17:42:09.298Z",
   "price_per_tb_month": null,
   "notes": "Whether Cloudfanatic honours old Servercheap plans is not established. The 'unmetered' claim is fair-share, so a 24/7 tunnel at sustained rate is the case most likely to meet the unpublished threshold.",
   "extras": {
@@ -112,6 +140,7 @@
     "ipv6_prefix": "an IPv6 address is listed per plan; no prefix width is stated",
     "renewal_usd": null,
     "renewal_note": "no renewal price is published; the page states one monthly figure and does not mark it as a first-term promo",
-    "payment_rails": "Visa, MC, Amex, PayPal, wire; no hold stated"
+    "payment_rails": "Visa, MC, Amex, PayPal, wire; no hold stated",
+    "payment_methods": "all major credit and debit cards, PayPal, and Bitcoin after a first card or PayPal payment; account credit can be added and is used first"
   }
 }

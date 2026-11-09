@@ -69,10 +69,17 @@
       "url": "https://vpspricetracker.com/provider/Hosting_Int/vps",
       "date": "2026-10-22",
       "proved": "the tracker rows quoted: \"Hosting Int. - EUR 5.90 / month\" with \"disk 10 GB SSD\" / \"bandwidth 31,641 GB/month bandwidth\" / \"rj45 0.1 Gbps port speed\" / \"city Singapore\", a second EUR 5.90 row with \"10 GB HDD\" and \"city Ukraine\", and a EUR 6.80 row with \"20 GB SSD\" in Singapore, under \"starting at EUR 5.90 per month\""
+    },
+    {
+      "url": "https://hosting.international/cart.php?gid=1",
+      "date": "2026-11-07",
+      "proved": "the cart lists Linux VPS EU from EUR 5.90 monthly",
+      "capture": "sha256:299b17e8cccd480513dea6e9964daf7bbac191b746b26800316e1442090254fb",
+      "quote": "Starting from €5.90EUR Monthly"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T06:08:33.037Z",
   "notes": "The tracker and the vendor agree on the price and on the port, and they disagree on what the bandwidth is: the vendor says unlimited at 100 Mb/s, the tracker publishes 31,641 GB/month. The two are consistent if the tracker's figure is the port's monthly saturation, which it is to within 3 percent, so the record is bound by shaping and not by a quota.",
   "extras": {
     "facets": {
@@ -85,6 +92,11 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "term": "monthly",
+    "price_on_page": "EUR 5.90/mo",
+    "out_of_pocket_usd": 6.59,
+    "renewal_usd": "not published: the cart prints no renewal price",
+    "cart_url": "https://hosting.international/cart.php?gid=1"
   }
 }

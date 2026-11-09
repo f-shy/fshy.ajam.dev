@@ -10,7 +10,7 @@
     "metered_on": "wall-clock",
     "source_url": "https://liteserver.nl/hdd-storage-vps/",
     "read_on": "2026-10-22",
-    "notes": "none"
+    "notes": "the cart (clients.liteserver.nl, WHMCS) prices HDD-1G at EUR 6.00 monthly, EUR 17.28 quarterly (list 18.00), EUR 33.12 semi-annually (list 36.00), EUR 63.36 annually (list 72.00), EUR 120.96 biennially (list 144.00) and EUR 172.80 triennially (list 216.00), with EUR 0.00 setup and EUR 6.00 total due today on the monthly term; no renewal price is printed and the cart shows no out-of-stock marker"
   },
   "per_object_cap": {
     "stated": "not applicable",
@@ -74,10 +74,52 @@
       "url": "https://liteserver.nl/hdd-storage-vps/",
       "date": "2026-10-22",
       "proved": "add-on prices quoted with the euro sign written EUR: '+ 1 CPU core EUR 5 monthly', '+ 1 GB RAM block EUR 4 monthly', '+ 256 GB HDD block EUR 2,50 monthly', '+ 5TB bandwidth block EUR 2,50 monthly or one-time'; the HDD ladder is HDD-2G EUR 12, HDD-4G EUR 24, HDD-8G EUR 48, HDD-16G EUR 96"
+    },
+    {
+      "url": "https://clients.liteserver.nl/index.php?rp=/store/hdd-storage-vps/hdd-1g-1",
+      "date": "2026-11-07",
+      "proved": "the cart prices HDD-1G across six billing cycles",
+      "capture": "sha256:01138bc91988def7668747706bde85955728af446fe98392bed0c9b5ea2c7adf",
+      "quote": "€6,00  EUR ... €17,28  EUR ... €33,12  EUR ... €63,36  EUR ... €120,96  EUR ... €172,80  EUR"
+    },
+    {
+      "url": "https://clients.liteserver.nl/index.php?rp=/store/hdd-storage-vps/hdd-1g-1",
+      "date": "2026-11-07",
+      "proved": "the cart lists HDD-1G with 512 GB HDD and 15 TB a month at EUR 6.00 on the monthly term",
+      "capture": "sha256:01138bc91988def7668747706bde85955728af446fe98392bed0c9b5ea2c7adf",
+      "quote": "HDD Storage VPS - HDD-1G ... 512 GB HDD ... 15 TB / month ... €6,00"
+    },
+    {
+      "url": "https://clients.liteserver.nl/index.php?rp=/store/hdd-storage-vps/hdd-1g-1",
+      "date": "2026-11-07",
+      "proved": "the cart prices HDD-1G from EUR 6.00 monthly and shows the 1 GB / 512 GB HDD / 15 TB shape with no out-of-stock marker",
+      "capture": "sha256:85e84aa14c4ce5ff42fd4c1d2255b14ee8e8ed24d4299d26c3be4a8ea0bf3c24",
+      "quote": "HDD Storage VPS - HDD-1G\n\n**RAM; ** 1 GB **CPU Cores; ** 1 **Storage; ** 512 GB HDD **Bandwidth; ** 15 TB / month **IP; ** 1 IPv4 + /64 IPv6\n\n## Choose Billing Cycle\n\n### Monthly   \n €6,00 EUR"
+    },
+    {
+      "url": "https://clients.liteserver.nl/index.php?rp=/store/hdd-storage-vps/hdd-1g-1",
+      "date": "2026-11-07",
+      "proved": "the cart prices the HDD-1G plan at EUR 6.00 on the monthly term",
+      "capture": "sha256:85e84aa14c4ce5ff42fd4c1d2255b14ee8e8ed24d4299d26c3be4a8ea0bf3c24",
+      "quote": "HDD Storage VPS - HDD-1G\n\n**RAM; ** 1 GB **CPU Cores; ** 1 **Storage; ** 512 GB HDD **Bandwidth; ** 15 TB / month **IP; ** 1 IPv4 + /64 IPv6\n\n## Choose Billing Cycle\n\n### Monthly   \n €6,00 EUR"
+    },
+    {
+      "url": "https://clients.liteserver.nl/index.php?rp=/store/hdd-storage-vps/hdd-1g-1",
+      "date": "2026-11-07",
+      "proved": "the cart's printed prices are the six billing-cycle prices; no renewal price appears among them",
+      "capture": "sha256:01138bc91988def7668747706bde85955728af446fe98392bed0c9b5ea2c7adf",
+      "quote": "€6,00  EUR ... €17,28  EUR ... €33,12  EUR ... €63,36  EUR ... €120,96  EUR ... €172,80  EUR"
+    },
+    {
+      "url": "https://clients.liteserver.nl/index.php?rp=/store/hdd-storage-vps/hdd-1g-1",
+      "date": "2026-11-07",
+      "proved": "the cart prices HDD-1G at EUR 6.00 monthly with the 1 GB / 512 GB HDD / 15 TB shape",
+      "capture": "sha256:85e84aa14c4ce5ff42fd4c1d2255b14ee8e8ed24d4299d26c3be4a8ea0bf3c24",
+      "quote": "HDD Storage VPS - HDD-1G\n\n**RAM; ** 1 GB **CPU Cores; ** 1 **Storage; ** 512 GB HDD **Bandwidth; ** 15 TB / month **IP; ** 1 IPv4 + /64 IPv6\n\n## Choose Billing Cycle\n\n### Monthly   \n €6,00 EUR"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T14:16:57.715Z",
   "notes": "The vendor and the tracker agree exactly on the HDD-1G shape and price. Disk-per-euro is the reason this record exists: EUR 6 for 512 GB against EUR 4.50 for 30 GB at Luxvps. The 15 TB is the tracker's 15,360 GB and the vendor's '15 TB'.",
   "extras": {
     "facets": {
@@ -90,6 +132,8 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "price_on_page": "EUR 6.00/month for HDD-1G",
+    "renewal_usd": "not published: the cart prints the six billing-cycle prices and no renewal price; read at https://clients.liteserver.nl/index.php?rp=/store/hdd-storage-vps/hdd-1g-1"
   }
 }

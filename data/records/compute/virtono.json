@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated on the page read; the vendor documents a client area and store, no client or API",
-  "chaining": "EUR 2.50 for a 512 MB box in any of 29 cities is the cheapest way to place an egress hop in a country a user's data has to leave from, and 500 GB is the budget that hop can spend",
+  "chaining": "EUR 2.50 for a 512 MB box in any of 29 cities is the cheapest way to place an egress hop in a country the data has to leave from, and 500 GB is the budget that hop can spend",
   "limits": [
     {
       "kind": "volume-quota",
@@ -74,10 +74,17 @@
       "url": "https://vpspricetracker.com/provider/Virtono/vps",
       "date": "2026-10-22",
       "proved": "tracker agrees on the same plan: 'EUR 2.50 / month yearly Service 1 Intel Cores (shared) 512 MB RAM 15 GB SSD 500 GB/month bandwidth 1 Gbps' in Miami, New York and Amsterdam"
+    },
+    {
+      "url": "https://virtono.com/cloud-vps",
+      "date": "2026-11-07",
+      "proved": "the plan table's KVM 512M row pairs 15 GB SSD, 1 vCPU, 512 MB RAM and 500 GB with €2.50 a month",
+      "capture": "sha256:10a460300a852fd4ae8079a679b63d0ae500b47dc75c488e4a53ba7bceb82667",
+      "quote": "KVM 512M 15GB SSD 1 vCPU 512MB RAM 500GB ... €2.50/mo"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T17:40:47.141Z",
   "notes": "Tracker and vendor agree on every field of the entry plan. The ordered table pairs EUR 2.50 with KVM 512M and EUR 4.50 with KVM 1G, and this record follows the table; the price span is bound to the row by id 'KVM512MYL'.",
   "extras": {
     "facets": {
@@ -90,6 +97,8 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "price_on_page": "EUR 2.50/month for KVM 512M",
+    "renewal_eur": "not published: the plan page prices the plans monthly and prints no renewal price"
   }
 }

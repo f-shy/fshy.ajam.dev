@@ -5,7 +5,7 @@
   "url": "https://hs6.krakencloud.net/_uploader/gallery/upload",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Upload backend is unreachable: the uploader posts to https://hs6.krakencloud.net/_uploader/gallery/upload, which fails to connect on:443 (21 s). The front page returns a 1 GB limit banner",
+    "stated": "none reachable: Upload backend is unreachable: the uploader posts to https://hs6.krakencloud.net/_uploader/gallery/upload, which fails to connect on :443 (21 s). The front page returns a 1 GB limit banner,",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://hs6.krakencloud.net/_uploader/gallery/upload",

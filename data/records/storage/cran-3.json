@@ -5,7 +5,7 @@
   "url": "https://cran.r-project.org/web/packages/policies.html",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Policy explicitly caps and actively polices size: 'neither data nor documentation should exceed 5MB ... authors will be asked to trim their documentation to a maximum of 5MB' and 'Source…",
+    "stated": "none reachable: Policy explicitly caps and actively polices size: 'neither data nor documentation should exceed 5MB ... authors will be asked to trim their documentation to a maximum of 5MB' and 'Source…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://cran.r-project.org/web/packages/policies.html",

@@ -81,7 +81,7 @@
   "verdict": "fails-egress",
   "verified_at": "2026-10-23T00:00:00.000Z",
   "price_per_tb_month": "USD 0",
-  "notes": "Launched 2025-12-19. It is a Twingate-shaped private mesh, not an ingress provider. The free tier is explicitly non-commercial, which matters for anything a user runs as a service.",
+  "notes": "Launched 2025-12-19. It is a Twingate-shaped private mesh, not an ingress provider. The free tier is explicitly non-commercial, which matters for anything run as a service.",
   "extras": {
     "wg_path": "native-conf",
     "wg_detail": "Every connection uses WireGuard: the product page says Every connection uses WireGuard and the pricing page lists WireGuard encryption and end-to-end encryption as core features. Configs are pushed by a user rather than exported as a .conf file, and no registration API is documented.",

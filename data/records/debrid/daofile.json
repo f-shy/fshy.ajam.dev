@@ -50,7 +50,7 @@
       "source": "https://daofile.com/?op=payments"
     }
   ],
-  "limits_note": "The refresh interval is stated as 3 days, not 1.",
+  "limits_note": "The refresh interval is stated as 3 days, not 1. Read literally that is 500 GB a month, less than half the requirement.",
   "binding": "volume-quota",
   "binding_note": "Even on the generous reading of 50 GB/day the plan clears 1 TiB; on the literal 3-day reading it needs a second purchase inside the month, which is what fails first.",
   "identity_cost": {

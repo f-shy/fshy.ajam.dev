@@ -64,21 +64,21 @@
       "url": "https://cloud.google.com/free/docs/free-cloud-features",
       "date": "2026-11-03",
       "proved": "Google Cloud signup requires a credit card or other payment method",
-      "capture": "sha256:1b2c72166c369756ff5dff598a4a1f009ccc902f90e5efcd6100de6e0ab17c85",
+      "capture": null,
       "quote": "During the sign up, you must provide a credit card or other payment method that is valid for the period of the Free Trial."
     },
     {
       "url": "https://cloud.google.com/free/docs/free-cloud-features",
       "date": "2026-11-03",
       "proved": "the Cloud Storage Free Tier is 5 GB-months of US regional storage per month, unchanged",
-      "capture": "sha256:1b2c72166c369756ff5dff598a4a1f009ccc902f90e5efcd6100de6e0ab17c85",
+      "capture": null,
       "quote": "5 GB-months of regional storage (US regions only) per month, which corresponds to the storage of 5 GB of data for a period of 1 month."
     },
     {
       "url": "https://cloud.google.com/free/docs/free-cloud-features",
       "date": "2026-11-03",
       "proved": "Cloud Storage Free Tier includes 100 GB per month of outbound transfer from North America",
-      "capture": "sha256:1b2c72166c369756ff5dff598a4a1f009ccc902f90e5efcd6100de6e0ab17c85",
+      "capture": null,
       "quote": "100 GB of outbound data transfer from North America to all region destinations (excluding China and Australia) per month."
     }
   ],

@@ -5,7 +5,7 @@
   "url": null,
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The wrapper that would make this whole niche rclone-addressable does not exist yet. PR #9071 (2025-12-30) was closed unmerged; PR #9208 (2026-02-23) is still open, merged=false; issue…",
+    "stated": "none reachable: The wrapper that would make this whole niche rclone-addressable does not exist yet. PR #9071 (2025-12-30) was closed unmerged; PR #9208 (2026-02-23) is still open, merged=false; issue…",
     "unit": "none",
     "metered_on": "none",
     "source_url": null,

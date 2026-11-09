@@ -5,7 +5,7 @@
   "url": "https://misskey.io/api/meta",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Its numbers are good (10 GiB, 500 MiB objects) but signup is closed indefinitely — the operator states it cannot add server capacity because their cloud provider was breached. Capacity…",
+    "stated": "none reachable: Its numbers are good (10 GiB, 500 MiB objects) but signup is closed indefinitely — the operator states it cannot add server capacity because their cloud provider was breached. Capacity…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://misskey.io/api/meta",

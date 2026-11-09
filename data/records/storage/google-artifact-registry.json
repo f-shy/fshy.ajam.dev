@@ -62,7 +62,7 @@
       "url": "https://cloud.google.com/free/docs/free-cloud-features",
       "date": "2026-11-03",
       "proved": "Google Cloud signup, which the Free Tier needs a billing account from, requires a credit card or other payment method",
-      "capture": "sha256:1b2c72166c369756ff5dff598a4a1f009ccc902f90e5efcd6100de6e0ab17c85",
+      "capture": null,
       "quote": "During the sign up, you must provide a credit card or other payment method"
     },
     {
@@ -83,7 +83,7 @@
       "url": "https://cloud.google.com/free/docs/free-cloud-features",
       "date": "2026-11-03",
       "proved": "the Free Tier table lists 0.5 GB of Artifact Registry storage per month",
-      "capture": "sha256:1b2c72166c369756ff5dff598a4a1f009ccc902f90e5efcd6100de6e0ab17c85",
+      "capture": null,
       "quote": "0.5 GB of storage per month."
     }
   ],

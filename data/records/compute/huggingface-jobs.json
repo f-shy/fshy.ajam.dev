@@ -94,7 +94,7 @@
       "wall_clock_min": null,
       "idle_reap_s": null,
       "restart_required": false,
-      "note": "a Job bills only while Starting or Running, and the page documents a timeout setting; a user bounds it"
+      "note": "a Job bills only while Starting or Running, and the page documents a timeout setting; the caller bounds it"
     },
     "persistent_storage": null,
     "network_out": null,

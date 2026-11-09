@@ -5,7 +5,7 @@
   "url": "https://www.eurohpc-ju.europa.eu/eurohpc-ju-call-proposals-benchmark-access_en",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Explicitly a short pre-allocation test: 'Users receive a limited number of node hours; the maximum allocation period is three months.' No storage allocation and no renewal path beyond…",
+    "stated": "none reachable: Explicitly a short pre-allocation test: 'Users receive a limited number of node hours; the maximum allocation period is three months.' No storage allocation and no renewal path beyond…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.eurohpc-ju.europa.eu/eurohpc-ju-call-proposals-benchmark-access_en",

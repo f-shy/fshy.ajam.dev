@@ -10,7 +10,7 @@
   ],
   "interface_detail": null,
   "tooling": "a Python framework for computer-use agents",
-  "chaining": null,
+  "chaining": "none as a host: it runs on a machine already in place",
   "limits": [
     {
       "kind": "retention-clamped",

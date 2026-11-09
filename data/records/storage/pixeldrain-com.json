@@ -5,7 +5,7 @@
   "url": "https://pixeldrain.com/api/file/probe.bin",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Anonymous uploads are gone: PUT /api/file/{name} returns HTTP 401 authentication_required ('Please provide an API key in the password field of HTTP Basic Access Authentication'). The file…",
+    "stated": "none reachable: Anonymous uploads are gone: PUT /api/file/{name} returns HTTP 401 authentication_required ('Please provide an API key in the password field of HTTP Basic Access Authentication'). The file…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://pixeldrain.com/api/file/probe.bin",

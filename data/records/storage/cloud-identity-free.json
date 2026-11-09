@@ -5,7 +5,7 @@
   "url": "https://cloud.google.com/identity/docs/editions",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Attractive in theory (free identities, Drive for desktop supported), but it grants no Workspace storage entitlement and no shared drives, so it produces identities with zero bytes — the…",
+    "stated": "none reachable: Attractive in theory (free identities, Drive for desktop supported), but it grants no Workspace storage entitlement and no shared drives, so it produces identities with zero bytes — the…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://cloud.google.com/identity/docs/editions",

@@ -50,7 +50,7 @@
   "binding_note": "traffic is stated as unlimited, so the 2.5 Gbps port is the wall on the entry plan and the byte counter is not. The vendor prints the discount as a standing price with 'Same price on renewal' rather than as a first-term promo, which is what makes the row usable at that port for a long run.",
   "identity_cost": {
     "kind": "email",
-    "detail": "not stated",
+    "detail": "the console register form requires first name, last name, email and password, with Google sign-in offered; no phone or card; the page states 'Register with your real details' (read 2026-11-07)",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -65,10 +65,66 @@
       "url": "https://lowendtalk.com/discussion/222403/infrawire-vps-now-in-turkey-10-gbps-linux-windows-starting-at-9-30-mo",
       "date": "2026-10-22",
       "proved": "the offer thread, posted October 22, 2026, states: 'Full NVMe storage, dedicated IPv4+IPv6, and no bandwidth caps'; 'Live locations: France, Germany, United States, Hong Kong, Turkey'; 'Prices are set in EUR and shown with their USD equivalent (rate 1 EUR = 1.15 USD)'; 'Launch offer: use code LOWENDTALK at checkout for 15% off your first month. Valid for new customers only'"
+    },
+    {
+      "url": "https://infrawire.net/vps/turkey",
+      "date": "2026-11-07",
+      "proved": "the plan card prices VPS Entry at EUR 8.30 per month against a struck EUR 16.60",
+      "capture": "sha256:c96d58e5aa6c023e17e23bf9497a8578a70e28855475e3dd864732de30112a2c",
+      "quote": "€8.30EUR/month"
+    },
+    {
+      "url": "https://infrawire.net/vps/turkey",
+      "date": "2026-11-07",
+      "proved": "the page's structured data carries one monthly price per plan and no annual figure",
+      "capture": "sha256:db2e23dbc093d0a1ef5c1ebcfbcc44d0fbd324ab6c6493646419d4c6cea65c33",
+      "quote": "\"lowPrice\":\"8.30\",\"highPrice\":\"52.20\",\"offerCount\":5,\"priceValidUntil\":\"2027-11-07\",\"availability\":\"https://schema.org/InStock\""
+    },
+    {
+      "url": "https://infrawire.net/vps/turkey",
+      "date": "2026-11-07",
+      "proved": "the card states the renewal price equals the listed price",
+      "capture": "sha256:c96d58e5aa6c023e17e23bf9497a8578a70e28855475e3dd864732de30112a2c",
+      "quote": "*Same price on renewal"
+    },
+    {
+      "url": "https://infrawire.net/vps/turkey",
+      "date": "2026-11-07",
+      "proved": "the card prices monthly and states no commitment",
+      "capture": "sha256:c96d58e5aa6c023e17e23bf9497a8578a70e28855475e3dd864732de30112a2c",
+      "quote": "€8.30EUR/month\n\nNo commitment"
+    },
+    {
+      "url": "https://infrawire.net/vps/turkey",
+      "date": "2026-11-07",
+      "proved": "the page's structured data marks the plans InStock",
+      "capture": "sha256:db2e23dbc093d0a1ef5c1ebcfbcc44d0fbd324ab6c6493646419d4c6cea65c33",
+      "quote": "\"lowPrice\":\"8.30\",\"highPrice\":\"52.20\",\"offerCount\":5,\"priceValidUntil\":\"2027-11-07\",\"availability\":\"https://schema.org/InStock\""
+    },
+    {
+      "url": "https://infrawire.net/vps/turkey",
+      "date": "2026-11-07",
+      "proved": "the checkout asks for an account before payment",
+      "capture": "sha256:db2e23dbc093d0a1ef5c1ebcfbcc44d0fbd324ab6c6493646419d4c6cea65c33",
+      "quote": "Create your account and complete payment to finalise your order."
+    },
+    {
+      "url": "https://console.infrawire.net/register",
+      "date": "2026-11-07",
+      "proved": "the console register form's required fields",
+      "capture": "sha256:7c563f8eb614382c8b26a5b189c7b035b3164a5466dfbded5da5fbcf2ee87f4a",
+      "quote": "First name\n\nLast name\n\nEmail\n\nPassword"
+    },
+    {
+      "url": "https://infrawire.net/vps/turkey",
+      "date": "2026-11-07",
+      "proved": "the entry plan's price and term are unchanged on 2026-11-07",
+      "capture": "sha256:c96d58e5aa6c023e17e23bf9497a8578a70e28855475e3dd864732de30112a2c",
+      "quote": "€8.30EUR/month\n\nNo commitment"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T11:15:47.347Z",
   "notes": "The thread title says 'Starting at $9.30/mo' while the vendor page states EUR 8.30 and the thread itself prints 'VPS Entry: EUR 8.30/month (approx $9.55)', so the headline dollar figure in the title is neither the vendor currency nor the vendor's own conversion; No conversion was performed in this record; the USD figures quoted are the vendor's own.",
   "extras": {
     "facets": {
@@ -81,6 +137,12 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "monthly_price": "EUR 8.30 per month for VPS Entry (2 vCores / 4 GB / 40 GB NVMe) in Istanbul, printed against a struck EUR 16.60; the page's structured data prices the five-plan line from 8.30 to 52.20 EUR monthly",
+    "annual_price": "not published: no page read prints an annual figure; the checkout names quarterly, semi-annual and annual cycles but renders only in JavaScript",
+    "renewal_price": "not published as a figure: the plan card states the phrase 'Same price on renewal'",
+    "billing_term": "monthly, no commitment; the checkout names quarterly, semi-annual and annual cycles but prints no figure outside JavaScript",
+    "stock": "in stock: the page's structured data marks all five plans InStock with a priceValidUntil of 2027-11-07",
+    "cart_price": "unverified: behind a sign-up - the order flow is an in-page checkout at console.infrawire.net that asks the customer to create an account before payment; no guest cart URL exists"
   }
 }

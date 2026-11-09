@@ -37,7 +37,7 @@
     "cli"
   ],
   "interface_detail": "Each provider exposes its own REST API and CLI for address objects, so rest is the nearest token in the closed set and cli is the other half. The schema's enum has no token for a cloud provider API and none for a subnet product. The address is a resource in the account: an external IPv4 on Google Cloud, a public IPv4 on AWS, a public IP prefix on Azure, a subnet on Hetzner, a public IP on an Oracle VNIC.",
-  "tooling": "The provider's own REST API, SDK and CLI. No third-party wrapper exists or is needed, because the address is a resource in the account rather than a product with its own protocol. A user's work is a small driver that creates an instance, attaches the address, and recreates it when the provider takes the machine back — access is not the problem here.",
+  "tooling": "The provider's own REST API, SDK and CLI. No third-party wrapper exists or is needed, because the address is a resource in the account rather than a product with its own protocol. The work is a small driver that creates an instance, attaches the address, and recreates it when the provider takes the machine back — access is not the problem here.",
   "chaining": "One of these sits behind the Workers AI gateway as the egress hop: the Worker calls the instance, the instance dials out from a cloud address, and because every one of the five is a single ASN the chain buys a second provider rather than a second network.",
   "limits": [
     {
@@ -47,7 +47,7 @@
     },
     {
       "kind": "volume-quota",
-      "value": null,
+      "value": "Oracle Always Free includes 10 TB/month of egress, about 222 times 45 GB/month",
       "source": "https://www.oracle.com/cloud/free/"
     },
     {

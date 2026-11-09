@@ -5,7 +5,7 @@
   "url": "https://azure.microsoft.com/en-us/free/students",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "'$100 credit to use on Azure services within 12 months', renewable annually 'as long as you're a student'. $100 is a few TB-months at best; the 12-month balance expiry is the binding limit.",
+    "stated": "none reachable: '$100 credit to use on Azure services within 12 months', renewable annually 'as long as you're a student'. $100 is a few TB-months at best; the 12-month balance expiry is the binding limit.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://azure.microsoft.com/en-us/free/students",

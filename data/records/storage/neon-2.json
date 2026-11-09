@@ -5,7 +5,7 @@
   "url": "https://data.neonscience.org/api/v0/sites",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Read-only observatory API (verified live) serving instrument data from fixed sites. No ingest endpoint for outside data.",
+    "stated": "none reachable: Read-only observatory API (verified live) serving instrument data from fixed sites. No ingest endpoint for outside data.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://data.neonscience.org/api/v0/sites",

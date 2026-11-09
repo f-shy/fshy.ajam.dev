@@ -38,7 +38,7 @@
   "interface_detail": "REST API with a bearer key, 300 requests a minute per token by default.",
   "endpoint": "https://api.torbox.app/v1/api/",
   "tooling": "Documented API, Postman collection, third-party media-server integrations.",
-  "chaining": "The tier for a private tracker: two more active slots than Essential and a 14-day seed window, which is what most trackers require before a ratio counts. If a user does not seed, Essential is the same product for US$2 less.",
+  "chaining": "The tier for a private tracker: two more active slots than Essential and a 14-day seed window, which is what most trackers require before a ratio counts. If seeding is not done, Essential is the same product for US$2 less.",
   "limits": [
     {
       "kind": "per-object-cap",

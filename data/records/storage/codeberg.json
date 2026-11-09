@@ -5,7 +5,7 @@
   "url": "https://docs.codeberg.org/getting-started/faq/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Explicitly capacity-managed for F/LOSS code: request approval above 750 MiB Git storage and 1.5 GiB of packages/LFS/attachments, 100 MB private storage without a request. Not a bulk target…",
+    "stated": "none reachable: Explicitly capacity-managed for F/LOSS code: request approval above 750 MiB Git storage and 1.5 GiB of packages/LFS/attachments, 100 MB private storage without a request. Not a bulk target…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.codeberg.org/getting-started/faq/",

@@ -71,10 +71,10 @@
   "verdict": "trial-only",
   "verified_at": "2026-10-23T00:00:00.000Z",
   "price_per_tb_month": "USD 0",
-  "notes": "The second Singapore data point and the cheaper shape of the same idea: a free SSH login on a DigitalOcean or Vultr host in Singapore, no email, one day. It is an outbound proxy. The interesting untested question is whether the host permits SSH remote forwarding, which would turn a free account into a TCP ingress without a user owning any hardware; that is a probe, not a read. Country of endpoint: Singapore. Operator: the same Indonesian account-generator network class as OpenTunnel. Several Singapore servers showed 'Server Full' at read time.",
+  "notes": "The second Singapore data point and the cheaper shape of the same idea: a free SSH login on a DigitalOcean or Vultr host in Singapore, no email, one day. It is an outbound proxy. The interesting untested question is whether the host permits SSH remote forwarding, which would turn a free account into a TCP ingress without local hardware; that is a probe, not a read. Country of endpoint: Singapore. Operator: the same Indonesian account-generator network class as OpenTunnel. Several Singapore servers showed 'Server Full' at read time.",
   "extras": {
     "wg_path": "none",
-    "wg_detail": "An SSH login on a public Singapore address, not a WireGuard peer: no .conf is issued and a user does not control the host, so no WireGuard interface can be created on the far side.",
+    "wg_detail": "An SSH login on a public Singapore address, not a WireGuard peer: no .conf is issued and the host is not controlled, so no WireGuard interface can be created on the far side.",
     "ingress": "none",
     "volume_tib_month": null,
     "volume_stated": "'unlimited bandwidth' per the page description; the accounts themselves are 'Active 1 Days' on the Singapore 1 and 5 servers, against 'up to 7 days' in the overview.",

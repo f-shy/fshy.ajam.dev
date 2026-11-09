@@ -5,7 +5,7 @@
   "url": "https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "30 days only, and it is a trap for this workload: during the trial you may store unlimited data against credits, but 'If you are using more than the 20-GB limit when your Free Trial ends…",
+    "stated": "none reachable: 30 days only, and it is a trap for this workload: during the trial you may store unlimited data against credits, but 'If you are using more than the 20-GB limit when your Free Trial ends…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm",

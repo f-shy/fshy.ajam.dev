@@ -38,7 +38,7 @@
   ],
   "interface_detail": "A web console over 30+ providers, and it accepts WebDAV and FTP as endpoints among them. The 30+ list on the page includes Google Drive, Google Photos, Google Workspace, Dropbox, OneDrive, MEGA, Amazon S3, Box, pCloud, MediaFire, Putio, Backblaze, Yandex, Baidu, NAS, MySQL and Egnyte.",
   "tooling": "Browser console plus scheduled sync jobs; no rclone backend and no public API was read. rclone covers the same ground for free with a local binary, which is the comparison this record exists to make.",
-  "chaining": "The only service that moves bytes between two clouds a user does not administer. The 'Putio' endpoint entry is the debrid-adjacent one: it can pull from a put.io account into another drive without a local machine in the path.",
+  "chaining": "The only service that moves bytes between two clouds not administered here. The 'Putio' endpoint entry is the debrid-adjacent one: it can pull from a put.io account into another drive without a local machine in the path.",
   "limits": [
     {
       "kind": "volume-quota",

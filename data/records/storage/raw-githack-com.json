@@ -51,7 +51,7 @@
     "detail": "email",
     "country": null
   },
-  "reliability_note": "A branch-ref URL 301s to raw.githubusercontent.com (i.e. it silently stops being a CDN and bills GitHub instead).",
+  "reliability_note": "Small independent operator — its own homepage says it serves 479M+ requests and 46 TB+ of traffic monthly, which is ~0.2% of the 1 TiB/day requirement, so treat it as a mirror, never the primary. A branch-ref URL 301s to raw.githubusercontent.com (i.e. it silently stops being a CDN and bills GitHub instead).",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

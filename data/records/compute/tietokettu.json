@@ -2,14 +2,14 @@
   "topic": "compute",
   "slug": "tietokettu",
   "provider": "Tietokettu",
-  "url": "https://vpspricetracker.com/provider/Tietokettu/vps",
+  "url": "https://tietokettu.net/store/vps-palvelimet",
   "category": "cloud VM",
   "free_tier": {
-    "stated": "EUR 2.50/month for 1 Intel core (shared), 2,048 MB RAM, 20 GB SSD, 1,000 GB/month bandwidth on a 0.5 Gbps port, IPv4 and IPv6, in Lempaala, Finland. The next rows are EUR 4.98 with 2 cores, 4 GB, 50 GB and 3 TB, and EUR 7.40 with 1 core, 2 GB and 1,000 GB of HDD.",
+    "stated": "Mini VPS at EUR 2.50/month on the vendor store: 2 GB RAM, 1 vCPU, 20 GB SSD, 1 TB monthly bandwidth, Lempaala Finland, Linux and FreeBSD. The cart offers monthly EUR 2.50, quarterly EUR 7.48, semi-annually EUR 14.95 and annually EUR 29.90; no renewal price is printed and no out-of-stock notice is shown.",
     "unit": "GiB",
     "metered_on": "wall-clock",
-    "source_url": "https://vpspricetracker.com/provider/Tietokettu/vps",
-    "read_on": "2026-10-22",
+    "source_url": "https://tietokettu.net/store/vps-palvelimet",
+    "read_on": "2026-11-07",
     "notes": "none"
   },
   "per_object_cap": {
@@ -25,9 +25,9 @@
     "notes": null
   },
   "egress": {
-    "terms": "1,000 GB a month is the tracker's figure; the vendor page was not read, so nothing is asserted about overage or shaping",
+    "terms": "1 TB a month is stated on the vendor plan card ('1TB Kuukausittaista kaistaa'); no overage price and no throttle are stated on the pages read",
     "metered": true,
-    "free_allowance": "1,000 GB per month",
+    "free_allowance": "1 TB per month",
     "price_per_tb": null,
     "source_url": "https://vpspricetracker.com/provider/Tietokettu/vps"
   },
@@ -36,24 +36,24 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated: neither page read documents a panel, an API or an image list",
-  "chaining": "2 GB of RAM for EUR 2.50 in Finland is the cheapest two-gigabyte machine, just over half of Torchbyte's EUR 4.65 and a quarter of SwedenDedi's EUR 9.99, so it is a candidate for an EU monitoring or DNS node if the vendor can be reached at all",
+  "chaining": "2 GB of RAM for EUR 2.50 a month in Finland is the cheapest two-gigabyte machine, so it fits an EU monitoring or DNS node",
   "limits": [
     {
       "kind": "volume-quota",
-      "value": "1,000 GB a month on a 0.5 Gbps port is the tracker's figure; the vendor page could not be read, so the allowance and its enforcement are both reported and unconfirmed",
-      "source": "https://vpspricetracker.com/provider/Tietokettu/vps"
+      "value": "1 TB a month is stated on the vendor plan card; no overage rate and no port speed are published on the pages read",
+      "source": "https://tietokettu.net/store/vps-palvelimet"
     }
   ],
-  "limits_note": "1,000 GB a month on a 0.5 Gbps port is the tracker's figure; the vendor page could not be read, so the allowance and its enforcement are both reported and unconfirmed",
+  "limits_note": "1 TB a month is stated on the vendor plan card; no overage rate and no port speed are published on the vendor pages read; the tracker's 0.5 Gbps port figure is unconfirmed by the vendor",
   "binding": "volume-quota",
-  "binding_note": "1,000 GB a month on a 0.5 Gbps port is the tracker's figure; the vendor page could not be read, so the allowance and its enforcement are both reported and unconfirmed",
+  "binding_note": "1 TB a month is stated on the vendor plan card; no overage rate and no port speed are published on the vendor pages read; the tracker's 0.5 Gbps port figure is unconfirmed by the vendor",
   "identity_cost": {
     "kind": "email",
     "detail": "not stated",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
-  "confidence": "reported",
+  "confidence": "documented",
   "evidence": [
     {
       "url": "https://vpspricetracker.com/provider/Tietokettu/vps",
@@ -64,11 +64,39 @@
       "url": "https://vpspricetracker.com/provider/Tietokettu/vps",
       "date": "2026-10-22",
       "proved": "company profile: firm 'HD-decor Oy (Tietokettu)', website https://tietokettu.net, address 'Rantaharju 15, 37500 Lempaala, Finland'"
+    },
+    {
+      "url": "https://tietokettu.net/store/vps-palvelimet",
+      "date": "2026-11-07",
+      "proved": "the vendor's own VPS category page lists the Mini plan at 2.50 EUR monthly",
+      "capture": "sha256:cf826c4d7e19880bbfac4f9c7fb61ce42caa39c4fa6c90e1e760ceda15f98302",
+      "quote": "### Mini\n\n2.50 €\n\nkuukausittain"
+    },
+    {
+      "url": "https://tietokettu.net/cart.php?a=add&pid=60",
+      "date": "2026-11-07",
+      "proved": "the cart configuration page for the Mini plan prices all four billing cycles and shows no out-of-stock notice",
+      "capture": "sha256:c5dcf1d1791a75a9c94b52e30390517a54cd0d137adf3f8b86e2f480740ced67",
+      "quote": "### kuukausittain   \n 2.50 €\n\n### neljäsosavuosittain   \n 7.48 €\n\n### puolivuosittain   \n 14.95 €\n\n### vuosittain   \n 29.90 €"
+    },
+    {
+      "url": "https://tietokettu.net/store/vps-palvelimet",
+      "date": "2026-11-07",
+      "proved": "the vendor plan card states 1 TB monthly bandwidth, 2 GB RAM, 1 vCPU, 20 GB SSD and prints no port speed",
+      "capture": "sha256:cf826c4d7e19880bbfac4f9c7fb61ce42caa39c4fa6c90e1e760ceda15f98302",
+      "quote": "### Mini\n\n2.50 €\n\nkuukausittain\n\n* 2GB RAM-muisti\n* 1x vCPU\n* 20GB SSD Levytila\n* 1TB Kuukausittaista kaistaa"
+    },
+    {
+      "url": "https://tietokettu.net/cart.php?a=add&pid=60",
+      "date": "2026-11-07",
+      "proved": "the WHMCS cart configurator for the Mini plan prices all four billing cycles and renders no out-of-stock notice",
+      "capture": "sha256:c5dcf1d1791a75a9c94b52e30390517a54cd0d137adf3f8b86e2f480740ced67",
+      "quote": "### kuukausittain   \n 2.50 €\n\n### neljäsosavuosittain   \n 7.48 €\n\n### puolivuosittain   \n 14.95 €\n\n### vuosittain   \n 29.90 €"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "Wall, not a dead host: https://tietokettu.net and https://www.tietokettu.net both returned exit 0 with a zero-byte body, so the vendor's own price could not be read and this record stays at the tracker's rung. The tracker's own company profile names the same domain, so the domain is current. Rendering and provenance: currency symbols are written out (EUR, GBP, RUB, VND), diacritics in place names are folded to ASCII, and a price the page splits across two lines is joined as value/period; the tracker page stated 'Database update: 7 hours ago' when it was read on 2026-10-22.",
+  "verified_at": "2026-11-07T11:15:41.618Z",
+  "notes": "Prices confirmed in the vendor WHMCS cart on 2026-11-07: EUR 2.50 monthly, EUR 7.48 quarterly, EUR 14.95 semi-annually and EUR 29.90 annually. The vendor pages state no port speed, so the tracker's port figure stands unconfirmed, and the tracker's separate HDD row does not appear on the vendor VPS category.",
   "extras": {
     "facets": {
       "class": null,
@@ -80,6 +108,7 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "price_on_page": "EUR 2.50/month for Mini"
   }
 }

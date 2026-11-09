@@ -26,7 +26,7 @@
     "notes": ""
   },
   "egress": {
-    "terms": "No volume allowance applies: the product is a mitigation policy on a user's own Azure public IP, not a proxy with a traffic allowance.; ingress: none",
+    "terms": "No volume allowance applies: the product is a mitigation policy on an Azure public IP in the same account, not a proxy with a traffic allowance.; ingress: none",
     "metered": false,
     "free_allowance": "none published",
     "price_per_tb": null,
@@ -72,14 +72,14 @@
   "verdict": "fails-egress",
   "verified_at": "2026-10-23T00:00:00.000Z",
   "price_per_tb_month": "unpublished",
-  "notes": null,
+  "notes": "It is mitigation on an address already held in Azure, which is the opposite of the Spectrum shape: no vendor address, no origin mapping, no port forwarding.",
   "extras": {
     "wg_path": "none",
-    "wg_detail": "It filters traffic addressed to an Azure public IP; it does not issue an address that forwards to an origin a user names.",
+    "wg_detail": "It filters traffic addressed to an Azure public IP; it does not issue an address that forwards to an origin named by the account.",
     "ingress": "none",
     "volume_tib_month": null,
-    "volume_stated": "No volume allowance applies: the product is a mitigation policy on a user's own Azure public IP, not a proxy with a traffic allowance.",
+    "volume_stated": "No volume allowance applies: the product is a mitigation policy on an Azure public IP in the same account, not a proxy with a traffic allowance.",
     "bytes_transit": "no",
-    "transit_note": "traffic goes to a user's own Azure public IP; nothing is forwarded on a user's behalf"
+    "transit_note": "traffic goes to an Azure public IP in the same account; nothing is forwarded on the account's behalf"
   }
 }

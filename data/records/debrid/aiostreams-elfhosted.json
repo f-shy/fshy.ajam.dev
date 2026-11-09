@@ -20,7 +20,7 @@
     "notes": ""
   },
   "retention": {
-    "stated": "not applicable: configuration lives in a user's browser and the URL; the public instance stores nothing",
+    "stated": "not applicable: configuration lives in the browser and the URL; the public instance stores nothing",
     "days": null,
     "source_url": "https://aiostreams.elfhosted.com/stremio/configure",
     "notes": ""

@@ -51,7 +51,7 @@
   },
   "reliability_note": "The free server is billed automatically if not returned at the end of the year; the discount credit expires after three months and cannot be applied to products that already have a free period.",
   "confidence": "documented",
-  "confidence_note": "The residence restriction is a vendor sentence on the credit-event page read on 2026-10-23. What would change the verdict is a Korean residence, which a user does not have; nothing measurable on the network side would.",
+  "confidence_note": "The residence restriction is a vendor sentence on the credit-event page read on 2026-10-23. What would change the verdict is a Korean residence, which is not held here; nothing measurable on the network side would.",
   "evidence": [
     {
       "url": "https://www.ncloud.com/main/creditEvent",

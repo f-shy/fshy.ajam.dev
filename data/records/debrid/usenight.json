@@ -58,7 +58,7 @@
     "detail": "The only action is \"Get UseNight\" into /en/order/; there is no free path. The instrument at checkout was not read.",
     "country": null
   },
-  "reliability_note": "The page computes the client's local window from IP address and says outright \"Of course this is not VPN proof\" - a client behind a VPN sees the wrong window.",
+  "reliability_note": "The page computes the local window from IP address and says outright \"Of course this is not VPN proof\" - a caller behind a VPN sees the wrong window.",
   "confidence": "documented",
   "confidence_note": "The price, the window and the retention figure are quoted from the vendor page today. The 495 GB/day figure is arithmetic on an assumed 100 Mbps line and is labelled as such.",
   "evidence": [

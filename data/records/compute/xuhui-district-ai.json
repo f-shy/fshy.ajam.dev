@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "It does not chain for a user, and it is recorded only to close the door: it reimburses an invoice from a company that already rents compute, which presupposes both the company and the cash to front.",
+  "chaining": "It does not chain, and it is recorded only to close the door: it reimburses an invoice from a company that already rents compute, which presupposes both the company and the cash to front.",
   "limits": [
     {
       "kind": "write-gated",

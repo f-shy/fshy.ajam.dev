@@ -5,7 +5,7 @@
   "url": "https://www.baseten.co/pricing/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Inference-only PaaS. The pricing page is a model-API price list ($/token) plus per-second deployment billing; there is no storage product, no artifact store, and no free tier bytes to claim.",
+    "stated": "none reachable: Inference-only PaaS. The pricing page is a model-API price list ($/token) plus per-second deployment billing; there is no storage product, no artifact store, and no free tier bytes to claim.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.baseten.co/pricing/",

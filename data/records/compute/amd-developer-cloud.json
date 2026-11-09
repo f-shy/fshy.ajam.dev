@@ -158,11 +158,18 @@
       "proved": "the card requirement at account creation is unchanged",
       "capture": "sha256:3c7af598526ee9947bc3c1351e676a566622353ea730e133bb5319199e1dc648",
       "quote": "A valid credit card is required at the time of account creation and is required to access any complimentary cloud hours offered by AMD."
+    },
+    {
+      "url": "https://www.amd.com/en/developer/resources/cloud-access.html",
+      "date": "2026-11-06",
+      "proved": "a powered-off instance keeps consuming credit until it is destroyed",
+      "capture": "sha256:3c7af598526ee9947bc3c1351e676a566622353ea730e133bb5319199e1dc648",
+      "quote": "If a GPU Instance is powered off, you are still billed and/or credit hours will apply. Charges are incurred until the instance is destroyed."
     }
   ],
   "verdict": "trial-only",
-  "verified_at": "2026-11-02T02:17:36.632Z",
-  "notes": "First, a powered-off instance still consumes credit, so the correct discipline is to destroy and not to stop, and a reader who stops a machine to save credit loses the credit anyway. Second, expiry destroys the data, so every artefact has to be copied out before the clock ends. The allocation is also discretionary, and the larger public grant is restricted to Indian researchers and startups, which is a country gate on the 100,000-hour figure. The live page states 25 hours and 10 days, so both the amount and the window were wrong.",
+  "verified_at": "2026-11-06T19:39:36.653Z",
+  "notes": "Two clauses decide how a run has to be built. First, a powered-off instance still consumes credit, so the correct discipline is to destroy and not to stop, and a reader who stops a machine to save credit loses the credit anyway. Second, expiry destroys the data, so every artefact has to be copied out before the clock ends. The allocation is also discretionary, and the larger public grant is restricted to Indian researchers and startups, which is a country gate on the 100,000-hour figure. As of 2026-10-23 the page states 25 hours and 10 days; the earlier USD 100 over 30 days figure is wrong on both the amount and the window.",
   "extras": {
     "facets": {
       "class": "enforcement",

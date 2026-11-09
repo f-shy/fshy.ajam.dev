@@ -5,7 +5,7 @@
   "url": "https://www.hetzner.com/sb/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The auction page renders prices client-side and returned only marketing copy; more importantly the auction inventory is bursty and the SX-line fixed price (SX65-2 €82.30) already beats it…",
+    "stated": "none reachable: The auction page renders prices client-side and returned only marketing copy; more importantly the auction inventory is bursty and the SX-line fixed price (SX65-2 €82.30) already beats it…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.hetzner.com/sb/",

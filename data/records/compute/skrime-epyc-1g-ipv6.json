@@ -50,7 +50,7 @@
     }
   ],
   "binding": "per-ip-shaping",
-  "binding_note": "no IPv4 at this rung, so a client without IPv6 must pay the EUR 1.49 dual-stack price; nothing else on the offer is close to binding.",
+  "binding_note": "no IPv4 at this rung, so without IPv6 the EUR 1.49 dual-stack price applies; nothing else on the offer is close to binding.",
   "identity_cost": {
     "kind": "email",
     "detail": "no card and no phone number: the register page asks for a Username, an Email Address, a Password, a Repeat Password, a Captcha Code and a terms checkbox, and for no other field. The accepted payment methods are unverified: the payment-methods page did not answer. No country limit is stated: the register page asks only for those fields, and no address or country field is on it.",

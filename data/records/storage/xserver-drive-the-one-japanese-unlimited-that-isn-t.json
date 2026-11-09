@@ -5,7 +5,7 @@
   "url": "https://kurabebako.com/posts/cloud-storage-free-tier/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "2 GB free with a 100 MB per-file cap, verified by a Japanese developer who actually ran rclone against it. It is technically excellent WebDAV works on the free plan, fast SSD, no…",
+    "stated": "none reachable: 2 GB free with a 100 MB per-file cap, verified by a Japanese developer who actually ran rclone against it. It is technically excellent (WebDAV works on the free plan, fast SSD, no…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://kurabebako.com/posts/cloud-storage-free-tier/",

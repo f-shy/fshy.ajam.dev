@@ -5,7 +5,7 @@
   "url": "https://vercel.com/docs/vercel-blob/usage-and-pricing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Hobby includes 1 GB/month blob storage and 10 GB data transfer, then regional metered pricing. 1 GB per account is 3 orders of magnitude and the overage is per-GB paid.",
+    "stated": "none reachable: Hobby includes 1 GB/month blob storage and 10 GB data transfer, then regional metered pricing. 1 GB per account is 3 orders of magnitude and the overage is per-GB paid.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://vercel.com/docs/vercel-blob/usage-and-pricing",

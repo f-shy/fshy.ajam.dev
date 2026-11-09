@@ -5,7 +5,7 @@
   "url": null,
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Every write path needs an authenticated identity: anonymous release create -> 401, anonymous GHCR push scope -> DENIED, anonymous release-asset upload -> 400. The multiplier therefore…",
+    "stated": "none reachable: Every write path needs an authenticated identity: anonymous release create -> 401, anonymous GHCR push scope -> DENIED, anonymous release-asset upload -> 400. The multiplier therefore…",
     "unit": "none",
     "metered_on": "none",
     "source_url": null,

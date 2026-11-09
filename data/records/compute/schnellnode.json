@@ -69,10 +69,17 @@
       "url": "https://vpspricetracker.com/provider/SchnellNode/vps",
       "date": "2026-10-22",
       "proved": "tracker row 'EUR 4.00 / month, 1 Intel Cores (shared), 256 MB RAM, 15 GB SSD, 1,024 GB/month bandwidth, 1 Gbps port speed, IPv4 + IPv6, Germany'"
+    },
+    {
+      "url": "https://schnellno.de/cart.php?gid=1",
+      "date": "2026-11-07",
+      "proved": "the 15GB-R10SSD plan's cart row prices it at 4.00 EUR a month",
+      "capture": "sha256:399abbee5ed349d5ad8cafad742299d8551be4738c1d5eed48bcd21a526c5df0",
+      "quote": "| 15GB-R10SSD | Starting from €4.00EUR Monthly |"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T14:16:58.956Z",
   "notes": "The vendor cart page and the tracker agree on EUR 4.00, 256 MB and 1,000 GB. A site-wide code 30%OFF is advertised in the header; it is a coupon, not a price, and no discounted figure is recorded.",
   "extras": {
     "facets": {
@@ -85,6 +92,7 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "price_on_page": "EUR 4.00/month (15GB-R10SSD); renewal: not published"
   }
 }

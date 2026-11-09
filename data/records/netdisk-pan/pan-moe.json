@@ -51,7 +51,7 @@
     "detail": "the signup form at pan.moe/signup asks for email, password, a repeat and a human-verification step, with no phone field",
     "country": null
   },
-  "reliability_note": "Zero durability commitment in the terms plus an explicit rule against the several-accounts pattern that would make it useful at 20 TB. The domestic storage node carries a compliance clause, so the overseas node is the only one that fits a user",
+  "reliability_note": "Zero durability commitment in the terms plus an explicit rule against the several-accounts pattern that would make it useful at 20 TB. The domestic storage node carries a compliance clause, so the overseas node is the only one that fits",
   "confidence": "documented",
   "evidence": [
     {

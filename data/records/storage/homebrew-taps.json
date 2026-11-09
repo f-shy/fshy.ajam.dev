@@ -5,7 +5,7 @@
   "url": "https://docs.brew.sh/Taps",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "A tap is just a GitHub git repo of formulae; storage is GitHub's (2 GB push / repo recommended limits), and bottles live in GHCR or on the project's own host. Nothing Homebrew-specific adds",
+    "stated": "none reachable: A tap is just a GitHub git repo of formulae; storage is GitHub's (2 GB push / repo recommended limits), and bottles live in GHCR or on the project's own host. Nothing Homebrew-specific adds",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.brew.sh/Taps",

@@ -51,7 +51,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "This is a download-block trial, not free storage: you get 10 GB of retrieval, not 10 GB you can park data in permanently.",
+  "reliability_note": "This is a download-block trial, not free storage: you get 10 GB of retrieval, not 10 GB you can park data in permanently. Categorically the wrong shape for the workload.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

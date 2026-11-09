@@ -5,7 +5,7 @@
   "url": "https://knowledge.workspace.google.com/admin/sites/google-sites-requirements",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Sites and all embedded content count toward the owner's Drive storage — it is not an exempt surface. No independent quota exists.",
+    "stated": "none reachable: Sites and all embedded content count toward the owner's Drive storage — it is not an exempt surface. No independent quota exists.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://knowledge.workspace.google.com/admin/sites/google-sites-requirements",

@@ -46,7 +46,7 @@
     "detail": "email",
     "country": null
   },
-  "reliability_note": "Same rule-2/rule-4 failure as Lulu: write-only from a user's perspective. Also charges a per-title setup fee for some paths.",
+  "reliability_note": "Same rule-2/rule-4 failure as Lulu: write-only, with no read-back path. Also charges a per-title setup fee for some paths.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

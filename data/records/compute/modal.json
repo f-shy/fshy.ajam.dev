@@ -133,7 +133,7 @@
     }
   ],
   "verdict": "fails-identity",
-  "notes": "USD 30 a month at a 2 vCPU / 4 GB shape is roughly 170 hours a month; the arithmetic depends on the published per-second rates, which this record does not recompute. The card is the whole story for a user.",
+  "notes": "USD 30 a month at a 2 vCPU / 4 GB shape is roughly 170 hours a month; the arithmetic depends on the published per-second rates, which this record does not recompute. The card is the whole story.",
   "extras": {
     "shape": {
       "vcpu": 2,

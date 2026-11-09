@@ -5,7 +5,7 @@
   "url": "https://help.osf.io/article/555-add-ons-storage-api-integration-faq-s",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Registrations archive OSF Storage plus add-ons but are capped at 5 GB across all storage being registered, and you can no longer create Registrations from Projects after the transition. Not",
+    "stated": "none reachable: Registrations archive OSF Storage plus add-ons but are capped at 5 GB across all storage being registered, and you can no longer create Registrations from Projects after the transition. Not",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://help.osf.io/article/555-add-ons-storage-api-integration-faq-s",

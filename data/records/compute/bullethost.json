@@ -70,11 +70,81 @@
       "url": "https://vpspricetracker.com/provider/Bullethost/vps",
       "date": "2026-10-22",
       "proved": "tracker row quoted: 'Bullethost - EUR3.00 / month', 'quarterly Service', '1 Intel Cores (shared)', '2,048 MB RAM', '30 GB SSD', '1,536 GB/month bandwidth', '1 Gbps port speed', 'Netherlands'; intro 'starting at EUR8.99 per quarter'; info page marks it 'In stock now'"
+    },
+    {
+      "url": "https://www.bullethost.net/vps/",
+      "date": "2026-11-07",
+      "proved": "the vendor's VPS page lists Linux I at EUR 4.99 per month",
+      "capture": "sha256:c636eac0c18618bae6e29c198093f5571b21bc3b289f4fd03736d605eeef85c4",
+      "quote": "Linux I"
+    },
+    {
+      "url": "https://www.bullethost.net/clients/cart.php?a=add&pid=20",
+      "date": "2026-11-07",
+      "proved": "the vendor cart suspends orders for Linux I (pid 20)",
+      "capture": "sha256:8dac4aa2e0fd05b552829907539ccde21478764e9405902e913965f764658fb0",
+      "quote": "We are currently out of stock on this item so orders for it have been suspended until more stock is available."
+    },
+    {
+      "url": "https://www.bullethost.net/vps/",
+      "date": "2026-11-07",
+      "proved": "the vendor's VPS page still lists Linux I at EUR 4.99 per month with 2 vCores, 4 GB RAM and 50 GB SSD",
+      "capture": "sha256:c636eac0c18618bae6e29c198093f5571b21bc3b289f4fd03736d605eeef85c4",
+      "quote": "Linux I"
+    },
+    {
+      "url": "https://www.bullethost.net/vps/",
+      "date": "2026-11-07",
+      "proved": "the page prints the list price and no renewal sentence",
+      "capture": "sha256:c636eac0c18618bae6e29c198093f5571b21bc3b289f4fd03736d605eeef85c4",
+      "quote": "Linux I"
+    },
+    {
+      "url": "https://www.bullethost.net/clients/store/xeonvps/linux-i",
+      "date": "2026-11-07",
+      "proved": "the vendor's own product page for Linux I answers the WHMCS out-of-stock template",
+      "capture": "sha256:963be573d4a7842ed4cd740355f8d5305553e2779753a74244b396a2ad31e637",
+      "quote": "We are currently out of stock on this item so orders for it have been suspended until more stock is available. For further information, please contact us."
+    },
+    {
+      "url": "probe:https://www.bullethost.net/clients/cart.php?a%3Dadd%26pid%3D20",
+      "date": "2026-11-07",
+      "proved": "the cart read of the Linux I order lands on the product page and carries the out-of-stock phrase with no price",
+      "capture": "sha256:0ce6098a9a56d92fff5cac6973db085124723f3e302b4602354c5c7aea0ba8e9",
+      "quote": "out of stock"
+    },
+    {
+      "url": "https://www.bullethost.net/clients/store/minimal-vps",
+      "date": "2026-11-07",
+      "proved": "the card prints no billing period",
+      "capture": "sha256:1d9a57a1d9d87a9ecd48e4e6e0ad9078b07952c6ec20ec0999563dcc746f4dc2",
+      "quote": "€8.99\n\n### Mini I"
+    },
+    {
+      "url": "https://www.bullethost.net/clients/store/minimal-vps",
+      "date": "2026-11-07",
+      "proved": "the 'Mini I' card is marked out of stock in the vendor's own store",
+      "capture": "sha256:1d9a57a1d9d87a9ecd48e4e6e0ad9078b07952c6ec20ec0999563dcc746f4dc2",
+      "quote": "Out of Stock"
+    },
+    {
+      "url": "https://www.bullethost.net/clients/store/minimal-vps",
+      "date": "2026-11-07",
+      "proved": "the vendor's own store group holds the plan the tracker priced at EUR 3.00/month",
+      "capture": "sha256:1d9a57a1d9d87a9ecd48e4e6e0ad9078b07952c6ec20ec0999563dcc746f4dc2",
+      "quote": "€8.99\n\n### Mini I"
+    },
+    {
+      "url": "https://www.bullethost.net/vps/",
+      "date": "2026-11-07",
+      "proved": "the order page prints the EUR 4.99 monthly price and no annual or renewal figure",
+      "capture": "sha256:3bd153f1236c00835f67f5954d04f3bb971babb1318e1901522c3539dfe91691",
+      "quote": "You can start with Linux VPS from EUR 4.99 per month, and we also offer Windows VPS plans for projects that need RDP access, Windows applications, or Microsoft-based environments."
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "Two prices for two products: the tracker's EUR 3.00/month quarterly row is a 2 GB / 30 GB plan that the vendor's VPS page does not list, so the recorded offer is the vendor's own cheapest and the tracked row is kept in evidence as the cheaper reported figure. The vendor homepage advertises 'From a EUR4.99 VPS to a 40 Gbps dedicated server'.",
+  "verified_at": "2026-11-07T11:15:30.074Z",
+  "notes": "Two prices for two products. The tracker's EUR 3.00/month row is the vendor's own Minimal VPS group card, Mini I: 1 Core, 2 GB RAM, 30 GB SSD, 1.5 TB bandwidth, 1 Gbps, listed at EUR 8.99 with no billing period printed on the card and marked Out of Stock; EUR 8.99 / 3 months = EUR 2.99 per month (derived), matching the tracker's EUR 3.00 on quarterly billing. Linux I at EUR 4.99/month is out of stock at the cart and on the vendor's product page. No annual or renewal figure is printed on any page read.",
   "extras": {
     "facets": {
       "class": null,
@@ -86,6 +156,11 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "monthly_eur": 4.99,
+    "annual_eur": "not published: the vendor's VPS page prints no annual total",
+    "renewal_eur": "not published: no page read prints a renewal or month-13 sentence",
+    "in_stock": false,
+    "billing_term": "monthly"
   }
 }

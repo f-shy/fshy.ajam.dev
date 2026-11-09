@@ -37,7 +37,7 @@
   ],
   "interface_detail": "Order through a Telegram bot; configuration in a portal.",
   "tooling": "portal plus a chat channel for sales",
-  "chaining": "A dedicated IP in front of an origin with any port.",
+  "chaining": "A dedicated IP in front of an origin with any port; priced far above the budget, so it is a reference point only.",
   "limits": [
     {
       "kind": "volume-quota",

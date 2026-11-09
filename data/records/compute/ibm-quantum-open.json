@@ -90,7 +90,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-11-04T11:19:14.181Z",
-  "notes": "The promotion is the interesting term: 180 minutes for 12 months is 18 times the base allowance, and it is reachable by a user because the only preconditions are a non-trial account and 20 minutes of prior use. The failure is the price beyond the line: one user cites USD 96 a minute on the pay-as-you-go meter, so an overrun is not a soft stop and the 10-minute window has to be watched rather than delegated. The region restriction and the promotion are additions.",
+  "notes": "The promotion is the interesting term: 180 minutes for 12 months is 18 times the base allowance, and it is reachable because the only preconditions are a non-trial account and 20 minutes of prior use. The failure is the price beyond the line: one user cites USD 96 a minute on the pay-as-you-go meter, so an overrun is not a soft stop and the 10-minute window has to be watched rather than delegated. The region restriction and the promotion are additions.",
   "extras": {
     "facets": {
       "class": "verification",

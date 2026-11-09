@@ -26,7 +26,7 @@
     "notes": ""
   },
   "egress": {
-    "terms": "No hosted allowance exists: the software runs on a host a user supplies.; ingress: none",
+    "terms": "No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: none",
     "metered": false,
     "free_allowance": "none published",
     "price_per_tb": null,

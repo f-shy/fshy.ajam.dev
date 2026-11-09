@@ -5,7 +5,7 @@
   "url": "https://vercel.com/docs/limits",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "100 MB max static upload per deployment on Hobby, and since Apr 29 2026 Hobby deployment retention is capped at 30 days 'Deployments outside your retention window will be automatically…",
+    "stated": "none reachable: 100 MB max static upload per deployment on Hobby, and since Apr 29 2026 Hobby deployment retention is capped at 30 days ('Deployments outside your retention window will be automatically…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://vercel.com/docs/limits",

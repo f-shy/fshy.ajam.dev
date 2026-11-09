@@ -5,7 +5,7 @@
   "url": "https://bashupload.com/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Domain no longer resolves to an origin — DNS returns only an SOA in the Authority section (NXDOMAIN-equivalent, registrar-servers.com), and the proxy returns HTTP 530. The dataset still…",
+    "stated": "none reachable: Domain no longer resolves to an origin — DNS returns only an SOA in the Authority section (NXDOMAIN-equivalent, registrar-servers.com), and the proxy returns HTTP 530. The dataset still…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://bashupload.com/",

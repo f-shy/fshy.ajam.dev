@@ -5,7 +5,7 @@
   "url": "https://arize.com/docs/ax/security-and-settings/pricing-and-usage",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "AX Free is 25k spans/month with 1 GB ingestion and 7-15 day retention; Pro is 10 GB/30 days. Spans are telemetry, not objects, and there is no bulk-blob path.",
+    "stated": "none reachable: AX Free is 25k spans/month with 1 GB ingestion and 7-15 day retention; Pro is 10 GB/30 days. Spans are telemetry, not objects, and there is no bulk-blob path.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://arize.com/docs/ax/security-and-settings/pricing-and-usage",

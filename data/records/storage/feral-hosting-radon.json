@@ -68,7 +68,7 @@
       "pair": "USD/GBP",
       "rate": 0.74804,
       "date": "2026-10-23",
-      "source": "ECB reference via frankfurter.app"
+      "source": null
     }
   },
   "binding": "none",

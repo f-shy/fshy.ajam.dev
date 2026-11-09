@@ -5,7 +5,7 @@
   "url": "https://www.elastic.co/cloud/as-a-service/signup",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "14-day trial only, no permanent free tier. The trial is time-boxed, not byte-boxed, so it fails both the free test and the durability test.",
+    "stated": "none reachable: 14-day trial only, no permanent free tier. The trial is time-boxed, not byte-boxed, so it fails both the free test and the durability test.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.elastic.co/cloud/as-a-service/signup",

@@ -42,7 +42,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Credits can be revised or withdrawn; no SLA on the grant.",
+  "reliability_note": "Credits can be revised or withdrawn; no SLA on the grant. The R2 component is the part already rejected on cost grounds, so the practical value is Pages/Workers request headroom, not bytes.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

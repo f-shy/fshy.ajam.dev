@@ -69,11 +69,123 @@
       "url": "https://akile.ai/",
       "date": "2026-10-22",
       "proved": null
+    },
+    {
+      "url": "https://vpspricetracker.com/provider/Akile/vps",
+      "date": "2026-11-07",
+      "proved": "the tracker still lists the ¥12.50 a month row with the 1 Intel core, 1,024 MB RAM, 6 GB NVMe, 1,000 GB/month and 0.2 Gbps figures the record states, and the ¥149.99 a year starting price",
+      "capture": "sha256:2423b24e0ccb95cd76515caecf1537efae702eb07d351edfab8972465f78de84",
+      "quote": "### Akile — ¥12.50 / month"
+    },
+    {
+      "url": "https://vpspricetracker.com/provider/Akile/vps",
+      "date": "2026-11-07",
+      "proved": "the tracker still prints the ¥12.50 a month row with the shape and the 1,000 GB a month allowance the record states",
+      "capture": "sha256:2423b24e0ccb95cd76515caecf1537efae702eb07d351edfab8972465f78de84",
+      "quote": "### Akile — ¥12.50 / month yearly Service cpu 1 Intel Cores (shared) ram 1,024 MB RAM disk 6 GB NVMe bandwidth 1,000 GB/month bandwidth rj45 0.2 Gbps port speed inet IPv4 (NAT) city Taiwan"
+    },
+    {
+      "url": "https://vpspricetracker.com/info/1601602/Akile/TWHinet_Mini_NAT",
+      "date": "2026-11-07",
+      "proved": "the tracker's info page names the currency the record left as the printed symbol",
+      "capture": "sha256:a3b0ae1af17ae8fad44d29de6c3cf9a21ffc0a14581000a17c3e6631721b2f0c",
+      "quote": "The currency is CNY."
+    },
+    {
+      "url": "https://vpspricetracker.com/info/1601602/Akile/TWHinet_Mini_NAT",
+      "date": "2026-11-07",
+      "proved": "the tracker marks the plan out of stock",
+      "capture": "sha256:a3b0ae1af17ae8fad44d29de6c3cf9a21ffc0a14581000a17c3e6631721b2f0c",
+      "quote": "| In stock now | ✘ |"
+    },
+    {
+      "url": "https://vpspricetracker.com/info/1678709/Akile/VNPT_NAT_Starter",
+      "date": "2026-11-07",
+      "proved": "the tracker marks the VNPT_NAT_Starter row out of stock",
+      "capture": "sha256:f9765d0ded6bacd5a34456992c7bf45b149449e4d948fec1651acc3363498716",
+      "quote": "| In stock now | ✘ |"
+    },
+    {
+      "url": "https://vpspricetracker.com/info/1678709/Akile/VNPT_NAT_Starter",
+      "date": "2026-11-07",
+      "proved": "the tracker's yearly price for VNPT_NAT_Starter is ¥158.88",
+      "capture": "sha256:f9765d0ded6bacd5a34456992c7bf45b149449e4d948fec1651acc3363498716",
+      "quote": "The latest yearly price was ¥158.88, collected on November 6."
+    },
+    {
+      "url": "https://vpspricetracker.com/info/1560821/Akile/JPHyper_Lite",
+      "date": "2026-11-07",
+      "proved": "the tracker marks the JPHyper_Lite row out of stock",
+      "capture": "sha256:bafcedd316fb1709bd1ed7ae5400e47d22136f7c87bd810280cf3a5a7cc768b7",
+      "quote": "| In stock now | ✘ |"
+    },
+    {
+      "url": "https://vpspricetracker.com/info/1560821/Akile/JPHyper_Lite",
+      "date": "2026-11-07",
+      "proved": "the tracker collects a monthly ¥14.99 and an annual series at ¥12.50 a month normalized for JPHyper_Lite",
+      "capture": "sha256:bafcedd316fb1709bd1ed7ae5400e47d22136f7c87bd810280cf3a5a7cc768b7",
+      "quote": "⬤ monthly: ¥14.99 ⬤ annual / 12: ¥12.50"
+    },
+    {
+      "url": "https://vpspricetracker.com/info/1601602/Akile/TWHinet_Mini_NAT",
+      "date": "2026-11-07",
+      "proved": "the plan's term is yearly and its price is ¥149.99",
+      "capture": "sha256:a3b0ae1af17ae8fad44d29de6c3cf9a21ffc0a14581000a17c3e6631721b2f0c",
+      "quote": "The latest yearly price was ¥149.99, collected on November 6."
+    },
+    {
+      "url": "https://vpspricetracker.com/info/1601602/Akile/TWHinet_Mini_NAT",
+      "date": "2026-11-07",
+      "proved": "the tracker's collected yearly price",
+      "capture": "sha256:a3b0ae1af17ae8fad44d29de6c3cf9a21ffc0a14581000a17c3e6631721b2f0c",
+      "quote": "The latest yearly price was ¥149.99, collected on November 6."
+    },
+    {
+      "url": "https://vpspricetracker.com/provider/Akile/vps",
+      "date": "2026-11-07",
+      "proved": "the tracker's normalized monthly figure",
+      "capture": "sha256:2423b24e0ccb95cd76515caecf1537efae702eb07d351edfab8972465f78de84",
+      "quote": "### Akile — ¥12.50 / month"
+    },
+    {
+      "url": "https://vpspricetracker.com/info/1601602/Akile/TWHinet_Mini_NAT",
+      "date": "2026-11-07",
+      "proved": "the page prints one yearly price and no renewal line",
+      "capture": "sha256:a3b0ae1af17ae8fad44d29de6c3cf9a21ffc0a14581000a17c3e6631721b2f0c",
+      "quote": "The latest yearly price was ¥149.99, collected on November 6."
+    },
+    {
+      "url": "https://vpspricetracker.com/offer/1601602/Akile/TWHinet_Mini_NAT",
+      "date": "2026-11-07",
+      "proved": "the tracker's offer link resolves to the vendor's shop page for the plan",
+      "capture": "sha256:b041e47254e275939454db3c7385b808ea2dc8ad748073259441ad3ddf815ef6",
+      "quote": "x-web-final-url: https://akile.ai/shop/server?type=traffic&areaId=6&nodeId=31&planId=980"
+    },
+    {
+      "url": "https://vpspricetracker.com/provider/Akile/vps",
+      "date": "2026-11-07",
+      "proved": "the tracker's printed row",
+      "capture": "sha256:2423b24e0ccb95cd76515caecf1537efae702eb07d351edfab8972465f78de84",
+      "quote": "### Akile — ¥12.50 / month"
+    },
+    {
+      "url": "https://vpspricetracker.com/info/1601602/Akile/TWHinet_Mini_NAT",
+      "date": "2026-11-07",
+      "proved": "the tracker's info page names the currency the record's notes left as the printed symbol",
+      "capture": "sha256:a3b0ae1af17ae8fad44d29de6c3cf9a21ffc0a14581000a17c3e6631721b2f0c",
+      "quote": "The currency is CNY."
+    },
+    {
+      "url": "https://vpspricetracker.com/provider/Akile/vps",
+      "date": "2026-11-07",
+      "proved": "the tracker's printed row carries the monthly figure the record states",
+      "capture": "sha256:2423b24e0ccb95cd76515caecf1537efae702eb07d351edfab8972465f78de84",
+      "quote": "### Akile — ¥12.50 / month"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "Two vendor paths were read and both were a wall for price text: https://akile.ai/ returned 200 with extraction 'none' and https://akile.ai/shop/server?areaId=6 returned the navigation only, so the number here is the tracker's and stays at confidence reported. The currency is left as the printed symbol because the page never prints a code.",
+  "verified_at": "2026-11-07T14:17:02.757Z",
+  "notes": "Two vendor paths were read and both were a wall for price text: https://akile.ai/ returned 200 with extraction 'none' and https://akile.ai/shop/server?areaId=6 returned the navigation only, so the number here is the tracker's and stays at confidence reported. The currency is CNY: the tracker's info page states 'The currency is CNY.' (2026-11-07); 149.99 per year and 12.50 per month are consistent with each other at 12x. the rows dated 2026-10-22 carry the fetching tool's own timestamp; the rows dated 2026-11-07 carry captures of the same pages read again. one render of the Taiwan store page settles the NAT port-forward terms.",
   "extras": {
     "facets": {
       "class": null,
@@ -85,6 +197,13 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "stock": "out of stock: the tracker's info pages mark 'In stock now | ✘' for all three rows the record names — TWHinet_Mini_NAT, VNPT_NAT_Starter and JPHyper_Lite (collected 2026-11-06); the vendor's shop renders no stock state to a non-JS reader",
+    "term": "yearly: the tracker marks the row 'yearly Service' and its info page states 'The latest yearly price was ¥149.99'",
+    "annual_cny": 149.99,
+    "monthly_cny": "not published: the vendor sells the yearly term and prints no monthly rate; the tracker's row normalizes the yearly price to ¥12.50 a month",
+    "renewal_cny": "not published: no page prints a renewal price",
+    "cart_url": "https://akile.ai/shop/server?type=traffic&areaId=6&nodeId=31&planId=980 (the tracker's offer link; the shop is a JavaScript app and renders no price to a non-JS reader)",
+    "price_on_page": "CNY 12.50/month for TWHinet_Mini_NAT (the tracker's normalized monthly figure of the yearly CNY 149.99; the vendor's shop renders no price to a non-JS reader)"
   }
 }

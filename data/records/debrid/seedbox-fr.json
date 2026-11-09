@@ -46,7 +46,7 @@
       "source": "https://www.seedbox.fr/tarifs/"
     }
   ],
-  "limits_note": "The page claims unlimited throughput with no restriction, which cannot be verified without an account.",
+  "limits_note": "The page claims unlimited throughput with no restriction, which cannot be verified without an account. 1 TiB/month needs only 3.39 Mbit/s sustained, far below any plausible share of a 100 Gbps port, so the claim does not bind at this scale.",
   "binding": "none",
   "binding_note": "Nothing in the vocabulary fails at 1 TiB/month: there is no byte quota, no object cap and no published rate limit. The binding fact is price (EUR 12 HT for 1 To, EUR 14.40 TTC at 20% VAT), which the vocabulary does not name.",
   "identity_cost": {

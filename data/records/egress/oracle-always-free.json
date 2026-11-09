@@ -34,7 +34,7 @@
     "ssh"
   ],
   "tooling": "OpenSSH",
-  "chaining": null,
+  "chaining": "the origin half of the only chain found that can carry 500 GB to 1 TiB of traffic a day for nothing: Oracle's free shape holds and serves, and its scarce link is the 10 TB monthly quota rather than the NIC.",
   "limits": [
     {
       "kind": "per-ip-shaping",

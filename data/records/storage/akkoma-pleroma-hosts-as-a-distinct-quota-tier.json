@@ -5,7 +5,7 @@
   "url": "https://akko.wtf/nodeinfo/2.0",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Probed akko.wtf, cofe.rocks, pleroma.envs.net, spinster.xyz. The first three return `{\"error\":\"Nodeinfo schema version not handled\"}` on /nodeinfo/2.0 and no useful /api/meta; only spinster.",
+    "stated": "none reachable: Probed akko.wtf, cofe.rocks, pleroma.envs.net, spinster.xyz. The first three return `{\"error\":\"Nodeinfo schema version not handled\"}` on /nodeinfo/2.0 and no useful /api/meta; only spinster.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://akko.wtf/nodeinfo/2.0",

@@ -5,7 +5,7 @@
   "url": "https://mixdrop.co/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Returns HTTP 410 Gone on the canonical domain — service withdrawn at this address. No limits page reachable.",
+    "stated": "none reachable: Returns HTTP 410 Gone on the canonical domain — service withdrawn at this address. No limits page reachable.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://mixdrop.co/",

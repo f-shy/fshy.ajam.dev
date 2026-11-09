@@ -73,6 +73,6 @@
     "volume_tib_month": null,
     "volume_stated": "[translated] 'A game server you can use for free, without limits', with 'Unlimited' as a feature heading. No byte figure, no rate, no session length.",
     "bytes_transit": "yes",
-    "transit_note": "The vendor relays between the issued public address and the client's machine."
+    "transit_note": "The vendor relays between the issued public address and the local machine."
   }
 }

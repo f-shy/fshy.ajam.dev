@@ -133,7 +133,7 @@
   "verdict": "fails-quota",
   "verified_at": "2026-11-03T11:28:59.769Z",
   "price_per_tb_month": "CNY 0",
-  "notes": "The free tier is not a retrieval route for a user at any volume.",
+  "notes": "The free tier is not a retrieval route here at any volume.",
   "extras": {
     "free_gb": 10,
     "free_kbs": "100-200",

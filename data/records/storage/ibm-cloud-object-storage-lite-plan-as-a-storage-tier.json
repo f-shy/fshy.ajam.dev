@@ -5,7 +5,7 @@
   "url": "https://www.ibm.com/products/cloud/free",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The Lite plan is always-free and never expires, but the published storage allowance belongs to the Standard plan Free Tier (5 GB for 12 months). No Lite storage quota was published on any…",
+    "stated": "none reachable: The Lite plan is always-free and never expires, but the published storage allowance belongs to the Standard plan Free Tier (5 GB for 12 months). No Lite storage quota was published on any…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.ibm.com/products/cloud/free",

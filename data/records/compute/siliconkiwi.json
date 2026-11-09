@@ -69,11 +69,25 @@
       "url": "https://vpspricetracker.com/provider/SiliconKiwi/vps",
       "date": "2026-10-22",
       "proved": "tracker row 'NZ$6.67 / month, yearly Service, 2 Intel Cores (shared), 1,024 MB RAM, 20 GB HDD, 1,024 GB/month bandwidth, 0.1 Gbps port speed, Wellington New Zealand', with the page header saying 'starting at NZ$80.00 per year'"
+    },
+    {
+      "url": "https://siliconkiwi.nz/vps",
+      "date": "2026-11-07",
+      "proved": "the cart prices Kiwi Go NZD 8.00 monthly and NZD 80.00 annually on 2026-11-07",
+      "capture": "sha256:039d2b1c73d5229e5dc8d673e92d2f581ff8710be3a28c03219f93b83f7d8121",
+      "quote": "<span class=\"product-price cycle-m\">$8.00 NZD</span><span class=\"product-price cycle-a\">$80.00 NZD</span>"
+    },
+    {
+      "url": "https://siliconkiwi.nz/vps",
+      "date": "2026-11-07",
+      "proved": "the plan card prices Kiwi Go at NZD 8.00 a month on 2026-11-07",
+      "capture": "sha256:95a27bb7046cc69565c9703f885a49389877c0b30da2f04fd97cada3dda6bb27",
+      "quote": "8.00 NZD / month"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "The tracker quotes NZD 6.67/month because it divides an NZD 80 annual term; the vendor page read states NZD 8.00 per month and does not show the annual figure, so both are recorded and neither is converted. Residence in New Zealand puts latency to Europe and the US at roughly a quarter second, which is the real cost of this row.",
+  "verified_at": "2026-11-07T06:08:41.345Z",
+  "notes": "The cart read 2026-11-07 prices Kiwi Go NZD 8.00 monthly and NZD 80.00 annually, which confirms the annual term the tracker divided into a monthly rate. Residence in New Zealand puts latency to Europe and the US at roughly a quarter second, which is the real cost of this row.",
   "extras": {
     "facets": {
       "class": null,
@@ -85,6 +99,12 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "monthly_nzd": 8.0,
+    "annual_nzd": 80.0,
+    "renewal_nzd": "not published: the cart prices the monthly cycle at NZD 8.00 and no page names a renewal rate",
+    "stock": "in stock: the cart priced the plan and accepted it",
+    "price_on_page": "NZD 8.00/month (the plan card)",
+    "term": "monthly and annual cycles in the cart"
   }
 }

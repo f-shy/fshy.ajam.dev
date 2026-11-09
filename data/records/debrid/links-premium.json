@@ -37,7 +37,7 @@
   ],
   "interface_detail": "Browser panel at linkspremium.com.br/sistema; registration and generation are web-only. No API is named on the pricing or affiliate page.",
   "tooling": "Browser plus the site's own panel. The output is a direct HTTP link, which JDownloader, aria2 or a browser can take.",
-  "chaining": "One plan covers +45 hosts including 1fichier and Mega, the two hosts a user's archive actually sits on, so it substitutes for two separate host subscriptions at the price of one.",
+  "chaining": "One plan covers +45 hosts including 1fichier and Mega, the two hosts the archive actually sits on, so it substitutes for two separate host subscriptions at the price of one.",
   "limits": [
     {
       "kind": "volume-quota",

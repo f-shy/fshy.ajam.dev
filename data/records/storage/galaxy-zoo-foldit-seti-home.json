@@ -5,7 +5,7 @@
   "url": "https://static.zooniverse.org/www.citizensciencealliance.org/downloads/zooniverse_guide.pdf",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Pure volunteer-compute. Galaxy Zoo runs inside Zooniverse (so the same 10,000-subject / review gate applies) and Foldit distributes protein-puzzle clients; neither exposes any…",
+    "stated": "none reachable: Pure volunteer-compute. Galaxy Zoo runs inside Zooniverse (so the same 10,000-subject / review gate applies) and Foldit distributes protein-puzzle clients; neither exposes any…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://static.zooniverse.org/www.citizensciencealliance.org/downloads/zooniverse_guide.pdf",

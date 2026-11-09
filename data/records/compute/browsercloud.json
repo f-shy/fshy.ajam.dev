@@ -51,7 +51,7 @@
   "limits_note": "not stated",
   "identity_cost": {
     "kind": "email",
-    "detail": null,
+    "detail": "email: signing up retains an email address and a password and nothing else ('The only information we retain, as a part of signing up, is your email address and password.'). A card is not required at sign-up: the register form at https://browsercloud.io/user/register/ asks for an email address, a password and its repeat, and a card is handled by Paddle ('Payment information is transmitted via encrypted connection to Paddle.'). A phone is not required: the privacy statement names only an email address and a password for signing up. Country: not published at https://www.browsercloud.io/privacy.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -81,10 +81,45 @@
       "proved": "proxy traffic is metered in credits per MB; no egress allowance or overage price is stated",
       "capture": "sha256:d27e40041fb00b27e9ae175073522dbb30e45c4c638cd12d244267005463effb",
       "quote": "1 MB Residential80 credits"
+    },
+    {
+      "url": "https://www.browsercloud.io/privacy",
+      "date": "2026-11-04",
+      "proved": "signing up collects an email address and a password and nothing else",
+      "capture": "sha256:1aa821102ac03279c3566e21f6e9c37465cd95e2f62db2068185970f5aa4d9f4",
+      "quote": "The only information we retain, as a part of signing up, is your email address and password."
+    },
+    {
+      "url": "https://www.browsercloud.io/privacy",
+      "date": "2026-11-04",
+      "proved": "a card is captured by the payment processor, not at sign-up",
+      "capture": "sha256:1aa821102ac03279c3566e21f6e9c37465cd95e2f62db2068185970f5aa4d9f4",
+      "quote": "Payment information is transmitted via encrypted connection to Paddle."
+    },
+    {
+      "url": "https://www.browsercloud.io/privacy",
+      "date": "2026-11-06",
+      "proved": "signing up collects an email address and a password and nothing else",
+      "capture": "sha256:2e503fd6b9ada91c63a8e339794f2c028d04f21dee387368c3cc0b0d5e0e1ce7",
+      "quote": "The only information we retain, as a part of signing up, is your email address and password."
+    },
+    {
+      "url": "https://www.browsercloud.io/privacy",
+      "date": "2026-11-06",
+      "proved": "a card is captured by the payment processor, not at sign-up",
+      "capture": "sha256:2e503fd6b9ada91c63a8e339794f2c028d04f21dee387368c3cc0b0d5e0e1ce7",
+      "quote": "Payment information is transmitted via encrypted connection to Paddle."
+    },
+    {
+      "url": "https://browsercloud.io/user/register/",
+      "date": "2026-11-06",
+      "proved": "the register form asks for an email address, a password and its repeat, and no phone or card field",
+      "capture": "sha256:937a0221adfe747a95ab24dd4dc6c1a800c107b78bb53d176d9c041402fa2e8c",
+      "quote": "Repeat password"
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-04T05:24:22.991Z",
+  "verified_at": "2026-11-06T17:48:23.919Z",
   "price_per_tb_month": null,
   "notes": "",
   "extras": {

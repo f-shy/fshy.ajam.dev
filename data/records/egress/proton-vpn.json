@@ -37,7 +37,7 @@
   ],
   "interface_detail": "Account web page generates configs; port control is NAT-PMP on the tunnel gateway, not a REST API. Protocols: WireGuard over UDP and TCP, OpenVPN, IKEv2, Stealth (obfuscated) and Smart Protocol. No SOCKS5 proxy is offered. P2P servers (BitTorrent) are included on paid plans.",
   "tooling": "natpmpc from libnatpmp, or the official app; WireGuard config from the account page.",
-  "chaining": "Provides the public endpoint; the loop that keeps the lease alive is a small daemon a user must run beside the service.",
+  "chaining": "Provides the public endpoint; the loop that keeps the lease alive is a small daemon that must run beside the service.",
   "limits": [
     {
       "kind": "write-gated",

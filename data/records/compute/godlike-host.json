@@ -5,7 +5,7 @@
   "url": "https://godlike.host/leb-offer-vps/",
   "category": "cloud VM",
   "free_tier": {
-    "stated": "USD 2.00/month for Nitro 1 on a 1 Gbps port, printed on the vendor's own LEB page against a struck-through USD 4.00: 1 vCPU on an AMD EPYC 75F3, 2 GB RAM, 30 GB NVMe. Nitro 2 is USD 4.00/month for 2 vCPU, 4 GB, 50 GB. The Ryzen 9 9950X3D line is USD 2.50/month for Ultra 1 (1 vCPU, 2 GB, 30 GB) and USD 5.00 for Ultra 2 (2 vCPU, 4 GB, 50 GB). The LEB offer post prices the same Nitro 1 differently: USD 21.99 for the first year (USD 1.83/month) and USD 43.99/year on renewal (USD 3.67/month), and it tells a buyer to pick a longer billing term at checkout so that coupon LEB50 halves that whole first period. Locations Los Angeles, New Jersey and Amsterdam.",
+    "stated": "USD 2.00/month for Nitro 1 on a 1 Gbps port, printed on the vendor's own LEB page against a struck-through USD 4.00: 1 vCPU on an AMD EPYC 75F3, 2 GB RAM, 30 GB NVMe. The Nitro ladder continues: Nitro 2 USD 4.00 (2 vCPU, 4 GB, 50 GB), Nitro 3 USD 8.00 (4 vCPU, 8 GB, 100 GB), Nitro 4 USD 16.00 (8 vCPU, 16 GB, 200 GB), Nitro 5 USD 32.00 (12 vCPU, 32 GB, 400 GB); the Ryzen 9 9950X3D line is USD 2.50/month for Ultra 1 (1 vCPU, 2 GB, 30 GB), USD 5.00 for Ultra 2, USD 10.00 for Ultra 3, USD 20.00 for Ultra 4 and USD 40.00 for Ultra 5 (same shapes). The page prints monthly prices only and no annual or renewal price; the offer post's annual figures are third-party and not carried here. The Deploy buttons do not open the VirtFusion panel: each plan's button carries its own cart link at godlike.host/cart-vps with productId, billingCycle=monthly, the LEB50 promo and a 50 discount; the cart page renders for an anonymous visitor and loads its prices with a script call this toolchain cannot make (a POST to the site's own preinstall API; the WHMCS order form for the plan answers 200 with no price in its static HTML), so the cart's own prices are unverified: behind a script. No sold-out marker and no coming-soon flag on any of the ten plan cards.",
     "unit": "GiB",
     "metered_on": "wall-clock",
     "source_url": "https://godlike.host/leb-offer-vps/",
@@ -25,7 +25,7 @@
     "notes": null
   },
   "egress": {
-    "terms": "no monthly transfer allowance and no overage price are stated on either page read; the plan card prints a 1 Gbps port and nothing else about traffic",
+    "terms": "5 TB of outbound transfer a month, stated on the LEB page beside 'Unmetered Inbound Traffic'; no overage price is printed",
     "metered": false,
     "free_allowance": null,
     "price_per_tb": null,
@@ -65,10 +65,52 @@
       "url": "https://lowendbox.com/blog/exclusive-lowendbox-pricing-2gb-kvm-vps-for-1-83-month-first-year-godlike-host-is-back/",
       "date": "2026-10-22",
       "proved": "third-party offer post, published 2026-10-10, quoted from its table: 'Nitro 1 ... 1 vCPU 2GB RAM 30GB NVMe Standard price: $87.96/year LEB price: $43.99/year LEB first year price: $21.99 Coupon Code: LEB50'; body text: 'Get a 2GB VPS for only $1.83/month on annual contract for the first year, and $3.67/month on annual after that'; test IPs given for 'Los Angeles', 'New Jersey' and 'Amsterdam'"
+    },
+    {
+      "url": "https://godlike.host/leb-offer-vps/",
+      "date": "2026-11-07",
+      "proved": "the LEB page renders Nitro 1 at USD 2.00 per month against a struck USD 4.00",
+      "capture": "sha256:08253a0bf51a8033a13b43baa14141b46f6ffdc2d7ce0eda57fbf1ed0899ab70",
+      "quote": "$4.00$2.00/ mon"
+    },
+    {
+      "url": "https://godlike.host/leb-offer-vps/",
+      "date": "2026-11-07",
+      "proved": "the LEB offer page prints a 5 TB monthly outbound allowance",
+      "capture": "sha256:0092d2d806e3da492c882369896fea88bd0c08a785fa765a284a371de801b0d0",
+      "quote": "5 TB outbound per month"
+    },
+    {
+      "url": "https://godlike.host/leb-offer-vps/",
+      "date": "2026-11-07",
+      "proved": "the LEB page's plan cards re-read on 2026-11-07 at the same prices",
+      "capture": "sha256:08253a0bf51a8033a13b43baa14141b46f6ffdc2d7ce0eda57fbf1ed0899ab70",
+      "quote": "$4.00$2.00/ mon"
+    },
+    {
+      "url": "probe:https://panel.godlike.host/",
+      "date": "2026-11-07",
+      "proved": "the VirtFusion panel at panel.godlike.host answers a 4.6 kB login page, so the cart's term prices sit behind a login",
+      "capture": "sha256:5db3dbd8a583df33197e77d2360a9495de93af72d859508a4119138057ae29f8",
+      "quote": "\"status\": 200"
+    },
+    {
+      "url": "https://godlike.host/leb-offer-vps/",
+      "date": "2026-11-07",
+      "proved": "the LEB page prices Nitro 1 at USD 2.00 a month against a struck USD 4.00",
+      "capture": "sha256:0092d2d806e3da492c882369896fea88bd0c08a785fa765a284a371de801b0d0",
+      "quote": "$4.00 $2.00 / mon"
+    },
+    {
+      "url": "https://godlike.host/leb-offer-vps/",
+      "date": "2026-11-07",
+      "proved": "the page re-states the 5 TB monthly outbound allowance with unmetered inbound",
+      "capture": "sha256:0092d2d806e3da492c882369896fea88bd0c08a785fa765a284a371de801b0d0",
+      "quote": "5 TB outbound per month"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T11:15:43.797Z",
   "notes": "The two pages disagree on the annual arithmetic: USD 1.83 x 12 is not USD 21.99 and USD 2.00 x 12 is USD 24.00, so the card and the post are pricing different billing terms and only the post says which. The offer post prints no bandwidth row, so the record carries no allowance rather than a guessed one.",
   "extras": {
     "facets": {

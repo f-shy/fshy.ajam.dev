@@ -74,10 +74,17 @@
       "url": "https://evolution-host.com/vps/",
       "date": "2026-10-22",
       "proved": "'EUR 10 Developer ... 2 CPU Cores at 4Ghz+ 2GB DDR5 RAM 20GB NVMe SSD 1Gb/s Port 20TB Monthly Transfer', 'EUR 20 Production ... 3 CPU Cores at 4Ghz+ 3GB DDR5 RAM 60GB NVMe SSD 1Gb/s Port 30TB Monthly Transfer', and the range up to 'EUR 100 Ultimate ... 16 CPU Cores at 4Ghz+ 16GB DDR5 RAM 200GB NVMe SSD 1Gb/s Port 100TB Monthly Transfer'"
+    },
+    {
+      "url": "https://evolution-host.com/vps/",
+      "date": "2026-11-07",
+      "proved": "the vendor's own VPS page prices the Starter plan at EUR 5 a month",
+      "capture": "sha256:c0fc2abff04aa1ced9ca688b7aef3da8b3079d914d3f690ab729fe054a0d2b47",
+      "quote": "€5 Starter Monthly VPS Plan 1 CPU Core at 4Ghz+ 1GB DDR5 RAM 20GB NVMe SSD 1Gb/s Port1 10TB Monthly Transfer2 EvoShield Level 1 Linux Distributions Europe, US and Asian VPS"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T14:17:06.322Z",
   "notes": "The tracker's Dallas row of 1,000 GB/month looked like a print error against the vendor's 10 TB until the vendor's footnote 2 explained it as 10% for wholesale cost; the two sources agree and the footnote is the reason, which is why this record states both numbers rather than one. No storage product line exists: storage/evolution-host already records fails-egress for that question on the same catalogue.",
   "extras": {
     "facets": {
@@ -90,6 +97,8 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "price_on_page": "EUR 5.00/month: Starter",
+    "renewal_note": "not published: the vendor's own VPS page read on 2026-11-07 prints a monthly price per plan and no renewal price"
   }
 }

@@ -5,7 +5,7 @@
   "url": "https://knb.ecoinformatics.org/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "5 GB free per user.",
+    "stated": "none reachable: 5 GB free per user.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://knb.ecoinformatics.org/",

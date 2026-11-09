@@ -51,7 +51,7 @@
   "binding_note": "unmetered traffic on every plan, so the port is the wall and it climbs with the price: 100 Mbps on Flare, 250 Mbps on Orbit, 500 Mbps on Comet and 1 Gbps on Pulsar. A 100 Mbps port sustained is about 32 TB a month, which is the largest effective monthly allowance even though no byte counter exists.",
   "identity_cost": {
     "kind": "email",
-    "detail": "not stated",
+    "detail": "registration requires an email address and a password, with Google and GitHub sign-in offered; no phone or card (read 2026-11-07)",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -66,10 +66,73 @@
       "url": "https://lowendtalk.com/discussion/221826/privatebyte-kvm-vps-from-5-99-mo-2-4gb-unmetered-london-amsterdam-dallas-25-off-let25",
       "date": "2026-10-22",
       "proved": "the offer thread, posted October 7, 2026, titles the offer 'PrivateByte | KVM VPS from $5.99/mo | 2-4GB Unmetered | London, Amsterdam, Dallas | 25% off: LET25', naming the three locations and a discount code the vendor page does not carry"
+    },
+    {
+      "url": "https://my.privatebyte.com/order/configure/flare",
+      "date": "2026-11-07",
+      "proved": "the order page's cart summary totals USD 5.99 due today",
+      "capture": "sha256:a014405d895872d2e65e5348378b9e38c985fa85e81aaad7ee626a84d0a8cae3",
+      "quote": "Total today\n\n$5.99/month"
+    },
+    {
+      "url": "https://my.privatebyte.com/order/configure/flare",
+      "date": "2026-11-07",
+      "proved": "the order page prices the annual cycle USD 57.50 billed yearly, 4.79 per month",
+      "capture": "sha256:a014405d895872d2e65e5348378b9e38c985fa85e81aaad7ee626a84d0a8cae3",
+      "quote": "Annually\n\n$4.79/mo\n\n$57.50 billed yearly · Save 20%"
+    },
+    {
+      "url": "https://my.privatebyte.com/order/configure/flare",
+      "date": "2026-11-07",
+      "proved": "the order page names no renewal figure and states the plan can be cancelled",
+      "capture": "sha256:a014405d895872d2e65e5348378b9e38c985fa85e81aaad7ee626a84d0a8cae3",
+      "quote": "cancel any time"
+    },
+    {
+      "url": "https://my.privatebyte.com/order/configure/flare",
+      "date": "2026-11-07",
+      "proved": "the order page prints the two billing cycles and their prices",
+      "capture": "sha256:a014405d895872d2e65e5348378b9e38c985fa85e81aaad7ee626a84d0a8cae3",
+      "quote": "Monthly\n\n$5.99\n\nAnnually\n\n$4.79/mo\n\n$57.50 billed yearly · Save 20%"
+    },
+    {
+      "url": "https://my.privatebyte.com/order/configure/flare",
+      "date": "2026-11-07",
+      "proved": "the order page offers the payment paths; no out-of-stock marker",
+      "capture": "sha256:a014405d895872d2e65e5348378b9e38c985fa85e81aaad7ee626a84d0a8cae3",
+      "quote": "Pay with Card Pay with PayPal Pay with Crypto Add to cart instead"
+    },
+    {
+      "url": "https://my.privatebyte.com/order/configure/flare",
+      "date": "2026-11-07",
+      "proved": "the cart summary names the plan, its cycle and its shape",
+      "capture": "sha256:a014405d895872d2e65e5348378b9e38c985fa85e81aaad7ee626a84d0a8cae3",
+      "quote": "FLARE · monthly\n\n1 vCPU · 2 GB · 25 GB · Unmetered · 100 Mbps"
+    },
+    {
+      "url": "https://my.privatebyte.com/register",
+      "date": "2026-11-07",
+      "proved": "the register form's required fields",
+      "capture": "sha256:4707885b7cb98ef6abfb82f3f8aadea3fc51cbe3786f3fe7630c4dc054410094",
+      "quote": "or continue with email\n\nEmail\n\nPassword"
+    },
+    {
+      "url": "https://privatebyte.com/",
+      "date": "2026-11-07",
+      "proved": "the entry plan's price and term are unchanged on 2026-11-07",
+      "capture": "sha256:c52f30c98dbe6bf3c4d0f9ec20fe5d24c1f8e6ede8c74eb097b610bb384a3ae1",
+      "quote": "$5.99/ month\n\nBilled monthly. No setup fee."
+    },
+    {
+      "url": "https://privatebyte.com/",
+      "date": "2026-11-07",
+      "proved": "the vendor's own marketing page prices the entry plan at USD 5.99 a month",
+      "capture": "sha256:c52f30c98dbe6bf3c4d0f9ec20fe5d24c1f8e6ede8c74eb097b610bb384a3ae1",
+      "quote": "$5.99/ month\n\nBilled monthly. No setup fee."
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T17:40:53.066Z",
   "notes": "The vendor table prints '4 GB' and '8 GB' under a column headed 'Memory' while the record's shape field is in GiB; the numbers are carried as printed and no conversion was made.",
   "extras": {
     "facets": {
@@ -82,6 +145,14 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "monthly_price": "USD 5.99 per month for Flare (1 vCPU / 2 GB / 25 GB SSD / 100 Mbps), no setup fee; the order page's summary totals USD 5.99 due today at the monthly cycle",
+    "annual_price": "USD 4.79 per month on the annual term, printed as 'USD 57.50 billed yearly · Save 20%'",
+    "renewal_price": "not published: no page read prints a renewal price; the order page states 'cancel any time'",
+    "billing_term": "monthly or annual: the order page offers exactly two cycles, Monthly at USD 5.99 and Annually at USD 4.79/mo (USD 57.50 billed yearly)",
+    "stock": "in stock: the order page renders the full configurator with payment options (Card, PayPal, Crypto, Add to cart)",
+    "cart_price": "USD 5.99 per month due today at the monthly cycle, from the order page's cart summary (FLARE · monthly, 1 vCPU · 2 GB · 25 GB · Unmetered · 100 Mbps)",
+    "price_on_page": "USD 5.99/month for Flare",
+    "renewal_usd": "not published: the order page names no renewal figure and states the plan can be cancelled"
   }
 }

@@ -5,7 +5,7 @@
   "url": "https://blossom.band/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Free uploads are 20 MiB per file with no retention guarantee ('A hard cap of 100 MiB per upload (20 MiB for free uploads)'), and the BUD-06 pre-flight is actively refused to non-browser…",
+    "stated": "none reachable: Free uploads are 20 MiB per file with no retention guarantee ('A hard cap of 100 MiB per upload (20 MiB for free uploads)'), and the BUD-06 pre-flight is actively refused to non-browser…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://blossom.band/",

@@ -75,7 +75,7 @@
     "transit_note": "Yggdrasil routes only inside its own 0200::/7 overlay and the project states it has no exit nodes, so no peer carries traffic to the public internet"
   },
   "binding": "none",
-  "binding_note": "The peer's advertised rate bounds overlay volume and is irrelevant to a public serving path",
+  "binding_note": "nothing in Yggdrasil binds, because nothing in Yggdrasil carries the traffic. The peer's advertised rate bounds overlay volume and is irrelevant to a public serving path",
   "interface_detail": "quic://, tls://, tcp:// or ws:// entries in the Peers[] list of yggdrasil.conf",
   "confidence_note": "the exit-node absence is a first-party statement on the project's own about page, so the field the verdict rests on is documented. Peer rates come from the public directory. No throughput was measured, and none would change the verdict",
   "limits_note": "the absence of an exit node is the whole finding and it is not a limit of any of the six kinds: it is a capability the network does not have. Yggdrasil routes inside 0200::/7 only, and the project states that reaching the public internet 'can be achieved using proxies or other tunnelling solutions on top of Yggdrasil but this is not something we explicitly aim to provide'"

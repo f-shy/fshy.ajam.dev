@@ -46,7 +46,7 @@
   ],
   "limits_note": "the Windows option is EUR 28.00/month on every term and the installation fee is EUR 0.00; the VPS page's 'From $23.37' is the Linux price",
   "binding": "per-ip-shaping",
-  "binding_note": "the 3 Gbps port is the published ceiling in the EU and US.",
+  "binding_note": "the 3 Gbps port is the published ceiling in the EU and US; only the Asia-Pacific region has a byte quota, so the port is the first limit in the likely region.",
   "identity_cost": {
     "kind": "card",
     "detail": "an account and a payment method at order; the order flow is account-gated and its instrument list was not read",
@@ -100,7 +100,7 @@
       "pair": "EUR/USD",
       "rate": 1.1193,
       "date": "2026-10-23",
-      "source": "ECB reference via frankfurter.app"
+      "source": null
     },
     "windows_licence": "add-on, EUR 28.00/month, printed in the order catalogue",
     "ipv4_included": true,

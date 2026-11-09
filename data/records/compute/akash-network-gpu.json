@@ -69,11 +69,18 @@
       "url": "https://gpurentalprices.com/",
       "date": "2026-10-22",
       "proved": null
+    },
+    {
+      "url": "https://akash.network/pricing/gpus/h100/",
+      "date": "2026-11-06",
+      "proved": "Akash's own H100 page prices on-demand H100 capacity at USD 2.73 per GPU-hour",
+      "capture": "sha256:6b274db249122fe24b799c8e0a23258e303fd9c48af86499142333ae1e8d025e",
+      "quote": "As of October 22, 2026, on-demand H100s on Akash start at $2.73 per GPU-hour."
     }
   ],
   "verdict": "trial-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "Changes the existing akash-network.json record, which is otherwise accurate: it states that the trial excludes H100 and above, and this adds that H100 capacity is nonetheless on the network at a published floor. The distinction that matters is trial versus paid, and collapsing the two would mislead the next reader in either direction.",
+  "verified_at": "2026-11-06T19:39:36.653Z",
+  "notes": "The trial excludes H100 and above, and H100 capacity is nonetheless on the network at a published floor. The distinction that matters is trial versus paid, and collapsing the two would mislead the next reader in either direction. The verdict is trial-only: the trial credit cannot reach H100.",
   "extras": {
     "facets": {
       "class": "gpu-marketplace",

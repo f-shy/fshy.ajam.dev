@@ -5,7 +5,7 @@
   "url": "https://www.kernel.org/faq.html",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Not evaluated as a storage option: it is the Linux kernel's own infrastructure, access by maintainer invitation only, and there is no general-purpose upload surface to test.",
+    "stated": "none reachable: Not evaluated as a storage option: it is the Linux kernel's own infrastructure, access by maintainer invitation only, and there is no general-purpose upload surface to test.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.kernel.org/faq.html",

@@ -19,7 +19,7 @@ so its failed check holds no other update.
 
 | stage | command | input | output | who runs it |
 | --- | --- | --- | --- | --- |
-| export | `python publish/export.py --source ../f-research` | one commit of the private research repository | `data/` | a merge session only |
+| export | `python publish/export.py --source ../f-research` | one commit of the research repository | `data/` | a merge session only |
 | build | `python publish/build.py --site site/dist` | `data/` only | `.tmp/fshy/public.db`, `.tmp/fshy/worker.db`, `site/dist/` | anyone; CI; the deploy |
 
 **Export.** It publishes a commit, not a working tree.

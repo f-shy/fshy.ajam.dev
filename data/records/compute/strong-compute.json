@@ -5,7 +5,7 @@
   "url": "https://strongcompute.com",
   "category": "finops (GPU/LLM spend-management SaaS; legacy managed GPU training platform 'ISC')",
   "free_tier": {
-    "stated": "a free account in demo mode, plus a 3-month free trial of cost tracking that has to be applied for and granted",
+    "stated": "a free account in demo mode, plus a 3-month free trial of cost tracking that has to be applied for and granted; the product tracks spend on compute that is already bought",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://strongcompute.com",

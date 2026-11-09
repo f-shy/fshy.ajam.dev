@@ -40,7 +40,7 @@
   "limits": [
     {
       "kind": "write-gated",
-      "value": "no plan and no price: the product is orchestration tooling over GPUs a user rents elsewhere",
+      "value": "no plan and no price: the product is orchestration tooling over GPUs rented elsewhere",
       "source": "https://trainy.ai/"
     }
   ],
@@ -52,7 +52,7 @@
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
-  "confidence_note": "the site was read on 2026-10-22 and sells cluster orchestration over a user's own or rented GPUs, with no plan or price. That confirms paid-only",
+  "confidence_note": "the site was read on 2026-10-22 and sells cluster orchestration over existing or rented GPUs, with no plan or price. That confirms paid-only",
   "evidence": [
     {
       "url": "https://trainy.ai/",

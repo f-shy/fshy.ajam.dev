@@ -5,7 +5,7 @@
   "url": "https://uptobox.com/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Seized and still dead. The domain answers with a Cloudflare 522 and a French/English maintenance banner ('Nous réalisons une maintenance et nous revenons très vite'), which reads like a…",
+    "stated": "none reachable: Seized and still dead. The domain answers with a Cloudflare 522 and a French/English maintenance banner ('Nous réalisons une maintenance et nous revenons très vite'), which reads like a…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://uptobox.com/",

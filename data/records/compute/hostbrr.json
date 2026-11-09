@@ -9,7 +9,7 @@
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://hostbrr.com/vps.html",
-    "read_on": "2026-10-24"
+    "read_on": "2026-11-04"
   },
   "per_object_cap": {
     "stated": "not applicable"
@@ -88,10 +88,45 @@
       "url": "https://hostbrr.com/vps.html",
       "date": "2026-10-24",
       "proved": "quoted from the rendered default card on the same page, which is the only one in the DOM: 'Monthly Total | €2.00 | 1 Core | 2 GB ECC | 25 GB'"
+    },
+    {
+      "url": "https://hostbrr.com/vps.html",
+      "date": "2026-11-04",
+      "proved": "the Value 4GB array row prices the rung at USD 3.25 a month and USD 32.50 a year",
+      "capture": "sha256:9391786618951c1a851a361637a8cdb155ea0f239708284c71fe2571adfabf4e",
+      "quote": "{ name: \"Value 4GB\", cpu: \"1 Core\", ram: \"4 GB\", storage: \"40 GB\", bw: \"2.5 TB @ 10Gbps\", priceEUR: 3.00, priceUSD: 3.25, yearlyEUR: 30.00, yearlyUSD: 32.50 }"
+    },
+    {
+      "url": "https://my.hostbrr.com/order/config/index/largeram/?group_id=67&pricing_id=1166&currency=EUR",
+      "date": "2026-11-04",
+      "proved": "the configure route renders an empty order summary with no line item",
+      "capture": "sha256:58ab8e44c870dc835540b995a5919419e0036f9000c6039e7251bc0909c766b3",
+      "quote": "$0.00 USD"
+    },
+    {
+      "url": "https://my.hostbrr.com/order/main/packages/largeram/?group_id=67",
+      "date": "2026-11-04",
+      "proved": "the group route renders a package-selection page instead of a priced cart",
+      "capture": "sha256:7b3890a3c0add316ef9f614e01969263e799ce5dd23fb8c3af29f43c67e27a30",
+      "quote": "Please select a package group below to continue."
+    },
+    {
+      "url": "https://hostbrr.com/vps.html",
+      "date": "2026-11-04",
+      "proved": "the Value line is billed monthly with no minimum term",
+      "capture": "sha256:9391786618951c1a851a361637a8cdb155ea0f239708284c71fe2571adfabf4e",
+      "quote": "Billed monthly. Cancel anytime."
+    },
+    {
+      "url": "https://hostbrr.com/terms.html",
+      "date": "2026-11-04",
+      "proved": "the terms issue recurring invoices automatically, with no rate lock",
+      "capture": "sha256:28e32272e884efd2c4f9f51a82a9ad6fca3cbaf4e26581e2adba7813f1990ad4",
+      "quote": "Invoices for recurring hosting and server services will be issued automatically 5 days in advance of the active service's due date."
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-24T02:11:00.000Z",
+  "verified_at": "2026-11-04T18:45:35.799Z",
   "notes": "This fills the 4 GiB rung that the earlier read could not render: the selector is a JavaScript category filter and every plan lives in a `plans = [...]` array in the page source, so a fetch plus a parse of that array returns all ten rows. The 4 GiB rung is USD 3.25 a month monthly, or USD 32.50 a year (USD 2.71 a month) on annual prepay. It sits under the USD 5 line but well below the 8 GiB winner, and its 2.5 TB allowance on a 10 Gbps port is the thinnest part of the offer. The 8 GiB rung is USD 5.50 and therefore over the line. Not established: the payment rails and any card hold; whether the monthly price carries a first-term discount (no strike-through or renewal note is present in the array).",
   "extras": {
     "facets": {
@@ -119,7 +154,7 @@
     "price_arithmetic": "USD 3.25 a month billed monthly as published by the vendor, no conversion applied; annual prepay is USD 32.50, which is USD 2.708 a month and USD 32.50 out of pocket. A VPS bills whether it runs or not, so the 24/7 and 10 h/day figures are the same number.",
     "out_of_pocket_usd": 3.25,
     "renewal_usd": 3.25,
-    "renewal_note": "the array carries both the monthly and the yearly rate and no first-term price, so the renewal is the published monthly figure",
+    "renewal_note": "the plan array publishes both cycles and no first-term price, so the renewal is the published monthly rate of USD 3.25; the terms make the invoice for the recurring service automatic and state no rate change for a later term.",
     "promo": "not stated as a promo",
     "port_mbps": 10000,
     "ipv4_included": true,
@@ -259,12 +294,14 @@
     ],
     "refund": "7 days on a VPS paid by card or PayPal, 30 days on shared; crypto none",
     "price_on_page": "USD 3.25/mo",
-    "price_in_cart": "USD 3.25/mo, USD 32.50/yr",
-    "cart_works": "yes",
+    "price_in_cart": "not read: the group route renders the package-selection page and the configure route renders an empty order summary ('Total Due Today: $0.00 USD')",
+    "cart_works": "no: the group route answers 'Please select a package group below to continue.' and the configure route renders an empty order summary",
     "cart_url": "https://my.hostbrr.com/order/main/packages/largeram/?group_id=67",
     "signup_url": "https://my.hostbrr.com/order/main/packages/largeram/?group_id=67",
     "cart_evidence": "group page renders 'ECO Memory-Optimized 4 GB Choose your billing cycle. 1 Month @ $3.25 USD 1 Year @ $32.50 USD ... 4 GB DDR4 ECC RAM'",
-    "needs_account_first": false
+    "needs_account_first": false,
+    "annual_usd": 32.5,
+    "stock": "not stated: the plan array carries no stock counter, and the order route prints no availability line"
   },
   "tier": "Value 4GB",
   "confidence_note": "the whole plan ladder, including this rung, is held in a JavaScript array on the vendor's page and is not rendered into the DOM until a category tab is clicked, which is why the earlier read showed only the default plan. Prices are published in both EUR and USD by the vendor; the USD figures are recorded and no conversion was applied."

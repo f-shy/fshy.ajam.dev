@@ -5,7 +5,7 @@
   "url": "https://i.stack.imgur.com/mHJfs.jpg",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "still 302-redirects to i.sstatic.net but is no longer an upload target; agents that test the old host will mis-read a redirect as success",
+    "stated": "none reachable: still 302-redirects to i.sstatic.net but is no longer an upload target; agents that test the old host will mis-read a redirect as success",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://i.stack.imgur.com/mHJfs.jpg",

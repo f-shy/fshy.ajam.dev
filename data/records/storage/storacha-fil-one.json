@@ -5,7 +5,7 @@
   "url": "https://www.fil.one/pricing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "1 TB free but for 30 days only, with 2 TB of egress in the trial: '1 TB free for 30 days · No credit card required ... The 30-day trial includes 2 TB of egress.' After that it is…",
+    "stated": "none reachable: 1 TB free but for 30 days only, with 2 TB of egress in the trial: '1 TB free for 30 days · No credit card required ... The 30-day trial includes 2 TB of egress.' After that it is…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.fil.one/pricing",

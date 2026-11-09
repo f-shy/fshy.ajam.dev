@@ -72,7 +72,7 @@
   "extras": {
     "stale_after_days": 180,
     "bytes_transit": "yes",
-    "transit_note": "the port forwards to a user's origin and the bytes cross GetAStatic's network"
+    "transit_note": "the port forwards to the origin and the bytes cross GetAStatic's network"
   },
   "binding": "volume-quota",
   "interface_detail": "a forwarded port on a dedicated IPv4",

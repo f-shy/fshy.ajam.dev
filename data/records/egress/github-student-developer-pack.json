@@ -37,7 +37,7 @@
   ],
   "interface_detail": "GitHub Education application, then the partner's own console",
   "tooling": "wg-quick on the Azure VM the credit pays for",
-  "chaining": "no chain for a user: without enrolment the bundle is unreachable, and if it were reachable it would be a slightly worse Azure trial",
+  "chaining": "no chain here: without enrolment the bundle is unreachable, and if it were reachable it would be a slightly worse Azure trial",
   "limits": [
     {
       "kind": "write-gated",
@@ -52,10 +52,10 @@
   ],
   "limits_note": "",
   "binding": "write-gated",
-  "binding_note": "student verification comes before the credit, and a user is not enrolled. If it were, the Azure credit's 1.04 TiB would be the next limit, which is a month at 1 TiB.",
+  "binding_note": "student verification comes before the credit, and there is no enrolment. If it were, the Azure credit's 1.04 TiB would be the next limit, which is a month at 1 TiB.",
   "identity_cost": {
     "kind": "institution",
-    "detail": "verification as a student, which GitHub establishes through the school",
+    "detail": "verification as a student, which GitHub establishes through the school; the pack itself is not available without enrolment",
     "country": "None"
   },
   "reliability_note": "the pack is re-verified annually and partner offers are withdrawn without notice",

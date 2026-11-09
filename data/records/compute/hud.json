@@ -48,7 +48,7 @@
   "limits_note": null,
   "identity_cost": {
     "kind": "email",
-    "detail": "unverified: the sign-in methods are not shown on the public pages. The home page says 'No credit card required.' to create a first environment, while hosted runs draw prepaid credits that are bought with a card",
+    "detail": "email: sign-up is held by Clerk and accepts an email address or a Google account, with no phone number field and a password required; a first and last name are required fields. A credit card is required to run work, because credits are bought with one and a new team starts with none.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -127,10 +127,38 @@
       "proved": "HUD has a CLI and an SDK",
       "capture": "sha256:2b87ebafabd27872b8f9294f40c2c85c4712fbe24f5f394aaa43e8229e355895",
       "quote": "The CLI and SDK use this public surface"
+    },
+    {
+      "url": "https://clerk.hud.ai/v1/environment",
+      "date": "2026-11-04",
+      "proved": "the sign-up form identifies a person by an email address or a Google account",
+      "capture": "sha256:78ad17d16efd29b0df2abbc79d26056c1909c852f0ba8cb1cdb1d735c8160deb",
+      "quote": "\"identification_requirements\":[[\"email_address\",\"oauth_google\"],[]]"
+    },
+    {
+      "url": "https://clerk.hud.ai/v1/environment",
+      "date": "2026-11-04",
+      "proved": "the sign-up form has no phone number field",
+      "capture": "sha256:78ad17d16efd29b0df2abbc79d26056c1909c852f0ba8cb1cdb1d735c8160deb",
+      "quote": "\"phone_number\":\"off\""
+    },
+    {
+      "url": "https://docs.hud.ai/platform/quickstart",
+      "date": "2026-11-04",
+      "proved": "a new team has no credits, so work needs a purchase",
+      "capture": "sha256:5642b89f87bd19f3cdfdc24607a89d6541cc00a4ba0d90e917a72b7f90d09a5a",
+      "quote": "Runs and QA reviews are paid from your team's credit balance, and a new team starts with none."
+    },
+    {
+      "url": "https://docs.hud.ai/platform/billing",
+      "date": "2026-11-04",
+      "proved": "the credit balance that work is paid from is bought with a card",
+      "capture": "sha256:2a5606030826f3b45bdbc7ebe1468562ad1c4f9ce89afc72c8475a865b5f6da0",
+      "quote": "Add credits buys credits with a card."
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-04T02:24:12.147Z",
+  "verified_at": "2026-11-04T15:51:59.409Z",
   "price_per_tb_month": null,
   "notes": "The first read was refused with 429; the page was reached through the firecrawl provider. It carries no price and no free credit, so the USD 10 the record held is not established here.",
   "extras": {

@@ -40,13 +40,13 @@
   "limits": [
     {
       "kind": "request-rate",
-      "value": "Anonymous calls sit at the lowest priority and the service 'may be restricted for anonymous users during high load'. The measured pool on 2026-10-22 was 51 workers over 28 text models, so supply is thin and the queue, not a quota, is what limits a job: priority rises only with kudos, earned by contributing a GPU a user does not have.",
+      "value": "Anonymous calls sit at the lowest priority and the service 'may be restricted for anonymous users during high load'. The measured pool on 2026-10-22 was 51 workers over 28 text models, so supply is thin and the queue, not a quota, is what limits a job: priority rises only with kudos, earned by contributing a GPU.",
       "source": "https://aihorde.net/"
     }
   ],
-  "limits_note": "Anonymous calls sit at the lowest priority and the service 'may be restricted for anonymous users during high load'. The measured pool on 2026-10-22 was 51 workers over 28 text models, so supply is thin and the queue, not a quota, is what limits a job: priority rises only with kudos, earned by contributing a GPU a user does not have.",
+  "limits_note": "Anonymous calls sit at the lowest priority and the service 'may be restricted for anonymous users during high load'. The measured pool on 2026-10-22 was 51 workers over 28 text models, so supply is thin and the queue, not a quota, is what limits a job: priority rises only with kudos, earned by contributing a GPU.",
   "binding": "request-rate",
-  "binding_note": "Anonymous calls sit at the lowest priority and the service 'may be restricted for anonymous users during high load'. The measured pool on 2026-10-22 was 51 workers over 28 text models, so supply is thin and the queue, not a quota, is what limits a job: priority rises only with kudos, earned by contributing a GPU a user does not have.",
+  "binding_note": "Anonymous calls sit at the lowest priority and the service 'may be restricted for anonymous users during high load'. The measured pool on 2026-10-22 was 51 workers over 28 text models, so supply is thin and the queue, not a quota, is what limits a job: priority rises only with kudos, earned by contributing a GPU.",
   "identity_cost": {
     "kind": "anonymous",
     "detail": null,

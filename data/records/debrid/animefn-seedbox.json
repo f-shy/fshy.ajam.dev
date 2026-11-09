@@ -20,7 +20,7 @@
     "notes": ""
   },
   "retention": {
-    "stated": "Storage is the plan's disk and nothing on the page deletes on a timer; the client removes its own data.",
+    "stated": "Storage is the plan's disk and nothing on the page deletes on a timer; removal is manual.",
     "days": null,
     "source_url": "https://servers.animefn.com/seedbox",
     "notes": ""
@@ -38,7 +38,7 @@
   ],
   "interface_detail": "rTorrent with the ruTorrent web UI on every plan. Shared plans expose FTP; dedicated plans add SSH, HTTP and SSHFS ('FTP / SSH / HTTP / SSHFS').",
   "tooling": "ruTorrent in a browser, FTP for transfer, SSH/SSHFS on dedicated plans. No rclone backend documented.",
-  "chaining": "A seedbox does not resolve file-host links, but it removes a user's own line from the swarm: the torrent is fetched at 1 Gbps and pulled down over FTP, so the home connection only carries the finished file once.",
+  "chaining": "A seedbox does not resolve file-host links, but it removes the local line from the swarm: the torrent is fetched at 1 Gbps and pulled down over FTP, so the home connection only carries the finished file once.",
   "limits": [
     {
       "kind": "per-ip-shaping",

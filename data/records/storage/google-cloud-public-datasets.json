@@ -5,7 +5,7 @@
   "url": "https://docs.cloud.google.com/storage/docs/public-datasets",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "No application process exists. Google hosts only its own and partner datasets (Sentinel-2, Landsat, ARCO-ERA5, NEXRAD), and the only stated route for anyone else is an email address: 'If…",
+    "stated": "none reachable: No application process exists. Google hosts only its own and partner datasets (Sentinel-2, Landsat, ARCO-ERA5, NEXRAD), and the only stated route for anyone else is an email address: 'If…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.cloud.google.com/storage/docs/public-datasets",

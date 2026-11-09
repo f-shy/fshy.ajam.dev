@@ -5,7 +5,7 @@
   "url": "https://www.tier.net/vps",
   "category": "cloud VM",
   "free_tier": {
-    "stated": "VPS Bronze at USD 8.99/month: 1 core, 4 GB RAM, 30 GB SSD RAID 10, 2 TB at 1 Gbps, 1 IPv4 plus a /64 IPv6, sold in three US regions that the tracker names as Dallas Texas, Bend Oregon and Charlotte North Carolina. At the same USD 8.99 the Powerhouse Mini gives 1 core, 4 GB, 50 GB SSD RAID 10 and 1 TB. The page header states 'Starting from USD 7.49/mo' while the lowest plan card is USD 8.99.",
+    "stated": "VPS Bronze at USD 8.99/month: 1 core, 4 GB RAM, 30 GB SSD RAID 10, 2 TB at 1 Gbps, 1 IPv4 plus a /64 IPv6, sold in three US regions that the tracker names as Dallas Texas, Bend Oregon and Charlotte North Carolina. At the same USD 8.99 the Powerhouse Mini gives 1 core, 4 GB, 50 GB SSD RAID 10 and 1 TB. The billing store's current plan group lists the Bronze at 'From $8.99/mo'. No annual price and no renewal price are printed on the pages read.",
     "unit": "GiB",
     "metered_on": "wall-clock",
     "source_url": "https://www.tier.net/vps",
@@ -74,10 +74,24 @@
       "url": "https://www.tier.net/vps",
       "date": "2026-10-22",
       "proved": "the page header says 'Starting from USD 7.49 /mo' and 'VPS Hosting - From USD 7.49/mo', which no plan card on the page repeats; the page also carries the promo text 'TIER-VPS10 ... Valid till May 31, 2025'"
+    },
+    {
+      "url": "https://www.tier.net/vps",
+      "date": "2026-11-07",
+      "proved": "the Bronze card still prices USD 8.99 per month with the same shape, and the capture holds no 7.49 header line",
+      "capture": "sha256:1a79fcc6758a899a0b0c24efab2f1cac03e78a35943bc8e179178ad8f34b3bc9",
+      "quote": "## VPS Bronze\n\n#### $8.99/per month"
+    },
+    {
+      "url": "https://www.tier.net/vps",
+      "date": "2026-11-07",
+      "proved": "the Bronze card is unchanged at USD 8.99 per month",
+      "capture": "sha256:1a79fcc6758a899a0b0c24efab2f1cac03e78a35943bc8e179178ad8f34b3bc9",
+      "quote": "## VPS Bronze\n\n#### $8.99/per month"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T06:08:42.898Z",
   "notes": "Two pricing inconsistencies on the vendor page, recorded rather than resolved: the hero says USD 7.49 while the cheapest card is USD 8.99, and the promo block still advertises a code that expired on 31 May 2025, which is evidence the page carries stale campaign text. The 7-day money-back guarantee is stated on every card. Rendering and provenance: currency symbols are written out (EUR, GBP, RUB, VND), diacritics in place names are folded to ASCII, and a price the page splits across two lines is joined as value/period; the tracker page stated 'Database update: 7 hours ago' when it was read on 2026-10-22.",
   "extras": {
     "facets": {
@@ -90,6 +104,7 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "price_on_page": "USD 8.99/month for VPS Bronze"
   }
 }

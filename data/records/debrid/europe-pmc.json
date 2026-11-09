@@ -48,7 +48,7 @@
       "source": "https://europepmc.org/RestfulWebService"
     }
   ],
-  "limits_note": "The bulk path is FTP and it did not answer from this network: https://europepmc.org/ftp/oa/ returned 403 and ftp://europepmc.org/oa/ timed out after 20 s. That is a reachability fact about a user, not a statement that the mirror is gone.",
+  "limits_note": "The bulk path is FTP and it did not answer from this network: https://europepmc.org/ftp/oa/ returned 403 and ftp://europepmc.org/oa/ timed out after 20 s. That is a reachability fact about this network, not a statement that the mirror is gone.",
   "binding": "request-rate",
   "binding_note": "With the FTP mirror unreachable here, the API is the only path, and it is one page per call with no published ceiling: at 787 KB per pageSize=1000 call, a TiB would take about 1.4 million calls, so the call rate decides the day's bytes, not any byte quota.",
   "identity_cost": {

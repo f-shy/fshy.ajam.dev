@@ -37,7 +37,7 @@
   ],
   "interface_detail": "self-service web portal generates the tunnel configuration; wg-quick applies it",
   "tooling": "wg-quick plus the vendor portal; GRE/SIT/L2TPv3/VXLAN also offered",
-  "chaining": "a routed /56 over WireGuard gives a free VM with no public address 2^72 inbound IPv6 addresses; the VM supplies the CPU and a user supplies only a WireGuard handshake",
+  "chaining": "a routed /56 over WireGuard gives a free VM with no public address 2^72 inbound IPv6 addresses; the VM supplies the CPU and the only other input is a WireGuard handshake",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -71,7 +71,7 @@
   "verdict": "qualifies",
   "verified_at": "2026-10-23T00:00:00.000Z",
   "price_per_tb_month": "USD 0",
-  "notes": "The routed /56 is IPv6 only, so the inbound address is public but reachable only by clients that have IPv6. The /56 is routed to the tunnel endpoint, so the endpoint is what a user must already own: this composes with a free VM, it is not a substitute for one. UDP is carried because the prefix is routed IP, not a port forward; that is inferred from 'Subnet is route to your tunnel endpoint', not from a UDP sentence.",
+  "notes": "The routed /56 is IPv6 only, so the inbound address is public but reachable only by clients that have IPv6. The /56 is routed to the tunnel endpoint, so the endpoint is what must already be owned: this composes with a free VM, it is not a substitute for one. UDP is carried because the prefix is routed IP, not a port forward; that is inferred from 'Subnet is route to your tunnel endpoint', not from a UDP sentence.",
   "extras": {
     "wg_path": "extractable",
     "wg_detail": "No downloadable .conf is published. The self-service portal is the registration and the generator: 'Our system also generated configuration samples for tunnel config based on your information.' WireGuard is one of six offered protocols ('Wireguard yes yes' in the IPv4 and IPv6 endpoint table).",

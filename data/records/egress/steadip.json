@@ -52,7 +52,7 @@
   ],
   "limits_note": "",
   "binding": "write-gated",
-  "binding_note": "A verification step and a payment stand between a user and a UDP port, so nothing about volume matters until that gate is passed.",
+  "binding_note": "A verification step and a payment stand between an account and a UDP port, so nothing about volume matters until that gate is passed.",
   "identity_cost": {
     "kind": "email",
     "detail": "The client command is steadip login against a free account; the TCP/UDP page says the managed layer is available to verified users, and the site prices verified features at USD 19.99 per year.",

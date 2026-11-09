@@ -5,7 +5,7 @@
   "url": "https://s3providers.com/providers/contabo-object-storage",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Product appears delisted from public pricing — contabo.com/en/object-storage/ now 301s to /storage-vps/ (a VM product) and contabo.com/en/pricing/ lists no Object Storage. Orderable only…",
+    "stated": "none reachable: Product appears delisted from public pricing — contabo.com/en/object-storage/ now 301s to /storage-vps/ (a VM product) and contabo.com/en/pricing/ lists no Object Storage. Orderable only…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://s3providers.com/providers/contabo-object-storage",

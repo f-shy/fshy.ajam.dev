@@ -37,7 +37,7 @@
   ],
   "interface_detail": "web UI plus OAuth connections to 25+ cloud destinations; native FTP/SFTP/WebDAV pulls are also supported. No public API is documented on the page read.",
   "tooling": "browser; the destination cloud supplies the programmatic path (rclone, Drive API).",
-  "chaining": "it also takes NZB, which makes it the cheapest way to move a usenet download into Drive.",
+  "chaining": "one hop that lands a torrent in an existing free drive, so the storage problem is solved by a service already held; it also takes NZB, which makes it the cheapest way to move a usenet download into Drive.",
   "limits": [
     {
       "kind": "per-object-cap",

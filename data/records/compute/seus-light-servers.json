@@ -33,7 +33,7 @@
   ],
   "interface_detail": "SSH over IPv6, plus a web console at s.eus for image choice, reinstall and reverse DNS. Quoted: 'Reinstall from the same page whenever you break something'. No IPv4 at all.",
   "tooling": "any SSH client, but it must reach IPv6: the announcement says 'for SSH, connect from a network with IPv6 or through a tunnel'",
-  "chaining": "a free always-on IPv6 box with 512 MB and a static address with editable rDNS, which suits a health monitor or an IPv6-only service; it cannot be a WireGuard endpoint for a client without IPv6",
+  "chaining": "a free always-on IPv6 box with 512 MB and a static address with editable rDNS, which suits a health monitor or an IPv6-only service; it cannot be a WireGuard endpoint without IPv6",
   "limits": [
     {
       "kind": "retention-clamped",
@@ -101,7 +101,7 @@
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-24T06:31:00.000Z",
   "price_per_tb_month": null,
-  "notes": "Two things make this a caveat rather than a clean qualify: the supply is an explicit queue that opened three days before this read, and renewal depends on posting in a community rather than on paying or on logging in. That second point is unusual and worth stating plainly: the machine stays free if he writes a build log a month. The page disagrees with itself on storage (5 GB in the body, 10 GB in the meta description) and both are quoted. What could not be established: the traffic allowance, whether the queue has cleared, and what the request form asks.",
+  "notes": "Two things make this a caveat rather than a clean qualify: the supply is an explicit queue that opened three days before this read, and renewal depends on posting in a community rather than on paying or on logging in. That second point is unusual and worth stating plainly: the machine stays free if a build log is written a month. The page disagrees with itself on storage (5 GB in the body, 10 GB in the meta description) and both are quoted. What could not be established: the traffic allowance, whether the queue has cleared, and what the request form asks.",
   "extras": {
     "shape": {
       "vcpu": 1,

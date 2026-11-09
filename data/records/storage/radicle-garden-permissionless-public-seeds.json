@@ -23,7 +23,7 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": "No egress metering published. Peer-to-peer replication means N seeds each hold a full copy at no cost for a user.",
+    "terms": "No egress metering published. Peer-to-peer replication means N seeds each hold a full copy at no cost.",
     "metered": false
   },
   "interface": [

@@ -94,7 +94,7 @@
       "wall_clock_min": null,
       "idle_reap_s": null,
       "restart_required": false,
-      "note": "VMs remain on unless stopped or suspended: the default is no reap, and suspend is a user's action"
+      "note": "VMs remain on unless stopped or suspended: the default is no reap, and suspend is a user action"
     },
     "persistent_storage": null,
     "network_out": null,

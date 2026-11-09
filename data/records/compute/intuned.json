@@ -57,7 +57,7 @@
   "limits_note": "not stated",
   "identity_cost": {
     "kind": "email",
-    "detail": null,
+    "detail": "The phone requirement is not published on https://intunedhq.com/docs/main/00-getting-started/quickstarts/scraper. Country: not published on https://intunedhq.com/docs/main/00-getting-started/quickstarts/scraper.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -87,10 +87,31 @@
       "proved": "Web Tasks are called over an API",
       "capture": "sha256:522fde4d76c4eb58c2a7bb242d51ea502ff63000fbee25082a6c7c38bfaf29e0",
       "quote": "Describe a web task in plain English and call an API."
+    },
+    {
+      "url": "https://intunedhq.com/docs/main/00-getting-started/quickstarts/scraper",
+      "date": "2026-11-04",
+      "proved": "an Intuned account is required and its free plan needs no credit card",
+      "capture": "sha256:95c8d4805e063fe75ea7ae5e267b509bf35118d3021387d3222192a0575510d5",
+      "quote": "An active Intuned account (sign up here). No credit card required—Intuned has a free plan"
+    },
+    {
+      "url": "https://intunedhq.com/docs/main/00-getting-started/quickstarts/scraper",
+      "date": "2026-11-06",
+      "proved": "an Intuned account is required and its free plan needs no credit card",
+      "capture": "sha256:95c8d4805e063fe75ea7ae5e267b509bf35118d3021387d3222192a0575510d5",
+      "quote": "An active Intuned account (sign up here). No credit card required—Intuned has a free plan"
+    },
+    {
+      "url": "https://intunedhq.com/docs/main/06-resources/privacy-policy",
+      "date": "2026-11-06",
+      "proved": "an email address is the personal data collected for an account",
+      "capture": "sha256:8254e4b9591eb8509c09f8395300970ce09d56da9c534e50a0eab99d59f5c2a8",
+      "quote": "Personally identifiable information may include, but is not limited to: (a)  Email address"
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-04T05:24:24.921Z",
+  "verified_at": "2026-11-06T17:42:10.983Z",
   "price_per_tb_month": null,
   "notes": "",
   "extras": {

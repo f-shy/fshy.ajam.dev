@@ -39,7 +39,7 @@
     "detail": "institution",
     "country": null
   },
-  "reliability_note": "metadata-only even for accredited institutions, so it can never hold bytes for a user.",
+  "reliability_note": "metadata-only even for accredited institutions, so it can never hold bytes.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

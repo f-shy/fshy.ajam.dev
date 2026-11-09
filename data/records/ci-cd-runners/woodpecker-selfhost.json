@@ -12,9 +12,10 @@
     "metered_on": "none"
   },
   "per_object_cap": {
-    "stated": "no cap from the software; the agent host's memory and disk are the limit",
+    "stated": "a pipeline is killed at 60 minutes by default, and the maximum a repo setting can set is 120 minutes by default",
     "bytes": null,
-    "source_url": "https://woodpecker-ci.org/docs/intro"
+    "source_url": "https://woodpecker-ci.org/docs/administration/configuration/server",
+    "notes": "by default, the maximum workflows that are executed in parallel on an agent is 1"
   },
   "retention": {
     "stated": "whatever the agent host retains",
@@ -34,12 +35,12 @@
   ],
   "interface_detail": "a server plus one or more agents; a .woodpecker.yml pipeline; the woodpecker-cli",
   "tooling": "docker, podman, or a local backend on the agent host",
-  "chaining": "pair it with a free VM and the per-job cap disappears, because the cap belongs to a hosted runner and not to the software",
+  "chaining": "pair it with a free VM: the pipeline timeout is the wall clock, 60 minutes by default and at most 120 minutes from the repo settings",
   "limits": [
     {
       "kind": "per-object-cap",
-      "value": "no cap from the software; the agent host's memory and disk are the limit",
-      "source": "https://woodpecker-ci.org/docs/intro"
+      "value": "a pipeline is killed at 60 minutes by default, and the maximum a repo setting can set is 120 minutes by default",
+      "source": "https://woodpecker-ci.org/docs/administration/configuration/server"
     }
   ],
   "binding": "none",
@@ -66,11 +67,26 @@
       "url": "https://docs.codeberg.org/ci/",
       "date": "2026-10-22",
       "proved": "Codeberg's hosted instance is Woodpecker, and self-hosted agents can be attached to it"
+    },
+    {
+      "url": "https://woodpecker-ci.org/docs/administration/configuration/server",
+      "date": "2026-11-06",
+      "proved": "a pipeline is killed at 60 minutes by default and the repo setting is capped at 120 minutes by default",
+      "capture": "sha256:e5756a4fdfb6832c692b7bfbc58562fd98196178cee63121f2f042c8c4f5a6d5",
+      "quote": "- Default: 60 ... The default time for a repo in minutes before a pipeline gets killed ... - Default: 120 ... The maximum time in minutes you can set in the repo settings before a pipeline gets killed"
+    },
+    {
+      "url": "https://woodpecker-ci.org/docs/administration/configuration/agent",
+      "date": "2026-11-06",
+      "proved": "an agent runs one workflow at a time by default",
+      "capture": "sha256:90cea2f6b72ea0b711a1688a617d5c3c2a1abfe85947659dff967b0552ad60f4",
+      "quote": "By default, the maximum workflows that are executed in parallel on an agent is 1."
     }
   ],
   "verdict": "qualifies",
-  "verified_at": "2026-10-22T03:05:00.000Z",
+  "verified_at": "2026-11-06T19:14:28.504Z",
   "price_per_tb_month": null,
-  "notes": "This is the route that removes every per-job cap in this topic, and it is also the route that makes the cost a machine rather than a minute. Whether that is cheaper depends on the VM, which is the compute topic's question and not this one's.",
-  "self_hosted": true
+  "notes": "The pipeline timeout is the only wall clock the software imposes, and the repo can raise it to 120 minutes by default; the cost is a machine rather than a minute. Whether that is cheaper depends on the VM, which is the compute topic's question and not this one's.",
+  "self_hosted": true,
+  "limits_note": "by default, the maximum workflows that are executed in parallel on an agent is 1"
 }

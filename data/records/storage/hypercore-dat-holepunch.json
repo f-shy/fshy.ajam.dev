@@ -5,7 +5,7 @@
   "url": "https://holepunch.to/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "P2P replication primitives, not a host. Holepunch ships Hypercore and the Keet app; data lives on peers' disks with no pinning service, no HTTP gateway, and no quota. Serving 500 GB/day…",
+    "stated": "none reachable: P2P replication primitives, not a host. Holepunch ships Hypercore and the Keet app; data lives on peers' disks with no pinning service, no HTTP gateway, and no quota. Serving 500 GB/day…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://holepunch.to/",

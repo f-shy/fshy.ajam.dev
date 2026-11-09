@@ -31,7 +31,7 @@
   ],
   "interface_detail": "REST, OAI-PMH",
   "tooling": "REST",
-  "chaining": null,
+  "chaining": "none at the scale",
   "limits": [],
   "limits_note": null,
   "identity_cost": {

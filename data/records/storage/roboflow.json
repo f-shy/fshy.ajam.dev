@@ -5,7 +5,7 @@
   "url": "https://roboflow.com/pricing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Datasets are 'Uncapped; On-demand' in size, which looks like a win, but the free tier meters storage through a credit system (10 credits/month) and every operation — storage, labelling…",
+    "stated": "none reachable: Datasets are 'Uncapped; On-demand' in size, which looks like a win, but the free tier meters storage through a credit system (10 credits/month) and every operation — storage, labelling…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://roboflow.com/pricing",

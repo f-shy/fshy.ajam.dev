@@ -5,7 +5,7 @@
   "url": "https://darkibox.com/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Returns HTTP 410 Gone on the homepage. Dataset lists a 50 GB free per-file cap; the site is retired.",
+    "stated": "none reachable: Returns HTTP 410 Gone on the homepage. Dataset lists a 50 GB free per-file cap; the site is retired.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://darkibox.com/",

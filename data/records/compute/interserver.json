@@ -69,10 +69,31 @@
       "url": "https://www.interserver.net/vps/",
       "date": "2026-10-22",
       "proved": "'Each VPS hosting slice adds a predictable amount of CPU, memory, SSD storage, and transfer. The full order flow lets you choose any size from 1 to 32 slices.' and 'Managed eligible ... 8+ slices'; the style list reads 'Linux Cloud Compute ... from $3/mo', 'Windows Cloud Compute ... from $10/mo', 'Storage VPS ... from $3/mo'"
+    },
+    {
+      "url": "https://www.interserver.net/vps/",
+      "date": "2026-11-07",
+      "proved": "the vendor page prices 1 slice at $3.00 per month today, with the starter card reading 1 core, 2GB memory, 40GB SSD; the order flow at my.interserver.net bounced to a login page (login.php?queue=none.order_vps), so the cart price sits behind a sign-up",
+      "capture": "sha256:c94cfe3423ba23d7298cc425e1f9a27287cb7a306ba6ff007f6807a1c08a519f",
+      "quote": "Cloud compute starts at $3.00 per month. ... $3/mo with 1 core, 2GB memory, 40GB SSD"
+    },
+    {
+      "url": "https://www.interserver.net/vps/",
+      "date": "2026-11-07",
+      "proved": "the vendor page prices 1 slice at $3.00 per month today, with the starter card reading 1 core, 2GB memory, 40GB SSD",
+      "capture": "sha256:c94cfe3423ba23d7298cc425e1f9a27287cb7a306ba6ff007f6807a1c08a519f",
+      "quote": "Cloud compute starts at $3.00 per month. ... $3/mo with 1 core, 2GB memory, 40GB SSD"
+    },
+    {
+      "url": "https://www.interserver.net/vps/",
+      "date": "2026-11-07",
+      "proved": "the vendor's VPS page prices the monthly plan and prints no renewal price",
+      "capture": "sha256:c94cfe3423ba23d7298cc425e1f9a27287cb7a306ba6ff007f6807a1c08a519f",
+      "quote": "Cloud compute starts at $3.00 per month. ... $3/mo with 1 core, 2GB memory, 40GB SSD"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T14:17:07.273Z",
   "notes": "Wall: the direct fetch of the vendor page returned upstream 403 and the text was served's exa reader, so the vendor figures here were read from an extraction rather than from a raw HTML fetch, and the page came back with no extraction step. The tracker and the vendor disagree on port speed for the same slice, 2 Gbps against '10Gbps Shared'; the vendor figure is recorded and the disagreement is left visible rather than reconciled. Rows above one slice were not read, so the per-slice price ladder is unverified.",
   "extras": {
     "facets": {
@@ -85,6 +106,8 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "price_on_page": "USD 3.00/month for 1 slice",
+    "renewal_note": "not published; no renewal price is printed on the vendor's VPS page"
   }
 }

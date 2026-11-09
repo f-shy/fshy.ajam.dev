@@ -38,7 +38,7 @@
   ],
   "interface_detail": "the hcloud CLI and API, and the Cloud Console",
   "tooling": "wg-quick on the server; the hcloud CLI",
-  "chaining": null,
+  "chaining": "the fallback when every credit is spent: a paid server whose bundle is already eighteen times the monthly figure",
   "limits": [
     {
       "kind": "volume-quota",
@@ -48,7 +48,7 @@
   ],
   "limits_note": "",
   "binding": "volume-quota",
-  "binding_note": "the 20 TB a month bundle is eighteen times 1 TiB, so nothing binds at a user's volume. The constraint is price rather than allowance: there is no credit, so the first euro is spent on day one.",
+  "binding_note": "the 20 TB a month bundle is eighteen times 1 TiB, so nothing binds at this volume. The constraint is price rather than allowance: there is no credit, so the first euro is spent on day one.",
   "identity_cost": {
     "kind": "card",
     "detail": "a payment method at signup; there is no trial credit to verify against, so the first invoice is the gate",

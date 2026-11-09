@@ -38,7 +38,7 @@
   "interface_detail": "Torznab and TorrentPotato over HTTP at the instance's own address: /api/v2.0/indexers/all/results/torznab/api?apikey=...&t=search&q=...",
   "endpoint": "http://127.0.0.1:9117/api/v2.0/indexers/all/results/torznab/api",
   "tooling": "A container or a .NET runtime on a free compute instance; Sonarr, Radarr and Prowlarr speak the same Torznab. FlareSolverr is integrated for Cloudflare-walled indexers.",
-  "chaining": null,
+  "chaining": "One Torznab endpoint in front of every tracker already accessible, which turns a dozen scrapers into one URL that the automation stack and a debrid cache check both use.",
   "limits": [
     {
       "kind": "request-rate",
@@ -46,7 +46,7 @@
       "source": "https://github.com/Jackett/Jackett"
     }
   ],
-  "limits_note": "The binding constraint is the machine: an instance needs a process that stays up, which for a user means a free compute service rather than local hardware. Trackers marked 'invite needed' in the indexer list 'have no active maintainer and may be broken'.",
+  "limits_note": "The binding constraint is the machine: an instance needs a process that stays up, which means a free compute service rather than local hardware. Trackers marked 'invite needed' in the indexer list 'have no active maintainer and may be broken'.",
   "binding": "request-rate",
   "binding_note": "The upstream trackers' own rate limits pass straight through, and the instance's cache is the only thing that reduces how often they are hit.",
   "identity_cost": {

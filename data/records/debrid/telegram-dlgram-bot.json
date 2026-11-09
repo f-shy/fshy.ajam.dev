@@ -32,7 +32,7 @@
   "interface": [
     "rest"
   ],
-  "interface_detail": "A Telegram chat; the source is public, so the bot can also be run by a user instead of used hosted.",
+  "interface_detail": "A Telegram chat; the source is public, so the bot can also be run locally instead of used hosted.",
   "tooling": "Hosted bot today; the linked repository makes a self-run copy possible on a free VM.",
   "chaining": "The only member of the file-to-URL class with public source, so a hosted outage has a fallback: run the same code on a free compute tier.",
   "limits": [

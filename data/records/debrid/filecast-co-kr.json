@@ -37,7 +37,7 @@
   ],
   "interface_detail": "Web plus a Windows download client (the site advertises speed through its own client) and a mobile app. No API.",
   "tooling": "The vendor's own PC client and mobile app; the catalogue is not exposed to rclone or JDownloader.",
-  "chaining": "Not a multi-hoster and not chainable into one: it retrieves only Filecast's own catalogue, so it solves Korean-content gaps rather than host gaps. For a user's stack it is a source of Korean media, never of arbitrary URLs.",
+  "chaining": "Not a multi-hoster and not chainable into one: it retrieves only Filecast's own catalogue, so it solves Korean-content gaps rather than host gaps. For the stack it is a source of Korean media, never of arbitrary URLs.",
   "limits": [
     {
       "kind": "request-rate",

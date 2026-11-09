@@ -5,7 +5,7 @@
   "url": "https://godocs.io/github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Protocol defaults are 2 min and 128 KB per direction, deliberately sized for hole-punching (DCUtR), not transfer. Kubo ships these defaults and the docs say v2 relays exist 'to enable NAT…",
+    "stated": "none reachable: Protocol defaults are 2 min and 128 KB per direction, deliberately sized for hole-punching (DCUtR), not transfer. Kubo ships these defaults and the docs say v2 relays exist 'to enable NAT…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://godocs.io/github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay",

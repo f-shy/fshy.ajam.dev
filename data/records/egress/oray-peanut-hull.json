@@ -57,7 +57,7 @@
   ],
   "limits_note": "",
   "binding": "write-gated",
-  "binding_note": "Either of the other two would fail first in arithmetic (1 GB/month is 0.0009 TiB), but a user never reaches the counter: the real-name gate sits at registration.",
+  "binding_note": "Either of the other two would fail first in arithmetic (1 GB/month is 0.0009 TiB), but the counter is never reached: the real-name gate sits at registration.",
   "identity_cost": {
     "kind": "national-id",
     "detail": "Registration requires real-name verification before a mapping can be added: 'register a Peanut Hull account and complete real-name verification (the free edition needs the basic check)'. The checks offered are mainland identity checks.",

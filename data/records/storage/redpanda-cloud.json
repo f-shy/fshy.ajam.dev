@@ -5,7 +5,7 @@
   "url": "https://www.redpanda.com/pricing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "No free tier. Serverless is pay-as-you-go or annual commit; Enterprise Edition is a 30-day trial. Nothing to store bytes on for free.",
+    "stated": "none reachable: No free tier. Serverless is pay-as-you-go or annual commit; Enterprise Edition is a 30-day trial. Nothing to store bytes on for free.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.redpanda.com/pricing",

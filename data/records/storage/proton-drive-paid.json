@@ -154,7 +154,7 @@
   "extras": {
     "dead_end": {
       "failure_class": "quota",
-      "why": "Fails quota. No 2 TB+ consumer SKU published, no lifetime plan, no WebDAV/rclone/S3 path that would…",
+      "why": "Fails quota. No 2 TB+ consumer SKU published, no lifetime plan, no WebDAV/rclone/S3 path that would m",
       "retry_when": null,
       "first_recorded": "2026-10-21"
     }

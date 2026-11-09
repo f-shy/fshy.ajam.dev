@@ -5,7 +5,7 @@
   "url": "https://ameriflux.lbl.gov/data/how-to-upload-data/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Deposit is gated on registering a physical tower site and having a Site PI choose a data policy; content is restricted to half-hourly flux/BADM formats. No blob storage, no general quota.",
+    "stated": "none reachable: Deposit is gated on registering a physical tower site and having a Site PI choose a data policy; content is restricted to half-hourly flux/BADM formats. No blob storage, no general quota.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://ameriflux.lbl.gov/data/how-to-upload-data/",

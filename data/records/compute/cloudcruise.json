@@ -51,7 +51,7 @@
   "limits_note": "not stated",
   "identity_cost": {
     "kind": "email",
-    "detail": null,
+    "detail": "email: the sign-in page offers an email address and a password ('EmailPassword') with a Sign Up tab, beside Google and SSO ('Sign in with Google'; 'Sign in with SSO'). A card is not required for the free allowance: the terms state 'Some Services are free; others require payment (“Paid Services”).' and charge a payment method only when Paid Services are bought ('You authorize us (via our payment processor – currently Stripe) to charge your chosen payment method.'). A phone is not required: the sign-in form at https://app.cloudcruise.com/login carries an email address and a password and no phone field. Country: not published at https://cloudcruise.com/terms.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -81,10 +81,52 @@
       "proved": "the browser agent is run over an API",
       "capture": "sha256:436250191a280027c3441be7daf74ac81ed4ad12bc9a755865f9884539b5afe7",
       "quote": "you can trigger the browser agent over our API."
+    },
+    {
+      "url": "https://app.cloudcruise.com/login",
+      "date": "2026-11-04",
+      "proved": "the account is an email address and a password",
+      "capture": "sha256:ab7687685d35816ccaa2a64c9b9776dfc34c57c1ba40a896fa4321321ec76d94",
+      "quote": "EmailPassword"
+    },
+    {
+      "url": "https://cloudcruise.com/terms",
+      "date": "2026-11-04",
+      "proved": "registration collects the account information the form asks for",
+      "capture": "sha256:5f995277d341eb8806c2417320bcf282c6d56f1fe15ca58893bb3b6a91390d5a",
+      "quote": "When registering, you agree to provide accurate, current, and complete information, keep your credentials secure, and notify us of any unauthorized use."
+    },
+    {
+      "url": "https://app.cloudcruise.com/login",
+      "date": "2026-11-06",
+      "proved": "the sign-in form is an email address and a password",
+      "capture": "sha256:6d67f898f4e24c7ad75b691fb96177bf800f05db3fccfec868c47332e40865ca",
+      "quote": "EmailPassword"
+    },
+    {
+      "url": "https://app.cloudcruise.com/login",
+      "date": "2026-11-06",
+      "proved": "SSO and Google sign-in sit beside the email and password form",
+      "capture": "sha256:6d67f898f4e24c7ad75b691fb96177bf800f05db3fccfec868c47332e40865ca",
+      "quote": "Sign in with SSO"
+    },
+    {
+      "url": "https://cloudcruise.com/terms",
+      "date": "2026-11-06",
+      "proved": "the free services are distinguished from the paid ones",
+      "capture": "sha256:5f995277d341eb8806c2417320bcf282c6d56f1fe15ca58893bb3b6a91390d5a",
+      "quote": "Some Services are free; others require payment (“Paid Services”)."
+    },
+    {
+      "url": "https://cloudcruise.com/terms",
+      "date": "2026-11-06",
+      "proved": "a payment method is charged only when Paid Services are bought",
+      "capture": "sha256:5f995277d341eb8806c2417320bcf282c6d56f1fe15ca58893bb3b6a91390d5a",
+      "quote": "You authorize us (via our payment processor – currently Stripe) to charge your chosen payment method."
     }
   ],
   "verdict": "trial-only",
-  "verified_at": "2026-11-04T05:24:24.919Z",
+  "verified_at": "2026-11-06T17:48:23.920Z",
   "price_per_tb_month": null,
   "notes": "",
   "extras": {

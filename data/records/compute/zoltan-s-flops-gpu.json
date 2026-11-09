@@ -68,7 +68,7 @@
   ],
   "verdict": "trial-only",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "The weakness is durability: one iteration ran, 29 applications arrived, and the site promises future rounds without dates. Its interest rate for a user is that USD 5,000 at marketplace rates is real capacity, not a demo. The site as read advertises the first iteration and its results only.",
+  "notes": "The weakness is durability: one iteration ran, 29 applications arrived, and the site promises future rounds without dates. Its interest rate is that USD 5,000 at marketplace rates is real capacity, not a demo. The site as read advertises the first iteration and its results only.",
   "extras": {
     "facets": {
       "class": "community-grant",

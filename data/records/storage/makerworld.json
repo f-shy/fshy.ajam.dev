@@ -5,7 +5,7 @@
   "url": "https://forum.bambulab.com/t/max-raw-model-and-print-profile-file-size-limit-too-low/64114",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Model files capped around 250-500 MB total per design and 150-200 MB per print profile; 3MF/STL pipeline only.",
+    "stated": "none reachable: Model files capped around 250-500 MB total per design and 150-200 MB per print profile; 3MF/STL pipeline only.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://forum.bambulab.com/t/max-raw-model-and-print-profile-file-size-limit-too-low/64114",

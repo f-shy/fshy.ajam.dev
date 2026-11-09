@@ -37,7 +37,7 @@
   "interface_detail": "Newznab API at /api, capped at 100 results per request. Registration is invitation-gated: the register page accepts an invitecode and rejects a bad one with 'Bad or invite code older than 7 days'.",
   "endpoint": "https://nzbplanet.net/api?t=caps ; https://nzbplanet.net/api?t=search&q=<query>&apikey=<key>",
   "tooling": "Native Newznab on paper; in practice the key belongs to an account that cannot download without a paid tier, so Prowlarr and NZBHydra2 can add it and still get nothing useful on free.",
-  "chaining": "A paid-only index from a user's position: nothing on the free side contributes to a 1 TiB/month habit.",
+  "chaining": "A paid-only index: nothing on the free side contributes to a 1 TiB/month habit.",
   "limits": [
     {
       "kind": "request-rate",

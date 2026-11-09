@@ -5,7 +5,7 @@
   "url": "https://c-v.sh/?token=",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Advertised as a 'pastor' 512 MiB temporary host, but the documented upload form requires an Authorization header ('Header of type `authorization` was missing' -> 400) and PUT to /<name>…",
+    "stated": "none reachable: Advertised as a 'pastor' 512 MiB temporary host, but the documented upload form requires an Authorization header ('Header of type `authorization` was missing' -> 400) and PUT to /<name>…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://c-v.sh/?token=",

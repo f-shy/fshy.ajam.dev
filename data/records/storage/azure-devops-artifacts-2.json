@@ -5,7 +5,7 @@
   "url": "https://learn.microsoft.com/en-us/azure/devops/artifacts/reference/limits",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "2 GiB free per org, hard block on publish at the cap, and pay-go tiers start at $2/GB for the 2-10 GiB band. The 4 TiB Universal Package file ceiling is unusable with 2 GiB of pool.",
+    "stated": "none reachable: 2 GiB free per org, hard block on publish at the cap, and pay-go tiers start at $2/GB for the 2-10 GiB band. The 4 TiB Universal Package file ceiling is unusable with 2 GiB of pool.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://learn.microsoft.com/en-us/azure/devops/artifacts/reference/limits",

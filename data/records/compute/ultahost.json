@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "the plan is sold as managed with Hestia, CyberPanel, Plesk or cPanel offered as panel choices; no API is documented on the page read",
-  "chaining": null,
+  "chaining": "unmetered transfer and a managed panel at USD 5.52 on a two-year prepay is the only plan sold explicitly as managed, so it fits a service that is handed off rather than administered, at the cost of two years of prepayment",
   "limits": [],
   "limits_note": "the vendor sells the plan as unmetered: the page title reads 'Unlimited Bandwidth VPS Server' and its own comparison table lists the USD 5.50 row's monthly bandwidth as 'Unmetered'. No byte allowance is published, so the first limit is the 30 GB disk. The tracker's 51,200 GB a month is third-party and not on the page read",
   "binding": "none",

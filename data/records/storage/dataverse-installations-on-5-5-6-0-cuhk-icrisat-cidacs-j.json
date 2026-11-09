@@ -5,7 +5,7 @@
   "url": null,
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "19 of 149 installs predate the collection-quota feature (Dataverse 6.1+) and return 404 on the quota endpoint. They cannot be scored on this axis at all — the absence of the endpoint is not",
+    "stated": "none reachable: 19 of 149 installs predate the collection-quota feature (Dataverse 6.1+) and return 404 on the quota endpoint. They cannot be scored on this axis at all — the absence of the endpoint is not",
     "unit": "none",
     "metered_on": "none",
     "source_url": null,

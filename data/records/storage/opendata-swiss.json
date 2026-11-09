@@ -5,7 +5,7 @@
   "url": "https://opendata.swiss/api/3/action/package_search?rows=0",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "the platform is operated by the Federal Statistical Office / cantonal offices and admits Swiss federal, cantonal and…",
+    "stated": "the platform is operated by the Federal Statistical Office / cantonal offices and admits Swiss federal, cantonal and commun",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://opendata.swiss/api/3/action/package_search?rows=0",
@@ -41,7 +41,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "The platform is operated by the Federal Statistical Office / cantonal offices and admits Swiss federal, cantonal and…",
+  "reliability_note": "The platform is operated by the Federal Statistical Office / cantonal offices and admits Swiss federal, cantonal and commun",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -58,11 +58,11 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "The platform is operated by the Federal Statistical Office / cantonal offices and admits Swiss federal, cantonal and…",
+  "notes": "The platform is operated by the Federal Statistical Office / cantonal offices and admits Swiss federal, cantonal and commun",
   "extras": {
     "dead_end": {
       "failure_class": "quota",
-      "why": "The platform is operated by the Federal Statistical Office / cantonal offices and admits Swiss federal, cantonal and…",
+      "why": "The platform is operated by the Federal Statistical Office / cantonal offices and admits Swiss federal, cantonal and commun",
       "retry_when": null,
       "first_recorded": "2026-10-21"
     }

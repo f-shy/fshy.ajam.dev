@@ -5,7 +5,7 @@
   "url": "https://forum.mattermost.com/t/cloud-free-deprecation/15802",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The free cloud tier is deprecated - Mattermost now steers free users to self-hosted Entry. Self-hosted 'unlimited storage' just means you buy the disk, which is not free storage.",
+    "stated": "none reachable: The free cloud tier is deprecated - Mattermost now steers free users to self-hosted Entry. Self-hosted 'unlimited storage' just means you buy the disk, which is not free storage.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://forum.mattermost.com/t/cloud-free-deprecation/15802",

@@ -5,7 +5,7 @@
   "url": "https://disk-o.cloud/en/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "It is a multi-cloud client/aggregator for Yandex Disk, Google Drive, Dropbox, Mail.ru etc. — it owns no storage and adds no quota, so it can only ever surface the 5-8 GB free tiers it…",
+    "stated": "none reachable: It is a multi-cloud client/aggregator for Yandex Disk, Google Drive, Dropbox, Mail.ru etc. — it owns no storage and adds no quota, so it can only ever surface the 5-8 GB free tiers it…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://disk-o.cloud/en/",

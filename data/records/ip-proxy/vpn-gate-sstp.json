@@ -6,7 +6,7 @@
   "category": "volunteer VPN relay",
   "tier": "free",
   "free_tier": {
-    "stated": "Free with no registration: the relay nodes are volunteered by their operators, and a client connects to one from a published list without creating an account.",
+    "stated": "Free with no registration: the relay nodes are volunteered by their operators, and a relay is reachable from a published list without creating an account.",
     "unit": "unlimited",
     "metered_on": "unstated",
     "source_url": "https://www.vpngate.net/",
@@ -35,7 +35,7 @@
   "interface": [
     "cli"
   ],
-  "interface_detail": "SSTP carries the tunnel inside TLS. A user supplies a relay's address from the published node list and connects with an SSTP client; this record measures the SSTP path only.",
+  "interface_detail": "SSTP carries the tunnel inside TLS. The relay's address is taken from the published node list and the connection is made with an SSTP client; this record measures the SSTP path only.",
   "tooling": "An SSTP client inside a free or rented host with a full TCP stack, driven by hand from the published node list, plus a way to pick and re-pick a node as volunteers drop out. No rclone backend covers SSTP, so a wrapper would have to be written; that is a tooling note, not a verdict.",
   "chaining": "A free outbound exit for fetches the gateway would otherwise make from a datacentre address, held as a fallback rather than a primary path because 16 MiB took 918 s.",
   "limits": [
@@ -52,10 +52,10 @@
   ],
   "limits_note": "The ceiling that was measured is a rate, not a byte cap, so it is filed under per-ip-shaping. The volume-quota entry records that no allowance was found, not that a generous one exists.",
   "binding": "per-ip-shaping",
-  "binding_note": "The roughly 599,000 requests are small and are never the binding quantity.",
+  "binding_note": "At the measured rate the 45 GB month occupies about 28.5 days counted as 45 GB decimal and about 30.6 days counted as 45 GiB, so the shaped throughput saturates a month of continuous use before any quota, request count or object cap can be reached; the roughly 599,000 requests are small and are never the binding quantity.",
   "identity_cost": {
     "kind": "anonymous",
-    "detail": "No registration: the node list is public and a client connects straight to a volunteer's relay, so no email, phone, card or account is collected at any point.",
+    "detail": "No registration: the node list is public and a relay is reachable directly, so no email, phone, card or account is collected at any point.",
     "country": null
   },
   "reliability_note": "The transit TLS terminates at a volunteer's own machine rather than at an audited endpoint, and a volunteer's node can disappear or change its exit address at any time; the measured path was the slowest on the dash.vpn slate.",
@@ -137,7 +137,7 @@
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-11-03T08:33:41.732Z",
   "price_per_tb_month": "USD 0: free, no registration, no allowance published",
-  "notes": "Why per-ip-shaping and not volume-quota: nothing on the vendor page states an allowance, so there is no byte ceiling to hit, while the one thing that was measured is a rate. The 45 GB arithmetic above is derived from the measured 16 MiB in 918 s, not a second measurement: 16,777,216 bytes over 918 s is about 18,275 bytes a second, which is 17.8 KiB/s. Only one transfer was measured, through one relay at one time, so 918 s is a sample and not a distribution. That sample cannot separate three candidate causes for the slowness: (1) the volunteer's own uplink, (2) deliberate per-IP shaping on the relay, (3) SSTP-in-TLS overhead on the path. Ruling them out needs the same payload repeated against several relays at different hours with the bytes-per-second compared; until that runs, the per-ip-shaping label follows the handoff's own reading rather than a measurement that distinguishes the three. Rung 5 rather than 2 because lane 4's 35 distinct exit ASNs characterise the exit identity by the registration class of the carriers behind the relays, with Korea Telecom, SoftBank, KDDI and LG Powercomm leading that set, and the single measured exit AS8369 INTERSVYAZ is one member of it. That count is why this is the strongest free source of carrier-registered exits found so far, and it is also why one address going bad does not condemn the source.",
+  "notes": "Why per-ip-shaping and not volume-quota: nothing on the vendor page states an allowance, so there is no byte ceiling to hit, while the one thing that was measured is a rate. Why not request-rate: the ~599,000 monthly requests are individually small and the byte volume is what saturates the link, so request count never arrives first. The 45 GB arithmetic above is derived from the measured 16 MiB in 918 s, not a second measurement: 16,777,216 bytes over 918 s is about 18,275 bytes a second, which is 17.8 KiB/s. Only one transfer was measured, through one relay at one time, so 918 s is a sample and not a distribution. That sample cannot separate three candidate causes for the slowness: (1) the volunteer's own uplink, (2) deliberate per-IP shaping on the relay, (3) SSTP-in-TLS overhead on the path. Ruling them out needs the same payload repeated against several relays at different hours with the bytes-per-second compared; until that runs, the per-ip-shaping label follows the handoff's own reading rather than a measurement that distinguishes the three. Rung 5 rather than 2 because lane 4's 35 distinct exit ASNs characterise the exit identity by the registration class of the carriers behind the relays, with Korea Telecom, SoftBank, KDDI and LG Powercomm leading that set, and the single measured exit AS8369 INTERSVYAZ is one member of it. That count is why this is the strongest free source of carrier-registered exits found so far, and it is also why one address going bad does not condemn the source.",
   "extras": {
     "rung": 5,
     "rung_note": "The exit identity is characterised at the registration class of the carrier ASNs behind the relays, not at one address: lane 4 counted 35 distinct exit ASNs led by consumer carriers, and the measured transfer exited one of them.",

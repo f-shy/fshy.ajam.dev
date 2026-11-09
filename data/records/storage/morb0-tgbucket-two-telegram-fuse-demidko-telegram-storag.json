@@ -5,7 +5,7 @@
   "url": null,
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Real projects but abandoned (tgbucket last pushed 2022-05-06, 8 stars). gh search repos 'telegram storage' returns 20+ repos with a median of ~10 stars, most unmaintained since 2022-2023.…",
+    "stated": "none reachable: Real projects but abandoned (tgbucket last pushed 2022-05-06, 8 stars). gh search repos 'telegram storage' returns 20+ repos with a median of ~10 stars, most unmaintained since 2022-2023.…",
     "unit": "none",
     "metered_on": "none",
     "source_url": null,

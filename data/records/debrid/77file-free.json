@@ -37,7 +37,7 @@
   ],
   "interface_detail": "Browser; the returned URL is fetchable by a multi-threaded client.",
   "tooling": "Browser, IDM, aria2.",
-  "chaining": "Not a retrieval route for a user at any volume; recorded because the free path is what most links on this host actually resolve to.",
+  "chaining": "Not a retrieval route here at any volume; recorded because the free path is what most links on this host actually resolve to.",
   "limits": [
     {
       "kind": "per-ip-shaping",

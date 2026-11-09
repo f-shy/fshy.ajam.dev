@@ -36,17 +36,17 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "Nothing composes for a client outside North America: the award is USD 1,000 by Venmo, which is both too small to matter and unreachable from the wrong country. Inside North America it would be a genuine no-strings USD 1,000 with the widest IP terms in this class.",
+  "chaining": "Nothing composes outside North America: the award is USD 1,000 by Venmo, which is both too small to matter and unreachable from the wrong country. Inside North America it would be a genuine no-strings USD 1,000 with the widest IP terms in this class.",
   "limits": [
     {
       "kind": "write-gated",
-      "value": "the payment rail fails before anything else: the fund states in its own post that it cannot issue grants to teams based outside North America, so a client based elsewhere is excluded regardless of project quality, and the amount is only about USD 1,000 even when it does pay.",
+      "value": "the payment rail fails before anything else: the fund states in its own post that it cannot issue grants to teams based outside North America, so a team based elsewhere is excluded regardless of project quality, and the amount is only about USD 1,000 even when it does pay.",
       "source": "https://www.1517fund.com/medici"
     }
   ],
-  "limits_note": "the payment rail fails before anything else: the fund states in its own post that it cannot issue grants to teams based outside North America, so a client based elsewhere is excluded regardless of project quality, and the amount is only about USD 1,000 even when it does pay.",
+  "limits_note": "the payment rail fails before anything else: the fund states in its own post that it cannot issue grants to teams based outside North America, so a team based elsewhere is excluded regardless of project quality, and the amount is only about USD 1,000 even when it does pay.",
   "binding": "write-gated",
-  "binding_note": "the payment rail fails before anything else: the fund states in its own post that it cannot issue grants to teams based outside North America, so a client based elsewhere is excluded regardless of project quality, and the amount is only about USD 1,000 even when it does pay.",
+  "binding_note": "the payment rail fails before anything else: the fund states in its own post that it cannot issue grants to teams based outside North America, so a team based elsewhere is excluded regardless of project quality, and the amount is only about USD 1,000 even when it does pay.",
   "identity_cost": {
     "kind": "card",
     "detail": "the fund states it cannot pay outside North America: '1517 supports hackers and makers all over the world through community and mentorship but unfortunately due to international regulations and rules, we are unable to issue grants to teams based outside of North America.' The payment rail named is Venmo, which is US-only, and the post also mentions cheques.",

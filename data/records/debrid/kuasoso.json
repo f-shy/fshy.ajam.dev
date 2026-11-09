@@ -37,7 +37,7 @@
   ],
   "interface_detail": "HTTP GET on /doc/<id> per share and a search endpoint; HTML only.",
   "tooling": "Browser.",
-  "chaining": "Same role as 盘行: a source of share links whose value depends entirely on whether a user can open the pan behind them.",
+  "chaining": "Same role as 盘行: a source of share links whose value depends entirely on whether the pan behind them can be opened.",
   "limits": [
     {
       "kind": "request-rate",

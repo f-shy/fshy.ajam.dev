@@ -5,7 +5,7 @@
   "url": "https://cloudinary.com/documentation/pricing.md",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Free plan is 25 credits/month where 1 credit = 1 GB storage OR 1 GB CDN bandwidth OR 1,000 transformations — i.e. 25 GB total across storage+delivery combined, and max raw file size is 10…",
+    "stated": "none reachable: Free plan is 25 credits/month where 1 credit = 1 GB storage OR 1 GB CDN bandwidth OR 1,000 transformations — i.e. 25 GB total across storage+delivery combined, and max raw file size is 10…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://cloudinary.com/documentation/pricing.md",

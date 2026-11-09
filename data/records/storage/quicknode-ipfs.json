@@ -5,7 +5,7 @@
   "url": "https://www.quicknode.com/pricing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "IPFS is not in the free tier at all. The Free trial plan lists 'Streams, Webhooks' only; IPFS appears first on the $49/mo Build tier. It is an add-on to a paid RPC plan, with no storage…",
+    "stated": "none reachable: IPFS is not in the free tier at all. The Free trial plan lists 'Streams, Webhooks' only; IPFS appears first on the $49/mo Build tier. It is an add-on to a paid RPC plan, with no storage…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.quicknode.com/pricing",

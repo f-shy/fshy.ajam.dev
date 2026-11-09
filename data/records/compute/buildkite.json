@@ -35,7 +35,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "None worth composing.",
+  "chaining": "None worth composing. The one thing Buildkite gives free that the others do not is the 10-job concurrency, which is only useful once the caller already has machines, and the analysis assumes none.",
   "limits": [
     {
       "kind": "volume-quota",

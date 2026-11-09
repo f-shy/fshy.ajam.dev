@@ -55,11 +55,6 @@
   "confidence_note": "Documented on the vendor's pricing and billing pages: USD 25 of free credit with no card required, given once per GitHub account.",
   "evidence": [
     {
-      "url": "https://cube.dev/pricing",
-      "date": "2026-10-22",
-      "proved": "the Feature table carries a Free column with 1 Developer seat at $0; 'Dedicated deployment' is a dash on Free and $0.60/hour on Starter"
-    },
-    {
       "url": "https://cube.computer/pricing/",
       "date": "2026-10-28",
       "proved": "Cube Computer gives new accounts $25 of free credit with no card, about 2 months of the smallest computer",

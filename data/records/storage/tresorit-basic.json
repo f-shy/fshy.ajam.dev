@@ -48,7 +48,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Data is E2E encrypted with keys Tresorit does not hold — losing credentials loses data; free tier has no recovery path beyond a user.",
+  "reliability_note": "Data is E2E encrypted with keys Tresorit does not hold — losing credentials loses data; free tier has no recovery path beyond the local copy.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

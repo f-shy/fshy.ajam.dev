@@ -5,7 +5,7 @@
   "url": "https://transfer.it/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Transfer.it has no paid tier of its own — it is a sharing front end that requires MEGA storage: 'You can only share files that you have uploaded to MEGA.' Its expiry selector offers up to 1",
+    "stated": "none reachable: Transfer.it has no paid tier of its own — it is a sharing front end that requires MEGA storage: 'You can only share files that you have uploaded to MEGA.' Its expiry selector offers up to 1",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://transfer.it/",

@@ -35,8 +35,8 @@
   "interface": [
     "ssh"
   ],
-  "interface_detail": "SSH to the VPS on its static address. SOCKS5 or HTTP proxying is whatever a user runs on the machine, not a vendor endpoint: the vendor sells the address and the box, not a proxy service. Orders, renewals and IPv4 changes are handled in the customer portal.",
-  "tooling": "An SSH client plus a proxy daemon a user installs on the VPS. The vendor publishes no proxy endpoint, no API and no wrapper. That is a note about tooling and not a reason to reject the provider: the address is the product, and the machine is only how it is held.",
+  "interface_detail": "SSH to the VPS on its static address. SOCKS5 or HTTP proxying is whatever runs on the machine, not a vendor endpoint: the vendor sells the address and the box, not a proxy service. Orders, renewals and IPv4 changes are handled in the customer portal.",
+  "tooling": "An SSH client plus a proxy daemon installed on the VPS. The vendor publishes no proxy endpoint, no API and no wrapper. That is a note about tooling and not a reason to reject the provider: the address is the product, and the machine is only how it is held.",
   "chaining": "The Worker opens an outbound connection to the VPS's static IPv4 and the VPS makes the upstream request, so the upstream sees an address in AS2914, AS3257 or AS22773 instead of AS13335.",
   "limits": [
     {
@@ -52,7 +52,7 @@
   ],
   "limits_note": "Two constraints the vocabulary cannot name. First, the ISP label is only what the vendor's own IPLense reading said at first delivery (terms 4.2), so it is a claim about one database's reading of the address rather than a property of the address, and it does not move when that database changes. Second, every LAS-COX plan was shown as 全部售罄 (all sold out) on 2026-10-24, so the one line that passed the registration check could not be bought that day.",
   "binding": "volume-quota",
-  "binding_note": "it is named because it is the only constraint here the vocabulary can express and the one the product states. The constraint that actually decides this record is the registration class, which has no vocabulary value, and it is what the verdict's caveat is about.",
+  "binding_note": "500 GB a month is about eleven times the gateway's ~45 GB/month, so the quota does not fail at the scale; it is named because it is the only constraint here the vocabulary can express and the one the product states. The constraint that actually decides this record is the registration class, which has no vocabulary value, and it is what the verdict's caveat is about.",
   "identity_cost": {
     "kind": "email",
     "detail": "The registration form asks for a name, an email address and a password and nothing else: no phone, no card, no identity document. Payment is Alipay, card or crypto. Terms 5.2 names Alipay and crypto as methods that cannot auto-debit and a card as the one that can; 6.2 names crypto again, as a payment that can only be refunded to site balance.",

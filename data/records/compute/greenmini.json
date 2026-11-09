@@ -89,7 +89,7 @@
       "wall_clock_min": null,
       "idle_reap_s": null,
       "restart_required": false,
-      "note": "a monthly rental with no session clock; the machine is a user's for the month"
+      "note": "a monthly rental with no session clock; the machine belongs to the account for the month"
     },
     "persistent_storage": null,
     "network_out": null,

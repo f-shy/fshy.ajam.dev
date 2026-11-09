@@ -5,7 +5,7 @@
   "url": "https://e.4shared.com/linkerror.jsp",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Could not verify. https://www.4shared.com/upgrade/ and /upgrade both 302 to https://e.4shared.com/linkerror.jsp and render 'linkerror' content; /plans.jsp likewise. No price page obtainable",
+    "stated": "none reachable: Could not verify. https://www.4shared.com/upgrade/ and /upgrade both 302 to https://e.4shared.com/linkerror.jsp and render 'linkerror' content; /plans.jsp likewise. No price page obtainable",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://e.4shared.com/linkerror.jsp",

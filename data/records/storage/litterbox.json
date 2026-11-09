@@ -5,7 +5,7 @@
   "url": "https://litterbox.catbox.moe/resources/internals/api.php",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Explicitly temporary — expiry is chosen at upload (1h/12h/1d/3d/7d max). Not storage by construction; only useful as an ephemeral hand-off.",
+    "stated": "none reachable: Explicitly temporary — expiry is chosen at upload (1h/12h/1d/3d/7d max). Not storage by construction; only useful as an ephemeral hand-off.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://litterbox.catbox.moe/resources/internals/api.php",

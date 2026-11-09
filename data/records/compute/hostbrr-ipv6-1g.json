@@ -105,10 +105,24 @@
       "url": "https://empiri.dk/virksomhed/44002698",
       "date": "2026-10-24",
       "proved": "the registry page lists PFWeb Solutions with a CVR number, status 'Aktiv', 'Enkeltmandsvirksomhed', 'Stiftet 21. april 2023', with an individual as the registered owner - a second registry mirror agreeing with the first"
+    },
+    {
+      "url": "https://hostbrr.com/terms.html",
+      "date": "2026-11-04",
+      "proved": "the terms issue recurring invoices automatically, with no rate lock",
+      "capture": "sha256:28e32272e884efd2c4f9f51a82a9ad6fca3cbaf4e26581e2adba7813f1990ad4",
+      "quote": "Invoices for recurring hosting and server services will be issued automatically 5 days in advance of the active service's due date."
+    },
+    {
+      "url": "https://my.hostbrr.com/order/main/packages/limited/?group_id=40",
+      "date": "2026-11-04",
+      "proved": "the IPv6-only order group renders the package-selection page and no priced line",
+      "capture": "sha256:7b3890a3c0add316ef9f614e01969263e799ce5dd23fb8c3af29f43c67e27a30",
+      "quote": "Please select a package group below to continue."
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-24T03:19:06.000Z",
+  "verified_at": "2026-11-04T18:45:35.799Z",
   "price_per_tb_month": null,
   "notes": "The annual term is USD 10.50 against USD 17.25 for twelve monthly payments, so the annual prepay is the only way this machine is under the line. WireGuard should work here because KVM gives the guest its own kernel; that is a design property, not a measurement, and was not probed. | 2026-10-24: the entity is now established. HostBrr's own terms name PFWeb Solutions as the operator, and two Danish registry mirrors return a CVR number, status Aktiv, a sole proprietorship founded 21 April 2023 in Glostrup with www.hostbrr.com as its website. datacvr.virk.dk itself answered a Cloudflare bot challenge and proff.dk refused the request, so the primary register was not read. This is the beefiest machine in the sub-USD-1 band by RAM (1 GB) and the only one with a verifiable European registration that is definitely trading. The catch is the address family: no IPv4 at all, so a WireGuard peer must have working IPv6, and the vendor publishes no port policy because a routed /64 needs none.",
   "extras": {
@@ -124,7 +138,7 @@
     "m24h_usd": 0.875,
     "m10h_usd": 0.875,
     "price_arithmetic": "USD 10.50 a year / 12 = USD 0.875 a month, paid once. The monthly cycle on the same page is USD 1.4375, so annual prepay is the only way under the line. A VPS bills whether it runs or not, so the 24/7 and 10 h/day figures are the same.",
-    "renewal_usd": null,
+    "renewal_usd": "not published",
     "first_payment_usd": 10.5,
     "network_out": {
       "allow_outbound": true,
@@ -142,12 +156,15 @@
       "restart_required": false,
       "note": "none; it is a VPS"
     },
-    "renewal_note": "The order page sells three cycles for the same machine: 1 Month @ USD 1.4375, 3 Months @ USD 3.25, 1 Year @ USD 10.50. The annual rate of USD 0.875 a month is therefore a volume discount off a published monthly rate, and USD 1.4375 a month is the ceiling if the annual cycle is withdrawn.",
+    "renewal_note": "not published: the terms make the invoice for the recurring hosting and server service automatic in advance of the due date, and they print no renewal rate and no price-change clause.",
     "renewal_evidence": "my.hostbrr.com order page lists three cycles; no renewal statement found",
     "monthly_usd": 1.4375,
     "quarterly_usd": 3.25,
     "annual_usd": 10.5,
     "price_risk": "1.64x if the annual cycle stops being offered; the monthly rate is published, so the exposure is bounded",
-    "udp": "not stated as such, and none needs to be: the plan has a routed /64 and no port-forwarding layer, so a UDP listener needs only the guest firewall open. The vendor prints no port policy on the order page. Inferred from the architecture, not measured."
+    "udp": "not stated as such, and none needs to be: the plan has a routed /64 and no port-forwarding layer, so a UDP listener needs only the guest firewall open. The vendor prints no port policy on the order page. Inferred from the architecture, not measured.",
+    "price_in_cart": "not read: the IPv6-only order group renders the package-selection page and no priced line, and no session was opened",
+    "cart_works": "no: the IPv6-only order group answers 'Please select a package group below to continue.' and prices nothing",
+    "stock": "not stated: the IPv6-only order group prints no stock counter and no availability line"
   }
 }

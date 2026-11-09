@@ -5,7 +5,7 @@
   "url": "https://freemusicarchive.org/about/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Both are curated libraries, not storage: FMA's upload path is gated behind a Tribe of Noise artist account and a curation/approval step, and /upload returns 404 on both sites FMA has no…",
+    "stated": "none reachable: Both are curated libraries, not storage: FMA's upload path is gated behind a Tribe of Noise artist account and a curation/approval step, and /upload returns 404 on both sites (FMA has no…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://freemusicarchive.org/about/",

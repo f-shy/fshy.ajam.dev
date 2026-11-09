@@ -53,7 +53,7 @@
   ],
   "limits_note": "",
   "binding": "write-gated",
-  "binding_note": "At 1 TiB/month the byte count is irrelevant: the Enterprise Edition package is what stands between a user and an L4 rule. On the free plan the available volume for UDP is zero.",
+  "binding_note": "At 1 TiB/month the byte count is irrelevant: the Enterprise Edition package is what stands between an account and an L4 rule. On the free plan the available volume for UDP is zero.",
   "identity_cost": {
     "kind": "institution",
     "detail": "An Enterprise Edition package or a prepaid plan for the L4 proxy; the free plan is 'No Credit Card' but carries no L4 proxy at all.",

@@ -50,8 +50,8 @@
   ],
   "limits_note": "not stated",
   "identity_cost": {
-    "kind": "email",
-    "detail": null,
+    "kind": "card",
+    "detail": "card: an account is registered with an email address and a credit card is required for identity verification: 'You can create an account by registering your email address. For identity verification, a credit card is required when you create a new account.' A debit card is accepted when it is from Visa or Mastercard and is not a disposable card or one-time use card number, and authorization places 'a temporary hold on your credit card for verification and security when creating an account', reversed within 24 to 72 hours. Phone: not published: https://cloud.ibm.com/docs/account?topic=account-accountfaqs (2026-11-06) states no phone requirement at registration. Country: not published: the same page states no country restriction.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -67,10 +67,45 @@
       "url": "https://www.ibm.com/products/virtual-servers/pricing",
       "date": "2026-10-22",
       "proved": "'IBM Cloud VPC - 70% off for 12 months. Only valid for new IBM Cloud VPC clients', covering 'Virtual Server Instances (VSI), Block Storage, and File Storage', with 'Expires 31 December 2026', quoted"
+    },
+    {
+      "url": "https://cloud.ibm.com/docs/account?topic=account-accountfaqs",
+      "date": "2026-11-04",
+      "proved": "a card is required to create any IBM Cloud account, and a VPC client needs one",
+      "capture": "sha256:49949e801520d94753f386298206eca96506d0d97fa853508c649c2483ed71a9",
+      "quote": "For identity verification, a credit card is required when you create a new account."
+    },
+    {
+      "url": "https://cloud.ibm.com/docs/account?topic=account-accountfaqs",
+      "date": "2026-11-04",
+      "proved": "a card is required for identity verification, with a temporary hold",
+      "capture": "sha256:49949e801520d94753f386298206eca96506d0d97fa853508c649c2483ed71a9",
+      "quote": "As part of the authorization process, you might see a temporary hold on your credit card for verification and security when creating an account."
+    },
+    {
+      "url": "https://cloud.ibm.com/docs/account?topic=account-accountfaqs",
+      "date": "2026-11-04",
+      "proved": "every new account is Pay-As-You-Go, so the card gate applies to a new VPC client",
+      "capture": "sha256:49949e801520d94753f386298206eca96506d0d97fa853508c649c2483ed71a9",
+      "quote": "New accounts are created as Pay-As-You-Go accounts, except purchased subscriptions and temporary educational accounts."
+    },
+    {
+      "url": "https://cloud.ibm.com/docs/account?topic=account-accountfaqs",
+      "date": "2026-11-04",
+      "proved": "the card gate is unchanged and applies to a new account",
+      "capture": "sha256:49949e801520d94753f386298206eca96506d0d97fa853508c649c2483ed71a9",
+      "quote": "For identity verification, a credit card is required when you create a new account."
+    },
+    {
+      "url": "https://cloud.ibm.com/docs/account?topic=account-accountfaqs",
+      "date": "2026-11-06",
+      "proved": "a credit card is required for identity verification when an account is created, and the page states no phone or country requirement",
+      "capture": "sha256:49949e801520d94753f386298206eca96506d0d97fa853508c649c2483ed71a9",
+      "quote": "For identity verification, a credit card is required when you create a new account."
     }
   ],
   "verdict": "trial-only",
-  "verified_at": "2026-10-22T04:47:10.618Z",
+  "verified_at": "2026-11-06T17:42:12.763Z",
   "price_per_tb_month": null,
   "notes": "",
   "extras": {

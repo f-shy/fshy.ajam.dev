@@ -11,7 +11,7 @@
     "metered_on": "wall-clock",
     "source_url": "https://alldebrid.es/offer/",
     "read_on": "2026-10-23",
-    "notes": "The trial requires SMS phone verification, and the card is rendered client-side so the wording is reported from the page's index rather than read in the extracted body. The trial is not a user's path: it ends in 7 days."
+    "notes": "The trial requires SMS phone verification, and the card is rendered client-side so the wording is reported from the page's index rather than read in the extracted body. The trial is not a usable path: it ends in 7 days."
   },
   "per_object_cap": {
     "stated": "not applicable: files stay on the third-party host, whose own cap applies. AllDebrid publishes no per-file size on the offer page.",
@@ -37,7 +37,7 @@
   ],
   "interface_detail": "The API is documented separately at docs.alldebrid.com (v4, REST, JSON). The offer page itself only sells; the credential it issues works against the API.",
   "tooling": "REST API v4, browser plugins, mobile app, WebDAV access to the media folder, and named download managers (IDM, FDM, Mipony, Pyload).",
-  "chaining": "A single EUR 3.99 payment covers 46-70 hosts plus torrent conversion with no account-sharing requirement beyond one person, which makes it the default benchmark every local generator and reseller has to beat on price or on payment access.",
+  "chaining": "A single EUR 3.99 payment covers 46-70 hosts plus torrent conversion with no account-sharing requirement beyond a single account, which makes it the default benchmark every local generator and reseller has to beat on price or on payment access.",
   "limits": [
     {
       "kind": "per-ip-shaping",

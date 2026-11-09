@@ -32,7 +32,7 @@
   ],
   "interface_detail": "LXC or KVM instance with root; the control plane is an Incus-based panel",
   "tooling": "any SSH client, had the service still existed",
-  "chaining": "none: the service is closed, so nothing in a user's stack can depend on it",
+  "chaining": "none: the service is closed, so nothing can depend on it",
   "limits": [
     {
       "kind": "per-ip-shaping",

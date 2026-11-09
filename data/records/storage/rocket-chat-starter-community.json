@@ -5,7 +5,7 @@
   "url": "https://docs.rocket.chat/docs/our-plans",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Both free tiers are self-managed/self-hosted: you supply the storage. Cloud Starter is a 30-day trial, not a free tier. No free hosted storage.",
+    "stated": "none reachable: Both free tiers are self-managed/self-hosted: you supply the storage. Cloud Starter is a 30-day trial, not a free tier. No free hosted storage.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.rocket.chat/docs/our-plans",

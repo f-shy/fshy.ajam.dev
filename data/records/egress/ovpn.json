@@ -37,7 +37,7 @@
   ],
   "interface_detail": "Account web UI for port forwarding and config download; no public API for port reservation found in the read pages.",
   "tooling": "wg-quick from downloaded configs; ports set in the web profile and each can be TCP, UDP, or TCP and UDP. Protocols: OpenVPN over UDP or TCP (UDP recommended) and WireGuard. SOCKS5 endpoint, obfuscation and the BitTorrent rule: unverified: no page read states them.",
-  "chaining": "Supplies a routable port for a service on a free VM or a home box; a user's own compute does the serving.",
+  "chaining": "Supplies a routable port for a service on a free VM or a home box; the account's own compute does the serving.",
   "limits": [
     {
       "kind": "volume-quota",

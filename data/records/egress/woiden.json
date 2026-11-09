@@ -82,7 +82,7 @@
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-23T00:00:00.000Z",
   "price_per_tb_month": "USD 0",
-  "notes": "The best volume story in the sweep: unlimited bandwidth, full root, no card. Against it: 7-day manual renewal through a Telegram code, a 8-10 port shared IPv4, and a history of the provider's servers going down. A user's no-hardware premise is satisfied because this is a rented-free VM, not owned iron.",
+  "notes": "The best volume story in the sweep: unlimited bandwidth, full root, no card. Against it: 7-day manual renewal through a Telegram code, a 8-10 port shared IPv4, and a history of the provider's servers going down. The no-hardware premise is satisfied because this is a rented-free VM, not owned iron.",
   "extras": {
     "wg_path": "native-conf",
     "wg_detail": "A full root VPS with a dedicated IPv6 and a DNAT port range on a shared IPv4; WireGuard can be installed and a peer conf generated on the box. The vendor panel forwards 'data from public ip address to your vps' by iptables without naming a protocol.",

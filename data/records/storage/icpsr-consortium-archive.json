@@ -23,7 +23,7 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Free to users at member institutions; fee-gated for non-members unless the depositor buys five years of open access. That asymmetry is why this ranks below openICPSR for a user.",
+    "terms": "Free to users at member institutions; fee-gated for non-members unless the depositor buys five years of open access. That asymmetry is why this ranks below openICPSR.",
     "metered": false
   },
   "interface": [

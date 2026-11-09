@@ -5,7 +5,7 @@
   "url": "https://axion.host/",
   "category": "cloud VM",
   "free_tier": {
-    "stated": "USD 3.49 per month for AX-v1 in Frankfurt: 1 vCPU, 1 GB RAM, 10 GB NVMe SSD, unmetered traffic on a port of up to 2 Gbps shared, 1 IPv4, KVM. The ladder above it is USD 6.99 (2 vCPU / 2 GB / 30 GB), USD 9.99 (2 / 4 / 60), USD 13.99 (3 / 6 / 90), USD 17.99 (4 / 8 / 120), USD 24.99 (6 / 12 / 160) and USD 34.99 (8 / 16 / 200). The page also names Amsterdam, Montreal and Detroit as locations.",
+    "stated": "USD 5.99 per month for AX-v1 in Frankfurt: 1 vCPU, 1 GB RAM, 10 GB NVMe SSD, unmetered traffic on a port of up to 2 Gbps shared, 1 IPv4, KVM, as the vendor page now renders. The ladder above it: USD 6.99 (AX-v2), USD 9.99 (AX-v3), USD 13.99 (AX-v4), USD 17.99 (AX-v5), USD 24.99 (AX-v6), USD 34.99 (AX-v7), USD 49.99 (AX-v8), USD 64.99 (AX-v9), USD 89.99 (AX-v10), USD 119.99 (AX-v11) and USD 169.99 (AX-v12), all Frankfurt; the page also names Amsterdam, Montreal and Detroit, each marked 'Available'. Every plan's term selector prints 1 month as the default with 3 months at 5 percent off, 6 months at 10 percent off and 12 months at 15 percent off; the discounted totals are computed in the page, so the annual price is derived, not printed. The per-term absolute prices behind the order system stay unverified: the BILLmanager order system at hub.axion.host renders its registration and order forms client-side, and its register page answers a JavaScript shell to a fetch. Renewal price: not published on any page read. No sold-out marker on the vendor page.",
     "unit": "GiB",
     "metered_on": "wall-clock",
     "source_url": "https://axion.host/",
@@ -64,10 +64,52 @@
       "url": "https://axion.host/",
       "date": "2026-10-23",
       "proved": "ladder quoted: 'AX-v2 … $6.99', 'AX-v3 … $9.99', 'AX-v4 … $13.99', 'AX-v5 … $17.99', 'AX-v6 … $24.99', 'AX-v7 … $34.99'; locations 'GERMANY · FRANKFURT', 'USA · DETROIT', 'Netherlands · Amsterdam', 'Canada · Montreal'"
+    },
+    {
+      "url": "https://axion.host/",
+      "date": "2026-11-07",
+      "proved": "the vendor page renders AX-v1 in Frankfurt at USD 5.99 per month",
+      "capture": "sha256:89012759dd34663761965284d9afd3378ba9e85a58178541b6c92a86690cd2c1",
+      "quote": "Frankfurt$5.99/ month"
+    },
+    {
+      "url": "probe:https://hub.axion.host/billmgr?func=register",
+      "date": "2026-11-07",
+      "proved": "the BILLmanager register page answers 200 to a direct fetch (13841 bytes); the per-term prices render only inside the account-bound application",
+      "capture": "sha256:b4f33df34f3d463d3bcd7815320c2884b4869b82a31b74c97ff3570e9c842272",
+      "quote": "\"status\": 200"
+    },
+    {
+      "url": "https://axion.host/",
+      "date": "2026-11-07",
+      "proved": "the vendor page's rendered plan ladder re-read on 2026-11-07",
+      "capture": "sha256:89012759dd34663761965284d9afd3378ba9e85a58178541b6c92a86690cd2c1",
+      "quote": "Frankfurt$5.99/ month"
+    },
+    {
+      "url": "https://axion.host/",
+      "date": "2026-11-07",
+      "proved": "the term selector defaults to 1 month with 3, 6 and 12-month buttons at 5, 10 and 15 percent off",
+      "capture": "sha256:0a719bd0dc5d5ea32f8810ebd3e5c7b20b01cbf55b5493fed940047f96d6a135",
+      "quote": "aria-label=\"AX-v1: Choose term and discount\"><button type=\"button\" role=\"radio\" aria-checked=\"true\" class=\"active\"><b>1</b><small>mo.</small></button>"
+    },
+    {
+      "url": "https://hub.axion.host/billmgr?func=register",
+      "date": "2026-11-07",
+      "proved": "the BILLmanager order system renders client-side, so the cart's per-term prices stay behind it",
+      "capture": "sha256:40d713c42aa298260ab9c9ca3d9c14358402de80564d288f642037a6ee05e9b0",
+      "quote": "Please enable JavaScript to continue using this application."
+    },
+    {
+      "url": "https://axion.host/",
+      "date": "2026-11-07",
+      "proved": "the vendor's own page prices AX-v1 in Frankfurt at USD 5.99 a month",
+      "capture": "sha256:89012759dd34663761965284d9afd3378ba9e85a58178541b6c92a86690cd2c1",
+      "quote": "Frankfurt$5.99/ month"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T14:17:00.739Z",
   "notes": "Source: vps.today index row ('Axion.host | 10 GB NVMe | 1 GB | 1 x 2.1 GHz | 2 000 Mbit/s | KVM | 283 .'), then the vendor page, which prices the same row at USD 3.49. Rendering and provenance: currency written as USD.",
   "extras": {
     "facets": {
@@ -80,6 +122,8 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "price_on_page": "USD 5.99/month for AX-v1 (Frankfurt)",
+    "renewal_usd": "not published: the vendor page prints the plan ladder and no renewal figure"
   }
 }

@@ -5,12 +5,12 @@
   "url": "https://www.baseten.co/pricing/",
   "category": "GPU cloud",
   "free_tier": {
-    "stated": "no free tier on the pricing page: 'Only pay for the time your model is actively deploying, scaling up or down, or making predictions.'",
+    "stated": "No free tier, no credit and no trial on the pricing page: every GPU row is billed by the minute and by the hour, from the T4 at USD 0.6312 an hour to the B200 at USD 9.98, and the word 'free' does not appear on the page. Per GPU-hour: L4 USD 0.8484, A100 80 GB USD 4.00, H100 MIG 40 GB USD 3.75 and H100 80 GB USD 6.50. L40S: not listed; RTX 4090: not listed.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.baseten.co/pricing/",
     "notes": "The word 'free' does not appear on the page.",
-    "read_on": "2026-10-24"
+    "read_on": "2026-11-06"
   },
   "per_object_cap": {
     "stated": "not applicable: the unit is a session, not an object"
@@ -35,7 +35,7 @@
   "limits": [
     {
       "kind": "volume-quota",
-      "value": "0 hours: no free tier published",
+      "value": "no free tier: every GPU row is billed from the first minute, and the cheapest card listed is the T4 at USD 0.6312 an hour",
       "source": "https://www.baseten.co/pricing/"
     }
   ],
@@ -68,12 +68,68 @@
       "url": "https://www.baseten.co/pricing/",
       "date": "2026-10-24",
       "proved": "the page contains no free-tier row and no occurrence of 'free'"
+    },
+    {
+      "url": "https://www.baseten.co/pricing/",
+      "date": "2026-11-06",
+      "proved": "the T4 row is a billed GPU at USD 0.6312 an hour, the cheapest of the seven GPU rows",
+      "capture": "sha256:7b9d0233a63c43df7ecdd918433f7e3dfce933b9e1a8cc7f0760b6b2641490f7",
+      "quote": "GPUT4\nMemory16 GiB VM\nPer Minute$0.01052\nApprox / hour$0.6312"
+    },
+    {
+      "url": "https://www.baseten.co/pricing/",
+      "date": "2026-11-06",
+      "proved": "the T4 is the cheapest GPU row on the page at USD 0.6312 an hour",
+      "capture": "sha256:7b9d0233a63c43df7ecdd918433f7e3dfce933b9e1a8cc7f0760b6b2641490f7",
+      "quote": "Approx / hour$0.6312"
+    },
+    {
+      "url": "https://www.baseten.co/pricing/",
+      "date": "2026-11-06",
+      "proved": "the H100 80 GB row is USD 6.50 an hour on the page read",
+      "capture": "sha256:7b9d0233a63c43df7ecdd918433f7e3dfce933b9e1a8cc7f0760b6b2641490f7",
+      "quote": "Approx / hour$6.50"
+    },
+    {
+      "url": "https://www.baseten.co/pricing/",
+      "date": "2026-11-06",
+      "proved": "the A100 row carries 80 GiB of VRAM and is USD 4.00 an hour",
+      "capture": "sha256:7b9d0233a63c43df7ecdd918433f7e3dfce933b9e1a8cc7f0760b6b2641490f7",
+      "quote": "GPUA100\nMemory80 GiB VRAM\nPer Minute$0.06667\nApprox / hour$4.00"
+    },
+    {
+      "url": "https://www.baseten.co/pricing/",
+      "date": "2026-11-06",
+      "proved": "the GPU rate card is unchanged in shape: every row is billed, and the T4 is the cheapest",
+      "capture": "sha256:7b9d0233a63c43df7ecdd918433f7e3dfce933b9e1a8cc7f0760b6b2641490f7",
+      "quote": "Approx / hour$0.6312"
+    },
+    {
+      "url": "https://www.baseten.co/pricing/",
+      "date": "2026-11-06",
+      "proved": "the L4 row is USD 0.8484 an hour, USD 0.01414 a minute, on a 24 GiB card",
+      "capture": "sha256:7b9d0233a63c43df7ecdd918433f7e3dfce933b9e1a8cc7f0760b6b2641490f7",
+      "quote": "GPUL4\n\nMemory24 GiB VRAM\n\nPer Minute$0.01414\n\nApprox / hour$0.8484"
+    },
+    {
+      "url": "https://www.baseten.co/pricing/",
+      "date": "2026-11-06",
+      "proved": "the H100 MIG row is USD 3.75 an hour on a 40 GiB partition",
+      "capture": "sha256:7b9d0233a63c43df7ecdd918433f7e3dfce933b9e1a8cc7f0760b6b2641490f7",
+      "quote": "GPUH100 MIG\n\nMemory40 GiB VRAM\n\nPer Minute$0.0625\n\nApprox / hour$3.75"
+    },
+    {
+      "url": "https://www.baseten.co/pricing/",
+      "date": "2026-11-06",
+      "proved": "the H100 80 GiB row is USD 6.50 an hour",
+      "capture": "sha256:7b9d0233a63c43df7ecdd918433f7e3dfce933b9e1a8cc7f0760b6b2641490f7",
+      "quote": "Approx / hour$6.50"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-24T01:52:00.000Z",
+  "verified_at": "2026-11-06T18:39:12.192Z",
   "price_per_tb_month": null,
-  "notes": "Baseten is a serving platform, not a notebook host, so it never had hours to give. It is recorded because provider list names it.",
+  "notes": "Per-card rates on the pricing page: T4 USD 0.6312, L4 USD 0.8484, A10G USD 1.2072, A100 80 GB USD 4.00, H100 MIG 40 GB USD 3.75, H100 80 GB USD 6.50 and B200 180 GB USD 9.98 an hour, priced per minute and repeated for Training Compute. H100 MIG is a partition of an H100 rather than a whole card. L40S and RTX 4090: not listed. The page states no free tier and no credit.",
   "extras": {
     "keep_rate": 1.0,
     "keep_rate_basis": null,

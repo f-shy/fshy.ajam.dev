@@ -140,7 +140,7 @@
   "verdict": "fails-quota",
   "verified_at": "2026-11-04T00:20:59.761Z",
   "binding": "per-object-cap",
-  "binding_note": "Either number alone stops it; the cap is the one that would still bind at 2 TB.",
+  "binding_note": "The free 20 GB is an order of magnitude under a 500 GB threshold, and the paid tiers carry a 20 GB per-file cap that does not move with the plan. Either number alone stops it; the cap is the one that would still bind at 2 TB.",
   "confidence_note": "What would raise it is a live re-read of the offers page, because this provider has already moved its price once.",
   "notes": "The free 20 GB is real and it is the same Enterprise build as the paid tiers, so it works as a cheap test endpoint. It fails as capacity on size, and it fails on a per-file cap that never improves.",
   "extras": {

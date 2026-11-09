@@ -5,7 +5,7 @@
   "url": "https://gitlab.com/veilid/veilid/-/issues/404",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "No congestion control and no relay throttling implemented; relay bandwidth management is an open to-do. Mobile-first design assumes 'limited storage and bandwidth' at every node.",
+    "stated": "none reachable: No congestion control and no relay throttling implemented; relay bandwidth management is an open to-do. Mobile-first design assumes 'limited storage and bandwidth' at every node.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://gitlab.com/veilid/veilid/-/issues/404",

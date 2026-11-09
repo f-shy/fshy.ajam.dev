@@ -64,10 +64,17 @@
       "url": "https://servitro.com",
       "date": "2026-10-22",
       "proved": "returned a page titled 'Security Verification' (560,048 bytes) on both the root and /vps, which is a bot challenge and establishes nothing about the vendor's prices or its existence"
+    },
+    {
+      "url": "https://servitro.com/epyc",
+      "date": "2026-11-07",
+      "proved": "the vendor's EPYC page states the USD 1 Server is billed USD 12 per year and renews at the same price, with 1 vCPU, 1 GB RAM, 10 GB SSD, a 1 Gbps port and 1 TB of monthly traffic",
+      "capture": "sha256:16baed5cac77601c6a31fd9aac7ae0aa19d606610793ebf21f5966ff1763f885",
+      "quote": "The $1 Server is billed $12 per year and renews at the same price."
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T06:08:39.723Z",
   "notes": "Wall: servitro.com and servitro.com/vps both served the host's 'Security Verification' interstitial, so no vendor figure was read and the record stays at reported. The tracker lists the firm as Cyvra LLC (formerly SERVITRO LTD), Sheridan WY.",
   "extras": {
     "facets": {

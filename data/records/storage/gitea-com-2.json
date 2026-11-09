@@ -5,7 +5,7 @@
   "url": "https://gitea.com/api/v1/version",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Instance is live and registration is open, but the container registry is not exposed: /v2/ returns 404 (not 401), and /api/v1/packages returns 404. Only the git side is usable, with no…",
+    "stated": "none reachable: Instance is live and registration is open, but the container registry is not exposed: /v2/ returns 404 (not 401), and /api/v1/packages returns 404. Only the git side is usable, with no…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://gitea.com/api/v1/version",

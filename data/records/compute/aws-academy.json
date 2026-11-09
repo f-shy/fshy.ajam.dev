@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "Composes with nothing for a user: it is the AWS programme with the largest institutional footprint and the smallest student allowance, and it is often confused with AWS Educate in student-offer lists.",
+  "chaining": "Composes with nothing: it is the AWS programme with the largest institutional footprint and the smallest student allowance, and it is often confused with AWS Educate in student-offer lists.",
   "limits": [
     {
       "kind": "write-gated",
@@ -63,7 +63,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "The two AWS programmes are different in kind: AWS Educate is open to any individual with an email but its labs are simulated, and AWS Academy needs an institution and an educator but its students still receive no compute. Neither is a compute source for a user. What would overturn this is a lab or credit line on the AWS Academy student page that the read did not surface; the page was read in full at 1741 words and states none.",
+  "notes": "This is a refutation of a name that appears on almost every student-offer list beside AWS Educate. The two AWS programmes are different in kind: AWS Educate is open to any individual with an email but its labs are simulated, and AWS Academy needs an institution and an educator but its students still receive no compute. Neither is a compute source. What would overturn this is a lab or credit line on the AWS Academy student page; the page was read in full at 1741 words and states none.",
   "extras": {
     "facets": {
       "class": "student-pack",

@@ -5,7 +5,7 @@
   "url": "https://0x0.st",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Uploads are globally disabled right now, not merely rate limited. POST returns HTTP 503 with the body 'uploads disabled because it's been almost nothing but AI botnet spam for the past few…",
+    "stated": "none reachable: Uploads are globally disabled right now, not merely rate limited. POST returns HTTP 503 with the body 'uploads disabled because it's been almost nothing but AI botnet spam for the past few…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://0x0.st",

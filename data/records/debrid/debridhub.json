@@ -37,7 +37,7 @@
   ],
   "interface_detail": "A single web form: paste the host URL, press generate, receive a link. The FAQ claims '+100 cloud platforms'. No API, key or CLI is published.",
   "tooling": "browser only. A wrapper would have to POST the form; the request shape was not read.",
-  "chaining": "A zero-identity leecher for the occasional file on a host a user does not subscribe to. Eight links a day is enough for a handful of files and useless for a queue, so it sits beside a paid debrid rather than replacing it.",
+  "chaining": "A zero-identity leecher for the occasional file on a host not subscribed to. Eight links a day is enough for a handful of files and useless for a queue, so it sits beside a paid debrid rather than replacing it.",
   "limits": [
     {
       "kind": "pull-count",
@@ -55,7 +55,7 @@
   "binding_note": "The byte ceiling is unstated, so pull-count is the only number a client can plan against.",
   "identity_cost": {
     "kind": "anonymous",
-    "detail": "No account or login on the generator; the page advertises free use with no registration. Nothing but the client's IP is presented.",
+    "detail": "No account or login on the generator; the page advertises free use with no registration. Nothing but the caller's IP is presented.",
     "country": null
   },
   "reliability_note": "IP-locked links mean a VPN change or a CGNAT egress breaks the generated link mid-download; the site states no refund or retry path because nothing was paid.",

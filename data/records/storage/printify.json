@@ -5,7 +5,7 @@
   "url": "https://help.printify.com/hc/en-us/articles/4483617936657",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "JPEG/PNG up to 100 MB, SVG up to 20 MB. 413 Request Entity Too Large is the documented failure mode on the API.",
+    "stated": "none reachable: JPEG/PNG up to 100 MB, SVG up to 20 MB. 413 Request Entity Too Large is the documented failure mode on the API.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://help.printify.com/hc/en-us/articles/4483617936657",

@@ -5,7 +5,7 @@
   "url": "https://annas-archive.gd/faq",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "No upload endpoint of its own — it is an index. Its FAQ routes uploads to Z-Library / Libgen.li and only takes >10,000-file dumps by email contact; its own 'datasets' are torrents of…",
+    "stated": "none reachable: No upload endpoint of its own — it is an index. Its FAQ routes uploads to Z-Library / Libgen.li and only takes >10,000-file dumps by email contact; its own 'datasets' are torrents of…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://annas-archive.gd/faq",

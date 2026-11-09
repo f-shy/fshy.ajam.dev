@@ -5,7 +5,7 @@
   "url": "https://classic.nft.storage/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Free upload/pinning decommissioned 30 June 2024. Page still advertises 'up to 31GiB per individual upload' but signup is closed and existing data is only 'preserved' with degrading latency.",
+    "stated": "none reachable: Free upload/pinning decommissioned 30 June 2024. Page still advertises 'up to 31GiB per individual upload' but signup is closed and existing data is only 'preserved' with degrading latency.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://classic.nft.storage/",

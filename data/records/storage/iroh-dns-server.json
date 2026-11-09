@@ -5,7 +5,7 @@
   "url": "https://api.github.com/repos/n0-computer/iroh-dns-server",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The n0-computer/iroh-dns-server GitHub repo is archived (last push 2024-04-24) and carries no description. The functionality moved into the main iroh repo, and the maintained artefact is…",
+    "stated": "none reachable: The n0-computer/iroh-dns-server GitHub repo is archived (last push 2024-04-24) and carries no description. The functionality moved into the main iroh repo, and the maintained artefact is…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://api.github.com/repos/n0-computer/iroh-dns-server",

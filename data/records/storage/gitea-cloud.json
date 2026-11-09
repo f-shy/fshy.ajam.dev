@@ -5,7 +5,7 @@
   "url": "https://about.gitea.com/products/cloud/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Commercial managed Gitea. 30-day free trial only, storage is a paid add-on pack, and the 'unlimited network traffic' feature is unlimited-bandwidth-at-throttled-speed rather than free…",
+    "stated": "none reachable: Commercial managed Gitea. 30-day free trial only, storage is a paid add-on pack, and the 'unlimited network traffic' feature is unlimited-bandwidth-at-throttled-speed rather than free…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://about.gitea.com/products/cloud/",

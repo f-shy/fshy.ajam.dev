@@ -5,7 +5,7 @@
   "url": "https://cdn.statically.io/npm/jquery@3.7.1/dist/jquery.min.js",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Silently truncates every response. HTTP 200 with a correct Content-Length header for the full object but a body cut at 16,384 / 31,232 / 65,536 bytes depending on the path, and for some…",
+    "stated": "none reachable: Silently truncates every response. HTTP 200 with a correct Content-Length header for the full object but a body cut at 16,384 / 31,232 / 65,536 bytes depending on the path, and for some…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://cdn.statically.io/npm/jquery@3.7.1/dist/jquery.min.js",

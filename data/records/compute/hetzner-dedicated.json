@@ -5,11 +5,11 @@
   "url": "https://www.hetzner.com/dedicated-rootserver/",
   "category": "cloud VM",
   "free_tier": {
-    "stated": "not stated on https://www.hetzner.com/dedicated-rootserver/ (read 2026-10-30): the server finder lists each server 'starting from' a price 'max. per month', 'per hour' and a 'setup fee', and prints no free allowance",
+    "stated": "no free allowance: the server finder lists each server 'starting from' a monthly price, an hourly price and a setup fee, and its lowest-priced entry is the AX41 at EUR 59.00 a month",
     "unit": "none",
     "metered_on": "wall-clock",
     "source_url": "https://www.hetzner.com/dedicated-rootserver/",
-    "read_on": "2026-10-30",
+    "read_on": "2026-11-04",
     "notes": "The finder loads its price rows by script from its data file (live_data_en_EUR.json). The lowest-priced server in that data is the AX41 at EUR 59 per month, EUR 0.0945 per hour and EUR 0 setup, listed excl. VAT; the data lists no free allowance."
   },
   "per_object_cap": {
@@ -52,7 +52,7 @@
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "reported",
-  "confidence_note": "the page was read on 2026-10-22. Its price table is loaded by script and the extracted body is the finder's chrome, so the free-tier claim cannot be settled here. The related `self-host-baremetal` record cites the AX42 page, which does price a machine",
+  "confidence_note": "the monthly, hourly and setup prices, the unlimited traffic and the availability of the AX41 are read from the server finder's own data file on 2026-11-04; the finder's page renders its price table by script, so the data file is the price source.",
   "evidence": [
     {
       "url": "https://www.hetzner.com/dedicated-rootserver/",
@@ -84,16 +84,51 @@
       "proved": "the finder lists its server prices excl. VAT",
       "capture": "sha256:c0c73dd774aad4b55be4241d11461374cf631c9ae27bf6f5ad5e09f6cf6c8425",
       "quote": "excl. VAT."
+    },
+    {
+      "url": "https://www.hetzner.com/_resources/app/data/app/live_data_en_EUR.json",
+      "date": "2026-11-04",
+      "proved": "the AX41 lists EUR 59 a month, EUR 0.0945 an hour and no setup fee",
+      "capture": "sha256:6913f180a58ed62ee722a8ffc269a3999f2e3a2f6123f761201066d006dcbb09",
+      "quote": "\"priceData\":{\"price\":59,\"hourPrice\":0.0945,\"setupPrice\":0,\"maxPrice\":59"
+    },
+    {
+      "url": "https://api.frankfurter.app/latest?from=EUR&to=USD",
+      "date": "2026-11-04",
+      "proved": "the ECB reference rate for 2026-11-04 is USD 1.1267 per EUR",
+      "capture": "sha256:677fcb9533349e7c2ec3e992daf30685d7f4143864b7563bc1e76628e327ed91",
+      "quote": "\"rates\":{\"USD\":1.1267}"
+    },
+    {
+      "url": "https://www.hetzner.com/_resources/app/data/app/live_data_en_EUR.json",
+      "date": "2026-11-04",
+      "proved": "the finder's data marks the AX41 instantly available",
+      "capture": "sha256:6913f180a58ed62ee722a8ffc269a3999f2e3a2f6123f761201066d006dcbb09",
+      "quote": "\"instantAvailable\":true"
+    },
+    {
+      "url": "https://www.hetzner.com/_resources/app/data/app/live_data_en_EUR.json",
+      "date": "2026-11-04",
+      "proved": "the AX41 traffic is unlimited on a 1 Gbit/s port",
+      "capture": "sha256:6913f180a58ed62ee722a8ffc269a3999f2e3a2f6123f761201066d006dcbb09",
+      "quote": "\"traffic\":\"Unlimited\",\"bandwidth\":1000"
+    },
+    {
+      "url": "https://www.hetzner.com/_resources/app/data/app/live_data_en_EUR.json",
+      "date": "2026-11-04",
+      "proved": "the AX41 is offered in Germany and Finland",
+      "capture": "sha256:6913f180a58ed62ee722a8ffc269a3999f2e3a2f6123f761201066d006dcbb09",
+      "quote": "\"countries\":[{\"name\":\"Germany\",\"shortcode\":\"de\"},{\"name\":\"Finland\",\"shortcode\":\"fi\"}]"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-11-03T01:29:49.867Z",
+  "verified_at": "2026-11-04T18:45:35.796Z",
   "price_per_tb_month": null,
-  "notes": "The AX range publishes prices from EUR 59.00 a month excl. VAT for the AX41 (Ryzen 5 3600, 64 GB DDR4, two 512 GB NVMe), so the dedicated line is a paid product with no free lane and the verdict is paid-only.",
+  "notes": "The AX line is a paid product with no free lane. The finder's own data lists the AX41 (Ryzen 5 3600, 64 GB DDR4, two 512 GB NVMe) at EUR 59.00 a month excl. VAT, EUR 0.0945 an hour and no setup fee, with unlimited traffic on a 1 Gbit/s port, offered in Germany and Finland and marked instantly available. It is the lowest-priced server in that data. The line bills by the month and prints no renewal rate, so the monthly price is the recurring charge.",
   "extras": {
     "keep_rate": 1.0,
     "keep_rate_basis": null,
-    "billing_model": "unclassified",
+    "billing_model": "monthly rental",
     "shape": null,
     "session_cap": {
       "wall_clock_min": null,
@@ -102,7 +137,14 @@
       "note": "a dedicated server is rented by the month; there is no session clock"
     },
     "persistent_storage": null,
-    "network_out": null,
+    "network_out": {
+      "allow_outbound": true,
+      "allow_inbound_listen": true,
+      "ports": "any",
+      "static_ip": true,
+      "ipv6": null,
+      "per_session_bytes": "unlimited traffic on a 1 Gbit/s port"
+    },
     "price_note": null,
     "free_tier_kind": "none",
     "granularity": {
@@ -127,7 +169,22 @@
       "ipv6": true,
       "allowance": null
     },
-    "facets": {}
+    "facets": {},
+    "monthly_usd": 66.48,
+    "m10h_usd": 66.48,
+    "price_arithmetic": "EUR 59.00 a month excl. VAT x 1.1267 (ECB reference 2026-11-04) = USD 66.48 a month, and the hourly rate is EUR 0.0945. A monthly rental bills for the whole month whether the machine is idle or not, so the 10 h/day and the always-on figures are the same USD 66.48.",
+    "m24h_usd": 66.48,
+    "fx": {
+      "pair": "EUR/USD",
+      "rate": 1.1267,
+      "date": "2026-11-04",
+      "source": null
+    },
+    "term": "monthly rental: EUR 59.00 a month, EUR 0.0945 an hour, EUR 0 setup, no fixed term printed",
+    "price_on_page": "EUR 59.00/mo excl. VAT",
+    "stock": "orderable: the finder's data marks the AX41 instantly available in Germany and Finland, and it is the only server in that file with a zero setup fee",
+    "annual_usd": "not published: no annual term is printed, and the line is rented by the month",
+    "renewal_usd": "not published as a separate rate: the monthly rental price is the recurring charge, and no fixed term or renewal rate is printed"
   },
   "binding": "write-gated"
 }

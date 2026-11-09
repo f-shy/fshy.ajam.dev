@@ -31,7 +31,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "Same as Kaggle Datasets. The request form is forms.gle/jh4uBjtP7CsfH97C9 (linked from the staff post).",
-  "chaining": "This is what turns 200 GB/dataset into multi-TB single objects.",
+  "chaining": "This is what turns 200 GB/dataset into multi-TB single objects. Kaggle's own advice is to shard by meaningful subset, which is exactly the sharding pattern the workload needs anyway — combine: N shards x 200 GB each (no request needed) OR one request for a multi-TB dataset.",
   "limits": [
     {
       "kind": "write-gated",

@@ -33,7 +33,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "`fal` Python CLI (`fal files upload/download/list/remove`), @fal-ai/client JS storage API, `fal.download_file(url, target_dir='/data/...')` in-app. Chunked at 4 MB into a global object store; parallel reads hit a distributed cache (docs claim 6-8 GB/s distributed, 10-15 GB/s local NVMe).",
-  "chaining": "Not a free-storage chain — it is a paid-compute chain.",
+  "chaining": "Not a free-storage chain — it is a paid-compute chain. The multiplication only works if you find a machine type cheap enough that idle runner-time is under the price the workload can justify.",
   "limits": [
     {
       "kind": "per-object-cap",

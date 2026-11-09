@@ -5,7 +5,7 @@
   "url": "https://openlibrary.org/help/faq/editing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Not a file store: the only user upload is cover images capped at 30 MB, and bulk book import requires a privileged account via the JSON import API. Records point at Internet Archive items…",
+    "stated": "none reachable: Not a file store: the only user upload is cover images capped at 30 MB, and bulk book import requires a privileged account via the JSON import API. Records point at Internet Archive items…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://openlibrary.org/help/faq/editing",

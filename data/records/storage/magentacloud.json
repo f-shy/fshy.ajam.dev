@@ -5,7 +5,7 @@
   "url": "https://magentacloud.de/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The whole product now redirects to a login page whose only identity path is 'Login with Telekom' — a Telekom customer account. There is no standalone registration page /register…",
+    "stated": "none reachable: The whole product now redirects to a login page whose only identity path is 'Login with Telekom' — a Telekom customer account. There is no standalone registration page (/register…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://magentacloud.de/",

@@ -48,7 +48,7 @@
   ],
   "limits_note": "The challenge is the first obstacle, not a quota: the reader saw 'bot challenge' with a 5-word body at HTTP 403.",
   "binding": "none",
-  "binding_note": "An API challenge is not one of the seven constraints and no byte quota exists; a user meets the challenge first and would then meet an unpublished rate.",
+  "binding_note": "An API challenge is not one of the seven constraints and no byte quota exists; the API challenge comes first and an unpublished rate would follow.",
   "identity_cost": {
     "kind": "anonymous",
     "detail": "The HTML lists were readable without an account. The API's authentication requirement was not established beyond the 403 challenge.",

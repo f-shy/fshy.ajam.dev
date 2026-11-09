@@ -5,7 +5,7 @@
   "url": "https://dart.dev/tools/publishing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "'Keep package size within limits. We recommend less than 100 MB after gzip compression and less than 256 MB uncompressed.' Also 'Publishing is forever' a permanence plus, but no delete…",
+    "stated": "none reachable: 'Keep package size within limits. We recommend less than 100 MB after gzip compression and less than 256 MB uncompressed.' Also 'Publishing is forever' (a permanence plus, but no delete…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://dart.dev/tools/publishing",

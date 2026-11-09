@@ -40,7 +40,7 @@
       "source": "https://docs.filecoin.cloud/cookbooks/payments-and-storage/"
     }
   ],
-  "limits_note": "Storage at $2.50/TiB is genuinely competitive, but total cost of ownership for a user is dominated by egress: $420/mo of CDN to serve 1 TiB/day on top of $100/mo of storage = $520/mo. Also gated on holding USDFC (a stablecoin) and a refundable ~$0.50 lifecycle reserve per data set; each add-pieces call costs $0.008 + $0.003/piece, which is punitive for a 20 TiB corpus of many small objects.",
+  "limits_note": "Storage at $2.50/TiB is genuinely competitive, but total cost of ownership is dominated by egress: $420/mo of CDN to serve 1 TiB/day on top of $100/mo of storage = $520/mo. Also gated on holding USDFC (a stablecoin) and a refundable ~$0.50 lifecycle reserve per data set; each add-pieces call costs $0.008 + $0.003/piece, which is punitive for a 20 TiB corpus of many small objects.",
   "identity_cost": {
     "kind": "card",
     "detail": "card",

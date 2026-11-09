@@ -5,7 +5,7 @@
   "url": "https://pastebin.com/faq",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "512 KB per paste (10 MB only on paid PRO), guests limited to 10 new pastes per 24h and cannot create private pastes, plus human-verification step-triggering spam filtering. Three hard caps at once.",
+    "stated": "none reachable: 512 KB per paste (10 MB only on paid PRO), guests limited to 10 new pastes per 24h and cannot create private pastes, plus human-verification step-triggering spam filtering. Three hard caps at once.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://pastebin.com/faq",

@@ -5,7 +5,7 @@
   "url": "https://aws.amazon.com/ecr/pricing/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Trial, not free tier, and tiny: 'As a new Amazon ECR customer, you get 500 MB per month of storage for your private repositories for one year as part of the AWS Free Tier.' Private repos…",
+    "stated": "none reachable: Trial, not free tier, and tiny: 'As a new Amazon ECR customer, you get 500 MB per month of storage for your private repositories for one year as part of the AWS Free Tier.' Private repos…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://aws.amazon.com/ecr/pricing/",

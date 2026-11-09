@@ -5,7 +5,7 @@
   "url": "https://continuumio-docs.readthedocs-hosted.com/anacondaorg/faq/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "3 GB total per account; would need ~6,800 accounts for 20 TiB.",
+    "stated": "none reachable: 3 GB total per account; would need ~6,800 accounts for 20 TiB.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://continuumio-docs.readthedocs-hosted.com/anacondaorg/faq/",

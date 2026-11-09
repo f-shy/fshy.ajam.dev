@@ -5,7 +5,7 @@
   "url": "https://www.ukri.org/opportunity/airr-compute-opportunity-ai-open-access/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Compute-only calls and the applicant must be a UKRI-eligible organisation. Storage is never the allocation unit.",
+    "stated": "none reachable: Compute-only calls and the applicant must be a UKRI-eligible organisation. Storage is never the allocation unit.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.ukri.org/opportunity/airr-compute-opportunity-ai-open-access/",

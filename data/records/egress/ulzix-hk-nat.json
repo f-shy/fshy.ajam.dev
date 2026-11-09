@@ -38,7 +38,7 @@
   ],
   "interface_detail": "[translated] The order page lists per-district NAT products at idc-new.ulzix.com/order; the review shows panel-set port mapping and an Alpine or Debian image.",
   "tooling": "root on a KVM guest, so wg-quick, SSH and any port-forwarding rule the panel exposes; images are Ubuntu 22.04 or Debian 12 per the review",
-  "chaining": null,
+  "chaining": "A Hong Kong root guest with ten forwarded ports is the endpoint a free Japanese or Korean tunnel could not provide, and it composes with any WireGuard client already running.",
   "limits": [
     {
       "kind": "write-gated",

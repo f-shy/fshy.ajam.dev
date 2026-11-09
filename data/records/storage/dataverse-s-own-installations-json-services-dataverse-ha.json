@@ -5,7 +5,7 @@
   "url": null,
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "DNS dead. Cloudflare error 1016 — origin hostname does not resolve. The working substitute is the GitHub data file that powers the same map.",
+    "stated": "none reachable: DNS dead. Cloudflare error 1016 — origin hostname does not resolve. The working substitute is the GitHub data file that powers the same map.",
     "unit": "none",
     "metered_on": "none",
     "source_url": null,

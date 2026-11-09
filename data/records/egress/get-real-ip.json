@@ -37,7 +37,7 @@
   ],
   "interface_detail": "Config file, QR code and a dashboard for IP and reverse DNS management.",
   "tooling": "wg-quick; config plus QR code for phones",
-  "chaining": "Incoming-only mode leaves a user's own outbound path untouched, so it composes with a free-tier VM that already has outbound.",
+  "chaining": "Incoming-only mode leaves the local outbound path untouched, so it composes with a free-tier VM that already has outbound.",
   "limits": [
     {
       "kind": "volume-quota",

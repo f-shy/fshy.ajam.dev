@@ -93,11 +93,81 @@
       "url": "https://web.c-servers.co.uk/category/ashburn-virginia-usa-vps-servers",
       "date": "2026-10-24",
       "proved": "quoted from the location FAQ: 'At the present time, only the European-based offerings support dedicated IPv4 addresses'"
+    },
+    {
+      "url": "https://web.c-servers.co.uk/order-steps/server/459",
+      "date": "2026-11-06",
+      "proved": "the order page sells a 3-month term at USD 2.69",
+      "capture": "sha256:d0118c72a2494772996c15f1f828eb80687395a252204285b6bff8c35670be8b",
+      "quote": "3 Month(s)"
+    },
+    {
+      "url": "https://web.c-servers.co.uk/order-steps/server/459",
+      "date": "2026-11-06",
+      "proved": "the order page sells a 12-month term at USD 8.99",
+      "capture": "sha256:d0118c72a2494772996c15f1f828eb80687395a252204285b6bff8c35670be8b",
+      "quote": "12 Month(s)"
+    },
+    {
+      "url": "https://web.c-servers.co.uk/order-steps/server/459",
+      "date": "2026-11-06",
+      "proved": "the order page selects a term and prints no renewal rate",
+      "capture": "sha256:d0118c72a2494772996c15f1f828eb80687395a252204285b6bff8c35670be8b",
+      "quote": "Select the renewal period of the service."
+    },
+    {
+      "url": "https://web.c-servers.co.uk/order-steps/server/459",
+      "date": "2026-11-06",
+      "proved": "the order page prints five term prices and no renewal rate",
+      "capture": "sha256:d0118c72a2494772996c15f1f828eb80687395a252204285b6bff8c35670be8b",
+      "quote": "Select the renewal period of the service."
+    },
+    {
+      "url": "https://web.c-servers.co.uk/order-steps/server/459",
+      "date": "2026-11-06",
+      "proved": "the order page sells terms from 3 to 36 months",
+      "capture": "sha256:d0118c72a2494772996c15f1f828eb80687395a252204285b6bff8c35670be8b",
+      "quote": "36 Month(s)"
+    },
+    {
+      "url": "https://web.c-servers.co.uk/category/ashburn-virginia-usa-vps-servers",
+      "date": "2026-11-06",
+      "proved": "the NanoVPS-1024 card carries an Add to Cart link to its order page and no out-of-stock marker",
+      "capture": "sha256:9437db294a0e550707de90a55d211bf4e277ede34324000d9090372ce72cf1e3",
+      "quote": "<a href=\"https://web.c-servers.co.uk/order-steps/server/459\" class=\"btn btn-secondary fw-semibold\">"
+    },
+    {
+      "url": "https://web.c-servers.co.uk/order-steps/server/459",
+      "date": "2026-11-06",
+      "proved": "the order page prints five term prices up to USD 19.99 for 36 months",
+      "capture": "sha256:d0118c72a2494772996c15f1f828eb80687395a252204285b6bff8c35670be8b",
+      "quote": "$19.99"
+    },
+    {
+      "url": "https://web.c-servers.co.uk/order-steps/server/459",
+      "date": "2026-11-06",
+      "proved": "the order page sells five terms and the longest is USD 19.99 for 36 months",
+      "capture": "sha256:d0118c72a2494772996c15f1f828eb80687395a252204285b6bff8c35670be8b",
+      "quote": "$19.99"
+    },
+    {
+      "url": "https://web.c-servers.co.uk/category/ashburn-virginia-usa-vps-servers",
+      "date": "2026-11-06",
+      "proved": "the category page prints the 5 TB allowance",
+      "capture": "sha256:9437db294a0e550707de90a55d211bf4e277ede34324000d9090372ce72cf1e3",
+      "quote": "5 TB Guaranteed @ 300 Mbps"
+    },
+    {
+      "url": "https://web.c-servers.co.uk/order-steps/server/459",
+      "date": "2026-11-06",
+      "proved": "the 3-month rung is still USD 2.69",
+      "capture": "sha256:d0118c72a2494772996c15f1f828eb80687395a252204285b6bff8c35670be8b",
+      "quote": "$2.69"
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-24T02:12:00.000Z",
-  "notes": "The sub-dollar rung of the C-Servers ladder: 2 vCPU / 1 GiB / 30 GB / 5 TB for USD 2.69 per three months, which is USD 0.90 a month and not a monthly charge. The cheapest monthly-billed plan on the same page is CentralVPS-3072 at USD 2.49. The 6 GiB ExtraVPS-6144 at USD 4.29 is a separate record, `c-servers`, because the two plans differ in shape and term and a reader acts on one.",
+  "verified_at": "2026-11-06T17:20:15.331Z",
+  "notes": "The sub-dollar rung of the C-Servers ladder: 2 vCPU / 1 GiB / 30 GB / 5 TB for USD 2.69 per three months, which is USD 0.90 a month and not a monthly charge. The order page sells five terms, and the longest at USD 19.99 works out to USD 0.555 a month for 7.43 times the three-month outlay. The cheapest monthly-billed plan on the category page is CentralVPS-3072 at USD 2.49. The 6 GiB ExtraVPS-6144 at USD 4.29 is a separate record, `c-servers`, because the shape and term differ and a reader acts on one.",
   "extras": {
     "facets": {
       "class": null,
@@ -118,13 +188,13 @@
       "gpu_count": null
     },
     "billing_model": "multi-month prepay",
-    "term": "3 months",
+    "term": "3, 6, 12, 24 or 36 months",
     "m10h_usd": 0.9,
     "m24h_usd": 0.9,
     "price_arithmetic": "USD 2.69 per 3 months / 3 = USD 0.8967 a month, rounded to USD 0.90; one payment of USD 2.69 covers three months. A VPS bills whether it runs or not, so the 24/7 and 10 h/day figures are the same number.",
     "out_of_pocket_usd": 2.69,
-    "renewal_usd": 0.9,
-    "renewal_note": "no first-term discount is stated and no strike-through price is shown; the 3-month term is the SKU's only term, so the renewal rate is the same USD 2.69 per 3 months",
+    "renewal_usd": "not published: the order page prints five term prices with a discount ribbon on each longer rung and no renewal rate; read at https://web.c-servers.co.uk/order-steps/server/459",
+    "renewal_note": "the order page prints five term prices and a discount ribbon per longer rung, with no renewal sentence and no strike-through against a base rate; the 3-month rung is the shortest, so the minimum outlay is USD 2.69",
     "promo": "the 384 MB plan is named 'Low-Cost Special' but carries no end date; the 1024 SKU is not labelled a promo",
     "port_mbps": 300,
     "ipv4_included": true,
@@ -215,14 +285,17 @@
     },
     "ladder_note": "NanoVPS-384 USD 2.39/6 mo = 0.40/mo; NanoVPS-1024 USD 2.69/3 mo = 0.90/mo; CentralVPS-3072 USD 2.49/mo; ExtraVPS-6144 USD 4.29/mo",
     "payment_rails": "Stripe, PayPal, CoinPayments, Paysafecard, OXXO; Stripe carries a 7.99% handling fee",
-    "price_on_page": "USD 2.69/3mo (USD 8.99/12mo)",
+    "price_on_page": "USD 2.69/3mo, USD 4.89/6mo, USD 8.99/12mo, USD 14.99/24mo, USD 19.99/36mo",
     "price_in_cart": "USD 2.69 for 3 months",
     "cart_works": "yes",
     "cart_url": "https://web.c-servers.co.uk/order-steps/server/459",
     "signup_url": "https://web.c-servers.co.uk/sign-up",
     "cart_evidence": "order page titled 'NanoVPS-1024 US Order' renders 'Service Period Selection ... 3 Month(s) $2.69 %10 Discount 6 Month(s) $4.89 %20 Discount 12 Month(s) $8.99 %33 Discount'",
-    "needs_account_first": false
+    "needs_account_first": false,
+    "monthly_usd": 0.9,
+    "annual_usd": 8.99,
+    "stock": "in stock: the category page lists NanoVPS-1024 with an Add to Cart link to its order page and no out-of-stock marker"
   },
   "tier": "NanoVPS-1024 US",
-  "confidence_note": "price, term, shape, transfer, address families and the NAT port count are quoted from the vendor's own store page read as raw HTML; the store answers 403 to the text extractor and answers 200 to a raw fetch, which is why two earlier routes failed. The currency switcher offers $, € and £ and the page rendered $ with no query parameter; the figures are recorded as USD."
+  "confidence_note": "the five term prices, the stock state and the shape are quoted from the order page and the category page; the transfer allowance and the NAT port count are quoted from the category page"
 }

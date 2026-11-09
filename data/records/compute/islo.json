@@ -115,7 +115,7 @@
       "wall_clock_min": null,
       "idle_reap_s": null,
       "restart_required": false,
-      "note": "a user stops the computer; the vendor states no reap, and cost limits per task are offered as a guardrail"
+      "note": "the computer is stopped by the caller; the vendor states no reap, and cost limits per task are offered as a guardrail"
     },
     "persistent_storage": null,
     "network_out": null,

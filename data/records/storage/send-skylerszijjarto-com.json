@@ -5,7 +5,7 @@
   "url": "https://send.skylerszijjarto.com/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The single most generous row in the public Send-instance table — 250 GiB per file, 7 days, 10,000 downloads — returned Cloudflare 530 when probed. The biggest quotas in that table are the…",
+    "stated": "none reachable: The single most generous row in the public Send-instance table — 250 GiB per file, 7 days, 10,000 downloads — returned Cloudflare 530 when probed. The biggest quotas in that table are the…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://send.skylerszijjarto.com/",

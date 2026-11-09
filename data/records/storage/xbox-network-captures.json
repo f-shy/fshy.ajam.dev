@@ -5,7 +5,7 @@
   "url": "https://news.xbox.com/en-us/2023/09/27/bonus-xbox-update-for-september/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Policy since 2023-10-01 deletes captures stored on the Xbox network after 90 days. Explicitly a TTL cache, not storage; the intended destination is your own OneDrive.",
+    "stated": "none reachable: Policy since 2023-10-01 deletes captures stored on the Xbox network after 90 days. Explicitly a TTL cache, not storage; the intended destination is your own OneDrive.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://news.xbox.com/en-us/2023/09/27/bonus-xbox-update-for-september/",

@@ -5,7 +5,7 @@
   "url": "https://docs.gitea.com/administration/config-cheat-sheet/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Gitea and Forgejo default every package limit to -1 (no limit): LIMIT_TOTAL_OWNER_SIZE -1, LIMIT_SIZE_GENERIC -1, LIMIT_SIZE_CONTAINER -1; Forgejo quota.ENABLED defaults false and…",
+    "stated": "none reachable: Gitea and Forgejo default every package limit to -1 (no limit): LIMIT_TOTAL_OWNER_SIZE -1, LIMIT_SIZE_GENERIC -1, LIMIT_SIZE_CONTAINER -1; Forgejo quota.ENABLED defaults false and…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.gitea.com/administration/config-cheat-sheet/",

@@ -40,13 +40,13 @@
   "limits": [
     {
       "kind": "write-gated",
-      "value": "nationality decides it before anything else: the official rules require a solo competitor to be a U.S. citizen or permanent resident, so the largest prize on the platform is closed for a user regardless of skill or compute.",
+      "value": "nationality decides it before anything else: the official rules require a solo competitor to be a U.S. citizen or permanent resident, so the largest prize on the platform is closed regardless of skill or compute.",
       "source": "https://www.drivendata.org/competitions/306/competition-doe-gems/"
     }
   ],
-  "limits_note": "nationality decides it before anything else: the official rules require a solo competitor to be a U.S. citizen or permanent resident, so the largest prize on the platform is closed for a user regardless of skill or compute.",
+  "limits_note": "nationality decides it before anything else: the official rules require a solo competitor to be a U.S. citizen or permanent resident, so the largest prize on the platform is closed regardless of skill or compute.",
   "binding": "write-gated",
-  "binding_note": "nationality decides it before anything else: the official rules require a solo competitor to be a U.S. citizen or permanent resident, so the largest prize on the platform is closed for a user regardless of skill or compute.",
+  "binding_note": "nationality decides it before anything else: the official rules require a solo competitor to be a U.S. citizen or permanent resident, so the largest prize on the platform is closed regardless of skill or compute.",
   "identity_cost": {
     "kind": "country-phone",
     "detail": null,

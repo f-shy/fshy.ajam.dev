@@ -46,7 +46,7 @@
   "limits_note": "not stated",
   "identity_cost": {
     "kind": "email",
-    "detail": null,
+    "detail": "an email address, or a GitHub or Google account: the dashboard sign-up offers 'Continue with Github', 'Continue with Google' or an email address. The API key is issued on request: 'Please contact us via Discord or email for an API key.' No credit card is required: 'No credit card required.' The phone requirement is not published on https://hyperbeam.com/dashboard/. Country: not published on https://hyperbeam.com/dashboard/.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -76,10 +76,38 @@
       "proved": "a REST API creates and manages sessions",
       "capture": "sha256:ff4ad5eec64e20da63133656fe0d378aa5711ecf904563a90b347cdf8b74e33d",
       "quote": "Create and manage virtual computer sessions server-side."
+    },
+    {
+      "url": "https://docs.hyperbeam.com/rest-api/dispatch/dispatch-overview",
+      "date": "2026-11-04",
+      "proved": "an API key is requested from the vendor by email or Discord, not issued by a self-serve console",
+      "capture": "sha256:8d3edcb34f31f738a21311fb41bfd0bacae8f7bbe55b71172bf30008e6c4c640",
+      "quote": "Please contact us via Discord or email for an API key."
+    },
+    {
+      "url": "https://hyperbeam.com/",
+      "date": "2026-11-04",
+      "proved": "the free allowance needs no credit card",
+      "capture": "sha256:f259d6619400bda824512da0855b01b084b9fc31f94c6e7d61e1058fb0b14a6e",
+      "quote": "Get 10,000 free minutes every month. No credit card required."
+    },
+    {
+      "url": "https://hyperbeam.com/dashboard/",
+      "date": "2026-11-06",
+      "proved": "the dashboard sign-up offers a GitHub or Google account or an email address",
+      "capture": "sha256:5a51b7caa53708b9c8b8b1b5a8149c170d8437bc1fc7dafe0480e4018984e135",
+      "quote": "Sign Up or Log In ... Continue with Github ... Continue with Google ... Email"
+    },
+    {
+      "url": "https://hyperbeam.com/",
+      "date": "2026-11-06",
+      "proved": "the free allowance needs no credit card",
+      "capture": "sha256:f259d6619400bda824512da0855b01b084b9fc31f94c6e7d61e1058fb0b14a6e",
+      "quote": "Get 10,000 free minutes every month. No credit card required."
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-04T05:24:24.921Z",
+  "verified_at": "2026-11-06T17:42:10.983Z",
   "price_per_tb_month": null,
   "notes": "",
   "extras": {

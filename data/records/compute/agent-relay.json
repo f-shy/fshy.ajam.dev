@@ -51,7 +51,7 @@
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
-  "confidence_note": "the site was read on 2026-10-22. It offers a free tier and publishes no paid price, which contradicts the record's paid-only verdict. The product relays messages between agents rather than renting compute, so the free tier is not usable capacity for a user and the caveat says so",
+  "confidence_note": "the site was read on 2026-10-22. It offers a free tier and publishes no paid price, which contradicts the record's paid-only verdict. The product relays messages between agents rather than renting compute, so the free tier is not usable capacity and the caveat says so",
   "evidence": [
     {
       "url": "https://agentrelay.com",

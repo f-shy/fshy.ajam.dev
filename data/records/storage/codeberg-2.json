@@ -5,7 +5,7 @@
   "url": "https://blog.codeberg.org/new-storage-limits-on-codeberg-what-you-need-to-know.html",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Quota is ~750 MiB Git + 1.5 GiB combined LFS/packages/attachments per user, plus 100 MiB for non-promoted/private content, plus 100 MB per release/issue attachment. Enforcement began…",
+    "stated": "none reachable: Quota is ~750 MiB Git + 1.5 GiB combined LFS/packages/attachments per user, plus 100 MiB for non-promoted/private content, plus 100 MB per release/issue attachment. Enforcement began…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://blog.codeberg.org/new-storage-limits-on-codeberg-what-you-need-to-know.html",

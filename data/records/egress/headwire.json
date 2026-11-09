@@ -47,7 +47,7 @@
   ],
   "limits_note": "",
   "binding": "per-ip-shaping",
-  "binding_note": "There is no ingress to meter. If the client borrows Tailscale's DERP relays, the rate limit on those relays is the first thing to bite, and it applies to the relay path only.",
+  "binding_note": "There is no ingress to meter. If Tailscale's DERP relays are borrowed, the rate limit on those relays is the first thing to bite, and it applies to the relay path only.",
   "identity_cost": {
     "kind": "anonymous",
     "detail": "No account: a user supplies its own DERP servers, or uses Tailscale's free rate-limited DERP relays for Tailcat.",

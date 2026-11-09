@@ -23,7 +23,7 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": "50 GB/month asset bandwidth included on Starter ($35/mo). Self-hosted Strapi has no storage cap but he pays the compute.",
+    "terms": "50 GB/month asset bandwidth included on Starter ($35/mo). Self-hosted Strapi has no storage cap but the compute is paid.",
     "metered": true,
     "free_allowance": "50 GB per month"
   },

@@ -5,7 +5,7 @@
   "url": "https://www.photonengine.com/realtime/pricing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "No storage product at all. The free tier is 100 CCU for Fusion/Quantum and traffic allowances measured in GB of message relay; there is no bucket, file API or persistence surface to write…",
+    "stated": "none reachable: No storage product at all. The free tier is 100 CCU for Fusion/Quantum and traffic allowances measured in GB of message relay; there is no bucket, file API or persistence surface to write…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.photonengine.com/realtime/pricing",

@@ -5,7 +5,7 @@
   "url": "https://strike.bz",
   "category": "cloud VM",
   "free_tier": {
-    "stated": "Budget line 'Pico' at EUR 25.00/year: 1 vCPU, 512 MB RAM, 10 GB NVMe SSD, 1 TB bandwidth, sold in Poland and the USA (the tracker names Gdansk and New Jersey). The Budget 'Nano' is EUR 3.00/month with 1 GB and 15 GB, and the Pro line's 'Pico' is EUR 30.00/year with the same 512 MB and 10 GB. The tracker's EUR 2.08/month row is this EUR 25.00 annual plan divided by twelve.",
+    "stated": "Budget line 'Pico' at EUR 25.00/year: 1 vCPU, 512 MB RAM, 10 GB NVMe SSD, 1 TB bandwidth, sold in Poland and the USA (the tracker names Gdansk and New Jersey). The page prices each plan at its shortest billing term, so the Pico plans are annual-only and no monthly price is published for them; the Budget 'Nano' is EUR 3.00/month with 1 GB and 15 GB, and the Pro line's 'Pico' is EUR 30.00/year with the same 512 MB and 10 GB shape. The order pages answer WHMCS 'Out of stock' with orders suspended, so the cart prices nothing while the suspension stands; no renewal price is published on any page read.",
     "unit": "GiB",
     "metered_on": "wall-clock",
     "source_url": "https://strike.bz",
@@ -52,7 +52,7 @@
     "detail": "not stated",
     "country": null
   },
-  "reliability_note": "no reliability event recorded",
+  "reliability_note": "the order pages of Budget Pico in Poland and the USA, Budget Nano (Poland), Pro Pico Poland and Pro Nano (Poland) all answered WHMCS 'Out of Stock' with orders suspended on 2026-11-07; strike.bz still lists the plans and prices.",
   "confidence": "documented",
   "evidence": [
     {
@@ -74,10 +74,38 @@
       "url": "https://strike.bz",
       "date": "2026-10-22",
       "proved": "identity, quoted from the FAQ list and the closing block: 'No KYC required - order without revealing your identity. Anonymous payment methods accepted. We collect minimal data by design.'"
+    },
+    {
+      "url": "https://strike.bz",
+      "date": "2026-11-07",
+      "proved": "the Budget Pico plan is still listed at EUR 25.00/yr with the same shape",
+      "capture": "sha256:7be599cb5dedd6fcfbbcd999b6b0a944d05323234dcb0cf22550f253dc606378",
+      "quote": "| Pico Annual VPS for basic tasks. | 1 | 512MB | 10GB NVMe SSD | 1TB | €25.00/yr | Checking |  |"
+    },
+    {
+      "url": "https://clientarea.strike.bz/index.php?rp=/store/intel-usa-vps-rdp-n/pico-intel-usa",
+      "date": "2026-11-07",
+      "proved": "the Budget Pico USA order page suspends orders out of stock; the same page body served for the Poland pico, the Poland nano and both AMD pro plans checked",
+      "capture": "sha256:97aa21e87d88d61546c9ad34a224a1f0d8d7eeba2377ca21dd9030519beaa3e4",
+      "quote": "We are currently out of stock on this item so orders for it have been suspended until more stock is available."
+    },
+    {
+      "url": "https://strike.bz",
+      "date": "2026-11-07",
+      "proved": "the Budget Pico card still prices EUR 25.00 per year with the same shape, and the page prices each plan at its shortest billing term",
+      "capture": "sha256:7be599cb5dedd6fcfbbcd999b6b0a944d05323234dcb0cf22550f253dc606378",
+      "quote": "| Pico Annual VPS for basic tasks. | 1 | 512MB | 10GB NVMe SSD | 1TB | €25.00/yr | Checking |  |"
+    },
+    {
+      "url": "https://clientarea.strike.bz/index.php?rp=/store/intel-usa-vps-rdp-n/pico-intel-usa",
+      "date": "2026-11-07",
+      "proved": "the Budget Pico USA order page suspends orders out of stock, so the cart prices nothing while the suspension stands",
+      "capture": "sha256:9e33c161f4c2f1d77f66f82fd22a0fdc0d73e12bd39ea7ba886960014a5a47a3",
+      "quote": "We are currently out of stock on this item so orders for it have been suspended until more stock is available."
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T11:15:41.615Z",
   "notes": "The vendor card states the annual price and the tracker states the monthly equivalent, so the two agree on the plan. The vendor's own no-KYC claim is recorded in the evidence rather than in identity_cost, because the signup page itself was not fetched and the field therefore stays at the email floor. The card states neither. Rendering and provenance: currency symbols are written out (EUR, GBP, RUB, VND), diacritics in place names are folded to ASCII, and a price the page splits across two lines is joined as value/period; the tracker page stated 'Database update: 7 hours ago' when it was read on 2026-10-22.",
   "extras": {
     "facets": {
@@ -90,6 +118,7 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "monthly_usd": 2.33
   }
 }

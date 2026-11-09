@@ -5,7 +5,7 @@
   "url": "https://sourcehut.org/pricing/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "codehive.sr.ht does not resolve (NXDOMAIN) - there is no such host. sourcehut itself is paid-for-project-hosting 'All users who host projects on SourceHut are expected to pay according to…",
+    "stated": "none reachable: codehive.sr.ht does not resolve (NXDOMAIN) - there is no such host. sourcehut itself is paid-for-project-hosting ('All users who host projects on SourceHut are expected to pay according to…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://sourcehut.org/pricing/",

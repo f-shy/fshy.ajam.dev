@@ -72,6 +72,6 @@
   },
   "binding": "none",
   "interface_detail": "a 6in4 tunnel to a Hurricane Electric endpoint",
-  "binding_note": "nothing in the vocabulary binds: the protocol-41 requirement is a network capability a user's ISP passes or blocks, not a queue with a person in it, and the /48 itself has no volume limit",
-  "limits_note": "the endpoint must answer ICMP and accept protocol 41. That is not write-gated in the vocabulary's sense, because no curator or review stands between a user and the write; it is a capability a user's ISP either passes or does not, and none of the six kinds names it"
+  "binding_note": "nothing in the vocabulary binds: the protocol-41 requirement is a network capability the local ISP passes or blocks, not a queue with a person in it, and the /48 itself has no volume limit",
+  "limits_note": "the endpoint must answer ICMP and accept protocol 41. That is not write-gated in the vocabulary's sense, because no curator or review stands between the caller and the write; it is a capability the local ISP either passes or does not, and none of the six kinds names it"
 }

@@ -25,11 +25,11 @@
     "notes": null
   },
   "egress": {
-    "terms": "the card states 1 TB of bandwidth and does not print a period or an overage price; the tracker lists the sibling 2 GB plan at 2,048 GB/month",
+    "terms": "1 TB of bandwidth per month on the Saver plan, printed as '1 TB Monthly Bandwidth' on the cart page; no overage price is published on the pages read",
     "metered": true,
-    "free_allowance": "1 TB on the Saver plan (the card prints no period)",
+    "free_allowance": "1 TB per month on the Saver plan",
     "price_per_tb": null,
-    "source_url": "https://dedirock.com/KVMSuperSale/"
+    "source_url": "https://billing.dedirock.com/index.php/store/yearly-promo/yearly-promo-saver"
   },
   "interface": [
     "rest"
@@ -40,13 +40,13 @@
   "limits": [
     {
       "kind": "volume-quota",
-      "value": "the card states 1 TB of bandwidth on a 1 Gbps connection without printing a period; the tracker quotes the sibling 2 GB plan's 2,048 GB as a monthly figure, and the annual plan card states no yearly byte total",
+      "value": "1 TB of bandwidth per month on a 1 Gbps connection per the cart lines '1 TB Monthly Bandwidth' and '1 Gbps Network Port'; the tracker's row for the larger sibling quotes a monthly figure",
       "source": "https://dedirock.com/KVMSuperSale/"
     }
   ],
-  "limits_note": "the card states 1 TB of bandwidth on a 1 Gbps connection without printing a period; the tracker quotes the sibling 2 GB plan's 2,048 GB as a monthly figure, and the annual plan card states no yearly byte total",
+  "limits_note": "1 TB of bandwidth per month on a 1 Gbps connection per the cart lines '1 TB Monthly Bandwidth' and '1 Gbps Network Port'; the tracker's row for the larger sibling quotes a monthly figure",
   "binding": "volume-quota",
-  "binding_note": "the card states 1 TB of bandwidth on a 1 Gbps connection without printing a period; the tracker quotes the sibling 2 GB plan's 2,048 GB as a monthly figure, and the annual plan card states no yearly byte total",
+  "binding_note": "1 TB of bandwidth per month on a 1 Gbps connection per the cart lines '1 TB Monthly Bandwidth' and '1 Gbps Network Port'; the tracker's row for the larger sibling quotes a monthly figure",
   "identity_cost": {
     "kind": "email",
     "detail": "not stated",
@@ -84,10 +84,80 @@
       "url": "https://dedirock.com/",
       "date": "2026-10-22",
       "proved": "the site links a storage product at /storage-vps/ and KVM VPS at /kvm-vps-buffalo/ and /kvm-vps-los-angeles/; the storage page itself names no location"
+    },
+    {
+      "url": "https://billing.dedirock.com/index.php/store/yearly-promo/yearly-promo-saver",
+      "date": "2026-11-07",
+      "proved": "the cart prices the Yearly Promo Saver at USD 10.88 for the annual term",
+      "capture": "sha256:506502c0884993dd5c8026ff34c7d9ec7fa4a6370eac09b6799e7d7c251dad80",
+      "quote": "$10.88 USD Annually"
+    },
+    {
+      "url": "https://dedirock.com/KVMSuperSale/",
+      "date": "2026-11-07",
+      "proved": "the sale page prices the Saver at USD 10.88 for the yearly term",
+      "capture": "sha256:9256d77d132fee3af4082af80f42a87dff9b6fbb1b85a381abf252760c1ba5d0",
+      "quote": "## Yearly Promo VPS Saver\n\n$10.88 /yearly"
+    },
+    {
+      "url": "https://billing.dedirock.com/index.php/store/yearly-promo/yearly-promo-saver",
+      "date": "2026-11-07",
+      "proved": "the cart's order summary totals the annual term at USD 10.88 with no separate renewal line",
+      "capture": "sha256:506502c0884993dd5c8026ff34c7d9ec7fa4a6370eac09b6799e7d7c251dad80",
+      "quote": "Annually:$10.88 USD"
+    },
+    {
+      "url": "https://dedirock.com/KVMSuperSale/",
+      "date": "2026-11-07",
+      "proved": "the sale page states the billing term for every plan it lists",
+      "capture": "sha256:9256d77d132fee3af4082af80f42a87dff9b6fbb1b85a381abf252760c1ba5d0",
+      "quote": "All Prices are Yearly Plans"
+    },
+    {
+      "url": "https://billing.dedirock.com/index.php/store/yearly-promo/yearly-promo-saver",
+      "date": "2026-11-07",
+      "proved": "the cart renders the configurator with the annual cycle priced and no out-of-stock phrase",
+      "capture": "sha256:506502c0884993dd5c8026ff34c7d9ec7fa4a6370eac09b6799e7d7c251dad80",
+      "quote": "$10.88 USD Annually"
+    },
+    {
+      "url": "https://billing.dedirock.com/index.php/store/yearly-promo/yearly-promo-saver",
+      "date": "2026-11-07",
+      "proved": "the cart page states the transfer allowance with an explicit monthly period",
+      "capture": "sha256:506502c0884993dd5c8026ff34c7d9ec7fa4a6370eac09b6799e7d7c251dad80",
+      "quote": "1 TB Monthly Bandwidth"
+    },
+    {
+      "url": "https://billing.dedirock.com/index.php/store/yearly-promo/yearly-promo-saver",
+      "date": "2026-11-07",
+      "proved": "the cart page is where the transfer allowance is printed with its period",
+      "capture": "sha256:506502c0884993dd5c8026ff34c7d9ec7fa4a6370eac09b6799e7d7c251dad80",
+      "quote": "1 TB Monthly Bandwidth"
+    },
+    {
+      "url": "https://billing.dedirock.com/index.php/store/yearly-promo/yearly-promo-saver",
+      "date": "2026-11-07",
+      "proved": "the cart states the Saver's transfer allowance with an explicit monthly period and the port speed",
+      "capture": "sha256:506502c0884993dd5c8026ff34c7d9ec7fa4a6370eac09b6799e7d7c251dad80",
+      "quote": "Yearly Promo Saver\n\n1 GB RAM\n\n1x vCore CPU\n\n10 GB SSD\n\n1 TB Monthly Bandwidth\n\n1 Gbps Network Port\n\n1 IPv4"
+    },
+    {
+      "url": "https://billing.dedirock.com/index.php/store/yearly-promo/yearly-promo-saver",
+      "date": "2026-11-07",
+      "proved": "the cart states the transfer allowance with an explicit monthly period",
+      "capture": "sha256:506502c0884993dd5c8026ff34c7d9ec7fa4a6370eac09b6799e7d7c251dad80",
+      "quote": "1 TB Monthly Bandwidth"
+    },
+    {
+      "url": "https://billing.dedirock.com/index.php/store/yearly-promo/yearly-promo-saver",
+      "date": "2026-11-07",
+      "proved": "a second independent read of the same cart page carries the same monthly transfer line",
+      "capture": "sha256:16380c35a89c087042e653b80f5df9fa53630dc2b91d855433b9620f0b975006",
+      "quote": "1 TB Monthly Bandwidth  \n1 Gbps Network Port"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T11:15:30.076Z",
   "notes": "The sale page's cheapest is USD 10.88/year for 1 GB / 10 GB; the tracker's USD 9.88/year row is a different, larger 2 GB / 30 GB plan that the sale page does not list, so the vendor figure is recorded and the tracked figure stays in evidence as the cheaper reported one.",
   "extras": {
     "facets": {
@@ -100,6 +170,11 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "annual_usd": 10.88,
+    "monthly_usd": 0.91,
+    "renewal_usd": "not published: the cart prices the plan at $10.88 USD Annually and prints no separate renewal figure",
+    "billing_term": "yearly",
+    "in_stock": true
   }
 }

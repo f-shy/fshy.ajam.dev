@@ -5,7 +5,7 @@
   "url": "https://core.telegram.org/bots/api/methods/getfile",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Hard 20 MB download ceiling via getFile and 50 MB multipart upload. getFile links also expire: 'It is guaranteed that the link will be valid for at least 1 hour.' Unusable as a storage API…",
+    "stated": "none reachable: Hard 20 MB download ceiling via getFile and 50 MB multipart upload. getFile links also expire: 'It is guaranteed that the link will be valid for at least 1 hour.' Unusable as a storage API…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://core.telegram.org/bots/api/methods/getfile",

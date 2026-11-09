@@ -106,7 +106,7 @@
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-11-02T09:58:36.718Z",
   "binding": "write-gated",
-  "notes": "The one piece of this topic a user can own outright. The source is explicit that fs/list's write field is CanWrite, a per-user exclusion-list negation, while the upload gate is CanWriteContent(bit 3) OR a per-path meta; that distinction is why a host can report write:true and refuse every PUT, and why the one writable instance in the population reports write_content_bypass:true and permission 256 with no bit 3.",
+  "notes": "The one piece of this topic that can be owned outright. The source is explicit that fs/list's write field is CanWrite, a per-user exclusion-list negation, while the upload gate is CanWriteContent(bit 3) OR a per-path meta; that distinction is why a host can report write:true and refuse every PUT, and why the one writable instance in the population reports write_content_bypass:true and permission 256 with no bit 3.",
   "extras": {
     "access_mode": "self-hosted-bridge",
     "language": "Go",

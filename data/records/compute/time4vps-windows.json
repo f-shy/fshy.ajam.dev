@@ -43,7 +43,7 @@
   "binding_note": "32 TB a month is the only published byte ceiling; the port speed and the IPv4 are not stated.",
   "identity_cost": {
     "kind": "card",
-    "detail": "an account and a payment method at order; the page footer shows PayPal and Stripe, and the cart returned HTTP 403 for a user",
+    "detail": "an account and a payment method at order; the page footer shows PayPal and Stripe, and the cart returned HTTP 403",
     "country": null
   },
   "reliability_note": "no reliability event observed; EU customers pay VAT on top of the listed price",
@@ -90,7 +90,7 @@
       "pair": "EUR/USD",
       "rate": 1.1193,
       "date": "2026-10-23",
-      "source": "ECB reference via frankfurter.app"
+      "source": null
     },
     "windows_licence": "included free, printed",
     "ipv4": "not stated on the plan table; inferred from a Windows VPS with RDP",

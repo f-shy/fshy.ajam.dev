@@ -5,7 +5,7 @@
   "url": "https://zeronet.io/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Not a storage provider: a BitTorrent-based P2P site distribution tool with no hosting, no quota, no SLA, and no seeding guarantee beyond whoever is online. Requires your own machine to seed",
+    "stated": "none reachable: Not a storage provider: a BitTorrent-based P2P site distribution tool with no hosting, no quota, no SLA, and no seeding guarantee beyond whoever is online. Requires your own machine to seed",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://zeronet.io/",

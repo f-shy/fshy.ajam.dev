@@ -5,7 +5,7 @@
   "url": "https://www.gitpod.io/pricing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "gitpod.io no longer resolves to a pricing page — it redirects to ona.com, which routes /pricing to a sales contact form. There is no self-serve free tier to evaluate; the product pivoted to",
+    "stated": "none reachable: gitpod.io no longer resolves to a pricing page — it redirects to ona.com, which routes /pricing to a sales contact form. There is no self-serve free tier to evaluate; the product pivoted to",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.gitpod.io/pricing",

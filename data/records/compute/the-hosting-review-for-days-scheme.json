@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "None: it is a discount on a paid server, and a user is not buying one to unlock a rebate.",
+  "chaining": "None: it is a discount on a paid server, not a free resource.",
   "limits": [
     {
       "kind": "write-gated",

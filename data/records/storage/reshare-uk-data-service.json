@@ -5,7 +5,7 @@
   "url": "https://reshare.ukdataservice.ac.uk/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Submissions are tied to ESRC grant holders and UK Data Service registration; grant metadata is pulled from UKRI Gateway to Research, so the deposit is anchored to a funded project.",
+    "stated": "none reachable: Submissions are tied to ESRC grant holders and UK Data Service registration; grant metadata is pulled from UKRI Gateway to Research, so the deposit is anchored to a funded project.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://reshare.ukdataservice.ac.uk/",

@@ -58,11 +58,46 @@
       "url": "https://gpuperhour.com/providers/cirrascale",
       "date": "2026-10-22",
       "proved": "page, transcribed and joined (unquoted values are not verbatim): 'An AI Innovation Cloud targeting deep learning and HPC research with dedicated performance on non-virtualized hardware', '49 Instances', '1 Regions', '49 Available', and 'Cirrascale offers 11 GPU models'; the A5000 row reads $0.41/GPU/hr $3.28/hr total (8x)"
+    },
+    {
+      "url": "https://gpuperhour.com/providers/cirrascale",
+      "date": "2026-11-06",
+      "proved": "the page prices an H100 SXM5 80GB at USD 2.49 per GPU-hour",
+      "capture": "sha256:bb0cd0cc13380017201b5f563ce61efac6ee23b68644efaa56aff69b0f0c46a3",
+      "quote": "H100 SXM5\n\n80GB VRAM\n\n$2.49/hr"
+    },
+    {
+      "url": "https://gpuperhour.com/providers/cirrascale",
+      "date": "2026-11-06",
+      "proved": "the page prices an A100 PCIe 80GB at USD 2.60 per GPU-hour",
+      "capture": "sha256:bb0cd0cc13380017201b5f563ce61efac6ee23b68644efaa56aff69b0f0c46a3",
+      "quote": "A100 PCIe 80GB\n\n80GB VRAM\n\n$2.60/hr"
+    },
+    {
+      "url": "https://gpuperhour.com/providers/cirrascale",
+      "date": "2026-11-06",
+      "proved": "the A4000 rate is per GPU-hour on an eight-card node, USD 2.16 an hour for the node",
+      "capture": "sha256:bb0cd0cc13380017201b5f563ce61efac6ee23b68644efaa56aff69b0f0c46a3",
+      "quote": "$0.27/GPU/hr$2.16/hr total (8×)"
+    },
+    {
+      "url": "https://www.cirrascale.com/pricing",
+      "date": "2026-11-06",
+      "proved": "the vendor pricing page lists GB300, B300, B200, RTX PRO 6000, MI355X, MI350 and Qualcomm AI 100 Ultra, and no H100, A100, L40S, RTX 4090 or L4",
+      "capture": "sha256:04fe14bd0d901ec21b25467b1d13bc89b2aa6b18b81f0f323f019b95755d5e2f",
+      "quote": "NVIDIA HGX B200\n\nDual 64-Core\n\n2TB\n\n960 NVMe\n\n(4) 3.84TB NVMe\n\n25Gb Bonded\n\n(3200Gb Available)\n\nAs low as $4.79/GPUhr"
+    },
+    {
+      "url": "https://gpuperhour.com/providers/cirrascale",
+      "date": "2026-11-06",
+      "proved": "the cheapest listed row is still an eight-card A4000 node at USD 0.27 per GPU-hour and USD 2.16 an hour for the node",
+      "capture": "sha256:bb0cd0cc13380017201b5f563ce61efac6ee23b68644efaa56aff69b0f0c46a3",
+      "quote": "| CirrascaleCirrascale | 8×NVIDIA RTX A400016GB VRAM | 16GB | 40 vCPU256GB RAM2610GB Storage | United States | $0.27/GPU/hr$2.16/hr total (8×) |"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "Found via gpuperhour, which listed it among 28 extractable provider slugs.",
+  "verified_at": "2026-11-06T18:41:34.653Z",
+  "notes": "Per-card rates on the gpuperhour page read on 2026-11-06: H100 SXM5 80GB USD 2.49 per GPU-hour, A100 PCIe 80GB USD 2.60 per GPU-hour, and RTX A4000 16GB USD 0.27 per GPU-hour on an eight-card node (USD 2.16 an hour for the node); L40S, RTX 4090 and L4 are not listed. The vendor's own pricing page read the same day prices GB300, B300, B200, RTX PRO 6000, MI355X, MI350 and Qualcomm AI 100 Ultra only, and states that it does not list everything it sells, so the H100 and A100 figures rest on the aggregator. No free tier, credit or free GPU hours are stated. Whether a single A4000 can be booked rather than only a full node is not stated.",
   "extras": {
     "facets": {
       "class": null,

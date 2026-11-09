@@ -6,7 +6,7 @@
   "category": "software (Telegram-backed drive, local-first desktop app)",
   "tier": "free",
   "free_tier": {
-    "stated": "'Every feature is free. The optional $5 license only removes sponsor placements.' Files live in a user's Saved Messages and channels; there is no separate storage account.",
+    "stated": "'Every feature is free. The optional $5 license only removes sponsor placements.' Files live in the account's Saved Messages and channels; there is no separate storage account.",
     "unit": "unlimited",
     "metered_on": "stored-bytes",
     "source_url": "https://telegram-drive.com/",
@@ -53,7 +53,7 @@
   "binding_note": "The app's own 2e9-byte cap is marginally stricter than Telegram's and is the one a user meets.",
   "identity_cost": {
     "kind": "any-phone",
-    "detail": "A user's own Telegram account credentials; no account with the project.",
+    "detail": "The account's own Telegram credentials; no account with the project.",
     "country": null
   },
   "reliability_note": "The vendor's own warning: 'Telegram Drive should not be treated as literally unlimited storage or as the only backup of important data.' Files above 2 GB are skipped, not split.",

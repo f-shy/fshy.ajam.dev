@@ -5,7 +5,7 @@
   "url": null,
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Not dead, but effectively unreachable on this machine: DNS answers 0.0.0.0 /:: (sinkholed), so every plain curl fails with 'Could not resolve host'. Worked around with --resolve to the…",
+    "stated": "none reachable: Not dead, but effectively unreachable on this machine: DNS answers 0.0.0.0 / :: (sinkholed), so every plain curl fails with 'Could not resolve host'. Worked around with --resolve to the…",
     "unit": "none",
     "metered_on": "none",
     "source_url": null,

@@ -5,7 +5,7 @@
   "url": "https://disk-o.cloud/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Not a storage provider — a desktop aggregator client that mounts other clouds (its own copy: 'Переносите файлы из любых подключенных хранилищ в Облако Mail.ru'). It contributes zero bytes.",
+    "stated": "none reachable: Not a storage provider — a desktop aggregator client that mounts other clouds (its own copy: 'Переносите файлы из любых подключенных хранилищ в Облако Mail.ru'). It contributes zero bytes.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://disk-o.cloud/",

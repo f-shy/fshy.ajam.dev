@@ -83,7 +83,7 @@
       "wall_clock_min": null,
       "idle_reap_s": null,
       "restart_required": false,
-      "note": "'We do not bound how long a session may run'; the caps are a user's own and can be switched off, and an idle timeout is the one automatic bound"
+      "note": "'We do not bound how long a session may run'; the caps are user-set and can be switched off, and an idle timeout is the one automatic bound"
     },
     "persistent_storage": null,
     "network_out": null,

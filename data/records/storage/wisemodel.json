@@ -5,7 +5,7 @@
   "url": "https://wisemodel.cn/DeepSeek/DeepSeek-V3.git/info/refs?service=git-upload-pack",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Reads are Chinese-market and mostly login-gated for the interesting parts: /models -> 200, but every model detail page returned 504 through the reader (2 attempts), the git LFS ref",
+    "stated": "none reachable: Reads are Chinese-market and mostly login-gated for the interesting parts: /models -> 200, but every model detail page returned 504 through the reader (2 attempts), the git LFS ref",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://wisemodel.cn/DeepSeek/DeepSeek-V3.git/info/refs?service=git-upload-pack",

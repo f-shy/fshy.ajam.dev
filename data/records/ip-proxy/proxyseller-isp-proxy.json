@@ -37,7 +37,7 @@
   ],
   "interface_detail": "HTTP, HTTPS and SOCKS5 forward proxy: 'Any HTTP, HTTPS, or SOCKS5 connects natively, secured by credentials or IP allowlisting.' Authentication is 'username/password or IP allowlist for each order'. A JSON API is documented through five official SDKs (PHP, Node.js, Python, Java, GoLang) reached with an account API key; its base URL and auth header were not read here. A web dashboard handles order, authentication and address listing.",
   "tooling": "Any client that speaks an HTTP or SOCKS5 proxy with credentials or an allowlisted source address: curl -x, python requests, rclone --socks5 or --http-proxy, or a host-side hop for a runtime that cannot dial a proxy itself. The vendor's official Python SDK exposes balance(), referenceList(type='isp'), orderCalcIsp(countryId, periodId, quantity) and proxyList(type='isp'), so both the ISP price ladder and the delivered addresses are readable from an account without a browser.",
-  "chaining": "The Worker calls the host, the host calls the ISP endpoint, and the upstream sees an AT&T, Windstream or Frontier eyeball address instead of AS13335.",
+  "chaining": "The Worker calls the host, the host calls the ISP endpoint, and the upstream sees an AT&T, Windstream or Frontier eyeball address instead of AS13335. At 45 GB a month one 1-IP order covers the whole traffic.",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -57,7 +57,7 @@
   ],
   "limits_note": "Unclassified prose that names no vocabulary kind: minimum order 1 IP for 1 week; quantity steps 1, 25, 50, 100, 250, 500; period steps 1w, 2w, 1mo, 2mo, 3mo, 6mo, 9mo, 12mo; geo-targeting is country at checkout, with city or region by arrangement; 'No monthly lock-ins'; the calculator carries a Customer/Enterprise and a Per IP/Per GB toggle, and the Per GB mode is marked 'Soon', so a byte-priced ISP product is announced but not on sale. Limits are stated to fire 'only by abnormally high load, so most customers never reach them'.",
   "binding": "none",
-  "binding_note": "The first limit that would arrive is a growth limit rather than a scale limit, and the answer to it is a second IP, not a different provider.",
+  "binding_note": "Nothing in the vocabulary fails at the scale: 45 GB a month sits under the 100 GB default traffic allowance of a single IP, and 599,000 requests a month is about 0.23 a second averaged against 100 concurrent threads per IP. The first limit that would arrive is a growth limit rather than a scale limit, and the answer to it is a second IP, not a different provider.",
   "identity_cost": {
     "kind": "card",
     "detail": "Payment is by card: 'pick a location, enter the required number of IPs, choose a rental term in the calculator, and pay by card, PayPal, or crypto'. Wire is by arrangement rather than at checkout: 'Contact support for wire transfers.' No free trial: 'A standard free trial is not available'. An account is also what unlocks the API key, and the API is the only anonymous-free route to the price ladder.",
@@ -120,7 +120,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-24T10:07:11.000Z",
-  "price_per_tb_month": "not a per-byte product: priced per IP per term. $0.98/IP in the page title and in the /price/ JSON-LD offer, $3/IP as the ISP page's structured-data minimum price, $0 in the served form.",
+  "price_per_tb_month": "not a per-byte product: priced per IP per term. $0.98/IP in the page title and in the /price/ JSON-LD offer, $3/IP as the ISP page's structured-data minimum price, $0 in the served form. The whole 45 GB a month fits inside one IP's 100 GB default allowance, so one IP is the unit of purchase.",
   "notes": "Reading the ladder from https://proxy-seller.com/price/ was tried and ruled out: that page's ISP tab is drawn client-side and the table in the served HTML is the Residential per-GB ladder. The SDK makes this a scripted read rather than a browser session. The provider contradicts the marketing card and both are quoted rather than reconciled: 'Traffic is uncapped at any volume' against '100 GB of traffic by default' per IP, with no period stated and no way to buy traffic without buying an IP, which is why egress.metered is true while binding stays none at 45 GB a month. The schema's interface enum carries no proxy token, so interface holds 'rest' for the documented JSON API and the proxy protocols are in interface_detail, the shape storage/proxyrack-unlimited-residential already uses for a SOCKS5 product.",
   "extras": {
     "rung": 5,

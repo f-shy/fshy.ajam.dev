@@ -52,7 +52,7 @@
   ],
   "limits_note": "",
   "binding": "write-gated",
-  "binding_note": "Bandwidth is stated as unlimited, so volume does not bind. The gate is the request workflow plus its approval step, and the requirement to name the exact server IP, which means the port is only useful while a user stays on that server.",
+  "binding_note": "Bandwidth is stated as unlimited, so volume does not bind. The gate is the request workflow plus its approval step, and the requirement to name the exact server IP, which means the port is only useful while the address stays on that server.",
   "identity_cost": {
     "kind": "email",
     "detail": "An account in the client area is required to submit a Port Forward Request; payment can be made by card or crypto, and the site markets an anonymous purchase path.",

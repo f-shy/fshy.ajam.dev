@@ -5,7 +5,7 @@
   "url": "https://spice.ai/pricing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "The free tier is an Apache-2.0 runtime you host yourself. There are no free hosted bytes; the 'free datasets' are Spice's own samples, read-only.",
+    "stated": "none reachable: The free tier is an Apache-2.0 runtime you host yourself. There are no free hosted bytes; the 'free datasets' are Spice's own samples, read-only.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://spice.ai/pricing",

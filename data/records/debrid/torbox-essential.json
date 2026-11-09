@@ -38,7 +38,7 @@
   "interface_detail": "REST API with a bearer API key; the vendor documents 300 requests a minute per token with separate hourly caps on uncached torrent, usenet and web-download creation.",
   "endpoint": "https://api.torbox.app/v1/api/",
   "tooling": "Documented API, Postman collection, third-party media-server integrations. Torrents, magnets, NZB and web downloads share one API surface.",
-  "chaining": "The cheapest paid tier that removes the free plan's download counter; it is the tier to test usenet against because it does not exist on Free, but the support article says usenet starts at Pro, so a user would be paying for torrents alone here.",
+  "chaining": "The cheapest paid tier that removes the free plan's download counter; it is the tier to test usenet against because it does not exist on Free, but the support article says usenet starts at Pro, so the payment would be for torrents alone here.",
   "limits": [
     {
       "kind": "per-object-cap",

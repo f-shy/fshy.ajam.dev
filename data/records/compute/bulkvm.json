@@ -70,10 +70,38 @@
       "url": "https://vpspricetracker.com/provider/BulkVM/vps",
       "date": "2026-10-22",
       "proved": "tracker row quoted: 'BulkVM - $5.00 / month', '1 Intel Cores (shared)', '1,024 MB RAM', '2,000 GB HDD', '10,000 GB/month bandwidth', '1 Gbps port speed', 'U.S.A.'; info page marks the offer 'In stock now'"
+    },
+    {
+      "url": "https://my.bulkvm.com/store/vps/starter",
+      "date": "2026-11-07",
+      "proved": "the WHMCS store prices Starter at USD 5.00 monthly",
+      "capture": "sha256:3d8d337af03bb07500e72f460c99750f280bab9d81c76dca3f6d240f6121032c",
+      "quote": "<span class=\"price\">$5.00 USD</span>"
+    },
+    {
+      "url": "https://my.bulkvm.com/store/vps/starter",
+      "date": "2026-11-07",
+      "proved": "the vendor's own store prices Starter at USD 5.00 monthly with the same 2 TB HDD, 10 TB transfer shape",
+      "capture": "sha256:3d8d337af03bb07500e72f460c99750f280bab9d81c76dca3f6d240f6121032c",
+      "quote": "<span class=\"price\">$5.00 USD</span>"
+    },
+    {
+      "url": "https://bulkvm.com/",
+      "date": "2026-11-07",
+      "proved": "the Starter card on the vendor landing page states 1 GB ECC memory, 1 vCore Intel CPU, 10 GB SSD boot, 2 TB ZFS HDD storage, 10 TB transfer at USD 5/mo, KVM + root, 1 IPv4 + /64 IPv6",
+      "capture": "sha256:4d84b2b48f3f5a55408a12814b2a6138f12d37b055ca65940c1e484a10ade37a",
+      "quote": "<div class=\"pricing-feature\"><strong>1 GB</strong> ECC Memory</div>\n                        <div class=\"pricing-feature\"><strong>1 vCore</strong> Intel® CPU</div>\n                        <div class=\"pricing-feature\"><strong>10 GB</strong> SSD Boot</div>"
+    },
+    {
+      "url": "https://bulkvm.com/",
+      "date": "2026-11-07",
+      "proved": "each plan includes a flat transfer allowance with unmetered inbound and no egress fee",
+      "capture": "sha256:4d84b2b48f3f5a55408a12814b2a6138f12d37b055ca65940c1e484a10ade37a",
+      "quote": "No. Each plan includes a flat transfer allowance — 10TB on Starter, 15TB on Standard, 25TB on Pro. Inbound is always unmetered. No surprise bills at the end of the month."
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T08:51:29.950Z",
   "notes": "The vendor page and the tracker agree on price, RAM and transfer; the tracker files the 2 TB of HDD as '2,000 GB HDD' disk, which is the same pool the vendor calls ZFS RAIDZ2 storage, so the shape records the bulk pool and the 10 GB SSD boot drive is named only in the offer text.",
   "extras": {
     "facets": {
@@ -86,6 +114,11 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "monthly_usd": 5.0,
+    "annual_usd": "not published: the store page prints one monthly rate and no annual total",
+    "renewal_usd": "not published: the store page prints one monthly rate with no renewal sentence",
+    "billing_term": "monthly",
+    "in_stock": true
   }
 }

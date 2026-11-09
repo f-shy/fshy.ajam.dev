@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "The allocation is the only route to a CS-3 that does not involve a purchase, and it chains with publishing the result. It breaks for a user at the PI requirement, which no amount of preparation substitutes for.",
+  "chaining": "The allocation is the only route to a CS-3 that does not involve a purchase, and it chains with publishing the result. It breaks at the PI requirement, which no amount of preparation substitutes for.",
   "limits": [
     {
       "kind": "write-gated",

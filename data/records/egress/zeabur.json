@@ -77,7 +77,7 @@
   "verdict": "fails-egress",
   "verified_at": "2026-10-23T00:00:00.000Z",
   "price_per_tb_month": "USD 0",
-  "notes": "The UDP evidence in Zeabur's own templates is tied to dedicated-server projects, i.e. a server a user rents elsewhere and attaches. That is not a free platform port. Ports are also documented as possibly changing.",
+  "notes": "The UDP evidence in Zeabur's own templates is tied to dedicated-server projects, i.e. a server rented elsewhere and attached. That is not a free platform port. Ports are also documented as possibly changing.",
   "extras": {
     "wg_path": "none",
     "wg_detail": "TCP ports only on cloud services: \"Port Type can be HTTP or TCP ... TCP ports can be accessed with an auto-assigned hostname and port (e.g., reg.clusters.zeabur.com:12345)\". UDP appears only in templates running on dedicated-server projects.",

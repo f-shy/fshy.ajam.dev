@@ -37,7 +37,7 @@
   ],
   "interface_detail": "NNTP, 100 connections, SSL. The schema has no nntp token, so the array says unknown.",
   "tooling": "any NNTP client",
-  "chaining": "Its value for a user is the bundled access: every plan advertises \"Supernews Access, ViperNews Access, Usenet.Farm Access\", so one $9 month reaches three backbones that each want their own account elsewhere.",
+  "chaining": "Its value here is the bundled access: every plan advertises \"Supernews Access, ViperNews Access, Usenet.Farm Access\", so one $9 month reaches three backbones that each want their own account elsewhere.",
   "limits": [
     {
       "kind": "volume-quota",

@@ -80,7 +80,7 @@
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-24T01:53:22.000Z",
   "price_per_tb_month": null,
-  "notes": "This is not a machine and cannot be one: it gives an address and a peer, and a user still needs something to terminate the tunnel on. It is recorded because it is the way an IPv6-only or CGNAT machine acquires a routable prefix. The egress topic owns the tunnel; this record covers only the address space.",
+  "notes": "This is not a machine and cannot be one: it gives an address and a peer, and something is still needed to terminate the tunnel on. It is recorded because it is the way an IPv6-only or CGNAT machine acquires a routable prefix. The egress topic owns the tunnel; this record covers only the address space.",
   "extras": {
     "shape": {
       "vcpu": null,

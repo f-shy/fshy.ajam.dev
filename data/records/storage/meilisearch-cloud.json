@@ -5,7 +5,7 @@
   "url": "https://www.meilisearch.com/pricing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "No free tier; $20/month minimum with a 14-day trial. Search-only index, no binary support.",
+    "stated": "none reachable: No free tier; $20/month minimum with a 14-day trial. Search-only index, no binary support.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.meilisearch.com/pricing",

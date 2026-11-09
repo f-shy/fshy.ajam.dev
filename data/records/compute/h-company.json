@@ -52,7 +52,7 @@
   "limits_note": "not stated",
   "identity_cost": {
     "kind": "email",
-    "detail": null,
+    "detail": "email: an account is mandatory ('Access to the Service requires mandatory creation of a User Account via:') and is created with 'A valid email address associated with a display name; or', or with Google single sign-on ('Single sign-on authentication via Google account compliant with OAuth 2.0 standards.'), and 'These identifiers constitute the sole personal elements collected, strictly necessary for authentication, session management, and functional notifications.' A card is not required at sign-up: the sign-up form at https://platform.hcompany.ai/auth/signup asks for an email address, a password and its confirmation, with no card field. A phone is not required: the terms name the email address or the Google account as the sole personal elements. Country: not published at https://hcompany.ai/terms-of-use.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -82,10 +82,45 @@
       "proved": "an Agents API and a Models API are sold; a HoloDesktop CLI exists",
       "capture": "sha256:6c831efca5dfb48444b8b468170149a15c50aec4fc9e7ce33574dfad4d915ec5",
       "quote": "Session plans for the Agents API, per-token rates for the Models API, and free ways to try HoloTab, HoloDesktop CLI, and open weights on Hugging Face."
+    },
+    {
+      "url": "https://platform.hcompany.ai/auth/signup",
+      "date": "2026-11-04",
+      "proved": "the sign-up form is an email address and a password with terms acceptance",
+      "capture": "sha256:56a251d6790b61283b9b1a11c96ecd926f0d9f73d1f78118fe020bee1eaad4ad",
+      "quote": null
+    },
+    {
+      "url": "https://hcompany.ai/terms-of-use",
+      "date": "2026-11-04",
+      "proved": "an account is mandatory to reach the service",
+      "capture": "sha256:95d002d3e54ee91f77c861d33a6b5ec62032effce049afa194f7c4a89928b74d",
+      "quote": "Access to the Service requires mandatory creation of a User Account via:"
+    },
+    {
+      "url": "https://hcompany.ai/terms-of-use",
+      "date": "2026-11-06",
+      "proved": "an account is created with a valid email address or a Google account",
+      "capture": "sha256:95d002d3e54ee91f77c861d33a6b5ec62032effce049afa194f7c4a89928b74d",
+      "quote": "A valid email address associated with a display name; or"
+    },
+    {
+      "url": "https://hcompany.ai/terms-of-use",
+      "date": "2026-11-06",
+      "proved": "the email address or Google account is the only personal element collected",
+      "capture": "sha256:95d002d3e54ee91f77c861d33a6b5ec62032effce049afa194f7c4a89928b74d",
+      "quote": "These identifiers constitute the sole personal elements collected, strictly necessary for authentication, session management, and functional notifications."
+    },
+    {
+      "url": "https://platform.hcompany.ai/auth/signup",
+      "date": "2026-11-06",
+      "proved": "the sign-up form asks for an email address, a password and its confirmation, with no phone or card field",
+      "capture": "sha256:0aa2dfba5bc4bd8a8754cd2b7d8ec2940109bdffdc6a78c1ada6b295ace2e576",
+      "quote": "Confirm password"
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-04T05:24:24.920Z",
+  "verified_at": "2026-11-06T17:48:23.921Z",
   "price_per_tb_month": null,
   "notes": "",
   "extras": {

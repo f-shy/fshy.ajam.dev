@@ -29,7 +29,7 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": "CKAN-derived but API blocked for a user.",
+  "interface_detail": "CKAN-derived but API blocked.",
   "tooling": "curl (blocked).",
   "chaining": "n/a.",
   "limits": [],

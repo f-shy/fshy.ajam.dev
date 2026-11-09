@@ -53,7 +53,7 @@
   "limits_note": "not stated",
   "identity_cost": {
     "kind": "email",
-    "detail": null,
+    "detail": "an email address and a full name at registration, 'Your work email' and 'Full Name', or a GitHub, GitLab, Google or Bitbucket sign-in. The free start is advertised with 'No credit card required.', and the form asks for no phone number.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -90,10 +90,31 @@
       "proved": "usage is priced per CPU-minute and GB-minute, with no network row",
       "capture": "sha256:8ada3ee74545ff56db005f3b3eb18602471f26f355872143575d33eb6bc36023",
       "quote": "Pay-as-you-go usage (from $0.00024 per CPU-minute / GB-minute)"
+    },
+    {
+      "url": "https://buddy.works/sign-up",
+      "date": "2026-11-04",
+      "proved": "the registration form collects an email address",
+      "capture": "sha256:a7d0ecfe4b9af372ddd2c20df9e0c604b6fdcd31d21bf09de8d43c2af51fa239",
+      "quote": "Your work email"
+    },
+    {
+      "url": "https://buddy.works/react",
+      "date": "2026-11-04",
+      "proved": "the free start is advertised without a card",
+      "capture": "sha256:d3b7e04f0ccd791efeabf3330ac0bc63dbf718e6de4fc3392c79e67b1cacf03b",
+      "quote": "No credit card required."
+    },
+    {
+      "url": "https://buddy.works/sign-up",
+      "date": "2026-11-04",
+      "proved": "four OAuth sign-ins sit beside the email form",
+      "capture": "sha256:a7d0ecfe4b9af372ddd2c20df9e0c604b6fdcd31d21bf09de8d43c2af51fa239",
+      "quote": "GitHub GitLab Google Bitbucket"
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-04T05:24:08.725Z",
+  "verified_at": "2026-11-04T15:51:56.486Z",
   "price_per_tb_month": null,
   "notes": "",
   "extras": {

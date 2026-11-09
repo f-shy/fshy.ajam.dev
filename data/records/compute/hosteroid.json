@@ -69,10 +69,24 @@
       "url": "https://vpspricetracker.com/provider/Hosteroid/vps",
       "date": "2026-10-22",
       "proved": "the tracker's floor quoted: \"Hosteroid - EUR 1.50 / month\" / \"yearly Service\" / \"cpu 2 Intel Cores (shared)\" / \"ram 4,096 MB RAM\" / \"disk 50 GB NVMe\" / \"bandwidth 3,500 GB/month bandwidth\" / \"rj45 10 Gbps port speed\" / \"city Bucharest Romania\", under \"starting at EUR 18.00 per year\""
+    },
+    {
+      "url": "https://www.hosteroid.uk/",
+      "date": "2026-11-07",
+      "proved": "the Archive-500GB plan is priced EUR 14.14 a year VAT included, yearly prepaid only, and its order path is a Notify Me ticket rather than a cart",
+      "capture": "sha256:e47256e107970f4d5c92428881c5c556a5c8e24794e5562c305d2a4dddd14975",
+      "quote": "YEARLY PREPAID ONLY\n\n€14.14/yr VAT included"
+    },
+    {
+      "url": "https://www.hosteroid.uk/",
+      "date": "2026-11-07",
+      "proved": "the Archive-500GB plan is priced EUR 14.14 a year VAT included, yearly prepaid only",
+      "capture": "sha256:e47256e107970f4d5c92428881c5c556a5c8e24794e5562c305d2a4dddd14975",
+      "quote": "YEARLY PREPAID ONLY\n\n€14.14/yr VAT included"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T06:08:33.037Z",
   "notes": "The vendor's own page is cheaper than the tracker's floor, which is the reverse of the usual direction: EUR 14.14 a year for 500 GB of disk against the tracker's EUR 18.00 a year for 50 GB, so the record leads with the vendor. Two tiers that are not free: VAT is included in the quoted figure, and the plan is annual prepay only, so a failed renewal loses the year.",
   "extras": {
     "facets": {
@@ -85,6 +99,13 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "term": "yearly prepaid only",
+    "price_on_page": "EUR 14.14/yr VAT included",
+    "out_of_pocket_usd": 15.79,
+    "price_arithmetic": "EUR 14.14 a year x 1.1165 USD/EUR (ECB reference via frankfurter.app, 2026-11-06) = USD 15.79 a year",
+    "renewal_usd": "not published: the page prints no renewal price; the plan is yearly prepaid only and its order path is a Notify Me ticket",
+    "stock": "limited stock: 15 units",
+    "cart_url": "https://www.hosteroid.uk/submitticket.php?step=2&deptid=1&subject=Interest%20in%20Archive-500%20Storage%20VPS"
   }
 }

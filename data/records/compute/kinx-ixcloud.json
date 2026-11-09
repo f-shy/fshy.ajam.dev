@@ -38,9 +38,9 @@
   "tooling": "not stated",
   "chaining": "KINX is an internet exchange operator selling its own cloud, which makes it the most carrier-grade Korean option found and the least competitive on price; it chains only where a Korean domestic IP with a named operator is the requirement.",
   "limits": [],
-  "limits_note": null,
+  "limits_note": "Nothing binds above the scale on this page: the shape is fixed and no traffic allowance is published, and the constraint that matters is price, because KRW 30 an hour for 1 vCPU is about three times the Korean hourly floor.",
   "binding": "none",
-  "binding_note": null,
+  "binding_note": "Nothing binds above the scale on this page: the shape is fixed and no traffic allowance is published, and the constraint that matters is price, because KRW 30 an hour for 1 vCPU is about three times the Korean hourly floor.",
   "identity_cost": {
     "kind": "card",
     "detail": "card: the vendor FAQ states IXcloud is a post-paid service 'charged automatically to a registered credit card or account transfer', so a card is the default instrument and an account transfer is the stated alternative. No authorisation or hold amount is stated, and whether debit or prepaid is accepted is not stated: unknown. Whether an individual can open an account without a Korean business number is not established in the record.",

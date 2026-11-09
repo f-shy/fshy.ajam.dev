@@ -170,5 +170,5 @@
   },
   "binding": "per-ip-shaping",
   "tier": "1 GiB machine at the idle CPU floor",
-  "binding_note": "The first thing that fails for a user's use is ingress: a public address is a USD 5/month add-on, which alone equals the whole budget."
+  "binding_note": "The first thing that fails for this use is ingress: a public address is a USD 5/month add-on, which alone equals the whole budget."
 }

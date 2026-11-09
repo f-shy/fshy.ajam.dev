@@ -5,7 +5,7 @@
   "url": "https://docs.wal.app/docs/http-api/storing-blobs",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "No keyless publisher exists and none is planned: 'Walrus has no public unauthenticated publisher on Mainnet. There are no plans to create one.' Every store spends WAL + SUI, and 'There is…",
+    "stated": "none reachable: No keyless publisher exists and none is planned: 'Walrus has no public unauthenticated publisher on Mainnet. There are no plans to create one.' Every store spends WAL + SUI, and 'There is…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.wal.app/docs/http-api/storing-blobs",

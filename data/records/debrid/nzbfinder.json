@@ -52,7 +52,7 @@
   ],
   "limits_note": "Registration is declared open today, which is the one difference that matters against every other invite-only indexer.",
   "binding": "request-rate",
-  "binding_note": "At a 1 TiB/month habit the daily counter is what stops a user: 25 API hits a day is roughly one search per hour, and the 5-grab cap allows about 50 GB a day at a 10 GB average NZB, which is 1.5 TB a month only if nothing retries.",
+  "binding_note": "At a 1 TiB/month habit the daily counter is what stops a caller: 25 API hits a day is roughly one search per hour, and the 5-grab cap allows about 50 GB a day at a 10 GB average NZB, which is 1.5 TB a month only if nothing retries.",
   "identity_cost": {
     "kind": "email",
     "detail": "Registration declares itself open in caps and /register serves an email field with the warning 'Temporary e-mail domains are banned', plus a verification link. Spam-blocking is the gate, not an invite.",

@@ -5,7 +5,7 @@
   "url": "https://api.ipums.org/extracts",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Extract API returns 403 without a key and the product is pre-registered microdata extracts, not user uploads. No deposit path exists.",
+    "stated": "none reachable: Extract API returns 403 without a key and the product is pre-registered microdata extracts, not user uploads. No deposit path exists.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://api.ipums.org/extracts",

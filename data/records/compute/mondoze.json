@@ -5,7 +5,7 @@
   "url": "https://www.mondoze.com/vps",
   "category": "cloud VM",
   "free_tier": {
-    "stated": "2GB LINUX VPS at USD 8.33/month shown as 'As Low As', against a struck-through USD 9.99/month, billed yearly at USD 99.96 on the tracker: 2 vCPU, 2048 MB RAM, 60 GB disk, 'Unmetered' bandwidth, 1 IPv4, Malaysia. The tracker row states 31,641 GB/month on a 0.1 Gbps port.",
+    "stated": "2GB LINUX VPS ('2 GB Linux VPS (MY) V2') at USD 8.33/month on the billing portal's cart ('Starting from USD 8.33 Monthly'): 2 vCPU, 2 GB RAM, 60 GB disk, 'Unmetered' bandwidth, 1 IPv4, Malaysia; in stock (Order Now; the store prints per-plan stock counters, e.g. '2 Available' on the 12 GB plan). Annual: USD 99.95 on the cart's configure page ('Annually:USD 99.95', 'USD 99.95 Total Due Today'). Renewal: not published. Term: monthly and annually (the cart's cycle dropdown does not render its other options). The vendor page's struck-through list price is in the record's earlier evidence.",
     "unit": "GiB",
     "metered_on": "wall-clock",
     "source_url": "https://www.mondoze.com/vps",
@@ -69,11 +69,60 @@
       "url": "https://vpspricetracker.com/provider/Mondoze/vps",
       "date": "2026-10-22",
       "proved": "cheapest row: '$8.33 / month', 'yearly Service', '2 Intel Cores (shared)', '2,048 MB RAM', '60 GB NVMe', '31,641 GB/month bandwidth', '0.1 Gbps port speed', 'Malaysia'; header 'starting at $99.96 per year'"
+    },
+    {
+      "url": "https://billing.mondoze.com/index.php/store/linux-vps-v2",
+      "date": "2026-11-07",
+      "proved": "the billing portal's Linux VPS V2 store lists the 2 GB plan at USD 8.33, monthly term, with an Order Now button",
+      "capture": "sha256:b65d654c3399c67c31c6722906d0873b924dfa83383460a6e3d686f7a277d9ee",
+      "quote": "2 GB Linux VPS (MY) V2 2 GB RAM 2 vCPU 60 GB NVME SSD Storage 1 IP Address Unmetered Bandwidth Starting from USD 8.33 Monthly Order Now"
+    },
+    {
+      "url": "https://www.mondoze.com/vps",
+      "date": "2026-11-07",
+      "proved": "the vendor FAQ states VPS bandwidth is shared, not per-VM",
+      "capture": "sha256:5f1a92837b9bd8f17e48dae0c1502f666b2dd1f90d96b896dacaae684a4a7411",
+      "quote": "No, all our vps is shared bandwidth if you want to add exclusive bandwidth you need to contact our"
+    },
+    {
+      "url": "https://billing.mondoze.com/cart.php?a=add&pid=122",
+      "date": "2026-11-07",
+      "proved": "the cart's configure page prints the annual term of the 2 GB Linux VPS (MY) V2 at USD 99.95 with USD 99.95 total due today",
+      "capture": "sha256:d4036efc5762bf8bedd3e09d9a468e242c9c3ac2c3e333fa0aec4ffcab711979",
+      "quote": "Annually:USD 99.95\n\nUSD 99.95 Total Due Today"
+    },
+    {
+      "url": "https://billing.mondoze.com/index.php/store/linux-vps-v2",
+      "date": "2026-11-07",
+      "proved": "the billing store lists the 2 GB Linux VPS (MY) V2 starting at USD 8.33 on the Monthly term with an Order Now button (product1, no stock badge; the 12 GB plan shows 2 Available)",
+      "capture": "sha256:70c6fb5a7e77c0c5fc926834f79a54e0fe25e02e350201ec529006f63742e709",
+      "quote": "<span class=\"price\">USD 8.33</span>"
+    },
+    {
+      "url": "https://billing.mondoze.com/index.php/store/linux-vps-v2",
+      "date": "2026-11-07",
+      "proved": "the billing store prices the 2 GB Linux VPS (MY) V2 at USD 8.33 on the monthly term",
+      "capture": "sha256:b65d654c3399c67c31c6722906d0873b924dfa83383460a6e3d686f7a277d9ee",
+      "quote": "2 GB Linux VPS (MY) V2 2 GB RAM 2 vCPU 60 GB NVME SSD Storage 1 IP Address Unmetered Bandwidth Starting from USD 8.33 Monthly Order Now"
+    },
+    {
+      "url": "https://billing.mondoze.com/cart.php?a=add&pid=122",
+      "date": "2026-11-07",
+      "proved": "the configure page prints the annual term price and the total due today; no renewal price appears",
+      "capture": "sha256:d4036efc5762bf8bedd3e09d9a468e242c9c3ac2c3e333fa0aec4ffcab711979",
+      "quote": "Annually:USD 99.95\n\nUSD 99.95 Total Due Today"
+    },
+    {
+      "url": "https://billing.mondoze.com/index.php/store/linux-vps-v2",
+      "date": "2026-11-07",
+      "proved": "the billing store lists the 2 GB Linux VPS (MY) V2 at USD 8.33 monthly with its 2 vCPU / 2 GB / 60 GB shape",
+      "capture": "sha256:b65d654c3399c67c31c6722906d0873b924dfa83383460a6e3d686f7a277d9ee",
+      "quote": "2 GB Linux VPS (MY) V2 2 GB RAM 2 vCPU 60 GB NVME SSD Storage 1 IP Address Unmetered Bandwidth Starting from USD 8.33 Monthly Order Now"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "The tracker's site-wide banner reads 'Database update: 7 hours ago' over '461,502 VPSs' on every provider page; the banner is site-wide, so it does not date this row.",
+  "verified_at": "2026-11-07T14:16:57.717Z",
+  "notes": "The billing term behind '$8.33 as low as' is read on the vendor's own billing portal: 'Starting from USD 8.33 Monthly' on the Linux VPS V2 store page, with the plan in stock. The FAQ answers the earlier per-VM-versus-shared question: 'No, all our vps is shared bandwidth'.",
   "extras": {
     "facets": {
       "class": null,
@@ -85,6 +134,8 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "price_on_page": "USD 8.33/month, 2 GB Linux VPS (MY) V2",
+    "renewal_usd": "not published: the cart's configure page prints the annual term price and no renewal price"
   }
 }

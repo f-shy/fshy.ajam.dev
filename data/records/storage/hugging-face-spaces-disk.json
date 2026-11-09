@@ -5,7 +5,7 @@
   "url": "https://huggingface.co/docs/hub/spaces-storage",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "50 GB sounds like a finding until you read the second sentence: 'This disk space is ephemeral'. Anything written to a Space is lost on restart, and creating a Gradio/Docker Space now needs…",
+    "stated": "none reachable: 50 GB sounds like a finding until you read the second sentence: 'This disk space is ephemeral'. Anything written to a Space is lost on restart, and creating a Gradio/Docker Space now needs…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://huggingface.co/docs/hub/spaces-storage",

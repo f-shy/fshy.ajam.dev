@@ -36,7 +36,7 @@
     "rest"
   ],
   "interface_detail": "The apps keep their own interfaces (Plex/Jellyfin web and apps, *arr web UIs) on a dedicated EC2 instance; the vendor supplies provisioning, monitoring, backups and TLS.",
-  "tooling": "managed deployment of the same open-source apps a client would otherwise run; nothing to install locally. Whether the EC2 instance is in the vendor's AWS account or a user's is not stated in readable text, which changes whether USD 29 is the whole bill.",
+  "tooling": "managed deployment of the same open-source apps that would otherwise be run; nothing to install locally. Whether the EC2 instance is in the vendor's AWS account or a separate one is not stated in readable text, which changes whether USD 29 is the whole bill.",
   "chaining": "A hosted *arr + media server without a seedbox's disk: the library is EBS-backed, so it scales by paying AWS rather than by picking a bigger seedbox tier.",
   "limits": [
     {
@@ -50,7 +50,7 @@
   "binding_note": "No byte counter is published, and the package is priced by picking a bigger EC2 instance, so the first wall is spend rather than a named quota - the vocabulary has no kind for that.",
   "identity_cost": {
     "kind": "card",
-    "detail": "Paid subscription. If the EC2 instance runs in a user's own AWS account, an AWS account with a card is also required - that point is unresolved (see notes).",
+    "detail": "Paid subscription. If the EC2 instance runs in the same AWS account, an AWS account with a card is also required - that point is unresolved (see notes).",
     "country": "None"
   },
   "reliability_note": "Single-vendor management layer over AWS: the infrastructure has an SLA, the orchestrator does not. A 2026-founded service with no track record found.",
@@ -71,7 +71,7 @@
   "verdict": "paid-only",
   "verified_at": "2026-10-23T02:28:11.000Z",
   "price_per_tb_month": null,
-  "notes": "The 'your own EC2' wording matters: if the instance is billed to a user's AWS account, the true monthly total is USD 29 plus EC2 plus EBS plus egress, and it stops being comparable to a USD 24 ElfHosted stack that sells no storage.",
+  "notes": "The 'your own EC2' wording matters: if the instance is billed to the same AWS account, the true monthly total is USD 29 plus EC2 plus EBS plus egress, and it stops being comparable to a USD 24 ElfHosted stack that sells no storage.",
   "extras": {
     "vendor_comparison": "Elestio ~$11/mo Plex-only; DIY VPS $5-10/mo + Plex Pass",
     "packages": "Entertainment, Cloud, DevOps, Smart Home"

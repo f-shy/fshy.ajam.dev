@@ -5,7 +5,7 @@
   "url": "https://www.feimaipan.com/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Origin hostname no longer resolves (Cloudflare 1016), so the site is gone rather than blocked.",
+    "stated": "none reachable: Origin hostname no longer resolves (Cloudflare 1016), so the site is gone rather than blocked.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.feimaipan.com/",

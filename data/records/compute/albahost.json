@@ -69,10 +69,108 @@
       "url": "https://vpspricetracker.com/provider/AlbaHost/vps",
       "date": "2026-10-22",
       "proved": "tracker's cheapest row is 'AlbaHost - 10.00 / month' with 'ram 2,048 MB RAM', 'disk 20 GB SSD', 'bandwidth 5,120 GB/month', 'rj45 10 Gbps port speed', city Albania - the same plan name (Albania_AL_1) at a higher price and different specs"
+    },
+    {
+      "url": "https://www.albahost.net/",
+      "date": "2026-11-07",
+      "proved": "the vendor home page prices Geolocated AL 1 at 6 EUR a month with the 1 core, 4 GB RAM, 20 GB NVMe, 1 Gbps, 10 TB traffic and 1 IPv4 figures the record states",
+      "capture": "sha256:ea268aac3c13d9aafbd7b105459457266390961177f61826111bbf1e24817a89",
+      "quote": "1 Core x 3.6GHz"
+    },
+    {
+      "url": "https://www.albahost.net/",
+      "date": "2026-11-07",
+      "proved": "the vendor home page still prices AL 1 at 6€ a month with the shape and the 10 TB traffic allowance the record states",
+      "capture": "sha256:ea268aac3c13d9aafbd7b105459457266390961177f61826111bbf1e24817a89",
+      "quote": "Geolocated AL 1 Monthly 6€ 1 Core x 3.6GHz 4 GB RAM 20 GB NVMe 1 Gbps 10 TB Traffic 1 IPv4 /64 IPv6"
+    },
+    {
+      "url": "https://www.albahost.net/order-steps/server/343",
+      "date": "2026-11-07",
+      "proved": "the cart prices AL 1 at 6€ a month",
+      "capture": "sha256:d4455ad63f2f504b8a90f6596c7dc076247e148a33c4fbee5eb1b9aa6b8390b1",
+      "quote": "<div class=\"orderperiodblock\" id=\"price-3166\" data-value=\"0\"> <h3>Monthly</h3> <h2>6€</h2>"
+    },
+    {
+      "url": "https://www.albahost.net/order-steps/server/343",
+      "date": "2026-11-07",
+      "proved": "the cart's yearly block prints 72€ under a '10% Discount' ribbon",
+      "capture": "sha256:d4455ad63f2f504b8a90f6596c7dc076247e148a33c4fbee5eb1b9aa6b8390b1",
+      "quote": "data-value=\"3\"> <div class=\"ribbonperiod\"><span>10% Discount</span></div> <h3>Yearly</h3> <h2>72€</h2>"
+    },
+    {
+      "url": "https://www.albahost.net/order-steps/server/343",
+      "date": "2026-11-07",
+      "proved": "the cart's 3-month block prints 18€",
+      "capture": "sha256:d4455ad63f2f504b8a90f6596c7dc076247e148a33c4fbee5eb1b9aa6b8390b1",
+      "quote": "id=\"price-3163\" data-value=\"1\"> <h3>3 Month(s)</h3> <h2>18€</h2>"
+    },
+    {
+      "url": "https://www.albahost.net/order-steps/server/343",
+      "date": "2026-11-07",
+      "proved": "the cart's 6-month block prints 36€",
+      "capture": "sha256:d4455ad63f2f504b8a90f6596c7dc076247e148a33c4fbee5eb1b9aa6b8390b1",
+      "quote": "id=\"price-3164\" data-value=\"2\"> <h3>6 Month(s)</h3> <h2>36€</h2>"
+    },
+    {
+      "url": "https://www.albahost.net/order-steps/server/343",
+      "date": "2026-11-07",
+      "proved": "the cart's period blocks carry one price each",
+      "capture": "sha256:d4455ad63f2f504b8a90f6596c7dc076247e148a33c4fbee5eb1b9aa6b8390b1",
+      "quote": "<div class=\"orderperiodblock\" id=\"price-3166\" data-value=\"0\"> <h3>Monthly</h3> <h2>6€</h2>"
+    },
+    {
+      "url": "https://www.albahost.net/order-steps/server/343",
+      "date": "2026-11-07",
+      "proved": "the cart offers a billing-period selector",
+      "capture": "sha256:d4455ad63f2f504b8a90f6596c7dc076247e148a33c4fbee5eb1b9aa6b8390b1",
+      "quote": "<div class=\"orderperiodblock\" id=\"price-3166\" data-value=\"0\"> <h3>Monthly</h3> <h2>6€</h2>"
+    },
+    {
+      "url": "https://www.albahost.net/order-steps/server/343",
+      "date": "2026-11-07",
+      "proved": "the cart offers to continue the order",
+      "capture": "sha256:d4455ad63f2f504b8a90f6596c7dc076247e148a33c4fbee5eb1b9aa6b8390b1",
+      "quote": "<strong>Continue <i class=\"ion-android-arrow-dropright\"></i></strong>"
+    },
+    {
+      "url": "https://www.albahost.net/order-steps/server/344",
+      "date": "2026-11-07",
+      "proved": "the AL 2 cart prices the plan at 11€ a month, orderable with no out-of-stock marker",
+      "capture": "sha256:3aa888f603dd772f7e8b01e31e013f168198cd14dd07b0a5f8ef887657a61bc0",
+      "quote": "id=\"price-3167\" data-value=\"0\"> <h3>Monthly</h3> <h2>11€</h2>"
+    },
+    {
+      "url": "https://www.albahost.net/order-steps/server/345",
+      "date": "2026-11-07",
+      "proved": "the AL 3 cart prices the plan at 16€ a month, orderable with no out-of-stock marker",
+      "capture": "sha256:e2fccba513dcbe1386c92c92c3be83c5c1a378ac87172eb760ba89894a301a69",
+      "quote": "id=\"price-3171\" data-value=\"0\"> <h3>Monthly</h3> <h2>16€</h2>"
+    },
+    {
+      "url": "https://www.albahost.net/",
+      "date": "2026-11-07",
+      "proved": "the AL 1 card's cart link",
+      "capture": "sha256:ea268aac3c13d9aafbd7b105459457266390961177f61826111bbf1e24817a89",
+      "quote": "[Add to Cart](https://www.albahost.net/order-steps/server/343)"
+    },
+    {
+      "url": "https://www.albahost.net/",
+      "date": "2026-11-07",
+      "proved": "the home page's printed price",
+      "capture": "sha256:ea268aac3c13d9aafbd7b105459457266390961177f61826111bbf1e24817a89",
+      "quote": "Geolocated AL 1 Monthly 6€"
+    },
+    {
+      "url": "https://www.albahost.net/",
+      "date": "2026-11-07",
+      "proved": "the vendor home page still prices AL 1 at 6€ a month with the shape and the 10 TB traffic allowance the record states",
+      "capture": "sha256:ea268aac3c13d9aafbd7b105459457266390961177f61826111bbf1e24817a89",
+      "quote": "Geolocated AL 1 Monthly 6€"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-07T14:17:02.757Z",
   "notes": "The vendor page and the tracker disagree on the same plan name: the vendor sells Albania_AL_1 as 1 core / 4 GB / 20 GB / 1 Gbps / 10 TB for EUR 6, the tracker records 2 GB / 20 GB SSD / 5,120 GB / 10 Gbps for EUR 10. The vendor figure is recorded because it was read first-hand.",
   "extras": {
     "facets": {
@@ -85,6 +183,13 @@
         "gpu_class": null,
         "gpu_count": null
       }
-    }
+    },
+    "monthly_eur": 6,
+    "annual_eur": 72,
+    "renewal_eur": "not published: the cart prints one price per period and no renewal line",
+    "term": "the cart's period blocks are Monthly, 3 Month(s), 6 Month(s) and Yearly, at 6€, 18€, 36€ and 72€",
+    "stock": "orderable: all three Geolocated carts (AL 1, AL 2, AL 3) serve the full billing-period selector and a Continue button and print no out-of-stock marker (2026-11-07)",
+    "cart_url": "https://www.albahost.net/order-steps/server/343",
+    "price_on_page": "EUR 6.00/month for Geolocated AL 1"
   }
 }

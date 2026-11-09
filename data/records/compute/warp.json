@@ -40,13 +40,13 @@
   "limits": [
     {
       "kind": "write-gated",
-      "value": "the free tier includes no Warp-provided inference at all, so a conversation runs only if a user supplies a key, a subscription or a purchase.",
+      "value": "the free tier includes no Warp-provided inference at all, so a conversation runs only if a key, a subscription or a purchase is supplied.",
       "source": "https://www.warp.dev/pricing"
     }
   ],
-  "limits_note": "the free tier includes no Warp-provided inference at all, so a conversation runs only if a user supplies a key, a subscription or a purchase.",
+  "limits_note": "the free tier includes no Warp-provided inference at all, so a conversation runs only if a key, a subscription or a purchase is supplied.",
   "binding": "write-gated",
-  "binding_note": "the free tier includes no Warp-provided inference at all, so a conversation runs only if a user supplies a key, a subscription or a purchase.",
+  "binding_note": "the free tier includes no Warp-provided inference at all, so a conversation runs only if a key, a subscription or a purchase is supplied.",
   "identity_cost": {
     "kind": "email",
     "detail": "an account is optional for the terminal: the install guide says the sign-up step can be skipped, and a sign-up through Google or GitHub gives Warp only the associated email address; no payment is taken for the Free plan itself. Whether running the Warp Agent with the user's own key needs an account, and whether sign-up asks for a phone number or a card, is not stated",

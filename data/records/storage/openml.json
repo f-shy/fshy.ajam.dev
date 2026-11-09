@@ -5,7 +5,7 @@
   "url": "https://www.openml.org/api/v1/json/data/list/limit/1",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "Unreachable for the entire session from this network — openml.org, www.openml.org, api.openml.org and docs.openml.org all timed out at TCP connect 21 s, 4 attempts incl. IPv4-forced, over…",
+    "stated": "none reachable: Unreachable for the entire session from this network — openml.org, www.openml.org, api.openml.org and docs.openml.org all timed out at TCP connect (21 s, 4 attempts incl. IPv4-forced, over…",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.openml.org/api/v1/json/data/list/limit/1",

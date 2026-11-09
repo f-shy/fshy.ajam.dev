@@ -20,7 +20,7 @@
     "notes": ""
   },
   "retention": {
-    "stated": "not applicable for a user: results are computed per request; the tracker's own stats are published at /api/v1/tracker-stats",
+    "stated": "not applicable to the caller: results are computed per request; the tracker's own stats are published at /api/v1/tracker-stats",
     "days": null,
     "source_url": "https://torrentclaw.com/llms.txt",
     "notes": ""

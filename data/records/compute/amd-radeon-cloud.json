@@ -81,11 +81,18 @@
       "url": "https://linux.do/t/topic/2922778",
       "date": "2026-09-19",
       "proved": "the route that finds it, translated: a ModelScope notebook page offers an AMD GPU environment with 192 GB of VRAM after linking an AMD developer account, one user reports 8 hours maximum per boot and persistence only inside /workspace"
+    },
+    {
+      "url": "https://amd-aim.github.io/radeon-cloud-docs/guides/developer-program/",
+      "date": "2026-11-06",
+      "proved": "the Global site has its own accounts and does not use the AMD AI Developer Program, so it grants no developer points",
+      "capture": "sha256:acd5c25148d85cea81c10c549f4936ae3b46dd30053ab4a83e604f78a16dfa49",
+      "quote": "The China site runs on AMD AI Developer Program accounts. You need one to sign in there, and its developer points are how you get GPU credits. The Global site has its own accounts and doesn’t use this program."
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "The China site signs in with a mobile number or email plus a slider captcha, or with a ModelScope, CSDN or GitHub account, so the identity is a phone number and not a national ID; whether the AMD China account itself demands a real-name check after signup is unverified. The Global site at radeon-global.anruicloud.com signs in with email or GitHub and is to test first, because it needs no China number and its credit route is unstated in the docs read. Open question: does the Global site grant the same points, or none? The docs say the Global site does not use the developer program, which suggests it has no free credit at all - that asymmetry is the thing to settle.",
+  "verified_at": "2026-11-06T19:39:36.653Z",
+  "notes": "The China site signs in with a mobile number or email plus a slider captcha, or with a ModelScope, CSDN or GitHub account, so the identity is a phone number and not a national ID; whether the AMD China account itself demands a real-name check after signup is unverified. The Global site at radeon-global.anruicloud.com signs in with email or GitHub, needs no China number, and its credit route is unstated in the documentation. Open question: does the Global site grant the same points, or none? The docs say the Global site does not use the developer program, which suggests it has no free credit at all - that asymmetry is the thing to settle.",
   "extras": {
     "facets": {
       "class": "vendor-developer-program",

@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "None for a user. The sibling AMD Developer Cloud lane, recorded separately, is the only AMD route with no institution gate, and it is 25 hours rather than a node-year.",
+  "chaining": "None. The sibling AMD Developer Cloud lane, recorded separately, is the only AMD route with no institution gate, and it is 25 hours rather than a node-year.",
   "limits": [
     {
       "kind": "write-gated",

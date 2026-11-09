@@ -41,8 +41,8 @@
   "binding": "volume-quota",
   "binding_note": "the only published ceiling is the word 'limitsiz' qualified as shared, so the real limit is enforcement rather than a number.",
   "identity_cost": {
-    "kind": "card",
-    "detail": "credit card, bank transfer (Havale/EFT) or the vendor's own Sanal Kredi balance, all named as payment methods in the general terms on https://www.bulutova.com/sozlesmeler/genel-hizmet-sozlesmesi: 'Hizmetler için yapacağınız ödemelerinizi geçerli bir kredi kartı, banka havalesi/EFT ile'. Hold amount: not published on that page or on https://www.bulutova.com/vps-satin-al; the terms authorise collection from the card given at registration instead: 'BULUTOVA, bu sözleşmeyi kabul etmenizle, hizmet bedellerinin kayıt sırasında vermiş olduğunuz kredi kartı hesabından tahsil etme hakkına sahiptir.' Charged or verified: charged, since the invoice is collected from the card. Prepaid and virtual cards: the vendor's own virtual card is a route, 'sipariş sırasında Sanal Kart'ınızdan ilgili ödemeyi gerçekleştirebilirsiniz'; whether an external prepaid or third-party virtual card passes is not published.",
+    "kind": "national-id",
+    "detail": "a Turkish identity number and a phone before any card: the individual registration form requires an 11-digit 'T.C Kimlik Numarası' (Turkish national ID number) and a phone number with the +90 prefix, confirmed by SMS ('Telefon numaranıza gönderilen 4 haneli doğrulama kodunu girin.'). Card rails: 'Hizmetler için yapacağınız ödemelerinizi geçerli bir kredi kartı, banka havalesi/EFT ile; ya da ... \"BULUTOVA Sanal Kredi\" Servisi faydalanarak yerine getirebilirsiniz'. Hold amount: not published on https://www.bulutova.com/sozlesmeler/genel-hizmet-sozlesmesi, which describes no authorisation or deposit. Charged or verified: charged, 'BULUTOVA, bu sözleşmeyi kabul etmenizle, hizmet bedellerinin kayıt sırasında vermiş olduğunuz kredi kartı hesabından tahsil etme hakkına sahiptir.' Prepaid and virtual cards: a virtual card passes only as the vendor's own Sanal Kart funded from the Sanal Kredi balance, 'sipariş sırasında Sanal Kart'ınızdan ilgili ödemeyi gerçekleştirebilirsiniz'; whether an external prepaid or third-party virtual card passes is not published. Phone: required, +90 with SMS confirmation; no page read offers a passport or foreign-ID alternative to the T.C Kimlik Numarası field.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -131,10 +131,73 @@
       "proved": "the payment rails are a card and a bank transfer, unchanged in kind",
       "capture": "sha256:f3a03148235287acd0c78bea8795480f802b23cec78f9ed1966ad55802355964",
       "quote": "Hizmetler için yapacağınız ödemelerinizi geçerli bir kredi kartı, banka havalesi/EFT ile"
+    },
+    {
+      "url": "https://www.bulutova.com/panel/register",
+      "date": "2026-11-06",
+      "proved": "the individual registration form requires an 11-digit T.C Kimlik Numarasi, a Turkish national ID number",
+      "capture": "sha256:5850e8d1cb7d6e525c2161877c6ea20d635204cf83e7aaf81e71dc872c95d3e9",
+      "quote": "<input type=\"text\" name=\"national_id\" id=\"national_id\" required=\"\" maxlength=\"11\" minlength=\"11\" autocomplete=\"off\">"
+    },
+    {
+      "url": "https://www.bulutova.com/panel/register",
+      "date": "2026-11-06",
+      "proved": "the individual registration form requires a Turkish national identity number and a phone number",
+      "capture": "sha256:5850e8d1cb7d6e525c2161877c6ea20d635204cf83e7aaf81e71dc872c95d3e9",
+      "quote": "<input type=\"text\" name=\"national_id\" id=\"national_id\" required=\"\" maxlength=\"11\" minlength=\"11\" autocomplete=\"off\">"
+    },
+    {
+      "url": "https://www.bulutova.com/sozlesmeler/genel-hizmet-sozlesmesi",
+      "date": "2026-11-06",
+      "proved": "the card given at registration is charged, and no authorisation amount is described",
+      "capture": "sha256:f3a03148235287acd0c78bea8795480f802b23cec78f9ed1966ad55802355964",
+      "quote": "BULUTOVA, bu sözleşmeyi kabul etmenizle, hizmet bedellerinin kayıt sırasında vermiş olduğunuz kredi kartı hesabından tahsil etme hakkına sahiptir."
+    },
+    {
+      "url": "https://www.bulutova.com/panel/register",
+      "date": "2026-11-06",
+      "proved": "the registration form requires a phone number",
+      "capture": "sha256:5850e8d1cb7d6e525c2161877c6ea20d635204cf83e7aaf81e71dc872c95d3e9",
+      "quote": "<input type=\"tel\" name=\"phone\" id=\"phone\" required=\"\" pattern=\"[0-9]{3} [0-9]{3} [0-9]{2} [0-9]{2}\" autocomplete=\"tel\">"
+    },
+    {
+      "url": "https://www.bulutova.com/panel/register",
+      "date": "2026-11-06",
+      "proved": "the phone number is confirmed by a 4-digit SMS code",
+      "capture": "sha256:5850e8d1cb7d6e525c2161877c6ea20d635204cf83e7aaf81e71dc872c95d3e9",
+      "quote": "Telefon numaranıza gönderilen 4 haneli doğrulama kodunu girin."
+    },
+    {
+      "url": "https://www.bulutova.com/sozlesmeler/genel-hizmet-sozlesmesi",
+      "date": "2026-11-06",
+      "proved": "the vendor's own virtual card can pay an order",
+      "capture": "sha256:f3a03148235287acd0c78bea8795480f802b23cec78f9ed1966ad55802355964",
+      "quote": "sipariş sırasında Sanal Kart'ınızdan ilgili ödemeyi gerçekleştirebilirsiniz"
+    },
+    {
+      "url": "https://www.bulutova.com/panel/register",
+      "date": "2026-11-06",
+      "proved": "registration cannot be completed without an 11-digit Turkish national identity number",
+      "capture": "sha256:5850e8d1cb7d6e525c2161877c6ea20d635204cf83e7aaf81e71dc872c95d3e9",
+      "quote": "<input type=\"text\" name=\"national_id\" id=\"national_id\" required=\"\" maxlength=\"11\" minlength=\"11\" autocomplete=\"off\">"
+    },
+    {
+      "url": "https://www.bulutova.com/sozlesmeler/genel-hizmet-sozlesmesi",
+      "date": "2026-11-06",
+      "proved": "the terms name a credit card, a bank transfer and the Sanal Kredi balance as the payment methods",
+      "capture": "sha256:f3a03148235287acd0c78bea8795480f802b23cec78f9ed1966ad55802355964",
+      "quote": "Hizmetler için yapacağınız ödemelerinizi geçerli bir kredi kartı, banka havalesi/EFT ile; ya da BULUTOVA'nin ücret ödemesi yapmak için yapılandırdığı bir hizmet olan \"BULUTOVA Sanal Kredi\" Servisi faydalanarak yerine getirebilirsiniz"
+    },
+    {
+      "url": "https://www.bulutova.com/panel/register",
+      "date": "2026-11-06",
+      "proved": "the individual sign-up requires an 11-digit Turkish national identity number",
+      "capture": "sha256:5850e8d1cb7d6e525c2161877c6ea20d635204cf83e7aaf81e71dc872c95d3e9",
+      "quote": "<input type=\"text\" name=\"national_id\" id=\"national_id\" required=\"\" maxlength=\"11\" minlength=\"11\" autocomplete=\"off\">"
     }
   ],
-  "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-02T02:17:41.064Z",
+  "verdict": "fails-identity",
+  "verified_at": "2026-11-06T17:42:09.295Z",
   "price_per_tb_month": null,
   "notes": "The annual term is 168.87 TL a month, so 2,026.44 TL a year (the cart's own 'Genel Toplam'). The cart as rendered shows 'KDV (%0) ₺0,00' and computes 2,026.44, but the same page's own script sets 'taxEnabled:false, taxRate:0' with a hidden element already carrying 'KDV (%20) 0,00', so the zero is the unconfigured default before a tax country is chosen, not a statement that no VAT applies. The page's FAQ says 'VPS sunucu fiyatlarimiz KDV haric olarak belirtilmistir' (prices are stated excluding VAT), and the 168.87 figure is the annual per-month price. Shape confirmed and sharper than recorded: 2 vCore (1 real core + 1 HT), 8 GB ECC, 60 GB E-NVMe, 1 Gbps, Istanbul or Bursa. Worst case exposure: the 40% discount has no published end date and the list it discounts from is 281.45 TL a month, so exposure is 281.45 / 168.87 = 1.67x on the ex-VAT basis, or 6.79 / 4.07 = 1.67x with KDV. That is the second-worst step-up in the band and the reason this row is 'qualifies-with-caveat' rather than 'qualifies'.",
   "extras": {
@@ -186,7 +249,7 @@
     "port_mbps": 1000,
     "ipv4_included": true,
     "ipv6": "not stated on the plan card",
-    "payment_methods": "credit card, bank transfer (Havale/EFT), the vendor's Sanal Kredi balance and Sanal Kart, PayPal and mobile payment; no card hold or deposit is published",
+    "payment_methods": "credit card, bank transfer (Havale/EFT), the vendor's Sanal Kredi balance and Sanal Kart, mobile payment through Turkcell, Avea and Vodafone, and PayPal; no card hold or deposit is…",
     "stock": "in stock: the card renders a 'Satin Al' button and the annual cart resolves to a product page with a total. Read at https://www.bulutova.com/panel/cart/product/236/annually",
     "vat": "the page states prices exclude KDV. The cart as rendered computes 'KDV (%0)' and a total of 2,026.44 TL, but the page's own script sets taxEnabled:false with a hidden element preloaded at 20%, so the zero is the unconfigured default before a tax country is picked. Treated as ex-VAT USD 3.40 with a 20% KDV case of USD 4.07"
   }

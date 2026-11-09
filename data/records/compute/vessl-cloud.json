@@ -38,9 +38,9 @@
   "tooling": "not stated",
   "chaining": null,
   "limits": [],
-  "limits_note": "A reserved tier exists but priced by quote, so the on-demand rows are the only comparable lane.",
+  "limits_note": "Nothing published binds above the scale; a reserved tier exists but priced by quote, so the on-demand rows are the only comparable lane.",
   "binding": "none",
-  "binding_note": "A reserved tier exists but priced by quote, so the on-demand rows are the only comparable lane.",
+  "binding_note": "Nothing published binds above the scale; a reserved tier exists but priced by quote, so the on-demand rows are the only comparable lane.",
   "identity_cost": {
     "kind": "email",
     "detail": "No free tier appears in the pricing documentation; the signup route was not read, so the identity kind is unconfirmed.",

@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "none for a user: a grant needs a funded company, so it cannot compose with anything a single person holds.",
+  "chaining": "none: a grant needs a funded company, so it cannot compose with anything a single person holds.",
   "limits": [
     {
       "kind": "retention-clamped",

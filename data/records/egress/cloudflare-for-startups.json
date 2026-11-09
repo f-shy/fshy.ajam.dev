@@ -70,7 +70,7 @@
   "notes": "Recorded to close the route rather than open it: Cloudflare's egress is already free on R2 and on Workers, which is why a credit there is worth less than it looks for this question. The $10k tier is reachable without funding in principle but needs a company.",
   "extras": {
     "wg_path": "none",
-    "wg_detail": "Cloudflare sells no VM; the credits spend on Workers, R2 and the rest of the developer platform, none of which hands a user a UDP port on a public IPv4",
+    "wg_detail": "Cloudflare sells no VM; the credits spend on Workers, R2 and the rest of the developer platform, none of which hands an account a UDP port on a public IPv4",
     "ingress": "http-only",
     "volume_tib_month": null,
     "volume_stated": "the $10k tier carries no byte allowance of its own because Cloudflare's developer platform has no metered egress to spend it on",
