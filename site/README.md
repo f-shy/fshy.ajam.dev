@@ -181,10 +181,18 @@ To deploy again without a change, run the workflow `build` by hand on `main`. To
 - or, for 7 days, re-run the job `deploy` of the run of an earlier commit, which deploys that run's artifact;
 - or run `npx wrangler rollback` in `site/` with a token that can edit Workers.
 
-⚠ Two paths can deploy this Worker: the job `deploy` here, and the build of the Workers Builds
-connection in the Cloudflare dashboard (auto-build on, the same commands, the same commit). Both
-carry the same bytes, so their race is harmless; to keep one deployer, set `FSHY_DEPLOY` to `off`
-or turn the build off in the dashboard.
+The job `deploy` here is the only deployer. The Workers Builds connection of the Worker `fshy` (script tag
+`8ba31b768e1544c1a91a6814de2ada48`) is kept with `auto_build_enabled: false` and `previews_enabled: false`, so
+a push to `main` deploys once, from this workflow, and no other build competes with it. Keep both settings off:
+
+- `previews_enabled: true` starts one Preview Worker per branch. A Preview is a Worker of its own name, and the
+  `name` in `wrangler.jsonc` is `fshy`, so its deploy fails with `The name in your wrangler.jsonc file (fshy) must
+  match the name of your Worker`. The preview base config also differs from production: its build command is
+  `python publish/build.py --site site/dist` with no `npm ci`, and its deploy command is `npx wrangler preview`.
+- `auto_build_enabled: true` deploys the same commit a second time from the dashboard. The bytes are equal, but two
+  deployers make a failed deploy ambiguous: read the job `deploy` of the workflow run, not the dashboard build.
+
+`FSHY_DEPLOY=off` is the switch that stops the job `deploy`; do not stop a deploy in the dashboard instead.
 
 ## What the Worker serves
 

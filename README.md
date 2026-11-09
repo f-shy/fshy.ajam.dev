@@ -50,7 +50,7 @@ before a record changes. The issue closes when a publish carries the result. See
 
 ## How the data is made
 
-The research happens in a separate, private repository. Every change there lands as a pull request. A merge
+The research happens in a separate, public repository. Every change there lands as a pull request. A merge
 session that did not do the research reviews it and merges it. Then it exports the technical projection of the
 corpus to this repository. The projection removes process notes, personal details and terms text. See
 [`docs/merge-protocol.md`](docs/merge-protocol.md).
