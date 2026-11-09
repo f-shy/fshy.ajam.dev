@@ -193,7 +193,6 @@ jobs:
           path: fshy
 
       - name: fetch f-research main, quietly
-        env:
         run: sh fshy/.github/f-research-fetch.sh main
 
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
@@ -227,7 +226,6 @@ jobs:
           path: fshy
 
       - name: fetch every branch and tag of f-research, quietly
-        env:
         run: sh fshy/.github/f-research-fetch.sh all
 
       - name: bundle every branch and tag of f-research
