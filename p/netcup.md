@@ -1,0 +1,308 @@
+# netcup
+
+> netcup.com | Compute, Storage; 6 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/netcup/ | JSON https://fshy.ajam.dev/api/v1/entity/netcup.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## netcup (VPS 2000 G12.5)
+
+- `compute/netcup-windows` | qualifies-with-caveat | evidence documented | binding retention-clamped | category Windows VPS | tier VPS 2000 G12.5
+- needs card yes, phone no, ID no, institution no | verified 2026-10-26T12:18:00.000Z (live) | stale on 2026-11-26
+- url https://www.netcup.com/en/server/vps
+- disagrees on verdict: `compute/netcup` says paid-only, `compute/netcup-windows` says qualifies-with-caveat
+- disagrees on verdict: `compute/netcup-vps-1000` says paid-only, `compute/netcup-windows` says qualifies-with-caveat
+- disagrees on verdict: `compute/netcup-vps-500-g12-5` says paid-only, `compute/netcup-windows` says qualifies-with-caveat
+- free tier: no free tier; VPS 2000 G12.5 is EUR 26.92 a month on a 12-month term including 19 per cent VAT, for 8 vCore, 16 GB of RAM and 256 GB of SSD | unit: none | metered on: none | read on: 2026-10-26 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the plan is paid; the page states no deletion clock
+- egress: traffic flat rate with no byte quota printed on the plan card | metered: no | free allowance: unlimited under the traffic flat rate | source: [1]
+- identity: card | detail: an account and a payment method at order; the checkout was not read
+- interface: rest, cli
+- limits:
+  - retention-clamped (binding): 180-day Windows test licence [1]
+  - per-ip-shaping: traffic flat rate with no printed rate [1]
+- limits note: netcup does not sell a Windows licence. The FAQ states that the self-install image carries a 180-day test licence and that no licence can be bought from netcup.
+- binding note: the 180-day test licence is the clock. After it, the buyer must license the image or rebuild.
+- interface detail: remote console and DVD drive in the SCP; Windows is installed by the buyer, so the admin path is the console until RDP answers
+- tooling: SCP console and virtual DVD; any RDP client after install
+- composes with: the cheapest 16 GB machine from a long-established German host, and the only row where the buyer installs Windows from their own media. The 180-day test licence is the catch.
+- reliability: no reliability event observed; the price includes German VAT and drops for a non-EU billing address.
+- notes: The EUR 26.92 figure includes 19 per cent VAT. A buyer outside the EU pays about EUR 22.62, which is USD 25.32 at the 2026-10-23 ECB rate. The 24-month term is 26 per cent below the monthly term, but the first payment is the whole term.
+- evidence note: the shape and the four term prices are printed on the page. The VAT-free figure is arithmetic at 19 per cent and the Windows licence sentence is the vendor FAQ.
+- extras:
+  - shape.vcpu: 8
+  - shape.ram_gib: 16
+  - shape.disk_gib: 256
+  - billing_model: 12-month or 24-month term
+  - term: 12 months
+  - monthly_eur_gross: 26.92
+  - monthly_eur_net: 22.62
+  - monthly_usd_net: 25.32
+  - monthly_term_eur_gross: 30.96
+  - windows_licence: none sold; 180-day test licence on self-install
+  - windows_images: buyer-supplied ISO
+  - ipv4_included: yes
+  - traffic: flat rate
+  - cart_url: https://www.netcup.com/en/server/vps
+- evidence:
+  - [1] 2026-10-26: quoted: 'VPS 2000 G12.5 ... 8 vCore (x86) ... 16 GB RAM ... 256 GB SSD ... 12 months contract period, from monthly EUR 26.92 EUR 30.96 (incl. 19% VAT)'
+  - [1] 2026-10-26: quoted: 'netcup does not offer any ready-made Windows servers. However, you have the option of installing Windows on your server yourself via the SCP. Please note that this is a 180-day test license. Beyond that, you cannot purchase Windows software licenses via netcup.'
+- sources:
+  - [1] https://www.netcup.com/en/server/vps
+
+## netcup (compute/netcup)
+
+- `compute/netcup` | paid-only | evidence documented | binding retention-clamped | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://www.netcup.com/en/server/vps
+- price parsed USD 9.5/mo
+- disagrees on verdict: `compute/netcup` says paid-only, `compute/netcup-windows` says qualifies-with-caveat
+- free tier: no free tier; VPS 500 G12.5 is EUR 8.26 a month on a 12-month term, EUR 9.50 including 19% VAT | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: 4 GB RAM and 64 GB disk on the entry shape; 12-month contract period
+- per-object cap: not applicable
+- retention: rented for the contract term; the disk persists for the term | days: 0
+- egress: traffic flat rate, stated on the page | metered: no | free allowance: flat rate | price per TB: USD 0 | source: [1]
+- identity: card | detail: a payment method at order; no free path
+- interface: rest, cli
+- limits:
+  - per-object-cap: VPS 500 G12.5: 4 GB RAM, 64 GB disk [1]
+  - request-rate: traffic flat rate with no published rate [1]
+- limits note: a 12-month contract is the constraint that matters: the monthly price is only available on that term
+- binding note: the 12-month contract is the commitment and the monthly price only exists on that term
+- interface detail: SSH and a control panel; no native API on the page read
+- tooling: SSH, the netcup control panel (SCP)
+- composes with: a European box with a flat traffic term and a 12-month floor
+- reliability: no reliability event recorded
+- notes: The live entry price is EUR 8.26 a month, which is about USD 9.50 at the rate the page itself prints for VAT.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 4
+  - shape.disk_gib: 64
+  - billing_model: flat-pool
+  - granularity.min_billed_s: 3600
+  - session_cap.restart_required: no
+  - session_cap.note: none
+  - keep_rate.value: 1.0
+  - keep_rate.basis: a contract bills monthly
+  - keep_rate.source: https://www.netcup.com/en/server/vps
+  - persistent_storage.included_gib: 64
+  - persistent_storage.price_gib_month: included
+  - persistent_storage.durability: local SSD
+  - persistent_storage.survives_stop: yes
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: the contract term
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - network_out.per_session_bytes: flat rate, no published ceiling
+  - free_tier_kind: none
+  - m10h_usd: 9.5
+  - m24h_usd: 9.5
+  - price_arithmetic: the page prints EUR 8.26 a month and EUR 9.50 '(incl. 19% VAT)'; the contract term is 12 months. The two figures do not reconcile at 19 per cent: 8.26 x 1.19 = 9.83, and 9.50 / 8.26 implies 15.01 per cent. All five plans on the page show the same 1.150 ratio, so the label and the arithmetic disagree by a constant, not by a typo in one row. Both figures are quoted as printed; the rate the page used is not derived here
+  - currency_note: the page prints EUR only; the USD figure here uses the page's own VAT-inclusive EUR amount and is not a converted rate
+  - burst_x: 1.0
+  - burst_bill: min 1 h
+  - benchmark[0].plan: VPS Lite 1 G12.5s (2 vCPU / 4 GiB)
+  - benchmark[0].cpu_model: QEMU Virtual CPU version 2.5+
+  - benchmark[0].dedicated_or_shared: shared
+  - benchmark[0].gb6_single: 746
+  - benchmark[0].gb6_multi: 1334
+  - benchmark[0].source_url: https://www.vpsbenchmarks.com/yabs/netcup-2c-4gb-20261022-dd71fb
+  - benchmark[0].source_date: 2026-10-22
+  - benchmark[0].rung: reported
+  - benchmark[0].note: The CPU reports as 'QEMU Virtual CPU version 2.5', so the host masks the model. Price is an upper bound: the Lite series sells for less than VPS 500.
+- evidence:
+  - [1] 2026-10-22: VPS 500 G12.5 at EUR 8.26 a month on a 12-month term, EUR 9.50 including 19% VAT
+  - [1] 2026-10-22: the entry shape carries 4 GB RAM and 64 GB disk
+  - [2] 2026-10-22: VPS pico G11.5s: 1 vCore, 1 GB RAM, 30 GB SSD, 'Traffic included', '12 months contract period, from monthly', 'EUR 2.21 (incl. 19% VAT)', quoted
+  - [2] 2026-10-22: VPS Lite 1 G12.5s at EUR 5.86 on 6 months; Lite 2 at EUR 9.50 on 3 months (4 vCore, 8 GB, 160 GB); Lite 3 at EUR 16.66 on 2 months (8 vCore, 16 GB, 320 GB); Lite 4 at EUR 30.86 on 1 month (16 vCore, 32 GB, 640 GB)
+  - [2] 2026-10-22: 'Our vServer Lite plans are permanently price-optimized', quoted, so the ladder is a list price and not a first-term promotion
+- sources:
+  - [1] https://www.netcup.com/en/server/vps
+  - [2] https://www.netcup.com/en/server/vps-lite
+
+## netcup (VPS 1000 G12.5)
+
+- `compute/netcup-vps-1000` | paid-only | evidence documented | binding per-ip-shaping | category VPS | tier VPS 1000 G12.5
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T03:16:51.000Z (live) | stale on 2026-11-24
+- url https://www.netcup.com/en/server/vps
+- price parsed USD 16.23/mo
+- disagrees on verdict: `compute/netcup-vps-1000` says paid-only, `compute/netcup-windows` says qualifies-with-caveat
+- free tier: no free tier; VPS 1000 G12.5 is EUR 14.50 a month on the 12-month contract the plan card advertises, EUR 16.68 on a 1-month contract and EUR 12.32 on a 24-month contract, all incl. 19% VAT | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists for the contract term; the configurator sells 1, 12 and 24 month terms and publishes no deletion clock | source: [2]
+- egress: traffic flat rate on a 2.5 Gbit/s interface; if the average traffic of the last 24 hours exceeds 2 TB the port is throttled to 200 Mbps until the average falls back | metered: no | free allowance: 2 TB per 24 h average before throttling | source: [2]
+- identity: card | detail: an account and a payment method at order; the product page lists Direct Debit, Bank Transfer, PayPal and Credit Card as the payment options. The payment step itself was not opened, so debit acceptance and any card hold are unverified.
+- interface: ssh
+- limits:
+  - volume-quota: 2 TB average per 24 hours before the port is throttled from 2.5 Gbit/s to 200 Mbps [2]
+  - per-ip-shaping (binding): 12-month minimum contract at EUR 14.50 a month; the 1-month contract costs EUR 16.68 a month [1]
+- binding note: nothing technical fails first here; the price does. EUR 14.50 a month is nearly three times this category ceiling, and the deepest term, 24 months at EUR 12.32, is still 2.5 times the ceiling.
+- interface detail: root SSH, snapshots (Copy-On-Write), a remote management console, custom ISO and image import
+- tooling: any SSH client; the netcup SCP panel
+- composes with: the rung above this category ceiling: 8 GiB, 4 vCore and a 2 TB-per-day flat rate for USD 16.23 a month, which is a daily driver's machine rather than a VPN node
+- reliability: no reliability event observed; the VPS 1000 product page states no availability figure, and the 2 TB throttle is a stated technical policy rather than an observed one
+- notes: The figure is confirmed on two pages: the plan card and the product-page configurator. The card's two numbers are a term ladder, not a net/gross pair: EUR 16.68 is the 1-month rate and EUR 14.50 is the 12-month rate, which the configurator's own 'Save 13%' and '+EUR 4.36' deltas reproduce exactly. All three prices are incl. 19% VAT, which the page states in the card, in the set-up fee line and in the footer disclaimer. The site's country selector offers 'United States 0%', 'China 0%' and 'Other 0%', so a buyer outside the EU may see a lower figure, but the 0% rendering was not read: a ?country=US query parameter did not change the page, so the setting is applied client-side and would need a browser session. Not established: any card hold, debit-card acceptance, and whether the contract auto-renews at the then-current rate or at a stated one; no renewal sentence appears on either page. The VPS 500 sibling record states its EUR 8.26 as 'excl. VAT' and multiplies by 1.1193; the same configurator arithmetic on this page shows 8.26 is the 12-month rate incl. 19% VAT, so that record's arithmetic label is wrong even though its USD figure is unchanged.
+- evidence note: shape, all three term prices, the zero set-up fee and the throttle rule are quoted from the vendor's plan card and product-page configurator read. The EUR/USD rate is dated 2026-10-23 and reused, not measured.
+- extras:
+  - shape.vcpu: 4
+  - shape.ram_gib: 8
+  - shape.disk_gib: 128
+  - billing_model: monthly on a fixed contract term
+  - term: 12 months at EUR 14.50 a month; 1 month at EUR 16.68; 24 months at EUR 12.32
+  - m24h_usd: 16.23
+  - m10h_usd: 16.23
+  - price_arithmetic: EUR 14.50 a month incl. 19% VAT on the 12-month term x 1.1193 = USD 16.2298, rounded to USD 16.23. Out of pocket at order: EUR 174.00 = USD 194.76. On the 24-month term EUR 12.32 x 1.1193 = USD 13.79 a month and EUR 295.68 = USD 330.95 at order. A VPS bills whether it runs or not, so the 10 h/day figure equals the monthly figure.
+  - out_of_pocket_usd: 194.76
+  - renewal_usd: 16.23
+  - renewal_note: no promotional price is shown and no renewal sentence is published; the configurator prices each term directly, so the term price is the price for the whole term. What happens after the minimum period is not stated.
+  - promo: no
+  - over_line: yes
+  - set_up_fee: EUR 0.00 (incl. 19% VAT)
+  - term_prices_eur_incl_vat.1_month: 16.68
+  - term_prices_eur_incl_vat.12_months: 14.5
+  - term_prices_eur_incl_vat.24_months: 12.32
+  - vat: 19% German rate, included in every price on the page; the country selector lists United States, China and Other at 0%, not read
+  - fx.pair: EUR/USD
+  - fx.rate: 1.1193
+  - fx.date: 2026-10-23
+  - port_mbps: 2500
+  - ipv4_included: yes
+  - ipv6: yes
+  - locations: No preference Europe at +EUR 0.00; Amsterdam, Manassas (USA), Vienna and Nuremberg at +EUR 1.86; Singapore at +EUR 18.90
+  - network_option_prices: IPv4 + IPv6 at +EUR 0.00; IPv6 only at -EUR 0.60; none / Cloud vLAN only at -EUR 0.60
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+- evidence:
+  - [1] 2026-10-24: quoted plan card: 'VPS 1000 G12.5 - 4 vCore (x86) - 8 GB RAM - 128 GB SSD - Traffic included - 12 months contract period, from monthly - EUR 14.50 / EUR 16.68 (incl. 19% VAT)'
+  - [2] 2026-10-24: quoted configuration summary: 'Contract period: 24 months - Location: No preference Europe - Networking: IPv4 + IPv6 Connectivity - EUR 12.32 per month (incl. 19% VAT)'
+  - [2] 2026-10-24: quoted contract-period selector: '1 month +EUR 4.36', '12 months Save 13%', '24 months Save 27%'; EUR 12.32 + 4.36 = EUR 16.68, and 16.68 less 13% is EUR 14.50, so the three figures are one price ladder on one VAT basis
+  - [2] 2026-10-24: quoted Product Details: 'Set-up fee EUR 0.00 (incl. 19% VAT)', 'Minimum contract period 24 months', 'Billing period 24 months', 'Shipping charges none'
+  - [2] 2026-10-24: quoted Features: 'Network traffic - If the average network traffic of the last 24 hours exceeds 2 TB, a temporary throttling to 200 Mbps is applied. The throttling is lifted as soon as the condition no longer applies.' and 'Interface Speed 2,5 GBit/s'
+  - [2] 2026-10-24: quoted Payment Options: 'Direct Debit', 'Bank Transfer', 'PayPal', 'Credit Card'
+  - [3] 2026-10-24: quoted rate table: '{"amount":1.0,"base":"EUR","date":"2026-10-23","rates":{"USD":1.1193}}'. This is the rate used for every USD figure in this record
+- sources:
+  - [1] https://www.netcup.com/en/server/vps
+  - [2] https://www.netcup.com/en/server/vps/vps-1000-g12.5-iv-24m-eu
+  - [3] https://api.frankfurter.app/latest?from=EUR&to=USD
+
+## netcup (VPS 500 G12.5)
+
+- `compute/netcup-vps-500-g12-5` | paid-only | evidence documented | binding volume-quota | category VPS | tier VPS 500 G12.5
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T01:56:00.000Z (live) | stale on 2026-11-24
+- url https://www.netcup.com/en/server/vps
+- price parsed USD 9.25/mo
+- disagrees on verdict: `compute/netcup-vps-500-g12-5` says paid-only, `compute/netcup-windows` says qualifies-with-caveat
+- free tier: no free tier; the smallest listed VPS is 'VPS 500 G12.5' at EUR 8.26 a month on a 12-month contract | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists for the contract term; the plans are sold on a 12-month contract period
+- egress: 'Traffic included' with a 'Traffic flat rate'; the page sells additional traffic at EUR 0.012 per GB for plans that allow an upgrade | metered: no | free allowance: flat rate, not quantified on the plan card | source: [1]
+- identity: card | detail: an account and a payment method at order.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 12-month minimum contract; the page's product links carry 12m and 24m variants [1]
+- binding note: the binding constraint is the 12-month contract at EUR 8.26 a month, not any technical quota; the price alone puts it out of this category.
+- interface detail: root SSH, snapshots and a remote console
+- tooling: any SSH client; netcup SCP panel
+- composes with: a European 4 GiB box with a traffic flat rate, but the entry price is now nearly double this category ceiling
+- reliability: no reliability event observed; the vendor states a 99.9% minimum availability on an annual average for root servers and excludes it for VPS
+- notes: The vendor's lineup today is G12.5: VPS 500 G12.5 at EUR 8.26, VPS 1000 G12.5 at EUR 14.50, and no G11 plan is listed on the page. EUR 8.26 is USD 9.25 at the ECB rate, so the entry rung is nearly twice ceiling and netcup is out entirely rather than a near miss. The 6-month and 24-month rates are not published on this page; the product links carry both 12m and 24m variants, so a 24-month rate exists and is lower, but its number was not read.
+- evidence note: shape and price are quoted from the vendor's plan cards read.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 4
+  - shape.disk_gib: 64
+  - billing_model: monthly on a 12-month contract
+  - term: 12 months
+  - m10h_usd: 9.25
+  - m24h_usd: 9.25
+  - price_arithmetic: EUR 8.26/month excl. VAT x 1.1193 = USD 9.25/month; EUR 99.12 a year out of pocket
+  - out_of_pocket_usd: 110.94
+  - renewal_usd: 9.25
+  - renewal_note: contract renews at the then-current rate; no promo price is shown on this page
+  - promo: no
+  - over_line: yes
+  - fx.pair: EUR/USD
+  - fx.rate: 1.1193
+  - fx.date: 2026-10-23
+  - ipv4_included: yes
+  - ipv6: yes
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+- evidence:
+  - [1] 2026-10-24: quoted: 'VPS 500 G12.5 - 2 vCore (x86) - 4 GB RAM - 64 GB SSD - Traffic included ... 12 months contract period, from monthly EUR 8.26 / EUR 9.50 (incl. 19% VAT)'
+  - [1] 2026-10-24: quoted: 'VPS 1000 G12.5 - 4 vCore - 8 GB RAM - 128 GB SSD ... from monthly EUR 14.50'
+  - [1] 2026-10-24: quoted: 'The price per GB is EUR 0.012' for additional traffic on plans that allow an upgrade
+- sources:
+  - [1] https://www.netcup.com/en/server/vps
+
+## netcup 'storage server' product line
+
+- `storage/netcup-storage-server-product-line` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.netcup.com/en/server/virtual-server-storage
+- free tier: none reachable: The product page exists and advertises '1 GB storage space for less than 0.007 Euro per month including VAT, traffic and RAID level' (= ~€7.17/TB) but publishes no plan table, no tier… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: The product page exists and advertises '1 GB storage space for less than 0.007 Euro per month including VAT, traffic and RAID level' (= ~€7.17/TB) but publishes no plan table, no tier…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: The product page exists and advertises '1 GB storage space for less than 0.007 Euro per month including VAT, traffic and RAID level' (= ~€7.17/TB) but publishes no plan table, no tier…
+- sources:
+  - [1] https://www.netcup.com/en/server/virtual-server-storage
+
+## netcup Storage Space / Local Block Storage
+
+- `storage/netcup-storage-space-local-block-storage` | fails-quota | evidence reported | binding none | category NFS storage attached to a netcup server
+- needs card no, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.netcup.com/en/server/storage-space
+- price Tariff C: €18.23 for the first 1 TB (€18.23/TB), then €0.024/GB = €24.58/TB for extra capacity — the marginal TB is MORE expensive than the first, and the traffic cap freezes the volume. Local Block Storage is €12.29/TB. Both are 6–12× Hetzner. | parsed USD 13.85/TB-mo
+- free tier: Tariff A 250 GB / B 500 GB / C 1 TB inclusive, expandable per GB | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Metered with a hard cliff: 'Depending on the plan you choose, you will have a certain amount of monthly traffic available … As soon as the traffic volume is exceeded, the associated Storage Space will be frozen until the end of the calendar month. Currently, we do not provide traffic statistics. It is therefore your responsibility to log your traffic usage yourself.' 2.5 / 5 / 10 TB included by tariff. | metered: yes
+- identity: email | detail: email
+- interface: nfs, rclone
+- limits note: Requires an existing netcup vServer/root server. No traffic statistics. You must self-meter or you get frozen mid-month. Upgrades impossible in place (different hardware): you must book a new Storage Space and NFS-copy across.
+- interface detail: NFS, bound to a netcup server's IP (not a standalone product)
+- tooling: mount -t nfs; rclone can front it
+- composes with: NFS target behind a netcup VPS
+- reliability: NetApp-backed redundant block storage with high per-gigabyte cost. Exceeding contracted storage space freezes writes and access rather than billing overage.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Tariff A 250 GB / B 500 GB / C 1 TB inclusive, expandable per GB
+  - dead_end.first_recorded: 2026-10-21
+  - price_verbatim: Tariff C: €18.23 for the first 1 TB (€18.23/TB), then €0.024/GB = €24.58/TB for extra capacity — the marginal TB is MORE expensive than the first, and the traffic cap freezes the volume. Local Block Storage is €12.29/TB. Both are 6–12× Hetzner.
+- evidence:
+  - [1] 2026-10-21: Tariff A €6.08/mo (250 GB incl., €0.037/GB extra, 2.5 TB traffic); B €9.72/mo (500 GB incl., €0.030/GB, 5 TB); C €18.23/mo (1 TB incl., €0.024/GB, 10 TB); 'Starts from €0.024 /GB in tariff C'
+  - [2] 2026-10-21: traffic freeze clause quoted verbatim; 'it is not possible to upgrade your existing Storage Space'
+  - [3] 2026-10-21: 'The price is € 0.012 plus VAT per GB', max 8 TB
+- sources:
+  - [1] https://www.netcup.com/en/server/storage-space
+  - [2] https://www.netcup.com/en/helpcenter/documentation/server/storagespace
+  - [3] https://www.netcup.com/en/server/local-block-storage

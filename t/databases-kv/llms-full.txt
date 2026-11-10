@@ -1,0 +1,758 @@
+# fshy: Databases and KV in full
+
+> Hosted databases, vector stores and key-value stores.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+How to read a record, and the other topics: https://fshy.ajam.dev/llms-full.txt. One line per record: https://fshy.ajam.dev/t/databases-kv.md.
+
+## Cloud Firestore (firestore)
+
+- `databases-kv/firestore` | qualifies | evidence documented | binding request-rate | category document database
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:05:00.000Z (live) | stale on 2026-11-22
+- url https://firebase.google.com/docs/firestore/quotas | page https://fshy.ajam.dev/p/google.md
+- free tier: 1 GiB stored, 50,000 document reads per day, 20,000 writes per day, 20,000 deletes per day, exactly one free database per project | unit: GiB | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: 1 GiB stored; a 1 MiB document size limit applies to the engine | source: [1]
+- retention: data persists; there is no inactivity deletion on the free quota | source: [1]
+- egress: 10 GiB a month of outbound data transfer is included in the free quota; beyond it the transfer is billed at the standard Cloud Firestore network rate, and reads are counted as operations against the daily quota | metered: yes | free allowance: 10 GiB per month | source: [1]
+- identity: email | detail: a Google account
+- interface: rest, graphql
+- limits:
+  - request-rate (binding): 50,000 document reads and 20,000 writes per day [1]
+  - per-object-cap: 1 GiB stored; exactly one free database per project [1]
+- limits note: a project may hold up to 100 databases, but only one is free, so multiple logical databases is a paid feature
+- interface detail: a REST and gRPC API with realtime listeners; SDKs for web, mobile and server; a GraphQL-ish query surface is not offered, the REST and gRPC APIs are
+- tooling: the Firebase Admin SDK; the gcloud and firebase CLIs; REST
+- composes with: 1 GiB of document state with client SDKs and realtime sync, which no other free tier here gives
+- reliability: no suspension, throttle or data-loss event is recorded on the pages read
+- notes: The one-database rule is the constraint that a multi-tenant design meets first, not the 1 GiB.
+- evidence note: the quotas page was read and states 'exactly one free database per project'.
+- evidence:
+  - [1] 2026-10-22: Free quota: 1 GiB stored data, 50,000 document reads/day, 20,000 writes/day, 20,000 deletes/day; 'Cloud Firestore allows exactly one free database per project'
+- sources:
+  - [1] https://firebase.google.com/docs/firestore/quotas
+
+## Cloudflare D1
+
+- `databases-kv/cloudflare-d1` | qualifies | evidence documented | binding request-rate | category serverless SQLite
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:05:00.000Z (live) | stale on 2026-11-22
+- url https://developers.cloudflare.com/d1/platform/limits/ | page https://fshy.ajam.dev/p/cloudflare.md
+- price USD 0.75/GB-month beyond 5 GB on Workers Paid | parsed USD 750/TB-mo
+- free tier: 10 databases; 500 MB per database; 5 GB per account; 5 million rows read per day; 100,000 rows written per day | unit: mixed | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: 2,000,000 bytes per row, BLOB or string; 500 MB per database | bytes: 2000000 | source: [2]
+- retention: storage persists; Time Travel point-in-time recovery covers 7 days on Free | source: [2] | note: the free limits reset daily at 00:00 UTC
+- egress: no egress charge; rows read and rows written are the metered quantities | metered: no | source: [1]
+- identity: email | detail: a Cloudflare account
+- interface: rest, cli
+- limits:
+  - request-rate (binding): 100,000 rows written per day on Free [1]
+  - request-rate (binding): 5 million rows read per day on Free [1]
+  - per-object-cap: 500 MB per database and 5 GB per account; a 2,000,000-byte row ceiling [2]
+  - request-rate (binding): 50 queries per Worker invocation on Free; a 30-second maximum query duration [2]
+- interface detail: a Worker binding, a REST API and the wrangler CLI
+- tooling: wrangler d1; the Cloudflare API; better-sqlite3 style calls inside a Worker
+- composes with: per-tenant SQLite in a Worker with a free Postgres as the system of record; 500 MB per database and 10 databases is 5 GB of free relational state
+- reliability: at the daily read or write limit the D1 API returns errors; at the storage limit you must delete data before you can insert, alter a table or create an index
+- notes: The 100,000 rows written a day is the binding number for any ingest, and it is small: 1.16 rows a second sustained. A full table scan counts every row it scans as a row read, so an unindexed query spends the read budget fast.
+- evidence note: the limits and pricing pages were read; nothing was provisioned.
+- evidence:
+  - [2] 2026-10-22: Free: 10 databases, 500 MB maximum database size, 5 GB per account, Time Travel 7 days, 50 queries per Worker invocation; 2,000,000-byte row maximum; 100,000-byte SQL statement; 30-second query maximum
+  - [1] 2026-10-22: Free: 5 million rows read/day, 100,000 rows written/day, 5 GB total storage; 'Free limits reset daily at 00:00 UTC'; at the storage limit you must delete data before inserting
+- sources:
+  - [1] https://developers.cloudflare.com/d1/platform/pricing/
+  - [2] https://developers.cloudflare.com/d1/platform/limits/
+
+## Qdrant Cloud
+
+- `databases-kv/qdrant-cloud` | qualifies | evidence documented | binding per-object-cap | category vector database
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:05:00.000Z (live) | stale on 2026-11-22
+- url https://qdrant.tech/pricing/ | page https://fshy.ajam.dev/p/qdrant.md
+- free tier: free tier cluster with 1 GB RAM and 4 GB disk, no high availability, one cluster | unit: GB | metered on: stored-bytes | read on: 2026-10-22 | source: [1]
+- per-object cap: 4 GB disk per cluster | source: [1]
+- retention: no deletion clock and no exhaustion behaviour is published; the FAQ says only that if data growth exceeds the free tier you 'can easily upgrade'. Nothing states what happens to a cluster that reaches 1 GB of RAM | source: [1] | note: an absence of a failure mode rather than a failure mode, which is weaker evidence than a stated limit
+- egress: not published on the pricing page; recorded as a gap | metered: no | source: [1]
+- identity: email | detail: email or GitHub signup; no card on Free
+- interface: rest, cli
+- limits:
+  - per-object-cap (binding): 4 GB disk per cluster; 1 GB RAM [1]
+  - request-rate: one cluster per account on Free [1]
+  - request-rate: no connection limit is published for the free tier; recorded as a gap [1]
+- interface detail: a REST API and gRPC; Python, JS and Rust clients
+- tooling: the qdrant-client libraries over gRPC or REST
+- composes with: the largest free vector storage by disk, and the closest thing to a self-managed index without a host
+- reliability: no high availability on the free tier, so the single node is the availability
+- notes: 4 GB of disk holds roughly 1.4 million vectors at 768 dimensions and 4 bytes per component, before index overhead. That puts the ~1 million vectors in circulation in the right order. The figure comes from arithmetic, not from a measurement. What happens at 1 GB of RAM is not published. The page offers an upgrade and states no refusal, throttle or deletion. That absence is documented, and it is not headroom.
+- evidence note: the pricing FAQ was read; the numbers are in the page's own answers.
+- evidence:
+  - [1] 2026-10-22: 'The free tier includes 1GB RAM and 4GB disk storage'; the free tier is 'limited to 1GB RAM and 4GB disk without high availability'
+- sources:
+  - [1] https://qdrant.tech/pricing/
+
+## TiDB Cloud Starter
+
+- `databases-kv/tidb-cloud-starter` | qualifies | evidence documented | binding request-rate | category distributed SQL, MySQL compatible
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:05:00.000Z (live) | stale on 2026-11-22
+- url https://www.pingcap.com/pricing/ | page https://fshy.ajam.dev/p/pingcap.md
+- price USD 0.10 per million RUs beyond the allowance
+- free tier: 25 GiB row storage plus 25 GiB columnar storage and 250 million Request Units per month, per organization across up to five instances | unit: GiB | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: 25 GiB row storage per organization on the allowance; the FAQ states 5 GiB per instance | source: [1] | note: the two first-party pages disagree on whether the allowance is per instance or per org
+- retention: an instance persists while the organization is active; no deletion clock published | source: [2]
+- egress: no transfer allowance and no per-GB egress rate is published on the pricing page; recorded as a gap. Traffic is billed through the request-unit and storage meters the page does publish | metered: no | source: [1]
+- identity: email | detail: email signup for the free allowance; a card only to exceed five instances
+- interface: rest, cli
+- limits:
+  - request-rate (binding): 250 million Request Units per month on the org allowance; the FAQ prints 50 million per instance [1]
+  - per-object-cap: 25 GiB row plus 25 GiB columnar per organization; five instances [1]
+  - write-gated: a credit card and a spend limit are required to create more than five Starter instances [2]
+  - request-rate (binding): 400 concurrent connections per Starter instance, rising to 5,000 with a spending limit; the public-endpoint idle timeout is 340 seconds [3]
+- interface detail: the MySQL wire protocol with TLS; a Cloud API and the tiup CLI
+- tooling: any MySQL client, the tiup CLI, the Data Migration tool
+- composes with: the largest card-free relational allowance found in this class, which is why it is the first row a reader should try
+- reliability: no suspension, throttle or data-loss event is recorded on the pages read
+- notes: The two pages disagree by a factor of five and the direction matters. 25 GiB per org is the number the pricing page states today; 5 GiB per instance is what the FAQ states. Until one is measured, the conservative reading is 5 GiB per instance and 25 GiB per org across five.
+- evidence note: two first-party pages were read and they disagree. The record keeps the conservative per-instance reading and names the disagreement.
+- extras:
+  - page_disagreement: the docs FAQ's figure is the older per-instance plan and the pricing page's is the current org allowance
+- evidence:
+  - [1] 2026-10-22: Free monthly allowance: 25 GiB row storage, 25 GiB columnar storage, 250M Request Units, per organization across up to five eligible instances; rates beyond from USD 0.10 per million RUs
+  - [2] 2026-10-22: 'Always-free monthly quota for up to five TiDB Cloud Starter instances per organization (5 GiB row data + 5 GiB columnar data + 50 million RUs per TiDB Cloud Starter instance)'; 'you can create a maximum of five TiDB Cloud Starter instances by default. To create more ... you need to add a credit card'
+- sources:
+  - [1] https://www.pingcap.com/pricing/
+  - [2] https://docs.pingcap.com/tidbcloud/serverless-faqs/
+  - [3] https://docs.pingcap.com/tidbcloud/serverless-limitations/
+
+## Turso (Databases and KV)
+
+- `databases-kv/turso` | qualifies | evidence documented | binding retention-clamped | category SQLite at the edge
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:05:00.000Z (live) | stale on 2026-11-22
+- url https://turso.tech/pricing | page https://fshy.ajam.dev/p/turso.md
+- price USD 0.75/GB beyond 9 GB on Developer
+- free tier: 100 databases; 5 GB storage; 500 million rows read per month; 10 million rows written per month; 3 GB sync | unit: GB | metered on: stored-bytes | read on: 2026-10-22 | source: [1]
+- per-object cap: 5 GB across all databases on Free; the plan table gives no per-database cap
+- retention: a database is archived after 10 days of inactivity on a free plan, and an archived database must be unarchived before it can be used; a deleted database has no point-in-time restore on Free and the Free column shows 1-day audit logs | days: 10 | source: [2] | note: the archive clock is documented on the CLI and API reference pages, not on the pricing page
+- egress: no egress charge and no transfer allowance is published; the metered quantities are rows read and rows written, so a byte of egress is not what is counted | metered: no | source: [1]
+- identity: email | detail: email signup; GitHub OAuth also offered
+- interface: rest, cli
+- limits:
+  - request-rate: 500 million rows read and 10 million rows written per month [1]
+  - per-object-cap: 5 GB total across all databases; 100 databases [1]
+  - retention-clamped (binding): an inactive database is archived after 10 days on a free plan [2]
+  - request-rate: no connection limit is published on the pricing page or the feature pages; recorded as a gap [1]
+- binding note: 10 days of inactivity archives the database on the free plan, so a job that runs less often than that finds the database unavailable. The 5 GB total and the 10-million-row monthly write budget are larger than that clock allows a quarterly job to reach.
+- interface detail: libSQL over HTTP and WebSockets; the Turso CLI; a platform API
+- tooling: the turso CLI; libSQL client libraries; sqld for a local replica
+- composes with: a free SQLite replica per tenant suits multi-tenant read-heavy work that a single free Postgres cannot hold, provided something touches each database at least every 10 days, because the free plan archives an inactive one
+- reliability: an inactive database on a free plan is archived after 10 days and must be unarchived before use; the archive is not a deletion and the data survives it
+- notes: The 500-database and 9-GB figures in circulation are the Developer plan, not Free. The 5 GB is a total, so 100 databases average 50 MB each. The binding constraint is not either number: it is the 10-day archive, which a quarterly job meets first and which nothing on the pricing page states.
+- evidence note: the pricing table was read on 2026-10-22 and its own meta description states 100 databases and 5 GB. The 10-day archive clock is from Turso's CLI reference, read the same day; the pricing page does not carry it, so a reader who checks only the pricing page will not find the constraint that binds first.
+- evidence:
+  - [1] 2026-10-22: Free column: 100 databases, 5GB storage, 500 Million rows read, 10 Million rows written, 3GB sync, 1 day audit logs; Developer USD 4.99 gives unlimited databases and 9GB
+  - [2] 2026-10-22: 'Databases get archived after 10 days of inactivity for users on a free plan'; the unarchive command restores one
+  - [3] 2026-10-22: the platform API exposes a group unarchive endpoint, so the archive state is reachable programmatically and not only through the CLI
+  - probe:https://api.turso.tech/v1/organizations 2026-10-22: an unauthenticated GET returns 401 with 'token contains an invalid number of segments', proving the platform API exists and is token-authenticated
+- sources:
+  - [1] https://turso.tech/pricing
+  - [2] https://docs.turso.tech/cli/group/unarchive
+  - [3] https://docs.turso.tech/api-reference/groups/unarchive
+
+## Upstash Redis (Databases and KV)
+
+- `databases-kv/upstash-redis` | qualifies | evidence measured | binding request-rate | category serverless Redis and KV
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:05:00.000Z (live) | stale on 2026-12-22
+- url https://upstash.com/docs/redis/overall/billing | page https://fshy.ajam.dev/p/upstash.md
+- price USD 0.20 per 100K commands; storage USD 0.25/GB-month beyond the first 1 GB | parsed USD 250/TB-mo
+- free tier: 250 MB data; 500,000 commands per month; 10 GB bandwidth per month; 10,000 commands per second; one database | unit: mixed | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: 100 MB per record on Free; 10 MB per request | source: [1]
+- retention: a database on a free account persists while the account is active. An anonymous database created with no account is deleted after 3 days unless claimed | days: 3 | source: [2]
+- egress: 10 GB bandwidth per month included on Free; pay as you go includes 200 GB then USD 0.03/GB | metered: yes | free allowance: 10 GB per month | price per TB: USD 0.03/GB beyond 200 GB | source: [1]
+- identity: anonymous | detail: POST upstash.com/start-redis with an Idempotency-Key provisions a database with no account, no email and no card; the database is deleted after 3 days unless claimed in a browser. A permanent free database needs an email
+- interface: rest, cli
+- limits:
+  - request-rate (binding): 500,000 commands per month on Free, about 16,600 a day [1]
+  - per-object-cap: 100 MB per record; 250 MB total data [1]
+  - request-rate (binding): 10 GB bandwidth per month [1]
+- limits note: adding a payment method moves every database to paid, and 'an account with a payment method cannot have free databases'
+- interface detail: a body-style REST API that takes the command as a JSON array; the Redis protocol on the same endpoint; a developer API
+- tooling: redis-cli against the TLS endpoint, or any HTTP client against the REST form; @upstash/redis SDKs
+- composes with: the cheapest free cache in front of a free Postgres: 100,000 reads a day off the database, if the write path fits 1,000 a day
+- reliability: an unclaimed database carries a warning not to store sensitive data because it is not tied to an account; the documented developer API host api.upstash.com did not resolve on 2026-10-22 while the per-database endpoint worked
+- notes: The 10,000-commands-per-day figure in circulation is the pre-2025-03 plan. 500,000 a month is 16,600 a day, which is a different shape: a burst is fine and a steady 1/second is not.
+- evidence note: a database was provisioned anonymously, PING/SET/GET/DBSIZE were run against it, and the 3-day expiry was read from the response. The free-plan limits are a first-party page.
+- evidence:
+  - probe:https://upstash.com/start-redis 2026-10-22: POST with Idempotency-Key 5f4fd5c1-7624-43b4-bfc9-94192920d977 returned 200, 3239 bytes, in 7.0 s, with endpoint optimal-spaniel-201484.upstash.io, a bearer token, a console URL and 'Expires: 2026-10-25 (3 days from creation)'
+  - probe:https://optimal-spaniel-201484.upstash.io 2026-10-22: body-style REST calls returned PING -> PONG, SET k1 v1 -> OK, GET k1 -> v1, DBSIZE -> 1; each round trip 0.73 to 0.92 s
+  - [1] 2026-10-22: Free: 250 MB data, 500K monthly commands, 10 GB monthly bandwidth, 10,000 commands/s, 10 MB request, 100 MB record, 1 database, no credit card
+  - probe:https://api.upstash.com/v2/redis/databases 2026-10-22: curl could not resolve api.upstash.com on 2026-10-22, so the documented developer API host is not reachable from this network even though the per-database endpoint is
+- sources:
+  - [1] https://upstash.com/docs/redis/overall/billing
+  - [2] https://upstash.com/start-redis
+
+## Aiven
+
+- `databases-kv/aiven-free` | qualifies-with-caveat | evidence documented | binding retention-clamped | category managed Postgres and friends with a free plan that powers off on inactivity
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:05:00.000Z (live) | stale on 2026-11-22
+- url https://aiven.io/pricing/postgresql | page https://fshy.ajam.dev/p/aiven.md
+- free tier: Free plan with 1 GB RAM and 1 GB total storage per service, on Postgres, MySQL, Valkey, Kafka and OpenSearch; free indefinitely with no time limit, but the service powers off after a period of inactivity | unit: GB | metered on: stored-bytes | read on: 2026-10-22 | source: [1]
+- per-object cap: 1 GB total storage per service | source: [1]
+- retention: the service powers off after a period of inactivity, on three triggers: no initial usage in the first few hours, or no continuative activity later; a powered-off service is deleted after 180 days. The Free plan is the exception to 'data retention is only limited by storage' | days: 180 | source: [2]
+- egress: no egress allowance, quota or per-GB rate is published on the free-plan pages or the PostgreSQL pricing table; recorded as a gap after checking both | metered: no | source: [1]
+- identity: email | detail: email signup; no card on the Free plan
+- interface: rest, cli
+- limits:
+  - per-object-cap: 1 GB total storage per service; 1 GB RAM [1]
+  - retention-clamped (binding): the free service powers off after a period of inactivity; a service powered off for more than 180 days is automatically deleted [2]
+  - request-rate: max_connections is set to 20 on a free PostgreSQL service, and there is no connection pooling [3]
+- binding note: 1 GB of storage is small, but the inactivity power-off is what defeats the use a reader would pick this for: an unattended job that runs less often than the inactivity window. The 180-day deletion sets the outer limit.
+- interface detail: the Postgres wire protocol; an API and the avn CLI
+- tooling: psql and any Postgres client; the avn CLI
+- composes with: no longer a candidate for a weekly or monthly job: the free service powers off on inactivity and is deleted 180 days after it powers off, so a keep-alive is required and the paid Developer tier is what removes the clock
+- reliability: free services power off on inactivity and a service powered off for more than 180 days is automatically deleted; a powered-off service for a version past end of life is deleted within 7…
+- notes: 1 GB is the smallest free Postgres storage in this class, and the free plan powers off on inactivity, so it does not answer the question the class was formed to ask. 5 GB is what the plan used to give and several comparison pages still print it. The paid Developer tier at USD 5 a month is the version of this that stays up: 'Developer tier services are not automatically powered off when inactive'.
+- evidence note: three first-party Aiven pages were read on 2026-10-22. The pricing page gives 1 GB RAM and 1 GB storage. The free-PostgreSQL page gives the inactivity power-off. The service power-cycle page gives the 180-day deletion. The pricing page's 'with the exception of Free plan' clause is a carve-out and not boilerplate. The free tier is what it carves out.
+- evidence:
+  - [1] 2026-10-22: Free column: RAM per VM 1 GB, Total storage 1 GB; Developer USD 5 with 8 GB; Hobbyist from USD 12; 'Data retention is only limited by storage, with the exception of Free plan'
+  - [4] 2026-10-22: 'Service powers off after a period of inactivity (you'll be notified by email and in-platform beforehand)'; 'It's free indefinitely with no time limit, but the service is automatically powered off after a period of inactivity'
+  - [3] 2026-10-22: two power-off triggers: 'Power off free services with no initial usage within the first few hours after the service is running' and 'Power off free services with no continuative activity on the service'
+  - [2] 2026-10-22: 'Services powered off for more than 180 days are automatically deleted'; the 180-day grace does not apply to an end-of-life version, which is deleted within 7 days
+  - [5] 2026-10-22: 'Developer tier services are not automatically powered off when inactive'; the paid step is what removes the clock
+  - [3] 2026-10-22: 'No connection pooling' and '`max_connections` limit set to `20`' on the free tier
+- sources:
+  - [1] https://aiven.io/pricing/postgresql
+  - [2] https://aiven.io/docs/platform/concepts/service-power-cycle
+  - [3] https://aiven.io/docs/products/postgresql/concepts/pg-free-tier
+  - [4] https://aiven.io/free-postgresql-database
+  - [5] https://aiven.io/docs/platform/concepts/free-plan
+
+## Amazon DynamoDB (dynamodb)
+
+- `databases-kv/dynamodb` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category key-value and document database
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22T03:05:00.000Z (live) | stale on 2026-11-22
+- url https://aws.amazon.com/dynamodb/pricing/ | page https://fshy.ajam.dev/p/amazon.md
+- price USD 0.25/GB-month beyond 25 GB | parsed USD 250/TB-mo
+- free tier: 25 GB storage, 25 read capacity units and 25 write capacity units, per region per payer account, always free | unit: GB | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: 400 KB per item, which is the DynamoDB engine limit | bytes: 409600 | source: [1]
+- retention: data persists while the table exists; no inactivity pause and no expiry clock is published, and the AWS Free Tier page lists DynamoDB under the allowances available on both the 12-month and the always-free plans | source: [2] | note: the 25 GB and 25/25 RCU-WCU figures are the always-free allowance, not a 12-month one, which is what makes the row usable without a countdown
+- egress: transfer out is billed; the free tier does not include a transfer allowance for DynamoDB | metered: yes | source: [1]
+- identity: card | detail: an AWS account requires a payment instrument
+- interface: rest, cli
+- limits:
+  - per-ip-shaping (binding): 25 read capacity units and 25 write capacity units, equal to 25 strongly-consistent 4 KB reads a second and 25 1 KB writes a second [1]
+  - per-object-cap: 25 GB storage per region; 400 KB per item [1]
+- limits note: 2.5 million Streams read requests a month are also included
+- interface detail: an HTTPS JSON API; the AWS CLI and SDKs; PartiQL
+- tooling: boto3, the AWS CLI, any DynamoDB SDK
+- composes with: 25 GB that never expires and never pauses, behind an AWS account that needs a card
+- reliability: no suspension, throttle or data-loss event is recorded on the pages read
+- notes: 25 RCU is the cap, not 25 GB. Twenty-five strongly-consistent reads a second is a prototype's throughput, and 25 GB of storage behind it will never fill.
+- evidence note: the pricing page was read; the free tier is stated in its own worked examples.
+- evidence:
+  - [1] 2026-10-22: 'The AWS Free Tier includes 25 WCUs and 25 RCUs for tables using the DynamoDB Standard table class'; the first 25 GB of storage per region are included; Streams includes 2,500,000 read requests a month
+  - [2] 2026-10-22: DynamoDB is listed on the Free Tier page as 'Available on both plans', which places its allowance in the always-free category rather than the 12-month one
+- sources:
+  - [1] https://aws.amazon.com/dynamodb/pricing/
+  - [2] https://aws.amazon.com/free/
+
+## Cloudflare Workers KV
+
+- `databases-kv/cloudflare-kv` | qualifies-with-caveat | evidence documented | binding request-rate | category edge key-value store
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:05:00.000Z (live) | stale on 2026-11-22
+- url https://developers.cloudflare.com/kv/platform/limits/ | page https://fshy.ajam.dev/p/cloudflare.md
+- free tier: 100,000 reads per day; 1,000 writes per day; 1 GB per account; 1,000 namespaces | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: 25 MiB per value; 512 bytes per key | source: [1] | note: keys per namespace are unlimited, so the value size is the object cap
+- retention: no expiry on a stored key unless the write sets one; the free tier does not delete | source: [1]
+- egress: reads are counted, not metered by byte; no egress charge on any plan | metered: no | source: [1]
+- identity: email | detail: a Cloudflare account
+- interface: rest, cli
+- limits:
+  - request-rate (binding): 1,000 writes per day to different keys [1]
+  - request-rate (binding): 1 write per second to the same key [1]
+  - per-object-cap: 25 MiB per value; 1 GB per account [1]
+- limits note: 100,000 reads per day are unlimited on the paid plan; the minimum cacheTtl is 30 seconds
+- interface detail: a REST API and a Worker binding; access through wrangler
+- tooling: wrangler kv; the Cloudflare API; a Worker binding in code
+- composes with: a read cache in front of a free database: 100,000 reads a day is 100 times the write budget, which is the ratio that makes it a cache and not a store
+- reliability: no suspension, throttle or data-loss event is recorded on the pages read
+- notes: The asymmetry is the finding: reads are plentiful and writes are not, by two orders of magnitude. Any design that treats KV as the store hits 1,000 writes a day and stops.
+- evidence note: the limits page was read; no namespace was created.
+- evidence:
+  - [1] 2026-10-22: Free column: 100,000 reads/day, 1,000 writes/day to different keys, 1 write/second to the same key, 1,000 namespaces, 1 GB/account, 1 GB/namespace, 512-byte keys, 25 MiB values, 30-second minimum cacheTtl
+- sources:
+  - [1] https://developers.cloudflare.com/kv/platform/limits/
+
+## CockroachDB Cloud Basic
+
+- `databases-kv/cockroachdb-basic` | qualifies-with-caveat | evidence documented | binding retention-clamped | category distributed SQL
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23T11:10:48.000Z (live) | stale on 2026-11-23
+- url https://www.cockroachlabs.com/docs/cockroachcloud/free-trial | page https://fshy.ajam.dev/p/cockroachlabs.md
+- free tier: 'When you sign up for CockroachDB Cloud, your new organization's account starts with $400 in free credits, allowing you to try the product at no cost.' The page states no trial length. | unit: mixed | metered on: wall-clock | read on: 2026-10-23 | source: [1]
+- per-object cap: 10 GiB storage per organization on the recurring allowance; no per-object cap is published
+- retention: no trial length is stated; billing starts on the day the last credit is used, or on credit expiry, and a 30-day grace period follows if no payment method is added | source: [1]
+- egress: data transfer leaving the cluster is billed separately and the free-trial and Basic plan pages publish no included transfer allowance and no per-GB rate; recorded as a gap after checking both | metered: yes | source: [2]
+- identity: email | detail: GitHub, Google, Microsoft or an email address and password; a name, company and email verification on the email path; a payment method only at the end of the trial
+- interface: rest, cli
+- limits:
+  - volume-quota: USD 400 of credits, with no published expiry [1]
+- limits note: the trial length is not published; the record's earlier 30 days is not supported by the page
+- binding note: the request-unit counter throttles and the storage cap refuses writes, but both are recoverable. The 30-day deletion after the trial credits end is not: it removes every cluster in the organization and the page states they cannot be restored.
+- interface detail: the Postgres wire protocol with CockroachDB extensions; a Cloud API and the cockroach CLI
+- tooling: psql-compatible clients, the cockroach CLI, the Cloud API
+- composes with: the only free tier above 10 GiB of card-free-capable relational storage, if the card question resolves in your favour
+- reliability: no inactivity power-off; Request Unit consumption scales to zero when the cluster is idle. The trial path ends in an unrecoverable deletion 30 days after the credits run out without a payment method
+- notes: The pricing page carries two different Standard rates and prices the product as 'Cockroach Continuum' from 2026-09-15. RAM is never stated. No arbitrary process can be hosted; the credit buys a managed database.
+- evidence note: two first-party pages were read on 2026-10-23: the free-trial page for the credits, the grace period and the deletion sentence, and the Basic plan page for scale-to-zero and the storage-limit behaviour. The deletion after the grace period is unrecoverable, which the word 'interruption' would understate.
+- extras:
+  - hourly_usd.standard_vcpu: 0.092
+  - hourly_usd.mission_critical_vcpu: 0.162
+  - hourly_usd.standard_vcpu_footer: 0.057
+  - rate_conflict: the Standard card reads USD 0.092 per vCPU-hour and the footer table reads 'Standard from $0.057 / vCPU-hr' on the same page
+- evidence:
+  - [1] 2026-10-23: quoted: 'your new organization's account starts with $400 in free credits' and 'If the trial ends and a payment method has not been provided, a 30 day grace period begins.'
+  - [3] 2026-10-23: quoted: Standard '$0.092 per vCPU-hour', footer 'Standard from $0.057 / vCPU-hr' (the page contradicts itself), Mission Critical $0.162
+- sources:
+  - [1] https://www.cockroachlabs.com/docs/cockroachcloud/free-trial
+  - [2] https://www.cockroachlabs.com/docs/cockroachcloud/plan-your-cluster-basic
+  - [3] https://www.cockroachlabs.com/pricing/
+
+## MongoDB Atlas (free cluster, formerly M0)
+
+- `databases-kv/mongodb-atlas-m0` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category document database
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:05:00.000Z (live) | stale on 2026-11-22
+- url https://www.mongodb.com/docs/atlas/reference/free-shared-limitations/ | page https://fshy.ajam.dev/p/mongodb.md
+- free tier: 0.5 GB of data storage on a shared cluster with three-node replication, one free cluster per project, free forever | unit: GB | metered on: stored-bytes | read on: 2026-10-22 | source: [1]
+- per-object cap: 16 mebibytes per BSON document, which is the MongoDB engine limit and not a tier limit | bytes: 16777216 | source: [2]
+- retention: paused automatically after 30 days with zero connections; resumable unless the cluster ran a version Atlas can no longer restore to | days: 30 | source: [1]
+- egress: 10 GB in and 10 GB out per rolling seven-day period; exceeding it throttles the cluster and adds a one-second cooldown per connection | metered: yes | free allowance: 10 GB out per 7 days | source: [1]
+- identity: email | detail: an Atlas account; no card on Free
+- interface: rest, cli
+- limits:
+  - per-ip-shaping (binding): 100 operations per second, enforced by throttling with a one-second cooldown [1]
+  - per-object-cap: 0.5 GB of data storage; storage size is not configurable on a free cluster [1]
+  - request-rate: 10 GB in and 10 GB out per rolling 7-day period [1]
+  - retention-clamped: paused after 30 days with zero connections [1]
+- limits note: 500 connections maximum; replication factor 3; no sharding, no network peering, and only a subset of regions
+- interface detail: the MongoDB wire protocol; a Data API for HTTPS access; the Atlas Administration API and the atlas CLI
+- tooling: mongosh, any MongoDB driver, the atlas CLI
+- composes with: a free document store that survives inactivity for a month, which is the longest idle clock in this class short of Aiven
+- reliability: the page is explicit that Atlas may deactivate idle free clusters under its terms, and recommends exporting a copy before a long pause
+- notes: 0.5 GB is a hard wall rather than an overage, and 100 ops/s is a throughput cap that no storage allowance can exceed. The 30-day idle clock is the most forgiving in this class and it is still a clock.
+- evidence note: both pages were read on 2026-10-22: the Atlas free-tier limits page for the 0.5 GB, the pause and the throttles, and the server limits page for the 16 mebibyte document cap. The storage figure is 0.5 GB as the page states it. 512 MB is the binary rendering of the same quantity and is not a second figure.
+- evidence:
+  - [1] 2026-10-22: 'Free clusters: 0.5 GB' for Data Storage; 'Atlas automatically pauses Free clusters after 30 days of inactivity where there are zero connections'; 10 GB in and out per rolling seven-day period; 100 operations per second; 500 connections; 'You can't configure storage size for Free clusters'
+  - [2] 2026-10-22: 'The maximum BSON document size is 16 mebibytes', which is an engine limit and not an Atlas tier limit
+- sources:
+  - [1] https://www.mongodb.com/docs/atlas/reference/free-shared-limitations/
+  - [2] https://www.mongodb.com/docs/manual/reference/limits/
+
+## Neon (Lakebase Postgres)
+
+- `databases-kv/neon` | qualifies-with-caveat | evidence measured | binding request-rate | category serverless Postgres with scale-to-zero
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:05:00.000Z (live) | stale on 2026-12-22
+- url https://neon.com/pricing | page https://fshy.ajam.dev/p/neon.md
+- free tier: 100 projects; 100 CU-hours per project; 1 GB Postgres storage per project and 20 GB per account; 10 branches per project; 5 GB public network transfer per project per month; 5 GB object storage | unit: mixed | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: Free autoscales to 2 CU (8 GB RAM); scale-to-zero after 5 min is always on and cannot be disabled
+- per-object cap: 1 GB of Postgres storage per project; exceeding it blocks writes rather than billing | source: [1] | note: 999 GiB is the branch logical size limit on the claimed project, not the free allowance
+- retention: no deletion on free. Exceeding CU-hours or the 5 GB transfer suspends compute until the next billing period; exceeding storage blocks writes. 'None of these limits delete your data' | source: [1] | note: an unclaimed Claimable Neon project expires in 72 hours instead
+- egress: 5 GB public network transfer per project per month included; exceeding it suspends compute until the next billing period | metered: yes | free allowance: 5 GB per project per month | price per TB: USD 0.10/GB on Launch and Scale after 500 GB | source: [2]
+- identity: email | detail: email signup for a normal account; the Claimable path provisions a project with no signup, no card and no email, and the project expires in 72 hours unless claimed
+- interface: rest, cli
+- limits:
+  - request-rate (binding): 100 CU-hours per project per month; a 0.25 CU minimum means about 400 wall-clock hours of a minimum-size database, and autoscaling to 2 CU quarters that [1]
+  - retention-clamped: compute suspends after 5 minutes idle on Free and the setting cannot be disabled [3]
+  - per-object-cap: 1 GB storage per project, 20 GB per account; writes are blocked at the cap [1]
+  - request-rate (binding): 5 GB public network transfer per project per month; exceeding it suspends compute [2]
+- limits note: connection pooling accepts up to 10,000 client connections in transaction mode; max_connections was 450 on the observed compute and is capped at 4,000 above 9 CU
+- interface detail: Postgres wire protocol over TLS on a -pooler or direct host; a Management API and the Neon CLI; a Data API for HTTP queries
+- tooling: any Postgres client (psql, psycopg, pg8000, Prisma, Drizzle); rclone does not apply
+- composes with: a free Postgres behind a free Worker or a tunnel gives a public endpoint with no card
+- reliability: the unclaimed path is a 72-hour demo: 100 MB storage, 1 GB transfer, then the project expires; commit latency on a cold anonymous project measured 1,750 ms
+- notes: Storage is generous and compute is not. 100 projects x 1 GB is 100 GB nominal, but each project also gets 100 CU-hours, so the shape is 100 small workloads and not one 100 GB database. The free tier does not delete data; it suspends compute or blocks writes. The measured 100 MB cap belongs to the anonymous Claimable path, not the free plan, and conflating them is the easy error. The vector extension was installed and queried, not merely listed as available, so `pgvector on a free Postgres` is a working chain and not an inference.
+- evidence note: a Postgres 17.11 connection, a write and a read-back were run on 2026-10-22; the 100 MB cap was reached and its SQLSTATE recorded. The free-plan figures are a first-party page.
+- evidence:
+  - probe:https://claimable.neon.tech/v1/agent/identity 2026-10-22: POST with type anonymous returned 201 in 4.5 s, provisioning project lucky-queen-53359445 in aws-us-east-2 with expires_at 2026-10-25T02:41:43Z; 1480 bytes; no signup, no card, no email
+  - probe:https://claimable.neon.tech/v1/oauth2/token 2026-10-22: grant_type urn:ietf:params:oauth:grant-type:jwt-bearer with the identity assertion returned 200 and a 3600-second bearer token; the token-exchange grant type is rejected with a 400
+  - probe:https://claimable.neon.tech/v1/projects/lucky-queen-53359445/connection_uri 2026-10-22: 200 with a working postgresql:// URI only when database_name and role_name are supplied; without them the proxy returns 502 with an upstream decode error
+  - probe:postgresql://ep-old-hall-b4ghd096-pooler.c-6.us-east-2.aws.neon.tech/neondb 2026-10-22: PostgreSQL 17.11 connected in 2619 ms over TLS; create table, insert and select returned a test string; max_connections 450; idle_in_transaction_session_timeout 5min; vector 0.8.0, postgis 3.5.7, timescaledb 2.17.1 and pg_trgm available
+  - probe:neon.max_cluster_size 2026-10-22: SHOW returns 100MB; filling with 500 kB rows failed at SQLSTATE 53100 with 'could not extend file because project size limit (100 MB) has been exceeded', hint naming neon.max_cluster_size and pagestore_smgr.c:throttle_or_fail_extension, after 70 rows and 78 MB of reported database size
+  - probe:neon commit latency 2026-10-22: ten single-row autocommit inserts averaged 1,750.6 ms each on a cold anonymous project; 35 MB of bulk insert took 21.8 s, or 1.61 MB/s
+  - [1] 2026-10-22: 100 projects, 100 CU-hours/project, 1 GB/project and 20 GB/account storage, 5 GB egress/project, scale-to-zero after 5 min on Free, and the sentence that none of the limits delete data
+  - [2] 2026-10-22: 5 GB per project per month included on Free; exceeding it suspends compute until the next billing cycle
+  - [4] 2026-10-22: PgBouncer transaction mode accepts up to 10,000 client connections, pools sized at 0.9 x max_connections
+  - [5] 2026-10-22: unclaimed projects expire in 72 hours and are capped at 100 MB storage and 1 GB transfer; claim codes expire in 15 minutes
+  - probe:create extension vector on the claimable project 2026-10-22: CREATE EXTENSION vector succeeded in 1.1 s and pg_extension reported version 0.8.0; a vector(3) column, an insert of two rows and an ORDER BY e <-> '[1,2,3]' KNN query returned distances 0.0 and 5.196 in order; run after dropping the fill, bulk and lat tables from the cap probe, at which point the database was 7440 kB
+  - [4] 2026-10-22: PgBouncer transaction mode accepts up to 10,000 client connections; pool size defaults to 90% of max_connections
+- sources:
+  - [1] https://neon.com/pricing
+  - [2] https://neon.com/docs/introduction/network-transfer
+  - [3] https://neon.com/docs/introduction/scale-to-zero
+  - [4] https://neon.com/docs/connect/connection-pooling
+  - [5] https://neon.com/docs/reference/claimable-neon
+
+## Nile
+
+- `databases-kv/nile` | qualifies-with-caveat | evidence documented | binding request-rate | category multi-tenant Postgres
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:05:00.000Z (live) | stale on 2026-11-22
+- url https://thenile.dev/pricing | page https://fshy.ajam.dev/p/thenile.md
+- free tier: 50 million query tokens a month, unlimited databases and unlimited tenants per workspace, 1 GB storage included, up to 500 connections, in one region, with no pause on the free tier | unit: tokens | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: 1 GB of storage included on Free, then USD 1.50 per additional GB; no per-database cap is published, because the limits are per workspace and split across unlimited databases | bytes: 1000000000 | source: [1]
+- retention: no deletion clock is published and the free tier does not pause: 'No, the db never pauses. We don't have any cold start time on the free tier.' The page publishes no inactivity or expiry policy for a free database | source: [1] | note: the free column states 1 day of backup retention; that is a backup window and not a data-retention clock
+- egress: no egress allowance and no per-GB transfer line is published; the metered quantity is query tokens and storage | metered: no | source: [1]
+- identity: email | detail: email signup; no card stated for the Free plan
+- interface: rest, cli
+- limits:
+  - request-rate (binding): 50 million query tokens a month, then USD 0.06 per million additional tokens [1]
+  - per-object-cap: 1 GB of storage included, then USD 1.50 per additional GB [1]
+  - request-rate (binding): 500 connections on Free; Pro raises it to 10,000 and Scale to 100,000 [1]
+- binding note: the token counter is the only hard meter. Storage and connections overage are both purchasable on the free tier without changing plan, and no pause or deletion is published, so the counter is what a reader designs against.
+- interface detail: the Postgres wire protocol plus a control-plane API for tenant provisioning
+- tooling: psql and any Postgres client; the Nile SDK
+- composes with: a multi-tenant Postgres where the tenant count is free and the query volume is the meter, which is the opposite shape from a per-database free tier
+- reliability: no pauses and no cold start are claimed on the free tier, and no suspension, throttle or data-loss event is recorded on the pages read
+- notes: A query token is an abstract unit of CPU and memory. The page defines it but does not convert it, so the allowance cannot be expressed in rows or bytes. That is a discretionary meter in the sense that matters. There is no ceiling a reader can design against, only a price per unit. Two properties make the tier more useful than such a ceiling suggests. The limits are per workspace across unlimited databases, so tenant count is not the constraint. Reaching the limit is an overage and not a refusal. No inactivity or expiry policy is published. The free tier is the only one in this topic where the vendor states that it never pauses.
+- evidence note: the pricing page was read for the allowances, the overage rates and the connection counts. The 'never pauses' and the overage-rather-than-refusal answers are the page's own FAQ, read through a search snippet because the collapsed answers do not survive extraction.
+- evidence:
+  - [1] 2026-10-22: Free column: unlimited databases, unlimited tenants, unlimited vector embeddings, 50 million query tokens then USD 0.06 per million, 1 GB storage then USD 1.50 per GB, 500 connections, one region, one branch, 1 day backup retention; Pro USD 15 with 150M tokens, 5 GB and 10,000 connections; Scale USD 350 with 500M tokens, 50 GB and 100,000 connections
+  - [2] 2026-10-22: the FAQ answers, captured through the search index because the page renders them collapsed: 'No, the db never pauses. We don't have any cold start time on the free tier.'; 'most limits are per workspace'; 'You can typically pay for additional capacity without having to move to a higher tier. This is true even when you are on the free tier.'
+  - [3] 2026-10-22: the architecture claim the free tier rests on: storage and compute are decoupled and the database 'scales to zero with no cold start time'
+- sources:
+  - [1] https://www.thenile.dev/pricing
+  - [2] https://www.thenile.dev/pricing#faq
+  - [3] https://thenile.dev/docs/getting-started
+
+## Pinecone
+
+- `databases-kv/pinecone` | qualifies-with-caveat | evidence documented | binding request-rate | category vector database
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:05:00.000Z (live) | stale on 2026-11-22
+- url https://www.pinecone.io/pricing/ | page https://fshy.ajam.dev/p/pinecone.md
+- price USD 0.33/GB-month storage; USD 0.10/GB egress | parsed USD 330/TB-mo
+- free tier: Starter: 2 GB serverless storage, 5 indexes, 1 project, 1 GB egress per month, us-east-1 only | unit: GB | metered on: stored-bytes | read on: 2026-10-22 | source: [1]
+- per-object cap: 2 GB of index storage per organization; 100 namespaces per index | source: [1]
+- retention: an index persists while the plan is active; no deletion clock is published for Starter | source: [1]
+- egress: 1 GB per month on Starter. Builder is 10 GB; Standard includes 100 GB then USD 0.10/GB | metered: yes | free allowance: 1 GB per month | price per TB: USD 0.10/GB on Standard | source: [1]
+- identity: email | detail: email signup; no card on Starter
+- interface: rest, cli
+- limits:
+  - per-object-cap: 2 GB of storage per organization, not per index [1]
+  - request-rate (binding): 1 GB egress per month on Starter [1]
+  - request-rate (binding): 5 indexes, 1 project per organization, us-east-1 only, and 100 namespaces per index [1]
+  - request-rate (binding): no connection limit is published for Starter; recorded as a gap [1]
+  - per-object-cap: 100 namespaces per index [1]
+- interface detail: a REST API for data and control planes; Python, Node and Java SDKs; the pinecone CLI
+- tooling: the Pinecone SDKs and CLI; no Postgres extension path
+- composes with: a free vector index that mostly matters for a workload too large for pgvector on a free Postgres, because pgvector is already available on both Neon and Supabase at no extra cost
+- reliability: no suspension, throttle or data-loss event is recorded on the pages read
+- notes: 2 GB is an organization-level cap and one project is the whole allowance, so there is no way to shard around it. 1 GB a month of egress is 33 MB a day, which a retrieval workload serving embeddings exceeds before the 2 GB of storage matters.
+- evidence note: the pricing comparison table was read on 2026-10-22. The 1 GB monthly egress is on it. The project and index counts are on the pricing page too; they are recorded against it rather than against the object-limits page, which does not state them.
+- evidence:
+  - [1] 2026-10-22: Starter: storage up to 2 GB, egress up to 1 GB/month, indexes up to 5, namespaces per index 100; Builder USD 25 with 10 GB storage and 10 GB egress; Standard unlimited at USD 0.33/GB-month
+- sources:
+  - [1] https://www.pinecone.io/pricing/
+
+## Prisma Postgres
+
+- `databases-kv/prisma-postgres` | qualifies-with-caveat | evidence documented | binding request-rate | category serverless Postgres with a compute layer
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:05:00.000Z (live) | stale on 2026-11-22
+- url https://www.prisma.io/pricing | page https://fshy.ajam.dev/p/prisma.md
+- price USD 8 per million operations; storage USD 2.00/GB beyond 10 GB on Starter
+- free tier: 200,000 operations per month, 2 GB storage, 50 databases, 10 direct connections, and Prisma Compute with 1 million requests | unit: mixed | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: 2 GB storage on Free; 10 connections direct and 10 pooled | source: [1]
+- retention: a database persists while the plan is active; the Accelerate cache retires on 2026-12-01 | source: [1]
+- egress: the database itself has no egress fee on any published plan; Prisma Compute includes 10 GB of outbound bandwidth a month and then USD 0.025 per GB | metered: yes | free allowance: no database egress fee; 10 GB per month on Prisma Compute | source: [1]
+- identity: email | detail: email signup; no card on Free
+- interface: rest, cli
+- limits:
+  - request-rate (binding): 200,000 operations per month; every query is one operation [1]
+  - request-rate (binding): 10 direct connections and 10 pooled connections on Free [1]
+  - per-object-cap: 2 GB storage [1]
+- limits note: connection idle timeout is 60 minutes
+- interface detail: the Postgres wire protocol; the Prisma ORM; a Management API
+- tooling: the Prisma ORM, psql, any Postgres client
+- composes with: 50 databases on one free account is the widest per-tenant fan-out in this class, if 10 connections per database is enough
+- reliability: no suspension, throttle or data-loss event is recorded on the pages read
+- notes: 200,000 operations a month is 6,667 a day, which is a prototype and not a service. The 10-connection ceiling is the second wall and it is the one that shows up when a pooler is added and the pool itself is the limit.
+- evidence note: the pricing page's plan table was read on 2026-10-22, and the 10-connection ceiling is on it beside the operation count and the storage allowance.
+- evidence:
+  - [1] 2026-10-22: Free: 200k operations, 2 GB storage, 50 databases, connection limit pooled 10, connection limit direct 10, connection idle timeout 60 minutes, data transfer unlimited; Prisma Compute Free 1M requests, 360 GB-hours provisioned memory, 4 vCPU-hours active CPU, 10 GB outbound bandwidth
+- sources:
+  - [1] https://www.prisma.io/pricing
+
+## Railway (Databases and KV)
+
+- `databases-kv/railway` | qualifies-with-caveat | evidence documented | binding volume-quota | category application platform with attached Postgres
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T00:44:00.367Z (live) | stale on 2026-12-03
+- url https://railway.com/pricing | page https://fshy.ajam.dev/p/railway.md
+- free tier: Free plan: "Free. $0/month with $1 of monthly usage credits." A new account starts on the Free Trial, "$5 in credits for 30 days", and reverts to Free when the 30 days pass or the $5 is spent; the $1 does not roll over. | unit: credits | metered on: none | read on: 2026-11-02 | source: [1] | note: metered on spend: the USD 1 monthly credit is drawn down by CPU, memory and disk usage billed per second and by outgoing bandwidth billed per GB
+- per-object cap: 500 MB maximum volume size on Free, with 1 vCPU and 0.5 GB of RAM per service; the USD 1 a month of credit is the total ceiling
+- retention: a Trial account's stateful volumes are deleted 30 days after its credits expire unless the account upgrades; the plans FAQ gives 30 days after expiry for the Free or Trial plan; unverified: what counts as expiry for a Free plan | days: 30 | source: [1] | note: the trial credit covers 30 days; a service stopped for a usage limit, exhausted trial credits or a failed payment keeps its attached volume
+- egress: usage is billed against the credit balance | metered: yes | source: [1]
+- identity: email | detail: sign-in with GitHub, Google or an email address; no card for the Free Trial or the Free plan it reverts to; a verified GitHub account gives the Full Trial, otherwise the Limited Trial restricts outbound network access
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): USD 1 per month of usage after the 30-day trial credit [1]
+- binding note: the USD 1 a month of credit runs out first: at USD 10 per GB-month of memory it pays for 0.1 GB-month of memory, before any CPU, volume or egress charge, and it does not roll over
+- interface detail: the Postgres wire protocol on a private network; a GraphQL API and the railway CLI
+- tooling: psql, the railway CLI
+- composes with: the next step above the Free plan is the Hobby plan at USD 5 a month, which includes USD 5 of usage
+- reliability: a Trial account's stateful volumes are deleted 30 days after its credits expire unless the account upgrades
+- notes: a service with Serverless enabled sleeps between 5 and 10 minutes after its last outbound traffic and is woken by inbound traffic from the internet or the project's private network, which can lower the usage billed; the first request to a slept service may return a 502
+- evidence note: the pricing page was read.
+- evidence:
+  - [1] 2026-10-22: USD 5 one-time trial credit for 30 days, then USD 1/month non-rollover; 1 vCPU and 0.5 GB per service
+  - [1] 2026-10-30: the Free plan is $0 a month with $1 of usage credits every month | capture: sha256:a447bf6dcec0e33ac832501bea8da08c08de6207b329144aae1db9e4200d2c8a | quote: Free — $0/month with $1 of monthly usage credits. Up to 1 vCPU / 0.5 GB per service, 1 replica, and 3-day log history.
+  - [1] 2026-10-30: the trial needs no card, and the trial reverts to the Free plan without one | capture: sha256:a447bf6dcec0e33ac832501bea8da08c08de6207b329144aae1db9e4200d2c8a | quote: Free Trial — $5 in credits for 30 days to try Railway. No credit card required.
+  - [2] 2026-10-30: the login page offers GitHub, Google and an email address | capture: sha256:725ccaea03216341ca79184230f9064e1be3a53ae2f7f2a6fa40429ed3e705eb | quote: Log in using email
+  - [3] 2026-10-30: the trial falls back to the Free plan with $1 of credit a month, with no payment step named | capture: sha256:5692ce75daa79cbc25bf9e09c644b2cff31426210043730a9c090426050a9c90 | quote: After 30 days passes or $5 is spent, the free trial reverts to the [Free](/pricing/plans#plans) plan, which provides $1 of free credit per month.
+  - [3] 2026-10-30: a verified GitHub account is what lifts the Limited Trial network restrictions | capture: sha256:5692ce75daa79cbc25bf9e09c644b2cff31426210043730a9c090426050a9c90 | quote: If you connect your GitHub account, and we are able to verify it against a set of parameters, you will be on the Full Trial with full network access.
+  - [4] 2026-10-30: the plans reference states the Free plan's $1 of free credit per month | capture: sha256:6bd4f11e5abbd59b3edbf962fb70e33fed86682e2b8b5d0190adedeb6fabbd17 | quote: For running small apps with $1 of free credit per month
+  - [3] 2026-11-02: the one-time $5 trial reverts to the Free plan, which gives $1 of credit every month | capture: sha256:5692ce75daa79cbc25bf9e09c644b2cff31426210043730a9c090426050a9c90 | quote: After 30 days passes or $5 is spent, the free trial reverts to the [Free](/pricing/plans#plans) plan, which provides $1 of free credit per month.
+  - [1] 2026-11-02: the Free plan is $0 a month with $1 of usage credits every month | capture: sha256:a447bf6dcec0e33ac832501bea8da08c08de6207b329144aae1db9e4200d2c8a | quote: Free — $0/month with $1 of monthly usage credits. Up to 1 vCPU / 0.5 GB per service, 1 replica, and 3-day log history.
+  - [1] 2026-11-02: memory is billed at $10 per GB per month | capture: sha256:a447bf6dcec0e33ac832501bea8da08c08de6207b329144aae1db9e4200d2c8a | quote: | Memory | $0.00000386 per GB/s | $10 per GB |
+  - [1] 2026-11-02: platform limits table, Free row: 1 project, 3 services, 1 member, 500 MB maximum volume size, 0 custom domains, 1 concurrent build | capture: sha256:a447bf6dcec0e33ac832501bea8da08c08de6207b329144aae1db9e4200d2c8a | quote: | Free | 1 | 3 | 1 | 500 MB | 0 | 1 |
+  - [3] 2026-11-02: a Trial account's stateful volumes are deleted 30 days after its credits expire unless the account upgrades | capture: sha256:5692ce75daa79cbc25bf9e09c644b2cff31426210043730a9c090426050a9c90 | quote: Railway deletes stateful volumes created by Trial accounts 30 days after the expiration of your credits. To retain your data, upgrade your account after the Trial period.
+  - [5] 2026-11-02: a service stopped for a usage limit, exhausted trial credits or a failed payment keeps its attached volume | capture: sha256:295c311e3c64c9575449b5a5a09c0597dec1b5d1bd4a6729c50e194b2b196e34 | quote: Note: Although Railway will remove your deployment for any of the above reasons, Railway will not remove the [volume](/overview/the-basics#volumes) attached to the service.
+  - [1] 2026-11-02: the Hobby plan is $5 a month with $5 of included usage | capture: sha256:a447bf6dcec0e33ac832501bea8da08c08de6207b329144aae1db9e4200d2c8a | quote: | Hobby | $5 | $5/month | 48 vCPU / 48 GB | 6 | 7 days |
+  - [6] 2026-11-02: a service with Serverless enabled sleeps between 5 and 10 minutes after its last outbound traffic | capture: sha256:d67ce170697c3e0a7d4262da320b1979712f15303a82a3974f232f6ecfa84fb8 | quote: Once a service stops sending packets it is considered inactive after 5 minutes. Inactivity is sampled on an interval rather than measured continuously, so in practice a service sleeps somewhere between 5 and 10 minutes after its last outbound traffic.
+  - [1] 2026-11-02: usage is billed on CPU, memory and disk per second and on outgoing bandwidth per GB | capture: sha256:a447bf6dcec0e33ac832501bea8da08c08de6207b329144aae1db9e4200d2c8a | quote: Railway charges per-second for the CPU, memory, and disk your services actually use. No overprovisioning, no idle markup, no surprises. Outgoing bandwidth and object storage are billed per GB.
+  - [7] 2026-11-02: the vendor's own post (dated 2025-08-27) says the $1 monthly credit follows the trial every month and is enough to run a small app | capture: sha256:00a5c678429e54555d97696a95ad8ed00b6745057e52b540d8c60010f3e88418 | quote: After $5 or 30 days, we will fund your account with $1 of non-rollover credits each month. This is enough to run a small app for free in perpetuity.
+  - [3] 2026-11-02: the $1 monthly credit does not roll over | capture: sha256:5692ce75daa79cbc25bf9e09c644b2cff31426210043730a9c090426050a9c90 | quote: The credit does not roll over month to month.
+  - [4] 2026-11-02: the plans FAQ gives 30 days after expiry as the volume deletion time for the Free or Trial plan | capture: sha256:6bd4f11e5abbd59b3edbf962fb70e33fed86682e2b8b5d0190adedeb6fabbd17 | quote: | Free or Trial plan | 30 days after expiry |
+  - [5] 2026-11-02: the pricing FAQ answers yes to trying Railway without a credit card, with a one-time $5 grant | capture: sha256:295c311e3c64c9575449b5a5a09c0597dec1b5d1bd4a6729c50e194b2b196e34 | quote: Can I try Railway without a credit-card? Yes. As a new Railway user, you can sign up for a [Free Trial](/pricing/free-trial). You will receive a one-time grant of $5 to use on resources.
+  - [2] 2026-11-02: the login page offers GitHub, Google and email sign-in | capture: sha256:725ccaea03216341ca79184230f9064e1be3a53ae2f7f2a6fa40429ed3e705eb | quote: Continue with GitHub Continue with Google Log in using email
+  - [6] 2026-11-02: a slept service is woken by traffic from the internet or from another service of the project over the private network | capture: sha256:d67ce170697c3e0a7d4262da320b1979712f15303a82a3974f232f6ecfa84fb8 | quote: A service is woken when it receives traffic from the internet or from another service in the same project through the [private network](/networking/private-networking).
+  - [6] 2026-11-02: the first request to a slept service may return a 502 | capture: sha256:d67ce170697c3e0a7d4262da320b1979712f15303a82a3974f232f6ecfa84fb8 | quote: The first request sent to a slept service may return a 502 Bad Gateway response.
+- sources:
+  - [1] https://railway.com/pricing
+  - [2] https://railway.com/login
+  - [3] https://docs.railway.com/pricing/free-trial
+  - [4] https://docs.railway.com/reference/pricing/plans
+  - [5] https://docs.railway.com/pricing/faqs
+  - [6] https://docs.railway.com/deployments/serverless
+  - [7] https://blog.railway.com/p/free-plan
+
+## Supabase (Databases and KV)
+
+- `databases-kv/supabase` | qualifies-with-caveat | evidence documented | binding retention-clamped | category managed Postgres with auth and storage
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:05:00.000Z (live) | stale on 2026-11-22
+- url https://supabase.com/pricing | page https://fshy.ajam.dev/p/supabase.md
+- free tier: 500 MB database on Shared CPU with 500 MB RAM; 2 active projects; 5 GB egress and 5 GB cached egress; unlimited API requests | unit: mixed | metered on: stored-bytes | read on: 2026-10-22 | source: [1]
+- per-object cap: 500 MB per project database | source: [1]
+- retention: a Free project is paused after 1 week of low activity, and is restorable for up to 1 year after the pause. A paid project is never paused | days: 7 | source: [2] | note: the pause trigger is activity, not age: a few user requests a day over the previous week keep it awake
+- egress: 5 GB egress and 5 GB cached egress per month included. The Free plan publishes no overage price, so the fifth gigabyte is a wall and not a bill | metered: no | free allowance: 5 GB egress, 5 GB cached egress | source: [1]
+- identity: email | detail: email signup; no card on Free
+- interface: rest, cli
+- limits:
+  - retention-clamped (binding): paused after 1 week of low activity; restorable for up to 1 year [2]
+  - per-object-cap: 500 MB per database [1]
+  - request-rate: 2 active projects per account; paused projects do not count against the limit [3]
+  - request-rate: 5 GB egress per month with no published overage path on Free [1]
+  - request-rate: connections are set by the compute size and not published as a single number; the free plan runs Nano compute with up to 0.5 GB of RAM, and the pooler queues above the direct limit rather than raising it [4]
+- limits note: the shared pooler is IPv4-only on every plan; a direct connection is IPv6-only without the paid IPv4 add-on, so an IPv4-only host must use the pooler
+- interface detail: Postgres wire protocol; a PostgREST data API; a Management API and the Supabase CLI
+- tooling: psql and any Postgres client; the supabase CLI; PostgREST over HTTP
+- composes with: a free Postgres plus free auth plus free object storage in one project, which is the whole reason to pick it over a bare Postgres
+- reliability: two warning emails precede an automatic pause, one about a week ahead and one on the pause; restore is a dashboard action, not an API call on the free plan
+- notes: The pause is the finding, and it is a 7-day activity clock rather than a 30-day deletion. A weekly cron that touches the database keeps it alive; a monthly one loses a week of availability every cycle. The restore window is 1 year, so the data is not at risk the way a deletion would put it at risk.
+- evidence note: the pricing page and the pausing guide were read; nothing was provisioned. The 90-day restore window stated in the 2024-06-24 changelog has since been widened to 1 year.
+- evidence:
+  - [1] 2026-10-22: 500 MB database, 2 active projects, 5 GB egress, 5 GB cached egress, 'Free projects are paused after 1 week of inactivity', and the plan table row Pausing: After 1 week of inactivity
+  - [2] 2026-10-22: 'Supabase pauses Free Plan projects that show low activity over a 7-day period'; restore is available 'for up to 1 year after it was paused'; a few user requests a day over a week prevent…
+  - [3] 2026-10-22: two free projects across all organizations where you are Owner or Administrator; paused projects do not count toward the free project limit
+  - [5] 2026-10-22: the 2024-06-24 change set the restore window at 90 days, which the current doc has since widened to 1 year
+  - [6] 2026-10-22: the shared Supavisor pooler is multi-tenant and IPv4-only; the dedicated PgBouncer pooler needs a paid plan
+  - [4] 2026-10-22: Nano compute is the free plan at USD 0 with up to 0.5 GB of RAM and a recommended 500 MB database; 'Database max connections are recommended values and can be customized via max_connections', so the compute size sets the count
+- sources:
+  - [1] https://supabase.com/pricing
+  - [2] https://supabase.com/docs/guides/platform/free-project-pausing
+  - [3] https://supabase.com/docs/guides/platform/billing-on-supabase
+  - [4] https://supabase.com/docs/guides/platform/compute-and-disk
+  - [5] https://supabase.com/changelog/27497-paused-free-plan-projects-are-restorable-for-90-days
+  - [6] https://supabase.com/docs/guides/database/connecting-to-postgres/pooling-and-limits
+
+## Weaviate Cloud
+
+- `databases-kv/weaviate-cloud` | qualifies-with-caveat | evidence documented | binding per-object-cap | category vector database
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:05:00.000Z (live) | stale on 2026-11-22
+- url https://weaviate.io/pricing | page https://fshy.ajam.dev/p/weaviate.md
+- free tier: 1 cluster per user, 100,000 objects, 1 GB memory, 10 GB disk, 1 collection, up to 3 tenants, always free | unit: objects | metered on: object-count | read on: 2026-10-22 | source: [1]
+- per-object cap: 100,000 objects per cluster; 1 collection | source: [2]
+- retention: always free, with no deletion clock published | source: [2]
+- egress: not published on the pricing page; recorded as a gap | metered: no | source: [2]
+- identity: email | detail: email signup; no card on Free
+- interface: rest, cli
+- limits:
+  - per-object-cap (binding): 100,000 objects and one collection [2]
+  - request-rate: one cluster per user; three tenants [2]
+  - request-rate: no connection limit is published for the sandbox; recorded as a gap [3]
+- interface detail: a REST API and GraphQL; Python, TypeScript, Java and Go clients
+- tooling: the weaviate-client libraries; GraphQL for queries
+- composes with: the only free vector tier that caps objects rather than bytes, so it is the right shape for many small records and the wrong shape for a few large ones
+- reliability: no suspension, throttle or data-loss event is recorded on the pages read
+- notes: One collection is the constraint that decides it. A multi-tenant design that needs a collection per tenant stops at one, and a single collection with 100,000 objects is a small index.
+- evidence note: the pricing page was read.
+- evidence:
+  - [1] 2026-10-22: Free: 'Always free - 1 cluster per user'; '100,000 objects - 1 GB memory - 10 GB disk'; '1 collection, up to 3 tenants'; the comparison table repeats object limit 100,000 and collection limit 1
+- sources:
+  - [1] https://weaviate.io/pricing
+  - [2] https://weaviate.io/pricing/
+  - [3] https://www.weaviate.io/pricing
+
+## Chroma Cloud
+
+- `databases-kv/chroma-cloud` | trial-only | evidence documented | binding volume-quota | category vector database
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T00:44:00.366Z (live) | stale on 2026-12-03
+- url https://www.trychroma.com/pricing | page https://fshy.ajam.dev/p/trychroma.md
+- free tier: Starter plan, $0/month + usage: "per month + $5 in free credits"; "Free credits then usage-based pricing." The $5 is offered to new users and "in most cases your credits do not expire". | unit: credits | metered on: none | read on: 2026-11-01 | source: [1] | note: metered on spend: the USD 5 credit is spent against usage billed on four meters, USD 2.50 per GiB written, USD 0.33 per GiB per month stored, USD 0.0075 per TiB queried and USD 0.09 per GiB returned
+- per-object cap: 16,384 bytes per document, a Chroma Cloud quota; the total allowance is the credit | bytes: 16384
+- retention: until the credits are spent | source: [1]
+- egress: usage-based and metered out of the same USD 5 credit as storage and queries. The credit is the only ceiling, and no separate egress allowance applies | metered: yes | source: [1]
+- identity: email | detail: sign-in with a GitHub or Google account; the sign-up page shows no card field; a vendor video posted 2025-06-30 says the USD 5 of free credits needs no credit card and says to add a credit card to keep using the service after the trial; the pricing FAQ lists credit card as the payment method for Starter and Team
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): USD 5 of credits, which is a spend cap and not a tier [1]
+- binding note: the one-time USD 5 credit runs out first: it is counted per account across all collections, and at USD 2.50 per GiB written it pays for 2 GiB of writes before any storage, query or returned-data charge
+- interface detail: a REST API; Python and JS clients; the open-source server is self-hostable
+- tooling: the chromadb client libraries
+- composes with: the hosted Starter plan is a USD 5 credit for new accounts with usage-based billing after it; the open-source core, which the user installs and runs on a rented or free machine, is the last resort
+- reliability: a usage limit, whether set by the customer or by Chroma, pauses the service until the limit is changed
+- notes: Advertised as free and it is a trial. The $5 is a spend cap, and a spend cap that small is a fortnight of a real index rather than a tier.
+- evidence note: the pricing page was read.
+- evidence:
+  - [1] 2026-10-22: Starter is listed at USD 0 plus USD 5 of free credits, with usage-based billing after
+  - [1] 2026-10-30: the Starter plan is $0 a month and carries $5 in free credits | capture: sha256:c49f0b333a3fbc2b7e92125e3aed7fc6309d3ef71c25b37f792beab43882df36 | quote: Starter planper month + $5 in free credits
+  - [1] 2026-10-30: the Starter plan opens with free credits and bills usage after them | capture: sha256:c49f0b333a3fbc2b7e92125e3aed7fc6309d3ef71c25b37f792beab43882df36 | quote: Get up and running quickly. Free credits then usage-based pricing.
+  - [1] 2026-10-30: the pricing FAQ says unused credits do not expire in most cases; only the Team plan's $100 of included usage does not roll over | capture: sha256:43921cc7f783222b515df09cd531d466d63d0278672125408e450bdba254ed86 | quote: Yes, in most cases your credits do not expire.
+  - [2] 2026-10-30: the free allowance is $5 of credits given to new users, not a monthly grant | capture: sha256:081c269e256353312de4697e42bf34dc7e4b852b607d502fc671d35ee13cb15c | quote: We offer \$5 in credits to new users.
+  - [3] 2026-11-01: the vendor's own video (channel Chroma, posted 2025-06-30) says the $5 of free credits needs no credit card at sign-up | capture: sha256:7db971ba019bc1b1a6dd0b07ffc1e8a9d79edea5677eca36677211e0cdb2533a | quote: Sign up for Chroma Cloud and get $5 in free credits, no credit-card required.
+  - [2] 2026-11-01: the docs FAQ states the free allowance is $5 of credits offered to new users | capture: sha256:b7abca4cb0eac61f54dd1b7014b71b91ba4986d7894ee88136381973d2ec1468 | quote: We offer \$5 in credits to new users.
+  - [2] 2026-11-01: writes are billed at $2.50 per logical GiB | capture: sha256:b7abca4cb0eac61f54dd1b7014b71b91ba4986d7894ee88136381973d2ec1468 | quote: Chroma Cloud charges \$2.50 per logical GiB written via an add, update, or upsert.
+  - [4] 2026-11-01: the quotas page caps a document at 16,384 bytes | capture: sha256:eafa85c0bc726c7d932b6c0dbc71434f4614650e28159f32e40c731cdaa32cb6 | quote: | Maximum document bytes | 16,384 |
+  - [1] 2026-11-01: the pricing page lists four usage meters: GiB written, GiB per month stored, TiB queried and GiB returned, with their rates | capture: sha256:c49f0b333a3fbc2b7e92125e3aed7fc6309d3ef71c25b37f792beab43882df36 | quote: Writeper GiB written $2.50 Storageper GiB per month $0.33 Queryper TiB queried $0.0075 Networkper GiB returned $0.09
+  - [1] 2026-11-01: a usage limit set by the customer or by Chroma pauses the service until the limit is changed | capture: sha256:12442e9f20d21375035737c06f4d2013019084c374ab064b5012dcb7fa6f1756 | quote: There are 2 kinds of usage-limits. Customer set usage limits and Chroma set usage limits. Both result in a pausing of the service until the limit is changed.
+  - [1] 2026-11-01: the Starter plan opens with free credits and bills usage after them | capture: sha256:c49f0b333a3fbc2b7e92125e3aed7fc6309d3ef71c25b37f792beab43882df36 | quote: Get up and running quickly. Free credits then usage-based pricing.
+  - [1] 2026-11-01: the Starter plan is listed at $0 a month with $5 in free credits | capture: sha256:c49f0b333a3fbc2b7e92125e3aed7fc6309d3ef71c25b37f792beab43882df36 | quote: Starter planper month + $5 in free credits
+  - [3] 2026-11-01: the vendor's video says a credit card is added to keep using Chroma after the trial credits | capture: sha256:d72f753292cffae938c85ceca17b8c89d4705029e6ced744fc1e34c199f0578c | quote: To keep using Chroma after the trial, just add your credit card.
+  - [5] 2026-11-01: the sign-up page offers GitHub and Google sign-in and shows no card field | capture: sha256:939d08a1289fd5abed52ff54fa79b7d1776ce524612b0573288b335fee27fb50 | quote: [Continue with Github](https://backend.trychroma.com/api/v1/auth/github/signup)[Continue with Google](https://backend.trychroma.com/api/v1/auth/google/signup)
+  - [1] 2026-11-01: the pricing FAQ lists credit card as the payment method for the Starter and Team plans | capture: sha256:12442e9f20d21375035737c06f4d2013019084c374ab064b5012dcb7fa6f1756 | quote: Currently Chroma accepts credit card for Starter and Team plans. Enterprise plans have configurable billing methods.
+  - [2] 2026-11-01: billing is per account, with all collections and tenants of an account aggregated | capture: sha256:b7abca4cb0eac61f54dd1b7014b71b91ba4986d7894ee88136381973d2ec1468 | quote: Billing is account-based. All data across your collections and tenants within a Chroma Cloud account is aggregated for pricing.
+  - [6] 2026-11-02: the current getting-started docs advertise Chroma Cloud with $5 in free credits included | capture: sha256:601ad5d1f0dc3b9096721f703183e880a3739e64f7989deaf9873b52e1e93c88 | quote: Get started in 30 seconds - \$5 in free credits included.
+- sources:
+  - [1] https://www.trychroma.com/pricing
+  - [2] https://docs.trychroma.com/cloud/pricing
+  - [3] https://www.youtube.com/watch?v=CCYpwEV7wVY
+  - [4] https://docs.trychroma.com/cloud/quotas-limits
+  - [5] https://www.trychroma.com/signup
+  - [6] https://docs.trychroma.com/docs/overview/getting-started
+
+## Xata (Databases and KV)
+
+- `databases-kv/xata` | trial-only | evidence documented | binding retention-clamped | category managed Postgres with branching
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22T03:05:00.000Z (live) | stale on 2026-11-22
+- url https://xata.io/pricing | page https://fshy.ajam.dev/p/xata.md
+- price USD 0.28/GB-month storage, micro compute USD 9/month equivalent | parsed USD 280/TB-mo
+- free tier: no free tier; Xata Cloud starts with a 14-day free trial, then pay as you go | unit: none | metered on: none | read on: 2026-10-22 | source: [1] | note: the open-source core is free to self-host and is a different product from Xata Cloud
+- per-object cap: not applicable: the trial bills by branch-hour and GB-month rather than capping an object
+- retention: the trial ends after 14 days; a credit card is required after it to keep the database | days: 14 | source: [1]
+- egress: not published on the pricing page; recorded as a gap | metered: no | source: [1]
+- identity: card | detail: email for the trial; a credit card after it to stay on pay as you go
+- interface: rest, cli
+- limits:
+  - retention-clamped (binding): 14-day trial; the always-free 15 GB tier is retired [1]
+- interface detail: Postgres wire protocol plus an HTTP data API and a CLI
+- tooling: psql and any Postgres client; the xata CLI
+- composes with: no path: a 14-day trial cannot anchor a workload that has to outlive a fortnight
+- reliability: no suspension, throttle or data-loss event is recorded on the pages read
+- notes: Any corpus that still lists Xata's 15 GB always-free tier is describing a plan that no longer exists.
+- evidence note: the pricing page states the 14-day trial in its own FAQ answer; the 15 GB free tier that aggregators still print is not on the page.
+- evidence:
+  - [1] 2026-10-22: 'Open source is free forever. Xata Cloud starts with a 14-day free trial. Add a credit card after the trial to keep using Xata on Pay As You Go'; micro instance USD 0.012/hr, storage USD 0.28/GB-month
+- sources:
+  - [1] https://xata.io/pricing
+
+## Fauna
+
+- `databases-kv/fauna` | dead | evidence measured | binding write-gated | category document database
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:05:00.000Z (live) | stale on 2026-12-22
+- url https://fauna.statuspage.io/ | page https://fshy.ajam.dev/p/statuspage.md
+- free tier: none. The service is shut down | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable: the service no longer exists
+- retention: the service was shut down on 2025-05-30 | days: 0 | source: [1]
+- egress: not applicable: the service no longer exists | metered: no | source: [1]
+- identity: anonymous | detail: no registration is possible
+- interface: rest
+- limits:
+  - write-gated (binding): the service shut down on 2025-05-30; no new databases can be created [1]
+- interface detail: the service is offline; the FQL API no longer answers
+- tooling: none; the recommended path was to export before the shutdown
+- composes with: no path: the provider is gone
+- reliability: the provider announced in March 2025 that it could not raise the capital to keep running, and shut down on 2025-05-30
+- notes: A well-known serverless database whose free tier no longer exists: the service shut down on 2025-05-30. The record stays so that the name is answered with its evidence instead of being researched again.
+- evidence note: Fauna's own status page returned 200 with the banner 'The Fauna Service is shut down'.
+- evidence:
+  - probe:https://fauna.statuspage.io/ 2026-10-22: 200, 2989 bytes, carrying 'The Fauna Service is shut down' and linking the shutdown incident; read 2026-10-22
+  - [2] 2026-10-22: the end-of-life FAQ was in search index and now returns 530, consistent with a withdrawn service
+- sources:
+  - [1] https://fauna.statuspage.io/
+  - [2] https://docs.fauna.com/fauna/current/eol-faq/
+
+## PlanetScale (Databases and KV)
+
+- `databases-kv/planetscale` | dead | evidence documented | binding write-gated | category managed MySQL
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22T03:05:00.000Z (live) | stale on 2026-11-22
+- url https://support.planetscale.com/hc/en-us/articles/32303734121239 | page https://fshy.ajam.dev/p/planetscale.md
+- free tier: none. No free plan; every database must be on a paid plan from creation | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable: there is no free tier to cap
+- retention: not applicable; a paid database accrues charges from creation until it is deleted | source: [1]
+- egress: network transfer is billed separately from the SKU rate | metered: yes | source: [2]
+- identity: card | detail: a payment method, because the cheapest database is billable at creation
+- interface: rest, cli
+- limits:
+  - write-gated (binding): every database is paid from creation; no free tier exists [1]
+- interface detail: the MySQL wire protocol; a platform API and the pscale CLI
+- tooling: any MySQL client, the pscale CLI
+- composes with: no path on a zero budget; cheapest published SKU is PS-10 arm64 at USD 30 a month
+- reliability: the Hobby plan was deprecated in March 2024 and remaining databases were slept; a 24-hour wake was offered to dump data
+- notes: Every 'PlanetScale free tier' listicle is describing a plan that closed in March 2024.
+- evidence note: PlanetScale's own support answer and its plans doc were read.
+- evidence:
+  - [1] 2026-10-22: 'Not at this time.' The free Hobby plan was deprecated in March 2024; all databases must be placed on a paid Scaler Pro plan when created
+  - [3] 2026-10-22: 'PlanetScale does not offer a free plan, previously known as the Developer or Hobby plan'
+  - [2] 2026-10-22: cheapest published SKU PS-10 arm64 1/8 vCPU 1 GiB at USD 30 a month, x86-64 at USD 39
+- sources:
+  - [1] https://support.planetscale.com/hc/en-us/articles/32303734121239
+  - [2] https://www.planetscale.com/pricing
+  - [3] https://planetscale.com/docs/planetscale-plans
+
+## Tembo (Databases and KV)
+
+- `databases-kv/tembo` | dead | evidence documented | binding request-rate | category Postgres platform with an agent runtime
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T01:29:53.963Z (live) | stale on 2026-12-04
+- url https://www.tembo.io/pricing/ | page https://fshy.ajam.dev/p/tembo.md
+- free tier: No stated free allowance at https://www.tembo.io/pricing/: a Free trial at $0 ("Get started with a free trial.") with no amount or length given, then Pro at $60/month or Max at $200/month. | unit: none | metered on: none | read on: 2026-10-30 | source: [1]
+- per-object cap: no cap published; the allowance is denominated in dollars
+- retention: the trial lasts until the allowance is spent; paid plans are Pro at USD 60 a month and Max at USD 200 | source: [1]
+- egress: drawn from the same dollar allowance as compute and model usage | metered: yes | source: [1]
+- identity: email | detail: email signup for the trial
+- interface: rest, cli
+- limits:
+  - request-rate (binding): a free trial with no stated allowance; Pro at USD 60 a month includes USD 90 of usage a month and Max at USD 200 a month includes USD 400 [1]
+- interface detail: the Postgres wire protocol for the database; an agent runtime over the same workspace
+- tooling: psql, the Tembo CLI
+- composes with: no path as a database; the product has moved to an agent workspace with cloud VMs
+- reliability: the product was replaced by an agent workspace, so no reliability event at a Postgres host applies to it
+- notes: The product is now an agent workspace rather than a Postgres host.
+- evidence note: the pricing page was read and carries no perpetual free tier.
+- extras:
+  - death.on: 2026-10-30
+  - death.cause: dead-service
+- evidence:
+  - [1] 2026-10-30: the pricing page lists a Free trial at $0 with no amount or length of allowance | capture: sha256:32854ab30df95eedecc4dcfc32be30c0da0b942c1c47f24eea81ef737dce31d6 | quote: Free trial Get started with a free trial. $0
+  - [1] 2026-10-30: the pricing page states Pro includes $90 and Max $400 of usage a month, on plan prices of $60 and $200 | capture: sha256:32854ab30df95eedecc4dcfc32be30c0da0b942c1c47f24eea81ef737dce31d6 | quote: Pro includes $90 per month and Max includes $400 per month.
+  - [1] 2026-10-30: the pricing FAQ names the trial without an allowance amount | capture: sha256:79fda55b61d449e4b93f2428126c7f44a37e3c9da40722683ba4940dc6128293 | quote: The free trial lets you try Tembo before choosing a paid plan.
+  - [2] 2026-10-30: the docs give the trial an included allowance without an amount | capture: sha256:c1472552948ea4a848cfa15915d8666c71dbced5b75184c749ebeeaeab2f6ee6 | quote: Free trial: included usage allowance, up to 10 users, sandbox size up to `xl`, and priority support
+  - [3] 2026-10-30: Tembo Cloud, the managed Postgres service, was sunset; the same page's timeline disabled instance creation on May 5, 2025 and set the paid instance migration deadline at June 27, 2025 | capture: sha256:04740fa1d6b0ce8ba8de02830aca55e07df7305ccdf8c37c65205213336b7595 | quote: We're now in the process of sunsetting Tembo Cloud, as we take a bold step toward the future.
+  - [3] 2026-10-30: paid Tembo Cloud Postgres instances had to migrate off by June 27, 2025 | capture: sha256:04740fa1d6b0ce8ba8de02830aca55e07df7305ccdf8c37c65205213336b7595 | quote: | June 27, 2025 | Paid instance migration deadline |
+  - [4] 2026-11-03: the pricing page FAQ states the same USD 90 and USD 400 monthly allowances as the docs page | capture: sha256:6698539f3a4d814ab1c9a31400f94dfe1f758a6bbe1c181f92abd844cf1bc4e1 | quote: Pro includes $90 per month and Max includes $400 per month.
+  - [2] 2026-11-03: the docs page agrees: Pro at USD 60 a month includes a USD 90 allowance | capture: sha256:d9142cae072dcf94e5a760bdca25365a22bc6d793d723888efd447990a3addc5 | quote: * Pro (\$60/month): \$90 monthly usage allowance, up to 5 users, sandbox size up to `medium`, with overage billing
+- sources:
+  - [1] https://www.tembo.io/pricing/
+  - [2] https://docs.tembo.io/resources/pricing
+  - [3] https://tembo-io.notion.site/Tembo-Cloud-Migration-Guide-1de7c9367d6a80349570e7469ba7f17b
+  - [4] https://www.tembo.io/pricing

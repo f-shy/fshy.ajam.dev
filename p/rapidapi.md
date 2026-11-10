@@ -1,0 +1,81 @@
+# Meteostat
+
+> rapidapi.com | Data APIs; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/rapidapi/ | JSON https://fshy.ajam.dev/api/v1/entity/rapidapi.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Meteostat
+
+- `data-apis/meteostat-json-api` | qualifies-with-caveat | evidence documented | binding request-rate | category weather API | tier Basic (RapidAPI)
+- needs card unknown, phone no, ID no, institution no | verified 2026-11-03T00:28:34.561Z (live) | stale on 2026-12-04
+- url https://rapidapi.com/meteostat/api/meteostat/pricing
+- free tier: Basic plan on RapidAPI: 500 requests a month as a hard limit, 3 requests a second, and 10,240 MB a month of bandwidth, then USD 0.001 per MB. | unit: requests | metered on: request-count | read on: 2026-10-31 | source: [1] | note: Over the quota the API answers HTTP 429. The same station and point history is in the keyless bulk files (data-apis/meteostat).
+- per-object cap: not applicable
+- retention: not applicable: the unit is a request | source: [1]
+- egress: 10,240 MB a month of bandwidth on the Basic plan, then USD 0.001 per MB | metered: yes | free allowance: 10,240 MB a month | price per TB: unverified: per-MB price only | source: [1]
+- identity: email | detail: A RapidAPI account (username, email and password, or a GitHub or Google sign-up) and a subscription to the Basic plan. In the RapidAPI Hub's data the Basic plan has the pricing type FREE (one hard request limit, no overage price), and the Hub's subscribe dialog for a FREE plan reads "No need to add any payment method"; the Hub lists the API as a whole as FREEMIUM, Rapid's docs say a Freemium API needs a credit card even for its free plan, and Rapid's terms place a USD 0.50 hold on the card for freemium plans. Whether subscribing to the Basic plan asks for a card is unverified: behind a sign-up; the dialog text is from the Hub's code and no subscription was observed.
+- interface: rest
+- limits:
+  - request-rate (binding): 500 requests a month, hard limit [2]
+  - request-rate (binding): 3 requests a second [1]
+  - volume-quota: 10,240 MB a month of bandwidth, then USD 0.001 per MB [1]
+- binding note: 500 requests a month is about 16 a day over 30 days, so the monthly hard limit binds long before 3 a second or the bandwidth allowance.
+- interface detail: REST over HTTPS at meteostat.p.rapidapi.com with the X-RapidAPI-Key header or the rapidapi-key query parameter; JSON answers
+- endpoint: https://meteostat.p.rapidapi.com/stations/meta
+- tooling: any HTTP client; the RapidAPI key goes in the X-RapidAPI-Key header
+- composes with: A keyed point-history API for small lookups; anything larger reads the keyless bulk files instead.
+- reliability: A call with no RapidAPI key answers HTTP 401.
+- notes: Bulk path: none in the API; the keyless bulk files are data-apis/meteostat.
+- evidence note: Quota, rate and bandwidth are read from the RapidAPI pricing page and the Meteostat API docs; a call with no key answered HTTP 401, so the Basic plan was not exercised.
+- evidence:
+  - [2] 2026-10-31: the free plan is 500 requests a month, hard limit | capture: sha256:e2728abc5ffe03db5b72a59a6c046c1739934bacb6f6c6a58fe9b5ef8acda2c8 | quote: We offer a free plan with a hard limit of 500 requests per month.
+  - [2] 2026-10-31: the key comes from a RapidAPI account | capture: sha256:e2728abc5ffe03db5b72a59a6c046c1739934bacb6f6c6a58fe9b5ef8acda2c8 | quote: Please sign up on [RapidAPI](https://rapidapi.com/signup) to get an API key.
+  - [2] 2026-10-31: every call needs the RapidAPI key | capture: sha256:e2728abc5ffe03db5b72a59a6c046c1739934bacb6f6c6a58fe9b5ef8acda2c8 | quote: Access to the API requires users to send their RapidAPI key along with every request.
+  - [2] 2026-10-31: the key can also go in a query parameter | capture: sha256:e2728abc5ffe03db5b72a59a6c046c1739934bacb6f6c6a58fe9b5ef8acda2c8 | quote: RapidAPI also supports passing the API Key via query parameter.
+  - [2] 2026-10-31: over the quota the API answers 429 | capture: sha256:e2728abc5ffe03db5b72a59a6c046c1739934bacb6f6c6a58fe9b5ef8acda2c8 | quote: | 429 | Too Many Requests: You've exceeded the quota |
+  - [1] 2026-10-31: the Basic plan allows 500 requests a month | capture: sha256:17b125e2b55c2b850fed1e69bfb06a5c66ef4ce70da7d26367464656f345f628 | quote: 500 / Month
+  - [1] 2026-10-31: the Basic plan's monthly count is a hard limit | capture: sha256:17b125e2b55c2b850fed1e69bfb06a5c66ef4ce70da7d26367464656f345f628 | quote: Hard Limit
+  - [1] 2026-10-31: the Basic plan allows 3 requests a second | capture: sha256:17b125e2b55c2b850fed1e69bfb06a5c66ef4ce70da7d26367464656f345f628 | quote: 3 requests per second
+  - [1] 2026-10-31: the Basic plan includes 10,240 MB a month of bandwidth | capture: sha256:17b125e2b55c2b850fed1e69bfb06a5c66ef4ce70da7d26367464656f345f628 | quote: 10240MB / Month
+  - [1] 2026-10-31: Rapid places a USD 0.50 card hold for freemium plans | capture: sha256:3e875808d4e0c0e18186fbe8b737c647ce2d9c07dea15aa7c2e4aea85bceb390 | quote: For freemium plans, Rapid will authorize the credit/debit card provided by API Consumer by placing a $0.50 hold that will be released after 7 days if no overages are incurred.
+  - [3] 2026-10-31: RapidAPI sign-up offers GitHub or Google | capture: sha256:b5061e73eea71401ff8fbdbdd3c8661d33f67aacfa42176a185ad26b9140e249 | quote: Signup with GithubSignup with Google
+  - [3] 2026-10-31: the RapidAPI form asks for a username, an email and a password | capture: sha256:b5061e73eea71401ff8fbdbdd3c8661d33f67aacfa42176a185ad26b9140e249 | quote: Confirm password\*
+  - probe:https://meteostat.p.rapidapi.com/stations/meta 2026-10-31: a call with no key answers HTTP 401 | capture: sha256:100539030d8ebda44b282ccce4f2e24b6fa048be9e6919500e6000324c2111d2 | quote: {"message":"Invalid API key. Go to https:\/\/docs.rapidapi.com\/docs\/keys-and-key-rotation for more info."}
+  - [4] 2026-10-31:  | capture: sha256:fabf2f17fd98447cb8ee975b862983681c15608dafd86b6807ad13e5196c4a8f
+  - [1] 2026-11-02: the Hub's data for the BASIC plan of the Meteostat API gives the plan the pricing type FREE | capture: sha256:1886d77aecce9a5266ef4bc936c7a2d2879f4e2de7996cabae0be9a4ccc7d4c6 | quote: \"id\":\"billingplan_ba94ec13-916b-4171-b3fa-55ed5cc2efbd\",\"name\":\"BASIC\" ... \"billingPlanId\":\"billingplan_ba94ec13-916b-4171-b3fa-55ed5cc2efbd\",\"pricing\":\"FREE\"
+  - [1] 2026-11-02: the BASIC plan's request quota is 500 a month, hard, with an overage price of 0, and its rate limit is 3 a second | capture: sha256:1886d77aecce9a5266ef4bc936c7a2d2879f4e2de7996cabae0be9a4ccc7d4c6 | quote: \"amount\":500,\"unlimited\":false,\"overageprice\":0 ... \"limitType\":\"hard\"}],\"enablebillingfeatures\":[],\"rateLimit\":{\"enabled\":true,\"unit\":1,\"unitName\":\"second\",\"amount\":3}
+  - [1] 2026-11-02: the Hub lists the Meteostat API as a whole under the pricing type FREEMIUM | capture: sha256:1886d77aecce9a5266ef4bc936c7a2d2879f4e2de7996cabae0be9a4ccc7d4c6 | quote: \"visibility\":\"PUBLIC\",\"slugifiedName\":\"meteostat\",\"pricing\":\"FREEMIUM\"
+  - [5] 2026-11-02: the Hub's subscribe dialog for a plan of type FREE reads: No need to add any payment method | capture: sha256:c58ce41e014bd3187f35cddb3e116bc3fcf9f98b0911e390a6bdca9b880419e4 | quote: e.info.planType===m.OL.Free?{title:"Free Plan Subscription",description:"No need to add any payment method, please continue with
+  - [5] 2026-11-02: the Hub's subscribe dialog collects a payment method only when the plan type is not FREE and the action is not a team add | capture: sha256:c58ce41e014bd3187f35cddb3e116bc3fcf9f98b0911e390a6bdca9b880419e4 | quote: _=w!==m.OL.Free&&S!==m.s9.SubscribeAddTeam&&"STRIPE"===T
+  - [6] 2026-11-02: the Hub types a plan as Free when its pricing is FREE, or when its price is 0 and every limit is hard or unlimited | capture: sha256:863d0517a8aa06604becf65723f6875d6a3c03a6ab17ae7dd9a511c6cf0418a9 | quote: return"FREE"===n||!t&&"PERUSE"!==n&&(!r||(null==r?void…
+  - [7] 2026-11-02: the Hub's pricing FAQ answer to why a freemium API needs a credit card ties the card to a plan with a quota and an overage fee | capture: sha256:e4e7f25a9769dce2b10495cef2123e288dac890acf988f467f5a91541f52ffe4 | quote: The Provider may require a credit card if a plan has a quota with an overage fee.
+  - [8] 2026-11-02: Rapid places a USD 0.50 hold on the card for freemium plans, released after 7 days when no overage is incurred | capture: sha256:07e74bf1da85407970b75e54a47d81921cdc719efbe3d8f0f9ff4b08758ba77b | quote: For freemium plans, Rapid will authorize the credit/debit card provided by API Consumer by placing a $0.50 hold that will be released after 7 days if no overages are incurred.
+  - [9] 2026-11-02: Rapid's docs say a Freemium API requires a credit card even for its free plan | capture: sha256:7db924d053c2b25d114730343bb603c3a96eac0f4d1439e1137cb8978ebfc05f | quote: Paid APIs that also include a limited free tier. These require a credit card, even for the free plan.
+  - [10] 2026-11-02: Rapid support ties the small hold to a free plan that has potential overage costs, called Freemium | capture: sha256:22a3d5070f4c19eae656d4838f05153e05f86e1dbef4d5057afb29ee8ab37496 | quote: If you notice a small charge after signing up for a free plan that has potential overage costs, also known as "Freemium", it is likely a pre-authorization charge.
+  - [11] 2026-11-02: a hard limit stops further calls in the period instead of charging an overage | capture: sha256:4b47477f06eae67b422aeae115ca36b5909c7e9213903e68501fd3ced0a43258 | quote: A Hard Limit means that the API consumer will not be able to make additional calls during the Quota Limit period.
+  - [12] 2026-11-02: every subscription includes 10 GB of bandwidth per billing cycle, then USD 1 per additional 1 GB is charged to the consumer | capture: sha256:33340f52e11bcb9bd7c03510124405ad256f4226c79c199b88e6adca59499309 | quote: each subscription will include ... 10 GB of bandwidth per billing cycle at no cost ... fee of $1 per additional 1 GB of traffic will apply ... This fee will be charged to the consumer
+  - [3] 2026-11-02: the RapidAPI sign-up form offers GitHub and Google sign-up, or a username, an email and a password | capture: sha256:67fbcd4e327815d0ae81ad565375c4a4bfc2a8f285f3fdb399ebc5067eb023bb | quote: Signup with Google or Username Email Password\* Confirm password\*
+  - [13] 2026-11-02: a RapidAPI account is validated by a six digit code sent to its email address | capture: sha256:126bcfa55e7c891562d4b5eac894cfb099476f95dd82ffefd10bb8fbaef4a560 | quote: To validate your account, a six digit code will be sent to the provided email address.
+  - [2] 2026-11-02: the free plan is 500 requests a month, hard limit | capture: sha256:e2728abc5ffe03db5b72a59a6c046c1739934bacb6f6c6a58fe9b5ef8acda2c8 | quote: We offer a free plan with a hard limit of 500 requests per month.
+  - [14] 2026-11-02: a third-party user reports subscribing to a hard-limited free plan on RapidAPI with no card asked | capture: sha256:d2dfc2169a847c6f5925b6cb6c913e9da02d1d947f0266c2b18764c7fee04880 | quote: I have subscribed to its free plan. In this case, no credit card info. was asked.
+  - [14] 2026-11-02: the same third-party user reports that a Basic plan with a per-request overage price asked for card details | capture: sha256:d2dfc2169a847c6f5925b6cb6c913e9da02d1d947f0266c2b18764c7fee04880 | quote: I am asked to fill in Billing information which asks for Card details.
+  - [15] 2026-11-02: a third-party API provider on RapidAPI states that the hard-limited BASIC plan of its API needs no credit card | capture: sha256:372bfa0304d1feed5f34da4eeb35f862848bcc52e672e5647fb4662f4eef9d56 | quote: you can subscribe to the free BASIC plan of the API (hard-limited and no credit card required)
+  - [16] 2026-11-02: a third-party provider with the same four-tier structure on RapidAPI states that its hard-limited Basic plan needs no credit card, while its paid tiers use soft limits | capture: sha256:f1a93adf27d334f7187671d995484eb5b7e32733dfc3017d893fccb61c5440d0 | quote: Every one of our APIs has a free Basic plan with 100 requests/month, full endpoint access, and no credit card required. ... The free Basic plan has a hard limit of 100 requests/month. Paid tiers (Pro, Ultra, Mega) use soft limits
+  - [1] 2026-11-02: the Basic plan is USD 0.00 a month with 500 requests a month as a hard limit, 3 requests a second and 10240MB a month of bandwidth, then USD 0.001 per 1MB | capture: sha256:45a1e0aeeba66a02fe8c0a3cd3ad101e03532ab8a108eefff4c0c3210c89bb59 | quote: Basic $0.00 /mo Requests 500 / Month Hard Limit Rate Limit 3 requests per second Bandwidth Platform Fee 10240MB / Month + $0.001 per 1MB
+- sources:
+  - [1] https://rapidapi.com/meteostat/api/meteostat/pricing
+  - [2] https://dev.meteostat.net/api
+  - [3] https://rapidapi.com/auth/sign-up
+  - [4] https://dev.meteostat.net/license
+  - [5] https://rapidapi.com/hub/_next/static/chunks/2376-5c5c74e6a558884b.js
+  - [6] https://rapidapi.com/hub/_next/static/chunks/app/(platform)/%5Buser%5D/api/%5BapiSlug%5D/pricing/page-7b295e9e2df465ba.js
+  - [7] https://rapidapi.com/hub/_next/static/chunks/1744-376c7add42b87041.js
+  - [8] https://rapidapi.com/page/terms
+  - [9] https://docs.rapidapi.com/docs/monetizing-your-api-on-rapidapicom
+  - [10] https://rapidapi.zendesk.com/hc/en-us/articles/7268823620500-Why-was-I-charged-to-subscribe-to-a-free-plan
+  - [11] https://docs.rapidapi.com/docs/hub-listing-monetize-tab
+  - [12] https://docs.rapidapi.com/docs/connecting-to-an-api
+  - [13] https://docs.rapidapi.com/docs/account-creation-and-settings
+  - [14] https://raviswdev.blogspot.com/2025/12/rapid-api-advantages-of-using-it-gita.html
+  - [15] https://weblyzer.com/app/user-guide.html
+  - [16] https://www.datanest.network/pricing

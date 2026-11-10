@@ -1,0 +1,363 @@
+# IONOS
+
+> ionos.com | Compute, Storage; 8 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/ionos/ | JSON https://fshy.ajam.dev/api/v1/entity/ionos.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## IONOS (2)
+
+- `compute/ionos-2` | paid-only | evidence documented | binding none | category cloud VM
+- identity a placeholder: card and phone unknown | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://www.ionos.com/servers/vps
+- disagrees on identity_kind: `compute/ionos-2` says email, `compute/ionos-vps-s-plus` says card
+- disagrees on identity_kind: `compute/ionos-2` says email, `compute/ionos-windows` says card
+- free tier: VPS S+: 1 vCore, 2 GB RAM, 60 GB NVMe, unlimited traffic up to 1 Gbit/s, at USD 2/month for the first 3 months with a 1-year term, then USD 6/month. VPS M+: 2 vCores, 4 GB, 120 GB NVMe at USD 5/month for 3 months then USD 14. VPS L+: 4 vCores, 8 GB, 240 GB NVMe at USD 8/month for 3 months then USD 25. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: kind not stated
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email | detail: Unverified: no page stating the signup requirement was read; the record's evidence covers the VPS S+, M+ and L+ prices, the three-month introductory rate on a one-year term, "Unlimited traffic and no setup fees" and the money-back guarantee, and says nothing about what an account needs. No card, email, phone or ID document statement appears.
+- interface: unknown
+- limits note: no binding constraint identified
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: no open question recorded
+- evidence:
+  - [1] 2026-10-22: VPS S+ card: 'Save $12', '$6' struck through, '$2 /month for 3 months with a 1-year term', 1 vCore, 2 GB RAM, 60 GB NVMe, quoted
+  - [1] 2026-10-22: VPS M+ at USD 5/month for 3 months then USD 14 (2 vCores, 4 GB, 120 GB); VPS L+ at USD 8 for 3 months then USD 25 (4 vCores, 8 GB, 240 GB)
+  - [1] 2026-10-22: 'Unlimited traffic and no setup fees' and 'Money-back-guarantee' in the page header, quoted
+- sources:
+  - [1] https://www.ionos.com/servers/vps
+
+## IONOS, VPS S+ (VPS+ range)
+
+- `compute/ionos-vps-s-plus` | paid-only | evidence documented | binding volume-quota | category VPS | tier VPS S+ (VPS+ range)
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T01:56:00.000Z (live) | stale on 2026-11-24
+- url https://www.ionos.com/servers/vps
+- price parsed USD 6/mo
+- disagrees on identity_kind: `compute/ionos-2` says email, `compute/ionos-vps-s-plus` says card
+- free tier: no free tier; the entry plan is 'VPS S+' at USD 6 a month, discounted to USD 2 a month for 3 months with a 1-year term | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists for the contract term; a 30-day money-back guarantee is stated
+- egress: 'Unlimited traffic and no setup fees', 'Unlimited traffic up to 1 Gbit/s' in the page description | metered: no | free allowance: unlimited | source: [1]
+- identity: card | detail: an account and a payment method at order.
+- interface: ssh
+- limits:
+  - volume-quota (binding): the USD 2 rate applies 'for 3 months' with a 1-year term; the list price is USD 6 [1]
+- binding note: the promo expiry is what fails: three months at USD 2, then USD 6 a month for the rest of a one-year contract.
+- interface detail: root SSH, Cloud Panel, 1-click app installation
+- tooling: any SSH client; IONOS Cloud Panel
+- composes with: a 2 GiB box whose USD 2 headline lasts three months; the fourth invoice is USD 6
+- reliability: no reliability event observed; the vendor advertises 99.99%+ uptime.
+- notes: A textbook first-term promo: USD 2 for three months, USD 6 thereafter, on a one-year contract. The 4 GiB rung is USD 5 for three months and USD 14 after, which is the row a careless table would list as '4 GB for USD 5'.
+- evidence note: the crossed-out list price, the promo price, the promo length and the shape are all quoted from the plan card read.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 2
+  - shape.disk_gib: 60
+  - billing_model: monthly on a 1-year term
+  - term: 12 months
+  - m10h_usd: 6.0
+  - m24h_usd: 6.0
+  - price_arithmetic: USD 2.00/month for the first 3 months, then USD 6.00/month for the remaining 9; year one = USD 6 + USD 54 = USD 60.00, which is USD 5.00/month averaged
+  - out_of_pocket_usd: 60.0
+  - renewal_usd: 6.0
+  - renewal_note: USD 6 a month is the struck-through list price and the rate after month 3
+  - promo: yes
+  - promo_length_months: 3
+  - over_line: yes
+  - port_mbps: 1000
+  - ipv4_included: yes
+  - ipv6: yes
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+- evidence:
+  - [1] 2026-10-24: quoted: 'VPS S+ Save $12 $6 $2 /month for 3 months with a 1-year term - 1 vCore CPU - 2 GB RAM - 60 GB NVMe'
+  - [1] 2026-10-24: quoted: 'VPS M+ Save $27 $14 $5 /month for 3 months with a 1-year term - 2 vCores CPU - 4 GB RAM - 120 GB NVMe'
+  - [1] 2026-10-24: quoted: 'Unlimited traffic and no setup fees'
+- sources:
+  - [1] https://www.ionos.com/servers/vps
+
+## IONOS, Windows XL+ (VPS+ generation)
+
+- `compute/ionos-windows` | paid-only | evidence documented | binding per-ip-shaping | category Windows VPS | tier Windows XL+ (VPS+ generation)
+- needs card yes, phone no, ID no, institution no | verified 2026-10-26T11:33:32.317Z (live) | stale on 2026-11-26
+- url https://www.ionos.com/servers/windows-vps
+- price parsed USD 94/mo
+- disagrees on identity_kind: `compute/ionos-2` says email, `compute/ionos-windows` says card
+- free tier: no free tier; Windows XL+ is USD 94.00/month, discounted to USD 60.00/month for three months on a one-year term | unit: none | metered on: none | read on: 2026-10-26 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists for the contract term; the US page states a one-year term for the promotional rate
+- egress: unlimited traffic up to 1 Gbit/s; no byte quota or rate is published | metered: no | free allowance: unlimited | source: [1]
+- identity: card | detail: an account and a payment method at order; the checkout was not read
+- interface: rest, cli
+- limits:
+  - per-ip-shaping (binding): unlimited traffic up to 1 Gbit/s [1]
+  - volume-quota: the promotional rate runs for three months on a one-year term; the list rate is USD 94.00 [1]
+- limits note: the UK page adds a GBP 10.00 setup fee and prints GBP 81.00 list against GBP 52.00 for three months; the US page prints no setup line
+- binding note: the 1 Gbit/s port is the only hard ceiling; the traffic is unlimited without a published rate, and the term governs the price rather than the capacity.
+- interface detail: RDP over a public IPv4; IONOS has a Cloud API and control panel
+- tooling: any RDP client; IONOS Cloud API and control panel
+- composes with: 8 vCPU and 16 GiB for USD 60 a month for the first quarter, then USD 94, which makes it the cheapest first-quarter row and one of the most expensive steady-state rows
+- reliability: no reliability event observed; the vendor advertises 99.99%+ uptime.
+- notes: The first-year average is USD 85.50: three months at USD 60.00 plus nine at USD 94.00. The steady-state bill is USD 94.00 from month 13, which is why the row ranks below the cheaper monthly rows despite the strongest first-quarter price.
+- evidence note: the shape, the list price, the three-month promotional price and the one-year term are printed on the US page read. The licence is included on the evidence of the identical Linux SKU being GBP 40.00 cheaper on the UK page; the page does not itemise it.
+- extras:
+  - shape.vcpu: 8
+  - shape.ram_gib: 16
+  - shape.disk_gib: 480
+  - billing_model: monthly on a one-year term
+  - term: 12 months
+  - list_usd: 94.0
+  - promo_usd: 60.0
+  - promo_months: 3
+  - first_year_average_usd: 85.5
+  - monthly_usd: 94.0
+  - first_month_usd: 60.0
+  - setup_fee_usd: 0.0
+  - setup_fee_gbp: 10.0
+  - renewal_usd: 94.0
+  - windows_licence: included; derived from the GBP 40.00 Linux-to-Windows gap
+  - ipv4_included: yes
+  - ipv6_included: yes
+  - port_mbps: 1000
+  - traffic: unlimited, no published rate
+  - stock: orderable; no stock count published
+  - cart_url: https://www.ionos.com/servers/windows-vps
+- evidence:
+  - [1] 2026-10-26: quoted: 'Windows XL+ Save $102 $94 $60/month for 3 months with a 1-year term ... 8 vCores CPU ... 16 GB RAM ... 480 GB NVMe'
+  - [2] 2026-10-26: quoted: 'Windows XL+ Save GBP 97 GBP 81 GBP 52/month for 3 months excl. VAT Setup GBP 10 ... 8 vCores CPU ... 16 GB RAM ... 480 GB NVMe'
+  - [3] 2026-10-26: the identical Linux SKU is GBP 41.00 list and GBP 12.00 introductory, a GBP 40.00 gap against the Windows price that is consistent with a bundled licence
+- sources:
+  - [1] https://www.ionos.com/servers/windows-vps
+  - [2] https://www.ionos.co.uk/servers/windows-vps
+  - [3] https://www.ionos.co.uk/servers/linux-vps
+
+## IONOS Cloud (compute/ionos)
+
+- `compute/ionos` | paid-only | evidence documented | binding request-rate | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T03:19:16.612Z (live) | stale on 2026-11-24
+- url https://docs.ionos.com/cloud/support/general-information/price-list/ionos-cloud-eur-en
+- price parsed USD 10.65/mo
+- disagrees on verdict: `compute/ionos` says paid-only, `compute/ionos-cloud-trial` says fails-identity
+- free tier: no free tier: CPU, RAM, storage and GPU templates are all priced per hour, with storage billed on one-hour granularity and no free allowance on the price list | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: card | detail: card at order; a test charge for a small amount is made and cancelled immediately, amount not published; the live help page names credit cards only (Mastercard, Visa, American Express, Discover) and names no debit card; the IONOS help page that listed debit cards returns 404 today, so debit is not stated; prepaid is not stated; no identity document named on the pages read
+- interface: unknown
+- limits:
+  - request-rate (binding): CPU, RAM and GPU templates priced per hour; storage is billed with one-hour granularity [1]
+  - per-object-cap: GPU templates are defined by GPU model, dedicated CPUs, RAM and NVMe size, so the shape is bought as a whole [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: The live help page names only credit cards, and the help-centre page that a search index still returns for 'IONOS accepts credit cards, debit cards, PayPal, Google Pay, and Apple Pay' (/help/my-account/payments/payment-methods/) answers 404 today. Debit is therefore recorded as not stated, not as accepted. Prepaid is not addressed on any page read.
+- evidence note: the EUR price list was read on 2026-10-22 and publishes every meter, including GPU templates and a model-inference table. There is no free tier on it, so the record's claim is contradicted | Payment facts re-read on 2026-10-24: the card types, the hold and the identity gate each come from a first-party page quoted in evidence[].
+- extras:
+  - keep_rate: 1.0
+  - billing_model: flat-pool
+  - session_cap.restart_required: no
+  - session_cap.note: storage bills on one-hour granularity and instances per hour; the page states no reap
+  - price_note: a VPS bills by the month with an hourly rate capped at the monthly figure, so the two columns answer two questions: destroying the box between runs versus keeping it up.
+  - free_tier_kind: none
+  - m10h_usd: 4.44
+  - m24h_usd: 10.65
+  - price_basis: 10 h/day column = 300 h at the hourly rate, which is what a server destroyed between runs costs; 24/7 column = the monthly cap, because a VPS kept up all month stops at the cap.
+  - granularity.min_billed_s: 60
+  - burst_x: 1.0
+  - ps.price: billed per hour with one-hour granularity
+  - ps.durability: NVMe or volume
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: while the volume exists
+  - net.out: yes
+  - net.in: yes
+  - net.ports: any
+  - net.static_ip: yes
+  - net.ipv6: yes
+  - benchmark[0].plan: VPS S+ (2 vCPU / 2 GiB)
+  - benchmark[0].cpu_model: AMD EPYC-Milan Processor
+  - benchmark[0].dedicated_or_shared: not stated
+  - benchmark[0].gb6_single: 1298
+  - benchmark[0].gb6_multi: 1987
+  - benchmark[0].gb5_single: 1019
+  - benchmark[0].gb5_multi: 1700
+  - benchmark[0].source_url: https://www.vpsbenchmarks.com/yabs/ionos-2c-2gb-20260625-tg10331
+  - benchmark[0].source_date: 2026-06-25
+  - benchmark[0].rung: reported
+  - benchmark[0].note: EPYC-Milan at 2.00 GHz. The 1 vCPU VPS S measured 556 single / 359 multi, i.e. multi below single, which is a scheduling artefact rather than a smaller CPU.
+  - payment_methods.card_at_signup: yes
+  - payment_methods.debit: not-stated
+  - payment_methods.prepaid: not-stated
+  - payment_methods.virtual: not-stated
+  - payment_methods.hold_detail: a small test charge, cancelled immediately; amount not published
+  - payment_methods.identity: no identity document named on the pages read
+  - payment_methods.source_url: https://www.ionos.com/help/my-account/payments/selecting-a-payment-method/
+  - payment_methods.read_on: 2026-10-24
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: the Cloud price list was read on 2026-10-22 and is a full meter list: 'Storage is billed with one-hour granularity', CPU and RAM priced per hour and grouped, GPU templates with 'Number of GPUs', 'Dedicated CPUs', 'NVMe Storage (GB)' and 'Price per hour', and a model table from 'Qwen3.5-9B 0,10 EUR' upward
+  - [2] 2026-10-24: quoted: 'The following payment methods are offered by IONOS: Klarna, Credit card, PayPal, Apple Pay, Google Pay, Amazon Pay' and 'IONOS accepts credit cards from the following providers: Mastercard, Visa, American Express, Discover'
+  - [2] 2026-10-24: quoted, the hold: 'If you select a credit card as your payment method, a test charge is usually made for a small amount, which is then cancelled immediately. The purpose of this test debit is to ensure that the credit card is valid.'
+- sources:
+  - [1] https://docs.ionos.com/cloud/support/general-information/price-list/ionos-cloud-eur-en
+  - [2] https://www.ionos.com/help/my-account/payments/selecting-a-payment-method/
+
+## IONOS CLOUD (IONOS CLOUD test account)
+
+- `compute/ionos-cloud-trial` | fails-identity | evidence documented | binding write-gated | category VPS | tier IONOS CLOUD test account
+- needs card yes, phone unknown, ID no, institution no | verified 2026-10-24T06:38:00.000Z (live) | stale on 2026-11-24
+- url https://docs.ionos.com/cloud/support/faq/trial-conditions
+- disagrees on verdict: `compute/ionos` says paid-only, `compute/ionos-cloud-trial` says fails-identity
+- free tier: 'During the trial period, 8 cores, 20 GB RAM, 600 GB HDD storage, and 1 static IP address are available by the standard. Additionally, 600 GB of either SSD Standard or SSD Premium storage is available. Your trial period is limited to 30 days or a maximum resource consumption of 500 euros.' | unit: hours | metered on: wall-clock | read on: 2026-10-24 | source: [1]
+- per-object cap: the trial pool is shared across the whole account: 8 cores, 20 GB RAM, 1 static IP, 600 GB HDD plus 600 GB SSD
+- retention: 'After the test phase expires or resources end, your test account will be converted to a production account. Saved payment details will be used for billing purposes.' The infrastructure is not deleted at the end of the trial unless the customer deletes it.
+- egress: not stated on the trial-conditions page. Traffic is excluded from the trial usage display: 'Traffic, Windows licenses, backup, or S3 object storage are not currently displayed' | metered: yes | source: [1]
+- identity: card | detail: card required, hold amount not published: quoted 'After you enter your company and credit card details, you will have access to a test account within a few minutes.' The page also states 'if, for example, a credit card or phone number verification was not completed successfully, another phone call is needed', so a phone check is implied. No authorisation amount is stated on the trial-conditions page read; the separate IONOS order page describes a test charge that is cancelled, with the amount unpublished.
+- interface: ssh, rest
+- limits:
+  - volume-quota: 8 cores, 20 GB RAM, 600 GB HDD, 600 GB SSD, 1 static IP [1]
+  - retention-clamped: 30 days, or EUR 500 of consumption, whichever comes first [1]
+  - write-gated (binding): company details and a credit card, plus a sales phone call within 24 hours on working days [1]
+- binding note: The card and the company field come first, and the sales call is a human gate on top: the trial does not convert to a machine without all three.
+- interface detail: IONOS Cloud virtual servers over SSH, the Data Center Designer web UI, and a REST API. One static IP is included in the trial pool.
+- tooling: any SSH client; the DCD console; the Cloud API
+- composes with: The largest trial shape among evaluated providers at 8 cores and 20 GiB, but it needs a card, a company name and a phone call from a sales manager, which is three gates where the baseline is zero.
+- reliability: no reliability event recorded
+- notes: The biggest trial machine among evaluated providers by shape, and rejected for exactly the reason comparative records as a complaint: a card, a company name, and a phone call from a sales manager. Three things are worth stating plainly. First, the trial does not expire into deletion, it expires into a paid account with the saved card, so an unattended trial becomes a bill. Second, the EUR 500 ceiling and the 30 days are both hard stops, and the page does not say which binds first in practice. Third, no authorisation amount is published on the trial-conditions page, so the hold is unknown rather than zero. The existing `ionos` record covers the paid hourly compute; this one covers the trial and is the row that answers the question.
+- evidence note: The 8 cores, 20 GB RAM, 600 GB HDD, 600 GB SSD, 1 static IP, the 30-day limit and the EUR 500 ceiling are all quoted from IONOS's own trial-conditions page read. The card authorisation amount is not published there and is classified as unpublished rather than guessed.
+- extras:
+  - shape.vcpu: 8
+  - shape.ram_gib: 20
+  - shape.disk_gib: 1200
+  - shape.note: 8 cores and 20 GB RAM total across the account, 600 GB HDD plus 600 GB SSD; disk_gib is the sum of the two volumes, not a single disk
+  - billing_model: free
+  - term: 30 days, then conversion to a paid account
+  - m10h_usd: 0
+  - m24h_usd: 0
+  - price_arithmetic: EUR 0 for up to 30 days or EUR 500 of list-price consumption; no hourly rate is charged during the trial, so there is nothing to multiply
+  - free_tier_kind: trial
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: 1 static IP in the trial pool; security groups apply
+  - network_out.static_ip: yes
+  - session_cap.wall_clock_min: 43200
+  - session_cap.restart_required: no
+  - session_cap.note: 30 days or EUR 500, then the account converts to paid
+  - signup_url: https://cloud.ionos.com/
+  - credit_hours_at_shape: not computable in hours: the trial is capped at 30 days or EUR 500, and the page publishes no hourly rate for the trial shape, so no hour count can be derived without inventing one
+  - card_hold_note: no authorisation amount is published on the trial-conditions page; the order page describes a cancelled test charge with the amount unpublished
+  - payment_methods: credit card; the trial page names no debit card
+- evidence:
+  - [1] 2026-10-24: quoted: 'During the trial period, 8 cores, 20 GB RAM, 600 GB HDD storage, and 1 static IP address are available by the standard. Additionally, 600 GB of either SSD Standard or SSD Premium storage is available.'
+  - [1] 2026-10-24: quoted: 'Your trial period is limited to 30 days or a maximum resource consumption of 500 euros.'
+  - [1] 2026-10-24: quoted: 'After you enter your company and credit card details, you will have access to a test account within a few minutes. In rare cases, if, for example, a credit card or phone number verification was not completed successfully, another phone call is needed.'
+  - [1] 2026-10-24: quoted: 'IONOS CLOUD sales team will contact you by phone within 24 hours on working days to discuss the next steps.'
+  - [1] 2026-10-24: quoted: 'As soon as your test credit is spent, your account will be converted to a productive account. Saved payment details will be used for billing purposes.'
+  - [2] 2026-10-24: quoted: 'Yes. IONOS CLOUD offers a trial account with credits to test the platform at no cost.'
+- sources:
+  - [1] https://docs.ionos.com/cloud/support/faq/trial-conditions
+  - [2] https://docs.ionos.com/cloud/support/faq/frequently-asked-questions
+
+## IONOS CLOUD Object Storage
+
+- `storage/ionos-cloud-object-storage` | fails-egress | evidence reported | binding none | category S3-compatible object storage
+- needs card yes, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://cloud.ionos.com/storage/object-storage
+- price $4.99/TB at 5 TB and 20 TB for storage — but serving 20 TB/month costs $648 in egress alone (2 TB free + 18 TB x $36/TB), i.e. effective $32/TB+. | parsed USD 4.99/TB-mo
+- free tier: Per-GB-month; "Just 4.99 Dollar per TB for 30 days"; multi-region redundant | unit: GB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: NOT free, and this is the trap. Verbatim from the price list: "Outgoing public traffic | For the first 2 TB (<= 2 TB) | Free / The next 8 TB (> 2 TB <= 10 TB) | $0.036/GB / The next 40 TB (> 10 TB <= 50 TB) | $0.030/GB". All reads, writes ("Data Storage (write)") and requests are free. Only egress is metered. Outgoing traffic from user-owned buckets is always charged as regular public traffic. | metered: yes
+- identity: card | detail: card
+- interface: s3-compatible, rclone, cli
+- limits note: `per-object`/class limits not the issue. The tiered egress ladder is. Above 150 TB it drops to $0.018/GB but never reaches zero.
+- interface detail: S3 API
+- tooling: AWS CLI, rclone, S3 SDKs
+- composes with: Only viable behind Cloudflare, which converts the $36/TB egress into CF's free egress.
+- reliability: Solid multi-region EU/US infrastructure; the pricing model simply assumes you do not read your data.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Per-GB-month; "Just 4.99 Dollar per TB for 30 days"; multi-region redundant
+  - dead_end.first_recorded: 2026-10-21
+  - price_verbatim: $4.99/TB at 5 TB and 20 TB for storage — but serving 20 TB/month costs $648 in egress alone (2 TB free + 18 TB x $36/TB), i.e. effective $32/TB+.
+- evidence:
+  - [1] 2026-10-21: "Unbeatable price-performance ratio at $4.99/TB"; "Data Storage (write) | Free", "Data Retrieval (read) | Free", "PUT / COPY / POST / LIST | Free", "GET | Free"; "Data transmission costs are not included and will be added according to the current pricing"
+  - [2] 2026-10-21: "Outgoing public traffic: first 2 TB Free; next 8 TB $0.036/GB; next 40 TB $0.030/GB; next 100 TB $0.024/GB; over 150 TB $0.018/GB"; "Outgoing Object Storage traffic from user-owned buckets is always charged as regular public traffic"
+- sources:
+  - [1] https://cloud.ionos.com/storage/object-storage
+  - [2] https://cloud.ionos.com/prices
+
+## ionos free vps trial (30 days)
+
+- `storage/ionos-free-vps-trial` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.ionos.com/servers/free-vps
+- free tier: none reachable: Promotional VPS tier is a money-back guarantee on a paid contract. Hardware specification includes 1 vCore, 2 GB RAM, and 60 GB NVMe storage. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: The 'free VPS' is a money-back guarantee on a paid contract, and the disk is the problem: the trial-matching tier is 'VPS S+ … 1 vCore, 2 GB RAM, 60 GB NVMe'.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: The 'free VPS' is a money-back guarantee on a paid contract, and the disk is the problem: the trial-matching tier is 'VPS S+ … 1 vCore, 2 GB RAM, 60 GB NVMe'.
+- sources:
+  - [1] https://www.ionos.com/servers/free-vps
+
+## IONOS HiDrive (retail)
+
+- `storage/ionos-hidrive` | fails-quota | evidence documented | binding none | category consumer cloud drive
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T01:24:26.449Z (live) | stale on 2026-12-05
+- url https://www.ionos.com/office-solutions/hidrive-cloud-storage
+- price $5.00/TB-month on the 2 TB Pro plan ($10/month with a 1-year term; $20/month is shown struck through). The 1 TB Business plan is $1/month for the 1-year term, then $7/month = $7.00/TB-month. The page lists no plan above 2 TB; the renewal price of the 2 TB plan is not stated: unverified. | parsed USD 5/TB-mo
+- free tier: 100 GB / 250 GB / 1 TB / 2 TB on the public ladder | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: unverified: the plan page lists no transfer or egress term for any plan. | metered: no
+- identity: card | detail: card
+- interface: webdav, sftp, smb, rclone
+- limits note: Consumer tiers cap at 2 TB on the self-serve portal, with higher capacity requiring Business plans. The $1 per month pricing represents a 12-month promotional introductory rate renews at standard monthly fees.
+- interface detail: WebDAV, SMB, SFTP (protocol pack is an add-on: 'Extra protocols' only appears on the 2 TB tier card)
+- tooling: rclone `hidrive` backend
+- composes with: rclone mount
+- reliability: Classic trial-vs-steady-state confusion: the $1 figure is term-locked and reverts to $7. The 1 TB tier at $7/mo is $7/TB. Competitive on paper but capped at 2 TB and with protocol access behind an add-on.
+- notes: the same as the free tier
+- evidence note: documented from the vendor page read on 2026-11-03 (https://www.ionos.com/office-solutions/hidrive-cloud-storage): the plan ladder of 100 GB, 250 GB, 1 TB and 2 TB storage. Egress, identity, retention and per-object cap were not read.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 100 GB / 250 GB / 1 TB / 2 TB on the public ladder
+  - dead_end.first_recorded: 2026-10-21
+  - price_verbatim: 2 TB $10/mo promo term = $5.00/TB, steady state unclear (the $10 is itself a 'Save 50%' off $20). 1 TB $7/mo steady = $7.00/TB.
+- evidence:
+  - [1] 2026-10-21: '$1 /month with a 1-year term — Then only $7/month — 1 TB storage, 5 users'; 2 TB '$10/month with a 1-year term' (Save 50%); 100 GB $1.50; 250 GB $3
+  - [2] 2026-10-21: 'Only £5/month excl. VAT — 500 GB storage', same 100 GB → 2 TB ladder
+  - [3] 2026-10-21: 'Dauerhaft nur 5€/Monat' 500 GB, 'Sparen Sie 86%' 1 TB
+  - [1] 2026-11-03: the 1 TB plan is $1/month for the 1-year term, then $7/month | capture: sha256:a028250524150a6593f009dd58c2403723ad483cd176fe42c2ed2728f43e6054 | quote: Business 1 TB Save 90% $10 $1 /month with a 1-year term Then only $7/month
+  - [1] 2026-11-03: the largest plan on the page is Pro at 2 TB for $10/month on a 1-year term, below the 10 TiB stored need | capture: sha256:a028250524150a6593f009dd58c2403723ad483cd176fe42c2ed2728f43e6054 | quote: Pro 2 TB Save 50% $20 $10 /month with a 1-year term
+  - [1] 2026-11-04: the largest plan on the page stores 2 TB | capture: sha256:cc919f0fedd7f29239afeb8cb6de3197d71d2ed35224ffb784e4319627f0c794 | quote: 2 TB storage
+  - [1] 2026-11-04: a 1 TB plan is on the page | capture: sha256:cc919f0fedd7f29239afeb8cb6de3197d71d2ed35224ffb784e4319627f0c794 | quote: 1 TB storage
+- sources:
+  - [1] https://www.ionos.com/office-solutions/hidrive-cloud-storage
+  - [2] https://www.ionos.co.uk/office-solutions/hidrive-cloud-storage
+  - [3] https://www.ionos.de/office-loesungen/hidrive-cloud-speicher

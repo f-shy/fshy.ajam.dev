@@ -1,0 +1,141 @@
+# LinkStatic
+
+> linkstatic.com | IP and proxies; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/linkstatic/ | JSON https://fshy.ajam.dev/api/v1/entity/linkstatic.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## LinkStatic
+
+- `ip-proxy/linkstatic-c-class` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category contiguous prefix lease | tier /24 block
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T10:34:08.753Z (live) | stale on 2026-12-03
+- url https://linkstatic.com/pricing/isp-subnet/m
+- price not applicable: priced per address per month, not per byte
+- free tier: No free tier is stated; the vendor offers free trials for some plans through customer service, without naming the plans. A whole C-class range is priced per month by region: United States USD 500 at 100 Mbps; Spain, Netherlands, Australia, Brazil, Canada, United Kingdom, France and Germany USD 700 at 100 Mbps; Japan and Italy USD 750; Indonesia and India USD 800; Hong Kong and Vietnam USD 850; Dubai USD 900 at 50 Mbps; Taiwan, Malaysia and Thailand USD 950 at 100 Mbps and the Philippines USD 950 at 50 Mbps; Mexico USD 1,000 at 50 Mbps; South Korea USD 1,100 at 50 Mbps; Singapore USD 1,100 at 100 Mbps. That is USD 1.95 per address per month in the United States. The single static ISP product is USD 2.80 per IP for 30 days in the United States. | unit: none | metered on: none | read on: 2026-10-24 | source: [1] | note: Prices are per range per month, not per byte: nothing on the page is a free allowance. A whole C-class range is a /24, 256 addresses, which is what makes USD 500 a month and USD 1.95 per address per month the same number in the United States. The free-trial sentence is a FAQ entry that the range page shares with the single static ISP, enterprise ISP and TikTok line pages: trials exist for some plans and are claimed through customer service, and no plan is named, so the sentence does not say whether the range is one of them. The description of the global resources page ends with a free-trial claim after listing Standard and Premium plans of 7, 30 and 90 days, and does not name the range.
+- per-object cap: not applicable | source: [1] | note: An address block carries no stored object and therefore no per-object ceiling. The nearest structural cap is the block size itself: one /24, not a larger prefix.
+- retention: not applicable: a leased address block, not stored bytes | source: [1] | note: The range is priced per month and delivered within one week after purchase; longer durations are arranged through online support. The single static ISP product offers validity periods of 7, 30 and 90 days. No minimum lease, renewal or reclaim term is stated for the range.
+- egress: 完整 IP 网段独立交付，优化跨境传输体验，无并发流量上限 (a complete IP range delivered independently; cross-border transport optimised; no concurrent-traffic cap). Each region's range is listed with 100 Mbps (50 Mbps in Dubai, the Philippines, Mexico and South Korea); no byte cap is stated, and whether the bandwidth figure applies per address or to the whole range is not stated. | metered: no | free allowance: not applicable: no byte allowance is metered; 100 Mbps, or 50 Mbps in four regions, is listed per range | source: [1]
+- identity: email | detail: Sign-up asks for an email address and a password of 8-22 characters with upper and lower case letters and numbers, plus an optional invitation code and a click-sequence verification code; Google sign-in is offered. No phone number and no identity document is asked. Payment methods at checkout: Alipay (two entries), cryptocurrency and account balance.
+- interface: unknown
+- limits:
+  - per-ip-shaping (binding): 100 Mbps listed with the price of each region's range (50 Mbps for Dubai, the Philippines, Mexico and South Korea); the page does not state whether the figure applies per address or to the whole range [1]
+  - volume-quota: none: 无并发流量上限 (no concurrent-traffic cap) and no byte cap stated at any price tier [1]
+- limits note: The range is sold whole: no smaller contiguous prefix than a /24 is offered. The vendor states no traffic or concurrency limits; longer durations and greater bandwidth are arranged through online support, and delivery is within one week after purchase. A range order is one line per region with a quantity of 1 and one bandwidth value, and the range page description calls bandwidth customizable; no page states whether the listed bandwidth is a per-address or a whole-range figure.
+- binding note: The named ceiling is the bandwidth listed with each range, 100 Mbps, or 50 Mbps in Dubai, the Philippines, Mexico and South Korea; it is the only throughput figure on the product, since no traffic or concurrency limit is stated. Whether it applies per address or to the whole range is not stated. Structurally, one contiguous prefix means one announcing AS and one registration class, so a prefix-level block or withdrawal takes all 256 addresses at once.
+- interface detail: The range product's page states HTTP, HTTPS and SOCKS5, with other protocols on request to customer service. The range is delivered whole, 完整 IP 网段独立交付, within one week after purchase. The schema's interface enum has no proxy-protocol token, so the array keeps unknown and the protocols are stated here.
+- tooling: Proxy access over HTTP, HTTPS or SOCKS5, which the range product's page states; any client that takes a proxy address with credentials works: curl --proxy, Python requests with proxies=, a headless browser's proxy settings. Orders are managed in a console at console.linkstatic.com. No test address is published for the range product; checking the announcing AS and registration class of a delivered range takes a RIPE or ARIN whois lookup and a looking glass.
+- composes with: The range is an egress-address supply for a Workers gateway or a crawler: 256 addresses from one prefix spread a request stream across distinct source addresses, but every one of them shares one announcing AS, one registration class and one lease, so it adds address count without adding failure domains.
+- reliability: Bandwidth is listed per range, 100 Mbps or 50 Mbps, with no byte cap stated. No test address and no ASN is published for the range product, so the announcing AS and registration class cannot be checked before payment; the 256 addresses are one prefix, so a prefix-level blocklist entry or suspension removes all of them together. Paid services are non-refundable unless there is an IP quality issue.
+- notes: A whole C-class range is one contiguous /24 prefix: 256 addresses behind one announcing AS and one registration class, allocated whole to one customer. In the United States the range is USD 500 a month (a 30-day order line) at 100 Mbps, about USD 1.95 per address. A range order is one line per region with a quantity of 1, and both range order pages total it as the sum of the listed range prices, with no quantity discount in the page: the desktop order summary has a Discount row at -$0.00 that its script never changes. The single static ISP product lists USD 2.80 per IP for 30 days in the United States, and the total its order window displays takes a quantity discount: 5 percent off for 1-5 IPs, 10 percent for 6-49, 15 percent for 50-199, 20 percent for 200-799 and 25 percent for 800 or more. For 256 single addresses that displayed total is USD 573.44 for 30 days (USD 716.80 at list price, less 20 percent), USD 2.24 per address, and the range costs about 13 percent less per address against it. The order requests of both products name each line by region code, days and quantity and carry no price, and the payment window shows the total held in the server's order data, so the amount that checkout charges is first shown after an order is created, and placing an order sends a visitor without a session to the sign-up page. No test address, no ASN and no prefix is published for the range product; the vendor offers free trials for some plans through customer service, and uses IPinfo as its reference for an address's region. A check of a delivered range takes a RIPE or ARIN whois lookup on one address for the registration class and a looking glass for the announcing AS.
+- evidence note: Documented: the regional range prices and bandwidth figures, the protocol list, the free-trial and delivery terms, the payment methods and the sign-up fields are stated on the vendor's pricing and sign-up pages. Nothing about a delivered range is measured: measured needs one delivered or trial range, with an address checked against RIPE or ARIN whois for the registration class and a looking glass for the announcing AS.
+- extras:
+  - rung: 3
+  - rung_note: One contiguous /24 is a single prefix: 256 addresses behind one announcing AS and one registration class, which is the rung-3 unit and the opposite of diversity.
+  - block_size: 256 addresses (/24)
+  - block_price_usd_month.United States: 500
+  - block_price_usd_month.Spain: 700
+  - block_price_usd_month.Netherlands: 700
+  - block_price_usd_month.Australia: 700
+  - block_price_usd_month.Brazil: 700
+  - block_price_usd_month.Canada: 700
+  - block_price_usd_month.United Kingdom: 700
+  - block_price_usd_month.France: 700
+  - block_price_usd_month.Germany: 700
+  - block_price_usd_month.Japan: 750
+  - block_price_usd_month.Italy: 750
+  - block_price_usd_month.Indonesia: 800
+  - block_price_usd_month.India: 800
+  - block_price_usd_month.Hong Kong: 850
+  - block_price_usd_month.Vietnam: 850
+  - block_price_usd_month.Dubai: 900
+  - block_price_usd_month.Taiwan: 950
+  - block_price_usd_month.Philippines: 950
+  - block_price_usd_month.Malaysia: 950
+  - block_price_usd_month.Thailand: 950
+  - block_price_usd_month.Mexico: 1000
+  - block_price_usd_month.South Korea: 1100
+  - block_price_usd_month.Singapore: 1100
+  - price_per_address_month_usd: 1.95
+  - single_ip_price_usd_30_days: 2.8
+  - shaping: 100 Mbps listed per range (50 Mbps in Dubai, the Philippines, Mexico and South Korea); per address or per range is not stated; no byte cap
+  - quote: 完整 IP 网段独立交付，优化跨境传输体验，无并发流量上限
+  - quote_translation: a complete IP prefix delivered independently; cross-border transport optimised; no concurrent-traffic cap
+  - verification_gap: no test IP published for the block product, so the registration class and the announcing AS are unknown
+  - derivation: USD 1.95 per address per month is USD 500 / 256 = 1.953, rounded. 256 single static ISP addresses in the United States are 2.80 x 256 = 716.80 for 30 days at list price and 716.80 x 0.80 = 573.44 after the 20 percent discount for 200-799 IPs that the order window displays, 573.44 / 256 = 2.24 per address; the range is a 30-day order line at USD 500 with no discount in its order total, and 500 / 573.44 = 0.872, about 13 percent less per address. These are arithmetic on listed and displayed prices, not measurements and not amounts charged at checkout.
+- evidence:
+  - [1] 2026-10-24: The /24 block prices by country (United States USD 500/mo at 100 Mbps, Japan 750, Hong Kong 850, Taiwan 950, Singapore 1,100), the USD 1.95 per address per month figure, and the quoted delivery claim 完整 IP 网段独立交付，优化跨境传输体验，无并发流量上限.
+  - [2] 2026-10-24: The single static ISP IP tier at USD 2.80 per IP for 30 days, which is the comparison that makes a whole /24 cheaper per address (USD 1.95) than buying single addresses.
+  - [3] 2026-10-30: the United States range is USD 500.00 a month at 100 Mbps | capture: sha256:f4df8b259b611db2bb0897eb4d28a4c5acbc7aaae254ffe5ac9d89b96ecbfb8c | quote: United States Hot 100 Mbps $500.00/mo
+  - [3] 2026-10-30: a trial exists for some plans, through customer service | capture: sha256:f4df8b259b611db2bb0897eb4d28a4c5acbc7aaae254ffe5ac9d89b96ecbfb8c | quote: We offer free trials for some plans. You can contact customer service to claim a trial for free.
+  - [3] 2026-10-30: regions list 100 or 50 Mbps with the range price | capture: sha256:f4df8b259b611db2bb0897eb4d28a4c5acbc7aaae254ffe5ac9d89b96ecbfb8c | quote: Korea 50 Mbps $1100.00/mo
+  - [1] 2026-10-30: the bandwidth attribute sits on the region's range row, beside its price | capture: sha256:f4199243f2a107152938ca2dc069c189d4e908f288880d1c666d377e38d28e38 | quote: data-code="US" data-country="美国" data-price="500" data-bandwidth="100"
+  - [3] 2026-10-30: a range is delivered within one week of purchase | capture: sha256:f4df8b259b611db2bb0897eb4d28a4c5acbc7aaae254ffe5ac9d89b96ecbfb8c | quote: Delivery will be completed within one week after purchase.
+  - [4] 2026-10-30: the sign-up form asks for an email address and a password; the remaining fields are an optional invitation code and a verification code | capture: sha256:53d51d52f7b71cecad7f53ef2aeeb9b050bb20256206b0c0de9dc251391a28c1 | quote: Password must be 8-22 characters long,must contain uppercase and lowercase letters and numbers,supported special characters: @#$%.!
+  - [3] 2026-10-30: the refund condition is IP quality | capture: sha256:f4df8b259b611db2bb0897eb4d28a4c5acbc7aaae254ffe5ac9d89b96ecbfb8c | quote: All paid services are non-refundable unless there is an IP quality issue.
+  - [3] 2026-10-30: the range product's page states HTTP, HTTPS and SOCKS5 | capture: sha256:f4df8b259b611db2bb0897eb4d28a4c5acbc7aaae254ffe5ac9d89b96ecbfb8c | quote: We support HTTP, HTTPS, and SOCKS5.
+  - [3] 2026-10-30: the range product supports HTTP, HTTPS and SOCKS5 | capture: sha256:f4df8b259b611db2bb0897eb4d28a4c5acbc7aaae254ffe5ac9d89b96ecbfb8c | quote: We support HTTP, HTTPS, and SOCKS5.
+  - [3] 2026-10-30: the range is allocated whole to one customer | capture: sha256:f4df8b259b611db2bb0897eb4d28a4c5acbc7aaae254ffe5ac9d89b96ecbfb8c | quote: Complete IP ranges are exclusively allocated for flexible IP management, eliminating the need for fragmented purchases and improving operational efficiency.
+  - [3] 2026-10-30: the United States range price; the same page lists the other 22 regions with price and bandwidth | capture: sha256:f4df8b259b611db2bb0897eb4d28a4c5acbc7aaae254ffe5ac9d89b96ecbfb8c | quote: United States Hot 100 Mbps $500.00/mo
+  - [3] 2026-10-30: the United States range is USD 500.00 a month | capture: sha256:f4df8b259b611db2bb0897eb4d28a4c5acbc7aaae254ffe5ac9d89b96ecbfb8c | quote: United States Hot 100 Mbps $500.00/mo
+  - [2] 2026-10-30: the single static ISP product is priced for 7, 30 and 90-day validity periods | capture: sha256:631f7b9fd62e0cca518b4950d188dcab9c6e53cc91712a44e70288b4f2d08735 | quote: data-code="US" data-cate="1" data-country="美国" data-day7="1.80" data-day30="2.80" data-day90="7.80"
+  - [1] 2026-10-30: the range is delivered whole with no concurrent-traffic cap | capture: sha256:f4199243f2a107152938ca2dc069c189d4e908f288880d1c666d377e38d28e38 | quote: 完整 IP 网段独立交付，优化跨境传输体验，无并发流量上限
+  - [1] 2026-10-30: a 50 Mbps region row | capture: sha256:f4199243f2a107152938ca2dc069c189d4e908f288880d1c666d377e38d28e38 | quote: data-code="KR" data-country="韩国" data-price="1100" data-bandwidth="50"
+  - [3] 2026-10-30: the Singapore range is USD 1,100 a month; the page lists 23 regions | capture: sha256:f4df8b259b611db2bb0897eb4d28a4c5acbc7aaae254ffe5ac9d89b96ecbfb8c | quote: Singapore 100 Mbps $1100.00/mo
+  - [1] 2026-10-30: bandwidth is an attribute of the range row | capture: sha256:f4199243f2a107152938ca2dc069c189d4e908f288880d1c666d377e38d28e38 | quote: data-code="US" data-country="美国" data-price="500" data-bandwidth="100"
+  - [3] 2026-10-30: the United States range price of USD 500.00 a month | capture: sha256:f4df8b259b611db2bb0897eb4d28a4c5acbc7aaae254ffe5ac9d89b96ecbfb8c | quote: United States Hot 100 Mbps $500.00/mo
+  - [2] 2026-10-30: the single static ISP product is USD 2.80 per IP for 30 days in the United States, the active tab being 30 days | capture: sha256:631f7b9fd62e0cca518b4950d188dcab9c6e53cc91712a44e70288b4f2d08735 | quote: data-code="US" data-cate="1" data-country="美国" data-day7="1.80" data-day30="2.80" data-day90="7.80"
+  - [3] 2026-10-30: checkout payment methods are Alipay, cryptocurrency and balance | capture: sha256:f4df8b259b611db2bb0897eb4d28a4c5acbc7aaae254ffe5ac9d89b96ecbfb8c | quote: Alipay Alipay2 Cryptocurrency Balance
+  - [3] 2026-10-30: the vendor uses IPinfo as its reference for an address's region | capture: sha256:f4df8b259b611db2bb0897eb4d28a4c5acbc7aaae254ffe5ac9d89b96ecbfb8c | quote: We use IPinfo results as the reference.
+  - [1] 2026-10-30: the Chinese range page states HTTP, HTTPS and SOCKS5 | capture: sha256:f4199243f2a107152938ca2dc069c189d4e908f288880d1c666d377e38d28e38 | quote: 我们支持HTTP、HTTPS和SOCKS5协议，如其他协议可咨询在线客服。
+  - [3] 2026-10-30: the United States range is USD 500.00 a month at 100 Mbps, unchanged | capture: sha256:f4df8b259b611db2bb0897eb4d28a4c5acbc7aaae254ffe5ac9d89b96ecbfb8c | quote: United States Hot 100 Mbps $500.00/mo
+  - [5] 2026-10-31: the single static ISP page's discount table gives 20 percent off for 200-799 IPs (5, 10, 15 and 25 percent in the other rows) | capture: sha256:05680f7125cb04dc70a82834bb70c88220d4dbae0cdf61b3fe647dfec7c9969f | quote: 200-799 IPs 20% OFF
+  - [6] 2026-10-31: the single static ISP order script multiplies the order total by 0.80 when the order holds 200-799 IPs | capture: sha256:163509d37d63f4827cd0e2281af7f1d94d8479382018962895ffd83ad10f65ad | quote: if (total <= 799) return 0.80;
+  - [5] 2026-10-31: the single static ISP list price in the United States is USD 2.80 per IP for 30 days | capture: sha256:05680f7125cb04dc70a82834bb70c88220d4dbae0cdf61b3fe647dfec7c9969f | quote: data-code="US" data-cate="1" data-country="United States" data-day7="1.80" data-day30="2.80" data-day90="7.80"
+  - [7] 2026-10-31: the range order total is the listed range price times the number of ranges, with no quantity discount | capture: sha256:d45d6bffba1705103b03f2271b2596c97d66d3d920fb7743b8116fb32f931e69 | quote: totalPrice += price * num;
+  - [7] 2026-10-31: a range order line is for 30 days, the same period as the single static ISP 30-day price | capture: sha256:d45d6bffba1705103b03f2271b2596c97d66d3d920fb7743b8116fb32f931e69 | quote: var DEFAULT_DAY = 30;
+  - [8] 2026-10-31: the United States range is USD 500 at 100 Mbps; the page lists 23 regions, matching the record's prices and bandwidths | capture: sha256:3cd22fa4e34f4cc4b1258bb520c8019a2d7c0479fcf873282fc724dc6b137502 | quote: data-state="AM" data-code="US" data-country="United States" data-price="500" data-bandwidth="100"
+  - [6] 2026-11-02: the single static ISP order window computes its displayed total as the list-price sum times the tier factor, truncated to cents | capture: sha256:8e8f52f725890892acc874fa6e34d27056d776bf73beee34aa5e49bf2a96ba30 | quote: var finalPrice = (hasNewUserHalfPrice && ipCount === 1) ? finalBeforeTier : truncateToTwoDecimals(finalBeforeTier * tierDiscount);
+  - [9] 2026-11-02: the desktop range order total is the sum of the selected regions' listed prices | capture: sha256:422714b456e0d305f519972fb92a628d6dfbc8ce6f7b73e630594b67321adaff | quote: const total = getSelectedCards().toArray().reduce((sum, el) => sum + Number($(el).data('price') || 0), 0);
+  - [10] 2026-11-02: the global resources page description lists Standard and Premium plans of 7, 30 and 90 days and ends with a free-trial claim | capture: sha256:20c79ea8550e41f719bf6bf99218bee3848982ee4df7cee9ac53a3d98a9f6d08 | quote: Linkstatic premium static residential proxies, 30&#43; regions, Standard/Premium, 7/30/90 days, for e-commerce &amp; social media. Free trial!
+  - [9] 2026-11-02: the desktop range order request is one line per region with a quantity of 1 and one bandwidth value | capture: sha256:422714b456e0d305f519972fb92a628d6dfbc8ce6f7b73e630594b67321adaff | quote: num: 1, limit_bytes: Number($(el).data('bandwidth') || 0)
+  - [3] 2026-11-02: the United States range is a 30-day order line at USD 500 and 100 Mbps | capture: sha256:f3e180aef12550dd58dbf9a7595f7ddfa37dbc57a1efb39e19b0078df56c3f8f | quote: data-code="US" data-country="United States" data-price="500" data-day="30" data-bandwidth="100"
+  - [3] 2026-11-02: the desktop range order summary has a Discount row of -$0.00 | capture: sha256:f3e180aef12550dd58dbf9a7595f7ddfa37dbc57a1efb39e19b0078df56c3f8f | quote: <span>Discount</span> <strong>-$0.00</strong>
+  - [7] 2026-11-02: a mobile range order line has a quantity of 1 | capture: sha256:929b550222b2a799ce38854b20d0bce193af31290d370c22688b21b7468d07f3 | quote: Num: 1,
+  - [6] 2026-11-02: the single static ISP order request names each line by day, region code and quantity and carries no price | capture: sha256:8e8f52f725890892acc874fa6e34d27056d776bf73beee34aa5e49bf2a96ba30 | quote: orderList.push({ day: itemData.day, code: itemData.code, num: itemData.num });
+  - [11] 2026-11-02: the payment window shows the total held in the order data it is given | capture: sha256:b62a192aa7bcd7206d75a1839e828789cf598c7c2d42d25f0dc15099ca5740f0 | quote: $('#finalPayment').text('$' + (data.totalMoneyShow || data.totalMoney || '0.00'));
+  - [9] 2026-11-02: the desktop range page requests the payment window's order data from the vendor's API after the order request | capture: sha256:422714b456e0d305f519972fb92a628d6dfbc8ce6f7b73e630594b67321adaff | quote: url: requestApi + "/link_static_pay/" + sessionToken + "/" + orderSn + "/" + lang,
+  - [12] 2026-11-02: a visitor without a session is sent to the sign-up page when an order is placed | capture: sha256:d0b01fc23c03869a50d55a8f4d43db17b11306c226f074c7b79cd226943f4618 | quote: let url = webDomain+language+'sign-up/';
+  - [3] 2026-11-02: the range page description calls bandwidth customizable | capture: sha256:f3e180aef12550dd58dbf9a7595f7ddfa37dbc57a1efb39e19b0078df56c3f8f | quote: Delivered as a dedicated, contiguous IP subnet for exclusive use by your business; bandwidth and server configurations are fully customizable.
+  - [3] 2026-11-02: the range page says free trials exist for some plans and are claimed through customer service | capture: sha256:f3e180aef12550dd58dbf9a7595f7ddfa37dbc57a1efb39e19b0078df56c3f8f | quote: We offer free trials for some plans. You can contact customer service to claim a trial for free.
+  - [5] 2026-11-02: the single static ISP is USD 2.80 per IP for 30 days in the United States, with 7, 30 and 90 day prices | capture: sha256:7e16937f8d2795f7b51e11d9eb01323ca637e9b62693f8a49a9c8dc9e901b382 | quote: data-code="US" data-cate="1" data-country="United States" data-day7="1.80" data-day30="2.80" data-day90="7.80"
+  - [3] 2026-11-02: the Korea range is USD 1,100 a month at 50 Mbps | capture: sha256:f3e180aef12550dd58dbf9a7595f7ddfa37dbc57a1efb39e19b0078df56c3f8f | quote: data-code="KR" data-country="Korea" data-price="1100" data-day="30" data-bandwidth="50"
+  - [13] 2026-11-02: the range is delivered as a whole IP range with no concurrent-traffic cap, as the Chinese page states it | capture: sha256:38b255147e1bafea48d7998a7cd609278dee6ec0635a15eb455075aaef0cfe25 | quote: 整 C 段原生 IP 面向企业规模化海外业务提供专属网络方案，完整 IP 网段独立交付，优化跨境传输体验，无并发流量上限，支持多路业务同时运行，助力企业实现稳步扩张。
+  - [3] 2026-11-02: the range accepts HTTP, HTTPS and SOCKS5, and other protocols through customer service | capture: sha256:f3e180aef12550dd58dbf9a7595f7ddfa37dbc57a1efb39e19b0078df56c3f8f | quote: We support HTTP, HTTPS, and SOCKS5. If you need other protocols, please consult customer service.
+  - [3] 2026-11-02: a range is delivered within one week after purchase | capture: sha256:f3e180aef12550dd58dbf9a7595f7ddfa37dbc57a1efb39e19b0078df56c3f8f | quote: Delivery will be completed within one week after purchase.
+  - [3] 2026-11-02: longer durations and greater bandwidth are arranged through online support | capture: sha256:f3e180aef12550dd58dbf9a7595f7ddfa37dbc57a1efb39e19b0078df56c3f8f | quote: For longer durations and greater bandwidth, reach online support anytime.
+  - [4] 2026-11-02: the sign-up form asks for an email address | capture: sha256:7de8a4de1d13350b0f5539cbf414c65f50faa0b3e3b1bdf3e2f7291229c9f291 | quote: <input type="email" id="email" class="form-input" placeholder="Please enter a valid email address">
+  - [14] 2026-11-02: the single static ISP page carries the same free-trial FAQ entry: some plans, through customer service | capture: sha256:51a9ff0453f66acd434368c538cc62f98449fc25e7df508291de4d1ff0c981f7 | quote: For some plans, we provide a free trial, which you can obtain by contacting our online support.
+  - [15] 2026-11-02: the enterprise ISP page carries the same free-trial FAQ entry | capture: sha256:120fe61a39a2621644342180b3ed2bfddbb6b5722526801491f2e57dd4e19312 | quote: For some plans, we provide a free trial, which you can obtain by contacting our online support.
+  - [16] 2026-11-02: the TikTok line page carries the same free-trial FAQ entry | capture: sha256:89803176ee89af778815ad8e11d3a6ff8a468defde9b53ca3b5c52cb8428a15f | quote: For some plans, we provide a free trial, which you can obtain by contacting our online support.
+  - [17] 2026-11-02: third party, a forum promotion post of 2026-09-23: a draw of four 7-day trials of one static ISP address each, two in the United States and two in Japan | capture: sha256:7e71ebefb3b153a42f471fa64abce8ead8d08ec7039676ecdd89c398e6dc2fe0 | quote: 每位中奖用户可获得 1 个固定 ISP IP 试用资格，单个 IP 价值约 $1.8–$2.8。
+  - [18] 2026-11-02: third party, a forum promotion post: bulk purchase of static ISP addresses goes down to 75 percent of list price | capture: sha256:c3a31ff2482fa75c9300455f98ebccb8be0d52210038d9df01f036e9553ffae0 | quote: 最低6.7元/原生ip/7Days，不限流量，新用户买1ip立享5折，批量购买最高75折
+  - [19] 2026-11-02: third party, a forum promotion post: whole C-segment resources are offered as a customization for bulk or fixed-subnet needs | capture: sha256:469046c31647de0c9c3dc87076c43e44eb294699da847273ef3e4aebf79e8334 | quote: 也可以直接做 整 C 段资源定制
+- sources:
+  - [1] https://linkstatic.com/pricing/isp-subnet/m
+  - [2] https://linkstatic.com/pricing/isp-proxy/m
+  - [3] https://linkstatic.com/en/pricing/isp-subnet/
+  - [4] https://linkstatic.com/en/sign-up
+  - [5] https://linkstatic.com/en/pricing/isp-proxy/m
+  - [6] https://linkstatic.com/static/common/package/js/long-static-ip-m.js
+  - [7] https://linkstatic.com/static/common/package/js/isp_subnet_m.js
+  - [8] https://linkstatic.com/en/pricing/isp-subnet/m
+  - [9] https://linkstatic.com/static/common/package/js/isp_subnet.js
+  - [10] https://linkstatic.com/en/global-resources
+  - [11] https://linkstatic.com/static/common/index/js/pay.js
+  - [12] https://linkstatic.com/static/js/request.js
+  - [13] https://linkstatic.com/pricing/isp-subnet/
+  - [14] https://linkstatic.com/en/pricing/isp-proxy/
+  - [15] https://linkstatic.com/en/pricing/isp-enterprise/
+  - [16] https://linkstatic.com/en/pricing/isp-tiktok/
+  - [17] https://www.nodeloc.com/t/topic/110495
+  - [18] https://www.nodeloc.com/t/topic/104254
+  - [19] https://www.nodeloc.com/t/topic/106655

@@ -1,0 +1,38 @@
+# FileSpace
+
+> filespace.com | Debrid; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/filespace/ | JSON https://fshy.ajam.dev/api/v1/entity/filespace.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## FileSpace
+
+- `debrid/filespace` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category file host (premium one-time, XFileSharing script) | tier premium
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23T03:18:17.000Z (live) | stale on 2026-11-23
+- url https://filespace.com/?op=payments
+- price USD 15.95 per 30 days for 500 GB stored | parsed USD 31.9/TB-mo
+- free tier: Regular account: 50 GB storage, 100 KB/s download, next download only after a 1-hour delay, no simultaneous downloads, no direct downloads, files deleted 60 days after the last download. | unit: GB | metered on: stored-bytes | read on: 2026-10-23 | source: [1] | note: The free column also allows remote URL and FTP upload: no.
+- per-object cap: not stated on the payments page; the FAQ was not opened | source: [1]
+- retention: Regular: '60 days after last download'. Premium: 'Unlimited'. | days: 60 | source: [1]
+- egress: Premium: 'Download speed: Unlimited', 'Simultaneous downloads: Yes', 'Direct downloads: Yes'. Regular: 100 KB/s, one at a time, one hour between downloads. No byte allowance is published on either column. | metered: no | free allowance: no byte allowance published | source: [1]
+- identity: card | detail: Payments listed as 'Bank Cards | PayPaI | Bitcoin | Ethereum'. The site also shows a WebMoney passport identifier (411266485536), which is a payment-processor identity rather than a signup requirement.
+- interface: unknown
+- limits:
+  - volume-quota: 500 GB storage on premium, 50 GB on regular [1]
+  - per-ip-shaping (binding): 100 KB/s and a 1-hour wait between downloads on the regular account [1]
+  - retention-clamped: regular files deleted 60 days after the last download [1]
+- limits note: The storage figure is a stored-byte ceiling, not a transfer allowance; the transfer side is only shaped (100 KB/s), never metered.
+- binding note: 100 KB/s is about 8.6 GB a day and about 260 GB a month on a link that never idles, so 1 TiB of monthly transfer does not fit the free tier at all. On premium the throttle is removed and the 500 GB storage ceiling becomes the next wall.
+- interface detail: Web upload, remote URL upload and FTP upload on premium. The site is an XFileSharing-style host, which normally exposes an API module, but no endpoint was found or read here.
+- tooling: FTP upload on premium is the only non-browser path stated. No rclone backend. The host is on both the PrimeLeech and Leechall generator lists, so a leecher can pull from it without a premium account.
+- composes with: A 500 GB premium host at $15.95 a month, priced per 30 days rather than per byte, with 330 days at $117.95 the cheapest per day. Useful as a redirect target for a release the debrids do not cache.
+- reliability: The 1-hour wait and the 100 KB/s cap are on the account, not the file, so a batch of small files on the free tier takes a day in queue time alone.
+- notes: Cheapest per day is the 330-day plan at USD 0.357/day against USD 0.532/day for the 30-day. Nothing here prices transfer, so a client storing 500 GB and pulling it monthly is paying for storage only.
+- evidence note: Feature and price table read on the vendor payments page. Because this is an XFileSharing-derived host, a per-file upload cap almost certainly exists and is not in this record; the FAQ page would supply it.
+- extras:
+  - plans: 15.95 USD 30 days; 39.95 USD 90 days; 117.95 USD 330 days
+  - payments: Bank cards, PayPal, Bitcoin, Ethereum
+  - script_family: XFileSharing-style (inferred from URL shape ?op=...)
+- evidence:
+  - [1] 2026-10-23: the Premium/Regular comparison (500 GB vs 50 GB storage, unlimited vs 100 KB/s, unlimited vs 60-day retention) and the prices 15.95 USD / 30 days, 39.95 / 90 days, 117.95 / 330 days
+- sources:
+  - [1] https://filespace.com/?op=payments

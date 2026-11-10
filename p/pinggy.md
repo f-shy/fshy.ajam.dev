@@ -1,0 +1,45 @@
+# Pinggy
+
+> pinggy.io | Egress and tunnels; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/pinggy/ | JSON https://fshy.ajam.dev/api/v1/entity/pinggy.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Pinggy
+
+- `egress/pinggy-free` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category tunnel (hosted, SSH)
+- needs card no, phone no, ID no, institution no | verified 2026-11-05 (live) | stale on 2026-12-06
+- url https://pinggy.io/help/
+- free tier: one 60-minute tunnel at unlimited data, no account | unit: unlimited | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable: a stream rather than an object store
+- retention: 60 minutes per unauthenticated connection; after expiry the tunnel URL terminates. | source: [1]
+- egress: no byte quota; measured 26.9 KiB/s on a 10 MiB object, which is 2.2 GiB/day at best | metered: no | source: [1]
+- identity: anonymous | detail: no account for the 60-minute tier; the SSH session is unauthenticated
+- interface: ssh
+- limits:
+  - retention-clamped: 60 minutes per tunnel, stated in the SSH banner and on the help page [1]
+  - per-ip-shaping (binding): measured 4,847,616 of 10,485,760 bytes in 180 s, about 26.9 KiB/s, which caps a full month at about 69.8 GB (0.063 TiB) probe
+  - per-ip-shaping (binding): about 50 kB/s on the free tier; a 4 MiB transfer does not complete probe:https://hdiom-104-28-207-178.free.pinggy.net/
+- binding note: The 60-minute cap bounds each session and the measured 26.9 KiB/s bounds everything those sessions can carry: at that rate a whole month is about 69.8 GB, 0.063 TiB, so the rate is what fails and it fails by a factor of 16 rather than at a quota.
+- interface detail: ssh -p 443 -R0:127.0.0.1:PORT [address removed]
+- tooling: OpenSSH
+- composes with: the free outbound-only ingress for a host that cannot open a port, which is the sealed-sandbox shape. It composes with anything that speaks TCP and composes with nothing that needs throughput.
+- reliability: the free hostname is a random subdomain that changes every session; a harness measured an 836 ms median latency and about 50 kB/s, so a 4 MiB transfer does not complete inside the 60-minute session.
+- notes: 2026-10-23: the free tier carries UDP, not only SSH TCP. Pinggy documents 'ssh -p 443 -R0:localhost:51820 [address removed]' as the way to expose a self-hosted WireGuard server, and the free host form returns a public UDP port such as udp://rndnj-103-170-183-11.a.free.pinggy.online:43210, so wg_path is inside-udp.
+- evidence note: the free tier works end to end at an 836 ms median latency and about 50 kB/s (measured 2026-11-05).
+- extras:
+  - stale_after_days: 180
+  - bytes_transit: yes
+  - transit_note: the SSH tunnel relays the origin's bytes at a measured 26.9 KiB/s
+  - wg_path: inside-udp
+- evidence:
+  - probe:https://phqpq-103-139-152-1.run.pinggy-free.link/blob10m.bin 2026-10-22: 200 with 4,847,616 of 10,485,760 bytes in 180 s, then the client timeout
+  - probe:https://phqpq-103-139-152-1.run.pinggy-free.link/small.txt 2026-10-22: 200, 3 bytes in 1.1 s: the control path works, so the 10 MiB result is shaping
+  - [1] 2026-10-22: 'Your tunnel will expire in 60 minutes' and the -R0 form
+  - [2] 2026-10-23: 'Pinggy's UDP tunnels solve this by relaying UDP datagrams from a public endpoint to your local WireGuard server, so peers anywhere in the world can complete the handshake'; the free form is '[address removed]'
+  - [3] 2026-10-23: 'UDP tunnels cannot be created using SSH command'; 'Port allocation changes per connection. However, Pro users can reserve a persistent port'
+  - [1] 2026-10-23: 'Pinggy's free plan has a tunnel timeout of 60 minutes'
+  - probe:https://hdiom-104-28-207-178.free.pinggy.net/ 2026-11-05: the free tier transfers at about 50 kB/s | capture: sha256:be1f0f5da87ff4ed55d877c4526e33575fa8721d8a66c08a69b07d40eeef4a4b | quote: ~49-51 KB/s
+- sources:
+  - [1] https://pinggy.io/help/
+  - [2] https://pinggy.io/docs/guides/wireguard/
+  - [3] https://pinggy.io/docs/udp_tunnels/

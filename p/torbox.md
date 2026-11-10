@@ -1,0 +1,464 @@
+# TorBox
+
+> torbox.app | Debrid; 4 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/torbox/ | JSON https://fshy.ajam.dev/api/v1/entity/torbox.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## TorBox (pro)
+
+- `debrid/torbox-pro` | qualifies | evidence documented | binding per-object-cap | category debrid link generator with torrent and usenet backends | tier pro
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23T01:57:49.000Z (live) | stale on 2026-11-23
+- url https://torbox.app/pricing
+- price USD 10.00 per 30 days, flat, usenet included | parsed USD 10/mo
+- disagrees on verdict: `debrid/torbox-essential` says qualifies-with-caveat, `debrid/torbox-pro` says qualifies
+- disagrees on identity_kind: `debrid/torbox-free` says email, `debrid/torbox-pro` says card
+- disagrees on verdict: `debrid/torbox-free` says fails-quota, `debrid/torbox-pro` says qualifies
+- disagrees on verdict: `debrid/torbox-pro` says qualifies, `debrid/torbox-standard` says qualifies-with-caveat
+- free tier: No free allowance on this plan; it is the US$10/month top tier. The free plan is a separate record. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: 1 TB per download on the pricing page, 500 GiB in the API error table; the smaller figure is kept | bytes: 536870912000 | source: [2] | note: The pricing page says '1TB Max Per Download Size'; the API error table says 'Pro Plan Limit: 536870912000 bytes' (500 GiB). Two vendor pages disagree by a factor of two and the record keeps the smaller.
+- retention: 1 TB permanent storage (AirLock) and 30-day seeding time; after 30 days the torrent stops seeding but stays cached | source: [1]
+- egress: 'Unlimited Downloads' and 'Unlimited Usenet Downloads + NNTP'. The terms say 'Unlimited' means no fixed ordinary-use limit, not unlimited automation or resale. | metered: no | free allowance: unlimited downloads, ten concurrent | source: [1]
+- identity: card | detail: E-mail account plus card or voucher at checkout.
+- interface: rest
+- limits:
+  - per-object-cap (binding): 500 GiB per download per the API table, 1 TB per the pricing page [2]
+  - pull-count: ten active downloads or seeds, the maximum offered on any plan [3]
+  - request-rate: 300 requests per minute per token; 60 per hour for uncached torrent, usenet and web-download creation [2]
+- limits note: The API returns MONTHLY_LIMIT, COOLDOWN_LIMIT and ACTIVE_LIMIT as distinct errors, so a client can tell a monthly cap from a concurrency wait without parsing prose.
+- binding note: There is no monthly byte quota to hit, and ten concurrent slots is not a quota in this vocabulary. The single object is what fails: a 1 TiB torrent cannot be added at all if the 500 GiB API figure is the enforced one, which is the smaller of the two published numbers.
+- interface detail: REST API with a bearer key; 300 requests per minute per token unless an endpoint is listed otherwise.
+- endpoint: https://api.torbox.app/v1/api/
+- tooling: Documented API, Postman collection, third-party media-server integrations; NZB and NNTP credentials are issued through the API.
+- composes with: The only TorBox tier with usenet, so it is the one that competes with Premiumize on a second network: torrents plus NNTP plus 1 TB of stored files for US$10, against Premiumize's point budget at EUR 9.99.
+- reliability: TorBox has a public status page and a documented history of downtime; the abuse system is dynamic and keyed to a rolling 99th percentile, so a heavy month can be throttled without a published threshold.
+- notes: The 500 GiB versus 1 TB conflict is the interesting part: the same vendor publishes both, and the API table is the one an automated client will actually hit. Published listings listed TorBox's tiers correctly and described usenet as included, which is right for Pro only. Annual plans exist (a November 2025 promotion sold them at 30% off: Essential US$23.10, Standard US$38.50, Pro US$77, implying list prices near US$33 / US$55 / US$110) but the pricing page read on 2026-10-23 shows monthly only.
+- evidence note: Price and plan features are from the pricing page; the size figure is the API's, which is lower. A purchase confirms which of the two size limits is enforced.
+- extras:
+  - usenet: yes, unlimited, with NNTP credentials
+  - torrent: yes
+  - storage_gb: 1000
+  - annual_plan: exists; list price not shown, promo implies about USD 110
+- evidence:
+  - [1] 2026-10-23: '$10/mo', '10 Concurrent Slots', '1TB Max Per Download Size', '80Gbps Speed', '30 Day Seeding Time', '1TB Permanent Storage', 'Unlimited Usenet Downloads + NNTP'
+  - [2] 2026-10-23: 'Pro Plan Limit: 536870912000 bytes', 300/min general rate limit, 60/hour for usenet and web-download creation, and the MONTHLY_LIMIT / COOLDOWN_LIMIT / ACTIVE_LIMIT error codes
+  - [3] 2026-10-23: Pro: '1TB per torrent allowance', '10 active torrents', 'Access to Usenet', '30 day seeding time', and that 10 is the hard maximum across all plans
+  - [4] 2026-10-23: 'Unlimited' does not mean unlimited automation, resale or commercial exploitation; fair-use limits and throttling are reserved
+- sources:
+  - [1] https://torbox.app/pricing
+  - [2] https://api-docs.torbox.app/
+  - [3] https://support.torbox.app/en/articles/9836418-account-restrictions
+  - [4] https://torbox.app/policies/terms
+
+## TorBox (essential)
+
+- `debrid/torbox-essential` | qualifies-with-caveat | evidence documented | binding per-object-cap | category debrid link generator with torrent and usenet backends | tier essential
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23T01:57:49.000Z (live) | stale on 2026-11-23
+- url https://torbox.app/pricing
+- price USD 3.00 per 30 days, flat | parsed USD 3/mo
+- disagrees on identity_kind: `debrid/torbox-essential` says card, `debrid/torbox-free` says email
+- disagrees on verdict: `debrid/torbox-essential` says qualifies-with-caveat, `debrid/torbox-free` says fails-quota
+- disagrees on verdict: `debrid/torbox-essential` says qualifies-with-caveat, `debrid/torbox-pro` says qualifies
+- free tier: No free allowance on this plan; it is the US$3/month entry tier. The free plan is a separate record. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: 200 GB per download | bytes: 200000000000 | source: [1] | note: The API error table gives the same limit as 214748364800 bytes, which is 200 GiB; the pricing page says 200GB. The GiB reading is the larger of the two, so 200 GB is the conservative figure.
+- retention: 300 GB of permanent storage (AirLock) plus 24-hour seeding time | source: [1] | note: Seeding stops after 24 hours; the file stays cached and downloadable.
+- egress: 'Unlimited Downloads' on the plan, subject to the terms' fair-use clause and the three active slots. No byte allowance is published for the month. | metered: no | free allowance: unlimited downloads, three concurrent | source: [1]
+- identity: card | detail: E-mail account plus a card or voucher at checkout.
+- interface: rest
+- limits:
+  - per-object-cap (binding): 200 GB per download [1]
+  - pull-count: three active downloads or seeds at a time; extra items queue [2]
+  - request-rate: 300 requests per minute per API token; 60 per hour for uncached torrent creation [3]
+  - pull-count: 3 active downloads at once; further additions queue; the global maximum is 10 slots [2]
+  - per-object-cap (binding): 200 GB per torrent [2]
+- limits note: Any download showing no progress for two days is removed automatically, and the maximum active-slot count across all plans is 10.
+- binding note: Downloads are unlimited, so the monthly total does not bind; what fails is a single object over 200 GB. Monthly transfer of 1 TiB composed of 200 GB items is supported on this plan, while a 1 TiB single torrent is not.
+- interface detail: REST API with a bearer API key; the vendor documents 300 requests a minute per token with separate hourly caps on uncached torrent, usenet and web-download creation.
+- endpoint: https://api.torbox.app/v1/api/
+- tooling: Documented API, Postman collection, third-party media-server integrations. Torrents, magnets, NZB and web downloads share one API surface.
+- composes with: The cheapest paid tier that removes the free plan's download counter; it is the tier to test usenet against because it does not exist on Free, but the support article says usenet starts at Pro, so the payment would be for torrents alone here.
+- reliability: Usenet is not on this plan according to the vendor's support article even though the pricing page's feature column lists it for every tier; treat usenet as Pro-only. The terms allow throttling and key rotation on suspected sharing.
+- notes: Two vendor pages disagree on usenet for this tier and the record keeps the smaller claim. The 2025 promotional listings for annual plans imply an annual list price near US$33 (US$23.10 at 30% off), but the pricing page read on 2026-10-23 shows monthly billing only, so no annual figure is recorded. The price that actually answers the 20 GiB question: USD 3 buys a 200 GB single-torrent ceiling and 300 GB of permanent storage. At 1 TiB a month it costs 3 dollars; the same terabyte on Seedr Basic costs 7.95 and on put.io 9.99.
+- evidence note: Plan limits from the pricing page; the usenet conflict is resolved conservatively against the plan's own feature column. Confirming it needs a purchase.
+- extras:
+  - usenet: no, per the support article (the pricing page lists it for all tiers)
+  - torrent: yes
+  - storage_gb: 300
+  - annual_plan: exists; list price not shown on the page read, promo implies about USD 33
+  - airlock_gb: 300
+  - seeding_stated: not stated for Essential; Standard is 2 weeks, Pro is 30 days
+- evidence:
+  - [1] 2026-10-23: '$3/mo', '3 Concurrent Slots', 'Unlimited Downloads', '200GB Max Per Download Size', '1Gbps Speed', '24 Hour Seeding Time', '300GB Permanent Storage'
+  - [2] 2026-10-23: Essential: '3 Active downloads', '200GB max torrent size', 'Access to web downloads', 'No access to Usenet downloads'
+  - [3] 2026-10-23: 300/min per token, 60/hour for uncached torrent creation, and the per-plan download-size error table giving 214748364800 bytes for Essential
+  - [1] 2026-10-23: ESSENTIAL $3/mo with 3 concurrent slots
+  - [2] 2026-10-23: Essential: '3 Active downloads', '200GB max torrent size', 'Unlimited monthly downloads', 'Access to web downloads', no Usenet
+  - [4] 2026-10-23: 'Essential: 300GB' Airlock and the 30-day inactivity deletion for normal files
+- sources:
+  - [1] https://torbox.app/pricing
+  - [2] https://support.torbox.app/en/articles/9836418-account-restrictions
+  - [3] https://api-docs.torbox.app/
+  - [4] https://support.torbox.app/en/articles/15417147-torbox-airlock
+
+## TorBox (standard)
+
+- `debrid/torbox-standard` | qualifies-with-caveat | evidence documented | binding per-object-cap | category debrid link generator with torrent and usenet backends | tier standard
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23T01:57:49.000Z (live) | stale on 2026-11-23
+- url https://torbox.app/pricing
+- price USD 5.00 per 30 days, flat | parsed USD 5/mo
+- disagrees on identity_kind: `debrid/torbox-free` says email, `debrid/torbox-standard` says card
+- disagrees on verdict: `debrid/torbox-free` says fails-quota, `debrid/torbox-standard` says qualifies-with-caveat
+- disagrees on verdict: `debrid/torbox-pro` says qualifies, `debrid/torbox-standard` says qualifies-with-caveat
+- free tier: No free allowance on this plan; it is the US$5/month middle tier. The free plan is a separate record. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: 200 GB per download | bytes: 200000000000 | source: [1] | note: The API error table gives 214748364800 bytes (200 GiB) for this plan; the page's 200 GB is the smaller figure and is kept.
+- retention: 500 GB of permanent storage (AirLock) and 14-day seeding time | source: [1] | note: Seeding stops after 14 days; the file stays cached and downloadable.
+- egress: 'Unlimited Downloads' subject to the fair-use clause and five active slots. Usenet is not included on this tier per the vendor's support article. | metered: no | free allowance: unlimited downloads, five concurrent | source: [1]
+- identity: card | detail: E-mail account plus card or voucher at checkout.
+- interface: rest
+- limits:
+  - per-object-cap (binding): 200 GB per download [1]
+  - pull-count: five active downloads or seeds at a time [2]
+  - request-rate: 300 requests per minute per API token; 60 per hour for uncached torrent creation [3]
+- limits note: The plan's value over Essential is entirely seeding time and two slots; its byte limits are identical.
+- binding note: Monthly downloads are unlimited, so what fails is a single object above 200 GB. The 14-day seed window and the five slots are operational limits, not quota kinds.
+- interface detail: REST API with a bearer key, 300 requests a minute per token by default.
+- endpoint: https://api.torbox.app/v1/api/
+- tooling: Documented API, Postman collection, third-party media-server integrations.
+- composes with: The tier for a private tracker: two more active slots than Essential and a 14-day seed window, which is what most trackers require before a ratio counts. If seeding is not done, Essential is the same product for US$2 less.
+- reliability: Two vendor pages disagree on whether this tier includes usenet; the support article says it does not. The abuse system is dynamic and can throttle without a published threshold.
+- notes: Recorded separately from Essential because the seeding window and slot count change what the plan is for, even though the byte caps are identical. Published comparison US$5 figure is confirmed.
+- evidence note: Plan features are from the pricing page and the support article, which agree except on usenet. A purchase confirms that.
+- extras:
+  - usenet: no, per the support article
+  - torrent: yes, 14-day seeding
+  - storage_gb: 500
+- evidence:
+  - [1] 2026-10-23: '$5/mo', '5 Concurrent Slots', 'Unlimited Downloads', '200GB Max Per Download Size', '14 Day Seeding Time', '500GB Permanent Storage'
+  - [2] 2026-10-23: Standard: five active downloads, 2-week seeding time, and usenet listed only on Pro
+- sources:
+  - [1] https://torbox.app/pricing
+  - [2] https://support.torbox.app/en/articles/9836418-account-restrictions
+  - [3] https://api-docs.torbox.app/
+
+## TorBox (free)
+
+- `debrid/torbox-free` | fails-quota | evidence documented | binding volume-quota | category debrid link generator with torrent and usenet backends (free tier) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T01:57:49.000Z (live) | stale on 2026-11-23
+- url https://torbox.app/pricing
+- price USD 0
+- disagrees on identity_kind: `debrid/torbox-essential` says card, `debrid/torbox-free` says email
+- disagrees on verdict: `debrid/torbox-essential` says qualifies-with-caveat, `debrid/torbox-free` says fails-quota
+- disagrees on identity_kind: `debrid/torbox-free` says email, `debrid/torbox-pro` says card
+- disagrees on verdict: `debrid/torbox-free` says fails-quota, `debrid/torbox-pro` says qualifies
+- disagrees on identity_kind: `debrid/torbox-free` says email, `debrid/torbox-standard` says card
+- disagrees on verdict: `debrid/torbox-free` says fails-quota, `debrid/torbox-standard` says qualifies-with-caveat
+- free tier: US$0/mo: 1 concurrent slot, 24-hour cool down, ten downloads per month, 10 GB maximum download size, 250 Mbps, reduced traffic priority, API access. | unit: GB | metered on: object-count | read on: 2026-10-23 | source: [1] | note: The support article says the 10 GB is enforced as 10 GB and not 10 GiB: a 10 GiB torrent is deleted because '10GiB = ~11GB which is too high'.
+- per-object cap: 10 GB per torrent; '10GiB = ~11GB which is too high so your torrent will be deleted' | bytes: 10000000000 | source: [2] | note: Byte figure is the decimal 10 GB the vendor states; the vendor explicitly does not mean 10 GiB.
+- retention: Torrents do not seed at all on Free: 'Once the download is complete, the torrent will simply show as cached.' No storage allowance is listed for the free plan. | source: [2]
+- egress: 10 downloads a month at a 10 GB maximum each, so 100 GB a month is the ceiling of the free plan even if every torrent lands at the cap. Speed is 250 Mbps with reduced priority. | metered: yes | free allowance: 10 downloads per month, 10 GB each | source: [1]
+- identity: email | detail: E-mail account with an API key; no card and no phone for the free plan.
+- interface: rest
+- limits:
+  - volume-quota (binding): ten downloads per calendar month, reset on the first of the month [2]
+  - per-object-cap: 10 GB per torrent (decimal, not GiB) [2]
+  - pull-count: one download may be added every 24 hours; one active download at a time [2]
+  - volume-quota (binding): ten downloads per month [2]
+  - per-object-cap: 10 GB per torrent, decimal not GiB [2]
+  - pull-count: one download added per 24 hours; one active at a time [2]
+  - per-object-cap: 10 GB maximum download size on the free plan [1]
+  - per-ip-shaping: 250 Mbps, 'Reduced Traffic Priority', 1 concurrent slot [1]
+  - volume-quota (binding): per host per day: 10737418240 B (wupfile) up to 21474836480000 B (mediafire, mega, pixeldrain, gofile, buzzheavier, fuckingfast, yandex disk); default 10737418240000 B [3]
+  - per-object-cap: 10 GB per download on the free plan; 107374182400 B (100 GiB) per link otherwise [1]
+  - request-rate: 300 requests/minute per API token; torrent creation limited to 60/hour for uncached items (300/min when cached); usenet and webdl creation 60/hour each [4]
+  - pull-count: link resolution is a budget of about 100 calls: a 429 with Retry-After 300 arrived at call 100 when issued flat out and at call 94 when paced; the lockout is account-wide and lasts five minutes [5]
+  - per-ip-shaping: the 21st concurrent connection to one CDN host gets a 429 (third-party measurement 2026-08-23); the limit is per host, not per key [5]
+  - volume-quota (binding): fair-use floor per tier: 10 TB/month Essential, 20 TB Standard, 30 TB Pro; three warnings then 'On the 4th abuse event, the account is banned without refund' [6]
+  - request-rate: 300 requests per minute per API token, no edge limiting: 'all endpoints are rate limited to 300/min per API token, no edge rate limiting' [4]
+  - request-rate: 60 per hour for uncached torrent creation, 300 per minute when the torrent is cached; an uncached add spends from both pools [7]
+  - request-rate: 60 per hour each for POST /usenet/createusenetdownload and POST /webdl/createwebdownload [7]
+  - per-object-cap: 10 GiB per download on the free plan [4]
+  - pull-count: active download slots per plan; cached items do not consume a slot. Not an address limit [8]
+  - request-rate: rate limiting is API-token based ('We no longer accept IP whitelisting requests due to rate limiting being API token based, rather than IP based') [4]
+  - per-ip-shaping: none published; the answer says the opposite: 'There is no restriction on where you log in and download files from' [9]
+  - retention-clamped: 30 days after the last download [10]
+  - volume-quota (binding): AirLock 1 TB Pro / 500 GB Standard / 300 GB Essential / 0 GB Free [11]
+  - per-object-cap: 1 TB per torrent on Pro, 200 GB Essential, 10 GB Free [2]
+  - per-object-cap: 10 GB maximum download size (free tier) [1]
+  - request-rate: 1 concurrent slot (free), 3 (Essential), no count published for Standard or Pro [1]
+  - per-object-cap: 10 GB per torrent [2]
+  - request-rate: 1 download added every 24 hours; 10 downloads per month, reset on the 1st [2]
+  - pull-count: 1 active download at a time; extra additions queue [2]
+- limits note: Private torrents are refused on the free plan, and web downloads and usenet downloads are not available at all. Cached items do not count against the active-slot limit.
+- binding note: Ten downloads at 10 GB is 100 GB a month, a tenth of the 1 TiB monthly volume, and the 24-hour cool down means the tenth download cannot even be reached before day ten. Both the count and the size cap are lower than every other service in the sector.
+- interface detail: REST API at api.torbox.app with a bearer API key; 'API Access' and '3rd Party Apps' are listed on every plan including Free.
+- endpoint: https://api.torbox.app/v1/api/
+- tooling: Documented REST API (api-docs.torbox.app), a Postman collection, and third-party integrations. TorBox publishes its own open-source repositories on GitHub.
+- composes with: Cheap way to test whether TorBox's cache and the trackers agree: one torrent every 24 hours, ten a month, no card. It cannot carry a real workload and is not meant to.
+- reliability: TorBox runs a dynamic abuse system keyed to a rolling 99th percentile of usage, and its terms state that 'unlimited' does not survive automation or sharing; the service has a public status page and a history of downtime incidents.
+- notes: All four are confirmed on the vendor page. Facts unchanged, evidence route changed: two earlier records cite torbox.app/pricing for 'Ten Downloads Per Month' and '24 Hour Cool Down', and that page no longer carries either string. The rules are still true, from the support article. The ladder's 100 GB therefore survives, but a re-verification that only opens the pricing page would wrongly conclude the count was dropped. This is the load-bearing piece of the free-only answer, and the weakest-evidenced record: one vendor page read, no account, no API call. No host reports a zero cap, and the SDK documentation says zero means unlimited, so every host here is capped in fact. 67 of the 162 rows are streams (YouTube, Twitch, Vimeo) and are excluded from the host matrix, which leaves 95 file hosts. The budget is confirmed by a dated measurement with the retry header value; the slot count is documented; The Rapidgator hoster is documented by the comparison project's issue #34 as 'constantly Offline ... Links cannot be added', which is a host-level refusal the service does not signal with an error code. The free plan is the only tier of any provider here that combines a free key, a published per-token rate limit and a documented mount path. What it cannot do is one file over 10 GiB. The IP permission is unchanged and is the load-bearing fact: this is the only seed service that states that a bare cloud address may call it. The trap is that the 30-day countdown after a purge starts at the last download, not at the lapse, so a file fetched five months ago can vanish on day 7 of the gap. Rendering the replay through a headless browser also produced no table. Any future attempt needs a text-extraction crawler run against the live page and stored as a capture, not the Wayback replay. Cheapest first purchase of any service that takes crypto directly. The rail is a third-party aggregator (Sellix), not the vendor's own wallet, so the crypto leg inherits Sellix's availability. Gift-card and mail-in-cash rails are the only paths in the whole sample that need neither card nor bank nor wallet. The strongest free torrent path that publishes a byte number, and it is still half of the 20 GiB case at the per-object level. It is also the cheapest way to test a cache: a torrent already cached by another user does not consume a slot and can be streamed or downloaded on the free plan.
+- evidence note: Plan limits come from the pricing page and from the vendor's own support article, which agree. The 10-download figure appears on the pricing page read through a browser renderer; the static payload does not carry it.
+- extras:
+  - usenet: no
+  - torrent: yes, public torrents only
+  - seeding: none
+  - speed_mbps: 250
+  - pricing_page_bullets_today: 1 Concurrent Slot; 10GB Max Download Size; 250Mbps Speed; Reduced Traffic Priority; API Access
+  - ladder_gb_month: 100
+  - paid_tiers_usd_month: Essential 3, Standard 5, Pro 10
+  - overlap: the hosted-stack angle: the key that the free addons use
+  - host_matrix.published_daily_caps: yes
+  - host_matrix.source: https://api.torbox.app/v1/api/webdl/hosters
+  - host_matrix.hosts_listed: 162
+  - host_matrix.hosts_in_matrix: 95
+  - host_matrix.default_daily_bytes: 10737418240000
+  - host_matrix.rows[0].host: wupfile.com
+  - host_matrix.rows[0].daily_bytes: 10737418240
+  - host_matrix.rows[0].daily_links: 5
+  - host_matrix.rows[0].per_link_bytes: 107374182400
+  - host_matrix.rows[0].status: yes
+  - host_matrix.rows[1].host: dailyuploads.net
+  - host_matrix.rows[1].daily_bytes: 21474836480
+  - host_matrix.rows[1].daily_links: 5
+  - host_matrix.rows[1].per_link_bytes: 107374182400
+  - host_matrix.rows[1].status: no
+  - host_matrix.rows[2].host: 4shared.com
+  - host_matrix.rows[2].daily_bytes: 53687091200
+  - host_matrix.rows[2].daily_links: 5
+  - host_matrix.rows[2].per_link_bytes: 107374182400
+  - host_matrix.rows[2].status: yes
+  - host_matrix.rows[3].host: drop.download
+  - host_matrix.rows[3].daily_bytes: 53687091200
+  - host_matrix.rows[3].daily_links: 5
+  - host_matrix.rows[3].per_link_bytes: 107374182400
+  - host_matrix.rows[3].status: yes
+  - host_matrix.rows[4].host: filer.net
+  - host_matrix.rows[4].daily_bytes: 53687091200
+  - host_matrix.rows[4].daily_links: 5
+  - host_matrix.rows[4].per_link_bytes: 107374182400
+  - host_matrix.rows[4].status: yes
+  - host_matrix.rows[5].host: isra.cloud
+  - host_matrix.rows[5].daily_bytes: 53687091200
+  - host_matrix.rows[5].daily_links: 5
+  - host_matrix.rows[5].per_link_bytes: 107374182400
+  - host_matrix.rows[5].status: yes
+  - host_matrix.rows[6].host: katfile.com
+  - host_matrix.rows[6].daily_bytes: 53687091200
+  - host_matrix.rows[6].daily_links: 5
+  - host_matrix.rows[6].per_link_bytes: 107374182400
+  - host_matrix.rows[6].status: no
+  - host_matrix.rows[7].host: nitroflare.com
+  - host_matrix.rows[7].daily_bytes: 53687091200
+  - host_matrix.rows[7].daily_links: 5
+  - host_matrix.rows[7].per_link_bytes: 107374182400
+  - host_matrix.rows[7].status: no
+  - host_matrix.rows[8].host: turbobit.net
+  - host_matrix.rows[8].daily_bytes: 53687091200
+  - host_matrix.rows[8].daily_links: 5
+  - host_matrix.rows[8].per_link_bytes: 107374182400
+  - host_matrix.rows[8].status: yes
+  - host_matrix.rows[9].host: 123684.com
+  - host_matrix.rows[9].daily_bytes: 536870912000
+  - host_matrix.rows[9].daily_links: 5
+  - host_matrix.rows[9].per_link_bytes: 107374182400
+  - host_matrix.rows[9].status: no
+  - host_matrix.rows[10].host: alfafile.net
+  - host_matrix.rows[10].daily_bytes: 536870912000
+  - host_matrix.rows[10].daily_links: 5
+  - host_matrix.rows[10].per_link_bytes: 107374182400
+  - host_matrix.rows[10].status: yes
+  - host_matrix.rows[11].host: pan.baidu.com
+  - host_matrix.rows[11].daily_bytes: 536870912000
+  - host_matrix.rows[11].daily_links: 5
+  - host_matrix.rows[11].per_link_bytes: 107374182400
+  - host_matrix.rows[11].status: no
+  - host_matrix.rows[12].host: rapidgator.net
+  - host_matrix.rows[12].daily_bytes: 536870912000
+  - host_matrix.rows[12].daily_links: 5
+  - host_matrix.rows[12].per_link_bytes: 107374182400
+  - host_matrix.rows[12].status: no
+  - host_matrix.rows[13].host: send.cm
+  - host_matrix.rows[13].daily_bytes: 536870912000
+  - host_matrix.rows[13].daily_links: 5
+  - host_matrix.rows[13].per_link_bytes: 107374182400
+  - host_matrix.rows[13].status: yes
+  - host_matrix.rows[14].host: uploady.io
+  - host_matrix.rows[14].daily_bytes: 536870912000
+  - host_matrix.rows[14].daily_links: 5
+  - host_matrix.rows[14].per_link_bytes: 107374182400
+  - host_matrix.rows[14].status: yes
+  - host_matrix.rows[15].host: ddownload.com
+  - host_matrix.rows[15].daily_bytes: 1073741824000
+  - host_matrix.rows[15].daily_links: 10
+  - host_matrix.rows[15].per_link_bytes: 107374182400
+  - host_matrix.rows[15].status: no
+  - host_matrix.rows[16].host: hitfile.net
+  - host_matrix.rows[16].daily_bytes: 1073741824000
+  - host_matrix.rows[16].daily_links: 10
+  - host_matrix.rows[16].per_link_bytes: 107374182400
+  - host_matrix.rows[16].status: yes
+  - host_matrix.rows[17].host: mypikpak.com
+  - host_matrix.rows[17].daily_bytes: 1073741824000
+  - host_matrix.rows[17].daily_links: 10
+  - host_matrix.rows[17].per_link_bytes: 107374182400
+  - host_matrix.rows[17].status: no
+  - host_matrix.rows[18].host: terabytez.org
+  - host_matrix.rows[18].daily_bytes: 1073741824000
+  - host_matrix.rows[18].daily_links: 10
+  - host_matrix.rows[18].per_link_bytes: 107374182400
+  - host_matrix.rows[18].status: yes
+  - host_matrix.rows[19].host: annas-archive.org
+  - host_matrix.rows[19].daily_bytes: 2684354560000
+  - host_matrix.rows[19].daily_links: 25
+  - host_matrix.rows[19].per_link_bytes: 107374182400
+  - host_matrix.rows[19].status: no
+  - host_matrix.rows[20].host: hexload.com
+  - host_matrix.rows[20].daily_bytes: 2684354560000
+  - host_matrix.rows[20].daily_links: 25
+  - host_matrix.rows[20].per_link_bytes: 107374182400
+  - host_matrix.rows[20].status: yes
+  - host_matrix.rows[21].host: clicknupload.click
+  - host_matrix.rows[21].daily_bytes: 5368709120000
+  - host_matrix.rows[21].daily_links: 50
+  - host_matrix.rows[21].per_link_bytes: 107374182400
+  - host_matrix.rows[21].status: no
+  - probe_tsv: probes.tsv
+  - type_split.hoster: 95
+  - type_split.stream: 67
+  - status_false: 15
+  - failure_angle: account-wide rate lockout
+  - strongest_signal: 429 with Retry-After: 300
+  - account_states: PLAN_RESTRICTED_FEATURE (free key or lapsed plan); ACTIVE_LIMIT; COOLDOWN_LIMIT; MONTHLY_LIMIT; DOWNLOAD_TOO_LARGE; BAD_TOKEN; VENDOR_DISABLED; LINK_OFFLINE
+  - cache_miss: createtorrent accepts the add and queues it; the 60/hour cap applies only to uncached items, so an uncached add is slower by design and not by error
+  - host_removal: hosters can be changed, added or removed at any time; the public hosters page returned an error on 2026-10-23, so the list is not readable without an account
+  - simultaneous_use: Enforcement is concurrent slots and monthly bytes, not concurrent addresses.
+  - auth_flows: one: a long-lived API token in the Authorization header, minted at https://torbox.app/settings. No OAuth2 device flow, no refresh, no scopes. The error NO_AUTH / BAD_TOKEN distinguish missing from invalid.
+  - unrestrict_endpoint: GET /torrents/requestdl (the documented equivalent of Real-Debrid's /unrestrict/link)
+  - torrent_endpoints: POST /torrents/createtorrent, /torrents/controltorrent, /torrents/asynccreatetorrent; GET /torrents/mylist, /torrents/checkcached, /torrents/getqueued. Usenet and webdl mirror the same shape under /usenet and /webdl.
+  - account_endpoints: the generated OpenAPI at http://api.torbox.app/docs is where the account and traffic routes would be. Plan limits surface as errors (MONTHLY_LIMIT, ACTIVE_LIMIT, COOLDOWN_LIMIT) rather than as a quota endpoint
+  - public_endpoints_no_account: none found; every endpoint takes the token. A separate TorBox search API is referenced in the error table (SEARCH_ERROR) but its host answered 530 twice, so its public/private status is unverified
+  - date_format: all dates normalized to UTC '%Y-%m-%dT%H:%M:%SZ'
+  - webdav_caveat: the WebDAV article does not state which plans it is available on; the free plan's inclusion of it is inferred from the plan card listing API Access, not read
+  - class_rule_quoted: There is no restriction on where you log in and download files from
+  - accepts_bare_cloud_ip: yes
+  - accepts_listed_cloud_ip: yes
+  - sanctioned_routes: none needed
+  - contradiction: knowledge base invites account and API-key sharing
+  - retention_map.normal_file.stated: last download
+  - retention_map.normal_file.days: 30
+  - retention_map.normal_file.source_url: https://support.torbox.app/en/articles/9961332-how-long-are-torbox-files-stored-for
+  - retention_map.airlock_while_eligible.stated: no inactivity expiry
+  - retention_map.airlock_while_eligible.source_url: https://support.torbox.app/en/articles/15417147-torbox-airlock
+  - retention_map.grace_after_lapse.stated: purge window before AirLock ejection
+  - retention_map.grace_after_lapse.days: 7
+  - retention_map.grace_after_lapse.source_url: https://support.torbox.app/en/articles/15417147-torbox-airlock
+  - retention_map.worst_case_after_lapse.stated: 7 days plus a 30-day clock that may already be spent
+  - retention_map.worst_case_after_lapse.days: 37
+  - retention_map.worst_case_after_lapse.source_url: https://support.torbox.app/en/articles/15417147-torbox-airlock
+  - account_deletion.stated: no inactivity deletion published
+  - account_deletion.source_url: https://torbox.app/policies/terms
+  - reactivation: normal files that survived the 30-day clock reappear; ejected AirLock items are re-Airlocked by hand
+  - storage_model: shared cache plus a per-account AirLock allowance
+  - price_history[0].date: 2026-10-23
+  - price_history[0].price: USD 0 / month
+  - price_history[0].plan: Free
+  - price_history[0].source_url: https://torbox.app/pricing
+  - price_history[1].date: 2026-10-23
+  - price_history[1].price: USD 3 / month
+  - price_history[1].plan: Essential
+  - price_history[1].source_url: https://torbox.app/pricing
+  - price_history[2].date: 2026-10-23
+  - price_history[2].price: USD 5 / month
+  - price_history[2].plan: Standard
+  - price_history[2].source_url: https://torbox.app/pricing
+  - price_history[3].date: 2026-10-23
+  - price_history[3].price: USD 10 / month
+  - price_history[3].plan: Pro
+  - price_history[3].source_url: https://torbox.app/pricing
+  - price_history_status: unread
+  - price_history_note: Three dated captures (2024-10-02, 2025-10-13, 2026-10-23) but the first two store no price body. Earliest domain capture 2023-09-05.
+  - change_36m: unknown
+  - currency: USD
+  - payment_group: crypto
+  - payment.card: yes
+  - payment.card_note: Visa, Master, American Express, Discover, JCB; prepaid cards refused
+  - payment.paypal: yes
+  - payment.paypal_note: one-time payments only, and only while the processor enables it
+  - payment.crypto: BTC; ETH; LTC; USDT; USDC; TRX; BNB; SOL; MATIC; XNO; XMR; BCH; XRP; DOGE; CRO; APE; PEPE; WETH; DAI; SHIB
+  - payment.crypto_processor: Sellix
+  - payment.local_rails: UPI (India only); ACH (100+ banks, 2-4 business days manual verification)
+  - payment.voucher: no
+  - payment.non_bank_rails: gift card (eGifts24 ZAR, Amazon/Apple/Steam US/AU/CA, min $20); mail-in cash to Dover DE; Patreon; Telegram Stars via @torboxapp_command_bot
+  - payment.entry_price: USD 3/mo (Essential)
+  - payment.entry_price_eur: EUR 2.68 at the ECB rate of 2026-10-22
+  - max_slots_all_plans: 10 (Pro)
+  - free_airlock_gb: 0
+- evidence:
+  - [1] 2026-10-23: '$0/mo', '1 Concurrent Slot', '24 Hour Cool Down', 'Ten Downloads Per Month', '10GB Max Download Size', '250Mbps Speed', 'Reduced Traffic Priority', 'API Access'
+  - [2] 2026-10-23: 'You can only add 10 downloads per month', the 24-hour cool down, the 10 GB cap and why 10 GiB fails, no seeding, no private torrents, no web or usenet downloads
+  - [12] 2026-10-23: the abuse system is dynamic and keyed to the rolling 99th percentile of usage
+  - [2] 2026-10-23: 'You can only add 10 downloads per month', 'You can only add 1 download every 24 hours', 'You can only have 1 download active at a time', and 'Torrents downloaded can only have a max size of 10GB ... 10GiB = ~11GB which is too high so your torrent will be deleted.'
+  - [1] 2026-10-23: 'FREE ... $0/mo ... 1 Concurrent Slot ... 10GB Max Download Size ... 250Mbps Speed ... Reduced Traffic Priority ... API Access' - and no download count
+  - [1] 2026-10-23: the four plans and the free plan's five stated limits: 1 concurrent slot, 10GB max download size, 250Mbps, reduced traffic priority, API access
+  - probe:https://api.torbox.app/v1/api/webdl/hosters 2026-10-23: 162 hosters with `daily_bandwidth_limit`, `daily_link_limit`, `per_link_size_limit`, `status`; GET 200, 72261 bytes
+  - [1] 2026-10-23: free plan card: '$0/mo', '1 Concurrent Slot', '10GB Max Download Size', 'API Access'
+  - [13] 2026-10-23: the vendor's own hosters page is a JS shell that the reader reports as login_required, which is why the API endpoint is the authority here
+  - probe:https://webdav.torbox.app/ 2026-10-23: a WebDAV endpoint exists and asks for the key: 30 bytes, {"detail":"Not authenticated"}
+  - [4] 2026-10-23: Status semantics ('200 always means a success. 403 means authentication error'); rate limits '300/min per API token', 'createtorrent is rate limited to 60/hour for uncached items ... 300/min if the items are cached'; and the error table: NO_AUTH, BAD_TOKEN, PLAN_RESTRICTED_FEATURE, DOWNLOAD_TOO_LARGE with the four byte caps, MONTHLY_LIMIT, COOLDOWN_LIMIT, ACTIVE_LIMIT, LINK_OFFLINE, VENDOR_DISABLED, TOO_MUCH_DATA, BOZO_TORRENT, BOZO_NZB, DUPLICATE_ITEM, ITEM_NOT_FOUND.
+  - [1] 2026-10-23: Free plan '$0/mo, 1 Concurrent Slot, 10GB Max Download Size, 250Mbps Speed, Reduced Traffic Priority, API Access'; Essential $3/mo with 3 concurrent slots; Standard $5/mo; Pro $10/mo.
+  - [5] 2026-10-23: Third-party measurements: 'A 429 carrying Retry-After: 300 arrived at cumulative call 100 ... It arrived at call 94 when they were paced to one a second. The lockout is account-wide.'; 'The 21st connection to one CDN host gets a 429. Measured 2026-08-23'; 'A free account does not work with zurg. TorBox answers every library request from a free key with PLAN_RESTRICTED_FEATURE.'
+  - [6] 2026-10-23: Reported, a community summary quoting TorBox's support article and changelog: fair-use floors Essential 10 TB, Standard 20 TB, Pro 30 TB per month; cached streaming counted from 2026-05-22; 'You get 3 separate warnings in total before they ban abusive accounts ... On the 4th abuse event, the account is banned without refund.' Also TorBox's own words: 'we don't monitor IPs'.
+  - [14] 2026-10-23: 11 resolved incidents between 2026-08-03 and 2026-10-17: three 'General outage' (Aug 3, Aug 8, Aug 23 and again Oct 17), 'API Timeouts' (Aug 18), 'Cross continental processing degraded' (Sep 17), 'API outage' (Sep 26), 'APAC outage' and 'Network event' (Oct 13), 'WEUR - degredation' (Oct 17), and a region pull: 'We have pulled our SLAV region until a suitable alternative is found' (Sep 23).
+  - [4] 2026-10-23: 'all endpoints are rate limited to 300/min per API token, no edge rate limiting'; the 60/hour uncached, usenet and webdl limits; DOWNLOAD_TOO_LARGE plan table with 'Free Plan Limit: 10737418240 bytes'; the full error table (ACTIVE_LIMIT, MONTHLY_LIMIT, COOLDOWN_LIMIT, PLAN_RESTRICTED_FEATURE); the Real-Debrid route translation table; the SDK list
+  - [7] 2026-10-23: 'if you're adding uncached torrents, they contribute to the original 300/minute limit on top of the 60/hour limit', and that the limits are per API key and synchronised across all servers
+  - [1] 2026-10-23: the free plan card: '$0/mo', '1 Concurrent Slot', '10GB Max Download Size', '250Mbps Speed', 'API Access'
+  - [15] 2026-10-23: first-party WebDAV at https://webdav.torbox.app with the API key as password, and 'Our WebDAV refreshes every 15 minutes'
+  - [16] 2026-10-23: TorBox is one of five debrid providers behind Decypharr's 'Mock Qbittorent and Sabnzbd API'
+  - [9] 2026-10-23: 'TorBox doesn't track your IP at all ... or even on a VPN ... There is no restriction on where you log in and download files from.' Also 'You can even share your account and API key with others if you like! There is no restriction on how many devices can be logged in at a time'.
+  - [4] 2026-10-23: 'We no longer accept IP whitelisting requests due to rate limiting being API token based, rather than IP based.' The published error table has no address-refusal code; the only device-shaped code is INVALID_DEVICE, which is about the requesting client, not its address.
+  - [17] 2026-10-23: 'Last updated: July 31, 2026'. The full text contains no VPN, proxy, server, datacenter or cloud-address clause. The class permission is therefore untouched while the sharing permission is withdrawn.
+  - [18] 2026-10-23: 
+  - [19] 2026-10-23: 2026-07-31 user comparison of the old and new vendor documents: the operator changed to Anonymous Systems FZ-LLC, and the service now 'collects your IP, device IDs, precise geolocation from IP'. This is the only change to the vendor's documents on addresses in 2026, and it is about collection, not blocking.
+  - [10] 2026-10-23: 'TorBox stores each file for at least 30 days' and that popularity extends it
+  - [11] 2026-10-23: 'deleted 30 days after the last download'; AirLock sizes per tier; 'You will have 7 days... After 7 days of being over your Airlock limit, ALL of your accounts Airlock files will automatically be removed from your Airlock... they will then be treated as normal files that will expire after 30 days of inactivity'
+  - [20] 2026-10-23: 'Any downloads not downloaded within 30 days of being cached are removed'; downloading, or someone else downloading, resets the clock
+  - [21] 2026-10-23: 'TorBox may provide a grace period to reduce your AirLock usage, but is not required to do so'; AirLock is 'not a permanent storage service... or guarantee of continued access'
+  - [1] 2026-10-23: Free / Essential $3 / Standard $5 / Pro $10 per month, and the Free plan's 1 slot and 10 GB cap
+  - [1] 2026-10-23: the four tiers at $0 / $3 / $5 / $10 and the free tier's '1 Concurrent Slot', '10GB Max Download Size', '250Mbps Speed'
+  - [22] 2024-10-02: that the capture exists and carries only the Wayback toolbar: the page body is empty because the price table is rendered client-side
+  - [23] 2025-10-13: the same empty shell twelve months later, and the toolbar's own count of '198 captures' between 28 Mar 2024 and 9 Oct 2026
+  - [24] 2026-10-23: the domain's first capture is 2023-09-05, which bounds how far back any TorBox price history can go
+  - [25] 2026-10-23: the full rail list: 'Credit Card/Debit Cards' with 'We don't allow prepaid cards to be used'; 'Wallets ... Google Pay ..., Apple Pay ..., Amazon Pay ... and PayPal (available for only one-time payments)'; 'Patreon'; 'ACH Transfer'; 'Cryptocurrency ... Available in all countries' with 20 named coins; 'Gift Cards' via support; 'Mail in Cash'; 'UPI'; 'Telegram Stars'; and 'Unsupported Payment Methods: Paysafe, Privacy Cards, Virtual Cards'.
+  - [1] 2026-10-23: the price ladder: FREE $0/mo, ESSENTIAL $3/mo, STANDARD $5/mo, PRO $10/mo
+  - [26] 2026-10-23: the processor: 'Switched from PayPal and Coinbase to Sellix, which is a payment processor that combines PayPal, Crypto, and Card payments all in one'
+  - [27] 2026-10-22: ECB reference rate used for the euro comparison: 1 USD = 0.89246 EUR on 2026-10-22, so $3 is about EUR 2.68
+  - [1] 2026-10-23: FREE $0/mo with '1 Concurrent Slot', '10GB Max Download Size', '250Mbps Speed', 'API Access'
+  - [2] 2026-10-23: 'only add 1 download every 24 hours', '10 downloads per month', the 10GB maximum with the GiB warning, 'Torrents will not seed at all', and 'No private torrents are allowed on the Free plan'
+  - [11] 2026-10-23: normal files are 'deleted 30 days after the last download'; Airlock space is Free 0GB, Essential 300GB
+  - [12] 2026-10-23: absolute abuse floors of 'Free - 5TB/month', Essential 10TB, Standard 20TB, Pro 30TB
+- sources:
+  - [1] https://torbox.app/pricing
+  - [2] https://support.torbox.app/en/articles/9836418-account-restrictions
+  - [3] https://api.torbox.app/v1/api/webdl/hosters
+  - [4] https://api-docs.torbox.app/
+  - [5] https://notes.debridmediamanager.com/providers/torbox/
+  - [6] https://www.reddit.com/r/TorBoxApp/comments/1tji9n1/fair_use_policy_updated_cached_transfers_now/
+  - [7] https://support.torbox.app/en/articles/13726368-api-rate-limits
+  - [8] https://support.torbox.app/en/articles/12159366-account-restrictions
+  - [9] https://support.torbox.app/en/articles/9836406-can-i-use-my-account-with-many-different-ips
+  - [10] https://support.torbox.app/en/articles/9961332-how-long-are-torbox-files-stored-for
+  - [11] https://support.torbox.app/en/articles/15417147-torbox-airlock
+  - [12] https://support.torbox.app/en/articles/10336778-the-torbox-abuse-system
+  - [13] https://torbox.app/hosters
+  - [14] https://status.torbox.app/incidents
+  - [15] https://support.torbox.app/en/articles/14662867-torbox-webdav
+  - [16] https://github.com/sirrobot01/decypharr
+  - [17] https://torbox.app/terms
+  - [18] https://www.reddit.com/r/TorBoxApp/comments/1tmfx6l/concurrent_ip_usage/
+  - [19] https://www.reddit.com/r/StremioAddons/comments/1vbjnsk/torbox_quietly_changed_operating_entity_policies/
+  - [20] https://support.torbox.app/en/articles/10333785-why-is-my-download-inactive
+  - [21] https://torbox.app/policies/terms
+  - [22] https://web.archive.org/web/20241002194254/https://torbox.app/pricing
+  - [23] https://web.archive.org/web/20251013200632/https://torbox.app/pricing
+  - [24] https://web.archive.org/cdx/search/cdx?url=torbox.app&output=json&fl=timestamp&limit=3
+  - [25] https://support.torbox.app/en/articles/9835794-what-payment-types-can-i-use
+  - [26] https://feedback.torbox.app/changelog/v352
+  - [27] https://api.frankfurter.app/latest?from=USD&to=EUR

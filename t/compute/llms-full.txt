@@ -1,0 +1,38 @@
+# fshy: Compute in full
+
+> Machines, sandboxes, notebooks, GPU time, platform hosts and how long each runs before it is reaped.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic is 7,071 KB, about 1,911K tokens in full, more than the 300 KB, about 81K tokens one file holds, so it is split: its hosted records by verdict group, then its self-hosted records in one last group, and a group over that size into balanced parts. The parts in the order below are the one order (hosted before self-hosted, then verdict, provider name, record id). How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## Parts
+
+- [Usable part 1 of 10](https://fshy.ajam.dev/t/compute/llms-full-usable-1.txt): 36 records, Alibaba Cloud (Simple Application Server, international site) (qualifies) to Paperspace (DigitalOcean) Gradient free tier (qualifies); 277 KB, about 75K tokens
+- [Usable part 2 of 10](https://fshy.ajam.dev/t/compute/llms-full-usable-2.txt): 47 records, Privex (Privex Inc.) (qualifies) to ASCS Cloud (AS Computer Solutions - Cloud Networks) (qualifies-with-caveat); 289 KB, about 78K tokens
+- [Usable part 3 of 10](https://fshy.ajam.dev/t/compute/llms-full-usable-3.txt): 44 records, AssemblyAI (qualifies-with-caveat) to CANN points mall (qualifies-with-caveat); 277 KB, about 75K tokens
+- [Usable part 4 of 10](https://fshy.ajam.dev/t/compute/llms-full-usable-4.txt): 45 records, Cartesia (qualifies-with-caveat) to Deepgram (qualifies-with-caveat); 277 KB, about 75K tokens
+- [Usable part 5 of 10](https://fshy.ajam.dev/t/compute/llms-full-usable-5.txt): 47 records, Deepnote (qualifies-with-caveat) to GKE Agent Sandbox (qualifies-with-caveat); 282 KB, about 76K tokens
+- [Usable part 6 of 10](https://fshy.ajam.dev/t/compute/llms-full-usable-6.txt): 43 records, Gladia (qualifies-with-caveat) to Hyperbeam (qualifies-with-caveat); 280 KB, about 76K tokens
+- [Usable part 7 of 10](https://fshy.ajam.dev/t/compute/llms-full-usable-7.txt): 55 records, Hyperbrowser (qualifies-with-caveat) to nanoHUB (qualifies-with-caveat); 282 KB, about 76K tokens
+- [Usable part 8 of 10](https://fshy.ajam.dev/t/compute/llms-full-usable-8.txt): 49 records, NATKVM (KhanWebHost Limited) (qualifies-with-caveat) to Rabisu (qualifies-with-caveat); 281 KB, about 76K tokens
+- [Usable part 9 of 10](https://fshy.ajam.dev/t/compute/llms-full-usable-9.txt): 62 records, RackNerd (qualifies-with-caveat) to Tenstorrent TT Console (qualifies-with-caveat); 280 KB, about 76K tokens
+- [Usable part 10 of 10](https://fshy.ajam.dev/t/compute/llms-full-usable-10.txt): 54 records, The Catalyst (qualifies-with-caveat) to 无忧云 (Wuyou Cloud) (qualifies-with-caveat); 281 KB, about 76K tokens
+- [Trial part 1 of 3](https://fshy.ajam.dev/t/compute/llms-full-trial-1.txt): 45 records, ABLENET VPS (trial-only) to DigitalOcean Harness Runtime (trial-only); 228 KB, about 62K tokens
+- [Trial part 2 of 3](https://fshy.ajam.dev/t/compute/llms-full-trial-2.txt): 37 records, EcoHash (trial-only) to Nosana (trial-only); 225 KB, about 61K tokens
+- [Trial part 3 of 3](https://fshy.ajam.dev/t/compute/llms-full-trial-3.txt): 51 records, oblako.kz (trial-only) to Zylora startup GPU (trial-only); 228 KB, about 62K tokens
+- [Paid only part 1 of 9](https://fshy.ajam.dev/t/compute/llms-full-paid-1.txt): 45 records, 62yun (paid-only) to Baseten (paid-only); 266 KB, about 72K tokens
+- [Paid only part 2 of 9](https://fshy.ajam.dev/t/compute/llms-full-paid-2.txt): 58 records, Beam (paid-only) to DataPasa (paid-only); 274 KB, about 74K tokens
+- [Paid only part 3 of 9](https://fshy.ajam.dev/t/compute/llms-full-paid-3.txt): 53 records, Daytona GPU (paid-only) to Halluminate (paid-only); 260 KB, about 70K tokens
+- [Paid only part 4 of 9](https://fshy.ajam.dev/t/compute/llms-full-paid-4.txt): 58 records, HengHost (paid-only) to JustHosting (paid-only); 273 KB, about 74K tokens
+- [Paid only part 5 of 9](https://fshy.ajam.dev/t/compute/llms-full-paid-5.txt): 57 records, KAGOYA CLOUD VPS (paid-only) to NEAR AI Cloud (paid-only); 263 KB, about 71K tokens
+- [Paid only part 6 of 9](https://fshy.ajam.dev/t/compute/llms-full-paid-6.txt): 60 records, Nebius (paid-only) to Qyrax (paid-only); 269 KB, about 73K tokens
+- [Paid only part 7 of 9](https://fshy.ajam.dev/t/compute/llms-full-paid-7.txt): 56 records, Rabisu (paid-only) to SF Compute (GPU (paid-only); 266 KB, about 72K tokens
+- [Paid only part 8 of 9](https://fshy.ajam.dev/t/compute/llms-full-paid-8.txt): 62 records, SF Compute (GPU market + Autoresearch sandboxes) (paid-only) to TrumVPS (paid-only); 269 KB, about 73K tokens
+- [Paid only part 9 of 9](https://fshy.ajam.dev/t/compute/llms-full-paid-9.txt): 60 records, TrumVPS (paid-only) to Zorocloud (paid-only); 266 KB, about 72K tokens
+- [Rejected part 1 of 3](https://fshy.ajam.dev/t/compute/llms-full-rejected-1.txt): 59 records, 1517 Medici Project (fails-identity) to GitHub Copilot Student (fails-identity); 259 KB, about 70K tokens
+- [Rejected part 2 of 3](https://fshy.ajam.dev/t/compute/llms-full-rejected-2.txt): 55 records, GitHub Student Developer (fails-identity) to Nobus Cloud (fails-identity); 255 KB, about 69K tokens
+- [Rejected part 3 of 3](https://fshy.ajam.dev/t/compute/llms-full-rejected-3.txt): 59 records, Northflank (fails-identity) to wap.ac (WAPAC) (fails-quota); 260 KB, about 70K tokens
+- [Dead part 1 of 2](https://fshy.ajam.dev/t/compute/llms-full-dead-1.txt): 39 records, 4vps.su (dead) to Gabia VPS hosting (dead); 156 KB, about 42K tokens
+- [Dead part 2 of 2](https://fshy.ajam.dev/t/compute/llms-full-dead-2.txt): 41 records, Glitch (dead) to Yandex Cloud (dead); 159 KB, about 43K tokens
+- [Self-hosted, the last resort](https://fshy.ajam.dev/t/compute/llms-full-self-hosted.txt): 34 records; 104 KB, about 28K tokens

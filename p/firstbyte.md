@@ -1,0 +1,154 @@
+# FirstByte
+
+> firstbyte.ru | Compute, Egress and tunnels; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/firstbyte/ | JSON https://fshy.ajam.dev/api/v1/entity/firstbyte.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## FirstByte (msk kvm start)
+
+- `compute/firstbyte-msk-kvm-start` | qualifies-with-caveat | evidence documented | binding per-object-cap | category VPS | tier EU-KVM-SSD-START-FIN1
+- identity a placeholder: card and phone unknown | verified 2026-10-24T02:42:36.000Z (live) | stale on 2026-11-24
+- url https://firstbyte.ru/vps-vds/cheap/
+- price parsed USD 3.22/mo
+- free tier: no free tier; a 24-hour test access is offered, and the cheapest buyable plan is RUB 259 a month | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the server persists while paid; the page states no deletion clock | source: [1]
+- egress: 3 TB a month at 100 Mbit/s, stated per plan | metered: yes | free allowance: 3 TB | source: [1]
+- identity: card | detail: an account on the vendor's BILLmanager is required to order; the payment methods and any card hold were not read, so the card tier is inferred from a Russian hoster's usual checkout and is unverified. The site publishes a 24-hour test access before payment.
+- interface: ssh, rest
+- limits:
+  - volume-quota: 3 TB a month of transfer [1]
+  - per-ip-shaping: 100 Mbit/s port [1]
+  - per-object-cap (binding): 5 GB of SSD on this rung [1]
+- binding note: 5 GB of disk and 768 MB of RAM bind long before 3 TB of traffic does; this is a box for one small service, not a working machine.
+- interface detail: root over SSH; the order path is a BILLmanager cart with an ispmanager or VMmanager panel available
+- tooling: any SSH client; the vendor's BILLmanager cart
+- composes with: a Russian KVM box with a dedicated IPv4 at USD 3.22, which is inside the under-USD-5 band but has no advantage over the wider machines there; recorded because its RUB 75 rung is the closest thing the Russian market has to a monthly sub-dollar machine
+- reliability: the cheapest rung is marked sold out today, which is the ordinary state of a loss-leader rung at a Russian hoster; the vendor has traded since 2015 per its own copy
+- notes: The advertised floor is RUB 75 a month (USD 0.9312) for a 1 vCPU / 768 MB / 7 GB KVM box in Moscow, and that rung is marked sold out today, so it is a price that exists and cannot be bought. The record prices the buyable rung instead, RUB 259 = USD 3.2159, which is the same shape with 5 GB of disk in Finland. Whether the RUB 75 rung returns, and how often, is not published. The plan table does not name an address count; the page copy says the machines come with dedicated IPs, which is not the same as a count on this rung. Payment rails and any card hold were not read.
+- evidence note: the plan table, the prices and the stock state were read from the vendor's own page; the RUB conversion uses the Central Bank of Russia table for 2026-10-24
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 0.75
+  - shape.disk_gib: 5
+  - billing_model: monthly
+  - term: monthly
+  - m10h_usd: 3.2159
+  - m24h_usd: 3.2159
+  - price_arithmetic: RUB 259 a month billed monthly at the CBR rate for 2026-10-24 of 80.5381 RUB per USD = USD 3.2159. The sold-out rung is RUB 75 = USD 0.9312. A VPS bills whether it runs or not, so the 24/7 and 10 h/day figures are the same.
+  - free_tier_kind: trial-hours
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a KVM virtual machine
+  - renewal_usd: 3.2159
+  - renewal_note: the page prints one price per rung and no strike-through; no promo end date is published
+  - ladder[0].plan: MSK-KVM-SSD-START1
+  - ladder[0].rub_month: 75
+  - ladder[0].usd_month: 0.9312
+  - ladder[0].ram_mb: 768
+  - ladder[0].disk_gb: 7
+  - ladder[0].location: Moscow
+  - ladder[0].stock: sold out
+  - ladder[1].plan: EU-KVM-SSD-START-FIN1
+  - ladder[1].rub_month: 259
+  - ladder[1].usd_month: 3.2159
+  - ladder[1].ram_mb: 768
+  - ladder[1].disk_gb: 5
+  - ladder[1].location: Finland
+  - ladder[1].stock: orderable
+  - ladder[2].plan: EU-KVM-SSD-START-PAR1
+  - ladder[2].rub_month: 259
+  - ladder[2].usd_month: 3.2159
+  - ladder[2].ram_mb: 768
+  - ladder[2].disk_gb: 5
+  - ladder[2].location: Paris
+  - ladder[2].stock: orderable
+  - ladder[3].plan: EU-KVM-SSD-START-SOF1
+  - ladder[3].rub_month: 259
+  - ladder[3].usd_month: 3.2159
+  - ladder[3].ram_mb: 768
+  - ladder[3].disk_gb: 5
+  - ladder[3].location: Sofia
+  - ladder[3].stock: orderable
+  - ladder[4].plan: EU-KVM-SSD-START-MAD1
+  - ladder[4].rub_month: 259
+  - ladder[4].usd_month: 3.2159
+  - ladder[4].ram_mb: 768
+  - ladder[4].disk_gb: 5
+  - ladder[4].location: Madrid
+  - ladder[4].stock: orderable
+  - ladder[5].plan: EU-KVM-SSD-START-FRA1
+  - ladder[5].rub_month: 259
+  - ladder[5].usd_month: 3.2159
+  - ladder[5].ram_mb: 768
+  - ladder[5].disk_gb: 5
+  - ladder[5].location: Frankfurt
+  - ladder[5].stock: orderable
+  - ladder[6].plan: EU-KVM-SSD-START-AMS1
+  - ladder[6].rub_month: 259
+  - ladder[6].usd_month: 3.2159
+  - ladder[6].ram_mb: 768
+  - ladder[6].disk_gb: 5
+  - ladder[6].location: Amsterdam
+  - ladder[6].stock: orderable
+  - ladder[7].plan: US-KVM-START1
+  - ladder[7].rub_month: 259
+  - ladder[7].usd_month: 3.2159
+  - ladder[7].ram_mb: 768
+  - ladder[7].disk_gb: 5
+  - ladder[7].location: United States
+  - ladder[7].stock: orderable
+  - ladder[8].plan: KVM-SSD-START-SG
+  - ladder[8].rub_month: 259
+  - ladder[8].usd_month: 3.2159
+  - ladder[8].ram_mb: 768
+  - ladder[8].disk_gb: 5
+  - ladder[8].location: Singapore
+  - ladder[8].stock: orderable
+- evidence:
+  - [1] 2026-10-24: quoted table rows: 'MSK-KVM-SSD-START1 | 1vCPU | 768 | 7 | 100 Mb/s 3 Tb/month | 75 RUB | Sold out' and 'EU-KVM-SSD-START-FIN1 | 1vCPU | 768 | 5 | 100 Mb/s 3 Tb/month | 259 RUB | order'
+  - [1] 2026-10-24: quoted page heading: 'Cheap VPS VDS server from 75 RUB/month, rent an inexpensive dedicated server in Moscow'; the price column is headed 'Price, RUB/month'
+  - [2] 2026-10-24: quoted rate table dated 24.10.2026: USD Nominal 1 Value 80,5381, so RUB 259 = USD 3.2159 and RUB 75 = USD 0.9312
+- sources:
+  - [1] https://firstbyte.ru/vps-vds/cheap/
+  - [2] https://www.cbr.ru/scripts/XML_daily.asp
+
+## FirstByte (eu kvm ssd start fin1)
+
+- `egress/firstbyte-eu-kvm-ssd-start-fin1` | paid-only | evidence documented | binding volume-quota | category cheap KVM VPS | tier EU-KVM-SSD-START-FIN1
+- identity a placeholder: card and phone unknown | verified 2026-11-04T05:55:18.032Z (live) | stale on 2026-12-05
+- url https://firstbyte.ru/vps-vds/cheap/
+- free tier: No free tier. EU-KVM-SSD-START-FIN1 (the first European row of the vendor cheap-VPS table) is RUB 259 a month: 1 vCPU, 768 MB RAM, 5 GB SSD, 100 Mbit/s channel with 3 TB a month. | unit: none | metered on: none | read on: 2026-11-04 | source: [1] | note: The aggregator row 'KVM-SSD-START-1' lists 7 TB, 8 GB SSD and USD 0.84 a month in Moscow; the vendor table shows the Moscow row MSK-KVM-SSD-START1 at RUB 75 with 3 TB, 7 GB SSD and marked sold out, so the aggregator's 7 TB is not on the vendor page.
+- per-object cap: not applicable: a VPS, not an object store | source: [1]
+- retention: not applicable | source: [1]
+- egress: 3 TB a month on a 100 Mbit/s channel, stated per plan row; the page prints no overage price and no throttle after the 3 TB. | metered: yes | free allowance: 3 TB a month | source: [1]
+- identity: email | detail: unverified: behind a sign-up. The order link opens the vendor's BILLmanager 'Authorization' page; its sign-up fields and payment methods are not shown to a text read.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 3 TB a month on a 100 Mbit/s channel [1]
+  - per-ip-shaping: the Moscow START row cannot change its IP address; the European rows state no such restriction [1]
+- binding note: 3 TB a month is the first number to fail; 5 GB of disk and 768 MB of RAM limit what runs, but they do not fail on a schedule.
+- interface detail: Unmanaged KVM VPS; the page names no port or protocol filter, and states that the ispmanager panel is not supported and the owner runs the server.
+- tooling: Any SSH client.
+- composes with: A 100 Mbit/s European box with 3 TB a month: about 3 TB of outbound transfer a month fits a small relay or fetch node; ports and protocols are not restricted on the page read.
+- reliability: The cheapest Moscow START row of the same table is marked sold out; the European rows carry an order link.
+- notes: Cheapest orderable START row is RUB 259 a month; the RUB 75 Moscow row is sold out.
+- evidence note: Price, channel and monthly volume are quoted from the vendor's table. Identity and payment methods are behind a sign-up.
+- extras:
+  - channel: 100 Mbit/s
+  - location_codes: FIN1, PAR1, SOF1, MAD1, FRA1, AMS1, US, SG, each at RUB 259 on the same table
+  - ipv6: unverified: not stated on the page read
+- evidence:
+  - [1] 2026-11-04: the EU-KVM-SSD-START-FIN1 plan is RUB 259 a month with 1 vCPU, 768 MB RAM, 5 GB SSD and a 100 Mbit/s channel with 3 TB a month | capture: sha256:9f9b68c68ebd4166a7d043f04d11dfaf039a54a0ef975285c9fbdff651f2bb4d | quote: | EU-KVM-SSD-START-FIN1 | 1vCPU | 768 | 5 | 100 Мб/с 3 Тб/мес | 259 ₽ |
+  - [1] 2026-11-04: the Moscow START row that the aggregator's price matches is RUB 75, 3 TB a month, and sold out | capture: sha256:9f9b68c68ebd4166a7d043f04d11dfaf039a54a0ef975285c9fbdff651f2bb4d | quote: | MSK-KVM-SSD-START1 | 1vCPU | 768 | 7 | 100 Мб/с 3 Тб/мес | 75 ₽ | Распродано |
+  - [1] 2026-11-04: the cheap plans have no ispmanager panel and the owner administers the server | capture: sha256:9f9b68c68ebd4166a7d043f04d11dfaf039a54a0ef975285c9fbdff651f2bb4d | quote: - Не поддерживается панель управления ispmanager;
+  - [2] 2026-11-04: the order flow ends at an account login; its sign-up fields are not shown to a text read | capture: sha256:ef872c6cb4032f2b69fccf95ab490d5af8419d1210e210fa1fa485bf42728a09 | quote: Authorization
+  - [3] 2026-11-04: the aggregator lists a FirstByte START plan at USD 0.84 a month with 7 TB, which differs from the vendor table | quote: ###### KVM-SSD-START-1
+- sources:
+  - [1] https://firstbyte.ru/vps-vds/cheap/
+  - [2] https://billing.firstbyte.ru/billmgr
+  - [3] https://serverdeals.cc/

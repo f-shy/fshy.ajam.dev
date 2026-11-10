@@ -1,0 +1,734 @@
+# fshy: Inference, paid only
+
+> Model APIs that answer a completion request, keyless or behind a free key.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/inference/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## AI/ML API
+
+- `inference/ai-ml-api` | paid-only | evidence documented | binding write-gated | category inference gateway, paused free tier
+- identity a placeholder: card and phone unknown | verified 2026-10-28T04:36:18.593Z (live) | stale on 2026-11-28
+- url https://docs.aimlapi.com/faq/free-tier | page https://fshy.ajam.dev/p/aimlapi.md
+- free tier: none: the vendor's free-tier FAQ reads 'The Free Tier is currently paused' | unit: none | metered on: none | read on: 2026-10-28 | source: [1] | note: the pricing page is a per-model price list with no free allowance
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: card | detail: unverified: the sign-up requirements for the paid tier were not captured; with the free tier paused the first request needs a funded balance, which is assumed to need a payment method
+- interface: rest
+- limits:
+  - write-gated (binding): no free tier is issued while it is paused [1]
+- binding note: no free allowance is issued; usage needs a funded account
+- endpoint: https://api.aimlapi.com/v1/chat/completions
+- tooling: any OpenAI-compatible client against the AI/ML API base URL
+- composes with: paid aggregator of many models; useful only once a balance exists
+- reliability: the free tier is paused and the page states no resumption date
+- notes: check the FAQ page again for a resumption date.
+- evidence note: the pause is quoted from the vendor's FAQ; sign-up and payment requirements were not captured.
+- evidence:
+  - [1] 2026-10-28: the vendor states the Free Tier is paused | capture: sha256:fcf780b30c8095390cf590ac2f0c5780d688a828d1ffc6bfffe262367c941107 | quote: The Free Tier is currently paused.
+- sources:
+  - [1] https://docs.aimlapi.com/faq/free-tier
+
+## Cloudflare AI Gateway
+
+- `inference/cloudflare-ai-gateway` | paid-only | evidence documented | binding write-gated | category inference gateway, no allowance of its own
+- needs card yes, phone no, ID no, institution no | verified 2026-10-28T09:47:49.726Z (live) | stale on 2026-11-28
+- url https://developers.cloudflare.com/ai-gateway/reference/pricing/ | page https://fshy.ajam.dev/p/cloudflare.md
+- free tier: no inference allowance of its own: the core features (dashboard analytics, caching, rate limiting) are free on all plans, while inference is billed by the upstream provider on the caller's own key or through Unified Billing credits bought with a payment method | unit: none | metered on: none | read on: 2026-10-28 | source: [1] | note: a 5% fee applies to credits bought through Unified Billing; provider token rates pass through at no markup
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: the Cloudflare account sign-up form takes an email address and a password; 'all it takes is a Cloudflare account' for the free core features; buying Unified Billing credits needs a payment method
+- interface: rest
+- limits:
+  - write-gated (binding): Unified Billing needs credits bought with a payment method; without them the caller supplies a provider key [2]
+  - volume-quota: 100,000 logs total across all gateways on Workers Free (Legacy Logs) [1]
+- binding note: the gate is the payment method for credits, not a quota; the gateway adds no free tokens
+- interface detail: provider-native endpoints that forward to the provider, with caching, rate limiting and analytics in between
+- tooling: any provider SDK pointed at the gateway base URL; credentials resolve in the order request key, stored key (BYOK), Unified Billing
+- composes with: pair with a provider that has its own free key, such as inference/google-gemini-api or inference/cloudflare-workers-ai, to add caching and rate limiting at no charge
+- reliability: the account's credit balance can go negative, and Cloudflare then charges the payment method on file for the outstanding amount
+- notes: The Workers AI free allocation is a separate offer recorded at inference/cloudflare-workers-ai; the gateway can front it.
+- evidence note: the free core features and the credit requirement are quoted from the vendor pages; no request was made
+- evidence:
+  - [1] 2026-10-28: the gateway's core features are free and need a Cloudflare account | capture: sha256:d2dfb5f9cff131aa5ec54711b272ede1adc5d549f407294b0119897d7f8fe0f0 | quote: AI Gateway's core features available today are offered for free, and all it takes is a Cloudflare account and one line of code to [get started](https://developers.cloudflare.com/ai-gateway/get-started/). Core features include: dashboard analytics, caching, and rate limiting.
+  - [1] 2026-10-28: Workers Free keeps 100,000 logs total across all gateways in Legacy Logs | capture: sha256:d2dfb5f9cff131aa5ec54711b272ede1adc5d549f407294b0119897d7f8fe0f0 | quote: | Workers Free | 100,000 logs total across all gateways |
+  - [2] 2026-10-28: Unified Billing covers Workers AI and third-party providers on one Cloudflare bill | capture: sha256:fe80bebb753a72a5bab0f9a7446f3c03f18ec33c917883f944fe24afcba66ee2 | quote: Unified Billing allows users to call Workers AI and connect to various AI providers (such as OpenAI, Anthropic, and Google AI Studio) and receive a single Cloudflare bill.
+  - [2] 2026-10-28: credentials resolve in a fixed order: request key, stored key, then Unified Billing | capture: sha256:fe80bebb753a72a5bab0f9a7446f3c03f18ec33c917883f944fe24afcba66ee2 | quote: When a request reaches AI Gateway, credentials are resolved in this order:
+  - [2] 2026-10-28: a negative credit balance is charged to the payment method on file | capture: sha256:fe80bebb753a72a5bab0f9a7446f3c03f18ec33c917883f944fe24afcba66ee2 | quote: In rare instances, your credit balance may go negative. If this happens, Cloudflare will charge the payment method on file for the outstanding amount.
+  - [2] 2026-10-28: Unified Billing requires purchased credits | capture: sha256:fe80bebb753a72a5bab0f9a7446f3c03f18ec33c917883f944fe24afcba66ee2 | quote: To use Unified Billing, you must purchase and load credits into your Cloudflare account in the Cloudflare dashboard, which you can then spend with AI Gateway.
+  - [2] 2026-10-28: buying credits needs a payment method on the account | capture: sha256:fe80bebb753a72a5bab0f9a7446f3c03f18ec33c917883f944fe24afcba66ee2 | quote: If your account does not have an available payment method, AI Gateway will prompt you to add a payment method to purchase credits.
+  - [2] 2026-10-28: a 5% fee applies to purchased credits | capture: sha256:fe80bebb753a72a5bab0f9a7446f3c03f18ec33c917883f944fe24afcba66ee2 | quote: A 5% fee is applied to all credits purchased through Unified Billing.
+  - [3] 2026-10-28: the Cloudflare account sign-up form takes an email address and a password | capture: sha256:0165fdf250cc1338d7e7a94dd78c7adc2df6f592133ad72dfcf0651a080c5543 | quote: Enter your Email and Password.
+- sources:
+  - [1] https://developers.cloudflare.com/ai-gateway/reference/pricing/
+  - [2] https://developers.cloudflare.com/ai-gateway/features/unified-billing/
+  - [3] https://developers.cloudflare.com/fundamentals/account/create-account/
+
+## DeepInfra
+
+- `inference/deepinfra` | paid-only | evidence documented | binding none | category inference endpoint, keyed free tier
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T05:38:58.774Z (live) | stale on 2026-12-05
+- url https://api.deepinfra.com/v1/openai | page https://fshy.ajam.dev/p/deepinfra.md
+- free tier: no free allowance: a card or a prepaid balance is required before any use ('You have to add a card or pre-pay or you won't be able to use our services') | unit: none | metered on: none | read on: 2026-10-22 | source: [1] | note: a promotional USD 20 in free credits is offered to viewers of the Two Minute Papers channel, claimed through a login link carrying deal=2mpapers; whether a card is needed to spend it is not stated on that page (unverified)
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: card | detail: the pricing page states a card or a prepaid balance is required before any use
+- interface: rest
+- limits:
+  - request-rate: 200 concurrent requests per model, default per account; HTTP 429 'Rate limited' above the limit; an increase is requested from the Dashboard Account page [2]
+- limits note: the limit is on concurrent requests, not per-minute volume: at 200 concurrent requests, a 1 second request gives approximately 12,000 RPM
+- tooling: any OpenAI-compatible client
+- composes with: pairs with an agent after a signup; the scarce link is the account and the unread allowance is the gap
+- reliability: No reliability events were recorded. API keys were not provisioned during testing on 2026-11-04.
+- notes: The weakest record in this topic and it says so. It exists to stop a name becoming a rediscovery. The pricing page states the opposite in one sentence, and the only free balance is a channel promotion. Paid-only is the correct verdict and documented is the correct rung.
+- evidence note: the card-or-prepay requirement is quoted from the pricing page, the concurrency limit from the rate-limits documentation and the promotional credit from the Two Minute Papers page; all three are first-party pages
+- extras:
+  - checked.verdict_change: qualifies-with-caveat -> paid-only on 2026-10-22
+- evidence:
+  - [3] 2026-10-22: 'You have to add a card or pre-pay or you won't be able to use our services. Pre-paid accounts draw down their balance as they go', quoted
+  - [4] 2026-10-22: 'we're thrilled to offer you $20 in free credits to explore DeepInfra's AI inference cloud', claimed through a login deal link, quoted
+  - [3] 2026-10-28: a card or a prepaid balance is required before any use | capture: sha256:d7dd624d93783f5ba68f1f9b6b87184b185ac17a77d772ab51692f14c17a93b4 | quote: You have to add a card or pre-pay or you won't be able to use our services. Pre-paid accounts draw down their balance as they go, and invoiced accounts are billed once at the beginning of the following month.
+  - [4] 2026-10-28: DeepInfra offers USD 20 in free credits to viewers of Two Minute Papers through a Claim link to its login page with deal=2mpapers | capture: sha256:80f3628f1fffa009552c3f46e002c83e0edda1c8fb3684a679bf35b8be364076 | quote: As a valued viewer of Two Minute Papers, we’re thrilled to offer you $20 in free credits to explore DeepInfra’s AI inference cloud.
+  - [2] 2026-10-28: the default limit is 200 concurrent requests per model for every account | capture: sha256:74ce39bcc7cd4debc03938310e771321d27a7db3486017a5f6888a2e2d2523da | quote: Every account has a default limit of 200 concurrent requests per model.
+  - [2] 2026-10-28: at a 1 second average duration the 200 concurrent limit corresponds to approximately 12,000 RPM | capture: sha256:74ce39bcc7cd4debc03938310e771321d27a7db3486017a5f6888a2e2d2523da | quote: | 1 second | 200 | 12,000 RPM |
+  - [3] 2026-11-03: the pricing page still states a card or a prepaid balance is required before use | capture: sha256:0289de89e60d43a7e4fd29b3322a33af62c983a8349e1e7010d04d68afb8268a | quote: You have to add a card or pre-pay or you won't be able to use our services. Pre-paid accounts draw down their balance as they go, and invoiced accounts are billed once at the beginning of the following month.
+  - [4] 2026-11-03: the USD 20 offer is still published; the page lists Register, Dashboard, run a command, and names no card or prepaid balance | capture: sha256:09e93d4784cc3f095a9bbf36560ca7939fccf456b2f533a76a2d63a4a56ff4be | quote: As a valued viewer of Two Minute Papers, we’re thrilled to offer you $20 in free credits to explore DeepInfra’s AI inference cloud.
+- sources:
+  - [1] https://api.deepinfra.com/v1/openai
+  - [2] https://deepinfra.com/docs/advanced/rate-limits
+  - [3] https://deepinfra.com/pricing
+  - [4] https://deepinfra.com/papers
+
+## DeepSeek API (Inference)
+
+- `inference/deepseek-api` | paid-only | evidence documented | binding none | category inference endpoint, paid
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-03T14:55:03.475Z (live) | stale on 2026-12-04
+- url https://api-docs.deepseek.com/ | page https://fshy.ajam.dev/p/deepseek.md
+- free tier: no free tier or signup credit is stated: usage is deducted from a topped-up balance or a granted balance, granted balance first, and no granted amount is published | unit: none | metered on: none | read on: 2026-10-22 | source: [1] | note: a granted balance can expire: the balance endpoint reports granted_balance as the total not expired granted balance, in CNY or USD; topped-up balances do not expire and an unused balance can be refunded; whether a new account receives a granted balance, and its amount and expiry, are not published on the documentation, terms or help-centre pages and are unverified: behind a sign-up
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: card | detail: an API key from an account on platform.deepseek.com, registered by email address with an emailed code or by a Google account; the sign-up page served outside mainland China offers email registration only, WeChat login is limited to mainland-China addresses, and some email domains are refused (Gmail, Outlook, Hotmail or Yahoo are recommended); calls draw on a prepaid balance and an empty balance is refused with an Insufficient Balance error; top-up is online by PayPal, bank card, Alipay or WeChat Pay; the Chinese-language FAQ puts real-name verification (an ID number) before an Alipay or WeChat top-up and opens bank transfer only to enterprise-verified accounts registered with a China-country-code phone number; whether an email-registered account must pass real-name verification before a PayPal or card top-up is unverified: behind a sign-up
+- interface: rest
+- limits:
+  - request-rate: concurrency limit per account, counted across all API keys: 2500 concurrent requests for deepseek-flash and 500 for deepseek-v4-pro; HTTP 429 above the limit; higher concurrency is available on request at no additional cost [2]
+- limits note: the published limit is account-level concurrency, 2500 for deepseek-flash and 500 for deepseek-v4-pro, with higher concurrency available on request at no additional cost; the rate-limit page publishes no requests-per-minute or token quota
+- endpoint: https://api.deepseek.com
+- tooling: any OpenAI-compatible client; curl against POST {base}/chat/completions
+- composes with: pairs with an agent as the cheapest paid per-token route; the scarce link is the prepaid balance, not a rate
+- reliability: the legacy model names deepseek-v4-flash and deepseek-v4-flash-vision-exp are retired and their requests are now served by DeepSeek-V4.1-Flash-1017 at the Flash price
+- notes: Prices per 1M tokens, deepseek-flash / deepseek-v4-pro: input cache hit off-peak USD 0.003 / USD 0.022 and peak USD 0.006 / USD 0.044; input cache miss off-peak USD 0.15 / USD 0.66 and peak USD 0.3 / USD 1.32; output off-peak USD 0.6 / USD 1.98 and peak USD 1.2 / USD 3.96. Off-peak rates are half of the peak rates; peak hours are 01:00 - 04:00 and 06:00 - 10:00 UTC, Monday through Friday, excluding Chinese public holidays
+- evidence note: the model naming, the retirement of the legacy names, the per-token prices and the concurrency limits are quoted from the first-party pricing and rate-limit pages
+- evidence:
+  - [1] 2026-10-22: the served models are deepseek-flash and deepseek-v4-pro; deepseek-flash is served by DeepSeek-V4.1-Flash-1017; the legacy names are accepted but their models are retired and billed at the Flash price; OpenAI and Anthropic compatible base URLs
+  - [2] 2026-10-28: the concurrency limit is 2500 for deepseek-flash and 500 for deepseek-v4-pro | capture: sha256:cb20f8e4f1f49d13770bc5f820d26bbf963c77627bbd02818e8458e6c9065ac7 | quote: | Concurrency Limit | 2500 | 500 |
+  - [2] 2026-10-28: higher concurrency is granted on request at no additional cost | capture: sha256:cb20f8e4f1f49d13770bc5f820d26bbf963c77627bbd02818e8458e6c9065ac7 | quote: We will match the appropriate concurrency based on your actual business needs. There is no additional cost for capacity expansion.
+  - [1] 2026-10-28: usage is deducted from a topped-up balance or a granted balance, granted balance first; no amount is stated | capture: sha256:fcb5d07afdadb10b82724bc83b45b8b456f7702336b4989e279837c2b7e8a55d | quote: The corresponding fees will be directly deducted from your topped-up balance or granted balance, with a preference for using the granted balance first when both balances are available.
+  - [3] 2026-10-28: the balance endpoint's granted_balance is the total not expired granted balance | capture: sha256:f5cc88ab45de56b6ec6d9277e962870c5822f0da5c3b5f77f3258cee3852903a | quote: The total not expired granted balance.
+  - [4] 2026-10-28: an empty balance returns 402 Insufficient Balance and the fix is to top up on platform.deepseek.com | capture: sha256:c00e3ec23a349438b6bb4d8f912ce2b574a386a1854b2f60a36be768eafdf366 | quote: | 402 - Insufficient Balance | Cause: You have run out of balance. Solution: Please check your account's balance, and go to the [Top up](https://platform.deepseek.com/top_up) page to add funds. |
+  - [1] 2026-10-28: the pricing page tabulates the per-token prices and defines the peak hours | capture: sha256:fcb5d07afdadb10b82724bc83b45b8b456f7702336b4989e279837c2b7e8a55d | quote: (2) Off-peak rates are half of the peak rates. Peak hours are 01:00 - 04:00 and 06:00 - 10:00 UTC, Monday through Friday, excluding Chinese public holidays. All other hours are off-peak, including weekends and Chinese public holidays in full.
+  - [1] 2026-10-28: the OpenAI-format base URL is https://api.deepseek.com | capture: sha256:fcb5d07afdadb10b82724bc83b45b8b456f7702336b4989e279837c2b7e8a55d | quote: | BASE URL (OpenAI Format) | [https://api.deepseek.com](https://api.deepseek.com/) | | | |
+  - [1] 2026-10-28: the legacy names are retired and served by DeepSeek-V4.1-Flash-1017 at the Flash price | capture: sha256:fcb5d07afdadb10b82724bc83b45b8b456f7702336b4989e279837c2b7e8a55d | quote: (1) Use `deepseek-flash` as the model name. The legacy names `deepseek-v4-flash` and `deepseek-v4-flash-vision-exp` are still accepted, but the corresponding models have been retired, their requests are served by the DeepSeek-V4.1-Flash-1017 model and billed at the Flash price.
+  - [5] 2026-10-30: a balance is topped up online by PayPal, bank card, Alipay or WeChat Pay | capture: sha256:eb01ad1b0d72d683b28d65e6d1dbaa0630adff102f4f0b0c304e2ca2457efa9b | quote: You can top up online via PayPal, bank card, Alipay, or WeChat Pay on the 「Top Up」 page.
+  - [6] 2026-10-30: the sign-up page served outside mainland China offers email registration only, with a code sent to the address | capture: sha256:5bed8b11c11960f50a0f4a2c7acc87b2de38dbd996f95e1a978a88d17f4ccc9b | quote: Only email registration is supported in your region. One DeepSeek account is all you need to access to all DeepSeek services.
+  - [6] 2026-10-30: the email sign-up form sends a code to the address | capture: sha256:5bed8b11c11960f50a0f4a2c7acc87b2de38dbd996f95e1a978a88d17f4ccc9b | quote: Send code
+  - [7] 2026-10-30: an account is registered with an email address or a third-party account | capture: sha256:147e793e7c30bac50d05fdb003814c17fc07dd821bcff296d8591d0fd1ab44cb | quote: 2.2 Before using the Services, you shall register an account using your Email or third-party account as per the page instructions.
+  - [8] 2026-10-30: WeChat login is limited to mainland-China addresses | capture: sha256:38d0d6df8e98bb81910d1e05889fb1c5565153c7de0d4b73ec0d42a9d995f325 | quote: WeChat login is only supported for IPs in Mainland China.
+  - [9] 2026-10-30: Google login is offered outside mainland China | capture: sha256:b15a0ed70f2c21ca898a4ce890fa65f441d318bedac9ff69451582f98c3a0d84 | quote: Google login is not supported for IPs in Mainland China.
+  - [10] 2026-10-30: the top-up page is behind a login that offers a Google account | capture: sha256:d515ee976906607d5fa1405052024a7ec77dd03db6a3d2c8f7d0f00144b8cef1 | quote: Log in with Google
+  - [11] 2026-10-30: some email domains are refused at registration; Gmail, Outlook, Hotmail or Yahoo are recommended | capture: sha256:705040f0403def49669bb07c77724668d93671738e45ecd93a7333722df34e2e | quote: The email domain you are currently using is not on the support list. We recommend signing up with a major international email provider such as Gmail, Outlook, Hotmail, or Yahoo.
+  - [12] 2026-10-30: the Chinese-language FAQ puts real-name verification before an online Alipay or WeChat top-up | capture: sha256:1897805093f44b1d0f865c1402ffd4b0f859b5b4290d80481069921a98ac4d2d | quote: 在线充值：完成实名认证后，您可以在「充值」页面使用支付宝/微信进行在线充值。
+  - [12] 2026-10-30: bank transfer is for enterprise accounts only, and currently only for accounts registered with a +86 phone number | capture: sha256:1897805093f44b1d0f865c1402ffd4b0f859b5b4290d80481069921a98ac4d2d | quote: 对公汇款：对公汇款仅支持企业用户（暂时仅对 +86 手机号注册用户开放）。
+  - [13] 2026-10-30: real-name verification binds an account to an ID number, with a cap on accounts per ID number | capture: sha256:89c675e62172b73d5a29a97c4c1312446f7fcc6e318baa2e62bb824746e3e0df | quote: The number of accounts bound to this ID number exceeds the limit.
+  - [14] 2026-10-30: the help-centre FAQ (served from its script bundle) states that topped-up balances do not expire | capture: sha256:239bc921cd514bbfc2c44728a75ee70f5ddadb04f99899cbec05325ec96cc363 | quote: Top-up balances do not expire.
+  - [15] 2026-10-30: the Chinese-language FAQ states that topped-up balances never expire | capture: sha256:8baefccfc8ef71029d5cfd8a244aa21b167da2842725d20bd336b32a5921eca9 | quote: 您的充值余额永久有效，不会过期。
+  - [16] 2026-10-30: an unused balance can be refunded | capture: sha256:41a5f6f505de8b7b6042bf1f76b7508e5980b6266ce86012ed0a890dc2e73adc | quote: Unused balances can be refunded.
+  - [3] 2026-10-30: a balance is held in CNY or USD | capture: sha256:f5cc88ab45de56b6ec6d9277e962870c5822f0da5c3b5f77f3258cee3852903a | quote: Possible values: [CNY, USD]
+  - [17] 2026-10-30: the Open Platform terms leave any free quota to the product pages, and the documentation pages publish none | capture: sha256:75cd9051be0c47f7bdcef8a890abca07ee800b5daeb19128fbc8668f5582b3eb | quote: 6.2 The recharge methods, billing prices, consumption methods, and free quota for paid services are subject to the information displayed on our product pages and the platform website.
+  - [1] 2026-10-30: the pricing page is unchanged: usage is deducted from a topped-up or granted balance, granted first, and no granted amount is stated | capture: sha256:fcb5d07afdadb10b82724bc83b45b8b456f7702336b4989e279837c2b7e8a55d | quote: The corresponding fees will be directly deducted from your topped-up balance or granted balance, with a preference for using the granted balance first when both balances are available.
+  - [6] 2026-11-03: the sign-up page served outside mainland China offers email registration only | capture: sha256:5bed8b11c11960f50a0f4a2c7acc87b2de38dbd996f95e1a978a88d17f4ccc9b | quote: Only email registration is supported in your region.
+  - [4] 2026-11-03: an empty balance is refused with 402 Insufficient Balance, so the API needs a topped-up balance | capture: sha256:c00e3ec23a349438b6bb4d8f912ce2b574a386a1854b2f60a36be768eafdf366 | quote: | 402 - Insufficient Balance | Cause: You have run out of balance. Solution: Please check your account's balance, and go to the [Top up](https://platform.deepseek.com/top_up) page to add funds. |
+  - [2] 2026-11-03: the concurrency limit is 2500 for deepseek-flash and 500 for deepseek-v4-pro | capture: sha256:dca41195344f86821a0756c3c9a4ffcd733b1a016abdcd5fbace69fbf54efa2d | quote: | Concurrency Limit | 2500 | 500 |
+  - [1] 2026-11-03: usage is deducted from a topped-up or granted balance, granted first, and no granted amount is stated | capture: sha256:fcb5d07afdadb10b82724bc83b45b8b456f7702336b4989e279837c2b7e8a55d | quote: The corresponding fees will be directly deducted from your topped-up balance or granted balance, with a preference for using the granted balance first when both balances are available.
+  - [17] 2026-11-03: the Open Platform terms leave any free quota to the product pages, and the documentation pages publish none | capture: sha256:75cd9051be0c47f7bdcef8a890abca07ee800b5daeb19128fbc8668f5582b3eb | quote: 6.2 The recharge methods, billing prices, consumption methods, and free quota for paid services are subject to the information displayed on our product pages and the platform website.
+  - [7] 2026-11-03: an account is registered with an email address or a third-party account | capture: sha256:da4d41e6656a80f287cd2410c4e261d831950e2061848f764d52bf1c23125c40 | quote: 2.2 Before using the Services, you shall register an account using your Email or third-party account as per the page instructions.
+  - [14] 2026-11-03: a balance is topped up online by PayPal, bank card, Alipay or WeChat Pay | capture: sha256:e66a2c6206b3eaa593dc2434341fa30abb5670625496e0a1bb043d44e89b6166 | quote: You can top up online via PayPal, bank card, Alipay, or WeChat Pay on the
+- sources:
+  - [1] https://api-docs.deepseek.com/quick_start/pricing
+  - [2] https://api-docs.deepseek.com/quick_start/rate_limit
+  - [3] https://api-docs.deepseek.com/api/get-user-balance
+  - [4] https://api-docs.deepseek.com/quick_start/error_codes
+  - [5] https://static.deepseek.com/faq/index.html?lang=en#/question/top-up
+  - [6] https://platform.deepseek.com/sign_up
+  - [7] https://cdn.deepseek.com/policies/en-US/deepseek-terms-of-use.html
+  - [8] https://static.deepseek.com/faq/index.html?lang=en#/question/wechat-login
+  - [9] https://static.deepseek.com/faq/index.html?lang=en#/question/google-login
+  - [10] https://platform.deepseek.com/top_up
+  - [11] https://static.deepseek.com/faq/index.html?lang=en#/question/unsupported-email
+  - [12] https://static.deepseek.com/faq/index.html?lang=zh#/question/top-up
+  - [13] https://static.deepseek.com/faq/index.html?lang=en#/question/verification-failure
+  - [14] https://static.deepseek.com/faq/static/main.86961ff339.js
+  - [15] https://static.deepseek.com/faq/index.html?lang=zh#/question/balance-validity
+  - [16] https://static.deepseek.com/faq/index.html?lang=en#/question/refund-policy
+  - [17] https://cdn.deepseek.com/policies/en-US/deepseek-open-platform-terms-of-service.html
+
+## Fireworks AI
+
+- `inference/fireworks-ai-serverless` | paid-only | evidence documented | binding request-rate | category inference API, prepaid credits | tier Serverless Inference
+- needs card yes, phone unknown, ID no, institution no | verified 2026-11-03T01:04:08.892Z (live) | stale on 2026-12-04
+- url https://docs.fireworks.ai/guides/quotas_usage/account-quotas | page https://fshy.ajam.dev/p/fireworks.md
+- free tier: no free token allowance is advertised: serverless inference is prepaid, with credits bought after a payment method is added. Without a payment method or credits the account is held to 10 requests per minute account-wide; a $1 starter credit is mentioned in the credits FAQ, but whether a new account still receives one is unverified: behind a sign-up. | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: the pricing page of 2026-11-03 prints no signup credit; the credits FAQ still carries a '$1 starter credit' heading
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: card | detail: an email address or a Google, GitHub or LinkedIn sign-in creates the account, but the 10 RPM state ends only after a valid payment method and billing address are added and credits are bought; an account that finishes its $1 starter credit with no payment method is suspended. Whether the sign-up asks for a phone number is unverified: behind a sign-up. Debit and prepaid card acceptance are not stated.
+- interface: rest
+- limits:
+  - request-rate (binding): 10 requests per minute account-wide while the account has no payment method or no credits; 6,000 requests per minute maximum with a payment method and active credits. The cap is fixed, shared by every model and every API, and requests above it are rejected (for example HTTP 429). [2]
+  - request-rate (binding): serverless token limits are per model and adaptive (total prompt, uncached prompt and generated tokens per minute); the published ceilings are the Tier 3 maximum, and tiers below Tier 3 have lower, unpublished ceilings [3]
+  - volume-quota: a monthly spend limit can be set; when usage reaches 100% of it all API requests pause until it is raised [2]
+- binding note: the account-wide request cap binds first: 10 RPM without a payment method or credits, 6,000 RPM with both; tokens are paid from prepaid credits, not granted free.
+- interface detail: OpenAI-compatible chat completions at https://api.fireworks.ai/inference/v1; an Anthropic-compatible endpoint at https://api.fireworks.ai/inference is also documented; documented, not…
+- endpoint: https://api.fireworks.ai/inference/v1/chat/completions
+- tooling: the Fireworks Python SDK, the OpenAI SDK or the Anthropic SDK pointed at the Fireworks base URL, or curl; the firectl CLI shows quotas ('firectl quota list')
+- composes with: hosted lanes only: the same prepaid balance pays for serverless, on-demand deployments and training; the 6,000 RPM cap is one envelope shared by all of them
+- reliability: an account that finishes its $1 starter credit with no payment method is suspended until one is added; with credits exhausted and Auto Reload off, usage pauses until credits are added.
+- notes: per-token prices (USD per 1M tokens) are published on the serverless pricing page; the 10 RPM lane is not a usable free tier, because no free credit is advertised and an account with no payment method that spends its starter credit is suspended.
+- evidence note: the 10 RPM and 6,000 RPM request limits, the prepaid-credits model and the payment-method requirement are quoted from vendor pages; the starter credit and the sign-up steps after the first are unverified: behind a sign-up.
+- evidence:
+  - [2] 2026-11-03: an account with no payment method or no credits is held to 10 requests per minute, account-wide | capture: sha256:21bc2e111d6e20861d0424ffb8a7771c921b82917dd3e599600b8d82b6b95ddd | quote: | No payment method or no credits | 10 RPM |
+  - [2] 2026-11-03: an account with a payment method and active credits is held to a 6,000 requests per minute maximum | capture: sha256:21bc2e111d6e20861d0424ffb8a7771c921b82917dd3e599600b8d82b6b95ddd | quote: | Payment method and active credits | 6,000 RPM (maximum) |
+  - [2] 2026-11-03: the 6,000 RPM ceiling is one fixed account-wide cap, not a serverless-only or adaptive limit | capture: sha256:21bc2e111d6e20861d0424ffb8a7771c921b82917dd3e599600b8d82b6b95ddd | quote: The 6,000 RPM cap applies account-wide—it is not a separate serverless-only limit—and it is a fixed ceiling, not adaptive.
+  - [1] 2026-11-03: serverless inference is prepaid: a payment method is added first, credits are bought, and usage is deducted from the balance | capture: sha256:0c8107d7814eb4579bbfbc2db7220d830252700a7f600cc1a7f0866f23bb905a | quote: Pay per token with pre-paid, usage-based billing. Simply add a payment method to buy credits, and usage is then deducted from your balance.
+  - [4] 2026-11-03: credits are bought after a valid payment method and billing address are added | capture: sha256:7e9145c0a2626e5a37dcc61cb0aea069a73a17d52f4ed6fba2f7b7505b9c3acb | quote: Add a valid payment method and billing address, then purchase credits.
+  - [5] 2026-11-03: an account that finishes its $1 starter credit with no payment method is suspended until one is added | capture: sha256:38f6247142c0de8258659a1eae1079a35b347a3fb562b85e4367a0a6811b3d07 | quote: Without payment method: Your account will be suspended until you add a payment method.
+  - [6] 2026-11-03: the account-creation form offers an email address or a Google, GitHub or LinkedIn sign-in at its first step | capture: sha256:a24d1f5200d9ecaead20d3fce7e651b0effffc5d837547e87a836bc54b367d7a | quote: Sign up with Google Sign up with GitHub Sign up with LinkedIn
+  - [7] 2026-11-03: the serverless endpoint is an OpenAI-compatible base URL | capture: sha256:88b9a6394b84df8b3ccf5f6535e5a024a8453e109f901bc9a6af4eccef6740a4 | quote: base_url="https://api.fireworks.ai/inference/v1"
+  - [3] 2026-11-03: the published per-model serverless token ceilings are the Tier 3 maximum; lower tiers have lower unpublished ceilings | capture: sha256:0e8f28092fc14c3340ec77d035c7b071ee55dd308363fd25a111e48a97c69e39 | quote: The table shows the maximum ceilings, available at Tier 3 and above. Tiers below Tier 3 have lower ceilings.
+  - [2] 2026-11-03: a monthly spend limit pauses all API requests when reached | capture: sha256:21bc2e111d6e20861d0424ffb8a7771c921b82917dd3e599600b8d82b6b95ddd | quote: When usage reaches 100% of the limit, all API requests pause automatically across serverless inference, deployments, and training.
+- sources:
+  - [1] https://fireworks.ai/pricing
+  - [2] https://docs.fireworks.ai/guides/quotas_usage/account-quotas
+  - [3] https://docs.fireworks.ai/serverless/rate-limits
+  - [4] https://docs.fireworks.ai/faq-new/billing-pricing/how-does-billing-and-credit-usage-work
+  - [5] https://docs.fireworks.ai/faq-new/billing-pricing/what-happens-when-i-finish-my-1-dollar-credit
+  - [6] https://app.fireworks.ai/signup
+  - [7] https://docs.fireworks.ai/getting-started/quickstart
+
+## Fluence Inference
+
+- `inference/fluence-inference` | paid-only | evidence documented | binding volume-quota | category inference gateway, invite-only beta, prepaid credits
+- needs card yes, phone no, ID no, institution no | verified 2026-10-28T04:36:19.314Z (live) | stale on 2026-11-28
+- url https://inference.fluence.cloud/ | page https://fshy.ajam.dev/p/fluence.md
+- free tier: None: access is invite-only during the private beta and every call draws on prepaid USD credits with a minimum purchase of USD 5. A first top-up of USD 10 or more earns a USD 5 bonus while the offer lasts, and an invite link can add sign-up credit up to the limit it shows. | unit: none | metered on: unstated | read on: 2026-10-28 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: card | detail: an invitation to an email address is required during the private beta, sign-in is by one-time code or link, and credits are bought through Stripe checkout with a USD 5 minimum; other payment methods are not listed on the page read
+- interface: rest
+- limits:
+  - request-rate: unpublished at account level; a key can carry its own per-minute and per-day request caps, a concurrency cap and a monthly USD budget set by its owner [1]
+  - volume-quota (binding): minimum credit purchase USD 5; a first top-up of USD 10 or more earns a USD 5 bonus; HTTP 402 when available credit is insufficient [1]
+- binding note: access is by invitation and every call spends prepaid credit, so there is no free allowance to run out first
+- endpoint: https://api.fluence.cloud/v1/chat/completions
+- tooling: OpenAI-compatible REST at https://api.fluence.cloud/v1 and an Anthropic-compatible Messages endpoint at https://api.fluence.cloud; one key with the inference permission
+- composes with: routes each request to one of several providers behind one key and one base URL; the invitation and the prepaid balance gate every call
+- reliability: no reliability event recorded
+- notes: Fluence Inference routes each request to one of its providers; GPU rental from the same company is recorded separately (compute/fluence).
+- evidence note: documentation page only; the size of an invite-link credit is unverified
+- evidence:
+  - [1] 2026-10-28: access is by invitation during the private beta | capture: sha256:0e30f8cdbe74ff10f67e0b6684dcdd9fce954ec45ad18c5ceba228e89cb4446f | quote: Access is invite-only during the private beta.
+  - [1] 2026-10-28: requests are routed to one of Fluence's providers behind one key and one endpoint | capture: sha256:0e30f8cdbe74ff10f67e0b6684dcdd9fce954ec45ad18c5ceba228e89cb4446f | quote: Fluence routes each request to one of its providers.
+  - [1] 2026-10-28: an invitation to an email address, or an invite link, is the way in | capture: sha256:0e30f8cdbe74ff10f67e0b6684dcdd9fce954ec45ad18c5ceba228e89cb4446f | quote: Ask your Fluence contact to invite your email, or open an invite link
+  - [1] 2026-10-28: credits are prepaid with a USD 5 minimum purchase | capture: sha256:0e30f8cdbe74ff10f67e0b6684dcdd9fce954ec45ad18c5ceba228e89cb4446f | quote: 2. Add prepaid USD credits in Billing. The minimum purchase is $5, and a first top-up of $10 or more can earn a bonus.
+  - [1] 2026-10-28: a first top-up of USD 10 or more earns a USD 5 bonus and an invite link can add sign-up credit | capture: sha256:0e30f8cdbe74ff10f67e0b6684dcdd9fce954ec45ad18c5ceba228e89cb4446f | quote: While the offer lasts, a first top-up of $10 or more before tax earns a $5 bonus; an invite link can add sign-up credit and a share of the first top-up, up to the limit it shows.
+  - [1] 2026-10-28: per-key caps on rate, concurrency and monthly budget are set by the key owner | capture: sha256:0e30f8cdbe74ff10f67e0b6684dcdd9fce954ec45ad18c5ceba228e89cb4446f | quote: A key can also limit requests per minute and day, concurrency, a monthly USD budget that resets each UTC month, expiry, its access list and IPv4 or IPv6 addresses or CIDRs.
+  - [1] 2026-10-28: payment runs through Stripe checkout | capture: sha256:0e30f8cdbe74ff10f67e0b6684dcdd9fce954ec45ad18c5ceba228e89cb4446f | quote: Stripe runs checkout, taxes, card details and fraud checks
+  - [1] 2026-10-28: an empty balance returns 402 | capture: sha256:0e30f8cdbe74ff10f67e0b6684dcdd9fce954ec45ad18c5ceba228e89cb4446f | quote: | 402 | Insufficient available credits |
+- sources:
+  - [1] https://inference.fluence.cloud/docs
+
+## FriendliAI Model APIs
+
+- `inference/friendli-ai` | paid-only | evidence documented | binding volume-quota | category inference API, prepaid credits, no standing free tier
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T06:15:50.267Z (live) | stale on 2026-12-05
+- url https://friendli.ai/docs/guides/suite/credits | page https://fshy.ajam.dev/p/friendli.md
+- free tier: none stated: teams use prepaid credits and API requests stop at a zero balance; promotional credits come from promo codes and 'may be restricted to a specific product, model, or GPU' | unit: none | metered on: none | read on: 2026-11-04 | source: [1] | note: whether a new account receives a promotional credit at sign-up is unverified: behind a sign-up
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: card | detail: sign-up is an account at Friendli Suite; the pages read state no card requirement at sign-up, but using the API needs purchased credits ($10 minimum) paid by credit or debit card (prepaid cards excluded), ACH on request, or AWS Marketplace
+- interface: rest
+- limits:
+  - volume-quota (binding): prepaid credits only: $10 minimum purchase to continue; requests stop when the balance reaches $0 [1]
+  - request-rate: tiered by lifetime spend; adding credits unlocks higher Model APIs rate limits; the per-tier numbers are not in the page text read [2]
+- binding note: a prepaid balance is the only way to call the API once any promo credit is gone
+- tooling: OpenAI-compatible client; a personal API key is created in Friendli Suite
+- composes with: part of the free tier
+- reliability: not measured
+- notes: no free allowance is stated on the pages read; an account-only promo credit is unverified
+- evidence:
+  - [1] 2026-11-04: using the platform past promotional credits needs a $10 minimum purchase | capture: sha256:0085853915a5ba9aafe7d4e351c45d277363e4c7bf96e23fa5e421bc248e645b | quote: Purchase credits (\$10 minimum) to continue using the platform.
+  - [1] 2026-11-04: prepaid credits come from a purchase of $10 minimum or auto recharge | capture: sha256:0085853915a5ba9aafe7d4e351c45d277363e4c7bf96e23fa5e421bc248e645b | quote: * Source: One-time purchase (\$10 minimum) or Auto Recharge
+  - [3] 2026-11-04: prepaid billing stops requests at a zero balance | capture: sha256:819b4968e9e5b90e90a148c43ce9f3aa07c643306323016b71604dfb4c082745 | quote: Teams use prepaid credits: if your team has no remaining credits, API requests stop until you add more credits.
+  - [3] 2026-11-04: card payment is the self-serve method | capture: sha256:819b4968e9e5b90e90a148c43ce9f3aa07c643306323016b71604dfb4c082745 | quote: * Credit and debit cards: FriendliAI accepts all major credit and debit cards, excluding prepaid cards.
+  - [2] 2026-11-04: rate-limit tiers depend on lifetime spend | capture: sha256:28fd7b85d380334be96025f020fc511345cdeff5abcb8336edf58828d171843d | quote: Tiers are based on lifetime spending and update automatically.
+  - [4] 2026-11-04: the quickstart names only an account sign-up and states no card at sign-up | capture: sha256:363708b6c9048404a38590979341ab125c1cfaf1b38b8286a4f41efafe06231b | quote: Create an account or sign in at [Friendli Suite](https://friendli.ai/suite).
+- sources:
+  - [1] https://friendli.ai/docs/guides/suite/credits
+  - [2] https://friendli.ai/docs/guides/model-apis/rate-limits
+  - [3] https://friendli.ai/docs/guides/suite/billing-payments
+  - [4] https://friendli.ai/docs/guides/model-apis/quickstart
+
+## Hugging Face Inference Providers
+
+- `inference/huggingface-inference` | paid-only | evidence documented | binding none | category inference endpoint, platform allocation
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T05:38:55.227Z (live) | stale on 2026-12-05
+- url https://router.huggingface.co/v1 | page https://fshy.ajam.dev/p/huggingface.md
+- free tier: no monthly credits on a free account. 'Free users can use Inference Providers by purchasing credits, or by upgrading to PRO'; monthly credits are granted to PRO and to Team or Enterprise organizations | unit: none | metered on: none | read on: 2026-10-22 | source: [1] | note: the pricing doc's eligibility row reads 'Free Users: yes (credits purchase required)'. So the router is reachable to a free account and only by paying, which is the same shape as a paid-only product with a free door
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: card | detail: a Hugging Face account plus purchased credits, or a PRO subscription; a free account is refused by price rather than by key
+- interface: rest
+- limits:
+  - volume-quota: monthly Inference Providers credits: Free Users none (credits purchase required); PRO Users USD 2.00; Team or Enterprise Organizations USD 2.00 per seat [1]
+- limits note: the monthly credits granted to PRO, Team and Enterprise are shared among all members of an organisation and applied before any pay-as-you-go usage is billed; none of them is available to a free account
+- binding note: no free allowance exists to bind: the free account can call the router only against purchased credits, so there is no ceiling on a free tier to name
+- tooling: any OpenAI-compatible client
+- composes with: pairs with an agent through the router; the scarce link is the monthly credit, and the 401-as-HTML shape means a body-classifying client fails before it reads the quota
+- reliability: the router returns its 401 as an HTML document rather than JSON, so a probe that classifies on body shape mis-handles it
+- notes: Pricing documentation specifies that monthly inference credits are granted only to PRO, Team, or Enterprise tiers. Free accounts access the router by purchasing credits. The verdict is paid-only. Endpoint probes consistently return 401 responses as HTML.
+- evidence note: the eligibility text, the monthly credit amounts per account type and the credit-application rule are quoted from the first-party Inference Providers pricing page; the router's HTML error body for an unauthenticated call is from a probe
+- evidence:
+  - probe:https://router.huggingface.co/v1/chat/completions 2026-10-22: an unauthenticated POST returned 401 with a 3087-byte body, an HTML document, not JSON. The endpoint exists and gates on a key; no key existed here, so no quota was read
+  - [1] 2026-10-22: 'PRO users and Team or Enterprise organizations receive monthly credits to use with Inference Providers. Free users can use Inference Providers by purchasing credits, or by upgrading to PRO'; the eligibility table reads 'Free Users — yes (credits purchase required)'
+  - [1] 2026-10-28: monthly Inference Providers credits go to PRO and Team or Enterprise accounts; a free user must purchase credits | capture: sha256:e504cc1b75dcdd772ced798f26f0ac05de98b2c9a513ddfe51b1b9b925498f79 | quote: PRO users and Team or Enterprise organizations receive monthly credits to use with Inference Providers. Free users can use Inference Providers by purchasing credits, or by upgrading to [PRO](https://huggingface.co/subscribe/pro):
+  - [2] 2026-11-03: the Hub rate-limit page defines API, Resolvers and Pages buckets over 5-minute windows and never names Inference Providers or router.huggingface.co, so it states no router rate and does not say the router counts against them | capture: sha256:715c9e0765ce504cd71f0933e7ca01cd484a4f6ef30c781ec9c5a49cefc38812 | quote: we enforce rate limits on all requests made to the Hugging Face Hub.
+  - [1] 2026-11-03: monthly credits still go to PRO and Team or Enterprise; the pricing page states credits only and no request rate | capture: sha256:e504cc1b75dcdd772ced798f26f0ac05de98b2c9a513ddfe51b1b9b925498f79 | quote: PRO users and Team or Enterprise organizations receive monthly credits to use with Inference Providers.
+- sources:
+  - [1] https://huggingface.co/docs/inference-providers/pricing
+  - [2] https://huggingface.co/docs/hub/rate-limits
+
+## Hyperbolic Serverless Inference
+
+- `inference/hyperbolic-inference` | paid-only | evidence documented | binding volume-quota | category inference endpoint, pay-per-token, one-time deposit
+- needs card yes, phone no, ID no, institution no | verified 2026-10-28T04:36:19.314Z (live) | stale on 2026-11-28
+- url https://hyperbolic.ai/docs/inference/overview | page https://fshy.ajam.dev/p/hyperbolic.md
+- free tier: None for inference: 'You may not launch GPU instances nor storage volumes, or use Inference, with a free-tier account.' A personal account becomes Pro with a one-time deposit of USD 5 or more, and requests made with an Organization API key do not require Pro. | unit: none | metered on: unstated | read on: 2026-10-28 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: card | detail: signup verifies an email address, and inference needs a one-time deposit of at least USD 5 made through a payment form before any call; the payment methods that form accepts are not listed on the pages read
+- interface: rest
+- limits:
+  - request-rate: 300 requests per minute per API key; above that the API returns HTTP 429 [2]
+  - volume-quota (binding): a one-time deposit of USD 5 or more upgrades a personal account to Pro, and the credit balance must stay above zero (HTTP 402 when it does not) [1]
+- binding note: inference is refused outright on the Free Tier (HTTP 403 inference_requires_pro), so the first constraint is the USD 5 deposit, not a rate
+- endpoint: https://api.hyperbolic.ai/inference/v1/chat/completions
+- tooling: OpenAI SDKs with base URL https://api.hyperbolic.ai/inference/v1 and an sk_live_ key; text models only
+- composes with: pay-per-token text models behind an OpenAI-compatible base URL; the USD 5 deposit is a one-off, with no subscription
+- reliability: no reliability event recorded
+- notes: GPU rental by the same vendor is a separate offer (compute/hyperbolic). The previous inference API at api.hyperbolic.xyz included the Free Tier and is decommissioned, returning 404; the current API needs a Pro plan or an Organization.
+- evidence note: documentation pages only; the 300 requests per minute ceiling is a documented figure and not measured
+- evidence:
+  - [1] 2026-10-28: the Free Tier cannot use inference | capture: sha256:acb9a3f3dd161105c0dba7ee4917dedc591a4e8daa3604bac190e96c9e4c035b | quote: You may not launch GPU instances nor storage volumes, or use [Inference](/docs/inference/overview), with a free-tier account.
+  - [1] 2026-10-28: inference needs a Pro plan (a one-time deposit of USD 5 or more) or an Organization | capture: sha256:acb9a3f3dd161105c0dba7ee4917dedc591a4e8daa3604bac190e96c9e4c035b | quote: A Pro plan, or an Organization. Personal accounts on the Free Tier can't use inference. To upgrade, make a one-time deposit of \$5 or more.
+  - [1] 2026-10-28: signup verifies an email address | capture: sha256:acb9a3f3dd161105c0dba7ee4917dedc591a4e8daa3604bac190e96c9e4c035b | quote: [Sign up for Hyperbolic](https://app.hyperbolic.ai), then verify your email address.
+  - [1] 2026-10-28: the upgrade is a payment form for USD 5 | capture: sha256:acb9a3f3dd161105c0dba7ee4917dedc591a4e8daa3604bac190e96c9e4c035b | quote: an Upgrade to Pro dialog opens with your message, a Free vs Pro comparison, and a $5 payment form
+  - [1] 2026-10-28: the previous inference API at api.hyperbolic.xyz is decommissioned and returns 404 | capture: sha256:acb9a3f3dd161105c0dba7ee4917dedc591a4e8daa3604bac190e96c9e4c035b | quote: Requests to `https://api.hyperbolic.xyz/v1` now return `404` with a message that the endpoint was decommissioned.
+  - [1] 2026-10-28: the previous inference API included the Free Tier and the current one needs a Pro plan or an Organization | capture: sha256:acb9a3f3dd161105c0dba7ee4917dedc591a4e8daa3604bac190e96c9e4c035b | quote: | Plan | Free Tier included | Pro plan or Organization |
+  - [2] 2026-10-28: the inference API returns 429 above 300 requests per minute per key | capture: sha256:2056357592f6af6d267e779714b9cfd36f39bd974078163644a57f45c00e396d | quote: | `429` | The API key sent more than 300 requests in a minute | Retry with exponential backoff. For a higher limit, [contact sales](mailto:sales@hyperbolic.ai) |
+  - [2] 2026-10-28: a Free Tier personal account gets 403 inference_requires_pro | capture: sha256:2056357592f6af6d267e779714b9cfd36f39bd974078163644a57f45c00e396d | quote: | `403` | `inference_requires_pro` | The personal account is on the Free Tier | Upgrade with a one-time \$5 deposit under Settings > Plan, or use an Organization API key |
+- sources:
+  - [1] https://www.hyperbolic.ai/docs/llms-full.txt
+  - [2] https://www.hyperbolic.ai/docs/inference/performance-limits
+
+## Leonardo.Ai (Inference)
+
+- `inference/leonardo-ai` | paid-only | evidence documented | binding write-gated | category image and video generation API, purchased credit only
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T07:34:03.379Z (live) | stale on 2026-12-04
+- url https://leonardo.ai/api | page https://fshy.ajam.dev/p/leonardo.md
+- free tier: none for the API: API access is separate from free or web app subscriptions and needs purchased API credits before a key can be created. The Free web-app plan gives 150 Fast Tokens a day, which reset daily, and does not include API calls. API credit is pay as you go, does not expire, and allows up to 10 concurrent generations. | unit: none | metered on: unstated | read on: 2026-11-03 | source: [1] | note: third-party pages report a USD 5 starter credit on a new API account; no vendor page read states it, so it is unverified
+- per-object cap: not applicable
+- retention: images generated through the API do not expire and stay accessible from the web app
+- egress: metered: no
+- identity: card | detail: a free Leonardo account (email signup form not read), then a purchase of API credit ('Buy Credit') before 'Create New Key'; unverified: which payment methods are accepted and the minimum purchase
+- interface: rest
+- limits:
+  - write-gated (binding): API access is separate from free or web app subscriptions: purchased API credits are needed before any key is created [1]
+  - volume-quota: Free web-app plan: 150 Fast Tokens a day, reset daily, no accumulation; not usable through the API [2]
+- binding note: an API key needs purchased credit, so the 150 daily Fast Tokens of the Free web plan never reach the API
+- interface detail: REST at https://cloud.leonardo.ai/api/rest/v1 with a bearer API key; optional webhook callback set when the key is created
+- endpoint: https://cloud.leonardo.ai/api/rest/v1/generations
+- tooling: raw HTTP with an API key created on the API Access page of the web app; the web app can export a generation as ready-to-use API code
+- composes with: the Free web-app plan is a daily allowance for the browser, usable for hand-made images, and the API is a separate paid lane; a batch pipeline needs bought API credit first. A free image allowance with an API is not available here.
+- reliability: web-app tokens and API credit are separate balances billed separately
+- evidence note: the separation of the API from the Free plan, the credit purchase before a key, the 10 concurrent generations and the 150 daily Fast Tokens are quoted from vendor pages; a starter credit on a new API account is unverified.
+- evidence:
+  - [1] 2026-11-03: API access needs purchased credits and is separate from free subscriptions | capture: sha256:22cc37585f53d1e11f6626d85a5b8965c1f77a80e093e3f7ecd54336e2f89a25 | quote: Purchase API Credits. API access is separate from free or web app subscriptions.
+  - [1] 2026-11-03: API plans are distinct from the web app plans | capture: sha256:22cc37585f53d1e11f6626d85a5b8965c1f77a80e093e3f7ecd54336e2f89a25 | quote: Note: API plans are distinct from the Leonardo web app plans. API plans unlock access to the API.
+  - [3] 2026-11-03: an API account starts from a free Leonardo account and a credit purchase | capture: sha256:cdecd7a9e3010b4137410844d0a61a7f1726a0021457fc8000dd9379e44c97bd | quote: You’ll need a free Leonardo account to get started.
+  - [3] 2026-11-03: the pay-as-you-go API allows up to 10 concurrent generations | capture: sha256:cdecd7a9e3010b4137410844d0a61a7f1726a0021457fc8000dd9379e44c97bd | quote: Up to 10 concurrent generations
+  - [3] 2026-11-03: API credit does not expire | capture: sha256:cdecd7a9e3010b4137410844d0a61a7f1726a0021457fc8000dd9379e44c97bd | quote: API credit doesn’t expire
+  - [2] 2026-11-03: the Free web plan gets 150 Fast Tokens a day | capture: sha256:cf340ff3d09b5a0e8d93cf5e30ca38034a64987ade7b64f8f2c91ee916810cd0 | quote: | Fast Tokens | 150 / daily | 8,500 / monthly | 25,000 / monthly | 60,000 / monthly |
+  - [2] 2026-11-03: free-user tokens reset daily | capture: sha256:cf340ff3d09b5a0e8d93cf5e30ca38034a64987ade7b64f8f2c91ee916810cd0 | quote: If you’re a free user, you’re allocated a certain number of tokens each day, and these reset daily, allowing you to perform actions within this limit.
+  - [4] 2026-11-03: API-generated images do not expire | capture: sha256:39743124f39906e86cf9c0417952305cf882a2120d3f7a7134e84a9b5cd334ad | quote: No, images generated via the Leonardo.Ai API will not expire and can also be accessed from the Web App at any time.
+- sources:
+  - [1] https://docs.leonardo.ai/docs/getting-started
+  - [2] https://leonardo.ai/pricing
+  - [3] https://leonardo.ai/api
+  - [4] https://docs.leonardo.ai/docs/faq
+
+## LibreTranslate hosted (libretranslate.com)
+
+- `inference/libretranslate-hosted` | paid-only | evidence documented | binding none | category machine translation API, hosted, paid API key only | tier Pro
+- identity a placeholder: card and phone unknown | verified 2026-11-03T07:34:02.146Z (live) | stale on 2026-12-04
+- url https://portal.libretranslate.com/ | page https://fshy.ajam.dev/p/libretranslate.md
+- free tier: none: the hosted API at libretranslate.com needs a paid API key (Pro USD 29 a month, Business USD 58 a month); the vendor offers no free trial and no free low-volume key | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: the keyless GET /frontend/settings of the hosted service reports keyRequired true, so the hosted translate endpoint refuses callers without a key. A 7 day money-back guarantee exists on the paid plans
+- per-object cap: 2,000 characters per request (the hosted service's charLimit setting) | source: [2]
+- retention: not applicable: a translation endpoint stores nothing for the caller
+- egress: metered: no
+- identity: card | detail: the keys are bought through Stripe checkout links on the portal page; the checkout page was not opened, so that the payment method is a card is inferred from the Stripe checkout and unverified
+- interface: rest
+- limits:
+  - per-object-cap: 2,000 characters per request [2]
+  - request-rate: bursts of up to 80 translations / minute on Pro; 200 translations / minute on Business; translations are unlimited [1]
+- binding note: no free allowance exists to bind; the paid key is the gate, and the 2,000 character request size is the only per-call cap
+- tooling: REST API: POST https://libretranslate.com/translate with q, source, target and api_key. Hosted offer first: the paid Pro and Business keys; self-hosted option last: the user installs and runs the open-source server (pip install libretranslate) on a rented or free machine, which is not what this record prices
+- composes with: none: no free allowance to chain; the self-hosted option is the free route and ranks after every hosted offer
+- reliability: a single hosted operator; the vendor states that a free low-volume key was tried in the past and stopped as not sustainable
+- notes: Supported languages: GET /languages answers without a key and lists language codes from en to vi, among them sq, ar, zh-Hans, zh-Hant, pt-BR, ru and uk (the list is longer than the language names that the home page menu shows). Character limit per request: 2,000. Keyless: no; the web page loads without a key but the translate API reports keyRequired true.
+- evidence note: the price, the absence of a free tier or trial and the request rates are quoted from the vendor's portal; the 2,000 character limit and the key requirement are read from the service's own settings endpoint; the payment method of the checkout is unverified.
+- self hosted: no
+- evidence:
+  - [1] 2026-11-03: the Pro plan, the only entry tier, costs USD 29 a month | capture: sha256:5faca395d09c7d380c4aa69b944bb774235bec1ade10c1624e23bae4403c946f | quote: $29 / month
+  - [1] 2026-11-03: the vendor offers no free trial | capture: sha256:5faca395d09c7d380c4aa69b944bb774235bec1ade10c1624e23bae4403c946f | quote: No, but we have a 7 days money-back guarantee.
+  - [1] 2026-11-03: the vendor declines to give free low-volume keys | capture: sha256:5faca395d09c7d380c4aa69b944bb774235bec1ade10c1624e23bae4403c946f | quote: While we would love to offer low volume keys free of charge, it's just not sustainable for us (we tried in the past).
+  - [1] 2026-11-03: Pro allows bursts of 80 translations a minute | capture: sha256:5faca395d09c7d380c4aa69b944bb774235bec1ade10c1624e23bae4403c946f | quote: Bursts of up to 80 translations / minute
+  - [1] 2026-11-03: Business allows bursts of 200 translations a minute | capture: sha256:5faca395d09c7d380c4aa69b944bb774235bec1ade10c1624e23bae4403c946f | quote: Bursts of up to 200 translations / minute
+  - [1] 2026-11-03: the purchase is a Stripe checkout link | capture: sha256:5faca395d09c7d380c4aa69b944bb774235bec1ade10c1624e23bae4403c946f | quote: [verified_user Buy](https://buy.stripe.com/28o2aVfoOeQM4wM5km)
+  - probe:libretranslate.com/frontend/settings 2026-11-03: the hosted service reports that a key is required | capture: sha256:64d93ec7d14934fdd76a3fdcd0657c153b2de27bfb8ec1c0daa547717fbbfeff | quote: "keyRequired":true
+  - probe:libretranslate.com/frontend/settings 2026-11-03: the hosted service sets a 2,000 character limit | capture: sha256:64d93ec7d14934fdd76a3fdcd0657c153b2de27bfb8ec1c0daa547717fbbfeff | quote: "charLimit":2000
+  - [3] 2026-11-03: the managed hosting route is an API key from the portal, passed as api_key | capture: sha256:206dda91661bc3b9ee0fdfefa9d5a84cb52ca44c59e992cb7889622c6ccf84ce | quote: curl -X POST https://libretranslate.com/translate -d q="Hello" -d source=en -d target=es -d api_key=xxxxx
+  - probe:libretranslate.com/languages 2026-11-03: the keyless languages list includes Chinese in simplified script as the code zh-Hans | capture: sha256:7e53b5d53a1004b462540fe40708d9ae8da92665258fb5d846df9089bf5ca569 | quote: "zh-Hans"
+- sources:
+  - [1] https://portal.libretranslate.com/
+  - [2] https://libretranslate.com/frontend/settings
+  - [3] https://docs.libretranslate.com/
+
+## LLM Gateway
+
+- `inference/llm-gateway` | paid-only | evidence documented | binding request-rate | category inference gateway, free-model mechanism with an empty catalogue
+- needs card no, phone no, ID no, institution no | verified 2026-10-28T04:36:18.593Z (live) | stale on 2026-11-28
+- url https://llmgateway.io/pricing | page https://fshy.ajam.dev/p/llmgateway.md
+- free tier: free models (zero input and output price) carry their own limits: 5 requests per 10 minutes per free model for an organization with zero credits, 20 requests per minute per free model once any credits are purchased; the live model list shows 0 Free Models on the day read | unit: requests | metered on: request-count | read on: 2026-10-28 | source: [1] | note: the pricing page still says free models are available on the free tier without buying credits; managed cloud is prepaid credits with a $10 minimum top-up and a 5% platform fee
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: free models need a verified email address, and unverified accounts receive a 403; no card is named for the free models
+- interface: rest
+- limits:
+  - request-rate (binding): per organization per free model: 5 requests per 10 minutes with zero credits; 20 requests per minute once any credit has been purchased; credits are not deducted for free models [1]
+- binding note: 5 requests per 10 minutes per model is the ceiling if a free model is listed
+- endpoint: https://api.llmgateway.io/v1/chat/completions
+- tooling: any OpenAI-compatible client at https://api.llmgateway.io/v1
+- composes with: paid gateway with a documented free-model lane; only worth a key if free models are listed again
+- reliability: the free-model lane is documented but the model directory lists none, so a key may have nothing free to call
+- notes: verdict is paid-only because the directory lists no free model; it moves up if free models reappear.
+- evidence note: limits and the verified-email rule are quoted from the vendor's rate-limit page and the empty free list from the model directory; no call was made.
+- evidence:
+  - [1] 2026-10-28: zero-credit organizations get 5 requests per 10 minutes per free model | capture: sha256:49002dfe5453397942d152d86dc23620640538511e1e5f6d1e3333beed6c3109 | quote: - 5 requests per 10 minutes per free model
+  - [1] 2026-10-28: organizations that purchased credits get 20 requests per minute per free model | capture: sha256:49002dfe5453397942d152d86dc23620640538511e1e5f6d1e3333beed6c3109 | quote: - 20 requests per minute per free model
+  - [1] 2026-10-28: free models require a verified email address | capture: sha256:49002dfe5453397942d152d86dc23620640538511e1e5f6d1e3333beed6c3109 | quote: Using free models also requires a verified email address — unverified accounts receive a `403`.
+  - [2] 2026-10-28: the pricing page states free models exist on the free tier | capture: sha256:bd8807b703e0aae0c309dff2d568b80a7702abd39047eb189c82abb6c353a202 | quote: - Free models are available on the free tier without buying credits.
+  - [3] 2026-10-28: the model directory counts 0 free models | capture: sha256:7dcc87a8eec63431dcb883aaaf071f41bc7af64b3c65166704d01015e97a0b8d | quote: Tool-enabled 0 Free Models
+- sources:
+  - [1] https://docs.llmgateway.io/resources/rate-limits
+  - [2] https://llmgateway.io/pricing
+  - [3] https://llmgateway.io/models
+
+## Mathpix OCR API
+
+- `inference/mathpix-ocr-api` | paid-only | evidence documented | binding volume-quota | category OCR and document parsing API, paid with a testing credit | tier Pay as you go
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T07:34:02.658Z (live) | stale on 2026-12-04
+- url https://mathpix.com/pricing/api | page https://fshy.ajam.dev/p/mathpix.md
+- free tier: no free tier and no free trial for the OCR API: a one-time USD 19.99 non-refundable setup fee activates the first API key and applies a USD 29 testing credit to the account; a credit or debit card is required to activate a key. Billing is per use after the credit: image OCR USD 0.002 per image, documents (PDF, DOCX, PPTX) USD 0.005 per page, batch documents USD 0.0015 per page | unit: credits | metered on: unstated | read on: 2026-11-03 | source: [1] | note: the testing credit is denominated in USD (USD 29); the metered unit is images for v3/text and pages for v3/pdf and the Files API, for which the vocabulary has no term
+- per-object cap: unverified: no per-file size or per-document page cap read on the pricing, billing or limits pages; the Files API accepts a job of up to 200,000 documents
+- retention: images are stored for quality assurance for 30 days by default; a retention opt-out deletes images within 24 hours | days: 30 | source: [2]
+- egress: the response is the payload; no separate egress term is published; the Files API can write results to a customer-owned S3, GCS or Azure bucket | metered: no
+- identity: card | detail: a Mathpix account with a verified email, then an API organization on the Pay as you go plan with a credit or debit card added and a one-time non-refundable setup fee paid before a key is issued
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): USD 29 testing credit applied after the one-time USD 19.99 setup fee; the default page limit is 20,000 pages per month for v3/pdf and files/v1 together, per API key [3]
+  - request-rate: 200 requests per minute per API key on synchronous image requests (v3/text, v3/latex); asynchronous and batch requests are not subject to the per-minute limit [3]
+- binding note: a card and a USD 19.99 setup fee gate the key before any quota exists; the USD 29 testing credit then runs out first
+- interface detail: REST endpoints v3/text (image), v3/pdf (documents), v3/strokes (digital ink) and files/v1 (asynchronous batch); the open-source Mathpix CLI (mpx) drives the hosted API
+- endpoint: https://api.mathpix.com/v3/text
+- tooling: any HTTP client with app_id and app_key headers; the Mathpix CLI (mpx) handles uploads, status polling and downloads
+- composes with: a paid OCR lane for printed and handwritten STEM content (math, tables, chemistry diagrams); the USD 29 testing credit costs a USD 19.99 setup fee and a card, so the no-card hosted OCR offers come before it
+- reliability: no reliability event recorded; the page limit and rate limit are per key and can be raised from the console Requests tab
+- evidence note: the card requirement, the setup fee, the testing credit, the prices and the default limits are quoted from vendor pages read on 2026-11-03; no request was made, because a key needs a paid setup. The per-file size cap is unverified.
+- evidence:
+  - [2] 2026-11-03: an API key is activated by a one-time USD 19.99 setup fee | capture: sha256:cb734277e13844a7698836976121696e9f73d5303dbc1d888fa2d19a9031defc | quote: A one-time $19.99 setup fee activates your first API key.
+  - [2] 2026-11-03: the Pay as you go plan includes a USD 29 credit for testing | capture: sha256:cb734277e13844a7698836976121696e9f73d5303dbc1d888fa2d19a9031defc | quote: - $29 credit for testing endpoints
+  - [1] 2026-11-03: the API has no free trial; the setup fee buys the USD 29 testing credit | capture: sha256:ed5ab5539d801f280c687b5c4ce02636c8e3f0347be593a1f6164387a70f65a6 | quote: We don’t give a free trial for Mathpix OCR API. But you can create an account for a $19.99 one-time non-refundable setup fee and you’ll get $29 applied to your account for testing any of our endpoints.
+  - [4] 2026-11-03: a credit or debit card is required to activate an API key | capture: sha256:dd7db80b0243a28a24e8dd9d0097f61898e01ce7acd002d61f0d85dd30f69a5b | quote: You will be required to add a credit or debit card in order to activate an API key.
+  - [4] 2026-11-03: the REST endpoint and its app_id and app_key header authentication | capture: sha256:dd7db80b0243a28a24e8dd9d0097f61898e01ce7acd002d61f0d85dd30f69a5b | quote: curl -X POST https://api.mathpix.com/v3/text
+  - [2] 2026-11-03: v3/text accepts images and returns LaTeX, Markdown or MathML | capture: sha256:cb734277e13844a7698836976121696e9f73d5303dbc1d888fa2d19a9031defc | quote: Printed or handwritten text, math, tables, and diagrams from one image, to LaTeX, Markdown, or MathML.
+  - [2] 2026-11-03: v3/pdf accepts PDF, DOCX and PPTX and is billed per page | capture: sha256:cb734277e13844a7698836976121696e9f73d5303dbc1d888fa2d19a9031defc | quote: PDFs, DOCX, and PPTX to Mathpix Markdown, LaTeX, DOCX, HTML, or line-level JSON. Billed per page.
+  - [3] 2026-11-03: the default monthly page limit per key, shared by v3/pdf and files/v1 | capture: sha256:5ee19fbbf2d05c6f1b2efd96625fd01fcabc919eb8b53f6dd2621cd9bd710d78 | quote: | Page limit | 20,000 pages / month | `v3/pdf` and `files/v1`, which share one allotment |
+  - [3] 2026-11-03: the default synchronous rate limit per key | capture: sha256:5ee19fbbf2d05c6f1b2efd96625fd01fcabc919eb8b53f6dd2621cd9bd710d78 | quote: | Rate limit | 200 requests / minute | Synchronous image requests - `v3/text`, `v3/latex` |
+  - [2] 2026-11-03: default image retention is 30 days with an opt-out that deletes within 24 hours | capture: sha256:cb734277e13844a7698836976121696e9f73d5303dbc1d888fa2d19a9031defc | quote: Default retention is 30 days. You can opt out, and images are deleted within 24 hours.
+  - [2] 2026-11-03: the Files API takes a job of up to 200,000 documents and can write results to the customer's own bucket | capture: sha256:cb734277e13844a7698836976121696e9f73d5303dbc1d888fa2d19a9031defc | quote: One file, a source URI, or a job of up to 200,000 documents. Results land in your own S3, GCS, or Azure bucket.
+  - [2] 2026-11-03: image OCR is billed at USD 0.002 per image | capture: sha256:cb734277e13844a7698836976121696e9f73d5303dbc1d888fa2d19a9031defc | quote: $0.002/ image
+  - [2] 2026-11-03: document pages through v3/pdf are billed at USD 0.005 per page | capture: sha256:cb734277e13844a7698836976121696e9f73d5303dbc1d888fa2d19a9031defc | quote: $0.005/ page
+  - [5] 2026-11-03: the service recognises printed and handwritten STEM content from images, stroke data or PDF files | capture: sha256:4ea3e2739e9c92a53dbf768a57451e7efecec5d824f96b8e861d0cc6bb149113 | quote: Mathpix OCR recognizes printed and handwritten STEM document content, including math, text, tables, and chemistry diagrams, from images, stroke data, or PDF files.
+  - [5] 2026-11-03: a command-line client drives the hosted API | capture: sha256:4ea3e2739e9c92a53dbf768a57451e7efecec5d824f96b8e861d0cc6bb149113 | quote: It handles uploads, status polling, and downloads for the hosted API or your Private Cloud OCR deployment.
+  - [3] 2026-11-03: asynchronous requests are exempt from the per-minute rate limit | capture: sha256:5ee19fbbf2d05c6f1b2efd96625fd01fcabc919eb8b53f6dd2621cd9bd710d78 | quote: - Sending `async: true`, or supplying a `callback`, on `v3/text` exempts that request.
+  - [3] 2026-11-03: limit increases are self-service from the console | capture: sha256:5ee19fbbf2d05c6f1b2efd96625fd01fcabc919eb8b53f6dd2621cd9bd710d78 | quote: Limit increases are self-service.
+  - [4] 2026-11-03: the account needs a verified email before the organization and billing steps | capture: sha256:dd7db80b0243a28a24e8dd9d0097f61898e01ce7acd002d61f0d85dd30f69a5b | quote: Once you have verified your email
+- sources:
+  - [1] https://mathpix.com/docs/convert/billing
+  - [2] https://mathpix.com/pricing/api
+  - [3] https://mathpix.com/docs/convert/limits
+  - [4] https://mathpix.com/docs/convert/creating-an-api-key
+  - [5] https://docs.mathpix.com/
+
+## Meituan LongCat API Platform
+
+- `inference/meituan-longcat-api` | paid-only | evidence documented | binding request-rate | category inference API, paid
+- needs card no, phone yes, ID no, institution no | verified 2026-10-28T04:36:18.792Z (live) | stale on 2026-11-28
+- url https://longcat.chat/platform | page https://fshy.ajam.dev/p/longcat.md
+- free tier: no standing free allowance on the pages read: LongCat-2.0 and LongCat-2.5-Preview are pay-as-you-go from a prepaid balance at a limited-time discount of USD 0.30 per 1M uncached input and USD 1.20 per 1M output. Six LongCat-Flash models were retired effective May 29, 2026. LongCat-2.0-Preview was announced with an initial quota of 5,000,000 Tokens/day, and billing for LongCat-2.0 was announced on 2026-06-30. Promotional credits exist and are consumed before the paid balance, but how a new account obtains one is not stated | unit: none | metered on: none | read on: 2026-10-28 | source: [1] | note: no-standing-free-allowance
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: outside mainland China an account registers with a mobile phone number or an email. The international-site FAQ states no identity verification is required to recharge or use the service. Mainland China accounts must complete identity verification (real name and ID number) or enterprise verification before recharging or buying token packs
+- interface: rest
+- limits:
+  - request-rate (binding): limits are enforced per API key and exceeding them returns HTTP 429; no requests-per-minute figure is published on the pages read [2]
+- binding note: per-key request limit with a 429 response; the prepaid balance is the other gate
+- endpoint: https://api.longcat.chat/openai
+- tooling: OpenAI-compatible POST /v1/chat/completions on https://api.longcat.chat/openai and Anthropic-compatible POST /v1/messages on https://api.longcat.chat/anthropic
+- composes with: pairs with an agent as a 1M-context pay-as-you-go model; the six LongCat-Flash models of the earlier API launch are retired
+- reliability: six LongCat-Flash models were retired effective May 29, 2026 and the changelog announces LongCat-2.0 billing on 2026-06-30
+- notes: a one-time free grant for new accounts is unverified; the first-party pages read state no free grant
+- evidence note: pricing and retirement are read from the vendor docs; whether a new-account promotional credit is granted is unverified
+- evidence:
+  - [3] 2026-10-28: the platform exposes an OpenAI-compatible chat completions endpoint | capture: sha256:3e520f3655465af2b5379e55e6cee73f2e51578d7f53e5e999e9e2160cfe95e9 | quote: Fully compatible with the OpenAI API specification, supporting the following endpoints:
+  - [2] 2026-10-28: registration outside mainland China is by phone or email | capture: sha256:b4bc67c2cf20921428adc79a027897e13fdc7f5a75d51efc26daadad53fd804e | quote: Users in Mainland China can register/login using their mobile phone number. Users outside Mainland China can register/login using either their mobile phone number or email.
+  - [2] 2026-10-28: mainland accounts need identity or enterprise verification before recharging | capture: sha256:b4bc67c2cf20921428adc79a027897e13fdc7f5a75d51efc26daadad53fd804e | quote: Users in Mainland China are required to complete Identity Verification or Enterprise Verification before recharging or purchasing Token Packs.
+  - [2] 2026-10-28: the international-site FAQ requires no identity verification to recharge or use the service | capture: sha256:b4bc67c2cf20921428adc79a027897e13fdc7f5a75d51efc26daadad53fd804e | quote: A: No Identity Verification is required — recharging and using the service do not mandate verification.
+  - [2] 2026-10-28: rate limits are per API key and return 429 | capture: sha256:b4bc67c2cf20921428adc79a027897e13fdc7f5a75d51efc26daadad53fd804e | quote: Yes, rate limits are enforced per API Key. When exceeded, you'll receive a 429 status code.
+  - [1] 2026-10-28: only two models are sold, both pay-as-you-go | capture: sha256:627907d8e085f81dd796ac0697c0a2756c303b3222d68b7a66dcc9f6f2d5351c | quote: Pay-As-You-Go currently supports LongCat-2.5-Preview and LongCat-2.0.
+  - [1] 2026-10-28: limited-time discounted uncached input price per 1M tokens in USD | capture: sha256:627907d8e085f81dd796ac0697c0a2756c303b3222d68b7a66dcc9f6f2d5351c | quote: | Uncached Input | $0.30 |
+  - [1] 2026-10-28: promotional credits exist and are consumed first; the paid balance does not expire | capture: sha256:627907d8e085f81dd796ac0697c0a2756c303b3222d68b7a66dcc9f6f2d5351c | quote: Your balance never expires. If you also have promotional credits, those are consumed before your paid balance.
+  - [4] 2026-10-28: six LongCat-Flash models were retired effective May 29, 2026 | capture: sha256:b60dc7d7e7ab8a227dc5dbd7fc2b1f228cef0c6cf5b2436c8d62f96fa93f365f | quote: Effective May 29, 2026, the platform will retire the following 6 models:
+  - [4] 2026-10-28: LongCat-2.0-Preview was announced with an initial daily token quota | capture: sha256:b60dc7d7e7ab8a227dc5dbd7fc2b1f228cef0c6cf5b2436c8d62f96fa93f365f | quote: With an initial quota of 5,000,000 Tokens/day, you can [submit model feedback](https://longcat.chat/platform/feedback).
+  - [4] 2026-10-28: the changelog entry for 2026-06-30 announces LongCat-2.0 release and billing | capture: sha256:b60dc7d7e7ab8a227dc5dbd7fc2b1f228cef0c6cf5b2436c8d62f96fa93f365f | quote: ### LongCat-2.0 Release & Billing Now Available
+- sources:
+  - [1] https://longcat.chat/platform/docs/api-pay-as-you-go
+  - [2] https://longcat.chat/platform/docs/faq
+  - [3] https://longcat.chat/platform/docs/
+  - [4] https://longcat.chat/platform/docs/change-log
+
+## MiniMax API Platform (platform.minimax.io)
+
+- `inference/minimax-api-platform` | paid-only | evidence documented | binding none | category inference API, paid
+- identity a placeholder: card and phone unknown | verified 2026-10-28T04:36:18.792Z (live) | stale on 2026-11-28
+- url https://platform.minimax.io/docs/guides/pricing-paygo | page https://fshy.ajam.dev/p/minimax.md
+- free tier: no free LLM allowance on the pay-as-you-go page: MiniMax-M3.1-Flash is USD 0.15 per 1M input and USD 0.60 per 1M output, and MiniMax-M3 carries a permanent 50% discount, not a free tier. The free items listed are input-side allowances on video tasks, such as the first 5 images per task, and free music generation APIs that are being discontinued | unit: none | metered on: none | read on: 2026-10-28 | source: [1] | note: none
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: unverified: the sign-up requirements were not read; the pricing page links a Recharge Now balance page
+- interface: rest
+- limits note: no rate or quota is stated on the pricing page
+- tooling: not stated
+- composes with: pairs with an agent as a per-token paid model; the free music APIs are being discontinued
+- reliability: from August 20, 2026 the paid music and lyrics APIs close to new users and the free music generation APIs are discontinued
+- evidence:
+  - [1] 2026-10-28: MiniMax-M3.1-Flash list price in USD per 1M input, output and cached read tokens | capture: sha256:ccf045dbf941dc6a2064d84cc2654c24e0106a501f6d3cf9ff75a4e3d51a9e47 | quote: | MiniMax-M3.1-Flash | $0.15 | $0.60 | $0.015 |
+  - [1] 2026-10-28: the only free generation APIs listed are being discontinued | capture: sha256:ccf045dbf941dc6a2064d84cc2654c24e0106a501f6d3cf9ff75a4e3d51a9e47 | quote: The free music generation APIs (Music-3.0-free, Music-2.6-free, music-cover-free) will be discontinued.
+  - [1] 2026-10-28: the first 5 input images per video task are free | capture: sha256:ccf045dbf941dc6a2064d84cc2654c24e0106a501f6d3cf9ff75a4e3d51a9e47 | quote: - Image input: The first 5 images per task are free; additional images are billed per image.
+- sources:
+  - [1] https://platform.minimax.io/docs/guides/pricing-paygo
+
+## Moonshot Kimi API Platform international
+
+- `inference/moonshot-kimi-api-international` | paid-only | evidence documented | binding write-gated | category inference API, prepaid pay-as-you-go | tier International platform, pay-as-you-go
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T07:38:01.693Z (live) | stale on 2026-12-04
+- url https://platform.kimi.ai/docs/pricing/limits.md | page https://fshy.ajam.dev/p/kimi-2.md
+- free tier: no free credit is stated for a registration outside mainland China. The API needs a recharge of at least USD 1 first, and a USD 5 voucher is granted once cumulative recharge reaches USD 5. The mainland RMB 15 new-user voucher is a separate offer on a separate platform; accounts and keys of the two platforms are independent | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: the USD 5 voucher is a purchase-matched bonus, not a free grant; whether the console grants any other credit at sign-up is unverified: behind a sign-up. One page names 'vouchers granted from new-user verification' that cannot be used for Kimi K3 without saying who receives them or how much
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: card | detail: sign-up uses an emailed verification code or a Google account; using the API needs a prior top-up of at least USD 1. The help page lists WeChat Pay and Alipay QR payments for individual top-ups and the terms name a credit or debit card as a payment method; which methods the international top-up page accepts is unverified: behind a sign-up
+- interface: rest
+- limits:
+  - write-gated (binding): a recharge of at least USD 1 is required before the API can be used; kimi-k3.1-pro is unlocked by a successful top-up (minimum USD 1) [1]
+  - request-rate: Tier0 (USD 1 cumulative recharge): concurrency 1, 3 RPM, 500,000 TPM, 1,500,000 TPD; Tier1 (USD 10): concurrency 15, 100 RPM, 2,000,000 TPM, unlimited TPD [2]
+  - volume-quota: USD 5 voucher once cumulative recharge reaches USD 5; vouchers do not count towards the cumulative recharge total [1]
+- binding note: nothing is callable before a paid recharge of at least USD 1; the USD 5 voucher only matches paid recharge
+- tooling: OpenAI-compatible REST at https://api.moonshot.ai/v1, with Chat Completions, Responses and an Anthropic-compatible Messages interface; a console Playground; a balance API
+- composes with: top up USD 1 to unlock the API, then USD 5 cumulative for a USD 5 voucher; usage deducts half from cash and half from vouchers; the voucher does not count towards the rate-limit tier
+- reliability: not assessed: no request was sent to the endpoint. A Tier0 account runs one request at a time
+- evidence note: the USD 1 minimum, the USD 5 voucher, the tier table, the sign-in methods and the regional separation are quoted from the vendor's international docs; the console sign-up and top-up pages are behind a login and were not read, so any further sign-up grant and the accepted payment methods are unverified
+- evidence:
+  - [1] 2026-11-03: a recharge of at least USD 1 is required before the API can be used, and a USD 5 voucher follows once cumulative recharge reaches USD 5 | capture: sha256:03011d4aea7452d87c631f14ef791f7a9717371c384d7ac39452b9526fdf44db | quote: To prevent abuse, a minimum recharge of \$1 is required to start using the API; when your cumulative recharge reaches \$5, you receive a \$5 voucher.
+  - [1] 2026-11-03: the voucher does not raise the rate-limit tier | capture: sha256:03011d4aea7452d87c631f14ef791f7a9717371c384d7ac39452b9526fdf44db | quote: Vouchers do not count towards the cumulative recharge total.
+  - [2] 2026-11-03: the USD 1 tier allows concurrency 1, 3 RPM, 500,000 TPM and 1,500,000 TPD | capture: sha256:b658a72917a32c8f814b0a0d8716e3ff2658664a7185b85ef704790b10edc54d | quote: | Tier0 | $1 | 1 | 3 | 500,000 | 1,500,000 | 1 |
+  - [2] 2026-11-03: the USD 10 tier allows concurrency 15, 100 RPM, 2,000,000 TPM and no daily token cap | capture: sha256:b658a72917a32c8f814b0a0d8716e3ff2658664a7185b85ef704790b10edc54d | quote: | Tier1 | $10 | 15 | 100 | 2,000,000 | Unlimited | 3 |
+  - [3] 2026-11-03: sign-in on the international platform works with an emailed verification code | capture: sha256:1cfc19073ed9d8e060e314fbe75229c6e78cd7b746690ef1fe63328ce0ee8f6b | quote: Email sign-in: Receive a verification code at your email address.
+  - [3] 2026-11-03: a Google account is the other sign-in method | capture: sha256:1cfc19073ed9d8e060e314fbe75229c6e78cd7b746690ef1fe63328ce0ee8f6b | quote: Sign in with Google: Authorize Kimi Platform through Google's OAuth sign-in flow.
+  - [4] 2026-11-03: the flagship model needs a successful top-up of at least USD 1 | capture: sha256:29ccc9b807740dc7b6272cb50541e0828db640f7b3f995c68d5dfb3fbd52e520 | quote: Kimi K3.1 Pro is unlocked after a successful top-up (minimum \$1).
+  - [4] 2026-11-03: platform.kimi.ai is the platform for registrations outside mainland China | capture: sha256:29ccc9b807740dc7b6272cb50541e0828db640f7b3f995c68d5dfb3fbd52e520 | quote: Kimi Open Platform provides separate regional platforms. For users outside mainland China, use platform.kimi.ai.
+  - [4] 2026-11-03: an international account is separate from a mainland account, so a mainland voucher does not carry over | capture: sha256:29ccc9b807740dc7b6272cb50541e0828db640f7b3f995c68d5dfb3fbd52e520 | quote: Accounts and keys from different regional platforms are independent and cannot be mixed.
+  - [4] 2026-11-03: the vendor points to a console Playground for testing before a top-up | capture: sha256:29ccc9b807740dc7b6272cb50541e0828db640f7b3f995c68d5dfb3fbd52e520 | quote: You can run a minimal test in the [Playground](https://platform.kimi.ai/playground) to confirm whether a model and prompt fit your scenario
+  - [5] 2026-11-03: the help page lists WeChat Pay and Alipay QR payments for individual top-ups | capture: sha256:fef0f65d2e1cc760934c300c09368dadf91a6de16101a52bf1e5532c507c0e08 | quote: Online top-ups support WeChat Pay and Alipay QR code payments.
+  - [6] 2026-11-03: the platform terms name a credit or debit card as a payment method | capture: sha256:4b25fe7e6307a8fad6738cb801e0195763ec5b862dcd310b6e94ca2cd2181e98 | quote: By providing a payment method (such as a credit or debit card), Customer authorizes Moonshot AI and its payment processors to charge such payment method on a recurring and/or usage-based basis
+  - [6] 2026-11-03: an individual account needs the age of 18 or the local minimum age of consent | capture: sha256:4b25fe7e6307a8fad6738cb801e0195763ec5b862dcd310b6e94ca2cd2181e98 | quote: To use the Services as an individual, you must be at least 18 years old or the minimum age required by your country to consent to such use.
+  - [7] 2026-11-03: usage is deducted half from cash balance and half from vouchers | capture: sha256:8dad4aea9bc88c1e871eaf876593de2b413d194f76cec49a899dafd363dd5906 | quote: Account usage is now deducted at a uniform ratio of 50% cash and 50% vouchers.
+  - [8] 2026-11-03: kimi-k3.1-pro is priced at USD 2.00 per MTok input and USD 10.00 per MTok output | capture: sha256:dd97f99bb5e26b50410fc7ae66756d2ede29719067705c7dc8ace0b0706aebce | quote: | [kimi-k3.1-pro](https://platform.kimi.ai/docs/guide/kimi-k3-1-pro-quickstart) | $2.00 / MTok | $10.00 / MTok | $0.20 / MTok | $2.00 / MTok | $4.00 / MTok |
+  - [9] 2026-11-03: a new-user verification voucher, if granted, does not cover Kimi K3 | capture: sha256:c09501d5a9e27c58ae6cb6a0c88938e3cb4171177ad7034ab8aa3faec5a98680 | quote: Kimi K3 requires available balance in your account; vouchers granted from new-user verification cannot be used for Kimi K3.
+- sources:
+  - [1] https://platform.kimi.ai/docs/pricing/limits.md
+  - [2] https://platform.kimi.ai/docs/pricing/limits
+  - [3] https://platform.kimi.ai/docs/guide/account-security-and-sign-in.md
+  - [4] https://platform.kimi.ai/docs/guide/troubleshooting.md
+  - [5] https://platform.kimi.ai/docs/guide/account-and-payments.md
+  - [6] https://platform.kimi.ai/docs/agreement/modeluse.md
+  - [7] https://platform.kimi.ai/docs/platform-changelog.md
+  - [8] https://platform.kimi.ai/docs/pricing/chat
+  - [9] https://platform.kimi.ai/docs/guide/open-code.md
+
+## Ollama Cloud
+
+- `inference/ollama-cloud` | paid-only | evidence documented | binding write-gated | category inference endpoint, pay-as-you-go cloud models
+- identity a placeholder: card and phone unknown | verified 2026-10-28T04:36:18.593Z (live) | stale on 2026-11-28
+- url https://ollama.com/pricing | page https://fshy.ajam.dev/p/ollama-2.md
+- free tier: none listed: the Pay as you go plan is $0 a month with every cloud model billed per token; included usage credits belong to the Pro, Max and Team plans | unit: none | metered on: none | read on: 2026-10-28 | source: [1] | note: a third-party list still shows 'starter usage credits; starter models only' for Ollama Cloud; the vendor pricing page lists no such allowance
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: card | detail: unverified: the sign-up flow was not captured; usage credits are purchased, so a payment method is expected for any cloud request
+- interface: rest
+- limits:
+  - write-gated (binding): no included usage on the Pay as you go plan: each request is paid with usage credits that are purchased [1]
+  - request-rate: 3 concurrent requests on Pay as you go and Pro, 10 on Max and Team; requests beyond the limit are queued and rejected when the queue is full [1]
+- binding note: usage requires purchased credits
+- endpoint: https://ollama.com/api/chat
+- tooling: native API at https://ollama.com/api/chat with a bearer key, or OpenAI-compatible and Anthropic-compatible clients
+- composes with: paid cloud models; no free allowance is listed
+- reliability: no included usage on the pay-as-you-go plan; every cloud request draws on purchased credits
+- notes: re-check the pricing page for a free allowance before relying on the third-party report.
+- evidence note: the absence of a free allowance is read from the vendor pricing page, which lists no free tier; a third-party list disagrees.
+- evidence:
+  - [1] 2026-10-28: Pay as you go bills every cloud model per token | capture: sha256:e0666db3754a1814a35650dbf79822beae8cb1afd286386804ee3dbde61f7369 | quote: Pay per token for every cloud model.
+  - [1] 2026-10-28: only Pro, Max and Team include monthly credits; Pay as you go pays per request | capture: sha256:e0666db3754a1814a35650dbf79822beae8cb1afd286386804ee3dbde61f7369 | quote: Pro, Max, and Team plans include a set dollar amount of usage credits each month. Pay as you go accounts pay for each request with usage credits.
+  - [1] 2026-10-28: Pay as you go includes 3 concurrent requests | capture: sha256:e0666db3754a1814a35650dbf79822beae8cb1afd286386804ee3dbde61f7369 | quote: Pay as you go and Pro include 3 concurrent requests, and Max and Team 10.
+  - [2] 2026-10-28: a third-party list reports starter credits that the vendor pricing page does not show | capture: sha256:b145b110ad322fbf10dea6e89cabc51fc04d3bbe80221c36fa1fe5d27045341a | quote: Starter usage credits; starter models only (add credits to unlock all models)
+- sources:
+  - [1] https://ollama.com/pricing
+  - [2] https://free-llm.com/free-llm-api-keys
+
+## onomeo
+
+- `inference/onomeo` | paid-only | evidence documented | binding request-rate | category inference gateway, public beta, balance-billed models; free models removed
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:15:50.267Z (live) | stale on 2026-12-05
+- url https://onomeo.com/models | page https://fshy.ajam.dev/p/onomeo.md
+- free tier: none for API calls on the catalogue read: all 17 listed models are paid and the free-chat, free-code and free-vision models are listed as removed this week; invite trials and earned rewards cover selected answers in browser chat only and do not cover API calls | unit: none | metered on: none | read on: 2026-11-04 | source: [1] | note: a third-party listing reports 30 free-model calls every 5 hours per account; that offer is not on the first-party pages read
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: sign in with an email code, Google, GitHub or Discord; no password and no card needed; new accounts per network are capped at 3 a day
+- interface: rest
+- limits:
+  - request-rate (binding): up to 12 requests a minute per key [1]
+  - volume-quota: balance in dollars; accounts without a balance get API answers that end with a '- via onomeo.com' line [2]
+- binding note: 12 requests a minute per key
+- endpoint: https://onomeo.com/v1/chat/completions
+- tooling: OpenAI-compatible client with one key; also Anthropic and Gemini request formats for paid models
+- composes with: top-up from $5, balance never expires
+- reliability: public beta with no uptime promise; the models table lists availability between 50% and 100% over 7 days
+- notes: the third-party figure of 30 calls every 5 hours predates the removal of the free models
+- evidence:
+  - [1] 2026-11-04: the Removed list of this week's changes names free-chat, free-code and free-vision | capture: sha256:559b882770530e60b878faccb5aa12bf3c5c5b44451bc47958758786ef8b30b4 | quote: codestral-latestfree-chatfree-codefree-visionglyph-clusterhy4-previewminimax-m2.7qwen-flash-character
+  - [1] 2026-11-04: sign-in methods and no card | capture: sha256:559b882770530e60b878faccb5aa12bf3c5c5b44451bc47958758786ef8b30b4 | quote: - Sign in with an email code, Google, GitHub or Discord. No password and no card needed.
+  - [1] 2026-11-04: the per-key request rate | capture: sha256:559b882770530e60b878faccb5aa12bf3c5c5b44451bc47958758786ef8b30b4 | quote: - Up to 12 requests a minute per key.
+  - [3] 2026-11-04: rewards do not cover API calls | capture: sha256:7a07235e992fe87b931cc0c8dc488422d0367ebfba67c5eff1d3d23663e9028e | quote: Earned rewards can cover eligible answers in browser chat; they do not cover image generation or API calls.
+  - [4] 2026-11-04: the sign-up cap per network | capture: sha256:f87797fd3f3b1b0b86e1e3d0f6a4b1ffd2a9aea9ce66587823855b5fc52de268 | quote: New accounts per network are capped at 3 a day.
+  - [5] 2026-11-04: a third-party listing reports 30 free-model calls every 5 hours | capture: sha256:faea35e8a1d9320370a2e0251bc7177a58a804deb6f3afc12535d5daf06a3d73 | quote: Its free tier gives 30 free-model calls every 5 hours per account (12 requests per minute per key)
+- sources:
+  - [1] https://onomeo.com/models
+  - [2] https://onomeo.com/integrations
+  - [3] https://onomeo.com/help
+  - [4] https://onomeo.com/terms
+  - [5] https://free-llm.com/provider/onomeo
+
+## Parasail
+
+- `inference/parasail` | paid-only | evidence documented | binding request-rate | category inference endpoint, pay-per-token, card required
+- needs card yes, phone no, ID no, institution no | verified 2026-10-28T04:36:19.314Z (live) | stale on 2026-11-28
+- url https://www.parasail.io/ | page https://fshy.ajam.dev/p/parasail.md
+- free tier: No usable free allowance: 'To use models, create API keys, and access paid platform services, add a credit card. Without a card, you can still view the platform but can't use models or API keys.' A 'Serverless - Free' class limited to 5 requests per minute appears in the rate-limit table, and the pages read do not say how an account reaches it. | unit: none | metered on: unstated | read on: 2026-10-28 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: card | detail: the billing documentation states a credit card must be added before models or API keys can be used; card data is processed by Stripe
+- interface: rest
+- limits:
+  - request-rate (binding): Serverless - Free 5 requests per minute; Serverless - User 500 requests per minute; Enterprise unlimited; token limit not currently enforced on any of them [2]
+  - volume-quota: usage is billed in arrears: the card is charged when accrued usage reaches USD 25, then the remainder at the end of the billing cycle [1]
+- binding note: the card requirement is the gate (see identity); past it, the Free class allows 5 requests per minute and the User class 500
+- endpoint: https://api.parasail.io/v1/chat/completions
+- tooling: OpenAI-compatible REST at https://api.parasail.io/v1; any OpenAI SDK with a bearer key created at the dashboard
+- composes with: pay-per-token open-model catalogue behind one OpenAI-compatible base URL; the card on file is the gate before any key works
+- reliability: no reliability event recorded
+- notes: The 'Serverless - Free' rate-limit row has no matching free-credit statement on the pages read.
+- evidence note: documentation pages only; the 5 requests per minute class is a documented figure and not measured
+- evidence:
+  - [1] 2026-10-28: a credit card is required before any model or API key can be used | capture: sha256:65fe893d32634926cceb8605b554601422dff652a6c11cc6cc05b4765211149d | quote: To use models, create API keys, and access paid platform services, add a credit card. Without a card, you can still view the platform but can't use models or API keys.
+  - [1] 2026-10-28: usage is billed in arrears with a charge at USD 25 accrued | capture: sha256:65fe893d32634926cceb8605b554601422dff652a6c11cc6cc05b4765211149d | quote: Parasail automatically charges your card after your organization's accrued usage reaches $25, then reconciles any remaining balance at the end of the billing cycle.
+  - [2] 2026-10-28: the Free serverless class is limited to 5 requests per minute with no enforced token limit | capture: sha256:106da8f423d29e00bbc6a89ad3b7bb81942aa8f2cbc12f1ef0166c404889a88f | quote: | Serverless - Free | 5 | Not currently enforced |
+  - [2] 2026-10-28: the User serverless class is limited to 500 requests per minute | capture: sha256:106da8f423d29e00bbc6a89ad3b7bb81942aa8f2cbc12f1ef0166c404889a88f | quote: | Serverless - User | 500 | Not currently enforced |
+  - [3] 2026-10-28: the pricing table lists per-1M-token rates; gpt-oss-20b is USD 0.04 input, USD 0.20 output and USD 0.02 cache read | capture: sha256:1d258cbb6b716c29d0f436bbde0efe8f0655937cfc2ced772f16f3dbf314faa3 | quote: | gpt-oss-20b | $0.04 | $0.20 | $0.02 |
+- sources:
+  - [1] https://docs.parasail.io/parasail-docs/billing/pricing
+  - [2] https://docs.parasail.io/parasail-docs/operate-in-production/limits-and-quotas
+  - [3] https://parasail.io/pricing
+
+## Together AI (Inference)
+
+- `inference/together` | paid-only | evidence documented | binding none | category inference endpoint
+- needs card yes, phone no, ID no, institution no | verified 2026-10-28T09:47:54.947Z (live) | stale on 2026-11-28
+- url https://docs.together.ai/docs/billing | page https://fshy.ajam.dev/p/together.md
+- free tier: No free trial: 'Together AI does not currently offer free trials. Access to the Together platform requires a minimum $15 credit purchase.' | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: card | detail: an account, then a credit purchase of at least USD 15 with a default payment method (a credit or debit card, or a US bank account via ACH); the platform is fully prepaid and API access is suspended at a zero balance
+- interface: rest
+- limits note: no numeric rate limit is published: serverless performance is best-effort, a 429 or 503 response may be returned when demand is high, and Together may apply custom rate limits to a model in high demand; Enterprise and Scale contracts carry purchased rate limits
+- binding note: no numeric rate limit or quota is published for serverless inference; rate limiting may occasionally occur with high request volumes or large bursts of traffic
+- tooling: any OpenAI-compatible client
+- composes with: no free lane: the platform requires a minimum USD 15 purchase, so there is no trial credit to pair with an agent
+- reliability: No reliability events were recorded. API keys were not provisioned during testing on 2026-10-28.
+- notes: The compute topic also carries this provider under separate slugs. The vendor denies a free trial in its own billing documentation, so the record is paid-only.
+- evidence note: the billing documentation was read on 2026-10-23 and states that Together offers no free trial and requires a USD 15 minimum purchase. The unauthenticated 401 probe from 2026-10-22 establishes only that the endpoint exists and gates on a key
+- evidence:
+  - probe:https://api.together.xyz/v1/chat/completions 2026-10-22: an unauthenticated POST returned 401 with a 372-byte body, {"error":{"message":"Missing API key..."}}. The endpoint exists and gates on a key; no key existed here, so no quota was read
+  - [2] 2026-10-22: the rate-limits page returned 200 with 388051 bytes and describes dynamic per-model limits and throughput guarantees; no free-tier allowance was found in the served text
+  - [1] 2026-10-23: 'Together AI does not currently offer free trials. Access to the Together platform requires a minimum $15 credit purchase.', quoted
+  - [2] 2026-10-28: the rate-limits page publishes no numeric limit and says serverless inference is usually used without encountering rate limits | capture: sha256:57afde9c3b47356f54f3ebcc80dfce32d4b7d9d54d7d525b76bc4dc17fbe9586 | quote: In most cases, you can use Together AI [serverless inference](https://docs.together.ai/docs/serverless/overview.md) without encountering rate limits. Rate limiting may occasionally occur with high request volumes or large bursts of traffic.
+  - [2] 2026-10-28: no numeric limit is published; demand-based limiting returns 429 or 503 | capture: sha256:57afde9c3b47356f54f3ebcc80dfce32d4b7d9d54d7d525b76bc4dc17fbe9586 | quote: When demand is high, Together may limit requests to maintain these performance goals. You may receive a `429 Too Many Requests` or `503 Service Unavailable` response.
+  - [1] 2026-10-28: the platform is fully prepaid and a positive balance is needed before API calls | capture: sha256:142dd66fe6b27a1f44b33ac810b94bd4a8de55101eac54c618b5d911b65f65fb | quote: Together AI is fully prepaid. You need a positive credit balance to use the platform. Add credits from your [billing settings](https://api.together.ai/settings/organization/~current/billing) before making API calls.
+  - [1] 2026-10-28: no free trial; access needs a minimum USD 15 credit purchase | capture: sha256:142dd66fe6b27a1f44b33ac810b94bd4a8de55101eac54c618b5d911b65f65fb | quote: Together AI does not currently offer free trials. Access to the Together platform requires a minimum \$15 credit purchase.
+- sources:
+  - [1] https://docs.together.ai/docs/billing
+  - [2] https://docs.together.ai/docs/rate-limits

@@ -1,0 +1,140 @@
+# Royal-Server.Ro
+
+> royal-server.ro | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/royal-server/ | JSON https://fshy.ajam.dev/api/v1/entity/royal-server.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Royal-Server.Ro
+
+- `compute/royal-server-ro` | paid-only | evidence documented | binding volume-quota | category cloud VM | tier VPS Enterprise Xeon Gold 6254 NVMe #1
+- needs card no, phone yes, ID no, institution no | verified 2026-11-06T18:37:37.762Z (live) | stale on 2026-12-07
+- url https://royal-server.ro/servere-vps-linux.php
+- free tier: no free tier; the cheapest Linux VPS is Intel Xeon Gold 6254 VPS NVMe #1: KVM, 2 cores, 4GB DDR4, 80GB NVMe, 1 IPv4, 10Gbps, EUR 5 a month; location Romania | unit: none | metered on: wall-clock | read on: 2026-10-28 | source: [1] | note: the VPS SERVER store listing gives the same plan 80GB NVMe and 20TB traffic, the August offer post 100 GB NVMe and 10TB; the Linux VPS page lists the i9 14900K VPS NVME #1 at EUR 8 and the Ryzen 9 9950x #1 at EUR 8, both 2 cores, 4GB and 100GB NVMe
+- per-object cap: not applicable
+- retention: not applicable: the unit is a machine, not stored bytes; the price is a monthly price | source: [1]
+- egress: the VPS SERVER store listing gives the plan 20TB traffic; the Linux VPS page text states unlimited traffic and a 10Gbps port; the August offer post states 10TB traffic on a 10Gbps shared port | metered: yes | free allowance: 20TB per the VPS SERVER store listing; unlimited per the Linux VPS page text; 10TB per the August offer post; the period is not stated | source: [1]
+- identity: email | detail: the registration form asks for first name, last name, email address, phone number with a country-code selector, company name as optional, street address, city, state, postcode, country, password and confirmation, and an image captcha; first name, last name, street address, city, state and postcode carry the HTML required attribute, email and phone do not; no card field and no identity-document field appear on the form
+- interface: ssh
+- limits:
+  - volume-quota (binding): 20TB traffic per the VPS SERVER store listing, unlimited per the page text, 10TB per the offer post [2]
+  - per-object-cap: 80GB NVMe on the 2 core / 4GB plan, 100GB per the offer post [1]
+- binding note: the traffic allowance is 20TB on the store listing, unlimited in the page text and 10TB in the offer post, and the port is shared
+- interface detail: SSH and root access, a client-area panel with reinstall and rDNS/PTR management; no API is stated on the pages read
+- tooling: SSH, the RoyalData client-area panel; no API or CLI found on the pages read
+- composes with: Romania location with a 10Gbps port at EUR 5 a month adds an eastern-EU vantage point
+- reliability: no outage or suspension event recorded; the order URL in the provider's August offer post and the store's own Order Now link for the plan both redirect to the store front titled Royal VPN Plans, so the plan is ordered from the VPS SERVER store listing
+- notes: EUR, monthly price; whether VAT is included is unverified. The Windows VPS line is dearer than the Linux one: EUR 8 a month for the cheapest plan (2 cores, 4GB DDR4, 100GB NVMe) and EUR 80 for the dearest. Reseller VDS plans are bundles of allocated servers rather than single machines. Dedicated servers and the Halloween flash deals are dearer than the cheapest VPS.
+- evidence note: price, cores, RAM, disk and port come from the provider's current Linux VPS page; disk and traffic conflict with the August offer post and the traffic allowance is unresolved
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 4
+  - shape.disk_gib: 80
+  - free_tier_kind: none
+  - location: Romania
+  - price.amount: 5
+  - price.currency: EUR
+  - price.term: monthly
+  - cpu: Intel Xeon Gold 6254, 3.10 GHz - 4.00 GHz
+  - port: 10Gbps
+  - plans[0].plan: Xeon Gold 6254 VPS NVMe #1: 2 core / 4GB / 80GB NVMe, 20TB traffic
+  - plans[0].eur_month: 5
+  - plans[1].plan: Xeon Gold 6254 VPS NVMe #2: 4 core / 8GB / 100GB NVMe, 20TB traffic
+  - plans[1].eur_month: 10
+  - plans[2].plan: Xeon Gold 6254 VPS NVMe #3: 6 core / 10GB / 150GB NVMe, 30TB traffic
+  - plans[2].eur_month: 15
+  - plans[3].plan: Xeon Gold 6254 VPS NVMe #4: 8 core / 16GB / 200GB NVMe, 40TB traffic
+  - plans[3].eur_month: 20
+  - plans[4].plan: Xeon Gold 6254 VPS NVMe #5: 12 core / 24GB / 200GB NVMe, 50TB traffic
+  - plans[4].eur_month: 33
+  - plans[5].plan: Xeon Gold 6254 VPS NVMe #6: 16 core / 32GB / 250GB NVMe, 70TB traffic
+  - plans[5].eur_month: 42
+  - plans[6].plan: Xeon Gold 6254 VPS NVMe #7: 18 core / 48GB / 250GB NVMe, 100TB traffic
+  - plans[6].eur_month: 55
+  - plans[7].plan: i9 14900K VPS NVME #1: 2 core / 4GB / 100GB NVMe, 1Gbit shared
+  - plans[7].eur_month: 8
+  - plans[8].plan: i9 14900K VPS NVME #2: 4 core / 8GB / 150GB NVMe
+  - plans[8].eur_month: 15
+  - plans[9].plan: i9 14900K VPS NVME #3: 6 core / 10GB / 200GB NVMe
+  - plans[9].eur_month: 20
+  - plans[10].plan: i9 14900K VPS NVME #4: 8 core / 16GB / 250GB NVMe
+  - plans[10].eur_month: 25
+  - plans[11].plan: Ryzen 9 9950x #1: 2 core / 4GB DDR5 / 100GB NVMe, 10Gbps shared
+  - plans[11].eur_month: 8
+  - plans[12].plan: VPS Windows #1 i9-14900K: 2 core / 4GB / 100GB NVMe, Remote Desktop, 10 Gbps
+  - plans[12].eur_month: 10
+  - plans[13].plan: VPS Windows #1 intel xeon 6254: 2 core / 4GB / 100GB NVMe, Remote Desktop, 10 Gbps
+  - plans[13].eur_month: 8
+  - plans[14].plan: VPS Windows #1 Ryzen 9 9950x: 2 core / 4GB / 100GB NVMe, Remote Desktop, 10 Gbps
+  - plans[14].eur_month: 10
+  - plans[15].plan: VPS Windows #2 i9-14900K: 4 core / 8GB / 150GB NVMe, Remote Desktop, 10 Gbps
+  - plans[15].eur_month: 16
+  - plans[16].plan: VPS Windows #2 intel xeon 6254: 4 core / 8GB / 150GB NVMe, Remote Desktop, 10 Gbps
+  - plans[16].eur_month: 13
+  - plans[17].plan: VPS Windows #2 Ryzen 9 9950x: 4 core / 8GB / 150GB NVMe, Remote Desktop, 10 Gbps
+  - plans[17].eur_month: 16
+  - plans[18].plan: VPS Windows #3 i9-14900K: 6 core / 10GB / 200GB NVMe, Remote Desktop, 10 Gbps
+  - plans[18].eur_month: 25
+  - plans[19].plan: VPS Windows #3 intel xeon 6254: 6 core / 10GB / 200GB NVMe, Remote Desktop, 10 Gbps
+  - plans[19].eur_month: 20
+  - plans[20].plan: VPS Windows #3 Ryzen 9 9950x: 6 core / 10GB / 200GB NVMe, Remote Desktop, 10 Gbps
+  - plans[20].eur_month: 25
+  - plans[21].plan: VPS Windows #4 i9-14900K: 8 core / 16GB / 250GB NVMe, Remote Desktop, 10 Gbps
+  - plans[21].eur_month: 35
+  - plans[22].plan: VPS Windows #4 intel xeon 6254: 8 core / 16GB / 250GB NVMe, Remote Desktop, 10 Gbps
+  - plans[22].eur_month: 15
+  - plans[23].plan: VPS Windows #4 Ryzen 9 9950x: 8 core / 16GB / 250GB NVMe, Remote Desktop, 10 Gbps
+  - plans[23].eur_month: 35
+  - plans[24].plan: VPS Windows Ryzen 9 9950X NVME Gen 5 64GB: 8 core / 64GB DDR5 / 300GB NVMe, Remote Desktop, 10 Gbps
+  - plans[24].eur_month: 57
+  - plans[25].plan: VPS Windows Ryzen 9 9950X NVME Gen 5 128GB: 16 core / 128GB DDR5 / 300GB NVMe, Remote Desktop, 10 Gbps
+  - plans[25].eur_month: 80
+  - plans[26].plan: Reseller VDS #1 Intel Xeon 6254: 3 allocated servers, 3 cores, 6GB DDR4, 100GB NVMe, 5 IPv4
+  - plans[26].eur_month: 10
+  - plans[27].plan: Reseller VDS #2 Intel Xeon 6254: 6 allocated servers, 6 cores, 12GB DDR4, 200GB NVMe, 10 IPv4
+  - plans[27].eur_month: 20
+  - plans[28].plan: Reseller VDS #3 Intel Xeon 6254: 12 allocated servers, 12 cores, 24GB DDR4, 500GB NVMe, 20 IPv4
+  - plans[28].eur_month: 40
+  - plans[29].plan: Reseller VDS #1 i9-14900K
+  - plans[29].eur_month: 13
+  - plans[30].plan: Reseller VDS #2 i9-14900K
+  - plans[30].eur_month: 23
+  - plans[31].plan: Reseller VDS #3 i9-14900K
+  - plans[31].eur_month: 43
+  - plans[32].plan: Reseller VDS #4 i9-14900K
+  - plans[32].eur_month: 40
+  - plans[33].plan: Reseller custom 48gb i9 14900k
+  - plans[33].eur_month: 50
+- evidence:
+  - [1] 2026-10-28: the cheapest Linux VPS listed is Xeon Gold 6254 VPS NVMe #1: KVM, 2 cores, 4GB DDR4, 80GB NVMe, 1 IPv4, 10Gbps, EUR 5 a month (PREȚ LUNAR = monthly price) | capture: sha256:c4fb18a5b24cecd50228cdc1e6b2677f8b7b3abe9789e5e22e07f11beed77055 | quote: ### VPS NVMe #1 Virtualizare KVM • stocare NVMe • acces root ▣CPU 2 Core ⌁FRECVENȚĂ 3.10 GHz - 4.00 GHz ▤RAM 4GB DDR4 ▥STOCARE 80GB NVMe ◎IPv4 1 IPv4 ⇄TRAFIC 10Gbps ⬡PROTECȚIE Anti-DDoS PREȚ LUNAR €5/luna
+  - [1] 2026-10-28: the Linux VPS page text describes the VPS line as KVM with NVMe Gen4, a dedicated IPv4 and unlimited traffic | capture: sha256:c4fb18a5b24cecd50228cdc1e6b2677f8b7b3abe9789e5e22e07f11beed77055 | quote: VPS-urile folosesc virtualizare KVM Cloud, stocare NVMe Gen4, IPv4 dedicat si trafic nelimitat.
+  - [1] 2026-10-28: the order link for Xeon Gold VPS NVMe #1 is cart product id 38 on royaldata.ro | capture: sha256:c4fb18a5b24cecd50228cdc1e6b2677f8b7b3abe9789e5e22e07f11beed77055 | quote: [Comandă](https://royaldata.ro/cart.php?a=add&pid=38)
+  - [3] 2026-10-28: the provider's August offer post lists the same Xeon Gold plan at EUR 5 a month with 100 GB NVMe, a 10Gbps shared port and 10TB traffic, so disk and traffic differ from the current page | capture: sha256:15660d5a7e0dba116ac16179d374f17ff62f89c0c222c5db95eedb58093afff3 | quote: - 2 Cores — Intel Xeon Gold 6254 - 4 GB DDR4 RAM - 100 GB NVMe - 1x IPv4 - 10Gbps Shared Port - Traffic: 10TB # €5/month (~$5.77 USD/month)
+  - [3] 2026-10-28: the VPS platform is in the provider's own datacenter in Romania | capture: sha256:15660d5a7e0dba116ac16179d374f17ff62f89c0c222c5db95eedb58093afff3 | quote: Unlike many hosting providers, we operate from our own datacenter in Romania 🇷🇴
+  - [4] 2026-10-28: the Linux VPS line is managed over SSH with root access | capture: sha256:5fa8428deee9399577a06d45c4bf3e45ed5e79381c316a144a55ed79f2cc33c6 | quote: SSH Fast management
+  - [4] 2026-10-28: rDNS/PTR is managed from the client area | capture: sha256:5fa8428deee9399577a06d45c4bf3e45ed5e79381c316a144a55ed79f2cc33c6 | quote: On Royal Server VPS infrastructure you can manage rDNS/PTR for assigned IP addresses directly from the client area.
+  - [5] 2026-10-28: the registration form has a Personal Information section with a phone-number country-prefix selector, then Billing Address and Account Security sections; the field labels are not in the page text | capture: sha256:cbd93efb726d51496445122da319d8184b4c46a42ec3c491c90201d6721ecc17 | quote: ### Personal Information
+  - [5] 2026-10-28: registration carries an image captcha | capture: sha256:cbd93efb726d51496445122da319d8184b4c46a42ec3c491c90201d6721ecc17 | quote: Please enter the characters you see in the image below into the text box provided. This is required to prevent automated submissions.
+  - [6] 2026-10-28: the order URL given in the provider's offer post now returns a store page titled Royal VPN Plans, not a VPS plan | capture: sha256:0a48d69d88e36d0f96f4e153e029a9c12dc1fbf7ebd5f875e5971860cdfbbee7 | quote: # Royal VPN Plans
+  - [2] 2026-11-06: the VPS SERVER store listing gives the Xeon Gold 6254 VPS NVMe #1 20TB of traffic and 80GB NVMe | capture: sha256:492f50f27bc26641e619e63a266fad2b109ac8b58b62438019e91433cbe1aaf3 | quote: Disk space 80GB NVMe<br /> IP addresses 1 IPv4<br /> 20TB TRAFFIC<br />
+  - [2] 2026-11-06: the store listing states 20TB of traffic for the plan | capture: sha256:492f50f27bc26641e619e63a266fad2b109ac8b58b62438019e91433cbe1aaf3 | quote: 20TB TRAFFIC<br />
+  - [2] 2026-11-06: the traffic figure now rests on the store listing that carries the plan | capture: sha256:492f50f27bc26641e619e63a266fad2b109ac8b58b62438019e91433cbe1aaf3 | quote: 20TB TRAFFIC<br />
+  - [2] 2026-11-06: the store listing states 80GB NVMe and 20TB traffic for the plan, against 100 GB and 10TB in the August offer post | capture: sha256:492f50f27bc26641e619e63a266fad2b109ac8b58b62438019e91433cbe1aaf3 | quote: Disk space 80GB NVMe<br /> IP addresses 1 IPv4<br /> 20TB TRAFFIC<br />
+  - [5] 2026-11-06: the registration form collects a phone number with a country-code selector and marks it with no HTML required attribute | capture: sha256:a290903fca958925eab34c3e088903032471b9abf57b124e3d3361d17d3bfca4 | quote: <input type="tel" name="phonenumber" id="inputPhone" class="field form-control" placeholder="Phone Number" value="">
+  - [7] 2026-11-06: the cheapest Windows VPS plan is EUR 8 a month with 100GB NVMe on a 10Gbps shared port | capture: sha256:82791ce412883fa0405485ce4b60a504503886795ffb8f5a295a244b52d239c4 | quote: <div class="vps-spec"><small>Storage</small><strong>100GB NVMe</strong></div><div class="vps-spec"><small>IPv4</small><strong>1 IPv4</strong></div><div class="vps-spec"><small>Traffic</small><strong>10Gbps Shared</strong></div><div class="vps-price">€8<span>/month</span></div>
+  - [6] 2026-11-06: the store's own Order Now link for the plan redirects to the store front titled Royal VPN Plans | capture: sha256:d707bf606ca5d907f0f8580702c06ae2835f0a9ee34c7f8754824fd0b285f1b4 | quote: # Royal VPN Plans
+  - [2] 2026-11-06: the VPS SERVER store lists each Xeon Gold and i9 plan with its cores, RAM, disk, traffic and monthly price | capture: sha256:492f50f27bc26641e619e63a266fad2b109ac8b58b62438019e91433cbe1aaf3 | quote: Disk space 80GB NVMe<br /> IP addresses 1 IPv4<br /> 20TB TRAFFIC<br />
+  - [7] 2026-11-06: the dearest Windows VPS plan on the page is EUR 80 a month | capture: sha256:82791ce412883fa0405485ce4b60a504503886795ffb8f5a295a244b52d239c4 | quote: <div class="vps-price">€80<span>/month</span></div>
+  - [8] 2026-11-06: the reseller VDS plans start at EUR 10 a month and run to EUR 50 for the custom 48GB i9 plan | capture: sha256:16313c6bbd637872e9f2511fb4cdd54c2eeb24146c463841661972a62d245878 | quote: ## Reseller VDS #1 Intel Xeon 6254 Preț lunar €10.00EUR Monthly
+  - [9] 2026-11-06: the Xeon Gold reseller node starts at EUR 10 a month with 3 allocated servers, 3 cores, 6GB DDR4, 100GB NVMe and 5 IPv4 addresses | capture: sha256:3281600ee5eef4884fc5780ab3d06f24494e64264b8bbf4449f6aacdce8ebc2c | quote: <span class="plan-tag neon-tag">START</span> <div class="plan-price-orb"> <span class="price-value">€10</span> <small>/month</small> </div>
+  - [5] 2026-11-06: the form marks first name as HTML-required, so an absent required attribute on email and phone is a real difference, not a missing theme | capture: sha256:a290903fca958925eab34c3e088903032471b9abf57b124e3d3361d17d3bfca4 | quote: <input type="text" name="firstname" id="inputFirstName" class="field form-control" placeholder="First Name" value="" required autofocus>
+  - [2] 2026-11-06: the plan is still sold at EUR 5 a month with 2 cores, 4GB, 80GB NVMe and 20TB traffic | capture: sha256:492f50f27bc26641e619e63a266fad2b109ac8b58b62438019e91433cbe1aaf3 | quote: Disk space 80GB NVMe<br /> IP addresses 1 IPv4<br /> 20TB TRAFFIC<br />
+- sources:
+  - [1] https://royal-server.ro/servere-vps-linux.php
+  - [2] https://royaldata.ro/index.php/store/vps-server
+  - [3] https://lowendtalk.com/discussion/220060/royal-server-ro-kvm-vps-ryzen-9-9950x-intel-core-i9-10gbps-own-datacenter-since-2017
+  - [4] https://royal-server.ro/en/vps-servers.php
+  - [5] https://royaldata.ro/register.php
+  - [6] https://royaldata.ro/index.php/store/vps-server/vps-nvme-1-xeon-gold-6254
+  - [7] https://royal-server.ro/en/windows-vps-servers.php
+  - [8] https://royaldata.ro/index.php/store/reseller-servere-vps
+  - [9] https://royal-server.ro/en/reseller-vps-xeon-6254.php

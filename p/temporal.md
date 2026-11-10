@@ -1,0 +1,132 @@
+# Temporal server
+
+> temporal.io | Developer services; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/temporal/ | JSON https://fshy.ajam.dev/api/v1/entity/temporal.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Temporal
+
+- `dev-services/temporal-cloud` | trial-only | evidence documented | binding volume-quota | category hosted durable-execution service (Temporal Cloud) | tier pay-as-you-go
+- needs card yes, phone no, ID no, institution no | verified 2026-11-02T00:37:45.455Z (live) | stale on 2026-12-03
+- url https://temporal.io/pricing
+- free tier: $150 in free credits for every new Temporal Cloud account, expiring after 90 days; a credit card is required to sign up | unit: credits | metered on: request-count | read on: 2026-10-30 | source: [1] | note: After the credits are used or 90 days pass, usage is billed with no base monthly fee at $50 per million Actions on pay-as-you-go, plus storage. The open-source Temporal server is free software that the user installs and runs on a rented or free machine.
+- per-object cap: not stated on the pages read
+- retention: closed workflow histories kept for a configurable retention period, up to 90 days on Temporal Cloud | days: 90 | source: [1] | note: Longer retention uses the Export feature.
+- egress: not applicable: workers poll Temporal Cloud; no traffic allowance is published | metered: no | source: [1]
+- identity: card | detail: A credit card is required to sign up for Temporal Cloud; the sign-up page offers a work email or Google or Microsoft sign-in, and AWS or GCP marketplace routes. The card is not charged during the first 90 days while credits remain.
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): $150 of credits, expiring after 90 days [1]
+  - retention-clamped: closed workflow histories retained up to 90 days [1]
+- limits note: On-Demand capacity starts at 500 Actions per second and auto-scales on 7-day usage.
+- binding note: The credit expires after 90 days, and a card is taken at sign-up.
+- interface detail: Temporal SDK clients and workers reach a Namespace over gRPC at the Namespace endpoint <namespace>.<account>.tmprl.cloud:7233; the Cloud Ops API is a public HTTP API and a gRPC API at saas-api.tmprl.cloud:443, authenticated by an API key; tcld and the temporal CLI cloud extension manage namespaces, users and keys. The vocabulary has no gRPC term.
+- endpoint: part of interface detail
+- tooling: the Temporal SDKs (Go, Java, Python, TypeScript, .NET, Ruby, PHP), tcld and the temporal CLI. As a last resort the open-source server, which the user installs and runs on a rented or free machine.
+- composes with: A card-gated 90-day credit; for durable execution with no card, the hosted Inngest free tier comes first.
+- reliability: After the credits run out or 90 days pass, usage is billed to the card on file.
+- evidence note: Credits, card requirement, retention and interfaces are read on first-party pages; nothing behind the sign-up was read.
+- evidence:
+  - [1] 2026-10-30: new accounts get $150 of credits expiring after 90 days | capture: sha256:3b561e925d63d8190ab009e95959dbcc2e00a3e1a88aa614efcaf54c9a0f97ce | quote: All new accounts receive $150 in free credits that expire after 90 days.
+  - [1] 2026-10-30: a credit card is required to sign up for Temporal Cloud | capture: sha256:3b561e925d63d8190ab009e95959dbcc2e00a3e1a88aa614efcaf54c9a0f97ce | quote: No credit card required to explore Temporal via the open-source quickstart. A credit card is required to sign up for Temporal Cloud.
+  - [1] 2026-10-30: the card is not charged in the first 90 days while credits remain | capture: sha256:3b561e925d63d8190ab009e95959dbcc2e00a3e1a88aa614efcaf54c9a0f97ce | quote: - Your card will not be charged during the first 90 days as long as you have remaining credits.
+  - [1] 2026-10-30: closed workflow histories are retained up to 90 days | capture: sha256:3b561e925d63d8190ab009e95959dbcc2e00a3e1a88aa614efcaf54c9a0f97ce | quote: - Retained Storage: Storage used by closed workflow histories, kept for a configurable retention period (up to 90 days on Temporal Cloud).
+  - [1] 2026-10-30: pay-as-you-go has no base monthly fee | capture: sha256:3b561e925d63d8190ab009e95959dbcc2e00a3e1a88aa614efcaf54c9a0f97ce | quote: - No base monthly fee
+  - [1] 2026-10-30: on-demand capacity starts at 500 Actions per second | capture: sha256:3b561e925d63d8190ab009e95959dbcc2e00a3e1a88aa614efcaf54c9a0f97ce | quote: - On-Demand capacity (500 Actions Per Second (APS), auto-scales based on 7-day usage)
+  - [1] 2026-10-30: SDK languages | capture: sha256:3b561e925d63d8190ab009e95959dbcc2e00a3e1a88aa614efcaf54c9a0f97ce | quote: - Temporal SDKs (Go, Java, Python, TypeScript, .NET, Ruby, PHP)
+  - [1] 2026-10-30: the server is open source and can be self-hosted | capture: sha256:3b561e925d63d8190ab009e95959dbcc2e00a3e1a88aa614efcaf54c9a0f97ce | quote: Temporal is open source. You can run the full Temporal platform on your own infrastructure at no cost from Temporal.
+  - [2] 2026-10-30: pay-as-you-go Actions cost $50 per million | capture: sha256:19ae76bcdab581afa8e998a9d685060c7b12b141fbe7c549f4d8a6a94b4bf1f3 | quote: $50 per million actions
+  - [3] 2026-10-30: the sign-up page offers $150 of credits | capture: sha256:5b0aac676a2c618fccaca3757ae090ee075a03cfdb48b3bbcda16c3d04532235 | quote: Sign up and get $150 in credits
+  - [3] 2026-10-30: Google and Microsoft sign-in are offered alongside a work email | capture: sha256:5b0aac676a2c618fccaca3757ae090ee075a03cfdb48b3bbcda16c3d04532235 | quote: Sign up with Google Sign up with Microsoft
+  - [4] 2026-10-31: the Cloud Ops gRPC endpoint | capture: sha256:d9d1268b5bd1a22813ea8e024912f826cccb90681f56f5549f9e2c62799decba | quote: - gRPC: `saas-api.tmprl.cloud:443`
+  - [4] 2026-10-31: the Cloud Ops API is offered over HTTP and gRPC | capture: sha256:d9d1268b5bd1a22813ea8e024912f826cccb90681f56f5549f9e2c62799decba | quote: You can use the HTTP API or the gRPC API depending on how you need to integrate with your platform.
+  - [5] 2026-10-31: tcld manages Temporal Cloud from the command line | capture: sha256:ffa114cd6bac06cfcbd47450605a731f8a8a3676c40c87307cda4d91394fb2e2 | quote: The Temporal Cloud CLI (tcld) is a command-line tool that you can use to interact with Temporal Cloud.
+  - [6] 2026-11-01: Workers and Temporal Clients connect to the Namespace endpoint <namespace>.<account>.tmprl.cloud:7233 | capture: sha256:757e6f97f835095ecd4a8a9ec2e9f6e7677dfee0dd43001768afc7d11c02db09 | quote: Use the Namespace endpoint: Configure Workers and Temporal Clients to use the Namespace endpoint format: `<namespace>.<account>.tmprl.cloud:7233`
+  - [4] 2026-11-01: the Cloud Ops API is served over gRPC at saas-api.tmprl.cloud:443 | capture: sha256:d9d1268b5bd1a22813ea8e024912f826cccb90681f56f5549f9e2c62799decba | quote: - gRPC: `saas-api.tmprl.cloud:443`
+  - [7] 2026-11-01: an SDK client connects to Temporal Cloud at the gRPC Namespace endpoint on port 7233 | capture: sha256:0e7dcc124c46b87d5ed34d988f8ea11cff2639941f4bef560f8b1dea4930ffd3 | quote: The recommended _endpoint_ is the gRPC Namespace endpoint: `<namespace>.<account>.tmprl.cloud:7233`.
+  - [4] 2026-11-01: the Cloud Ops API is also served over HTTP at https://saas-api.tmprl.cloud | capture: sha256:d9d1268b5bd1a22813ea8e024912f826cccb90681f56f5549f9e2c62799decba | quote: - HTTP: `https://saas-api.tmprl.cloud`
+  - [4] 2026-11-01: the Cloud Ops API is authenticated by an API key owned by a user or service account | capture: sha256:d9d1268b5bd1a22813ea8e024912f826cccb90681f56f5549f9e2c62799decba | quote: - An [API Key](/cloud/api-keys#manage-api-keys) for authentication (owned by that User or Service Account)
+  - [8] 2026-11-01: the Temporal CLI Cloud extension adds temporal cloud commands for namespaces, users and API keys | capture: sha256:0c667a999e2f53f0b1941bf45042a7caae99010f56f3e1caca9883a763cf3f28 | quote: The extension adds `temporal cloud` commands for managing your Temporal Cloud account, including Namespaces, users, API keys, and Nexus endpoints.
+- sources:
+  - [1] https://temporal.io/pricing.md
+  - [2] https://temporal.io/pricing
+  - [3] https://temporal.io/get-cloud
+  - [4] https://docs.temporal.io/ops
+  - [5] https://docs.temporal.io/cloud/tcld
+  - [6] https://docs.temporal.io/cloud/connectivity/ip-addresses
+  - [7] https://docs.temporal.io/develop/python/client/temporal-client
+  - [8] https://docs.temporal.io/cli/cloud
+
+## Temporal server (self-hosted)
+
+- `dev-services/temporal-server` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding none | category self-hosted durable-execution server (open-source Temporal Service) | tier Open Source / Self-Hosted
+- needs card yes, phone no, ID no, institution no | verified 2026-11-01T18:13:27.751Z (live) | stale on 2026-12-02
+- url https://docs.temporal.io/self-hosted-guide
+- free tier: Open-source software that the user installs and runs: the full Temporal platform on the user's own infrastructure at no cost from Temporal, started locally with temporal server start-dev; the open-source quickstart needs no credit card | unit: none | metered on: none | read on: 2026-11-01 | source: [1] | note: Temporal Cloud (dev-services/temporal-cloud) is the hosted offer and comes first.
+- per-object cap: Payloads (the Workflow context and each Workflow and Activity argument and return value): Temporal warns at 512 KB and errors at 2 MB; a gRPC message is limited to 4 MB | source: [2] | note: defaults coded into the server; a Workflow History is also capped at 50 MB or 51,200 Events
+- retention: closed Workflow Execution histories are kept for the Namespace's Retention Period, which is at least 1 day and defaults to 3 days when a Namespace is created with the temporal CLI and no value | days: 3 | source: [3] | note: On the development server (temporal server start-dev), Workflow Executions are lost when the server process dies unless --db-filename sets a persistent store.
+- egress: not set by the software: Workers and clients connect to the user's own Temporal Service, so the network terms of the host that runs it apply | metered: no | source: [4]
+- identity: anonymous | detail: No account with Temporal is needed: the open-source quickstart installs the temporal CLI (brew install temporal) and runs temporal server start-dev on the local machine, and a credit card is required only to sign up for Temporal Cloud.
+- interface: rest, cli
+- limits:
+  - per-object-cap: Payloads: warning at 512 KB and error at 2 MB; a gRPC message is limited to 4 MB [2]
+  - per-object-cap: Workflow History: error at 50 MB or 51,200 Events, which terminates the Workflow Execution [2]
+- limits note: The open source Temporal Service has a default limit of 2,000 pending Activities, Child Workflows, Signals or Workflow cancellation requests, which the dynamic configuration overrides.
+- binding note: The documentation states no quota for the open-source server; the Persistence and Visibility stores and the machines that the user runs bound throughput, and the per-Workflow-Execution limits are defaults in the server.
+- interface detail: the Frontend Service exposes a gRPC Proto API on port 7233 that the Temporal SDKs use (the vocabulary has no gRPC term); an HTTP API is switched on in the server's static configuration (httpPort, 7243 in the Nexus example) and on the development server with --http-port; the temporal CLI interacts with the running server, and the development server serves the Web UI at port 8233
+- tooling: the user installs and runs the Temporal server on a rented or free machine: temporal server start-dev from the temporal CLI (a single binary with no external dependencies), the Docker Compose example (PostgreSQL and Elasticsearch), the Temporal Server and UI Server Go binaries, or the Helm charts on Kubernetes; the Temporal SDKs (Go, Java, Python, TypeScript, .NET, Ruby, PHP) and the temporal CLI.
+- composes with: Last resort after the hosted durable-execution offers (the hosted Inngest free tier in dev-services/inngest, and Temporal Cloud in dev-services/temporal-cloud): the user's own Workers connect to a Temporal Service that the user installs and keeps running.
+- reliability: The development server is not intended for production use, skips certain HTTP security checks, and loses Workflow Executions when its process dies unless --db-filename sets a persistent store. A production Temporal Service needs data stores for persistence that the user creates and maintains, has no role-based access control or audit logging out of the box, and its hosts should not be accessible from the public internet; Temporal does not guarantee support for the server.
+- notes: Self-hosted software and the last resort: the hosted offers come first (dev-services/temporal-cloud, and the hosted Inngest free tier dev-services/inngest). This record is no duplicate of dev-services/temporal-cloud: it is the open-source server that the user installs and runs.
+- evidence note: Install paths, defaults, limits, retention and interfaces are read on first-party documentation pages; the server was not installed or run, and no execution quota for the open-source server is stated on those pages.
+- self hosted: yes
+- evidence:
+  - [1] 2026-11-01: the full Temporal platform runs on the user's own infrastructure at no cost from Temporal | capture: sha256:3b561e925d63d8190ab009e95959dbcc2e00a3e1a88aa614efcaf54c9a0f97ce | quote: Temporal is open source. You can run the full Temporal platform on your own infrastructure at no cost from Temporal.
+  - [1] 2026-11-01: the open-source quickstart needs no credit card, while Temporal Cloud needs one | capture: sha256:3b561e925d63d8190ab009e95959dbcc2e00a3e1a88aa614efcaf54c9a0f97ce | quote: No credit card required to explore Temporal via the open-source quickstart. A credit card is required to sign up for Temporal Cloud.
+  - [1] 2026-11-01: the SDK languages of the Temporal platform | capture: sha256:3b561e925d63d8190ab009e95959dbcc2e00a3e1a88aa614efcaf54c9a0f97ce | quote: Temporal SDKs (Go, Java, Python, TypeScript, .NET, Ruby, PHP)
+  - [5] 2026-11-01: Temporal is an open-source project that the user can host in their own environment | capture: sha256:96d5c1b40cefeaaa9782c9318d7e52f6972be9662bdd325df97b16b66dad0bd4 | quote: Temporal is an open-source project that you are free to use and host in your own environment.
+  - [4] 2026-11-01: the self-hosted guide covers open source Temporal Service software that the user hosts | capture: sha256:fb4e61ef9ff58c56e863d9cab0f0e7ca482b4737c8d4b2200841d6798c0c9a84 | quote: Welcome to the self-hosted Temporal Service guide. This guide shows you how to self-host open source infrastructure software that orchestrates your durable applications.
+  - [4] 2026-11-01: the development server is a single binary with no external dependencies | capture: sha256:fb4e61ef9ff58c56e863d9cab0f0e7ca482b4737c8d4b2200841d6798c0c9a84 | quote: a single binary with no external dependencies
+  - [4] 2026-11-01: temporal server start-dev starts a complete Temporal Service with the Web UI locally | capture: sha256:fb4e61ef9ff58c56e863d9cab0f0e7ca482b4737c8d4b2200841d6798c0c9a84 | quote: This starts a complete Temporal Service with Web UI on your local machine.
+  - [6] 2026-11-01: start-dev runs a development Temporal Server on the local system | capture: sha256:0b86154b9d9692f1187aeb39d8fc0bf5c6986b2081bbba5f09334f5ea5874d35 | quote: Run a development Temporal Server on your local system.
+  - [6] 2026-11-01: the development server is not intended for production use | capture: sha256:0b86154b9d9692f1187aeb39d8fc0bf5c6986b2081bbba5f09334f5ea5874d35 | quote: WARNING: The development server is not intended for production use.
+  - [6] 2026-11-01: the development server skips certain HTTP security checks | capture: sha256:0b86154b9d9692f1187aeb39d8fc0bf5c6986b2081bbba5f09334f5ea5874d35 | quote: It skips certain HTTP security checks to make local use simpler.
+  - [6] 2026-11-01: Workflow Executions are lost when the development server dies unless --db-filename is set | capture: sha256:0b86154b9d9692f1187aeb39d8fc0bf5c6986b2081bbba5f09334f5ea5874d35 | quote: | `--db-filename`, `-f` | No | string Path to file for persistent Temporal state store. By default, Workflow Executions are lost when the server process dies. |
+  - [6] 2026-11-01: the development server has an HTTP API service whose port is set with --http-port | capture: sha256:0b86154b9d9692f1187aeb39d8fc0bf5c6986b2081bbba5f09334f5ea5874d35 | quote: | `--http-port` | No | int Port for the HTTP API service. Defaults to a random free port. |
+  - [6] 2026-11-01: the development server serves the Web UI at port 8233 by default | capture: sha256:0b86154b9d9692f1187aeb39d8fc0bf5c6986b2081bbba5f09334f5ea5874d35 | quote: View the Web UI for the default configuration at: http://localhost:8233
+  - [7] 2026-11-01: the repository holds the source code of the Temporal server | capture: sha256:fa129c1a8f3aaaae869bd42e349919364e2f9ae94edf38b6de9e007034d6c23b | quote: This repository contains the source code of the Temporal server.
+  - [7] 2026-11-01: the quickstart installs the temporal CLI with brew and needs no account step | capture: sha256:fa129c1a8f3aaaae869bd42e349919364e2f9ae94edf38b6de9e007034d6c23b | quote: brew install temporal
+  - [7] 2026-11-01: the temporal CLI interacts with the running Temporal server | capture: sha256:fa129c1a8f3aaaae869bd42e349919364e2f9ae94edf38b6de9e007034d6c23b | quote: Use [Temporal CLI](https://docs.temporal.io/cli/) to interact with the running Temporal server.
+  - [3] 2026-11-01: the Frontend Service exposes a Proto API | capture: sha256:989f5dbfa13226dab583a207f12494e03f3bc53c601a55f987a71256e7290442 | quote: The Frontend Service is a stateless gateway service that exposes a strongly typed [Proto API](https://github.com/temporalio/api/blob/main/temporal/api/workflowservice/v1/service.proto).
+  - [3] 2026-11-01: the Frontend Service handler listens on gRPC port 7233 | capture: sha256:989f5dbfa13226dab583a207f12494e03f3bc53c601a55f987a71256e7290442 | quote: It uses the grpcPort 7233 to host the service handler.
+  - [3] 2026-11-01: the minimum Retention Period is 1 day | capture: sha256:989f5dbfa13226dab583a207f12494e03f3bc53c601a55f987a71256e7290442 | quote: The minimum Retention Period is 1 day.
+  - [3] 2026-11-01: the Retention Period defaults to 3 days when a Namespace is created with the temporal CLI and no value | capture: sha256:989f5dbfa13226dab583a207f12494e03f3bc53c601a55f987a71256e7290442 | quote: If you don't set the Retention Period value when using the [`temporal operator namespace create`](/cli/command-reference/operator#create) command, it defaults to 3 days.
+  - [8] 2026-11-01: the SDKs for Workers and for starting Workflows use the server's gRPC API | capture: sha256:1352ff65912e195329d7db23a774c1e57790de09bc0aa59c9463efae1fb6f1cc | quote: Our Client and Worker SDKs use the gRPC API.
+  - [9] 2026-11-01: the server's HTTP API is enabled in its static configuration | capture: sha256:2bf47a075ee642b92318eff1a75a2f2cb54beb53e679f46e8f98b58f1320987e | quote: Enable the HTTP API in the server's static configuration.
+  - [9] 2026-11-01: the example static configuration sets the frontend httpPort to 7243 | capture: sha256:2bf47a075ee642b92318eff1a75a2f2cb54beb53e679f46e8f98b58f1320987e | quote: httpPort: 7243
+  - [2] 2026-11-01: Payload blobs produce a warning at 512 KB | capture: sha256:653911194fe9518384027576025b8e10db726f4b07085827cc04a5277d95870a | quote: Temporal warns at 512 KB: `Blob size exceeds limit.`
+  - [2] 2026-11-01: Payload blobs produce an error at 2 MB | capture: sha256:653911194fe9518384027576025b8e10db726f4b07085827cc04a5277d95870a | quote: Temporal errors at 2 MB: `ErrBlobSizeExceedsLimit: Blob data size exceeds limit.`
+  - [2] 2026-11-01: a gRPC message is limited to 4 MB | capture: sha256:653911194fe9518384027576025b8e10db726f4b07085827cc04a5277d95870a | quote: gRPC has a limit of 4 MB for [each message received]
+  - [2] 2026-11-01: a Workflow History errors at 50 MB | capture: sha256:653911194fe9518384027576025b8e10db726f4b07085827cc04a5277d95870a | quote: Temporal errors at 50 MB: [history size exceeds error limit]
+  - [2] 2026-11-01: a Workflow History errors after 51,200 Events | capture: sha256:653911194fe9518384027576025b8e10db726f4b07085827cc04a5277d95870a | quote: Temporal errors after 51,200 Events: [history size exceeds error limit]
+  - [2] 2026-11-01: a history over the error limit leads to a terminated Workflow Execution | capture: sha256:653911194fe9518384027576025b8e10db726f4b07085827cc04a5277d95870a | quote: History total size limit (leading to a terminated Workflow Execution):
+  - [2] 2026-11-01: the open source Temporal Service has a default limit of 2,000 pending Activities, Child Workflows, Signals or cancellation requests | capture: sha256:653911194fe9518384027576025b8e10db726f4b07085827cc04a5277d95870a | quote: As of v1.21, the open source Temporal Service has a default limit of 2,000 pending Activities, Child Workflows, Signals, or Workflow cancellation requests, but you can override the limits in the dynamic configuration using these variables:
+  - [10] 2026-11-01: the Docker Compose example runs PostgreSQL and Elasticsearch and exposes the gRPC Frontend on port 7233 | capture: sha256:c1e1c7607572ca24333240de631f2491c8cd24aab697935516577ce910bdf3de | quote: includes a PostgreSQL database, an Elasticsearch instance, and exposes the Temporal gRPC Frontend on port 7233.
+  - [10] 2026-11-01: a complete Temporal Server runs as two Go binaries, the core server and the UI server | capture: sha256:c1e1c7607572ca24333240de631f2491c8cd24aab697935516577ce910bdf3de | quote: You can run a complete Temporal Server by deploying two Go binaries
+  - [10] 2026-11-01: Helm charts deploy the Temporal Service on Kubernetes | capture: sha256:c1e1c7607572ca24333240de631f2491c8cd24aab697935516577ce910bdf3de | quote: [Temporal Helm charts](https://github.com/temporalio/helm-charts) enable you to get a Temporal Service running on
+  - [10] 2026-11-01: Temporal hosts should not be reachable from the public internet | capture: sha256:c1e1c7607572ca24333240de631f2491c8cd24aab697935516577ce910bdf3de | quote: Temporal services should run on hosts that are not accessible from the public internet
+  - [11] 2026-11-01: self-hosted Temporal has no role-based access control or audit logging out of the box | capture: sha256:c9223485bb2b3ad90a61520e3565a826f2f1a351b9cffb6b48fb16aad2084137 | quote: Self-hosted Temporal doesn't support role-based access control (RBAC) or audit logging out of the box.
+  - [11] 2026-11-01: the user creates and maintains the hosting infrastructure and the persistence data stores | capture: sha256:c9223485bb2b3ad90a61520e3565a826f2f1a351b9cffb6b48fb16aad2084137 | quote: You must create and maintain the infrastructure to host and run your self-hosted Temporal installation, such as Kubernetes, and data stores for persistence.
+  - [11] 2026-11-01: Temporal does not guarantee support for the server | capture: sha256:c9223485bb2b3ad90a61520e3565a826f2f1a351b9cffb6b48fb16aad2084137 | quote: Temporal does not guarantee support for Temporal Server
+- sources:
+  - [1] https://temporal.io/pricing.md
+  - [2] https://docs.temporal.io/self-hosted-guide/defaults
+  - [3] https://docs.temporal.io/temporal-service/temporal-server
+  - [4] https://docs.temporal.io/self-hosted-guide
+  - [5] https://temporal.io/
+  - [6] https://docs.temporal.io/cli/server
+  - [7] https://github.com/temporalio/temporal
+  - [8] https://docs.temporal.io/self-hosted-guide/server-frontend-api-reference
+  - [9] https://docs.temporal.io/production-deployment/self-hosted-guide/nexus
+  - [10] https://docs.temporal.io/self-hosted-guide/deployment
+  - [11] https://docs.temporal.io/self-hosted-guide/production-checklist

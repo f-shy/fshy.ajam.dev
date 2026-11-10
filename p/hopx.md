@@ -1,0 +1,102 @@
+# Hopx
+
+> hopx.ai | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/hopx/ | JSON https://fshy.ajam.dev/api/v1/entity/hopx.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Hopx
+
+- `compute/hopx` | qualifies-with-caveat | evidence documented | binding volume-quota | category container and VM sandbox | tier free credit
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T02:24:07.841Z (live) | stale on 2026-12-05
+- url https://hopx.ai/pricing
+- price parsed USD 49.41/mo
+- free tier: USD 200 in free credits with no credit card required, described as 'Enough for ~4,000 hours of basic usage'. No feature gates: 'Unlimited sandboxes', 'All pre-built templates'. | unit: mixed | metered on: wall-clock | read on: 2026-10-24 | source: [1] | note: A one-time balance spent per second. No reset and no expiry date is published. The terms page states credits 'may expire under posted program rules' without posting a rule.
+- per-object cap: Resources are set by the template, not the caller: 'Resources (vcpu, memory, disk) are always loaded from the template. You cannot specify custom resources when creating a sandbox.' A custom template can be built at 'CPU: 1-64 cores, Memory: 512MB-64GB, Disk: 1GB-250GB'. | source: [2] | note: the per-sandbox maximum is whatever the platform accepts on a template build; the range above is labelled 'Typical ranges' and 'depend on your plan', so it is not a published hard cap
+- retention: A sandbox is destroyed when its timeout expires, and 'All data in the sandbox is lost'; pause and resume preserve state, and a stopped sandbox keeps its filesystem. No retention period for a stopped sandbox is published. | source: [3]
+- egress: No egress charge or allowance is published on the pricing page; the page prices compute, memory and storage only. | metered: no | source: [1]
+- identity: email | detail: The pricing page states 'No credit card required' and '$200 free credits'; no card, no phone and no ID are mentioned. IMPORTANT: the console at console.hopx.ai (and console.hopx.dev, which the docs link to) offers ONLY 'Connect to HopX with: Google GitHub'. A browser OAuth button pair, with no email-and-password field anywhere on the page. The account is therefore created by an OAuth identity, not by an email form. No hold exists because no payment method is taken.
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): USD 200 one-time free credits [1]
+  - volume-quota (binding): rate card USD 0.000014 per vCPU-second, USD 0.0000045 per GiB-second, USD 0.00000003 per GiB-second of storage [1]
+  - per-object-cap: shape fixed by template; a template build accepts 1-64 cores, 512MB-64GB RAM, 1-250GB disk [2]
+  - retention-clamped: a sandbox is destroyed when its timeout expires; the default is no timeout and the ceiling is not published [3]
+- limits note: Every sandbox can carry a timeout and is destroyed when it expires. The SDK signature gives timeout_seconds a default of 'no timeout', the docs illustrate 5 minutes to 4 hours, and the marketing page claims 'Up to 30 days runtime'. No page states a maximum, so whether a 730-hour timeout is accepted is undocumented.
+- binding note: The credit is the only published bound on duration, and at the smallest published shape it lasts 123 days of 24/7, so the first thing to fail is the balance, not the platform.
+- interface detail: REST API, CLI (hopx) and SDKs (Python, JavaScript/TypeScript), documented; the web console issues the API key.
+- tooling: hopx CLI (hopx auth, with OAuth login and API key commands); SDKs hopx_ai (Python) and @hopx-ai/sdk (JavaScript/TypeScript); the REST API directly.
+- composes with: not established
+- reliability: The pricing page's own worked example prices a 1 vCPU / 1 GiB / 10 GiB hour at '$0.05', while its rate card gives USD 0.06768 for the same hour, a 26% understatement.
+- notes: Arithmetic, recomputed today: 1 vCPU x USD 0.0504 + 1 GiB x USD 0.0162 + 10 GiB x USD 0.00108 = USD 0.06768 an hour. USD 200 / 0.06768 = 2,955.1 h = 123.1 days of a 1 vCPU / 1 GiB / 10 GiB box at 24/7, and a 730-hour month costs USD 49.41. The vendor's '~4,000 hours' headline counts the vCPU rate only and is 35% optimistic against its own rate card; the record uses the rate card. The vendor's own worked example also understates the same hour at '$0.05' against USD 0.06768. This is the most hours per no-card dollar of the three by a factor of four over E2B and of two and a half over Daytona at its max shape, but the box is 1 vCPU against Daytona's 4, so it is not a faster machine, only a longer-lived one. GPU trap: none to check, because no GPU product is advertised on the pricing page; the rate card is CPU only. The real caveat is identity: the console offers Google and GitHub OAuth ONLY, with no email form, so the account is tied to a Google or GitHub identity rather than an email address. Not published anywhere: the maximum template shape, the maximum timeout, the credit expiry, and any egress allowance. The 30-day runtime claim on the long-running-jobs page is marketing; the docs' own example tops out at 4 hours and no page states a ceiling, so a 730-hour timeout is untested.
+- evidence note: Credit, the three unit rates, the OAuth-only console, the template-bound resources and the timeout semantics were each read on a first-party page. The maximum shape and the maximum timeout are not published.
+- extras:
+  - keep_rate.value: 0.0
+  - keep_rate.basis: a paused sandbox is not billed; the pricing page promises 'No idle charges' and 'scale to zero when done'
+  - keep_rate.source: https://hopx.ai/pricing
+  - billing_model: per-second
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.disk_gib: 10
+  - session_cap.restart_required: no
+  - session_cap.note: timeout is settable and extendable and defaults to none; the ceiling is not published
+  - persistent_storage.price_gib_month: USD 0.00000003 per GiB-second
+  - persistent_storage.durability: sandbox disk; pause preserves state, a timeout destroys it
+  - persistent_storage.survives_stop: yes
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: not published
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: any port via preview URLs
+  - free_tier_kind: one-time-credit
+  - granularity.min_billed_s: 0
+  - burst_x: 1.0
+  - ps.gib: 10
+  - ps.price: $0.00000003 a GiB-second
+  - ps.durability: sandbox storage
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: until deleted
+  - term: one-time credit
+  - m10h_usd: 20.3
+  - m24h_usd: 49.41
+  - price_arithmetic: 0.000014 x 3600 = 0.0504; 0.0000045 x 3600 = 0.0162; 10 x 0.00000003 x 3600 = 0.00108; total 0.06768/h; 200 / 0.06768 = 2955.1 h = 123.1 days; x 730 = 49.41
+  - credit_usd: 200
+  - credit_months_at_shape: 4.05
+  - credit_hours_at_shape: 2955.1
+  - credit_expiry: not stated on the pricing page; the terms say credits 'may expire under posted program rules' and no rule is posted
+  - shape_max.note: not published; a template build accepts 1-64 cores, 512MB-64GB RAM, 1-250GB disk as 'typical ranges'
+  - price_basis: 10 h/day x 30 = 300 h; 24/7 x 30 = 730 h
+  - vendor_claim_hours: 4000
+  - vendor_claim_vs_arithmetic: 4000 h against 2955 h computed from the rate card, a 35% overstatement
+  - signup_url: https://console.hopx.ai (docs also link console.hopx.dev; both redirect to /auth/login)
+  - signup_form: Google or GitHub OAuth only; no email field, no phone, no card
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'No subscriptions. No minimum commitments. No idle charges. Launch sandboxes in milliseconds, pay by the second, scale to zero when done.' with 'No credit card required, $200 free credits', 'Compute (vCPU) $0.00001400/second', 'Memory (GiB) $0.00000450/second', 'Storage (GiB) $0.00000003/second' and 'Enough for ~4,000 hours of basic usage', quoted
+  - [1] 2026-10-24: quoted: 'No credit card required', '$200 free credits', 'Compute (vCPU) $0.00001400/second', 'Memory (GiB) $0.00000450/second', 'Storage (GiB) $0.00000003/second', 'Enough for ~4,000 hours of basic usage', and the example '1 vCPU, 1GB RAM, 10GB storage ... $0.05'.
+  - [4] 2026-10-24: quoted: 'Resources (vcpu, memory, disk) are always loaded from the template. You cannot specify custom resources when creating a sandbox. To use different resources, create a custom template first.'
+  - [3] 2026-10-24: quoted: 'Sandboxes can be configured with automatic timeout values that determine when they are automatically destroyed'; 'When a timeout expires, the sandbox is automatically destroyed. All data in the sandbox is lost.'
+  - [1] 2026-10-24: quoted: 'No credit card required $200 free credits Cancel anytime' and the rate card '$0.00001400/second' per vCPU, '$0.00000450/second' per GiB of memory, '$0.00000003/second' per GiB of storage
+  - [1] 2026-10-24: quoted: 'No credit card required', '$200 free credits', 'Compute (vCPU) $0.00001400/second', 'Memory (GiB) $0.00000450/second', 'Storage (GiB) $0.00000003/second', 'Enough for ~4,000 hours of basic usage', 'Unlimited sandboxes', 'All pre-built templates', and the worked example '1 hour of sandbox runtime / 1 vCPU, 1GB RAM, 10GB storage / $0.05'
+  - [5] 2026-10-24: there is no email input.
+  - [3] 2026-10-24: quoted: 'When a timeout expires, the sandbox is automatically destroyed. All data in the sandbox is lost.' with examples at 5 minutes, 30 minutes, 1 hour and 4 hours and no stated maximum
+  - [2] 2026-10-24: quoted: '# Resource limits depend on your plan / # Typical ranges: / # - CPU: 1-64 cores / # - Memory: 512MB-64GB / # - Disk: 1GB-250GB'
+  - [6] 2026-10-24: quoted: 'No credit card required Up to 30 days runtime Pay per second' and 'Run Jobs for Hours or Days — No Timeouts'
+  - [7] 2026-10-24: quoted: 'Expose any port via public URLs instantly. No tunnels, no configuration' with the example 'https://8080-abc123.us-east.vms.hopx.dev/'
+  - [8] 2026-10-24: quoted: 'Promotional/free compute credits (e.g., "$200 free") are one-time, non-transferable, have no cash value, and may expire under posted program rules.' No program rule with a duration is posted.
+  - [9] 2026-10-24: quoted: '--provider TEXT - OAuth provider: GoogleOAuth, GitHubOAuth (default: GoogleOAuth)', confirming the identity is a Google or GitHub account
+  - [10] 2026-11-03: the HopX API is reachable by REST API and CLI, with SDKs | capture: sha256:046de323d47afd07dd400e09dc0596305e7be694694957da64a0aa1e9b329766 | quote: use it with the SDKs, CLI, or REST API
+  - [1] 2026-11-03: pricing page prices per-second usage of compute, memory and storage; no egress line | capture: sha256:2bef1d1f335ae8a538368373f43c402c201ef8f3e83516ab8e2edd0e4419fabd | quote: Billed per second of actual usage
+  - [10] 2026-11-04: the API key page documents SDK, CLI and REST access | capture: sha256:046de323d47afd07dd400e09dc0596305e7be694694957da64a0aa1e9b329766 | quote: use it with the SDKs, CLI, or REST API.
+  - [9] 2026-11-04: the hopx CLI is documented | capture: sha256:23176bfdce35d922046e759ccc88380cb8904308fb37229cbd7132ef55d61e26 | quote: Manage authentication for the HopX CLI using the `auth` command.
+- sources:
+  - [1] https://hopx.ai/pricing
+  - [2] https://docs.hopx.ai/core-concepts/templates/configuration.md
+  - [3] https://docs.hopx.ai/core-concepts/sandboxes/timeout.md
+  - [4] https://docs.hopx.ai/core-concepts/sandboxes/creating.md
+  - [5] https://console.hopx.ai
+  - [6] https://hopx.ai/use-cases/long-running-jobs/
+  - [7] https://hopx.ai/features/preview-urls/
+  - [8] https://hopx.ai/terms
+  - [9] https://docs.hopx.ai/cli/commands/auth
+  - [10] https://docs.hopx.ai/api-key.md

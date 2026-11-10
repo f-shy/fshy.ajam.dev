@@ -1,0 +1,49 @@
+# SpaceWeb
+
+> sweb.ru | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/sweb/ | JSON https://fshy.ajam.dev/api/v1/entity/sweb.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## SpaceWeb
+
+- `compute/spaceweb` | trial-only | evidence documented | binding per-ip-shaping | category cloud VM
+- needs card unknown, phone yes, ID no, institution no | verified 2026-11-04T06:40:32.494Z (live) | stale on 2026-12-05
+- url https://sweb.ru/web/testvps/
+- free tier: Three days of any VPS tariff or of S3 object storage at no charge, with the campaign valid until 31 January 2027. The trial requires confirming a phone number and activating the period from the control panel. Two limits apply inside the trial: SMTP is unavailable on trial VPS tariffs, and channel throughput is capped at 10 Mbit/s. Trial S3 storage is capped at 500 GB. Files and settings are kept for seven days after the trial ends, and the provider's own VPS landing page describes the same offer in its meta description as free for a period of up to 12 months, which the body of the page contradicts. | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: trial
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: Trial VPS tariffs have channel throughput limited to 10 Mbit/s (from the trial conditions); the line 'unlimited traffic with VPS rental' is the paid VPS tariff's feature on the paid VPS page, not a trial term. No overage price is published. | metered: no | source: [1]
+- identity: any-phone | detail: phone: the campaign page requires confirming a phone number before the three-day trial is activated, and the page says only 'confirm a phone number', so whether a foreign number can confirm is not established in the record. No card requirement and no hold are stated, and the trial is activated from the control panel rather than by a payment method: unknown whether one is ever requested.
+- interface: rest, s3-compatible
+- limits:
+  - per-ip-shaping (binding): The 10 Mbit/s channel cap is what fails first: at 1.25 MB/s a trial machine can move about 108 GB in a day, so the trial cannot be used to measure the throughput the workload needs, and it lasts three days. [1]
+- limits note: The 10 Mbit/s channel cap is what fails first: at 1.25 MB/s a trial machine can move about 108 GB in a day, so the trial cannot be used to measure the throughput the workload needs, and it lasts three days.
+- binding note: the same as limits note
+- interface detail: S3 API, per the S3 storage page: "Совместимость с S3 API"
+- tooling: no client is named on https://help.sweb.ru/ob6ektnoe-hranilishe-s3-principy-raboty-i-vozmozhnosti_1505.html: "привычных инструментах"
+- composes with: The S3 half of the same trial is the more useful part: 500 GB of S3-API-compatible object storage for three days at no charge, with the S3 product page charging stored volume only and not charging egress or read and write operations, which is enough to measure a transfer path rather than to run one.
+- reliability: no reliability event recorded
+- notes: SpaceWeb VPS plans provide 3-day trial periods with outbound network bandwidth shaped to 10 Mbit/s. Registration requires phone number SMS verification.
+- extras:
+  - facets.class: regional-trial
+  - facets.free_tier_kind: trial
+  - facets.shape.gpu_count: 0
+  - facets.shape.note: the trial is of any tariff in the catalogue, so the shape is the tariff chosen; the cheapest listed tariff is advertised from RUB 0.30 an hour
+- evidence:
+  - [1] 2026-10-22: campaign page: three days of VPS or S3 free, valid until 31 January 2027, phone confirmation required, 'SMTP is not available on VPS tariffs within the trial period and channel throughput is limited to 10 Mbit', trial S3 capped at 500 GB, data kept 7 days, quoted and translated
+  - [2] 2026-10-22: the VPS landing page's meta description offers a free virtual server 'for a period of up to 12 months' while the page body describes a 3-day period, a contradiction on the provider's own site
+  - [3] 2026-10-22: paid VPS is advertised from RUB 0.30 an hour, which is about RUB 219 a month at 730 hours, arithmetic shown; the page also states foreign VPS locations with the Netherlands named as the main one
+  - [3] 2026-11-03: VPS rental includes unlimited traffic | capture: sha256:fa90f442d2d83c4699ece44e7f70ee7a7e87530a4e004ec6f3ad84e56423954f | quote: - неограниченный трафик,
+  - [3] 2026-11-03: an API to manage the server is listed | capture: sha256:fa90f442d2d83c4699ece44e7f70ee7a7e87530a4e004ec6f3ad84e56423954f | quote: Программный интерфейс приложения (API) для управления сервером
+  - [4] 2026-11-04: the provider's S3 object storage is S3 API compatible | capture: sha256:57e8af28f2c5a538c9c6e06e6fb5a228b40653a6d2d81e969aec65de78e55c60 | quote: Совместимость с S3 API позволяет легко переносить данные и выстраивать гибкие процессы на привычных инструментах.
+  - [5] 2026-11-04: S3 storage is charged on stored volume only; egress and read/write operations are not charged | capture: sha256:b0f482b34ecb2b8510a87f3350bedc351e6bca23a561b940672e300a90fa79ed | quote: Плата взимается только за объем хранения. Не тарифицируются: исходящий трафик, операции чтения (GET, HEAD, LIST) и записи (PUT, POST, PATCH).
+  - [6] 2026-11-04: the S3 trial has the same resources as paid, capped at 500 GB | capture: sha256:817b51a8c50b1e2a01a5a9cc37323af7d1d8b7a1582e940538c38c9cb4ef7de7 | quote: Предоставляются те же мощности и ресурсы, что и на платной основе. Максимальный объем дискового пространства, включая зарезервированный объем и дополнительное дисковое пространство, ограничен 500 Гб.
+  - [1] 2026-11-04: trial VPS tariffs have no SMTP and channel throughput limited to 10 Mbit | capture: sha256:aa55f06f2c1c70723afed5a2f64c07fd3dfd82bc1d4af4139e9ecf195850705e | quote: Для тарифов VPS в рамках тестового периода не доступен SMTP и ограничена пропускная способность канала до 10 Мбит.
+  - [4] 2026-11-04: the page refers only to familiar tools, naming none | capture: sha256:8022ba1d7de9c60bc83698af786c5fbd3b9571a3734a6bdd3fbe733c8c383645 | quote: Совместимость с S3 API позволяет легко переносить данные и выстраивать гибкие процессы на привычных инструментах.
+- sources:
+  - [1] https://sweb.ru/web/testvps/
+  - [2] https://sweb.ru/vds/free/
+  - [3] https://sweb.ru/vds/
+  - [4] https://help.sweb.ru/ob6ektnoe-hranilishe-s3-principy-raboty-i-vozmozhnosti_1505.html
+  - [5] https://help.sweb.ru/ob6ektnoe-hranilishe-s3_1458.html
+  - [6] https://sweb.ru/cloud/s3/

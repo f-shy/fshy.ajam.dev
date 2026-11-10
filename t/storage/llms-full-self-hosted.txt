@@ -1,0 +1,2108 @@
+# fshy: Storage, self-hosted, the last resort
+
+> Where bytes can live: object storage, drives, registries, academic repositories, hosts used as storage.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/storage/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## git-annex rclone special remote (built into annex since 2023)
+
+- `storage/git-annex-rclone-special-remote` | self-hosted, last resort | verdict qualifies | evidence reported | binding per-ip-shaping | category registry
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://git-annex.branchable.com/special_remotes/rclone/ | page https://fshy.ajam.dev/p/branchable.md
+- free tier: N/A. Front-end to rclone storage backends, inheriting free tiers of supported providers. Documentation lists Drive, OneDrive, Dropbox, Mega, pCloud, Box, Yandex, Jottacloud, WebDAV, FTP, SFTP, Swift, B2, and S3. | unit: mixed | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Determined by the selected rclone backend. Rclone handles throttling and retries across remote endpoints. | metered: no
+- identity: institution
+- interface: rest, git, rclone
+- limits:
+  - per-ip-shaping (binding): 750 GB/day [1]
+- limits note: Per-backend: file size caps, per-day upload quotas, API rate limits all apply unchanged. rclone's Drive backend has its own 750 GB/day upload cap; OneDrive throttles. Encrypted annex remotes lose rclone's server-side dedupe.
+- binding note: one stream is shaped, and aggregate throughput is the shaped rate times the number of streams
+- interface detail: rest
+- tooling: Two paths: (a) `git annex initremote type=rclone ..`. Native, no extra install, documented via `rclone gitannex -h`; (b) the older `git-annex-remote-rclone` bash script (DanielDent, ~300 lines). rclone itself is a single static binary.
+- composes with: Combines git-annex versioning, checksum verification, and partial checkouts with rclone remote storage backends. A single repository can configure multiple rclone remotes across diverse storage providers using git annex copy commands.
+- reliability: Solid; the native remote removed the bash-script dependency. The failure mode is per-backend token expiry and drive-level rate limiting, which rclone surfaces as retries rather than data loss.
+- notes: the same as the free tier
+- self hosted: yes
+- evidence:
+  - [1] 2026-10-21: 'With a recent version of rclone and git-annex, it is not necessary to install anything else, just use `git-annex initremote type=rclone ...`'
+  - [2] 2026-10-21: the gitannex bridge command exists in rclone proper
+  - [3] 2026-10-21: backend feature matrix (Internet Archive, Drive, OneDrive, Box, Mega, WebDAV, SFTP, S3 all Tier 1-3 with R/W)
+- sources:
+  - [1] https://git-annex.branchable.com/special_remotes/rclone/
+  - [2] https://rclone.org/commands/rclone_gitannex/
+  - [3] https://rclone.org/overview/
+
+## git-annex S3 special remote (backend-agnostic)
+
+- `storage/git-annex-s3-special-remote` | self-hosted, last resort | verdict qualifies | evidence reported | binding none | category registry
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://git-annex.branchable.com/special_remotes/S3/ | page https://fshy.ajam.dev/p/branchable.md
+- free tier: N/A by itself. Inherits whatever S3-compatible store you point it at. This is the multiplier: any free S3 endpoint (Internet Archive s3.us.archive.org, HF s3.hf.co, Oracle/Cloudflare-adjacent object tiers, MinIO on a free VM) becomes a versioned large-file store with git-annex's own manifest. | unit: mixed | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Determined by the backing S3 store. Parameter publicurl enables downloads via direct HTTP GET, and parameter signature=anonymous allows unauthenticated read-only access. | metered: no
+- identity: email
+- interface: s3, git
+- limits note: Depends on backend. Practical: `partsize=1GiB` needed for multipart; parts under 100 MiB are rejected by S3; `versioning=yes` means git-annex cannot drop content. No delete-resume; interrupted uploads restart. For IA specifically, uploads to the test collection vanish after 30 days and public visibility lags.
+- interface detail: part of the free tier
+- tooling: git-annex (Haskell, standalone Linux/macOS builds, ~1.5k stars on the mirror). Config via `git annex initremote type=S3 host=... bucket=... requeststyle=path`. Internet Archive has a documented special mode (`host=s3.us.archive.org`) where git-annex writes x-archive-meta-* headers and records the public URL, so every annexed file is also fetchable from archive.org with no login.
+- composes with: One special remote per bucket; `fileprefix=` lets many remotes share one bucket. The allowance is per account, so each free S3 account adds one bucket. Because git-annex keys content by hash, the S3 side is a dumb blob store. A client can shard the same dataset across several free stores, and git-annex tracks which copy is where (`git annex whereis`). Chunking (`chunk=1MiB`) avoids per-object size caps on the backing store.
+- reliability: Mature and boring — the special remote has existed for over a decade. Failure mode is backend-side (IA's S3 endpoint was unreachable: connect timeout on s3.us.archive.org:443, and archive.org/help/abouts3.txt returned 522 through the proxy), not annex-side.
+- notes: the same as the free tier
+- self hosted: yes
+- evidence:
+  - [1] 2026-10-21: full parameter list including `host`, `requeststyle=path`, `publicurl`, `signature=anonymous`, `chunk`, `fileprefix`
+  - [2] 2026-10-21: 'git annex initremote archive type=S3 protocol=https host=s3.us.archive.org bucket=...' with x-archive-meta headers
+  - [3] 2026-10-21: built-in list: S3, rclone, webdav, rsync, directory, bup, ddar, git-lfs, httpalso, gcrypt
+  - withheld 2026-10-21: probe: TCP connect to s3.us.archive.org:443 -> timeout after 21s (backend flaky, tooling fine)
+- sources:
+  - [1] https://git-annex.branchable.com/special_remotes/S3/
+  - [2] https://git-annex.branchable.com/tips/Internet_Archive_via_S3/
+  - [3] https://git-annex.branchable.com/special_remotes/
+
+## iroh Mainline-DHT content discovery (iroh-content-discovery)
+
+- `storage/iroh-mainline-dht-content-discovery` | self-hosted, last resort | verdict qualifies | evidence reported | binding none | category discovery layer over the public Mainline DHT, published from an iroh node the user runs
+- needs card no, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://github.com/n0-computer/iroh-content-discovery | page https://fshy.ajam.dev/p/github-n0-computer.md
+- free tier: No quota, no storage. Pure discovery: publishes BLAKE3->provider mappings onto the public BitTorrent Mainline DHT. | unit: unlimited | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: UDP DHT traffic only, kilobytes. Mainline lookups measured at 37 ms in n0's own example. | metered: no
+- identity: anonymous | detail: anonymous
+- interface: unknown
+- limits note: Mainline traffic is unencrypted and 'easily blocked by middleboxes'; no privacy ('anybody can look up your ip address'); the address-index service is last-writer-wins, in-memory, and records expire. Publishers must re-announce on a schedule.
+- interface detail: `n0-mainline` crate; `iroh-mainline-address-lookup` (pkarr/BEP 44 records); `iroh_mainline_content_discovery` (`query_dht`, `query_iroh`).
+- tooling: Publishes a signed endpoint record (endpoint id + UDP socket + timestamp) to a tiny UDP address-index service, then `announce_peer` for SHA-1(BLAKE3 hash). Discovery returns candidate EndpointIds which are then dialled with normal iroh hole punching.
+- composes with: Removes the last central dependency: no DNS, no pkarr relay, no account. Requires at least one reachable address-index service, found by rendezvous hash or a curated BEP 44 record.
+- reliability: Experimental repo (12 stars, last push 2026-10-16). SHA-1 is used only as a keyspace key, so a malicious DHT answer can waste time but cannot corrupt data. Verification is against the BLAKE3 root.
+- notes: the same as the free tier
+- self hosted: yes
+- evidence:
+  - [1] 2026-10-21: announce/discovery workflow, udp-addr-index rationale, 37 ms lookup, 'mainline does not provide any privacy'
+  - [2] 2026-10-16: repo alive, pushed 2026-10-16
+  - [3] 2026-10-21: DHT publishes the same signed records as DNS, different storage
+  - [4] 2026-10-21: iroh-flavoured fork of a Mainline DHT implementation
+- sources:
+  - [1] https://www.iroh.computer/blog/iroh-global-content-discovery
+  - [2] https://github.com/n0-computer/iroh-content-discovery
+  - [3] https://docs.iroh.computer/connecting/dht-address-lookup
+  - [4] https://github.com/n0-computer/n0-mainline
+
+## DataLad + git-annex workflow (orchestration layer)
+
+- `storage/datalad-git-annex-workflow` | self-hosted, last resort | verdict qualifies-with-caveat | evidence reported | binding none | category academic
+- needs card no, phone no, ID no, institution no | verified 2026-11-01T18:05:17.593Z, checked 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://handbook.datalad.org/en/latest/basics/101-139-s3.html | page https://fshy.ajam.dev/p/datalad.md
+- free tier: N/A. DataLad is a wrapper over git-annex; quota is the special remote's. Its value here is that it makes 'dataset + N special remotes + reproducible publish' a supported, documented workflow instead of hand-written annex commands. | unit: mixed | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Inherited; DataLad's S3 walkthrough specifically configures `publicurl` so consumers clone the git metadata from GitHub and stream file content from the bucket with no credentials. | metered: no
+- identity: anonymous | detail: no account for the software: the user installs and runs DataLad and git-annex 10.20230802 or later from PyPI. The walk-through's worked target is an S3 bucket on an AWS account, and the page states that AWS signup wants an email address, a physical address and a credit card before verification, plus a GitHub account for the metadata sibling. DataLad itself asks for no card and no phone number; the card belongs to the S3 account the walk-through demonstrates.
+- interface: s3, git, cli
+- limits note: Same as annex: no delete on LFS-backed remotes, per-store object caps. DataLad adds Python overhead and its own version-compat matrix (annex version pinned per feature).
+- interface detail: s3
+- tooling: `datalad` CLI (Python), `datalad create-sibling-s3`, `datalad push --to <sibling>`, `datalad get`. Requires git-annex >= 10.20230802 for S3 publicurl on post-April-2023 buckets.
+- composes with: DataLad dataset hierarchy of superdatasets and subdatasets partitions large archives across independently-served subdatasets with individual remotes. Command datalad siblings distributes logical datasets across multiple S3 accounts while preserving git history.
+- reliability: Used in production by academic consortia (OpenNeuro etc.) precisely for multi-TB datasets on donated storage. The most battle-tested 'big dataset on free/cheap stores' pattern that exists.
+- notes: the same as the free tier
+- self hosted: yes
+- evidence:
+  - [1] 2026-10-21: 'This walk-through requires git-annex >= 10.20230802 ... Prior versions do not support public access via the publicurl parameter with S3 buckets created after April 2023'
+  - [2] 2026-10-21: DataLad's Git LFS special-remote walkthrough on GitHub (linked as next chapter)
+  - [1] 2026-11-01: the accounts the walk-through needs are the target's, not the software's: a GitHub account for the metadata sibling and an AWS account for the bucket | capture: sha256:f5274fa9af9ba13cb49447c64e48e9c0470c7bdc6a4e6cbe221fcee6558e1864 | quote: Signup for a [GitHub account](https://github.com/join)
+  - [1] 2026-11-01: the worked target's AWS signup takes an email address, a physical address and a credit card, and the software itself needs no account | capture: sha256:f5274fa9af9ba13cb49447c64e48e9c0470c7bdc6a4e6cbe221fcee6558e1864 | quote: The [AWS signup](https://aws.amazon.com) procedure requires you to provide your e-mail address, physical address, and credit card details before verification is possible.
+  - [1] 2026-11-01: the accounts the walk-through's worked example needs are a GitHub account and an AWS account, both stated on the page, so the identity kind is read rather than defaulted | capture: sha256:f5274fa9af9ba13cb49447c64e48e9c0470c7bdc6a4e6cbe221fcee6558e1864 | quote: Signup for a [GitHub account](https://github.com/join)
+  - [1] 2026-11-01: the tooling requirement the record carries is unchanged on the page | capture: sha256:f5274fa9af9ba13cb49447c64e48e9c0470c7bdc6a4e6cbe221fcee6558e1864 | quote: This walk-through requires git-annex >= 10.20230802
+- sources:
+  - [1] https://handbook.datalad.org/en/latest/basics/101-139-s3.html
+  - [2] https://handbook.datalad.org/en/latest/basics/101-139-gitlfs.html
+
+## ddrive (Discord as a filesystem)
+
+- `storage/ddrive` | self-hosted, last resort | verdict qualifies-with-caveat | evidence reported | binding per-object-cap | category messaging
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://github.com/forscht/ddrive | page https://fshy.ajam.dev/p/github-forscht.md
+- free tier: Unlimited logical file size and unlimited total: 'Tested with storing 4000 GB of data on single discord channel'. Splits files into 24 MB chunks and fans them across webhooks. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: file size and unlimited total: 'Tested with storing 4000 GB | bytes: 4000000000000 | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Free. Downloads are proxied by ddrive, which pulls refreshed signed URLs from Discord on demand. On the read path the only cost is your own egress. | metered: no
+- identity: email
+- interface: rest, ftp
+- limits:
+  - per-object-cap (binding): file size and unlimited total: 'Tested with storing 4000 GB [1]
+- limits note: 24 MB chunk size; ~5 messages/5 s per channel even via webhook (~30 msg/min per webhook reported); metadata lives in Postgres. Lose the DB and 3 TB of chunks become unreachable in a channel (author notes a 3 TB cold start takes 30+ min).
+- interface detail: rest
+- tooling: github.com/forscht/ddrive, 533 stars, MIT, Node 16+ / Docker, REST API with OpenAPI 3.1 spec, Postgres for metadata, web UI. Companion: `tris203/disftp` (FTP front-end for Disbox).
+- composes with: 1 Discord account x N webhook/channel pairs. Webhooks are used because 'Webhooks are not bound to a user's global rate limit' (Discord docs), so throughput scales with channel count rather than with the 50 req/s token budget.
+- reliability: Viable and battle-tested at multi-TB scale, but every download depends on re-deriving a 24 h signed URL, so the front-end must be alive. Two major rewrites (v2 -> v4) invalidated old layouts.
+- notes: the same as the free tier
+- self hosted: yes
+- evidence:
+  - [1] 2026-10-21: 'Tested with storing 4000 GB of data on single discord channel (With max file size of 16GB)'
+  - [1] 2026-10-21: the project's own note, quoted: 'Now uses webhooks instead of bot/user tokens to bypass the discord rate limit', which is to say it routes around the per-token limit by using webhooks; 'I was able to upload file with 5GB of size in just 85 seconds'
+  - [2] 2026-10-21: 'Webhooks are not bound to a user's global rate limit.'
+- sources:
+  - [1] https://github.com/forscht/ddrive
+  - [2] https://docs.discord.food/topics/rate-limits
+
+## DVC remotes (S3 / WebDAV / SSH / HTTP / Drive) pointed at free backends
+
+- `storage/dvc-remotes-pointed-at-free-backends` | self-hosted, last resort | verdict qualifies-with-caveat | evidence reported | binding none | category registry
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://doc.dvc.org/user-guide/data-management/remote-storage | page https://fshy.ajam.dev/p/dvc.md
+- free tier: N/A. DVC ships no storage; the remote is whatever free store you configure. Free-tier bytes = the backing store's bytes. Supports Amazon S3 + S3-compatible (MinIO etc. via `endpointurl`), Azure Blob, GCS, Google Drive, Aliyun OSS, SSH/SFTP, HDFS/WebHDFS, HTTP, WebDAV. | unit: mixed | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Inherited. The HTTP remote is read-only and can sit behind any CDN, which is the only path where DVC itself doesn't add egress cost. | metered: no
+- identity: email
+- interface: s3, git, cli
+- limits note: No per-file logic of its own; the backend's limits apply. WebDAV is the weakest link (DVC's WebDAV support is newer and less battle-tested than S3). HTTP remote is read-only, so it cannot be a primary. No built-in retry-sharding across remotes. You script it.
+- interface detail: s3
+- tooling: `dvc` CLI + dvcfilesystem (fsspec). `dvc remote add s3://bucket && dvc remote modify myremote endpointurl https://s3.hf.co/<ns>` works. Native read-only Git-LFS support means `dvc get`/`dvc import` can pull straight from a Hugging Face repo without installing git-lfs.
+- composes with: One repo, many remotes (`dvc remote add` x N), plus `dvc push -r <remote>` to pick. Any S3-compatible free endpoint multiplies: HF buckets, IA's IAS3, MinIO on a free VM, an Oracle/Cloudflare-adjacent free tier. DVC's content-addressed cache means the same 20 TiB corpus can be pushed to N stores and only the missing blobs transfer.
+- reliability: DVC is an ML-tooling project (treeverse); remote support quality varies by backend. S3-compatible endpoints need `endpointurl` + often `use_ssl`/path-style tweaks. Reliability is effectively the backend's.
+- notes: the same as the free tier
+- self hosted: yes
+- evidence:
+  - [1] 2026-10-21: supported storage list and 'DVC does not provide or recommend a specific storage service'
+  - [2] 2026-10-21: 'Set the endpointurl parameter with the URL to connect to the S3-compatible service (e.g. Nebius, MinIO, IBM COS)'
+  - [3] 2026-10-21: native HF/Git-LFS import without git-lfs installed
+- sources:
+  - [1] https://doc.dvc.org/user-guide/data-management/remote-storage
+  - [2] https://doc.dvc.org/user-guide/data-management/remote-storage/amazon-s3
+  - [3] https://doc.dvc.org/user-guide/integrations/huggingface
+
+## git-annex git-lfs special remote (annex over any LFS host)
+
+- `storage/git-annex-git-lfs-special-remote` | self-hosted, last resort | verdict qualifies-with-caveat | evidence reported | binding none | category registry
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://git-annex.branchable.com/special_remotes/git-lfs/ | page https://fshy.ajam.dev/p/branchable.md
+- free tier: N/A. A protocol adapter. Turns ANY git-lfs server (GitHub, GitLab, Bitbucket, a self-hosted Gitea) into an annex special remote, so the LFS host's quota applies but annex adds hash-verified partial clone and `whereis` across mirrors. | unit: mixed | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: | Cannot delete = every mistake is permanent on the LFS side, and the host's month-storage accounting (GitHub) means you keep paying for it in quota | source: [1] | note: not stated
+- egress: Determined by the underlying Git LFS host. | metered: no
+- identity: email
+- interface: git
+- limits note: Hard, documented limitations: 'The git-lfs protocol does not support deleting content, so git-annex cannot delete anything from a git-lfs special remote'; no upload resume; 'git-annex doesn't do batching. This may cause it to fall afoul of rate limiting of git-lfs servers' — which directly collides with GitLab's 1000 req/min LFS limit. Requires SHA256 backend for efficiency.
+- interface detail: part of the free tier
+- tooling: `git annex initremote lfstest type=git-lfs url=... encryption=shared`. Supports gcrypt:: URL prefix for encrypting the git side too.
+- composes with: Because annex can hold the same content on several LFS remotes, you can stack the 10 GiB/project GitLab allowance and the 10 GiB GitHub allowance as tiers of one logical dataset, with annex tracking which objects live where. Sharding a 1 TiB corpus across 100 GitLab projects becomes a `git annex copy --to` loop.
+- reliability: Cannot delete = every mistake is permanent on the LFS side, and the host's month-storage accounting (GitHub) means you keep paying for it in quota. No batching + per-object request = the exact workload LFS rate limits are designed to stop.
+- notes: the same as the free tier
+- self hosted: yes
+- evidence:
+  - [1] 2026-10-21: limitations section quoted above
+  - [1] 2026-10-21: example: 'git annex initremote lfstest type=git-lfs url=gcrypt::[address removed]:username/somerepo.git encryption=shared'
+- sources:
+  - [1] https://git-annex.branchable.com/special_remotes/git-lfs/
+
+## Gitea / Forgejo self-hosted with any S3 LFS backend
+
+- `storage/gitea-forgejo-self-hosted-with-any-s3-lfs-backend` | self-hosted, last resort | verdict qualifies-with-caveat | evidence reported | binding per-object-cap | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://forgejo.org/docs/latest/admin/advanced/quota/ | page https://fshy.ajam.dev/p/forgejo.md
+- free tier: Unlimited by default: `quota.default.TOTAL = -1` means unlimited, and the soft-quota feature is 'currently not yet enabled by default'. You supply the disk/object store, so bytes = your infrastructure. | unit: unlimited | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: No per-file cap unless you set one | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Yours to pay for. Unless the LFS backend is one of the free S3 endpoints (HF buckets, IA), in which case egress is the backend's and is free/CDN. | metered: no
+- identity: email
+- interface: s3-compatible, rest, git
+- limits:
+  - per-object-cap (binding): No per-file cap unless you set one [1]
+- limits note: Soft-quota only: 'Forgejo checks the quota usage only before an action is executed, but it will allow a started action to complete'. So it can be overshot. No per-file cap unless you set one.
+- interface detail: git
+- tooling: Gitea/Forgejo binaries (single Go binary), `git-lfs` client, S3-compatible LFS storage config (`[lfs] STORAGE_TYPE=minio`). REST API + Swagger for full automation. Gitea Cloud offers a 30-day trial, not free.
+- composes with: The pattern that makes 500 GB+ real: self-host the forge on a free-tier VM (or any always-on box) and set LFS storage to a free S3 endpoint. The forge holds ~metadata only; the bytes never touch your disk. Gitea's `LFS_MAX_FILE_SIZE`/`LFS_START_SERVER` are config, not policy.
+- reliability: Quota feature is explicitly 'still in development' with 'little support for early prevention of operations in the UI'. Self-hosted means a dead VM = dead forge, but the LFS blobs survive in the object store.
+- notes: the same as the free tier
+- self hosted: yes
+- evidence:
+  - [1] 2026-10-21: 'quota.default.TOTAL is -1 (unlimited) by default'; soft-quota semantics quoted
+  - [2] 2026-10-21: storage backend configuration for LFS/attachments
+- sources:
+  - [1] https://forgejo.org/docs/latest/admin/advanced/quota/
+  - [2] https://forgejo.org/docs/latest/admin/setup/storage/
+
+## JFrog Artifactory Community Edition (CE for C/C++) / Artifactory OSS — self-hosted
+
+- `storage/jfrog-artifactory-community-edition-artifactory-oss-self` | self-hosted, last resort | verdict qualifies-with-caveat | evidence reported | binding none | category registry
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://jfrog.com/community/download-artifactory-oss/ | page https://fshy.ajam.dev/p/jfrog.md
+- free tier: Free of charge, self-hosted, no storage cap of any kind: the quota is whatever disk/object-store you attach. 'This product gives all the power and flexibility of the Artifactory repository for Conan and generic binaries to the C/C++ world completely free of charge.' OSS edition likewise downloadable and free. | unit: mixed | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Free by construction. You serve it from your own host/object store, so egress is your bill (or zero behind Cloudflare). Not a hosted egress concession. | metered: no
+- identity: email
+- interface: rest, oci, cli
+- limits note: CE for C/C++ is restricted to Conan + generic repository types only (no Docker/Maven/npm); OSS edition likewise feature-stripped. No HA, no S3 blob store on CE. Requires you to run Java + Postgres/derby and to pay for the bytes.
+- interface detail: rest (Artifactory REST API), plus every native protocol it supports: docker/OCI, maven, npm, pypi, nuget, generic, conan; JFrog CLI
+- tooling: JFrog CLI (`jf rt upload`), `curl -T` against the REST API, `oras`/`docker push` for OCI, and any package client. Real, first-party, actively maintained.
+- composes with: Not really chainable as free storage: each instance consumes your own disk. The only 'multiplier' is running it on someone else's free compute/disk, which is a different niche (IaaS), not an artifact-manager finding.
+- reliability: Mature, no data-vanishing risk; the catch is that 'free' means free software, not free storage. You are the storage provider.
+- notes: the same as the free tier
+- self hosted: yes
+- evidence:
+  - [1] 2026-10-21: read live: 'completely free of charge to any software team'; 'containing support only for Conan and generic repositories'
+  - [2] 2026-10-21: read live: 'It is completely free, and features a WebUI, advanced authentication and permissions ... a REST API, a generic CLI tool and generic repositories to host any kind of source or binary artifact'
+  - [3] 2026-10-21: read live: live download links for OSS (tar.gz, rpm, deb, docker, helm) — the free edition is still shipping
+- sources:
+  - [1] https://jfrog.com/blog/announcing-jfrog-artifactory-community-edition-c-c/
+  - [2] https://docs.conan.io/2/tutorial/conan_repositories/setting_up_conan_remotes/artifactory/artifactory_ce_cpp.html
+  - [3] https://jfrog.com/community/download-artifactory-oss/
+
+## Pulp (pulpcore) — self-hosted
+
+- `storage/pulp-self-hosted` | self-hosted, last resort | verdict qualifies-with-caveat | evidence reported | binding none | category registry
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://pulpproject.org/ | page https://fshy.ajam.dev/p/pulpproject.md
+- free tier: Free open-source (GPL) self-hosted repository server; no quota because there is no vendor. 'Pulp is an open source project that makes it easy for developers to fetch, upload, organize and distribute Software Packages on-prem or in the cloud.' | unit: unlimited | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Free by construction. Self-hosted; you pay (or don't) for your own bandwidth. | metered: no
+- identity: anonymous
+- interface: rest, oci, cli
+- limits note: No vendor limits. Operationally: you must run Postgres + object storage + workers; 'unlimited' means 'as much disk as you attach'. No built-in public/anonymous CDN.
+- interface detail: rest (pulpcore REST API), plus repository endpoints for rpm/deb/python/container/generic; also ships OCI images of itself
+- tooling: pulpcore REST API + `pulp-cli`, plus `podman`/`docker` for the container deploy and standard package clients against published repos. Documented at pulpproject.org/pulpcore/docs/. It is also the backend Fedora COPR uses, which is a working-scale endorsement.
+- composes with: Same self-hosted arithmetic: unlimited instances × your disk. Notably it is the engine under COPR's Pulp backend, so its per-repo retention setting (`retain_package_versions`) is the lever that makes 'unlimited' repos actually behave like storage.
+- reliability: Very reliable (Red Hat-backed, used by COPR); the cost is operational complexity, not data loss.
+- notes: the same as the free tier
+- self hosted: yes
+- evidence:
+  - [1] 2026-10-21: read live: 'Pulp is an open source project that makes it easy for developers to fetch, upload, organize and distribute Software Packages on-prem or in the cloud'
+  - [2] 2026-10-21: read live: COPR uses a 'Pulp backend', and Pulp's `retain_package_versions` repository setting controls retention — evidence Pulp runs at Fedora scale
+- sources:
+  - [1] https://pulpproject.org/
+  - [2] https://docs.copr.fedorainfracloud.org/user_documentation.html
+
+## Sonatype Nexus Repository — Community Edition (self-hosted)
+
+- `storage/sonatype-nexus-repository-community-edition` | self-hosted, last resort | verdict qualifies-with-caveat | evidence reported | binding none | category registry
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.sonatype.com/products/sonatype-nexus-repository/download | page https://fshy.ajam.dev/p/sonatype.md
+- free tier: Free, self-hosted, no storage quota: 'There is no cost to use Sonatype Nexus Repository Community Edition'; the feature matrix marks 'Unlimited Nexus Repository Deployments' as included. Storage is your blob store, so the ceiling is your disk. | unit: unlimited | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Free by construction (self-hosted). Serve through Cloudflare or your own CDN at your own cost. | metered: no
+- identity: anonymous
+- interface: rest, webdav
+- limits note: No published byte limit, but Sonatype positions CE as 'a small team solution ... with modest usage' and tells larger users to buy Pro. Pro-only features include cloud blob stores (S3/Azure/GCS), so CE is stuck on local disk. Raw repositories can hold arbitrary files but there is no public anonymous sharing story as clean as Cloudsmith's.
+- interface detail: rest (Nexus REST API v1), native protocols for maven/npm/pypi/nuget/docker/raw/helm/apt/yum, WebDAV-ish raw repos
+- tooling: `curl -u` against `/service/rest/v1/components`, `mvn deploy`, `npm publish`, `twine upload`, `docker push`; a well-documented REST API for scripting.
+- composes with: Same as any self-hosted manager: unlimited instances × your disk. The version that matters for this brief is that nothing in Nexus meters bytes, so a single instance on a cheap VPS with a big volume gives unbounded logical storage. But you buy the volume.
+- reliability: Mature and stable; the only 'limit' is a licensing/positioning nudge, not a technical cut-off. Data does not vanish.
+- notes: the same as the free tier
+- self hosted: yes
+- evidence:
+  - [1] 2026-10-21: read live: 'There is no cost to use Sonatype Nexus Repository Community Edition. You can get started for free, no credit card is required'; 'designed to be a small team solution that can be used for free with modest usage'
+  - [2] 2026-10-21: read live: 'Unlimited Nexus Repository Deployments' ticked for Community Edition; 'Cloud Blob Storage (AWS S3, Azure, GCS)' is Pro-only
+  - [3] 2026-10-21: read live: 'Nexus Repository Community Edition: Free, self-hosted artifact management'
+- sources:
+  - [1] https://www.sonatype.com/products/sonatype-nexus-oss-download
+  - [2] https://help.sonatype.com/en/nexus-repository-feature-matrix.html
+  - [3] https://help.sonatype.com/en/nexus-repository-tiers-and-feature-availability.html
+
+## Trystero (WebRTC signalling over BitTorrent / Nostr / MQTT / IPFS / Supabase / Firebase)
+
+- `storage/trystero` | self-hosted, last resort | verdict qualifies-with-caveat | evidence reported | binding none | category relay/P2P — pure SIGNALLING, zero relayed bytes
+- needs card no, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://github.com/dmotz/trystero | page https://fshy.ajam.dev/p/github-dmotz.md
+- free tier: No storage and no relayed bandwidth: Trystero borrows an existing decentralised network purely to exchange WebRTC SDP offers. | unit: mixed | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Data flows peer-to-peer via WebRTC; the signalling network never sees the payload. The operator's cost is SDP messages only. | metered: no
+- identity: anonymous | detail: anonymous
+- interface: unknown
+- limits note: Signalling only. Browser WebRTC connection-count limits force a room/namespace design.
+- interface detail: JavaScript library, `joinRoom` API
+- tooling: npm @trystero-p2p/*
+- composes with: The cleanest signalling example: because only SDP crosses the third party, there is no bandwidth quota to hit and no operator who could impose one. Note the caveat that WebRTC needs a TURN relay when both peers are behind symmetric NAT. That is where real relaying cost reappears, and Trystero does not supply it.
+- reliability: No TURN service included; symmetric-NAT pairs will fail to connect rather than fall back.
+- notes: the same as the free tier
+- self hosted: yes
+- evidence:
+  - [1] 2026-10-21: 'To establish a direct peer-to-peer connection with WebRTC, a signalling channel is needed to exchange peer information (SDP). Typically this involves running your own matchmaking server but Trystero abstracts this away'; strategies listed: BitTorrent, Nostr, MQTT, Supabase, Firebase, IPFS, self-hosted WebSocket relay
+  - [2] 2026-10-21: 'Use our free cloud server or host your own PeerServer' (free signalling broker; relayed data still needs a TURN server)
+- sources:
+  - [1] https://github.com/dmotz/trystero
+  - [2] https://peerjs.com/
+
+## rocket.chat starter / community
+
+- `storage/rocket-chat-starter-community` | self-hosted, last resort | verdict paid-only | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://docs.rocket.chat/docs/our-plans | page https://fshy.ajam.dev/p/rocket.md
+- free tier: none reachable: Both free tiers are self-managed/self-hosted: you supply the storage. Cloud Starter is a 30-day trial, not a free tier. No free hosted storage. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: paid
+  - dead_end.why: Both free tiers are self-managed/self-hosted: you supply the storage. Cloud Starter is a 30-day trial, not a free tier. No free hosted storage.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Both free tiers are self-managed/self-hosted: you supply the storage. Cloud Starter is a 30-day trial, not a free tier. No free hosted storage.
+- sources:
+  - [1] https://docs.rocket.chat/docs/our-plans
+
+## Cubbit DS3 Composer
+
+- `storage/cubbit-ds3-composer` | self-hosted, last resort | verdict fails-identity | evidence documented | binding write-gated | category software-defined S3 object storage on user-run storage nodes (self-hosted; Coordinator managed by Cubbit or self-hosted) | tier DS3 Composer free tier
+- needs card no, phone yes, ID no, institution yes | verified 2026-11-03T01:11:15.760Z (live) | stale on 2026-12-04
+- url https://www.cubbit.io/ds3-composer-trial | page https://fshy.ajam.dev/p/cubbit.md
+- free tier: Up to 3 TB of DS3 Composer free tier access at 0 EUR, no credit card required; the storage itself sits on nodes the user supplies | unit: TB | metered on: unstated | read on: 2026-11-03 | source: [1] | note: a licence for software, not capacity that Cubbit hosts: the pricing FAQ licenses Composer on raw installed capacity, and every stored byte uses disks the user provides. unverified: whether the 3 TB is counted on raw or usable capacity. Above the free tier the rate is EUR 4.99 per TB per month for 3 to 10 TB, discounted above 10 TB.
+- per-object cap: unverified: no Composer page states an object-size limit | source: [2] | note: the DS3 multipart-upload page lists a 5 TiB maximum object size for Cubbit's S3 gateway; whether Composer gateways share it is not stated.
+- retention: unverified: no Cubbit page states a duration or an expiry for the 3 TB free tier | source: [1] | note: the only duration on the pricing page, 30 days, belongs to the hosted DS3 Cloud demo, a separate record. The marketplace listing calls the Composer free tier a free trial with no duration. Licence expiry and grace terms are in the customer contract, which is not public.
+- egress: Cubbit charges no egress, deletion, bucket replication or API fee under its flat per-TB rate; the Cubbit-run public gateway's egress is free for now and may change; bandwidth of the user's own nodes and gateways is the user's own | metered: no | free allowance: no Cubbit egress charge stated | source: [1]
+- identity: institution | detail: The free-tier form asks for a work email, first name, last name, company name and country, then a required yes or no on whether the organisation uses more than 50 TB, with an optional phone number; no credit card is asked. The documentation says DS3 Composer is invite-only, with an emailed invitation to a pre-generated account, and that page was last updated on 22 February 2024. unverified: whether Cubbit approves an entry whose company is not a registered business; the form was read and not submitted.
+- interface: s3-compatible
+- limits:
+  - volume-quota: up to 3 TB on the free tier; EUR 4.99 per TB per month from 3 to 10 TB [1]
+  - write-gated (binding): entry through a form asking for a work email, company name and an organisation-size answer; the documentation calls access invite-only [3]
+- limits note: Licensing counts raw installed capacity (pricing FAQ). A Swarm starts from three servers (marketplace listing, trade report) and each disk needs 1 CPU thread and 1 GB of RAM; the vendor positions Composer from 200 TB upward.
+- binding note: the free tier is entered through a form that asks for a work email and a company name and the documentation describes access as invite-only; the 3 TB is also a licence on machines the user must supply
+- interface detail: S3-compatible API exposed by a DS3 Gateway: a public gateway per tenant that Cubbit runs, or a private gateway the user installs on a Kubernetes cluster
+- tooling: A hosted S3 offer from Cubbit is the separate DS3 Cloud record; this record is the software. The user installs and runs one Cubbit storage agent per disk on Linux machines (1 CPU thread and 1 GB of RAM per disk) registered as nodes in a Swarm, on a rented or free machine; the Coordinator control plane is Cubbit-managed (composer.cubbit.eu) or a licensed self-hosted install; S3 access goes through a Cubbit-run public gateway or a private gateway the user installs on a Kubernetes cluster. Clients: AWS CLI and other S3 clients.
+- composes with: A hosted S3 origin from Cubbit is the DS3 Cloud record (1 TB, 30-day trial); this record gives no hosted capacity. Its 3 TB licence is only useful on disks the user rents or already has, three servers at least per the marketplace listing, so it chains with capacity from other records and adds no storage of its own.
+- reliability: no throttle, suspension or data-loss event is stated on the pages read; licence expiry and grace terms are in the customer contract, which is not public. unverified: what a Swarm does when the free-tier licence ends.
+- notes: A separate offer from storage/cubbit-ds3-cloud, the hosted S3 trial. self_hosted is true: the 3 TB free tier licenses software, every stored byte sits on storage nodes the user installs and runs, and the Cubbit-run Coordinator is a control plane that holds no user data. Third-party listings call the free tier a free trial; no Cubbit page states a duration for it.
+- evidence note: every fact is quoted from Cubbit pages read on 2026-11-03; the free-tier form was read and not submitted, so the approval rule and the free tier's duration are not published and stay unverified.
+- self hosted: yes
+- evidence:
+  - [1] 2026-11-03: the pricing page offers a DS3 Composer free tier of 3 TB | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: Access DS3 Composer (3 TB free tier)
+  - [1] 2026-11-03: DS3 Composer is free up to 3 TB | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: Up to 3 TB: free tier access
+  - [1] 2026-11-03: from 3 to 10 TB the Composer rate is EUR 4.99 per TB per month | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: 3-10 TB: personal-use rate (€4.99 / TB / month)
+  - [1] 2026-11-03: the Composer free tier asks for no credit card | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: No credit card required
+  - [1] 2026-11-03: the only duration on the pricing page, 30 days, is attached to the hosted DS3 Cloud demo; the Composer free tier carries none | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: Test-drive 1 TB of Cubbit DS3 Cloud in a demo environment for 30 days.
+  - [1] 2026-11-03: the vendor positions Composer from 200 TB upward | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: Ideal for PB-scale, starts from 200 TB.
+  - [1] 2026-11-03: Composer is software, a separate offer from hosted DS3 Cloud, with a managed or a self-hosted control plane | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: The software can be provided as a managed solution (SaaS) or self-hosted directly by the customer.
+  - [1] 2026-11-03: the storage nodes are set up by the user on machines the user chooses | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: You then have total freedom in choosing and setting up storage nodes — whether in the public cloud, on bare metal servers, or on your own hardware.
+  - [1] 2026-11-03: a storage node is a Linux machine running Cubbit's agents | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: A Cubbit node is a physical or virtual Linux machine running Cubbit’s agents for storage management and S3 access.
+  - [1] 2026-11-03: the data is stored on infrastructure the user chooses | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: You choose where to deploy the solution and store your data: your own infrastructure, or by accessing existing resources such as bare-metal or public cloud.
+  - [1] 2026-11-03: the flat rate carries no egress, deletion, replication or API charge | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: a single flat rate per TB/month with no extra fees — no charges for egress, deletion, bucket replication, or API calls.
+  - [4] 2026-11-03: the free tier is priced 0 EUR for up to 3 TB | capture: sha256:548590e19775a0031d5c6cc5b0654b1819473addaefebeba980f7738a6a02bf6 | quote: 0€ / Up to 3 TB
+  - [4] 2026-11-03: the free tier is the entry of a scale of prices, stated with no duration | capture: sha256:548590e19775a0031d5c6cc5b0654b1819473addaefebeba980f7738a6a02bf6 | quote: Start free. Transparent pricing as you scale.
+  - [4] 2026-11-03: the next step is EUR 4.99 per TB per month | capture: sha256:548590e19775a0031d5c6cc5b0654b1819473addaefebeba980f7738a6a02bf6 | quote: Pay as you go 4.99€ / TB / month
+  - [3] 2026-11-03: the free-tier form asks for a work email | capture: sha256:f9940e893db910df7fbf0fb7ee78b83ab7cbae5b34e3e46a935e07c5d4ed1257 | quote: Work Email*
+  - [3] 2026-11-03: the free-tier form requires a company name | capture: sha256:f9940e893db910df7fbf0fb7ee78b83ab7cbae5b34e3e46a935e07c5d4ed1257 | quote: Company Name*
+  - [3] 2026-11-03: the free-tier form requires an answer on organisation size | capture: sha256:f9940e893db910df7fbf0fb7ee78b83ab7cbae5b34e3e46a935e07c5d4ed1257 | quote: Does your organization currently use more than 50 TB of storage?*
+  - [3] 2026-11-03: a phone number field is on the form, not marked required | capture: sha256:f9940e893db910df7fbf0fb7ee78b83ab7cbae5b34e3e46a935e07c5d4ed1257 | quote: Phone Number
+  - [3] 2026-11-03: this form is the entry to the 3 TB free tier | capture: sha256:f9940e893db910df7fbf0fb7ee78b83ab7cbae5b34e3e46a935e07c5d4ed1257 | quote: Activate 3 TB of DS3 Composer free tier
+  - [5] 2026-11-03: the documentation describes DS3 Composer access as invite-only | capture: sha256:68372eb017ab3e998b3771f5233713d24591d61c557bf114d4a62edc3774f83e | quote: Currently, DS3 Composer is invite-only.
+  - [5] 2026-11-03: access is by an emailed invitation to a pre-generated account | capture: sha256:68372eb017ab3e998b3771f5233713d24591d61c557bf114d4a62edc3774f83e | quote: Invitations are sent via email, enabling recipients to reset the password for their pre-generated account.
+  - [5] 2026-11-03: the invite-only page was last updated on 22 February 2024 | capture: sha256:68372eb017ab3e998b3771f5233713d24591d61c557bf114d4a62edc3774f83e | quote: Last updated on Feb 22, 2024
+  - [6] 2026-11-03: the Coordinator can be run by Cubbit | capture: sha256:f3c56c1a7fc3f34b14b5eadb4d6b37b7548cd1651e9580c1ca0b093dfed2811a | quote: Managed: Cubbit hosts and operates the Coordinator.
+  - [6] 2026-11-03: the Coordinator can instead be installed by the user under licence | capture: sha256:f3c56c1a7fc3f34b14b5eadb4d6b37b7548cd1651e9580c1ca0b093dfed2811a | quote: Self-hosted: The Coordinator is installed and managed by the user (under license), offering maximum control, data privacy, and sovereignty — ideal for sensitive or air-gapped environments.
+  - [6] 2026-11-03: the managed Coordinator is at composer.cubbit.eu | capture: sha256:f3c56c1a7fc3f34b14b5eadb4d6b37b7548cd1651e9580c1ca0b093dfed2811a | quote: The managed version of the Coordinator is available at composer.cubbit.eu.
+  - [6] 2026-11-03: the user connects the storage nodes to the Coordinator | capture: sha256:f3c56c1a7fc3f34b14b5eadb4d6b37b7548cd1651e9580c1ca0b093dfed2811a | quote: Operators manually connect nodes—physical or virtual—to the system, which can be distributed across multiple data centers or regions.
+  - [7] 2026-11-03: the Cubbit-run Coordinator holds no user data | capture: sha256:2a5a807522ca0276ee62533872ec5d0477e408a33fa8af5047208289fd4ec278 | quote: It does not store user data and is compatible with zero-knowledge encryption modes.
+  - [8] 2026-11-03: each storage disk runs one Cubbit storage agent | capture: sha256:830fecf46c72964b34f31dfc2755a5afdf270cf3ea82a90f20454c80364dea1e | quote: In a DS3 Swarm, each disk is managed by a dedicated Storage Agent.
+  - [8] 2026-11-03: each disk needs 1 CPU thread | capture: sha256:830fecf46c72964b34f31dfc2755a5afdf270cf3ea82a90f20454c80364dea1e | quote: 1 CPU thread
+  - [8] 2026-11-03: each disk needs 1 GB of RAM | capture: sha256:830fecf46c72964b34f31dfc2755a5afdf270cf3ea82a90f20454c80364dea1e | quote: 1 GB of RAM
+  - [9] 2026-11-03: the gateway exposes the S3-compatible API | capture: sha256:97ca36028ef7ce0806e7bb88c57f9a747551da65994c9770d23a63a5129b626a | quote: It exposes an S3-compatible API to external applications and services, enabling seamless integration with standard tools like:
+  - [9] 2026-11-03: the AWS CLI is a listed client of the gateway | capture: sha256:97ca36028ef7ce0806e7bb88c57f9a747551da65994c9770d23a63a5129b626a | quote: AWS CLI
+  - [9] 2026-11-03: the per-tenant public gateway is run by Cubbit | capture: sha256:97ca36028ef7ce0806e7bb88c57f9a747551da65994c9770d23a63a5129b626a | quote: Managed by Cubbit
+  - [9] 2026-11-03: a private gateway runs in the user's infrastructure | capture: sha256:97ca36028ef7ce0806e7bb88c57f9a747551da65994c9770d23a63a5129b626a | quote: Fully self-hosted in your infrastructure
+  - [9] 2026-11-03: egress through the Cubbit-run public gateway is free for now and may change | capture: sha256:97ca36028ef7ce0806e7bb88c57f9a747551da65994c9770d23a63a5129b626a | quote: Please note: Although egress bandwidth from each Cubbit Public DS3 Gateway is currently free of charge, this policy may change in the near future.
+  - [10] 2026-11-03: a private gateway needs a Kubernetes cluster | capture: sha256:69da181afd3e251595808e2528104847be6b6a407a647253a261acf8ef197997 | quote: Kubernetes cluster A conformant cluster (on-prem, cloud, or edge).
+  - [11] 2026-11-03: Composer is licensed on raw capacity | capture: sha256:f57121958cd75af64c869733a2a1e0f37f437eef630582e113766914cab676e4 | quote: We use raw capacity as the basis for licensing DS3 Composer to keep pricing simple and predictable.
+  - [11] 2026-11-03: the licence counts total installed storage | capture: sha256:f57121958cd75af64c869733a2a1e0f37f437eef630582e113766914cab676e4 | quote: You’re charged based on the total installed storage, regardless of how it’s configured or used.
+  - [11] 2026-11-03: licence expiry and grace terms are in the customer contract | capture: sha256:f57121958cd75af64c869733a2a1e0f37f437eef630582e113766914cab676e4 | quote: Please refer to your contract for details on renewal, grace periods, etc.
+  - [12] 2026-11-03: a Swarm starts from three servers | capture: sha256:c63c12400b717886532eebee8a223ceeca610728c0da4d39c7f940ef5113770e | quote: Spin up a minimum of three bare metal cloud servers and start configuring a go-distributed cloud storage infrastructure through a user friendly Web UI in a few minutes.
+  - [12] 2026-11-03: the marketplace listing labels the free tier a free trial and states no duration | capture: sha256:c63c12400b717886532eebee8a223ceeca610728c0da4d39c7f940ef5113770e | quote: Free trial
+  - [13] 2026-11-03: a trade report gives three nodes as the minimum deployment | capture: sha256:b24bfdce29c055b51ed1808f3ee4347c806f42afd733c4f073385bf3441a9ce8 | quote: Minimum node deployment is three, which allows for data to be sharded for resilience and security.
+  - [2] 2026-11-03: the DS3 multipart-upload page lists a 5 TiB object maximum for Cubbit's S3 gateway | capture: sha256:36b10d0b0e05b3126dd178059003c4f57bcfdf2c4c707a7ced85a4f254c3d3d9 | quote: Maximum object size5 TiB
+- sources:
+  - [1] https://www.cubbit.io/pricing
+  - [2] https://docs.cubbit.io/guides/multipart-upload
+  - [3] https://www.cubbit.io/ds3-composer-trial
+  - [4] https://www.cubbit.io/lp/ai
+  - [5] https://docs.cubbit.io/composer/getting-started/how-to-signup-to-ds3-composer
+  - [6] https://docs.cubbit.io/composer/getting-started/what-is-ds3-composer
+  - [7] https://docs.cubbit.io/composer/coordinator/what-is-the-coordinator
+  - [8] https://docs.cubbit.io/composer/swarms/hardware
+  - [9] https://docs.cubbit.io/composer/gateway/what-is-a-ds3-gateway
+  - [10] https://docs.cubbit.io/composer/gateway/how-to-install
+  - [11] https://help.cubbit.io/pricing-faqs
+  - [12] https://www.scaleway.com/en/marketplace/catalog/cubbit/
+  - [13] https://www.computerweekly.com/news/366560314/Cubbit-DS3-Composer-brings-DIY-cloud-to-object-storage-pool
+
+## Air Cluster — commercial product that advertises combining several accounts (incl. accounts from the same provider)
+
+- `storage/air-cluster-commercial-product-that-advertises-multi-acc` | self-hosted, last resort | verdict fails-egress | evidence reported | binding none | category provider-advertising-stacking
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.aircluster.org/en/clouds/ | page https://fshy.ajam.dev/p/aircluster.md
+- free tier: 'Air Cluster allows you to add several accounts from the same server (e.g., three different OneDrive accounts) and combine their capacity into one single cluster.' | unit: mixed | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Client-side; files are read from each provider directly. Optional client-side encryption. | metered: no
+- identity: email
+- interface: rclone
+- limits note: Windows graphical interface only without public programmatic API access. Documentation does not specify whether large files are striped across accounts or distributed at the whole-file level.
+- interface detail: wrapper-only
+- tooling: Windows desktop app (AirCluster-Installer.exe). No API, no Linux, no rclone backend.
+- composes with: N accounts, including N accounts of the same provider, presented as one large-capacity 'cluster'. This is the clearest commercial statement of the hypothesis: 'Unlike standard file managers, Air Cluster allows you to create a "Cluster", which combines the storage space of all your cloud accounts. This lets you manage the total space as if it were a single, large-capacity hard drive.'
+- reliability: Closed-source commercial; cannot audit placement or repair behaviour.
+- notes: the same as the free tier
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 'Air Cluster allows you to add several accounts from the same server (e.g., three different OneDrive accounts) and combine their capacity into one single cluster.'
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Can I use multiple accounts from the same provider? Yes... combine their capacity into one single cluster'; 'manage the total space as if it were a single, large-capacity hard drive' — the vendor's own copy, quoted verbatim; it describes several accounts combined into one pool
+- sources:
+  - [1] https://www.aircluster.org/en/clouds/
+
+## Mattermost Team Edition / Entry (self-hosted)
+
+- `storage/mattermost-team-edition-entry` | self-hosted, last resort | verdict fails-egress | evidence reported | binding per-object-cap | category messaging
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://docs.mattermost.com/product-overview/editions-and-offerings | page https://fshy.ajam.dev/p/mattermost.md
+- free tier: No storage quota at all in self-hosted Mattermost, free or paid. Only the per-file ceiling is configurable: default 100 MB (`MaxFileSize = 104857600` bytes), settable to anything. | unit: MB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: per-file ceiling is configurable: default 100 MB | bytes: 100000000 | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Your server. Free of platform metering; you pay the host. | metered: no
+- identity: email
+- interface: rest
+- limits:
+  - per-object-cap (binding): per-file ceiling is configurable: default 100 MB [1]
+- limits note: 100 MB per attachment default (configurable), 10 attachments per post, 16,383-char messages. Entry caps message history at 10,000 channel messages across all channels and 1,000 Board cards.
+- interface detail: rest
+- tooling: Mattermost REST API v4 `POST /api/v4/files` (multipart, up to 10 files per post) returning file IDs. Team Edition is MIT-licensed; Entry is the free mode of Enterprise Edition.
+- composes with: N self-hosted deployments; 10,000 teams per deployment; users per team 'no enforced limit'. Storage is whatever disk you mount. Including an S3/MinIO backend via FileSettings.
+- reliability: Zero platform risk. Nothing can delete your files. The failure mode is operational: attachments live on the app server's local disk unless you configure S3, and the docs warn that raising MaxFileSize risks server crashes on large uploads.
+- notes: the same as the free tier
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: No storage quota at all in self-hosted Mattermost, free or paid. Only the per-file ceiling is configurable: default 100 MB (`MaxFileSize = 104857600` bytes), settable to anything.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [2] 2026-10-21: 'Attachment file size | 100 MB | Configurable'; 'Attachments per message ... 10'; 'Teams per deployment 10,000'; 'Users per team No enforced limit'
+  - [1] 2026-10-21: 'The maximum file size for message attachments and plugin uploads... The default is 104857600 bytes (100 mebibytes)'
+  - [3] 2026-10-21: 'Team Edition is a free-to-use, open source, self-hosted collaboration platform... MIT'
+- sources:
+  - [1] https://docs.mattermost.com/configure/environment-configuration-settings.html
+  - [2] https://docs.mattermost.com/administration-guide/manage/product-limits
+  - [3] https://docs.mattermost.com/product-overview/editions-and-offerings
+
+## Proxyware earn-app tier as a purchasable egress path (Honeygain, EarnApp, Pawns.app, Traffmonetizer, Repocket, Grass)
+
+- `storage/proxyware-earn-app-tier-as-a-purchasable-egress-path` | self-hosted, last resort | verdict fails-egress | evidence reported | binding none | category contributed bandwidth - the supply side of the market
+- needs card no, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://proxypicker.com/what-your-wifi-is-worth/ | page https://fshy.ajam.dev/p/proxypicker.md
+- free tier: these pay you; they do not sell to you. Honeygain 10 GB = $1 ($0.10/GB); PacketStream $0.10/GB; EarnApp moved to hourly pay on 20 Aug 2025, ceiling $10/IP/month in the US and $5 elsewhere; Pawns.app, Repocket and Traffmonetizer publish no rate; Grass pays in points with no dollar rate | unit: GB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: N/A - no HTTP egress endpoint is sold to consumers by any of them | metered: no
+- identity: email | detail: email
+- interface: unknown
+- limits note: Residential bandwidth sharing applications do not expose HTTP proxy egress endpoints directly. Software clients sell device bandwidth wholesale to residential proxy aggregators (such as Bright Data, IPRoyal, and PacketStream). Contributors receive fixed cash payouts per gigabyte rather than reciprocal routing credits.
+- interface detail: none exposed to a buyer at consumer tier
+- tooling: part of interface detail
+- composes with: none - but this tier is the source of the bytes that PacketStream/Proxyrack resell, which is why their retail floor is $1/GB
+- reliability: Per-IP caps and per-IP demand make earnings non-scalable; Honeygain's own example needs three separate networks to reach $5-6.67/month; Emerging Threats now ships 'ADWARE_PUP: Bandwidth Sharing Tool' rules for 5 of these 8 domains, so IDS-equipped networks flag them.
+- notes: the same as the free tier
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: these pay you; they do not sell to you. Honeygain 10 GB = $1 ($0.10/GB); PacketStream $0.10/GB; EarnApp moved to hourly pay on 20 Aug 2025, ceiling $10/IP/month in the US and $5 elsewhere; Pawns.app, Repocket and Traffmonetizer publish no rate; Grass pays in points with no dollar rate
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Only 2 of the 8 apps publish what they pay per gigabyte, and both pay $0.10'; 'A gigabyte that earns you $0.10 sells for a median $4.50, a 45x markup'; 'EarnApp ... pays at most $10 a month per US IP address ... Outside the US the ceiling is $5'; 'Pawns.app, Repocket and Traffmonetizer don't publish a rate, and Grass pays in points'
+  - [2] 2026-10-21: 'Network-contribution programs like Grass reward uptime consistency instead: no per-GB meter, no per-minute tally'; per-unit apps 'typically between 20 cents and $1 per gigabyte'
+  - [3] 2026-10-21: '$2 starting gift'; rates not restated on the homepage
+  - [1] 2026-10-21: Emerging Threats rules table: PacketStream, EarnApp, Pawns.app, Traffmonetizer, Repocket, Grass each get 2 rules in category ADWARE_PUP added 11 Feb 2026
+- sources:
+  - [1] https://proxypicker.com/what-your-wifi-is-worth/
+  - [2] https://www.grass.io/learn/how-can-you-get-rewarded-for-the-internet-you-don-t-use/
+  - [3] https://honeygain.com/
+
+## Rocket.Chat self-hosted (Community / Starter)
+
+- `storage/rocket-chat-self-hosted` | self-hosted, last resort | verdict fails-egress | evidence reported | binding none | category messaging
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://docs.rocket.chat/docs/our-plans | page https://fshy.ajam.dev/p/rocket.md
+- free tier: No storage quota. Per-file ceiling is a single setting: 'Maximum File Upload Size (in bytes) ... Use -1 to remove the limit.' | unit: mixed | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Your own infrastructure. Cloud-hosted workspaces have a storage limit visible in the admin panel, but self-managed does not. | metered: no
+- identity: email
+- interface: s3, rest, webdav
+- limits note: Starter: up to 50 users, self-managed. Community: up to 100 concurrent users, self-hosted only, 10,000 push notifications/month. Per-file limit unlimited if set to -1.
+- interface detail: rest
+- tooling: Rocket.Chat REST API `POST /api/v1/rooms.media/{rid}` + `rooms.mediaConfirm`. Storage backends: GridFS (MongoDB, default), AmazonS3/MinIO, Google Cloud Storage, WebDAV, FileSystem. The WebDAV and S3 backends make it pluggable into anything.
+- composes with: N workspaces x unlimited rooms. The WebDAV backend is the interesting bit: it turns Rocket.Chat into a front-end over any WebDAV store, so it chains rather than multiplies.
+- reliability: Solid; the default GridFS backend stores blobs inside MongoDB, which is a poor choice at TB scale (the docs themselves recommend S3/MinIO). Files can be JWT-protected or public per workspace setting.
+- notes: the same as the free tier
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: No storage quota. Per-file ceiling is a single setting: 'Maximum File Upload Size (in bytes) ... Use -1 to remove the limit.'
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Maximum File Upload Size (in bytes) ... Use -1 to remove the limit.'
+  - [1] 2026-10-21: 'Storage Type ... GridFS ... AmazonS3 ... Google Cloud Storage ... WebDAV ... FileSystem. We recommend Amazon S3, Minio, or Google Cloud Storage.'
+  - [2] 2026-10-21: 'Starter | Up to 50 users | Self-managed and self-hosted'; 'Community | Up to 100 concurrent users | Self-hosted only'
+- sources:
+  - [1] https://docs.rocket.chat/docs/file-upload
+  - [2] https://docs.rocket.chat/docs/our-plans
+
+## Self-hosted Kubo/Rainbow gateway (own VPS)
+
+- `storage/self-hosted-kubo-rainbow-gateway` | self-hosted, last resort | verdict fails-egress | evidence reported | binding per-ip-shaping | category p2p
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://docs.ipfs.tech/how-to/replace-public-gateways-with-self-hosted-ipfs/ | page https://fshy.ajam.dev/p/ipfs.md
+- free tier: Storage and egress are whatever your VPS/host allows. No provider quota exists. The cost moves to the host's bandwidth allowance. | unit: mixed | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Host bandwidth is paid directly to the server provider. IPFS documentation recommends fronting gateways with caching CDNs using standard Cache-Control, ETag, and X-Ipfs-Roots headers to minimize origin bandwidth consumption. | metered: no
+- identity: email
+- interface: rest, webdav, rclone
+- limits:
+  - per-ip-shaping (binding): 1 TiB/day [1]
+- limits note: Bandwidth of the VPS; DHT lookup latency on cold CIDs; no excess-use protection by default ('Unlike ipfs.io, a self-hosted gateway has no abuse protection by default').
+- binding note: one stream is shaped, and aggregate throughput is the shaped rate times the number of streams
+- interface detail: rest
+- tooling: Kubo (go-ipfs), Rainbow (github.com/ipfs/rainbow), Someguy for delegated routing, Helia in-browser; rclone can talk to the Kubo RPC API via a webdav/MFS shim but there is no first-class rclone backend.
+- composes with: Does not multiply free storage. It only re-serves content you already paid to pin. Combined with a free pinning service it can turn 5 GB of free pinning into unmetered-looking reads, but only for 5 GB of content.
+- reliability: This is the honest answer to 'does self-hosting change the economics?': it changes who meters you, not whether you are metered. It just moves the bill to the VPS or CDN.
+- notes: the same as the free tier
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: Storage and egress are whatever your VPS/host allows. No provider quota exists — the cost moves to the host's bandwidth allowance.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Put a CDN like Cloudflare in front of the IPFS gateway'; 'a self-hosted gateway has no abuse protection by default' (the vendor means it applies no excess-use protection)
+  - [2] 2026-10-21: 'Ensure that you are correctly returning HTTP cache headers... Consider leveraging the list of CIDs in X-Ipfs-Roots'
+- sources:
+  - [1] https://docs.ipfs.tech/how-to/replace-public-gateways-with-self-hosted-ipfs/
+  - [2] https://docs.ipfs.tech/how-to/gateway-best-practices/
+
+## Self-hosted Synapse media repository
+
+- `storage/self-hosted-synapse-media-repository` | self-hosted, last resort | verdict fails-egress | evidence reported | binding none | category messaging
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://matrix-org.github.io/synapse/latest/usage/configuration/config_documentation.html | page https://fshy.ajam.dev/p/matrix-org-github-io.md
+- free tier: Unbounded. `max_upload_size` defaults to 50M and can be set to any value; storage and media retention are entirely operator-controlled. | unit: mixed | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Bandwidth depends on host server allocation. Fronting endpoints with caching CDNs allows media caching to reduce origin egress traffic. | metered: no
+- identity: institution
+- interface: s3, rest, webdav, rclone
+- limits note: `max_upload_size` default 50M; reverse proxy must be raised too (nginx default body size bites first). `media_retention.local_media_lifetime` / `remote_media_lifetime` can silently delete anything not accessed within the window.
+- interface detail: rest
+- tooling: Synapse (Python) or Dendrite/Conduit; standard Matrix media API so rclone's `s3`/`webdav`-adjacent tooling plus any Matrix SDK works. Admin media API allows listing and purging media per user/room.
+- composes with: Not a free provider. The multiplier angle is that media is content-addressed and deduplicated by Synapse, and federation lets you push copies to other homeservers as a second replica.
+- reliability: Default installs are safe; the risk is operator misconfiguration. Enabling media_retention turns the repo into a TTL cache. Federation media cache is the first thing purged.
+- notes: the same as the free tier
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: retention
+  - dead_end.why: Unbounded — `max_upload_size` defaults to 50M and can be set to any value; storage and media retention are entirely operator-controlled.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'max_upload_size — The largest allowed upload size in bytes... Defaults to 50M.'
+  - [1] 2026-10-21: 'media_retention ... control whether media will be purged if it has not been accessed in a given amount of time'
+- sources:
+  - [1] https://matrix-org.github.io/synapse/latest/usage/configuration/config_documentation.html
+
+## Stoat / Revolt — self-hosted instance
+
+- `storage/stoat-revolt-self-hosted-instance` | self-hosted, last resort | verdict fails-egress | evidence reported | binding none | category messaging
+- identity a placeholder: card and phone unknown | verified 2026-10-22, checked 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://github.com/stoatchat/self-hosted | page https://fshy.ajam.dev/p/github-stoatchat.md
+- free tier: No platform cap at all: `body_limit_size` and `[files.limit]` live in Revolt.toml and are yours to set. Storage is whatever disk/MinIO you attach to Autumn. | unit: mixed | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Whatever your own host costs. Not free, so this is self-hosting rather than a free tier. Only interesting if a box with unmetered bandwidth is already available. | metered: no
+- identity: email
+- interface: s3, rest
+- limits note: `body_limit_size = 20_000_000` is the shipped default (must exceed any per-file limit); `max_size = 20000000` in Autumn.toml is the per-file cap. Multiple users report editing Autumn.toml alone does not raise the limit. Body_limit_size in Revolt.toml must move too.
+- interface detail: rest
+- tooling: Docker Compose stack (stoatchat/self-hosted), Autumn file service with S3/MinIO backend, full Revolt/Stoat API so all existing clients and bots work unchanged.
+- composes with: N/A. The multiplier is disk, not accounts. It is a reference architecture rather than a free provider.
+- reliability: Self-hosted means the data is yours, but the project has had repeated breaking migrations (Autumn refactor 2024-09-30, breaking changes 2024-11-28) that require manual DB work.
+- notes: the same as the free tier
+- evidence note: Re-read 2026-10-22: the page answers and the claim holds; the rung is unchanged because the read establishes the page, not the enforcement.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: No platform cap at all: `body_limit_size` and `[files.limit]` live in Revolt.toml and are yours to set. Storage is whatever disk/MinIO you attach to Autumn.
+  - dead_end.first_recorded: 2026-10-21
+  - superseded_evidence[0].url: https://github.com/stoatchat/self-hosted
+  - superseded_evidence[0].date: 2024-09-30
+  - superseded_evidence[0].proved: README — notes on the 2024-09-30 Autumn refactor requiring manual migration
+  - superseded_evidence_note: Rows that are older than the topic's 180-day evidence window. They are kept as the historically read statement and are not evidence for the current claim; the current claim rests on the 2026-10-22 re-read in evidence[]. Nothing was deleted.
+- evidence:
+  - [2] 2026-10-21: 'body_limit_size = 20_000_000 / Maximum permissible body size in bytes for uploads / (should be greater than any one file upload limit)'
+  - [3] 2026-10-21: 'Editing line 10 [max_size = 20000000] in Autumn.toml ... does not change the file upload limits'
+  - [1] 2026-10-22: re-read 2026-10-22 (HTTP 200, 14,637 B): the repository is live and still documents the Autumn refactor and its migration notice
+- sources:
+  - [1] https://github.com/stoatchat/self-hosted
+  - [2] https://read.../github.com/stoatchat/stoatchat/blob/main/crates/core/config/Revolt.toml
+  - [3] https://github.com/revoltchat/self-hosted/issues/53
+
+## veilid for bulk data
+
+- `storage/veilid-for-bulk-data` | self-hosted, last resort | verdict fails-egress | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://gitlab.com/veilid/veilid/-/issues/404 | page https://fshy.ajam.dev/p/gitlab-veilid.md
+- free tier: none reachable: No congestion control and no relay throttling implemented; relay bandwidth management is an open to-do. Mobile-first design assumes 'limited storage and bandwidth' at every node. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: No congestion control and no relay throttling implemented; relay bandwidth management is an open to-do. Mobile-first design assumes 'limited storage and bandwidth' at every node.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: No congestion control and no relay throttling implemented; relay bandwidth management is an open to-do. Mobile-first design assumes 'limited storage and bandwidth' at every node.
+  - [2] 2026-10-21: cited as the basis of the rejection: No congestion control and no relay throttling implemented; relay bandwidth management is an open to-do. Mobile-first design assumes 'limited storage and bandwidth' at every node.
+- sources:
+  - [1] https://gitlab.com/veilid/veilid/-/issues/404
+  - [2] https://gitlab.com/groups/veilid/-/work_items/3
+
+## bittorrent / webtorrent seeding
+
+- `storage/bittorrent-webtorrent-seeding` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://webtorrent.io/ | page https://fshy.ajam.dev/p/webtorrent.md
+- free tier: none reachable: Same structural failure as Hypercore: no host, no quota, no persistence guarantee. WebTorrent needs an active seeder (you) and browser peers; a torrent with no seeder is a 0-byte download.… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Same structural failure as Hypercore: no host, no quota, no persistence guarantee. WebTorrent needs an active seeder (you) and browser peers; a torrent with no seeder is a 0-byte download.…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Same structural failure as Hypercore: no host, no quota, no persistence guarantee. WebTorrent needs an active seeder (you) and browser peers; a torrent with no seeder is a 0-byte download.…
+- sources:
+  - [1] https://webtorrent.io/
+
+## btfs (bittorrent file system)
+
+- `storage/btfs` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://medium.com/@BitTorrent/btfs-releases-new-staking-rules-87fb573dc4ee | page https://fshy.ajam.dev/p/medium-bittorrent.md
+- free tier: none reachable: It is a host-side staking scheme, not a consumer storage tier: hosts must stake in 500,000 BTT units, redeem only after 90 days, and are penalised 10,000 BTT per failed validation. Docs… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: It is a host-side staking scheme, not a consumer storage tier: hosts must stake in 500,000 BTT units, redeem only after 90 days, and are penalised 10,000 BTT per failed validation. Docs…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: It is a host-side staking scheme, not a consumer storage tier: hosts must stake in 500,000 BTT units, redeem only after 90 days, and are penalised 10,000 BTT per failed validation. Docs…
+  - [2] 2026-10-21: cited as the basis of the rejection: It is a host-side staking scheme, not a consumer storage tier: hosts must stake in 500,000 BTT units, redeem only after 90 days, and are penalised 10,000 BTT per failed validation. Docs host
+- sources:
+  - [1] https://medium.com/@BitTorrent/btfs-releases-new-staking-rules-87fb573dc4ee
+  - [2] https://docs.btfs.io/docs/btfs-overview
+
+## clouder (oleksandrshabaldas/clouder) and the drive-pooling family
+
+- `storage/clouder-and-the-drive-pooling-family` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://github.com/OleksandrShabaldas/Clouder | page https://fshy.ajam.dev/p/github-oleksandrshabaldas.md
+- free tier: None reachable: A clean, well-tested Windows app ('107 tests') that pools 'Google Drive and MEGA today' into one 45 GB folder. Names only already-researched providers and adds no new tier. The multiplier i. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: A clean, well-tested Windows app ('107 tests') that pools 'Google Drive and MEGA today' into one 45 GB folder. Names only already-researched providers and adds no new tier — the multiplier…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: A clean, well-tested Windows app ('107 tests') that pools 'Google Drive and MEGA today' into one 45 GB folder. Names only already-researched providers and adds no new tier — the multiplier…
+- sources:
+  - [1] https://github.com/OleksandrShabaldas/Clouder
+
+## disk-o (disk-o.cloud)
+
+- `storage/disk-o` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://disk-o.cloud/ | page https://fshy.ajam.dev/p/disk-o.md
+- free tier: None reachable: Not a storage provider. A desktop aggregator client that mounts other clouds (its own copy: 'Переносите файлы из любых подключенных хранилищ в Облако Mail.ru'). It contributes zero bytes. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Not a storage provider — a desktop aggregator client that mounts other clouds (its own copy: 'Переносите файлы из любых подключенных хранилищ в Облако Mail.ru'). It contributes zero bytes.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Not a storage provider — a desktop aggregator client that mounts other clouds (its own copy: 'Переносите файлы из любых подключенных хранилищ в Облако Mail.ru'). It contributes zero bytes.
+- sources:
+  - [1] https://disk-o.cloud/
+
+## dumbpipe / pigeons / iroh-ssh (as storage)
+
+- `storage/dumbpipe-pigeons-iroh-ssh` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://github.com/n0-computer/pigeons | page https://fshy.ajam.dev/p/github-n0-computer.md
+- free tier: None reachable: Tunnel products, not stores. dumbpipe's own tagline is 'Unix pipes between devices'; pigeons is SSH-over-iroh; iroh-ssh is 'SSH to any machine without ip'. They pass bytes and keep none. Us. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Tunnel products, not stores. dumbpipe's own tagline is 'Unix pipes between devices'; pigeons is SSH-over-iroh; iroh-ssh is 'SSH to any machine without ip'. They pass bytes and keep none…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Tunnel products, not stores. dumbpipe's own tagline is 'Unix pipes between devices'; pigeons is SSH-over-iroh; iroh-ssh is 'SSH to any machine without ip'. They pass bytes and keep none…
+  - [2] 2026-10-21: cited as the basis of the rejection: Tunnel products, not stores. dumbpipe's own tagline is 'Unix pipes between devices'; pigeons is SSH-over-iroh; iroh-ssh is 'SSH to any machine without ip'. They pass bytes and keep none — us
+- sources:
+  - [1] https://github.com/n0-computer/pigeons
+  - [2] https://github.com/n0-computer/dumbpipe
+
+## earnapp (bright data)
+
+- `storage/earnapp` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://proxypicker.com/what-your-wifi-is-worth/ | page https://fshy.ajam.dev/p/proxypicker.md
+- free tier: none reachable: Dropped per-GB pay on 20 Aug 2025 and now pays per hour of active use, capped at $10/month per US IP and $5 elsewhere - a hard ceiling that makes it useless as a scale path in either… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Dropped per-GB pay on 20 Aug 2025 and now pays per hour of active use, capped at $10/month per US IP and $5 elsewhere - a hard ceiling that makes it useless as a scale path in either…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Dropped per-GB pay on 20 Aug 2025 and now pays per hour of active use, capped at $10/month per US IP and $5 elsewhere - a hard ceiling that makes it useless as a scale path in either…
+- sources:
+  - [1] https://proxypicker.com/what-your-wifi-is-worth/
+
+## earthstar
+
+- `storage/earthstar` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://earthstar-project.org/ | page https://fshy.ajam.dev/p/earthstar-project.md
+- free tier: None reachable: A specification plus JS library for local-first apps; explicitly self-hosted and serverless. 'Always self-hosted. Servers optional.' There is no provider, so no free quota to obtain. It is. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: A specification plus JS library for local-first apps; explicitly self-hosted and serverless. 'Always self-hosted. Servers optional.' There is no provider, so no free quota to obtain — it is
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: A specification plus JS library for local-first apps; explicitly self-hosted and serverless. 'Always self-hosted. Servers optional.' There is no provider, so no free quota to obtain — it is
+- sources:
+  - [1] https://earthstar-project.org/
+
+## ExaVault (Files.com) — free self-hosted appliance
+
+- `storage/exavault-free-self-hosted-appliance` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-11-04T01:24:13.492Z (live) | stale on 2026-11-19
+- url https://www.exavault.com/pricing | page https://fshy.ajam.dev/p/exavault.md
+- free tier: ExaVault Cloud, the hosted product, was sunset. The on-premise appliance is still maintained and is free for up to 50 users with no expiry and no throttling. Capacity is the disk the user attaches to a machine they run; there is no hosted storage. | unit: unlimited | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: N/A. Egress is your own VM's bandwidth. Note: 'Encryption at rest comes from your VM environment'. | metered: no
+- identity: card | detail: unverified: how the free image and its license key are obtained was not seen; a valid license key file is required for free and paid installations
+- interface: rest, webdav, sftp, ftp
+- limits note: per-object-cap none imposed by the software; retention none; the binding constraints become your VM's disk and network. Paid tier adds SSO/2FA/syslog and >50 users ($99/mo per 50-user pack).
+- interface detail: sftp / ftp / webdav / rest (web manager, share links)
+- tooling: the user installs and runs the appliance image (VMware OVA, AWS Marketplace or GCP Marketplace image) on a rented or free machine; 4 CPU / 12 GB RAM / 100 GB primary disk plus a sized data drive; every installation needs outbound HTTPS to a license service and one source IP address
+- composes with: Unlimited free 'accounts' (appliance deployments) x whatever disk you attach. This is not free storage. It is free software for storage you already pay for. Worth recording because the category's free tier has structurally migrated here: the vendor monetises seats and support, not bytes.
+- reliability: Free tier is 'never feature-degraded and never throttled' but ships no support channel and manual updates only.
+- notes: The hosted product is gone. What is free is the appliance: unlimited capacity on your own disk, licensed for up to 50 users, no expiry, no throttling. There is no free hosted storage at all.
+- evidence note: Re-read on 2026-11-04: https://www.exavault.com/ (hosted cloud sunset, appliance maintained), https://www.exavault.com/pricing (free up to 50 users, no expiry), https://docs.exavault.com/administration/license-keys.md (license key file required) and https://docs.exavault.com/ (the user operates the deployment). How the free image and its license key are obtained was not seen, so confidence stays at reported.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: The hosted product is gone. What is free is the appliance: unlimited capacity on your own disk, licensed for up to 50 users, no expiry, no throttling. There is no free hosted storage at all.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'The ExaVault on-prem appliance is free for deployments up to 50 users', 'The Free tier never expires, is never feature-degraded, and is never throttled', 'Because the appliance runs in your environment, the compliance posture ... is your scope'
+  - [2] 2026-10-21: 'Free SFTP & FTP Server · ExaVault by Files.com'
+  - [2] 2026-11-03: the hosted ExaVault Cloud product was sunset | capture: sha256:f2f6d0583966d191ca978031aa3aa6f3371566f088b85529b1043846fd7ec21f | quote: ExaVault Cloud was sunset and its mission carried forward by Files.com
+  - [1] 2026-11-03: system requirements of the appliance | capture: sha256:f503077f3967da0aabdf62f28738a1a5a8baadfd45c99c51efffcfd12df21eb2 | quote: System requirements: 64-bit Intel, 4 CPU / 12 GB RAM / 100 GB primary disk plus a sized data drive.
+  - [3] 2026-11-03: free installations need a license key file | capture: sha256:86ea836739fb85235a580e7730d2845085547af50cf22148d396b98af468da68 | quote: a valid license key file is required for both free and paid usage.
+  - [1] 2026-11-03: the free appliance has no expiry or throttle and is licensed for up to 50 users | capture: sha256:f503077f3967da0aabdf62f28738a1a5a8baadfd45c99c51efffcfd12df21eb2 | quote: No. The Free tier never expires, is never feature-degraded, and is never throttled — it is the full appliance, licensed for up to 50 users, and you can run it in production as long as you like.
+  - [2] 2026-11-03: the on-premise appliance is still maintained | capture: sha256:f2f6d0583966d191ca978031aa3aa6f3371566f088b85529b1043846fd7ec21f | quote: The on-premise appliance is still maintained by Files.com for self-hosted shops
+  - [1] 2026-11-03: image formats | capture: sha256:f503077f3967da0aabdf62f28738a1a5a8baadfd45c99c51efffcfd12df21eb2 | quote: The appliance ships as a VMware OVA, an AWS Marketplace image, and a GCP Marketplace image.
+  - [4] 2026-11-03: the user deploys and operates the appliance and its storage | capture: sha256:ec5cde714776d3f9fbc909e45c6b03250d66bac5485f237144fc4cf7fd5c211e | quote: You deploy ExaVault in your cloud account or virtual-machine environment and operate the compute, storage, network, firewall, backups, and availability of that deployment.
+  - [3] 2026-11-03: one source IP address per installation | capture: sha256:86ea836739fb85235a580e7730d2845085547af50cf22148d396b98af468da68 | quote: each ExaVault installation must be associated with a single IP address at any given time.
+  - [1] 2026-11-04: the free appliance has no expiry or throttle and is licensed for up to 50 users | capture: sha256:f503077f3967da0aabdf62f28738a1a5a8baadfd45c99c51efffcfd12df21eb2 | quote: No. The Free tier never expires, is never feature-degraded, and is never throttled — it is the full appliance, licensed for up to 50 users, and you can run it in production as long as you like.
+- sources:
+  - [1] https://www.exavault.com/pricing
+  - [2] https://www.exavault.com/
+  - [3] https://docs.exavault.com/administration/license-keys.md
+  - [4] https://docs.exavault.com/
+
+## freifunk (as a storage provider)
+
+- `storage/freifunk` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-03T15:04:31.557Z (live) | stale on 2026-11-18
+- url https://freifunk.net/en/ | page https://fshy.ajam.dev/p/freifunk.md
+- free tier: No storage allowance is published on the pages read: the initiative is a set of community wireless networks in which participants provide routers for data transfer, not a storage service | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- binding note: no storage allowance exists to measure: the offering is network access between participants, not capacity
+- interface detail: not documented
+- tooling: no hosted storage offer; the user installs and runs the Freifunk firmware (a Linux distribution) on a WLAN router
+- composes with: not recorded
+- reliability: Non-commercial community wireless networks; services on them are set up by individual participants, so no central capacity or quota exists to measure
+- notes: the same as reliability
+- evidence note: the 2026-11-03 read covered https://freifunk.net/en/what-is-it-about/, which describes a non-commercial wireless network initiative and no storage service; the absence of a storage offer is read from that page and is not a stated vendor claim
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: A federated set of German community WiFi projects whose stated purpose is free communication and open routers. No storage service, no quota, no API - the contribution model is 'make your…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: A federated set of German community WiFi projects whose stated purpose is free communication and open routers. No storage service, no quota, no API - the contribution model is 'make your…
+  - [2] 2026-11-03: the offering is network transfer between participants, with no storage service described | capture: sha256:913b07ea87e768f49a07a105639bbaf70c6ecd31f7c72ec0f5865d73806c819d | quote: Every user in the free wireless network provides his or her wireless LAN router for data transfer to other participants.
+  - [2] 2026-11-03: the initiative is a wireless networking project | capture: sha256:913b07ea87e768f49a07a105639bbaf70c6ecd31f7c72ec0f5865d73806c819d | quote: freifunk is a non-commercial initiative for free wireless networks.
+  - [2] 2026-11-03: participation is by running Freifunk firmware on a router | capture: sha256:913b07ea87e768f49a07a105639bbaf70c6ecd31f7c72ec0f5865d73806c819d | quote: We use our own freifunk firmware a special Linux distribution, on our WLAN routers.
+  - [2] 2026-11-03: the offering is network transfer between participants | capture: sha256:913b07ea87e768f49a07a105639bbaf70c6ecd31f7c72ec0f5865d73806c819d | quote: Every user in the free wireless network provides his or her wireless LAN router for data transfer to other participants.
+- sources:
+  - [1] https://freifunk.net/en/
+  - [2] https://freifunk.net/en/what-is-it-about/
+
+## git-annex bup / ddar special remotes
+
+- `storage/git-annex-bup-ddar-special-remotes` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://git-annex.branchable.com/special_remotes/bup/ | page https://fshy.ajam.dev/p/branchable.md
+- free tier: none reachable: Both dedupe into a repository you must host yourself and both need full shell access (bup: 'git-annex-shell does not support bup ... you need full shell access to the server'). No hosted… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Both dedupe into a repository you must host yourself and both need full shell access (bup: 'git-annex-shell does not support bup ... you need full shell access to the server'). No hosted…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Both dedupe into a repository you must host yourself and both need full shell access (bup: 'git-annex-shell does not support bup ... you need full shell access to the server'). No hosted…
+  - [2] 2026-10-21: cited as the basis of the rejection: Both dedupe into a repository you must host yourself and both need full shell access (bup: 'git-annex-shell does not support bup ... you need full shell access to the server'). No hosted fre
+- sources:
+  - [1] https://git-annex.branchable.com/special_remotes/bup/
+  - [2] https://git-annex.branchable.com/special_remotes/ddar/
+
+## gnunet fs as a storage provider
+
+- `storage/gnunet-fs-as-a-storage-provider` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://docs.gnunet.org/master/users/configuration.html | page https://fshy.ajam.dev/p/gnunet.md
+- free tier: None reachable: Files are addressed by hash onto a DHT with no hosting guarantee. Retrievability requires live peers holding the blocks, and the local QUOTA setting governs only your own datastore. docs.gn. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Files are addressed by hash onto a DHT with no hosting guarantee — retrievability requires live peers holding the blocks, and the local QUOTA setting governs only your own datastore.…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Files are addressed by hash onto a DHT with no hosting guarantee — retrievability requires live peers holding the blocks, and the local QUOTA setting governs only your own datastore.…
+  - [2] 2026-10-21: cited as the basis of the rejection: Files are addressed by hash onto a DHT with no hosting guarantee — retrievability requires live peers holding the blocks, and the local QUOTA setting governs only your own datastore. docs.gn
+- sources:
+  - [1] https://docs.gnunet.org/master/users/configuration.html
+  - [2] https://docs.gnunet.org/latest/users/fs.html
+
+## GoAnywhere MFT / GoDrive
+
+- `storage/goanywhere-mft-godrive` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.goanywhere.com/products/goanywhere-free/efss | page https://fshy.ajam.dev/p/goanywhere.md
+- free tier: GoDrive EFSS is 'completely free' but only as a component of on-premises GoAnywhere MFT. Capacity is your server's disk; there is no hosted free storage. | unit: mixed | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: N/A. On-premises. | metered: no
+- identity: card | detail: inferred from the category 'iaas'; the source record states no identity cost, so this is a class assumption, not evidence
+- interface: rest, webdav, sftp, ftp
+- limits note: Bounded by your hardware. No per-object or retention cap stated.
+- interface detail: sftp / ftp / webdav / rest (GoDrive web UI)
+- tooling: GoAnywhere MFT installer + GoDrive module; FileCatalyst Service as an accelerator
+- composes with: Same shape as ExaVault: free software that runs on hardware the service does not provide, so it is not an option here. 'Unlimited users' multiplies nothing that costs the vendor money, which is why the software is free. The vendor's own 'your hardware' phrasing is quoted in limits_verbatim, not repeated as advice.
+- reliability: On-prem only; the 'free' page is really a lead-gen page for the paid MFT platform.
+- notes: the same as the free tier
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: GoDrive EFSS is 'completely free' but only as a component of on-premises GoAnywhere MFT. Capacity is your server's disk; there is no hosted free storage.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'A completely free file sharing solution, GoDrive is included with GoAnywhere MFT', 'GoDrive ... is an on-premises managed file transfer sharing solution'
+- sources:
+  - [1] https://www.goanywhere.com/products/goanywhere-free/efss
+
+## grass (as a purchasable egress or storage path)
+
+- `storage/grass` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.grass.io/learn/how-your-stage-2-rewards-allocation-works/ | page https://fshy.ajam.dev/p/grass.md
+- free tier: none reachable: Pays contributors in points converted to token/USDC; publishes no per-GB rate and no consumer product to buy. Stage 2 rewards closed 8 June 2026 and the claim window shuts 22 January 2027… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Pays contributors in points converted to token/USDC; publishes no per-GB rate and no consumer product to buy. Stage 2 rewards closed 8 June 2026 and the claim window shuts 22 January 2027…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Pays contributors in points converted to token/USDC; publishes no per-GB rate and no consumer product to buy. Stage 2 rewards closed 8 June 2026 and the claim window shuts 22 January 2027…
+  - [2] 2026-10-21: cited as the basis of the rejection: Pays contributors in points converted to token/USDC; publishes no per-GB rate and no consumer product to buy. Stage 2 rewards closed 8 June 2026 and the claim window shuts 22 January 2027, s
+  - [3] 2026-10-21: cited as the basis of the rejection: Pays contributors in points converted to token/USDC; publishes no per-GB rate and no consumer product to buy. Stage 2 rewards closed 8 June 2026 and the claim window shuts 22 January 2027, s
+- sources:
+  - [1] https://www.grass.io/learn/how-your-stage-2-rewards-allocation-works/
+  - [2] https://blockvar.com/en/opportunities/grass-network-points/
+  - [3] https://proxypicker.com/what-your-wifi-is-worth/
+
+## herihericloud (againsturb/herihericloud)
+
+- `storage/herihericloud` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://github.com/AgainsTurb/HeriHeriCloud | page https://fshy.ajam.dev/p/github-againsturb.md
+- free tier: none reachable: Marketed as unlimited storage with WebDAV support. Service operates as a client wrapper over Lanzou storage. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: It adds WebDAV/MCP/OpenWRT surface to a known provider…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: It adds WebDAV/MCP/OpenWRT surface to a known provider, not
+- sources:
+  - [1] https://github.com/AgainsTurb/HeriHeriCloud
+
+## honeygain (as an egress source)
+
+- `storage/honeygain` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.honeygain.com/ | page https://fshy.ajam.dev/p/honeygain.md
+- free tier: none reachable: Supply-side only; no buyer-facing proxy endpoint. Pays $0.10/GB (10 GB = $1) with a $20 payout minimum, and its own published usage example implies 50-67 GB/month across three separate… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Supply-side only; no buyer-facing proxy endpoint. Pays $0.10/GB (10 GB = $1) with a $20 payout minimum, and its own published usage example implies 50-67 GB/month across three separate…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Supply-side only; no buyer-facing proxy endpoint. Pays $0.10/GB (10 GB = $1) with a $20 payout minimum, and its own published usage example implies 50-67 GB/month across three separate…
+  - [2] 2026-10-21: cited as the basis of the rejection: Supply-side only; no buyer-facing proxy endpoint. Pays $0.10/GB (10 GB = $1) with a $20 payout minimum, and its own published usage example implies 50-67 GB/month across three separate netwo
+- sources:
+  - [1] https://www.honeygain.com/
+  - [2] https://proxypicker.com/what-your-wifi-is-worth/
+
+## horizonpush (lupuszr/horizon)
+
+- `storage/horizonpush` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://github.com/lupuszr/horizon | page https://fshy.ajam.dev/p/github-lupuszr.md
+- free tier: none reachable: Self-described 'Experimental & Work in Progress ... Expect breaking changes, incomplete features, and evolving APIs'. It is a thin iroh-blobs front end whose cold path falls through to AWS… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Self-described 'Experimental & Work in Progress ... Expect breaking changes, incomplete features, and evolving APIs'. It is a thin iroh-blobs front end whose cold path falls through to AWS…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Self-described 'Experimental & Work in Progress ... Expect breaking changes, incomplete features, and evolving APIs'. It is a thin iroh-blobs front end whose cold path falls through to AWS…
+- sources:
+  - [1] https://github.com/lupuszr/horizon
+
+## hypercore / dat / holepunch
+
+- `storage/hypercore-dat-holepunch` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://holepunch.to/ | page https://fshy.ajam.dev/p/holepunch.md
+- free tier: none reachable: P2P replication primitives, not a host. Holepunch ships Hypercore and the Keet app; data lives on peers' disks with no pinning service, no HTTP gateway, and no quota. Serving 500 GB/day… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: P2P replication primitives, not a host. Holepunch ships Hypercore and the Keet app; data lives on peers' disks with no pinning service, no HTTP gateway, and no quota. Serving 500 GB/day…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: P2P replication primitives, not a host. Holepunch ships Hypercore and the Keet app; data lives on peers' disks with no pinning service, no HTTP gateway, and no quota. Serving 500 GB/day…
+- sources:
+  - [1] https://holepunch.to/
+
+## hyperswarm / hyperdht blind relay as free bulk infrastructure
+
+- `storage/hyperswarm-hyperdht-blind-relay-as-free-bulk-infrastruct` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://deepwiki.com/holepunchto/hyperdht/3.5-connection-relaying | page https://fshy.ajam.dev/p/deepwiki.md
+- free tier: None reachable: Blind relay exists. Any willing peer forwards ciphertext when both sides are behind randomized NAT. But there is no operated free relay fleet to draw on; `relayThrough` is something you su. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Blind relay exists — any willing peer forwards ciphertext when both sides are behind randomized NAT — but there is no operated free relay fleet to draw on; `relayThrough` is something you…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Blind relay exists — any willing peer forwards ciphertext when both sides are behind randomized NAT — but there is no operated free relay fleet to draw on; `relayThrough` is something you…
+  - [2] 2026-10-21: cited as the basis of the rejection: Blind relay exists — any willing peer forwards ciphertext when both sides are behind randomized NAT — but there is no operated free relay fleet to draw on; `relayThrough` is something you su
+  - [3] 2026-10-21: cited as the basis of the rejection: Blind relay exists — any willing peer forwards ciphertext when both sides are behind randomized NAT — but there is no operated free relay fleet to draw on; `relayThrough` is something you su
+- sources:
+  - [1] https://deepwiki.com/holepunchto/hyperdht/3.5-connection-relaying
+  - [2] https://github.com/holepunchto/hyperswarm-dht-relay
+  - [3] https://docs.pears.com/reference/building-blocks/hyperswarm/
+
+## juicefs community edition as an n-bucket pool
+
+- `storage/juicefs-community-edition-as-an-n-bucket-pool` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://github.com/juicedata/juicefs/issues/345 | page https://fshy.ajam.dev/p/github-juicedata.md
+- free tier: none reachable: A single JuiceFS volume binds to exactly ONE object-storage endpoint; multi-bucket/multi-provider backend has been an open feature request since 2021-04-23 and is still open with no… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: A single JuiceFS volume binds to exactly ONE object-storage endpoint; multi-bucket/multi-provider backend has been an open feature request since 2021-04-23 and is still open with no…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: A single JuiceFS volume binds to exactly ONE object-storage endpoint; multi-bucket/multi-provider backend has been an open feature request since 2021-04-23 and is still open with no…
+  - [2] 2026-10-21: cited as the basis of the rejection: A single JuiceFS volume binds to exactly ONE object-storage endpoint; multi-bucket/multi-provider backend has been an open feature request since 2021-04-23 and is still open with no implemen
+- sources:
+  - [1] https://github.com/juicedata/juicefs/issues/345
+  - [2] https://github.com/juicedata/juicefs/discussions/5153
+
+## kohakuhub (hub.kohaku-lab.org)
+
+- `storage/kohakuhub` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://hub.kohaku-lab.org/about | page https://fshy.ajam.dev/p/kohaku-lab.md
+- free tier: None reachable: Self-hosted SOFTWARE, not a service. 'a self-hosted, open-source alternative to HuggingFace Hub .. Keep your models and datasets on your own infrastructure'. It is the fastest-growing patt. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Self-hosted SOFTWARE, not a service — 'a self-hosted, open-source alternative to HuggingFace Hub ... Keep your models and datasets on your own infrastructure'. It is the fastest-growing…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Self-hosted SOFTWARE, not a service — 'a self-hosted, open-source alternative to HuggingFace Hub ... Keep your models and datasets on your own infrastructure'. It is the fastest-growing…
+- sources:
+  - [1] https://hub.kohaku-lab.org/about
+
+## lakefs
+
+- `storage/lakefs` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://docs.lakefs.io/ | page https://fshy.ajam.dev/p/lakefs.md
+- free tier: None reachable: Self-hosted data-versioning over an existing object store. It versions data, it does not store any. Zero free bytes; it is a layer above whatever S3 you already pay for. Useful structurally. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Self-hosted data-versioning over an existing object store — it versions data, it does not store any. Zero free bytes; it is a layer above whatever S3 you already pay for. Useful…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Self-hosted data-versioning over an existing object store — it versions data, it does not store any. Zero free bytes; it is a layer above whatever S3 you already pay for. Useful…
+- sources:
+  - [1] https://docs.lakefs.io/
+
+## lis (riffcc/lis)
+
+- `storage/lis` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://github.com/riffcc/lis | page https://fshy.ajam.dev/p/github-riffcc.md
+- free tier: None reachable: FUSE filesystem over iroh described as 'Life is short, but data should live forever'. Exactly the shape wanted, but the README exposes only put/list/get/mount with a read-only FUSE mount, n. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: FUSE filesystem over iroh described as 'Life is short, but data should live forever' — exactly the shape wanted, but the README exposes only put/list/get/mount with a read-only FUSE mount…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: FUSE filesystem over iroh described as 'Life is short, but data should live forever' — exactly the shape wanted, but the README exposes only put/list/get/mount with a read-only FUSE mount…
+- sources:
+  - [1] https://github.com/riffcc/lis
+
+## M-Lab (host a measurement site)
+
+- `storage/m-lab` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category bandwidth-sharing co-op / academic testbed
+- needs card no, phone no, ID no, institution yes | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.measurementlab.net/contribute/ | page https://fshy.ajam.dev/p/measurementlab.md
+- free tier: contribute servers, not consume storage; host-managed deployment onboarding is 'almost entirely automated' for 'any reasonably modern, high-performance, and well-connected physical or virtual server' | unit: mixed | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: you supply it; M-Lab supplies an API key and measurement-server config | metered: no
+- identity: institution | detail: institution
+- interface: unknown
+- limits note: This is a contribution programme, not an allocation programme - joining gives you no compute and no disk, only the right to run measurement containers. The data M-Lab produces is free and open (and genuinely large), but it is measurement data, not storage you can put your 20 TiB in. Second pilot phase, organisations rather than individuals.
+- interface detail: Docker-based measurement slices; BigQuery for the resulting data
+- tooling: M-Lab host-managed docs, docker, API key
+- composes with: none for storage
+- reliability: Node is a public measurement vantage point; your bandwidth is consumed by other people's tests.
+- notes: the same as the free tier
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: contribute servers, not consume storage; host-managed deployment onboarding is 'almost entirely automated' for 'any reasonably modern, high-performance, and well-connected physical or virtual server'
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Host or Sponsor an M-Lab Measurement Site ... allowing any reasonably modern, high-performance, and well-connected physical or virtual server to be added to M-Lab's fleet'; 'We are now accepting new host organizations in a second pilot phase'; 'M-Lab will provide successful applicants with an API key'
+  - [2] 2026-10-21: 'Measure the Internet, save the data, and make it universally accessible and useful' - the deliverable is measurement data, not storage
+- sources:
+  - [1] https://www.measurementlab.net/contribute/
+  - [2] https://www.measurementlab.net/
+
+## matrixhub (matrixhub.ai)
+
+- `storage/matrixhub` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://matrixhub.ai/ | page https://fshy.ajam.dev/p/matrixhub.md
+- free tier: none reachable: Same class, explicitly so: 'an open-source, self-hosted AI model registry ... a drop-in private replacement for Hugging Face, purpose-built to accelerate vLLM and SGLang workloads'. Its… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Same class, explicitly so: 'an open-source, self-hosted AI model registry ... a drop-in private replacement for Hugging Face, purpose-built to accelerate vLLM and SGLang workloads'. Its…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Same class, explicitly so: 'an open-source, self-hosted AI model registry ... a drop-in private replacement for Hugging Face, purpose-built to accelerate vLLM and SGLang workloads'. Its…
+- sources:
+  - [1] https://matrixhub.ai/
+
+## minio gateway (s3/gcs/azure/hdfs) as a pooling layer
+
+- `storage/minio-gateway-as-a-pooling-layer` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://github.com/minio/minio/issues/14331 | page https://fshy.ajam.dev/p/github-minio.md
+- free tier: none reachable: Removed, not merely deprecated: 'MinIO Gateway will be removed by June 1st, 2022 from the MinIO repository'. There is a documented migration path away from it, and the entire minio/minio… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Removed, not merely deprecated: 'MinIO Gateway will be removed by June 1st, 2022 from the MinIO repository'. There is a documented migration path away from it, and the entire minio/minio…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Removed, not merely deprecated: 'MinIO Gateway will be removed by June 1st, 2022 from the MinIO repository'. There is a documented migration path away from it, and the entire minio/minio…
+  - [2] 2026-10-21: cited as the basis of the rejection: Removed, not merely deprecated: 'MinIO Gateway will be removed by June 1st, 2022 from the MinIO repository'. There is a documented migration path away from it, and the entire minio/minio rep
+- sources:
+  - [1] https://github.com/minio/minio/issues/14331
+  - [2] https://www.min.io/blog/deprecation-of-the-minio-gateway
+
+## minio saas / zenko / garage as paid object storage
+
+- `storage/minio-saas-zenko-garage-as-paid-object-storage` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://c17.io/compare/object-storage | page https://fshy.ajam.dev/p/c17.md
+- free tier: None reachable: These are self-hosted software, not storage services. There is no per-TB price because there is no storage included. MinIO and Garage are software you run on someone else's disk (so the rea. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: not-storage
+  - dead_end.why: These are self-hosted software, not storage services — there is no per-TB price because there is no storage included. MinIO and Garage are software you run on someone else's disk (so the…
+  - dead_end.retry_when: never; it is not storage
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: These are self-hosted software, not storage services — there is no per-TB price because there is no storage included. MinIO and Garage are software you run on someone else's disk so the rea
+- sources:
+  - [1] https://c17.io/compare/object-storage
+
+## NYC Mesh
+
+- `storage/nyc-mesh` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category community mesh network
+- needs card no, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.nycmesh.net/ | page https://fshy.ajam.dev/p/nycmesh.md
+- free tier: a network connection plus the ability to host services on it; no storage quota because there is no storage product | unit: mixed | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: donated transit from upstream peers; the wiki is explicit that NYC Mesh cannot detect or prevent traffic monitoring by those upstreams | metered: no
+- identity: email | detail: email
+- interface: s3
+- limits note: Cost is $240 equipment plus $50 install ($290 total), or $110 plus $50 subsidized ($160 total), plus a voluntary monthly donation. Community ISP network providing symmetric bandwidth and routable IP in the New York City metropolitan area without hosted storage.
+- interface detail: a routed internet connection; you run your own server behind it
+- tooling: standard Linux/nginx/S3 behind your own router
+- composes with: member-hosted services are a stated goal - 'we allow for fast uploads as well as downloads, so members of our community can host content and services rather than only consume them'
+- reliability: Depends on donated upstream transit and volunteer installers; no SLA and no redundancy.
+- notes: the same as the free tier
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: a network connection plus the ability to host services on it; no storage quota because there is no storage product
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'We allow for fast uploads as well as downloads, so members of our community can host content and services rather than only consume them from centralized hosts'; 'Average Equipment Cost: $240 ... Install Leader Expenses: $50 ... Total: $290'; subsidised '$110 ... Total: $160'; 'The NYC Mesh network depends on donated transit bandwidth from upstream individuals and companies ... NYC Mesh is unable to detect or prevent traffic monitoring by our upstream providers'
+  - [2] 2026-10-21: 'Join our community network!'
+- sources:
+  - [1] https://wiki.nycmesh.net/books/1-introduction/page/frequently-asked-questions
+  - [2] https://www.nycmesh.net/
+
+## osdf / pelican platform as a free origin
+
+- `storage/osdf-pelican-platform-as-a-free-origin` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://docs.pelicanplatform.org/federating-your-data/origin | page https://fshy.ajam.dev/p/pelicanplatform.md
+- free tier: None reachable: You can federate your own data by running a Pelican origin, but that means YOU supply the storage, the certificate and the host. The platform is a distribution layer, not a storage grant. N. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: You can federate your own data by running a Pelican origin, but that means YOU supply the storage, the certificate and the host — the platform is a distribution layer, not a storage grant.…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: You can federate your own data by running a Pelican origin, but that means YOU supply the storage, the certificate and the host — the platform is a distribution layer, not a storage grant.…
+- sources:
+  - [1] https://docs.pelicanplatform.org/federating-your-data/origin
+
+## pawns.app / traffmonetizer / repocket
+
+- `storage/pawns-app-traffmonetizer-repocket` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://pawns.app/ | page https://fshy.ajam.dev/p/pawns.md
+- free tier: none reachable: None of the three publishes a consumer pay rate on any public page - the rate is only visible inside the dashboard after signing up, so no bottom-up arithmetic is possible and none of them… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: None of the three publishes a consumer pay rate on any public page - the rate is only visible inside the dashboard after signing up, so no bottom-up arithmetic is possible and none of them…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: None of the three publishes a consumer pay rate on any public page - the rate is only visible inside the dashboard after signing up, so no bottom-up arithmetic is possible and none of them…
+  - [2] 2026-10-21: cited as the basis of the rejection: None of the three publishes a consumer pay rate on any public page - the rate is only visible inside the dashboard after signing up, so no bottom-up arithmetic is possible and none of them s
+- sources:
+  - [1] https://pawns.app/
+  - [2] https://proxypicker.com/what-your-wifi-is-worth/
+
+## peer2profit
+
+- `storage/peer2profit` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://proxypicker.com/what-your-wifi-is-worth/ | page https://fshy.ajam.dev/p/proxypicker.md
+- free tier: none reachable: Official site unreachable (connection closed, twice, on 2 Oct 2026). Third-party research places it at $0.28/GB residential feeding AstroProxy at $7.60/GB, but nothing about it can be… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Official site unreachable (connection closed, twice, on 2 Oct 2026). Third-party research places it at $0.28/GB residential feeding AstroProxy at $7.60/GB, but nothing about it can be…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Official site unreachable (connection closed, twice, on 2 Oct 2026). Third-party research places it at $0.28/GB residential feeding AstroProxy at $7.60/GB, but nothing about it can be…
+- sources:
+  - [1] https://proxypicker.com/what-your-wifi-is-worth/
+
+## perforce p4 (helix core) free edition
+
+- `storage/perforce-p4-free-edition` | self-hosted, last resort | verdict fails-quota | evidence documented | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-04T02:22:32.525Z (live) | stale on 2026-12-05
+- url https://www.perforce.com/products/p4/free-version-control | page https://fshy.ajam.dev/p/perforce.md
+- free tier: Free for up to 5 users and 20 workspaces; the free edition is self-hosted, so storage is bounded by the machine the user runs the server on ('no limitations on storage no matter which plan you’re on') | unit: users | metered on: identity-count | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- binding note: no storage limit is stated for the free edition; capacity is the disk of the machine the user runs the server on, and the free edition is capped at 5 users and 20 workspaces
+- interface detail: not documented
+- tooling: Hosted option: P4 Cloud, managed and hosted by Perforce, at $39 per user per month with 64GiB storage included. Free edition: the user installs and runs the P4 server on a rented or free machine (in the cloud or on-premises); no storage limit is imposed by the vendor.
+- composes with: not recorded
+- reliability: The free edition is a self-hosted server: capacity is the disk of the machine the user runs it on, and the vendor states no storage limit; the free edition is limited to 5 users and 20 workspaces.
+- notes: Free edition: up to 5 users, 20 workspaces, 3 Git repos, self-hosted. Paid: P4 Cloud (managed and hosted) at $39 per user per month with 64GiB storage included; Scale and Platform plans are quote-only.
+- evidence note: documented: the pages read on 2026-11-03 are two vendor pages. https://www.perforce.com/products/p4/free-version-control states that P4 is free for up to 5 users and 20 workspaces and can be deployed in the cloud or on-premises. https://www.perforce.com/products/p4/pricing states that the free version is a self-hosted solution with no limitations on storage, whichever plan. The user and workspace caps and the absence of a storage limit, which decide the verdict, rest on those pages; the identity kind and the interface are not stated on them (the record's own text marks them defaulted).
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: The '20 users / 1 TB' figure does not exist on Perforce's pages. Current free tier is 'up to 5 users and 20 workspaces' with no storage allowance at all — it is a self-hosted server, so…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: The '20 users / 1 TB' figure does not exist on Perforce's pages. Current free tier is 'up to 5 users and 20 workspaces' with no storage allowance at all — it is a self-hosted server, so…
+  - [2] 2026-10-21: cited as the basis of the rejection: The '20 users / 1 TB' figure does not exist on Perforce's pages. Current free tier is 'up to 5 users and 20 workspaces' with no storage allowance at all — it is a self-hosted server, so byte
+  - [1] 2026-11-03: the free edition is for up to 5 users and 20 workspaces | capture: sha256:a9609313ace0793e06174091c9653b0da6fe4ab722f05e1ac9f639f964e1be3d | quote: Perforce P4 is free for up to 5 users and 20 workspaces. Deploy in the cloud or on-premises and start versioning today.
+  - [2] 2026-11-03: the free version is self-hosted with no storage limitation | capture: sha256:6d98a5955ac73c7986f5126c17f044156c9ab456055ec0f90150365cecce4ee8 | quote: The free version of P4 is a self-hosted solution. This means no limitations on storage no matter which plan you’re on.
+  - [2] 2026-11-03: P4 Cloud includes 64GiB of storage | capture: sha256:6d98a5955ac73c7986f5126c17f044156c9ab456055ec0f90150365cecce4ee8 | quote: 64GiB storage included
+  - [1] 2026-11-03: the free edition is free for up to 5 users and 20 workspaces | capture: sha256:a9609313ace0793e06174091c9653b0da6fe4ab722f05e1ac9f639f964e1be3d | quote: Perforce P4 is free for up to 5 users and 20 workspaces. Deploy in the cloud or on-premises and start versioning today.
+  - [1] 2026-11-04: the free edition is for up to 5 users and 20 workspaces | capture: sha256:a9609313ace0793e06174091c9653b0da6fe4ab722f05e1ac9f639f964e1be3d | quote: Perforce P4 is free for up to 5 users and 20 workspaces. Deploy in the cloud or on-premises and start versioning today.
+- sources:
+  - [1] https://www.perforce.com/products/p4/free-version-control
+  - [2] https://www.perforce.com/products/p4/pricing
+
+## radicle
+
+- `storage/radicle` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://radicle.dev/ | page https://fshy.ajam.dev/p/radicle-2.md
+- free tier: none reachable: Not a storage provider and structurally cannot become one: it is a peer-to-peer forge where 'repositories are replicated across peers in a decentralized manner'. There is no host to upload… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Not a storage provider and structurally cannot become one: it is a peer-to-peer forge where 'repositories are replicated across peers in a decentralized manner'. There is no host to upload…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Not a storage provider and structurally cannot become one: it is a peer-to-peer forge where 'repositories are replicated across peers in a decentralized manner'. There is no host to upload…
+  - [2] 2026-10-21: cited as the basis of the rejection: Not a storage provider and structurally cannot become one: it is a peer-to-peer forge where 'repositories are replicated across peers in a decentralized manner'. There is no host to upload t
+- sources:
+  - [1] https://radicle.dev/
+  - [2] https://radicle.dev/guides/seeder
+
+## registrish (jpetazzo) and static-container-registry
+
+- `storage/registrish-and-static-container-registry` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://github.com/jpetazzo/registrish | page https://fshy.ajam.dev/p/github-jpetazzo.md
+- free tier: None reachable: Not a provider. A trick for serving a read-only registry off static hosting. Interesting as an amplifier (point it at a free static host to get registry-shaped URLs), but it stores nothing. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Not a provider — a trick for serving a read-only registry off static hosting. Interesting as an amplifier (point it at a free static host to get registry-shaped URLs), but it stores nothing
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Not a provider — a trick for serving a read-only registry off static hosting. Interesting as an amplifier (point it at a free static host to get registry-shaped URLs), but it stores nothing
+- sources:
+  - [1] https://github.com/jpetazzo/registrish
+
+## RIPE Atlas (host a probe or anchor)
+
+- `storage/ripe-atlas` | self-hosted, last resort | verdict fails-quota | evidence reported | binding write-gated | category volunteer measurement network
+- needs card no, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://atlas.ripe.net/get-involved/become-a-host/ | page https://fshy.ajam.dev/p/ripe.md
+- free tier: no storage; hosting earns credits spendable on custom measurements | unit: mixed | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: you donate it | metered: no
+- identity: email | detail: email
+- interface: rest
+- limits:
+  - write-gated (binding): approval [1]
+- limits note: Hosting a probe earns credits, and credits buy measurements - not bytes and not disk. A software probe can run on your own infrastructure, which makes it the most accessible thing in this whole slot (no shipping, no institution), but it is a measurement vantage point with trivial bandwidth and no storage. Anchors are bigger and require a datacentre-grade commitment plus approval.
+- interface detail: probe hardware or software probe; REST API for measurements
+- tooling: atlas.ripe.net API, software probe package
+- composes with: none
+- reliability: Hardware probes are frequently out of stock; software probes have negligible throughput by design.
+- notes: the same as the free tier
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: no storage; hosting earns credits spendable on custom measurements
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [2] 2026-10-21: 'You can either apply to host a hardware probe, which we will ship to you ... or a software probe, which you can install and run on your own infrastructure'; 'You'll earn credits you can use for your own customised measurements'
+  - [1] 2026-10-21: 'They are not always in stock, you may have to apply and wait for one'; 'Apply for a software probe through your account'
+  - [1] 2026-10-21: 'The vast majority of data that RIPE Atlas collects is freely available to anyone to browse, download or use'
+- sources:
+  - [1] https://www.ripe.net/analyse/internet-measurements/ripe-atlas/host-a-probe/
+  - [2] https://atlas.ripe.net/get-involved/become-a-host/
+
+## seaweedfs cloud tier as an n-free-provider pool
+
+- `storage/seaweedfs-cloud-tier-as-an-n-free-provider-pool` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://github.com/seaweedfs/seaweedfs/wiki/Cloud-Tier | page https://fshy.ajam.dev/p/github-seaweedfs.md
+- free tier: none reachable: Cloud Tier moves whole 1 GB volume .dat files to ONE configured remote provider; it is a hot/warm tiering mechanism, and the chunk files it writes 'are not usable outside of SeaweedFS'.… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Cloud Tier moves whole 1 GB volume .dat files to ONE configured remote provider; it is a hot/warm tiering mechanism, and the chunk files it writes 'are not usable outside of SeaweedFS'.…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Cloud Tier moves whole 1 GB volume .dat files to ONE configured remote provider; it is a hot/warm tiering mechanism, and the chunk files it writes 'are not usable outside of SeaweedFS'. Th
+- sources:
+  - [1] https://github.com/seaweedfs/seaweedfs/wiki/Cloud-Tier
+
+## self-hosted gitea/forgejo as a route around the quota
+
+- `storage/self-hosted-gitea-forgejo-as-a-quota-bypass` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://docs.gitea.com/administration/config-cheat-sheet/ | page https://fshy.ajam.dev/p/gitea.md
+- free tier: none reachable: Gitea and Forgejo default every package limit to -1 (no limit): LIMIT_TOTAL_OWNER_SIZE -1, LIMIT_SIZE_GENERIC -1, LIMIT_SIZE_CONTAINER -1; Forgejo quota.ENABLED defaults false and… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Gitea and Forgejo default every package limit to -1 (no limit): LIMIT_TOTAL_OWNER_SIZE -1, LIMIT_SIZE_GENERIC -1, LIMIT_SIZE_CONTAINER -1; Forgejo quota.ENABLED defaults false and…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Gitea and Forgejo default every package limit to -1 (no limit): LIMIT_TOTAL_OWNER_SIZE -1, LIMIT_SIZE_GENERIC -1, LIMIT_SIZE_CONTAINER -1; Forgejo quota.ENABLED defaults false and…
+  - [2] 2026-10-21: cited as the basis of the rejection: Gitea and Forgejo default every package limit to -1 (no limit): LIMIT_TOTAL_OWNER_SIZE -1, LIMIT_SIZE_GENERIC -1, LIMIT_SIZE_CONTAINER -1; Forgejo quota.ENABLED defaults false and quota.defa
+- sources:
+  - [1] https://docs.gitea.com/administration/config-cheat-sheet/
+  - [2] https://forgejo.org/docs/latest/admin/config-cheat-sheet/
+
+## Sia host (hostd) - supply side / the arbitrage test
+
+- `storage/sia-host-supply-side-the-arbitrage-test` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category contributed storage - become a host
+- needs card no, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://sia.tech/provide-storage | page https://fshy.ajam.dev/p/sia-2.md
+- free tier: you set your own price; network median is $1.17/TB/month storage and $2.25/TB download (siascan), $1.30 KS/TB/month | unit: TB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: you are PAID for egress ($2.25/TB median) rather than charged | metered: yes | price per TB: $2.25/TB
+- identity: anonymous | detail: anonymous
+- interface: cli
+- limits note: THE ARBITRAGE DOES NOT EXIST, and Sia's own numbers show it precisely. A host earns the median $1.17/TB/mo; a renter pays $2-3/TB/mo for the same terabyte (the $3 figure includes 3x redundancy). So contributing N TB of disk buys you N x 1.17/3 = 0.39N TB of retail storage - you must contribute ~2.6x the disk you want to consume, and you must also lock collateral at '2-3x your base storage price' in SC, keep the machine online, and forward ports. Storing 20 TiB on Sia costs $60-70/mo, which means hosting ~51-60 TB of other people's data to break even.
+- interface detail: hostd daemon (Docker/Linux/macOS/Windows), open ports, Siacoin wallet
+- tooling: hostd desktop app v0.46.1, hostd CLI, siascan for competitor pricing
+- composes with: earn SC, buy storage with SC on the same network - the only place where the earn and spend currencies actually match
+- reliability: Lose the data or fail a proof and the collateral is burned; a single drive failure is a total loss for that contract.
+- notes: the same as the free tier
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: you set your own price; network median is $1.17/TB/month storage and $2.25/TB download (siascan), $1.30 KS/TB/month
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Median storage price $1.17/TB/month'; 'Median download price $2.25/TB'; 530 active hosts, 2.19 PB used of 7.12 PB
+  - [2] 2026-10-21: 'Network pricing averages around $3 per terabyte per month, including 3x redundancy'
+  - [3] 2026-10-21: 'set your collateral to around 2-3x your base storage price ... if you've priced your storage at 50 SC/TB, you should set your collateral at 100-150 SC/TB'
+  - [4] 2026-10-21: 'Lose the data, or fail to prove you still have it, and you lose the collateral you put up'; 'Open ports - Renters connect to your host directly ... forwarding hostd's ports'
+- sources:
+  - [1] https://siascan.com/
+  - [2] https://docs.sia.tech/store-your-data/about-renting.md
+  - [3] https://docs.sia.tech/provide-storage/about-hosting-on-sia
+  - [4] https://sia.tech/provide-storage
+
+## spareband / busyproxy / meowbyte / earnbear (2026 entrants)
+
+- `storage/spareband-busyproxy-meowbyte-earnbear` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://spareband.com/ | page https://fshy.ajam.dev/p/spareband.md
+- free tier: none reachable: All four are pre-launch or invite-only supply-side apps: Spareband is waitlist-only with payouts explicitly not open yet; BusyProxy requires phone verification and pays $0.20-0.30/GB… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: write-gated
+  - dead_end.why: All four are pre-launch or invite-only supply-side apps: Spareband is waitlist-only with payouts explicitly not open yet; BusyProxy requires phone verification and pays $0.20-0.30/GB…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: All four are pre-launch or invite-only supply-side apps: Spareband is waitlist-only with payouts explicitly not open yet; BusyProxy requires phone verification and pays $0.20-0.30/GB…
+  - [2] 2026-10-21: cited as the basis of the rejection: All four are pre-launch or invite-only supply-side apps: Spareband is waitlist-only with payouts explicitly not open yet; BusyProxy requires phone verification and pays $0.20-0.30/GB; MeowBy
+  - [3] 2026-10-21: cited as the basis of the rejection: All four are pre-launch or invite-only supply-side apps: Spareband is waitlist-only with payouts explicitly not open yet; BusyProxy requires phone verification and pays $0.20-0.30/GB; MeowBy
+- sources:
+  - [1] https://spareband.com/
+  - [2] https://busyproxy.net/
+  - [3] https://meowbyte.net/
+
+## Spice.ai Cloud (Community Edition)
+
+- `storage/spice-ai-cloud` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category data-platform
+- needs card no, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://spice.ai/pricing | page https://fshy.ajam.dev/p/spice.md
+- free tier: No storage quota published, because the product is not storage. The free Community edition is the self-hosted OSS runtime under Apache 2.0 with community-only support; the hosted Cloud tier is 'subscription and usage-based pricing with tiered plans'. The datasets it serves are 'free, ready-to-query sample datasets' hosted by Spice, not by you. | unit: mixed | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Usage-based on Cloud; unmetered only if you self-host and pay your own egress. | metered: no
+- identity: email | detail: email
+- interface: rest
+- limits note: fails-quota: no free hosted bytes at all. Per-app request rate limits exist on Cloud per the management API docs.
+- interface detail: rest
+- tooling: A SQL query endpoint over the Spice runtime, and a Data Connector model that federates to external sources. Self-hosting gives full control but on your own hardware.
+- composes with: None for capacity. The free tier is software, so the bytes land wherever you point it (S3, GCS, local). It is a query layer, and a useful one, but it multiplies nothing.
+- reliability: Service provides analytical data infrastructure and query endpoints rather than general raw object storage.
+- notes: the same as the free tier
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: not-storage
+  - dead_end.why: No storage quota published, because the product is not storage. The free Community edition is the self-hosted OSS runtime under Apache 2.0 with community-only support; the hosted Cloud tier is 'subscription and usage-based pricing with tiered plans'. The datasets it serves are 'free, ready-to-query sample datasets' hosted by Spice, not by you.
+  - dead_end.retry_when: never; it is not storage
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: opened: 'Free under Apache 2.0 with community-only support' (OSS) / 'Subscription and usage-based pricing with tiered plans' (Cloud) / Enterprise licensing; 'Single-node engine' for Community vs 'Multi-node with clustering' for Cloud.
+  - [2] 2026-10-21: surfaced: 'The Spice.ai Cloud Platform includes a comprehensive set of free, ready-to-query sample datasets' — read-only samples, not user hosting.
+  - [3] 2026-10-21: surfaced: 'Spice.ai OSS — the open-source Spice runtime. Self-hosted, free, Apache 2.0.'
+- sources:
+  - [1] https://spice.ai/pricing
+  - [2] https://spiceai.org/docs/getting-started/spiceai
+  - [3] https://spice.ai/docs/faq
+
+## Storj storage node operator (supply side)
+
+- `storage/storj-storage-node-operator` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category contributed storage - become an SNO
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T02:43:31.135Z, checked 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://storj.dev/node/payouts | page https://fshy.ajam.dev/p/storj-2.md
+- free tier: paid $1.35/TB/month stored + $1.00/TB egress (cut from $1.50/$2.00 on 1 Sep 2026, an 18% total reduction). Paid in USDC on Ethereum, not STORJ. | unit: TB | metered on: stored-bytes | read on: 2026-10-21 | source: [1] | note: a payout for storing and serving other users' data on a node the user runs, not a free allowance
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: you are paid $1.00/TB for egress; the customer is charged $7/TB | metered: yes | price per TB: $1.00/TB
+- identity: email | detail: the node is configured with an email address and an Ethereum wallet address for USDC payouts; no authorization token is needed to join
+- interface: unknown
+- limits note: Worse ratio than Sia and stated in the same currency, which makes it unambiguous: SNO gets $1.35/TB while Storj charges the customer $7.00/TB for the same terabyte - a 5.2x gap. To fund 20 TiB at $7/TB ($140/mo) plus 30 TiB/mo egress at $7/TB ($210/mo) = $350/mo, you must store $350/1.35 = 259 TB of other people's data. Storj's own forum arithmetic also carries a 2.7x erasure expansion factor, so 1 TB of customer data consumes 2.7 TB of SNO disk - meaning the true disk ratio is ~700 TB contributed to consume 20 TB. This is the clearest negative in the slot.
+- interface detail: Docker container, single identity per node, dashboard
+- tooling: storagenode Docker image, storj node dashboard, uptime robot
+- composes with: USDC payout can be spent on anything, but cannot be converted into Storj storage credit - there is no credit mechanism
+- reliability: Node disqualification and held amounts apply for the first months; forum reports of 8.5 TiB stored paying $5.50 indicate realised rates well below list.
+- notes: Payout rates since Sep 1st, 2026: USD 1.35 per TB-month stored, USD 1.00 per TB of egress and USD 1.00 per TB of audit and repair traffic, paid in USDC on Ethereum layer 1; zkSync layer 2 payouts ended on September 1, 2026, and a payout is sent only when its transaction fee is at most 25% of its value, so smaller balances roll into later months.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: paid $1.35/TB/month stored + $1.00/TB egress (cut from $1.50/$2.00 on 1 Sep 2026, an 18% total reduction). Paid in USDC on Ethereum, not STORJ.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [2] 2026-10-21: Standard: 'Monthly storage $7/TB', 'Egress $7/TB'; minimum monthly fee $5; 30-day minimum retention with early-deletion fee; 50 KB minimum object size
+  - [1] 2026-10-21: rate table: 'Used space (storage) $1.50/TB/month -> $1.35/TB/month -10%'; 'Egress (bandwidth) $2.00/TB -> $1.00/TB -50%'; 'estimated 18% reduction in total payout'
+  - [3] 2026-10-21: 'Payouts are made in USD Coin (USDC) ... Earnings are calculated in USD and paid at one USDC per US dollar'
+  - [4] 2026-10-21: '$1.5/TB is for a single SNO, but theres 2.7 expansion factor, so 1 TB times 2.7 times $1.5 = $4.05 just a storage cost, per month'
+  - [5] 2026-10-21: 'for 2026/09 my node stored 8.5 TiB of data and was paid $5.50'
+  - [6] 2026-10-30: the node's run command takes a wallet address and an email address | capture: sha256:88629c023648855cc30a0b09053ede4c5694dfb7ddf60935f035752451f926db | quote: 1. Edit the `WALLET`, `EMAIL`, `ADDRESS`, `STORAGE` and replace the `<identity-dir>`, and `<storage-dir>` with your parameters.
+  - [3] 2026-10-30: node operators are paid for the storage and bandwidth their nodes provide | capture: sha256:9cddd3037012872b6941ec4672f6ceceb2f5467cc4d3bec9e5595e131ae390b2 | quote: Storj nodes share underutilized hard drive capacity and bandwidth with the Storj network and are paid when users store and retrieve data.
+  - [7] 2026-10-30: the authorization-token step for a new node identity is no longer required | capture: sha256:b38c82aa6f2e6a8c5a53ee674b4f8c03c1fecbcc8b547da1cd22923bee1c9d04 | quote: is not required any more.
+  - [3] 2026-10-30: a payout is withheld until its transaction fee is at most 25% of its value | capture: sha256:9cddd3037012872b6941ec4672f6ceceb2f5467cc4d3bec9e5595e131ae390b2 | quote: We will not send a transaction where the fee for the transaction is more than 25% of the value of the transaction.
+  - [1] 2026-10-30: the September 1 change cut storage pay from $1.50 to $1.35 per TB-month and egress pay from $2.00 to $1.00 per TB, an estimated 18% total cut | capture: sha256:251083022274b4dbb585181b28d113ce36f58afa3346f82ec0bf203004c05226 | quote: Combined, this represents an estimated 18% reduction in total payout
+  - [3] 2026-10-30: node operators are paid $1.35 per TB-month stored and $1.00 per TB of egress, in USDC on Ethereum | capture: sha256:9cddd3037012872b6941ec4672f6ceceb2f5467cc4d3bec9e5595e131ae390b2 | quote: | Storage (per TB per Month) | $1.35 |
+  - [3] 2026-11-04: node operator storage payout is $1.35 per TB per month | capture: sha256:9cddd3037012872b6941ec4672f6ceceb2f5467cc4d3bec9e5595e131ae390b2 | quote: | Storage (per TB per Month) | $1.35 |
+- sources:
+  - [1] https://forum.storj.io/t/rightsizing-storj-network-payout-rates/32391
+  - [2] https://www.storj.io/pricing
+  - [3] https://storj.dev/node/payouts
+  - [4] https://forum.storj.io/t/helping-the-network-become-profitable-what-can-operators-contribute-while-staying-viable-calculator-inside/32104
+  - [5] https://forum.storj.io/t/storj-is-moving-node-operator-payouts-and-customer-deposits-to-usdc/32809?page=16
+  - [6] https://storj.dev/node/get-started/install-node-software/cli/storage-node
+  - [7] https://forum.storj.io/t/identity-signing-identity-authorize-is-not-required-any-more/30581
+
+## strada
+
+- `storage/strada` | self-hosted, last resort | verdict fails-quota | evidence documented | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-04T01:24:43.356Z (live) | stale on 2026-12-05
+- url https://strada.tech/ | page https://fshy.ajam.dev/p/strada.md
+- free tier: none: Strada does not rent storage; the Free plan ($0) connects unlimited computers and unlimited storage, for file review. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- binding note: no byte allowance exists because the vendor does not rent storage
+- interface detail: not documented
+- tooling: The user installs and runs the Strada app (macOS 13+, Windows 11, iOS, Android), which mounts a remote drive as a virtual drive; the storage itself is supplied by the user.
+- composes with: not recorded
+- reliability: Strada mounts a drive held by the sharer on the editor's computer over a peer-to-peer connection with no cloud in between, so the bytes stay on the sharer's own drive.
+- notes: Paid plans are per user per month: Basic $8 (file editing and transfer, remote editing with Strada Connect) and Pro $24; the Free plan ($0) is for file review. A 7-day free trial is offered.
+- evidence note: re-read on 2026-11-03: the vendor pages https://strada.tech/, https://strada.tech/pricing and https://strada.tech/downloads; they state that the vendor does not rent storage, that remote editing runs peer to peer with no cloud in between, and the plan prices; the app platforms are listed on the downloads page
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Real iroh-shaped product (remote editing off somebody else's hard drive, 'upload nothing', 7 TB of source media over home internet per their case study) but it is an app, not a storage…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Real iroh-shaped product (remote editing off somebody else's hard drive, 'upload nothing', 7 TB of source media over home internet per their case study) but it is an app, not a storage…
+  - [2] 2026-10-21: cited as the basis of the rejection: Real iroh-shaped product (remote editing off somebody else's hard drive, 'upload nothing', 7 TB of source media over home internet per their case study) but it is an app, not a storage provi
+  - [3] 2026-10-21: cited as the basis of the rejection: Real iroh-shaped product (remote editing off somebody else's hard drive, 'upload nothing', 7 TB of source media over home internet per their case study) but it is an app, not a storage provi
+  - [3] 2026-11-03: the vendor supplies no storage | capture: sha256:b4d4efa28311ba890d6a7ba4dbd9ff2e85d9a63ea4ae5caf6e54d83c1d1704f5 | quote: We don't rent storage.
+  - [1] 2026-11-03: peer-to-peer mount, no hosted storage | capture: sha256:3726579210fe9678ee9ddb93d230c30af3355427ef597514fb0b61bd68f6b329 | quote: Your footage stays on your hard drive, wherever your editor is. Strada mounts it on their computer over a peer-to-peer connection, with no cloud in between.
+  - [2] 2026-11-03: Basic plan price | capture: sha256:012ea9650c7481464266656186645b24abb7fc8637c161b8a3cc6d5616e471fa | quote: Basic For file editing & transfer ## $8 per user per month
+  - [2] 2026-11-03: Pro plan price | capture: sha256:012ea9650c7481464266656186645b24abb7fc8637c161b8a3cc6d5616e471fa | quote: Pro Get the most out of Strada Recommended ## $24 per user per month
+  - [2] 2026-11-03: Free plan price | capture: sha256:012ea9650c7481464266656186645b24abb7fc8637c161b8a3cc6d5616e471fa | quote: For file review ## $0
+  - [1] 2026-11-03: free trial length | capture: sha256:3726579210fe9678ee9ddb93d230c30af3355427ef597514fb0b61bd68f6b329 | quote: Try it free for 7 days.
+  - [2] 2026-11-03: remote editing is in the priced plans; no plan includes storage | capture: sha256:012ea9650c7481464266656186645b24abb7fc8637c161b8a3cc6d5616e471fa | quote: Basic For file editing & transfer ## $8 per user per month
+  - [3] 2026-11-03: app mounts remote storage as a virtual drive | capture: sha256:b4d4efa28311ba890d6a7ba4dbd9ff2e85d9a63ea4ae5caf6e54d83c1d1704f5 | quote: Mount remote storage as a virtual drive. Edit, share, and collaborate on remote media as if it lives on your desk.
+  - [3] 2026-11-03: no storage is supplied | capture: sha256:b4d4efa28311ba890d6a7ba4dbd9ff2e85d9a63ea4ae5caf6e54d83c1d1704f5 | quote: We don't rent storage.
+  - [3] 2026-11-03: no hosted storage is offered | capture: sha256:b4d4efa28311ba890d6a7ba4dbd9ff2e85d9a63ea4ae5caf6e54d83c1d1704f5 | quote: We don't rent storage.
+  - [3] 2026-11-03: no plan of the vendor, free or paid, supplies storage, so the storage allowance is none; paid plans sell remote editing, not capacity | capture: sha256:b4d4efa28311ba890d6a7ba4dbd9ff2e85d9a63ea4ae5caf6e54d83c1d1704f5 | quote: We don't rent storage.
+  - [3] 2026-11-03: the vendor supplies no storage; the free tier holds none | capture: sha256:b4d4efa28311ba890d6a7ba4dbd9ff2e85d9a63ea4ae5caf6e54d83c1d1704f5 | quote: We don't rent storage.
+  - [3] 2026-11-04: the vendor supplies no storage | capture: sha256:b4d4efa28311ba890d6a7ba4dbd9ff2e85d9a63ea4ae5caf6e54d83c1d1704f5 | quote: We don't rent storage.
+- sources:
+  - [1] https://strada.tech/
+  - [2] https://strada.tech/pricing
+  - [3] https://strada.tech/downloads
+
+## telethon and pyrogram (Telegram client libraries)
+
+- `storage/telethon-and-pyrogram-client-stack` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- page https://fshy.ajam.dev/p/telethon-and-pyrogram.md
+- free tier: None reachable: Both upstream libraries are ARCHIVED. Telethon read-only since 2026-02-21, Pyrogram since 2024-12-23. Patch-level breakage will not be fixed. Build on TDLib or MadelineProto, or accept Teld. | unit: none | metered on: none | read on: 2026-10-21
+- per-object cap: not recorded | note: not applicable
+- retention: not recorded
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Both upstream libraries are ARCHIVED — Telethon read-only since 2026-02-21, Pyrogram since 2024-12-23. Patch-level breakage will not be fixed. Build on TDLib or MadelineProto, or accept…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - withheld 2026-10-21: Both upstream libraries are ARCHIVED — Telethon read-only since 2026-02-21, Pyrogram since 2024-12-23. Patch-level breakage will not be fixed. Build on TDLib or MadelineProto, or accept…
+  - withheld 2026-10-21: the source the record cites names Telethon and Pyrogram, two Telegram client libraries
+
+## the 'self-hosted hf clone' search class itself (github: hangar, arkon, open
+
+- `storage/the-self-hosted-hf-clone-search-class-itself-github-hang` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- page https://fshy.ajam.dev/p/self-hosted-hf-clone-search-class-itself.md
+- free tier: none reachable: A whole class worth flagging so nobody re-searches it: GitHub repo search for 'model hub self-hosted' / 'huggingface alternative' returns almost exclusively self-hostable servers… | unit: none | metered on: none | read on: 2026-10-21
+- per-object cap: not recorded | note: not applicable
+- retention: not recorded
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: A whole class worth flagging so nobody re-searches it: GitHub repo search for 'model hub self-hosted' / 'huggingface alternative' returns almost exclusively self-hostable servers…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - withheld 2026-10-21: A whole class worth flagging so nobody re-searches it: GitHub repo search for 'model hub self-hosted' / 'huggingface alternative' returns almost exclusively self-hostable servers hangar-hub
+
+## uppy companion
+
+- `storage/uppy-companion` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://uppy.io/docs/companion/ | page https://fshy.ajam.dev/p/uppy.md
+- free tier: None reachable: Not a provider. It is a self-hosted OAuth bridge that pulls files from the user's own Drive/Dropbox/Instagram into your upload target. Zero storage of its own, so it cannot be multiplied; i. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Not a provider — it is a self-hosted OAuth bridge that pulls files from the user's own Drive/Dropbox/Instagram into your upload target. Zero storage of its own, so it cannot be multiplied…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Not a provider — it is a self-hosted OAuth bridge that pulls files from the user's own Drive/Dropbox/Instagram into your upload target. Zero storage of its own, so it cannot be multiplied…
+  - [2] 2026-10-21: cited as the basis of the rejection: Not a provider — it is a self-hosted OAuth bridge that pulls files from the user's own Drive/Dropbox/Instagram into your upload target. Zero storage of its own, so it cannot be multiplied; i
+- sources:
+  - [1] https://uppy.io/docs/companion/
+  - [2] https://github.com/transloadit/uppy/tree/main/packages/@uppy/companion
+
+## Veilid
+
+- `storage/veilid` | self-hosted, last resort | verdict fails-quota | evidence reported | binding write-gated | category p2p-relay-network
+- needs card no, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://veilid.com/how-it-works/networking/ | page https://fshy.ajam.dev/p/veilid.md
+- free tier: No quota and no account. 'All Veilid applications running veilid-core are nodes, and they are all equal in the eyes of the network. No nodes are special. Nodes are only limited by the resources they bring.'. | unit: unlimited | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Free. Peer-to-peer, with inbound/outbound relays only for reachability. | metered: no
+- identity: anonymous | detail: anonymous
+- interface: unknown
+- limits:
+  - write-gated (binding): applications running veilid-core are nodes, and they are all equal in the eyes of the netwo [1]
+- limits note: No congestion control implemented. Open issue #404 'congestion control could be implemented with NodeStatus'; relay throttling is a to-do, not a feature.
+- interface detail: AppMessage / AppCall primitives over routes; the core never parses app bytes. DHT for storage of small records.
+- tooling: veilid-core in Rust with bindings; veilid-server binary.
+- composes with: Not a file transport. Designed mobile-first for 'intermittent network connections, volatile IP addresses, CGNAT, limited storage and bandwidth'. The opposite of a bulk path.
+- reliability: sending bulk data through Veilid is unsupported in practice: without flow control a large transfer either starves or gets dropped. Eliminated on reliability, not on quota.
+- notes: the same as the free tier
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: write-gated
+  - dead_end.why: no quota and no account — 'All Veilid applications running veilid-core are nodes, and they are all equal in the eyes of the network. No nodes are special. Nodes are only limited by the resources they bring.'
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'No nodes are special ... Nodes are only limited by the resources they bring and the configuration of the network they are on'
+  - [2] 2026-10-21: 'congestion control could be implemented with NodeStatus'; 'max bytes a flow can consume in X minutes' proposed as an unimplemented idea
+  - [3] 2026-10-21: 'Relay traffic could use bandwidth throttling or roundrobin assignments' listed as To do
+  - [4] 2026-10-21: 'limited storage and bandwidth' as a design assumption (mobile-first)
+- sources:
+  - [1] https://veilid.com/how-it-works/networking/
+  - [2] https://gitlab.com/veilid/veilid/-/issues/404
+  - [3] https://gitlab.com/groups/veilid/-/work_items/3
+  - [4] https://veilid.gitlab.io/developer-book/why-veilid/
+
+## zeronet
+
+- `storage/zeronet` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://zeronet.io/ | page https://fshy.ajam.dev/p/zeronet.md
+- free tier: none reachable: Not a storage provider: a BitTorrent-based P2P site distribution tool with no hosting, no quota, no SLA, and no seeding guarantee beyond whoever is online. Requires your own machine to seed | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Not a storage provider: a BitTorrent-based P2P site distribution tool with no hosting, no quota, no SLA, and no seeding guarantee beyond whoever is online. Requires your own machine to seed
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Not a storage provider: a BitTorrent-based P2P site distribution tool with no hosting, no quota, no SLA, and no seeding guarantee beyond whoever is online. Requires your own machine to seed
+- sources:
+  - [1] https://zeronet.io/
+
+## zulip self-hosted free / community
+
+- `storage/zulip-self-hosted-free-community` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://zulip.readthedocs.io/en/stable/production/upload-backends.html | page https://fshy.ajam.dev/p/zulip-readthedocs-io.md
+- free tier: none reachable: Self-hosted means the disk is yours to pay for. The only interesting artifact is the S3 upload backend, which points at a bucket you already pay for. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Self-hosted means the disk is yours to pay for. The only interesting artifact is the S3 upload backend, which points at a bucket you already pay for.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Self-hosted means the disk is yours to pay for. The only interesting artifact is the S3 upload backend, which points at a bucket you already pay for.
+- sources:
+  - [1] https://zulip.readthedocs.io/en/stable/production/upload-backends.html
+
+## zus / blimp (0chain)
+
+- `storage/zus-blimp` | self-hosted, last resort | verdict fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://docs.zus.network/zus-docs/webapps/blimp | page https://fshy.ajam.dev/p/zus.md
+- free tier: None reachable: The free-ish path requires you to contribute hardware. 'Launch a node .. as little as 4 vCPU and a single 100 GB attached disk'. So it is rent-seeking capacity, not a free tier, and it in. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- self hosted: yes
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: The free-ish path requires you to contribute hardware — 'Launch a node ... as little as 4 vCPU and a single 100 GB attached disk' — so it is rent-seeking capacity, not a free tier, and it…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: The free-ish path requires you to contribute hardware — 'Launch a node ... as little as 4 vCPU and a single 100 GB attached disk' — so it is rent-seeking capacity, not a free tier, and it…
+- sources:
+  - [1] https://docs.zus.network/zus-docs/webapps/blimp

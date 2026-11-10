@@ -1,0 +1,41 @@
+# MotherDuck
+
+> motherduck.com | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/motherduck/ | JSON https://fshy.ajam.dev/api/v1/entity/motherduck.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## MotherDuck
+
+- `compute/motherduck` | qualifies-with-caveat | evidence documented | binding volume-quota | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:20:48.305Z (live) | stale on 2026-12-05
+- url https://motherduck.com/pricing/
+- free tier: Lite plan, quoted from the FAQ: 'We also offer a Lite plan with 10 GB of storage and 10 hours of Pulse compute per month included. A credit card is not required to sign up for the free trial or use the Lite plan.' The plan card adds 'Up to 3 internal active users and 2 service accounts' and '10 hrs Pulse compute per month included'. | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: perpetual-free
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email | detail: no card: the FAQ states 'A credit card is not required to sign up for the free trial or use the Lite plan', and the docs state 'Lite without a credit card includes 30 minutes per day at no charge'. No hold exists because no payment method is taken. The signup fields are not quoted, so the email requirement is inferred rather than read, and debit and prepaid acceptance are not stated.
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): 10 Pulse compute-hours a month fails before the 10 GB of storage: Pulse is metered per query with a one-second minimum, so a dashboard refreshed every minute exhausts the hours while storage is still nearly empty. [1]
+- limits note: 10 Pulse compute-hours a month fails before the 10 GB of storage: Pulse is metered per query with a one-second minimum, so a dashboard refreshed every minute exhausts the hours while storage is still nearly empty.
+- binding note: the same as limits note
+- interface detail: REST API, per the MotherDuck REST API page: "REST API reference for managing MotherDuck resources"
+- tooling: the provider documents its own "MotherDuck CLI", per the interfaces page
+- composes with: DuckDB over 10 GB of managed Parquet is the cheapest analytical layer found among evaluated providers, and a local DuckDB client connects to it with the same SQL, so a query developed on the free tier runs unchanged anywhere.
+- reliability: no reliability event recorded
+- notes: The free tier is Pulse only: Standard, Jumbo and Mega instances require the Business plan. Without a card the plan is 'Lite (with limits)', capped at 30 minutes of Flight compute a day and no scheduling. Historical retention is 1 day on Lite, so time travel is not a backup.
+- extras:
+  - facets.class: analytics-free-tier
+  - facets.free_tier_kind: perpetual-free
+  - facets.shape.disk_gib: 10
+- evidence:
+  - [1] 2026-10-22: 'We also offer a Lite plan with 10 GB of storage and 10 hours of Pulse compute per month included. A credit card is not required to sign up for the free trial or use the Lite plan.', quoted
+  - [2] 2026-10-22: 'The Lite plan includes 10 CU hours on Pulse per month. Additional usage is billed at the rates above.' and storage 'Includes 10 GB / month', quoted
+  - [2] 2026-10-22: 'Lite without a credit card includes 30 minutes per day at no charge' for Flight compute; Lite plan databases retain 1 day of historical data
+  - [3] 2026-11-04: MotherDuck documents a CLI | capture: sha256:304d2c8f4279ee658edf64567c85dc70940162f9ce4b2f83794530f16487f78e | quote: MotherDuck CLI: Drive MotherDuck from your terminal: run queries, build Dives and Flights, and script it all with JSON output.
+  - [4] 2026-11-04: MotherDuck documents a REST API | capture: sha256:83c73812f779a1b3b02ac1375ab9102d3b1559699949e95b65e2f20851d19e82 | quote: REST API reference for managing MotherDuck resources including databases, users, and access tokens.
+- sources:
+  - [1] https://motherduck.com/pricing/
+  - [2] https://motherduck.com/docs/about-motherduck/billing/pricing/
+  - [3] https://motherduck.com/docs/getting-started/interfaces/
+  - [4] https://motherduck.com/docs/sql-reference/rest-api/motherduck-rest-api/

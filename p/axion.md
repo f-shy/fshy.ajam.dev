@@ -1,0 +1,46 @@
+# Axion.host
+
+> axion.host | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/axion/ | JSON https://fshy.ajam.dev/api/v1/entity/axion.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Axion.host
+
+- `compute/axion-host` | paid-only | evidence documented | binding per-ip-shaping | category cloud VM
+- identity a placeholder: card and phone unknown | verified 2026-11-07T14:17:00.739Z (live) | stale on 2026-12-08
+- url https://axion.host/
+- price parsed USD 5.99/mo
+- free tier: USD 5.99 per month for AX-v1 in Frankfurt: 1 vCPU, 1 GB RAM, 10 GB NVMe SSD, unmetered traffic on a port of up to 2 Gbps shared, 1 IPv4, KVM, as the vendor page now renders. The ladder above it: USD 6.99 (AX-v2), USD 9.99 (AX-v3), USD 13.99 (AX-v4), USD 17.99 (AX-v5), USD 24.99 (AX-v6), USD 34.99 (AX-v7), USD 49.99 (AX-v8), USD 64.99 (AX-v9), USD 89.99 (AX-v10), USD 119.99 (AX-v11) and USD 169.99 (AX-v12), all Frankfurt; the page also names Amsterdam, Montreal and Detroit, each marked 'Available'. Every plan's term selector prints 1 month as the default with 3 months at 5 percent off, 6 months at 10 percent off and 12 months at 15 percent off; the discounted totals are computed in the page, so the annual price is derived, not printed. The per-term absolute prices behind the order system stay unverified: the BILLmanager order system at hub.axion.host renders its registration and order forms client-side, and its register page answers a JavaScript shell to a fetch. Renewal price: not published on any page read. No sold-out marker on the vendor page. | unit: GiB | metered on: wall-clock | read on: 2026-10-23 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: unmetered on every row, shared port up to 2 Gbps; no allowance and no overage price stated | metered: no | source: [1]
+- identity: email | detail: not stated
+- interface: rest
+- limits:
+  - per-ip-shaping (binding): Traffic is stated as unmetered on every row and the port is shared at 'up to 2 Gbps', so the shared port is the wall; no per-account byte allowance and no fair-use term is published on the page read. [1]
+- limits note: Traffic is stated as unmetered on every row and the port is shared at 'up to 2 Gbps', so the shared port is the wall; no per-account byte allowance and no fair-use term is published on the page read.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: order through hub.axion.host (BILLmanager); no API documented on the page read
+- composes with: USD 3.49 for 1 GB with unmetered traffic on a 2 Gbps shared port is the cheapest German row here, and the Frankfurt location is the one that keeps a European crawler close to its targets
+- reliability: no reliability event recorded
+- notes: Source: vps.today index row ('Axion.host | 10 GB NVMe | 1 GB | 1 x 2.1 GHz | 2 000 Mbit/s | KVM | 283 .'), then the vendor page, which prices the same row at USD 3.49. Rendering and provenance: currency written as USD.
+- extras:
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 1
+  - facets.shape.disk_gib: 10
+  - price_on_page: USD 5.99/month for AX-v1 (Frankfurt)
+  - renewal_usd: not published: the vendor page prints the plan ladder and no renewal figure
+- evidence:
+  - [1] 2026-10-23: cheapest row quoted: 'AX-v1 · Frankfurt', '1 vCPU', '1 GB', '10 GB NVMe SSD', 'Unmetered', 'up to 2 Gbps · shared', '1× IPv4', '$3.49 / month'
+  - [1] 2026-10-23: ladder quoted: 'AX-v2 … $6.99', 'AX-v3 … $9.99', 'AX-v4 … $13.99', 'AX-v5 … $17.99', 'AX-v6 … $24.99', 'AX-v7 … $34.99'; locations 'GERMANY · FRANKFURT', 'USA · DETROIT', 'Netherlands · Amsterdam', 'Canada · Montreal'
+  - [1] 2026-11-07: the vendor page renders AX-v1 in Frankfurt at USD 5.99 per month | capture: sha256:89012759dd34663761965284d9afd3378ba9e85a58178541b6c92a86690cd2c1 | quote: Frankfurt$5.99/ month
+  - probe:https://hub.axion.host/billmgr?func=register 2026-11-07: the BILLmanager register page answers 200 to a direct fetch (13841 bytes); the per-term prices render only inside the account-bound application | capture: sha256:b4f33df34f3d463d3bcd7815320c2884b4869b82a31b74c97ff3570e9c842272 | quote: "status": 200
+  - [1] 2026-11-07: the vendor page's rendered plan ladder re-read on 2026-11-07 | capture: sha256:89012759dd34663761965284d9afd3378ba9e85a58178541b6c92a86690cd2c1 | quote: Frankfurt$5.99/ month
+  - [1] 2026-11-07: the term selector defaults to 1 month with 3, 6 and 12-month buttons at 5, 10 and 15 percent off | capture: sha256:0a719bd0dc5d5ea32f8810ebd3e5c7b20b01cbf55b5493fed940047f96d6a135 | quote: aria-label="AX-v1: Choose term and discount"><button type="button" role="radio" aria-checked="true" class="active"><b>1</b><small>mo.</small></button>
+  - [2] 2026-11-07: the BILLmanager order system renders client-side, so the cart's per-term prices stay behind it | capture: sha256:40d713c42aa298260ab9c9ca3d9c14358402de80564d288f642037a6ee05e9b0 | quote: Please enable JavaScript to continue using this application.
+  - [1] 2026-11-07: the vendor's own page prices AX-v1 in Frankfurt at USD 5.99 a month | capture: sha256:89012759dd34663761965284d9afd3378ba9e85a58178541b6c92a86690cd2c1 | quote: Frankfurt$5.99/ month
+- sources:
+  - [1] https://axion.host/
+  - [2] https://hub.axion.host/billmgr?func=register

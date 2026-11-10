@@ -1,0 +1,51 @@
+# QDE
+
+> qde.com | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/qde/ | JSON https://fshy.ajam.dev/api/v1/entity/qde.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## QDE
+
+- `compute/qde` | paid-only | evidence documented | binding volume-quota | category cloud VM
+- identity a placeholder: card and phone unknown | verified 2026-11-08T00:54:56.644Z (live) | stale on 2026-12-09
+- url https://qde.com/vps/
+- price parsed USD 4.45/mo
+- free tier: Ryzen Mini at EUR 3.95 a month on the cart's monthly term (EUR 10.95 quarterly, EUR 20.95 semi-annually, EUR 39.95 annually; EUR 3.33 a month derived on the annual term): 1 AMD Ryzen 7950X core, 1 GB RAM, 15 GB pure NVMe, 4 TB bandwidth, 10 Gbps uplink, 1 dedicated IPv4 plus a /64 IPv6, daily backup, Amsterdam. The range continues Ryzen Elite EUR 5.95 (2 GB, 30 GB, 8 TB), Bronze EUR 6.95 (2 EPYC cores, 4 GB, 40 GB, 8 TB), Platinum EUR 12.95 (4 EPYC, 8 GB, 80 GB, 16 TB) and Diamond EUR 25.95 (8 EPYC, 16 GB, 160 GB, 32 TB). The tracker row it lists is Platinum at EUR 12.95. The cart marks all five plans out of stock, and the EPYC cart prints all four billing terms per plan. Renewal: not published on any page. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: monthly allowance with a hard throttle past it rather than an overage charge: 'Your network speed is reduced to 1 Mbps until the next billing cycle. No surprise overage charges.', quoted from the vendor FAQ | metered: yes | free allowance: 4 TB/month on Ryzen Mini; 8 TB on Bronze and Ryzen Elite, 16 TB on Platinum, 32 TB on Diamond | source: [1]
+- identity: email | detail: not stated
+- interface: rest
+- limits:
+  - volume-quota (binding): 4 TB a month on Ryzen Mini at 10 Gbps. There is no overage invoice: the vendor FAQ states the port is reduced to 1 Mbps until the next billing cycle once the allowance is used, quoted, so the binding constraint is a hard throttle and not a charge. [1]
+- limits note: 4 TB a month on Ryzen Mini at 10 Gbps. There is no overage invoice: the vendor FAQ states the port is reduced to 1 Mbps until the next billing cycle once the allowance is used, quoted, so the binding constraint is a hard throttle and not a charge.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: control panel with one-click OS reinstall, start/stop/reboot, bandwidth monitoring, manual backups, rDNS configuration and a VNC console; no API was stated on the page read; 7 Linux distributions supported and no Windows
+- composes with: EUR 3.95 for 15 GB of NVMe, 4 TB and a 10 Gbps uplink in Amsterdam is the cheapest 10 Gbps entry of the eight providers compared here, and the throttle to 1 Mbps at the cap instead of an overage invoice makes it safe to leave unattended: the failure mode is slowness, not a bill. On 2026-11-07 the vendor cart marked all five plans, Ryzen Mini through Diamond, out of stock, so none was orderable that day at these prices.
+- reliability: 99.9 percent uptime SLA backed by credits and a 14-day money-back guarantee, both stated on the page; exceeding the monthly bandwidth drops the port to 1 Mbps until the next billing cycle rather than billing overage, quoted
+- notes: QDE KVM VPS pricing starts at EUR 3.95 monthly. The operating company is Hizakura B.V. Network port allocations feature shared 10 Gbps uplinks.
+- extras:
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 1
+  - facets.shape.disk_gib: 15
+  - price_on_page: EUR 3.95/month for Ryzen Mini; renewal: not published
+- evidence:
+  - [1] 2026-10-22: plan card quoted: 'Ryzen Mini', 'EUR 3.95/ month', '1 AMD Ryzen 7950X CPU Core', '1 GB RAM', '15 GB Pure NVMe Storage', '4 TB Bandwidth', '10 Gbps Uplink', '1 Dedicated IPv4 Address', '/64 IPv6 Subnet', 'Daily Backup'
+  - [1] 2026-10-22: FAQ quoted: 'Your network speed is reduced to 1 Mbps until the next billing cycle. No surprise overage charges.' and '10 Gbps Shared Uplink ... no artificial throttling inside your monthly bandwidth allocation'
+  - [1] 2026-10-22: page states 'Plans start at just EUR 3.95/month with monthly billing and no long-term contracts', payment by 'cryptocurrency, iDEAL, PayPal, and all major credit cards', '14-day money-back guarantee and 99.9% uptime SLA', and 'Downgrades are not supported'
+  - [2] 2026-10-22: the only row listed: 'EUR 25.95 / month', '8 Epyc Cores (shared)', '16,384 MB RAM', '160 GB NVMe', '32,768 GB/month bandwidth', '10 Gbps port speed', Netherlands; header 'starting at EUR 25.95 per month' (tracker coverage is incomplete against the vendor's five plans)
+  - [3] 2026-11-07: the cart prints Ryzen Mini at EUR 3.95 monthly, EUR 10.95 quarterly, EUR 20.95 semi-annually and EUR 39.95 annually, and marks the plan Out of stock; the vendor page (sha256:4239590841316257b14d23a7bdf8f634a27315f707d4ef22bdd52106a7874a1c) still states the same five plans and prices | capture: sha256:0cdfc50d446f60d313aedadc21c97bab2031fec627c1958310f075940b5e6808 | quote: Outof stock Ryzen Mini €3.95 EUR €10.95 EUR €20.95 EUR €39.95 EUR / Monthly Quarterly Semi-Annually Annually
+  - [3] 2026-11-07: the cart marks the plans out of stock; the epyc cart (sha256:fdd00d5c1ff4ba4768121402eec49e89d840576ce1fa334c8010a7d220ab3ac2) shows the same mark on Bronze, Platinum and Diamond | capture: sha256:0cdfc50d446f60d313aedadc21c97bab2031fec627c1958310f075940b5e6808 | quote: Outof stock
+  - [3] 2026-11-07: the Ryzen cart prices Ryzen Mini at EUR 3.95 monthly, 10.95 quarterly, 20.95 semi-annually and 39.95 annually, and marks the plan out of stock | capture: sha256:2ec1127a063e92fc38f425c8a730c8feb651a3b365899c42eb0106d37f1935f3 | quote: €3.95 EUR€10.95 EUR€20.95 EUR€39.95 EUR / MonthlyQuarterlySemi-AnnuallyAnnually
+  - [3] 2026-11-07: the cart marks the Ryzen Mini plan unavailable | capture: sha256:2ec1127a063e92fc38f425c8a730c8feb651a3b365899c42eb0106d37f1935f3 | quote: Ryzen KVM VPS - Ryzen Mini plan is currently unavailable
+  - [4] 2026-11-07: the EPYC cart prices Bronze at EUR 6.95, Platinum at 12.95 and Diamond at 25.95, monthly terms only, and marks all three out of stock | capture: sha256:ac51a3bbbda2a16989c124d57186951bea26b42498a46d55071b1b2adc74bd27 | quote: €6.95 EUR / Monthly
+  - [3] 2026-11-07: the Ryzen cart prices Ryzen Mini at 3.95 EUR a month with quarterly, semi-annual and annual terms at 10.95, 20.95 and 39.95 EUR | capture: sha256:2ec1127a063e92fc38f425c8a730c8feb651a3b365899c42eb0106d37f1935f3 | quote: €3.95 EUR€10.95 EUR€20.95 EUR€39.95 EUR / MonthlyQuarterlySemi-AnnuallyAnnually
+  - [4] 2026-11-07: the EPYC cart carries a four-term billing selector, so it does not print monthly prices only | capture: sha256:fdd00d5c1ff4ba4768121402eec49e89d840576ce1fa334c8010a7d220ab3ac2 | quote: Monthly Quarterly Semi-Annually Annually
+  - [2] 2026-11-07: the tracker's QDE page now lists Platinum VPS at EUR 12.95 a month as its cheapest row | capture: sha256:ede23dd6e8b96efc956249037d7e7a85eda06ce0a3a0631a65a10c716e666198 | quote: These are the cheapest VPSs currently offered by QDE, starting at €12.95 per month:
+- sources:
+  - [1] https://qde.com/vps/
+  - [2] https://vpspricetracker.com/provider/QDE/vps
+  - [3] https://portal.qde.com/cart/ryzen-kvm-vps/
+  - [4] https://portal.qde.com/cart/epyc-kvm-vps/

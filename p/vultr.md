@@ -1,0 +1,298 @@
+# Vultr
+
+> vultr.com | Compute, Egress and tunnels, Storage; 7 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/vultr/ | JSON https://fshy.ajam.dev/api/v1/entity/vultr.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Vultr (regular 1gb)
+
+- `compute/vultr-regular-1gb` | qualifies-with-caveat | evidence documented | binding volume-quota | category VPS | tier Cloud Compute - Regular Performance, 1 GB
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T01:56:00.000Z (live) | stale on 2026-11-24
+- url https://www.vultr.com/pricing/
+- price parsed USD 5/mo
+- disagrees on verdict: `compute/vultr-2` says paid-only, `compute/vultr-regular-1gb` says qualifies-with-caveat
+- free tier: no free tier; the cheapest regular plan is USD 2.50 a month for 512 MB, IPv6 only | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the instance persists while it is paid; billed hourly, capped at the monthly price
+- egress: '1.00 TB Bandwidth' on the 1 GB regular plan, from the plan table | metered: yes | free allowance: 1 TB | source: [1]
+- identity: card | detail: an account with a payment method, required before any instance.
+- interface: ssh, rest
+- limits:
+  - volume-quota (binding): 1 TB a month of bandwidth [1]
+- binding note: 1 TB is the tightest allowance among the hyperscaler rows, and 1 GiB of RAM fails first anyway.
+- interface detail: root SSH, the Vultr control panel, and the Vultr API
+- tooling: any SSH client; vultr-cli and API; Terraform provider
+- composes with: a known-good API-driven box for automation, not for capacity: 1 GiB is the whole machine
+- reliability: no reliability event recorded
+- notes: USD 5.00 exactly, so it sits on the line rather than under it. The hourly rate multiplied by 730 is USD 5.11, which means the monthly cap is what keeps it at USD 5.00.
+- evidence note: the regular-performance table's shape, bandwidth, monthly and hourly prices are quoted from the vendor's pricing page read.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.disk_gib: 25
+  - billing_model: hourly, capped at the monthly price
+  - term: hourly
+  - m10h_usd: 2.1
+  - m24h_usd: 5.0
+  - price_arithmetic: 24/7: USD 0.007/h x 730 = USD 5.11, capped at USD 5.00/month. 10 h/day: USD 0.007 x 300 = USD 2.10.
+  - out_of_pocket_usd: 5.0
+  - renewal_usd: 5.0
+  - renewal_note: hourly list rate, no contract
+  - promo: no
+  - ipv4_included: yes
+  - ipv6: yes
+  - ipv6_only_cheaper_row: $2.50/mo for 512 MB, IPv6 only
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VM
+- evidence:
+  - [1] 2026-10-24: quoted: 'Regular Performance ... 1 vCPU | 1 GB Memory | 1.00 TB Bandwidth | 25 GB Storage | $5.00/mo | $0.007/hr'
+  - [1] 2026-10-24: quoted: '1 vCPU | 0.5 GB Memory | 0.50 TB Bandwidth | 10 GB Storage | $2.50/mo | $0.004/hr IPv6 Only'
+- sources:
+  - [1] https://www.vultr.com/pricing/
+
+## Vultr (free)
+
+- `egress/vultr` | trial-only | evidence unverified | binding volume-quota | category trial credit (provider VM) | tier free
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T12:11:59.479Z (live) | stale on 2026-11-19
+- url https://www.vultr.com/pricing/
+- price credit amount unverified
+- free tier: Vultr offers free credits for up to 30 days for you to try our services. | unit: mixed | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: Instances bundle a monthly bandwidth quota; bandwidth used in excess of the quota is billed at USD 0.01 per GB. The free-credit amount is not stated on the pages read. | metered: no | free allowance: none published | source: [2]
+- identity: card | detail: Add a payment method for verification purposes. Credit card linking allows verification with a $0.00 deposit. | country: None
+- interface: cli, rest
+- limits:
+  - volume-quota (binding): free credits for up to 30 days, amount unstated on the pages read [1]
+- binding note: the credit amount is the unknown, so what fails first at 1 TiB a month cannot be named. The bundled bandwidth of 2 to 10 TB a month per instance would clear the test on its own if the bundle is the thing being counted.
+- interface detail: the Vultr API and CLI
+- tooling: wg-quick on the instance; the Vultr CLI or API
+- composes with: one instance for 30 days; the bundle, not the credit, is the part that would carry volume
+- reliability: Credits are offered for up to 30 days.
+- notes: Arithmetic cannot be finished: with no credit amount read, the TB the credit buys is unknown. Candidate considered: the per-plan bandwidth bundle, which is documented on the pricing page and does not need a credit at all; the page states the overage rate of USD 0.01 per GB.
+- evidence note: the $250 figure appears only in a search snippet of docs.vultr.com; the page itself renders without it.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: a Cloud Compute instance with a public IPv4; wg-quick binds UDP natively
+  - ingress: udp
+  - volume_stated: the credit amount is not stated on any page read; instances bundle a monthly bandwidth quota, and bandwidth used in excess of the quota is billed at USD 0.01 per GB
+  - bytes_transit: yes
+  - transit_note: outbound bytes cross Vultr's network and draw on the plan's bandwidth allowance
+- evidence:
+  - [1] 2026-10-23: 'Vultr offers free credits for up to 30 days for you to try our services' and 'Add a payment method of your choice for verification purposes'
+  - [2] 2026-10-23: '1 vCPU 2 GB Memory 2.00 TB Bandwidth ... $10.00/mo', with plans listing 2.00 to 10.00 TB Bandwidth; note the origin returned 403 and the text came from the cache
+  - [2] 2026-11-04: bandwidth beyond the instance quota is billed at USD 0.01 per GB | capture: sha256:3d5af8c23f63c17c4e4fe7fe4b5eb752aca0e479f7c7eb0b0e462c66c8520cf9 | quote: We charge $0.01 per GB for bandwidth used in excess of your quota.
+  - [1] 2026-11-04: free credits last up to 30 days | capture: sha256:2071f20d38ef11dbe2b3afaf81ab1966b627f476e7a53e4691a8a3abab163c8f | quote: Vultr offers free credits for up to 30 days for you to try our services.
+  - [2] 2026-11-04: the pricing page was read and states the overage rate of USD 0.01 per GB | capture: sha256:3d5af8c23f63c17c4e4fe7fe4b5eb752aca0e479f7c7eb0b0e462c66c8520cf9 | quote: We charge $0.01 per GB for bandwidth used in excess of your quota.
+- sources:
+  - [1] https://docs.vultr.com/platform/create-an-account
+  - [2] https://www.vultr.com/pricing/
+
+## Vultr Cloud Compute
+
+- `compute/vultr` | trial-only | evidence documented | binding volume-quota | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T05:43:11.428Z (live) | stale on 2026-12-05
+- url https://www.vultr.com/pricing/
+- price parsed USD 20/mo
+- disagrees on identity_kind: `compute/vultr` says card, `compute/vultr-windows` says email
+- disagrees on verdict: `compute/vultr` says trial-only, `compute/vultr-windows` says paid-only
+- free tier: Promotional credit by code, not on signup: 'Use Code: FLY300VULTR ... Try Vultr for free with $300 free credit' and 'Use Code: 250VULTRFLY ... Try Vultr for free with $250 free credit'. The docs add 'Vultr offers free credits for up to 30 days for you to try our services.' New customers only. | unit: mixed | metered on: wall-clock | read on: 2026-10-23 | source: [1] | note: the pricing page itself carries no credit; the amount needs a code entered at billing, and the 30-day term is in the docs rather than on the credit page
+- per-object cap: not stated | source: [2]
+- retention: not stated | source: [2]
+- egress: Each plan carries its own monthly bandwidth quota; usage above the plan quota is billed at $0.01 per GB. | metered: no | price per TB: USD 10 | source: [2]
+- identity: card | detail: card at signup, with a USD 0.00 verification deposit option; the provider may place a small temporary authorisation hold, amount not published; debit accepted; prepaid is not stated
+- interface: rest
+- limits:
+  - volume-quota (binding): USD 250 or USD 300 of promotional credit, up to 30 days, new customers only [1]
+- limits note: the credit is granted by code; without a code the account is paid-only
+- binding note: USD 250 over 30 days is 34.7 cents an hour; above that rate the balance ends before the month does
+- interface detail: REST API v2 (HTTP endpoints, documented with curl examples) at vultr.com/api; the vultr-cli command-line client wraps the same API.
+- tooling: vultr-cli, the provider's command-line client for the Vultr API (github.com/vultr/vultr-cli); the REST API v2 can also be called directly over HTTP.
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: Vultr Cloud Compute offers hourly and monthly virtual servers with global datacenter presence. Account verification supports debit and credit cards with a USD 0.00 pre-authorization verification.
+- evidence note: the coupons page and the account docs were read on 2026-10-23; the pricing page returned 403 to the live fetch and was read's 2026-10-21 snapshot | Payment facts re-read on 2026-10-24: the card types, the hold and the identity gate each come from a first-party page quoted in evidence.
+- extras:
+  - keep_rate: 1.0
+  - billing_model: flat-pool
+  - price_note: a VPS bills by the month with an hourly rate capped at the monthly figure, so the two columns answer two questions: destroying the box between runs versus keeping it up.
+  - free_tier_kind: none
+  - m10h_usd: 8.94
+  - m24h_usd: 20.0
+  - price_basis: 10 h/day column = 300 h at the hourly rate; 24/7 column = the monthly cap. Rates read's 2026-10-21 snapshot of the pricing page because the live fetch returned 403 on 2026-10-23.
+  - granularity.min_billed_s: 3600
+  - burst_x: 2.0
+  - burst_bill: min 1 h
+  - hourly_usd.regular_1vcpu_1gb: 0.007
+  - hourly_usd.regular_2vcpu_2gb: 0.022
+  - hourly_usd.regular_2vcpu_4gb: 0.03
+  - hourly_usd.regular_4vcpu_8gb: 0.06
+  - hourly_usd.regular_6vcpu_16gb: 0.11
+  - hourly_usd.regular_8vcpu_32gb: 0.219
+  - hourly_usd.hp_amd_4vcpu_8gb: 0.071
+  - hourly_usd.hp_amd_8vcpu_16gb: 0.143
+  - hourly_usd.hp_amd_12vcpu_24gb: 0.214
+  - monthly_usd.regular_6vcpu_16gb: 80.0
+  - monthly_usd.regular_8vcpu_32gb: 160.0
+  - payment_methods.card_at_signup: yes
+  - payment_methods.debit: accepted
+  - payment_methods.prepaid: not-stated
+  - payment_methods.virtual: not-stated
+  - payment_methods.hold_amount: USD 0.00
+  - payment_methods.hold_detail: no-deposit verification; provider may place a small temporary hold of unpublished size
+  - payment_methods.identity: email and password, then a payment method for verification
+  - payment_methods.source_url: https://docs.vultr.com/platform/create-an-account
+  - payment_methods.read_on: 2026-10-24
+- evidence:
+  - [1] 2026-10-23: quoted: 'Use Code: 250VULTRFLY ... Try Vultr for free with $250 free credit' and the FLY300VULTR $300 variant
+  - [3] 2026-10-23: quoted: 'Vultr offers free credits for up to 30 days for you to try our services.'
+  - [2] 2026-10-23: read from the 2026-10-21 snapshot: Regular Performance 4 vCPU/8 GB $40.00/mo $0.06/hr; 8 vCPU/32 GB $160.00/mo $0.219/hr; High Performance AMD 4/8 $48.00/mo $0.071/hr and 8/16 $96.00/mo $0.143/hr
+  - [4] 2026-10-24: quoted: 'Credit and Debit Cards: Visa, Mastercard, American Express, Discover, and JCB.' (page states 'Updated 16 December 2025')
+  - [3] 2026-10-24: quoted: 'choose I just want to link my credit card - $0.00 deposit to verify without an initial deposit. Your provider may place a small temporary authorization hold that will be released shortly.'
+  - [5] 2026-11-03: overage price per GB | capture: sha256:be9518e738540c49abbb69938fc05022b8c27501880ace499d7fb50044ddc276 | quote: Bandwidth usage exceeding your plan's allocated quota is billed at an overage rate of $0.01 per GB.
+  - [6] 2026-11-03: REST API exists | capture: sha256:5f640a6091d5f9ff157473dbe460df8ae7a7e186f0c8d05a4ce3f444b930baa9 | quote: The Vultr API v2 is a set of HTTP endpoints that adhere to RESTful design principles
+  - [6] 2026-11-04: the provider documents a REST API v2 | capture: sha256:5f640a6091d5f9ff157473dbe460df8ae7a7e186f0c8d05a4ce3f444b930baa9 | quote: The Vultr API v2 is a set of HTTP endpoints that adhere to RESTful design principles
+  - [7] 2026-11-04: the provider's CLI is vultr-cli | capture: sha256:921c56c18d1804d3c847c44b4308a836a7b3a6935e996600f2bb0c04269a6d76 | quote: vultr-cli is a command line interface for the Vultr API
+- sources:
+  - [1] https://www.vultr.com/coupons/
+  - [2] https://www.vultr.com/pricing/
+  - [3] https://docs.vultr.com/platform/create-an-account
+  - [4] https://docs.vultr.com/support/platform/billing/what-payment-methods-do-you-accept
+  - [5] https://docs.vultr.com/support/platform/billing/what-is-the-bandwidth-overage-rate
+  - [6] https://www.vultr.com/api/
+  - [7] https://github.com/vultr/vultr-cli
+
+## Vultr (2)
+
+- `compute/vultr-2` | paid-only | evidence documented | binding volume-quota | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://www.vultr.com/pricing/
+- disagrees on verdict: `compute/vultr-2` says paid-only, `compute/vultr-regular-1gb` says qualifies-with-caveat
+- free tier: Cloud Compute entry rung: 1 vCPU, 0.5 GB memory, 10 GB storage, 0.50 TB bandwidth at USD 2.50/month or USD 0.004/hour, IPv6 only. The same shape with an IPv4 address is USD 3.50/month at USD 0.005/hour. The 1 GB rung is USD 5.00/month with 25 GB storage and 1 TB bandwidth. | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: '1 vCPU 0.5 GB Memory 0.50 TB Bandwidth 10 GB Storage $2.50/mo $0.004/hr IPv6 Only', quoted from the Cloud Compute table | metered: yes | source: [1]
+- identity: card
+- interface: unknown
+- limits:
+  - volume-quota (binding): 0.5 TB a month on a 0.5 GB instance is 500 GiB of egress, and 10 GB of disk holds nothing larger than a log tail [1]
+- limits note: 0.5 TB a month on a 0.5 GB instance is 500 GiB of egress, and 10 GB of disk holds nothing larger than a log tail
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: USD 2.50 hourly with no term is the right shape for a two-day job: it is more expensive per GiB than the annual hosts and cheaper than leaving an annual plan idle
+- reliability: no reliability event recorded
+- notes: UPDATES an existing record: compute/vultr carries m24h_usd 20 with shape null, which is not the floor. The floor read is USD 2.50 monthly (IPv6 only) or USD 3.50 with IPv4, both 730-hour equivalents. The IPv6-only rung is unreachable from a network without IPv6, which is a real constraint for a client behind a residential CGNAT.
+- extras:
+  - facets.class: price-floor
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 0.5
+  - facets.shape.disk_gib: 10
+- evidence:
+  - [1] 2026-10-22: '1 vCPU 0.5 GB Memory 0.50 TB Bandwidth 10 GB Storage $2.50/mo $0.004/hr IPv6 Only', quoted from the Cloud Compute table
+  - [1] 2026-10-22: '1 vCPU 0.5 GB Memory 0.50 TB Bandwidth 10 GB Storage $3.50/mo $0.005/hr' as the IPv4 rung, and '1 vCPU 1 GB Memory 1.00 TB Bandwidth 25 GB Storage $5.00/mo $0.007/hr'
+  - [1] 2026-10-22: VX1 is billed 'on actual hours used each month and are not capped at 672 hours', unlike the Cloud Compute rungs, quoted
+- sources:
+  - [1] https://www.vultr.com/pricing/
+
+## Vultr Cloud Compute (Windows Server)
+
+- `compute/vultr-windows` | paid-only | evidence documented | binding request-rate | category Windows host
+- identity a placeholder: card and phone unknown | verified 2026-10-22T04:48:20.451Z (live) | stale on 2026-11-22
+- url https://docs.vultr.com/support/platform/billing/is-a-windows-license-included-in-the-monthly-price
+- disagrees on identity_kind: `compute/vultr` says card, `compute/vultr-windows` says email
+- disagrees on verdict: `compute/vultr` says trial-only, `compute/vultr-windows` says paid-only
+- free tier: none for compute; the live pricing page carries no free tier and no credit. See the `vultr` record for the read | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - request-rate (binding): a Windows licence fee is added to the Compute plan's base monthly price [1]
+  - write-gated: the licence is not optional on a Windows server, so the effective price is the plan plus the licence [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: the vultr record was re-read on 2026-10-22 and the pricing page carries no free compute tier; this slug inherited a card value that the page does not support, so it takes the same verdict
+- evidence note: the support article was read on 2026-10-22 and states plainly that a Windows licence is a separate fee on top of the Compute plan. The record's paid-only verdict holds and now has a page behind it
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: a Compute instance bills monthly; the support article states no clock
+  - free_tier_kind: none
+  - granularity.min_billed_s: 3600
+  - ps.price: instance storage, part of the Compute plan
+  - ps.durability: instance disk
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: while the instance exists
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Windows licenses are not included in Vultr's base monthly price and require an additional fee based on your selected Compute plan.' quoted, with the page dated 'Updated 15 April 2026'
+- sources:
+  - [1] https://docs.vultr.com/support/platform/billing/is-a-windows-license-included-in-the-monthly-price
+
+## Vultr Cloud GPU
+
+- `compute/vultr-gpu` | paid-only | evidence unverified | category GPU cloud
+- identity a placeholder: card and phone unknown | verified 2026-10-22T04:55:04.000Z (inherited) | stale on 2026-11-06
+- url https://api.vultr.com/v2/plans?type=vcg
+- free tier: none for compute; the live pricing page carries no free tier and no credit. See the `vultr` record for the read | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits note: Session cap, idle-reap and network policy are not documented. GPU only.
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: Vultr provides cloud GPU instances including NVIDIA A100, H100, and L40S configurations billed hourly with card-backed account verification.
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - free_tier_kind: allowance
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: unverified: the plans API returns 403 with a five-word bot challenge on 2026-10-22 and to the firecrawl route; the raw fetch returned 1,774 bytes, which is the challenge body. The record's paid-only verdict is not re-asserted from a challenge
+- sources:
+  - [1] https://api.vultr.com/v2/plans?type=vcg
+
+## vultr object storage
+
+- `storage/vultr-object-storage` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.vultr.com/products/object-storage/
+- free tier: none reachable: Pricing page returned HTTP 403 and the documentation path returned HTTP 404 on 2026-10-21. Only marketing overview pages were accessible. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Price page is 403 and the docs path 404s; only the marketing shell is retrievable.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Price page is 403 and the docs path 404s; only the marketing shell is retrievable.
+  - [2] 2026-10-21: cited as the basis of the rejection: Price page is 403 and the docs path 404s; only the marketing shell is retrievable.
+- sources:
+  - [1] https://www.vultr.com/products/object-storage/
+  - [2] https://docs.vultr.com/products/storage/object-storage/pricing

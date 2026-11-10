@@ -1,0 +1,591 @@
+# fshy: Data APIs, rejected
+
+> Data APIs with free calls, and their bulk downloads: maps, IP location, markets, weather, news and open data.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/data-apis/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## NPR One API (NPR Developer Center)
+
+- `data-apis/npr-one` | fails-identity | evidence reported | binding write-gated | category audio and news content API | tier Developer account (closed to new accounts)
+- needs card no, phone no, ID no, institution yes | verified 2026-11-03T00:30:00.000Z (live) | stale on 2026-11-18
+- url https://dev.npr.org/ | page https://fshy.ajam.dev/p/npr.md
+- free tier: none reachable: the developer center said it was not accepting new login accounts, and its host no longer resolves. | unit: none | metered on: none | read on: 2026-11-02 | source: [1] | note: The legacy Story API is retired. Its successor, the Content Distribution Service, gives a key to member stations through NPR member partnership; no self-serve key is described.
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not assessed: no account can be opened to read content | metered: no | source: [1]
+- identity: institution | detail: New developer logins were closed on the last copy of the developer center read; the successor service names member stations as its key holders.
+- interface: rest
+- limits:
+  - write-gated (binding): new developer accounts are closed; a Content Distribution Service key goes to member stations through member partnership [1]
+- binding note: No new account can be opened, so no rate or quota is reachable.
+- interface detail: REST over HTTPS at listening.api.npr.org, identity.api.npr.org and authorization.api.npr.org, with an OAuth bearer token from the authorization service
+- endpoint: https://listening.api.npr.org/v2/recommendations
+- tooling: any HTTP client; NPR published a JavaScript SDK and a PHP backend proxy for token handling
+- composes with: Audio recommendations and listening data for NPR One apps; the news text route is the Content Distribution Service, for member stations.
+- reliability: The developer center host dev.npr.org failed DNS on 2026-11-03; the API hosts still answer HTTP 401 without a token; the Story API is retired.
+- notes: Storage: no storage term was readable because the developer center host does not resolve. Bulk path: none found.
+- evidence note: The closed-registration notice is read from an archived copy of the developer center dated 2024-07-14, and the host no longer resolves, so the present state of registration is inferred; the API hosts answering 401 shows the service is up for existing holders.
+- evidence:
+  - [2] 2026-11-02: the developer center was not accepting new login accounts (archived copy dated 2024-07-14) | capture: sha256:2ad4639e905174566641fe9967d1e361856fecec3f07828c64a4f201c0363020 | quote: We are currently not accepting new login accounts, but existing users can continue to access this service.
+  - probe:https://dev.npr.org/ 2026-11-03: the developer center host failed DNS | capture: sha256:60507351394fc1e8624e6e229a1f0d8f8247987441aa5104ff9cea959265d279 | quote: "error": "dns"
+  - probe:https://listening.api.npr.org/v2/recommendations 2026-11-03: the listening API host answers HTTP 401 without a token | capture: sha256:9ecdf9b7337b5af72b9a1b5bb4f792ecc6fe370792dd1801cc5f8e92c6264fcc | quote: "status": 401
+  - [3] 2026-11-02: the Story API is retired | capture: sha256:d5bee0e1f1b81f16d603e78b278a80392196b4eb576ab60ad06cfc6f4bb08358 | quote: After over 15 years of service, Story API is retiring! As a result, we are no longer supporting this page.
+  - [4] 2026-11-02: the successor service gives keys to member stations through member partnership | capture: sha256:23b4f0d37a824ccb53de4a10e1c0ddc6ffb479fbb0b488e996c51255d8d48424 | quote: If you are a Member Station and need a CDS key, reach out to [Member Partnership](https://studio.npr.org/s/support-home).
+- sources:
+  - [1] https://dev.npr.org/
+  - [2] https://web.archive.org/web/20240714235112/http://dev.npr.org/
+  - [3] https://legacy.npr.org/api/index
+  - [4] https://npr.github.io/content-distribution-service/getting-started.html
+
+## Abstract API IP Geolocation
+
+- `data-apis/abstract-api-ip-geolocation` | fails-quota | evidence documented | binding volume-quota | category IP geolocation API | tier Free
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T00:23:42.369Z (live) | stale on 2026-12-03
+- url https://www.abstractapi.com/api/ip-geolocation-api | page https://fshy.ajam.dev/p/abstractapi.md
+- free tier: Free plan, USD 0 a month: 1,000 requests a month at 1 request a second, no credit card; the response is the full one, including the security and company fields that paid plans gate. | unit: requests | metered on: request-count | read on: 2026-11-02 | source: [1] | note: Each IP in a request counts as one credit, and credits are counted per request, not per successful response. Past the monthly credits the API answers HTTP 422, and past 1 request a second HTTP 429. Starter is USD 17 a month billed annually (USD 19 paid monthly).
+- per-object cap: one IP address per request; the product page says no separate batch endpoint is needed | source: [2]
+- retention: not stated
+- egress: not applicable | metered: no | source: [1]
+- identity: email | detail: an email address and password with a verification link, or Google sign-in; no credit card on the free plan
+- interface: rest
+- limits:
+  - volume-quota (binding): 1,000 requests a month on the Free plan [1]
+  - request-rate: 1 request a second on the Free plan; HTTP 429 above it [3]
+- binding note: 1,000 requests a month is used up long before 1 request a second can matter.
+- interface detail: GET https://ipgeolocation.abstractapi.com/v1/ with api_key, an optional ip_address (IPv4 or IPv6; the caller's address when omitted) and an optional fields list; JSON over HTTPS, TLS 1.2 or greater
+- endpoint: part of interface detail
+- tooling: any HTTP client; vendor libraries for Python, PHP and Node.js
+- composes with: 1,000 keyed lookups a month, each returning location, time zone, flag, currency, ASN, company and security fields, at 1 request a second. Bulk path: none; the single-IP call is looped at the plan's rate limit, and a browser bulk tool takes a pasted list with no key
+- reliability: Past the free monthly credits the API answers HTTP 422, and past 1 request a second HTTP 429; a request for an invalid IP still uses one credit.
+- notes: Free requests: 1,000 a month at 1 request a second. Rate limit: 1 request a second on the free plan (HTTP 429). The product page advises caching by address block. Bulk path: none; the single-IP call is looped at the plan's rate limit, and a browser bulk lookup tool needs no key.
+- evidence note: The pricing, product, documentation and sign-up pages were read on 2026-11-02, and a keyless call to the API answered HTTP 400 naming api_key as required; no keyed lookup was made, so the quota and the rate limit are as published.
+- extras:
+  - bulk_path: none; loop the single-IP API at the rate limit; a browser bulk tool takes a pasted list with no key
+  - free_requests: 1,000 a month
+- evidence:
+  - [1] 2026-11-02: the free IP Geolocation plan is 1,000 requests a month at 1 request a second with no credit card | capture: sha256:92ea3542b006b90d81f693bd031c403c89219d0ee83988a93ff66eb96d148046 | quote: 1,000 requests a month at 1 request a second, no credit card.
+  - [1] 2026-11-02: the free tier of the IP API is 1,000 requests, against 100 for the email and phone APIs | capture: sha256:92ea3542b006b90d81f693bd031c403c89219d0ee83988a93ff66eb96d148046 | quote: Free tier: 100 requests a month on email and phone, 1,000 on IP.
+  - [1] 2026-11-02: the free plan returns the full response | capture: sha256:92ea3542b006b90d81f693bd031c403c89219d0ee83988a93ff66eb96d148046 | quote: The free plan returns the complete response, including the security and company fields that paid plans gate.
+  - [1] 2026-11-02: the free plan is limited to 1 request a second | capture: sha256:92ea3542b006b90d81f693bd031c403c89219d0ee83988a93ff66eb96d148046 | quote: 10 requests a second on every paid plan, and 1 request a second on the free plan.
+  - [1] 2026-11-02: the free tier is permanent and needs no card | capture: sha256:92ea3542b006b90d81f693bd031c403c89219d0ee83988a93ff66eb96d148046 | quote: Every API has a permanently free tier with no credit card
+  - [1] 2026-11-02: Starter is USD 17 a month when billed annually | capture: sha256:92ea3542b006b90d81f693bd031c403c89219d0ee83988a93ff66eb96d148046 | quote: Starter is $17 a month billed annually and includes 200,000 requests a month, which works out to $0.085 per 1,000 requests.
+  - [1] 2026-11-02: the same Starter plan is USD 19 a month when paid monthly | capture: sha256:92ea3542b006b90d81f693bd031c403c89219d0ee83988a93ff66eb96d148046 | quote: Abstract's price is billed annually, $19 paid monthly.
+  - [3] 2026-11-02: a free plan that has used its credits is answered HTTP 422 | capture: sha256:97284f719ad5dc104ab079966d5b0c545690bd17e49a90e7c77865aa07dea355 | quote: | 422 | Quota reached | The request was aborted due to insufficient API credits. (Free plans) |
+  - [3] 2026-11-02: above 1 request a second a free plan is answered HTTP 429 | capture: sha256:97284f719ad5dc104ab079966d5b0c545690bd17e49a90e7c77865aa07dea355 | quote: | 429 | Too many requests | The request was aborted due to the number of allowed requests per second being reached. This happens on free plans as requests are limited to 1 per second. |
+  - [3] 2026-11-02: every submitted IP uses one credit, and a failed request still uses it | capture: sha256:97284f719ad5dc104ab079966d5b0c545690bd17e49a90e7c77865aa07dea355 | quote: A note on metered billing: Each individual IP you submit counts as a credit used. Credits are also counted per request, not per successful response.
+  - [3] 2026-11-02: the API is HTTPS only | capture: sha256:97284f719ad5dc104ab079966d5b0c545690bd17e49a90e7c77865aa07dea355 | quote: The IP Geolocation API requires all communications to be secured with TLS 1.2 or greater.
+  - [3] 2026-11-02: the ip_address parameter takes one IPv4 or IPv6 address | capture: sha256:97284f719ad5dc104ab079966d5b0c545690bd17e49a90e7c77865aa07dea355 | quote: The IP address to geolocate. Both IPv4 and IPv6 addresses are supported.
+  - [3] 2026-11-02: the base URL of the API | capture: sha256:97284f719ad5dc104ab079966d5b0c545690bd17e49a90e7c77865aa07dea355 | quote: https://ipgeolocation.abstractapi.com/v1/
+  - [2] 2026-11-02: the bulk routes are a loop over the API and a free browser tool | capture: sha256:69b6c93a227230d6370e7557b523f771c724942bddba41526bd3573a56d06903 | quote: To geolocate many addresses at once, send them through the API in a loop at your plan's rate limit, or paste a list into Abstract's free bulk IP lookup tool.
+  - [2] 2026-11-02: the API has no batch endpoint | capture: sha256:69b6c93a227230d6370e7557b523f771c724942bddba41526bd3573a56d06903 | quote: No separate batch endpoint is needed.
+  - [2] 2026-11-02: the product page advises caching results by address block | capture: sha256:69b6c93a227230d6370e7557b523f771c724942bddba41526bd3573a56d06903 | quote: Cache by address block rather than by address, since consecutive addresses in a block almost always resolve to the same place.
+  - [2] 2026-11-02: vendor libraries exist for Python, PHP and Node.js | capture: sha256:69b6c93a227230d6370e7557b523f771c724942bddba41526bd3573a56d06903 | quote: Use our dedicated Python, PHP, and Node.js libraries, or test live requests instantly in our interactive sandbox.
+  - [4] 2026-11-02: the browser bulk lookup tool needs no signup | capture: sha256:2b7e62401a9ec4c7610f4552de437e28b6ff66c24592a834e3ce3807d4ee0c46 | quote: Free, no signup required.
+  - [4] 2026-11-02: the browser bulk lookup tool is rate limited | capture: sha256:2b7e62401a9ec4c7610f4552de437e28b6ff66c24592a834e3ce3807d4ee0c46 | quote: The free tool is rate limited, and the counter next to the upload link shows how much of your list will run before you start.
+  - [5] 2026-11-02: the sign-up page issues an API key | capture: sha256:87897d8e88152e8756afb5c755e7db6e30f6e46bc08972489f8b503c2e442a8c | quote: Get your API key in seconds
+  - [5] 2026-11-02: sign-up takes an email address and a password | capture: sha256:87897d8e88152e8756afb5c755e7db6e30f6e46bc08972489f8b503c2e442a8c | quote: Email address
+  - [5] 2026-11-02: Google sign-in is offered | capture: sha256:87897d8e88152e8756afb5c755e7db6e30f6e46bc08972489f8b503c2e442a8c | quote: Sign in with Google
+  - [5] 2026-11-02: the account is activated through a verification link sent by email | capture: sha256:87897d8e88152e8756afb5c755e7db6e30f6e46bc08972489f8b503c2e442a8c | quote: Please click it to activate your account.
+  - [6] 2026-11-02: a call with no key answers HTTP 400 and names api_key as required, so the endpoint is live and keyed | capture: sha256:6fca07c1a9f7763385d9983a7974ca59bcc5757999020fb0ffcd31f65c572655 | quote: "api_key":["This is a required argument."]
+  - [6] 2026-11-02: the keyless call answers HTTP 400 | capture: sha256:6fca07c1a9f7763385d9983a7974ca59bcc5757999020fb0ffcd31f65c572655 | quote: HTTP/1.1 400 Bad Request
+- sources:
+  - [1] https://www.abstractapi.com/pricing
+  - [2] https://www.abstractapi.com/api/ip-geolocation-api
+  - [3] https://docs.abstractapi.com/api/ip-geolocation
+  - [4] https://www.abstractapi.com/tools/bulk-ip-lookup
+  - [5] https://app.abstractapi.com/users/signup
+  - [6] https://ipgeolocation.abstractapi.com/v1/?ip_address=8.8.8.8
+
+## Apiip
+
+- `data-apis/apiip` | fails-quota | evidence documented | binding volume-quota | category IP geolocation API | tier Free
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T00:23:42.887Z (live) | stale on 2026-12-03
+- url https://apiip.net/get-started | page https://fshy.ajam.dev/p/apiip.md
+- free tier: Free plan, EUR 0.00: 1,000 requests a month, no hidden fees and no credit card; an access key is issued after an account is created | unit: requests | metered on: request-count | read on: 2026-11-02 | source: [1] | note: Basic is EUR 9.99 a month (EUR 7.99 billed yearly) for 100,000 requests and Professional EUR 49.99 (EUR 39.99) for 1,000,000. Past the monthly allowance the API answers HTTP 403 usage_limit_reached.
+- per-object cap: a bulk lookup takes up to 50 IPs as a comma-separated list; a single lookup takes one | source: [2]
+- retention: not applicable: a lookup API | source: [2]
+- egress: not applicable: JSON or XML answers, not metered in bytes | metered: no | source: [2]
+- identity: email | detail: an account is needed for the access key; the sign-up form has account details, billing details with a country selector and company details; no credit card is asked on the Free plan
+- interface: rest
+- limits:
+  - volume-quota (binding): 1,000 requests a month on the Free plan; HTTP 403 usage_limit_reached past it [1]
+  - request-rate: 100 requests per second from a single IP address; HTTP 429 too_many_requests past it [3]
+  - per-object-cap: up to 50 IPs per bulk lookup request [2]
+- binding note: 1,000 requests a month is met long before the 100 requests a second rate.
+- interface detail: GET https://apiip.net/api/check?ip={ip}&accessKey={key} answers JSON or XML; a comma-separated list of up to 50 IPs does a bulk lookup on plans that include it; check without an ip parameter looks up the caller
+- endpoint: part of interface detail
+- tooling: any HTTP client or the vendor's client packages for JavaScript, Python and PHP
+- composes with: 1,000 lookups a month with location, currency, language, time zone and security modules is a test allowance; the paid plans are the working route. Bulk path: bulk lookup of up to 50 IPs on plans that include it; whether Free includes it is unverified.
+- reliability: past the monthly allowance the API answers HTTP 403 usage_limit_reached and past the per-second rate HTTP 429 too_many_requests; a keyless call answered HTTP 401 missing_access_key
+- notes: Free requests: 1,000 a month. Rate limit: 100 requests a second from one IP address. Bulk path: bulk lookup of up to 50 IPs on plans that include it; whether Free includes it is unverified.
+- evidence note: The plan list, documentation, FAQ and sign-up page were quoted on 2026-11-02 and a keyless call answered HTTP 401; no keyed lookup was made. The plan list as rendered does not show which modules the Free plan excludes, and the account-detail fields of the sign-up form are rendered by script, so whether Free includes bulk lookup and which account fields are required are unverified.
+- extras:
+  - bulk_path: comma-separated list of up to 50 IPs on plans with Bulk Lookup
+  - free_requests: 1,000 a month
+- evidence:
+  - [1] 2026-11-02: the free plan has no hidden fees and needs no credit card | capture: sha256:4c805a719e10099f04683b59a74179408ba0859ad88ea12669e3c8a055f8140b | quote: No hidden fees No credit card required
+  - [1] 2026-11-02: the EUR 0.00 plan lists 1,000 requests a month | capture: sha256:4c805a719e10099f04683b59a74179408ba0859ad88ea12669e3c8a055f8140b | quote: - 1,000 req / mo
+  - [1] 2026-11-02: the free plan is priced EUR 0.00 | capture: sha256:4c805a719e10099f04683b59a74179408ba0859ad88ea12669e3c8a055f8140b | quote: #### €0.00
+  - [1] 2026-11-02: Basic is EUR 9.99 a month | capture: sha256:4c805a719e10099f04683b59a74179408ba0859ad88ea12669e3c8a055f8140b | quote: €9.99
+  - [1] 2026-11-02: Basic allows 100,000 requests a month | capture: sha256:4c805a719e10099f04683b59a74179408ba0859ad88ea12669e3c8a055f8140b | quote: - 100,000 req / mo
+  - [1] 2026-11-02: Professional is EUR 49.99 a month | capture: sha256:4c805a719e10099f04683b59a74179408ba0859ad88ea12669e3c8a055f8140b | quote: €49.99
+  - [1] 2026-11-02: Professional allows 1,000,000 requests a month | capture: sha256:4c805a719e10099f04683b59a74179408ba0859ad88ea12669e3c8a055f8140b | quote: - 1,000,000 req / mo
+  - [2] 2026-11-02: an account is created first and an access key is assigned | capture: sha256:fa273506d36a0d77eec8871836ca5a7f664f7f4ee104379695ff64a8023892bc | quote: After creating an account, you will be assigned a API access key, a unique hash consisting of 36 characters that will allow you to authenticate with the API interface.
+  - [2] 2026-11-02: a bulk lookup takes up to 50 IPs | capture: sha256:fa273506d36a0d77eec8871836ca5a7f664f7f4ee104379695ff64a8023892bc | quote: | `ip` | [Required] A comma-separated list of IPv4 or IPv6 addresses of your choice.(Limit: 50 values) |
+  - [2] 2026-11-02: bulk lookup depends on the plan | capture: sha256:fa273506d36a0d77eec8871836ca5a7f664f7f4ee104379695ff64a8023892bc | quote: | `403` | `bulk_not_supported` | Your current subscription plan does not include Bulk Lookup. |
+  - [2] 2026-11-02: past the monthly limit the API answers HTTP 403 usage_limit_reached | capture: sha256:fa273506d36a0d77eec8871836ca5a7f664f7f4ee104379695ff64a8023892bc | quote: | `403` | `usage_limit_reached` | Your API usage limit has been reached. Please upgrade your plan. |
+  - [2] 2026-11-02: past the per-second rate the API answers HTTP 429 | capture: sha256:fa273506d36a0d77eec8871836ca5a7f664f7f4ee104379695ff64a8023892bc | quote: | `429` | `too_many_requests` | You exceeded the allowed number of requests per second, if you need more, please send us a message on www.apiip.net/contact |
+  - [3] 2026-11-02: the per-second limit is 100 requests from a single IP address | capture: sha256:f931cdcee738913b7bf45d57078850ddddf828925d2931b1abc57a0646aca6e5 | quote: To ensure stability, API requests are limited to 100 requests per second from a single IP address.
+  - [4] 2026-11-02: the sign-up form asks for a billing country | capture: sha256:4c1219fdf393b425d7988903e517b13f9ff6f9d6d99fff37c3bbd9e67c01c3d3 | quote: Choose your country \*
+  - [4] 2026-11-02: the sign-up form has an account details section | capture: sha256:4c1219fdf393b425d7988903e517b13f9ff6f9d6d99fff37c3bbd9e67c01c3d3 | quote: ACCOUNT DETAILS
+  - [4] 2026-11-02: the sign-up form has a company details section | capture: sha256:4c1219fdf393b425d7988903e517b13f9ff6f9d6d99fff37c3bbd9e67c01c3d3 | quote: COMPANY DETAILS
+  - [4] 2026-11-02: the sign-up form ends with an agreement checkbox and a Signup button | capture: sha256:4c1219fdf393b425d7988903e517b13f9ff6f9d6d99fff37c3bbd9e67c01c3d3 | quote: I have read and agree to the
+  - [5] 2026-11-02: a keyless call answers HTTP 401 missing_access_key | capture: sha256:d5f74679db9ad18ad3d178fb9375ef77dfd6f47f0a1b04772cf9ee7607b32c6b | quote: {"success":false,"message":{"code":401,"type":"missing_access_key","info":"Api access key is required!"}}
+- sources:
+  - [1] https://apiip.net/get-started
+  - [2] https://apiip.net/documentation
+  - [3] https://apiip.net/faq
+  - [4] https://apiip.net/signup
+  - [5] https://apiip.net/api/check?ip=8.8.8.8
+
+## currencylayer (APILayer)
+
+- `data-apis/currencylayer` | fails-quota | evidence documented | binding volume-quota | category currency exchange rate API (168 currencies and metals) | tier Free
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T00:23:51.279Z (live) | stale on 2026-12-03
+- url https://currencylayer.com/ | page https://fshy.ajam.dev/p/currencylayer.md
+- free tier: Free plan, USD 0: 100 API requests a month, daily updates, historical rates, HTTPS. | unit: requests | metered on: request-count | read on: 2026-11-02 | source: [1] | note: One request is any call with a valid key; time-frame and change queries and many currencies in one call count as one. The next plan up, Basic, is USD 14.99 a month for 10,000 requests. The pricing FAQ says quotes refresh every 60 minutes on Free and Basic, the general FAQ says every day on Free; the plan card says daily updates.
+- per-object cap: not stated | source: [1]
+- retention: not applicable
+- egress: not metered in bytes; the 100 requests a month bound what a free key can pull | metered: no | source: [1]
+- identity: email | detail: The free sign-up form asks for first name, last name, email, password, address, postal code, country and city (state in some countries), with a Turnstile check. The card block of the form is marked paid-only and hidden.
+- interface: rest
+- limits:
+  - volume-quota (binding): 100 requests a month on the Free plan [1]
+- limits note: Rate per minute: not stated on the pages read. The timeframe endpoint spans up to 365 days; whether the Free plan includes it was not readable, because the plan table lost its check and cross marks. Bulk path: none on the free plan.
+- binding note: 100 requests a month is spent in days of testing, and no per-minute rate is published.
+- interface detail: GET /live and /historical with an access_key; /timeframe, /convert and /change are other endpoints, and their plan gate was not read
+- endpoint: https://api.currencylayer.com/live
+- tooling: any HTTP client
+- composes with: 100 requests a month is a test allowance; a daily rate pull uses about 30, so little is left for history.
+- reliability: At 100 percent of the allowance the FAQ says overage fees apply, and the plan table lists an Overage line; what the Free plan does past 100 requests was not read.
+- notes: Free requests: 100 a month. Rate limit: no per-minute rate stated on the pages read. Bulk path: none on the free plan.
+- evidence note: Quota, refresh and licence fields are read from the home page and FAQ; the sign-up fields are read from the form markup of the free sign-up page. The documentation pages did not read in full. No key was created.
+- extras:
+  - bulk_path: none on the free plan
+  - free_requests: 100 a month
+- evidence:
+  - [1] 2026-11-02: the Free plan card lists 100 API calls | capture: sha256:8aa63437918d403386a45e7c492cbb76f1094826510fff6cff65de344b04cbec | quote: - 100 API Calls
+  - [1] 2026-11-02: the Free plan card lists daily updates | capture: sha256:8aa63437918d403386a45e7c492cbb76f1094826510fff6cff65de344b04cbec | quote: - Daily Updates
+  - [1] 2026-11-02:  | capture: sha256:8aa63437918d403386a45e7c492cbb76f1094826510fff6cff65de344b04cbec
+  - [1] 2026-11-02: the Free plan card lists historical rates | capture: sha256:8aa63437918d403386a45e7c492cbb76f1094826510fff6cff65de344b04cbec | quote: - Historical Rates
+  - [1] 2026-11-02: the Free plan card lists no support | capture: sha256:8aa63437918d403386a45e7c492cbb76f1094826510fff6cff65de344b04cbec | quote: - No Support
+  - [2] 2026-11-02: the sign-up page lists the first plan, Free, at 100 requests a month | capture: sha256:ae4ad24072ba12cc4d80c5350b2a7ff28371ac85792c0934a97706e36fe5af04 | quote: <div class="signup-v2-plan-requests">100 Requests / month</div>
+  - [3] 2026-11-02: the free allowance is 100 API requests a month | capture: sha256:b21ca8068ff197c04eb75fd1cc4b4ae795d313939b9dca6ec24acdc5ccb595c7 | quote: As soon as you or your application requires more than 100 API Requests per month
+  - [3] 2026-11-02: any call with a key counts as one request | capture: sha256:b21ca8068ff197c04eb75fd1cc4b4ae795d313939b9dca6ec24acdc5ccb595c7 | quote: Accessing any type of currencylayer forex data using a valid API Access Key counts as one "API Request".
+  - [3] 2026-11-02: the Free plan refreshes every day | capture: sha256:b21ca8068ff197c04eb75fd1cc4b4ae795d313939b9dca6ec24acdc5ccb595c7 | quote: every day (Free Plan)
+  - [3] 2026-11-02: past 100 percent overage fees apply | capture: sha256:b21ca8068ff197c04eb75fd1cc4b4ae795d313939b9dca6ec24acdc5ccb595c7 | quote: After reaching 100% of the allowance, overages fees will apply
+  - [1] 2026-11-02: paid plans start at USD 14.99 a month | capture: sha256:8aa63437918d403386a45e7c492cbb76f1094826510fff6cff65de344b04cbec | quote: Subscriptions Plans starting at Startup-friendly USD 14.99 per month
+  - [2] 2026-11-02: the sign-up form asks for a first name | capture: sha256:ae4ad24072ba12cc4d80c5350b2a7ff28371ac85792c0934a97706e36fe5af04 | quote: <label for="first_name">First Name<span class="signup-v2-required" aria-hidden="true">*</span></label>
+  - [2] 2026-11-02: the sign-up form asks for an email address | capture: sha256:ae4ad24072ba12cc4d80c5350b2a7ff28371ac85792c0934a97706e36fe5af04 | quote: <label for="email_address">Email<span class="signup-v2-required" aria-hidden="true">*</span></label>
+  - [2] 2026-11-02: the sign-up form requires a postal code | capture: sha256:ae4ad24072ba12cc4d80c5350b2a7ff28371ac85792c0934a97706e36fe5af04 | quote: <label for="post_code">Postal Code<span class="signup-v2-required" aria-hidden="true">*</span></label>
+  - [2] 2026-11-02: the card block of the sign-up form is marked paid-only and hidden | capture: sha256:ae4ad24072ba12cc4d80c5350b2a7ff28371ac85792c0934a97706e36fe5af04 | quote: <div class="signup-v2-card-block" data-paid-only hidden>
+  - [2] 2026-11-02: the sign-up form carries a Turnstile check | capture: sha256:ae4ad24072ba12cc4d80c5350b2a7ff28371ac85792c0934a97706e36fe5af04 | quote: <div class="cf-turnstile"
+  - [3] 2026-11-02: the timeframe endpoint spans up to 365 days | capture: sha256:b21ca8068ff197c04eb75fd1cc4b4ae795d313939b9dca6ec24acdc5ccb595c7 | quote: maximum range of up to 365 days
+  - [3] 2026-11-02: the API covers 168 currencies and metals | capture: sha256:b21ca8068ff197c04eb75fd1cc4b4ae795d313939b9dca6ec24acdc5ccb595c7 | quote: a total of 168 world currencies and precious metals
+  - [1] 2026-11-02: Basic allows 10,000 requests | capture: sha256:8aa63437918d403386a45e7c492cbb76f1094826510fff6cff65de344b04cbec | quote: - 10,000 Requests
+  - [3] 2026-11-02: time-frame and change queries and many currencies count as one request | capture: sha256:b21ca8068ff197c04eb75fd1cc4b4ae795d313939b9dca6ec24acdc5ccb595c7 | quote: Unlike most other providers, any API Endpoint or feature requested (including Time-Frame & Currency-Change Queries, as well as requesting multiple currencies at once) counts as only one API Request.
+  - [4] 2026-11-02: the pricing FAQ says quotes refresh every 60 minutes on Free and Basic | capture: sha256:12ef8bf83555876ee73d5615196bc7aa945c2c47fe8831448382a64279f6d56c | quote: quotes are refreshed every 60 minutes (Free & Basic Plan)
+  - [5] 2026-11-02: the docs list a historical endpoint | capture: sha256:b03bd7e0fca128837d7fa5bc556591cf5a94c5efc493e6e26e5c55491e61eabf | quote: | `/historical` | Retrieve FX rates on a specific date |
+  - [5] 2026-11-02: the docs list a live endpoint | capture: sha256:b03bd7e0fca128837d7fa5bc556591cf5a94c5efc493e6e26e5c55491e61eabf | quote: | `/live` | Fetch real-time rates |
+- sources:
+  - [1] https://currencylayer.com/
+  - [2] https://currencylayer.com/signup/free
+  - [3] https://currencylayer.com/faq
+  - [4] https://currencylayer.com/pricing/
+  - [5] https://docs.apilayer.com/currencylayer/docs/api-documentation
+
+## IP.City
+
+- `data-apis/ip-city` | fails-quota | evidence documented | binding volume-quota | category IP geolocation API | tier Free
+- needs card no, phone no, ID no, institution no | verified 2026-10-31T06:24:05.368Z (live) | stale on 2026-12-01
+- url https://www.ip.city/users.php | page https://fshy.ajam.dev/p/ip.md
+- free tier: 100 free requests per API key each day, after the email address is verified; meant for the development phase | unit: requests | metered on: request-count | read on: 2026-10-30 | source: [1]
+- per-object cap: not stated
+- retention: not stated
+- egress: not applicable | metered: no | source: [1]
+- identity: email | detail: email, password and name with an arithmetic check; the key activates after email verification
+- interface: rest
+- limits:
+  - volume-quota (binding): 100 requests per API key a day; 0 until the email is verified [1]
+- interface detail: GET https://ip.city/api.php?ip=IP&key=KEY, JSON with a status field
+- endpoint: part of interface detail
+- tooling: any HTTP client
+- composes with: 100 lookups a day per key is a development allowance. Bulk path: none
+- reliability: past 100 requests in a day the API returns an error message
+- notes: Free requests: 100 a day per verified key. Rate limit: not stated. Bulk path: none.
+- evidence note: the API access page was quoted on 2026-10-30; no keyed lookup was made.
+- extras:
+  - bulk_path: none
+  - free_requests: 100 a day
+- evidence:
+  - [1] 2026-10-30: 100 free requests per key a day | capture: sha256:4e15576602131a78e2b54d0cda2304b984923b82d9c5a27513815122cb5a17f8 | quote: This service allows free 100 request per API key each day.
+  - [1] 2026-10-30: the free plan is for development | capture: sha256:4e15576602131a78e2b54d0cda2304b984923b82d9c5a27513815122cb5a17f8 | quote: Free plan is considered for development phase
+  - [1] 2026-10-30: an unverified email gets 0 requests | capture: sha256:4e15576602131a78e2b54d0cda2304b984923b82d9c5a27513815122cb5a17f8 | quote: Unverified email: 0req/day - $0/mo
+  - [1] 2026-10-30: the form asks a name | capture: sha256:4e15576602131a78e2b54d0cda2304b984923b82d9c5a27513815122cb5a17f8 | quote: _Your Name:_
+  - [1] 2026-10-30: the key activates after email verification | capture: sha256:938cff1d38eea6f7b4ea3a77b8bdb963ee10766369c8949284b369b2c836c672 | quote: You need to verify your email address or purchase a plan in order to activate the API code.
+  - [1] 2026-10-30: the API endpoint | capture: sha256:938cff1d38eea6f7b4ea3a77b8bdb963ee10766369c8949284b369b2c836c672 | quote: https://ip.city/api.php?ip=[IP]&key=[YOUR_API_KEY]
+- sources:
+  - [1] https://www.ip.city/users.php
+
+## ip2geo.dev
+
+- `data-apis/ip2geo-dev` | fails-quota | evidence documented | binding volume-quota | category IP geolocation API | tier Free
+- needs card no, phone no, ID no, institution no | verified 2026-10-31T06:24:05.368Z (live) | stale on 2026-12-01
+- url https://ip2geo.dev/pricing | page https://fshy.ajam.dev/p/ip2geo.md
+- free tier: Free plan: 1,000 conversions a month, no card, no rate limits, up to 5,000 IPs per bulk request | unit: requests | metered on: request-count | read on: 2026-10-30 | source: [1] | note: Starter is USD 10 a month for 10,000 conversions
+- per-object cap: 5,000 IPs per bulk request | source: [1]
+- retention: not stated
+- egress: not applicable | metered: no | source: [1]
+- identity: email | detail: an email address that receives a sign-in code; no card
+- interface: rest
+- limits:
+  - volume-quota (binding): 1,000 conversions a month [1]
+  - per-object-cap: 5,000 IPs per bulk request [1]
+- interface detail: GET api.ip2geo.dev/convert?ip=IP with a secret or website key; API, four SDKs and a CLI
+- endpoint: https://api.ip2geo.dev/convert
+- tooling: any HTTP client; vendor SDKs and CLI
+- composes with: 1,000 conversions a month is a test allowance; bulk requests take 5,000 IPs but draw on the same monthly count. Bulk path: the bulk request
+- reliability: no rate limits stated
+- notes: Free requests: 1,000 a month. Rate limit: none stated. Bulk path: 5,000-IP bulk requests within the same monthly count.
+- evidence note: the pricing and sign-in pages were quoted on 2026-10-30 and 2026-10-31; no keyed lookup was made.
+- extras:
+  - bulk_path: 5,000-IP bulk requests
+  - free_requests: 1,000 a month
+- evidence:
+  - [1] 2026-10-30: the free plan is 1,000 conversions a month | capture: sha256:6bb5236dece78b3b9d5cfd9067e330abc05e9fe961d013934801321344813a51 | quote: 1,000 conversions a month
+  - [1] 2026-10-30: no card is needed | capture: sha256:6bb5236dece78b3b9d5cfd9067e330abc05e9fe961d013934801321344813a51 | quote: No card required
+  - [1] 2026-10-30: a bulk request takes 5,000 IPs | capture: sha256:6bb5236dece78b3b9d5cfd9067e330abc05e9fe961d013934801321344813a51 | quote: 5,000 IPs per bulk request
+  - [1] 2026-10-30: no rate limits | capture: sha256:6bb5236dece78b3b9d5cfd9067e330abc05e9fe961d013934801321344813a51 | quote: No rate limits
+  - [1] 2026-10-30: Starter is 10,000 conversions a month | capture: sha256:6bb5236dece78b3b9d5cfd9067e330abc05e9fe961d013934801321344813a51 | quote: 10,000 conversions a month
+  - [1] 2026-10-30: Starter is USD 10 a month | capture: sha256:6bb5236dece78b3b9d5cfd9067e330abc05e9fe961d013934801321344813a51 | quote: $10 /month
+  - [2] 2026-10-31: sign-up is by an emailed code | capture: sha256:5421acfb0d46714908bb81d75791b7cfd97c523e50e4c9ab7edea7e3f18096bb | quote: Enter your email and we'll send you a sign-in code. No account yet? The same code creates one.
+  - [2] 2026-10-31: the API endpoint | capture: sha256:5421acfb0d46714908bb81d75791b7cfd97c523e50e4c9ab7edea7e3f18096bb | quote: curl "api.ip2geo.dev/convert?ip=8.8.4.4"
+- sources:
+  - [1] https://ip2geo.dev/pricing
+  - [2] https://ip2geo.dev/auth
+
+## ipapi.com (APILayer)
+
+- `data-apis/ipapi-com` | fails-quota | evidence documented | binding volume-quota | category IP geolocation API | tier Free
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T00:23:42.887Z (live) | stale on 2026-12-03
+- url https://ipapi.com/pricing | page https://fshy.ajam.dev/p/ipapi-2.md
+- free tier: Free plan, USD 0.00 a month: 100 lookups a month with location data and HTTPS and no support | unit: requests | metered on: request-count | read on: 2026-11-02 | source: [1] | note: Standard is USD 12.99 a month (USD 11.99 billed yearly) for 50,000 lookups, then USD 0.0010392 each; Business USD 59.99 for 500,000 with Bulk Lookups; Business Pro USD 99.99 for 2,000,000. An answer that errors is not counted.
+- per-object cap: one IP per request on the Free plan; Bulk Lookups are listed from the Business plan | source: [1]
+- retention: not applicable: a lookup API | source: [1]
+- egress: not applicable: JSON or XML answers, not metered in bytes | metered: no | source: [1]
+- identity: email | detail: a sign-up with first name, last name, email, password and a billing address (address, postal code, country, city); no card number is asked on the free sign-up form
+- interface: rest
+- limits:
+  - volume-quota (binding): 100 lookups a month on the Free plan [1]
+- binding note: 100 lookups a month is exhausted first; no rate is stated.
+- interface detail: GET http(s)://api.ipapi.com/api/{ip}?access_key={key} answers JSON or XML; a call without a key answers HTTP 401 with error code 101 missing_access_key
+- endpoint: https://api.ipapi.com/api/{ip}
+- tooling: any HTTP client
+- composes with: 100 lookups a month is a test allowance only; the paid plans from USD 12.99 a month are the working route. Bulk path: Bulk Lookups on Business, USD 59.99 a month, and above; none free. APILayer, the vendor, also sells ipstack, which has its own record.
+- reliability: usage notices are sent at 75%, 90% and 100% of the monthly allowance; a call without a key answers HTTP 401 with error code 101
+- notes: Free requests: 100 a month. Rate limit: not stated. Bulk path: Bulk Lookups from the Business plan; none free.
+- evidence note: The pricing, FAQ, home and sign-up pages were quoted on 2026-11-02 and a keyless call answered HTTP 401; no keyed lookup was made, so the answers and any rate limit on the Free plan are unverified.
+- extras:
+  - bulk_path: Bulk Lookups from Business, USD 59.99 a month; none free
+  - free_requests: 100 a month
+- evidence:
+  - [1] 2026-11-02: the Free plan lists 100 lookups | capture: sha256:ba567cfd57d42dee800e8552eb485340e3b5aac21752fa047108aed137f9e3d7 | quote: 100 Lookups
+  - [1] 2026-11-02: the Free plan costs USD 0.00 a month | capture: sha256:ba567cfd57d42dee800e8552eb485340e3b5aac21752fa047108aed137f9e3d7 | quote: $0.00 per month
+  - [1] 2026-11-02: the Free plan lists 100 lookups, no support, location data and HTTPS encryption | capture: sha256:ba567cfd57d42dee800e8552eb485340e3b5aac21752fa047108aed137f9e3d7 | quote: 100 Lookups * No Support * Location Data * HTTPS Encryption
+  - [2] 2026-11-02: the vendor is APILayer | capture: sha256:cd5d241d763172401af8dfc1b2aff92db8471cb7a1db987b523e94860cc028f7 | quote: ipapi is a product built and maintained by apilayer, a software company based in London, United Kingdom and Vienna, Austria.
+  - [3] 2026-11-02: the free allowance is 100 requests a month and Standard starts at USD 12.99 | capture: sha256:3c5c09d1d737919232655929d08bf0307d3175414b46da29de49767751bde8d9 | quote: Make 100 requests a month for free — need more? Standard plans start at just $12.99
+  - [2] 2026-11-02: the Free plan allows up to 100 API requests | capture: sha256:cd5d241d763172401af8dfc1b2aff92db8471cb7a1db987b523e94860cc028f7 | quote: The ipapi Free Plan is a great way to explore the API and see how it fits your use case, with up to 100 API requests.
+  - [1] 2026-11-02: Standard is USD 12.99 a month or USD 11.99 billed yearly | capture: sha256:ba567cfd57d42dee800e8552eb485340e3b5aac21752fa047108aed137f9e3d7 | quote: $12.99 per month or $11.99 if billed yearly
+  - [1] 2026-11-02: Standard allows 50,000 lookups | capture: sha256:ba567cfd57d42dee800e8552eb485340e3b5aac21752fa047108aed137f9e3d7 | quote: 50,000 Lookups
+  - [1] 2026-11-02: Standard overage is USD 0.0010392 a lookup | capture: sha256:ba567cfd57d42dee800e8552eb485340e3b5aac21752fa047108aed137f9e3d7 | quote: + 0.0010392 each
+  - [1] 2026-11-02: Business is USD 59.99 a month | capture: sha256:ba567cfd57d42dee800e8552eb485340e3b5aac21752fa047108aed137f9e3d7 | quote: $59.99 per month or $52.99 if billed yearly
+  - [1] 2026-11-02: Business allows 500,000 lookups | capture: sha256:ba567cfd57d42dee800e8552eb485340e3b5aac21752fa047108aed137f9e3d7 | quote: 500,000 Lookups
+  - [1] 2026-11-02: Bulk Lookups are listed on the higher plans | capture: sha256:ba567cfd57d42dee800e8552eb485340e3b5aac21752fa047108aed137f9e3d7 | quote: Bulk Lookups
+  - [2] 2026-11-02: bulk lookups depend on the plan | capture: sha256:cd5d241d763172401af8dfc1b2aff92db8471cb7a1db987b523e94860cc028f7 | quote: Other factors include HTTPS encryption, advanced IP data modules and the ability to make bulk IP lookups.
+  - [1] 2026-11-02: an answer that errors is not counted | capture: sha256:3c631d852cdf876ff6ade3841620a5ede384486708addbe5f05eab763c89537d | quote: In the event that an error should occur, your request does not count towards the monthly volume.
+  - [1] 2026-11-02: usage notices at 75%, 90% and 100% | capture: sha256:3c631d852cdf876ff6ade3841620a5ede384486708addbe5f05eab763c89537d | quote: Users will be automatically notified via email and in their account dashboard as soon as at least 75%, 90%, and 100% of their monthly API quota has been reached.
+  - [4] 2026-11-02: the sign-up form asks for a first name | capture: sha256:fa4348ab38dd0ee86c6335e85fc037b4810f0d4d1b5ef4904e46f17ecd85b2bc | quote: First Name\*
+  - [4] 2026-11-02: the sign-up form asks for a last name | capture: sha256:fa4348ab38dd0ee86c6335e85fc037b4810f0d4d1b5ef4904e46f17ecd85b2bc | quote: Last Name\*
+  - [4] 2026-11-02: the sign-up form asks for an email | capture: sha256:fa4348ab38dd0ee86c6335e85fc037b4810f0d4d1b5ef4904e46f17ecd85b2bc | quote: Email\*
+  - [4] 2026-11-02: the sign-up form asks for a postal code | capture: sha256:fa4348ab38dd0ee86c6335e85fc037b4810f0d4d1b5ef4904e46f17ecd85b2bc | quote: Postal Code\*
+  - [4] 2026-11-02: the sign-up form asks for an address | capture: sha256:fa4348ab38dd0ee86c6335e85fc037b4810f0d4d1b5ef4904e46f17ecd85b2bc | quote: Address\*
+  - probe:https://api.ipapi.com/api/8.8.8.8 2026-11-02: a keyless GET of api.ipapi.com answered HTTP 401 | capture: sha256:32a07018f3fad6162751622556b88f1ad05437f79f2d8ab8e1c3504ea67f4649 | quote: "status": 401
+  - probe:https://api.ipapi.com/api/8.8.8.8 2026-11-02: the keyless answer is error code 101 missing_access_key | capture: sha256:9c6236715bb8db4001544e79d9e830eddd952f053ab9d565a3847de65e6bdf83 | quote: "type": "missing_access_key"
+- sources:
+  - [1] https://ipapi.com/pricing
+  - [2] https://ipapi.com/faq
+  - [3] https://ipapi.com/
+  - [4] https://ipapi.com/signup
+
+## ipbase
+
+- `data-apis/ipbase` | fails-quota | evidence documented | binding volume-quota | category IP geolocation API | tier Free
+- needs card no, phone no, ID no, institution no | verified 2026-10-31T06:24:05.368Z (live) | stale on 2026-12-01
+- url https://ipbase.com/pricing/ | page https://fshy.ajam.dev/p/ipbase.md
+- free tier: Free plan: 150 requests a month at 10 requests a minute, no credit card, batch lookups on every plan | unit: requests | metered on: request-count | read on: 2026-10-30 | source: [1] | note: the next plan (Small) gives 65,000 requests
+- per-object cap: not stated
+- retention: not stated
+- egress: not applicable | metered: no | source: [1]
+- identity: email | detail: email sign-up, or Google, GitHub or GitLab sign-in; no credit card
+- interface: rest
+- limits:
+  - volume-quota (binding): 150 requests a month [1]
+  - request-rate: 10 requests a minute [1]
+- tooling: any HTTP client
+- composes with: 150 lookups a month is a test allowance only. Bulk path: batch lookups, inside the same 150
+- reliability: no reliability notes published beyond the quota
+- notes: Free requests: 150 a month. Rate limit: 10 a minute. Bulk path: batch lookups within the same quota.
+- evidence note: the pricing and register pages were quoted on 2026-10-30 and 2026-10-31; no keyed lookup was made.
+- extras:
+  - bulk_path: batch lookups within the free quota
+  - free_requests: 150 a month
+- evidence:
+  - [1] 2026-10-30: the free plan is 150 lookups a month | capture: sha256:c4779d95760fb479b53de66d7ecc90deafca7c417ff62c7a62a70608eddbb315 | quote: Start free with 150 lookups a month, including location, connection, time zone and currency data.
+  - [1] 2026-10-30: the free plan allows 10 requests a minute | capture: sha256:c4779d95760fb479b53de66d7ecc90deafca7c417ff62c7a62a70608eddbb315 | quote: 10 Requests / Min.
+  - [1] 2026-10-30: no card is needed | capture: sha256:c4779d95760fb479b53de66d7ecc90deafca7c417ff62c7a62a70608eddbb315 | quote: No credit card required
+  - [1] 2026-10-30: the next plan gives 65,000 requests | capture: sha256:c4779d95760fb479b53de66d7ecc90deafca7c417ff62c7a62a70608eddbb315 | quote: 65,000 Requests
+  - [2] 2026-10-31: email sign-up is offered | capture: sha256:2bd9c1c5f3f498ccbd838ba16d89c53418f037455ff13bf252763eff54709c69 | quote: Sign up with email
+  - [2] 2026-10-31: GitLab sign-in is offered | capture: sha256:2bd9c1c5f3f498ccbd838ba16d89c53418f037455ff13bf252763eff54709c69 | quote: [Sign up with GitLab](https://app.ipbase.com/auth/gitlab/redirect)
+- sources:
+  - [1] https://ipbase.com/pricing/
+  - [2] https://app.ipbase.com/register
+
+## ipstack (APILayer)
+
+- `data-apis/ipstack` | fails-quota | evidence documented | binding volume-quota | category IP geolocation API | tier Free
+- needs card no, phone no, ID no, institution no | verified 2026-10-31T06:24:05.368Z (live) | stale on 2026-12-01
+- url https://app.apilayer.com/signup/ipstack/free | page https://fshy.ajam.dev/p/apilayer.md
+- free tier: Free plan: 100 requests a month | unit: requests | metered on: request-count | read on: 2026-10-31 | source: [1] | note: Starter is USD 12.99 a month for 50,000 requests
+- per-object cap: not stated
+- retention: not stated
+- egress: not applicable | metered: no | source: [1]
+- identity: email | detail: an APILayer account with email and password, or GitHub or Google sign-in
+- interface: rest
+- limits:
+  - volume-quota (binding): 100 requests a month [1]
+- tooling: any HTTP client
+- composes with: 100 lookups a month is a test allowance only; a paid plan from USD 12.99 a month is the working route. Bulk path: none free
+- reliability: usage notices are sent at 75, 90 and 100 percent of the monthly allowance
+- notes: Free requests: 100 a month. Rate limit: not stated. Bulk path: none on the free plan.
+- evidence note: the APILayer signup page for the ipstack free plan and the ipstack pricing page were quoted on 2026-10-30 and 2026-10-31; no keyed lookup was made.
+- extras:
+  - bulk_path: none free
+  - free_requests: 100 a month
+- evidence:
+  - [1] 2026-10-31: the free plan is 100 requests a month | capture: sha256:9afc03f61e17562aa27fb326c097f89235091c89c12ece90565e05f2eca70c8f | quote: 100 Requests / month
+  - [1] 2026-10-31: Starter is USD 12.99 a month | capture: sha256:9afc03f61e17562aa27fb326c097f89235091c89c12ece90565e05f2eca70c8f | quote: $12.99/month
+  - [1] 2026-10-31: Starter is 50,000 requests a month | capture: sha256:9afc03f61e17562aa27fb326c097f89235091c89c12ece90565e05f2eca70c8f | quote: 50,000 Requests / month
+  - [1] 2026-10-31: GitHub and Google sign-in are offered | capture: sha256:9afc03f61e17562aa27fb326c097f89235091c89c12ece90565e05f2eca70c8f | quote: Sign up with GitHubSign up with Google
+  - [1] 2026-10-31: the signup form is an APILayer account | capture: sha256:9afc03f61e17562aa27fb326c097f89235091c89c12ece90565e05f2eca70c8f
+  - [2] 2026-10-30: ipstack has a free tier with a limited monthly count | capture: sha256:95cc22e805accc1bd5762e271b5dbb4dc06e3de39c1592d15b47d49b61e3afab | quote: Yes, IPstack offers a free IP API tier with a limited number of monthly requests, ideal for personal projects, testing, and small applications.
+  - [2] 2026-10-30: usage notices at 75, 90 and 100 percent | capture: sha256:95cc22e805accc1bd5762e271b5dbb4dc06e3de39c1592d15b47d49b61e3afab | quote: Users will be automatically notified via e-mail and on their Account Dashboard once at least 75%, 90%, and 100% of their monthly API Request allowance has been reached.
+- sources:
+  - [1] https://app.apilayer.com/signup/ipstack/free
+  - [2] https://ipstack.com/pricing
+
+## Marketstack (APILayer)
+
+- `data-apis/marketstack` | fails-quota | evidence documented | binding request-rate | category market data API (end-of-day stock prices, tickers, exchanges) | tier Free
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T00:28:53.394Z (live) | stale on 2026-12-04
+- url https://marketstack.com/pricing | page https://fshy.ajam.dev/p/marketstack.md
+- free tier: Free plan USD 0/month, free forever: 100 requests per month, end-of-day data, 1 year of history, no support | unit: requests | metered on: request-count | read on: 2026-10-31 | source: [1] | note: Each symbol in a request consumes one request, up to 100 symbols per call, and a page holds up to 1000 rows. The APILayer product page shows the free plan as 100 Total Requests while its FAQ on the same page says 100 per month; the marketstack.com pricing page and FAQ say per month. The cheapest paid plan is Basic at USD 8.99/month billed yearly with 10,000 requests per month. US end-of-day prices are licensed from Tiingo.
+- per-object cap: 1000 rows per page and 100 symbols per call; 1 year of history on the free plan | source: [2]
+- retention: not applicable
+- egress: not metered in bytes; the 100 requests a month bound what a free key can pull | metered: no | source: [1]
+- identity: email | detail: The free signup form asks for a first name, last name, email and password, and under Billing Details an address, postal code, country and city (state optional); no card field was seen on the free form. Card payment is named for paid plans.
+- interface: rest
+- limits:
+  - request-rate (binding): 100 requests per month on the free plan; each symbol in a request counts as one [1]
+  - request-rate (binding): 5 requests per second [3]
+  - per-object-cap: 1000 rows per page, 100 symbols per call [2]
+- limits note: History window: 1 year on the free plan, 10 years on Basic, 15+ years above; no limits[] kind names a history window. Bulk path: no bulk path.
+- binding note: 100 a month, with each symbol counted, is spent long before the 5 per second rate or the row caps matter.
+- interface detail: GET https://api.marketstack.com/v2/eod?access_key=...&symbols=AAPL over HTTPS on every plan; v1 paths remain. A call with no access_key answered HTTP 401 missing_access_key.
+- endpoint: part of interface detail
+- tooling: curl or any HTTP client
+- composes with: Its US end-of-day prices are licensed from Tiingo, whose free plan allows 1000 requests a day against 100 a month here, so Tiingo is the larger free route to the same prices.
+- reliability: Past the monthly volume the API answers HTTP 429 too_many_requests, and past 5 requests per second it answers 429 rate_limit_reached; API errors are not counted toward the monthly quota; an error answer is a JSON object with an error member holding a code and a message.
+- notes: A working free key, but 100 requests a month with each symbol counted and 1 year of end-of-day history is too small for a data workload; the same US prices come from Tiingo, whose free plan is 1000 requests a day with 30+ years of history.
+- evidence note: The free quota, history and signup fields are documented on the pricing, FAQ and signup pages; the 5 per second rate is stated on the current Getting Started page of the APILayer documentation. A probe measured that a call with no key answers HTTP 401. The monthly cut-off answer, its body and its reset moment need a free key to measure (unverified: behind a sign-up).
+- extras:
+  - bulk_path: no bulk path
+  - history_depth: 1 year on the free plan; 10 years on Basic; 15+ years on Professional and Business
+  - quota_wording_conflict: apilayer.com/products/marketstack shows 100 Total Requests on the plan card and 100 per month in its FAQ
+  - cutoff_wording_conflict: marketstack.com/contact says the system allows a maximum overdraft of 5% beyond the quota limit and disables API access at 120% unless overage billing is enabled; marketstack.com/faq says overage fees apply after 100% of the allowance; which applies to a Free key, which lists no overage, is unverified: behind a sign-up
+- evidence:
+  - [1] 2026-10-31: the free plan allows 100 requests per month | capture: sha256:67665382a9a938ff3a29cb764b539d4b3e37cee86fadc819b2ac005c3b727062 | quote: - 100 Requests / mo
+  - [1] 2026-10-31: the free plan has 1 year of history | capture: sha256:67665382a9a938ff3a29cb764b539d4b3e37cee86fadc819b2ac005c3b727062 | quote: - 1 Year History
+  - [1] 2026-10-31: the free plan covers end-of-day data | capture: sha256:67665382a9a938ff3a29cb764b539d4b3e37cee86fadc819b2ac005c3b727062 | quote: - End-of-Day Data
+  - [1] 2026-10-31: the free plan has no support | capture: sha256:67665382a9a938ff3a29cb764b539d4b3e37cee86fadc819b2ac005c3b727062 | quote: - No Support
+  - [1] 2026-10-31: the free plan has no end date | capture: sha256:67665382a9a938ff3a29cb764b539d4b3e37cee86fadc819b2ac005c3b727062 | quote: Free forever.
+  - [1] 2026-10-31: Basic is USD 8.99/month billed yearly | capture: sha256:67665382a9a938ff3a29cb764b539d4b3e37cee86fadc819b2ac005c3b727062 | quote: $8.99per monthbilled yearly
+  - [1] 2026-10-31: Basic allows 10,000 requests per month | capture: sha256:67665382a9a938ff3a29cb764b539d4b3e37cee86fadc819b2ac005c3b727062 | quote: - 10,000 Requests / mo
+  - [1] 2026-10-31: the free plan is 100 requests per month with end-of-day data and 12 months of history | capture: sha256:67665382a9a938ff3a29cb764b539d4b3e37cee86fadc819b2ac005c3b727062 | quote: At marketstack we offer a Free Plan that will allow users to make up to 100 market data API requests per month, supporting end-of-day data as well as up to 12 months of history.
+  - [4] 2026-10-31: US end-of-day data is licensed from Tiingo | capture: sha256:0d70096de9d5a4eb613eadaa89a5be76085067e5ebe1886cf3f69d52ebb271ed | quote: Stock market data from United States exchanges is licensed and sourced from Tiingo, Inc. out of New York City, USA.
+  - [5] 2026-10-31: the APILayer plan card states the free plan as 100 total requests | capture: sha256:9ee4628deb296aeb2e0c8fa4805e7bedd51a7bdaee03f09e85444fc7e0de0984 | quote: 100 Total Requests.
+  - [5] 2026-10-31: the same page's FAQ states 100 requests per month | capture: sha256:9ee4628deb296aeb2e0c8fa4805e7bedd51a7bdaee03f09e85444fc7e0de0984 | quote: Yes, Marketstack offers a free plan that includes 100 API requests per month.
+  - [2] 2026-10-31: each symbol in a call consumes one request, up to 100 symbols | capture: sha256:3e126a4e11425f4d1eec6b888508b76e655963ce86a6e1c1ed41ed72fed904db | quote: Each symbol consumes one API request. Maximum: 100 symbols
+  - [2] 2026-10-31: a page holds up to 1000 rows | capture: sha256:503158823ecf4d4c59b7afd122d7c046979731c2078de4a8bb0f41ca65a746ae | quote: Default limit value is 100, maximum allowed limit value is 1000.
+  - [3] 2026-10-31: the API is served over HTTPS | capture: sha256:fdaac2e2f3c1fe2a9d030c3a78a30f824afbfe68690ce72dff56564b982d8963 | quote: Marketstack uses HTTPS for secure API communication.
+  - [6] 2026-10-31: the documentation as archived on 2026-01-13 limits the API to 5 requests per second | capture: sha256:79ce2f4fa9747d33e62e8c96223e582c628c2a75f99d0ffa5c4dfc45ea9c7c7d | quote: Note: The api is limited to 5 requests per second.
+  - [6] 2026-10-31: the monthly volume cut-off answers HTTP 429 too_many_requests | capture: sha256:79ce2f4fa9747d33e62e8c96223e582c628c2a75f99d0ffa5c4dfc45ea9c7c7d | quote: | `429` | `too_many_requests` | The given user account has reached its monthly allowed request volume. |
+  - [1] 2026-10-31: Basic carries 10 years of history | capture: sha256:67665382a9a938ff3a29cb764b539d4b3e37cee86fadc819b2ac005c3b727062 | quote: - 10 Years History
+  - [4] 2026-10-31: paid plans are paid by credit card | capture: sha256:0d70096de9d5a4eb613eadaa89a5be76085067e5ebe1886cf3f69d52ebb271ed | quote: Payments can be made via credit card (Visa, MasterCard, Discover, Diner's Club, American Express).
+  - [6] 2026-10-31: the rate cut-off answers HTTP 429 rate_limit_reached | capture: sha256:79ce2f4fa9747d33e62e8c96223e582c628c2a75f99d0ffa5c4dfc45ea9c7c7d | quote: | `429` | `rate_limit_reached` | The given user account has reached the rate limit. |
+  - [7] 2026-10-31: the free signup asks for a first name; the same form asks for last name, email and password | capture: sha256:20f368f3d30cc30926b39100735c3de0be09377c87017522a62bcf310eefc4c2 | quote: First Name\*
+  - [7] 2026-10-31: the free signup has a Billing Details section | capture: sha256:20f368f3d30cc30926b39100735c3de0be09377c87017522a62bcf310eefc4c2 | quote: Billing Details
+  - [7] 2026-10-31: the free signup requires a postal code; the same section requires an address, a country and a city | capture: sha256:20f368f3d30cc30926b39100735c3de0be09377c87017522a62bcf310eefc4c2 | quote: Postal Code\*
+  - probe:https://api.marketstack.com/v2/eod?symbols=AAPL 2026-10-31: a call with no key answered HTTP 401 | capture: sha256:2bf203dae63c8af0b6d8407df885a554abd95340616649edbe57a1198568e032 | quote: "status": 401
+  - probe:https://api.marketstack.com/v2/eod?symbols=AAPL 2026-10-31: the API asks for an access key | capture: sha256:5dbfe11774badd4884a3660444bf3482ec2b758a66f23acf1a37b320de5d84c3 | quote: You have not supplied an API Access Key.
+  - [1] 2026-10-31: the plans above Basic carry 15+ years of history | capture: sha256:67665382a9a938ff3a29cb764b539d4b3e37cee86fadc819b2ac005c3b727062 | quote: - 15+ Years History
+  - [3] 2026-11-02: the current Getting Started page states 5 requests per second | capture: sha256:fc2d30ee1be8b095705abe217beb093f34b1d59260cae8606b9a603c56a976d3 | quote: The API allows up to 5 requests per second. Exceeding this returns a `429` status code. Monthly request quotas depend on your plan.
+  - [3] 2026-11-02: the monthly quota cut-off answers 429 too_many_requests | capture: sha256:fc2d30ee1be8b095705abe217beb093f34b1d59260cae8606b9a603c56a976d3 | quote: | 429 | `too_many_requests` | Monthly request quota exceeded |
+  - [8] 2026-11-02: error answers do not count toward the monthly quota | capture: sha256:1c1ee5e9f0fb3d014986adc5e0c64013bcb9c8a1f5d3ecbc8d87bda1d0574f8d | quote: API errors are not counted towards your monthly quota.
+  - probe:https://api.marketstack.com/v2/eod?symbols=AAPL 2026-11-02: a call with no key answers a JSON error object with a code | capture: sha256:5dbfe11774badd4884a3660444bf3482ec2b758a66f23acf1a37b320de5d84c3 | quote: "code": "missing_access_key"
+  - [3] 2026-11-02: the rate cut-off answers 429 rate_limit_reached | capture: sha256:fc2d30ee1be8b095705abe217beb093f34b1d59260cae8606b9a603c56a976d3 | quote: | 429 | `rate_limit_reached` | Rate limit (5 req/sec) exceeded |
+  - [3] 2026-11-02: the current documentation states 5 requests per second | capture: sha256:fc2d30ee1be8b095705abe217beb093f34b1d59260cae8606b9a603c56a976d3 | quote: The API allows up to 5 requests per second. Exceeding this returns a `429` status code. Monthly request quotas depend on your plan.
+  - [9] 2026-11-02: the contact page gives a 5% overdraft and a cut-off at 120% | capture: sha256:82b09187db1680a7552f1381dcab517350b13120fa5230baccd7be9863d9902d | quote: our system allows for a maximum overdraft of 5% beyond your quota limit. If 120% of your quota are reached, API access will be disabled, unless overage billing is enabled on your account.
+  - [8] 2026-11-02: the FAQ says overage fees apply after 100% of the allowance | capture: sha256:1c1ee5e9f0fb3d014986adc5e0c64013bcb9c8a1f5d3ecbc8d87bda1d0574f8d | quote: After reaching 100% of the allowance, overages fees will apply
+  - [1] 2026-11-02: the Free plan allows 100 requests a month | capture: sha256:67665382a9a938ff3a29cb764b539d4b3e37cee86fadc819b2ac005c3b727062 | quote: - 100 Requests / mo
+  - [1] 2026-11-02: the Free plan has 1 year of history | capture: sha256:67665382a9a938ff3a29cb764b539d4b3e37cee86fadc819b2ac005c3b727062 | quote: - 1 Year History
+  - [3] 2026-11-02: the 5 requests per second rate is on the current page | capture: sha256:fc2d30ee1be8b095705abe217beb093f34b1d59260cae8606b9a603c56a976d3 | quote: The API allows up to 5 requests per second. Exceeding this returns a `429` status code. Monthly request quotas depend on your plan.
+- sources:
+  - [1] https://marketstack.com/pricing
+  - [2] https://marketstack.com/documentation
+  - [3] https://docs.apilayer.com/marketstack/docs/getting-started
+  - [4] https://marketstack.com/product
+  - [5] https://apilayer.com/products/marketstack
+  - [6] https://web.archive.org/web/20260113090605/https://marketstack.com/documentation
+  - [7] https://marketstack.com/signup/free
+  - [8] https://marketstack.com/faq
+  - [9] https://marketstack.com/contact
+
+## Network Data Labs
+
+- `data-apis/network-data-labs` | fails-quota | evidence documented | binding volume-quota | category IP geolocation API | tier Free
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T00:23:42.369Z (live) | stale on 2026-12-03
+- url https://www.networkdatalabs.com/pricing | page https://fshy.ajam.dev/p/networkdatalabs.md
+- free tier: Free plan, USD 0 a month: 1,000 requests per UTC calendar month at 1 request a second, one API key, geolocation and ASN fields, usage alerts at 80% and 100%. | unit: requests | metered on: request-count | read on: 2026-11-02 | source: [1] | note: A hard cap with no buffer that resets on the 1st; past it, and past 1 request a second, the API answers HTTP 429 with Retry-After. The home page demo allows 10 lookups a day with no sign-up. Starter is USD 9 a month for 100k requests a month; no plan has overage charges.
+- per-object cap: single lookups on Free; the bulk call takes up to 100 IPs a request on paid plans only | source: [2]
+- retention: not stated
+- egress: not applicable | metered: no | source: [1]
+- identity: email | detail: an email address and password; the API key is issued after email confirmation; a card is stated as required only for the 14-day Growth trial
+- interface: rest
+- limits:
+  - volume-quota (binding): 1,000 requests per UTC calendar month on the Free plan, a hard cap with no buffer [2]
+  - request-rate: 1 request a second on the Free plan, no burst [2]
+- binding note: 1,000 requests a month is used up long before 1 request a second can matter.
+- interface detail: GET https://api.networkdatalabs.com/v0/ip/{ip} with Authorization: Bearer KEY, POST /v0/bulk on paid plans, GET /v0/asn/{asn}; JSON with location, accuracy radius, confidence, network and traits; HTTP 401 UNAUTHORIZED without a key
+- endpoint: part of interface detail
+- tooling: any HTTP client
+- composes with: 1,000 keyed lookups a month with geolocation, accuracy radius, confidence and ASN, at 1 request a second. Bulk path: POST /v0/bulk, up to 100 IPs a request, paid plans only; database downloads are announced as coming soon
+- reliability: Counters live in memory on a single Fly VM, and the Free tier is best-effort with no SLA.
+- notes: Free requests: 1,000 per UTC calendar month at 1 request a second (the pricing page and the documentation state a month, not a day); the home page demo gives 10 a day with no sign-up. Rate limit: 1 request a second, no burst (HTTP 429). Bulk path: POST /v0/bulk, 100 IPs a request, paid plans only.
+- evidence note: The pricing, documentation, privacy and terms pages were read on 2026-11-02, and a keyless call answered HTTP 401 UNAUTHORIZED; no keyed lookup was made, so the quota and the rate limit are as published.
+- extras:
+  - bulk_path: POST /v0/bulk, up to 100 IPs a request, paid plans only; database downloads announced as coming soon
+  - free_requests: 1,000 a month
+- evidence:
+  - [1] 2026-11-02: the Free plan has geolocation and ASN | capture: sha256:b536b378b5aca694916165e4dd69c71151d06cd29492082eb738de060b16bf76 | quote: Free includes geolocation + ASN. Paid plans add risk flags, bulk lookups.
+  - [1] 2026-11-02: no plan has overage charges | capture: sha256:b536b378b5aca694916165e4dd69c71151d06cd29492082eb738de060b16bf76 | quote: No overage charges on any plan.
+  - [1] 2026-11-02: Starter is USD 9 a month | capture: sha256:b536b378b5aca694916165e4dd69c71151d06cd29492082eb738de060b16bf76 | quote: $9 / mo or $90/yr · 2 months free
+  - [1] 2026-11-02: Starter includes 100k requests a month | capture: sha256:b536b378b5aca694916165e4dd69c71151d06cd29492082eb738de060b16bf76 | quote: 100k req / mo
+  - [1] 2026-11-02: a card is required for the Growth 14-day trial | capture: sha256:b536b378b5aca694916165e4dd69c71151d06cd29492082eb738de060b16bf76 | quote: Card required · Cancel anytime before day 14 and you won’t be charged
+  - [2] 2026-11-02: the Free plan is 1 request a second and 1,000 requests per UTC calendar month | capture: sha256:6d86be09ce4cbd1cd0c7969da4070aecebaea371010b7fee77c2c38a57157250 | quote: The Free plan includes 1 request/second and 1,000 requests per UTC calendar month.
+  - [2] 2026-11-02: the Free quota is a hard cap with no buffer and resets on the 1st | capture: sha256:6d86be09ce4cbd1cd0c7969da4070aecebaea371010b7fee77c2c38a57157250 | quote: Free is 1 request/second with no burst, and a hard 1,000 requests per UTC calendar month (no buffer; resets on the 1st).
+  - [2] 2026-11-02: exceeding the rate limit or the quota returns HTTP 429 | capture: sha256:6d86be09ce4cbd1cd0c7969da4070aecebaea371010b7fee77c2c38a57157250 | quote: Exceeding the rate limit or the account quota returns `429` with `limit`, `reset_at`, `plan` (current plan), and `upgrade_url`
+  - [2] 2026-11-02: counters are per account and held in memory on a single VM | capture: sha256:6d86be09ce4cbd1cd0c7969da4070aecebaea371010b7fee77c2c38a57157250 | quote: Counters are per account (all keys combined) and live in memory on the API machine (a single Fly VM today), refreshed from stored usage every few minutes.
+  - [2] 2026-11-02: a free account is created at sign-up and the key follows email confirmation | capture: sha256:6d86be09ce4cbd1cd0c7969da4070aecebaea371010b7fee77c2c38a57157250 | quote: Sign up below to create a free account and get your API key instantly after email confirmation.
+  - [2] 2026-11-02:  | capture: sha256:6d86be09ce4cbd1cd0c7969da4070aecebaea371010b7fee77c2c38a57157250
+  - [2] 2026-11-02: bulk lookup is paid-only | capture: sha256:6d86be09ce4cbd1cd0c7969da4070aecebaea371010b7fee77c2c38a57157250 | quote: bulk lookup is paid-only.
+  - [3] 2026-11-02: the bulk call takes up to 100 IPs a request on paid plans | capture: sha256:a97ad2fc5ee09a170cf1cf1373c32a215c46e453b44e4eb83e8cd467c3522dd6 | quote: Have a list? `POST /v0/bulk` (paid plans) takes up to 100 IPs per request with the same schema
+  - [4] 2026-11-02: the home page demo gives 10 free lookups a day with no signup | capture: sha256:3a98a5f92dc1e51815285624bbd248a1199c3b3dd9a8e0cc7df33dc72c22bcf6 | quote: Uses your IP if empty. 10 free lookups per day. No signup.
+  - [4] 2026-11-02: database downloads are announced as coming soon | capture: sha256:3a98a5f92dc1e51815285624bbd248a1199c3b3dd9a8e0cc7df33dc72c22bcf6 | quote: DB downloads · coming soon
+  - [5] 2026-11-02: the Free tier has no hard SLA | capture: sha256:04a69aaed33a3a94c75ba71e5d3a65d96908789422d7c7bad8ade6acd7f235da | quote: The Free tier is best-effort. We do not offer a hard SLA on Free.
+  - [6] 2026-11-02: sign-up for an API key takes an email address and a password | capture: sha256:35d6903952df4cf801edb1a40f659dae7629808f3b0e08bd0ffa32a65b8aa6af | quote: email and password when you sign up for an API key through the dashboard.
+  - [7] 2026-11-02: the paid plans are USD 9, USD 29 and USD 79 a month | capture: sha256:7a4d6602e7c29275b7f6f1503cb9193105589d9aa5f1c81db6519964ed666684 | quote: Risk flags (`is_hosting`, `is_vpn`, `is_tor`, `is_relay`) are on paid plans: $9, $29 and $79/month, or $90, $290 and $790/year, with no overage charges.
+  - probe:https://api.networkdatalabs.com/v0/ip/8.8.8.8 2026-11-02: a call with no key answered HTTP 401 | capture: sha256:693a6178df069c11a68936ff36c8ae10f65327d633b15cc80775f26bfc42e7d9 | quote: "status": 401
+  - probe:https://api.networkdatalabs.com/v0/ip/8.8.8.8 2026-11-02: the keyless answer is UNAUTHORIZED: Missing or invalid API key | capture: sha256:6e2dfdebd7dd77f38b272811a97e39ddafcb3c9c565bdbd69be9b93844e40bd4 | quote: {"error":{"code":"UNAUTHORIZED","message":"Missing or invalid API key"}}
+- sources:
+  - [1] https://www.networkdatalabs.com/pricing
+  - [2] https://www.networkdatalabs.com/docs
+  - [3] https://www.networkdatalabs.com/ip-geolocation-api
+  - [4] https://www.networkdatalabs.com/
+  - [5] https://www.networkdatalabs.com/terms
+  - [6] https://www.networkdatalabs.com/privacy
+  - [7] https://www.networkdatalabs.com/hosting-ip-detection-api
+
+## positionstack
+
+- `data-apis/positionstack` | fails-quota | evidence documented | binding volume-quota | category geocoding API (APILayer) | tier Free
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T00:23:41.926Z (live) | stale on 2026-12-03
+- url https://positionstack.com/pricing | page https://fshy.ajam.dev/p/positionstack.md
+- free tier: Free plan, USD 0 a month,: 100 requests a month with forward geocoding, reverse geocoding and HTTPS encryption, and no support | unit: requests | metered on: request-count | read on: 2026-11-02 | source: [1] | note: the paid plans start at USD 9.99 a month,000 requests; batch requests start at the Professional plan, USD 49.99 a month for 1,000,000 monthly requests; the vendor's GitHub README still names 25,000 monthly requests, which the pricing page no longer offers
+- per-object cap: no batch geocoding on the Free plan: batch POST requests that carry several queries start at the Professional plan; the Free plan geocodes one query a request | source: [1]
+- retention: results are licensed for display to the end users of the application | source: [2]
+- egress: not applicable: a query API metered in requests, not bytes | metered: no | source: [1]
+- identity: email | detail: an APILayer account (one account and one API key for every APILayer API); registration collects a full name, an email address, a password and address details, and the sign-up page says no card is required
+- interface: rest
+- limits:
+  - volume-quota (binding): 100 requests a month on the Free plan; at the limit the API answers HTTP 429 usage_limit_reached [3]
+  - request-rate: unverified: the size of the short-period limit is not published; the API answers HTTP 429 rate_limit_reached [3]
+- binding note: 100 requests a month are spent before any short-period rate limit matters
+- interface detail: HTTPS GET to api.positionstack.com/v1/forward and /v1/reverse with an access_key query parameter; a keyless call answered HTTP 401 missing_access_key
+- endpoint: https://api.positionstack.com/v1/forward
+- tooling: any HTTP client
+- composes with: 100 requests a month on a personal, key is enough to test the API and not to run a service
+- reliability: at 100 requests the API answers HTTP 429 usage_limit_reached until the next monthly period; the Free plan has no support; older vendor pages still state 25,000 requests a month, which the current pricing page does not offer
+- notes: Free requests: 100 a month, personal and non-commercial. Rate limit: size unpublished. End users may not store or distribute them. Bulk path: none on Free; batch requests from the Professional plan.
+- evidence note: the pricing page, the product page, the home page, the terms, the privacy statement, the docs and the sign-up page were quoted on 2026-11-02; a keyless call answered HTTP 401. No account was opened, so the free monthly quota and the sign-up fields were not exercised.
+- extras:
+  - free_requests: 100 requests a month, non-commercial
+  - rate_limit: unverified: size not published; HTTP 429 rate_limit_reached
+  - bulk_path: none on Free; batch POST requests from the Professional plan
+- evidence:
+  - [4] 2026-11-02:  | capture: sha256:9f6e18f7b23b0b856d3306855ccd2f8e4addb4deec3f7e7a53f0b998163d370f | quote: Yes, Positionstack offers a free geocoding API plan. It includes 100 free requests per month, forward geocoding, reverse geocoding, and HTTPS encryption, with no technical support included.
+  - [5] 2026-11-02: the home page offers 100 monthly geocode requests free and subscriptions from USD 9.99 a month | capture: sha256:d17881e7df06eb9368a4dd33c7156848269490778cc0beb7c5cfeead386af5c2 | quote: Send 100 monthly geocode requests for free — in case you ever need more, premium geocoding subscriptions start at just USD $9.99 per month.
+  - [1] 2026-11-02:  | capture: sha256:c3a91063926fb6d5c681d78eda4aa41de0250778448d35e33fefca5501c28503 | quote: <heading>Free</heading> </div> <p class="short_description">Personal use.</p>
+  - [1] 2026-11-02: the Free plan costs USD 0 a month | capture: sha256:c3a91063926fb6d5c681d78eda4aa41de0250778448d35e33fefca5501c28503 | quote: <span>$0</span>
+  - [1] 2026-11-02: the Free plan column lists 100 requests | capture: sha256:c3a91063926fb6d5c681d78eda4aa41de0250778448d35e33fefca5501c28503 | quote: <li class="feature_api_requests">100 Requests</li>
+  - [1] 2026-11-02:  | capture: sha256:c3a91063926fb6d5c681d78eda4aa41de0250778448d35e33fefca5501c28503
+  - [1] 2026-11-02: the Free plan has no support | capture: sha256:c3a91063926fb6d5c681d78eda4aa41de0250778448d35e33fefca5501c28503 | quote: <li class="feature_support">No Support</li>
+  - [1] 2026-11-02:  | capture: sha256:c3a91063926fb6d5c681d78eda4aa41de0250778448d35e33fefca5501c28503
+  - [1] 2026-11-02: the Professional plan is USD 49.99 a month | capture: sha256:c3a91063926fb6d5c681d78eda4aa41de0250778448d35e33fefca5501c28503 | quote: <span>$49.99</span>
+  - [1] 2026-11-02: batch access and 1,000,000 monthly requests start at the Professional plan | capture: sha256:c3a91063926fb6d5c681d78eda4aa41de0250778448d35e33fefca5501c28503 | quote: Most popular - access to batch endpoint and up to 1,000,000 monthly requests.
+  - [2] 2026-11-02: end users may not store or distribute the data | capture: sha256:d69a9f34bd989b5c8bc76478cffeec3c1a9010e59c1660e1aa6cf9be09dc6212
+  - [2] 2026-11-02: the data is licensed for reference by end users | capture: sha256:d69a9f34bd989b5c8bc76478cffeec3c1a9010e59c1660e1aa6cf9be09dc6212 | quote: You are permitted solely to use positionstack API Data & Services for reference by Your end users.
+  - [2] 2026-11-02: past the monthly limit the API returns an error and refuses further calls in that month | capture: sha256:d69a9f34bd989b5c8bc76478cffeec3c1a9010e59c1660e1aa6cf9be09dc6212 | quote: If You exceed Your monthly usage limit, the positionstack API will return an error message stating that Your monthly usage limit has been reached and no further API calls can be made within the current monthly term.
+  - [3] 2026-11-02: the monthly quota answers HTTP 429 usage_limit_reached | capture: sha256:fa373e2eeb24169ea24a077fcc7107583da0f8c2d09e99b1a3f2596bf2137b13 | quote: | 429 | `usage_limit_reached` | Monthly request quota reached. |
+  - [3] 2026-11-02: a short-period limit answers HTTP 429 rate_limit_reached, with no size given | capture: sha256:fa373e2eeb24169ea24a077fcc7107583da0f8c2d09e99b1a3f2596bf2137b13 | quote: | 429 | `rate_limit_reached` | Too many requests in a short period. |
+  - [3] 2026-11-02: the API key goes in an access_key query parameter | capture: sha256:fa373e2eeb24169ea24a077fcc7107583da0f8c2d09e99b1a3f2596bf2137b13 | quote: include your `access_key` as a query parameter in every request.
+  - [6] 2026-11-02: the forward geocoding endpoint is api.positionstack.com/v1/forward | capture: sha256:f2354a7ff859834b1c9e5fe4fa53081c498b815473936ec906e9b3d66dae95c4 | quote: https://api.positionstack.com/v1/forward
+  - [6] 2026-11-02: the reverse geocoding endpoint is api.positionstack.com/v1/reverse | capture: sha256:f2354a7ff859834b1c9e5fe4fa53081c498b815473936ec906e9b3d66dae95c4 | quote: https://api.positionstack.com/v1/reverse
+  - [6] 2026-11-02: a batch request sends several queries at once | capture: sha256:f2354a7ff859834b1c9e5fe4fa53081c498b815473936ec906e9b3d66dae95c4 | quote: Batch requests are a way of sending multiple forward or reverse geocoding queries to the API at once.
+  - [6] 2026-11-02: a batch request is an HTTP POST with a JSON body of queries | capture: sha256:f2354a7ff859834b1c9e5fe4fa53081c498b815473936ec906e9b3d66dae95c4 | quote: To make a batch request, simply specify your API request URL along with an additional `batch` request parameter sent as an `HTTP` `POST` `JSON` body carrying multiple queries.
+  - [7] 2026-11-02: registration collects a full name, an email address and address details | capture: sha256:7cdef4976c80df20e1c439dbc2490a0fc76c26de58d09007a62758500765a669 | quote: - personal information: full name; email address; address, zip code, city, region, country;
+  - [8] 2026-11-02: one APILayer account and one API key serve every APILayer API, and the sign-up page says no card is required | capture: sha256:1795e2f9ba34cdc8eb1527c93085d25968d39dd8ed7cc9b16908e0efe4e3789e | quote: Create one APILayer account to access and purchase multiple production-ready APIs with a single API key. Start building in minutes, no card required.
+  - [9] 2026-11-02: the vendor's GitHub README still names 25,000 monthly geocoding requests | capture: sha256:25a88625ce01e669ab5d2384c1b367ea4af62d335855c42aea7fb6431e7e1069 | quote: [Get a free API access key](https://positionstack.com/product) for 25,000 monthly geocoding requests.
+  - probe:https://api.positionstack.com/v1/forward?query=Zurich 2026-11-02: a keyless forward geocode answers HTTP 401 | capture: sha256:a77e0da7fa524afad91de1a5a442629a82418a8675e4386b23b55e4a32bb0eb9 | quote: "status": 401
+  - probe:https://api.positionstack.com/v1/forward?query=Zurich#body 2026-11-02: the keyless call is refused with the error code missing_access_key | capture: sha256:5dbfe11774badd4884a3660444bf3482ec2b758a66f23acf1a37b320de5d84c3 | quote: missing_access_key
+- sources:
+  - [1] https://positionstack.com/pricing
+  - [2] https://positionstack.com/terms
+  - [3] https://docs.apilayer.com/positionstack/docs/getting-started
+  - [4] https://apilayer.com/products/positionstack/
+  - [5] https://positionstack.com/
+  - [6] https://docs.apilayer.com/positionstack/docs/features
+  - [7] https://positionstack.com/privacy
+  - [8] https://app.apilayer.com/signup/positionstack/free
+  - [9] https://github.com/apilayer/positionstack

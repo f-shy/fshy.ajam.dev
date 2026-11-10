@@ -1,0 +1,152 @@
+# Firecrawl
+
+> firecrawl.dev | Crawling, Compute; 3 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/firecrawl/ | JSON https://fshy.ajam.dev/api/v1/entity/firecrawl.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Firecrawl
+
+- `crawler-scraper/firecrawl` | qualifies | evidence documented | binding request-rate | category crawl API
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://www.firecrawl.dev/pricing
+- free tier: 500 searches or 1,000 pages scraped a month on the Free plan, 2 concurrent requests, no card | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable: the unit is a page | source: [1]
+- retention: 1 credit per page; a JS render or JSON extraction costs 4 | source: [1]
+- egress: not applicable: Markdown answers | metered: no | source: [1]
+- identity: email | detail: the Free plan states no card
+- interface: rest
+- limits:
+  - request-rate (binding): 10 requests a minute on scrape, map and search, 2 a minute on crawl, and 2 concurrent browsers
+  - per-object-cap: Crawl limit is 1 to 100 pages a job, with Markdown formatting as the output unit.
+  - request-rate (binding): Hobby USD 19 a month on monthly billing, USD 16 billed annually, for 2,500 searches or 5,000 pages. Standard USD 83 a month for 50,000 or 100,000, quoted on annual billing. [1]
+- limits note: the 2-a-minute crawl rate binds before the credit count at any plan size
+- interface detail: REST v2 scrape, search, map and crawl; crawl is a job plus a poll
+- tooling: REST; a self-hosted build serves the same /v1/scrape shape
+- composes with: Supports crawling, scraping and web search from a single API credential across all five extraction capabilities.
+- reliability: No failure observed during sample crawl operations executed on 2026-10-22.
+- notes: Used as a crawl and extraction backend. The free plan allowance provides 1,000 pages a month, which corresponds to approximately 33 pages a day.
+- evidence note: The verdict rests on the 1,000-page monthly tier, which is documented from the pricing page. One crawl job and one pinned read were measured; the quota itself was not probed.
+- evidence:
+  - [1] 2026-10-22: Free plan USD 0: 500 searches or 1,000 pages scraped a month, 2 concurrent requests, low rate limits; Hobby USD 19 a month billed monthly or USD 16 billed annually; Standard USD 83 a month on a card headed 'Prices shown are per month, billed annually'
+  - withheld 2026-10-22: POST with limit 3 answered 202 with a Location; the job ran then completed, 3 pages, usage credit 3, provider firecrawl, about 10 s
+  - [2] 2026-10-22: 200, 27,697 bytes, 742 words from a Cloudflare-walled forum in 4.5 s
+- sources:
+  - [1] https://www.firecrawl.dev/pricing
+  - [2] https://linux.do/?__provider=firecrawl
+
+## Firecrawl Interact / Browser Sandbox
+
+- `compute/firecrawl` | qualifies-with-caveat | evidence documented | binding request-rate | category browser host
+- needs card no, phone no, ID no, institution no | verified 2026-11-06T18:37:39.729Z (live) | stale on 2026-12-07
+- url https://www.firecrawl.dev/pricing
+- free tier: Free plan: 1,000 credits every month, no credit card required; the allotment resets each monthly cycle and unused credits do not roll over. Interact bills 2 credits per browser minute for code-only sessions and 7 with a prompt, with a one-minute minimum, so the free pool is 500 code-only browser minutes a month | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1] | note: credits are shared across search, scrape, crawl and interact; 1 credit is 1 page on a basic scrape
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published: https://www.firecrawl.dev/pricing and https://docs.firecrawl.dev/billing price credits per call and list no data-transfer allowance or price; static egress IPs are Enterprise only | metered: no | source: [1]
+- identity: email | detail: Account created with an email address and a password, or with GitHub or Google sign-in, with the email verified if prompted; no card required on the free plan; Search, Scrape and Interact also work with no API key through a keyless tier capped per IP address per day
+- interface: rest, cli
+- limits:
+  - request-rate (binding): 1,000 credits a month on Free; one credit is one page on a basic scrape [1]
+  - volume-quota: Interact costs 2 credits per browser minute for code-only sessions and 7 with a prompt, with a one-minute minimum; the 1,000-credit pool is 500 code-only browser minutes a month [1]
+  - request-rate (binding): Free plan: 10 requests a minute on /scrape, /map and /search and 2 requests a minute on /crawl, /agent and /interact; 2 concurrent browsers [2]
+  - per-ip-shaping: keyless tier: a maximum number of requests per IP address per day, value not published; exceeding it returns 429 [3]
+  - volume-quota: keyless tier: a maximum number of credits per IP address per day, value not published; operations that cost more credits reach the cap sooner [3]
+- limits note: Interact sessions expire after a default TTL of 10 minutes or a default inactivity timeout of 5 minutes
+- binding note: the monthly credit pool binds before any concurrency limit, because the pool is spent by ordinary crawling
+- interface detail: a REST API, Python and Node SDKs, a CLI (npm firecrawl-cli) and an MCP server
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: Re-read on 2026-10-22: the free plan is 1,000 monthly credits with no card. An earlier table row called this paid-only and the browser document said it had no free tier; neither was right.
+- evidence note: Documented on the vendor's billing page: 1,000 credits a month, no card required, 10 requests a minute on /scrape, /map and /search and 2 on /crawl, /agent and /interact.
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - free_tier_kind: allowance
+  - burst_x: 1.0
+- evidence:
+  - [1] 2026-10-22: '1,000 credits every month, refreshed monthly, no credit card required'; 'Interact costs 2 credits per browser minute'
+  - [2] 2026-10-28: the Free plan has 1,000 credits a month with no rollover; Interact costs 2 credits per minute code-only and 7 with a prompt, one-minute minimum | capture: sha256:1f5e2656ae543c6f5331e279597fbeb580947ec52021ec1197badf8034ed7351 | quote: 1,000 credits per month. ... Unused free credits do not roll over. ... billed per browser minute with a one-minute minimum. Sessions that use a `prompt` bill at 7 credits / browser minute; sessions without a prompt (Playwright `code` only) bill at 2 credits / browser minute.
+  - [2] 2026-10-28: the free plan costs nothing and does not need a card | capture: sha256:1f5e2656ae543c6f5331e279597fbeb580947ec52021ec1197badf8034ed7351 | quote: New accounts start on the free plan. It costs nothing and does not need a card.
+  - [2] 2026-10-28: the row is a pool of metered browser minutes drawn from the monthly credits, not the size of one object | capture: sha256:1f5e2656ae543c6f5331e279597fbeb580947ec52021ec1197badf8034ed7351 | quote: 1,000 credits per month. ... Unused free credits do not roll over. ... billed per browser minute with a one-minute minimum. Sessions that use a `prompt` bill at 7 credits / browser minute; sessions without a prompt (Playwright `code` only) bill at 2 credits / browser minute.
+  - [2] 2026-10-28: Interact bills 2 credits per minute code-only and 7 with a prompt, one-minute minimum, from a 1,000-credit monthly pool | capture: sha256:1f5e2656ae543c6f5331e279597fbeb580947ec52021ec1197badf8034ed7351 | quote: 1,000 credits per month. ... Unused free credits do not roll over. ... billed per browser minute with a one-minute minimum. Sessions that use a `prompt` bill at 7 credits / browser minute; sessions without a prompt (Playwright `code` only) bill at 2 credits / browser minute.
+  - [2] 2026-10-28: the Free plan is limited to 10 requests a minute on scrape, map and search, 2 on crawl, agent and interact, and 2 concurrent browsers | capture: sha256:1f5e2656ae543c6f5331e279597fbeb580947ec52021ec1197badf8034ed7351 | quote: Rate limits of 10 requests per minute on `/scrape`, `/map` and `/search`, and 2 requests per minute on `/crawl`, `/agent` and `/interact`. ... 2 concurrent browsers, with the same 50,000 maximum queued jobs as the paid self-serve plans.
+  - [3] 2026-10-28: the rate-limits page gives the Free plan 2 concurrent browsers and a 50,000 queued-job maximum | capture: sha256:6867c1561cc51e8baee2be6a360f73e7bc4cfeff7ffec16ca2b438b06e5d2d82 | quote: | Free | 2 | 50,000 |
+  - [4] 2026-10-28: Interact sessions expire after a default 10-minute TTL or a default 5-minute inactivity timeout | capture: sha256:2f1e5107ed6267aacab82d7b4c05ecf4d2d0367b416623325fd8ea1015d7f4f3 | quote: Sessions also expire automatically based on TTL (default: 10 minutes) or inactivity timeout (default: 5 minutes).
+  - [5] 2026-10-28: registration takes an email address or GitHub login, with email verification if prompted | capture: sha256:635b697ca02e9c0b0c4e53845acfd9290bc8a5724b16b3cf70934855fd16d627 | quote: Create an account using your email address or GitHub login 4. Verify your email if prompted
+  - [3] 2026-10-28: keyless usage needs no API key and is capped per IP address per day | capture: sha256:6867c1561cc51e8baee2be6a360f73e7bc4cfeff7ffec16ca2b438b06e5d2d82 | quote: Keyless usage is free and capped per IP address per day by two limits, and exceeding either returns a `429`
+  - [2] 2026-10-28: the billing page states the Free plan's monthly credits and its per-minute rate limits | capture: sha256:1f5e2656ae543c6f5331e279597fbeb580947ec52021ec1197badf8034ed7351 | quote: 1,000 credits per month. ... Rate limits of 10 requests per minute on `/scrape`, `/map` and `/search`, and 2 requests per minute on `/crawl`, `/agent` and `/interact`.
+  - [1] 2026-10-28: the Free plan is 1,000 credits a month, about 1,000 pages, with no card; unchanged | capture: sha256:ed238da867bd812a98e93e266059e528ff249aa8a9ba3dde72961f8c9e81e71e | quote: 1,000 free credits every month, which covers about 1,000 pages, and no card is required
+  - [1] 2026-11-03: the only egress item is static IPs, Enterprise only; no transfer allowance or price is listed | capture: sha256:e1af9e2b0b5ac4ed1969a29306bfb1d9fa8b57ea7981f713850e5c0a0287a0e8 | quote: | Static egress IPs | Not available | Not available | Not available | Not available | Not available | Included |
+  - [3] 2026-11-03: a REST API, SDKs and a CLI exist | capture: sha256:80f845e22951dd68ec0d41e8e57add42e4a8965bbd5ae76390243af588382a65 | quote: For official Firecrawl clients, the CLI, SDKs, and REST API, keyless access also includes Interact.
+  - [6] 2026-11-03: a CLI exists | capture: sha256:8df418114745271491139b23c603826fae321ce3fffa0493a47dbbe4464b3de7 | quote: Search, scrape, parse, crawl, map, interact, run agent jobs, and monitor changes directly from the terminal.
+  - [3] 2026-11-06: the keyless tier carries a per-IP daily cap on requests and a per-IP daily cap on credits, and exceeding either returns 429; the page gives no value for either | capture: sha256:91b799ecb7b8a147c955062d4fd1080a7f0050417794be79589edae31245bcb2 | quote: Keyless usage is free and capped per IP address per day by two limits, and exceeding either returns a `429`:
+  - [3] 2026-11-06: the keyless tier has a per-IP daily credit cap, and an operation that costs more credits reaches it sooner; the page gives no value | capture: sha256:91b799ecb7b8a147c955062d4fd1080a7f0050417794be79589edae31245bcb2 | quote: - A maximum number of credits per day. Operations cost different amounts of credits (for example, Interact and JSON extraction cost more than a basic scrape), so heavier usage reaches the credit cap sooner.
+  - [7] 2026-11-06: the sign-up form asks for an email address, beside a password field and GitHub and Google sign-in | capture: sha256:4462769e3c1137049e061177128f26fdbe8ae784d6e8596ab93a3b3d2eff7182 | quote: placeholder="name@example.com" type="email" autoCapitalize="none" autoComplete="email" autoCorrect="off" name="email" value=""
+  - [7] 2026-11-06: the sign-up form has a password field, so the account is created with an email address and a password | capture: sha256:4462769e3c1137049e061177128f26fdbe8ae784d6e8596ab93a3b3d2eff7182 | quote: type="password" autoComplete="new-password" name="password" value=""
+  - [7] 2026-11-06: the sign-up form offers GitHub sign-in | capture: sha256:4462769e3c1137049e061177128f26fdbe8ae784d6e8596ab93a3b3d2eff7182 | quote: <span>Continue with <!-- -->GitHub</span>
+  - [7] 2026-11-06: the sign-up form offers Google sign-in | capture: sha256:4462769e3c1137049e061177128f26fdbe8ae784d6e8596ab93a3b3d2eff7182 | quote: <input type="hidden" name="provider" value="google"/>
+  - [2] 2026-11-06: the free plan costs nothing and needs no card; unchanged | capture: sha256:d1def2716aa685ebae0e3a57d5709fe10deb10103e8f2f140d2a295ed60a2dd2 | quote: New accounts start on the free plan. It costs nothing and does not need a card.
+  - [7] 2026-11-06: registration takes an email address or a GitHub or Google login, so the identity cost is an email address | capture: sha256:4462769e3c1137049e061177128f26fdbe8ae784d6e8596ab93a3b3d2eff7182 | quote: <span>Continue with <!-- -->GitHub</span>
+- sources:
+  - [1] https://www.firecrawl.dev/pricing
+  - [2] https://docs.firecrawl.dev/billing
+  - [3] https://docs.firecrawl.dev/rate-limits
+  - [4] https://docs.firecrawl.dev/features/interact
+  - [5] https://docs.firecrawl.dev/developer-guides/workflow-automation/n8n
+  - [6] https://docs.firecrawl.dev/sdks/cli.md
+  - [7] https://www.firecrawl.dev/signup
+
+## Firecrawl keyless route
+
+- `crawler-scraper/firecrawl-keyless` | qualifies-with-caveat | evidence documented | binding request-rate | category search API
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T01:02:29.002Z (live) | stale on 2026-12-03
+- url https://www.firecrawl.dev/
+- free tier: free with no API key: Search, Scrape and Parse on the hosted MCP endpoint, Interact as well from official clients, the CLI, SDKs and REST API, and the research, developer and government search endpoints on Firecrawl Cloud; capped per IP address per day by a request count and a credit count, neither published | unit: requests | metered on: request-count | read on: 2026-10-30 | source: [1] | note: the API source code on GitHub reads the two per-IP caps from the settings KEYLESS_REQUESTS_PER_DAY and KEYLESS_CREDITS_PER_DAY and ships no default for either; the tier is off unless both are set
+- per-object cap: not applicable | source: [2]
+- retention: each per-IP request counter and credit counter expires 86400 seconds after it is created | source: [3]
+- egress: not applicable | metered: no | source: [2]
+- identity: anonymous | detail: no account and no API key
+- interface: rest
+- limits:
+  - request-rate (binding): two per-IP daily caps, a request count and a credit count, neither published; exceeding either answers 429 [1]
+  - request-rate (binding): a keyless call from an address the vendor classes as VPN or proxy is refused, with a message naming the address as a VPN or proxy and pointing to a free API key probe:https://api.firecrawl.dev/v2/search/research/papers
+- limits note: keyless calls with no World ID credential are accepted from IPv4 client addresses only; a call from an IPv6 address falls through to HTTP 401
+- binding note: the per-IP daily request and credit caps bind first, and their numbers are not published
+- interface detail: REST at api.firecrawl.dev with no key (the Research Index at GET /v2/search/research/papers, Search, Scrape and Interact) and the hosted MCP keyless endpoint
+- tooling: plain HTTP with no Authorization header, an SDK, the CLI run as npx -y firecrawl-cli@latest, or an MCP client pointed at https://mcp.firecrawl.dev/v2/mcp
+- composes with: The works index's last leg, after OpenAlex, TinyFish and Exa
+- reliability: a keyless call from a VPN or proxy address is refused outright, so the route depends on the class of the egress address
+- notes: Two caps and no number is worse than one cap with a number: there is no threshold to design against.
+- evidence note: free tier and caps quoted from the vendor's rate-limit page; the refusal of a VPN or proxy address measured with a keyless probe
+- evidence:
+  - withheld 2026-10-22: caps works, two keyless-ip pools, limit null: the cap is not published
+  - [1] 2026-10-30: keyless use is free, capped per IP address per day by a request count and a credit count, neither number published; Search, Scrape and Parse on the hosted MCP, Interact from official clients and REST, and the research search endpoints are keyless | capture: sha256:6867c1561cc51e8baee2be6a360f73e7bc4cfeff7ffec16ca2b438b06e5d2d82 | quote: Keyless usage is free and capped per IP address per day by two limits, and exceeding either returns a 429:
+  - [1] 2026-10-30: the research search endpoints are keyless on Firecrawl Cloud | capture: sha256:6867c1561cc51e8baee2be6a360f73e7bc4cfeff7ffec16ca2b438b06e5d2d82 | quote: On Firecrawl Cloud, research, developer, and government search endpoints can also be used without an API key.
+  - [4] 2026-10-30: the keyless caps reset every day | capture: sha256:092c5f0aa29a0ab58bd73ad769c58b3b6ee8dec6e5bb491041ad4baa2f24d929 | quote: Keyless usage is free and resets every day, so you can start building right away and sign up only when you need more.
+  - probe:https://api.firecrawl.dev/v2/search/research/papers?query=attention%20is%20all%20you%20need&k=3 2026-10-30: a keyless call from an address the vendor classes as VPN or proxy is refused, with a pointer to a free API key | capture: sha256:5b31bf16bc7ecf9d25f65bf75d09fe9c74fb97fae071166273978dc85a61b182 | quote: Unfortunately, your IP address looks like a VPN or proxy, so Firecrawl can't be used without an API key from here.
+  - [4] 2026-10-30: keyless use needs no account and no key | capture: sha256:092c5f0aa29a0ab58bd73ad769c58b3b6ee8dec6e5bb491041ad4baa2f24d929 | quote: Firecrawl is now keyless. Search, scrape, and interact with the web for free without an account, setup or key rotation.
+  - [5] 2026-10-30: the server refuses keyless calls from VPN, proxy or TOR addresses when its address-reputation check is configured | capture: sha256:40e2e6fa85194e0b399b6d3fa42866b3119016ec1fe703b574d478c0e43c1544 | quote: keyless requests have their client IP checked against Spur and are refused if the IP fronts anonymizing/rotating infrastructure (VPN/proxy/
+  - probe:https://api.firecrawl.dev/v2/search/research/papers?query=attention%20is%20all%20you%20need&k=3 2026-10-30: the refusal of the keyless research search from a VPN or proxy address is HTTP 403 | capture: sha256:65866a233a3388d6fb3d98f0a95c61a4ca73d4abe35925dd8a91ce1934c16e3e | quote: "status": 403
+  - [6] 2026-11-01: the API source refuses a keyless call from a client address that is not IPv4 with the 401 answer, unless the caller presents a World ID credential | capture: sha256:cd69d59adeb409d0b54d346416c5f34955199a2bb5ec8eb5ca47fcf7945be9d7 | quote: Only a valid IPv4 identity gets keyless: IPv6 is too cheap to rotate for a ... Anything else falls through to 401. if (!worldIdIdentity && !isKeylessIpEligible(ip)) { return denied(req, "keyless_ip_ineligible", unauthorized); }
+  - [7] 2026-11-01: the vendor lists the clients that work with no key (MCP, CLI, SDK, plain HTTP), the MCP endpoint and the CLI command, and says a call from some networks (VPNs, proxies) is refused | capture: sha256:100c0b343a4b65250dae903f9aa4b8468bd8fb4954d6c5591d73e091c99930d5 | quote: from any client (MCP, CLI, SDK, or plain HTTP). It is rate-limited, and calls from some networks (VPNs, proxies) are refused ... point any MCP-compatible client at https://mcp.firecrawl.dev/v2/mcp ... run npx -y firecrawl-cli@latest ... without an Authorization header
+  - [3] 2026-11-01: the API source expires each per-IP request counter and credit counter 86400 seconds after it is created | capture: sha256:79aca9736dd4fc7936616b1a996f81a5b18498f266bff48893efd2fe35c49a3d | quote: const DAY_SECONDS = 86400; ... if (requestsUsed === 1) { await redisRateLimitClient.expire(rKey, DAY_SECONDS); } ... if redis.call("TTL", KEYS[1]) < 0 then redis.call("EXPIRE", KEYS[1], ttl)
+  - [3] 2026-11-01: the API source takes the two per-IP caps from settings that have no default, and the keyless tier is off unless both are configured | capture: sha256:79aca9736dd4fc7936616b1a996f81a5b18498f266bff48893efd2fe35c49a3d | quote: No defaults: the keyless free tier is OFF unless BOTH limits are configured. ... const KEYLESS_REQUESTS_PER_DAY = config.KEYLESS_REQUESTS_PER_DAY; const KEYLESS_CREDITS_PER_DAY = config.KEYLESS_CREDITS_PER_DAY;
+  - probe:https://api.firecrawl.dev/v2/search/research/papers?query=attention%20is%20all%20you%20need&k=3 2026-11-01: a keyless GET of the research papers search, sent from one egress address with no proxy, answered HTTP 403 on 2026-11-01, as it did on 2026-10-30 | capture: sha256:cea037c3f63c27ae80969240d4e83df85a097c5785b71481ff9dd18c760a3f58 | quote: "status": 403
+  - [8] 2026-11-01: a keyless GET of the research papers search answered HTTP 200 with success true and three results on 2026-11-01 from a Cloudflare Workers fetch egress, an address the vendor does not refuse | capture: sha256:ce28aa9d41a574ec513deca51f1d3752f8c65904c0a083c928ec5b826c1f949a | quote: HTTP/1.1 200 OK ... egress=cf-fetch tried=cf-fetch ... {"success":true,"partial":false,"results":[{"paperId":"8319239866974784291"
+  - [9] 2026-11-01: a keyless GET of the research papers search with a second query also answered HTTP 200 with success true and two results on 2026-11-01 from the same kind of egress | capture: sha256:a71208f77b0d4b20c36f947c98f82a498bea55393fa96362dd6bf00b26cc2ebb | quote: HTTP/1.1 200 OK ... egress=cf-fetch tried=cf-fetch ... {"success":true,"partial":false,"results":[{"paperId":"3318503568925695457"
+  - [6] 2026-11-01: the vendor's API answers HTTP 403 with a message naming the address as a VPN or proxy and pointing to a free API key when its address check flags a keyless caller | capture: sha256:cd69d59adeb409d0b54d346416c5f34955199a2bb5ec8eb5ca47fcf7945be9d7 | quote: Unfortunately, your IP address looks like a VPN or proxy, so Firecrawl can't be used without an API key from here. Sign up with Google or GitHub at ${signupUrl} for a free API key with 1000 credits and higher rate limits. ... error: keylessSuspiciousIpMessage(url), status: 403
+  - [4] 2026-11-01: keyless use needs no account and no API key | capture: sha256:092c5f0aa29a0ab58bd73ad769c58b3b6ee8dec6e5bb491041ad4baa2f24d929 | quote: Firecrawl is now keyless. Search, scrape, and interact with the web for free without an account, setup or key rotation.
+  - [10] 2026-11-01: a public post announcing Firecrawl keyless states that the keyless credit and rate limits vary based on demand (reported, from a mirror of the post) | capture: sha256:653c75dbe6e1a0a56b10e039a6c54ece01164b3da272ee0392e658977973527d | quote: keyless firecrawl is free but not unlimited, with credit + rate limits that vary based on demand.
+  - [1] 2026-11-01: keyless use is free and capped per IP address per day by a request count and a credit count, and the page states no number for either | capture: sha256:6867c1561cc51e8baee2be6a360f73e7bc4cfeff7ffec16ca2b438b06e5d2d82 | quote: Keyless usage is free and capped per IP address per day by two limits, and exceeding either returns a 429: ... A maximum number of requests per day. ... A maximum number of credits per day.
+- sources:
+  - [1] https://docs.firecrawl.dev/rate-limits
+  - [2] https://www.firecrawl.dev/
+  - [3] https://raw.githubusercontent.com/firecrawl/firecrawl/main/apps/api/src/lib/keyless.ts
+  - [4] https://www.firecrawl.dev/blog/firecrawl-keyless-launch
+  - [5] https://raw.githubusercontent.com/firecrawl/firecrawl/main/apps/api/src/config.ts
+  - [6] https://raw.githubusercontent.com/firecrawl/firecrawl/main/apps/api/src/controllers/auth.ts
+  - [7] https://www.firecrawl.dev/agent-onboarding/SKILL.md
+  - [8] https://api.firecrawl.dev/v2/search/research/papers?query=attention%20is%20all%20you%20need&k=3
+  - [9] https://api.firecrawl.dev/v2/search/research/papers?query=retrieval%20augmented%20generation&k=2
+  - [10] https://xitter.cf/ericciarla/status/2093375835679977570

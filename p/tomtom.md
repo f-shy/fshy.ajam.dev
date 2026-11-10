@@ -1,0 +1,93 @@
+# TomTom
+
+> tomtom.com | Data APIs; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/tomtom/ | JSON https://fshy.ajam.dev/api/v1/entity/tomtom.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## TomTom
+
+- `data-apis/tomtom` | qualifies-with-caveat | evidence documented | binding volume-quota | category maps, routing, geocoding and traffic API | tier Freemium
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T01:13:19.928Z (live) | stale on 2026-12-04
+- url https://docs.tomtom.com/pricing
+- free tier: free monthly requests per API, no credit card: 20K Geocoding, 20K Reverse Geocoding and 20K Routing requests a month, 2.5K Search API and 2.5K Matrix Routing requests a month, 200K vector map tiles a month; unused free amounts do not carry over and expire at the end of each month | unit: requests | metered on: request-count | read on: 2026-10-31 | source: [1] | note: the free use is the evaluation part of a Freemium account, which the FAQ says may be used for commercial applications; Freemium accounts are single-user; the free monthly allowance has no time limit, resets at the start of every billing cycle and is shared across the whole account, so several API keys draw from one pool
+- per-object cap: Batch Search takes up to 100 items a synchronous request and 10000 an asynchronous one; asynchronous results can be downloaded for 14 days | source: [2]
+- retention: source: [3]
+- egress: not applicable: a query API metered in requests, not bytes | metered: no | source: [1]
+- identity: email | detail: a MyTomTom account registered and confirmed by email; no credit card. The Register / sign in button of my.tomtom.com opens a hosted sign-in page whose first screen offers 'No account? Create one'; the other fields of the registration form are unverified: behind a sign-up
+- interface: rest
+- limits:
+  - volume-quota (binding): 20K Geocoding, 20K Reverse Geocoding and 20K Routing requests a month on the free tier [1]
+  - request-rate: 5 queries a second by default for Geocoding, Reverse Geocoding, Routing, Search and Batch Search [4]
+  - retention-clamped: results cached only for the maximum age of their cache-control headers; no other storing [3]
+  - per-object-cap: 10000 items an asynchronous Batch Search request, 100 a synchronous one [2]
+- binding note: 5 queries a second would pass a monthly 20K within the first day, so the monthly count is met first
+- interface detail: HTTPS to api.tomtom.com (for example /search/2/geocode/QUERY.json) with an API key created in MyTomTom; a keyless geocode answered HTTP 401 'You are missing valid authentication credentials'; the platform FAQ says API requests return 429 when free usage limits are exceeded, while the Geocode docs list 'Rate or volume limit exceeded' under 403 and give 429 for over QPS only, so the status of a request over the monthly free limit is unverified: behind a sign-up. Batch Search takes Geocode, Structured Geocode and Reverse Geocode items
+- endpoint: https://api.tomtom.com/search/2/geocode/
+- tooling: any HTTP client; Maps SDK for JavaScript and mobile SDKs
+- composes with: 20K geocodes, 20K reverse geocodes and 20K routes a month with no card, at 5 queries a second; Bulk path: asynchronous Batch Search of up to 10000 geocode items a request, billed per underlying request, not per call (20 requests sent to a batch endpoint are billed as 20 transactions); which monthly free pool an item draws from is unverified: behind a sign-up
+- reliability: the platform FAQ says API requests return 429 when free usage limits are exceeded, and the Geocode docs list rate or volume limit exceeded under 403; which status the monthly free limit answers is unverified: behind a sign-up; access made available for evaluation can be terminated at any time without notice; one evaluation subscription plan per account
+- notes: Bulk path: Batch Search, up to 10000 geocode items an asynchronous request (results kept 14 days), billed per underlying request, not per call; which monthly free pool an item draws from is unverified: behind a sign-up. Not listed on free-for.dev.
+- evidence note: the pricing page and its FAQ script, the terms, the QPS limits page, the platform FAQ, the Batch Search docs and the MyTomTom account docs were quoted on 2026-11-02; a keyless geocode answered HTTP 401. The registration form beyond the first screen of its sign-in page is behind a sign-up; an account would show it and a keyed request would move the record to measured.
+- extras:
+  - bulk_path: asynchronous Batch Search up to 10000 items a request, billed per underlying request, not per call; which monthly free pool an item draws from is unverified: behind a sign-up
+- evidence:
+  - [1] 2026-10-31: each API has free monthly requests with no card | capture: sha256:5ccaa9132a198c558842b8aabd408f3210cc9b69b49f86dbc80ce2fb513a13c5 | quote: Free monthly requests per API, no credit card needed
+  - [1] 2026-10-31: Geocoding is free for 20K requests a month | capture: sha256:5ccaa9132a198c558842b8aabd408f3210cc9b69b49f86dbc80ce2fb513a13c5 | quote: Convert addresses into precise geographic coordinates. TomTom Maps TomTom Orbis Maps 20K 1M 5M 10M Free20K monthly
+  - [1] 2026-10-31: Reverse Geocoding is free for 20K requests a month | capture: sha256:5ccaa9132a198c558842b8aabd408f3210cc9b69b49f86dbc80ce2fb513a13c5 | quote: Convert coordinates into readable addresses or place names. TomTom Maps TomTom Orbis Maps 20K 1M 5M 10M Free20K monthly
+  - [1] 2026-10-31: Routing is free for 20K requests a month | capture: sha256:5ccaa9132a198c558842b8aabd408f3210cc9b69b49f86dbc80ce2fb513a13c5 | quote: Calculate optimal routes with traffic, vehicle settings and waypoints. TomTom Maps TomTom Orbis Maps 20K 1M 5M 10M Free20K monthly
+  - [1] 2026-10-31: Matrix Routing is free for 2.5K requests a month | capture: sha256:5ccaa9132a198c558842b8aabd408f3210cc9b69b49f86dbc80ce2fb513a13c5 | quote: Get travel times and distances for multiple origin-destination pairs. TomTom Maps 2.5K 100K 500K 1M Free2.5K monthly
+  - [1] 2026-10-31: the Search API is free for 2.5K requests a month | capture: sha256:5ccaa9132a198c558842b8aabd408f3210cc9b69b49f86dbc80ce2fb513a13c5 | quote: For new projects we recommend Places Search API. TomTom Maps 2.5K 100K 500K 1M Free2.5K monthly
+  - [5] 2026-10-31: vector map tiles are free for 200K a month | capture: sha256:6b32dd1133a13b08bdcb843c1e9e4926696150c11c2cc09f3b3f1c25f91b30a8 | quote: Serve and render vector tiles for map display in your app. TomTom Orbis Maps Free200K monthly
+  - [1] 2026-10-31: sign-up for the free evaluation needs no card | capture: sha256:5ccaa9132a198c558842b8aabd408f3210cc9b69b49f86dbc80ce2fb513a13c5 | quote: Sign up for a free evaluation and start testing TomTom APIs right away. No credit card required.
+  - [3] 2026-10-31: unused free amounts expire at the end of each month | capture: sha256:d7f5088dc30ab0c06ab554804293661f7b07691168163c9b9758bc962caa590a | quote: 8.5. Free daily limits which are included under a Subscription Plan, to the extent they are unused, do not carry forward and shall expire at the end of each month.
+  - [3] 2026-10-31: one evaluation plan per account | capture: sha256:d7f5088dc30ab0c06ab554804293661f7b07691168163c9b9758bc962caa590a | quote: 8.4. You are only allowed to subscribe to one Evaluation Use Subscription Plan per account.
+  - [3] 2026-10-31:  | capture: sha256:d7f5088dc30ab0c06ab554804293661f7b07691168163c9b9758bc962caa590a | quote: 11.4.
+  - [3] 2026-10-31: client caching is limited to the cache-control maximum age | capture: sha256:d7f5088dc30ab0c06ab554804293661f7b07691168163c9b9758bc962caa590a
+  - [3] 2026-10-31: no caching to serve multiple clients or users | capture: sha256:d7f5088dc30ab0c06ab554804293661f7b07691168163c9b9758bc962caa590a | quote: Nothing under Clause 11.4 entitles any form of caching for the purpose of scaling results to serve multiple clients or users.
+  - [3] 2026-10-31: evaluation access can be ended at any time without notice | capture: sha256:d7f5088dc30ab0c06ab554804293661f7b07691168163c9b9758bc962caa590a | quote: TomTom may terminate your access to any Licensed Products made available for Evaluation Use: (i) at any time without notice;
+  - [6] 2026-10-31: commercial applications are allowed on the free evaluation | capture: sha256:f3dfed3e88b0de46285b6874d6d2ba8b41d84a75ac9c141b0a507a4cc534cd8c | quote: Yes — even as part of the free evaluation.
+  - [6] 2026-10-31: requests over a free limit answer 429 | capture: sha256:f3dfed3e88b0de46285b6874d6d2ba8b41d84a75ac9c141b0a507a4cc534cd8c | quote: When limits are exceeded, API requests return `429`.
+  - [6] 2026-10-31: default QPS limits range from 5 to 50 | capture: sha256:f3dfed3e88b0de46285b6874d6d2ba8b41d84a75ac9c141b0a507a4cc534cd8c | quote: QPS limits range from 5 to 50.
+  - [6] 2026-10-31: Freemium accounts are single-user | capture: sha256:f3dfed3e88b0de46285b6874d6d2ba8b41d84a75ac9c141b0a507a4cc534cd8c | quote: Freemium and Pay As You Grow accounts are single-user accounts
+  - [4] 2026-10-31: Geocoding defaults to 5 queries a second | capture: sha256:64a45494996029419b5db23fa5948397ddc503434d538470a9f509aec4b7ddc9 | quote: | Geocoding | 5 |
+  - [4] 2026-10-31: Reverse Geocoding defaults to 5 queries a second | capture: sha256:64a45494996029419b5db23fa5948397ddc503434d538470a9f509aec4b7ddc9 | quote: | Reverse Geocoding | 5 |
+  - [4] 2026-10-31: Routing defaults to 5 queries a second | capture: sha256:64a45494996029419b5db23fa5948397ddc503434d538470a9f509aec4b7ddc9 | quote: | Routing | 5 |
+  - [4] 2026-10-31: Batch Search defaults to 5 queries a second | capture: sha256:64a45494996029419b5db23fa5948397ddc503434d538470a9f509aec4b7ddc9 | quote: | Batch Search | 5 |
+  - [2] 2026-10-31: an asynchronous batch takes up to 10000 items | capture: sha256:13895fd75e84bc4fe05ff9d049e6df81b8be3331eda401c247e89b683b9981fd | quote: The maximum number of batch items for an Asynchronous API is `10000`.
+  - [2] 2026-10-31: Batch Search supports geocode endpoints | capture: sha256:13895fd75e84bc4fe05ff9d049e6df81b8be3331eda401c247e89b683b9981fd | quote: - [Structured Geocode](https://docs.tomtom.com/geocoding-api/documentation/structured-geocode)
+  - [2] 2026-10-31: a batch item can be a geocode query | capture: sha256:13895fd75e84bc4fe05ff9d049e6df81b8be3331eda401c247e89b683b9981fd | quote: { "query": "/geocode/tower bridge.json" }
+  - [7] 2026-10-31: a synchronous batch takes up to 100 items | capture: sha256:8997b732ced860b3eafb803f193470c041e8b6d37fb0880de1ff31342c5cafdc | quote: The maximum number of batch items for a Synchronous API is `100`.
+  - [8] 2026-10-31: asynchronous batch results are kept for 14 days | capture: sha256:d14b94b689f81bfc93d725e863c300a508ef17d4e6d73148a0b29df6a2ac50f2 | quote: Please be aware that batches processed by an Asynchronous API are available for download for 14 days
+  - [9] 2026-10-31: a MyTomTom account is registered with an email address | capture: sha256:f732c9b5aeb2aef6bb73d150c5afc4f58a41a528de0dcde809db5465b0f078cc | quote: Register with the same email address as your Developer Portal account
+  - [9] 2026-10-31: registration confirms the email | capture: sha256:f732c9b5aeb2aef6bb73d150c5afc4f58a41a528de0dcde809db5465b0f078cc | quote: Confirm your email
+  - [10] 2026-10-31: an API key needs a TomTom account | capture: sha256:d65ffbe7eb9b556685130926b128d620a315d10cc49360eec723db69a1f3de48 | quote: To get your API key, you first need a TomTom account.
+  - [11] 2026-10-31: registration starts at my.tomtom.com | capture: sha256:387a126055e0ca2009c52bbaf9e5851e2b4c3800d7c0bdfccc2eb5a053edd28e | quote: Register / sign in
+  - probe:https://api.tomtom.com/search/2/geocode/Zurich.json 2026-10-31: the geocode endpoint answers HTTP 401 to a keyless request | capture: sha256:a9388abf61b6dead2d84e6b7ec71719ef382a1c0b0836c69a15aa1e0f054130c | quote: "status": 401
+  - probe:https://api.tomtom.com/search/2/geocode/Zurich.json#body 2026-10-31: the geocode endpoint refuses a request with no key | capture: sha256:a179ef208db57158f7ed63bd4e6b6f3e4bdceb8a4b20f34fce69bf3e33117528 | quote: "message":"You are missing valid authentication credentials"
+  - [12] 2026-11-02: the FAQ of the TomTom pricing page, served in its FAQ script, says a batch endpoint is billed per underlying request, not per call | capture: sha256:446bac85741a08cb322edee56294d307178966a7395d6841595e6b22c51bd120 | quote: Calls to a batch endpoint are billed per underlying request, not per call. Send 20 requests to a batch endpoint, and you're billed for 20 transactions.
+  - [12] 2026-11-02: the FAQ of the TomTom pricing page says a batch endpoint is billed per underlying request, not per call | capture: sha256:446bac85741a08cb322edee56294d307178966a7395d6841595e6b22c51bd120 | quote: Calls to a batch endpoint are billed per underlying request, not per call. Send 20 requests to a batch endpoint, and you're billed for 20 transactions.
+  - [12] 2026-11-02: the pricing FAQ says the free tier has no time limit, resets each billing cycle and is shared across the account | capture: sha256:446bac85741a08cb322edee56294d307178966a7395d6841595e6b22c51bd120 | quote: Free means free — no time limit, no credit card required. Your monthly allowance resets at the start of every billing cycle ... Your free monthly allowance is shared across your whole account
+  - [13] 2026-11-02: the sign-in page behind the Register / sign in button of my.tomtom.com shows 'No account? Create one' on its first screen | capture: sha256:9f554b126108d554f817e021878d06d5281c2c2a6d020be6d3a4a1cd6b541b16 | quote: No account? Create one
+  - [12] 2026-11-02: the batch billing answer of the pricing FAQ is readable in the FAQ script of the pricing page | capture: sha256:446bac85741a08cb322edee56294d307178966a7395d6841595e6b22c51bd120 | quote: Calls to a batch endpoint are billed per underlying request, not per call. Send 20 requests to a batch endpoint, and you're billed for 20 transactions.
+  - [1] 2026-11-02: Geocoding and Routing are each free for 20K requests a month | capture: sha256:f6d9b9b9823cdfc42d8bcbcec7025f69380e380715ef809e984d81e036af17f0 | quote: Convert addresses into precise geographic coordinates. TomTom Maps TomTom Orbis Maps 20K 1M 5M 10M Free20K monthly ... Calculate optimal routes with traffic, vehicle settings and waypoints. TomTom Maps TomTom Orbis Maps 20K 1M 5M 10M Free20K monthly
+  - [9] 2026-11-02: a MyTomTom account is registered with an email address | capture: sha256:f732c9b5aeb2aef6bb73d150c5afc4f58a41a528de0dcde809db5465b0f078cc | quote: Register with the same email address as your Developer Portal account
+  - [3] 2026-11-02: client caching is limited to the cache-control maximum age | capture: sha256:1ccda04c2f2657c37c8fb714509bd35d3cb3fa4e4ffa757fcdf5096da743a1e2
+  - probe:https://api.tomtom.com/search/2/geocode/Zurich.json#body 2026-11-02: a keyless geocode request is refused with a missing-credentials message | capture: sha256:a179ef208db57158f7ed63bd4e6b6f3e4bdceb8a4b20f34fce69bf3e33117528 | quote: "message":"You are missing valid authentication credentials"
+  - [14] 2026-11-03: the Geocode docs list rate or volume limit exceeded under 403 | capture: sha256:ebc2f087ea49706c3d56e7b77bb5df2cd56c8f3509b4b59e0d6d18752c47196b
+  - [6] 2026-11-03: the platform FAQ answers 'what happens if I exceed free usage limits' with 429 | capture: sha256:f3dfed3e88b0de46285b6874d6d2ba8b41d84a75ac9c141b0a507a4cc534cd8c | quote: When limits are exceeded, API requests return `429`.
+  - [14] 2026-11-03: the Geocode docs give 429 only for exceeding queries per second | capture: sha256:ebc2f087ea49706c3d56e7b77bb5df2cd56c8f3509b4b59e0d6d18752c47196b | quote: | `429` | Too Many Requests: The API Key is over QPS (Queries per second). |
+- sources:
+  - [1] https://docs.tomtom.com/pricing
+  - [2] https://docs.tomtom.com/batch-search-api/documentation/asynchronous-batch-submission
+  - [3] https://docs.tomtom.com/legal/terms-and-conditions
+  - [4] https://docs.tomtom.com/platform/documentation/api-best-practices/qps-limits
+  - [5] https://docs.tomtom.com/pricing/price-announcement
+  - [6] https://docs.tomtom.com/platform/documentation/status-and-support/faqs
+  - [7] https://docs.tomtom.com/batch-search-api/documentation/synchronous-batch
+  - [8] https://docs.tomtom.com/batch-search-api/documentation/product-information/introduction
+  - [9] https://docs.tomtom.com/platform/documentation/status-and-support/migrating-to-mytomtom
+  - [10] https://docs.tomtom.com/platform/documentation/my-tomtom/how-to-get-a-tomtom-api-key
+  - [11] https://my.tomtom.com/
+  - [12] https://docs.tomtom.com/_astro/SectionFAQV2.B4a-TVNA.js
+  - [13] https://oauth.my.tomtom.com/authorize?client_id=https%3A%2F%2Fmy.tomtom.com&code_challenge=wq0XvEshXPJOMk0B5lXxIL4h50lI4U38sbD5nMoODRw&code_challenge_method=S256&redirect_uri=https%3A%2F%2Fmy.tomtom.com%2Fapi%2Fauth%2Fredirect&response_type=code&state=kckASOmEXWT9qRN0N3k5_Ad3w0T2EvdALFMlJqoxn6U&tenant=2f2390d9-89d1-43f3-81ca-d569b5848305
+  - [14] https://docs.tomtom.com/geocoding-api/documentation/tomtom-maps/v1/geocode/

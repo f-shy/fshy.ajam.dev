@@ -1,0 +1,241 @@
+# Render
+
+> render.com | Compute, Egress and tunnels, Storage; 5 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/render/ | JSON https://fshy.ajam.dev/api/v1/entity/render.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Render, Free instance (web service)
+
+- `compute/render` | qualifies-with-caveat | evidence documented | binding retention-clamped | category platform host | tier Free instance (web service)
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T00:32:31.176Z (live) | stale on 2026-12-04
+- url https://render.com/docs/free
+- free tier: A Free web service with an ephemeral filesystem, 750 Free instance hours per workspace per calendar month, and a 5 GB monthly outbound bandwidth allowance on the Hobby plan. | unit: hours | metered on: wall-clock | read on: 2026-10-24 | source: [1]
+- per-object cap: no per-object cap; the free tier is one service shape, less than one CPU and 512 MB of RAM
+- retention: the filesystem is ephemeral and is lost on every redeploy, restart or spin-down; a Free Postgres database expires 30 days after creation
+- egress: Hobby workspaces include 5 GB of outbound bandwidth a month, then USD 0.15 per GB; without a payment method Render suspends all Free services for the rest of the month | metered: yes | free allowance: 5 GB | price per TB: USD 150 | source: [2]
+- identity: email | detail: an account is enough for a Free web service; a payment method is optional and its absence converts a bandwidth overrun into a suspension instead of a bill
+- interface: ssh
+- limits:
+  - retention-clamped (binding): spins down after 15 minutes without inbound HTTP or WebSocket traffic; a wake takes about one minute [1]
+  - volume-quota: 750 Free instance hours a month per workspace; exhausted, Render suspends all Free web services until the next month [1]
+  - per-ip-shaping: 5 GB a month of outbound bandwidth on Hobby, then suspension if no card is on file [2]
+  - write-gated: no persistent disk and no shell on a Free web service [1]
+  - volume-quota: 500 standard build pipeline minutes a month per Hobby workspace, then USD 5 per 1,000 minutes [3]
+  - per-object-cap: 120 minutes per build command and 30 minutes per pre-deploy command; a build is cancelled above 16 GB of disk; Hobby builds run on the Starter pipeline tier, 2 CPU and 8 GB of RAM [4]
+  - request-rate: one active build per service; an overlapping build either waits for the one in progress or cancels it, by the workspace's overlapping-deploy policy (wait is the default for workspaces created on or after 2025-07-14, cancel for earlier ones); no workspace-wide build concurrency limit is stated [4]
+  - write-gated: with no payment method, or at the spend limit, an exhausted pipeline-minute allowance disables all new builds in the workspace for the rest of the month; running services keep their existing build artifacts [1]
+- limits note: a WebSocket message from an existing connection resets the 15-minute timer, which the vendor states explicitly
+- binding note: 15 minutes of silence ends the process, so an always-on workload cannot live here at all; the 750 hours only bind for a service that is kept awake deliberately.
+- interface detail: a git push deploy, a public HTTPS endpoint, and a REST API
+- tooling: git-based deploy, a render.yaml blueprint, the Render API
+- composes with: an endpoint that answers and holds no state, kept warm by a request every 15 minutes
+- reliability: 'Render might restart a Free web service at any time'; a service that initiates an uncommonly high volume of outbound traffic may be suspended
+- notes: What is still unverified is whether a spun-down service wakes purely from an inbound request to a non-HTTP port; the docs name only HTTP requests and new WebSocket connections.
+- evidence note: the spin-down trigger, the 750 hours, the suspension rule and the 5 GB Hobby allowance were all read on two Render documentation pages
+- extras:
+  - shape.vcpu: 0.1
+  - shape.ram_gib: 0.5
+  - billing_model: free-instance
+  - session_cap.idle_reap_s: 900
+  - session_cap.restart_required: no
+  - session_cap.note: 15 minutes without inbound HTTP or WebSocket traffic; wake takes about a minute
+  - persistent_storage.included_gib: 0
+  - persistent_storage.price_gib_month: no persistent disk on free
+  - persistent_storage.durability: ephemeral
+  - persistent_storage.survives_stop: no
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: the instance lifetime
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: one HTTP port; outbound ports 25, 465 and 587 blocked; reserved ports 18012, 18013, 19099 refused
+  - network_out.static_ip: no
+  - network_out.ipv6: no
+  - free_tier_kind: free-instance-hours
+  - granularity.min_billed_s: 0
+  - burst_x: 1.0
+  - shape_note: 0.1 CPU and 512 MB as the vendor states; no disk is allocated on free
+  - term: monthly
+  - m10h_usd: 0.0
+  - m24h_usd: 0.0
+  - price_arithmetic: no charge; 750 instance hours a month is 31.25 days, so one always-on service consumes the whole workspace pool
+- evidence:
+  - [1] 2026-10-06: 'Render spins down a Free web service that goes 15 minutes without receiving any inbound traffic'
+  - [1] 2026-10-06: any changes to the local filesystem are lost on spin-down; 750 free instance-hours per workspace a month
+  - [1] 2026-10-22: read live: 750 instance-hours a month and the 15-minute spin-down
+  - [3] 2026-10-22: quoted: Hobby includes 5 GB of bandwidth a month, additional bandwidth at USD 0.15 per GB, 25 services maximum, 2 custom domains
+  - [1] 2026-10-22: quoted: if you consume all of your outbound bandwidth during a given month, Render bills you for a supplementary amount, and if you have not added a payment method Render suspends all of your free services for the remainder of the month
+  - [5] 2026-08-02: forum observation of the rollout lag, translated: Render announced that on 1 August the legacy Hobby plan becomes Hobby New and free traffic drops to 5 GB, but the old plan still had 100 GB that day
+  - [6] 2026-10-22: vendor post, quoted: we are also reducing the bandwidth included in the Hobby and Pro plans
+  - [7] 2026-10-24: quoted table row: '0.1 CPU | 512 MB | free'
+  - [1] 2026-10-24: quoted: 'Render spins down a Free web service that goes 15 minutes without receiving any inbound traffic.'
+  - [1] 2026-10-24: quoted: 'are lost every time the service redeploys, restarts, or spins down'
+  - [1] 2026-10-24: quoted: 'Shell access via SSH or the Render Dashboard', listed among the features free web services do not support
+  - [1] 2026-10-24: quoted: 'Render grants 750 Free instance hours to each workspace per calendar month'
+  - [1] 2026-10-24: quoted: 'Render spins down a Free web service that goes 15 minutes without receiving any inbound traffic. This includes both HTTP requests and WebSocket messages from existing connections.'
+  - [1] 2026-10-24: quoted: 'Render grants 750 Free instance hours to each workspace per calendar month' and 'If you consume all of your Free instance hours during a given month, Render suspends all of your Free web services'
+  - [1] 2026-10-24: quoted: 'Running one-off jobs' listed among features Free web services do not support, and 'Render might restart a Free web service at any time.'
+  - [2] 2026-10-24: quoted: 'Hobby | 5 GB' in the monthly included bandwidth table, and '$0.15 per GB' above the allowance
+  - [8] 2026-10-24: quoted: 'There is a minimum monthly charge of $1 per cron job service.'
+  - [3] 2026-10-30: a Hobby workspace includes 500 standard build pipeline minutes a month, then USD 5 per 1K minutes | capture: sha256:d28fa0f721670592f165d0f5cae416f9d6862bffd6692ee3a3a3a63a48a96d33 | quote: | - Standard build pipeline | 500 mins per month (then $5 per 1K mins) | 1K mins per month (then $5 per 1K mins) | 5K mins per workspace per mo. (then $5 per 1K mins) | Custom |
+  - [4] 2026-10-30: a build command times out after 120 minutes; the same page states 30 minutes for a pre-deploy command, a 16 GB build disk limit, and that Hobby always uses the Starter tier of 2 CPU and 8 GB RAM | capture: sha256:341d25fb7069f40db779510ab0bec00c6dc9d4c5790dfbe79f91eace328efb5f | quote: Your build command fails or times out (after 120 minutes).
+  - [4] 2026-10-30: build concurrency is one per service, and a new build cancels the one in progress | capture: sha256:341d25fb7069f40db779510ab0bec00c6dc9d4c5790dfbe79f91eace328efb5f | quote: Each Render service can have only one active build at a time.
+  - [1] 2026-10-30: without a payment method, running out of pipeline minutes stops new builds for the month; the next line says services stay active on existing build artifacts | capture: sha256:01ec5a048a688a253c5508e140cc47ef87cd2debb677188213d569d32c052c38 | quote: If you haven't added a payment method or you reach your spend limit, Render instead disables all new builds for your workspace for the remainder of the month.
+  - [9] 2026-10-30: the Wayback capture of 2025-06-15 of the build pipeline page already stated 500 pipeline minutes a month for Hobby, with the same 120-minute build timeout; the allowance is unchanged | capture: sha256:2d06abdd061e04b8cf61d8ab1ad26a151579b6588f0b854c86116f8a84f3c9ec | quote: Hobby workspaces receive 500 Starter-tier pipeline minutes per month.
+  - [1] 2026-10-30: the Free instance allowance is 750 hours per workspace per calendar month | capture: sha256:01ec5a048a688a253c5508e140cc47ef87cd2debb677188213d569d32c052c38 | quote: Render grants 750 Free instance hours to each workspace per calendar month:
+  - [10] 2026-11-02: the overlapping-deploy policy is a workspace setting; wait is the default for workspaces created on or after 2025-07-14 | capture: sha256:1231a1aea4fbb6f0ad71750a9aa8b84b6225625667af2dd0b4396868d06aa5c6 | quote: This is the default policy for workspaces created on or after 2025-07-14.
+  - [10] 2026-11-02: the concurrency limit the deploys page states is per service, not per workspace | capture: sha256:1231a1aea4fbb6f0ad71750a9aa8b84b6225625667af2dd0b4396868d06aa5c6 | quote: Only one deploy can run at a time per service.
+  - [4] 2026-11-02: the build limit on the build pipeline page is per service; no workspace-wide concurrency is stated | capture: sha256:341d25fb7069f40db779510ab0bec00c6dc9d4c5790dfbe79f91eace328efb5f | quote: Each Render service can have only one active build at a time.
+  - [3] 2026-11-02: the Hobby pipeline allowance is 500 minutes a month; the pricing page lists no build concurrency row | capture: sha256:a251d71859652fa714dffd2eb734ea8c2e7a79730cbdff26614fb8db356f3d7c | quote: | - Standard build pipeline | 500 mins per month (then $5 per 1K mins) | 1K mins per month (then $5 per 1K mins) | 5K mins per workspace per mo. (then $5 per 1K mins) | Custom |
+- sources:
+  - [1] https://render.com/docs/free
+  - [2] https://render.com/docs/outbound-bandwidth
+  - [3] https://render.com/pricing
+  - [4] https://render.com/docs/build-pipeline
+  - [5] https://www.nodeseek.com/post-854242-1
+  - [6] https://render.com/blog/better-pricing-for-fast-growing-teams
+  - [7] https://render.com/docs/compute-plans
+  - [8] https://render.com/docs/cronjobs
+  - [9] https://web.archive.org/web/20250615030429/https://render.com/docs/build-pipeline
+  - [10] https://render.com/docs/deploys
+
+## Render Hobby
+
+- `compute/render-hobby` | qualifies-with-caveat | evidence documented | binding volume-quota | category platform host
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:20:49.284Z (live) | stale on 2026-12-05
+- url https://render.com/docs/outbound-bandwidth
+- free tier: Render's documentation confirms both the figure and the mechanism, quoted: 'Hobby | 5 GB' in the included-bandwidth table, and 'If you consume all of your outbound bandwidth during a given month, Render bills you for a supplementary amount. If you haven't added a payment method, Render instead suspends all of your Free services for the remainder of the month.' A separate 750-hour monthly instance cap suspends free web services when exhausted. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: perpetual-monthly
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 'Hobby | 5 GB' included bandwidth; 'Render spins down your workspace's services until the start of the next month' when the allowance is exhausted with no payment method | metered: yes | free allowance: 5 GB a month on the Hobby plan | price per TB: USD 153.60 per TiB (USD 0.15 per GB) over the public internet; USD 30.72 per TiB (USD 0.03 per GB) over a private link | source: [1]
+- identity: email | detail: no card is required to hold the free plan, and its absence is what triggers suspension rather than a bill: the docs state 'If you haven't added a payment method, Render instead suspends all of your Free services for the remainder of the month'. No hold amount is stated because no payment method is required. The signup form is not quoted, so the email requirement is inferred rather than read; debit and prepaid acceptance are not stated, and a card only changes overage from suspension to billing.
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): 5 GB a month is about 170 MB a day, and the second cap arrives first for a service that is always on: 750 free instance hours across all free services in a workspace, which one always-on service exhausts in 31 days. [1]
+- limits note: 5 GB a month is about 170 MB a day, and the second cap arrives first for a service that is always on: 750 free instance hours across all free services in a workspace, which one always-on service exhausts in 31 days.
+- binding note: the same as limits note
+- interface detail: REST API (API key created in Account Settings) and the Render CLI are documented. Dashboard shell and SSH are not available for a Free web service; they are listed for paid web services, private services and background workers only.
+- tooling: Render CLI (Homebrew, WinGet, curl installer) and the public REST API with an API key.
+- composes with: Render's free web service composes with a free Postgres only for 30 days, because a free Postgres database expires 30 days after creation with a 14-day grace period before deletion.
+- reliability: no reliability event recorded
+- notes: The term that binds first for an always-on service: 750 instance hours a month is 31.25 days, so a single always-on free web service uses the whole workspace pool and a second free service has none. Render's free tier also has two traps a reader should know before planning: a free Postgres expires after 30 days, and free services spin down after 15 minutes of inactivity with about a minute to restart. The page states both a 5 GB Hobby egress allowance and a per-GB price beyond it.
+- extras:
+  - facets.class: verification
+  - facets.free_tier_kind: perpetual-monthly
+- evidence:
+  - [1] 2026-10-22: quoted: 'Hobby | 5 GB' included bandwidth; 'Render spins down your workspace's services until the start of the next month' when the allowance is exhausted with no payment method
+  - [2] 2026-10-22: quoted: 'Render grants 750 Free instance hours to each workspace per calendar month'; 'If you consume all of your Free instance hours during a given month, Render suspends all of your Free web services until the start of the next month'
+  - [1] 2026-10-22: quoted: 'If your workspace exceeds this amount, Render bills you for each additional GB of bandwidth used: $0.15 per GB for traffic sent over the public internet, $0.03 per GB for traffic sent over a private link connection', with the included-bandwidth table row 'Hobby | 5 GB' and the FAQ 'If you've linked a payment method, Render bills you for each additional GB of bandwidth ... Otherwise, Render spins down your workspace's services until the start of the next month.' Supports the 5 GB included allowance, the per-month clock and the suspend-without-a-payment-method mechanism the verdict rests on. It also documents a per-GB price above the allowance, so egress is metered once the included volume is passed, which the stored egress.metered=false does not carry; the qualifies-with-caveat verdict is unaffected
+  - [3] 2026-11-04: a public REST API is documented | capture: sha256:45fa8e8d7421472917883b5b1daa4872dfd64a34c013b175423e7d31e1cd9d2a | quote: Render provides a public REST API for managing your services and other resources programmatically.
+  - [4] 2026-11-04: a CLI is documented | capture: sha256:539c756bda23b82cba3ebfd4190e5f2f3f6b9f8ccf9c4701828cdcfd1e2d6ca1 | quote: Use the Render CLI to manage your Render services and datastores directly from your terminal
+  - [5] 2026-11-04: a Free web service has neither dashboard shell nor SSH; paid web services, private services and background workers do | capture: sha256:895e57c76e33f152510f853bd76862286e3460d0fc5af5b26fba0b4e03c005c7 | quote: | *[Free](free) web service* | ❌ | ❌ |
+  - [1] 2026-11-04: Hobby included outbound bandwidth is 5 GB | capture: sha256:89c1fbd972104a7331abd08fb82d09478a85446f0c5b971112155d98bbe461c2 | quote: | Hobby | 5 GB |
+  - [1] 2026-11-04: overage price over the public internet | capture: sha256:89c1fbd972104a7331abd08fb82d09478a85446f0c5b971112155d98bbe461c2 | quote: $0.15 per GB for traffic sent over the public internet
+- sources:
+  - [1] https://render.com/docs/outbound-bandwidth
+  - [2] https://render.com/docs/free
+  - [3] https://render.com/docs/api
+  - [4] https://render.com/docs/cli
+  - [5] https://render.com/docs/ssh
+
+## Render Postgres (free)
+
+- `compute/render-postgres` | trial-only | evidence reported | category managed database
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T04:24:35.000Z (live) | stale on 2026-11-06
+- url https://render.com/docs/free
+- free tier: a free Postgres instance that expires 30 days after creation | unit: none | metered on: wall-clock | read on: 2026-10-06 | source: [1] | note: a separate resource type from the free web service, with its own expiry
+- per-object cap: not applicable
+- retention: the free database expires 30 days after creation | days: 30 | source: [1]
+- egress: not applicable beyond the connection | metered: no | source: [1]
+- identity: email | detail: an account; no card
+- interface: ssh
+- limits:
+  - retention-clamped: the free database expires 30 days after creation [1]
+- limits note: A 30-day expiration limit applies to free PostgreSQL database instances.
+- interface detail: a PostgreSQL connection string
+- tooling: any Postgres client; the connection string is in the dashboard
+- composes with: 30 days of state, then it must be migrated
+- reliability: no reliability event recorded
+- notes: Render PostgreSQL database service carries a 30-day inactivity limit on free tier instances.
+- evidence note: re-read live on 2026-10-22 for the free-tier and limit figures
+- extras:
+  - billing_model: flat-pool
+  - persistent_storage.price_gib_month: not offered
+  - persistent_storage.durability: 30 days
+  - persistent_storage.survives_stop: yes
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: 30 days
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: the Postgres port
+  - free_tier_kind: none
+- evidence:
+  - [1] 2026-10-06: free Postgres databases expire 30 days after creation
+  - [1] 2026-10-22: read live: free Postgres expires 30 days after creation
+- sources:
+  - [1] https://render.com/docs/free
+
+## Render (free)
+
+- `egress/render` | fails-egress | evidence documented | binding volume-quota | category paas l4 port | tier free
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://render.com/docs/free
+- price USD 0
+- free tier: You can deploy certain Render service types free of charge ... Free instances have important limitations, described below. Do not use them for production applications. | unit: GB | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: Hobby workspace included bandwidth: 5 GB per month. Above that, $0.15 per GB, or the workspace is spun down until the next month.; ingress: http-only | metered: yes | free allowance: Hobby workspace included bandwidth: 5 GB per month. Above that, $0.15 per GB, or the workspace is spun down until the next month. | source: [2]
+- identity: email | detail: Free instances need an account; a payment method is optional, and without one Render "spins down your workspace's services until the start of the next month" at the cap. | country: None
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): 5 GB per month on Hobby; $0.15/GB above [1]
+- binding note: 5 GB/month is 0.005 TiB. The transport fails first though: no public port other than one HTTP port exists on a free web service.
+- interface detail: Dashboard, API, and render.yaml blueprint.
+- tooling: Git push or Dockerfile; no port configuration beyond PORT.
+- composes with: Render can host the HTTP side of a stack; it cannot host an endpoint.
+- reliability: Free instances spin down when idle; the workspace is spun down at the bandwidth cap if no card is on file.
+- notes: Private services can bind extra ports but only over the private network; the free tier does not include private services. One public HTTP port per service.
+- evidence note: A probe cannot be run because no non-HTTP public port can be created on a free instance.
+- extras:
+  - wg_path: none
+  - wg_detail: HTTP only. "Every Render web service must bind to a port on host 0.0.0.0 to serve HTTP requests ... Render forwards inbound requests to your web service at this port (it is not directly reachable via the public internet)."
+  - ingress: http-only
+  - volume_tib_month: 0.00455
+  - volume_stated: Hobby workspace included bandwidth: 5 GB per month. Above that, $0.15 per GB, or the workspace is spun down until the next month.
+  - bytes_transit: no
+  - transit_note: Render terminates HTTP; no raw socket reaches a user.
+- evidence:
+  - [2] 2026-10-23: Free web services and static sites; bandwidth counted against workspace allowance
+  - [1] 2026-10-23: Hobby 5 GB included bandwidth; $0.15/GB public internet; spin-down without a payment method
+  - [3] 2026-10-23: "Render forwards inbound requests to your web service at this port (it is not directly reachable via the public internet)."
+- sources:
+  - [1] https://render.com/docs/outbound-bandwidth
+  - [2] https://render.com/docs/free
+  - [3] https://render.com/docs/web-services
+
+## render — persistent disks and free web services
+
+- `storage/render-persistent-disks-and-free-web-services` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://render.com/docs/disks
+- free tier: None reachable: Persistent disks are paid-only: 'You can attach a persistent disk to a paid Render web service'. Free web services have an ephemeral filesystem. 'any changes to your web service's filesyste. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: retention
+  - dead_end.why: Persistent disks are paid-only: 'You can attach a persistent disk to a paid Render web service'. Free web services have an ephemeral filesystem — 'any changes to your web service's…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Persistent disks are paid-only: 'You can attach a persistent disk to a paid Render web service'. Free web services have an ephemeral filesystem — 'any changes to your web service's…
+  - [2] 2026-10-21: cited as the basis of the rejection: Persistent disks are paid-only: 'You can attach a persistent disk to a paid Render web service'. Free web services have an ephemeral filesystem — 'any changes to your web service's filesyste
+- sources:
+  - [1] https://render.com/docs/disks
+  - [2] https://render.com/docs/free

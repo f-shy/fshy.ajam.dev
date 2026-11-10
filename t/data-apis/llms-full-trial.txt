@@ -1,0 +1,126 @@
+# fshy: Data APIs, trial
+
+> Data APIs with free calls, and their bulk downloads: maps, IP location, markets, weather, news and open data.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/data-apis/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## ApogeoAPI
+
+- `data-apis/apogeoapi` | trial-only | evidence documented | binding volume-quota | category geographic reference data and IP geolocation API | tier Free
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T00:23:42.887Z (live) | stale on 2026-12-03
+- url https://apogeoapi.com/pricing | page https://fshy.ajam.dev/p/apogeoapi.md
+- free tier: Free plan, USD 0 a month: 1,000 requests a month at 5 requests a minute, with countries and states data and no expiry; IP geolocation, cities, global search and live currency rates are on a 14-day full-access trial given to every new account, then on the Basic plan at USD 19 a month (15,000 requests a month, 30 a minute) | unit: requests | metered on: request-count | read on: 2026-11-02 | source: [1] | note: Starter is USD 29 a month for 100,000 requests and Professional USD 79 for 500,000; the quota is a hard cap and the API answers HTTP 429 once it is reached.
+- per-object cap: not stated | source: [1]
+- retention: not applicable: a lookup API | source: [2]
+- egress: not applicable: JSON answers, not metered in bytes | metered: no | source: [1]
+- identity: email | detail: an account with email sign-up; no credit card for the trial
+- interface: rest
+- limits:
+  - volume-quota (binding): 1,000 requests a month on the Free plan; hard-capped, HTTP 429 once reached [2]
+  - request-rate: 5 requests a minute on the Free plan [3]
+- binding note: the IP geolocation module is open for 14 days only; after that the 1,000 requests a month of the Free plan cover countries and states, not IP lookups.
+- interface detail: GET https://api.apogeoapi.com/v1/ip/{ip} with an X-API-Key header answers JSON; a call without a key answers HTTP 401
+- endpoint: part of interface detail
+- tooling: any HTTP client; quickstarts for cURL, JavaScript, Python and PHP; X-RateLimit-Remaining and Retry-After headers on 429 answers
+- composes with: IP geolocation is free for the 14-day trial only; after that it needs Basic, USD 19 a month; the free plan keeps countries and states data at 1,000 requests a month. Bulk path: none stated.
+- reliability: the monthly quota is a hard cap with HTTP 429 until the next cycle; email alerts at 80% and 100% usage; a keyless call answered HTTP 401 with a Spanish message
+- notes: Free requests: 1,000 a month and 5 a minute, for countries and states after the 14-day trial; IP geolocation is trial-only, then Basic at USD 19 a month. Rate limit: 5 a minute free; HTTP 429 with Retry-After. Bulk path: none stated.
+- evidence note: The pricing, documentation, sign-up and terms pages were quoted on 2026-11-02 and a keyless call answered HTTP 401; no keyed lookup was made, so the trial lookups were not exercised.
+- extras:
+  - bulk_path: none stated
+  - free_requests: 1,000 a month, IP geolocation only in the 14-day trial
+- evidence:
+  - [1] 2026-11-02: the free plan keeps countries and states; every new account gets 14 days of full access including IP geolocation | capture: sha256:03b74f9ad88998ba84a7ee6f7224babd2d507b1a5179446dd5f78a213fd400b2 | quote: Free forever with countries and states. Every new account gets 14 days of full access to cities, exchange rates, IP geolocation, and more — no credit card required. Upgrade anytime to keep premium features.
+  - [1] 2026-11-02: the Free plan allows 1,000 requests a month | capture: sha256:03b74f9ad88998ba84a7ee6f7224babd2d507b1a5179446dd5f78a213fd400b2 | quote: - 1,000 requests/month
+  - [1] 2026-11-02: the Free plan allows 5 requests a minute | capture: sha256:03b74f9ad88998ba84a7ee6f7224babd2d507b1a5179446dd5f78a213fd400b2 | quote: - 5 requests/min
+  - [1] 2026-11-02: IP geolocation is marked a 14-day trial on the Free plan | capture: sha256:03b74f9ad88998ba84a7ee6f7224babd2d507b1a5179446dd5f78a213fd400b2 | quote: - IP geolocation14-day trial
+  - [1] 2026-11-02: Basic costs USD 19 a month | capture: sha256:03b74f9ad88998ba84a7ee6f7224babd2d507b1a5179446dd5f78a213fd400b2 | quote: $19/mo
+  - [1] 2026-11-02: Basic allows 15,000 requests a month | capture: sha256:03b74f9ad88998ba84a7ee6f7224babd2d507b1a5179446dd5f78a213fd400b2 | quote: - 15,000 requests/month
+  - [1] 2026-11-02: Basic allows 30 requests a minute | capture: sha256:03b74f9ad88998ba84a7ee6f7224babd2d507b1a5179446dd5f78a213fd400b2 | quote: - 30 requests/min
+  - [1] 2026-11-02: requests are blocked once the monthly quota is reached; alerts at 80% and 100% | capture: sha256:03b74f9ad88998ba84a7ee6f7224babd2d507b1a5179446dd5f78a213fd400b2 | quote: You'll receive email alerts at 80% and 100% usage. Requests are blocked once your monthly quota is reached — upgrade anytime to continue.
+  - [3] 2026-11-02: the Free tier is 5 a minute and 1,000 a month | capture: sha256:4da918945b36b41dca561f5675083c4133e669ef79dce1b18a3cc7c131d0c59b | quote: - Free: 5 req/min · 1,000/mo
+  - [3] 2026-11-02: every request needs an X-API-Key header; the free key comes with a 14-day trial | capture: sha256:4da918945b36b41dca561f5675083c4133e669ef79dce1b18a3cc7c131d0c59b | quote: All requests require an `X-API-Key` header. Create your free key in the [dashboard](https://app.apogeoapi.com/register) — 1,000 requests/month on the free tier plus a 14-day full-access trial.
+  - [2] 2026-11-02: the monthly quota is a hard cap with HTTP 429 | capture: sha256:f56bb5ee3f283d4597354fd93bb1b0c13a450f9a6dbdae607800d9e2d843286f | quote: All plans, including paid plans, are hard-capped at their monthly request quota. Once the quota is reached, requests return a 429 error until the next billing cycle.
+  - [2] 2026-11-02:  | capture: sha256:f56bb5ee3f283d4597354fd93bb1b0c13a450f9a6dbdae607800d9e2d843286f
+  - [4] 2026-11-02: the sign-up needs no credit card | capture: sha256:05f4df5cf6b0a9aa874c005ee4740d770f1b4c79ea0b3a89f6fecc140ff0160e | quote: Start your 14-day free trial — no credit card required
+  - [4] 2026-11-02: email sign-up is offered | capture: sha256:05f4df5cf6b0a9aa874c005ee4740d770f1b4c79ea0b3a89f6fecc140ff0160e | quote: or continue with email
+  - probe:https://api.apogeoapi.com/v1/ip/8.8.8.8 2026-11-02: a keyless GET of /v1/ip/8.8.8.8 answered HTTP 401 | capture: sha256:6b9c415e433f4403b7d3328995567a45ee071bddfc75b471fb53ec77a7fda5ac | quote: "status": 401
+  - probe:https://api.apogeoapi.com/v1/ip/8.8.8.8 2026-11-02: the answer asks for an X-API-Key header | capture: sha256:759c123d9ca52683f1d907347fb5bf69b4f761261c882eb162187ce79c22986f | quote: API key requerida. Incluir en header: X-API-Key
+- sources:
+  - [1] https://apogeoapi.com/pricing
+  - [2] https://apogeoapi.com/terms
+  - [3] https://apogeoapi.com/docs
+  - [4] https://app.apogeoapi.com/register
+
+## CryptoCompare (CoinDesk Data)
+
+- `data-apis/cryptocompare-coindesk-data` | trial-only | evidence documented | binding volume-quota | category crypto market data API (prices, OHLCV, reference rates, order books) | tier Personal
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T00:30:00.000Z (live) | stale on 2026-12-04
+- url https://developers.coindesk.com/pricing | page https://fshy.ajam.dev/p/coindesk.md
+- free tier: Personal plan for non-commercial projects with capped lifetime calls (cap not stated), by contact request; the free API tier was retired on 21 May 2026 and accounts without a subscription lost access | unit: requests | metered on: request-count | read on: 2026-11-02 | source: [1] | note: Start-Up and Enterprise plans are contact-only with no published price. A call to the legacy keyless endpoint answered HTTP 401.
+- per-object cap: not stated | source: [1]
+- retention: not applicable | note: Personal: 365 days of daily, 7 days of hourly, latest hour of minute history.
+- egress: not metered in bytes; the lifetime call cap bounds a Personal account | metered: no | source: [1]
+- identity: email | detail: The Personal plan button leads to a Contact form, not a self-serve sign-up; what the form asks is unverified: behind a contact request.
+- interface: rest
+- limits:
+  - volume-quota (binding): capped lifetime calls on the Personal plan, cap not stated [1]
+- limits note: Bulk path: Enterprise delivery to Amazon S3, Azure Blob or Google BigQuery only. Storage terms: unverified, the licence agreement page was not read.
+- binding note: A lifetime call cap on the only free-looking plan binds first, and its size is unpublished.
+- interface detail: GET https://min-api.cryptocompare.com/data/... (legacy) and https://data-api.coindesk.com/... with the key as api_key or an Authorization or x-api-key header
+- endpoint: part of interface detail
+- tooling: curl or any HTTP client
+- composes with: No self-serve free key remains; CoinPaprika, CoinLore and CoinGecko give crypto prices with a key-free or email-only free route.
+- reliability: A keyless call answered HTTP 401 asking for an API key; accounts without a subscription stopped returning data after 21 May 2026.
+- notes: Free tier retired 21 May 2026; only a capped-lifetime Personal plan by contact remains listed. Bulk path: Enterprise only. Storage terms: unverified.
+- evidence note: The retirement notice and the plan card are first-party and disagree on whether a free Personal plan is still issued; a keyless probe answered 401.
+- extras:
+  - bulk_path: Enterprise delivery to S3, Azure Blob or BigQuery
+  - history_depth: 365 days daily, 7 days hourly, 1 hour minute on Personal
+- evidence:
+  - [2] 2026-11-02: the free API tier was retired as of 21 May 2026 | capture: sha256:00e99545d296af988ee0828ecae953bc6434de76a9f4aae049716dc9e79a69f2 | quote: we will be retiring our free API tier and accounts without a subscription will no longer have API access.
+  - [2] 2026-11-02: an account with no API subscription stops returning data | capture: sha256:00e99545d296af988ee0828ecae953bc6434de76a9f4aae049716dc9e79a69f2 | quote: your current access will stop returning data
+  - [1] 2026-11-02: the Personal plan is non-commercial with capped lifetime calls | capture: sha256:91b2cf732b44efb0ff3f84d5c015c93e8a43dae3294d443de8aeba372b2b5440 | quote: For personal / non-commercial projects. Capped lifetime calls.
+  - [1] 2026-11-02: Personal history depth | capture: sha256:91b2cf732b44efb0ff3f84d5c015c93e8a43dae3294d443de8aeba372b2b5440 | quote: Latest 7 days for all pairs on all exchanges including CCCAGG
+  - [1] 2026-11-02: Enterprise delivers to cloud storage | capture: sha256:91b2cf732b44efb0ff3f84d5c015c93e8a43dae3294d443de8aeba372b2b5440 | quote: Amazon S3, Azure Blob, Google BQ & More
+  - probe:https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD 2026-11-03: a keyless call answered HTTP 401 | capture: sha256:35ce2dc7335e140d12fe48e1d645d5ac3c4dc56274cc82f36a5dac417644cd14 | quote: "status": 401
+  - probe:https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD 2026-11-03: the 401 asks for an API key | capture: sha256:e54a34359ebeb4245031b742ee300e3fdd72ccf608d481d57caca1fc16147f17 | quote: API key required, please refer to the documentation
+- sources:
+  - [1] https://developers.coindesk.com/pricing
+  - [2] https://data.coindesk.com/blogs/changes-to-coindesk-data-indices-api-free-tier-access
+
+## Ipregistry
+
+- `data-apis/ipregistry` | trial-only | evidence documented | binding volume-quota | category IP geolocation API | tier Free start
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T00:27:33.114Z (live) | stale on 2026-12-04
+- url https://ipregistry.co/pricing | page https://fshy.ajam.dev/p/ipregistry.md
+- free tier: 20,000 credits once on sign-up, no credit card, no time limit; then plans from USD 29 a month for 100,000 credits | unit: credits | metered on: request-count | read on: 2026-10-30 | source: [1]
+- per-object cap: not stated
+- retention: not stated
+- egress: not applicable | metered: no | source: [1]
+- identity: email | detail: an account with no credit card: the first step of the sign-up form asks for a work email, a first name and a last name and has a Next button, or signs in with GitHub or Google; what follows the Next button is unverified: behind a sign-up
+- interface: rest
+- limits:
+  - volume-quota (binding): 20,000 credits once, not renewed [1]
+- tooling: any HTTP client
+- composes with: a one-time 20,000-credit allowance for testing; no recurring free quota. Bulk path: paid dataset subscriptions
+- reliability: the free credits are a one-time grant; after them every lookup is paid
+- notes: Free requests: 20,000 credits once. Rate limit: not stated. Bulk path: paid datasets only.
+- evidence note: unverified: behind a sign-up: what follows the Next button of the sign-up form; the pricing page was quoted on 2026-10-30, and the first step of the form was read from a rendered copy on 2026-11-02
+- extras:
+  - bulk_path: paid datasets only
+  - free_requests: 20,000 credits once
+- evidence:
+  - [1] 2026-10-30: 20,000 free credits to start | capture: sha256:dddae43abda113aff5a3b4b03a9de2a57af1c55327de052ad353eccddb023d0b | quote: Start with 20,000 free credits, then pay only for what you use
+  - [1] 2026-10-30: the credits come once, on sign-up | capture: sha256:dddae43abda113aff5a3b4b03a9de2a57af1c55327de052ad353eccddb023d0b | quote: Every new account gets 20,000 credits on sign-up.
+  - [1] 2026-10-30: no card and no time limit | capture: sha256:dddae43abda113aff5a3b4b03a9de2a57af1c55327de052ad353eccddb023d0b | quote: No credit card, no time limit. Build, test, and see real results before you spend a cent.
+  - [1] 2026-10-30: the first plan is 100,000 credits a month | capture: sha256:dddae43abda113aff5a3b4b03a9de2a57af1c55327de052ad353eccddb023d0b | quote: 100,000 credits / mo
+  - [1] 2026-10-30: the first plan is USD 29 a month (USD 24 yearly) | capture: sha256:dddae43abda113aff5a3b4b03a9de2a57af1c55327de052ad353eccddb023d0b | quote: $29 $24 / month
+  - [2] 2026-11-02: a rendered copy of the sign-up page shows a first step with work email, first name and last name, a Next button, and sign-up with GitHub or Google | capture: sha256:bce31f97bbaab96543dcd56c82018e59e81719ae00cc7fa2219edb0bb4a81c2e | quote: Work email First name Last name Next
+  - [2] 2026-11-02: a rendered copy of the sign-up page shows the first step of the form and a Next button | capture: sha256:bce31f97bbaab96543dcd56c82018e59e81719ae00cc7fa2219edb0bb4a81c2e | quote: Work email First name Last name Next
+  - [1] 2026-11-02: every new account gets 20,000 credits on sign-up, with no credit card and no time limit, and the first plan is 100,000 credits a month for USD 29 | capture: sha256:dddae43abda113aff5a3b4b03a9de2a57af1c55327de052ad353eccddb023d0b | quote: Every new account gets 20,000 credits on sign-up.
+- sources:
+  - [1] https://ipregistry.co/pricing
+  - [2] https://dashboard.ipregistry.co/signup

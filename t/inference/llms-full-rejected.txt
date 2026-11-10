@@ -1,0 +1,406 @@
+# fshy: Inference, rejected
+
+> Model APIs that answer a completion request, keyless or behind a free key.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/inference/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## Baidu Qianfan ModelBuilder (ERNIE-Speed, ERNIE-Lite, ERNIE-Tiny presets)
+
+- `inference/baidu-qianfan-modelbuilder` | fails-identity | evidence documented | binding request-rate | category inference API, free presets
+- needs card no, phone no, ID yes, institution no | verified 2026-10-28T04:36:18.792Z (live) | stale on 2026-11-28
+- url https://cloud.baidu.com/doc/qianfan/s/wmh4sv6ya | page https://fshy.ajam.dev/p/baidu.md
+- free tier: An announcement made the pay-as-you-go preset services ERNIE-Speed-8K, ERNIE-Speed-128K, ERNIE-Lite-8K, ERNIE-Lite-128K and ERNIE-Tiny-8K free of charge on input and output, planned as long-term, for customers who completed real-name authentication, personal or enterprise. The current model price page lists ERNIE 5.1, ERNIE 5.0 and ERNIE 4.5 Turbo with prices and shows no free row; its on-demand table does not list these presets, which appear only as fine-tuning base models: whether they are still served free is unverified | unit: unlimited | metered on: none | read on: 2026-10-28 | source: [1] | note: free-presets-status-unverified
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: national-id | detail: free calling is for customers who completed real-name authentication as a person or an enterprise. Whether a non-mainland identity document completes it is unverified
+- interface: rest
+- limits:
+  - request-rate (binding): unverified: requests-per-minute and tokens-per-minute for the free presets are not on the pages read [1]
+- binding note: real-name authentication gates the free calling; rate limits for the presets are unpublished on the pages read
+- tooling: not stated
+- composes with: the free ERNIE presets are pay-as-you-go presets, so the free calling is a price of zero rather than a credit
+- reliability: the preset services named in the announcement are absent from the current on-demand price table and appear only as fine-tuning base models
+- evidence note: the announcement page shows no year, so its date and the current availability of the free presets are unverified
+- evidence:
+  - [1] 2026-10-28: ERNIE-Speed-8K input and output prices drop to 0 CNY per 1,000 tokens | capture: sha256:14ffa3320cb42ba4d0a29d505c30dd4a910e9986fd588d8fd7232573c2a1d7df | quote: | ERNIE 系列模型 | Speed-8K | 0.004 | 0 | 100%↓ | 0.008 | 0 | 100%↓ |
+  - [1] 2026-10-28: free calling is for customers who completed real-name authentication | capture: sha256:14ffa3320cb42ba4d0a29d505c30dd4a910e9986fd588d8fd7232573c2a1d7df | quote: A：所有完成实名认证的客户（个人 or 企业）通过按量调用方式使用以上系列模型的预置服务，即可享受免费调用权益。
+  - [1] 2026-10-28: the free presets are planned as long-term | capture: sha256:14ffa3320cb42ba4d0a29d505c30dd4a910e9986fd588d8fd7232573c2a1d7df | quote: A：以上系列模型计划长期开放，便于您体验大模型能力。
+  - [2] 2026-10-28: the current price table lists ERNIE 5.1 with a non-zero price | capture: sha256:fc05047cde80572125afd5ce639aa68a62d84681b0aa66fae08f7fdbd6bf18ef | quote: | ERNIE 5.1 | ERNIE-5.1 | 推理服务 | 输入（输入<=32k） | 0.004 | - | 元/千tokens |
+- sources:
+  - [1] https://ai.baidu.com/ai-doc/WENXINWORKSHOP/wlwg8f1i3
+  - [2] https://cloud.baidu.com/doc/qianfan/s/wmh4sv6ya
+
+## Hack Club AI
+
+- `inference/hack-club-ai` | fails-identity | evidence documented | binding volume-quota | category inference gateway, keyed; model listing is keyless
+- needs card no, phone no, ID no, institution yes | verified 2026-10-28T04:36:18.974Z (live) | stale on 2026-11-28
+- url https://ai.hackclub.com/proxy/v1 | page https://fshy.ajam.dev/p/hackclub.md
+- free tier: Every account can spend $3 per day across all endpoints and make 7,500 requests per 30 minutes; no credit card | unit: mixed | metered on: request-count | read on: 2026-10-28 | source: [1] | note: the model catalogue is OpenRouter's; GET /proxy/v1/models answers 200 with no key while the chat call answers 401 without one
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: institution | detail: sign in with a Hack Club account, then create an API key; the rules page states the service is for teens 18 and under only, and lists a 403 for an account that needs identity verification
+- interface: rest
+- limits:
+  - request-rate: 7,500 requests per 30 minutes per user, shared across all endpoints; 429 Too Many Requests with a Retry-After header [1]
+  - volume-quota (binding): USD 3 per day of spend per account across all endpoints, resets at 00:00 UTC; 402 Payment Required when reached [1]
+- binding note: the USD 3 per day spending cap binds for large models; the 7,500 per 30 minutes request ceiling is far above it
+- endpoint: https://ai.hackclub.com/proxy/v1/chat/completions
+- tooling: any OpenAI-compatible client with an sk-hc-v1 key created on the dashboard (up to 50 active keys)
+- composes with: no keyless chain: the chat route needs a key issued to a signed-in Hack Club account
+- reliability: a keyless chat call answers 401 Authentication required while the keyless listing answers 200, so a listing check alone mistakes it for an open endpoint
+- evidence note: identity and limits are first-party; the 401 on a keyless chat call is from a third-party prober, and the keyless listing was read by GET. No completion was sent
+- probe:
+  - records[0].probe_id: hackclub-proxy-models-get
+  - records[0].method: GET
+  - records[0].url: https://ai.hackclub.com/proxy/v1/models
+  - records[0].http: 200
+  - records[0].authorization_sent: no
+  - records[0].probed_at: 2026-10-28T04:43:23.476Z
+  - records[0].chat_completion_tested: no
+- evidence:
+  - [1] 2026-10-28: the service is restricted to a teen audience of Hack Club | capture: sha256:42f561557e3c18af30ca81342a65091ee6eeb6e9f6da771d9c1deda2c694eaf6 | quote: 1. For teens. This service is for teens 18 and under only. Hack Club is a charity — please do not abuse this service.
+  - [1] 2026-10-28: the request ceiling is 7,500 per 30 minutes per user | capture: sha256:42f561557e3c18af30ca81342a65091ee6eeb6e9f6da771d9c1deda2c694eaf6 | quote: Every user can make 7,500 requests per 30 minutes, shared across all endpoints.
+  - [1] 2026-10-28: the daily spend cap is USD 3 | capture: sha256:42f561557e3c18af30ca81342a65091ee6eeb6e9f6da771d9c1deda2c694eaf6 | quote: Every account can spend $3 per day across all endpoints. The day resets at 00:00 UTC.
+  - [2] 2026-10-28: access starts with a Hack Club sign-in | capture: sha256:81e952690fb038eafa3390a6926fdee42d22ead065274fc5511ed7d7dc5b8883 | quote: [Sign in with Hack Club](https://ai.hackclub.com/auth/login) [Read the docs](https://docs.ai.hackclub.com/)
+  - [2] 2026-10-28: no credit card is needed | capture: sha256:81e952690fb038eafa3390a6926fdee42d22ead065274fc5511ed7d7dc5b8883 | quote: Every model on OpenRouter, plus image generation, embeddings, web search and OCR, behind one OpenAI-compatible API. No credit card.
+  - [3] 2026-10-28: a third-party prober found the listing keyless and the chat call keyed | capture: sha256:34aa29edf68cc49c49bdcf1119b702b0c338ae9d71d2a58db4b4586122b9a223 | quote: Listing answers a bare GET with 200 and a full model catalogue; the chat call answers 401 Authentication required.
+- sources:
+  - [1] https://docs.ai.hackclub.com/guide/rules.html
+  - [2] https://ai.hackclub.com/
+  - [3] https://stillworks.supercapybara.com/free-llm-api-no-key
+
+## ModelScope API-Inference
+
+- `inference/modelscope-api-inference` | fails-identity | evidence documented | binding request-rate | category inference API, free
+- needs card no, phone yes, ID yes, institution no | verified 2026-11-03T11:30:33.178Z (live) | stale on 2026-12-04
+- url https://www.modelscope.ai/docs/model-service/API-Inference/limits | page https://fshy.ajam.dev/p/modelscope-2.md
+- free tier: Free API access to selected open-source LLM, multimodal and text-to-image models, described as a non-commercial, non-profit product. Quota and concurrency are adjusted dynamically with platform load. Calls can be redeemed with Magicubes: about 0.5 per call for lightweight models, about 1 for standard and about 2 for flagship. A per-day call count is not stated on the page read | unit: requests | metered on: request-count | read on: 2026-10-28 | source: [1] | note: perpetual-free-allowance
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: national-id | detail: the ModelScope account must first bind to an Alibaba Cloud account that has completed real-name verification before API-Inference works normally. A ModelScope maintainer stated the binding is open only to Alibaba Cloud China-site accounts, not international-site accounts; a China-site account registers with a mainland China mobile number and individual verification needs an identity-verified personal Alipay account. The international site verifies by passport or driver's license, but its accounts are a separate system and are not accepted for the binding. unverified: whether the China-site Alipay verification accepts a non-mainland document
+- interface: rest
+- limits:
+  - request-rate (binding): concurrency per model is limited dynamically by platform load, with normal single-concurrency use as the guiding principle; not for high-concurrency or SLA workloads [1]
+  - volume-quota: 2000 API-Inference calls per day per registered user, as announced by the operator; the current limits page gives no daily figure and says quotas adjust dynamically with platform load [1]
+  - volume-quota: per-model cap reported as 200 calls per day (100 for the largest DeepSeek models), within the daily total; the operator's current limits page gives no per-model figure and says limits adjust dynamically [2]
+- binding note: dynamic per-model concurrency limits; a daily total of 2000 calls is announced but absent from the current limits page
+- tooling: part of the free tier
+- composes with: free open-model inference for experiments; the per-call Magicube cost is shown next to the provider in each model's code example
+- reliability: older models are removed from API-Inference as new models are released
+- evidence:
+  - [1] 2026-10-28: API-Inference is offered free of charge to developers | capture: sha256:9b81bf0c672324cc38dfa6450b81b748282eb22b0de9f8d6c2b24215fc465047 | quote: offering them free of charge for developers to experience
+  - [1] 2026-10-28: the Alibaba Cloud account bound to ModelScope must be real-name verified | capture: sha256:9b81bf0c672324cc38dfa6450b81b748282eb22b0de9f8d6c2b24215fc465047 | quote: Your ModelScope account must first bind to an Alibaba Cloud account. Additionally, to prevent abuse, the corresponding cloud account must have completed real-name verification before you can use API-Inference normally.
+  - [1] 2026-10-28: not suitable for high-concurrency or SLA-bound workloads | capture: sha256:9b81bf0c672324cc38dfa6450b81b748282eb22b0de9f8d6c2b24215fc465047 | quote: Do not use it for online tasks requiring high concurrency and SLA guarantees.
+  - [1] 2026-10-28: Magicube cost tiers per call | capture: sha256:9b81bf0c672324cc38dfa6450b81b748282eb22b0de9f8d6c2b24215fc465047 | quote: - Lightweight models: ~0.5 Magicubes per call
+  - [1] 2026-10-28: older models are removed over time | capture: sha256:9b81bf0c672324cc38dfa6450b81b748282eb22b0de9f8d6c2b24215fc465047 | quote: As new models are released, older models may gradually be removed from API Inference.
+  - [3] 2026-11-03: the operator announced free model inference with 2000 calls per day for registered users | capture: sha256:a3ac659346bfdf7da403e8477597c429a5ce7f60602ac917b3d773e35b969319 | quote: 开发者福利，魔搭推出免费模型推理API，注册就送每日2000次调用！
+  - [2] 2026-11-03: a third party reports the operator's limits page, rendered in July 2026, giving 2,000 calls per day and 200 per model | capture: sha256:c513dc233cda2857815cbb6e4b30837ca55f71dacbdfa727d0d7c414e794cd9c | quote: Each registered ModelScope user is currently allowed a total of 2,000 API Inference calls per day, with a maximum of 200 calls per individual model.
+  - [4] 2026-11-03: a ModelScope maintainer stated on 2025-10-14 that the Alibaba Cloud binding page accepts China-site accounts only, not international accounts | capture: sha256:757cfa52c726afa419d85c2c30239287eaec87370e7bb61eebca5185c5c7cce0 | quote: you would need to view the page in Chinese though, and it is currently only open to Alibaba Cloud cn-site's account, not the international account.
+  - [5] 2026-11-03: a China-site account registers with a mainland China mobile number; an international-site account registers with an email and a non-mainland phone | capture: sha256:3c8b6f416f4fe9547579673ba0b70cf63182d7c917daf9d40eb90e6ea45f49e2 | quote: | **账号注册 ** | 需使用中国内地手机号注册。 | 需使用邮箱注册，并且需要中国内地以外（包含中国香港、中国澳门和中国台湾）的手机号进行安全验证。 |
+  - [6] 2026-11-03: China-site individual identity verification requires a personal Alipay account that is itself identity-verified | capture: sha256:d9f27e357395c6d374e58c001f447197dd3b472faeedf0582a99c189aadc302e | quote: An active personal Alipay account that has completed identity verification.
+  - [7] 2026-11-03: the international site verifies an individual by passport or driver's license, but that is a separate account system from the China site | capture: sha256:02c9fc9361501c7bd6484959eee9ed8eef776bd6f5e755b4b0ec4d6d004ba061 | quote: | Verification method | Passport or driver's license | Valid business document from the registration country/region |
+  - [1] 2026-11-03: the bound Alibaba Cloud account must be real-name verified; page re-read unchanged | capture: sha256:9b81bf0c672324cc38dfa6450b81b748282eb22b0de9f8d6c2b24215fc465047 | quote: the corresponding cloud account must have completed real-name verification before you can use API-Inference normally.
+- sources:
+  - [1] https://www.modelscope.ai/docs/model-service/API-Inference/limits
+  - [2] https://www.modelhubby.com/providers/modelscope/
+  - [3] https://www.modelscope.cn/headlines/article/795
+  - [4] https://github.com/modelscope/modelscope/issues/1524
+  - [5] https://help.aliyun.com/zh/account/aliyun-vs-alibaba-cloud
+  - [6] https://help.aliyun.com/en/account/verify-your-identity-individual-account
+  - [7] https://www.alibabacloud.com/help/en/account/real-name-authentication/
+
+## Moonshot Kimi API Platform
+
+- `inference/moonshot-kimi-api` | fails-identity | evidence documented | binding volume-quota | category inference API, regional voucher
+- needs card no, phone yes, ID no, institution no | verified 2026-10-28T04:36:18.792Z (live) | stale on 2026-11-28
+- url https://www.kimi.com/en/help/kimi-api/api-free-trial | page https://fshy.ajam.dev/p/kimi.md
+- free tier: An RMB 15 voucher granted on registration, valid for 3 months from issue, only for new users who register with a mainland China mobile number. It is applied automatically and deducted before the top-up balance. With a zero balance after the voucher, API requests return a 403 error. No free grant for a registration outside mainland China is stated on the page read | unit: mixed | metered on: wall-clock | read on: 2026-10-28 | source: [1] | note: regional-credit
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: country-phone | detail: the voucher is granted to new users who register with a mainland China mobile number | country: CN
+- interface: rest
+- limits:
+  - volume-quota (binding): RMB 15 voucher, expires 3 months after issue; afterwards requests need a top-up balance or return 403 [1]
+- binding note: the voucher is small and time-boxed, and it is granted only to mainland mobile registrations
+- tooling: not stated
+- composes with: the voucher is spent before the top-up balance, so a mainland account runs on it first and then on paid balance
+- reliability: not assessed: no request was sent to the endpoint
+- evidence note: the voucher rules are the vendor's help page; any non-mainland free grant or minimum top-up on the international platform is unverified
+- evidence:
+  - [1] 2026-10-28: the free voucher is for new users registering with a mainland China mobile number | capture: sha256:356915d50ce7a2e53a2865acc28f4a353d8847e621da2f500662c9e0cad4de05 | quote: - Eligible users: New users who register with a mainland China mobile number.
+  - [1] 2026-10-28: the voucher is RMB 15 on registration | capture: sha256:356915d50ce7a2e53a2865acc28f4a353d8847e621da2f500662c9e0cad4de05 | quote: - Voucher amount: An RMB 15 voucher is granted upon registration.
+  - [1] 2026-10-28: the voucher expires 3 months after issue | capture: sha256:356915d50ce7a2e53a2865acc28f4a353d8847e621da2f500662c9e0cad4de05 | quote: - Validity period: The voucher is valid for 3 months from the date it is issued and expires automatically afterward.
+  - [1] 2026-10-28: after the voucher a top-up balance is required, otherwise requests return 403 | capture: sha256:356915d50ce7a2e53a2865acc28f4a353d8847e621da2f500662c9e0cad4de05 | quote: After the voucher is used up, API calls will be charged against your top-up balance. If your balance is zero, API requests will return a 403 error.
+- sources:
+  - [1] https://www.kimi.com/en/help/kimi-api/api-free-trial
+
+## NLP Cloud
+
+- `inference/nlp-cloud` | fails-identity | evidence documented | binding request-rate | category inference API, free plan and pay-as-you-go credit, registration closed to new users
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:15:50.267Z (live) | stale on 2026-12-05
+- url https://nlpcloud.com/pricing.html | page https://fshy.ajam.dev/p/nlpcloud.md
+- free tier: a prepaid Free plan at $0 with 2 parallel requests and variable per-model request rates, and a pay-as-you-go plan that credits $15 automatically; the register page currently accepts no new users | unit: mixed | metered on: unstated | read on: 2026-11-04 | source: [1] | note: the Free plan has no volume figure: the pricing table gives 2 parallel requests and 'Variable' requests per minute; the $15 credit belongs to the pay-as-you-go plan, which the home page says needs a credit card
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: the register page refuses new users and offers an email waiting list that asks for the use case; the home page says the Free plan needs no credit card and the pay-as-you-go plan does
+- interface: rest
+- limits:
+  - request-rate (binding): Free plan: 2 parallel requests and 'Variable' requests per minute on every listed model; pay-as-you-go: 10 parallel requests [1]
+  - volume-quota: a $15 credit is granted automatically on the pay-as-you-go plan, which needs a credit card; per-request rates $0.003 on CPU and $0.005 on GPU [1]
+- binding note: the Free plan's 2 parallel requests and unpublished per-model rate bind before any volume figure
+- tooling: REST API with client libraries; asynchronous mode on pay-as-you-go
+- composes with: none stated
+- reliability: new registrations are closed: the register page says the service is at maximum capacity
+- notes: the pricing page and the home page still advertise the Free plan and the $15 credit while the register page refuses new users, so the offer exists on paper only for accounts already registered
+- evidence:
+  - [2] 2026-11-04: the register page refuses new users and points to an email waiting list | capture: sha256:ab893c780f45855b1cadd45723fbbf55ee5daff09c81b83adc5045d6d5364b07 | quote: NLP Cloud is at maximum capacity and cannot accept new users for the moment
+  - [1] 2026-11-04: the Free plan column allows 2 parallel requests | capture: sha256:b85b3dbe95aafba7ed44bcce7e4aacb3c164831539ab133fa92c80360cdfbfa6 | quote: | Parallel Requests | 2 | 10 | 20 | 40 | 10 | 20 | 40 | 50 |
+  - [1] 2026-11-04: the Free plan column prints 'Variable' as the per-model request rate | capture: sha256:b85b3dbe95aafba7ed44bcce7e4aacb3c164831539ab133fa92c80360cdfbfa6 | quote: | Whisper on GPU (requests per minute) | Variable | | | | 1 | 3 | 10 | 50 |
+  - [1] 2026-11-04: the pay-as-you-go plan credits $15 automatically | capture: sha256:b85b3dbe95aafba7ed44bcce7e4aacb3c164831539ab133fa92c80360cdfbfa6 | quote: - Automatically get a $15 FREE credit
+  - [3] 2026-11-04: the home page FAQ says the Free plan needs no credit card and is throughput-limited | capture: sha256:5a00ea28801dbe043b04bf0eafda5242f7227835bbb66ab55fbbedcf45a981f2 | quote: Yes. All the I models can be tested for free thanks to the Free plan without a credit card, but the throughput on this plan is very limited.
+  - [3] 2026-11-04: the pay-as-you-go plan needs a credit card and credits $15 | capture: sha256:5a00ea28801dbe043b04bf0eafda5242f7227835bbb66ab55fbbedcf45a981f2 | quote: A credit card is needed for this plan, but you automatically get an initial $15 credit for your tests.
+- sources:
+  - [1] https://nlpcloud.com/pricing.html
+  - [2] https://nlpcloud.com/home/register
+  - [3] https://nlpcloud.com/
+
+## OpenCode Zen free models
+
+- `inference/opencode-zen-free` | fails-identity | evidence measured | binding none | category inference endpoint, access-gated
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T10:56:11.137Z (live) | stale on 2026-12-05
+- url https://opencode.ai/zen/v1 | page https://fshy.ajam.dev/p/opencode.md
+- free tier: the Zen pricing table lists 11 model ids at Free for input and output; 10 of them are also Free for cached read (Big Pickle, Pulse Alpha Free, GLM-5.3-Flash Free, DeepSeek V4.1 Flash Free, Beam Free, Flint 40B Free, MiMo-V2.6-Flash Free, Nemotron 3 Ultra Free, Nemotron 3.5 Lightning Free, Nemotron 3.5 Super VL Free) and Jev 1.13 Free has no cached read price | unit: unlimited | metered on: request-count | read on: 2026-10-22 | source: [1] | note: 'Free' in the price column is not 'reachable': the free tier is restricted to the OpenCode client
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: an OpenCode account, and the request must originate from the OpenCode client. The 403 body names the restriction: 'OpenCode's free tier can only be used from within OpenCode'
+- interface: rest
+- limits note: no rate or quota is published: the gate is access, not allowance; some free models are excluded by region (Pulse Alpha Free is not available in the European Union, Iceland, Liechtenstein, Norway, Cuba, Iran, North Korea, Russia, Ukraine or Venezuela)
+- endpoint: https://opencode.ai/zen/v1/chat/completions
+- tooling: any OpenAI-compatible client; curl against POST {base}/chat/completions
+- composes with: Programmatic automation cannot be chained: the free tier responds exclusively within the official OpenCode desktop application.
+- reliability: the restriction is enforced on the request path, not the account, so no header or key makes an external call succeed
+- evidence note: four calls across two sessions with two User-Agents. The 403 is a named policy gate and not an outage, and the body says so.
+- probe:
+  - records[0].probe_id: opencode-spacebunny
+  - records[0].requested_model: space-bunny-free
+  - records[0].http_run1: 403
+  - records[0].http_run2: 400
+  - records[0].answered_run1: no
+  - records[0].answered_run2: no
+  - records[0].echo_match: yes
+  - records[0].latency_ms_run1: 860
+  - records[0].latency_ms_run2: 1066
+  - records[0].completion_tokens_run1: 0
+  - records[0].needle_echoed_run1: no
+  - records[0].body_bytes_run1: 701
+  - records[0].body_sha256_16_run1: f45bbd157c6d06d8
+  - records[0].reasoning_only: no
+  - records[0].error_run1: {"type":"https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-1xxx-errors/error-1010/","title":"Error 1010: Access denied","status":403,"detail":"The site owner has b
+  - records[0].error_run2: {"type": "server_error", "message": "Upstream request failed: Model is unavailable."}
+  - records[1].probe_id: opencode-longcat
+  - records[1].requested_model: longcat-2.5-preview-free
+  - records[1].http_run1: 403
+  - records[1].http_run2: 403
+  - records[1].answered_run1: no
+  - records[1].answered_run2: no
+  - records[1].echo_match: yes
+  - records[1].latency_ms_run1: 799
+  - records[1].latency_ms_run2: 811
+  - records[1].completion_tokens_run1: 0
+  - records[1].needle_echoed_run1: no
+  - records[1].body_bytes_run1: 701
+  - records[1].body_sha256_16_run1: 615fa2152362733d
+  - records[1].reasoning_only: no
+  - records[1].error_run1: {"type":"https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-1xxx-errors/error-1010/","title":"Error 1010: Access denied","status":403,"detail":"The site owner has b
+  - records[1].error_run2: {"type": "FreeTierError", "message": "OpenCode's free tier can only be used from within OpenCode. Download it at https://opencode.ai and keep building."}
+  - runs: probes-w.json; probes-w-run2.json
+- evidence:
+  - probe:https://opencode.ai/zen/v1/chat/completions 2026-10-22: longcat-2.5-preview-free returned 403 FreeTierError 'OpenCode's free tier can only be used from within OpenCode' in both runs, and with both a curl and a Python User-Agent
+  - probe:https://opencode.ai/zen/v1/chat/completions 2026-10-22: 
+  - [1] 2026-10-22: 14 model ids priced Free for input, output and cached read, including Big Pickle, GLM-5.3-Flash Free, DeepSeek V4.1 Flash Free and LongCat 2.5 Preview Free
+  - [1] 2026-10-28: the pricing source page is still the same URL and still says free-tier chat models require the OpenCode client | capture: sha256:da634c9ea813aac8e7bad961c98ca4ce42c77f0a1bec32e9644ea50e0fc7d579 | quote: Free-tier chat models require OpenCode; use paid models or [Go](/console/go) from other clients.
+  - [1] 2026-11-04: the pricing table was re-read on 2026-11-04 | capture: sha256:326792aff60749c6ec2f8891374ca98b9eff1dcf7bfe0a3ada1fd9188cd360c2 | quote: | Pulse Alpha Free | Free | Free | Free | - |
+  - probe:https://opencode.ai/docs/zen 2026-11-04: the pricing table row format: Free for input, output and cached read; 11 such rows with Jev 1.13 Free lacking the cached read price | capture: sha256:a69a6f1a251d829845409164cf1931f115bfebb91cea7697528262fa66da787a | quote: <td>Pulse Alpha Free</td><td>Free</td><td>Free</td><td>Free</td><td>-</td>
+  - probe:https://opencode.ai/docs/zen 2026-11-04: Pulse Alpha Free carries a regional exclusion list | capture: sha256:a69a6f1a251d829845409164cf1931f115bfebb91cea7697528262fa66da787a | quote: It’s not available in the European Union, Iceland, Liechtenstein, Norway, Cuba, Iran, North Korea, Russia, Ukraine, or Venezuela.
+  - probe:https://opencode.ai/docs/zen 2026-11-04: the pricing source page still lists the free models | capture: sha256:a69a6f1a251d829845409164cf1931f115bfebb91cea7697528262fa66da787a | quote: <td>Pulse Alpha Free</td><td>Free</td><td>Free</td><td>Free</td><td>-</td>
+  - [1] 2026-11-04: the pricing table the free-tier text rests on was read on 2026-11-04 | capture: sha256:326792aff60749c6ec2f8891374ca98b9eff1dcf7bfe0a3ada1fd9188cd360c2 | quote: | Pulse Alpha Free | Free | Free | Free | - |
+- sources:
+  - [1] https://opencode.ai/docs/zen
+
+## Tencent Hunyuan text generation API (China site)
+
+- `inference/tencent-hunyuan-api-cn` | fails-identity | evidence documented | binding volume-quota | category inference API, one-time free tokens
+- needs card no, phone no, ID yes, institution no | verified 2026-11-03T11:30:41.454Z (live) | stale on 2026-12-04
+- url https://cloud.tencent.com/document/product/1729/97731 | page https://fshy.ajam.dev/p/tencent.md
+- free tier: A one-time free resource package on first activation: 共100万 tokens shared across Hunyuan-a13b, Hunyuan-role-latest, the translation models and the vision models, and a separate 100万 tokens for Hunyuan-embedding, each valid for 1 year from activation. The page states the functions are migrating to TokenHub and the original platform no longer accepts new model purchases | unit: tokens | metered on: request-count | read on: 2026-10-28 | source: [1] | note: one-time-quota
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: national-id | detail: activation needs Tencent Cloud enterprise or personal real-name authentication, quoted from the billing page. The vendor's account overview scopes China-site accounts to mainland enterprises and to individuals in the mainland, Hong Kong, Macao and Taiwan; whether a non-mainland passport completes China-site authentication is unverified
+- interface: rest
+- limits:
+  - volume-quota (binding): 100万 tokens shared across the listed text and vision models, one-time; a separate 100万 tokens for Hunyuan-embedding [1]
+  - retention-clamped: the package expires 1 year after activation and unused tokens become invalid [1]
+- binding note: real-name authentication gates activation before any quota applies
+- tooling: not stated
+- composes with: the page directs new model services to TokenHub; services already bought continue to work. TokenHub gives each main account a one-time free trial of 100 万 tokens for every language model, valid 1 year, in a campaign running to 2026-12-31, and its quick start also requires real-name authentication first. The international edition of TokenHub carries the same 100 万 tokens and is described in the chaining of the Tencent HY Text Generation Global record
+- reliability: the page states the Hunyuan functions are migrating to TokenHub and the original platform stops supporting new model purchases
+- notes: postpaid list price for Hunyuan-a13b after the package: CNY 0.5 input and CNY 2 output per million tokens; the free-model status of hunyuan-lite is not shown on this page
+- evidence:
+  - [1] 2026-10-28: activating Hunyuan requires Tencent Cloud enterprise or personal real-name authentication | capture: sha256:07837555e214b164169bc053e2404066aa2f4051838685e78195cb1ad6db8c30 | quote: 腾讯混元大模型的开通使用需要先通过 [腾讯云企业实名认证](https://cloud.tencent.com/document/product/378/56515) 或者 [腾讯云个人实名认证](https://cloud.tencent.com/document/product/378/56514)。
+  - [1] 2026-10-28: the free resource package for Hunyuan-a13b is 100万 tokens shared, valid for 1 year | capture: sha256:07837555e214b164169bc053e2404066aa2f4051838685e78195cb1ad6db8c30 | quote: | Hunyuan-a13b | 共100万 tokens，共享消耗。资源包有效期为1年，自开通服务之日起1年内若免费资源包未使用完，则过期作废。 |
+  - [1] 2026-10-28: postpaid list price for Hunyuan-a13b per million tokens after the free package | capture: sha256:07837555e214b164169bc053e2404066aa2f4051838685e78195cb1ad6db8c30 | quote: | Hunyuan-a13b | 输入：0.5元输出：2元 |
+  - [2] 2026-11-03: China-site accounts are for mainland enterprises and for individuals in the mainland, Hong Kong, Macao and Taiwan | capture: sha256:3a09aa6c9dd50bceb033b07ab7795888d5cd749e242061cb414f476f0879120e | quote: Tencent Cloud China site accounts are applicable to enterprise users in the Chinese mainland (excluding Hong Kong (China), Macao (China), and Taiwan (China) regions), and individual users in the Chinese mainland, Hong Kong (China), Macao (China), and Taiwan (China).
+  - [3] 2026-11-03: TokenHub China gives every language model a free trial of 1,000,000 tokens, valid 1 year | capture: sha256:3e6b2c337c56ffd9e526077430ce02ba6cd098413bca31ed74947cdf41e4c2e8 | quote: 所有语言模型均提供 100 万 Tokens 的免费体验额度，有效期 1 年。
+  - [3] 2026-11-03: the TokenHub free trial campaign runs to 2026-12-31 | capture: sha256:3e6b2c337c56ffd9e526077430ce02ba6cd098413bca31ed74947cdf41e4c2e8 | quote: 本期活动时间截至 2026 年 12 月 31 日
+  - [4] 2026-11-03: the TokenHub China quick start requires real-name authentication before use | capture: sha256:6e5e04ea903b42256fc24fa5b6c1ceffd38f549c311b82f76cf9ed32ed2a15ab | quote: 在使用腾讯云大模型服务平台 TokenHub 之前，您需要 并完成 。注册腾讯云 实名认证
+  - [1] 2026-11-03: the page still lists the one-time 100万 token package for Hunyuan-a13b with 1 year validity; the page is unchanged since 2026-06-26 | capture: sha256:07837555e214b164169bc053e2404066aa2f4051838685e78195cb1ad6db8c30 | quote: | Hunyuan-a13b | 共100万 tokens，共享消耗。资源包有效期为1年，自开通服务之日起1年内若免费资源包未使用完，则过期作废。 |
+- sources:
+  - [1] https://cloud.tencent.com/document/product/1729/97731
+  - [2] https://intl.cloud.tencent.com/document/product/378/80429
+  - [3] https://cloud.tencent.com/document/product/1823/130053
+  - [4] https://main.qcloudimg.com/raw/document/product/pdf/1823_130058_cn.pdf
+
+## g4f.space public provider routes (GPT4Free hosted)
+
+- `inference/g4f-space-public-routes` | fails-quota | evidence reported | binding volume-quota | category inference gateway, anonymous, proof-of-work credits
+- needs card no, phone no, ID no, institution no | verified 2026-10-28T04:36:18.974Z (live) | stale on 2026-11-12
+- url https://g4f.space/api | page https://fshy.ajam.dev/p/g4f.md
+- free tier: Five routes (/api/groq, /api/ollama, /api/pollinations, /api/nvidia, /api/gemini) are listed as none required for an API key, but a chat call answered 402 insufficient_credits asking for proof-of-work credits to earn anonymous usage | unit: mixed | metered on: unstated | read on: 2026-10-28 | source: [1] | note: the credit amount per call is not published; /v1 on the same host is listed as requiring a key from g4f.dev/api_key.html, though GET /v1/models answers 200 with no key
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: anonymous | detail: no key for the /api/<provider> routes per the g4f.dev table (none required); the price is proof-of-work credits rather than an identity
+- interface: rest
+- limits:
+  - volume-quota (binding): a credit balance earned by proof-of-work: an anonymous chat call with none answers 402 insufficient_credits; the credits per call are unpublished [2]
+- binding note: the proof-of-work credit balance gates every anonymous completion
+- endpoint: https://g4f.space/api/groq/chat/completions
+- tooling: any OpenAI-compatible client with base URL https://g4f.space/api/<provider>; the doc says to pass a placeholder key for SDKs that require one
+- composes with: pairs with nothing until the credit scheme is understood: an anonymous call with no credit is refused
+- reliability: GET /api/pollinations/models returns entries whose message is Error 404 DEPLOYMENT_NOT_FOUND on Vercel, and /api/auto/models returns 404; the groq, ollama, nvidia and gemini listings answer 200
+- notes: the five routes front other providers (groq.com, ollama.com, pollinations.ai, nvidia.com, a hosted Gemini provider) and the listings carry per-model request counters; the routes differ in availability
+- evidence note: the listings were read by GET; the 402 on a chat call comes from a third-party hourly prober that sends chat calls with no Authorization header. No completion was sent, because probe issues GET and HEAD only
+- probe:
+  - records[0].probe_id: g4fspace-groq-models-get
+  - records[0].method: GET
+  - records[0].url: https://g4f.space/api/groq/models
+  - records[0].http: 200
+  - records[0].authorization_sent: no
+  - records[0].x_provider: groq.com
+  - records[0].probed_at: 2026-10-28T04:45:03.814Z
+  - records[0].chat_completion_tested: no
+  - records[1].probe_id: g4fspace-ollama-models-get
+  - records[1].method: GET
+  - records[1].url: https://g4f.space/api/ollama/models
+  - records[1].http: 200
+  - records[1].x_provider: ollama.com
+  - records[1].probed_at: 2026-10-28T04:45:07.696Z
+  - records[2].probe_id: g4fspace-nvidia-models-get
+  - records[2].method: GET
+  - records[2].url: https://g4f.space/api/nvidia/models
+  - records[2].http: 200
+  - records[2].x_provider: nvidia.com
+  - records[2].probed_at: 2026-10-28T04:45:14.311Z
+  - records[3].probe_id: g4fspace-gemini-models-get
+  - records[3].method: GET
+  - records[3].url: https://g4f.space/api/gemini/models
+  - records[3].http: 200
+  - records[3].x_provider: gemini-v1beta
+  - records[3].probed_at: 2026-10-28T04:45:15.622Z
+  - records[4].probe_id: g4fspace-auto-models-get
+  - records[4].method: GET
+  - records[4].url: https://g4f.space/api/auto/models
+  - records[4].http: 404
+  - records[4].probed_at: 2026-10-28T04:45:16.863Z
+- evidence:
+  - [1] 2026-10-28: the g4f.dev table lists the groq route as needing no API key | capture: sha256:5d01eb3a56123e72a4d95acab02e0aabbbd05272284ed7bbf266ddfe118192ba | quote: | [https://g4f.space/api/groq](https://g4f.space/api/groq/models) | none required | Use Groq provider |
+  - [2] 2026-10-28: a third-party prober got 402 insufficient_credits on a keyless chat call to the g4f.space routes | capture: sha256:34aa29edf68cc49c49bdcf1119b702b0c338ae9d71d2a58db4b4586122b9a223 | quote: 402 insufficient_credits: "No cake credits. Bake proof-of-work cakes ... to earn anonymous usage." Anonymous, but not free of charge -- the price is compute rather than a key.
+  - [3] 2026-10-28: the keyless GET /api/groq/models answered 200 and proxied the groq.com listing | capture: sha256:e521739b851214e0f8fbcfa8555ed3384b53c8d6a6bccc054d305953295043a7 | quote: x-provider: groq.com
+- sources:
+  - [1] https://g4f.dev/docs/ready_to_use.html
+  - [2] https://stillworks.supercapybara.com/free-llm-api-no-key
+  - [3] https://g4f.space/api/groq/models
+
+## Public Ollama instances
+
+- `inference/public-ollama-instances` | fails-quota | evidence reported | binding none | category inference endpoint, third-party host
+- needs card no, phone no, ID no, institution no | verified 2026-10-28T05:28:44.553Z (live) | stale on 2026-11-12
+- url https://freeollama.oneplus1.top/ | page https://fshy.ajam.dev/p/oneplus1.md
+- free tier: lists of bare IP:port endpoints running Ollama with no authentication. The list host answered 200 with a 138-byte nginx 404 page on 2026-10-22, so the live list was not readable; the archived copy of 2026-05-21 shows the list's shape | unit: none | metered on: none | read on: 2026-10-22 | source: [1] | note: the live host returns a 404 body, not the list. Plain http returns 200 with 138 bytes; https fails the TLS principal-name check. The archived capture of 2026-05-21T16:07:33Z carries 39612 bytes titled 'Awesome Free Ollama' with a table of Server Address, Deployed Models and Last Updated, and the list's own warning that the services are exposed by misconfiguration
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: anonymous | detail: no account at all; the endpoint is an exposed daemon
+- interface: rest
+- limits note: no rate or quota binds: the gate is access, not allowance. The software's published defaults are a queue of 512 requests (OLLAMA_MAX_QUEUE) before it answers 503 and 1 parallel request per loaded model (OLLAMA_NUM_PARALLEL); each instance's operator sets both.
+- endpoint: http://IP:11434/v1/chat/completions
+- tooling: any OpenAI-compatible client; curl against POST {base}/chat/completions
+- composes with: no chain exists: there is no operator to promise a quota, so the scarce link is availability itself
+- reliability: the list host itself stopped serving the list between 2026-05-21 and 2026-10-22, and the list warns that its entries are exposed by misconfiguration and unreliable. An instance is one operator's machine with no allowance and no notice before it stops
+- notes: Two candidates explain the 404: the project moved, or it closed. The archive shows a working hourly-updated list in May, and no redirect is served today, so a move is not demonstrated and a closure is the simpler reading. Either way the record cannot promise an endpoint, which is why the verdict stays fails-quota: an address that may vanish hourly with no operator is not a quota. This record is stale by design: its only evidence for the list's shape is an archived capture 154 days old, because the live host serves a 404 page. The category claim is the archive plus the list's own warning. Re-read it when the host serves a list again.
+- evidence note: the list's shape is from an archived capture and the live host no longer serves it, so no endpoint from this category was called. The category claim rests on the archive plus the list's own warning, which is third-party in both directions
+- evidence:
+  - [1] 2026-10-22: plain http returned 200 with a 138-byte nginx 404 page; https failed the TLS principal-name check. The list itself was not served, so this route is closed today
+  - [2] 2026-05-21: the archived page is titled 'Awesome Free Ollama' and carries a table of Server Address, Deployed Models, Check Service and Last Updated, updated hourly, with the note 'It is not recommended to use these services as they may be unreliable'
+  - [3] 2026-10-28: the Ollama FAQ gives a default queue of 512 requests before rejection; the same page gives OLLAMA_NUM_PARALLEL default 1 and says an overloaded server responds with 503 | capture: sha256:799c4f0830f93fe8a466e5953e75969770357ad590f98cf6684796bc3c6123eb | quote: * `OLLAMA_MAX_QUEUE` - The maximum number of requests Ollama will queue when busy before rejecting additional requests. The default is 512
+  - probe:http://freeollama.oneplus1.top/ 2026-10-28: plain http returned 200 with a 138-byte text/html body from nginx (content-length 138, last-modified 2024-10-09), the same stub as before; https failed certificate verification with a hostname mismatch; no instance list was served and no instance was called
+- sources:
+  - [1] https://freeollama.oneplus1.top/
+  - [2] https://web.archive.org/web/20260521160733/https://freeollama.oneplus1.top/
+  - [3] https://docs.ollama.com/faq
+
+## uncensored-llm.sbs
+
+- `inference/uncensored-llm` | fails-quota | evidence measured | binding request-rate | category inference endpoint, keyless
+- needs card no, phone no, ID no, institution no | verified 2026-10-28T05:28:44.471Z (live) | stale on 2026-11-28
+- url https://uncensored-llm.sbs/v1 | page https://fshy.ajam.dev/p/uncensored-llm.md
+- free tier: 3 model ids, no key; no quota is published | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: anonymous | detail: no key required
+- interface: rest
+- limits:
+  - request-rate (binding): unpublished. One call was refused with Cloudflare Error 1010 on a Python User-Agent, and the rest returned filler rather than an answer probe:https://uncensored-llm.sbs/v1/chat/completions, 2026-10-22
+- limits note: unpublished. One call was refused with Cloudflare Error 1010 on a Python User-Agent, and the rest returned filler rather than an answer; the filler reproduces on 2026-10-22T04:51:05Z with a 278-byte…
+- binding note: the returned content binds before any rate does: the endpoint answers 200 with valid JSON and filler, so a caller meets a quality failure before a quota
+- endpoint: https://uncensored-llm.sbs/v1/chat/completions
+- tooling: any OpenAI-compatible client; curl against POST {base}/chat/completions
+- composes with: pairs with nothing that needs a correct answer; the scarce link is content quality, because the endpoint returns filler inside a valid 200
+- reliability: returns a well-formed completion whose content is filler rather than an answer, with finish_reason stop and no usage object
+- notes: A 200, valid JSON, non-empty content and finish_reason stop, which is not an answer. The needle test declared it a failure and a does-content-exist test would have declared it a success.
+- evidence note: five calls across three sessions. Two answered with content that did not contain the needle; one was refused by Cloudflare Error 1010 with the wrong User-Agent.
+- probe:
+  - records[0].probe_id: uncensored-llm-70b
+  - records[0].requested_model: uncensored-llm-70b
+  - records[0].http_run1: 403
+  - records[0].http_run2: 200
+  - records[0].answered_run1: no
+  - records[0].answered_run2: yes
+  - records[0].model_echoed: uncensored-llm-70b
+  - records[0].echo_match: yes
+  - records[0].latency_ms_run1: 203
+  - records[0].latency_ms_run2: 861
+  - records[0].completion_tokens_run1: 0
+  - records[0].needle_echoed_run1: no
+  - records[0].body_bytes_run1: 708
+  - records[0].body_sha256_16_run1: 3334d60915892d60
+  - records[0].reasoning_only: no
+  - records[0].error_run1: {"type":"https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-1xxx-errors/error-1010/","title":"Error 1010: Access denied","status":403,"detail":"The site owner has b
+  - runs: probes-w.json; probes-w-run2.json
+- evidence:
+  - probe:https://uncensored-llm.sbs/v1/chat/completions 2026-10-22: a POST asking for the single token NEEDLE-9K2X returned 200 with a 278-byte body, finish_reason 'stop', model 'uncensored-llm-70b' echoed, and content "I can help with that. Could you provide more details about what you're looking for?" The needle is absent from the answer, so the endpoint answers with filler rather than with a completion
+  - [2] 2026-10-28: the vendor publishes no rate number, only that heavy sustained use may be throttled; the same page states no signup and no credit card | capture: sha256:3312cbbf0207b5f0daa3a5ab46e8eaf7b944bc3a01439de81c1044e832c1020a | quote: The free tier is intentionally generous. Heavy sustained use may be throttled to keep the endpoint fast for everyone.
+  - probe:https://uncensored-llm.sbs/v1/chat/completions 2026-10-28: one POST with no Authorization header for uncensored-llm-70b answered 200 with a 270-byte body, model uncensored-llm-70b echoed, finish_reason stop, no usage object, and content that does not contain the requested token NEEDLE-9K2X; no rate-limit header (headers: server cloudflare, cf-cache-status DYNAMIC)
+- sources:
+  - [1] https://uncensored-llm.sbs/v1/models
+  - [2] https://uncensored-llm.sbs/

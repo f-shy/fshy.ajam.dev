@@ -1,0 +1,43 @@
+# Free email sending and receiving
+
+> Usable transactional senders, mailboxes, forwarding and inbox APIs.
+
+Ranked by `vorder`, ascending; the rows with no parsed number follow, listed and not dropped, and the self-hosted rows come last. The same list: `https://fshy.ajam.dev/api/v1/need/email`, the MCP tool `need`, or this SQL:
+
+```sql
+SELECT rid, vorder FROM record WHERE topic='email' AND grp='usable' AND duplicate_of IS NULL AND coalesce(summary,'') NOT LIKE 'no free %' AND coalesce(summary,'') NOT LIKE 'no published free %' AND coalesce(summary,'') NOT LIKE 'no perpetual free %'
+ORDER BY self_hosted, vorder ASC NULLS LAST
+```
+
+## Ranked (24)
+
+1. [mail.tm](https://fshy.ajam.dev/p/mail-3.md) [`email/mail-tm`](https://fshy.ajam.dev/api/v1/record/email/mail-tm): qualifies-with-caveat | free tier | anonymous | no card | no phone | measured | stale on 2027-01-21. A disposable inbox with a 40 MB quota, created and read over a keyless REST API
+2. [MailerLite](https://fshy.ajam.dev/p/mailerlite.md) [`email/mailerlite`](https://fshy.ajam.dev/api/v1/record/email/mailerlite): qualifies-with-caveat | free tier | email | no card | no phone | documented | stale on 2026-12-05. 2,500 emails/month, 250 subscribers, 2 user seats
+3. [Buttondown](https://fshy.ajam.dev/p/buttondown.md) [`email/buttondown`](https://fshy.ajam.dev/api/v1/record/email/buttondown): qualifies-with-caveat | free tier | email | no card | no phone | documented | stale on 2026-12-03. Free for the first 100 subscribers, with the price assuming at most one email a day to the whole subscriber base; API included, no card
+4. [Elastic Email](https://fshy.ajam.dev/p/elasticemail.md) [`email/elastic-email`](https://fshy.ajam.dev/api/v1/record/email/elastic-email): qualifies-with-caveat | free tier | email | no card | phone? | documented | stale on 2026-12-03. 100 emails per day and 3,000 emails per month on the Email API Free plan, up to 1,000 contacts, at USD 0 with no card
+5. [Maileroo](https://fshy.ajam.dev/p/maileroo.md) [`email/maileroo`](https://fshy.ajam.dev/api/v1/record/email/maileroo): qualifies-with-caveat | free tier | email | no card | phone? | documented | stale on 2026-12-03. 3,000 outbound emails per month with no daily cap, 1,000 inbound emails per month, 2 custom sending domains, at USD 0 with no card
+6. [OVH MX Plan](https://fshy.ajam.dev/p/ovhcloud.md) [`email/ovh-mx-plan`](https://fshy.ajam.dev/api/v1/record/email/ovh-mx-plan): qualifies-with-caveat | free tier | card | no phone | documented | stale on 2026-12-03. 5 GB mailbox per account, free 100 MB web hosting with a domain, no database
+7. [Zoho Mail](https://fshy.ajam.dev/p/zoho.md) [`email/zoho-mail`](https://fshy.ajam.dev/api/v1/record/email/zoho-mail): qualifies-with-caveat | free tier | email | no card | no phone | documented | stale on 2026-12-03. 5 users, 5 GB each, 1 custom domain, 25 MB attachment limit
+8. [Brevo](https://fshy.ajam.dev/p/brevo.md) [`email/brevo`](https://fshy.ajam.dev/api/v1/record/email/brevo): qualifies-with-caveat | free tier | email | no card | phone? | documented | stale on 2026-11-30. 300 email sends per day with no time limit; 100,000 contacts stored
+9. [Mailgun](https://fshy.ajam.dev/p/mailgun.md) [`email/mailgun`](https://fshy.ajam.dev/api/v1/record/email/mailgun): qualifies-with-caveat | free tier | any-phone | no card | documented | stale on 2026-11-30. 100 messages/day, 1 custom domain, 1 inbound route, 2 API keys, 1-day log retention
+10. [SMTP2GO](https://fshy.ajam.dev/p/smtp2go.md) [`email/smtp2go`](https://fshy.ajam.dev/api/v1/record/email/smtp2go): qualifies-with-caveat | free tier | any-phone | no card | documented | stale on 2026-11-30. 1,000 emails/month, 200/day, and 25/hour until a sender domain is verified
+11. [Amazon SES](https://fshy.ajam.dev/p/amazon.md) [`email/amazon-ses`](https://fshy.ajam.dev/api/v1/record/email/amazon-ses): qualifies-with-caveat | free tier | card | no phone | documented | stale on 2026-11-22. 3,000 message charges/month for the first 12 months, or $200 of AWS credits over 6 months for new accounts
+12. [Cloudflare Email Routing](https://fshy.ajam.dev/p/cloudflare.md) [`email/cloudflare-email-routing`](https://fshy.ajam.dev/api/v1/record/email/cloudflare-email-routing): qualifies-with-caveat | free tier | email | no card | no phone | documented | stale on 2026-11-22. Unlimited inbound email on Workers Free and Paid; 200 destination addresses, 200 rules per domain, 30 domains per zone
+13. [Forward Email](https://fshy.ajam.dev/p/forwardemail.md) [`email/forward-email`](https://fshy.ajam.dev/api/v1/record/email/forward-email): qualifies-with-caveat | free tier | email | no card | no phone | documented | stale on 2026-11-22. Unlimited domains, unlimited aliases, unlimited inbound email, 50 MB attachments, forward-only
+14. [ImprovMX](https://fshy.ajam.dev/p/improvmx.md) [`email/improvmx`](https://fshy.ajam.dev/api/v1/record/email/improvmx): qualifies-with-caveat | free tier | email | no card | no phone | documented | stale on 2026-11-22. 1 domain, 25 aliases, 500 forwards/day, 7-day logs, API access
+15. [Loops](https://fshy.ajam.dev/p/loops.md) [`email/loops`](https://fshy.ajam.dev/api/v1/record/email/loops): qualifies-with-caveat | free tier | email | no card | no phone | documented | stale on 2026-11-22. 4,000 sends per rolling 30 days, 1,000 contacts, marketing and transactional combined
+16. [Mailjet](https://fshy.ajam.dev/p/mailjet.md) [`email/mailjet`](https://fshy.ajam.dev/api/v1/record/email/mailjet): qualifies-with-caveat | free tier | email | no card | no phone | documented | stale on 2026-11-22. 6,000 emails/month, 200/day, 1,000 contacts
+17. [Mailtrap](https://fshy.ajam.dev/p/mailtrap.md) [`email/mailtrap`](https://fshy.ajam.dev/api/v1/record/email/mailtrap): qualifies-with-caveat | free tier | email | no card | no phone | documented | stale on 2026-11-22. 4,000 emails per month and 150 emails per day on the free tier, 1 user, 1 domain, 3 days of logs
+18. [Plunk (hosted)](https://fshy.ajam.dev/p/useplunk.md) [`email/plunk-hosted`](https://fshy.ajam.dev/api/v1/record/email/plunk-hosted): qualifies-with-caveat | free tier | email | no card | no phone | documented | stale on 2026-11-22. 1,000 emails/month with unlimited contacts
+19. [Resend](https://fshy.ajam.dev/p/resend.md) [`email/resend`](https://fshy.ajam.dev/api/v1/record/email/resend): qualifies-with-caveat | free tier | email | no card | no phone | documented | stale on 2026-11-22. 3,000 emails/month and 100/day, 3 domains, 3 inboxes, 30-day retention
+20. [Scaleway Transactional Email](https://fshy.ajam.dev/p/scaleway.md) [`email/scaleway-tem`](https://fshy.ajam.dev/api/v1/record/email/scaleway-tem): qualifies-with-caveat | free tier | email | no card | no phone | documented | stale on 2026-11-22. 300 emails/month per organisation, 5 domains, then EUR 0.25 per 1,000
+21. [Sender](https://fshy.ajam.dev/p/sender.md) [`email/sender-net`](https://fshy.ajam.dev/api/v1/record/email/sender-net): qualifies-with-caveat | free tier | email | no card | no phone | documented | stale on 2026-11-22. Up to 2,500 subscribers and 15,000 emails per month, never expires
+22. [SendPulse](https://fshy.ajam.dev/p/sendpulse.md) [`email/sendpulse`](https://fshy.ajam.dev/api/v1/record/email/sendpulse): qualifies-with-caveat | free tier | email | no card | no phone | documented | stale on 2026-11-22. Up to 15,000 emails per month, 3 sender addresses, 250 MB of image storage
+23. [TempsMail](https://fshy.ajam.dev/p/tempsmail.md) [`email/tempsmail`](https://fshy.ajam.dev/api/v1/record/email/tempsmail): qualifies-with-caveat | free tier | email | no card | no phone | documented | stale on 2026-11-22. A disposable inbox and read API, free with an account key
+24. [ZeptoMail (Zoho)](https://fshy.ajam.dev/p/zoho.md) [`email/zeptomail`](https://fshy.ajam.dev/api/v1/record/email/zeptomail): qualifies-with-caveat | free tier | email | no card | no phone | documented | stale on 2026-11-22. 1 free credit worth 10,000 emails, valid 6 months; 100/day until the account is validated
+
+## Self-hosted, the last resort (1)
+
+Software or a node that the user installs, runs and maintains. Self-hosted options are listed last, because this site is for users who have no hardware.
+
+- [Plunk (self-hosted)](https://fshy.ajam.dev/p/github-useplunk.md) [`email/plunk-selfhost`](https://fshy.ajam.dev/api/v1/record/email/plunk-selfhost): self-hosted, last resort | verdict qualifies-with-caveat | anonymous | no card | no phone | documented | stale on 2026-12-03. No allowance stated for self-hosted instances: https://docs.useplunk.com/concepts/billing says 'Pricing on this page applies to the hosted version at...

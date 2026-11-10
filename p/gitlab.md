@@ -1,0 +1,529 @@
+# GitLab
+
+> gitlab.com | Storage, Compute, CI runners; 14 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/gitlab/ | JSON https://fshy.ajam.dev/api/v1/entity/gitlab.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## GitLab Container Registry (gitlab.com)
+
+- `storage/gitlab-container-registry` | qualifies | evidence reported | binding none | category registry
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://registry.gitlab.com
+- free tier: Not counted against any storage quota. GitLab docs: 'Only the project's repository and LFS are included in the storage limit. The container registry, package registry, and build artifacts are not included in the limit.' The 10 GiB Free limit therefore does not apply to OCI blobs. | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: No egress charge is published for gitlab.com registry pulls; anonymous pulls are served without auth beyond a JWT. Effectively unmetered for anonymous public projects. | metered: no
+- identity: anonymous
+- interface: oci, rclone
+- limits note: Container registry storage is visible without published caps in documentation. Blob uploads use the standard Docker chunked protocol, where layer size is determined by user build configuration rather than documented file limits. Pushes require CI tokens, and public projects permit anonymous pulls.
+- interface detail: oci
+- tooling: ORAS / docker / skopeo / crane all work against registry.gitlab.com; rclone has no OCI backend but 'oras cp' + rclone covers push/pull. Public projects allow anonymous pull tokens.
+- composes with: Unlimited projects per namespace x unlimited namespaces/accounts x 5 GB per layer (generic package max file is 5 GB; container layers see the same class of limit). Since blobs are outside the 10 GiB project quota, a single free account can host arbitrarily many OCI layers. Compare GHCR (already known). The differentiator here is the explicit quota exemption, not the registry itself.
+- reliability: Storage is reported under 'reduce container registry storage' but no hard cap or eviction is documented on Free; the risk is administrative cleanup of dormant projects rather than quota enforcement.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: 'Only the project's repository and LFS are included in the storage limit. The container registry, package registry, and build artifacts are not included in the limit.'
+  - [2] 2026-10-21: 'Purchased storage applies to Git repository size and LFS usage. It does not apply to other storage types, such as the container registry.'
+  - [3] 2026-10-21: probe: GET -> {"token":"eyJ..."} anonymous pull token issued with no credentials
+  - [4] 2026-10-21: probe: GET (Bearer token) -> 200, Content-Type: application/vnd.oci.image.index.v1+json, docker-content-digest: sha256:f1c76f91... (real OCI manifest served anonymously)
+- sources:
+  - [1] https://docs.gitlab.com/user/storage_usage_quotas/
+  - [2] https://about.gitlab.com/pricing/
+  - [3] https://gitlab.com/jwt/auth?service=container_registry&scope=repository:gitlab-org/gitlab-runner:pull
+  - [4] https://registry.gitlab.com/v2/gitlab-org/gitlab-runner/manifests/latest
+
+## GitLab Package Registry (generic / npm / Maven / PyPI / NuGet / Conan)
+
+- `storage/gitlab-package-registry` | qualifies | evidence reported | binding per-object-cap | category registry
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://gitlab.com
+- free tier: Explicitly EXCLUDED from the project storage quota. GitLab docs, verbatim: 'GitLab projects have a storage limit for their Git repository and Large File Storage (LFS). Only the project's repository and LFS are included in the storage limit. The container registry, package registry, and build artifacts are not included in the limit.' The 10 GiB figure (pricing page: 'Storage 10 GiB') therefore applies only to git+LFS; package bytes are unquota'd. Per-file ceilings: Generic 5 GB, npm 5 GB, Maven 5 GB, NuGet 5 GB, PyPI 5 GB, Conan 5 GB, Terraform 1 GB, ML model 10 GB (uploads capped at 5 GB), Helm 5 MB. | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 5 GB per file | bytes: 5000000000 | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Free and unmetered for downloads; no egress line item anywhere in GitLab pricing. Served through Cloudflare (probe returned Server: cloudflare). | metered: no
+- identity: institution
+- interface: rest, rclone
+- limits:
+  - per-object-cap (binding): 5 GB per file [1]
+- limits note: 5 GB per file (generic). Package registry rate limits apply to the Packages API. Authenticated API traffic 2,000 req/min per user; unauthenticated 60 req/hr per IP. Project creation 200/day/user. No per-project package storage cap documented.
+- interface detail: rest
+- tooling: Full REST API: PUT /api/v4/projects/:id/packages/generic/:package_name/:version/:file_name and GET the same path for download. Package clients can target the GitLab registry URL directly. No rclone backend, but generic-package PUT and GET functions as a standard HTTP blob API. Deploy tokens with write_package_registry scope provide scoped push credentials.
+- composes with: GitLab Free permits unlimited projects per account with project creation limited to 200 per day per user. Generic packages allow up to 5 GB per file, and package registry storage is accounted separately from repository git limits.
+- reliability: Package registry is a real feature not a cache. No TTL, but a project cleanup policy can auto-delete package assets if configured, so leave it off. Anonymous pull must be enabled per project ('Allow anyone to pull from package registry'). NuGet group endpoints refuse anonymous pulls entirely.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: 'the container registry, package registry, and build artifacts are not included in the limit'; 'Each project in a Free tier namespace on GitLab.com has 10 GiB of free storage'
+  - [2] 2026-10-21: per-format max file size table (Generic 5 GB, npm 5 GB, ML model 10 GB)
+  - [3] 2026-10-21: probe: GET (no auth) -> 200 OK, Content-Length: 9035444, Content-Type: application/gzip, Server: cloudflare
+  - [4] 2026-10-21: probe: GET (no auth) -> 200 OK, JSON listing packages
+  - [5] 2026-10-21: 'To interact with the package registry, you must authenticate' for upload; download paths documented as GET
+- sources:
+  - [1] https://docs.gitlab.com/user/storage_usage_quotas/
+  - [2] https://docs.gitlab.com/user/gitlab_com/
+  - [3] https://gitlab.com/api/v4/projects/34675721/packages/generic/glab/1.44.1/glab_1.44.1_Linux_x86_64.tar.gz
+  - [4] https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/packages
+  - [5] https://docs.gitlab.com/user/packages/generic_packages/
+
+## GitLab.com container registry
+
+- `storage/gitlab-com-container-registry` | qualifies | evidence reported | binding none | category registry
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://registry.gitlab.com
+- free tier: No published storage cap. Explicitly excluded from the per-project 10 GiB limit; unlimited container repositories per project is the practical reading. | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Free, Cloudflare + Google Cloud CDN. Blob requests 307-redirect to cdn.registry.gitlab-static.net with a signed URL. Directly cacheable by an external Cloudflare zone. | metered: no
+- identity: anonymous
+- interface: oci
+- limits note: Auth token TTL 15 min on GitLab.com. Blob size limited only by the registry (manifest layers routinely are 100s of MB; no documented per-layer cap). Renaming a project with >1000 container repos is blocked. Public pulls are rate-limited loosely; anonymous token issuance works but each pull needs a token round-trip.
+- interface detail: oci
+- tooling: Standard OCI Distribution v2. ORAS, skopeo, crane, docker. Auth flow is anonymous for public projects (`/jwt/auth` returns a token with auth_type=none).
+- composes with: One OCI artifact per blob of any size -> unlimited projects x unlimited repositories x unlimited tags. This is the canonical 'OCI registry as object store' pattern (ORAS). Blob dedupe means the same chunk stored in N projects costs one copy but is addressable N times.
+- reliability: GitLab has run garbage-collection and cleanup-policy tooling against registries since 2023; no automatic purge is documented, but stale-tag cleanup policies are a first-class feature other users may set on shared projects. Own projects are not touched.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: package/container registries excluded from the limit
+  - [2] 2026-10-21: probe: GET -> 401 with WWW-Authenticate: Bearer realm="https://gitlab.com/jwt/auth",service="container_registry"; Server: cloudflare; gitlab-sv: registry-us-east1-c
+  - [3] 2026-10-21: probe: GET -> 200, JWT with "auth_type":"none" (anonymous pull token, no credentials)
+  - withheld 2026-10-21: probe: GET /v2/gitlab-org/gitlab-runner/manifests/latest with that token -> 200, application/vnd.oci.image.index.v1+json, digest sha256:f1c76f915d7f70d8b3e25cac58da3d87d3d10106dda82ee780409440e1dc1ccc, Server: cloudflare
+  - [4] 2026-10-21: probe: GET /v2/gitlab-org/gitlab-runner/blobs/sha256:a60ef8ec184edb5ed91f5983f00261359fb2fe20f603e8d488b9477d32fcad70 -> 307 to ... (signed CDN URL, cacheable)
+- sources:
+  - [1] https://docs.gitlab.com/user/storage_usage_quotas/
+  - [2] https://registry.gitlab.com/v2/
+  - [3] https://gitlab.com/jwt/auth?service=container_registry&scope=repository:gitlab-org/gitlab-runner:pull
+  - [4] https://cdn.registry.gitlab-static.net/
+
+## GitLab.com generic package registry
+
+- `storage/gitlab-com-generic-package-registry` | qualifies | evidence reported | binding per-object-cap | category registry
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://gitlab.com
+- free tier: 5 GB maximum per uploaded file (Generic). No per-project or per-namespace package storage cap is documented; the package registry is explicitly excluded from the 10 GiB project storage limit. | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 5 GB maximum per upload | bytes: 5000000000 | source: [1] | note: not stated
+- retention: Artifacts expire in 30 days, packages do not. | days: 30 | source: [1] | note: not stated
+- egress: Free and Cloudflare-fronted. GitLab.com is behind Cloudflare and blobs are served from Google Cloud Storage / the GitLab CDN (cdn.registry.gitlab-static.net). No egress billing for public projects. | metered: no
+- identity: institution
+- interface: rest, cli
+- limits:
+  - per-object-cap (binding): 5 GB per file [1]
+  - retention-clamped: expire in 30 days [1]
+- limits note: 5 GB per file (Generic / Maven / npm / NuGet / PyPI / Conan); 10 GB for ML models (upload capped at 5 GB); 1 GB for Terraform state; Helm only 5 MB. Anonymous read of public project packages; writes need a token. Repository/LFS Git push limited to 5 GiB per request, irrelevant to packages.
+- interface detail: rest
+- tooling: GitLab REST API v4 (`PUT /projects/:id/packages/generic/:package_name/:version/:file_name`, `GET ../package_files/:id/download`), glab CLI, python-gitlab (has generic package support, merged), goreleaser pushes generic packages natively (PR #2745 merged). Works with plain curl. No special client needed.
+- composes with: Unlimited projects per namespace (no project-count cap is documented on GitLab.com; the only new limits are 3 top-level groups for accounts created after 2026-01-27, and the personal namespace does not count). Each project is its own unbounded package bucket at 5 GB/file. N projects x unlimited package versions x 5 GB. Multiply again by additional free namespaces (3 groups + personal) and by unlimited free accounts.
+- reliability: Snippets, packages and job artifacts count toward namespace storage as a display/billing figure but are not enforced as a cap. Enforcement is per-project on repo+LFS only. GitLab could start enforcing namespace storage at any time; it has never done so for packages. Artifacts expire in 30 days, packages do not.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: 'Only the project's repository and LFS are included in the storage limit. The container registry, package registry, and build artifacts are not included in the limit.' and 'Each project in a Free tier namespace on GitLab.com has 10 GiB of free storage.'
+  - [2] 2026-10-21: package registry max file size table: 'Generic | 5 GB'; also 'GitLab.com is fronted by Cloudflare'
+  - [3] 2026-10-21: top-level group limit of 3 applies only to accounts created after January 27, 2026, and 'Your personal namespace does not count toward this limit'
+  - [4] 2026-10-21: probe: GET with Range: bytes=0-1023 -> 206 Partial Content, Content-Range: bytes 0-1023/9035444, Server: cloudflare, x-goog-stored-content-length 9035444 (anonymous public-package download, Cloudflare-served, range-capable) — no token sent
+  - [5] 2026-10-21: probe: GET -> 200, glab 1.44.1 last_downloaded_at 2026-10-21 (packages API anonymously listable)
+- sources:
+  - [1] https://docs.gitlab.com/user/storage_usage_quotas/
+  - [2] https://docs.gitlab.com/user/gitlab_com/
+  - [3] https://docs.gitlab.com/user/free_user_limit/
+  - [4] https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/packages/27524971/package_files/139350290/download
+  - [5] https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/packages?per_page=5&package_type=generic
+
+## GitLab
+
+- `compute/gitlab` | qualifies-with-caveat | evidence documented | binding write-gated | category CI runner
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T17:29:36.356Z (live) | stale on 2026-12-04
+- url https://about.gitlab.com/solutions/open-source/join/
+- free tier: 50,000 compute minutes per month in the GitLab for Open Source Program (GitLab Ultimate features), charged at a program-specific cost factor of 0.5 for public projects in the program, which is 1 compute minute per 2 minutes of job time; the GitLab.com Free tier is a separate record; GPU runner access on this grant is covered in the record notes | unit: minutes | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: reviewed-programme-grant
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email | detail: a GitLab.com account that owns a Free-tier group, since personal namespaces are not eligible; every project in the group carries an OSI-approved licence and is publicly visible; the application is a Customers Portal form that is reviewed, and membership is renewed annually
+- interface: unknown
+- limits:
+  - write-gated (binding): The review fails first: the grant applies to a namespace in which every project carries an OSI-approved licence and the group is publicly visible, so a personal account holding one private scratch project is ineligible until the namespace is rearranged, and membership is renewed annually by re-application. [1]
+- limits note: The review fails first: the grant applies to a namespace in which every project carries an OSI-approved licence and the group is publicly visible, so a personal account holding one private scratch project is ineligible until the namespace is rearranged, and membership is renewed annually by re-application.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: a .gitlab-ci.yml pipeline on GitLab.com hosted runners; any container image set with the image keyword; the saas-linux runners run in privileged mode and support Docker-in-Docker
+- composes with: GitLab open-source program grants Ultimate tier access, unlocking the saas-linux-medium-amd64-gpu-standard T4 runner for eligible open-source projects.
+- reliability: no reliability event recorded
+- notes: The GPU figure rests on one reading the pages do not settle. Usage is job duration / 60 x cost factor, runner type and project type sit in separate tables, and the project table gives public projects in the GitLab for Open Source program a cost factor of 0.5 with no runner qualifier. Read literally, a GPU job also costs 0.5, so 50,000 compute minutes are 100,000 job-minutes, or 1,667 GPU-hours a month. If the programme factor and the GPU runner factor of 7 multiply, 50,000 / 3.5 is 14,285 job-minutes, or 238 GPU-hours. The two readings differ by a factor of seven, and only a job run in an accepted namespace settles it. GPU runners are offered on Premium and Ultimate only, and the grant is Ultimate. The default runner is 2 vCPU and 8 GB, a job on GitLab.com hosted runners times out after 3 hours, and the grant is a monthly pool rather than unlimited time.
+- extras:
+  - facets.class: ci-runner-capacity
+  - facets.free_tier_kind: reviewed-programme-grant
+  - facets.shape.vcpu: 2
+  - facets.shape.ram_gib: 8
+  - facets.shape.gpu_class: T4
+  - facets.shape.gpu_count: 1
+- evidence:
+  - [1] 2026-10-22: receive features of GitLab Ultimate including 50,000 compute minutes at a program-specific cost factor; requirements are an OSI-approved licence on every project in the namespace, no profit-seeking, and public visibility; membership must be renewed annually
+  - [2] 2026-10-22: Free tier namespaces receive 400 compute minutes per month; project-type discount table: public projects in the GitLab for Open Source program cost factor 0.5, public forks of them 0.008, standard projects 1; runner cost factors small 1, medium 2, large 3, xlarge 6, 2xlarge 12, GPU standard 7, macOS M1 6
+  - [3] 2026-10-22: Tier: Premium, Ultimate; one GPU machine type saas-linux-medium-amd64-gpu-standard at 4 vCPU, 15 GB, 50 GB and one NVIDIA Tesla T4 with 16 GB
+  - [4] 2026-10-22: saas-linux-small-amd64 is the untagged default at 2 vCPU, 8 GB, 30 GB; medium is 4 vCPU, 16 GB, 50 GB; large and above are Premium and Ultimate only
+  - [5] 2026-10-22: The default maximum time that jobs can run for is 60 minutes, settable per project between 10 minutes and 1 month
+  - [6] 2026-10-22: the 0.5 factor was introduced because projects migrating to the OSS plan were using more than 50,000 minutes per month, where 50,000 is the OSS and Ultimate monthly limit
+  - [4] 2026-10-30: the saas-linux hosted runners run privileged and support Docker-in-Docker | capture: sha256:390efba081ccf0c480ede2a14ca7a00696ffdbe52a7487e6d843135446c019bd | quote: Runners with any of the `saas-linux-<size>-<architecture>` tags are configured to run in `privileged` mode to support [Docker-in-Docker](https://docs.gitlab.com/ci/docker/using_docker_build/#use-docker-in-docker).
+  - [1] 2026-10-30: a personal namespace cannot receive the programme licence; a group is needed | capture: sha256:f13f84f4aabfc6d1a83a13b966e570f58deb0bb0f055cf42058f0421fd338345 | quote: Note that personal namespaces are not eligible for licensing.
+  - [7] 2026-10-30: a job on GitLab.com hosted runners is capped at 3 hours | capture: sha256:8439c8806f86d99b80dac0fefcbee596901a2682e56e19b01ae80de0aefe2e1a | quote: Jobs handled by hosted runners on GitLab.com time out after 3 hours, regardless of the timeout configured in a project.
+  - [1] 2026-10-30: the GitLab for Open Source Program grants Ultimate features and 50,000 compute minutes at a programme cost factor | capture: sha256:f13f84f4aabfc6d1a83a13b966e570f58deb0bb0f055cf42058f0421fd338345 | quote: Enroll in the GitLab for Open Source Program and receive features of [GitLab Ultimate](https://about.gitlab.com/pricing/), self-managed or SaaS, including 50,000 compute minutes calculated at a [program-specific cost factor](https://docs.gitlab.com/ci/pipelines/compute_minutes/).
+  - [1] 2026-10-30: the programme is an application form on the Customers Portal, checked against the requirements | capture: sha256:f13f84f4aabfc6d1a83a13b966e570f58deb0bb0f055cf42058f0421fd338345 | quote: You'll need to complete the form on the Customers Portal to verify that your group containing your open source project meets the program requirements.
+  - [2] 2026-10-30: public projects in the GitLab for Open Source program have cost factor 0.5 | capture: sha256:d9b0cc2cfe13609488898aa96c54a548728d2e9b998756fbc0e272d7be7b6202 | quote: | Public projects in the [GitLab for Open Source](https://docs.gitlab.com/subscriptions/community_programs/#gitlab-for-open-source) program | `0.5` | 1 minute per 2 minutes of job time |
+  - [2] 2026-10-30: the GPU standard runner has cost factor 7 | capture: sha256:d9b0cc2cfe13609488898aa96c54a548728d2e9b998756fbc0e272d7be7b6202 | quote: | Linux x86-64 + GPU-enabled | `medium`, GPU standard | `7` |
+  - [3] 2026-10-30: the GPU runner is 4 vCPU, 15 GB RAM, 50 GB disk and one T4-class GPU with 16 GB | capture: sha256:bd5af305037a741791847101b1906196b78746a3d9a38d0776e26989ce102974 | quote: | `saas-linux-medium-amd64-gpu-standard` | 4 | 15 GB | 50 GB | 1 NVIDIA Tesla T4 (or similar) | 16 GB |
+  - [3] 2026-10-30: GPU-enabled hosted runners are offered on Premium and Ultimate only | capture: sha256:bd5af305037a741791847101b1906196b78746a3d9a38d0776e26989ce102974 | quote: - Tier: Premium, Ultimate
+  - [4] 2026-10-30: the default Linux runner is 2 vCPU, 8 GB RAM and 30 GB disk | capture: sha256:390efba081ccf0c480ede2a14ca7a00696ffdbe52a7487e6d843135446c019bd | quote: | `saas-linux-small-amd64` (default) | 2 | 8 GB | 30 GB |
+  - [8] 2026-11-03: the programme grants 50,000 compute minutes per month with GitLab Ultimate | capture: sha256:bbca83662cf38957e2f06f75b93378af9b03ece9e5c29c55608c4d6912eb59d6 | quote: For qualifying open source projects, the [GitLab for Open Source Program](https://about.gitlab.com/solutions/open-source/) provides GitLab Ultimate, plus 50,000 compute minutes per month.
+  - [2] 2026-11-03: public projects in the GitLab for Open Source program cost 1 compute minute per 2 minutes of job time | capture: sha256:d9b0cc2cfe13609488898aa96c54a548728d2e9b998756fbc0e272d7be7b6202 | quote: | Public projects in the [GitLab for Open Source](https://docs.gitlab.com/subscriptions/community_programs/#gitlab-for-open-source) program | `0.5` | 1 minute per 2 minutes of job time |
+  - [2] 2026-11-03: the Free tier is 400 compute minutes per month, a different offer from the 50,000-minute programme grant | capture: sha256:d9b0cc2cfe13609488898aa96c54a548728d2e9b998756fbc0e272d7be7b6202 | quote: Free tier namespaces receive 400 compute minutes per month.
+  - [1] 2026-11-03: a personal namespace cannot receive the programme licence | capture: sha256:f13f84f4aabfc6d1a83a13b966e570f58deb0bb0f055cf42058f0421fd338345 | quote: Note that personal namespaces are not eligible for licensing.
+  - [1] 2026-11-03: the programme grants Ultimate features and 50,000 compute minutes at a programme cost factor | capture: sha256:f13f84f4aabfc6d1a83a13b966e570f58deb0bb0f055cf42058f0421fd338345 | quote: Enroll in the GitLab for Open Source Program and receive features of [GitLab Ultimate](https://about.gitlab.com/pricing/), self-managed or SaaS, including 50,000 compute minutes calculated at a [program-specific cost factor](https://docs.gitlab.com/ci/pipelines/compute_minutes/).
+- sources:
+  - [1] https://about.gitlab.com/solutions/open-source/join/
+  - [2] https://docs.gitlab.com/ci/pipelines/compute_minutes/
+  - [3] https://docs.gitlab.com/ci/runners/hosted_runners/gpu_enabled/
+  - [4] https://docs.gitlab.com/ci/runners/hosted_runners/linux/
+  - [5] https://docs.gitlab.com/administration/cicd/limits/
+  - [6] https://gitlab.com/gitlab-org/gitlab/-/work_items/351933
+  - [7] https://docs.gitlab.com/ci/runners/hosted_runners/
+  - [8] https://docs.gitlab.com/subscriptions/community_programs/
+
+## GitLab CI Job Artifacts (GitLab.com Free)
+
+- `storage/gitlab-ci-job-artifacts` | qualifies-with-caveat | evidence reported | binding none | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://gitlab.com
+- free tier: Not counted against the 10 GiB project storage limit ('build artifacts are not included in the limit'). 1 GB compressed maximum per artifact archive on GitLab.com. | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: Default expiry 30 days, but `expire_in: never` is a valid documented value and the latest-successful-job artifact on every ref is exempt from expiry entirely | days: 30 | source: [1] | note: not stated
+- egress: Free, anonymous for public projects. Verified a 321 MB anonymous download. | metered: no
+- identity: email
+- interface: rest
+- limits note: 1 GB compressed per archive. Default expiry 30 days, but `expire_in: never` is a valid documented value and the latest-successful-job artifact on every ref is exempt from expiry entirely. Free tier: 400 compute minutes/month, so bulk upload is compute-bound, not storage-bound.
+- interface detail: rest
+- tooling: GET /projects/:id/jobs/artifacts/:ref/download?job=NAME, and GET /projects/:id/jobs/:job_id/artifacts (zip). No auth needed against a public project. Upload is automatic from .gitlab-ci.yml `artifacts:`.
+- composes with: Unlimited jobs per project x 1 GB per artifact archive, uncounted against quota. Force permanence with `expire_in: never` or the 'Keep' button. Because 'artifacts from the latest pipeline for the ref' never expire regardless of expire_in, every branch/tag becomes a permanent shelf: unlimited branches x 1 GB.
+- reliability: Expiry is enforced hourly and irreversible. Anything not pinned with `never`/Keep silently vanishes. Treat as durable only when pinned.
+- notes: the same as the free tier
+- evidence:
+  - [2] 2026-10-21: 'artifacts:expire_in ... Valid values include ... never' and 'expire_in does not affect artifacts from the latest job'
+  - [3] 2026-10-21: 'Artifacts maximum size (compressed) | 1 GB' and 'Artifacts expiry time | 30 days unless otherwise specified'
+  - [4] 2026-10-21: probe: curl -L -> 302 then 200, 321472291 bytes, no auth
+- sources:
+  - [1] https://docs.gitlab.com/user/storage_usage_quotas/
+  - [2] https://docs.gitlab.com/ci/yaml/
+  - [3] https://docs.gitlab.com/user/gitlab_com/
+  - [4] https://gitlab.com/api/v4/projects/gitlab-org%2Fgitlab-foss/jobs/artifacts/master/download?job=setup-test-env
+
+## GitLab CI on GitLab.com Free
+
+- `ci-cd-runners/gitlab-ci` | qualifies-with-caveat | evidence documented | binding request-rate | category CI runner
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-03T00:32:24.302Z (live) | stale on 2026-12-04
+- url https://docs.gitlab.com/ci/pipelines/compute_minutes/
+- free tier: 400 compute minutes a month per namespace; 5 users per top-level group; 10 GiB of repository storage | unit: minutes | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: 3 hours per job on GitLab.com hosted runners, regardless of the timeout configured in a project; the monthly pool and the cost factor bind first
+- retention: artifacts expire per job configuration, default 30 days; compute minutes reset on the first of the month | days: 30 | source: [1]
+- egress: the container registry is excluded from the namespace storage quota; storage beyond the purchased amount is billed | metered: yes | free allowance: 10 GiB per namespace | source: [2]
+- identity: card | detail: an email address registers the account; the pricing FAQ requires credit/debit card details to run jobs on GitLab.com shared runners on Free, checked by a one-dollar authorization that is not charged; the identity-verification page makes the card conditional on a risk score (email verification for all users, a phone number for medium-risk users, a credit card for high-risk users) and the CI documentation names the same score with email, phone number or payment method; whether a new Free account is asked for a card before its first hosted-runner job is unverified: behind a sign-up, because the risk score is not published; a namespace that brings its own runner or disables shared runners needs no card
+- interface: git, cli
+- limits:
+  - request-rate (binding): 400 compute minutes a month on Free; a job consumes duration divided by 60 times the cost factor [1]
+  - request-rate (binding): cost factor 1 for small Linux, 2 for medium, 3 for large, 6 for xlarge, 12 for 2xlarge, 6 for macOS M1 [1]
+  - per-object-cap: 10 GiB of repository storage per namespace [2]
+- limits note: a 1,000-minute grace period exists before jobs are dropped when the quota is exceeded; the 300,000-minute cap applies only to the community-contribution programme
+- interface detail: a .gitlab-ci.yml pipeline; instance runners on GitLab.com; self-managed runners are free of the vendor cap
+- tooling: the runner images; any shell; docker-in-docker on the Linux runners
+- composes with: the only free pool here with a cost-factor discount that makes open-source work cheaper: 0.5 for a GitLab-for-Open-Source project and 0.008 for a public fork of one
+- reliability: no suspension, throttle or data-loss event is recorded on the pages read
+- notes: 400 minutes is 6.7 hours, and a medium runner halves that. The open-source discount is the interesting part and it needs the project to be accepted into the programme, which is a review.
+- evidence note: the compute-minutes doc and the storage-quota doc were read.
+- evidence:
+  - [1] 2026-10-22: 'Free tier namespaces receive 400 compute minutes per month'; cost factors small 1, medium 2, large 3, xlarge 6, 2xlarge 12; public projects in GitLab for Open Source 0.5 and public forks 0.008; usage resets on the first day of the month
+  - [2] 2026-10-22: the container registry is excluded from the namespace repository quota
+  - [3] 2026-10-30: the pricing FAQ requires card details to run jobs on GitLab.com shared runners | capture: sha256:1a553ff4ad78a2b9e910d752cd0e4cc7450386e42e540da41349d65ef839be09 | quote: To discourage such abuse, credit/debit card details are required if you choose to use GitLab.com shared runners.
+  - [3] 2026-10-30: the card is checked with a one-dollar authorization | capture: sha256:1a553ff4ad78a2b9e910d752cd0e4cc7450386e42e540da41349d65ef839be09 | quote: When you provide the card, it will be verified with a one-dollar authorization transaction.
+  - [4] 2026-10-30: a job on GitLab.com hosted runners is capped at 3 hours | capture: sha256:8439c8806f86d99b80dac0fefcbee596901a2682e56e19b01ae80de0aefe2e1a | quote: Jobs handled by hosted runners on GitLab.com time out after 3 hours, regardless of the timeout configured in a project.
+  - [1] 2026-10-30: a GitLab.com Free namespace gets 400 compute minutes a month on instance runners | capture: sha256:d9b0cc2cfe13609488898aa96c54a548728d2e9b998756fbc0e272d7be7b6202 | quote: Free tier namespaces receive 400 compute minutes per month.
+  - [5] 2026-10-30: on GitLab.com Free the identity check before hosted-runner jobs follows a risk score: email, phone or payment method | capture: sha256:06ffd3fc32a16dc3302960fc4c277bcb44199514d960eeee2d890f863a682d67 | quote: Depending on your risk score, you may need to verify your email, phone number, or add a payment method.
+  - [1] 2026-10-30: the default small Linux runner has cost factor 1 | capture: sha256:d9b0cc2cfe13609488898aa96c54a548728d2e9b998756fbc0e272d7be7b6202 | quote: | Linux x86-64 (default) | `small` | `1` |
+  - [6] 2026-10-30: running jobs continue until the namespace is 1,000 compute minutes over quota | capture: sha256:efaec0943e354db0290de9d82f6215bbaf933b99ce359a486c25d020c8d82af1 | quote: Jobs running on instance runners can continue to run until the overall namespace usage goes over-quota by 1,000 compute minutes.
+  - [3] 2026-10-30: the Free plan allows 5 users per top-level group | capture: sha256:1a553ff4ad78a2b9e910d752cd0e4cc7450386e42e540da41349d65ef839be09 | quote: 5 users per top-level group
+  - [7] 2026-10-30: GitLab.com keeps job artifacts 30 days unless the job sets another expiry | capture: sha256:dba2dd548a3ca265465d07e9dcd66659c3852f419233d817e24c63a16e860949 | quote: 30 days unless otherwise specified
+  - [8] 2026-11-02: identity verification has up to three stages that depend on a risk score (email, phone number, credit card) | capture: sha256:243049211809bf6d20dcee6a578403c65764d5a0904512736ea660519842818f | quote: you might be required to perform up to three stages of verification to create a user account
+  - [3] 2026-11-02: the pricing FAQ requires card details for GitLab.com shared runners | capture: sha256:1f11aee93fcecc4411861d394f588e8f79cc6797b958c8a68fcdf634ef11af57 | quote: To discourage such abuse, credit/debit card details are required if you choose to use GitLab.com shared runners.
+- sources:
+  - [1] https://docs.gitlab.com/ci/pipelines/compute_minutes/
+  - [2] https://docs.gitlab.com/user/storage_usage_quotas/
+  - [3] https://about.gitlab.com/pricing/
+  - [4] https://docs.gitlab.com/ci/runners/hosted_runners/
+  - [5] https://docs.gitlab.com/ci/debugging/
+  - [6] https://docs.gitlab.com/ci/pipelines/instance_runner_compute_minutes/
+  - [7] https://docs.gitlab.com/user/gitlab_com/
+  - [8] https://docs.gitlab.com/security/identity_verification/
+
+## GitLab Container Registry
+
+- `ci-cd-runners/gitlab-container-registry` | qualifies-with-caveat | evidence documented | binding request-rate | category container registry
+- needs card no, phone no, ID no, institution no | verified 2026-11-09T12:09:21.557Z (live) | stale on 2026-12-10
+- url https://docs.gitlab.com/user/storage_usage_quotas/
+- free tier: the registry is excluded from the 10 GiB namespace repository quota; no separate free cap is published | unit: unlimited | metered on: stored-bytes | read on: 2026-10-22 | source: [1]
+- per-object cap: no separate published cap: the container registry is not included in the project storage limit, and the page publishes no cap for it | source: [1]
+- retention: tags expire per the project's cleanup policy if one is configured; nothing expires by default | source: [1]
+- egress: no egress charge is published; storage is what is metered | metered: yes | source: [1]
+- identity: email | detail: a GitLab account
+- interface: oci, rest
+- limits:
+  - per-object-cap: storage above the namespace purchased amount is billed; the registry is excluded from the 10 GiB repository quota [1]
+- limits note: the 10 GiB figure that circulates is the repository quota and not the registry quota; the two are different limits and the comparison literature conflates them
+- interface detail: the OCI distribution API at registry.gitlab.com; docker login with a deploy token or CI job token
+- tooling: docker, podman, skopeo
+- composes with: the only free registry here that does not count image layers against the same quota as the code
+- reliability: the token endpoint answers a pull scope requested without a credential with a 2,596-byte token JSON
+- notes: An exclusion is not an allowance. The doc says the registry does not count against 10 GiB; it does not say the registry is free, and no separate free figure is published.
+- evidence note: the storage-quota doc was read and states the exclusion.
+- evidence:
+  - [1] 2026-10-22: the container registry is excluded from the namespace repository storage quota
+  - probe:https://gitlab.com/jwt/auth?service=container_registry&scope=repository:gitlab-org/gitlab-runner:pull 2026-11-09: the token endpoint answers a pull scope requested without a credential with a 2,596-byte token JSON, which is the fact the reliability note states | capture: sha256:f57e9af954e4634cc0ebf398ac01af53e9d4b42bcfca2be26719f3bff91d12fd | quote: "status": 200, "bytes": 2596,
+  - probe:https://registry.gitlab.com/v2/gitlab-org/gitlab-runner/manifests/alpine-v16.11.0 2026-11-09: the token fetches a real image index: 200 and 3,117 bytes | capture: sha256:01451980c94562be9c5b5d017a3edd3371df93738efc5caf5da0d73a285c793c | quote: "status": 200, "bytes": 3117,
+  - probe:https://registry.gitlab.com/v2/gitlab-org/gitlab-runner/tags/list 2026-11-09: the namespace exists: the anonymous token lists its tags, so the manifest pull answered a real project | capture: sha256:a2dbfb2e43d9d9f53b86ca50cdee4b53901999daba2139956a29eb03b8d7704f | quote: "status": 200, "bytes": 1145,
+  - [1] 2026-11-09: the storage-quota page states that the container registry is outside the project storage limit; the Free limit is 10 GiB of repository and LFS storage | capture: sha256:32cb9b13bd82d6395449b56d639b10c9214fbcf89a1a5fa1493dad8fe2e46c49 | quote: The container registry, package registry, and build artifacts are not included in the limit.
+  - [1] 2026-11-09: the storage-quota page excludes the container registry from the project storage limit and publishes no cap for the registry itself | capture: sha256:32cb9b13bd82d6395449b56d639b10c9214fbcf89a1a5fa1493dad8fe2e46c49 | quote: The container registry, package registry, and build artifacts are not included in the limit.
+- sources:
+  - [1] https://docs.gitlab.com/user/storage_usage_quotas/
+
+## GitLab Runners
+
+- `compute/gitlab-runners` | qualifies-with-caveat | evidence documented | binding volume-quota | category CI runner | tier GitLab Free on GitLab.com, instance runners
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-03T00:32:24.304Z (live) | stale on 2026-12-04
+- url https://docs.gitlab.com/ci/pipelines/compute_minutes/
+- duplicate of `ci-cd-runners/gitlab-ci`
+- free tier: 'The base monthly compute quota is determined by your subscription tier. Free tier namespaces receive 400 compute minutes per month.' The pricing page repeats it as '400 compute minutes per month'. A compute minute is not a wall-clock minute: the usage formula is 'Job duration / 60 * Cost factor', and the default `small` Linux x86-64 runner has cost factor 1, so 400 compute minutes is 400 wall-clock minutes on the default shape and less on any larger one. The card requirement is the finding: 'credit/debit card details are required if you choose to use GitLab.com shared runners', verified with 'a one-dollar authorization transaction'. | unit: minutes | metered on: wall-clock | read on: 2026-10-24 | source: [1] | note: 400 compute minutes at cost factor 1 is 6 hours 40 minutes a month, which is 0.22 hours a day. The card gate is on the shared runners specifically, not on the account.
+- per-object cap: not applicable
+- retention: 'Ephemeral runner VMs serve a single job and are deleted right after the job execution.' Nothing on the VM survives the job. | days: 0 | source: [2] | note: 0 means the VM is deleted at job end
+- egress: not published on any page read: no egress quota, shaping tier or per-byte price is stated for GitLab.com hosted runners | metered: no | source: [2]
+- identity: card | detail: A card, for the thing this record is about. The account itself is free and the pricing page says 'No credit card required' for the Free plan, but the free compute minutes sit behind a card: 'credit/debit card details are required if you choose to use GitLab.com shared runners'. The card is verified by 'a one-dollar authorization transaction' and 'No charge will be made and no money will transfer', so the hold is USD 1.00 authorised and released, not captured. GitLab's identity-verification page adds a second, independent gate that is risk-scored: 'All users - Email verification. Medium-risk users - Phone number verification. High-risk users - Credit card verification.' Whether a new account lands in the medium or high band is not published. Debit acceptance is not stated on any page read; the pages say 'credit/debit card' without distinguishing.
+- interface: unknown
+- limits:
+  - volume-quota (binding): 400 compute minutes a month on the Free tier, with a cost factor of 1 on the default `small` Linux x86-64 runner, 2 on `medium`, 3 on `large`, 6 on `xlarge`, 12 on `2xlarge` [1]
+  - retention-clamped: 'Jobs handled by hosted runners on GitLab.com time out after 3 hours, regardless of the timeout configured in a project.' [2]
+  - write-gated: 'Inbound communication from the public internet to the ephemeral VM is not allowed.' Firewall rules 'only allow outbound communication from the ephemeral VM to the public internet'. [2]
+  - write-gated: A card gates the free minutes. Quoted: 'credit/debit card details are required if you choose to use GitLab.com shared runners. Credit/debit card details are not required if you bring your own runner or disable shared runners.' Verified by 'a one-dollar authorization transaction. No charge will be made and no money will transfer.' [3]
+  - volume-quota (binding): On quota exhaustion, instance runners stop processing new jobs; running jobs continue until the namespace is over quota by 1,000 compute minutes, then they are dropped [4]
+- limits note: Three separate ceilings and the smallest is the card gate: 400 compute minutes a month, a 3-hour job timeout, and a card required to use the shared runners that the minutes are spent on. Bringing your own runner removes the card requirement and the minute quota at the same time, which needs a machine to run the runner on.
+- binding note: 400 compute minutes a month is 400 wall-clock minutes on the default small runner at cost factor 1, and instance runners take no new job once it is used; the card check is an identity step, recorded in identity_cost
+- interface detail: a .gitlab-ci.yml pipeline; a runner with a shell
+- tooling: a shell on an ephemeral runner; package managers; a checkout
+- composes with: a real machine for the length of a job and nothing after it
+- reliability: no reliability event recorded
+- notes: The record is `card`, with a USD 1.00 authorisation hold and release. The pricing page's 'No credit card required' line is true of the account and false of the thing the record is about. GitLab's own FAQ says the card is required 'if you choose to use GitLab.com shared runners'. Shared runners are the only way to spend the 400 minutes without a self-managed runner. Identity verification on the GitLab free tier is a risk-scored three-stage scheme, and it is documented. Separately and unconditionally, the shared runners need a card. Not established: whether a new account from a given country lands in the medium-risk (phone) or high-risk (card) band, because the risk score is not published; and whether a debit or prepaid card passes the one-dollar authorisation, because no page says. The 400 minutes figure is confirmed.
+- evidence note: the 400 minutes, the cost factors, the 2 vCPU / 8 GB / 30 GB shape, the 3-hour job timeout, the inbound block and the card requirement are each quoted from a first-party GitLab page read on 2026-10-24. The card requirement is quoted from about.gitlab.com's own FAQ twice, on the pricing page and on the free-trial page, with the same wording.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 8
+  - shape.disk_gib: 30
+  - shape.note: `saas-linux-small-amd64`, the default for untagged jobs. RAM and disk are the vendor's decimal GB, kept unconverted: 8 GB is about 7.5 GiB and 30 GB about 27.9 GiB. Quoted caveat: 'The storage is shared by the operating system, the container image with pre-installed software, and a copy of your cloned repository. This means that the available free disk space for your jobs to use is reduced.'
+  - billing_model: free
+  - session_cap.wall_clock_min: 180
+  - session_cap.restart_required: yes
+  - session_cap.note: 3 hours per job on GitLab.com hosted runners regardless of project setting, then the VM is deleted; 400 compute minutes a month is the other clock and it binds first
+  - keep_rate.value: 0.0
+  - keep_rate.basis: the VM is deleted after the job and nothing is billed for it
+  - keep_rate.source: https://docs.gitlab.com/ci/runners/hosted_runners/
+  - persistent_storage.included_gib: 0
+  - persistent_storage.price_gib_month: not applicable: nothing on the runner survives
+  - persistent_storage.durability: none: the ephemeral VM is deleted right after the job
+  - persistent_storage.survives_stop: no
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: the job
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: no
+  - network_out.ports: none inbound: 'Inbound communication from the public internet to the ephemeral VM is not allowed'
+  - network_out.static_ip: no
+  - free_tier_kind: allowance
+  - topic_note: belongs to ci-cd-runners
+  - granularity.min_billed_s: 60
+  - burst_x: 1.0
+  - term: none
+  - price_arithmetic: 400 compute minutes / cost factor 1 = 400 wall-clock minutes a month on the 2 vCPU default, which is 6 h 40 min, or 0.22 h a day. 10 h a day x 30 = 300 h needs 18,000 compute minutes, 45 times the quota. 24/7 x 30 = 730 h needs 43,800 compute minutes, 110 times the quota. No USD figure is given because no per-minute price was read on a page.
+  - concurrency.note: not published on any page read: no concurrent-job number for a Free namespace was found. The 400-minute monthly quota is the ceiling that matters at this size.
+  - units: RAM and disk are the vendor's decimal GB, kept unconverted. 8 GB reads as 8, 30 GB as 30.
+  - checked.verified: 400 compute minutes a month on the Free tier; 2 vCPU / 8 GB / 30 GB on the default saas-linux-small-amd64; 3-hour job timeout on GitLab.com hosted runners; inbound is explicitly blocked; the ephemeral VM is deleted after the job
+  - checked.new: the risk-scored three-stage identity verification (email / phone / card) is documented and is a second, independent gate
+- evidence:
+  - [3] 2026-10-02: a free tier with a monthly CI minute allowance; the runner is ephemeral per job
+  - [3] 2026-10-22: read live: free tier carries 400 compute minutes a month
+  - [1] 2026-10-24: quoted: 'The base monthly compute quota is determined by your subscription tier. Free tier namespaces receive 400 compute minutes per month. Paid tiers receive a higher monthly quota.'
+  - [1] 2026-10-24: cost-factor table quoted row by row: '| Linux x86-64 (default) | `small` | `1` |', '| Linux x86-64 | `medium` | `2` |', '`large` | `3`', '`xlarge` | `6`', '`2xlarge` | `12`'; formula quoted: 'Job duration / 60 * Cost factor'. This row is what makes 400 compute minutes 400 wall-clock minutes on the default shape.
+  - [5] 2026-10-24: quoted shape table: '`saas-linux-small-amd64` (default) | 2 | 8 GB | 30 GB' and '`saas-linux-medium-amd64` | 4 | 16 GB | 50 GB'
+  - [2] 2026-10-24: quoted: 'Each of your jobs runs in a newly provisioned VM, which is dedicated to the specific job.' and 'Jobs handled by hosted runners on GitLab.com time out after 3 hours, regardless of the timeout configured in a project.'
+  - [2] 2026-10-24: quoted: 'Firewall rules only allow outbound communication from the ephemeral VM to the public internet.' and 'Inbound communication from the public internet to the ephemeral VM is not allowed.' and 'Ephemeral runner VMs serve a single job and are deleted right after the job execution.'
+  - [3] 2026-10-24: quoted, the card gate: 'credit/debit card details are required if you choose to use GitLab.com shared runners. Credit/debit card details are not required if you bring your own runner or disable shared runners. When you provide the card, it will be verified with a one-dollar authorization transaction. No charge will be made and no money will transfer.'
+  - [3] 2026-10-24: quoted, the Free plan row: 'per user/month, No credit card required' with '5 users per top-level group', '400 compute minutes per month', '10 GiB adjustable storage'
+  - [6] 2026-10-24: quoted, the same card gate from a second first-party page: 'A credit/debit card is not required for customers who do not use GitLab.com CI/CD, bring their own runners, or disable shared runners. However, credit/debit card details are required if you choose to use GitLab.com shared runners. This change was made to discourage abuse of the free compute minutes provided on GitLab.com to mine cryptocurrencies'
+  - [7] 2026-10-24: quoted from the page's opening: 'Depending on your risk score, you might be required to perform up to' then 'three stages of verification to create a user account:' then the list items 'All users - Email verification.', 'Medium-risk users - Phone number verification.', 'High-risk users - Credit card verification.' Also quoted: 'GitLab does not store your card details directly or make any charges.'
+  - [4] 2026-10-24: quoted: 'When the compute quota is used for the current month, instance runners stop processing new jobs.' and 'Jobs running on instance runners can continue to run until the overall namespace usage goes over-quota by 1,000 compute minutes.'
+  - [8] 2026-10-30: on GitLab.com Free the identity check before hosted-runner jobs follows a risk score: email, phone or payment method | capture: sha256:06ffd3fc32a16dc3302960fc4c277bcb44199514d960eeee2d890f863a682d67 | quote: Depending on your risk score, you may need to verify your email, phone number, or add a payment method.
+  - [4] 2026-10-30: instance runners take no new job once the monthly quota is used | capture: sha256:efaec0943e354db0290de9d82f6215bbaf933b99ce359a486c25d020c8d82af1 | quote: When the compute quota is used for the current month, instance runners stop processing new jobs.
+  - [1] 2026-10-30: a GitLab.com Free namespace gets 400 compute minutes a month on instance runners | capture: sha256:d9b0cc2cfe13609488898aa96c54a548728d2e9b998756fbc0e272d7be7b6202 | quote: Free tier namespaces receive 400 compute minutes per month.
+  - [2] 2026-10-30: a job on GitLab.com hosted runners is capped at 3 hours | capture: sha256:8439c8806f86d99b80dac0fefcbee596901a2682e56e19b01ae80de0aefe2e1a | quote: Jobs handled by hosted runners on GitLab.com time out after 3 hours, regardless of the timeout configured in a project.
+  - [1] 2026-10-30: the default small Linux runner has cost factor 1 | capture: sha256:d9b0cc2cfe13609488898aa96c54a548728d2e9b998756fbc0e272d7be7b6202 | quote: | Linux x86-64 (default) | `small` | `1` |
+  - [2] 2026-10-30: the runner VM accepts no inbound connection from the internet | capture: sha256:8439c8806f86d99b80dac0fefcbee596901a2682e56e19b01ae80de0aefe2e1a | quote: Inbound communication from the public internet to the ephemeral VM is not allowed.
+  - [2] 2026-10-30: nothing on the runner VM survives the job | capture: sha256:8439c8806f86d99b80dac0fefcbee596901a2682e56e19b01ae80de0aefe2e1a | quote: Ephemeral runner VMs serve a single job and are deleted right after the job execution.
+  - [3] 2026-10-30: the pricing FAQ requires card details to run jobs on GitLab.com shared runners | capture: sha256:1a553ff4ad78a2b9e910d752cd0e4cc7450386e42e540da41349d65ef839be09 | quote: To discourage such abuse, credit/debit card details are required if you choose to use GitLab.com shared runners.
+  - [3] 2026-10-30: the card is checked with a one-dollar authorization | capture: sha256:1a553ff4ad78a2b9e910d752cd0e4cc7450386e42e540da41349d65ef839be09 | quote: When you provide the card, it will be verified with a one-dollar authorization transaction.
+  - [4] 2026-10-30: running jobs continue until the namespace is 1,000 compute minutes over quota | capture: sha256:efaec0943e354db0290de9d82f6215bbaf933b99ce359a486c25d020c8d82af1 | quote: Jobs running on instance runners can continue to run until the overall namespace usage goes over-quota by 1,000 compute minutes.
+  - [5] 2026-10-30: the default Linux runner is 2 vCPU, 8 GB RAM and 30 GB disk | capture: sha256:390efba081ccf0c480ede2a14ca7a00696ffdbe52a7487e6d843135446c019bd | quote: | `saas-linux-small-amd64` (default) | 2 | 8 GB | 30 GB |
+  - [3] 2026-11-02: the pricing FAQ requires card details for GitLab.com shared runners | capture: sha256:1f11aee93fcecc4411861d394f588e8f79cc6797b958c8a68fcdf634ef11af57 | quote: To discourage such abuse, credit/debit card details are required if you choose to use GitLab.com shared runners.
+  - [7] 2026-11-02: a credit card is a further, conditional verification stage after email and phone | capture: sha256:243049211809bf6d20dcee6a578403c65764d5a0904512736ea660519842818f | quote: In addition to an email address and phone number, you might also need to provide a valid credit card number to verify your account.
+- sources:
+  - [1] https://docs.gitlab.com/ci/pipelines/compute_minutes/
+  - [2] https://docs.gitlab.com/ci/runners/hosted_runners/
+  - [3] https://about.gitlab.com/pricing/
+  - [4] https://docs.gitlab.com/ci/pipelines/instance_runner_compute_minutes/
+  - [5] https://docs.gitlab.com/ci/runners/hosted_runners/linux/
+  - [6] https://about.gitlab.com/free-trial/
+  - [7] https://docs.gitlab.com/security/identity_verification/
+  - [8] https://docs.gitlab.com/ci/debugging/
+
+## GitLab Snippets / GitLab.com projects
+
+- `storage/gitlab-snippets-gitlab-com-projects` | qualifies-with-caveat | evidence reported | binding none | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://gitlab.com
+- free tier: 10 GiB free storage per project on GitLab.com Free tier (repo + LFS); snippet files up to 50 MB each (50,000,000-byte default admin limit); projects per account and accounts are free. | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: unmetered, served from gitlab.com; no egress line item exists on any GitLab.com plan. | metered: no
+- identity: email
+- interface: rest, git, rclone, cli
+- limits note: 10 GiB per project then the project goes read-only (pushes rejected) until storage is purchased. A hard stop, not a warning; 50 MB per snippet; namespace storage updated every 90 minutes; 5 GiB per-file push limit on gitlab.com is not documented publicly, so shard files.
+- interface detail: git
+- tooling: Glab CLI (glab snippet create), VS Code extension, REST /api/v4/snippets, plain git clone/push for project repos. rclone has a 'gitlab' backend (yes — rclone supports GitLab as a Git remote type via backend 'git').
+- composes with: Free accounts permit multiple projects at 10 GiB git storage each. Snippets provide a standalone 50 MB per object upload mechanism outside of project repositories.
+- reliability: Read-only lockout is automatic and immediate on exceeding 10 GiB, and it blocks pushes rather than deletes data. Snippets are counted in namespace storage, so they are not a separate free pool.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: 'Each project in a Free tier namespace on GitLab.com has 10 GiB of free storage', 'the project is set to a read-only state'
+  - [2] 2026-10-21: 'The default limit is 52428800 bytes (50 MB)'
+  - [3] 2026-10-21: Free tier: '10 GiB adjustable storage'
+  - [4] 2026-10-21: probe: GET -> {"message":"401 Unauthorized"} (authenticated endpoints only; public snippet read via web returned 200)
+- sources:
+  - [1] https://docs.gitlab.com/user/storage_usage_quotas/
+  - [2] https://docs.gitlab.com/administration/snippets/
+  - [3] https://about.gitlab.com/pricing/
+  - [4] https://gitlab.com/api/v4/snippets/public?per_page=2
+
+## GitLab.com Git LFS
+
+- `storage/gitlab-com-git-lfs` | qualifies-with-caveat | evidence reported | binding none | category registry
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://gitlab.com
+- free tier: 10 GiB free storage PER PROJECT on the Free tier, and that 10 GiB explicitly covers 'the project's repository and Large File Storage (LFS)'. Premium/Ultimate: 500 GiB per project. CONFIRMED: LFS is IN the quota while containers, packages, build artifacts, snippets, uploads and wikis are OUT. | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Unmetered. GitLab does not bill or publish any LFS bandwidth quota. The only transfer-side control is a rate limit: 'Git LFS requests are subject to authenticated web request rate limits .. 1000 requests per minute per user. Each Git LFS object uploaded or downloaded generates an HTTP request'. | metered: no
+- identity: email
+- interface: rest, git
+- limits note: At 10 GiB the project goes READ-ONLY: 'you can't push or add large files (LFS) to the project's repository.' Max push request 5 GiB (through Cloudflare). This applies to git push; LFS object upload is a separate endpoint. Max attachment 100 MiB. Rate limit 1000 LFS req/min/user is the real throughput ceiling (~60k objects/hour, and one object = one request regardless of size).
+- interface detail: part of limits note
+- tooling: git-lfs. Also Oras-style raw access is not available; LFS is protocol-only. GitLab REST API v4 for project/namespace management (useful for automating project-per-shard).
+- composes with: 10 GiB per PROJECT, and projects are free and unlimited within a namespace. GitLab's own excess-storage example totals 30 GiB across three projects with no namespace-level cap. 50 projects = 500 GiB, 100 = 1 TiB. This is the cleanest 'trivially repeatable' LFS case because each project is an independent 10 GiB bucket behind the same account, unlike GitHub where the 10 GiB is per account.
+- reliability: Read-only state is reversible only by purchasing storage, so a blown project is stuck. The 1000 req/min limit bites hard on many-small-files datasets during clone, and GitLab's own docs warn multi-file projects 'may encounter an HTTP rate limit error' in CI.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: 'Only the project's repository and LFS are included in the storage limit. The container registry, package registry, and build artifacts are not included' + 'Each project in a Free tier namespace on GitLab.com has 10 GiB of free storage'
+  - [2] 2026-10-21: 'It includes repository files and Git LFS objects (even when stored in external object storage), but does not include: Artifacts, Containers, Packages, Snippets, Uploads, Wikis'
+  - [3] 2026-10-21: '1000 requests per minute per user' for LFS
+  - [4] 2026-10-21: 'Repository size including LFS | 10 GB'; 'Maximum push size | 5 GiB'
+  - [5] 2026-10-21: probe: POST -> HTTP 200
+- sources:
+  - [1] https://docs.gitlab.com/user/storage_usage_quotas/
+  - [2] https://docs.gitlab.com/administration/settings/account_and_limit_settings/
+  - [3] https://docs.gitlab.com/rate_limits/git/
+  - [4] https://docs.gitlab.com/user/gitlab_com/
+  - [5] https://gitlab.com/gitlab-org/gitlab.git/info/lfs/objects/batch
+
+## GitLab.com snippets
+
+- `storage/gitlab-com-snippets` | qualifies-with-caveat | evidence reported | binding none | category registry
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://docs.gitlab.com/user/snippets/
+- free tier: No documented per-snippet storage cap; snippets are git-backed and unlimited in count, but contribute to namespace storage accounting | unit: unlimited | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Free, Cloudflare-fronted like all of GitLab.com; snippets are cloneable and downloadable via API. | metered: no
+- identity: email
+- interface: git, cli
+- limits note: 300 creations/hour/user, shared with the GraphQL createSnippet mutation. No documented file or snippet size cap found on the snippet docs page. Worth treating as 'unbounded but undocumented' rather than verified bulk capacity.
+- interface detail: part of the free tier
+- tooling: Snippets API (POST /snippets), git clone of the snippet repo, glab CLI, VS Code extension. Rate limited to 300 creates/hour/authenticated user.
+- composes with: Snippets are versioned git repos -> unlimited snippets x unlimited versions. The 300/hour creation limit is the only throttle, which is trivially high for a bulk loader. Storage counts toward namespace storage but is NOT enforced.
+- reliability: Snippets are visible/searchable by other users when public; storage is accounted at namespace level so it is the most likely subject to be capped first if GitLab ever enforces namespace quotas.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: 'The cost factor applies to the project repository, LFS objects, job artifacts, packages, snippets, and the wiki' (snippets are namespace-accounted)
+  - [2] 2026-10-21: 'Creating snippets is rate limited to 300 requests every hour for each authenticated user'
+  - [3] 2026-10-21: 'They can contain multiple files', 'use version control', 'clone ... and download'
+- sources:
+  - [1] https://docs.gitlab.com/user/storage_usage_quotas/
+  - [2] https://docs.gitlab.com/api/snippets/
+  - [3] https://docs.gitlab.com/user/snippets/
+
+## gitlab pages
+
+- `storage/gitlab-pages-2` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://docs.gitlab.com/user/gitlab_com/
+- free tier: none reachable: Hard 1 GB maximum site size on GitLab.com regardless of tier, plus a 200,000 file-entry cap and a 150 custom-domain cap. The 1 GB limit is a product-wide constant that an open GitLab issue… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Hard 1 GB maximum site size on GitLab.com regardless of tier, plus a 200,000 file-entry cap and a 150 custom-domain cap. The 1 GB limit is a product-wide constant that an open GitLab issue…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Hard 1 GB maximum site size on GitLab.com regardless of tier, plus a 200,000 file-entry cap and a 150 custom-domain cap. The 1 GB limit is a product-wide constant that an open GitLab issue…
+  - [2] 2026-10-21: cited as the basis of the rejection: Hard 1 GB maximum site size on GitLab.com regardless of tier, plus a 200,000 file-entry cap and a 150 custom-domain cap. The 1 GB limit is a product-wide constant that an open GitLab issue a
+  - [3] 2026-10-21: cited as the basis of the rejection: Hard 1 GB maximum site size on GitLab.com regardless of tier, plus a 200,000 file-entry cap and a 150 custom-domain cap. The 1 GB limit is a product-wide constant that an open GitLab issue a
+- sources:
+  - [1] https://docs.gitlab.com/user/gitlab_com/
+  - [2] https://docs.gitlab.com/administration/instance_limits/
+  - [3] https://gitlab.com/gitlab-org/gitlab/-/issues/426601
+
+## GitLab Pages (gitlab.io)
+
+- `storage/gitlab-pages` | fails-quota | evidence reported | binding none | category git
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://gitlab.com/groups/pages
+- free tier: 1 GB maximum site size on gitlab.com (tied to the 1 GB max artifact size); 200,000 file entries per site; unlimited projects. | unit: objects | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: No egress charge published; rate limits are 1,000 requests/50s per IP and 5,000 requests/10s per Pages domain. Generous enough for real serving but a hard ceiling if sharded heavily onto one domain. | metered: no
+- identity: email
+- interface: git, rclone
+- limits note: 1 GB site size and 1 GB max artifact; 200,000 files/dirs/symlinks per site; 150 custom domains; 1000 parallel deployments per top-level namespace; Pages rate limits 1,000 req/50s per IP.
+- interface detail: git
+- tooling: git push + a `pages` job in .gitlab-ci.yml (a 'pages' artifact); the git-pages v2 API also accepts a direct HTTP upload. No rclone backend.
+- composes with: 1 GB x unlimited projects x unlimited namespaces. 20 TiB = 20,480 projects. Per-project cap is 2x GitHub Pages but still fails a 500 GB unit test on its own.
+- reliability: Self-managed default is a 100 MB Pages cap, but gitlab.com is 1 GB. Do not confuse the two. CI minutes are free but shared runners now require a card on file for gitlab.com.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 1 GB maximum site size on gitlab.com (tied to the 1 GB max artifact size); 200,000 file entries per site; unlimited projects.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Maximum site size | 1 GB', 'The maximum size of your Pages site depends on the maximum artifact size'
+  - [2] 2026-10-21: 'total number of file entries (including directories and symlinks) is limited to 200,000 per GitLab Pages website'
+  - [3] 2026-10-21: 'GitLab Pages requests for an IP address | 1,000 requests every 50 seconds'
+  - [4] 2026-10-21: probe: curl -D - -> HTTP 302 chain, Server: cloudflare (live serving path)
+- sources:
+  - [1] https://docs.gitlab.com/user/gitlab_com/
+  - [2] https://docs.gitlab.com/administration/instance_limits/
+  - [3] https://docs.gitlab.com/user/gitlab_com/rate_limits/
+  - [4] https://gitlab-org.gitlab.io/gitlab-pages/

@@ -1,0 +1,113 @@
+# Proton VPN
+
+> protonvpn.com | IP and proxies, Egress and tunnels; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/protonvpn/ | JSON https://fshy.ajam.dev/api/v1/entity/protonvpn.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Proton VPN (paid)
+
+- `ip-proxy/protonvpn-exits` | qualifies-with-caveat | evidence documented | binding none | category VPN subscription (exit source) | tier paid
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T08:33:41.730Z (live) | stale on 2026-12-04
+- url https://protonvpn.com/pricing
+- price $9.99 per month list; $3.49 per month on a 24-month plan; a subscription price, not a per-TB price | parsed USD 3.49/mo
+- free tier: Free plan, quoted from the pricing page: 'Connect to servers in 10 countries (randomly selected) and Secure 1 device at a time' with 'no data limits, no artificial speed limits'. | unit: users | metered on: identity-count | read on: 2026-10-24 | source: [1] | note: One device at a time, not one account. The 10 countries are drawn at random, so the country cannot be chosen.
+- per-object cap: not applicable: an exit address, not an object | source: [1] | note: The address is the whole product; there is no object whose size could be capped.
+- retention: not applicable: a live tunnel and a rented exit address, not stored bytes | source: [1] | note: Nothing is stored at the exit; the address persists only for the life of the connection.
+- egress: Proton VPN offers a Free plan with no data limits, no artificial speed limits, and no compromises on your privacy and security; a feature blurb on the same page offers fast download speeds and unlimited bandwidth. The page publishes no byte allowance and no overage price for any plan it lists. | metered: no | free allowance: none published: the vendor states no data limits rather than a volume | source: [1]
+- identity: email | detail: An account registered with an email address. The facts record email as the only registration cost and name no second gate; the paid plans are sold against that account.
+- interface: cli, rest
+- limits:
+  - volume-quota: none published: the vendor states no data limits and no artificial speed limits on the Free plan, and a feature blurb offers unlimited bandwidth; no byte allowance or overage price is… [1]
+  - request-rate: unmeasured: one Worker request through the exit returned HTTP 200 with a 14-byte body on 2026-10-03; no sustained rate was tested, so no rate limit is known either way [workspace path removed]
+- limits note: Three constraints were found that the vocabulary has no kind for: the Free plan allows one device at a time; its server pool is 10 countries selected at random, so the exit cannot be chosen; and /vpn/logicals requires an authenticated session, so the 21,202-server fleet cannot be enumerated without an account. The measured exit sits in a hosting ASN (AS212238), which is why the record stops at rung 4.
+- binding note: Nothing in the vocabulary fails at 45 GB/month across about 599,000 requests: the vendor states no data limit, no rate was observed to be shaped, and the exit answered a Worker request at HTTP 200. Binding constraints sit outside the standard vocabulary, including the Free plan limit of one device at a time, its random 10-country pool, and an authenticated session for /vpn/logicals. The caveat that keeps this off rung 5 is the ASN's class, not a quota.
+- interface detail: The Linux CLI and the authenticated REST API at /vpn/logicals. The desktop and mobile apps and a web UI reach the same servers, and WireGuard and OpenVPN configurations are offered.
+- endpoint: /vpn/logicals — requires an authenticated session: HTTP 400 with Code 5002 Missing x-pm-appversion header when the app-version header is absent, HTTP 422 when it is present and the token is not valid.
+- tooling: A Cloudflare Worker fetches through the exit with plain HTTP; nothing bespoke is needed and no wrapper exists for exit selection. The CLI and generated WireGuard or OpenVPN configurations reach the same servers, but picking a specific exit needs an authenticated session, because /vpn/logicals refuses unauthenticated reads.
+- composes with: Proton provides the egress hop outside Cloudflare: traffic exits Cloudflare autonomous systems and reaches destinations from AS212238, presenting a Datacamp address. Secure Core routing inserts an intermediate entry hop without altering the exit registration class.
+- reliability: One exit was measured once: 149.50.216.236 answered a Cloudflare Worker request at HTTP 200 with a 14-byte body on 2026-10-03, and RIPE still maps the address to AS212238 on 2026-10-24; the fleet could not be enumerated, so nothing is claimed about the other servers' exits.
+- notes: Proton VPN is the topic's baseline: it is the one non-Cloudflare exit measured working inside a Cloudflare Worker, so every other exit is judged against it. The measurement is a single sample — one exit, one request, HTTP 200, a 14-byte body — and the fleet could not be enumerated, because /vpn/logicals refuses unauthenticated reads. The endpoint answered HTTP 400 with Code 5002 Missing x-pm-appversion header, then HTTP 422 once an app-version header was present and the token was not, which is the same conclusion by a different status. It does not clear rung 5: AS212238 is a hosting ASN, so the exit is a datacenter address and the class question is answered no. RIPE establishes the ASN and its holder (CDNEXT, Datacamp Limited, ORG-DL201-RIPE, GB) and carries no IP-type field, so the hosting classification is read from the holder's identity, one step above the registry; that step is the weakest link in the rung-5 judgement. Secure Core is a hop topology, not a class change: it inserts an entry hop and leaves the exit's registration class exactly where it was, so it cannot be used to reach rung 5. The pricing page states the Free plan has no data limits and no artificial speed limits, and a feature blurb on the same page offers unlimited bandwidth.
+- evidence note: The exit, its prefix and its ASN are measured: a Worker request returned the address and RIPE maps the /24 to AS212238. The price, the free-tier terms and the no-data-limit sentence are vendor-page reads, and the fleet count could not be enumerated, so the weakest rung the verdict rests on is documented. A paid account, a 45 GB transfer through one exit with a byte count at both ends, and an authenticated fleet listing would move the record to measured throughout.
+- extras:
+  - rung: 4
+  - rung_note: The exit address, its /24 and its announcing ASN are measured, but the ASN belongs to a hosting provider, so the record stops at ASN and does not reach registration class.
+  - exit_ip: 149.50.216.236
+  - asn: AS212238
+  - asn_name: CDNEXT
+  - asn_holder: CDNEXT Datacamp Limited
+  - asn_org: ORG-DL201-RIPE
+  - prefix: 149.50.216.0/24
+  - related_prefix: 149.50.0.0/15
+  - measured_in: Cloudflare Worker
+  - measurement_log: [workspace path removed]
+  - measurement_at: 2026-10-03T19:09:40Z
+  - response_bytes: 14
+  - fleet_stated: servers in over 140 countries per the pricing page read 2026-10-24
+  - secure_core: hop topology, not a class change
+  - price_usd.monthly_list: 9.99
+  - price_usd.per_month_on_24: 3.49
+  - registration_class: ARIN ASSIGNMENT: the exit's range 149.50.216.0-149.50.216.255 (NET-149-50-216-0-1, CDNEXT-STO-CG) is registered to Datacamp Limited, inside Datacamp Limited's ARIN ALLOCATION 149.50.208.0-149.50.223.255 (NET-149-50-208-0-1, DATACAMP-CGNT-NET-5), inside Cogent Communications' ARIN DIRECT ALLOCATION 149.50.0.0-149.50.255.255 (NET-149-50-0-0-1, COGENT-149-50-16). The registry carries no IP-type field, so the class is the registration chain: a range assigned to a hosting company, not an ISP subscriber block.
+- evidence:
+  - [1] 2026-10-24: List price $9.99 per month and $3.49 per month on the 24-month plan; Free plan is 1 device at a time in 10 randomly selected countries with no data limits and no artificial speed limits; the FAQ answer recommends a paid plan with servers in over 140 countries; a feature blurb offers unlimited bandwidth.
+  - probe:149.50.216.236 2026-10-03: A Cloudflare Worker request left through the Proton exit: HTTP 200, 14 bytes, body 149.50.216.236. Log [workspace path removed] at 2026-10-03T19:09:40Z.
+  - [2] 2026-10-24: 149.50.216.0/24 is announced and its announcing AS is 212238, holder CDNEXT Datacamp Limited; related prefix 149.50.0.0/15; query_time 2026-10-24T08:00:00.
+  - [3] 2026-10-24: AS212238 has as-name CDNEXT and org ORG-DL201-RIPE, status ASSIGNED, created 2020-12-02, last-modified 2026-07-14; org ORG-DL201-RIPE is Datacamp Limited, GB. RIPE carries no IP-type field, so the hosting classification is read from the holder, not from a registry class.
+  - probe:/vpn/logicals 2026-10-24: Unauthenticated /vpn/logicals returns HTTP 400 with Code 5002 Missing x-pm-appversion header, and HTTP 422 once an app-version header is sent without a valid token, so the fleet cannot be enumerated without an account.
+  - probe:rdap.db.ripe.net/ip/149.50.216.236 2026-11-03: Registry object NET-149-50-216-0-1 (name CDNEXT-STO-CG, 149.50.216.0-149.50.216.255) covering the Proton exit address 149.50.216.236 is an ASSIGNMENT registered to Datacamp Limited, with parent NET-149-50-208-0-1. | capture: sha256:469ba90eae5617286ea826abf1f1887d221d00bef47b44245506c4f2651f03fa | quote: "type" : "ASSIGNMENT"
+  - probe:rdap.arin.net/registry/ip/149.50.208.0/20 2026-11-03: NET-149-50-208-0-1 (name DATACAMP-CGNT-NET-5, 149.50.208.0-149.50.223.255) is an ALLOCATION, parent NET-149-50-0-0-1. | capture: sha256:156ff5c506f8a7780d7a813ed7daff866fe7d3e4979cb18a70a046d17560dac5 | quote: "type" : "ALLOCATION"
+  - probe:rdap.arin.net/registry/ip/149.50.0.0 2026-11-03: NET-149-50-0-0-1 (name COGENT-149-50-16, 149.50.0.0-149.50.255.255) is a DIRECT ALLOCATION whose registrant is Cogent Communications. | capture: sha256:659b123cbacf7e8025549729f93e06af6bf67c753f9ef387a1b5d6fb729f145b | quote: "type" : "DIRECT ALLOCATION"
+  - probe:rdap.db.ripe.net/autnum/212238 2026-11-03: The registrant organisation ORG-DL201-RIPE of aut-num AS212238 is Datacamp Limited. | capture: sha256:4499ab93e832d44fafec6c4e78851fae954067c1769345fb8a3a84ed1413670e | quote: "fn", { }, "text", "Datacamp Limited"
+  - probe:rdap.db.ripe.net/autnum/212238 2026-11-03: RIPE aut-num AS212238 has as-name CDNEXT. | capture: sha256:4499ab93e832d44fafec6c4e78851fae954067c1769345fb8a3a84ed1413670e | quote: "name" : "CDNEXT",
+- sources:
+  - [1] https://protonvpn.com/pricing
+  - [2] https://stat.ripe.net/data/prefix-overview/data.json?resource=149.50.216.0/24
+  - [3] https://rest.db.ripe.net/ripe/aut-num/AS212238.json
+
+## Proton VPN (plus)
+
+- `egress/proton-vpn` | paid-only | evidence documented | binding write-gated | category vpn port forward | tier plus
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T10:29:23.995Z (live) | stale on 2026-12-05
+- url https://protonvpn.com/support/port-forwarding
+- price USD 83.76 billed for the first 24 months on VPN Plus (USD 3.49 per month), then renewing at USD 83.88 every 12 months | parsed USD 3.49/mo
+- free tier: Port forwarding is currently available on our Windows, macOS, and Linux GUI apps for everyone with a paid Proton VPN plan. The plan table marks P2P/BitTorrent as absent from Proton Free and present on VPN Plus. VPN Plus on the 24-month plan: billed at $83.76 for the first 24 months, then renews at $83.88 every 12 months; the 12-month price is unverified: the pricing page rendered here shows only the monthly and 24-month figures. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: unverified: published terms state no explicit traffic allowance for the paid tier. The plan table lists features and speeds without byte figures.; ingress: tcp+udp | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: An account with an email address; the signup page offers Or sign up for free and then a paid plan, with card, PayPal or Google Pay. | country: None
+- interface: cli
+- limits:
+  - write-gated (binding): NAT-PMP mapping expires in 60 seconds and must be looped: natpmpc -a 1 0 udp 60 -g 10.2.0.1, with sleep 45 between calls; closing the terminal terminates the loop [2]
+  - per-ip-shaping: P2P servers only; port forwarding is not compatible with NAT type 2 (moderate NAT) [1]
+- binding note: At 1 TiB/month nothing in the pages read states a byte cap, so the thing that fails first is the mapping: a 60-second NAT-PMP lease driven by a loop, on a port the vendor says usually changes when you reconnect. That is a keepalive dependency, not a volume limit.
+- interface detail: Account web page generates configs; port control is NAT-PMP on the tunnel gateway, not a REST API. Protocols: WireGuard over UDP and TCP, OpenVPN, IKEv2, Stealth (obfuscated) and Smart Protocol. No SOCKS5 proxy is offered. P2P servers (BitTorrent) are included on paid plans.
+- tooling: natpmpc from libnatpmp, or the official app; WireGuard config from the account page.
+- composes with: Provides the public endpoint; the loop that keeps the lease alive is a small daemon that must run beside the service.
+- reliability: The forwarded port expires 60 seconds after the last NAT-PMP renewal; a crashed loop closes the port silently.
+- notes: Proton VPN supports dynamic port forwarding via NAT-PMP on paid tiers. Assigned ports change upon reconnection, requiring client-side port derivation loops.
+- evidence note: Measured would need an account, a natpmpc loop and a byte count. The moving-port sentence comes from the GUI guide, so the stability claim is documented and the byte ceiling is openly unverified.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: A WireGuard configuration file is generated in the account with the port-forwarding toggle baked in: Select a VPN server that supports P2P (double-arrow icon) and generate a WireGuard configuration file. When doing this, ensure that Select VPN options then NAT-PMP (port forwarding) is enabled. Mappings are then made with natpmpc from a user.
+  - ingress: tcp+udp
+  - volume_stated: unverified: no page read states a Proton VPN traffic allowance for the paid tier; the plan table lists features and speeds, not bytes.
+  - bytes_transit: yes
+  - transit_note: Traffic exits at the P2P server's address for the duration of the mapping.
+- evidence:
+  - [1] 2026-10-23: Port forwarding is on all paid plans and not on Free; The port number usually changes when you reconnect to VPN.
+  - [2] 2026-10-23: A WireGuard config can carry NAT-PMP port forwarding; mappings last 60 seconds and must be renewed in a loop; example allocation port 53186 for both UDP and TCP.
+  - [3] 2026-10-23: Proton Free has no P2P/BitTorrent and connects to servers in 10 countries; VPN Plus carries P2P.
+  - [4] 2026-10-23: VPN Plus prices: 9.99 EUR per month monthly, 5.32 EUR per month billed at 63.81 EUR for 12 months, 4.49 EUR per month billed at 107.76 EUR for 24 months.
+  - [3] 2026-11-04: the VPN Plus 24-month plan is billed $83.76 and renews at $83.88 every 12 months | capture: sha256:7cd733887538533e749fb235f2fae802e6a998d19a4109a846dc3469e17e4836 | quote: Billed at $83.76 for the first 24 months, then renews at $83.88 every 12 months.
+  - [5] 2026-11-04: Stealth and Smart Protocol are Proton protocols alongside WireGuard, OpenVPN and IKEv2 | capture: sha256:049a6b5202fb3bf09ac2b02e3ecb58091a290b70c952d82c2b6292ea17cbdb6a | quote: Note that Smart Protocol and Stealth are only available if you’ve enabled Proton Protocols.
+  - [5] 2026-11-04: WireGuard is offered over TCP as well as UDP | capture: sha256:049a6b5202fb3bf09ac2b02e3ecb58091a290b70c952d82c2b6292ea17cbdb6a | quote: **WireGuard TCP: **Available on Windows, macOS, Android, iOS and iPadOS, Android TV.
+  - [6] 2026-11-04: Proton VPN does not offer a SOCKS5 proxy | capture: sha256:ea7e0e9a833872dfd038390364d5f32406e6d97ab66475eca43cd3c983ac28a7 | quote: Proton VPN doesn’t, and we never will.
+  - [7] 2026-11-04: P2P servers are on all paid plans | capture: sha256:3bbb27ee951f7bf79902c00ffa80c683cff6fceb526d5beea77af1f474afcd64 | quote: | All paid Proton VPN plans. [Get Plus](https://protonvpn.com/pricing) | Windows, macOS, Android, Linux |
+  - [3] 2026-11-04: VPN Plus 24-month plan is billed 83.76 USD, then renews at 83.88 USD every 12 months | capture: sha256:7f54644e1c520db4de7f6fbc043606e9e2000b259d1e4ca73bdedfde80e9f6ee | quote: Billed at $83.76 for the first 24 months, then renews at $83.88 every 12 months.
+- sources:
+  - [1] https://protonvpn.com/support/port-forwarding
+  - [2] https://protonvpn.com/support/port-forwarding-manual-setup
+  - [3] https://protonvpn.com/pricing
+  - [4] https://account.protonvpn.com/signup?plan=vpn2024&currency=EUR
+  - [5] https://protonvpn.com/support/how-to-change-vpn-protocols
+  - [6] https://protonvpn.com/support/socks5
+  - [7] https://protonvpn.com/support/bittorrent-vpn

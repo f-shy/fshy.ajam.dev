@@ -1,0 +1,2476 @@
+# Google
+
+> google.com | Databases and KV, Storage, Compute, Inference, Domains and DNS, Egress and tunnels, Crawling, IP and proxies; 65 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/google/ | JSON https://fshy.ajam.dev/api/v1/entity/google.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Cloud Firestore (firestore)
+
+- `databases-kv/firestore` | qualifies | evidence documented | binding request-rate | category document database
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:05:00.000Z (live) | stale on 2026-11-22
+- url https://firebase.google.com/docs/firestore/quotas
+- free tier: 1 GiB stored, 50,000 document reads per day, 20,000 writes per day, 20,000 deletes per day, exactly one free database per project | unit: GiB | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: 1 GiB stored; a 1 MiB document size limit applies to the engine | source: [1]
+- retention: data persists; there is no inactivity deletion on the free quota | source: [1]
+- egress: 10 GiB a month of outbound data transfer is included in the free quota; beyond it the transfer is billed at the standard Cloud Firestore network rate, and reads are counted as operations against the daily quota | metered: yes | free allowance: 10 GiB per month | source: [1]
+- identity: email | detail: a Google account
+- interface: rest, graphql
+- limits:
+  - request-rate (binding): 50,000 document reads and 20,000 writes per day [1]
+  - per-object-cap: 1 GiB stored; exactly one free database per project [1]
+- limits note: a project may hold up to 100 databases, but only one is free, so multiple logical databases is a paid feature
+- interface detail: a REST and gRPC API with realtime listeners; SDKs for web, mobile and server; a GraphQL-ish query surface is not offered, the REST and gRPC APIs are
+- tooling: the Firebase Admin SDK; the gcloud and firebase CLIs; REST
+- composes with: 1 GiB of document state with client SDKs and realtime sync, which no other free tier here gives
+- reliability: no suspension, throttle or data-loss event is recorded on the pages read
+- notes: The one-database rule is the constraint that a multi-tenant design meets first, not the 1 GiB.
+- evidence note: the quotas page was read and states 'exactly one free database per project'.
+- evidence:
+  - [1] 2026-10-22: Free quota: 1 GiB stored data, 50,000 document reads/day, 20,000 writes/day, 20,000 deletes/day; 'Cloud Firestore allows exactly one free database per project'
+- sources:
+  - [1] https://firebase.google.com/docs/firestore/quotas
+
+## Google Workspace for Education Fundamentals (pooled tenant)
+
+- `storage/google-workspace-for-education-fundamentals` | qualifies | evidence reported | binding per-object-cap | category cloud-drive
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://edu.google.com/intl/ALL_us/workspace-for-education/editions/education-fundamentals/
+- free tier: 100 TB of pooled cloud storage per institution, at 'No cost'. Pooled across Drive + Gmail + Photos and all shared drives. Confirmed twice on Google's own pages: 'Schools and universities with Google Workspace for Education subscriptions have a baseline of 100 TB of pooled storage shared across all users' and 'Google Workspace for Education Fundamentals / Standard — 100 TB total for all End Users'. | unit: TB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 5 TB per single upload | bytes: 5000000000000 | source: [1] | note: not stated
+- retention: Over-quota: at +25% or 14 days, uploads and Docs creation stop but download keeps working. | days: 14 | source: [1] | note: not stated
+- egress: Not metered for Drive reads. Google's own storage page says over-quota tenants 'can still sign in to .. view and download their files' — i.e. reads are never blocked by quota. Direct-download URLs are served from Google's edge; put behind Cloudflare if you want a cache. | metered: yes
+- identity: institution
+- interface: rest, rclone
+- limits:
+  - per-object-cap (binding): 5 TB per single upload [1]
+- limits note: Per-object-cap 5 TB per single upload, and 750 GB per user per 24 h (upload+copy). This is the real throttle, and it is refreshing not cumulative. request-rate: standard Drive API quota (per-project, raiseable). retention: none while the tenant is active; data survives account suspension but suspended users still consume the pool. Item cap 500 million items per user. Over-quota: at +25% or 14 days, uploads and Docs creation stop but download keeps working.
+- interface detail: rest
+- tooling: rclone backend 'drive' (Tier 1, server-side copy, shared-drive support); Google Drive API v3; GAM (github.com/GAM-team/GAM) for admin-side bulk operations; gclone for service-account fan-out.
+- composes with: One qualifying institution = one tenant = 100 TB. So the multiplier is domains, not users. Inside a tenant the multiplier is shared drives (unlimited count) and user count: up to 2,500 licenses per new domain, all drawing on the same 100 TB pool. Adding Teaching & Learning add-on licences adds 100 GB each 'with no cap' (paid).
+- reliability: Stable for a decade, but Google already abolished the predecessor's unlimited tier (2021 archive: 'Existing customers ... will continue to have unlimited storage until early 2022'). Quota is now hard-capped and admin-auditable, so a tenant can be spotted by whoever administers it.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: 'baseline of 100 TB of pooled storage shared across all users'
+  - [2] 2026-10-21: table: 'Google Workspace for Education Fundamentals / Standard | 100 TB total for all End Users'; 'Each user can upload and copy 750 GB to Drive within 24 hours ... up to 5 TB in size'
+  - [3] 2026-10-21: K-12 and degree-granting institutions only; 'must establish a separate domain for the school to qualify'
+  - withheld 2026-10-21: probe: GET knowledge.workspace.google.com/admin/getting-started/editions/overview-of-google-workspace-for-education-storage -> 200 (quota quoted live, 2026-10-21)
+  - withheld 2026-10-21: probe: GET www.googleapis.com/drive/v3/about?fields=storageQuota -> 401 (anonymous; confirms API is the read path, auth required)
+- sources:
+  - [1] https://knowledge.workspace.google.com/admin/getting-started/editions/overview-of-google-workspace-for-education-storage
+  - [2] https://support.google.com/a/answer/172541
+  - [3] https://knowledge.workspace.google.com/admin/getting-started/editions/qualifications-for-google-workspace-for-education
+
+## Firebase Hosting
+
+- `compute/firebase-hosting` | qualifies-with-caveat | evidence documented | binding volume-quota | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:40:20.287Z (live) | stale on 2026-12-05
+- url https://firebase.google.com/docs/hosting/usage-quotas-pricing
+- free tier: On the no-cost Spark plan, Hosting storage is free up to 10 GB and CDN data transfer is free up to 10 GB a month, with a 2 GB ceiling on any single file. Over either limit without the Blaze plan, deployment stops or the sites are disabled until the month turns. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: perpetual-allowance
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 'Data transfer from the CDN to your end users is at no cost up to 10 GB/month'; past it there is a short grace period and then sites are disabled until the start of the next month, quoted | metered: yes | free allowance: 10 GB a month | price per TB: USD 0.15 per GB beyond the allowance, Blaze plan only | source: [1]
+- identity: email
+- interface: cli, rest
+- limits:
+  - volume-quota (binding): 10 GB a month of CDN transfer is the smaller of the two: at 10 GB stored and 10 GB served, the allowance is spent by serving the whole site once a month. [1]
+- limits note: 10 GB a month of CDN transfer is the smaller of the two: at 10 GB stored and 10 GB served, the allowance is spent by serving the whole site once a month.
+- binding note: the same as limits note
+- interface detail: Firebase CLI and the Firebase Hosting REST API, documented at firebase.google.com/docs/cli and /docs/hosting/api-deploy
+- tooling: the firebase command of the Firebase CLI (standalone binary or npm); the Hosting REST API is the alternative for programmatic deploys
+- composes with: 10 GB stored and 10 GB a month served is a documentation site or a demo, not a data host; it composes as the front door for a project whose real artefacts sit in a bucket with a larger allowance.
+- reliability: no reliability event recorded
+- notes: The quota page still describes the no-cost level and the Blaze upgrade path, so the free tier still exists. The 10 GB of transfer is per month, not per day, and the page says that sites stay disabled until the start of the next month. compute/firebase-studio is a different product.
+- extras:
+  - facets.class: perpetual-allowance
+  - facets.free_tier_kind: perpetual-allowance
+- evidence:
+  - [1] 2026-10-22: 'Storage for your Hosting content is at no cost up to 10 GB'; on the non-Blaze plan reaching 10 GB blocks new deployments, quoted
+  - [1] 2026-10-22: 'Data transfer from the CDN to your end users is at no cost up to 10 GB/month'; past it there is a short grace period and then sites are disabled until the start of the next month, quoted
+  - [1] 2026-10-22: Hosting has a maximum size limit of 2 GB for individual files; paid overage is USD 0.026/GB stored and USD 0.15/GB transferred on Blaze, quoted
+  - [1] 2026-11-03: 10 GB a month of CDN data transfer is free | capture: sha256:2371839990c60337cf160962b88ec9303f39928c9aaafd4fd900086ac8547e63 | quote: Data transfer from the CDN to your end users is at no cost up to 10 GB/month.
+  - [1] 2026-11-03: Blaze overage is $0.15 per GB | capture: sha256:2371839990c60337cf160962b88ec9303f39928c9aaafd4fd900086ac8547e63 | quote: you'll be billed $0.15 for each additional GB of data transferred that month.
+  - [2] 2026-11-03: a Hosting REST API exists | capture: sha256:1be7b02f756e11908f1ff3b74a45b3ecf077837beabe7829380a5cdc07b2f67a | quote: Use this REST API to deploy new or updated Hosting content and
+  - [3] 2026-11-03: the Firebase CLI deploys Hosting | capture: sha256:c7742c883a91a5ac71a512a2336062d1af37263c749a49e1dfb1f20be2415b27 | quote: provides a variety of tools for managing, viewing, and deploying to Firebase projects.
+  - [2] 2026-11-04: the REST API is the CLI alternative | capture: sha256:1be7b02f756e11908f1ff3b74a45b3ecf077837beabe7829380a5cdc07b2f67a | quote: As an alternative to using the [Firebase CLI](https://firebase.google.com/docs/hosting/quickstart) for
+  - [3] 2026-11-04: the CLI installs as the firebase command | capture: sha256:c7742c883a91a5ac71a512a2336062d1af37263c749a49e1dfb1f20be2415b27 | quote: | npm | Use npm (the Node Package Manager) to install the CLI and enable the globally available `firebase` command. |
+- sources:
+  - [1] https://firebase.google.com/docs/hosting/usage-quotas-pricing
+  - [2] https://firebase.google.com/docs/hosting/api-deploy
+  - [3] https://firebase.google.com/docs/cli
+
+## Gemini Notebook (formerly NotebookLM) — source corpus
+
+- `storage/gemini-notebook-source-corpus` | qualifies-with-caveat | evidence reported | binding per-object-cap | category AI notebook / RAG product
+- needs card no, phone unknown, ID no, institution no | verified 2026-11-01T18:05:08.099Z, checked 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://support.google.com/gemininotebook/answer/16269187?hl=en
+- free tier: Also 500,000 words/source cap and no page limit. | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: per-object-cap 200 MB | bytes: 200000000 | source: [2] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: No egress metering or fee anywhere in the product. Reads happen through Google's own UI/API, not a CDN URL. | metered: no
+- identity: email | detail: a Google Account: the plans page states 'Sign up free of charge by using your gmail account', and the help centre requires verifying age in that Google Account before access. No card appears in that flow; whether a phone number is asked for was not read.
+- interface: rest, cli
+- limits:
+  - per-object-cap (binding): per-object-cap 200 MB [2]
+- limits note: per-object-cap 200 MB or 500,000 words. Notebook cap is per-user; source cap is per-notebook; 'sharing a notebook does not change the source limit for any collaborator'. Copy-protected PDFs are rejected outright. Consumer API is undocumented and Google has changed enforced limits without updating the published tables.
+- interface detail: No official public API for consumer accounts. Working path is the reverse-engineered internal batchexecute API: `notebooklm-py` (19,838 stars, pushed 2026-10-21) exposes Python, CLI, MCP server, and a local REST server; `notebooklm-mcp` (202) and `notebooklm-rest-api` (91) wrap it.
+- tooling: pip install notebooklm-py; `notebooklm source add`, `notebooklm ask`, `notebooklm generate`, `notebooklm download`. Google Cloud has a separate documented Enterprise API (notebooks.sources.uploadFile) that requires a Workspace/Cloud entitlement.
+- composes with: 100 notebooks x 50 x 200 MB = 1 TB per Google account. Google accounts are free and email-only, so N accounts linearise. Upskilling to Plus/Pro only raises the per-notebook source cap (100/300), so the notebook count stays at 200/500. The free tier already gives the widest notebook multiplier per dollar.
+- reliability: Source files cannot be downloaded in original binary format. The platform retains static extracted text and exports plain text or image conversions rather than bit-exact files. Ingestion provides 1 TB of document indexing subject to API rate limits.
+- notes: the same as the free tier
+- evidence:
+  - [3] 2026-10-21: 'The current limit is 500,000 words per source or up to 200MB for local uploads. There's no page limit.'
+  - [1] 2026-10-21: 'Notebooks | 100/user'; 'Sources | 50/notebook' (Standard column); 'Sharing a notebook does not change the source limit'
+  - [4] 2026-10-21: 19,838 stars, description 'Full programmatic access to Gemini Notebook's features—including capabilities the web UI doesn't expose'; pushed_at 2026-10-21T19:38:11Z
+  - [5] 2026-10-21: export is 'the text Gemini Notebook extracted from each source, as Markdown, plain text or PDF' — not the original file
+  - [6] 2026-10-21: '元のPDFには戻らない！HTML形式への変換' (does not return to the original PDF)
+  - [7] 2026-10-21: separate Enterprise API exists but is entitlement-gated
+  - [1] 2026-11-01: the standard plan is signed up for with a gmail account at no charge | capture: sha256:2c611f89448b3ed57827f6be00909817cc2bceb5e09d24107fcea9c349360f22 | quote: Sign up free of charge by using your gmail account.
+  - [2] 2026-11-01: the 200 MB per-source cap is stated on the frequently-asked-questions page, not on the plans page the row named | capture: sha256:abd636bb23f8fafa72c460ba5f2cd59b68553639ccf4b227eece85eccf7416d9 | quote: The current limit is 500,000 words per source or up to 200MB for local uploads. There’s no page limit.
+  - [2] 2026-11-01: the 200 MB per-source limit is stated on this page | capture: sha256:abd636bb23f8fafa72c460ba5f2cd59b68553639ccf4b227eece85eccf7416d9 | quote: The file size exceeds the allowed 200MB limit.
+  - [1] 2026-11-01: the standard plan is still 100 notebooks per user, and 50 sources per notebook on the same table | capture: sha256:2c611f89448b3ed57827f6be00909817cc2bceb5e09d24107fcea9c349360f22 | quote: | Notebooks | 100/user | 200/user | 500/user | 500/user | 500/user |
+- sources:
+  - [1] https://support.google.com/gemininotebook/answer/16213268?hl=en
+  - [2] https://support.google.com/notebooklm/answer/16269187?hl=en
+  - [3] https://support.google.com/gemininotebook/answer/16269187?hl=en
+  - [4] https://github.com/teng-lin/notebooklm-py
+  - [5] https://notebookclipper.com/docs/notebook/export-sources
+  - [6] https://ainotechou.com/notelm-source/
+  - [7] https://docs.cloud.google.com/gemini/enterprise/notebooklm-enterprise/docs/api-notebooks-sources
+
+## GKE Agent Sandbox
+
+- `compute/gke-agent-sandbox` | qualifies-with-caveat | evidence documented | binding volume-quota | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-11-06T15:56:55.346Z (live) | stale on 2026-12-07
+- url https://docs.cloud.google.com/kubernetes-engine/docs/how-to/agent-sandbox
+- free tier: USD 300 of one-time Free Trial credit, valid for 90 days | unit: mixed | metered on: wall-clock | read on: 2026-10-02 | source: [1] | note: Agent Sandbox on GKE is offered at no extra charge; GKE pricing applies to the resources created
+- per-object cap: not stated | source: [2]
+- retention: suspending a sandbox deletes its Pod and keeps the Sandbox resource and its persistent volumes; in-memory data and container file system changes are lost unless a Pod snapshot is taken… | source: [2]
+- egress: not published | metered: no | source: [2]
+- identity: card | detail: a credit card or other payment method valid for the Free Trial period is required at signup; identity and payment method are verified before the trial starts; bank account verification may be required depending on country; eligibility requires never having been a paying user of Google Cloud, Google Maps Platform or Firebase and no earlier Free Trial signup
+- interface: cli
+- limits:
+  - volume-quota (binding): GKE free tier: USD 74.40 in monthly credits per billing account, equivalent to one free Autopilot or zonal Standard cluster per month; the credit applies to the cluster charge only, not to compute, networking or other resources [3]
+- limits note: the Free Trial ends when 90 days pass or the USD 300 is spent; the Free Trial billing account is then closed and its projects and resources are stopped unless upgraded to a paid billing account
+- binding note: the monthly cluster credit is what runs out first: it covers one cluster's management fee and nothing else, so compute, networking and egress are billed on top of it before any sandbox limit could bind
+- interface detail: Agent Sandbox Python client on a GKE cluster (Autopilot or Standard); the cluster is created and managed with the Google Cloud console and Cloud Shell
+- tooling: the user installs the Agent Sandbox controller on a GKE cluster with kubectl and upgrades it; the Agent Sandbox Python client requests sandboxes from a pre-warmed pool
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: The agent-sandbox product is documented. The how-to at docs.cloud.google.com/kubernetes-engine/docs/how-to/agent-sandbox and the concept page at docs.cloud.google.com/kubernetes-engine/docs/concepts/machine-learning/agent-sandbox describe it; the older .../concepts/agent-sandbox path answers not-found and the concept page moved to the machine-learning path. Agent Sandbox adds no charge of its own and GKE pricing applies to the resources created, including the compute the controller uses. The free unit is Google's: the GKE free tier covers one Autopilot or zonal Standard cluster and nothing else, and the Free Trial credit expires and is gated on a credit card.
+- evidence note: documented from first-party Google Cloud pages: the Agent Sandbox how-to (no extra charge, kubectl setup), the concept page (the controller is installed in the user's cluster and the user upgrades it), the GKE pricing page (the monthly free-tier cluster credit) and the Free Trial terms (the welcome credit, its expiry and the credit card at signup). Egress is published on none of them, so it is not asserted.
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - free_tier_kind: one-time-credit
+  - granularity.min_billed_s: 0
+  - burst_x: 1.0
+- evidence:
+  - [2] 2026-10-02: 
+  - [4] 2026-10-22: unverified: the documented page returns 404 on 2026-10-22. The GKE free-tier row is on https://cloud.google.com/free/docs/free-cloud-features and states one free Autopilot or zonal Standard cluster per month applying to the cluster charge only
+  - [1] 2026-10-28: the Free Trial billing account is preloaded with USD 300 valid for 90 days | capture: sha256:885a38c2b738a7e9ac34bffbae919db1163c80786856ff5f689da3a3bfe0b095 | quote: Signing up for the Free Trial creates a Free Trial billing account that is preloaded with $300 in free Welcome credit which is valid for 90 days.
+  - [5] 2026-10-28: Agent Sandbox adds no charge of its own | capture: sha256:0ecb642eb3f5414e481914aeae64e873ca07fdb865aa9bd17ab4e691a81ab75c | quote: Agent Sandbox on GKE is offered at no extra charge.
+  - [1] 2026-10-28: the live free-trial page states the credit | capture: sha256:885a38c2b738a7e9ac34bffbae919db1163c80786856ff5f689da3a3bfe0b095 | quote: Signing up for the Free Trial creates a Free Trial billing account that is preloaded with $300 in free Welcome credit which is valid for 90 days.
+  - [5] 2026-10-28: the live Agent Sandbox page is the docs.cloud.google.com how-to | capture: sha256:0ecb642eb3f5414e481914aeae64e873ca07fdb865aa9bd17ab4e691a81ab75c | quote: You can deploy a developer environment to use the Agent Sandbox Python client on a Google Kubernetes Engine (GKE) cluster.
+  - [3] 2026-10-28: the GKE free tier is USD 74.40 monthly per billing account | capture: sha256:a7b512ee9ae21ef2996e6341e0edfbef0f6f67a41edbaa6c2bcbf34989bb481e | quote: The GKE free tier provides $74.40 in monthly credits per billing account, which is equivalent to one free Autopilot or zonal Standard cluster per month.
+  - [1] 2026-10-28: the Free Trial billing account closes after 90 days or when the USD 300 is spent | capture: sha256:885a38c2b738a7e9ac34bffbae919db1163c80786856ff5f689da3a3bfe0b095 | quote: If you don't upgrade to a Paid billing account before 90 days pass or if you spend the $300 in free credit, then your Free Trial billing account will be closed and all of its associated projects and resources will be stopped.
+  - [1] 2026-10-28: Free Trial signup requires a credit card or other payment method | capture: sha256:885a38c2b738a7e9ac34bffbae919db1163c80786856ff5f689da3a3bfe0b095 | quote: During the sign up, you must provide a credit card or other payment method that is valid for the period of the Free Trial.
+  - [1] 2026-10-28: identity and payment method are verified before the Free Trial starts | capture: sha256:885a38c2b738a7e9ac34bffbae919db1163c80786856ff5f689da3a3bfe0b095 | quote: After you complete the signup and your identity and payment method are verified, your Free Trial period starts.
+  - [5] 2026-10-28: the documented access path is the Agent Sandbox Python client on a GKE cluster | capture: sha256:0ecb642eb3f5414e481914aeae64e873ca07fdb865aa9bd17ab4e691a81ab75c | quote: You can deploy a developer environment to use the Agent Sandbox Python client on a Google Kubernetes Engine (GKE) cluster.
+  - [1] 2026-10-28: the Free Trial terms are readable on the live page | capture: sha256:885a38c2b738a7e9ac34bffbae919db1163c80786856ff5f689da3a3bfe0b095 | quote: Signing up for the Free Trial creates a Free Trial billing account that is preloaded with $300 in free Welcome credit which is valid for 90 days.
+  - [2] 2026-10-28: the original Agent Sandbox concept page URL returns 404 on 2026-10-28 | capture: sha256:a5e2e77f6000c21494813d583b3b24720e100142e0260681ed632ec774f3b0f1 | quote: Sorry, we couldn't find that page.
+  - [3] 2026-10-28: GKE usage is billed on elapsed time in 1 second increments, unchanged | capture: sha256:a7b512ee9ae21ef2996e6341e0edfbef0f6f67a41edbaa6c2bcbf34989bb481e | quote: A flat cluster management fee of $0.10 per cluster per hour (charged in 1 second increments) applies to all GKE clusters irrespective of the mode of operation, cluster size, or topology.
+  - [5] 2026-11-03: the sandbox setup is driven with kubectl | capture: sha256:ca4d53cfd40531a2f8c7bc14d295865de9214d9485a27a8d8e67b7429f82f6eb | quote: kubectl apply -f sandbox-template-and-pool.yaml
+  - [1] 2026-11-06: the Free Trial credit and its 90-day life are unchanged on the live page | quote: Signing up for the Free Trial creates a Free Trial billing account that is preloaded with $300 in free Welcome credit which is valid for 90 days.
+  - [5] 2026-11-06: the agent-sandbox product is documented and adds no charge of its own | capture: sha256:ca4d53cfd40531a2f8c7bc14d295865de9214d9485a27a8d8e67b7429f82f6eb | quote: Agent Sandbox on GKE is open source software that you can use at no extra charge.
+  - [6] 2026-11-06: the concept page is live at the machine-learning path and describes the product | capture: sha256:ede4d8fddd38d1b5c67029cd7ea61d2d158d18d33f3e52223f9acdf5e0f0d0ac | quote: To use Agent Sandbox on GKE, you install the Agent Sandbox controller on your cluster. You're responsible for upgrading the controller.
+  - [3] 2026-11-06: the GKE free tier is unchanged | capture: sha256:a7b512ee9ae21ef2996e6341e0edfbef0f6f67a41edbaa6c2bcbf34989bb481e | quote: The GKE free tier provides $74.40 in monthly credits per billing account, which is equivalent to one free Autopilot or zonal Standard cluster per month.
+  - [6] 2026-11-06: the controller is installed and upgraded by the user, and a user is the documented route | capture: sha256:ede4d8fddd38d1b5c67029cd7ea61d2d158d18d33f3e52223f9acdf5e0f0d0ac | quote: To use Agent Sandbox on GKE, you install the Agent Sandbox controller on your cluster. You're responsible for upgrading the controller.
+  - [6] 2026-11-06: what survives a suspend and what does not | capture: sha256:ede4d8fddd38d1b5c67029cd7ea61d2d158d18d33f3e52223f9acdf5e0f0d0ac | quote: the controller deletes the Pod but keeps the Sandbox resource and its persistent volumes. In-memory data and container file system changes are lost unless you take a Pod snapshot first.
+  - [1] 2026-11-06: the Free Trial gate is a credit card or other payment method | quote: During the sign up, you must provide a credit card or other payment method that is valid for the period of the Free Trial.
+  - [5] 2026-11-06: the sandbox template and pool are applied with kubectl | capture: sha256:ca4d53cfd40531a2f8c7bc14d295865de9214d9485a27a8d8e67b7429f82f6eb | quote: kubectl apply -f sandbox-template-and-pool.yaml
+  - [1] 2026-11-06: the GKE free tier row states the same one-cluster allowance | quote: One free Autopilot or zonal Standard cluster per month.
+  - [3] 2026-11-06: the free unit is a monthly cluster credit, the volume-quota row the record already carries | capture: sha256:a7b512ee9ae21ef2996e6341e0edfbef0f6f67a41edbaa6c2bcbf34989bb481e | quote: The GKE free tier provides $74.40 in monthly credits per billing account, which is equivalent to one free Autopilot or zonal Standard cluster per month.
+  - [1] 2026-11-06: the credit is scoped to the cluster charge, so the cluster allowance is the first thing that runs out | quote: One free Autopilot or zonal Standard cluster per month.
+- sources:
+  - [1] https://docs.cloud.google.com/free/docs/free-cloud-features
+  - [2] https://cloud.google.com/kubernetes-engine/docs/concepts/agent-sandbox
+  - [3] https://cloud.google.com/kubernetes-engine/pricing
+  - [4] https://cloud.google.com/free/docs/free-cloud-features
+  - [5] https://docs.cloud.google.com/kubernetes-engine/docs/how-to/agent-sandbox
+  - [6] https://docs.cloud.google.com/kubernetes-engine/docs/concepts/machine-learning/agent-sandbox
+
+## Google Agent Platform Sandbox (Code Execution / Shell / Computer Use)
+
+- `compute/vertex-computer-use` | qualifies-with-caveat | evidence reported | binding write-gated | category container and VM sandbox
+- identity a placeholder: card and phone unknown | verified 2026-11-04T02:24:21.010Z (live) | stale on 2026-11-19
+- url https://cloud.google.com/products/gemini-enterprise-agent-platform/pricing
+- free tier: USD 300.0 of one-time credit, from catalog records; unverified against live endpoints | unit: mixed | metered on: wall-clock | read on: 2026-10-02 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published: the pricing page lists no egress allowance or overage price for sandbox environments | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - request-rate: training from $3.465 a node-hour; online prediction from $1.375 a node-hour [1]
+  - write-gated (binding): the USD 300 is a 90-day new-customer credit, not a recurring allowance [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the pricing page and the free-features document were read on 2026-10-22. Neither states a free allowance for computer use specifically, so the USD 300 credit the record rests on still comes from documented records card and the rung stays `reported`
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: no allowance or session clock published for computer use
+  - free_tier_kind: one-time-credit
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: the Gemini Enterprise Agent Platform pricing page was re-read on 2026-10-22 and prices training, prediction and batch prediction per node-hour; the free-features document lists Agent Engine's vCPU-second allowance and states no computer-use allowance
+  - [1] 2026-11-03: sandbox billing lists compute and memory only; the page names no egress allowance or overage price | capture: sha256:06604dfa30c7e30a9a50e6b8a3ef8c921fc64fa19d3e1cdc7ad3bdedd74a006f | quote: Runtime and Sandbox environments, including Code Execution and Computer Use, are billed on Agent Compute (vCPU-hours) and Agent Memory (GiB-hours) resource usage.
+- sources:
+  - [1] https://cloud.google.com/products/gemini-enterprise-agent-platform/pricing
+
+## Google Agent Runtime / Agent Engine
+
+- `compute/google-agent-engine` | qualifies-with-caveat | evidence documented | binding request-rate | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-11-02T02:17:35.142Z (live) | stale on 2026-12-03
+- url https://cloud.google.com/products/gemini-enterprise-agent-platform/pricing
+- free tier: 180,000 vCPU-seconds and 360,000 GiB-seconds a month on Agent Engine, which is 50 vCPU-hours and 100 GiB-hours, recurring | unit: seconds | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: card | detail: a Google account, then a Cloud Billing account: the Free Tier states that a Cloud Billing account is needed, and the Free Trial signup states that a credit card or other payment method valid for the trial period must be provided. A Cloud Billing account must keep a valid payment method at all times and prepaid cards are not accepted; in many countries a debit card or a bank account is accepted as the primary method instead. The Google account signup asks for a username, a password, a birthday and gender, and adding and verifying a phone number is optional, so no phone number is required to open the account. Express mode of the same platform states that no billing information is needed, but its free tier covers only the model APIs that support express mode, not the agent runtime the allowance is spent on. | country: restricted in some countries and regions, such as China, Crimea, Cuba, Iran, North Korea and Syria; the country chosen on a Cloud Billing account cannot be changed later
+- interface: unknown
+- limits:
+  - request-rate (binding): 180,000 vCPU-seconds and 360,000 GiB-seconds a month on Agent Engine [1]
+  - per-object-cap: 50 vCPU-hours a month is 6.8% of a 730-hour month, so a single always-on agent exceeds it [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the free-features document and the Gemini Enterprise Agent Platform pricing page were both read on 2026-10-22. The allowance is stated in vCPU-seconds, which is the unit the expansion plan asks for and which a dollar figure hides
+- extras:
+  - keep_rate: 1.0
+  - keep_rate_basis: billed while running; can be stopped by the caller
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: the allowance is vCPU-seconds a month; there is no session clock, and a deployment that stays up exhausts the month early
+  - free_tier_kind: allowance
+  - granularity.min_billed_s: 0
+  - burst_x: 1.0
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Agent Engine: First 180,000 vCPU-seconds (50 hours) per month, First 360,000 GiB-seconds (100 hours) per month', quoted from the free-features document, against the per-node-hour rates on the pricing page read the same day
+  - [2] 2026-11-02: the signup for the account that carries this allowance requires a credit card or other payment method | capture: sha256:885a38c2b738a7e9ac34bffbae919db1163c80786856ff5f689da3a3bfe0b095 | quote: During the sign up, you must provide a credit card or other payment method that is valid for the period of the Free Trial.
+  - [3] 2026-11-02: a card or other payment method must stay on the billing account, and prepaid cards are rejected | capture: sha256:c9d96879efdd96efc7305484add62bd3cd08c188b27467b585329ff5896c529c | quote: Your Cloud Billing account must have a valid payment method at all times.
+  - [2] 2026-11-02: the Free Tier row this record prices is reached only through a Cloud Billing account | capture: sha256:885a38c2b738a7e9ac34bffbae919db1163c80786856ff5f689da3a3bfe0b095 | quote: To use products that have a Free Tier, you need a Google Cloud billing account.
+  - [4] 2026-11-02: a phone number is optional when the Google account that opens the billing account is created | capture: sha256:5766918872d9f5d5d120485d5c4de5e0c5e337cb09384ec591f52565282ac441 | quote: Optional: Add and verify a phone number for your account.
+  - [5] 2026-11-02: the Agent Engine allowance recurs monthly per billing account at 180,000 vCPU-seconds of compute and 360,000 GiB-seconds of RAM | capture: sha256:a58d0891f9404c308e5b0f49be28e6e0a0155842348c3a163855eb5e1d1a115c | quote: In addition to this promotional welcome credit, the platform provides continuous monthly Free Tier allowances (per billing account, per month) for core infrastructure, covering the first 50 hours (180,000 vCPU-seconds) of compute, the first 100 hours (360,000 GiB-seconds) of RAM, and the first 1 gibibyte of storage for agent runtimes.
+  - [6] 2026-11-02: express mode of the same platform is card-free, and covers only the model APIs, not the agent runtime | capture: sha256:53be9b5ab17cc483de8f7cd371465efc14fd5b2384bc23e6278268bf0a48f655 | quote: You don't need to provide billing information to sign up in the free tier.
+  - [7] 2026-11-02: the countries in which Google Cloud registration is restricted | capture: sha256:99c40681abe5e96b9fc0afb0a1eebd0d72e84501ece02acb431add2b9af1c793 | quote: However, Google restricts access to some of its services in certain countries or regions, such as China, Crimea, Cuba, Iran, North Korea, and Syria.
+  - [3] 2026-11-02: the payment method that satisfies the gate varies by country | capture: sha256:c9d96879efdd96efc7305484add62bd3cd08c188b27467b585329ff5896c529c | quote: Depending on your country, you might have to accept a direct debit mandate, which gives Google permission to charge your bank account.
+- sources:
+  - [1] https://cloud.google.com/products/gemini-enterprise-agent-platform/pricing
+  - [2] https://cloud.google.com/free/docs/free-cloud-features
+  - [3] https://cloud.google.com/billing/docs/how-to/payment-methods
+  - [4] https://support.google.com/accounts/answer/27441
+  - [5] https://cloud.google.com/products/gemini-enterprise-agent-platform
+  - [6] https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/start/express-mode/overview
+  - [7] https://cloud.google.com/billing/docs/how-to/create-billing-account
+
+## Google Chat spaces as a quota-exempt attachment store (Chat API media.upload/media.download)
+
+- `storage/google-chat-spaces-as-a-quota-exempt-attachment-store` | qualifies-with-caveat | evidence reported | binding per-object-cap | category messaging
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://developers.google.com/workspace/chat/api/reference/rest/v1/media/download
+- free tier: Per-record unlimited: 200 MB per attachment, and Chat messages AND attachments explicitly do NOT count toward Google storage quota. 600 attachment uploads/min/project x 200 MB = ~120 GB/min theoretical ingest. | unit: MB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 200 MB per file | bytes: 200000000 | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Not metered. Downloaded through Chat API media.download (3,000 attachment reads/min/project), supports Range requests. No per-GB charge in the docs. | metered: yes
+- identity: institution
+- interface: rest, rclone
+- limits:
+  - per-object-cap (binding): 200 MB per file [1]
+- limits note: 200 MB per file hard cap; some file types blocked; 600 media.upload/min/project and 3,000 media.download/min/project; requires a Google Workspace account + Cloud project + Chat API enabled (personal @gmail.com accounts are not a supported developer surface; Chat API auth doc requires Workspace). Chat API quotas are per-minute only. The docs state 'no limit to the number of requests you can make per day' if you stay under them.
+- interface detail: rest
+- tooling: Official Chat API with service-account (app) auth; media.upload for write, GET /v1/media/{name}?alt=media for read with Range. No dedicated rclone backend exists. This is a build-it-yourself REST store; google-api-* client libs cover both directions.
+- composes with: Unlimited messages x 200 MB per attachment. 20 attachments per interactive message on web, but the API path is per-media-upload, so the binding constraint is the 600 uploads/min/project rate, and projects are multiplicative (30-project default quota per user). Storage is free because Chat attachments are quota-exempt. This is the strongest multiplier in the Google stack.
+- reliability: Messages/attachments live in a space. Deleting or archiving the space, or removing the app from it, can orphan the data; no documented retention guarantee. Blocked MIME types must be avoided.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: under 'The following content doesn't count toward storage:' lists 'Google Chat messages and attachments'
+  - [2] 2026-10-21: 'You can upload file sizes up to 200 MB' + 'Some file types aren't supported'
+  - [3] 2026-10-21: 'Attachment writes per minute | media.upload | 600' and 'Attachment reads per minute | spaces.messages.attachments.get media.download | 3000' + 'there's no limit to the number of requests you can make per day'
+  - [4] 2026-10-21: download supports Range partial downloads via /v1/media/{name}?alt=media
+- sources:
+  - [1] https://knowledge.workspace.google.com/admin/storage/google-workspace-storage-faq-for-admins
+  - [2] https://developers.google.com/workspace/chat/upload-media-attachments
+  - [3] https://developers.google.com/workspace/chat/limits
+  - [4] https://developers.google.com/workspace/chat/api/reference/rest/v1/media/download
+
+## Google Cloud Build
+
+- `compute/google-cloud-build` | qualifies-with-caveat | evidence documented | binding request-rate | category platform host
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T02:24:32.965Z (live) | stale on 2026-12-05
+- url https://cloud.google.com/build/pricing
+- free tier: 2,500 build-minutes a month per billing account on e2-standard-2 (2 vCPU, 8 GB memory) in the default pool, stated as a promotional free tier whose limit is subject to change; the first 100 GB of worker SSD is free | unit: minutes | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: network egress from builds is charged at standard Google Cloud rates; no egress allowance is stated for Cloud Build | metered: yes | source: [1]
+- identity: card | detail: a Google Cloud billing account is required for the Free Tier, including the Cloud Build minutes; the Free Trial sign-up that creates one requires a credit card or other payment method, and in some countries a bank-account verification
+- interface: cli, rest
+- limits:
+  - request-rate (binding): 2,500 build-minutes a month per billing account on e2-standard-2 in the default pool, promotional and subject to change; beyond it e2-standard-2 costs $0.006 a minute [1]
+  - per-object-cap: the first 100 GB of worker SSD is free; up to 4,000 GB can be attached [1]
+- limits note: the default pool allows 10 to 30 concurrent builds (global) and 5 to 100 concurrent E2 CPUs per region as project quotas
+- interface detail: gcloud builds submit (the Google Cloud CLI) and the Cloud Build REST API at cloudbuild.googleapis.com; no SSH into build workers is documented on the pages read
+- tooling: the gcloud CLI (gcloud builds submit) and the REST API
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: documented from the Cloud Build pricing page and the Google Cloud free-features page; the pricing page calls the build-minute allowance promotional and subject to change, which is a weaker commitment than a tier
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - shape.vcpu: 2
+  - shape.ram: 8
+  - shape.disk: 100
+  - shape.note: e2-standard-2 with up to 100 GB of free worker SSD
+  - session_cap.restart_required: no
+  - session_cap.note: a build runs to completion; the allowance is minutes a month, and partial minutes are billed at the actual number of seconds
+  - free_tier_kind: allowance
+  - granularity.min_billed_s: 0
+  - burst_x: 1.0
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Each billing account comes with 2,500 free build-minutes per month' and 'This promotional free tier is for e2-standard-2 machine types in the default pool, and the limit is subject to change' and 'The first 100GB is free' of worker SSD, quoted
+  - [1] 2026-10-30: the allowance is 2,500 build-minutes a month, counted per billing account | capture: sha256:7606d69f0fb1a11e08be624910f73c1d37fadb201940584eb1a6e1379d060e27 | quote: Each billing account comes with 2,500 free build-minutes per month.
+  - [1] 2026-10-30: the free minutes apply only to e2-standard-2 in the default pool and are promotional | capture: sha256:7606d69f0fb1a11e08be624910f73c1d37fadb201940584eb1a6e1379d060e27 | quote: This promotional free tier is for e2-standard-2 machine types in the default pool, and the limit is subject to change.
+  - [2] 2026-10-30: the sign-up that creates a billing account asks for a credit card or other payment method | capture: sha256:885a38c2b738a7e9ac34bffbae919db1163c80786856ff5f689da3a3bfe0b095 | quote: During the sign up, you must provide a credit card or other payment method that is valid for the period of the Free Trial.
+  - [2] 2026-10-30: the Free Tier, which lists the Cloud Build minutes, is reached only through a billing account | capture: sha256:885a38c2b738a7e9ac34bffbae919db1163c80786856ff5f689da3a3bfe0b095 | quote: A Google Cloud billing account is required to access the Google Cloud Free Tier.
+  - [1] 2026-10-30: Cloud Build egress is billed at standard network rates | capture: sha256:7606d69f0fb1a11e08be624910f73c1d37fadb201940584eb1a6e1379d060e27 | quote: Network egress will be charged according to standard rates.
+  - [1] 2026-10-30: Cloud Build egress is metered and billed | capture: sha256:7606d69f0fb1a11e08be624910f73c1d37fadb201940584eb1a6e1379d060e27 | quote: Network egress will be charged according to standard rates.
+  - [3] 2026-10-30: the default pool caps concurrent builds at 10 to 30 | capture: sha256:ec46b786c1ae9a8ffa8cb9436740273bbe6c9614dbca4568d17e1f80df506200 | quote: | Default pool | Build | Number of concurrent builds | 10 - 30 |
+  - [1] 2026-10-30: the allowance is promotional and subject to change | capture: sha256:7606d69f0fb1a11e08be624910f73c1d37fadb201940584eb1a6e1379d060e27 | quote: This promotional free tier is for e2-standard-2 machine types in the default pool, and the limit is subject to change.
+  - [2] 2026-10-30: the Free Tier table lists the same 2,500 build-minutes on e2-standard-2 | capture: sha256:885a38c2b738a7e9ac34bffbae919db1163c80786856ff5f689da3a3bfe0b095 | quote: 2,500 build-minutes per month for machine type e2-standard-2
+  - [1] 2026-10-30: e2-standard-2 has 2 vCPUs and 8 GB of memory, at $0.006 a minute | capture: sha256:7606d69f0fb1a11e08be624910f73c1d37fadb201940584eb1a6e1379d060e27 | quote: | e2-standard-2 | 2 | 8 | Yes | $0.006 |
+  - [1] 2026-10-30: the first 100 GB of worker SSD is free, up to 4,000 GB in all | capture: sha256:7606d69f0fb1a11e08be624910f73c1d37fadb201940584eb1a6e1379d060e27 | quote: The first 100GB is free, and you can request up to 4000GB.
+  - [4] 2026-11-03: builds start from the gcloud CLI and the Cloud Build API | capture: sha256:51e73c4c9532c5b9fe4483a006fce83cc6ef28e5d254442b5baf8f577379ba25 | quote: Google Cloud CLI and the Cloud Build API.
+  - [5] 2026-11-03: the Cloud Build API is a REST API | capture: sha256:c7267d8a86b43fb2a99aa8b8c882052bd8542feee6b8206439ba93de011f29e6 | quote: ## REST Resource: [v1.projects.builds](https://docs.cloud.google.com/build/docs/api/reference/rest/v1/projects.builds)
+  - [1] 2026-11-03: egress from builds is billed at standard Google Cloud rates with no Cloud Build allowance or own price stated | capture: sha256:7606d69f0fb1a11e08be624910f73c1d37fadb201940584eb1a6e1379d060e27 | quote: Network egress will be charged according to standard rates.
+- sources:
+  - [1] https://cloud.google.com/build/pricing
+  - [2] https://docs.cloud.google.com/free/docs/free-cloud-features
+  - [3] https://cloud.google.com/build/quotas
+  - [4] https://cloud.google.com/build/docs/running-builds/submit-build-via-cli-api
+  - [5] https://cloud.google.com/build/docs/api/reference/rest
+
+## Google Cloud Free Tier (e2-micro), Compute
+
+- `compute/google-cloud-free-tier` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category cloud VM | tier Free Tier, reached through a Free Trial billing account
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T18:45:35.793Z (live) | stale on 2026-12-05
+- url https://docs.cloud.google.com/free/docs/free-cloud-features
+- free tier: 1 non-preemptible e2-micro VM instance a month in us-west1, us-central1 or us-east1; 30 GB-months of standard persistent disk; 1 GB of outbound data transfer from North America | unit: hours | metered on: wall-clock | read on: 2026-11-04 | source: [1] | note: the limit is by time, not by instance: a month's worth of hours in total; the Free Tier is a separate product from the USD 300 / 90-day trial that sits on the same billing account
+- per-object cap: not applicable | note: 30 GB-months of standard persistent disk ceiling.
+- retention: the Free Tier has no end date; Google reserves the right to change or eliminate limits with 30 days notice | days: 0 | source: [1] | note: but the Free Tier needs an active billing account, and the trial billing account auto-closes at 90 days or USD 300 spent
+- egress: 1 GB a month of outbound transfer from North America, excluding China and Australia; then standard rates | metered: yes | free allowance: 1 GB a month | source: [1]
+- identity: card | detail: card or other payment method at signup; the published authorisation is between USD 0.00 and USD 1.00, a pending request rather than a charge, released within a few days to a month; debit accepted with a Visa or Mastercard logo, but a debit card that requires two-factor authentication is refused, as are prepaid and virtual cards; name, address and payment method are collected, and a tax ID only when the law requires it; no phone number is named on any signup page read, and no identity document
+- interface: rest, cli
+- limits:
+  - request-rate: the e2-micro allowance is one month of hours, so exactly one instance fits 24/7 and a second bills [1]
+  - per-ip-shaping (binding): 1 GB a month of outbound data transfer from North America [1]
+  - per-object-cap: 30 GB-months of standard persistent disk; 1 GB of RAM, custom up to 2 GB [1]
+  - retention-clamped: the trial billing account auto-closes at 90 days or USD 300, and 'all of its associated projects and resources will be stopped', with permanent deletion after a 30-day grace period [1]
+- limits note: e2-micro is a shared-core shape: 2 vCPU bursting at about 12.5% each, so 0.25 vCPU sustained, and a burst lasts 30 seconds
+- binding note: 1 GB of outbound a month is 0.09 per cent of one TiB: egress binds before the instance-hour allowance does
+- interface detail: Compute Engine API, gcloud CLI, SSH keys in instance or project metadata
+- tooling: gcloud, the Compute Engine API, Terraform; a real Linux VM
+- composes with: one always-on micro VM for a relay or a scheduler, with an egress allowance too small to serve from
+- reliability: no reliability event recorded
+- notes: SIGNUP PATH, read. There is no Google Cloud signup page: cloud.google.com/signup returns a 404 and console.cloud.google.com/freetrial redirects to a Google account signup at accounts.cloud.google.com, whose first field is an email address. The Cloud form comes after the Google account exists and asks for name, address and payment method, and in some countries a bank account instead. A card is not optional: 'you must provide a credit card or other payment method'. THE HOLD IS 0.00 TO 1.00 USD, published on the free-features page, and it is the widest published range of the three providers: a bank may convert it and hold it for 'a few days to a month'. THE DEBIT RULE has a second half that matters more than the first: debit is accepted with a Visa or Mastercard logo, but 'Debit cards that require two-factor authentication aren't accepted for payment', which excludes most European and many Asian debit cards that push a one-time password by SMS. Prepaid and virtual are refused. THE GRANT IS TWO PRODUCTS. The always-free e2-micro is a permanent monthly allowance. The USD 300 is a 90-day trial on the same billing account, and when it closes Google stops 'all of its associated projects and resources' - the documentation does not carve out the always-free instance the way Oracle's FAQ does for Always Free. A user who wants the e2-micro to survive month four has to upgrade to a paid billing account, and then the always-free allowance still covers the instance and the bill is zero, but the account is now billable and the 1 GB egress overage is chargeable. That is the caveat, and it is the difference between this row and Oracle's. WHAT IT IS USABLE FOR: 1 GB a month of egress out of North America is 0.09 per cent of one TiB (1e9 bytes against 1.0995e12), so it is a relay, a scheduler, a monitoring node or an SSH jump box, and not a host. Inbound listen works and it has a public ephemeral IP, not a static one; a static IP is billed separately. The shape is 0.25 sustained vCPU with a 30-second burst, so anything CPU-bound is slow. Not established: whether a phone number is required at signup, because no page read names one and the console form is behind a Google login; the phrase 'Google accounts with only a phone number are not supported' is about the account type, not about a verification step.
+- evidence note: The grant, the egress term, the shape, the card rules and the hold each come from a first-party page read and quoted on 2026-10-24. The signup field list is documented at the FAQ level; the console form itself is behind a Google login, so the phone question is left unverified rather than guessed.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 1
+  - shape.disk_gib: 30
+  - billing_model: allocated
+  - granularity.min_billed_s: 60
+  - granularity.rounding_s: 60
+  - session_cap.restart_required: no
+  - session_cap.note: no idle reaping; suspend and resume are user-initiated only; the 90-day trial clock is the clock that ends the account
+  - keep_rate.value: 1.0
+  - keep_rate.basis: an instance bills its running hours against the monthly allowance
+  - keep_rate.source: https://docs.cloud.google.com/free/docs/free-cloud-features
+  - persistent_storage.included_gib: 30
+  - persistent_storage.price_gib_month: included to 30 GB-months
+  - persistent_storage.durability: persistent disk
+  - persistent_storage.survives_stop: yes
+  - persistent_storage.survives_destroy: yes
+  - persistent_storage.max_retention: no end date while a billing account is active
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: a public ephemeral external IP; all ports reachable subject to firewall rules
+  - network_out.static_ip: no
+  - network_out.per_session_bytes: 1 GB a month
+  - free_tier_kind: allowance
+  - m10h_usd: 0.0
+  - m24h_usd: 0.0
+  - price_arithmetic: one month of hours at 0.25 sustained vCPU; the whole allowance is one instance
+  - payment_methods.card_at_signup: yes
+  - payment_methods.debit: accepted-with-condition
+  - payment_methods.prepaid: refused
+  - payment_methods.virtual: refused
+  - payment_methods.hold_amount: USD 0.00 to USD 1.00
+  - payment_methods.hold_detail: an authorisation request, not a charge; released in a few days to a month, or 1 to 14 business days per the FAQ
+  - payment_methods.identity: name, address and payment method; no identity document
+  - payment_methods.source_url: https://docs.cloud.google.com/free/docs/free-cloud-features
+  - payment_methods.read_on: 2026-10-24
+  - signup.url: https://console.cloud.google.com/freetrial
+  - signup.redirects_to: https://accounts.cloud.google.com/signup/email?continueUrl=https://console.cloud.google.com/freetrial
+  - signup.form_fields: Google account email (created first, at accounts.cloud.google.com); name; address; payment method: card number, expiry, billing address; tax ID, when the law requires it; bank account instead of a card, in some countries, only with billing history
+  - signup.company_required: no
+  - signup.id_document_required: no
+  - signup.phone_required: not named on any signup page read; unverified
+  - signup.source_url: https://cloud.google.com/signup-faqs
+  - signup.read_on: 2026-10-24
+  - term: monthly: one month of e2-micro hours per billing account, renewed each month; no annual term is sold
+  - annual_usd: not published: the allowance is monthly and no annual term is sold
+  - renewal_usd: not applicable: the monthly allowance carries no charge to renew, and the Free Tier has no end date
+  - stock: available: a published monthly allowance with no stock counter, in us-west1, us-central1 and us-east1
+  - price_on_page: USD 0.00 within the monthly limits
+- evidence:
+  - [2] 2026-10-22: 1 non-preemptible e2-micro a month in us-west1, us-central1 or us-east1, 30 GB-months standard PD, 1 GB outbound
+  - [2] 2026-10-22: the e2-micro limit is by time, not by instance: eligible use is free until the hours equal the hours in the month
+  - [2] 2026-10-22: the Free Tier has no end date, but Google may change or eliminate limits with 30 days notice
+  - [2] 2026-10-24: quoted: the authorisation hold is USD 0.00 to 1.00, and the always-free e2-micro is 1 GB of outbound data transfer per month from North America
+  - [3] 2026-10-24: quoted: 'During the sign up, you must provide a credit card or other payment method'
+  - [2] 2026-10-24: quoted: '1 non-preemptible e2-micro VM instance per month' in us-west1, us-central1 or us-east1 with '30 GB-months standard persistent disk' and '1 GB of outbound data transfer', and 'A Google Cloud billing account is required to access the Google Cloud Free Tier'
+  - [4] 2026-10-24: quoted: 'Debit cards with the Visa or MasterCard logo' are accepted; 'Debit cards that require two-factor authentication aren't accepted for payment.'; 'Prepaid cards aren't accepted for payment.'
+  - [5] 2026-10-24: quoted, the hold: 'When you create a new, self-serve Cloud Billing account, you might notice a $0.00 transaction from Google on your bank or credit card statement. These are authorization requests only, not actual charges.'
+  - [6] 2026-10-24: quoted: 'During signup, we ask for your name, address, and payment method to verify your identity.' and 'Authorizations may stay in your account for 1-14 business days depending on your bank.'
+  - [7] 2026-10-24: the signup URL, opened today, redirects to https://accounts.cloud.google.com/signup/email?continueUrl=https://console.cloud.google.com/freetrial and the only readable field is 'Email address' with 'Your work, personal, or any other email address you own' - so the account is created at a Google account signup, and cloud.google.com/signup returns a 404
+  - [6] 2026-10-24: quoted, the form: 'During signup, we ask for your name, address, and payment method to verify your identity.' and 'Authorizations may stay in your account for 1-14 business days depending on your bank.'
+  - [1] 2026-10-24: quoted, the card gate: 'During the sign up, you must provide a credit card or other payment method that is valid for the period of the Free Trial. Depending on your country, you might also need to verify your bank account.'
+  - [1] 2026-10-24: quoted, the hold with its amount: 'Temporary hold: The hold often appears as a pending transaction from Google, with a value between $0.00 and $1.00 USD. Your bank might convert the amount to a local currency.' and 'The hold is typically released within a few days to a month.'
+  - [4] 2026-10-24: quoted, the accepted cards: 'Debit cards with the Visa or MasterCard logo' are accepted; 'Debit cards that require two-factor authentication aren't accepted for payment.'; 'Prepaid cards aren't accepted for payment.'
+  - [1] 2026-10-24: quoted, the grant: '1 non-preemptible e2-micro VM instance per month in one of the following US regions: Oregon: us-west1. Iowa: us-central1. South Carolina: us-east1. 30 GB-months standard persistent disk. 1 GB of outbound data transfer from North America to all region destinations (excluding China and Australia) per month.'
+  - [1] 2026-10-24: quoted, the time-denominated limit: 'Your Free Tier e2-micro instance limit is by time, not by instance. Each month, eligible use of all of your e2-micro instances is free until you have used a number of hours equal to the total hours in the current month.'
+  - [1] 2026-10-24: quoted, the two products separated: 'The Free Trial is a 90-day program' with 'a Free Trial billing account that is preloaded with $300 in free Welcome credit which is valid for 90 days', and 'The Free Tier has no end date, but Google reserves the right to change the offering, including changing or eliminating usage limits, with 30 days' advance notice.'
+  - [1] 2026-10-24: quoted, what the trial end does: 'If you don't upgrade to a Paid billing account before 90 days pass or if you spend the $300 in free credit, then your Free Trial billing account will be closed and all of its associated projects and resources will be stopped.' and 'Resources are stopped: All resources you created during the trial are stopped.'
+  - [1] 2026-10-24: quoted, the billing account requirement for the free product: 'A Google Cloud billing account is required to access the Google Cloud Free Tier.'
+  - [8] 2026-10-24: quoted, that a non-billable billing account stops even free services: 'if your projects are linked to a Cloud Billing account that is not in a billable state (such as an account suspension or billing account closure), you can't use the products and services enabled in your projects. This is true even if your projects only use Google Cloud or other billing-eligible services that are free.'
+  - [9] 2026-10-24: quoted, the trial clock and its end: 'The Free Trial starts when Customer creates a billing account in the Google Cloud console ... and ends on the earlier of: (i) the date that Customer's fees for usage exceed the $300 credit provided under the Free Trial, (ii) 3 months from the Free Trial Start Date (on this date any unused credit will expire), or (iii) the date that Customer upgrades to a paid Google Cloud Platform account.'
+  - [9] 2026-10-24: quoted, the core limit inside the trial: 'Customer's use of Google Compute Engine is restricted to only eight cores of concurrent usage per Free Trial' and 'Google may terminate or modify the Free Trial at any time with or without notice to Customer.'
+  - [10] 2026-10-24: quoted, the shape: 'e2-micro sustains 2 vCPUs, each for 12.5% of CPU time totaling 25% CPU time.' and the table row 'e2-micro | 2 | 0.25 | 1' for vCPUs, fractional vCPUs and memory in GB; and 'e2-micro: 30 seconds' of burst at 100%
+  - [11] 2026-10-24: quoted, the signup failure modes: 'Billing address: Verify that the billing address, name, and contact details that you entered during the signup match the exact information on file with your payment card issuer or bank.' and 'Disable VPNs and proxies' and 'Make sure that your card supports international transactions and automatic recurring payments.'
+  - [6] 2026-10-24: quoted, the account prerequisite: 'Your Google account must have an email associated with it. Google accounts with only a phone number are not supported.' and the named error codes 'OR-CCSEH-26, OR-CCSEH-11, OR-CCSEH-25, OR-BSBBF-55, or OR-CCSEH-05'
+  - [6] 2026-10-24: quoted, per-person eligibility: 'Each user is eligible for the $300 free credit ... if you have never been a paying customer of Google Cloud, Google Maps Platform, or Firebase and you haven't previously signed up for the Google Cloud Free Trial.'
+  - [12] 2026-10-24: quoted, the alternative payment route and its gate: 'To use a bank account as a primary payment method for self-serve (online) billing accounts, your account must have an established billing history with Google Cloud, including a minimum account age and a record of on-time payments.' - so a new account cannot start with a bank account
+  - [7] 2026-10-24: the signup URL redirects to a Google account signup whose only readable field is the email address, so the Cloud form, and any phone step in it, is behind a Google login
+  - [1] 2026-11-04: the e2-micro allowance is a monthly quantity of hours | quote: Each month, eligible use of all of your `e2-micro` instances is free until you have used a number of hours equal to the total hours in the current month.
+  - [1] 2026-11-04: the free allowance is monthly and has no end date | quote: The Free Tier has no end date, but Google reserves the right to change the offering, including changing or eliminating usage limits, with 30 days' advance notice.
+  - [1] 2026-11-04: one e2-micro instance a month in the three named US regions | quote: 1 non-preemptible `e2-micro` VM instance per month in one of the following US regions
+  - [1] 2026-11-04: the disk allowance is 30 GB-months | quote: 30 GB-months standard persistent disk
+  - [1] 2026-11-04: the free egress allowance is 1 GB a month out of North America | quote: 1 GB of outbound data transfer from North America to all region destinations (excluding China and Australia) per month.
+- sources:
+  - [1] https://docs.cloud.google.com/free/docs/free-cloud-features
+  - [2] https://cloud.google.com/free/docs/free-cloud-features
+  - [3] https://cloud.google.com/signup
+  - [4] https://docs.cloud.google.com/billing/docs/how-to/payment-methods
+  - [5] https://docs.cloud.google.com/billing/docs/how-to/manage-billing-account
+  - [6] https://cloud.google.com/signup-faqs
+  - [7] https://console.cloud.google.com/freetrial
+  - [8] https://docs.cloud.google.com/billing/docs/how-to/close-or-reopen-billing-account
+  - [9] https://cloud.google.com/terms/free-trial
+  - [10] https://docs.cloud.google.com/compute/docs/general-purpose-machines
+  - [11] https://docs.cloud.google.com/support/docs/troubleshoot-signup
+  - [12] https://docs.cloud.google.com/billing/docs/how-to/verify-bank
+
+## Google Cloud Run (Compute)
+
+- `compute/google-cloud-run` | qualifies-with-caveat | evidence documented | binding volume-quota | category serverless runtime | tier Free tier, request-based and instance-based billing
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T10:36:09.173Z (live) | stale on 2026-12-05
+- url https://cloud.google.com/run/pricing
+- free tier: per billing account, monthly: 2 million requests, 180,000 vCPU-seconds and 360,000 GiB-seconds under request-based billing; 240,000 vCPU-seconds and 450,000 GiB-seconds under instance-based billing; plus 1 GiB of outbound transfer from North America | unit: seconds | metered on: wall-clock | read on: 2026-10-24 | source: [1]
+- per-object cap: a request may run up to 60 minutes; memory and CPU per instance are configurable
+- retention: no persistent disk; a container is stateless unless it mounts a volume or a bucket
+- egress: 1 GiB of data transfer within North America free per month, then Google Cloud network pricing at the Premium tier | metered: yes | free allowance: 1 GiB | source: [1]
+- identity: card | detail: a card at signup; the free tier is a spending-based discount applied after the fact, not a prepaid allowance
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): 240,000 vCPU-seconds and 450,000 GiB-seconds a month under instance-based billing [1]
+  - request-rate: 2 million requests a month under request-based billing [1]
+  - per-ip-shaping: 1 GiB a month of outbound transfer from North America [1]
+  - retention-clamped: an idle instance is billed at the idle rate when a minimum instance is configured; scale to zero is the default [1]
+- limits note: historical research records flagged an unresolved question about whether the grant applies to the Services meter or the Instances meter; it was not resolved on 2026-11-04 either.
+- binding note: an always-on instance spends the monthly grant in about ten days: 450,000 GiB-seconds at 512 MiB is 900,000 seconds, 10.4 days.
+- interface detail: an OCI image behind an HTTPS endpoint; the service listens on a port
+- tooling: gcloud, the Cloud Run API, Docker; any language with an HTTP server
+- composes with: the only free serverless tier here with 50 vCPU-hours and a listening socket
+- reliability: a service scales to zero by default and pays a cold start on the next request; a minimum instance removes the cold start and starts the idle meter
+- notes: Arithmetic from the published free tiers, not a measurement: at 0.25 vCPU and 512 MiB, an always-on instance needs 648,000 vCPU-seconds and 1,296,000 GiB-seconds a month. The memory grant runs out first, at 900,000 seconds, so the free tier holds an always-on 0.25 vCPU service for about 10.4 days a month. What is not verified is whether the 'Idle time (Min instance)' SKU is drawn from the same free tier; the page presents it as a separate rate.
+- evidence note: both free-tier tables and the per-second rates were read on the pricing page
+- extras:
+  - keep_rate.value: 0.0
+  - keep_rate.basis: a scaled-to-zero service does not bill
+  - keep_rate.source: https://cloud.google.com/free/docs/free-cloud-features
+  - billing_model: per-100ms
+  - shape.vcpu: 0.25
+  - shape.ram_gib: 0.5
+  - session_cap.wall_clock_min: 60
+  - session_cap.restart_required: no
+  - session_cap.note: a request may run 60 minutes; the service scales to zero when idle unless a minimum instance is set
+  - persistent_storage.included_gib: 0
+  - persistent_storage.price_gib_month: Cloud Storage is separate
+  - persistent_storage.durability: none in the runtime
+  - persistent_storage.survives_stop: no
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: the container port on a generated HTTPS hostname
+  - network_out.static_ip: no
+  - network_out.ipv6: no
+  - granularity.min_billed_s: 0.1
+  - granularity.rounding_s: 0.1
+  - free_tier_kind: monthly-spending-discount
+  - open_question: whether the grant applies to the Services meter or the Instances meter
+  - gap: the grant's meter (Services or Instances) is not resolved; the claim page's Instances section and footnotes would close it
+  - burst_x: 1.0
+  - term: monthly
+  - m10h_usd: 0.0
+  - m24h_usd: 0.0
+  - price_arithmetic: free within the monthly grant; 512 MiB at 0.25 vCPU consumes the 450,000 GiB-second grant in 900,000 s = 10.4 days of 24/7
+- evidence:
+  - [2] 2026-10-22: Cloud Run free tier: 2 million requests, 360,000 GB-seconds of memory, 180,000 vCPU-seconds, 1 GB of outbound transfer a month
+  - [1] 2026-10-24: quoted: 'Free tier (based on us-central1 pricing): CPU - First 240,000 vCPU-seconds free per month; RAM - First 450,000 GiB-seconds free per month' under instance-based billing
+  - [1] 2026-10-24: quoted: 'CPU - First 180,000 vCPU-seconds free per month; RAM - First 360,000 GiB-seconds free per month; Requests - 2 million requests free per month' under request-based billing
+  - [1] 2026-10-24: quoted: 'The free tier usage is aggregated across projects by billing account and resets every month'
+  - [1] 2026-10-24: quoted rate table: 'CPU (per vCPU-second) ... $0.000018', 'Memory (per GiB-second) ... $0.000002', 'Idle time (Min instance1) $0.0000025'
+  - [3] 2026-11-04: a gcloud CLI command deploys Cloud Run services | capture: sha256:b7ff69e60cc32dccbb8798ae608a40a168dd50305e4c466edefc84ac212643dd | quote: gcloud run deploy - create or update a Cloud Run service
+  - [4] 2026-11-04: Cloud Run has a documented REST API | capture: sha256:d7cb56f36a18580c20497793c502708fa3b933d3a7846bab7481d1b0f6e287ac | quote: REST Resource: v2.projects.locations.jobs
+  - [1] 2026-11-04: outbound data transfer has a 1 GiB monthly free allowance in North America, then network pricing | capture: sha256:9ed141b1c6b4e7b6ed51e8eb96a00f16fa779326a4aff04d5ee28e3512de4bae | quote: with a free tier of 1GiB free data transfer within North America per month.
+- sources:
+  - [1] https://cloud.google.com/run/pricing
+  - [2] https://cloud.google.com/free/docs/free-cloud-features
+  - [3] https://docs.cloud.google.com/sdk/gcloud/reference/run/deploy
+  - [4] https://docs.cloud.google.com/run/docs/reference/rest
+
+## Google Cloud Shell (free with a Google account)
+
+- `compute/google-cloud-shell` | qualifies-with-caveat | evidence documented | binding volume-quota | category shared shell | tier free with a Google account
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T01:52:00.000Z (live) | stale on 2026-11-24
+- url https://cloud.google.com/shell/docs/limitations
+- free tier: 50 hours a week of Cloud Shell, a 12-hour session cap, non-interactive sessions ended after 40 minutes, and 5 GB of persistent disk mounted as $HOME | unit: hours | metered on: wall-clock | read on: 2026-10-24 | source: [1] | note: The 50 hours is weekly, not monthly, providing a substantial published hour budget.
+- per-object cap: not applicable: the unit is a session, not an object
+- retention: 5 GB of $HOME persists between sessions and counts towards the 5 GB limit; anything outside $HOME is lost when the instance terminates | source: [1]
+- egress: no separate egress allowance published for Cloud Shell itself | metered: no | source: [1]
+- identity: email | detail: a Google account; no card, and no Cloud project is needed to open Cloud Shell itself
+- interface: ssh
+- limits:
+  - volume-quota (binding): 50 hours a week, resetting weekly [1]
+  - volume-quota (binding): 40 minutes for a non-interactive session; 12 hours maximum [1]
+  - per-object-cap: 5 GB of persistent $HOME [1]
+- limits note: the 12-hour cap and the 40-minute non-interactive timeout are two different clocks and both bind
+- binding note: the 40-minute non-interactive cut is what kills a daemon; the 50-hour week is generous but unrunnable unattended
+- interface detail: the browser terminal, or the gcloud CLI over a tunnel; no inbound port
+- tooling: a full shell with gcloud, git, docker and language runtimes
+- composes with: a 5 GB home directory that outlives the VM, and nothing else
+- reliability: the backing VM is not dedicated and terminates after 40 minutes of inactivity, so a background process does not survive the tab
+- notes: RAM and CPU are not on the quotas page read, so the shape is unverified. The 40-minute non-interactive rule is the decisive sentence for a daemon, and it is quoted verbatim.
+- evidence note: quota, session caps and disk are quoted from Google's quotas-and-limits page today. The live path is /shell/docs/quotas-limits.
+- extras:
+  - shape.disk_gib: 5
+  - shape.note: the quotas page does not state vCPU or RAM; the ephemeral VM shape is unverified
+  - billing_model: free
+  - session_cap.wall_clock_min: 720
+  - session_cap.idle_reap_s: 2400
+  - session_cap.restart_required: yes
+  - session_cap.note: 12 h maximum; 40 min non-interactive cut; 50 h/week
+  - keep_rate.value: 0.0
+  - keep_rate.basis: the VM is ephemeral and free
+  - keep_rate.source: https://cloud.google.com/shell/docs/limitations
+  - persistent_storage.included_gib: 5
+  - persistent_storage.price_gib_month: free
+  - persistent_storage.durability: $HOME only
+  - persistent_storage.survives_stop: yes
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: while the account exists
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: no
+  - network_out.ports: outbound; inbound only through the web preview proxy
+  - network_out.static_ip: no
+  - network_out.ipv6: no
+  - free_tier_kind: free-forever-with-quota
+  - shape_note: Google does not publish the vCPU or RAM of the Cloud Shell VM on the quotas page; only the 5 GB $HOME is stated. Both are null rather than guessed.
+  - term: none
+  - m10h_usd: 0.0
+  - m24h_usd: 0.0
+  - price_arithmetic: USD 0.00 for the weekly allowance
+  - unattended: no
+  - unattended_mechanism: none: 'Non-interactive sessions are ended automatically after 40 minutes'
+  - units: RAM and disk are quoted in the vendor's own decimal GB, not GiB. The ram_gib and disk_gib keys carry the vendor's number unconverted, so where a vendor writes 30 GB the key holds 30 and the true value is about 27.9 GiB. No conversion was performed.
+- evidence:
+  - [2] 2026-10-06: 'Non-interactive sessions are ended automatically after 40 minutes. Cloud Shell sessions are capped at 12 hours'
+  - [2] 2026-10-22: read live: 12-hour session cap and 40-minute non-interactive timeout
+  - [1] 2026-10-24: quoted: 'The default weekly Cloud Shell quota is 50 hours.'
+  - [1] 2026-10-24: quoted: 'Cloud Shell provisions 5 GB of free persistent disk storage mounted as your $HOME directory'
+  - [1] 2026-10-24: quoted: 'terminates if your session is inactive for 40 minutes. After the instance is terminated, any modifications that you made outside your $HOME directory are lost.'
+  - [1] 2026-10-24: quoted: 'Cloud Shell sessions are capped at 12 hours, after which sessions automatically terminate.'
+  - [1] 2026-10-24: quoted: 'To prevent your $HOME directory from being deleted due to inactivity for 120 days, start a session.'
+  - [1] 2026-10-24: quoted: 'Cloud Shell is intended for interactive use only. Non-interactive sessions are ended automatically after 40 minutes. Cloud Shell sessions are capped at 12 hours, after which sessions automatically terminate.'
+  - [1] 2026-10-24: quoted, with a link and code span in the original: 'Cloud Shell provisions 5 GB of free [persistent disk storage](https://docs.cloud.google.com/compute/docs/disks/persistent-disks) mounted as your `$HOME` directory on the virtual machine instance.'
+  - [1] 2026-10-24: quoted, with the code span preserved: 'terminates if your session is inactive for 40 minutes. After the instance is terminated, any modifications that you made outside your `$HOME` directory are lost.'
+  - [1] 2026-10-24: quoted: 'If you reach your quota, you'll need to wait until the date and time specified before you can use Cloud Shell again'
+- sources:
+  - [1] https://cloud.google.com/shell/docs/quotas-limits
+  - [2] https://cloud.google.com/shell/docs/limitations
+
+## Google Cloud Spot
+
+- `compute/google-cloud-spot` | qualifies-with-caveat | evidence documented | binding none | category GPU cloud
+- needs card yes, phone no, ID no, institution no | verified 2026-11-02T02:17:36.634Z (live) | stale on 2026-12-03
+- url https://cloud.google.com/compute/docs/instances/view-vm-availability
+- free tier: Google publishes two numbers that answer the survival question directly and neither is an interruption rate. Estimated uptime is 'the minimum amount of time that you can expect most of your Spot VMs to run before Compute Engine preempts them', and it is bucketed into exactly three values: '60 minutes (3,600 seconds)', '10 minutes (600 seconds)' and '1 minute (60 seconds)'. Obtainability is a separate score from 0.0 to 1.0 for whether the creation request succeeds at all. The preemption rate from advice.capacityHistory is defined as 'Total preempted Spot VMs in a day' divided by 'Total Spot VMs that stopped running in a day'. | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: card | detail: card: 'the Free Trial is USD 300 over 90 days and requires a credit card or other payment method at signup'. Google submits an authorisation request that is 'a hold, not an actual charge', with 'a value between $0.00 and $1.00 USD', typically released within a few days to a month. 'Prepaid cards aren't accepted for payment'; a debit card with a Visa or MasterCard logo is accepted but a debit card that requires two-factor authentication is not, and virtual cards 'may not be accepted'. Spot VMs sit outside the Free Tier - 'The Google Cloud Free Tier credits for Compute Engine don't apply to Spot VMs' - and a non-billable Free trial account cannot add GPUs or request a quota increase.
+- interface: unknown
+- limits note: Estimated uptime is bucketed to three values and is a floor for the majority of VMs, so it cannot be converted into a per-hour probability without assuming a distribution.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: Estimated uptime is the one vendor-published figure a scheduler can gate on before launching: if it returns 10 minutes and the checkpoint interval is 10 minutes, evaluated offerings is not worth the setup cost and the scheduler should move zone.
+- reliability: no reliability event recorded
+- notes: The comparability trap is the denominator. A GCP preemption rate of 0.50 does not mean a VM has a 50 per cent chance of preemption in an hour; it means half of the VMs that stopped that day were stopped by preemption rather than by their owner. Published third-party tables that put 'GCP ~2.3 per cent per hour' next to an Azure per-hour eviction probability are mixing two statistics. Also of note: preemption history is unavailable for N1 machine types with GPUs attached, which is exactly the cheap GPU lane, and the whole feature is marked Preview. fails-identity via a05-spot. The one recorded is the better-evidenced.
+- extras:
+  - facets.class: spot-arbitrage
+  - facets.free_tier_kind: none
+  - payment_methods.card_at_signup: yes
+  - payment_methods.debit: accepted-with-condition
+  - payment_methods.prepaid: refused
+  - payment_methods.virtual: may be refused
+  - payment_methods.hold_amount: USD 0.00 to USD 1.00
+  - payment_methods.hold_detail: 'The authorization request is a hold, not an actual charge. No funds are withdrawn by Google', with 'a value between $0.00 and $1.00 USD', 'typically released within a few days to a month'. A debit card with a Visa or MasterCard logo is accepted; a debit card that requires two-factor authentication is refused. 'Prepaid cards aren't accepted for payment.'
+  - payment_methods.identity: a card or another payment method at signup; the account is charged only for usage beyond the credit
+  - payment_methods.source_url: https://cloud.google.com/free/docs/free-cloud-features
+  - payment_methods.read_on: 2026-11-02
+- evidence:
+  - [1] 2026-10-22: estimated uptime is 'the minimum amount of time that you can expect most of your Spot VMs to run' and takes only the values 60 minutes, 10 minutes or 1 minute, quoted
+  - [2] 2026-10-22: the preemption rate formula is total preempted Spot VMs in a day divided by total Spot VMs that stopped running in a day, and the rate is expressed as a fraction of VMs rather than of time, quoted
+  - [2] 2026-10-22: preemption history covers 30 days per machine type and zone, and the feature cannot report N1 machine types with GPUs attached, custom machine types or TPUs
+  - [3] 2026-10-22: the preemption notice duration can be set to 120 seconds or 0 seconds, 120 is recommended for workloads needing more than 30 seconds, and the shutdown period is best effort up to 30 seconds, quoted
+  - [4] 2026-10-22: the gcloud flag is --preemption-notice-duration and the value must be either 120s or 0s, quoted
+  - [3] 2026-10-22: 'The Google Cloud Free Tier credits for Compute Engine don't apply to Spot VMs', quoted in the Spot VMs limitations list
+  - [5] 2026-10-22: on a non-billable Free trial account you cannot 'Add GPUs to your VM instances' and cannot 'Request a quota increase', quoted
+  - [5] 2026-10-22: the Free Trial is USD 300 over 90 days and requires a credit card or other payment method at signup, quoted
+  - [6] 2026-10-22: the accelerator table lists 'Current Spot pricing (USD)' per machine type, including a2-highgpu-1g at $2.20401, a3-highgpu-1g at $6.273932575 and g2-standard-4 at $0.423016, all for 1 hour
+  - [3] 2026-10-22: Spot VMs offer 'up to 91% discounts for many machine types, GPUs, TPUs, and Local SSDs', and 'The Google Cloud Free Tier credits for Compute Engine don't apply to Spot VMs', quoted
+  - [5] 2026-11-02: the signup authorisation is a hold and not a charge | capture: sha256:885a38c2b738a7e9ac34bffbae919db1163c80786856ff5f689da3a3bfe0b095 | quote: The authorization request is a hold, not an actual charge. No funds are withdrawn by Google.
+  - [5] 2026-11-02: the published hold is between USD 0.00 and USD 1.00 | capture: sha256:885a38c2b738a7e9ac34bffbae919db1163c80786856ff5f689da3a3bfe0b095 | quote: The hold often appears as a pending transaction from Google, with a value between $0.00 and $1.00 USD.
+  - [7] 2026-11-02: prepaid cards are refused outright | capture: sha256:c9d96879efdd96efc7305484add62bd3cd08c188b27467b585329ff5896c529c | quote: Prepaid cards aren't accepted for payment.
+  - [8] 2026-11-02: virtual cards may be refused, and are not listed as supported | capture: sha256:c18efbc143b4da772ca84ca4bd0480ff31895730d9e1cc57d91b7ea12dae269b | quote: Prepaid cards, virtual cards, and certain unverified business cards may not be accepted.
+  - [7] 2026-11-02: a debit card is accepted except when it requires two-factor authentication | capture: sha256:c9d96879efdd96efc7305484add62bd3cd08c188b27467b585329ff5896c529c | quote: Debit cards that require two-factor authentication aren't accepted for payment.
+- sources:
+  - [1] https://cloud.google.com/compute/docs/instances/view-vm-availability
+  - [2] https://cloud.google.com/compute/docs/instances/view-spot-preemption-price
+  - [3] https://cloud.google.com/compute/docs/instances/spot
+  - [4] https://cloud.google.com/compute/docs/instances/create-use-spot
+  - [5] https://cloud.google.com/free/docs/free-cloud-features
+  - [6] https://cloud.google.com/spot-vms/pricing
+  - [7] https://cloud.google.com/billing/docs/how-to/payment-methods
+  - [8] https://cloud.google.com/support/docs/troubleshoot-signup
+
+## Google Cloud Text-to-Speech
+
+- `compute/google-cloud-text-to-speech` | qualifies-with-caveat | evidence documented | binding volume-quota | category inference API
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T05:24:57.573Z (live) | stale on 2026-12-05
+- url https://cloud.google.com/text-to-speech/pricing
+- free tier: A recurring monthly free allowance per voice class, not a one-time credit: 'WaveNet voices 0 to 4 million characters', 'Standard voices 0 to 4 million characters', 'Chirp 3: HD voices 0 to 1 million characters', 'Studio voices 0 to 1 million characters', 'Neural2 voices 0 to 1 million characters'. Over the allowance the price is 'US$4 per 1 million characters' for WaveNet and Standard, 'US$30 per 1 million' for Chirp 3 HD and Studio at 'US$160 per 1 million'. At the common 1,000 characters a minute, 4 million characters is about 66 hours of speech a month. | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: recurring-monthly-allowance
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: card
+- interface: rest
+- limits:
+  - volume-quota (binding): the allowance resets monthly but the account must be a billing account: 'You must enable billing to use Text-to-Speech, and will be automatically charged if your usage exceeds the number of free characters allowed per month', so a card is required before the first character is synthesised and an overrun bills silently. [1]
+- limits note: the allowance resets monthly but the account must be a billing account: 'You must enable billing to use Text-to-Speech, and will be automatically charged if your usage exceeds the number of free characters allowed per month', so a card is required before the first character is synthesised and an overrun bills silently.
+- binding note: the same as limits note
+- interface detail: REST API at texttospeech.googleapis.com (v1 and v1beta1), documented; Cloud Client Libraries wrap it.
+- tooling: Cloud Client Libraries (Python google-cloud-texttospeech, Node.js @google-cloud/text-to-speech, Go, Java, C#, C++); the REST API directly.
+- composes with: What breaks: the Gemini-family TTS models have 'Not available' in the free column, so the newest voices are excluded, and an accidental loop over a long document bills at USD 4 per million characters.
+- reliability: no reliability event recorded
+- notes: The 66-hour figure is calculated at 1,000 characters a minute.
+- extras:
+  - facets.class: perpetual-free-allowance
+  - facets.free_tier_kind: recurring-monthly-allowance
+  - facets.shape.gpu_count: 0
+- evidence:
+  - [1] 2026-10-22: the free usage table prints 'WaveNet voices 0 to 4 million characters', 'Standard voices 0 to 4 million characters', 'Chirp 3: HD voices 0 to 1 million characters', 'Studio voices 0 to 1 million characters', 'Neural2 voices 0 to 1 million characters', quoted
+  - [1] 2026-10-22: 'You must enable billing to use Text-to-Speech, and will be automatically charged if your usage exceeds the number of free characters allowed per month', quoted
+  - [1] 2026-10-22: 'Chirp 3: HD voices ... US$0.00003 per character (US$30 per 1 million characters)' and 'WaveNet voices ... US$0.000004 per character (US$4 per 1 million characters)', quoted
+  - [1] 2026-10-22: the Gemini TTS rows print 'Free usage limit: Not available', so the newest models are outside the allowance, quoted
+  - [2] 2026-11-03: the service is a REST API | capture: sha256:5841e136391e30fa363cc82616004b0730334ee1adaa5615398589c899eb0ae8 | quote: ## Service: texttospeech.googleapis.com
+  - [2] 2026-11-04: the documented REST service endpoint of Cloud Text-to-Speech | capture: sha256:5841e136391e30fa363cc82616004b0730334ee1adaa5615398589c899eb0ae8 | quote: - `https://texttospeech.googleapis.com`
+  - [3] 2026-11-04: google-cloud-texttospeech is the documented Python client library | capture: sha256:77681be7f6b1fe2dd7f7f96742465db9a3d3bf86c1ee384b9453a597f318b260 | quote: pip install --upgrade google-cloud-texttospeech
+- sources:
+  - [1] https://cloud.google.com/text-to-speech/pricing
+  - [2] https://cloud.google.com/text-to-speech/docs/reference/rest
+  - [3] https://cloud.google.com/text-to-speech/docs/libraries
+
+## Google Cloud Translation
+
+- `inference/google-cloud-translation` | qualifies-with-caveat | evidence documented | binding volume-quota | category machine translation API, monthly free character allowance behind a billing account | tier Basic and Advanced (NMT model)
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T07:34:02.146Z (live) | stale on 2026-12-04
+- url https://cloud.google.com/translate/pricing
+- free tier: the first 500,000 characters per month of language detection and text translation with the NMT model are free, applied as a $10 credit every month; the credit is shared by Cloud Translation - Basic and Advanced and does not roll over; above that the price is $20.00 per 1,000,000 characters | unit: mixed | metered on: unstated | read on: 2026-11-03 | source: [1] | note: the true unit is source characters per month; the schema vocabulary has no character unit, so mixed is the nearest term. The credit does not apply to formatted document translations (DOCX, PPT and PDF are priced per page), and custom models and the translation LLM are priced separately with no free allowance on the page
+- per-object cap: recommended maximum 5K characters per request; Cloud Translation - Advanced accepts up to 30K code points per request and Basic up to 100K bytes; larger requests answer 400 INVALID_ARGUMENT; batch translation is the route for more content | source: [2]
+- retention: not applicable: a translation endpoint stores nothing for the caller
+- egress: metered: no
+- identity: card | detail: billing must be enabled for the project ('You must enable billing to use Cloud Translation.'); the Google Cloud Free Trial sign-up asks for a credit card or other payment method, and in some countries a bank account verification
+- interface: rest
+- limits:
+  - volume-quota (binding): first 500,000 characters per month free (a $10 monthly credit that does not roll over); $20.00 per 1,000,000 characters above it [1]
+  - request-rate: 6,000,000 characters per project per minute to the general model (v2 and v3); characters per day are unlimited [2]
+  - per-object-cap: 30K code points per request on Advanced; 100K bytes on Basic; 5K characters recommended [2]
+- binding note: the 500,000 characters per month free allowance runs out first; the card on the billing account is the identity gate
+- endpoint: https://translation.googleapis.com/language/translate/v2
+- tooling: REST API (v2 Basic and v3 Advanced) at translation.googleapis.com, and Google client libraries; every call needs an API key or other credentials of a Google Cloud project with billing enabled and the Cloud Translation API enabled
+- composes with: the monthly free allowance is per billing account and shared by Basic and Advanced; the Free Trial credit is a separate, one-time offer
+- reliability: the free allowance is a monthly $10 credit: above 500,000 characters a month the usage is billed to the billing account at the standard rate, and the daily character quota is unlimited by default
+- notes: Supported languages: the NMT table on the language page runs from Abkhaz to Zulu, with translation between any pair listed. Character limit per request: 5K recommended, 30K code points on Advanced, 100K bytes on Basic. Keyless: no. The Free Trial credit and the always-free monthly allowance are separate offers.
+- evidence note: the free allowance, the price above it, the request limits, the billing requirement and the language list are quoted from the vendor's pricing, quota, setup, free-trial and language pages; the unauthenticated refusal is measured.
+- evidence:
+  - [1] 2026-11-03: the first 500,000 characters per month of NMT text translation and language detection are free as a $10 monthly credit | capture: sha256:f6a62f201e98aaf45f6912e97089b0c6fe544e872a5189d68f3ed84da1f52ad3 | quote: | First 500,000 characters per month | Free (applied as $10 credit every month) | - | - |
+  - [1] 2026-11-03: above 500,000 characters per month NMT is $20.00 per million | capture: sha256:f6a62f201e98aaf45f6912e97089b0c6fe544e872a5189d68f3ed84da1f52ad3 | quote: | | | Over 500,000 characters per month | $20.00 | $18.00 | $16.00 |
+  - [1] 2026-11-03: the credit is shared by Basic and Advanced, is up to $10 and does not roll over | capture: sha256:f6a62f201e98aaf45f6912e97089b0c6fe544e872a5189d68f3ed84da1f52ad3 | quote: † Credit usage applies collectively to both Cloud Translation - Basic and Cloud Translation - Advanced. The credit is up to $10, based on your usage and does not roll over.
+  - [2] 2026-11-03: the general model quota is 6,000,000 characters per project per minute | capture: sha256:fd85b7f16ed703bf207991d06968157aec7dfcda92e17cd07ace737df4a9009b | quote: | Characters sent to general model per project per minute (v2 and v3) | 6,000,000 |
+  - [2] 2026-11-03: the daily character quota is unlimited | capture: sha256:fd85b7f16ed703bf207991d06968157aec7dfcda92e17cd07ace737df4a9009b | quote: | Characters sent to general model per project per day (v2 and v3) | unlimited |
+  - [2] 2026-11-03: Advanced accepts up to 30K code points and Basic up to 100K bytes per request | capture: sha256:fd85b7f16ed703bf207991d06968157aec7dfcda92e17cd07ace737df4a9009b | quote: 30K. Cloud Translation - Basic has a maximum request size of 100K bytes.
+  - [2] 2026-11-03: the recommended request length is 5K characters | capture: sha256:fd85b7f16ed703bf207991d06968157aec7dfcda92e17cd07ace737df4a9009b | quote: maximum length for each request is 5K characters
+  - [3] 2026-11-03: billing must be enabled to use Cloud Translation | capture: sha256:91b94ace7883f8cd60c5c5ca81bf8fa2d061fdd2a9f1d15408d8976bb0c6efac | quote: You must enable billing to use Cloud Translation.
+  - [4] 2026-11-03: the Free Trial sign-up takes a credit card or other payment method | quote: During the sign up, you must provide a credit card or other payment method
+  - [5] 2026-11-03: translation between any two languages of the NMT list is supported | capture: sha256:b2427b577e3786598a17b79b8ab0182b8c3b583cc82708ac232eecf3f839c284 | quote: Translations from any language to any language in this list are supported.
+  - [5] 2026-11-03: the NMT language table ends with Zulu | capture: sha256:b2427b577e3786598a17b79b8ab0182b8c3b583cc82708ac232eecf3f839c284 | quote: | Zulu | `zu` |
+  - probe:translation.googleapis.com/language/translate/v2/languages 2026-11-03: the API host refuses a caller with no key or identity with HTTP 403, so there is no keyless route | capture: sha256:7156aa359dc6d1c957aebfe92356d3b42291ef0d3694160fdd69055a45849de4 | quote: Method doesn't allow unregistered callers (callers without established identity). Please use API Key or other form of API consumer identity to call this API.
+- sources:
+  - [1] https://cloud.google.com/translate/pricing
+  - [2] https://cloud.google.com/translate/quotas
+  - [3] https://cloud.google.com/translate/docs/setup
+  - [4] https://cloud.google.com/free/docs/free-cloud-features
+  - [5] https://cloud.google.com/translate/docs/languages
+
+## Google Colab, free (no subscription)
+
+- `compute/google-colab` | qualifies-with-caveat | evidence documented | binding volume-quota | category notebook runtime | tier free (no subscription)
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T01:52:00.000Z (live) | stale on 2026-11-24
+- url https://research.google.com/colaboratory/faq.html
+- disagrees on identity_kind: `compute/google-colab` says email, `compute/google-colab-paid` says card
+- disagrees on verdict: `compute/google-colab` says qualifies-with-caveat, `compute/google-colab-paid` says fails-quota
+- free tier: free of charge access to computing resources including GPUs and TPUs; a notebook runs for at most 12 hours; usage limits, idle timeout, maximum VM lifetime and GPU types are not published and vary over time | unit: hours | metered on: unstated | read on: 2026-10-24 | source: [1] | note: There is no published GPU-hour number. Anything quoted for Colab's free GPU quota is somebody's recollection.
+- per-object cap: not applicable: the unit is a session, not an object
+- retention: the VM disk is deleted when the runtime is recycled; only Google Drive survives | source: [1]
+- egress: no published egress allowance or price for the notebook runtime | metered: no | source: [1]
+- identity: email | detail: a Google account; no card for the free tier
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): an unpublished, fluctuating usage limit on GPU and total compute [1]
+  - volume-quota (binding): 12 hours maximum notebook runtime [1]
+- limits note: a documented absence: 'Colab does not publish these limits' is a discretionary throttle, not a quota
+- binding note: the quota is real but unquantified, so it cannot be planned against; the 12-hour wall is the only number the vendor will commit to
+- interface detail: a notebook in the browser; no SSH and no inbound port
+- tooling: Jupyter; the Colab client; no shell beyond the notebook's
+- composes with: a notebook is not a machine: nothing survives the runtime, so it cannot hold state or serve
+- reliability: Colab states outright that it prioritises interactive users and that runtimes time out when idle, so a long job is cut for reasons that are not visible
+- notes: RAM, GPU class, and idle timeout specifications are not published in vendor documentation.
+- evidence note: the 12-hour cap and the refusal to publish the rest are quoted from the vendor FAQ. RAM and GPU class are unverified because the page states a 'standard memory profile' without a number.
+- extras:
+  - shape.note: the vendor publishes no numbers; GPU type 'varies over time'
+  - billing_model: free
+  - session_cap.wall_clock_min: 720
+  - session_cap.restart_required: yes
+  - session_cap.note: 12 h cap; idle timeout and VM lifetime unpublished
+  - keep_rate.value: 0.0
+  - keep_rate.basis: a deleted runtime costs nothing
+  - keep_rate.source: https://research.google.com/colaboratory/faq.html
+  - persistent_storage.durability: none: the VM is deleted
+  - persistent_storage.survives_stop: no
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: the runtime
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: no
+  - network_out.ports: outbound only
+  - network_out.static_ip: no
+  - network_out.ipv6: no
+  - free_tier_kind: free-forever-with-unpublished-quota
+  - m10h_usd: 0.0
+  - m24h_usd: 0.0
+  - term: none
+  - price_arithmetic: USD 0.00 for the free tier
+  - unattended: no
+  - unattended_mechanism: none on the free tier; background execution is listed as a paid-plan capability
+  - units: RAM and disk are quoted in the vendor's own decimal GB, not GiB. The ram_gib and disk_gib keys carry the vendor's number unconverted, so where a vendor writes 30 GB the key holds 30 and the true value is about 27.9 GiB. No conversion was performed.
+- evidence:
+  - [1] 2026-10-22: in the free version notebooks can run for at most 12 hours, depending on availability and usage patterns
+  - [1] 2026-10-22: 'Colab does not publish these limits, in part because they can vary over time'
+  - [1] 2026-10-22: virtual machines are deleted when idle for a while and have a maximum lifetime enforced by the service
+  - [1] 2026-10-22: 'In the version of Colab that is free of charge notebooks can run for at most 12 hours, depending on availability and your usage patterns', with 'Colab does not publish these limits, in part because they can vary over time' and 'access to expensive resources like GPUs is heavily restricted', all quoted
+  - [1] 2026-10-24: quoted: 'In the version of Colab that is free of charge notebooks can run for at most 12 hours, depending on availability and your usage patterns.'
+  - [1] 2026-10-24: quoted: 'Colab does not publish these limits, in part because they can vary over time.'
+  - [1] 2026-10-24: quoted: 'Virtual machines are deleted when idle for a while, and have a maximum lifetime enforced by the Colab service.'
+  - [1] 2026-10-24: quoted: 'Colab prioritizes interactive compute. Runtimes will time out if you are idle.'
+  - [1] 2026-10-24: quoted: 'In the version of Colab that is free of charge you are able to access VMs with a standard system memory profile.' — no number is given
+  - [1] 2026-10-24: quoted: 'on higher plans, additional capabilities such as background execution' — background execution is a paid-plan feature, so the free tier cannot run unattended
+- sources:
+  - [1] https://research.google.com/colaboratory/faq.html
+
+## Google Compute Engine (Linux VMs)
+
+- `compute/gcp-compute` | qualifies-with-caveat | evidence documented | binding request-rate | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T05:24:41.667Z (live) | stale on 2026-12-05
+- url https://cloud.google.com/products/compute/pricing/general-purpose
+- disagrees on verdict: `compute/gcp-compute` says qualifies-with-caveat, `compute/gcp-windows` says paid-only
+- free tier: 1 non-preemptible e2-micro instance for the whole of each month in us-west1, us-central1 or us-east1, with 30 GB-months of standard persistent disk and 1 GB a month of outbound transfer from North America; the allowance is counted in hours, not instances | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: 1 GB a month of outbound transfer from North America to all region destinations (excluding China and Australia) in the free tier; beyond it, standard network pricing applies | metered: yes | free allowance: 1 GB a month from North America | source: [1]
+- identity: card | detail: 'You won't be charged until you activate your full paid account' and the $300 welcome credit require a payment method to activate the paid account; the free tier itself is available to an eligible customer, quoted from cloud.google.com/free read 2026-10-22
+- interface: unknown
+- limits:
+  - request-rate (binding): 1 e2-micro instance's worth of hours a month, counted across every e2-micro in the three eligible US regions [1]
+  - per-object-cap: 30 GB-months of standard persistent disk; 1 GB a month of North American outbound transfer [1]
+  - write-gated: GPUs and TPUs are never in the free tier; adding one is billed from the first second [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the Google Cloud free-tier list and the free-features document were both read on 2026-10-22. The free tier is a monthly usage allowance that does not expire, which is a different product from the USD 300 credit the record carried; the credit is a 90-day trial that sits beside it
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - shape.vcpu: 2
+  - shape.ram: 1
+  - shape.disk: 30
+  - shape.note: e2-micro: 2 vCPU on a shared core, 1 GiB, 30 GB standard persistent disk
+  - session_cap.restart_required: no
+  - session_cap.note: the allowance is the total hours in the month, so a single always-on e2-micro consumes all of it; the clock resets monthly, not on activity
+  - free_tier_kind: allowance
+  - granularity.min_billed_s: 60
+  - burst_x: 1.0
+  - ps.gib: 30
+  - ps.price: 30 GB-months included, then standard PD rates
+  - ps.durability: persistent disk
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: while the disk exists
+  - net.out: yes
+  - net.in: yes
+  - net.ports: any
+  - net.static_ip: no
+  - net.ipv6: no
+  - net.allowance: 1 GB a month outbound from North America
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: '1 non-preemptible e2-micro VM instance per month in one of the following US regions: Oregon, Iowa, South Carolina. 30 GB-months standard persistent disk. 1 GB of outbound data transfer from North America', and 'Your Free Tier e2-micro instance limit is by time, not by instance ... free until you have used a number of hours equal to the total hours in the current month', and 'GPUs and TPUs are not included in the Free Tier offer', quoted
+  - [2] 2026-11-03: the Compute Engine free tier includes 1 GB of outbound transfer a month | quote: 1 GB of outbound data transfer from North America to all region destinations (excluding China and Australia) per month.
+- sources:
+  - [1] https://cloud.google.com/products/compute/pricing/general-purpose
+  - [2] https://docs.cloud.google.com/free/docs/free-cloud-features
+
+## Google Drive shared drives written by service accounts
+
+- `storage/google-drive-shared-drives-written-by-service-accounts` | qualifies-with-caveat | evidence reported | binding per-ip-shaping | category cloud-drive
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://developers.google.com/workspace/drive/api/guides/about-shareddrives
+- free tier: Service accounts now report storageQuota limit '0' — they cannot own files at all. Real quota comes from the parent tenant: Education/Nonprofit 100 TB pooled, Business Standard 2 TB x users, Business Plus 5 TB x users. The '15 GB per SA x 100 SA x 30 projects = 45 TB' claim in the reference repo is DEAD. | unit: objects | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: No per-GB egress charge for Drive file downloads; drive.usercontent.google.com serves direct bytes. New ceiling: Drive API 1 TB/day per project egress. | metered: no
+- identity: institution
+- interface: rest, rclone
+- limits:
+  - request-rate: 400,000,000 quota units/day [1]
+  - per-ip-shaping (binding): 750 GB/day [1]
+  - per-ip-shaping (binding): 1 TB/day [1]
+- limits note: SA quota limit = 0 (hard); shared drive 500,000 items / 100 nesting levels; 750 GB/day upload per user; 5 TB max file; Drive API 400,000,000 quota units/day/project before charges and a 1 TB/day egress cap; 1,000,000 units/min/project.
+- binding note: one stream is shaped, and aggregate throughput is the shaped rate times the number of streams
+- interface detail: rest
+- tooling: Rclone drive backend with service_account_file + shared drive config (rclone docs still document the SA + shared-drive path and warn its shared client_id is being retired during 2026. Make your own). gclone (156 stars, archived), AutoRcloneV2, 88lex/sa-gen (71 stars, last push 2023-05) automate SA creation but not the new shared-drive target.
+- composes with: The chain inverted. Old: unlimited free SAs x 15 GB each. New: SAs are free and unlimited but hold zero bytes, so they become pure WRITE THROUGHPUT/multiplexer against one tenant's pooled shared drive. 750 GB/day is per acting identity, and each SA is a distinct identity, so N SAs lifting into one shared drive gives N x 750 GB/day ingest; the 100 TB pool is the actual ceiling.
+- reliability: The widely-copied 45 TB recipe now returns 403 storageQuotaExceeded on every upload; every SA-based rclone tutorial written before ~2024 is wrong unless it targets a shared drive. Also reported: a hard ~16 GB SA limit when uploading into a My Drive folder shared with the SA (2024 SO thread). Shared drives are the only working target.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: 'Service accounts don't have storage quota and can't own files. Instead, they must upload files and folders into shared drives, or use OAuth 2.0 to upload items on behalf of a human user.'
+  - [2] 2026-10-21: live API response quoted: {'storageQuota': {'limit': '0', 'usage': '0', 'usageInDrive': '0'}}; Google staff reply confirms SAs 'don't have storage quota and can't own any files'
+  - [3] 2026-10-21: 'Per day per project | 1 TB' egress; 750 GB/day upload; 'maximum file size that users can upload is 5 TB'; 'Per day per project | 400,000,000 quota units' billing threshold
+  - [4] 2026-10-21: probe: GET -> 401 (unauthenticated; confirms no anonymous quota/metadata surface)
+- sources:
+  - [1] https://developers.google.com/workspace/drive/api/guides/about-shareddrives
+  - [2] https://discuss.google.dev/t/error-403-storagequotaexceeded-when-the-service-accounts-drive-is-completely-empty/194265
+  - [3] https://developers.google.com/workspace/drive/api/guides/limits
+  - [4] https://www.googleapis.com/drive/v3/about
+
+## Google for Startups Cloud Program (Start / Scale tiers)
+
+- `storage/google-for-startups-cloud-program` | qualifies-with-caveat | evidence reported | binding per-object-cap | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://cloud.google.com/startup
+- free tier: Scale and Scale AI tiers: '$200K - $350k in credits' for startups with verifiable Pre-Seed to Series A funding. Credits apply to 'most Google Cloud platform products .. used in a pay-as-you-go (PayG) or consumption billed format'. Which includes Cloud Storage buckets. | unit: mixed | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: per-object-cap: GCS single-object max 5 TiB | bytes: 5497558138880 | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: GCP egress is metered and comes out of the same credit pool; free egress only to Cloudflare-class partners or via the always-free 200 GB/mo Cloud Storage egress allowance. | metered: yes | free allowance: 200 GB per month
+- identity: institution
+- interface: s3-compatible, rest, rclone
+- limits:
+  - per-object-cap (binding): per-object-cap: GCS single-object max 5 TiB [1]
+- limits note: Per-object-cap: GCS single-object max 5 TiB. Not binding. request-rate: per-project GCS quotas (raiseable). retention: credits are time-boxed (program is annual, 'Program qualifications change annually'). Excludes educational institutions, government, nonprofits, personal blogs/content, dev shops and consultancies. A startup wrapper is required.
+- interface detail: s3
+- tooling: rclone backend 'gcs' (Tier 1), gsutil, GCS XML/JSON API, GCS interop keys give an S3-compatible endpoint.
+- composes with: Credits are per billing account and explicitly non-transferable ('Credits may only be used by the original applicant and cannot be shared, split, or resold'). The multiplier is re-application in later years. Google allows re-applying if credits went unused ('You may still be eligible for credits if you did not use your credits in a previous enrollment'). $200K at coldline-class rates is petabyte-scale for a year; the binding constraint becomes the 12-month expiry, not bytes.
+- reliability: Requires a funded company, a matching domain email and a billing account owned by that domain; credits land in a specific billing account ID and cannot be moved afterwards. Year-over-year re-enrolment is not guaranteed.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: 'Our Funded program tiers (Scale, and Scale AI) range from $200K - $350k in credits'; exclusion list; 'Credits may only be used by the original applicant'
+  - [1] 2026-10-21: 'Can I re-apply if I participated in this program a few years ago but did not use my credits? You may still be eligible ... if you did not use your credits'
+  - withheld 2026-10-21: probe: GET cloud.google.com/startup -> 200 (numbers quoted live 2026-10-21)
+- sources:
+  - [1] https://cloud.google.com/startup
+
+## Google Open Source
+
+- `compute/google-open-source` | qualifies-with-caveat | evidence documented | binding write-gated | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://bughunters.google.com/open-source-security/patch-rewards
+- free tier: 'you can claim rewards for proactive improvements you've made to security in open source projects. Any patch (typically a merged GitHub pull request) that you can demonstrate to have improved the security of an in-scope project will be considered for a reward.' Published tiers: USD 500 for a one-liner, USD 2,000 for modest complexity, USD 7,500 for moderately complex, USD 15,000 for complicated high-impact work, with a '2x multiplier' and a '3x multiplier' for secure-by-design memory-safety work until the end of 2026. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: cash-bounty
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email
+- interface: rest
+- limits:
+  - write-gated (binding): A merged pull request in an in-scope project comes before any payment, and the multiplier that makes the ceiling interesting expires 2026-12-31, so the top of the range is a two-month window. [1]
+- limits note: A merged pull request in an in-scope project comes before any payment, and the multiplier that makes the ceiling interesting expires 2026-12-31, so the top of the range is a two-month window.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: A 3x multiplier on a tier-1 core data parser pays USD 45,000 for one API-compatible Rust rewrite, which is 4.5 times the USD 10,000 GitHub grant and 6.4 times the USD 7,000 Outreachy stipend, and it needs no company, no card and no interview.
+- reliability: no reliability event recorded
+- notes: This is the highest cash-per-action figure in evaluated offerings and the only one with no application, no deadline and no cohort. The gate is real skill plus scope: tier 1 is a fixed project list and tier 2 is the OSS-Fuzz set, so the work has to land in code somebody else depends on. Recorded after finding that the more famous Secure Open Source Rewards pilot is gone: sos.dev states it was decommissioned and names this programme as the replacement, which is why the dead programme belongs in the notes of the live one rather than in earlier readings as a dead record.
+- extras:
+  - facets.class: bounty-individual
+  - facets.free_tier_kind: cash-bounty
+- evidence:
+  - [1] 2026-10-22: quoted the four reward tiers, the 2x and 3x memory-safety multipliers 'until the end of 2026', and the two worked examples: USD 10,000 for a Struts sandbox, USD 5,000 for a patched Go cors denial-of-service
+  - [2] 2026-10-22: the in-scope definition: tier 1 is an explicit project list at github.com/google/bughunters/blob/main/patch-rewards-program/scope.md; any project that receives a Google vulnerability report is also in scope for the patch that fixes it; tier 2 is every project integrated into OSS-Fuzz
+  - [3] 2026-10-22: SOS Rewards was decommissioned after paying USD 353,000 for 189 improvements in 24 months, and the page redirects individuals to this Patch Rewards programme instead
+- sources:
+  - [1] https://bughunters.google.com/open-source-security/patch-rewards
+  - [2] https://bughunters.google.com/about/rules/open-source/patch-rewards-program-rules
+  - [3] https://sos.dev/
+
+## Google Play Books Partner Center
+
+- `storage/google-play-books-partner-center` | qualifies-with-caveat | evidence reported | binding per-object-cap | category Book publishing / distribution
+- needs card no, phone yes, ID no, institution no | verified 2026-11-01T18:05:08.100Z, checked 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://support.google.com/books/partner/answer/3424254
+- free tier: 2 GB per content file ('Each file must be less than 2 GB. This limit includes cover image files'). An ebook should be at least 4 pages. A supplemental PDF is one per audiobook and must be 'Under 100 MB in size'; an audiobook runs from 5 minutes to 100 hours, and multiple audio parts may be supplied separately or zipped into one file. | unit: GB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: per-object-cap 2 GB | bytes: 2000000000 | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Google-served to purchasers; no public hot-link. | metered: no
+- identity: any-phone | detail: a Google Account, or a new account: the checklist says to sign in using a Google Account or create a new account. Publishing then needs a payment profile whose form asks for a business name, contact name, address and phone number, and all publishers must submit tax information. No card is charged at signup.
+- interface: unknown
+- limits:
+  - write-gated: review [1]
+  - per-object-cap (binding): per-object-cap 2 GB [1]
+- limits note: per-object-cap 2 GB; PDF/EPUB only for ebooks; PDF unencrypted required; EpubCheck validation required.
+- interface detail: Partner Center web upload; also automated content fetching (ONIX/feed) per answer/2763162.
+- tooling: Web + feed-based automation.
+- composes with: 2 GB/file with multi-part naming (ISBN_1of3.pdf) means a large work can be split across parts with no stated part count. The sharding is built into the naming convention.
+- reliability: Payout requires tax/payment setup; publishing is write-gated by Google's review. Ingest is heavily normalised. This is not a byte-preserving store.
+- notes: 2 GB per content file, cover images included; the 100 MB bound on the page is the supplemental PDF, not an audio file; an audiobook is bounded by duration (5 minutes to 100 hours) and may be split into parts.
+- evidence:
+  - [1] 2026-10-21: 'Each file must be less than 2 GB. This limit includes cover image files'; audiobook 'Under 100 MB in size'
+  - [2] 2026-10-21: independent comparison table: Google Play 2048 MB, Apple Books 2048 MB, Amazon 650 MB, Kobo 100 MB, B&N 20 MB
+  - [3] 2026-11-01: publishing needs a payment profile, and its form asks for a phone number | capture: sha256:62024fe674fea10e6fca42f8c154b93746cd03b7ce9bcf71dd3bfee9d7988ec2 | quote: You must have a payment profile in order to sell books on Google Play. ... Enter your business name, contact name, address, and phone number.
+  - [3] 2026-11-01: the payment profile that publishing requires asks for a phone number | capture: sha256:62024fe674fea10e6fca42f8c154b93746cd03b7ce9bcf71dd3bfee9d7988ec2 | quote: Enter your business name, contact name, address, and phone number.
+  - [1] 2026-11-01: the 2 GB file ceiling; the 100 MB bound is the supplemental PDF, and an audiobook is bounded by duration, not by file size | capture: sha256:ebfdad9b15429b0bdfd4df043d46981788159d92ce2375c4235d9891cfe8fa7e | quote: Each file must be less than 2 GB. This limit includes cover image files. ... Under 100 MB in size ... The audiobook must be a minimum of 5 minutes up to a maximum of 100 hours.
+  - [1] 2026-11-01: the 100 MB bound applies to the one supplemental PDF of an audiobook | capture: sha256:ebfdad9b15429b0bdfd4df043d46981788159d92ce2375c4235d9891cfe8fa7e | quote: One PDF file for each audiobook. Multi-file PDFs aren’t supported ... Under 100 MB in size
+  - [1] 2026-11-01: the 2 GB per-file ceiling is unchanged on the book-file guidelines page | capture: sha256:ebfdad9b15429b0bdfd4df043d46981788159d92ce2375c4235d9891cfe8fa7e | quote: Each file must be less than 2 GB. This limit includes cover image files.
+- sources:
+  - [1] https://support.google.com/books/partner/answer/3424254?hl=en
+  - [2] https://help.vellum.pub/uploading/
+  - [3] https://support.google.com/books/partner/checklist/4489282?hl=en
+
+## Google Summer
+
+- `compute/google-summer` | qualifies-with-caveat | evidence documented | binding write-gated | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T02:17:35.142Z (live) | stale on 2026-12-03
+- url https://developers.google.com/open-source/gsoc/help/student-stipends
+- free tier: 'large projects range from $3000 to $6600 USD, depending on location', medium 'from $1500 to $3300', small 'from $750 to $1650', paid 45 percent after the midterm evaluation and 55 percent at the end, to a 12+ week project. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: cash-stipend
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email | detail: a Google account: the program website signs in with one, an account must be registered for the current program each year, and the Program Rules treat submitting project proposals through multiple Google accounts as a ground for removal. A contributor must be eighteen or older upon registration, must be eligible to work in the country of residence for the whole program, and may not be a resident of a United States embargoed country; Russia, Belarus and the DNR/LNR regions are named as ineligible, and a country outside the payment processor's list is not eligible for a payment. A payment-processor account is required before a stipend is paid, with proof of residency and tax documentation. The application asks for the contributor agreement and a project proposal submitted through the program website, so no card is required; the Google account signup asks for a username, a password, a birthday and gender, and adding and verifying a phone number is optional, so no phone number is required to register. | country: any country other than a United States embargoed country, excluding Russia, Belarus and the DNR/LNR regions; a country missing from the payment processor's list cannot be paid
+- interface: unknown
+- limits:
+  - write-gated (binding): One application window a year, a mentor organization must select the proposal, and payment is split across two evaluations, so nothing arrives before roughly week six. [1]
+- limits note: One application window a year, a mentor organization must select the proposal, and payment is split across two evaluations, so nothing arrives before roughly week six.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: This is the only lane here that pays a person in a country the vendor has never heard of at a published per-country rate with no company and no card: USD 3,000 to 6,600 for twelve weeks, paid in two instalments, and the stipend is the only number either side publishes.
+- reliability: no reliability event recorded
+- notes: Two real limits. The intake is annual and closed for 2026; the next window is inferred to be March 2027 from the 2026 dates, not announced. The stipend is PPP-adjusted downward, so the published table has to be read for the country of residence. The role is titled 'contributor' rather than student on the pages read.
+- extras:
+  - facets.class: stipend
+  - facets.free_tier_kind: cash-stipend
+- evidence:
+  - [1] 2026-10-22: quoted the 2026 stipend bands, the PPP adjustment, the 45/55 payment split, and payment through Payoneer across 190+ countries
+  - [2] 2026-10-22: quoted the 2026 dates: contributor applications 2026-03-18 to 2026-04-02, accepted projects revealed 2026-05-01, and 'The timeline for Google Summer of Code can shift a bit each year'
+  - [3] 2026-10-22: the live front page reads 'GSoC 2026 Contributors Announced!', so the 2026 round is complete
+  - [4] 2026-10-22: the phases: organization applications, contributor application period, proposal review, community bonding, coding, two evaluations
+  - [5] 2026-11-02: residence outside a United States embargoed country is an eligibility requirement, alongside 18+ and work eligibility | capture: sha256:7762a8f4af073b3d8dbcad3bb9f3c1cbf0a4865b2dd9c316ea1281252a98cd61 | quote: Not residing in a U.S. embargoed country
+  - [5] 2026-11-02: three named territories are excluded beyond the embargo rule | capture: sha256:7762a8f4af073b3d8dbcad3bb9f3c1cbf0a4865b2dd9c316ea1281252a98cd61 | quote: Currently, participants from Russia, Belarus, and the DNR/LNR regions are ineligible.
+  - [6] 2026-11-02: the residence rule as the program website states it to an applicant | capture: sha256:d81386510dc549d142133eed3620ce580448748cd3d44ff4d42e9a0001ff4d45 | quote: Must be a resident of a country not currently embargoed by the United States.
+  - [7] 2026-11-02: a payment-processor account with proof of residency is required for the stipend, and is not part of applying | capture: sha256:58f049ab730351383bb0004d67347b26958902a3345e41544417cee421d7ad6b | quote: GSoC Contributors will be required to provide proof of residency in their country along with other compliance documentation when registering for their Payment Processor account, which is how they will receive their stipends.
+  - [8] 2026-11-02: the program account is created by registering for the current year | capture: sha256:c52ffe6ef5318f15a1f3308e0997b1f33b6e31ad44034c753ae1b4a741c9b28f | quote: Even if you have participated in previous years, you must re-register each year.
+  - [9] 2026-11-02: a phone number is optional on the Google account that signs in to the program website | capture: sha256:5766918872d9f5d5d120485d5c4de5e0c5e337cb09384ec591f52565282ac441 | quote: Optional: Add and verify a phone number for your account.
+  - [10] 2026-11-02: an account for the current program is required before a proposal can be submitted | capture: sha256:7abac161a90a23437753ca0c91506b7cba0265d44bab8a88ac106883275379ad | quote: You must register for the current program even if you had an account in a previous year (pre-2022).
+- sources:
+  - [1] https://developers.google.com/open-source/gsoc/help/student-stipends
+  - [2] https://developers.google.com/open-source/gsoc/timeline
+  - [3] https://summerofcode.withgoogle.com/
+  - [4] https://summerofcode.withgoogle.com/how-it-works
+  - [5] https://developers.google.com/open-source/gsoc/faq
+  - [6] https://summerofcode.withgoogle.com/get-started/
+  - [7] https://summerofcode.withgoogle.com/rules
+  - [8] https://developers.google.com/open-source/gsoc/help/403
+  - [9] https://support.google.com/accounts/answer/27441
+  - [10] https://developers.google.com/open-source/gsoc/help/newsite
+
+## Google Trust Services
+
+- `domains-dns/google-trust-services` | qualifies-with-caveat | evidence documented | binding request-rate | category certificate authority | tier Public CA (Certificate Manager)
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T16:43:09.557Z (live) | stale on 2026-12-04
+- url https://docs.cloud.google.com/certificate-manager/docs/public-ca
+- free tier: certificates from the Public CA ACME endpoint are free; the quota is 100 new orders per hour per Google Cloud project, with wildcard names over the DNS challenge | unit: requests | metered on: request-count | read on: 2026-11-03 | source: [1]
+- per-object cap: no certificate size cap stated on the pages read; the quotas are on requests and not on objects | source: [1]
+- retention: certificates are good for up to 90 days by default and a client may ask for as little as 1 day; the ACME account has no expiry, and an EAB secret must be used within 7 days | days: 90 | source: [2]
+- egress: no charge | metered: no | source: [1]
+- identity: card | detail: a Google Cloud project is required, and the Cloud Billing page says a project not linked to an active Cloud Billing account cannot use Google Cloud services even when they are free; that account is tied to a Google payments profile and a payment method; the Public CA tutorial lists no billing step, so whether the Public CA API can be enabled with no payment method on file is unverified: behind a sign-up (https://docs.cloud.google.com/billing/docs/how-to/create-billing-account, https://docs.cloud.google.com/ruby/docs/reference/google-cloud-security-public_ca/latest)
+- interface: rest, cli
+- limits:
+  - request-rate (binding): 100 new orders per hour per Google Cloud project, shared by all ACME accounts in that project [3]
+  - request-rate (binding): 25 new accounts per minute and 100 per hour [3]
+  - write-gated: an EAB secret is valid 7 days and registers one ACME account only [1]
+  - retention-clamped: certificates are good for up to 90 days [2]
+- binding note: 100 new orders per hour per project bounds issuance, far above one user's need; the billing link on the project is the gate that decides who can use it
+- interface detail: ACME v2 at https://dv.acme-v02.api.pki.goog/directory (staging at https://dv.acme-v02.test-api.pki.goog/directory) with external account binding required; the EAB key is made with the Public CA API or gcloud publicca external-account-keys create
+- tooling: certbot, acme.sh, any ACME client that supports EAB, the gcloud CLI for the EAB key
+- composes with: a free ACME CA run by a different operator than Let's Encrypt and ZeroSSL, with wildcard names over DNS-01 and certificates down to 1 day; the cost is a Google Cloud project that must be linked to a Cloud Billing account
+- reliability: the ACME service does not support retrying a challenge, so a client requests a new authorization after a failed validation; no outage history was read
+- notes: The 90-day figure is the default for the ACME endpoint. Certificate Manager's own Google-managed certificates are moving to 45 days, which is a different path from a client using ACME directly.
+- evidence note: the Public CA tutorial, concepts page, quota page, Google blog and ACME divergence page were captured and quoted; the production directory answered 200 with externalAccountRequired true. The card requirement is read from the billing page and a client-library quick start and was not seen at a sign-up.
+- evidence:
+  - [1] 2026-11-03: Public CA certificates are free | capture: sha256:419077766ca6e2cb326b0fec7e7261b37f86ed91abf4b6ed39e9fe62a05443f0 | quote: There is no charge for requesting certificates from Public CA.
+  - [3] 2026-11-03: 100 new orders per hour | capture: sha256:b965a9ed8fbe449a9db04b5155be5e62282cf6eff7da3e6b5a83e1a08bb14076 | quote: | Request a certificate (`newOrder`) | 100 per hour | Maximum number of new certificate requests |
+  - [3] 2026-11-03: account creation quota | capture: sha256:b965a9ed8fbe449a9db04b5155be5e62282cf6eff7da3e6b5a83e1a08bb14076 | quote: | Create an ACME account (`newAccount`) | 25 per minute, 100 per hour | Maximum number of account creation requests |
+  - [3] 2026-11-03: quotas are per project and shared by ACME accounts | capture: sha256:b965a9ed8fbe449a9db04b5155be5e62282cf6eff7da3e6b5a83e1a08bb14076 | quote: Certificate Manager applies quotas at the Google Cloud project level.
+  - [4] 2026-11-03: wildcard names are validated by the DNS challenge | capture: sha256:1c5d54fc3a98a6cc11cfa10dd6b02b69aedcb28f3d6c7aa81e7a76645f3da0a6 | quote: if you validate `*.myorg.example.com` using the DNS challenge, then
+  - [5] 2026-11-03: wildcards need DNS-01 | capture: sha256:10363716054ed8980006d4c49d4610419e9ce7bb0afb10c2afaebd353dbe22e0 | quote: wildcard certificates can only be obtained using DNS ACME challenges.
+  - [2] 2026-11-03: validity up to 90 days, shorter on request | capture: sha256:d02061bee58fdf9470312de950e8cce5574f209a1833df9352eaa3081744b7f5 | quote: By default all certificates issued by Google Trust Services are good for up to 90 days
+  - [1] 2026-11-03: the EAB secret expires in 7 days | capture: sha256:419077766ca6e2cb326b0fec7e7261b37f86ed91abf4b6ed39e9fe62a05443f0 | quote: You must use an EAB secret within 7 days of obtaining it.
+  - [1] 2026-11-03: one account per EAB secret | capture: sha256:419077766ca6e2cb326b0fec7e7261b37f86ed91abf4b6ed39e9fe62a05443f0 | quote: You can only register one ACME account with an EAB secret.
+  - [6] 2026-11-03: access is through a Google Cloud account | capture: sha256:6f7d655dc472e104afddc86823c96cb15f7ceee4bfe146bc3505a8ec26d13b0a | quote: All Google Cloud users can get certificates from Google Trust Services.
+  - [7] 2026-11-03: a project needs an active billing account, free services included | capture: sha256:633392c4fda5bba726343405548ca0106304023e204f54ab1ecacaaf508f3cc5 | quote: Projects that are not linked to an active Cloud Billing account can't use Google Cloud or Google Maps Platform services.
+  - [7] 2026-11-03: a billing account is tied to a Google payments profile | capture: sha256:633392c4fda5bba726343405548ca0106304023e204f54ab1ecacaaf508f3cc5 | quote: You can choose an existing Google payments profile, or create a new payments profile.
+  - [8] 2026-11-03: the Public CA client library lists enabling billing as a prerequisite | capture: sha256:53076e454d4997ec1f4934a22467f13d899386df6cc5f704573bf463b7332217 | quote: Enable billing for your project.
+  - [9] 2026-11-03: a failed challenge is not retried | capture: sha256:361e081f718f531ac4f3b6319548fb66001b5ff46a30681a5367b384fbb39dc8 | quote: Retrying challenges is not supported.
+  - probe:https://dv.acme-v02.api.pki.goog/directory 2026-11-03: the production ACME directory is live (HTTP 200, 739 bytes) and requires external account binding | capture: sha256:c50804673116997d94144ffc9f1122a3e38831fa87d9069dd1d95b0072e931fd | quote: "externalAccountRequired":true
+- sources:
+  - [1] https://docs.cloud.google.com/certificate-manager/docs/public-ca-tutorial
+  - [2] https://cloud.google.com/blog/products/identity-security/automate-public-certificate-lifecycle-management-via--acme-client-api
+  - [3] https://cloud.google.com/certificate-manager/docs/quotas
+  - [4] https://cloud.google.com/certificate-manager/docs/public-ca
+  - [5] https://developers.google.com/public-key-infrastructure/updates/september2025-acme-best-practices
+  - [6] https://developers.google.com/public-key-infrastructure/faq/get-a-certificate
+  - [7] https://docs.cloud.google.com/billing/docs/how-to/create-billing-account
+  - [8] https://docs.cloud.google.com/ruby/docs/reference/google-cloud-security-public_ca/latest
+  - [9] https://developers.google.com/public-key-infrastructure/faq/acme-divergences
+
+## Public Datasets hosting programme (Google Cloud)
+
+- `storage/public-datasets-hosting-programme` | qualifies-with-caveat | evidence reported | binding write-gated | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://docs.cloud.google.com/storage/docs/public-datasets
+- free tier: No published quota - Google 'pays for the hosting of these datasets'. Existing hosted sets (Sentinel-2, Landsat, ARCO-ERA5, NEXRAD) run to petabytes. | unit: unlimited | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Free public access to hosted datasets; anonymous API links work without auth. | metered: no
+- identity: card | detail: inferred from the category 'iaas'; the source record states no identity cost, so this is a class assumption, not evidence
+- interface: s3, rclone
+- limits:
+  - write-gated (binding): application form [1]
+- limits note: There is no open self-service application form. The published route directs inquiries to program administrators for review. Listing datasets is invitation-only.
+- interface detail: s3
+- tooling: GCS API / gcloud storage / rclone 'gcs'.
+- composes with: Not applicable - this is Google's own catalogue, not an open intake.
+- reliability: No published process means no predictable outcome; do not plan around it.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: 'Google pays for the hosting of these datasets'; the entire intake instruction is an email address
+  - [2] 2026-10-21: catalogue is Google-owned, commercial and government datasets only
+- sources:
+  - [1] https://docs.cloud.google.com/storage/docs/public-datasets
+  - [2] https://cloud.google.com/datasets
+
+## Google Cloud Free Trial (USD 300)
+
+- `compute/google-cloud-trial` | trial-only | evidence documented | binding volume-quota | category cloud platform trial credit | tier free trial
+- needs card yes, phone yes, ID no, institution no | verified 2026-10-23T11:22:37.000Z (live) | stale on 2026-11-23
+- url https://cloud.google.com/free/docs/free-cloud-features
+- free tier: Signing up for the Free Trial creates a Free Trial billing account that is preloaded with $300 in free Welcome credit which is valid for 90 days. | unit: mixed | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable: the offer is a spending balance, not a stored object
+- retention: the balance is deleted at day 90 or when it is spent, whichever comes first; the trial cannot be paused or extended | days: 90 | source: [1]
+- egress: egress bills against the credit at list price; the separate always-free allowance is 1 GB a month from North America | metered: yes | source: [1]
+- identity: card | detail: a credit card or other payment method is required at signup, with a temporary authorisation hold of USD 0.00 to USD 1.00; a consumer Google account is accepted and the page does not ask for a work address; bank or phone verification applies in some countries
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): USD 300 of credit over 90 days from signup [1]
+  - write-gated: a trial billing account cannot request a quota increase, cannot add GPUs, and cannot use Marketplace images that carry a licence fee [1]
+- limits note: the credit cannot pay for the Gemini API in AI Studio, for a generative AI partner model sold as a managed API, for Windows Server images, or for Marketplace fees
+- binding note: the 90-day clock ends the balance before any usage ceiling is reached
+- interface detail: the Google Cloud console, gcloud CLI and every product API
+- tooling: gcloud, the client libraries, Terraform, and every tool that speaks a Google Cloud API
+- composes with: this is the general-purpose credit behind a Google Cloud deployment; it pairs with the separate always-free e2-micro record, which has no end date
+- reliability: the credit expires at day 90 even after the account is upgraded to a paid billing account, and the trial cannot be paused
+- notes: This is a different record from google-cloud-free-tier, which carries the e2-micro allowance that has no end date. The trial is the largest single balance Google publishes to an individual, and the exclusions decide what it is worth: no GPU on a trial billing account, and no Gemini API spend. A workload that plans to train on a GPU cannot use this credit for it.
+- evidence note: the free-features page was read on 2026-10-23 and states the amount, the 90-day window, the card requirement and the product exclusions.
+- extras:
+  - free_tier_kind: one-time-credit
+  - credit_usd: 300
+  - credit_days: 90
+  - recurring: no
+  - reachable_by: consumer email plus a card
+  - excluded_products: Gemini API in AI Studio, partner managed models, GPUs on a trial account, Windows Server, Marketplace
+  - hourly_usd.e2_standard_4: 0.13402284
+  - hourly_usd.e2_standard_2_derived: 0.06701142
+  - rate_basis: e2-standard-4 read from the Google Cloud VM instance pricing page on 2026-10-23; e2-standard-2 is half of it and is derived, not read
+- evidence:
+  - [1] 2026-10-23: 'Signing up for the Free Trial creates a Free Trial billing account that is preloaded with $300 in free Welcome credit which is valid for 90 days', quoted; the same page states the card requirement, the 90-day expiry after upgrade, and the Gemini API and GPU exclusions
+- sources:
+  - [1] https://cloud.google.com/free/docs/free-cloud-features
+
+## Google Cloud external passthrough Network Load Balancer
+
+- `egress/gcp-passthrough-nlb` | paid-only | evidence documented | binding write-gated | category L4 passthrough load balancer (regional) | tier payg
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://cloud.google.com/load-balancing/docs/network
+- price unverified
+- free tier: No free tier is stated for the load balancer. Backends must be instance groups or NEGs: These backends must be in the same region and project. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No byte allowance: a forwarding rule is billed hourly and the traffic is billed at Cloud egress rates. The price page could not be read - its extraction returned an unrelated domain-price table.; ingress: tcp+udp | metered: no | free allowance: none published | source: [1]
+- identity: card | detail: A Google Cloud project with billing enabled; the free trial credit is a credit, not a free tier for this product. | country: None
+- interface: rest, cli
+- limits:
+  - write-gated (binding): backends must be instance groups or zonal NEGs in the same region and project as the load balancer [1]
+- binding note: At 1 TiB/month the first thing that fails is not a byte count but the backend requirement: the service must already run in the same GCP project and region, which means the origin already has a public address of its own.
+- interface detail: a forwarding rule selects address, protocol and ports and points at one regional backend service
+- tooling: gcloud, the API or the console; a forwarding rule plus a backend service and health check
+- composes with: only with a GCP backend, so it chains with a free GCP e2-micro but that VM already has a public IP
+- reliability: no reliability event recorded
+- notes: UDP is documented and the address can be Premium Tier, which is anycast to the nearest region. It still adds no reachability a GCP VM's own external IP does not already provide, and it is regional rather than global for L4. Hybrid NEGs can point at on-premises hosts through Cloud VPN or Interconnect, which is a route but not a cheap one.
+- evidence note: The protocol list and the backend constraint are quoted from the page read. The price is unverified because the pricing page extraction failed, so the record cannot support a cost claim.
+- extras:
+  - wg_path: inside-udp
+  - wg_detail: The backend service forwards TCP, UDP, ESP, GRE, ICMP and ICMPv6, so a WireGuard datagram reaches a GCE backend on the forwarding rule's port.
+  - ingress: tcp+udp
+  - volume_stated: No byte allowance: a forwarding rule is billed hourly and the traffic is billed at Cloud egress rates. The price page could not be read - its extraction returned an unrelated domain-price table.
+  - bytes_transit: yes
+  - transit_note: Google's network carries the bytes to the backend
+- evidence:
+  - [1] 2026-10-23: Backend service-based regional external passthrough Network Load Balancers can load-balance TCP, UDP, ESP, GRE, ICMP, and ICMPv6 traffic.
+  - [1] 2026-10-23: These backends must be in the same region and project but can be in different VPC networks.
+- sources:
+  - [1] https://cloud.google.com/load-balancing/docs/network
+
+## Google Compute Engine (Windows Server)
+
+- `compute/gcp-windows` | paid-only | evidence documented | binding request-rate | category Windows host
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T01:29:47.010Z (live) | stale on 2026-12-04
+- url https://cloud.google.com/compute/disks-image-pricing#windows_server_pricing
+- disagrees on verdict: `compute/gcp-compute` says qualifies-with-caveat, `compute/gcp-windows` says paid-only
+- free tier: not stated for the Windows Server image on https://cloud.google.com/compute/disks-image-pricing (read 2026-10-30), which bills it from a 1 minute minimum; the page's only free row is standard persistent disk, 'Standard provisioned space | 0 gibibyte month to 30 gibibyte month $0.00 (Free)', per month per account in Iowa (us-central1) | unit: none | metered on: wall-clock | read on: 2026-10-30 | source: [1] | note: The USD 300 Free Trial credit does not reach this offer before an upgrade: a non-billable Free Trial account cannot 'Create VM instances that are based on Windows Server images.' After the upgrade to a Paid billing account the Free Trial document says the remaining credit stays usable on products and services covered by the Free Trial for the original 90 days from sign-up, and its list of what the credit cannot pay for names Gemini API in AI Studio and managed-API partner models, not Windows Server images, so the credit is expected to pay the Windows Server licence (inferred; no first-party page states it for Windows Server). No page read states a free Windows Server allowance.
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: card | detail: Free Trial signup requires a credit card or other payment method, and the upgrade to a Paid billing account that GPU and Windows Server VMs need is made on that billing account
+- interface: unknown
+- limits:
+  - request-rate (binding): Windows Server image licence at USD 0.046 an hour per visible vCPU (USD 0.023 an hour on f1-micro and g1-small), on top of the machine type; 1 minute minimum, then 1 second increments [1]
+  - retention-clamped: an archive snapshot is billed for a minimum of 90 days whether or not it is deleted sooner [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: part of the free tier
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the disks and images pricing page was read on 2026-10-30: it bills the Windows Server image at USD 0.046 an hour per visible vCPU (USD 0.023 on f1-micro and g1-small) from a 1 minute minimum and states the 90-day archive-snapshot minimum; the Free Trial document bars Windows Server VMs on a Free Trial account
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: the licence bills with the instance hour; the free e2-micro allowance does not carry a Windows image
+  - free_tier_kind: none
+  - granularity.min_billed_s: 60
+  - ps.price: archive snapshots metered at a 90-day floor
+  - ps.durability: snapshot
+  - ps.on_stop: yes
+  - ps.on_destroy: yes
+  - ps.retention: 90 days of billing even if deleted sooner
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: '$0.06 USD/hour for instances with 4 or fewer vCPUs' and '$0.13 USD/hour for instances with more than 4 vCPUs' on the Windows Server premium image, and 'Archive snapshots are billed for a minimum of 90 days of storage', quoted
+  - [2] 2026-10-30: the Windows Server image is billed from a 1 minute minimum, with no free allowance on the page | capture: sha256:6d1f74ec60fb6294c297e678e061fa34dd64677bb05f0a06f762f59c48283281 | quote: Windows Server images are charged a 1 minute minimum.
+  - [3] 2026-10-30: a non-billable Free Trial account cannot create VM instances based on Windows Server images | capture: sha256:885a38c2b738a7e9ac34bffbae919db1163c80786856ff5f689da3a3bfe0b095 | quote: Create VM instances that are based on Windows Server images.
+  - [2] 2026-10-30: the only free row on the disks and images page is 30 gibibyte months of standard persistent disk per month per account | capture: sha256:6d1f74ec60fb6294c297e678e061fa34dd64677bb05f0a06f762f59c48283281 | quote: Standard provisioned space | 0 gibibyte month to 30 gibibyte month $0.00 (Free) / 1 gibibyte hour, per 1 month / account
+  - [2] 2026-10-30: the Windows Server image licence is USD 0.046 an hour per visible vCPU on every machine type but f1-micro and g1-small | capture: sha256:6d1f74ec60fb6294c297e678e061fa34dd64677bb05f0a06f762f59c48283281 | quote: All other machine types: $0.046 USD/hour per visible vCPU.
+  - [2] 2026-10-30: the Windows Server image licence on f1-micro and g1-small is USD 0.023 an hour | capture: sha256:6d1f74ec60fb6294c297e678e061fa34dd64677bb05f0a06f762f59c48283281 | quote: f1-micro and g1-small machine types: $0.023 USD/hour.
+  - [2] 2026-10-30: archive snapshots are billed for at least 90 days | capture: sha256:6d1f74ec60fb6294c297e678e061fa34dd64677bb05f0a06f762f59c48283281 | quote: Archive snapshots are billed for a minimum of 90 days of storage, and also billed for retrieval charges when used to create a disk.
+  - [3] 2026-11-03: after the upgrade to a Paid billing account the remaining credit stays usable on products and services covered by the Free Trial, within 90 days of sign-up | quote: Your remaining credit is available for use on [products and services covered by the Free Trial](https://docs.cloud.google.com/free/docs/free-cloud-features#during-free-trial), but they must be consumed within the original 90 days period from your sign-up date.
+  - [3] 2026-11-03: the credit has its own exclusion list, which names Gemini API in AI Studio and managed-API partner models, and neither GPUs nor Windows Server images | quote: The $300 credit can't be used for the following
+  - [4] 2026-11-03: the Free Trial terms let an upgraded customer keep using unused credit for the Services, expiring 3 months after the Free Trial start | capture: sha256:ab6f9b98d83853d5785226dfcfcdd13082241c566fbe4159c171f03bc86a21b2 | quote: Customer may continue to use the credits for the Services (subject to the limitations described at the Free Trial Description Page). Any unused credits will expire 3 months after the Free Trial Start Date.
+  - [3] 2026-11-03: upgrading to a Paid billing account unlocks GPUs, which a non-billable Free Trial account cannot add | quote: Google Cloud access unlocked: You gain access to all Google Cloud products and services, including those products and services that were restricted during the Free Trial, such as GPUs, Google Cloud Marketplace, and third-party generative AI models.
+  - [3] 2026-11-03: Windows Server VMs are listed among what a non-billable Free Trial account cannot do, a restriction tied to the account state | quote: Create VM instances that are based on Windows Server [images](https://docs.cloud.google.com/compute/docs/images).
+  - [3] 2026-11-03: the Free Trial signup, which precedes the upgrade, requires a credit card or other payment method | quote: During the sign up, you must provide a credit card or other payment method that is valid for the period of the Free Trial.
+- sources:
+  - [1] https://cloud.google.com/compute/disks-image-pricing#windows_server_pricing
+  - [2] https://cloud.google.com/compute/disks-image-pricing
+  - [3] https://cloud.google.com/free/docs/free-cloud-features
+  - [4] https://cloud.google.com/terms/free-trial
+
+## Google Compute Engine GPU VMs
+
+- `compute/gcp-compute-gpu` | paid-only | evidence documented | binding write-gated | category GPU cloud
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T01:29:47.009Z (live) | stale on 2026-12-04
+- url https://cloud.google.com/products/compute/pricing/accelerator-optimized
+- free tier: not stated on https://cloud.google.com/products/compute/pricing/accelerator-optimized (read 2026-10-30): the page is a price sheet that bills every GPU machine type by the hour, for example a2-ultragpu-1g (one A100) at USD 5.06879789 an hour on demand, and prints no free allowance | unit: none | metered on: wall-clock | read on: 2026-10-30 | source: [1] | note: The Free Tier document says 'GPUs and TPUs are not included in the Free Tier offer.', and a non-billable Free Trial account cannot add GPUs to VM instances, so the USD 300 Welcome credit does not reach a GPU before the account is upgraded. After the upgrade to a Paid billing account the same document says GPUs are unlocked and the remaining credit stays usable on products and services covered by the Free Trial for the original 90 days from sign-up; its list of what the credit cannot pay for names Gemini API in AI Studio and managed-API partner models, not GPUs, and a Google Cloud Support reply states the credit is applied to GPU usage after the upgrade, so the credit pays for GPU time (inferred from that exclusion list and the support reply; no page prices a GPU against the credit).
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: card | detail: Free Trial signup requires a credit card or other payment method, and the upgrade to a Paid billing account that GPU and Windows Server VMs need is made on that billing account
+- interface: unknown
+- limits:
+  - request-rate: one A100 (a2-ultragpu-1g) at USD 5.06879789 an hour on demand; eight-GPU H100 nodes at USD 88.490000119 an hour (a3-highgpu-8g) and USD 93.400712807 an hour (a3-megagpu-8g) on demand [1]
+  - write-gated (binding): no free-tier allowance applies to any GPU or TPU; billing starts with the first second [1]
+- limits note: Session cap, idle-reap and network policy are not documented. GPU only.
+- interface detail: Access interface not documented in published terms.
+- tooling: part of the free tier
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: both the accelerator-optimized rate card and the free-features document were read on 2026-10-22. The page proves the per-GPU rate and the free-features document proves there is no free GPU allowance
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - shape.gpu_class: A100 80GB
+  - shape.gpu_count: 1
+  - shape.note: each accelerator-optimized type fixes its own ratio; a2-ultragpu-1g is 1 GPU, 12 vCPU, 170 GB, 275 GiB SSD
+  - session_cap.restart_required: no
+  - session_cap.note: no free allowance and no session cap; a GPU VM bills until it is stopped or deleted
+  - free_tier_kind: none
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'GPUs and TPUs are not included in the Free Tier offer. You are always charged for GPUs and TPUs that you add to VM instances' (free-features document), against the accelerator-optimized rate card read the same day: a2-ultragpu-1g at $5.06879789 an hour on demand
+  - [1] 2026-10-30: the accelerator-optimized price sheet bills a one-A100 a2-ultragpu-1g at USD 5.06879789 an hour on demand; the page prints no free allowance | capture: sha256:4f4ad665a2c1ce22a5577e69e46285b550869601c3404da032c3aecd569c6f7c | quote: a2-ultragpu-1g | Nvidia A100 | GPUs: 1 vCPUs: 12 Memory: 170GB SSD: 275 GiB | $5.06879789 / 1 hour
+  - [2] 2026-10-30: the Google Cloud Free Tier excludes GPUs | capture: sha256:885a38c2b738a7e9ac34bffbae919db1163c80786856ff5f689da3a3bfe0b095 | quote: GPUs and TPUs are not included in the Free Tier offer.
+  - [2] 2026-10-30: while the billing account is a non-billable Free Trial account, GPUs cannot be added to VM instances | capture: sha256:885a38c2b738a7e9ac34bffbae919db1163c80786856ff5f689da3a3bfe0b095 | quote: Add GPUs to your VM instances.
+  - [1] 2026-10-30: an eight-H100 a3-highgpu-8g is billed USD 88.490000119 an hour on demand, below the a3-megagpu-8g at USD 93.400712807 | capture: sha256:4f4ad665a2c1ce22a5577e69e46285b550869601c3404da032c3aecd569c6f7c | quote: a3-highgpu-8g | Nvidia H100 | GPUs: 8 vCPUs: 208 Memory: 1,871GB SSD: 6,000 GiB | $88.490000119 / 1 hour
+  - [2] 2026-11-03: after the upgrade to a Paid billing account the remaining credit stays usable on products and services covered by the Free Trial, within 90 days of sign-up | quote: Your remaining credit is available for use on [products and services covered by the Free Trial](https://docs.cloud.google.com/free/docs/free-cloud-features#during-free-trial), but they must be consumed within the original 90 days period from your sign-up date.
+  - [2] 2026-11-03: the credit has its own exclusion list, which names Gemini API in AI Studio and managed-API partner models, and neither GPUs nor Windows Server images | quote: The $300 credit can't be used for the following
+  - [3] 2026-11-03: the Free Trial terms let an upgraded customer keep using unused credit for the Services, expiring 3 months after the Free Trial start | capture: sha256:ab6f9b98d83853d5785226dfcfcdd13082241c566fbe4159c171f03bc86a21b2 | quote: Customer may continue to use the credits for the Services (subject to the limitations described at the Free Trial Description Page). Any unused credits will expire 3 months after the Free Trial Start Date.
+  - [2] 2026-11-03: upgrading to a Paid billing account unlocks GPUs, which a non-billable Free Trial account cannot add | quote: Google Cloud access unlocked: You gain access to all Google Cloud products and services, including those products and services that were restricted during the Free Trial, such as GPUs, Google Cloud Marketplace, and third-party generative AI models.
+  - [4] 2026-11-03: a Google Cloud Support reply (2017) states the remaining free-trial credit is applied to GPU usage after the upgrade | capture: sha256:5adbe874bead28963f94e5fb158f32883ae16efedfc9dc40b5f8c3bdd50211c6 | quote: Free-trial credits are applicable to any Google Cloud Platform services (including GPU), so even after the upgrade the remainder free credit will be utilized against any GCP services in use (including GPU).
+  - [2] 2026-11-03: the Free Trial signup, which precedes the upgrade, requires a credit card or other payment method | quote: During the sign up, you must provide a credit card or other payment method that is valid for the period of the Free Trial.
+- sources:
+  - [1] https://cloud.google.com/products/compute/pricing/accelerator-optimized
+  - [2] https://cloud.google.com/free/docs/free-cloud-features
+  - [3] https://cloud.google.com/terms/free-trial
+  - [4] https://groups.google.com/g/gce-discussion/c/JoOwDMtMgFk
+
+## Google
+
+- `compute/google` | fails-identity | evidence documented | binding write-gated | category cloud VM
+- needs card no, phone no, ID no, institution yes | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://cloud.google.com/startup
+- free tier: Start tier is USD 2k for startups founded in the past 2 years with a working MVP, a clear business model and plans to seek venture funding soon. The Funded program tiers, Scale and Scale AI, range from USD 200K to USD 350k in credits and require verifiable Pre-Seed to Series A funding. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: one-shot-credit
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution | detail: The application requires a business email matching the startup public website domain, a billing account administered by a user on that domain, and an active website describing company, team and product. Scale tier funding must come from a known investor; non-venture funding such as grants, loans or friends and family does not qualify.
+- interface: unknown
+- limits:
+  - write-gated (binding): The domain-matched business email plus a verifiable funding round fail first, and Google states it screens for AI-generated site content, so a thin one-person site is rejected at review. [1]
+- limits note: The domain-matched business email plus a verifiable funding round fail first, and Google states it screens for AI-generated site content, so a thin one-person site is rejected at review.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: The Start tier at USD 2,000 is the only slice a pre-funding founder could plausibly reach, and it needs a live MVP site. The USD 350,000 figure is locked behind an investor relationship that also constitutes the funding.
+- reliability: no reliability event recorded
+- notes: storage/google-for-startups-cloud-program records the USD 200K to 350k tiers as qualifies-with-caveat and derives identity_cost from prose. The live page shows the door is the funding round and the domain email, so the verdict here is fails-identity. This finding supersedes that record's verdict, not its numbers.
+- extras:
+  - facets.class: startup-credit
+  - facets.free_tier_kind: one-shot-credit
+- evidence:
+  - [1] 2026-10-22: Start tier is USD 2k and the Funded tiers range from USD 200K to USD 350k, with Pre-Seed to Series A verifiable funding, quoted
+  - [1] 2026-10-22: the site is screened and applications may be rejected for a high volume of AI generated text, image or other content, quoted
+  - [1] 2026-10-22: non-venture funding such as private equity, bank loans, government innovation programs, grants, crowdfunding or friends and family do not qualify for the Scale tier, quoted
+- sources:
+  - [1] https://cloud.google.com/startup
+
+## Google Cloud research
+
+- `compute/google-cloud-research` | fails-identity | evidence documented | binding write-gated | category GPU cloud
+- needs card no, phone no, ID no, institution yes | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://edu.google.com/programs/credits/research/
+- free tier: 'PhD students conducting research may apply for $1000 in GCP Credit per year' and 'Faculty and Postdoctoral researchers are eligible for one award of up to $5,000 USD'. The application form requires 'Organization Name *' chosen by 'Begin typing and select institution from the provided list', a 'Link to your profile in your institution's faculty or researcher directory', a 'Google Cloud Billing Account ID', a 250-word proposal, and a pricing-calculator estimate. Review is '6-8 weeks'. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: recurring-credit
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution
+- interface: rest
+- limits:
+  - write-gated (binding): the organisation field is a closed picker over an accredited-institution list plus a faculty-directory URL, so an unaffiliated applicant cannot fill the form at all. [1]
+- limits note: the organisation field is a closed picker over an accredited-institution list plus a faculty-directory URL, so an unaffiliated applicant cannot fill the form at all.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: Only for a student: the PhD line is USD 1,000 a year and renews, which buys roughly 800 TPU v5e chip-hours at USD 1.20, so it funds TRC's host VM and GCS bucket rather than the accelerator. The faculty line is one award per person, ever, so it does not renew.
+- reliability: no reliability event recorded
+- notes: Distinct from the TRC record and worth keeping separate, because the two Google programs have opposite doors: TRC takes a free-text affiliation, this one takes a picker over accredited institutions. The referring loophole is the only path an outsider might use, and it requires two university applicants who name you, so it is a finding about the door rather than a route. The compute-side reading is fails-identity, because the gate is the form field rather than the amount.
+- extras:
+  - facets.class: research-credit
+  - facets.free_tier_kind: recurring-credit
+- evidence:
+  - [2] 2026-10-22: Wayback capture 2026-03-17 of the vendor help page: 'PhD students conducting research may apply for $1000 in GCP Credit per year', 'Faculty and Postdoctoral researchers are eligible for one award of up to $5,000 USD', 'Students on a Masters degree program are not eligible', 'we review and make decisions on applications within 6-8 weeks', 'Only one person per research proposal may apply', quoted
+  - [1] 2026-10-22: the live form's required fields: 'Organization Name *' with 'Begin typing and select institution from the provided list', 'Link to your profile in your institution's faculty or researcher directory', 'Google Cloud Billing Account ID *', 'The program is currently only available in the countries listed'; page 200
+  - [3] 2026-10-22: the live help page returned a bot challenge (429 through six providers), so the quoted terms come from the 2026-03-17 capture rather than the live page
+  - [4] 2026-10-22: quoted OP: 'you are no longer allowed to use free trial credits on Google Studio API anymore'; a reply suggests the change targets accounts created for free AI access
+- sources:
+  - [1] https://edu.google.com/programs/credits/research/
+  - [2] https://web.archive.org/web/20260317102442id_/https://support.google.com/google-cloud-higher-ed/answer/10724468?hl=en
+  - [3] https://support.google.com/google-cloud-higher-ed/answer/10724468?hl=en
+  - [4] https://www.reddit.com/r/googlecloud/comments/1rrllgu/new_free_trial_rules
+
+## Firebase Realtime Database
+
+- `storage/firebase-realtime-database` | fails-egress | evidence reported | binding per-ip-shaping | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://firebase.google.com/products/realtime-database
+- free tier: 1 GB stored on the Spark (no-cost) plan; 10 GB/month downloaded (~360 MB/day) | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Metered on Blaze at $1/GB, with 'No-cost up to 360 MB/day (equivalent to ~10 GB/month)' on Spark. 360 MB/day vs 500 GB/day = 1,400x short. | metered: yes | free allowance: 10 GB per month
+- identity: email
+- interface: rest, cli
+- limits:
+  - per-ip-shaping (binding): 100 simultaneous connections [1]
+- limits note: 1 GB stored; 10 MB max string (so ~7.5 MB of binary as base64); 256 MB max response per read; 32 levels max depth; 768 byte key length; 1,000 writes/sec per DB; 100 simultaneous connections on Spark; 10 GB/month download
+- binding note: one stream is shaped, and aggregate throughput is the shaped rate times the number of streams
+- interface detail: rest
+- tooling: Firebase SDKs, REST API (`PUT/PATCH/GET .json`), Admin SDK, `firebase-tools` CLI; data is a JSON tree
+- composes with: 1 GB per database instance; multiple instances are possible via sharding, but the Spark plan limits you to a small number of instances and each shares the project's 10 GB/month download. 500 GB would need 500 projects.
+- reliability: Durable and simple, but base64 in JSON costs +33% and the 10 MB per-string cap means chunking into ~7.5 MB pieces. The 100-connection Spark limit and 360 MB/day download cap both bind hard.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 1 GB stored on the Spark (no-cost) plan; 10 GB/month downloaded (~360 MB/day)
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Realtime Database | GB stored 1 GB (no-cost)'; 'GB downloaded 10 GB/month (no-cost)'; 'No-cost up to 360 MB/day (equivalent to ~10 GB/month) Then $1/GB'
+  - [2] 2026-10-21: 'Maximum size of a string | 10 MB'; 'Size of a single response served by the database | 256 MB'; 'Maximum depth of child nodes | 32'; 'Write rate | 1,000 writes/second'; 'The Spark plan limit on simultaneous connections is 100'
+- sources:
+  - [1] https://firebase.google.com/pricing
+  - [2] https://firebase.google.com/docs/database/usage/limits
+
+## Firebase Storage (Cloud Storage for Firebase)
+
+- `storage/firebase-storage` | fails-egress | evidence reported | binding per-ip-shaping | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://firebase.google.com/products/storage
+- free tier: 5 GB stored on Spark (no-cost) plan; 1 GB downloaded per day; 50k download ops/day | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: 1 GB/day download (~30 GB/month) free, then $0.12/GB; outbound networking 5 GB/month. The 1 GB/DAY download cap is the binding constraint, not the 5 GB stored. | metered: yes | free allowance: 30 GB per month
+- identity: email
+- interface: rest, rclone
+- limits:
+  - per-ip-shaping (binding): 1 GB/day [1]
+- limits note: 1 GB/day egress (~30 GB/mo) is the practical ceiling. A 5 GB store is refetchable only 6x/month. Download-op cap 50k/day. Spark also caps Cloud Storage at 5 GB-months and 100 GB/month downloaded for the default bucket variant. No billing = hard stop, not overage.
+- binding note: one stream is shaped, and aggregate throughput is the shaped rate times the number of streams
+- interface detail: rest
+- tooling: Firebase SDKs (web/Android/iOS), Admin SDK, gsutil/gcloud storage against the underlying GCS bucket, `firebase storage:upload`; rclone can hit the bucket with GCS (not rclone's 'firebase'. That is the Realtime DB). Public download URLs via `getDownloadURL` / Firebase download tokens.
+- composes with: 5 GB per PROJECT. Projects per Google account on Spark are limited to 'a small number of projects (usually around 5-10)'. So ~25-50 GB/account, not a big multiplier. Multiple Google accounts is the only axis. Deleting a project takes 30 days and still counts against quota, which badly hurts churn-and-burn cycling.
+- reliability: Hard daily reset at midnight; exceeding it fails requests until reset. Project deletion is 30 days and blocked from quota reuse, so account cycling is slow.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 5 GB stored on Spark (no-cost) plan; 1 GB downloaded per day; 50k download ops/day
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'GB stored | No-cost up to 5 GB | Then $0.026/GB', 'GB downloaded | No-cost up to 1 GB/day', 'Download operations | No-cost up to 50K/day'
+  - [2] 2026-10-21: 'Spark pricing plan: Project-creation quota is limited to a small number of projects (usually around 5-10)'
+- sources:
+  - [1] https://firebase.google.com/pricing
+  - [2] https://firebase.google.com/docs/projects/learn-more
+
+## google artifact registry
+
+- `storage/google-artifact-registry-2` | fails-egress | evidence reported | binding none | category rejected-provider
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T01:28:49.783Z (inherited) | stale on 2026-11-18
+- url https://cloud.google.com/artifact-registry/pricing
+- duplicate of `storage/google-artifact-registry`
+- disagrees on verdict: `storage/google-artifact-registry-2` says fails-egress, `storage/google-artifact-registry-3` says fails-quota
+- free tier: 0.5 GiB-month of storage per billing account, shared across all projects on it; above that $0.000136986 per GiB-hour. | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: card | detail: Billing signup requires a credit card or other payment method; the Free Tier needs a Google Cloud billing account, which a new user gets by signing up for a Free Trial.
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: The storage free band is 0.5 GiB-month per billing account, shared across all projects.
+- notes: the same as reliability
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: Free tier is 1 GiB-month of storage per billing account, shared across all projects, and egress between regions is $0.01-0.05/GB. Fails both the quota and egress filters.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Free tier is 1 GiB-month of storage per billing account, shared across all projects, and egress between regions is $0.01-0.05/GB. Fails both the quota and egress filters.
+  - [1] 2026-11-03: the Artifact Registry storage free band is 0 to 0.5 GiB-month | capture: sha256:7f2494db97135609215183bd8a23681344dac0a3b0d828dbba55a55ba1421c82 | quote: Artifact Registry Storage | 0 gibibyte month to 0.5 gibibyte month
+  - [1] 2026-11-03: the free band is per billing account, not per project | capture: sha256:7f2494db97135609215183bd8a23681344dac0a3b0d828dbba55a55ba1421c82 | quote: Pricing applies to billing accounts, not individual Google Cloud projects.
+  - [2] 2026-11-03: Google Cloud signup, which the Free Tier needs a billing account from, requires a credit card or other payment method | quote: During the sign up, you must provide a credit card or other payment method
+- sources:
+  - [1] https://cloud.google.com/artifact-registry/pricing
+  - [2] https://cloud.google.com/free/docs/free-cloud-features
+
+## Google Artifact Registry (incl. the gcr.io domain)
+
+- `storage/google-artifact-registry` | fails-egress | evidence reported | binding none | category registry
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T01:28:49.780Z, checked 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://cloud.google.com/artifact-registry/pricing
+- free tier: 0.5 GiB-month, once per billing account, shared across every project on it: 'Artifact Registry Storage | 0 gibibyte month to 0.5 gibibyte month | $0.00 (Free) / 1 gibibyte hour, per 1 month / account'; above that $0.000136986/GiB-hour (~$0.10/GiB-month). The page explicitly closes the multi-project loophole: 'Pricing applies to billing accounts, not individual Google Cloud projects ... the limit for the storage free tier is for total usage across all the attached projects.' | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: NOT free. This is the clearest egress failure among the three hyperscalers: 'Pricing for outbound Internet data transfer is based on Premium tier pricing. This is network traffic leaving a repository to a client that is not a Google product, such as using a local server that is downloading artifacts.' Intra-Google traffic is $0.00, and same-continent repository-to-service moves are $0.00, but anything to the open internet is metered at Google's premium internet egress rates. There is no anonymous or public-repo egress allowance. | metered: yes
+- identity: card | detail: Billing signup requires a credit card or other payment method; the Free Tier needs a Google Cloud billing account, which a new user gets by signing up for a Free Trial.
+- interface: oci
+- limits note: 0.5 GiB free total; no per-layer cap published in the pricing page; repository-scoped IAM.
+- interface detail: oci
+- tooling: docker/ORAS/gcloud artifacts; gcr.io domain repositories are billed as Artifact Registry.
+- composes with: 0.5 GiB per billing account is not worth chaining; a second billing account requires a second payment instrument.
+- reliability: Stable, but the free tier is effectively decorative and the egress meter is the hard wall.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 0.5 GiB-month, once per billing account, shared across every project on it: 'Artifact Registry Storage | 0 gibibyte month to 0.5 gibibyte month | $0.00 (Free) / 1 gibibyte hour, per 1 month / account'; above that $0.000136986/GiB-hour (~$0.10/GiB-month). The page explicitly closes the multi-project loophole: 'Pricing applies to billing accounts, not individual Google Cloud projects ... the limit for the storage free tier is for total usage across all the attached projects.'
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: '0 gibibyte month to 0.5 gibibyte month $0.00 (Free)', 'Pricing applies to billing accounts, not individual Google Cloud projects'
+  - [1] 2026-10-21: 'Pricing for outbound Internet data transfer is based on Premium tier pricing'
+  - [2] 2026-10-21: 'Premium Tier egress is priced at internet egress rates'
+  - [3] 2026-11-03: Google Cloud signup, which the Free Tier needs a billing account from, requires a credit card or other payment method | quote: During the sign up, you must provide a credit card or other payment method
+  - [1] 2026-11-03: the Artifact Registry storage free band is 0 to 0.5 GiB-month | capture: sha256:7f2494db97135609215183bd8a23681344dac0a3b0d828dbba55a55ba1421c82 | quote: Artifact Registry Storage | 0 gibibyte month to 0.5 gibibyte month
+  - [1] 2026-11-03: the free band is per billing account, not per project | capture: sha256:7f2494db97135609215183bd8a23681344dac0a3b0d828dbba55a55ba1421c82 | quote: Pricing applies to billing accounts, not individual Google Cloud projects.
+  - [3] 2026-11-03: the Free Tier table lists 0.5 GB of Artifact Registry storage per month | quote: 0.5 GB of storage per month.
+- sources:
+  - [1] https://cloud.google.com/artifact-registry/pricing
+  - [2] https://cloud.google.com/network-tiers/pricing
+  - [3] https://cloud.google.com/free/docs/free-cloud-features
+
+## Google Cloud Free Tier (e2-micro), Egress and tunnels
+
+- `egress/google-cloud-free-tier` | fails-egress | evidence documented | binding volume-quota | category origin VM (free tier) | tier free
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://cloud.google.com/free/docs/free-cloud-features
+- price USD 0 for the instance; about USD 3.65 a month for the external IPv4 at USD 0.005 an hour | parsed USD 3.65/mo
+- free tier: 1 non-preemptible e2-micro VM instance per month in one of the following US regions: Oregon: us-west1. Iowa: us-central1. South Carolina: us-east1. 30 GB-months standard persistent disk. 1 GB of outbound data transfer from North America to all region destinations (excluding China and Australia) per month. | unit: GB | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 1 GB of outbound data transfer from North America to all region destinations (excluding China and Australia) per month; ingress: udp | metered: yes | free allowance: 1 GB of outbound data transfer from North America to all region destinations (excluding China and Australia) per month | source: [1]
+- identity: card | detail: 'A Google Cloud billing account is required to access the Google Cloud Free Tier'; the account is created through the Free Trial, which preloads USD 300 of credit for 90 days and takes a payment method | country: None
+- interface: ssh
+- limits:
+  - volume-quota (binding): 1 GB a month of outbound transfer from North America, excluding China and Australia [1]
+- binding note: 1 GB a month is 33.3 MB a day, 0.09% of 1 TiB a month, so a run at a 1 TiB/month pace exhausts the allowance in about 39 minutes, which makes the byte allowance the first wall by three orders of magnitude; the second wall is the address: 'Static and ephemeral IP addresses in use on standard VM instances - USD 0.005 / 1 hour', which the Free Tier usage table does not list among the free amounts, so the free instance carries a public IPv4 bill of about USD 3.65 a month
+- interface detail: SSH to the instance's external IP, with a firewall rule for any further port
+- tooling: wg-quick, nothing vendor-specific
+- composes with: 1 GB a month cannot carry bulk traffic; it composes as a control plane or a stable WireGuard endpoint that hands off to Oracle, not as an origin
+- reliability: no idle reclamation was found; the Free Tier has no end date, so the ceiling is the 1 GB allowance rather than the offer expiring
+- notes: The 1 GB figure is stated on the Free Tier page, not inferred, and it is the Compute Engine line rather than the Cloud Storage or Cloud Run line, which are also 1 GB and 100 GB respectively. No reclamation rule for an idle e2-micro appears on the page: unlike Oracle's Always Free, the instance is not taken back for being idle. The address charge is an inference from two documented facts, the USD 0.005 an hour line and the absence of an address line in the Free Tier table.
+- evidence note: Free tier allowances (including e2-micro instance and 1 GB monthly internet egress) are documented on official Google Cloud pricing pages.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: an e2-micro is an ordinary Linux VM; VPC firewall rules accept a UDP protocol and a destination port ('IP Protocol' plus 'Destination port ... For TCP or UDP, you can specify all destination ports, or optionally specify a single destination port number'), and the default-allow-internal row in the same document shows udp:0-65535, so udp:51820 is one rule away and wg-quick runs natively
+  - ingress: udp
+  - volume_tib_month: 0.00091
+  - volume_stated: 1 GB of outbound data transfer from North America to all region destinations (excluding China and Australia) per month
+  - bytes_transit: yes
+  - transit_note: bytes leave through the VM's external address on Google's network and count against the 1 GB monthly allowance
+- evidence:
+  - [1] 2026-10-23: Compute Engine Free Tier reads '1 GB of outbound data transfer from North America to all region destinations (excluding China and Australia) per month' and names the three US regions for the e2-micro
+  - [2] 2026-10-23: 'Static and ephemeral IP addresses in use on standard VM instances - USD 0.005 / 1 hour', and the same page's internet egress table, so the public address is billed separately from the free instance
+  - [3] 2026-10-23: a firewall rule carries an IP protocol and a UDP destination port, and the default rules use udp:0-65535, so UDP ingress including 51820 is allowed by rule and not blocked by the platform
+  - [1] 2026-10-23: 'The Free Tier has no end date, but Google reserves the right to change the offering, including changing or eliminating usage limits, with 30 days advance notice.'
+- sources:
+  - [1] https://cloud.google.com/free/docs/free-cloud-features
+  - [2] https://cloud.google.com/vpc/pricing
+  - [3] https://cloud.google.com/firewall/docs/firewalls
+
+## Google Cloud Run (free)
+
+- `egress/google-cloud-run` | fails-egress | evidence inferred | binding volume-quota | category paas l4 port | tier free
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://cloud.google.com/run/pricing
+- price USD 0
+- free tier: CPU - First 180,000 vCPU-seconds free per month ... RAM - First 360,000 GiB-seconds free per month ... Requests - 2 million requests free per month. | unit: mixed | metered on: request-count | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: Outbound internet data transfer is charged at Google Cloud networking rates "with a free tier of 1GiB free data transfer within North America per month".; ingress: http-only | metered: yes | free allowance: Outbound internet data transfer is charged at Google Cloud networking rates "with a free tier of 1GiB free data transfer within North America per month". | source: [1]
+- identity: card | detail: A Google Cloud billing account with a payment method; the free tier is a billing discount, not an account without a card. | country: None
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): 1 GiB/month free data transfer within North America [1]
+  - request-rate: 2 million requests per month free [1]
+- binding note: 1 GiB/month free transfer is 0.001 TiB; egress past it is billed at Premium tier rates. The transport fails before that.
+- interface detail: gcloud CLI, REST API, and console.
+- tooling: gcloud, Dockerfile, or source deploy.
+- composes with: Cloud Run can host an HTTP API; a WireGuard endpoint needs a VM, not a service.
+- reliability: Request timeout caps a stream; WebSockets must reconnect. Scale to zero adds cold starts.
+- notes: Cloud Run also requires a card, so it fails identity for a no-card client even before the transport does. Included here because it is the most common answer to "where do I run this".
+- evidence note: Cloud Run publishes no page that says "UDP is not supported"; the conclusion follows from the container contract requiring an HTTP listener on one port, and from Google's own developer forum answer that it will not work with UDP. A first-party negative statement would raise this to documented.
+- extras:
+  - wg_path: none
+  - wg_detail: No raw port. "The ingress container within an instance must listen for requests on 0.0.0.0 on the port to which requests are sent"; requests are HTTP, and WebSocket streams "are HTTP requests".
+  - ingress: http-only
+  - volume_tib_month: 0.000977
+  - volume_stated: Outbound internet data transfer is charged at Google Cloud networking rates "with a free tier of 1GiB free data transfer within North America per month".
+  - bytes_transit: no
+  - transit_note: Google's front end terminates HTTP and forwards requests.
+- evidence:
+  - [1] 2026-10-23: Free tier: 180,000 vCPU-s, 360,000 GiB-s, 2M requests; 1 GiB free data transfer within North America
+  - [2] 2026-10-23: "The ingress container within an instance must listen for requests on 0.0.0.0 on the port to which requests are sent."
+  - [3] 2026-10-23: "WebSockets streams are HTTP requests" subject to the request timeout
+  - [4] 2026-10-23: third party: the container contract requires an HTTP server, so UDP will not work
+- sources:
+  - [1] https://cloud.google.com/run/pricing
+  - [2] https://docs.cloud.google.com/run/docs/container-contract
+  - [3] https://docs.cloud.google.com/run/docs/triggering/websockets
+  - [4] https://stackoverflow.com/questions/56525366/how-to-deploy-an-udp-server-google-cloud-run
+
+## google cloud source repositories
+
+- `storage/google-cloud-source-repositories` | fails-egress | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://cloud.google.com/free/docs/free-cloud-features
+- free tier: None reachable: 50 GB/month storage and 50 GB/month egress on the free tier, but the product is end-of-sale and being replaced by Secure Source Manager. Also a git-only interface. Poor fit for 10 TiB of ra. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: 50 GB/month storage and 50 GB/month egress on the free tier, but the product is end-of-sale and being replaced by Secure Source Manager. Also a git-only interface — poor fit for 10 TiB of…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 50 GB/month storage and 50 GB/month egress on the free tier, but the product is end-of-sale and being replaced by Secure Source Manager. Also a git-only interface — poor fit for 10 TiB of…
+  - [2] 2026-10-21: cited as the basis of the rejection: 50 GB/month storage and 50 GB/month egress on the free tier, but the product is end-of-sale and being replaced by Secure Source Manager. Also a git-only interface — poor fit for 10 TiB of ra
+- sources:
+  - [1] https://cloud.google.com/free/docs/free-cloud-features
+  - [2] https://docs.cloud.google.com/source-repositories/docs
+
+## Cloud Firestore (Storage)
+
+- `storage/cloud-firestore` | fails-quota | evidence reported | binding request-rate | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://firebase.google.com/products/firestore
+- free tier: 1 GiB stored data on the free tier; 50,000 document reads/day; 20,000 writes/day; 10 GiB/month outbound | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Metered. 10 GiB/month outbound free, then GCP rates. 10 GiB/month = ~340 MB/day, 1,500x short of 500 GB/day. | metered: yes | free allowance: 10 GiB per month
+- identity: email
+- interface: rest
+- limits:
+  - request-rate (binding): 20,000 writes/day [1]
+- limits note: 1 GiB total; 1 MiB per document; 1 MiB - 89 bytes per field value; 50K reads/day; 20K writes/day; 7.5 KiB max index entry; only ONE free database per project
+- binding note: calls are bounded rather than bytes, which is fatal to a nightly job on a monthly counter
+- interface detail: rest
+- tooling: Firebase Admin SDK, client SDKs, REST/gRPC API, `gcloud firestore export` to a bucket; documents are JSON-ish with a native `Bytes` type (no base64 bloat)
+- composes with: 1 GiB per database; 'Cloud Firestore allows exactly one free database per project'. 500 GB needs 500 projects, each with its own billing-less free quota and its own 10 GiB/month egress.
+- reliability: Reliable; has a native Bytes type so no base64 overhead. The 20K writes/day cap means 1 GiB at 1 MiB/doc = 1,024 documents, which is trivially fine, but re-writing or migrating burns the quota. Single-field indexes add storage you do not control.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 1 GiB stored data on the free tier; 50,000 document reads/day; 20,000 writes/day; 10 GiB/month outbound
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Stored data | 1 GiB'; 'Outbound data transfer | 10 GiB per month'; 'Maximum size for a document | 1 MiB (1,048,576 bytes)'; 'Maximum size of a field value | 1 MiB - 89 bytes'
+  - [2] 2026-10-21: 'Document reads 50,000 per day'; 'Document writes 20,000 per day'; 'Cloud Firestore allows exactly one free database per project'
+  - withheld 2026-10-21: arithmetic: 50,000 reads/day x 1 MiB max document = 52.4 GB/day of theoretical read — 10x short of 500 GB/day, and the 10 GiB/month egress cap cuts it to 340 MB/day
+- sources:
+  - [1] https://firebase.google.com/docs/firestore/quotas
+  - [2] https://firebase.google.com/docs/firestore/pricing
+
+## cloud identity free (as a source of free identities / unlimited tenants)
+
+- `storage/cloud-identity-free` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://cloud.google.com/identity/docs/editions
+- free tier: None reachable: Attractive in theory (free identities, Drive for desktop supported), but it grants no Workspace storage entitlement and no shared drives, so it produces identities with zero bytes. The exac. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Attractive in theory (free identities, Drive for desktop supported), but it grants no Workspace storage entitlement and no shared drives, so it produces identities with zero bytes — the…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Attractive in theory (free identities, Drive for desktop supported), but it grants no Workspace storage entitlement and no shared drives, so it produces identities with zero bytes — the…
+- sources:
+  - [1] https://cloud.google.com/identity/docs/editions
+
+## Cloud Storage for Firebase (Spark/Blaze)
+
+- `storage/cloud-storage-for-firebase` | fails-quota | evidence reported | binding per-ip-shaping | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://firebase.google.com/pricing
+- free tier: 5 GB stored free, but only on the Blaze pay-as-you-go plan; Spark project buckets return 402/403. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: 1 GB/day free for legacy *.appspot.com buckets, then $0.12/GB; 100 GB/month for *.firebasestorage.app buckets. Metered beyond that. | metered: yes | free allowance: 100 GB per month
+- identity: card
+- interface: rest, rclone
+- limits:
+  - per-ip-shaping (binding): 1 GB/day [1]
+- limits note: 5 GB stored; 20K upload ops/day (appspot) / 5K/month (firebasestorage.app); 1 GB/day or 100 GB/month egress; bucket creation post-Sept-2024 uses PROJECT_ID.firebasestorage.app naming.
+- binding note: one stream is shaped, and aggregate throughput is the shaped rate times the number of streams
+- interface detail: rest
+- tooling: Firebase Storage SDK / GCS JSON+XML API (rclone 'gs'/'gcs'); buckets are ordinary GCS buckets so rclone works.
+- composes with: 5 GB x N Firebase projects. Each project needs a billing account on Blaze, which defeats the purpose since Blaze is a metered surface.
+- reliability: Requires attaching a credit card (Blaze). No free path at all since the Sept 2024 change. This is the clearest 'free that is not free' in the Google stack.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 5 GB stored free, but only on the Blaze pay-as-you-go plan; Spark project buckets return 402/403.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Storage | * Not applicable * | No-cost up to 5 GB Then $0.10/GB'; 'GB downloaded | No-cost up to 1 GB/day Then $0.12/GB'
+  - [2] 2026-10-21: 'If your Firebase project is on the Spark pricing plan, you won't have access to any Cloud Storage buckets … your API calls to buckets will return 402 or 403 errors'
+- sources:
+  - [1] https://firebase.google.com/pricing
+  - [2] https://firebase.google.com/docs/storage/faqs-storage-changes-announced-sept-2024
+
+## GCP research credits programme (Cloud for Higher Education)
+
+- `storage/gcp-research-credits-programme` | fails-quota | evidence reported | binding write-gated | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://support.google.com/google-cloud-higher-ed/answer/10724468?hl=en
+- free tier: $5,000 one-time for faculty/postdoc; $1,000 per year for PhD students. Credit-denominated, buys GCS at list price (~$20/TB-month Standard). | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Metered at standard GCS rates unless fronted by Cloudflare; credit covers it. | metered: yes
+- identity: institution
+- interface: s3, rclone
+- limits:
+  - write-gated (binding): review [1]
+- limits note: Only available in the countries on Google's dropdown; must be a faculty member, postdoc, or PhD student at a listed institution; masters students ineligible. Faculty may apply only once, ever ('you are only eligible to apply one time'). 6-8 week review. One applicant per research proposal.
+- interface detail: s3
+- tooling: GCS JSON/XML API, gsutil, rclone 'gcs' backend.
+- composes with: PhD students can re-apply annually - the only genuinely recurring line here. $1,000/yr is roughly 4 TB-months of Standard storage, so it funds a working set, not an archive.
+- reliability: Credits expire; GCS bills continue after the credit is exhausted. No data loss, just a bill.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: $5,000 one-time for faculty/postdoc; $1,000 per year for PhD students. Credit-denominated, buys GCS at list price (~$20/TB-month Standard).
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'PhD students conducting research may apply for $1000 in GCP Credit per year'; 'Faculty and Postdoctoral researchers are eligible for one award of up to $5,000 USD'
+  - [1] 2026-10-21: 'if you are a faculty member or postdoctoral researcher you are only eligible to apply one time'
+  - [2] 2026-10-21: 'The program is currently only available in the countries listed'; form requires organisation name and faculty-directory link
+- sources:
+  - [1] https://support.google.com/google-cloud-higher-ed/answer/10724468?hl=en
+  - [2] https://edu.google.com/programs/credits/research/
+
+## Gmail (free @gmail.com) — 15 GB shared
+
+- `storage/gmail-15-gb-shared-and-the-honest-ceiling-of-gmail-as-in` | fails-quota | evidence reported | binding per-ip-shaping | category cloud-drive
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://mail.google.com
+- free tier: 15 GB per Google Account, shared across Gmail, Drive and Photos: "Each Google Account includes up to 15 GB of storage, which is shared across Gmail, Google Drive, and Google Photos." Attachments: 25 MB send ("For personal Gmail accounts, the limit is 25 MB"), 50 MB receive. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Free for the account holder. Gmail has no egress meter at all; the constraint is the bandwidth throttle, not a price. That is precisely why the throttle is the finding. | metered: no
+- identity: email
+- interface: rest
+- limits:
+  - per-ip-shaping (binding): 0.5 GB/day [1]
+  - per-ip-shaping (binding): 2.5 GB/day [1]
+- limits note: Protocol-level rate limits govern transfer capacity. Gmail IMAP upload is capped at 500 MB per day and IMAP download at 2,500 MB per day across editions. SMTP advertises 250-SIZE 35882577 (34.2 MiB) per message. Effective account write rate is approximately 0.5 GB per day and read rate is approximately 2.5 GB per day. Daily transfer quotas operate as the binding operational limit.
+- binding note: one stream is shaped, and aggregate throughput is the shaped rate times the number of streams
+- interface detail: rest
+- tooling: IMAP probe-verified: `imap.gmail.com:993` -> `* OK Gimap ready` / `* CAPABILITY IMAP4rev1 UNSELECT IDLE NAMESPACE QUOTA ID XLIST CHILDREN X-GM-EXT-1 XYZZY SASL-IR AUTH=XOAUTH2 AUTH=PLAIN AUTH=PLAIN-CLIENTTOKEN AUTH=OAUTHBEARER` (XOAUTH2 required for real use). Gmail API: `messages.insert` = 25 units, 6,000 units/min/user, 80,000,000 units/day/project.
+- composes with: N accounts × 15 GB minus whatever Drive/Photos already took. But the multiplier that matters is not accounts. See limits. This is the classic 'infinite Gmail storage' idea and it does not survive arithmetic.
+- reliability: Exceeding the bandwidth limit suspends IMAP upload for ~1 hour (up to 24 h); repeated heavy sync is the documented trigger, and the docs explicitly call out 'syncing a Gmail account to a third-party email client' as a cause.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 15 GB per Google Account, shared across Gmail, Drive and Photos: "Each Google Account includes up to 15 GB of storage, which is shared across Gmail, Google Drive, and Google Photos." Attachments: 25 MB send ("For personal Gmail accounts, the limit is 25 MB"), 50 MB receive.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: "15 GB ... shared across Gmail, Google Drive, and Google Photos"
+  - [2] 2026-10-21: IMAP download 2,500 MB/day, IMAP upload 500 MB/day, web upload 1,500 MB/day
+  - withheld 2026-10-21: probe: openssl s_client smtp.gmail.com:587 STARTTLS EHLO -> 250-SIZE 35882577
+  - withheld 2026-10-21: probe: imap.gmail.com:993 -> * OK Gimap ready; CAPABILITY incl. QUOTA, X-GM-EXT-1, AUTH=XOAUTH2
+- sources:
+  - [1] https://support.google.com/accounts/answer/9312312
+  - [2] https://knowledge.workspace.google.com/admin/gmail/gmail-bandwidth-limits
+
+## gmail as bulk storage
+
+- `storage/gmail-as-bulk-storage` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://support.google.com/accounts/answer/9312312
+- free tier: None reachable: Gmail shares the same 15 GB (or pooled Workspace) quota as Drive, and attachments are capped at 50 MB inbound / 25 MB outbound. So it multiplies nothing while consuming the same bytes. Stri. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Gmail shares the same 15 GB (or pooled Workspace) quota as Drive, and attachments are capped at 50 MB inbound / 25 MB outbound — so it multiplies nothing while consuming the same bytes.…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Gmail shares the same 15 GB (or pooled Workspace) quota as Drive, and attachments are capped at 50 MB inbound / 25 MB outbound — so it multiplies nothing while consuming the same bytes.…
+  - [2] 2026-10-21: cited as the basis of the rejection: Gmail shares the same 15 GB (or pooled Workspace) quota as Drive, and attachments are capped at 50 MB inbound / 25 MB outbound — so it multiplies nothing while consuming the same bytes. Stri
+- sources:
+  - [1] https://support.google.com/accounts/answer/9312312
+  - [2] https://workspaceupdates.googleblog.com/2026/02/ending-larger-attachments-in-gmail-new-50MB-limit-for-Enterprise-Plus.html
+
+## google artifact registry (as a blob store)
+
+- `storage/google-artifact-registry-3` | fails-quota | evidence documented | binding volume-quota | category rejected-provider
+- needs card yes, phone no, ID no, institution no | verified 2026-10-31T00:29:41.516Z (inherited) | stale on 2026-12-01
+- url https://cloud.google.com/free/docs/free-cloud-features
+- duplicate of `storage/google-artifact-registry`
+- disagrees on verdict: `storage/google-artifact-registry-2` says fails-egress, `storage/google-artifact-registry-3` says fails-quota
+- free tier: 0.5 GiB-month of Artifact Registry storage free per billing account, shared across every project attached to it; above that USD 0.000136986 per GiB-hour | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1] | note: the Google Cloud Free Tier page states the same allowance as 0.5 GB of storage per month
+- per-object cap: unverified: the Artifact Registry quotas page lists request quotas and usage limits but no size cap for a stored file | source: [2] | note: the only size limit on the quotas page is 9.9 GB of data retrieved from the upstream of a remote repository per request
+- retention: unverified: the pricing, quotas and generic artifact pages state no expiry for stored artifacts | source: [2] | note: cleanup policies, at most 10 per repository, delete at most 300,000 artifacts per repository a day
+- egress: outbound internet transfer from a repository is billed at Premium Tier internet rates; transfer into Google Cloud is free; transfer to a Google Cloud service in the same location is free, and between locations in the US and Canada it is USD 0.01 per GiB; no free outbound allowance is stated for Artifact… | metered: yes
+- identity: card | detail: the free tier needs a Google Cloud billing account; billing signup takes a credit card or other payment method, and in some countries a bank account verification
+- interface: rest, cli, oci
+- limits:
+  - volume-quota (binding): 0.5 GiB-month of storage free per billing account, shared across every attached project [1]
+  - request-rate: 60,000 requests and 18,000 write requests per minute per project in each region or multi-region [2]
+- limits note: storage above the free band is billed at USD 0.000136986 per GiB-hour, so the volume quota is a price threshold, not a hard stop
+- binding note: the 0.5 GiB-month of free storage per billing account is the whole free tier; every byte above it is billed
+- interface detail: generic repositories: upload with POST https://artifactregistry.googleapis.com/upload/v1/projects/PROJECT/locations/LOCATION/repositories/REPOSITORY/genericArtifacts:create, download with GET https://artifactregistry.googleapis.com/download/v1/projects/PROJECT/locations/LOCATION/repositories/REPOSITORY/files/FILE:download?alt=media, or gcloud artifacts generic upload and download; Docker-format repositories store OCI images
+- tooling: gcloud artifacts generic upload and download, or any HTTP client against the REST upload and download endpoints; Docker clients for Docker-format repositories
+- composes with: projects do not multiply the allowance: the 0.5 GiB-month of free storage is counted once per billing account, across every project attached to it
+- reliability: usage above the 0.5 GiB-month of free storage is billed at standard rates to the billing account, not stopped
+- notes: Artifact Registry generic repositories hold versioned, immutable files of any format. The free tier is 0.5 GiB-month of storage per billing account; above it storage costs USD 0.000136986 per GiB-hour, and outbound internet transfer is billed at Premium Tier rates. The Cloud Storage Archive storage class is a separate product with its own pricing page.
+- evidence note: every value was read on Google Cloud pages; no billing account was opened, so no value is measured
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 0.5 GB/month free.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [3] 2026-10-21: 0.5 GB/month free.
+  - [1] 2026-10-31: Artifact Registry storage is free from 0 to 0.5 GiB-month per billing account and USD 0.000136986 per GiB-hour above | capture: sha256:fdcb3cf330c6b93e04a181560f029b0a0e9834e0aa724d9623426875e9b233f6 | quote: | Artifact Registry Storage | 0 gibibyte month to 0.5 gibibyte month<br>$0.00 (Free) / 1 gibibyte hour, per 1 month / account<br>0.5 gibibyte month and above<br>$0.000136986 / 1 gibibyte hour, per 1 month / account |
+  - [1] 2026-10-31: the free storage band is stated in gibibytes | capture: sha256:fdcb3cf330c6b93e04a181560f029b0a0e9834e0aa724d9623426875e9b233f6 | quote: | Artifact Registry Storage | 0 gibibyte month to 0.5 gibibyte month<br>$0.00 (Free) / 1 gibibyte hour, per 1 month / account<br>0.5 gibibyte month and above<br>$0.000136986 / 1 gibibyte hour, per 1 month / account |
+  - [1] 2026-10-31: the storage charge and its free band meter bytes at rest | capture: sha256:fdcb3cf330c6b93e04a181560f029b0a0e9834e0aa724d9623426875e9b233f6 | quote: Storage costs apply to the at-rest storage of your artifacts in Artifact Registry repositories.
+  - [1] 2026-10-31: the product pricing page states the free band and the price above it | capture: sha256:fdcb3cf330c6b93e04a181560f029b0a0e9834e0aa724d9623426875e9b233f6 | quote: | Artifact Registry Storage | 0 gibibyte month to 0.5 gibibyte month<br>$0.00 (Free) / 1 gibibyte hour, per 1 month / account<br>0.5 gibibyte month and above<br>$0.000136986 / 1 gibibyte hour, per 1 month / account |
+  - [3] 2026-10-31: the Google Cloud Free Tier gives Artifact Registry 0.5 GB of storage a month | capture: sha256:885a38c2b738a7e9ac34bffbae919db1163c80786856ff5f689da3a3bfe0b095 | quote: 0.5 GB of storage per month. Learn about [Artifact Registry pricing]
+  - [3] 2026-10-31: Google Cloud billing signup takes a credit card or other payment method | capture: sha256:885a38c2b738a7e9ac34bffbae919db1163c80786856ff5f689da3a3bfe0b095 | quote: During the sign up, you must provide a credit card or other payment method that is valid for the period of the Free Trial.
+  - [3] 2026-10-31: billing signup takes a card or other payment method, and in some countries a bank account verification | capture: sha256:885a38c2b738a7e9ac34bffbae919db1163c80786856ff5f689da3a3bfe0b095 | quote: During the sign up, you must provide a credit card or other payment method that is valid for the period of the Free Trial. Depending on your country, you might also need to [verify your bank account]
+  - [1] 2026-10-31: outbound internet transfer from a repository is priced at Premium Tier rates | capture: sha256:fdcb3cf330c6b93e04a181560f029b0a0e9834e0aa724d9623426875e9b233f6 | quote: Pricing for outbound Internet data transfer is based on [Premium tier](https://cloud.google.com/network-tiers/pricing#premium-pricing) pricing.
+  - [1] 2026-10-31: outbound internet transfer is billed | capture: sha256:fdcb3cf330c6b93e04a181560f029b0a0e9834e0aa724d9623426875e9b233f6 | quote: Pricing for outbound Internet data transfer is based on [Premium tier](https://cloud.google.com/network-tiers/pricing#premium-pricing) pricing.
+  - [4] 2026-10-31: generic artifacts are uploaded through a REST endpoint; the page also documents gcloud artifacts generic upload and download | capture: sha256:5b416c2de70b2d956060c20262945d0d517c4249678c3008e1277c894993405b | quote: POST https://artifactregistry.googleapis.com/upload/v1/projects/PROJECT/locations/LOCATION/repositories/REPOSITORY/genericArtifacts:create?alt=json
+  - [4] 2026-10-31: generic artifacts are downloaded through a REST endpoint; the same page gives the upload endpoint | capture: sha256:5b416c2de70b2d956060c20262945d0d517c4249678c3008e1277c894993405b | quote: GET https://artifactregistry.googleapis.com/download/v1/projects/PROJECT/locations/LOCATION/repositories/REPOSITORY/files/FILE:download?alt=media
+  - [4] 2026-10-31: the generic artifact page documents the REST upload endpoint and the gcloud artifacts generic commands | capture: sha256:5b416c2de70b2d956060c20262945d0d517c4249678c3008e1277c894993405b | quote: POST https://artifactregistry.googleapis.com/upload/v1/projects/PROJECT/locations/LOCATION/repositories/REPOSITORY/genericArtifacts:create?alt=json
+  - [1] 2026-10-31: the free storage limit is shared by every project attached to one billing account | capture: sha256:fdcb3cf330c6b93e04a181560f029b0a0e9834e0aa724d9623426875e9b233f6 | quote: the limit for the [storage](https://cloud.google.com/artifact-registry/pricing#storage) free tier is for total usage across all the attached projects.
+  - [1] 2026-10-31: the free storage band is 0.5 GiB-month per billing account | capture: sha256:fdcb3cf330c6b93e04a181560f029b0a0e9834e0aa724d9623426875e9b233f6 | quote: | Artifact Registry Storage | 0 gibibyte month to 0.5 gibibyte month<br>$0.00 (Free) / 1 gibibyte hour, per 1 month / account<br>0.5 gibibyte month and above<br>$0.000136986 / 1 gibibyte hour, per 1 month / account |
+  - [2] 2026-10-31: each project may make 18,000 write requests a minute in a region or multi-region; the same table gives 60,000 requests a minute | capture: sha256:a63156d62bbac3a48a0f4451a3204835b9c4c99363bb0bc07599a2da1a6d2f39 | quote: | Write requests per minute in each region or multi-region | 18,000 |
+  - [1] 2026-10-31: storage above 0.5 GiB-month is billed at USD 0.000136986 per GiB-hour | capture: sha256:fdcb3cf330c6b93e04a181560f029b0a0e9834e0aa724d9623426875e9b233f6 | quote: | Artifact Registry Storage | 0 gibibyte month to 0.5 gibibyte month<br>$0.00 (Free) / 1 gibibyte hour, per 1 month / account<br>0.5 gibibyte month and above<br>$0.000136986 / 1 gibibyte hour, per 1 month / account |
+  - [1] 2026-10-31: the free tier is a storage volume band | capture: sha256:fdcb3cf330c6b93e04a181560f029b0a0e9834e0aa724d9623426875e9b233f6 | quote: | Artifact Registry Storage | 0 gibibyte month to 0.5 gibibyte month<br>$0.00 (Free) / 1 gibibyte hour, per 1 month / account<br>0.5 gibibyte month and above<br>$0.000136986 / 1 gibibyte hour, per 1 month / account |
+  - [1] 2026-10-31: storage is free to 0.5 GiB-month and billed above | capture: sha256:fdcb3cf330c6b93e04a181560f029b0a0e9834e0aa724d9623426875e9b233f6 | quote: | Artifact Registry Storage | 0 gibibyte month to 0.5 gibibyte month<br>$0.00 (Free) / 1 gibibyte hour, per 1 month / account<br>0.5 gibibyte month and above<br>$0.000136986 / 1 gibibyte hour, per 1 month / account |
+  - [2] 2026-10-31: the only size limit in the usage limits table is on upstream retrieval by a remote repository, not on a stored file | capture: sha256:a63156d62bbac3a48a0f4451a3204835b9c4c99363bb0bc07599a2da1a6d2f39 | quote: | Max data retrieval from upstream of remote repository per request | 9.9 GB |
+  - [2] 2026-10-31: the quotas page is where Artifact Registry publishes its size limits | capture: sha256:a63156d62bbac3a48a0f4451a3204835b9c4c99363bb0bc07599a2da1a6d2f39 | quote: | Max data retrieval from upstream of remote repository per request | 9.9 GB |
+  - [2] 2026-10-31: a remote repository retrieves at most 9.9 GB from its upstream per request | capture: sha256:a63156d62bbac3a48a0f4451a3204835b9c4c99363bb0bc07599a2da1a6d2f39 | quote: | Max data retrieval from upstream of remote repository per request | 9.9 GB |
+  - [2] 2026-10-31: deletion is driven by cleanup policies; the usage limits table states no expiry | capture: sha256:a63156d62bbac3a48a0f4451a3204835b9c4c99363bb0bc07599a2da1a6d2f39 | quote: | Cleanup policy deletions per repository, per day | 300,000 |
+  - [2] 2026-10-31: cleanup policies delete at most 300,000 artifacts per repository a day; the same table allows 10 policies per repository | capture: sha256:a63156d62bbac3a48a0f4451a3204835b9c4c99363bb0bc07599a2da1a6d2f39 | quote: | Cleanup policy deletions per repository, per day | 300,000 |
+  - [2] 2026-10-31: the quotas page states the cleanup policy limits | capture: sha256:a63156d62bbac3a48a0f4451a3204835b9c4c99363bb0bc07599a2da1a6d2f39 | quote: | Cleanup policy deletions per repository, per day | 300,000 |
+  - [3] 2026-10-31: usage above a Free Tier limit is billed, not stopped | capture: sha256:885a38c2b738a7e9ac34bffbae919db1163c80786856ff5f689da3a3bfe0b095 | quote: Any usage that exceeds the Free Tier usage limits is billed at standard rates.
+  - [1] 2026-10-31: Artifact Registry storage is free to 0.5 GiB-month per billing account and USD 0.000136986 per GiB-hour above | capture: sha256:fdcb3cf330c6b93e04a181560f029b0a0e9834e0aa724d9623426875e9b233f6 | quote: | Artifact Registry Storage | 0 gibibyte month to 0.5 gibibyte month<br>$0.00 (Free) / 1 gibibyte hour, per 1 month / account<br>0.5 gibibyte month and above<br>$0.000136986 / 1 gibibyte hour, per 1 month / account |
+  - [1] 2026-10-31: the free tier is read on the first-party pricing page | capture: sha256:fdcb3cf330c6b93e04a181560f029b0a0e9834e0aa724d9623426875e9b233f6 | quote: | Artifact Registry Storage | 0 gibibyte month to 0.5 gibibyte month<br>$0.00 (Free) / 1 gibibyte hour, per 1 month / account<br>0.5 gibibyte month and above<br>$0.000136986 / 1 gibibyte hour, per 1 month / account |
+  - [1] 2026-10-31: the values are read on first-party pages | capture: sha256:fdcb3cf330c6b93e04a181560f029b0a0e9834e0aa724d9623426875e9b233f6 | quote: | Artifact Registry Storage | 0 gibibyte month to 0.5 gibibyte month<br>$0.00 (Free) / 1 gibibyte hour, per 1 month / account<br>0.5 gibibyte month and above<br>$0.000136986 / 1 gibibyte hour, per 1 month / account |
+  - [1] 2026-10-31: the free tier is 0.5 GiB-month per billing account, so the verdict fails-quota stands | capture: sha256:fdcb3cf330c6b93e04a181560f029b0a0e9834e0aa724d9623426875e9b233f6 | quote: | Artifact Registry Storage | 0 gibibyte month to 0.5 gibibyte month<br>$0.00 (Free) / 1 gibibyte hour, per 1 month / account<br>0.5 gibibyte month and above<br>$0.000136986 / 1 gibibyte hour, per 1 month / account |
+  - [3] 2026-10-31: the Artifact Registry free tier needs a Google Cloud billing account | capture: sha256:885a38c2b738a7e9ac34bffbae919db1163c80786856ff5f689da3a3bfe0b095 | quote: To use products that have a Free Tier, you need a [Google Cloud billing account]
+  - [5] 2026-10-31: creating a self-serve billing account verifies a payment card with a pre-authorization hold | capture: sha256:99c40681abe5e96b9fc0afb0a1eebd0d72e84501ece02acb431add2b9af1c793 | quote: This hold is not an actual charge. Instead, it is a verification request between the billing system and your card issuer to ensure that your card is valid and has sufficient credit available to cover your payments.
+  - [6] 2026-10-31: generic repositories store files in no package format, which is the blob-store use | capture: sha256:818146dba8bb558ae94ffdeed29f959758049e492eacd6df408f94938f1d1c0e | quote: | Generic | Store generic artifacts. Generic artifacts are versioned, immutable artifacts that don't adhere to any specific package format.
+  - [6] 2026-10-31: Docker-format repositories store OCI images | capture: sha256:818146dba8bb558ae94ffdeed29f959758049e492eacd6df408f94938f1d1c0e | quote: | Docker | Store Docker container images and Helm charts packaged in OCI format.
+  - [2] 2026-10-31: each project may make 60,000 requests a minute in a region or multi-region | capture: sha256:a63156d62bbac3a48a0f4451a3204835b9c4c99363bb0bc07599a2da1a6d2f39 | quote: | Requests per minute in each region or multi-region | 60,000 | |
+  - [2] 2026-10-31: a repository holds at most 10 cleanup policies | capture: sha256:a63156d62bbac3a48a0f4451a3204835b9c4c99363bb0bc07599a2da1a6d2f39 | quote: | Cleanup policies per repository | 10 |
+- sources:
+  - [1] https://cloud.google.com/artifact-registry/pricing
+  - [2] https://cloud.google.com/artifact-registry/quotas
+  - [3] https://cloud.google.com/free/docs/free-cloud-features
+  - [4] https://cloud.google.com/artifact-registry/docs/generic
+  - [5] https://cloud.google.com/billing/docs/how-to/create-billing-account
+  - [6] https://cloud.google.com/artifact-registry/docs/supported-formats
+
+## Google Cloud Free Tier — Cloud Storage
+
+- `storage/google-cloud-free-tier-cloud-storage` | fails-quota | evidence reported | binding per-ip-shaping | category iaas
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T01:36:33.792Z, checked 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://cloud.google.com/free/docs/free-cloud-features
+- free tier: 5 GB-months of regional storage per month (us-east1/us-west1/us-central1 only), 5,000 Class A ops, 50,000 Class B ops, 100 GB outbound/month from North America. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: '100 GB of outbound data transfer from North America to all region destinations (excluding China and Australia) per month'. Free, recurring monthly, applies to all GCP customers, not a trial. | metered: no
+- identity: card | detail: Free Trial signup requires a credit card or other payment method, and in some countries bank account verification; the Free Tier limits are calculated per billing account.
+- interface: s3-compatible, rclone
+- limits:
+  - per-ip-shaping (binding): 500 GB/day [1]
+- limits note: Free tier includes 5 GB of standard storage in select US regions and 100 GB per month of outbound internet egress.
+- binding note: one stream is shaped, and aggregate throughput is the shaped rate times the number of streams
+- interface detail: s3
+- tooling: GCS JSON/XML API, S3-compatible XML endpoint (rclone 'gcs' and 's3' with GCS provider); gsutil/gcloud storage; signed URLs for public reads.
+- composes with: 5 GB per billing account. Billing accounts are tied to a payment instrument, so account multiplication is not free/trivial. The real GCP lever is not this tier. It is the $300/90-day trial and the startup credits (below).
+- reliability: Rock solid, no data loss or throttling surprises; the limit is purely quota size.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 5 GB-months of regional storage per month (us-east1/us-west1/us-central1 only), 5,000 Class A ops, 50,000 Class B ops, 100 GB outbound/month from North America.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Cloud Storage row: '5 GB-months of regional storage (US regions only) per month ... 100 GB of outbound data transfer from North America ... per month'
+  - [2] 2026-10-21: Standard regional $0.000030137/GiB-hour ≈ $0.022/GiB-month (useful to convert credits to GB-months)
+  - [1] 2026-11-03: Google Cloud signup requires a credit card or other payment method | quote: During the sign up, you must provide a credit card or other payment method that is valid for the period of the Free Trial.
+  - [1] 2026-11-03: the Cloud Storage Free Tier is 5 GB-months of US regional storage per month, unchanged | quote: 5 GB-months of regional storage (US regions only) per month, which corresponds to the storage of 5 GB of data for a period of 1 month.
+  - [1] 2026-11-03: Cloud Storage Free Tier includes 100 GB per month of outbound transfer from North America | quote: 100 GB of outbound data transfer from North America to all region destinations (excluding China and Australia) per month.
+- sources:
+  - [1] https://cloud.google.com/free/docs/free-cloud-features
+  - [2] https://cloud.google.com/storage/pricing
+
+## Google Cloud Free Trial
+
+- `egress/google-cloud-free-trial` | fails-quota | evidence documented | binding volume-quota | category trial credit (provider VM) | tier free
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://cloud.google.com/free/docs/free-cloud-features
+- price USD 300 of credit
+- free tier: Signing up for the Free Trial creates a Free Trial billing account that is preloaded with $300 in free Welcome credit which is valid for 90 days. | unit: mixed | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: $300 of credit at $0.12 per GiB for the first 1,024 GiB per month, so a 90-day trial spends $100 a month and buys 826 GiB a month, or 2.57 TiB in total; ingress: udp | metered: yes | free allowance: $300 of credit at $0.12 per GiB for the first 1,024 GiB per month, so a 90-day trial spends $100 a month and buys 826 GiB a month, or 2.57 TiB in total | source: [1]
+- identity: card | detail: During the sign up, you must provide a credit card or other payment method that is valid for the period of the Free Trial. Depending on your country, you might also need to verify your bank account. | country: None
+- interface: cli, rest
+- limits:
+  - volume-quota (binding): $300 of egress at $0.12 per GiB is 2.57 TiB, and the credit expires at 90 days whatever is left [2]
+- binding note: at 1 TiB a month the money runs out first: $100 a month of credit buys 826 GiB, so the trial carries 0.86 TiB a month and never reaches the 90-day expiry with credit left. The bandwidth is not the limit; the 2 Gbps egress ceiling on an e2-micro is far above 1 TiB a month.
+- interface detail: gcloud compute and the Compute Engine REST API
+- tooling: wg-quick on the VM; Google Cloud CLI for the instance and firewall rule
+- composes with: the origin half of a tunnel: run wg-quick here and the client connects straight to the public IPv4, with the 2.57 TiB credit as the entire budget
+- reliability: a trial account that is not upgraded has its projects and resources stopped when the 90 days lapse or the credit is spent
+- notes: Arithmetic: $300 over 90 days is a $100 monthly budget. The first 1 GiB of each month is free, then $0.12 per GiB: $100 buys 1 + 825 GiB = 826 GiB = 0.81 TiB a month. Spent in one month instead, $300 buys 1 free GiB, 1,023 GiB at $0.12 = $122.76, then $177.24 at $0.11 = 1,611 GiB, so 2,635 GiB = 2.57 TiB total. Either way the credit is short of three months at 1 TiB a month, so the credit binds and the 90-day clock does not. The free-trial page also bars GPUs, quota increases and Windows images on a trial account, none of which touch a WireGuard ingress.
+- evidence note: Trial credit terms, validity periods and instance restrictions are documented in Google Cloud Free Trial terms.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: a full Compute Engine VM with a public IPv4 address; wg-quick installs and binds a UDP port with no vendor component in the path
+  - ingress: udp
+  - volume_tib_month: 0.86
+  - volume_stated: $300 of credit at $0.12 per GiB for the first 1,024 GiB per month, so a 90-day trial spends $100 a month and buys 826 GiB a month, or 2.57 TiB in total
+  - bytes_transit: yes
+  - transit_note: the VM's outbound packets cross Google's network and are metered as internet data transfer out
+- evidence:
+  - [1] 2026-10-23: '$300 in free Welcome credit which is valid for 90 days' and 'you must provide a credit card or other payment method'
+  - [2] 2026-10-23: 'Inbound data transfer No charge for inbound data transfer'; 'Network (data transfer out) TO North America (per GiB in USD) 0 gibibyte to 1 gibibyte $0.00 (Free)'; '1 gibibyte to 1,024 gibibyte $0.12'; '1,024 gibibyte to 10,240 gibibyte $0.11'
+  - [2] 2026-10-23: 'During the Free Trial period, these prices are charged against the Free Trial credit amount', so egress is spendable against the $300 rather than excluded from it
+- sources:
+  - [1] https://cloud.google.com/free/docs/free-cloud-features
+  - [2] https://cloud.google.com/vpc/network-pricing
+
+## google cloud free trial ($300 / 90 days)
+
+- `storage/google-cloud-free-trial` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://cloud.google.com/free/docs/free-cloud-features
+- free tier: none reachable: Explicitly time-boxed: 'The Free Trial is a 90-day program'; at day 90 or credit exhaustion 'your Free Trial billing account will be closed and all of its associated projects and resources… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Explicitly time-boxed: 'The Free Trial is a 90-day program'; at day 90 or credit exhaustion 'your Free Trial billing account will be closed and all of its associated projects and resources…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Explicitly time-boxed: 'The Free Trial is a 90-day program'; at day 90 or credit exhaustion 'your Free Trial billing account will be closed and all of its associated projects and resources…
+- sources:
+  - [1] https://cloud.google.com/free/docs/free-cloud-features
+
+## google cloud public datasets (as an intake)
+
+- `storage/google-cloud-public-datasets` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://docs.cloud.google.com/storage/docs/public-datasets
+- free tier: none reachable: No application process exists. Google hosts only its own and partner datasets (Sentinel-2, Landsat, ARCO-ERA5, NEXRAD), and the only stated route for anyone else is an email address: 'If… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: write-gated
+  - dead_end.why: No application process exists. Google hosts only its own and partner datasets (Sentinel-2, Landsat, ARCO-ERA5, NEXRAD), and the only stated route for anyone else is an email address: 'If…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: No application process exists. Google hosts only its own and partner datasets (Sentinel-2, Landsat, ARCO-ERA5, NEXRAD), and the only stated route for anyone else is an email address: 'If…
+- sources:
+  - [1] https://docs.cloud.google.com/storage/docs/public-datasets
+
+## Google Cloud Shell (Storage)
+
+- `storage/google-cloud-shell` | fails-quota | evidence reported | binding retention-clamped | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://shell.cloud.google.com
+- free tier: 'Cloud Shell provisions 5 GB of free persistent disk storage mounted as your $HOME directory ... on a per-user basis and is available across projects.' | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Not specified in the quotas doc; the intended use is interactive admin, and there is no public-serving path. | metered: no
+- identity: email
+- interface: sftp, scp, ssh, rclone
+- limits:
+  - retention-clamped (binding): deleted after 120 days [1]
+  - write-gated: review is auth-gated, not public [1]
+- limits note: 5 GB hard; 50 h/week quota; VM terminates after 40 min idle (files outside $HOME lost); $HOME auto-deleted after 120 days of no access; web preview is auth-gated, not public.
+- binding note: a clock, not a quota: bytes leave whether or not transfer is completed
+- interface detail: sftp
+- tooling: `gcloud cloud-shell ssh`, `cloudshell scp`, SFTP; the $HOME is a real ext4 disk you can rclone into.
+- composes with: 5 GB per Google account, shared across all that account's projects. High account value (it's also a free shell with gcloud auth), so it chains well for tooling, not for capacity.
+- reliability: Genuinely persistent and genuinely small. The 120-day deletion is real and is announced by email only.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 'Cloud Shell provisions 5 GB of free persistent disk storage mounted as your $HOME directory ... on a per-user basis and is available across projects.'
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: '5 GB of free persistent disk storage mounted as your $HOME'; 'default weekly Cloud Shell quota is 50 hours'; 'don't access Cloud Shell for 120 days, Cloud Shell automatically deletes your $HOME'
+- sources:
+  - [1] https://docs.cloud.google.com/shell/docs/quotas-limits
+
+## Google Cloud Storage Always Free tier
+
+- `storage/google-cloud-storage-always-free-tier` | fails-quota | evidence reported | binding per-ip-shaping | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://cloud.google.com/free/docs/free-cloud-features
+- free tier: 5 GB-months of regional storage (US regions only) + 5,000 Class A ops + 50,000 Class B ops per month. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: 100 GB/month outbound to all destinations excluding China/Australia. Described in the Always Free table as '100 GB of outbound data transfer from North America'. Beyond that it is $0.12/GiB, metered. | metered: yes | free allowance: 100 GB per month
+- identity: card
+- interface: s3, rest, rclone
+- limits:
+  - per-ip-shaping (binding): 500 GB/day [1]
+- limits note: 5 GB stored, 100 GB/mo egress, free tier restricted to us-east1/us-west1/us-central1; 5 TiB max object; anonymous writes are correctly refused.
+- binding note: one stream is shaped, and aggregate throughput is the shaped rate times the number of streams
+- interface detail: s3
+- tooling: Native S3-interoperable XML API + JSON API; rclone 'gcs' backend; gsutil/gcloud storage; signed URLs; HMAC keys make it literally S3.
+- composes with: 5 GB x N projects. Project creation is capped (~30 default before requesting increase) and soft-deleted projects still count for 30 days, so the practical ceiling is a few hundred GB, not TiB.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 5 GB-months of regional storage (US regions only) + 5,000 Class A ops + 50,000 Class B ops per month.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Cloud Storage | 5 GB-months of regional storage (US regions only) per month … 100 GB of outbound data transfer from North America … per month'
+  - [2] 2026-10-21: 'Data transfer to Worldwide Destinations (excluding Asia & Australia) (per GB) 0 to 10 TiB — $0.12 / 1 GiB'
+  - [3] 2026-10-21: probe: GET -> 200 (public buckets are anonymously listable/readable — useful for reading, irrelevant for storage)
+  - [4] 2026-10-21: probe: PUT (anonymous) -> 403 (no anonymous write path)
+- sources:
+  - [1] https://cloud.google.com/free/docs/free-cloud-features
+  - [2] https://cloud.google.com/storage/pricing
+  - [3] https://storage.googleapis.com/storage/v1/b/gcp-public-data-landsat
+  - [4] https://storage.googleapis.com/gcp-public-data-landsat/probe.txt
+
+## Google Colab (Storage)
+
+- `storage/google-colab` | fails-quota | evidence reported | binding none | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://colab.research.google.com
+- free tier: No persistent disk at all. Notebook files live in Drive; the VM disk is per-session. | unit: mixed | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: until the instance is recycled; not persistent | source: [1] | note: not stated
+- egress: N/A. File hosting is outside the published allocation, so there is no serving path. | metered: no
+- identity: institution
+- interface: unknown
+- limits note: 12 h max runtime; idle timeout unpublished and variable; 'Virtual machines are deleted when idle'.
+- interface detail: wrapper-only
+- tooling: `google.colab` Python package, Drive mount; no storage client because there is nothing to store to.
+- composes with: None for storage.
+- reliability: Confirmed both counts: file hosting is outside the published allocation AND zero persistence. The VM disk and the container are destroyed with the session.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: No persistent disk at all. Notebook files live in Drive; the VM disk is per-session.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 
+  - [1] 2026-10-21: 'Virtual machines are deleted when idle for a while'; 'notebooks can run for at most 12 hours'
+- sources:
+  - [1] https://research.google.com/colaboratory/faq.html
+
+## Google Colab (paid tiers)
+
+- `compute/google-colab-paid` | fails-quota | evidence documented | binding request-rate | category notebook runtime
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T08:51:16.008Z (live) | stale on 2026-12-04
+- url https://research.google.com/colaboratory/faq.html
+- price parsed USD 19.91/mo
+- disagrees on identity_kind: `compute/google-colab` says email, `compute/google-colab-paid` says card
+- disagrees on verdict: `compute/google-colab` says qualifies-with-caveat, `compute/google-colab-paid` says fails-quota
+- free tier: no published quota on any tier: Colab states its limits vary and are not published, and paid tiers fall back to the free policies when compute units are exhausted | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: a paid tier whose limits are unpublished cannot be budgeted; the GPU and TPU types are not named and vary over time, GPU access on the free tier is heavily restricted, and a free-tier notebook runs at most 12 hours depending on availability
+- per-object cap: not applicable
+- retention: a VM is deleted when idle and has a maximum lifetime enforced by the service | days: 0
+- egress: not published | metered: no | source: [1]
+- identity: card | detail: a paid tier requires a payment, and the paid offerings are only available in the countries that the pricing page lists (the list starts: United States of America, Canada, Brazil, France, Germany, India, Japan)
+- interface: unknown
+- limits:
+  - request-rate (binding): compute units are a separate currency and their consumption is not published [1]
+  - retention-clamped: paid users whose compute units are exhausted revert to the free tier policies [1]
+- limits note: a documented absence of limits is a discretionary throttle, not a quota, and it does not become one when paid for
+- binding note: the compute-unit allowance binds and the policies behind it are unpublished, so there is no ceiling to schedule against
+- interface detail: a notebook in the browser
+- tooling: Jupyter; compute units on the paid tiers: Colab Pro includes 100 compute units per month and Colab Pro+ includes 600 per month, and compute units expire after 90 days
+- composes with: none for a scheduled workload: the ceiling is discretionary on every tier
+- reliability: no reliability event recorded
+- notes: The paid tiers do not publish a quota either. A workload that needs a published ceiling cannot be scheduled here at any price, which is a stronger statement than 'the free tier is small'.
+- extras:
+  - billing_model: wall-clock
+  - session_cap.wall_clock_min: 720
+  - session_cap.restart_required: no
+  - session_cap.note: free tier and Pro: at most 12 hours depending on availability; Pro+ background execution up to 24 hours; idle timeout not published
+  - free_tier_kind: none
+  - m10h_usd: 19.91
+  - m24h_usd: 19.91
+- evidence:
+  - [1] 2026-10-22: Colab does not publish its limits because they vary over time; paid users revert to free-tier policies when units run out
+  - [1] 2026-11-03: Colab states that it does not publish its usage limits, so no free GPU hour quota, weekly cap or card type is stated | capture: sha256:dcc219d900c98785be57a1764e2b9c4dad83fd02f6210bdd9de873239d853097 | quote: Colab does not publish these limits, in part because they can vary over time.
+  - [1] 2026-11-03: a paid user with no compute units left falls back to the free-tier policies | capture: sha256:dcc219d900c98785be57a1764e2b9c4dad83fd02f6210bdd9de873239d853097 | quote: Paid users whose compute unit balance is exhausted will revert to the free-of-charge tier policies and restrictions until the balance is increased.
+  - [1] 2026-11-03: free-tier GPU access is heavily restricted and no GPU model or hour count is published | capture: sha256:dcc219d900c98785be57a1764e2b9c4dad83fd02f6210bdd9de873239d853097 | quote: In the version of Colab that is free of charge, access to expensive resources like GPUs is heavily restricted.
+  - [1] 2026-11-03: a free-tier notebook runs at most 12 hours, depending on availability and usage | capture: sha256:dcc219d900c98785be57a1764e2b9c4dad83fd02f6210bdd9de873239d853097 | quote: In the version of Colab that is free of charge notebooks can run for at most 12 hours, depending on availability and your usage patterns.
+  - [2] 2026-11-03: Colab Pro+ totals 600 compute units per month; the same page lists 100 per month for Pro and 90-day expiry | capture: sha256:25e1258d8f57ea60160338d801f27f8f3bfafc6057e20b89948ca31c8a463e17 | quote: An additional 500 compute units per month, totaling 600 compute units per month.
+  - [2] 2026-11-03: paid Colab plans are sold only in a listed set of countries | capture: sha256:25e1258d8f57ea60160338d801f27f8f3bfafc6057e20b89948ca31c8a463e17 | quote: For now, the Colab paid offerings are only available in the following countries: United States of America, Canada, Brazil, France, Germany, India, Japan
+- sources:
+  - [1] https://research.google.com/colaboratory/faq.html
+  - [2] https://colab.research.google.com/signup
+
+## google colab as a serving box
+
+- `storage/google-colab-as-a-serving-box` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://research.google.com/colaboratory/faq.html
+- free tier: none reachable: Both disqualifiers land at once: file hosting and media serving are in the provider's published list of restricted activities, and the VM is deleted on idle. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Both disqualifiers land at once: file hosting and media serving are in the provider's published list of restricted activities, and the VM is deleted on idle.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Both disqualifiers land at once: file hosting and media serving are in the provider's published list of restricted activities, and the VM is deleted on idle.
+- sources:
+  - [1] https://research.google.com/colaboratory/faq.html
+
+## google colab free-tier runtime disk (as scratch storage)
+
+- `storage/google-colab-free-tier-runtime-disk` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://research.google.com/colaboratory/faq.html
+- free tier: VMs are deleted when idle and… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: the same as the free tier
+- notes: the same as the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: not-storage
+  - dead_end.why: VMs are deleted when idle and…
+  - dead_end.retry_when: never; it is not storage
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: VMs are deleted when idle and runti
+- sources:
+  - [1] https://research.google.com/colaboratory/faq.html
+
+## google container registry (gcr.io) as a separate free tier
+
+- `storage/google-container-registry-as-a-separate-free-tier` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://cloud.google.com/artifact-registry/pricing
+- free tier: none reachable: Not a separate quota. gcr.io-domain repositories are billed as Artifact Registry ('Repositories that support the gcr.io domain' are listed as storing artifacts subject to the same pricing), | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Not a separate quota. gcr.io-domain repositories are billed as Artifact Registry ('Repositories that support the gcr.io domain' are listed as storing artifacts subject to the same pricing),
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Not a separate quota. gcr.io-domain repositories are billed as Artifact Registry ('Repositories that support the gcr.io domain' are listed as storing artifacts subject to the same pricing)
+- sources:
+  - [1] https://cloud.google.com/artifact-registry/pricing
+
+## google docs / sheets as unlimited storage (uds, base64 embedding)
+
+- `storage/google-docs-sheets-as-unlimited-storage` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://support.google.com/accounts/answer/9312312
+- free tier: none reachable: Closed. Collaborative files (Docs, Sheets, Slides, Drawings, Forms) created or edited after 2021-06-01 / 2022-05-02 now count toward quota. The stewardmcgown/uds repo (4.4k stars) still… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Closed. Collaborative files (Docs, Sheets, Slides, Drawings, Forms) created or edited after 2021-06-01 / 2022-05-02 now count toward quota. The stewardmcgown/uds repo (4.4k stars) still…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Closed. Collaborative files (Docs, Sheets, Slides, Drawings, Forms) created or edited after 2021-06-01 / 2022-05-02 now count toward quota. The stewardmcgown/uds repo (4.4k stars) still…
+  - [2] 2026-10-21: cited as the basis of the rejection: Closed. Collaborative files (Docs, Sheets, Slides, Drawings, Forms) created or edited after 2021-06-01 / 2022-05-02 now count toward quota. The stewardmcgown/uds repo (4.4k stars) still exis
+- sources:
+  - [1] https://support.google.com/accounts/answer/9312312
+  - [2] https://knowledge.workspace.google.com/admin/storage/google-workspace-storage-faq-for-admins
+
+## google groups as a file store
+
+- `storage/google-groups-as-a-file-store` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://knowledge.workspace.google.com/admin/groups/understand-groups-policies-and-limits
+- free tier: none reachable: There is no file storage. Limits are message-activity limits: "Individual message size 25 MB", "Total message size 2.4 GB per hour" per group, "Total inbound emails per group 300 per 5… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: There is no file storage. Limits are message-activity limits: "Individual message size 25 MB", "Total message size 2.4 GB per hour" per group, "Total inbound emails per group 300 per 5…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: There is no file storage. Limits are message-activity limits: "Individual message size 25 MB", "Total message size 2.4 GB per hour" per group, "Total inbound emails per group 300 per 5…
+  - [2] 2026-10-21: cited as the basis of the rejection: There is no file storage. Limits are message-activity limits: "Individual message size 25 MB", "Total message size 2.4 GB per hour" per group, "Total inbound emails per group 300 per 5 minut
+- sources:
+  - [1] https://knowledge.workspace.google.com/admin/groups/understand-groups-policies-and-limits
+  - [2] https://webapps.stackexchange.com/questions/30506
+
+## google photos
+
+- `storage/google-photos` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://support.google.com/photos/answer/6220791
+- free tier: none reachable: 15 GB shared across the whole Google account (Gmail/Drive/Photos). Original quality counts against it, and 'Storage saver' re-encodes and resizes anything over 16 MP. Content deleted after… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: retention
+  - dead_end.why: 15 GB shared across the whole Google account (Gmail/Drive/Photos). Original quality counts against it, and 'Storage saver' re-encodes and resizes anything over 16 MP. Content deleted after…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 15 GB shared across the whole Google account (Gmail/Drive/Photos). Original quality counts against it, and 'Storage saver' re-encodes and resizes anything over 16 MP. Content deleted after…
+- sources:
+  - [1] https://support.google.com/photos/answer/6220791
+
+## Google Photos Library API (append-only upload)
+
+- `storage/google-photos-library-api` | fails-quota | evidence reported | binding none | category media
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://developers.google.com/photos/library/guides/upload-media
+- free tier: No quota of its own. But every item uploaded counts against the user's Google Account storage at original quality. 200 MB max per photo, 20 GB max per video. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Media bytes served via baseUrl, 75,000 requests/project/day; no documented per-GB charge but the underlying storage is metered. | metered: yes
+- identity: institution
+- interface: rest, rclone
+- limits note: 10,000 Library API requests/project/day; 75,000 media-byte reads/project/day; 50 items per batchCreate; uploads land at ORIGINAL quality and count once they exceed 25 MB per user.
+- interface detail: rest
+- tooling: Photos Library API (photoslibrary.appendonly scope), uploads endpoint + batchCreate; no rclone backend. Unofficial wrappers are thin.
+- composes with: 20 GB per video x N videos is the only interesting shape, but it does NOT escape the 15 GB account quota. This is billing-avoidance-free. Not a multiplier, a quota consumption path.
+- reliability: API uploads skip the 'Storage saver' free-compression path, so they consume quota fastest of any Google surface. Strictly worse than Drive for bulk data.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: No quota of its own — but every item uploaded counts against the user's Google Account storage at original quality. 200 MB max per photo, 20 GB max per video.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'All uploads are stored at original quality, counting towards the user's Google Account storage if they exceed 25MB per user' + max 200 MB photo / 20 GB video
+  - [2] 2026-10-21: 'The quota limit for requests to the Library API is 10,000 requests per project per day'; media bytes 75,000/day
+- sources:
+  - [1] https://developers.google.com/photos/library/guides/upload-media
+  - [2] https://developers.google.com/photos/overview/api-limits-quotas
+
+## Google Play Books (personal upload library)
+
+- `storage/google-play-books` | fails-quota | evidence reported | binding per-object-cap | category cloud-drive
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://play.google.com/books
+- free tier: Up to 1,000 uploaded files per Google account (2 GB max per file per the Partner Center spec; the consumer uploader historically enforced 100 MB). 1,000 x 2 GB ≈ 2 TB theoretical per Google account. | unit: MB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 2 GB max per file | bytes: 2000000000 | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: No egress metering for reading, but there is no public direct-download URL: files are served through the authenticated Play Books reader. Not CDN-cacheable, not shareable as a link. | metered: no
+- identity: institution
+- interface: unknown
+- limits:
+  - per-object-cap (binding): 2 GB/file [1]
+- limits note: 1,000-file cap per account; 2 GB/file (Partner Center) vs 100 MB in the consumer uploader; EPUB/PDF only; uploads are re-processed into Google's internal format, so the stored artifact is not byte-identical to what you sent.
+- interface detail: wrapper-only
+- tooling: Web upload only (play.google.com/books -> Upload files). No public API; third-party tools are downloaders for purchased books, not uploaders.
+- composes with: 1,000 files x 2 GB = ~2 TB per free Google account, x unlimited free Google accounts. This is the Drive-service-account pattern applied to Play Books; it is only blocked by the absence of an upload API.
+- reliability: Files are converted on ingest and served only inside the reader; no bulk export, no public URLs, and there is no supported automation path.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Up to 1,000 uploaded files per Google account (2 GB max per file per the Partner Center spec; the consumer uploader historically enforced 100 MB). 1,000 x 2 GB ≈ 2 TB theoretical per Google account.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Maximum file size 2 GB per file'
+  - [2] 2026-10-21: 'Each file must be less than 2 GB'; EPUB/PDF only
+  - [3] 2026-10-21: consumer upload flow is web-only ('go to your Play Books library ... Upload files')
+  - [4] 2026-10-21: 1,000-book cap report; corroborated by https://ebookfriendly.com/how-to-upload-own-ebooks-to-google-play/ ('up to 1,000 own files')
+- sources:
+  - [1] https://support.google.com/books/partner/answer/9261355?hl=en
+  - [2] https://support.google.com/books/partner/answer/3424254?hl=en
+  - [3] https://support.google.com/googleplay/answer/11012086?hl=en
+  - [4] https://webapps.stackexchange.com/questions/92325/seeing-the-count-of-books-ive-uploaded-on-google-play-books
+
+## google sites (new sites) as free hosting/storage
+
+- `storage/google-sites-as-free-hosting-storage` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://knowledge.workspace.google.com/admin/sites/google-sites-requirements
+- free tier: None reachable: Sites and all embedded content count toward the owner's Drive storage. It is not an exempt surface. No independent quota exists. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Sites and all embedded content count toward the owner's Drive storage — it is not an exempt surface. No independent quota exists.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Sites and all embedded content count toward the owner's Drive storage — it is not an exempt surface. No independent quota exists.
+- sources:
+  - [1] https://knowledge.workspace.google.com/admin/sites/google-sites-requirements
+
+## Google Vertex AI Model Garden — custom model import
+
+- `storage/google-vertex-ai-model-garden-custom-model-import` | fails-quota | evidence reported | binding none | category hyperscaler-model-catalog
+- needs card yes, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://cloud.google.com/vertex-ai/docs/model-registry/import-model
+- free tier: No hosting quota because there is no hosting: 'You must store your model artifacts in a Cloud Storage bucket, where the bucket's region matches the locational endpoint you're using.' Capacity is your GCS bill. | unit: mixed | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Paid GCS egress. | metered: no
+- identity: card | detail: card
+- interface: rest
+- limits note: fails-quota. The Model Garden catalogue is a curated list of first- and third-party models; you cannot deposit bytes into it as a member of the public.
+- interface detail: rest
+- tooling: Aiplatform.Model.upload(..) from the Python SDK. Clean, but it uploads a pointer plus artifacts already in GCS.
+- composes with: Storage relies on underlying Google Cloud Storage buckets, where the standard free tier provides 5 GB.
+- reliability: Not a storage provider. Console requires a Google Cloud billing account.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: No hosting quota because there is no hosting: 'You must store your model artifacts in a Cloud Storage bucket, where the bucket's region matches the locational endpoint you're using.' Capacity is your GCS bill.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: opened: 'You must store your model artifacts in a Cloud Storage bucket'.
+  - [2] 2026-10-21: PROBED: returns a 'Sign in' page (41 words, no content) rather than the catalogue. Confirms the gate is a Google identity plus billing.
+- sources:
+  - [1] https://docs.cloud.google.com/vertex-ai/docs/model-registry/import-model
+  - [2] https://console.cloud.google.com/vertex-ai/publishers
+
+## Firebase Studio
+
+- `compute/firebase-studio` | dead | evidence documented | binding none | category cloud VM
+- needs card unknown, phone unknown, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://firebase.google.com/docs/studio/pricing
+- free tier: "Firebase Studio is sunsetting on March 22, 2027. As of June 22, 2026, new workspace creation and user signup are disabled." The plan was 3 workspaces per user at no cost. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email | detail: no signup is possible at all: 'As of June 22, 2026, new workspace creation and user signup are disabled', so there is no requirement left to meet and the 3-workspace quota is closed to new accounts. What the pre-closure signup asked for - email, phone, card or ID - is not described in any evidence row: unknown. No hold is stated.
+- interface: unknown
+- limits note: New accounts cannot create a workspace at all since 2026-06-22, so the 3-free-workspace quota is closed; existing workspaces keep running until 2027-03-22.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: Nothing new. The migration targets named by Google, AI Studio and Antigravity, were not evaluated among evaluated offerings and are the obvious next check for an always-on free development environment from Google.
+- reliability: no reliability event recorded
+- notes: This is the most commonly recommended free cloud IDE that no longer accepts users, and listicles written before June 2026 still describe three free Nix-based workspaces. Classified as dead with the two dates, because a reader needs to know both that it is closing and that it is already closed to them. Apps already deployed to Firebase keep running after the sunset, which is a different product.
+- extras:
+  - facets.class: inverse-dead
+  - facets.free_tier_kind: none
+- evidence:
+  - [1] 2026-10-22: sunset on 2027-03-22, new workspace creation and signup disabled from 2026-06-22, and 3 workspaces per user at no cost, quoted
+  - [2] 2026-10-22: the same notice in the FAQ, plus the statement that the no-cost plan is limited to three workspaces per user
+  - [3] 2026-10-22: existing workspaces can be worked in until the sunset date and must be migrated to Google AI Studio or Google Antigravity
+- sources:
+  - [1] https://firebase.google.com/docs/studio/pricing
+  - [2] https://firebase.google.com/docs/studio/troubleshooting
+  - [3] https://firebase.google.com/docs/studio/migrating-project
+
+## Google Programmable Search / Custom Search JSON API
+
+- `crawler-scraper/google-custom-search` | dead | evidence documented | binding request-rate | category search API
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://developers.google.com/custom-search/v1/overview
+- free tier: 100 queries a day for existing customers only | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable: the unit is a query | source: [1]
+- retention: the service is discontinued on 2027-01-01 | source: [1]
+- egress: not applicable | metered: no | source: [1]
+- identity: card | detail: billing had to be enabled past 100 queries a day
+- interface: rest
+- limits:
+  - request-rate (binding): 100 queries a day free, then USD 5 per 1,000 up to 10,000 a day, for existing customers [1]
+  - per-object-cap: 10,000 queries a day hard cap [1]
+- interface detail: REST with a key and a search engine id
+- tooling: not established
+- composes with: the same as tooling
+- reliability: no reliability event recorded
+- notes: Two closures in one page: closed to new customers now, discontinued in 2027. The free tier is real and unreachable, which is the fails-identity shape in a vendor that never asks for an identity.
+- evidence:
+  - [1] 2026-10-22: the Custom Search JSON API is closed to new customers; the pricing applies only to existing customers until the service discontinuation on 2027-01-01; 100 queries a day free, USD 5 per 1,000 beyond
+- sources:
+  - [1] https://developers.google.com/custom-search/v1/overview
+
+## LunaProxy, PIA S5 Proxy and 911 S5 (911.re)
+
+- `ip-proxy/lunaproxy-and-pia-s5` | dead | evidence documented | binding none | category residential/mobile proxy network | tier none
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T10:07:11.000Z (live) | stale on 2026-11-24
+- url https://cloud.google.com/blog/topics/threat-intelligence/disrupting-largest-residential-proxy-network
+- free tier: No live offer. lunaproxy.com and piaproxy.com return NXDOMAIN, and 911.re serves a seizure notice in place of a product page, all read 2026-10-24. Nothing was priced because nothing answers. | unit: none | metered on: none | read on: 2026-10-24 | source: [1] | note: None of the three named domains (lunaproxy.com, piaproxy.com, 911.re) serves active pricing pages. No free allowance or active subscription tier is available.
+- per-object cap: not applicable | source: [1] | note: No object is stored by an exit-IP product, and nothing is served now in any case.
+- retention: not applicable: an address product, not stored bytes | source: [1] | note: A purchased balance or a pinned session is the nearest thing these vendors sold, and none can be read: two names do not resolve and the third serves a seizure notice.
+- egress: unstated: no live page carries a traffic position. lunaproxy.com and piaproxy.com return NXDOMAIN and 911.re answers with a seizure notice, so whatever these three said about traffic out was never read and is not recorded here. | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: n/a: no registration path exists, so no identity gate was reached.
+- interface: unknown
+- limits note: No constraint was measurable because no page was served. If any of the three had answered, the two kinds that would have been classified first are per-ip-shaping, because a residential exit pool is only worth its identity, and volume-quota, because every vendor in this class meters per GB. Both are unverified here rather than absent, and neither is claimed.
+- binding note: Nothing in the vocabulary fails at 45 GB a month because nothing is sold: two names do not resolve and the third serves a seizure notice, so no rate, cap, quota or shaping exists to hit. What removes these vendors is existence, which the seven-value vocabulary has no kind for and the verdict already names.
+- interface detail: Nothing is reachable: two of the three names have no DNS record and the third serves a seizure notice. The protocol these vendors sold was SOCKS5 and HTTP(S) per IP, which is what the names said (PIA S5, 911 S5) and what the one surviving stored copy of pia-proxy.com advertises ('Pay per IP over HTTP(S) and SOCKS5'); that describes the product, not a path a client can use today.
+- tooling: Nothing to reach. A missing wrapper is not the obstacle: there is no service behind the name to wrap, so no client, SDK or protocol choice changes the outcome.
+- composes with: Inactive domains cannot chain: non-resolving endpoints cannot carry network traffic.
+- reliability: Two of the three names are gone at the DNS level and the third serves a seizure banner; the notice on 911.re reads 'This domain has been seized by the Defense Criminal Investigative Service, the Federal Bureau of Investigation, and the Bureau of Industry and Security, Office of Export Enforcement' as part of a coordinated action 'taken against the 911 S5 residential proxy service'.
+- notes: A filtered answer would have come from the filter, not from the .com zone's authority. It does not. It resolves behind Cloudflare and returns 522, with no origin; The likely cause is that the two names were read as one. Two PIA-adjacent names do resolve, pia-proxy.com and piaproxy.io, and both sit behind Cloudflare with no answering origin, so neither served a page to compare. piaproxy.net is a different company entirely, Private Internet Access, and pias5.com, pia-s5.com and piaproxy.co have no A record. So the pair may be exactly those two 522 hosts, or something else, and this record does not say. SINGLE SAMPLE: every DNS check here is one query per name from one resolver on one day, and the 522s were single fetches; a second resolver and a second day would turn a one-day observation into a trend, which for a domain is worth little either way.
+- evidence note: Endpoint non-resolution was measured on 2026-10-24: Cloudflare public resolvers returned NXDOMAIN for lunaproxy.com and piaproxy.com, and 911.re served a law enforcement seizure banner.
+- extras:
+  - rung: 1
+  - rung_note: Session, and only as a floor: what these three sold was a session-bound exit address, and nothing above rung 1 was ever established for them here, since no page was served to measure an account, fingerprint or behaviour control against.
+  - interface_enum_note: The schema's interface enum has no token for a proxy endpoint or a tunnel, so this record follows the convention the egress records use: a proxy client or tunnel is 'cli', a vendor API is 'rest'. Previous value: ['none']
+- evidence:
+  - [1] 2026-10-24: 
+  - probe:lunaproxy.com 2026-10-24: Cloudflare DNS-over-HTTPS answered Status 3 (NXDOMAIN) with no A record, so the name has been removed from the .com zone rather than merely failing to answer.
+  - probe:piaproxy.com 2026-10-24: Cloudflare DNS-over-HTTPS answered Status 3 (NXDOMAIN) with no A record.
+  - probe:pia-proxy.com 2026-10-24: Not NXDOMAIN: resolves to 104.21.6.121 and 172.67.134.213 behind Cloudflare, and a fetch returned HTTP 522, meaning the edge has no origin behind it. The only readable text under this name was a stored third-party snapshot, titled 'PIA S5 Proxy — Residential SOCKS5 IPs, 350M+', which is a copy of the product page rather than a live page.
+  - probe:piaproxy.io 2026-10-24: Resolves to 162.255.119.134 and returned HTTP 522; two read attempts, one at a 25 second deadline and one at 60, produced no page text, so no copy could be compared against pia-proxy.com's.
+  - [2] 2026-10-24: HTTP 200 with a page titled 'This Website Has Been Seized', whose body names the seizing agencies and states the action was 'taken against the 911 S5 residential proxy service'.
+- sources:
+  - [1] https://cloud.google.com/blog/topics/threat-intelligence/disrupting-largest-residential-proxy-network
+  - [2] https://911.re/

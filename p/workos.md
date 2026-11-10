@@ -1,0 +1,91 @@
+# WorkOS
+
+> workos.com | Developer services; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/workos/ | JSON https://fshy.ajam.dev/api/v1/entity/workos.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## WorkOS
+
+- `dev-services/workos` | qualifies-with-caveat | evidence documented | binding write-gated | category hosted authentication and user management (AuthKit), enterprise SSO and directory sync | tier AuthKit free allowance
+- needs card yes, phone unknown, ID no, institution no | verified 2026-11-02T00:37:55.410Z (live) | stale on 2026-12-03
+- url https://workos.com/pricing
+- free tier: AuthKit user management free for the first 1 million monthly active users; staging environments are free; the production environment needs a payment method on file | unit: users | metered on: identity-count | read on: 2026-10-30 | source: [1] | note: An MAU is a user who signs up, signs in or updates a profile in a calendar month. AuthKit covers email and password, social login, passkeys, MFA, magic auth and enterprise SSO. SSO and Directory Sync connections cost USD 125 each for the first 15, a custom domain USD 99 a month; Radar includes 1,000 checks. A production environment activates only after a payment method is added, even when usage stays inside the free allowance.
+- per-object cap: metadata on a user or an organization: up to 10 key-value pairs, each key up to 40 characters and each value up to 600 characters, ASCII only | source: [2] | note: The OpenAPI specification of the WorkOS API sets maxProperties 50 on the metadata of a user, with keys of at most 40 characters and values of at most 600 characters, which disagrees with the 10 key-value pairs of the documentation page.
+- retention: Audit Log events are kept 30 days by default and then deleted; longer retention is priced per 1M events | days: 30 | source: [3]
+- egress: not applicable: an authentication API; no traffic allowance or egress term is published | metered: no | source: [1]
+- identity: card | detail: The sign-up page asks for an email address or a Google sign-in and states no credit card is required, and staging needs none; the production environment activates only after a payment method (card details and cardholder name, billing address) is added. Whether a later step of the dashboard sign-up asks for a phone number is unverified: behind a sign-up.
+- interface: rest
+- limits:
+  - volume-quota: 1,000,000 monthly active users [1]
+  - write-gated (binding): a payment method is required to activate the production environment; staging environments are free [4]
+  - request-rate: 6,000 requests per 60 seconds per API key [5]
+  - request-rate: AuthKit: 1,000 reads and 500 writes per 10 seconds per environment [5]
+  - retention-clamped: Audit Log events kept 30 days by default [3]
+  - per-object-cap: metadata on a user or organization: 10 key-value pairs (documentation page) or 50 (OpenAPI specification), keys up to 40 characters, values up to 600 characters [2]
+- binding note: The 1 million MAU allowance applies in a production environment, which activates only after a payment method is added; without one the account has staging only.
+- interface detail: REST API at https://api.workos.com with a Bearer API key (a GET /events without a key answered 401); hosted AuthKit sign-in pages; an events API; WorkOS Connect serves OAuth authorization server metadata at /.well-known/oauth-authorization-server and an OpenID configuration at /.well-known/openid-configuration on the AuthKit domain.
+- endpoint: part of interface detail
+- tooling: WorkOS SDKs for Node, Ruby, Python and other languages, the WorkOS CLI (npx workos@latest), or any HTTP client with a Bearer key.
+- composes with: A staging environment for building and testing sign-in at no cost; production sign-in for real users needs a card on file.
+- reliability: Email sent through the shared WorkOS provider (Magic Auth, verification, password reset) can be temporarily limited for unusual volume or spam patterns; a 429 may carry Retry-After.
+- notes: Provisioning through Stripe Projects (stripe projects add workos/auth) creates a sandbox environment with no account form or credit card prompt; production is a second configuration of the same command. Stripe states that a payment method is added to Stripe once and handed to the provider as a Shared Payment Token when a paid plan is selected, and WorkOS states that production environments require a payment method added in the WorkOS Dashboard; whether the production configuration provisioned through Stripe Projects needs a payment method on the WorkOS team as well is unverified: behind a sign-up.
+- evidence note: Every value is quoted from first-party pricing, docs, billing and sign-up pages; the API host was probed and answered 401 without a key. An authenticated call in a staging environment would move it to measured.
+- evidence:
+  - [1] 2026-10-30: the first 1 million MAUs are free | capture: sha256:f9cff0ec9cddb7e4d5a39529f1e1000beb8268e6a483f88b38c548e08d3c28c3 | quote: Enterprise-ready authentication and identity for every app. First 1 million monthly active users free.
+  - [1] 2026-10-30: AuthKit is free for the first 1M MAUs | capture: sha256:f9cff0ec9cddb7e4d5a39529f1e1000beb8268e6a483f88b38c548e08d3c28c3 | quote: | First 1M MAUs | Free |
+  - [1] 2026-10-30: AuthKit covers password, social, passkeys, MFA, magic auth and SSO | capture: sha256:f9cff0ec9cddb7e4d5a39529f1e1000beb8268e6a483f88b38c548e08d3c28c3 | quote: AuthKit includes email + password, social login, passkeys, MFA, magic auth, and enterprise SSO — all from one integration.
+  - [1] 2026-10-30: an MAU is a user who signs up, signs in or updates a profile in a month | capture: sha256:f9cff0ec9cddb7e4d5a39529f1e1000beb8268e6a483f88b38c548e08d3c28c3 | quote: - Monthly Active User (MAU): A user who performs any action (sign up, sign in, or profile update) within a calendar month.
+  - [1] 2026-10-30: staging environments are free; only production is billed | capture: sha256:f9cff0ec9cddb7e4d5a39529f1e1000beb8268e6a483f88b38c548e08d3c28c3 | quote: - Staging environments: Free for testing. Only production environments are billed.
+  - [1] 2026-10-30: SSO and Directory Sync connections cost USD 125 each for the first 15 | capture: sha256:f9cff0ec9cddb7e4d5a39529f1e1000beb8268e6a483f88b38c548e08d3c28c3 | quote: | 1–15 | $125/ea | — |
+  - [1] 2026-10-30: a custom domain costs USD 99 a month | capture: sha256:f9cff0ec9cddb7e4d5a39529f1e1000beb8268e6a483f88b38c548e08d3c28c3 | quote: | Custom domain | $99/mo |
+  - [1] 2026-10-30: Radar includes 1,000 checks | capture: sha256:f9cff0ec9cddb7e4d5a39529f1e1000beb8268e6a483f88b38c548e08d3c28c3 | quote: | First 1,000 checks | Free |
+  - [1] 2026-10-30: longer audit log retention is priced per 1M events | capture: sha256:f9cff0ec9cddb7e4d5a39529f1e1000beb8268e6a483f88b38c548e08d3c28c3 | quote: | Event retention (per 1M events) | $99/mo |
+  - [6] 2026-10-30: staging is free | capture: sha256:b029105d01d84f66aa76b3cdf9f596dc9950b798bf303d47138eaf6e3701fbe4 | quote: Staging is free. No connections in staging incur charges, regardless of type.
+  - [6] 2026-10-30: production needs billing information even inside the free allowance | capture: sha256:b029105d01d84f66aa76b3cdf9f596dc9950b798bf303d47138eaf6e3701fbe4 | quote: you still need to [add billing information](https://workos.com/docs/dashboard/billing#payment-method) to unlock the production environment
+  - [4] 2026-10-31: a payment method is required for production | capture: sha256:1e36d98b9b42d4aecefb4e15727546eff4546c94075c830a1cf13440b0e67822 | quote: A payment method is required to activate your production environment. Staging environments are free and don't require one.
+  - [4] 2026-10-31: the payment method is a card | capture: sha256:1e36d98b9b42d4aecefb4e15727546eff4546c94075c830a1cf13440b0e67822 | quote: - Card details and cardholder name: processed by Stripe; WorkOS doesn't store your card number.
+  - [4] 2026-10-31: the payment form asks for a billing address | capture: sha256:1e36d98b9b42d4aecefb4e15727546eff4546c94075c830a1cf13440b0e67822 | quote: - Billing address and tax information: shown on invoices.
+  - [7] 2026-10-30: production needs a payment method; without one only sandbox environments exist | capture: sha256:0696de50cae1b291a6aca4f5483aff31c98b0cb4144768fa13ce0487b7d733c6 | quote: - Production environments require active billing on the team. Until a team admin adds a payment method in the WorkOS Dashboard, your platform can only create sandbox environments.
+  - [8] 2026-10-30: the Stripe Projects route asks no account form or card | capture: sha256:d0f29cab13cd0b64642115e50f187a6f9da01af68d6709e570ae4135f7a847c5 | quote: One command. No account creation form, no credit card prompt, no email verification loop.
+  - [8] 2026-10-30: the Stripe Projects route provisions a sandbox environment | capture: sha256:d0f29cab13cd0b64642115e50f187a6f9da01af68d6709e570ae4135f7a847c5 | quote: By default, this provisions a sandbox environment.
+  - [8] 2026-10-30: a WorkOS CLI exists | capture: sha256:d0f29cab13cd0b64642115e50f187a6f9da01af68d6709e570ae4135f7a847c5 | quote: npx workos@latest
+  - [5] 2026-10-30: all requests are limited to 6,000 per 60 seconds per API key | capture: sha256:899ce3e0049496f57eab5aed1daa2786185d3b33ff768b630f57e50497b4a8fe | quote: | All requests | \* | 6,000 requests per 60 seconds per API key |
+  - [5] 2026-10-30: AuthKit limits apply per environment | capture: sha256:899ce3e0049496f57eab5aed1daa2786185d3b33ff768b630f57e50497b4a8fe | quote: Rate limiting for AuthKit APIs are enforced on a per environment basis.
+  - [5] 2026-10-30: AuthKit reads are limited to 1,000 per 10 seconds | capture: sha256:899ce3e0049496f57eab5aed1daa2786185d3b33ff768b630f57e50497b4a8fe | quote: | Reads | /user\_management/\* | 1,000 requests per 10 seconds |
+  - [5] 2026-10-30: AuthKit writes are limited to 500 per 10 seconds | capture: sha256:899ce3e0049496f57eab5aed1daa2786185d3b33ff768b630f57e50497b4a8fe | quote: | Writes | /user\_management/\* | 500 requests per 10 seconds |
+  - [5] 2026-10-30: shared-provider email can be temporarily limited | capture: sha256:899ce3e0049496f57eab5aed1daa2786185d3b33ff768b630f57e50497b4a8fe | quote: may have some or all of its outbound email temporarily limited
+  - [5] 2026-10-30: a 429 may carry Retry-After | capture: sha256:899ce3e0049496f57eab5aed1daa2786185d3b33ff768b630f57e50497b4a8fe | quote: When a `429 Too Many Requests` response includes a `Retry-After` header, wait for the indicated delay before retrying.
+  - [3] 2026-10-31: audit log events are kept 30 days by default | capture: sha256:9ed0e7e71a57d0e86135615cd1e533d03e3d746b5680349ca520fd65cf213fa8 | quote: Audit Log Events are retained for 30 days by default and permanently deleted when the retention period ends.
+  - [9] 2026-10-31: the API is served at api.workos.com | capture: sha256:1627a16f8f910b079be38ffec2b58cca75fe2dc748329a3efbd0ff273f739246 | quote: curl "https://api.workos.com/events"
+  - [9] 2026-10-31: the API takes a Bearer key | capture: sha256:1627a16f8f910b079be38ffec2b58cca75fe2dc748329a3efbd0ff273f739246 | quote: --header "Authorization: Bearer sk_example_123456789"
+  - [9] 2026-10-31: a Node SDK exists | capture: sha256:1627a16f8f910b079be38ffec2b58cca75fe2dc748329a3efbd0ff273f739246 | quote: import { WorkOS } from '@workos-inc/node';
+  - [10] 2026-10-31: the sign-up asks for an email address or a Google sign-in | capture: sha256:99fff0475fc69164d1ee03f57cb55ee359b4e8de3c5766202acb537ec038c3d1 | quote: # Create your WorkOS account Email Continue OR [Continue with Google]
+  - [10] 2026-10-31: the sign-up page states no credit card is required | capture: sha256:99fff0475fc69164d1ee03f57cb55ee359b4e8de3c5766202acb537ec038c3d1 | quote: - No credit card required.
+  - probe:https://api.workos.com/events 2026-10-31: api.workos.com/events answers 401 without a key | capture: sha256:d4e7fb7feae092099a721c755f6ad01478eedfbeb497641ce38a818b981460b0 | quote: "status": 401
+  - [2] 2026-11-01: WorkOS documents up to 10 key-value pairs of metadata on an organization or user | capture: sha256:851a82fece8fac36d05439a92ddf854a3a4acb113261405bfa9f88b159cf5296 | quote: You can add up to 10 key-value pairs to an organization or user within these data limits:
+  - [2] 2026-11-01: a metadata key is up to 40 characters and a value up to 600 characters, ASCII only | capture: sha256:851a82fece8fac36d05439a92ddf854a3a4acb113261405bfa9f88b159cf5296 | quote: - Key: Up to 40 characters long. ASCII only. - Value: Up to 600 characters long. ASCII only.
+  - [11] 2026-11-01: the WorkOS OpenAPI specification sets maxProperties 50 and a key length of 40 on the metadata of a user | capture: sha256:16611af477f24d84ad1d5f58ce5c26b93c08fdc4db22f8801f75bf10e18729a4 | quote: description: Object containing metadata key/value pairs associated with the user. example: timezone: America/New_York propertyNames: maxLength: 40 maxProperties: 50
+  - [12] 2026-11-01: Stripe hands the provider a Shared Payment Token for a selected paid plan | capture: sha256:206381346bcd229992c7e9108ed06cec133f731f74955818da75a7f2345dce38 | quote: When you select a paid plan in the CLI, Stripe tokenizes your payment credentials into a [Shared Payment Token](https://docs.stripe.com/agentic-commerce/concepts/shared-payment-tokens.md) and grants the provider a payment credential for that upgrade.
+  - [12] 2026-11-01: the payment method of Stripe Projects is added to Stripe once | capture: sha256:206381346bcd229992c7e9108ed06cec133f731f74955818da75a7f2345dce38 | quote: You only need to add your payment method to Stripe once.
+  - [13] 2026-11-01: Stripe requires its payment method before a paid plan tier is provisioned | capture: sha256:65dbc14bb9004a7417af841d4779cde75d56d71fd24534f3d1c8d6fc3db0321d | quote: Add or update the payment method used for Stripe Projects billing. We require it before you can provision any paid plan tier.
+  - [7] 2026-11-01: WorkOS requires a payment method added in its Dashboard before a platform can create production environments | capture: sha256:0696de50cae1b291a6aca4f5483aff31c98b0cb4144768fa13ce0487b7d733c6 | quote: Production environments require active billing on the team. Until a team admin adds a payment method in the WorkOS Dashboard, your platform can only create sandbox environments.
+  - [8] 2026-11-01: production through Stripe Projects is the same command with the production configuration | capture: sha256:feb49f7d455781c533cfd2ef6eac6abf027409b9e6ad69747f69ed63a743999c | quote: When you're ready to ship to real users, run the same command again and select the `production` configuration. The flow is identical; only the environment changes.
+  - [10] 2026-11-01: the sign-up page states no credit card is required | capture: sha256:6dba8fb05e4cf19d54ab91b340205d0215431bac5d06b59d5f8d686afa004c68 | quote: - No credit card required.
+  - [14] 2026-11-01: WorkOS Connect serves an OpenID configuration discovery endpoint | capture: sha256:f546df677e8723755ec8649770145d4ba32b8998b464e7fb12cd472d7402cf82 | quote: This discovery endpoint provides the standard configuration for OpenID clients to interact with WorkOS Connect.
+  - [14] 2026-11-01: the OpenID configuration is served at /.well-known/openid-configuration on the AuthKit domain | capture: sha256:f546df677e8723755ec8649770145d4ba32b8998b464e7fb12cd472d7402cf82 | quote: curl https://authkit_domain/.well-known/openid-configuration
+  - [14] 2026-11-01: the OAuth authorization server metadata is served at /.well-known/oauth-authorization-server on the AuthKit domain | capture: sha256:f546df677e8723755ec8649770145d4ba32b8998b464e7fb12cd472d7402cf82 | quote: curl https://authkit_domain/.well-known/oauth-authorization-server
+- sources:
+  - [1] https://workos.com/pricing
+  - [2] https://workos.com/docs/authkit/metadata
+  - [3] https://workos.com/docs/audit-logs
+  - [4] https://workos.com/docs/dashboard/billing
+  - [5] https://workos.com/docs/reference/rate-limits
+  - [6] https://workos.com/docs/authkit/environments
+  - [7] https://workos.com/docs/authkit/platforms
+  - [8] https://workos.com/blog/workos-joins-stripe-projects
+  - [9] https://workos.com/docs/reference/events
+  - [10] https://workos.com/signup
+  - [11] https://raw.githubusercontent.com/workos/openapi-spec/main/spec/open-api-spec.yaml
+  - [12] https://docs.stripe.com/projects
+  - [13] https://docs.stripe.com/cli/projects.md
+  - [14] https://workos.com/docs/reference/workos-connect/metadata

@@ -1,0 +1,1975 @@
+# AWS
+
+> amazon.com | Storage, Databases and KV, Netdisk and pan, Compute, Email, Egress and tunnels; 52 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/amazon/ | JSON https://fshy.ajam.dev/api/v1/entity/amazon.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## AWS Open Data Sponsorship Program
+
+- `storage/aws-open-data-sponsorship-program` | qualifies | evidence reported | binding write-gated | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://aws.amazon.com/opendata/open-data-sponsorship-program/
+- disagrees on identity_kind: `storage/aws-open-data-sponsorship-program` says card, `storage/aws-open-data-sponsorship-program-uncapped-2-years-but-t` says institution
+- disagrees on verdict: `storage/aws-open-data-sponsorship-program` says qualifies, `storage/aws-open-data-sponsorship-program-uncapped-2-years-but-t` says fails-identity
+- free tier: No published byte cap - 'covers the cost of Amazon S3 storage and data transfer for high-value cloud-optimized public datasets'. Registry datasets run to hundreds of TB; the programme as a whole is reported at 300+ PB. | unit: TB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: 90-day wind-down with data retrieval after termination. | days: 90 | source: [1] | note: not stated
+- egress: Free to the public - programme covers 'distribution costs such as egress and cross-region data fees'. Direct S3 HTTPS GETs, no requester-pays. | metered: no
+- identity: card | detail: inferred from the category 'iaas'; the source record states no identity cost, so this is a class assumption, not evidence
+- interface: s3-compatible, rclone, cli
+- limits:
+  - write-gated (binding): review looks at usage metrics [1]
+  - write-gated (binding): review, ~2-week decision [1]
+- limits note: 2-year term from acceptance, auto-terminates, renewable only if AWS offers ('AWS may offer to extend your participation prior to the end of the 2-year term'); renewal review looks at usage metrics. Rolling review, ~2-week decision. Licence must be permissive; Account must be dedicated to the dataset - no compute, no other services. 90-day wind-down with data retrieval after termination.
+- interface detail: s3
+- tooling: Plain S3 API; rclone 's3' backend; AWS CLI; anonymous HTTPS GET for consumers.
+- composes with: One dedicated AWS account per dataset, each uncapped. Multiple datasets = multiple applications. Dataset can then be re-served through Cloudflare in front of S3 for further egress cover.
+- reliability: Production S3; no data loss. The failure mode is review: a dataset that stops looking 'high-value' or stops growing does not get renewed, and the bill reverts to you.
+- notes: the same as the free tier
+- evidence:
+  - [2] 2026-10-21: 'covers the cost of storing and sharing publicly available, high-value, cloud-optimized datasets'; 'We evaluate applications on a rolling basis'; decisions 'generally within a two-week period'
+  - [3] 2026-10-21: (last updated 2025-09-11) - 'The term of your Program participation will be 2 years from the Effective Date, at which point it will automatically terminate'; wind-down 'no fewer than 90 days'
+  - [1] 2026-10-21: 'The program covers Amazon S3 storage costs for the specific dataset approved... as well as distribution costs such as egress'
+  - [4] 2026-10-21: form asks dataset size, growth rate GB/yr, formats, licence; no stated geography filter
+- sources:
+  - [1] https://aws.amazon.com/opendata/faqs/
+  - [2] https://aws.amazon.com/opendata/open-data-sponsorship-program/
+  - [3] https://aws.amazon.com/opendata/open-data-sponsorship-program/terms/
+  - [4] https://application.opendata.aws/
+
+## Amazon DynamoDB (dynamodb)
+
+- `databases-kv/dynamodb` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category key-value and document database
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22T03:05:00.000Z (live) | stale on 2026-11-22
+- url https://aws.amazon.com/dynamodb/pricing/
+- price USD 0.25/GB-month beyond 25 GB | parsed USD 250/TB-mo
+- free tier: 25 GB storage, 25 read capacity units and 25 write capacity units, per region per payer account, always free | unit: GB | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: 400 KB per item, which is the DynamoDB engine limit | bytes: 409600 | source: [1]
+- retention: data persists while the table exists; no inactivity pause and no expiry clock is published, and the AWS Free Tier page lists DynamoDB under the allowances available on both the 12-month and the always-free plans | source: [2] | note: the 25 GB and 25/25 RCU-WCU figures are the always-free allowance, not a 12-month one, which is what makes the row usable without a countdown
+- egress: transfer out is billed; the free tier does not include a transfer allowance for DynamoDB | metered: yes | source: [1]
+- identity: card | detail: an AWS account requires a payment instrument
+- interface: rest, cli
+- limits:
+  - per-ip-shaping (binding): 25 read capacity units and 25 write capacity units, equal to 25 strongly-consistent 4 KB reads a second and 25 1 KB writes a second [1]
+  - per-object-cap: 25 GB storage per region; 400 KB per item [1]
+- limits note: 2.5 million Streams read requests a month are also included
+- interface detail: an HTTPS JSON API; the AWS CLI and SDKs; PartiQL
+- tooling: boto3, the AWS CLI, any DynamoDB SDK
+- composes with: 25 GB that never expires and never pauses, behind an AWS account that needs a card
+- reliability: no suspension, throttle or data-loss event is recorded on the pages read
+- notes: 25 RCU is the cap, not 25 GB. Twenty-five strongly-consistent reads a second is a prototype's throughput, and 25 GB of storage behind it will never fill.
+- evidence note: the pricing page was read; the free tier is stated in its own worked examples.
+- evidence:
+  - [1] 2026-10-22: 'The AWS Free Tier includes 25 WCUs and 25 RCUs for tables using the DynamoDB Standard table class'; the first 25 GB of storage per region are included; Streams includes 2,500,000 read requests a month
+  - [2] 2026-10-22: DynamoDB is listed on the Free Tier page as 'Available on both plans', which places its allowance in the always-free category rather than the 12-month one
+- sources:
+  - [1] https://aws.amazon.com/dynamodb/pricing/
+  - [2] https://aws.amazon.com/free/
+
+## Amazon Photos (Prime)
+
+- `netdisk-pan/amazon-photos` | qualifies-with-caveat | evidence reported | binding write-gated | category retail-ecosystem photo cloud
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T00:20:56.365Z (inherited) | stale on 2026-11-19
+- url https://www.amazon.com/gp/help/customer/display.html?nodeId=G6PT8TMLM9NVZCSL
+- price Bundled with Prime at about USD 139/yr; the unlimited photo tier has no standalone price
+- free tier: 5 GB for every Amazon customer. Unlimited full-resolution photo storage plus 5 GB of video for Amazon Prime members | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 5 GB of video even on Prime; photos are unlimited. Paid plans exist above 5 GB | source: [1]
+- retention: While the account and the Prime membership persist; photos are removed from the unlimited tier if Prime lapses | source: [1]
+- egress: Downloads run through Amazon's CDN, effectively free and fast, but only for objects the account uploaded | metered: no | source: [1]
+- identity: email | detail: an Amazon account and a Prime membership. Prime is the price of admission, so unlimited is bundled and not free
+- interface: rest, cli
+- limits:
+  - per-object-cap: 5 GB of video total, even on Prime; photos are unlimited but must be photographs [1]
+  - write-gated (binding): cookie authentication with no OAuth or key flow, so the credential is a browser session that expires [2]
+- binding note: The capacity is genuinely unlimited for photographs and the gate is the credential: a browser cookie with no OAuth flow, which expires and cannot be renewed programmatically. That makes it a manual-ingest target at any scale.
+- tooling: unofficial and cookie-authenticated only: trevorhobenshield/amazon_photos in Python, entourloop/amazon-photo-uploader in Rust, and an MCP server. There is no OAuth and no API key, and every wrapper says cookies expire and must be refreshed by hand. No rclone backend
+- composes with: The classic unlimited-photos shape: if arbitrary image bytes are accepted, and they are because it is a photo service, then a photo-shaped payload is free across accounts. The 5 GB video cap is what stops it being a general drive, and the absence of an API stops it being a pipeline
+- reliability: Cookie-authenticated wrappers break on any change to Amazon's login flow; the MCP wrapper's own README calls it an unofficial API that may break. Photo-only means ingest may re-encode or reject non-image payloads
+- notes: Combines evaluation of both the photo storage and video limits. Unlimited full-resolution photo backup is available to Amazon Prime members, while non-photo video storage is capped at 5 GB. Authentication requires web session cookies.
+- extras:
+  - access_mode: paid
+  - free_tier_exists: yes
+  - api: unofficial cookie auth only
+  - aliases: Amazon Photos (Prime)
+  - cross_topic_record: storage/amazon-photos
+  - cross_topic_note: A record for this provider already exists under the storage topic; this one is scoped to its role as a pan, following the same split netdisk-pan/lanzou uses.
+- evidence:
+  - [1] 2026-10-21: '5 GB of free storage for all Amazon customers. Unlimited full-resolution photo storage, plus 5 GB of video storage, for Amazon Prime members'
+  - [3] 2026-10-21: 'unlimited photo storage and 5 GB of video storage to Amazon Prime members in eight marketplaces'
+  - [4] 2026-10-21: a Python client with md5 deduplication that preserves directory structure on upload
+  - [2] 2026-10-21: 'Amazon Photos has no OAuth or API key flow'; 'Cookie auth is fragile'
+  - [1] 2026-11-03: Prime members get unlimited full-resolution photos and 5 GB of video | capture: sha256:cf70fe114bf2bf1b6f2d9f3f826c9975c8e432b6de305702e4c07c95feb06765 | quote: Unlimited full-resolution photo storage, plus 5 GB of video storage, for Amazon Prime members.
+  - [1] 2026-11-03: 5 GB free for every Amazon customer | capture: sha256:cf70fe114bf2bf1b6f2d9f3f826c9975c8e432b6de305702e4c07c95feb06765 | quote: 5 GB of free storage for all Amazon customers.
+  - [2] 2026-11-03: the wrapper still authenticates by browser cookie that expires | capture: sha256:976732ae42f0c69ae48bdbaf858e34d78977aa0925938232cdcda930244e2e38 | quote: Cookie auth is fragile. Amazon cookies expire and must be refreshed manually.
+- sources:
+  - [1] https://www.amazon.com/gp/help/customer/display.html?nodeId=G6PT8TMLM9NVZCSL
+  - [2] https://github.com/vanessa/immich-amazon-sync
+  - [3] https://www.aws.amazon.com/blogs/storage/how-amazon-photos-uses-amazon-s3-intelligent-tiering
+  - [4] https://github.com/trevorhobenshield/amazon_photos
+
+## Amazon Polly
+
+- `compute/amazon-polly` | qualifies-with-caveat | evidence documented | binding volume-quota | category inference API
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://aws.amazon.com/polly/pricing/
+- free tier: 'For Amazon Polly's Standard voices, the free tier includes 5 million characters per month for speech or Speech Marks requests.' The Neural allowance is '1 million characters per month ... for the first 12 months', Long-Form '500 thousand characters per month ... for the first 12 months' and Generative '100 thousand characters per month for speech requests, for the first 12 months'. The vendor's own conversion is '1 million characters ... ~23 hours, 8 min', so 5 million Standard characters a month is about 115 hours of speech. | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: recurring-monthly-allowance
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: card
+- interface: rest
+- limits:
+  - volume-quota (binding): the Standard allowance is monthly and perpetual but the account is an AWS account with a payment instrument, and the free plan that new customers get lasts '6 months after account creation' for credits, so the stable figure is the 5 million characters, not any credit. [1]
+- limits note: the Standard allowance is monthly and perpetual but the account is an AWS account with a payment instrument, and the free plan that new customers get lasts '6 months after account creation' for credits, so the stable figure is the 5 million characters, not any credit.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: 115 hours of speech a month from Standard voices is enough to narrate a book a month, and it composes with any free object store for the audio. What breaks: the good voices are on the 12-month clock, so after a year the same pipeline drops to Standard quality or starts billing at USD 16 per million characters for Neural.
+- reliability: no reliability event recorded
+- notes: These are inference credits, not general compute. The distinction that matters is Standard versus the rest: Standard is permanent, everything better is a first-year allowance. AWS also replaced the old free tier with 'up to $200 in AWS Free Tier credits' for new customers from 2025-07-15, whose free plan 'will be available for 6 months', which is a separate and smaller lane. The 115-hour figure is the vendor's own conversion, not ours.
+- extras:
+  - facets.class: perpetual-free-allowance
+  - facets.free_tier_kind: recurring-monthly-allowance
+  - facets.shape.gpu_count: 0
+- evidence:
+  - [1] 2026-10-22: 'For Amazon Polly's Standard voices, the free tier includes 5 million characters per month for speech or Speech Marks requests', quoted; the 12-month qualifier applies to Neural, Long-Form and Generative and not to Standard
+  - [1] 2026-10-22: '1,000 requests, 1,000 characters per request | 1 million characters | ~23 hours, 8 min', quoted from the vendor's own character-to-hours table
+  - [1] 2026-10-22: 'Amazon Polly's Standard voices are priced at $4.00 per 1 million characters ... Neural voices ... $16.00 ... Long-Form ... $100.00 ... Generative ... $30 per 1 million', quoted
+  - [1] 2026-10-22: 'the free tier includes 1 million characters per month for Neural voices ... for the first 12 months', quoted, which dates the better voices to the first year
+- sources:
+  - [1] https://aws.amazon.com/polly/pricing/
+
+## Amazon SES
+
+- `email/amazon-ses` | qualifies-with-caveat | evidence documented | binding write-gated | category transactional sender and relay
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22T03:20:00.000Z (live) | stale on 2026-11-22
+- url https://aws.amazon.com/ses/pricing/
+- free tier: 3,000 message charges/month for the first 12 months, or $200 of AWS credits over 6 months for new accounts | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable | source: [2]
+- egress: not applicable: an outbound sender | metered: no | source: [2]
+- identity: card | detail: an AWS account with a payment method
+- interface: rest
+- limits:
+  - request-rate: 3,000 message charges per month for 12 months from first use [1]
+  - write-gated (binding): the account starts in the sandbox and sends only to verified identities until a quota-increase request is approved [1]
+- binding note: the sandbox blocks arbitrary recipients from the first send; the 3,000/month is second.
+- interface detail: https://email.REGION.amazonaws.com, and the SES SMTP endpoint
+- tooling: aws-cli, any SMTP client
+- composes with: the cheapest real bulk rate in the topic, USD 0.10 per 1,000, behind a sandbox that every new account starts in. It composes with Plunk self-host as the paid chain.
+- reliability: the sandbox is a write gate on every new account and the quota increase is a support request
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [1] 2026-10-22: 'Receive up to 3,000 message charges for free each month for the first 12 months after you start using SES', and the sandbox restriction
+  - [1] 2026-10-22: 'Starting July 15, 2025, new AWS customers will receive up to $200 in AWS Free Tier credits' with a 6-month free plan
+- sources:
+  - [1] https://aws.amazon.com/ses/faqs/
+  - [2] https://aws.amazon.com/ses/pricing/
+
+## Amazon Web Services (Free plan)
+
+- `compute/aws-free-plan-t4g` | qualifies-with-caveat | evidence documented | binding retention-clamped | category VPS | tier AWS Free plan, t4g.small free trial
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T07:05:00.000Z (live) | stale on 2026-11-24
+- url https://aws.amazon.com/resources/create-account/
+- free tier: Quoted from the t4g page: 'Free Trial: Try Amazon EC2 t4g.small instances powered by AWS Graviton2 processors free for up to 750 hours / month until Dec 31st 2026.' Quoted from the signup FAQ: 'With Sign up for AWS (new), most new customers will not be required to provide a payment method to get started.' The Free plan runs 6 months or until the credits are spent: 'Your free account plan ends after six months or when your credits are fully used - whichever occurs first.' | unit: hours | metered on: wall-clock | read on: 2026-10-24 | source: [1]
+- per-object cap: 750 hours a month of t4g.small, which is one instance running continuously; the Free plan also names T3.micro, T3.small, T4g.micro, C7i-flex.large and M7i-flex.large as eligible
+- retention: 'After your free account plan expires, your account closes automatically, and you lose access to your resources and data. AWS retains your content for 90 days before permanently deleting your account and all associated resources.'
+- egress: 'AWS customers receive 100 GB of free data transfer out to the internet free each month, aggregated across all AWS Services and Regions (except China and GovCloud).' The marginal rate beyond 100 GB was not read on a page, so it is not recorded as a number. | metered: yes | free allowance: 100 GB per month, aggregated across services | source: [2]
+- identity: email | detail: no card for most new customers: quoted 'With Sign up for AWS (new), most new customers will not be required to provide a payment method to get started. In some cases, we may ask for additional verification to protect your account.' When a card is asked for, the hold is USD 1: quoted 'Our verification process holds USD $1 (or equivalent) for 3-5 days to verify your account and help prevent fraud; however, your card will not be charged'. Signup supports 'Google, GitHub, Apple, or Amazon' as the identity provider.
+- interface: ssh, rest, cli
+- limits:
+  - retention-clamped (binding): the Free plan ends at 6 months or when the USD 100 to 200 of credits is spent, whichever comes first [3]
+  - retention-clamped (binding): the t4g.small free trial itself is advertised until 2026-12-31 [1]
+  - volume-quota: 750 hours a month, so one instance at 24/7 and no second one [1]
+  - write-gated: a payment method may be requested for additional verification; when it is, USD 1 is held for 3 to 5 days [4]
+- binding note: Six months is a hard stop with automatic account closure, and the t4g.small trial has its own advertised end date of 2026-12-31, so the machine has two clocks and the earlier one wins.
+- interface detail: A real EC2 instance with an SSH key pair, a public IPv4 or IPv6 address, security groups, and the full AWS API and CLI
+- tooling: any SSH client; the AWS CLI or console
+- composes with: A 2 vCPU / 2 GiB Graviton instance running 24/7 for six months, at no charge and usually with no card: the strongest no-card find among evaluated providers after the credit offers, and the one that most directly contradicts earlier assumption that AWS means a card.
+- reliability: no reliability event observed. The vendor states it may reclaim resources unused for 3 months: 'If you have not used the AWS resources provided under an Offer during the previous 3 months, we may reclaim those AWS resources after giving you 30 days' notice.'
+- notes: AWS documentation defines free tier terms for t4g.small without requiring an upfront paid subscription. The t4g.small instance offers 750 free hours monthly for up to 6 months until 2026-12-31.
+- evidence note: The t4g.small free trial, its 750-hour allowance, the 2026-12-31 end date, the Free plan's six-month life, the automatic account closure and the 'most new customers' payment-method statement are all quoted from AWS's own pages read. The egress allowance for this shape is not on any page read, so it is classified as unstated rather than filled in.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 2
+  - shape.note: t4g.small: 2 vCPU Graviton2, 2 GiB, 20% baseline CPU with 24 burst credits an hour, network burst to 5 Gbps; EBS volume is separate and its free allowance was not read
+  - billing_model: free
+  - term: 6 months on the Free plan, with the t4g trial advertised to 2026-12-31
+  - m10h_usd: 0
+  - m24h_usd: 0
+  - price_arithmetic: USD 0.00 for up to 750 hours a month of t4g.small while the Free plan is open; 750 hours covers a 730-hour month with 20 hours spare, so one instance runs continuously at no charge
+  - free_tier_kind: trial
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: security groups, all ports configurable; a public IPv4 is assignable
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: no per-instance reap; the six-month Free plan is the clock, plus a 3-month-unused reclaim with 30 days' notice
+  - signup_url: https://signin.aws.amazon.com/signup?request_type=builderId
+  - credit_usd: 200
+  - credit_hours_at_shape: the t4g.small allowance is hours, not credit: 750 h/month at USD 0.00, so the credit is not consumed by this instance while it stays inside the allowance
+  - card_hold_usd: 1.0
+  - card_hold_note: USD 1 held for 3 to 5 days, and only when a payment method is requested; the page states most new customers are not asked for one
+  - payment_methods: none required for most new signups; cards and debit cards accepted when a payment method is requested
+- evidence:
+  - [1] 2026-10-24: quoted: 'Free Trial: Try Amazon EC2 t4g.small instances powered by AWS Graviton2 processors free for up to 750 hours / month until Dec 31st 2026.'
+  - [1] 2026-10-24: quoted instance table: 't4g.micro | 2 | 1 | 10% | 12 | Up to 5 | Up to 2,085' and 't4g.small | 2 | 2 | 20% | 24 | Up to 5 | Up to 2,085' (vCPU, GiB, baseline, CPU credits, burst Gbps, EBS Mbps)
+  - [4] 2026-10-24: quoted: 'With Sign up for AWS (new), most new customers will not be required to provide a payment method to get started. In some cases, we may ask for additional verification to protect your account.'
+  - [4] 2026-10-24: quoted: 'Our verification process holds USD $1 (or equivalent) for 3-5 days to verify your account and help prevent fraud; however, your card will not be charged, and you will not incur any costs as long as you remain on the Free plan.'
+  - [5] 2026-10-24: quoted: 'When you sign up for AWS, we might request payment information. Our verification process holds USD $1 (or equivalent) for 3-5 days to verify your account and prevent fraud.' and 'Sign up for AWS (new) supports using Google, GitHub, Apple, or Amazon for your account.'
+  - [3] 2026-10-24: quoted: 'Your free account plan ends after six months or when your credits are fully used - whichever occurs first.' and 'After your free account plan expires, your account closes automatically, and you lose access to your resources and data. AWS retains your content for 90 days before permanently deleting your account'
+  - [6] 2026-10-24: quoted for accounts created on or after 2025-07-15: eligible instance types are 't3.micro, t3.small, t4g.micro, t4g.small, c7i-flex.large, m7i-flex.large' and 'Your Free Tier lasts for 6 months from the date you created your account, or when your credits are used up, whichever happens first. You can't exceed your Free Tier limits.'
+  - [7] 2026-10-24: quoted: 'Free plan eligible instances include: T3.micro, T3.small, T4g.micro, T4g.small, C7i-flex.large, M7i-flex.large'
+  - [8] 2026-10-24: quoted: 'When you create a new AWS Free Tier account, you get $100 in credits immediately. As you explore key services, you can earn up to $100 more.' and 'The account closes on its own 6 months after you open it or when your credits run out, whichever comes first.'
+  - [9] 2026-10-24: quoted: 'If you have not used the AWS resources provided under an Offer during the previous 3 months, we may reclaim those AWS resources after giving you 30 days' notice.'
+  - [2] 2026-10-24: quoted: 'AWS customers receive 100 GB of free data transfer out to the internet free each month, aggregated across all AWS Services and Regions (except China and GovCloud).'
+- sources:
+  - [1] https://aws.amazon.com/ec2/instance-types/t4/
+  - [2] https://aws.amazon.com/ec2/pricing/on-demand/
+  - [3] https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-plans.html
+  - [4] https://aws.amazon.com/resources/create-account/
+  - [5] https://docs.aws.amazon.com/accounts/latest/reference/sign-in-new.html
+  - [6] https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-free-tier-usage.html
+  - [7] https://aws.amazon.com/free/compute/
+  - [8] https://aws.amazon.com/free/
+  - [9] https://aws.amazon.com/free/terms/
+
+## Amazon WorkSpaces Personal (Windows)
+
+- `compute/aws-workspaces` | qualifies-with-caveat | evidence documented | binding write-gated | category Windows host
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T11:01:15.542Z (live) | stale on 2026-12-05
+- url https://aws.amazon.com/workspaces/desktop-as-a-service/pricing/
+- free tier: 5 Performance AutoStop Ubuntu WorkSpaces with 100 combined hours a month, 80 GB root and 100 GB user volume, free for up to 3 months; a Paid account plan is required at signup | unit: mixed | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: card | detail: 'When creating your AWS account, you'll need to select a Paid account plan to access the WorkSpaces console', quoted from the pricing page read 2026-10-22; a payment method is the gate
+- interface: rest, cli
+- limits:
+  - request-rate: 100 combined hours a month across 5 free Performance AutoStop Ubuntu desktops [1]
+  - retention-clamped: the free allowance ends after 3 months; WorkSpaces Pools closed to new customers on 2026-07-31 [1]
+  - write-gated (binding): a Paid account plan is required to open the WorkSpaces console, so a free-plan account cannot provision one [1]
+- interface detail: WorkSpaces console, AWS CLI and SDKs, per the WorkSpaces API Reference welcome page: "manage your WorkSpaces resources using the WorkSpaces console, AWS Command Line Interface (AWS CLI), and SDKs"
+- tooling: the page names the AWS CLI and SDKs: "AWS Command Line Interface (AWS CLI), and SDKs"
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the WorkSpaces pricing page was read on 2026-10-22. The free allowance is 5 Performance AutoStop Ubuntu desktops with 100 combined hours a month for up to 3 months, and the page states that a Paid account plan is required to reach the console at all
+- extras:
+  - keep_rate: 1.0
+  - keep_rate_basis: always-on by contract
+  - billing_model: unclassified
+  - shape.vcpu: 2
+  - shape.ram: 8
+  - shape.disk: 100
+  - shape.gpu_count: 1
+  - shape.note: Performance bundle: 2 vCPU, 8 GiB, 80 GB root plus 100 GB user volume
+  - session_cap.restart_required: no
+  - session_cap.note: AutoStop stops the desktop on disconnect and bills a small monthly access fee instead of the hourly rate
+  - free_tier_kind: trial
+  - granularity.min_billed_s: 0
+  - burst_x: 2.0498
+  - burst_bill: min 1 h
+  - ps.gib: 100
+  - ps.price: billed as part of the bundle
+  - ps.durability: user volume
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: while the WorkSpace exists
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: '5 Performance AutoStop Ubuntu WorkSpaces with 100 hours combined monthly usage, 80GB root + 100GB user volume, free for up to 3 months' and 'Amazon WorkSpaces Pools will no longer accept new customers beginning July 31, 2026' and 'When creating your AWS account, you'll need to select a Paid account plan to access the WorkSpaces console', quoted
+  - [2] 2026-11-04: WorkSpaces has an API reference, a console, a CLI and SDKs | capture: sha256:61e5ee585888362b99d98faea16e80a268c8a69ac77209d53456ccea11d87f9c | quote: You can also manage your WorkSpaces resources using the WorkSpaces console, AWS Command Line Interface (AWS CLI), and SDKs.
+  - [2] 2026-11-04: the page names the console, the AWS CLI and SDKs as ways to manage WorkSpaces | capture: sha256:df507d42b61601f4ece1a8f04af1087f0d21ae96383ac3e91c0524843a5cebd1 | quote: manage your WorkSpaces resources using the WorkSpaces console, AWS Command Line Interface (AWS CLI), and SDKs
+- sources:
+  - [1] https://aws.amazon.com/workspaces/desktop-as-a-service/pricing/
+  - [2] https://docs.aws.amazon.com/workspaces/latest/api/Welcome.html
+
+## AWS Activate (Founders / Portfolio)
+
+- `storage/aws-activate` | qualifies-with-caveat | evidence reported | binding per-object-cap | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://aws.amazon.com/startups/learn/everything-you-need-to-know-about-aws-activate-credits
+- free tier: Founders tier: '$1,000 in AWS Activate Credits ... Select startups may qualify for up to $5,000 over time'. Portfolio tier: 'up to $200,000 in AWS Activate Credits' for provider-backed (accelerator/VC) startups. Credits cover 'over 200 eligible AWS services' explicitly including 'Storage: ... Amazon S3'. | unit: mixed | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: per-object-cap: S3 single PUT 5 GiB | bytes: 5368709120 | source: [1] | note: not stated
+- retention: retention: 'Credits usually expire within 1-2 years depending on the package.' | days: 730 | source: [1] | note: not stated
+- egress: S3 egress is metered and billed from the same credit balance. This is an archive-only play unless fronted by Cloudflare (AWS is a Bandwidth Alliance partner). | metered: yes
+- identity: institution
+- interface: s3-compatible, rclone, cli
+- limits:
+  - retention-clamped: retention: 'Credits usually expire within 1-2 years [1]
+  - per-object-cap (binding): per-object-cap: S3 single PUT 5 GiB [1]
+- limits note: Per-object-cap: S3 single PUT 5 GiB / multipart 5 TiB. Not binding. request-rate: S3 request rates are effectively unlimited at this scale but each PUT/GET is billed and drains the credit. retention: 'Credits usually expire within 1-2 years depending on the package.'.
+- interface detail: s3
+- tooling: Native S3 API; rclone backend 's3'; aws-cli; s5cmd for high-concurrency transfers.
+- composes with: Credits are per AWS account and per organisation ('Have not previously received AWS Activate Credits of equal or greater value'). Portfolio requires an Activate Provider affiliation. The useful multiplier is credit size x expiry window, not account count.
+- reliability: Purely a spend credit: once exhausted, S3 reverts to paid and will bill the card on file. No data-loss mechanism, just an expiry cliff.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: '$1,000 ... up to $5,000 over time' (Founders), 'up to $200,000' (Portfolio), 'Credits usually expire within 1-2 years'
+  - [1] 2026-10-21: 'Storage: Lets you store large datasets ... in Amazon S3 without ballooning costs'
+  - withheld 2026-10-21: probe: GET aws.amazon.com/startups/learn/everything-you-need-to-know-about-aws-activate-credits -> 200
+- sources:
+  - [1] https://aws.amazon.com/startups/learn/everything-you-need-to-know-about-aws-activate-credits
+
+## AWS Activate, Founders
+
+- `compute/aws-activate-founders` | qualifies-with-caveat | evidence documented | binding write-gated | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T02:23:48.988Z (live) | stale on 2026-12-05
+- url https://aws.amazon.com/aws-startups/learn/applying-for-aws-activate-credits-a-step-by-step-guide/
+- disagrees on identity_kind: `compute/aws-activate-founders` says email, `compute/aws-activate-portfolio` says institution
+- disagrees on verdict: `compute/aws-activate-founders` says qualifies-with-caveat, `compute/aws-activate-portfolio` says fails-identity
+- free tier: The Activate Founders tier offers USD 1,000 in AWS Activate Credits, plus USD 350 in AWS Developer Support credits, valid for two years. Eligibility: new to AWS Activate Credits, self-funded, a fully functioning company website, founded in the past 10 years, and a business email matching the startup domain. AWS states: 'If you do not have an Org ID, you are initially eligible for the Founders Package.' | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: one-shot-credit
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not published: the page read states no egress allowance and no overage price; the credits guide says standard AWS rates apply when credits run out; read 2026-11-03 | metered: no | source: [1]
+- identity: email | detail: No incorporation requirement appears in the English eligibility list or seven-step application guide. Access requires an AWS Builder ID, startup domain business email, active company website, and linked AWS account.
+- interface: unknown
+- limits:
+  - write-gated (binding): The review fails first: AWS has unpublished internal requirements, applications go unedited once submitted, and reports of repeated rejection for legitimate applicants are common. After approval the two-year expiry and the USD 1,000 size are what bind. [1]
+- limits note: The review fails first: AWS has unpublished internal requirements, applications go unedited once submitted, and reports of repeated rejection for legitimate applicants are common. After approval the two-year expiry and the USD 1,000 size are what bind.
+- binding note: the same as limits note
+- interface detail: console only for the credit grant: a web application with an AWS Builder ID, credits viewed in the AWS console under Billing; the guide documents no API for the grant
+- tooling: not stated
+- composes with: USD 1,000 of EC2 and S3 plus USD 350 of Developer Support is the cheapest entry point at AWS and it does not disqualify a later Portfolio application, so the chain is Founders now, Portfolio after any accelerator affiliation. It composes with the Kiro Startup Credits promotion, which excludes applicants who already hold Activate credits.
+- reliability: no reliability event recorded
+- notes: Eligibility terms specify an AWS Builder ID, a business email matching a startup domain, a live company website, and a linked AWS account without requiring formal company incorporation.
+- extras:
+  - facets.class: startup-credit
+  - facets.free_tier_kind: one-shot-credit
+- evidence:
+  - [1] 2026-10-22: the Founders eligibility list is new to Activate, self-funded, a fully functioning company website and founded in the past 10 years, with no incorporation term, quoted
+  - [1] 2026-10-22: 'If you do not have an Org ID, you are initially eligible for the Founders Package', and the guide requires a business email matching the startup domain, quoted
+  - [2] 2026-10-22: the Japanese AWS page lists the required fields for Founders as an AWS account ID, a company website or web profile, and the applicant's LinkedIn profile, and states crowdfunding and friends-and-family funded startups remain eligible, quoted and translated
+  - [3] 2026-10-22: an AWS re:Post answer states that meeting the published criteria does not guarantee approval and that AWS has internal requirements beyond the public list, reported
+  - [1] 2026-11-03: after credits end, AWS standard rates apply; the guide states no egress allowance or price | capture: sha256:6550b93966c2659bd9b0f384eec2b2053202493c9fb1b4ae3952302ddd9bf847 | quote: You'll be charged the standard rates for any ongoing AWS services when your credits run out or if the expiration date passes.
+  - [1] 2026-11-03: credits are applied to an AWS account and viewed in the console | capture: sha256:6550b93966c2659bd9b0f384eec2b2053202493c9fb1b4ae3952302ddd9bf847 | quote: You can view your credits balance and expiration date in your AWS Console under Billing --> Credits.
+- sources:
+  - [1] https://aws.amazon.com/aws-startups/learn/applying-for-aws-activate-credits-a-step-by-step-guide/
+  - [2] https://aws.amazon.com/jp/activate/gettingstarted/
+  - [3] https://repost.aws/questions/QUq-hqNzjaTq-9-IBFvxdhlg/repeated-rejections-for-aws-activate-founders-credits-need-guidance
+
+## AWS Cloud Credits
+
+- `compute/aws-cloud-credits` | qualifies-with-caveat | evidence documented | binding write-gated | category cloud VM
+- needs card yes, phone unknown, ID no, institution no | verified 2026-11-04T11:01:13.172Z (live) | stale on 2026-12-05
+- url https://aws.amazon.com/blogs/opensource/aws-cloud-credits-for-open-source-projects-affirming-our-commitment/
+- free tier: 'we've provided AWS Promotional Credits to more than 200 different open source projects' since the programme 'launched in 2019', and the credits 'can be used on compute resources, storage, database services, development tools, and testing infrastructure'. Applications are an Excel form emailed to the programme's own mailbox, reviewed and issued 'on a monthly basis', and 'The credits will expire after one year'. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: recurring-credit
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 100 GB a month of data transfer out to the internet is free, aggregated across all AWS services and regions except China and GovCloud; the per-GB overage rate table is not in the page text read, so the overage price is unverified | metered: yes | free allowance: 100 GB per month | source: [1]
+- identity: card | detail: an active AWS account carrying a valid payment method on file: the 2019 programme post states 'you will need an active AWS Account, including a valid payment method on file', and the record's binding note adds that no outstanding invoices may exist. The authorisation amount is not stated; whether debit or prepaid is accepted is not stated; whether a phone or tax identity is required at AWS signup is not stated
+- interface: cli
+- limits:
+  - write-gated (binding): An active AWS account with a valid payment method and no outstanding invoices is required before applying, review is monthly, and December issues no credits at all. [1]
+- limits note: An active AWS account with a valid payment method and no outstanding invoices is required before applying, review is monthly, and December issues no credits at all.
+- binding note: the same as limits note
+- interface detail: a command-line tool, per the AWS CLI page: "The AWS Command Line Interface (AWS CLI) is a unified tool to manage your AWS services."
+- tooling: the provider documents its own CLI, the AWS CLI, per https://aws.amazon.com/cli/: "The AWS Command Line Interface (AWS CLI) is a unified tool to manage your AWS services."
+- composes with: Credits that cover 'compute resources, storage, database services' are the broadest instrument among evaluated providers after a cash grant: the same balance pays for EC2 spot time, S3 and a managed database, so a whole pipeline runs on one award.
+- reliability: no reliability event recorded
+- notes: The amount per project is not published on either AWS page, so the number is null; the two public figures are 200+ recipient projects and a one-year expiry, neither of which is a per-project size. Two eligibility lines tilt toward teams: 'not dominated by a single vendor' and a preference for maintainers from multiple entities, which is softer than Datadog's rule and does not exclude a solo maintainer outright. The 2019 post and the 2025 post give different application addresses (awsopen@ and [address removed]), so use the current form.
+- extras:
+  - facets.class: vendor-oss-credits
+  - facets.free_tier_kind: recurring-credit
+- evidence:
+  - [1] 2026-10-22: quoted 'we've provided AWS Promotional Credits to more than 200 different open source projects', the Excel form and [address removed], the monthly review, the December pause, and the eligibility condition that organisations must have an OSI-approved licence and 'not be dominated by a single vendor or VC-funded' [published 2025-03-31]. The same post records a separate 'extended $3 million annual commitment to the Kubernetes project', which is not an amount for this credits programme and is not used as one here
+  - [2] 2026-10-22: quoted 'you will need an active AWS Account, including a valid payment method on file', the OSI licence requirement, 'We'll also generally favor projects with maintainers from multiple entities or that are owned by foundations', and 'The credits will expire after one year' [published 2019-10-14]
+  - [3] 2026-10-22: the promotional credit terms page carries a 'Last Updated: September 24, 2026' date, so the credit instrument is current
+  - [4] 2026-11-04: the free egress allowance is 100 GB a month | capture: sha256:de4e69e6e5c329091b96ee0bb82211902f7edfd99866c99de7f67b5066f1db5f | quote: AWS customers receive 100 GB of free data transfer out to the internet free each month, aggregated across all AWS Services and Regions (except China and GovCloud).
+  - [5] 2026-11-04: AWS documents a CLI | capture: sha256:3aac42e5871da0384169d2511b25bd2142bca8a7e7765aed4b5a6b9911fea5e1 | quote: The AWS Command Line Interface (AWS CLI) is a unified tool to manage your AWS services.
+  - [5] 2026-11-04: AWS documents a CLI as a user; the page names no S3-compatible interface for this credits offer | capture: sha256:3aac42e5871da0384169d2511b25bd2142bca8a7e7765aed4b5a6b9911fea5e1 | quote: The AWS Command Line Interface (AWS CLI) is a unified tool to manage your AWS services.
+  - [5] 2026-11-04: the provider documents its own CLI | capture: sha256:3aac42e5871da0384169d2511b25bd2142bca8a7e7765aed4b5a6b9911fea5e1 | quote: The AWS Command Line Interface (AWS CLI) is a unified tool to manage your AWS services.
+- sources:
+  - [1] https://aws.amazon.com/blogs/opensource/aws-cloud-credits-for-open-source-projects-affirming-our-commitment/
+  - [2] https://aws.amazon.com/blogs/opensource/aws-promotional-credits-open-source-projects/
+  - [3] https://aws.amazon.com/awscredits/
+  - [4] https://aws.amazon.com/ec2/pricing/on-demand/
+  - [5] https://aws.amazon.com/cli/
+
+## AWS CodeBuild
+
+- `compute/aws-codebuild` | qualifies-with-caveat | evidence reported | binding request-rate | category platform host
+- identity a placeholder: card and phone unknown | verified 2026-11-04T02:24:29.902Z (live) | stale on 2026-11-19
+- url https://aws.amazon.com/codebuild/pricing/
+- free tier: 100 total build minutes per month on general1.small or arm1.small (on-demand EC2), and 6,000 total build seconds per month on lambda.arm.1GB or lambda.x86-64.1GB (on-demand Lambda) | unit: minutes | metered on: wall-clock | read on: 2026-10-30 | source: [1] | note: the CodeBuild free tier does not expire at the end of the 12-month AWS Free Tier term and is available to new and existing AWS customers; Reserved Capacity EC2, Sandbox and Docker image server have no free tier
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published: https://aws.amazon.com/codebuild/pricing/ lists build-duration prices only and states no data-transfer allowance or overage price | metered: no | source: [1]
+- identity: email
+- interface: cli
+- limits:
+  - request-rate (binding): billed per build minute, rounded up from submission to termination; per-second billing on some instance types [1]
+- interface detail: console, AWS CLI and AWS SDKs
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the CodeBuild pricing page states the minute rounding, the instance rates and the free tier of 100 build minutes per month on general1.small or arm1.small and 6,000 build seconds per month on Lambda compute; the identity requirement is unverified
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: the page states no build wall-clock cap; rounding is the billed unit, not a reap
+  - free_tier_kind: allowance
+  - granularity.min_billed_s: 1
+  - burst_x: 1.0
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Build duration is calculated in minutes, from the time you submit your build until your build is terminated, rounded up to the nearest minute' and the per-minute instance pricing table, quoted
+  - [1] 2026-10-30: the on-demand EC2 free tier is 100 build minutes a month on general1.small or arm1.small | capture: sha256:e4ff26888506e8704a814158ad41e2c66d05f3557b22c70ef63cc2d316e71305 | quote: The CodeBuild AWS Free Tier includes 100 total build minutes per month with the general1.small or arm1.small instance types using on-demand Amazon EC2.
+  - [1] 2026-10-30: the on-demand Lambda free tier is 6,000 build seconds a month on lambda.arm.1GB or lambda.x86-64.1GB | capture: sha256:e4ff26888506e8704a814158ad41e2c66d05f3557b22c70ef63cc2d316e71305 | quote: Using on-demand Lambda, the CodeBuild AWS Free Tier includes 6,000 total build seconds per month with the lambda.arm.1GB or lambda.x86-64.1GB compute types.
+  - [1] 2026-10-30: the CodeBuild free tier does not expire after the 12-month term and applies to new and existing customers | capture: sha256:e4ff26888506e8704a814158ad41e2c66d05f3557b22c70ef63cc2d316e71305 | quote: The CodeBuild AWS Free Tier does not automatically expire at the end of your 12-month AWS Free Tier term. It is available to new and existing AWS customers.
+  - [1] 2026-10-30: on-demand EC2 builds are billed per minute, rounded up from submission to termination | capture: sha256:e8dbb42edaf9b5a266164a5e3b56dd520a521d897e05631b34e1fb7998f7e309 | quote: Build duration is calculated in minutes, from the time you submit your build until your build is terminated, rounded up to the nearest minute.
+  - [2] 2026-11-03: builds run from the console, the AWS CLI or the AWS SDKs | capture: sha256:39322a01841e3f60028320a3fa51222c54e51d57b3ab1e39531843caf1fb80a0 | quote: You can use the AWS CodeBuild console, AWS CLI, or AWS SDKs to run a build in CodeBuild.
+  - [1] 2026-11-03: the pricing page prices build duration and states no data-transfer allowance or price | capture: sha256:e8dbb42edaf9b5a266164a5e3b56dd520a521d897e05631b34e1fb7998f7e309 | quote: Build duration is calculated in minutes, from the time you submit your build until your build is terminated, rounded up to the nearest minute.
+- sources:
+  - [1] https://aws.amazon.com/codebuild/pricing/
+  - [2] https://docs.aws.amazon.com/codebuild/latest/userguide/run-build.html
+
+## AWS Fargate
+
+- `compute/aws-fargate` | qualifies-with-caveat | evidence reported | binding request-rate | category cloud VM
+- needs card no, phone yes, ID no, institution no | verified 2026-11-09T13:13:24.236Z (live) | stale on 2026-11-24
+- url https://aws.amazon.com/fargate/pricing/
+- free tier: not stated: https://aws.amazon.com/fargate/pricing/ prints no free tier and no credit for Fargate; it includes 20 GB of ephemeral storage for every task and pod by default | unit: none | metered on: wall-clock | read on: 2026-10-30 | source: [1] | note: the USD 100 figure matches the AWS account-wide credit on https://aws.amazon.com/free/: a new AWS Free Tier account gets $100 in credits immediately, and up to $200 over 6 months on the Free plan
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: metered: data transfer is billed at the standard AWS data transfer rates rather than a service-specific rate, and the rate card's free allowance is aggregated across all AWS services, as the EC2 data transfer page states | metered: yes | source: [1]
+- identity: email | detail: an AWS account: an email address, or an existing Google, Apple, GitHub or Amazon login, quoted 'Create an account with a sign-in method you already have, such as Google or GitHub.' and 'Enter your email or choose a login such as Google, Apple, GitHub, or Amazon.'; no card for most new customers, quoted "No. A payment method isn't required to sign up for most new customers." and 'No credit card required to start for most new customers.', while the advanced sign-up states "You can't proceed with the sign-up process until you add a valid payment method."; a phone number in the advanced sign-up, quoted 'This number is used for identity verification purposes and to confirm the ownership of your account. You must be able to receive calls and SMS messages at this phone number.'; no country limit on signup, quoted 'The AWS Free Tier is available to all new customers.', and the credits and account plan selections are 'not available in the China (ZHY) and China (BJS) regions' and not in AWS GovCloud (US)
+- interface: unknown
+- limits:
+  - request-rate (binding): per second with a 1-minute minimum on Linux and 5 minutes on Windows; the container image pull is billed [1]
+  - retention-clamped: Fargate has no persistent disk beyond the ephemeral task storage; a stopped task loses it [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: part of the free tier
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the Fargate pricing page states per-second billing with a 1-minute minimum (5 minutes for Windows) from the start of the image download, and prints no free tier or credit
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: a task runs until it exits or is stopped; the billed floor is 1 minute, not a reap
+  - persistent_storage.included_gib: 20
+  - persistent_storage.price_gib_month: ephemeral task storage only
+  - persistent_storage.durability: ephemeral
+  - persistent_storage.survives_stop: no
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: the task lifetime
+  - free_tier_kind: one-time-credit
+  - granularity.min_billed_s: 60
+  - burst_x: 1.0
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Pricing is calculated per second with a 1-minute minimum. Duration is calculated from the time you start to download your container image' and 'For Windows containers, billing is calculated per second with a 5-minute minimum', quoted
+  - [1] 2026-10-30: the page includes 20 GB of ephemeral storage per task or pod and prints no free tier or credit for Fargate compute | capture: sha256:e59ed483acf4195d29cebc9e4d6b9e077dd9d3c6f25747e42c9dd653c1081898 | quote: 20 GB of ephemeral storage is available for all Fargate Tasks and Pods by default—you only pay for any additional storage that you configure.
+  - [2] 2026-10-30: a new AWS Free Tier account receives USD 100 of credit at creation; the credit is AWS-wide, not a Fargate allowance | capture: sha256:dcdaf9f9272cc28bf037721c09a865248428250b19d02bd1e09fd78e7ac8a82f | quote: When you create a new AWS Free Tier account, you get $100 in credits immediately.
+  - [1] 2026-10-30: Fargate bills per second with a 1-minute minimum | capture: sha256:e59ed483acf4195d29cebc9e4d6b9e077dd9d3c6f25747e42c9dd653c1081898 | quote: Pricing is calculated per second with a 1-minute minimum.
+  - [1] 2026-10-30: per-second billing with a 1-minute minimum, counted from the image pull | capture: sha256:e59ed483acf4195d29cebc9e4d6b9e077dd9d3c6f25747e42c9dd653c1081898 | quote: Pricing is calculated per second with a 1-minute minimum. Duration is calculated from the time you start to download your container image (Docker pull) until the task terminates, rounded up to the nearest second.
+  - [3] 2026-11-02: no payment method is required for most new customers, and one can be requested as identity verification | capture: sha256:2dc44f9aaa95b084f5e0378d99c4139ab628b4f151adb64e1a8adbb072387126 | quote: No. A payment method isn't required to sign up for most new customers. In some cases, we may request additional information, such as a payment method, to verify your identity.
+  - [4] 2026-11-02: signup accepts an existing Google or GitHub login and needs no credit card for most new customers | capture: sha256:a1a1547884ce37eed31ea15faf82a2323ba5849c13c479da9a5910996af145f0 | quote: Fast sign up: Create an account with a sign-in method you already have, such as Google or GitHub. No credit card required to start for most new customers.
+  - [5] 2026-11-02: the advanced sign-up requires a phone number that receives calls and SMS, for identity verification | capture: sha256:6e3fc6e6e496ad99a2da43d858e1e9ef19d7e743fab661d1b7768ba63e6441ef | quote: This number is used for identity verification purposes and to confirm the ownership of your account. You must be able to receive calls and SMS messages at this phone number.
+  - [3] 2026-11-02: no country is excluded from signing up | capture: sha256:2dc44f9aaa95b084f5e0378d99c4139ab628b4f151adb64e1a8adbb072387126 | quote: The AWS Free Tier is available to all new customers. All customers are welcome to sign up online.
+  - [3] 2026-11-02: the credits and plan selections are unavailable in the two China regions | capture: sha256:2dc44f9aaa95b084f5e0378d99c4139ab628b4f151adb64e1a8adbb072387126 | quote: The AWS Free Tier credits and account plan selections are not available in the China (ZHY) and China (BJS) regions.
+  - [1] 2026-11-09: the pricing page bills data transfer at the standard AWS rates, so egress is metered and not free | capture: sha256:e59ed483acf4195d29cebc9e4d6b9e077dd9d3c6f25747e42c9dd653c1081898 | quote: Data Transfer:** You are billed at standard [AWS data transfer rates]
+  - [1] 2026-11-09: the service does not price its own transfer line; it bills the standard AWS data transfer rates, whose allowance and tiers are published on the EC2 data transfer page | capture: sha256:e59ed483acf4195d29cebc9e4d6b9e077dd9d3c6f25747e42c9dd653c1081898 | quote: Data Transfer:** You are billed at standard [AWS data transfer rates]
+  - [1] 2026-11-09: the page bills data transfer at the standard AWS rates, which is the term recorded | capture: sha256:e59ed483acf4195d29cebc9e4d6b9e077dd9d3c6f25747e42c9dd653c1081898 | quote: Data Transfer:** You are billed at standard [AWS data transfer rates]
+- sources:
+  - [1] https://aws.amazon.com/fargate/pricing/
+  - [2] https://aws.amazon.com/free/
+  - [3] https://aws.amazon.com/free/free-tier-faqs/
+  - [4] https://aws.amazon.com/start-here/
+  - [5] https://docs.aws.amazon.com/accounts/latest/reference/getting-started.html
+
+## AWS Lambda
+
+- `compute/aws-lambda` | qualifies-with-caveat | evidence documented | binding per-object-cap | category cloud VM
+- needs card no, phone yes, ID no, institution no | verified 2026-11-09T13:13:24.236Z (live) | stale on 2026-12-10
+- url https://aws.amazon.com/lambda/pricing/
+- free tier: 400,000 GB-seconds and 1 million requests a month, recurring; Provisioned Concurrency is excluded from the free tier | unit: seconds | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: metered: data transfer is billed at the standard AWS data transfer rates rather than a service-specific rate, and the rate card's free allowance is aggregated across all AWS services, as the EC2 data transfer page states | metered: yes | source: [1]
+- identity: email | detail: an AWS account: an email address, or an existing Google, Apple, GitHub or Amazon login, quoted 'Create an account with a sign-in method you already have, such as Google or GitHub.' and 'Enter your email or choose a login such as Google, Apple, GitHub, or Amazon.'; no card for most new customers, quoted "No. A payment method isn't required to sign up for most new customers." and 'No credit card required to start for most new customers.', while the advanced sign-up states "You can't proceed with the sign-up process until you add a valid payment method."; a phone number in the advanced sign-up, quoted 'This number is used for identity verification purposes and to confirm the ownership of your account. You must be able to receive calls and SMS messages at this phone number.'; no country limit on signup, quoted 'The AWS Free Tier is available to all new customers.', and the credits and account plan selections are 'not available in the China (ZHY) and China (BJS) regions' and not in AWS GovCloud (US)
+- interface: unknown
+- limits:
+  - request-rate: 1 million requests a month on the free tier [1]
+  - per-object-cap (binding): 400,000 GB-seconds a month on the free tier; Provisioned Concurrency is billed and excluded [1]
+- binding note: the credit expires with the 6-month account window
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the Lambda pricing page was read on 2026-10-22. The free tier is stated in GB-seconds and requests, recurring monthly, which is a different product from the one-time credit the record carried
+- extras:
+  - keep_rate: 1.0
+  - keep_rate_basis: always-on by contract
+  - billing_model: unclassified
+  - session_cap.wall_clock_min: 15
+  - session_cap.restart_required: no
+  - session_cap.note: the page states no session cap; Lambda's own limit is 15 minutes per invocation
+  - free_tier_kind: allowance
+  - catalogue_field_warning: free_monthly_credit conflates a recurring grant with a one-time grant divided by a month
+  - granularity.min_billed_s: 0.001
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'The monthly compute price is $0.0000166667 per GB-s and the free tier provides 400,000 GB-s' and 'The monthly request price is $0.20 per one million requests and the free tier provides 1 million requests per month' and 'The Lambda free tier does not apply to functions enabling Provisioned Concurrency', quoted
+  - [2] 2026-11-02: no payment method is required for most new customers, and one can be requested as identity verification | capture: sha256:2dc44f9aaa95b084f5e0378d99c4139ab628b4f151adb64e1a8adbb072387126 | quote: No. A payment method isn't required to sign up for most new customers. In some cases, we may request additional information, such as a payment method, to verify your identity.
+  - [3] 2026-11-02: signup accepts an existing Google or GitHub login and needs no credit card for most new customers | capture: sha256:a1a1547884ce37eed31ea15faf82a2323ba5849c13c479da9a5910996af145f0 | quote: Fast sign up: Create an account with a sign-in method you already have, such as Google or GitHub. No credit card required to start for most new customers.
+  - [4] 2026-11-02: the advanced sign-up requires a phone number that receives calls and SMS, for identity verification | capture: sha256:6e3fc6e6e496ad99a2da43d858e1e9ef19d7e743fab661d1b7768ba63e6441ef | quote: This number is used for identity verification purposes and to confirm the ownership of your account. You must be able to receive calls and SMS messages at this phone number.
+  - [2] 2026-11-02: no country is excluded from signing up | capture: sha256:2dc44f9aaa95b084f5e0378d99c4139ab628b4f151adb64e1a8adbb072387126 | quote: The AWS Free Tier is available to all new customers. All customers are welcome to sign up online.
+  - [2] 2026-11-02: the credits and plan selections are unavailable in the two China regions | capture: sha256:2dc44f9aaa95b084f5e0378d99c4139ab628b4f151adb64e1a8adbb072387126 | quote: The AWS Free Tier credits and account plan selections are not available in the China (ZHY) and China (BJS) regions.
+  - [1] 2026-11-09: the pricing page bills data transfer at the standard AWS rates, so egress is metered and not free | capture: sha256:d7f06a8e010b7fdf3cb9949792ff7b16806e5a610db948bc63f0938ea6d6c512 | quote: Data Transfer:** You are billed at standard [AWS data transfer rates]
+  - [1] 2026-11-09: the service does not price its own transfer line; it bills the standard AWS data transfer rates, whose allowance and tiers are published on the EC2 data transfer page | capture: sha256:d7f06a8e010b7fdf3cb9949792ff7b16806e5a610db948bc63f0938ea6d6c512 | quote: Data Transfer:** You are billed at standard [AWS data transfer rates]
+  - [1] 2026-11-09: the page bills data transfer at the standard AWS rates, which is the term recorded | capture: sha256:d7f06a8e010b7fdf3cb9949792ff7b16806e5a610db948bc63f0938ea6d6c512 | quote: Data Transfer:** You are billed at standard [AWS data transfer rates]
+- sources:
+  - [1] https://aws.amazon.com/lambda/pricing/
+  - [2] https://aws.amazon.com/free/free-tier-faqs/
+  - [3] https://aws.amazon.com/start-here/
+  - [4] https://docs.aws.amazon.com/accounts/latest/reference/getting-started.html
+
+## AWS Lambda MicroVMs
+
+- `compute/aws-lambda-microvms` | qualifies-with-caveat | evidence reported | binding request-rate | category cloud VM
+- needs card no, phone yes, ID no, institution no | verified 2026-11-02T02:17:32.268Z (live) | stale on 2026-11-17
+- url https://aws.amazon.com/lambda/pricing/
+- free tier: not stated for Lambda MicroVMs: https://aws.amazon.com/lambda/pricing/ prices MicroVM compute per second, snapshots and data transfer with no free tier; the page's free tier, one million requests and 400,000 GB-seconds per month, is stated for Lambda Event Functions | unit: none | metered on: wall-clock | read on: 2026-10-30 | source: [1] | note: the USD 200 figure matches the AWS account-wide credit on https://aws.amazon.com/free/: up to $200 over 6 months on the Free plan, $100 at account creation and up to $100 more
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email | detail: an AWS account: an email address, or an existing Google, Apple, GitHub or Amazon login, quoted 'Create an account with a sign-in method you already have, such as Google or GitHub.' and 'Enter your email or choose a login such as Google, Apple, GitHub, or Amazon.'; no card for most new customers, quoted "No. A payment method isn't required to sign up for most new customers." and 'No credit card required to start for most new customers.', while the advanced sign-up states "You can't proceed with the sign-up process until you add a valid payment method."; a phone number in the advanced sign-up, quoted 'This number is used for identity verification purposes and to confirm the ownership of your account. You must be able to receive calls and SMS messages at this phone number.'; no country limit on signup, quoted 'The AWS Free Tier is available to all new customers.', and the credits and account plan selections are 'not available in the China (ZHY) and China (BJS) regions' and not in AWS GovCloud (US)
+- interface: unknown
+- limits:
+  - request-rate (binding): priced per request and per GB-second; the free tier is 400,000 GB-seconds and 1 million requests a month [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: part of the free tier
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the Lambda pricing page has a Lambda MicroVMs section, priced per instance-second with snapshot and data-transfer charges, and states no MicroVM free tier
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - session_cap.wall_clock_min: 15
+  - session_cap.restart_required: no
+  - session_cap.note: 15 minutes per invocation is the platform limit; the page states no longer wall clock
+  - free_tier_kind: one-time-credit
+  - granularity.min_billed_s: 0
+  - burst_x: 1.0
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: the Lambda pricing page was re-read on 2026-10-22 and still prices GB-seconds and requests; it states no microVM product and no USD 200 credit
+  - [1] 2026-10-30: the page's free tier is stated for Lambda Event Functions; the Lambda MicroVMs section states none | capture: sha256:d7f06a8e010b7fdf3cb9949792ff7b16806e5a610db948bc63f0938ea6d6c512 | quote: The free tier includes one million requests and 400,000 GB-seconds per month.
+  - [1] 2026-10-30: the MicroVMs pricing dimensions are compute, snapshots and data transfer | capture: sha256:d7f06a8e010b7fdf3cb9949792ff7b16806e5a610db948bc63f0938ea6d6c512 | quote: AWS Lambda MicroVMs pricing is based on the compute resources you use, snapshot read/write operations and storage, and data transfer at standard AWS rates.
+  - [2] 2026-10-30: the AWS Free Tier credit is up to USD 200 over 6 months on the Free plan; it is AWS-wide, not a MicroVM allowance | capture: sha256:dcdaf9f9272cc28bf037721c09a865248428250b19d02bd1e09fd78e7ac8a82f | quote: That's up to $200 over 6 months to build, break things, and experiment with no charges and no surprise bills on the Free plan.
+  - [1] 2026-10-30: the Lambda pricing page now carries a MicroVMs product priced per instance-second | capture: sha256:d7f06a8e010b7fdf3cb9949792ff7b16806e5a610db948bc63f0938ea6d6c512 | quote: Lambda MicroVMs are priced per instance-second.
+  - [3] 2026-11-02: no payment method is required for most new customers, and one can be requested as identity verification | capture: sha256:2dc44f9aaa95b084f5e0378d99c4139ab628b4f151adb64e1a8adbb072387126 | quote: No. A payment method isn't required to sign up for most new customers. In some cases, we may request additional information, such as a payment method, to verify your identity.
+  - [4] 2026-11-02: signup accepts an existing Google or GitHub login and needs no credit card for most new customers | capture: sha256:a1a1547884ce37eed31ea15faf82a2323ba5849c13c479da9a5910996af145f0 | quote: Fast sign up: Create an account with a sign-in method you already have, such as Google or GitHub. No credit card required to start for most new customers.
+  - [5] 2026-11-02: the advanced sign-up requires a phone number that receives calls and SMS, for identity verification | capture: sha256:6e3fc6e6e496ad99a2da43d858e1e9ef19d7e743fab661d1b7768ba63e6441ef | quote: This number is used for identity verification purposes and to confirm the ownership of your account. You must be able to receive calls and SMS messages at this phone number.
+  - [3] 2026-11-02: no country is excluded from signing up | capture: sha256:2dc44f9aaa95b084f5e0378d99c4139ab628b4f151adb64e1a8adbb072387126 | quote: The AWS Free Tier is available to all new customers. All customers are welcome to sign up online.
+  - [3] 2026-11-02: the credits and plan selections are unavailable in the two China regions | capture: sha256:2dc44f9aaa95b084f5e0378d99c4139ab628b4f151adb64e1a8adbb072387126 | quote: The AWS Free Tier credits and account plan selections are not available in the China (ZHY) and China (BJS) regions.
+- sources:
+  - [1] https://aws.amazon.com/lambda/pricing/
+  - [2] https://aws.amazon.com/free/
+  - [3] https://aws.amazon.com/free/free-tier-faqs/
+  - [4] https://aws.amazon.com/start-here/
+  - [5] https://docs.aws.amazon.com/accounts/latest/reference/getting-started.html
+
+## Amazon Bedrock AgentCore (Runtime / Code Interpreter / Browser)
+
+- `compute/aws-agentcore` | trial-only | evidence reported | binding request-rate | category cloud VM
+- needs card no, phone yes, ID no, institution no | verified 2026-11-02T02:17:32.266Z (live) | stale on 2026-11-17
+- url https://aws.amazon.com/bedrock/agentcore/pricing/
+- free tier: up to USD 200 of AWS Free Tier credits for new AWS customers: 'New AWS customers receive up to $200 in Free Tier credits.' | unit: mixed | metered on: wall-clock | read on: 2026-10-30 | source: [1] | note: the AWS Free Tier page lists Amazon Bedrock AgentCore as 'Paid plan exclusive'; new customers on the Paid plan are also eligible for up to $200 in credits
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email | detail: an AWS account: an email address, or an existing Google, Apple, GitHub or Amazon login, quoted 'Create an account with a sign-in method you already have, such as Google or GitHub.' and 'Enter your email or choose a login such as Google, Apple, GitHub, or Amazon.'; no card for most new customers, quoted "No. A payment method isn't required to sign up for most new customers." and 'No credit card required to start for most new customers.', while the advanced sign-up states "You can't proceed with the sign-up process until you add a valid payment method."; a phone number in the advanced sign-up, quoted 'This number is used for identity verification purposes and to confirm the ownership of your account. You must be able to receive calls and SMS messages at this phone number.'; no country limit on signup, quoted 'The AWS Free Tier is available to all new customers.', and the credits and account plan selections are 'not available in the China (ZHY) and China (BJS) regions' and not in AWS GovCloud (US)
+- interface: unknown
+- limits:
+  - request-rate (binding): USD 0.0895 per vCPU-hour and USD 0.00945 per GB-hour on v1 runtime microVMs [1]
+  - per-object-cap: the credit is 'up to $200' for new customers and is not a recurring allowance [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the AgentCore pricing page states the vCPU-hour and GB-hour rates and up to USD 200 of Free Tier credits for new AWS customers; the identity requirement is unverified
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - shape.note: billed by vCPU-hour and GB-hour, so the shape is a dial
+  - session_cap.restart_required: no
+  - session_cap.note: the page states no session cap for a runtime microVM
+  - free_tier_kind: one-time-credit
+  - granularity.min_billed_s: 1
+  - burst_x: 1.0
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Runtime microVMs: v1 CPU $0.0895 per vCPU-hour, v1 Memory $0.00945 per GB-hour' and 'v2 CPU 0.1276 per vCPU-hour (consumption)' and 'New AWS customers receive up to $200 in Free Tier credits', quoted
+  - [1] 2026-10-30: the only free allowance on the AgentCore pricing page is up to USD 200 of AWS Free Tier credit for new AWS customers | capture: sha256:ebc700b5dc672e786f009cf2492950c0487f2c60f91011f83bb726798eae3fda | quote: New AWS customers receive up to $200 in Free Tier credits.
+  - [2] 2026-10-30: AgentCore is available on the AWS Paid plan only, not on the Free plan | capture: sha256:dcdaf9f9272cc28bf037721c09a865248428250b19d02bd1e09fd78e7ac8a82f | quote: Agentic AI Paid plan exclusive Amazon Bedrock AgentCore Build, deploy, and operate highly effective agents securely, at scale using any framework and model
+  - [1] 2026-10-30: v1 runtime microVM CPU is USD 0.0895 per vCPU-hour | capture: sha256:ebc700b5dc672e786f009cf2492950c0487f2c60f91011f83bb726798eae3fda | quote: | Runtime microVMs | v1 CPU | $0.0895 per vCPU-hour | |
+  - [3] 2026-11-02: no payment method is required for most new customers, and one can be requested as identity verification | capture: sha256:2dc44f9aaa95b084f5e0378d99c4139ab628b4f151adb64e1a8adbb072387126 | quote: No. A payment method isn't required to sign up for most new customers. In some cases, we may request additional information, such as a payment method, to verify your identity.
+  - [4] 2026-11-02: signup accepts an existing Google or GitHub login and needs no credit card for most new customers | capture: sha256:a1a1547884ce37eed31ea15faf82a2323ba5849c13c479da9a5910996af145f0 | quote: Fast sign up: Create an account with a sign-in method you already have, such as Google or GitHub. No credit card required to start for most new customers.
+  - [5] 2026-11-02: the advanced sign-up requires a phone number that receives calls and SMS, for identity verification | capture: sha256:6e3fc6e6e496ad99a2da43d858e1e9ef19d7e743fab661d1b7768ba63e6441ef | quote: This number is used for identity verification purposes and to confirm the ownership of your account. You must be able to receive calls and SMS messages at this phone number.
+  - [3] 2026-11-02: no country is excluded from signing up | capture: sha256:2dc44f9aaa95b084f5e0378d99c4139ab628b4f151adb64e1a8adbb072387126 | quote: The AWS Free Tier is available to all new customers. All customers are welcome to sign up online.
+  - [3] 2026-11-02: the credits and plan selections are unavailable in the two China regions | capture: sha256:2dc44f9aaa95b084f5e0378d99c4139ab628b4f151adb64e1a8adbb072387126 | quote: The AWS Free Tier credits and account plan selections are not available in the China (ZHY) and China (BJS) regions.
+- sources:
+  - [1] https://aws.amazon.com/bedrock/agentcore/pricing/
+  - [2] https://aws.amazon.com/free/
+  - [3] https://aws.amazon.com/free/free-tier-faqs/
+  - [4] https://aws.amazon.com/start-here/
+  - [5] https://docs.aws.amazon.com/accounts/latest/reference/getting-started.html
+
+## AWS Amplify Hosting
+
+- `compute/aws-amplify-hosting` | trial-only | evidence documented | binding retention-clamped | category platform host
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T02:24:29.901Z (live) | stale on 2026-12-05
+- url https://aws.amazon.com/amplify/pricing/
+- free tier: Free Tier for 12 months: 1,000 build minutes a month on the standard 4 vCPU / 8 GB instance, 5 GB of CDN storage, 15 GB a month of data transfer out, 500,000 server-side rendering requests and 100 GB-hours a month of SSR duration. After 12 months every line is metered, and new accounts since 2025-07-15 get up to USD 200 in credits on a free plan that lasts 6 months. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: trial-12-month
+- per-object cap: not applicable | source: [1]
+- retention: the 12-month clock ends the allowance regardless of use, and the build instance is the only 4 vCPU / 8 GB shape among evaluated providers, which makes the build minutes the useful part rather than the hosting. | source: [1]
+- egress: no cost up to 5 GB stored on CDN, 15 GB per month data transfer out, 500,000 SSR requests per month, 100 GB-hours per month SSR duration, quoted | metered: yes | free allowance: 15 GB per month (with AWS Free Tier, 12 months) | price per TB: USD 150 per TB | source: [1]
+- identity: card
+- interface: unknown
+- limits:
+  - retention-clamped (binding): the 12-month clock ends the allowance regardless of use, and the build instance is the only 4 vCPU / 8 GB shape among evaluated providers, which makes the build minutes the useful part rather than the hosting. [1]
+- limits note: the 12-month clock ends the allowance regardless of use, and the build instance is the only 4 vCPU / 8 GB shape among evaluated providers, which makes the build minutes the useful part rather than the hosting.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: 100 GB-hours a month of SSR is the closest free analogue to a small always-on server, and 1,000 build minutes on 4 vCPU is a real build runner; both end at 12 months, so the composition is a one-year window to build and measure rather than a home.
+- reliability: no reliability event recorded
+- notes: The 100 GB-hours of SSR duration is the number worth having: at 1 GB of provisioned memory it is 100 hours of server-side render a month, roughly three hours a day, and it is the only hyperscaler allowance among evaluated providers denominated in GB-hours. Possibilities: (a) the free tier is perpetual for Amplify; refuted, the table says 'Free for 12 months'. (b) A card is required; inferred from AWS account creation, not read on this page. Open: whether the USD 200 credit and the 12-month Amplify tier can both be used, which the page implies but does not state.
+- extras:
+  - facets.class: trial
+  - facets.free_tier_kind: trial-12-month
+  - facets.shape.vcpu: 4
+  - facets.shape.ram_gib: 8
+- evidence:
+  - [1] 2026-10-22: 'Deploy an app with AWS Free Tier: Free for 12 months'; standard instance 8 GB memory, 4 vCPUs, no cost up to 1,000 build minutes per month, quoted
+  - [1] 2026-10-22: no cost up to 5 GB stored on CDN, 15 GB per month data transfer out, 500,000 SSR requests per month, 100 GB-hours per month SSR duration, quoted
+  - [1] 2026-10-22: from 2025-07-15 new AWS customers get up to USD 200 in Free Tier credits; the free plan is available for 6 months after account creation and all credits must be used within 12 months…
+  - [1] 2026-11-03: 15 GB per month is free with the AWS Free Tier and the overage is USD 0.15 per GB | capture: sha256:33324aa8dbb6db3cbb443337d5cc2e66b79cd105d6095c681de53ca4a021d9be | quote: | Data transfer out | No cost up to 15 GB per month | $0.15 per GB served |
+- sources:
+  - [1] https://aws.amazon.com/amplify/pricing/
+
+## AWS CloudShell
+
+- `compute/aws-cloudshell` | trial-only | evidence reported | category shared shell
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T05:24:31.814Z (live) | stale on 2026-11-19
+- url https://aws.amazon.com/cloudshell/
+- free tier: a browser shell with 1 GB of persistent storage per AWS Region, free with an AWS account | unit: GiB | metered on: stored-bytes | read on: 2026-10-02 | source: [1] | note: no inbound SSH endpoint is published
+- per-object cap: not applicable
+- retention: a session persists within the Region; idle sessions end | days: 0 | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: card | detail: an AWS account requires a card even for the always-free services
+- interface: unknown
+- limits:
+  - retention-clamped: idle sessions end; 1 GB of persistent storage per Region [1]
+  - request-rate: no inbound SSH endpoint is published [1]
+- limits note: the persistent storage is per Region, so it is not one 1 GB directory
+- interface detail: a browser terminal only; the AWS CLI is preconfigured
+- tooling: a shell with the AWS CLI, git and common runtimes
+- composes with: a shell that holds 1 GB per Region and cannot be reached from outside
+- reliability: no reliability event recorded
+- notes: A shell for driving the AWS CLI, with 1 GB per Region and no way in. It is a console feature rather than a host.
+- evidence note: re-read live on 2026-10-22 for the free-tier and limit figures
+- extras:
+  - billing_model: flat-pool
+  - session_cap.restart_required: no
+  - session_cap.note: idle sessions end; interval not published
+  - keep_rate.value: 0.0
+  - keep_rate.basis: free with the account
+  - keep_rate.source: https://aws.amazon.com/cloudshell/
+  - persistent_storage.included_gib: 1
+  - persistent_storage.price_gib_month: free
+  - persistent_storage.durability: per Region
+  - persistent_storage.survives_stop: yes
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: while the account exists
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: no
+  - network_out.ports: none
+  - network_out.static_ip: no
+  - free_tier_kind: allowance
+- evidence:
+  - [1] 2026-10-02: 1 GB of persistent storage per AWS Region; browser terminal only with no inbound SSH
+  - [1] 2026-10-22: read live: 1 GB free persistent storage per Region, browser terminal
+  - [2] 2026-11-03: no inbound port or public IP, so no SSH; access is the console browser terminal | capture: sha256:6e330cd60cc014ed95499c492fda10fef8f6ea8b32b5921da2b4b579fd43c42d | quote: Inbound: You can’t access inbound ports. No public IP address is available.
+  - [1] 2026-11-03: 1 GB persistent storage per Region at no extra cost | capture: sha256:1bce04332a34adc21946442437e109f925f1fae8d46e721242ab9af05f475ad2 | quote: Run scripts and commands at no extra cost, with up to 1 GB of persistent storage per AWS Region.
+- sources:
+  - [1] https://aws.amazon.com/cloudshell/
+  - [2] https://docs.aws.amazon.com/cloudshell/latest/userguide/limits.html
+
+## AWS EC2 (reference VMs)
+
+- `compute/aws-ec2` | trial-only | evidence reported | binding per-ip-shaping | category cloud VM
+- needs card no, phone yes, ID no, institution no | verified 2026-11-09T13:13:24.236Z (live) | stale on 2026-11-24
+- url https://aws.amazon.com/ec2/pricing/on-demand/
+- price parsed USD 36.93/mo
+- disagrees on identity_kind: `compute/aws-ec2` says email, `compute/aws-ec2-windows` says card
+- free tier: USD 100 of credit on a new account, inside the 6-month free-plan window after which the account closes | unit: mixed | metered on: wall-clock | read on: 2026-10-02 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: metered at the standard AWS data transfer rates, tiered on aggregate Data Transfer Out to the Internet across EC2, S3, Glacier, RDS, Redshift, SageMaker, SES, SimpleDB, SQS, SNS, DynamoDB, Storage Gateway, CloudShell and CloudWatch Logs; AWS customers receive 100 GB of free data transfer out a month, aggregated across all AWS services and regions except China and GovCloud | metered: yes | free allowance: 100 GB a month, aggregated across all AWS services and regions except China and GovCloud | source: [1]
+- identity: email | detail: an AWS account: an email address, or an existing Google, Apple, GitHub or Amazon login, quoted 'Create an account with a sign-in method you already have, such as Google or GitHub.' and 'Enter your email or choose a login such as Google, Apple, GitHub, or Amazon.'; no card for most new customers, quoted "No. A payment method isn't required to sign up for most new customers." and 'No credit card required to start for most new customers.', while the advanced sign-up states "You can't proceed with the sign-up process until you add a valid payment method."; a phone number in the advanced sign-up, quoted 'This number is used for identity verification purposes and to confirm the ownership of your account. You must be able to receive calls and SMS messages at this phone number.'; no country limit on signup, quoted 'The AWS Free Tier is available to all new customers.', and the credits and account plan selections are 'not available in the China (ZHY) and China (BJS) regions' and not in AWS GovCloud (US)
+- interface: unknown
+- limits:
+  - request-rate: billed per second with a 60-second minimum; no long-term commitment [1]
+  - per-ip-shaping (binding): 100 GB a month of free data transfer out, aggregated across all AWS services and regions [1]
+  - per-object-cap: a public IPv4 address is charged whether the instance is in use or idle [1]
+- binding note: the 6-month account window ends the offer
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the on-demand pricing page was read on 2026-10-22. It proves the billing unit, the 60-second minimum and the 100 GB monthly egress allowance, and it does not state the USD 100 new-account credit that the verdict rests on: that figure still comes from earlier readings card, so the record stays `reported`.
+- extras:
+  - keep_rate: 1.0
+  - billing_model: flat-pool
+  - session_cap.restart_required: no
+  - session_cap.note: no session cap; an instance runs until it is stopped or terminated
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: security groups
+  - network_out.static_ip: charged whether in use or idle
+  - network_out.ipv6: yes
+  - network_out.per_session_bytes: 100 GB a month free egress, then metered
+  - price_note: a VPS bills by the month with an hourly rate capped at the monthly figure, so the two columns answer two questions: destroying the box between runs versus keeping it up.
+  - free_tier_kind: one-time-credit
+  - m10h_usd: 14.73
+  - m24h_usd: 36.93
+  - price_basis: 10 h/day column = 300 h at the hourly rate, which is what a server destroyed between runs costs; 24/7 column = the monthly cap, because a VPS kept up all month stops at the cap.
+  - granularity.min_billed_s: 60
+  - burst_x: 1.0
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'On-Demand Instances let you pay for compute capacity by the hour or second (minimum of 60 seconds) with no long-term commitments' and 'AWS customers receive 100 GB of free data transfer out to the internet free each month, aggregated across all AWS Services and Regions' and 'All In-use and Idle Elastic IP addresses are charged', quoted
+  - [2] 2026-11-02: no payment method is required for most new customers, and one can be requested as identity verification | capture: sha256:2dc44f9aaa95b084f5e0378d99c4139ab628b4f151adb64e1a8adbb072387126 | quote: No. A payment method isn't required to sign up for most new customers. In some cases, we may request additional information, such as a payment method, to verify your identity.
+  - [3] 2026-11-02: signup accepts an existing Google or GitHub login and needs no credit card for most new customers | capture: sha256:a1a1547884ce37eed31ea15faf82a2323ba5849c13c479da9a5910996af145f0 | quote: Fast sign up: Create an account with a sign-in method you already have, such as Google or GitHub. No credit card required to start for most new customers.
+  - [4] 2026-11-02: the advanced sign-up requires a phone number that receives calls and SMS, for identity verification | capture: sha256:6e3fc6e6e496ad99a2da43d858e1e9ef19d7e743fab661d1b7768ba63e6441ef | quote: This number is used for identity verification purposes and to confirm the ownership of your account. You must be able to receive calls and SMS messages at this phone number.
+  - [2] 2026-11-02: no country is excluded from signing up | capture: sha256:2dc44f9aaa95b084f5e0378d99c4139ab628b4f151adb64e1a8adbb072387126 | quote: The AWS Free Tier is available to all new customers. All customers are welcome to sign up online.
+  - [2] 2026-11-02: the credits and plan selections are unavailable in the two China regions | capture: sha256:2dc44f9aaa95b084f5e0378d99c4139ab628b4f151adb64e1a8adbb072387126 | quote: The AWS Free Tier credits and account plan selections are not available in the China (ZHY) and China (BJS) regions.
+  - [1] 2026-11-09: data transfer out is a billed line with a shared free allowance, so it is metered and not free | capture: sha256:de4e69e6e5c329091b96ee0bb82211902f7edfd99866c99de7f67b5066f1db5f | quote: AWS customers receive 100 GB of free data transfer out to the internet free each month, aggregated across all AWS Services and Regions (except China and GovCloud).
+  - [1] 2026-11-09: the rate tiers are set on aggregate data transfer out across the listed AWS services, and the page states the 100 GB monthly free allowance | capture: sha256:de4e69e6e5c329091b96ee0bb82211902f7edfd99866c99de7f67b5066f1db5f | quote: Rate tiers take into account your aggregate usage for Data Transfer Out to the Internet across Amazon EC2, Amazon S3, Amazon Glacier, Amazon RDS, Amazon Redshift, Amazon SageMaker, Amazon SES, Amazon SimpleDB, Amazon SQS, Amazon SNS, Amazon DynamoDB, AWS Storage Gateway, AWS CloudShell, and Amazon CloudWatch Logs.
+  - [1] 2026-11-09: the free allowance is 100 GB a month and it is shared across services, so it is not 100 GB per instance | capture: sha256:de4e69e6e5c329091b96ee0bb82211902f7edfd99866c99de7f67b5066f1db5f | quote: AWS customers receive 100 GB of free data transfer out to the internet free each month, aggregated across all AWS Services and Regions (except China and GovCloud).
+  - [1] 2026-11-09: the page read still states the data transfer terms and the free allowance | capture: sha256:de4e69e6e5c329091b96ee0bb82211902f7edfd99866c99de7f67b5066f1db5f | quote: AWS customers receive 100 GB of free data transfer out to the internet free each month
+- sources:
+  - [1] https://aws.amazon.com/ec2/pricing/on-demand/
+  - [2] https://aws.amazon.com/free/free-tier-faqs/
+  - [3] https://aws.amazon.com/start-here/
+  - [4] https://docs.aws.amazon.com/accounts/latest/reference/getting-started.html
+
+## AWS EC2 (Windows Server)
+
+- `compute/aws-ec2-windows` | trial-only | evidence reported | binding per-ip-shaping | category Windows host
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-02T02:17:27.464Z (live) | stale on 2026-11-17
+- url https://aws.amazon.com/ec2/pricing/on-demand/
+- disagrees on identity_kind: `compute/aws-ec2` says email, `compute/aws-ec2-windows` says card
+- free tier: USD 100 of credit on a new account, inside the 6-month free-plan window after which the account closes | unit: mixed | metered on: wall-clock | read on: 2026-10-02 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: card | detail: a card and a phone number: 'You can't proceed with the sign-up process until you add a valid payment method.' and 'This number is used for identity verification purposes and to confirm the ownership of your account.', with an SMS code to a number reachable in the next few minutes during sign-up. Country limit: an account whose billing address is in India is contracted to AWS India, which charges the payment method 2 INR and refunds it, so India is the one country with an extra verification step on the sign-up page.
+- interface: unknown
+- limits:
+  - request-rate: priced per instance-hour from launch to stop or terminate [1]
+  - per-ip-shaping (binding): 100 GB a month of free data transfer out, aggregated across all AWS services [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: A one-time credit inside a closing account is evaluated as a trial.
+- evidence note: the on-demand pricing page was read on 2026-10-22. It establishes the billing unit and the 100 GB egress allowance; the USD 100 credit and the 6-month window still rest on earlier readings card.
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: no session cap; the licence bills with the instance hour
+  - network_out.allow_outbound: yes
+  - network_out.per_session_bytes: 100 GB a month free egress
+  - free_tier_kind: one-time-credit
+  - granularity.min_billed_s: 60
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Pricing is per instance-hour consumed for each instance, from the time an instance is launched until it is terminated or stopped' and 'AWS customers receive 100 GB of free data transfer out to the internet free each month', quoted; the Windows licence is a separate line
+  - [2] 2026-11-02: sign-up cannot finish without a payment method, so the account gate is a card | capture: sha256:6e3fc6e6e496ad99a2da43d858e1e9ef19d7e743fab661d1b7768ba63e6441ef | quote: You can't proceed with the sign-up process until you add a valid payment method.
+  - [2] 2026-11-02: a phone number is required for identity verification at sign-up | capture: sha256:6e3fc6e6e496ad99a2da43d858e1e9ef19d7e743fab661d1b7768ba63e6441ef | quote: This number is used for identity verification purposes and to confirm the ownership of your account.
+  - [2] 2026-11-02: an Indian billing address puts the account under AWS India, with a 2 INR verification charge | capture: sha256:6e3fc6e6e496ad99a2da43d858e1e9ef19d7e743fab661d1b7768ba63e6441ef | quote: If your contact and billing address is in India, the user agreement for your account is with Amazon Web Services India Private Limited (AWS India), a local AWS seller in India.
+  - [2] 2026-11-02: the payment method is mandatory before sign-up can finish, and the phone step follows it | capture: sha256:6e3fc6e6e496ad99a2da43d858e1e9ef19d7e743fab661d1b7768ba63e6441ef | quote: You can't proceed with the sign-up process until you add a valid payment method.
+- sources:
+  - [1] https://aws.amazon.com/ec2/pricing/on-demand/
+  - [2] https://docs.aws.amazon.com/accounts/latest/reference/getting-started.html
+
+## AWS EC2 Mac (Dedicated Host)
+
+- `compute/aws-ec2-mac` | trial-only | evidence reported | binding request-rate | category macOS host
+- identity a placeholder: card and phone unknown | verified 2026-10-22T04:46:15.211Z (live) | stale on 2026-11-06
+- url https://aws.amazon.com/ec2/instance-types/mac/
+- free tier: USD 100 of credit on a new account, inside the 6-month free-plan window after which the account closes | unit: mixed | metered on: wall-clock | read on: 2026-10-02 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - request-rate (binding): no free allowance: a Mac instance bills on the same on-demand model as any other EC2 instance, with a 24-hour minimum allocation [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: A one-time credit inside a closing account is evaluated as a trial.
+- evidence note: the EC2 Mac page was read on 2026-10-22 and offers the instance class with no free allowance of its own. The USD 100 credit and the 6-month window still come from earlier readings card, so the rung stays `reported`.
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - shape.note: dedicated Mac mini and Mac Studio hardware
+  - session_cap.restart_required: no
+  - session_cap.note: Apple's licence forces a 24-hour minimum allocation per dedicated host; the page states no shorter clock
+  - free_tier_kind: none
+  - granularity.min_billed_s: 86400
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: the dedicated-Mac page is live and still sells EC2 Mac instances for building and signing Apple apps; it states no free allowance for a Mac instance
+- sources:
+  - [1] https://aws.amazon.com/ec2/instance-types/mac/
+
+## AWS Free Tier (web services free tier)
+
+- `compute/amazon-web-services-free-tier` | trial-only | evidence documented | binding retention-clamped | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T03:21:02.824Z (live) | stale on 2026-11-24
+- url https://aws.amazon.com/free/
+- free tier: up to USD 200 in credits over 6 months: USD 100 on signup and up to USD 100 more for completing activities; the account closes after 6 months or when the credits run out | unit: mixed | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: there is no always-free EC2 shape for a new account in 2026
+- per-object cap: not applicable
+- retention: the account closes on its own 6 months after it opens or when the credits run out | days: 180 | source: [1]
+- egress: not part of the free plan terms read; standard EC2 egress applies past any allowance | metered: yes | source: [1]
+- identity: email | detail: no card for the Free plan for most new customers: 'Most new customers will not be required to provide a payment method to get started. In some cases, we may ask for additional verification to protect your account.'; an email plus an existing Google or GitHub sign-in is enough; the Free plan is USD 100 of credits at signup plus up to USD 100 more over 6 months, and the account closes itself at 6 months or when the credits run out
+- interface: ssh
+- limits:
+  - retention-clamped (binding): the account closes 6 months after opening or when credits run out, whichever comes first [1]
+  - request-rate: 30 or more services are always free within monthly usage limits, but EC2 compute is not one of them [1]
+- limits note: the always-free list covers services such as Lambda request counts, not a running VM
+- binding note: the 6-month window ends the account; every always-free row inside it expires with it
+- interface detail: EC2 API, CLI, console; SSH keys chosen at launch
+- tooling: the AWS CLI, SDKs, Terraform; a real VM with a public IP
+- composes with: six months of a t3-class VM and then a closed account; nothing to build on
+- reliability: no reliability event recorded
+- notes: The single most-repeated stale fact in the free-tier discourse: there is no always-free EC2 shape for a new account. The credits are real and they end. AWS's own signup page now states the opposite for the Free plan, and the free page confirms the plan is USD 100 plus up to USD 100 over 6 months with the account closing itself at the end. What is NOT established: whether the card is demanded later for a specific service, and what the 'additional verification' consists of, since no signup was attempted.
+- evidence note: Payment facts re-read on 2026-10-24: the card types, the hold and the identity gate each come from a first-party page quoted in evidence[].
+- extras:
+  - billing_model: allocated
+  - keep_rate.value: 1.0
+  - keep_rate.basis: a running instance bills against the credit
+  - keep_rate.source: https://aws.amazon.com/free/
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all through a security group
+  - network_out.static_ip: an elastic IP
+  - network_out.ipv6: yes
+  - free_tier_kind: one-time-credit
+  - payment_methods.card_at_signup: no
+  - payment_methods.debit: not-applicable
+  - payment_methods.prepaid: not-applicable
+  - payment_methods.virtual: not-applicable
+  - payment_methods.hold_detail: no card, so no hold
+  - payment_methods.identity: email or an existing Google/GitHub sign-in; additional verification at AWS's discretion
+  - payment_methods.source_url: https://aws.amazon.com/start-here/
+  - payment_methods.read_on: 2026-10-24
+- evidence:
+  - [1] 2026-10-22: USD 100 in credits immediately and up to USD 100 more; up to USD 200 over 6 months
+  - [1] 2026-10-22: 'The account closes on its own 6 months after you open it or when your credits run out, whichever comes first.'
+  - [2] 2026-10-24: quoted: 'Fast sign up: Create an account with a sign-in method you already have, such as Google or GitHub. No credit card required to start for most new customers.'
+  - [2] 2026-10-24: quoted from the raw HTML, because the text extractor drops the FAQ block: 'Do I need a credit card to sign up? Most new customers will not be required to provide a payment method to get started. In some cases, we may ask for additional verification to protect your account.'
+  - [1] 2026-10-24: quoted: 'When you create a new AWS Free Tier account, you get $100 in credits immediately. As you explore key services, you can earn up to $100 more. That's up to $200 over 6 months ... The account closes on its own 6 months after you open it or when your credits run out, whichever comes first.'
+- sources:
+  - [1] https://aws.amazon.com/free/
+  - [2] https://aws.amazon.com/start-here/
+
+## AWS Free Tier — S3 (current, post-2025 restructure)
+
+- `storage/aws-free-tier-s3` | trial-only | evidence reported | binding retention-clamped | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://aws.amazon.com/free/
+- free tier: No perpetual S3 storage allowance remains in the current published Free Tier. What exists now: up to $200 in credits ($100 at signup + up to $100 for activities), expiring 6 months after account creation, and the account itself 'closes on its own 6 months after you open it or when your credits run out'. The old 5 GB/12-month S3 allowance is not listed on the current free-tier page or S3 pricing page's Free Tier section, which now describes only the credit model. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: 6-month account lifetime on the Free plan; credits expire at 6 months (12 if you upgrade to Paid); $200 of credits buys roughly 3-4 TB-months of S3 Standard at ~$0.023/GB-month. A one-shot, not a tier. | days: 180 | source: [1] | note: not stated
+- egress: Data transfer out from AWS Regions to the internet: first 100 GB/month free for all customers (announced 2021, still the standing allowance). CloudFront separately gives 1 TB/month free egress + 10M requests, no longer time-limited. But that is a CDN allowance bolted onto a paid origin. | metered: yes | free allowance: 100 GB per month
+- identity: card
+- interface: s3-compatible, rclone, cli
+- limits:
+  - retention-clamped (binding): expire at 6 months [1]
+- limits note: 6-month account lifetime on the Free plan; credits expire at 6 months (12 if you upgrade to Paid); $200 of credits buys roughly 3-4 TB-months of S3 Standard at ~$0.023/GB-month. A one-shot, not a tier.
+- binding note: a clock, not a quota: bytes leave whether or not transfer is completed
+- interface detail: s3
+- tooling: S3 API, rclone 's3', aws-cli; CloudFront in front for the 1 TB egress allowance.
+- composes with: AWS explicitly aggregates usage across an AWS Organization, so claiming credits across several accounts fails (Free Tier Terms: 'You will not be eligible for any Offers if you or your entity create(s) more than one account'). A second account does not carry a second allowance.
+- reliability: The most reliable infrastructure here, but the programme is now a time-boxed credit grant, not free storage. Anything still stored when the Free plan closes is at risk.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: No perpetual S3 storage allowance remains in the current published Free Tier. What exists now: up to $200 in credits ($100 at signup + up to $100 for activities), expiring 6 months after account creation, and the account itself 'closes on its own 6 months after you open it or when your credits run out'. The old 5 GB/12-month S3 allowance is not listed on the current free-tier page or S3 pricing page's Free Tier section, which now describes only the credit model.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'up to $200 over 6 months ... The account closes on its own 6 months after you open it or when your credits run out'
+  - [2] 2026-10-21: 'Free Tier credits expire 6 months from the date you create your AWS account'; 'You cannot extend your Free plan beyond 6 months'
+  - [3] 2026-10-21: Organization-level aggregation and ineligibility when several accounts exist
+  - [4] 2026-10-21: 100 GB/month region egress + 1 TB/month CloudFront, no 12-month limit
+- sources:
+  - [1] https://aws.amazon.com/free/
+  - [2] https://aws.amazon.com/free/free-tier-faqs/
+  - [3] https://aws.amazon.com/free/terms/
+  - [4] https://aws.amazon.com/blogs/aws/aws-free-tier-data-transfer-expansion-100-gb-from-regions-and-1-tb-from-amazon-cloudfront-per-month/
+
+## Amazon S3 Glacier Deep Archive
+
+- `storage/aws-s3-glacier-deep-archive` | paid-only | evidence documented | binding none | category object-storage archive class (S3 storage class DEEP_ARCHIVE, tape-equivalent cold tier) | tier S3 Glacier Deep Archive
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-01T22:27:25.580Z (live) | stale on 2026-12-02
+- url https://aws.amazon.com/s3/storage-classes/glacier/
+- price USD 1.00 per TB-month (USD 0.00099 per GB-month) in US East (N. Virginia), US East (Ohio), US West (Oregon), EU (Ireland) and EU (Stockholm); USD 1.80 per TB-month (USD 0.0018 per GB-month) in EU (Frankfurt); storage only, before retrieval | parsed USD 1/TB-mo
+- free tier: No free allowance at this tier: storage is billed from the first byte at USD 0.00099 per GB-month (USD 1 per TB-month) in US East (N. Virginia), US East (Ohio), US West (Oregon), EU (Ireland) and EU (Stockholm) | unit: none | metered on: none | read on: 2026-11-01 | source: [1] | note: AWS sells no free storage in this class; the only allowance that reaches it is the credits-based free plan for a new account, which is a six-month trial and its own record
+- per-object cap: 48.8 TiB per object through multipart upload (10,000 parts of 5 MiB to 5 GiB); 5 GiB through a single PUT | source: [2] | note: the 48.8 TiB is 10,000 parts x 5 GiB; each archived object also carries 40 KB of billed metadata, 8 KB at the S3 Standard rate and 32 KB at the Deep Archive rate
+- retention: no expiry: objects stay until deleted; a minimum storage duration of 180 days is billed per object, and an object deleted, overwritten or moved to another class earlier is charged the pro-rated storage fee for the remaining days | source: [3] | note: the 180 days is a billing minimum, not a deletion clock; a restored copy expires after the number of days named in the restore request
+- egress: Reading an archived object costs twice: a retrieval fee (USD 0.02 per GB Standard, USD 0.0025 per GB Bulk in US East (N. Virginia)) and a temporary copy billed at the S3 Standard rate for the days the restore is kept. Data transfer out to the internet is metered separately: the first 100 GB per month is free across all AWS services, then USD 0.09 per GB for the first 10 TB per month, USD 0.085 per GB for the next 40 TB, USD 0.07 per GB to 150 TB. | metered: yes | free allowance: 100 GB per month of data transfer out to the internet, aggregated across all AWS Services and Regions except China and GovCloud | price per TB: USD 90 per TB (USD 0.09 per GB) for the first 10 TB per month beyond the free 100 GB; USD 20 per TB retrieved at the Standard retrieval tier and USD 2.50 per TB at Bulk in US East (N. Virginia) | source: [3]
+- identity: card | detail: an AWS account is the unit of access: the root user email address is verified with a code sent to it, a phone number able to receive calls and SMS is confirmed with a code, and the sign-up form cannot be completed without a valid payment method; whether the card is charged at sign-up for the credits-based free plan is unverified
+- interface: s3, rclone, cli
+- limits:
+  - retention-clamped: 180-day minimum storage duration billed per object; an object deleted or overwritten inside it is charged for the remaining days at USD 0.00099 per GB-month [3]
+  - per-object-cap: 48.8 TiB per object by multipart upload (10,000 parts x 5 GiB); 5 GiB by a single PUT [2]
+  - request-rate: 1,000 object restore requests per second per account per AWS Region [4]
+- limits note: Restore latency is the working limit: a Standard restore typically finishes within 12 hours and a Bulk restore within 48 hours, and an object larger than 5 TB restores at up to 300 megabytes per second. Every archived object is billed 40 KB of metadata (8 KB at the S3 Standard rate, 32 KB at the Deep Archive rate), which is 3.9 percent of the stored volume at a 1 MB object and 0.0038 percent at a 1 GB object. A restored copy is billed at the S3 Standard rate while it lives. Archived objects cannot be read in real time, and the class cannot be left without a restore followed by a copy.
+- binding note: no limit row fails before the restore step: the 180-day minimum is a cost floor on churn, the per-object cap of 48.8 TiB is far above a single dataset, and 1,000 restore requests per second covers a 20 TB corpus of 1 GB objects in 20 seconds; what a reader meets first is the 12- to 48-hour restore wait and the USD 2.50 to USD 20 per TB retrieval fee
+- interface detail: S3 API storage class DEEP_ARCHIVE (x-amz-storage-class: DEEP_ARCHIVE); an archived object answers a GET only after a RestoreObject call and the wait for the temporary copy it creates
+- endpoint: s3.<region>.amazonaws.com
+- tooling: AWS CLI (`aws s3 cp --storage-class DEEP_ARCHIVE`, `aws s3api restore-object --restore-request Days=N,GlacierJobParameters={Tier=Bulk}`), boto3 and any AWS SDK, s3cmd, and rclone's S3 backend, whose storage-class option 7 is Glacier Deep Archive and whose restore step is documented; lifecycle rules and S3 Batch Operations drive the transitions and the bulk restores.
+- composes with: Cold tier behind a hot S3 bucket: a lifecycle rule transitions objects into DEEP_ARCHIVE and a RestoreObject call brings a temporary copy back at the S3 Standard rate, and the transition is one-way, so leaving the class means restore, then copy.
+- reliability: Archived objects are not readable in real time: a restore takes up to 12 hours at Standard and up to 48 hours at Bulk, the restored copy lasts only the number of days requested in the restore call, and a transition into DEEP_ARCHIVE cannot be reversed except by restoring and copying the object.
+- notes: The cheapest of the eight S3 storage classes and the cheapest archive class AWS sells, at USD 0.00099 per GB-month against USD 0.023 per GB-month for S3 Standard, but it is not the cheapest at-rest object tier: a Standard tier at another vendor prices stored data at USD 0 per GB-month and meters egress at USD 0.01 per GB, with no 180-day floor and no restore step, and a hot object store sells USD 0.000999 per GB-month, which is the same price per stored byte without the wait. Reading the data back is where the tier stops being cheap: USD 2.50 per TB at Bulk after up to 48 hours and USD 20 per TB at Standard after up to 12 hours in US East (N. Virginia), plus the S3 Standard rate for as long as the temporary copy is kept. It pays only for a corpus written once and read less than once a year, at a per-TB rest price that any GB-denominated offer of USD 0.001 or less matches.
+- evidence note: the storage, retrieval, request and early-delete prices come from the AWS price list API for the US East (N. Virginia) and EU (Frankfurt) regions and from the retail pricing page; the 180-day minimum, the 40 KB per-object metadata overhead, the restore times, the 1,000 requests per second and the sign-up gates are quoted from first-party pages read on 2026-11-01; timing a restore from a bucket on an account would make it measured
+- evidence:
+  - [1] 2026-11-01: S3 Glacier Deep Archive is priced at USD 0.00099 per GB-month, or USD 1 per TB-month | capture: sha256:87af83bf8599bdb659a47838826c276ae0da3fe68fcd029b6608d7dd77280851 | quote: At just $0.00099 per GB-month (or $1 per TB-month), S3 Glacier Deep Archive offers the lowest cost storage in the cloud
+  - [1] 2026-11-01: the tier is aimed at data read less than once a year and served within twelve hours | capture: sha256:87af83bf8599bdb659a47838826c276ae0da3fe68fcd029b6608d7dd77280851 | quote: the lowest cost storage in the cloud with data retrieval within twelve hours
+  - [1] 2026-11-01: no minimum commitment or upfront fee is charged for the class | capture: sha256:87af83bf8599bdb659a47838826c276ae0da3fe68fcd029b6608d7dd77280851 | quote: You pay only for what you need, with no minimum commitments or upfront fees.
+  - [5] 2026-11-01: the price list charges USD 0.00099 per GB-month for storage in Glacier Deep Archive in US East (N. Virginia) | capture: sha256:33729eb763fe6c5c1d4695a53fc552fc7dfa361a1b4abd13c7c56e92859508b7 | quote: $0.00099 per GB-Month for storage used in Glacier Deep Archive in US East (N. Virginia)
+  - [5] 2026-11-01: a Standard restore is billed USD 0.02 per GB in US East (N. Virginia) | capture: sha256:33729eb763fe6c5c1d4695a53fc552fc7dfa361a1b4abd13c7c56e92859508b7 | quote: $0.02 per GB Standard retrieval fee from Glacier Deep Archive in US East (N. Virginia)
+  - [5] 2026-11-01: a Bulk restore is billed USD 0.0025 per GB in US East (N. Virginia) | capture: sha256:33729eb763fe6c5c1d4695a53fc552fc7dfa361a1b4abd13c7c56e92859508b7 | quote: $0.0025 per GB Bulk retrieval fee from Glacier Deep Archive in US East (N. Virginia)
+  - [5] 2026-11-01: an object deleted before 180 days is billed at the storage rate for the days it did not stay | capture: sha256:33729eb763fe6c5c1d4695a53fc552fc7dfa361a1b4abd13c7c56e92859508b7 | quote: $0.00099 per GB-Month prorated for objects deleted before 180 days in Glacier Deep Archive in US East (N. Virginia)
+  - [5] 2026-11-01: writing an object into the class costs USD 0.05 per 1,000 PUT requests in US East (N. Virginia) | capture: sha256:33729eb763fe6c5c1d4695a53fc552fc7dfa361a1b4abd13c7c56e92859508b7 | quote: $0.05 per 1,000 PutObject requests to Glacier Deep Archive in US East (N. Virginia)
+  - [6] 2026-11-01: EU (Frankfurt) charges USD 0.0018 per GB-month, 1.82 times the US East price | capture: sha256:053a779a21245d2426257767f84224c4579d85fe6e983a424e3326ac237f889d | quote: $0.0018 per GB-Month for storage used in Glacier Deep Archive in EU (Frankfurt)
+  - [6] 2026-11-01: EU (Frankfurt) charges USD 0.024 per GB for a Standard restore and USD 0.005 per GB for a Bulk restore | capture: sha256:053a779a21245d2426257767f84224c4579d85fe6e983a424e3326ac237f889d | quote: $0.024 per GB Standard retrieval fee from Glacier Deep Archive in EU (Frankfurt)
+  - [3] 2026-11-01: S3 Glacier Deep Archive carries a minimum storage duration of 180 days, charged pro rata on early deletion | capture: sha256:bdd18a33a29c461741739e0fdbbdabcd8711415bd3759865c81830d1a731a55d | quote: and S3 Glacier Deep Archive has a minimum storage duration of 180 days
+  - [3] 2026-11-01: each archived object is billed 40 KB of metadata, 8 KB at the S3 Standard rate and 32 KB at the archive rate | capture: sha256:bdd18a33a29c461741739e0fdbbdabcd8711415bd3759865c81830d1a731a55d | quote: AWS charges for 40 KB of additional metadata for each archived object, with 8 KB charged at S3 Standard rates and 32 KB charged at S3 Glacier Flexible Retrieval or S3 Deep Archive rates.
+  - [3] 2026-11-01: the first 100 GB per month of data transfer out is free across all AWS services | capture: sha256:bdd18a33a29c461741739e0fdbbdabcd8711415bd3759865c81830d1a731a55d | quote: Data transferred out to the internet for the first 100GB per month, aggregated across all AWS Services and Regions (except China and GovCloud)
+  - [3] 2026-11-01: a restore is billed as a retrieval on the restore request itself | capture: sha256:bdd18a33a29c461741739e0fdbbdabcd8711415bd3759865c81830d1a731a55d | quote: When you restore an archive from the S3 Glacier Flexible Retrieval or S3 Glacier Deep Archive storage classes, you pay for retrievals as a part of the restore request
+  - [7] 2026-11-01: data transfer out from US East (N. Virginia) to the internet costs USD 0.09 per GB for the first 10 TB per month | capture: sha256:00f81657d01946d02c905e32ca87cc6c23720b5de079b90fef5775243abcee80 | quote: $0.090 per GB - first 10 TB / month data transfer out beyond the global free tier
+  - [8] 2026-11-01: a Standard restore of a Deep Archive object typically finishes within 12 hours | capture: sha256:423f9381a0529e45a45f602b6940e24790d731d5ae600f1b8b8d9446072dede0 | quote: Standard retrievals typically finish within 12 hours for the S3 Glacier Deep Archive storage class
+  - [8] 2026-11-01: a Bulk restore of a Deep Archive object typically finishes within 48 hours | capture: sha256:423f9381a0529e45a45f602b6940e24790d731d5ae600f1b8b8d9446072dede0 | quote: For objects stored in the S3 Glacier Deep Archive storage class or the S3 Intelligent-Tiering Deep Archive Access tier, these retrievals typically finish within 48 hours.
+  - [4] 2026-11-01: a restored copy is billed at the S3 Standard rate while it stays restored | capture: sha256:12cd66e753aabb1cff92d87fee78ee0c707b7b44298aef262c11217b9258e511 | quote: When you restore an archive, you are paying for both the archive (S3 Glacier Flexible Retrieval or S3 Glacier Deep Archive rate) and a copy that you restored temporarily (S3 Standard storage rate).
+  - [4] 2026-11-01: restore requests are capped at 1,000 transactions per second per account per Region | capture: sha256:12cd66e753aabb1cff92d87fee78ee0c707b7b44298aef262c11217b9258e511 | quote: You can restore archived objects in these storage classes with up to 1,000 transactions per second (TPS) of object restore requests per account per AWS Region.
+  - [4] 2026-11-01: the transition into Deep Archive is one-way and leaving it needs a restore then a copy | capture: sha256:12cd66e753aabb1cff92d87fee78ee0c707b7b44298aef262c11217b9258e511 | quote: The transition of objects to the S3 Glacier Deep Archive storage class can go only one way.
+  - [4] 2026-11-01: an archived object is reached only through a restore request and the wait for the copy | capture: sha256:12cd66e753aabb1cff92d87fee78ee0c707b7b44298aef262c11217b9258e511 | quote: To access an archived object, you submit a restore request for it, and then wait for the service to restore the object.
+  - [2] 2026-11-01: the largest object a multipart upload can produce is 48.8 TiB, from 10,000 parts of up to 5 GiB | capture: sha256:6cfaa8688b57361d96a4934280fb5e9191cc4bdf0db9a675c54b05b18198424d | quote: | Maximum object size | 48.8 TiB |
+  - [9] 2026-11-01: the archive classes carry minimum storage durations and retrieval fees by design | capture: sha256:5fc16b418f784b04f68a3c0208cec9b190e1cd8b6893d5d24d0ffa5c61085982 | quote: These storage classes require minimum storage durations and retrieval fees making them most effective for rarely accessed data
+  - [9] 2026-11-01: objects in Deep Archive are archived and not available for real-time access | capture: sha256:5fc16b418f784b04f68a3c0208cec9b190e1cd8b6893d5d24d0ffa5c61085982 | quote: Data in this storage class is archived, and not available for real-time access.
+  - [10] 2026-11-01: sign-up cannot be completed without a valid payment method | capture: sha256:6e3fc6e6e496ad99a2da43d858e1e9ef19d7e743fab661d1b7768ba63e6441ef | quote: You can't proceed with the sign-up process until you add a valid payment method.
+  - [10] 2026-11-01: identity confirmation asks for a phone number able to receive a call and an SMS code | capture: sha256:6e3fc6e6e496ad99a2da43d858e1e9ef19d7e743fab661d1b7768ba63e6441ef | quote: enter a phone number that can be reached in the next few minutes
+  - [10] 2026-11-01: the root user email address is the sign-in name and is verified by a code sent to it | capture: sha256:6e3fc6e6e496ad99a2da43d858e1e9ef19d7e743fab661d1b7768ba63e6441ef | quote: The email address is used as the sign-in name for the root user and is required for account recovery.
+  - [11] 2026-11-01: rclone's S3 backend takes Glacier Deep Archive as storage class 7 | capture: sha256:93e25c46d993e075e4383fdb7f664d95ca64a05774a57d62d0414f74c12a5722 | quote: 7 / Glacier Deep Archive storage class
+  - [12] 2026-11-01: the S3 Standard class it replaces costs USD 0.023 per GB-month in US East (N. Virginia) | capture: sha256:a298361f29bd9bc926d810d1eb093720827275689c1e2db5a7af90890b1dc67c | quote: $0.023 per GB - first 50 TB / month of storage used
+  - [13] 2026-11-01: a hosted object store sells hot storage at USD 0.000999 per GB-month, the same order as this cold tier and without a restore step | capture: sha256:be00b94e2d6244a6e123cdfe470c5aa3f67844a4533e6bde9d70aa6824e5bf36 | quote: | 100,000 GB | $99.99 / Month | $0.000999 / GB per month | Nu-uh! |
+  - [14] 2026-11-01: one hosted object tier prices stored data at zero and meters only outgoing traffic | capture: sha256:df5196d79673bd2c6a41db15bea91b81b6748415008280795d392c1cc16d6e51 | quote: | Standard | Free | Durable, high-capacity storage. The default |
+  - [14] 2026-11-01: that tier bills egress at USD 0.01 per GB on all tiers while incoming traffic is included | capture: sha256:df5196d79673bd2c6a41db15bea91b81b6748415008280795d392c1cc16d6e51 | quote: Outgoing traffic is billed at $0.01/GB on all tiers; incoming traffic is included.
+- sources:
+  - [1] https://aws.amazon.com/s3/storage-classes/glacier/
+  - [2] https://docs.aws.amazon.com/AmazonS3/latest/userguide/qfacts.html
+  - [3] https://aws.amazon.com/s3/pricing/
+  - [4] https://docs.aws.amazon.com/AmazonS3/latest/userguide/archival-storage.html
+  - [5] https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/AmazonS3GlacierDeepArchive/current/us-east-1/index.json
+  - [6] https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/AmazonS3GlacierDeepArchive/current/eu-central-1/index.json
+  - [7] https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/AWSDataTransfer/current/us-east-1/index.json
+  - [8] https://docs.aws.amazon.com/AmazonS3/latest/userguide/restoring-objects-retrieval-options.html
+  - [9] https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html
+  - [10] https://docs.aws.amazon.com/accounts/latest/reference/getting-started.html
+  - [11] https://rclone.org/s3/
+  - [12] https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/AmazonS3/current/us-east-1/index.json
+  - [13] https://www.blomp.com/cloud-storage
+  - [14] https://docs.nebulablock.com/products/object-storage.md
+
+## AWS Global Accelerator
+
+- `egress/aws-global-accelerator` | paid-only | evidence documented | binding none | category L4 anycast proxy (TCP/UDP) | tier payg
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://aws.amazon.com/global-accelerator/pricing/
+- price USD 18 per month plus USD 0.015 per GB | parsed USD 18/mo
+- free tier: No free tier is listed. For every full or partial hour when an accelerator runs in your account, you are charged $0.025 until it is deleted. | unit: none | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: Unmetered in the sense that nothing is capped: USD 0.025 per accelerator-hour plus DT-Premium of USD 0.015/GB for the first 10 TB from United States and Canada or Europe. 1 TiB/month is 1,099.5 GB at USD 0.015, about USD 16.49, plus USD 18 of fixed fee.; ingress: tcp+udp | metered: no | free allowance: none published | source: [1]
+- identity: card | detail: An AWS account with a payment method; there is no free-tier accelerator. | country: None
+- interface: rest, cli
+- limits:
+  - volume-quota: no free allowance; USD 0.015/GB DT-Premium in United States and Canada and in Europe, higher in other regions [1]
+  - request-rate: USD 0.025 per accelerator-hour whether enabled or disabled [1]
+- binding note: No byte cap exists: cost is linear in GB. At 1 TiB/month the bill is about USD 34 and nothing throttles. The real ceiling is that the endpoint must be an AWS resource, so this is ingress to AWS rather than to a machine already running elsewhere.
+- interface detail: accelerators, listeners, endpoint groups and endpoints, created through the console, CLI or API
+- tooling: AWS console, CLI or API; an NLB or EC2 instance as the endpoint
+- composes with: only with an AWS origin, so it does not chain with a free VM from another cloud
+- reliability: TCP fragments are dropped at the edge because the AWS network does not support them; UDP fragments are forwarded
+- notes: The cleanest documented UDP anycast and the only one with a published per-GB rate, but the endpoint list is AWS-only, so a free VM on Oracle or GCP cannot be the origin. Compared with Gcore (EUR 17/month flat) it is cheaper at low volume and has no rule model, but it buys reachability into AWS, which the VM already had.
+- evidence note: Anycast, UDP fragment forwarding, the endpoint types and the two rates are quoted from pages read. A measured claim would need an accelerator created and a UDP listener counted.
+- extras:
+  - wg_path: inside-udp
+  - wg_detail: Global Accelerator forwards UDP fragments to the configured endpoint, so a WireGuard listener on an EC2 instance behind it is reachable on the listener port.
+  - ingress: tcp+udp
+  - volume_stated: Unmetered in the sense that nothing is capped: USD 0.025 per accelerator-hour plus DT-Premium of USD 0.015/GB for the first 10 TB from United States and Canada or Europe. 1 TiB/month is 1,099.5 GB at USD 0.015, about USD 16.49, plus USD 18 of fixed fee.
+  - bytes_transit: yes
+  - transit_note: traffic enters the AWS global network at the nearest edge and exits to the endpoint
+- evidence:
+  - [2] 2026-10-23: The static IP addresses are anycast from the AWS edge network. Global Accelerator forwards UDP fragments to the configured endpoint, which reassembles the original IP packet.
+  - [3] 2026-10-23: Endpoints for standard accelerators can be Network Load Balancers, Application Load Balancers, Amazon EC2 instances, or Elastic IP addresses
+  - [1] 2026-10-23: We are charged $0.025 per accelerator-hour, and DT-Premium is $0.015/GB for the first 10 TB from United States & Canada and Europe
+- sources:
+  - [1] https://aws.amazon.com/global-accelerator/pricing/
+  - [2] https://docs.aws.amazon.com/global-accelerator/latest/dg/introduction-how-it-works.html
+  - [3] https://docs.aws.amazon.com/global-accelerator/latest/dg/about-endpoints.html
+
+## AWS Lightsail
+
+- `compute/aws-lightsail` | paid-only | evidence documented | binding volume-quota | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-11-06T17:20:15.329Z (live) | stale on 2026-12-07
+- url https://aws.amazon.com/lightsail/pricing/
+- price parsed USD 5/mo
+- free tier: The Linux/Unix general purpose ladder now starts at USD 5/month: 0.5 GB memory, 2 vCPUs, 20 GB SSD, 1 TB transfer. The next rung is USD 7/month with 1 GB, 2 vCPUs, 40 GB SSD and 2 TB transfer. USD 12 buys 2 GB, 2 vCPUs, 60 GB SSD. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: card
+- interface: unknown
+- limits:
+  - volume-quota (binding): 1 TB of transfer is the wall at this rung, and it is the smallest allowance on the ladder: the 1 GB plan doubles it for USD 2 more [1]
+- limits note: 1 TB of transfer is the wall at this rung, and it is the smallest allowance on the ladder: the 1 GB plan doubles it for USD 2 more
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: USD 5 buys a fixed bundle with 1 TB of transfer included, which makes it the cheapest way to get an AWS-adjacent static address with an included egress allowance rather than a metered one
+- reliability: no reliability event recorded
+- notes: The first rung on the Linux/Unix ladder is USD 5 for 0.5 GB; no USD 3.50 rung appears on the IPv4 ladder, and the IPv6-only ladder starts at USD 3.50 for 512 MB. The pricing page prints no free trial and no withdrawal date for an earlier one.
+- evidence note: the bundle ladder, the transfer allowances and the monthly pricing are quoted from the pricing page; the hourly figures on the page belong to Lightsail for Research, which the page's footnote prices separately; the renewal terms are not printed
+- extras:
+  - facets.class: price-floor
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 2
+  - facets.shape.ram_gib: 0.5
+  - facets.shape.disk_gib: 20
+  - monthly_usd: 5.0
+  - annual_usd: not published: every standard bundle on the pricing page is priced USD/mo and no annual or fixed term is printed; read at https://aws.amazon.com/lightsail/pricing/
+  - renewal_usd: not published: the pricing page prints a monthly bundle price and no renewal, contract or term statement; read at https://aws.amazon.com/lightsail/pricing/
+  - renewal_note: the page prices each bundle USD/mo and prints no renewal sentence; the only hourly figures are in the Lightsail for Research worked example, which the page's own footnote says is priced separately
+  - term: monthly bundle; every standard bundle is priced USD/mo and no annual or fixed term is printed
+  - billing_model: monthly bundle
+  - stock: not applicable: a cloud bundle is provisioned on demand and the pricing page prints no stock, capacity or availability state
+  - price_on_page: USD 5/mo: 0.5 GB RAM, 2 vCPU, 20 GB SSD, 1 TB transfer
+- evidence:
+  - [1] 2026-10-22: first Linux/Unix general purpose rung is '$5 USD/mo' with 0.5 GB memory, 2 vCPUs, 20 GB SSD disk, 1 TB transfer, quoted from the plan table
+  - [1] 2026-10-22: second rung '$7 USD/mo' with 1 GB memory, 2 vCPUs, 40 GB SSD, 2 TB transfer; third '$12 USD/mo' with 2 GB, 2 vCPUs, 60 GB SSD
+  - [1] 2026-10-22: a case-insensitive grep for free, trial, 3 months and hourly over the extracted text returned nothing, and the first row of the Linux ladder is USD 5; that is absence of a free lane in the extraction, not proof that no trial exists elsewhere on the site
+  - [1] 2026-11-06: the first Linux/Unix general purpose bundle is priced USD 5 a month | capture: sha256:ddb7b4c857ce5e207fe8eaf8994876e6c11b68cead11d78a7013c9200eda5436 | quote: $5 USD/mo
+  - [1] 2026-11-06: every standard bundle prints a monthly price and no annual term | capture: sha256:ddb7b4c857ce5e207fe8eaf8994876e6c11b68cead11d78a7013c9200eda5436 | quote: USD/mo
+  - [1] 2026-11-06: the page prints a monthly bundle price and no renewal statement | capture: sha256:ddb7b4c857ce5e207fe8eaf8994876e6c11b68cead11d78a7013c9200eda5436 | quote: USD/mo
+  - [1] 2026-11-06: the hourly worked example belongs to Lightsail for Research, priced separately | capture: sha256:ddb7b4c857ce5e207fe8eaf8994876e6c11b68cead11d78a7013c9200eda5436 | quote: **Lightsail for Research offers virtual servers and is priced separately.
+  - [1] 2026-11-06: the bundles are priced per month with no annual term | capture: sha256:ddb7b4c857ce5e207fe8eaf8994876e6c11b68cead11d78a7013c9200eda5436 | quote: USD/mo
+  - [1] 2026-11-06: the bundles are priced per month | capture: sha256:ddb7b4c857ce5e207fe8eaf8994876e6c11b68cead11d78a7013c9200eda5436 | quote: USD/mo
+  - [1] 2026-11-06: the pricing page prints no stock or capacity state | capture: sha256:ddb7b4c857ce5e207fe8eaf8994876e6c11b68cead11d78a7013c9200eda5436 | quote: USD/mo
+  - [1] 2026-11-06: the USD 5 bundle is 0.5 GB memory, 2 vCPU, 20 GB SSD and 1 TB transfer | capture: sha256:ddb7b4c857ce5e207fe8eaf8994876e6c11b68cead11d78a7013c9200eda5436 | quote: **0.5 GB **Memory
+  - [1] 2026-11-06: the hourly example is Lightsail for Research, priced separately | capture: sha256:ddb7b4c857ce5e207fe8eaf8994876e6c11b68cead11d78a7013c9200eda5436 | quote: **Lightsail for Research offers virtual servers and is priced separately.
+  - [1] 2026-11-06: the entry IPv4 bundle is USD 5 for 0.5 GB memory | capture: sha256:ddb7b4c857ce5e207fe8eaf8994876e6c11b68cead11d78a7013c9200eda5436 | quote: **0.5 GB **Memory
+  - [1] 2026-11-06: the entry Linux/Unix bundle is still USD 5 a month | capture: sha256:ddb7b4c857ce5e207fe8eaf8994876e6c11b68cead11d78a7013c9200eda5436 | quote: $5 USD/mo
+- sources:
+  - [1] https://aws.amazon.com/lightsail/pricing/
+
+## AWS Activate
+
+- `egress/aws-activate` | fails-identity | evidence documented | binding write-gated | category startup credit programme | tier free
+- needs card no, phone no, ID no, institution yes | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://aws.amazon.com/startups/credits/
+- price USD 1,000 to 200,000 of credit
+- free tier: Eligible startups can apply for packages ranging from $1,000 to $200,000 in AWS Activate Credits to access 200+ services, including AI tools, infrastructure, and data services. | unit: mixed | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: $1,000 at $0.09 per GB is 10.1 TiB and $200,000 is 2,022 TiB, on the same 100 GB a month free egress line; ingress: udp | metered: no | free allowance: none published | source: [1]
+- identity: institution | detail: Eligible startups ... Here's what you need to know to apply for Activate Credits ... Choose your credit tier. The page addresses 'early-stage companies' and founders, so an individual with no company is not the applicant. | country: None
+- interface: cli, rest
+- limits:
+  - write-gated (binding): an application reviewed by AWS, with tiers set by funding stage and programme membership [1]
+  - volume-quota: $1,000 to $200,000 of credit spent at $0.09 per GB is 10.1 to 2,022 TiB [2]
+- binding note: no byte moves until an application is approved, and the applicant is a startup rather than a person. The credit size is not the constraint at 1 TiB a month: the smallest package, $1,000, is 10.1 TiB, which is ten months of it.
+- interface detail: the same AWS CLI and EC2 API as any AWS account
+- tooling: wg-quick on the EC2 instance the credits pay for
+- composes with: if granted, the only route whose limit is not the dollar figure: 10 TiB or more against a 20 TB tunnel
+- reliability: credits carry an expiry set at award and are not convertible to cash
+- notes: Arithmetic: $1,000 over $0.09 a GB is 11,111 GB = 11.1 TB = 10.1 TiB; $200,000 is 2,222,222 GB = 2,022 TiB. Any tier above the minimum clears 1 TiB a month for a year by a wide margin, so the arithmetic is not the question and eligibility is. Left open: whether a sole founder with no funding and no accelerator can clear the application, which the page does not answer.
+- evidence note: the page states the range and that the applicant must be an eligible startup; the tier an individual could reach is not stated on this page, so the practical offer for a person is unknown rather than zero
+- extras:
+  - wg_path: native-conf
+  - wg_detail: credits spend against the same EC2 and data transfer line as the Free Tier, so wg-quick on an EC2 instance is the path
+  - ingress: udp
+  - volume_stated: $1,000 at $0.09 per GB is 10.1 TiB and $200,000 is 2,022 TiB, on the same 100 GB a month free egress line
+  - bytes_transit: yes
+  - transit_note: credits offset Amazon's metered data transfer out, so the bytes still cross Amazon's network
+- evidence:
+  - [1] 2026-10-23: 'Eligible startups can apply for packages ranging from $1,000 to $200,000 in AWS Activate Credits' and 'Apply for up to $200,000 in AWS Activate Credits'
+  - [2] 2026-10-23: us-east-1 external outbound 0.09 per GB, the rate any Activate credit is spent against
+- sources:
+  - [1] https://aws.amazon.com/startups/credits/
+  - [2] https://b0.p.awsstatic.com/pricing/2.0/meteredUnitMaps/datatransfer/USD/current/datatransfer.json
+
+## AWS Activate, Portfolio
+
+- `compute/aws-activate-portfolio` | fails-identity | evidence documented | binding write-gated | category cloud VM
+- needs card no, phone no, ID no, institution yes | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://aws.amazon.com/startups/learn/everything-you-need-to-know-about-aws-activate-credits
+- disagrees on identity_kind: `compute/aws-activate-founders` says email, `compute/aws-activate-portfolio` says institution
+- disagrees on verdict: `compute/aws-activate-founders` says qualifies-with-caveat, `compute/aws-activate-portfolio` says fails-identity
+- free tier: The Activate Portfolio tier offers up to USD 200,000 in AWS Activate Credits for provider-backed startups. Eligibility includes: associated with an Activate Provider and have their Organizational ID, not previously received AWS Activate Credits of equal or greater value, Pre-Series B with the most recent funding round in the last 12 months, a fully functioning company website, and founded in the past 10 years. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: one-shot-credit
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution | detail: Requires an Organizational ID issued by an Activate Provider, which is a VC, accelerator or startup organization. That is an investor relationship, not a document a registrant can produce.
+- interface: unknown
+- limits:
+  - write-gated (binding): The Activate Provider Org ID fails first: without a VC or accelerator that is a registered provider, no application can be submitted at all. [1]
+- limits note: The Activate Provider Org ID fails first: without a VC or accelerator that is a registered provider, no application can be submitted at all.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: USD 200,000 of AWS spend would cover a serious training or serving run for a year, and the credits apply to Bedrock third-party models. The chain breaks at the Org ID: it is issued by an investor, so it composes only for a company that has already raised.
+- reliability: no reliability event recorded
+- notes: Additional credits above USD 200,000 are stated to exist for AI startups, routed through an AWS account manager, which is a sales conversation rather than a program. The lifetime cap is unnamed on the page.
+- extras:
+  - facets.class: startup-credit
+  - facets.free_tier_kind: one-shot-credit
+- evidence:
+  - [1] 2026-10-22: Portfolio tier offers up to USD 200,000 and requires an Activate Provider Organizational ID plus a funding round in the last 12 months, quoted
+  - [2] 2026-10-22: the page names Andreessen Horowitz, Brex, Carta, Greylock, Sequoia and Y Combinator as Activate Providers, which is the class of entity that issues the Org ID, quoted
+- sources:
+  - [1] https://aws.amazon.com/startups/learn/everything-you-need-to-know-about-aws-activate-credits
+  - [2] https://aws.amazon.com/startups/credits/
+
+## AWS Cloud Credit
+
+- `compute/aws-cloud-credit` | fails-identity | evidence documented | binding write-gated | category GPU cloud
+- needs card no, phone no, ID no, institution yes | verified 2026-11-03T08:50:49.063Z (live) | stale on 2026-12-04
+- url https://aws.amazon.com/government-education/research-and-technical-computing/cloud-credit-for-research/
+- free tier: 'Student awards will be up to a maximum of $5,000.00. Faculty and Staff awards are not capped.' Awards are AWS Promotional Credit, and 'Amazon EC2 usage supported by AWS Promotional Credit will be for on-demand and spot instances only'. Review cycle 90 to 120 days. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: one-time-credit
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution | detail: an institution-issued email address on a .edu, .org or equivalent domain, plus an eligible role at an accredited research institution (full-time faculty, full-time research staff, or an enrolled graduate/post-graduate/PhD student). The FAQ states 'Applications from non-institution domains will not be accepted.' Review takes 90 to 120 days. No card, hold, debit or prepaid term is stated: the award is credit on an AWS account the applicant already holds.
+- interface: unknown
+- limits:
+  - write-gated (binding): the application needs an institution-issued .edu or .org address and a 90 to 120 day human review, so an unaffiliated applicant cannot submit at all. [1]
+- limits note: the application needs an institution-issued .edu or .org address and a 90 to 120 day human review, so an unaffiliated applicant cannot submit at all.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: None. The credit lands on an AWS account the applicant already holds, and the institution email is the gate that precedes the award, so no chain starts.
+- reliability: no reliability event recorded
+- notes: A clean refutation and the most useful negative in this class, because USD 5,000 uncapped-for-staff is the kind of number a reader would otherwise chase. Two separate gates, either of which is fatal: the .edu/.org domain rule, stated as an absolute ('will not be accepted'), and the role list, which has no independent-researcher category. The program itself is alive and global outside greater China, so the verdict is fails-identity rather than dead.
+- extras:
+  - facets.class: research-credit
+  - facets.free_tier_kind: one-time-credit
+- evidence:
+  - [1] 2026-10-22: 'Student awards will be up to a maximum of $5,000.00. Faculty and Staff awards are not capped' and 'Amazon EC2 usage supported by AWS Promotional Credit will be for on-demand and spot instances only' and 'Typical review cycles are 90 to 120 days', quoted; page 200
+  - [2] 2026-10-22: 'We require applicants provide their official institution-issued email ID (.edu, .org, or equivalent) to expedite the verification and decision process. Applications from non-institution domains will not be accepted.' quoted; also 'The only exception is applications from the greater China region'
+  - [1] 2026-10-22: eligibility list is exactly three roles, all tied to 'an accredited research institution': full-time faculty, full-time research staff, graduate/post-graduate/PhD students enrolled there
+  - [1] 2026-11-03: the credit caps are USD 5,000 for students and none for faculty and staff; the page lists no GPU or hourly price | capture: sha256:deaed0bacc52ec3479bbf9872da4a81f2f1d54d51bb278f3c3994a9fa9ef8659 | quote: Student awards will be up to a maximum of $5,000.00. Faculty and Staff awards are not capped.
+- sources:
+  - [1] https://aws.amazon.com/government-education/research-and-technical-computing/cloud-credit-for-research/
+  - [2] https://aws.amazon.com/government-education/research-and-technical-computing/cloud-credit-for-research/faqs/
+
+## AWS Open Data Sponsorship Program - uncapped, 2 years, but the signatory must be an organisation
+
+- `storage/aws-open-data-sponsorship-program-uncapped-2-years-but-t` | fails-identity | evidence reported | binding none | category iaas
+- needs card no, phone no, ID no, institution yes | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://aws.amazon.com/opendata/open-data-sponsorship-program/
+- disagrees on identity_kind: `storage/aws-open-data-sponsorship-program` says card, `storage/aws-open-data-sponsorship-program-uncapped-2-years-but-t` says institution
+- disagrees on verdict: `storage/aws-open-data-sponsorship-program` says qualifies, `storage/aws-open-data-sponsorship-program-uncapped-2-years-but-t` says fails-identity
+- free tier: No published byte limit; AWS pays S3 storage plus egress and cross-region fees for the approved dataset, in a dedicated Program Account joined to AWS's billing organisation. 2-year term from the Effective Date, auto-terminates, extendable only if AWS offers. Rolling review, decision generally within two weeks. | unit: mixed | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: 90-day wind-down with data retrieval after termination. | days: 90 | source: [1] | note: not stated
+- egress: Fully covered, including cross-region data transfer fees, providing uncapped free egress. | metered: no
+- identity: institution | detail: institution
+- interface: s3, rclone, cli
+- limits:
+  - write-gated: approved dataset, in a dedicated Program Account joined to AWS's billing organisation [1]
+  - write-gated: review, decision generally within two weeks [1]
+- limits note: Requirements: permissive licence only, cloud-optimised formats, docs, a tutorial notebook, a Registry YAML PR, demonstrated community demand, and the account must run no other AWS services. 90-day wind-down with data retrieval after termination.
+- interface detail: s3
+- tooling: Plain S3: aws-cli, boto3, s3fs, rclone 's3'; CloudFormation template from the onboarding handbook creates the public-read bucket with intelligent tiering and logging.
+- composes with: Per dataset, per dedicated account; the application form itself asks only for 'Name of your institution', dataset size and growth rate in GB/year - there is no upper bound field. Multiply by separate applications for separate datasets.
+- reliability: Production S3, no reliability concerns. Failure mode is review + the 2-year clock: a dataset that stops growing does not get renewed and the bill reverts to you.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: write-gated
+  - dead_end.why: No published byte limit; AWS pays S3 storage plus egress and cross-region fees for the approved dataset, in a dedicated Program Account joined to AWS's billing organisation. 2-year term from the Effective Date, auto-terminates, extendable only if AWS offers. Rolling review, decision generally within two weeks.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [2] 2026-10-21: 
+  - [3] 2026-10-21: the live form's fields: 'Name of your institution', 'Website of your institution', 'Size of dataset e.g. 100GB', 'Growth rate of dataset in GB per year'
+  - [1] 2026-10-21: 'The term of your Program participation will be 2 years from the Effective Date, at which point it will automatically terminate'; wind-down 'no fewer than 90 days'
+  - [2] 2026-10-21: 'The sponsored account must be used exclusively for storing and distributing the approved Open Data dataset'
+- sources:
+  - [1] https://aws.amazon.com/opendata/open-data-sponsorship-program/terms/
+  - [2] https://aws.amazon.com/opendata/faqs/
+  - [3] https://application.opendata.aws/
+
+## Amazon DynamoDB (Storage)
+
+- `storage/amazon-dynamodb` | fails-egress | evidence reported | binding none | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://aws.amazon.com/dynamodb/
+- free tier: 25 GB of storage, always free (does not expire), plus 25 WCU and 25 RCU provisioned capacity and ~200M requests/month | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Metered. AWS gives 100 GB/month of data transfer out free, aggregated across all AWS services. 100 GB/month = ~3.3 GB/day vs 500 GB/day: 150x short. Beyond that, standard internet DTO rates. | metered: yes | free allowance: 100 GB per month
+- identity: card | detail: inferred from the category 'iaas'; the source record states no identity cost, so this is a class assumption, not evidence
+- interface: rest, cli
+- limits note: 400 KB max item (including attribute names); 25 RCU + 25 WCU provisioned; 100 bytes storage overhead per item; 25 GB/region free; binary values must be base64-encoded for transport but are sized by raw bytes
+- interface detail: rest
+- tooling: AWS SDKs (boto3 etc.), `aws dynamodb` CLI, PartiQL; native `Binary` attribute type (raw bytes, base64 on the wire only); DynamoDB Streams + Lambda for processing
+- composes with: 25 GB per account per region, and the docs confirm 'the first 25 GB of storage are included in the AWS Free Tier in each AWS Region'. So N regions x 25 GB. 20 regions = 500 GB in principle, all under one account. This is the single largest structured-store byte allowance found. But the 25 RCU cap is region-global per table, so serving is throttled regardless.
+- reliability: High durability without automated expiration, pausing, or deletion. Throughput limit is 25 read capacity units (25 strongly-consistent 4 KB reads per second), providing a fixed throughput ceiling on the free tier.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: retention
+  - dead_end.why: 25 GB of storage, always free (does not expire), plus 25 WCU and 25 RCU provisioned capacity and ~200M requests/month
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [2] 2026-10-21: 'Always Free ... Amazon DynamoDB: Up to 200 million requests per month (25 write capacity units (WCUs) and 25 read capacity units (RCUs)); 25 GB of storage.'
+  - [1] 2026-10-21: 'the first 25 GB of storage are included in the AWS Free Tier'; 'The first 25 GB of storage are included in the AWS Free Tier in each AWS Region'; 'The AWS Free Tier includes 25 WCUs and 25 RCUs'
+  - [3] 2026-10-21: 'The maximum item size in DynamoDB is 400 KB, which includes both attribute name binary length (UTF-8 length) and attribute value lengths'
+  - [4] 2026-10-21: 'A binary value must be encoded in base64 format before it can be sent to DynamoDB, but the value's raw byte length is used for calculating size'; 'All items in DynamoDB require 100 bytes of storage overhead per item'
+  - [5] 2026-10-21: 'AWS customers receive 100 GB of free data transfer out to the internet free each month, aggregated across all AWS Services and Regions'
+  - withheld 2026-10-21: arithmetic: 25 RCU x 4 KB = 100 KB/s = 8.64 GB/day of reads — 58x short of 500 GB/day, and this is the BEST op-to-byte ratio among the metered-capacity stores
+- sources:
+  - [1] https://aws.amazon.com/dynamodb/pricing/
+  - [2] https://docs.aws.amazon.com/whitepapers/latest/how-aws-pricing-works/get-started-with-the-aws-free-tier.html
+  - [3] https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Constraints.html
+  - [4] https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/CapacityUnitCalculations.html
+  - [5] https://aws.amazon.com/ec2/pricing/on-demand/
+
+## AWS Educate (free)
+
+- `egress/aws-educate` | fails-egress | evidence documented | binding write-gated | category education lab programme | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://aws.amazon.com/education/awseducate/
+- price USD 0, no credit
+- free tier: Learners as young as 13 can register for AWS Educate with just an email address, gaining access to free hands-on labs to learn and practice cloud skills in real-time. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: no credit and no transfer allowance is stated on the page; the offer is lab access; ingress: none | metered: yes | free allowance: no credit and no transfer allowance is stated on the page; the offer is lab access | source: [1]
+- identity: email | detail: No credit card needed. Learners as young as 13 can register for AWS Educate with just an email address. | country: None
+- interface: unknown
+- limits:
+  - write-gated (binding): access is to curated lab sessions rather than to an account the caller controls [1]
+- binding note: there is no volume to run out of: no instance or public address is ever issued, so 1 TiB a month is not reachable at any price through this programme.
+- interface detail: a browser lab console
+- tooling: nothing to run: no instance is issued
+- composes with: no chain; it is a training programme rather than a source of capacity
+- reliability: lab sessions are time-boxed and reset, so nothing installed survives
+- notes: The only programme with no card and no institution, and it buys no capacity: the page describes training and labs, names no credit and no instance. Read as an absence rather than a number, which is why it is recorded at all: a reader who sees 'no credit card needed' will otherwise spend the session finding out.
+- evidence note: Educational lab environments provide self-contained sandbox exercises without public inbound or outbound network endpoints.
+- extras:
+  - wg_path: none
+  - wg_detail: the programme grants lab sessions rather than an account with a public IPv4, so there is no endpoint for wg-quick to bind
+  - ingress: none
+  - volume_tib_month: 0.0
+  - volume_stated: no credit and no transfer allowance is stated on the page; the offer is lab access
+  - bytes_transit: no
+  - transit_note: the bytes stay inside AWS's lab environment and never reach a client-controlled endpoint
+- evidence:
+  - [1] 2026-10-23: 'Learners as young as 13 can register for AWS Educate with just an email address, gaining access to free hands-on labs', 'No credit card needed', and 'AWS Educate offers an extensive library of free, self-paced online training'
+- sources:
+  - [1] https://aws.amazon.com/education/awseducate/
+
+## AWS Free Tier (EC2)
+
+- `egress/amazon-web-services-free-tier` | fails-egress | evidence documented | binding volume-quota | category origin VM (free plan) | tier free
+- identity a placeholder: card and phone unknown | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://aws.amazon.com/free/
+- price USD 0 on the Free plan for 6 months; the 100 GB a month egress allowance is free on every account
+- disagrees on verdict: `egress/amazon-web-services-free-tier` says fails-egress, `egress/aws-free-tier` says fails-quota
+- free tier: When you create a new AWS Free Tier account, you get $100 in credits immediately. As you explore key services, you can earn up to $100 more. That's up to $200 over 6 months to build, break things, and experiment with no charges and no surprise bills on the Free plan. The account closes on its own 6 months after you open it or when your credits run out, whichever comes first. | unit: mixed | metered on: wall-clock | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: AWS customers receive 100 GB of free data transfer out to the internet free each month, aggregated across all AWS Services and Regions (except China and GovCloud).; ingress: udp | metered: yes | free allowance: AWS customers receive 100 GB of free data transfer out to the internet free each month, aggregated across all AWS Services and Regions (except China and GovCloud). | source: [1]
+- identity: card | detail: unverified on the pages read: neither aws.amazon.com/free nor its FAQ states the signup instrument, so a card is recorded as the expected instrument and not as a quoted term | country: None
+- interface: ssh
+- limits:
+  - volume-quota (binding): 100 GB of data transfer out to the internet each month, aggregated across services and regions [2]
+  - retention-clamped: the Free plan account closes 6 months after creation or when credits run out [1]
+- binding note: 100 GB a month is 3.33 GB a day, 9.1% of 1 TiB a month, so a run at a 1 TiB/month pace exhausts the allowance in about 2.7 days; the 6-month account closure sits behind it and would matter only to an idle account
+- interface detail: SSH to the instance's public IPv4 or IPv6 address, with a security group rule for any further port
+- tooling: wg-quick, nothing vendor-specific
+- composes with: 100 GB a month is a signalling or control-plane allowance, not a data path; it does not compose into a 1 TiB a month chain at any price of zero
+- reliability: the Free plan closes the account 6 months after creation or when the credits run out, whichever comes first; nothing in the pages read says an EC2 instance survives that
+- notes: The 750 hours for 12 months that was asked to confirm is not on any page read: aws.amazon.com/free, its free-tier FAQ, the EC2 product page and the EC2 on-demand pricing page all describe USD 200 of credits over a 6-month Free plan, and none carries a per-service hour allowance. The offer appears to have been restructured around credits; whether a 750-hour line survives on a page not read is open, and the pages read do not support the claim. The 100 GB allowance is separate from the plan and is standing for all customers.
+- evidence note: the 100 GB line and the 6-month plan are on AWS pages read; the identity instrument and any per-service hour allowance are not, so those parts stay unverified
+- extras:
+  - wg_path: native-conf
+  - wg_detail: a security group rule takes a protocol number and a port range: 'The most common protocols are 6 (TCP), 17 (UDP), and 1 (ICMP)' and 'For TCP, UDP, or a custom protocol, the range of ports to allow. You can specify a single port number (for example, 22)', so 51820/udp is one rule and wg-quick runs natively
+  - ingress: udp
+  - volume_tib_month: 0.091
+  - volume_stated: AWS customers receive 100 GB of free data transfer out to the internet free each month, aggregated across all AWS Services and Regions (except China and GovCloud).
+  - bytes_transit: yes
+  - transit_note: bytes leave through the instance's public address and are aggregated with every other AWS service's egress into the same 100 GB
+- evidence:
+  - [2] 2026-10-23: 'AWS customers receive 100 GB of free data transfer out to the internet free each month, aggregated across all AWS Services and Regions (except China and GovCloud).'
+  - [1] 2026-10-23: 'up to $200 over 6 months ... The account closes on its own 6 months after you open it or when your credits run out, whichever comes first.'
+  - [3] 2026-10-23: 'The free plan is available for 6 months after account creation' and no 750-hour figure on the EC2 product page
+  - [4] 2026-10-23: a security group rule names protocol 17 (UDP) and a single port, so UDP ingress is expressible and 51820 is not special
+- sources:
+  - [1] https://aws.amazon.com/free/
+  - [2] https://aws.amazon.com/ec2/pricing/on-demand/
+  - [3] https://aws.amazon.com/ec2/
+  - [4] https://docs.aws.amazon.com/vpc/latest/userguide/security-group-rules.html
+
+## Amazon CloudFront free tier (as the egress layer for any origin)
+
+- `storage/amazon-cloudfront-free-tier` | fails-quota | evidence documented | binding volume-quota | category paas
+- identity a placeholder: card and phone unknown | verified 2026-11-04T00:31:28.057Z (live) | stale on 2026-12-05
+- url https://aws.amazon.com/cloudfront/pricing/
+- free tier: 1 TB/month data transfer out + 10,000,000 HTTP/HTTPS requests + 2,000,000 CloudFront Function invocations, free every month, explicitly 'no longer limited to the first 12 months after signup'. | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: This IS the egress allowance: 1 TB/month free to the internet from 300+ PoPs, worldwide except China PoPs. | metered: yes | free allowance: 1 TB per month
+- identity: email
+- interface: s3, rest, oci, cli
+- limits:
+  - volume-quota (binding): 1 TB data transfer out and 10 Million HTTP or HTTPS requests per month, always free; usage beyond it is billed [2]
+- limits note: Separately from the always-free allowance, CloudFront flat-rate plans carry a monthly data transfer allowance of 100GB (Free), 50TB (Pro), 50TB (Business) and 50TB (Premium, configurable up to 600TB for a new flat-rate price). Beyond the always-free allowance, pay-as-you-go usage is billed.
+- binding note: data transfer out is free only up to 1 TB per month; the allowance is a monthly volume, not a daily one
+- interface detail: rest
+- tooling: CloudFront distributions in front of any HTTP origin (S3, an OCI VM, a block-volume nginx); terraform/CLI; signed URLs and signed cookies for access control.
+- composes with: CloudFront can use any publicly accessible URL as its origin, so it can front a non-AWS origin, such as another provider's free tier, and serve cacheable responses from edge locations.
+- reliability: Mature CDN, no ban risk; the only issue is that 1 TB/month is a ceiling, not a service level.
+- notes: the same as the free tier
+- evidence note: The 2026-11-03 evidence rows read https://aws.amazon.com/free/networking/ (1 TB data transfer out and 10 million requests per month, always free) and https://aws.amazon.com/cloudfront/pricing/ (flat-rate plans and allowances, any public origin). The fields that decide the verdict cite those captures; the identity requirement and the CloudFront Function allowance were not read.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 1 TB/month data transfer out + 10,000,000 HTTP/HTTPS requests + 2,000,000 CloudFront Function invocations, free every month, explicitly 'no longer limited to the first 12 months after signup'.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Data Transfer from Amazon CloudFront is now free for up to 1 TB of data per month ... and is no longer limited to the first 12 months after signup'
+  - [2] 2026-11-03: the always-free allowance is 1 TB data transfer out and 10 million HTTP or HTTPS requests per month | capture: sha256:bb97d62bbb7597a516b4d9f0492c3c80e60390a405c4eb25028be570079a0d3a | quote: This always free service is on the Free and paid plan. Use your credits to evaluate beyond these monthly limits: 1 TB of Data Transfer Out 10 Million HTTP or HTTPS Requests
+  - [3] 2026-11-03: flat-rate monthly prices per distribution: $0, $15, $200 and $1,000, no overage charges | capture: sha256:64009ed903a2a809ac6a9037e21f271ef16da5785030bd0e58cbbfc0806173c3 | quote: | Monthly price per distribution | $0/month No overage charges | $15/month No overage charges | $200/month No overage charges | $1,000/month No overage charges | Custom |
+  - [2] 2026-11-03: the always-free allowance is 1 TB data transfer out and 10 million requests per month | capture: sha256:bb97d62bbb7597a516b4d9f0492c3c80e60390a405c4eb25028be570079a0d3a | quote: This always free service is on the Free and paid plan. Use your credits to evaluate beyond these monthly limits: 1 TB of Data Transfer Out 10 Million HTTP or HTTPS Requests
+  - [3] 2026-11-03: flat-rate plans carry a monthly data transfer allowance of 100GB, 50TB, 50TB and 50TB | capture: sha256:64009ed903a2a809ac6a9037e21f271ef16da5785030bd0e58cbbfc0806173c3 | quote: | Data Transfer | 100GB | 50TB | 50TB | 50TB (configurable up to 600TB for a new flat-rate price) | No Limit |
+  - [3] 2026-11-03: the application behind CloudFront may be on any publicly accessible URL, not only on AWS | capture: sha256:64009ed903a2a809ac6a9037e21f271ef16da5785030bd0e58cbbfc0806173c3 | quote: Your web application can be hosted on AWS—like S3, AWS Application Load Balancer (ALB), or Amazon API Gateway, or on any publicly accessible URL.
+  - [3] 2026-11-03: any publicly accessible URL can be the origin | capture: sha256:64009ed903a2a809ac6a9037e21f271ef16da5785030bd0e58cbbfc0806173c3 | quote: Your web application can be hosted on AWS—like S3, AWS Application Load Balancer (ALB), or Amazon API Gateway, or on any publicly accessible URL.
+  - [2] 2026-11-04: the always-free allowance is 1 TB data transfer out and 10 million HTTP or HTTPS requests per month | capture: sha256:bb97d62bbb7597a516b4d9f0492c3c80e60390a405c4eb25028be570079a0d3a | quote: This always free service is on the Free and paid plan. Use your credits to evaluate beyond these monthly limits: 1 TB of Data Transfer Out 10 Million HTTP or HTTPS Requests
+- sources:
+  - [1] https://aws.amazon.com/blogs/aws/aws-free-tier-data-transfer-expansion-100-gb-from-regions-and-1-tb-from-amazon-cloudfront-per-month/
+  - [2] https://aws.amazon.com/free/networking/
+  - [3] https://aws.amazon.com/cloudfront/pricing/
+
+## Amazon EC2 Spot
+
+- `compute/amazon-ec2-spot` | fails-quota | evidence documented | binding volume-quota | category GPU cloud
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://aws.amazon.com/free/
+- free tier: The AWS Free Tier is now a plan with an instance-type allowlist. New accounts from 15 July 2025 get 'USD 100 in credits immediately' plus 'up to USD 100 more', valid 6 months, and on the Free plan the account 'closes on its own 6 months after you open it or when your credits run out'. Reporting of the console restriction is consistent: 'This instance type is not eligible under the Free Plan. Upgrade your account plan to access this instance type', and the eligible list is T3.micro, T3.small, T4g.micro, T4g.small, C7i-flex.large and M7i-flex.large. No GPU family is on it. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: one-time-credit
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: card
+- interface: unknown
+- limits:
+  - volume-quota (binding): GPU Spot quota defaults to 0 vCPU and the Free plan blocks the request, so the two gates must both be opened, and opening either one requires an upgraded paid plan. [1]
+- limits note: GPU Spot quota defaults to 0 vCPU and the Free plan blocks the request, so the two gates must both be opened, and opening either one requires an upgraded paid plan.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: The USD 100 to 200 credit is real money, but it buys CPU Spot at standard prices rather than GPU time, so it does not multiply a training run.
+- reliability: no reliability event recorded
+- notes: Two separate walls, and the credit is behind both: the plan allowlist blocks the instance type, and the Spot quota blocks the family. A user who upgrades to the paid plan keeps the remaining credit for 12 months, so the credit is not lost by upgrading, which makes upgrading the cheapest way to convert the trial into GPU time. qualifies-with-caveat via a05-spot; qualifies-with-caveat via a05-spot; qualifies-with-caveat via a05-spot; qualifies-with-caveat via a05-spot. The one recorded is the better-evidenced. Spot is a paid product and the rates in this record are purchasable; what blocks a new account is a GPU Spot vCPU quota that defaults to zero, which needs a quota-increase request. `fails-quota` names that; `fails-identity` named a gate that is reachable.
+- extras:
+  - facets.class: spot-arbitrage
+  - facets.free_tier_kind: one-time-credit
+- evidence:
+  - [1] 2026-10-22: new Free Tier accounts get 'USD 100 in credits immediately' and 'up to USD 100 more', for 6 months, and the account closes 6 months after opening, quoted
+  - [2] 2026-10-22: All G and VT Spot Instance Requests default to 0 vCPU, so GPU Spot is closed before the credit is spent
+  - [3] 2026-10-22: a user quotes the console refusal 'This instance type is not eligible under the Free Plan. Upgrade your account plan to access this instance type', and the eligible list is T3.micro, T3.small, T4g.micro, T4g.small, C7i-flex.large and M7i-flex.large
+  - [4] 2026-10-22: probe record shows status 200, 7625200 bytes, sha256 3624b033d08f7c2ff9460d6c389713ba640178ed452fa9e4881089a629d3dfeb, header last-modified Mon, 13 May 2024, and the parsed config contains no g6e, p5e or g7e size
+  - [5] 2026-10-22: a live tracker reports g6.xlarge spot in us-east-1 at USD 0.476 and in us-east-2 at USD 0.411, against the feed's 0.1050
+  - [6] 2026-10-22: the page states 'The lowest spot price for AWS EC2 g6.xlarge in us-east-2 is $0.2238 per hour', a third value that also contradicts the feed
+  - [5] 2026-10-22: a per-region table for g6.xlarge gives spot USD 0.476 in us-east-1, 0.411 in us-east-2, 0.408 in us-west-2, 0.176 in eu-north-1, 0.136 in ap-south-2 and 0.566 in ap-northeast-1, against on-demand USD 0.805 in us-east-1
+  - [6] 2026-10-22: an independent tracker states 'The lowest spot price for AWS EC2 g6.xlarge in us-east-2 is $0.2238 per hour', which disagrees with the other tracker's 0.411 for the same region, so even a single region has no agreed spot number
+  - [2] 2026-10-22: the Spot quota table lists All G and VT Spot Instance Requests at a default of 0 and All Standard at 5, quoted
+  - [7] 2026-10-22: AWS states Spot Instances save 'up to 90% compared to On-Demand pricing' and that the average interruption frequency across all Regions and instance types has historically been '<5%'…
+  - [8] 2026-10-22: the interruption notice is issued two minutes before stop or terminate, delivered via EventBridge and IMDSv2 spot/instance-action, and is best effort, quoted
+  - [7] 2026-10-22: the page states 'save up to 90% compared to On-Demand pricing' and 'the average frequency of interruption across all Regions and instance types has historically been <5%', but the per-pool table did not appear in the extracted text, so the read is marked low confidence
+- sources:
+  - [1] https://aws.amazon.com/free/
+  - [2] https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-limits.html
+  - [3] https://www.reddit.com/r/aws/comments/1m8t9rb/why_is_t2micro_not_freetier_eligible_on_my_aws/
+  - [4] https://website.spot.ec2.aws.a2z.com/spot.js
+  - [5] https://www.devzero.io/instances/aws/g6.xlarge
+  - [6] https://www.doit.com/compute/spot/us-east-2/g6.xlarge
+  - [7] https://aws.amazon.com/ec2/spot/instance-advisor/
+  - [8] https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-instance-termination-notices.html
+
+## amazon kdp (kindle direct publishing)
+
+- `storage/amazon-kdp` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://kdp.amazon.com/en_US/help/topic/G200735140
+- free tier: none reachable: 650 MB conversion cap and 8,000-page cap; large files are actively discouraged and conversion fails above the limit. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 650 MB conversion cap and 8,000-page cap; large files are actively discouraged and conversion fails above the limit.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 650 MB conversion cap and 8,000-page cap; large files are actively discouraged and conversion fails above the limit.
+  - [2] 2026-10-21: cited as the basis of the rejection: 650 MB conversion cap and 8,000-page cap; large files are actively discouraged and conversion fails above the limit.
+- sources:
+  - [1] https://kdp.amazon.com/en_US/help/topic/G200735140
+  - [2] https://kdp.amazon.com/help/topic/G202145060
+
+## amazon photos
+
+- `storage/amazon-photos` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.amazon.com/b?node=13234696011
+- free tier: None reachable: Unlimited full-resolution photos only for Prime members. Prime is paid, so this is not a free tier. Free accounts get 5 GB; video is capped at 5 GB even on Prime. No public upload API. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Unlimited full-resolution photos only for Prime members — Prime is paid, so this is not a free tier. Free accounts get 5 GB; video is capped at 5 GB even on Prime. No public upload API.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Unlimited full-resolution photos only for Prime members — Prime is paid, so this is not a free tier. Free accounts get 5 GB; video is capped at 5 GB even on Prime. No public upload API.
+- sources:
+  - [1] https://www.amazon.com/b?node=13234696011
+
+## amazon sns
+
+- `storage/amazon-sns` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://aws.amazon.com/sns/pricing/
+- free tier: None reachable: Pub/sub only. Zero storage. 1M publishes/month free, but messages are pushed and discarded; there is nothing to read back later. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Pub/sub only — zero storage. 1M publishes/month free, but messages are pushed and discarded; there is nothing to read back later.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Pub/sub only — zero storage. 1M publishes/month free, but messages are pushed and discarded; there is nothing to read back later.
+- sources:
+  - [1] https://aws.amazon.com/sns/pricing/
+
+## AWS Academy
+
+- `compute/aws-academy` | fails-quota | evidence documented | binding write-gated | category dev environment
+- needs card no, phone no, ID no, institution yes | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://aws.amazon.com/training/awsacademy/
+- free tier: 'AWS Academy provides higher education institutions with a free, ready-to-teach cloud computing curriculum'. What students actually receive is listed under Students: 'Complimentary access to AWS Skill Builder subscription for 12 months' and 'Exclusive access to the Emerging Talent Community upon course completion'. Educators get '100% discounts on AWS Certification exams' and a Skill Builder subscription. No compute allowance is stated for either group on this page. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: perpetual
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution
+- interface: unknown
+- limits:
+  - write-gated (binding): An institution must join the programme and an enrolled educator must run the course before a student sees anything, and what the student then sees is course material and a Skill Builder subscription rather than compute. [1]
+- limits note: An institution must join the programme and an enrolled educator must run the course before a student sees anything, and what the student then sees is course material and a Skill Builder subscription rather than compute.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: Composes with nothing: it is the AWS programme with the largest institutional footprint and the smallest student allowance, and it is often confused with AWS Educate in student-offer lists.
+- reliability: no reliability event recorded
+- notes: This is a refutation of a name that appears on almost every student-offer list beside AWS Educate. The two AWS programmes are different in kind: AWS Educate is open to any individual with an email but its labs are simulated, and AWS Academy needs an institution and an educator but its students still receive no compute. Neither is a compute source. What would overturn this is a lab or credit line on the AWS Academy student page; the page was read in full at 1741 words and states none.
+- extras:
+  - facets.class: student-pack
+  - facets.free_tier_kind: perpetual
+- evidence:
+  - [1] 2026-10-22: 'AWS Academy provides higher education institutions with a free, ready-to-teach cloud computing curriculum'; the student benefits are a 12-month Skill Builder subscription and Emerging Talent Community access; the page states no compute or credit allowance.
+- sources:
+  - [1] https://aws.amazon.com/training/awsacademy/
+
+## AWS Bedrock — custom model import
+
+- `storage/aws-bedrock-custom-model-import` | fails-quota | evidence reported | binding none | category hyperscaler-model-catalog
+- needs card yes, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization-import-model.html
+- free tier: Hard per-object cap: 'The size of the imported model weights must be less than 100GB for multimodal models and 200GB for text models.' No free storage at all. The source must already live in your own S3 bucket, which you pay for. | unit: none | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Paid S3 egress from your own bucket. Bedrock's catalog is a deployment target, not a host. | metered: no
+- identity: card | detail: card
+- interface: s3, rest
+- limits note: fails-quota and fails the model: the catalog does not host third-party bytes. Also architecturally constrained (transformer 4.51.3, <128K context, no embedding models).
+- interface detail: rest
+- tooling: A real API for model import jobs, then InvokeModel. The import job reads from an S3 URI you supply.
+- composes with: None for storage. This is a consumer of S3 capacity, not a provider of it. Chaining it to the requirement would require owning the S3 bucket first, which is a paid resource.
+- reliability: Not a standalone storage provider. The model catalog operates as a deployment registry referencing existing user-paid storage.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: paid
+  - dead_end.why: Hard per-object cap: 'The size of the imported model weights must be less than 100GB for multimodal models and 200GB for text models.' No free storage at all — the source must already live in your own S3 bucket, which you pay for.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: opened: 'The size of the imported model weights must be less than 100GB for multimodal models and 200GB for text models'; 'you specify the Amazon S3 URI for the source of the model files'; 'Amazon Bedrock supports transformer version 4.51.3'; 'Custom Model Import does not support embedding models.'
+- sources:
+  - [1] https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization-import-model.html
+
+## AWS Cloud Credit for Research
+
+- `storage/aws-cloud-credit-for-research` | fails-quota | evidence reported | binding write-gated | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://aws.amazon.com/government-education/research-and-technical-computing/cloud-credit-for-research/
+- free tier: Students capped at $5,000; 'Faculty and Staff awards are not capped'. Credit-denominated against S3 list price. | unit: mixed | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Metered at standard S3 rates; credit covers it. No Open-Data-style free distribution. | metered: yes
+- identity: institution
+- interface: s3-compatible, rclone, cli
+- limits:
+  - write-gated (binding): Review 90-120 days, no expedite [1]
+- limits note: Eligibility is strictly institutional: 'Full-time faculty at an accredited research institution', 'Full-time research staff', or enrolled graduate/PhD students. No unaffiliated individuals. Review 90-120 days, no expedite. Credit valid for one year or until exhausted.
+- interface detail: s3
+- tooling: S3 API, rclone 's3', AWS CLI.
+- composes with: Uncapped faculty awards are the only line here that could plausibly cover tens of TB - but the credit is one-year, so it is a runway, not a home. Pair with AWS Open Data if the data can be made public.
+- reliability: Very slow (a quarter-year) and one-shot; nothing recurring.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Students capped at $5,000; 'Faculty and Staff awards are not capped'. Credit-denominated against S3 list price.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Full-time faculty at an accredited research institution'; 'Student awards will be up to a maximum of $5,000.00. Faculty and Staff awards are not capped.'
+  - [1] 2026-10-21: 'Typical review cycles are 90 to 120 days'; credit 'good for the entirety of the one [year] or until the credit has been fully utilized'
+- sources:
+  - [1] https://aws.amazon.com/government-education/research-and-technical-computing/cloud-credit-for-research/
+
+## AWS CodeArtifact
+
+- `storage/aws-codeartifact` | fails-quota | evidence reported | binding per-object-cap | category registry
+- identity a placeholder: card and phone unknown | verified 2026-10-22, checked 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://aws.amazon.com/codeartifact/pricing/
+- free tier: First 2 GB of storage and first 100,000 requests per month free. A recurring monthly allowance, described on the pricing page as 'a monthly AWS Free Tier for storage and requests', with no 12-month expiry language attached to CodeArtifact itself. Then $0.05/GB-month storage and $0.05 per 10,000 requests. | unit: objects | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 5 GB max per asset | bytes: 5000000000 | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: METERED and this is the killer: 'You pay for all bandwidth into and out of CodeArtifact, except ... Data transferred in from the Internet ... Data transfer between CodeArtifact and another AWS Service in the same AWS Region.' Internet egress is billed at the standard AWS data-transfer-out tiers, aggregated across all AWS services. No Cloudflare Bandwidth Alliance path. | metered: yes
+- identity: card
+- interface: rest
+- limits:
+  - request-rate: 100,000 requests per month [1]
+  - request-rate: 100,000 requests/month [1]
+  - per-ip-shaping: 500 GB/day [1]
+  - per-object-cap (binding): 5 GB max per asset [1]
+- limits note: 2 GB/month free; 100,000 requests/month free; 5 GB max per asset (raisable by quota request); 350 assets per package version; npm publish request capped at 2 GB and NOT raisable; requests are also metered. A 500 GB/day fetch would blow 100k requests instantly; repos are private-only ('CodeArtifact does not publish packages .. to public repositories'), so anonymous pulls do not exist.
+- interface detail: rest (CodeArtifact API), plus native npm/pip/twine/maven/gradle/nuget/cargo/swift clients through a repository endpoint and a short-lived auth token
+- tooling: `aws codeartifact login --tool npm|pip|twine|nuget|maven`, `twine upload --repository-url`, `npm publish`; first-class documented tooling.
+- composes with: Per AWS account: 2 GB free × unlimited AWS accounts. Within one account, storage is a single pooled meter (no per-repo allowance), so 1,000 repositories do not multiply 2 GB. Per-repo limits are on count (1,000 repos/domain, 10 domains/account) not bytes.
+- reliability: Technically excellent but structurally wrong for this brief: no public/anonymous access at all, and both storage and egress are metered past trivial limits.
+- notes: the same as the free tier
+- evidence note: Re-read 2026-10-22: the page answers and the claim holds; the rung is unchanged because the read establishes the page, not the enforcement.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: First 2 GB of storage and first 100,000 requests per month free — a recurring monthly allowance, described on the pricing page as 'a monthly AWS Free Tier for storage and requests', with no 12-month expiry language attached to CodeArtifact itself. Then $0.05/GB-month storage and $0.05 per 10,000 requests.
+  - dead_end.first_recorded: 2026-10-21
+  - superseded_evidence[0].url: https://web.archive.org/web/20240324020353/https://aws.amazon.com/codeartifact/pricing/
+  - superseded_evidence[0].date: 2024-03-24
+  - superseded_evidence[0].proved: via read — captured 2024-03-24: 'you get the first 2GB of storage and first 100,000 requests of CodeArtifact usage for free every month'
+  - superseded_evidence_note: Rows that are older than the topic's 180-day evidence window. They are kept as the historically read statement and are not evidence for the current claim; the current claim rests on the 2026-10-22 re-read in evidence[]. Nothing was deleted.
+- evidence:
+  - [1] 2026-10-21: read live: 'CodeArtifact includes a monthly AWS Free Tier for storage and requests'; 'You pay for all bandwidth into and out of CodeArtifact, except ... Data transferred in from the Internet'; outbound tiers 'Up to 1 GB/month / Next 9.999 TB/month / Next 40 TB/month'
+  - [2] 2026-10-21: read live: 'Asset file size: Each supported Region: 5 Gigabytes' (adjustable); 'Assets per package version: 350'
+  - [3] 2026-10-21: read live: 'the maximum size of a publishing request for npm packages is 2 GB ... cannot be raised'; 'CodeArtifact does not publish packages stored in CodeArtifact repositories to public repositories'
+  - [2] 2026-10-22: re-read 2026-10-22 (HTTP 200, 5,980 B): quota table reads 'Asset file size | Each supported Region: 5 Gigabytes | Adjustable: Yes' and 'Assets per package version | 350 | No'
+- sources:
+  - [1] https://aws.amazon.com/codeartifact/pricing/
+  - [2] https://docs.aws.amazon.com/codeartifact/latest/ug/service-limits.html
+  - [3] https://docs.aws.amazon.com/codeartifact/latest/ug/packages-overview.html
+
+## aws ecr private free tier (500 mb / 12 months)
+
+- `storage/aws-ecr-private-free-tier` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://aws.amazon.com/ecr/pricing/
+- free tier: none reachable: Trial, not free tier, and tiny: 'As a new Amazon ECR customer, you get 500 MB per month of storage for your private repositories for one year as part of the AWS Free Tier.' Private repos… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Trial, not free tier, and tiny: 'As a new Amazon ECR customer, you get 500 MB per month of storage for your private repositories for one year as part of the AWS Free Tier.' Private repos…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Trial, not free tier, and tiny: 'As a new Amazon ECR customer, you get 500 MB per month of storage for your private repositories for one year as part of the AWS Free Tier.' Private repos…
+- sources:
+  - [1] https://aws.amazon.com/ecr/pricing/
+
+## AWS Educate (Compute)
+
+- `compute/aws-educate` | fails-quota | evidence documented | binding none | category dev environment
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://aws.amazon.com/education/awseducate/
+- free tier: 'AWS Educate is open to any individual, regardless of where they are in their education, technical experience, or career journey', and 'No credit card needed. Learners as young as 13 can register for AWS Educate with just an email address'. The named labs cover EC2, S3, RDS, VPC and Cloud Operations. The FAQ then defines what a lab is: 'These labs provide a simulated environment where users can interact with AWS services, experiment with different configurations, and apply theoretical knowledge to solve practical problems.' | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: recurring-credit
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: Nothing binds because nothing is provisioned: the EC2 and S3 exercises run in a simulated console, so there is no quota to exhaust, no egress to meter and no wall clock that ends with a resource to lose. | metered: no | source: [1]
+- identity: email | detail: email only: the vendor page states "No credit card needed. Learners as young as 13 can register for AWS Educate with just an email address" and the learner FAQ states "There is no need to provide credit card information"; the registration form asks for first and last name, country, city, birth month and year and an email address, with no enrollment document anywhere on it. No card, no hold, and debit or prepaid do not arise because no payment method is taken
+- interface: s3-compatible
+- limits note: Nothing binds because nothing is provisioned: the EC2 and S3 exercises run in a simulated console, so there is no quota to exhaust, no egress to meter and no wall clock that ends with a resource to lose.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: The one program in this class whose identity gate is passable outright; it is the only door that stays open without enrollment documents, but what it opens is a lab, not an account.
+- reliability: no reliability event recorded
+- notes: Refutation. AWS Educate is the one program in this class whose identity gate is passable outright, an email address and nothing else, which makes it the most attractive name on every student-list article; the vendor FAQ says the EC2, S3 and RDS labs are a simulated environment rather than an AWS account, so the practical compute is zero. The marketing page alone would suggest qualifies-with-caveat; the FAQ corrects that. The FAQ does not state a lab session length or any per-lab allowance, and there is nothing to measure because no real resource is provisioned. Separately, the Job Board retires on 9 December 2026 and the Emerging Talent Community moves to AWS Builder Center, so the non-lab part of the program is also contracting.
+- extras:
+  - facets.class: student-pack
+  - facets.free_tier_kind: recurring-credit
+- evidence:
+  - [1] 2026-10-22: 'No credit card needed. Learners as young as 13 can register for AWS Educate with just an email address', and 'AWS Educate is open to any individual, regardless of where they are in their education, technical experience, or career journey'.
+  - [2] 2026-10-22: 'These labs provide a simulated environment where users can interact with AWS services, experiment with different configurations'; 'All our courses are absolutely free, including access to labs'; 'There is no need to provide credit card information'.
+  - [3] 2026-10-22: Registration requires first and last name, country, city, birth month and year, and an email address; the only program question is which AWS program the learner is associated with, and 'AWS Educate' is one of three options. No enrollment document is requested anywhere on the form.
+- sources:
+  - [1] https://aws.amazon.com/education/awseducate/
+  - [2] https://www.awseducate.com/registration/s/learner-faqs?language=en_US
+  - [3] https://www.awseducate.com/registration/s/registration-detail?language=en_US
+
+## AWS Free Tier (Egress and tunnels)
+
+- `egress/aws-free-tier` | fails-quota | evidence documented | binding volume-quota | category trial credit (provider VM) | tier free
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://aws.amazon.com/free/
+- price USD 100 to 200 of credit
+- disagrees on verdict: `egress/amazon-web-services-free-tier` says fails-egress, `egress/aws-free-tier` says fails-quota
+- free tier: When you create a new AWS Free Tier account, you get $100 in credits immediately. As you explore key services, you can earn up to $100 more. That's up to $200 over 6 months ... The account closes on its own 6 months after you open it or when your credits run out, whichever comes first. | unit: mixed | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: $100 of credit at $0.09 per GB is 1.01 TiB, or $200 for 2.02 TiB, plus 100 GB a month free; across 6 months that is 0.26 to 0.43 TiB a month; ingress: udp | metered: yes | free allowance: $100 of credit at $0.09 per GB is 1.01 TiB, or $200 for 2.02 TiB, plus 100 GB a month free; across 6 months that is 0.26 to 0.43 TiB a month | source: [1]
+- identity: card | detail: a credit or debit card at signup for identity verification; the page says 'You won't be charged unless you convert to a Paid plan' | country: None
+- interface: cli, rest
+- limits:
+  - volume-quota (binding): $100 to $200 of egress at $0.09 per GB is 1.01 to 2.02 TiB, plus 100 GB a month free [2]
+  - retention-clamped: the account closes 6 months after it opens or when the credits run out, whichever comes first [1]
+- binding note: at 1 TiB a month the $100 of guaranteed credit is spent in about 35 days, and the 100 GB a month free egress covers only a tenth of one month. The 6-month clock is not what stops it; the money is.
+- interface detail: AWS CLI and the EC2 API
+- tooling: wg-quick on the instance; AWS CLI for the security group and Elastic IP
+- composes with: one EC2 instance for up to 6 months on the credit, with the 100 GB a month free egress as the only recurring free volume
+- reliability: the account and every resource in it are closed at 6 months without conversion to a paid plan
+- notes: Arithmetic: $100 over $0.09 a GB is 1,111 GB = 1.01 TiB, and $200 is 2,222 GB = 2.02 TiB. Spread across the 6 months the account lives, $100 is $16.67 a month, or 185 GB, plus the 100 GB free each month, so 285 GB = 0.28 TiB a month; with the full $200 it is 0.43 TiB. The old 12-month Free Tier with 100 GB a month egress for a year is gone from this page; what replaced it is a credit that a reader has to earn half of. The always-free line, which the page describes as '30+ AWS services are always free within monthly usage limits', does not include a t3.micro with a public IPv4.
+- evidence note: the rate comes from the machine-readable price feed the EC2 pricing page renders, at us-east-1; a probe would confirm the same rate is charged against a trial's credits, which needs an account
+- extras:
+  - wg_path: native-conf
+  - wg_detail: an EC2 instance with an Elastic IP or a public IPv4; wg-quick binds UDP natively
+  - ingress: udp
+  - volume_tib_month: 0.26
+  - volume_stated: $100 of credit at $0.09 per GB is 1.01 TiB, or $200 for 2.02 TiB, plus 100 GB a month free; across 6 months that is 0.26 to 0.43 TiB a month
+  - bytes_transit: yes
+  - transit_note: the instance's outbound bytes cross Amazon's network and are metered as data transfer out to the internet
+- evidence:
+  - [1] 2026-10-23: 'you get $100 in credits immediately ... you can earn up to $100 more. That's up to $200 over 6 months' and 'The account closes on its own 6 months after you open it or when your credits run out, whichever comes first'
+  - [2] 2026-10-23: 'AWS customers receive 100 GB of free data transfer out to the internet free each month, aggregated across all AWS Services and Regions (except China and GovCloud)'
+  - [3] 2026-10-23: the price feed the EC2 page renders: us-east-1 'DataTransfer External Outbound Next 10 TB' price 0.0900000000 and 'DataTransfer External Inbound' price 0.0000000000, published 2026-09-16
+- sources:
+  - [1] https://aws.amazon.com/free/
+  - [2] https://aws.amazon.com/ec2/pricing/on-demand/
+  - [3] https://b0.p.awsstatic.com/pricing/2.0/meteredUnitMaps/datatransfer/USD/current/datatransfer.json
+
+## AWS Lambda layers (and function deployment packages)
+
+- `storage/aws-lambda-layers` | fails-quota | evidence reported | binding none | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://aws.amazon.com/lambda/
+- free tier: Per-function/per-layer caps only, plus a regional aggregate. Verbatim: 'Deployment package (.zip file archive) size | 50 MB (zipped, when uploaded through the Lambda API or SDKs) ... 50 MB (when uploaded through the Lambda console) ... 250 MB The maximum size of the contents of a deployment package, including layers and custom runtimes. (unzipped)'. 'Function layers | 5 layers'. The one aggregate number is code storage: 'Storage for uploaded functions (.zip file archives) and layers using Lambda-managed storage ... 300 GB (unzipped) | Not increasable.' | unit: MB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: until the instance is recycled; not persistent | source: [1] | note: not stated
+- egress: Not free and not public. Layer download is a signed S3 URL obtainable only via an authenticated `GetLayerVersion` call; there is no anonymous URL surface at all. Lambda invocations also bill per request and GB-second. | metered: no
+- identity: institution
+- interface: rest, rclone, cli
+- limits note: 50 MB zipped via API/console; 250 MB unzipped total including layers and custom runtimes; 5 layers per function; 512 MB to 10,240 MB /tmp (ephemeral, per execution environment, dies with the environment); 300 GB regional code storage. Layers are immutable and versioned.
+- interface detail: rest
+- tooling: AWS CLI `publish-layer-version` / `get-layer-version`; SDKs. Immutability is structural: a layer version is immutable once published, so every write is a new version. No rclone backend.
+- composes with: Aggregate limit is 300 GB unzipped per region across functions and layers. Limits enforce 250 MB per layer, 5 layers per function, and 50 MB per uploaded zip archive. The 250 MB ceiling requires S3-referenced uploads.
+- reliability: Very durable while the function exists; deleting a function version or layer version removes the code. No silent expiry, but no public read path either. The 300 GB is real and effectively unreachable without building your own proxy.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Per-function/per-layer caps only, plus a regional aggregate. Verbatim: 'Deployment package (.zip file archive) size | 50 MB (zipped, when uploaded through the Lambda API or SDKs) ... 50 MB (when uploaded through the Lambda console) ... 250 MB The maximum size of the contents of a deployment package, including layers and custom runtimes. (unzipped)'. 'Function layers | 5 layers'. The one aggregate number is code storage: 'Storage for uploaded functions (.zip file archives) and layers using Lambda-managed storage ... 300 GB (unzipped) | Not increasable.'
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: '50 MB (zipped, when uploaded through the Lambda API or SDKs)'; '250 MB The maximum size of the contents of a deployment package, including layers and custom runtimes. (unzipped)'; 'Function layers | 5 layers'; '300 GB (unzipped) | Not increasable'
+  - [1] 2026-10-21: '/tmp directory storage | Between 512 MB and 10,240 MB, in 1-MB increments'
+- sources:
+  - [1] https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html
+
+## aws s3 5 gb / 12-month free tier (as commonly cited)
+
+- `storage/aws-s3-5-gb-12-month-free-tier` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://aws.amazon.com/free/
+- free tier: none reachable: The current AWS free-tier page and S3 pricing page no longer present a perpetual or 12-month 5 GB S3 allowance; the programme is now $200 of credits over 6 months and the account closes at… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: The current AWS free-tier page and S3 pricing page no longer present a perpetual or 12-month 5 GB S3 allowance; the programme is now $200 of credits over 6 months and the account closes at…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: The current AWS free-tier page and S3 pricing page no longer present a perpetual or 12-month 5 GB S3 allowance; the programme is now $200 of credits over 6 months and the account closes at…
+  - [2] 2026-10-21: cited as the basis of the rejection: The current AWS free-tier page and S3 pricing page no longer present a perpetual or 12-month 5 GB S3 allowance; the programme is now $200 of credits over 6 months and the account closes at 6
+- sources:
+  - [1] https://aws.amazon.com/free/
+  - [2] https://aws.amazon.com/free/free-tier-faqs/
+
+## gamesparks
+
+- `storage/gamesparks` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://aws.amazon.com/gamesparks/getting-started/
+- free tier: none reachable: Retired. AWS states 'Amazon GameSparks (Preview) is no longer accepting new customers'; the AWS SDK has removed the service entirely. Nothing to sign up for. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: write-gated
+  - dead_end.why: Retired. AWS states 'Amazon GameSparks (Preview) is no longer accepting new customers'; the AWS SDK has removed the service entirely. Nothing to sign up for.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Retired. AWS states 'Amazon GameSparks (Preview) is no longer accepting new customers'; the AWS SDK has removed the service entirely. Nothing to sign up for.
+  - [2] 2026-10-21: cited as the basis of the rejection: Retired. AWS states 'Amazon GameSparks (Preview) is no longer accepting new customers'; the AWS SDK has removed the service entirely. Nothing to sign up for.
+- sources:
+  - [1] https://aws.amazon.com/gamesparks/getting-started/
+  - [2] https://github.com/aws/aws-sdk-java-v2/commit/c081b8d977113b75474a81f0b3a3fe8429cfd53d
+
+## Amazon Q Developer
+
+- `compute/amazon-q-developer` | dead | evidence documented | binding request-rate | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T10:27:57.617Z (live) | stale on 2026-12-05
+- url https://aws.amazon.com/q/developer/pricing/
+- free tier: Amazon Q Developer Free Tier: "Included agentic requests (Q&A chat, agentic coding) | 50 agentic requests per month" and "1,000 lines of code per month" for Java transformation, with "Access latest Claude models"… | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: recurring-allowance
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email | detail: email: the pricing page states the perpetual Free Tier is 'available to users logged in as an AWS Identity and Access Management (IAM) user or AWS Builder ID user', and 'Free Tier limits in the IDE are available only to Builder ID users', so the gate is a Builder ID or an IAM user under an AWS account. Whether a card is required at signup, and whether any hold is taken, is not stated in any evidence row: unknown; the record's chaining field asserts a Builder ID needs no card, but no evidence row says so.
+- interface: cli
+- limits:
+  - request-rate (binding): 50 agentic requests a month is about two a working day, so one long refactor consumes the month. [1]
+- limits note: 50 agentic requests a month is about two a working day, so one long refactor consumes the month.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: nothing chains for a new user: Free Tier sign-up through Builder ID in the IDE plugins is blocked since May 15, 2026; the successor route is coding-subs/kiro
+- reliability: no reliability event recorded
+- notes: Registration is closed: starting May 15, 2026, new Q Developer Free Tier account creation through Builder ID in the IDE plugins and new Q Developer subscription creation are blocked. The IDE plugins and paid subscriptions reach end of support on April 30, 2027, the latest coding models are offered only on Kiro, and the successor offer is recorded at coding-subs/kiro. Amazon Q Developer in the AWS Management Console is outside this sunset. The pricing page still prints the Free Tier, which only accounts created before the cutoff can use.
+- extras:
+  - facets.class: perpetual-allowance
+  - facets.free_tier_kind: recurring-allowance
+  - death.on: 2026-05-15
+  - death.cause: registration-closed
+- evidence:
+  - [1] 2026-10-22: the pricing table gives Free 50 agentic requests per month and 1,000 lines of code per month for transformation, quoted
+  - [1] 2026-10-22: "Amazon Q Developer offers a perpetual Free Tier with monthly limits available to users logged in as an AWS Identity and Access Management (IAM) user or AWS Builder ID user." and "Free Tier limits in the IDE are available only to Builder ID users." quoted
+  - [1] 2026-10-30: the pricing page still prints the Free Tier of 50 agentic requests a month, for accounts that already exist | capture: sha256:aa3ac17021cca9196db44cc361882861b36be9b2fc0fb32d73e918d8a3a2189b | quote: Included agentic requests (Q&A chat, agentic coding) | 50 agentic requests per month
+  - [2] 2026-10-30: from May 15, 2026 no new Free Tier account can be created through Builder ID in the IDE plugins, and no new subscription | capture: sha256:d1e272f66889562e73699f0b0989db347c5ea4a75963bdf767c0528f32c4f894 | quote: New Q Developer Free Tier account creation (via Builder ID in IDE plugins) and new Q Developer subscription creation (via the AWS Console) will be blocked.
+  - [2] 2026-10-30: new sign-ups to Amazon Q Developer are closed from May 15, 2026 | capture: sha256:d1e272f66889562e73699f0b0989db347c5ea4a75963bdf767c0528f32c4f894 | quote: New signups will no longer available starting May 15, 2026.
+  - [2] 2026-10-30: the vendor blocks new Free Tier accounts in the IDE plugins and new subscriptions from May 15, 2026, so the offer is closed to a new user | capture: sha256:d1e272f66889562e73699f0b0989db347c5ea4a75963bdf767c0528f32c4f894 | quote: New Q Developer Free Tier account creation (via Builder ID in IDE plugins) and new Q Developer subscription creation (via the AWS Console) will be blocked.
+  - [3] 2026-10-30: the Amazon Q Developer CLI is now the Kiro CLI | capture: sha256:610030edb2ded1705ce19d264192196de78250ab189ed29cba274240b5c30ee5 | quote: The Amazon Q Developer CLI has been rebranded to Kiro.
+  - [1] 2026-11-03: the pricing page still prints the Free Tier at 50 agentic requests per month | capture: sha256:aa3ac17021cca9196db44cc361882861b36be9b2fc0fb32d73e918d8a3a2189b | quote: | Included agentic requests (Q&A chat, agentic coding) | 50 agentic requests per month | Included (with limits) |
+  - [2] 2026-11-03: new Q Developer Free Tier account creation stays closed since May 15, 2026, so the verdict dead stands | capture: sha256:d1e272f66889562e73699f0b0989db347c5ea4a75963bdf767c0528f32c4f894 | quote: New signups will no longer available starting May 15, 2026.
+  - [1] 2026-11-04: the pricing page still prints 50 agentic requests per month | capture: sha256:aa3ac17021cca9196db44cc361882861b36be9b2fc0fb32d73e918d8a3a2189b | quote: | Included agentic requests (Q&A chat, agentic coding) | 50 agentic requests per month | Included (with limits) |
+- sources:
+  - [1] https://aws.amazon.com/q/developer/pricing/
+  - [2] https://aws.amazon.com/blogs/devops/amazon-q-developer-end-of-support-announcement/
+  - [3] https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/upgrade-to-kiro.html
+
+## Amazon SageMaker Studio
+
+- `compute/amazon-sagemaker-studio` | dead | evidence documented | binding none | category GPU cloud | tier closed to new customers
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T01:52:00.000Z (live) | stale on 2026-11-24
+- url https://docs.aws.amazon.com/sagemaker/latest/dg/studio-lab.html
+- free tier: no free tier available: 'Amazon SageMaker Studio Lab is no longer open to new customers. Existing customers can continue to use the service as normal.' | unit: none | metered on: none | read on: 2026-10-24 | source: [1] | note: The service still exists for accounts already enrolled; a new account cannot obtain it.
+- per-object cap: not applicable: the unit is a session, not an object
+- retention: not applicable: no new account can be created
+- egress: not applicable: no new account can be created | metered: no | source: [1]
+- identity: email | detail: not available: the service is closed to new customers regardless of identity
+- interface: unknown
+- limits:
+  - write-gated: registration closed to new customers [1]
+- limits note: the signup door is shut, so nothing else binds: the session cap is unreachable for any account created today
+- binding note: the binding constraint is a closed signup, so no quota is ever reached
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: The replacement AWS names is a CPU-only free instance (ml.t3.medium); the GPU lane does not migrate, so this offering closes rather than moves.
+- reliability: existing accounts keep working; the vendor states it will introduce no new features
+- notes: No GPU class, hours or RAM are recorded because no new account can measure them and the page no longer states them.
+- evidence note: the closure notice is quoted from the vendor's own page today. earlier readings already recorded this provider as dead, and that is correct.
+- extras:
+  - facets.class: dead
+  - facets.free_tier_kind: closed
+  - facets.shape.ram_gib: 12
+  - facets.shape.gpu_count: 1
+  - billing_model: free
+  - price_arithmetic: not applicable: registration is closed
+  - free_tier_kind: closed
+  - session_cap.restart_required: no
+  - session_cap.note: not applicable
+  - units: RAM and disk are quoted in the vendor's own decimal GB, not GiB. The ram_gib and disk_gib keys carry the vendor's number unconverted, so where a vendor writes 30 GB the key holds 30 and the true value is about 27.9 GiB. No conversion was performed.
+- evidence:
+  - [1] 2026-10-22: quoted: 'Amazon SageMaker Studio Lab is no longer open to new customers. Existing customers can continue to use the service as normal.'
+  - [2] 2026-10-22: quoted: AWS does not plan to introduce new features and names SageMaker Studio as the replacement, pointing at the SageMaker AI free tier whose free instance is ml.t3.medium
+  - [2] 2026-10-22: quoted: Studio Lab had fixed 12 GB RAM and 15 GB storage limits; the replacement GPU instances are G6 and G6e, both paid
+  - [1] 2026-10-24: quoted: 'Amazon SageMaker Studio Lab is no longer open to new customers. Existing customers can continue to use the service as normal.'
+  - [1] 2026-10-24: quoted: 'Studio Lab is a free service that gives customers access to AWS compute resources, in an environment based on open-source JupyterLab 4.' — what the closed service was
+- sources:
+  - [1] https://docs.aws.amazon.com/sagemaker/latest/dg/studio-lab.html
+  - [2] https://docs.aws.amazon.com/sagemaker/latest/dg/studio-lab-availability-change.html
+
+## amazon sqs
+
+- `storage/amazon-sqs` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://aws.amazon.com/sqs/pricing/
+- free tier: None reachable: 1M requests/month free and 1 MiB max message sound workable, but max retention is 14 days (default 4). It is a buffer, not storage. Anything written is gone in two weeks. Free-tier request. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: 1M requests/month free and 1 MiB max message sound workable, but max retention is 14 days (default 4). It is a buffer, not storage — anything written is gone in two weeks. Free-tier request
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 1M requests/month free and 1 MiB max message sound workable, but max retention is 14 days (default 4). It is a buffer, not storage — anything written is gone in two weeks. Free-tier request
+  - [2] 2026-10-21: cited as the basis of the rejection: 1M requests/month free and 1 MiB max message sound workable, but max retention is 14 days (default 4). It is a buffer, not storage — anything written is gone in two weeks. Free-tier request
+- sources:
+  - [1] https://aws.amazon.com/sqs/pricing/
+  - [2] https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/quotas-messages.html
+
+## AWS App Runner
+
+- `egress/aws-app-runner` | dead | evidence documented | binding volume-quota | category paas l4 port | tier free
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://docs.aws.amazon.com/apprunner/latest/dg/what-is-apprunner.html
+- price USD 0
+- free tier: AWS App Runner is no longer open to new customers. Existing customers can continue to use the service as normal. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No free tier; the service is closed to new customers.; ingress: http-only | metered: yes | free allowance: No free tier; the service is closed to new customers. | source: [1]
+- identity: card | detail: An AWS account with a payment method, which is moot: "AWS App Runner is no longer open to new customers." | country: None
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): closed to new customers [1]
+- binding note: Nothing can be provisioned at all, so no test applies.
+- interface detail: AWS CLI, SDKs, and the App Runner API.
+- tooling: AWS CLI and console for existing customers.
+- composes with: Not reachable for a new client.
+- reliability: None applicable; no new deployments possible.
+- notes: Service is closed to new customer signups. Existing accounts retain access. No free tier is provided.
+- evidence note: Service discontinuation for new accounts is stated on first-party product documentation.
+- extras:
+  - wg_path: none
+  - wg_detail: No UDP path, and no new accounts: the service is closed to new customers.
+  - ingress: http-only
+  - volume_tib_month: 0
+  - volume_stated: No free tier; the service is closed to new customers.
+  - bytes_transit: no
+  - transit_note: HTTP only, and unavailable to new accounts.
+- evidence:
+  - [1] 2026-10-23: "AWS App Runner is no longer open to new customers" and AWS recommends ECS Express Mode instead
+- sources:
+  - [1] https://docs.aws.amazon.com/apprunner/latest/dg/what-is-apprunner.html
+
+## sagemaker studio lab
+
+- `storage/sagemaker-studio-lab` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://docs.aws.amazon.com/sagemaker/latest/dg/studio-lab.html
+- free tier: none reachable: Dead in 2026: closed to new signups. AWS docs state 'no longer open to new customers' and point at SageMaker Studio instead. The 15 GB persistent free disk still exists for legacy accounts… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Dead in 2026: closed to new signups. AWS docs state 'no longer open to new customers' and point at SageMaker Studio instead. The 15 GB persistent free disk still exists for legacy accounts…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Dead in 2026: closed to new signups. AWS docs state 'no longer open to new customers' and point at SageMaker Studio instead. The 15 GB persistent free disk still exists for legacy accounts…
+  - [2] 2026-10-21: cited as the basis of the rejection: Dead in 2026: closed to new signups. AWS docs state 'no longer open to new customers' and point at SageMaker Studio instead. The 15 GB persistent free disk still exists for legacy accounts b
+- sources:
+  - [1] https://docs.aws.amazon.com/sagemaker/latest/dg/studio-lab.html
+  - [2] https://docs.aws.amazon.com/sagemaker/latest/dg/studio-lab-availability-change.html

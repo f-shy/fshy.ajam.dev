@@ -1,0 +1,50 @@
+# GhostTunnel
+
+> cushell.com | Egress and tunnels; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/cushell/ | JSON https://fshy.ajam.dev/api/v1/entity/cushell.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## GhostTunnel (cushell)
+
+- `egress/ghosttunnel-cushell` | qualifies-with-caveat | evidence documented | binding none | category ipv6 tunnel broker | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:53:00.065Z (live) | stale on 2026-12-05
+- url https://tb.cushell.com/
+- price USD 0
+- free tier: SIT & GRE and WireGuard tunnels - routed ::/64 prefix | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable: a live tunnel, not stored bytes; tunnels inactive 7+ days are auto-deleted | source: [1]
+- egress: no monthly byte allowance is published; the terms state a fair-usage soft cap of 50 Mbit/s per tunnel and the FAQ names tunnel count and a best-effort basis; ingress: tcp+udp | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: 'Sign in your way - Google, GitHub, or email. Privacy-first authentication with no vendor lock-in and no unnecessary tracking.' | country: None
+- interface: cli, rest
+- limits:
+  - per-ip-shaping: 50 Mbit/s per tunnel, soft cap [2]
+- binding note: A soft cap of 50 Mbit/s per tunnel is published and no byte quota is, so no byte volume is capped. The other limits are shape limits the vocabulary does not name: tunnel count, one tunnel per prefix, and auto-deletion of inactive tunnels. Reachability is IPv6-only, and SIT/GRE need a public IPv4.
+- interface detail: 'Create, manage, and monitor tunnels programmatically' via a REST API; configurations are also downloadable from the dashboard
+- tooling: wg-quick; iproute2 for SIT/GRE; REST API claimed
+- composes with: one /64 per tunnel and a browser-free config download make it a fast way to give a single free VM a public address; three tunnels per account covers three instances.
+- reliability: hobby network, 'no SLA': 'This is a hobby project provided on a best-effort basis with no SLA.' The terms add that routes, tunnels and access may change at any time.
+- notes: A /64 rather than a /48, which still gives every port and protocol but no room to subnet. The REST API is claimed on the landing page; the API documentation URL (?page=api) returned a 504 on 2026-10-23, so whether an API can mint a WireGuard profile unattended is unestablished. Uplinks listed as Cilix Limited and Hurricane Electric LLC; AS209552 is described as a hobby network run by an individual in Belgium.
+- evidence note: documented from the vendor pages read. Measuring would need a tunnel and a UDP service behind it.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: the dashboard hands out a profile: 'download your config from dashboard' then 'wg-quick up ~/tun-aXXX.conf'; the FAQ says 'We currently support SIT (6in4) and GRE or WireGuard tunnels'.
+  - ingress: tcp+udp
+  - volume_stated: no monthly byte allowance is published; the FAQ names only tunnel count and a best-effort basis
+  - bytes_transit: yes
+  - transit_note: GhostTunnel on AS209552 carries the traffic, with Cilix Limited and Hurricane Electric LLC as upstreams.
+- evidence:
+  - [1] 2026-10-23: 'SIT & GRE and WireGuard tunnels - routed ::/64 prefix', 'POP London & Amsterdam - free forever'
+  - [3] 2026-10-23: 'Each user receives a dedicated ::/64 IPv6 subnet automatically assigned from our address space.'
+  - [3] 2026-10-23: 'Yes. Completely free for personal and testing use - no credit card, no contracts, no hidden fees.'
+  - [3] 2026-10-23: 'Yes. A publicly reachable IPv4 address is required. NAT behind CGNAT will not work.'
+  - [1] 2026-10-23: 'Full REST API - Create, manage, and monitor tunnels programmatically.'
+  - [2] 2026-11-03: the terms state a fair-usage soft cap of 50 Mbit/s per tunnel | capture: sha256:7e0f03e2223e00bc072b0eab9d32f4ae3164c8d0f4db5a5f3c046a74cd7268c7 | quote: 50 Mbit/s per tunnel, soft cap
+  - [2] 2026-11-03: an inactive tunnel is deleted after 7 or more days | capture: sha256:7e0f03e2223e00bc072b0eab9d32f4ae3164c8d0f4db5a5f3c046a74cd7268c7 | quote: Tunnels inactive 7+ days are auto-deleted
+  - [2] 2026-11-03: the service reserves changes to routes, tunnels and access without notice | capture: sha256:7e0f03e2223e00bc072b0eab9d32f4ae3164c8d0f4db5a5f3c046a74cd7268c7 | quote: Routes, tunnels and access may change at any time
+  - [1] 2026-11-03: the home page lists the free tunnel types and the routed /64 | capture: sha256:6cc26fedbec8c7b2608a97cabef3eaf95ea7a3c7250179e019396d57a044514d | quote: SIT & GRE and WireGuard tunnels · routed ::/64 prefix
+  - [3] 2026-11-03: the tunnel-count limit is described as a fairness limit | capture: sha256:2242484178c03ab4650ae81ed6d425f78ef30e3da8a3b6cc386814cd4fca556d | quote: This limit exists to keep the service fair for everyone
+  - [2] 2026-11-04: the terms page fair-usage section states a 50 Mbit/s per-tunnel soft cap and no byte cap | capture: sha256:70d7ecd413959ca7ca1c1306129670843179997eacc3111c2c2a55240ced7c13 | quote: 50 Mbit/s per tunnel, soft cap
+- sources:
+  - [1] https://tb.cushell.com/
+  - [2] https://tb.cushell.com/?page=terms
+  - [3] https://tb.cushell.com/?page=faq

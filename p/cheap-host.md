@@ -1,0 +1,185 @@
+# Cheap-Host
+
+> cheap-host.onl | Compute; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/cheap-host/ | JSON https://fshy.ajam.dev/api/v1/entity/cheap-host.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Cheap-Host (nat start)
+
+- `compute/cheap-host-nat-start` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category NAT VPS | tier NAT Start
+- needs card no, phone no, ID no, institution no | verified 2026-11-06T17:51:28.997Z (live) | stale on 2026-12-07
+- url https://cheap-host.onl/nat-vps/?lang=en
+- price parsed USD 0.7257/mo
+- free tier: no free tier; NAT Start is 59 RUB a month | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the server runs for the paid month and is switched off at the end of it; a server that is not renewed is deleted, with its disks, backups, firewall rules and ports, 24 hours after the paid term ends | days: 1 | source: [1]
+- egress: traffic is stated as unlimited on a 100 Mbit/s port | metered: no | free allowance: unlimited | source: [1]
+- identity: email | detail: registration is required to order: the register page asks for an email address and a password, warns that the confirmation message goes to that email, and adds a bot check
+- interface: ssh
+- limits:
+  - per-ip-shaping (binding): 100 Mbit/s port, unlimited traffic [1]
+  - per-ip-shaping (binding): shared IPv4, no IPv6, 999 forwarded TCP/UDP ports plus SSH [1]
+  - per-object-cap: 10 GB of NVMe [1]
+- binding note: the 100 Mbit/s shared port is the ceiling, not a byte quota: traffic is unlimited but the tunnel can never exceed the shaped port.
+- interface detail: root access over SSH on a forwarded port of the shared IPv4
+- tooling: any SSH client; the port assignment comes from the control panel
+- composes with: a sub-USD-1 NAT box with 999 forwarded TCP/UDP ports, the widest forwarded UDP range found among evaluated providers.
+- reliability: SMTP on port 25 is blocked and no IPv6 is provided on any NAT line; the payment rails are Russian (SBP, SberPay, YuMoney, MIR) plus crypto, so a payer outside Russia needs the crypto route
+- notes: 59 RUB a month is the vendor's figure in the vendor's currency. The USD 0.73 in price_arithmetic is derived from the Central Bank of Russia table read on 2026-10-24 at 80.5381 RUB per USD, which is the only rate used and is not taken from memory. Whether the shared IPv4 is stable across reboots is not stated. The page says the plans are loaded from a shared catalog and match checkout; the catalog itself was not read. | 2026-10-24: this is the beefiest sub-USD-1 NAT row with UDP stated in writing - 1 GB of RAM and 999 forwarded TCP/UDP ports at USD 0.73 a month - and the cheapest 1 GB machine in the band after DediRock's annual promo. Two things hold it back: no IPv6 at all, and a payment page that lists Russian rails plus crypto with no international card and no PayPal, which makes the crypto route the only one a payer outside Russia can use. The vendor names no company anywhere on the pages read, so the counterparty question is open.
+- evidence note: the price, currency, shape, port count and traffic are quoted from the plan page; the renewal and deletion terms are quoted from the vendor's offer page; the exchange rate is the Central Bank of Russia rate cited in price_arithmetic; the payment rails are named on the plan page; identity is an email registration stated on the register page; the operator is not established on the pages read
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.disk_gib: 10
+  - billing_model: monthly
+  - term: monthly
+  - m10h_usd: 0.73
+  - m24h_usd: 0.73
+  - price_arithmetic: 59 RUB a month at the Central Bank of Russia rate for 2026-10-24 of 80.5381 RUB per USD = USD 0.733 a month; a VPS bills whether it runs. Rate read at https://www.cbr.ru/scripts/XML_daily.asp on 2026-10-24
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: 999 forwarded ports on a shared IPv4, TCP and UDP, plus an SSH port
+  - network_out.static_ip: no
+  - network_out.ipv6: no
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a container
+  - ipv6_prefix: none
+  - renewal_usd: 59 RUB a month
+  - renewal_note: the plan cards print one price each with no strike-through, so the monthly rate is the renewal; the offer page states auto-renewal is on by default and is paid only from the account balance, starting five days before the paid term ends
+  - payment_rails: SBP, SberPay, YuMoney, MIR and crypto; the card line reads 'payment with Russian cards', so no international card and no PayPal
+  - renewal_evidence: cheap-host.onl/nat-vps/?lang=en pricing cards and cheap-host.onl/offer/
+  - rub_monthly: 59
+  - fx_note: 59 RUB / 80.5381 RUB per USD = USD 0.7326 a month; the rate is the Central Bank of Russia daily rate for 2026-10-24
+  - nat_ladder.NAT Start.rub_mo: 59
+  - nat_ladder.NAT Start.ram_gib: 1
+  - nat_ladder.NAT Start.vcpu: 1
+  - nat_ladder.NAT Start.disk_gib: 10
+  - nat_ladder.NAT Base.rub_mo: 99
+  - nat_ladder.NAT Base.ram_gib: 2
+  - nat_ladder.NAT Base.vcpu: 1
+  - nat_ladder.NAT Base.disk_gib: 15
+  - nat_ladder.NAT Pro.rub_mo: 199
+  - nat_ladder.NAT Pro.ram_gib: 4
+  - nat_ladder.NAT Pro.vcpu: 2
+  - nat_ladder.NAT Pro.disk_gib: 25
+  - nat_ladder.NAT Plus.rub_mo: 349
+  - nat_ladder.NAT Plus.ram_gib: 8
+  - nat_ladder.NAT Plus.vcpu: 4
+  - nat_ladder.NAT Plus.disk_gib: 50
+  - nat_plus_note: NAT Plus is 8 GiB / 4 vCPU / 50 GB at 349 RUB a month = USD 4.33 a month on monthly billing with no promo and no term lock. It is 8 GiB under the USD 5 line with a published monthly renewal, but it is a NAT machine: a shared IPv4 with 999 forwarded ports, no IPv6 at all, a 100 Mbit/s port and SMTP blocked.
+  - udp: stated. The plan table prints 'Ports 999 TCP/UDP + SSH' and the prose adds 'Incoming connections get 999 dedicated ports (both TCP and UDP)'.
+  - shape_note: 1 vCPU, 1 GB RAM, 10 GB NVMe, unlimited traffic, 100 Mbit/s, Germany
+  - ladder_rub.NAT Start: 59
+  - ladder_rub.NAT Base: 99
+  - ladder_rub.NAT Pro: 199
+  - monthly_usd: 0.73
+  - annual_usd: not published: every plan card on the page is priced RUB/mo and no annual or quarterly cycle is printed; read at https://cheap-host.onl/nat-vps/?lang=en
+  - stock: unverified: behind a sign-up; the plan page prints no stock or capacity state and every order control leads to a login page
+  - cart_url: https://cheap-host.onl/auth/
+  - price_on_page: 59 RUB/mo
+- evidence:
+  - [1] 2026-10-24: quoted plan spec: 'NAT Start, 59 RUB/mo, CPU Intel Xeon, vCPU 1, RAM 1 GB, NVMe 10 GB, Traffic Unlimited, IP Address Shared IPv4 (no IPv6), Ports 999 TCP/UDP + SSH, SMTP (25) Blocked, Network 100 Mbit/s, location Germany'
+  - [1] 2026-10-24: quoted: 'Incoming connections get 999 dedicated ports (both TCP and UDP), so this server should not be treated as a full replacement for a VPS with a dedicated IPv4'
+  - [2] 2026-10-24: quoted rate table dated 24.10.2026: CharCode USD, Nominal 1, Value 80,5381. This is the rate used to convert RUB 59 to USD 0.73 in price_arithmetic
+  - [1] 2026-10-24: quoted: 'Cheap NAT VPS from 59 RUB/mo' and the first pricing card, 'NAT Start 59 RUB /mo' with 'vCPU 1 RAM 1 GB NVMe 10 GB Traffic Unlimited IP Address Shared IPv4 (no IPv6)'
+  - [1] 2026-10-24: quoted: 'Plans are loaded from the shared Cheap-Host catalog, so the prices on this page match checkout in the control panel.'
+  - [1] 2026-10-24: quoted: 'NAT Plus 349 RUB /mo' with 'vCPU 4 RAM 8 GB NVMe 50 GB Traffic Unlimited IP Address Shared IPv4 (no IPv6)'
+  - [3] 2026-10-24: quoted: 'В точный момент окончания оплаченного срока сервер автоматически выключается. Доступ к работе сервера возобновляется сразу после подтверждения оплаты продления.' and 'Непродленный сервер сохраняется в режиме ожидания от 24 до 72 часов, после чего автоматически и безвозвратно удаляется'
+  - [1] 2026-10-24: quoted plan table, NAT Start: '59 RUB/mo', 'CPU Intel Xeon', 'vCPU 1', 'RAM 1 GB', 'NVMe 10 GB', 'Traffic Unlimited', 'IP Address Shared IPv4 (no IPv6)', 'Ports 999 TCP/UDP + SSH', 'SMTP (25) Blocked', 'Network 100 Mbit/s', 'location Germany'
+  - [1] 2026-11-06: the NAT Start card prints 59 RUB a month | capture: sha256:65a830a8349ea3eca1d9c7d867dc4891b7c0630bb539e9d03d379fc8301cc9df | quote: 59 RUB
+  - [1] 2026-11-06: every plan card prints a monthly price and no annual cycle | capture: sha256:65a830a8349ea3eca1d9c7d867dc4891b7c0630bb539e9d03d379fc8301cc9df | quote: 59 RUB/mo
+  - [3] 2026-11-06: the offer page makes renewal automatic from the account balance, beginning five days before the paid term ends | capture: sha256:5bbcfc27f0eeaaff3ab6cc4bc86aaae743b63f69fdb1ab53ee9c3ffd5cc6fa79 | quote: Автопродление серверов, веб-хостинга и доменов включено по умолчанию и оплачивается только с баланса аккаунта, начиная за 5 дней до окончания оплаченного срока.
+  - [4] 2026-11-06: the order control opens a login page | capture: sha256:6ee3bd99e71c8a71dc384d204fb54bc0811c5bcfe16fda75cd1b9109c902a54a | quote: Вход
+  - [1] 2026-11-06: the plan card's order control points at the login page | capture: sha256:65a830a8349ea3eca1d9c7d867dc4891b7c0630bb539e9d03d379fc8301cc9df | quote: [Choose plan](https://cheap-host.onl/auth/)
+  - [1] 2026-11-06: the NAT Start card prints 59 RUB a month | capture: sha256:65a830a8349ea3eca1d9c7d867dc4891b7c0630bb539e9d03d379fc8301cc9df | quote: 59 RUB/mo
+  - [3] 2026-11-06: an unrenewed server is kept switched off for 24 hours after the paid term, then deleted | capture: sha256:5bbcfc27f0eeaaff3ab6cc4bc86aaae743b63f69fdb1ab53ee9c3ffd5cc6fa79 | quote: Непродленный сервер сохраняется в выключенном состоянии 24 часа с момента окончания оплаченного срока
+  - [3] 2026-11-06: the deletion clock is 24 hours | capture: sha256:5bbcfc27f0eeaaff3ab6cc4bc86aaae743b63f69fdb1ab53ee9c3ffd5cc6fa79 | quote: 24 часа
+  - [1] 2026-11-06: the plan page prints 59 RUB a month | capture: sha256:65a830a8349ea3eca1d9c7d867dc4891b7c0630bb539e9d03d379fc8301cc9df | quote: 59 RUB
+  - [1] 2026-11-06: NAT Start is still 59 RUB a month | capture: sha256:65a830a8349ea3eca1d9c7d867dc4891b7c0630bb539e9d03d379fc8301cc9df | quote: 59 RUB/mo
+  - [1] 2026-11-06: the plan page names the payment rails, so the note no longer says they are unestablished | capture: sha256:65a830a8349ea3eca1d9c7d867dc4891b7c0630bb539e9d03d379fc8301cc9df | quote: Pay for NAT VPS with SBP, Mir cards, SberPay, YooMoney, or cryptocurrency.
+  - [5] 2026-11-06: registration uses an email address and sends the confirmation to it, so the identity cost is an email account | capture: sha256:9ac9547d7c9b400abc9bf50c774a1118cf8799aa84ca6074945259e795201aff | quote: If you register using @mail.ru, @bk.ru, @inbox.ru or @list.ru email, confirmation messages might not arrive. We recommend using Gmail, Yandex or other email providers.
+  - [5] 2026-11-06: registration is required to order, and the register page asks for an email address and a password | capture: sha256:9ac9547d7c9b400abc9bf50c774a1118cf8799aa84ca6074945259e795201aff | quote: To order services, you need to create an account.
+  - [1] 2026-11-06: the NAT Start card prints 59 RUB/mo, 1 vCPU, 1 GB RAM, 10 GB NVMe, unlimited traffic on a 100 Mbit/s port, 999 TCP/UDP ports plus SSH, a shared IPv4 with no IPv6, SMTP blocked, and Germany | capture: sha256:65a830a8349ea3eca1d9c7d867dc4891b7c0630bb539e9d03d379fc8301cc9df | quote: 59 RUB/mo - CPUIntel Xeon - vCPU1 - RAM1 GB - NVMe10 GB - TrafficUnlimited - IP AddressShared IPv4 (no IPv6) - Ports999 TCP/UDP + SSH - SMTP (25)Blocked - Network100 Mbit/s - locationGermany
+- sources:
+  - [1] https://cheap-host.onl/nat-vps/?lang=en
+  - [2] https://www.cbr.ru/scripts/XML_daily.asp
+  - [3] https://cheap-host.onl/offer/
+  - [4] https://cheap-host.onl/auth/
+  - [5] https://cheap-host.onl/register/?lang=en
+
+## Cheap-Host (nat start de)
+
+- `compute/cheap-host-nat-start-de` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category NAT VPS | tier NAT Start
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T04:26:37.000Z (live) | stale on 2026-11-24
+- url https://cheap-host.onl/nat-vps/?lang=en
+- price parsed USD 0.7257/mo
+- free tier: No free tier. NAT Start is 59 RUB a month: 1 vCPU Intel Xeon, 1 GB RAM, 10 GB NVMe, unlimited traffic at 100 Mbit/s, one shared IPv4 with 999 TCP/UDP ports plus SSH, no IPv6, Germany. The larger rungs are NAT Base at 99 RUB for 2 GB, NAT Pro at 199 RUB for 4 GB and NAT Plus at 349 RUB for 8 GB. | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the offer states a server is kept in standby for 24 to 72 hours after the paid term ends and then deleted with all data, backups, firewall rules and network ports | days: 3 | source: [2]
+- egress: the offer states unlimited traffic on the Germany location in the absence of network abuse; the Russia location carries 2 TB a month at up to 100 Mbit/s | metered: no | free allowance: unlimited on the Germany location, per the offer | source: [2]
+- identity: email | detail: an account on the vendor's panel; No card, address, phone or ID field is on the registration page. Payment rails listed on the storefront are SBP (Russia's Faster Payments System), cryptocurrency, SberPay, YooMoney and Russian bank cards. No card hold is stated anywhere read.
+- interface: ssh
+- limits:
+  - volume-quota: unlimited on the Germany location, per the offer, with a fair-use clause; the Russia location is 2 TB a month [2]
+  - per-ip-shaping (binding): one shared IPv4 with 999 TCP/UDP ports plus an SSH port, and no IPv6 at all; the offer states the shared IPv4 is not guaranteed, fixed or permanent and may be changed unilaterally [2]
+  - pull-count: monthly billing at 59 RUB, which is the first payment [1]
+- binding note: the shared IPv4 is the first thing to fail: the offer says it may be reassigned at any time and that the buyer must update their own connections and DNS when it changes.
+- interface detail: KVM guest with root; the plan table prints 'Ports 999 TCP/UDP + SSH', so the shared IPv4 forwards a thousand ports to the guest and the port count is not the constraint the way it is on a 2- or 20-port NAT plan
+- tooling: any SSH client; the storefront and the offer are Russian-language with an English plan page, and the panel is at cheap-host.onl/panel
+- composes with: 999 TCP/UDP ports and 1 GB for USD 0.73 a month is the most permissive NAT row in the band by port count, which removes the port-mapping problem entirely for a WireGuard node
+- reliability: no reliability event observed; the offer targets 99.9 percent uptime and states the infrastructure is not certified for personal data under Russian federal law 152-FZ.
+- notes: The best port story in the band and the weakest entity story. 999 TCP and UDP ports on one shared IPv4 removes the entire problem the other NAT sellers have: no port budget, no mapping panel, no ticket, so a WireGuard listener can sit on its default port. 1 GB and 10 GB of NVMe for 59 RUB is USD 0.7257 a month at the rate read, which is 1.8 times the C-Servers monthly rate for 2.7 times the RAM. Two things hold it back. The shared IPv4 is explicitly not permanent: the offer reserves the right to reassign it at any time and tells the buyer to update their own DNS when it happens, which for a WireGuard endpoint means reissuing every peer's config. And the seller has no findable legal entity: the offer is signed '© Cheap-Host', prints no company name, no INN or OGRN and no address, and the domain was registered on 2026-06-14, four months before this reading. That is not the dissolved-company pattern - there is no company to dissolve - but it is also not an entity that can be checked, and evaluated offerings brief asks for exactly that check. Payment is the other wall: SBP, SberPay, YooMoney and MIR cards are Russian domestic rails, so a buyer outside Russia is left with cryptocurrency. Not established: the entity, whether a non-Russian buyer can pay at all, the stock of the NAT Start rung, and whether the 999 ports are reachable end to end rather than advertised.
+- evidence note: price, shape, port policy and SMTP block read from the vendor's own plan table in a browser render on 2026-10-24; the order flow behind the panel was not entered
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.disk_gib: 10
+  - billing_model: monthly
+  - term: monthly
+  - m24h_usd: 0.7257
+  - m10h_usd: 0.7257
+  - price_arithmetic: 59 RUB a month / 81.296693 RUB per USD = USD 0.7257, at the open.er-api.com rate read 2026-10-24T00:02Z. A VPS bills whether it runs or not, so the 24/7 and 10 h/day figures are the same.
+  - out_of_pocket_usd: 0.7257
+  - first_payment_usd: 0.7257
+  - renewal_usd: same 59 RUB; monthly, no promo price printed
+  - stock: not shown: the page carries four 'Choose plan' buttons that route to the panel, and no sold-out marker appears on any of the four cards
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: 999 TCP/UDP ports plus an SSH port on one shared IPv4; no IPv6
+  - network_out.static_ip: no
+  - network_out.ipv6: no
+  - udp: stated twice: the plan table prints 'Ports 999 TCP/UDP + SSH' and the prose prints 'Incoming connections get 999 dedicated ports (both TCP and UDP)', and the offer repeats '999 портов TCP/UDP'
+  - payment_rails: SBP, cryptocurrency, SberPay, YooMoney, Russian bank cards (MIR); no card-network rail for a non-Russian buyer is listed
+  - card_hold: not stated on any page read
+  - checkout_fields: email, password, captcha and three policy ticks; no card, address, phone or ID
+  - nat_config: shared IPv4 only, no IPv6; 'Ports: 999 TCP/UDP + SSH' on the plan card. The ladder is NAT Start 59 RUB (1 vCPU/1 GB/10 GB), NAT Base 99 RUB (1/2 GB/15 GB), NAT Pro 199 RUB (2/4 GB/25 GB), NAT Plus 349 RUB (4/8 GB/50 GB) — all unlimited traffic, 100 Mbit/s, SMTP 25 blocked, Germany
+  - fx: open.er-api.com/v6/latest/USD read 2026-10-24T00:02Z: 1 USD = RUB 81.296693
+  - udp_forwarding: yes
+  - udp_detail: stated on the plan card as 'Ports: 999 TCP/UDP + SSH', which is a port count rather than a per-protocol statement; 999 ports across TCP and UDP is effectively open for a WireGuard listener
+  - price_ladder_rub.NAT Start: 59
+  - price_ladder_rub.NAT Base: 99
+  - price_ladder_rub.NAT Pro: 199
+  - price_ladder_rub.NAT Plus: 349
+  - best_value_rung: NAT Base at 99 RUB (USD 1.22/mo) doubles the RAM to 2 GB for 40 RUB more
+  - signup_url: https://cheap-host.onl/panel
+  - cart_works: unknown
+  - cart_note: every 'Choose plan' button routes to the account panel, so no price is rendered before login; the plan card is the only price source
+  - smtp_note: port 25 blocked on all four rungs
+  - network_mbps: 100
+- evidence:
+  - [1] 2026-10-24: quoted plan card: 'NAT Start 59 RUB/mo ... vCPU 1 ... RAM 1 GB ... NVMe 10 GB ... Traffic Unlimited ... IP Address Shared IPv4 (no IPv6) ... Ports 999 TCP/UDP + SSH ... SMTP (25) Blocked ... Network 100 Mbit/s ... location Germany'
+  - [1] 2026-10-24: quoted prose: 'NAT VPS uses a shared public IPv4. Incoming connections get 999 dedicated ports (both TCP and UDP)'
+  - [2] 2026-10-24: quoted clause 05: 'Тарифы линейки NAT VPS функционируют на базе общего публичного IPv4-адреса с выделением персонального пула сетевых портов (999 портов TCP/UDP + выделенный порт SSH)' and 'Публичный IPv4-адрес ... не является гарантированным, фиксированным или постоянным и может быть в любое время изменен либо переназначен Исполнителем в одностороннем порядке'
+  - [2] 2026-10-24: quoted clause 03: 'Непродленный сервер сохраняется в режиме ожидания от 24 до 72 часов, после чего автоматически и безвозвратно удаляется'
+  - [3] 2026-10-24: the storefront's payment section, read from the page source: 'SBP Russia's Faster Payments System', 'Cryptocurrency Pay with cryptocurrency', 'SberPay', 'YooMoney Digital wallet', 'Bank cards Pay with Russian bank cards'
+  - [4] 2026-10-24: quoted registration page: 'Для заказа услуг необходимо создать аккаунт' with fields E (email), password and a captcha, plus a tick for 'договором-офертой', 'политикой конфиденциальности' and 'правилами допустимого использования' - no card, address, phone or ID
+  - [5] 2026-10-24: registration 2026-06-14T11:18:11Z, expiration 2028-06-14, registrar 'Porkbun LLC' - the domain is four months old
+  - [2] 2026-10-24: the offer names no company, no registration number and no address: the signature block is '© Cheap-Host' with a link to cheap-host.onl, and the document is dated 11 October 2026
+  - [1] 2026-10-24: the four-card ladder renders 'NAT Start 59 RUB/mo, vCPU 1, RAM 1 GB, NVMe 10 GB'; 'NAT Base 99 RUB/mo, vCPU 1, RAM 2 GB, NVMe 15 GB'; 'NAT Pro 199 RUB/mo, vCPU 2, RAM 4 GB, NVMe 25 GB'; 'NAT Plus 349 RUB/mo, vCPU 4, RAM 8 GB, NVMe 50 GB'; each with 'Traffic: Unlimited', 'IP Address: Shared IPv4 (no IPv6)', 'Ports: 999 TCP/UDP + SSH', 'SMTP (25): Blocked', 'Network: 100 Mbit/s', 'location: Germany'
+- sources:
+  - [1] https://cheap-host.onl/nat-vps/?lang=en
+  - [2] https://cheap-host.onl/offer/?lang=ru
+  - [3] https://cheap-host.onl/?lang=en
+  - [4] https://cheap-host.onl/register/
+  - [5] https://rdap.org/domain/cheap-host.onl

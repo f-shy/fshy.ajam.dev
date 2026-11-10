@@ -1,0 +1,1274 @@
+# fshy: Netdisk and pan, rejected
+
+> Netdisks, also called pan drives: cloud drives, many of them from China, and public AList and OpenList instances, and whether they mount.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/netdisk-pan/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## Apple Managed Apple Account (Apple School Manager), 200 GB
+
+- `netdisk-pan/apple-managed-apple-account-200-gb` | fails-identity | evidence reported | binding write-gated | category education-ecosystem cloud
+- needs card no, phone no, ID no, institution yes | verified 2026-11-04T00:20:56.366Z (inherited) | stale on 2026-11-19
+- url https://www.apple.com.cn/education/docs/overview_of_managed_appleid.pdf | page https://fshy.ajam.dev/p/apple-2.md
+- free tier: 200 GB of free iCloud storage per Managed Apple Account, for every student and every teacher, federated with Microsoft Entra or Google Workspace | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: Not published per file | source: [2]
+- retention: The account is owned by the school. Managed Apple Accounts cannot be converted to personal ones and vice versa, so the bytes are not portable on graduation | source: [1]
+- egress: Normal iCloud egress, with no metering on download | metered: no | source: [2]
+- identity: institution | detail: an institution enrolled in Apple School Manager. The docs state Managed Apple IDs are created and owned by the school | country: any Apple School Manager country
+- interface: unknown
+- limits:
+  - write-gated (binding): enrolment in Apple School Manager is a prerequisite for every account [2]
+- binding note: The quota is real and 200 GB is respectable, but the account belongs to a school and the interface list is empty. Either the identity gate or the absent API would stop it alone.
+- tooling: none. iCloud Drive for Managed Apple Accounts is reachable only through iCloud for Windows, the web app, or a managed device: there is no CloudKit-for-drive path and no WebDAV. This is the blocker, not the quota
+- composes with: 200 GB times N accounts, where every account needs a school. Since no programmatic read path exists, the capacity cannot enter any programmatic stack
+- reliability: The account is owned by the institution, so the bytes are not yours and do not survive leaving it. 200 GB is also below a 500 GB threshold unless multiplied, and no API exists to multiply it with
+- notes: A faculty member could obtain this; an individual registrant cannot, and even with a school the bytes are not portable.
+- extras:
+  - access_mode: institution
+  - api: none
+  - account_owner: the school
+- evidence:
+  - [2] 2026-10-21: '升级的 iCloud 储存空间。管理式 Apple ID 可享用 200GB 的免费 iCloud 储存空间'
+  - [1] 2026-10-21: 'Managed Apple IDs are owned and controlled by the school'
+  - [3] 2026-10-21: the 5 GB to 200 GB change for students and teachers
+  - [1] 2026-11-03: a current Apple page states 200 GB per Managed Apple Account; the PDF it replaces is dated 2019 | capture: sha256:bed9d851ef9e9ebd83d39cec629ee431daadbbfdd3ce9e35ed78fa226b83d42b | quote: Every Managed Apple Account is given 200 gigabytes (GB) of iCloud Drive storage.
+  - [1] 2026-11-03: each Managed Apple Account has 200 GB of iCloud Drive storage | capture: sha256:bed9d851ef9e9ebd83d39cec629ee431daadbbfdd3ce9e35ed78fa226b83d42b | quote: Every Managed Apple Account is given 200 gigabytes (GB) of iCloud Drive storage.
+  - [1] 2026-11-03: the account is owned by the school or district | capture: sha256:bed9d851ef9e9ebd83d39cec629ee431daadbbfdd3ce9e35ed78fa226b83d42b | quote: Unlike a personal account, a Managed Apple Account is owned and controlled by a school or district.
+  - [4] 2026-11-03: 200 GB of free iCloud storage for each Managed Apple Account | capture: sha256:2ef7d169d610488d472650982c473a7a3da2719c5659e538ec108183f11f3195 | quote: along with 200 gigabytes (GB) of free iCloud storage for each Managed Apple Account
+  - [5] 2026-11-03: Apple School Manager federates with Google Workspace, Microsoft Entra ID or an identity provider | capture: sha256:3f2d26a7e30ed4cc8c679df2ec905a97cac0011199f566e440b5411a47ece43f | quote: You can link to Google Workspace, Microsoft Entra ID, or your IdP, but only one at a time.
+- sources:
+  - [1] https://support.apple.com/guide/schoolwork-teacher/aside/phx4f3b4c8c7/1/ios/1.0
+  - [2] https://www.apple.com.cn/education/docs/overview_of_managed_appleid.pdf
+  - [3] https://www.macrumors.com/2018/03/27/apple-student-icloud-storage-200gb/
+  - [4] https://support.apple.com/guide/schoolwork-teacher/get-set-up-phx440748466/ios
+  - [5] https://support.apple.com/guide/apple-school-manager/intro-to-federated-authentication-axmb19317543/web
+
+## China Mobile Cloud (中国移动云盘, 139 / 和彩云)
+
+- `netdisk-pan/china-mobile-cloud` | fails-identity | evidence reported | binding write-gated | category carrier cloud
+- needs card no, phone yes, ID no, institution no | verified 2026-11-04T00:20:53.782Z (inherited) | stale on 2026-11-19
+- url https://yun.139.com | page https://fshy.ajam.dev/p/139.md
+- free tier: 1,000 GB (1 TB) free per the Wikipedia table, with 20 GB the base grant and 1 TB or 2 TB obtained through carrier promotions. Membership promos are cited at 8 TB | unit: TiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: Varies by tier; single-file and upload caps are not published as one number | source: [2]
+- retention: Promotional capacity expires. No retention clock on stored files is published | source: [2]
+- egress: Free and unthrottled by design: '不限速：上传下载不限速', and members get carrier zero-rating on China Mobile. Forum consensus agrees China Mobile does not shape, unlike Baidu at 0.1 MB/s and Quark at 1.7 MB/s | metered: no | free allowance: unlimited on net | source: [2]
+- identity: country-phone | detail: +86 only, and the login is tied to a China Mobile subscriber identity in practice. Promotions are redeemed inside the carrier app's 权益超市, not on the web | country: 86
+- interface: rest, webdav
+- limits:
+  - write-gated (binding): parameters must be scraped from the browser network tab, so an interactive login is mandatory for the driver [3]
+  - per-object-cap: unpublished and tier-dependent [2]
+- binding note: The capacity and the egress both qualify, and the gate is the carrier identity: a China Mobile subscriber number, with the promotions redeemable only inside the carrier app. The write gate on the driver's parameters is the second lock.
+- tooling: an official open platform at open.yun.139.com, application and approval based; the OpenList 139Yun driver works off a browser-captured Authorization header and needs v3.41.0 or later; netdisk-fast-download's p139 parser is in the paid tier
+- composes with: 1 TB free with no shaping is genuinely attractive for serving, and multiplying by accounts is the only path. The gate is a China Mobile number, and the large grants ride the carrier plan and evaporate when it lapses
+- reliability: Integration relies on reverse-engineered driver code. Share endpoints change structure between getOutLinkInfoV5 and V6, both returning resultCode 01000101 to unauthenticated callers. Promotional capacity allocations expire on fixed schedules, preventing long-term retention.
+- notes: This record covers the 139 and 和彩云 spellings. The deferred list carries four further spellings of the same provider (China Mobile Cloud, 中国移动云盘 / China Mobile Cloud, 中国移动云盘 (China Mobile / 和彩云), and the TV-edition client); this one record is their single home and the other spellings are aliases in the field below.
+- extras:
+  - access_mode: registration-gated
+  - anonymous_read: share SPA loads, data refused
+  - aliases: China Mobile Cloud / 中国移动云盘 (139 / 和彩云); 中国移动云盘 (China Mobile / 和彩云); 139Yun; 和彩云; 中国移动云盘 / China Mobile Cloud (139 / 和彩云); 中国移动云盘 / China Mobile Cloud (139/和彩云)
+- evidence:
+  - [1] 2026-10-21: table row 中国移动云盘, 1000G, no upload limit, sharing yes, no speed limit, login required
+  - [2] 2026-10-21: '初始空间20G，用户可直接通过丰富的网盘活动，轻松领取1T、2T等更大容量的空间'; '不限速：上传下载不限速'; 尊享云计划 '额外8T超大空间'
+  - probe:https://yun.139.com/sharewap/m/i?1D5C36d226M2O= 2026-10-21: 200 with a 4,541-byte SPA shell, so the share page loads and carries no data
+  - probe:POST https://share-kd-njs.yun.139.com/yun-share/richlifeApp/devapp/IOutLink/getOutLinkInfoV6 2026-10-21: 200 with {"resultCode":"01000101","desc":"服务器响应异常","success":true}, so both V5 and V6 refuse an unauthenticated caller
+  - [4] 2026-10-21: the driver is named '139Yun'
+  - [2] 2026-11-03: the vendor page still states a 20G base space with 1T and 2T larger grants through campaigns | capture: sha256:b75183a9c12d8148de4b862c5d8110bf81fe4bc966cdc5bc439c4191cbf5102c | quote: 初始空间20G且用户可直接通过丰富的网盘活动，轻松领取1T、2T等更大容量的空间
+  - [2] 2026-11-03: the vendor page still states upload and download are not rate-limited | capture: sha256:b75183a9c12d8148de4b862c5d8110bf81fe4bc966cdc5bc439c4191cbf5102c | quote: 不限速：上传下载不限速，支持5G网络环境下高速传输。
+  - [2] 2026-11-03: the 尊享云计划 membership still lists an extra 8T of space | capture: sha256:b75183a9c12d8148de4b862c5d8110bf81fe4bc966cdc5bc439c4191cbf5102c | quote: 额外8T超大空间
+  - [1] 2026-11-03: the table row still reads 1000G free, no upload limit, sharing yes, no download limit, login required | capture: sha256:87cfd4212b0eaf2bb73b16353c13f114920639a0b2df7d9e3a6465f3bf0ce870 | quote: | 中国移动云盘 | 1000G | 无 | | 有 | 无 | 是 | |
+  - [1] 2026-11-03: the prose of the same page gives free users a 4G single-file upload limit, which the table row does not | capture: sha256:87cfd4212b0eaf2bb73b16353c13f114920639a0b2df7d9e3a6465f3bf0ce870 | quote: 免费用户支持最高4G的单个文件上传，下载不限速，支持分享文件
+  - [3] 2026-11-03: the driver documentation still says its parameters are read from the browser network tab | capture: sha256:961236b1dd9ac0ed3d84001ba3ad2dae41d5350baaf846e5575a85b5afc928ab | quote: Parameters can be obtained from the browser DevTools -> Network by searching keywords.
+  - probe:https://yun.139.com/sharewap/m/i?1D5C36d226M2O= 2026-11-03: the share page answers 200 with a 4,541-byte SPA shell titled as a share page and carries no data | capture: sha256:391aeea336ee8a4694fad765bad0dcf7ae7530662baf7304313c7ca0b239e5a3 | quote: <title>中国移动云盘分享</title>
+- sources:
+  - [1] https://zh.wikipedia.org/zh-cn/中国大陆网盘列表
+  - [2] https://yun.139.com/intro/
+  - [3] https://alistgo.com/guide/drivers/139
+  - [4] https://github.com/OpenListTeam/OpenList/tree/main/drivers/139
+
+## Tianyi Cloud Drive (天翼云盘, 189)
+
+- `netdisk-pan/tianyi-cloud-drive` | fails-identity | evidence reported | binding per-ip-shaping | category carrier cloud
+- needs card no, phone yes, ID no, institution no | verified 2026-11-04T00:20:53.783Z (inherited) | stale on 2026-11-19
+- url https://cloud.189.cn | page https://fshy.ajam.dev/p/189.md
+- free tier: 60 GB free per the Wikipedia table, with carrier promotions routinely granting 4 TB, 10 TB or 12 TB. Free uploads are capped at 2 GB a day, Gold at 200 GB, Platinum unlimited | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 2 GB per single-file upload on the free tier | bytes: 2000000000 | source: [2]
+- retention: Promotional terabytes are attached to a China Telecom line and evaporate if it lapses. No retention clock on stored files | source: [3]
+- egress: Download is unmetered on net and throttled cross-carrier: '天翼云盘基本不限速，部分地区的非电信网络用户，可能会发现部分时段有限速'. The hard cap is on upload, not download | metered: yes | source: [4]
+- identity: country-phone | detail: +86 only. OpenList labels the interface 逆向接口 and the web login a slider human-verification step, so even a scripted login is closed | country: 86
+- interface: rest, webdav
+- limits:
+  - per-ip-shaping (binding): 2 GB a day of upload on the free tier, which is about 1.4 GB an hour [4]
+  - per-object-cap: 2 GB per single-file upload on the free tier [2]
+  - write-gated: the web login is now a slider human-verification check: 'Web 端登录已更换为滑动验证码，不再支持 OCR 与手动输入' [5]
+- binding note: Promotional allocations provide substantial nominal capacity but are restricted by a 2 GB daily upload limit, requiring approximately 5.5 years to transfer 4 TB. Registration requires domestic mobile identity verification.
+- tooling: OpenList drivers 189, 189_tv and 189pc, plus WebDAV out and CloudDrive2. The TV-edition OAuth client takes only an access token and is the one the community keeps alive because TV playback is unthrottled; a token can be minted by QR login, which the OpenList docs ship as an image
+- composes with: 4 to 12 TB per carrier-promo account is the largest single free pool in this group, and the TV client plus OpenList plus WebDAV path is fully documented. The binding constraint is not capacity but the 2 GB a day free upload allowance, and the promos ride a China Telecom line
+- reliability: The TV-client OAuth path is the one that survives; the desktop-client path has been repeatedly broken by client-version checks. Promotional terabytes evaporate when the line lapses, TV clients are being pulled from app stores, and the 10 TB migration programme closed on 2026-09-27
+- notes: One record for the three deferred spellings: Tianyi Cloud Drive, the TV-edition variant, and the 天翼云盘 (China Telecom / 189邮箱) form. The TV client is the part worth knowing: it is the only interface that has survived, it takes an access token alone, and TV playback is unthrottled, which is why the community routes through it.
+- extras:
+  - access_mode: registration-gated
+  - upload_cap_per_day_bytes: 2000000000
+  - tv_oauth_client: 189CloudTV, access-token only, QR login documented
+  - aliases: Tianyi Cloud Drive / 天翼云盘 (189); 天翼云盘 / Tianyi Cloud Drive (189) incl. the TV-edition OAuth client; 天翼云盘 (China Telecom / 189邮箱); 189Cloud; 189CloudTV
+  - dead_bound_market: 10 TB accounts resold under CNY 10, username and password only
+- evidence:
+  - [6] 2026-10-21: Name '189CloudTV', DefaultRoot -11, access-token-only auth, type personal or family, upload_thread and rapid_upload
+  - [1] 2026-10-21: 电信天翼云盘, 60G free, 2G upload limit, login required
+  - [4] 2026-10-21: '普通用户上传限量（免费 2G/日，黄金 200G/日，铂金不限）'
+  - [3] 2026-10-21: '我是电信用户，默认送了 12T 的天翼云盘空间', mounted through Alist and Kodi on a Sony TV
+  - probe:GET https://api.cloud.189.cn/open/share/getShareInfoByCodeV2.action?shareCode=ZNzuuaIneMJz 2026-10-21: 200 with an XML shareVO carrying fileName, shareId 1255019631818, isFolder true and needAccessCode 1, so share metadata is anonymous
+  - probe:GET https://cloud.189.cn/api/open/share/listShareDir.action 2026-10-21: 400 with InvalidArgument, so the listing is not anonymous
+  - [7] 2026-10-21: '9月27号开始天翼云盘10T迁移不了了'
+  - [8] 2026-10-21: 10 TB 死绑 accounts resold under CNY 10 with only a username and password
+  - [5] 2026-11-03: the OpenList driver page still says the web login is a slider check that OCR and manual entry no longer pass | capture: sha256:42eedb25435b9367748f5d3f22a60b9db3eee480cc3ea90e1c73164bc479e4d9 | quote: Web 端登录已更换为滑动验证码，不再支持 OCR 与手动输入
+  - [5] 2026-11-03: the TV-interface mount signs in with an SMS login | capture: sha256:42eedb25435b9367748f5d3f22a60b9db3eee480cc3ea90e1c73164bc479e4d9 | quote: 进入后选择短信登录，登录完成后返回存储管理界面，禁用再启用该存储后即可正常使用
+  - [5] 2026-11-03: the OpenList driver page calls the 189 interface a reverse-engineered one that the project does not actively maintain | capture: sha256:42eedb25435b9367748f5d3f22a60b9db3eee480cc3ea90e1c73164bc479e4d9 | quote: 本接口是基于历史产物的逆向接口，项目组不会主动进行维护
+  - [1] 2026-11-03: the table row still reads 60G free and a 2G upload limit, with no download limit and login required | capture: sha256:87cfd4212b0eaf2bb73b16353c13f114920639a0b2df7d9e3a6465f3bf0ce870 | quote: | 电信天翼云盘 | 60G | 2G | | 有 | 无 | 是 | 否 |
+  - [1] 2026-11-03: the prose still gives a 2G single-file upload limit | capture: sha256:87cfd4212b0eaf2bb73b16353c13f114920639a0b2df7d9e3a6465f3bf0ce870 | quote: 支持最高2G的单个文件上传，支持分享文件
+  - probe:GET https://api.cloud.189.cn/open/share/getShareInfoByCodeV2.action?shareCode=ZNzuuaIneMJz 2026-11-03: the share metadata endpoint still answers 200 as application/xml without a login | capture: sha256:7656fb452a08affd77f0ed5ab73347ea37ba574e9d2cb592eb988927df24faa7 | quote: "status": 200
+  - probe:GET https://cloud.189.cn/api/open/share/listShareDir.action 2026-11-03: the share listing endpoint still refuses a call without its arguments with 400 InvalidArgument | capture: sha256:c955f43606d063e2e3f798eff905c05dea257335dc4752dc89ea54f3063866d9 | quote: <error><code>InvalidArgument</code><message>Argument invalid</message></error>
+  - [9] 2026-11-03: the web portal answers 200 with a script-driven shell | capture: sha256:c69ad07c49d34fd8e155ddae2b0e2762bd62ec3e97a57e56ad85967349320151 | quote: doesn't work properly without JavaScript enabled
+- sources:
+  - [1] https://zh.wikipedia.org/zh-cn/中国大陆网盘列表
+  - [2] https://zh.wikipedia.org/wiki/中国大陆网盘列表
+  - [3] https://www.v2ex.com/t/914183
+  - [4] https://linux.do/t/topic/578176
+  - [5] https://openlistteam.github.io/docs/zh/guide/drivers/189.html
+  - [6] https://github.com/OpenListTeam/OpenList/blob/main/drivers/189_tv/meta.go
+  - [7] https://linux.do/t/topic/2804647
+  - [8] https://linux.do/t/topic/675267
+  - [9] https://cloud.189.cn
+
+## 115 Cloud Drive (115网盘)
+
+- `netdisk-pan/115-cloud-drive-115` | fails-egress | evidence reported | binding write-gated | category consumer-pan
+- needs card no, phone yes, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://115.com | page https://fshy.ajam.dev/p/115.md
+- free tier: 15 GB on every tier including 原石用户. Real capacity is only sold: 长期VIP 15 GB + 115 TB, 超级版 1 PB + 15 GB, 至尊版 5 PB + 15 GB | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 5 GB per file on a free account, 115 GB on VIP | bytes: 5000000000 | source: [1]
+- retention: Not stated in the pages read | source: [2]
+- egress: No per-GB fee. Free accounts get 普通速度, the ordinary channel; VIP gets the priority channel. Share downloads require a login, so the egress path could not be tested anonymously | metered: yes | source: [2]
+- identity: country-phone | detail: signup is phone-based, and 115's own support forum answered a foreigner asking about non-mainland numbers with '可以，您是哪个国家和地区的手机号'. The open platform is a second wall: real name, identity document type, number, photograph and expiry | country: 86
+- interface: rest
+- limits:
+  - per-object-cap: 5 GB per file on a free account [1]
+  - write-gated (binding): the open platform requires 真实姓名, 证件类型, 证件号码, 证件照片 and 有效期 before an app is approved [3]
+- binding note: 15 GB is free and more capacity is paid, but the gate that actually closes it is the identity one: a real-name document for the open platform, or a cookie lifted from a browser session for everything else.
+- tooling: an official open platform at open.115.com with OAuth client id and secret; the OpenList '115_open' driver ships an OpenList-owned key pair so a user can mount without registering an app; the community WebDAV bridge gaoyb7/115drive-webdav
+- composes with: Nothing to multiply. The desktop clients for Windows, macOS and Linux were withdrawn, so every third-party client depends on reverse-engineered web cookies, and the official API path needs identity-verified developer onboarding
+- reliability: The desktop clients were withdrawn, so third-party access runs on web cookies that break. The share-snap API returns a whole share tree with no auth (a 2.52 PB folder resolved anonymously) and the download call answers 990001 登录超时, so the read gate is absolute
+- notes: The quota and the egress both fail, and the identity wall is the reason neither can be tested. The verdict is fails-egress because the read gate is the one that was probed and refused.
+- extras:
+  - access_mode: registration-gated
+  - anonymous_read: metadata only, bytes gated
+  - files_per_cloud_download_job: 115
+- evidence:
+  - [1] 2026-10-21: capacity table 原石用户 15 GB, 特级版 '15 GB + 115 TB', 至尊版 '5 PB + 15 GB'; upload cap 5 GB free and 115 GB VIP
+  - [3] 2026-10-21: developer onboarding is 签署协议, 入驻资料, 提交认证信息
+  - probe:https://webapi.115.com/share/snap?share_code=swzew4m3nc6&receive_code=i0d7 2026-10-21: 200, 981 B, no auth, share_title and file_size 2520415095564377 returned
+  - probe:https://webapi.115.com/share/downurl 2026-10-21: 200 with {"state":false,"error":"登录超时，请重新登录。","errno":990001}, so the bytes are gated
+  - [4] 2026-10-21: a community WebDAV bridge exists, which is the only reason the drive is mountable at all
+- sources:
+  - [1] https://vip.115.com/?ac=page&ct=info&page_name=privilege_details
+  - [2] https://115.com
+  - [3] https://open.115.com/
+  - [4] https://github.com/gaoyb7/115drive-webdav
+
+## PlayStation Plus cloud storage (Sony)
+
+- `netdisk-pan/playstation-plus-cloud-storage` | fails-egress | evidence reported | binding write-gated | category console cloud saves
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T00:20:56.364Z (inherited) | stale on 2026-11-19
+- url https://www.playstation.com/en-us/support/subscriptions/ps5-ps-plus-cloud-storage/ | page https://fshy.ajam.dev/p/playstation.md
+- price Bundled with PS Plus Essential at about USD 79.99/yr; 100 GB is not purchasable separately
+- free tier: 100 GB for PS5 saves and 100 GB for PS4 saves, so 200 GB total, plus a hard limit of 1,000 PS4 save files. Requires an active PS Plus subscription | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 1,000 PS4 save files; no per-file byte cap published | source: [2]
+- retention: While the subscription is active. No retention clock published | source: [1]
+- egress: Console-mediated only. There is no HTTP API, so there is no egress path at all | metered: no | source: [2]
+- identity: email | detail: a PSN account and a paid subscription
+- interface: unknown
+- limits:
+  - per-object-cap: 1,000 PS4 save files [2]
+  - write-gated (binding): uploads happen from the console UI and need a PSN-authenticated console [2]
+- binding note: 200 GB on a paid subscription, but the gate that matters is that the only client is a console: there is no path to read the bytes from a server.
+- tooling: none documented. PS4 save decryption is a separate jailbreak scene and not a storage API
+- composes with: Not chainable. Even filled to 200 GB the bytes are opaque save blobs retrievable only by a PS5 or PS4, so there is no read path to build on
+- reliability: The read path is console-only, which is the upload-open and read-gated failure in its purest form: a write quota with no programmatic read is not storage
+- notes: PlayStation Plus cloud save storage provides 100 GB for PlayStation 5 and 100 GB for PlayStation 4, totalling 200 GB across both consoles. Access is confined strictly to console software without web or programmatic API support.
+- extras:
+  - access_mode: registration-gated
+  - api: none, console only
+  - quota_split: 100 GB PS5 plus 100 GB PS4
+  - aliases: PlayStation Plus cloud storage (Sony)
+  - cross_topic_record: storage/playstation-plus-cloud-storage
+  - cross_topic_note: the storage topic carries the same provider from the game-save angle
+- evidence:
+  - [2] 2026-10-21: every step is console UI, 'Settings > Saved Data and Game/App Settings > Upload to Cloud Storage'
+  - [1] 2026-10-21: '100 GB of online storage ... The number of PS4 saved data files you can store is limited to 1000'
+  - [3] 2026-10-21: the 10 GB to 100 GB expansion
+  - [2] 2026-11-03: 100 GB for PS5 saves, 100 GB for PS4 saves and 1000 PS4 save files, unchanged | capture: sha256:3fb6da72a3d334680ee4c9fe43929c80d254ed718b62fe735c203258f39b756e | quote: You can save up to 100 GB of PS5 saved data and 100 GB of PS4 saved data. The number of PS4 saved data files you can store is limited to 1000.
+  - [2] 2026-11-03: cloud storage needs a PlayStation Plus membership | capture: sha256:3fb6da72a3d334680ee4c9fe43929c80d254ed718b62fe735c203258f39b756e | quote: Become a PlayStation Plus member to use cloud storage.
+  - [1] 2026-11-03: 100 GB cloud storage is in the Essential, Extra and Premium plans | capture: sha256:c5dfcb4a339011dbc092b6930d425ab1a18a0e10aefd6d433f2b2a49c7809b46 | quote: | 100GB Cloud Storage | x | x | x |
+- sources:
+  - [1] https://www.playstation.com/en-us/support/subscriptions/playstation-plus-support/
+  - [2] https://www.playstation.com/en-us/support/subscriptions/ps5-ps-plus-cloud-storage/
+  - [3] https://blog.playstation.com/2019/01/30/playstation-plus-cloud-storage-expanding-to-100gb-free-games-for-february
+
+## Quark Cloud Drive (夸克网盘)
+
+- `netdisk-pan/quark-cloud-drive` | fails-egress | evidence reported | binding per-ip-shaping | category consumer-pan
+- needs card no, phone yes, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://pan.quark.cn | page https://fshy.ajam.dev/p/quark.md
+- free tier: 10 GB free; VIP 3 TB and SVIP 6 TB. A new account that saves one shared file gets 1 TB: '新用户保存一次别人分享的文件，可获取1TB的空间容量' | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: Not published for the free tier. Downloads above 50 MB need a desktop-client user agent and a cookie, else the API answers 23018 download file size limit | source: [2]
+- retention: Accounts frozen after 12 months without a login, with the storage reclaimed if not unfrozen within a month: '超过1年未登录 … 回收存储容量 … 文件丢失、数据清空' | days: 365 | source: [3]
+- egress: No per-GB fee, but the free tier is shaped to 2 to 4 MB/s against about 50 MB/s on SVIP, and a third-party fetch service measured a free account at about 60 KB/s. Downloads above 50 MB need a client user agent and a cookie | metered: yes | source: [4]
+- identity: country-phone | detail: mainland +86 only, and SVIP payment needs a Chinese identity document | country: 86
+- interface: rest
+- limits:
+  - per-ip-shaping (binding): 2 to 4 MB/s on the free tier [4]
+  - retention-clamped: 12 months without a login freezes the account and reclaims the capacity [3]
+  - write-gated: share downloads above 50 MB need a desktop-client user agent and a cookie [2]
+- binding note: 10 GB free, and 2 to 4 MB/s is 170 to 340 GB a day at best, so the quota and the shaping both fail. The shaping is the one that would still bind on a paid tier, and the identity gate sits in front of both.
+- tooling: no official open API. The reverse-engineered web API at drive-pc.quark.cn is what the OpenList quark driver uses; the netdisk-fast-download qk parser states that a logged-in cookie is mandatory; the OpenList docs warn quick-transfer now needs a local agent because of the speed limit
+- composes with: Base free storage is 10 GB per mobile-verified account. Promotional 1 TB allocations granted upon saving shared files expire after promotional periods rather than providing permanent capacity.
+- reliability: The anonymous path gets metadata and not bytes: a share token and a full file listing with fid and share_fid_token come back with no cookie at all, and the download call is 404 on all four documented hosts. Download tickets are IP-bound, so a link minted on one host dies when replayed from another, which is why every public Quark parser rots within weeks
+- notes: Quark has largely replaced Baidu Pan as the default share host on Chinese forums, which is why it is recorded in full. The finding that matters for a bridge builder is that the anonymous token lists a whole share and cannot move a byte, and that download tickets are IP-bound so a harvested cookie does not survive a replay.
+- extras:
+  - access_mode: registration-gated
+  - anonymous_read: metadata yes, bytes no
+  - freeze_after_days: 365
+  - aliases: Quark Cloud Drive / 夸克网盘
+  - ip_bound_download_tickets: yes
+- evidence:
+  - [1] 2026-10-21: 'SVIP用户6TB空间，VIP用户3TB空间，普通用户初始容量10GB空间'
+  - [3] 2026-10-21: '超过1年未登录 … 回收存储容量 … 文件丢失、数据清空'
+  - probe:POST https://pan.quark.cn/1/clouddrive/share/sharepage/token 2026-10-21: 200, 756 B, data.stoken returned with a share title and no cookie
+  - probe:GET https://pan.quark.cn/1/clouddrive/share/sharepage/detail 2026-10-21: 200, 3,016 B, list[0] with a file name, size 31614114, fid and share_fid_token, no cookie
+  - probe:POST https://pan.quark.cn/1/clouddrive/share/sharepage/download 2026-10-21: 404 on pan.quark.cn, drive-pc.quark.cn, drive-h.quark.cn and drive.quark.cn, all four
+  - probe:GET https://drive-pc.quark.cn/1/clouddrive/config?pr=ucpro&fr=pc 2026-10-21: 401 with {"code":31001,"message":"require login [guest]"}
+  - [2] 2026-10-21: '分享通道绕过 无效, PC API 上 share/sharepage/download 等均 404'; downloads above 50 MB need a client UA and a cookie
+- sources:
+  - [1] https://www.quark.cn/articles/003.html
+  - [2] https://github.com/woshihoujinxin/quarkpan-skill
+  - [3] https://terms.alicdn.com/legal-agreement/terms/b_end_product_protocol/20230516173016165/20230516173016165.html
+  - [4] https://kuake.ijinshan.com/membership/index.html
+
+## Weiyun (腾讯微云)
+
+- `netdisk-pan/weiyun` | fails-egress | evidence reported | binding per-object-cap | category consumer-pan
+- needs card no, phone yes, ID no, institution no | verified 2026-11-04T00:21:07.067Z (inherited) | stale on 2026-11-19
+- url https://share.weiyun.com | page https://fshy.ajam.dev/p/weiyun.md
+- free tier: 5 GB for a free account, per the vendor member-centre page | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: Not published | source: [2]
+- retention: When a membership lapses and usage exceeds the free quota, the account has 180 days to upgrade or clear the excess, after which it is frozen | days: 180 | source: [1]
+- egress: Member-gated speed, with free downloads heavily throttled | metered: yes | source: [2]
+- identity: country-phone | detail: login is by WeChat app QR scan or by QQ login ('微信登录', 'QQ登录'); the page shows no email or phone sign-in, and what a new WeChat or QQ account needs is unverified: behind a sign-up | country: 86
+- interface: rest
+- limits:
+  - per-object-cap (binding): 5 GB is the free tier total, which is the cap in practice [1]
+  - write-gated: need_pwd=1 shares require the password before any listing, and the CGI endpoint wants a signed request [2]
+- binding note: The free account is 5 GB, and the share path is closed to an unauthenticated caller even for metadata. Either number closes it; the quota is the one a reader can check without an account.
+- tooling: A reverse-engineered client mounts it: the OpenList weiyun driver takes a pasted login cookie and is unmaintained. A pull request to OpenList proposes a further driver on the vendor's MCP API with an MCPToken; its merge state is unverified. github.com/billzhong/weiyun scrapes the share page and then wgets. No rclone backend
+- composes with: Nothing to chain. A QQ or WeChat account is required, which is +86-gated in practice, and the share endpoints answer with a null body to an unauthenticated caller
+- reliability: The share page ships the share record in a JavaScript blob, so the metadata is embedded and public, and the CGI then answers ret 102027 with a null body. Tencent has left the product on minimal maintenance and the old scrapers work only where the markup has not changed
+- notes: Demonstrates metadata embedded directly within page HTML markup while programmatic API access is restricted. The file directory hierarchy is visible publicly while download payloads require authenticated client sessions.
+- extras:
+  - access_mode: registration-gated
+  - anonymous_read: metadata embedded in the page, API refused
+- evidence:
+  - probe:https://share.weiyun.com/5BPnTh7 2026-10-21: 200, 17,276 B, with inline JSON "share_name":"...rar", "store_cnt":1570, "need_pwd":1, "short_url":"https://share.weiyun.com/5BPnTh7"
+  - probe:https://web.cgi.weiyun.com/wy_share.fcg?cmd=get_share_info&share_id=5BPnTh7 2026-10-21: 200, 55 B, {"rsp_body":null,"rsp_header":{"cmd":"","ret":102027}}, so metadata is refused
+  - probe:POST https://share.weiyun.com/api/v4/weiyun/share/queryShareInfo 2026-10-21: returned HTML and not JSON, so the endpoint does not exist
+  - [1] 2026-11-03: the free account has 5 GB of storage | capture: sha256:30e640ff39803b6d4dbfdee35f8590081b7b2f0ad04f06c037ba80a1aee94c48 | quote: 会员服务到期后，存储空间将恢复到免费账号的5GB存储空间。
+  - [1] 2026-11-03: usage over the quota must be cleared or upgraded within 180 days | capture: sha256:30e640ff39803b6d4dbfdee35f8590081b7b2f0ad04f06c037ba80a1aee94c48 | quote: 若您的已用容量超出可用额度，需要在180天内升级存储空间或对容量超额部分进行清理。
+  - [3] 2026-11-03: the OpenList Weiyun driver is a reverse-engineered interface that its team does not maintain | capture: sha256:947a1572e76f0c84452d0cac8c4318a5a801b77d1246a0af4b267cf28cd2b23e | quote: 本接口是基于历史产物的逆向接口，项目组不会主动进行维护
+  - [3] 2026-11-03: a QQ-login cookie must be replaced after 48 hours | capture: sha256:947a1572e76f0c84452d0cac8c4318a5a801b77d1246a0af4b267cf28cd2b23e | quote: QQ：登录目前只能保活48小时就得更换cookie
+  - [4] 2026-11-03: a pull request adds an OpenList driver on the vendor's official MCP API | capture: sha256:1e32a8e601b225649b4c02180f7ea54f10742369f2e515d5b4edbb2a0e5b23cc | quote: 新增微云开放平台（WeiYun Open，基于 MCP 官方 API）的存储驱动 `weiyun_open`，支持通过官方 MCP 接口访问微云网盘。
+  - [5] 2026-11-03: the login panel offers a WeChat app QR scan, with QQ login as the other option | capture: sha256:0007e348281b815b87ee86a7579eb56f1992cd80308fdca1a9790a06f1fdedac | quote: 请使用微信App扫码登录
+- sources:
+  - [1] https://www.weiyun.com/vip
+  - [2] https://share.weiyun.com
+  - [3] https://openlistteam.github.io/docs/zh/guide/drivers/weiyun.html
+  - [4] https://github.com/OpenListTeam/OpenList/pull/2305
+  - [5] https://www.weiyun.com/
+
+## 缤纷云 Bitiful
+
+- `netdisk-pan/bitiful` | fails-egress | evidence reported | binding per-ip-shaping | category object storage, S3-compatible
+- needs card no, phone yes, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.bitiful.com | page https://fshy.ajam.dev/p/bitiful.md
+- free tier: 50 GB of storage and 10 GB of egress a month, free | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: Not published | source: [1]
+- retention: Not published | source: [1]
+- egress: 10 GB a month free, metered beyond. This is the disqualifier: 10 GB a month is 0.3 GB a day | metered: yes | free allowance: 10 GB per month | source: [2]
+- identity: country-phone | detail: a Chinese-language signup | country: 86
+- interface: s3
+- limits:
+  - per-ip-shaping (binding): 10 GB of egress a month on the free tier [1]
+  - write-gated: a public bucket requires a CNY 10 top-up: '免费其实要先充10块进去' [1]
+- binding note: 10 GB a month is 0.3 GB a day, which is. The storage is irrelevant at that egress allowance.
+- tooling: S3-compatible, so rclone s3 and any S3 SDK apply. The forum pairs it with R2 behind a DNS split
+- composes with: 50 GB per account and public buckets require a top-up ('设置为公开桶必须要充值'), so the free tier is private-read-write only, which blocks the CDN-front requirement as well as the volume
+- reliability: A small domestic vendor with six or more years of forum awareness and no shutdown reports. Private-only buckets plus metered egress make it unusable for serving regardless of the storage
+- notes: An S3-compatible domestic storage provider offering an active free tier. Outbound transfer is strictly constrained by the 10 GB monthly egress ceiling.
+- extras:
+  - access_mode: registration-gated
+  - public_bucket_requires_topup: yes
+- evidence:
+  - [1] 2026-10-21: '缤纷云 免费50GB，每个月免费10GB流量，不过说是免费其实要先充10块进去'
+  - [2] 2026-10-21: '缤纷云免费额度只支持私有读写'
+- sources:
+  - [1] https://linux.do/t/topic/1074108
+  - [2] https://linux.do/t/topic/734000
+
+## 美辰云盘
+
+- `netdisk-pan/pan-ios98-com` | fails-egress | evidence measured | binding write-gated | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://pan.ios98.com/ | page https://fshy.ajam.dev/p/ios98.md
+- free tier: anonymous guest read of 11 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through nginx; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - write-gated (binding): write accepted but the read-back is signed probe:https://pan.ios98.com/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier
+- reliability: The read-gated write. PUT returns code 200 with message success, and GET /p/ then returns 51 bytes of code 401 expire missing: the instance signs its raw path and a guest cannot mint the signature. Provider 139Yun. The bytes went in and cannot come out.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: read-gated
+  - upstream_provider: 139Yun
+  - fronting_cdn: nginx
+  - advertised_write_flag: yes
+  - permission_bitmask: 0
+  - base_path: /
+  - listing_sha256: 8f0623bf
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 0
+- evidence:
+  - probe:https://pan.ios98.com/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title '美辰云盘'
+  - probe:https://pan.ios98.com/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 11 root entries; write:true, write_content_bypass:None, provider:139Yun
+  - probe:https://pan.ios98.com/api/fs/put 2026-10-22: the zero-byte oracle returned code 403 with message 'file exists', so the write permission passed and nothing was written
+  - probe:https://pan.ios98.com/p/ 2026-10-22: GET /p/<the written path> returned HTTP 200 with 51 bytes of code 401 'expire missing' instead of the 32 bytes written
+- sources:
+  - [1] https://pan.ios98.com/
+
+## 62Cloud / 61Cloud (61cloud)
+
+- `netdisk-pan/62cloud-61cloud` | fails-quota | evidence reported | binding per-object-cap | category consumer-pan
+- needs card no, phone yes, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.61cloud.net | page https://fshy.ajam.dev/p/61cloud.md
+- free tier: 61 GB on registration, per a forum post: '国内商家，注册送61g' | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: Not published | source: [1]
+- retention: Not published | source: [1]
+- egress: Direct links need a CNY 0.10 Alipay payment for real-name verification; WebDAV is given away free around holidays, which is a promotion and not a standing entitlement | metered: no | source: [1]
+- identity: country-phone | detail: a Chinese-language signup; the forum post describes a domestic vendor and a CNY 0.10 Alipay real-name payment for direct links. | country: 86
+- interface: webdav
+- limits:
+  - per-object-cap (binding): 61 GB account total, which is the cap in practice [1]
+  - write-gated: WebDAV is issued around holidays and is not a standing entitlement [1]
+- binding note: 61 GB is 12% of a 500 GB threshold, and the only protocol it offers is a promotion. Either number alone closes it.
+- tooling: WebDAV when granted; otherwise the web interface only
+- composes with: Nothing about it scales and the protocol is the one that closes
+- reliability: A small domestic host whose WebDAV availability is seasonal, so any automation built on it breaks on a holiday schedule the operator does not publish
+- notes: Documentation is derived from forum reports, placing confidence at reported without a dedicated vendor pricing URL. Storage is limited to 61 GB with seasonal WebDAV access.
+- extras:
+  - access_mode: registration-gated
+  - evidence_quality: one forum post
+  - realname_cost: CNY 0.10 via Alipay, for direct links only
+- evidence:
+  - [1] 2026-10-21: '61Cloud 这个也挺不错，国内商家，注册送61g。不过国内直链功能需要支付宝付1毛钱用于实名，逢年过节还有免费webdav功能发放'
+- sources:
+  - [1] https://linux.do/t/topic/854248
+
+## Aliyun Drive (阿里云盘, alipan)
+
+- `netdisk-pan/aliyun-drive` | fails-quota | evidence reported | binding per-ip-shaping | category consumer-pan
+- needs card no, phone yes, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.alipan.com | page https://fshy.ajam.dev/p/alipan.md
+- free tier: 100 GB free; paid tiers 100 GB, 200 GB, 2 TB and above | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: Not published | source: [2]
+- retention: Capacity grants are re-evaluated and expire; over-quota accounts are functional-restricted rather than deleted | source: [2]
+- egress: No per-GB charge; free accounts are throttled to about 0.5 MB/s per the Wikipedia table | metered: yes | source: [1]
+- identity: country-phone | detail: +86 only, and the open platform needs an application reviewed on top of that. The token-exchange tool still requires you to log into an Aliyun Drive account to mint the refresh token | country: 86
+- interface: rest
+- limits:
+  - per-ip-shaping (binding): about 0.5 MB/s on a free account [1]
+  - request-rate: 60-minute and 10-request refresh-token rate limit on the token broker [3]
+  - write-gated: the open platform needs an application reviewed by Alibaba on top of an existing account [4]
+- binding note: 100 GB free, and 0.5 MB/s is 43 GB a day at best, so the shaping binds before the identity gate is even reached. The identity gate is the second lock.
+- tooling: an open platform at alipan.com/developer with OAuth and app review; the OpenList aliyundrive_open driver ships a built-in key pair so no app registration is needed; no official rclone backend
+- composes with: 100 GB per phone-verified Alibaba account is 200 accounts per 20 TiB, which is a non-starter against the effort. The anonymous API surface exists and answers structured NotFound errors, which proves the routes resolve, but every share token needs a share that exists
+- reliability: Over-quota accounts are restricted from playback, upload, download and transfer rather than deleted, so the bytes survive the quota change and the access does not. The docs warn 请勿将阿里云盘进行公开分享，禁止帐号被多IP访问, which is the exact pattern a bridge uses
+- notes: Historical quota trajectory reflects repeated downward adjustments: an initial display bug in 2022 showing 100 GB across accounts was followed in 2024 by restriction of over-capacity storage, leading into the current paid tier ladder.
+- extras:
+  - access_mode: registration-gated
+  - anonymous_read: routes resolve, shares refused
+  - free_capacity_changes: 2022 bug showed 100 GB on every account; 2024 over-capacity accounts restricted
+- evidence:
+  - [1] 2026-10-21: table row '阿里云盘, 100G, 无, 有, 0.5M/s, 是, 是'
+  - [5] 2026-10-21: the navigation exposes 开放平台 (/developer), 开通会员 and desktop clients
+  - probe:POST https://api.aliyundrive.com/adrive/v2/share_link/get_share_by_anonymous 2026-10-21: 404 with {"code":"NotFound.ShareLink"} for a share_id that does not exist, so the route exists
+  - probe:POST https://api.aliyundrive.com/v2/share_link/get_share_token 2026-10-21: 404 NotFound.ShareLink; /adrive/v3/... answered 'uri(...) not exist', so the working prefix has no /adrive
+  - https://raw.githubusercontent.com/liupan1890/aliyunpan/main/adrive sdk/share.md 2026-10-21: documents get_share_token returning a JWT whose payload contains "user_id":"anonymous"
+- sources:
+  - [1] https://zh.wikipedia.org/wiki/中国大陆网盘列表
+  - [2] https://www.alipan.com
+  - [3] https://github.com/liupan1890/aliyunpan
+  - [4] https://www.alipan.com/developer
+  - [5] https://www.alipan.com/
+
+## ASUS WebStorage
+
+- `netdisk-pan/asus-webstorage` | fails-quota | evidence reported | binding per-object-cap | category hardware-vendor cloud
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T00:20:56.366Z (inherited) | stale on 2026-11-19
+- url https://www.asuswebstorage.com/ | page https://fshy.ajam.dev/p/asuswebstorage.md
+- free tier: 5 GB on the plan listed as Free Trial, priced 'Lifetime Free'; paid Lite 100 GB, Pro 1 TB, Enterprise 5 TB | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: Not published | source: [1]
+- retention: Not published | source: [2]
+- egress: Not published; FTP is offered on paid tiers with a bandwidth limit | metered: no | source: [1]
+- identity: email | detail: an email address
+- interface: unknown
+- limits:
+  - request-rate: API calls are a paid-tier entitlement: 10 million a month on Pro, 50 million on Enterprise [1]
+  - per-object-cap (binding): 5 GB is the free tier total, which is the cap in practice [1]
+- binding note: 5 GB free, and the API is metered by a paid-tier entitlement, so there is no free programmatic path at any capacity.
+- tooling: reverse-engineered. A draft rclone backend, pull request 6808, whose description states 'API is not publicly available. Protocol and API were discovered with official Linux client.', was opened 2023-03-06 and closed unmerged on 2026-02-26; it is in no release
+- composes with: Had the rclone backend landed this would be a clean one-line remote. It did not: the pull request was closed unmerged on 2026-02-26, and rclone's maintainer required someone to commit to maintaining a backend whose API is not public
+- reliability: The draft rclone backend was closed unmerged on 2026-02-26 and the API is not public. Do not plan on it
+- notes: Both a quota failure and a tooling failure, recorded as fails-quota because the quota is the first thing a reader checks. The API being a paid-tier entitlement is the part that would surprise a reader who assumed the draft rclone backend implied free access.
+- extras:
+  - access_mode: registration-gated
+  - rclone_backend: PR 6808, closed unmerged on 2026-02-26, not in any release
+  - api_included_free: no
+- evidence:
+  - [1] 2026-10-21: plan table Free Trial 5 GB, Lite 100 GB, Pro 1 TB, Enterprise 5 TB, and 'API Function: Pro 10 million per month'
+  - [3] 2026-10-21: 'API is not publicly available. Protocol and API were discovered with official Linux client', state Draft since 2023-03-06
+  - probe:https://www.asuswebstorage.com/navigate/price/ 2026-10-21: HTTP 404 with a 774-byte body, so that path is dead and the live price page is service.asuswebstorage.com/store/
+  - [1] 2026-11-03: the Free Trial column is priced Lifetime Free; its storage row is 5GB | capture: sha256:0cb2ecfe6ef114ac6b32d8747a5f0958baeefdc71920c188209d0803535bb869 | quote: | Price/Year | Lifetime Free | -- | -- | -- |
+  - [3] 2026-11-03: the rclone maintainer closed the pull request on 2026-02-26 | capture: sha256:a16b294e58891192480d91ea9d204b69745721f5341e48ec4f6944629ef0c5bf | quote: I'm going to close this now - feel free to submit again if you have more time to work on it.
+  - [3] 2026-11-03: rclone's condition for merging a backend with no public API | capture: sha256:a16b294e58891192480d91ea9d204b69745721f5341e48ec4f6944629ef0c5bf | quote: I've decided that in order to merge a backend with no public API I need to get someone else to maintain it indefinitely.
+  - [4] 2026-11-03: the first-party service page offers 5 GB free for an account number, password and email address | capture: sha256:345deed73c2db43df9e450356caf0d39f2bf416bd0c89e4540554348c77aee63 | quote: please go to ASUS WebStorage website to apply for 5GB free storage. In turn, please set your personal account number, password and email address to formally start the
+  - [1] 2026-11-03: API calls are a Pro and Enterprise entitlement, 10 million and 50 million per month | capture: sha256:0cb2ecfe6ef114ac6b32d8747a5f0958baeefdc71920c188209d0803535bb869 | quote: | API Function | | | ● (10 million per month) | ● (50 million per month) |
+  - [1] 2026-11-03: plan storage: Free Trial 5GB, Lite 100GB, Pro 1TB, Enterprise 5TB | capture: sha256:0cb2ecfe6ef114ac6b32d8747a5f0958baeefdc71920c188209d0803535bb869 | quote: | Cloud Storage | 5GB | 100GB | 1TB | 5TB |
+  - probe:https://www.asuswebstorage.com/navigate/price/ 2026-11-03: the old price path still answers HTTP 404 with a 774-byte body | capture: sha256:bebc4154eb8c63b69f50ad584e36a71facfc51c07810c611710738d63bd1b1dc | quote: "status": 404
+- sources:
+  - [1] https://service.asuswebstorage.com/store/?bp=_t
+  - [2] https://www.asuswebstorage.com/
+  - [3] https://github.com/rclone/rclone/pull/6808
+  - [4] https://service.asuswebstorage.com/service/
+
+## Baidu Pan (百度网盘)
+
+- `netdisk-pan/baidu-pan` | fails-quota | evidence reported | binding per-ip-shaping | category consumer-pan
+- needs card no, phone yes, ID no, institution no | verified 2026-11-03T00:47:33.040Z (inherited) | stale on 2026-11-18
+- url https://pan.baidu.com | page https://fshy.ajam.dev/p/baidu.md
+- free tier: 300 GB after a mobile-client login; 100 GB on registration alone: '用户注册即有100G云空间，在手机客户端登录则升级为300G' | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 1 GB per file on the web uploader, 4 GB on the desktop client, 10 GB on VIP and 20 GB on SVIP | bytes: 1000000000 | source: [2]
+- retention: Trash holds deleted files for 10 days. The free allowance was cut from 2 TB to 100 GB in 2020 for accounts not logged in for two years | source: [3]
+- egress: Metered by throttle rather than by byte: non-member downloads are capped around 0.1 MB/s and anything sizeable needs the desktop or mobile client | metered: yes | source: [1]
+- identity: country-phone | detail: a Baidu account; the default registration form takes a mainland China mobile number, and Baidu's help centre states that a mobile number from outside mainland China registers a Baidu account through four product lines, that the account then works on other Baidu products, and that EU member-state numbers are not supported; whether the Baidu Pan client signs in with such an account is unverified behind a sign-up. The open platform adds a developer app on top | country: 86, or a country on the Baidu overseas registration list (no EU member state)
+- interface: rest
+- limits:
+  - per-ip-shaping (binding): about 0.1 MB/s on a non-member download [1]
+  - per-object-cap: 1 GB per file on web, 4 GB on the desktop client, free [2]
+  - retention-clamped: the free allowance drops to 100 GB for accounts idle for two years [3]
+- binding note: 300 GB free, and 0.1 MB/s is 8.6 GB a day, so the throttle binds first: 1 TB takes 116 days of continuous reading.
+- tooling: an official open platform with OAuth 2.0 at pan.baidu.com/union/doc, for example GET /api/quota with an access token returning total, free and used in bytes; the OpenList BaiduNetdisk driver; a Baidu developer app is required
+- composes with: 300 GB per Baidu account and Baidu accounts need a phone number. At 0.1 MB/s the non-member throttle makes even 500 GB a day impossible, so the read path fails independently of the quota
+- reliability: Content scanning applies even to private files: matching files become unreadable for the uploader too. The free tier is effectively read-only at serving scale. The guest share path gets further than expected and then stops: /share/verify returns errno 0 with a randsk cookie and the page renders the real file tree, but /share/list answers errno 2 and every byte path needs BDUSS
+- notes: Two findings: the 2 TB to 100 GB cut, and the anonymous share path. The anonymous path proves that the share metadata is public and the bytes are not, which is the pattern the whole topic is built on.
+- extras:
+  - access_mode: registration-gated
+  - anonymous_read: metadata yes, bytes no
+  - aliases: Baidu Pan / 百度网盘
+  - cross_topic_record: storage/baidu-pan
+  - cross_topic_note: A record for this provider already exists under the storage topic; this one is scoped to its role as a pan, following the same split netdisk-pan/lanzou uses.
+- evidence:
+  - [1] 2026-10-21: table row '百度网盘, 300G, 无, 有, 有, 0.1M/s, 是, 是' and '注册即有100G云空间，在手机客户端登录则升级为300G'
+  - [2] 2026-10-21: '普通用户使用百度网盘Web端上传文件时，单文件最大支持1G'; desktop client 4 GB; VIP 10 GB; SVIP 20 GB
+  - [3] 2026-10-21: '若过去两年未登录过，免费空间将从 2TB 调整为 100GB'
+  - probe:POST https://pan.baidu.com/share/verify?surl=RK7uBqaqgqJHLJbadXI48g 2026-10-21: 200 with {"errno":0,"randsk":"oMkK%2Fo1NQiRi7U58..."}, so the passcode gate opens a guest session
+  - probe:GET https://pan.baidu.com/share/list?uk=858219170&shareid=47786905570 2026-10-21: 200 with {"errno":2,"show_msg":"啊哦，链接出错了"} for the same uk and shareid the page rendered
+  - probe:GET https://pan.baidu.com/rest/2.0/xpan/multimedia 2026-10-21: {"errmsg":"Invalid Bduss","errno":-6}, so every byte path needs a logged-in session
+  - [4] 2026-11-03: Baidu states that overseas mobile numbers register through four product lines, that the account then works on other Baidu products, and that EU member-state numbers are not supported | capture: sha256:ab47d731a6f57a006fa2e68b5d1ed9b1063ea4fc3e77b7d57b938e18e2f0b784 | quote: 目前仅支持百度公有云、百度好看、小度音箱、apollo 4条产品线进行海外手机注册。您可以下载小度音箱app进行注册。注册后，其他百度旗下产品均可使用（欧盟国家手机号暂不支持注册百度账号，非常抱歉给您带来的不便）
+  - [5] 2026-11-03: the Baidu overseas registration form offers calling codes outside mainland China, such as +91 India | capture: sha256:89243433a130f4c68494a45e9613325ded061518c3aabb1bc752953376f0eab2 | quote: - +91印度
+- sources:
+  - [1] https://zh.wikipedia.org/wiki/中国大陆网盘列表
+  - [2] https://pan.baidu.com/disk/help
+  - [3] https://www.ithome.com/0/511/746.htm
+  - [4] https://help.baidu.com/question?prod_id=28&class=8&id=2408
+  - [5] https://passport.baidu.com/v2/?reg&u=https%3A%2F%2Flogin.baidu.com%2F&tpl=bceplat&overseas=1
+
+## Disroot Cloud (donation-funded Nextcloud)
+
+- `netdisk-pan/disroot-cloud` | fails-quota | evidence reported | binding write-gated | category donation-funded Nextcloud, free tier only
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T00:20:59.760Z (inherited) | stale on 2026-11-19
+- url https://disroot.org/en/services/nextcloud | page https://fshy.ajam.dev/p/disroot.md
+- price EUR 110/year for 60 GB, which is EUR 152/TB/year and therefore irrelevant | parsed USD 14.19/TB-mo
+- free tier: 2 GB of cloud, 1 GB of mail and 500 MB of CryptPad, free. Extra space is sold in annual steps: 5 GB EUR 11/year, 10 GB EUR 20, 15 GB EUR 29, 30 GB EUR 56, 45 GB EUR 83, 60 GB EUR 110, with 21% VAT added for EU residents | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: Not published | source: [2]
+- retention: Until deleted. No retention clock published | source: [2]
+- egress: No published cap. The instance is donation-funded and the guidance asks users not to overuse it; that is a fair-use sentence and not a number | metered: no | source: [3]
+- identity: email | detail: a Disroot account. The extra-storage form is a separate human review that asks why the space is needed
+- interface: webdav, rest, rclone
+- limits:
+  - write-gated (binding): extra capacity is granted by a human-reviewed application form, not by a self-serve checkout [3]
+- binding note: The quota closes it at 60 GB, but the gate that matters more is that capacity above 2 GB is a human decision rather than a purchase, so no plan can be built on a number that arrives by review.
+- tooling: rclone webdav and the Nextcloud clients, which is the one real advantage: it needs no wrapper
+- composes with: Nothing to chain. The absolute ceiling is 60 GB at any price, so it cannot hold a share of a 10 TiB working set and cannot participate in a pool. Its role would be as a small always-available mount for a bridge's state
+- reliability: Donation-funded and rate-conscious. Extra storage is reviewed by hand, so capacity is a request and not a purchase. Ordering is by annual invoice with VAT added for EU residents. The operator's status page reports that the Nextcloud Files feature is disabled after a hardware failure on the storage server while calendars, contacts and chat work, and its 2026-11-02 update says some unreadable disk regions may lead to unrecoverable data
+- evidence note: Confidence is reported: documentation is dated to research on 2026-10-21. Raising confidence to documented or measured requires re-reading the storage expansion form and executing live WebDAV PROPFIND requests against an active account.
+- extras:
+  - access_mode: registration-gated
+  - free_tier_exists: yes
+  - maximum_purchasable_gb: 60
+  - extra_storage_is_reviewed: yes
+- evidence:
+  - [2] 2026-10-21: 'If the free 2GB is not enough, you can extend your cloud storage', with WebDAV and the Nextcloud clients listed as access paths
+  - [3] 2026-10-21: 'FREE storage: 1GB for your emails, 2GB for the cloud, 500MB for cryptpad'; tiers '5GB for 11 EUR annually' up to '60GB for 110 EUR annually'; 'European users have to add a VAT of 21%'
+  - [4] 2026-11-03: the status page states the Nextcloud Files feature is disabled until a storage failure is solved while calendars, contacts and chat work | capture: sha256:b74e3374025cc3095564123843ac7dc1443115f624ec16b7ffca11c2b5869abf | quote: Nextcloud - Files feature has been disabled until the issue is solved, calendars, contacts, chat etc works as normal
+  - [4] 2026-11-03: the 2026-11-02 status update says unreadable disk regions may lead to unrecoverable data | capture: sha256:b74e3374025cc3095564123843ac7dc1443115f624ec16b7ffca11c2b5869abf | quote: some unreadable region does exist on the disk which may lead to unrecoverable data
+  - probe:https://disroot.org/ 2026-11-03: the site root serves a maintenance page headed Major hardware failure on storage server | capture: sha256:6eba24a8ba7d3ba0f406e93a519d38b54ad07d67aab6cd4b7a6e90c705aedebe | quote: <h1>Major hardware failure on storage server!</h1>
+  - probe:https://disroot.org/en/services/nextcloud 2026-11-03: the Nextcloud service page answers HTTP 404 while the site root serves the maintenance page | capture: sha256:62bf13eba8b6b167eb8dc6cb1b111568f95198399e65f8ca9726fffb1b162a8e | quote: "status": 404
+  - [4] 2026-11-03: the status page states the Nextcloud Files feature is disabled | capture: sha256:b74e3374025cc3095564123843ac7dc1443115f624ec16b7ffca11c2b5869abf | quote: Nextcloud - Files feature has been disabled until the issue is solved, calendars, contacts, chat etc works as normal
+- sources:
+  - [1] https://disroot.org/forms/extra-storage-space
+  - [2] https://disroot.org/en/services/nextcloud
+  - [3] https://disroot.org/en/forms/extra-storage-space
+  - [4] https://status.disroot.org/
+
+## Lanzou (蓝奏云, pc.woozooo.com)
+
+- `netdisk-pan/lanzou` | fails-quota | evidence documented | binding per-object-cap | category consumer-pan
+- needs card no, phone yes, ID no, institution no | verified 2026-11-04T00:21:07.069Z (live) | stale on 2026-11-26
+- url https://pc.woozooo.com/ | page https://fshy.ajam.dev/p/woozooo.md
+- free tier: unlimited total storage on the free tier, with no download rate limit, no download count limit and no login to download; the per-file cap is the constraint | unit: unlimited | metered on: stored-bytes | read on: 2026-10-22 | source: [1]
+- per-object cap: 100 MiB per file, which the resolver's driver table states and which the free tier does not publish on its own page | bytes: 104857600 | source: [2] | note: stated as 100M in the driver table; the free tier's own page says only that total storage is unlimited
+- retention: unverified: the vendor home page as read states no share-link lifetime; the account's own retention is not published | source: [1]
+- egress: downloads are stated as unlimited in speed, volume and count, with no login; there is no egress price | metered: no | source: [1]
+- identity: any-phone | detail: the register form asks for a phone number with an SMS code, then a username and password ('请使用用户名登录，手机号仅用于找回短信验证'); it shows no email field and no country selector. Whether a non-mainland number is accepted is unverified: behind a sign-up
+- interface: rest
+- limits:
+  - per-object-cap (binding): 100 MiB per file [2]
+- binding note: The total is genuinely unlimited and the egress is genuinely free, but a 100 MiB per-file cap over a 10 TiB working set is 100,000 objects, which is a file-count problem before it is a storage one.
+- tooling: no WebDAV and no official API; the practical route is the netdisk-fast-download 'lz' driver, which resolves a share link to a direct URL
+- composes with: the cheapest place to put files under 100 MiB that must be downloadable without an account, which makes it a config, patch and asset host rather than a data store
+- reliability: Share-link lifetime is not stated on the vendor home page as read. The per-file cap is what stops it from being storage at any scale.
+- notes: Offers unconstrained total storage capacity constrained by a 100 MiB per-file ceiling. Functions primarily as a lightweight direct-link distribution target for small file archives.
+- extras:
+  - access_mode: registration-gated
+  - api: none official
+  - resolver_driver: lz
+  - per_file_cap_source: the resolver's driver table, not the vendor page
+- evidence:
+  - [1] 2026-10-22: '拥有无限制的总存储空间' (unlimited total storage) and '下载不限速度，不限流量，不限次数，免登录下载' (no speed, volume or count limit on downloads, no login needed), and share links are permanent
+  - [2] 2026-10-22: the Lanzou driver has a per-file limit of 100M and a free no-login download, and the second table gives Lanzou 'unlimited space' with the same 100M per-file cap
+  - [1] 2026-11-03: the vendor page states unlimited total storage | capture: sha256:9aedd22bca29979c2a778196bd01de05e0b439ce4627c51b9789e736ae34a7f0 | quote: 拥有无限制的总存储空间，支持个性化定制。
+  - [3] 2026-11-03: the register form asks for a phone number, used for SMS verification and recovery, and a username and password | capture: sha256:392416d0d364934533ee37ce79a1d509337ab3a498b29033449939cf440c8818 | quote: 请使用用户名登录，手机号仅用于找回短信验证。
+  - [4] 2026-11-03: the wrapper's README claims it works around the file-type and per-file size limits | capture: sha256:c90cdc1e534cd1b8c14d32c9eaa9f40151898ddda5201861e15b61a1b3804185 | quote: 解决了蓝奏云的上传格式限制和单文件大小限制，同时增加了以下功能: 批量上传/下载文件
+  - [3] 2026-11-03: a retired or suspended phone number is handled by hand through support | capture: sha256:392416d0d364934533ee37ce79a1d509337ab3a498b29033449939cf440c8818 | quote: 手机号已注销，停机等情况，可以联系人工处理
+  - [1] 2026-11-03: downloads are stated as unlimited in speed, volume and count, with no login | capture: sha256:9aedd22bca29979c2a778196bd01de05e0b439ce4627c51b9789e736ae34a7f0 | quote: 下载不限速度，不限流量，不限次数，免登录下载！
+  - [5] 2026-11-04: the OpenList Lanzou driver mounts an account by username and password and refreshes the cookie itself; it also has cookie and share-link modes (reverse-engineered, third-party) | capture: sha256:ea97382be4ddfd770e37a0a1258a89fce5bef892ff485d54dbe66a90ba305ca2 | quote: 可以显示自己网盘所有文件，只需要填写帐号密码，会自动帮你刷新cookie
+- sources:
+  - [1] https://pc.woozooo.com/
+  - [2] https://nfd-parser.github.io/
+  - [3] https://pc.woozooo.com/account.php?action=register
+  - [4] https://github.com/zaxtyson/LanZouCloud-API
+  - [5] https://openlistteam.github.io/docs/zh/guide/drivers/lanzou.html
+
+## Lanzou Cloud (蓝奏云)
+
+- `netdisk-pan/lanzou-cloud` | fails-quota | evidence reported | binding per-object-cap | category consumer-pan
+- needs card no, phone yes, ID no, institution no | verified 2026-11-04T00:21:07.070Z (inherited) | stale on 2026-11-19
+- url https://www.lanzou.com | page https://fshy.ajam.dev/p/lanzou.md
+- free tier: Unlimited total storage on the free tier: '拥有无限制的总存储空间'. The per-file cap is on the per-object field | unit: unlimited | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 100 MB per file on the free tier: '不限空间大小，不限下载速度，只是限制文件大小，最大不超过100M/个文件' | bytes: 100000000 | source: [2]
+- retention: unverified: the vendor home page as read states no share-link lifetime; account retention is not published | source: [1]
+- egress: Free and explicitly unmetered: '下载不限速度，不限流量，不限次数，免登录下载'. The free product is ad-funded and the FAQ states 我们对下载速度不做任何限制 | metered: no | free allowance: unlimited | source: [1]
+- identity: country-phone | detail: the register form (pc.woozooo.com, terms on accounts.woozooo.com) asks for 手机号 plus an SMS code, then a username and password; it shows no email field and no country selector. A foreign-number path is unverified: behind a sign-up | country: 86
+- interface: rest
+- limits:
+  - per-object-cap (binding): 100 MB per file on the free tier [2]
+  - request-rate: no WebDAV on a free account; access is only through direct-link extraction [3]
+- binding note: The total is genuinely unlimited and the egress is genuinely free, so nothing about capacity or traffic binds. 100 MB per object over a 10 TiB working set is 105,000 objects, which makes the file count the problem before the bytes.
+- tooling: no official API. Reverse-engineered clients mount it: the OpenList Lanzou driver in account, cookie or link mode, and a mature unofficial Python wrapper, zaxtyson/LanZouCloud-API, which does login, list, upload, download, delete, move, folder operations and direct-link extraction, and whose README claims it works around both the file-type and the per-file size limits by splitting
+- composes with: Unlimited total times 100 MB per object is the pure per-record-unlimited shape: 20 TiB is about 210,000 objects, all inside one free account's allowance. The gate is that registration is SMS-only on a mainland number
+- reliability: Domains rotate across lanzou.com, lanzoue, lanzouj, lanzoux, and lanzoul. Share links valid on one domain frequently return HTTP 404 on others, requiring automated tools to maintain a multi-domain fallback list. CDN delivery exhibits geographical routing instability.
+- notes: Exemplifies the per-item unlimited storage model where the 100 MiB per-file upload cap is the primary operational constraint. Vendor documentation confirms unlimited overall account capacity with per-file restrictions.
+- extras:
+  - access_mode: registration-gated
+  - aliases: Lanzou Cloud / 蓝奏云; Lanzou (蓝奏云)
+  - cross_topic_record: storage/lanzou
+  - cross_topic_note: the storage topic carries the same provider; this record is scoped to its role as a direct-link target
+- evidence:
+  - [1] 2026-10-21: '拥有无限制的总存储空间'; '下载不限速度，不限流量，不限次数，免登录下载！'; '分享文件地址永久有效'
+  - [2] 2026-10-21: '免费空间：无限制，只是限制文件大小，最大不超过100M/个文件'
+  - [4] 2026-10-21: 811 stars, PyPI lanzou-api; the README claims it works around both the file-type and the per-file size limits
+  - probe:https://abskoop.lanzoue.com/iyobY0jnhpdi 2026-10-21: 200, 1,976 B, title '数码小站 V0.4.2.zip - 蓝奏云', body contains src="/fn?AmQFb1o_bVDU..."
+  - probe:POST https://apifile.woozooo.com/ajaxfile.php?file=95202518 2026-10-21: 200, 643 B, {"zt":1,"dom":"https://developer4.lanrar.com","url":"?AmRaZF1s..."} for action=downprocess
+  - probe:GET https://developer4.lanrar.com/file/<token> 2026-10-21: 200 but 2,714 B of gzipped JavaScript from an automated-traffic filter, so the raw CDN needs the token chain; the parser path is reliable
+  - [5] 2026-10-21: '新用户注册, 手机号, 获取短信验证码, 我已同意服务协议并注册', so signup is SMS-only
+  - [3] 2026-10-21: '链接：只能显示链接里面的内容（不需要提供cookie就可以挂载）'
+  - [1] 2026-11-03: the vendor page states unlimited total storage | capture: sha256:5b05f639888fc838d484db8cbd6c9eab5b1697c8de56482ddb0f69de4e20a18d | quote: 拥有无限制的总存储空间，支持个性化定制。
+  - [5] 2026-11-03: the register form asks for a phone number, used for SMS verification and recovery, and a username and password | capture: sha256:392416d0d364934533ee37ce79a1d509337ab3a498b29033449939cf440c8818 | quote: 请使用用户名登录，手机号仅用于找回短信验证。
+  - [3] 2026-11-03: the OpenList Lanzou driver mounts an account from a username and password | capture: sha256:ea97382be4ddfd770e37a0a1258a89fce5bef892ff485d54dbe66a90ba305ca2 | quote: 可以显示自己网盘所有文件，只需要填写帐号密码，会自动帮你刷新cookie
+  - [1] 2026-11-03: downloads are stated as unlimited in speed, volume and count, with no login | capture: sha256:5b05f639888fc838d484db8cbd6c9eab5b1697c8de56482ddb0f69de4e20a18d | quote: 下载不限速度，不限流量，不限次数，免登录下载！
+- sources:
+  - [1] https://www.lanzou.com/
+  - [2] https://www.cnblogs.com/Dongmy/p/18143085
+  - [3] https://openlistteam.github.io/docs/zh/guide/drivers/lanzou.html
+  - [4] https://github.com/zaxtyson/LanZouCloud-API
+  - [5] https://pc.woozooo.com/account.php?action=register
+
+## Lanzou Premium (蓝奏云优享版, ilanzou)
+
+- `netdisk-pan/lanzou-premium` | fails-quota | evidence reported | binding per-object-cap | category consumer-pan
+- identity a placeholder: card and phone unknown | verified 2026-11-04T00:21:07.070Z (inherited) | stale on 2026-11-19
+- url https://www.ilanzou.com | page https://fshy.ajam.dev/p/ilanzou.md
+- free tier: A free account has a free tier: the vendor page publishes no quota figure, and a third-party page reports 10 GB, or 2 TB for one year after registration and account authentication, against 10 TB for a member. Per-file cap is above the legacy 100 MB | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: Above the legacy 100 MB and not published as one number; large-file resolution needs an account | source: [1]
+- retention: Not published | source: [1]
+- egress: Ordinary users upload and download with no speed limit ('普通用户上传下载永不限速'); files under 100 MB download from a share link without a login, larger files need a login unless the downloader is… | metered: no | source: [1]
+- identity: email | detail: unverified: the vendor home page shows only a login control and no registration form. A third-party page says registration plus 'account authentication' (账号认证) unlocks the 2 TB year, and what that authentication asks for is not stated. Behind a sign-up
+- interface: rest
+- limits:
+  - per-object-cap (binding): above 100 MB and unpublished; large-file resolution needs an account [2]
+- binding note: The capacity is paid and no free figure is published, so the free tier cannot be shown to reach anything. The per-file cap is the number a buyer would need and the page does not publish it.
+- tooling: Reverse-engineered clients mount it: the OpenList ilanzou driver takes an account and password and has no share mode, and the netdisk-fast-download iz parser needs authentication only for large files
+- composes with: Nothing to multiply, because the capacity is paid. Its role in the topic is as the resolver's iz driver, which is what makes legacy Lanzou links reachable when the direct CDN refuses
+- reliability: The same rotating-CDN problem as legacy Lanzou, plus one observed failure that matters: the resolver issued a direct URL anonymously and the connection then could not be made. A resolved link is not a delivered file
+- notes: The one probe is a real finding: a share resolved anonymously and the CDN then refused the TCP connection, which is why the record says a resolved link is not a delivered file.
+- extras:
+  - access_mode: paid
+  - resolver_driver: iz
+  - aliases: Lanzou Premium / 蓝奏云优享版 (ilanzou)
+  - registration_path_unverified: yes
+- evidence:
+  - probe:https://lz.qaiu.top/parser?url=https%3A%2F%2Fwww.ilanzou.com%2Fs%2FbyZ05Sh3&pwd=xbc6 2026-10-21: 302 to https://small5.bakstotre.com/...491744860608972.rar with a filename, so a direct URL was issued anonymously; the connection then failed after 23 seconds
+  - [3] 2026-10-21: '在线预览, 下载免登录, 不限速, 无损存储'
+  - [4] 2026-10-21: the driver needs 账户、密码 only
+  - [2] 2026-10-21: the iz parser needs authentication for large files
+  - [3] 2026-11-03: files under 100 MB download from a share link without login; above that a login is needed, except for VIP | capture: sha256:7de65de6f432b32f58a357e1b31778faf7776190dd2955dc8af3d5c33e52ea0f | quote: 小于100M的文件，普通用户可通过分享链接免登陆下载 VIP用户无分享链接文件大小上限下载限制
+  - [5] 2026-11-03: a third-party comparison gives a free account 10 GB, and 2 TB for a year after registration and authentication | capture: sha256:5e029a309be1cc8c8d6b5621b6ba736ddf6923e562caf097c1fca322225f7e26 | quote: | 存储容量 | 10GB（注册认证后享2T/1年） | 10TB |
+  - [5] 2026-11-03: registration and an account authentication step are named, with no detail on what it requires | capture: sha256:5e029a309be1cc8c8d6b5621b6ba736ddf6923e562caf097c1fca322225f7e26 | quote: 新用户注册并完成账号认证后，即可
+  - [4] 2026-11-03: the OpenList ilanzou driver is configured with an ilanzou account and password | capture: sha256:f13c1d9c1502125c2cdf3c7681abdc2c6e5f34305f18c78e8f9831a716c0dd25 | quote: 填写自己的蓝奏云优享版帐号密码
+  - [3] 2026-11-03: ordinary users upload and download with no speed limit | capture: sha256:7de65de6f432b32f58a357e1b31778faf7776190dd2955dc8af3d5c33e52ea0f | quote: 普通用户上传下载永不限速
+- sources:
+  - [1] https://www.ilanzou.com
+  - [2] https://github.com/qaiu/netdisk-fast-download
+  - [3] https://www.ilanzou.com/
+  - [4] https://openlistteam.github.io/docs/zh/guide/drivers/ilanzou.html
+  - [5] https://ai-321.com/AI/13827.html
+
+## Naver MYBOX (네이버 마이박스)
+
+- `netdisk-pan/naver-mybox` | fails-quota | evidence reported | binding per-object-cap | category consumer-pan
+- needs card no, phone no, ID yes, institution no | verified 2026-11-04T00:21:08.720Z (inherited) | stale on 2026-11-19
+- url https://mybox.naver.com | page https://fshy.ajam.dev/p/naver.md
+- free tier: 30 GB free: '국내 최대 무료 용량 30GB'. MYBOX+ adds 50 GB, 150 GB, 300 GB, 2 TB, 5 TB, 10 TB or 20 TB on top of the base | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 4 GB per file on the free 30 GB plan; maxFileBytes is returned per account and depends on the plan | bytes: 4000000000 | source: [2]
+- retention: Dormant after two years without a login, and stored files are deleted | days: 730 | source: [2]
+- egress: No egress fee documented. The binding limit is the API's 50,000 downloads a day, flat across all plan tiers from 30 GB to 20 TB; the page states the plan tiers share one limit only until 2026-12-31 and limits may differ by plan after that date | metered: yes | free allowance: 50,000 downloads a day | source: [3]
+- identity: national-id | detail: a Naver account that passes Korean real-name verification, which is the wall the forum reports agree on | country: kr
+- interface: rest
+- limits:
+  - per-object-cap (binding): 4 GB per file on the free plan [2]
+  - request-rate: 50,000 API downloads a day, 30 searches a minute and 240 deletes a minute [3]
+  - retention-clamped: two years without a login makes the account dormant and deletes the files [2]
+- binding note: Storage is limited to 30 GB total with a 4 GB per-file cap, and stored content is deleted after 730 days of account dormancy. The 4 GB per-file ceiling remains an immutable boundary across multiple accounts.
+- tooling: an official MYBOX Open API with personal access tokens against https://open-api.mybox.naver.com/v1, bearer mbx_pat_ tokens with a 30, 60, 90 or 180-day lifetime and at most five per account. No rclone backend
+- composes with: 30 GB times N Naver IDs, where each needs a real-name-verifiable Naver account.
+- reliability: An explicit excess-use clause: bulk calls or excess use get access restricted without notice, and dormant accounts and their tokens fail. The market consolidated and MYBOX is the only Korean free personal drive left
+- notes: The cleanest documented API in the Asian drive set and the smallest quota.
+- extras:
+  - access_mode: registration-gated
+  - api_tokens: 5 per account, 30 to 180-day lifetime
+  - dormancy_days: 730
+  - aliases: Naver MYBOX (네이버 마이박스)
+- evidence:
+  - [1] 2026-10-21: '국내 최대 무료 용량 30GB를 제공'
+  - [3] 2026-10-21: the API daily limits table gives '50,000회/일' for downloads across 30 GB to 20 TB, and '단시간 대량 호출, 어뷰징 등이 감지될 경우 ... 서비스 이용이 제한될 수 있습니다'
+  - [4] 2026-10-21: GET /v1/drive/storage with a bearer PAT returns quotaBytes, usedBytes and maxFileBytes
+  - [2] 2026-10-21: MYBOX 30 GB, '파일 1개당 4GB(무료 30GB 기준)', '2년 이상 미로그인 시 휴면 전환, 저장 파일 삭제'
+  - [5] 2026-10-21: '네이버 MYBOX 30GB 무료' as the largest domestic free tier
+  - probe:https://open-api.mybox.naver.com/v1/drive/storage 2026-10-21: 401 with {"code":"PLAT-401","message":"UNAUTHORIZED"}, so the API is live
+  - [6] 2026-11-03: the MYBOX introduction page still states 30 GB as the free capacity | capture: sha256:44dc5a1ab75037437ce698e68f6414613c3b2e3cd8d27bff508fdec6551a0d3b | quote: 국내 최대 무료 용량 30GB로 시작하세요.
+  - [3] 2026-11-03: the identical per-plan API limits are stated as temporary until 2026-12-31, after which they may change by plan | capture: sha256:c39418cbc9e7e91f505b3cd1cc875f2cba66362e327177d2341e4dae3b63df39 | quote: 26.12.31까지 한시적으로 모든 요금제 한도가 동일하게 적용됩니다.
+  - [3] 2026-11-03: downloads are limited to 50,000 per day on every plan from 30 GB to 20 TB | capture: sha256:c39418cbc9e7e91f505b3cd1cc875f2cba66362e327177d2341e4dae3b63df39 | quote: | 다운로드 | 50,000회/일 | 50,000회/일 | 50,000회/일 | 50,000회/일 | 50,000회/일 | 50,000회/일 | 50,000회/일 | 50,000회/일 |
+- sources:
+  - [1] https://help.naver.com/service/5594/contents/329?lang=ko
+  - [2] https://bokgoon.com/free-cloud-storage-services/
+  - [3] https://developers.mybox.naver.com/getting-started
+  - [4] https://developers.mybox.naver.com/docs/dms_storage
+  - [5] https://webhardrank.kr/legal-file-sharing-webhard-alternatives/
+  - [6] https://mybox.naver.com
+
+## NIKON IMAGE SPACE and Nikon Imaging Cloud
+
+- `netdisk-pan/nikon-image-space-nikon-imaging-cloud` | fails-quota | evidence reported | binding retention-clamped | category camera-vendor cloud
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T00:20:56.363Z (inherited) | stale on 2026-11-19
+- url https://www.nikonusa.com/content/nikon-image-space | page https://fshy.ajam.dev/p/nikonusa.md
+- free tier: NIKON IMAGE SPACE, with its free tiers and the SnapBridge upload, was terminated on 2026-10-15. Its replacement, the image storage of Nikon Imaging Cloud, is 5 GB | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: Not published; Nikon Imaging Cloud storage accepts JPG, RAW, HEIF and TIFF images | source: [2]
+- retention: The service was terminated on 2026-10-15 09:00 JST and replaced by Nikon Imaging Cloud with 5 GB; stored images are not migrated, a bulk download is open from 2026-10-15 12:00 to 2027-04-15 13:00 JST, and all data is deleted at that time | days: 0 | source: [3]
+- egress: Standard CDN, images only | metered: no | source: [2]
+- identity: email | detail: a Nikon ID, free to create; the 5 GB image storage is not tied to a registered product
+- interface: unknown
+- limits:
+  - per-object-cap: 5 GB account total on Nikon Imaging Cloud (the Image Space tiers ended with the service); JPG, RAW, HEIF and TIFF only [4]
+  - retention-clamped (binding): the service was terminated on 2026-10-15 and all stored data is deleted on 2027-04-15 13:00 JST [3]
+- binding note: Service operations ceased on 2026-10-15. Standard storage was restricted to 2 GB or 20 GB, while the unlimited SnapBridge tier returned downscaled 2-megapixel copies rather than original binary payloads.
+- tooling: no public API. SnapBridge is the only ingest path
+- composes with: Unlimited upload applied only to images automatically re-encoded to 2-megapixel resolution. All service operations officially terminated in October 2026.
+- reliability: Terminated on 2026-10-15 09:00 JST. Stored images are not migrated to the replacement and are deleted on 2027-04-15 13:00 JST. The replacement offers 5 GB
+- notes: Service officially ended on 2026-10-15. The unlimited SnapBridge tier accepted image uploads while downscaling files to 2-megapixel resolution, modifying the original bytes.
+- extras:
+  - access_mode: registration-gated
+  - closed: 2026-10-15
+  - replacement: Nikon Imaging Cloud, 5 GB
+  - downscales_at_ingest: yes
+  - aliases: NIKON IMAGE SPACE / Nikon Imaging Cloud
+- evidence:
+  - [2] 2026-10-21: 'The NIKON IMAGE SPACE service will be terminated on October 15, 2026'; '2GB of space just for signing up'
+  - [4] 2026-10-21: '誰でも2GB。ニコン製品をお持ちのお客様は20GBまで無料'
+  - [5] 2026-10-21: 'free, unlimited automatic upload of 2-megapixel images', so the unlimited tier is downscaled
+  - [1] 2026-11-03: Nikon Imaging Cloud lists Image Space as a 5 GB image storage service with sharing, usable with cameras that Imaging Cloud does not support | capture: sha256:aa61311b19cb0e517ec26a2d176f38354eca17501cbdd41f1bbc06860ba65f23 | quote: A 5 GB image storage service with cloud sharing features.
+  - [1] 2026-11-03: Nikon Imaging Cloud lists the 5 GB image storage service | capture: sha256:aa61311b19cb0e517ec26a2d176f38354eca17501cbdd41f1bbc06860ba65f23 | quote: A 5 GB image storage service with cloud sharing features.
+  - [3] 2026-11-03: the replacement storage is 5 GB and accepts JPG, RAW, HEIF and TIFF files | capture: sha256:cde5973b1866141a2c33ca16a019b64f320493f97d40af535b9c2b9e46419756 | quote: （画像ストレージ容量：5GB、対応ファイル形式：JPG、RAW、HEIF、TIFF）
+  - [3] 2026-11-03: bulk download ends 2027-04-15 13:00 JST and all stored images and registration data are deleted | capture: sha256:cde5973b1866141a2c33ca16a019b64f320493f97d40af535b9c2b9e46419756 | quote: 2027年4月15日（木）13:00をもって画像一括ダウンロード期間は終了し、NIKON IMAGE SPACE内に保管されている画像および登録情報などのすべてのデータは削除されます。
+  - [3] 2026-11-03: the service ended 2026-10-15 09:00 JST | capture: sha256:cde5973b1866141a2c33ca16a019b64f320493f97d40af535b9c2b9e46419756 | quote: 2026年10月15日（木）9:00（日本時間）をもって、NIKON IMAGE SPACEのサービスは終了いたしました。
+  - [3] 2026-11-03: 5 GB storage, JPG, RAW, HEIF and TIFF | capture: sha256:cde5973b1866141a2c33ca16a019b64f320493f97d40af535b9c2b9e46419756 | quote: （画像ストレージ容量：5GB、対応ファイル形式：JPG、RAW、HEIF、TIFF）
+  - [3] 2026-11-03: stored data is deleted at the end of the bulk download period, 2027-04-15 13:00 JST | capture: sha256:cde5973b1866141a2c33ca16a019b64f320493f97d40af535b9c2b9e46419756 | quote: 2027年4月15日（木）13:00をもって画像一括ダウンロード期間は終了し、NIKON IMAGE SPACE内に保管されている画像および登録情報などのすべてのデータは削除されます。
+  - [3] 2026-11-03: deletion date of stored images | capture: sha256:cde5973b1866141a2c33ca16a019b64f320493f97d40af535b9c2b9e46419756 | quote: 2027年4月15日（木）13:00をもって画像一括ダウンロード期間は終了し、NIKON IMAGE SPACE内に保管されている画像および登録情報などのすべてのデータは削除されます。
+  - [1] 2026-11-03: a Nikon ID is free to create and is the login for the service | capture: sha256:aa61311b19cb0e517ec26a2d176f38354eca17501cbdd41f1bbc06860ba65f23 | quote: Create a Nikon ID and use the service (free)
+  - [6] 2026-11-03: third-party report of the shutdown and the bulk download window | capture: sha256:345472c915db0fc3654e2ffdf34cc115b033c96e502df0266df074074390d1f5 | quote: Nikon Image Space will be shut down on October 15, with bulk downloads remaining available until April 15
+  - [7] 2026-11-03: the first-party site states the service was terminated | capture: sha256:79a0f554b55973e1390097db69f919efbf3646bdb4c7b71945295e6d8faa20d4 | quote: The NIKON IMAGE SPACE service was terminated on October 15th, 2026.
+  - [8] 2026-11-03: English copy of the notice: all data is permanently deleted at the end of the bulk download period | capture: sha256:8df7b457ee20912dcce5e42b1778707d407063f9bbd77f2ff7b77233daa72c8a | quote: All data will be permanently deleted.
+  - [1] 2026-11-03: a Nikon ID is free to create | capture: sha256:aa61311b19cb0e517ec26a2d176f38354eca17501cbdd41f1bbc06860ba65f23 | quote: Create a Nikon ID and use the service (free)
+- sources:
+  - [1] https://imagingcloud.nikon.com/
+  - [2] https://www.nikonusa.com/content/nikon-image-space
+  - [3] https://nij.nikon.com/news/products/2026/0825.html
+  - [4] https://info.nikonimagespace.com/ja_JP/welcome.html
+  - [5] https://snapbridge.nikon.com/
+  - [6] https://www.digitalcameraworld.com/cameras/cloud-storage/nikon-image-space-just-got-a-death-sentence-this-is-when-to-download-photos-by-and-what-nikon-is-replacing-it-with
+  - [7] https://www.nikonimagespace.com/
+  - [8] https://nikonrumors.com/2026/08/25/nikon-image-space-is-no-more-nikon-imaging-cloud-will-be-enhanced-with-5gb-of-image-storage.aspx/
+
+## Nintendo Switch Online Save Data Cloud (Netdisk and pan)
+
+- `netdisk-pan/nintendo-switch-online-save-data-cloud` | fails-quota | evidence reported | binding per-object-cap | category console cloud saves
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T00:20:56.364Z (inherited) | stale on 2026-11-19
+- url https://support.nintendo.com/sg/nso/services/savedata-backup/index.html | page https://fshy.ajam.dev/p/nintendo.md
+- free tier: No pool at all: one save slot per supported game title. A personal subscription covers one account and a family plan covers eight | unit: none | metered on: object-count | read on: 2026-10-21 | source: [1]
+- per-object cap: One save data file per software title for each Nintendo Account. There is no aggregate cap and no way to store non-save bytes | source: [1]
+- retention: Backed-up saves are not usable once the subscription ends, and are accessible again if the subscription is renewed within 180 days | days: 180 | source: [1]
+- egress: Console-mediated only. There is no HTTP API, so there is no egress path at all | metered: no | source: [1]
+- identity: email | detail: a Nintendo Account and a paid subscription
+- interface: unknown
+- limits:
+  - per-object-cap (binding): one save file per supported title per account [1]
+  - write-gated: an active Nintendo Switch Online membership is required, and the only client is the console [2]
+- binding note: The advertised absence of a storage limit is bound to one save file per title, so the per-object cap is the whole quota. There is no pool to measure.
+- tooling: none public. The switch's own backup menu is the only client
+- composes with: Nothing to multiply: there is no capacity number to shard, and the practical ceiling is titles owned times per-title save size, which is tens of gigabytes at most
+- reliability: Multiple games are excluded from backup entirely, and saves are not usable once the subscription lapses (accessible again on renewal within 180 days). The console is the only client, so there is no programmatic read or write path
+- notes: Documentation advertises 'no limit to the amount of storage space' alongside 'one save data file per software title'. Access is restricted strictly to console hardware with no web, mobile, or programmatic API endpoints.
+- extras:
+  - access_mode: registration-gated
+  - api: none, console only
+  - aliases: Nintendo Switch Online Save Data Cloud
+  - cross_topic_record: storage/nintendo-switch-online-save-data-cloud
+  - cross_topic_note: the storage topic carries the same provider from the game-save angle; this record is scoped to whether it is a pan
+- evidence:
+  - [1] 2026-10-21: 'You can only back up one save data file per software title for each Nintendo Account' and 'There is no limit to the amount of storage space or number of software titles that can be backed up'
+  - [2] 2026-10-21: backup requires an active Nintendo Switch Online membership
+  - [3] 2026-10-21: 'Nintendo Switch Online: title-by-title, not a storage pool'
+  - [1] 2026-11-03: after the subscription ends the backed-up saves are not usable; renewing within 180 days restores access | capture: sha256:187249e4267aaa57beeb14f7abeed1dc3bb55360e25495ee3ac0f07495c388fb | quote: if you re-subscribe within 180 days, you will be able to access the save data that was backed up during your previous subscription period.
+  - [1] 2026-11-03: one save data file per title per account | capture: sha256:187249e4267aaa57beeb14f7abeed1dc3bb55360e25495ee3ac0f07495c388fb | quote: You can only back up one save data file per software title for each Nintendo Account.
+  - [1] 2026-11-03: no aggregate storage limit is stated | capture: sha256:187249e4267aaa57beeb14f7abeed1dc3bb55360e25495ee3ac0f07495c388fb | quote: There is no limit to the amount of storage space or number of software titles that can be backed up.
+  - [1] 2026-11-03: backup needs a Nintendo Switch Online subscription | capture: sha256:187249e4267aaa57beeb14f7abeed1dc3bb55360e25495ee3ac0f07495c388fb | quote: Only users (Nintendo Accounts) that have a subscription to Nintendo Switch Online can back up save data.
+  - [2] 2026-11-03: a family membership covers up to 8 people | capture: sha256:5695a6c83bf751dccb384daca7e4d7d50d2545f3933bf69aac398e14c60cd5ea | quote: A family membership provides the Nintendo Switch Online service to everyone in the purchaser's Nintendo Account family group (up to 8 people).
+- sources:
+  - [1] https://support.nintendo.com/sg/nso/services/savedata-backup/index.html
+  - [2] https://www.nintendo.com/en-gb/Support/Nintendo-Account/Nintendo-Switch-Online-FAQ-1442566.html
+  - [3] https://tech-insider.org/cloud-save-storage-ps-plus-xbox-steam-switch-2026/
+
+## PikPak (mypikpak.com)
+
+- `netdisk-pan/pikpak` | fails-quota | evidence unverified | binding per-object-cap | category consumer-pan
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T00:21:08.723Z (live) | stale on 2026-11-19
+- url https://mypikpak.com/ | page https://fshy.ajam.dev/p/mypikpak.md
+- free tier: no free storage quota is stated on the landing page; the product is sold as a private cloud drive with a cloud-download engine | unit: none | metered on: stored-bytes | read on: 2026-10-22 | source: [1]
+- per-object cap: not established; the pricing page is served as a non-HTML body that the reader refused | source: [1]
+- retention: not established | source: [1]
+- egress: not established; recorded as metered:false because no per-GB price or cap was found, which is an absence of evidence and not evidence of absence | metered: no | source: [1]
+- identity: email
+- interface: rest
+- limits:
+  - per-object-cap (binding): not established [1]
+- binding note: Nothing numeric could be established first-hand, so the record names the cap as the thing that would decide and records it as unestablished.
+- tooling: unofficial drivers only: an rclone pikpak backend (username and password) and an OpenList PikPak driver that can simulate the Android client; both mount a personal drive, and download links are bound to the requesting address. The product's value is server-side torrent and magnet download into the drive
+- composes with: a cloud-download engine rather than a store: it fetches a magnet to its own disk, which is useful for acquiring a corpus and not for holding one
+- reliability: The pricing page is served as a binary body, so its plan table could not be read through the reader; the landing page states the cloud-download speed claim without a quota.
+- notes: The landing page advertises high-speed cloud transfer to drive storage. Detailed quota, retention, and transfer pricing terms are unconfirmed because mypikpak.com/en/price returned non-HTML dynamic content to automated HTTP requests.
+- extras:
+  - access_mode: registration-gated
+  - blocked: pricing page served as a binary body
+- evidence:
+  - [1] 2026-10-22: the landing page describes a private cloud drive with a cloud-download server and claims 'more than 80% of the files can be downloaded to your PikPak private Cloud Drive within a few seconds'; it states no storage quota
+  - [2] 2026-10-22: the page reader refused the page as 'not-html:binary' and a second fetch returned a compressed binary body, so the plan table could not be read
+  - [3] 2026-11-03: the OpenList PikPak driver emulates the Android client, so a reverse-engineered client reaches the drive | capture: sha256:64460cf2ca973ca80ee1a67708c30c97e0f847d929bda7835af441d8c3a3a325 | quote: If you choose `android`, it will simulate the Android client for access.
+  - [1] 2026-11-03: the landing page offers cloud download of torrent, magnet and URL links into the drive and states no storage quota | capture: sha256:596c21157cb12b144d3ff71f74e67aebc9f6eecf3b14b4a0908fa36a127e60bc | quote: Torrent · Magnet · URL
+  - [1] 2026-11-03: the landing page presents a cloud-download drive and states no storage quota | capture: sha256:596c21157cb12b144d3ff71f74e67aebc9f6eecf3b14b4a0908fa36a127e60bc | quote: Torrent · Magnet · URL
+- sources:
+  - [1] https://mypikpak.com/
+  - [2] https://mypikpak.com/en/price
+  - [3] https://doc.oplist.org/guide/drivers/pikpak
+
+## Quark TV and UC TV (夸克网盘 TV版, UC网盘 TV版)
+
+- `netdisk-pan/quark-tv-uc-tv` | fails-quota | evidence reported | binding write-gated | category TV-edition OAuth client for a Chinese pan
+- needs card no, phone yes, ID no, institution no | verified 2026-11-04T00:20:53.785Z (inherited) | stale on 2026-11-19
+- url https://pan.quark.cn/ | page https://fshy.ajam.dev/p/quark.md
+- free tier: Quark free 300 GB plus one-off 1 TB gift campaigns; two documented campaigns give 2 TB total. UC's free base is 10 GB | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: Not published for the TV client | source: [1]
+- retention: The gift campaigns are one-off per account and campaign-gated. No retention clock on stored files | source: [2]
+- egress: Quark free is shaped to about 1.7 MB/s and about 5 MB/s at peak for 88VIP. The TV client streams in original quality without downloading, which is why the community uses it | metered: yes | source: [1]
+- identity: any-phone | detail: a Quark or UC account, which is phone-bound in practice; the TV client's own login path exists but does not remove the account requirement
+- interface: rest
+- limits:
+  - write-gated (binding): the TV client is read-only by design: the driver sets NoUpload and NoOverwriteUpload [3]
+  - per-ip-shaping: free egress shaped to about 1.7 MB/s [1]
+- binding note: 300 GB free, and the TV client cannot write at all, so the direction that fails is the write side: it is a download-and-stream path with no upload, which makes it a serving helper and not a store.
+- tooling: a reverse-engineered TV OAuth client, fully documented in source: the OpenList quark_uc_tv driver hard-codes api https://open-api-drive.quark.cn for Quark and https://open-api-drive.uc.cn for UC, with a public client id, a TV sign key, an app version and a channel. WebDAV comes out once mounted
+- composes with: The TV OAuth reads an account through a clean API with no client, so it is a serving and STRM path and not a write path. Paired with a writable pan it covers both directions, which is why the community keeps it alive
+- reliability: The TV client's client id and sign key are public constants that Alibaba rotates, and when they rotate every mount breaks until the driver is re-patched. The free-tier space campaigns are monthly and quantity-capped, so they are a lottery and not a capacity plan
+- notes: The canonical inverse of the public-instance problem. There an instance advertises a write it refuses; here a client is documented as read-only by design. Both are cases where the API's write surface must be read from the driver's own flags and not from the marketing page.
+- extras:
+  - access_mode: registration-gated
+  - read_only: yes
+  - driver: OpenList quark_uc_tv
+  - aliases: Quark TV / UC TV (夸克网盘 TV版, UC网盘 TV版)
+- evidence:
+  - [3] 2026-10-21: two drivers, QuarkTV and UCTV, both API endpoints, the client id, signKey, app version, channel, and NoUpload: true with NoOverwriteUpload: true
+  - probe:GET https://open-api-drive.quark.cn/1/clouddrive/config?pr=ucpro&fr=pc 2026-10-21: HTTP 400, 65 B, {"status":-1,"errno":10001,"error_info":"_timestamp格式错误"}, so the endpoint is live and wants a signed timestamp
+  - probe:GET https://drive-pc.quark.cn/1/clouddrive/member?pr=ucpro&fr=pc 2026-10-21: HTTP 401, 117 B, {"status":401,"code":31001,"message":"require login [guest]"}
+  - [2] 2026-10-21: two campaigns of 1 TB each, so 2 TB permanent
+  - [1] 2026-10-21: 夸克网盘, 300G free, shaped at 1.7M/s
+  - [3] 2026-11-03: the driver config still sets NoUpload for the TV client | capture: sha256:1b53ae8374929577d825b743246187cfea6572ccf23c7b82ae0a3c1a171749fb | quote: NoUpload: true,
+  - [3] 2026-11-03: the driver still hard-codes the Quark TV API endpoint | capture: sha256:1b53ae8374929577d825b743246187cfea6572ccf23c7b82ae0a3c1a171749fb | quote: api: "https://open-api-drive.quark.cn",
+  - [3] 2026-11-03: the driver still hard-codes the UC TV API endpoint | capture: sha256:1b53ae8374929577d825b743246187cfea6572ccf23c7b82ae0a3c1a171749fb | quote: api: "https://open-api-drive.uc.cn",
+  - [1] 2026-11-03: the table row still reads 300G free, no upload limit and a 1.7M/s download limit | capture: sha256:87cfd4212b0eaf2bb73b16353c13f114920639a0b2df7d9e3a6465f3bf0ce870 | quote: | 夸克网盘 | 300G | 无 | | 有 | 1.7M/s | 是 | 是 |
+  - probe:GET https://open-api-drive.quark.cn/1/clouddrive/config?pr=ucpro&fr=pc 2026-11-03: the endpoint is live and answers a body of 65 bytes that wants a signed timestamp | capture: sha256:c0d00823aa7af0c4e39c2e2154fb0ffa6deb7e1de99b20e6355108433e695198 | quote: "error_info":"_timestamp格式错误"
+  - probe:GET https://drive-pc.quark.cn/1/clouddrive/member?pr=ucpro&fr=pc 2026-11-03: the member endpoint answers 401 to an anonymous caller | capture: sha256:b99e6cd7295296e1ab591e98363decec77baa2636c251a2e114dbd47897bfd52 | quote: "message":"require login [guest]"
+  - [4] 2026-11-03: the vendor page still offers a TV client download | capture: sha256:26325190f535f5a7af4a740f6a05059969c0d82777fbdda632628587fac11e2a | quote: 下载 TV 端
+- sources:
+  - [1] https://zh.wikipedia.org/zh-cn/中国大陆网盘列表
+  - [2] https://www.rayks.com/article/ucwp1tbhd.html
+  - [3] https://github.com/OpenListTeam/OpenList/blob/main/drivers/quark_uc_tv/meta.go
+  - [4] https://pan.quark.cn/
+
+## Shadow Drive (Blade, France)
+
+- `netdisk-pan/shadow-drive` | fails-quota | evidence reported | binding per-object-cap | category hosted Nextcloud, freemium
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T00:20:59.761Z (inherited) | stale on 2026-11-19
+- url https://shadow.tech/eu/drive/offers/ | page https://fshy.ajam.dev/p/shadow.md
+- free tier: 20 GB free; Basic 200 GB at EUR 2.99/month; Premium 2 TB at EUR 6.99/month. Every tier carries the same 'Upload up to 20 GB' line | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 20 GB per upload on every plan, including the 2 TB one | bytes: 20000000000 | source: [1] | note: the vendor writes 20 GB; the decimal figure is used as stated
+- retention: Until deleted. No retention clock published | source: [1]
+- egress: Not metered in the offer table | metered: no | source: [1]
+- identity: card | detail: a card, and a billing address in one of twelve countries: France, the United Kingdom, Belgium, Switzerland, Luxembourg, Germany, the Netherlands, Austria, Italy, Sweden, Denmark and Spain | country: FR, GB, BE, CH, LU, DE, NL, AT, IT, SE, DK, ES
+- interface: webdav, rest, rclone
+- limits:
+  - per-object-cap (binding): 20 GB per upload on every tier including 2 TB [1]
+- binding note: The free 20 GB is an order of magnitude under a 500 GB threshold, and the paid tiers carry a 20 GB per-file cap that does not move with the plan. Either number alone stops it; the cap is the one that would still bind at 2 TB.
+- tooling: rclone webdav against /remote.php/webdav/, which answers 401 with a Basic realm of 'Shadow Drive'. Standard Nextcloud clients
+- composes with: The cheapest Enterprise-build Nextcloud in Europe at EUR 2.99 for 200 GB, so it is a candidate small shard. The 20 GB per-file cap is uniform across tiers and does not scale, which stops it being an archive target
+- reliability: Signup is geo-fenced to twelve countries. Encryption at rest is still listed as not implemented. The price rose from EUR 4.99 to EUR 6.99 for 2 TB since the 2024 announcement while press coverage still quotes the old figure
+- notes: The free 20 GB is real and it is the same Enterprise build as the paid tiers, so it works as a cheap test endpoint. It fails as capacity on size, and it fails on a per-file cap that never improves.
+- evidence note: Confidence is reported: pricing and status endpoints were documented from research records. Verification requires live re-reading of current pricing pages and Nextcloud WebDAV endpoints.
+- extras:
+  - access_mode: registration-gated
+  - free_tier_exists: yes
+  - geo_fenced_countries: 12
+  - per_file_cap_bytes_derived: 20000000000
+  - nextcloud_version: 27.1.11 Enterprise
+- evidence:
+  - [1] 2026-10-21: 'Free 20 GB ... Upload up to 20 GB', 'Basic 200 GB ... 2.99 EUR/month', 'Premium 2 TB ... 6.99 EUR/month', all three with the same 20 GB upload line, and 'Shadow Drive is already available in 12 countries: France, UK, Belgium, Switzerland, Luxemburg, Germany, Netherlands, Austria, Italy, Sweden, Denmark and Spain'
+  - [2] 2026-10-21: HTTP 200, version 27.1.11.4, versionstring '27.1.11 Enterprise', productname Nextcloud
+  - [3] 2026-10-21: OPTIONS returned HTTP 401 with WWW-Authenticate: Basic realm="Shadow Drive"
+  - [1] 2026-11-03: the Basic plan is a 200 GB offer | capture: sha256:ca530d4fabc396c1f36fc76cccb340a9ae0763e619b54fa5f93d031ce7f041bb | quote: <strong><span>200 GB</span></strong>
+  - [1] 2026-11-03: the Premium plan is a 2 TB offer | capture: sha256:ca530d4fabc396c1f36fc76cccb340a9ae0763e619b54fa5f93d031ce7f041bb | quote: <strong><span>2 TB</span></strong>
+  - [1] 2026-11-03: the Basic plan button reads Subscribe at 2.99 per month | capture: sha256:ca530d4fabc396c1f36fc76cccb340a9ae0763e619b54fa5f93d031ce7f041bb | quote: Subscribe at 2.99
+  - [1] 2026-11-03: the Premium plan button reads Subscribe at 6.99 per month | capture: sha256:ca530d4fabc396c1f36fc76cccb340a9ae0763e619b54fa5f93d031ce7f041bb | quote: Subscribe at 6.99
+  - [4] 2026-11-03: the product page offers 20 GB free for life | capture: sha256:4edf5ad86b62a3cb7ffcf4a6b1371b94ed99340361dee229313e84d78cb21cbe | quote: Enjoy 20 GB free (for life!)
+  - [1] 2026-11-03: the FAQ lists the twelve countries where Shadow Drive can be subscribed | capture: sha256:7af5fc4777b4b6d25d917556400c1b7a5ed078d75356a884096d4cb0aa4b975f | quote: Shadow Drive is already available in 12 countries: France, UK, Belgium, Switzerland, Luxemburg, Germany, Netherlands, Austria, Italy, Sweden, Denmark and Spain.
+  - [1] 2026-11-03: the FAQ still says encryption at rest is being worked on | capture: sha256:7af5fc4777b4b6d25d917556400c1b7a5ed078d75356a884096d4cb0aa4b975f | quote: At rest: Shadow Drive Teams are currently working on encryption at rest to strengthen the overall security of our solution.
+  - probe:https://drive.shadow.tech/status.php 2026-11-03: the drive host answers the Nextcloud 27.1.11.4 status JSON, installed and not in maintenance | capture: sha256:263ef38322034768118919a7c300d79ba2da5e2dc9b9b1b26ece124593fb3ad4 | quote: "version":"27.1.11.4"
+  - probe:https://drive.shadow.tech/remote.php/dav/ 2026-11-03: the WebDAV endpoint answers a SabreDAV NotAuthenticated error, a live auth-gated WebDAV server | capture: sha256:4ad43d022695535b35e042e186b21a160f37829e8d7404d74c8ff0085d7a4c3b | quote: Sabre\DAV\Exception\NotAuthenticated
+  - [1] 2026-11-03: every plan on the offers page carries the Upload up to 20 GB line | capture: sha256:ca530d4fabc396c1f36fc76cccb340a9ae0763e619b54fa5f93d031ce7f041bb | quote: Upload up to 20 GB
+- sources:
+  - [1] https://shadow.tech/eu/drive/offers/
+  - [2] https://drive.shadow.tech/status.php
+  - [3] https://drive.shadow.tech/remote.php/dav/
+  - [4] https://shadow.tech/eu/drive/
+
+## TAB.DIGITAL Nextcloud One (cloud.tab.digital)
+
+- `netdisk-pan/tab-digital-nextcloud` | fails-quota | evidence reported | binding write-gated | category managed Nextcloud, freemium
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T00:20:59.762Z (inherited) | stale on 2026-11-19
+- url https://tab.digital/en/nextcloud-one | page https://fshy.ajam.dev/p/tab.md
+- free tier: 8 GB free for one user, with no payment method required. Paid: 128 GB at EUR 7.44/month, up to 1 TB on the personal ladder; business plans from EUR 61/month with 1 TB to 100 TB | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: Not published for the free 8 GB plan | source: [2]
+- retention: Until deleted. No retention clock published | source: [2]
+- egress: 'Share transfer unlimited' on the free tier; traffic is not metered on the paid plans | metered: no | free allowance: unlimited on share transfer | source: [2]
+- identity: email | detail: an email address and no payment method, per 'Take a free account. No payment method required, just try it'
+- interface: webdav, rest, rclone
+- limits:
+  - write-gated (binding): the free plan is one user and 8 GB, and Talk with end-to-end encryption are paid-plan features [2]
+- binding note: 8 GB free is 1.6% of a 500 GB threshold, so the quota closes it first in practice. The gate worth naming is that the free tier is a single user with no quota controls, so it cannot even be sharded internally.
+- tooling: rclone webdav and the Nextcloud clients. Nextcloud Hub with Talk and Collabora on the paid plans
+- composes with: 8 GB needs no payment method at all, which makes it the cheapest way to obtain an EU Nextcloud shard with zero identity cost beyond an email address. It cannot reach 500 GB without 60-plus accounts, and the provider manages users centrally on paid plans, so the shard path is per-account only
+- reliability: Hosted in Milan and the Netherlands. The free 8 GB plan was explicitly confirmed to remain active following the July 2026 pricing revision: 'Q: Is the free 8 GB account going away? A: No.'
+- notes: Maintains an active 8 GB free tier without requiring a credit card, surviving the July 2026 pricing update. Functions as a functional Nextcloud WebDAV testing endpoint rather than bulk storage.
+- evidence note: The specific claim that would be worth re-checking live is that the free tier survived the July 2026 repricing.
+- extras:
+  - access_mode: registration-gated
+  - free_tier_exists: yes
+  - free_tier_survives_repricing: yes
+  - region: Milan, Italy and the Netherlands
+  - no_payment_method_required: yes
+- evidence:
+  - [1] 2026-10-21: 'Free 8GB', 'Subscribe 128GB (7,44 EUR per/month)', storage range '128 - 1024 GB'
+  - [2] 2026-10-21: 'Nextcloud One, 1 person, EUR 7,44 per month'; 'Business per 50 users from EUR 61 per month'; storage 'up to 100TB'; 'Take a free account. No payment method required, just try it'
+  - [3] 2026-10-21: 'Q: Is the free 8 GB account going away? A: No. The free 8 GB plan remains available.' beside a 2026-07-01 price-change notice
+  - [1] 2026-11-03: the page lists a free 8 GB plan next to a 128 GB plan at 7,44 EUR per month | capture: sha256:a0815a4b586c829ec8e906dbf33cb188c1054375654d7df97de49106f5776540 | quote: Free 8GB [Subscribe 128GB (7,44 EUR per/month)]
+  - [1] 2026-11-03: the plan table lists Share transfer unlimited | capture: sha256:a0815a4b586c829ec8e906dbf33cb188c1054375654d7df97de49106f5776540 | quote: Share transfer unlimited
+  - [2] 2026-11-03: the Business plan starts from 61 EUR per month per 50 users | capture: sha256:663ee99fcab45d717f8585644e289f35e5d2cd1b3504c8fad78a4477a53659bb | quote: from €61
+  - [2] 2026-11-03: a free 8 GB account is still offered with no payment method | capture: sha256:663ee99fcab45d717f8585644e289f35e5d2cd1b3504c8fad78a4477a53659bb | quote: It`s a good way to find out if Nextcloud fits your need is to take a free account. No payment method required, just try it.
+- sources:
+  - [1] https://tab.digital/en/nextcloud-one
+  - [2] https://cloud.tab.digital/pricing
+  - [3] https://tab.digital/en/keep-today-pricing
+
+## Telnyx Cloud Storage (the egress view)
+
+- `netdisk-pan/telnyx-cloud-storage-egress-view` | fails-quota | evidence reported | binding per-object-cap | category object storage, S3-compatible
+- needs card no, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://telnyx.com/products/cloud-storage | page https://fshy.ajam.dev/p/telnyx.md
+- price USD 6.14/TB/month at USD 0.006/GiB, with no egress charge at any volume | parsed USD 6.14/TB-mo
+- duplicate of `storage/telnyx-object-storage`
+- free tier: 10 GB of storage free with 1 million state-change operations and 10 million state-read operations | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: Not published | source: [2]
+- retention: Not published | source: [2]
+- egress: Zero egress fees at all volumes: rate card states 'Egress fees None' with unmetered outbound network bandwidth. | metered: no | free allowance: unlimited egress | price per TB: USD 6.14/TB/month at USD 0.006/GiB | source: [2]
+- identity: email | detail: an email address. The forum reports the 10 GB tier needs no card: '免费10G 不用绑卡好像也没流量费'. A public bucket adds a KYC step
+- interface: s3
+- limits:
+  - per-object-cap (binding): 10 GB is the free tier total, which is the cap in practice [1]
+  - write-gated: public buckets appear to require KYC: '开公开桶似乎要KYC认证' [1]
+- binding note: 10 GB free, so the quota closes it. On the paid tier the egress term is the best of the providers compared, and the storage rate is USD 6.14/TB/month, three times the price floor of paid storage.
+- tooling: the standard S3 API, so rclone s3 and any S3 SDK apply
+- composes with: 10 GB per account with no card needed and no egress charge is 50 accounts for 500 GB, which is absurd for the volume but worth noting for the egress model alone. The paid rate at USD 6.14/TB/month with genuinely free egress is a solid second to the cheapest paid option
+- reliability: A telecom company diversifying into object storage, and the zero-egress term is real. The 10 GB cap and the KYC step on public buckets are what close it. The pricing page now frames the product around egress to inference, so the object-storage-only customer is no longer the commercial focus
+- notes: Evaluates zero-egress file distribution. The free 10 GB promotional tier requires identity verification and card authorization, while standard paid storage is available under published zero-egress rates.
+- extras:
+  - access_mode: registration-gated
+  - free_tier_exists: yes
+  - free_tier_gb: 10
+  - egress_free: yes
+  - aliases: Telnyx Cloud Storage
+  - reserved_slug: telnyx-cloud-storage
+  - cross_topic_record: storage/telnyx-cloud-storage
+- evidence:
+  - [2] 2026-10-21: 'Storage USD 0.006 per GiB (billed monthly)'; 'Egress fees None'; 'State-change operations USD 0.50 per million'; 'USD 60.00 Per month ... 10,000 GB STORED'. The API path advertised on the page, GET /v2/public/pricing, returns 404
+  - [1] 2026-10-21: '免费额度：10GB存储空间，出口费：无，但是有一个缺点，开公开桶似乎要KYC认证'
+  - [3] 2026-10-21: '免费10G 不用绑卡好像也没流量费'
+- sources:
+  - [1] https://linux.do/t/topic/1037092
+  - [2] https://telnyx.com/pricing/storage
+  - [3] https://linux.do/t/topic/1521675
+
+## UC Drive (UC网盘)
+
+- `netdisk-pan/uc-drive` | fails-quota | evidence reported | binding per-object-cap | category consumer-pan
+- needs card no, phone yes, ID no, institution no | verified 2026-11-04T00:21:07.067Z (inherited) | stale on 2026-11-19
+- url https://drive.uc.cn | page https://fshy.ajam.dev/p/uc.md
+- free tier: 1 TB permanent handed out as claimable promo codes that are repeatable and stackable: '加上之前的活动，有 2t 了' and '都是永久'. A separate 1 TB plus 10 GB baseline per a 2026 comparison post | unit: TiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 1 GB per file on a free account: 'UC网盘2t,但单文件就1G，相当难用' | bytes: 1000000000 | source: [2]
+- retention: Promo capacity is permanent once claimed. No retention clock on stored files is published | source: [1]
+- egress: Free downloads are throttled hard, with reports of 300 to 400 KB/s for video: 'UC网盘之前宣称不限速，现在下载视频三四百k'. The paid tier advertises 上传下载不限速 as an SVIP benefit | metered: yes | source: [3]
+- identity: country-phone | detail: an Alibaba account, which is +86-bound in practice, and the SVIP tier needs a Chinese identity document | country: 86
+- interface: rest
+- limits:
+  - per-object-cap (binding): 1 GB per file on a free account [2]
+  - per-ip-shaping: free downloads reported at 300 to 400 KB/s [3]
+  - write-gated: the OpenList driver is cookie-based, and the netdisk-fast-download auth table requires a logged-in cookie for UC [4]
+- binding note: The per-file cap is what closes it, not the quota or the identity.
+- tooling: No public API. A reverse-engineered client mounts it: the OpenList UC driver takes a pasted browser cookie, root folder id 0. A separate UC TV driver pairs by QR code from the mobile app and supports list and download only. Same backend family as Quark. No official S3 or WebDAV
+- composes with: Codes are batch-minted, a hundred a month per one poster, and shared in threads, so one account can stack several to 2 TB. Each account is a +86 identity, and the 1 GB per-file ceiling makes the capacity useless as a dataset store
+- reliability: Promo capacity is permanent once claimed, but the 1 GB per-file ceiling makes it a media-hoarding pan and not a dataset store. Download tickets are IP-bound on the shared Quark backend, so a harvested cookie dies on the first replay
+- notes: Covers both SVIP paid tiers and promo-code allocations. While nominal storage capacity reaches 2 TB permanently, individual file uploads are constrained by a strict 1 GB ceiling.
+- extras:
+  - access_mode: registration-gated
+  - aliases: UC Drive / UC网盘; UC网盘 (UC Browser drive, Alibaba); UC Browser drive
+  - per_file_cap_bytes_derived: 1000000000
+  - shared_backend_with_quark: yes
+- evidence:
+  - [1] 2026-10-21: 'UC网盘1TB永久容量领取...公益~还剩20个', and a reply '加上之前的活动，有 2t 了...都是永久'
+  - [2] 2026-10-21: 'UC网盘2t,但单文件就1G，相当难用'
+  - [3] 2026-10-21: 'uc网盘之前宣称不限速，现在下载视频三四百k'
+  - [5] 2026-10-21: '开通UC网盘SVIP畅享6TB存储空间', '上传下载不限速...开通UC网盘SVIP畅享专属极速通道'
+  - [4] 2026-10-21: the auth table states 'UC网盘(UC) 必须', meaning a cookie is mandatory
+  - [6] 2026-11-03: the OpenList UC driver takes a browser cookie | capture: sha256:90b3a655e5b4e2eb98615afca63dda79d94f886a53fd3456a5979aebd43211bb | quote: Press F12 to open "Debug", select "Network", select any request on the left, and find the one with the `Cookie` parameter.
+  - [6] 2026-11-03: the UC TV driver is list and download only | capture: sha256:90b3a655e5b4e2eb98615afca63dda79d94f886a53fd3456a5979aebd43211bb | quote: The TV version supports `302`, but only `List` and `Download` operations are supported.
+  - [5] 2026-11-03: the vendor page advertises 6 TB under the SVIP tier | capture: sha256:622c94b57c266dd2e22a3d49c272358f1804ea158fd3d87a7e12dcc81c40f822 | quote: 开通UC网盘SVIP畅享6TB存储空间
+- sources:
+  - [1] https://linux.do/t/topic/269012
+  - [2] https://linux.do/t/topic/1426604
+  - [3] https://linux.do/t/topic/623279
+  - [4] https://github.com/qaiu/netdisk-fast-download
+  - [5] https://drive.uc.cn/
+  - [6] https://openlistteam.github.io/docs/guide/drivers/uc.html
+
+## Yandex Disk (disk.yandex.com)
+
+- `netdisk-pan/yandex-disk` | fails-quota | evidence documented | binding per-object-cap | category consumer-pan
+- needs card no, phone yes, ID no, institution no | verified 2026-11-04T00:21:08.722Z (live) | stale on 2026-11-26
+- url https://disk.yandex.com/ | page https://fshy.ajam.dev/p/yandex.md
+- free tier: 5 GB of storage for an account with no plan, shared with Yandex Mail | unit: GB | metered on: stored-bytes | read on: 2026-10-22 | source: [1]
+- per-object cap: 1 GB per file without a Yandex 360 plan; 50 GB with any plan | bytes: 1000000000 | source: [2]
+- retention: files persist until deleted; deleted files go to Trash for a period, but a file deleted over WebDAV is erased permanently | source: [3]
+- egress: no published egress meter; the reader's speed is whatever the service grants, and WebDAV access now requires a paid plan | metered: no | source: [3]
+- identity: any-phone
+- interface: rest, webdav
+- limits:
+  - per-object-cap (binding): 1 GB per file on the free tier [2]
+  - write-gated: WebDAV access requires a Yandex 360 plan from 2026-06-22 [3]
+- binding note: 5 GB total with a 1 GB per-file cap is three orders of magnitude below the working set, and the free WebDAV path that made it mountable closed in June 2026.
+- tooling: a documented REST API and a WebDAV endpoint; WebDAV needs an app password rather than the account password, and from 2026-06-22 it needs a Yandex 360 plan
+- composes with: a 5 GB tier cannot hold anything at the scale, so its only role is as a small always-available store for the state of a bridge
+- reliability: The free WebDAV path closed on 2026-06-22: the help page now states that WebDAV access requires a Yandex 360 plan. The REST API remains documented but the free tier's role is 5 GB.
+- notes: The fact that changed is WebDAV: the help page dated the closure to 2026-06-22, so a bridge that mounted Yandex over WebDAV stopped working on a published date rather than silently.
+- extras:
+  - access_mode: registration-gated
+  - webdav_requires_plan_from: 2026-06-22
+  - free_webdav: no
+- evidence:
+  - [2] 2026-10-22: 'Maximum size of a single file for uploading to Yandex Disk: Without a Yandex 360 plan — 1 GB. With any Yandex 360 plan — 50 GB.'
+  - [3] 2026-10-22: 'Starting June 22, 2026, WebDAV access requires a Yandex 360 plan', and an app password is required rather than the account password
+  - [1] 2026-10-22: 'By default, users without a plan get 5 GB of storage space', and Yandex Mail shares that same pool with Disk
+  - [1] 2026-11-03: an account with no plan still gets 5 GB | capture: sha256:f59a9b54726ec036cec2c7d66c377bef2367c6d32d80266d933602416741674e | quote: By default, users without a plan get 5 GB of storage space.
+  - [2] 2026-11-03: the per-file upload cap without a Yandex 360 plan is 1 GB | capture: sha256:6daf0e57f31f8c03e10c4d9e7d8fbbe56431f469a9dd962a0c2d01765ad93cb3 | quote: make sure the file size doesn't exceed 1 GB
+  - [3] 2026-11-03: WebDAV access requires a Yandex 360 plan from 2026-06-22 | capture: sha256:d904057f23c14258cf3653a5fd0339c792f1485ce3b992138437754c8b19ffc4 | quote: Starting June 22, 2026, WebDAV access requires a
+- sources:
+  - [1] https://yandex.com/support/yandex-360/customers/disk/web/en/enlarge/disk-space
+  - [2] https://yandex.com/support/yandex-360/customers/disk/web/en/uploading.md
+  - [3] https://yandex.com/support/yandex-360/customers/disk/web/en/webdav
+
+## 一刻相册 (Baidu One Moment photo cloud)
+
+- `netdisk-pan/yike-album` | fails-quota | evidence reported | binding per-object-cap | category photo cloud
+- needs card no, phone yes, ID no, institution no | verified 2026-11-04T00:20:53.784Z (inherited) | stale on 2026-11-19
+- url https://www.yike.com | page https://fshy.ajam.dev/p/yike.md
+- free tier: Unlimited photo and video capacity, free: '图片存储可以用一刻相册，无限容量' | unit: unlimited | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: Not published, media only | source: [2]
+- retention: Not published | source: [2]
+- egress: Free viewing and download, with no byte meter mentioned | metered: no | source: [1]
+- identity: country-phone | detail: a Baidu account | country: 86
+- interface: rest
+- limits:
+  - per-object-cap (binding): media only, and the album path re-encodes at ingest so the original is not guaranteed back [1]
+- binding note: The quota is unlimited and the gate is that only photographs and video are accepted, with re-encoding at ingest, so the number that binds is the per-object type restriction and not a byte count. An unlimited store that returns different bytes is not capacity.
+- tooling: mobile and web clients only, with no WebDAV, S3 or rclone. Any automation would need an unofficial scraper that does not exist
+- composes with: Unlimited per account by design, and Baidu uses it as a photo-loss-leader. If a wrapper existed it would be the only genuinely unlimited free tier on the forum, and no wrapper exists
+- reliability: Baidu-backed, so it is unlikely to close. It is a photo album and not storage: the original-bytes-return test is unproven here, and ingest re-encoding is the documented behaviour of the album path
+- notes: The lowest-confidence record in the batch: one forum sentence and no vendor page. Kept because an unlimited free photo tier from Baidu is worth a later check, and because the re-encode question is the one that decides whether it is storage.
+- extras:
+  - access_mode: registration-gated
+  - media_only: yes
+  - reencodes_at_ingest: unverified
+- evidence:
+  - [1] 2026-10-21: '图片存储可以用一刻相册，无限容量'
+  - [3] 2026-10-21: '自己存色图都用谷歌无限相册', an adjacent forum thread on the same unlimited-photo-album pattern
+  - [4] 2026-11-03: the album service's own page on yike.baidu.com is titled as a claim of unlimited album space | capture: sha256:4cdfa432e79c7ace73cb3b48c571579a63d5e185f4effb5521915ad13a2b0021 | quote: <title>领取无限相册空间</title>
+  - probe:https://yike.baidu.com 2026-11-03: the page on yike.baidu.com answers 200 with the unlimited album space title; the record's own URL www.yike.com did not answer | capture: sha256:ec6cf66b3bf7f6e667a3de215cb7d4cc95691d892e19c73023b42354306e3a90 | quote: <title>领取无限相册空间</title>
+  - probe:https://www.yike.com 2026-11-03: the URL this record names, www.yike.com, did not answer the probe, which timed out | capture: sha256:aed554ad07ed9d9437dde20b0b301193de6ad76509f8468359306d89791fc6e8 | quote: "error": "timeout"
+- sources:
+  - [1] https://linux.do/t/topic/802517
+  - [2] https://www.yike.com
+  - [3] https://linux.do/t/topic/1037046
+  - [4] https://yike.baidu.com
+
+## 中国科技云 数据胶囊 (CSTCloud Data Capsule)
+
+- `netdisk-pan/cstcloud-data-capsule` | fails-quota | evidence reported | binding write-gated | category academic object storage
+- needs card no, phone no, ID yes, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://data.cstcloud.cn | page https://fshy.ajam.dev/p/cstcloud.md
+- free tier: 1 GB on registration and 20 GB after identity verification: '注册赠送1G存储。需要20G和S3、WebDAV、MCP需要使用国家网络身份认证app进行认证' | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: Not published | source: [1]
+- retention: Not published. State-backed academic infrastructure, so durability is high and shutdown risk low | source: [1]
+- egress: The headline property: '不限流量、不限读写次数', with zero egress charges and no request count metering. | metered: no | free allowance: unlimited | source: [1]
+- identity: national-id | detail: the 国家网络身份认证 app, a national digital identity. Registration alone yields 1 GB with no identity document | country: cn
+- interface: s3, webdav
+- limits:
+  - write-gated (binding): 20 GB and the S3, WebDAV and MCP interfaces all require the 国家网络身份认证 app [1]
+  - per-object-cap: 20 GB is the account total and the per-object cap is unstated [1]
+- binding note: Unlimited traffic and no request metering, and the gate is a national identity app. Only 1 GB is available without verification, so the identity decision is the only one that matters.
+- tooling: first-party S3 credentials with an AccessKey from 客户端访问, plus WebDAV and MCP. A rclone S3 mounting walkthrough exists and sccache over CSTCloud is documented for Rust builds
+- composes with: 20 GB per verified identity and each data space is a separate bucket, so the only multiplier is identities. The identity is 国家网络身份认证, a national digital ID app, which makes it non-multiplicable
+- reliability: State-backed academic infrastructure providing high durability. Registration requires national identity verification, without which accounts remain restricted to 1 GB. Operated by CSTCloud, an institution affiliated with but administratively distinct from the Chinese Academy of Sciences.
+- notes: Unlimited traffic with S3, WebDAV and MCP access, behind a national digital identity. storage/cstcloud holds the same provider for its object-storage role.
+- extras:
+  - access_mode: registration-gated
+  - unlimited_traffic: yes
+  - unlimited_request_count: yes
+  - interfaces_beyond_s3: webdav; mcp
+  - aliases: 中国科技云 数据胶囊 (CSTCloud Data Capsule); CSTCloud data capsule
+  - cross_topic_record: storage/cstcloud
+  - cross_topic_note: the storage topic carries the same provider for its object-storage role
+- evidence:
+  - [1] 2026-10-21: '中科院免费提供的20GB对象存储服务，不限流量、不限读写次数，支持多协议接入'
+  - [2] 2026-10-21: '中科院 S3 配置, 注意现在不实名只有 1g 了, 实名才有 20g'
+  - [3] 2026-10-21: an S3 and WebDAV mounting walkthrough with rclone
+- sources:
+  - [1] https://linux.do/t/topic/1614982
+  - [2] https://linux.do/t/topic/1553784
+  - [3] https://linux.do/t/topic/1793719
+
+## 华为云空间 / HUAWEI Mobile Cloud
+
+- `netdisk-pan/huawei-mobile-cloud` | fails-quota | evidence reported | binding per-object-cap | category phone-vendor cloud
+- needs card no, phone yes, ID no, institution no | verified 2026-11-04T00:20:53.783Z (inherited) | stale on 2026-11-19
+- url https://cloud.huawei.com/ | page https://fshy.ajam.dev/p/huawei.md
+- price 2 TB at CNY 698/yr is about USD 4.1/TB/month, and it is often unpurchasable on a non-mainland HUAWEI ID | parsed USD 4.1/TB-mo
+- free tier: 5 GB free, split between 基础服务 and 会员服务. Paid tiers commonly 50 GB, 200 GB and 2 TB. A 2 TB carpool is priced at CNY 698 split six ways at CNY 120 each | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: Not published | source: [2]
+- retention: 基础服务 holds contacts, SMS and notes with no fixed size; photos and video need 会员服务. No retention clock published | source: [3]
+- egress: No documented cap, but the service is sync-oriented and offers no public sharing of the drive | metered: no | source: [2]
+- identity: country-phone | detail: a HUAWEI ID registered in a country where the plan is sold. The vendor's own support page says the purchase prompt fails otherwise | country: cn
+- interface: rest, webdav
+- limits:
+  - per-object-cap (binding): 5 GB is the free tier total, which is the cap in practice [1]
+  - write-gated: the plan purchase fails for a HUAWEI ID registered in a country where the cloud storage plan is not available [3]
+- binding note: 5 GB free, and the plan that would fix it is often unpurchasable from outside the mainland, so the quota closes it before the region gate is reached.
+- tooling: two distinct APIs. The consumer one is reverse-engineered at driveapis.cloud.huawei.com.cn behind an OAuth bearer token, and RzdPai/Huawei_Cloud_Webdav exposes it as WebDAV, which is the useful part. KooDrive is a separate enterprise product with official documentation and must not be conflated with it
+- composes with: A WebDAV bridge exists, so it chains like any drive, but 5 GB free is 400 accounts per terabyte and the free tier is per HUAWEI ID rather than per device. Non-mainland IDs often cannot buy a plan at all
+- reliability: The terms now split 基础服务, unmetered for contacts, SMS and notes, from 会员服务, metered for photos, video and app data. The unmetered half holds no bulk data. Free-space farming exists but is territory-locked to app-install tasks on Huawei handsets
+- notes: Region-gated cloud service featuring an active WebDAV bridge accessible to mainland accounts. Free storage is limited to 5 GB, and paid subscription pathways require domestic mainland payment verification.
+- extras:
+  - access_mode: registration-gated
+  - webdav_bridge: RzdPai/Huawei_Cloud_Webdav
+  - region_gated: yes
+  - aliases: 华为云空间 / HUAWEI Mobile Cloud
+- evidence:
+  - [2] 2026-10-21: a live portal served by Huawei Services Hong Kong; a global portal exists but the storage product is region-gated
+  - [1] 2026-10-21: table row 华为云服务, 5G free, no upload limit, no review, no sharing, no speed limit, login required
+  - [3] 2026-10-21: the plan purchase fails when the HUAWEI ID's registration country does not support the plan
+  - [4] 2026-10-21: a WebDAV service over the Huawei cloud drive API, '可将华为云盘映射为本地磁盘'
+  - [5] 2026-10-21: a 2 TB carpool at CNY 698 for six people at CNY 120 each, 330 GB per person
+  - [3] 2026-11-03: the vendor support page says the plan purchase depends on the country or region where the HUAWEI ID is registered | capture: sha256:0be8ba2339118a70db5d8ade28fc7b61eee82d67f732bf79a5ec1fd5419e9a2c | quote: Check whether you can purchase a cloud storage plan in the country or region where your HUAWEI ID is registered, as the service is only supported in some countries or regions outside the Chinese mainland.
+  - [3] 2026-11-03: the support page lists the purchase prompt that says the plan is not yet available | capture: sha256:0be8ba2339118a70db5d8ade28fc7b61eee82d67f732bf79a5ec1fd5419e9a2c | quote: The user is prompted that the cloud storage plan is not yet available
+  - [1] 2026-11-03: the table row still reads 5G free | capture: sha256:87cfd4212b0eaf2bb73b16353c13f114920639a0b2df7d9e3a6465f3bf0ce870 | quote: | 华为云服务 | 5G | 无 | 无 | 无 | 无 | | |
+  - [4] 2026-11-03: the WebDAV bridge over the Huawei cloud drive API is still published | capture: sha256:efb04c62a3d11d66e2937bda27947eed3adee0d33cad9de719025aaab0a909fe | quote: 基于华为云盘 API 实现的 WebDAV 服务，可将华为云盘映射为本地磁盘，方便使用 WebDAV 客户端进行文件管理。
+  - [2] 2026-11-03: the global portal still answers 200 and offers the cloud app download | capture: sha256:b8022a9fc005aea9e430f283020c13226c981f09d00d19f8ed2eb74e1b58044c | quote: Download Cloud app
+- sources:
+  - [1] https://zh.wikipedia.org/zh-cn/中国大陆网盘列表
+  - [2] https://cloud.huawei.com/
+  - [3] https://consumer.huawei.com/en/support/content/en-us15804999/
+  - [4] https://github.com/RzdPai/Huawei_Cloud_Webdav
+  - [5] https://www.v2ex.com/t/1076365
+
+## 小米云服务 / Xiaomi Cloud (Mi Cloud Drive)
+
+- `netdisk-pan/xiaomi-cloud` | fails-quota | evidence reported | binding per-object-cap | category phone-vendor cloud, China mainland
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T00:20:53.784Z (inherited) | stale on 2026-11-19
+- url https://i.mi.com/ | page https://fshy.ajam.dev/p/mi.md
+- price 2 TB at CNY 408/yr promotional is about USD 2.4/TB/month, and CNY 816/yr list about USD 4.8/TB/month | parsed USD 4.8/TB-mo
+- free tier: 5 GB free: the vendor's own manual reads 免费 5G, 黄金 50G, 白金 200G, 钻石 2048G. Membership is CNY 72, 252 and 816 a year, with promos putting 2 TB at CNY 239 to 408 | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: Not published; the drive is sync-oriented and does not expose a single-file ceiling | source: [1]
+- retention: Account ownership is not transferable; the global-region Gallery sync and all memberships were terminated on 2022-10-25 outside the mainland, with stored Gallery data deleted by mid-2023 | source: [2]
+- egress: No published cap, and the drive is deliberately not share-oriented: the community notes 不能对外分享. Third-party clients download at full speed with concurrency 20 | metered: no | source: [3]
+- identity: email | detail: a Xiaomi account. Xiaomi's own FAQ says a non-mainland account 'can only be created through email', which is an open door into the region where the storage product was killed. Only a mainland account still has the 2 TB tier | country: 86
+- interface: rest, cli
+- limits:
+  - per-object-cap (binding): 5 GB is the free tier total, which is the cap in practice [1]
+  - write-gated: family sharing is capped at 8 members and shares quota and not data [1]
+- binding note: Free storage is limited to 5 GB. Global email registration routes accounts to international regions where consumer drive sync features have been phased out. Total account quota is the binding constraint.
+- tooling: a reverse-engineered REST interface at i.mi.com with a Go CLI, wangbjun/go-micloud, doing login, list, upload, download, share and tree at concurrency 5 up and 20 down; an unmerged OpenList driver pull request 1391 implements list, link, put and mkdir but its body says 还没写完
+- composes with: The API is real and a wrapper exists, so it would be the cleanest phone-vendor target. 5 GB free means about 410 accounts per 2 TB and the 2 TB tier is CNY 239 to 408 a year, which is not a stacking play
+- reliability: Global-region Gallery sync and all memberships were terminated outside mainland China in three regional waves by 2023-02-01, with Gallery data deleted by mid-2023. An email signup works and lands in the region where the product no longer exists, which is a worse outcome than a closed gate because it looks open
+- notes: Email registration succeeds internationally but maps accounts to global regions lacking active drive storage sync. Unofficial client tooling includes experimental Go wrapper scripts and community OpenList driver integrations.
+- extras:
+  - access_mode: registration-gated
+  - region_gate_inverted: yes
+  - terminated_outside_mainland: 2022-10-25 onwards
+  - aliases: 小米云服务 / Xiaomi Cloud (Mi Cloud Drive); 小米云服务 Xiaomi Cloud
+- evidence:
+  - [1] 2026-10-21: the tier table 免费 5G, 50G, 200G, 2048G at CNY 72, 252 and 816 a year
+  - [2] 2026-10-21: 'Syncing of Gallery items to Xiaomi Cloud and Xiaomi Cloud membership services will be terminated' outside the Chinese mainland, and 'These services will not be terminated on the Chinese mainland at this time'
+  - [4] 2026-10-21: 'The Xiaomi account outside the Chinese mainland can only be created through email'
+  - [5] 2026-10-21: a full CLI, '登录采用模拟小米云服务Web端的登录逻辑', upload concurrency 5 and download 20
+  - [6] 2026-10-21: 'Xiaomi Cloud Dirve', list, link, put and mkdir implemented, body says 还没写完
+  - probe:https://i.mi.com/file/full?type=note_ 2026-10-21: HTTP 200, 102 bytes, {"result":"error","reason":"fileid参数不能为空","code":10016}, which is a 200 that carries an error
+  - probe:https://i.mi.com/storage/web/v2/storage 2026-10-21: HTTP 404, 211 bytes, a Resin/4.0.61 MicloudWeb HTML error page
+  - [1] 2026-11-03: the membership page still gives ordinary users 5G of cloud storage, against 50G, 200G and 2048G for the paid tiers | capture: sha256:a04001e359170f45c6564dafcfa5049fa5bf3634d8134d69b49d7521bddf029c | quote: | 云存储空间 | 5G | 50G | 200G | 2048G |
+  - [1] 2026-11-03: the membership page still prices the paid tiers at 72, 252 and 816 yuan a year | capture: sha256:a04001e359170f45c6564dafcfa5049fa5bf3634d8134d69b49d7521bddf029c | quote: | 会员价格 | 免费 | 72元/年 | 252元/年 | 816元/年 |
+  - [2] 2026-11-03: the notice still says the Gallery sync and membership termination does not apply on the mainland | capture: sha256:fc31d226b1398d7ddec129c34360319c0d72eea8173cdf0f242c0cf922322c3f | quote: These services will not be terminated on the Chinese mainland at this time.
+  - [2] 2026-11-03: the notice gives the three regional termination dates | capture: sha256:fc31d226b1398d7ddec129c34360319c0d72eea8173cdf0f242c0cf922322c3f | quote: | Before December 1, 2022 | Before January 1, 2023 | Before February 1, 2023 |
+  - [3] 2026-11-03: the portal answers 200 and asks for a Xiaomi Account sign-in | capture: sha256:76ea69cb1bdbde2e6f2ef4a8272f6bbf1ed649877122b0c82fe8cb965d79f999 | quote: Sign in with Xiaomi Account
+  - [5] 2026-11-03: the Go client still documents upload concurrency 5 and download concurrency 20 | capture: sha256:263ed9529b009a871c34ff2fa130e0540d726e9e1a38a1937a89ea338ac430b6 | quote: 上传和下载采用异步方式，默认上传并发5，下载并发20
+  - probe:https://i.mi.com/file/full?type=note_ 2026-11-03: the file endpoint answers 200 with a JSON error body (102 bytes), a 200 that carries an error | capture: sha256:a81eb88f28b3b65bb54245632c88edb1561b358a08a9f528bee2a6b737753e52 | quote: "reason":"fileid参数不能为空"
+  - probe:https://i.mi.com/storage/web/v2/storage 2026-11-03: the storage path answers 404 from a Resin/4.0.61 server | capture: sha256:875df53cc2022138b5de87de28d4fa32ed88a1e195d1138a909f37d3b1015550 | quote: Resin/4.0.61
+- sources:
+  - [1] https://i.mi.com/guide/zh-CN/membership/overview
+  - [2] https://i.mi.com/announcement/stop_service
+  - [3] https://i.mi.com/
+  - [4] https://www.mi.com/global/support/faq/details/KA-547873/
+  - [5] https://github.com/wangbjun/go-micloud
+  - [6] https://github.com/OpenListTeam/OpenList/pull/1391
+
+## 豆包 AI云盘 (ByteDance Doubao drive)
+
+- `netdisk-pan/doubao-drive` | fails-quota | evidence reported | binding retention-clamped | category consumer-pan
+- needs card no, phone yes, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://pan.doubao.com | page https://fshy.ajam.dev/p/doubao.md
+- free tier: Advertised as unlimited at launch in 2025-05, then cut back: '后来被人发现不是无限，就改成5T还是限时'. A 5 TB grant that is time-limited, not permanent | unit: TiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 50 GB per file in practice, per a forum report: '单文件限制实际是50G' | bytes: 50000000000 | source: [1]
+- retention: The 5 TB is described as 限时, time-limited. No retention clock published | source: [1]
+- egress: Fast and unmetered in practice: '我上传和下载差不多5G的文件都是不限制速度的', with a later test agreeing. No published egress term | metered: no | source: [2]
+- identity: country-phone | detail: a ByteDance account, which is phone-bound in practice | country: 86
+- interface: rest
+- limits:
+  - per-object-cap: 50 GB per file in practice [1]
+  - request-rate: bulk uploads trip risk control, reportedly clearing after 7 to 14 days of light use [3]
+- binding note: A 5 TB grant described as time-limited is a quota the provider can shorten, so what binds is the retention clamp: the capacity is real and the clock on it is unpublished. The 50 GB per-file ceiling is the second constraint.
+- tooling: no official API. The OpenList/AList 豆包 driver mounts it, and Cloudflare Tunnel plus WebDAV recipes exist
+- composes with: 5 TB per account if the grant holds, with no documented way to stack, and the capacity has changed at least twice, so it is not bankable. No share links at all means there is no CDN front and therefore no serving path
+- reliability: ByteDance will keep tightening it: '先免费积累用户量，后面也会限速，要会员收费的'. Data vanishing is unlikely and quota repricing is likely. No share links means no way to serve from it
+- notes: Notable as a large ByteDance-provided quota whose terms shifted rapidly: offered as unlimited at launch, reduced to 5 TB with time-limited duration within months, and lacking public share links. The absence of public link generation prevents integration with fronting CDNs.
+- extras:
+  - access_mode: registration-gated
+  - launched: 2025-05
+  - share_links: no
+  - quota_trajectory: unlimited at launch, then 5 TB time-limited
+  - per_file_cap_bytes_derived: 50000000000
+  - slug_note: See the history entry for the other nine placeholder slugs and why they were not used verbatim
+  - reserved_slug: ai
+- evidence:
+  - [1] 2026-10-21: '百度发现是无限量的，后来被人发现不是无限，就改成5T还是限时，单文件限制实际是50G，没见过分享链接'
+  - [2] 2026-10-21: '豆包的ai云盘，我上传和下载差不多5G的文件都是不限制速度的'
+  - [3] 2026-10-21: '豆包云盘上传下载都很快，就是可能我一次传太多被风控了，剩下几本漫画传不上去'
+- sources:
+  - [1] https://linux.do/t/topic/1145191
+  - [2] https://linux.do/t/topic/659711
+  - [3] https://linux.do/t/topic/2482281

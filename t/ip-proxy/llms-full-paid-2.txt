@@ -1,0 +1,969 @@
+# fshy: IP and proxies, paid only, part 2 of 2
+
+> Exit addresses: proxy lists, VPN exits, address sources and what the upstream sees.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/ip-proxy/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## Oeck (IP and proxies)
+
+- `ip-proxy/oeck-vpn` | paid-only | evidence documented | binding request-rate | category VPN subscription (exit source) | tier 12 Months, $83.58 per 12 months ($6.97 per month)
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T11:00:31.322Z (live) | stale on 2026-12-05
+- url https://www.oeck.com/pricing/ | page https://fshy.ajam.dev/p/oeck.md
+- price USD 6.97 per month on the 12 Months plan (USD 83.58 per 12 months); a subscription price, not a per-TB price | parsed USD 6.97/mo
+- duplicate of `egress/oeck-vpn`
+- free tier: No free tier read. The live pricing page lists '7 Days Charged at $3.94 USD for 7 day block', '1 Month Charged at $9.95 USD per month' and '12 Months Charged at $83.58 USD per 12 months', each with a '30-Day Money-Back Guarantee'. | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: The cheapest yearly price is $83.58 for 12 months ($6.97 per month, 'Save 59%'). The 7-day block is the cheapest entry price. No trial page was readable.
+- per-object cap: not applicable: an exit address, not an object | source: [2] | note: No object is stored; the constraint is the 6-device cap in limits.
+- retention: not applicable: a live tunnel and a rented exit address, not stored bytes | source: [3] | note: The vendor says its VPN servers have no hard drives and that it keeps no user logs; no byte retention applies.
+- egress: The pricing page states a price per term and no byte allowance, cap or per-GB price; the FAQ has a question 'Does Oeck ever limit customer usage?' whose answer was not on the pages read. metered is false on the absence of any stated byte figure, and no byte was counted through a tunnel. | metered: no | free allowance: none published: the pages price a term, not a volume | source: [1]
+- identity: email | detail: An email address is required to create an account ('we need to be able to get in touch with you'). Payments run through Stripe, Coinbase and 2Checkout, so a card or cryptocurrency is how the plan is paid; the sign-up form itself was not readable (live register page HTTP 504; the archived copy is a closed-registration notice), so the exact field list is unverified: behind a sign-up.
+- interface: unknown
+- limits:
+  - request-rate (binding): 6 devices at once: 'You may have up to 6 devices logged in to our network concurrently' [4]
+  - per-ip-shaping: an OpenVPN client gets a random server in the chosen region, the apps get the server the network picks by load [5]
+- limits note: Three facts no limit kind names. (1) The first-party pages read name no protocol list other than OpenVPN config files; WireGuard is reported by a third-party review only, and UDP, a SOCKS5 endpoint and an obfuscation mode are unverified: not stated on any page read (the live downloads, manual, terms and network-graph pages answered HTTP 504 on every attempt, and archived copies of the manual and downloads pages carry no protocol text). (2) Registration: an archived copy dated 2025-04-29 of the register page shows a notice 'Registrations are temporarily closed' that refers to a January 2022 re-opening date, and the live register page was unreadable (HTTP 504), so whether sign-up is open today is unverified; the live pricing page carries Buy buttons. (3) Residential claim: the vendor's home page says a 'residential IP smartRouting' is built into the network, while its FAQ says the streaming exits are on a proxy network of colocated, dedicated and virtual private servers; the class of the claim is a vendor claim that no page lets anyone check.
+- binding note: No byte quota is stated, so the first stated limit is the 6-concurrent-device cap; the torrent-region rule decides where BitTorrent may run. No rate was measured.
+- interface detail: Vendor apps (Android, iOS, macOS, Windows, Linux) and downloadable .ovpn configuration files per the archived downloads page, plus OpenVPN config files that list every server. No SOCKS5 endpoint, API or WireGuard configuration is named on the first-party pages read. No vocabulary term names a VPN tunnel.
+- tooling: The vendor's apps or any OpenVPN client with the vendor's .ovpn files; port forwarding is configured on a device profile in the account area.
+- composes with: A compute node runs an OpenVPN client with a vendor .ovpn file, so its traffic leaves at the region's exit address (a random server in the region for OpenVPN); a Worker cannot dial the tunnel directly and no proxy endpoint is documented.
+- reliability: The host is intermittently unreachable: direct requests to oeck.com and www.oeck.com timed out on 2026-11-04 and a page reader answered HTTP 504 on many attempts, while some reads succeeded. unverified: whether the service itself is up, since only marketing pages were reachable and no tunnel was brought up. Per the FAQ the company is incorporated in Hong Kong with a planned move to Singapore.
+- notes: Duplicate of egress/oeck-vpn, which holds the offer.
+- evidence note: Documented from the vendor's live pricing, features and FAQ pages, read through a page reader. Registration status and the protocol list are unverified. Measured would need an account, a tunnel per protocol and the live register and downloads pages.
+- evidence:
+  - [1] 2026-11-03: The 12 Months plan is charged $83.58 USD per 12 months. | capture: sha256:ff95eb0df609e75221a179b2defd1ebc9fb0809eaf93751e6d4f5ff99a4ece7e | quote: Charged at $83.58 USD per 12 months
+  - [1] 2026-11-03: The 12 Months plan is shown as $6.97 per month, 'Save 59%'; the 1 Month plan is $9.95 per month and the 7 Days block $3.94. | capture: sha256:ff95eb0df609e75221a179b2defd1ebc9fb0809eaf93751e6d4f5ff99a4ece7e | quote: $ 6.97 / mo
+  - [6] 2026-11-03: An archived copy dated 2025-04-29 of the pricing page lists the same 1 Month price of $9.95 and carries no 12 Months card; the live page was read on 2026-11-04. | capture: sha256:bd2302ea388e101b663ef01513fbab2c4e0aaba9ba1b2fcbfe5e16e35b67e8f9 | quote: Charged at $9.95 USD per month
+  - [2] 2026-11-03: Advanced Port Forwarding: the vendor issues ports, the user enables them on a device profile and names the target port, and each port gets a custom domain name. | capture: sha256:a70eee3d43360e5e58da9b2bcd13a2fa0e52c364bc9f2dcb75fb9826fa049570 | quote: We issue you ports and you enable ports you select on your device profile(s).
+  - [5] 2026-11-03:  | capture: sha256:78f150acae82fa3265eb51225f41fdf484272a89a5cf97474673c82da20e3046 | quote: Yes.
+  - [4] 2026-11-03: Up to 6 devices may be connected at once. | capture: sha256:d39c3cbc7ee08e273a85d208dab265a10a3cadfb7bab19745db602cb8b4727f5 | quote: You may have up to 6 devices logged in to our network concurrently
+  - [3] 2026-11-03: An email address is required to create an account; the FAQ lists password resets, ticket replies and expiry notices as its purposes. | capture: sha256:11424b5937e5e79b0c0ec47ef11c763b8e6246b6f6545b86a460e389c54402eb | quote: In order to make the user experience the best we possibly can, we need to be able to get in touch with you.
+  - [3] 2026-11-03: Payments are processed by Stripe, Coinbase and 2Checkout. | capture: sha256:11424b5937e5e79b0c0ec47ef11c763b8e6246b6f6545b86a460e389c54402eb | quote: Oeck uses Stripe, Coinbase and 2Checkout to process all of our payments.
+  - [5] 2026-11-03: OpenVPN configuration files carry the full server list; a user can connect with an OpenVPN client instead of the apps. | capture: sha256:78f150acae82fa3265eb51225f41fdf484272a89a5cf97474673c82da20e3046 | quote: If you want to see our full server list, it is available in the OpenVPN config files.
+  - [2] 2026-11-03: The features page lists AES-256 encryption and a 4096-bit key exchange. | capture: sha256:a70eee3d43360e5e58da9b2bcd13a2fa0e52c364bc9f2dcb75fb9826fa049570 | quote: AES-256 Encryption
+  - [5] 2026-11-03: Streaming exits are on a separate proxy network (opNetwork) of colocated, dedicated and virtual private servers, reached by a multi-hop from the VPN network. | capture: sha256:78f150acae82fa3265eb51225f41fdf484272a89a5cf97474673c82da20e3046 | quote: The second is the Proxy Network (opNetwork).
+  - [7] 2026-11-03: The vendor's home page says a residential IP smartRouting is built into the network: a vendor claim for streaming unblock, with no ASN or sample address published. | capture: sha256:ed151c1cb834bf9c6933949808b47ef9e9fb314358a9c3b97e4ab03cf479fa76 | quote: Our revolutionary residential IP smartRouting is built in to the OECK network.
+  - [8] 2026-11-03: A third-party review lists OpenVPN and WireGuard as the protocols (reported rung; no first-party page read names WireGuard). | capture: sha256:fc693469a2bd1ebd32749ecefa103ca38d54ce5904ed48a186fd642616eb2ae5 | quote: ProtocolsOpenVPN, WireGuard
+  - probe:www.oeck.com 2026-11-03: A direct read-only request to https://www.oeck.com/ timed out on 2026-11-04 (about 21 seconds, no HTTP status); the live pages above were read through a page reader that reached the host on some attempts and answered HTTP 504 on others. | capture: sha256:4a96f0c251d08623f8f7d5f5ee59d9ab491b52e04a95f6265d43e2d29f55e7a2 | quote: "error": "timeout"
+  - probe:oeck.com 2026-11-03: The apex https://oeck.com/ also timed out on a direct request on 2026-11-04, so the 2026-10-31 non-resolution of the apex host is not repeated as a DNS failure: the host answers no direct connection from the probe's network, and a page reader reaches www.oeck.com intermittently. | capture: sha256:9095312c7bac12249001b0b99a4882071a0d98270d8a113d7b753d79f680300c | quote: "error": "timeout"
+  - [1] 2026-11-04: The vendor pricing page lists the VPN plan that both records cite. | capture: sha256:ff95eb0df609e75221a179b2defd1ebc9fb0809eaf93751e6d4f5ff99a4ece7e | quote: Charged at $83.58 USD per 12 months
+- sources:
+  - [1] https://www.oeck.com/pricing/
+  - [2] https://www.oeck.com/features/
+  - [3] https://www.oeck.com/faq/privacy_and_security/
+  - [4] https://www.oeck.com/faq/account/
+  - [5] https://www.oeck.com/faq/technical/
+  - [6] https://web.archive.org/web/20250429005015/https://www.oeck.com/pricing/?provider=wayback
+  - [7] https://www.oeck.com/
+  - [8] https://top10vpns.com/reviews/oeck-vpn
+
+## OnesProxy
+
+- `ip-proxy/onesproxy-static-residential` | paid-only | evidence documented | binding per-ip-shaping | category per-address static residential proxy (dual-ISP native and broadcast) with dynamic residential and mobile GB products | tier Static residential proxy, per IP, from $4.8 each
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-04T00:30:28.990Z (live) | stale on 2026-12-05
+- url https://www.onesproxy.com/ | page https://fshy.ajam.dev/p/onesproxy.md
+- price not applicable: an address, not a byte; from USD 4.8 per IP
+- free tier: No standing free tier. New users can ask customer service, with the registered email, for a 1-day pack of a US static residential IP or datacentre IPs of all regions. Every standing product is paid, per IP or per GB. | unit: hours | metered on: wall-clock | read on: 2026-11-03 | source: [1] | note: The trial is issued by support on request, not self-service.
+- per-object cap: not applicable: an address or a traffic pack, not an object | source: [1]
+- retention: not applicable: an address, not stored bytes. The help centre has an article on whether an expired proxy can be recovered; its text was not read: unverified. | source: [2] | note: days is null because no bytes are stored.
+- egress: Static residential: "无限流量与并发数" (unlimited traffic and concurrency); billed per IP. | metered: no | free allowance: a 1-day pack of static residential US IPs or datacentre IPs of all regions, on request; the count is not stated | source: [1]
+- identity: email | detail: Sign-up and login support a Google account, a WeChat account, an email address or a phone number; the trial pack is requested from support with the registered email. Payment: Alipay, Visa or Mastercard credit card, or USDT. No ID document is named on the pages read.
+- interface: cli, rest
+- limits:
+  - per-ip-shaping (binding): one address per unit with unlimited traffic and concurrency stated; the vendor states 99.99% availability [1]
+  - volume-quota: none for the static product (unlimited traffic); dynamic products are metered per GB [1]
+- binding note: Traffic is unlimited, so the single address and its registration class bind; the label offers a choice between native and broadcast IPs, which are not the same class.
+- interface detail: HTTP and SOCKS5, stated in the vendor description; the page states API support ("支持API接口"). Configuration guides are published for fingerprint browsers and V2rayN, clash verge and V2rayNG.
+- tooling: Any client that speaks SOCKS5 or an HTTP proxy, reached from a Worker through a relay that dials SOCKS5. The vendor publishes setup guides for fingerprint browsers; no SDK was seen. That is a note on tooling, not a reason to reject.
+- composes with: The upstream sees the leased address. The vendor labels the static product 双ISP原生与广播IP (dual-ISP native and broadcast IP) and 双ISP住宅属性; no address was published, so the registration class is unverified.
+- reliability: The vendor states 99.99% availability for its own backbone; no throughput, ban or replacement measurement was made.
+- notes: Named on the Chinese-language forum source (a post titled with the vendor name and "NS 专属价", an NodeSeek-specific price); the forum is the lead and the evidence is the vendor page. The vendor name in Chinese is 壹创云.
+- evidence note: Prices and product labels are read from the vendor home and register pages; trial, sign-up and payment terms from the help centre. The sign-up form and the delivered addresses were not seen.
+- extras:
+  - rung: 5
+  - rung_note: The product is a registration-class claim (dual-ISP native and broadcast); nothing was delivered or looked up.
+  - chinese_name: 壹创云
+- evidence:
+  - [1] 2026-11-03: The static residential product is labelled dual-ISP native and broadcast IP. | capture: sha256:64982601067c4e97858dbdc42c2e60f76dfb0760d9063023baa55df4209ba5b5 | quote: 纯净双ISP原生与广播IP
+  - [1] 2026-11-03: The static residential price is $4.8 each. | capture: sha256:64982601067c4e97858dbdc42c2e60f76dfb0760d9063023baa55df4209ba5b5 | quote: $4.8/个
+  - [1] 2026-11-03: Static residential is billed by the number of IPs. | capture: sha256:64982601067c4e97858dbdc42c2e60f76dfb0760d9063023baa55df4209ba5b5 | quote: 按IP个数收费
+  - [1] 2026-11-03: Static products state unlimited traffic and concurrency. | capture: sha256:64982601067c4e97858dbdc42c2e60f76dfb0760d9063023baa55df4209ba5b5 | quote: 无限流量与并发数
+  - [1] 2026-11-03: Dynamic residential is $0.88 per GB. | capture: sha256:64982601067c4e97858dbdc42c2e60f76dfb0760d9063023baa55df4209ba5b5 | quote: $0.88/GB
+  - [1] 2026-11-03: A free trial is advertised. | capture: sha256:64982601067c4e97858dbdc42c2e60f76dfb0760d9063023baa55df4209ba5b5 | quote: 免费试用
+  - [3] 2026-11-03: The register page lists dynamic mobile at $2.28 per GB. | capture: sha256:171048ea81a2294d4b1ad9fb17e4c27514e4f91ca3c1e5ee0877d1073294d095 | quote: 动态手机代理来自真实手机本地4G网络$2.28/GB
+  - [2] 2026-11-03: The help centre has an article on a registration verification code that does not arrive. | capture: sha256:99c543ad2448e78bcba953956199c4645fd1754f843ad0a6639aaf9145aa19de | quote: 注册账号收不到验证码
+  - [4] 2026-11-04: New users can get a 1-day pack of a US static residential IP or datacentre IPs by asking customer service with the registered email. | capture: sha256:263bacea6d27c1f38faccd5e67c7d368cd63ff3ad4927a4a79fbb9209d3bd4ed | quote: 对于新用户，目前OnesProxy提供静态住宅美国IP或者机房全量地区的1天使用礼包，若有需要请联系官网在线客服，提供注册邮箱获取。
+  - [5] 2026-11-04: Accounts are opened with a Google account, WeChat, an email address or a phone number. | capture: sha256:86c245f0145735b5fb6a3ee26a8ecfe25dbf2d1c76e005e461f44d41539b275c | quote: 平台注册登录目前支持Google账号、微信账号、邮箱和手机号登录注册。
+  - [6] 2026-11-04: Payment is by Alipay, Visa or Mastercard credit card, or USDT. | capture: sha256:6d080f6daeffbd3b5fbd02b18979d544238e43cf549aa4d78a5cbf0dd1da495a | quote: OnesProxy目前支持支付宝、信用卡（visa&万事达）、USDT等方式支付，具体可以在充值页面进行查看。
+  - [6] 2026-11-04: Dynamic traffic carries a validity period and unconsumed traffic is billed as consumed. | capture: sha256:6d080f6daeffbd3b5fbd02b18979d544238e43cf549aa4d78a5cbf0dd1da495a | quote: 动态住宅代理：动态住宅代理会根据流量进行计费，且流量有时效限制，期限内未消耗完流量按全额消耗计费；
+  - [1] 2026-11-04: The buyer chooses between native IPs and broadcast IPs for the static residential product. | capture: sha256:64982601067c4e97858dbdc42c2e60f76dfb0760d9063023baa55df4209ba5b5 | quote: 自由选择原生与广播IP
+  - [1] 2026-11-04: The vendor claims cooperation with Cogent and Equinix and over 1000 self-built backbone servers. | capture: sha256:64982601067c4e97858dbdc42c2e60f76dfb0760d9063023baa55df4209ba5b5 | quote: 与Cogent、Equinix建立深度业务合作，自建超过1000台骨干网服务器。
+  - [4] 2026-11-04: The 1-day trial pack is requested from customer service with the registered email. | capture: sha256:263bacea6d27c1f38faccd5e67c7d368cd63ff3ad4927a4a79fbb9209d3bd4ed | quote: 对于新用户，目前OnesProxy提供静态住宅美国IP或者机房全量地区的1天使用礼包，若有需要请联系官网在线客服，提供注册邮箱获取。
+  - [4] 2026-11-04: New users get a 1-day pack of US static residential IPs or datacentre IPs of all regions on request; no count is named | capture: sha256:263bacea6d27c1f38faccd5e67c7d368cd63ff3ad4927a4a79fbb9209d3bd4ed | quote: 对于新用户，目前OnesProxy提供静态住宅美国IP或者机房全量地区的1天使用礼包，若有需要请联系官网在线客服，提供注册邮箱获取。
+- sources:
+  - [1] https://www.onesproxy.com/
+  - [2] https://help.onesproxy.com/docs/c4b78TPI
+  - [3] https://www.onesproxy.com/register
+  - [4] https://help.onesproxy.com/docs/dai-li-IP-shi-fou-zhi-chi-shi-yong
+  - [5] https://help.onesproxy.com/docs/zhu-ce-deng-lu
+  - [6] https://help.onesproxy.com/docs/fu-kuan-fang-shi-yu-ji-fei-gui-ze
+
+## OnesProxy (壹创云)
+
+- `ip-proxy/onesproxy-residential` | paid-only | evidence documented | binding volume-quota | category rotating residential, static ISP and mobile proxy | tier Static ISP residential (per IP) and dynamic residential (per GB)
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T07:35:31.081Z (live) | stale on 2026-12-04
+- url https://www.onesproxy.com/ | page https://fshy.ajam.dev/p/onesproxy.md
+- duplicate of `ip-proxy/onesproxy-static-residential`
+- free tier: No price-free tier stated; the page has a '免费试用' (free trial) button. Prices: 静态住宅代理 (static residential) $4.8 per IP, 静态数据中心代理 (static datacenter) $0.38 per IP, 动态住宅代理 (dynamic residential) $0.88/GB, 动态手机代理 (dynamic mobile) $2.38/GB. | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: The sign-up page of the same site lists the mobile product at $2.28/GB, against $2.38/GB on the home page. The size of the free trial is unverified: behind a sign-up.
+- per-object cap: not applicable: an address or a traffic quota, not an object | source: [1]
+- retention: not applicable: a proxy session or a rented address, not stored bytes | source: [1]
+- egress: Static products: '按IP个数收费' (billed per IP), unlimited traffic and concurrency. Dynamic products: '按流量GB收费' (billed per GB), unlimited concurrency, sticky and rotating sessions. | metered: yes | free allowance: trial offered, size unverified | source: [1]
+- identity: email | detail: The sign-up form was not rendered in the pages captured (the register page returned only navigation). unverified: behind a sign-up.
+- interface: rest
+- limits:
+  - volume-quota (binding): dynamic residential $0.88/GB and mobile $2.38/GB metered per GB; static lines per IP with unlimited traffic [1]
+- limits note: The vendor claims 10M+ own residential IPs, 190+ countries, Cogent and Equinix backbone partnerships with 1000+ own backbone servers, and ASN, ownership and geolocation customisation for enterprise orders. These are vendor claims, not measured.
+- binding note: The dynamic lines are metered per GB; the static lines are bought per IP.
+- interface detail: SOCKS5 and HTTP; the vendor sells native SOCKS5 residential proxies with API support, QR-code export of proxy details and integrations for fingerprint browsers; targeting down to city.
+- tooling: Any client that speaks an HTTP(S) or SOCKS5 proxy with a username and password or an allowlisted source address: curl -x, python requests, rclone --socks5, or a host-side hop for a runtime that cannot dial a proxy itself. The vendor's help centre carries set-up guides for fingerprint browsers and phone apps.
+- composes with: A host-side hop dials the vendor's HTTP(S) or SOCKS5 endpoint with credentials; the upstream sees an address from the vendor's pool in place of the caller's address.
+- reliability: The operator named on the site is 浙江壹创云信息科技有限公司 with an ICP filing number in the footer. unverified: payment methods, the free-trial size, and the registration class of the static 'native' and 'broadcast' IPs (rung 5): no address was looked up.
+- notes: Named on a Chinese-language proxy forum as '【OnesProxy】住宅代理: AI解锁/养号/多账号/VPS出口一条龙, NS专属价' with a pool of 70M+ residential IPs; a buyer thread on the same forum lists an OnesProxy address as a broadcast IP in one case.
+- evidence note: Prices and product definitions are from the vendor's home page; identity and payment details are unread.
+- extras:
+  - rung: 5
+  - rung_note: The static line sells 'native' and 'broadcast' IPs; the registration class was not checked.
+- evidence:
+  - [1] 2026-11-03: The static residential proxy is $4.8 per IP. | capture: sha256:64982601067c4e97858dbdc42c2e60f76dfb0760d9063023baa55df4209ba5b5 | quote: $4.8/个
+  - [1] 2026-11-03: The dynamic residential proxy is $0.88 per GB. | capture: sha256:64982601067c4e97858dbdc42c2e60f76dfb0760d9063023baa55df4209ba5b5 | quote: $0.88/GB
+  - [1] 2026-11-03: The dynamic mobile proxy is $2.38 per GB on this page. | capture: sha256:64982601067c4e97858dbdc42c2e60f76dfb0760d9063023baa55df4209ba5b5 | quote: $2.38/GB
+  - [1] 2026-11-03: Static products are billed per IP. | capture: sha256:64982601067c4e97858dbdc42c2e60f76dfb0760d9063023baa55df4209ba5b5 | quote: 按IP个数收费
+  - [1] 2026-11-03: The vendor claims Cogent and Equinix partnerships and 1000+ own backbone servers. | capture: sha256:64982601067c4e97858dbdc42c2e60f76dfb0760d9063023baa55df4209ba5b5 | quote: 与Cogent、Equinix建立深度业务合作，自建超过1000台骨干网服务器。
+  - [2] 2026-11-03: The sign-up page quotes the mobile product at $2.28 per GB. | capture: sha256:171048ea81a2294d4b1ad9fb17e4c27514e4f91ca3c1e5ee0877d1073294d095 | quote: $2.28/GB
+- sources:
+  - [1] https://www.onesproxy.com/
+  - [2] https://www.onesproxy.com/register
+
+## Private Internet Access
+
+- `ip-proxy/private-internet-access-exits` | paid-only | evidence measured | binding none | category vpn subscription (exit source) | tier exit addresses
+- identity a placeholder: card and phone unknown | verified 2026-11-04T00:30:00.000Z (live) | stale on 2026-12-05
+- url https://www.privateinternetaccess.com/buy-vpn-online | page https://fshy.ajam.dev/p/privateinternetaccess.md
+- free tier: No free tier. The buy page lists 1 Month at $11.95 per month, 1 Year at $3.99 per month billed $47.88, and a 3 Years plan at $2.03 per month autorenewing at $81.20 every 3 years. | unit: none | metered on: none | read on: 2026-11-04 | source: [1] | note: The price is the vendor's plan rate for the subscription whose exits are classified here; the exit-address measurement itself has no price.
+- per-object cap: not applicable | source: [2] | note: The classified sample is 120 addresses over 17 ASNs; none of those numbers is an object size.
+- retention: not applicable: an address, not an object | source: [2] | note: Nothing is stored, so no retention clock applies. How long one exit address is held before it is re-drawn was not observed.
+- egress: unverified: no traffic allowance or per-GB price appears in the captured pages; metered is recorded false because no metered charge was read. | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: unverified: the buy page was read but the account and payment step behind Select Plan was not.
+- interface: unknown
+- limits:
+  - per-ip-shaping: unverified: no device or connection ceiling appears in the captured pages [1]
+- binding note: No limit kind binds the record: it measures exit addresses and states no byte quota or request rate. What matters is list membership: 114 of 120 sampled exits are on a datacenter list.
+- interface detail: The server list at https://serverlist.piaservers.net/vpninfo/servers/v6 is the source of the exit addresses classified here. The schema interface enum has no token for a VPN tunnel, so the tunnel protocols are not recorded as an interface.
+- endpoint: part of interface detail
+- tooling: The exit addresses are read from https://serverlist.piaservers.net/vpninfo/servers/v6 and classified with an IP-class detector; the service itself is reached with the vendor's own client or a WireGuard or OpenVPN configuration.
+- composes with: A Worker or a free compute node dials the tunnel and the traffic leaves at one of these exit addresses, so the upstream sees an address in the ASNs listed here and not the caller's network.
+- reliability: 114 of 120 sampled exit addresses are on a datacenter list and 117 of 120 on a VPN list, so a site that blocks those lists blocks most of this fleet; 16 of 120 are also on an abuse list.
+- notes: List membership of 120 exit addresses (detector index version 20261103T163900Z-00d117b2, 2026-11-03): datacenter 114, VPN 117, abuse 16, none of the three 0. VPN list: 117 of 120, of which 90 are in the x4b VPN list and the rest are in the vendor's own server list as ingested by the detector, so the VPN count includes the vendor feed. Definitions: datacenter is an address inside a range the x4b datacenter list publishes; VPN is inside the x4b VPN list or a per-provider server list; abuse is on at least one independent abuse family; none of the three states list membership, not physical siting.
+- evidence note: The list membership, ASN spread and counts are measured: each address was answered by the detector at the stated index version. The plan price and the identity class are documented from the vendor's captured pages; where a page did not state them they are unverified. The sample is the addresses the vendor endpoint returned, not proof that every address a user is handed is in it.
+- extras:
+  - rung: 4
+  - rung_note: Addresses came from the vendor's own server list and each was classified; no exit was connected to, so the address a user is handed at connect time was not observed.
+  - list_membership.measured_on: 2026-11-03
+  - list_membership.n: 120
+  - list_membership.datacenter: 114
+  - list_membership.vpn: 117
+  - list_membership.vpn_in_x4b: 90
+  - list_membership.abuse: 16
+  - list_membership.none_of_the_three: 0
+  - list_membership.detector_index_version: 20261103T163900Z-00d117b2
+  - list_membership.probed_at: 2026-11-03T17:20:52Z
+  - list_membership.endpoint: https://serverlist.piaservers.net/vpninfo/servers/v6
+  - asn_diversity.measured_on: 2026-11-03
+  - asn_diversity.addresses: 120
+  - asn_diversity.subnets_24: 115
+  - asn_diversity.asns: 17
+  - asn_diversity.largest_asn: AS137409 GSLNETWORKS-AS-AP - GSL Networks Pty LTD
+  - asn_diversity.largest_asn_addresses: 54
+  - asn_diversity.largest_asn_share: 45%
+- evidence:
+  - probe:https://serverlist.piaservers.net/vpninfo/servers/v6 2026-11-03: The vendor endpoint https://serverlist.piaservers.net/vpninfo/servers/v6 gave 120 IPv4 exit addresses, each answered by the address-class detector at index version 20261103T163900Z-00d117b2 on 2026-11-03. Datacenter list: 114 of 120; VPN list: 117 of 120 (90 in the x4b VPN list); abuse list: 16 of 120; on none of the three: 0 of 120. 17 distinct ASNs and 115 distinct /24s; largest ASN AS137409 GSLNETWORKS-AS-AP - GSL Networks Pty LTD with 54 addresses. | capture: sha256:053490111d3c1f195eff597a14303552e2c67c03b671ff46e6c4c31ac76280a4 | quote: "n": 120,
+  - probe:https://serverlist.piaservers.net/vpninfo/servers/v6 2026-11-03: Detector index version 20261103T163900Z-00d117b2 was the one every one of the 120 answers carries. | capture: sha256:053490111d3c1f195eff597a14303552e2c67c03b671ff46e6c4c31ac76280a4 | quote: "index_version": "20261103T163900Z-00d117b2",
+  - [1] 2026-11-04: the 3-year plan autorenews at $81.20 every 3 years, shown as $2.03/mo | capture: sha256:08d0cfe4336400597c8147da26998530873da130415a14e4f0f2b9b677a7e439 | quote: Autorenews at $81.20 every 3 years
+  - [1] 2026-11-04: the buy page offers plans with a Select Plan step; the identity requirement is behind it | capture: sha256:08d0cfe4336400597c8147da26998530873da130415a14e4f0f2b9b677a7e439 | quote: Cancel Anytime. No Hassle, No Risk.
+- sources:
+  - [1] https://www.privateinternetaccess.com/buy-vpn-online
+  - [2] https://serverlist.piaservers.net/vpninfo/servers/v6
+
+## Proxy001 (residential)
+
+- `ip-proxy/proxy001-residential` | paid-only | evidence documented | binding volume-quota | category per-GB rotating and sticky residential proxy | tier Residential proxies, per GB, from $0.55/GB
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T01:21:45.722Z (live) | stale on 2026-12-05
+- url https://www.proxy001.com/pricing | page https://fshy.ajam.dev/p/proxy001.md
+- price not applicable: sold by the GB with no monthly term; USD 0.7 per GB at the 500 GB pack (USD 350) and USD 1.2 per GB at the 5 GB pack (USD 6)
+- free tier: No free allowance on the pricing page. Regular residential packs: 5 GB at $6 on the first recharge only (list $12, $2.4/GB); 20 GB $24, 50 GB $55, 100 + 20 GB $100, 200 GB $180, 500 GB at $350 (list $480); the Regular/Business tabs show $0.55/GB. Purchased traffic does not expire. | unit: GB | metered on: downloaded-bytes | read on: 2026-11-03 | source: [1] | note: The metered direction (downloaded versus both ways) is not stated on the page; downloaded-bytes is the nearest term and is unverified.
+- per-object cap: not applicable: an address or a traffic pack, not an object | source: [1]
+- retention: purchased traffic is valid indefinitely: "your purchased traffic is valid indefinitely". | source: [1] | note: The vendor states no expiry for purchased traffic; days is null because nothing is deleted.
+- egress: GB-based billing, SOCKS5/HTTP(S), "Unlimited Bandwidth & Concurrency", unlimited IP extraction; the unit sold is traffic. | metered: yes | free allowance: none stated | source: [1]
+- identity: email | detail: The register page asks for an email address, a verification code sent to it ("Send Code"), a password and agreement to terms, and also offers Sign up with Google. No phone, card or ID document is asked on that page.
+- interface: cli, rest
+- limits:
+  - volume-quota (binding): traffic bought by the GB: 5 GB at $6 on the first recharge only (list $12); 500 GB at $350 (list $480); purchased traffic does not expire [1]
+  - request-rate: none stated: Unlimited Bandwidth & Concurrency and unlimited IP extraction [1]
+- binding note: Bytes are the unit sold, so the price per GB is what binds: $0.70 per GB at the 500 GB pack and $1.20 per GB at the 5 GB pack.
+- interface detail: SOCKS5 and HTTP(S) endpoints; sticky sessions of 1 to 180 minutes or rotation on every request; filtering by country, state, province or city. The vendor supports reseller sub-accounts through CDKey and API; a general API was not otherwise read.
+- tooling: Any client that speaks SOCKS5 or an HTTP proxy, reached from a Worker through a relay that dials SOCKS5. No SDK was seen on the pages read.
+- composes with: A rotating residential pool: the upstream sees a different home address per request or per sticky session of up to 180 minutes. The pool is sold as real residential broadband IPs; the registration class of a delivered address was not looked up. A different address is not a different registration class.
+- reliability: The vendor states 99.8% connectivity and a response time under 0.3 s for its residential pool; no measurement was made here.
+- notes: Named on the Chinese-language forum source as a vendor giving away 500M of residential traffic; the forum is the lead and the evidence is the vendor page. The page title also names datacenter proxies.
+- evidence note: Price table, protocols, non-expiry and the registration form are read from vendor pages on 2026-11-03. No traffic was bought, so the pool, speed and registration class are unmeasured.
+- extras:
+  - rung: 6
+  - rung_note: A rotating pool changes address, not registration class, so it defeats rung 2 and at most rung 3, not rung 5 by assertion alone.
+  - cheapest_listed_usd_per_gb: 0.55
+- evidence:
+  - [1] 2026-11-03: The Business tier headline price is $0.55 per GB. | capture: sha256:80e61220c46f5616aa5593bfe61d2f798a61ce70f3ebdba60ac52639f2859433 | quote: $ 0.55/GB
+  - [1] 2026-11-03: The 500 GB pack costs $350, $0.7 per GB. | capture: sha256:80e61220c46f5616aa5593bfe61d2f798a61ce70f3ebdba60ac52639f2859433 | quote: 28% 500 GB Unit Price $0.96 → $0.7/GB $350 $480
+  - [1] 2026-11-03: Purchased traffic does not expire. | capture: sha256:80e61220c46f5616aa5593bfe61d2f798a61ce70f3ebdba60ac52639f2859433 | quote: No, your purchased traffic is valid indefinitely.
+  - [1] 2026-11-03: Sticky sessions run 1 to 180 minutes. | capture: sha256:80e61220c46f5616aa5593bfe61d2f798a61ce70f3ebdba60ac52639f2859433 | quote: Sticky IPs: Supports setting the online time of an IP from (1-180) minutes.
+  - [1] 2026-11-03: Protocols SOCKS5 and HTTP(S). | capture: sha256:80e61220c46f5616aa5593bfe61d2f798a61ce70f3ebdba60ac52639f2859433 | quote: Protocols: SOCKS5/HTTP(S)
+  - [2] 2026-11-03: Registration asks for a verification code; the form also has an email address, a password, and Sign up with Google. | capture: sha256:8aeece5f09531808d77585ba300e72ace92b05d78607f6b46715d672d2daf8ce | quote: Verification Code
+  - [1] 2026-11-04: The 5 GB pack is $6 against a $12 list, $2.4 per GB list, $1.2 per GB offered, under the First Recharge Offer heading. | capture: sha256:ec075d5ea19e23cbc61cebafaf975ea7002b34a62e71e000fc2af5546d47cb04 | quote: 5 GB Unit Price $2.4 → $1.2/GB $6 $12
+  - [1] 2026-11-04: The 500 GB pack is $350 against a $480 list. | capture: sha256:ec075d5ea19e23cbc61cebafaf975ea7002b34a62e71e000fc2af5546d47cb04 | quote: 500 GB Unit Price $0.96 → $0.7/GB $350 $480
+  - [1] 2026-11-04: The pack prices sit under a First Recharge Offer heading, so the discounted price applies to the first recharge. | capture: sha256:ec075d5ea19e23cbc61cebafaf975ea7002b34a62e71e000fc2af5546d47cb04 | quote: First Recharge Offer
+  - [1] 2026-11-04: The Regular and Business tabs show a $0.55 per GB headline rate. | capture: sha256:ec075d5ea19e23cbc61cebafaf975ea7002b34a62e71e000fc2af5546d47cb04 | quote: $ 0.55/GB
+  - [1] 2026-11-04: Purchased traffic does not expire. | capture: sha256:ec075d5ea19e23cbc61cebafaf975ea7002b34a62e71e000fc2af5546d47cb04 | quote: No, your purchased traffic is valid indefinitely.
+  - [1] 2026-11-04: The residential plan advertises unlimited bandwidth and concurrency. | capture: sha256:ec075d5ea19e23cbc61cebafaf975ea7002b34a62e71e000fc2af5546d47cb04 | quote: Unlimited Bandwidth & Concurrency
+  - [1] 2026-11-04: The vendor claims over 100 million residential IPs with city-level targeting. | capture: sha256:ec075d5ea19e23cbc61cebafaf975ea7002b34a62e71e000fc2af5546d47cb04 | quote: Over 100 million residential lPs, city-level targeting, 99.8% connectivity, response time <0.3s.
+  - [1] 2026-11-04: Reseller partnerships by CDKey and API sub-account are offered. | capture: sha256:ec075d5ea19e23cbc61cebafaf975ea7002b34a62e71e000fc2af5546d47cb04 | quote: Proxy001 is recruiting resellers globally, supporting both CDKey and API sub-account partnerships.
+  - [3] 2026-11-04: The vendor claims 100M+ IPs in 200+ regions across static, dynamic, residential and mobile. | capture: sha256:41e6b26451bf012040a7e079985e518c759c7ca8f9ec5aa34d6213722ed60ee5 | quote: Access 100M+ premium IPs in 200+ regions—static, dynamic, residential, and mobile—for fast, scalable, and globally reliable connections.
+  - probe:www.proxy001.com/signup 2026-11-04: The shorter /signup path answers HTTP 404; sign-up is at /register. | capture: sha256:7f70af24a3143b728207a4b8125ae12ae75582ae57cfdd039604852a7639580e | quote: "status": 404
+- sources:
+  - [1] https://www.proxy001.com/pricing
+  - [2] https://www.proxy001.com/register
+  - [3] https://www.proxy001.com/
+
+## Proxy001 (Rotating residential, pay per GB)
+
+- `ip-proxy/proxy001-rotating-residential` | paid-only | evidence documented | binding volume-quota | category rotating residential proxy (per GB) | tier Rotating residential, pay per GB
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T07:35:31.081Z (live) | stale on 2026-12-04
+- url https://www.proxy001.com/ | page https://fshy.ajam.dev/p/proxy001.md
+- duplicate of `ip-proxy/proxy001-residential`
+- free tier: No free tier on the pricing page. The page prices rotating residential traffic from $0.55/GB (the 'Regular' tab) and sells first-recharge bundles from 5 GB at $6 to 500 GB at $350. | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: The vendor's forum posts mention a 500 MB trial redemption code; no first-party page read states it, so no trial is recorded.
+- per-object cap: not applicable: an address or a traffic quota, not an object | source: [1]
+- retention: not applicable: a proxy session or a rented address, not stored bytes | source: [1]
+- egress: Billed per GB of traffic: 'GB-based Billing', 'Unlimited Bandwidth & Concurrency', and 'No, your purchased traffic is valid indefinitely. The traffic plan only consumes the allocated traffic quota.' | metered: yes | free allowance: none stated | source: [1]
+- identity: email | detail: The sign-up form asks for an email address, an emailed verification code and a password, with a Google sign-in alternative; no phone, card or identity document appears on it. Payment methods are shown as icons on the pricing page and were not readable.
+- interface: rest
+- limits:
+  - volume-quota (binding): billed per GB: 'Regular' tab from $0.55/GB; first-recharge bundles 5 GB $6, 20 GB $24, 50 GB $55, 200 GB $180, 500 GB $350; purchased traffic has no expiry [1]
+- limits note: The vendor states unlimited bandwidth and concurrency; the binding quantity is the purchased GB. The pool size (100M+ residential IPs, 3,635,214 daily IPs shown) is the vendor's claim and was not measured.
+- binding note: Every byte through the pool is metered per GB, so the quota is the purchase size; no request-rate or per-IP limit is stated.
+- interface detail: HTTP(S) and SOCKS5 forward proxy (the pricing page lists 'Protocols: SOCKS5/HTTP(S)'); the home page lists APIs and SDKs for Python, Node.js, Puppeteer and Selenium. Sticky sessions of 1 to 180 minutes or a new IP on every request.
+- tooling: Any client that speaks an HTTP(S) or SOCKS5 proxy with a username and password or an allowlisted source address: curl -x, python requests, rclone --socks5, or a host-side hop for a runtime that cannot dial a proxy itself. The vendor offers an API and SDK examples; no client wrapper is needed.
+- composes with: A host-side hop dials the vendor's HTTP(S) or SOCKS5 endpoint with credentials; the upstream sees an address from the vendor's pool in place of the caller's address.
+- reliability: The pricing page and the sign-up page answered 200; the shorter /signup path answered 404. The pool figures are vendor claims with no independent measurement. unverified (rung 5): whether the exits are registered to a residential ISP; no published address was looked up.
+- notes: Named on a Chinese-language proxy forum with a 500 MB trial code and a $0.55/GB headline. The 711Proxy home page quotes the same $0.55/GB headline, a 100M+ pool and 200+ countries with the same wording; whether the two share a backend is unverified.
+- evidence note: Price, billing unit, session rule and sign-up fields come from the vendor's own pages; the pool size and the residential claim are vendor statements.
+- extras:
+  - rung: 2
+  - rung_note: A rotating residential pool presents a different single address per request, which is rung 2; no registration class was checked.
+- evidence:
+  - [1] 2026-11-03: The 'Regular' residential tab starts at $0.55 per GB. | capture: sha256:80e61220c46f5616aa5593bfe61d2f798a61ce70f3ebdba60ac52639f2859433 | quote: $ 0.55/GB
+  - [1] 2026-11-03: Purchased traffic has no expiry; billing is per GB. | capture: sha256:80e61220c46f5616aa5593bfe61d2f798a61ce70f3ebdba60ac52639f2859433 | quote: No, your purchased traffic is valid indefinitely. The traffic plan only consumes the allocated traffic quota.
+  - [1] 2026-11-03: Sticky sessions last 1 to 180 minutes; rotating mode changes the IP on every request. | capture: sha256:80e61220c46f5616aa5593bfe61d2f798a61ce70f3ebdba60ac52639f2859433 | quote: proxy001 supports sticky IPs and rotating IPs. Sticky IPs: Supports setting the online time of an IP from (1-180) minutes.
+  - [1] 2026-11-03: The vendor claims 100 million residential IPs with city-level targeting. | capture: sha256:80e61220c46f5616aa5593bfe61d2f798a61ce70f3ebdba60ac52639f2859433 | quote: Over 100 million residential lPs, city-level targeting, 99.8% connectivity, response time <0.3s.
+  - [2] 2026-11-03: The sign-up form asks for an email address, a verification code and a password. | capture: sha256:8aeece5f09531808d77585ba300e72ace92b05d78607f6b46715d672d2daf8ce | quote: Verification Code
+  - [3] 2026-11-03: The vendor sells through CDKey distribution and API sub-accounts. | capture: sha256:41e6b26451bf012040a7e079985e518c759c7ca8f9ec5aa34d6213722ed60ee5 | quote: Proxy001 recruits global resellers with two cooperation options: CDKey distribution and API sub-accounts.
+  - probe:www.proxy001.com/signup 2026-11-03: The shorter /signup path answers HTTP 404, as the note states. | capture: sha256:034f49985ed471a33ffa93550d70d47941b386eef66ab66260f8b35b9ed31027 | quote: "status": 404
+- sources:
+  - [1] https://www.proxy001.com/pricing
+  - [2] https://www.proxy001.com/register
+  - [3] https://www.proxy001.com/
+
+## Residential-IDC (residential-service.com)
+
+- `ip-proxy/residential-idc-us-vds` | paid-only | evidence documented | binding none | category ISP-registered VPS | tier US RCN VDS and US Windstream VDS
+- identity a placeholder: card and phone unknown | verified 2026-11-03T07:35:32.672Z (live) | stale on 2026-12-04
+- url https://residential-service.com/index.php?rp=%2Fstore%2Fus-rcn-vds | page https://fshy.ajam.dev/p/residential-service.md
+- free tier: No free tier. The store lists US RCN VDS (Ashburn, Virginia) and US Windstream VDS (Chicago, Illinois), each 'Starting at $15.00 USD per month', with a 100 Mbps peak port, a free choice of configuration, and the notice that proxy and large-scale relay use is banned. The RCN product page answered an out-of-stock notice on 2026-11-03. | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: The product page for US RCN VDS states the item is out of stock and orders are suspended.
+- per-object cap: not applicable | source: [1]
+- retention: not applicable: a rented machine and its address, not stored bytes | source: [1]
+- egress: The store rows state a 100 Mbps peak port and no byte allowance or overage price, so whether traffic is capped is unverified. | metered: no | free allowance: unverified: no byte allowance stated on the store rows | source: [1]
+- identity: email | detail: The labels of the individual fields were not rendered in the capture, so whether a phone number or a postal address is required is unverified. The kind records an email as the floor.
+- interface: unknown
+- limits:
+  - per-ip-shaping: 100 Mbps peak bandwidth on both US lines [1]
+- limits note: Stock is the deciding fact: the RCN product page states the item is out of stock and orders are suspended.
+- binding note: No byte or request limit is stated, so none binds. What decides the record is stock and the registration class of the delivered address.
+- interface detail: A virtual dedicated server (VDS) with one fixed address; the access method is not stated on the store rows read. The store rows state 'no mainland China optimisation, pure international network'.
+- tooling: An SSH or RDP client, whichever the image supports, plus a proxy or tunnel daemon the user installs on the machine. The vendor's store rows ban 'airport' proxy services and large-scale proxy access, so a heavy relay use is out of the offer's terms as written. The vendor publishes no proxy endpoint and no API on the pages read.
+- composes with: A Worker opens an outbound connection to the server's fixed address and the server makes the upstream request, so the upstream sees the registered network of the test addresses instead of AS13335 (RCN and Windstream registrants in ARIN).
+- reliability: A forum review list rates the vendor's RCN line as middling-to-good address quality with a small port that needs a relay. Stock was zero on the RCN product when read.
+- notes: Registry lookups of the two published test addresses on 2026-11-03: 64.20.4.1 is a WINDSTREAM assignment announced by AS7029 Windstream Communications, so the registrant and the announcing network agree and name an access ISP. 67.103.169.0 is an RCN assignment announced by AS20115 Charter Communications, so the registrant is RCN and the announcing network is Charter. In both cases the registrant is a consumer-network operator and not a hosting company. They are published test addresses, not delivered ones. The RCN product page states the item is out of stock, so the RCN line could not be bought on the day.
+- evidence note: Prices, ports, stock and the published test addresses are documented from the vendor's store pages. The registry reading of the two test addresses is measured with ARIN RDAP and RIPEstat on published test addresses, not on delivered ones. The forum rating is reported. Identity fields are unverified.
+- extras:
+  - rung: 5
+  - rung_note: The offer is a claim about the registration class and the registry lookups tested exactly that on the two published test addresses.
+- evidence:
+  - [1] 2026-11-03: the store labels the product a native residential IP | capture: sha256:e2217675be6131cb89d0b1ca007a7f14822d66b383e6f2496d57d16e77a3fa88 | quote: 原生住宅IP
+  - [1] 2026-11-03: the product starts at $15.00 USD per month | capture: sha256:e2217675be6131cb89d0b1ca007a7f14822d66b383e6f2496d57d16e77a3fa88 | quote: $15.00 USD
+  - [1] 2026-11-03: the vendor publishes the RCN test address 67.103.169.0 | capture: sha256:e2217675be6131cb89d0b1ca007a7f14822d66b383e6f2496d57d16e77a3fa88 | quote: 测试IP：67.103.169.0
+  - [1] 2026-11-03: the vendor publishes the Windstream test addresses 64.20.4.1 and 64.20.5.1 | capture: sha256:e2217675be6131cb89d0b1ca007a7f14822d66b383e6f2496d57d16e77a3fa88 | quote: 测试IP：64.20.4.1、64.20.5.1
+  - [1] 2026-11-03: airport proxy services and large-scale proxy access are banned | capture: sha256:e2217675be6131cb89d0b1ca007a7f14822d66b383e6f2496d57d16e77a3fa88 | quote: 禁止机场及大规模代理接入
+  - [2] 2026-11-03: the US RCN VDS product page states the item is out of stock and orders are suspended | capture: sha256:b4d048b7712fca65bac2a2ae3af7bbaafde23eab1fad45c02d7654d3b33366d2 | quote: 目前该项目缺货，所以订购已被暂停，直到重新补货
+  - [3] 2026-11-03: registration requires confirming the currency is USD or no products are shown | capture: sha256:b3dc41fa1ff7839020c4cd4ad391219f5d4061e4e6d492aedb3376e08d03116c | quote: 注册时请确认货币为USD，否则将不会显示产品
+  - probe:67.103.169.0 2026-11-03:  | capture: sha256:3d306611e4ef53ced281a97e0030ba8d057f5b560750c90400f4eb10f080b2a5 | quote: "name" : "RCN"
+  - probe:ripe-67.103.169.0 2026-11-03: RIPEstat network-info: the RCN test address is announced by AS20115 | capture: sha256:8fb441d12a7fb212185604ec0ebc89a6fa0d640ac9092e731c8bf15223ec9d89 | quote: "asns":["20115"]
+  - probe:AS20115 2026-11-03: RIPEstat as-overview: AS20115 holder is Charter Communications | capture: sha256:20b86cadeeba4a11cb4feee4c3cc42b88ac97b71d400fac8875f2378e9beeb28 | quote: CHARTER-20115 - Charter Communications LLC
+  - probe:64.20.4.1 2026-11-03:  | capture: sha256:f6df8a656d0ac092c21adf7ed940610c8e3fe07b38960bbf7988f8033ec051b3 | quote: "name" : "WINDSTREAM"
+  - probe:ripe-64.20.4.1 2026-11-03: RIPEstat network-info: the Windstream test address is announced by AS7029 | capture: sha256:6465d4fc3745432f93105e198f881913bb0ba9ee60b0341679e374b6dbf21592 | quote: "asns":["7029"]
+  - probe:AS7029 2026-11-03: RIPEstat as-overview: AS7029 holder is Windstream Communications | capture: sha256:7e746b195499e7b3fce561b09cbe11b6522d70e1fa5f47bc104e25c4dc8cc561 | quote: WINDSTREAM - Windstream Communications LLC
+  - [4] 2026-11-03: a forum review list says the vendor uses RCN as its ISP with middling-to-good address quality | capture: sha256:d87221c7a0ade538abdee839d90e04a75a376eb9e055f9afce7daeb8a53a2416 | quote: 使用 RCN ISP，IP质量中上
+  - [4] 2026-11-03: the same list says the port is small and needs a relay line | capture: sha256:d87221c7a0ade538abdee839d90e04a75a376eb9e055f9afce7daeb8a53a2416 | quote: 带宽口小，需配线路鸡
+- sources:
+  - [1] https://residential-service.com/index.php?rp=%2Fstore%2Fus-rcn-vds
+  - [2] https://residential-service.com/index.php?rp=%2Fstore%2Fus-rcn-vds%2Frcn-vds
+  - [3] https://residential-service.com/register.php
+  - [4] https://www.nodeseek.com/post-321780-1
+
+## ResidentialVPS (residentialvps.com)
+
+- `ip-proxy/residentialvps-us-rdp` | paid-only | evidence documented | binding none | category ISP-registered VPS | tier USA Residential VPS Starter and Power (Windows 10 RDP)
+- identity a placeholder: card and phone unknown | verified 2026-11-03T07:35:32.672Z (live) | stale on 2026-12-04
+- url https://www.residentialvps.com/ | page https://fshy.ajam.dev/p/residentialvps.md
+- free tier: No free tier. Starter is $34.95 monthly (4 core, 4 GB RAM, 40 GB SSD, up to 1 Gbps, Windows 10) and Power is $49.95 monthly (12 core, 12 GB RAM, 40 GB SSD). Longer terms are cheaper per month: Starter $26.25 a month on a 12-month term, Power $37.50. A 'Fresh IP' add-on that has never been used by others costs a one-time $24.95. | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: The longer-term monthly figures are the 12-month plan divided by 12 as the page prints them.
+- per-object cap: not applicable | source: [1]
+- retention: not applicable: a rented machine and its address, not stored bytes. The fresh-IP page states the address 'never changes as long you continue the service'; what happens to it at non-payment is unverified. | source: [2]
+- egress: The plan lists 'Connection: up to 1 Gbps' and states no monthly byte allowance and no overage price on the pages read, so whether traffic is capped is unverified. | metered: no | free allowance: unverified: no byte allowance stated on the plan pages | source: [1]
+- identity: email | detail: unverified: the checkout fields are behind the order flow. The home page lists payment options 'Credit Cards, Paypal, Google Pay, Apple Pay, AliPay, Cash App etc.', so a card is not the only route. The kind records an email as the floor.
+- interface: unknown
+- limits:
+  - per-ip-shaping: connection up to 1 Gbps on Starter and Power; no allowance or overage price stated [1]
+- limits note: The registration class of a delivered address is the constraint the vocabulary cannot name. The vendor publishes no test address on the pages read, so no registry lookup was possible. A forum review list says the addresses carry a high fraud score and a poor ipdata reading even though the IP quality is good.
+- binding note: No byte or request limit is stated, so none binds. What decides the record is the registration class of the delivered address, which is unverified because no test address is published.
+- interface detail: Remote Desktop (RDP) on a Windows 10 machine with full administrator access. RDP is not in the interface vocabulary, so the token is unknown. The page states no proxy endpoint.
+- tooling: An RDP client plus a proxy or tunnel daemon the user installs on the Windows machine. The vendor publishes no proxy endpoint and no API on the pages read.
+- composes with: A Worker opens an outbound connection to the machine's dedicated address and the machine makes the upstream request, so the upstream sees an address from one of the ISPs the vendor lists (Comcast Xfinity, AT&T, Century Link, Spectrum, Verizon) instead of AS13335. Locations number more than 20 across US states.
+- reliability: A forum list rates the vendor's address quality as good, its ipdata and fraud score as poor, its ticket response fast and its refunds quick, and advises buying a fresh address and keeping a spare route.
+- notes: The first-party pages sell a Windows 10 RDP machine with one dedicated address. The Starter and Power plans differ only in cores and memory. No test address is published, which is why no registry lookup is recorded here. The 12-month Power price on the page is $37.50 a month.
+- evidence note: Prices, specifications and payment options are documented from the vendor's home page and fresh-IP page. The registration class, the traffic allowance and the identity fields are unverified. The forum quotes are reported, not measured.
+- extras:
+  - rung: 5
+  - rung_note: The product is a claim about the address class and no registry lookup is possible without a published test address.
+- evidence:
+  - [1] 2026-11-03: Starter is billed 34.95 monthly | capture: sha256:9f1fcd818b4a6c05c707f3beb54557873d416942231aaad71fb22c52cf375d3d | quote: Billed 34.95 monthly
+  - [1] 2026-11-03: the plans state a 1 Gbps connection and no byte allowance | capture: sha256:9f1fcd818b4a6c05c707f3beb54557873d416942231aaad71fb22c52cf375d3d | quote: - Connection: up to 1 Gbps
+  - [1] 2026-11-03: payment options include non-card routes | capture: sha256:9f1fcd818b4a6c05c707f3beb54557873d416942231aaad71fb22c52cf375d3d | quote: Convenient payment options: Credit Cards, Paypal, Google Pay, Apple Pay, AliPay, Cash App etc.
+  - [2] 2026-11-03: a fresh address costs a one-time $24.95 on top of the plan | capture: sha256:c71123a8b7e28ab3452b10ae29a52b0dc405f7b31d8343ab5f75c230fde04b74 | quote: - +One-time Fresh IP setup charge $24.95
+  - [2] 2026-11-03: the address is dedicated and static while the service continues | capture: sha256:c71123a8b7e28ab3452b10ae29a52b0dc405f7b31d8343ab5f75c230fde04b74 | quote: The IP is not shared with any other customer and never changes as long you continue the service.
+  - [3] 2026-11-03: the vendor names the ISPs its infrastructure connects to | capture: sha256:c32483a925490b080ec27b11dabdd9326a3ed0277ed18531f6417bfb4e45b42e | quote: connected with top-class ISP such as Comcast Xfinity, AT&T, Century Link, Spectrum and Verizon in the USA
+  - [4] 2026-11-03: a forum review list says a fresh address can be bought once for $24 | capture: sha256:d87221c7a0ade538abdee839d90e04a75a376eb9e055f9afce7daeb8a53a2416 | quote: IP质量好，可一次性购买全新IP（$24）
+  - [4] 2026-11-03: the same list reports a high fraud score and a poor ipdata reading | capture: sha256:d87221c7a0ade538abdee839d90e04a75a376eb9e055f9afce7daeb8a53a2416 | quote: IP欺诈值高，ipdata差
+- sources:
+  - [1] https://www.residentialvps.com/
+  - [2] https://www.residentialvps.com/fresh-ip/
+  - [3] https://www.residentialvps.com/Company/
+  - [4] https://www.nodeseek.com/post-321780-1
+
+## Shlii (shlii.io)
+
+- `ip-proxy/shlii-hinet-home-broadband` | paid-only | evidence reported | binding none | category ISP-registered VPS | tier Taiwan HiNet dynamic home broadband 1 Gbps (TWHInet-G-Mini)
+- identity a placeholder: card and phone unknown | verified 2026-11-03T09:54:05.104Z (live) | stale on 2026-11-18
+- url https://shlii.io/ | page https://fshy.ajam.dev/p/shlii.md
+- free tier: No free tier. A third-party review of the vendor's storefront on 2026-10-25 lists TWHInet-G-Mini at 2 vCPU, 2 GB RAM and 12 GB disk, unlimited traffic on a shared 1 Gbps port, one HiNet dynamic residential IPv4 that can be changed manually or on a schedule and no IPv6, at ¥420 a month, ¥336 with a referral code (the review's 8 折 on every term, which is 20 percent off). The currency of the yen sign is not stated by the review. The vendor's own storefront renders client-side and returned no plan text to a read. | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: unverified: the price and the plan rows are the review's reading of the vendor's storefront. The vendor's own page at shlii.io is a client-rendered application whose captured text is only the loading message and a site name.
+- per-object cap: not applicable | source: [1]
+- retention: not applicable: a rented machine and its address, not stored bytes | source: [1]
+- egress: Unlimited traffic on a shared 1 Gbps port (1024M in and out), per the review's reading of the plan. The review says the vendor bans airport-style proxy services and heavy relay buyers, and that port 25 does not connect. | metered: no | free allowance: unlimited traffic on a shared 1 Gbps port, per a third-party review | source: [1]
+- identity: email | detail: unverified: the vendor's sign-up and checkout pages were not readable. The kind records an email as the floor.
+- interface: unknown
+- limits:
+  - per-ip-shaping: shared 1 Gbps port (1024M in and 1024M out) on the TWHInet-G-Mini plan, per a third-party review [1]
+- limits note: The plan terms come from a third-party review with an affiliate link, not from the vendor's pages. The review states no refunds, shared bandwidth with an independent IP, and a ban on airport-style relay and large forwarding buyers. A different domain, shlii.com, is an unrelated toy shop and is not this vendor.
+- binding note: No byte allowance is stated, so none binds. The deciding facts are the unverified registration class and that the vendor's own pages could not be read.
+- interface detail: A virtual machine or container on an Incus-based console (the review's description of the platform) with one dynamic HiNet IPv4 and no IPv6. The vendor's own console was not readable, so the access method and any API are unverified.
+- tooling: An SSH client plus a proxy or tunnel daemon the user installs on the machine. The review describes the machine as suited to proxy landing, remote desktop and background accounts. The vendor's API, if any, is unverified.
+- composes with: A Worker opens an outbound connection to the machine and the machine makes the upstream request from a Taiwanese HiNet address, which the review says changes on request, so the upstream sees an address in Chunghwa Telecom's network instead of AS13335.
+- reliability: The review ran one machine on 2026-10-25 and 2026-10-26 and rates it for Taiwan platforms; nothing on delivered throughput or uptime beyond that run is recorded.
+- notes: The review says the vendor sells cloud servers in many countries plus self-run, dedicated and managed servers. The record covers the one home-broadband plan the review read.
+- evidence note: Reported. The plan row, price and address class come from a single third-party review. The vendor's own page was a client-rendered shell. Nothing was measured and no registry lookup was possible because no address is published.
+- extras:
+  - rung: 5
+  - rung_note: The offer is a claim about the address class and the vendor's own pages could not be read.
+- evidence:
+  - [1] 2026-11-03: the review's reading of the plan: one HiNet dynamic residential IPv4, changeable, no IPv6 | capture: sha256:2cfcbce0395a343c6a81e5414666ecf8a7c01e76892bc9368ba39c49392710a7 | quote: 1 个 HiNet 动态住宅 IPv4，可手动或定时更换，无 IPv6
+  - [1] 2026-11-03: the review's reading of the price: ¥420 a month, ¥336 with a code | capture: sha256:2cfcbce0395a343c6a81e5414666ecf8a7c01e76892bc9368ba39c49392710a7 | quote: ¥420，码后 ¥336（循环 8 折）
+  - [1] 2026-11-03: unlimited traffic on a shared 1 Gbps port | capture: sha256:2cfcbce0395a343c6a81e5414666ecf8a7c01e76892bc9368ba39c49392710a7 | quote: 不限流量 / 1Gbps 共享（1024M/1024M 端口）
+  - [1] 2026-11-03: no refunds, dedicated IP, shared bandwidth, relay buyers banned | capture: sha256:2cfcbce0395a343c6a81e5414666ecf8a7c01e76892bc9368ba39c49392710a7 | quote: 不接受退款；带宽共享、IP 独立；禁止机场和转发大户购买
+  - [1] 2026-11-03: the review describes the vendor as a VPS platform on an Incus console | capture: sha256:2cfcbce0395a343c6a81e5414666ecf8a7c01e76892bc9368ba39c49392710a7 | quote: Shlii 是一家主打高性价比的 VPS 平台，控制台基于 Incus，能开容器也能开 KVM 虚拟机
+  - [2] 2026-11-03: a blog names shlii.io as the vendor's official site | capture: sha256:19e892bfb56c7bf5f529d7c71df1f8af78a6c968fc3ad63e5e007c173274bebd | quote: 官网(屏蔽中国大陆): [https://shlii.io](https://shlii.io/)
+  - [3] 2026-11-03: shlii.io answers a client-rendered site named Shlii, with no plan text in the served page | capture: sha256:151659914079831e4a221badac1685f367bda46f1629ceedbe25d8252bd839aa | quote: "name":"Shlii","url":"https://shlii.io/"
+  - [4] 2026-11-03: shlii.com is an unrelated indie toy business, not the VPS vendor | capture: sha256:ff7b236c7f9276ce09974f2c9886cba18b6fd9bca7959456fe41b0b9786e5a45 | quote: Shlii, an indie toy business, began in 2010.
+  - [1] 2026-11-03: the price is ¥420 and ¥336 with the code, so the discount is 20 percent, not 8 percent | capture: sha256:2cfcbce0395a343c6a81e5414666ecf8a7c01e76892bc9368ba39c49392710a7 | quote: ¥420，码后 ¥336（循环 8 折）
+  - [1] 2026-11-03: the code gives 8 折 (80 percent of the price) every term, renewals included | capture: sha256:2cfcbce0395a343c6a81e5414666ecf8a7c01e76892bc9368ba39c49392710a7 | quote: 每期 8 折，续费同样有效
+- sources:
+  - [1] https://vpstarter.com/articles/shlii-tw-hinet-1g-2026-10/
+  - [2] https://blog.guguan.us.kg/?p=1178
+  - [3] https://shlii.io/
+  - [4] https://shlii.com/
+
+## SixtyNet (sixtynet.net)
+
+- `ip-proxy/sixtynet-residential-vps` | paid-only | evidence reported | binding none | category ISP-registered VPS | tier Residential VPS, 2 to 8 core, US Los Angeles (AT&T network, Cox or Astound double-ISP option)
+- identity a placeholder: card and phone unknown | verified 2026-11-03T07:35:32.672Z (live) | stale on 2026-11-18
+- url https://sixtynet.net/ | page https://fshy.ajam.dev/p/sixtynet.md
+- free tier: No free tier. A trade site's 2025-10-22 reading of the vendor's offer lists four residential plans on a 10 Gbps port with one IPv4: 2 core, 2 GB, 40 GB NVMe, 5 TB a month at 15 USD a month; 4 core, 4 GB, 80 GB, 10 TB at 35 USD; 8 core, 8 GB, 160 GB, 20 TB at 75 USD; 8 core, 16 GB, 320 GB, 40 TB at 155 USD. The default network is a single-ISP AT&T line and 5 USD more selects a Cox Residential or Astound double-ISP address. | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: unverified on the vendor's own pages: the vendor's home page at sixtynet.net renders no plan or price text, and its residential page paths returned 404. The figures are the trade site's reading dated 2025-10-22.
+- per-object cap: not applicable | source: [1]
+- retention: not applicable: a rented machine and its address, not stored bytes | source: [1]
+- egress: A monthly allowance of 5 TB, 10 TB, 20 TB or 40 TB by plan on a 10 Gbps port, per the trade site's reading. No overage price was read. | metered: yes | free allowance: 5 TB per month on the 15 USD plan, per a trade site's reading | source: [1]
+- identity: email | detail: unverified: the sign-up and checkout pages were not read. The kind records an email as the floor.
+- interface: unknown
+- limits:
+  - volume-quota: 5 TB per month on the 15 USD plan, up to 40 TB on the 155 USD plan, per a trade site [1]
+- limits note: The address class is the live question. The trade site's own postscript says readers report the addresses are no longer AT&T residential, and a forum review list says the vendor lost its residential property after an ASN change. The vendor's home page names a single region, US East (Los Angeles).
+- binding note: No byte limit binds a low-volume exit. What decides the record is whether the addresses are still residential, and the vendor's pages do not say.
+- interface detail: A KVM virtual machine with one IPv4 (the vendor's FAQ states KVM virtualization and a free 24/7 ticket support). The access method for the residential line is not stated on the pages read.
+- tooling: An SSH or RDP client plus a proxy or tunnel daemon the user installs on the machine. The vendor publishes no proxy endpoint on the pages read.
+- composes with: A Worker opens an outbound connection to the machine's IPv4 and the machine makes the upstream request, so the upstream sees an address on the AT&T, Cox or Astound network the plan names instead of AS13335. The trade site says the residential line does not open ports 80 and 443 and blocks ping.
+- reliability: A trade site warns readers to check with the vendor before buying because some say the addresses are no longer AT&T residential. A forum review list marks the vendor as formerly the best value, with its residential property lost after an ASN change.
+- notes: The vendor domain is sixtynet.net. The record names the contested address class, not a verdict on it: two third-party sources say the AT&T residential line changed, and no registry lookup was possible because no test address is published.
+- evidence note: Reported. Prices and plan rows come from one trade-site post dated 2025-10-22, the residential property is contested by two third-party sources, and the vendor's own pages gave no plan text. Nothing was measured and no test address is published.
+- extras:
+  - rung: 5
+  - rung_note: The offer is a claim about the address class and the class is contested by third parties.
+- evidence:
+  - [1] 2026-11-03: the default line is a single-ISP AT&T residential VPS and 5 USD more selects a Cox or Astound double-ISP address | capture: sha256:62c58dc7f1b6c69a4232cd2fc9bd3a75e8ad63427b07fe7ea6f1f443e63170af | quote: SixtyNet美国ATT线路住宅VPS，默认是单ISP，加5美元可升级成Cox或者Astound双ISP住宅IP
+  - [1] 2026-11-03: the four plan prices are 15, 35, 75 and 155 USD a month | capture: sha256:62c58dc7f1b6c69a4232cd2fc9bd3a75e8ad63427b07fe7ea6f1f443e63170af | quote: | 15美元/月 | 35美元/月 | 75美元/月 | 155美元/月 |
+  - [1] 2026-11-03: the monthly allowances are 5, 10, 20 and 40 TB | capture: sha256:62c58dc7f1b6c69a4232cd2fc9bd3a75e8ad63427b07fe7ea6f1f443e63170af | quote: | 5TB月流量 | 10TB月流量 | 20TB月流量 | 40TB月流量 |
+  - [1] 2026-11-03:  | capture: sha256:62c58dc7f1b6c69a4232cd2fc9bd3a75e8ad63427b07fe7ea6f1f443e63170af | quote: 由于IP风险控制原因，住宅IP产品不开放80和443端口，并且禁止ping
+  - [1] 2026-11-03: readers report the addresses are no longer AT&T residential | capture: sha256:62c58dc7f1b6c69a4232cd2fc9bd3a75e8ad63427b07fe7ea6f1f443e63170af | quote: 有读者反应现在不是ATT的住宅IP了，大家入手前请发工单和商家确认
+  - [2] 2026-11-03: a forum review list says the residential property was lost after an ASN change | capture: sha256:d87221c7a0ade538abdee839d90e04a75a376eb9e055f9afce7daeb8a53a2416 | quote: ASN 改动后家宽属性丧失
+  - [3] 2026-11-03: the vendor's home page advertises residential-IP VPS and dedicated servers | capture: sha256:88e68c14060e32a40b4e079a67a24539baca4558d05562210b0d5664c0cab32d | quote: Order VPS or dedicated servers with Residential IPs and boost trust due to their linkage to real homes and avoid potential web restrictions.
+  - [3] 2026-11-03: the vendor names a single region | capture: sha256:88e68c14060e32a40b4e079a67a24539baca4558d05562210b0d5664c0cab32d | quote: SixtyNet infrastructure has been launched in US East (Los Angeles).
+- sources:
+  - [1] https://www.vpsxxs.com/sixtynet20251022/
+  - [2] https://www.nodeseek.com/post-321780-1
+  - [3] https://sixtynet.net/
+
+## SolaDrive
+
+- `ip-proxy/soladrive-residential-ip-vps` | paid-only | evidence documented | binding none | category ISP-registered VPS | tier Residential IP VPS SD-2 and SD-4
+- identity a placeholder: card and phone unknown | verified 2026-11-03T07:35:32.672Z (live) | stale on 2026-12-04
+- url https://www.soladrive.com/support/store/residential-ip | page https://fshy.ajam.dev/p/soladrive.md
+- free tier: No free tier. Residential IP VPS SD-2 is 'Starting from $25.00 USD Monthly': 2 CPU, 2 GB RAM, 25 GB NVMe, 2 TB bandwidth, 1 dedicated residential IP. SD-4 is $40.00 USD monthly: 4 CPU, 4 GB, 50 GB NVMe, 4 TB, 2 dedicated residential IPs. A 10-VPS bundle with 10 residential IPs and 15 TB transfer is $195.00 USD monthly, and a 254-IP node is $795.00 USD monthly. The store shows a free setup fee. | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: A refund window of 48 hours from payment is stated; there is no trial without payment.
+- per-object cap: not applicable | source: [1]
+- retention: not applicable: a rented machine and its address, not stored bytes. What happens to the address at non-payment is unverified: the store and product pages state no term for it. | source: [2]
+- egress: A monthly bandwidth allowance per plan: 2 TB on SD-2, 4 TB on SD-4, 15 TB across the 10-VPS bundle at a 1 Gbps port. No overage price is stated on the pages read. | metered: yes | free allowance: 2 TB per month on SD-2; 4 TB per month on SD-4 | source: [1]
+- identity: email | detail: unverified: the sign-up page states 'To create an account, please place an order with us', so an account exists only after checkout and the checkout fields are behind the cart. The kind records an email as the floor. The FAQ names credit-card payment, which can be held for up to 30 minutes for fraud review.
+- interface: unknown
+- limits:
+  - volume-quota: 2 TB per month of bandwidth on SD-2, 4 TB on SD-4, 15 TB on the 10-VPS bundle [1]
+- limits note: The registration class of the delivered address is the constraint the vocabulary cannot name. The vendor labels each location with an ISP (Seattle 'AtlasNetworks', Ashburn 'Wave Broadband and Charter', New York City 'Optimum WIFI', Charlotte 'Spectrum'), and a registry lookup of three published test addresses disagrees with the label for two of them: the Seattle test address sits in a block whose ARIN registrant is 'Private Customer' under a parent held by 'Internet Utilities NA LLC' and is announced by AS21743 (Atlas Networks Corporation), and the New York City test address is registered to RCN and announced by AS6079.
+- binding note: No quota binds a low-volume exit: the smallest allowance is 2 TB per month. What decides this record is the registration class of the delivered address, which the limit vocabulary has no kind for.
+- interface detail: Remote Desktop (RDP) on Windows Server 2019, 2022, 2025 or Windows 10 Home, or remote Linux, with full administrative access. The product is a machine with an address; the vendor states 'These are not a proxy'. RDP is not in the interface vocabulary, so the token is unknown.
+- tooling: An RDP client, or an SSH client on the Linux image, plus a proxy or tunnel daemon the user installs on the machine. The vendor publishes no proxy endpoint and no API for the residential product.
+- composes with: A Worker opens an outbound connection to the VPS's fixed address and the VPS makes the upstream request, so the upstream sees the address's announcing ASN instead of AS13335. The vendor names the locations Seattle, Ashburn, Los Angeles, Charlotte and New York City.
+- reliability: The vendor does not guarantee a never-used address ('usually clean and fresh but we cannot guarantee they have never been used before') and allows one address change in the first 48 hours. A forum review list reports the Atlas and Sprint ranges, some addresses hitting human-verification prompts, and free address changes with refunds.
+- notes: Registry lookups of the published test addresses, one address per location, ARIN RDAP and RIPEstat on 2026-11-03: Seattle 209.200.234.1 is registered to a 'Private Customer' under a parent held by Internet Utilities NA LLC and announced by AS21743 Atlas Networks Corporation; New York City 67.101.108.2 is an RCN assignment announced by AS6079; Charlotte 70.63.196.2 is registered to ATS INC (announcing ASN not looked up). The Ashburn and Los Angeles addresses were not looked up. The vendor's ISP label disagrees with the registrant for the New York City address (label Optimum WIFI, RCN assignment), the Seattle registrant is a private customer and not an ISP, and the Charlotte registrant ATS INC was not tied to Spectrum by any lookup made. The record is a caveat, not a clean pass, because the class of the address a buyer receives is the vendor's choice within the stated ISP list.
+- evidence note: Prices, allowances, locations and the refund window are documented from the vendor's store and product pages. The registry facts for three published test addresses are measured with ARIN RDAP and RIPEstat on one address per location, not on a delivered address, so the registration class of a purchased address is unverified. Identity beyond the account-at-checkout rule is unverified.
+- extras:
+  - rung: 5
+  - rung_note: The product sells a registration class and the registry lookups tested it on published test addresses only.
+- evidence:
+  - [1] 2026-11-03: SD-2 starts at $25.00 USD monthly with 1 dedicated residential IP | capture: sha256:b476a2faac42523cb55a2318267afd9809935aedbad8ba93bc609de56b6872c7 | quote: $25.00 USD
+  - [1] 2026-11-03: SD-2 includes a 2 TB bandwidth allowance | capture: sha256:b476a2faac42523cb55a2318267afd9809935aedbad8ba93bc609de56b6872c7 | quote: » 2TB Premium Bandwidth
+  - [1] 2026-11-03: SD-4 with 2 dedicated residential IPs is $40.00 USD monthly | capture: sha256:b476a2faac42523cb55a2318267afd9809935aedbad8ba93bc609de56b6872c7 | quote: $40.00 USD
+  - [1] 2026-11-03: the 10-VPS bundle is $195.00 USD monthly | capture: sha256:b476a2faac42523cb55a2318267afd9809935aedbad8ba93bc609de56b6872c7 | quote: $195.00 USD
+  - [2] 2026-11-03: the vendor labels its Seattle location with the ISP AtlasNetworks | capture: sha256:7062b7fdb965f08aed3172cbc9f25514d03f2b92587b92fbf29ac250737bf2f8 | quote: ISP: AtlasNetworks
+  - [2] 2026-11-03: the vendor labels its New York City location with the ISP Optimum WIFI | capture: sha256:7062b7fdb965f08aed3172cbc9f25514d03f2b92587b92fbf29ac250737bf2f8 | quote: ISP: Optimum WIFI
+  - [2] 2026-11-03: the vendor states the product is a machine with a residential address and not a proxy | capture: sha256:7062b7fdb965f08aed3172cbc9f25514d03f2b92587b92fbf29ac250737bf2f8 | quote: These are not a proxy, they are real residential IP’s from our local ISP that 100% appear as residential.
+  - [2] 2026-11-03: refunds are possible only within 48 hours of payment | capture: sha256:7062b7fdb965f08aed3172cbc9f25514d03f2b92587b92fbf29ac250737bf2f8 | quote: Once you order and pay you have 48 hours to test the service and trial it.
+  - [2] 2026-11-03: one address change is allowed in the first 48 hours | capture: sha256:7062b7fdb965f08aed3172cbc9f25514d03f2b92587b92fbf29ac250737bf2f8 | quote: However we can switch your IP once in the first 48 hours.
+  - [3] 2026-11-03: an account is created only by placing an order | capture: sha256:495a48b2e7d5cdda7e04420607fa52f31113a7312aa54be48ff30952b1b9ff40 | quote: To create an account, please place an order with us
+  - probe:209.200.234.1 2026-11-03: ARIN RDAP for the published Seattle test address: the registrant of the covering 209.200.234.0/23 assignment is a 'Private Customer', not an ISP | capture: sha256:c0bd63663338bce5628ea06350a6bb1bf505d0dfe26f040a0e1ec8d6e3148982 | quote: Private Customer
+  - probe:209.200.234.1 2026-11-03: the parent block of the Seattle test address is administered by Internet Utilities NA LLC | capture: sha256:c0bd63663338bce5628ea06350a6bb1bf505d0dfe26f040a0e1ec8d6e3148982 | quote: Internet Utilities NA LLC
+  - probe:ripe-209.200.234.1 2026-11-03: RIPEstat network-info: the Seattle test address is announced by AS21743 | capture: sha256:32c8767f6543a2f01a56df7bcd18f737ec797912e75dcb50778a8fdbb552a9d6 | quote: "asns":["21743"]
+  - probe:AS21743 2026-11-03: RIPEstat as-overview: AS21743 holder is Atlas Networks Corporation | capture: sha256:da06b3b41441c69a0350229fd4e61b9a3140154a69f9d96ce138adeb446e957c | quote: ANL-36 - Atlas Networks Corporation
+  - probe:67.101.108.2 2026-11-03:  | capture: sha256:0aab3c24c23d6c83114e3391a1ad28bbe3f19dfd164376a84944d3461355723c | quote: "name" : "RCN"
+  - probe:ripe-67.101.108.2 2026-11-03: RIPEstat network-info: the New York City test address is announced by AS6079 | capture: sha256:bca4699f01402354bfe678224146934a90b0571523b1cbdb14fab8491c630aea | quote: "asns":["6079"]
+  - probe:AS6079 2026-11-03: RIPEstat as-overview: AS6079 holder is RCN | capture: sha256:7cab768e4c02071fdb24d9857daaffee26a43a7da99c5708aa466c69cbc55e2d | quote: RCN-AS - RCN
+  - probe:70.63.196.2 2026-11-03: ARIN RDAP for the published Charlotte test address: the registrant is ATS INC, where the vendor's label says Spectrum | capture: sha256:19c753da8e09c6dd7509958e8922a6aa3bd536c73df5831663f7834598ba03db | quote: ATS INC
+  - [4] 2026-11-03: a forum review list reports Atlas and Sprint network ranges at this vendor | capture: sha256:d87221c7a0ade538abdee839d90e04a75a376eb9e055f9afce7daeb8a53a2416 | quote: 提供 Atlas / Sprint 网络段
+- sources:
+  - [1] https://www.soladrive.com/support/store/residential-ip
+  - [2] https://www.soladrive.com/residential-ip-vps/
+  - [3] https://www.soladrive.com/support/register.php
+  - [4] https://www.nodeseek.com/post-321780-1
+
+## sososo (japan private room)
+
+- `ip-proxy/sososo-japan-private-room` | paid-only | evidence documented | binding none | category ISP-registered VPS | tier Japan D zone private room (dedicated IPv4 and IPv6)
+- needs card unknown, phone yes, ID no, institution no | verified 2026-11-03T07:35:32.672Z (live) | stale on 2026-12-04
+- url https://sales.sososo.io/products/PrivateRoom/d | page https://fshy.ajam.dev/p/sososo.md
+- free tier: No free tier. Japan D zone dedicated is $29.99 a month: 1 CPU, 2048 MB RAM, 30 GB NVMe, 100 Mbps peak, 10 TB a month in plus out (throttled above), one dedicated IPv6 with all ports and one dedicated IPv4 that is fixed and does not change. The product page showed 'sold out' on 2026-11-03. Other private-room zones are C at $99.99, E at $129.99 and H at $29.99 a month. | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: The listing page for private rooms shows the five zone prices; the D zone page states the specification and the sold-out state.
+- per-object cap: not applicable | source: [1]
+- retention: not applicable: a rented machine and its address, not stored bytes | source: [1] | note: The page states the IPv4 and the IPv6 are fixed and do not change; an address-retention term at non-payment is not stated.
+- egress: 10 TB a month counted as in plus out, with speed reduced above the allowance. The 100 Mbps figure is a peak: the page says the actual rate falls when the line is congested. Some high-risk IPv4 ports are blocked by the ISP, for example 25, 80 and 443. | metered: yes | free allowance: 10 TB per month (in plus out) on the D zone | source: [1]
+- identity: email | detail: The registration form marks first name, last name, email, password and password confirmation as required (asterisks); phone, company, country, address and city are not marked required. Payment routes the notice lists are crypto through two processors, Alipay QR, Revolut and Wise (the last three confirmed by hand). Whether a card is accepted is unverified.
+- interface: unknown
+- limits:
+  - volume-quota: 10 TB per month in plus out on the D zone, speed reduced above it [1]
+  - per-ip-shaping: 100 Mbps peak on the D zone, lower when the line is congested [1]
+- limits note: Stock decides this record: the D zone was sold out when read. The vendor's own pages do not use the word residential; they say the IPv4 ports are blocked by the ISP. A third-party test report of an earlier sososo plan titles it a BIGLOBE home-broadband VPS, which is reported, not verified for this plan.
+- binding note: The 10 TB allowance is far above a low-volume exit. What decides the record is stock and the unverified registration class.
+- interface detail: A virtual dedicated server (the page says all private-room products are VDS) with a fixed IPv4 and IPv6; the access method is not stated on the product page.
+- tooling: An SSH or RDP client, whichever the image supports, plus a proxy or tunnel daemon the user installs on the machine. The vendor publishes no proxy endpoint on the pages read.
+- composes with: A Worker opens an outbound connection to the server's fixed IPv4 and the server makes the upstream request, so the upstream sees an address on the ISP line the vendor sells. Some ports, for example 25, 80 and 443, are disabled by the ISP on the IPv4 per the page.
+- reliability: The home page carries a notice dated 2026-10-18 that the site had been upgraded and should work normally again, so the storefront had an outage that month.
+- notes: sososo sells Japanese lines on a Paymenter storefront in three groups: shared rooms (VPS), private rooms (VDS) and takeout services. This record covers the private-room D zone, the cheapest dedicated-IPv4 line; the Rakuten 5G mobile private room is its own record. Whether the D zone address is registered to a consumer ISP is unverified: the page publishes no test address.
+- evidence note: Price, specification, stock and registration fields are documented from the vendor's shop pages. The residential label is third-party and the registration class is unverified because no test address is published.
+- extras:
+  - rung: 5
+  - rung_note: The offer is a claim about the address class and no test address is published.
+- evidence:
+  - [1] 2026-11-03: the D zone is $29.99 a month with 1 CPU, 2048 MB RAM, 30 GB NVMe and a 100 Mbps peak | capture: sha256:c39adbc7ac46c44fdea437bf8c4ddfd812b48f47389674032efe19c285c4ac1c | quote: 29.99美元/月 CPU: 1 内存: 2048MB 硬盘: 30G (nvme) 网络: 100Mbps 峰值
+  - [1] 2026-11-03: the allowance is 10 TB a month in plus out | capture: sha256:c39adbc7ac46c44fdea437bf8c4ddfd812b48f47389674032efe19c285c4ac1c | quote: 流量: 10TB/月 (in+out)(超出降速)
+  - [1] 2026-11-03: the IPv4 is fixed | capture: sha256:c39adbc7ac46c44fdea437bf8c4ddfd812b48f47389674032efe19c285c4ac1c | quote: IPv4为固定ip，不会变化。
+  - [1] 2026-11-03: ports 25, 80 and 443 are blocked by the ISP on the IPv4 | capture: sha256:c39adbc7ac46c44fdea437bf8c4ddfd812b48f47389674032efe19c285c4ac1c | quote: 独立IPv4(全端口，部分高风险端口isp商禁用，禁用端口例如25,80,443等)
+  - [1] 2026-11-03: the D zone is sold out | capture: sha256:c39adbc7ac46c44fdea437bf8c4ddfd812b48f47389674032efe19c285c4ac1c | quote: 產品 日本D区独享 已售罄
+  - [2] 2026-11-03: the registration form marks name, email and password fields required and leaves phone, company and address unmarked | capture: sha256:7e4564d38f66e6a77006c748ba424dae3c557a746003f17f028c6ea355aa1ea0 | quote: 名字 * 姓氏 * 電子郵件 * 密碼 * 確認密碼 * Phone Company Name Country
+  - [3] 2026-11-03: crypto payment through a processor is enabled | capture: sha256:257acc543f2c5363149c0ba433d66161e84a5f43bf8d2d90bc5292a81a20c6b4 | quote: 加密货币支付系统nowpayments已经开通
+  - [3] 2026-11-03: Alipay QR payment is enabled with manual confirmation | capture: sha256:257acc543f2c5363149c0ba433d66161e84a5f43bf8d2d90bc5292a81a20c6b4 | quote: 支付宝扫码支付已开通（人工确认）。
+  - [4] 2026-11-03: a 2024 third-party test report titles an earlier sososo Japan plan a BIGLOBE home-broadband VPS | capture: sha256:e9d9b183d04ebd98524d9039c0aaf7a721c6fffdee4c09f60e9ce066dcae3e08 | quote: sososo 日本BIGLOBE 家宽VPS测试记录
+- sources:
+  - [1] https://sales.sososo.io/products/PrivateRoom/d
+  - [2] https://sales.sososo.io/register
+  - [3] https://sales.sososo.io/
+  - [4] https://lowendaff.com/2024/06/15/%f0%9f%87%af%f0%9f%87%b5-sososo-%e6%97%a5%e6%9c%acbiglobe-%e5%ae%b6%e5%ae%bdvps%e6%b5%8b%e8%af%95%e8%ae%b0%e5%bd%95/
+
+## sososo (Japan Rakuten 5G private room)
+
+- `ip-proxy/sososo-rakuten-5g-private-room` | paid-only | evidence documented | binding none | category mobile proxy, 4G modem exit | tier Japan Rakuten 5G private room
+- needs card unknown, phone yes, ID no, institution no | verified 2026-11-03T07:35:32.672Z (live) | stale on 2026-12-04
+- url https://sales.sososo.io/products/PrivateRoom/rakuten5G | page https://fshy.ajam.dev/p/sososo.md
+- free tier: No free tier. Japan Rakuten dedicated is $99.99 a month: 2 CPU, 4096 MB RAM, 30 GB NVMe, a Rakuten 5G mobile primary network at 300 Mbps peak, 20 TB a month one-way (throttled above), an IPv4-only dedicated address with no inbound ports, and a secondary IPv6 network. The IPv4 is dynamic and changes when the phone network restarts, with one change a month by ticket. The product page showed 'sold out' on 2026-11-03. | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: The page says the machine is switched on the same working day.
+- per-object cap: not applicable | source: [1]
+- retention: not applicable: a rented machine and its address, not stored bytes | source: [1] | note: The page states the IPv4 is dynamic; no address-retention term at non-payment is stated.
+- egress: 20 TB a month counted one-way, with speed reduced above the allowance. The 300 Mbps figure is a peak that falls when the line is congested. | metered: yes | free allowance: 20 TB per month (one-way) on the Rakuten 5G private room | source: [1]
+- identity: email | detail: The registration form marks first name, last name, email, password and password confirmation as required (asterisks); phone, company, country, address and city are not marked required. Payment routes listed on the home page are crypto through two processors, Alipay QR, Revolut and Wise. Whether a card is accepted is unverified.
+- interface: unknown
+- limits:
+  - volume-quota: 20 TB per month one-way on the Rakuten 5G private room, speed reduced above it [1]
+  - per-ip-shaping: 300 Mbps peak on the Rakuten 5G network, lower when the line is congested [1]
+- limits note: Stock decides this record: the product was sold out when read. The address is shared-carrier mobile, not a fixed consumer line: it is dynamic and one ticketed change is allowed each month.
+- binding note: The 20 TB allowance is far above a low-volume exit. What decides the record is stock and the unverified registration class of the mobile carrier address.
+- interface detail: A virtual dedicated server whose outbound IPv4 is a Rakuten 5G mobile line with no inbound ports; the access method is not stated on the product page.
+- tooling: An SSH or RDP client, whichever the image supports, plus a proxy or tunnel daemon the user installs on the machine. Inbound connections to the mobile IPv4 are not available, so the machine reaches out. The vendor publishes no proxy endpoint on the pages read.
+- composes with: A Worker reaches the server over its IPv6 secondary network and the server makes the upstream request over the Rakuten 5G primary line, so the upstream sees a Japanese mobile-carrier address instead of AS13335. The page says traffic comes in on the secondary network and goes out on the primary.
+- reliability: The IPv4 changes when the phone network restarts, so a session can lose its address. The home page carries an upgrade notice dated 2026-10-18 after a storefront outage.
+- notes: sososo's Rakuten private room is a Japanese mobile-carrier exit attached to a VDS, sold at $99.99 a month and sold out when read. It is a different product from the fixed-line D zone record of the same vendor.
+- evidence note: Price, specification, stock and registration fields are documented from the vendor's shop pages. The registration class of the carrier address is unverified because no test address is published.
+- extras:
+  - rung: 5
+  - rung_note: The offer is a claim about the address class (a mobile carrier address) and no test address is published.
+- evidence:
+  - [1] 2026-11-03: the Rakuten private room is $99.99 a month | capture: sha256:7ab870a3b201444ce0a9fbceacae8911490000692561c862b0e4b6ae7c1a55fd | quote: 99.99美元/月
+  - [1] 2026-11-03: the primary network is Rakuten 5G mobile with an IPv4-only dedicated address and no inbound ports | capture: sha256:7ab870a3b201444ce0a9fbceacae8911490000692561c862b0e4b6ae7c1a55fd | quote: 主网络: 乐天5G移动网络,ipv4 only(无端口),独享ip
+  - [1] 2026-11-03: the IPv4 is dynamic with one ticketed change a month | capture: sha256:7ab870a3b201444ce0a9fbceacae8911490000692561c862b0e4b6ae7c1a55fd | quote: IPv4为动态ip，重启手机网络，会变化。(每月可工单1次变更ip)
+  - [1] 2026-11-03: the allowance is 20 TB a month one-way | capture: sha256:7ab870a3b201444ce0a9fbceacae8911490000692561c862b0e4b6ae7c1a55fd | quote: 流量: 20TB/月 (单边)(超出降速)
+  - [1] 2026-11-03: the Rakuten room is sold out | capture: sha256:7ab870a3b201444ce0a9fbceacae8911490000692561c862b0e4b6ae7c1a55fd | quote: 產品 日本乐天独享-工作日当日开机 已售罄
+  - [2] 2026-11-03: the registration form marks name, email and password fields required and leaves phone, company and address unmarked | capture: sha256:7e4564d38f66e6a77006c748ba424dae3c557a746003f17f028c6ea355aa1ea0 | quote: 名字 * 姓氏 * 電子郵件 * 密碼 * 確認密碼 * Phone Company Name Country
+  - [3] 2026-11-03: crypto payment through a processor is enabled | capture: sha256:257acc543f2c5363149c0ba433d66161e84a5f43bf8d2d90bc5292a81a20c6b4 | quote: 加密货币支付系统nowpayments已经开通
+- sources:
+  - [1] https://sales.sososo.io/products/PrivateRoom/rakuten5G
+  - [2] https://sales.sososo.io/register
+  - [3] https://sales.sososo.io/
+
+## Surfshark (exit addresses)
+
+- `ip-proxy/surfshark-exits` | paid-only | evidence measured | binding none | category vpn subscription (exit source) | tier exit addresses
+- identity a placeholder: card and phone unknown | verified 2026-11-04T00:30:00.000Z (live) | stale on 2026-12-05
+- url https://surfshark.com/pricing | page https://fshy.ajam.dev/p/surfshark.md
+- free tier: No free plan read. The pricing page FAQ states monthly, 1-year and 2-year subscriptions; the amounts did not load in the captured text, so no price is recorded. | unit: none | metered on: none | read on: 2026-11-04 | source: [1] | note: The price is the vendor's plan rate for the subscription whose exits are classified here; the exit-address measurement itself has no price.
+- per-object cap: not applicable | source: [2] | note: The classified sample is 142 addresses over 18 ASNs; none of those numbers is an object size.
+- retention: not applicable: an address, not an object | source: [2] | note: Nothing is stored, so no retention clock applies. How long one exit address is held before it is re-drawn was not observed.
+- egress: unverified: no traffic allowance or per-GB price appears in the captured pages; metered is recorded false because no metered charge was read. | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: unverified: the purchase flow was not read; an account is required to use the service.
+- interface: unknown
+- limits:
+  - per-ip-shaping: unverified: no device or connection ceiling appears in the captured pages [1]
+- binding note: No limit kind binds the record: it measures exit addresses and states no byte quota or request rate. What matters is list membership: 137 of 142 sampled exits are on a datacenter list.
+- interface detail: The server list at https://api.surfshark.com/v4/server/clusters/generic is the source of the exit addresses classified here. The schema interface enum has no token for a VPN tunnel, so the tunnel protocols are not recorded as an interface.
+- endpoint: part of interface detail
+- tooling: The exit addresses are read from https://api.surfshark.com/v4/server/clusters/generic and classified with an IP-class detector; the service itself is reached with the vendor's own client or a WireGuard or OpenVPN configuration.
+- composes with: A Worker or a free compute node dials the tunnel and the traffic leaves at one of these exit addresses, so the upstream sees an address in the ASNs listed here and not the caller's network.
+- reliability: 137 of 142 sampled exit addresses are on a datacenter list and 113 of 142 on a VPN list, so a site that blocks those lists blocks most of this fleet; 0 of 142 are also on an abuse list.
+- notes: List membership of 142 exit addresses (detector index version 20261103T163900Z-00d117b2, 2026-11-03): datacenter 137, VPN 113, abuse 0, none of the three 5. VPN list: 113 of 142, of which 108 are in the x4b VPN list. Definitions: datacenter is an address inside a range the x4b datacenter list publishes; VPN is inside the x4b VPN list or a per-provider server list; abuse is on at least one independent abuse family; none of the three states list membership, not physical siting.
+- evidence note: The list membership, ASN spread and counts are measured: each address was answered by the detector at the stated index version. The plan price and the identity class are documented from the vendor's captured pages; where a page did not state them they are unverified. The sample is the addresses the vendor endpoint returned, not proof that every address a user is handed is in it.
+- extras:
+  - rung: 4
+  - rung_note: Addresses came from the vendor's own server list and each was classified; no exit was connected to, so the address a user is handed at connect time was not observed.
+  - list_membership.measured_on: 2026-11-03
+  - list_membership.n: 142
+  - list_membership.datacenter: 137
+  - list_membership.vpn: 113
+  - list_membership.vpn_in_x4b: 108
+  - list_membership.abuse: 0
+  - list_membership.none_of_the_three: 5
+  - list_membership.detector_index_version: 20261103T163900Z-00d117b2
+  - list_membership.probed_at: 2026-11-03T17:20:53Z
+  - list_membership.endpoint: https://api.surfshark.com/v4/server/clusters/generic
+  - asn_diversity.measured_on: 2026-11-03
+  - asn_diversity.addresses: 142
+  - asn_diversity.subnets_24: 142
+  - asn_diversity.asns: 18
+  - asn_diversity.largest_asn: AS209854 Cyberzonehub Cyberzone S.A.
+  - asn_diversity.largest_asn_addresses: 65
+  - asn_diversity.largest_asn_share: 46%
+- evidence:
+  - probe:https://api.surfshark.com/v4/server/clusters/generic 2026-11-03: The vendor endpoint https://api.surfshark.com/v4/server/clusters/generic gave 142 IPv4 exit addresses, each answered by the address-class detector at index version 20261103T163900Z-00d117b2 on 2026-11-03. Datacenter list: 137 of 142; VPN list: 113 of 142 (108 in the x4b VPN list); abuse list: 0 of 142; on none of the three: 5 of 142. 18 distinct ASNs and 142 distinct /24s; largest ASN AS209854 Cyberzonehub Cyberzone S.A. with 65 addresses. | capture: sha256:d359db0a5cace09ce84aa6278550ca6bb3c435918f4db8781353fac7c57b2e97 | quote: "n": 142,
+  - probe:https://api.surfshark.com/v4/server/clusters/generic 2026-11-03: Detector index version 20261103T163900Z-00d117b2 was the one every one of the 142 answers carries. | capture: sha256:d359db0a5cace09ce84aa6278550ca6bb3c435918f4db8781353fac7c57b2e97 | quote: "index_version": "20261103T163900Z-00d117b2",
+  - [1] 2026-11-04: the plans are monthly, 1-year and 2-year subscriptions | capture: sha256:122ce05cdc5bd135140b43734fb29fed1d9abc0c3d6b3f7f3e630cfc8bcf2e75 | quote: Surfshark offers monthly, 1-year, and 2-year subscriptions, and all of them are billed differently:
+  - [1] 2026-11-04: one account has unlimited simultaneous device connections | capture: sha256:122ce05cdc5bd135140b43734fb29fed1d9abc0c3d6b3f7f3e630cfc8bcf2e75 | quote: Yes. Surfshark offers unlimited simultaneous device connections, which means you can protect your whole household for the cost of a single [VPN](https://surfshark.com/vpn) subscription.
+- sources:
+  - [1] https://surfshark.com/pricing
+  - [2] https://api.surfshark.com/v4/server/clusters/generic
+
+## tacs.cloud (TA Consulting & Services GmbH)
+
+- `ip-proxy/tacs-cloud-ipv4-lease` | paid-only | evidence documented | binding volume-quota | category prefix lease (RIPE LIR) | tier IPv4 lease by the /24
+- identity a placeholder: card and phone unknown | verified 2026-11-03T07:35:33.762Z (live) | stale on 2026-12-04
+- url https://tacs.cloud/lease-ipv4/ | page https://fshy.ajam.dev/p/tacs.md
+- free tier: No free tier. The site's IP calculator states the lease rate per address: 'Lease per IP per month: RIPE $0.38, ARIN $0.32, APNIC $0.40', in 'USD per IP, excl. VAT', and the lease page says 'Lease prices depend on block size, registry and term.' | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: The rates are the calculator's published per-address figures; the final price 'depends on the block, its reputation and the terms', and a lease is a quote request, not a checkout. The lease terms, minimum duration and any setup fee are not on the pages read.
+- per-object cap: not applicable: an address block, not an object; the smallest lease unit is a /24 | source: [2] | note: The home page states 'Smallest unit we lease: /24' and the lease page sells 'Clean IPv4 space by the /24'.
+- retention: not applicable: a leased block, not stored bytes | source: [3] | note: The lease page says 'for as long as you need it' and lists a signed lease contract as step 3 of 5; no term, notice or minimum duration is stated. unverified: the contract terms, which come with the offer.
+- egress: not applicable: the vendor leases address space announced from the lessee's ASN; it does not carry the traffic. | metered: no | free allowance: not applicable: no traffic is carried by the lease | source: [3]
+- identity: email | detail: unverified: a lease starts as a quote request. The contact form asks for name, email and a topic ('We use your details only to answer your request.'), and the process then goes request, offer, agreement ('Lease contract signed') and setup. Whether the contract needs company documents, a KYC or a card was not readable: behind a sign-up. The lease is announced 'from your ASN', so an ASN of the lessee is required.
+- interface: unknown
+- limits:
+  - volume-quota (binding): smallest lease unit is a /24: 'Smallest unit we lease: /24'; at the RIPE rate of $0.38 per IP per month a /24 is 256 addresses [2]
+- limits note: The vocabulary has no kind for a minimum block size or a required ASN; volume-quota is the nearest for the /24 minimum, and the ASN requirement is stated in tooling and identity. Rates differ by registry (RIPE $0.38, ARIN $0.32, APNIC $0.40 per IP per month).
+- binding note: The /24 minimum is the smallest purchase, and the lease announces from the lessee's ASN, which a reader without an ASN does not have; the limit vocabulary has no kind for an ASN requirement.
+- interface detail: A quote request form on the contact page and an IP calculator; no portal, API or client tool is shown on the pages read.
+- tooling: The lessee's own BGP session: the lease page says the space is 'Announced from your ASN, with ROA and reverse DNS set up' and includes an LOA to announce the block from the ASN, a ROA, delegated reverse DNS and a reputation report. The vendor does not state that it announces the block for a lessee.
+- composes with: A leased /24 is 256 addresses in one prefix and one registry object, so it is one rung-3 unit, and the lessee needs an ASN of its own to announce it. The vendor is itself a RIPE NCC LIR, so a RIPE lease is the vendor's own registry space; no delivered block was inspected.
+- reliability: unverified: no delivered block, test address or registry object is published. The vendor states a reputation report for the block 'before handover' and describes itself as a RIPE NCC LIR.
+- evidence note: Documented: the per-address rates, the /24 minimum, the ASN-announcement model and the RIPE LIR status are stated on the vendor's pages, captured 2026-11-03. The contract terms, identity checks beyond the contact form and the registry object of a delivered block are unverified.
+- extras:
+  - role: RIPE LIR that buys, sells and leases blocks and also leases out on behalf of owners at a 15% commission
+  - min_prefix: /24
+  - price_per_address_month: USD 0.38 (RIPE), USD 0.32 (ARIN), USD 0.40 (APNIC), excluding VAT
+  - price_derived: USD 0.38 x 256 = USD 97.28 per month for a RIPE /24; USD 0.32 x 256 = USD 81.92 for ARIN; USD 0.40 x 256 = USD 102.40 for APNIC, before VAT
+  - registries: RIPE NCC, ARIN, APNIC
+  - needs_own_asn: yes
+  - rung: 3
+  - rung_note: One /24 is one rung-3 unit; rung 5 is unverified until a delivered block's registry object is read.
+- evidence:
+  - [1] 2026-11-03: the lease price per address per month by registry: RIPE $0.38, ARIN $0.32, APNIC $0.40 | capture: sha256:3bb16c331f4bb16835df81122d0732473185056d037646544b1c0bdf533b490c | quote: Lease per IP per month: RIPE $0.38, ARIN $0.32, APNIC $0.40; leasing out pays the owner these rates minus our 15%.
+  - [1] 2026-11-03: the prices are in US dollars per address and exclude VAT | capture: sha256:3bb16c331f4bb16835df81122d0732473185056d037646544b1c0bdf533b490c | quote: Prices in USD per IP, excl. VAT.
+  - [2] 2026-11-03: the smallest block leased is a /24, routed with a ROA and rDNS | capture: sha256:ad616f06e0ef38996840ddd746de9ed3535bace4a3d4a378e36abf40ba3b2652 | quote: Smallest unit we lease: /24 Routed with ROA & rDNS
+  - [3] 2026-11-03: leases are by the /24 and are announced from the lessee's ASN, with ROA and reverse DNS | capture: sha256:74a88de91b351eaafeec7fa4e9e211dc8c82e76878a80ecba05e04e4b8ed1c62 | quote: Clean IPv4 space by the /24, for as long as you need it. Announced from your ASN, with ROA and reverse DNS set up.
+  - [3] 2026-11-03: the final lease price depends on block size, registry and term and is quoted on request | capture: sha256:74a88de91b351eaafeec7fa4e9e211dc8c82e76878a80ecba05e04e4b8ed1c62 | quote: Lease prices depend on block size, registry and term. Get an estimate in the [IP calculator](https://tacs.cloud/ip-calculator/) or ask for a quote.
+  - [3] 2026-11-03: a lease contract is signed before setup | capture: sha256:74a88de91b351eaafeec7fa4e9e211dc8c82e76878a80ecba05e04e4b8ed1c62 | quote: Lease contract signed.
+  - [4] 2026-11-03: the vendor is a RIPE NCC Local Internet Registry | capture: sha256:bb81022597f68334a1d0957c2eed3b7c5fa9675b2f6631f53399f2ba85ddf9ee | quote: TA Consulting & Services GmbH is an IT consultancy and a RIPE NCC Local Internet Registry.
+  - [5] 2026-11-03: the contact form collects details only to answer a request; a lease starts as a quote request | capture: sha256:b36768e5f9be3e2e5885ebb70aab6bc0234436eef77c71e4920c55342e60e7a0 | quote: We use your details only to answer your request.
+  - [3] 2026-11-03: the lease includes an LOA to announce the block from the lessee's ASN | capture: sha256:74a88de91b351eaafeec7fa4e9e211dc8c82e76878a80ecba05e04e4b8ed1c62 | quote: LOA to announce the block from your ASN.
+  - [3] 2026-11-03: a reputation report for the leased block is delivered before handover | capture: sha256:74a88de91b351eaafeec7fa4e9e211dc8c82e76878a80ecba05e04e4b8ed1c62 | quote: Reputation report for the leased block before handover.
+- sources:
+  - [1] https://tacs.cloud/ip-calculator/
+  - [2] https://tacs.cloud/
+  - [3] https://tacs.cloud/lease-ipv4/
+  - [4] https://tacs.cloud/about/
+  - [5] https://tacs.cloud/contact/?topic=ip
+
+## Tokyonline
+
+- `ip-proxy/tokyonline-so-net-vps` | paid-only | evidence documented | binding none | category ISP-registered VPS | tier Tokyo zone So-Net Standard, Pro, Extreme and Unlimited
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-03T07:35:32.672Z (live) | stale on 2026-12-04
+- url https://www.tokyonline.com/cart.php | page https://fshy.ajam.dev/p/tokyonline.md
+- free tier: No free tier. So-Net Standard is JPY 8,800 a month: 2 vCPU, 2 GB RAM, 30 GB HDD, 1 Tokyo-zone IPv4, 10240 GiB transfer, 200 Mbps port. So-Net Pro is JPY 12,800 a month (4 GB RAM, 50 GB, 15360 GiB, 300 Mbps) and the Unlimited plan is JPY 25,800 a month with unlimited transfer at a 300 Mbps port. All displayed prices are stated as tax included. | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: Prices are in Japanese yen as the vendor prints them. The cart showed stock counts beside each So-Net plan (5, 14, 10 and 1 available).
+- per-object cap: not applicable | source: [1]
+- retention: not applicable: a rented machine and its address, not stored bytes. The terms on non-payment are unverified: the cart and home page state none. | source: [1]
+- egress: Transfer is allowed per month in GiB per plan: 10240 GiB on So-Net Standard, 15360 GiB on So-Net Pro, 30720 GiB on Extreme, unlimited on the Unlimited plan. No overage price is stated. Each plan also carries a notice that BitTorrent and banking-web use is banned. | metered: yes | free allowance: 10240 GiB per month on So-Net Standard; unlimited on So-Net Unlimited | source: [1]
+- identity: any-phone | detail: The registration form asks for family name, given name, email address, phone number, city and postal code and a captcha; only the company name is marked optional. The form as read stops before the payment step, so any identity check at payment is unverified. A review states payment by credit card and Alipay.
+- interface: unknown
+- limits:
+  - volume-quota: 10240 GiB per month on So-Net Standard, 15360 GiB on So-Net Pro; unlimited on So-Net Unlimited [1]
+- limits note: The vendor's own pages sell a Tokyo-zone So-Net or KDDI address and do not use the word residential. The double-ISP residential label comes from a third-party review. No test address is published on the pages read, so no registry lookup was possible.
+- binding note: The smallest monthly allowance, 10240 GiB, is far above a low-volume exit, so no quota binds. What decides the record is the registration class of the delivered address, which is unverified.
+- interface detail: A virtual server with one fixed Tokyo-zone IPv4 address. The access method (SSH or RDP) is not stated on the cart or home page; the vendor describes a self-service console.
+- tooling: An SSH or RDP client, whichever the image supports, plus a proxy or tunnel daemon the user installs on the machine. The vendor publishes no proxy endpoint and no API on the pages read.
+- composes with: A Worker opens an outbound connection to the server's fixed IPv4 and the server makes the upstream request, so the upstream sees an address in the So-Net or KDDI network the plan names instead of AS13335.
+- reliability: Stock is shown per plan, with one So-Net Unlimited unit available when read. Bandwidth peaks are port rates; the review sites report the plan names but this record holds no measurement of delivered throughput.
+- notes: Tokyonline's own pages sell Tokyo-zone KVM servers on So-Net and KDDI networks priced in yen; the residential or double-ISP label is third-party.
+- evidence note: Prices, allowances and the registration form fields are documented from the vendor's cart and registration page. That the addresses are residential or double-ISP is reported by a third-party review and is unverified here. Nothing was measured.
+- extras:
+  - rung: 5
+  - rung_note: The offer is a claim about the address class and no test address is published, so no registry check was possible.
+- evidence:
+  - [1] 2026-11-03: So-Net Standard is priced JPY 8,800 a month | capture: sha256:6100aae2879c07f72a9e11bc33cb1e21159018f87948709e5aa9bff9c1df868a | quote: ¥8,800JPY
+  - [1] 2026-11-03: So-Net Standard includes 10240 GiB of transfer | capture: sha256:6100aae2879c07f72a9e11bc33cb1e21159018f87948709e5aa9bff9c1df868a | quote: 10240GiB Transfer Data
+  - [1] 2026-11-03: the Unlimited plan has unlimited transfer | capture: sha256:6100aae2879c07f72a9e11bc33cb1e21159018f87948709e5aa9bff9c1df868a | quote: Unlimited Transfer Data
+  - [1] 2026-11-03: each plan bans BitTorrent and banking-web use | capture: sha256:6100aae2879c07f72a9e11bc33cb1e21159018f87948709e5aa9bff9c1df868a | quote: BT/PT・銀行ウェブ禁止
+  - [2] 2026-11-03: So-Net Pro is JPY 12,800 a month | capture: sha256:37651ddec6b660aa90e5cc417b8e4758f015d6a9c22dc4648e78628536bd13cb | quote: JPY 12,800
+  - [2] 2026-11-03: So-Net Pro includes 15360 GiB of bandwidth | capture: sha256:37651ddec6b660aa90e5cc417b8e4758f015d6a9c22dc4648e78628536bd13cb | quote: 15360 GiB Bandwidth
+  - [3] 2026-11-03: the registration form asks for a phone number | capture: sha256:df2fb71a4933c18ade73559d222721e66f93e9929d14803fa628c6d8da64a3a2 | quote: 電話番号
+  - [3] 2026-11-03: only the company name is marked optional on the registration form | capture: sha256:df2fb71a4933c18ade73559d222721e66f93e9929d14803fa628c6d8da64a3a2 | quote: 会社名（個人の場合、記入不要） (オプショナル)
+  - [4] 2026-11-03: a third-party review calls the addresses double-ISP residential | capture: sha256:3412714fa886ba3f07f1cc9bfabbb89f92ceadad8a36bbf21c869bbd3766986e | quote: IP有特色为双ISP属性/住宅IP
+  - [4] 2026-11-03: a third-party review states payment by credit card and Alipay | capture: sha256:3412714fa886ba3f07f1cc9bfabbb89f92ceadad8a36bbf21c869bbd3766986e | quote: 支持信用卡、支付宝付款。
+- sources:
+  - [1] https://www.tokyonline.com/cart.php
+  - [2] https://www.tokyonline.com/
+  - [3] https://www.tokyonline.com/register.php
+  - [4] https://www.zhujiceping.com/74468.html
+
+## Trust.Zone (ip-proxy/trust-zone)
+
+- `ip-proxy/trust-zone` | paid-only | evidence documented | binding none | category VPN subscription (exit source) | tier 1 year
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T05:58:00.000Z (live) | stale on 2026-12-05
+- url https://trust.zone/prices | page https://fshy.ajam.dev/p/trust.md
+- price USD 39.99 billed annually for the 1-year plan; a subscription price, not a per-TB price
+- duplicate of `egress/trust-zone`
+- disagrees on verdict: `ip-proxy/trust-zone` says paid-only, `ip-proxy/trust-zone-exits` says trial-only
+- free tier: No free plan. A 3-day free trial with 'No credit card required' is limited to 1,000 users each month ('688/1000 claimed this month' when read) and gives 1 simultaneous connection. The 1-year plan is listed at '$39.99 billed annually' (struck-through $119.88), with 3 simultaneous connections, 172 locations and unlimited data transfer; the 2-year plan with 6 months free is $55.99 and the 1-month plan is $9.99. | unit: mixed | metered on: wall-clock | read on: 2026-11-04 | source: [1] | note: The trial is 3 days and capped at 1,000 users a month; the unit vocabulary has no days term, so mixed is used. The page was read during a Black Friday sale banner ('+ 6 Months FREE'), so the listed prices may be sale prices.
+- per-object cap: not applicable | source: [1]
+- retention: not applicable: a tunnel, not stored bytes | source: [1]
+- egress: Unlimited: the vendor states 'unlimited data transfer and unlimited bandwidth on all paid plans', and its FAQ says the service 'doesn't block or throttle any kind of internet traffic'. The trial is also stated as unlimited data. | metered: no | free allowance: trial: 3 days, 1 simultaneous connection, no card | source: [2]
+- identity: email | detail: The vendor's page says 'The signup only requires your email.' The trial states no credit card is required. Paid plans are bought against that account; the payment methods are not read on the pages captured.
+- interface: unknown
+- limits:
+  - per-ip-shaping: shared exit addresses on the plans; a dedicated static IP is a paid add-on and is required for port forwarding [3]
+  - request-rate: 3 simultaneous connections on the 1-year plan and 1-month plan, 5 on the 2-year plan, 1 on the trial [1]
+- limits note: The simultaneous-connection count is filed under request-rate because the vocabulary has no concurrent-connection kind. Port forwarding is sold only with a Dedicated IP; the Dedicated IP price list on the prices page shows '$1.99/month' against a struck-through $4.99 for most locations.
+- binding note: No byte quota is published and the vendor states unlimited data on paid plans; the connection count and the dedicated-IP requirement for port forwarding are stated limits that the vocabulary cannot rank against a byte or rate quota.
+- interface detail: A tunnel and a proxy. Protocols listed on the manual setup page: WireGuard, Amnezia VPN, AmneziaWG, OpenVPN, L2TP/IPSec, IKEv2, PPTP, SSTP, a SOCKS5 proxy and ShadowSocks; plus apps and browser extensions. UDP: the vendor's SOCKS5 post says its SOCKS5 proxy servers can use UDP. Port forwarding: yes, one port from 5000 to 65535, only together with a paid Dedicated IP. SOCKS5: yes, 'all Trust.Zone VPN servers support SOCKS5 proxy' (vpn.trust.zone). Obfuscation: ShadowSocks and AmneziaWG are offered; the pages read give no detail of either. BitTorrent: not blocked ('All kinds of internet traffic are allowed').
+- tooling: The vendor's Windows client and browser extensions, or any WireGuard, OpenVPN, L2TP/IPSec, IKEv2, SSTP, ShadowSocks or SOCKS5 client with the credentials and config files shown after login; the manual setup page hides the username, password and config files behind a login.
+- composes with: A tunnel or SOCKS5 exit: a job can connect over a tunnel or send traffic to the SOCKS5 proxy at vpn.trust.zone, and the upstream sees a shared VPN address, or a dedicated address when the paid Dedicated IP add-on is bought.
+- reliability: The setup page and prices page were served with an ad-blocker notice and a sale banner; page content is complete in the capture, but the credentials and config files are behind a login and were not read.
+- notes: Duplicate of egress/trust-zone, which holds the offer: both records cite the same vendor page.
+- evidence note: Documented: price, trial, protocol list, SOCKS5, port forwarding and BitTorrent lines are quoted from the vendor's own pages. Nothing was connected through the service, and the config files behind the login were not read, so transport and obfuscation details for ShadowSocks and AmneziaWG are unverified.
+- evidence:
+  - [1] 2026-11-04: The 1-year plan is USD 39.99 billed annually. | capture: sha256:5ba5ef6cbd8a94e06cbfca17318a58bb306eac5b3c20df7dbe1239c3146ffa87 | quote: ＄119.88＄39.99 billed annually\*
+  - [1] 2026-11-04: The 1-month plan is USD 9.99. | capture: sha256:5ba5ef6cbd8a94e06cbfca17318a58bb306eac5b3c20df7dbe1239c3146ffa87 | quote: ＄9.99 billed monthly\*
+  - [1] 2026-11-04: The 2-year plan with 6 months free totals USD 55.99. | capture: sha256:5ba5ef6cbd8a94e06cbfca17318a58bb306eac5b3c20df7dbe1239c3146ffa87 | quote: total ＄299.7＄55.99\*
+  - [1] 2026-11-04: The 1-year plan allows 3 simultaneous connections. | capture: sha256:5ba5ef6cbd8a94e06cbfca17318a58bb306eac5b3c20df7dbe1239c3146ffa87 | quote: 3 simultaneous connections
+  - [1] 2026-11-04: The free trial needs no card. | capture: sha256:5ba5ef6cbd8a94e06cbfca17318a58bb306eac5b3c20df7dbe1239c3146ffa87 | quote: No credit card required
+  - [1] 2026-11-04: The trial is capped at 1,000 users a month. | capture: sha256:5ba5ef6cbd8a94e06cbfca17318a58bb306eac5b3c20df7dbe1239c3146ffa87 | quote: 688/1000 claimed this month
+  - [1] 2026-11-04: A paid Dedicated Static IP add-on exists. | capture: sha256:5ba5ef6cbd8a94e06cbfca17318a58bb306eac5b3c20df7dbe1239c3146ffa87 | quote: Dedicated Static IP Address
+  - [4] 2026-11-04: Registration needs an email. | capture: sha256:0eec8bd3994894b9b8cd83bac3f92926ab3bcf24d6f4b37c8f2af5a265476cb5 | quote: The signup only requires your email.
+  - [3] 2026-11-04: Port forwarding requires a Dedicated IP. | capture: sha256:281c64c2a3c9284b6f9d4085d7966714e0c74073421ef4a06010b2ae69f63886 | quote: With Trust.Zone, Port Forwarding is available together with Dedicated IP.
+  - [3] 2026-11-04: One forwarded port from the stated range (5000 to 65535). | capture: sha256:281c64c2a3c9284b6f9d4085d7966714e0c74073421ef4a06010b2ae69f63886 | quote: Choose one port from this range and use it in your app
+  - [5] 2026-11-04: SOCKS5 is offered on all servers. | capture: sha256:b1e8335c09813729a7f191485036b51ff3d29d7a03a52fd52b6ad508e41e742d | quote: Did you know that all Trust.Zone VPN servers support SOCKS5 proxy?
+  - [5] 2026-11-04: The SOCKS5 proxy can carry UDP. | capture: sha256:b1e8335c09813729a7f191485036b51ff3d29d7a03a52fd52b6ad508e41e742d | quote: Trust.Zone SOCKS5 proxy servers can use UDP protocol.
+  - [6] 2026-11-04: No P2P block. | capture: sha256:ad0244ffce5aaca2c289adfe5b5380006b4f1a4831c68fd1e2432aaae9fa8695 | quote: Trust.Zone VPN service doesn't block or throttle any kind of internet traffic. All kinds of internet traffic are allowed.
+  - [7] 2026-11-04: AmneziaWG config files are offered. | capture: sha256:b94f6fe1561a1cb669e2850a0e1a6231fa2ff2cfefa7118c8d6d2ad2d9acd5e4 | quote: Amnezia WG
+  - [7] 2026-11-04: The setup page lists a SOCKS5 proxy. | capture: sha256:b94f6fe1561a1cb669e2850a0e1a6231fa2ff2cfefa7118c8d6d2ad2d9acd5e4 | quote: SOCKS5 Proxy
+  - [7] 2026-11-04: IKEv2 is offered. | capture: sha256:b94f6fe1561a1cb669e2850a0e1a6231fa2ff2cfefa7118c8d6d2ad2d9acd5e4 | quote: IKEv2
+  - [7] 2026-11-04: L2TP/IPSec is offered. | capture: sha256:b94f6fe1561a1cb669e2850a0e1a6231fa2ff2cfefa7118c8d6d2ad2d9acd5e4 | quote: VPN type: L2TP/IPSec with pre-shared key
+  - [7] 2026-11-04: OpenVPN is offered. | capture: sha256:b94f6fe1561a1cb669e2850a0e1a6231fa2ff2cfefa7118c8d6d2ad2d9acd5e4 | quote: OpenVPN
+  - [7] 2026-11-04: WireGuard is offered. | capture: sha256:b94f6fe1561a1cb669e2850a0e1a6231fa2ff2cfefa7118c8d6d2ad2d9acd5e4 | quote: WireGuard WireGuard (.conf) file:
+  - [8] 2026-11-04: A ShadowSocks setup page exists. | capture: sha256:726bf1114c989bb598dc3bb93e4563202aef4b9f654d63298c3d3c2810be54d6 | quote: ShadowSocks
+  - [1] 2026-11-04: the vendor page that both records cite shows the same offer, which the egress record holds | capture: sha256:40c1305ae8325561a3ad5337109c8e682d43743fe82f6a731f732e3efe9d5361 | quote: billed annually
+- sources:
+  - [1] https://trust.zone/prices
+  - [2] https://trust.zone/
+  - [3] https://trust.zone/portforwarding
+  - [4] https://trust.zone/trustzone-vpn
+  - [5] https://trust.zone/post/trust.zone-supports-socks5-proxy
+  - [6] https://trust.zone/faq
+  - [7] https://trust.zone/setup
+  - [8] https://trust.zone/setup/manual/ss/
+
+## VPN.ac (ip-proxy/vpn-ac)
+
+- `ip-proxy/vpn-ac` | paid-only | evidence documented | binding none | category VPN subscription (exit source) | tier 1 year
+- identity a placeholder: card and phone unknown | verified 2026-11-04T05:58:00.000Z (live) | stale on 2026-12-05
+- url https://vpn.ac/vpn-accounts | page https://fshy.ajam.dev/p/vpn.md
+- price USD 58 for 1 year; a subscription price, not a per-TB price
+- duplicate of `egress/vpn-ac`
+- disagrees on identity_kind: `ip-proxy/vpn-ac` says email, `ip-proxy/vpn-ac-exits` says card
+- free tier: No free plan. The plans page lists '1 Year' at '$58' ('$4,8 / month') beside 1 Month '$9', 3 Months '$24' ('$8 / month') and 2 Years '$90'. A trial exists: 'a 1-week trial account for only $2'. | unit: none | metered on: none | read on: 2026-11-04 | source: [1] | note: The plan links carry a promotion code (OCT26), so the listed prices may be promotional. The trial allows 3 simultaneous connections instead of 6.
+- per-object cap: not applicable | source: [1]
+- retention: not applicable: a tunnel, not stored bytes | source: [2] | note: The vendor states it does not log or monitor user activity such as visited sites or files transferred; its FAQ also describes the connection logs it keeps.
+- egress: No speed limit and no byte cap stated: the features list says 'No speed limit', and servers are 'connected to gigabit ports'. The vendor says it does not oversell bandwidth. | metered: no | free allowance: none: no free plan; 1-week trial at USD 2 | source: [3]
+- identity: email | detail: unverified: the checkout and sign-up form are behind a sign-up and were not read; the FAQ says the vendor sends auto-generated payment reminders and confirmations to customers, and accepts Bitcoin and other cryptocurrencies, PayPal, cards and vouchers. The email kind is the structured value inferred from the payment reminders; no phone, card or ID requirement is stated on the pages read.
+- interface: unknown
+- limits:
+  - per-ip-shaping: shared addresses: 'all users connected to the same VPN node will use the same IP addresses'; no dedicated IP is sold [2]
+  - request-rate: 6 simultaneous connections with OpenVPN or IPsec plus 6 with WireGuard (12 in total); the trial allows 3 [2]
+- limits note: The connection counts are filed under request-rate because the vocabulary has no concurrent-connection kind. The P2P guidance names seven locations (Canada - Toronto, Sweden, Netherlands, Finland, Switzerland, France, Romania) and the 28 gigabit servers in them.
+- binding note: No byte quota or rate is published; the shared-address model and the connection counts are stated, and the vocabulary cannot rank them against a quota.
+- interface detail: A tunnel and a browser proxy. Protocols: OpenVPN (TCP and UDP on several ports, with XOR and a V2Ray-based TCP obfuscation), IKEv2/IPsec, WireGuard (stated 'in beta' in the FAQ) and L2TP/IPsec. UDP: yes, OpenVPN UDP is offered. Port forwarding: not offered ('No, we don't. We believe it is a risk for the privacy and security of users.'). SOCKS5: unverified: the SecureProxy browser extension is an HTTPS proxy, and the SOCKS5 knowledge-base page returned the vendor's home page; no SOCKS5 endpoint is confirmed. Obfuscation: OpenVPN XOR on TCP 443 and a V2Ray TCP obfuscation layer. BitTorrent: not blocked; advised only on the P2P-optimised locations.
+- tooling: The vendor's apps (Windows, macOS, iOS, Android, Linux beta) and OpenVPN, WireGuard, IKEv2 or L2TP clients with the account's credentials; SecureProxy browser extensions for Chrome and Firefox.
+- composes with: A tunnel exit: the vendor states it provides shared IP addresses only, so the upstream sees an address shared with every user on the node.
+- reliability: The FAQ says accounts are activated when the payment is confirmed; the vendor keeps connection logs described in its FAQ (connection start and end) and states it does not log activity.
+- notes: Duplicate of egress/vpn-ac, which holds the offer; both records cite the same vendor page.
+- evidence note: Documented: price, protocols, UDP, port-forwarding refusal, obfuscation and the BitTorrent line are quoted from the vendor's plans page, FAQ and knowledge base. Identity is inferred, not read, because the checkout is behind a sign-up. Nothing was connected through the service.
+- evidence:
+  - [1] 2026-11-04: The 1-year plan link; its price on the page is $58. | capture: sha256:7b34384a12b7532e76f1775660e4824c1873eaefa14787426ade3517c5b5b853 | quote: billingcycle=annually
+  - [1] 2026-11-04: The 1-year plan is shown as USD 58 or USD 4.8 a month. | capture: sha256:7b34384a12b7532e76f1775660e4824c1873eaefa14787426ade3517c5b5b853 | quote: ($4,8 / month)
+  - [2] 2026-11-04: A 1-week trial costs USD 2. | capture: sha256:0b204b97389a111c280079e35da96b942e137eb225c60d564d29db515ec5fada | quote: Yes, we provide a 1-week trial account for only $2.
+  - [2] 2026-11-04: Protocols and UDP. | capture: sha256:0b204b97389a111c280079e35da96b942e137eb225c60d564d29db515ec5fada | quote: We offer support for OpenVPN (with different encryption types, TCP and UDP on several ports), IKEv2/IPsec, WireGuard (in beta), L2TP/IPsec.
+  - [2] 2026-11-04: Port forwarding is not provided. | capture: sha256:0b204b97389a111c280079e35da96b942e137eb225c60d564d29db515ec5fada | quote: No, we don't. We believe it is a risk for the privacy and security of users.
+  - [2] 2026-11-04: P2P/torrent is not blocked. | capture: sha256:0b204b97389a111c280079e35da96b942e137eb225c60d564d29db515ec5fada | quote: Yes, we don't block such protocols.
+  - [2] 2026-11-04: Addresses are shared. | capture: sha256:0b204b97389a111c280079e35da96b942e137eb225c60d564d29db515ec5fada | quote: We provide shared IP addresses, which means that all users connected to the same VPN node will use the same IP addresses (best practice for privacy purposes).
+  - [2] 2026-11-04: Customers receive payment reminders, so an email is held. | capture: sha256:0b204b97389a111c280079e35da96b942e137eb225c60d564d29db515ec5fada | quote: We will send you only auto-generated payment reminders/confirmations and important announcements on very rare occasions.
+  - [2] 2026-11-04: Cryptocurrency payment is accepted. | capture: sha256:0b204b97389a111c280079e35da96b942e137eb225c60d564d29db515ec5fada | quote: Bitcoin and many altcoins, such as Bitcoin Cash, Litecoin, Ethereum, Monero, Dash and others
+  - [4] 2026-11-04: P2P is not blocked anywhere; seven locations are advised. | capture: sha256:51496c56a57779325a9cc78adcf9451ecd84ba496a1be28d29f7f0c322395067 | quote: While P2P/torrent traffic isn't blocked in any location, it's advised to use it only in the following locations: Canada - Toronto, Sweden, Netherlands, Finland, Switzerland, France, Romania.
+  - [5] 2026-11-04: OpenVPN runs over UDP and TCP. | capture: sha256:01178e9a5968f576603494b731fc838764d4f01e904414897b89c4f87eb2d71e | quote: OpenVPN UDP can be faster than OpenVPN TCP over high-speed connections (over 100 Mbps).
+  - [5] 2026-11-04: OpenVPN XOR obfuscation on TCP 443. | capture: sha256:01178e9a5968f576603494b731fc838764d4f01e904414897b89c4f87eb2d71e | quote: If you're connecting from a firewall-restricted network, try OpenVPN XOR with port TCP-443.
+  - [5] 2026-11-04: Two obfuscation methods are used. | capture: sha256:01178e9a5968f576603494b731fc838764d4f01e904414897b89c4f87eb2d71e | quote: For that reason, an extra obfuscation layer needs to be implemented and we use 2 different obfuscation methods to make it stealthier.
+  - [3] 2026-11-04: No speed limit is stated. | capture: sha256:4797bfe8318260803d6497c55ac06ab96c9d75a27c2dece0cd5c4bc8537f1b88 | quote: No speed limit
+  - [6] 2026-11-04: SecureProxy is an HTTPS browser proxy. | capture: sha256:de72bee5108b2238d766210a8de8def6fc87c58e84345d6161288e82ab2ca3e8 | quote: Strong encryption for all browsing activity using TLS (pure HTTPS traffic)
+  - [1] 2026-11-04: the VPN.ac plans page lists the 1 Year plan, the offer both records describe | capture: sha256:aabaa76fd463e044f113f846fe1761eebbc2ec9a8d28cc7ae262f38efa431b92 | quote: $58 ($4,8 / month)
+- sources:
+  - [1] https://vpn.ac/vpn-accounts
+  - [2] https://vpn.ac/faq
+  - [3] https://vpn.ac/
+  - [4] https://vpn.ac/knowledgebase/80/What-are-the-P2P-optimized-locations.html
+  - [5] https://vpn.ac/what-vpn-protocols
+  - [6] https://vpn.ac/secureproxy
+
+## VPN.ac (exit addresses)
+
+- `ip-proxy/vpn-ac-exits` | paid-only | evidence documented | binding per-ip-shaping | category vpn subscription (exit source) | tier exit addresses
+- identity a placeholder: card and phone unknown | verified 2026-11-04T00:14:00.000Z (live) | stale on 2026-12-05
+- url https://vpn.ac/ | page https://fshy.ajam.dev/p/vpn.md
+- price unverified: regular plan price not read; trial USD 2 for 1 week
+- disagrees on identity_kind: `ip-proxy/vpn-ac` says email, `ip-proxy/vpn-ac-exits` says card
+- free tier: No free tier. A 1-week trial account costs $2 and allows 3 simultaneous connections; regular accounts allow up to 12 (6 OpenVPN/IPsec and 6 WireGuard). | unit: none | metered on: none | read on: 2026-11-04 | source: [1] | note: unverified: the regular plan price is not in the captured page text.
+- per-object cap: not applicable | source: [2]
+- retention: not applicable: an address, not an object | source: [2]
+- egress: unverified: this record covers the exit addresses of the fleet, not the plan; the plan-level traffic terms belong to the vendor's own egress record where one exists. | metered: no | free allowance: none published for the address list | source: [1]
+- identity: card | detail: unverified: behind a sign-up. The page lists Bitcoin, other cryptocurrencies, PayPal, cards and prepaid vouchers as payment methods, and a $2 trial; what the account needs was not read.
+- interface: unknown
+- limits:
+  - per-ip-shaping (binding): Up to 12 simultaneous connections (6 using WireGuard); 3 on a trial account [1]
+- limits note: Address concentration: 61 addresses, 60 with an announcing ASN, in 32 ASNs; 58 datacenter-listed and 17 VPN-listed.
+- binding note: The connection ceiling binds first, since the vendor states no speed limit and no byte quota.
+- interface detail: The status page at https://vpn.ac/status lists node hostnames, which resolve by DNS to the exit addresses; no JSON API was found.
+- endpoint: part of interface detail
+- tooling: Reading the exits needs the status page and a DNS resolver; using one needs the vendor client or OpenVPN, WireGuard or StrongSwan configs from an account. The page names a SecureProxy browser addon; its protocol was not established.
+- composes with: A free compute node dials the tunnel and the traffic leaves at one of 61 addresses; 16 are in M247 (AS9009), 32 ASNs in all.
+- reliability: No suspension, throttle or data loss was measured. 58 of 61 addresses are on the datacenter list.
+- notes: Exit-address record for the VPN.ac fleet, classified with detector index 20261103T163900Z-00d117b2 on 2026-11-03: 61 addresses, 58 datacenter-listed, 17 VPN-listed (all also datacenter), 0 Tor exits, 1 on an abuse list, 3 on none of the lists; 32 ASNs, largest AS9009 M247 with 16 addresses, 1 address with no ASN in the network source. The tier differs from any plan record.
+- evidence note: Plan facts are documented; list classification measured on 2026-11-03. Weakest rung documented; the regular price is unverified.
+- extras:
+  - exit_classification.detector_index_version: 20261103T163900Z-00d117b2
+  - exit_classification.classified_on: 2026-11-03
+  - exit_classification.n: 61
+  - exit_classification.datacenter_listed: 58
+  - exit_classification.vpn_listed: 17
+  - exit_classification.tor_exit: 0
+  - exit_classification.abuse_listed: 1
+  - exit_classification.in_none_of_the_lists: 3
+  - exit_classification.asns: 32
+  - exit_classification.largest_asn: AS9009 M247 Europe SRL
+  - exit_classification.largest_asn_addresses: 16
+  - exit_classification.endpoint: https://vpn.ac/status (node hostnames DNS-resolved)
+  - exit_classification.derived: counts taken over the 61 answers of the registered record; 16 / 61 = 26.2%
+- evidence:
+  - probe:https://vpn.ac/status 2026-11-03: The node hostnames resolved to 61 addresses which were classified. | capture: sha256:2e5577653ee968540a65b7575d2536db1f0719bd9249cf577288b36a13138560 | quote: "n": 61,
+  - [1] 2026-11-04: The trial costs $2. | capture: sha256:4797bfe8318260803d6497c55ac06ab96c9d75a27c2dece0cd5c4bc8537f1b88 | quote: Yes, we provide a 1-week trial account for only $2.
+  - [1] 2026-11-04: The connection ceiling. | capture: sha256:4797bfe8318260803d6497c55ac06ab96c9d75a27c2dece0cd5c4bc8537f1b88 | quote: Up to 12 simultaneous connections (6 using WireGuard)
+- sources:
+  - [1] https://vpn.ac/
+  - [2] https://vpn.ac/status
+
+## Webshare (static residential)
+
+- `ip-proxy/webshare-static-residential` | paid-only | evidence documented | binding volume-quota | category per-address ISP proxy | tier Static Residential (ISP)
+- needs card yes, phone no, ID no, institution no | verified 2026-10-31T00:42:08.715Z (live) | stale on 2026-12-01
+- url https://www.webshare.io/pricing | page https://fshy.ajam.dev/p/webshare.md
+- price USD 6.00 per month for 20 static ISP proxies (USD 0.30 per address per month), falling to USD 0.225 per address per month at 10,000 addresses; 250 GB included per plan. Priced per address, not per byte. | parsed USD 6/mo
+- free tier: No free tier for the Static Residential (ISP) product: its plans start at USD 6 a month for 20 proxies. The account’s free plan, 10 shared proxies with 1 GB a month and no card, is listed in the Proxy Server (datacenter) price table and is a separate offer. | unit: none | metered on: none | read on: 2026-10-31 | source: [1] | note: The free plan’s proxies are datacenter proxies from a pool kept apart from every paid plan, so they are neither a tier nor a trial of this product: the vendor offers '10 datacenter proxies free of charge' and states 'These proxies are not included in any of our paid plans.'
+- per-object cap: not applicable | source: [1] | note: The comparable ceiling for this product is the number of addresses bought and the bytes the plan carries, both recorded in limits[], not a per-object size.
+- retention: not applicable: an address, not stored bytes. The address itself is static for the life of the plan: 'These proxies are static by default, meaning they keep the same IP address for as long as you need.' | source: [2] | note: Address persistence is the product. The same article names two ways to change it: an Auto-Refresh add-on, and a Replace Proxies feature for a wrong location or a high fraud score.
+- egress: Proxy Server and Static Residential (ISP) plans include 250GB of bandwidth, and you can upgrade to unlimited bandwidth,. No overage price per TB appears on either page read 2026-10-24. | metered: yes | free allowance: 250 GB per month included in a Static Residential (ISP) plan; nothing without a paid plan | source: [1]
+- identity: card | detail: Card: a plan is paid with a card (Visa, Mastercard, American Express, Discover, Diners, China UnionPay, JCB, Cartes Bancaires or Interac) or with Google Pay or Apple Pay on a mobile device, and the vendor names no other payment method. The account is opened with an email and a password or with a Google account. An ID check through Stripe Identity is not a purchase gate, but it may be requested later to confirm the payment method or a use case. The account’s free plan needs no card, but it is a separate datacenter offer and not this product.
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): 250 GB of bandwidth a month per Static Residential (ISP) plan, with 1000 GB, 5000 GB and unlimited as the other options; unlimited is offered from 100 proxies on shared and private plans and from 50 on dedicated. The limit covers the whole plan, and past it the proxies stop working until the plan changes or the next billing cycle starts. [3]
+  - volume-quota (binding): Unlimited-bandwidth plans fall: each is guaranteed at least 10 TB a month, 1 TB per USD 10 of plan price up to USD 1,000 and 1 TB per USD 20 above it; well past the threshold the speed may be throttled from 300-400 Mbps to about 100 Mbps and down to 10 Kbps. [4]
+  - per-ip-shaping: Threads 500 - 3,000, listed as a plan spec beside Bandwidth and IP Authorization; the page does not say whether the range is per plan or per address [5]
+- limits note: The address count is the unit of purchase, not a limit: 20 addresses at the entry tier, 10,000 at the top, and the byte allowance does not multiply with it, because the 250 GB is included per plan.
+- binding note: The 250 GB included allowance is the only ceiling in the vocabulary this product imposes, and it is the one that would fail first: the per-plan thread ceiling and the address count impose nothing at 599,000 requests a month, while 250 GB is about 5.5 times the gateway's inferred ~45 GB a month, so the quota binds only if volume grows past 250 GB or a second workload shares the plan.
+- interface detail: The address is reached as an HTTP proxy or a SOCKS5 proxy endpoint: 'Webshare provides static residential proxies with ISP-issued static IPs, up to unlimited bandwidth, and HTTP/SOCKS5 support'. The plan also exposes a dashboard API and a downloadable proxy list (TXT), and lists IP Authorization among its connection controls. The schema's interface tokens carry no value for a proxy protocol, so the two tokens recorded here mean: rest for the control API, cli for any HTTP or SOCKS5 client.
+- tooling: Any HTTP or SOCKS5 client connects directly to the proxy address using curl -x, standard language HTTP libraries, or intermediate proxy relays. Proxy endpoint lists can be retrieved programmatically via the dashboard API without panel scraping.
+- composes with: It is the rung-5 move for the gateway: the 102 relay Workers supply geographic spread and a per-connection address that are still Cloudflare's, and one Webshare static ISP address supplies an ISP-registered prefix in a non-Cloudflare ASN for the upstreams that refuse Cloudflare's ranges. At $6.00/month for 20 addresses it is the cheapest way to hold several distinct ISP-registered exits at once, and the addresses are static, so a per-upstream choice of exit is possible rather than a per-request draw.
+- reliability: The address is static per plan, and the vendor offers a Replace Proxies feature and an Auto-Refresh add-on, so a burned address costs a replacement rather than a new plan; the same help article states that hosting-environment checkers may label the address datacenter and that fraud scores differ between tools, and the product page claims 99.97% uptime.
+- notes: Paid-only: the Static Residential (ISP) product has no free tier, trial or recurring credit, and the account’s free plan is a separate datacenter offer. A purchase buys an address whose ASN is a residential ISP, not a residential hosting environment: the vendor states that the IP address belongs to a residential ISP while the server it runs on sits in a datacenter, so a check of the ASN shows a residential ISP such as AT&T or Comcast, and a check of the hosting environment may show datacenter or hosting. Which of the two signals a refusing upstream reads is unverified without a bought address. The same provider is also filed as debrid/webshare, priced there as an egress path. The interface vocabulary has no token for an HTTP or SOCKS5 proxy endpoint, so the protocols are recorded in interface_detail.
+- evidence note: Every field the verdict rests on was read on the vendor's own pages on 2026-10-24 and none was measured: the per-address ladder, the 250 GB allowance, the free plan's terms, and the registration-class split.
+- extras:
+  - rung: 5
+  - rung_note: Rung 5 is the registration class, and this is the one vendor in the topic whose own documentation states that the class and the hosting environment disagree, which makes the purchase a test of which signal an upstream reads rather than a guarantee of either.
+  - decisive_quote: An ISP proxy lives in two worlds at once: the IP address belongs to a residential ISP, but the server it runs on sits in a datacenter. Tools that check the ASN will correctly show a residential ISP like AT&T or Comcast. Tools that check the hosting environment may label the IP as datacenter or hosting, because, technically, that is where the server is.
+  - per_address_usd_month: $0.30 at 20-250 addresses; $0.285 at 500; $0.27 at 1,000; $0.255 at 2,000; $0.24 at 3,000-5,000; $0.225 at 10,000
+  - free_plan_class: datacenter, shared: the 10 free proxies are not the static residential product
+  - address_replacement: Replace Proxies on demand, plus an Auto-Refresh add-on for automatic changes
+  - cheapest_note: $0.30 per address per month is the cheapest verified per-address ISP rate found in this topic, and it is priced per address rather than per gigabyte, which is the unit this topic compares on.
+  - read_path: the pricing page also returned the same figures to a direct fetch
+- evidence:
+  - [1] 2026-10-24: Static Residential (ISP) is priced per proxy: $6/month for 20 proxies ($0.30/proxy), dropping to $0.225/proxy at 10,000 proxies, with the monthly ladder 20 $0.30, 500 $0.285, 1,000 $0.27, 2,000 $0.255, 3,000 $0.24, 5,000 $0.24, 10,000 $0.225. Also: Proxy Server and Static Residential (ISP) plans include 250GB of bandwidth, and you can upgrade to unlimited bandwidth,. Also the free plan: 10 shared proxies, 1GB of monthly bandwidth, HTTP and SOCKS5, no time limit, no credit card.
+  - [5] 2026-10-24: The product page's own framing of the same split: Residential trust, datacenter speed, and an IP that never changes; Registered to real internet providers, not hosting companies, so sites treat your traffic like a home connection with datacenter-level speed. Specs: Bandwidth Up to Unlimited* with the footnote * Threads 500 - 3,000, IP Authorization, up to 1 Gbps, 100K+ proxies, 99.97% uptime, HTTP and SOCKS5 endpoints, ISPs named as AT&T, Sprint, Cox Communications, Comcast, RCN and Lumen.
+  - [2] 2026-10-24: The vendor states the two-worlds split in its own words: An ISP proxy lives in two worlds at once: the IP address belongs to a residential ISP, but the server it runs on sits in a datacenter. Tools that check the ASN will correctly show a residential ISP like AT&T or Comcast. Tools that check the hosting environment may label the IP as datacenter or hosting, because, technically, that is where the server is. Same article: static by default, same IP for as long as you need, with Auto-Refresh and Replace Proxies as the two ways to change it.
+  - [1] 2026-10-31: The cheapest Static Residential (ISP) plan is paid: USD 6 a month for 20 proxies; no free or trial tier of this product is named. | capture: sha256:6f4a1929363f642d80f52cc8f2e10b4888ee92c60ef976b2aa2d14dbcac8c02a | quote: Static Residential (ISP) plans start at $6/month for 20 proxies.
+  - [6] 2026-10-31: The free plan's proxies are a pool of their own, outside every paid plan, the Static Residential plans included. | capture: sha256:ee26c007a0c76210389e53a46f47de18a72110fd1e72b0b74a5bedadd9efbab7 | quote: These proxies are not included in any of our paid plans.
+  - [3] 2026-10-31: Shared Static Residential plans take 250 GB, 1000 GB, 5000 GB or unlimited bandwidth, unlimited from 100 proxies; the same page sets dedicated at from 50 proxies and says past the limit the proxies stop. | capture: sha256:c572206dbcfa2038ca2834b5639dec3835fe9048865ad9583ea75b90c99a2a01 | quote: Shared: 250 GB, 1000 GB, 5000 GB, unlimited (from 100 proxies)
+  - [4] 2026-10-31: The provider, which covers Static Residential plans, guarantees an unlimited-bandwidth plan at least 10 TB a month before throttling. | capture: sha256:beae67a91eb4251011be8fc46e9e8d04685f1c25b9ff33c4faac67d6ea65be86 | quote: All of our Unlimited Bandwidth plans include a guaranteed minimum threshold of 10 TB.
+  - [1] 2026-10-31: Static Residential (ISP) is priced per proxy, from 20 proxies at USD 0.30 each to USD 0.225 each at 10,000 proxies. | capture: sha256:6f4a1929363f642d80f52cc8f2e10b4888ee92c60ef976b2aa2d14dbcac8c02a | quote: It starts at $6/month for 20 proxies ($0.30/proxy) and drops to $0.225/proxy at 10,000 proxies.
+  - [1] 2026-10-31: A Static Residential (ISP) plan includes 250 GB of bandwidth, with unlimited bandwidth as an upgrade. | capture: sha256:6f4a1929363f642d80f52cc8f2e10b4888ee92c60ef976b2aa2d14dbcac8c02a | quote: Proxy Server and Static Residential (ISP) plans include 250GB of bandwidth, and you can upgrade to unlimited bandwidth,.
+  - [5] 2026-10-31: A plan is paid by card, or by Google Pay or Apple Pay on mobile; the same FAQ says no other payment method is supported. | capture: sha256:8682ad1d2b19a7053f2446847999e01dba1173d1c9c9f631ce5bfccef075b094 | quote: Card-based payment methods such as Visa, Mastercard, American Express, Discover and Diners, China UnionPay, JCB, Cartes Bancaires, and Interac
+  - [2] 2026-10-31: The vendor states the address's ASN is a residential ISP while its server sits in a datacenter, so ASN checks and hosting checks can disagree. | capture: sha256:f08fe9b537adb4834f529ba52c088fe7343296d4880d8233b42617f3aa8e4a6e | quote: An ISP proxy lives in two worlds at once: the IP address belongs to a residential ISP, but the server it runs on sits in a datacenter.
+  - [6] 2026-10-31: The free plan's 10 proxies are datacenter proxies, not static residential (ISP) addresses. | capture: sha256:ee26c007a0c76210389e53a46f47de18a72110fd1e72b0b74a5bedadd9efbab7 | quote: We're excited to offer you 10 datacenter proxies free of charge with Webshare!
+  - [7] 2026-10-31: An ID check is not asked of every account, but may be requested to confirm the payment method or a use case. | capture: sha256:eb6afa530b1f7a3d9ca92011eb968a160285b1969195c1c5db2b886fc1b098bd | quote: ID verification isn’t required for all users, but it may be requested in certain situations, such as confirming your payment method or verifying your use case.
+  - [8] 2026-10-31: The account is opened with an email address and a password, or with Sign up with Google, and the page states no card is required to register. | capture: sha256:19823a0337c0692c60817cf5d16699cec1d41db8a56e31a358e9d81fcee229cb | quote: Sign Up With Email
+  - [5] 2026-10-31: The plan spec still lists Threads 500 - 3,000 beside Bandwidth Up to Unlimited and IP Authorization, and the product's price table starts at 20 proxies for USD 6.00 a month with no free row. | capture: sha256:a5d3b100861657b66a3bf33069d42a958152001fd2992f94d5d42238c5d7fa1c | quote: Threads 500 - 3,000
+  - [5] 2026-10-31: The product is still sold as static ISP-issued addresses with up to unlimited bandwidth and HTTP and SOCKS5 endpoints. | capture: sha256:a5d3b100861657b66a3bf33069d42a958152001fd2992f94d5d42238c5d7fa1c | quote: Webshare provides static residential proxies with ISP-issued static IPs, up to unlimited bandwidth, and HTTP/SOCKS5 support for scraping, account management, ad verification, and long-running sessions that require consistent identity.
+- sources:
+  - [1] https://www.webshare.io/pricing
+  - [2] https://help.webshare.io/en/articles/15518733-what-is-a-static-residential-proxy-isp-proxy
+  - [3] https://help.webshare.io/en/articles/8370524-how-does-the-bandwidth-limit-work
+  - [4] https://help.webshare.io/en/articles/10599445-fair-usage-policy
+  - [5] https://www.webshare.io/static-residential-proxy
+  - [6] https://help.webshare.io/en/articles/8375287-do-you-offer-proxies-for-free
+  - [7] https://help.webshare.io/en/articles/10165357-what-is-id-verification
+  - [8] https://dashboard.webshare.io/register
+
+## ZooProxy (formerly FluxISP)
+
+- `ip-proxy/zooproxy-fluxisp` | paid-only | evidence documented | binding volume-quota | category rotating residential and static ISP proxy | tier Residential Proxies (per GB) and Static ISP (per IP)
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T07:35:31.081Z (live) | stale on 2026-12-04
+- url https://zooproxy.com/ | page https://fshy.ajam.dev/p/zooproxy.md
+- duplicate of `ip-proxy/zooproxy-isp-proxy`
+- free tier: Residential from $0.38/GB and ISP proxy from $1.80/IP on the home page, with 'Start Free Trial' on the sign-up button. The FAQ limits that: 'Some plans include a free trial. You can contact our online support to claim it for free.' | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: The trial size is not stated on any page read: unverified: behind a contact.
+- per-object cap: not applicable: an address or a traffic quota, not an object | source: [2]
+- retention: not applicable: a proxy session or a rented address, not stored bytes | source: [2]
+- egress: Residential traffic is billed per GB with larger plans cheaper per GB and custom pricing above 10 TB; static ISP plans are 'priced by IP and rental period, with no additional charges based on traffic usage'. | metered: yes | free allowance: trial on request, size unverified | source: [3]
+- identity: email | detail: The sign-up page asks for a password of 8 to 20 characters and an emailed 'Verification code', with a Google sign-in alternative; no phone, card or identity document is on the form. Payment is by card, cryptocurrency, Alipay or bank transfer.
+- interface: rest
+- limits:
+  - volume-quota (binding): Residential from $0.38/GB; contact sales above 10 TB [3]
+  - per-ip-shaping: Unlimited Traffic - Port plan: 6 Mbps per port from $0.38/port/day; Unlimited Traffic - Bandwidth plan from $19.67/day [2]
+- limits note: Static ISP sample rows on the pricing page show a 'Broadcast ISP' address in Johor Bahru, Malaysia under AS7361 (DataZone Networks LLC) and a 'Native ISP' address in Seoul under AS9848 (Sejong Networks), both labelled 'Home Bandwidth IP' with a 'Risk Score' of 8% and 5%; the addresses are masked, so no registry lookup of an address was possible. A RIPE Stat lookup of the two ASNs gave holders DATAZONE - DataZone Networks LLC (ARIN) and SejongTelecom-AS-KR-KR - SEJONG NETWORKS (APNIC).
+- binding note: The residential product is metered per GB; the static ISP product is per IP and rental period with no traffic fee.
+- interface detail: HTTPS, HTTP and SOCKS5; residential sessions are sticky for 1 to 120 minutes or rotate on every request; static ISP plans support HTTP(S) and SOCKS5.
+- tooling: Any client that speaks an HTTP(S) or SOCKS5 proxy with a username and password or an allowlisted source address: curl -x, python requests, rclone --socks5, or a host-side hop for a runtime that cannot dial a proxy itself.
+- composes with: A host-side hop dials the vendor's HTTP(S) or SOCKS5 endpoint with credentials; the upstream sees an address from the vendor's pool in place of the caller's address.
+- reliability: https://www.fluxisp.com/ resolves to zooproxy.com, so the FluxISP name now maps to this vendor. The 'Broadcast ISP' sample is registered to a hosting-style AS (DataZone Networks) while its 'IP Category' reads 'Home Bandwidth IP'; the registration class of any live exit was not checked (rung 5).
+- notes: Named on a Chinese-language proxy forum as FluxISP ('动态住宅低至$0.4/GB, 静态ISP独享IP'); the vendor now trades as ZooProxy.
+- evidence note: Prices, session rules, sign-up fields and payment methods are from the vendor's pages; the pool and class labels are vendor statements; the two ASN holders are a registry lookup of the vendor's published sample rows.
+- extras:
+  - rung: 5
+  - rung_note: The static ISP line claims to clear rung 5 (registration class); only the two sample ASNs were looked up, not a live exit.
+- evidence:
+  - [2] 2026-11-03: Residential proxies start at $0.38 per GB. | capture: sha256:9ee2cd55153be046d87e3c57dc13420a3fb2d1ce051dd9778a7d34be3b811fe4 | quote: Starting from $0.38/GB
+  - [2] 2026-11-03: The static ISP proxy starts at $1.80 per IP. | capture: sha256:9ee2cd55153be046d87e3c57dc13420a3fb2d1ce051dd9778a7d34be3b811fe4 | quote: Starting from $1.80/IP
+  - [4] 2026-11-03: The FluxISP domain serves the ZooProxy site: its final URL is zooproxy.com, so both names are one vendor. | capture: sha256:9ee2cd55153be046d87e3c57dc13420a3fb2d1ce051dd9778a7d34be3b811fe4 | quote: ZooProxy helps businesses collect data, maintain stable sessions, and handle high-traffic workloads with reliable proxy access across different markets.
+  - [1] 2026-11-03: A trial exists by request to support. | capture: sha256:c3e1a944ec5c69fcaffd5db9010b21c8e4eba22180c449bf44877cf49f54d3b2 | quote: Some plans include a free trial. You can contact our online support to claim it for free.
+  - [1] 2026-11-03: Payment rails are card, crypto, Alipay and bank transfer. | capture: sha256:c3e1a944ec5c69fcaffd5db9010b21c8e4eba22180c449bf44877cf49f54d3b2 | quote: We support payment methods such as credit cards, cryptocurrencies, Alipay, and bank card transfers.
+  - [1] 2026-11-03: Sticky sessions last 1 to 120 minutes. | capture: sha256:c3e1a944ec5c69fcaffd5db9010b21c8e4eba22180c449bf44877cf49f54d3b2 | quote: Sticky IP: The IP remains fixed for 1–120 minutes and rotates automatically upon expiration.
+  - [5] 2026-11-03: The sign-up form asks for an emailed verification code. | capture: sha256:46a76389528447fcca76a1d54ee551cc33d128d4f7390d686a1d69cb24df75c9 | quote: Verification code
+  - [6] 2026-11-03: The vendor separates 'Native ISP' from 'Broadcast ISP' by whether registration and egress locations match. | capture: sha256:9d0aed10e272e0375922a8e341022260386b4e36a1a970c4d04f3b3a6a8ff699 | quote: The difference is whether the IP registration location matches its internet egress, affecting account risk control and cost.
+  - [3] 2026-11-03: Residential pricing is custom above 10 TB. | capture: sha256:679bd96a3dd53d55fb0aab1a55a0dbd2d250ad533574bf9c190654a845a08cb2 | quote: If you need more than 10TB of traffic, contact our sales team for custom pricing based on your traffic requirements.
+- sources:
+  - [1] https://zooproxy.com/faq/
+  - [2] https://zooproxy.com/
+  - [3] https://zooproxy.com/pricing/residential-proxy/
+  - [4] https://www.fluxisp.com/
+  - [5] https://zooproxy.com/sign-up/
+  - [6] https://zooproxy.com/pricing/isp-proxy/

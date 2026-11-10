@@ -1,0 +1,144 @@
+# Route64
+
+> route64.org | Egress and tunnels, IP and proxies, Compute; 3 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/route64/ | JSON https://fshy.ajam.dev/api/v1/entity/route64.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Route64 (org)
+
+- `egress/route64-org` | qualifies | evidence documented | binding none | category IPv6 tunnel broker (WireGuard, routed prefix) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://route64.org/en
+- price USD 0
+- free tier: Route64 provides IPv6 tunnels with a routed /56 subnet, delivered through multiple tunnel protocols (WireGuard, GRE, IP6IP, etc.) to your endpoint. | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: Traffic is not metered and it is possible to get more transit if 200M is not enough. (transit text) The IPv6 tunnelbroker page publishes no byte allowance at all; the conditions page says 'This is a free best effort service.'; ingress: tcp+udp | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: An account in the manager portal is required: the pricing block says 'Just created an account in our manager'. The sign-in page at manager.route64.org returned a login wall to the reader, so the exact fields a new account must supply were not readable. Email is the minimum such a portal implies and is not confirmed. | country: None
+- interface: cli
+- limits:
+  - per-ip-shaping: designed for up to 200 Mbit/s; throttle at any time [2]
+- binding note: Nothing in the vocabulary fails at 1 TiB/month. There is no byte counter on the tunnelbroker, and the conditions page reserves throttling without naming a threshold.
+- interface detail: self-service web portal generates the tunnel configuration; wg-quick applies it
+- tooling: wg-quick plus the vendor portal; GRE/SIT/L2TPv3/VXLAN also offered
+- composes with: a routed /56 over WireGuard gives a free VM with no public address 2^72 inbound IPv6 addresses; the VM supplies the CPU and the only other input is a WireGuard handshake
+- reliability: conditions: reject, cancel, throttle or nullroute at any time without warning; 200M best effort; flow-spec analysis; multiple accounts cause suspension of all.
+- notes: The routed /56 is IPv6 only, so the inbound address is public but reachable only by clients that have IPv6. The /56 is routed to the tunnel endpoint, so the endpoint is what must already be owned: this composes with a free VM, it is not a substitute for one. UDP is carried because the prefix is routed IP, not a port forward; that is inferred from 'Subnet is route to your tunnel endpoint', not from a UDP sentence.
+- evidence note: A live request from a client endpoint through a WireGuard tunnel to a service on the routed /56 would raise this to measured. Two things were read (home page, conditions page) and neither was probed.
+- extras:
+  - wg_path: extractable
+  - wg_detail: No downloadable .conf is published. The self-service portal is the registration and the generator: 'Our system also generated configuration samples for tunnel config based on your information.' WireGuard is one of six offered protocols ('Wireguard yes yes' in the IPv4 and IPv6 endpoint table).
+  - ingress: tcp+udp
+  - volume_stated: Traffic is not metered and it is possible to get more transit if 200M is not enough. (transit text) The IPv6 tunnelbroker page publishes no byte allowance at all; the conditions page says 'This is a free best effort service.'
+  - bytes_transit: yes
+  - transit_note: Route64's routers carry the tunnel traffic to and from its upstreams and peers
+- evidence:
+  - [1] 2026-10-23: free /56 over WireGuard, the protocol table, 'Pricing? No!', and the config-sample sentence
+  - [2] 2026-10-23: 'Our service is designed to deliver up to 200M throughput often more.', 'We can throttle your bandwidth at any time.', and the no-warning cancellation clauses
+- sources:
+  - [1] https://route64.org/en
+  - [2] https://route64.org/en/tos
+
+## Route64 (ipv4 blocks)
+
+- `ip-proxy/route64-ipv4-blocks` | qualifies-with-caveat | evidence documented | binding none | category prefix lease | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T10:07:11.000Z (live) | stale on 2026-11-24
+- url https://route64.org/en
+- price USD 0: the allocation and its traffic are both free, and no per-byte price exists at any tier
+- free tier: Route64 provides the following services to you completely free of charge. Static IPs: 'Need dedicated IPv4 and IPv6 addresses for your services? Route64 offers static IP allocations that remain permanently assigned to your account. Whether you need IPs for web hosting, mail servers, DNS infrastructure, or any other service, our static IPs are geographically flexible and can be deployed across multiple locations. All IP management is handled through our self-service portal.' The pricing block reads 'Pricing? No!' and 'Just created an account in our manager'. | unit: none | metered on: none | read on: 2026-10-24 | source: [1] | note: The offer is denominated in addresses, a unit this enum does not carry, so the token is none rather than a byte or request unit. The vendor publishes neither a price nor a count of static IPs per account, and no page read on 2026-10-24 states how many addresses one account may hold.
+- per-object cap: not applicable | source: [1] | note: An address allocation carries no stored object and therefore no per-object ceiling. The nearest structural cap is the pool: five /24s, 1,280 addresses for the whole service, not a limit on one allocation.
+- retention: not applicable: a static address, not stored bytes | source: [1] | note: The page states the allocation 'remain[s] permanently assigned to your account', so there is no idle timer.
+- egress: No byte allowance and no traffic price is published for the static-IP product. | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: An account in the self-service manager portal is required: 'Just created an account in our manager.' The sign-in page at manager.route64.org returned a login wall to the reader, so the exact fields a new account must supply were not read; email is the minimum such a portal implies and is not confirmed.
+- interface: unknown
+- limits:
+  - per-ip-shaping: up to 200 Mbit/s design point: 'Our service is designed to deliver up to 200M throughput often more.'; 'We can throttle your bandwidth at any time.' [2]
+  - volume-quota: none: 'Traffic is not metered' on the transit feature block, and no byte allowance or traffic price is published for the static-IP product [1]
+- limits note: No vocabulary kind fits the pool itself. AS212895 announces five IPv4 /24s, which is 1,280 addresses for the whole service, and the vendor's own page claims only '3 IPv4 /24 blocks'. No per-account count of static IPs is published at any tier.
+- binding note: Nothing in the vocabulary fails at the scale: about 45 GB a month across about 599,000 requests averages roughly 0.14 Mbit/s, while the only published throughput ceiling is the 200 Mbit/s design point, which is 2.16 TB a day, and no byte quota exists for the static-IP product. The ceiling that arrives first is structural and unclassified: 1,280 addresses in one ASN and one registration class.
+- interface detail: The reachable surface is the self-service web portal at manager.route64.org: 'All IP management is handled through our self-service portal.' No public API or CLI is documented, and manager.route64.org returned a login wall when read.
+- tooling: An account in the self-service manager portal is the only published route to an allocation. The address then has to be bound to an existing endpoint, either by placing compute at one of the vendor's PoPs or by terminating one of the six published protocols from it: GRE, GRETAP, SIT, WireGuard, L2TPv3, VXLAN, all listed with both IPv4 and IPv6 endpoints. No proxy wrapper, API client, downloadable configuration or test address is published for the static-IP product, so the announcing AS and the registration class cannot be checked before signing up. A missing wrapper is not a reason to reject this provider: what is missing here is the protocol and the test address, not the wrapper.
+- composes with: It supplies the Workers gateway with IPv4 source addresses in an ASN that is not AS13335, which is the rung-4 move, and it needs an existing compute endpoint to terminate a tunnel from or to sit at a PoP; it adds address count and one ASN, not registration-class diversity, because every address in the five blocks is IPXO-registered.
+- reliability: Best effort with no SLA ('This is a free best effort service. You have no service levels or guarantees.'); all five blocks are one IPXO registration class and one announcing AS, so a prefix-level blocklist entry or a nullroute removes all 1,280 addresses together.
+- notes: Route64 makes no class claim at all, so the class is settled entirely by the registry, and the registry does not support one: four blocks read IPXO or IPXO-LEASED as SUB-ALLOCATED PA or ASSIGNED PA, country EU, registrant ORG-PC1552-RIPE, with PC21176-RIPE 'Private Customer' as admin, tech and abuse contact and the remark 'End User Organization'. A sub-allocation of a lease broker's PA space is a broker's pool, not an eyeball broadband network, so rung 5 is not cleared. (2) That the announcement and the registration disagree, which is the topic's warning stated as a claim. Confirmed, and precisely: the announcement is Route64's own, since RIPE autnum 212895 is registered as ROUTE64_ORG and all five /24s are originated there and visible to 268 or 269 of 269 RIS peers, while the registration belongs to IPXO on four blocks and to an ARIN 'Private Customer' assignment on the fifth. Two parties, neither of them an ISP. That is a rung-5 failure, and it is not a rung-3 or rung-4 failure: the addresses are in five different /24s and in an ASN that is not AS13335, so both of those rungs are cleared by the measured announcement. (3) That the vendor's own block count can be relied on. Refuted: the page says 'Our address portfolio includes 3 IPv4 /24 blocks' and RIPEstat returned five, so the pool to draw from is 1,280 addresses rather than 768. That changes the size of the caveat, not its direction. A fourth finding belongs in the record rather than the notes: the vendor publishes a geofeed that carves single /24s into per-country fragments, a /28 in Stockholm, a /29 in London, /31s in Paris, Zurich and Frankfurt. A geofeed-aware upstream will read the declared country while RDAP still says EU, so the declared location is a vendor artifact and neither a registry fact nor a class. Every fact about the network rests on one read, on 2026-10-24: one announced-prefixes query, five routing-status queries, five RDAP queries, one geofeed fetch and two vendor pages. Nothing was delivered and nothing was echoed, and the instruction that matters for this record is that one delivered address must be measured before the class is relied on. That measurement is not here: it needs an account, an allocation, an echo service and a control request from a Cloudflare address in the same minute, and without it this record reports what the registry says rather than what an address does. This record does not duplicate egress/route64-org, which owns the free IPv6 /56 WireGuard tunnel and was read on 2026-10-23; this record owns the IPv4 static allocation only. Nothing in that record is corrected here, and the 200 Mbit/s design point and the provider sentences appear in both because they bind both products, each citing the provider directly.
+- evidence note: Autonomous system announcements and RDAP registrations across five /24 subnets were measured via RIPEstat and RDAP on 2026-10-24. Free allocation terms, portal access, and unmetered bandwidth policies are documented from vendor documentation read on 2026-10-24.
+- extras:
+  - rung: 4
+  - rung_note: Five /24s originated by AS212895 clear rung 3, an address in a different /24, and rung 4, a network that is not AS13335; rung 5 is not cleared, because all five blocks are IPXO sub-allocations reading 'Private Customer'.
+  - announced_v4_blocks: 81.168.111.0/24; 192.208.1.0/24; 87.229.23.0/24; 81.18.58.0/24; 79.175.70.0/24
+  - address_count: 1280
+  - announcing_asn: AS212895
+  - announcing_asn_name: ROUTE64_ORG
+  - vendor_claimed_v4_blocks: 3 IPv4 /24 blocks (page text, 2026-10-24), against five announced
+  - registration: IPXO or IPXO-LEASED on four blocks, SUB-ALLOCATED PA or ASSIGNED PA, country EU, ORG-PC1552-RIPE, contact PC21176-RIPE 'Private Customer', remark 'End User Organization'; ARIN ASSIGNMENT NET-192-208-1-0-4 to C11060843 'Private Customer' on the fifth
+  - geofeed_url: https://manager.route64.org/data/geofeed.csv
+  - geofeed_note: single /24s are carved into per-country fragments, so the declared country is vendor-published and not a registry fact
+  - transit_cap: 200 Mbit/s design point, throttle at any time
+  - derivation: 1,280 addresses is 5 x 256, arithmetic on the five /24s RIPEstat returned; 0.14 Mbit/s is 45 GB over 30 days; 2.16 TB/day is 200 Mbit/s. None of the three is a measurement.
+  - verification_gap: no address was delivered, so whether a delivered static IP is one of these five blocks, and whether it egresses from AS212895 as a usable exit, is unmeasured
+  - duplicate_of: egress/route64-org owns the IPv6 /56 tunnel product; this record owns IPv4 static allocation only
+- evidence:
+  - [1] 2026-10-24: The static-IP offer ('Route64 offers static IP allocations that remain permanently assigned to your account', 'our static IPs are geographically flexible'), the free-of-charge sentence, 'Pricing? No!', the portal account requirement, and the vendor's own count: 'Our address portfolio includes 3 IPv4 /24 blocks and 78 IPv6 /48 blocks.'
+  - [3] 2026-10-24: AS212895 announces exactly five IPv4 /24s, 81.168.111.0/24, 192.208.1.0/24, 87.229.23.0/24, 81.18.58.0/24 and 79.175.70.0/24, alongside 96 IPv6 prefixes, so the page's '3 IPv4 /24 blocks' is not the current count.
+  - [4] 2026-10-24: 81.18.58.0/24 is originated by AS212895 and seen by 268 of 269 RIS peers; the same query on the same run returned origin 212895 and 268 or 269 peers for 81.168.111.0/24, 192.208.1.0/24, 87.229.23.0/24 and 79.175.70.0/24, so all five are in the DFZ rather than merely registered.
+  - [5] 2026-10-24: The announcing AS is Route64's own: AS212895 is registered as ROUTE64_ORG, status active, with an individual in Stuttgart, Germany, as registrant. The announcement is therefore not a leased transit AS, which is what separates this case from a transit-only prefix lease.
+  - [6] 2026-10-24: The registration is not Route64's and is not an ISP's: name IPXO, type SUB-ALLOCATED PA, country EU, registrant ORG-PC1552-RIPE, administrative, technical and abuse contact PC21176-RIPE 'Private Customer', remark 'End User Organization'. The same query returned IPXO-LEASED-81-168-111-0-24 for 81.168.111.0/24, HGC-Global-Communications-Limited with IPXO details for 87.229.23.0/24, and IPXO with type ASSIGNED PA for 79.175.70.0/24.
+  - [7] 2026-10-24: The fifth block is registered in a different registry and reads differently: ARIN handle NET-192-208-1-0-4, type ASSIGNMENT, parent NET-192-208-1-0-3, registrant C11060843 'Private Customer', with a remark pointing at the vendor's geofeed. No IPXO name appears on it, so the five blocks are not one uniform registration.
+  - [8] 2026-10-24: The vendor declares location per sub-block inside single /24s: a /28 in Stockholm, a /29 in London, /31s in Paris, Zurich and Frankfurt, all inside 79.175.70.0/24. The country an address appears in is vendor-published, not a registry fact, and RDAP still reads EU for that block.
+  - [2] 2026-10-24: The published ceilings and the reliability position: 'Our service is designed to deliver up to 200M throughput often more.', 'We can throttle your bandwidth at any time.', 'We can cancel any service at any time without any warning.', 'We can nullroute your advertised prefixes at any time without any warning.', 'This is a free best effort service. You have no service levels or guarantees.', 'Multiple accounts are not allowed and will cause the suspension of all accounts.'
+- sources:
+  - [1] https://route64.org/en
+  - [2] https://route64.org/en/tos
+  - [3] https://stat.ripe.net/data/announced-prefixes/data.json?resource=AS212895
+  - [4] https://stat.ripe.net/data/routing-status/data.json?resource=81.18.58.0/24
+  - [5] https://rdap.db.ripe.net/autnum/212895
+  - [6] https://rdap.org/ip/81.18.58.0
+  - [7] https://rdap.arin.net/registry/ip/192.208.1.0
+  - [8] https://manager.route64.org/data/geofeed.csv
+
+## ROUTE64 (AS212895)
+
+- `compute/route64-tunnel` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category IPv6 tunnel broker | tier free IPv6 tunnel, /56
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T01:53:22.000Z (live) | stale on 2026-11-24
+- url https://route64.org/en
+- free tier: free IPv6 tunnel with a routed /56 subnet over WireGuard, GRE, IP6IP, SIT, GRETAP, VXLAN or L2TPv3, self-service | unit: unlimited | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: a routed /56 per tunnel endpoint, stated on the home page as 'IPv6 tunnels with a routed /56 subnet'
+- retention: static IP allocations are stated to remain permanently assigned to the account; the portal was not opened, so what inactivity does to an allocation was not established | source: [1]
+- egress: free transit up to 200 Mbit/s, traffic not metered, more available on request or by donation | metered: no | free allowance: unmetered at up to 200 Mbit/s | source: [1]
+- identity: email | detail: the portal is described as self-service and fully automated; the registration form was not read, so whether an email address alone suffices is unverified.
+- interface: rest
+- limits:
+  - per-ip-shaping (binding): up to 200 Mbit/s on the free transit [1]
+  - volume-quota: no byte quota: 'Traffic is not metered' [1]
+- binding note: 200 Mbit/s is the only published ceiling; there is no traffic meter, so throughput is the constraint and volume is not.
+- interface detail: a self-service web portal that issues tunnel configs; not a machine, so there is no shell of its own
+- tooling: the portal generates WireGuard configuration; any client can terminate the other end
+- composes with: an IPv6 address space and a WireGuard peer for a machine that has no IPv6 of its own, which is a routing service and not a host
+- reliability: no SLA is stated on the home page; the service is donation-funded
+- notes: This is not a machine and cannot be one: it gives an address and a peer, and something is still needed to terminate the tunnel on. It is recorded because it is the way an IPv6-only or CGNAT machine acquires a routable prefix. The egress topic owns the tunnel; this record covers only the address space.
+- evidence note: the /56, the protocol list and the 200 Mbit/s cap are quoted from the home page read
+- extras:
+  - billing_model: free, donation-funded
+  - term: no term
+  - m10h_usd: 0
+  - m24h_usd: 0
+  - price_arithmetic: USD 0: the service is stated free of charge
+  - free_tier_kind: free service
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all on the routed prefix
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: not a machine
+  - ipv6_prefix: /56 routed
+  - renewal_usd: USD 0
+  - renewal_note: free service, donation-funded; no renewal step
+- evidence:
+  - [1] 2026-10-24: quoted: 'Route64 provides IPv6 tunnels with a routed /56 subnet, delivered through multiple tunnel protocols (WireGuard, GRE, IP6IP, etc.) to your endpoint.'
+  - [1] 2026-10-24: quoted: 'Get free IPv4 / IPv6 transit for your network to bring your IP prefixes to the DFZ with up to 200M. Traffic is not metered'
+  - [1] 2026-10-24: quoted: 'Static IP allocations that remain permanently assigned to your account.'
+  - [2] 2026-10-24: route64.com is a parked domain listed for sale; a request for route64.com redirected to the GoDaddy for-sale page, so the provider is route64.org and the .com is not it
+- sources:
+  - [1] https://route64.org/en
+  - [2] https://forsale.godaddy.com/forsale/route64.com

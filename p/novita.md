@@ -1,0 +1,128 @@
+# Novita AI
+
+> novita.ai | Compute, Inference; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/novita/ | JSON https://fshy.ajam.dev/api/v1/entity/novita.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Novita AI Agent Sandbox
+
+- `compute/novita` | qualifies-with-caveat | evidence documented | binding volume-quota | category container and VM sandbox
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T17:25:22.473Z (live) | stale on 2026-12-04
+- url https://docs.novita.ai/guides/sandbox-pricing
+- free tier: $100 of promotional credits after an account setup survey, no card; a running sandbox carries 20 GB of ephemeral storage and 60 GB of persistent-storage allowance | unit: mixed | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email | detail: 'No credit card is required' for the promotional credits, quoted from the sandbox pricing page read 2026-10-22; the survey is the second gate
+- interface: unknown
+- limits:
+  - volume-quota (binding): $100 of promotional Sandbox credits, one time, valid for 90 days [1]
+  - per-object-cap: 20 GB of ephemeral storage per running sandbox; 60 GB free persistent-storage allowance [1]
+- binding note: the one-time $100 Sandbox credit, valid for 90 days, runs out before any other stated limit
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: The Novita LLM API model list prices apodex/apodex-1.1-mini at 0 per million input and output tokens and sets its default per-model limits at tier T1 to 30 RPM and 50000000 TPM; T2 is 100 RPM and T5 is 6000 RPM, with TPM at 50000000 in every tier.
+- evidence note: the sandbox pricing page was read on 2026-10-22. The $100 is one-time and conditional on a survey, so the record states the condition rather than presenting it as a tier
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: a paused sandbox stops CPU and RAM billing and keeps its data as persistent storage
+  - persistent_storage.included_gib: 60
+  - persistent_storage.price_gib_month: billed daily past the free allowance
+  - persistent_storage.durability: paused sandboxes are retained as persistent storage
+  - persistent_storage.survives_stop: yes
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: until deleted
+  - free_tier_kind: one-time-credit
+  - granularity.min_billed_s: 0
+  - burst_x: 1.0
+  - crosscheck.boat_compare_2026-09-26: USD 0.233/h at 4 vCPU / 8 GB
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'New users can complete a quick account setup survey to receive $100 in promotional credits for eligible Novita Sandbox usage. No credit card is required'; 'Ephemeral Storage: Each sandbox includes 20 GB ... while running'; paused sandboxes stop CPU and RAM billing and are charged storage only', quoted
+  - [2] 2026-10-22: a competitor's comparison table lists Novita at USD 0.233 per hour for a 4 vCPU / 8 GB / 50 GB machine, with list prices dated 2026-09-26; this is a reported rate about a third party and not a reading of the vendor's own page
+  - [3] 2026-10-30: the LLM API model list prices apodex/apodex-1.1-mini at 0 input and 0 output per million tokens and gives it 30 RPM and 50000000 TPM at tier T1 | capture: sha256:a2509f1da0edb34bc34515a273c5c513b70185212cc91ddbad200f075223d49f | quote: "output_pricing":{"originPricePerM":0,"pricePerM":0,"originPricePerMDecimal":"0","pricePerMDecimal":"0"},"series":"Apodex","quota_items":[{"tier":"T1","rpm":"30","tpm":"50000000"}
+  - [1] 2026-10-30: the $100 Sandbox credit is one-time for new users, conditioned on an account setup survey, with no card | capture: sha256:0f2d7a1b8c773f21e5602e6350b4cd70bec53b04e6186770aa97d49359b77db4 | quote: New users can complete a quick account setup survey to receive \$100 in promotional credits for eligible Novita Sandbox usage. No credit card is required.
+  - [4] 2026-10-30: the sign-up page grants $100 in Sandbox credits that expire after 90 days | capture: sha256:5c14a6d13c377b41ffe2f3e9417df9847adc4b0dd2505a4a82987bb3380cd7dd | quote: Sign up and start building instantly. Get $100 in Sandbox credits, valid for 90 days.
+  - [1] 2026-10-30: a running sandbox has 20 GB of ephemeral storage and each account has 60 GB of free persistent storage | capture: sha256:0f2d7a1b8c773f21e5602e6350b4cd70bec53b04e6186770aa97d49359b77db4 | quote: Each sandbox includes 20 GB of Ephemeral Storage while running. When paused, data is retained as Persistent Storage. Each account includes 60 GB of free Persistent Storage.
+  - [5] 2026-10-30: an account can be created with an email address alone, besides Google or GitHub sign-in | capture: sha256:b0543c3d2a5d454ccdbdb21355b7ec4b12197e3f2383506b0fc384ebc9674007 | quote: You can use Google or GitHub authentication, or [sign up with your email address](https://novita.ai/user/register).
+  - [6] 2026-10-30: LLM API tier T1 is an account whose monthly top-ups did not exceed $50 in any of the last 3 calendar months, so an account with no top-up is T1 | capture: sha256:23baf22dc42a1fa39304e726fee96a92dfa9bb35c8c86530c803630c12b1ff55 | quote: | T1 | Monthly top-ups did not exceed $50 in any of the last 3 calendar months. |
+  - [6] 2026-10-30: LLM API RPM and TPM limits are counted per model and per account | capture: sha256:23baf22dc42a1fa39304e726fee96a92dfa9bb35c8c86530c803630c12b1ff55 | quote: Each account has a default rate limit for model calls, measured in RPM (requests per model per minute) and TPM (tokens per model per minute).
+  - [7] 2026-10-30: the rate-limit page's per-tier RPM/TPM table is filled in the browser from https://api-server.novita.ai/v1/product/model/list | capture: sha256:e069f3d71d910eff143bc70a4ee253856994b807b3910f02d33391c152129816 | quote: const BASE_URL = 'https://api-server.novita.ai';
+  - [8] 2026-10-30: the pricing page lists Apodex 1.1 Mini with 256K context at Free input and Free output | capture: sha256:b802120bc5a36237604941b176358f28b8d9a649d2b10b73f0dcb28916e84a04 | quote: Model NameContextInputOutputActions[Apodex 1.1 Mini](/models/model-detail/apodex-apodex-1.1-mini?from=pricing)256KFreeFree
+  - [9] 2026-10-30: Novita describes the $0 price of Apodex 1.1 Mini, listed from 2026-10-01, as a launch promotion | capture: sha256:e569773407a81a3af15ab9a04ae0117736c44f22ff2ceb41300acc9ac92e037b | quote: As of October 1, 2026, Novita lists input and output pricing at $0 per million tokens as a launch promotion, so check the live model page before putting the model into a production budget.
+  - [10] 2026-10-30: Novita's launch post announced Apodex 1.1 Mini as free for 7 days; the $0 price is open to withdrawal | capture: sha256:f4f1204fe1575f75ccc8ad223a19478d15db550537bb61e440c4a9cc8a7ff85f | quote: We are pleased to support its launch as a partner. 🎁 Free for 7 days.
+  - [11] 2026-10-30: the LLM API returns HTTP 403 for some models until the account completes identity verification; the page does not name the models | capture: sha256:f19850b9ed1c8a61f1e7bba20d485f15439f893b8d82ae8166dc09f2e17eb74c | quote: Some models require identity verification before your account can access them.
+  - [12] 2026-10-30: insufficient account balance is a documented cause of HTTP 403 on an LLM API call; the page does not say whether a $0 model is exempt | capture: sha256:1fbf046203eec98e565460cac1ee2d7b0a9fb98e6ce75e86038f28c6cefefb5b | quote: 1. Insufficient account balance — top up your account and retry.
+  - [12] 2026-10-30: first-time accounts receive a New User Voucher for model services; the page states no amount | capture: sha256:1fbf046203eec98e565460cac1ee2d7b0a9fb98e6ce75e86038f28c6cefefb5b | quote: New User Voucher: Available to first-time registered users for trying out services of various types of models.
+  - [3] 2026-11-03: the LLM API model list prices apodex/apodex-1.1-mini at 0 output per million tokens and gives it 30 RPM at T1 and 100 RPM at T2, with 50000000 TPM | capture: sha256:064f847b2253acc641bfd68a9ac72e535dd27b4cc969e6912414e4c3153341bf | quote: "output_pricing":{"originPricePerM":0,"pricePerM":0,"originPricePerMDecimal":"0","pricePerMDecimal":"0"},"series":"Apodex","quota_items":[{"tier":"T1","rpm":"30","tpm":"50000000"},{"tier":"T2","rpm":"100","tpm":"50000000"}
+  - [8] 2026-11-03: the pricing page lists Apodex 1.1 Mini at Free input and Free output | capture: sha256:8ad719d717fd7b7d35ae0c382e3a44649bfaf6798633c4e320c74241130842fd | quote: Model NameContextInputOutputActions[Apodex 1.1 Mini](/models/model-detail/apodex-apodex-1.1-mini?from=pricing)256KFreeFree
+- sources:
+  - [1] https://docs.novita.ai/guides/sandbox-pricing
+  - [2] https://boat.dev/compare
+  - [3] https://api-server.novita.ai/v1/product/model/list
+  - [4] https://novita.ai/user/register
+  - [5] https://docs.novita.ai/guides/quickstart
+  - [6] https://docs.novita.ai/guides/llm-rate-limits
+  - [7] https://docs.novita.ai/_mintlify/custom/novitaai/64fac5c27e7ad00f/scripts/remoteData.js
+  - [8] https://novita.ai/pricing
+  - [9] https://blogs.novita.ai/apodex-1-1-mini-on-novita-ai-api-quickstart-pricing/
+  - [10] https://www.linkedin.com/posts/apodex_apodex-11-mini-api-playground-novita-activity-7511515310496227328-lK4X
+  - [11] https://docs.novita.ai/guides/error
+  - [12] https://docs.novita.ai/guides/LLM-FAQ
+
+## Novita LLM API
+
+- `inference/novita-llm-api` | qualifies-with-caveat | evidence documented | binding request-rate | category inference endpoint, keyed, one $0 model | tier serverless LLM API, default account tier T1
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T01:04:08.184Z (live) | stale on 2026-12-04
+- url https://novita.ai/pricing
+- free tier: apodex/apodex-1.1-mini (256K context) is priced at $0 per million input tokens and $0 per million output tokens on the serverless LLM API; no token quota is stated, and the model is capped by the default per-model limit of 30 requests per minute and 50000000 tokens per minute at tier T1. The $0 price was listed from 2026-10-01 as a launch promotion and was still listed on 2026-11-03 | unit: requests | metered on: request-count | read on: 2026-11-03 | source: [1] | note: the unit is the nearest term: the allowance is a rate limit on a $0-priced model, with no token or credit quota; the key-less model list also prices the chat ids bunny, nvrouter/auto, nvrouter/fusion and dev/glm46 at 0, and no page read documents them or their limits, so only apodex/apodex-1.1-mini is counted; the $100 Sandbox credit is a separate product, in compute/novita
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: an account created with an email address, Google, GitHub or Hugging Face sign-in; the sign-up page shows no phone or card field. unverified: whether a $0 model call needs a non-zero balance or a top-up, since the FAQ lists insufficient balance as a cause of HTTP 403, and whether apodex/apodex-1.1-mini needs identity verification, since some models do; both are behind a sign-up
+- interface: rest
+- limits:
+  - request-rate (binding): apodex/apodex-1.1-mini default per-model limit by account tier: T1 30 requests per minute, T2 100, T3 1000, T4 3000, T5 6000; 50000000 tokens per minute at every tier; T1 is an account whose monthly top-ups did not exceed $50 in any of the last 3 calendar months [2]
+  - retention-clamped: unverified: the $0 price was announced as a launch promotion from 2026-10-01 and a launch post said free for 7 days; it was still listed on 2026-11-03, with no end date stated [3]
+- limits note: the rate limits are the vendor's defaults read from its model list; enforcement is not measured
+- binding note: the $0 model is bound by its per-model limit of 30 requests per minute at tier T1; its price is a promotion with no stated end
+- interface detail: OpenAI-compatible chat/completions, plus Anthropic-style and Responses endpoints listed for the model
+- endpoint: https://api.novita.ai/openai/v1/chat/completions
+- tooling: any OpenAI-compatible client with base URL https://api.novita.ai/openai and model id apodex/apodex-1.1-mini; the model list GET /openai/v1/models answers without a key
+- composes with: one key reaches every Novita-hosted model, so the $0 model and paid models share a key; a single $0 model is the only zero-priced model that a page documents
+- reliability: the $0 price is a promotion with no stated end date, so the model can turn paid without notice; some models answer HTTP 403 until identity verification
+- notes: re-check the price on a short interval: it was announced as free for 7 days on 2026-10-01 and was still $0 on 2026-11-03. Same vendor as compute/novita (Agent Sandbox), a different product with its own credit.
+- evidence note: the $0 price, the tier limits and the sign-up options are quoted from vendor pages and the vendor's key-less model list, which a probe read on 2026-11-03; calling the model with a key is not measured
+- evidence:
+  - [2] 2026-11-03: the product model list prices apodex/apodex-1.1-mini at 0 for input and output tokens | capture: sha256:2037af9c462bdac0a58ccf06eb82b78bbc6b3a3e1922ea4a8a4e7ea40d4f6eb1 | quote: "input_token_price_per_m":0,"output_token_price_per_m":0,"title":"apodex/apodex-1.1-mini"
+  - [2] 2026-11-03: apodex/apodex-1.1-mini has 30 RPM and 50000000 TPM at tier T1 and 100 RPM at T2 | capture: sha256:2037af9c462bdac0a58ccf06eb82b78bbc6b3a3e1922ea4a8a4e7ea40d4f6eb1 | quote: "quota_items":[{"tier":"T1","rpm":"30","tpm":"50000000"},{"tier":"T2","rpm":"100","tpm":"50000000"}
+  - [4] 2026-11-03: the key-less OpenAI-compatible model list of the endpoint prices apodex/apodex-1.1-mini at 0 for input and output | capture: sha256:f7d074ec382b7980ce205d6aa470e4b08aa85e76aab42768be04c27b2380ef2c | quote: "id":"apodex/apodex-1.1-mini","object":"model","owned_by":"novita","permission":null,"root":"","parent":"","input_token_price_per_m":0,"output_token_price_per_m":0
+  - [4] 2026-11-03: the same list prices a chat model id bunny at 0 too, with no page that documents it | capture: sha256:f7d074ec382b7980ce205d6aa470e4b08aa85e76aab42768be04c27b2380ef2c | quote: "id":"bunny","object":"model","owned_by":"novita","permission":null,"root":"","parent":"","input_token_price_per_m":0,"output_token_price_per_m":0
+  - probe:api.novita.ai/openai/v1/models 2026-11-03: a key-less GET of the OpenAI-compatible model list answered HTTP 200 on 2026-11-03 | capture: sha256:4851e88d49750dc004c52d178d45513891857290c017e7537845b97c9e91bbc2 | quote: "status": 200
+  - [1] 2026-11-03: the public pricing page lists Apodex 1.1 Mini with 256K context at Free input and Free output | capture: sha256:8ad719d717fd7b7d35ae0c382e3a44649bfaf6798633c4e320c74241130842fd | quote: Model NameContextInputOutputActions[Apodex 1.1 Mini](/models/model-detail/apodex-apodex-1.1-mini?from=pricing)256KFreeFree
+  - [5] 2026-11-03: the model page offers the model on the serverless pay-per-token API, with the input and output price shown as $0 | capture: sha256:41ce7c415887d3855e9e380032810598fbdbfdf29d8e669db979a1c4fbe2605c | quote: apodex/apodex-1.1-mini is available via Novita's serverless API, where you pay per token.
+  - [5] 2026-11-03: the model page prices output at $0 per million tokens | capture: sha256:41ce7c415887d3855e9e380032810598fbdbfdf29d8e669db979a1c4fbe2605c | quote: Output$0 / M Tokens
+  - [3] 2026-11-03: the $0 price is a launch promotion listed from 2026-10-01 and the vendor tells readers to check the live price | capture: sha256:e569773407a81a3af15ab9a04ae0117736c44f22ff2ceb41300acc9ac92e037b | quote: As of October 1, 2026, Novita lists input and output pricing at $0 per million tokens as a launch promotion, so check the live model page before putting the model into a production budget.
+  - [6] 2026-11-03: tier T1 is the account tier with top-ups of at most $50, so an account with no top-up is T1 | capture: sha256:23baf22dc42a1fa39304e726fee96a92dfa9bb35c8c86530c803630c12b1ff55 | quote: | T1 | Monthly top-ups did not exceed $50 in any of the last 3 calendar months. |
+  - [6] 2026-11-03: limits are counted per account and per model | capture: sha256:23baf22dc42a1fa39304e726fee96a92dfa9bb35c8c86530c803630c12b1ff55 | quote: Each account has a default rate limit for model calls, measured in RPM (requests per model per minute) and TPM (tokens per model per minute).
+  - [7] 2026-11-03: an account is created with Google, GitHub or an email address | capture: sha256:b0543c3d2a5d454ccdbdb21355b7ec4b12197e3f2383506b0fc384ebc9674007 | quote: You can use Google or GitHub authentication, or [sign up with your email address](https://novita.ai/user/register).
+  - [8] 2026-11-03: the sign-up page offers an email form besides the Google, GitHub and Hugging Face buttons and shows no phone or card field | capture: sha256:5c14a6d13c377b41ffe2f3e9417df9847adc4b0dd2505a4a82987bb3380cd7dd | quote: Create with an Email
+  - [7] 2026-11-03: the quickstart says credit and model access can decide whether an LLM request succeeds, without saying whether a $0 model needs a balance | capture: sha256:b0543c3d2a5d454ccdbdb21355b7ec4b12197e3f2383506b0fc384ebc9674007 | quote: Product credit and model access can affect whether a request succeeds.
+  - [9] 2026-11-03: some models answer HTTP 403 until the account completes identity verification; the page names no model | capture: sha256:f19850b9ed1c8a61f1e7bba20d485f15439f893b8d82ae8166dc09f2e17eb74c | quote: Some models require identity verification before your account can access them.
+  - [10] 2026-11-03: insufficient account balance is a listed cause of an HTTP 403 on a model call; the page does not say whether a $0 model is exempt | capture: sha256:1fbf046203eec98e565460cac1ee2d7b0a9fb98e6ce75e86038f28c6cefefb5b | quote: 1. Insufficient account balance — top up your account and retry.
+  - [10] 2026-11-03: first-time registered users get a voucher for model services; no amount is stated | capture: sha256:1fbf046203eec98e565460cac1ee2d7b0a9fb98e6ce75e86038f28c6cefefb5b | quote: New User Voucher: Available to first-time registered users for trying out services of various types of models.
+- sources:
+  - [1] https://novita.ai/pricing
+  - [2] https://api-server.novita.ai/v1/product/model/list
+  - [3] https://blogs.novita.ai/apodex-1-1-mini-on-novita-ai-api-quickstart-pricing/
+  - [4] https://api.novita.ai/openai/v1/models
+  - [5] https://novita.ai/models/model-detail/apodex-apodex-1.1-mini
+  - [6] https://docs.novita.ai/guides/llm-rate-limits
+  - [7] https://docs.novita.ai/guides/quickstart
+  - [8] https://novita.ai/user/register
+  - [9] https://docs.novita.ai/guides/error
+  - [10] https://docs.novita.ai/guides/LLM-FAQ

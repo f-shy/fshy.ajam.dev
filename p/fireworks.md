@@ -1,0 +1,119 @@
+# Fireworks AI
+
+> fireworks.ai | Compute, Inference; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/fireworks/ | JSON https://fshy.ajam.dev/api/v1/entity/fireworks.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Fireworks AI, Muse
+
+- `compute/fireworks-ai-muse` | trial-only | evidence documented | binding retention-clamped | category inference API
+- needs card no, phone unknown, ID no, institution no | verified 2026-11-03T01:29:13.477Z (live) | stale on 2026-12-04
+- url https://docs.fireworks.ai/fine-tuning/training-api/cookbook/muse-glimmer
+- free tier: A free first LoRA fine-tune with no card: 'Muse Glimmer 30B SFT is free via UI and Serverless Training API until 11/30. No credit card required.' The promotion applies to LoRA SFT jobs started before 2026-12-01T00:00:00-08:00 and covers training only: 'RL, DPO, full-parameter training, deployments, and inference outside the training run are not covered.' In-session evaluation sampling is billed at the published per-token rates. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: promotional-window
+- per-object cap: not applicable | source: [1]
+- retention: the 2026-11-30 window binds, not a quota: there is no published cap on the number of free LoRA SFT jobs inside the window, and the day the window closes the same job is refused unless it is run with --allow-paid. | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email | detail: the account-creation form asks for an email address, or a Google, GitHub or LinkedIn sign-in, at its first step ('Create Account Email Next OR Sign up with GoogleSign up with GitHubSign up with LinkedIn'); what the steps after it ask, a phone check among them, is unverified: behind a sign-up. No card on the free training path (the promotion states 'No credit card required'). Serverless inference outside the promotion needs a payment method and bought credits; debit and prepaid card acceptance are not stated.
+- interface: rest
+- limits:
+  - retention-clamped (binding): the 2026-11-30 window binds, not a quota: there is no published cap on the number of free LoRA SFT jobs inside the window, and the day the window closes the same job is refused unless it is run with --allow-paid. [1]
+  - request-rate: 10 requests per minute account-wide while the account has no payment method or no credits; with a payment method and active credits the ceiling is 6,000 requests per minute. The cap is one envelope shared by every model and every API, not a per-model request limit; requests above it are rejected (for example HTTP 429). [2]
+  - request-rate: serverless limits per model are tokens per minute, not requests: three adaptive meters (total prompt, uncached prompt and generated TPM) start at an unpublished default and rise 25% at most once every 15 minutes toward a ceiling set by model size and spend tier. The published ceilings (for a model under 800B parameters: 216M total prompt, 54M uncached prompt and 2.16M generated TPM) apply at Tier 3 and above; an account with no payment method is below Tier 1 (which needs a valid payment method), and no page publishes its starting default or its ceiling (unverified: not published). [3]
+  - request-rate: concurrency, not a rate: the Serverless Training API allows 8 active runs per account by default (account overrides may differ); some pool models also cap active runs per account on that base model, with managed fine-tuning jobs on it counting toward the cap, and a run over either cap fails with RESOURCE_EXHAUSTED. [4]
+- limits note: the 2026-11-30 window binds, not a quota: there is no published cap on the number of free LoRA SFT jobs inside the window, and the day the window closes the same job is refused unless it is run with --allow-paid.
+- binding note: the same as limits note
+- interface detail: HTTPS REST: the Serverless Training API endpoint is https://api.fireworks.ai/training/v1/serverless, reached through the Python SDK; documented, not probed
+- tooling: the provider documents the Python SDK (pip install "fireworks-ai[training]"), the firectl CLI, the fw-ai/cookbook training examples and the dashboard UI
+- composes with: it composes with hosted inference lanes: train the LoRA adapter here inside the promotion window, download it with firectl model download, and serve it on a hosted lane that accepts a LoRA adapter on the same base. On Fireworks itself a trained LoRA can only be deployed to an on-demand (dedicated) deployment, which the promotion does not cover; serverless deployment of LoRA models is not supported. The adapter needs the exact base it was trained on, and whether the Muse Glimmer base weights can also be downloaded is not stated (unverified).
+- reliability: an account that finishes its $1 credit with no payment method is suspended until a payment method is added; with credits exhausted and Auto Reload off, usage pauses until credits are added.
+- notes: What is free here is the training loop, not tokens. Serverless inference carries no advertised signup credit: the pricing page reads 'Simply add a payment method to buy credits, and usage is then deducted from your balance.' The credits FAQ page still describes a '$1 starter credit' in its description and heading, but no first-party page read states that a new account is granted it at sign-up; whether a new account holds a starting balance is unverified: behind a sign-up. The promotion names one base model and excludes RL, DPO, full-parameter training, deployments and inference outside the training run, so it is not a general free-training lane. No cap on the number of free jobs is published; the concurrency cap is in limits.
+- extras:
+  - facets.class: promotional-window
+  - facets.free_tier_kind: promotional-window
+  - facets.shape.gpu_count: 1
+- evidence:
+  - [1] 2026-10-22: 'Muse Glimmer 30B SFT is free via UI and Serverless Training API until 11/30. No credit card required.', quoted
+  - [1] 2026-10-22: 'applies the promotion to LoRA SFT jobs started before 2026-12-01T00:00:00-08:00 and refuses to launch after that unless you pass --allow-paid. RL, DPO, full-parameter training, deployments, and inference outside the training run are not covered', quoted
+  - [1] 2026-10-22: 'The promotion covers training. In-session evaluation sampling is priced separately at the published per-token rates; the default run samples 80 answers.', quoted
+  - [5] 2026-10-22: 'Simply add a payment method to buy credits' for the general platform; the free credit line is gone from the pricing page, quoted
+  - [2] 2026-10-30: an account with no payment method or no credits is held to 10 requests per minute, account-wide | capture: sha256:21bc2e111d6e20861d0424ffb8a7771c921b82917dd3e599600b8d82b6b95ddd | quote: | No payment method or no credits | 10 RPM |
+  - [3] 2026-10-30: per-model serverless ceilings are published only for Tier 3 and above; lower tiers have unpublished lower ceilings | capture: sha256:0e8f28092fc14c3340ec77d035c7b071ee55dd308363fd25a111e48a97c69e39 | quote: The table shows the maximum ceilings, available at Tier 3 and above. Tiers below Tier 3 have lower ceilings.
+  - [4] 2026-10-30: the Serverless Training API holds an account to 8 active runs by default | capture: sha256:1c9eb54f3f92e2ce4ea505dd9cad41678e6d42c22003997f12a52e2322402f2d | quote: The default is 8 active runs per account, although account overrides may differ.
+  - [6] 2026-10-30: an account that finishes its $1 credit with no payment method is suspended until one is added | capture: sha256:38f6247142c0de8258659a1eae1079a35b347a3fb562b85e4367a0a6811b3d07 | quote: Without payment method: Your account will be suspended until you add a payment method.
+  - [7] 2026-10-30: the account-creation form asks for an email address or a Google, GitHub or LinkedIn sign-in at its first step | capture: sha256:f4d4d70ec7803949a5f72d37b0bf08dd86926726c0dd679601b0bd4ec7bee510 | quote: Create Account Email Next OR Sign up with GoogleSign up with GitHubSign up with LinkedIn
+  - [5] 2026-10-30: serverless inference is prepaid from credits bought after a payment method is added; the page advertises no signup credit | capture: sha256:0c8107d7814eb4579bbfbc2db7220d830252700a7f600cc1a7f0866f23bb905a | quote: Simply add a payment method to buy credits, and usage is then deducted from your balance.
+  - [8] 2026-10-30: trained LoRA weights can be downloaded and served outside Fireworks | capture: sha256:9fe3d242b45eede6874a981bfe41883a1995b01cfc9c782a8d695c2d36257cea | quote: You can download your trained weights from Fireworks to inspect them, extend the context locally, or serve them outside the platform.
+  - [4] 2026-10-30: the provider documents a Python SDK for the Serverless Training API | capture: sha256:1c9eb54f3f92e2ce4ea505dd9cad41678e6d42c22003997f12a52e2322402f2d | quote: Install the SDK (same one as the dedicated path, no separate console flow): pip install "fireworks-ai[training]"
+  - [4] 2026-10-30: the Serverless Training API is an HTTPS endpoint reached through the Python SDK | capture: sha256:1c9eb54f3f92e2ce4ea505dd9cad41678e6d42c22003997f12a52e2322402f2d | quote: Point at the serverless endpoint: base_url="https://api.fireworks.ai/training/v1/serverless"
+  - [5] 2026-10-30: the pricing page still offers free Muse Glimmer 30B SFT with no card until 11/30 | capture: sha256:0c8107d7814eb4579bbfbc2db7220d830252700a7f600cc1a7f0866f23bb905a | quote: Muse Glimmer 30B SFT is free via UI and Serverless Training API until 11/30 ✨ No credit card required.
+  - [9] 2026-10-30: the models page dates the end of the free Muse Glimmer 30B SFT window to November 30, 2026 | capture: sha256:a82e2cc81ba13209f54008c44b80d39245a14abbec6d28945bce4d115d6acb0b | quote: Muse Glimmer 30B SFT is free to train until November 30, 2026.
+  - [10] 2026-10-30: training job creation otherwise needs a payment method; the Muse Glimmer promotion is the stated no-card exception | capture: sha256:91acaa521f91ea42e877882b1f01d754924a456e4eea0711d15e82bb0f279121 | quote: Exception: the temporary Muse Glimmer promotion in ../../configure/references/cost-estimation.md states no credit card is required.
+  - [2] 2026-10-30: the default training GPU quota of an account with no payment method is 0 GPUs | capture: sha256:21bc2e111d6e20861d0424ffb8a7771c921b82917dd3e599600b8d82b6b95ddd | quote: No payment method: 0 GPUs
+  - [11] 2026-10-30: platform usage is paid from credits bought after a payment method and billing address are added | capture: sha256:7e9145c0a2626e5a37dcc61cb0aea069a73a17d52f4ed6fba2f7b7505b9c3acb | quote: Add a valid payment method and billing address, then purchase credits.
+  - [12] 2026-10-30: serverless inference starts after a payment method and credits are added | capture: sha256:997756da2ff533ae95479c448eefc17141588e02fcf137b964c75ac051d52c99 | quote: Add a payment method and credits, then call any serverless model through the OpenAI- or Anthropic-compatible API.
+  - [13] 2026-10-30: a third party reports the pricing page dropped its $1 free-credit line between its 2026-09-20 and 2026-10-22 captures | capture: sha256:c6d815152a53fea516ba0546c6e5dd7f7ee83798b4eea7d264331aee6a36df6a | quote: Serverless: postpaid billing, get started with $1 in free credits Serverless: pre-paid credits bought after adding a payment method; no signup credit advertised
+  - [14] 2026-10-30: the 2026-09-15 Wayback copy of the pricing page offered $1 in free credits with postpaid billing; the live page of 2026-10-30 no longer does | capture: sha256:1c36dfe6151254b2044f5712be34f1a2e98803e3cb7ebb1c4030b172aa90c0af | quote: Pay per token, with high rate limits and postpaid billing. Get started with $1 in free credits.
+  - [1] 2026-10-30: the free LoRA SFT window still covers jobs started before 2026-12-01T00:00:00-08:00 and the starter refuses later jobs without --allow-paid | capture: sha256:c816e7c33c9324963349b485d5fdea7a6f992081ec6d437be8a6a8c831b66462 | quote: The starter applies the promotion to LoRA SFT jobs started before `2026-12-01T00:00:00-08:00` and refuses to launch after that unless you pass `--allow-paid`.
+  - [6] 2026-11-03: the credits FAQ page still calls the credit a $1 starter credit, but states no sign-up grant | capture: sha256:38f6247142c0de8258659a1eae1079a35b347a3fb562b85e4367a0a6811b3d07 | quote: What happens when your $1 starter credit is depleted on Fireworks, how to add a payment method, enable auto top-up, and lift account spend tier limits.
+  - [3] 2026-11-03: ceilings below Tier 3 are lower and not tabulated | capture: sha256:0e8f28092fc14c3340ec77d035c7b071ee55dd308363fd25a111e48a97c69e39 | quote: The table shows the maximum ceilings, available at Tier 3 and above. Tiers below Tier 3 have lower ceilings.
+  - [3] 2026-11-03: the starting TPM default is named but its value is not published | capture: sha256:0e8f28092fc14c3340ec77d035c7b071ee55dd308363fd25a111e48a97c69e39 | quote: Your limit for each model starts at a default value and grows in steps as you use it.
+  - [2] 2026-11-03: Tier 1 is the first spend tier and needs a valid payment method, so an account with none is below Tier 1 | capture: sha256:21bc2e111d6e20861d0424ffb8a7771c921b82917dd3e599600b8d82b6b95ddd | quote: | Tier 1 | [Valid payment method and billing profile](https://fireworks.ai/billing) | \$50 |
+  - [6] 2026-11-03: an account that finishes its $1 credit with no payment method is suspended | capture: sha256:38f6247142c0de8258659a1eae1079a35b347a3fb562b85e4367a0a6811b3d07 | quote: Without payment method: Your account will be suspended until you add a payment method.
+- sources:
+  - [1] https://docs.fireworks.ai/fine-tuning/training-api/cookbook/muse-glimmer
+  - [2] https://docs.fireworks.ai/guides/quotas_usage/account-quotas
+  - [3] https://docs.fireworks.ai/serverless/rate-limits
+  - [4] https://docs.fireworks.ai/fine-tuning/training-api/serverless
+  - [5] https://fireworks.ai/pricing
+  - [6] https://docs.fireworks.ai/faq-new/billing-pricing/what-happens-when-i-finish-my-1-dollar-credit
+  - [7] https://app.fireworks.ai/signup
+  - [8] https://docs.fireworks.ai/fine-tuning/deploying-loras
+  - [9] https://docs.fireworks.ai/fine-tuning/models
+  - [10] https://github.com/fw-ai/cookbook/blob/main/skills/fireworks-training/references/getting-started.md
+  - [11] https://docs.fireworks.ai/faq-new/billing-pricing/how-does-billing-and-credit-usage-work
+  - [12] https://fireworks.ai/startups
+  - [13] https://www.usagepricing.com/blueprint/activity/fireworks-ai-2026-10-22-signup-credit-dropped
+  - [14] https://web.archive.org/web/20260915000000/https://fireworks.ai/pricing
+
+## Fireworks AI
+
+- `inference/fireworks-ai-serverless` | paid-only | evidence documented | binding request-rate | category inference API, prepaid credits | tier Serverless Inference
+- needs card yes, phone unknown, ID no, institution no | verified 2026-11-03T01:04:08.892Z (live) | stale on 2026-12-04
+- url https://docs.fireworks.ai/guides/quotas_usage/account-quotas
+- free tier: no free token allowance is advertised: serverless inference is prepaid, with credits bought after a payment method is added. Without a payment method or credits the account is held to 10 requests per minute account-wide; a $1 starter credit is mentioned in the credits FAQ, but whether a new account still receives one is unverified: behind a sign-up. | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: the pricing page of 2026-11-03 prints no signup credit; the credits FAQ still carries a '$1 starter credit' heading
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: card | detail: an email address or a Google, GitHub or LinkedIn sign-in creates the account, but the 10 RPM state ends only after a valid payment method and billing address are added and credits are bought; an account that finishes its $1 starter credit with no payment method is suspended. Whether the sign-up asks for a phone number is unverified: behind a sign-up. Debit and prepaid card acceptance are not stated.
+- interface: rest
+- limits:
+  - request-rate (binding): 10 requests per minute account-wide while the account has no payment method or no credits; 6,000 requests per minute maximum with a payment method and active credits. The cap is fixed, shared by every model and every API, and requests above it are rejected (for example HTTP 429). [2]
+  - request-rate (binding): serverless token limits are per model and adaptive (total prompt, uncached prompt and generated tokens per minute); the published ceilings are the Tier 3 maximum, and tiers below Tier 3 have lower, unpublished ceilings [3]
+  - volume-quota: a monthly spend limit can be set; when usage reaches 100% of it all API requests pause until it is raised [2]
+- binding note: the account-wide request cap binds first: 10 RPM without a payment method or credits, 6,000 RPM with both; tokens are paid from prepaid credits, not granted free.
+- interface detail: OpenAI-compatible chat completions at https://api.fireworks.ai/inference/v1; an Anthropic-compatible endpoint at https://api.fireworks.ai/inference is also documented; documented, not…
+- endpoint: https://api.fireworks.ai/inference/v1/chat/completions
+- tooling: the Fireworks Python SDK, the OpenAI SDK or the Anthropic SDK pointed at the Fireworks base URL, or curl; the firectl CLI shows quotas ('firectl quota list')
+- composes with: hosted lanes only: the same prepaid balance pays for serverless, on-demand deployments and training; the 6,000 RPM cap is one envelope shared by all of them
+- reliability: an account that finishes its $1 starter credit with no payment method is suspended until one is added; with credits exhausted and Auto Reload off, usage pauses until credits are added.
+- notes: per-token prices (USD per 1M tokens) are published on the serverless pricing page; the 10 RPM lane is not a usable free tier, because no free credit is advertised and an account with no payment method that spends its starter credit is suspended.
+- evidence note: the 10 RPM and 6,000 RPM request limits, the prepaid-credits model and the payment-method requirement are quoted from vendor pages; the starter credit and the sign-up steps after the first are unverified: behind a sign-up.
+- evidence:
+  - [2] 2026-11-03: an account with no payment method or no credits is held to 10 requests per minute, account-wide | capture: sha256:21bc2e111d6e20861d0424ffb8a7771c921b82917dd3e599600b8d82b6b95ddd | quote: | No payment method or no credits | 10 RPM |
+  - [2] 2026-11-03: an account with a payment method and active credits is held to a 6,000 requests per minute maximum | capture: sha256:21bc2e111d6e20861d0424ffb8a7771c921b82917dd3e599600b8d82b6b95ddd | quote: | Payment method and active credits | 6,000 RPM (maximum) |
+  - [2] 2026-11-03: the 6,000 RPM ceiling is one fixed account-wide cap, not a serverless-only or adaptive limit | capture: sha256:21bc2e111d6e20861d0424ffb8a7771c921b82917dd3e599600b8d82b6b95ddd | quote: The 6,000 RPM cap applies account-wide—it is not a separate serverless-only limit—and it is a fixed ceiling, not adaptive.
+  - [1] 2026-11-03: serverless inference is prepaid: a payment method is added first, credits are bought, and usage is deducted from the balance | capture: sha256:0c8107d7814eb4579bbfbc2db7220d830252700a7f600cc1a7f0866f23bb905a | quote: Pay per token with pre-paid, usage-based billing. Simply add a payment method to buy credits, and usage is then deducted from your balance.
+  - [4] 2026-11-03: credits are bought after a valid payment method and billing address are added | capture: sha256:7e9145c0a2626e5a37dcc61cb0aea069a73a17d52f4ed6fba2f7b7505b9c3acb | quote: Add a valid payment method and billing address, then purchase credits.
+  - [5] 2026-11-03: an account that finishes its $1 starter credit with no payment method is suspended until one is added | capture: sha256:38f6247142c0de8258659a1eae1079a35b347a3fb562b85e4367a0a6811b3d07 | quote: Without payment method: Your account will be suspended until you add a payment method.
+  - [6] 2026-11-03: the account-creation form offers an email address or a Google, GitHub or LinkedIn sign-in at its first step | capture: sha256:a24d1f5200d9ecaead20d3fce7e651b0effffc5d837547e87a836bc54b367d7a | quote: Sign up with Google Sign up with GitHub Sign up with LinkedIn
+  - [7] 2026-11-03: the serverless endpoint is an OpenAI-compatible base URL | capture: sha256:88b9a6394b84df8b3ccf5f6535e5a024a8453e109f901bc9a6af4eccef6740a4 | quote: base_url="https://api.fireworks.ai/inference/v1"
+  - [3] 2026-11-03: the published per-model serverless token ceilings are the Tier 3 maximum; lower tiers have lower unpublished ceilings | capture: sha256:0e8f28092fc14c3340ec77d035c7b071ee55dd308363fd25a111e48a97c69e39 | quote: The table shows the maximum ceilings, available at Tier 3 and above. Tiers below Tier 3 have lower ceilings.
+  - [2] 2026-11-03: a monthly spend limit pauses all API requests when reached | capture: sha256:21bc2e111d6e20861d0424ffb8a7771c921b82917dd3e599600b8d82b6b95ddd | quote: When usage reaches 100% of the limit, all API requests pause automatically across serverless inference, deployments, and training.
+- sources:
+  - [1] https://fireworks.ai/pricing
+  - [2] https://docs.fireworks.ai/guides/quotas_usage/account-quotas
+  - [3] https://docs.fireworks.ai/serverless/rate-limits
+  - [4] https://docs.fireworks.ai/faq-new/billing-pricing/how-does-billing-and-credit-usage-work
+  - [5] https://docs.fireworks.ai/faq-new/billing-pricing/what-happens-when-i-finish-my-1-dollar-credit
+  - [6] https://app.fireworks.ai/signup
+  - [7] https://docs.fireworks.ai/getting-started/quickstart

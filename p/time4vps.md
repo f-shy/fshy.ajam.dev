@@ -1,0 +1,296 @@
+# Time4VPS
+
+> time4vps.com | Compute, Storage; 6 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/time4vps/ | JSON https://fshy.ajam.dev/api/v1/entity/time4vps.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Time4VPS (Linux 1)
+
+- `compute/time4vps-linux` | qualifies | evidence documented | binding volume-quota | category VPS | tier Linux 1
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T02:17:27.464Z (live) | stale on 2026-12-03
+- url https://www.time4vps.com/linux-vps/
+- price parsed USD 3.35/mo
+- disagrees on verdict: `compute/time4vps` says paid-only, `compute/time4vps-linux` says qualifies
+- disagrees on identity_kind: `compute/time4vps-linux` says email, `compute/time4vps-linux-4` says card
+- disagrees on verdict: `compute/time4vps-linux` says qualifies, `compute/time4vps-linux-4` says paid-only
+- disagrees on identity_kind: `compute/time4vps-linux` says email, `compute/time4vps-windows` says card
+- disagrees on verdict: `compute/time4vps-linux` says qualifies, `compute/time4vps-windows` says paid-only
+- free tier: no free tier; Linux 1 is EUR 2.99 a month and the page prints the same figure for renewal | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: the server persists while paid; no setup fee stated | source: [1]
+- egress: 1 TB a month on Linux 1, rising with the plan to 48 TB on Linux 24 and 128 TB on Linux 64 | metered: yes | free allowance: 1 TB | source: [1]
+- identity: email | detail: no card and no phone number on the signup form: it asks for an account type (Personal or Organization), an organization name, registration and VAT numbers, an Email Address, a Password, a first and a last name, a Country, a street address, a city and a postal code, plus an image verification and an optional two-factor enrolment; its Phone field carries no required mark, unlike the fields it marks with an asterisk. Payment is taken after ordering, and the accepted rails are unverified. No country limit is stated: the Country selector lists the full country list, from Afghanistan to Zimbabwe.
+- interface: ssh, rest
+- limits:
+  - volume-quota (binding): 1 TB a month of transfer on Linux 1 [1]
+- binding note: 10 GB of disk is the smallest on any qualifying row here and is what fails first; the 1 TB allowance is generous against it
+- interface detail: root SSH; the vendor's web console; a REST API where documented
+- tooling: any SSH client
+- composes with: EUR 2.99 flat for 1 GB in Vilnius with a 1 TB allowance and no promotional first term, which makes it the most predictable sub-USD-5 price here; the 10 GB disk is the smallest
+- reliability: no reliability event recorded
+- notes: The plan table prints '2,99 € / month' twice (first term and renewal), unlike the Linux 2 to Linux 16 rows which print a struck-through list price and a promocode.
+- evidence note: price, shape, transfer and the flat renewal are from the plan table read; the identity field is explicitly unverified
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.disk_gib: 10
+  - billing_model: monthly
+  - term: monthly
+  - m10h_usd: 3.35
+  - m24h_usd: 3.35
+  - price_arithmetic: EUR 2.99 a month / 0.892784 EUR per USD = USD 3.35
+  - renewal_usd: 3.35
+  - fx.pair: USD/EUR
+  - fx.rate: 0.892784
+  - fx.date: 2026-10-24
+  - fx.source: open.er-api.com/v6/latest/USD
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS that bills whether it runs or not
+  - english: yes
+  - payment_methods: not read
+- evidence:
+  - [1] 2026-10-24: quoted from the plan table: '| Linux 1* | 10 GB | 1 TB | 1 x 2.6GHz | 1 GB | Optional | 2,99 € / month 2,99 € / month when you renew |'
+  - [1] 2026-10-24: quoted: 'Linux 2 - €2.88/month with the current two-year offer' with 'Renewal price: €5.77/month', so the neighbouring plan's low price is a two-year promotion while Linux 1's is not
+  - [2] 2026-11-02: the address, city and postal-code fields follow a required country field, and the phone field is the one field without an asterisk | capture: sha256:483357c3f9be8d3b58c469d7486d117ca65b3f5d1f03070a963e27403b2aa4eb | quote: | Address 1 * |
+  - [2] 2026-11-02: the country field is required and its list runs from Afghanistan to Zimbabwe | capture: sha256:483357c3f9be8d3b58c469d7486d117ca65b3f5d1f03070a963e27403b2aa4eb | quote: | Country * Afghanistan Aland Islands
+  - [2] 2026-11-02: the signup form asks a personal or an organization account, and the email address is a required field below it | capture: sha256:483357c3f9be8d3b58c469d7486d117ca65b3f5d1f03070a963e27403b2aa4eb | quote: | Account type * Personal Organization |
+- sources:
+  - [1] https://www.time4vps.com/linux-vps/
+  - [2] https://billing.time4vps.com/signup/
+
+## Time4VPS Storage VPS 1 TB (Lithuania, EU)
+
+- `storage/time4vps-storage-vps-1-tb` | trial-only | evidence reported | binding none | category storage VPS
+- needs card yes, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.time4vps.com/storage-vps/
+- price Promotional: €4.17/TB/mo (24-mo term). Steady state: €8.35/TB/mo monthly; €9.28/TB/mo annual; €11.99/TB list. Record the steady-state €8.35, not the €4.17. | parsed USD 9.41/TB-mo
+- free tier: 0.25 / 0.5 / 1 TB | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Metered: '1 TB Plan — 8 TB bandwidth'. 8:1 ratio, good for the workload. | metered: yes
+- identity: card | detail: card
+- interface: unknown
+- limits note: Tops out at 1 TB. Cannot reach 10 TiB or 20 TiB without stacking many units. 'No backups'.
+- interface detail: full root
+- tooling: unrestricted
+- composes with: MinIO/NFS
+- reliability: Advertised 4.17 EUR rate is a promotional discount requiring a 24-month initial commitment. Standard renewal pricing increases to 8.35 EUR monthly, and monthly billing without commitment is 11.99 EUR.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Tops out at 1 TB — cannot reach 10 TiB or 20 TiB without stacking many units. 'No backups'.
+  - dead_end.first_recorded: 2026-10-21
+  - price_verbatim: Promotional: €4.17/TB/mo (24-mo term). Steady state: €8.35/TB/mo monthly; €9.28/TB/mo annual; €11.99/TB list. Record the steady-state €8.35, not the €4.17.
+- evidence:
+  - [1] 2026-10-21: '1 TB Plan ~11,99 €~ 4,17 € 8,35 € / month when you renew — 8 TB bandwidth — 1 vCPU — 1024 GB — 2 GB RAM — No backups'; 0.25 TB Plan €2.22 → renew €4.45 (2 TB BW); 0.5 TB €2.71 → renew €5.42 (4 TB BW)
+  - [2] 2026-10-21: '1 TB 11.99 EUR Monthly … Annually 111.30 EUR … (9.28 EUR per month)' — the true undiscounted ladder
+  - [3] 2026-10-21: 'Storage 1 TB €4.17 (~$4.80)/mo for 24 mo — Then €8.35/mo — 2.0× on renewal'
+- sources:
+  - [1] https://www.time4vps.com/storage-vps/
+  - [2] https://billing.time4vps.com/cart/storage-vps/
+  - [3] https://hostingsift.com/hosting/time4vps
+
+## Time4VPS (compute/time4vps)
+
+- `compute/time4vps` | paid-only | evidence documented | binding volume-quota | category cloud VM
+- identity a placeholder: card and phone unknown | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://www.time4vps.com/storage-vps/
+- disagrees on verdict: `compute/time4vps` says paid-only, `compute/time4vps-linux` says qualifies
+- disagrees on identity_kind: `compute/time4vps` says email, `compute/time4vps-linux-4` says card
+- disagrees on identity_kind: `compute/time4vps` says email, `compute/time4vps-windows` says card
+- free tier: Eight storage plans, all one vCPU, priced in euro with a promotional rate and a renewal rate printed side by side: 256 GB for EUR 2.22/month (renews EUR 4.45), 512 GB EUR 2.71 (EUR 5.42), 1 TB EUR 4.17 (EUR 8.35), 2 TB EUR 6.61 (EUR 13.22), 3 TB EUR 12.07 (EUR 24.14), 4 TB EUR 22.31 (EUR 44.62), 6 TB EUR 33.75 (EUR 67.49) and 8 TB EUR 67.50 (EUR 134.99). RAM runs 0.5 GB to 16 GB and transfer 2 TB to 64 TB with the plan. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 2 TB to 64 TB a month by plan, eight times the disk on every row | metered: yes | free allowance: 8 TB per month on the 1 TB plan | source: [1]
+- identity: email | detail: not stated
+- interface: ssh
+- limits:
+  - volume-quota (binding): 8 TB a month on the 1 TB plan and 64 TB a month on the 8 TB plan, stated in the plan table. No overage price is printed. [1]
+- limits note: 8 TB a month on the 1 TB plan and 64 TB a month on the 8 TB plan, stated in the plan table. No overage price is printed.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: KVM guest with root and a 30-day money-back guarantee; ssh and rsync reach it
+- composes with: EUR 4.17 for the first terabyte is the cheapest euro first-terabyte among documented hosts, and the renewal at twice the price is the catch. The 64 TB of transfer on the 8 TB plan is what a mirror needs
+- reliability: no reliability event recorded
+- notes: This is the only provider in this category where the page prints the promotional rate and the renewal rate side by side for every plan, so the second year is not unknown here. Prices use a comma decimal on the page (4,17) and a point in this record.
+- extras:
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 2
+  - benchmark[0].plan: Linux 4 (2 vCPU / 4 GiB)
+  - benchmark[0].cpu_model: Intel Xeon E3-12xx v2 (Ivy Bridge, IBRS)
+  - benchmark[0].dedicated_or_shared: not stated
+  - benchmark[0].gb6_single: 300
+  - benchmark[0].gb6_multi: 547
+  - benchmark[0].gb5_single: 353
+  - benchmark[0].gb5_multi: 703
+  - benchmark[0].source_url: https://www.vpsbenchmarks.com/yabs/time4vps-2c-4gb-8eb1cd
+  - benchmark[0].source_date: 2024-02-13
+  - benchmark[0].rung: reported
+  - benchmark[0].note: Xeon E3-12xx v2 (Ivy Bridge). Slowest single core in the whole table by a factor of 8.7 against Aeza, on the same nominal standard of 2 vCPU.
+- evidence:
+  - [1] 2026-10-22: table quoted: '1 TB Plan | 8 TB | 2 GB | 1024 GB | 1 vCPU | No | EUR 11.99 -65% 4,17 EUR / month 8,35 EUR / month when you renew'
+  - [1] 2026-10-22: the largest row quoted: '8 TB Plan | 64 TB | 16 GB | 8192 GB | 1 vCPU | No | EUR 189.99 -64% 67,50 EUR / month 134,99 EUR / month when you renew'
+  - [1] 2026-10-22: every plan prints both figures, and the discounts run from 50 to 66 per cent, which is the widest promotional gap
+- sources:
+  - [1] https://www.time4vps.com/storage-vps/
+
+## Time4VPS (Linux 4)
+
+- `compute/time4vps-linux-4` | paid-only | evidence documented | binding volume-quota | category VPS | tier Linux 4
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T01:56:00.000Z (live) | stale on 2026-11-24
+- url https://www.time4vps.com/linux-vps/
+- price parsed USD 9.8/mo
+- disagrees on identity_kind: `compute/time4vps` says email, `compute/time4vps-linux-4` says card
+- disagrees on identity_kind: `compute/time4vps-linux` says email, `compute/time4vps-linux-4` says card
+- disagrees on verdict: `compute/time4vps-linux` says qualifies, `compute/time4vps-linux-4` says paid-only
+- free tier: no free tier; the entry plan is 'Linux 1' at EUR 2.99 a month | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the plan is paid; a 30-day money-back guarantee is stated
+- egress: '8 TB bandwidth' on the Linux 4 plan | metered: yes | free allowance: 8 TB | source: [1]
+- identity: card | detail: an account and a payment method at order.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 8 TB a month of bandwidth [1]
+  - volume-quota (binding): the discounted rate is a first-term promo; 'EUR 8.76 / month when you renew' [1]
+- binding note: the renewal doubles the bill: EUR 4.38 in the first term becomes EUR 8.76, which is USD 9.80 and nearly twice this category ceiling.
+- interface detail: root SSH, the vendor's billing and control panel
+- tooling: any SSH client
+- composes with: a 4 GiB box that is cheap for one term and expensive forever after; the archetype of the promo trap among documented hosts
+- reliability: no reliability event recorded
+- notes: The clearest promo in this category: EUR 4.38 for the first term, EUR 8.76 on renewal, with a promo code in the order link and a -66% badge. On the promo price this is 4 GiB for USD 4.90 and would qualify; on the renewal it is USD 9.80 and does not. The page also shows '2 years -64%', '1 year -60%' and '1 month -50%' tabs, so the headline number moves with the cycle and the extracted text does not say which tab was active.
+- evidence note: shape, both prices and the renewal sentence are quoted from the plan card read; which billing cycle the displayed EUR 4.38 belongs to is not stated unambiguously by the extracted text.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 4
+  - shape.disk_gib: 50
+  - billing_model: monthly or prepaid multi-month
+  - term: 1 month for the displayed price
+  - m10h_usd: 9.8
+  - m24h_usd: 9.8
+  - price_arithmetic: promo EUR 4.38 x 1.1193 = USD 4.90; renewal EUR 8.76 x 1.1193 = USD 9.80. The recurring price is the renewal.
+  - out_of_pocket_usd: 4.9
+  - renewal_usd: 9.8
+  - renewal_note: quoted by the vendor: 'EUR 8.76 / month when you renew'
+  - promo: yes
+  - over_line: yes
+  - fx.pair: EUR/USD
+  - fx.rate: 1.1193
+  - fx.date: 2026-10-23
+  - ipv4_included: yes
+  - ipv6: yes
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+- evidence:
+  - [1] 2026-10-24: quoted: 'Linux 4 ~~12,99 EUR~~ -66% 4,38 EUR / month 8,76 EUR / month when you renew - 8 TB bandwidth - 2 x 2.6 GHz CPU - 4 GB RAM - 50 GB storage'
+  - [1] 2026-10-24: quoted: 'Linux 8 ~~19,99 EUR~~ -64% 7,12 EUR / month 14,24 EUR / month when you renew - 16 TB bandwidth - 3 x 2.6 GHz CPU - 8 GB RAM - 100 GB storage'
+- sources:
+  - [1] https://www.time4vps.com/linux-vps/
+
+## Time4VPS (Windows 16)
+
+- `compute/time4vps-windows` | paid-only | evidence documented | binding volume-quota | category Windows VPS | tier Windows 16
+- needs card yes, phone no, ID no, institution no | verified 2026-10-26T11:33:32.317Z (live) | stale on 2026-11-26
+- url https://www.time4vps.com/windows-vps/
+- price parsed USD 52.88/mo
+- disagrees on identity_kind: `compute/time4vps` says email, `compute/time4vps-windows` says card
+- disagrees on identity_kind: `compute/time4vps-linux` says email, `compute/time4vps-windows` says card
+- disagrees on verdict: `compute/time4vps-linux` says qualifies, `compute/time4vps-windows` says paid-only
+- free tier: no free tier; Windows 16 is listed at EUR 66.99/month, discounted 65% to EUR 23.62 for the first month, and renews at EUR 47.24/month | unit: none | metered on: none | read on: 2026-10-26 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the plan is paid; the page states no deletion clock
+- egress: 32 TB of bandwidth a month; the page states no port speed and no overage rate | metered: yes | free allowance: 32 TB per month | source: [1]
+- identity: card | detail: an account and a payment method at order; the page footer shows PayPal and Stripe, and the cart returned HTTP 403
+- interface: unknown
+- limits:
+  - volume-quota (binding): 32 TB of bandwidth a month [1]
+- limits note: the plan table has columns for bandwidth, RAM, storage, CPU and backups only; it states no public IPv4 and no port speed
+- binding note: 32 TB a month is the only published byte ceiling; the port speed and the IPv4 are not stated.
+- interface detail: a Windows VPS with RDP; the plan table states no IP column and the cart is login-gated
+- tooling: any RDP client; Time4VPS control panel
+- composes with: 4 vCPU and 16 GiB for USD 26.44 in the first month and USD 52.88 at renewal, with the licence printed as free, which makes it the cheapest first-month row and the third-cheapest steady-state row
+- reliability: no reliability event observed; EU customers pay VAT on top of the listed price
+- notes: The 65% first-month rate is a promotion; the renewal is EUR 47.24, which is 2.0 times the first month. A second read saw a 50% variant at EUR 33.50 with a EUR 66.99 renewal, so the promotion is live and the renewal is not stable. The IPv4 is not printed on the plan table, which is the one unverified dimension.
+- evidence note: the shape, the promotional price, the renewal and the free-licence sentence are printed on the page read. The public IPv4 is not stated on the plan table and the cart is login-gated, so it is inferred from the product being a Windows VPS with RDP. Also read a 50% variant at EUR 33.50 with a EUR 66.99 renewal; the page read at 11:29Z prints 65% at EUR 23.62 and a EUR 47.24 renewal, and both readings are recorded.
+- extras:
+  - shape.vcpu: 4
+  - shape.ram_gib: 16
+  - shape.disk_gib: 200
+  - billing_model: monthly
+  - term: monthly
+  - list_eur: 66.99
+  - promo_eur: 23.62
+  - promo_percent: 65
+  - promo_months: 1
+  - renewal_eur: 47.24
+  - monthly_usd: 52.88
+  - first_month_usd: 26.44
+  - promo_usd: 26.44
+  - fx.pair: EUR/USD
+  - fx.rate: 1.1193
+  - fx.date: 2026-10-23
+  - windows_licence: included free, printed
+  - ipv4: not stated on the plan table; inferred from a Windows VPS with RDP
+  - traffic: 32 TB/month
+  - stock: listed; no stock counter
+  - cart_url: https://www.time4vps.com/windows-vps/
+- evidence:
+  - [1] 2026-10-26: quoted plan row: 'Windows 16 | 32 TB | 16 GB | 200 GB | 4 x 2.6 GHz | Optional | EUR 66.99 -65% 23.62 EUR/month 47.24 EUR/month when you renew'
+  - [1] 2026-10-26: quoted licence sentence: 'There's no need to buy a separate license for your virtual Windows system - we provide one for free for every Windows Server 2019, 2022 and 2025 OS with each Windows VPS you acquire.'
+  - [1] 2026-10-26: quoted tax sentence: 'VAT will be added to EU customers based on the Member State VAT rate where the customer is located unless a valid VAT number is provided.'
+- sources:
+  - [1] https://www.time4vps.com/windows-vps/
+
+## Time4VPS Storage VPS
+
+- `storage/time4vps-storage-vps` | paid-only | evidence documented | binding per-ip-shaping | category storage-vps
+- identity a placeholder: card and phone unknown | verified 2026-11-04T01:24:45.961Z (live) | stale on 2026-12-05
+- url https://www.time4vps.com/storage-vps/
+- price EUR 6.61 per TB-month on the 2 TB plan at the renewal price (EUR 13.22/month; first period EUR 5.29). 10240 GB needs five 2 TB plans: EUR 66.10/month. The 1 TB plan is EUR 8.35 at renewal = EUR 8.35 per TB-month; the 8 TB plan is EUR 134.99 = EUR 16.87 per TB-month. 'Discount applies to the first billing period only'. | parsed USD 7.45/TB-mo
+- free tier: Storage VPS plans of 0.25 TB (256 GB), 0.5 TB, 1 TB, 2 TB, 3 TB, 4 TB, 6 TB and 8 TB (8192 GB), each a separate VPS; the largest plan is 8 TB. Lithuania, Vilnius. SATA HDD. | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Bandwidth allowance per plan: 2 TB, 4 TB, 8 TB, 16 TB, 24 TB, 32 TB, 48 TB and 64 TB on the 0.25, 0.5, 1, 2, 3, 4, 6 and 8 TB plans; the port is 100 Mbps on each plan. No overage price is published; see limits_note for what happens past the allowance. | metered: yes | free allowance: 16 TB on the 2 TB plan; 64 TB on the 8 TB plan; 8 TB on the 1 TB plan (monthly allocation)
+- identity: card | detail: The sign-up form requires an email address, password, first and last name, country, address and city; phone and postal code are optional. The payment methods were not read: unverified: behind a sign-up.
+- interface: rest, sftp, rsync, rclone
+- limits:
+  - per-ip-shaping (binding): 100 Mbps [1]
+- limits note: Per-object cap: none stated. Port speed 100 Mbps per VPS. Past the monthly bandwidth allocation the port speed is divided by 10 until next month; no overage price is stated.
+- binding note: one stream is shaped, and aggregate throughput is the shaped rate times the number of streams
+- interface detail: sftp, rsync, rest (self-hosted)
+- tooling: rclone SFTP
+- composes with: Single datacenter location with a 100 Mbps port cap on storage VPS tiers, constraining peak outbound throughput to ~12.5 MB/s.
+- reliability: Established Lithuanian host since 2013. The decisive fact is the pricing structure, not reliability.
+- notes: 0.25 TB (256 GB) / 0.5 TB / 1 TB / 8 TB. Lithuania, Vilnius. SATA HDD.
+- evidence note: read 2026-11-03: https://www.time4vps.com/storage-vps/ (plan, bandwidth and price rows), https://billing.time4vps.com/cart/storage-vps/ (2048 GB, 16 TB, 100 Mbps port), https://help.time4vps.com/en/articles/315957-what-is-the-port-speed-of-my-vps (port speed divided by 10 past the allowance) and https://billing.time4vps.com/signup/ (sign-up fields), all vendor pages; payment methods were not read.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 0.25 TB (256 GB) / 0.5 TB / 1 TB / 8 TB. Lithuania, Vilnius. SATA HDD.
+  - dead_end.first_recorded: 2026-10-21
+  - price_verbatim: $4.68/TB/mo on the promo (€4.17), $9.38/TB/mo at renewal (€8.35). At 5 TB: five 1 TB plans at renewal = €41.75 = $46.90/mo = $9.38/TB. At 20 TB: €167 = $187.58/mo = $9.38/TB. This is the cleanest example of the trial-vs-steady-state trap: the advertised €4.17 is a first-term rate against a published 11.99 € list, and the renewal is exactly 2.0x.
+- evidence:
+  - [1] 2026-10-21: '1 TB Plan ~11,99 € -65% 4,17 € / month 8,35 € / month when you renew' with 8 TB bandwidth, 1024 GB storage, plus the full multi-term table
+  - [2] 2026-10-21: '1 TB ... 11.99 EUR Monthly ... 8.35 EUR per month [biennially]', 'Storage: 1024 GB (200 IOPS)', 'Bandwidth: 8 TB'
+  - [1] 2026-11-03: the 2 TB plan has 16 TB bandwidth and 2048 GB storage at 13,22 EUR per month at renewal | capture: sha256:20b9913ebe575629357bc14fa31c871aa7583dde991adb4ddaf07790b3682bb2 | quote: | 2 TB Plan | 16 TB | 4 GB | 2048 GB | 1 vCPU | No | ~~18,99 €~~ Save 70% 5,29 € / month 13,22 € / month when you renew |
+  - [1] 2026-11-03: the largest plan is 8 TB with 64 TB bandwidth at 134,99 EUR per month at renewal | capture: sha256:20b9913ebe575629357bc14fa31c871aa7583dde991adb4ddaf07790b3682bb2 | quote: | 8 TB Plan | 64 TB | 16 GB | 8192 GB | 1 vCPU | No | ~~189,99 €~~ Save 70% 54,00 € / month 134,99 € / month when you renew |
+  - [2] 2026-11-03: the 2 TB plan has 2048 GB, 16 TB bandwidth and a 100 Mbps port | capture: sha256:85a9a49c042fa2e59de3a0726967594c1f557505f2d02b834444ad2b761a8b57 | quote: Storage: 2048 GB (200 IOPS) - Bandwidth: 16 TB - Port speed: 100 Mbps
+  - [3] 2026-11-03: past the monthly bandwidth allocation the port speed is divided by 10 until next month; no overage price is stated | capture: sha256:e68f8b0c2e75cf8eb33edea077cdcd7fadbd24c9192f4d3ddaea5d2db3e5b362 | quote: If you exceed your monthly bandwidth allocation, we will divide your port speed by 10 until next month.
+  - [4] 2026-11-03: address and city are required fields on the sign-up form; postal code and phone are not | capture: sha256:483357c3f9be8d3b58c469d7486d117ca65b3f5d1f03070a963e27403b2aa4eb | quote: | Address 1 * | | City * | | Postal Code | | Phone |
+  - [1] 2026-11-04: the 2 TB plan has 16 TB bandwidth and 2048 GB storage at a paid monthly price | capture: sha256:20b9913ebe575629357bc14fa31c871aa7583dde991adb4ddaf07790b3682bb2 | quote: | 2 TB Plan | 16 TB | 4 GB | 2048 GB | 1 vCPU | No | ~~18,99 €~~ Save 70% 5,29 € / month 13,22 € / month when you renew |
+- sources:
+  - [1] https://www.time4vps.com/storage-vps/
+  - [2] https://billing.time4vps.com/cart/storage-vps/
+  - [3] https://help.time4vps.com/en/articles/315957-what-is-the-port-speed-of-my-vps
+  - [4] https://billing.time4vps.com/signup/

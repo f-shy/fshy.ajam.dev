@@ -1,0 +1,209 @@
+# Buildkite
+
+> buildkite.com | Compute, CI runners, Storage; 4 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/buildkite/ | JSON https://fshy.ajam.dev/api/v1/entity/buildkite.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Buildkite
+
+- `compute/buildkite` | qualifies-with-caveat | evidence documented | binding volume-quota | category CI runner | tier Free plan, Buildkite-hosted Linux agents
+- needs card no, phone no, ID no, institution no | verified 2026-10-30T12:41:24.476Z (live) | stale on 2026-11-30
+- url https://buildkite.com/pricing
+- duplicate of `ci-cd-runners/buildkite-free`
+- free tier: Quoted from the Free plan: 'Up to 5 users', 'Up to 10 concurrent jobs', 'Up to 2,000 Linux vCPU minutes per month', 'Up to 250k test executions per month', and 'No credit card required'. The hosted-agent limits table makes the machine explicit: 'Linux vCPU minutes per month | ... | Free | Up to 2,000' and 'Linux vCPU concurrency | ... | 20 vCPU'. Quoted from the Linux hosted-agent page: 'The Free plan only provides access to small-sized instance shapes.' The small shape is `LINUX_AMD64_2X4`, quoted as 'Small | AMD64 | 2 | 4 GB | 47 GB'. | unit: minutes | metered on: wall-clock | read on: 2026-10-24 | source: [1] | note: The unit is a vCPU-minute, not a wall-clock minute. At the only shape the Free plan offers, 2 vCPU, 2,000 vCPU-minutes is 1,000 wall-clock minutes, or 16 h 40 min a month.
+- per-object cap: not applicable
+- retention: 'Once the job is complete, regardless of its exit status, the virtualized environment and all of its associated data, including data it generated during job execution, is removed and destroyed.' Cache volumes are the exception and are persisted across jobs. | days: 0 | source: [2] | note: 0 means the environment is destroyed at job end. Cache volumes survive, up to 50 GB for the container cache and 5 GB for the git mirror.
+- egress: not published on any page read: no egress quota, shaping tier or per-byte price is stated for Buildkite hosted agents | metered: no | source: [2]
+- identity: email | detail: Quoted from the Free plan: 'No credit card required', and from the signup block: 'Start Free or Pro with 30 days of the all-access trial. No credit card or commitment.' No card, no hold and no phone is stated as required anywhere read. The account limits are 'Organizations per day | Default: 4 organizations' and 'Unverified emails per user | Default: 5 emails', which implies an email-verified account is the gate.
+- interface: unknown
+- limits:
+  - volume-quota (binding): Up to 2,000 Linux vCPU-minutes a month on the Free plan. At the 2 vCPU small shape that is 1,000 wall-clock minutes; there is no larger shape on this plan. [1]
+  - request-rate: Linux vCPU concurrency on the Free plan is 20 vCPU. Quoted worked example: 'the Free plan's 20-vCPU Linux limit supports up to 10 Small Linux machines at 2 vCPU each'. [1]
+  - retention-clamped: 'Job timeout | The maximum time before a running job will time out. Default: 4 hours on the Free plan. Unlimited on Pro and Enterprise plans.' Separately, hosted Linux instances are 'capable of running up to 8 hours'. [1]
+  - write-gated: No inbound reachability published and the environment is destroyed at job end; no static IP is offered on the Free plan [2]
+  - per-object-cap: The Free plan reaches only the small shape, so the machine is 2 vCPU and 4 GB with no way to buy a bigger one without a paid plan [3]
+- limits note: The 2,000 vCPU-minute pool is the ceiling: 1,000 wall-clock minutes a month on the only shape the Free plan allows, which is 33 minutes a day. The 4-hour job timeout does not bind before it.
+- binding note: 2,000 vCPU-minutes is 1,000 wall-clock minutes on the only shape the Free plan offers, which is 33 minutes a day: the month runs out long before the 4-hour job timeout does.
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: None worth composing. The one thing Buildkite gives free that the others do not is the 10-job concurrency, which is only useful once the caller already has machines, and the analysis assumes none.
+- reliability: no reliability event recorded
+- notes: So Buildkite does sell a free machine, it is 2 vCPU and 4 GB, and it needs no card. At 2 vCPU the pool is 16 h 40 min a month, not 8 h 20 min. Not established: the egress term; whether a hosted agent can be reached inbound (no page read says it can, and the environment is destroyed at job end); and whether the 2,000 vCPU-minutes includes the boot time of the agent, which the limits page says consumes concurrency 'from the time it starts booting' but does not say whether it consumes minutes.
+- evidence note: the 2,000 vCPU-minutes, the 20 vCPU concurrency, the 4-hour Free-plan job timeout and 'No credit card required' are quoted from buildkite.com/pricing and buildkite.com/docs/platform/limits read; the 2 vCPU / 4 GB / 47 GB shape and the Free-plan shape restriction are quoted from the Linux hosted-agent page read.
+- extras:
+  - facets.class: ci-runner-capacity
+  - facets.free_tier_kind: monthly-vcpu-minute
+  - facets.shape.gpu_count: 0
+  - shape.vcpu: 2
+  - shape.ram_gib: 4
+  - shape.disk_gib: 47
+  - shape.note: `LINUX_AMD64_2X4`, the only shape the Free plan offers, quoted as 'Small | AMD64 | 2 | 4 GB | 47 GB'. The vendor writes decimal GB; kept unconverted, so 4 GB is about 3.7 GiB and 47 GB about 43.8 GiB. Larger shapes exist (4/16/95, 8/32/158 and up to 64 vCPU) but are paid-plan or Enterprise only.
+  - billing_model: free
+  - term: none
+  - price_arithmetic: 2,000 vCPU-minutes / 2 vCPU = 1,000 wall-clock minutes = 16 h 40 min a month at USD 0.00. 10 h a day x 30 = 300 h = 18,000 wall-clock minutes = 36,000 vCPU-minutes, eighteen times the pool. 24/7 x 30 = 730 h needs 87,600 vCPU-minutes, forty-four times the pool. Past the pool the rate is USD 0.004 per vCPU-minute on a paid platform plan, so 36,000 vCPU-minutes would be USD 144.00 and 87,600 USD 350.40.
+  - free_tier_kind: monthly-vcpu-minute
+  - session_cap.wall_clock_min: 240
+  - session_cap.restart_required: yes
+  - session_cap.note: 4 hours per job on the Free plan; the 2,000 vCPU-minute monthly pool runs out far sooner. The environment is destroyed at job end.
+  - concurrency.jobs_at_once: 10
+  - concurrency.note: 20 vCPU of Linux concurrency on the Free plan, and the only shape is 2 vCPU, so 10 machines at once. Quoted: 'the Free plan's 20-vCPU Linux limit supports up to 10 Small Linux machines at 2 vCPU each'.
+  - keep_rate.value: 0.0
+  - keep_rate.basis: the environment is destroyed at job end; cache volumes persist at no stated charge
+  - keep_rate.source: https://buildkite.com/docs/pipelines/hosted-agents
+  - persistent_storage.included_gib: 0
+  - persistent_storage.price_gib_month: not published; cache volumes are 'included at no additional cost' with a 50 GB container cache and 5 GB git mirror default quota
+  - persistent_storage.durability: the job environment is destroyed; cache volumes persist across jobs
+  - persistent_storage.survives_stop: no
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: the job, except cache volumes
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: no
+  - network_out.ports: none inbound: no page read offers a public address and the environment is destroyed at job end
+  - network_out.static_ip: no
+  - units: RAM and disk are the vendor's decimal GB, kept unconverted. 4 GB reads as 4, 47 GB as 47.
+  - granularity.min_billed_s: 1
+  - granularity.rounding_s: 1
+  - granularity.note: quoted for the paid rate: 'billed per vCPU minute and metered to the second, with no minimums and no rounding'
+  - burst_x: 10.0
+  - burst_note: 10 concurrent 2 vCPU small machines on the Free plan's 20 vCPU of Linux concurrency. burst_x is that concurrency multiplier over a single runner.
+  - topic_note: belongs to ci-cd-runners
+  - checked.verified: 2,000 Linux vCPU-minutes a month on the Free plan; 20 vCPU Linux concurrency = 10 small machines; the small shape is 2 vCPU / 4 GB / 47 GB; 4-hour job timeout on the Free plan; no credit card required
+- evidence:
+  - [4] 2026-10-22: 'Free Plan ... Up to 5 users, Up to 10 concurrent jobs, Up to 2,000 Linux vCPU minutes per month, Up to 250k test executions per month', and 'No credit card required'; Pro includes '4,000 Linux vCPU minutes per month'
+  - [4] 2026-10-24: quoted, Free plan: 'For solo developers and small teams', '$ 0', 'No credit card required', with 'Up to 5 users', 'Up to 10 concurrent jobs', 'Up to 2,000 Linux vCPU minutes per month', 'Up to 250k test executions per month'
+  - [1] 2026-10-24: quoted, hosted agents limits table: '| Linux vCPU concurrency | 24 vCPU | 20 vCPU | 256 vCPU | Custom |' and '| Linux vCPU minutes per month | 4,000 included | Up to 2,000 | 4,000 included | Volume discounts |'
+  - [1] 2026-10-24: quoted: 'the Free plan's 20-vCPU Linux limit supports up to 10 Small Linux machines at 2 vCPU each'
+  - [1] 2026-10-24: quoted: 'Job timeout | The maximum time before a running job will time out. Default: 4 hours on the Free plan. Unlimited on Pro and Enterprise plans'
+  - [3] 2026-10-24: quoted: 'only provides access to small-sized instance shapes' (the sentence is 'The [Free plan](https://buildkite.com/pricing/) only provides access to small-sized instance shapes.' with the plan name as a link) and the shape table row '| `LINUX_AMD64_2X4` | Small | AMD64 | 2 | 4 GB | 47 GB |', plus 'To accommodate different workloads, instances are capable of running up to 8 hours.'
+  - [5] 2026-10-24: quoted, the Hosted Agents block for the Free column: 'Up to 2,000 mins/month', 'Small only', 'Up to 20 vCPU'
+  - [2] 2026-10-24: quoted: 'Once the job is complete, regardless of its exit status, the virtualized environment and all of its associated data, including data it generated during job execution, is removed and destroyed. For Linux and macOS hosted agents, any cache volume data is persisted.'
+  - [2] 2026-10-24: quoted: 'Hosted agents are provisioned on demand and destroyed after each job, providing clean, reproducible builds'
+  - [2] 2026-10-30: hosted-agent usage counts job runtime only; startup and shutdown are not billed, so boot time does not draw on the 2,000 vCPU-minute pool | capture: sha256:f26f84bf80d7063f8662c702c2392fefa66293d8552499563eeac4b5b9d25091 | quote: Startup and shutdown periods are excluded, with no minimum charges.
+  - [1] 2026-10-30: the Free plan's hosted concurrency is 20 vCPU, 10 small 2 vCPU machines | capture: sha256:3bb99aa77d71fd8cfe97a09e8bd0fdc72d16bb18229db238b044b6bd02267593 | quote: For example, the Free plan's 20-vCPU Linux limit supports up to 10 Small Linux machines at 2 vCPU each.
+- sources:
+  - [1] https://buildkite.com/docs/platform/limits
+  - [2] https://buildkite.com/docs/pipelines/hosted-agents
+  - [3] https://buildkite.com/docs/agent/buildkite-hosted/linux
+  - [4] https://buildkite.com/pricing
+  - [5] https://buildkite.com/pricing/feature-comparison
+
+## Buildkite Free
+
+- `ci-cd-runners/buildkite-free` | qualifies-with-caveat | evidence documented | binding volume-quota | category CI runner
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T00:32:22.884Z (live) | stale on 2026-12-04
+- url https://buildkite.com/pricing
+- price USD 0.004 per vCPU-minute
+- free tier: 5 users, 10 concurrent jobs and 2,000 Linux vCPU-minutes a month, plus 250,000 test executions a month | unit: minutes | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: 10 GiB per artifact uploaded from an agent, and 50 GiB of artifacts in one job's upload batch | bytes: 10737418240
+- retention: builds are stored 30 days on the Free plan (90 on Pro, 365 on Enterprise) and artifacts 30 days; the vCPU-minute pool is monthly | days: 30 | source: [1]
+- egress: artifact downloads: 250 GB a month on the Free plan, 2.5 TB a month on Pro and then USD 0.10 per GB; no charge for network traffic from a hosted agent is published on the pricing, limits or hosted-agent pages | metered: yes | free allowance: 250 GB a month of artifact downloads | price per TB: USD 100 per TB of artifact downloads beyond the Pro allowance; the Free plan names no overage | source: [2]
+- identity: email | detail: the signup form asks for a full name, an email and a password, or a GitHub sign-in; the Free plan states 'No credit card required'; the form has no phone or card field
+- interface: git, cli
+- limits:
+  - volume-quota (binding): Up to 2,000 Linux vCPU-minutes a month of Buildkite-hosted agents on the Free plan (Pro includes 4,000); usage is the shape's vCPU count times job runtime [3]
+  - request-rate: 5 users on Free [1]
+  - request-rate: Linux hosted-agent concurrency of 20 vCPU on the Free plan, which is 10 small machines at 2 vCPU each; further jobs queue until capacity frees [3]
+  - retention-clamped: Job timeout of 4 hours on the Free plan; unlimited on Pro and Enterprise [3]
+- binding note: the monthly pool runs out first: 2,000 vCPU-minutes on the only shape the Free plan offers, 2 vCPU, is 1,000 wall-clock minutes a month, against a 4-hour job timeout; usage counts job runtime, with startup and shutdown excluded
+- interface detail: an agent you run, with Buildkite as the control plane; the bk CLI and a REST API
+- tooling: Buildkite-hosted Linux agents on the Free plan, small shape only, run the jobs with no machine of the user's; their outbound traffic comes from IP address ranges shared across customers, and dedicated static addresses are requested from Support; the buildkite-agent binary can also run on a VM from another provider and take jobs from the same pipelines
+- composes with: the Free plan supplies both the scheduler and a hosted machine; once the monthly vCPU-minute pool is spent, the same pipelines can dispatch to a buildkite-agent on a free or rented VM from another provider, which counts against the 10 concurrent self-hosted jobs rather than the pool
+- reliability: no suspension, throttle or data-loss event is recorded on the pages read
+- notes: 2,000 vCPU-minutes is 33 vCPU-hours. The Free plan reaches only the 2 vCPU small shape, so the pool is 1,000 wall-clock minutes (16 h 40 min) a month, and a larger shape needs a paid plan. A self-run agent does not draw on the pool, but it needs a machine from another provider, so it is the last resort.
+- evidence note: the pricing page was read and lists the Free column explicitly.
+- evidence:
+  - [1] 2026-10-22: the Free column: 'Up to 2,000 Linux vCPU minutes per month', 'Up to 250k test executions per month', 10 concurrent agents with 10 included, 5 users; Pro includes 4,000 Linux vCPU minutes
+  - [1] 2026-10-22: Free: up to 5 users, up to 10 concurrent jobs, up to 2,000 Linux vCPU-minutes a month; hosted agents at USD 0.004 per vCPU-minute, metered to the second with no minimum
+  - [4] 2026-10-30: the Free plan includes Buildkite-hosted Linux agents, restricted to the small instance shapes | capture: sha256:cbbaf82b462c383bb41827984d3d404bd1163a917e796270183c95e4ff752488 | quote: The Free plan only provides access to small-sized instance shapes.
+  - [3] 2026-10-30: the hosted-agent limits table: Linux vCPU minutes per month are up to 2,000 on Free, 4,000 included on Pro | capture: sha256:3bb99aa77d71fd8cfe97a09e8bd0fdc72d16bb18229db238b044b6bd02267593 | quote: | Linux vCPU minutes per month | 4,000 included | Up to 2,000 | 4,000 included | Volume discounts |
+  - [3] 2026-10-30: the Free plan's hosted concurrency is 20 vCPU, which is 10 small machines at 2 vCPU each | capture: sha256:3bb99aa77d71fd8cfe97a09e8bd0fdc72d16bb18229db238b044b6bd02267593 | quote: For example, the Free plan's 20-vCPU Linux limit supports up to 10 Small Linux machines at 2 vCPU each.
+  - [3] 2026-10-30: a job on the Free plan times out after 4 hours | capture: sha256:3bb99aa77d71fd8cfe97a09e8bd0fdc72d16bb18229db238b044b6bd02267593 | quote: Default: **4 hours on the Free plan. Unlimited on Pro and Enterprise plans**
+  - [3] 2026-10-30: the monthly vCPU-minute pool of the Free plan is up to 2,000 | capture: sha256:3bb99aa77d71fd8cfe97a09e8bd0fdc72d16bb18229db238b044b6bd02267593 | quote: | Linux vCPU minutes per month | 4,000 included | Up to 2,000 | 4,000 included | Volume discounts |
+  - [5] 2026-10-30: hosted-agent usage counts job runtime; startup and shutdown are not billed and there is no minimum | capture: sha256:f26f84bf80d7063f8662c702c2392fefa66293d8552499563eeac4b5b9d25091 | quote: Startup and shutdown periods are excluded, with no minimum charges.
+  - [3] 2026-10-30: builds are stored 30 days on the Free plan; the same table gives artifact retention of 30 days on Free | capture: sha256:3bb99aa77d71fd8cfe97a09e8bd0fdc72d16bb18229db238b044b6bd02267593 | quote: | Build retention | The time period builds are stored in Buildkite after running. Default: 30 days on the Free plan, 90 days on the Pro plan, and 365 days on the Enterprise plan |
+  - [3] 2026-10-30: build retention is 30 days on the Free plan | capture: sha256:3bb99aa77d71fd8cfe97a09e8bd0fdc72d16bb18229db238b044b6bd02267593 | quote: Default: 30 days on the Free plan, 90 days on the Pro plan, and 365 days on the Enterprise plan
+  - [3] 2026-10-30: an artifact uploaded from an agent is at most 10 GiB; the same table gives 50 GiB per job batch | capture: sha256:3bb99aa77d71fd8cfe97a09e8bd0fdc72d16bb18229db238b044b6bd02267593 | quote: | Artifact file size | The maximum size of an artifact that can be uploaded to Buildkite from an agent. Default: 10 GiB |
+  - [3] 2026-10-30: the artifact file size cap is 10 GiB | capture: sha256:3bb99aa77d71fd8cfe97a09e8bd0fdc72d16bb18229db238b044b6bd02267593 | quote: | Artifact file size | The maximum size of an artifact that can be uploaded to Buildkite from an agent. Default: 10 GiB |
+  - [2] 2026-10-30: artifact downloads are 250 GB a month on Free and 2.5 TB a month on Pro, then USD 0.10 per GB | capture: sha256:06416ebaf4c81102d8db604fe54e02a78e7dca7ba22805d0a8c05b73e941988e | quote: Artifact downloads 250GB/month 2.5TB/month Then $0.10/GB overage
+  - [6] 2026-10-30: the signup form has full name, email and password fields and a GitHub sign-in, and no phone or card field | capture: sha256:272bc9faf03b76e7a0ccef503e368da9a809adc021c277bd0e4b9673faaa5511 | quote: <div class="FormField__Label">Email</div>
+  - [1] 2026-10-30: an agent runs either on Buildkite-hosted compute or on infrastructure the user supplies | capture: sha256:aea630b6e8d230d0787773bc270046435ece802743c101d1ba9bdd75ee5bd2da | quote: A build agent (commonly referred to as a runner) runs on your infrastructure or on Buildkite-hosted compute, and runs one build job at a time.
+  - [4] 2026-10-30: the Free plan cannot select a shape larger than small, which is 2 vCPU | capture: sha256:cbbaf82b462c383bb41827984d3d404bd1163a917e796270183c95e4ff752488 | quote: The Free plan only provides access to small-sized instance shapes.
+  - [1] 2026-10-30: the Free plan is USD 0 with up to 5 users, 10 concurrent jobs, 2,000 Linux vCPU-minutes and 250k test executions a month, and needs no card | capture: sha256:aea630b6e8d230d0787773bc270046435ece802743c101d1ba9bdd75ee5bd2da | quote: No credit card required
+  - [7] 2026-11-02: hosted agents reach the network from IP address ranges shared across customers | capture: sha256:e8c95744e4ec6aa07bbd6fb0000d9f91b009dc8551d0128cd285997f729e6726 | quote: Since the infrastructure of Buildkite hosted agents is shared across Buildkite customers, the IP address ranges for Buildkite hosted agents originate from a common source, and could be shared between different customers' configured hosted agents.
+  - [7] 2026-11-02: dedicated static egress addresses for hosted agents are not self-serve; they are requested from Support | capture: sha256:e8c95744e4ec6aa07bbd6fb0000d9f91b009dc8551d0128cd285997f729e6726 | quote: If you do require dedicated static IP addresses for your hosted agents' IP addresses, contact Support at support@buildkite.com.
+- sources:
+  - [1] https://buildkite.com/pricing
+  - [2] https://buildkite.com/pricing/feature-comparison
+  - [3] https://buildkite.com/docs/platform/limits
+  - [4] https://buildkite.com/docs/agent/buildkite-hosted/linux
+  - [5] https://buildkite.com/docs/pipelines/hosted-agents
+  - [6] https://buildkite.com/signup
+  - [7] https://buildkite.com/docs/agent/buildkite-hosted/network-security
+
+## Buildkite hosted agents
+
+- `compute/buildkite-hosted` | qualifies-with-caveat | evidence documented | binding request-rate | category CI runner
+- needs card no, phone no, ID no, institution no | verified 2026-10-30T12:41:24.476Z (live) | stale on 2026-11-30
+- url https://buildkite.com/pricing
+- duplicate of `ci-cd-runners/buildkite-free`
+- free tier: a Free plan with no card: up to 10 concurrent jobs, 2,000 Linux vCPU-minutes a month and 250,000 test executions a month, plus a 30-day all-access trial | unit: minutes | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email | detail: 'No credit card required' on the Free Plan, quoted from buildkite.com/pricing read 2026-10-22
+- interface: unknown
+- limits:
+  - request-rate (binding): 2,000 Linux vCPU-minutes a month on Free, 4,000 on Pro [1]
+  - request-rate (binding): 10 concurrent jobs on Free, and up to 250 concurrent agents with 10 included on Pro [1]
+  - per-object-cap: 250,000 test executions a month on Free [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the pricing page was read on 2026-10-22 and states the Free plan's three caps and that no card is required. The record carried a USD 16 credit that the page does not show
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: a job has its own timeout; the monthly vCPU-minute pool is what runs out
+  - free_tier_kind: allowance
+  - granularity.min_billed_s: 0
+  - burst_x: 1.0
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Start Free or Pro with 30 days of the all-access trial. No credit card or commitment.' and the Free Plan's 'Up to 10 concurrent jobs', 'Up to 2,000 Linux vCPU minutes per month', 'Up to 250k test executions per month', 'No credit card required', quoted
+  - [2] 2026-10-30: macOS hosted agents are not part of the Free plan, which is what the record describes | capture: sha256:0918e1630300720a5845dcdcb78a33abebe2766762abec6871db25ad9fe36e91 | quote: Buildkite macOS hosted agents are only available to Buildkite customers on [Pro or Enterprise](https://buildkite.com/pricing) plans.
+  - [1] 2026-10-30: the Free plan needs no card and lists 10 concurrent jobs, 2,000 Linux vCPU-minutes and 250k test executions a month; Pro includes 4,000 vCPU-minutes | capture: sha256:aea630b6e8d230d0787773bc270046435ece802743c101d1ba9bdd75ee5bd2da | quote: No credit card required
+- sources:
+  - [1] https://buildkite.com/pricing
+  - [2] https://buildkite.com/docs/agent/buildkite-hosted/macos
+
+## buildkite artifacts
+
+- `storage/buildkite-artifacts` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://buildkite.com/docs/pipelines/configure/artifact-retention
+- free tier: none reachable: Metered both ways: storage billed per GB-month and transfer billed per GB beyond plan inclusion, and retention maxes at 7/30/90 days depending on plan. Full custom retention is an… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: retention
+  - dead_end.why: Metered both ways: storage billed per GB-month and transfer billed per GB beyond plan inclusion, and retention maxes at 7/30/90 days depending on plan. Full custom retention is an…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Metered both ways: storage billed per GB-month and transfer billed per GB beyond plan inclusion, and retention maxes at 7/30/90 days depending on plan. Full custom retention is an…
+  - [2] 2026-10-21: cited as the basis of the rejection: Metered both ways: storage billed per GB-month and transfer billed per GB beyond plan inclusion, and retention maxes at 7/30/90 days depending on plan. Full custom retention is an Enterprise
+  - [3] 2026-10-21: cited as the basis of the rejection: Metered both ways: storage billed per GB-month and transfer billed per GB beyond plan inclusion, and retention maxes at 7/30/90 days depending on plan. Full custom retention is an Enterprise
+- sources:
+  - [1] https://buildkite.com/docs/pipelines/configure/artifact-retention
+  - [2] https://buildkite.com/docs/platform/artifact-storage-and-transfer-billing
+  - [3] https://api.buildkite.com/v2/artifacts

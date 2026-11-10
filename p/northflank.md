@@ -1,0 +1,111 @@
+# Northflank
+
+> northflank.com | Compute, Egress and tunnels; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/northflank/ | JSON https://fshy.ajam.dev/api/v1/entity/northflank.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Northflank, Sandbox (free)
+
+- `compute/northflank` | fails-identity | evidence documented | binding write-gated | category platform host | tier Sandbox (free)
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T02:40:00.000Z (live) | stale on 2026-11-24
+- url https://northflank.com/pricing
+- free tier: Sandbox plan at USD 0: 'Up to $20/mo of resources on Northflank Cloud', '2 services, 2 jobs, and 1 database', 'Always on, no sleeping', plus '1 BYOC cluster, up to 12 vCPU and 48 GB'. | unit: mixed | metered on: wall-clock | read on: 2026-10-24 | source: [1]
+- per-object cap: 2 services, 2 jobs and 1 database; no cap on a single service's size beyond the USD 20 monthly resource allowance
+- retention: resources persist while the plan holds; the free allowance resets monthly and nothing states a deletion on exhaustion
+- egress: Network egress USD 0.06 per GB, ingress free. The free plan publishes no separate egress allowance, so the inference recorded here is that egress is drawn from the same USD 20 resource allowance; the pricing page does not say so in as many words. | metered: yes | source: [1]
+- identity: card | detail: A payment method is required for every plan: the billing documentation states 'all users must add a payment method to start creating resources on Northflank, regardless of plan selection'. The Sandbox plan card carries a 'No card needed' badge and the pricing FAQ answers 'when you enter a card we only verify the card', so the same page both advertises and presupposes a card. No hold amount is stated.
+- interface: ssh
+- limits:
+  - volume-quota: USD 20 a month of resources; the cheapest compute plan is nf-compute-50 at USD 12.00 a month [1]
+  - per-ip-shaping: egress USD 0.06 per GB with no free egress allowance stated [1]
+  - per-object-cap: 2 services, 2 jobs, 1 database [1]
+- limits note: A card entered for the paid tier is only verified: 'No — when you enter a card we only verify the card. Your card is only charged at the end of the billing cycle.' No hold amount is stated.
+- binding note: the card requirement is the first thing that fails: it is universal and it blocks the first service, whatever the plan.
+- interface detail: git deploy, a public endpoint, a CLI and an API
+- tooling: the Northflank CLI and API, Docker and buildpacks, a managed database
+- composes with: a container platform where the free tier never sleeps, and the card is the price of entry
+- reliability: no reliability event observed; the free tier is described as always-on, which is why the unresolved card question matters
+- notes: Arithmetic: 730 h x (0.5 x USD 0.01667 + 1 x USD 0.00833) = USD 12.17 a month for an always-on 0.5 vCPU / 1 GB service, leaving USD 7.83 = 130 GB of egress at USD 0.06/GB if egress draws on the same allowance, which is inferred and not stated. Unverified: the pricing page says none is needed, the docs say one is. The 'No card needed' badge on the pricing page is contradicted by the billing docs and by the page's own FAQ, which presupposes a card. The USD 20 a month of resources is real and sits behind the card. A 2026-10-24 re-read also found the plan is 'Always on, no sleeping', which is the only free-tier-shaped offer in this market that does not sleep, and 730 h x (0.5 x 0.01667 + 1 x 0.00833) = USD 12.17 of the allowance.
+- evidence note: plan contents, rates and the cheapest plan read on the pricing page; the card requirement is documented on two first-party pages that disagree
+- extras:
+  - shape.vcpu: 0.5
+  - shape.ram_gib: 1
+  - billing_model: monthly-allowance
+  - session_cap.restart_required: no
+  - session_cap.note: the vendor states 'Always on, no sleeping'
+  - persistent_storage.price_gib_month: USD 0.15 per GB-month for persistent SSD
+  - persistent_storage.durability: pausing deletes ephemeral data
+  - persistent_storage.survives_stop: yes
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: while the service exists
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: the service's HTTP port plus TCP/UDP ports for non-HTTP services
+  - network_out.static_ip: no
+  - network_out.ipv6: no
+  - free_tier_kind: monthly-resource-allowance
+  - granularity.min_billed_s: 0
+  - burst_x: 1.0
+  - ps.price: volumes and persistence are available on the plan
+  - ps.durability: volume
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: until deleted
+  - shape_smallest.vcpu: 0.5
+  - shape_smallest.ram_gib: 1
+  - term: monthly
+  - m10h_usd: 0.0
+  - m24h_usd: 0.0
+  - price_arithmetic: free within the USD 20 monthly resource allowance; the 0.5 vCPU / 1 GB shape consumes USD 12.17 a month of it at the published per-second rates
+  - credit_usd: 20
+  - credit_months_at_shape: 0.21
+  - credit_hours_at_shape: 153.8
+  - credit_expiry: monthly; unused allowance does not accumulate
+- evidence:
+  - [1] 2026-10-23: quoted: 'Up to $20/mo of resources on Northflank Cloud', 'Always on, no sleeping', 'No card needed'
+  - [1] 2026-10-23: quoted plan rows: nf-compute-50 0.5 vCPU/1 GB $0.01667/h $12.00/mo; nf-compute-100-2 1 vCPU/2 GB $0.03333/h $24.00/mo; nf-compute-200 2 vCPU/4 GB $0.06667/h $48.00/mo
+  - [1] 2026-10-24: quoted: 'No card needed', 'Up to $20/mo of resources on Northflank Cloud', 'Always on, no sleeping', 'CPU $0.01667/ vCPU / hour', 'Memory $0.00833/ GB / hour', 'nf-compute-400 ... 4 vCPU · 8 GB ... $0.13 ... $96.00'.
+  - [1] 2026-10-24: quoted: 'Am I charged when I enter my credit card? No — when you enter a card we only verify the card. Your card is only charged at the end of the billing cycle.' and 'Payments are handled by Stripe and we accept Visa, Mastercard, and American Express.'
+  - [1] 2026-10-24: quoted: 'Free / No card needed / 2 services, 2 jobs, and 1 database / Up to $20/mo of resources on Northflank Cloud / Always on, no sleeping'
+  - [1] 2026-10-24: quoted: 'nf-compute-50 ... 0.5 vCPU 1 GB ... $0.01667 ... $12.00'; 'Network egress ... $0.06/ GB'; CPU $0.01667/vCPU/hour, memory $0.00833/GB/hour
+  - [2] 2026-10-24: quoted: 'all users must add a payment method to start creating resources on Northflank, regardless of plan selection. This is to verify user identity'
+- sources:
+  - [1] https://northflank.com/pricing
+  - [2] https://northflank.com/docs/v1/application/billing/pricing-on-northflank
+
+## Northflank (free)
+
+- `egress/northflank` | fails-quota | evidence documented | binding volume-quota | category paas l4 port | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://northflank.com/docs/v1/application/network/configure-load-balancers
+- price USD 0
+- free tier: Up to $20 a month of free resources on Northflank Cloud, across 2 services, 2 jobs, and 1 database. | unit: mixed | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: Free Sandbox is a $20/month resource credit; network egress is $0.06/GB for everyone, so the credit buys at most 333 GB of egress if nothing else is spent.; ingress: tcp+udp | metered: no | free allowance: none published | source: [2]
+- identity: email | detail: "Sandbox Free No card needed". | country: None
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): $20/month of resources; egress $0.06/GB [1]
+- binding note: $20 of credit at $0.06/GB is 333 GB, 0.30 TiB, and only if no compute is spent. 1 TiB of egress alone would cost $61.44/month.
+- interface detail: "Load balancers can be included in Northflank templates for infrastructure as code" plus a REST API.
+- tooling: Dashboard, API, and template YAML (kind: LoadBalancer); point an A record at the provisioned IP.
+- composes with: A Northflank UDP load balancer in front of a wg-quick sidecar gives a stable endpoint; the $20 credit and $0.06/GB egress cap the volume, not the protocol.
+- reliability: "Updating a load balancer triggers re-provisioning. There may be a brief traffic interruption during the update." Backends must be running, not paused.
+- notes: Cloud application platform supporting background services and networking. Egress gateways are billed at USD 15 monthly; load balancer pricing and free-tier allocation terms are unstated in the plan matrix.
+- evidence note: Whether the free Sandbox may create an L4 load balancer is not stated on any page read.
+- extras:
+  - wg_path: inside-udp
+  - wg_detail: A team-level Layer 4 load balancer with Protocol: TCP or UDP, a stable public IP once Provisioned, up to 100 ports, no TLS termination and no rate limiting.
+  - ingress: tcp+udp
+  - volume_stated: Free Sandbox is a $20/month resource credit; network egress is $0.06/GB for everyone, so the credit buys at most 333 GB of egress if nothing else is spent.
+  - bytes_transit: yes
+  - transit_note: Northflank's cloud provisions the L4 balancer; the datagrams land on the service.
+- evidence:
+  - [2] 2026-10-23: L4 load balancers route "external TCP or UDP traffic", stable public IP, up to 100 ports, no rate limiting
+  - [1] 2026-10-23: Free Sandbox: $20/month of resources, 2 services, no card; network egress $0.06/GB
+  - [3] 2026-10-23: "Only HTTP and HTTP/2 ports can be publicly exposed. TCP and UDP service ports require a separate Layer 4 load balancer"
+- sources:
+  - [1] https://northflank.com/pricing
+  - [2] https://northflank.com/docs/v1/application/network/configure-load-balancers
+  - [3] https://northflank.com/docs/v1/application/network/configure-ports

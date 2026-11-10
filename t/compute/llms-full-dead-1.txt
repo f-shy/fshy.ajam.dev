@@ -1,0 +1,1596 @@
+# fshy: Compute, dead, part 1 of 2
+
+> Machines, sandboxes, notebooks, GPU time, platform hosts and how long each runs before it is reaped.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/compute/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## 4vps.su
+
+- `compute/4vps-su` | dead | evidence reported | binding none | category cloud VM
+- identity a placeholder: card and phone unknown | verified 2026-10-22 (live) | stale on 2026-11-06
+- url https://vc.ru/claim/2739295-4vps-su-obzor-problem-s-vds-v-yaponii | page https://fshy.ajam.dev/p/vc.md
+- free tier: A VDS was paid for in a Japanese location and never worked; the provider did not return the money, did not answer the ticket, and removed the buyer from its chat. A separate refund request sent to the same payment details went unanswered for more than 15 days. Nothing was delivered, so there is no capacity to price. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: card | detail: unverified: no page stating the signup requirement was read; the record's evidence covers a paid Japanese VDS order that never started, an unanswered ticket, and a refund request sent to "the same payment details", which shows a payment was taken but names no rail, no card requirement, no hold and no debit or prepaid answer
+- interface: unknown
+- limits note: The order never produced a machine, so no quota or rate binds: the failure is delivery rather than a limit, and the record exists so that the name is not tried again.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: It composes with nothing, and its value is negative: a paid Japanese location looks like the foreign-reachable shape this category is hunting, which is exactly why the failure is worth a record.
+- reliability: no reliability event recorded
+- notes: Reported rather than measured: no order was placed verification, and the verdict rests on a single published complaint. A reader who wants to overturn it needs one delivered server from this provider, which nobody among documented hosts produced.
+- extras:
+  - facets.class: delivery-failure
+  - facets.free_tier_kind: none
+  - facets.shape.gpu_count: 0
+- evidence:
+  - [1] 2026-10-22: a published complaint states the VDS was paid for and did not start, the money was not returned, the ticket went unanswered, the buyer was removed from the chat, and a refund request to the same payment details went unanswered for more than 15 days
+- sources:
+  - [1] https://vc.ru/claim/2739295-4vps-su-obzor-problem-s-vds-v-yaponii
+
+## Abeiyun
+
+- `compute/abeiyun` | dead | evidence documented | binding retention-clamped | category cloud VM | tier free cloud server
+- needs card no, phone yes, ID yes, institution no | verified 2026-11-06T16:58:46.967Z (live) | stale on 2026-12-07
+- url https://www.abeiyun.com/help/content_1209.html | page https://fshy.ajam.dev/p/abeiyun.md
+- free tier: The vendor withdrew the free cloud server on 2026-09-20. It was 1 core, 1 GiB RAM, 5 Mbps bandwidth and a 10 GiB data disk, with a dedicated public IP on BGP multi-line routing and a free 免备案 (no ICP filing) service. First activation ran 24 hours, an extension could be requested after 6 hours, and each approved extension added 5 to 10 days depending on real-name verification status; the vendor called the product permanently free. The notice states free instances were to be taken offline by 2026-09-27 and their disk data deleted. The paid cloud server starts at CNY 15 for the first month at 1 core, 1 GiB RAM, 5 Mbps and a 100 GiB data disk. | unit: hours | metered on: wall-clock | read on: 2026-11-06 | source: [1] | note: the free instance was time-boxed: 24 hours at first activation, then 5 to 10 days per approved extension, and deleted at expiry
+- per-object cap: not applicable | source: [1] | note: the ceiling that mattered was the machine shape: 1 core, 1 GiB RAM and a 10 GiB data disk
+- retention: not applicable: the unit is a machine, not stored bytes; the instance and its disk are deleted when the free period ends | source: [2] | note: a machine record: what is lost is the running process and its disk
+- egress: a 5 Mbps port on the free instance; the free product page states no monthly traffic allowance and no overage price | metered: no | source: [1]
+- identity: national-id | detail: Registration takes an 11-digit mobile number and an SMS code: the register form's identity field is 手机号码 with maxlength 11, plus 手机验证码, and activation runs 注册登录, 关注微信公众号, 认证开通. Opening the free server needs 实名认证 (real-name verification): the vendor states domestic cloud resources require it, that the name and 身份证号码 (national ID number) must be correct, that the registered mobile number must belong to that person, and that a fee is charged on every attempt whether or not it succeeds. A third-party write-up puts the verification fee at CNY 0.3 and a CNY 1 minimum balance before activation. | country: CN
+- interface: ssh
+- limits:
+  - retention-clamped (binding): 24 hours at first activation, then 5 to 10 days per approved extension; the instance and its disk are deleted when the free period ends [3]
+  - write-gated: each extension requires a public post on a third-party site carrying the vendor's keywords and more than 20 characters of experience text, submitted for review [4]
+  - volume-quota: 1 core, 1 GiB RAM, 10 GiB data disk and a 5 Mbps port [1]
+- limits note: one free instance per person, reported by a third-party walkthrough in 2026-05; the machine shape is 1 core, 1 GiB RAM and a 10 GiB data disk
+- binding note: the instance is deleted 24 hours after activation unless a reviewed public post earns 5 to 10 more days, so holding the machine costs a recurring publishing task
+- interface detail: SSH on port 22 for the Linux images and RDP on 3389 for the Windows images, with a VNC console in the control panel; no API, CLI or SDK is documented on the vendor's help pages
+- tooling: no API, CLI or SDK is documented on the vendor's help pages; the control panel and SSH are the access paths
+- composes with: Not usable: the free tier stopped on 2026-09-20. The paid cloud server at CNY 15 for the first month needs the same real-name verification with a Chinese ID number, so it is not a substitute.
+- reliability: the free instance and its disk are deleted when the free period ends and the vendor states the data cannot be recovered; the free cloud server stopped service on 2026-09-20, with instances offline by 2026-09-27
+- notes: The vendor withdrew the free cloud server on 2026-09-20; the product page at https://www.abeiyun.com/free still advertises it, so the notice is the newer statement. The notice states the change applies only to the free cloud server. The paid cloud server starts at CNY 15 for the first month on the same real-name gate. The vendor writes its name 阿贝云; the notice is signed 陕西阿贝云计算有限公司.
+- extras:
+  - death.on: 2026-09-20
+  - death.cause: free-tier-removed
+- evidence:
+  - [5] 2026-11-06: the vendor states the free cloud server stopped service as of the notice's date | capture: sha256:b129c4c712bb8e1a2fe14272a76d6e705826fc17f736cf5288ba62547ea9f818 | quote: 因产品战略调整，自今日起，阿贝云免费云服务器正式停止服务。
+  - [5] 2026-11-06: the notice carries a last-updated stamp of 2026-09-20, which dates the withdrawal | capture: sha256:b129c4c712bb8e1a2fe14272a76d6e705826fc17f736cf5288ba62547ea9f818 | quote: 最后更新时间：2026-09-20 08:40:38
+  - [5] 2026-11-06: free instances were to be taken offline by 2026-09-27 | capture: sha256:b129c4c712bb8e1a2fe14272a76d6e705826fc17f736cf5288ba62547ea9f818 | quote: 免费云服务器实例将于2026年09月27日逐步下线完毕，服务器访问、远程连接、控制台操作等功能会陆续失效。
+  - [5] 2026-11-06: the disk data of the free instances is deleted and cannot be recovered | capture: sha256:b129c4c712bb8e1a2fe14272a76d6e705826fc17f736cf5288ba62547ea9f818 | quote: 服务停止后，服务器磁盘数据将被清除，数据无法找回、不可恢复
+  - [5] 2026-11-06: the withdrawal covers the free cloud server only; the paid cloud servers keep running | capture: sha256:b129c4c712bb8e1a2fe14272a76d6e705826fc17f736cf5288ba62547ea9f818 | quote: 本次仅针对免费云服务器，付费云服务器产品不受本次调整影响，可正常使用。
+  - [1] 2026-11-06: the free cloud server was 1 core, 1 GiB RAM, 5 Mbps bandwidth and a 10 GiB data disk | capture: sha256:bdb779dcdfb6fc1a1e18efd5b229bf8e254ccd0958364e2ff4f439b6f49212ed | quote: 免费云服务器配置 CPU 1核 内存 1G 带宽 5M 数据盘 10G
+  - [1] 2026-11-06: BGP multi-line routing, a dedicated public IP and a free no-filing service on the free cloud server | capture: sha256:bdb779dcdfb6fc1a1e18efd5b229bf8e254ccd0958364e2ff4f439b6f49212ed | quote: 永久免费云服务器采用BGP多线路，速度快，独立IP地址，送免备案服务
+  - [1] 2026-11-06: the activation flow is registration, following the vendor's WeChat account, then real-name verification | capture: sha256:bdb779dcdfb6fc1a1e18efd5b229bf8e254ccd0958364e2ff4f439b6f49212ed | quote: 注册登录 关注微信公众号 认证开通
+  - [3] 2026-11-06: first activation is 24 hours and an extension can be requested after 6 hours | capture: sha256:6d2a0702d9409c8616542997f4ae5aa74478a5383051ebc18d1303baa3aa4f3b | quote: 免费云服务器初始开通时24小时的使用时间，开通6小时后您可以进行免费延期操作。
+  - [3] 2026-11-06: each approved extension adds 5 to 10 days depending on verification status, and repeated extension is presented as permanent free use | capture: sha256:6d2a0702d9409c8616542997f4ae5aa74478a5383051ebc18d1303baa3aa4f3b | quote: 每次免费延期根据您的认证状态不同，将可以免费延长5到10天的时间，通过免费延期您可以永久免费使用。
+  - [2] 2026-11-06: an instance that is not extended is deleted at expiry and its data cannot be recovered | capture: sha256:af74c8240e3729af4cb9f6df05f26cbd76c5d90b11fdf111ee9429dca4d42e85 | quote: 但如果您未延期，到达使用时间后系统将会自动删除，数据等无法恢复。
+  - [4] 2026-11-06: an extension requires a public post containing the vendor's keywords and more than 20 characters of experience text | capture: sha256:d188b4c5ae964b61cdfe0a75b386638cec6ef3ff8ca7ad32fe6d3613f4c62cf2 | quote: 文章中必须包含“阿贝云”"免费虚拟主机"“免费云服务器”字样和大于20字的使用感受内容。
+  - [4] 2026-11-06: the extension post must be published on a third-party site | capture: sha256:d188b4c5ae964b61cdfe0a75b386638cec6ef3ff8ca7ad32fe6d3613f4c62cf2 | quote: 延期需要您在第三方网站发布使用感受
+  - [6] 2026-11-06: real-name verification is required before domestic cloud resources can be used | capture: sha256:6abb9118f40bfb7e9edcfa0ba831ded2f86c40dff396198e8c4d7e0a54a390bc | quote: 国内云计算资源用户须完成用户实名认证才能使用相关服务
+  - [6] 2026-11-06: the verification needs the account holder's name and national ID number | capture: sha256:6abb9118f40bfb7e9edcfa0ba831ded2f86c40dff396198e8c4d7e0a54a390bc | quote: 请确保姓名、身份证号码完全正确，请勿使用他人身份信息进行认证，否则会认证失败
+  - [6] 2026-11-06: the registered mobile number must belong to the person being verified | capture: sha256:6abb9118f40bfb7e9edcfa0ba831ded2f86c40dff396198e8c4d7e0a54a390bc | quote: 注册手机号必须属本人所有，请勿使用他人手机进行注册，否则认证会失败
+  - [6] 2026-11-06: a verification fee is charged on every attempt, successful or not | capture: sha256:6abb9118f40bfb7e9edcfa0ba831ded2f86c40dff396198e8c4d7e0a54a390bc | quote: 无论是否认证成功系统每次收取一定的认证手续费。
+  - [7] 2026-11-06: the registration form's identity field is a mobile number capped at 11 digits | capture: sha256:4d3e3b8aa087fe1c620b78ca1764986e76d8db06cc02138428fdddfae4482b4b | quote: <input type="text" name="mobile" id="mobile" maxlength="11"/>
+  - [7] 2026-11-06: registration also requires an SMS code sent to that mobile number | capture: sha256:4d3e3b8aa087fe1c620b78ca1764986e76d8db06cc02138428fdddfae4482b4b | quote: <th><b>*</b>手机验证码</th>
+  - [8] 2026-11-06: the paid cloud server's entry plan is 1 core, 1 GiB RAM, 5 Mbps and a 100 GiB data disk at CNY 15 for the first month | capture: sha256:3c02976be50a410801a8eb5ef00deee53d752b9efeadc3f0705746d8eb58f8f2 | quote: 入门型 适用于个人网站初始阶段并发访问量小，经济配置省钱适用，两步购买方便快捷 CPU: 1核 内存: 1G 带宽: 5M 防御: 100G 系统盘: 赠送 数据盘: 100G 15元 / 首月
+  - [9] 2026-11-06: a third-party write-up puts the real-name verification fee at CNY 0.3 | capture: sha256:24d866bd2d52cddcc4a8444ba7bd579cdf501fda8accba2bf5404097f607bb73 | quote: 注册后需要完成实名认证，这一步要支付 0.3 元
+  - [9] 2026-11-06: the same write-up states at least CNY 1 must be on the balance before the free server is activated | capture: sha256:24d866bd2d52cddcc4a8444ba7bd579cdf501fda8accba2bf5404097f607bb73 | quote: 账户里至少要充值 1 元
+  - [9] 2026-11-06: a third-party account corroborates the 24-hour first activation | capture: sha256:24d866bd2d52cddcc4a8444ba7bd579cdf501fda8accba2bf5404097f607bb73 | quote: 初次开通后，有效期只有 24 小时
+  - [10] 2026-11-06: one free cloud server per person | capture: sha256:3ce48b582544e80a5617fcb5600cb7565ced26667b399214a4beab5845694158 | quote: 每人限一台免费云服务器
+  - [10] 2026-11-06: Linux images are reached over SSH on port 22 | capture: sha256:3ce48b582544e80a5617fcb5600cb7565ced26667b399214a4beab5845694158 | quote: Linux：SSH（22 端口）
+- sources:
+  - [1] https://www.abeiyun.com/free
+  - [2] https://www.abeiyun.com/help/content_1115.html
+  - [3] https://www.abeiyun.com/help/content_1058.html
+  - [4] https://www.abeiyun.com/help/content_1155.html
+  - [5] https://www.abeiyun.com/help/content_1209.html
+  - [6] https://www.abeiyun.com/help/content_1067.html
+  - [7] https://www.abeiyun.com/register
+  - [8] https://www.abeiyun.com/server/
+  - [9] https://www.coderlog.net/post/abeiyun-free-cloud-server-experience
+  - [10] https://openeuler.csdn.net/6a1288ff10ee7a33f274bef5.html
+
+## Adaptable
+
+- `compute/adaptable` | dead | evidence documented | binding retention-clamped | category platform host | tier none
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T01:55:00.000Z (live) | stale on 2026-11-24
+- url https://adaptable.io/ | page https://fshy.ajam.dev/p/adaptable.md
+- free tier: nothing reachable: every path on adaptable.io returned a Cloudflare 530 from the origin on 2026-10-24, which is a DNS or origin failure rather than a page | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable: the service does not answer
+- retention: the free Starter plan ended on 2024-09-23 and all apps were paused on 2025-02-15
+- egress: not applicable | metered: no | source: [1]
+- identity: email | detail: not applicable: no signup page is served
+- interface: unknown
+- limits:
+  - retention-clamped (binding): origin answers 530 on the root path [1]
+- limits note: there is no allowance to bind: the product is gone.
+- binding note: there is no service to bind.
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: none: Service is inactive.
+- reliability: Cloudflare error 530 means the origin DNS entry is missing or the origin refused; it is not a challenge page
+- notes: One route tried today: HTTP request to https://adaptable.io/, which returned 530. The earlier routes tried on this record (direct fetch, /docs/free-app-hosting, search) are not repeated here.
+- evidence note: the 530 was observed today on the root path; the shutdown history is carried from earlier readings and remains unverified against live endpoints.
+- extras:
+  - facets.class: refutation
+  - facets.free_tier_kind: none
+  - billing_model: none
+  - term: none
+  - price_arithmetic: none
+  - free_tier_kind: none
+  - session_cap.restart_required: no
+  - session_cap.note: dead
+- evidence:
+  - [2] 2026-10-22: via the search index of the page: 'We have made the very difficult decision to end our free Starter Plan on September 23, 2024'; apps paused 2024-09-23 and permanently deleted 2024-10-07 including database data, quoted
+  - [3] 2026-10-22: via the search index of the page: 'Adaptable is shutting down. All apps will be paused on February 15, 2025', quoted
+  - [1] 2026-10-22: 
+  - [1] 2026-10-24: 
+- sources:
+  - [1] https://adaptable.io/
+  - [2] https://adaptable.io/docs/free-app-hosting
+  - [3] https://adaptable.io/terms
+
+## AI Grant
+
+- `compute/ai-grant` | dead | evidence documented | binding write-gated | category GPU cloud
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://aigrant.org/ | page https://fshy.ajam.dev/p/aigrant.md
+- free tier: The page still advertises '$5,000 - $50,000 in grants for open source projects, no strings attached' and 'Grants can come in the form of compute or cash', with the compute link pointing to andromeda.ai. The programme is described as funding builders of specific open-source artifacts. The listed awards are three in the 'Latest grants' block: abetlen for llama-cpp-python, philpax for the GGUF file format, and TySam for hlb-CIFAR10. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: the served HTML contains no application route: the only outbound links are to aigrant.com, andromeda.ai, nfdg.com and the winners' own profiles, and there is no form, no mailto and no apply anchor; probed by extracting every href from the 200 response | metered: yes | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - write-gated (binding): there is no application route at all: the page carries no apply link, no form and no contact address, and the 'latest grants' list has not changed in at least 17 months, so the programme reads as dormant rather than closed. [1]
+- limits note: there is no application route at all: the page carries no apply link, no form and no contact address, and the 'latest grants' list has not changed in at least 17 months, so the programme reads as dormant rather than closed.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: Nothing composes while the route is absent. If it reopened, the corporate-compute option via andromeda.ai would be the only award in the class payable as GPU time to a named vendor rather than as cash.
+- reliability: no reliability event recorded
+- notes: A REFUTATION of the best-known name in this class, and the reason it matters is that AI Grant is the programme a search for 'no strings attached grant for open source AI' surfaces first. Three separate facts make the verdict safe: no application route exists in the served HTML, the page is byte-identical to its May 2025 capture, and the three latest awards are 2023-era projects. This is not a product that was discontinued with a formal announcement; it is a page that stopped moving, which is the quietest way for a programme to end. What would reverse the verdict: an apply link appearing, or a new entry in the latest-grants list.
+- extras:
+  - facets.class: refutation
+  - facets.free_tier_kind: none
+- evidence:
+  - [1] 2026-10-22: '$5,000 - $50,000 in grants for open source projects, no strings attached'; 'Grants can come in the form of compute or cash'; the three latest grants named; read live; page 200
+  - [1] 2026-10-22: the served HTML contains no application route: the only outbound links are to aigrant.com, andromeda.ai, nfdg.com and the winners' own profiles, and there is no form, no mailto and no apply anchor; probed by extracting every href from the 200 response
+  - [2] 2026-10-22: the sibling accelerator is a different and live product: '$250,000 on an uncapped SAFE for your AI-native product startup', '$350,000 in Azure credits', 'Applications for Batch 4 are closed', quoted; this establishes that the same brand still operates, so the open-source grant lane is dormant by choice rather than because the organisation ended
+- sources:
+  - [1] https://aigrant.org/
+  - [2] https://aigrant.com/
+
+## Airtop
+
+- `compute/airtop` | dead | evidence documented | binding request-rate | category browser host
+- needs card unknown, phone yes, ID no, institution no | verified 2026-11-06T17:48:23.918Z (live) | stale on 2026-12-07
+- url https://www.airtop.ai/pricing | page https://fshy.ajam.dev/p/airtop.md
+- free tier: Free at $0/mo with 1,000 credits a month plus a 10,000-credit one-time bonus; the bonus is a 7-day trial or until the credits are consumed | unit: mixed | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published: https://www.airtop.ai/pricing states credits and simultaneous sessions and no egress allowance or overage price | metered: no | source: [1]
+- identity: email | detail: email: the sign-in form labels its account field 'Email' ('<label for="loginId" class="text-[13px] font-medium text-black/50 tracking-tight leading-tight">Email</label>'), and the terms require an account with a username, a password and contact information ('You may be required to sign up for an account, select a password and username ("Airtop User ID"), and provide us with certain information or data, such as your contact information.'). A phone number is optional: 'By signing up for the Services and providing us with your wireless number, you confirm that you want Airtop to send you information regarding your account or transactions with us'. A card is not published: https://www.airtop.ai/pricing lists a $0 Free plan and states no card requirement, and registration is closed ('we’re no longer accepting new signups'), so the sign-up form was not read. Country: not published at https://www.airtop.ai/pricing.
+- interface: rest
+- limits:
+  - request-rate (binding): 1,000 credits a month on Free; the 10,000-credit bonus expires after 7 days or when consumed [1]
+- interface detail: HTTP API with Node.js and Python SDKs (client.sessions.create); Playwright, Puppeteer and Selenium drive the cloud browser
+- tooling: Node.js and Python SDKs; Playwright, Puppeteer and Selenium integrations
+- composes with: not established
+- reliability: the service shuts down on 2026-11-13 and new signups are already closed
+- notes: registration closes before the shutdown on 2026-11-13, so no new account can reach the free credits
+- evidence note: the pricing page was read on 2026-10-22 and states the free tier and both paid tiers; the free allowance is denominated in credits, which buy browser-session time, so the unit is mixed and not a wall-clock hour. The sign-up page read on 2026-11-04 refuses new signups ahead of the shutdown on 2026-11-13
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: the page states no session cap; the 7-day clock applies to the credit bonus, not to a session
+  - free_tier_kind: recurring-credit
+  - death.on: 2026-11-04
+  - death.cause: registration-closed
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Free $0/mo · 1,000 Credits · 10,000 one-time credit bonus · Mark trial for 7 days or until credits are consumed'; paid tiers $29/mo and $189/mo, quoted
+  - [2] 2026-11-03: the documentation supports Playwright, Puppeteer and Selenium alongside an HTTP API with Node and Python SDK calls | capture: sha256:6aa21814087081295458bd9ab3d1995995f2e7a19f231cd880d450f7cb75bffa | quote: We fully support Playwright, Puppeteer, and Selenium scripts
+  - [1] 2026-11-03: pricing is in credits and simultaneous sessions; no egress allowance or overage price is stated | capture: sha256:f48d751ace368b39538ace54dceb56e2bb996f8085480db5122198686a1541e9 | quote: 10,000 one-time credit bonus
+  - [3] 2026-11-04: the terms require an account with a username, a password and contact information | capture: sha256:d751cf8899bfe6d156f024f38bf1711ac65f48c809930bd58b39f67e3e225d4b | quote: You may be required to sign up for an account, select a password and username ("Airtop User ID"), and provide us with certain information or data, such as your contact information.
+  - [4] 2026-11-04: new signups are refused ahead of the shutdown | capture: sha256:7a0edef2055411c2b1f62ed36e832a8cbc563c834ce8a2d564dc034474870cdc | quote: we’re no longer accepting new signups or upgrades to paid or higher-tier plans
+  - [4] 2026-11-04: the free tier can no longer be obtained by a new account | capture: sha256:7a0edef2055411c2b1f62ed36e832a8cbc563c834ce8a2d564dc034474870cdc | quote: we’re no longer accepting new signups or upgrades to paid or higher-tier plans
+  - [4] 2026-11-04: the service ends on 2026-11-13 and signups stop first | capture: sha256:7a0edef2055411c2b1f62ed36e832a8cbc563c834ce8a2d564dc034474870cdc | quote: Airtop is shutting down on November 13, 2026.
+  - [4] 2026-11-04: the vendor announces the service ends on 2026-11-13 | capture: sha256:7a0edef2055411c2b1f62ed36e832a8cbc563c834ce8a2d564dc034474870cdc | quote: Airtop is shutting down on November 13, 2026.
+  - [4] 2026-11-04: registration is closed, so the identity gate cannot be walked | capture: sha256:7a0edef2055411c2b1f62ed36e832a8cbc563c834ce8a2d564dc034474870cdc | quote: As we prepare to say goodbye, we’re no longer accepting new signups or upgrades to paid or higher-tier plans.
+  - [5] 2026-11-06: the sign-in form's account field is an email address | capture: sha256:a18f087ae017dc6ade813f4c8583d49e4c66882472784a1b697bc5288ac11f5f | quote: <input id="loginId" type="text" name="loginId" value="" autocapitalize="none" autocomplete="username" autocorrect="off" spellcheck="false" autofocus="autofocus" placeholder="[address removed]"
+  - [3] 2026-11-06: the terms require an account with a username, a password and contact information | capture: sha256:d751cf8899bfe6d156f024f38bf1711ac65f48c809930bd58b39f67e3e225d4b | quote: You may be required to sign up for an account, select a password and username ("Airtop User ID"), and provide us with certain information or data, such as your contact information.
+  - [3] 2026-11-06: a wireless number is provided voluntarily, so a phone is optional | capture: sha256:d751cf8899bfe6d156f024f38bf1711ac65f48c809930bd58b39f67e3e225d4b | quote: By signing up for the Services and providing us with your wireless number, you confirm that you want Airtop to send you information regarding your account or transactions with us
+  - [1] 2026-11-06: the Free plan is priced at $0 a month | capture: sha256:f48d751ace368b39538ace54dceb56e2bb996f8085480db5122198686a1541e9 | quote: $0/mo
+  - [4] 2026-11-06: registration is closed, so the sign-up form cannot be read | capture: sha256:7a0edef2055411c2b1f62ed36e832a8cbc563c834ce8a2d564dc034474870cdc | quote: we’re no longer accepting new signups or upgrades to paid or higher-tier plans
+  - [5] 2026-11-06: the account identifier the sign-in form asks for is an email address | capture: sha256:a18f087ae017dc6ade813f4c8583d49e4c66882472784a1b697bc5288ac11f5f | quote: <input id="loginId" type="text" name="loginId" value="" autocapitalize="none" autocomplete="username" autocorrect="off" spellcheck="false" autofocus="autofocus" placeholder="[address removed]"
+- sources:
+  - [1] https://www.airtop.ai/pricing
+  - [2] https://docs.airtop.ai/
+  - [3] https://www.airtop.ai/tos
+  - [4] https://portal.airtop.ai/sign-up
+  - [5] https://portal.airtop.ai/api/sign-in
+
+## AlaVPS
+
+- `compute/alavps` | dead | evidence reported | binding write-gated | category free VPS | tier Free VPS (No Credit Card)
+- needs card no, phone yes, ID no, institution no | verified 2026-10-24T04:09:20.000Z (live) | stale on 2026-11-08
+- url https://alavps.com/vps.html | page https://fshy.ajam.dev/p/alavps.md
+- free tier: The marketing page sells a USD 0 tier with no payment information: 'Free VPS (No Credit Card)', '$0 / ongoing*', '2 vCPU cores (dedicated KVM threads)', '8 GB DDR5 ECC RAM', '128 GB NVMe SSD (RAID-protected)', '1 dedicated IPv4 + IPv6 subnet', 'No billing info ever requested', with the asterisk explained as a capacity gate: 'Free VPS capacity is limited. If slots are full, you'll be waitlisted'. The page also promises permanence: 'Zero Cost Forever' and 'Remain free indefinitely under fair-use compliance'. BUT the order system the page's own button leads to names the product 'Free VPS Server - 120 Days Beta' and heads the category 'Free VPS Server For Trial', and the page's own FAQ row concedes 'promotional duration limits'. The duration is therefore not 'forever'. | unit: none | metered on: identity-count | read on: 2026-10-24 | source: [1] | note: the plan card says forever; the order system says 120 days beta; the order is never fulfilled
+- per-object cap: 128 GB of NVMe on the free tier; no per-object cap, the unit is a machine | bytes: 137438953472
+- retention: Contradicted by the vendor's own order system: the product is listed as 'Free VPS Server - 120 Days Beta' under the heading 'Free VPS Server For Trial', while the FAQ on the same site says 'Forever, under fair-use compliance' and 'promotional duration limits'. Nothing was provisioned, so no retention was observed. | source: [2] | note: the 120-day figure is the order system's own product name, not a marketing claim
+- egress: The order system lists '20 TB Bandwidth (1Gbps Port)' on the free product; the marketing page says 'Generous unmetered bandwidth with fair-use policies'. The two disagree, and neither is a published allowance with a throttle rule. | metered: no | source: [2]
+- identity: email | detail: No card and no hold - 'No billing info ever requested' - but the registration form at manage.alavps.com/register.php requires 'First Name *', 'Last Name *', 'Email Address', 'Street Address *', 'City *', 'State/Region *', 'Postcode *', a country and a password, with company name and phone present and not marked required. So the price of trying it is a full name and postal address, not a card.
+- interface: ssh, rest
+- limits:
+  - write-gated (binding): the order is accepted and then never fulfilled: multiple independent accounts report it sitting at 'pending' indefinitely, and one reports an 'online' status that cannot be connected to [3]
+  - retention-clamped: the order system's own product name is 'Free VPS Server - 120 Days Beta', against the page's 'Zero Cost Forever' [2]
+- limits note: the binding is delivery, not capacity: the plan is free and the slot is open, and the server does not arrive
+- binding note: the offer fails after the data is handed over: the order is accepted, the price is USD 0.00, and no machine is ever provisioned, which makes the cost of trying it the personal data in the signup form
+- interface detail: the page promises 'Full Admin/Root SSH & RDP access' on a KVM guest; no server was ever issued, so no interface was reached
+- tooling: any SSH or RDP client, if a server is ever issued; nothing was reachable on 2026-10-24.
+- composes with: at 8 GiB and 128 GB with a dedicated IPv4 this would be the strongest no-card machine in earlier readings if it delivered, which is exactly why the record cannot rest on the vendor's page alone.
+- reliability: no server was ever observed to exist. Trustpilot reports a 1.9 'Poor' TrustScore across 13 reviews for alavps.com, including one reading 'scammers, free vps stays pending forever' and one 'If you get a vps from them it'll show like its online but you're never able to connect and they just collect your data'; LowEndTalk's list of self-declared free-VPS providers that only harvest data names alavps.com first; and the order page's own product name calls it a 120-day beta.
+- notes: REFUTED 2026-10-24. One does exist now, in quantity, and it is unanimous: the order is accepted at USD 0.00 and never fulfilled. The sharpest evidence is not the reviews, it is AlaVPS against itself - the marketing page says 'Zero Cost Forever' while the order system its own button leads to names the product 'Free VPS Server - 120 Days Beta' under the heading 'Free VPS Server For Trial'. The 'forever' claim is not merely unproven, it is contradicted by the vendor's own shop. The verdict is dead rather than qualifies-with-caveat: a free machine that never provisions is worth less than nothing, because trying it costs a full name and postal address and returns no capacity. Nothing was signed up for.
+- evidence note: the plan terms are documented from the vendor's own pages; the verdict rests on independent third-party reports of non-delivery and on the vendor's order system contradicting the vendor's marketing page, which is the weakest rung among the fields the verdict depends on
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 8
+  - shape.disk_gib: 128
+  - billing_model: free
+  - term: free indefinitely per the vendor, subject to capacity
+  - m10h_usd: 0.0
+  - m24h_usd: 0.0
+  - price_arithmetic: USD 0.00 by the vendor's plan card; unverified, so the zero is a claim and not a measurement
+  - free_tier_kind: free-forever
+  - payment_methods: none taken on the free tier
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none stated; the vendor sells the plan as permanent
+- evidence:
+  - [1] 2026-10-24: quoted: 'Free VPS (No Credit Card)', '$0 / ongoing*', '2 vCPU cores (dedicated KVM threads)', '8 GB DDR5 ECC RAM', '128 GB NVMe SSD (RAID-protected)', '1 dedicated IPv4 + IPv6 subnet', 'No billing info ever requested'
+  - [1] 2026-10-24: quoted, the permanence claim: 'Zero Cost Forever' and 'Remain free indefinitely under fair-use compliance'; and, contradicting it on the same page, 'Free VPS may have periodic re-verification (email confirmation) or promotional duration limits to prevent abandoned servers.'
+  - [2] 2026-10-24: the order system's own product name, read from the page's product element: 'Free VPS Server - 120 Days Beta', under the heading 'Free VPS Server For Trial', priced '$0.00 USD', with '20 TB Bandwidth (1Gbps Port)' - the vendor's shop says 120 days where the vendor's marketing page says forever
+  - [4] 2026-10-24: the live registration form requires First Name, Last Name, Street Address, City, State/Region and Postcode, with email, phone and company present; no card field appears anywhere on the form
+  - [3] 2026-10-24: another: 'If you get a vps from them it'll show like its online but you're never able to connect and they just collect your data'; the page renders a TrustScore of 1.9 'Poor' across '13 reviews'
+  - [5] 2026-10-24: quoted, naming alavps.com first in a list of 'self-declared free VPS providers that are just phishing your data, without any further information after you have ordered their free VPS plans. Under the service section your order is always in the status of "pending"'
+  - [6] 2026-10-24: quoted, a hands-on attempt: 'And this is where I'm still at. My personal information is gone, I have no free VPS hosting and support is non-existent. At least no one has asked for my credit card information.' with the table row 'Scam | ✔'
+  - [7] 2026-10-24: a competing host's comparison, which is a third party but not an independent one: 'The limited-term nature means you shouldn't rely on it as a permanent solution' - corroborated by AlaVPS's own order page calling the product a 120-day beta
+- sources:
+  - [1] https://alavps.com/vps.html
+  - [2] https://manage.alavps.com/index.php?rp=/store/free-vps-hosting
+  - [3] https://www.trustpilot.com/review/alavps.com
+  - [4] https://manage.alavps.com/register.php
+  - [5] https://lowendtalk.com/discussion/163646/list-of-scammers
+  - [6] https://hightechblogging.com/blog/best-free-vps-hosting-providers/
+  - [7] https://vpswala.org/blog/best-free-vps-usa/
+
+## Amazon Q Developer
+
+- `compute/amazon-q-developer` | dead | evidence documented | binding request-rate | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T10:27:57.617Z (live) | stale on 2026-12-05
+- url https://aws.amazon.com/q/developer/pricing/ | page https://fshy.ajam.dev/p/amazon.md
+- free tier: Amazon Q Developer Free Tier: "Included agentic requests (Q&A chat, agentic coding) | 50 agentic requests per month" and "1,000 lines of code per month" for Java transformation, with "Access latest Claude models"… | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: recurring-allowance
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email | detail: email: the pricing page states the perpetual Free Tier is 'available to users logged in as an AWS Identity and Access Management (IAM) user or AWS Builder ID user', and 'Free Tier limits in the IDE are available only to Builder ID users', so the gate is a Builder ID or an IAM user under an AWS account. Whether a card is required at signup, and whether any hold is taken, is not stated in any evidence row: unknown; the record's chaining field asserts a Builder ID needs no card, but no evidence row says so.
+- interface: cli
+- limits:
+  - request-rate (binding): 50 agentic requests a month is about two a working day, so one long refactor consumes the month. [1]
+- limits note: 50 agentic requests a month is about two a working day, so one long refactor consumes the month.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: nothing chains for a new user: Free Tier sign-up through Builder ID in the IDE plugins is blocked since May 15, 2026; the successor route is coding-subs/kiro
+- reliability: no reliability event recorded
+- notes: Registration is closed: starting May 15, 2026, new Q Developer Free Tier account creation through Builder ID in the IDE plugins and new Q Developer subscription creation are blocked. The IDE plugins and paid subscriptions reach end of support on April 30, 2027, the latest coding models are offered only on Kiro, and the successor offer is recorded at coding-subs/kiro. Amazon Q Developer in the AWS Management Console is outside this sunset. The pricing page still prints the Free Tier, which only accounts created before the cutoff can use.
+- extras:
+  - facets.class: perpetual-allowance
+  - facets.free_tier_kind: recurring-allowance
+  - death.on: 2026-05-15
+  - death.cause: registration-closed
+- evidence:
+  - [1] 2026-10-22: the pricing table gives Free 50 agentic requests per month and 1,000 lines of code per month for transformation, quoted
+  - [1] 2026-10-22: "Amazon Q Developer offers a perpetual Free Tier with monthly limits available to users logged in as an AWS Identity and Access Management (IAM) user or AWS Builder ID user." and "Free Tier limits in the IDE are available only to Builder ID users." quoted
+  - [1] 2026-10-30: the pricing page still prints the Free Tier of 50 agentic requests a month, for accounts that already exist | capture: sha256:aa3ac17021cca9196db44cc361882861b36be9b2fc0fb32d73e918d8a3a2189b | quote: Included agentic requests (Q&A chat, agentic coding) | 50 agentic requests per month
+  - [2] 2026-10-30: from May 15, 2026 no new Free Tier account can be created through Builder ID in the IDE plugins, and no new subscription | capture: sha256:d1e272f66889562e73699f0b0989db347c5ea4a75963bdf767c0528f32c4f894 | quote: New Q Developer Free Tier account creation (via Builder ID in IDE plugins) and new Q Developer subscription creation (via the AWS Console) will be blocked.
+  - [2] 2026-10-30: new sign-ups to Amazon Q Developer are closed from May 15, 2026 | capture: sha256:d1e272f66889562e73699f0b0989db347c5ea4a75963bdf767c0528f32c4f894 | quote: New signups will no longer available starting May 15, 2026.
+  - [2] 2026-10-30: the vendor blocks new Free Tier accounts in the IDE plugins and new subscriptions from May 15, 2026, so the offer is closed to a new user | capture: sha256:d1e272f66889562e73699f0b0989db347c5ea4a75963bdf767c0528f32c4f894 | quote: New Q Developer Free Tier account creation (via Builder ID in IDE plugins) and new Q Developer subscription creation (via the AWS Console) will be blocked.
+  - [3] 2026-10-30: the Amazon Q Developer CLI is now the Kiro CLI | capture: sha256:610030edb2ded1705ce19d264192196de78250ab189ed29cba274240b5c30ee5 | quote: The Amazon Q Developer CLI has been rebranded to Kiro.
+  - [1] 2026-11-03: the pricing page still prints the Free Tier at 50 agentic requests per month | capture: sha256:aa3ac17021cca9196db44cc361882861b36be9b2fc0fb32d73e918d8a3a2189b | quote: | Included agentic requests (Q&A chat, agentic coding) | 50 agentic requests per month | Included (with limits) |
+  - [2] 2026-11-03: new Q Developer Free Tier account creation stays closed since May 15, 2026, so the verdict dead stands | capture: sha256:d1e272f66889562e73699f0b0989db347c5ea4a75963bdf767c0528f32c4f894 | quote: New signups will no longer available starting May 15, 2026.
+  - [1] 2026-11-04: the pricing page still prints 50 agentic requests per month | capture: sha256:aa3ac17021cca9196db44cc361882861b36be9b2fc0fb32d73e918d8a3a2189b | quote: | Included agentic requests (Q&A chat, agentic coding) | 50 agentic requests per month | Included (with limits) |
+- sources:
+  - [1] https://aws.amazon.com/q/developer/pricing/
+  - [2] https://aws.amazon.com/blogs/devops/amazon-q-developer-end-of-support-announcement/
+  - [3] https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/upgrade-to-kiro.html
+
+## Amazon SageMaker Studio
+
+- `compute/amazon-sagemaker-studio` | dead | evidence documented | binding none | category GPU cloud | tier closed to new customers
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T01:52:00.000Z (live) | stale on 2026-11-24
+- url https://docs.aws.amazon.com/sagemaker/latest/dg/studio-lab.html | page https://fshy.ajam.dev/p/amazon.md
+- free tier: no free tier available: 'Amazon SageMaker Studio Lab is no longer open to new customers. Existing customers can continue to use the service as normal.' | unit: none | metered on: none | read on: 2026-10-24 | source: [1] | note: The service still exists for accounts already enrolled; a new account cannot obtain it.
+- per-object cap: not applicable: the unit is a session, not an object
+- retention: not applicable: no new account can be created
+- egress: not applicable: no new account can be created | metered: no | source: [1]
+- identity: email | detail: not available: the service is closed to new customers regardless of identity
+- interface: unknown
+- limits:
+  - write-gated: registration closed to new customers [1]
+- limits note: the signup door is shut, so nothing else binds: the session cap is unreachable for any account created today
+- binding note: the binding constraint is a closed signup, so no quota is ever reached
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: The replacement AWS names is a CPU-only free instance (ml.t3.medium); the GPU lane does not migrate, so this offering closes rather than moves.
+- reliability: existing accounts keep working; the vendor states it will introduce no new features
+- notes: No GPU class, hours or RAM are recorded because no new account can measure them and the page no longer states them.
+- evidence note: the closure notice is quoted from the vendor's own page today. earlier readings already recorded this provider as dead, and that is correct.
+- extras:
+  - facets.class: dead
+  - facets.free_tier_kind: closed
+  - facets.shape.ram_gib: 12
+  - facets.shape.gpu_count: 1
+  - billing_model: free
+  - price_arithmetic: not applicable: registration is closed
+  - free_tier_kind: closed
+  - session_cap.restart_required: no
+  - session_cap.note: not applicable
+  - units: RAM and disk are quoted in the vendor's own decimal GB, not GiB. The ram_gib and disk_gib keys carry the vendor's number unconverted, so where a vendor writes 30 GB the key holds 30 and the true value is about 27.9 GiB. No conversion was performed.
+- evidence:
+  - [1] 2026-10-22: quoted: 'Amazon SageMaker Studio Lab is no longer open to new customers. Existing customers can continue to use the service as normal.'
+  - [2] 2026-10-22: quoted: AWS does not plan to introduce new features and names SageMaker Studio as the replacement, pointing at the SageMaker AI free tier whose free instance is ml.t3.medium
+  - [2] 2026-10-22: quoted: Studio Lab had fixed 12 GB RAM and 15 GB storage limits; the replacement GPU instances are G6 and G6e, both paid
+  - [1] 2026-10-24: quoted: 'Amazon SageMaker Studio Lab is no longer open to new customers. Existing customers can continue to use the service as normal.'
+  - [1] 2026-10-24: quoted: 'Studio Lab is a free service that gives customers access to AWS compute resources, in an environment based on open-source JupyterLab 4.' — what the closed service was
+- sources:
+  - [1] https://docs.aws.amazon.com/sagemaker/latest/dg/studio-lab.html
+  - [2] https://docs.aws.amazon.com/sagemaker/latest/dg/studio-lab-availability-change.html
+
+## AsiaVM (PT Media Creative Technology)
+
+- `compute/asiavm-nat-eu-hetzner-1gb` | dead | evidence documented | binding per-ip-shaping | category NAT VPS | tier NAT VPS EU Hetzner - 1GB
+- needs card yes, phone yes, ID no, institution no | verified 2026-10-24T06:03:49.000Z (live) | stale on 2026-11-24
+- url https://portal.asiavm.net/index.php?rp=/store/nat-vps-eu-hetzner | page https://fshy.ajam.dev/p/asiavm.md
+- price parsed USD 1/mo
+- free tier: No free tier. The 1 GB Hetzner plan is USD 12.00 a year, printed '$12.00 USD Annually'. The marketing page advertises it as '$1 /month12$ /year'. The cart returned 'Out of Stock' for it. | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: annual prepay; no deletion interval after expiry was published on the pages read. The store states 'No Backup' on every plan. | source: [1]
+- egress: 2 TB a month on the 1 GB plan, printed '2 TB Bandwidth', on a 1 Gbps port | metered: yes | free allowance: 2 TB a month | source: [1]
+- identity: card | detail: a WHMCS account whose registration form requires first name, last name, street address, city, postcode and email, with phone present and not marked required and no national ID field. Payment rails and any authorisation hold are unestablished, because the cart refuses every NAT product before a payment step.
+- interface: ssh
+- limits:
+  - volume-quota: 2 TB a month [1]
+  - per-ip-shaping (binding): 20 forwarded records on the shared IPv4 plus a dedicated IPv6 /112; the KVM group states the same ports as '20 Ports (TCP/UDP)' [2]
+- binding note: 20 forwarded records is a workable budget, but the binding constraint is that no group in this store can be ordered: the cart refused all four NAT groups read.
+- interface detail: OpenVZ 7 container on the Hetzner group, with a shared IPv4 carrying 20 forwarded records and a dedicated IPv6 /112
+- tooling: any SSH client; a WHMCS client area
+- composes with: a 1 GB Hetzner-backed container with a /112 and 2 TB at USD 1.00 a month, which would be a strong row if it were buyable; the cart refuses every group
+- reliability: every plan states 'No Technical Support' and 'No Backup'; no uptime figure published
+- notes: The marketing page displays '$1 /month' and '$12 /year' side by side, but the store bills annually; total cost is USD 12.00 and the monthly figure is a division rather than an independent billing option.
+- evidence note: price, shape, traffic, the /112, the port count, the TCP/UDP wording on the KVM group and the out-of-stock refusal are quoted from the vendor's own store and cart read; the entity name is quoted from the vendor's own site footer; the registration form fields are quoted from the form source read.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.disk_gib: 15
+  - billing_model: annual
+  - term: annual
+  - m10h_usd: 1.0
+  - m24h_usd: 1.0
+  - price_arithmetic: USD 12.00 a year / 12 = USD 1.00 a month, which is the figure the marketing page prints as '$1 /month'. The money out of pocket is USD 12.00 once a year. No conversion needed. VPS billing: the machine bills whether it runs or not, so the 10 h/day and 24/7 figures are identical.
+  - out_of_pocket_usd: 12.0
+  - renewal_usd: USD 12.00 a year; no separate renewal price published
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: 20 forwarded records on the shared IPv4 plus a dedicated IPv6 /112
+  - network_out.static_ip: no
+  - network_out.ipv6: yes
+  - network_out.ipv6_prefix: /112
+  - udp: stated for the KVM group in words: '20 Ports (TCP/UDP)'. The Hetzner and Indonesia groups name the same '20 VDF Records' without a protocol, so UDP is documented on the KVM group and a dash on this one.
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - payment_rails: not established: the cart refuses every NAT product before a payment step
+  - card_hold: not stated on any page read
+  - checkout_fields: first name, last name, street address, city, postcode and email required; phone and company present but optional; no national ID
+  - stock: out of stock across every NAT group: Indonesia '0 Available' on all three, KVM '0 Available' on all three, Singapore '0 Available', and the Hetzner group's cart returns 'Out of Stock' although its page shows no marker
+  - cart_url: https://portal.asiavm.net/cart.php?a=add&pid=1
+  - cart_works: refused: the cart answered 'Out of Stock ... orders for it have been suspended'
+  - product_url: https://portal.asiavm.net/index.php?rp=/store/nat-vps-eu-hetzner
+  - signup_url: https://portal.asiavm.net/register.php
+  - cart_url_note: the Hetzner group's Order Now button targets a per-product cart route; that route resolved and refused with an out-of-stock message, which is how the refusal was established rather than inferred.
+  - other_plans: Hetzner 2GB USD 24 a year for 25 GB NVMe and 4 TB; Hetzner 4GB USD 45 a year for 50 GB NVMe and 6 TB. KVM 1GB USD 24 a year, 2GB USD 39.60, 4GB USD 78, all with '20 Ports (TCP/UDP)'. The Singapore group is USD 12 a year for 1 GB but states 'No IPv6'.
+- evidence:
+  - [1] 2026-10-24: quoted plan: 'NAT VPS EU Hetzner - 1GB Shared IPv4 20 VDF Records /112 IPv6 1GB RAM 1 vCPU 15GB SSD NVMe 2 TB Bandwidth 1Gbps Port Speed No Technical Support No Backup $12.00 USD Annually'
+  - [3] 2026-10-24: quoted marketing page: 'NAT-1GB NAT VPS 1$ /month12$ /year ... 1GB Ram, 15GB SSD, 1 vCPU, /112 IPv6, 20 VDF Records, 2TB Bandwidth, 1Gbps Port Speed, OpenVZ7 Virtualization, Located in Jakarta, Indonesia'
+  - [2] 2026-10-24: quoted explicit protocol wording: 'NAT KVM 1GB 0 Available ... 20 VDF Records Shared IPv4 /112 IPv6 1Gbps Port Speed No Technical Support No Backup KVM Virtualization 20 Ports (TCP/UDP) $24.00 USD Annually'
+  - [4] 2026-10-24: the cart refused the product: 'Out of Stock We are currently out of stock on this item so orders for it have been suspended until more stock is available.' - for the 1 GB Hetzner plan, whose group page carries no stock marker at all
+  - [5] 2026-10-24: the Indonesia group reads '0 Available' on all three plans, with 'NAT ID 1GB 0 Available ... $12.00 USD Annually' and the same 'No Technical Support No Backup' line
+  - [6] 2026-10-24: 
+  - [7] 2026-10-24: the form source marks firstname, lastname, address1, city and postcode as required; email is present; phonenumber is present without a required marker; no national ID field exists
+- sources:
+  - [1] https://portal.asiavm.net/index.php?rp=/store/nat-vps-eu-hetzner
+  - [2] https://portal.asiavm.net/index.php?rp=/store/nat-vps-kvm
+  - [3] https://asiavm.net/nat-vps-indonesia/
+  - [4] https://portal.asiavm.net/cart.php?a=add&pid=1
+  - [5] https://portal.asiavm.net/index.php?rp=/store/nat-vps-id
+  - [6] https://asiavm.net/
+  - [7] https://portal.asiavm.net/register.php
+
+## BERO HOST, Anniversary XS (IPv6-only)
+
+- `compute/bero-host-ipv6-anniversary-xs` | dead | evidence documented | binding volume-quota | category IPv6-only VPS | tier Anniversary XS (IPv6-only)
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T06:16:40.000Z (live) | stale on 2026-11-24
+- url https://bero-host.de/server/prepaid-ipv6-rootserver-mieten | page https://fshy.ajam.dev/p/bero-host.md
+- disagrees on verdict: `compute/bero-host` says paid-only, `compute/bero-host-ipv6-anniversary-xs` says dead
+- free tier: No free tier. The provider's forum post advertises an IPv6-only Anniversary XS at EUR 12 a year (EUR 10.80 with coupon LET10) for 1 core, 1 GB and 10 GB NVMe with 25 TB traffic. The vendor page the offer points at says the product is no longer available. | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the vendor's IPv6 line is prepaid and the page states 'Dieses Produkt ist nicht mehr verfügbar oder hat keine individuelle Konfiguration verfügbar.' ('This product is no longer available or has no individual configuration available.') | source: [2]
+- egress: the forum post states 25 TB included per package on the IPv6-only line; the vendor page's own live line states 'Fair Use Traffic' with no figure | metered: yes | free allowance: 25 TB, per the offer post only | source: [1]
+- identity: email | detail: a BERO HOST account with 'Registrierung' and 'Login' links; the form was not read. No card hold is stated. The vendor's billing is prepaid, which the page advertises as 'Keine versteckten Kosten oder Mahnungen'. | country: DE
+- interface: ssh
+- limits:
+  - volume-quota (binding): 25 TB included per package, per the offer post [1]
+- binding note: the offer is withdrawn before traffic matters: the vendor's own IPv6 page returns 'no longer available' for the configuration.
+- interface detail: KVM root server with full root access, one-click reinstall and a KVM console, per the vendor page's feature list; the vendor states every server gets its own IPv6 network.
+- tooling: any SSH client over IPv6
+- composes with: would be the best traffic allowance in evaluated offerings at 25 TB, but the product is withdrawn, so it is a watch item rather than a row a buyer can take.
+- reliability: no reliability event observed; the vendor advertises a 750 Gbit/s DDoS filter that 'filters all incoming packets during an attack'
+- notes: The promotional offer is dated October 3 2026. The 25 TB monthly transfer provides a high bandwidth allowance for active nodes.
+- evidence note: the withdrawal is quoted from the vendor's own page read; the price and the 25 TB are from the provider's own LowEndTalk offer post, which is first-party but not the shop. The two disagree, and the shop is the one that decides availability.
+- evidence:
+  - [2] 2026-10-24: quoted: 'PREPAID IPv6 Rootserver JETZT AB 3,50 € MIETEN ... Dieses Produkt ist nicht mehr verfügbar oder hat keine individuelle Konfiguration verfügbar.' - the page's own configuration block reports the product as unavailable
+  - [2] 2026-10-24: quoted: 'Eigenes IPv6-Netz - Jeder Server besitzt ein eigenes IPv6-Netz.' and 'Fair Use Traffic - Nutze soviel Traffic wie dein Server benötigt.' and 'Unsere Server stehen in Frankfurt'
+  - [1] 2026-10-24: quoted offer table row: 'Anniversary XS | 1 Core | 1 GB | 10 GB | 0 IPv4 | /64 IPv6 | 25 TB | €12 | €10.80 | €0.90/mo' under the heading 'IPv6-only EPYC Turin VPS ... Location: Frankfurt, Germany ... IPv4: Not included'
+  - [3] 2026-10-24: the URL the offer post links to redirects to /server/prepaid-kvm-rootserver-mieten and carries only the dual-stack prepaid KVM line at 4,95 € to 14,95 € incl. VAT, each with 'IPv4: 1 Adresse' - the anniversary IPv6 packages are not on it
+- sources:
+  - [1] https://lowendtalk.com/discussion/221713/bero-host-10th-anniversary-deals-epyc-turin-ryzen-9950x-ipv6-only-vps
+  - [2] https://bero-host.de/server/prepaid-ipv6-rootserver-mieten
+  - [3] https://bero-host.de/kvm-rootserver
+
+## BuildJet
+
+- `compute/buildjet` | dead | evidence reported | binding write-gated | category dev environment
+- identity a placeholder: card and phone unknown | verified 2026-10-22T04:46:28.404Z (inherited) | stale on 2026-11-06
+- url https://buildjet.com/for-github-actions | page https://fshy.ajam.dev/p/buildjet.md
+- free tier: no free tier published | unit: none | metered on: wall-clock | read on: 2026-10-02 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - write-gated (binding): no new account can be created: the operator has stopped the hosted service [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: the hosted service has stopped
+- notes: The runner product is shut down. The page still describes the machine shapes it sold and carries a shutdown notice above them, which is why a reader who skims the shapes would mistake it for a live service.
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - free_tier_kind: none
+  - reclassified_from: dead
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'BuildJet for GitHub Actions has been shut down', quoted from the notice banner on buildjet.com/for-github-actions
+- sources:
+  - [1] https://buildjet.com/for-github-actions
+
+## Cinfu (Closco Ltd)
+
+- `compute/cinfu-ex2de-ipv6` | dead | evidence documented | binding per-ip-shaping | category IPv6-only VPS | tier EX2DE
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T06:16:40.000Z (live) | stale on 2026-11-24
+- url https://www.cinfu.com/ipv6-vps | page https://fshy.ajam.dev/p/cinfu.md
+- free tier: No free tier. The German IPv6-only ladder starts at EX0DE, USD 1.11 a month for 256 MB and 20 GB; EX2DE is EUR 2.99 a month for 2 vCPU, 2 GB and 75 GB. Every rung is unmetered bandwidth on a 500 Mbps shared line and includes 5 IPv6 addresses. | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: billed monthly through triennially with 5, 10 and 20 percent discounts for the longer terms; no deletion grace period is printed | source: [1]
+- egress: 'Unmetered' bandwidth on a 500 Mbps shared network line, for every rung of the IPv6-only ladder | metered: no | free allowance: unmetered, per the plan table | source: [1]
+- identity: email | detail: a WHMCS account on panel.cinfu.com with a register.php form; the form's fields were not read. No card hold is stated. Payment rails were not read. | country: SC
+- interface: ssh
+- limits:
+  - per-ip-shaping (binding): 500 Mbps shared network line; 'Unmetered' with no threshold published [1]
+  - volume-quota: 5 IPv6 addresses per server, and no IPv4 connectivity from inside the guest [1]
+- binding note: the row is unreachable rather than constrained: every 'ORDER NOW' link on the IPv6 page redirects to the bare storefront, so nothing can be bought at the printed price today.
+- interface detail: OpenVZ containers per the store's own category listing ('OpenVZ' on every EX card), 5 IPv6 addresses per server, and a free IPv4-to-IPv6 SSH tunnel so an IPv4-only admin can reach the box. The vendor's knowledgebase also says the guest cannot reach IPv4 destinations at all.
+- tooling: any SSH client over IPv6, or the vendor's IPv4-to-IPv6 SSH tunnel from an IPv4-only network
+- composes with: the cheapest shape-per-dollar on paper in the whole band (2 GB and 75 GB for EUR 2.99) but not under the line, and not buyable: every cart link on the page is dead
+- reliability: no reliability event recorded
+- notes: Classified as dead rather than as a cheap row because the purchase path does not work: every order link on the IPv6 page carries a pid that the store bounces to the bare storefront, and five of them were fetched individually with the same result. The prices also disagree between the marketing page (USD 1.11 to 11.18) and the store category (EUR 2.99 to 5.99 on monthly), which is a second signal that the page is stale. Two things are worth keeping if the line comes back: the free IPv4-to-IPv6 SSH tunnel is the only admin workaround for an IPv4-only operator found among evaluated providers, and the guest cannot reach IPv4 destinations at all, which is stated plainly in the vendor's own FAQ. The EX range is OpenVZ, so the guest does not get its own kernel, which matters for WireGuard.
+- evidence note: the price ladder, shapes, the unmetered line, the 5 IPv6 addresses, the IPv4-tunnel FAQ and the Seychelles company details are all quoted from vendor pages read. The cart is the defect: the pid in every order link redirects to /cart.php with no product, so the price is documented and the purchase path is broken.
+- evidence:
+  - [1] 2026-10-24: quoted table: 'EX0DE | 1GHz | 256MB | 20 GB | Unlimited | $ 1.11' through 'EX2DE | 2x2GHz | 2GB | 75 GB | Unlimited | $ 3.35', each row linking to…
+  - [2] 2026-10-24: the store category the IPv6 page belongs to prices the same products differently: 'EX2DE ... 2048MB RAM ... 2.99EUR Monthly', 'EX1DE ... 5.97EUR Quarterly', 'EX0DE ... 5.94EUR Semi-Annually' - so the marketing page's USD figure and the store's EUR figure are two different views of one product
+  - [3] 2026-10-24: fetched 2026-10-24: HTTP 200 with 'x-web-final-url: https://panel.cinfu.com/cart.php' and redirects=followed(2), body 50028 bytes rendering the generic storefront. The same fetch for pid=19 (a shared-hosting product) also redirects. pids 189, 190, 191, 207 and 208 were each fetched and each landed on the bare /cart.php, so the IPv6 order links are…
+  - [1] 2026-10-24: quoted: 'Yes, we providing free IPv4 to IPv6 SSH tunneling service.' and 'No, you cannot access IPv4 only servers and websites.'
+  - [4] 2026-10-24: quoted: 'Our EX range servers is IPv6 Only VPS servers' and the free IPv4-to-IPv6 SSH tunnel described in the same article
+  - [5] 2026-10-24: quoted: 'CINFU Company Details Closco Ltd Reg. Number: 087749 306 Victoria House Victoria, Mahe Seychelles'
+- sources:
+  - [1] https://www.cinfu.com/ipv6-vps
+  - [2] https://panel.cinfu.com/cart.php?gid=20
+  - [3] https://panel.cinfu.com/cart.php?a=add&pid=189
+  - [4] https://panel.cinfu.com/index.php/knowledgebase/32/What-is-IPv6-Only-VPS-Server-How-to-connect-to-IPv6-Only-VPS-Server-FAQ-about-IPv6-Only-VPS-Servers.html
+  - [5] https://www.cinfu.com/company
+
+## Cirrus CI
+
+- `compute/cirrus-ci` | dead | evidence documented | binding request-rate | category CI runner
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T17:29:31.575Z (live) | stale on 2026-12-04
+- url https://cirruslabs.org/ | page https://fshy.ajam.dev/p/cirruslabs.md
+- duplicate of `ci-cd-runners/cirrus-ci`
+- free tier: The allowance was real and is now gone. Quoted from the Cirrus Labs announcement dated 7 April 2026: 'Cirrus CI will shut down effective Monday, June 1, 2026.' Quoted from the docs before the shutdown: free for OSS up to 'a cap of 50 compute credits a month', equal to '10,000 CPU-minutes for Linux tasks or 500 minutes for macOS tasks which always use 4 CPUs', with per-platform concurrency of 16 CPUs Linux, 16 CPUs Arm Linux, 8 CPUs Windows, 8 CPUs FreeBSD and 4 CPUs with 1 VM on macOS, and a single task capped at 8 CPUs on Linux. Cutoff 'for a job that has a full runtime' was 2 hours per task. | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: monthly-credit-cap
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - request-rate (binding): The service itself failed first: the shutdown date is 1 June 2026 and today is 2026-10-22, so the binding constraint is that the provider no longer exists and the allowance is zero, whatever the pages still cached in search indexes say. [1]
+- limits note: The service itself failed first: the shutdown date is 1 June 2026 and today is 2026-10-22, so the binding constraint is that the provider no longer exists and the allowance is zero, whatever the pages still cached in search indexes say.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: None. This is the row that stops the subsequent evaluation from spending a wave on it.
+- reliability: on 2026-10-30 cirrus-ci.org did not resolve and cirrus-ci.com failed the TLS handshake, after the shutdown the vendor announced for June 1, 2026
+- notes: Duplicate of ci-cd-runners/cirrus-ci. Cirrus CI has shut down; before then the free allowance was 50 compute credits a month, equal to 10,000 CPU-minutes for Linux tasks or 500 minutes for macOS tasks. Cirrus Runners is a separate paid product of the same vendor, recorded as compute/cirrus-runners.
+- extras:
+  - facets.class: ci-runner-capacity
+  - facets.free_tier_kind: monthly-credit-cap
+  - facets.shape.vcpu: 2
+  - facets.shape.ram_gib: 4
+  - facets.shape.gpu_count: 0
+  - death.on: 2026-06-01
+  - death.cause: dead-service
+- evidence:
+  - [1] 2026-10-22: announcement dated April 7th 2026: 'We are no longer accepting new customers for Cirrus Runners but will continue supporting the service for existing customers through their existing contract periods. Cirrus CI will shut down effective Monday, June 1, 2026.'
+  - [2] 2026-10-22: 
+  - [3] 2026-10-22: 'an upper monthly limit on free usage equal to 50 compute credits (which is equal to 10,000 CPU-minutes for Linux tasks or 500 minutes for macOS tasks which always use 4 CPUs)'; concurrency 16 CPUs Linux, 16 Arm, 8 Windows, 8 FreeBSD, 4 macOS 1 VM; 'a single task can't request more than 8 CPUs'
+  - [4] 2026-10-22: '1000 minutes of 1 virtual CPU for Linux platform for 3 compute credits'; '2 CPU Linux task takes 5 minutes? Pay 3 cents'
+  - [5] 2026-10-22: 'By default, a container is given 2 CPUs and 4 GB of memory'; 'Containers on Cirrus Cloud Cluster can use maximum 8.0 CPUs and up to 32 GB of memory', with memory tied to CPUs at 4 GB per CPU
+  - [6] 2026-10-22: reported consequence: scipy's GPU runner job stopped working at the end of April 2026, and the project recorded that it had no email announcement of the timing
+  - [1] 2026-10-22: 
+  - [6] 2026-10-22: quoted vendor statement: 'We are no longer accepting new customers for Cirrus Runners but will continue supporting the service for existing customers'
+  - [7] 2026-10-22: read 2026-10-22: the origin refused or dropped the request. This read confirms the shutdown; it is not the shutdown notice itself.
+  - [1] 2026-10-30: the vendor shut Cirrus CI down effective 1 June 2026 | capture: sha256:2fcf1b3d8ce8a9ca14f6b6c131587adcce7033c13e5d145d570d384b1a974542 | quote: Cirrus CI will shut down effective Monday, June 1, 2026.
+  - probe:https://cirrus-ci.org/faq/ 2026-10-30: on 2026-10-30 a GET to cirrus-ci.org/faq/ failed at DNS resolution | capture: sha256:398e4c29efa03108877a48894e22115625ee3bf9fca8ae0d762caf7f677d07af | quote: "error": "dns"
+  - probe:https://cirrus-ci.com/ 2026-10-30: on 2026-10-30 a GET to cirrus-ci.com failed the TLS handshake | capture: sha256:e285923d4366b70aa4d4c6e4e97686a011a0b018fd3cd9701e7d88f32f7bac3e | quote: "error": "tls_error"
+  - [8] 2026-11-03: before the shutdown the free usage of Cirrus CI was capped at 50 compute credits a month, equal to 10,000 Linux CPU-minutes or 500 macOS minutes (archived copy of 2026-04-19) | capture: sha256:29c7912f7f4fe59f6952d41c50dd8149da93e7b6befb5302baa69e977e88874d | quote: Additionally there is an upper monthly limit on free usage equal to 50 [compute credits](https://cirrus-ci.org/pricing/) (which is equal to 10,000 CPU-minutes for Linux tasks or 500 minutes for macOS tasks which always use 4 CPUs).
+  - [1] 2026-11-03: the vendor shut Cirrus CI down effective 1 June 2026 | capture: sha256:2fcf1b3d8ce8a9ca14f6b6c131587adcce7033c13e5d145d570d384b1a974542 | quote: Cirrus CI will shut down effective Monday, June 1, 2026.
+- sources:
+  - [1] https://cirruslabs.org/
+  - [2] https://cirrus-ci.org/
+  - [3] https://raw.githubusercontent.com/cirruslabs/cirrus-ci-docs/master/docs/faq.md
+  - [4] https://raw.githubusercontent.com/cirruslabs/cirrus-ci-docs/master/docs/pricing.md
+  - [5] https://raw.githubusercontent.com/cirruslabs/cirrus-ci-docs/master/docs/guide/linux.md
+  - [6] https://github.com/scipy/scipy/issues/24990
+  - [7] https://cirrus-ci.org/blog/2023/07/17/limiting-free-usage-of-cirrus-ci/
+  - [8] https://web.archive.org/web/20260419203508/https://cirrus-ci.org/faq/
+
+## Cirrus Runners
+
+- `compute/cirrus-runners` | dead | evidence documented | binding write-gated | category macOS host
+- identity a placeholder: card and phone unknown | verified 2026-11-03T17:29:31.575Z (live) | stale on 2026-12-04
+- url https://cirrus-runners.app/pricing/ | page https://fshy.ajam.dev/p/cirrus-runners.md
+- free tier: none: Cirrus Runners is a subscription of $150 a month per runner with no limit on minutes, and it no longer accepts new customers | unit: none | metered on: wall-clock | read on: 2026-10-02 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - request-rate: subscription for dedicated runners; the page prices against GitHub's managed rates rather than per minute [1]
+  - per-object-cap: a vCPU is a single physical core, so the machine's core count is the real concurrency ceiling [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the pricing page was read on 2026-10-22. It sells dedicated physical cores by subscription and publishes no free tier, which confirms paid-only and gives the shape axis: one vCPU is one physical core, not a hyperthread
+- extras:
+  - keep_rate: 1.0
+  - keep_rate_basis: always-on by contract
+  - billing_model: unclassified
+  - shape.gpu_class: paravirtualized GPU on the Linux GPU runner
+  - shape.note: shapes run to 16 dedicated vCPU cores and 4 M4 Pro cores; each vCPU is one physical core
+  - session_cap.restart_required: no
+  - session_cap.note: a runner is allocated while a job needs it; the page states no idle reap
+  - free_tier_kind: none
+  - death.on: 2026-11-03
+  - death.cause: registration-closed
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Each vCPU is backed by a single physical core' and 'Linux x86: High-frequency x86 CPUs (2x faster)' with per-machine comparisons against GitHub-managed runners, quoted; the page publishes no free tier
+  - [1] 2026-11-03: Cirrus Runners is a $150 a month subscription per runner with unlimited minutes and no free tier | capture: sha256:a130c9b78fd972ab4c37f6cfe2f4591f20dca2af4066ae0c4cc4e9738553255f | quote: Each Cirrus Runner costs $150 a month and there is no limit on the amount of minutes for your actions.
+  - [2] 2026-11-03: Cirrus Runners, a separate product from Cirrus CI, is closed to new customers by the same announcement | capture: sha256:2fcf1b3d8ce8a9ca14f6b6c131587adcce7033c13e5d145d570d384b1a974542 | quote: We are no longer accepting new customers for Cirrus Runners but will continue supporting the service for existing customers through their existing contract periods.
+- sources:
+  - [1] https://cirrus-runners.app/pricing/
+  - [2] https://cirruslabs.org/
+
+## ClawCloud
+
+- `compute/clawcloud` | dead | evidence documented | binding none | category cloud VM
+- needs card no, phone no, ID no, institution yes | verified 2026-10-24T03:25:00.000Z (live) | stale on 2026-11-24
+- url https://claw.cloud/ | page https://fshy.ajam.dev/p/claw.md
+- free tier: Withdrawn. The operator published a shutdown notice quoted in the forums: 2026年6月1日 stops new registrations, new purchases, renewals and upgrades; 2026-06-01 to 2026-06-30 is a migration and refund window; 2026年6月30日 24:00 the service is formally shut down, every affected instance is force-stopped and 数据将被永久销毁 (the data is permanently destroyed). On 2026-10-22 the domain returns HTTP 503. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution | detail: Moot: the product cannot be bought. The earlier signup route was not recorded on 2026-10-24.
+- interface: unknown
+- limits note: The binding fact is the closure date. The refund was pro-rata by remaining billing period, by ticket, and only to the original payment rail; a machine transferred between accounts with no payment record was refused.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: Nothing composes: a machine that no longer exists cannot host anything, and the notice gives 30 days to move, which is the practical planning number for any small host among evaluated providers.
+- reliability: no reliability event recorded
+- notes: ClawCloud is documented as a Chinese-market host that discontinued service with a published 30-day schedule.
+- extras:
+  - facets.class: enforcement
+  - facets.free_tier_kind: none
+- evidence:
+  - [1] 2026-10-22: HTTP/1.1 503 Service Unavailable returned for the site root, one-line body No server is available to handle this request
+  - [2] 2026-10-22: the shutdown notice is reposted with its dates: 2026-06-01 stop new purchases and renewals, 2026-06-30 24:00 服务正式关停, and 数据将被永久销毁, quoted from the thread body in the search snippet
+  - [3] 2026-10-22: a second copy of the same notice states 2026年6月30日 起，正式关停 VPS 及相关托管业务, quoted
+  - [4] 2026-10-22: a customer posts the vendor's refund reply, which confirms 云服务 being discontinued effective June 30, 2026 and pro-rata refunds by ticket date
+  - [5] 2026-10-24: HTTP 530 on 2026-10-24: the free container product's own host does not answer, which is consistent with the published 2026-06-30 shutdown
+- sources:
+  - [1] https://claw.cloud/
+  - [2] https://www.nodeseek.com/post-756028-1
+  - [3] https://www.nodeseek.com/post-755905-1
+  - [4] https://www.nodeseek.com/post-794064-1
+  - [5] https://run.claw.cloud/
+
+## CloudCone (black friday)
+
+- `compute/cloudcone-black-friday` | dead | evidence documented | binding volume-quota | category VPS | tier none; the URL now serves a 2021 blog post
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T06:20:13.000Z (live) | stale on 2026-11-24
+- url https://cloudcone.com/black-friday/ | page https://fshy.ajam.dev/p/cloudcone.md
+- disagrees on identity_kind: `compute/cloudcone` says institution, `compute/cloudcone-black-friday` says card
+- disagrees on verdict: `compute/cloudcone` says qualifies-with-caveat, `compute/cloudcone-black-friday` says dead
+- disagrees on verdict: `compute/cloudcone-black-friday` says dead, `compute/cloudcone-ssd-vps-1` says qualifies
+- disagrees on verdict: `compute/cloudcone-black-friday` says dead, `compute/cloudcone-ssd-vps-2` says qualifies
+- disagrees on verdict: `compute/cloudcone-black-friday` says dead, `compute/cloudcone-windows` says paid-only
+- free tier: no offer: the URL resolves to an editorial post dated 2021-11-24, not a sale page | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable; there is no sale page
+- egress: not applicable; no offer is served at this URL | metered: no
+- identity: card | detail: not applicable; no offer is reachable at this URL
+- interface: ssh
+- binding note: There is no cart. Every order link on the 2021 post points at hello.cloudcone.com or app.cloudcone.com paths that 404.
+- interface detail: not applicable
+- tooling: the same as interface detail
+- composes with: Nothing to chain: the URL is a blog post about a sale that ended in 2021.
+- reliability: no reliability event recorded
+- notes: A fossil with no cart at all. /black-friday/ is a 2021 buyer's guide, and the two destinations it promotes - the hourly deals page at app.cloudcone.com/blackfriday and the welcome page at hello.cloudcone.com - are a 404 served with HTTP 200 and a plain 404 respectively. Note the HTTP 200 trap: app.cloudcone.com/blackfriday answers 200 and the bytes are a 404 page. The current VPS price is USD 28 a year, so a 2021 seasonal price would have been worth finding; it is not there.
+- evidence note: Both the landing URL and the app path were read, and both are quoted.
+- extras:
+  - billing_model: none
+  - term: none
+  - price_arithmetic: no live price on this URL
+  - free_tier_kind: none
+  - session_cap.restart_required: no
+  - session_cap.note: not applicable
+  - sale_page_year: 2021
+- evidence:
+  - [1] 2026-10-24: redirects (x-web-final-url) to '/black-friday-2021-cloudcone-buyers-guide-hourly-plans-insane-discounts-vps-scalable-clouds-scalable-dedicated-servers-and-so-much-more/'; the page is dated 'November 24, 2021' and reads 'Black Friday 2021 is coming up!'
+  - [2] 2026-10-24: HTTP 200 with a 7,168-byte body titled 'Stack Error - 404 Not found! - CLOUDCONE'; the hourly-deals page the 2021 post links is gone
+  - [3] 2026-10-24: HTTP 404
+  - [4] 2026-10-24: the live product page sells from '$2.33 /MO Billed $28 per year', so CloudCone trades but no seasonal price is offered
+  - [2] 2026-10-24: HTTP 200 with a 7,168-byte body titled 'Stack Error - 404 Not found! — CLOUDCONE'; the hourly-deals page the 2021 post links is gone
+- sources:
+  - [1] https://cloudcone.com/black-friday/
+  - [2] https://app.cloudcone.com/blackfriday
+  - [3] https://hello.cloudcone.com/welcome-to-the-black-friday-mega-sale-2021/
+  - [4] https://cloudcone.com/vps/
+
+## cloudrouter (Manaflow)
+
+- `compute/cloudrouter` | dead | evidence reported | binding write-gated | category container and VM sandbox
+- identity a placeholder: card and phone unknown | verified 2026-10-22T04:46:35.794Z (inherited) | stale on 2026-11-06
+- url https://cloudrouter.dev | page https://fshy.ajam.dev/p/cloudrouter.md
+- free tier: no free tier published | unit: none | metered on: wall-clock | read on: 2026-10-02 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - write-gated (binding): no new account can be created: the operator has stopped the hosted service [1]
+- limits note: Session cap, idle-reap and network policy are not documented. Exceeds capacity threshold.
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: the hosted service has stopped
+- notes: The domain now belongs to a different company and product. Nothing on the page mentions a cloud router, so the record's subject no longer has a page.
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - free_tier_kind: none
+  - reclassified_from: dead
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: cloudrouter.dev now redirects to Manaflow's page, which describes 'Manaflow, open source applied AI lab building next-gen devtools' and its cmux terminal, with no cloud-router product, price or signup, read 2026-10-22
+- sources:
+  - [1] https://cloudrouter.dev
+
+## ColoCrossing (cyber monday)
+
+- `compute/colocrossing-cyber-monday` | dead | evidence documented | binding volume-quota | category VPS | tier Yearly Cloud VPS 1/2/3/4 GB, 40% off monthly VPS with BLACKFRIDAY24, dedicated servers
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T06:20:13.000Z (live) | stale on 2026-11-24
+- url https://www.colocrossing.com/cyber-monday/ | page https://fshy.ajam.dev/p/colocrossing.md
+- disagrees on verdict: `compute/colocrossing` says paid-only, `compute/colocrossing-cyber-monday` says dead
+- disagrees on verdict: `compute/colocrossing-8gb-annual` says paid-only, `compute/colocrossing-cyber-monday` says dead
+- free tier: no free tier; the page advertises yearly VPS from USD 12.00 and monthly VPS from USD 2.37 after a coupon | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the plan is paid; no deletion clock stated
+- egress: 10 TB a month on the yearly VPS tiers, 20 TB on the monthly tiers, stated as Bandwidth | metered: yes | free allowance: 10 TB | source: [1]
+- identity: card | detail: card at signup through the cloud portal or the register/order portal; no hold stated
+- interface: ssh
+- limits:
+  - volume-quota (binding): 10 TB a month of bandwidth on the yearly VPS tiers [1]
+- binding note: Stock on the yearly tiers and a coupon on the monthly ones: neither price on the page is what a cart shows without one or the other.
+- interface detail: root SSH on a KVM guest; cloud portal at cloud.colocrossing.com
+- tooling: any SSH client; the cloud portal
+- composes with: Would be the cheapest yearly machine among evaluated providers at USD 12.00 for 1 GiB, but every yearly cart is out of stock and the monthly carts reprice.
+- reliability: no reliability event recorded
+- notes: The strongest fossil among evaluated providers, because the product slugs still carry the year: the $12.00 yearly VPS is served from '1gb-black-friday-vps-2024'. Three of the four yearly carts return Out of Stock; the fourth repoints to a monthly category at $3.95. The six monthly VPS offers also repoint to that same category, so the $2.37 figure depends on the BLACKFRIDAY24 coupon being applied to a $3.95 cart - 40% off $3.95 is $2.37, which is consistent but was not tested, because applying a coupon needs a cart session and evaluated providers places no orders. Not verified: whether BLACKFRIDAY24 is still accepted in 2026.
+- evidence note: The Cyber Monday page and four yearly carts plus two monthly carts were read. The page prices and the cart behaviour are both quoted; the coupon's effect on a cart was not tested because that needs a cart session.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.disk_gib: 20
+  - billing_model: annual
+  - term: annual prepay, or monthly on the coupon tiers
+  - price_arithmetic: USD 12.00 a year divided by 12 is USD 1.00 a month, paid once. Not recorded as a live price because the cart is out of stock. The monthly figure USD 2.37 is USD 3.95 less 40%, and 2.37 x 12 = USD 28.44 a year, which is worse than the yearly offer it replaced.
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: no
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - sale_page_year: 2024 (from the product slugs; the page itself carries no year)
+  - coupon: BLACKFRIDAY24, named on the page, not tested
+- evidence:
+  - [1] 2026-10-24: quoted: 'Yearly Cloud VPS Offers 1GB RAM VPS $12.00 / Year ... Order Now'; also '40% Off Cloud VPS BLACKFRIDAY24' with '1GB RAM VPS $2.37 / Month', and dedicated servers at $49.88, $98.88 and $119.88 a month
+  - [2] 2026-10-24: quoted: 'Out of Stock' - the cart behind the $12.00 a year 1 GB offer
+  - [3] 2026-10-24: quoted: 'Out of Stock' - the cart behind the $17.00 a year 2 GB offer
+  - [4] 2026-10-24: quoted: 'Out of Stock' - the cart behind the $26.00 a year 4 GB offer
+  - [5] 2026-10-24: HTTP 200 but repoints to /store/cloud-virtual-private-servers, a monthly category at $3.95/$6.95/$13.95/$24.95, not the $22.00 annual the page quotes
+  - [6] 2026-10-24: every line in the specials store reads '0 Available', including '1GB RAM Spring Special (2025)' and '1GB RAM Fall Special (2025)' at $3.95
+- sources:
+  - [1] https://www.colocrossing.com/cyber-monday/
+  - [2] https://cloud.colocrossing.com/index.php?rp=/store/specials/1gb-black-friday-vps-2024
+  - [3] https://cloud.colocrossing.com/index.php?rp=/store/specials/2gb-black-friday-vps-2024
+  - [4] https://cloud.colocrossing.com/index.php?rp=/store/specials/4gb-black-friday-kvm-vps-2024
+  - [5] https://cloud.colocrossing.com/index.php?rp=/store/specials/3gb-black-friday-kvm-vps-2024
+  - [6] https://cloud.colocrossing.com/index.php?rp=/store/specials
+
+## Computer Use Cloud (computeruse.run)
+
+- `compute/computeruse-cloud` | dead | evidence reported | binding write-gated | category container and VM sandbox
+- identity a placeholder: card and phone unknown | verified 2026-10-22T04:46:40.151Z (inherited) | stale on 2026-11-06
+- url https://computeruse.run/ | page https://fshy.ajam.dev/p/computeruse.md
+- free tier: no free tier published | unit: none | metered on: wall-clock | read on: 2026-10-02 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - write-gated (binding): no new account can be created: the operator has stopped the hosted service [1]
+- limits note: Session cap, idle-reap and network policy are not documented. Prelaunch only.
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: the hosted service has stopped
+- notes: The deployment is gone, not just the page: the Vercel error names DEPLOYMENT_NOT_FOUND, so the project itself has been removed. This is a dead host rather than a moved page.
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - free_tier_kind: none
+  - reclassified_from: dead
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: the origin returns 404 with 'This page doesn't exist. It may have been moved, removed, or never existed' and the Vercel error code DEPLOYMENT_NOT_FOUND, read 2026-10-22
+- sources:
+  - [1] https://computeruse.run/
+
+## Contabo (black friday)
+
+- `compute/contabo-black-friday` | dead | evidence documented | binding volume-quota | category VPS | tier none; the page is a newsletter signup for a future event
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T06:20:13.000Z (live) | stale on 2026-11-24
+- url https://contabo.com/en/black-friday/ | page https://fshy.ajam.dev/p/contabo.md
+- disagrees on verdict: `compute/contabo` says paid-only, `compute/contabo-black-friday` says dead
+- disagrees on verdict: `compute/contabo-black-friday` says dead, `compute/contabo-cloud-vps-4` says qualifies-with-caveat
+- disagrees on verdict: `compute/contabo-black-friday` says dead, `compute/contabo-windows` says paid-only
+- free tier: no offer: the page reads 'Contabo Black Friday Deals Coming Soon!' and asks for an email address | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable; no offer is served
+- egress: not applicable; no seasonal offer is served | metered: no
+- identity: card | detail: not applicable; the page only collects an email address for a reminder
+- interface: ssh
+- binding note: There is no cart. The page is a newsletter form with a 'coming soon' heading.
+- interface detail: not applicable to the seasonal page; the linked regular VPS starts at USD 5.28 a month
+- tooling: part of interface detail
+- composes with: Nothing seasonal to chain. The regular VPS the page links starts at USD 5.28 a month for 4 vCPU and 8 GB, which is above evaluated providers's line.
+- reliability: no reliability event recorded
+- notes: A placeholder, not a fossil: it advertises a future event rather than an old one. Documented so the vendor does not mistake the live URL for a live offer. The USD 5.28 figure is Contabo's ordinary first-24-months price and is not a Black Friday price.
+- evidence note: The page was read and the heading is quoted.
+- extras:
+  - billing_model: none
+  - term: none
+  - price_arithmetic: no seasonal price on this URL; the regular Core VPS is USD 5.28 a month for the first 24 months
+  - free_tier_kind: none
+  - session_cap.restart_required: no
+  - session_cap.note: not applicable
+  - sale_page_year: none; it points forward, not back
+- evidence:
+  - [1] 2026-10-24: quoted: 'Ready for Black Friday deals that live up to the hype? High-value hosting that delivers - coming soon.' with a name and email form below it; no price and no order link on the page
+  - [1] 2026-10-24: the only prices on the page belong to the regular catalogue: 'Core VPS ... from $6.60 $5.28 / month ... for the first 24 months'
+- sources:
+  - [1] https://contabo.com/en/black-friday/
+
+## Cyclic
+
+- `compute/cyclic` | dead | evidence documented | binding retention-clamped | category platform host | tier none
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T01:55:00.000Z (live) | stale on 2026-11-24
+- url https://www.cyclic.sh/posts/cyclic-is-shutting-down | page https://fshy.ajam.dev/p/cyclic.md
+- free tier: shut down: the shutdown post is dated 26 April 2024 and the marketing site still serves a free-tier pitch on 2026-10-24, which is a live trap | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: all usage was turned off in 2024; nothing remains
+- egress: not applicable | metered: no | source: [1]
+- identity: email | detail: not applicable: signup is closed
+- interface: rest
+- limits:
+  - retention-clamped (binding): the shutdown post is dated 26 Apr 2024 while the site still markets the product [1]
+- limits note: there is no allowance: the service stopped in May 2024.
+- binding note: the service ended; the website did not.
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: none: inactive offering.
+- reliability: the marketing page still renders 'Git push to go live in under 10 seconds' with no shutdown notice
+- notes: The pair is the finding: a shutdown post and a live sales page on the same domain, two years apart.
+- evidence note: the shutdown post and the live marketing page were both read
+- extras:
+  - facets.class: refutation
+  - facets.free_tier_kind: none
+  - facets.shape.ram_gib: 1
+  - billing_model: none
+  - term: none
+  - price_arithmetic: none
+  - free_tier_kind: none
+  - session_cap.restart_required: no
+  - session_cap.note: dead
+- evidence:
+  - [1] 2026-10-22: 'Effective immediately we are turning off signups by new users. In two weeks, May 10th, we will begin turning off free tier usage. We will begin turning off all usage May 31', dated 26 Apr 2024, quoted
+  - [2] 2026-10-22: the pricing page as indexed still lists 'Free Forever: 1 app, No inactivity delay, No hourly limit, 1024 MB RAM', with no shutdown notice on that page
+  - [3] 2026-10-22: 
+  - [1] 2026-10-24: quoted: '# Cyclic is Shutting Down / 26 Apr 2024 / Dear Users, We are shutting down Cyclic.'
+  - [3] 2026-10-24: the marketing page still reads 'Escape infrastructure. Unleash ideas. Build and run modern cloud-native serverless applications', with no shutdown notice
+- sources:
+  - [1] https://www.cyclic.sh/posts/cyclic-is-shutting-down
+  - [2] https://www.cyclic.sh/pricing
+  - [3] https://www.cyclic.sh/
+
+## DediRock (black friday)
+
+- `compute/dedirock-black-friday` | dead | evidence documented | binding volume-quota | category VPS | tier Promo VPS Saver LA/NY BF, Economy BF, Value BF, Storage Promo BF
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T06:20:13.000Z (live) | stale on 2026-11-24
+- url https://dedirock.com/black-friday/ | page https://fshy.ajam.dev/p/dedirock.md
+- disagrees on identity_kind: `compute/dedirock` says email, `compute/dedirock-black-friday` says card
+- disagrees on verdict: `compute/dedirock` says paid-only, `compute/dedirock-black-friday` says dead
+- disagrees on identity_kind: `compute/dedirock-black-friday` says card, `compute/dedirock-promo-vps-saver` says email
+- disagrees on verdict: `compute/dedirock-black-friday` says dead, `compute/dedirock-promo-vps-saver` says qualifies-with-caveat
+- disagrees on identity_kind: `compute/dedirock-black-friday` says card, `compute/dedirock-promo-vps-saver-ny-bf31` says email
+- disagrees on verdict: `compute/dedirock-black-friday` says dead, `compute/dedirock-promo-vps-saver-ny-bf31` says qualifies-with-caveat
+- disagrees on identity_kind: `compute/dedirock-black-friday` says card, `compute/dedirock-promo-vps-special-ny` says email
+- disagrees on verdict: `compute/dedirock-black-friday` says dead, `compute/dedirock-promo-vps-special-ny` says qualifies
+- free tier: no free tier; the page sells annual promo plans from USD 9.88 a year | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the annual plan is paid; no deletion clock stated on the page
+- egress: 1 TB a month on the Saver tier, 2 TB on Economy, 3 TB on Value, per the page's Bandwidth line | metered: yes | free allowance: 1 TB | source: [1]
+- identity: card | detail: card at signup through the WHMCS store; Stripe is the named processor. No hold amount is published on the order form. Alipay is also named on the page.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 1 TB a month of transfer on the Saver tier [1]
+- binding note: Stock, not quota, is what fails first: every Black Friday cart link on this page is out of stock or repointed.
+- interface detail: root SSH on a KVM guest; Virtualizor control panel named on the page
+- tooling: any SSH client; Virtualizor panel. No API documented.
+- composes with: A USD 0.82 a month 1 GiB VPS would serve as a WireGuard node or health monitor, if the cart sold it.
+- reliability: no reliability event recorded
+- notes: Verification criteria: archived captures of /black-friday/ from late 2024.
+- evidence note: The page and all nine order links were read. The prices are quoted from the page; the stock state is quoted from each cart. Identity detail is documented from the order form, not from a completed registration.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.disk_gib: 10
+  - billing_model: annual
+  - term: annual prepay
+  - price_arithmetic: USD 9.88 a year divided by 12 is USD 0.82 a month, paid once. Not recorded as a live price because the cart does not sell it.
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: no
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - sale_page_year: 2024 (inferred from the matching LowEndBox post of 2024-11-29; the page carries no date)
+  - order_links_tested: 9
+  - order_links_out_of_stock: 8
+  - order_links_repointed: 2
+- evidence:
+  - [1] 2026-10-24: quoted: 'Promo VPS Saver LA BF $9.88 /year ... 1 GB RAM, 1x vCore CPU, 10 GB SSD, 1 TB Bandwith'; also 'Promo VPS Economy LA BF $17.68 /year', 'Promo VPS Value LA BF $27.68 /year', and the same three for New York
+  - [2] 2026-10-24: quoted: 'Out of Stock - We are currently out of stock on this item so orders for it have been suspended until more stock is available.'
+  - [3] 2026-10-24: HTTP 200 but x-web-final-url is /store/kvm-vps-hosting: the slug no longer resolves to a product and the browser lands on a category listing priced $5.99, $8.99 and $12.99 monthly, not the $9.88 annual the page promises
+  - [4] 2026-10-24: same repoint: final URL /store/kvm-vps-hosting, monthly category prices $5.99/$8.99/$12.99
+  - [5] 2026-10-24: quoted: 'Out of Stock ... orders for it have been suspended'
+  - [6] 2026-10-24: quoted: 'Out of Stock ... orders for it have been suspended'
+- sources:
+  - [1] https://dedirock.com/black-friday/
+  - [2] https://billing.dedirock.com/index.php/store/promo-vps-los-angeles/promo-vps-economy-la-bf
+  - [3] https://billing.dedirock.com/index.php/store/promo-vp/promo-vps-saver-ny-bf
+  - [4] https://billing.dedirock.com/index.php/store/promo-vps-los-angeles/promo-vps-saver-la-bf
+  - [5] https://billing.dedirock.com/index.php/store/vps-storage/storage-promo-starter-bf
+  - [6] https://billing.dedirock.com/index.php/store/vps-storage/storage-promo-plus-1
+
+## DediRock (cyber monday)
+
+- `compute/dedirock-cyber-monday` | dead | evidence documented | binding volume-quota | category VPS | tier Promo VPS Saver/Economy/Value LA and NY CM, Storage Promo CM
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T06:20:13.000Z (live) | stale on 2026-11-24
+- url https://dedirock.com/cyber-monday/ | page https://fshy.ajam.dev/p/dedirock.md
+- disagrees on identity_kind: `compute/dedirock` says email, `compute/dedirock-cyber-monday` says card
+- disagrees on verdict: `compute/dedirock` says paid-only, `compute/dedirock-cyber-monday` says dead
+- disagrees on identity_kind: `compute/dedirock-cyber-monday` says card, `compute/dedirock-promo-vps-saver` says email
+- disagrees on verdict: `compute/dedirock-cyber-monday` says dead, `compute/dedirock-promo-vps-saver` says qualifies-with-caveat
+- disagrees on identity_kind: `compute/dedirock-cyber-monday` says card, `compute/dedirock-promo-vps-saver-ny-bf31` says email
+- disagrees on verdict: `compute/dedirock-cyber-monday` says dead, `compute/dedirock-promo-vps-saver-ny-bf31` says qualifies-with-caveat
+- disagrees on identity_kind: `compute/dedirock-cyber-monday` says card, `compute/dedirock-promo-vps-special-ny` says email
+- disagrees on verdict: `compute/dedirock-cyber-monday` says dead, `compute/dedirock-promo-vps-special-ny` says qualifies
+- free tier: no free tier; the page sells annual promo plans from USD 8.88 a year | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the annual plan is paid; no deletion clock stated on the page
+- egress: 1 TB a month on the Saver tier, 2 TB on Economy, 3 TB on Value, per the page's Bandwidth line | metered: yes | free allowance: 1 TB | source: [1]
+- identity: card | detail: card at signup through the WHMCS store; Stripe is the named processor. No hold published.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 1 TB a month of transfer on the Saver tier [1]
+- binding note: Stock. Nine order links, nine out of stock.
+- interface detail: root SSH on a KVM guest; Virtualizor control panel named on the page
+- tooling: any SSH client; Virtualizor panel
+- composes with: A USD 0.74 a month 1 GiB VPS would be the cheapest thing among evaluated providers; all nine carts are out of stock.
+- reliability: no reliability event recorded
+- notes: The Cyber Monday twin of the Black Friday page, one dollar cheaper per tier, and in worse condition: all six VPS carts and all three storage carts return Out of Stock, with none repointing. The page also carries the line 'All Prices are Yearly Plans' and a countdown-style layout, so it presents as a current sale. It is the cleanest example among evaluated providers of a page that looks live, quotes a price, and sells nothing. Not verified: the year, which the page does not state.
+- evidence note: The page and all nine order links were read. Prices quoted from the page, stock quoted from each cart.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.disk_gib: 10
+  - billing_model: annual
+  - term: annual prepay
+  - price_arithmetic: USD 8.88 a year divided by 12 is USD 0.74 a month, paid once. Not recorded as a live price because no cart sells it.
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: no
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - sale_page_year: undated on the page
+  - order_links_tested: 9
+  - order_links_out_of_stock: 9
+- evidence:
+  - [1] 2026-10-24: quoted: 'Promo VPS Saver LA CM $8.88 /year ... 1 GB RAM, 1x vCore CPU, 10 GB SSD, 1 TB Bandwith'; also 'Promo VPS Economy LA CM $16.68 /year', 'Promo VPS Value LA CM $26.68 /year', the same three for New York, and 'Storage Promo Starter CM $10.88 /year'
+  - [2] 2026-10-24: quoted: 'Out of Stock ... orders for it have been suspended until more stock is available'
+  - [3] 2026-10-24: quoted: 'Out of Stock ... orders for it have been suspended'
+  - [4] 2026-10-24: quoted: 'Out of Stock ... orders for it have been suspended'
+- sources:
+  - [1] https://dedirock.com/cyber-monday/
+  - [2] https://billing.dedirock.com/index.php/store/promo-vp/promo-vps-saver-ny-cm
+  - [3] https://billing.dedirock.com/index.php/store/promo-vps-los-angeles/promo-vps-value-la-cm
+  - [4] https://billing.dedirock.com/index.php/store/vps-storage/storage-promo-starter-cm
+
+## DeGirum AI Hub
+
+- `compute/degirum-ai-hub` | dead | evidence documented | binding retention-clamped | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://degirum.com/ | page https://fshy.ajam.dev/p/degirum.md
+- free tier: Withdrawn. The company states: 'Effective August 1, 2026, DeGirum has ceased operations. Its assets have been acquired by LatticeWork... AI Hub is being discontinued in full, including the Pro tier. Pro users get a free grace period of Pro access through September 30, 2026, after which AI Hub will no longer be available publicly. Cloud Compiler is being sunset on September 30, 2026.' The discontinued free plan was '20k AI Hub inferences per month, 1 included user, and 1 local device license', which was the only free cloud lane for running models on several edge accelerators without owning the hardware. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: monthly-inference-allowance
+- per-object cap: not applicable | source: [1]
+- retention: the allowance did not bind: the service stopped existing on 2026-09-30, which is 22 days before this reading. | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - retention-clamped (binding): the allowance did not bind: the service stopped existing on 2026-09-30, which is 22 days before this reading. [1]
+- limits note: the allowance did not bind: the service stopped existing on 2026-09-30, which is 22 days before this reading.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: It was the free half of a chain with Hailo's and other vendors' compilers, which produce hardware-specific binaries that the caller cannot execute without the silicon. That chain is now broken at the execution step.
+- reliability: no reliability event recorded
+- notes: Reopening criteria: relaunch of AI Hub under an active domain.
+- extras:
+  - facets.class: refutation
+  - facets.free_tier_kind: monthly-inference-allowance
+- evidence:
+  - [1] 2026-10-22: 'Effective August 1, 2026, DeGirum has ceased operations' and 'after September 30, 2026 AI Hub will no longer be available publicly', quoted from the live homepage
+  - [2] 2026-10-22: the retired plan table: 'Free is for individuals exploring. It includes 20k AI Hub inferences per month, 1 included user, and 1 local device license', quoted
+- sources:
+  - [1] https://degirum.com/
+  - [2] https://docs.degirum.com/ai-hub/workspace-plans
+
+## Deta Space
+
+- `compute/deta-space` | dead | evidence documented | binding retention-clamped | category cloud VM | tier none
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T03:25:00.000Z (live) | stale on 2026-11-24
+- url https://deta.space/ | page https://fshy.ajam.dev/p/deta.md
+- free tier: nothing reachable: deta.space returned a Cloudflare 530 on 2026-10-24. The sunset on 2024-10-17 deleted all apps, horizons, websites and data. | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: data was deleted at the sunset; nothing remains
+- egress: not applicable | metered: no | source: [1]
+- identity: email | detail: not applicable: no signup page is served
+- interface: unknown
+- limits:
+  - retention-clamped (binding): origin answers 530 on the root path [1]
+- limits note: The service was discontinued on a published date and stored data was deleted.
+- binding note: there is no service to bind.
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: Nothing. The composition it enabled, a free always-on personal server with disk, has no replacement among evaluated offerings at the same zero price.
+- reliability: a 530 is an origin failure, not a rate limit
+- notes: Still notable because 'free always-on personal cloud' is recommended from posts written before 2024-10-17.
+- evidence note: the 530 was observed today on the root path; the sunset date is carried from earlier readings.
+- extras:
+  - facets.class: inverse-dead
+  - facets.free_tier_kind: none
+  - billing_model: none
+  - term: none
+  - price_arithmetic: none
+  - free_tier_kind: none
+  - session_cap.restart_required: no
+  - session_cap.note: dead
+- evidence:
+  - [2] 2026-10-22: submission dated 2024-09-02 stating Space would be sunset on 17 October 2024
+  - [3] 2026-10-22: the vendor's own notice dated 2024-09-26 that apps, horizons, websites and data would be removed at sunset, with export tools provided
+  - [4] 2026-10-22: a hosted project confirms the shutdown date and that all apps and data including third-party apps would be deleted
+  - [1] 2026-10-24: 
+  - [1] 2026-10-24: HTTP 530 on 2026-10-24; the host does not answer
+- sources:
+  - [1] https://deta.space/
+  - [2] https://news.ycombinator.com/item?id=41426388
+  - [3] https://shutdownlikeaboss.com/post/762742417220878336/reminder-space-is-shutting-down-in-3-weeks
+  - [4] https://github.com/WebCrateApp/webcrate/discussions/90
+
+## DigitalOcean (2)
+
+- `compute/digitalocean-2` | dead | evidence reported | binding retention-clamped | category dev environment
+- needs card no, phone no, ID no, institution yes | verified 2026-11-03T01:29:50.805Z (live) | stale on 2026-11-18
+- url https://www.nodeseek.com/post-774667-1 | page https://fshy.ajam.dev/p/digitalocean.md
+- disagrees on identity_kind: `compute/digitalocean-2` says institution, `compute/digitalocean-droplet-1gb` says card
+- disagrees on verdict: `compute/digitalocean-2` says dead, `compute/digitalocean-droplet-1gb` says paid-only
+- free tier: USD 200 of platform credit through the GitHub Student Developer Pack, withdrawn: "DigitalOcean is leaving the Student Developer Pack, and their student credit offer for $200 of platform credit will no longer be available after July 31, 2026." | unit: credits | metered on: wall-clock | read on: 2026-10-30 | source: [1] | note: one-time-credit
+- per-object cap: not applicable | source: [2]
+- retention: the credit expired on a fixed date and the balance did not roll over, so the USD 200 was a clock that ran out, and the provider has left the programme that issued it. | source: [2]
+- egress: not stated | metered: no | source: [2]
+- identity: institution | detail: the gate was student verification, and the offer is now dead: the GitHub Student Developer Pack changelog dates the withdrawal to July 2026 and addresses "Verified students who have already redeemed the DigitalOcean offer", so the identity cost was the pack's student check rather than a card. The record does not state which documents GitHub Education requires, and no card, phone, hold, debit or prepaid statement appears. The credit expired on 2026-07-31, so nothing is reachable by this route now
+- interface: unknown
+- limits:
+  - retention-clamped (binding): the credit expired on a fixed date and the balance did not roll over, so the USD 200 was a clock that ran out, and the provider has left the programme that issued it. [2]
+- limits note: the credit expired on a fixed date and the balance did not roll over, so the USD 200 was a clock that ran out, and the provider has left the programme that issued it.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: The student pack is earlier standard free-identity route, so every credit that leaves the pack removes a chain link that other records assume exists.
+- reliability: no reliability event recorded
+- notes: Clarified 2026-10-22: this record is the withdrawn student credit and stays dead. DigitalOcean still sells Droplets from USD 4.00 a month for 512 MiB / 1 vCPU / 10 GiB / 500 GiB transfer, and that paid floor is recorded in `digitalocean` and in the micro floor table rather than here.
+- extras:
+  - facets.class: student-pack
+  - facets.free_tier_kind: one-time-credit
+  - facets.shape.gpu_count: 0
+- evidence:
+  - [1] 2026-10-22: quoted from the GitHub Student Developer Pack changelog, entry dated July 7, 2026: 'DigitalOcean is leaving the Student Developer Pack, and their student credit offer for $200 of platform credit will no longer be available after July 31, 2026. Verified students who have already redeemed the DigitalOcean offer can continue using any existing credits until August 1, 2026. After that date, any remaining credits will expire.' Supports the withdrawal, the USD 200 figure and a fixed expiry with no carry-over; the changelog puts the last usable day at 2026-07-31 with expiry after 2026-08-01, which agrees with the stored 2026-07-31 date to the day boundary
+  - [1] 2026-10-30: the Student Developer Pack offer was USD 200 of DigitalOcean platform credit, withdrawn after 2026-07-31 | capture: sha256:3b9cecd1a5bbd97e6c854ec912f874d012023506aae4968f098d26a96ffa870c | quote: DigitalOcean is leaving the Student Developer Pack, and their student credit offer for $200 of platform credit will no longer be available after July 31, 2026.
+  - [2] 2026-10-30: the forum post still carries the provider notice: DigitalOcean leaves the GitHub Student Developer Pack and all credit issued through it expires on 2026-07-31 | capture: sha256:08f05c2cf7e6d419ba61b532d9ac7f49696a6c1aa453e123b320207e167cc834 | quote: 我们特此通知您，DigitalOcean 即将停止参与 GitHub 学生开发者包计划，所有通过该计划提供的额度将于 2026 年 7 月 31 日到期。
+  - [3] 2026-10-30: the former student-offer URL serves the general product overview and names no student credit offer | capture: sha256:205a77eb75bb3a8120c7112e54de26dd9d37e11f7ca711ea418d41ce168b4647 | quote: Built for agents. Open at every layer.
+  - [2] 2026-11-03: the post carries the provider notice: DigitalOcean leaves the GitHub Student Developer Pack and all credit issued through it expires on 2026-07-31 | capture: sha256:a01d180dc0b113c6eee594b8bc45a5d5d11a738207b108cbfbc7f9b5dd6998c3 | quote: 我们特此通知您，DigitalOcean 即将停止参与 GitHub 学生开发者包计划，所有通过该计划提供的额度将于 2026 年 7 月 31 日到期。
+  - [2] 2026-11-03: the post carries the provider notice: after 2026-07-31 any unused credit balance expires and cannot be carried over or transferred; read through a rendered-page provider pin, since the unpinned read lands on an IPv6 notice page | capture: sha256:a01d180dc0b113c6eee594b8bc45a5d5d11a738207b108cbfbc7f9b5dd6998c3 | quote: 7 月 31 日之后，任何未使用的额度余额都将过期，且无法结转或转让。
+  - [1] 2026-11-03: the student offer was USD 200 of platform credit, withdrawn after 2026-07-31 | capture: sha256:90316aa43637284732ebabe007a41b6427abad64fc29e509fb74a73381551f8d | quote: DigitalOcean is leaving the Student Developer Pack, and their student credit offer for $200 of platform credit will no longer be available after July 31, 2026.
+- sources:
+  - [1] https://raw.githubusercontent.com/github-education-resources/Student-Developer-Pack-Current-Partners-FAQ/main/SDP-changelog.md
+  - [2] https://www.nodeseek.com/post-774667-1
+  - [3] https://www.digitalocean.com/github-students
+
+## DigitalOcean Hatch
+
+- `compute/digitalocean-hatch` | dead | evidence documented | binding write-gated | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://www.digitalocean.com/legal/hatch-terms-of-service | page https://fshy.ajam.dev/p/digitalocean.md
+- free tier: Hatch was DigitalOcean's startup credit program. Its own terms page now states: 'The Hatch Program is no longer an active program offered by DigitalOcean, and has been replaced with DigitalOcean Startups Program.' The URL digitalocean.com/hatch answers with a 301 to digitalocean.com/startups, which serves 200. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email | detail: The successor program's identity cost applies; see the DigitalOcean Startups finding.
+- interface: unknown
+- limits:
+  - write-gated (binding): The program is retired, which binds before any quota or identity question. [1]
+- limits note: The program is retired, which binds before any quota or identity question.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: None: the name is a redirect, and the successor program carries the credits.
+- reliability: no reliability event recorded
+- notes: Classified as dead rather than paid-only because the program is withdrawn, not merely unpriced. Old directories still describe Hatch criteria, including the old partner-affiliation requirement, which contradicts the live successor page. The live page wins.
+- extras:
+  - facets.class: startup-credit
+  - facets.free_tier_kind: none
+- evidence:
+  - [1] 2026-10-22: 'The Hatch Program is no longer an active program offered by DigitalOcean, and has been replaced with DigitalOcean Startups Program', quoted
+  - [2] 2026-10-22: 
+  - [3] 2026-10-22: a legacy landing page still publishes old criteria, including a requirement to be affiliated with an approved accelerator, incubator or VC firm, which no longer matches the current program, reported
+- sources:
+  - [1] https://www.digitalocean.com/legal/hatch-terms-of-service
+  - [2] https://www.digitalocean.com/hatch
+  - [3] https://try.digitalocean.com/hatch/
+
+## DigitalOcean Open Source
+
+- `compute/digitalocean-open-source` | dead | evidence reported | binding retention-clamped | category cloud VM
+- needs card no, phone no, ID no, institution yes | verified 2026-10-22 (live) | stale on 2026-11-06
+- url https://itsfoss.com/news/digitalocean-open-source-credits-end/ | page https://fshy.ajam.dev/p/itsfoss.md
+- free tier: A programme that granted recurring infrastructure credits to open-source projects was ended without a first-party announcement. The letter quoted by recipients: 'DigitalOcean has decided to sunset the Open Source Credits Program. As part of this change, we are no longer accepting new credit applications or approving credit renewals, extensions, or additional credit requests.' Existing grants are honoured. A second outlet states: 'there is no official announcement on DigitalOcean's blog or social media handles. The program is being ended quietly.' | unit: none | metered on: wall-clock | read on: 2026-10-05 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: The closure was communicated only by email to participants, so a reader checking the vendor's public pages would still find the programme described as available, which is the exact failure this topic exists to name. | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution
+- interface: unknown
+- limits:
+  - retention-clamped (binding): The closure was communicated only by email to participants, so a reader checking the vendor's public pages would still find the programme described as available, which is the exact failure this topic exists to name. [1]
+- limits note: The closure was communicated only by email to participants, so a reader checking the vendor's public pages would still find the programme described as available, which is the exact failure comparative records.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: With this programme closed, the routes into DigitalOcean that remain are the paid plans and the one-time startup credit.
+- reliability: no reliability event recorded
+- extras:
+  - facets.free_tier_kind: none
+- evidence:
+  - [2] 2026-10-12: independent confirmation that the programme is sunset and that existing credits are honoured
+  - [1] 2026-10-22: quoted closure letter and the statement that no official announcement exists on DigitalOcean's own channels
+  - [3] 2026-10-22: 
+  - [4] 2026-10-22: 
+- sources:
+  - [1] https://itsfoss.com/news/digitalocean-open-source-credits-end/
+  - [2] https://www.linux-magazine.com/Online/News/DigitalOcean-Ends-Open-Source-Credits-Program
+  - [3] https://github.com/nodejs/build/issues/4499
+  - [4] https://textpattern.com/weblog/digitalocean-textpattern-cms-a-final-note-of-thanks
+
+## DigitalOcean student credit
+
+- `compute/digitalocean-student-credit` | dead | evidence documented | binding none | category dev environment
+- needs card no, phone no, ID no, institution yes | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://github.com/github-education-resources/Student-Developer-Pack-Current-Partners-FAQ/blob/main/SDP-changelog.md | page https://fshy.ajam.dev/p/github-github-education-resources.md
+- free tier: The pack's cloud-credit headline is gone. Quoted from the official pack changelog dated July 7, 2026: "DigitalOcean is leaving the Student Developer Pack, and their student credit offer for $200 of platform credit will no longer be available after July 31, 2026." Any remaining credits expired on 2026-08-01. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution
+- interface: unknown
+- limits note: Two doors close: the USD 200 DigitalOcean credit ended on 2026-07-31, and the whole pack requires verified full-time student status at an accredited institution.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: Nothing durable. What remains in the pack is a set of one-shot coupons, mostly software licences rather than compute, and each starts a clock when redeemed.
+- reliability: no reliability event recorded
+- notes: Classified as dead for the compute credit rather than for the pack, which still exists. The DigitalOcean offer page now redirects to the homepage and a new account gets USD 5 for 90 days, which is the trial that replaced USD 200. This is a refutation twice over: the credit is gone, and the pack was never open to a developer without an institution.
+- extras:
+  - facets.class: refutation-identity-gated
+  - facets.free_tier_kind: none
+- evidence:
+  - [1] 2026-10-22: entry dated 2026-07-07: the DigitalOcean USD 200 student credit ends after 2026-07-31 and remaining credits expire on 2026-08-01, quoted
+  - [2] 2026-10-22: a 2026 tracker records DigitalOcean as discontinued and calls the USD 200 credit claim stale
+  - [3] 2026-10-22: on 2026-09-06 the offers page no longer listed DigitalOcean, and the author notes GitHub's own docs say some partner offers cannot renew
+- sources:
+  - [1] https://github.com/github-education-resources/Student-Developer-Pack-Current-Partners-FAQ/blob/main/SDP-changelog.md
+  - [2] https://studentdevguide.dev/github-student-pack-cloud-hosting-database/
+  - [3] https://www.santoshpaudel.me/blog/github-student-pack-free-vs-trial
+
+## dimension.sh
+
+- `compute/dimension-sh` | dead | evidence documented | binding none | category shared shell
+- identity a placeholder: card and phone unknown | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://dimension.sh/ | page https://fshy.ajam.dev/p/dimension.md
+- free tier: A tilde community that is now a memorial: quoted 'The service was available for a total of five years coming to an end Feburary 2026' and 'This website now exists as a memorial for dimension and what it represented over the years'. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: anonymous | detail: unverified: the service closed, so no signup requirement could be read; the record's evidence covers the closure ('The service was available for a total of five years coming to an end Feburary 2026' and 'This website now exists as a memorial') and a stale tildeverse directory entry that still links a signup form.
+- interface: unknown
+- limits note: The host closed in February 2026 and the site now serves the closure notice, so nothing binds because nothing is offered.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: None; recorded to keep the tildeverse directory from being trusted as a liveness source.
+- reliability: no reliability event recorded
+- notes: Classified as a refutation of the tildeverse directory rather than of any prior corpus claim. The directory page at tilde.team/wiki/other-tildes was read and still carries a 'signup form' link for dimension.sh, protocol.club is marked 'closed' in the same table, and goober.cloud sits behind an Anubis proof-of-work wall. A reader who works from that table would chase at least one dead host. What would have made this a live row: an operator page with a signup form, which the first-party site no longer has.
+- extras:
+  - facets.class: pubnix-shell
+  - facets.free_tier_kind: none
+  - facets.shape.gpu_count: 0
+- evidence:
+  - [1] 2026-10-22: 'dimension.sh came online 26th June 2020, running CentOS 8 at Digital Ocean UK, and was open to new members on the 3rd July 2020. The service was available for a total of five years coming to an end Feburary 2026, mostly due to a combination of maintance overhead for the aging CentOS install, and a lack of usage. This website now exists as a memorial', quoted
+  - [2] 2026-10-22: the tildeverse directory still lists dimension.sh with a signup form and no closure marker, quoted, so the directory is stale and the first-party page is the authority
+- sources:
+  - [1] https://dimension.sh/
+  - [2] https://tilde.team/wiki/other-tildes
+
+## ElypseCloud
+
+- `compute/elypsecloud-free` | dead | evidence documented | binding write-gated | category VPS | tier FREE
+- needs card unknown, phone unknown, ID no, institution no | verified 2026-10-24T04:12:03.000Z (live) | stale on 2026-11-24
+- url https://elypsecloud.com/vps-linux-gratuit | page https://fshy.ajam.dev/p/elypsecloud.md
+- free tier: 'CPU: 2 x E5-2697v4', 'RAM: 4 GB DDR4', 'Espace disque: 50 GB', 'Bande Passante 1 Gbit/s', 'Localisation France', 'GRATUIT'. The order button points at a store product at manager.elypsecloud.com/store/vps-linux/vps-linux-free. | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not published on the page read
+- retention: not published: the free-VPS page states no term, no renewal and no expiry. Whether the machine is permanent or a first-term offer is not established.
+- egress: 'Bande Passante 1 Gbit/s' (a port speed, not a volume). No monthly traffic allowance is stated. | metered: no | source: [1]
+- identity: email | detail: not established: the order path stops at an out-of-stock product, so the registration form was never reached and no page read states whether a card or phone is asked for
+- interface: ssh, rest
+- limits:
+  - volume-quota: 4 GB RAM, 50 GB disk, 1 Gbit/s port as stated [1]
+  - write-gated (binding): the free product is out of stock; ordering is suspended until stock returns [2]
+- binding note: The store refuses the order before any resource question arises: the free product page returns 'Rupture de stock' and states the item 'a donc été suspendu jusqu'à ce que de nouveaux stocks soient disponibles'.
+- interface detail: a Linux VPS with a choice of Debian 11, 12 or 13 at order time, in a French datacentre, managed from a WHMCS-style customer manager
+- tooling: any SSH client once provisioned
+- composes with: Nothing, until the product can be ordered: the free product is out of stock at the store and the offer is unorderable today.
+- reliability: No reliability event observed. The seller is identifiable: 'ELYPSEGROUP SAS · RCS Bordeaux 978 470 680' appears in the footer of its own terms PDF, version dated 15 September 2026.
+- notes: Reopening criteria: product stock availability in store.
+- evidence note: The advertised shape and the out-of-stock refusal are both read from the vendor's own pages, so the row is documented about the offer and about the block. Everything about delivery is unestablished because the order cannot be placed.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 4
+  - shape.disk_gib: 50
+  - billing_model: free
+  - term: not published
+  - m10h_usd: 0
+  - m24h_usd: 0
+  - price_arithmetic: EUR 0.00 advertised for the free product; it is out of stock, so no billable shape exists to price
+  - free_tier_kind: closed
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: not published
+  - session_cap.restart_required: no
+  - session_cap.note: not established; nothing was provisioned
+- evidence:
+  - [1] 2026-10-24: quoted: 'FREE', 'CPU: 2 x E5-2697v4', 'RAM: 4 GB DDR4', 'Espace disque: 50 GB', 'Bande Passante 1 Gbit/s', 'Localisation France', 'GRATUIT'; order link 'Commander' to the store product
+  - [2] 2026-10-24: quoted: 'Rupture de stock - Cet article est actuellement en rupture de stock et a donc été suspendu jusqu'à ce que de nouveaux stocks soient disponibles.'
+  - [3] 2026-10-24: quoted: 'ELYPSEGROUP SAS · RCS Bordeaux 978 470 680 · Version du 15 septembre 2026'; 'ElypseGroup SAS, exerçant sous le nom commercial ElypseCloud'
+  - [4] 2026-10-24: quoted: 'Serveurs VPS, hébergement web et serveurs dédiés', 'hébergés en France', 'À partir de 0,99 €/mois'
+- sources:
+  - [1] https://elypsecloud.com/vps-linux-gratuit
+  - [2] https://manager.elypsecloud.com/store/vps-linux/vps-linux-free
+  - [3] https://elypsecloud.com/cgu
+  - [4] https://elypsecloud.com/
+
+## Esperanto Technologies
+
+- `compute/esperanto-technologies` | dead | evidence documented | binding none | category inference API
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://www.esperanto.ai/ | page https://fshy.ajam.dev/p/esperanto.md
+- free tier: Ceased operations, while its own homepage still sells the product. The live page states 'Esperanto Technologies has ceased operations. Esperanto Technologies' IP has been acquired by Nekko.ai' at the top, and further down, unchanged, 'The Esperanto AI / HPC Compute Server... Available today for purchase or secure remote cloud access', describing the ET-SoC-1 as a TSMC 7 nm chip with over a thousand RISC-V cores. The company closed in July 2025; the IP sale completed in October 2025 and the RTL is being released as CORE-ET through the OpenHW Group. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: anonymous
+- interface: unknown
+- limits note: nothing binds because no capacity is sold or given: there is no operator of the hardware left to rent it from.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: Nothing chains. The only artifact with continuing value is the open-sourced RTL, which runs in a simulator and produces no compute; the SDK and the cloud access that the page still advertises have no operator behind them.
+- reliability: no reliability event recorded
+- notes: Acquisition by Nekko.ai is documented as an IP purchase and open-source release rather than an active operating cloud business.
+- extras:
+  - facets.class: refutation
+  - facets.free_tier_kind: none
+  - facets.shape.gpu_class: Esperanto ET-SoC-1, RISC-V many-core
+- evidence:
+  - [1] 2026-10-22: 'Esperanto Technologies has ceased operations. Esperanto Technologies' IP has been acquired by Nekko.ai', quoted from the live homepage, on the same page as 'Available today for purchase or secure remote cloud access'
+  - [2] 2026-10-22: EE Times reported on 2025-07-04 that the company was winding down its silicon business, with headcount cut by 90 percent and European subsidiaries closing
+  - [3] 2026-10-22: Ainekko acquired the IP in October 2025 after Esperanto closed in July 2025, and is releasing RTL, tools and documentation under Apache License v2
+- sources:
+  - [1] https://www.esperanto.ai/
+  - [2] https://www.eetimes.com/ai-startup-esperanto-winds-down-silicon-business/
+  - [3] https://www.jonpeddie.com/news/ainekko-acquires-esperanto-ip/
+
+## Fast Grants
+
+- `compute/fast-grants` | dead | evidence documented | binding write-gated | category GPU cloud
+- needs card no, phone no, ID no, institution yes | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://www.fastgrants.org/ | page https://fshy.ajam.dev/p/fastgrants.md
+- free tier: The programme is offline. The domain now returns, quoted: 'This page doesn't exist - It may have been moved, removed, or never existed. 404 DEPLOYMENT_NOT_FOUND', which is a Vercel deployment error rather than a page. The archived version from 2021 states the scope, quoted: 'Funding for scientists at academic institutions working on COVID-19 related projects.' That sentence is also the reason the programme is out of lane: it funded COVID-19 bioscience at academic institutions, not compute. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: one-time-grant
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution
+- interface: unknown
+- limits:
+  - write-gated (binding): the door is shut and was always conditional on an academic institution: the site is a dead deployment, and the 2021 capture limits the grant to scientists at academic institutions working on COVID-19. [1]
+- limits note: the door is shut and was always conditional on an academic institution: the site is a dead deployment, and the 2021 capture limits the grant to scientists at academic institutions working on COVID-19.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: Nil. Recording it stops the next reader from chasing a name that appears on lists of fast science funding and has never had a compute lane.
+- reliability: no reliability event recorded
+- notes: Any future program under the same name would represent a distinct offering.
+- extras:
+  - facets.class: grant
+  - facets.free_tier_kind: one-time-grant
+- evidence:
+  - [1] 2026-10-22: 'This page doesn't exist'; '404 DEPLOYMENT_NOT_FOUND'; 'bom1::9l4zl-1792682528794-85ed34daf84f'; page 404 at origin
+  - [2] 2026-10-22: the 2021 capture's own description: 'Funding for scientists at academic institutions working on COVID-19 related projects.', and its body lists funded COVID-19 preprints and papers; capture 20210602095236 returned 200
+  - [3] 2026-10-22: the archive lookup resolved exactly one capture at 121956 s from the requested 2021-06, which dates the page to June 2021 and shows no later capture in the queried window
+  - [4] 2026-10-22: measured: the live host returns HTTP 404 with body 'DEPLOYMENT_NOT_FOUND' from Vercel, so the site no longer exists
+  - [5] 2026-10-22: reported: 'Between the first and second rounds of funding, Fast Grants distributed over $40 million in grants before suspending the program'
+  - [6] 2026-10-22: reported by a university research office: 'Due to receipt of a very large number of qualified submissions, Fast Grant applications are currently closed'
+- sources:
+  - [1] https://www.fastgrants.org/
+  - [2] https://web.archive.org/web/20210602095236id_/https://fastgrants.org/
+  - [3] https://web.archive.org/web/20210602095236/https://fastgrants.org/?provider=wayback
+  - [4] https://fastgrants.org/
+  - [5] https://www.influencewatch.org/non-profit/fast-grants/
+  - [6] https://www.uoguelph.ca/research/alerts/content/fast-funding-covid-19-science
+
+## Firebase Studio
+
+- `compute/firebase-studio` | dead | evidence documented | binding none | category cloud VM
+- needs card unknown, phone unknown, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://firebase.google.com/docs/studio/pricing | page https://fshy.ajam.dev/p/google.md
+- free tier: "Firebase Studio is sunsetting on March 22, 2027. As of June 22, 2026, new workspace creation and user signup are disabled." The plan was 3 workspaces per user at no cost. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email | detail: no signup is possible at all: 'As of June 22, 2026, new workspace creation and user signup are disabled', so there is no requirement left to meet and the 3-workspace quota is closed to new accounts. What the pre-closure signup asked for - email, phone, card or ID - is not described in any evidence row: unknown. No hold is stated.
+- interface: unknown
+- limits note: New accounts cannot create a workspace at all since 2026-06-22, so the 3-free-workspace quota is closed; existing workspaces keep running until 2027-03-22.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: Nothing new. The migration targets named by Google, AI Studio and Antigravity, were not evaluated among evaluated offerings and are the obvious next check for an always-on free development environment from Google.
+- reliability: no reliability event recorded
+- notes: This is the most commonly recommended free cloud IDE that no longer accepts users, and listicles written before June 2026 still describe three free Nix-based workspaces. Classified as dead with the two dates, because a reader needs to know both that it is closing and that it is already closed to them. Apps already deployed to Firebase keep running after the sunset, which is a different product.
+- extras:
+  - facets.class: inverse-dead
+  - facets.free_tier_kind: none
+- evidence:
+  - [1] 2026-10-22: sunset on 2027-03-22, new workspace creation and signup disabled from 2026-06-22, and 3 workspaces per user at no cost, quoted
+  - [2] 2026-10-22: the same notice in the FAQ, plus the statement that the no-cost plan is limited to three workspaces per user
+  - [3] 2026-10-22: existing workspaces can be worked in until the sunset date and must be migrated to Google AI Studio or Google Antigravity
+- sources:
+  - [1] https://firebase.google.com/docs/studio/pricing
+  - [2] https://firebase.google.com/docs/studio/troubleshooting
+  - [3] https://firebase.google.com/docs/studio/migrating-project
+
+## Flapjacks
+
+- `compute/flapjacks-hk-t1ion-ipv6-mini` | dead | evidence documented | binding per-ip-shaping | category NAT VPS | tier HK-T1ION-IPv6-Mini
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T06:03:49.000Z (live) | stale on 2026-11-24
+- url https://my.flapjacks.it/index.php?rp=%2Fstore%2Fhk-lxc | page https://fshy.ajam.dev/p/flapjacks.md
+- price parsed USD 0.25/mo
+- free tier: No free tier. HK-T1ION-IPv6-Mini is USD 2.99 a year, printed '$2.99 USD 年繳'. All three plans on the page read '0 可用' and the cart refuses the product. | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: annual prepay; no deletion interval after expiry was published on the pages read and no terms page was reachable at the two URLs tried | source: [1]
+- egress: 500 GB a month counted in and out, printed 'Bandwidth 500GB IN&OUT', with 'Port Speed No Limit' | metered: yes | free allowance: 500 GB a month in and out | source: [1]
+- identity: card | detail: a WHMCS account at register.php; the fields could not be read because the registration page and the cart both sit behind the same client area, and the product is out of stock so no checkout was reachable. Payment rails and any authorisation hold are therefore unestablished. No national ID requirement is published anywhere read.
+- interface: ssh
+- limits:
+  - volume-quota: 500 GB a month counted in and out [1]
+  - per-ip-shaping (binding): an IPv6 /64 subnet plus NAT out over IPv4, so inbound over IPv4 is not offered at all; the page states 'ipv6 subnet + ipv4 nat out' [1]
+- binding note: the IPv4 half is outbound-only NAT, so the machine is reachable only over its IPv6 /64, which is a stricter position than sellers that forward a port range.
+- interface detail: LXC container in Hong Kong, one vCPU, 512 MB RAM, 10 GB SSD, an IPv6 /64 subnet plus NAT out over IPv4
+- tooling: any SSH client; a WHMCS client area
+- composes with: the best shape-per-dollar among evaluated providers at USD 2.99 a year for 512 MB, and unusable today because the whole group is out of stock.
+- reliability: no reliability event observed; no uptime figure, SLA or terms page was reachable at the URLs tried.
+- notes: The best price-per-megabyte found and it cannot be bought: USD 2.99 a year is USD 0.2492 a month for 512 MB, 10 GB SSD, a /64 and 500 GB a month, which beats CrockyHost's 1 GB at EUR 7.99 a year on a per-GB basis. Every plan in the group reads '0 可用' and the cart answers '缺貨中' (out of stock), so this is not an inference from a listing marker but a refusal at the order step. Two structural cautions beyond the stock. The IPv4 half is described as 'ipv4 nat out', which reads as outbound-only NAT with no forwarded ports, so the machine would be reachable only over its IPv6 /64; that is stricter than the sellers that forward a port range and it is the reason the binding is per-ip-shaping rather than volume. What is not established: the registration fields, the payment rails, the terms, and whether it restocks.
+- evidence note: price, shape, port and IP treatment, traffic term and the stock state are quoted from the vendor's own store page and confirmed by its cart read. Not documented: the registration fields, the payment rails, the terms and the legal entity, because the store offers no reachable registration or terms page and the product is out of stock.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 0.5
+  - shape.disk_gib: 10
+  - billing_model: annual
+  - term: annual
+  - m10h_usd: 0.25
+  - m24h_usd: 0.25
+  - price_arithmetic: USD 2.99 a year / 12 = USD 0.2492 a month. The money out of pocket is USD 2.99 once a year. No conversion needed. VPS billing: the machine bills whether it runs or not, so the 10 h/day and 24/7 figures are identical.
+  - out_of_pocket_usd: 2.99
+  - renewal_usd: not published separately; one annual price is shown with no renewal column
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: an IPv6 /64 subnet, reachable on any port; IPv4 is described only as 'nat out', with no forwarded port count published
+  - network_out.static_ip: no
+  - network_out.ipv6: yes
+  - network_out.ipv6_prefix: /64
+  - udp: not stated: no page read says whether the IPv4 NAT carries UDP, and no port count is published for it at all
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - payment_rails: not established: no reachable checkout, and the product is out of stock
+  - card_hold: not stated on any page read
+  - checkout_fields: not established
+  - stock: out of stock across the whole group: all three plans read '0 可用' and the cart returns '缺貨中' on 2026-10-24
+  - cart_url: https://my.flapjacks.it/cart.php?a=add&pid=1
+  - cart_works: refused: the cart answered '缺貨中' (out of stock) rather than pricing the plan
+  - product_url: https://my.flapjacks.it/index.php?rp=%2Fstore%2Fhk-lxc
+  - signup_url: https://my.flapjacks.it/register.php
+  - cart_url_note: the button targets cart.php with product id 1, and that route did resolve per product - it answered out-of-stock rather than redirecting to a category, which is how the refusal was established.
+  - other_plans: HK-T1ION-IPv6-Jet USD 4.99 a year for 1 GB RAM, 30 GB SSD and 1 TB in and out; HK-T1ION-IPv6-Turbo USD 9.99 a year for 2 vCPU, 2 GB RAM, 50 GB SSD and 2 TB in and out. Both also '0 可用'.
+- evidence:
+  - [1] 2026-10-24: quoted plan: 'HK-T1ION-IPv6-Mini $2.99 USD 年繳 Port Speed No Limit IP ipv6 subnet + ipv4 nat out LXC vCPU Core 1 RAM 512M Disk 10GB SSD Bandwidth 500GB IN&OUT $2.99 USD 年繳 立即購買 0 可用'
+  - [1] 2026-10-24: quoted group description: 'HK-LXC ipv6 Subnet /64 + ipv4 nat out' and the two larger plans: 'HK-T1ION-IPv6-Jet $4.99 USD 年繳 ... RAM 1GB Disk 30GB SSD Bandwidth 1TB IN&OUT ... 0 可用' and 'HK-T1ION-IPv6-Turbo $9.99 USD 年繳 ... 2 vCPU RAM 2GB Disk: 50GB SSD Bandwidth: 2T IN&OUT ... 0 可用'
+  - [2] 2026-10-24: the cart refused the product: '糟糕，發生問題了... 缺貨中 很抱歉，本產品 / 服務目前處於缺貨中' (out of stock: this product or service is currently out of stock)
+  - [1] 2026-10-24: the footer reads '版權所有 © 2026 Flapjacks。版權所有。' with no company name, registration number or address anywhere on the page
+- sources:
+  - [1] https://my.flapjacks.it/index.php?rp=%2Fstore%2Fhk-lxc
+  - [2] https://my.flapjacks.it/cart.php?a=add&pid=1
+
+## FlowDeploy
+
+- `compute/flowdeploy` | dead | evidence reported | binding write-gated | category GPU cloud
+- identity a placeholder: card and phone unknown | verified 2026-10-22T04:46:52.463Z (inherited) | stale on 2026-11-06
+- url https://flowdeploy.com | page https://fshy.ajam.dev/p/flowdeploy.md
+- free tier: no free tier published | unit: none | metered on: wall-clock | read on: 2026-10-02 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - write-gated (binding): no new account can be created: the operator has stopped the hosted service [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: the hosted service has stopped
+- notes: The domain has lapsed to a parking service. There is no product page, no price and no signup; the text is keyword advertising for a link farm.
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - free_tier_kind: none
+  - reclassified_from: dead
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: flowdeploy.com now serves a parked domain carrying only paid link-farm text: 'flowdeploy.com Researches: cloud deployment solutions, software release management, ...' pointing at ww547.flowdeploy.com, read 2026-10-22
+- sources:
+  - [1] https://flowdeploy.com
+
+## Fosshost
+
+- `compute/fosshost` | dead | evidence documented | binding none | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://www.bleepingcomputer.com/news/technology/open-source-software-host-fosshost-shutting-down-as-ceo-unreachable/ | page https://fshy.ajam.dev/p/bleepingcomputer.md
+- free tier: Free VPS, web hosting, mirror and AArch64 compute for about 250 open source projects including GNOME, Armbian, Debian and FSFE. Applications were suspended in September 2022 and the service reached end of life in December 2022. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: anonymous
+- interface: unknown
+- limits note: The provider no longer exists, so nothing binds; the failure mode was organisational, with the chief executive unreachable and co-location unpaid.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: Nothing. Documented so the subsequent evaluation does not apply.
+- reliability: no reliability event recorded
+- notes: The generalisable lesson is the failure mode, not the provider: a free VPS programme run by a volunteer nonprofit with one person holding the bank account died within months, and about 250 projects had to migrate. That is the reliability note to attach to any nonprofit free-compute offer, including the ones still running.
+- extras:
+  - facets.class: inverse-dead
+  - facets.free_tier_kind: none
+- evidence:
+  - [1] 2026-10-22: report dated 2022-12-04 of the shutdown, the unreachable chief executive, and users told to back up and migrate
+  - [2] 2026-10-22: volunteer statement that co-location costs could not be paid because only the chief executive had bank access, so servers would go offline
+  - [3] 2026-10-22: the organisation's own post dated 2022-09-07 announcing that applications were suspended
+- sources:
+  - [1] https://www.bleepingcomputer.com/news/technology/open-source-software-host-fosshost-shutting-down-as-ceo-unreachable/
+  - [2] https://news.ycombinator.com/item?id=33848529
+  - [3] https://github.com/fosshostorg/fosshost.org/blob/main/src/posts/suspended-applications.md
+
+## FreeVPSTrial.net
+
+- `compute/freevpstrial-net` | dead | evidence documented | binding write-gated | category VPS | tier Free Trial VPS, 30 days
+- needs card unknown, phone yes, ID no, institution no | verified 2026-10-24T06:58:00.000Z (live) | stale on 2026-11-24
+- url https://freevpstrial.net/ | page https://fshy.ajam.dev/p/freevpstrial.md
+- free tier: Quoted from the plan card: 'Free Trial VPS $0.00 / 30 days' with '2GB RAM', '2 vCPU cores', 'NVMe storage', '2TB bandwidth', 'Root / administrator access', 'No credit card required'. The page headline reads 'Free VPS Trial. No credit card. No drag.' | unit: hours | metered on: wall-clock | read on: 2026-10-24 | source: [1]
+- per-object cap: Quoted from the terms: 'The Free VPS Trial is a one-time offer per natural person. Strictly one account is allowed per individual, household, or IP address.'
+- retention: 'The trial lasts for 30 consecutive days. At the end of the trial, the instance will be suspended. Data will be retained for a 48-hour grace period before being permanently deleted unless the account is upgraded to a paid plan.'
+- egress: Quoted from the plan card: '2TB bandwidth'. No port speed is published. | metered: yes | free allowance: 2 TB | source: [1]
+- identity: any-phone | detail: claimed no card, with SMS verification possible: quoted from the vendor 'While no credit card is required for the free trial, we may require SMS verification or e-mail validation to prevent automated bot abuse.' The privacy page also states it collects 'Name, email address, and phone number (for SMS verification)'. No registration form exists on the site to confirm what is actually asked for, so this is what the vendor says it would collect, not what it does.
+- interface: ssh, rest
+- limits:
+  - write-gated (binding): SMS verification or email validation, quoted: 'we may require SMS verification or e-mail validation to prevent automated bot abuse' [2]
+  - retention-clamped: 30 days, then suspended, then deleted after a 48-hour grace period [2]
+  - volume-quota: one account per individual, household or IP address [2]
+  - per-ip-shaping: 2 TB of bandwidth on the free plan [1]
+- binding note: The gate is not identity but the absence of a route: no registration page, no control panel and no order form exists anywhere on the site, so the verification step is never reached.
+- interface detail: Claimed: 'Root / administrator access' over SSH or RDP, provisioned 'after verification'. No control panel URL was reachable from the site: every call to action on the page is an empty fragment.
+- tooling: claimed SSH and RDP; no client is downloadable or documented on any page read
+- composes with: Nothing to chain: the offer is advertised and the route to it does not exist on the site.
+- reliability: The site publishes a status page at status.html; it was not read. No reliability event observed.
+- notes: Classified as inactive because no route to provision a machine is available, though website pages return HTTP 200.
+- evidence note: The advertised plan, the terms, the retention rule and the identity clause are quoted from the vendor's own pages read. The claim that no signup route exists is a direct observation of the served HTML: every button links to '#' and the only external hosts on the page are gratisvps.net. What the service would deliver is unverified because there is no way to reach it.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 2
+  - shape.note: as advertised on the plan card; no disk size is stated, only 'NVMe storage'
+  - billing_model: free
+  - term: 30 days advertised
+  - m10h_usd: 0
+  - m24h_usd: 0
+  - price_arithmetic: USD 0.00 as advertised; unreachable, so no rate applies
+  - free_tier_kind: trial
+  - network_out.allow_outbound: yes
+  - network_out.ports: advertised 'Root / administrator access'; no port policy published
+  - network_out.per_session_bytes: 2 TB advertised
+  - session_cap.wall_clock_min: 43200
+  - session_cap.restart_required: no
+  - session_cap.note: 30 days advertised, then suspended and deleted after 48 hours
+  - signup_url: https://freevpstrial.net/
+  - signup_note: no working signup route exists: every CTA on the page is '#' and /signup and /register both 404
+  - payment_methods: none advertised for the trial
+- evidence:
+  - [1] 2026-10-24: quoted plan card: 'Free Trial VPS $0.00 / 30 days ... ✓2GB RAM ✓2 vCPU cores ✓NVMe storage ✓2TB bandwidth ✓Root / administrator access ✓No credit card required'
+  - [1] 2026-10-24: There is no registration, signup, login or order link anywhere on the page
+  - [3] 2026-10-24: HTTP 404 from the origin
+  - [4] 2026-10-24: HTTP 404 from the origin
+  - [2] 2026-10-24: quoted: 'The trial lasts for 30 consecutive days. At the end of the trial, the instance will be suspended. Data will be retained for a 48-hour grace period' and 'The Free VPS Trial is a one-time offer per natural person. Strictly one account is allowed per individual, household, or IP address.'
+  - [2] 2026-10-24: quoted: 'While no credit card is required for the free trial, we may require SMS verification or e-mail validation to prevent automated bot abuse.'
+  - [5] 2026-10-24: quoted: 'To provision your VPS and prevent abuse, we collect the following: Contact Info: Name, email address, and phone number (for SMS verification).'
+  - [6] 2026-10-24: the contact page offers support and sales email addresses only; no customer portal, login or order link
+- sources:
+  - [1] https://freevpstrial.net/
+  - [2] https://freevpstrial.net/terms.html
+  - [3] https://freevpstrial.net/signup
+  - [4] https://freevpstrial.net/register
+  - [5] https://freevpstrial.net/privacy.html
+  - [6] https://freevpstrial.net/contact.html
+
+## Gabia VPS hosting
+
+- `compute/gabia-vps-hosting` | dead | evidence documented | binding write-gated | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://www.gabia.com/gabia_notice/view.php?seq_no=32081 | page https://fshy.ajam.dev/p/gabia.md
+- free tier: The product still has a published ladder of 2 vCPU with 512 MB and 12.5 GB SSD and 300 GB monthly traffic at KRW 10,000 a month, 1 GB at 20,000, 2 GB at 35,000 and 4 GB at 55,000, with no minimum term and no cancellation penalty. New applications were restricted from 2024-05-02 14:00, and the vendor named g클라우드 가상서버 and 1분 설치 서버 as the replacements. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: card
+- interface: unknown
+- limits:
+  - write-gated (binding): The door is closed rather than measured: the vendor restricted new applications for this product in 2024 and points buyers to two other products, so the constraint that fails first is that no new account can be opened at all. [1]
+- limits note: The door is closed rather than measured: the vendor restricted new applications for this product in 2024 and points buyers to two other products, so the constraint that fails first is that no new account can be opened at all.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: Nothing chains, and the record exists so that a reader who finds the KRW 10,000 ladder on Gabia's manual does not spend time looking for the order button.
+- reliability: no reliability event recorded
+- notes: Classified as dead on the vendor's own restriction notice. The notice is dated 2024 and no reopening was found; a reopening announcement would supersede this record, and the two replacement products are separate findings. This is the same pattern as XServer VPS in Japan: the cheap classic product is withdrawn and the replacement is a metered cloud that costs more.
+- extras:
+  - facets.class: regional-withdrawn
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 2
+  - facets.shape.ram_gib: 0.5
+  - facets.shape.gpu_count: 0
+- evidence:
+  - [1] 2026-10-22: the vendor's notice states that new applications for VPS 호스팅 are restricted from 2024-05-02 14:00, that existing services are unaffected, and that the replacement products are g클라우드 가상서버 and 1분 설치 서버
+  - [2] 2026-10-22: the product manual still publishes the ladder: VPS 512MB at 10,000 원 a month with 2 vCore, 512 MB, SSD 12.5 GB and 300 GB of traffic, VPS 1G at 20,000 원, VPS 2G at 35,000 원 and VPS 4G at 55,000 원, with no compulsory period and no cancellation penalty
+- sources:
+  - [1] https://www.gabia.com/gabia_notice/view.php?seq_no=32081
+  - [2] https://customer.gabia.com/manual/hosting/9862/16522

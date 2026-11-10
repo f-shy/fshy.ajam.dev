@@ -1,0 +1,2196 @@
+# Microsoft
+
+> microsoft.com | Storage, Compute, CI runners, Egress and tunnels, Crawling; 65 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/microsoft/ | JSON https://fshy.ajam.dev/api/v1/entity/microsoft.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Azure DevOps Repos (Git as bulk blob store)
+
+- `storage/azure-devops-repos` | qualifies | evidence reported | binding none | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://azure.microsoft.com/en-us/pricing/details/devops/azure-devops-services/
+- free tier: Unlimited private Git repositories free per organization; each repository may be up to 250 GB; storage is NOT a billed meter - the Azure DevOps free tier bills only users, parallel jobs and Artifacts storage. Git LFS is free and does not count toward the 5 GB push limit. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Unmetered. Clone/fetch over HTTPS from dev.azure.com has no egress meter - the billing FAQ enumerates every chargeable meter (extra Basic users, Basic+Test Plans, parallel jobs, Artifacts >2 GB, GHAS) and data transfer is not among them. | metered: no
+- identity: anonymous
+- interface: rest, git, rclone
+- limits note: 250 GB per repository (soft - pack-file limit errors before it); 5 GB per push (LFS pushes exempt); individual files ~100 MB without LFS; path length 32,766 chars; rate limits 200 TSTU per 5-min window; anonymous access to public projects is being removed (new public projects blocked April 2026, all converted to private and anonymous disabled in 2027) - authenticate with a PAT.
+- interface detail: git
+- tooling: Plain git / git-lfs; Azure DevOps REST API for repository + item download (GET /_apis/git/repositories/{repo}/items?path=); rclone has no ADO Repos backend, so use git or the REST item API
+- composes with: Unlimited repos x 250 GB each within one org; each org holds up to 1,000 projects; orgs are free and you may hold many. 250 GB x N repos x M orgs. The 2026 sprint-273 change removed the Git object-count limit, which was the per-repo ceiling that used to bite before 250 GB. Files are content-addressed and deduplicated across history, so a repo of distinct chunks stores each chunk once.
+- reliability: Reliable but slow as bulk storage: no random-access read, no partial download, whole-repo clone semantics; the 'temporarily unavailable while repository is updated' pack-optimization window can block writes for large repos.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: 'Repositories should be no larger than 250 GB'; 'pushes are limited to 5 GB at a time'; 'Git LFS doesn't count towards the 5-GB repository limit'
+  - [2] 2026-10-21: 'Azure DevOps Services fully supports Git LFS and offers it for free'
+  - [3] 2026-10-21: 'Azure Repos: Unlimited private Git repos'; 'Azure Artifacts: 2 GiB free per organization'
+  - [4] 2026-10-21: 'Git object count limit removed ... enables unrestricted repository growth'
+  - [5] 2026-10-21: probe: curl -> HTTP 200, returned repo objects with size fields (PowerShell repo size 90822000 bytes at time of probe)
+  - [6] 2026-10-21: probe: git ls-remote -> 200, returned HEAD 2f027ba4356e363f65e2cc71c7bd49c5d1556b32 (anonymous read works, dies in 2027)
+- sources:
+  - [1] https://learn.microsoft.com/en-us/azure/devops/repos/git/limits
+  - [2] https://learn.microsoft.com/en-us/azure/devops/repos/git/manage-large-files
+  - [3] https://azure.microsoft.com/en-us/pricing/details/devops/azure-devops-services/
+  - [4] https://learn.microsoft.com/en-us/azure/devops/release-notes/2026/sprint-273-update
+  - [5] https://dev.azure.com/powershell/powershell/_apis/git/repositories?api-version=7.0
+  - [6] https://dev.azure.com/powershell/powershell/_git/powershell
+
+## Azure DevOps Repos + Git LFS
+
+- `storage/azure-devops-repos-git-lfs` | qualifies | evidence reported | binding none | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://azure.microsoft.com/en-us/pricing/details/devops/azure-devops-services/
+- free tier: No LFS storage quota is published and none is enforced in the docs. Microsoft states plainly: 'Azure DevOps Services fully supports Git LFS and offers it for free.' The free tier is 5 Basic users with unlimited private Git repos; only Azure Artifacts carries a numeric cap (2 GiB free). Repo size guidance is 250 GB (soft), 'recommend keeping below 10 GB for optimal performance'. | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Unmetered. No bandwidth line item exists anywhere on the Azure DevOps pricing page. The paid units are users, parallel jobs and Artifacts GiB only. | metered: no
+- identity: email
+- interface: rest, ssh, git
+- limits note: LFS objects do NOT count toward the 5 GB push limit: 'Git LFS doesn't count towards the 5-GB repository limit. The 5-GB limit applies only to files in the actual repository, not to blobs stored with LFS.' Every push request is still capped at 5 GB and there is a one-hour upload limit per the docs ('Large uploads can be constrained by available free space, current workload, and the one-hour upload limit'). Non-LFS files cap at 100 MB. No per-LFS-file cap is documented.
+- interface detail: git
+- tooling: git-lfs 3.x (gitlfs/git-lfs). Works over HTTPS; SSH is NOT supported for repos with LFS-tracked files. PAT auth. Also reachable via the Azure DevOps REST API for repo/ref management.
+- composes with: 5 free Basic users per org, and up to 5 orgs per account (Microsoft Q&A, moderator answer) -> 25 orgs' worth of free LFS if each is a separate MSA. Orgs are unlimited in repo count, so total LFS is bounded only by the 250 GB-per-repo soft guidance. 250 GB x N repos. Unlike GitLab/GitHub, LFS bytes are not on the meter at all.
+- reliability: The 250 GB repo figure is guidance, not a wall, but the docs warn the internal pack-file limit can trigger 'The Git pack file limit has been reached' and temporarily block writes on very large repos. Over-quota behaviour is undefined because there is no quota.
+- notes: the same as the free tier
+- evidence:
+  - [2] 2026-10-21: 'Git LFS doesn't count towards the 5-GB repository limit. The 5-GB limit applies only to files in the actual repository, not to blobs stored with LFS.' (page ms.date 2024-08-22, updated_at 2026-05-07)
+  - [1] 2026-10-21: 'Azure DevOps Services fully supports Git LFS and offers it for free.'
+  - [3] 2026-10-21: 2015 announcement: 'unlimited free storage ... extended to Git-LFS', never retracted; the current limits page still lists no LFS cap.
+  - [4] 2026-10-21: free tier list shows only '2 GiB free' for Artifacts; no LFS line item
+- sources:
+  - [1] https://learn.microsoft.com/en-us/azure/devops/repos/git/manage-large-files?view=azure-devops
+  - [2] https://learn.microsoft.com/en-us/azure/devops/repos/git/limits?view=azure-devops
+  - [3] https://devblogs.microsoft.com/devops/announcing-git-lfs-on-all-vso-git-repos/
+  - [4] https://azure.microsoft.com/en-us/pricing/details/devops/azure-devops-services/
+
+## Microsoft 365 / Office 365 A1 Education tenant (100 TB pooled)
+
+- `storage/microsoft-365-office-365-a1-education-tenant` | qualifies | evidence reported | binding none | category cloud-drive
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.microsoft.com/en-us/education/products/office
+- free tier: 100 TB (102,400 GB) free pooled storage per education tenant, spanning OneDrive + SharePoint + Exchange; pooled capacity = 100 TB base + per-license contributions. Office 365 A1 licenses contribute 0 GB but consume from the pool. | unit: TB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Not metered. Microsoft 365 is a subscription service with no per-GB egress meter; Microsoft support states 'if the user has the related license, there is no charge for uploading and downloading files'. SharePoint/OneDrive downloads are direct HTTPS URLs. | metered: yes
+- identity: institution
+- interface: rest, graph, rclone
+- limits note: Office 365 A1 OneDrive = 100 GB/user hard max (set Feb 2024); Microsoft 365 A1 OneDrive = up to 1 TB/user, capped by the same 100 TB pool. 250 GB max single file upload. 50,000 major versions / 511 minor per file - versioning silently duplicates storage on overwrite, so use a Communication site with versioning disabled. 25 TB max per site collection. Tenant goes read-only when over pool.
+- interface detail: rest
+- tooling: Microsoft Graph driveItem API (whole-tenant app-only auth: Files.ReadWrite.All + Sites.Read.All); rclone backend 'onedrive' with drive_type=business or drive_type=documentLibrary, and a SharePoint remote type; office365-rest-python-client (vgrem) for list/library operations
+- composes with: 100 TB is per TENANT and tenants are per institution, not per user: N schools x 100 TB. Inside one tenant the ceiling is much higher than the pool in principle - 2,000,000 site collections per org at up to 25 TB per site - but the 100 TB pool is the binding limit. Add unlimited free A1 user licenses (which add 0 GB but give each user a 100 GB or 1 TB OneDrive ceiling), and paid A3/A5 at 50/100 GB per license. Multiply across tenants for archival shards.
+- reliability: Storage is enforced at the tenant pool level and tenants get flipped to read-only on overage - data survives but writes fail; per-user OneDrive caps were cut (5 TB -> 100 GB for A1) in 2024 with no migration path.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: 'All Education tenants with Pooled Storage are granted an initial and free 100 TB of storage to their pool'; 'Storage for site collections: Up to 25 TB per site collection or group'; 'Site collections per tenant: 500,000'
+  - [2] 2026-10-21: '100TB of free pooled storage across OneDrive, SharePoint, and Exchange'; 'Office 365 A1 ... maximum OneDrive limit of 100GB'; '100 TB Default Limit (102,400 GB)'
+  - [3] 2026-10-21: (via /office365/servicedescriptions/sharepoint-online-service-description/sharepoint-online-limits) - '250 GB - File upload limit', '1 TB + 10GB per license purchased'
+  - [4] 2026-10-21: 'Educators and students with an eligible education email address can get Office 365 A1 for free'
+- sources:
+  - [1] https://learn.microsoft.com/en-us/office365/servicedescriptions/office-365-platform-service-description/office-365-education
+  - [2] https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/final/en-us/microsoft-product-and-services/microsoft-education/downloadables/M365-Education-Storage-FAQ.pdf
+  - [3] https://learn.microsoft.com/en-us/sharepoint/sharepoint-limits
+  - [4] https://www.microsoft.com/en-us/education/products/office
+
+## Microsoft 365 Business Basic — nonprofit grant (300 free seats x 1 TB OneDrive)
+
+- `storage/microsoft-365-business-basic-nonprofit-grant` | qualifies | evidence reported | binding per-object-cap | category cloud-drive
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.microsoft.com/en-us/microsoft-365/business/nonprofit-plans-and-pricing
+- free tier: Microsoft 365 Business Basic (Nonprofit Staff Pricing) is a 'Grant — Free up to 300 users', and every seat carries '1 TB of cloud storage per user' (OneDrive). 300 x 1 TB = 300 TB of pooled tenant storage at zero cost. SharePoint on top: total org storage '1 TB + 10GB per license purchased', max 25 TB per site collection. | unit: TB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 250 GB per file | bytes: 250000000000 | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: No egress meter on OneDrive/SharePoint downloads. Microsoft does not bill data transfer out for M365 storage. Put Cloudflare in front and it is fully covered. | metered: no
+- identity: email
+- interface: rest, graph, rclone
+- limits:
+  - per-object-cap (binding): 250 GB per file [1]
+- limits note: per-object-cap 250 GB per file in OneDrive (Microsoft's documented ceiling), 100 GB mailbox, SharePoint list/library max 30 million items. request-rate: Graph throttling is per-app-per-tenant and is the practical ceiling for bulk sync, not bytes. retention: perpetual while the subscription renews; Microsoft requires '85% active usage of all granted assigned licenses' or the org risks losing future grants.
+- interface detail: rest
+- tooling: rclone backend 'onedrive' (Tier 1, chunked upload, server-side move); Microsoft Graph API (/me/drive, /sites/{id}/drive); SharePoint REST. The Graph endpoints are the documented programmatic path.
+- composes with: The multiplier here is seats, not orgs: 300 granted seats per nonprofit tenant, 1 TB each, plus 10 GB of SharePoint pool per licence with a 25 TB ceiling per site collection. So a single tenant can present 300 TB of OneDrive and multi-TB SharePoint document libraries. 300 seats at 1 TB is the largest free number found anywhere in this niche. Multiple 501(c)(3) entities = separate tenants.
+- reliability: The grant survived the July 2025 cull that killed donated Business Premium and O365 E1. Business Basic is still listed as 'Grant, Free up to 300 users'. Unused seats are reclaimed under the 85% rule; inactive tenants risk losing grants at renewal.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: 'Microsoft 365 Business Basic (Nonprofit Staff Pricing) | Grant | Free up to 300 users' and '1 TB of cloud storage per user' across the compare table
+  - [2] 2026-10-21: 'Total storage per organization: 1 TB + 10GB per license purchased'; 'Max storage per site (site collection): 25 TB'
+  - [3] 2026-10-21: donated Business Premium/E1 discontinued from 2025-07-01; Business Basic grant unaffected
+  - withheld 2026-10-21: probe: GET graph.microsoft.com/v1.0/me/drive -> 401, 237 bytes (read path is Graph, auth-gated)
+- sources:
+  - [1] https://www.microsoft.com/en-us/microsoft-365/business/nonprofit-plans-and-pricing
+  - [2] https://learn.microsoft.com/en-us/office365/servicedescriptions/sharepoint-online-service-description/sharepoint-online-limits
+  - [3] https://support.techsoup.org/hc/en-us/articles/37040124982811-Discontinued-Donated-Microsoft-365-Business-Premium-and-Office-365-E1
+
+## Azure App Service (F1)
+
+- `compute/azure-app-service-f1` | qualifies-with-caveat | evidence documented | binding retention-clamped | category platform host
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-04T02:24:29.902Z (live) | stale on 2026-12-05
+- url https://azure.microsoft.com/en-us/pricing/details/app-service/linux/
+- free tier: F1 Free Shared: 60 CPU minutes a day, 1 GB RAM, 1.00 GB storage, no SLA | unit: minutes | metered on: wall-clock | read on: 2026-10-06 | source: [1] | note: the 512 MB and 5 GB figures in older guides are obsolete
+- per-object cap: not applicable
+- retention: the app and its files persist on the plan; no deletion clock is stated
+- egress: the App Service pricing page states no F1 data-transfer line; Azure bandwidth pricing gives the first 100 GB/month free, then USD 0.087 per GB from North America or Europe | metered: no | free allowance: first 100 GB per month of internet egress free (Azure bandwidth pricing, not an App Service F1 line) | price per TB: USD 87 per TB | source: [1]
+- identity: card | detail: an Azure account requires a card and a phone number
+- interface: ssh, cli, git
+- limits:
+  - request-rate: 60 CPU minutes a day shared across the app [1]
+  - retention-clamped (binding): the app sleeps after 20 minutes without a direct request; Always On is not available on F1 [2]
+  - per-object-cap: 1 GB RAM and 1.00 GB of storage [1]
+- limits note: the 20-minute idle timeout is stated by Microsoft in two first-party articles; learn.microsoft.com/en-us/azure/app-service/webjobs-execution carries the sentence quoted in evidence
+- binding note: the 20-minute idle timer is the first wall: 60 CPU-minutes a day is generous for a keepalive, and a keepalive needs a direct request to reset the timer, which a health probe from outside the app supplies
+- interface detail: a public *.azurewebsites.net endpoint; deployment by git, zip or container
+- tooling: the Azure CLI, Kudu, git push deployment
+- composes with: a public HTTPS endpoint with 60 CPU minutes a day, which is a scheduler and not a host
+- reliability: no reliability event recorded
+- notes: historical research records carried the 20-minute idle timeout as an unconfirmed quotation. It is documented first-party at learn.microsoft.com/en-us/azure/app-service/webjobs-execution (read 2026-10-22), which also says a portal visit or a Kudu request does not reset the timer.
+- evidence note: the 20-minute timeout was `reported` because historical research read of the Azure pricing page did not carry it. That was a fact about historical research search, not about the vendor: Microsoft states it on the App Service WebJobs page, so the `retention-clamped` field is now `documented` and the record's rung follows it.
+- extras:
+  - billing_model: consumed-cpu
+  - session_cap.idle_reap_s: 1200
+  - session_cap.restart_required: no
+  - session_cap.note: 20-minute idle timeout: 'Web apps can time out after 20 minutes of inactivity, and only direct requests to the app reset this idle timer. Actions like viewing the portal or accessing the Kudu tools don't keep the app active.'
+  - keep_rate.value: 0.0
+  - keep_rate.basis: a free app does not bill
+  - keep_rate.source: https://azure.microsoft.com/en-us/pricing/details/app-service/linux/
+  - persistent_storage.included_gib: 1
+  - persistent_storage.price_gib_month: not offered
+  - persistent_storage.durability: app files
+  - persistent_storage.survives_stop: yes
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: while the plan exists
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: HTTPS on the app hostname
+  - free_tier_kind: allowance
+- evidence:
+  - [1] 2026-10-06: F1 Free Shared is 60 CPU minutes a day with 1 GB RAM and 1.00 GB storage
+  - [2] 2026-10-22: 'Web apps can time out after 20 minutes of inactivity, and only direct requests to the app reset this idle timer. Actions like viewing the portal or accessing the Kudu tools don't keep the app active.'
+  - [3] 2026-11-03: first 100 GB/month of internet egress is free, then USD 0.087 per GB from North America or Europe | capture: sha256:17b0834dc9bfb334d1ea1d89035316e3d5c65a5b6fe295104b858e261f5491e6 | quote: | From North America, Europe to any destination | Free | $0.087 per GB | $0.083 per GB | $0.07 per GB | $0.05 per GB |
+  - [4] 2026-11-03: the Azure CLI opens a terminal session in a Linux web app | capture: sha256:b73d025af9b9d5e930e6775d645587738628a51c1e2ce819d9304025853a70c1 | quote: The Azure CLI `az webapp exec` command is supported only for Linux web apps.
+  - [5] 2026-11-03: local Git deployment is configured by CLI, PowerShell or portal | capture: sha256:26f269b4ea8b6e99b898b5c7a2af2d350024d9b37547c0c70b9b05e56517a019 | quote: You can create and configure a Git-enabled app, or configure local Git deployment for a preexisting app, by using Azure CLI, Azure PowerShell, or the Azure portal.
+- sources:
+  - [1] https://azure.microsoft.com/en-us/pricing/details/app-service/linux/
+  - [2] https://learn.microsoft.com/en-us/azure/app-service/webjobs-execution
+  - [3] https://azure.microsoft.com/en-us/pricing/details/bandwidth/
+  - [4] https://learn.microsoft.com/en-us/azure/app-service/configure-linux-open-ssh-session
+  - [5] https://learn.microsoft.com/en-us/azure/app-service/deploy-local-git
+
+## Azure Container Apps (Consumption, Dedicated, Dynamic Sessions)
+
+- `compute/azure-container-apps` | qualifies-with-caveat | evidence documented | binding volume-quota | category cloud VM | tier Consumption plan
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T11:01:15.544Z (live) | stale on 2026-12-05
+- url https://azure.microsoft.com/en-us/pricing/details/container-apps/
+- free tier: per subscription per month: 'The first 180,000 vCPU-seconds, 360,000 GiB-seconds, and 2 million requests per subscription per month are free.' | unit: seconds | metered on: wall-clock | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable: the unit is a replica
+- retention: ephemeral storage per replica; no persistent disk in the free allowance
+- egress: per the general Azure bandwidth page, the first 100 GB a month of internet egress is free for all customers in all regions; beyond it from North America and Europe the next tier is USD 0.087 per GB, then USD 0.083, 0.07 and 0.05 per GB | metered: yes | free allowance: 100 GB per month | source: [1]
+- identity: card | detail: an Azure subscription with a card; the free grant is a monthly allowance on a paid subscription
+- interface: cli
+- limits:
+  - volume-quota (binding): 180,000 vCPU-seconds and 360,000 GiB-seconds a month per subscription [1]
+  - request-rate: 2 million requests a month per subscription [1]
+  - retention-clamped: a replica is billed while active: above 0.01 cores of vCPU use or above 1,000 bytes a second of inbound data [1]
+- binding note: 360,000 GiB-seconds at 512 MiB is 720,000 seconds, 8.3 days, and the vCPU grant at a quarter core is 720,000 seconds, so both meters run out together in the second week.
+- interface detail: Azure CLI extension, Azure portal or ARM templates, per the Container Apps overview: "Use the Azure CLI extension, Azure portal or ARM templates"
+- tooling: the Azure CLI extension, per the Container Apps overview: "Use the Azure CLI extension, Azure portal or ARM templates"
+- composes with: not established
+- reliability: an application can scale to zero with no usage charge; a configured minimum replica bills at a reduced idle rate
+- notes: The page's per-unit prices render as '-' in the extracted text, so no rate is recorded. Arithmetic from the free grant only: 0.25 vCPU and 512 MiB always-on is 648,000 vCPU-seconds and 1,296,000 GiB-seconds a month, so the grant covers 720,000 seconds of it, 8.3 days.
+- evidence note: the grant, the active-replica thresholds and the scale-to-zero rule were read on the pricing page
+- extras:
+  - keep_rate: 1.0
+  - billing_model: per-second
+  - shape.vcpu: 0.25
+  - shape.ram_gib: 0.5
+  - session_cap.restart_required: no
+  - session_cap.note: scale to zero unless a minimum replica count is set
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: ingress on the container port with an Azure-provided hostname
+  - network_out.static_ip: no
+  - network_out.ipv6: no
+  - price_note: One of them applied the credit to the wrong meter
+  - free_tier_kind: monthly-grant
+  - catalogue_field_warning: free_monthly_credit conflates a recurring grant with a one-time grant divided by a month
+  - granularity.min_billed_s: 0
+  - burst_x: 3.5
+  - burst_bill: min 1 h
+  - term: monthly
+  - m10h_usd: 0.0
+  - m24h_usd: 0.0
+  - price_arithmetic: free inside the monthly grant; 8.3 days of a 0.25 vCPU / 512 MiB replica exhausts both meters
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'The first 180,000 vCPU-seconds, 360,000 GiB-seconds, and 2 million requests per subscription per month are free' and 'A replica is active when vCPU usage is above 0.01 cores or when data received is above 1,000 bytes per second', quoted
+  - [1] 2026-10-24: quoted: 'The first 180,000 vCPU-seconds, 360,000 GiB-seconds, and 2 million requests per subscription per month are free.'
+  - [1] 2026-10-24: quoted: 'A replica is active when vCPU usage is above 0.01 cores or when data received is above 1,000 bytes per second.'
+  - [2] 2026-11-04: the first 100 GB a month of internet egress is free | capture: sha256:17b0834dc9bfb334d1ea1d89035316e3d5c65a5b6fe295104b858e261f5491e6 | quote: Azure already offers the first 100 GB/month of egressed data for free to all customers in all Azure regions around the world (see Internet Egress table above).
+  - [2] 2026-11-04: after the free first tier, USD 0.087 per GB is the next tier from North America and Europe | capture: sha256:17b0834dc9bfb334d1ea1d89035316e3d5c65a5b6fe295104b858e261f5491e6 | quote: | From North America, Europe to any destination | Free | $0.087 per GB | $0.083 per GB | $0.07 per GB | $0.05 per GB |
+  - [3] 2026-11-04: Container Apps is managed with the Azure CLI extension, the portal or ARM templates | capture: sha256:a34f1446c4fb00a13f9f600d4b8f8851edf2716289ca8520ea62abd48e0e87ad | quote: Use the Azure CLI extension, Azure portal or ARM templates
+  - [3] 2026-11-04: the overview names the Azure CLI extension, the portal and ARM templates | capture: sha256:a34f1446c4fb00a13f9f600d4b8f8851edf2716289ca8520ea62abd48e0e87ad | quote: Use the Azure CLI extension, Azure portal or ARM templates
+- sources:
+  - [1] https://azure.microsoft.com/en-us/pricing/details/container-apps/
+  - [2] https://azure.microsoft.com/en-us/pricing/details/bandwidth/
+  - [3] https://learn.microsoft.com/en-us/azure/container-apps/overview
+
+## Azure Container Apps Sandboxes
+
+- `compute/azure-container-apps-sandboxes` | qualifies-with-caveat | evidence documented | binding write-gated | category cloud VM
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-02T02:17:33.708Z (live) | stale on 2026-12-03
+- url https://learn.microsoft.com/en-us/azure/container-apps/sandboxes-overview
+- free tier: no sandbox-specific free allowance is published; sandbox compute bills through the same per-second Container Apps meters, whose first 180,000 vCPU-seconds and 360,000 GiB-seconds a month are free | unit: seconds | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: card | detail: A card and a phone number, because a sandbox bills through an Azure subscription. Azure's signup FAQ: 'All you need is a phone number, a credit card or a debit card (non-prepaid), and a Microsoft account or a GitHub account.' A second gate on the card: 'Only credit cards are accepted in Hong Kong and Brazil.' On top of the subscription, creating a sandbox needs a role assignment: 'To manage and create sandboxes, you need the Azure role Container Apps SandboxGroup Data Owner.' Country limit, quoted: 'If your country is not listed, the offer is not available in your region.'
+- interface: unknown
+- limits:
+  - request-rate: sandbox compute bills per second through the Container Apps meters [1]
+  - retention-clamped: a stopped sandbox incurs no CPU or memory fee; a snapshot preserves memory and disk [1]
+  - write-gated (binding): creating or managing a sandbox requires the Container Apps SandboxGroup Data Owner role assignment [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the sandboxes overview was read on 2026-10-22. It establishes the lifecycle and the stop-billing behaviour and does not publish a free allowance, so the requirement below is the Container Apps consumption allowance the same vendor prices on its pricing page, not a sandbox-specific grant
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: no automatic reap is described: you manage create, suspend, resume and delete, and a stopped sandbox is free of compute charges
+  - free_tier_kind: allowance
+  - granularity.min_billed_s: 0
+  - burst_x: 1.0
+  - ps.price: volumes are a separate resource
+  - ps.durability: snapshot of memory and disk; persistent volumes
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: until the sandbox is deleted
+  - net.out: yes
+  - net.in: yes
+  - net.ports: networking policies govern egress and ingress
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Sandboxes are provisioned from prewarmed pools for near-instant availability' and 'You pay no CPU or memory fees when sandboxes are stopped' and 'Suspend and resume: Snapshot full state including memory and disk, and resume later with sub-second restore times', quoted
+  - [2] 2026-11-02: the Azure subscription that bills sandbox compute takes a phone number and a credit or non-prepaid debit card at signup | capture: sha256:f1d70fff507d29dd9a1375ee033db2b5b2ac9fe30cb65fa34c2601393d095941 | quote: All you need is a phone number, a credit card or a debit card (non-prepaid), and a Microsoft account or a GitHub account.
+  - [2] 2026-11-02: the phone number and the card are the identity check on the account that bills a sandbox | capture: sha256:f1d70fff507d29dd9a1375ee033db2b5b2ac9fe30cb65fa34c2601393d095941 | quote: We use the phone number and credit card or debit card for identity verification to validate that account holders are real people and not bots.
+- sources:
+  - [1] https://learn.microsoft.com/en-us/azure/container-apps/sandboxes-overview
+  - [2] https://azure.microsoft.com/en-us/free/free-account-faq/
+
+## Azure for Students (and Azure for Students Starter)
+
+- `storage/azure-for-students` | qualifies-with-caveat | evidence reported | binding none | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://azure.microsoft.com/en-us/free/students
+- disagrees on identity_kind: `storage/azure-for-students` says card, `storage/azure-for-students-2` says email
+- disagrees on verdict: `storage/azure-for-students` says qualifies-with-caveat, `storage/azure-for-students-2` says fails-quota
+- disagrees on identity_kind: `storage/azure-for-students` says card, `storage/azure-for-students-3` says email
+- disagrees on verdict: `storage/azure-for-students` says qualifies-with-caveat, `storage/azure-for-students-3` says fails-quota
+- disagrees on identity_kind: `storage/azure-for-students` says card, `storage/azure-for-students-4` says email
+- disagrees on verdict: `storage/azure-for-students` says qualifies-with-caveat, `storage/azure-for-students-4` says fails-quota
+- free tier: $100 credit per 12 months plus free monthly amounts of 20+ services; no credit card required. Explicitly renewable: 'Renew your subscription annually and continue to get free access to Azure as long as you're a student.' Starter tier (13-17) gives services without the $100. | unit: mixed | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: The 100 GB/month free internet egress (all Azure customers) applies; beyond that metered. | metered: yes | free allowance: 100 GB per month
+- identity: card
+- interface: s3, rest, rclone
+- limits note: Student verification required; $100 is annual, not monthly; the 12-month free service amounts (including 5 GB blob) are separate and 'new Azure customers only'.
+- interface detail: s3
+- tooling: Azure Blob REST / rclone azureblob / azcopy, same as paid Azure.
+- composes with: $100/year at ~$0.0184/GB-month hot LRS ≈ 5.4 TB-months per year ≈ 450 GB held for the full year, and it renews yearly while student status holds. It is the only yearly-renewable big-cloud credit found.
+- reliability: Subscription is disabled at year end until renewed; data can be lost if the subscription lapses and is later reactivated.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: '$100 credit to use on Azure services within 12 months'; 'Renew your subscription annually and continue to get free access to Azure as long as you're a student'
+  - [1] 2026-10-21: Starter tier: 'Free monthly amounts of 20+ popular services for 12 months (new Azure customers only)'
+- sources:
+  - [1] https://azure.microsoft.com/en-us/free/students
+
+## Azure Functions
+
+- `compute/azure-functions` | qualifies-with-caveat | evidence documented | binding request-rate | category serverless runtime
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T11:01:15.544Z (live) | stale on 2026-12-05
+- url https://azure.microsoft.com/en-us/pricing/details/functions/
+- free tier: "Consumption plan pricing includes a monthly free grant of 1 million requests and 400,000 GB-s of resource consumption per month per subscription in pay-as-you-go pricing across all function apps in that subscription." Footnote on the same page: "Free grants apply to the on-demand meters on paid, consumption subscriptions only." | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: perpetual-allowance
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: Internet egress is metered by the Azure bandwidth meter, separate from the Functions free grant: first 100 GB per month free, then $0.087 per GB for the next 10 TB from North America or Europe via the Microsoft Premium Global Network; inbound is free. | metered: yes | free allowance: 100 GB per month | price per TB: USD 87 (from North America or Europe, next 10 TB, Premium Global Network) | source: [1]
+- identity: card
+- interface: cli, rest
+- limits:
+  - request-rate (binding): 400,000 GB-s a month is 3,200,000 instance-seconds at the minimum 128 MB allocation, which is 37.0 days of one always-resident 128 MB worker, so the grant is slightly larger than a month but a single function execution is capped at 10 minutes on the consumption plan and cannot stay resident. [1]
+- limits note: 400,000 GB-s a month is 3,200,000 instance-seconds at the minimum 128 MB allocation, which is 37.0 days of one always-resident 128 MB worker, so the grant is slightly larger than a month but a single function execution is capped at 10 minutes on the consumption plan and cannot stay resident.
+- binding note: the same as limits note
+- interface detail: Azure CLI, Azure PowerShell, ARM templates or Bicep files, per the Functions reference: "Programmatically using Azure CLI, Azure PowerShell, ARM templates, or Bicep files"
+- tooling: Azure CLI and Azure PowerShell, per the Functions reference: "Programmatically using Azure CLI, Azure PowerShell, ARM templates, or Bicep files"
+- composes with: 3,200,000 instance-seconds is the largest perpetual serverless budget found among evaluated offerings and it needs no IPv4 front, so it composes with an IPv6-only VPS as the scheduler that renews and health-checks it, or as the worker for jobs the 10 minute limit can divide.
+- reliability: no reliability event recorded
+- notes: The 400,000 GB-s figure is a memory-time budget, not a wall-clock one: the same 400,000 buys 37 days at 128 MB, 18.5 days at 256 MB, or 9.3 days at 512 MB. The 'paid consumption subscriptions only' footnote is the unresolved part, because it may exclude the free trial subscription a new account would start with; the portal quota page on a fresh subscription is the test. Azure App Service F1 is the separate always-free web lane and is already recorded in earlier readings.
+- extras:
+  - facets.class: perpetual-allowance
+  - facets.free_tier_kind: perpetual-allowance
+  - facets.shape.ram_gib: 1.5
+- evidence:
+  - [1] 2026-10-22: monthly free grant of 1 million executions and 400,000 GB-s per subscription, with the footnote that grants apply to paid consumption subscriptions only, quoted
+  - [2] 2026-10-22: Azure lists 65 or more always-free services that persist for as long as the account exists, separate from the 12-month list
+  - [3] 2026-10-22: the always-free table lists Functions at 1 million requests, distinct from the 12-month-only VM allowances
+  - [4] 2026-11-04: first 100 GB per month of internet egress is free, then $0.087 per GB for the next 10 TB | capture: sha256:17b0834dc9bfb334d1ea1d89035316e3d5c65a5b6fe295104b858e261f5491e6 | quote: | From North America, Europe to any destination | Free | $0.087 per GB | $0.083 per GB | $0.07 per GB | $0.05 per GB |
+  - [4] 2026-11-04: first 100 GB per month of internet egress is free | capture: sha256:17b0834dc9bfb334d1ea1d89035316e3d5c65a5b6fe295104b858e261f5491e6 | quote: Azure already offers the first 100 GB/month of egressed data for free to all customers in all Azure regions around the world
+  - [5] 2026-11-04: function apps are created with the Azure CLI, PowerShell, ARM or Bicep, besides the portal | capture: sha256:c51e6a97a6208336fc314a22f296fc9df2c2c5482a27f00577717fd5cedf0804 | quote: Programmatically using [Azure CLI](scripts/functions-cli-create-serverless), [Azure PowerShell](create-resources-azure-powershell#create-a-serverless-function-app-for-c), [ARM templates](functions-create-first-function-resource-manager), or [Bicep files](functions-create-first-function-bicep)
+  - [5] 2026-11-04: the reference names Azure CLI, Azure PowerShell, ARM templates and Bicep files | capture: sha256:c51e6a97a6208336fc314a22f296fc9df2c2c5482a27f00577717fd5cedf0804 | quote: Programmatically using Azure CLI, Azure PowerShell, ARM templates, or Bicep files
+- sources:
+  - [1] https://azure.microsoft.com/en-us/pricing/details/functions/
+  - [2] https://azure.microsoft.com/en-us/pricing/free-services
+  - [3] https://azure.microsoft.com/en-us/free/virtual-machines
+  - [4] https://azure.microsoft.com/en-us/pricing/details/bandwidth/
+  - [5] https://learn.microsoft.com/en-us/azure/azure-functions/functions-reference
+
+## Azure Pipelines
+
+- `compute/azure-pipelines` | qualifies-with-caveat | evidence documented | binding request-rate | category platform host
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-03T17:29:31.577Z (live) | stale on 2026-12-04
+- url https://azure.microsoft.com/en-us/pricing/details/devops/azure-devops-services/
+- duplicate of `ci-cd-runners/azure-pipelines-private`
+- free tier: one Microsoft-hosted CI/CD job with 1,800 minutes a month, plus one self-hosted job with unlimited minutes, on every Azure DevOps organisation | unit: minutes | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: 60 minutes per Microsoft-hosted job on the free grant; 360 minutes per job on a paid parallel job | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: card | detail: the Microsoft-hosted free grant applies only to an Azure DevOps organisation linked to a valid Azure subscription; Azure DevOps billing does not accept the Azure Free Trial, and an Azure account asks for a phone number and a non-prepaid credit or debit card. The free self-hosted job is granted automatically; only the Microsoft-hosted free tier must be enabled
+- interface: unknown
+- limits:
+  - request-rate (binding): 1,800 hosted minutes a month on one parallel job; extra hosted jobs are $40 a month each [1]
+  - write-gated: the unlimited-minutes half applies only to a self-hosted agent, which runs on a machine the user provides [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the Azure DevOps pricing page was read on 2026-10-22. The free allowance is a monthly minute pool on one hosted job plus an unmetered self-hosted job, which is a recurring tier and not a credit
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: a hosted job has its own timeout; the monthly minute pool is what runs out first
+  - free_tier_kind: allowance
+  - granularity.min_billed_s: 60
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: '1 Microsoft-hosted job with 1,800 minutes per month for CI/CD and 1 self-hosted job with unlimited minutes per month' and '$40 per extra Microsoft-hosted CI/CD parallel job', quoted
+  - [2] 2026-10-30: the free parallel-job grant needs the organisation linked to a valid Azure subscription | capture: sha256:63ec0df492feaffe8e31f80462029db417c6ef4b48ecf4e3ed926821482f6528 | quote: To receive the free grant of parallel jobs, link your Azure DevOps organization to a valid Azure subscription.
+  - [3] 2026-10-30: the Azure Free Trial cannot be the subscription linked for Azure DevOps billing | capture: sha256:78074907bb0658979dea06967f69c05a07979c13c5f12b6a7281a508323b65fa | quote: Azure DevOps doesn't support the Azure Free Trial.
+  - [4] 2026-10-30: an Azure account asks for a phone number and a non-prepaid credit or debit card | capture: sha256:f1d70fff507d29dd9a1375ee033db2b5b2ac9fe30cb65fa34c2601393d095941 | quote: All you need is a phone number, a credit card or a debit card (non-prepaid), and a Microsoft account or a GitHub account.
+  - [1] 2026-10-30: the unlimited-minutes job is a self-hosted agent | capture: sha256:579544253c39591003a7933de522fc1f460630d863b05b36b88bd609d6dcd1f8 | quote: Additionally, each Azure DevOps organization gets one free self-hosted agent that can be used to run one parallel job with unlimited minutes.
+  - [2] 2026-10-30: the free tier is one job of up to 60 minutes and 1,800 minutes a month; the paid tier allows 360 minutes per job | capture: sha256:63ec0df492feaffe8e31f80462029db417c6ef4b48ecf4e3ed926821482f6528 | quote: | Free tier | One free job that can run up to 60 minutes each time | 1,800 minutes (30 hours) per month |
+  - [1] 2026-10-30: every Azure DevOps organisation gets one Microsoft-hosted job with 1,800 minutes a month and one self-hosted job with unlimited minutes | capture: sha256:579544253c39591003a7933de522fc1f460630d863b05b36b88bd609d6dcd1f8 | quote: 1 Microsoft-hosted job with 1,800 minutes per month for CI/CD and 1 self-hosted job with unlimited minutes per month
+  - [5] 2026-10-30: the Azure subscription that the Microsoft-hosted free grant needs is opened with a phone number and a non-prepaid credit or debit card | capture: sha256:13afa84fbe53f911296fa20915e4949a8c610aa3a56be64ebb351a753d2af7a6 | quote: All you need is a phone number, a credit card or a debit card (non-prepaid), and a Microsoft account or a GitHub account.
+  - [2] 2026-10-30: the self-hosted free tier is granted automatically, and only the Microsoft-hosted free tier must be enabled | capture: sha256:63ec0df492feaffe8e31f80462029db417c6ef4b48ecf4e3ed926821482f6528 | quote: The self-hosted free tier is automatically granted, but you must enable the Microsoft-hosted free tier.
+  - [1] 2026-10-30: an Azure DevOps organisation is started without a card | capture: sha256:579544253c39591003a7933de522fc1f460630d863b05b36b88bd609d6dcd1f8 | quote: No, a credit card isn’t necessary to get started.
+  - [5] 2026-10-30: a pay-as-you-go Azure subscription bills the credit or debit card given at sign-up | capture: sha256:13afa84fbe53f911296fa20915e4949a8c610aa3a56be64ebb351a753d2af7a6 | quote: For pay-as-you-go customers, the credit or debit card you provide will be used as your default payment method when you authorize payment.
+  - [1] 2026-11-03: the free grant is one Microsoft-hosted job with 1,800 minutes a month plus one self-hosted job with unlimited minutes | capture: sha256:579544253c39591003a7933de522fc1f460630d863b05b36b88bd609d6dcd1f8 | quote: 1 Microsoft-hosted job with 1,800 minutes per month for CI/CD and 1 self-hosted job with unlimited minutes per month
+- sources:
+  - [1] https://azure.microsoft.com/en-us/pricing/details/devops/azure-devops-services/
+  - [2] https://learn.microsoft.com/en-us/azure/devops/pipelines/licensing/concurrent-jobs
+  - [3] https://learn.microsoft.com/en-us/azure/devops/organizations/billing/set-up-billing-for-your-organization-vs
+  - [4] https://azure.microsoft.com/en-us/free/
+  - [5] https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account
+
+## Azure Pipelines (private project, free grant)
+
+- `ci-cd-runners/azure-pipelines-private` | qualifies-with-caveat | evidence documented | binding per-object-cap | category CI runner
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-03T00:32:24.304Z (live) | stale on 2026-12-04
+- url https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/hosted
+- disagrees on verdict: `ci-cd-runners/azure-pipelines-private` says qualifies-with-caveat, `ci-cd-runners/azure-pipelines-public` says dead
+- free tier: 1 free parallel job with 1,800 minutes a month and 60 minutes per job, with a 10 GB disk | unit: minutes | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: 60 minutes per job on the free grant; 360 minutes only on a paid parallel job | source: [1]
+- retention: artifacts and logs follow pipeline retention settings; the minute pool is monthly | source: [1]
+- egress: no egress charge on the hosted agent itself | metered: no | source: [1]
+- identity: card | detail: the free grant applies only to an Azure DevOps organisation linked to a valid Azure subscription; Azure DevOps billing does not accept the Azure Free Trial, and an Azure account asks for a phone number and a non-prepaid credit or debit card
+- interface: git, cli
+- limits:
+  - per-object-cap (binding): 60 minutes per job on the free grant [1]
+  - request-rate: 1,800 minutes a month with 1 free parallel job [1]
+- interface detail: an azure-pipelines.yml pipeline; a REST API and the az CLI
+- tooling: the Microsoft-hosted images; any shell; the Azure CLI preinstalled
+- composes with: 1,800 minutes is the largest per-job-minute pool of the small providers, and the 60-minute job cap is the smallest
+- reliability: no suspension, throttle or data-loss event is recorded on the pages read
+- notes: Each job on the free grant stops at 60 minutes and the grant ends at 1,800 minutes a month; a paid parallel job lifts the job cap to 360 minutes. The same organisation grant includes one self-hosted parallel job with no time limit, which runs the agent on a machine the user provides.
+- evidence note: the hosted-agents doc was read.
+- evidence:
+  - [1] 2026-10-22: one free parallel job with 1,800 minutes a month and a 60-minute maximum job duration; 10 GB of disk; the 360-minute cap applies only with a paid parallel job
+  - [2] 2026-10-30: the free parallel-job grant needs the organisation linked to a valid Azure subscription | capture: sha256:63ec0df492feaffe8e31f80462029db417c6ef4b48ecf4e3ed926821482f6528 | quote: To receive the free grant of parallel jobs, link your Azure DevOps organization to a valid Azure subscription.
+  - [3] 2026-10-30: the Azure Free Trial cannot be the subscription linked for Azure DevOps billing | capture: sha256:78074907bb0658979dea06967f69c05a07979c13c5f12b6a7281a508323b65fa | quote: Azure DevOps doesn't support the Azure Free Trial.
+  - [4] 2026-10-30: an Azure account asks for a phone number and a non-prepaid credit or debit card | capture: sha256:f1d70fff507d29dd9a1375ee033db2b5b2ac9fe30cb65fa34c2601393d095941 | quote: All you need is a phone number, a credit card or a debit card (non-prepaid), and a Microsoft account or a GitHub account.
+  - [2] 2026-10-30: the free tier is one job of up to 60 minutes and 1,800 minutes a month; the paid tier allows 360 minutes per job | capture: sha256:63ec0df492feaffe8e31f80462029db417c6ef4b48ecf4e3ed926821482f6528 | quote: | Free tier | One free job that can run up to 60 minutes each time | 1,800 minutes (30 hours) per month |
+  - [1] 2026-10-30: the private-project free grant is one parallel job, 60 minutes per job and 1,800 minutes a month | capture: sha256:06e317a38265896b2559e50b8b11221ecb600c4afc477d81ebdaeef0669f15cf | quote: Private project: One free parallel job that can run for up to 60 minutes each time, until you use 1,800 minutes (30 hours) per month.
+  - [1] 2026-11-02: the private-project free grant is one parallel job, 60 minutes per job, 1,800 minutes a month | capture: sha256:06e317a38265896b2559e50b8b11221ecb600c4afc477d81ebdaeef0669f15cf | quote: Private project: One free parallel job that can run for up to 60 minutes each time, until you use 1,800 minutes (30 hours) per month.
+  - [2] 2026-11-02: the free grant needs the organisation linked to a valid Azure subscription | capture: sha256:63ec0df492feaffe8e31f80462029db417c6ef4b48ecf4e3ed926821482f6528 | quote: To receive the free grant of parallel jobs, link your Azure DevOps organization to a valid Azure subscription.
+- sources:
+  - [1] https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/hosted
+  - [2] https://learn.microsoft.com/en-us/azure/devops/pipelines/licensing/concurrent-jobs
+  - [3] https://learn.microsoft.com/en-us/azure/devops/organizations/billing/set-up-billing-for-your-organization-vs
+  - [4] https://azure.microsoft.com/en-us/free/
+
+## Azure Virtual Machines (Linux)
+
+- `compute/azure-vm` | qualifies-with-caveat | evidence documented | binding retention-clamped | category cloud VM
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-02T02:17:33.707Z (live) | stale on 2026-12-03
+- url https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/
+- price parsed USD 28.55/mo
+- free tier: no free allowance for a Linux VM; the USD 200 credit is a 30-day new-account trial. The 750-hour B-series allowance on the Windows page is a separate row | unit: mixed | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: card | detail: A card, a phone number and a Microsoft or GitHub account. Azure's signup FAQ: 'All you need is a phone number, a credit card or a debit card (non-prepaid), and a Microsoft account or a GitHub account.' A second gate on the card: 'Only credit cards are accepted in Hong Kong and Brazil.' The card is checked and not charged at signup: 'During the signup verification process, there may be a temporary $1 authorization placed on your card, which will be reversed upon verification.' The phone number and the card are the identity check itself: 'We use the phone number and credit card or debit card for identity verification to validate that account holders are real people and not bots.' Country limit, quoted: 'If your country is not listed, the offer is not available in your region.', within 'Azure is commercially available in 140 countries and regions, including those listed below.'
+- interface: unknown
+- limits:
+  - request-rate: billed per full minute running [1]
+  - retention-clamped (binding): a Stopped VM still bills its allocated cores; only a Deallocated VM stops the compute charge, and the local temporary disk is lost [1]
+  - write-gated: monetary credits from the free trial, MSDN, BizSpark and the Partner Network do not apply to publisher-provided Linux support [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: signup attaches a payment method to the account: a temporary USD 1 authorization is placed on the card during verification and reversed afterwards, and the card is the default payment method once the account moves to pay-as-you-go
+- evidence note: the Linux virtual machines pricing page was read on 2026-10-22. It establishes the per-minute billing and the difference between Stopped and Deallocated, which is the state axis. It does not state the USD 200 credit, so that figure still rests on earlier readings card and the record's free tier keeps its rung in `notes`.
+- extras:
+  - keep_rate: 1.0
+  - billing_model: flat-pool
+  - session_cap.restart_required: no
+  - session_cap.note: no reap; a Stopped VM keeps billing its cores, so the cost lever is Deallocate, which discards the temporary disk
+  - price_note: a VPS bills by the month with an hourly rate capped at the monthly figure, so the two columns answer two questions: destroying the box between runs versus keeping it up.
+  - free_tier_kind: one-time-credit
+  - m10h_usd: 11.28
+  - m24h_usd: 28.55
+  - price_basis: 10 h/day column = 300 h at the hourly rate, which is what a server destroyed between runs costs; 24/7 column = the monthly cap, because a VPS kept up all month stops at the cap.
+  - granularity.min_billed_s: 60
+  - burst_x: 1.025
+  - ps.price: managed disks are billed separately from the instance
+  - ps.durability: managed disk
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: while the disk exists; the temporary disk does not survive a deallocation
+  - net.out: yes
+  - net.in: yes
+  - net.ports: any
+  - net.static_ip: no
+  - net.ipv6: no
+  - net.allowance: a dynamic VIP is included; a reserved IP is charged
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Stopped: you are billed for allocated cores, but not software license' and 'Deleted (Deallocated): cores are no longer allocated to the virtual machine, and are no longer billed' and 'We charge for the number of full minutes your virtual machine is running', quoted
+  - [2] 2026-11-02: the Azure account that a Linux VM bills to requires a phone number and a credit or non-prepaid debit card, on top of a Microsoft or GitHub account | capture: sha256:f1d70fff507d29dd9a1375ee033db2b5b2ac9fe30cb65fa34c2601393d095941 | quote: All you need is a phone number, a credit card or a debit card (non-prepaid), and a Microsoft account or a GitHub account.
+  - [2] 2026-11-02: a card hold is placed at signup and released only after verification completes | capture: sha256:f1d70fff507d29dd9a1375ee033db2b5b2ac9fe30cb65fa34c2601393d095941 | quote: During the signup verification process, there may be a temporary $1 authorization placed on your card, which will be reversed upon verification.
+  - [2] 2026-11-02: the offer is bounded by a published country list, and a buyer outside it is refused | capture: sha256:f1d70fff507d29dd9a1375ee033db2b5b2ac9fe30cb65fa34c2601393d095941 | quote: If your country is not listed, the offer is not available in your region.
+- sources:
+  - [1] https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/
+  - [2] https://azure.microsoft.com/en-us/free/free-account-faq/
+
+## Azure Virtual Machines (Windows Server)
+
+- `compute/azure-windows` | qualifies-with-caveat | evidence documented | binding request-rate | category Windows host
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-02T02:17:27.465Z (live) | stale on 2026-12-03
+- url https://azure.microsoft.com/en-us/pricing/details/virtual-machines/windows/
+- free tier: 750 hours each of B2ts v2, B2pts v2 and B2ats v2 burstable VMs free every month for the first 12 months, which is one always-on machine of each family | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: card | detail: a card and a phone number: 'All you need is a phone number, a credit card or a debit card (non-prepaid), and a Microsoft account or a GitHub account.', with a temporary authorisation of one dollar that may be placed on the card and is reversed after verification. 'Only credit cards are accepted in Hong Kong and Brazil.' Country limit: 'If your country is not listed, the offer is not available in your region.'
+- interface: unknown
+- limits:
+  - request-rate (binding): 750 hours a month each on B2ts v2, B2pts v2 and B2ats v2, for the first 12 months only [1]
+  - retention-clamped: a Stopped VM still bills its allocated cores; only a Deallocated VM stops the compute charge [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the Windows virtual machines pricing page was read on 2026-10-22 and states the 750-hour monthly allowance per burstable family for 12 months. Because the page is the Windows one, the allowance includes the licence, which the Linux page's rows do not
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - shape.vcpu: 2
+  - shape.ram: 8
+  - shape.note: B2ts v2: 2 vCPU, 8 GiB burstable, with the Windows licence included in the free hours
+  - session_cap.restart_required: no
+  - session_cap.note: 750 hours a month is 730 hours of always-on use, so one machine of each family fits; the 12-month clock resets nothing
+  - free_tier_kind: trial
+  - granularity.min_billed_s: 0
+  - net.out: yes
+  - net.in: yes
+  - net.ports: any
+  - net.static_ip: no
+  - net.ipv6: no
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Get 750 hours each of B2ts v2 (Intel-based), B2pts v2 (Arm-based), and B2ats v2 (AMD-based) burstable VMs free every month for 12 months' and 'Stopped: you are billed for allocated cores' and 'Deleted (Deallocated): cores are no longer allocated', quoted
+  - [2] 2026-11-02: the free account requires a non-prepaid card or debit card and a phone number beside the Microsoft account | capture: sha256:f1d70fff507d29dd9a1375ee033db2b5b2ac9fe30cb65fa34c2601393d095941 | quote: All you need is a phone number, a credit card or a debit card (non-prepaid), and a Microsoft account or a GitHub account.
+  - [2] 2026-11-02: the offer is unavailable where the country is missing from the profile list, and only credit cards are taken in Hong Kong and Brazil | capture: sha256:f1d70fff507d29dd9a1375ee033db2b5b2ac9fe30cb65fa34c2601393d095941 | quote: If your country is not listed, the offer is not available in your region.
+  - [2] 2026-11-02: the phone and card are identity verification, and the card is not charged at sign-up | capture: sha256:f1d70fff507d29dd9a1375ee033db2b5b2ac9fe30cb65fa34c2601393d095941 | quote: We use the phone number and credit card or debit card for identity verification to validate that account holders are real people and not bots.
+  - [2] 2026-11-02: the card carries a temporary one-dollar authorisation that is reversed after verification | capture: sha256:f1d70fff507d29dd9a1375ee033db2b5b2ac9fe30cb65fa34c2601393d095941 | quote: During the signup verification process, there may be a temporary $1 authorization placed on your card, which will be reversed upon verification.
+- sources:
+  - [1] https://azure.microsoft.com/en-us/pricing/details/virtual-machines/windows/
+  - [2] https://azure.microsoft.com/en-us/free/
+
+## Microsoft
+
+- `compute/microsoft` | qualifies-with-caveat | evidence documented | binding write-gated | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:20:48.305Z (live) | stale on 2026-12-05
+- url https://learn.microsoft.com/en-us/startups/microsoft-for-startups/getting-started-mfs
+- free tier: Up to USD 200 in Startup credits immediately to start building on Azure. Milestone 1 requires: sign up for Azure and verify your identity using a personal LinkedIn account, with no business accounts allowed at this step. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: one-shot-credit
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: The first 100 GB per month of internet egress is free; beyond it egress is priced per GB in tiers (USD 0.087 per GB for the next 10 TB from North America or Europe, Premium Global Network). | metered: yes | free allowance: 100 GB per month of internet egress free, in all Azure regions | price per TB: USD 87 per TB (USD 0.087 per GB, next 10 TB per month, from North America or Europe via the Premium Global Network; other regions and tiers differ) | source: [2]
+- identity: email | detail: A personal LinkedIn account plus an Azure signup.
+- interface: rest, cli
+- limits:
+  - write-gated (binding): USD 200 is the whole reachable slice; the next milestone is gated on business verification and everything above it on Azure spend. [1]
+- limits note: USD 200 is the whole reachable slice; the next milestone is gated on business verification and everything above it on Azure spend.
+- binding note: the same as limits note
+- interface detail: REST API and CLI, per the Azure Resource Manager overview: "the Azure CLI, REST APIs, and client SDKs"
+- tooling: the provider documents PowerShell, the Azure CLI and client SDKs, per the Azure Resource Manager overview
+- composes with: USD 200 of Azure buys a few days of a small VM or a modest amount of Azure OpenAI usage. It composes as a way to test an Azure-only service before paying, and with the Azure free account allowance, but it is too small to train anything.
+- reliability: no reliability event recorded
+- notes: The program page itself, microsoft.com/en-us/startups, returns 200 but prints only marketing prose and no eligibility list; the Learn page carries the ladder. Treat USD 200 as the only part reachable without a legal entity. The one recorded is the better-evidenced.
+- extras:
+  - facets.class: startup-credit
+  - facets.free_tier_kind: one-shot-credit
+- evidence:
+  - [1] 2026-10-22: Milestone 1 is USD 200 and requires signing up for Azure and verifying identity with a personal LinkedIn account, quoted: 'Verify your identity (use a personal LinkedIn account, no business accounts allowed at this step)'
+  - [1] 2026-10-22: Milestone 2 is USD 5,000 and requires completing business verification, defined on the same page as 'Confirm your startup is a registered legal entity'
+  - [1] 2026-10-22: the full milestone ladder USD 200, USD 5,000, USD 25,000, USD 50,000, USD 150,000 with its workload and spend conditions, quoted
+  - [1] 2026-10-22: each 60-day clock starts once the workload count is met and every workload must stay above USD 1 of spend for all 60 days, quoted
+  - [2] 2026-11-04: the first 100 GB per month of internet egress is free in every region | capture: sha256:17b0834dc9bfb334d1ea1d89035316e3d5c65a5b6fe295104b858e261f5491e6 | quote: Azure already offers the first 100 GB/month of egressed data for free to all customers in all Azure regions around the world
+  - [2] 2026-11-04: internet egress from North America or Europe after the first 100 GB is USD 0.087 per GB for the next 10 TB, premium network | capture: sha256:17b0834dc9bfb334d1ea1d89035316e3d5c65a5b6fe295104b858e261f5491e6 | quote: | From North America, Europe to any destination | Free | $0.087 per GB | $0.083 per GB | $0.07 per GB | $0.05 per GB |
+  - [3] 2026-11-04: Azure resources are reachable through PowerShell, the Azure CLI, REST APIs and client SDKs | capture: sha256:25c28243691a0c820048d53965aca47100376142ec8ff699222f7156751fc7b8 | quote: All capabilities that are available in the Azure portal are also available through PowerShell, the Azure CLI, REST APIs, and client SDKs.
+  - [3] 2026-11-04: Azure resources are reachable through the Azure CLI and REST APIs | capture: sha256:25c28243691a0c820048d53965aca47100376142ec8ff699222f7156751fc7b8 | quote: All capabilities that are available in the Azure portal are also available through PowerShell, the Azure CLI, REST APIs, and client SDKs.
+  - [3] 2026-11-04: PowerShell, the Azure CLI and client SDKs are named | capture: sha256:25c28243691a0c820048d53965aca47100376142ec8ff699222f7156751fc7b8 | quote: All capabilities that are available in the Azure portal are also available through PowerShell, the Azure CLI, REST APIs, and client SDKs.
+- sources:
+  - [1] https://learn.microsoft.com/en-us/startups/microsoft-for-startups/getting-started-mfs
+  - [2] https://azure.microsoft.com/en-us/pricing/details/bandwidth/
+  - [3] https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/overview
+
+## Microsoft Azure grant for nonprofits ($2,000/yr, renews)
+
+- `storage/microsoft-azure-grant-for-nonprofits` | qualifies-with-caveat | evidence reported | binding per-object-cap | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.microsoft.com/en-us/nonprofits/azure
+- free tier: $2,000 (USD) in donated Azure services credits per year, renewable. Not a byte quota. A credit grant usable against 'the complete portfolio of Azure products and cloud services', which includes Blob Storage / Data Lake Storage Gen2 / Azure Files. | unit: mixed | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: per-object-cap: Blob block blob max ~190.7 TiB | bytes: 209676867416883 | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Azure egress is metered and would eat the credit; this only works as archive (rare read) or behind a CDN whose own free tier covers delivery. Archive-tier reads also carry retrieval cost. | metered: yes
+- identity: card
+- interface: s3-compatible, rclone, cli
+- limits:
+  - per-object-cap (binding): per-object-cap: Blob block blob max ~190.7 TiB [1]
+- limits note: Per-object-cap: Blob block blob max ~190.7 TiB, single PUT 5,000 MiB. Not the constraint. The constraint is budget: the grant is a spend cap, and any per-GB/month rate times 10 TiB must fit inside $2,000/yr. request-rate: standard storage account limits (20,000 IOPS-class). retention: balance expires at the annual renewal date; 'Early consumption of the $2,000 balance does not trigger or permit early renewal'.
+- interface detail: s3
+- tooling: Native Azure API, not S3: rclone backend 'azureblob' (Tier 1, chunked, server-side copy), AzCopy, Azure CLI, BlobFuse for POSIX. Azure does not expose an S3-compatible endpoint on Blob Storage.
+- composes with: Renews annually at $2,000 ('All Azure Sponsorships renew at $2,000 USD per year'), so it is a recurring grant, not a trial. But the balance is annual, so the multiplier is $2,000 x years x number of verified nonprofit tenants. Renewal must be done manually in the Nonprofit Hub between 30 days before and the expiry date, or usage converts to pay-as-you-go against the stored payment instrument.
+- reliability: Missing the renewal window silently converts the subscription to pay-as-you-go and starts charging the payment instrument on file. A real cost hazard, not a data-loss hazard.
+- notes: the same as the free tier
+- evidence:
+  - [2] 2026-10-21: 'Leverage $2,000 (USD) Azure services credits per year and access the complete portfolio of Azure products and cloud services'
+  - [1] 2026-10-21: 'All Azure Sponsorships renew at $2,000 USD per year'; renewal window and pay-as-you-go conversion rule
+  - withheld 2026-10-21: Do not treat any TB conversion as verified.
+- sources:
+  - [1] https://learn.microsoft.com/en-us/industry/nonprofit/microsoft-for-nonprofits/renew-azure-grant
+  - [2] https://www.microsoft.com/en-us/nonprofits/azure
+
+## Microsoft Foundry hosted agents (East US)
+
+- `compute/azure-foundry-agents` | qualifies-with-caveat | evidence reported | binding request-rate | category cloud VM
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-02T02:17:33.708Z (live) | stale on 2026-11-17
+- url https://azure.microsoft.com/en-us/pricing/details/foundry-agent-service/
+- free tier: USD 200.0 of one-time credit, per published documentation; unverified against live endpoints. | unit: mixed | metered on: wall-clock | read on: 2026-10-02 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: card | detail: A card and a phone number, because a hosted agent bills through an Azure subscription. Azure's signup FAQ: 'All you need is a phone number, a credit card or a debit card (non-prepaid), and a Microsoft account or a GitHub account.' A second gate on the card: 'Only credit cards are accepted in Hong Kong and Brazil.' The account itself is a Microsoft or GitHub one: 'You can sign up with either a Microsoft account or a GitHub account.' Country limit, quoted: 'Azure free account, free services, and $200 credit don’t include sovereign cloud products in US Government, Azure China, and Azure Germany regions.'
+- interface: unknown
+- limits:
+  - request-rate (binding): agent runtime billed per vCPU-hour and per GiB-hour [1]
+  - per-object-cap: 1 GB of file-search vector storage free, then billed per GB per day [1]
+- limits note: Session cap, idle-reap and network policy are not documented. Ranked partial.
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the Foundry Agent Service pricing page was read on 2026-10-22 and lists the meters, with 1 GB of vector storage free. It publishes no free runtime allowance and no $200 figure, so the credit still rests on earlier readings card.
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: no session cap published; the meters run while the agent is hosted
+  - free_tier_kind: one-time-credit
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'File Search Storage: $-/GB of vector-storage per day (1 GB free)' and the vCPU-hour and GiB-hour meters, quoted; the page states no agent-runtime free allowance
+  - [2] 2026-11-02: the Azure subscription that bills a hosted agent takes a phone number and a credit or non-prepaid debit card at signup | capture: sha256:f1d70fff507d29dd9a1375ee033db2b5b2ac9fe30cb65fa34c2601393d095941 | quote: All you need is a phone number, a credit card or a debit card (non-prepaid), and a Microsoft account or a GitHub account.
+  - [2] 2026-11-02: a Microsoft or GitHub account is the base identity, and the card and phone number sit on top of it | capture: sha256:f1d70fff507d29dd9a1375ee033db2b5b2ac9fe30cb65fa34c2601393d095941 | quote: You can sign up with either a Microsoft account or a GitHub account.
+- sources:
+  - [1] https://azure.microsoft.com/en-us/pricing/details/foundry-agent-service/
+  - [2] https://azure.microsoft.com/en-us/free/free-account-faq/
+
+## Microsoft Teams (free / personal) - Gallery & Media uploads
+
+- `storage/microsoft-teams-gallery-media-uploads` | qualifies-with-caveat | evidence reported | binding per-object-cap | category messaging
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.microsoft.com/en-us/microsoft-teams/free
+- disagrees on identity_kind: `storage/microsoft-teams` says email, `storage/microsoft-teams-gallery-media-uploads` says institution
+- disagrees on verdict: `storage/microsoft-teams` says fails-quota, `storage/microsoft-teams-gallery-media-uploads` says qualifies-with-caveat
+- disagrees on identity_kind: `storage/microsoft-teams-free` says email, `storage/microsoft-teams-gallery-media-uploads` says institution
+- disagrees on verdict: `storage/microsoft-teams-free` says fails-quota, `storage/microsoft-teams-gallery-media-uploads` says qualifies-with-caveat
+- free tier: 5 GB OneDrive-backed file storage per user, BUT images and videos uploaded via Gallery/Media are explicitly NOT stored in OneDrive and have no storage limit | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 100 MB per file | bytes: 100000000 | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Free; media served from Microsoft's CDN, chat-attached files via OneDrive share links | metered: no
+- identity: institution
+- interface: rest, graph
+- limits:
+  - per-object-cap (binding): 100 MB per file [1]
+- limits note: 250 GB max per individual file in OneDrive (personal); 100 MB per file in the Teams channel Files UI; media path takes images/video only, no arbitrary binaries; chat history limits are separate from file limits
+- interface detail: rest
+- tooling: No public Teams-free file API; attachments land in OneDrive, so Graph API against the backing OneDrive is the usable path. Wrapper-only for the media path.
+- composes with: 5 GB x unlimited free Microsoft accounts (OneDrive-backed); separately the media path is per-record unlimited - 'share as many photos and videos as you want' - which is the interesting half: an image/video album with no byte cap, multiplied by unlimited free accounts.
+- reliability: The media path has no documented retention guarantee and no API - it is UI-only, so it is a manual archive at best; the 5 GB OneDrive ceiling hits almost immediately.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: 'The amount of free storage... is 5 GB. Images and videos are not saved on OneDrive and don't have a storage limit. You can share as many photos and videos as you want.'
+  - [2] 2026-10-21: '5 GB of cloud storage per user' (free) vs '1 TB of cloud storage per user' (paid)
+  - [3] 2026-10-21: 'File upload limit (per file) | 250 GB'; SharePoint-backed 'Up to 25 TB per site or group' on licensed plans
+- sources:
+  - [1] https://support.microsoft.com/en-us/teams/free/troubleshoot/where-is-my-microsoft-teams-free-data-stored
+  - [2] https://www.microsoft.com/en-us/microsoft-teams/free
+  - [3] https://learn.microsoft.com/en-us/microsoftteams/limits-specifications-teams
+
+## PlayFab Game Saves (Development Mode titles)
+
+- `storage/playfab-game-saves` | qualifies-with-caveat | evidence reported | binding per-object-cap | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://developer.microsoft.com/en-us/games/products/playfab/pricing/
+- free tier: Per Development Mode title: Profile storage 2 GB, Content and configuration storage 2 GB, 5 GB UGC storage. 10 Development Mode titles per studio. Game Saves adds 256 MB per player per title. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: per-object-cap: 256 MB | bytes: 256000000 | source: [1] | note: not stated
+- retention: Per-object-cap: 256 MB per player for Game Saves; request-rate: 100 service endpoint requests per 2-minute period per title player (≈10 uploads/min); 1,000 unique lifetime users per Development Mode title; per-object-cap on UGC requests tiered by request body size. Retention: none stated. Data persists until deleted, no expiry clause found. | source: [1] | note: not stated
+- egress: Billed by API request, not by byte, for the core services. Data Connections egress is metered (Same Region West US 2 = Free; Zone 1 intra-continental $0.02/GB). Development Mode: 'As long as your title is in Development Mode, consumption isn't counted towards any of your billable meters.' | metered: yes
+- identity: email
+- interface: rest, rclone
+- limits:
+  - per-object-cap (binding): per-object-cap: 256 MB [1]
+- limits note: Per-object-cap: 256 MB per player for Game Saves; request-rate: 100 service endpoint requests per 2-minute period per title player (≈10 uploads/min); 1,000 unique lifetime users per Development Mode title; per-object-cap on UGC requests tiered by request body size. Retention: none stated. Data persists until deleted, no expiry clause found.
+- interface detail: rest
+- tooling: PlayFab REST APIs (Client/Server/Admin/Entity), official C#/Unity/JS SDKs. No rclone backend; a wrapper is ~50 lines against `https://<titleId>.playfabapi.com/`.
+- composes with: 4 GB (2 GB profile + 2 GB content) x 10 dev titles = 40 GB per studio, and studios are free and unlimited -> unbounded in aggregate. The sharper multiplier is Game Saves: 256 MB per player x 1,000 players per dev title = 256 GB per title x 10 titles = 2.5 TB per studio, and player identities are free to mint via LoginWithCustomID.
+- reliability: Titles in Development Mode cannot add users past 1,000 and must be launched (moved to a paid plan) to scale; Game Saves quota overrun throttles writes rather than erroring.
+- notes: the same as the free tier
+- evidence:
+  - [2] 2026-10-21: 'Title players are limited to 256MB of storage per title' and '100 service endpoint requests in any 2-minute period' (page ms.date 2025-06-24)
+  - [1] 2026-10-21: limits table: 'Profile storage 2 gigabytes (GB)', 'Content and configuration storage 2 GB', 'Titles in Development Mode 10 Titles', 'Unique users 1000 users created'
+  - [3] 2026-10-21: 'File Storage 5 GB $0.11 per additional GB'
+- sources:
+  - [1] https://learn.microsoft.com/en-us/gaming/playfab/features/pricing/development-mode
+  - [2] https://learn.microsoft.com/en-us/gaming/playfab/player-progression/game-saves/limits
+  - [3] https://developer.microsoft.com/en-us/games/products/playfab/pricing/
+
+## SharePoint Online site collections (25 TB per site ceiling)
+
+- `storage/sharepoint-online-site-collections` | qualifies-with-caveat | evidence reported | binding none | category cloud-drive
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://learn.microsoft.com/en-us/sharepoint/sharepoint-limits
+- free tier: 25 TB maximum storage per site collection; 2,000,000 site collections per organization; 500,000 site collections per education tenant; file upload limit 250 GB. | unit: objects | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Unmetered (same M365 subscription model - no per-GB egress meter). | metered: no
+- identity: email
+- interface: rest, graph, rclone
+- limits note: Bounded by the tenant pool, not by the site: a 100 TB-pool tenant holds at most 4 sites at 25 TB each. Versioning (50,000 major versions) silently multiplies storage on overwrite. Team sites force versioning on; standalone Communication sites allow 'No versioning'.
+- interface detail: rest
+- tooling: Microsoft Graph (Sites.ReadWrite.All, Files.ReadWrite.All, app-only client-credentials flow); rclone 'onedrive' remote with drive_type=documentLibrary and a site/drive_id, or the SharePoint v2.0 endpoint override via tenant_url
+- composes with: This is the structural ceiling inside the A1 tenant: the pool is 100 TB, a single library can address 25 TB, and there are up to 2M sites. In a paid E3/E5 tenant (1 TB + 10 GB/license) the same 25 TB-per-site ceiling applies, so a 100-license tenant has 2 TB pooled but 50 sites worth of address space. Per-site ceilings only bind once you have the pool to back them.
+- reliability: Version bloat is the real data-loss-adjacent hazard: re-uploading a 20 GB file to a Team site library can consume hundreds of GB of pool in hidden versions.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: 'Max storage per site (site collection) 25 TB'; 'Sites (site collection) per organization 2 million'; '250 GB - File upload limit'; 'Versions 50,000 major versions and 511 minor versions'
+  - [2] 2026-10-21: 'Storage for site collections: Up to 25 TB per site collection or group'; 'Site collections per tenant: 500,000'
+  - [3] 2026-10-21: documents team-site vs communication-site versioning bloat and dual-mount rclone setup against a 300 GB E5 tenant
+- sources:
+  - [1] https://learn.microsoft.com/en-us/sharepoint/sharepoint-limits
+  - [2] https://learn.microsoft.com/en-us/office365/servicedescriptions/office-365-platform-service-description/office-365-education
+  - [3] https://michifumi.de/blog/2026-09-21-bypass-e5-onedrive-10gb-limit-mount-sharepoint/
+
+## Azure Cloud Shell
+
+- `compute/azure-cloud-shell` | trial-only | evidence reported | category shared shell
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-04T05:24:31.815Z (live) | stale on 2026-11-19
+- url https://learn.microsoft.com/en-us/azure/cloud-shell/overview
+- free tier: a cloud-hosted shell with a persistent Azure Files share, free with an Azure account | unit: GiB | metered on: stored-bytes | read on: 2026-10-06 | source: [1] | note: the session times out after 20 minutes without interactive activity
+- per-object cap: not applicable
+- retention: the session times out after 20 minutes without interactive activity; the Azure Files share persists | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: card | detail: an Azure account requires a card and a phone number
+- interface: ssh
+- limits:
+  - retention-clamped: the session times out after 20 minutes without interactive activity [1]
+  - request-rate: no inbound SSH endpoint is published [1]
+- limits note: this slug supersedes historical research microsoft-azure-cloud-shell row, which is the same product renamed.
+- interface detail: the browser terminal, or the Azure CLI and the VS Code extension
+- tooling: a shell with az, git and common runtimes; a mounted Azure Files share
+- composes with: a persistent file share behind a 20-minute session timeout
+- reliability: no reliability event recorded
+- notes: Azure Cloud Shell is cataloged under its current service name.
+- evidence note: re-read live on 2026-10-22 for the free-tier and limit figures
+- extras:
+  - billing_model: flat-pool
+  - session_cap.idle_reap_s: 1200
+  - session_cap.restart_required: no
+  - session_cap.note: 20 minutes without interactive activity
+  - keep_rate.value: 0.0
+  - keep_rate.basis: free with the account
+  - keep_rate.source: https://learn.microsoft.com/en-us/azure/cloud-shell/overview
+  - persistent_storage.included_gib: 5
+  - persistent_storage.price_gib_month: an Azure Files share is billed separately once past the free grant
+  - persistent_storage.durability: Azure Files
+  - persistent_storage.survives_stop: yes
+  - persistent_storage.survives_destroy: yes
+  - persistent_storage.max_retention: while the storage account exists
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: no
+  - network_out.ports: none
+  - network_out.static_ip: no
+  - free_tier_kind: allowance
+  - slug_merge: microsoft-azure-cloud-shell is the same product under a renamed slug
+- evidence:
+  - [1] 2026-10-06: the session times out after 20 minutes without interactive activity; a persistent Azure Files share is mounted
+  - [1] 2026-10-22: read live: 20-minute idle timeout; Azure Files share mounted
+  - [1] 2026-11-03: 20-minute idle timeout | capture: sha256:4768cba2cec45afc276b7717bcfead4fe4adac74d51294cb550658eebf2f5f39 | quote: Your Cloud Shell session times out after 20 minutes without interactive activity.
+- sources:
+  - [1] https://learn.microsoft.com/en-us/azure/cloud-shell/overview
+
+## Microsoft Azure Free Account (Compute)
+
+- `compute/microsoft-azure-free-account` | trial-only | evidence documented | binding retention-clamped | category cloud VM
+- needs card yes, phone yes, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://azure.microsoft.com/en-us/free/
+- free tier: USD 200 of credit for 30 days plus 750 hours each of B1s, B2pts v2 and B2ats v2 burstable VMs for 12 months | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: the VM hours are 12 months for new customers; the credit is 30 days
+- per-object cap: not applicable
+- retention: 12 months for the VM hours; the USD 200 credit expires after 30 days | days: 365 | source: [1]
+- egress: not part of the free-account terms read; standard egress applies past any allowance | metered: yes | source: [1]
+- identity: card | detail: a card and a phone number are required for identity verification, quoted
+- interface: ssh
+- limits:
+  - retention-clamped (binding): VM hours are free for 12 months, then billed; the USD 200 credit lasts 30 days [1]
+  - request-rate: 750 hours each of B1s, B2pts v2 and B2ats v2: one of each fits 24/7 for a month [1]
+- limits note: a USD 1 authorisation hold is placed at signup and removed
+- binding note: the 12-month window ends the 750 hours, so the clock is the constraint
+- interface detail: the Azure portal, CLI and ARM API; SSH keys set at VM creation
+- tooling: az CLI, the ARM and Bicep templates, the SDKs
+- composes with: 12 months of a burstable VM and then a pay-as-you-go bill
+- reliability: no reliability event recorded
+- notes: Twelve months is longer than AWS's six and it is still a trial. The 65 or more always-free services on the same page are the durable ones, and the VM hours are not among them.
+- extras:
+  - billing_model: allocated
+  - keep_rate.value: 1.0
+  - keep_rate.basis: a running VM bills its hours against the 750
+  - keep_rate.source: https://azure.microsoft.com/en-us/free/
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all through a network security group
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - free_tier_kind: one-time-credit
+- evidence:
+  - [1] 2026-10-22: 750 hours each of B1s, B2pts v2 (Arm) and B2ats v2 (AMD) burstable VMs for 12 months
+  - [1] 2026-10-22: a USD 200 credit usable for 30 days; a USD 1 temporary authorisation hold at signup
+  - [1] 2026-10-22: the phone number and card are used for identity verification to validate that account holders are real people
+- sources:
+  - [1] https://azure.microsoft.com/en-us/free/
+
+## Microsoft Azure free account (azure free account)
+
+- `egress/azure-free-account` | trial-only | evidence documented | binding volume-quota | category trial credit (provider VM) | tier free
+- needs card yes, phone yes, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://azure.microsoft.com/en-us/free/
+- price USD 200 of credit
+- free tier: If you sign up for an Azure free account, you'll get a $200 credit that you can apply to try services that aren't in the free list, or to use more than your free amounts of any services. You have up to 30 days to use your credit. | unit: mixed | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: $200 of credit at $0.087 per GB after the first 100 GB a month, so 2.18 TiB inside the 30-day credit window; ingress: udp | metered: yes | free allowance: $200 of credit at $0.087 per GB after the first 100 GB a month, so 2.18 TiB inside the 30-day credit window | source: [1]
+- identity: card | detail: All you need is a phone number, a credit card or a debit card (non-prepaid), and a Microsoft account or a GitHub account. We don't charge your credit card or debit card anything when you sign up for Azure, but you may see a one-dollar (or equivalent) verification hold. | country: None
+- interface: cli, rest
+- limits:
+  - volume-quota (binding): $200 of egress at $0.087 per GB is 2.18 TiB, and the credit expires at 30 days [2]
+- binding note: the credit is a total byte allowance that dies at 30 days. At 1 TiB a month it carries 2.18 TiB in that one month, so the credit itself is not the binding number; the 30-day expiry ends the arrangement while credit is still nominally available, because the second month does not exist.
+- interface detail: Azure CLI and the Azure Resource Manager REST API
+- tooling: wg-quick on the VM; Azure CLI or the portal for the NIC and network security group
+- composes with: an Azure VM as the WireGuard endpoint for one month, then the arrangement ends; it does not chain into a second month without a paid subscription
+- reliability: the free account must move to pay-as-you-go within 30 days or when the credit is used up, whichever is first, or free services stop
+- notes: Arithmetic: $200 over $0.087 a GB is 2,298.9 GB, plus the 100 GB free each month = 2,398.9 GB = 2.40 TB = 2.18 TiB, all inside a 30-day window. That clears 1 TiB a month for exactly one month. The wider offer also carries 12 months of free monthly amounts of selected services and 65 or more always-free services, but the 100 GB a month egress line is the only one that touches this test, and it is about a tenth of 1 TiB. Routing preference transit ISP at $0.08 per GB buys 2,599 GB = 2.36 TiB instead of 2.18, an 8 percent change that does not move the verdict.
+- evidence note: Free account includes 12 months of popular services and USD 200 in credits for 30 days. Account creation requires a credit card and telephone verification.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: a full Azure VM with a public IP; wg-quick binds UDP directly, with no Azure-side listener in the path
+  - ingress: udp
+  - volume_tib_month: 2.18
+  - volume_stated: $200 of credit at $0.087 per GB after the first 100 GB a month, so 2.18 TiB inside the 30-day credit window
+  - bytes_transit: yes
+  - transit_note: the VM's outbound bytes cross Microsoft's network and are metered as internet egress after 100 GB a month
+- evidence:
+  - [1] 2026-10-23: 'you'll get a $200 credit ... You have up to 30 days to use your credit' and 'All you need is a phone number, a credit card or a debit card (non-prepaid)'
+  - [2] 2026-10-23: 'Internet Egress ... First 100 GB/Month Free', 'Next 10 TB/Month $0.087 per GB' from North America and Europe; 'Data Transfer In Free'; 'Azure already offers the first 100 GB/month of egressed data for free to all customers in all Azure regions around the world'
+  - [3] 2026-10-23: a network security group rule's protocol field accepts UDP, so UDP ingress is expressible and 51820 is not special
+- sources:
+  - [1] https://azure.microsoft.com/en-us/free/
+  - [2] https://azure.microsoft.com/en-us/pricing/details/bandwidth/
+  - [3] https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
+
+## microsoft fabric trial / onelake
+
+- `storage/microsoft-fabric-trial-onelake` | trial-only | evidence documented | binding retention-clamped | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-04T01:24:31.180Z (live) | stale on 2026-12-05
+- url https://learn.microsoft.com/en-us/fabric/fundamentals/fabric-trial
+- price OneLake storage is billed at a pay-as-you-go rate per GB of data used; the per-GB rate is not shown in the captured Azure pricing page (unverified)
+- free tier: Store up to 1 TB of data in OneLake on a trial capacity | unit: TB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: The trial capacity lasts 60 days; after it ends all content remains stored in OneLake for 7 days and can be reactivated by assigning the workspace to a paid Fabric F or Power BI Premium P capacity | days: 7 | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- limits:
+  - retention-clamped (binding): 60-day trial capacity; content kept 7 days after it ends [1]
+  - volume-quota: 1 TB of data in OneLake [1]
+- binding note: the 60-day trial clock bounds how long data is held; 1 TB is the volume ceiling and content is kept 7 days after the trial ends
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: 1 TB but 60 days only; after expiry non-Power BI items go inactive and content is retained just 7 days. Great API surface (DFS + Blob), wrong duration for a 20 TB archive.
+- notes: 1 TB of OneLake data for a 60-day trial; content is kept 7 days after the trial ends.
+- evidence note: documented: the 1 TB OneLake allowance, the 60-day trial length and the 7-day retention of content after the trial were read on 2026-11-03 at https://learn.microsoft.com/en-us/fabric/fundamentals/fabric-trial, and per-GB paid storage billing at https://learn.microsoft.com/en-us/fabric/onelake/onelake-consumption. The sign-up identity cost is not on those pages: unverified.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 1 TB but 60 days only; after expiry non-Power BI items go inactive and content is retained just 7 days. Great API surface (DFS + Blob), wrong duration for a 20 TB archive.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 1 TB but 60 days only; after expiry non-Power BI items go inactive and content is retained just 7 days. Great API surface (DFS + Blob), wrong duration for a 20 TB archive.
+  - [1] 2026-11-03: the trial capacity allows up to 1 TB of data in OneLake | capture: sha256:d5598fbd504c6499a23ffa6333efb9f39d4edf0a1e9d41756616116c89776711 | quote: - Store up to 1 TB of data in OneLake.
+  - [1] 2026-11-03: the allowance is stated in TB | capture: sha256:d5598fbd504c6499a23ffa6333efb9f39d4edf0a1e9d41756616116c89776711 | quote: - Store up to 1 TB of data in OneLake.
+  - [1] 2026-11-03: the allowance is a stored-data volume | capture: sha256:d5598fbd504c6499a23ffa6333efb9f39d4edf0a1e9d41756616116c89776711 | quote: - Store up to 1 TB of data in OneLake.
+  - [1] 2026-11-03: content stays in OneLake for 7 days after the trial ends | capture: sha256:d5598fbd504c6499a23ffa6333efb9f39d4edf0a1e9d41756616116c89776711 | quote: - All content remains stored in OneLake for 7 days and can be reactivated by assigning the workspace to a paid Fabric F or Power BI Premium P capacity.
+  - [1] 2026-11-03: content stays for 7 days after expiry | capture: sha256:d5598fbd504c6499a23ffa6333efb9f39d4edf0a1e9d41756616116c89776711 | quote: - All content remains stored in OneLake for 7 days and can be reactivated by assigning the workspace to a paid Fabric F or Power BI Premium P capacity.
+  - [1] 2026-11-03: the trial lasts 60 days | capture: sha256:d5598fbd504c6499a23ffa6333efb9f39d4edf0a1e9d41756616116c89776711 | quote: Your Microsoft Fabric trial capacity lasts for 60 days, unless you cancel it earlier.
+  - [2] 2026-11-03: paid OneLake storage is billed per GB used | capture: sha256:b5ad0bb332b7b1e13a36f836913ea289283ca8dbabef0d4fbbd5b6e3e0bc3231 | quote: OneLake storage is billed at a pay-as-you-go rate per GB of data used and doesn't consume Fabric Capacity Units (CUs).
+  - [1] 2026-11-03: the offer is a 60-day trial | capture: sha256:d5598fbd504c6499a23ffa6333efb9f39d4edf0a1e9d41756616116c89776711 | quote: Your Microsoft Fabric trial capacity lasts for 60 days, unless you cancel it earlier.
+  - [1] 2026-11-03: the trial length is as recorded | capture: sha256:d5598fbd504c6499a23ffa6333efb9f39d4edf0a1e9d41756616116c89776711 | quote: Your Microsoft Fabric trial capacity lasts for 60 days, unless you cancel it earlier.
+  - [1] 2026-11-04: the trial capacity allows up to 1 TB of data in OneLake | capture: sha256:d5598fbd504c6499a23ffa6333efb9f39d4edf0a1e9d41756616116c89776711 | quote: - Store up to 1 TB of data in OneLake.
+- sources:
+  - [1] https://learn.microsoft.com/en-us/fabric/fundamentals/fabric-trial
+  - [2] https://learn.microsoft.com/en-us/fabric/onelake/onelake-consumption
+
+## Microsoft Fabric trial capacity / OneLake
+
+- `storage/microsoft-fabric-trial-capacity-onelake` | trial-only | evidence reported | binding none | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://learn.microsoft.com/en-us/fabric/fundamentals/fabric-trial
+- free tier: 1 TB of data in OneLake, free for 60 days. | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Not separately metered during trial; capacity is F4 or F64 SKU consumption. | metered: yes
+- identity: card | detail: inferred from the category 'iaas'; the source record states no identity cost, so this is a class assumption, not evidence
+- interface: rest, rclone
+- limits note: 60 days only. On expiry, non-Power BI items become inactive and 'All content remains stored in OneLake for 7 days' before being inaccessible. Then needs a paid F or P capacity.
+- interface detail: rest
+- tooling: Genuinely excellent interface: OneLake speaks the ADLS Gen2 DFS API and the Blob API - https://onelake.dfs.fabric.microsoft.com/<workspace>/<item>.<type>/<path>, plus an ABFS driver URI. Any Azure Storage SDK or rclone 'azureblob' remote can talk to it. 1 TB beats most free tiers on volume.
+- composes with: Trials are per-user/per-tenant, so theoretically N accounts x 1 TB x 60 days - but the trial expires and the data does not survive usefully.
+- reliability: Hard 60-day expiry with a 7-day grace window - this is a trial, not storage. Fine for a one-off bulk ingest/egress burst, useless for a 20 TB archive.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 1 TB of data in OneLake, free for 60 days.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'free access for 60 days'; 'Store up to 1 TB of data in OneLake'; 'All content remains stored in OneLake for 7 days'
+  - [2] 2026-10-21: 'OneLake provides open access to all of your Fabric items through existing Azure Data Lake Storage (ADLS) and Blob APIs'; 'https://onelake.dfs.fabric.microsoft.com/<workspace>/<item>.<itemtype>/<path>/<fileName>'
+  - [3] 2026-10-21: probe: curl -> HTTP 401 {"error":{"code":"Unauthorized","message":"Authentication Failed with Bearer token is not present in the request"}} (endpoint live, needs Entra token; no anonymous access)
+- sources:
+  - [1] https://learn.microsoft.com/en-us/fabric/fundamentals/fabric-trial
+  - [2] https://learn.microsoft.com/en-us/fabric/onelake/onelake-access-api
+  - [3] https://onelake.dfs.fabric.microsoft.com/test?resource=filesystem
+
+## Windows 365 Cloud PC (Business / Enterprise)
+
+- `compute/windows-365` | trial-only | evidence documented | binding request-rate | category Windows host
+- needs card yes, phone no, ID no, institution no | verified 2026-11-02T02:17:27.465Z (live) | stale on 2026-12-03
+- url https://www.microsoft.com/en-us/windows-365/business/compare-plans-pricing
+- free tier: no free tier: Windows 365 Business is a monthly subscription from a 2 vCPU, 8 GB and 128 GB configuration upward, with a time-limited free trial | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: card | detail: a card: 'A credit card is required.' The trial is one promotional licence per customer for each version, on the 2vCPU, 8GB, 128GB shape, for up to 30 days, and no phone number is named in its terms. Country limit: 'All Microsoft Online Services are unavailable in Cuba, Iran, Democratic People's Republic of Korea, Sudan, and Syria.', and the product can be bought only where the country is listed in the service's Countries and Regions column.
+- interface: unknown
+- limits:
+  - request-rate (binding): a monthly auto-renewing subscription per Cloud PC; the trial is a separate term [1]
+  - per-object-cap: shapes run from 2 vCPU, 8 GB and 128 GB to 8 vCPU, 32 GB and 256 GB [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the plan comparison was read on 2026-10-22 and states the monthly subscription model across the ladder with a separate trial. There is no free tier, so the verdict moves to trial-only and the shape ladder is recorded
+- extras:
+  - keep_rate: 1.0
+  - keep_rate_basis: always-on by contract
+  - billing_model: unclassified
+  - shape.vcpu: 2
+  - shape.ram: 8
+  - shape.disk: 128
+  - shape.note: the entry Cloud PC; the top of the ladder is 8 vCPU, 32 GB and 256 GB
+  - session_cap.restart_required: no
+  - session_cap.note: a Cloud PC is a persistent desktop for the subscription term; the trial is the only clock
+  - free_tier_kind: trial
+  - granularity.min_billed_s: 0
+  - ps.gib: 128
+  - ps.price: included in the subscription
+  - ps.durability: persistent Cloud PC disk
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: the subscription term
+  - net.out: yes
+  - net.in: yes
+  - net.ports: a managed desktop, reached through the Windows App
+  - net.static_ip: no
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Windows 365 Business 2 vCPU, 8 GB, 128 GB (Monthly subscription - auto renews)' with '[Try for free]' and 'See trial terms', and the ladder to 'Windows 365 Business 8 vCPU, 32 GB, 256 GB', quoted
+  - [2] 2026-11-02: the free trial needs a card, and the subscription renews after one month | capture: sha256:6c3b7d615adbb6425a6b475d1bd1615f689b668d563b7f71f1103c228f80f921 | quote: Credit card required.
+  - [1] 2026-11-02: the trial's own terms require a card, allow one trial per customer, and state no phone number | capture: sha256:cd25fa75754f20d7483551aca780d7de1720d2fdb8f40feff3e29f1cf3554cbf | quote: A credit card is required.
+  - [3] 2026-11-02: the service is unavailable in five named countries, and its country list is published per service | capture: sha256:b612114c9f518addb1108831d06133bdf2c885f3f1ed0d84043892b8e479e5da | quote: All Microsoft Online Services are unavailable in Cuba, Iran, Democratic People's Republic of Korea, Sudan, and Syria.
+  - [4] 2026-11-02: Windows 365 Business can be bought only in a country listed for the service | capture: sha256:19a37297e23f8809a3f69358a9730c26ee660bc0b73e79d52d876cb59ede072b | quote: Confirm your country/region is listed in the Countries and Regions column.
+  - [1] 2026-11-02: the trial terms require a card, and the same terms allow one trial per customer | capture: sha256:cd25fa75754f20d7483551aca780d7de1720d2fdb8f40feff3e29f1cf3554cbf | quote: A credit card is required.
+- sources:
+  - [1] https://www.microsoft.com/en-us/windows-365/business/compare-plans-pricing
+  - [2] https://www.microsoft.com/en-us/windows-365/business/windows-365-free-trial
+  - [3] https://www.microsoft.com/en-us/microsoft-365/business/international-availability
+  - [4] https://learn.microsoft.com/en-us/windows-365/business/cloud-pc-location
+
+## Microsoft Dev Box (closed to new customers; retiring 2028-09-18)
+
+- `compute/azure-dev-box` | paid-only | evidence documented | binding write-gated | category Windows host
+- identity a placeholder: card and phone unknown | verified 2026-10-22T04:46:19.009Z (live) | stale on 2026-11-22
+- url https://azure.microsoft.com/en-us/products/dev-box/
+- free tier: no free tier published | unit: none | metered on: wall-clock | read on: 2026-10-02 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - write-gated (binding): no free dev box: the only free path is the 30-day Azure trial credit, after which the underlying compute and storage bill normally [1]
+- limits note: Session cap, idle-reap and network policy are not documented. Exceeds capacity threshold.
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: `dead` is reserved for a product that is withdrawn or unreachable.
+- evidence note: the Dev Box product page was read on 2026-10-22. It offers no free dev box and points at the 30-day Azure free trial instead, which confirms the record's paid-only verdict
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: a dev box has a built-in hibernate-on-disconnect schedule that the user sets; the page states no vendor-imposed reap
+  - free_tier_kind: none
+  - reclassified_from: dead
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Pay as you go or try Azure free for up to 30 days' and 'Spin up a dev box on demand from a tailored, easy-to-use cloud developer portal'; the page publishes no free dev box
+- sources:
+  - [1] https://azure.microsoft.com/en-us/products/dev-box/
+
+## sharepoint embedded
+
+- `storage/sharepoint-embedded` | paid-only | evidence documented | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-04T01:24:40.824Z (live) | stale on 2026-12-05
+- url https://learn.microsoft.com/en-us/sharepoint/dev/embedded/overview
+- free tier: none listed: pay-as-you-go through an Azure subscription at $0.00667 per GB per day of storage, $0.05 per GB of egress and $0.0005 per Graph API call | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: Egress is a metered $/GB charge on all data leaving the platform, listed at $0.05 per GB, with no cap and no free allowance listed on the pricing or meters pages. Downloads to Office desktop clients and the Web Application Companion are not charged as egress. Billed through an Azure subscription. | metered: yes
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: Pay-as-you-go through an Azure subscription: storage $0.00667 per GB per day, egress $0.05 per GB, Graph API transactions $0.0005 per call; no free allowance is listed on the pricing or meters pages.
+- notes: the same as reliability
+- evidence note: documented from the vendor pages captured on 2026-11-03: https://adoption.microsoft.com/sharepoint/embedded/ (storage, egress and Graph API transaction prices) and https://learn.microsoft.com/en-us/sharepoint/dev/embedded/administration/billing/meters (pay-as-you-go billing through an Azure subscription, egress on total GB out); neither page lists a free allowance
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: Unlimited containers but every byte and every API call is metered against an Azure subscription. Zero free allotment.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Unlimited containers but every byte and every API call is metered against an Azure subscription. Zero free allotment.
+  - [2] 2026-11-03: egress is priced at $0.05 per GB | capture: sha256:a50b1109216053e6aab43020c247cd7872d69d623c4c345ed299c2d10cf74f7e | quote: Egress: $0.05 per GB
+  - [3] 2026-11-03: egress is billed on total GB transferred out | capture: sha256:d132351872d442232b3b397ba6c7e2cb8c144707fcd4968e340d06e311990e6f | quote: Egress charges are based on the total volume of data transferred out, measured in GB.
+  - [3] 2026-11-03: billing is pay-as-you-go through an Azure subscription | capture: sha256:d132351872d442232b3b397ba6c7e2cb8c144707fcd4968e340d06e311990e6f | quote: SharePoint Embedded uses pay-as-you-go billing through an Azure subscription.
+  - [2] 2026-11-03: Graph API transactions are $0.0005 per call | capture: sha256:a50b1109216053e6aab43020c247cd7872d69d623c4c345ed299c2d10cf74f7e | quote: $0.0005 per API call
+  - [2] 2026-11-03: storage is priced at $0.00667 per GB per day | capture: sha256:a50b1109216053e6aab43020c247cd7872d69d623c4c345ed299c2d10cf74f7e | quote: $0.00667 per GB/per day
+- sources:
+  - [1] https://learn.microsoft.com/en-us/sharepoint/dev/embedded/overview
+  - [2] https://adoption.microsoft.com/sharepoint/embedded/
+  - [3] https://learn.microsoft.com/en-us/sharepoint/dev/embedded/administration/billing/meters
+
+## Windows 365 for Agents
+
+- `compute/windows-365-agents` | paid-only | evidence documented | binding request-rate | category Windows host
+- identity a placeholder: card and phone unknown | verified 2026-10-22T04:48:23.000Z (live) | stale on 2026-11-22
+- url https://learn.microsoft.com/en-us/windows-365/agents/pricing-paygo-always-available
+- free tier: no free tier: $0.40 an hour per Cloud PC on consumption, plus an optional $5 a month per Cloud PC to keep it instantly available | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - request-rate (binding): $0.40 an hour per Cloud PC on consumption [1]
+  - retention-clamped: $5 a month per Cloud PC buys instant availability; without it a Cloud PC is provisioned on demand [1]
+  - per-object-cap: usage is the total time spent running, billed per Cloud PC [1]
+- limits note: Session cap, idle-reap and network policy are not documented. Exceeds capacity threshold.
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the pricing page was read on 2026-10-22 and states both the consumption rate and the always-available add-on. There is no free tier, so the verdict moves to paid-only, and the add-on is the state answer: $5 a month buys availability rather than compute
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: the $5 a month add-on is exactly the cost of not being reaped: it keeps a Cloud PC instantly available
+  - free_tier_kind: none
+  - ps.price: the Cloud PC's own disk, part of the configuration
+  - ps.durability: persistent Cloud PC
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: the subscription term
+  - net.out: yes
+  - net.in: yes
+  - net.ports: a managed desktop
+  - net.static_ip: no
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Windows 365 for Agents offers a pay-as-you-go pricing model with an optional monthly add-on for instant Cloud PC availability' with 'always-available Cloud PCs are billed at a fixed amount of $5 per Cloud PC per month' and '$0.40 per hour for consumption', quoted
+- sources:
+  - [1] https://learn.microsoft.com/en-us/windows-365/agents/pricing-paygo-always-available
+
+## Azure
+
+- `compute/azure` | fails-identity | evidence documented | binding volume-quota | category dev environment
+- needs card no, phone no, ID no, institution yes | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://azure.microsoft.com/en-us/free/students
+- free tier: 'Free monthly amounts of 20+ popular services for 12 months (new Azure customers only)', 'Free monthly amounts of 65+ always-free services', 'Access to full catalog of services up to free amounts and $100 credit'. The compute line is '750 hours each of B1s, B2pts v2 (Arm-based), and B2ats v2 (AMD-based) burstable VMs'. Other compute lines: '720 vCore hours of 4-vCore or 8-vCore General Purpose instance', '100,000 vCore seconds of SQL database serverless usage per month', 'Azure Container Registry 1 Standard tier registry with 100 GB storage'. | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: recurring-credit
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution | detail: a school email address and full-time enrollment at an accredited, degree-granting institution: the FAQ requires that you 'verify your academic status through your organization's email address', the offer page says 'Use your school email to sign up', and there is 'a limit of one account per person'. The record's notes state the vendor page says 'No credit card required' repeatedly, so no card and no hold; debit and prepaid acceptance are not stated, and a Microsoft Q&A answer reports no document-based fallback is guaranteed.
+- interface: unknown
+- limits:
+  - volume-quota (binding): The 750-hour monthly VM allowance requires an institution-issued email address, and the credit is only USD 100 per 12 months, so the identity gate fails before the quota is ever reachable. [1]
+- limits note: The 750-hour monthly VM allowance requires an institution-issued email address, and the credit is only USD 100 per 12 months, so the identity gate fails before the quota is ever reachable.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: The only compute-bearing student grant from a tier-one cloud found in this class, and the one whose 750-hour monthly VM line would matter most if the identity gate were passable; the GitHub Student Pack routes to this same offer, so the two do not compose but duplicate one gate.
+- reliability: no reliability event recorded
+- notes: This corrects the compute angle of storage/azure-for-students, which recorded identity_cost as 'card' and verdict qualifies-with-caveat. The vendor page states 'No credit card required' repeatedly, so 'card' is wrong, and the vendor FAQ names the institution email as the verification method, which makes the real constraint institution and the verdict fails-identity. The storage record's reading of the USD 100 as storage capacity is also secondary to the 750-hour VM line, which is the larger compute allowance. Note the allowance is 12 months for new Azure customers and the $100 renews annually only while student status holds.
+- extras:
+  - facets.class: student-pack
+  - facets.free_tier_kind: recurring-credit
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 1
+  - facets.shape.gpu_count: 0
+- evidence:
+  - [2] 2026-10-22: Eligibility requires: 'You must affirm that you attend an accredited, degree-granting, two-year or four-year educational institution where you're a full-time student' and 'You must verify your academic status through your organization's email address.'
+  - [1] 2026-10-22: 'Use your school email to sign up and renew yearly while you're a student'; 'Available only to full-time university students'; '750 hours each of B1s, B2pts v2 (Arm-based), and B2ats v2 (AMD-based) burstable VMs'; '$100 credit, which can be used within 12 months'.
+  - [1] 2026-10-22: On exhausting the credit: 'If you don't, your subscription and products will be disabled', and 'There is a limit of one account per person'.
+  - [3] 2026-10-22: Reported by a Microsoft Q&A respondent: 'Without an email address from your collage/university, you will not be able to sign up for the Azure Student subscription'; the institution email is the standard flow and document-based fallback is not guaranteed.
+- sources:
+  - [1] https://azure.microsoft.com/en-us/free/students
+  - [2] https://learn.microsoft.com/en-us/azure/education-hub/faq
+  - [3] https://learn.microsoft.com/en-us/answers/questions/5606844/how-to-prove-i-am-a-student-without-an-edu-email
+
+## azure blob storage 'always free' 5 gb
+
+- `storage/azure-blob-storage-always-free-5-gb` | fails-identity | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://azure.microsoft.com/en-gb/pricing/free-services
+- free tier: none reachable: 5 GB per subscription with card verification, and the grant is labelled 12 months on the free-services page. Egress is metered at $0.087/GB after the first 100 GB/month, which alone kills… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: identity
+  - dead_end.why: 5 GB per subscription with card verification, and the grant is labelled 12 months on the free-services page. Egress is metered at $0.087/GB after the first 100 GB/month, which alone kills…
+  - dead_end.retry_when: if the registration gate opens to a foreign individual
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 5 GB per subscription with card verification, and the grant is labelled 12 months on the free-services page. Egress is metered at $0.087/GB after the first 100 GB/month, which alone kills…
+  - [2] 2026-10-21: cited as the basis of the rejection: 5 GB per subscription with card verification, and the grant is labelled 12 months on the free-services page. Egress is metered at $0.087/GB after the first 100 GB/month, which alone kills th
+- sources:
+  - [1] https://azure.microsoft.com/en-gb/pricing/free-services
+  - [2] https://azure.microsoft.com/en-us/pricing/details/bandwidth/
+
+## Azure for Students (free)
+
+- `egress/azure-for-students` | fails-identity | evidence documented | binding volume-quota | category trial credit (provider VM) | tier free
+- needs card no, phone no, ID no, institution yes | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://azure.microsoft.com/en-us/free/students/
+- price USD 100 of credit
+- free tier: Access to full catalog of services up to free amounts and $100 credit | unit: mixed | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: $100 of credit at $0.087 per GB is 1.04 TiB, plus 100 GB a month free, so about 0.18 TiB a month across a 12-month renewal; ingress: udp | metered: yes | free allowance: $100 of credit at $0.087 per GB is 1.04 TiB, plus 100 GB a month free, so about 0.18 TiB a month across a 12-month renewal | source: [1]
+- identity: institution | detail: Available only to full-time university students. Use your school email to sign up and renew yearly while you're a student. | country: None
+- interface: cli, rest
+- limits:
+  - volume-quota (binding): $100 of egress at $0.087 per GB is 1.04 TiB in total [2]
+  - write-gated: full-time university enrolment verified through a school email address [1]
+- binding note: two constraints fail before any byte moves: the school email gate, which is not available here, and then $100 of credit, which at 1 TiB a month lasts 31 days. The identity gate fails first of all.
+- interface detail: Azure CLI and the Azure Resource Manager REST API
+- tooling: wg-quick on the VM; Azure CLI
+- composes with: no chain: there is no institution to verify against, so this credit cannot enter the stack
+- reliability: the subscription must be renewed annually while enrolled or the free amounts stop
+- notes: Arithmetic: $100 over $0.087 a GB is 1,149.4 GB = 1.15 TB = 1.04 TiB, which spread across the 12 months the offer runs is 0.087 TiB a month, plus the 100 GB a month free egress at 0.091 TiB, so about 0.18 TiB a month. The no-card detail is real and is the only free-VM route that asks for no payment method, which is why it is recorded rather than dropped; it still needs an institution.
+- evidence note: nothing to raise: the eligibility sentence is unambiguous and excludes this case on its face
+- extras:
+  - wg_path: native-conf
+  - wg_detail: the same Azure VM and the same public IP as the paid offer, so wg-quick is native
+  - ingress: udp
+  - volume_tib_month: 0.18
+  - volume_stated: $100 of credit at $0.087 per GB is 1.04 TiB, plus 100 GB a month free, so about 0.18 TiB a month across a 12-month renewal
+  - bytes_transit: yes
+  - transit_note: the same Microsoft network and the same 100 GB a month free egress line as the paid account
+- evidence:
+  - [1] 2026-10-23: 'Available only to full-time university students', 'No credit card required', 'Access to full catalog of services up to free amounts and $100 credit'
+  - [2] 2026-10-23: 'First 100 GB/Month Free' then '$0.087 per GB', the rate the $100 is spent against
+- sources:
+  - [1] https://azure.microsoft.com/en-us/free/students/
+  - [2] https://azure.microsoft.com/en-us/pricing/details/bandwidth/
+
+## Azure Research Credits
+
+- `compute/azure-research-credits` | fails-identity | evidence documented | binding write-gated | category GPU cloud
+- needs card no, phone no, ID no, institution yes | verified 2026-11-03T08:50:49.064Z (live) | stale on 2026-12-04
+- url https://www.microsoft.com/en-us/azure-academic-research/
+- free tier: The vendor page offers no amount at all. It advertises 'Azure Research Credits' for 'a proof of concept, migrate existing research workloads and datasets to the cloud, or build tools to facilitate research', and the only route is a contact form whose required fields are 'Email*(Must be a work or school email alias)', 'Institution Name*' and 'Job Role*'. The award, its size and its expiry are all decided after that conversation, so no number exists to record. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: one-time-credit
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution
+- interface: unknown
+- limits:
+  - write-gated (binding): the entry form rejects a personal address by rule - 'Must be a work or school email alias' - and requires an institution name, so an unaffiliated applicant cannot open the conversation. [1]
+- limits note: the entry form rejects a personal address by rule - 'Must be a work or school email alias' - and requires an institution name, so an unaffiliated applicant cannot open the conversation.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: None reachable. Because the amount is negotiated rather than published, there is nothing to compose and nothing to plan against.
+- reliability: no reliability event recorded
+- notes: This is the negative half of Azure's academic lane, and specifically because it publishes no number: a reader who hears 'Azure research credits' and finds this page learns only that a conversation exists. The adjacent Azure lanes are worse, not better: AFMR granted 'up to $20,000 in Azure credits' through a university call that closed in January 2024, and the Azure-for-nonprofits grant is USD 2,000 a year but needs nonprofit status. The one Azure program that names individual researchers - AI for Good - is separate in this record and fails on a Washington State condition instead. So all four Azure academic routes close, on three different conditions.
+- extras:
+  - facets.class: research-credit
+  - facets.free_tier_kind: one-time-credit
+- evidence:
+  - [1] 2026-10-22: the form's required fields, quoted: 'Email*(Must be a work or school email alias)', 'Institution Name*', 'Job Role*', 'Area of Research*'; no credit amount, no cap and no expiry appears anywhere on the page; page 200
+  - [1] 2026-10-22: 'Create a proof of concept, migrate existing research workloads and datasets to the cloud, or build tools to facilitate research with Azure Research Credits', quoted; and 'A member of our team will contact you to continue the process together'
+  - [1] 2026-11-03: the entry form requires a work or school email alias; the page lists no credit amount, GPU or hourly price | capture: sha256:95ea16efae21af8db11b3747e3583a624593c229f8c0e089b42958e4dd65cff7 | quote: Email*(Must be a work or school email alias)
+- sources:
+  - [1] https://www.microsoft.com/en-us/azure-academic-research/
+
+## Microsoft AI
+
+- `compute/microsoft-ai` | fails-identity | evidence documented | binding write-gated | category GPU cloud
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://www.microsoft.com/en-us/research/academic-program/ai-for-good-lab-open-call/
+- free tier: 'a total of $5 million in Azure service credits' across a 'two-year program', with 'scientific collaboration with the Microsoft AI for Good Lab'. Eligibility is broad on identity and narrow on place: 'entities and/or projects must be based in or benefit Washington State and its residents. Eligible entities include nonprofits, academic institutions, individual researchers, startups, and businesses'. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: one-time-credit
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email
+- interface: rest
+- limits:
+  - write-gated (binding): the geographic condition - based in or benefiting Washington State - is the failure, not the identity: an applicant outside Washington cannot meet it however strong the project. [1]
+- limits note: the geographic condition - based in or benefiting Washington State - is the failure, not the identity: an applicant outside Washington cannot meet it however strong the project.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: Azure credits compose with nothing in the TPU class and only weakly with the rest, because the credits buy Azure list-price capacity rather than a quota.
+- reliability: no reliability event recorded
+- notes: The one Microsoft program found that names 'individual researchers' as an eligible entity, which is exactly why the location clause matters: the door is open to an individual and shut to anyone outside Washington State. A per-award figure of about USD 250,000 is inferred from USD 5,000,000 split across 'about 20 projects' in a press account, and is reported as an estimate, not as a published amount.
+- extras:
+  - facets.class: research-credit
+  - facets.free_tier_kind: one-time-credit
+- evidence:
+  - [1] 2026-10-22: 'a total of $5 million in Azure service credits'; 'entities and/or projects must be based in or benefit Washington State and its residents'; 'Eligible entities include nonprofits, academic institutions, individual researchers, startups, and businesses'; quoted; page 200
+  - [2] 2026-10-22: 'the pool of $5 million in Azure credits will probably be split up among about 20 projects and organizations', and the 2025 round closed on Feb.
+- sources:
+  - [1] https://www.microsoft.com/en-us/research/academic-program/ai-for-good-lab-open-call/
+  - [2] https://www.geekwire.com/2025/microsoft-launches-5m-grant-program-for-ai-projects-in-wa-state-as-part-of-50th-anniversary/
+
+## Microsoft Azure credits
+
+- `compute/microsoft-azure-credits` | fails-identity | evidence documented | binding write-gated | category cloud VM
+- needs card no, phone no, ID no, institution yes | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://opensource.microsoft.com/azure-credits/
+- free tier: 'Many Microsoft product teams grant Azure credits to open source communities to support their work', but 'Microsoft is not accepting new applications from projects directly and is instead relying on strategic, organic relationships between Microsoft businesses and the open source that they depend on', and 'The application form is not currently open'. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution
+- interface: unknown
+- limits:
+  - write-gated (binding): There is no application route at all: an award now depends on a Microsoft product team choosing a project it already depends on, which no individual can initiate. [1]
+- limits note: There is no application route at all: an award now depends on a Microsoft product team choosing a project it already depends on, which no individual can initiate.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: This closes the Microsoft lane for an individual and leaves GitHub as the only Microsoft-owned route that still takes applications, which is why the GitHub Secure Open Source Fund record carries the Azure credits instead.
+- reliability: no reliability event recorded
+- notes: Classified as fails-identity rather than dead because grants are still being issued: the programme changed from an open form to relationship-based allocation, and a reader who finds only the 2021 blog post will believe the form is open. That divergence between a 2021 announcement and the 2026 landing page is the finding. Microsoft's FOSS Fund, named on the same page, is an internal employee-directed fund and has no external application.
+- extras:
+  - facets.class: vendor-oss-credits
+  - facets.free_tier_kind: none
+- evidence:
+  - [1] 2026-10-22: quoted the closed-application sentences, 'The application form is not currently open', and 'Most grants span a single Microsoft fiscal year'
+  - [2] 2026-10-22: the original 2021 announcement, which stated that any project with an OSI-approved licence was eligible to apply
+  - [3] 2026-10-22: reported that Azure credits now flow to CNCF and its hosted projects rather than to individual applicants [date precision: day, 2024-11-12]
+- sources:
+  - [1] https://opensource.microsoft.com/azure-credits/
+  - [2] https://opensource.microsoft.com/blog/2021/09/28/announcing-azure-credits-for-open-source-projects/
+  - [3] https://opensource.microsoft.com/blog/2024/11/12/whats-new-with-microsoft-in-open-source-and-kubernetes-at-kubecon-north-america-2024/
+
+## Microsoft Learn Student
+
+- `compute/microsoft-learn-student` | fails-identity | evidence documented | binding write-gated | category dev environment
+- needs card no, phone no, ID no, institution yes | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://learn.microsoft.com/en-us/training/student-hub/become-a-student-ambassador
+- free tier: 'Complete the registration activities, receive your invitation, and onboard as a new member of the Student Ambassadors program. Unlock program benefits, including Microsoft 365, Visual Studio Enterprise, $150 USD monthly Azure credits, badges, swag, and more.' Registration is 'Open to students across all degree fields and levels, including those attending 2- or 4-year universities and studying part-time or full-time', and 'No application required'. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: recurring-credit
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution
+- interface: unknown
+- limits:
+  - write-gated (binding): USD 150 a month of Azure credit is the largest recurring student compute grant found in this class, but it needs full-time enrollment plus an Azure for Students account, and the credit arrives only after onboarding activities are reviewed. [1]
+- limits note: USD 150 a month of Azure credit is the largest recurring student compute grant found in this class, but it needs full-time enrollment plus an Azure for Students account, and the credit arrives only after onboarding activities are reviewed.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: This is the multiplier in a chain that does not open: USD 150 a month is 18 times the Azure for Students base credit and renews monthly rather than yearly, so if the identity gate were passable the yearly value would be USD 1,800 of Azure compute against USD 100.
+- reliability: no reliability event recorded
+- notes: Two Microsoft pages disagree on the figure. The official program FAQ says only 'monthly Azure credits' with no amount, while the Microsoft Learn student-hub page states '$150 USD monthly Azure credits'. The figure is recorded from the page that states it, at documented rung, and the absence of the number on the FAQ is noted rather than smoothed over. The FAQ also names an Azure for Students account as a prerequisite, which the Learn page does not mention; taking both, the gate is full-time enrollment at two points. The Learn page says part-time study qualifies, the FAQ says full-time; where they conflict, full-time is the reading that binds. Regional exclusions named on the FAQ are Cuba, Iran, North Korea, Sudan, Syria, Russia, Belarus and Crimea.
+- extras:
+  - facets.class: student-pack
+  - facets.free_tier_kind: recurring-credit
+- evidence:
+  - [1] 2026-10-22: 'Unlock program benefits, including Microsoft 365, Visual Studio Enterprise, $150 USD monthly Azure credits, badges, swag, and more'; registration is open to students 'studying part-time or full-time' and requires 'no application'.
+  - [2] 2026-10-22: Eligibility is: '(a.) be at least 18 years old at time of registration, (b.) be enrolled full-time in an accredited academic institution (e.g., college, university), (c.) be an Azure for Students account holder'; onboarded ambassadors 'receive Office 365, Visual Studio Enterprise, and monthly Azure credits'.
+- sources:
+  - [1] https://learn.microsoft.com/en-us/training/student-hub/become-a-student-ambassador
+  - [2] https://mvp.microsoft.com/en-us/faq
+
+## Azure DDoS Protection
+
+- `egress/azure-ddos-protection` | fails-egress | evidence documented | binding write-gated | category L3/L4 DDoS mitigation for Azure virtual networks | tier payg
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://learn.microsoft.com/en-us/azure/ddos-protection/ddos-protection-overview
+- price unpublished
+- free tier: No free tier and no forwarding: the service is enabled on an Azure virtual network and protects the public IPs of resources inside it. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No volume allowance applies: the product is a mitigation policy on an Azure public IP in the same account, not a proxy with a traffic allowance.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: card | detail: An Azure subscription with a virtual network and a public IP inside it. | country: None
+- interface: rest, cli
+- limits:
+  - write-gated (binding): protection is enabled on an Azure virtual network and covers the public IPs of resources in it [1]
+- binding note: It cannot be the ingress for a service outside Azure at any volume, so 1 TiB/month never becomes the constraint.
+- interface detail: a DDoS protection plan attached to a virtual network, or per-public-IP protection
+- tooling: Azure portal, CLI or ARM/Bicep
+- composes with: chains with an Azure VM, which already has the public IP being protected
+- reliability: no reliability event recorded
+- notes: Provides DDoS mitigation for public IP addresses associated with Azure Virtual Networks. Does not provide standalone proxy addresses, origin mapping or port forwarding.
+- evidence note: The virtual-network scoping and the TCP and UDP mitigation policies are quoted from the page read. What it does not do is stated by what it protects, not by an explicit denial.
+- extras:
+  - wg_path: none
+  - wg_detail: It filters traffic addressed to an Azure public IP; it does not issue an address that forwards to an origin named by the account.
+  - ingress: none
+  - volume_stated: No volume allowance applies: the product is a mitigation policy on an Azure public IP in the same account, not a proxy with a traffic allowance.
+  - bytes_transit: no
+  - transit_note: traffic goes to an Azure public IP in the same account; nothing is forwarded on the account's behalf
+- evidence:
+  - [1] 2026-10-23: It's automatically tuned to help protect your specific Azure resources in a virtual network.
+  - [1] 2026-10-23: Azure DDoS Protection applies three auto-tuned mitigation policies (TCP SYN, TCP, and UDP) for each public IP of the protected resource, in the virtual network that has DDoS enabled.
+- sources:
+  - [1] https://learn.microsoft.com/en-us/azure/ddos-protection/ddos-protection-overview
+
+## Azure Front Door
+
+- `egress/azure-front-door` | fails-egress | evidence inferred | binding write-gated | category HTTP CDN and application delivery | tier payg
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://learn.microsoft.com/en-us/azure/frontdoor/front-door-overview
+- price unverified (base and data rates not read)
+- free tier: No free tier for the L4 question: Front Door terminates SSL at the edge and only supports HTTP/1.1 from the edge to the origin. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No UDP allowance exists. The product is billed per request and per GB of HTTP(S) delivery, with no L4 forwarding at any price.; ingress: http-only | metered: no | free allowance: none published | source: [2]
+- identity: card | detail: An Azure subscription with billing enabled. | country: None
+- interface: rest, cli
+- limits:
+  - write-gated (binding): the origin leg is HTTP/1.1 only; there is no protocol field that accepts UDP [1]
+- binding note: Volume never becomes the question: the service cannot forward UDP at any tier, so 1 TiB/month of UDP has no path through it.
+- interface detail: profiles, endpoints, routes and origin groups over HTTP and HTTPS
+- tooling: Azure portal, CLI or ARM/Bicep
+- composes with: chains with HTTP origins only; it cannot expose a WireGuard or game UDP endpoint
+- reliability: no reliability event recorded
+- notes: Layer 7 CDN and application delivery network supporting HTTP and HTTPS. Features include caching, SSL offload and WAF rules. Layer 4 TCP and UDP listeners are not supported.
+- evidence note: No Front Door page read states a UDP forwarding feature, and the origin leg is documented as HTTP/1.1 only. Confirming the negative needs the Front Door 'supported protocols' reference, which was not read.
+- extras:
+  - wg_path: none
+  - wg_detail: There is no UDP forwarding to configure, so no WireGuard datagram can be carried.
+  - ingress: http-only
+  - volume_stated: No UDP allowance exists. The product is billed per request and per GB of HTTP(S) delivery, with no L4 forwarding at any price.
+  - bytes_transit: yes
+  - transit_note: HTTP bytes only; UDP is not carried
+- evidence:
+  - [1] 2026-10-23: Currently, Azure Front Door only supports HTTP/1.1 from the edge to the origin.
+  - [2] 2026-10-23: Accelerate application performance using the Azure Front Door unicast network and split TCP connections; terminate SSL offload at the edge and natively support the HTTP/2 protocol
+- sources:
+  - [1] https://learn.microsoft.com/en-us/azure/frontdoor/front-door-faq
+  - [2] https://learn.microsoft.com/en-us/azure/frontdoor/front-door-overview
+
+## Azure Artifacts
+
+- `storage/azure-artifacts` | fails-quota | evidence reported | binding none | category registry
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://azure.microsoft.com/en-us/pricing/details/devops/azure-devops-services/
+- disagrees on identity_kind: `storage/azure-artifacts` says card, `storage/azure-artifacts-2` says email
+- free tier: 2 GiB free per ORGANIZATION (not per project, not per feed), then tiered per-GiB: 2–10 GiB $2/GiB, 10–100 GiB $1/GiB, 100–1,000 GiB $0.50/GiB, 1,000+ GiB $0.25/GiB. | unit: GiB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: | 2 GiB total across all feeds in the org; exceeding it makes the org read-only for publishing until you delete data or add billing; Public feeds only exist inside 'public projects', and Microsoft is retiring public projects. 'Starting in 2027, existing public projects will automatically convert to private, and public feeds will no longer be publicly accessible.'. | source: [1] | note: not stated
+- egress: No separate egress SKU for Azure Artifacts. Downloads are included with Azure DevOps service, with billing metered solely on storage capacity beyond 2 GiB. | metered: yes
+- identity: card
+- interface: rest
+- limits note: 2 GiB total across all feeds in the org; exceeding it makes the org read-only for publishing until you delete data or add billing; Public feeds only exist inside 'public projects', and Microsoft is retiring public projects. 'Starting in 2027, existing public projects will automatically convert to private, and public feeds will no longer be publicly accessible.'.
+- interface detail: rest (Azure DevOps Artifacts API), NuGet/npm/Maven/Python/Cargo/Universal Package clients, `az artifacts universal`
+- tooling: `nuget push`, `npm publish`, `twine upload`, `mvn deploy`, `az artifacts universal publish`; documented upstream-source proxying for public registries.
+- composes with: Per-org 2 GiB × unlimited free Azure DevOps organizations (each needs a Microsoft account and an org). Note the free tier is per org and pools across all projects in it. You cannot multiply by adding projects or feeds.
+- reliability: Rock solid technically, but the public-feed capability has a published 2027 end date, which kills the anonymous-fetch use case.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 2 GiB free per ORGANIZATION (not per project, not per feed), then tiered per-GiB: 2–10 GiB $2/GiB, 10–100 GiB $1/GiB, 100–1,000 GiB $0.50/GiB, 1,000+ GiB $0.25/GiB.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [2] 2026-10-21: read live: 'First 2 GiB free'; rate card '0 - 2 GiB = Free / 2 - 10 GiB = $2 per GiB / 10 - 100 GiB = $1 per GiB / 100 - 1,000 GiB = $0.5 per GiB / 1,000+ GiB = $0.25 per GiB'; 'Azure Artifacts: 2 GiB free per organization'
+  - [1] 2026-10-21: read live: 'Azure Artifacts provides 2 GiB of free storage for each organization'; 'Once your organization reaches the storage limit, you won't be able to publish new artifacts'; 'Removing your Azure Subscription ... limits your access to the free tier'
+  - [3] 2026-10-21: read live: 'Starting in 2027, existing public projects will automatically convert to private, and public feeds will no longer be publicly accessible'
+  - [4] 2026-10-21: probe: GET -> 200, full service index (anonymous public feed works today)
+- sources:
+  - [1] https://learn.microsoft.com/en-us/azure/devops/artifacts/artifact-storage?view=azure-devops
+  - [2] https://azure.microsoft.com/en-us/pricing/details/devops/azure-devops-services/
+  - [3] https://learn.microsoft.com/en-us/azure/devops/artifacts/concepts/feeds?view=azure-devops
+  - [4] https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-public/nuget/v3/index.json
+
+## azure artifacts (azure devops)
+
+- `storage/azure-artifacts-2` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://learn.microsoft.com/en-us/azure/devops/artifacts/artifact-storage?view=azure-devops
+- disagrees on identity_kind: `storage/azure-artifacts` says card, `storage/azure-artifacts-2` says email
+- free tier: none reachable: 2 GiB free per organization, and publishing is blocked at the limit: 'Once your organization reaches the storage limit, you won't be able to publish new artifacts.' Supports… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 2 GiB free per organization, and publishing is blocked at the limit: 'Once your organization reaches the storage limit, you won't be able to publish new artifacts.' Supports…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 2 GiB free per organization, and publishing is blocked at the limit: 'Once your organization reaches the storage limit, you won't be able to publish new artifacts.' Supports…
+- sources:
+  - [1] https://learn.microsoft.com/en-us/azure/devops/artifacts/artifact-storage?view=azure-devops
+
+## Azure Blob Storage always-free tier
+
+- `storage/azure-blob-storage-always-free-tier` | fails-quota | evidence reported | binding per-object-cap | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://azure.microsoft.com/en-gb/pricing/free-services
+- free tier: 5 GB LRS hot block storage, with 20,000 read and 10,000 write operations per month, free for 12 months. Azure Files: 100 GB LRS hot/cool/transaction-optimized, 12 months. Archive Storage: 10 GB LRS, 12 months. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 5 GB cap | bytes: 5000000000 | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Metered. The first 100 GB per month of egress is free, then $0.087 per GB from North America and Europe. | metered: yes | free allowance: 100 GB per month
+- identity: card
+- interface: s3-compatible, rest, rclone
+- limits:
+  - request-rate: 10,000 write operations per month [1]
+  - per-object-cap (binding): 5 GB cap [1]
+- limits note: 5 GB cap; 12-month expiry on the Blob allotment (Azure's page labels Blob '12 months' despite the 'always free' framing elsewhere - treat as trial); 5 PiB max per storage account is irrelevant at 5 GB.
+- interface detail: s3
+- tooling: rclone backend 'azureblob' (Tier 1, md5, R/W); any S3-compatible SDK is NOT usable - it's the native Blob REST API; AzCopy, Azure Storage Explorer, azure-storage-blob Python SDK
+- composes with: Per-account 5 GB and accounts require a credit card for verification; the always-free grant is per Azure subscription. N subscriptions x 5 GB is not a serious multiplier and each needs billing verification.
+- reliability: Card required; overage silently bills at pay-go rates once the 12-month window lapses because the account is not auto-suspended.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 5 GB LRS hot block storage, with 20,000 read and 10,000 write operations per month, free for 12 months. Azure Files: 100 GB LRS hot/cool/transaction-optimized, 12 months. Archive Storage: 10 GB LRS, 12 months.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Blob Storage ... 5 GB locally redundant storage (LRS) hot block with 20,000 read and 10,000 write operations' / '12 months'; 'Azure Files ... 100 GB of LRS transaction optimised, hot, and cool files' / '12 months'; 'Archive Storage ... 10 GB LRS storage' / '12 months'
+  - [2] 2026-10-21: 'First 100 GB/Month' free, then '$0.087 per GB' from North America/Europe; 'Azure already offers the first 100 GB/month of egressed data for free'
+  - [3] 2026-10-21: Azure Blob listed as a Tier 1 rclone backend, md5, R/W
+- sources:
+  - [1] https://azure.microsoft.com/en-gb/pricing/free-services
+  - [2] https://azure.microsoft.com/en-us/pricing/details/bandwidth/
+  - [3] https://rclone.org/overview/
+
+## Azure Container Registry (Basic / free 12-month Standard)
+
+- `storage/azure-container-registry` | fails-quota | evidence reported | binding none | category registry
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://learn.microsoft.com/en-us/azure/container-registry/container-registry-skus
+- free tier: Basic SKU includes 10 GiB storage; Standard includes 100 GiB; Premium 500 GiB. Registry storage limit 40 TiB (Basic/Standard) / 100 TiB (Premium). Free grant: '1 Standard tier registry with 100 GB storage and 10 webhooks' for 12 months. | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: Basic is ~$0.167/day even with the included 10 GiB; rate limits by SKU return HTTP 429 with Retry-After; 12-month free Standard expires into billing. | days: 360 | source: [1] | note: not stated
+- egress: Metered through Azure bandwidth: first 100 GB/month free, then ~$0.087/GB. Pulls are OCI distribution HTTP, CDN-cacheable in principle but not Alliance-exempt. | metered: yes | free allowance: 100 GB per month
+- identity: card
+- interface: oci
+- limits note: Basic is ~$0.167/day even with the included 10 GiB; rate limits by SKU return HTTP 429 with Retry-After; 12-month free Standard expires into billing.
+- interface detail: oci
+- tooling: ORAS / docker push / skopeo against <registry>.azurecr.io; OCI artifacts let you push arbitrary blobs, not just images
+- composes with: Per-registry included storage is a paid SKU line item, not a free quota - the 100 GiB is 'included in the daily rate', so extra storage bills per GiB/day. N registries x 100 GiB is N paid registries.
+- reliability: Not a free tier in the storage sense - 'included storage' is bundled into a paid daily rate. Over the registry storage limit requires Azure Support.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Basic SKU includes 10 GiB storage; Standard includes 100 GiB; Premium 500 GiB. Registry storage limit 40 TiB (Basic/Standard) / 100 TiB (Premium). Free grant: '1 Standard tier registry with 100 GB storage and 10 webhooks' for 12 months.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Included storage (GiB) | 10 | 100 | 500'; 'Storage limit (TiB) | 40 | 40 | 100'; 'Additional storage may be used ... at an additional daily rate per GiB'
+  - [2] 2026-10-21: 'Container Registry ... 1 Standard tier registry with 100 GB storage and 10 webhooks' / '12 months'
+- sources:
+  - [1] https://learn.microsoft.com/en-us/azure/container-registry/container-registry-skus
+  - [2] https://azure.microsoft.com/en-gb/pricing/free-services
+
+## azure container registry free standard tier
+
+- `storage/azure-container-registry-free-standard-tier` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://learn.microsoft.com/en-us/azure/container-registry/container-registry-skus
+- free tier: none reachable: 'Included storage' is bundled into a paid daily SKU rate, not granted free; 100 GB for 12 months then billing. Basic is a paid SKU from day one. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: retention
+  - dead_end.why: 'Included storage' is bundled into a paid daily SKU rate, not granted free; 100 GB for 12 months then billing. Basic is a paid SKU from day one.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Included storage' is bundled into a paid daily SKU rate, not granted free; 100 GB for 12 months then billing. Basic is a paid SKU from day one.
+- sources:
+  - [1] https://learn.microsoft.com/en-us/azure/container-registry/container-registry-skus
+
+## azure devops artifacts
+
+- `storage/azure-devops-artifacts-2` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://learn.microsoft.com/en-us/azure/devops/artifacts/reference/limits
+- disagrees on identity_kind: `storage/azure-devops-artifacts` says card, `storage/azure-devops-artifacts-2` says email
+- free tier: none reachable: 2 GiB free per org, hard block on publish at the cap, and pay-go tiers start at $2/GB for the 2-10 GiB band. The 4 TiB Universal Package file ceiling is unusable with 2 GiB of pool. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 2 GiB free per org, hard block on publish at the cap, and pay-go tiers start at $2/GB for the 2-10 GiB band. The 4 TiB Universal Package file ceiling is unusable with 2 GiB of pool.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 2 GiB free per org, hard block on publish at the cap, and pay-go tiers start at $2/GB for the 2-10 GiB band. The 4 TiB Universal Package file ceiling is unusable with 2 GiB of pool.
+- sources:
+  - [1] https://learn.microsoft.com/en-us/azure/devops/artifacts/reference/limits
+
+## Azure DevOps Artifacts (Universal Packages)
+
+- `storage/azure-devops-artifacts` | fails-quota | evidence reported | binding per-object-cap | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://learn.microsoft.com/en-us/azure/devops/artifacts/reference/limits
+- disagrees on identity_kind: `storage/azure-devops-artifacts` says card, `storage/azure-devops-artifacts-2` says email
+- free tier: 2 GiB free storage per organization; Universal Packages up to 4 TiB per file. | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 4 TiB per file | bytes: 4398046511104 | source: [1] | note: not stated
+- retention: | Hard 2 GiB per org; publishing is blocked at the cap until you delete packages or enable pay-go billing ($0.25-$2/GB/mo tiers) | source: [1] | note: not stated
+- egress: Unmetered for restore (ADO has no egress meter). | metered: no
+- identity: card
+- interface: rest
+- limits:
+  - per-object-cap (binding): 4 TiB per file [1]
+  - per-object-cap (binding): 500 MiB per file [1]
+- limits note: Hard 2 GiB per org; publishing is blocked at the cap until you delete packages or enable pay-go billing ($0.25-$2/GB/mo tiers). 500 MiB per file for NuGet/npm/Maven/Python/Cargo.
+- interface detail: rest
+- tooling: az artifacts universal publish/download, nuget/npm/maven/python clients; Universal Packages are the only type that lets you push a multi-TiB blob
+- composes with: 2 GiB x unlimited orgs - but only 2 GiB per org and each org needs an Azure subscription to create. The interesting number is the 4 TiB per-file ceiling, which is moot at 2 GiB of pool.
+- reliability: At the 2 GiB cap, 'you won't be able to publish new packages' - hard stop, no grace.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 2 GiB free storage per organization; Universal Packages up to 4 TiB per file.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Azure Artifacts provides 2 GiB of free storage per organization'; 'Universal Packages | 4 TiB'; 'When your organization reaches the 2 GiB free-tier storage limit, you won't be able to publish new packages'
+  - [2] 2026-10-21: 'First 2 GiB free'; '0 - 2 GiB = Free; 2 - 10 GiB = $2 per GiB'
+- sources:
+  - [1] https://learn.microsoft.com/en-us/azure/devops/artifacts/reference/limits
+  - [2] https://azure.microsoft.com/en-us/pricing/details/devops/azure-devops-services/
+
+## azure files 100 gb free
+
+- `storage/azure-files-100-gb-free` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://azure.microsoft.com/en-gb/pricing/free-services
+- free tier: none reachable: 100 GB for 12 months only, then bills; requires an Azure subscription with card. No path to 500 GB. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 100 GB for 12 months only, then bills; requires an Azure subscription with card. No path to 500 GB.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 100 GB for 12 months only, then bills; requires an Azure subscription with card. No path to 500 GB.
+- sources:
+  - [1] https://azure.microsoft.com/en-gb/pricing/free-services
+
+## azure for students (2)
+
+- `storage/azure-for-students-2` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://azure.microsoft.com/en-us/free/students/
+- disagrees on identity_kind: `storage/azure-for-students` says card, `storage/azure-for-students-2` says email
+- disagrees on verdict: `storage/azure-for-students` says qualifies-with-caveat, `storage/azure-for-students-2` says fails-quota
+- free tier: none reachable: $100 credit valid 12 months plus free monthly service amounts - a credit, not storage. Expires to pay-go. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: not-storage
+  - dead_end.why: $100 credit valid 12 months plus free monthly service amounts - a credit, not storage. Expires to pay-go.
+  - dead_end.retry_when: never; it is not storage
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: $100 credit valid 12 months plus free monthly service amounts - a credit, not storage. Expires to pay-go.
+- sources:
+  - [1] https://azure.microsoft.com/en-us/free/students/
+
+## azure for students ($100 credit)
+
+- `storage/azure-for-students-3` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://azure.microsoft.com/en-us/free/students
+- disagrees on identity_kind: `storage/azure-for-students` says card, `storage/azure-for-students-3` says email
+- disagrees on verdict: `storage/azure-for-students` says qualifies-with-caveat, `storage/azure-for-students-3` says fails-quota
+- free tier: none reachable: '$100 credit to use on Azure services within 12 months', renewable annually 'as long as you're a student'. $100 is a few TB-months at best; the 12-month balance expiry is the binding limit. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: '$100 credit to use on Azure services within 12 months', renewable annually 'as long as you're a student'. $100 is a few TB-months at best; the 12-month balance expiry is the binding limit.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: '$100 credit to use on Azure services within 12 months', renewable annually 'as long as you're a student'. $100 is a few TB-months at best; the 12-month balance expiry is the binding limit.
+- sources:
+  - [1] https://azure.microsoft.com/en-us/free/students
+
+## azure for students ($100/yr, renewable)
+
+- `storage/azure-for-students-4` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://azure.microsoft.com/en-us/free/students/
+- disagrees on identity_kind: `storage/azure-for-students` says card, `storage/azure-for-students-4` says email
+- disagrees on verdict: `storage/azure-for-students` says qualifies-with-caveat, `storage/azure-for-students-4` says fails-quota
+- free tier: none reachable: Genuinely renewable - '$100 credit to use on Azure services within 12 months', renewed annually 'as long as you're a student' - but it is $100, roughly 1-2 TB-months of Blob. Restricted to… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Genuinely renewable - '$100 credit to use on Azure services within 12 months', renewed annually 'as long as you're a student' - but it is $100, roughly 1-2 TB-months of Blob. Restricted to…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Genuinely renewable - '$100 credit to use on Azure services within 12 months', renewed annually 'as long as you're a student' - but it is $100, roughly 1-2 TB-months of Blob. Restricted to…
+- sources:
+  - [1] https://azure.microsoft.com/en-us/free/students/
+
+## azure open datasets (as a hosting programme)
+
+- `storage/azure-open-datasets-2` | fails-quota | evidence reported | binding none | category rejected-provider
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T15:04:37.249Z (live) | stale on 2026-11-18
+- url https://azure.microsoft.com/en-us/products/open-datasets
+- disagrees on verdict: `storage/azure-open-datasets` says dead, `storage/azure-open-datasets-2` says fails-quota
+- free tier: No byte allowance is published for contributed data. Microsoft pays the storage cost of hosting Azure Open Datasets, and most datasets are free to read. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: Reads of large datasets can be charged to the reading Azure subscription as egress (read operations plus network bandwidth); most datasets are free to access. | metered: yes
+- identity: email | detail: Reading the datasets needs no Azure account.
+- interface: unknown
+- binding note: no byte allowance or per-user quota is published; the programme hosts curated public datasets and takes contributions by emailed request, so it is not a general storage allowance
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: Curated catalogue of public datasets. A dataset is contributed by emailing a request that states the dataset size and its expected yearly growth; no application form, quota or size limit is published. There is no SLA or availability guarantee for the datasets.
+- notes: No intake at all. It is a curated catalogue of Microsoft/partner data surfaced through Azure ML; there is no application, no quota and no route to place your own 20 TB there.
+- evidence note: Re-read on 2026-11-03 from the vendor pages https://azure.microsoft.com/en-us/products/open-datasets (Microsoft pays hosting storage costs; no SLA; egress can be charged to the reading subscription; no additional charge for most datasets) and https://learn.microsoft.com/en-us/azure/open-datasets/overview-what-are-open-datasets (public datasets can be shared through the programme; a contribute-a-dataset email link whose template lists dataset size and expected yearly growth; no Azure account is needed to read). Confidence stays reported: the verdict text says there is no intake route, and the Learn page states an email contribution route; neither page states a quota.
+- extras:
+  - dead_end.failure_class: write-gated
+  - dead_end.why: No intake at all. It is a curated catalogue of Microsoft/partner data surfaced through Azure ML; there is no application, no quota and no route to place your own 20 TB there.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: No intake at all. It is a curated catalogue of Microsoft/partner data surfaced through Azure ML; there is no application, no quota and no route to place your own 20 TB there.
+  - [1] 2026-11-03: Microsoft pays hosting storage costs; no per-user allowance is stated | capture: sha256:14ab58d51e0c8806292ffad1437ed8cc5419d4f0ed5289e8fc0606431844d040 | quote: Microsoft pays for the storage costs associated with hosting Azure Open Datasets.
+  - [1] 2026-11-03: no SLA or availability guarantee | capture: sha256:14ab58d51e0c8806292ffad1437ed8cc5419d4f0ed5289e8fc0606431844d040 | quote: Hence there is no SLA or availability guarantee for the datasets.
+  - [2] 2026-11-03: a route exists to share public datasets through the programme | capture: sha256:0d4b4017410edd3edaf5de49515257ffd00de31e6d1668b3902410fb830721e4 | quote: You can also share your public datasets through Azure Open Datasets.
+  - [2] 2026-11-03: reading needs no Azure account | capture: sha256:0d4b4017410edd3edaf5de49515257ffd00de31e6d1668b3902410fb830721e4 | quote: However, you don't need an Azure account to access Open Datasets; you can access them from any Python environment with or without Spark.
+  - [1] 2026-11-03: egress can be charged to the reading subscription | capture: sha256:14ab58d51e0c8806292ffad1437ed8cc5419d4f0ed5289e8fc0606431844d040 | quote: While storage will always remain free, egress costs associated with reading large datasets can be charged to the Azure subscription accessing the data.
+  - [1] 2026-11-03: egress can be charged | capture: sha256:14ab58d51e0c8806292ffad1437ed8cc5419d4f0ed5289e8fc0606431844d040 | quote: While storage will always remain free, egress costs associated with reading large datasets can be charged to the Azure subscription accessing the data.
+  - [2] 2026-11-03: contribution is of public datasets | capture: sha256:0d4b4017410edd3edaf5de49515257ffd00de31e6d1668b3902410fb830721e4 | quote: You can also share your public datasets through Azure Open Datasets.
+  - [1] 2026-11-03: free access to most datasets | capture: sha256:14ab58d51e0c8806292ffad1437ed8cc5419d4f0ed5289e8fc0606431844d040 | quote: There's no additional charge for using most Open Datasets.
+  - [2] 2026-11-03: the Learn page offers an email route to request or contribute a dataset | capture: sha256:0d4b4017410edd3edaf5de49515257ffd00de31e6d1668b3902410fb830721e4 | quote: If you can't find the data you want, email us to
+- sources:
+  - [1] https://azure.microsoft.com/en-us/products/open-datasets
+  - [2] https://learn.microsoft.com/en-us/azure/open-datasets/overview-what-are-open-datasets
+
+## azure pipelines build artifacts (as a free archive)
+
+- `storage/azure-pipelines-build-artifacts` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-03T01:28:30.555Z (inherited) | stale on 2026-11-18
+- url https://learn.microsoft.com/en-us/azure/devops/pipelines/policies/retention?view=azure-devops
+- free tier: Pipeline artifacts are exempt from storage billing and follow the pipeline retention policy; a run marked retained indefinitely is not subject to that policy. The 2 GiB free allowance belongs to Azure Artifacts package feeds, a separate service. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: Deleting a pipeline run deletes all artifacts associated with that run; a run marked retained indefinitely is exempt from retention cleanup.
+- notes: Retention is configurable and a run can be marked 'retained indefinitely', but the backing storage is the Azure DevOps organization's storage, and the org's free artifacts allowance is 2…
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: retention
+  - dead_end.why: Retention is configurable and a run can be marked 'retained indefinitely', but the backing storage is the Azure DevOps organization's storage, and the org's free artifacts allowance is 2…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Retention is configurable and a run can be marked 'retained indefinitely', but the backing storage is the Azure DevOps organization's storage, and the org's free artifacts allowance is 2…
+  - [2] 2026-10-21: cited as the basis of the rejection: Retention is configurable and a run can be marked 'retained indefinitely', but the backing storage is the Azure DevOps organization's storage, and the org's free artifacts allowance is 2 GiB
+  - [3] 2026-11-03: pipeline artifacts are not metered against a storage allowance | capture: sha256:0d52634267a1508d9a652ebdbe561b129ce9a652488eadc51374ebc4434b6c3e | quote: Pipeline Artifacts and Pipeline Caching are exempt from storage billing.
+  - [4] 2026-11-03: the 2 GiB free allowance is stated for the Azure Artifacts package service | capture: sha256:29b444110bc58ae49a4c40fb8b50bbd4270fb5dd6250ade5f30a2eccec34619e | quote: Azure Artifacts provides 2 GiB of free storage per organization.
+  - [1] 2026-11-03: a run marked retained indefinitely is exempt from the retention policy | capture: sha256:c4e0de17ed27cc6bc9798546ed8f1a18e865051a85f678335afb456330dbc8a0 | quote: No. The pipeline's retention policy and the maximum limits set by the administrator aren't applied when you mark an individual run or release to be retained indefinitely.
+  - [3] 2026-11-03: artifacts are deleted with their run | capture: sha256:0d52634267a1508d9a652ebdbe561b129ce9a652488eadc51374ebc4434b6c3e | quote: Deleting a pipeline run results in the deletion of all Artifacts associated with that run.
+  - [1] 2026-11-03: indefinite retention exempts a run from the retention policy | capture: sha256:c4e0de17ed27cc6bc9798546ed8f1a18e865051a85f678335afb456330dbc8a0 | quote: No. The pipeline's retention policy and the maximum limits set by the administrator aren't applied when you mark an individual run or release to be retained indefinitely.
+- sources:
+  - [1] https://learn.microsoft.com/en-us/azure/devops/pipelines/policies/retention?view=azure-devops
+  - [2] https://dev.azure.com/dnceng/public/_apis/build/builds?api-version=7.1
+  - [3] https://learn.microsoft.com/en-us/azure/devops/pipelines/artifacts/pipeline-artifacts
+  - [4] https://learn.microsoft.com/en-us/azure/devops/artifacts/reference/limits
+
+## mcr (mcr.microsoft.com)
+
+- `storage/mcr` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://mcr.microsoft.com/v2/
+- free tier: none reachable: Microsoft's public registry is pull-only for anonymous users - you cannot push, so it is not usable as storage. Kept here only to confirm it was checked. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Microsoft's public registry is pull-only for anonymous users - you cannot push, so it is not usable as storage. Kept here only to confirm it was checked.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Microsoft's public registry is pull-only for anonymous users - you cannot push, so it is not usable as storage. Kept here only to confirm it was checked.
+  - [2] 2026-10-21: cited as the basis of the rejection: Microsoft's public registry is pull-only for anonymous users - you cannot push, so it is not usable as storage. Kept here only to confirm it was checked.
+  - [3] 2026-10-21: cited as the basis of the rejection: Microsoft's public registry is pull-only for anonymous users - you cannot push, so it is not usable as storage. Kept here only to confirm it was checked.
+- sources:
+  - [1] https://mcr.microsoft.com/v2/
+  - [2] https://mcr.microsoft.com/v2/_catalog
+  - [3] https://mcr.microsoft.com/v2/token?scope=repository:dotnet/runtime:pull
+
+## microsoft 365 e5 developer sandbox
+
+- `storage/microsoft-365-e5-developer-sandbox` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://learn.microsoft.com/en-us/office/developer-program/microsoft-365-developer-program-faq
+- free tier: none reachable: Cut from 1 TB/user to 10 GB/user OneDrive plus a 300 GB pooled tenant cap; setup now requires a linked Azure billing account, and that requirement cannot be skipped; eligibility needs a paid Visual Studio or ISV/ | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Cut from 1 TB/user to 10 GB/user OneDrive plus a 300 GB pooled tenant cap; setup now requires a linked Azure billing account, and that requirement cannot be skipped; eligibility needs a paid Visual Studio or ISV/
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Cut from 1 TB/user to 10 GB/user OneDrive plus a 300 GB pooled tenant cap; setup now requires a linked Azure billing account, and that requirement cannot be skipped; eligibility needs a paid Visual Studio or ISV/
+  - [2] 2026-10-21: cited as the basis of the rejection: Cut from 1 TB/user to 10 GB/user OneDrive plus a 300 GB pooled tenant cap; setup now requires a linked Azure billing account, and that requirement cannot be skipped; eligibility needs a paid Visual Studio or ISV/
+- sources:
+  - [1] https://learn.microsoft.com/en-us/office/developer-program/microsoft-365-developer-program-faq
+  - [2] https://learn.microsoft.com/en-us/office/developer-program/microsoft-365-developer-program-get-started
+
+## microsoft 365 e5 developer subscription (the '25 x 1 tb' myth)
+
+- `storage/microsoft-365-e5-developer-subscription` | fails-quota | evidence documented | binding volume-quota | category rejected-provider
+- needs card no, phone no, ID no, institution yes | verified 2026-11-04T01:24:31.179Z (live) | stale on 2026-12-05
+- url https://learn.microsoft.com/en-us/office/developer-program/microsoft-365-developer-program-faq
+- free tier: 300 GB pooled storage cap per developer-only tenant, 10 GB OneDrive per user, and 0 GB SharePoint from the Developer SKU in mixed-license tenants. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: Microsoft may require developer tenants to be recreated every 90 days; the tenant is not for long-term data storage. | days: 90 | source: [1]
+- egress: not recorded | metered: no
+- identity: institution | detail: Eligibility paths are a Visual Studio Professional or Enterprise subscription, an ISV Success Program or Microsoft AI Cloud Partner Program company, or a Premier or Unified Support contract; a valid billing account must also be linked during sandbox setup.
+- interface: unknown
+- limits:
+  - volume-quota (binding): 300 GB pooled storage per developer-only tenant; 10 GB OneDrive per user [1]
+- binding note: stored volume is capped at 300 GB pooled per developer-only tenant, far below the need
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: Developer tenants are short-lived by design: Microsoft may require them to be recreated every 90 days.
+- notes: the same as the free tier
+- evidence note: documented: the 300 GB pooled tenant cap, 10 GB OneDrive per user, 0 GB SharePoint from the Developer SKU, the 90-day tenant recreation clause, the eligibility paths and the billing-account requirement were read on 2026-11-03 at https://learn.microsoft.com/en-us/office/developer-program/microsoft-365-developer-program-faq.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Widely cited as 25 TB. The current FAQ caps developer tenants at 300 GB pooled storage and 10 GB OneDrive per user, with the Developer SKU contributing 0 GB SharePoint in mixed tenants.…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Widely cited as 25 TB. The current FAQ caps developer tenants at 300 GB pooled storage and 10 GB OneDrive per user, with the Developer SKU contributing 0 GB SharePoint in mixed tenants.…
+  - [1] 2026-11-03: developer-only tenants are capped at 300 GB pooled storage; 10 GB OneDrive per user; 0 GB SharePoint from the Developer SKU in mixed tenants | capture: sha256:ee018a862afc2f7e85e9395c536894bfc5400148495b6b1630022f6bdc409faa | quote: Tenant Storage Cap: Developer-only tenants are capped at 300 GB pooled storage. - Zero Additional Storage: The Developer SKU contributes 0 GB SharePoint storage in mixed-license tenants. - User OneDrive Limit: 10 GB per user for Developer SKU users' OneDrive storage.
+  - [1] 2026-11-03: tenants may be required to be recreated every 90 days | capture: sha256:ee018a862afc2f7e85e9395c536894bfc5400148495b6b1630022f6bdc409faa | quote: Developer tenants are intended for development and testing purposes only and are short-lived by design. Microsoft may require tenants to be recreated every 90 days.
+  - [1] 2026-11-03: the E5 developer subscription is requested through a company's ISV Success or partner program (or a Visual Studio or Premier Support contract) | capture: sha256:ee018a862afc2f7e85e9395c536894bfc5400148495b6b1630022f6bdc409faa | quote: Companies participating in the ISV Success Program or eligible tiers of the Microsoft AI Cloud Partner Program (MAICPP) can request a Microsoft 365 E5 developer subscription.
+  - [1] 2026-11-03: a valid billing account must be linked during sandbox setup | capture: sha256:ee018a862afc2f7e85e9395c536894bfc5400148495b6b1630022f6bdc409faa | quote: Linking a valid billing account is mandatory during sandbox setup and can't be bypassed.
+  - [1] 2026-11-04: developer-only tenants are capped at 300 GB pooled storage | capture: sha256:ee018a862afc2f7e85e9395c536894bfc5400148495b6b1630022f6bdc409faa | quote: - Tenant Storage Cap: Developer-only tenants are capped at 300 GB pooled storage.
+- sources:
+  - [1] https://learn.microsoft.com/en-us/office/developer-program/microsoft-365-developer-program-faq
+
+## Microsoft Azure Free Account — Blob Storage
+
+- `storage/microsoft-azure-free-account-blob-storage` | fails-quota | evidence reported | binding none | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://azure.microsoft.com/en-us/pricing/free-services
+- free tier: 5 GB LRS hot block blob with 20,000 read + 10,000 write operations, 'Free for your first 12 months'. Not in the always-free list. | unit: GB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Internet egress: 'First 100 GB/Month | Free' from every source continent, for all Azure customers, in perpetuity (not part of the 12-month offer). | metered: no | free allowance: 100 GB per month
+- identity: card
+- interface: s3, rest, rclone
+- limits note: 5 GB for 12 months then paid (~$0.0184/GB-month hot LRS). 100 GB/month egress is the binding constraint for serving.
+- interface detail: s3
+- tooling: Azure Blob REST API; rclone 'azureblob' backend; azcopy; SAS tokens/public containers for anonymous reads.
+- composes with: One free account per customer, and the 5 GB ends at month 12 while the storage keeps running and starts billing. A negative multiplier unless torn down. $200 credit is 30 days.
+- reliability: Stable while it lasts; the failure mode is silent conversion to pay-as-you-go at month 12 with data still resident.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 5 GB LRS hot block blob with 20,000 read + 10,000 write operations, 'Free for your first 12 months'. Not in the always-free list.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Azure Blob Storage: 5 GB locally redundant storage (LRS) hot block with 20,000 read and 10,000 write operations' tagged 'Storage | 12 months free'
+  - [2] 2026-10-21: 'Internet Egress ... First 100 GB/Month: Free' (North America/Europe to any destination)
+- sources:
+  - [1] https://azure.microsoft.com/en-us/pricing/free-services
+  - [2] https://azure.microsoft.com/en-us/pricing/details/bandwidth/
+
+## Microsoft Dev Tunnels
+
+- `egress/microsoft-dev-tunnels` | fails-quota | evidence documented | binding volume-quota | category hosted tcp and http tunnel (developer service) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://learn.microsoft.com/en-us/azure/developer/dev-tunnels/overview
+- price USD 0
+- free tier: Free with an account; the Dev tunnels limits table sets 5 GB of bandwidth per user, reset monthly. | unit: GB | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: 5 GB per user per month, stated in the Dev tunnels limits table; the same table caps a tunnel at 20 MB/s, 10 tunnels per user and 1500 HTTP requests per minute per port.; ingress: tcp | metered: yes | free allowance: 5 GB per user per month, stated in the Dev tunnels limits table; the same table caps a tunnel at 20 MB/s, 10 tunnels per user and 1500 HTTP requests per minute per port. | source: [2]
+- identity: email | detail: 'All creation of dev tunnels requires either a Microsoft Entra ID, Microsoft, or GitHub account.' | country: None
+- interface: cli
+- limits:
+  - volume-quota (binding): 5 GB of bandwidth per user, reset monthly [1]
+  - request-rate: 1500 HTTP requests per minute per port [1]
+  - per-ip-shaping: data transfer rate up to 20 MB/s per tunnel [1]
+- binding note: 5 GB is 0.0045 TiB, so the byte allowance fails about 220 times before 1 TiB/month. Ports are TCP, with UDP hedged as 'may also be supported', so a WireGuard peer has no reliable path.
+- interface detail: devtunnel CLI.
+- tooling: devtunnel CLI, VS Code and Visual Studio integration.
+- composes with: Free TCP ingress for a free VM, with no card and no published cap.
+- reliability: Designed for development traffic; the aggregator records that visitors see warnings on the URLs.
+- notes: Corrected in the sweep's last pass: the overview and the FAQ state no quota, and the limits table does. 5 GB/month makes this a development endpoint, not an ingress path. The 20 MB/s ceiling is per tunnel and would allow 1 TiB in about 15 hours, so the monthly byte quota is what binds.
+- evidence note: The allowance, the rate and the tunnel count are stated in one table. What is not stated is whether the 5 GB covers raw TCP forwarding as well as HTTP; the table names no protocol.
+- extras:
+  - wg_path: none
+  - ingress: tcp
+  - volume_tib_month: 0.0045
+  - volume_stated: 5 GB per user per month, stated in the Dev tunnels limits table; the same table caps a tunnel at 20 MB/s, 10 tunnels per user and 1500 HTTP requests per minute per port.
+  - bytes_transit: yes
+- evidence:
+  - [2] 2026-10-23: 'Tunnel port - An IP port number (1-65535) that is allowed through a dev tunnel'; 'most often linked to TCP connections on either side, but UDP-based protocols may also be supported'
+  - [3] 2026-10-23: creating a tunnel requires an Entra ID, Microsoft or GitHub account; anonymous users cannot create tunnels
+  - [1] 2026-10-23: '## Dev tunnels limits'; 'Bandwidth | 5 GB per user'; 'Tunnels | 10 per user'; 'Data transfer rate | Up to 20 MB/s per tunnel'; 'The limits reset monthly'
+- sources:
+  - [1] https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits
+  - [2] https://learn.microsoft.com/en-us/azure/developer/dev-tunnels/overview
+  - [3] https://learn.microsoft.com/en-us/azure/developer/dev-tunnels/faq
+
+## microsoft mcr / registry.k8s.io (read-only public mirrors)
+
+- `storage/microsoft-mcr-registry-k8s-io` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://mcr.microsoft.com/v2/
+- free tier: None reachable: Anonymous pulls work (MCR returns 200 at /v2/), but both are read-only mirrors of vendor images. No push, no account, no writable namespace. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Anonymous pulls work (MCR returns 200 at /v2/), but both are read-only mirrors of vendor images — no push, no account, no writable namespace.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Anonymous pulls work (MCR returns 200 at /v2/), but both are read-only mirrors of vendor images — no push, no account, no writable namespace.
+  - [2] 2026-10-21: cited as the basis of the rejection: Anonymous pulls work (MCR returns 200 at /v2/), but both are read-only mirrors of vendor images — no push, no account, no writable namespace.
+  - [3] 2026-10-21: cited as the basis of the rejection: Anonymous pulls work (MCR returns 200 at /v2/), but both are read-only mirrors of vendor images — no push, no account, no writable namespace.
+- sources:
+  - [1] https://mcr.microsoft.com/v2/
+  - [2] https://registry.k8s.io/v2/
+  - [3] https://registry.k8s.io/token
+
+## Microsoft Teams (free / personal)
+
+- `storage/microsoft-teams` | fails-quota | evidence reported | binding none | category messaging
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://support.microsoft.com/en-us/teams/free/troubleshoot/where-is-my-microsoft-teams-free-data-stored
+- disagrees on identity_kind: `storage/microsoft-teams` says email, `storage/microsoft-teams-gallery-media-uploads` says institution
+- disagrees on verdict: `storage/microsoft-teams` says fails-quota, `storage/microsoft-teams-gallery-media-uploads` says qualifies-with-caveat
+- free tier: 5 GB free per person for files in Teams; images/videos explicitly do not count and have no storage limit; files land in the 'Microsoft Teams Chat Files' folder in the user's OneDrive. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Unmetered; share links resolve to OneDrive direct URLs. | metered: no
+- identity: email
+- interface: rest, graph, rclone
+- limits note: 5 GB total files; 250 GB max individual file upload/download; chat messages unlimited.
+- interface detail: rest
+- tooling: Graph API chatMessageHostedContent + driveItem; no rclone backend for Teams specifically (use the onedrive remote pointing at the Chat Files folder)
+- composes with: Effectively OneDrive consumer's 5 GB wearing a different hat - Teams free files ARE OneDrive files, so this is not a second quota. The one genuine loophole claim on the page is 'Images and videos are not saved on OneDrive and don't have a storage limit' - unverified whether that means arbitrary files can be smuggled as media.
+- reliability: Leaving a community does not revoke other members' access; deleting the 5 GB block blocks attaches but not history.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 5 GB free per person for files in Teams; images/videos explicitly do not count and have no storage limit; files land in the 'Microsoft Teams Chat Files' folder in the user's OneDrive.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'The amount of free storage ... is 5 GB'; 'Images and videos are not saved on OneDrive and don't have a storage limit'
+  - [2] 2026-10-21: 'Individual files | 250 GB'
+- sources:
+  - [1] https://support.microsoft.com/en-us/teams/free/troubleshoot/where-is-my-microsoft-teams-free-data-stored
+  - [2] https://support.microsoft.com/en-us/onedrive/restrictions-and-limitations-in-onedrive-and-sharepoint
+
+## microsoft teams essentials / m365 business paid tiers
+
+- `storage/microsoft-teams-essentials-m365-business-paid-tiers` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.microsoft.com/en-us/microsoft-teams/essentials
+- free tier: none reachable: 10 GB per user (Essentials) or 1 TB per user (Business) but they are paid products - a trial at best. Only the Developer Program sandbox is actually free, and it is listed as a candidate… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 10 GB per user (Essentials) or 1 TB per user (Business) but they are paid products - a trial at best. Only the Developer Program sandbox is actually free, and it is listed as a candidate…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 10 GB per user (Essentials) or 1 TB per user (Business) but they are paid products - a trial at best. Only the Developer Program sandbox is actually free, and it is listed as a candidate…
+  - [2] 2026-10-21: cited as the basis of the rejection: 10 GB per user (Essentials) or 1 TB per user (Business) but they are paid products - a trial at best. Only the Developer Program sandbox is actually free, and it is listed as a candidate abo
+- sources:
+  - [1] https://www.microsoft.com/en-us/microsoft-teams/essentials
+  - [2] https://www.microsoft.com/en-us/microsoft-teams/free
+
+## microsoft teams free (5 gb)
+
+- `storage/microsoft-teams-free` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://support.microsoft.com/en-us/teams/free/troubleshoot/where-is-my-microsoft-teams-free-data-stored
+- disagrees on identity_kind: `storage/microsoft-teams-free` says email, `storage/microsoft-teams-gallery-media-uploads` says institution
+- disagrees on verdict: `storage/microsoft-teams-free` says fails-quota, `storage/microsoft-teams-gallery-media-uploads` says qualifies-with-caveat
+- free tier: none reachable: Files are stored in OneDrive and share the same 5 GB consumer quota - not an additional pool. The 'images/videos have no storage limit' line is a possible smuggling route but unverified. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Files are stored in OneDrive and share the same 5 GB consumer quota - not an additional pool. The 'images/videos have no storage limit' line is a possible smuggling route but unverified.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Files are stored in OneDrive and share the same 5 GB consumer quota - not an additional pool. The 'images/videos have no storage limit' line is a possible smuggling route but unverified.
+- sources:
+  - [1] https://support.microsoft.com/en-us/teams/free/troubleshoot/where-is-my-microsoft-teams-free-data-stored
+
+## OneDrive consumer (Microsoft account)
+
+- `storage/onedrive-consumer` | fails-quota | evidence reported | binding none | category cloud-drive
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.microsoft.com/en-us/microsoft-365/onedrive/compare-onedrive-plans
+- free tier: 5 GB free per Microsoft account; paid tiers 100 GB / 1 TB / 2 TB. | unit: GB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Unmetered for direct download links. | metered: no
+- identity: email
+- interface: rest, graph, rclone
+- limits note: 5 GB; 250 GB max single file; OneDrive 'unlimited' offers no longer exist on consumer plans.
+- interface detail: rest
+- tooling: rclone 'onedrive' with drive_type=personal; Microsoft Graph /me/drive; the OneDrive v1.0 API
+- composes with: 5 GB x N Microsoft accounts. Accounts are free but each needs a verified identity and there is no documented no-verification bulk signup; 5 GB is also below the 'trivially repeatable' threshold in practice for 10 TiB (2,000 accounts for 10 TB).
+- reliability: Stable, no data-loss history; the blocker is purely the 5 GB number.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 5 GB free per Microsoft account; paid tiers 100 GB / 1 TB / 2 TB.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Get 5 GB free, or upgrade to a Microsoft 365 subscription'; paid tiers '100 GB', '1 TB (1,000 GB)', '2 TB'
+  - [2] 2026-10-21: probe: curl -> HTTP 401 (live, auth required)
+- sources:
+  - [1] https://www.microsoft.com/en-us/microsoft-365/onedrive/compare-onedrive-plans
+  - [2] https://graph.microsoft.com/v1.0/me/drive
+
+## onedrive consumer 5 gb
+
+- `storage/onedrive-consumer-5-gb` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.microsoft.com/en-us/microsoft-365/onedrive/compare-onedrive-plans
+- free tier: none reachable: 5 GB per Microsoft account, 2,000 accounts would be needed for 10 TB - not trivially repeatable, and no documented bulk-signup path. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 5 GB per Microsoft account, 2,000 accounts would be needed for 10 TB - not trivially repeatable, and no documented bulk-signup path.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 5 GB per Microsoft account, 2,000 accounts would be needed for 10 TB - not trivially repeatable, and no documented bulk-signup path.
+- sources:
+  - [1] https://www.microsoft.com/en-us/microsoft-365/onedrive/compare-onedrive-plans
+
+## azure open datasets
+
+- `storage/azure-open-datasets` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://learn.microsoft.com/en-us/azure/open-datasets/overview-what-is-azure-open-datasets
+- disagrees on verdict: `storage/azure-open-datasets` says dead, `storage/azure-open-datasets-2` says fails-quota
+- free tier: none reachable: Retired as a programme. Microsoft Learn's overview page 404s and the product page no longer exposes a dataset catalogue or an intake form; what remains is the Planetary Computer, which… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Retired as a programme. Microsoft Learn's overview page 404s and the product page no longer exposes a dataset catalogue or an intake form; what remains is the Planetary Computer, which…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Retired as a programme. Microsoft Learn's overview page 404s and the product page no longer exposes a dataset catalogue or an intake form; what remains is the Planetary Computer, which…
+  - [2] 2026-10-21: cited as the basis of the rejection: Retired as a programme. Microsoft Learn's overview page 404s and the product page no longer exposes a dataset catalogue or an intake form; what remains is the Planetary Computer, which hosts
+- sources:
+  - [1] https://learn.microsoft.com/en-us/azure/open-datasets/overview-what-is-azure-open-datasets
+  - [2] https://azure.microsoft.com/en-us/products/open-datasets
+
+## Azure Pipelines (public project)
+
+- `ci-cd-runners/azure-pipelines-public` | dead | evidence documented | binding retention-clamped | category CI runner
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T17:29:31.577Z (live) | stale on 2026-12-04
+- url https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/hosted
+- disagrees on verdict: `ci-cd-runners/azure-pipelines-private` says qualifies-with-caveat, `ci-cd-runners/azure-pipelines-public` says dead
+- free tier: none for a new project: public projects are retired and new ones can no longer be created; existing public projects keep unlimited Microsoft-hosted minutes until they convert to private in 2027, then fall to the 1,800-minute private allocation | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable: the product is being withdrawn
+- retention: existing grants end in 2027 | source: [1]
+- egress: not applicable | metered: no | source: [1]
+- identity: card | detail: not obtainable at all for a new project
+- interface: git
+- limits:
+  - retention-clamped (binding): the free grant for public projects is withdrawn for new projects and ends in 2027 for existing ones [1]
+- interface detail: no new public project can obtain the grant
+- tooling: not applicable for a new account
+- composes with: no path for a new account
+- reliability: a withdrawal rather than an outage; the grant still works until it expires
+- notes: Any list still counting ten parallel jobs for public projects is describing a closed product. Only the public-project grant is dead: the private-project grant of the same service, 1,800 free minutes a month on one Microsoft-hosted parallel job, is a live offer recorded in ci-cd-runners/azure-pipelines-private and compute/azure-pipelines.
+- evidence note: the hosted-agents doc was read and states the retirement.
+- evidence:
+  - [1] 2026-10-22: the free grant for public projects is no longer available to new projects, and existing grants end in 2027
+  - [2] 2026-10-30: the public-project grant is closed to new projects | capture: sha256:d38674288dd7b8cff3a745e20a002325cd3df1f5a72face4454295c21328221e | quote: Public projects in Azure DevOps are retired, and new public projects can no longer be created.
+  - [1] 2026-11-03: the private-project grant of the same service is 1,800 free minutes a month, a live offer | capture: sha256:06e317a38265896b2559e50b8b11221ecb600c4afc477d81ebdaeef0669f15cf | quote: All Azure DevOps organizations get one free parallel job and 1,800 free minutes (30 hours) each month for private projects when the organization is [linked to a valid Azure subscription]
+  - [1] 2026-11-03: existing public projects keep their free grant until the 2027 conversion | capture: sha256:06e317a38265896b2559e50b8b11221ecb600c4afc477d81ebdaeef0669f15cf | quote: Existing public projects retain their current free parallelism grants until they convert to private in 2027.
+  - [2] 2026-11-03: public projects have unlimited Microsoft-hosted minutes and fall to 1,800 free minutes a month when converted to private | capture: sha256:d38674288dd7b8cff3a745e20a002325cd3df1f5a72face4454295c21328221e | quote: Public projects receive unlimited Microsoft-hosted pipeline minutes. After conversion to private, your organization's pipeline capacity is limited to 1,800 free minutes per month (or your purchased amount).
+  - [2] 2026-11-03: the public-project grant is closed to new projects | capture: sha256:d38674288dd7b8cff3a745e20a002325cd3df1f5a72face4454295c21328221e | quote: Public projects in Azure DevOps are retired, and new public projects can no longer be created.
+- sources:
+  - [1] https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/hosted
+  - [2] https://learn.microsoft.com/en-us/azure/devops/organizations/projects/public-projects-retirement
+
+## Bing Search APIs
+
+- `crawler-scraper/bing-search-api` | dead | evidence documented | binding request-rate | category search API
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://learn.microsoft.com/en-us/lifecycle/announcements/bing-search-api-retirement
+- free tier: none: retired | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable: decommissioned | source: [1]
+- egress: not applicable | metered: no | source: [1]
+- identity: card | detail: was an Azure subscription
+- interface: rest
+- limits:
+  - request-rate (binding): no allowance: every instance is decommissioned and no new signup is accepted [1]
+- interface detail: was a REST API with a subscription key
+- tooling: not established
+- composes with: the same as tooling
+- reliability: no reliability event recorded
+- notes: Retired on 2025-08-11. Any listing that still carries a Bing Web Search free tier is out of date. The replacement is Grounding with Bing inside Azure AI Agents, which is a separate product with distinct pricing.
+- evidence:
+  - [1] 2026-10-22: Bing Search APIs retired on 2025-08-11; every existing instance is decommissioned completely, the product is no longer available and new customer signup is closed
+- sources:
+  - [1] https://learn.microsoft.com/en-us/lifecycle/announcements/bing-search-api-retirement
+
+## microsoft 365 business basic/standard/premium (nonprofit 75% discount)
+
+- `storage/microsoft-365-business-basic-standard-premium` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.microsoft.com/en-us/nonprofits/microsoft-365
+- free tier: none reachable: 1 TB OneDrive per user but these are paid licenses; the nonprofit full free grant is gone (Business Premium grant ended, Microsoft deleted nonprofit tenants' data). 25 GB per license is the | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: 1 TB OneDrive per user but these are paid licenses; the nonprofit full free grant is gone (Business Premium grant ended, Microsoft deleted nonprofit tenants' data). 25 GB per license is the
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 1 TB OneDrive per user but these are paid licenses; the nonprofit full free grant is gone (Business Premium grant ended, Microsoft deleted nonprofit tenants' data). 25 GB per license is the
+- sources:
+  - [1] https://www.microsoft.com/en-us/nonprofits/microsoft-365

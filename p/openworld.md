@@ -1,0 +1,124 @@
+# Openworld Free
+
+> openworld.eu.org | Compute, Egress and tunnels; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/openworld/ | JSON https://fshy.ajam.dev/api/v1/entity/openworld.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Openworld
+
+- `compute/openworld` | qualifies-with-caveat | evidence documented | binding retention-clamped | category cloud VM | tier free plan
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T02:23:55.983Z (live) | stale on 2026-12-05
+- url https://openworld.eu.org/faq
+- free tier: A free container VPS: 'Every plan includes NAT IPv4, and the free plan includes a dedicated public IPv6 address.' No price is stated for the free plan; the home page says 'For developers & students, no card required just Discord.' The vendor publishes no shape, but a user's benchmark posted in the vendor's own LowEndTalk thread on 2026-08-24 reports 1 vCPU at 3092 MHz, 512 MiB RAM, 512 MiB swap and 4.8 GiB disk on Ubuntu 26.04 under LXC. | unit: none | metered on: wall-clock | read on: 2026-10-24 | source: [1] | note: Vendor publishes no CPU, RAM or disk figures; specifications derive from reported benchmarks in vendor discussion threads.
+- per-object cap: not applicable: the unit is a container, not an object
+- retention: 'Free VPS periods last 7 days. Renewal is free and can be done once every 24 hours to reset the countdown — an unrenewed VPS gets auto-suspended, so just keep renewing to keep it alive.' | days: 7 | source: [1] | note: suspension, not deletion, is what the FAQ names for an unrenewed box; whether a suspended container's disk is deleted, and after how long, is not stated
+- egress: metered: no | free allowance: unstated | source: [1]
+- identity: email | detail: No card and no hold: the home page says 'no card required just Discord', and the FAQ says 'no trial, no card required'. Sign-in is through Clerk (clerk.openworld.eu.org) on the /login page, whose form is a single 'Sign in' button and carries no card, phone or document field; the page footer credits the builder. Whether the Clerk instance offers an email-only sign-up or requires a social account was not established: the button is rendered disabled until the Clerk JavaScript loads, so the flow could not be read from the markup.
+- interface: ssh
+- limits:
+  - retention-clamped (binding): the free period is 7 days and must be renewed by hand at most once every 24 hours; an unrenewed VPS is auto-suspended [1]
+  - volume-quota: one free container per account is implied by the FAQ's singular 'your VPS' but is not stated as a number anywhere read [1]
+- limits note: Container lifetime is seven days with manual renewal available once every 24 hours; unattended containers suspend after seven days. Hardware is consumer-grade without an availability guarantee.
+- binding note: a 7-day clock that resets only when a human renews is the first thing that fails: any lapse in renewal past 7 days suspends the machine
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: Root SSH with password or key at creation, systemd inside the container, Docker allowed, panel reinstall. Login through Discord OAuth.
+- composes with: A throwaway IPv6 container with a dedicated public address is the cheapest way to test an inbound service or hold a trickle of state for a week. It composes badly with anything long-running: the 7-day clock and the 35% CPU throttle rule out indexing and builds.
+- reliability: one transient outage reported in the vendor's own LowEndTalk thread on 2026-08-24, when a user wrote 'looks like the server is dead beyond repair' and the operator replied 'There was a little downtime on the i7-4510U, but should be back'; the vendor publishes a HetrixTools status page whose 7-day table rendered with no values on the day read
+- notes: OpenWorld provides ephemeral container hosting with a 7-day lifetime requiring manual renewal every 24 hours. Hardware is consumer-grade and resource allocations are unmetered fair-use.
+- evidence note: retention, network, root SSH and the no-card statement are quoted from first-party pages read, and those are the fields the verdict rests on. It does not move the verdict, so the record's rung is documented.
+- extras:
+  - facets.class: perpetual-vps
+  - facets.free_tier_kind: perpetual-7-day-renewable
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 0.5
+  - facets.shape.disk_gib: 5
+  - facets.shape.gpu_count: 0
+  - shape.vcpu: 1
+  - shape.ram_gib: 0.5
+  - shape.disk_gib: 4.8
+  - billing_model: free
+  - term: 7-day renewal
+  - m10h_usd: 0.0
+  - m24h_usd: 0.0
+  - price_arithmetic: no price: the free plan costs nothing and no payment method is collected
+  - free_tier_kind: renewable-free
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: dedicated public IPv6 plus NAT IPv4; the forwarded-port count is not stated
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.wall_clock_min: 10080
+  - session_cap.restart_required: no
+  - session_cap.note: 7-day free period; renewal resets it and is allowed once per 24 hours
+  - fleet_counters.nodes: 3
+  - fleet_counters.vps: 145
+  - fleet_counters.ips: 2220
+  - fleet_counters.users: 3908
+  - fleet_counters.as_read: 2026-10-24, self-reported by the vendor
+  - shape_source: reported: a user's YABS run in the vendor's LowEndTalk thread, 2026-08-24, 'CPU cores : 1 @ 3092.814 MHz', 'RAM : 512.0 MiB', 'Swap : 512.0 MiB', 'Disk : 4.8 GiB', 'VM Type : LXC'; the vendor itself publishes no shape
+- evidence:
+  - [2] 2026-10-22: the counter block reads 'Nodes: 3 / VPS: 145 / IPs: 2,220 / Users: 3,747'; probe 200, 19342 bytes, sha256 91731a8d688d96d797b1a2163b06f1d6a8b263d562172351ef250256bacf3ff8
+  - [1] 2026-10-22: 'Yes. The free tier is permanent as long as you renew it - no trial, no card required' and 'Free VPS periods last 7 days. Renewal is free and can be done once every 24 hours to reset the countdown - an unrenewed VPS gets auto-suspended', quoted
+  - [1] 2026-10-22: 'Do I get an IPv4 address? Yes. Every plan includes NAT IPv4, and the free plan includes a dedicated public IPv6 address.' and 'How long does provisioning take? Under a second.', quoted
+  - [3] 2026-10-22: 
+  - [3] 2026-10-22: CPU is throttled by policy: 'if there's a consistent 35%+ for 5minutes usage of the cpu it will get throttled automatically to 10%', quoted
+  - [4] 2026-10-22: third-party renewal automation exists for this provider, a Playwright script that logs in through Discord OAuth, solves the GIF captcha by frame voting and renews before expiry, which is evidence both that the 7-day cycle is real and that people find it onerous
+  - [1] 2026-10-24: quoted: 'Free VPS periods last 7 days. Renewal is free and can be done once every 24 hours to reset the countdown — an unrenewed VPS gets auto-suspended'
+  - [1] 2026-10-24: quoted: 'Yes. Every plan includes NAT IPv4, and the free plan includes a dedicated public IPv6 address.' and 'You log in as root over SSH, with the password (or key) you set during creation.'
+  - [1] 2026-10-24: quoted: 'Yes. The free tier is permanent as long as you renew it — no trial, no card required.'
+  - [2] 2026-10-24: quoted: 'Free IPv6 VPS', 'For developers & students, no card required just Discord.', and the counters 'Nodes: 3', 'VPS: 145', 'IPs: 2,220', 'Users: 3,908'
+  - [5] 2026-10-24: the served markup: a Clerk sign-in button, seven theme forms, and no card, phone or identity input; a footer that credits the builder
+  - [3] 2026-10-24: a user's YABS benchmark posted 2026-08-24: 'CPU cores : 1 @ 3092.814 MHz', 'RAM : 512.0 MiB', 'Swap : 512.0 MiB', 'Disk : 4.8 GiB', 'VM Type : LXC', 'IPv4/IPv6 : Online / Online', an ASN line naming AS212895 and its holder, 'Location : Ashburn, Virginia'; and the operator replying
+  - [3] 2026-10-24: quoted from the thread: a user wrote 'looks like the server is dead beyond repair' and the operator replied 'There was a little downtime on the i7-4510U, but should be back' — a transient outage, acknowledged and answered by the operator
+  - [1] 2026-11-03: SSH is the access path | capture: sha256:111b87cb12d526cf3dc888b662d485c7d6fcfed8b2b424ef9a27fdb5c0cf1ea9 | quote: You log in as root over SSH, with the password (or key) you set during creation.
+- sources:
+  - [1] https://openworld.eu.org/faq
+  - [2] https://openworld.eu.org/
+  - [3] https://lowendtalk.com/discussion/220420/free-openworld-eu-org-free-ipv6-vps
+  - [4] https://github.com/weikkadd/openworlvps
+  - [5] https://openworld.eu.org/login
+
+## Openworld Free IPv6 VPS
+
+- `egress/openworld-free-ipv6` | qualifies-with-caveat | evidence unverified | binding per-ip-shaping | category origin VM (free container) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:52:57.444Z (live) | stale on 2026-11-19
+- url https://openworld.eu.org/faq
+- price USD 0
+- free tier: Yes. The free tier is permanent as long as you renew it - no trial, no card required. | unit: unlimited | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: no traffic allowance is published on the landing page or the FAQ; the page names CPU, RAM, disk, one dedicated public IPv6 and a NAT IPv4, and no byte figure; ingress: udp | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: 'no card required just Discord', so the account is a Discord identity rather than an email address or a card | country: None
+- interface: ssh
+- limits:
+  - per-ip-shaping (binding): no byte allowance is published anywhere, so the limit is a discretionary throttle with no number and no threshold to design against [1]
+  - retention-clamped: free VPS periods last 7 days and an unrenewed VPS is auto-suspended [1]
+- binding note: no byte allowance is published anywhere, so the limit is a discretionary throttle with no number and no threshold to design against
+- interface detail: root over SSH at a dedicated public IPv6 address, with a NAT IPv4 also included
+- tooling: wg-quick if /dev/net/tun is present, otherwise wireguard-go with a TUN the container must still provide
+- composes with: a free IPv6 endpoint with root and no card is the cheapest possible WireGuard peer; if its unpublished allowance is at least 1 TiB a month it composes directly with a bulk origin behind it
+- reliability: free servers are suspended automatically unless renewed at least every 7 days, and renewal is allowed once per 24 hours; a three-node service at 145 VPS is small enough that a node loss takes instances with it
+- notes: Provides a free LXC container with root access and a dedicated public IPv6 address. IPv4 access is NAT-only without documented port forwarding. Traffic limits are unpublished.
+- evidence note: Dedicated IPv6 allocation, root access and renewal policies are documented in vendor FAQ.
+- extras:
+  - wg_path: unknown
+  - wg_detail: root over SSH in a container with 'full systemd access', so wg-quick installs; whether /dev/net/tun is exposed is not stated on either page read, and that decides between the kernel module and a userspace fallback. Not tested, because spent no signup
+  - ingress: udp
+  - volume_stated: no traffic allowance is published on the landing page or the FAQ; the page names CPU, RAM, disk, one dedicated public IPv6 and a NAT IPv4, and no byte figure
+  - bytes_transit: yes
+  - transit_note: bytes leave through the node's uplink to the container's public IPv6 address
+- evidence:
+  - [1] 2026-10-23: 'Yes. The free tier is permanent as long as you renew it - no trial, no card required.'
+  - [1] 2026-10-23: 'Do I get an IPv4 address? Yes. Every plan includes NAT IPv4, and the free plan includes a dedicated public IPv6 address.'
+  - [1] 2026-10-23: 'Do I get root access? Yes. You log in as root over SSH, with the password (or key) you set during creation.' and 'Containers run with full systemd access.'
+  - [1] 2026-10-23: 'Free VPS periods last 7 days. Renewal is free and can be done once every 24 hours to reset the countdown - an unrenewed VPS gets auto-suspended'
+  - [2] 2026-10-23: the landing page's fastfetch panel shows 'Nodes: 3', 'VPS: 145', 'IPs: 2,220', 'Users: 3,795', which sizes the service at a few hundred servers rather than a cloud region
+  - [1] 2026-11-03: free VPS periods last 7 days, renewal is free once every 24 hours, and an unrenewed VPS is auto-suspended | capture: sha256:111b87cb12d526cf3dc888b662d485c7d6fcfed8b2b424ef9a27fdb5c0cf1ea9 | quote: Free VPS periods last 7 days. Renewal is free and can be done once every 24 hours to reset the countdown — an unrenewed VPS gets auto-suspended
+  - [1] 2026-11-03: the free tier is permanent while renewed, with no trial and no card | capture: sha256:111b87cb12d526cf3dc888b662d485c7d6fcfed8b2b424ef9a27fdb5c0cf1ea9 | quote: Yes. The free tier is permanent as long as you renew it — no trial, no card required.
+  - [2] 2026-11-03: the landing page states that no card is required and that registration is through Discord | capture: sha256:8947e815d63ca9c6a583645a22a89ca205e5b9b96472a2a2d483c5eb5e49e72c | quote: For developers & students, no card required just Discord.
+  - [2] 2026-11-03: the landing page panel lists 3 nodes on 2026-11-03, unchanged from the earlier read | capture: sha256:8947e815d63ca9c6a583645a22a89ca205e5b9b96472a2a2d483c5eb5e49e72c | quote: Nodes: 3
+  - [1] 2026-11-03: every plan includes a NAT IPv4 address and the free plan includes a dedicated public IPv6 address | capture: sha256:111b87cb12d526cf3dc888b662d485c7d6fcfed8b2b424ef9a27fdb5c0cf1ea9 | quote: Yes. Every plan includes NAT IPv4, and the free plan includes a dedicated public IPv6 address.
+  - [1] 2026-11-04: the free tier is permanent while renewed and needs no card | capture: sha256:111b87cb12d526cf3dc888b662d485c7d6fcfed8b2b424ef9a27fdb5c0cf1ea9 | quote: Yes. The free tier is permanent as long as you renew it — no trial, no card required.
+- sources:
+  - [1] https://openworld.eu.org/faq
+  - [2] https://openworld.eu.org/

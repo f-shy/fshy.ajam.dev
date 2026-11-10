@@ -1,0 +1,179 @@
+# Cloud.ru Evolution
+
+> cloud.ru | Storage, Compute; 4 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/cloud/ | JSON https://fshy.ajam.dev/api/v1/entity/cloud.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Cloud.ru Evolution S3 free tier
+
+- `storage/cloud-ru-evolution-s3-free-tier` | qualifies-with-caveat | evidence documented | binding volume-quota | category iaas
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-02T00:46:50.620Z, checked 2026-10-21 (inherited) | stale on 2026-11-21
+- url https://cloud.ru
+- free tier: Free tier object storage: 15 GB of standard-class storage, 100 000 PUT, POST and LIST operations, 1 000 000 GET and HEAD operations, and the first 10 TB of outgoing traffic each month; the free volume covers standard-class storage only | unit: GB | metered on: stored-bytes | read on: 2026-11-01 | source: [1] | note: The marketing page shows a standard, a cold and an ice panel together, at 15 GB, 1 000 GB and 3 000 GB; the documentation restricts the free volume to standard-class storage, so the cold and ice figures are panels of a calculator and not free capacity.
+- per-object cap: A single object is limited to 5 TB; one request uploads at most 5 GB and larger objects need multipart upload; in the cold and ice classes an object smaller than 128 KB is billed as 128 KB | source: [2] | note: the 5 TB object cap and the 5 GB per-request limit are tenant limits that cannot be raised; the storage volume itself is unlimited by default; a bucket created in the console can be given a maximum volume, buckets created through the API are unlimited in volume
+- retention: Storage is billed on the largest volume held during each hour, at the tariff of the class the object is in | source: [3] | note: no minimum storage duration and no delete charge are stated on the pricing, class or free-tier pages
+- egress: The first 10 TB of outgoing traffic each month is not billed in any storage class; beyond it traffic bills at 1,1712 ₽ per GB | metered: yes | free allowance: the first 10 TB each month, in any storage class | price per TB: RUB 1 171,20 per TB beyond the 10 TB, billed at 1,1712 ₽ per GB | source: [3]
+- identity: card | detail: Participation is limited to individuals, sole traders and legal entities registered in Russia. An individual registers with a phone number confirmed by SMS plus an email address, or with SberID. The account must hold at least 100 ₽ or 100 bonus points before any resource is created, and the 4000 bonus points are granted only after a bank card is bound.
+- interface: s3-compatible, rclone
+- limits:
+  - volume-quota (binding): 15 GB of standard-class storage per organisation per month [1]
+  - volume-quota (binding): 10 TB of outgoing traffic per organisation per month, in any storage class [1]
+  - request-rate: 100 000 PUT, POST and LIST operations and 1 000 000 GET and HEAD operations per month [1]
+- limits note: The free tier is explicitly a test allowance: 'Ресурсы предоставляются исключительно для тестирования. Не подразумевается их безвозмездное предоставление'. I.e. a test allowance and not a standing free tier; 4,000 bonus roubles is credit-shaped and will expire.
+- binding note: the 15 GB of standard-class storage and the 10 TB of monthly outgoing traffic are the two ceilings that meter, and both are counted per organisation over the whole storage account rather than per bucket
+- interface detail: s3
+- tooling: S3 API (rclone 's3' with a custom endpoint) — the free-tier page is explicitly 'Соберите свое Объектное хранилище S3'.
+- composes with: The free path is 15 GB of standard-class storage plus the first 10 TB of outgoing traffic each month; a cold or ice bucket bills per GB-month at its class tariff, so an archive tier there is a paid tier.
+- reliability: the free volume is granted for an unlimited time from the date of the contract, the promotion itself runs to 31 December 2026, and the operator reserves the right to change quota sizes at any time; an account that starts no service within 60 days may be dropped from the promotion
+- notes: Free tier object storage: 15 GB of standard-class storage, 100 000 PUT, POST and LIST operations, 1 000 000 GET and HEAD operations, and the first 10 TB of outgoing traffic each month; cold and ice storage bills at the class tariff and is not part of the free volume.
+- evidence note: every value is quoted from a first-party Cloud.ru page read on 2026-11-01; the marketing page's cold and ice panels are not a free allowance, which the service documentation contradicts. The identity gate is read from the promotion rules, not from the registration form itself.
+- evidence:
+  - [1] 2026-11-01: 15 GB, 100 000 PUT/POST/LIST and 1 000 000 GET/HEAD are free on standard storage, plus 10 TB of outgoing traffic | capture: sha256:b7b5435aaa85fd976e702a66adaeacec6d99d6861d0a5575beedafbf915dbc1b | quote: Каждый месяц для любого типа хранилища не тарифицируются первые 10 ТБ исходящего трафика. Каждый месяц в стандартном хранилище не тарифицируются: - первые 15 ГБ объема занятого пространства; - первые 100 000 операций LIST, POST, PUT; - первые 1 000 000 операций GET, HEAD.
+  - [1] 2026-11-01: the free volume is stated in the service documentation | capture: sha256:b7b5435aaa85fd976e702a66adaeacec6d99d6861d0a5575beedafbf915dbc1b | quote: Каждый месяц для любого типа хранилища не тарифицируются первые 10 ТБ исходящего трафика. Каждый месяц в стандартном хранилище не тарифицируются: - первые 15 ГБ объема занятого пространства; - первые 100 000 операций LIST, POST, PUT; - первые 1 000 000 операций GET, HEAD.
+  - [4] 2026-11-01: the marketing page lists a cold panel of 1 000 GB beside the standard 15 GB panel | capture: sha256:a02140edfbb352e9510883df78521a5af2df7c51777a7c6779ce6ecf5b0d9eb8 | quote: Тип хранилища Холодное Объем хранилища 1 000 ГБ
+  - [1] 2026-11-01: 15 GB of standard-class storage is still the free volume | capture: sha256:b7b5435aaa85fd976e702a66adaeacec6d99d6861d0a5575beedafbf915dbc1b | quote: первые 15 ГБ объема занятого пространства
+  - [1] 2026-11-01: the free volume is counted per organisation over the whole storage account, not per bucket | capture: sha256:b7b5435aaa85fd976e702a66adaeacec6d99d6861d0a5575beedafbf915dbc1b | quote: Бесплатный объем ресурсов выделяется в рамках организации и только на хранилище в целом, а не на каждый бакет в отдельности.
+  - [1] 2026-11-01: storage beyond 15 GB in the standard class is billed, so a monthly volume quota is what binds | capture: sha256:b7b5435aaa85fd976e702a66adaeacec6d99d6861d0a5575beedafbf915dbc1b | quote: Если объем занятого пространства в стандартном хранилище превысил 15 ГБ, то последующий объем оплачивается согласно
+  - [1] 2026-11-01: both quotas are counted per organisation over the storage account, not per bucket | capture: sha256:b7b5435aaa85fd976e702a66adaeacec6d99d6861d0a5575beedafbf915dbc1b | quote: Бесплатный объем ресурсов выделяется в рамках организации и только на хранилище в целом, а не на каждый бакет в отдельности.
+  - [3] 2026-11-01: outgoing traffic beyond the free volume costs 1,1712 ₽ per GB per month | capture: sha256:a8e6f70f5f54b61014cbed561f8289e2a1ee5669f71e5271dde5da8cd1b02ab6 | quote: | Исходящий трафик, 1 ГБ | 1,1712 ₽ |
+  - [3] 2026-11-01: storage bills on the largest volume held in the hour, with no minimum duration stated | capture: sha256:a8e6f70f5f54b61014cbed561f8289e2a1ee5669f71e5271dde5da8cd1b02ab6 | quote: Тариф применяется к максимальному показателю занятого объема данных в хранилище за час
+  - [5] 2026-11-01: cold and ice storage bills an object smaller than 128 KB as 128 KB | capture: sha256:9e1ce29f25fe1f7d1cbaf2a61e6a55b4243b0989fcb882dbad5d2198f658b83f | quote: В холодном и ледяном классах выгодно хранить объекты размером от 128 КБ: если размер объекта меньше, при расчете стоимости потребления значение округляется до 128 КБ.
+  - [6] 2026-11-01: the account needs at least 100 ₽ and the 4000 bonus points need a bound bank card | capture: sha256:fe4d8e6f67389c99c690e2fa496f4f6facb61c5ad586ba7aa136435baa22ce3e | quote: 4.2. Обеспечивает наличие на своем лицевом счете минимальной суммы (не менее 100 (Ста) рублей либо Гранта в размере не менее 100 (Ста) Бонусов); физическое лицо также имеет право получить 4000 (Четыре тысячи) Бонусов при условии привязки банковской карты
+  - [1] 2026-11-01: the free volume covers standard-class storage only, apart from the 10 TB of outgoing traffic | capture: sha256:b7b5435aaa85fd976e702a66adaeacec6d99d6861d0a5575beedafbf915dbc1b | quote: Бесплатный объем ресурсов предоставляется бессрочно и действует только для хранилища стандартного класса (за исключением первых 10 ТБ исходящего трафика).
+  - [6] 2026-11-01: the promotion runs to 31 December 2026 | capture: sha256:fe4d8e6f67389c99c690e2fa496f4f6facb61c5ad586ba7aa136435baa22ce3e | quote: 3. Срок действия Акции с «26» декабря 2024 г. до «31» декабря 2026 г. включительно
+  - [1] 2026-11-01: the vendor's own documentation states the free tier and its volumes | capture: sha256:b7b5435aaa85fd976e702a66adaeacec6d99d6861d0a5575beedafbf915dbc1b | quote: В Object Storage есть уровень бесплатного пользования или free tier.
+  - [1] 2026-11-01: the free volume is stated for standard storage only | capture: sha256:b7b5435aaa85fd976e702a66adaeacec6d99d6861d0a5575beedafbf915dbc1b | quote: Каждый месяц в стандартном хранилище не тарифицируются:
+  - [4] 2026-11-01: the marketing page lists an ice panel of 3 000 GB beside the standard and cold panels | capture: sha256:a02140edfbb352e9510883df78521a5af2df7c51777a7c6779ce6ecf5b0d9eb8 | quote: Тип хранилища Ледяное Объем хранилища 3 000 ГБ
+  - [4] 2026-11-01: no resource starts at a zero balance and the smallest top-up is 100 roubles | capture: sha256:a02140edfbb352e9510883df78521a5af2df7c51777a7c6779ce6ecf5b0d9eb8 | quote: Создать любой другой ресурс можно только при положительном балансе — рублевом или бонусном. Минимальная сумма пополнения - 100 рублей
+  - [7] 2026-11-01: the calculator charges every storage class above a single 15 GB free volume | capture: sha256:2762a0ee9523df4a8c30cbba167eb636e1dd8335fae5b97eed334e40999ab5fb | quote: Размер хранилища (бесплатно до 15 ГБ)
+  - [8] 2026-11-01: the free tier applies to standard-class buckets, and a colder class bills at its own tariff | capture: sha256:7efcfd155235b127371f60abd5752ebada7a333c1c60f7e7a4b383ca15d2b0c4 | quote: На бакеты со стандартным классом хранения действует уровень бесплатного пользования.
+  - [6] 2026-11-01: the promotion rules grant only 15 GB of standard storage for object storage | capture: sha256:fe4d8e6f67389c99c690e2fa496f4f6facb61c5ad586ba7aa136435baa22ce3e | quote: - 15 ГБ стандартного хранилища;
+  - [6] 2026-11-01: only parties registered in Russia may take part | capture: sha256:fe4d8e6f67389c99c690e2fa496f4f6facb61c5ad586ba7aa136435baa22ce3e | quote: 2. В Акции имеют право принять участие физические лица, индивидуальные предприниматели и юридические лица, зарегистрированные на территории РФ.
+  - [9] 2026-11-01: an individual registers by phone with an SMS confirmation, or by SberID | capture: sha256:39cceb63a4c4c7dc92b564274b3bfe8b8b5d0f9c6b1828a2ef924b693eb4a869 | quote: 5.3. путем регистрации с помощью номера телефона (с последующим подтверждением по смс-сообщению) и адреса электронной почты.
+  - [6] 2026-11-01: the free volume may be used for an unlimited time from the date of the contract | capture: sha256:fe4d8e6f67389c99c690e2fa496f4f6facb61c5ad586ba7aa136435baa22ce3e | quote: Участник имеет право использовать установленный в п. 4.3 Правил объем услуг [Cloud.ru Evolution](https://cloud.ru/documents/glossary/index?source-platform=Evolution#term-Cloud.ru-Evolution-EVO) в течение неограниченного количества времени с даты заключения [Договора](https://cloud.ru/documents/glossary/index?source-platform=Evolution#term-21).
+  - [6] 2026-11-01: an account that starts no service within 60 days may be dropped from the promotion | capture: sha256:fe4d8e6f67389c99c690e2fa496f4f6facb61c5ad586ba7aa136435baa22ce3e | quote: если в течение 60 (шестидесяти) календарных дней (с даты фактического предоставления услуги) Участник акции не начнет использовать услуги Cloud.ru Evolution, Общество имеет право прекратить его участие в Акции
+  - [6] 2026-11-01: the operator may change the quota sizes at any time during the promotion | capture: sha256:fe4d8e6f67389c99c690e2fa496f4f6facb61c5ad586ba7aa136435baa22ce3e | quote: Размеры/параметры квот указываются в Личном кабинете, и Общество имеет право менять их на протяжении всего срока действия Акции в одностороннем порядке.
+  - [1] 2026-11-01: the free volume is permanent, covers standard-class storage only, and the 10 TB of outgoing traffic is the exception | capture: sha256:b7b5435aaa85fd976e702a66adaeacec6d99d6861d0a5575beedafbf915dbc1b | quote: Бесплатный объем ресурсов предоставляется бессрочно и действует только для хранилища стандартного класса (за исключением первых 10 ТБ исходящего трафика).
+  - [2] 2026-11-02: the vendor's limits table states a maximum object size of 5 TB | capture: sha256:79cd22f7650b23b7ebb4e1d693b2a9dcfef38f4c2e02263506ac10fae5cb806f | quote: | Максимальный размер объекта | 5 ТБ |
+  - [10] 2026-11-02: the size-limitations FAQ states the same 5 TB cap on one object | capture: sha256:fc26ca6e72981d4b816b7efed18b030fb0e947b8b50d579e7b752f1d8dee92da | quote: Максимальный размер одного объекта — 5 ТБ.
+  - [2] 2026-11-02: a bucket's maximum volume can only be set in the console, not through the API | capture: sha256:79cd22f7650b23b7ebb4e1d693b2a9dcfef38f4c2e02263506ac10fae5cb806f | quote: При создании бакета через API ограничить его размер нельзя.
+  - [1] 2026-11-02: 15 GB of standard-class storage, 100 000 write operations, 1 000 000 read operations and the first 10 TB of traffic each month are unchanged | capture: sha256:b7b5435aaa85fd976e702a66adaeacec6d99d6861d0a5575beedafbf915dbc1b | quote: Каждый месяц для любого типа хранилища не тарифицируются первые 10 ТБ исходящего трафика. Каждый месяц в стандартном хранилище не тарифицируются: - первые 15 ГБ объема занятого пространства; - первые 100 000 операций LIST, POST, PUT; - первые 1 000 000 операций GET, HEAD.
+- sources:
+  - [1] https://cloud.ru/docs/s3e/ug/topics/overview__free-tier
+  - [2] https://cloud.ru/docs/s3e/ug/topics/overview__limitations
+  - [3] https://cloud.ru/docs/s3e/ug/topics/pricing
+  - [4] https://cloud.ru/offers/free-tier
+  - [5] https://cloud.ru/docs/s3e/ug/topics/concepts__storage-class
+  - [6] https://cloud.ru/documents/promotions/active/evolution-free-tier
+  - [7] https://cloud.ru/calculator?product=evolutionStorageS3
+  - [8] https://cloud.ru/docs/s3e/ug/topics/guides__bucket-edit
+  - [9] https://cloud.ru/documents/promotions/active/4000-rubles-testing
+  - [10] https://cloud.ru/docs/s3e/ug/topics/faq__file-size-limitations-s3e
+
+## Cloud.ru Evolution Artifact Registry
+
+- `storage/cloud-ru-evolution-artifact-registry` | paid-only | evidence documented | binding volume-quota | category registry
+- identity a placeholder: card and phone unknown | verified 2026-11-03T15:34:57.681Z (live) | stale on 2026-12-04
+- url https://cloud.ru/docs/artifact-registry-evolution/ug/index
+- free tier: none: Artifact Registry has no free tier; the free tier covers Object Storage, Container Apps and Managed BI only | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Egress is billed from 100 GB per month at 1.39995 RUB/GB (VAT incl., 22%); the first 100 GB per month is not billed | metered: yes | free allowance: 100 GB per month
+- identity: email
+- interface: oci, rest
+- limits:
+  - volume-quota (binding): 500 GB of stored space per organisation (initial quota, raisable via technical support) [1]
+  - volume-quota (binding): 1 TB of egress per month per organisation (quota) [1]
+- limits note: 500 GB / 1 TB egress per org by default; storage 0.00268071 RUB/GB-hour (~1.96 RUB/GB/mo); Docker image deletion can take up to 24 h and keeps billing until complete
+- binding note: 500 GB initial stored-space quota per organisation, shared by up to 10 registries; raising it needs a request to technical support
+- interface detail: oci for Docker images and Helm charts; rest management API at https://ar.api.cloud.ru; Deb, RPM, PyPI, NPM and generic registries use their own package-manager protocols (no vocabulary term)
+- tooling: Docker/OCI registry at <registry_name>.cr.cloud.ru, ORAS-compatible; supports Docker, Helm, Deb, RPM, PyPI, NPM and generic artifacts; 10 registries per org
+- composes with: quotas are per organisation and raisable via support ticket, so the multiplication axis is organisations, not registries: 10 registries share one 500 GB pool
+- reliability: Fully metered. 500 GB is a cap, not an allowance; no free tier is documented for this service, so it costs money from the first GB.
+- notes: 500 GB storage quota and 1 TB/month egress quota per organisation. But storage is billed, no free tier.
+- evidence note: the verdict rests on vendor pages read on 2026-11-03: the free tier page lists the services with a free tier (Artifact Registry is not among them), the limitations page quotes the initial stored-space quota, the pricing page quotes the unbilled first part of monthly egress, and the tariff PDF quotes the egress and storage rates
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: 500 GB storage quota and 1 TB/month egress quota per organisation — but storage is billed, no free tier
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Первичная квота на занимаемое пространство составляет 500 ГБ', 'Объем исходящего трафика в месяц составляет 1 ТБ', 'Количество реестров Artifact Registry — 10 реестров на организацию'
+  - [2] 2026-10-21: 'Хранение данных ГБ час 0,00268071' (VAT incl.), egress from 100 GB 1.39995 RUB/GB
+  - [3] 2026-10-21: free tier is enumerated for Object Storage, Container Apps and Managed BI only; Artifact Registry is absent
+  - [3] 2026-11-03: the free tier covers Object Storage, Container Apps and Managed BI; Artifact Registry is not listed | capture: sha256:75e1a945b41e514fac03ba16e07f7bfc8ea65e6dc172cf84f8de444be1196989 | quote: Free tier действует для следующих сервисов:
+  - [3] 2026-11-03: Artifact Registry is not among the services with a free tier | capture: sha256:75e1a945b41e514fac03ba16e07f7bfc8ea65e6dc172cf84f8de444be1196989 | quote: Free tier действует для следующих сервисов:
+  - [4] 2026-11-03: the first 100 GB of egress per month is not billed | capture: sha256:66cbc97d62218889bacf48484c74d33cbe21653192771f57f6280fd5248e56b0 | quote: Первые 100 ГБ в месяц не тарифицируются.
+  - [2] 2026-11-03: egress from 100 GB costs 1.39995 RUB per GB including VAT | capture: sha256:ca8a52a338d996299677f8e9e3c26192c39fe29dce52557160ed0e5f0fd434d1 | quote: Исходящий трафик от 100 ГБ ГБ месяц 1,1475 0,25245 1,39995
+  - [1] 2026-11-03: the initial stored-space quota is 500 GB | capture: sha256:4426106cd4a2a468d2443bfc18b3ec11d8fcc33d6e5c0fbe34ab13d396888e08 | quote: Первичная квота на занимаемое пространство составляет 500 ГБ.
+  - [2] 2026-11-03: storage is billed per GB-hour from the first GB and no free tier lists Artifact Registry | capture: sha256:ca8a52a338d996299677f8e9e3c26192c39fe29dce52557160ed0e5f0fd434d1 | quote: Хранение данных ГБ час 0,0021973 0,00048341 0,00268071
+  - [1] 2026-11-03: the 500 GB stored-space quota and the 1 TB egress quota are unchanged | capture: sha256:4426106cd4a2a468d2443bfc18b3ec11d8fcc33d6e5c0fbe34ab13d396888e08 | quote: Первичная квота на занимаемое пространство составляет 500 ГБ.
+  - [5] 2026-11-03: a public HTTP API endpoint exists at ar.api.cloud.ru for managing the service | capture: sha256:4ad8b3090751a4808f5ccc415be961ef67a4bceb82884d31d818065bd487c3f3 | quote: Чтобы начать работу с API, пройдите аутентификацию и отправьте запрос на эндпоинт https://ar.api.cloud.ru.
+  - [6] 2026-11-03: the service stores Docker images, Helm charts, Deb, RPM and PyPI packages and generic files, so oci alone is incomplete | capture: sha256:357ac4a3ff13f8cc1a8c99264f120d03393e14b85ac78cd008eb859cf9006f0e | quote: Сервис Artifact Registry позволяет хранить и распространять артефакты: Docker-образы, Helm-чарты, Deb-пакеты, RPM-пакеты, PyPI-пакеты и Generic-файлы.
+- sources:
+  - [1] https://cloud.ru/docs/artifact-registry-evolution/ug/topics/overview__limitations
+  - [2] https://cdn.cloud.ru/docs/legal/tariffs/evolution/current-version/artifact-registry.pdf
+  - [3] https://cloud.ru/docs/evolution/overview/topics/free-tier
+  - [4] https://cloud.ru/docs/artifact-registry-evolution/ug/topics/pricing
+  - [5] https://cloud.ru/docs/artifact-registry-evolution/ug/topics/api-ref
+  - [6] https://cloud.ru/docs/artifact-registry-evolution/ug/index
+
+## Cloud.ru Evolution
+
+- `compute/cloud-ru-evolution` | fails-identity | evidence documented | binding volume-quota | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://cloud.ru/docs/billing/ug/topics/concepts__start_grant
+- free tier: RUB 4,000 starter grant credited when the first bank card is attached, valid 60 days, with GPU compute, ML Inference, Foundation Models, GPU notebooks and Container Apps on the exclusion list. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: one-shot-credit
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: card | detail: card: the RUB 4,000 grant is 'credited for the first bank card attached and only for a card never previously attached to any Cloud.ru account', so a card is required to receive it, while 'paid consumption is available without the grant'. No authorisation or hold amount is stated, and whether debit or prepaid is accepted is not stated: unknown. The record's notes add a second gate the evidence rows do not carry: the campaign rules approved 2026-06-30 require the account to be registered in the Russian Federation.
+- interface: rest
+- limits:
+  - volume-quota (binding): The grant lands only on a card never previously attached to any Cloud.ru account, expires in 60 days, and excludes every GPU and ML service, so it buys CPU time only. [1]
+- limits note: The grant lands only on a card never previously attached to any Cloud.ru account, expires in 60 days, and excludes every GPU and ML service, so it buys CPU time only.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: RUB 4,000 at the ruble CPU ladder is a two-month CPU sandbox, and it composes with nothing GPU-shaped because the grant excludes every GPU SKU.
+- reliability: no reliability event recorded
+- notes: The Russian free lane is thin and shrinking: Yandex withdrew its grant, Selectel states in its own FAQ that cloud servers have no free test, Timeweb Cloud has no fixed-length trial, and cloud.ru's RUB 4,000 is the largest general-purpose entry found. VK Cloud's RUB 2,000,000 startup grant needs a legal entity and is a discount schedule rather than credit. The campaign rules approved on 2026-06-30 require the account to be registered in the Russian Federation, and the 2 vCPU / 4 GiB free VM is closed to accounts registered after 2026-06-30. What survives is 25 vCPU-hours a month of Container Apps and the object-storage egress allowance.
+- extras:
+  - facets.class: regional-credit
+  - facets.free_tier_kind: one-shot-credit
+- evidence:
+  - [1] 2026-10-22: the starter grant page states, in Russian, that the Test Evolution starter grant has a face value of 4,000 bonuses, that the bonuses are available for 60 days after they are credited, that the grant is credited for the first bank card attached and only for a card never previously attached to any Cloud.ru account, and that the exclusions include Evolution Compute with GPUs, Evolution ML Inference and Foundation Models
+  - [2] 2026-10-22: the page also states that a user who does not receive the grant on those conditions can sign in through Sber ID or T-ID to check eligibility, and that paid consumption is available without the grant
+- sources:
+  - [1] https://cloud.ru/docs/billing/ug/topics/concepts__start_grant
+  - [2] https://habr.com/ru/articles/987984/
+
+## Cloud.ru Evolution Object Storage (ex-SberCloud)
+
+- `storage/cloud-ru-evolution-object-storage-cheapest-russian-objec` | fails-quota | evidence reported | binding none | category object-storage
+- needs card yes, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://cloud.ru/documents/tariffs/evolution/object-storage
+- price $14.07/TB/mo at both 5 TB and 20 TB (₽1.1346/GiB × 1024 × 0.012111), storage only, egress unpriced/unknown. If egress turns out metered at the Selectel-like ₽1.96/GB this becomes $38/TB/mo total and fails; the figure above is storage-only. | parsed USD 14.07/TB-mo
+- free tier: Single-zone S3 object storage ₽1.1346 per GB per month including 22 % VAT (₽0.93 ex-VAT). Tariff document takes effect 2026-09-28. No volume published. | unit: objects | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Tariff documentation lists a small initial free monthly allowance ('первые не тарифицируются'), with subsequent transfer metered. Egress terms remain unverified. | metered: yes
+- identity: card | detail: card
+- interface: s3-compatible, rclone, cli
+- limits note: The ₽1.1346/GB rate is only for the single-zone class; multi-zone and the cold classes are separately priced and were not captured. Enterprise onboarding (legal entity or individual with Russian card).
+- interface detail: s3
+- tooling: S3-compatible; endpoint class obs.ru-moscow-1.hc.sbercloud.ru answered 403 to an anonymous list (expected for a private bucket API). rclone `s3`, aws-cli.
+- composes with: Per-GB, so 5 TB and 20 TB share the rate.
+- reliability: Cloud.ru is the rebranded SberCloud and is the largest non-hyperscaler Russian cloud; the technical reliability is not in question. The commercial blocker is that tariff documents are PDFs behind a Russian-language portal, prices are VAT-inclusive for Russian entities, and the egress annex could not be read. So the total cost of ownership is unknown even though the storage line is the cheapest Russian object rate found.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Single-zone S3 object storage ₽1.1346 per GB per month including 22 % VAT (₽0.93 ex-VAT). Tariff document takes effect 2026-09-28. No volume published.
+  - dead_end.first_recorded: 2026-10-21
+  - price_verbatim: $14.07/TB/mo at both 5 TB and 20 TB (₽1.1346/GiB × 1024 × 0.012111), storage only, egress unpriced/unknown. If egress turns out metered at the Selectel-like ₽1.96/GB this becomes $38/TB/mo total and fails; the figure above is storage-only.
+- evidence:
+  - [1] 2026-10-21: search result captured the table: «Объектное хранилище S3 Однозонное | ГБ | месяц | 1,1346 | 0,…» with «Вступление в силу: 28 сентября 2026 г.» and «НДС (22%)»
+  - [2] 2026-10-21: probe: curl -o /dev/null -w '%{http_code}' -> 403 (S3 API live, anonymous access refused)
+  - withheld 2026-10-21: 
+- sources:
+  - [1] https://cloud.ru/documents/tariffs/evolution/object-storage
+  - [2] https://obs.ru-moscow-1.hc.sbercloud.ru/

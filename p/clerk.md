@@ -1,0 +1,89 @@
+# Clerk
+
+> clerk.com | Developer services; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/clerk/ | JSON https://fshy.ajam.dev/api/v1/entity/clerk.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Clerk
+
+- `dev-services/clerk` | qualifies-with-caveat | evidence documented | binding write-gated | category hosted user authentication and user management (sign-up, sign-in, sessions, organizations) | tier Hobby
+- needs card no, phone unknown, ID no, institution no | verified 2026-11-02T00:37:55.408Z (live) | stale on 2026-12-03
+- url https://clerk.com/pricing
+- free tier: Hobby: free with no credit card; 50,000 monthly retained users per app, unlimited applications, up to 3 dashboard seats | unit: users | metered on: identity-count | read on: 2026-10-30 | source: [1] | note: A user counts as retained only after signing in again more than 24 hours after sign-up. Above 50,000 retained users on Hobby a one-month grace period applies before an upgrade is needed. Hobby also includes 1,000 API key creations and 100,000 verifications, 2,500 M2M token creations and 100,000 verifications a month, 100 monthly retained organizations per app with up to 20 members each, and 10,000 protection checks a month. SMS codes and multi-factor authentication are not on Hobby. A development instance is capped at 100 users and delivers at most 20 SMS messages and 100 emails a month.
+- per-object cap: user metadata (public, private and unsafe) is limited to 8KB maximum; custom claims copied into the session token should stay under 1.2KB | source: [2] | note: The session token is stored in a cookie that most browsers cap at 4KB; after Clerk's default claims the cookie supports up to 1.2KB of custom claims.
+- retention: Application Logs are kept 1 day on Hobby (7 days on Pro, 30 days on Business) | days: 1 | source: [1] | note: No retention period for user records is stated on the pages read.
+- egress: not applicable: an authentication API; no traffic allowance or egress term is published | metered: no | source: [1]
+- identity: email | detail: The sign-up form asks for an email address and a password, or a GitHub or Google sign-in, and states no credit card is required. The Clerk CLI needs no account to start: signed out, npx clerk@latest init provisions a claimable application, writes dev keys to .env.local, and signing in later claims it. A production instance also needs a domain with DNS records. Whether a later step of the dashboard sign-up asks for a phone number is unverified: behind a sign-up.
+- interface: rest
+- limits:
+  - volume-quota: 50,000 monthly retained users per app [1]
+  - write-gated (binding): a production instance needs a domain the user owns and DNS records on it; a development instance is capped at 100 users [3]
+  - request-rate: Backend API: 100 requests per 10 seconds on a development instance, 1000 requests per 10 seconds on a production instance [4]
+  - request-rate: Frontend API sign-up creation: 5 requests per 10 seconds, limited per IP address [4]
+  - volume-quota: development instance: 20 SMS messages and 100 emails per calendar month [5]
+  - retention-clamped: Application Logs kept 1 day [1]
+  - per-object-cap: user metadata (public, private and unsafe) 8KB maximum [2]
+- limits note: Dashboard seats are capped at 3 on Hobby; the vocabulary has no kind for a seat count.
+- binding note: Without a domain the app stays on a development instance, capped at 100 users and 100 emails a month; with a domain, the 50,000 retained users per app is the ceiling.
+- interface detail: Frontend API for sign-in and sign-up from the browser, rate limited per IP address; Backend API for administrative tasks, called with a secret key at https://api.clerk.com/v1 (a GET /v1/users without a key answered 401); webhooks for data sync; an OAuth 2.0 authorization server and OpenID Connect identity provider on the instance's Frontend API URL (metadata at /.well-known/oauth-authorization-server, user information at /oauth/userinfo).
+- endpoint: part of interface detail
+- tooling: Clerk SDKs and prebuilt sign-in components, the clerk CLI (npx clerk@latest), or any HTTP client against the Backend API with a secret key.
+- composes with: Login and user store for a web app on free hosting; leaving the 100-user development instance needs a domain with DNS records, which pairs with a cheap or free name from domains-dns.
+- reliability: A rate-limited request answers 429 with a Retry-After header; Hobby email support covers billing, registration and abuse queries only.
+- notes: A development instance passes its session token in the querystring, which Clerk states is not secure enough for production use. Pro is USD 25 a month (USD 20 billed annually) and charges USD 0.02 a month per retained user above 50,000 per app.
+- evidence note: Every limit is quoted from first-party pricing, docs and sign-up pages; the Backend API host was probed and answered 401 without a key. A sign-in and a Backend API call on a Hobby instance would move it to measured.
+- evidence:
+  - [1] 2026-10-30: the Hobby plan is free and needs no credit card | capture: sha256:f2a5711e85eb3133fd7620c6cbbde6da8fcca4a496a70a6d6aa501c02d8c1014 | quote: ## Hobby — Free (No credit card required)
+  - [1] 2026-10-30: Hobby is free and Pro is USD 25 a month | capture: sha256:f2a5711e85eb3133fd7620c6cbbde6da8fcca4a496a70a6d6aa501c02d8c1014 | quote: | Price (monthly) | Free | $25/mo | $300/mo | Custom |
+  - [1] 2026-10-30: Pro is USD 20 a month billed annually | capture: sha256:f2a5711e85eb3133fd7620c6cbbde6da8fcca4a496a70a6d6aa501c02d8c1014 | quote: | Price (annual) | Free | $20/mo | $250/mo | Custom (annual only) |
+  - [1] 2026-10-30: Hobby is limited to 50,000 monthly retained users per app | capture: sha256:f2a5711e85eb3133fd7620c6cbbde6da8fcca4a496a70a6d6aa501c02d8c1014 | quote: - 50,000 MRU limit per app
+  - [1] 2026-10-30: Hobby has up to 3 dashboard seats | capture: sha256:f2a5711e85eb3133fd7620c6cbbde6da8fcca4a496a70a6d6aa501c02d8c1014 | quote: - Up to 3 dashboard seats
+  - [1] 2026-10-30: Hobby allows unlimited applications | capture: sha256:f2a5711e85eb3133fd7620c6cbbde6da8fcca4a496a70a6d6aa501c02d8c1014 | quote: - Unlimited applications
+  - [1] 2026-10-30: a user counts only after signing in again after the first 24 hours | capture: sha256:f2a5711e85eb3133fd7620c6cbbde6da8fcca4a496a70a6d6aa501c02d8c1014 | quote: - First Day Free: Users are not counted as active unless they sign in again after their first 24 hours, so a user who signs up and never returns is never billed.
+  - [1] 2026-10-30: exceeding 50,000 retained users on Hobby gives a one-month grace period | capture: sha256:f2a5711e85eb3133fd7620c6cbbde6da8fcca4a496a70a6d6aa501c02d8c1014 | quote: - Grace period: If you exceed 50,000 monthly retained users on Hobby, or 100 monthly retained organizations without the B2B Authentication add-on, you get a one-month grace period to upgrade so your application keeps running.
+  - [1] 2026-10-30: Hobby keeps Application Logs 1 day | capture: sha256:f2a5711e85eb3133fd7620c6cbbde6da8fcca4a496a70a6d6aa501c02d8c1014 | quote: - Application Logs (1 day retention)
+  - [1] 2026-10-30: Application Logs are kept 1, 7 and 30 days on Hobby, Pro and Business | capture: sha256:f2a5711e85eb3133fd7620c6cbbde6da8fcca4a496a70a6d6aa501c02d8c1014 | quote: | 1 day retention | 7 day retention | 30 day retention |
+  - [1] 2026-10-30: Hobby includes 1,000 API key creations, 2,500 M2M token creations and 100,000 verifications of each a month | capture: sha256:f2a5711e85eb3133fd7620c6cbbde6da8fcca4a496a70a6d6aa501c02d8c1014 | quote: - Machine Authentication (API Keys & M2M Tokens limit per month; API Keys: 1,000 creations & 100,000 verifications per month; M2M Tokens: 2,500 creations & 100,000 verifications per month)
+  - [1] 2026-10-30: SMS codes are not available on Hobby | capture: sha256:f2a5711e85eb3133fd7620c6cbbde6da8fcca4a496a70a6d6aa501c02d8c1014 | quote: | SMS codes. Authenticate with a code sent directly to the user's phone via SMS. US and Canada, $0.01 per SMS. International: market rate | No | Per SMS fees apply | Per SMS fees apply |
+  - [1] 2026-10-30: multi-factor authentication is not available on Hobby | capture: sha256:f2a5711e85eb3133fd7620c6cbbde6da8fcca4a496a70a6d6aa501c02d8c1014 | quote: | Multifactor authentication (MFA). Allow users to enable multifactor authentication with authenticator applications, SMS codes, and backup codes. | No | Yes | Yes |
+  - [1] 2026-10-30: 100 monthly retained organizations per app are included | capture: sha256:f2a5711e85eb3133fd7620c6cbbde6da8fcca4a496a70a6d6aa501c02d8c1014 | quote: - 100 MRO included per app
+  - [1] 2026-10-30: an organization has up to 20 members without the add-on | capture: sha256:f2a5711e85eb3133fd7620c6cbbde6da8fcca4a496a70a6d6aa501c02d8c1014 | quote: - Up to 20 members per Organization
+  - [1] 2026-10-30: 10,000 protection checks a month are free | capture: sha256:f2a5711e85eb3133fd7620c6cbbde6da8fcca4a496a70a6d6aa501c02d8c1014 | quote: Usage: 10,000 protection checks free per month, then $0.002 per protection check up to 1,000,000. Basic and advanced protections use protection checks. Brute force prevention doesn't count toward them.
+  - [1] 2026-10-30: Hobby email support covers billing, registration and abuse queries only | capture: sha256:f2a5711e85eb3133fd7620c6cbbde6da8fcca4a496a70a6d6aa501c02d8c1014 | quote: | Email support. 24/7 access to our expert support staff. | Included (Billing, registration, and abuse queries only) | Yes | Priority Email, Support included |
+  - [1] 2026-10-30: Pro charges USD 0.02 a month per retained user above 50,000 | capture: sha256:f2a5711e85eb3133fd7620c6cbbde6da8fcca4a496a70a6d6aa501c02d8c1014 | quote: - 50,000 MRU included per app (Additional $0.02/mo each; volume discounts available)
+  - [4] 2026-10-30: a development instance takes 100 Backend API requests per 10 seconds | capture: sha256:904a833d32102156dab1a03c7fad08341336eba8bf34e1b8f5defcb3bf14132b | quote: | Development instances | | 100 requests per 10 seconds |
+  - [4] 2026-10-30: a production instance takes 1000 Backend API requests per 10 seconds | capture: sha256:904a833d32102156dab1a03c7fad08341336eba8bf34e1b8f5defcb3bf14132b | quote: | Production instances | | 1000 requests per 10 seconds |
+  - [4] 2026-10-30: Frontend API limits apply per IP address | capture: sha256:904a833d32102156dab1a03c7fad08341336eba8bf34e1b8f5defcb3bf14132b | quote: Frontend API requests are rate-limited per user and identified by their IP address.
+  - [4] 2026-10-30: sign-up creation is limited to 5 requests per 10 seconds | capture: sha256:904a833d32102156dab1a03c7fad08341336eba8bf34e1b8f5defcb3bf14132b | quote: /v1/sign\_ups 5 requests per 10 seconds
+  - [4] 2026-10-30: a rate-limited request carries Retry-After | capture: sha256:904a833d32102156dab1a03c7fad08341336eba8bf34e1b8f5defcb3bf14132b | quote: Requests that have been rate limited will receive the `Retry-After` response header, which contains the number of seconds after which the block expires.
+  - [6] 2026-10-30: the sign-up asks for GitHub, Google or an email address and a password, with no credit card | capture: sha256:0b27886fc029704582e1a6a1158ed6f7575bcd5eab2c9d32433ec5eb368e8f89 | quote: # Create your account No credit card required. GitHubGoogle or Email address Password
+  - [7] 2026-10-31: a development instance is capped at 100 users | capture: sha256:2e0bec94f27e94db19c18234de3562ff546dad3b6967a6f9ef70a98386a354ae | quote: - Development instances are capped at 100 users, and user data can not be transferred between instances.
+  - [7] 2026-10-31: the development instance's session handling is not meant for production | capture: sha256:2e0bec94f27e94db19c18234de3562ff546dad3b6967a6f9ef70a98386a354ae | quote: While this enables smooth local development workflows, it is not secure enough for production use.
+  - [7] 2026-10-31: the development instance carries the session token in the querystring | capture: sha256:2e0bec94f27e94db19c18234de3562ff546dad3b6967a6f9ef70a98386a354ae | quote: Including a sensitive value like the client token in a querystring is not a strong security practice
+  - [3] 2026-10-31: a production deployment needs a domain the user owns | capture: sha256:ebdf2e7c5ff8d0d1b26537b031b27c3afd9b668e043fd51b78c48e11b7b5bab2 | quote: 1. You will need to have a domain you own.
+  - [3] 2026-10-31: a production deployment needs DNS records on that domain | capture: sha256:ebdf2e7c5ff8d0d1b26537b031b27c3afd9b668e043fd51b78c48e11b7b5bab2 | quote: 2. You will need to be able to add DNS records on your domain.
+  - [5] 2026-10-31: a development instance delivers at most 20 SMS and 100 emails a month | capture: sha256:138118eede9a5e929fb3e6881a246eee29f0e5041120dc798fbb7ea1b0e4eed8 | quote: If Clerk is used to deliver SMS messages and/or emails for your development instance, a maximum of 20 SMS messages and 100 emails can be delivered per calendar month.
+  - [7] 2026-10-31: a clerk CLI creates applications from the terminal | capture: sha256:2e0bec94f27e94db19c18234de3562ff546dad3b6967a6f9ef70a98386a354ae | quote: run `npx -y clerk@latest apps create "My App Staging"`
+  - [8] 2026-10-31: administrative tasks go through a separate Backend API | capture: sha256:f698021c22e41b08b693e254e598c16e7855e3152e14e4085762a745767fc1dc | quote: These operations are handled by a separate API known as the backend API (BAPI).
+  - [8] 2026-10-31: the Backend API is called with a secret key | capture: sha256:f698021c22e41b08b693e254e598c16e7855e3152e14e4085762a745767fc1dc | quote: To maintain security, these administrative tasks should only be executed on the server side using a secret key inaccessible to your users or the browser.
+  - probe:https://api.clerk.com/v1/users 2026-10-31: api.clerk.com/v1/users answers 401 without a key | capture: sha256:028e621a0c9e176aa5b46896a70c20defc2c91c696a9e1e22fa59abe5bd0af58 | quote: "status": 401
+  - [2] 2026-11-01: Clerk limits metadata to 8KB maximum and recommends keeping a metadata custom claim in the session token under 1.2KB | capture: sha256:979ccdf39eacdf69c9fb104b326babf48233337acfc941dcf88a1b575a27424e | quote: Metadata is limited to 8KB maximum. If you're storing metadata as a custom claim in the session token, it's highly recommended to keep it under 1.2KB.
+  - [2] 2026-11-01: the session token cookie is capped at 4KB by most browsers and supports up to 1.2KB of custom claims | capture: sha256:979ccdf39eacdf69c9fb104b326babf48233337acfc941dcf88a1b575a27424e | quote: Clerk stores the session token in a cookie, and most browsers cap cookie size at [4KB](https://datatracker.ietf.org/doc/html/rfc2109#section-6.3). After accounting for the size of Clerk's default claims, the cookie can support up to 1.2KB of custom claims.
+  - [9] 2026-11-01: the Clerk CLI sets up an application without a Clerk account | capture: sha256:c1381e0da66b5e4a6a8ebe15430ed68a80c7a0b6d1247f77d4bc99ffd8498b8b | quote: `npx -y clerk@latest init` needs no Clerk account.
+  - [9] 2026-11-01: signed out, init provisions a claimable application with dev keys, and signing in later claims it | capture: sha256:c1381e0da66b5e4a6a8ebe15430ed68a80c7a0b6d1247f77d4bc99ffd8498b8b | quote: Signed out, it provisions a claimable application, writes dev keys to `.env.local`, and configures the SDK, provider, middleware, and auth routes. Signing in later claims it.
+  - [10] 2026-11-01: Clerk acts as an OAuth 2.0 authorization server and, for OIDC clients, as their identity provider | capture: sha256:98a58d3f07cd38c6e41ba7de1ec1644a01715908fc58646ebf2791690804b1ee | quote: Clerk can act as an OAuth 2.0 authorization server for third-party clients. When those clients use OIDC for sign-in, Clerk also acts as their IdP, allowing users to authenticate with their Clerk credentials.
+  - [10] 2026-11-01: an OAuth access token retrieves user information from the /oauth/userinfo endpoint of the Frontend API URL | capture: sha256:98a58d3f07cd38c6e41ba7de1ec1644a01715908fc58646ebf2791690804b1ee | quote: you can retrieve additional user information from Clerk's [`/oauth/userinfo`]
+  - [11] 2026-11-01: authorization server metadata is served at /.well-known/oauth-authorization-server on the Frontend API URL | capture: sha256:5909e9d31f963523b919664b61b19e451f6cfc2a4b1e98629456e90fc1d5f99b | quote: You can easily retrieve this metadata by loading your Clerk Frontend API URL with `/.well-known/oauth-authorization-server` appended to it.
+  - [6] 2026-11-01: the dashboard sign-up page asks for GitHub, Google, or an email address and a password, and states no credit card is required | capture: sha256:ce618148a329d5a13315dae0c828938dd630270c84c8dc342ed96742474b7d1e | quote: # Create your account No credit card required. GitHubGoogle or Email address Password
+- sources:
+  - [1] https://clerk.com/pricing
+  - [2] https://clerk.com/docs/guides/users/extending
+  - [3] https://clerk.com/docs/guides/development/deployment/production.md
+  - [4] https://clerk.com/docs/guides/how-clerk-works/system-limits
+  - [5] https://clerk.com/docs/guides/development/testing/test-emails-and-phones.md
+  - [6] https://dashboard.clerk.com/sign-up
+  - [7] https://clerk.com/docs/guides/development/managing-environments.md
+  - [8] https://clerk.com/docs/guides/how-clerk-works/overview.md
+  - [9] https://clerk.com/docs/nextjs/getting-started/quickstart
+  - [10] https://clerk.com/docs/guides/configure/auth-strategies/oauth/single-sign-on
+  - [11] https://clerk.com/docs/guides/configure/auth-strategies/oauth/how-clerk-implements-oauth

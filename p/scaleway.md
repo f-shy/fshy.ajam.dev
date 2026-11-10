@@ -1,0 +1,519 @@
+# Scaleway
+
+> scaleway.com | Email, Inference, Compute, Egress and tunnels, Storage; 11 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/scaleway/ | JSON https://fshy.ajam.dev/api/v1/entity/scaleway.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Scaleway Transactional Email
+
+- `email/scaleway-tem` | qualifies-with-caveat | evidence documented | binding request-rate | category transactional sender
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:20:00.000Z (live) | stale on 2026-11-22
+- url https://www.scaleway.com/en/transactional-email-tem/
+- free tier: 300 emails/month per organisation, 5 domains, then EUR 0.25 per 1,000 | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: 10 recipients per email and 10 attachments, both stated as defaults | source: [2]
+- retention: not stated | source: [2]
+- egress: not applicable: an outbound sender | metered: no | source: [3]
+- identity: email | detail: an account; a card is required to raise the limits
+- interface: rest, cli
+- limits:
+  - request-rate (binding): 300 emails per month per organisation [1]
+  - write-gated: new accounts face stricter initial limits set by support, with no number published [2]
+- limits note: counts of things, not rates, so no vocabulary kind names them: 10 recipients per email and 10 attachments, stated as defaults
+- binding note: 300/month on the pricing page against 10,000/month on the capabilities page; the conservative figure is recorded and the disagreement kept.
+- interface detail: the TEM API and SMTP
+- tooling: curl, any SMTP client
+- composes with: 300/month is the smallest recurring allowance in the set; it composes with a domain and with nothing that needs a month of traffic.
+- reliability: two Scaleway pages state different monthly figures for the same service
+- notes: The disagreement is recorded rather than resolved. The pricing page's 300 carries the 'Free tier' label; the capabilities page's 10,000 is the service default that a paid organisation gets.
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [1] 2026-10-22: '300 per organization (Free tier)' for Transactional Email, then EUR 0.25 per 1,000
+  - [2] 2026-10-22: the service quota table says 10,000 emails/month as the default and that new users face stricter initial limits; the two pages disagree
+- sources:
+  - [1] https://www.scaleway.com/en/pricing/managed-services/
+  - [2] https://www.scaleway.com/en/docs/transactional-email/reference-content/tem-capabilities-and-limits/
+  - [3] https://www.scaleway.com/en/transactional-email-tem/
+
+## Scaleway Generative APIs (serverless)
+
+- `inference/scaleway-generative-apis` | trial-only | evidence documented | binding volume-quota | category inference endpoint, serverless token API
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T05:39:02.537Z (live) | stale on 2026-12-05
+- url https://www.scaleway.com/en/docs/generative-apis/faq/
+- free tier: Free Tier for Serverless: up to 1,000,000 tokens for models billed by tokens and 60 minutes of audio transcription for models billed by audio minutes; billed per million tokens from token 1,000,001 | unit: tokens | metered on: request-count | read on: 2026-10-28 | source: [1] | note: the FAQ and the pricing page state the allowance as a total; whether it renews monthly or is granted once is not stated on either page
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: card | detail: base rate limits apply if a valid payment method is registered and rise automatically after identity verification, quoted from the rate-limits page; whether the free tier can be used before a payment method is registered is not stated
+- interface: rest
+- limits:
+  - volume-quota (binding): 1,000,000 free tokens and 60 minutes of audio transcription in the Free Tier, applied to the most expensive tokens first [1]
+  - request-rate: Per organization, serverless: tokens per minute 200k per model with a payment method validated, rising with identity validation to 400k (gemma-3-27b-it, llama-3.3-70b-instruct), 1 000k (glm-5.2, gpt-oss-120b) or 2 000k (gemma-4-26b-a4b-it, qwen3.5-397b-a17b); requests per minute 300, rising to 600; concurrent requests 100; Batches API has no rate limit [2]
+- binding note: a fixed 1,000,000-token total that is gone after a short run
+- endpoint: https://api.scaleway.ai/v1/chat/completions
+- tooling: any OpenAI-compatible client at https://api.scaleway.ai/v1; Batches API available
+- composes with: Scaleway-hosted open models; the Batches API has no rate limit and a 50 per cent discount, which matters once the free tokens are gone
+- reliability: per-model ceilings are published on the Organization quotas page: 200k tokens per minute and 300 requests per minute per model with a payment method, up to 400k to 2 000k tokens and 600 requests per minute after identity validation; 100 concurrent…
+- notes: the verdict is trial-only because the allowance is stated as a total with no renewal; a monthly renewal would move it to a recurring allowance.
+- evidence note: the allowance is quoted from the FAQ and pricing pages, the payment-method statement from the rate-limits page, and the per-model token, request and concurrency ceilings from the Organization quotas page; whether the free allowance renews is not stated on any page read
+- evidence:
+  - [1] 2026-10-28: Scaleway offers a Free Tier for serverless Generative APIs | capture: sha256:6136f49e9e2ca0316e9bd20ca14eba2b2aa13556ffba4832587934918375530a | quote: There is a Free Tier available for _Serverless_.
+  - [1] 2026-10-28: the Free Tier covers 1,000,000 tokens | capture: sha256:6136f49e9e2ca0316e9bd20ca14eba2b2aa13556ffba4832587934918375530a | quote: - 1,000,000 tokens for models billed by tokens
+  - [1] 2026-10-28: the Free Tier covers 60 minutes of audio transcription | capture: sha256:6136f49e9e2ca0316e9bd20ca14eba2b2aa13556ffba4832587934918375530a | quote: - 60 minutes of audio transcription for models billed by audio minutes
+  - [3] 2026-10-28: pricing page repeats the 1,000,000-token free tier and states where billing starts | capture: sha256:229ea4112de169255d96b7e3413ce47b96d30e66c5d717378596d593e6be034c | quote: You benefit from a free tier on the first 1,000,000 tokens. You'll be charged from token number 1,000,001.
+  - [4] 2026-10-28: rate limits are tied to a registered payment method | capture: sha256:4e57eeb9ede6341b0623363578b53ae446fac804904e3a3ffb0ec21ab35d6d94 | quote: Base limits apply if you registered a valid payment method
+  - [4] 2026-10-28: the Batches API is exempt from the rate limit | capture: sha256:4e57eeb9ede6341b0623363578b53ae446fac804904e3a3ffb0ec21ab35d6d94 | quote: Requests performed through the Batches API do not have a rate limit
+  - [2] 2026-11-03: glm-5.2 has 200k tokens per minute with a payment method and 1 000k with identity validated | capture: sha256:9937e3012500911e6d3dcbb02a734250297491e928b93adf3dbd9a37690828c7 | quote: | glm-5.2 | 200k | 1 000k |
+  - [2] 2026-11-03: 300 requests per minute with a payment method, 600 after identity validation | capture: sha256:9937e3012500911e6d3dcbb02a734250297491e928b93adf3dbd9a37690828c7 | quote: | gemma-4-26b-a4b-it | 300 | 600 |
+  - [2] 2026-11-03: concurrent requests are 100 for all models at both levels | capture: sha256:9937e3012500911e6d3dcbb02a734250297491e928b93adf3dbd9a37690828c7 | quote: | All models | 100 | 100 |
+  - [1] 2026-11-03: the Free Tier is still 1,000,000 tokens; the page states no monthly renewal | capture: sha256:00467d873ccd335e7a744ab2f17c53fc237a4804ff2ba0c1fdf6bd3018c579d3 | quote: 1,000,000 tokens for models billed by tokens
+  - [2] 2026-11-04: the Organization quotas page holds the per-model ceilings | capture: sha256:150f49dbdc5b02ab3f5afcce2e4db6f9171919a3512edad71fefd7527e93e952 | quote: | glm-5.2 | 200k | 1 000k |
+  - probe:https://api.scaleway.ai/v1/chat/completions 2026-11-10: a keyless POST on 2026-11-10 answered HTTP 401 with the vendor's own gate message, so the tier is gated on a key | capture: sha256:857fb7f7475716a322ce2d9b2e1069ae789e928da9429f887f058d1565302851 | quote: "status": 401
+- sources:
+  - [1] https://www.scaleway.com/en/docs/generative-apis/faq/
+  - [2] https://www.scaleway.com/en/docs/organizations-and-projects/organization/organization-quotas/
+  - [3] https://www.scaleway.com/en/pricing/model-as-a-service/
+  - [4] https://www.scaleway.com/en/docs/generative-apis/reference-content/rate-limits/
+
+## Scaleway (2)
+
+- `compute/scaleway-2` | paid-only | evidence documented | binding volume-quota | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://www.scaleway.com/en/pricing/virtual-instances/
+- disagrees on verdict: `compute/scaleway-2` says paid-only, `compute/scaleway-black-friday` says dead
+- free tier: STARDUST1-S: 1 shared vCPU (AMD EPYC 7281 or equivalent), 1 GiB RAM, 100 Mb/s public bandwidth, at EUR 0.0006/hour, about EUR 0.43/month on the vendor's own estimate. Available only in FR-PAR-1, NL-AMS-1 and PL-WAW-2. The page states list prices include egress and IPv6 and exclude storage and attached public IPv4. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 'List prices include egress and IPv6 addresses. Storage (local, block) and attached public IPv4 addresses are excluded', quoted | metered: yes | source: [1]
+- identity: card
+- interface: unknown
+- limits:
+  - volume-quota (binding): the instance is EUR 0.43 a month but block storage is excluded and a public IPv4 is billed separately, so the address and the disk cost more than the compute [1]
+- limits note: the instance is EUR 0.43 a month but block storage is excluded and a public IPv4 is billed separately, so the address and the disk cost more than the compute
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: EUR 0.0006 an hour is the cheapest per-hour x86 among documented hosts, so it is the place to burst a 40-minute job, not the place to leave a service running: the address and the disk dominate a 24/7 month
+- reliability: no reliability event recorded
+- notes: CHANGES an existing record: compute/scaleway holds the entry rung as PLAY2-PICO at EUR 0.01428/h, about EUR 10.42 a month, and has no STARDUST1-S row at all. The live page prices STARDUST1-S at EUR 0.0006/h, 23.8 times cheaper per hour than the rung documented records. The IPv4 figure is uncertain: the network page labels EUR 0.005/hour as 'Additional IP address' while the instances page says attached public IPv4 is excluded, so whether the first address carries that rate is not established by either page. Unverified: an order-form probe showing a first-month total.
+- extras:
+  - facets.class: price-floor
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 1
+- evidence:
+  - [1] 2026-10-22: '| STARDUST1-S | 1 vCPU | 1 GB | 100 Mbps | EUR 0.0006 /HOUR | ~EUR 0.43 /MONTH |', quoted from the Development Instances table
+  - [1] 2026-10-22: 'List prices include egress and IPv6 addresses. Storage (local, block) and attached public IPv4 addresses are excluded', quoted
+  - [2] 2026-10-22: STARDUST1-S: AMD EPYC 7281 or equivalent at 2.1 GHz, 1 shared vCPU, 1 GiB RAM, dynamic local SSD plus block, 100 Mb/s internal and public, available in FR-PAR-1, NL-AMS-1, PL-WAW-2
+  - [3] 2026-10-22: 'Additional IP address | Instance | Type: IPv4 IP per asset - 1 IP | EUR 0.005 /hour'
+- sources:
+  - [1] https://www.scaleway.com/en/pricing/virtual-instances/
+  - [2] https://www.scaleway.com/en/docs/instances/reference-content/instances-datasheet/
+  - [3] https://www.scaleway.com/en/pricing/network/
+
+## Scaleway, STARDUST1-S (Development instances)
+
+- `compute/scaleway-stardust1-s` | paid-only | evidence documented | binding per-ip-shaping | category VPS | tier STARDUST1-S (Development instances)
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T01:56:00.000Z (live) | stale on 2026-11-24
+- url https://www.scaleway.com/en/pricing/virtual-instances/
+- price parsed USD 0.49/mo
+- disagrees on verdict: `compute/scaleway-black-friday` says dead, `compute/scaleway-stardust1-s` says paid-only
+- free tier: no free tier; STARDUST1-S is 'EUR 0.0006 /HOUR ~EUR 0.43 /MONTH' for the instance alone | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the instance persists while it is running or stopped; local storage bills separately at a per-GB-hour rate
+- egress: 'List prices include egress and IPv6 addresses. Storage (local, block) and attached public IPv4 addresses are excluded.' | metered: no | free allowance: egress included | source: [1]
+- identity: card | detail: an account with a payment method.
+- interface: ssh, rest
+- limits:
+  - per-ip-shaping (binding): 100 Mbps bandwidth on STARDUST1-S [1]
+  - volume-quota: a public IPv4 is billed separately at EUR 0.005 an hour, about EUR 3.65 a month [1]
+- binding note: 1 GiB and a 100 Mbps port fail first; the surprise is that a public IPv4 costs more per month than the instance itself.
+- interface detail: root SSH, the Scaleway console, and the Scaleway API/CLI
+- tooling: any SSH client; scw CLI and API
+- composes with: a DNS or monitoring node at under USD 1, never a daily driver: 1 GiB and a 100 Mbps port
+- reliability: no reliability event recorded
+- notes: Every Scaleway rung with 4 GiB or more is at least EUR 14.74 a month, so the provider has nothing among documented hosts above 1 GiB. The trap in the headline is the IPv4: the instance is EUR 0.43 but a public IPv4 is EUR 0.005 an hour, roughly EUR 3.65 a month, so a usable IPv4 machine is about EUR 4.45 plus the 10 GB disk. The distance between the advertised number and the usable number is the reason this row is recorded at all.
+- evidence note: the hourly rate, the monthly approximation, the shape, the bandwidth and the exclusion of storage and IPv4 from the list price are all quoted from the vendor page read.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.disk_gib: 10
+  - billing_model: hourly
+  - term: hourly, no commitment
+  - m10h_usd: 0.2
+  - m24h_usd: 0.49
+  - price_arithmetic: EUR 0.0006/hour x 730 = EUR 0.438/month = USD 0.49 at 1.1193. 10 h/day: EUR 0.0006 x 300 = EUR 0.18 = USD 0.20. Add EUR 0.005/hour for IPv4 = EUR 3.65/month = USD 4.09.
+  - out_of_pocket_usd: 0.49
+  - renewal_usd: 0.49
+  - renewal_note: hourly rate, no contract
+  - promo: no
+  - ipv4_cost_usd_month: 4.09
+  - usable_total_usd_month: 4.58
+  - fx.pair: EUR/USD
+  - fx.rate: 1.1193
+  - fx.date: 2026-10-23
+  - port_mbps: 100
+  - ipv4_included: no
+  - ipv6: yes
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: no
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VM
+- evidence:
+  - [1] 2026-10-24: quoted: 'STARDUST1-S | 1 vCPU | 1 GB | 100 Mbps | EUR 0.0006 /HOUR | ~EUR 0.43 /MONTH'
+  - [1] 2026-10-24: quoted: 'List prices include egress and IPv6 addresses. Storage (local, block) and attached public IPv4 addresses are excluded.'
+  - [1] 2026-10-24: quoted for the 4 GiB rungs: 'DEV1-M | 3 vCPUs | 4 GB | 300 Mbps | EUR 0.0202 /HOUR | ~EUR 14.74 /MONTH' and 'PLAY2-NANO | 2 vCPUs | 4 GB | 200 Mbps | EUR 0.02754 /HOUR | ~EUR 20.10 /MONTH'
+- sources:
+  - [1] https://www.scaleway.com/en/pricing/virtual-instances/
+
+## Scaleway Apple silicon (Mac mini)
+
+- `compute/scaleway-apple-silicon` | paid-only | evidence documented | binding request-rate | category macOS host
+- identity a placeholder: card and phone unknown | verified 2026-10-22T04:47:52.698Z (live) | stale on 2026-11-22
+- url https://www.scaleway.com/en/pricing/apple-silicon/
+- free tier: no free tier: Apple Silicon instances from EUR 75 a month or EUR 0.11 an hour for an M1, up to EUR 335 for an M4 Pro; a private network is EUR 9.99 a month and carries unlimited traffic up to 1 Gbps | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - request-rate (binding): EUR 0.11 an hour for an M1 up to EUR 0.49 for an M4 Pro [1]
+  - per-ip-shaping: a private network is EUR 9.99 a month with unlimited traffic up to 1 Gbps [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the Apple Silicon pricing page was read on 2026-10-22 and states the full chip ladder with monthly and hourly rates. There is no free tier or trial, so the verdict moves to paid-only
+- extras:
+  - keep_rate: 1.0
+  - keep_rate_basis: always-on by contract
+  - billing_model: unclassified
+  - shape.vcpu: 8
+  - shape.gpu_class: Apple M1
+  - shape.gpu_count: 8
+  - shape.note: M1 with 8 CPU cores, 8 GPU cores and a 16-core Neural Engine at 3.2 GHz
+  - session_cap.restart_required: no
+  - session_cap.note: an Apple Silicon instance bills hourly or monthly; the page states no reap
+  - free_tier_kind: none
+  - granularity.min_billed_s: 0
+  - ps.price: storage is listed in the instance row
+  - ps.durability: instance storage
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: while the instance exists
+  - net.out: yes
+  - net.in: yes
+  - net.ports: a private network is a separate line item
+  - net.ipv6: yes
+  - net.allowance: unlimited traffic up to 1 Gbps on the private network
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Apple M1 CPU 8C / GPU 8C / Neural 16C - 3.2Ghz · EUR 75/month, EUR 0.11/hour' through 'Apple M4 Pro CPU 14C / GPU 20C / Neural 16C - 4.5Ghz · EUR 335/month, EUR 0.49/hour', with 'Private Network for Apple silicon · Unlimited traffic. Up to 1 Gbps · EUR 9.99/month', quoted
+- sources:
+  - [1] https://www.scaleway.com/en/pricing/apple-silicon/
+
+## Scaleway GPU instances
+
+- `compute/scaleway-gpu` | paid-only | evidence documented | binding request-rate | category GPU cloud
+- identity a placeholder: card and phone unknown | verified 2026-11-03T08:50:33.435Z (live) | stale on 2026-12-04
+- url https://www.scaleway.com/en/pricing/gpu/
+- free tier: no free tier: pay-as-you-go GPU instances, prices before tax. One GPU per hour: L4 (L4-1-24G, 8 vCPUs, 48 GB RAM) EUR 0.79, about EUR 574.87 per month; L40S (L40S-1-48G, 8 vCPUs, 96 GB RAM) EUR 1.47, about EUR 1,073.01 per month; H100 PCIe (H100-1-80G, 24 vCPUs, 240 GB RAM) EUR 2.87, about EUR 2,092.54 per month. L4 reaches EUR 6.3 per hour at 8 GPUs, about EUR 4,599 per month; H100 SXM starts at 2 GPUs, EUR 6.62 per hour. Billed by the minute. The page lists no A100 and no RTX4090. | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - request-rate (binding): GPU instances are priced per hour with monthly equivalents from about EUR 574.87 for an L4 node [1]
+  - per-object-cap: block storage is billed separately from the GPU instance [1]
+- limits note: Session cap, idle-reap and network policy are not documented. GPU only.
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the GPU pricing page was read on 2026-11-03 and publishes separate per-hour and per-month ladders for L4, L40S, H100 and B300 instances. There is no free tier, so the verdict stays…
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - shape.gpu_class: L4
+  - shape.gpu_count: 1
+  - shape.note: L4 and L40S, with configurations up to 64 vCPU
+  - session_cap.restart_required: no
+  - session_cap.note: a GPU instance bills while it exists; the page states no reap
+  - free_tier_kind: none
+  - ps.price: block storage billed separately
+  - ps.durability: block volume
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: while the volume exists
+  - net.out: yes
+  - net.in: yes
+  - net.ports: any
+  - net.static_ip: yes
+  - net.ipv6: yes
+  - net.allowance: egress included
+- evidence:
+  - [1] 2026-10-02: 
+  - [2] 2026-11-03: the single-GPU H100 PCIe instance is EUR 2.87 per hour | capture: sha256:2260debc11e32960e2cff2c120dbb5cdfb518d43aaf767871bf1949a2a5fe26b | quote: | H100-1-80G | 24 vCPUs | 1 GPU | 240 GB | Block storage& Scratch NVMe | 10 Gbps | €2.87 /HOUR | \~€2,092.54 /MONTH |
+  - [2] 2026-11-03: the single-GPU L4 instance is EUR 0.79 per hour | capture: sha256:2260debc11e32960e2cff2c120dbb5cdfb518d43aaf767871bf1949a2a5fe26b | quote: | L4-1-24G | 8 vCPUs | 1 GPU | 48 GB | Block storage | 2.5 Gbps | €0.79 /HOUR | \~€574.87 /MONTH |
+  - [2] 2026-11-03: the single-GPU L40S instance is EUR 1.47 per hour | capture: sha256:2260debc11e32960e2cff2c120dbb5cdfb518d43aaf767871bf1949a2a5fe26b | quote: | L40S-1-48G | 8 vCPUs | 1 GPU | 96 GB | Block storage& Scratch NVMe | 2.5 Gbps | €1.47 /HOUR | \~€1,073.01 /MONTH |
+  - [3] 2026-11-03: GPU instances are pay-as-you-go and billed by the minute | capture: sha256:02d16d12a02b0df7c0144561e614421759820a36f29d2179c1858678f2e204d0 | quote: We offer a fully transparent "pay-as-you-go" model billed by the minute.
+  - [2] 2026-11-03: the page publishes the L40S ladder with its own hourly and monthly figures | capture: sha256:2260debc11e32960e2cff2c120dbb5cdfb518d43aaf767871bf1949a2a5fe26b | quote: | L40S-1-48G | 8 vCPUs | 1 GPU | 96 GB | Block storage& Scratch NVMe | 2.5 Gbps | €1.47 /HOUR | \~€1,073.01 /MONTH |
+  - [2] 2026-11-03: the L4 ladder starts at EUR 0.79 per hour | capture: sha256:2260debc11e32960e2cff2c120dbb5cdfb518d43aaf767871bf1949a2a5fe26b | quote: | L4-1-24G | 8 vCPUs | 1 GPU | 48 GB | Block storage | 2.5 Gbps | €0.79 /HOUR | \~€574.87 /MONTH |
+- sources:
+  - [1] https://www.scaleway.com/en/pricing/gpu/
+  - [2] https://www.scaleway.com/en/pricing/gpu/?zone=fr-par-2
+  - [3] https://www.scaleway.com/en/h100-sxm/
+
+## Scaleway Instances (Compute)
+
+- `compute/scaleway` | paid-only | evidence documented | binding request-rate | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T03:19:16.612Z (live) | stale on 2026-11-24
+- url https://www.scaleway.com/en/pricing/virtual-instances/
+- price parsed USD 18.67/mo
+- free tier: no free tier: instances from EUR 0.01428 an hour, about EUR 10.42 a month, with egress and IPv6 included in the list price and storage and public IPv4 excluded | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: card | detail: card required before any order can be placed; EUR 1 authorisation, reimbursed within 48 to 72 hours; virtual and pre-paid cards refused in writing; the payment page names only 'credit card', so debit is not stated; a SEPA mandate needs a KYC identity check, a card does not
+- interface: unknown
+- limits:
+  - request-rate (binding): from EUR 0.01428 an hour, about EUR 10.42 a month [1]
+  - per-ip-shaping: egress and IPv6 are included in the list price; a public IPv4 is charged separately [1]
+  - per-object-cap: local and block storage are excluded from the list price and billed on their own [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: Two things are attached to that figure. It is stock-limited, so it is not guaranteed. And the 2 vCPU column is billed at a one-hour minimum, so a burst of thirty-minute starts costs double. This record's identity_cost was 'unverified: email is the assumed value'. It is now documented: a card is mandatory before any order, EUR 1 is authorised and reimbursed in 48 to 72 hours, and virtual and pre-paid cards are refused in writing. Debit is deliberately not claimed: the payment page says 'credit card' and never says debit.
+- evidence note: the virtual-instances pricing page was read on 2026-10-22 and states the ladder and exactly what the list price includes.
+- extras:
+  - keep_rate: 1.0
+  - billing_model: flat-pool
+  - shape.vcpu: 1
+  - shape.note: the entry row; the ladder runs to 96 vCPU
+  - session_cap.restart_required: no
+  - session_cap.note: instances bill hourly or monthly; the page states no reap
+  - price_note: a VPS bills by the month with an hourly rate capped at the monthly figure, so the two columns answer two questions: destroying the box between runs versus keeping it up.
+  - free_tier_kind: none
+  - m10h_usd: 6.89
+  - m24h_usd: 18.67
+  - price_basis: 10 h/day column = 300 h at the hourly rate, which is what a server destroyed between runs costs; 24/7 column = the monthly cap, because a VPS kept up all month stops at the cap.
+  - granularity.min_billed_s: 3600
+  - burst_x: 2.0
+  - burst_bill: min 1 h
+  - shape_mode: stardust (STARDUST1-S)
+  - tiny_m10h_usd: 0.2
+  - tiny_m24h_usd: 0.5
+  - tiny_price_note: USD 0.000683 an hour at the tiny shape, which is 1 vCPU and 1 GiB. At 10 h/day x 30 that is USD 0.20 a month, against USD 6.89 for the 2 vCPU / 4 GiB column, so the same provider is 34 times cheaper at the smaller shape. The rank-1 figure was a shape error, and the shape is stock-limited.
+  - shape_scope_note: It is not an agent sandbox: 1 GiB cannot hold a browser. Scaleway flags it stock-limited, so it is not guaranteed available.
+  - ps.price: local and block storage billed separately
+  - ps.durability: local or block
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: while the volume exists
+  - net.out: yes
+  - net.in: yes
+  - net.ports: any
+  - net.static_ip: yes
+  - net.ipv6: yes
+  - net.allowance: egress included in the list price
+  - benchmark[0].plan: BASIC2-A2C-4G (2 vCPU / 4 GiB, ARM)
+  - benchmark[0].cpu_model: Neoverse-N1
+  - benchmark[0].dedicated_or_shared: shared
+  - benchmark[0].gb6_single: 1092
+  - benchmark[0].gb6_multi: 2015
+  - benchmark[0].gb5_single: 842
+  - benchmark[0].gb5_multi: 1594
+  - benchmark[0].source_url: https://www.vpsbenchmarks.com/yabs/scaleway-2c-4gb-20260116-tg9279
+  - benchmark[0].source_date: 2026-01-16
+  - benchmark[0].rung: reported
+  - benchmark[0].note: Ampere Neoverse-N1. Arm, so its Geekbench 6 score is not comparable to x86 in absolute terms; it is included because Arm may be the target.
+  - payment_methods.card_at_signup: yes
+  - payment_methods.debit: not-stated
+  - payment_methods.prepaid: refused
+  - payment_methods.virtual: refused
+  - payment_methods.hold_amount: EUR 1
+  - payment_methods.hold_detail: authorisation charge, reimbursed within 48 to 72 hours
+  - payment_methods.identity: email and phone; KYC only for a SEPA mandate
+  - payment_methods.source_url: https://www.scaleway.com/en/docs/billing/how-to/add-payment-method/
+  - payment_methods.read_on: 2026-10-24
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-02: STARDUST1-S is 1 vCPU / 1 GiB at USD 0.000683 an hour with a 3,600-second minimum.
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'straightforward pricing without egress fees' and 'List prices include egress and IPv6 addresses. Storage (local, block) and attached public IPv4 addresses are excluded.' with the ladder from 'EUR 0.01428 /HOUR ~EUR 10.42 /MONTH', quoted
+  - [2] 2026-10-24: quoted: 'Before you can order Scaleway resources, you must add a payment method to your account. You can choose between two payment methods: credit card or SEPA mandate. Virtual and pre-paid credit cards are not accepted.'
+  - [2] 2026-10-24: quoted, the hold: 'When you register a new credit card, an authorization charge of €1 is debited from your account. This Authorization Charge is a dummy transaction made to check the validity of the card. The authorization charge will be reimbursed within 48 to 72 hours.'
+  - [3] 2026-10-24: quoted: 'Scaleway charges an authorization amount of €1 and automatically reimburses it within 2 days.' and 'Virtual prepaid cards are not accepted as a payment method.'
+- sources:
+  - [1] https://www.scaleway.com/en/pricing/virtual-instances/
+  - [2] https://www.scaleway.com/en/docs/billing/how-to/add-payment-method/
+  - [3] https://www.scaleway.com/en/docs/account/setup-lifecycle/create-an-account/
+
+## Scaleway Instances (paid)
+
+- `egress/scaleway-instances` | paid-only | evidence documented | binding none | category origin VM (paid instance) | tier paid
+- identity a placeholder: card and phone unknown | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://www.scaleway.com/en/pricing/virtual-instances/
+- price about EUR 10.42 a month for PLAY2-PICO; egress included | parsed USD 11.66/mo
+- free tier: no free tier: PLAY2-PICO is priced at EUR 0.01428 /HOUR, about EUR 10.42 /MONTH, and 'List prices include egress and IPv6 addresses.' | unit: none | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: no monthly figure is published, because egress is bundled: 'List prices include egress and IPv6 addresses. Storage (local, block) and attached public IPv4 addresses are excluded.'; ingress: udp | metered: no | free allowance: none published | source: [1]
+- identity: card | detail: unverified on the page read: the pricing page states the list price and not the signup instrument | country: None
+- interface: ssh
+- limits:
+  - volume-quota: unstated: egress is included in the list price with no published monthly cap, so no quota number exists to fail [1]
+- binding note: nothing in the seven kinds fails at 1 TiB a month, since egress carries no published cap and is priced into the instance; the wall is the invoice, and the public IPv4 is an extra line item on top of the list price
+- interface detail: SSH over the included IPv6 address or the paid public IPv4
+- tooling: wg-quick, nothing vendor-specific
+- composes with: EUR 10.42 a month for egress-included at 100 Mbps, with a free IPv6 address, is the paid floor a free path competes against
+- reliability: no published egress cap; the public IPv4 is billed separately from the instance
+- notes: For a 1 TiB a month path this is the second cheapest comparator found after OVHcloud: EUR 10.42 a month for 100 Mbps with egress inside the price, and an IPv6 address free with the instance so the public IPv4 surcharge can be skipped entirely.
+- evidence note: the bundled-egress line and the PLAY2-PICO price are on the vendor page read; no probe was run because there is no free tier
+- extras:
+  - wg_path: native-conf
+  - wg_detail: an instance is a full Linux VM with an optional public IPv4 and an IPv6 address included, so wg-quick is native over either family
+  - ingress: udp
+  - volume_stated: no monthly figure is published, because egress is bundled: 'List prices include egress and IPv6 addresses. Storage (local, block) and attached public IPv4 addresses are excluded.'
+  - bytes_transit: yes
+  - transit_note: bytes leave through the instance's IPv6 or IPv4 address on Scaleway's network at the plan's 100 Mbps
+- evidence:
+  - [1] 2026-10-23: 'we offer straightforward pricing without egress fees' and 'List prices include egress and IPv6 addresses. Storage (local, block) and attached public IPv4 addresses are excluded.'
+  - [1] 2026-10-23: the PLAY2 range row reads '| PLAY2-PICO | 1 vCPU | 2 GB | 100 Mbps | EUR 0.01428 /HOUR | ~EUR 10.42 /MONTH |'
+- sources:
+  - [1] https://www.scaleway.com/en/pricing/virtual-instances/
+
+## Scaleway Container Registry (public images)
+
+- `storage/scaleway-container-registry` | fails-egress | evidence reported | binding none | category registry
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.scaleway.com/en/container-registry/
+- free tier: Public images are free up to 75 GB of storage; private images are €0.027/GB/month: 'Public images | Free up to 75GB | ... | Free'. The FAQ repeats it verbatim with dated validation ('validation: 2025-08-19'). | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: The registry's own table only covers Scaleway-to-Scaleway traffic: 'Public images | Free up to 75GB | Inter-regional: free - Intra-regional: free', where 'Inter-regional traffic: AMS ↔ PAR, WAW ↔ PAR, or AMS ↔ WAW' and 'Intra-regional traffic: PAR ↔ PAR ..'. EXTERNAL internet egress is simply not mentioned anywhere on the registry FAQ or the containers pricing page. That silence is the finding, not a free grant. Scaleway's account-wide bandwidth meter elsewhere reads 'Egress fees* | 75 GB free every month, then €0.01/GB', with 'Egress fees include external outgoing data transfer and inter-region data transfers'. So the '75 GB free' headline is an Object Storage/everything-else allowance; applying it to registry pulls is an inference, not a quote. Treat registry internet egress as metered-at-€0.01/GB beyond 75 GB/month. Cheap, still a per-GB meter, therefore a fail. | metered: yes | free allowance: 75 GB per month
+- identity: card
+- interface: oci, cli
+- limits note: 75 GB free public-image storage per account; egress 75 GB/month free then €0.01/GB; private images €0.027/GB/month; unlimited versions supported.
+- interface detail: oci
+- tooling: docker/skopeo/ORAS; scw CLI. Registry is Harbor-based.
+- composes with: 75 GB public storage per namespace x N Scaleway accounts/projects; the egress allowance is per account, not per namespace, so egress does not multiply the same way.
+- reliability: Clean and fast EU-hosted service; the egress meter is the failure mode, not reliability.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Public images are free up to 75 GB of storage; private images are €0.027/GB/month: 'Public images | Free up to 75GB | ... | Free'. The FAQ repeats it verbatim with dated validation ('validation: 2025-08-19').
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Public images | Free up to 75GB | Inter-regional: free Intra-regional: free'
+  - [2] 2026-10-21: (validation 2025-08-19) — identical table; 'Inter-regional traffic: AMS ↔ PAR, WAW ↔ PAR, or AMS ↔ WAW'
+  - [3] 2026-10-21: 'Egress * | 75GB free every month then €0.01/GB /MONTH' (account-wide, not registry-specific)
+  - [4] 2026-10-21: GET /v2/scaleway/hello-world/manifests/latest -> 404 (no such public image)
+- sources:
+  - [1] https://www.scaleway.com/en/pricing/containers/
+  - [2] https://www.scaleway.com/en/docs/containers/registry/faq/
+  - [3] https://www.scaleway.com/en/pricing/storage/
+  - [4] https://rg.nl-ams.scw.cloud/v2/
+
+## Scaleway Object Storage — Glacier class
+
+- `storage/scaleway-object-storage-glacier-class` | fails-egress | evidence reported | binding volume-quota | category S3-compatible cold archive class
+- needs card yes, phone no, ID no, institution no | verified 2026-11-02T00:46:52.148Z, checked 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.scaleway.com/en/pricing/storage/
+- price EUR 59.86 per TB-month at the Glacier class in Paris: EUR 0.000082/GB-hour, EUR 0.05986/GB-month | parsed USD 67.05/TB-mo
+- free tier: No free allowance for Glacier: the 750 GB a new account receives over 90 days covers the Standard Multi-AZ and Standard One Zone classes only | unit: none | metered on: stored-bytes | read on: 2026-11-01 | source: [1] | note: the pricing page and the Object Storage FAQ were read on 2026-11-01; the binding constraint is the 75 GB a month of free egress
+- per-object cap: 5 TB per object, with no maximum on the number of objects, and files larger than 1 MB recommended over many small files | source: [1] | note: the 5 TB cap is per object and the number of objects is unlimited; the 1 MB figure is a recommendation about file mix, not a cap
+- retention: the pricing page states no minimum storage duration for the class | source: [1] | note: no retention period is stated on the page; the class is billed by the hour held
+- egress: 75 GB free every month then EUR 0.01/GB (EUR 10/TB) for every class; an object in Glacier is not downloadable until restored, and the restore is billed at EUR 0.009/GB (EUR 9/TB) | metered: yes | price per TB: EUR 10/TB of egress beyond 75 GB a month, plus EUR 9/TB to restore an object out of Glacier
+- identity: card | detail: card
+- interface: s3-compatible, rclone, cli
+- limits:
+  - volume-quota (binding): 75 GB a month of free egress, then EUR 0.01/GB [1]
+- limits note: `retention-clamped` + restore path: objects are listed but not downloadable until restored; restore target is Standard Multi-AZ only (lifecycle rules are top-down, so you cannot restore Glacier -> One Zone); restore start takes minutes to 24 h for objects over 1 MB; default restore window is 1 day and the object is billed at Standard Multi-AZ while restored. Also: "a billable unit started is due, so 1KB for 1 second on Object Storage is billed 1 GB hour".
+- binding note: the free egress allowance of 75 GB a month is a volume quota; the restore gate is not a limits kind
+- interface detail: S3 API
+- tooling: AWS CLI, rclone, all S3 SDKs
+- composes with: Archive leg only. Objects must be restored to Standard Multi-AZ before download.
+- reliability: Hosted in the DC4 fallout shelter, 25 m underground. High physical durability, deliberately slow retrieval path.
+- notes: EUR 59.86 per TB-month for the Glacier class in Paris (EUR 0.05986/GB-month); read-out costs EUR 9/TB of restore plus EUR 10/TB of egress beyond 75 GB a month
+- evidence note: the pricing page and the Object Storage FAQ were read on 2026-11-01, and the class price, its free allowance and its egress terms were taken from them
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: Objects are listed but cannot be downloaded until restored to the Standard Multi-AZ class, and read-out costs EUR 9/TB of restore plus EUR 10/TB of egress beyond 75 GB a month, on a class with no free allowance
+  - dead_end.retry_when: if read-out and restore become free, or the 75 GB a month of free egress grows enough to serve from
+  - dead_end.first_recorded: 2026-10-21
+  - price_verbatim: $2.85/TB at both 5 TB and 20 TB (EUR 2.54 = $2.85), plus EUR 10/TB on anything actually read out.
+- evidence:
+  - [1] 2026-10-21: Glacier EUR 0.0000035/GB/hour = EUR 0.00254/GB/month; Standard Multi-AZ EUR 0.01606/GB/month; Standard One Zone EUR 0.00803/GB/month; Egress "75GB free every month then EUR 0.01/GB /MONTH"
+  - [2] 2026-10-21: restore only Glacier -> Standard Multi-AZ; 750 GB free for 90 days on new accounts (trial, not steady-state)
+  - [3] 2026-10-21: restore Days=NUM, default 1 day, minutes-to-24h to start for objects >1 MB
+  - [1] 2026-11-01: the Glacier class is priced at EUR 0.05986 per GB-month | capture: sha256:bc0f131fd793a743ce6b4d5d4d71587cc31dd7a44e2c0e073e3705b15d3d1d24 | quote: | Glacier | €0.000082/GB /HOUR | €0.05986/GB /MONTH |
+  - [2] 2026-11-01: the 750 GB a new account receives is pooled across the Standard Multi-AZ and Standard One Zone classes | capture: sha256:831535b27d4fbd15ca34c4fbbfbcdf1d6197cd23090bd9e944533a7447997410 | quote: As a new user, you benefit from a total 750 GB of free storage across the
+  - [2] 2026-11-01: the 750 GB is split across the two Standard classes, leaving nothing for Glacier | capture: sha256:831535b27d4fbd15ca34c4fbbfbcdf1d6197cd23090bd9e944533a7447997410 | quote: 750 GB is the total amount of free storage, and can be split as desired between the Standard Multi-AZ and Standard One Zone classes.
+  - [1] 2026-11-01: storage is billed by the gigabyte-hour the bytes are held | capture: sha256:bc0f131fd793a743ce6b4d5d4d71587cc31dd7a44e2c0e073e3705b15d3d1d24 | quote: A billable unit started is due, so 1KB for 1 second on Object Storage is billed 1 GB hour.
+  - [1] 2026-11-01: egress is metered beyond 75 GB a month | capture: sha256:bc0f131fd793a743ce6b4d5d4d71587cc31dd7a44e2c0e073e3705b15d3d1d24 | quote: | Egress * | | 75GB free every month then €0.01/GB /MONTH |
+  - [1] 2026-11-01: a restore out of Glacier is billed at EUR 0.009/GB | capture: sha256:bc0f131fd793a743ce6b4d5d4d71587cc31dd7a44e2c0e073e3705b15d3d1d24 | quote: | Restore from Glacier | €0.009/GB | |
+  - [1] 2026-11-01: 75 GB a month is the free egress allowance that would have to grow | capture: sha256:bc0f131fd793a743ce6b4d5d4d71587cc31dd7a44e2c0e073e3705b15d3d1d24 | quote: | Egress * | | 75GB free every month then €0.01/GB /MONTH |
+  - [1] 2026-11-01: the restore fee out of Glacier is EUR 0.009/GB | capture: sha256:bc0f131fd793a743ce6b4d5d4d71587cc31dd7a44e2c0e073e3705b15d3d1d24 | quote: | Restore from Glacier | €0.009/GB | |
+  - [1] 2026-11-01: a restore costs EUR 0.009/GB, which is EUR 9/TB | capture: sha256:bc0f131fd793a743ce6b4d5d4d71587cc31dd7a44e2c0e073e3705b15d3d1d24 | quote: | Restore from Glacier | €0.009/GB | |
+  - [1] 2026-11-01: the class is priced at EUR 0.05986 per GB-month | capture: sha256:bc0f131fd793a743ce6b4d5d4d71587cc31dd7a44e2c0e073e3705b15d3d1d24 | quote: | Glacier | €0.000082/GB /HOUR | €0.05986/GB /MONTH |
+  - [1] 2026-11-01: free egress is a monthly volume of 75 GB before the meter runs | capture: sha256:bc0f131fd793a743ce6b4d5d4d71587cc31dd7a44e2c0e073e3705b15d3d1d24 | quote: | Egress * | | 75GB free every month then €0.01/GB /MONTH |
+  - [1] 2026-11-01: 75 GB a month of free egress is a volume quota | capture: sha256:bc0f131fd793a743ce6b4d5d4d71587cc31dd7a44e2c0e073e3705b15d3d1d24 | quote: | Egress * | | 75GB free every month then €0.01/GB /MONTH |
+  - [1] 2026-11-01: 75 GB a month is free before egress is billed | capture: sha256:bc0f131fd793a743ce6b4d5d4d71587cc31dd7a44e2c0e073e3705b15d3d1d24 | quote: | Egress * | | 75GB free every month then €0.01/GB /MONTH |
+  - [4] 2026-11-01: the same pricing page stated EUR 0.00254/GB-month on the Wayback capture of 2026-09-24, so the class was repriced after that date | capture: sha256:a72af58f59de63141f4d54d5333572c94618bcd71a70e57fde6e23b815992a5d | quote: | Glacier | €0.0000035/GB /HOUR | €0.00254/GB /MONTH |
+  - [2] 2026-11-01: an object in the class cannot be read until it is restored to the Standard Multi-AZ class | capture: sha256:831535b27d4fbd15ca34c4fbbfbcdf1d6197cd23090bd9e944533a7447997410 | quote: An object stored in the Glacier class is listed but cannot be downloaded instantly. It needs to be restored to the Standard Multi-AZ class first.
+  - [1] 2026-11-01: the pricing page states the free egress allowance and the rate beyond it | capture: sha256:bc0f131fd793a743ce6b4d5d4d71587cc31dd7a44e2c0e073e3705b15d3d1d24 | quote: | Egress * | | 75GB free every month then €0.01/GB /MONTH |
+  - [2] 2026-11-01: the FAQ states what the 750 GB trial covers | capture: sha256:831535b27d4fbd15ca34c4fbbfbcdf1d6197cd23090bd9e944533a7447997410 | quote: As a new user, you benefit from a total 750 GB of free storage across the
+  - [1] 2026-11-01: storage is billed by the hour held, with no minimum duration stated | capture: sha256:bc0f131fd793a743ce6b4d5d4d71587cc31dd7a44e2c0e073e3705b15d3d1d24 | quote: A billable unit started is due, so 1KB for 1 second on Object Storage is billed 1 GB hour.
+  - [1] 2026-11-01: the pricing page was read and carries the current class price | capture: sha256:bc0f131fd793a743ce6b4d5d4d71587cc31dd7a44e2c0e073e3705b15d3d1d24 | quote: | Glacier | €0.000082/GB /HOUR | €0.05986/GB /MONTH |
+  - [1] 2026-11-01: storage is billed by the hour held, with no retention period stated | capture: sha256:bc0f131fd793a743ce6b4d5d4d71587cc31dd7a44e2c0e073e3705b15d3d1d24 | quote: A billable unit started is due, so 1KB for 1 second on Object Storage is billed 1 GB hour.
+  - [2] 2026-11-02: the FAQ states a per-object cap of 5 TB for the Glacier class and no limit on the number of objects | capture: sha256:0ff77cc898ffe95ab3503ffd423d7bd4daaba8aeb0fd55df730c306dff5320a0 | quote: There is no maximum data size. Glacier accepts an unlimited number of objects up to 5 TB each.
+  - [2] 2026-11-02: the 1 MB figure is a recommendation on file mix, separate from the per-object cap | capture: sha256:0ff77cc898ffe95ab3503ffd423d7bd4daaba8aeb0fd55df730c306dff5320a0 | quote: We recommend you use Glacier to store average-sized files (larger than 1 MB), as opposed to several small files.
+  - [2] 2026-11-02: the FAQ recommends files larger than 1 MB for the class instead of many small files, beside the 5 TB cap | capture: sha256:0ff77cc898ffe95ab3503ffd423d7bd4daaba8aeb0fd55df730c306dff5320a0 | quote: We recommend you use Glacier to store average-sized files (larger than 1 MB), as opposed to several small files.
+  - [2] 2026-11-02: the multipart upload specifications of the same page repeat a 5 TB ceiling per object | capture: sha256:0ff77cc898ffe95ab3503ffd423d7bd4daaba8aeb0fd55df730c306dff5320a0 | quote: Each object stores up to 5 TB
+  - [2] 2026-11-02: the per-object cap of the Glacier class is 5 TB and the number of objects is unlimited | capture: sha256:0ff77cc898ffe95ab3503ffd423d7bd4daaba8aeb0fd55df730c306dff5320a0 | quote: There is no maximum data size. Glacier accepts an unlimited number of objects up to 5 TB each.
+- sources:
+  - [1] https://www.scaleway.com/en/pricing/storage/
+  - [2] https://www.scaleway.com/en/docs/object-storage/faq/
+  - [3] https://www.scaleway.com/en/docs/object-storage/how-to/restore-an-object-from-glacier/
+  - [4] https://web.archive.org/web/20260924064732/https://www.scaleway.com/en/pricing/storage/?provider=wayback
+
+## Scaleway (black friday)
+
+- `compute/scaleway-black-friday` | dead | evidence documented | binding volume-quota | category dedicated | tier none; the page states no deals are available
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T06:20:13.000Z (live) | stale on 2026-11-24
+- url https://www.scaleway.com/en/black-friday/
+- disagrees on verdict: `compute/scaleway-2` says paid-only, `compute/scaleway-black-friday` says dead
+- disagrees on verdict: `compute/scaleway-black-friday` says dead, `compute/scaleway-stardust1-s` says paid-only
+- free tier: no offer: the page reads 'No Black Friday deals available. See you in 2026' | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable; no offer is served
+- egress: not applicable; no offer is served | metered: no
+- identity: card | detail: not applicable; no offer is reachable at this URL
+- interface: ssh
+- binding note: There is no cart. The page is a FAQ stub with a sentence saying the deals are gone.
+- interface detail: not applicable
+- tooling: the same as interface detail
+- composes with: Nothing to chain; the page is a placeholder between events.
+- reliability: no reliability event recorded
+- notes: A clean, honest fossil: the page keeps its FAQ so it ranks for the query, and the first line says there are no deals. Nothing further to verify.
+- evidence note: The page was read and the refusal is quoted verbatim.
+- extras:
+  - billing_model: none
+  - term: none
+  - price_arithmetic: no live price on this URL
+  - free_tier_kind: none
+  - session_cap.restart_required: no
+  - session_cap.note: not applicable
+  - sale_page_year: 2025 (the page says 'See you in 2026')
+- evidence:
+  - [1] 2026-10-24: quoted: 'No Black Friday deals available. See you in 2026'; the FAQ below still describes the Dedibox, Elastic Metal and Apple silicon offers, so the page is a leftover stub from the last event
+- sources:
+  - [1] https://www.scaleway.com/en/black-friday/

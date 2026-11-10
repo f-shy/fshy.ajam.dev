@@ -1,0 +1,171 @@
+# Akamai
+
+> akamai.com | Compute, Egress and tunnels, Storage; 4 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/akamai/ | JSON https://fshy.ajam.dev/api/v1/entity/akamai.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Akamai Cloud / Linode
+
+- `compute/linode` | paid-only | evidence documented | binding request-rate | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T03:21:02.824Z (live) | stale on 2026-11-24
+- url https://www.akamai.com/cloud/pricing
+- price parsed USD 24/mo
+- free tier: No English signup credit is published. The pricing FAQ carries only a conditional example: 'For example, if you received a $100 credit for 60 days'. The surviving $100 statement is Japanese-locale meta text on akamai.com/ja/lp/free-trial, and /lp/free-credit-trial/ returns 404 with no archive capture. | unit: mixed | metered on: wall-clock | read on: 2026-10-23 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: card | detail: card required on file; a USD 1 authorisation hold may be placed by the bank when the processor verifies the card; debit accepted; prepaid is not stated on the vendor's own payment page
+- interface: unknown
+- limits:
+  - request-rate (binding): hourly or monthly billing across Dedicated, Shared and High Memory plans; the page does not restate the rates [1]
+  - per-ip-shaping: outbound transfer is included per plan, from 0 to 20 TB a month depending on family; G8 and GPU plans bundle differently [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: The $100 for 60 days cannot be ranked because no English page states it as an offer. A card is mandatory for every account, whether or not a credit is granted. Debit and the USD 1 hold are documented on the vendor's own payment-methods page. Prepaid is deliberately recorded as not stated: a Linode community answer says prepaid cards are accepted, but that is a third-party statement on a forum and no first-party page read says it.
+- evidence note: the pricing pages and the Japanese trial page were read on 2026-10-23; the English $100 offer does not exist as a page | Payment facts re-read on 2026-10-24: the card types, the hold and the identity gate each come from a first-party page quoted in evidence[].
+- extras:
+  - keep_rate: 1.0
+  - billing_model: flat-pool
+  - session_cap.restart_required: no
+  - session_cap.note: an instance bills while it exists; the page states no reap
+  - price_note: a VPS bills by the month with an hourly rate capped at the monthly figure, so the two columns answer two questions: destroying the box between runs versus keeping it up.
+  - free_tier_kind: none
+  - m10h_usd: 10.8
+  - m24h_usd: 24.0
+  - price_basis: 10 h/day column = 300 h at the hourly rate, which is what a server destroyed between runs costs; 24/7 column = the monthly cap, because a VPS kept up all month stops at the cap. Rates re-read on the vendor pricing page on 2026-10-23.
+  - granularity.min_billed_s: 3600
+  - burst_x: 2.0
+  - burst_bill: min 1 h
+  - ps.price: SSD-backed persistent volumes, priced per gigabyte
+  - ps.durability: block volume
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: while the volume exists
+  - net.out: yes
+  - net.in: yes
+  - net.ports: any
+  - net.static_ip: yes
+  - net.ipv6: yes
+  - net.allowance: 0 to 20 TB a month included depending on plan family
+  - payment_methods.card_at_signup: yes
+  - payment_methods.debit: accepted
+  - payment_methods.prepaid: not-stated
+  - payment_methods.virtual: not-stated
+  - payment_methods.hold_amount: USD 1
+  - payment_methods.hold_detail: authorisation hold placed by the bank at card verification
+  - payment_methods.identity: email, username and password; card on file
+  - payment_methods.source_url: https://techdocs.akamai.com/cloud-computing/docs/manage-payment-methods
+  - payment_methods.read_on: 2026-10-24
+- evidence:
+  - [2] 2026-10-23: quoted: Nanode 1 GB $5.00/mo $0.0075/hr; Linode 2 GB $12.00/mo $0.0180/hr; Linode 4 GB $24.00/mo $0.0360/hr
+  - [3] 2026-10-23: 301 to akamai.com/cloud/pricing; no credit on the plan tables
+  - [4] 2026-10-23: 404 on 2026-10-23, no Wayback capture
+  - [5] 2026-10-23: meta description only: '$100 相当の無料クレジット'; the English path is 404
+  - [6] 2026-10-24: quoted: 'Credit card. Pay using all popular credit (and debit) cards, including those issued by Visa, MasterCard, Discover, American Express, and UnionPay.'
+  - [6] 2026-10-24: quoted, the hold: 'When the payment processor verifies your credit card, your bank may place a $1 authorization hold on your account.'
+- sources:
+  - [1] https://www.akamai.com/cloud/pricing
+  - [2] https://www.akamai.com/cloud/pricing/cpu
+  - [3] https://www.linode.com/pricing/
+  - [4] https://www.linode.com/lp/free-credit-trial/
+  - [5] https://www.akamai.com/ja/lp/free-trial
+  - [6] https://techdocs.akamai.com/cloud-computing/docs/manage-payment-methods
+
+## Akamai Prolexic
+
+- `egress/akamai-prolexic` | paid-only | evidence documented | binding write-gated | category L4 anycast and GRE DDoS protection | tier enterprise
+- needs card no, phone no, ID no, institution yes | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://www.akamai.com/products/prolexic-solutions
+- price unpublished (sales contract)
+- free tier: No free tier is published; both the routed and the anycast shapes are contract products. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No volume is published. The service is sold as capacity against an attack profile, not as a byte allowance.; ingress: tcp+udp | metered: no | free allowance: none published | source: [1]
+- identity: institution | detail: A contract; the routed option additionally needs an assigned /24 or larger advertisable block, the ability to advertise via BGP, and GRE support on the origin network hardware. | country: None
+- interface: rest
+- limits:
+  - write-gated (binding): Routed GRE requires an assigned /24 (IPv4) or /48 (IPv6), BGP advertisement and GRE support; the alternative is a contract for IP Protect [1]
+- binding note: The block size and the contract are the gates, not bytes. A client with one rented VM and no prefix can only take the IP Protect shape, which is the anycast product and is still contracted.
+- interface detail: Prolexic IP Protect Configuration API on techdocs.akamai.com/ip-protect, managing mapped IP addresses and policy domains
+- tooling: Prolexic IP Protect Configuration API; otherwise a managed service
+- composes with: IP Protect is the only path that works with a single free VM as origin, and it needs a contract, so it does not chain with anything free
+- reliability: the GRE shape is only for networks that can announce their own prefix; the anycast shape is the only one open to a host without a /24
+- notes: The useful sentence on this page is the one that names the exact situation: 'less than a routable IPv4 /24 ... or cloud-hosting provider'. IP Protect is therefore the only Akamai shape that could apply, and it is contracted. techdocs.akamai.com/ip-protect exists as a configuration API but the welcome page 404s; the API index was reachable and describes mapped IP addresses.
+- evidence note: The /24-BGP-GRE requirement and the IP Protect anycast alternative are quoted from the page read. The IP Protect price, its protocol coverage and its port model are not published and were not read.
+- extras:
+  - wg_path: inside-udp
+  - wg_detail: Prolexic IP Protect routes symmetric traffic through Akamai scrubbing centres by IP anycast, which carries any UDP listener on that address; the routed option uses GRE instead.
+  - ingress: tcp+udp
+  - volume_stated: No volume is published. The service is sold as capacity against an attack profile, not as a byte allowance.
+  - bytes_transit: yes
+  - transit_note: clean traffic is delivered from Akamai scrubbing centres to the origin
+- evidence:
+  - [1] 2026-10-23: For the Prolexic Routed GRE option, you need to have an assigned /24 or larger advertisable network block (IPv4) or /48 (IPv6), the ability to advertise your network traffic via BGP, and support generic routing encapsulation (GRE) with your origin-based network hardware.
+  - [1] 2026-10-23: For customers with less than a routable IPv4 /24 and/or IPv6 /48, fragmented IP space, or cloud-hosting provider, the Prolexic IP Protect option provides the same level of DDoS protection via IP anycast to route symmetric traffic through Akamai scrubbing centers.
+- sources:
+  - [1] https://www.akamai.com/products/prolexic-solutions
+
+## Akamai EdgeWorkers
+
+- `compute/akamai-edgeworkers` | fails-identity | evidence documented | binding write-gated | category cloud VM
+- needs card unknown, phone unknown, ID no, institution yes | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://techdocs.akamai.com/edgeworkers/docs/edgeworkers-free-trial
+- free tier: "Both EdgeWorkers and EdgeKV offer a free pricing tier that enables the full feature list of the product and includes a total of 60 million free events (30 million per product) per month." The access rule: the Evaluation tier needs an existing Akamai contract, and without one the only route is a free trial that Akamai approves. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: perpetual-allowance
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution | detail: institution: 'If you have an active Akamai contract and login credentials for Akamai Control Center you can use these instructions to sign up for the EdgeWorkers Evaluation tier', and without a contract the route is a trial request 'Akamai must approve', with a delivery product such as ION as a prerequisite. No card, hold, phone number or ID document appears in any evidence row: unknown. The previous kind, card, was not supported by the record's evidence.
+- interface: unknown
+- limits:
+  - write-gated (binding): The 60 million events a month is gated on an approval: the Evaluation tier requires an active Akamai contract and Control Center credentials, and the alternative trial is granted by Akamai after a manual sign-up review. [1]
+- limits note: The 60 million events a month is gated on an approval: the Evaluation tier requires an active Akamai contract and Control Center credentials, and the alternative trial is granted by Akamai after a manual sign-up review.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: Nothing without a contract. The 60 million events are real but sit behind a sales relationship, which is the same class as an institutional quota.
+- reliability: no reliability event recorded
+- notes: Classified as fails-identity because the unlimited-time tier needs an existing commercial account, and the reachable substitute is an approval-gated trial. This is the highest headline number in the edge class that is not actually reachable on an email alone, and it is the reason not to put Akamai beside Deno and Val Town in a table.
+- extras:
+  - facets.class: refutation-approval-gated
+  - facets.free_tier_kind: perpetual-allowance
+- evidence:
+  - [2] 2026-10-22: "If you have an active Akamai contract and login credentials for Akamai Control Center you can use these instructions to sign up for the EdgeWorkers Evaluation tier", and the tier has no time limit, quoted
+  - [1] 2026-10-22: without a contract the route is a trial request that Akamai must approve, and a delivery product such as ION is a prerequisite
+  - [3] 2026-10-22: vendor press release states the free tier totals 60 million free events a month, 30 million per product
+- sources:
+  - [1] https://techdocs.akamai.com/edgeworkers/docs/edgeworkers-free-trial
+  - [2] https://techdocs.akamai.com/edgeworkers/docs/add-edgeworkers-to-contract
+  - [3] https://www.akamai.com/newsroom/press-release/-akamai-boosts-edge-application-power--expanding-possibilities-f
+
+## linode / akamai cloud — managed container registry
+
+- `storage/linode-akamai-cloud-managed-container-registry` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.akamai.com/cloud/pricing
+- free tier: none reachable: No managed registry product exists. Akamai's own docs route users to self-hosting Harbor or running a private Docker registry on paid Compute + paid Object Storage; the cloud pricing page… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: not-storage
+  - dead_end.why: No managed registry product exists. Akamai's own docs route users to self-hosting Harbor or running a private Docker registry on paid Compute + paid Object Storage; the cloud pricing page…
+  - dead_end.retry_when: never; it is not storage
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: No managed registry product exists. Akamai's own docs route users to self-hosting Harbor or running a private Docker registry on paid Compute + paid Object Storage; the cloud pricing page…
+  - [2] 2026-10-21: cited as the basis of the rejection: No managed registry product exists. Akamai's own docs route users to self-hosting Harbor or running a private Docker registry on paid Compute + paid Object Storage; the cloud pricing page li
+  - [3] 2026-10-21: cited as the basis of the rejection: No managed registry product exists. Akamai's own docs route users to self-hosting Harbor or running a private Docker registry on paid Compute + paid Object Storage; the cloud pricing page li
+- sources:
+  - [1] https://www.akamai.com/cloud/pricing
+  - [2] https://techdocs.akamai.com/cloud-computing/docs/container-registry
+  - [3] https://techdocs.akamai.com/quick-deploy-apps/docs/harbor

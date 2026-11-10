@@ -1,0 +1,112 @@
+# Anchor Browser
+
+> anchorbrowser.io | Compute, Crawling; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/anchorbrowser/ | JSON https://fshy.ajam.dev/api/v1/entity/anchorbrowser.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Anchor Browser (Compute)
+
+- `compute/anchor-browser` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category browser host
+- needs card no, phone unknown, ID no, institution no | verified 2026-11-06T17:48:23.918Z (live) | stale on 2026-12-07
+- url https://anchorbrowser.io/pricing
+- free tier: Free plan: 5 credits per month, 0.1 credits per completed task, up to 5 concurrent browsers and up to 500 browser sessions | unit: credits | metered on: wall-clock | read on: 2026-10-30 | source: [1] | note: the docs price the Free plan as $5 free credits/month and a task run at 0.1 credits ($0.10), so one credit is USD 1
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email | detail: The keyless route is closed ('Agent Access is temporarily unavailable. Create an API key in the dashboard.'). The sign-up form answers a login wall at https://app.anchorbrowser.io/, so a card and a phone at sign-up are not published; the pricing page lists a Free plan and states no card requirement (https://docs.anchorbrowser.io/pricing). Country: not published at https://anchorbrowser.io/pricing.
+- interface: unknown
+- limits:
+  - request-rate: $0.09 a browser-hour in the worked example [1]
+  - per-ip-shaping (binding): $8.00 a GB of proxy traffic [1]
+  - request-rate: $0.01 a step of agent work [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the plan cards served at https://anchorbrowser.io/pricing list the Free plan's monthly credits, per-task credit and concurrency, all re-read on 2026-10-30; the identity requirement is an email account whose key the dashboard issues, and whether a card is also asked for is unverified
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: the example session is 38 minutes; the page states no automatic cap
+  - free_tier_kind: recurring-credit
+  - burst_x: 1.5984
+  - burst_bill: $0.01 per start
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: the pricing page was read on 2026-10-22 and its worked example bills '10574 sessions × (38 min ÷ 60) × $0.09/hour', plus $8.00 a GB of proxy traffic and $0.01 a step; it publishes no free tier
+  - [1] 2026-10-30: the Free plan includes 5 credits a month, up to 5 concurrent browsers and up to 500 browser sessions | capture: sha256:94f515a5affd7f171d70f6530aa764b6017abb4f3f4d484a85238706c61ff462 | quote: Free - 5 credits per month - 0.1 credits per completed task - Up to 5 concurrent browsers - Up to 500 browser sessions
+  - [2] 2026-10-30: a task run costs 0.1 credits, priced at USD 0.10 | capture: sha256:f5ebee36d9ae9318f9eed86d2b18bda1553b3aefb3b933c1a3e4178f26d05556 | quote: Every run of a task you created from a prompt or a demonstration costs 0.1 credits (\$0.10), whatever the run does inside the browser.
+  - [2] 2026-10-30: the docs pricing table lists the Free plan as USD 5 of free credits a month | capture: sha256:f5ebee36d9ae9318f9eed86d2b18bda1553b3aefb3b933c1a3e4178f26d05556 | quote: $5 free credits/month
+  - [3] 2026-11-04: an account is created at the vendor's site and its dashboard issues the key | capture: sha256:09a39c9a4a378764468332ca390074be4bd24b4d3197c2f7fafc36f8b2b56792 | quote: Sign up at [anchorbrowser.io](https://anchorbrowser.io)
+  - [4] 2026-11-04: the no-account route is closed, so the dashboard account is the way in | capture: sha256:1b426d8f4a20208b6d234d4267972623e997a287e5b41826127d704a9b03b18f | quote: Agent Access is temporarily unavailable. Create an API key in the dashboard.
+  - [5] 2026-11-04: an account is a precondition of the service | capture: sha256:01d18d3c0386097a00ff2705a63f774f15f905ea99adb7ce21051654993bc872 | quote: In order to access the Service, Customer is required to set up an administrative account with Company, by submitting the information requested in the applicable Service interface
+  - [5] 2026-11-06: an administrative account is a precondition of the service | capture: sha256:01d18d3c0386097a00ff2705a63f774f15f905ea99adb7ce21051654993bc872 | quote: In order to access the Service, Customer is required to set up an administrative account with Company, by submitting the information requested in the applicable Service interface
+  - [6] 2026-11-06:  | capture: sha256:b60c187f3217ea5b6866c46323643f5fcc7e188059313ef12f11e3ff317c674e | quote: Email address
+  - [2] 2026-11-06: the Free plan carries $5 of free credits a month | capture: sha256:0b1ba0b0d31b9ee65d0488876174de646e8daf8d48a722c059da3a5f544fd600 | quote: $5 free credits/month
+  - [4] 2026-11-06: the keyless route issues no key, so the dashboard account is the way in | capture: sha256:1b426d8f4a20208b6d234d4267972623e997a287e5b41826127d704a9b03b18f | quote: Agent Access is temporarily unavailable. Create an API key in the dashboard.
+- sources:
+  - [1] https://anchorbrowser.io/pricing
+  - [2] https://docs.anchorbrowser.io/pricing
+  - [3] https://docs.anchorbrowser.io/advanced/mcp-open-source
+  - [4] https://docs.anchorbrowser.io/quickstart/agent-access
+  - [5] https://anchorbrowser.io/saas-terms-05-25-2025
+  - [6] https://anchorbrowser.io/privacy-policy
+
+## Anchor Browser (Crawling)
+
+- `crawler-scraper/anchor-browser` | qualifies-with-caveat | evidence documented | binding request-rate | category headless browser
+- needs card unknown, phone unknown, ID no, institution no | verified 2026-11-02T01:02:34.146Z (live) | stale on 2026-12-03
+- url https://anchorbrowser.io/pricing
+- free tier: 5 credits a month, up to 5 concurrent browsers and up to 500 browser sessions; a task run costs 0.1 credit, and a credit is USD 1.00 of overage, so the allowance is USD 5 a month | unit: mixed | metered on: wall-clock | read on: 2026-10-30 | source: [1] | note: The docs table states USD 5 of free credits a month and the pricing card 5 credits a month; overage is USD 1.00 a credit on every paid plan, so the two figures are one allowance
+- per-object cap: not applicable: the unit is a session | source: [1]
+- retention: 7 days of data retention on the free plan | days: 7 | source: [1]
+- egress: not applicable | metered: no | source: [1]
+- identity: email | detail: an account at signin.anchorbrowser.io, opened with an email address, Google or Microsoft; the first screen of the sign-up form has first name, last name (names not required) and email fields, and the page's configuration turns magic codes off and passwords on; whether the free plan asks for a card or a phone number after that screen is unverified: behind a sign-up
+- interface: rest
+- limits:
+  - request-rate (binding): 5 concurrent browsers and 5 session creations a minute on the free plan [2]
+  - request-rate (binding): 2,000 requests a minute per API key by default on Web Unlocker, a route outside the plan's concurrent-browser limit; higher limits are available on request [3]
+- limits note: unverified: neither the Web Unlocker guide nor the docs plan table says whether the Free plan can call Web Unlocker
+- binding note: 5 session creations a minute and 5 concurrent browsers on the free plan
+- interface detail: REST sessions; raw HTML on the REST path and Markdown only over the browser control protocol
+- tooling: a session model
+- composes with: The Markdown-only-over-CDP split is why it is not a read leg: a plain POST returns HTML
+- reliability: The keyless Agent Access route in the docs answers `Agent Access is disabled` on GET /v1/agent-access and GET /v1/agent-access/challenge, so a key needs a dashboard account
+- notes: The docs price a task run at 0.1 credit (USD 0.10) and overage at USD 1.00 a credit, so the docs' USD 5 and the pricing card's 5 credits are one allowance. Agent Access, the documented keyless key route (1 credit with no identity, 5 with an OIDC token carrying a verified email), answers that it is disabled.
+- evidence note: free tier, session limits and retention read on the vendor's pricing and docs pages
+- evidence:
+  - [4] 2026-10-22: 401 with a 42-byte body `Unauthorized, please log in.`: the route exists and needs a key
+  - [1] 2026-10-30: the Free card lists 5 credits a month, 0.1 credit a completed task, up to 5 concurrent browsers and up to 500 browser sessions; paid plans bill overage at USD 1.00 a credit | capture: sha256:bd773ee3fdb93da75fdaf80e029398cfd51f6e1f8781d7421e035da4837dc98c | quote: Up to 500 browser sessions
+  - [2] 2026-10-30: a credit is priced at USD 1.00 of overage, so USD 5 of free credits and 5 credits are the same allowance | capture: sha256:f5ebee36d9ae9318f9eed86d2b18bda1553b3aefb3b933c1a3e4178f26d05556 | quote: | Overage | - | +\$1.00/credit | +\$1.00/credit | Custom |
+  - [1] 2026-10-30: the pricing page's Free card grants 5 credits every month | capture: sha256:bd773ee3fdb93da75fdaf80e029398cfd51f6e1f8781d7421e035da4837dc98c | quote: 5 credits per month
+  - [2] 2026-10-30: the free plan creates at most 5 sessions a minute; the same table caps it at 5 concurrent browsers | capture: sha256:f5ebee36d9ae9318f9eed86d2b18bda1553b3aefb3b933c1a3e4178f26d05556 | quote: | Session creation rate | 5 per minute | 25 per minute | 100 per minute | 200+ |
+  - [2] 2026-10-30: the docs pricing table states the free plan's concurrent-browser cap | capture: sha256:f5ebee36d9ae9318f9eed86d2b18bda1553b3aefb3b933c1a3e4178f26d05556 | quote: | Concurrent browsers | Up to 5 | Up to 25 | Up to 200 | 500+ |
+  - [2] 2026-10-30: the free plan keeps data 7 days | capture: sha256:f5ebee36d9ae9318f9eed86d2b18bda1553b3aefb3b933c1a3e4178f26d05556 | quote: | Data retention | 7 days | 7 days | Custom | Customizable (ZDR) |
+  - [5] 2026-10-30: the sign-in page offers email, Google and Microsoft as the ways to open an account | capture: sha256:bb2db9c3fd6fc2e912a077684952d6122cada49ee55e718ed1072af2099bd447 | quote: Continue with email
+  - probe:https://api.anchorbrowser.io/v1/agent-access 2026-10-30: GET /v1/agent-access answered 404 with a 36-byte body saying Agent Access is disabled | capture: sha256:0e9e166b0df2e8cb1b78b54e92fc5592796c80b360776a612517846699abf0a8 | quote: {"error":"Agent Access is disabled"}
+  - [6] 2026-10-30: Agent Access grants 1 credit with no identity and 5 credits with an OIDC token carrying a verified email | capture: sha256:fc6186b124b74f376d76713e5eda5e88d7a9a529ece22be01cd4e296ba5756de | quote: OIDC JWT with verified email — 5 credits; we know who you are
+  - [2] 2026-10-30: the free plan's session-creation rate | capture: sha256:f5ebee36d9ae9318f9eed86d2b18bda1553b3aefb3b933c1a3e4178f26d05556 | quote: | Session creation rate | 5 per minute | 25 per minute | 100 per minute | 200+ |
+  - probe:https://api.anchorbrowser.io/v1/agent-access/challenge 2026-10-30: GET /v1/agent-access/challenge answered 404, the documented first step of the keyless key route | capture: sha256:49310afd55d757f32700d5a77299acfc668e88cf31bcfd4909995fc1dd1d8c49 | quote: "status": 404
+  - [7] 2026-10-30: the session-creation reference caps the free plan at 5 sessions a minute | capture: sha256:edc850d8c61efd39191bf076c50a7f1fcaf65905e1e7cdaeb0653a12d277e901 | quote: | Free | 5 |
+  - [2] 2026-10-30: the free plan grants USD 5 of credits a month | capture: sha256:f5ebee36d9ae9318f9eed86d2b18bda1553b3aefb3b933c1a3e4178f26d05556 | quote: | Price | \$5 free credits/month | \$50/month | \$2000/month | Custom |
+  - [3] 2026-11-01: the Web Unlocker guide states a rate limit of 2,000 requests per minute per API key by default, higher on request, and that its concurrency is not tied to the plan's concurrent-browser… | capture: sha256:53063fa7a76fc8b5dc84e284fcde6d44f5980f46c6e7cb4b224395358d5ecb25 | quote: | Rate limit | 2,000 requests per minute per API key by default. Higher limits are available on request. | ... | Concurrency | Not tied to your plan's concurrent-browser limit. |
+  - [3] 2026-11-01: the guide states the Web Unlocker rate and names no plan for the route | capture: sha256:53063fa7a76fc8b5dc84e284fcde6d44f5980f46c6e7cb4b224395358d5ecb25 | quote: | Rate limit | 2,000 requests per minute per API key by default. Higher limits are available on request. |
+  - [2] 2026-11-01: the docs pricing table lists the Free plan at USD 5 of free credits a month, up to 5 concurrent browsers, 5 session creations a minute and 7 days of data retention, with overage at USD 1.00 a credit | capture: sha256:0b1ba0b0d31b9ee65d0488876174de646e8daf8d48a722c059da3a5f544fd600 | quote: | Price | \$5 free credits/month ... | Overage | - | +\$1.00/credit ... | Concurrent browsers | Up to 5 ... | Session creation rate | 5 per minute ... | Data retention | 7 days |
+  - [8] 2026-11-01: the sign-up form takes a first name, a last name and a required email address, with names not required, and the page's configuration turns magic codes off and passwords on | capture: sha256:6865c6c6ea76d684e1fb6d0e5099e7c239e8aa8fcfb4b1d77184853cf2bbaca7 | quote: placeholder="Your first name" ... placeholder="Your last name" ... placeholder="Your email address" required="" ... \"magic_codes\":false,\"password\":true ... \"requireNames\":false
+  - [9] 2026-11-01: the Web Unlocker API reference page states the same per-key rate of 2,000 requests a minute by default | capture: sha256:4a3f86036bf59d95259cbcb4538af162389f650d1047108f41d2cd0450821b0d | quote: Limits: 2,000 requests per minute per API key by default.
+  - [5] 2026-11-01: the sign-in page offers email, Google and Microsoft as the ways in, with a link to the sign-up form | capture: sha256:5e77603752cf2b71215d8fade0b0dfba460bc1d6a9caaee1b51442de96a8cae4 | quote: Continue with email ... Continue with Google ... Continue with Microsoft
+  - [6] 2026-11-01: the Agent Access docs page now states that the keyless route issues no keys and that a key is created in the dashboard | capture: sha256:1b426d8f4a20208b6d234d4267972623e997a287e5b41826127d704a9b03b18f | quote: Agent Access is temporarily unavailable. `/v1/agent-access` does not issue API keys.
+  - probe:https://api.anchorbrowser.io/v1/agent-access/challenge 2026-11-02: GET /v1/agent-access/challenge answered 404 with the same 36-byte body saying Agent Access is disabled | capture: sha256:0e9e166b0df2e8cb1b78b54e92fc5592796c80b360776a612517846699abf0a8 | quote: {"error":"Agent Access is disabled"}
+  - [1] 2026-11-01: the pricing page's Free card lists 5 credits a month, 0.1 credit a completed task, up to 5 concurrent browsers and up to 500 browser sessions, with overage at USD 1.00 a credit on the paid cards | capture: sha256:bd773ee3fdb93da75fdaf80e029398cfd51f6e1f8781d7421e035da4837dc98c | quote: Free - 5 credits per month - 0.1 credits per completed task - Up to 5 concurrent browsers - Up to 500 browser sessions ... +$1.00/credit overage
+  - probe:https://api.anchorbrowser.io/v1/agent-access 2026-11-02: GET /v1/agent-access answered 404 with a 36-byte body saying Agent Access is disabled; the same body answered GET /v1/agent-access/challenge | capture: sha256:0e9e166b0df2e8cb1b78b54e92fc5592796c80b360776a612517846699abf0a8 | quote: {"error":"Agent Access is disabled"}
+- sources:
+  - [1] https://anchorbrowser.io/pricing
+  - [2] https://docs.anchorbrowser.io/pricing
+  - [3] https://docs.anchorbrowser.io/advanced/web-unlocker
+  - [4] https://api.anchorbrowser.io/v1/sessions
+  - [5] https://signin.anchorbrowser.io
+  - [6] https://docs.anchorbrowser.io/quickstart/agent-access
+  - [7] https://docs.anchorbrowser.io/quickstart/browser-sessions
+  - [8] https://signin.anchorbrowser.io/sign-up?redirect_uri=https%3A%2F%2Fapi.anchorbrowser.io%2Fapi%2Flogin%2Fcallback&authorization_session_id=01M6C967YEG8Y50JHQT42NFAGC
+  - [9] https://docs.anchorbrowser.io/api-reference/tools/web-unlocker

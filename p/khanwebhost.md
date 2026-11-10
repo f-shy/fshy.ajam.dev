@@ -1,0 +1,309 @@
+# KhanWebHost
+
+> khanwebhost.com | Compute, Egress and tunnels; 5 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/khanwebhost/ | JSON https://fshy.ajam.dev/api/v1/entity/khanwebhost.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## KhanWebHost (KhanWebHost Limited, dissolved)
+
+- `compute/khanwebhost-fr-256mb-nat-kvm` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category NAT VPS | tier FR 256 MB NAT
+- needs card yes, phone no, ID no, institution no | verified 2026-11-02T02:17:38.786Z (live) | stale on 2026-12-03
+- url https://khanwebhost.com/store/nat-kvm/
+- price parsed USD 0.5/mo
+- disagrees on identity_kind: `compute/khanwebhost` says email, `compute/khanwebhost-fr-256mb-nat-kvm` says card
+- disagrees on verdict: `compute/khanwebhost` says paid-only, `compute/khanwebhost-fr-256mb-nat-kvm` says qualifies-with-caveat
+- free tier: No free tier. FR 256 MB NAT is USD 5.99 a year, printed 'Starting from $5.99 USD Annually', with '71 Available' in stock. Six other 256 to 400 MB tiers are USD 6.99 a year. | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: annual prepay; the store card offers a 'Risk-free for 2 days' refund window, and the vendor's FAQ states crypto payments are non-refundable | source: [1]
+- egress: 1 TB a month on the 256 MB tiers at 1 Gbps, printed '800 GB Bandwidth @1Gbps' on the 256 MB KVM tier and '1 TB @10 Gbps' on the Canada tier | metered: yes | free allowance: 800 GB to 1 TB a month depending on location | source: [1]
+- identity: card | detail: a standard WHMCS checkout. The terms name credit card and PayPal as the payment rails: 'A valid payment method, including credit card or PayPal, is required to process the payment for your Subscription.', and the refund page states 'All cryptocurrency payments are final and non-refundable.', so crypto is accepted as well. Billing information is 'full name, address, state/county, zip/post code, telephone number, and a valid payment method information', and submitting it means 'you automatically authorise KhanWebHost PVT LTD to charge all Subscription fees'. No authorisation hold, and no rule on prepaid or virtual cards, is published at https://khanwebhost.com/tos.php. No national ID requirement is published anywhere read.
+- interface: ssh
+- limits:
+  - volume-quota: 800 GB to 1 TB a month depending on location [1]
+  - per-ip-shaping (binding): 20 usable forwarded ports on the shared IPv4, plus one dedicated IPv6 address [1]
+- binding note: 20 ports is a workable budget, but the binding constraint is that the only legal entity the site names was dissolved in December 2023, so an annual prepay has no company behind it.
+- interface detail: KVM guest with root, NAT IPv4 with 20 usable ports, one dedicated IPv6 address, and TUN/TAP enabled on the LXC line
+- tooling: any SSH client; a WHMCS client area; the vendor publishes a NAT port calculator at natkvm.net/nat-port-calculator.html
+- composes with: the cheapest in-stock machine among evaluated providers at USD 0.4992 a month for 256 MB, with 20 ports and a dedicated IPv6, sold by a company that was dissolved in December 2023 and has kept selling under that name.
+- reliability: the entity named in the site footer, KhanWebHost LTD, was dissolved on 2023-12-26 per Companies House, and the store has sold annual plans under that name since; the store card offers a 2-day refund while the marketing pages state 3 days
+- notes: The product is the cheapest in-stock machine: USD 5.99 a year is USD 0.4992 a month for 256 MB, 5 GB SSD, 800 GB and 20 ports plus a dedicated IPv6, with 71 in stock, and the vendor states in its own FAQ that the 20 ports carry 'both UDP and TCP', which answers the question most rows leave blank. The evidence and the verdict disagree, and the verdict is the weaker of the two. The caveat here is not a caveat, it is the whole risk. What is not established: the checkout fields, the payment rails beyond crypto being accepted, and whether a successor entity exists under a different name - the store names none. A buyer should treat the annual prepay as money at risk. The one thing that would change this verdict is a different named entity, live in a register, on the same checkout.
+- evidence note: price, stock counts, shape, port count, IPv6 and traffic are quoted from the vendor's own store page read; the dissolution is quoted from the Companies House record read. The checkout fields and the payment rails were not established. This record exists to correct a verdict in earlier readings: compute/natkvm-nat-lxc carries the same dissolution evidence and still reads qualifies-with-caveat.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 0.25
+  - shape.disk_gib: 5
+  - billing_model: annual
+  - term: annual
+  - m10h_usd: 0.5
+  - m24h_usd: 0.5
+  - price_arithmetic: USD 5.99 a year / 12 = USD 0.4992 a month. The money out of pocket is USD 5.99 once a year. No conversion needed. VPS billing: the machine bills whether it runs or not, so the 10 h/day and 24/7 figures are identical.
+  - out_of_pocket_usd: 5.99
+  - renewal_usd: USD 5.99 a year; no separate renewal price published
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: 20 usable forwarded ports on the shared IPv4, plus one dedicated IPv6 address reachable on standard ports
+  - network_out.static_ip: no
+  - network_out.ipv6: yes
+  - udp: stated: the vendor's own FAQ reads 'All 20 assigned NAT IPv4 forwarded ports support both UDP and TCP protocols. This makes our servers 100% compatible with WireGuard, OpenVPN, Shadowsocks, V2Ray, DNS resolvers, gaming servers, and VoIP applications.'
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - payment_rails: credit card and PayPal, named in the terms as the required payment method; crypto is also accepted, and the refund page states 'All cryptocurrency payments are final and non-refundable.'
+  - card_hold: not published: no authorisation amount appears on the terms page or the refund page; the terms require a valid payment method and authorise charging subscription fees to it
+  - checkout_fields: not established: the cart route resolved but did not render the priced line item
+  - stock: 71 Available on FR 256 MB NAT, read from the store page on 2026-10-24; sibling tiers range from 14 to 65 in stock
+  - cart_works: unknown
+  - product_url: https://khanwebhost.com/store/nat-kvm/
+  - signup_url: https://khanwebhost.com/register.php
+  - cart_url_note: the order buttons target cart.php?a=add&pid=<id>&billingcycle=annually; the route for pid 815 returned HTTP 200 with the title 'Shopping Cart - KhanWebHost LTD' and no out-of-stock marker, but it did not render the priced line, so the cart was never seen to price the plan.
+  - other_plans: SG 400MB NAT USD 6.99 with 45 in stock; India 256MB NAT USD 6.99 with 55; Canada NAT 256MB USD 6.99 with 65; UK 256 MB NAT USD 6.99 with 14; Turkey 256MB NAT USD 6.99 with 27; NAT 300 MB RAM USD 6.99 with 50; 512 MB NAT VPS KVM USD 9.99 with 48; 1024 MB NAT VPS KVM USD 13.99 with 49. Monthly-billed tiers also exist at USD 1.30, 1.90, 2.30 and 5.00 with no stock marker.
+- evidence:
+  - [1] 2026-10-24: quoted plan: 'FR 256 MB NAT 71 Available Starting from $5.99 USD Annually' with the spec block '1 vCPU, 256 MB Memory, 5 GB SSD Storage, 800 GB Bandwidth @1Gbps, NAT IPV4 (20 usable ports), 1 Dedicated IPV6'
+  - [1] 2026-10-24: quoted sibling tiers and their stock: 'SG 400MB NAT 45 Available ... $6.99 USD Annually', 'India 256MB NAT 55 Available ... $6.99', 'Canada NAT 256MB 65 Available ... $6.99', 'UK 256 MB NAT 14 Available ... $6.99', 'Turkey 256MB NAT 27 Available ... $6.99', 'NAT 300 MB RAM 50 Available ... $6.99'
+  - [1] 2026-10-24: 
+  - [2] 2026-10-24: quoted: 'KHAN WEB HOST LTD', 'Company number 13550380', 'Company status Dissolved', 'Dissolved on 26 December 2023', 'Incorporated on 5 August 2021', registered office 'PO Box 4385, 13550380 - COMPANIES HOUSE DEFAULT ADDRESS, Cardiff, CF14 8LH', SIC '63120 - Web portals'
+  - [3] 2026-10-24: the cart route resolved to the store rather than refusing: HTTP 200, title 'Shopping Cart - KhanWebHost LTD', and no 'Out of Stock' marker. It did not render the priced line item either, so the cart was not seen to price the plan.
+  - [4] 2026-10-24: quoted vendor FAQ: 'All 20 assigned NAT IPv4 forwarded ports support both UDP and TCP protocols.' and 'Every single plan includes 1 Dedicated native IPv6 address. You can connect directly over IPv6 on standard ports (such as port 22, 80, 443) without any port forwarding restrictions.'
+  - [5] 2026-11-02: the terms require a valid payment method and name credit card and PayPal, with no hold and no prepaid-card rule | capture: sha256:4d338f871ef9f974805b497a0820933482a9975f581ff8f7ce84626f2c7604a2 | quote: A valid payment method, including credit card or PayPal, is required to process the payment for your Subscription.
+  - [5] 2026-11-02: submitting a payment instrument authorises charging subscription fees to it, which is a charge and not a verification | capture: sha256:4d338f871ef9f974805b497a0820933482a9975f581ff8f7ce84626f2c7604a2 | quote: you automatically authorise KhanWebHost PVT LTD to charge all Subscription fees incurred through your account to any such payment instruments.
+  - [5] 2026-11-02: the billing fields the terms require include a telephone number | capture: sha256:4d338f871ef9f974805b497a0820933482a9975f581ff8f7ce84626f2c7604a2 | quote: including full name, address, state/county, zip/post code, telephone number, and a valid payment method information
+  - [6] 2026-11-02: crypto is an accepted rail and is non-refundable | capture: sha256:a1830f1fef806cbce3faea3b312650a597c566c75d5fafe97d4c761567c05281 | quote: All cryptocurrency payments are final and non-refundable.
+  - [5] 2026-11-02: the terms describe a charge to the payment method and state no authorisation amount | capture: sha256:4d338f871ef9f974805b497a0820933482a9975f581ff8f7ce84626f2c7604a2 | quote: A valid payment method, including credit card or PayPal, is required to process the payment for your Subscription.
+  - [6] 2026-11-02: the refund page names crypto as an accepted rail and makes it non-refundable | capture: sha256:a1830f1fef806cbce3faea3b312650a597c566c75d5fafe97d4c761567c05281 | quote: All cryptocurrency payments are final and non-refundable.
+  - [5] 2026-11-02: the payment clause is unchanged: card or PayPal, no hold and no prepaid-card rule | capture: sha256:4d338f871ef9f974805b497a0820933482a9975f581ff8f7ce84626f2c7604a2 | quote: A valid payment method, including credit card or PayPal, is required to process the payment for your Subscription.
+- sources:
+  - [1] https://khanwebhost.com/store/nat-kvm/
+  - [2] https://find-and-update.company-information.service.gov.uk/company/13550380
+  - [3] https://khanwebhost.com/cart.php?a=add&pid=815&billingcycle=annually
+  - [4] https://natkvm.net/natvps.html
+  - [5] https://khanwebhost.com/tos.php
+  - [6] https://khanwebhost.com/knowledgebase/21/How-can-I-receive-a-refund-or-cancel.html
+
+## NATKVM (KhanWebHost Limited)
+
+- `compute/natkvm-nat-lxc` | qualifies-with-caveat | evidence documented | binding volume-quota | category NAT VPS | tier NL 256MB NAT (the vendor's annual floor)
+- needs card yes, phone no, ID no, institution no | verified 2026-11-02T02:17:38.788Z (live) | stale on 2026-12-03
+- url https://khanwebhost.com/store/ovz-nat-vps
+- price parsed USD 0.42/mo
+- free tier: no free tier; the LXC NAT line starts at USD 5.50 a year | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the container persists while the term is paid; the vendor sells in annual terms and publishes no deletion clock | source: [2] | note: annual billing only on the plans read; no monthly cycle was shown
+- egress: 800 GB a month on the 256 MB tier, resetting on the 1st, on a 1 Gbit/s or 10 Gbit/s port depending on location | metered: yes | free allowance: 800 GB a month | source: [2]
+- identity: card | detail: no card hold is published: neither the terms page nor the refund page states an authorisation amount. A card and PayPal are the rails the terms name, and crypto is accepted: 'All cryptocurrency payments are final and non-refundable.' The terms authorise charging subscription fees to the payment instrument on file. Whether a prepaid or virtual card passes is not published at https://khanwebhost.com/tos.php. Refund is a 72-hour window per the refund page: 'We offer a 72-hour refund window for eligible services.'
+- interface: ssh
+- limits:
+  - volume-quota (binding): 800 GB a month of transfer on the 256 MB tier [2]
+  - per-ip-shaping: 20 forwarded ports on a shared IPv4; the external port maps to the same port inside the container [3]
+  - per-object-cap: 5 GB of SSD [2]
+- binding note: 800 GB a month is the first thing a tunnel carrying real traffic exhausts; the 20 ports and the 256 MB of RAM are not close to binding for WireGuard.
+- interface detail: root SSH on a forwarded port of the shared IPv4, plus direct SSH over the dedicated IPv6 on port 22
+- tooling: any SSH client; the vendor publishes a NAT port calculator that returns the assigned SSH port and the 20-port range
+- composes with: the cheapest verified machine among documented hosts that can hold a WireGuard listen socket on a forwarded UDP port
+- reliability: the only legal entity the site names, KhanWebHost Limited, company number 13550380, was dissolved on 2023-12-26 and the site has sold under that number since; two public refund refusals on annual plans; a report of near-daily network outages; and a June 2024 thread in which UDP was blocked by default on the NAT ports
+- notes: Store listings offer annual pricing starting from USD 4.99 to USD 5.50 a year for 256MB to 512MB NAT containers with 20 NAT ports, TUN/TAP support, one IPv6 address, and 800 GB transfer. Companies House records indicate the operating entity (KHAN WEB HOST LTD, company number 13550380) was dissolved on 26 December 2023. User reports document recurring network outages and restrictive refund policies.
+- evidence note: price, shape, port count, IPv6 and traffic are quoted from the vendor pages read; identity and payment method are not; the UDP claim is the vendor's, and the two first-hand reports that contradict it are dated June 2024 and have not been re-tested
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 0.25
+  - shape.disk_gib: 5
+  - billing_model: annual
+  - term: annual prepay
+  - m10h_usd: 0.42
+  - m24h_usd: 0.42
+  - price_arithmetic: USD 4.99 a year / 12 = USD 0.4158 a month, rounded to 0.42. The LXC 256 MB NAT rung is USD 5.50 a year = USD 0.4583 a month.
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: 20 forwarded ports on a shared IPv4, both TCP and UDP, plus unrestricted inbound on the dedicated IPv6
+  - network_out.static_ip: no
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a container
+  - ipv6_prefix: 1 dedicated native IPv6 address on every plan; the /64 or /80 prefix width is not stated on the pages read
+  - renewal_usd: USD 5.50 a year
+  - renewal_note: the store sells annual terms only and publishes no separate renewal price; the same annual charge is the renewal
+  - floor_usd: 4.99
+  - lxc_rung_usd: 5.5
+  - benchmark[0].plan: Ryzen 9 5900X slice (1 vCPU)
+  - benchmark[0].cpu_model: AMD Ryzen 9 5900X
+  - benchmark[0].dedicated_or_shared: not stated
+  - benchmark[0].source_url: https://www.lowendspirit.com/discussion/6006/natkvm-net-amd-ryzen-9-5900x-slice-in-just-7-year-turkey-free-vms
+  - benchmark[0].source_date: unknown
+  - benchmark[0].rung: reported
+  - benchmark[0].note: Geekbench 5 only: 813 single / 773 multi. The discussion page did not load; the numbers are from the search result snippet and are unverified beyond that.
+  - benchmark_note: the numbers came from a search-result snippet; the discussion page did not load, so treat 813/773 as reported once and unverified twice
+  - payment_rails: credit card and PayPal per the terms, plus crypto, which the refund page states is non-refundable; no authorisation hold is published
+  - renewal_evidence: khanwebhost.com/tos.php section 'SUBSCRIPTIONS'
+  - trading_status: still trading: the store page returned 200 with live stock counts and working order buttons, a host-representative offers post is dated 2026-10-12 and a customer review dated 2026-10-23 describes a completed purchase and a migration
+  - domain.registered: 2016-11-28
+  - domain.expires: 2026-11-28
+  - domain.last_changed: 2025-11-25
+  - domain.source: https://rdap.verisign.com/com/v1/domain/khanwebhost.com
+  - udp: claimed by the vendor and contradicted by users. natkvm.net states 'All 20 usable ports support both UDP and TCP protocols out-of-the-box', while a LowEndSpirit thread of June 2024 has two separate users reporting that UDP is blocked by default on this host and needs a support ticket, and the original poster could not get WireGuard up on a forwarded port at all.
+  - card_hold: not published: no authorisation amount appears on the terms page or the refund page, which state a required payment method and a charge to it
+- evidence:
+  - [1] 2026-10-24: quoted: 'LXC NAT VPS (8 locations from $5.50/yr)' and 'All NAT servers feature 20 usable ports with full UDP & TCP forwarding.'
+  - [3] 2026-10-24: quoted: 'All 20 assigned NAT IPv4 forwarded ports support both UDP and TCP protocols. This makes our servers 100% compatible with WireGuard, OpenVPN, Shadowsocks, V2Ray, DNS resolvers, gaming servers, and VoIP applications.'
+  - [2] 2026-10-24: quoted plan spec: '1 vCPU, 256 MB Memory, 5 GB SSD Storage, 800 GB Bandwidth, NAT IPV4 (20 usable ports), 1 Dedicated IPV6, TUN/TAP Enabled'
+  - [3] 2026-10-24: quoted: 'Every single plan includes 1 Dedicated native IPv6 address. You can connect directly over IPv6 on standard ports (such as port 22, 80, 443) without any port forwarding restrictions.'
+  - [4] 2026-10-24: quoted: NL 256MB NAT 'Starting from' USD 4.99 annually, with 'NAT IPv4 (20 usable ports)' and 'All 20 assigned NAT IPv4 forwarded ports support both UDP and TCP protocols'
+  - [5] 2026-10-24: quoted: Company status 'Dissolved', 'Dissolved on 26 December 2023', 'Incorporated on 5 August 2021' for KHAN WEB HOST LTD, company number 13550380
+  - [6] 2026-10-24: reported 2026-01: NAT rules not applied on delivery, SSH exposed on port 22, a ticket unanswered, and a refund denied inside the 48-hour window because the order was paid in crypto
+  - [7] 2026-10-24: quoted: 'At the end of each Billing Cycle, your Subscription will automatically renew under the exact same conditions.'
+  - [7] 2026-10-24: quoted: 'KhanWebHost PVT LTD, in its sole discretion and at any time, may modify the Subscription fees for the Subscriptions. Any Subscription fee change will become effective at the end of the then-current Billing Cycle.'
+  - [7] 2026-10-24: quoted: 'KhanWebHost PVT LTD will provide you with a reasonable prior notice of any change in Subscription fees to give you an opportunity to terminate your Subscription before such change becomes effective.'
+  - [8] 2026-10-24: quoted: 'KhanWebHost PVT LTD is a privately owned company based out of Pakistan' and 'We have been in business since 2016'
+  - [2] 2026-10-24: the NL 256MB NAT rung still reads 'Starting from $4.99 USD Annually'
+  - [9] 2026-10-24: reported: an offers post by a vendor rep dated 2026-10-12 sells 'NAT VPS $5.50/year' across seven locations, so orders were being taken 10 days before this read
+  - [10] 2026-10-24: reported: a review dated '23 Oct, 2026' reads 'I purchased a 256MB NAT VPS from KhanWebHost. Asad kindly helped me migrate my VPS from Hong Kong to Japan upon request.', so an order placed days before this read was fulfilled
+  - [11] 2026-10-24: quoted RDAP: registration 2016-11-28T16:00:19Z, expiration 2026-11-28T16:00:19Z, last changed 2025-11-25T18:05:17Z
+  - [12] 2026-10-24: reported, June 2024. 'nick_' writes: 'Iirc, wireguard requires UDP only and UDP ports are blocked by default by KWH. I used OpenVPN and I had to send in a ticket to request unblocking UDP ports.' The thread's opening post is a user who 'can't get it to work even though I set the WG port to the one that was forwarded'.
+  - [12] 2026-10-24: reported, June 2024. 'SocksAreComfortable' writes: 'I have it working one two nodes, but I had to put a ticket in for one of them. Not sure what it was that he changed, some backend thing needed doing and it started working right away after that.' and 'sh97' writes: 'They have some weird filtering going on, so need to open a ticket with them to get it working.'
+  - [13] 2026-11-02: crypto is an accepted rail; the same page sets the 72-hour refund window and states no hold | capture: sha256:a1830f1fef806cbce3faea3b312650a597c566c75d5fafe97d4c761567c05281 | quote: All cryptocurrency payments are final and non-refundable.
+  - [7] 2026-11-02: the terms name credit card and PayPal as the payment method and state no authorisation amount | capture: sha256:4d338f871ef9f974805b497a0820933482a9975f581ff8f7ce84626f2c7604a2 | quote: A valid payment method, including credit card or PayPal, is required to process the payment for your Subscription.
+  - [13] 2026-11-02: the refund window is 72 hours, not the 2 or 3 days the store card and marketing pages print | capture: sha256:a1830f1fef806cbce3faea3b312650a597c566c75d5fafe97d4c761567c05281 | quote: We offer a 72-hour refund window for eligible services.
+  - [7] 2026-11-02: the terms describe a charge to the instrument and state no authorisation amount | capture: sha256:4d338f871ef9f974805b497a0820933482a9975f581ff8f7ce84626f2c7604a2 | quote: you automatically authorise KhanWebHost PVT LTD to charge all Subscription fees incurred through your account to any such payment instruments.
+  - [13] 2026-11-02: crypto is an accepted rail and is non-refundable | capture: sha256:a1830f1fef806cbce3faea3b312650a597c566c75d5fafe97d4c761567c05281 | quote: All cryptocurrency payments are final and non-refundable.
+  - [13] 2026-11-02: the refund page still states the 72-hour window and the non-refundable crypto rule | capture: sha256:a1830f1fef806cbce3faea3b312650a597c566c75d5fafe97d4c761567c05281 | quote: We offer a 72-hour refund window for eligible services.
+- sources:
+  - [1] https://natkvm.net/
+  - [2] https://khanwebhost.com/store/ovz-nat-vps
+  - [3] https://natkvm.net/natvps.html
+  - [4] https://natkvm.net/store/ovz-nat-vps
+  - [5] https://find-and-update.company-information.service.gov.uk/company/13550380
+  - [6] https://lowendtalk.com/discussion/214053
+  - [7] https://khanwebhost.com/tos.php
+  - [8] https://khanwebhost.com/about-us.php
+  - [9] https://lowendtalk.com/discussion/221991/khanwebhost-canada-kvm-2gb-5-mo-texas-kvm-5-mo-7-global-locations-nat-vps-5-50-year
+  - [10] https://hostadvice.com/hosting-company/khanwebhost-reviews/
+  - [11] https://rdap.verisign.com/com/v1/domain/khanwebhost.com
+  - [12] https://www.lowendspirit.com/discussion/7968/anyone-got-wireguard-working-on-khanwebhost-nat-vps
+  - [13] https://khanwebhost.com/knowledgebase/21/How-can-I-receive-a-refund-or-cancel.html
+
+## KhanWebHost (Compute)
+
+- `compute/khanwebhost` | paid-only | evidence reported | binding volume-quota | category cloud VM
+- identity a placeholder: card and phone unknown | verified 2026-11-07T11:15:35.517Z (live) | stale on 2026-11-22
+- url https://vpspricetracker.com/provider/KhanWebHost/vps
+- disagrees on identity_kind: `compute/khanwebhost` says email, `compute/khanwebhost-fr-256mb-nat-kvm` says card
+- disagrees on verdict: `compute/khanwebhost` says paid-only, `compute/khanwebhost-fr-256mb-nat-kvm` says qualifies-with-caveat
+- free tier: The vendor's WHMCS store nat-kvm group (2026-11-07) lists no Germany or Netherlands variant: SG 400MB NAT '36 Available' at USD 6.99 Annually, India 256MB NAT '53 Available' USD 6.99, Turkey 256MB NAT '24 Available' USD 6.99, Texas 300 MB NAT USD 6.99, Canada NAT 256MB '65 Available' USD 6.99 (1 TB bandwidth @10 Gbps), UK 256 MB NAT '13 Available' USD 6.99, FR 256 MB NAT '68 Available' USD 5.99 (unmetered bandwidth @1 Gbps), 512 MB NAT USD 9.99, 1024 MB NAT USD 13.99, and monthly NAT KVM plans at USD 1.30/1.90/2.30/5.00. Cart reads priced UK 256 MB at USD 6.99 and FR 256 MB at USD 5.99 (cart.php?a=confproduct&i=0). The tracker's DE_256MB_IPV6_Only at USD 0.42/month billed USD 4.99/year is not orderable in the store today. No renewal price is published on the store pages. Both carts accepted the add with no stock warning (store counts today: UK 13 Available, FR 68 Available). Derived monthly equivalents of the annual prices: USD 6.99 / 12 = USD 0.58 per month (UK 256 MB), USD 5.99 / 12 = USD 0.50 per month (FR 256 MB). | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 800 GB a month on the 256 MB plans, stated as a plan line; no overage rate and no post-quota policy published on the page read | metered: yes | free allowance: 800 GB per month | source: [1]
+- identity: email | detail: not stated
+- interface: rest
+- limits:
+  - volume-quota (binding): 800 GB a month is 26 GB a day, 2.6 percent of the 1 TB daily transfer ceiling, and it is the whole point of the plan: 800 GB a month is 160 times the 5 GB disk, so this is a relay with a large pipe relative to its RAM. [1]
+- limits note: 800 GB a month is 26 GB a day, 2.6 percent of the 1 TB daily transfer ceiling, and it is the whole point of the plan: 800 GB a month is 160 times the 5 GB disk, so this is a relay with a large pipe relative to its RAM.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: KVM with root and full administrative access per the vendor FAQ, on an IPv6 or NAT'd IPv4 address, sold through a WHMCS install; no API documented on the page read. A NAT-only address means no inbound port without a tunnel.
+- composes with: At USD 4.99 a year this is the cheapest host in evaluated offerings by an order of magnitude, and 800 GB a month on a 10 Gbps port is more transfer than any other sub-dollar plan here; 256 MB of RAM and a NAT'd address make it a DNS secondary, an IPv6-only health probe or a tunnel endpoint, not a crawler.
+- reliability: no reliability event observed; the vendor offers a 3-day refund window, which is a refund and not a free tier.
+- notes: Price is tracker-only: the vendor's UK VPS page answered 200 and rendered prose and FAQ without the plan table, and the homepage links only the UK and USA VPS pages while the tracker's cheapest rows are Germany and the Netherlands, which are not linked from the homepage at all. The 3-day guarantee is a refund, so it does not make this trial-only. verification criteria: a country page that actually renders the 256 MB plans, and the NAT terms, since a NAT'd IPv4 with no port forwarding is a different product from a public address.
+- extras:
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 0.25
+  - facets.shape.disk_gib: 5
+- evidence:
+  - [1] 2026-10-22: the cheapest row quoted: "KhanWebHost - $0.42 / month" / "yearly Service" / "cpu 1 Intel Cores (shared)" / "ram 256 MB RAM" / "disk 5 GB SSD" / "bandwidth 800 GB/month bandwidth" / "rj45 10 Gbps port speed" / "inet (NAT) IPv6" / "city Germany", product slug DE_256MB_IPV6_Only, under "starting at $4.99 per year"; the Netherlands row is the same USD 0.42 with "inet IPv4 (NAT) + IPv6" and a 1 Gbps port
+  - [2] 2026-10-22: the vendor's VPS page sold no price table into the HTML read, and its terms are quoted instead: "RISK-FREE Purchase. 3-DAY NO-RISK GUARANTEE. Try us for 3 days absolutely risk-free! ... If by any means you decide to cancel your account over the next 3 days, you'll receive an instant refund"
+  - [3] 2026-10-22: the homepage routes VPS buyers to two country pages only: "Deploy Your VPS NOW in UK" to /uk-kvm-vps.php and "Deploy Your VPS NOW in USA" to /us-kvm-vps.php, and states "Instant Activation" and "Choice of Operating System" for KVM VPS
+  - [4] 2026-11-07: the vendor's WHMCS store nat-kvm group lists the NAT plans with availability counts and 'Starting from USD 6.99 Annually' (FR 256 MB at USD 5.99); no Germany variant is listed, so the tracker's USD 0.42/month plan is not orderable in the store today | capture: sha256:f1c9a80a9c9803f79ddaf0ec75d8d4e53d2dbfd7f32c8172f78cef38a595ae1a | quote: SG 400MB NAT 36 Available Starting from $6.99 USD Annually ... FR 256 MB NAT 68 Available Starting from $5.99 USD Annually
+  - [5] 2026-11-07: the WHMCS cart resolved the UK 256 MB NAT add (final URL cart.php?a=confproduct&i=0) and priced it $6.99, the store's annual price | capture: sha256:6aaa3045791c2c1152f0fec4c46796c53b0747488618abcbdffb53771008b316 | quote: Shopping Cart - KhanWebHost LTD ... $6.99
+  - [4] 2026-11-07: the store's nat-kvm group prices the 256 MB NAT plans USD 5.99-6.99 annually with availability counts, and lists no Germany variant | capture: sha256:f1c9a80a9c9803f79ddaf0ec75d8d4e53d2dbfd7f32c8172f78cef38a595ae1a | quote: SG 400MB NAT 36 Available Starting from $6.99 USD Annually ... FR 256 MB NAT 68 Available Starting from $5.99 USD Annually
+  - probe:https://khanwebhost.com/store/nat-kvm/uk-256mb-nat-promo 2026-11-07: the cart resolved the UK 256 MB NAT add (final URL cart.php?a=confproduct&i=0) and priced it $6.99 with no stock warning | capture: sha256:fcab1e617e1710206fc5fc9614c67a2d84b51ec97cf22e482a8b9ab4aab8b4ac | quote: "prices": [ "$6.99" ]
+  - probe:https://khanwebhost.com/store/nat-kvm/fr-256-mb-nat 2026-11-07: the cart resolved the FR 256 MB NAT add (final URL cart.php?a=confproduct&i=0) and priced it $5.99 with no stock warning | capture: sha256:41c0dfcf28617f6412de95f8b04f98884b2c482a8ab5bd0a990b4a20511dcc98 | quote: "prices": [ "$5.99" ]
+  - [4] 2026-11-07: the store lists UK 256 MB NAT at 13 Available and FR 256 MB NAT at 68 Available, priced 'Starting from $6.99/$5.99 USD Annually' | capture: sha256:43466c15c82c9f093e2ee21186337135f3aec2025220f867d0f8c980a57b1c68 | quote: UK 256 MB NAT ... 13 Available ... Starting from ... $6.99 USD ... Annually
+  - probe:https://khanwebhost.com/store/nat-kvm/uk-256mb-nat-promo 2026-11-07: the cart still prices the UK 256 MB NAT plan $6.99, unchanged | capture: sha256:fcab1e617e1710206fc5fc9614c67a2d84b51ec97cf22e482a8b9ab4aab8b4ac | quote: "prices": [ "$6.99" ]
+- sources:
+  - [1] https://vpspricetracker.com/provider/KhanWebHost/vps
+  - [2] https://khanwebhost.com/uk-kvm-vps.php
+  - [3] https://khanwebhost.com/
+  - [4] https://khanwebhost.com/store/nat-kvm/
+  - [5] https://khanwebhost.com/store/nat-kvm/uk-256mb-nat-promo
+
+## KhanWebHost (FR 256 MB NAT)
+
+- `egress/khanwebhost-fr-256-mb-nat-kvm` | paid-only | evidence documented | binding per-ip-shaping | category NAT VPS | tier FR 256 MB NAT
+- identity a placeholder: card and phone unknown | verified 2026-11-03T07:36:42.014Z (live) | stale on 2026-12-04
+- url https://khanwebhost.com/store/nat-kvm
+- free tier: No free tier. FR 256 MB NAT (NAT KVM group) is USD 5.99 billed annually: 1 vCPU, 256 MB, 5 GB NVMe, unmetered bandwidth at 1 Gbps, NAT IPv4 with 20 usable ports, 1 dedicated IPv6. | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: Most other 256MB plans in the group are USD 6.99 with 800 GB.
+- per-object cap: not applicable: a NAT VPS, not an object store | source: [2]
+- retention: not applicable | source: [2]
+- egress: Unmetered bandwidth at 1 Gbps; no fair-use figure stated on the page read. | metered: no | free allowance: unmetered, at 1 Gbps | source: [1]
+- identity: email | detail: unverified: behind a sign-up. The register page read lists no fields; the refund policy requires a ticket in a client area.
+- interface: ssh
+- limits:
+  - per-ip-shaping (binding): 1 Gbps port; NAT IPv4 with 20 usable ports [1]
+- binding note: The 20 NAT ports are the cap on inbound IPv4; the plan states no volume cap.
+- interface detail: KVM VPS with SSH.
+- tooling: Any SSH client.
+- composes with: An unmetered 1 Gbps NAT IPv4 KVM box with a dedicated IPv6: IPv6 inbound needs no forwarded port; IPv4 inbound is limited to 20 usable ports and UDP forwarding is not stated.
+- reliability: The page prints 'Unmetered' with no fair-use figure; the vendor's refund policy gives a 72-hour window.
+- notes: KVM, so a user-owned kernel module such as WireGuard is possible in principle; not tested. The serverdeals NATKVM 256MB row (USD 7.0, 1 TB, /80) is a different plan of the group.
+- evidence note: Plan, price and bandwidth are quoted from the vendor's group page as served.
+- extras:
+  - nat_ports: 20
+  - ipv6: 1 dedicated IPv6
+  - udp_forwarding: unverified: not stated
+  - routed_ipv6_prefix: unverified: size not stated on the group page
+  - inbound_ipv4_ports: 20
+  - term: 12 months
+  - virtualization: KVM VPS on a shared NAT IPv4.
+- evidence:
+  - [1] 2026-11-03: the FR 256 MB NAT plan is listed in the NAT KVM group | capture: sha256:ac83d6c7d0289625e33074232299e86a3cc0fdcf1d487ccc4d5f393863725c72 | quote: <span id="product1022-name">FR 256 MB NAT</span>
+  - [1] 2026-11-03: the price of the FR 256 MB NAT plan block is USD 5.99, billed annually | capture: sha256:ac83d6c7d0289625e33074232299e86a3cc0fdcf1d487ccc4d5f393863725c72 | quote: <span class="price">$5.99 USD</span>
+  - [1] 2026-11-03: bandwidth is unmetered at 1 Gbps | capture: sha256:ac83d6c7d0289625e33074232299e86a3cc0fdcf1d487ccc4d5f393863725c72 | quote: <li><b>Unmetered </b> Bandwidth @1Gbps </li><br />
+  - [1] 2026-11-03: NAT IPv4 with 20 usable ports | capture: sha256:ac83d6c7d0289625e33074232299e86a3cc0fdcf1d487ccc4d5f393863725c72 | quote: <li><b>NAT </b> IPV4 (20 usable ports)</li><br />
+  - [1] 2026-11-03: one dedicated IPv6 | capture: sha256:ac83d6c7d0289625e33074232299e86a3cc0fdcf1d487ccc4d5f393863725c72 | quote: <li> <b> 1 </b> Dedicated IPV6 </li><br />
+  - [3] 2026-11-03: serverdeals lists a NATKVM 256MB at USD 7.0 per year with 1 TB and a /80 IPv6 | quote: ###### NATKVM 256MB
+- sources:
+  - [1] https://khanwebhost.com/cart.php?gid=33
+  - [2] https://khanwebhost.com/store/nat-kvm
+  - [3] https://serverdeals.cc/
+
+## KhanWebHost (NL 256MB NAT)
+
+- `egress/khanwebhost-nl-256mb-nat` | paid-only | evidence documented | binding volume-quota | category NAT VPS | tier NL 256MB NAT
+- identity a placeholder: card and phone unknown | verified 2026-11-03T07:36:42.014Z (live) | stale on 2026-12-04
+- url https://khanwebhost.com/store/ovz-nat-vps
+- free tier: No free tier. NL 256MB NAT is USD 4.99 billed annually: 1 vCPU, 256 MB, 5 GB SSD, 800 GB bandwidth at 1 Gbps, NAT IPv4 with 20 usable ports, 1 dedicated IPv6, TUN/TAP enabled. | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: The same page lists 'DE 256MB IPV6 Only' at USD 4.99.
+- per-object cap: not applicable: a NAT VPS, not an object store | source: [2]
+- retention: not applicable | source: [2]
+- egress: 800 GB bandwidth at 1 Gbps, no period and no overage stated on the page read. | metered: yes | free allowance: 800 GB, period not stated | source: [1]
+- identity: email | detail: unverified: behind a sign-up. The register page read lists no fields; the refund policy requires a ticket in a client area.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 800 GB bandwidth at 1 Gbps, period not stated [1]
+  - per-ip-shaping: NAT IPv4 with 20 usable ports [1]
+- binding note: 800 GB is the first number reached; 20 NAT ports limit inbound IPv4 but do not fail on a schedule.
+- interface detail: Container VPS (OVZ/LXC group) with SSH.
+- tooling: Any SSH client; TUN/TAP is enabled, which lets a tunnel interface run.
+- composes with: An 800 GB NAT IPv4 box with a dedicated IPv6: IPv6 inbound needs no forwarded port; IPv4 inbound is limited to 20 usable ports and UDP forwarding is not stated.
+- reliability: The vendor's refund policy gives a 72-hour window while the plan block says 'Risk-free for 2 days'.
+- notes: The cheapest 256MB NAT plans of the OVZ/LXC group are USD 4.99 (NL) and USD 5.30 (Germany) a year; the serverdeals row (NATOVZ 256MB, 1x IPv4, /80) is the same price.
+- evidence note: Plan, price and allowance are quoted from the vendor's group page as served. The serverdeals row is a different listing of the same shape.
+- extras:
+  - nat_ports: 20
+  - ipv6: 1 dedicated IPv6
+  - udp_forwarding: unverified: not stated
+  - routed_ipv6_prefix: unverified: size not stated on the group page
+  - inbound_ipv4_ports: 20
+  - term: 12 months
+  - virtualization: OVZ/LXC container on a shared NAT IPv4.
+- evidence:
+  - [1] 2026-11-03: the NL 256MB NAT plan is listed in the OVZ/LXC NAT group | capture: sha256:6740ffef2918aaa78e05bfcdaab387affce65fd1c5ab1f5c861fb04ea013791d | quote: <span id="product834-name">NL 256MB NAT</span>
+  - [1] 2026-11-03: the price of the NL 256MB NAT plan block is USD 4.99, billed annually | capture: sha256:6740ffef2918aaa78e05bfcdaab387affce65fd1c5ab1f5c861fb04ea013791d | quote: <span class="price">$4.99 USD</span>
+  - [1] 2026-11-03: the plan carries 800 GB bandwidth at 1 Gbps | capture: sha256:6740ffef2918aaa78e05bfcdaab387affce65fd1c5ab1f5c861fb04ea013791d | quote: <li><b>800 GB</b> Bandwidth @1Gbps </li><br />
+  - [1] 2026-11-03: NAT IPv4 with 20 usable ports | capture: sha256:6740ffef2918aaa78e05bfcdaab387affce65fd1c5ab1f5c861fb04ea013791d | quote: <li><b>NAT </b> IPV4 (20 usable ports)</li><br />
+  - [1] 2026-11-03: one dedicated IPv6 | capture: sha256:6740ffef2918aaa78e05bfcdaab387affce65fd1c5ab1f5c861fb04ea013791d | quote: <li> <b> 1 </b> Dedicated IPV6 </li><br />
+  - [1] 2026-11-03: TUN/TAP is enabled | capture: sha256:6740ffef2918aaa78e05bfcdaab387affce65fd1c5ab1f5c861fb04ea013791d | quote: <li> <b> TUN/TAP </b> Enabled </li><br />
+  - [3] 2026-11-03: refund window is 72 hours | capture: sha256:a1830f1fef806cbce3faea3b312650a597c566c75d5fafe97d4c761567c05281 | quote: We offer a 72-hour refund window for eligible services.
+  - [4] 2026-11-03: serverdeals lists a NATOVZ 256MB at USD 4.99 per year with 800 GB and a /80 IPv6 | quote: ###### NATOVZ 256MB
+- sources:
+  - [1] https://khanwebhost.com/cart.php?gid=45
+  - [2] https://khanwebhost.com/store/ovz-nat-vps
+  - [3] https://khanwebhost.com/knowledgebase/21/How-can-I-receive-a-refund-or-cancel.html
+  - [4] https://serverdeals.cc/

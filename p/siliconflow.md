@@ -1,0 +1,58 @@
+# SiliconFlow
+
+> siliconflow.com | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/siliconflow/ | JSON https://fshy.ajam.dev/api/v1/entity/siliconflow.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## SiliconFlow
+
+- `compute/siliconflow` | trial-only | evidence documented | binding volume-quota | category inference API
+- needs card no, phone unknown, ID no, institution no | verified 2026-11-03T14:55:03.466Z (live) | stale on 2026-12-04
+- url https://docs.siliconflow.com/en/faqs/billing-rules
+- free tier: International site (siliconflow.com): a new account is offered USD 1 of credit ('Get started now and enjoy $1 credit to explore our platform!'), and the public international model list prices every model above zero; the rate-limit page says free models carry fixed limits, so any free tag sits in the logged-in console list, which is unverified: behind a sign-up. China site (siliconflow.cn): CNY 14 of free platform credit for a new account, which the vendor equates to 20 million tokens on Qwen1.5-14B: '新用户注册即得 14 元免费额度 (相当于 2 千万 Qwen1.5-14B Tokens)' -- a new account receives CNY 14 of free allowance, equivalent to 20 million Qwen1.5-14B tokens. A second voucher follows real-name verification (amount and validity: unverified), and some small models carry a permanent free tag. | unit: tokens | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: one-time-credit
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email | detail: the international sign-in page (account.siliconflow.com) offers Continue with Google and Continue with GitHub, and an email login for accounts that previously used them; it shows no phone field, but its script carries a phone-binding form that is shown when the sign-in callback returns phone=none, and whether the international backend triggers it is unverified: behind a sign-up. The China site (siliconflow.cn) registers by mainland mobile number and its real-name step unlocks the second voucher
+- interface: unknown
+- limits:
+  - volume-quota (binding): the credit is small and leaves first: CNY 14 buys 20 million tokens on a 14B model, so one long-context job on a frontier model spends it, and the larger CNY 16 voucher sits behind a real-name identity check. [1]
+- limits note: the credit is small and leaves first: CNY 14 buys 20 million tokens on a 14B model, so one long-context job on a frontier model spends it, and the larger CNY 16 voucher sits behind a real-name identity check.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: the free-tagged models consume no credit, so the CNY 14 survives for paid models while a pipeline runs on the free tier; that composition is the only reason the grant stretches.
+- reliability: no reliability event recorded
+- notes: CNY 14 / CNY 0.7 per million tokens = 20 million tokens on Qwen1.5-14B, which matches the vendor's own equivalence and confirms the arithmetic. China site (siliconflow.cn): registration is by mainland mobile number, and the real-name step unlocks the second voucher. International site (siliconflow.com): sign-in is a Google or GitHub account with an email login for accounts that previously used them, and a new account is offered USD 1 of credit. New accounts start at tier L0, 1,000 RPM and 40,000 TPM; DeepSeek-R1 and DeepSeek-V3 carry 30 requests per hour for all users and 100 requests per day for accounts without identity verification. No model on the public international model list is priced free; the console model list is behind a login: unverified: behind a sign-up
+- extras:
+  - facets.class: regional-credit
+  - facets.free_tier_kind: one-time-credit
+- evidence:
+  - [1] 2026-10-22: '新用户注册即得 14 元免费额度 (相当于 2 千万 Qwen1.5-14B Tokens)' and the rate row 'Qwen/Qwen1.5-14B-Chat | 32K | ¥0.7/1M tokens', quoted
+  - [2] 2026-10-22: the Chinese price list marks some inputs free: '输入 UTF-8 字节每千字符（UTF-8）免费' on the speech rows, quoted
+  - [3] 2026-10-22: '访问官网点击注册入口，输入手机号并填写邀请码...可获赠2000万Tokens（价值14元）' -- registration is by mobile number, reported
+  - [1] 2026-11-03: the billing page states the CNY 14 allowance that the China site grants; the international credit is USD 1 on the sign-in page | capture: sha256:62192f75bd8f80778a94a41d8504f5769a3b1d8e14fdd068ab7afbe65a23b0d4 | quote: 新用户注册即得 14 元免费额度 (相当于 2 千万 Qwen1.5-14B Tokens)，[点此链接](https://cloud.siliconflow.com/models/text/chat)立即体验。
+  - [4] 2026-11-03: the international sign-in page offers Google and GitHub sign-in and an email login, and no phone field | capture: sha256:3dd5fee6e4094151f4dc021064183ef07531c7f516dff696796df1be92705b0c | quote: Previously used Google/GitHub? You can now log in with your email
+  - [4] 2026-11-03: the international sign-in page offers Google and GitHub sign-in and an email login | capture: sha256:3dd5fee6e4094151f4dc021064183ef07531c7f516dff696796df1be92705b0c | quote: Previously used Google/GitHub? You can now log in with your email
+  - [4] 2026-11-03: the international sign-in page does not ask for a mainland phone number | capture: sha256:3dd5fee6e4094151f4dc021064183ef07531c7f516dff696796df1be92705b0c | quote: Previously used Google/GitHub? You can now log in with your email
+  - [4] 2026-11-03: the international sign-in page offers a new account USD 1 of credit | capture: sha256:3dd5fee6e4094151f4dc021064183ef07531c7f516dff696796df1be92705b0c | quote: Get started now and enjoy $1 credit to explore our platform!
+  - [5] 2026-11-03: a new account starts at tier L0 with 1,000 RPM and 40,000 TPM | capture: sha256:64d8cf514f6101ee63c2983c0a337aadfe3c351ce22669b6b40e512291ab8418 | quote: | L0 | 1,000 | 40,000 |
+  - [5] 2026-11-03: the international rate-limit page says free models carry fixed limits and sends the per-model limits to the logged-in model list | capture: sha256:64d8cf514f6101ee63c2983c0a337aadfe3c351ce22669b6b40e512291ab8418 | quote: The Rate Limits for free models are fixed, while paid models have different [Rate Limit metrics](https://cloud.siliconflow.com/models) based on account [usage tiers](https://account.siliconflow.com/user/settings).
+  - [5] 2026-11-03: DeepSeek-R1 and DeepSeek-V3 carry a 30 requests per hour limit for all users | capture: sha256:64d8cf514f6101ee63c2983c0a337aadfe3c351ce22669b6b40e512291ab8418 | quote: Limit: 30 requests/hour
+  - [5] 2026-11-03: a further 100 requests per day applies to DeepSeek-R1 and DeepSeek-V3 for accounts without identity verification | capture: sha256:64d8cf514f6101ee63c2983c0a337aadfe3c351ce22669b6b40e512291ab8418 | quote: Applicable Users: Users who have not completed identity verification
+  - [6] 2026-11-03: the international pricing FAQ states a start with USD 1 in free credits | capture: sha256:4e6e3bc3575ded55680bb1b3e1e13f018ac6c7147ff568bd51f00fa1b551c387 | quote: you can start with $1 in free credits
+  - [7] 2026-11-03: the international text model list shows a positive price on every row, for example gpt-oss-20b at USD 0.04 input and USD 0.18 output per 1M tokens | capture: sha256:8134f057fbf0347095826c44251eae73f8c4e7800648ecaaa8ee00325daa0a8e | quote: Input: $ 0\.04 / M Tokens Cached Input: $ text / M Tokens Output: $ 0\.18 / M Tokens
+  - [8] 2026-11-03: the international terms require registering and logging in through a third-party account | capture: sha256:605d5e2597e4bedc832698c1c72cdc7173ff04f4188f9617982673fa11d487ff | quote: 5.2 In order to become a Registered User, you will be required to register and log in to your Account through a third-party account.
+  - [9] 2026-11-03: the sign-in script switches to its phone-binding form when the callback returns phone=none | capture: sha256:437f1557b0e64b11c9872d276af9f53f59677cabab8c29d331f3f06f1a50dbd5 | quote: a="none"==s.get("phone")&&(n||i)
+  - [10] 2026-11-03: Qwen3-8B on the international site is priced USD 0.06 input and USD 0.06 output per 1M tokens, not free | capture: sha256:769d4b4df91a63474dffb03ee593e159d41fd0610a5555408a11fe669d84d062 | quote: Input Price, 0\.06, / M Tokens, Output Price, 0\.06, / M Tokens
+- sources:
+  - [1] https://docs.siliconflow.com/en/faqs/billing-rules
+  - [2] https://siliconflow.cn/pricing
+  - [3] https://www.siliconflowcn.com/faq.html
+  - [4] https://account.siliconflow.com/en/login
+  - [5] https://docs.siliconflow.com/en/userguide/rate-limits/rate-limit-and-upgradation
+  - [6] https://www.siliconflow.com/pricing
+  - [7] https://www.siliconflow.com/models/llm
+  - [8] https://docs.siliconflow.com/en/legals/terms-of-service
+  - [9] https://account.siliconflow.com/_next/static/chunks/app/%5Blang%5D/login/%5B%5B...action%5D%5D/page-3b157df5f9b2e220.js
+  - [10] https://www.siliconflow.com/models/qwen3-8b

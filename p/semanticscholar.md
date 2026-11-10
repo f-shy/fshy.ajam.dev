@@ -1,0 +1,125 @@
+# Semantic Scholar
+
+> semanticscholar.org | Data APIs, Debrid; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/semanticscholar/ | JSON https://fshy.ajam.dev/api/v1/entity/semanticscholar.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Semantic Scholar
+
+- `data-apis/semantic-scholar` | qualifies-with-caveat | evidence documented | binding request-rate | category scholarly metadata and citation-graph API and dataset downloads | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T00:28:18.838Z (live) | stale on 2026-12-04
+- url https://www.semanticscholar.org/product/api
+- free tier: Most endpoints answer without authentication, rate-limited to 1000 requests per second shared among all unauthenticated users and further throttled under heavy use; a free API key gives 1 request per second on all endpoints, slightly more for some users after a review | unit: requests | metered on: request-count | read on: 2026-10-30 | source: [1] | note: The keyless figure is one pool for every keyless caller, not a per-caller allowance: a keyless paper search on 2026-10-30 answered 429.
+- per-object cap: API: batch lookup 500 paper ids and up to 10 MB a call, relevance search up to 1,000 results, bulk search up to 1,000 papers a call and 10,000,000 in all; datasets: 30 partition files each (papers in 1.5GB files, citations in 8.5GB files) | source: [2]
+- retention: the API is a live index; datasets are dated releases (latest 2026-10-27) with incremental diffs from one release to the next | source: [3]
+- egress: Not metered by volume. Full dataset files are pre-signed S3 download URLs that the Datasets API hands only to a request with an API key; sample files are public. | metered: no | free allowance: no byte allowance published | source: [3]
+- identity: email | detail: Keyless calls are allowed. The key, which the full datasets also need, comes from a request form behind a CAPTCHA. The form requires first and last name, an email address, an affiliation and its website URL, and a country. It also requires private or public use, a description of 50 words or more, the endpoints and the requests per day expected. It also requires a statement that an unauthenticated request has already succeeded. The form asks for an academic or corporate email, and the vendor release notes of 2024 say requests from free email domains are no longer accepted. The form text says requests from academic and research institutions, nonprofit organizations and government entities are prioritized, and all other requests are reviewed case by case. The key is sent by email. No card. The form states a backlog of requests and gives no duration; the vendor release notes of 2024 give a backlog of about 1 month. Whether a requester who names no employer or institution is granted a key is unverified: behind a sign-up.
+- interface: rest
+- limits:
+  - request-rate (binding): no key: 1000 requests per second shared among all unauthenticated users, further throttled during heavy use [1]
+  - request-rate (binding): API key: 1 request per second on all endpoints; slightly higher for some users after a review [1]
+  - per-object-cap: batch: 500 paper ids and 10 MB a call; relevance search: 1,000 results; bulk search: 1,000 papers a call and 10,000,000 in all, beyond which the Datasets API applies [2]
+- binding note: Keyless calls share one pool and the first one answered 429; a key gives a dedicated 1 request a second, and the full dataset downloads need that key too.
+- interface detail: REST at https://api.semanticscholar.org/graph/v1 (key in an x-api-key header); the Datasets API at https://api.semanticscholar.org/datasets/v1 lists releases with no key and returns pre-signed S3 HTTPS URLs for each partition, and the diffs between releases, only with a key
+- endpoint: https://api.semanticscholar.org/graph/v1/paper/search
+- tooling: curl or any HTTP client; the dataset partitions are fetched by walking the list of pre-signed URLs with any HTTP downloader
+- composes with: The datasets are the bulk path: release 2026-10-27 lists papers (200M records in 30 1.5GB files), citations (2.4B records in 30 8.5GB files) and s2orc_v2 full text (16M records in 30 6GB files), fetched with a key and kept current with diffs; the 1 request a second key covers lookups.
+- reliability: A keyless search on 2026-10-30 answered 429 on the first call; keys inactive for about 60 days or more may be removed, and the key form reports a backlog of requests.
+- notes: The caveat is the shared keyless pool and the key gate on the full datasets. The record debrid/semantic-scholar describes the same API; this record adds the dataset bulk path and the key form. Whether a new key reaches the papers, citations and s2orc_v2 partitions is unverified: behind a sign-up. The release README says that downloading the full data requires an API key.
+- evidence note: The rate limits, key form and dataset sizes are vendor pages and API answers read on 2026-10-30; a keyless search answered 429 and a keyless dataset download listing answered 401. No key was requested, so the keyed rate and the time to issue a key are documented or unverified only.
+- extras:
+  - latest_release: 2026-10-27
+  - key_requests_per_second: 1
+- evidence:
+  - [1] 2026-10-30: keyless calls share 1000 requests a second | capture: sha256:5fdf67870a0b2c05142d4a6a2a73b50e0e7e5f666e52da67aa5f07b5f030bfc2 | quote: Most Semantic Scholar endpoints are available to the public without authentication, but they are rate-limited to 1000 requests per second shared among all unauthenticated users.
+  - [1] 2026-10-30: keyless calls are throttled further under load | capture: sha256:5fdf67870a0b2c05142d4a6a2a73b50e0e7e5f666e52da67aa5f07b5f030bfc2 | quote: Requests may also be further throttled during periods of heavy use.
+  - [1] 2026-10-30: a key gets 1 request a second | capture: sha256:5fdf67870a0b2c05142d4a6a2a73b50e0e7e5f666e52da67aa5f07b5f030bfc2 | quote: The introductory rate limit for an API key is 1 RPS on all endpoints.
+  - [1] 2026-10-30: the key is sent by email | capture: sha256:5fdf67870a0b2c05142d4a6a2a73b50e0e7e5f666e52da67aa5f07b5f030bfc2 | quote: You will receive your private API key via email.
+  - [4] 2026-10-30: some keys get a higher rate after review | capture: sha256:45b9da20936f77daa2aed280682d313a433d4ace02bb3c5a5fe0922df4d719a0 | quote: In some cases, users may be granted a slightly higher rate following a review.
+  - [4] 2026-10-30: the key is sent in an x-api-key header | capture: sha256:45b9da20936f77daa2aed280682d313a433d4ace02bb3c5a5fe0922df4d719a0 | quote: headers = {"x-api-key": api_key}
+  - [3] 2026-10-30: datasets are pre-signed download URLs per partition | capture: sha256:8a33f286b067229f368124aa9330e8d2123b7c83c4fcf88af4cb8c383aea24f5 | quote: Clients can retrieve them by requesting this list of pre-signed download urls and fetching all the partitions.
+  - [3] 2026-10-30: diffs update a dataset between releases | capture: sha256:8a33f286b067229f368124aa9330e8d2123b7c83c4fcf88af4cb8c383aea24f5 | quote: Full datasets can be updated from one release to another to avoid downloading and processing data that hasn't changed.
+  - probe:https://api.semanticscholar.org/datasets/v1/release/latest 2026-10-30: full dataset downloads need an API key | capture: sha256:385e6b41f1ccaa0199439dd8b7cf1a0c3cfb112ec2f1e784741d749ca5e869f0 | quote: Downloading the full data requires an API key, which can be obtained at https://www.semanticscholar.org/product/api#Partner-Form
+  - probe:https://api.semanticscholar.org/datasets/v1/release/latest 2026-10-30: the latest dataset release is 2026-10-27 | capture: sha256:385e6b41f1ccaa0199439dd8b7cf1a0c3cfb112ec2f1e784741d749ca5e869f0 | quote: {"release_id": "2026-10-27"
+  - probe:https://api.semanticscholar.org/datasets/v1/release/latest 2026-10-30: the papers dataset is 200M records in 30 1.5GB files | capture: sha256:385e6b41f1ccaa0199439dd8b7cf1a0c3cfb112ec2f1e784741d749ca5e869f0 | quote: 200M records in 30 1.5GB files.
+  - probe:https://api.semanticscholar.org/datasets/v1/release/latest 2026-10-30: the citations dataset is 2.4B records in 30 8.5GB files | capture: sha256:385e6b41f1ccaa0199439dd8b7cf1a0c3cfb112ec2f1e784741d749ca5e869f0 | quote: 2.4B records in 30 8.5GB files.
+  - probe:https://api.semanticscholar.org/datasets/v1/release/latest 2026-10-30: the s2orc_v2 dataset is 16M records in 30 6GB files | capture: sha256:385e6b41f1ccaa0199439dd8b7cf1a0c3cfb112ec2f1e784741d749ca5e869f0 | quote: 16M records in 30 6GB files.
+  - probe:https://api.semanticscholar.org/datasets/v1/release/latest/dataset/papers 2026-10-30: a keyless dataset download listing answered 401 | capture: sha256:ef587e1a3667e1c9fd3925cdaaec2a6d7b0281abcce60f8460220b07d295046c | quote: "status": 401
+  - probe:https://api.semanticscholar.org/graph/v1/paper/search?query=graph+neural+network&limit=1&fields=title 2026-10-30: a keyless paper search answered 429 | capture: sha256:4480a87b89881805276ad8947677b01d2d49e99b8aef45309ffd9bc51a9694ee | quote: "status": 429
+  - probe:https://forms.hsforms.com/embed/v3/form/5910970/105f3885-cfd8-4b57-a570-6174c5c1650a/json 2026-10-30: the key form asks for an email | capture: sha256:66f135b1abbefa5da1c142330ab1805d5de4a75da0824e3f67c024347c982e70 | quote: "label":"Email"
+  - probe:https://forms.hsforms.com/embed/v3/form/5910970/105f3885-cfd8-4b57-a570-6174c5c1650a/json 2026-10-30: the key form asks for an academic or corporate email | capture: sha256:66f135b1abbefa5da1c142330ab1805d5de4a75da0824e3f67c024347c982e70 | quote: Please use an academic or corporate email.
+  - probe:https://forms.hsforms.com/embed/v3/form/5910970/105f3885-cfd8-4b57-a570-6174c5c1650a/json 2026-10-30: the key form asks for an affiliation | capture: sha256:66f135b1abbefa5da1c142330ab1805d5de4a75da0824e3f67c024347c982e70 | quote: "label":"Affiliation"
+  - probe:https://forms.hsforms.com/embed/v3/form/5910970/105f3885-cfd8-4b57-a570-6174c5c1650a/json 2026-10-30: the key form asks for the affiliation website URL | capture: sha256:66f135b1abbefa5da1c142330ab1805d5de4a75da0824e3f67c024347c982e70 | quote: "label":"Affiliation website URL"
+  - probe:https://forms.hsforms.com/embed/v3/form/5910970/105f3885-cfd8-4b57-a570-6174c5c1650a/json 2026-10-30: the key form asks for a description of 50 words or more | capture: sha256:66f135b1abbefa5da1c142330ab1805d5de4a75da0824e3f67c024347c982e70 | quote: (50 words or more)
+  - probe:https://forms.hsforms.com/embed/v3/form/5910970/105f3885-cfd8-4b57-a570-6174c5c1650a/json 2026-10-30: the key form asks for the expected requests per day | capture: sha256:66f135b1abbefa5da1c142330ab1805d5de4a75da0824e3f67c024347c982e70 | quote: "label":"How many requests per day do you anticipate using?"
+  - probe:https://forms.hsforms.com/embed/v3/form/5910970/105f3885-cfd8-4b57-a570-6174c5c1650a/json 2026-10-30: inactive keys may be removed after about 60 days | capture: sha256:66f135b1abbefa5da1c142330ab1805d5de4a75da0824e3f67c024347c982e70 | quote: inactive for approximately 60 or more days may be removed
+  - probe:https://forms.hsforms.com/embed/v3/form/5910970/105f3885-cfd8-4b57-a570-6174c5c1650a/json 2026-10-30: key requests wait in a backlog | capture: sha256:66f135b1abbefa5da1c142330ab1805d5de4a75da0824e3f67c024347c982e70 | quote: Please note that we are currently working on a backlog of requests and we appreciate your patience!
+  - [2] 2026-10-31: a call returns at most 10 MB | capture: sha256:d272683d710333a66c20873bfe9b28e2035eaa5e23cc834538bd9df14ca7d385 | quote: Can only return up to 10 MB of data at a time.
+  - [2] 2026-10-31: the batch endpoint takes at most 500 paper ids a call | capture: sha256:d272683d710333a66c20873bfe9b28e2035eaa5e23cc834538bd9df14ca7d385 | quote: Can only process 500 paper ids at a time.
+  - [2] 2026-10-31: bulk search stops at 10,000,000 papers; larger needs go to the Datasets API | capture: sha256:d272683d710333a66c20873bfe9b28e2035eaa5e23cc834538bd9df14ca7d385 | quote: Up to 10,000,000 papers can be fetched via this method.
+  - probe:https://api.semanticscholar.org/graph/v1/paper/search?query=graph+neural+network&limit=1&fields=title 2026-10-31: a keyless paper search on 2026-10-31 answered 429 on the first call | capture: sha256:9142ddd70850b76cf49246b076d4d165ea58caf401c303bf793bd7feea60a079 | quote: "status": 429
+  - [4] 2026-10-31: some keys get a slightly higher rate after a review | capture: sha256:45b9da20936f77daa2aed280682d313a433d4ace02bb3c5a5fe0922df4d719a0 | quote: In some cases, users may be granted a slightly higher rate following a review.
+  - probe:https://forms.hsforms.com/embed/v3/form/5910970/105f3885-cfd8-4b57-a570-6174c5c1650a/json 2026-11-02: the key request form requires an affiliation | capture: sha256:eb2e43931e07db152b102f2ab0f6f9a472d157b39252b50bb6f0576bc616aff6 | quote: "name":"company","label":"Affiliation","type":"string","fieldType":"text","description":"","groupName":"contactinformation","displayOrder":-1,"required":true
+  - probe:https://forms.hsforms.com/embed/v3/form/5910970/105f3885-cfd8-4b57-a570-6174c5c1650a/json 2026-11-02: the key request form requires the affiliation website URL | capture: sha256:eb2e43931e07db152b102f2ab0f6f9a472d157b39252b50bb6f0576bc616aff6 | quote: "name":"website","label":"Affiliation website URL","type":"string","fieldType":"text","description":"","groupName":"companyinformation","displayOrder":-1,"required":true
+  - probe:https://forms.hsforms.com/embed/v3/form/5910970/105f3885-cfd8-4b57-a570-6174c5c1650a/json 2026-11-02: the form requires a statement that an unauthenticated request has already succeeded | capture: sha256:eb2e43931e07db152b102f2ab0f6f9a472d157b39252b50bb6f0576bc616aff6 | quote: "name":"api_successful_unauth_requests","label":"I have already successfully made unauthenticated requests","type":"enumeration","fieldType":"booleancheckbox","description":"","groupName":"contactinformation","displayOrder":-1,"required":true
+  - probe:https://forms.hsforms.com/embed/v3/form/5910970/105f3885-cfd8-4b57-a570-6174c5c1650a/json 2026-11-02: the form text prioritises institutions and reviews all other requests case by case | capture: sha256:eb2e43931e07db152b102f2ab0f6f9a472d157b39252b50bb6f0576bc616aff6 | quote: We prioritize requests for academic and research institutions, nonprofit organizations, and government entities. We review all other requests on a case-by-case basis in accordance with applicable laws and regulations.
+  - probe:https://forms.hsforms.com/embed/v3/form/5910970/105f3885-cfd8-4b57-a570-6174c5c1650a/json 2026-11-02: the form asks for an academic or corporate email | capture: sha256:eb2e43931e07db152b102f2ab0f6f9a472d157b39252b50bb6f0576bc616aff6 | quote: "description":"Please use an academic or corporate email.
+  - probe:https://forms.hsforms.com/embed/v3/form/5910970/105f3885-cfd8-4b57-a570-6174c5c1650a/json 2026-11-02: the key request form carries a CAPTCHA | capture: sha256:eb2e43931e07db152b102f2ab0f6f9a472d157b39252b50bb6f0576bc616aff6 | quote: "captchaEnabled":true
+  - probe:https://forms.hsforms.com/embed/v3/form/5910970/105f3885-cfd8-4b57-a570-6174c5c1650a/json 2026-11-02: the form states a backlog of requests and gives no duration | capture: sha256:eb2e43931e07db152b102f2ab0f6f9a472d157b39252b50bb6f0576bc616aff6 | quote: Please note that we are currently working on a backlog of requests and we appreciate your patience!
+  - [5] 2026-11-02: the vendor release notes of 2024 say key requests from free email domains are no longer accepted | capture: sha256:7079aad5a05a685fa11741aef0a91b3e4cd8ef98ef663993a278b0303f920058 | quote: We no longer accept key requests from free email domains due to limited resources.
+  - [5] 2026-11-02: the vendor release notes of 2024 give the backlog for new key applications as about 1 month | capture: sha256:7079aad5a05a685fa11741aef0a91b3e4cd8ef98ef663993a278b0303f920058 | quote: New key applications and past key recovery are backlogged by about 1 month.
+  - [6] 2026-11-02: a user reported on 2025-12-27 receiving a key after about 6 months of waiting | capture: sha256:6ab156e4856b0244eb932652ae95cec734953ee02be985b1d085813db4fe8771 | quote: They sent me mine in June (after 6 months of waiting)
+  - probe:https://api.semanticscholar.org/datasets/v1/release/latest 2026-11-02: the release README says downloading the full data requires an API key | capture: sha256:385e6b41f1ccaa0199439dd8b7cf1a0c3cfb112ec2f1e784741d749ca5e869f0 | quote: Downloading the full data requires an API key, which can be obtained at https://www.semanticscholar.org/product/api#Partner-Form
+  - probe:https://api.semanticscholar.org/datasets/v1/swagger.json 2026-11-02: the Datasets API returns temporary pre-signed download links | capture: sha256:8afa91dc1a7c8e2ac72e20e511afc0abfcec6d6bff21ec6dd5a2619b25c0f70a | quote: Temporary, pre-signed download links for dataset files
+  - probe:https://api.semanticscholar.org/datasets/v1/release/latest 2026-11-02:  | capture: sha256:385e6b41f1ccaa0199439dd8b7cf1a0c3cfb112ec2f1e784741d749ca5e869f0
+- sources:
+  - [1] https://www.semanticscholar.org/product/api
+  - [2] https://api.semanticscholar.org/api-docs/
+  - [3] https://api.semanticscholar.org/api-docs/datasets
+  - [4] https://www.semanticscholar.org/product/api%2Ftutorial
+  - [5] https://github.com/allenai/s2-folks/blob/main/API_RELEASE_NOTES.md
+  - [6] https://github.com/allenai/s2orc/issues/52
+
+## Semantic Scholar Academic Graph API
+
+- `debrid/semantic-scholar` | qualifies-with-caveat | evidence documented | binding request-rate | category scholarly metadata index (citation graph) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-31T10:03:28.422Z (live) | stale on 2026-12-01
+- url https://www.semanticscholar.org/product/api
+- price USD 0
+- duplicate of `data-apis/semantic-scholar`
+- free tier: 'Most Semantic Scholar endpoints are available to the public without authentication, but they are rate-limited to 1000 requests per second shared among all unauthenticated users. Requests may also be further throttled during periods of heavy use.' An API key gives '1 RPS on all endpoints' as an introductory rate. | unit: requests | metered on: request-count | read on: 2026-10-23 | source: [1] | note: 1,000 requests/second is a pool shared by every anonymous caller in the world, not a per-client allowance.
+- per-object cap: batch lookup: 500 paper ids and up to 10 MB a call; relevance search: up to 1,000 results and 10 MB a call; bulk search: up to 1,000 papers a call with a continuation token and up to 10,000,000 papers in all | source: [2]
+- retention: a continuously rebuilt index; no retention clock is published for the graph | source: [1]
+- egress: Not metered by volume; no byte allowance is published. The key is a higher-limit credential, not a payment. | metered: no | free allowance: 1,000 requests/second shared across all anonymous users | source: [1]
+- identity: email | detail: Keyless calls are allowed but share one pool. The key comes from a request form that asks for first and last name, an email (academic or corporate requested), an affiliation and its website URL, country, a description of 50 words or more and the requests per day expected; the key is sent by email. No card. Whether every request is granted is unverified: behind a sign-up.
+- interface: rest, cli
+- limits:
+  - request-rate (binding): 1,000 requests/second shared among all unauthenticated users, further throttled under load; 1 RPS with an API key [1]
+  - per-object-cap: batch: 500 paper ids and 10 MB a call; relevance search: 1,000 results; bulk search: 1,000 papers a call and 10,000,000 in all, beyond which the Datasets API applies [3]
+- binding note: The pool is shared with every keyless caller, so a caller's own rate does not decide access: a keyless search on 2026-10-31 answered 429 on the first call; a key gives a dedicated 1 request a second.
+- interface detail: GET https://api.semanticscholar.org/graph/v1/paper/search?query=...&fields=...; x-api-key header when a key is used.
+- endpoint: https://api.semanticscholar.org/graph/v1/
+- tooling: curl/python-requests; the semanticscholar python client; batch endpoints for up to 500 IDs per call.
+- composes with: The citation graph to join against Crossref and OpenAlex metadata; the shared anonymous pool makes it a best-effort enrichment step, not a bulk harvester.
+- reliability: The anonymous pool is exhausted often enough that a single first request returned 429 with a 174-byte JSON error; a harvester must treat 429 as the normal case rather than an exception.
+- notes: The caveat is availability, not price: a 1,000 rps global pool sounds large and behaves like a queue. A key trades the pool for a predictable 1 rps.
+- evidence note: The rate-limit sentence is the vendor's own, and a 429 was observed on the first anonymous request. The throughput at which 429s stop was not characterised.
+- extras:
+  - anonymous_pool_rps: 1000
+  - key_rps: 1
+  - observed_first_request: 429
+- evidence:
+  - [1] 2026-10-23: 'rate-limited to 1000 requests per second shared among all unauthenticated users' and '1 RPS on all endpoints' for a key
+  - probe:https://api.semanticscholar.org/graph/v1/paper/search?query=cancer&limit=1&fields=title 2026-10-23: 429 with 174 bytes of JSON on the first anonymous request - the shared pool was already exhausted
+  - probe:https://forms.hsforms.com/embed/v3/form/5910970/105f3885-cfd8-4b57-a570-6174c5c1650a/json 2026-10-31: the key form asks for an academic or corporate email | capture: sha256:f445ae99914f61e8274af3a101b16494d8d5ebbdf653f43bb9ceb4e4a2ea2f36 | quote: Please use an academic or corporate email.
+  - probe:https://forms.hsforms.com/embed/v3/form/5910970/105f3885-cfd8-4b57-a570-6174c5c1650a/json 2026-10-31: the key form asks for the affiliation's website URL | capture: sha256:f445ae99914f61e8274af3a101b16494d8d5ebbdf653f43bb9ceb4e4a2ea2f36 | quote: "label":"Affiliation website URL"
+  - [1] 2026-10-31: the key raises the rate limit; the page meters requests, not bytes | capture: sha256:db019c44effbdb66090ddc999c9979e09856d90ec788d55c316f9ca2079d7ad9 | quote: Certain endpoints require authentication via an API key, and authenticated users have access to higher rate limits.
+  - probe:https://api.semanticscholar.org/graph/v1/paper/search?query=graph+neural+network&limit=1&fields=title 2026-10-31: a keyless paper search on 2026-10-31 answered 429 on the first call | capture: sha256:9142ddd70850b76cf49246b076d4d165ea58caf401c303bf793bd7feea60a079 | quote: "status": 429
+  - probe:https://api.semanticscholar.org/graph/v1/paper/search?query=graph+neural+network&limit=1&fields=title 2026-10-31: the keyless 429 answer is a 174-byte JSON message that points to the key form | capture: sha256:65ab993d12c5c2cc9b68e6da2bb79b326930283e520363ffcdc145f88cd5a148 | quote: Too Many Requests. Please wait and try again or apply for a key for higher rate limits.
+  - [3] 2026-10-31: the batch endpoint takes at most 500 paper ids a call | capture: sha256:d272683d710333a66c20873bfe9b28e2035eaa5e23cc834538bd9df14ca7d385 | quote: Can only process 500 paper ids at a time.
+  - [3] 2026-10-31: bulk search stops at 10,000,000 papers; larger needs go to the Datasets API | capture: sha256:d272683d710333a66c20873bfe9b28e2035eaa5e23cc834538bd9df14ca7d385 | quote: Up to 10,000,000 papers can be fetched via this method.
+  - [1] 2026-10-31: a key gets 1 request a second on all endpoints | capture: sha256:db019c44effbdb66090ddc999c9979e09856d90ec788d55c316f9ca2079d7ad9 | quote: The introductory rate limit for an API key is 1 RPS on all endpoints.
+- sources:
+  - [1] https://www.semanticscholar.org/product/api
+  - [2] https://api.semanticscholar.org/api-docs
+  - [3] https://api.semanticscholar.org/api-docs/

@@ -1,0 +1,38 @@
+# ttl.sh
+
+> ttl.sh | Storage; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/ttl/ | JSON https://fshy.ajam.dev/api/v1/entity/ttl.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## ttl.sh (anonymous ephemeral OCI registry)
+
+- `storage/ttl-sh` | qualifies-with-caveat | evidence reported | binding per-ip-shaping | category anonymous-dump
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://ttl.sh
+- free tier: No account, no quota. "Free forever. Zero sign-up. Push any OCI artifact with a TTL." Storage is bounded only by the TTL, max advertised 24 hours. | unit: unlimited | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Unmetered and anonymous: blobs are 307-redirected to a presigned S3 URL (s3.us-east-1.storage.sh, X-Amz-Expires=1200), so bytes come off object storage, not the registry host. Range requests work. | metered: no
+- identity: anonymous
+- interface: s3-compatible, oci
+- limits:
+  - per-ip-shaping (binding): 11 MB/s [1]
+- limits note: TTL max 24h advertised (:5m/:1h/:6h/:24h), default 1h. Upload is slow (~11 MB/s observed: 1.5GB in 2m11s), so throughput is the practical per-connection cap. _catalog is blocked by nginx (401), tags/list is open.
+- binding note: one stream is shaped, and aggregate throughput is the shaped rate times the number of streams
+- interface detail: oci
+- tooling: Any distribution-spec client: oras, docker, skopeo, crane, regctl. Built on zot (per the repo: 'Zot runs an off-the-shelf image ghcr.io/project-zot/zot-linux-amd64 ... points zot at an S3-compatible bucket').
+- composes with: Unlimited anonymous identities x unlimited repos x unlimited blobs. Because there is no account at all, repo names are the only namespace; rate-limiting is per-IP only, so N egress IPs = N x throughput. Effectively an unlimited free write/read buffer that garbage-collects itself.
+- reliability: Expiry is best-effort: the deployment repo states 'Tag expiry is handled separately and is not yet wired up in this repo', and open issue #151 reports images not expiring. Data WILL vanish at TTL; do not treat as durable. Intermittent connect timeouts observed from this network.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: read live: 'Free forever. Zero sign-up. Push any OCI artifact with a TTL. No auth, no config, no account.'; 'Choose your TTL. Default is 1 hour, max is 24 hours.'
+  - [2] 2026-10-21: probe: POST -> 202 Accepted with Location header, no credentials of any kind
+  - withheld 2026-10-21: probe: PATCH .../blobs/uploads/<uuid> with 256MiB random -> 202, Range: 0-1048575; then PUT ?digest=sha256:... -> 201 Created; PUT /v2/probe4941/manifests/24h -> 201; GET /v2/probe4941/manifests/24h -> 200 returning the exact manifest
+  - withheld 2026-10-21: probe: 1.5GB anonymous upload -> HTTP/1.1 202 Accepted, Range: 0-1499999999, then commit PUT -> 201 Created, digest sha256:1c5954e1c91f... (no 413, no chunking needed)
+  - [3] 2026-10-21: probe: GET blob -> 307 to (presigned, CF/S3-edge served); ranged GET -r 0-1048575 -> 206, 1048576 bytes
+  - [4] 2026-10-21: read live: 'Tag expiry is handled separately and is not yet wired up in this repo'; zot-config.json.j2 confirms S3 driver, dedupe:false, retention delay 1h with deleteUntagged
+- sources:
+  - [1] https://ttl.sh/
+  - [2] https://ttl.sh/v2/probe<rand>/blobs/uploads/
+  - [3] https://s3.us-east-1.storage.sh/ttlsh-registry-data/...?X-Amz-Expires=1200
+  - [4] https://github.com/replicatedhq/ttl.sh

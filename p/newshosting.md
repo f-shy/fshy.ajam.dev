@@ -1,0 +1,98 @@
+# Newshosting
+
+> newshosting.com | Debrid; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/newshosting/ | JSON https://fshy.ajam.dev/api/v1/entity/newshosting.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Newshosting
+
+- `debrid/newshosting` | paid-only | evidence documented | binding none | category usenet provider (NNTP access, unlimited data) | tier unlimited
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T00:35:36.094Z (live) | stale on 2026-12-04
+- url https://www.newshosting.com/usenet-plans/
+- free tier: None. Three paid plans; the 30-day money-back guarantee is the only risk-free route. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable: a retrieval service, not stored bytes | source: [1] | note: Usenet is article-based; the object size is the poster's, not the provider's.
+- retention: '6642+ Days' of article retention on every plan | days: 6642 | source: [1]
+- egress: 'Monthly Usenet Data Unlimited' on the Unlimited and XL plans, 50 GB on Lite. No speed cap is stated; connections are 30 on Lite and 100 on the other two. | metered: yes | free allowance: 50 GB/month on Lite only | source: [1]
+- identity: card | detail: Email and password at the signup control panel; card payment. No phone step described.
+- interface: unknown
+- limits:
+  - volume-quota: 50 GB/month on Lite; unlimited on Unlimited and XL [1]
+  - request-rate: 30 connections on Lite, 100 on Unlimited and XL [1]
+  - retention-clamped:  [2]
+  - request-rate: the plan's connection count is the throughput ceiling; a client that opens more is refused at connect time [3]
+  - request-rate: 100 SSL-encrypted connections [1]
+  - retention-clamped: 6642+ days of article retention [1]
+- limits note: The 6642-day retention figure is the vendor's own and is the same on all three plans; it is a property of the article store, not a quota.
+- binding note: Lite's 50 GB/month is exhausted in under two hours at 1 TiB/month, so the plan choice is the binding decision. Unlimited removes the byte counter and leaves connection count as the only ceiling.
+- interface detail: Access is NNTP over TLS (port 563). The schema's interface enum has no nntp token, so this is documented as unknown rather than mislabelled as rest or cli; the real interface is a standard protocol every usenet client speaks.
+- tooling: Every usenet client: SABnzbd, NZBGet, nzbget-compatible downloaders, spotweb. No provider-side API is needed or offered.
+- composes with: The Unlimited plan is the feed behind a debrid or *arr stack: 100 connections and 6642 days of retention are what make an old post still downloadable, and 'Unlimited Data' is the only uncapped byte path in this whole lane.
+- reliability: No incident found in the pages read. The plan page publishes 'Regularly: $19.94/mo' struck through against the $12.95 charged, which is a promotional anchor rather than a reliability matter.
+- notes: The charged price has not moved in 36 months; what changed is that the vendor began publishing a list price of $19.94 in 2025 that it then discounts to $12.95. The page does not say whether a renewal bills $12.95 or $19.94, and the honest reading is that $12.95 is the price as long as the promotion runs - so the exposure is 54% on renewal, not a discount that can be banked. This is the largest published promo-versus-list gap in the set after Eweka. A client that pulls older releases meets removal far more often than age. Cheapest Omicron entry seen on any of its storefronts was a 15-month promo at $1.99/mo quoted by a third-party deals page, not by the vendor, so it is not documented as a price here.
+- evidence note: Four dated reads, three archived. The $12.95 has not moved; the strike-through list price appears only from 2025.
+- extras:
+  - price_history[0].date: 2023-10-03
+  - price_history[0].price: USD 12.95 / month
+  - price_history[0].plan: Unlimited
+  - price_history[0].source_url: https://web.archive.org/web/20231003193527/https://www.newshosting.com/usenet-plans/
+  - price_history[1].date: 2023-10-03
+  - price_history[1].price: USD 10.00 / month
+  - price_history[1].plan: Lite (50 GB)
+  - price_history[1].source_url: https://web.archive.org/web/20231003193527/https://www.newshosting.com/usenet-plans/
+  - price_history[2].date: 2024-10-04
+  - price_history[2].price: USD 12.95 / month
+  - price_history[2].plan: Unlimited
+  - price_history[2].source_url: https://web.archive.org/web/20241004075118/https://www.newshosting.com/usenet-plans/
+  - price_history[2].change_pct: 0.0
+  - price_history[3].date: 2025-10-02
+  - price_history[3].price: USD 12.95 / month (list USD 19.94)
+  - price_history[3].plan: Unlimited
+  - price_history[3].source_url: https://web.archive.org/web/20251002023508/https://www.newshosting.com/usenet-plans/
+  - price_history[3].change_pct: 0.0
+  - price_history[4].date: 2026-10-23
+  - price_history[4].price: USD 12.95 / month (list USD 19.94)
+  - price_history[4].plan: Unlimited
+  - price_history[4].source_url: https://www.newshosting.com/usenet-plans/
+  - price_history[4].change_pct: 0.0
+  - price_history[5].date: 2026-10-23
+  - price_history[5].price: USD 15.83 / month
+  - price_history[5].plan: XL PowerPack
+  - price_history[5].source_url: https://www.newshosting.com/usenet-plans/
+  - price_history[5].change_pct: 0.0
+  - change_36m: 0.0% on the charged price, 2023-10-03 to 2026-10-23
+  - promo_gap: charged USD 12.95 against a published list of USD 19.94: the list is 54.0% higher than the charge
+  - renewal_price: not published; the page shows only the struck list price and the charged price
+  - currency: USD
+  - usenet: yes
+  - failure_angle: missing article
+  - strongest_signal: 430 No Such Article
+  - account_states: credential refusal is 481/482/502 at connect; the page read covers article-level states only
+  - cache_miss: not applicable: an article either exists on the spool or answers 430
+  - host_removal: not applicable; the equivalent event is a backbone dropping a group or an article
+  - backbone: Omicron (Highwinds Media), AS33438
+  - sister_brands: Eweka; UsenetServer; Tweaknews; Newsgroup Ninja; Sunny Usenet; Astraweb; Easynews; PureUsenet; XLned
+  - payment_methods: not read
+- evidence:
+  - [1] 2026-10-23: Lite $10.00/mo with 50 GB, Unlimited 'Regularly: $19.94/mo' struck through and '$12.95/mo' charged, XL PowerPack $15.83/mo, all with 6642+ days retention
+  - [4] 2023-10-03: '$10.00 / mo' Lite, '$12.95 / mo' Unlimited and '$15.83 / mo' XL, with no list price shown
+  - [5] 2024-10-04: the same three prices, still with no strike-through
+  - [6] 2025-10-02: the same three prices with 'Regularly: ~$19.94/mo~' now struck through above the $12.95
+  - [2] 2026-10-23: 'If your newsreader returns a "423 No Such Article" or "430 No Such Article" message ... the article may no longer be available on our servers'; retention 'adds one day ... every day' so 'no article ever expires from our servers due to time limits'.
+  - [3] 2026-10-23: 'Retention is per provider. An article one server has aged out is very often still on another. Without a second account the only way to recover a dead article is PAR2 and that costs a read of the entire release.' Also that a second server is a second entry under the same nntp block.
+  - [1] 2026-10-23: Lite $10.00/mo 50 GB 30 connections; Unlimited $12.95/mo against a $19.94 regular price, Unlimited data, 100 connections, 6642+ days
+  - [7] 2026-10-23: 'Newshosting does not currently offer a free trial.'
+  - [8] 2026-10-23: Lite credits roll over to a 1 TB cap; Unlimited and XL have no data limit
+  - [9] 2026-11-03:  | capture: sha256:47b22dd46960130f05ba3acb7eeaac73d7ad6dfdc6b21cc75164522c8b7bf59a
+  - [2] 2026-11-03: the vendor's article says a 423 or 430 No Such Article answer means the article may no longer be available on its servers | capture: sha256:47cac2605b14d1cda76d44c7811ae9296cea86a163f39607bbaa052b79718c4e | quote: If your newsreader returns a "423 No Such Article" or "430 No Such Article" message when trying to access an article on Newshosting, the article may no longer be available on our servers.
+  - [2] 2026-11-03:  | capture: sha256:47cac2605b14d1cda76d44c7811ae9296cea86a163f39607bbaa052b79718c4e
+  - [2] 2026-11-03: the vendor's article gives an article older than its current retention as the first cause of a 423 or 430 answer | capture: sha256:47cac2605b14d1cda76d44c7811ae9296cea86a163f39607bbaa052b79718c4e | quote: The article is older than our current article retention.
+- sources:
+  - [1] https://www.newshosting.com/usenet-plans/
+  - [2] https://support.newshosting.com/kb/article/1192-423-or-430-no-such-article/
+  - [3] https://notes.debridmediamanager.com/providers/usenet/
+  - [4] https://web.archive.org/web/20231003193527/https://www.newshosting.com/usenet-plans/
+  - [5] https://web.archive.org/web/20241004075118/https://www.newshosting.com/usenet-plans/
+  - [6] https://web.archive.org/web/20251002023508/https://www.newshosting.com/usenet-plans/
+  - [7] https://support.newshosting.com/kb/article/1587-no-free-trial-but-a-30-day-guarantee/
+  - [8] https://support.newshosting.com/kb/article/96-do-unused-download-credits-roll-over-when-i-renew/
+  - [9] https://nzb.is/blog/dmca-vs-ntd-usenet-completion/

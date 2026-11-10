@@ -1,0 +1,119 @@
+# IPRoyal
+
+> iproyal.com | Debrid, IP and proxies; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/iproyal/ | JSON https://fshy.ajam.dev/api/v1/entity/iproyal.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## IPRoyal (Debrid)
+
+- `debrid/iproyal` | qualifies-with-caveat | evidence documented | binding none | category residential egress: static ISP, rotating residential, dedicated mobile | tier ISP proxy (static residential IP, per IP per month)
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23T02:21:34.000Z (live) | stale on 2026-11-23
+- url https://iproyal.com/pricing/
+- price from USD 1.80 per static ISP IP per month; USD 1,792 per TiB at the metered residential rate; from USD 117/month dedicated mobile | parsed USD 117/mo
+- free tier: No free allowance read. The pricing index headlines the three products as 'from $1.75/GB' (residential), 'from $1.80/proxy' (ISP) and 'from $117/month' (mobile). | unit: none | metered on: none | read on: 2026-10-23 | source: [1] | note: A trial may exist; it was not on the pages read.
+- per-object cap: not applicable: an address and a byte stream, not an object | source: [2]
+- retention: not applicable: a live endpoint, not stored bytes | source: [2]
+- egress: The ISP product is sold per IP with no byte meter: the page's own description reads 'The fastest ISP proxy servers with unlimited bandwidth reserved just for you', and the feature list offers 'Zero session limits', 'Dedicated IP Pool' and 'No Limits'. The rotating residential product is metered at $1.75/GB; the dedicated mobile product starts at $117/month for 90 days with 'Zero bandwidth and session limits'. | metered: no | free allowance: none | source: [2]
+- identity: card | detail: Account and card at the dashboard; crypto is also accepted per the pricing page's payment strip. No identity document was mentioned on the pages read.
+- interface: rest
+- limits:
+  - per-ip-shaping: the ISP address is fixed for the billing period and shared by every process on the VM; no concurrency cap published [2]
+- limits note: The bandwidth claim sits in the page description rather than in the feature list, and the feature list says 'unlimited threads' rather than 'unlimited bandwidth'. The product is priced per IP, so a byte meter would have to be a fair-use clause, and none was read.
+- binding note: At 1 TiB a month the static ISP product has no byte counter to hit and no published concurrency cap.
+- interface detail: HTTP(S) and SOCKS5 proxy endpoints with a dashboard API for sessions and rotation; the ISP product is a single fixed address.
+- endpoint: https://dashboard.iproyal.com/
+- tooling: any client that takes an HTTP or SOCKS5 proxy: curl, rclone --http-proxy, a browser, or a WireGuard-less transparent proxy. Nothing about the debrid client needs to change except where it egresses.
+- composes with: One static ISP address at $1.80/month with no byte meter is the cheapest way to give a free VM a residential-class source address, which is the class a debrid service is least likely to refuse; the same vendor's metered residential pool at $1.75/GB is 1,000 times the price at 1 TiB of monthly transfer.
+- reliability: A single fixed address is what the debrid services' sharing detectors want to see, and it is also a single point of failure: if that IP is sold to a busy pool or gets refused, the whole stack loses its egress class at once.
+- notes: Filed under debrid because the record exists to price 'debrid plus an IP class it will accept'. If it is promoted, the egress topic owns residential proxy pricing and egress/residential-proxy-trial already carries the $0.80/GB floor from Geonode; this record must not become a second geonode record. Three products, one record: the ISP tier is the one the debrid arithmetic turns on, and the other two are priced in evidence.
+- evidence note: Prices and product split are on the vendor's own pricing pages read.
+- extras:
+  - products.residential_rotating: from $1.75/GB
+  - products.isp_static: from $1.80/IP/month
+  - products.mobile_rotating: $6.80/GB (2 GB) to $5.20/GB (100 GB)
+  - products.mobile_dedicated: $130/month (30 days), $117/month (90 days)
+  - residential_tib_cost: USD 1792 per 1024 GB
+  - class: ISP proxies are advertised as 'genuine residential IPs' on residential ISP ASNs
+  - volume_stated: no byte meter on the ISP product
+- evidence:
+  - [1] 2026-10-23: 'from $1.75/GB' residential, 'from $1.80/proxy' ISP, 'from $117/month' mobile, all four product cards on one page
+  - [2] 2026-10-23: description 'The fastest ISP proxy servers with unlimited bandwidth reserved just for you'; features 'Zero session limits', 'Dedicated IP Pool', 'No Limits'; targeting in 'over 31 countries'
+  - [3] 2026-10-23: rotating mobile $6.80/GB at 2 GB down to $5.20/GB at 100 GB; dedicated mobile 'Starting from $130/month' (30 days) and '$117/month' (90 days); 'Zero bandwidth and session limits'
+- sources:
+  - [1] https://iproyal.com/pricing/
+  - [2] https://iproyal.com/pricing/isp-proxies/
+  - [3] https://iproyal.com/pricing/mobile-proxies/
+
+## IPRoyal (ISP proxies, billed per IP by term)
+
+- `ip-proxy/iproyal-isp-proxies` | qualifies-with-caveat | evidence documented | binding none | category per-address ISP proxy | tier ISP proxies, billed per IP by term
+- needs card yes, phone no, ID no, institution no | verified 2026-10-30T18:28:45.170Z (live) | stale on 2026-11-30
+- url https://iproyal.com/pricing/isp-proxies/
+- price no per-TB figure exists: the vendor bills per IP with traffic included. The comparable numbers are USD 1.80 per address per 24 hours, USD 2.70 per address per 30 days, USD 2.55 at 60 days and USD 2.40 at 90 days.
+- free tier: No free tier is stated. The cheapest purchase is one address for 24 hours at USD 1.80; the same address costs USD 2.70 for 30 days, USD 2.55 for 60 days and USD 2.40 for 90 days. Included in every plan, in the vendor's words: 500K+ unique IPs in 31+ countries, country, state and city-level targeting, customizable plans, SOCKS5 support, UDP and TCP connections, IP replacement, unlimited sessions, 24/7 support. | unit: none | metered on: none | read on: 2026-10-24 | source: [1] | note: The 24-hour term is the shortest and cheapest unit, which the vendor describes as a test with no long-term commitment; it is the same product at its shortest term, not a free trial.
+- per-object cap: not applicable | source: [2] | note: The unit sold is one IP address with a port, a username and a password, held for the term purchased.
+- retention: not applicable: a rented address, not stored bytes | source: [2] | note: The only clock is the rental term, priced at 24 hours, 30, 60 and 90 days. The vendor describes the address as reserved for the buyer: Dedicated IP Pool, keep the same IP address as long as needed.
+- egress: The product page adds unlimited sessions and included traffic with fair usage protection for high-volume use cases; the pricing page states unlimited threads, and its page description states unlimited bandwidth. | metered: no | free allowance: traffic included with the per-IP price; no byte figure published and the fair-use clause is unquantified | source: [2]
+- identity: card | detail: Payment methods listed: Visa, Mastercard, PayPal, Discover, Amex, Alipay and crypto. Sign-up offers Google, LinkedIn or a form, with an hCaptcha. The KYC policy screens the IP address, email and other data at registration and applies identity verification at purchase, which it says ensures unrestricted access to all services; the product page states the vendor gets to know customers before providing full access to ISP proxies. Whether the purchase-stage identity verification asks for an identity document is not stated.
+- interface: rest
+- limits:
+  - volume-quota:  [2]
+  - request-rate: no published request-rate or concurrency figure; the vendor states unlimited threads and unlimited sessions [1]
+  - per-ip-shaping: one dedicated address per purchased slot, so all of a slot's traffic shares one IP's reputation; the vendor sells IP replacement as the remedy [2]
+- limits note: Zero session limits is prose naming no vocabulary kind: it says the vendor caps neither session length nor session count, which removes a shaping constraint rather than creating one. The fair-use clause behind included traffic is the one qualifier that could become a ceiling, and it publishes no number.
+- binding note: The vendor states unlimited sessions and unlimited threads with traffic included per IP, so no request-rate, count or byte ceiling of the vocabulary is published. Cost scales with the number of addresses held, USD 1.80 to USD 2.70 per address per term, and the one qualifier that could become a ceiling is the provider, which publishes no number.
+- interface detail: The endpoint is a proxy address with a port, a username and a password, over HTTP(S) or SOCKS5, with UDP and TCP connections. The vendor runs a self-service dashboard and an HTTP API at apid.iproyal.com, whose documentation sample is GET https://apid.iproyal.com/v1/reseller/balance with an apiToken. The schema's interface enum has no proxy-protocol token, so rest indexes the API and the proxy protocols are stated here.
+- tooling: Any client that takes a proxy address with credentials: curl --proxy, Python requests with proxies=, a headless browser with proxy settings, or a SOCKS5-capable client. The vendor states a self-service dashboard with IP whitelist management and API access; its documentation sample calls GET https://apid.iproyal.com/v1/reseller/balance with an apiToken. Checking an issued address's registration takes a whois or RIPE lookup on that address.
+- composes with: One purchased address in front of the outbound leg of a Workers AI gateway or a crawler, where a stable source address per request matters. It carries no storage and no compute, so it sits beside compute and egress records rather than replacing either.
+- reliability: One dedicated address carries all of a slot's traffic, so a block follows the address; the vendor's stated remedy is IP replacement. Stated uptime is 99.9% and stated success rate up to 99.99%; neither is measured. The KYC policy states access can be suspended for any customer, usually after a request for an explanation of usage.
+- notes: The unit sold is one dedicated IP address with a port, a username and a password, held for 24 hours, 30, 60 or 90 days. The vendor states the addresses are registered to consumer internet service providers and hosted on data center servers. No sample address, no free trial and no list of announcing ASNs or prefixes is published on the product or pricing page, so the registration class of an address cannot be checked before purchase; the shortest term, USD 1.80 for 24 hours, is the lowest-cost unit on which a whois or RIPE lookup of an issued address is possible. Per-object cap and retention do not apply to an address.
+- evidence note: Documented: the per-IP prices (USD 1.80 for 24 hours, USD 2.70 for 30 days, USD 2.55 for 60 days, USD 2.40 for 90 days), the feature list, the per-IP billing sentence with the provider qualifier, the payment methods and the KYC stages are stated on the vendor's product, pricing and KYC pages. Nothing about an issued address is measured: measured needs one purchased address, a whois or RIPE lookup of its registration class and AS, and a byte and request count through it.
+- extras:
+  - rung: 5
+  - rung_note: The claim under test is the registration class of the issued address, whether it is registered to a consumer ISP rather than to a hosting provider, which is rung 5; the price and the identity gate are lower rungs and are settled.
+  - price_usd_per_address.24_hours: 1.8
+  - price_usd_per_address.30_days: 2.7
+  - price_usd_per_address.60_days: 2.55
+  - price_usd_per_address.90_days: 2.4
+  - cheapest_test: $1.80 for one address for 24 hours, which buys the only pre-purchase check available: the address itself
+  - pool_stated: 500K+ unique IPs in 31+ countries, with country, state and city targeting
+  - pool_by_country_read: US 135,681, GB 77,724, FR 45,921, DE 45,488, AU 17,097, ES 15,923, PL 15,002, CA 14,862, NL 13,485, AT 13,247, BR 10,482, IT 8,420, JP 8,402; 39 locations listed on the product page, down to SI 1,002
+  - session_limits: unlimited sessions and unlimited threads stated
+  - bandwidth: unlimited bandwidth stated
+  - payment_methods: Visa, Mastercard, PayPal, Discover, Amex, Alipay, crypto
+  - protocols: HTTP(S) and SOCKS5, UDP and TCP
+  - class_claim_unchecked: no sample address and no ASN list published, so the ISP registration of an issued address is unverified before purchase
+- evidence:
+  - [2] 2026-10-24: The FAQ, read directly: ISP proxies use IP addresses registered to consumer internet service providers. These IPs are hosted on data center servers. The same page states every ISP proxy belongs only to you, unlimited sessions, 500K+ unique IPs in 31+ countries, country/state/city targeting, SOCKS5 support, UDP and TCP, IP replacement, 99.9% uptime and a self-service dashboard.
+  - [1] 2026-10-24: Same page: unlimited threads, unlimited bandwidth claimed, and the FAQ answer giving an IP address, port, username and password as what the buyer receives.
+  - [1] 2026-10-24: The price ladder and payment methods as recorded by the research pass of 2026-10-24: $1.80 per proxy for 24 hours, $2.70 for 30 days, $2.55 for 60 days, $2.40 for 90 days; Visa, Mastercard, PayPal, Alipay or crypto. Passed on from that read, not re-observed by this record's raw fetch, which returned no dollar figures.
+  - [2] 2026-10-30: the vendor states its ISP proxy addresses are registered to consumer ISPs and hosted on data center servers | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416 | quote: ISP proxies use IP addresses registered to consumer internet service providers. These IPs are hosted on data center servers.
+  - [2] 2026-10-30: the 24-hour price of USD 1.80 per proxy, with the 30, 60 and 90-day prices on the same page | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416 | quote: 24 Hours Starting from $1.80 /proxy
+  - [2] 2026-10-30:  | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416
+  - [2] 2026-10-30: the product page documents an HTTP API at apid.iproyal.com | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416 | quote: GET https://apid.iproyal.com/v1/reseller/balance
+  - [1] 2026-10-30: the address is reserved to one buyer and stays the same for the term | capture: sha256:83e326bf466f31fd6c3f2b61160b79555e267c96db392b60b2a2af09d3eb44a2 | quote: Keep the same IP address as long as needed - it’s reserved exclusively for your uninterrupted access.
+  - [2] 2026-10-30: the proxy is reached over HTTP(S) or SOCKS5 | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416 | quote: Connect to your ISP proxy through your preferred protocol – HTTP(S) or SOCKS5
+  - [2] 2026-10-30: the vendor states a success rate of up to 99.99% | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416 | quote: High-quality dedicated ISP proxies bring the trust level of residential proxies with a success rate of up to 99.99%
+  - [3] 2026-10-30: identity verification is a stage of purchase and gates unrestricted access | capture: sha256:89913ea66e9c5c985a65bb51dfaf0df2549375218cd31dd349f977c60d4daf04 | quote: Identity verification ensures unrestricted access to all our services and features.
+  - [2] 2026-10-30: the 24-hour term is USD 1.80 per proxy; the page lists the 30, 60 and 90-day prices and the every-plan list | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416 | quote: 24 Hours Starting from $1.80 /proxy
+  - [2] 2026-10-30: the 24-hour card is described as a test with no long-term commitment | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416 | quote: Test high-speed ISP proxies with no long-term commitment
+  - [2] 2026-10-30: the per-IP billing sentence is on the product page | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416
+  - [2] 2026-10-30:  | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416
+  - [2] 2026-10-30:  | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416
+  - [2] 2026-10-30: the four per-proxy prices on the product page | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416 | quote: 24 Hours Starting from $1.80 /proxy
+  - [1] 2026-10-30: the payment strip lists seven methods | capture: sha256:83e326bf466f31fd6c3f2b61160b79555e267c96db392b60b2a2af09d3eb44a2 | quote: Visa Mastercard Paypal Discover Amex Alipay Crypto
+  - [2] 2026-10-30: the United States row lists 135,681 IPs | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416 | quote: 135,681 IPs
+  - [1] 2026-10-30: the pricing page states 99.9% uptime | capture: sha256:83e326bf466f31fd6c3f2b61160b79555e267c96db392b60b2a2af09d3eb44a2 | quote: 99.9% Uptime
+  - [1] 2026-10-30: payment by Visa, Mastercard, PayPal, Discover, Amex, Alipay or crypto | capture: sha256:83e326bf466f31fd6c3f2b61160b79555e267c96db392b60b2a2af09d3eb44a2 | quote: Visa Mastercard Paypal Discover Amex Alipay Crypto
+  - [1] 2026-10-30: the pricing page description states unlimited bandwidth | capture: sha256:7cf734fc9f8a80ad3b337bd8c6efeda28af32bb06ba0ab0b4cca1678e75afb1e | quote: The fastest ISP proxy servers with unlimited bandwidth reserved just for you.
+  - [3] 2026-10-30: registration is screened on IP address and email | capture: sha256:89913ea66e9c5c985a65bb51dfaf0df2549375218cd31dd349f977c60d4daf04 | quote: We check and evaluate the IP address, email, and other data against potentially fraudulent activity to detect any potential risks.
+  - [3] 2026-10-30: access can be suspended for any customer | capture: sha256:89913ea66e9c5c985a65bb51dfaf0df2549375218cd31dd349f977c60d4daf04 | quote: IPRoyal reserves the right to suspend access to our services at any point in time and to any customer.
+  - [4] 2026-10-30: sign-up offers Google, LinkedIn or a form with an hCaptcha | capture: sha256:50a792bb2df64c26a07ee3dc6120f29b44e505df09d55b6a91f141103185aec6 | quote: Continue with LinkedIn
+  - [2] 2026-10-30: each address is dedicated to one buyer | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416 | quote: Every ISP proxy belongs only to you – no one else can use the same IP addresses as you
+  - [2] 2026-10-30: the delivered unit is an IP address, a port, a username and a password | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416 | quote: Your provider will give you an IP address, port, username, and password.
+  - [2] 2026-10-30:  | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416
+- sources:
+  - [1] https://iproyal.com/pricing/isp-proxies/
+  - [2] https://iproyal.com/isp-proxies/
+  - [3] https://iproyal.com/kyc-policy/
+  - [4] https://dashboard.iproyal.com/register/

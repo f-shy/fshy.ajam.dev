@@ -1,0 +1,70 @@
+# Runloop
+
+> runloop.ai | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/runloop/ | JSON https://fshy.ajam.dev/api/v1/entity/runloop.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Runloop
+
+- `compute/runloop` | trial-only | evidence documented | binding volume-quota | category container and VM sandbox | tier Free Pro trial
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T02:24:09.966Z (live) | stale on 2026-12-05
+- url https://www.runloop.ai/pricing
+- price parsed USD 231.26/mo
+- free tier: 'Start Your Free Pro Trial', 'No credit card required', '$50 Usage Credit'. Trial sandbox limits: '3 Running Devboxes / 5 blueprints / 10 snapshots / 3 objects'. The Basic plan is 'Free + usage based-compute' with '100 GB Free Storage' and '1st month FREE'. | unit: mixed | metered on: wall-clock | read on: 2026-10-24 | source: [1] | note: A one-time USD 50 credit attached to a trial, not a standing free tier.
+- per-object cap: No devbox shape is published on the pricing page; the rate card is per CPU-hour and per GB-hour, with 'Devbox CPU $0.108 / CPU-hr' and 'Devbox Memory $0.0252 / GB-hr'. | source: [1] | note: Three concurrent devboxes on the trial.
+- retention: '100 GB Free Storage' on the Basic plan; devbox storage is billed at USD 0.00034236 per GB-hour and snapshots are separate. | source: [1]
+- egress: No egress charge or allowance is stated on the pricing page. | metered: no | source: [1]
+- identity: email | detail: 'No credit card required' twice on the page, including on the trial call to action. No hold exists because no payment method is taken.
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): USD 50 usage credit on a free Pro trial [1]
+  - volume-quota (binding): 3 running devboxes during the trial [1]
+  - volume-quota (binding): CPU USD 0.108 per CPU-hour and memory USD 0.0252 per GB-hour [1]
+- limits note: 'Trial sandbox limits (lifted on upgrade)' means the devbox count is a trial restriction rather than a platform ceiling.
+- binding note: The credit and the rate: at USD 0.108 a CPU-hour a two-CPU box burns USD 0.3168 an hour, so USD 50 is 158 hours, and the credit is a trial that ends.
+- interface detail: REST API, Python and TypeScript SDKs, and the rl-cli command line tool
+- tooling: pip install runloop-api-client (Python SDK), npm install @runloop/api-client (TypeScript SDK), and the rl-cli terminal tool
+- composes with: not established
+- reliability: The trial ends and the limits lift only on upgrade; a devbox on the trial is capped by the credit rather than by a runtime limit.
+- notes: At 2 vCPU / 4 GiB the hour is USD 0.216 + USD 0.1008 = USD 0.3168, so USD 50 is 158 hours, five and a half days. Boat's comparison table independently prices Runloop at 'USD 0.634' an hour for a 4 vCPU / 8 GB machine, which is exactly double this figure and consistent with the same rate card.
+- evidence note: The credit, the no-card statement, the trial concurrency and the rate card are first-party. The per-hour figure is arithmetic on a 2 vCPU / 4 GiB shape the page does not name, so the shape is the category's assumption and is labelled as such.
+- extras:
+  - keep_rate: 1.0
+  - billing_model: per-second
+  - shape.vcpu: 2
+  - shape.ram_gib: 4
+  - session_cap.restart_required: no
+  - session_cap.note: no wall-clock cap published; suspension and resume are a paid-tier feature
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: unstated
+  - free_tier_kind: trial-credit
+  - granularity.min_billed_s: 0
+  - burst_x: 1.0
+  - ps.gib: 100
+  - ps.price: 1 TB on the paid tier
+  - ps.durability: storage
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: while the account exists
+  - crosscheck.boat_compare_2026-09-26: USD 0.634/h at 4 vCPU / 8 GB
+  - term: one-time trial credit
+  - m10h_usd: 95.04
+  - m24h_usd: 231.26
+  - price_arithmetic: 2 x 0.108 + 4 x 0.0252 = 0.3168/h; x 730 = 231.26; 50 / 0.3168 = 157.8 h
+  - credit_usd: 50
+  - credit_months_at_shape: 0.22
+  - credit_hours_at_shape: 157.8
+  - credit_expiry: trial; the page does not state a date
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: '### Try Our Pro Plan for Free!' with '$50 Usage Credit', 'No credit card required', 'Trial sandbox limits (lifted on upgrade)' and '100 GB Free Storage', against '1 TB Free Storage' on the paid tier, quoted
+  - [2] 2026-10-22: a competitor's comparison table lists Runloop at USD 0.634 per hour for a 4 vCPU / 8 GB / 50 GB machine, with list prices dated 2026-09-26; this is a reported rate about a third party and not a reading of the vendor's own page
+  - [1] 2026-10-24: quoted: 'No credit card required', '$50 Usage Credit', 'Trial sandbox limits (lifted on upgrade): 3 Running Devboxes', 'Devbox CPU $0.108 / CPU-hr', 'Devbox Memory $0.0252 / GB-hr', 'Devbox Storage $0.00034236 / GB-hr', '100 GB Free Storage'.
+  - [3] 2026-11-03: Runloop publishes a CLI, rl-cli | capture: sha256:8ec8be1532739d25c05c43a27c4698e258f611904df656ce263c10339447408d | quote: [CLI (`rl-cli`)](https://docs.runloop.ai/docs/tools/rl-cli): Use in terminal environments where you can install tools.
+  - [1] 2026-11-03: a REST API and Python and TypeScript SDKs exist | capture: sha256:7ddc63767a868b75a4190915393627d573d66b81db6fa01657ce8121f36583af | quote: Integration is straightforward through Runloop's Python and TypeScript SDKs and REST API.
+  - [3] 2026-11-03: the Python SDK install command | capture: sha256:8ec8be1532739d25c05c43a27c4698e258f611904df656ce263c10339447408d | quote: - [Python SDK](https://github.com/runloopai/api-client-python): `pip install runloop-api-client`
+- sources:
+  - [1] https://www.runloop.ai/pricing
+  - [2] https://boat.dev/compare
+  - [3] https://docs.runloop.ai/llms.txt

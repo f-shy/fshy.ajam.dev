@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://fshy.ajam.dev/sitemap.xml

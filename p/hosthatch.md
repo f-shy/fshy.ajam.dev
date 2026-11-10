@@ -1,0 +1,184 @@
+# HostHatch
+
+> hosthatch.com | Compute, Storage, Egress and tunnels; 4 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/hosthatch/ | JSON https://fshy.ajam.dev/api/v1/entity/hosthatch.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## HostHatch (nvme 2gb)
+
+- `compute/hosthatch-nvme-2gb` | qualifies | evidence documented | binding volume-quota | category VPS | tier NVMe 2 GB
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T01:56:00.000Z (live) | stale on 2026-11-24
+- url https://hosthatch.com/products
+- price parsed USD 4/mo
+- disagrees on verdict: `compute/hosthatch` says paid-only, `compute/hosthatch-nvme-2gb` says qualifies
+- free tier: no free tier; 'NVMe 2 GB from $4.00 / month' | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the plan is paid
+- egress: 1 TB a month on the NVMe 2 GB plan, from the plan table column 'Bandwidth' | metered: yes | free allowance: 1 TB | source: [1]
+- identity: card | detail: an account and a payment method at order.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 1 TB a month of bandwidth [1]
+  - per-object-cap: 10 GB NVMe on this rung [1]
+- binding note: 1 TB a month is the smallest allowance of any row in evaluated offerings, and it fails before the 2 GiB of RAM does for anything that serves bytes.
+- interface detail: root SSH, the vendor's Peregrine control panel, user-supplied ISOs
+- tooling: any SSH client; Peregrine panel
+- composes with: a 2 GiB box with NVMe and dedicated CPU allocation, useful where disk latency matters more than RAM
+- reliability: no reliability event recorded
+- notes: Inside the line at USD 4.00 for 2 GiB, but the 10 GB disk and 1 TB traffic make it the thinnest row in evaluated offerings per dollar of RAM. The 4 GB rung is USD 6.00 and therefore out. Prices are 'from', so a location may quote higher; the page does not enumerate per-location rates.
+- evidence note: the two rungs, their shapes and their prices are quoted from the vendor's product page read; 'from' means the rate varies by location, and the locations were not enumerated.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 2
+  - shape.disk_gib: 10
+  - billing_model: monthly
+  - term: monthly
+  - m10h_usd: 4.0
+  - m24h_usd: 4.0
+  - price_arithmetic: USD 4.00/month flat; 730 h x USD 0.0055/h equivalent
+  - out_of_pocket_usd: 4.0
+  - renewal_usd: 4.0
+  - renewal_note: 'from' price; renewal at the location's rate, not enumerated
+  - promo: no
+  - ipv6: yes
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+- evidence:
+  - [1] 2026-10-24: quoted: 'NVMe 2 GB from $4.00 / month', '1 AMD EPYC core ( fair share )', '2 GB DDR4', '10 GB NVMe', '1 TB'
+  - [1] 2026-10-24: quoted: 'NVMe 4 GB from $6.00 / month', '2 AMD EPYC cores ( fair share )', '4 GB DDR4', '20 GB NVMe'
+- sources:
+  - [1] https://hosthatch.com/products
+
+## HostHatch Storage VM
+
+- `storage/hosthatch-storage-vm` | qualifies-with-caveat | evidence reported | binding per-ip-shaping | category storage-vps
+- needs card yes, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://hosthatch.com/products
+- price $3.80/TB/mo at 10 TB ($38/mo, 25 TB included). At 5 TB: $20/mo = $4.00/TB (12.5 TB included). At 20 TB: two 10 TB VMs = $76/mo = $3.80/TB. Pricing is linear — no volume break — so the 10 TB rung is the only sensible buy. | parsed USD 3.8/TB-mo
+- free tier: 1 / 2 / 3 / 4 / 5 / 6 / 8 / 10 TB HDD, 'enterprise-grade spinning hard disk drives', 8 locations. | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Metered with throttle-on-exceed, no published per-TB overage price. Ratios are 2.5x storage: 1 TB plan = 2.5 TB, 2 TB = 5 TB, 5 TB = 12.5 TB, 10 TB = 25 TB. Exceeding it is throttling, not billing. A holder of the 2 TB Hong Kong plan reports '2.5 TB (throttled to about 5 Mbps after limit from my experience)' (LET thread 217891). APAC bandwidth is a separate, smaller pool: a HostHatch rep confirmed on LET that 'the actual limit is 3TB per month for Singapore' while the site quoted 7.5 TB (thread 194949). | metered: yes | free allowance: 3TB per month
+- identity: card | detail: card
+- interface: rest, sftp, rsync, rclone
+- limits:
+  - per-ip-shaping (binding): 50 GB/day [1]
+- limits note: per-object-cap: none. APAC gets 40% of the advertised bandwidth (3 TB instead of 7.5 TB on the 3 TB plan).
+- binding note: one stream is shaped, and aggregate throughput is the shaped rate times the number of streams
+- interface detail: sftp, rsync, rest (self-hosted)
+- tooling: rclone SFTP, Borg/Restic, root KVM
+- composes with: Root KVM. Note the array is RAID-50 on some nodes. HostHatch itself conceded on LET that 'RAID 50 comes with an inherently higher risk as compared to RAID 10' (thread 188952).
+- reliability: Mixed and the worst reliability record of the three leaders. Documented incidents: HostHatch Chicago storage 'data lost' with 5d15h downtime and multi-day ticket silence (thread 178049); Stockholm storage down (thread 199687); Los Angeles storage outage (thread 188952); one user reports being suspended for writing ~50 GB/day because it 'degrades their array' despite being under the bandwidth cap (thread 122150). Countervailing: a 859-day and a since-2015 customer both report the service as solid (threads 163774, 194092).
+- notes: the same as the free tier
+- extras:
+  - price_verbatim: $3.80/TB/mo at 10 TB ($38/mo, 25 TB included). At 5 TB: $20/mo = $4.00/TB (12.5 TB included). At 20 TB: two 10 TB VMs = $76/mo = $3.80/TB. Pricing is linear — no volume break — so the 10 TB rung is the only sensible buy.
+- evidence:
+  - [1] 2026-10-21: 
+  - [2] 2026-10-21: '2.5 TB (throttled to about 5 Mbps after limit from my experience)'
+  - [3] 2026-10-21: HostHatch rep: Singapore 'actual limit is 3TB per month'
+  - [4] 2026-10-21: Chicago storage data loss
+- sources:
+  - [1] https://hosthatch.com/products
+  - [2] https://lowendtalk.com/discussion/217891/
+  - [3] https://lowendtalk.com/discussion/194949/
+  - [4] https://lowendtalk.com/discussion/178049/
+
+## HostHatch (compute/hosthatch)
+
+- `compute/hosthatch` | paid-only | evidence documented | binding volume-quota | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://hosthatch.com/products
+- disagrees on verdict: `compute/hosthatch` says paid-only, `compute/hosthatch-nvme-2gb` says qualifies
+- free tier: The cheapest NVMe compute VM in the standing catalogue is 'NVMe 2 GB' at 'from $4.00 / month': 1 AMD EPYC core on fair share, 2 GB DDR4, 10 GB NVMe, 1 TB monthly transfer. The ladder above it, all quoted from the same table: 4 GB / 20 GB NVMe / 1 TB at $6.00; 8 GB / 35 GB / 2 TB at $9.00; 12 GB / 50 GB / 3 TB at $12.00 (4 cores, 1 dedicated); 16 GB / 75 GB / 4 TB at $15.00; 24 GB / 100 GB / 6 TB at $22.00; 32 GB / 125 GB / 8 TB at $29.00; 48 GB / 150 GB / 12 TB at $39.00; 64 GB / 200 GB / 15 TB at $49.00; 96 GB / 250 GB / 20 TB at $69.00. A second product line, Storage VMs on spinning disk, starts at 'Storage 1TB from $5.00 / month' with 1 vCPU core, 1024 MB RAM, 1000 GB disk and 2500 GB transfer, up to 10 TB disk with 25000 GB transfer for $38.00, in 8 locations. The homepage states the entry price twice over: 'Our smallest plan costs $4 per month (less than a cup of coffee).' | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: each plan carries a monthly transfer allowance rather than an unlimited port: 1 TB on the NVMe 2 GB plan, rising with the plan to 2, 3, 4, 6, 8, 12, 15 and 20 TB. The page states in a footnote that APAC limits are lower and are shown only on hover, and the vendor's own anniversary post gives the shape of that gap: '5 TB bandwidth (3 TB in APAC, 1.5TB in Seoul)'. Extra bandwidth is sold on top in fixed sizes through the API and the console. | metered: no | free allowance: 1024 GB per month on the NVMe 2 GB plan; lower in APAC, by an amount this read could not capture | price per TB: not published on any page read: the API exposes an extra_bandwidth price list per product, and the documented values are explicitly illustrative ('The examples' prices are illustrations'), so no rate is recorded | source: [1]
+- identity: card | detail: not stated on the page read, and stated precisely: no page read lists the accepted payment methods. What is documented is that an order ships only against money. The API docs say an order 'pays for itself from the project owner's account credit when the credit covers it. Otherwise it waits while its invoice is paid in the console', so either prepaid credit or a payment instrument is needed before any server exists. The older signup form asks for 'your personal information as accurately as possible to avoid false-positives by our fraud detection system' and says it is used 'for your invoices and any other billing related processes'. The new console signup asks only for email, password and an optional project id, so nothing is charged at registration; the charge lands on the first invoice. A third-party benchmark table lists Stripe, PayPal and bank transfer as accepted, which is reported and was not verified here.
+- interface: ssh, rest
+- limits:
+  - volume-quota (binding): 1 TB a month is 33 GB a day, 3 percent of one day of the 1 TB daily transfer ceiling, so the monthly counter is the first wall; behind it sit a 10 GB NVMe disk that holds no working set and a single fair-share core, which makes this a control node rather than a data node. [1]
+- limits note: 1 TB a month is 33 GB a day, 3 percent of one day of the 1 TB daily transfer ceiling, so the monthly counter is the first wall; behind it sit a 10 GB NVMe disk that holds no working set and a single fair-share core, which makes this a control node rather than a data node.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: root KVM on the vendor's own hardware, so any client runs inside the VM and no wrapper is needed. The vendor documents its own control panel (Peregrine) and a REST API at https://docs.hosthatch.com/api/ covering orders, server power and reinstall, snapshots, firewalls, SSH keys, ISO mounting, IPv6 and reverse DNS, with an idempotency key on orders. Two API surfaces exist, the new console API and a legacy Peregrine API, which is a second write path to the same resource.
+- composes with: This is a control-plane machine, not a data machine: 2 GB of RAM and 10 GB of NVMe run a scheduler, a broker client, a DNS primary or a tunnel endpoint, while the 1 TB a month moves control traffic only. For comparison inside evaluated offerings, RackNerd's 1 GB at USD 1.83 a month is cheaper per month but prepaid annually, and Kimsufi's USD 19.90 buys 32 GB of RAM and 4 TB of disk; HostHatch's $4.00 sits between them as the cheapest monthly-in-advance 2 GB box with 40 GbE public networking (100 GbE in some regions, per the vendor's own matrix) and a documented API.
+- reliability: no incident observed; the vendor's own anniversary post states that on promotional plans 'It can take several days to resolve issues', that promotional servers have a 10-working-day setup, and that promo plans carry no refunds or credits.
+- notes: Every price here is the vendor's standing catalogue, not a third-party table. No trial and no signup credit exist on any page read: the documentation bundle has zero occurrences of 'trial', and credit appears only as a balance the customer funds. A coupon aggregator advertises a '$100 Free Trial for 30 Days on VPS Hosting' against HostHatch, which is a template line repeated across that site's coupon pages and appears on no HostHatch page; it is unverified and contradicted by the vendor's own documentation, so it is not recorded as an offer. The login wall is recorded, not worked around. Two further observations: the vendor's own pages disagree on how many locations exist (16 on the products page, 13 on the homepage and features page, 16 data centers on the company page, and 14 rows including Seoul in the docs matrix), and console.hosthatch.com/products/ answered 404.
+- extras:
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 2
+  - facets.shape.disk_gib: 10
+- evidence:
+  - [1] 2026-10-22: cheapest compute row quoted as a table: 'NVMe 2 GB' / 'from $4.00 / month' / '1 AMD EPYC core ( fair share )' / '2 GB DDR4' / '10 GB NVMe' / '1 TB'
+  - [1] 2026-10-22: the rest of the compute ladder in the same table: 4 GB at $6.00, 8 GB at $9.00, 12 GB at $12.00, 16 GB at $15.00, 24 GB at $22.00, 32 GB at $29.00, 48 GB at $39.00, 64 GB at $49.00, 96 GB at $69.00, each with the NVMe and transfer figure recorded in offer
+  - [1] 2026-10-22: 'Storage 1TB from $5.00 / month' with '1 vCPU core', '1024 MB', '1000 GB', '2500 GB', and the line 'Available in 8 strategic locations. Built for mass storage and backups and running large enterprise-grade spinning hard disk drives.'
+  - [2] 2026-10-22: 'Our smallest plan costs $4 per month (less than a cup of coffee). Deploy it and see for yourself'
+  - [1] 2026-10-22: the bandwidth column carries footnote 1: 'Bandwidth limits are different for the APAC region. Hover over the bandwidth to see them.' The APAC figures are behind a hover and were not captured by a text read, so no APAC number is recorded here from this page.
+  - [3] 2026-10-22: 'The order pays for itself from the project owner's account credit when the credit covers it. Otherwise it waits while its invoice is paid in the console.' Also, of the catalogue's example values: 'The examples' prices are illustrations: the endpoints answer with yours.'
+  - [4] 2026-10-22: the whole documentation bundle, 228991 bytes read, contains no occurrence of the word 'trial' (grep -c -i trial returned 0), and no page offers signup credit: 'credit' appears only as billing_account.credit_balance, a balance the customer pays in
+  - [5] 2026-10-22: 'Please enter your personal information as accurately as possible to avoid false-positives by our fraud detection system. The information you provide us with will be used for your invoices and any other billing related processes.' and 'An email will be sent to your email address with a verification link.'
+  - [6] 2026-10-22: the new console registration form asks for 'Email', 'Password' and 'Project ID (Optional)' plus agreement to the terms, and asks for no payment detail at signup
+  - [7] 2026-10-22: first-party promotional post: 2 cores, '4 GB RAM', '50 GB NVMe storage', '5 TB bandwidth (3 TB in APAC, 1.5TB in Seoul)', '$35 per year, $95 per 3 years'; with 'All sales are final. We cannot change with another service. We do not provide refunds (or credits) for these plans.' and 'The setup time is 10 working days (2 weeks).'
+  - [7] 2026-10-22: 'We no longer aim for the ultra low spec/price deadpool deals.' and 'Our promotional services are provided at near-cost pricing to fill up excess capacity and should be used accordingly.', plus 'It can take several days to resolve issues, especially issues that require complex investigation.'
+  - [8] 2026-10-22: 
+  - [1] 2026-10-22: Storage VMs block quoted: 'Storage 1TB from $5.00 / month', '1 vCPU core', '1024 MB', '1000 GB', '2500 GB'; and 'Storage 10TB from $38.00 / month', '2 vCPU cores', '2048 MB', '10000 GB', '25000 GB'
+  - [1] 2026-10-22: the storage line is described as 'Built for mass storage and backups and running large enterprise-grade spinning hard disk drives', available in 8 locations
+  - [9] 2026-10-22: the storage path redirects to /products, which is the page carrying both the compute and the storage tables; there is no separate storage page
+- sources:
+  - [1] https://hosthatch.com/products
+  - [2] https://hosthatch.com/
+  - [3] https://docs.hosthatch.com/api/orders-and-payment/
+  - [4] https://docs.hosthatch.com/llms-full.txt
+  - [5] https://cloud.hosthatch.com/signup
+  - [6] https://console.hosthatch.com/accounts/signup/
+  - [7] https://lowendtalk.com/discussion/216524/calmly-celebrating-15-years-in-business
+  - [8] https://cloud.hosthatch.com/sale/current-promotions
+  - [9] https://hosthatch.com/storage-vps
+
+## HostHatch (nvme vps)
+
+- `egress/hosthatch-nvme-vps` | paid-only | evidence documented | binding volume-quota | category origin VM (paid VPS) | tier NVMe 2 GB
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T07:36:43.376Z (live) | stale on 2026-12-04
+- url https://hosthatch.com/products
+- price USD 4.00 a month with 1 TB of bandwidth included | parsed USD 4/TB-mo
+- free tier: no free plan: NVMe 2 GB is 'from $4.00 / month' with 1 TB of bandwidth | unit: TB | metered on: downloaded-bytes | read on: 2026-11-03 | source: [1] | note: The page footnotes that bandwidth limits differ for the APAC region.
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 1 TB of bandwidth on NVMe 2 GB, different limits in the APAC region; a public /64 IPv6 block is routed to the VM; inbound UDP policy is not stated on the pages read | metered: yes | free allowance: 1 TB of bandwidth on the $4.00 plan | source: [1]
+- identity: card | detail: a third-party index reports that checkout takes cards via Stripe and also PayPal, BitPay crypto, Alipay and bank transfer, and that sign-ups are checked against fraud databases with ID documents not mentioned; the vendor's own sign-up page was not read (the login page is walled) | country: None
+- interface: ssh
+- limits:
+  - volume-quota (binding): 1 TB of bandwidth on NVMe 2 GB; limits differ in the APAC region [1]
+- binding note: at 1 TiB a month the 1 TB allowance is passed first; larger NVMe plans list 1 TB to 20 TB
+- interface detail: SSH to the VM's public IPv4 or routed IPv6 address
+- tooling: wg-quick or any VPN daemon inside the guest
+- composes with: a USD 4 a month origin with a routed IPv6 /64, which carries inbound to many addresses; the 1 TB allowance is the limit
+- reliability: unverified: no suspension, throttle or data-loss behaviour is stated on the pages read
+- notes: The products page footnotes that bandwidth limits differ for the APAC region; the price of extra bandwidth was not read.
+- evidence note: price, bandwidth and the IPv6 block are quoted from the vendor's product, features and docs pages read on 2026-11-03; identity rests on a third-party index and is reported, not documented; no VM was ordered
+- extras:
+  - wg_path: native-conf
+  - wg_detail: a full KVM-class guest with root, a public IPv4 and a routed IPv6 /64; wg-quick binds UDP natively unless a firewall is added; inbound UDP was not probed
+  - ingress: unverified: no inbound port policy is stated on the pages read
+  - volume_stated: 1 TB of bandwidth on NVMe 2 GB
+  - bytes_transit: yes
+  - transit_note: bytes leave through the VM's own public address on HostHatch's network
+- evidence:
+  - [1] 2026-11-03: the entry compute plan is NVMe 2 GB from USD 4.00 a month | capture: sha256:feb2a338636777f597ce25f456526beca97165e980e482004bf56ac746782644 | quote: NVMe 2 GB from $4.00 / month
+  - [1] 2026-11-03: NVMe 2 GB is 1 core, 2 GB RAM, 10 GB NVMe and 1 TB of bandwidth | capture: sha256:feb2a338636777f597ce25f456526beca97165e980e482004bf56ac746782644 | quote: 1 AMD EPYC core ( fair share ) 2 GB DDR4 10 GB NVMe 1 TB
+  - [2] 2026-11-03: each server with IPv6 enabled gets a public /64 block | capture: sha256:aa6bb86daaa9f4bd82c4c836815bea7086c6e4ba16c1ae783fcbb324e8fbadd8 | quote: You will be assigned a public /64 IP block.
+  - [2] 2026-11-03: the whole /64 is routed to the VM, so inbound reaches any address in it | capture: sha256:aa6bb86daaa9f4bd82c4c836815bea7086c6e4ba16c1ae783fcbb324e8fbadd8 | quote: The entire /64 subnet is routed towards your VM
+  - [3] 2026-11-03: the vendor's features page states a fully routed IPv6 /64 per VM | capture: sha256:d2f9ca1b406db0f25bc3709d0bc04c663d3d87be4e3c5b48ffba8fb47e5dd1b6 | quote: We also offer fully routed IPv6 (/64 per VM), which gives you a great configuration flexibility and is far more reliable than most IPv6 deployments on the market today.
+  - [4] 2026-11-03: a third-party index reports the accepted payment rails | capture: sha256:80c9a74233856ac7e15d574c085494deca65a11a36136c27e20d59557cf4f83d | quote: | Payment methods | Card, PayPal, Crypto, Bank transfer, Other | Cards via Stripe; checkout config also enables PayPal, BitPay (crypto), Alipay (other) and bank transfer (Chase, USD) [Source ↗](https://cloud.hosthatch.com/login) |
+  - [4] 2026-11-03: a third-party index reports fraud-database screening and no ID document | capture: sha256:80c9a74233856ac7e15d574c085494deca65a11a36136c27e20d59557cf4f83d | quote: ID documents are not mentioned
+- sources:
+  - [1] https://hosthatch.com/products
+  - [2] https://docs.hosthatch.com/networking/
+  - [3] https://hosthatch.com/features
+  - [4] https://serverworth.com/providers/hosthatch/

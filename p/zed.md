@@ -1,0 +1,161 @@
+# Zed
+
+> zed.dev | Coding subscriptions, Compute; 3 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/zed/ | JSON https://fshy.ajam.dev/api/v1/entity/zed.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Zed (Pro)
+
+- `coding-subs/zed-pro` | paid-only | evidence documented | binding volume-quota | category coding subscription | tier Pro
+- needs card yes, phone no, ID no, institution no | verified 2026-11-10T01:56:02.008Z (live) | stale on 2026-12-11
+- url https://zed.dev/pricing
+- disagrees on identity_kind: `coding-subs/zed-personal` says anonymous, `coding-subs/zed-pro` says card
+- disagrees on verdict: `coding-subs/zed-personal` says qualifies-with-caveat, `coding-subs/zed-pro` says paid-only
+- free tier: no recurring free allowance on the hosted models; Pro is USD 10 a month with USD 5 of token credit a month, and a 14-day trial of Pro with USD 5 of GPT-6 Luna usage needs no credit card | unit: none | metered on: none | read on: 2026-11-02 | source: [1] | note: the trial ends when the USD 5 balance is used or 14 days pass, whichever is first, and then converts to the free Personal plan; GPT-6 Luna is the only hosted model in the trial
+- per-object cap: not applicable: a subscription meters tokens, not objects
+- retention: not applicable
+- egress: not applicable | metered: no
+- identity: card | detail: a GitHub account for sign-in (GitHub OAuth with the read:user scope, and the Zed account email is the GitHub one); the Pro subscription is paid by credit card or another supported method through Stripe; the 14-day trial needs no credit card
+- interface: unknown
+- limits:
+  - volume-quota (binding): USD 5 of token credit a month, resetting on the billing date; usage beyond it is billed at provider list price plus 10 percent [2]
+  - volume-quota (binding): a monthly spend limit on tokens above the included credit, default USD 10 (a total monthly spend of USD 20 with the USD 10 subscription), settable to USD 0; hosted use stops when it is hit until it resets [2]
+- limits note: no request-rate or per-model cap is stated on the pages read; the vendor says hosted models have higher rate limits than direct API access, with no number. Threshold invoices start at USD 10 of incremental token spend
+- binding note: the USD 5 monthly credit and the USD 10 default spend limit above it end hosted use first; the spend limit stops use rather than billing without bound
+- interface detail: the hosted models are selected in the desktop editor's Agent Panel after a GitHub sign-in; Zed hosts the inference and bills it, and no REST API, CLI or SDK of Zed's reaches those hosted models outside the editor. The eval-cli binary in the Zed repository speaks to the agent loop with provider keys the user supplies, and not to the hosted models.
+- tooling: the user installs and runs the Zed desktop editor (macOS, Linux, Windows) and signs in with GitHub to reach the hosted models; the documented zed CLI options open paths, diffs and ssh:// URLs and name no agent command. Headless routes, all run from the user's machine: Remote Development runs a Zed headless server on a host reached over SSH while the UI and the model calls stay local, and the eval-cli crate of the zed repository is a GUI-free agent binary built with cargo that reads provider API keys from environment variables. unverified: whether eval-cli or the remote server can use the Zed-hosted models, because the pages read name only environment keys for eval-cli and a local sign-in for the editor
+- composes with: beyond USD 5 a month the hosted tokens bill at provider list price plus 10 percent, so Pro adds no discount to a stack; the same Zed account and plan also apply in Delta, the vendor's standalone agent app, and the free Personal plan on the user's own keys is the separate record zed-personal
+- reliability: a failed invoice payment blocks hosted-model use until it is paid; Anthropic retains prompts and outputs sent to Claude Fable 5.1 and Claude Fable 5 for at least 30 days
+- notes: Pro is USD 10 a month for USD 5 of token credit, and the hosted list charges provider list price plus 10 percent for every token beyond it (for example Claude Fable 5.1 at USD 11.00 per million input tokens against USD 10.00 at the provider). The hosted list on 2026-11-02 spans Anthropic Claude Fable, Opus, Sonnet and Haiku, OpenAI GPT-6, GPT-5.x and Codex models, and Google Gemini 4 Argon, 3.1 Pro, 3.5 Flash and 3 Flash. Pro also includes unlimited edit predictions.
+- evidence note: every value is quoted from first-party pages read on 2026-11-02. The checkout and the dashboard are unverified: behind a sign-up. Whether a headless route can use the hosted models is unverified.
+- evidence:
+  - [1] 2026-11-02: the Pro plan is USD 10 a month | capture: sha256:50edfb49bfab6ab54994f43420179c7ba6dde3bb27f7c2ab548b7e15ab4003b2 | quote: $10per month
+  - [2] 2026-11-02: Pro includes every Zed-hosted model and Edit Predictions | capture: sha256:2b30b97c4029890c881dbb90e099093a7342a45d85ddc0382d7173faaa113c49 | quote: Zed Pro includes access to all hosted AI models and Edit Predictions.
+  - [2] 2026-11-02: Edit Predictions are unlimited on Pro and absent on the free plan | capture: sha256:2b30b97c4029890c881dbb90e099093a7342a45d85ddc0382d7173faaa113c49 | quote: | Edit Predictions | — | Unlimited | Unlimited | Unlimited |
+  - [2] 2026-11-02: Pro includes USD 5 of token credit a month and bills beyond it at the hosted-model rates | capture: sha256:2b30b97c4029890c881dbb90e099093a7342a45d85ddc0382d7173faaa113c49 | quote: The plan includes $5 of monthly token credit; usage beyond that is billed at the rates listed on [Zed-Hosted Models](./zed-hosted-models.md).
+  - [1] 2026-11-02: overage on Pro is API list price plus 10 percent | capture: sha256:50edfb49bfab6ab54994f43420179c7ba6dde3bb27f7c2ab548b7e15ab4003b2 | quote: Once you use up your included monthly credits, you’ll be billed for additional token usage at API list price +10%.
+  - [2] 2026-11-02: the USD 5 credit resets monthly on the billing date | capture: sha256:2b30b97c4029890c881dbb90e099093a7342a45d85ddc0382d7173faaa113c49 | quote: Monthly included credit resets on your monthly billing date.
+  - [2] 2026-11-02: the default monthly spend limit above the included credit is USD 10 | capture: sha256:2b30b97c4029890c881dbb90e099093a7342a45d85ddc0382d7173faaa113c49 | quote: The default value for Pro users is $10, for a total monthly spend with Zed of $20 ($10 for your Pro subscription, $10 in incremental token spend).
+  - [2] 2026-11-02: hosted use stops when the spend limit is reached | capture: sha256:2b30b97c4029890c881dbb90e099093a7342a45d85ddc0382d7173faaa113c49 | quote: Once the spend limit is hit, we'll stop any further usage until your token spend limit resets.
+  - [1] 2026-11-02: the Pro trial is 14 days, carries USD 5 of GPT-6 Luna usage and needs no credit card | capture: sha256:50edfb49bfab6ab54994f43420179c7ba6dde3bb27f7c2ab548b7e15ab4003b2 | quote: We offer a 14-day free trial of Pro with $5 of GPT-6 Luna usage and unlimited accepted edit predictions. No credit card is required.
+  - [2] 2026-11-02: an ended trial falls back to the free plan, not to a paid one | capture: sha256:2b30b97c4029890c881dbb90e099093a7342a45d85ddc0382d7173faaa113c49 | quote: Trials automatically convert to Zed Free when they end.
+  - [3] 2026-11-02: Pro includes every model on the hosted list | capture: sha256:75bf35be37e945a658a83c98b2103078ac3008e2bc0f26b1e28db331cb01bf07 | quote: Zed Pro and Zed Business include all models listed below.
+  - [3] 2026-11-02: the hosted list carries Anthropic models, here Claude Fable 5.1 at USD 11.00 per million input tokens (provider price USD 10.00) | capture: sha256:75bf35be37e945a658a83c98b2103078ac3008e2bc0f26b1e28db331cb01bf07 | quote: | Claude Fable 5.1 | Anthropic | Input | $10.00 | $11.00 |
+  - [3] 2026-11-02: the hosted list carries OpenAI models, the cheapest being GPT-5 nano at USD 0.055 per million input tokens | capture: sha256:75bf35be37e945a658a83c98b2103078ac3008e2bc0f26b1e28db331cb01bf07 | quote: | GPT-5 nano | OpenAI | Input | $0.05 | $0.055 |
+  - [3] 2026-11-02: the hosted list carries Google models, here Gemini 4 Argon | capture: sha256:75bf35be37e945a658a83c98b2103078ac3008e2bc0f26b1e28db331cb01bf07 | quote: | Gemini 4 Argon | Google | Input | $2.00 | $2.20 |
+  - [3] 2026-11-02: the vendor states higher rate limits than direct API access, with no number | capture: sha256:75bf35be37e945a658a83c98b2103078ac3008e2bc0f26b1e28db331cb01bf07 | quote: Zed's plans offer hosted versions of major LLMs with higher rate limits than direct API access.
+  - [3] 2026-11-02: two hosted Claude models are retained by Anthropic for at least 30 days | capture: sha256:75bf35be37e945a658a83c98b2103078ac3008e2bc0f26b1e28db331cb01bf07 | quote: Anthropic retains prompts and outputs sent to Claude Fable 5.1 and Claude Fable 5 for at least 30 days for trust and safety purposes.
+  - [4] 2026-11-02: sign-in is GitHub OAuth with the read:user scope | capture: sha256:454cca4fa0192a06975fcb8a8c0711bb4eb42a24606207a8f0bfaed56c7a9a8a | quote: Zed uses GitHub's OAuth flow to authenticate users, requiring only the `read:user` GitHub scope, which grants read-only access to your GitHub profile information.
+  - [4] 2026-11-02: the Zed account email comes from GitHub | capture: sha256:454cca4fa0192a06975fcb8a8c0711bb4eb42a24606207a8f0bfaed56c7a9a8a | quote: Your Zed account's email address is the address provided by GitHub OAuth.
+  - [4] 2026-11-02: LLM features that use Zed as the model provider require signing in | capture: sha256:454cca4fa0192a06975fcb8a8c0711bb4eb42a24606207a8f0bfaed56c7a9a8a | quote: if you are using Zed as the provider of your LLM models.
+  - [5] 2026-11-02: a paid Zed plan is paid by credit card or another supported method through Stripe | capture: sha256:5d607a81bb49bf8d303b9667598f02d27376a3db6cedc49a153fd15e56bf7493 | quote: All plans that require payment do so via credit card or other supported payment methods.
+  - [5] 2026-11-02: a failed payment blocks hosted-model use | capture: sha256:5d607a81bb49bf8d303b9667598f02d27376a3db6cedc49a153fd15e56bf7493 | quote: If payment of an invoice fails, Zed will block usage of our hosted models until the payment is complete.
+  - [5] 2026-11-02: overage is invoiced mid-month once it reaches USD 10 | capture: sha256:5d607a81bb49bf8d303b9667598f02d27376a3db6cedc49a153fd15e56bf7493 | quote: Threshold invoices start at $10 of pre-tax incremental token spend.
+  - [6] 2026-11-02: the documented zed CLI opens files and directories and is driven from scripts, with no agent-run command in its options | capture: sha256:fe01a231ab96da0d5c157d5c93c77b03e72db7e2cc93368b1e71e3dc2cf91d78 | quote: Use Zed's command-line interface (CLI) to open files and directories, integrate with other tools, and control Zed from scripts.
+  - [7] 2026-11-02: in Remote Development the model calls stay on the local machine that runs the UI | capture: sha256:1ac3dc4eb87e3373a5b0cafa6989c945178925cdbbd342dade9df9fea3754cc7 | quote: On your local machine, Zed runs its UI, talks to language models, uses Tree-sitter to parse and syntax-highlight code, and stores unsaved changes and recent projects.
+  - [8] 2026-11-02: the headless eval-cli names provider environment keys and no Zed sign-in | capture: sha256:1f2c4cc5a6c788a55b5192dce8b6af8f659a768f39c65422fa9368d8faade822 | quote: `eval-cli` reads provider API keys from environment variables such as `ANTHROPIC_API_KEY` and `OPENAI_API_KEY`.
+  - [9] 2026-11-02: the Zed plan and account also apply in the vendor's Delta app | capture: sha256:41c328c9c47077d96ec7b125190e3af5bb8ce3144efaf3cecbd91ea417accc72 | quote: Does my existing Zed subscription include Delta? Yes. Delta uses the same account and plans as Zed, so your current Zed plan also applies to Delta.
+  - [10] 2026-11-09: Zed bills the hosted models itself, so the inference is Zed-hosted and reached through the editor | capture: sha256:75bf35be37e945a658a83c98b2103078ac3008e2bc0f26b1e28db331cb01bf07 | quote: Zed's plans offer hosted versions of major LLMs with higher rate limits than direct API access.
+  - [10] 2026-11-09: Zed offers hosted versions of major LLMs billed through Zed | capture: sha256:75bf35be37e945a658a83c98b2103078ac3008e2bc0f26b1e28db331cb01bf07 | quote: Zed's plans offer hosted versions of major LLMs with higher rate limits than direct API access.
+  - [1] 2026-11-10: the Pro plan's hosted models are reachable in the editor, and the eval-cli binary on the personal editor runs on the user's own provider keys | capture: sha256:c4bb964b1aac63bfd642ba6d8fdd7200be3616bf4b526252781837072bc43aea | quote: Our Pro plan comes with Zed hosted models out of the box.
+  - [11] 2026-11-10: the headless binary uses provider keys the user supplies | capture: sha256:94746a214bc40208ad57701d74d99033c48518dfad7e5bb516cacd722a8ca7df | quote: `eval-cli` reads provider API keys from environment variables such as
+- sources:
+  - [1] https://zed.dev/pricing
+  - [2] https://zed.dev/docs/account/plans-and-pricing
+  - [3] https://zed.dev/docs/account/zed-hosted-models.html
+  - [4] https://zed.dev/docs/authentication
+  - [5] https://zed.dev/docs/account/billing
+  - [6] https://zed.dev/docs/reference/cli
+  - [7] https://zed.dev/docs/remote-development
+  - [8] https://github.com/zed-industries/zed/blob/main/crates/eval_cli/README.md
+  - [9] https://delta.dev/pricing
+  - [10] https://zed.dev/docs/account/zed-hosted-models
+  - [11] https://raw.githubusercontent.com/zed-industries/zed/main/crates/eval_cli/README.md
+
+## Zed (Personal)
+
+- `coding-subs/zed-personal` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding none | category BYOK coding editor | tier Personal
+- needs card no, phone no, ID no, institution no | verified 2026-11-10T01:56:02.008Z (live) | stale on 2026-12-11
+- url https://zed.dev/pricing
+- disagrees on identity_kind: `coding-subs/zed-personal` says anonymous, `coding-subs/zed-pro` says card
+- disagrees on verdict: `coding-subs/zed-personal` says qualifies-with-caveat, `coding-subs/zed-pro` says paid-only
+- free tier: Personal is USD 0 forever: 'Unlimited use with your API keys or external agents like Claude Agent, Codex CLI, and more'; the vendor serves no hosted model and no edit predictions on this plan | unit: unlimited | metered on: none | read on: 2026-11-02 | source: [1] | note: the editor imposes no quota of its own; the tokens come from the user's own keys or from the external agent's own plan
+- per-object cap: not applicable: a coding editor meters nothing itself
+- retention: not applicable
+- egress: not applicable: the chosen endpoint serves the inference | metered: no
+- identity: anonymous | detail: no account for the editor or for AI on the user's own API keys: the docs say signing in is not required. Sign-in, needed only for Zed-hosted models and collaboration, is GitHub OAuth with the read:user scope, and the account email is the GitHub one
+- interface: cli
+- limits note: the editor carries no vendor-imposed usage cap on this plan, since the vendor serves no inference through it; the ceiling is the endpoint the keys or the external agent point to
+- binding note: nothing binds in the editor itself; the endpoint's quota decides capacity
+- interface detail: a desktop editor with an Agent Panel; a keys-and-environment headless path exists as the eval-cli binary of the zed repository, run with --workdir, --model, --instruction, --timeout and --output-dir, which writes result.json, thread.md and thread.json to the output directory. External agents attach over the Agent Client Protocol (ACP), which the interface vocabulary has no term for
+- tooling: the user installs and runs the Zed editor, or builds and runs the eval-cli binary from the zed repository with cargo, on a rented or free machine; provider keys come from environment variables such as ANTHROPIC_API_KEY, OPENAI_API_KEY and OPENROUTER_API_KEY, and the External Agents installed from the ACP Registry (Claude, Codex, OpenCode, Copilot, Cursor, Pi Coding Agent) own their own auth and billing. Remote Development runs a Zed headless server over SSH, but the UI and the model calls stay on the local machine
+- composes with: the editor is a front end for keys from inference/ and for agents that carry their own plans, such as Claude Agent and Codex, so it adds no quota of its own to a stack; the hosted Zed models are the separate paid record zed-pro
+- reliability: no reliability event recorded; on this plan the editor does not serve hosted models or edit predictions, and edit predictions from other providers such as GitHub Copilot or a local model still work
+- notes: Not a subscription that serves tokens: Personal is the free editor on the user's own keys or external agents, and the vendor's hosted models are the separate paid record zed-pro at USD 10 a month.
+- evidence note: plan, sign-in, key and external-agent behaviour are quoted from first-party pages read on 2026-11-02. The eval-cli README is a repository file; the binary itself was not built or run.
+- self hosted: yes
+- evidence:
+  - [1] 2026-11-02: the Personal plan allows unlimited use with the user's own keys or external agents | capture: sha256:50edfb49bfab6ab54994f43420179c7ba6dde3bb27f7c2ab548b7e15ab4003b2 | quote: Unlimited use with your API keys or external agents like Claude Agent, Codex CLI, and more
+  - [1] 2026-11-02: the Personal plan is USD 0 with no end date | capture: sha256:50edfb49bfab6ab54994f43420179c7ba6dde3bb27f7c2ab548b7e15ab4003b2 | quote: $0forever
+  - [2] 2026-11-02: hosted models and Zed's edit predictions are not on the free plan | capture: sha256:2b30b97c4029890c881dbb90e099093a7342a45d85ddc0382d7173faaa113c49 | quote: Zed's hosted models and [Edit Predictions](../ai/edit-prediction.md) require a Pro subscription.
+  - [2] 2026-11-02: the free plan takes the user's own API keys for AI agents | capture: sha256:2b30b97c4029890c881dbb90e099093a7342a45d85ddc0382d7173faaa113c49 | quote: Zed is free to use. You can configure AI agents with your own API keys via [Use API Access](../ai/use-api-access.md).
+  - [2] 2026-11-02: AI via own API keys is on every plan, the free one included | capture: sha256:2b30b97c4029890c881dbb90e099093a7342a45d85ddc0382d7173faaa113c49 | quote: | [AI via own API keys](../ai/use-api-access.md) | ✓ | ✓ | ✓ | ✓ |
+  - [2] 2026-11-02: External Agents are on every plan, the free one included | capture: sha256:2b30b97c4029890c881dbb90e099093a7342a45d85ddc0382d7173faaa113c49
+  - [3] 2026-11-02: the editor runs without an account | capture: sha256:454cca4fa0192a06975fcb8a8c0711bb4eb42a24606207a8f0bfaed56c7a9a8a | quote: Signing in to Zed is not required. You can use most features you'd expect in a code editor without ever doing so.
+  - [3] 2026-11-02: AI on the user's own keys needs no sign-in | capture: sha256:454cca4fa0192a06975fcb8a8c0711bb4eb42a24606207a8f0bfaed56c7a9a8a | quote: To use AI without signing in, you can [bring and configure your own API keys](./ai/use-api-access.md).
+  - [3] 2026-11-02: the sign-in that hosted models and collaboration need is GitHub OAuth with the read:user scope | capture: sha256:454cca4fa0192a06975fcb8a8c0711bb4eb42a24606207a8f0bfaed56c7a9a8a | quote: Zed uses GitHub's OAuth flow to authenticate users, requiring only the `read:user` GitHub scope, which grants read-only access to your GitHub profile information.
+  - [4] 2026-11-02: Zed charges nothing for External Agents, which carry their own auth and billing | capture: sha256:08b1b98333f1b97d44a5da73d3ccb1f19fa3d62ff3ba80f8303b571a2a21b732 | quote: Zed does not charge for External Agents.
+  - [4] 2026-11-02: external agents attach over the Agent Client Protocol | capture: sha256:08b1b98333f1b97d44a5da73d3ccb1f19fa3d62ff3ba80f8303b571a2a21b732 | quote: External Agents are agents that integrate with Zed through the [Agent Client Protocol (ACP)](https://agentclientprotocol.com).
+  - [5] 2026-11-02: Zed reads provider keys from environment variables, OpenRouter among them | capture: sha256:b164ec181d366233ab55bfef5968c6d0f4c068695e5ccd05b1680829108484b0 | quote: | OpenRouter | `OPENROUTER_API_KEY` |
+  - [6] 2026-11-02: a headless Zed agent binary exists in the zed repository | capture: sha256:1f2c4cc5a6c788a55b5192dce8b6af8f659a768f39c65422fa9368d8faade822 | quote: Headless Rust binary for running Zed's agent in evaluation and benchmark environments.
+  - [6] 2026-11-02: eval-cli runs the editor's agent loop without a GUI | capture: sha256:1f2c4cc5a6c788a55b5192dce8b6af8f659a768f39c65422fa9368d8faade822 | quote: `eval-cli` uses the same `NativeAgent` + `AcpThread` pipeline as the production Zed editor: a full agentic loop with tool calls, subagents, and retries, without a GUI.
+  - [6] 2026-11-02: eval-cli takes the user's own provider keys from the environment | capture: sha256:1f2c4cc5a6c788a55b5192dce8b6af8f659a768f39c65422fa9368d8faade822 | quote: `eval-cli` reads provider API keys from environment variables such as `ANTHROPIC_API_KEY` and `OPENAI_API_KEY`.
+  - [6] 2026-11-02: eval-cli writes result.json, thread.md and thread.json to its output directory | capture: sha256:1f2c4cc5a6c788a55b5192dce8b6af8f659a768f39c65422fa9368d8faade822 | quote: It writes `result.json`, `thread.md`, and `thread.json` to the output directory.
+  - [6] 2026-11-02: eval-cli takes the task as an --instruction argument, beside --workdir, --model, --timeout and --output-dir | capture: sha256:1f2c4cc5a6c788a55b5192dce8b6af8f659a768f39c65422fa9368d8faade822 | quote: --instruction "Fix the bug described in..." \
+  - [6] 2026-11-02: eval-cli is built from source with cargo | capture: sha256:1f2c4cc5a6c788a55b5192dce8b6af8f659a768f39c65422fa9368d8faade822 | quote: cargo build --release -p eval_cli
+  - [7] 2026-11-02: in Remote Development the model calls stay on the local machine that runs the UI | capture: sha256:1ac3dc4eb87e3373a5b0cafa6989c945178925cdbbd342dade9df9fea3754cc7 | quote: On your local machine, Zed runs its UI, talks to language models, uses Tree-sitter to parse and syntax-highlight code, and stores unsaved changes and recent projects.
+  - [8] 2026-11-10: the eval-cli binary runs the same agent loop from the command line | capture: sha256:94746a214bc40208ad57701d74d99033c48518dfad7e5bb516cacd722a8ca7df | quote: `eval-cli` reads provider API keys from environment variables such as
+- sources:
+  - [1] https://zed.dev/pricing
+  - [2] https://zed.dev/docs/account/plans-and-pricing
+  - [3] https://zed.dev/docs/authentication
+  - [4] https://zed.dev/docs/ai/external-agents
+  - [5] https://zed.dev/docs/ai/use-api-access
+  - [6] https://github.com/zed-industries/zed/blob/main/crates/eval_cli/README.md
+  - [7] https://zed.dev/docs/remote-development
+  - [8] https://raw.githubusercontent.com/zed-industries/zed/main/crates/eval_cli/README.md
+
+## Zed (Compute)
+
+- `compute/zed` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding none | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T10:27:57.619Z (live) | stale on 2026-12-05
+- url https://zed.dev/pricing
+- free tier: Zed Personal: "$0 forever", "Unlimited use with your API keys or external agents like Claude Agent, Codex CLI, and more", quoted | unit: unlimited | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: free-product
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: anonymous | detail: no account for the editor or for AI on the user's own API keys: the docs say signing in is not required and that AI without signing in uses the user's own keys. Sign-in, needed for Zed-hosted models and collaboration, is GitHub OAuth with the read:user scope, and the account email is the GitHub one
+- interface: rest, cli
+- limits note: nothing binds because the vendor serves no model on this tier; the ceiling is the endpoint it is pointed at.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: a $0 editor that accepts external agent CLIs is the cheapest way to drive a free inference endpoint from documented records; the editor is free and the tokens come from whichever vendor is granting them.
+- reliability: no reliability event recorded
+- notes: Zed is a desktop application, so its free lane needs a machine. The vendor serves no tokens on the free Personal plan. Pro is USD 10 a month with USD 5 of token credits a month and usage beyond them at API list price +10%; a 14-day Pro trial carries USD 5 of GPT-6 Luna usage with no credit card.
+- self hosted: yes
+- extras:
+  - facets.class: free-standing-agent
+  - facets.free_tier_kind: free-product
+- evidence:
+  - [1] 2026-10-22: the Personal card reads $0 forever with unlimited use on your own API keys or external agents, quoted; Pro is USD 10 a month and is the first tier with Zed-hosted models
+  - [1] 2026-10-22: the FAQ says the Personal plan is for users who want the editor without AI capabilities or who prefer their own keys, quoted
+  - [2] 2026-10-30: the editor and its AI features on the user's own keys run without an account; Zed sign-in is GitHub OAuth | capture: sha256:454cca4fa0192a06975fcb8a8c0711bb4eb42a24606207a8f0bfaed56c7a9a8a | quote: Signing in to Zed is not required. You can use most features you'd expect in a code editor without ever doing so.
+  - [1] 2026-10-30: the Pro trial is 14 days with USD 5 of GPT-6 Luna usage and no card; Pro is USD 10 a month with USD 5 of token credits | capture: sha256:50edfb49bfab6ab54994f43420179c7ba6dde3bb27f7c2ab548b7e15ab4003b2 | quote: We offer a 14-day free trial of Pro with $5 of GPT-6 Luna usage and unlimited accepted edit predictions.
+  - [1] 2026-10-30: the Personal plan is still $0 forever with unlimited use on the user's own keys or external agents | capture: sha256:50edfb49bfab6ab54994f43420179c7ba6dde3bb27f7c2ab548b7e15ab4003b2 | quote: Unlimited use with your API keys or external agents like Claude Agent, Codex CLI, and more
+  - [1] 2026-11-03: the Personal plan still lists unlimited use with the user's own API keys or external agents | capture: sha256:50edfb49bfab6ab54994f43420179c7ba6dde3bb27f7c2ab548b7e15ab4003b2 | quote: Unlimited use with your API keys or external agents like Claude Agent, Codex CLI, and more
+  - [1] 2026-11-03: Pro overage beyond the included monthly credits is billed at API list price +10% | capture: sha256:50edfb49bfab6ab54994f43420179c7ba6dde3bb27f7c2ab548b7e15ab4003b2 | quote: Once you use up your included monthly credits, you’ll be billed for additional token usage at API list price +10%.
+  - [1] 2026-11-04: the Zed Personal plan is still free forever | capture: sha256:50edfb49bfab6ab54994f43420179c7ba6dde3bb27f7c2ab548b7e15ab4003b2 | quote: The next-generation code editor. Free forever.
+- sources:
+  - [1] https://zed.dev/pricing
+  - [2] https://zed.dev/docs/authentication

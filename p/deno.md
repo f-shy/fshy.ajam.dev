@@ -1,0 +1,218 @@
+# Deno Deploy
+
+> deno.com | Compute, Egress and tunnels, Storage; 5 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/deno/ | JSON https://fshy.ajam.dev/api/v1/entity/deno.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Deno Deploy (Compute)
+
+- `compute/deno-deploy` | qualifies-with-caveat | evidence documented | binding retention-clamped | category cloud VM | tier Free
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:40:18.802Z (live) | stale on 2026-12-05
+- url https://deno.com/deploy/pricing
+- free tier: Free at USD 0: 1 million requests a month, 20 GiB of egress, 10 hours of active CPU, 150 GiB-hours of memory time, 10 apps, 10 GiB of revision storage and 1 GiB of KV. | unit: mixed | metered on: request-count | read on: 2026-10-24 | source: [1]
+- per-object cap: a 768 MB default memory allocation per app; 10 apps
+- retention: revision storage is 10 GiB with automatic removal of older revisions per the retention setting
+- egress: 20 GiB a month included on Free, a monthly limit; inbound request data does not count; the Free column lists no overage price (the paid Pro and Builder columns list '(then $0.20/GiB)') | metered: yes | free allowance: 20 GiB | source: [1]
+- identity: email | detail: a Deno Deploy account; no card on the Free plan
+- interface: cli
+- limits:
+  - retention-clamped (binding): idle apps shut down after about 20 to 30 seconds [1]
+  - volume-quota: 10 hours of active CPU and 150 GiB-hours of memory a month [1]
+  - request-rate: 1 million requests a month [1]
+- limits note: 10 hours of active CPU a month is the wall: an always-resident process cannot exist because idle apps are shut down after 20 to 30 seconds, so the 10 hr is spent by request handling and cron-triggered work, not by uptime.
+- binding note: the 20 to 30 second idle shutdown means there is no resident process to bill, so the CPU grant is spent by requests rather than by uptime.
+- interface detail: The deno deploy command-line interface (a subcommand of the deno CLI) for creating and deploying apps, and the console.deno.com web dashboard
+- tooling: the deno CLI, subcommand deno deploy (create, deploy and manage apps)
+- composes with: A perpetual 1M-request front that can hold secrets, run cron and talk to an IPv6-only VPS behind it; it is the IPv4 face for a Hax box, and it costs nothing at that request rate.
+- reliability: a cold start follows every idle period; CPU is not consumed while the app waits on I/O, so the meter is friendlier than the wall clock suggests
+- notes: Confirms the earlier row. One number moved: the default memory allocation is now 768 MB, where earlier readings recorded a 512 MB per-app ceiling. The 150 GiB-hours matches.
+- evidence note: the Free plan table and the idle-shutdown sentence were read on the pricing page
+- extras:
+  - facets.class: perpetual-allowance
+  - facets.free_tier_kind: perpetual-allowance
+  - facets.shape.ram_gib: 0.75
+  - shape.ram_gib: 0.75
+  - billing_model: free
+  - term: none
+  - m10h_usd: 0.0
+  - m24h_usd: 0.0
+  - price_arithmetic: no charge inside the free allowances
+  - free_tier_kind: free-allowance
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: no
+  - network_out.ports: HTTP through the platform edge; no listening TCP socket
+  - network_out.static_ip: no
+  - network_out.ipv6: no
+  - session_cap.idle_reap_s: 30
+  - session_cap.restart_required: no
+  - session_cap.note: idle apps shut down after about 20-30 seconds
+- evidence:
+  - [1] 2026-10-22: free plan row gives 1M requests, 20 GiB egress, 10 hr active CPU, 150 GiB-hr memory, 10 apps, 5 custom domains, quoted
+  - [2] 2026-10-22: applications have a maximum memory allocation of 512 MB and no upload request limit within the provider
+  - [3] 2026-10-22: Deploy Classic shut down on 20 July 2026 and no new users were onboarded to it, quoted
+  - [1] 2026-10-24: quoted: 'Idle apps automatically shut down after ~20-30 seconds, so you're not billed for memory while scaled to zero.'
+  - [1] 2026-10-24: quoted: 'Requests/month: 1M', 'Egress Bandwidth: 20GiB', 'Active CPU: 10 hr', 'Memory time: 150 GiB-hr', 'Apps: 10', 'KV storage: 1 GiB'
+  - [1] 2026-10-24: quoted: 'You're only billed for CPU while your app is actively running code. CPU isn't consumed while your app is waiting for incoming requests or blocked on network I/O.'
+  - [1] 2026-11-03: egress is a monthly limit, 20GiB in the Free column, inbound request data not counted | capture: sha256:1af6151eba5d134daad85c6d67ec6e9b1c164d69a552d47445570ba254f9d8c9 | quote: Monthly limit on data egress across all your deployments. Inbound request data does not count against this number.
+  - [1] 2026-11-03: the paid column prices egress beyond its allowance at $0.20/GiB; the Free column has no such line | capture: sha256:1af6151eba5d134daad85c6d67ec6e9b1c164d69a552d47445570ba254f9d8c9 | quote: (then $0.20/GiB)
+  - [4] 2026-11-03: Deno Deploy can be deployed from a CLI, besides the web dashboard | capture: sha256:641ebc772f65d9af7ad491045542859fb77fb266e0371f71773df18f20dcd1c4 | quote: | Deploy from CLI | ✅ Supported | ✅ Supported |
+  - [5] 2026-11-04: the CLI reference documents the deno deploy command | capture: sha256:3ee0a0f905eb13deb8cdd5d751eb580ebe1033887897fb8303f879e91a34a939 | quote: The `deno deploy` command provides a command line interface for managing and deploying applications to
+  - [5] 2026-11-04: the reference names deno deploy create | capture: sha256:3ee0a0f905eb13deb8cdd5d751eb580ebe1033887897fb8303f879e91a34a939 | quote: deno deploy create [root-path]
+  - [1] 2026-11-04: the Pro column (200GiB) and the Builder column (2,000GiB) each list egress beyond the allowance at $0.20/GiB; the Free column (20GiB) lists none | capture: sha256:1af6151eba5d134daad85c6d67ec6e9b1c164d69a552d47445570ba254f9d8c9 | quote: (then $0.20/GiB)
+- sources:
+  - [1] https://deno.com/deploy/pricing
+  - [2] https://docs.deno.com/deploy/pricing_and_limits/
+  - [3] https://docs.deno.com/deploy/classic/
+  - [4] https://docs.deno.com/deploy/
+  - [5] https://docs.deno.com/runtime/reference/cli/deploy/
+
+## Deno Sandbox
+
+- `compute/deno-sandbox` | qualifies-with-caveat | evidence documented | binding request-rate | category container and VM sandbox
+- needs card no, phone no, ID no, institution no | verified 2026-11-09T13:25:36.145Z (live) | stale on 2026-12-10
+- url https://deno.com/deploy/pricing
+- free tier: a free plan with a monthly request allowance, an egress allowance and a per-plan sandbox concurrency; sandbox compute bills through the same CPU, memory and egress meters as deployments | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: Free plan: 20GiB a month of egress across all deployments; inbound request data does not count; sandbox compute bills through the same egress meter | metered: yes | free allowance: 20GiB a month on the Free plan | source: [1]
+- identity: email | detail: email: sign-in is a GitHub account, or a Google account for users who then still supply GitHub credentials, and the contact email is the one on GitHub ('Deno Deploy supports logging in with GitHub. Your primary contact email address and name are synced from GitHub.'). No card is needed to create the account and use the restricted Free plan limits; linking a credit card to verify the organization is what lifts them. No phone or identity document is named.
+- interface: unknown
+- limits:
+  - request-rate (binding): inbound HTTP requests a month on the free plan; the page lists the row but the extracted text does not carry its number [1]
+  - per-ip-shaping: egress is metered monthly across all deployments; inbound request data does not count against it [1]
+  - per-object-cap: volume storage is per plan and is the only sandbox resource that differs by plan [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the Deploy pricing page was read on 2026-10-22 and defines the meters: active CPU only, memory time, egress and volume storage, with sandbox compute on the same meters. It states the plan structure without naming the free plan's numbers in the extracted text, so the unit is recorded and no figure is invented
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - session_cap.idle_reap_s: 30
+  - session_cap.restart_required: no
+  - session_cap.note: an idle app shuts down automatically after about 20 to 30 seconds on the free plan, so the idle reap is 30 seconds at the upper end; CPU bills only while code runs, and no maximum session lifetime is published
+  - free_tier_kind: allowance
+  - burst_x: 1.0
+  - ps.price: volume storage is priced per plan; it is the one sandbox resource plans differ on
+  - ps.durability: persistent block-storage volume
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: until deleted
+  - net.out: yes
+  - net.in: yes
+  - net.ports: HTTP
+  - net.static_ip: no
+  - net.allowance: monthly egress allowance; inbound does not count
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'You're only billed for CPU while your app is actively running code. CPU isn't consumed while your app is waiting for incoming requests or blocked on network I/O.' and 'Run untrusted or generated code in isolated microVMs. Sandbox compute bills through the same CPU, memory, and egress meters at your plan's rates; only availability, concurrency, and volume storage differ per plan.' quoted
+  - [1] 2026-11-03: the Free plan has a 20GiB monthly egress limit | capture: sha256:1af6151eba5d134daad85c6d67ec6e9b1c164d69a552d47445570ba254f9d8c9 | quote: Monthly limit on data egress across all your deployments. Inbound request data does not count against this number. 20GiB
+  - [1] 2026-11-03: sandbox compute uses the same egress meter | capture: sha256:1af6151eba5d134daad85c6d67ec6e9b1c164d69a552d47445570ba254f9d8c9 | quote: Sandbox compute bills through the same CPU, memory, and egress meters at your plan's rates
+  - [2] 2026-11-04: the account is a GitHub identity and its email address comes from GitHub | capture: sha256:f3cf031f65f27fb2808f5b35d873bf9ae54e9157097f8088fd080facac09b23c | quote: Deno Deploy supports logging in with GitHub. Your primary contact email address and name are synced from GitHub.
+  - [3] 2026-11-04: the unrestricted Free plan sits behind a card | capture: sha256:26efbec0f2c4eb34f73aa1e54c8fb80aba9bb96a1eb5819fc238327ecdcfcb55 | quote: Organizations can only make use of restricted Free plan limits until they verify their organization by linking a credit card.
+  - [4] 2026-11-04: creating the account is signing in with GitHub | capture: sha256:cea9cb19e55a5370b9f7ee8ed4e28d7d655cf00565ef5a619aa546bdf39c2184 | quote: If you do not yet have a Deno Deploy account, you can create one by visiting the Deno Deploy dashboard and signing in with your GitHub account.
+  - [4] 2026-11-04: signing up creates the account and its organization, with no card in the step | capture: sha256:cea9cb19e55a5370b9f7ee8ed4e28d7d655cf00565ef5a619aa546bdf39c2184 | quote: Organizations in Deno Deploy are created when you sign up for a Deno Deploy account.
+  - [1] 2026-11-09: the page states that an idle app shuts down after about 20 to 30 seconds, which is the idle reap at the upper end of the range | capture: sha256:8e1f5b0bd159fd8b2c1e9ac44de3c986d7be5253fa964b9f1b63507e7e2671c4 | quote: Idle apps automatically shut down after ~20-30 seconds, so you're not billed for memory while scaled to zero.
+  - [1] 2026-11-09: the idle shutdown window is about 20 to 30 seconds, recorded at the upper end because the page gives a range | capture: sha256:8e1f5b0bd159fd8b2c1e9ac44de3c986d7be5253fa964b9f1b63507e7e2671c4 | quote: Idle apps automatically shut down after ~20-30 seconds, so you're not billed for memory while scaled to zero.
+  - [1] 2026-11-09: the idle shutdown window is on the page in its own words | capture: sha256:8e1f5b0bd159fd8b2c1e9ac44de3c986d7be5253fa964b9f1b63507e7e2671c4 | quote: Idle apps automatically shut down after ~20-30 seconds, so you're not billed for memory while scaled to zero.
+- sources:
+  - [1] https://deno.com/deploy/pricing
+  - [2] https://docs.deno.com/deploy/reference/accounts/
+  - [3] https://docs.deno.com/llms-full.txt
+  - [4] https://docs.deno.com/deploy/reference/organizations/
+
+## Deno Deploy (Egress and tunnels)
+
+- `egress/deno-deploy` | fails-egress | evidence documented | binding volume-quota | category paas l4 port | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://deno.com/deploy/pricing
+- price USD 0
+- free tier: Free $0/month ... Requests/month: Allowed inbound HTTP requests to your deployments per month: 1M ... Egress Bandwidth: 20GiB. | unit: GiB | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: Egress Bandwidth 20GiB per month; inbound request data does not count against it.; ingress: http-only | metered: yes | free allowance: Egress Bandwidth 20GiB per month; inbound request data does not count against it. | source: [1]
+- identity: email | detail: Deno Deploy account; the free plan is $0/month with 10 apps. | country: None
+- interface: cli, rest
+- limits:
+  - volume-quota (binding): 20 GiB egress per month [1]
+  - request-rate: 1M inbound HTTP requests per month [1]
+- binding note: 20 GiB is 0.020 TiB, and the 1M requests/month cap would bind even earlier for small datagrams. No non-HTTP transport exists.
+- interface detail: deployctl, console, and GitHub Actions integration.
+- tooling: deployctl, the console, and GitHub integration.
+- composes with: Good for an HTTP API or webhook receiver; no endpoint.
+- reliability: Idle apps shut down after about 20-30 seconds and scale to zero.
+- notes: Deploy Classic was shut down on 2026-07-20, before this read; the current Deno Deploy is the record. Outbound sockets existed for clients, never an inbound port.
+- evidence note: The request meter is described as inbound HTTP; no page states a UDP or raw TCP listener, and none can be configured.
+- extras:
+  - wg_path: none
+  - wg_detail: Inbound is HTTP requests only: the free tier meters "Allowed inbound HTTP requests to your deployments". There is no port to bind.
+  - ingress: http-only
+  - volume_tib_month: 0.0195
+  - volume_stated: Egress Bandwidth 20GiB per month; inbound request data does not count against it.
+  - bytes_transit: no
+  - transit_note: Deno's edge terminates HTTPS.
+- evidence:
+  - [1] 2026-10-23: Free: 1M inbound HTTP requests/month, 20GiB egress, 10 apps, 10 hr active CPU
+  - [2] 2026-10-23: Deploy Classic supported outbound TCP sockets and is "Sunsetting on July 20, 2026"
+- sources:
+  - [1] https://deno.com/deploy/pricing
+  - [2] https://docs.deno.com/deploy/classic/api/runtime-sockets/
+
+## Deno Deploy (managed Deno KV)
+
+- `storage/deno-deploy` | fails-quota | evidence reported | binding none | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://deno.com/deploy
+- free tier: 1 GiB of KV storage on Free. Pricing page, KV section: 'KV storage: 1 GiB'; 'KV read units/mo (4KiB): 1,000,000'; 'KV write units/mo (1KiB): 500,000'. Pro raises KV to 5 GiB. Deployment assets are separately capped: 'the total size of all files within the deployment (source files and static files) should not exceed 1 gigabyte' and Free includes 'Revision storage: 10 GiB'. | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Free tier includes 20 GiB per month metered egress bandwidth across deployments and 1 million requests per month. | metered: yes | free allowance: 20 GiB per month
+- identity: email
+- interface: rest
+- limits note: 1 GiB KV, 1M read units/mo, 500K write units/mo, 20 GiB egress, 1M requests, 10 apps, 1 concurrent build, 15 builds/hour. Deployment bundle <= 1 GB. 512 MB memory. KV data is stored in and transits the US.
+- interface detail: rest
+- tooling: `Deno.Kv` API in-runtime; `@deno/kv` client; remote access via the URL connector (`https://api.deno.com/v2/databases/<id>/connect`). No HTTP object endpoint. Every read must go through your own code.
+- composes with: 10 apps per organization on Free, but KV storage is 1 GiB per organization, not per app, so extra apps buy nothing. 1 GiB x N organizations requires N billing identities for 20 TiB. 20,000 accounts. Dead.
+- reliability: Durable once written, but 'Deleting a Deno KV database instance ... deletes all existing Deno KV databases and their data' — a single DELETE wipes every KV database in the org, which is a sharp edge. Free-plan service is in public beta with no uptime guarantee.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 1 GiB of KV storage on Free. Pricing page, KV section: 'KV storage: 1 GiB'; 'KV read units/mo (4KiB): 1,000,000'; 'KV write units/mo (1KiB): 500,000'. Pro raises KV to 5 GiB. Deployment assets are separately capped: 'the total size of all files within the deployment (source files and static files) should not exceed 1 gigabyte' and Free includes 'Revision storage: 10 GiB'.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Free column: 'KV storage: 1 GiB'; 'KV read units/mo (4KiB): 1,000,000'; 'KV write units/mo (1KiB): 500,000'; 'Egress Bandwidth: 20GiB'; 'Revision storage: 10 GiB'; 'Apps: 10'
+  - [2] 2026-10-21: 'should not exceed 1 gigabyte' deployment bundle; 'No uptime guarantees are provided during the initial public beta'
+  - [3] 2026-10-21: 'this action deletes all existing Deno KV databases and their data'; last updated June 5, 2026
+- sources:
+  - [1] https://deno.com/deploy/pricing
+  - [2] https://docs.deno.com/deploy/pricing_and_limits/
+  - [3] https://docs.deno.com/deploy/reference/deno_kv/
+
+## deno deploy deployment assets (static file store)
+
+- `storage/deno-deploy-deployment-assets` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://docs.deno.com/deploy/pricing_and_limits/
+- free tier: none reachable: The deployment bundle cap is 1 GB for ALL files in a deployment: 'the total size of all files within the deployment (source files and static files) should not exceed 1 gigabyte.' 'Revision… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: The deployment bundle cap is 1 GB for ALL files in a deployment: 'the total size of all files within the deployment (source files and static files) should not exceed 1 gigabyte.' 'Revision…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: The deployment bundle cap is 1 GB for ALL files in a deployment: 'the total size of all files within the deployment (source files and static files) should not exceed 1 gigabyte.' 'Revision…
+  - [2] 2026-10-21: cited as the basis of the rejection: The deployment bundle cap is 1 GB for ALL files in a deployment: 'the total size of all files within the deployment (source files and static files) should not exceed 1 gigabyte.' 'Revision s
+- sources:
+  - [1] https://docs.deno.com/deploy/pricing_and_limits/
+  - [2] https://deno.com/deploy/pricing

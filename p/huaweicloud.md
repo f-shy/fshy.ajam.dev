@@ -1,0 +1,303 @@
+# Huawei Cloud
+
+> huaweicloud.com | Storage, Compute; 8 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/huaweicloud/ | JSON https://fshy.ajam.dev/api/v1/entity/huaweicloud.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Huawei Cloud SWR Basic Edition
+
+- `storage/huawei-cloud-swr-basic-edition` | qualifies | evidence reported | binding none | category registry
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.huaweicloud.com/intl/en-us/product/swr/
+- free tier: Free, and explicitly without a byte cap. The strongest storage wording of any registry checked: 'SWR is a free service, but some features (such as image scans and triggers) use other cloud services.' and 'No quotas are imposed on SWR images. You can push as many images as you need.' Quotas exist only on organisation/registry counts. | unit: unlimited | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: No per-GB egress fee is published for Basic Edition. The FAQ states 'The bandwidth of SWR dynamically changes based on actual usage', and only private-network access is discussed for billing: 'No additional fees are charged for private network access'. Public-network pushes are rate-limited rather than metered: 'the image push traffic for a single tenant is limited to 20 QPS. The traffic exceeding this value will be blocked ... Docker will receive 503'. Enterprise Edition is the metered one: images sit in OBS and 'you are billed for the OBS storage and traffic usage.' | metered: yes
+- identity: email
+- interface: oci
+- limits note: 20 QPS image push per tenant over the internet (503 + retry on excess); organisation and registry counts capped; no per-image byte quota published; Basic Edition lacks tags management, batch retention, OCI 1.1 (Enterprise has OCI v1.0/v1.1).
+- interface detail: oci
+- tooling: docker/skopeo/ORAS. Huawei's own SWR client (huaweicloud-sdk) plus standard OCI tooling.
+- composes with: Organisation quota-bounded but image count unbounded, x N Huawei accounts. Because there is no byte quota, the limit is orgs/registries per account and 20 QPS push. Parallel-push strategies must stay under that.
+- reliability: Long-standing free tier with no storage meter, but Basic Edition has no tag management or batch retention, so cleanup is manual and slow.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: (updated 2025-03-25) — 'No quotas are imposed on SWR images. You can push as many images as you need.'
+  - [2] 2026-10-21: 'SWR is a free service'; Enterprise is OBS-billed
+  - [3] 2026-10-21: 'SWR Basic Edition is free but SWR Enterprise Edition is not'; 20 QPS push limit
+  - [4] 2026-10-21: 
+- sources:
+  - [1] https://support.huaweicloud.com/intl/en-us/swr_faq/swr_faq_0014.html
+  - [2] https://support.huaweicloud.com/intl/en-us/productdesc-swr/swr_03_0020.html
+  - [3] https://support.huaweicloud.com/intl/en-us/swr_faq/swr-faq-hk_en-pdf.pdf
+  - [4] https://swr.cn-north-4.myhuaweicloud.com/v2/
+
+## Huawei Cloud AgentArts
+
+- `compute/huawei-cloud` | qualifies-with-caveat | evidence documented | binding request-rate | category container and VM sandbox
+- identity a placeholder: card and phone unknown | verified 2026-10-22T04:47:05.195Z (live) | stale on 2026-11-22
+- url https://support.huaweicloud.com/price-agentarts/agentarts-price-pdf.pdf
+- free tier: the trial edition grants 20 CU of runtime once, free; past that a CU is CNY 1.1108 on demand | unit: mixed | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - request-rate (binding): 20 CU granted once on the trial edition; CNY 1.1108 a CU on demand past it [1]
+  - retention-clamped: a session bills a CU for every vCPU-hour between the start call and the stop call, so a session left open is billed [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the AgentArts price PDF was read on 2026-10-22 (version 04, published 2026-09-28). It states the 20 CU one-time grant and the CNY 1.1108 per CU rate, and defines a CU as vCPU-hours, so 20 CU is 20 vCPU-hours
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - shape.vcpu: 1
+  - shape.note: a CU is one vCPU-hour; the page's example bills 1 vCPU for 0.5 hours as 0.5 CU
+  - session_cap.restart_required: no
+  - session_cap.note: billing runs from the start-session call to the stop-session call, so the clock is closed by the caller; 20 CU is 20 vCPU-hours in total
+  - free_tier_kind: trial
+  - burst_x: 1.0
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: '赠送额度内 体验版一次性赠送 20CU 免费 ¥0.00' - the trial edition grants 20 CU once, free - against '超额部分 CU按需计费 50CU ¥1.1108/CU', and the metering rule that a session bills from the start call to the stop call, quoted
+- sources:
+  - [1] https://support.huaweicloud.com/price-agentarts/agentarts-price-pdf.pdf
+
+## Huawei Cloud (Flexus L Instance, international site)
+
+- `compute/huawei-flexus-l` | paid-only | evidence unverified | binding volume-quota | category VPS | tier 2 vCPU / 1 GiB
+- identity a placeholder: card and phone unknown | verified 2026-11-06T15:56:55.347Z (live) | stale on 2026-11-21
+- url https://www.huaweicloud.com/intl/en-us/product/flexus-l.html
+- disagrees on verdict: `compute/huawei-cloud-intl-free-trial` says fails-identity, `compute/huawei-flexus-l` says paid-only
+- free tier: no free tier: the international product page's specification cards carry reference prices, from USD 9.00 a month for the 2 vCPU / 2 GiB / 3 TB card, and none of the cards is free | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: yearly or monthly subscription; the instance is a resource package that cannot be split and unsubscribed | source: [1]
+- egress: a data package per shape: 2,084 GB with the 2 vCPU / 1 GiB shape, 3,072 GB with 2 vCPU / 2 GiB; excess traffic is billed by volume | metered: yes | free allowance: 2,084 GB | source: [2]
+- identity: card | detail: unverified: the international site is separate from the Chinese site, where mainland real-name verification and a mainland mobile are required. The international signup path was not read. The Chinese promotional price (L实例 2核2G 98元/年) belongs to the mainland site and does not apply to an international account
+- interface: ssh, rest
+- limits:
+  - volume-quota (binding): 2,084 GB data package with the 2 vCPU / 1 GiB shape [2]
+- binding note: the data package binds on paper, but nothing can be said about the price until one is read, so the row is ranked on neither
+- interface detail: root SSH; the vendor's web console; a REST API where documented
+- tooling: any SSH client
+- composes with: the shape is documented and the international product page does render reference prices when a browser runs its scripts: USD 9.00 a month for 2 vCPU / 2 GiB / 3 TB, USD 19.00 for 2 vCPU / 4 GiB and USD 59.00 for 4 vCPU / 8 GiB. The 2 vCPU / 1 GiB shape this record prices has no card on that page, so its price is still unread and the row is still not ranked.
+- reliability: no reliability event recorded
+- notes: The vendor documents what it sells and hides what it costs behind a calculator. The product page does render reference prices once its scripts run, but only for the 2 vCPU / 2 GiB, 2 vCPU / 4 GiB and 4 vCPU / 8 GiB cards; the 2 vCPU / 1 GiB shape has no card and no price. The international price calculator's API is the one route left untried.
+- evidence note: shape and data package quoted from Huawei's own specification document and the billing mode from the FlexusL pricing page; the reference prices on the product page cover other shapes only, so this record's price is not recorded. Identity is the weakest field: the international sign-up path was not read, so the rung stays unverified.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 1
+  - shape.disk_gib: 40
+  - billing_model: monthly or yearly
+  - term: monthly, yearly
+  - price_arithmetic: no price read; none derived
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS that bills whether it runs or not
+  - english: yes on the international site
+  - payment_methods: not read
+- evidence:
+  - [2] 2026-10-24: quoted spec table: '| 2 vCPUs | 1 GiB | 40 GiB | General Purpose SSD | 30 Mbit/s | 2,084 GB |' and '| 2 vCPUs | 2 GiB | 60 GiB | General Purpose SSD | 30 Mbit/s | 3,072 GB |'
+  - [1] 2026-10-24: quoted: '2 vCPUs | 2 GiB, 3 TB/month, Linux' under 'Select your specifications and enjoy a limited-time offer', with no price rendered in the page text
+  - [3] 2026-10-24: the billing page states the mode only: FlexusL is 'Yearly/Monthly' and priced as '实例规格单价 * 购买时长'; no unit price is printed
+  - [2] 2026-11-06: the 2 vCPU / 1 GiB shape still carries 40 GiB of SSD and a 2,084 GB data package | capture: sha256:11a4e2be2c1b1ce537c17240423a9473f08b1ba2b608f7bb08ca9863fb8826da | quote: | 2 vCPUs \| 1 GiB | 40 GiB \| General Purpose SSD | 30 Mbit/s \| 2,084 GB | |
+  - [1] 2026-11-06: the product page renders a reference price for the 2 vCPU / 2 GiB card once its scripts run | capture: sha256:fbda3cc5e5f70d675104cf18df88b689712c5113908198a81928f0a2ecd0ebcf | quote: $9.00 USD/month (for reference only)
+  - [1] 2026-11-06: the priced cards are 2 vCPU / 2 GiB, 2 vCPU / 4 GiB and 4 vCPU / 8 GiB, and the 2 vCPU / 1 GiB shape is not among them | capture: sha256:fbda3cc5e5f70d675104cf18df88b689712c5113908198a81928f0a2ecd0ebcf | quote: 2 vCPUs | 2 GiB, 3 TB/month, Linux
+  - [1] 2026-11-06: a reference price is rendered for a neighbouring shape and none for the 2 vCPU / 1 GiB shape | capture: sha256:fbda3cc5e5f70d675104cf18df88b689712c5113908198a81928f0a2ecd0ebcf | quote: $9.00 USD/month (for reference only)
+  - [3] 2026-11-06: the billing page states the package model and no unit price | capture: sha256:116eee7000c84d1aa6dcb5a6917b077c5f47bd1bfabcb7a2f26b4edf4a8c658b | quote: A FlexusL instance is actually a package of resources. Resources in the package (such as EVS disks, backup vaults, and HSS) cannot be unsubscribed separately.
+  - [1] 2026-11-06: excess outbound traffic is billed at USD 0.114 a GB | capture: sha256:fbda3cc5e5f70d675104cf18df88b689712c5113908198a81928f0a2ecd0ebcf | quote: Traffic usage in excess of the package is priced at $0.114 USD/GB.
+  - [2] 2026-11-06: inbound traffic is free and only outbound counts against the data package | capture: sha256:11a4e2be2c1b1ce537c17240423a9473f08b1ba2b608f7bb08ca9863fb8826da | quote: Only outbound traffic (originating from your server) will be billed.
+  - [1] 2026-11-06: the product page lists the 2 vCPU / 2 GiB card under the limited-time offer | capture: sha256:e9845026c2ae87123349001f6226ba5e9fef443b5036ff398288471562f2246e | quote: 2 vCPUs | 2 GiB, 3 TB/month, Linux
+- sources:
+  - [1] https://www.huaweicloud.com/intl/en-us/product/flexus-l.html
+  - [2] https://support.huaweicloud.com/intl/en-us/productdesc-flexusl/pd_01_0003.html
+  - [3] https://www.huaweicloud.com/intl/en-us/product/flexus/pricing.html
+
+## Huawei Cloud (international)
+
+- `compute/huawei-cloud-intl-free-trial` | fails-identity | evidence documented | binding write-gated | category VPS | tier Free trial / newcomer package
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T06:26:00.000Z (live) | stale on 2026-11-24
+- url https://www.huaweicloud.com/intl/en-us/activity/free_packages/
+- disagrees on verdict: `compute/huawei-cloud-intl-free-trial` says fails-identity, `compute/huawei-flexus-l` says paid-only
+- free tier: 'Free trial is available for each product only once. First come, first served.' A newcomer package is purchasable once per user. The free trial cannot be taken without a payment method: 'A payment method must be specified to purchase Huawei Cloud products and services. Otherwise, you can only view product and service information but cannot purchase them.' | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: one newcomer package per user: 'Each new user can purchase only one newcomer package'
+- retention: Not stated on the free-packages page read. The page states that if the account cannot be reached, Huawei 'has the right to freeze your resources and terminate the service. If the service is terminated, data will be deleted and cannot be restored.'
+- egress: not published on the free-trial page read | metered: yes | source: [1]
+- identity: card | detail: Debit versus credit is not distinguished in published terms; card payment required.
+- interface: ssh, rest
+- limits:
+  - write-gated (binding): a payment method, and a card authorisation, before any free trial can be purchased [1]
+  - volume-quota: one newcomer package per person, deduplicated on ID number, passport number, mobile number, device and IP [1]
+  - per-ip-shaping: free trials are not available in the Brazil, Peru and Chile regions, where payment methods cannot be specified [1]
+- binding note: The card is the gate and it is checked with an authorisation charge, so the free trial is unreachable without a card that can absorb a temporary debit.
+- interface detail: Ordinary ECS instances with SSH and a console; the trial page itself does not name a shape
+- tooling: any SSH client; the vendor console and API
+- composes with: Would be a mainland-Chinese-hyperscaler free trial outside the mainland, but the card authorisation is exactly the pattern comparative records as a complaint.
+- reliability: no reliability event recorded
+- notes: Classified as a rejection, and it is the archetype of the complaint comparative records: an attractive 'free trial' that is gated behind a card with an authorisation charge. The USD 1 authorisation is small, not USD 50, so it is a weaker obstacle than earlier other examples, but it is still a card. Two things are unverified: the shape of the free ECS instance and the trial duration, neither of which the free-packages page states. The escape route the vendor itself documents is a voucher or expenditure quota, which requires a partner or reseller relationship. Not previously in earlier readings as an international trial record; `huawei-cloud` records the CNY-denominated trial edition and `alibaba-cloud-tencent` records the domestic 实名认证 wall.
+- evidence note: The payment-method requirement and the USD 1 authorisation are quoted from Huawei Cloud's own free-trials page and billing user guide read. The machine shape and the trial duration are not stated on the free-packages page, so they are classified as unpublished rather than guessed.
+- extras:
+  - shape.note: not published on the free-packages page read
+  - billing_model: free
+  - term: not stated on the page read
+  - m10h_usd: 0
+  - m24h_usd: 0
+  - price_arithmetic: no charge for the trial itself; the cost is a USD 1 authorisation that is refunded on a bank-dependent schedule
+  - free_tier_kind: trial
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: an ECS security group; not stated on the trial page
+  - session_cap.restart_required: no
+  - session_cap.note: trial length not published on the page read
+  - signup_url: https://www.huaweicloud.com/intl/en-us/activity/free_packages/
+  - card_hold_usd: 1.0
+  - payment_methods: credit card with an authorisation charge; vouchers and expenditure quotas bypass the card
+- evidence:
+  - [1] 2026-10-24: quoted: 'Why Do I Have to Specify a Payment Method? A payment method must be specified to purchase Huawei Cloud products and services. Otherwise, you can only view product and service information but cannot purchase them.'
+  - [1] 2026-10-24: quoted: 'Huawei Cloud will require an authorization deposit to verify that your credit card is valid. This authorization deposit is returned to your credit card at a later stage.'
+  - [2] 2026-10-24: quoted: 'When you add a credit card, Huawei Cloud makes an authorization charge of $1 USD from your card to verify that the card is valid. This amount will be automatically refunded to your card shortly after your account is activated, but the time this takes depends on your card issuing bank.'
+  - [1] 2026-10-24: quoted: 'Each new user can purchase only one newcomer package.' and the same-user rules naming 'ID number, passport number, driver's license ID' and 'the same mobile number, device, or IP address'
+  - [3] 2026-10-24: quoted: 'If you have an expenditure quota, voucher, or test coupon, or if you are a reseller customer associated with a partner, you do not need to add a credit card.' This is the only stated escape from the card, and it requires a voucher the account does not hold
+- sources:
+  - [1] https://www.huaweicloud.com/intl/en-us/activity/free_packages/
+  - [2] https://support.huaweicloud.com/intl/en-us/usermanual-billing/en-us_topic_0130173784.html
+  - [3] https://support.huaweicloud.com/intl/en-us/account_faq/faq_id_0078.html
+
+## Huawei Cloud ModelArts
+
+- `compute/huawei-cloud-modelarts` | fails-identity | evidence reported | binding retention-clamped | category GPU cloud
+- needs card no, phone no, ID yes, institution no | verified 2026-11-03T08:50:51.586Z (live) | stale on 2026-11-18
+- url https://support.huaweicloud.com/usermanual-standard-modelarts/devtool-modelarts_0010.html
+- free tier: "CodeLab CPU GPU "; " 1 ... 1 " - a free CPU or GPU spec, one session of one hour, renewable, at most one free CodeLab instance per user. | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: allowance
+- per-object cap: not applicable | source: [1]
+- retention: the one-hour default session and the 72-hour unused-resource release bind first: after 72 hours idle the instance is released and the files in it are lost | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: national-id
+- interface: rest
+- limits:
+  - retention-clamped (binding): the one-hour default session and the 72-hour unused-resource release bind first: after 72 hours idle the instance is released and the files in it are lost [1]
+- limits note: the one-hour default session and the 72-hour unused-resource release bind first: after 72 hours idle the instance is released and the files in it are lost
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: A one-hour renewable GPU session with no monthly cap is the closest thing to an always-available free GPU in this survey, and it would compose with a code host, but the region lock and the account door stop it before any of that matters.
+- reliability: no reliability event recorded
+- notes: CodeLab is restricted to the Beijing region and mainland Huawei Cloud accounts require real-name identity verification.
+- extras:
+  - facets.class: perpetual-free-session-renewable
+  - facets.free_tier_kind: allowance
+  - facets.shape.gpu_count: 1
+- evidence:
+  - [1] 2026-10-22: quoted via the search body, page updated 2026-07-03: CodeLab includes free CPU and GPU compute specs; the free spec runs 1 hour and can be renewed; resources are released if unused for 72 hours; only the - region supports CodeLab
+  - [2] 2026-10-22: quoted API reference: feature DEFAULT is the CodeLab free-spec instance and (one per user at most)
+  - [1] 2026-10-22: direct read returned 404 for the same URL that the search engine returns content for; the body quoted here came from the search result, so the rung is reported and not documented
+  - [1] 2026-11-03: the free CodeLab releases its resources after 72 hours unused | capture: sha256:ad9557e26f61f8248fae97fd8adb15284c70c337450987039d01d50b0ff747b3 | quote: 免费的CodeLab主要用于体验，72小时内未使用，将释放资源。
+- sources:
+  - [1] https://support.huaweicloud.com/usermanual-standard-modelarts/devtool-modelarts_0010.html
+  - [2] https://support.huaweicloud.com/intl/zh-cn/api-modelarts/CreateNotebook.html
+
+## Huawei Cloud OBS — free packages
+
+- `storage/huawei-cloud-obs-free-packages` | fails-quota | evidence reported | binding none | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.huaweicloud.com/intl/en-us/activity/free_packages/
+- disagrees on identity_kind: `storage/huawei-cloud-obs-free-packages` says card, `storage/huawei-cloud-obs-free-tier` says email
+- disagrees on verdict: `storage/huawei-cloud-obs-free-packages` says fails-quota, `storage/huawei-cloud-obs-free-tier` says dead
+- free tier: Time-limited new-user packages only: OBS Single-AZ 100 GB for 12 months (regions CN-Hong Kong, AP-Bangkok, AP-Singapore, AF-Johannesburg) per the package listing; a separate enterprise-verified 500 GB/month for 3 months offer (China regions) is reported by a third-party comparison, and the vendor's own free-OBS landing page returns 404, so the 500 GB figure is unverified. | unit: GB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: OBS outbound internet traffic is sold as a separate monthly-resetting package ('Outbound Internet traffic packages ... reset their quota by month'); no free egress allowance appears in the free-trial packages. | metered: yes
+- identity: card | detail: inferred from the category 'iaas'; the source record states no identity cost, so this is a class assumption, not evidence
+- interface: s3-compatible, rclone
+- limits note: 100 GB / 12 months (individual, single-AZ); storage packages do NOT reset monthly ('No monthly quota reset'); egress never free.
+- interface detail: s3
+- tooling: OBS S3-compatible API. Rclone 's3' provider 'Huawei OBS'; OBS Browser+; SDKs. Public-read buckets and temporary URLs available.
+- composes with: New users registered after 2025-01-01, 12 months, one package per product per account. Enterprise verification needed for the larger OBS quota.
+- reliability: Solid storage; the 12-month cliff and paid egress make it a staging area rather than a store.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Time-limited new-user packages only: OBS Single-AZ 100 GB for 12 months (regions CN-Hong Kong, AP-Bangkok, AP-Singapore, AF-Johannesburg) per the package listing; a separate enterprise-verified 500 GB/month for 3 months offer (China regions) is reported by a third-party comparison, and the vendor's own free-OBS landing page returns 404, so the 500 GB figure is unverified.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Free packages for all: Customers who register ... after January 1, 2025 ... for 12 months from the registration date'
+  - [2] 2026-10-21: outbound traffic packages reset monthly; standard storage packages do not
+  - [3] 2026-10-21: third-party claim of '500GB per month for three months ... only available to enterprise-verified users ... China' (unverified against vendor)
+- sources:
+  - [1] https://www.huaweicloud.com/intl/en-us/activity/free_packages/
+  - [2] https://support.huaweicloud.com/intl/en-us/obs_faq/obs_faq_0160.html
+  - [3] https://www.gwvpsceping.com/en/13833.html
+
+## Huawei Cloud International
+
+- `compute/huawei-cloud-international` | dead | evidence documented | binding write-gated | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://activity.huaweicloud.com/intl/en-us/free_packages/
+- free tier: Withdrawn. The international free-packages campaign page now serves 'This page is no longer available. Please go to our homepage to see more.' The surviving copy of the campaign terms still claims 12 months of free usage on specified products for accounts registered after 2025-01-01, but the products are no longer listed on a live page. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - write-gated (binding): Nothing is on offer to claim: the campaign page is gone, and the only live statement of eligibility describes products that no live page enumerates. [1]
+- limits note: Nothing is on offer to claim: the campaign page is gone, and the only live statement of eligibility describes products that no live page enumerates.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: None: the claim is not purchaseable, so it composes with nothing.
+- reliability: no reliability event recorded
+- notes: Historical index entries reflect discontinued trial tiers.
+- extras:
+  - facets.class: regional
+  - facets.free_tier_kind: none
+- evidence:
+  - [1] 2026-10-22: the page body reads 'This page is no longer available. Please go to our homepage to see more.', quoted, on a 200 response
+  - [2] 2026-10-22: 'page is no longer available. ## This page is no longer available. Please go to our homepage to see more.', quoted, second URL, same state
+  - [3] 2026-10-22: the campaign page it points to is the dead one
+  - [4] 2026-10-22: ' ' (after registering on the international site you receive the free package, auto-issued), last updated 2022-09-29, so the documentation is four years old and contradicts the dead campaign page
+  - [5] 2026-10-22: 'Cota de uso de 1500 horas gratuitas por 12 meses para 10 produtos populares' (1500 free hours for 12 months across 10 products) and '10 produtos que s o sempre gratuitos', on the Brazil-region landing page, which is a marketing page still repeating the withdrawn offer
+- sources:
+  - [1] https://activity.huaweicloud.com/intl/en-us/free_packages/
+  - [2] https://activity.huaweicloud.com/intl/en-us/free_packages/index.html
+  - [3] https://www.huaweicloud.com/intl/en-us/activity/free_packages/
+  - [4] https://support.huaweicloud.com/intl/en-us/faq-billing/coupon_faq_00000032.html
+  - [5] https://activity.huaweicloud.com/intl/pt-br/brazil_region/
+
+## huawei cloud obs free tier
+
+- `storage/huawei-cloud-obs-free-tier` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.huaweicloud.com/intl/en-us/activity/free_packages/
+- disagrees on identity_kind: `storage/huawei-cloud-obs-free-packages` says card, `storage/huawei-cloud-obs-free-tier` says email
+- disagrees on verdict: `storage/huawei-cloud-obs-free-packages` says fails-quota, `storage/huawei-cloud-obs-free-tier` says dead
+- free tier: none reachable: The vendor's own free-OBS landing page (special/free-obs-pro.html) returns 404 and has no archive capture. What remains is a 100 GB / 12-month new-user package and a third-party claim of… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: The vendor's own free-OBS landing page (special/free-obs-pro.html) returns 404 and has no archive capture. What remains is a 100 GB / 12-month new-user package and a third-party claim of…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: The vendor's own free-OBS landing page (special/free-obs-pro.html) returns 404 and has no archive capture. What remains is a 100 GB / 12-month new-user package and a third-party claim of…
+  - [2] 2026-10-21: cited as the basis of the rejection: The vendor's own free-OBS landing page (special/free-obs-pro.html) returns 404 and has no archive capture. What remains is a 100 GB / 12-month new-user package and a third-party claim of 500
+- sources:
+  - [1] https://www.huaweicloud.com/intl/en-us/activity/free_packages/
+  - [2] https://support.huaweicloud.com/intl/en-us/obs_faq/obs_faq_0160.html

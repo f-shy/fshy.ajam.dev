@@ -1,0 +1,179 @@
+# Servitro
+
+> servitro.com | Compute, Egress and tunnels; 4 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/servitro/ | JSON https://fshy.ajam.dev/api/v1/entity/servitro.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Servitro (1gb)
+
+- `compute/servitro-1gb` | qualifies-with-caveat | evidence reported | binding volume-quota | category VPS | tier $1 Server
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T01:56:37.000Z (live) | stale on 2026-11-08
+- url https://lowendbox.com/blog/servitros-1-per-month-deal-is-back-on-only-12-year-for-a-frankfurt-germany-vps/
+- price parsed USD 1/mo
+- disagrees on verdict: `compute/servitro` says paid-only, `compute/servitro-1gb` says qualifies-with-caveat
+- free tier: No free tier. The plan is USD 12.00 a year for 1 GB, which is exactly USD 1.00 a month. | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: The VPS persists while the annual term is paid. No deletion schedule was readable; the vendor site answered with a security-verification page. | source: [1]
+- egress: 1 TB a month, per the offer as published. | metered: yes | free allowance: 1 TB | source: [1]
+- identity: email | detail: Self-service order with an email account, per the offer text. No card hold and no payment-method list could be read, because the vendor site served a 'Security Verification' page instead of the shop.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 1 TB a month of transfer [1]
+- binding note: 1 TB a month is the first hard number, and the whole offer is thin enough that the vendor's willingness to keep selling at USD 12 is the real limit.
+- interface detail: KVM guest in Frankfurt with IPv4 and a /64 IPv6, per the offer text.
+- tooling: Any SSH client; KVM per the offer text.
+- composes with: A 1 GB KVM guest with both IPv4 and a /64 for USD 12.00 a year: the shape this category wants, but the price sits exactly on the line rather than under it.
+- reliability: The vendor site returns a bot-verification page to every reader tried today; the price and shape come from a January 2026 LowEndBox post and a September 2026 community listing, not from the vendor.
+- notes: Servitro KVM VPS provides 1 GB RAM, 10 GB storage, and 1 TB transfer for USD 12.00 annually.
+- evidence note: The vendor page could not be read: a text read failed and a raw byte fetch returned a 'Security Verification' page. The numbers are from LowEndBox's post and FilterVPS's listing, both second-hand.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.disk_gib: 10
+  - billing_model: annual
+  - term: 12 months
+  - m24h_usd: 1.0
+  - m10h_usd: 1.0
+  - price_arithmetic: USD 12.00 a year / 12 = USD 1.00 a month exactly. Out of pocket at order: USD 12.00.
+  - first_payment_usd: 12.0
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all, on one IPv4 and a /64
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - network_out.ipv6_prefix: /64
+  - payment_methods: not established
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+- evidence:
+  - [1] 2026-10-24: quoted: 'You can get a VPS for only $1-a-month (billed $12/year) with 1GB VPS, 1TB of transfer, IPv4 + /64 IPv6!'
+  - [2] 2026-10-24: quoted: 'Servitro's $1 Server is a budget VPS deal hosted in Germany at $12.00 per year ($1.00 per month), with 1 vCPU, 1 GB of the RAM and 10 GB of storage on KVM virtualization ... Last verified: 2026-09-12'
+  - [3] 2026-10-24: the vendor root served a page titled 'Security Verification' with 560 KB of challenge markup and no pricing, so no first-party figure was obtained
+- sources:
+  - [1] https://lowendbox.com/blog/servitros-1-per-month-deal-is-back-on-only-12-year-for-a-frankfurt-germany-vps/
+  - [2] https://filtervps.com/deal/servitro-1-server
+  - [3] https://servitro.com/
+
+## Servitro (compute/servitro)
+
+- `compute/servitro` | paid-only | evidence reported | binding volume-quota | category cloud VM
+- identity a placeholder: card and phone unknown | verified 2026-11-07T06:08:39.723Z (live) | stale on 2026-11-22
+- url https://vpspricetracker.com/provider/Servitro/vps
+- disagrees on verdict: `compute/servitro` says paid-only, `compute/servitro-1gb` says qualifies-with-caveat
+- free tier: USD 1.00/month on a yearly service (USD 12.00 per year): 1 shared EPYC core, 1,024 MB RAM, 10 GB SSD, 1,024 GB/month bandwidth, 1 Gbps port, Frankfurt Germany, IPv4 and IPv6. The next row is USD 3.67/month yearly with 4,096 MB RAM, 25 GB SSD and a 10 Gbps port. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 1,024 GB per month stated per plan; overage terms not read | metered: yes | free allowance: 1,024 GB per month | source: [1]
+- identity: email | detail: not stated
+- interface: unknown
+- limits:
+  - volume-quota (binding): 1,024 GB a month on every row of the entry tier, so the bandwidth does not scale with the RAM; the yearly prepay is the second wall [1]
+- limits note: 1,024 GB a month on every row of the entry tier, so the bandwidth does not scale with the RAM; the yearly prepay is the second wall
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated on the page read; the vendor site was not reachable
+- composes with: USD 12 a year is the cheapest annual entry among documented hosts, and 1 TB suits a scheduler or a DNS front end rather than a scraper
+- reliability: no reliability event recorded
+- notes: Wall: servitro.com and servitro.com/vps both served the host's 'Security Verification' interstitial, so no vendor figure was read and the record stays at reported. The tracker lists the firm as Cyvra LLC (formerly SERVITRO LTD), Sheridan WY. Unverified: one browser pass through the challenge to confirm the USD 12 annual price and whether the 1,024 GB is a hard cap.
+- extras:
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 1
+  - facets.shape.disk_gib: 10
+- evidence:
+  - [1] 2026-10-22: tracker row 'USD 1.00 / month, yearly Service, 1 Epyc Cores (shared), 1,024 MB RAM, 10 GB SSD, 1,024 GB/month bandwidth, 1 Gbps port speed, IPv4 + IPv6, Frankfurt Germany'; page header says 'starting at $12.00 per year'
+  - [2] 2026-10-22: returned a page titled 'Security Verification' (560,048 bytes) on both the root and /vps, which is a bot challenge and establishes nothing about the vendor's prices or its existence
+  - [3] 2026-11-07: the vendor's EPYC page states the USD 1 Server is billed USD 12 per year and renews at the same price, with 1 vCPU, 1 GB RAM, 10 GB SSD, a 1 Gbps port and 1 TB of monthly traffic | capture: sha256:16baed5cac77601c6a31fd9aac7ae0aa19d606610793ebf21f5966ff1763f885 | quote: The $1 Server is billed $12 per year and renews at the same price.
+- sources:
+  - [1] https://vpspricetracker.com/provider/Servitro/vps
+  - [2] https://servitro.com
+  - [3] https://servitro.com/epyc
+
+## Servitro (1 server)
+
+- `egress/servitro-1-server` | paid-only | evidence documented | binding volume-quota | category vps (hosted, Frankfurt, KVM, dedicated IPv4 plus IPv6 /64) | tier $1 Server
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T05:55:18.497Z (live) | stale on 2026-12-05
+- url https://servitro.com/
+- price USD 1.00 per month with 1 TB included (USD 12 per year) | parsed USD 1/TB-mo
+- free tier: No free tier. The $1 Server is USD 12 a year (USD 1 a month, renewing at the same price): 1 vCPU, 1 GB RAM, 10 GB SSD, a 1 Gbps port, 1 TB traffic a month, one dedicated IPv4 and an IPv6 /64, in Frankfurt. | unit: none | metered on: none | read on: 2026-11-04 | source: [1]
+- per-object cap: not applicable: a virtual server, not an object store | source: [1]
+- retention: not applicable: a live server, not stored bytes | source: [1]
+- egress: 1 TB a month included. Past the allowance the server keeps running and its speed is limited to 625 Kbps until the next month, with no extra charge; a larger plan raises the allowance. | metered: yes | free allowance: 1 TB a month | source: [1]
+- identity: email | detail: An account in the client area is needed and the login arrives by email; payment is by card through Stripe or cryptocurrency through Heleket. The terms reserve identity or payment verification before activation. No phone or ID document is asked for in the pages read; the checkout is behind a sign-up and was not read.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 1 TB a month, then 625 Kbps until the next month [1]
+- binding note: The 1 TB monthly allowance is the limit; past it the port drops to 625 Kbps with no overage charge.
+- interface detail: SSH on the guest with full root; a control panel offers reinstall, power, VNC console, rescue mode and reverse DNS.
+- tooling: ssh; any VPN or tunnel daemon the guest supports. The FAQ states OpenVPN and WireGuard are allowed.
+- composes with: A dedicated IPv4 plus an IPv6 /64 on a 1 Gbps port for USD 1 a month: a UDP-capable endpoint with inbound ports, with outbound mail ports 25, 465 and 587 blocked until a ticket unblocks them. No NAT is stated.
+- reliability: The terms reserve refusal, suspension or cancellation of an order or service at the provider's discretion; the cut to 625 Kbps is automatic past 1 TB.
+- notes: A dollar-a-month Frankfurt VPS with a stated overage behaviour (625 Kbps, no charge). Larger Ryzen and EPYC plans have 10 Gbps ports.
+- evidence note: Price, allowance, port and the over-allowance rate are vendor FAQ and page lines read on 2026-11-04. Identity rests on the vendor terms and the payment line, not on the checkout, which needs an account.
+- extras:
+  - nat: none stated; a dedicated IPv4 is listed
+  - ipv6: IPv6 /64 per server
+  - inbound: no inbound filter stated; mail ports 25, 465 and 587 blocked by default
+  - udp: WireGuard and OpenVPN are stated as allowed
+- evidence:
+  - [1] 2026-11-04: the $1 Server is USD 12 a year with a 1 TB traffic allowance, a 1 Gbps port, one IPv4 and IPv6 | capture: sha256:b3022d03a85b8d6a980d7323825d936ec17ffa82ecdd684598d66f50315e7aeb | quote: Yes. The $1 Server is billed $12 per year, which is $1 per month, and renews at the same price. It includes 1 vCPU, 1 GB RAM, 10 GB SSD, a 1 Gbps port, 1 TB traffic and a dedicated IPv4 plus IPv6.
+  - [1] 2026-11-04: past the monthly allowance the port is cut to 625 Kbps with no overage charge | capture: sha256:b3022d03a85b8d6a980d7323825d936ec17ffa82ecdd684598d66f50315e7aeb | quote: Your server keeps running, and its speed is limited to 625 Kbps until the next month. There are no extra charges.
+  - [1] 2026-11-04: OpenVPN and WireGuard are allowed on the plan | capture: sha256:b3022d03a85b8d6a980d7323825d936ec17ffa82ecdd684598d66f50315e7aeb | quote: Yes.
+  - [1] 2026-11-04: outbound mail ports 25, 465 and 587 are blocked by default and unblocked on request | capture: sha256:b3022d03a85b8d6a980d7323825d936ec17ffa82ecdd684598d66f50315e7aeb | quote: Mail ports (25, 465, 587) are blocked by default to prevent spam. Open a ticket with your use case and we will unblock them.
+  - [2] 2026-11-04: a dedicated IPv4 and an IPv6 /64 are included; the $1 Server has a 1 Gbps port | capture: sha256:738f52dbd5dd2cae7dc058d53b382dc19cd258b2394ba8b1ebb34b332d9062a1 | quote: 10 Gbps ports on Virtual plans (1 Gbps on the $1 Server), with a dedicated IPv4 address and an IPv6 /64 included.
+  - [2] 2026-11-04: payment is by card through Stripe or by cryptocurrency through Heleket | capture: sha256:738f52dbd5dd2cae7dc058d53b382dc19cd258b2394ba8b1ebb34b332d9062a1 | quote: Credit and debit cards through Stripe, and cryptocurrency (for example USDT and Bitcoin) through Heleket.
+  - [3] 2026-11-04: the terms reserve identity or payment verification before activation | capture: sha256:f7e72f4415d5e6af811b5167d9d24c99d4c15520ce608d525ce2feac322e42c4 | quote: We may ask you to verify your identity or payment before we activate or continue a Service, and we may refuse or cancel an order that fails verification or is flagged as fraudulent.
+  - [2] 2026-11-04: the order is automatic after payment and the login arrives by email | capture: sha256:738f52dbd5dd2cae7dc058d53b382dc19cd258b2394ba8b1ebb34b332d9062a1 | quote: VPS are set up automatically after payment, usually within a few minutes. Your login details are sent by email.
+  - [4] 2026-11-04: the plan is in Frankfurt, Germany | capture: sha256:00aa218ea4fdae59a69d30b6e96626923e4675ab04f6750d66174c757a6ccf5d | quote: Service is in Frankfurt, Germany.
+- sources:
+  - [1] https://servitro.com/faq
+  - [2] https://servitro.com/
+  - [3] https://servitro.com/terms
+  - [4] https://lowendbox.com/blog/servitros-1-per-month-deal-is-back-on-only-12-year-for-a-frankfurt-germany-vps/
+
+## Servitro (EPYC $1 Server)
+
+- `egress/servitro-epyc-1-server` | paid-only | evidence reported | binding volume-quota | category vps (hosted, Frankfurt, KVM, IPv4 and IPv6) | tier EPYC $1 Server
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T12:11:58.416Z (live) | stale on 2026-11-19
+- url https://servitro.com/
+- price USD 12.00 per year for 1 TB per month | parsed USD 1/TB-mo
+- duplicate of `egress/servitro-1-server`
+- free tier: No free plan. The $1 Server is USD 12 a year: 1024 MB RAM, 1 vCPU, 10 GB NVMe, 1 TB transfer, 1 Gbps uplink and one IPv4 on VirtFusion KVM. | unit: none | metered on: none | read on: 2026-11-04 | source: [1]
+- per-object cap: not applicable: a rented server, not an object store | source: [1]
+- retention: not applicable: a live server, not stored bytes | source: [1]
+- egress: 1 TB per month on the $1 Server per the offer post; each plan has a monthly traffic allowance and past it the port speed is reduced until the next monthly period; outbound mail ports may be blocked by default | metered: yes | free allowance: 1 TB per month on the $1 Server, paid, no free tier | source: [1]
+- identity: email | detail: the terms say the vendor may ask to verify identity or payment before activation; the site lists card payment through Stripe and crypto through Heleket; no phone or ID document is stated on a page read
+- interface: ssh
+- limits:
+  - volume-quota (binding): 1 TB per month on the $1 Server, then the port speed is reduced until the next month [2]
+  - per-ip-shaping: 1 Gbps port on the $1 Server; outbound mail ports may be blocked by default [3]
+- binding note: 1 TB per month is the only published ceiling, stated by the offer post; the terms say the port speed is reduced past the allowance and give no rate.
+- interface detail: a KVM guest with full root access, a VNC console and rescue mode
+- tooling: any SSH client; the provider's self-service panel
+- composes with: a KVM guest with a dedicated IPv4 address and an IPv6 /64 on a 1 Gbps port; outbound 25, 465 and 587 may be blocked by default and opened on request, and no other port policy is stated
+- reliability: no reliability event recorded
+- notes: Not free. A dollar-a-month KVM server in Frankfurt on a 1 Gbps port; the 1 TB allowance comes from a third-party post. Duplicate of egress/servitro-1-server: the vendor lists one $1 Server plan (USD 12 a year, 1 vCPU, 1 GB RAM, 10 GB, 1 Gbps, 1 TB a month, Frankfurt), and the third-party post row labelled EPYC $1 Server orders the vendor usd1-server page, the same plan; see that record for the first-party figures.
+- evidence note: The 1 TB figure is from a third-party offer post and no first-party page states the allowance for this plan; the throttle rule, port speed and payment routes are first-party.
+- extras:
+  - nat: not stated; a dedicated IPv4 address and an IPv6 /64 are listed
+  - ipv6: an IPv6 /64 included
+  - inbound: not stated beyond the possible default block on outbound mail ports
+  - udp: not stated; a KVM guest with root
+  - volume_stated: 1TB transfer
+  - bytes_transit: yes
+  - transit_note: bytes leave from the guest's own address on the provider's network
+- evidence:
+  - [1] 2026-11-04: the $12 a year plan has 1 TB of bandwidth | capture: sha256:8c32da50b12ab94a3b54bf159b304094854866b3e6baea8aa1a6169c4e28b667 | quote: For $12/year you can get an IPv4 and 1 TB of bandwidth in Germany from
+  - [1] 2026-11-04: the $1 Server row lists 1 TB transfer, a 1 Gbps uplink and one IPv4 | capture: sha256:8c32da50b12ab94a3b54bf159b304094854866b3e6baea8aa1a6169c4e28b667 | quote: 1024MB RAM0MB Swap1x vCPU10GB NVMe space1TB transfer1Gbps uplink1x IPv4Virtfusion KVM$12/year
+  - [2] 2026-11-04: past the allowance the port speed is reduced until the next month | capture: sha256:f7e72f4415d5e6af811b5167d9d24c99d4c15520ce608d525ce2feac322e42c4 | quote: Each plan includes a monthly traffic allowance. If you exceed it, the port speed of that Service is reduced until the next monthly period begins.
+  - [2] 2026-11-04: outbound mail ports may be blocked by default | capture: sha256:f7e72f4415d5e6af811b5167d9d24c99d4c15520ce608d525ce2feac322e42c4 | quote: Outbound mail ports (such as 25, 465 and 587) may be blocked by default.
+  - [2] 2026-11-04: identity or payment verification may be requested | capture: sha256:f7e72f4415d5e6af811b5167d9d24c99d4c15520ce608d525ce2feac322e42c4 | quote: We may ask you to verify your identity or payment before we activate or continue a Service
+  - [3] 2026-11-04: payment is by card or crypto | capture: sha256:738f52dbd5dd2cae7dc058d53b382dc19cd258b2394ba8b1ebb34b332d9062a1 | quote: Pay by card through Stripe or with crypto through Heleket.
+  - [3] 2026-11-04: the $1 Server has a 1 Gbps port, a dedicated IPv4 and an IPv6 /64 | capture: sha256:738f52dbd5dd2cae7dc058d53b382dc19cd258b2394ba8b1ebb34b332d9062a1 | quote: 10 Gbps ports on Virtual plans (1 Gbps on the $1 Server), with a dedicated IPv4 address and an IPv6 /64 included.
+  - [4] 2026-11-04: the vendor lists one $1 Server plan: 1 vCPU, 1 GB RAM, 10 GB, 1 Gbps, 1 TB, USD 12 a year | capture: sha256:16baed5cac77601c6a31fd9aac7ae0aa19d606610793ebf21f5966ff1763f885 | quote: | $1 Server | 1 | 1 GB | 10 GB | 1 Gbps | 1 TB | $12/yr | [Order →](https://my.servitro.com/cart.php?a=add&pid=53) |
+  - [1] 2026-11-04: the post row has the same spec and price as the vendor $1 Server | capture: sha256:8c32da50b12ab94a3b54bf159b304094854866b3e6baea8aa1a6169c4e28b667 | quote: EPYC $1 Server1024MB RAM0MB Swap1x vCPU10GB NVMe space1TB transfer1Gbps uplink1x IPv4Virtfusion KVM$12/year
+- sources:
+  - [1] https://lowendbox.com/blog/servitro-get-a-1gb-vps-for-12-year-or-a-4gb-vps-for-20-year-in-germany/
+  - [2] https://servitro.com/terms
+  - [3] https://servitro.com/
+  - [4] https://servitro.com/epyc

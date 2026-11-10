@@ -1,0 +1,144 @@
+# Crossref REST
+
+> crossref.org | Data APIs, Debrid; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/crossref/ | JSON https://fshy.ajam.dev/api/v1/entity/crossref.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Crossref
+
+- `data-apis/crossref` | qualifies | evidence documented | binding request-rate | category scholarly metadata API (DOI registry) and annual public data file | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-31T00:48:58.884Z (live) | stale on 2026-12-01
+- url https://www.crossref.org/documentation/retrieve-metadata/rest-api/access-and-authentication/
+- free tier: No sign-up: the public pool allows 5 requests a second for a single record and 1 a second for lists of records, 1 at a time; the polite pool, selected by an email address in the mailto parameter or the agent header, allows 10 a second for single DOI records and 3 a second for lists, 3 at a time; no daily cap is published | unit: requests | metered on: request-count | read on: 2026-10-30 | source: [1] | note: Measured on 2026-10-30: an anonymous list call answered x-rate-limit-limit 1, x-rate-limit-interval 1s, x-concurrency-limit 1 in pool public-array; an anonymous single-DOI call answered x-rate-limit-limit 5 in pool public-single.
+- per-object cap: rows default 20, maximum 1000 per call; cursor paging for deeper result sets | source: [2]
+- retention: the API is a live index; the public data file is released once a year (the 2026 file on 2026 March 17); monthly snapshots for Metadata Plus subscribers stay available until the end of the following quarter | source: [3]
+- egress: The API is not metered by bytes. The annual public data file is distributed over Academic Torrents; its copy in the S3 bucket api-snapshots-reqpays-crossref is Requester Pays, so the downloader's AWS account pays the transfer, estimated by Crossref at USD 18 for the 2025 file of about 200 GB. | metered: no | free allowance: the torrent has no published cap; the Requester Pays copy has no free allowance | source: [3]
+- identity: anonymous | detail: No signup or registration. An email address in the mailto parameter or the agent header selects the polite pool with higher limits. Metadata Plus is an annual subscription that issues an API key.
+- interface: rest, s3
+- limits:
+  - request-rate (binding): public pool: 5 requests a second for a single record, 1 a second for lists of records; concurrency 1 [4]
+  - request-rate (binding): polite pool (email in mailto or the agent header): 10 requests a second for a single DOI record, 3 a second for lists; concurrency 3 [4]
+  - request-rate (binding): Metadata Plus: 150 requests a second, no concurrency limit; annual subscription from USD 550 [1]
+  - per-object-cap: rows maximum 1000 per call; cursor paging beyond [2]
+- binding note: One list call a second anonymously, or 3 in the polite pool, makes a full harvest through the API slow; the annual file is the route to the whole registry.
+- interface detail: REST at https://api.crossref.org (works, members, funders, journals; JSON; cursor paging); the annual public data file as gzip JSONL over BitTorrent (Academic Torrents, doi:10.13003/nggf-vt1j) or from the Requester Pays S3 bucket api-snapshots-reqpays-crossref with --request-payer requester; monthly snapshots at https://api.crossref.org/snapshots/monthly/ for Metadata Plus tokens only
+- endpoint: https://api.crossref.org/works
+- tooling: curl or any HTTP client for the API; a BitTorrent client for the public data file; aws s3api get-object --request-payer requester for the S3 copy, which needs an AWS account
+- composes with: The annual public data file is the bulk path: the 2026 file holds nearly 180 million records in 208 GB of compressed JSONL across 35909 files, free over Academic Torrents; the REST API with update-date or index-date filters, rows=1000 and a cursor brings a copy current between releases.
+- reliability: Over the limit answers 429; a manual block answers 403 and is lifted through support. The public and polite limits were revised from 1 December 2025.
+- notes: The record debrid/crossref-rest-api describes the same REST API; this record adds the published pool limits and the bulk paths.
+- evidence note: The pool limits, the bulk file and its size are vendor pages read on 2026-10-30; two anonymous calls the same day returned the public-pool limits in their headers (1 a second for a list, 5 for a single DOI). The torrent was not downloaded.
+- extras:
+  - public_file_2026_gb: 208
+  - public_file_2026_files: 35909
+  - metadata_plus_min_usd_year: 550
+- evidence:
+  - [1] 2026-10-30: the REST API needs no signup | capture: sha256:64d202bd8d19736cd1c43b60733776a9b61dce700b78336079312cced9bff4b8 | quote: Anyone can access the REST API, no signup or registration is required.
+  - [1] 2026-10-30: the polite pool is selected by an email address in mailto or the agent header | capture: sha256:64d202bd8d19736cd1c43b60733776a9b61dce700b78336079312cced9bff4b8 | quote: | Polite | Include your email address in the `mailto` parameter or `agent` header. |
+  - [1] 2026-10-30: the public pool allows 5 requests a second, concurrency 1 | capture: sha256:64d202bd8d19736cd1c43b60733776a9b61dce700b78336079312cced9bff4b8 | quote: | Public | 5 | 1 |
+  - [1] 2026-10-30: the polite pool allows 10 requests a second, concurrency 3 | capture: sha256:64d202bd8d19736cd1c43b60733776a9b61dce700b78336079312cced9bff4b8 | quote: | Polite | 10 | 3 |
+  - [1] 2026-10-30: Metadata Plus allows 150 requests a second with no concurrency limit | capture: sha256:64d202bd8d19736cd1c43b60733776a9b61dce700b78336079312cced9bff4b8 | quote: | Plus | 150 | None |
+  - [1] 2026-10-30: over the limit answers 429 | capture: sha256:64d202bd8d19736cd1c43b60733776a9b61dce700b78336079312cced9bff4b8 | quote: If you exceed the rate limits, you will receive a 429 HTTP response.
+  - [1] 2026-10-30: a manual block answers 403 | capture: sha256:64d202bd8d19736cd1c43b60733776a9b61dce700b78336079312cced9bff4b8 | quote: Blocked users will receive a 403 HTTP response and you can contact our support team to ask for a block to be removed.
+  - [4] 2026-10-30: the public pool allows 5 single-record requests a second | capture: sha256:fe96b5289973429e7da77dd88540afaea50af1c3ddd60c80526a100c06f817d1 | quote: | Single record | 5 | 1 |
+  - [4] 2026-10-30: the public pool allows 1 list request a second | capture: sha256:fe96b5289973429e7da77dd88540afaea50af1c3ddd60c80526a100c06f817d1 | quote: | List of records (queries, filters, etc.) | 1 | 1 |
+  - [4] 2026-10-30: the polite pool allows 10 single-DOI requests a second | capture: sha256:fe96b5289973429e7da77dd88540afaea50af1c3ddd60c80526a100c06f817d1 | quote: | Single DOI record | 10 | 3 |
+  - [4] 2026-10-30: the polite pool allows 3 list requests a second | capture: sha256:fe96b5289973429e7da77dd88540afaea50af1c3ddd60c80526a100c06f817d1 | quote: | List of records (queries, filters, etc.) | 3 | 3 |
+  - [4] 2026-10-30: the limits are per second | capture: sha256:fe96b5289973429e7da77dd88540afaea50af1c3ddd60c80526a100c06f817d1 | quote: The rate limit is the number of total requests that can be made per second.
+  - [4] 2026-10-30: the limits were revised from 1 December 2025 | capture: sha256:fe96b5289973429e7da77dd88540afaea50af1c3ddd60c80526a100c06f817d1 | quote: From 1 December 2025, we will be revising the rate limits for the public and polite pools of the REST API
+  - [2] 2026-10-30: a call returns at most 1000 rows | capture: sha256:a50e76ab45183f2ff178f2668b8e5ebbce284fa1d79b87232b523fdba732066a | quote: The default number of rows returned is 20 and you can increase it up to 1000.
+  - [2] 2026-10-30: deep result sets use cursor paging | capture: sha256:a50e76ab45183f2ff178f2668b8e5ebbce284fa1d79b87232b523fdba732066a | quote: Paginating through multiple pages of results is possible through the cursor parameter.
+  - [3] 2026-10-30: the public data file is released once a year | capture: sha256:874ebdfcc449154810696ed324d9d702f289eb248537431a7350b53bcad7ad91 | quote: Once a year we release files that include the metadata for all Crossref-registered DOIs.
+  - [3] 2026-10-30: the S3 copy is the bucket api-snapshots-reqpays-crossref | capture: sha256:874ebdfcc449154810696ed324d9d702f289eb248537431a7350b53bcad7ad91 | quote: The bucket is called `api-snapshots-reqpays-crossref`.
+  - [3] 2026-10-30: the S3 copy is Requester Pays | capture: sha256:874ebdfcc449154810696ed324d9d702f289eb248537431a7350b53bcad7ad91 | quote: This means that rather than the bucket owner (Crossref) paying for bandwidth and transfer costs when downloading objects, the requester pays instead.
+  - [3] 2026-10-30: the S3 copy of the 2025 file costs about USD 18 | capture: sha256:874ebdfcc449154810696ed324d9d702f289eb248537431a7350b53bcad7ad91 | quote: The 2025 file is approximately 200 GB, and plugging that into [this calculator](https://calculator.aws/#/createCalculator/S3) results in an estimated cost of $18 USD.
+  - [3] 2026-10-30: monthly snapshots are removed after the following quarter | capture: sha256:874ebdfcc449154810696ed324d9d702f289eb248537431a7350b53bcad7ad91 | quote: Snapshots remain available until the end of the following quarter, after which they are removed
+  - [3] 2026-10-30: the public data file is distributed over Academic Torrents | capture: sha256:874ebdfcc449154810696ed324d9d702f289eb248537431a7350b53bcad7ad91 | quote: The most recent public data file is accessible via [Academic Torrents](https://academictorrents.com/) at [https://doi.org/10.13003/nggf-vt1j](https://doi.org/10.13003/nggf-vt1j).
+  - [5] 2026-10-30: the 2026 public data file is 35909 files | capture: sha256:62819228f36fef8d65e52d6776e58160d4f1cf7e9933b03fda8923050de38b09 | quote: folder March 2026 Public Data File from Crossref (35909 files)
+  - [6] 2026-10-30: the 2026 public data file is 208 GB compressed | capture: sha256:c6e92f956393d951a3b9ac5f418437906721c0c8544d7b08e1c1a344d98ab471 | quote: The complete, compressed files are 208 GB.
+  - [6] 2026-10-30: the 2026 public data file holds nearly 180 million records | capture: sha256:c6e92f956393d951a3b9ac5f418437906721c0c8544d7b08e1c1a344d98ab471 | quote: containing nearly 180 million records, is now available.
+  - [6] 2026-10-30: the 2026 public data file was announced on 2026 March 17 | capture: sha256:c6e92f956393d951a3b9ac5f418437906721c0c8544d7b08e1c1a344d98ab471 | quote: 2026 March 17
+  - [7] 2026-10-30: the lowest Metadata Plus annual fee is USD 550 | capture: sha256:04d5988ac640a82f46faa71b80a088e7146eec583e3dbead9d6555caa5966eab | quote: | < 500,000 USD | 550 USD |
+  - probe:https://api.crossref.org/works?rows=1&select=DOI 2026-10-30: an anonymous list call was limited to 1 request | capture: sha256:5c102531347b36b2538a01541ba34cbb3f23f0b7a387d26669afc5c2d7f1ce34 | quote: "x-rate-limit-limit": "1"
+  - probe:https://api.crossref.org/works?rows=1&select=DOI 2026-10-30: the limit interval was 1 second | capture: sha256:5c102531347b36b2538a01541ba34cbb3f23f0b7a387d26669afc5c2d7f1ce34 | quote: "x-rate-limit-interval": "1s"
+  - probe:https://api.crossref.org/works?rows=1&select=DOI 2026-10-30: the anonymous list call went to the public pool | capture: sha256:5c102531347b36b2538a01541ba34cbb3f23f0b7a387d26669afc5c2d7f1ce34 | quote: "x-api-pool": "public-array"
+  - probe:https://api.crossref.org/works/10.1128/mbio.01735-25 2026-10-30: an anonymous single-DOI call was limited to 5 requests a second | capture: sha256:127ca95c26a908ac6cb795080dbe35971cece5d9898cf8960011e892a74074e9 | quote: "x-rate-limit-limit": "5"
+  - probe:https://api.crossref.org/works/10.1128/mbio.01735-25 2026-10-30: the anonymous single-DOI call went to the public pool | capture: sha256:127ca95c26a908ac6cb795080dbe35971cece5d9898cf8960011e892a74074e9 | quote: "x-api-pool": "public-single"
+- sources:
+  - [1] https://www.crossref.org/documentation/retrieve-metadata/rest-api/access-and-authentication/
+  - [2] https://www.crossref.org/documentation/retrieve-metadata/rest-api/tips-for-using-the-crossref-rest-api/
+  - [3] https://www.crossref.org/documentation/retrieve-metadata/bulk-downloads/
+  - [4] https://www.crossref.org/blog/announcing-changes-to-rest-api-rate-limits/
+  - [5] https://doi.org/10.13003/nggf-vt1j
+  - [6] https://doi.org/10.64000/7s70g-drz77
+  - [7] https://www.crossref.org/fees/
+
+## Crossref REST API
+
+- `debrid/crossref-rest-api` | qualifies | evidence documented | binding request-rate | category scholarly metadata index (DOI registry) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T00:28:18.841Z (live) | stale on 2026-12-04
+- url https://www.crossref.org/documentation/retrieve-metadata/rest-api/
+- price USD 0
+- duplicate of `data-apis/crossref`
+- free tier: No sign-up: the public pool allows 5 requests a second for a single record and 1 a second for lists of records, 1 at a time; the polite pool, selected by an email address in the mailto parameter or the agent header, allows 10 a second for a single DOI record and 3 a second for lists, 3 at a time; no daily cap is published | unit: requests | metered on: request-count | read on: 2026-10-31 | source: [1] | note: The limits come back in the x-rate-limit-limit, x-rate-limit-interval and x-concurrency-limit response headers; an anonymous list call on 2026-10-31 answered x-rate-limit-limit 1, x-rate-limit-interval 1s and x-concurrency-limit 1 in pool public-array.
+- per-object cap: rows maximum 1000 per call; rows=1000 with a five-field select returned 773,304 bytes in one response on 2026-10-31 | source: [2]
+- retention: A registered DOI cannot be fully deleted and its metadata can be updated, so a record is corrected rather than removed. | source: [3] | note: After a member cancels, its registered DOIs continue to exist and to resolve, and the metadata stays open through the APIs. The member can no longer update the metadata.
+- egress: Free and unmetered. No key, no account, no allowance published. | metered: no | free allowance: no byte allowance published | source: [4]
+- identity: anonymous | detail: No signup or registration. An email address in the mailto parameter or the agent header selects the polite pool with higher limits; it is not a credential. Metadata Plus is an annual subscription that issues an API key.
+- interface: rest, cli
+- limits:
+  - request-rate (binding): public pool: 5 requests a second for a single record, 1 a second for lists of records, concurrency 1; polite pool (an email address in mailto or the agent header): 10 a second for a single DOI record, 3 a second for lists, concurrency 3 [5]
+  - per-object-cap: rows maximum 1000 per call, cursor paging beyond; rows=1000 with a five-field select returned 773,304 bytes on 2026-10-31 probe:https://api.crossref.org/works?rows=1000&cursor=*&select=DOI,title,container-title,published,author
+- limits note: Monthly snapshots are a Metadata Plus benefit fetched with a Crossref-Plus-API-Token header; the free bulk path is the annual public data file over Academic Torrents. Without a token, a HEAD of the documented URL https://api.crossref.org/snapshots/monthly/latest/all.json.tar.gz answered 200 with a zero-byte text/html body on 2026-10-31.
+- binding note: One list call a second in the public pool, or 3 in the polite pool, each of at most 1000 rows, decides how many records a day the API yields; the annual public data file is the route to the whole registry.
+- interface detail: GET https://api.crossref.org/works with rows, cursor and select; content negotiation for single records. The polite pool is signalled with mailto= or a User-Agent carrying an address.
+- endpoint: part of interface detail
+- tooling: curl/python-requests; the harvester package and the documented cursor pattern. No SDK required.
+- composes with: Crossref supplies the DOI-level citation graph and licence metadata; the full text behind each DOI is a separate fetch from the publisher or from an OA mirror such as PMC or Europe PMC.
+- reliability: Over the rate limit answers 429; a manual block answers 403 and is lifted through support. Without a Metadata Plus token the monthly snapshot URLs answer 200 with an empty or stub HTML body instead of an error, so a client must check the bytes it saves.
+- notes: Metadata only: bibliographic records with funding data, licence information, ORCID and ROR IDs and some abstracts, no full text. The record data-apis/crossref is the home of this offer and adds the annual public data file.
+- evidence note: The pool limits are vendor pages read on 2026-10-31; an anonymous list call and an anonymous single-DOI call the same day returned the public-pool limits in their headers, and a rows=1000 call returned 773,304 bytes. The published limits were not tested at their ceiling.
+- extras:
+  - rows_1000_bytes: 773304
+  - snapshot_status: 200 with 41-byte HTML stub
+- evidence:
+  - [4] 2026-10-23: 'No sign-up is required to use the REST API' and the polite-pool mailto pattern
+  - [6] 2026-10-23: 'back off if you start seeing 429 statuses' - the only published rate signal; cursor paging for bulk
+  - probe:https://api.crossref.org/works?rows=1000&cursor=*&select=DOI,title,container-title,published,author 2026-10-23: 200, 773,304 bytes of application/json in 3,456 ms - the real bytes per call
+  - probe:https://api.crossref.org/snapshots/monthly/latest.json.gz 2026-10-23: 200 with 41 bytes of text/html and no file - the documented snapshot URL did not serve a snapshot
+  - [5] 2026-10-31: the public pool allows 1 list request a second, concurrency 1; the page also gives 5 for a single record and 10 and 3 in the polite pool | capture: sha256:fe96b5289973429e7da77dd88540afaea50af1c3ddd60c80526a100c06f817d1 | quote: | List of records (queries, filters, etc.) | 1 | 1 |
+  - [5] 2026-10-31: the free tier is a request rate | capture: sha256:fe96b5289973429e7da77dd88540afaea50af1c3ddd60c80526a100c06f817d1 | quote: The rate limit is the number of total requests that can be made per second.
+  - [5] 2026-10-31: the limits count requests | capture: sha256:fe96b5289973429e7da77dd88540afaea50af1c3ddd60c80526a100c06f817d1 | quote: The rate limit is the number of total requests that can be made per second.
+  - [1] 2026-10-31: the access page holds the pool limit table | capture: sha256:64d202bd8d19736cd1c43b60733776a9b61dce700b78336079312cced9bff4b8 | quote: | Public | 5 | 1 |
+  - [1] 2026-10-31: the polite pool allows 10 requests a second, concurrency 3 | capture: sha256:64d202bd8d19736cd1c43b60733776a9b61dce700b78336079312cced9bff4b8 | quote: | Polite | 10 | 3 |
+  - probe:https://api.crossref.org/works?rows=1&select=DOI 2026-10-31: an anonymous list call went to the public list pool with a limit of 1 a second | capture: sha256:4ec15a24d4131bb29acb40713cf765a1acd01352de4a6d1288d4a70cf5a3cc1c | quote: "x-api-pool": "public-array"
+  - [5] 2026-10-31: the public pool allows 5 single-record requests a second, concurrency 1 | capture: sha256:fe96b5289973429e7da77dd88540afaea50af1c3ddd60c80526a100c06f817d1 | quote: | Single record | 5 | 1 |
+  - probe:https://api.crossref.org/works?rows=1000&cursor=*&select=DOI,title,container-title,published,author 2026-10-31: a rows=1000 call with a five-field select returned 773,304 bytes | capture: sha256:c6d2520c3e1c7133abc09fc10d5a2174f9f11baed633f2e20075bf4eaea0568e | quote: "bytes": 773304
+  - [6] 2026-10-31: a call returns at most 1000 rows | capture: sha256:a50e76ab45183f2ff178f2668b8e5ebbce284fa1d79b87232b523fdba732066a | quote: The default number of rows returned is 20 and you can increase it up to 1000.
+  - probe:https://api.crossref.org/snapshots/monthly/latest/all.json.tar.gz 2026-10-31: the Metadata Plus snapshot URL answered HEAD 200 with a zero-byte text/html body and no token | capture: sha256:f44d34715ff081068dc2f17b28524f64d7878eb3e8961dfd14dba1a360950281 | quote: "content-length": "0"
+  - [7] 2026-10-31: the monthly snapshot route needs a Metadata Plus token | capture: sha256:874ebdfcc449154810696ed324d9d702f289eb248537431a7350b53bcad7ad91 | quote: Include your API token in the request header using the format `Crossref-Plus-API-Token: Bearer [API token]`.
+  - probe:https://api.crossref.org/snapshots/monthly/latest.json.gz 2026-10-31: the undocumented URL /snapshots/monthly/latest.json.gz answers an empty 41-byte HTML listing | capture: sha256:43de25d96e2ef9111d0bbc3980957908db9dd5041e7693a760c5ce1d2d0777bd | quote: <h1>/monthly/latest.json.gz</h1><ol></ol>
+  - [1] 2026-10-31: a manual block answers 403 and support lifts it; the page also says over the limit answers 429 | capture: sha256:64d202bd8d19736cd1c43b60733776a9b61dce700b78336079312cced9bff4b8 | quote: Blocked users will receive a 403 HTTP response and you can contact our support team to ask for a block to be removed.
+  - [5] 2026-10-31: the polite pool allows 3 list requests a second; the public pool 1 | capture: sha256:fe96b5289973429e7da77dd88540afaea50af1c3ddd60c80526a100c06f817d1 | quote: | List of records (queries, filters, etc.) | 3 | 3 |
+  - [1] 2026-10-31: the polite pool is selected by an email address in mailto or the agent header | capture: sha256:64d202bd8d19736cd1c43b60733776a9b61dce700b78336079312cced9bff4b8 | quote: | Polite | Include your email address in the `mailto` parameter or `agent` header. |
+  - probe:https://api.crossref.org/works?rows=1000&cursor=*&select=DOI,title,container-title,published,author 2026-10-31: the rows=1000 call answered with the public list limit of 1 a second | capture: sha256:c6d2520c3e1c7133abc09fc10d5a2174f9f11baed633f2e20075bf4eaea0568e | quote: "x-rate-limit-limit": "1"
+  - [4] 2026-10-31: the API carries bibliographic metadata with funding, licence, identifiers and abstracts | capture: sha256:26a49b743326dc092777974a9567dce13182d8094a67b6d064b0d082ebad251f | quote: you will find funding data, license information, post-publication updates, ORCID and ROR IDs, and abstracts.
+  - probe:https://api.crossref.org/works/10.1128/mbio.01735-25 2026-10-31: an anonymous single-DOI call on 2026-10-31 went to the public single-record pool | capture: sha256:f9d7d2c746cb93f06fb2f7bd84832cba5dab8e3e78804af76b02566ae30975d3 | quote: "x-api-pool": "public-single"
+  - [1] 2026-10-31: the public pool allows 5 requests a second, concurrency 1 | capture: sha256:64d202bd8d19736cd1c43b60733776a9b61dce700b78336079312cced9bff4b8 | quote: | Public | 5 | 1 |
+  - [3] 2026-11-02: Crossref states that a registered DOI cannot be fully deleted | capture: sha256:a466934b4e04853ab7601e7c2a05d1678ddc86b530a1dd9f97b94a19afacd3ed | quote: Because DOIs are designed to be persistent, a DOI string can’t be changed once registered, and DOIs can’t be fully deleted.
+  - [3] 2026-11-02: the metadata of a DOI can be updated while the DOI string stays | capture: sha256:a466934b4e04853ab7601e7c2a05d1678ddc86b530a1dd9f97b94a19afacd3ed | quote: You can always update the metadata associated with a DOI, but the DOI string itself can’t change
+  - [8] 2026-11-02: DOIs cannot be deleted and their metadata can be updated | capture: sha256:aed15120d21fe6e3c8351c411603a6e29548287a49d7ef8a5dd152319767f219 | quote: DOIs cannot be deleted. However, you can update metadata associated with your registered DOIs
+  - [9] 2026-11-02: registered DOIs and their metadata persist after a membership is cancelled | capture: sha256:08de17051547d6096e58a499aec428d3f82f7cacaf252ba772136fd04935b2bb | quote: We will ensure that the DOIs that you have already registered with us will continue to exist and to resolve to your registered landing page, and that your metadata will continue to be openly shared through our APIs.
+  - [9] 2026-11-02: a member that cancels can no longer update its metadata | capture: sha256:08de17051547d6096e58a499aec428d3f82f7cacaf252ba772136fd04935b2bb | quote: However, after you cancel, you won’t be able to update this metadata, or register any more DOIs.
+  - [10] 2026-11-02: Crossref staff state that a DOI record cannot be removed and its metadata can be updated | capture: sha256:7452bf760bfc15c3e7f182eef1febf9d05d865aba92c91facc1e820ea6e372c6 | quote: The metadata can be changed and updated as needed, but the record can’t be removed.
+- sources:
+  - [1] https://www.crossref.org/documentation/retrieve-metadata/rest-api/access-and-authentication/
+  - [2] https://api.crossref.org/works
+  - [3] https://www.crossref.org/documentation/register-maintain-records/creating-and-managing-dois/changing-or-deleting-dois/
+  - [4] https://www.crossref.org/documentation/retrieve-metadata/rest-api/
+  - [5] https://www.crossref.org/blog/announcing-changes-to-rest-api-rate-limits/
+  - [6] https://www.crossref.org/documentation/retrieve-metadata/rest-api/tips-for-using-the-crossref-rest-api/
+  - [7] https://www.crossref.org/documentation/retrieve-metadata/bulk-downloads/
+  - [8] https://www.crossref.org/documentation/register-maintain-records/maintaining-your-metadata/updating-your-metadata/
+  - [9] https://www.crossref.org/members-area/canceling/
+  - [10] https://community.crossref.org/t/is-it-possible-to-remove-records-entirely/3603

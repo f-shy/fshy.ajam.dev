@@ -1,0 +1,230 @@
+# fshy: Developer services, trial
+
+> Monitoring, error tracking, analytics, scheduled jobs, queues, realtime and authentication services.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/dev-services/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## n8n
+
+- `dev-services/n8n-cloud` | trial-only | evidence documented | binding retention-clamped | category hosted workflow automation (n8n Cloud) | tier free trial
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T00:37:50.219Z (live) | stale on 2026-12-03
+- url https://n8n.io/pricing/ | page https://fshy.ajam.dev/p/n8n.md
+- free tier: No free plan on n8n Cloud: a 14-day trial with Pro features and a limit of 1000 executions, no credit card required; Starter is 20€/mo billed annually for 2.5K workflow executions | unit: requests | metered on: request-count | read on: 2026-10-30 | source: [1] | note: When the trial ends without an upgrade, n8n deletes the instance; workflows can be downloaded for 90 days after. The n8n public REST API is not available on the trial. The free Community Edition is self-hosted only: the user installs and runs it on a rented or free machine.
+- per-object cap: not stated on the pages read
+- retention: the trial instance is deleted at the end of the trial; workflows can be downloaded for 90 days after | source: [1]
+- egress: not applicable: workflows call third-party APIs; no traffic allowance is published | metered: no | source: [2]
+- identity: email | detail: The Cloud sign-up page asks first for an email address (labelled Company email in one rendering and Email in another; the step can answer 'Email domain is not allowed') and then verifies it: a link is sent to that address, or a code is entered on the page. A details form follows with Full name, Password (8+ characters, at least one number and one uppercase letter) and Instance name (it becomes the instance URL), an optional newsletter checkbox and a Cloudflare Turnstile bot check. The form submits no phone number, company name or card detail. A multiple-choice onboarding survey that includes the company size opens once the account exists. The trial needs no credit card. Whether a screen inside the created account asks for more is unverified: behind a sign-up.
+- interface: rest
+- limits:
+  - volume-quota: 1000 executions during the 14-day trial [1]
+  - retention-clamped (binding): the trial instance is deleted when the 14-day trial ends without an upgrade [1]
+- limits note: Trial compute matches the Starter plan.
+- binding note: The trial ends after 14 days with the instance deleted, whatever the execution count.
+- interface detail: the n8n public REST API is on Cloud Starter, Pro and Enterprise and on every self-hosted edition, but not on the free trial; during the trial workflows are built in the web editor
+- tooling: the n8n web editor; the REST API and the n8n API node on paid Cloud plans. As a last resort, the Community Edition, which the user installs and runs on a rented or free machine.
+- composes with: A 14-day trial only; for a lasting free automation layer the hosted free tiers come first (Pipedream Connect, Zapier Free, Inngest Free), and the self-installed Community Edition last.
+- reliability: The trial instance is deleted when the trial ends without an upgrade.
+- evidence note: Trial terms, plan prices and API availability are read on first-party pages. The sign-up steps after the email are read from the sign-up app's own front-end code and English text, not from a rendered screen; nothing inside a created account was read.
+- evidence:
+  - [1] 2026-10-30: the Cloud trial lasts 14 days with Pro features | capture: sha256:82f71baf22a0afbcc66429103674bc253d5c2fedba27bb1b6ca9922240e9430b | quote: When you create a new n8n Cloud trial, you have 14 days to try all the features of the [Pro plan](https://n8n.io/pricing/), including:
+  - [1] 2026-10-30: the trial is limited to 1000 executions with Starter compute | capture: sha256:82f71baf22a0afbcc66429103674bc253d5c2fedba27bb1b6ca9922240e9430b | quote: The trial gives you Pro plan features with a limit of 1000 executions and the same computing power as the [Starter plan](https://n8n.io/pricing/).
+  - [1] 2026-10-30: the instance is deleted when the trial ends | capture: sha256:82f71baf22a0afbcc66429103674bc253d5c2fedba27bb1b6ca9922240e9430b | quote: If you don't upgrade by the end of your trial, the trial automatically expires and n8n deletes your instance.
+  - [1] 2026-10-30: workflows can be downloaded for 90 days after the trial | capture: sha256:82f71baf22a0afbcc66429103674bc253d5c2fedba27bb1b6ca9922240e9430b | quote: You have 90 days to download your workflows after your free trial ends.
+  - [1] 2026-10-30: the only free Cloud option is the 14-day trial | capture: sha256:82f71baf22a0afbcc66429103674bc253d5c2fedba27bb1b6ca9922240e9430b | quote: | Free trial | Trying n8n Cloud with Pro features for 14 days |
+  - [2] 2026-10-30: Starter costs 20 EUR a month billed annually | capture: sha256:c3ed41c5416bc747ab6448f995acb1ec453ddfe693ddaea8766349ea3d250eac | quote: 20€/mo, billed annually
+  - [2] 2026-10-30: Starter includes 2.5K workflow executions | capture: sha256:c3ed41c5416bc747ab6448f995acb1ec453ddfe693ddaea8766349ea3d250eac | quote: 2.5Kworkflow executionswith unlimited steps
+  - [2] 2026-10-30: the trial needs no credit card | capture: sha256:c3ed41c5416bc747ab6448f995acb1ec453ddfe693ddaea8766349ea3d250eac | quote: No credit card required
+  - [2] 2026-10-30: the Community Edition is self-hosted | capture: sha256:c3ed41c5416bc747ab6448f995acb1ec453ddfe693ddaea8766349ea3d250eac | quote: A standard, self-hosted version of n8n is available on GitHub.
+  - [3] 2026-10-31: the sign-up page offers a 14-day trial with no credit card | capture: sha256:4954f3000c9e2050e7e3589eaa4f1a17121b4c707cada31dae3391a07e216fd0 | quote: Set up an n8n Cloud instance to run your workflows. Free 14-day trial, no credit card required.
+  - [3] 2026-10-31: the sign-up page asks for an email address | capture: sha256:4954f3000c9e2050e7e3589eaa4f1a17121b4c707cada31dae3391a07e216fd0 | quote: Company email
+  - [3] 2026-10-31: a second rendering of the sign-up page asks for an email and a Continue step | capture: sha256:9c1ffcead376974dd288547ecf3d62d8c77a691ed7ae89f7d41eb01618f476b7 | quote: Email
+  - [4] 2026-10-31: the n8n public API is not available on the trial | capture: sha256:f27c27c826b0003a897cf25ac1d666fca466fb7294dcba247f4403e1bd8c5c68 | quote: It isn't available on the free trial.
+  - [4] 2026-10-31: the n8n API is on Cloud Starter, Pro and Enterprise | capture: sha256:f27c27c826b0003a897cf25ac1d666fca466fb7294dcba247f4403e1bd8c5c68 | quote: * n8n Cloud: Starter, Pro, Enterprise
+  - [5] 2026-11-01: the sign-up form's submitted values are name, username (the instance name), email, password, marketingConsent (false until ticked), timezone and a bot-check token; it has no phone, company or card value | capture: sha256:99b9ecb0519a73858639e47caf39df9c786362128fa432bf9f88c2ceb97e2705 | quote: R=h({name:``,username:``,email:``,password:``,marketingConsent:!1,timezone:gt(),recaptcha:``})
+  - [6] 2026-11-01: the sign-up app's English text titles the step after email verification 'Finish creating your account' | capture: sha256:bface6c49d3665172be19c9d628b98175ce674de2fd8a07ebfe3b524bbd8f316 | quote: verifiedEmailTitle:{t:0,b:{t:2,i:[{t:3}],s:`Finish creating your account`}}
+  - [3] 2026-11-01: the sign-up page still offers the 14-day trial and states no credit card is required | capture: sha256:9c1ffcead376974dd288547ecf3d62d8c77a691ed7ae89f7d41eb01618f476b7 | quote: Set up an n8n Cloud instance to run your workflows. Free 14-day trial, no credit card required.
+  - [6] 2026-11-01: after the email step the page asks the user to click a verification link sent to the address or to enter a code | capture: sha256:bface6c49d3665172be19c9d628b98175ce674de2fd8a07ebfe3b524bbd8f316 | quote: verificationDescription:{t:0,b:{t:2,i:[{t:3,v:`Click on the verification link sent to `},{t:4,k:`email`},{t:3,v:`, or enter the code below.`}]}}
+  - [6] 2026-11-01: the details form has a Full name field | capture: sha256:bface6c49d3665172be19c9d628b98175ce674de2fd8a07ebfe3b524bbd8f316 | quote: fullName:{t:0,b:{t:2,i:[{t:3}],s:`Full name`}}
+  - [6] 2026-11-01: the details form has a Password field and states its rule: 8+ characters, at least one number and one uppercase letter | capture: sha256:bface6c49d3665172be19c9d628b98175ce674de2fd8a07ebfe3b524bbd8f316 | quote: password:{t:0,b:{t:2,i:[{t:3}],s:`Password`}},passwordHelper:{t:0,b:{t:2,i:[{t:3}],s:`8+ characters, at least one number and one uppercase letter.`}}
+  - [6] 2026-11-01: the details form has an Instance name field that becomes the instance URL (lowercase letters, digits and hyphens) | capture: sha256:bface6c49d3665172be19c9d628b98175ce674de2fd8a07ebfe3b524bbd8f316 | quote: accountName:{t:0,b:{t:2,i:[{t:3}],s:`Instance name`}},accountNameHelper:{t:0,b:{t:2,i:[{t:3}],s:`This becomes your instance URL. Lowercase letters, digits, and hyphens.`}}
+  - [6] 2026-11-01: the details form has a newsletter checkbox labelled 'Sign up for product news and community updates.' | capture: sha256:bface6c49d3665172be19c9d628b98175ce674de2fd8a07ebfe3b524bbd8f316 | quote: newsletter:{t:0,b:{t:2,i:[{t:3}],s:`Sign up for product news and community updates.`}}
+  - [6] 2026-11-01: the email step can answer 'Email domain is not allowed.' for an address | capture: sha256:bface6c49d3665172be19c9d628b98175ce674de2fd8a07ebfe3b524bbd8f316 | quote: Email domain is not allowed.
+  - [3] 2026-11-01: the sign-up page's served configuration enables the Turnstile bot check | capture: sha256:0fbea29eab247a2ccad7f270a226f25211f2fa7e8a7c02c8e3129e4df55c900f | quote: turnstile:{enabled:true
+  - [5] 2026-11-01: the details form renders a Turnstile widget for the register action | capture: sha256:99b9ecb0519a73858639e47caf39df9c786362128fa432bf9f88c2ceb97e2705 | quote: ref_key:`turnstile`,ref:re,options:{action:`register`,size:`flexible`}
+  - [7] 2026-11-01: the onboarding survey page requires a signed-in account (auth middleware) and belongs to the Authentication flow | capture: sha256:c16f3c9c0f38180e516cff81acfa48dee463e45b56104a5c88595c0409b465ee | quote: L({layout:`public`,middleware:[`auth`,`account-setup`,`skip-ai-preview-survey`],analytics:{category:`Authentication flow`,name:`Survey`}})
+  - [8] 2026-11-01: page 1 of 5 of the n8n-hosted onboarding survey form asks the company size | capture: sha256:8b50ad2f4049471025e22592b30f3ca900859157c571f49bc5d8678986ca0ded | quote: [1/5] What is the size of your company?
+  - [9] 2026-11-01: the Typeform onboarding survey asks the company size as a single-selection question with a list of choices | capture: sha256:92a5d0c7c1dbcb8ee51b72b1dfca0fc58936a531b76b5d2ed571390bb67b6dd5 | quote: "title":"What is the size of your company?","ref":"what_is_the_size_of_your_company","properties":{"randomize":false,"allow_multiple_selection":false,"allow_other_choice":false,"none_of_the_above":false,"vertical_alignment":true,"choices":[{"id":"cAvHrtQ172fL"
+  - [10] 2026-11-01: the chat onboarding variant of the Typeform survey also asks the company size as a single-selection question with a list of choices | capture: sha256:50914f62d87adcc951c2d2c104f274ca203854e1cbc637393f3340a87be97eae | quote: "title":"What is the size of your company?","ref":"what_is_the_size_of_your_company","properties":{"randomize":false,"allow_multiple_selection":false,"allow_other_choice":false,"none_of_the_above":false,"vertical_alignment":true,"choices":[{"id":"dk0OTCwCV4Mf"
+  - [3] 2026-11-01: the sign-up app is configured with two Typeform survey form ids, the default and a chat onboarding variant | capture: sha256:0fbea29eab247a2ccad7f270a226f25211f2fa7e8a7c02c8e3129e4df55c900f | quote: typeform:{onboardingSurveyFormId:"OArzTwNz",onboardingChatSurveyFormId:"bcoMdHSX"
+  - [11] 2026-11-01: the registration process includes choosing a unique instance name, which is the instance's subdomain | capture: sha256:5e4a5c19d021ba43041b0048f6ee6e86e057a8dc237bb168ba06a38acd7d3d64 | quote: Choose a unique instance name for your new instance. If the desired subdomain (instance name) is unavailable, try a slightly different name.
+  - [12] 2026-11-01: the n8n help center states there is no free Cloud plan and that a paid subscription is required after the trial | capture: sha256:1b8fe978eb950ed08c43ee95e443962f08b5586e18665e1e2ae73c684b0377c4 | quote: There is no free plan. After the trial ends, a paid subscription is required to continue using n8n Cloud.
+- sources:
+  - [1] https://docs.n8n.io/deploy/use-n8n-cloud/start-your-free-trial
+  - [2] https://n8n.io/pricing/
+  - [3] https://app.n8n.cloud/register
+  - [4] https://docs.n8n.io/api/
+  - [5] https://app.n8n.cloud/_nuxt/DOjQz-s4.js
+  - [6] https://app.n8n.cloud/_nuxt/CZ8sblfI.js
+  - [7] https://app.n8n.cloud/_nuxt/CI8_Bu1T.js
+  - [8] https://app.n8n.cloud/form/survey
+  - [9] https://form.typeform.com/to/OArzTwNz
+  - [10] https://form.typeform.com/to/bcoMdHSX
+  - [11] https://support.n8n.io/article/how-to-rename-an-n8n-cloud-instance-7hqhd7zwqu9zipq65whd0m50
+  - [12] https://support.n8n.io/article/how-do-i-cancel-my-trial
+
+## OpenObserve
+
+- `dev-services/openobserve-cloud` | trial-only | evidence documented | binding retention-clamped | category observability platform for logs, metrics, traces and RUM (hosted) | tier Cloud trial
+- needs card no, phone no, ID no, institution no | verified 2026-11-01T18:13:30.918Z (live) | stale on 2026-12-02
+- url https://openobserve.ai/pricing/ | page https://fshy.ajam.dev/p/openobserve.md
+- free tier: No recurring free tier on OpenObserve Cloud: a 14-day free trial of the Pay As You Go plan with no credit card required to start; afterwards USD 0.50 per GB ingested and USD 0.01 per GB queried, with 15 months of metrics and 30 days of logs, traces and RUM included | unit: none | metered on: wall-clock | read on: 2026-11-01 | source: [1] | note: The Cloud free tier was discontinued on 2 June 2025 and replaced by usage-based pricing with a 14-day trial for new accounts. The repository README still says the Cloud free tier includes up to 50 GB a day of ingestion, which the pricing page and the policy post do not; the 50 GB a day free allowance on the pricing page belongs to the self-hosted Enterprise edition.
+- per-object cap: unverified: no per-event or per-log-line size is stated on the pages read
+- retention: 15 months of metrics and 30 days of logs, traces, RUM and other non-metrics data are included by default; further 30-day periods of non-metrics retention cost USD 0.02 per GB | days: 30 | source: [1]
+- egress: queries are billed at USD 0.01 per GB queried; no charge on data read out other than the query volume is stated on the pages read | metered: yes | source: [1]
+- identity: email | detail: The pricing FAQ states no credit card is required to start the 14-day trial; a valid credit card on file is needed after the trial, as the policy post states for former free-tier accounts. The sign-up fields are unverified: the cloud sign-in page is behind a login wall.
+- interface: rest
+- limits:
+  - retention-clamped (binding): 14-day trial window, then pay as you go [1]
+  - volume-quota: USD 0.50 per GB ingested and USD 0.01 per GB queried after the trial [1]
+- binding note: The 14-day trial ends before any quota matters, and a valid credit card is needed to continue on Pay As You Go.
+- interface detail: REST APIs for ingestion, search and management on the account's own host, authenticated by HTTP basic authentication with a base64 encoded user and password.
+- tooling: the web app and the REST APIs. Last resort, after every hosted offer: the Open Source edition (AGPL-3.0) is free forever and the Self-Hosted Enterprise edition is free up to 50 GB of ingestion a day, and the user installs and runs the server on a rented or free machine.
+- composes with: Logs, metrics and traces of a free-hosted app in one place for 14 days, then pay per GB with no seat or host fees.
+- reliability: After the trial the account needs a credit card on file and is billed on usage; the Cloud free tier was discontinued with a 30-day exemption in June 2025.
+- notes: Cloud Professional is the only Cloud plan listed; the Enterprise plan is custom priced.
+- evidence note: The trial, the prices and the discontinued free tier are quoted from first-party pages; the README line that contradicts them is recorded as evidence. No account was opened.
+- self hosted: no
+- evidence:
+  - [1] 2026-11-01: OpenObserve Cloud offers a 14-day free trial of Pay As You Go with no credit card required to start | capture: sha256:9d6ce314fde34620d4e602e2f02c20cf6c8cd6f11308fa4921e9b372c414ad4b | quote: Yes. OpenObserve Cloud offers a 14-day free trial on the Pay As You Go plan - no credit card required to start.
+  - [1] 2026-11-01: the Cloud plan covers logs, metrics, traces, RUM, session replay and error tracking | capture: sha256:9d6ce314fde34620d4e602e2f02c20cf6c8cd6f11308fa4921e9b372c414ad4b | quote: - Logs, Metrics, Traces, RUM, Session Replay, Error tracking
+  - [1] 2026-11-01: the Cloud plan is billed at USD 0.50 per GB ingested | capture: sha256:9d6ce314fde34620d4e602e2f02c20cf6c8cd6f11308fa4921e9b372c414ad4b | quote: $0.50/GB ingested
+  - [1] 2026-11-01: queries are billed at USD 0.01 per GB queried, billed monthly | capture: sha256:9d6ce314fde34620d4e602e2f02c20cf6c8cd6f11308fa4921e9b372c414ad4b | quote: $0.01/GB queried · billed monthly
+  - [1] 2026-11-01: default retention is 15 months for metrics and 30 days for logs, traces and RUM | capture: sha256:9d6ce314fde34620d4e602e2f02c20cf6c8cd6f11308fa4921e9b372c414ad4b | quote: Metrics: 15 months - Logs, Traces, RUM, and other non-metrics data: 30 days
+  - [1] 2026-11-01: extra retention for non-metrics data costs USD 0.02 per GB per additional 30-day period | capture: sha256:9d6ce314fde34620d4e602e2f02c20cf6c8cd6f11308fa4921e9b372c414ad4b | quote: You can extend non-metrics retention at $0.02 per GB per additional 30-day period.
+  - [1] 2026-11-01: the self-hosted editions are free: Open Source forever and Self-Hosted Enterprise up to 50 GB of ingestion a day | capture: sha256:9d6ce314fde34620d4e602e2f02c20cf6c8cd6f11308fa4921e9b372c414ad4b | quote: For self-hosted deployments, the Open Source edition is free forever, and the Self-Hosted Enterprise edition is free for up to 50 GB of ingestion per day.
+  - [1] 2026-11-01: all Cloud plans include unlimited users with no per-seat charges | capture: sha256:9d6ce314fde34620d4e602e2f02c20cf6c8cd6f11308fa4921e9b372c414ad4b | quote: All OpenObserve Cloud plans include unlimited users with no per-seat charges.
+  - [2] 2026-11-01: the OpenObserve Cloud free tier was discontinued with usage-based pricing from 2 June 2025 | capture: sha256:853fe2293db7d8aca70838a7cf4e8309f1a83cba084a539eb823e4d5e1360eff | quote: Additionally, we are discontinuing the OpenObserve Cloud free tier.
+  - [2] 2026-11-01: new accounts get a 14-day free trial | capture: sha256:853fe2293db7d8aca70838a7cf4e8309f1a83cba084a539eb823e4d5e1360eff | quote: New Customers: All new accounts can take advantage of a 14-day free trial to experience the full power of OpenObserve before committing.
+  - [2] 2026-11-01: after the exemption a valid credit card on file is needed and usage is billed | capture: sha256:853fe2293db7d8aca70838a7cf4e8309f1a83cba084a539eb823e4d5e1360eff | quote: After this period, you'll need a valid credit card on file and will be charged based on your actual usage.
+  - [3] 2026-11-01: the repository README still says the Cloud free tier includes up to 50 GB a day, contradicting the pricing page | capture: sha256:a33ac02d442f77fa3caea5638e6d1351348417f2770d790eb52c3c0db48087c3 | quote: Get started in minutes without managing infrastructure. The free tier includes up to 50 GB/day of ingestion.
+  - [4] 2026-11-01: the APIs authenticate with HTTP basic authentication from a user id and password | capture: sha256:0e1fbc288ac0bbb8f1c71c2d2a7db6e7320afc43c611546ed060444e8c6912f2 | quote: Authorization header can be created using base64 encoded values of user id and password. For the sake of simplicity it is HTTP basic authentication mechanism.
+- sources:
+  - [1] https://openobserve.ai/pricing/
+  - [2] https://openobserve.ai/blog/june-25-pricing-policy-updates/
+  - [3] https://raw.githubusercontent.com/openobserve/openobserve/main/README.md
+  - [4] https://openobserve.ai/docs/api/
+
+## Plausible Analytics
+
+- `dev-services/plausible` | trial-only | evidence documented | binding retention-clamped | category hosted web analytics | tier Cloud trial
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T00:37:34.247Z (live) | stale on 2026-12-03
+- url https://plausible.io/docs/trial | page https://fshy.ajam.dev/p/plausible.md
+- free tier: No free plan on Plausible Cloud: every account starts with a free 30-day trial with Business plan features and limits and no credit card; the cheapest plan after it is Starter at EUR 9/month for up to 10k monthly pageviews and one site | unit: none | metered on: wall-clock | read on: 2026-10-30 | source: [1] | note: The trial does not convert to a paid subscription by itself, because no payment method is on file. Growth is EUR 14/month and Business, the plan with the Stats API, EUR 19/month, at the same 10k pageview tier.
+- per-object cap: not applicable: billed by pageviews and custom events, not stored objects
+- retention: When an unsubscribed trial ends, the dashboard is locked, new stats are no longer collected, and dashboards and stats are eventually deleted after an e-mail warning; paid plans state no retention limit | source: [1]
+- egress: not applicable: a hosted dashboard; stats leave through the Stats API at 600 requests per hour per key, a Business plan feature that the trial includes | metered: no | source: [2]
+- identity: email | detail: The registration form asks for a full name, an e-mail address and a password of at least 12 characters, behind a Friendly Captcha check; no credit card is asked for. The documented flow then sends a four-digit code by e-mail and starts the 30-day trial once it is verified, and Plausible's WordPress page states that registration asks only for a name and an e-mail address.
+- interface: rest
+- limits:
+  - retention-clamped (binding): 30-day trial, then the dashboard is locked and new stats are not collected [1]
+  - request-rate: 600 Stats API requests per hour per key [2]
+  - volume-quota: Starter: up to 10k monthly pageviews, one site [3]
+- binding note: The trial ends after 30 days and the dashboard locks, before any pageview or API limit matters.
+- interface detail: Stats API: a read-only HTTP interface, POST /api/v2/query with an API key in the Authorization header, 600 requests per hour by default; on the Business plan and during the trial. The Sites API is Enterprise-only.
+- endpoint: https://plausible.io/api/v2/query
+- tooling: the tracking script on the site, and any HTTP client with a Stats API key
+- composes with: A 30-day window to evaluate privacy-focused web analytics, then EUR 9 a month; there is no free allowance to build on.
+- reliability: After an unsubscribed trial, collection stops and dashboards and stats are deleted permanently after an e-mail warning.
+- notes: Plausible Cloud has no recurring free allowance. Last resort, after every hosted offer: Plausible Community Edition, the same software under the AGPL, is free to self-host, and the user installs and runs the server on a rented or free machine and maintains it.
+- evidence note: The trial terms, plan prices and API limits are quoted from first-party pages. No account was opened.
+- evidence:
+  - [1] 2026-10-30: every account starts with a free 30-day trial | capture: sha256:0805a3434e0f0d7eb823265ed703088d620df9c6eb45b40c4765f7414f38bd28 | quote: Every Plausible account starts with a free 30-day trial.
+  - [1] 2026-10-30: registration asks for no credit card | capture: sha256:0805a3434e0f0d7eb823265ed703088d620df9c6eb45b40c4765f7414f38bd28 | quote: We don't ask for a credit card when you [register](https://plausible.io/docs/register-account).
+  - [1] 2026-10-30: the dashboard locks when the trial ends without a subscription | capture: sha256:0805a3434e0f0d7eb823265ed703088d620df9c6eb45b40c4765f7414f38bd28 | quote: If you haven't subscribed by the end of the trial, your dashboard is locked.
+  - [1] 2026-10-30: without a subscription collection stops and stats are eventually deleted | capture: sha256:0805a3434e0f0d7eb823265ed703088d620df9c6eb45b40c4765f7414f38bd28 | quote: If you don't subscribe, we'll stop collecting new stats and eventually delete your dashboards and all their stats permanently.
+  - [4] 2026-10-30: all plans include a 30-day trial without a card | capture: sha256:e0d27cc99df39d9c93194ad3d3256a3c6e549c7bfefc5cb093ef394069dacf77 | quote: All plans include a 30-day free trial, no credit card required.
+  - [4] 2026-10-30: the trial has Business plan features and limits | capture: sha256:e0d27cc99df39d9c93194ad3d3256a3c6e549c7bfefc5cb093ef394069dacf77 | quote: During the trial you have access to all Business plan features and limits
+  - [5] 2026-10-30: Starter is EUR 9 a month | capture: sha256:fe7e2ce2118f8a3b3082d8a9401f791259876fe5e8832beb4016c8d3757a2f8c | quote: €9 /month
+  - [5] 2026-10-30: the price shown is for up to 10k monthly pageviews | capture: sha256:fe7e2ce2118f8a3b3082d8a9401f791259876fe5e8832beb4016c8d3757a2f8c | quote: Up to 10k monthly pageviews
+  - [5] 2026-10-30: Starter covers one site | capture: sha256:fe7e2ce2118f8a3b3082d8a9401f791259876fe5e8832beb4016c8d3757a2f8c | quote: One site
+  - [5] 2026-10-30: paid plans state no retention limit | capture: sha256:fe7e2ce2118f8a3b3082d8a9401f791259876fe5e8832beb4016c8d3757a2f8c | quote: No retention limit
+  - [5] 2026-10-30: Growth is EUR 14 a month | capture: sha256:fe7e2ce2118f8a3b3082d8a9401f791259876fe5e8832beb4016c8d3757a2f8c | quote: €14 /month
+  - [5] 2026-10-30: Business is EUR 19 a month | capture: sha256:fe7e2ce2118f8a3b3082d8a9401f791259876fe5e8832beb4016c8d3757a2f8c | quote: €19 /month
+  - [5] 2026-10-30: the Business plan includes the Stats API at 600 requests per hour | capture: sha256:fe7e2ce2118f8a3b3082d8a9401f791259876fe5e8832beb4016c8d3757a2f8c | quote: Stats API (600 requests per hour)
+  - [2] 2026-10-30: the Stats API takes POST queries at /api/v2/query | capture: sha256:3536f727f4889db659d97c2027a80bab752c08f857b75f894c91c45c5d6e0196 | quote: The `/api/v2/query` endpoint accepts simple and complex stats queries in the POST request body and returns the metrics as JSON.
+  - [2] 2026-10-30: API keys allow 600 requests per hour by default | capture: sha256:3536f727f4889db659d97c2027a80bab752c08f857b75f894c91c45c5d6e0196 | quote: API keys have a rate limit of 600 requests per hour by default.
+  - [4] 2026-10-30: the Sites API is an Enterprise feature | capture: sha256:e0d27cc99df39d9c93194ad3d3256a3c6e549c7bfefc5cb093ef394069dacf77 | quote: Sites API: create and manage sites programmatically.
+  - [6] 2026-10-30: the registration form asks for no card | capture: sha256:000b5044b5da0ad8aa03e6fa30e04d15dcc538704ca4bf428e947736160212e9 | quote: No credit card required. Cancel anytime.
+  - [6] 2026-10-30: the registration form asks for a full name | capture: sha256:000b5044b5da0ad8aa03e6fa30e04d15dcc538704ca4bf428e947736160212e9 | quote: Full name
+  - [6] 2026-10-30: the password needs at least 12 characters | capture: sha256:000b5044b5da0ad8aa03e6fa30e04d15dcc538704ca4bf428e947736160212e9 | quote: At least 12 characters
+  - [6] 2026-10-30: the registration form is behind a Friendly Captcha check | capture: sha256:000b5044b5da0ad8aa03e6fa30e04d15dcc538704ca4bf428e947736160212e9 | quote: Friendly Captcha
+  - [7] 2026-10-30: Plausible Community Edition is free, self-hosted and AGPL-licensed | capture: sha256:4e1656c4d91166675d5b585cf42a0c576e0dfa1068ce714bcd012496e5a7763f | quote: is the free, self-hosted, AGPL-licensed release: you run it on your own server and manage everything yourself.
+  - [8] 2026-11-01: Plausible states that registration asks only for a name and an e-mail address | capture: sha256:fd11c0e977ce0b7c623a7ee0ab69a0363208b35d4081ecccd0036d4b11202f5a | quote: We only ask for your name and email, and the 30-day trial needs no credit card.
+  - [9] 2026-11-01: an e-mailed four-digit code activates the account | capture: sha256:8f9036b3cbd965a68e19275695fcc42ea68f63b26d723cf7997b20929aaf557f | quote: Please enter the four digit code that we sent to you through email to activate your Plausible Analytics account.
+  - [9] 2026-11-01: the 30-day trial starts as soon as the e-mailed code is verified | capture: sha256:8f9036b3cbd965a68e19275695fcc42ea68f63b26d723cf7997b20929aaf557f | quote: Once verified, your 30-day trial starts immediately.
+  - [9] 2026-11-01: the registration form takes a full name, an e-mail address and a password | capture: sha256:8f9036b3cbd965a68e19275695fcc42ea68f63b26d723cf7997b20929aaf557f | quote: Fill in your full name and email address, choose your account password and click on the Start my free trial button.
+- sources:
+  - [1] https://plausible.io/docs/trial
+  - [2] https://plausible.io/docs/stats-api
+  - [3] https://plausible.io/
+  - [4] https://plausible.io/docs/subscription-plans
+  - [5] https://plausible.io/#pricing
+  - [6] https://plausible.io/register
+  - [7] https://plausible.io/self-hosted-web-analytics
+  - [8] https://plausible.io/wordpress-analytics-plugin
+  - [9] https://plausible.io/docs/register-account
+
+## Temporal
+
+- `dev-services/temporal-cloud` | trial-only | evidence documented | binding volume-quota | category hosted durable-execution service (Temporal Cloud) | tier pay-as-you-go
+- needs card yes, phone no, ID no, institution no | verified 2026-11-02T00:37:45.455Z (live) | stale on 2026-12-03
+- url https://temporal.io/pricing | page https://fshy.ajam.dev/p/temporal.md
+- free tier: $150 in free credits for every new Temporal Cloud account, expiring after 90 days; a credit card is required to sign up | unit: credits | metered on: request-count | read on: 2026-10-30 | source: [1] | note: After the credits are used or 90 days pass, usage is billed with no base monthly fee at $50 per million Actions on pay-as-you-go, plus storage. The open-source Temporal server is free software that the user installs and runs on a rented or free machine.
+- per-object cap: not stated on the pages read
+- retention: closed workflow histories kept for a configurable retention period, up to 90 days on Temporal Cloud | days: 90 | source: [1] | note: Longer retention uses the Export feature.
+- egress: not applicable: workers poll Temporal Cloud; no traffic allowance is published | metered: no | source: [1]
+- identity: card | detail: A credit card is required to sign up for Temporal Cloud; the sign-up page offers a work email or Google or Microsoft sign-in, and AWS or GCP marketplace routes. The card is not charged during the first 90 days while credits remain.
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): $150 of credits, expiring after 90 days [1]
+  - retention-clamped: closed workflow histories retained up to 90 days [1]
+- limits note: On-Demand capacity starts at 500 Actions per second and auto-scales on 7-day usage.
+- binding note: The credit expires after 90 days, and a card is taken at sign-up.
+- interface detail: Temporal SDK clients and workers reach a Namespace over gRPC at the Namespace endpoint <namespace>.<account>.tmprl.cloud:7233; the Cloud Ops API is a public HTTP API and a gRPC API at saas-api.tmprl.cloud:443, authenticated by an API key; tcld and the temporal CLI cloud extension manage namespaces, users and keys. The vocabulary has no gRPC term.
+- endpoint: part of interface detail
+- tooling: the Temporal SDKs (Go, Java, Python, TypeScript, .NET, Ruby, PHP), tcld and the temporal CLI. As a last resort the open-source server, which the user installs and runs on a rented or free machine.
+- composes with: A card-gated 90-day credit; for durable execution with no card, the hosted Inngest free tier comes first.
+- reliability: After the credits run out or 90 days pass, usage is billed to the card on file.
+- evidence note: Credits, card requirement, retention and interfaces are read on first-party pages; nothing behind the sign-up was read.
+- evidence:
+  - [1] 2026-10-30: new accounts get $150 of credits expiring after 90 days | capture: sha256:3b561e925d63d8190ab009e95959dbcc2e00a3e1a88aa614efcaf54c9a0f97ce | quote: All new accounts receive $150 in free credits that expire after 90 days.
+  - [1] 2026-10-30: a credit card is required to sign up for Temporal Cloud | capture: sha256:3b561e925d63d8190ab009e95959dbcc2e00a3e1a88aa614efcaf54c9a0f97ce | quote: No credit card required to explore Temporal via the open-source quickstart. A credit card is required to sign up for Temporal Cloud.
+  - [1] 2026-10-30: the card is not charged in the first 90 days while credits remain | capture: sha256:3b561e925d63d8190ab009e95959dbcc2e00a3e1a88aa614efcaf54c9a0f97ce | quote: - Your card will not be charged during the first 90 days as long as you have remaining credits.
+  - [1] 2026-10-30: closed workflow histories are retained up to 90 days | capture: sha256:3b561e925d63d8190ab009e95959dbcc2e00a3e1a88aa614efcaf54c9a0f97ce | quote: - Retained Storage: Storage used by closed workflow histories, kept for a configurable retention period (up to 90 days on Temporal Cloud).
+  - [1] 2026-10-30: pay-as-you-go has no base monthly fee | capture: sha256:3b561e925d63d8190ab009e95959dbcc2e00a3e1a88aa614efcaf54c9a0f97ce | quote: - No base monthly fee
+  - [1] 2026-10-30: on-demand capacity starts at 500 Actions per second | capture: sha256:3b561e925d63d8190ab009e95959dbcc2e00a3e1a88aa614efcaf54c9a0f97ce | quote: - On-Demand capacity (500 Actions Per Second (APS), auto-scales based on 7-day usage)
+  - [1] 2026-10-30: SDK languages | capture: sha256:3b561e925d63d8190ab009e95959dbcc2e00a3e1a88aa614efcaf54c9a0f97ce | quote: - Temporal SDKs (Go, Java, Python, TypeScript, .NET, Ruby, PHP)
+  - [1] 2026-10-30: the server is open source and can be self-hosted | capture: sha256:3b561e925d63d8190ab009e95959dbcc2e00a3e1a88aa614efcaf54c9a0f97ce | quote: Temporal is open source. You can run the full Temporal platform on your own infrastructure at no cost from Temporal.
+  - [2] 2026-10-30: pay-as-you-go Actions cost $50 per million | capture: sha256:19ae76bcdab581afa8e998a9d685060c7b12b141fbe7c549f4d8a6a94b4bf1f3 | quote: $50 per million actions
+  - [3] 2026-10-30: the sign-up page offers $150 of credits | capture: sha256:5b0aac676a2c618fccaca3757ae090ee075a03cfdb48b3bbcda16c3d04532235 | quote: Sign up and get $150 in credits
+  - [3] 2026-10-30: Google and Microsoft sign-in are offered alongside a work email | capture: sha256:5b0aac676a2c618fccaca3757ae090ee075a03cfdb48b3bbcda16c3d04532235 | quote: Sign up with Google Sign up with Microsoft
+  - [4] 2026-10-31: the Cloud Ops gRPC endpoint | capture: sha256:d9d1268b5bd1a22813ea8e024912f826cccb90681f56f5549f9e2c62799decba | quote: - gRPC: `saas-api.tmprl.cloud:443`
+  - [4] 2026-10-31: the Cloud Ops API is offered over HTTP and gRPC | capture: sha256:d9d1268b5bd1a22813ea8e024912f826cccb90681f56f5549f9e2c62799decba | quote: You can use the HTTP API or the gRPC API depending on how you need to integrate with your platform.
+  - [5] 2026-10-31: tcld manages Temporal Cloud from the command line | capture: sha256:ffa114cd6bac06cfcbd47450605a731f8a8a3676c40c87307cda4d91394fb2e2 | quote: The Temporal Cloud CLI (tcld) is a command-line tool that you can use to interact with Temporal Cloud.
+  - [6] 2026-11-01: Workers and Temporal Clients connect to the Namespace endpoint <namespace>.<account>.tmprl.cloud:7233 | capture: sha256:757e6f97f835095ecd4a8a9ec2e9f6e7677dfee0dd43001768afc7d11c02db09 | quote: Use the Namespace endpoint: Configure Workers and Temporal Clients to use the Namespace endpoint format: `<namespace>.<account>.tmprl.cloud:7233`
+  - [4] 2026-11-01: the Cloud Ops API is served over gRPC at saas-api.tmprl.cloud:443 | capture: sha256:d9d1268b5bd1a22813ea8e024912f826cccb90681f56f5549f9e2c62799decba | quote: - gRPC: `saas-api.tmprl.cloud:443`
+  - [7] 2026-11-01: an SDK client connects to Temporal Cloud at the gRPC Namespace endpoint on port 7233 | capture: sha256:0e7dcc124c46b87d5ed34d988f8ea11cff2639941f4bef560f8b1dea4930ffd3 | quote: The recommended _endpoint_ is the gRPC Namespace endpoint: `<namespace>.<account>.tmprl.cloud:7233`.
+  - [4] 2026-11-01: the Cloud Ops API is also served over HTTP at https://saas-api.tmprl.cloud | capture: sha256:d9d1268b5bd1a22813ea8e024912f826cccb90681f56f5549f9e2c62799decba | quote: - HTTP: `https://saas-api.tmprl.cloud`
+  - [4] 2026-11-01: the Cloud Ops API is authenticated by an API key owned by a user or service account | capture: sha256:d9d1268b5bd1a22813ea8e024912f826cccb90681f56f5549f9e2c62799decba | quote: - An [API Key](/cloud/api-keys#manage-api-keys) for authentication (owned by that User or Service Account)
+  - [8] 2026-11-01: the Temporal CLI Cloud extension adds temporal cloud commands for namespaces, users and API keys | capture: sha256:0c667a999e2f53f0b1941bf45042a7caae99010f56f3e1caca9883a763cf3f28 | quote: The extension adds `temporal cloud` commands for managing your Temporal Cloud account, including Namespaces, users, API keys, and Nexus endpoints.
+- sources:
+  - [1] https://temporal.io/pricing.md
+  - [2] https://temporal.io/pricing
+  - [3] https://temporal.io/get-cloud
+  - [4] https://docs.temporal.io/ops
+  - [5] https://docs.temporal.io/cloud/tcld
+  - [6] https://docs.temporal.io/cloud/connectivity/ip-addresses
+  - [7] https://docs.temporal.io/develop/python/client/temporal-client
+  - [8] https://docs.temporal.io/cli/cloud

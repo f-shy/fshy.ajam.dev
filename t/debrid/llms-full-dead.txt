@@ -1,0 +1,1604 @@
+# fshy: Debrid, dead
+
+> A debrid service downloads files from many file hosts through one account, at full speed. Also premium-link generators, usenet and retrieval services.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/debrid/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## AllDebrid - 7-day tryout
+
+- `debrid/alldebrid-trial` | dead | evidence documented | binding write-gated | category multi-host debrid | tier free trial
+- needs card no, phone yes, ID no, institution no | verified 2026-10-30T13:11:55.961Z (live) | stale on 2026-11-30
+- url https://alldebrid.com/offer/ | page https://fshy.ajam.dev/p/alldebrid.md
+- disagrees on verdict: `debrid/alldebrid` says qualifies-with-caveat, `debrid/alldebrid-trial` says dead
+- free tier: No free trial is offered on any page read. The offers page carries plan prices only; the FAQ's only occurrence of 'free' is the entry 'Free hosts'; the home page's only call to action is 'Register Free'. The 25 GB / 7-day SMS-verified tryout that the ladder counts is not published. | unit: none | metered on: none | read on: 2026-10-23 | source: [1] | note: An absence of the offer on three pages, not an absence of the feature: the trial may still be granted to selected accounts. What it is not is a published step a client can plan a month around.
+- per-object cap: not applicable: no free tier is published | source: [1]
+- retention: not applicable: nothing is stored | source: [2]
+- egress: no free allowance published; paid plans are the only priced path | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: 'Register Free' on the home page: an email account. The SMS gate belonged to the trial that is gone.
+- interface: rest, webdav, cli
+- limits:
+  - write-gated (binding): the free tryout is no longer published on the offers page, the home page or the FAQ [1]
+  - volume-quota: 25 GB of downloads for the whole trial [3]
+  - write-gated (binding): activation requires SMS verification on a real phone number [3]
+- limits note: The gate is no longer an SMS number, because there is no longer a published offer behind it.
+- binding note: Nothing free is reachable, so nothing free fails first.
+- interface detail: REST API and a WebDAV endpoint on paid accounts; no free account exists to test either
+- tooling: Vendor REST API and community client wrappers.
+- composes with: Contributes nothing to the ladder. The 25 GB it was credited with in group 3 should come out of the byte-committed total.
+- reliability: A trial that existed on the 2023-10-02 and 2025-10-10 captures is absent from the live pages; a client reading a 2026 plan from an index would budget 25 GB that does not exist.
+- notes: Group 3's byte-committed total in ladder.md is '30 + 25 + 15 = 70 GB'; with this step dead it is 45 GB. The 966 GB and 896 GB no-card totals are unaffected because AllDebrid was always card-or-phone gated and never inside them. Kept as its own record because the gate differs from the paid product (phone rather than card) and the ceiling differs by three orders of magnitude. The 25 GB comes from third parties and is the number a reader will plan around, so it is flagged rather than dropped.
+- evidence note: Trial absence was observed on three vendor pages on 2026-10-30. Archive comparisons reflect historical pricing records.
+- extras:
+  - ladder_effect: group 3 byte-committed total falls from 70 GB to 45 GB; no-card totals unchanged
+  - supersedes: scratch (removed)
+  - days: 7
+  - card_required: no
+  - phone_required: yes
+- evidence:
+  - [1] 2026-10-23: no trial, no 'free' label and no 25 GB allowance anywhere on the offers page
+  - [4] 2026-10-23: the word 'free' appears once, in the link text 'Free hosts'; there is no trial entry
+  - [2] 2026-10-23: the only signup call to action is 'Register Free'; no tryout is advertised
+  - [1] 2026-10-23: 
+  - [5] 2026-10-23: third party, French: 'une offre d'essai limitée à 7 jours et surtout à un quota de 25 GO de données téléchargées', no card, phone validation
+  - [6] 2026-10-23: third party, French: 'Essai Gratuit de 7 Jours Limité à 25 Go après Vérification SMS, une Seule Fois'
+  - [7] 2026-10-23: the vendor reserves the right to refuse the trial offer
+  - [3] 2026-10-23: the logged-out offer page lists only the paid 30/90/180/300-day plans; it carries no trial offer to a reader without an account
+  - probe:https://alldebrid.com/offers/ 2026-10-30: a GET of https://alldebrid.com/offers/ answered HTTP 302 with Location https://alldebrid.com/404/ on 2026-10-30, and the final page was 21460 bytes | capture: sha256:f846377baba1fc37ab9c61168d73f26aa5998853736aad81bed1c3fa12593322 | quote: "location": "https://alldebrid.com/404/"
+  - [1] 2026-10-30: the page served for /offers/ on 2026-10-30 is the site's 404 page, 'la page que vous demandez n'existe pas' | capture: sha256:6a6f42c011ce34c9a1305b21ec97728c26c0177f5e9a6ec42fc88252cf9bd0fc | quote: 404 - la page que vous demandez n'existe pas
+  - [8] 2026-10-30: the 2023-10-02 archive copy of the plan page lists a Free tryout: base price Free, 7 days, SMS verification required, new members only | capture: sha256:65e96b9a763842fb29ab792908afd4afd2b24885accd2cc5a916392efc0584ab | quote: Try our service for free after a SMS verification.
+  - [9] 2026-10-30: the 2025-10-10 archive copy of the plan page still lists the Free tryout, 7 days, activated by SMS verification | capture: sha256:a90fcaf65e12a338f210e55406086c39f35b2f08f7d22c887a39dbc6183f62a6 | quote: A SMS verification is required to activate the free tryout.
+  - [4] 2026-10-30: the FAQ index on 2026-10-30 has one entry with the word free, 'Free hosts', and no trial entry | capture: sha256:ae826e99797f86e3fd4d1e65fad63a4673559049f5cde388bd91923ca1540482 | quote: [Free hosts](https://alldebrid.com/en/faq/free-hosts)
+  - [2] 2026-10-30: the home page's signup link reads 'Register Free'; the page advertises no tryout | capture: sha256:a57c550e0882697ce49b5fbedd647625239d4343f4c2c4c511b95d89679148a0 | quote: [Register Free](https://alldebrid.com/register/)
+  - [3] 2026-10-30: live plan page of AllDebrid is https://alldebrid.com/offer/, linked as Pricing and Payments plans | capture: sha256:9707166769dbaef5a460ae2c9b65813fc835c425c4364d4582a91a9f70939392 | quote: You are here :[Home](https://alldebrid.com/) [Payments plans](https://alldebrid.com/offer/)
+  - [3] 2026-10-30: the live plan page on 2026-10-30 lists two payment frequencies, Subscription at 2.99 EUR per 30 days and One-time at 3.99 EUR per 30 days, and no Free tryout | capture: sha256:9707166769dbaef5a460ae2c9b65813fc835c425c4364d4582a91a9f70939392 | quote: Using a credit card you will be billed every 30 days automatically.
+- sources:
+  - [1] https://alldebrid.com/offers/
+  - [2] https://alldebrid.com/
+  - [3] https://alldebrid.com/offer/
+  - [4] https://alldebrid.com/faq/
+  - [5] https://www.mon-depannage-informatique.fr/blog/alldebrid-7-raisons-choisir-debrideur-2026
+  - [6] https://fr.hotdeals.com/code-promo/alldebrid
+  - [7] https://alldebrid.com/tos/
+  - [8] https://web.archive.org/web/20231002100345/https://alldebrid.com/offer/
+  - [9] https://web.archive.org/web/20251010021542/https://alldebrid.com/offer/
+
+## AnonFile (anonfiles.info)
+
+- `debrid/anonfiles-info` | dead | evidence measured | binding none | category anonymous file host (AnonFiles-branded clone) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T02:30:47.000Z (live) | stale on 2026-11-23
+- url https://anonfiles.info/ | page https://fshy.ajam.dev/p/anonfiles.md
+- free tier: none reachable: the page claims '20 GB filesize limit and unlimited bandwidth' but the origin refuses TCP | unit: none | metered on: none | read on: 2026-10-23 | source: [1] | note: The claim is readable in the search index and the host does not answer.
+- per-object cap: 20 GB claimed, unreachable | source: [1]
+- retention: not reached | source: [1]
+- egress: not assessed | metered: no | source: [1]
+- identity: anonymous | detail: No signup was reached; the host refused the connection.
+- interface: unknown
+- limits note: Connection refused at the TCP layer, which is a stronger finding than a 4xx: the host is not listening.
+- binding note: Nothing binds because the host refuses connections.
+- interface detail: No connection: an HTTPS request to the origin was refused on 2026-10-23.
+- tooling: Nothing to drive.
+- composes with: Nothing to chain.
+- reliability: One of several AnonFiles-branded revival sites; this one is not serving.
+- notes: The 20 GB claim in the search index is stale; the origin is not listening.
+- evidence note: Measured death: ConnectionRefusedError on the upload POST.
+- extras:
+  - error: ConnectionRefusedError
+- evidence:
+  - probe:https://anonfiles.info/upload 2026-10-23: multipart POST -> ConnectionRefusedError [WinError 10061], no HTTP status at all
+- sources:
+  - [1] https://anonfiles.info/
+
+## Army of Strangers
+
+- `debrid/army-of-strangers` | dead | evidence measured | binding none | category Usenet NZB link forum (redirects to a parking host) | tier free
+- identity a placeholder: card and phone unknown | verified 2026-11-03T07:37:15.010Z (live) | stale on 2026-12-04
+- url https://army-of-strangers.biz/ | page https://fshy.ajam.dev/p/army-of-strangers.md
+- free tier: none: the domain redirects to a parking host that does not resolve. A third-party listing described a community forum sharing NZB links with open registration. | unit: none | metered on: none | read on: 2026-11-03 | source: [1]
+- per-object cap: not applicable: nothing is served | source: [1]
+- retention: not applicable: the forum is unreachable | source: [1]
+- egress: none: the domain redirects to a parking host that does not resolve | metered: no | source: [1]
+- identity: email | detail: unverified: the register page cannot be reached; a third-party listing called registration open and said a VPN must be disabled at signup.
+- interface: unknown
+- limits:
+  - request-rate: none applicable: the domain redirects to a parking host probe:https://army-of-strangers.biz/
+- binding note: The domain no longer serves the forum, so no limit is reachable.
+- interface detail: none reachable: a request answered HTTP 302 to a parking host (ww80 subdomain of the same domain) whose name then failed to resolve.
+- endpoint: https://army-of-strangers.biz/
+- tooling: none: a client cannot reach the forum.
+- composes with: none: replace it with a reachable index.
+- reliability: The domain answers HTTP 302 to a parking host whose name does not resolve, and a public resolver returns SERVFAIL for the domain itself.
+- evidence note: The redirect and the resolver failure were read; that the redirect target is a parking page is inferred from its name and the failed resolution, not read.
+- extras:
+  - price: unverified: unreachable
+- evidence:
+  - probe:https://army-of-strangers.biz/ 2026-11-03: the domain answered HTTP 302 to a ww80 host of the same domain, a parking pattern, and that host then failed to resolve | capture: sha256:e5cec32170a527547cbc09a815e568d9103dbf6e771ff16d28ae88a9f78dd885 | quote: "location": "http://ww80.army-of-strangers.biz/
+  - probe:https://cloudflare-dns.com/dns-query?name=army-of-strangers.biz&type=A 2026-11-03: a public resolver answered SERVFAIL (Status 2) for the domain | capture: sha256:5713d7366bcdc97e8f5e103f5ccd9d03331e6740ba6dc9b8af56af86a525901f | quote: {"Status":2,"TC":false,"RD":true,"RA":true,"AD":false,"CD":false,"Question":[{"name":"army-of-strangers.biz","type":1}]
+  - [2] 2026-11-03: third-party: the listing described a community forum sharing NZB links | quote: Community-driven forum sharing NZB links, not hosting files directly.
+- sources:
+  - [1] https://army-of-strangers.biz/
+  - [2] https://nzbhydra.com/indexers/
+
+## Big-bit
+
+- `debrid/big-bit-org` | dead | evidence measured | binding none | category Usenet NZB index forum (domain parked for sale) | tier free
+- identity a placeholder: card and phone unknown | verified 2026-11-03T07:37:15.010Z (live) | stale on 2026-12-04
+- url https://big-bit.org/ | page https://fshy.ajam.dev/p/big-bit.md
+- free tier: none: the domain serves a for-sale page instead of the index. A third-party listing described an English and Dutch forum with open registration and voluntary donations. | unit: none | metered on: none | read on: 2026-11-03 | source: [1]
+- per-object cap: not applicable: nothing is served | source: [1]
+- retention: not applicable: the index is gone | source: [1]
+- egress: none: the domain serves a for-sale page | metered: no | source: [1]
+- identity: email | detail: unverified: the register page is gone; a third-party listing called registration open.
+- interface: unknown
+- limits:
+  - request-rate: none applicable: the domain is parked for sale probe:https://big-bit.org/
+- binding note: The domain no longer serves the index, so no limit is reachable.
+- interface detail: none: HTTP 200 with a script-built page whose text offers the domain for sale.
+- endpoint: https://big-bit.org/
+- tooling: none: nothing to automate.
+- composes with: none: replace it with a reachable index.
+- reliability: The page returns HTTP 200 with a for-sale notice, so a client that trusts the status code would take it for a live site.
+- evidence note: The for-sale text is in the response body read.
+- extras:
+  - price: unverified: unreachable
+- evidence:
+  - probe:https://big-bit.org/ 2026-11-03: the response body of the domain offers it for sale | capture: sha256:914062afb404cdcb0e4fd2b0d9c9cfcd4c8df29536f2b6af52a2cb9eed128968 | quote: domain is for sale
+  - [2] 2026-11-03: third-party: the listing described an English and Dutch forum | quote: 30,000+ monthly visitors. English and Dutch.
+- sources:
+  - [1] https://big-bit.org/
+  - [2] https://nzbhydra.com/indexers/
+
+## Binzb
+
+- `debrid/binzb` | dead | evidence documented | binding none | category Usenet search engine (domain now serves an unrelated gambling site) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T07:37:15.010Z (live) | stale on 2026-12-04
+- url https://binzb.com/ | page https://fshy.ajam.dev/p/binzb.md
+- free tier: none: the domain serves an unrelated gambling site, branded LAMTOTO, in place of the search engine. A third-party listing described a free search engine with no registration. | unit: none | metered on: none | read on: 2026-11-03 | source: [1]
+- per-object cap: not applicable: nothing is served | source: [1]
+- retention: not applicable: the search engine is gone | source: [1]
+- egress: none: the domain serves an unrelated site | metered: no | source: [1]
+- identity: anonymous | detail: A third-party listing said no registration was required; the original service is gone.
+- interface: unknown
+- limits:
+  - request-rate: none applicable: the domain serves an unrelated site [1]
+- binding note: The domain no longer serves the search engine, so no limit is reachable.
+- interface detail: none: HTTP 200 with the page of an unrelated gambling site whose login and sign-up links point to another host.
+- endpoint: https://binzb.com/
+- tooling: none: nothing to automate.
+- composes with: none: replace it with a reachable index.
+- reliability: The page returns HTTP 200, so a client that trusts the status code would take the unrelated site for a live index.
+- evidence note: The page text read names another brand and links its login and sign-up elsewhere; no search request was made.
+- extras:
+  - price: unverified: unreachable
+- evidence:
+  - [1] 2026-11-03: the page is branded LAMTOTO, an unrelated site, not a Usenet search engine | capture: sha256:21a934818d118f556305b11e0b10c071e0b0e073e6384cd79444bc2a965dc0ac | quote: Powered By: [LAMTOTO](https://binzb.com/)
+  - [2] 2026-11-03: third-party: the listing described a free, automated search engine with no registration | quote: No registration required. Completely free. Automated, not manually curated.
+- sources:
+  - [1] https://binzb.com/
+  - [2] https://nzbhydra.com/indexers/
+
+## Coinbase Commerce
+
+- `debrid/coinbase-commerce` | dead | evidence documented | binding none | category crypto payment processor | tier merchant
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T03:30:43.000Z (live) | stale on 2026-11-23
+- url https://help.coinbase.com/en/transitioning-from-coinbase-commerce-to-coinbase-business | page https://fshy.ajam.dev/p/coinbase.md
+- free tier: no free tier; the processor charged '1% transaction fee' and is being withdrawn. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable: a processor, not a store. | source: [1]
+- retention: not applicable: a processor, not a store. | source: [1]
+- egress: not applicable: a processor. | metered: no | source: [1]
+- identity: email | detail: On the payer side the processor asked for no account: a checkout address and a wallet. That property is what made it useful to services whose buyers have no card, and it is the property the replacement does not clearly keep, since Coinbase Business is 'stablecoin-first, custodial, compliant'.
+- interface: rest
+- limits note: no payment-vocabulary limit. The processor-side date is the limit: 'You must complete your transition by March 31, 2026. After this date, the Commerce portal will become permanently inaccessible.'
+- binding note: The seven-kind vocabulary does not apply to a processor. The binding fact is a shutdown date, not a quota.
+- interface detail: Charge API and payment links; the Charge API is what the migration guide retires
+- tooling: hosted checkout and API for merchants; the payer needs a wallet, not an account
+- composes with: Payment integration note: Coinbase Commerce withdrew support outside the US and Singapore, requiring merchants to migrate to alternative payment processors.
+- reliability: Shut down for merchants outside the US and Singapore on 2026-03-31: 'If you're based outside the United States or Singapore ... you will need to transition to an alternative provider before March 31, 2026'.
+- notes: Included because Real-Debrid's mirrored FAQ still names Coinbase as the crypto rail, and because two other services in the sample moved off it (TorBox's changelog records leaving 'PayPal and Coinbase' for Sellix). A processor sunset is exactly the kind of fact that decays a rail claim without touching the service's own page.
+- evidence note: Coinbase's own help-centre transition page was read. The payer-side no-account property is inferred from how hosted crypto checkout works, not quoted, and is labelled as such here.
+- extras:
+  - payment_group: processor
+  - shutdown: 2026-03-31 for merchants outside the US and Singapore
+  - payer_identity: no account, wallet only (inferred, not quoted)
+- evidence:
+  - [1] 2026-10-23: 'Coinbase Commerce is being unified with Coinbase Business. You must complete your transition by March 31, 2026. After this date, the Commerce portal will become permanently inaccessible'; merchants outside the US and Singapore must move to another provider
+  - [2] 2026-10-23: third-party estimate, read from the search index and not opened: 'roughly 40 percent went to direct custodial alternatives (BitPay, NOWPayments), 35 percent went non-custodial'. Reported, not verified.
+- sources:
+  - [1] https://help.coinbase.com/en/transitioning-from-coinbase-commerce-to-coinbase-business
+  - [2] https://www.plaitr.com/blog/the-coinbase-commerce-migration-where-8000-merchants-went
+
+## CoolDebrid
+
+- `debrid/cooldebrid` | dead | evidence documented | binding none | category multi-hoster debrid with torrent streaming (closed) | tier premium
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T02:06:35.000Z (live) | stale on 2026-11-23
+- url https://cooldebrid.com/ | page https://fshy.ajam.dev/p/cooldebrid.md
+- free tier: None surviving: the site returns 404 on every path tried, so no current offer exists to quote. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable: the service is gone | source: [1]
+- retention: not applicable: the service is gone | source: [1]
+- egress: No terms reachable: the origin answers 404. | metered: no | source: [1]
+- identity: email | detail: As archived: 'Log in to your account', so an account existed. Not reachable today.
+- interface: unknown
+- limits note: not applicable
+- binding note: A dead service binds nothing; the record exists to carry the date of death.
+- interface detail: As archived in 2024: a login-based download manager with torrent streaming ('Stream Torrents with cooldebrid'). Nothing is served today.
+- tooling: none: the domain serves a 404
+- composes with: Nothing to chain: preserved so the subsequent audit does not spend a wave re-finding it, and so a comparison site that still lists it can be discounted.
+- reliability: Dead: the root returns HTTP 404 as of today. The Wayback capture of 2024-06-01 shows it live and selling a 'Premium Download Manager' with torrent streaming.
+- notes: Found through an Italian-language query ('servizio debrid'), which is why the English lists never carried it. The 404 is the whole finding: no parked page, no redirect, no explanation.
+- evidence note: Two dated observations: the 404 today and the 2024-06-01 capture. The date of closure is not established - only that it was alive in June 2024 and is 404 in October 2026.
+- evidence:
+  - probe:https://cooldebrid.com/ 2026-10-23: HTTP 404 with 'The document has no body element to read'; a HEAD request also returned 404
+  - [2] 2026-10-23: the service was alive on 2024-06-01: title 'Log in to your account', description 'cooldebrid is a Premium Download Manager. Get files at premium speeds from all filehosts. Stream Torrents with cooldebrid.'
+- sources:
+  - [1] https://cooldebrid.com/
+  - [2] https://web.archive.org/web/20240601173729/https://cooldebrid.com/?provider=wayback
+
+## DDL.to
+
+- `debrid/ddl-to` | dead | evidence documented | binding none | category former premium file host, now a redirect to DDownload | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T03:38:10.440Z (live) | stale on 2026-11-23
+- url https://ddl.to/ | page https://fshy.ajam.dev/p/ddl.md
+- free tier: Not applicable: ddl.to serves no offer of its own. The domain redirects to ddownload.com. | unit: none | metered on: none | read on: 2026-10-23 | source: [1] | note: The successor's terms belong to storage/ddownload and are not restated here.
+- per-object cap: Not applicable: the brand no longer hosts. | source: [1]
+- retention: Not applicable. | source: [1]
+- egress: None from this domain; every request is forwarded to ddownload.com. | metered: no | source: [1]
+- identity: anonymous | detail: Nothing is asked for at ddl.to; whatever the redirect target asks for is DDownload's policy.
+- interface: unknown
+- limits note: No constraint applies to a redirect.
+- binding note: Nothing transfers from this domain, so nothing can bind.
+- interface detail: An HTTP redirect. There is no endpoint to call.
+- tooling: Nothing to tool against. A client that still holds a ddl.to link is handed to DDownload's own page.
+- composes with: A dead link in old index posts. Its only use now is to know that a DDL.to URL still resolves, to DDownload, rather than 404ing - so a link checker will report it alive when the host behind it is a different company.
+- reliability: A link checker sees HTTP 200 and a live host, which is exactly the failure these records warns about: the host answering is not the host the link names. Any inventory that still counts DDL.to as a separate provider is double-counting DDownload.
+- notes: Kept as a dead record rather than deleted so the subsequent audit does not re-open the name and so the DDownload redirect is documented once. Successor: storage/ddownload.
+- evidence note: The redirect and its landing page were read. That is all this record claims.
+- extras:
+  - successor_record: storage/ddownload
+- evidence:
+  - [1] 2026-10-23: ddl.to resolves to https://ddownload.com/ and serves the DDownload homepage ('Ultimate Cloud Storage - DDownload'), so the brand is retired and the domain forwards
+- sources:
+  - [1] https://ddl.to/
+
+## Debrid-File.com
+
+- `debrid/debrid-file-com` | dead | evidence documented | binding none | category multi-hoster (closed; domain now an article page) | tier n/a
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T07:37:13.292Z (live) | stale on 2026-12-04
+- url https://debrid-file.com/ | page https://fshy.ajam.dev/p/debrid-file.md
+- free tier: None: the domain no longer serves the service. | unit: none | metered on: none | read on: 2026-11-03 | source: [1]
+- per-object cap: not applicable: the service is gone | source: [1]
+- retention: not applicable: the service is gone | source: [1]
+- egress: not applicable: the service is gone | metered: no | source: [1]
+- identity: email | detail: Not applicable: no sign-up is offered.
+- interface: unknown
+- binding note: A dead service binds nothing; the record carries the date of the observation.
+- interface detail: Nothing is served.
+- tooling: none: the domain serves other content
+- composes with: Nothing to chain; recorded so a list that still names it can be discounted.
+- reliability: As of 2026-11-03 the root serves an article page (Aug 30, 2026) from a content publisher and no generator, plans or login.
+- notes: A third-party list names it as a 10-host, 2 GB generator.
+- evidence note: One dated observation; the date the service closed is not established.
+- evidence:
+  - [1] 2026-11-03: the domain now serves a generic article about premium link generators under another publisher's template | capture: sha256:bb3c44e91668f3e74b479f445a73cae9ee0140a33147b392beeaaaf52eb5242f | quote: # How Premium Link Generators Speed Up Large File Transfers
+- sources:
+  - [1] https://debrid-file.com/
+
+## Debrid.cc
+
+- `debrid/debrid-cc` | dead | evidence documented | binding none | category multi-hoster - dead, parked domain | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T01:39:03.000Z (live) | stale on 2026-11-23
+- url https://debrid.cc/ | page https://fshy.ajam.dev/p/debrid.md
+- free tier: None. The domain is parked: the HTML loads a domain-market lander script (lander.parity.domains) and comments 'Send the parked domain's origin as the referrer so the market can attribute the visit to this domain's TLD'. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable: nothing is served | source: [1]
+- retention: not applicable | source: [1]
+- egress: No terms. | metered: no | free allowance: none | source: [1]
+- identity: anonymous | detail: No account flow exists.
+- interface: unknown
+- limits:
+  - volume-quota: none: parked [1]
+- binding note: A parked domain binds nothing.
+- interface detail: Nothing.
+- tooling: part of the free tier
+- composes with: Nothing. A .cc domain with a generic debrid name is exactly what a client might guess at; this one is for sale.
+- reliability: The domain is listed for sale, so any future service at this address would be a different operator and must not inherit this record.
+- notes: Checked from evaluation list. It never appeared in any comparison or forum result, which is consistent with a name that was never more than a parked domain.
+- evidence note: The parked-domain lander was read directly from the origin HTML on 2026-10-23. It is recorded at documented rather than measured because no probe record exists for the read.
+- extras:
+  - state: parked / for sale via parity.domains
+- evidence:
+  - [1] 2026-10-23: the HTML is a parked-domain template: a 'lander.parity.domains' script tag and the inline comment 'Send the parked domain's origin as the referrer so the market can attribute the visit to this domain's TLD'
+- sources:
+  - [1] https://debrid.cc/
+
+## DebridMax
+
+- `debrid/debridmax` | dead | evidence documented | binding none | category multi-hoster (premium link generator, 2011-era) - dead, domain repurposed | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T01:39:03.000Z (live) | stale on 2026-11-23
+- url http://www.debridmax.com/ | page https://fshy.ajam.dev/p/debridmax.md
+- free tier: None. The domain now serves a Chinese LED-signage manufacturer's news feed (山西德軒 发光字), with posts dated 2021-09 to 2025-11. The debrid service is gone. | unit: none | metered on: none | read on: 2026-10-23 | source: [1] | note: The modern search results for 'DebridMax' are 2011-2012 blog posts and forum threads describing it as a free premium link generator, which is what the name meant when it was alive.
+- per-object cap: not applicable: the service is gone | source: [1]
+- retention: not applicable: gone | source: [1]
+- egress: No terms served. | metered: no | free allowance: none | source: [1]
+- identity: email | detail: Not reconstructable: the debrid site's pages are gone. A 2012 forum post describes a login requirement to see the debrideur tab, which implies an account.
+- interface: unknown
+- limits:
+  - volume-quota: none: service gone [1]
+- binding note: A dead service binds nothing.
+- interface detail: Nothing.
+- tooling: part of the free tier
+- composes with: Nothing. The name should not be re-researched: the domain belongs to an unrelated business and any future 'DebridMax' would be a different operator.
+- reliability: The domain was repurposed to an unrelated commercial blog, so a stale bookmark or an old forum link lands on marketing content with no indication that the service ended.
+- notes: The archive capture is the evidence. Do not resurrect this name as a prospect unless a new operator is found operating it.
+- evidence note: The repurposing is established by the 2025-12-01 Wayback capture, which was read directly. The capture is five weeks older than the record.
+- extras:
+  - domain_repurposed_to: Chinese LED signage company news site
+  - first_seen_as_debrid: 2011 (forum post)
+- evidence:
+  - [2] 2026-10-23: the 2025-12-01 capture is a Chinese LED-sign company's news index with posts dated 2025-11-14 and 2021-11-22, i.e. the debrid service was already gone 11 months before this record
+  - [3] 2026-10-23: a 2011 forum post describes DebridMax as 'a premium link generator' for Rapidshare and Megaupload, which fixes what the name meant when it was alive
+- sources:
+  - [1] http://www.debridmax.com/
+  - [2] https://web.archive.org/web/20251201215330/http://www.debridmax.com/?provider=wayback
+  - [3] https://www.ozbargain.com.au/node/55467
+
+## EpikHost
+
+- `debrid/epikhost` | dead | evidence measured | binding none | category former host (zone has no reachable authority) | tier none
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T03:19:00.000Z (live) | stale on 2026-11-23
+- url https://epikhost.com/ | page https://fshy.ajam.dev/p/epikhost.md
+- free tier: none: epikhost.com does not answer. DNS over HTTPS returns SERVFAIL with 'No Reachable Authority at delegation epikhost.com' and the delegated server 87.117.238.51 refusing the query. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable: no service | source: [1]
+- retention: not applicable: no service | source: [1]
+- egress: no service to assess | metered: no | free allowance: none | source: [1]
+- identity: anonymous | detail: not applicable; nothing can be registered | country: None
+- interface: unknown
+- binding note: no constraint applies to an unresolvable zone
+- interface detail: no interface: the zone is not answering
+- tooling: part of the free tier
+- composes with: removed from the candidate set; a zone with no reachable authority serves no bytes
+- reliability: SERVFAIL at delegation: the registry points at nameservers that refuse queries, which is a worse state than NXDOMAIN because the name still appears delegated
+- notes: The name appears in seedbox briefs but resolves to nothing. epikhost.org is a live but unrelated hosting company with a different name and no seedbox plans; treating them as one provider would be a false match. Re-probe before reuse.
+- evidence note: Measured by probe on 2026-10-23: Cloudflare DoH returned Status 2 (SERVFAIL) with EDE(22) 'No Reachable Authority at delegation epikhost.com' and EDE(23) 'Network Error 87.117.238.51:53 returned REFUSED'; curl returned 'Could not resolve host'. A separate epikhost.org belongs to a different company and was not treated as the same provider.
+- extras:
+  - death_evidence: SERVFAIL, no reachable authority at delegation
+  - probe_commands: curl 'https://cloudflare-dns.com/dns-query?name=epikhost.com&type=A' -H 'accept: application/dns-json'; curl -sS -o /dev/null -w '%{http_code}' https://epikhost.com/
+- evidence:
+  - probe:https://epikhost.com 2026-10-23: DoH Status 2 SERVFAIL, EDE 'No Reachable Authority at delegation epikhost.com', delegated NS 87.117.238.51 returned REFUSED; curl exit 6 for epikhost.com and www.epikhost.net
+- sources:
+  - [1] https://epikhost.com/
+
+## EX.UA
+
+- `debrid/ex-ua` | dead | evidence documented | binding write-gated | category Ukrainian file host (closed 2016) | tier closed
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T02:24:23.130Z (live) | stale on 2026-11-23
+- url https://www.bbc.com/ukrainian/news_in_brief/2016/11/161116_om_ex_ua | page https://fshy.ajam.dev/p/bbc.md
+- free tier: Closed. At closure the site asked users to remove their files: 'EX.ua ... запропонував користувачам видалити файли зі своїх архівів до 30 листопада' (2016-11-16). | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable: the service is closed | source: [1] | note: unstated
+- retention: Files were to be removed by users before 2016-11-30; the service then stopped. | source: [1]
+- egress: not applicable | metered: no | source: [1]
+- identity: anonymous | detail: not applicable: no account can be created | country: Ukraine
+- interface: unknown
+- limits:
+  - write-gated (binding): service terminated 2016-11-16; files to be removed by 2016-11-30 [1]
+- limits note: The service announcement cited 'direct threats and blackmailing [including at the national level] and DDOS attacks' as the reason.
+- binding note: Nothing is served; the only relevant fact is the closure date.
+- interface detail: None: the domain stopped serving the service. The site had earlier been seized by police in 2012 and restored.
+- tooling: None.
+- composes with: Nothing to chain. It is the reason a Ukrainian user looking for a domestic host has no large one left and uses Russian hosts or international debrid instead.
+- reliability: The site had already been taken down once, in January 2012, during a criminal investigation, and came back; the 2016 closure was final.
+- notes: Preserved so the subsequent audit does not spend a wave looking for the biggest Ukrainian host of the 2010s. A closure with two dated reports is a dead record, not an omission.
+- evidence note: Two independent dated reports (BBC Ukrainian 2016-11-16 and Interfax-Ukraine 2016-11-17) agree on the closure and the 30 November deadline. Evidence dates normalised to the read date on 2026-10-23; a source that carries its own date keeps it in the proved field.
+- evidence:
+  - [1] 2026-10-23: 'Український ресурс EX.ua вирішив припинити роботу' and the 30 November deadline for users to remove files
+  - [2] 2026-10-23: 'The Ukrainian file hosting service ex.ua has informed about the decision to terminate its operations and asked all users to remove the files from their archives on ex.ua before November 30, 2016.'
+- sources:
+  - [1] https://www.bbc.com/ukrainian/news_in_brief/2016/11/161116_om_ex_ua
+  - [2] https://en.interfax.com.ua/news/economic/384560.html
+
+## Fast-Debrid
+
+- `debrid/fast-debrid` | dead | evidence documented | binding none | category multi-hoster (premium link generator) - dead, domain lost to a gambling site | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T01:39:03.000Z (live) | stale on 2026-11-23
+- url https://fast-debrid.com/ | page https://fshy.ajam.dev/p/fast-debrid.md
+- free tier: None. The domain served an Indonesian online-gambling landing page (ARETABET, 'SITUS SLOT GACOR') by 2025-12-14, built on a Lazada storefront template. | unit: none | metered on: none | read on: 2026-10-23 | source: [1] | note: Live reads returned connection error twice, so the current state is unread; the December 2025 capture is what proves the change of hands.
+- per-object cap: not applicable: the service is gone | source: [1]
+- retention: not applicable: gone | source: [1]
+- egress: No terms served. | metered: no | free allowance: none | source: [1]
+- identity: email | detail: Not reconstructable: the debrid pages are gone.
+- interface: unknown
+- limits:
+  - volume-quota: none: service gone [1]
+- binding note: A dead service binds nothing.
+- interface detail: Nothing.
+- tooling: part of the free tier
+- composes with: Nothing. The domain is now a gambling advert, which is a worse outcome for a client who follows an old link than a 404 would be.
+- reliability: The domain was lost and rebuilt as a gambling landing page, so old links resolve to unrelated content; a client must not follow a stored Fast-Debrid URL.
+- notes: A name from evaluation list, refuted. Two live attempts returned connection error ('nothing established about the target'), which is a tool failure and not evidence of death; the archive capture is the evidence used. Do not re-research the name.
+- evidence note: The December 2025 capture was read directly and shows the gambling page. The live state was not readable (connection error).
+- extras:
+  - domain_repurposed_to: Indonesian gambling site (ARETABET)
+- evidence:
+  - [2] 2026-10-23: the 2025-12-14 capture is titled 'ARETABET : SITUS SLOT GACOR RESMI TERBAIK DEPOSIT TERMURAH 2025' and is a Lazada-templated gambling storefront, not a debrid service
+- sources:
+  - [1] https://fast-debrid.com/
+  - [2] https://web.archive.org/web/20251214101241/https://fast-debrid.com/?provider=wayback
+
+## File2Share
+
+- `debrid/file2share-us` | dead | evidence measured | binding none | category transfer.sh-shaped upload, advertised as a transfer.sh replacement | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T02:30:47.000Z (live) | stale on 2026-11-23
+- url https://file2share.us/ | page https://fshy.ajam.dev/p/file2share.md
+- free tier: none reachable: the site advertises `curl --upload-file` with the same command shape as transfer.sh, and that exact shape returns HTTP 404 | unit: none | metered on: none | read on: 2026-10-23 | source: [1] | note: The offer exists on the marketing page; the endpoint the page names does not answer.
+- per-object cap: not reached: the endpoint refused before a size mattered | source: [1]
+- retention: not reached | source: [1]
+- egress: not assessed: nothing was stored | metered: no | source: [1]
+- identity: anonymous | detail: No signup was reached because the upload path does not exist.
+- interface: unknown
+- limits note: Two shapes tried, both 404. The 404 body is a hosted static error page, not an application error, so the route does not exist rather than being disabled.
+- binding note: Nothing binds because nothing answers.
+- interface detail: PUT https://file2share.us/<name> and POST https://file2share.us/upload both return a static 404 page.
+- tooling: The advertised curl one-liner does not work; nothing else was found.
+- composes with: Nothing to chain: a dead advertising page for a replacement for a dead service.
+- reliability: A 2026 SEO page marketing a transfer.sh replacement whose own documented command 404s.
+- notes: Do not retry the marketing page's command; the path it names does not exist.
+- evidence note: The death was measured: two request shapes, both 404, on 2026-10-23.
+- extras:
+  - routes_tried: PUT /<name>; POST /upload
+- evidence:
+  - probe:https://file2share.us/payload-1mib.bin 2026-10-23: PUT of 1 048 576 bytes -> HTTP 404 with a static '404 Not Found' page
+  - probe:https://file2share.us/upload 2026-10-23: multipart POST -> HTTP 404, same static page
+  - [1] 2026-10-23: 'File2Share accepts the same curl --upload-file command' - the claim the two probes refute
+- sources:
+  - [1] https://file2share.us/transfer-sh-alternative
+
+## FilePursuit
+
+- `debrid/filepursuit` | dead | evidence unverified | binding request-rate | category file-host search engine (index over public file links) + metered JSON API | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:53:12.551Z (live) | stale on 2026-11-19
+- url https://filepursuit.com/ | page https://fshy.ajam.dev/p/filepursuit.md
+- price USD 0
+- free tier: The site was not readable today. The API is documented on RapidAPI as a Basic plan at $0.00/month with 3,000 requests per day and 500 requests per hour. | unit: requests | metered on: request-count | read on: 2026-10-23 | source: [1] | note: The website returned HTTP 530; API numbers reflect the vendor's published marketplace tier.
+- per-object cap: not applicable: a search result, not a stored object. | source: [2]
+- retention: unknown: the index's own retention was not readable, and the API terms say nothing about how long a link stays in the index | source: [2]
+- egress: the API returns links, not bytes; bytes come from whichever host the link names | metered: yes | free allowance: 3,000 requests/day on the free RapidAPI plan | source: [1]
+- identity: email | detail: The API needs a RapidAPI account and key, which is an email signup; the amount of identity RapidAPI demands beyond that was not established because the signup flow was not entered.
+- interface: rest
+- limits:
+  - request-rate (binding): 500 requests per hour on the free RapidAPI plan, with a hard cap of 3,000 requests per day [1]
+- limits note: The free plan also meters bandwidth at 10,240 MB/month plus $0.001 per 1 MB over. A third-party scraper reports that flooding the site triggers a captcha, which is the HTML path's limit rather than the API's.
+- binding note: 500/hour is 0.14 req/s, so enumeration stops long before any byte quota does; and the API additionally requires an account, which is recorded under identity_cost.
+- interface detail: RapidAPI JSON endpoint with an X-RapidAPI-Key header; the site itself is HTML. The API is also offered through third-party clients (filepursuit-cli, go-filepursuit, a PyPI scraper).
+- endpoint: rapidapi.com/azharxes/api/filepursuit
+- tooling: The PyPI 'filepursuit' scraper and a Go client exist. Both drive the site rather than the paid API, and the scraper's own documentation says the site answers a flood of requests with a captcha.
+- composes with: Query the index for a filename, then hand the file-host URL to a debrid service. The value is discovery: the index is what tells you which public link exists.
+- reliability: On 2026-11-03 the .com registry lists filepursuit.com with status client hold and the domain has no DNS answer (NXDOMAIN); the site answered an origin failure on 2026-10-23. Whether a datacenter address is accepted: not published.
+- notes: The index domain no longer resolves, so the service is recorded dead. The RapidAPI listing remains, showing a 0% service level, and its machine interface needs a RapidAPI key.
+- evidence note: The domain's DNS answer (NXDOMAIN) and registry status (client hold) were read on 2026-11-03 and the RapidAPI listing shows a 0% service level; the API plan figures come from the RapidAPI pricing page and nothing was executed against the API.
+- extras:
+  - http_status_observed: 530
+  - attempts: 4
+  - api_marketplace: RapidAPI
+  - anonymous_api: no
+  - death.on: 2026-11-03
+  - death.cause: dead-service
+- evidence:
+  - [1] 2026-10-23: Basic $0.00/mo, 'Requests 3,000 / Day Hard Limit', 'Rate Limit 500 requests per hour', 10240 MB/month bandwidth
+  - [2] 2026-10-23: nothing was established about the live site
+  - [3] 2026-10-23: a third-party scraper's README says FilePursuit answers flooding with a captcha
+  - probe:https://dns.google/resolve?name=filepursuit.com&type=A 2026-11-03: the public resolver answers NXDOMAIN (status 3) for filepursuit.com | capture: sha256:1f30409690b9ee0a9b7e3d70344ac0fd14d00e2902c9cd79d492d115077fed04 | quote: "Status":3
+  - probe:https://rdap.verisign.com/com/v1/domain/filepursuit.com 2026-11-03: the registry shows the domain on client hold, which removes it from DNS | capture: sha256:1083a20c561f0b7b5b054f6cdd4f2d4e5b5834c985d59c1988bd68092bbfb28f
+  - [4] 2026-11-03: the marketplace listing for the API shows 0% service level | capture: sha256:e613edf56bb83b9cc0a6cbe81a4f5533e3e3af2e973e8fe63f7483e8095b4b83 | quote: 0% Service Level
+  - [1] 2026-11-04: the free plan rate limit is 500 requests per hour | capture: sha256:3253f5e94a075f4e3f07c4f361500dc3388e2379e0c69ffc3ddf4e2e9242575f | quote: Rate Limit 500 requests per hour
+  - probe:filepursuit.com 2026-11-04: the site does not resolve in DNS | capture: sha256:f7f461ec5aadb18fb1643c3a9e5a2008801d63c40a5108bf3cde394f7b71f270 | quote: "error": "dns"
+  - probe:https://dns.google/resolve?name=filepursuit.com&type=A 2026-11-04: the public resolver answers NXDOMAIN for filepursuit.com | capture: sha256:71bc9d726284fe22542819f6d440cb71dffc664879fe20b93d4c03f7a3a82308 | quote: "Status":3
+- sources:
+  - [1] https://rapidapi.com/azharxes/api/filepursuit/pricing
+  - [2] https://filepursuit.com/
+  - [3] https://pypi.org/project/filepursuit/
+  - [4] https://rapidapi.com/azharxes/api/filepursuit
+
+## FS.TO
+
+- `debrid/fs-to` | dead | evidence documented | binding write-gated | category Ukrainian file host / online cinema (servers seized 2016) | tier closed
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T02:24:29.926Z (live) | stale on 2026-11-23
+- url https://daily.rbc.ua/rus/show/fayloobmenniki-berut-abordazh-pochemu-zakryvayutsya-1479386850.html | page https://fshy.ajam.dev/p/rbc.md
+- free tier: Closed. 'Департамент киберполиции Национальной полиции Украины 15 ноября [2016] изъял сервера одного из крупнейших в Украине онлайн-кинотеатров fs.to. Ресурс прекратил работу по основному адресу.' | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable: the service is closed | source: [1] | note: unstated
+- retention: not applicable: the servers were seized | source: [1]
+- egress: not applicable | metered: no | source: [1]
+- identity: anonymous | detail: not applicable: no account can be created | country: Ukraine
+- interface: unknown
+- limits:
+  - write-gated (binding): servers seized 2016-11-15; service stopped at the main address [1]
+- limits note: The article names a claimed relocation ('Киберполиция изъяла сервера только на территории Украины') posted on a VK page; the claim is unverified and no live successor was found.
+- binding note: Nothing is served; the closure is the fact.
+- interface detail: None at the main address. A VK page claiming to be official announced a move to a new domain, according to the same report; no working replacement was verified.
+- tooling: None verified.
+- composes with: Nothing to chain. Like EX.UA it explains why the Ukrainian market has no domestic large host and why the debrid Ukrainian record is a seedbox (seedbox-org-ua) rather than a host.
+- reliability: The seizure of FS.TO is named in the same report as one of the pressures that preceded EX.UA's closure two days later.
+- notes: Recorded with FS.TO's sibling EX.UA so the pair is closed together. No live successor was found, and the VK relocation claim is not treated as one.
+- evidence note: The seizure date, the actor and the stopped service are quoted from RBC-Ukraine's report of 2016-11-17, read. The relocation claim is a quote of an unverified VK post and is labelled as such. Evidence dates normalised to the read date on 2026-10-23; a source that carries its own date keeps it in the proved field.
+- evidence:
+  - [1] 2026-10-23: the 2016-11-15 seizure of FS.TO's servers by Ukraine's cyberpolice, the service stopping at its main address, and the unverified VK relocation claim
+- sources:
+  - [1] https://daily.rbc.ua/rus/show/fayloobmenniki-berut-abordazh-pochemu-zakryvayutsya-1479386850.html
+
+## GigaRapid
+
+- `debrid/gigarapid` | dead | evidence measured | binding none | category former seedbox host (domain for sale) | tier none
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T03:19:00.000Z (live) | stale on 2026-11-23
+- url https://gigarapid.com/ | page https://fshy.ajam.dev/p/gigarapid.md
+- free tier: none: gigarapid.com is a GoDaddy for-sale page - 'GigaRapid.com is for sale! ... Own it today for $2,695, or select Lease to Own.' The EUR 0.99 Eco plan that price indexes still list is not purchasable. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable: no service | source: [1]
+- retention: not applicable: no service | source: [1]
+- egress: no service to assess | metered: no | free allowance: none | source: [1]
+- identity: anonymous | detail: not applicable; nothing can be registered | country: None
+- interface: unknown
+- binding note: no constraint applies to a parked for-sale domain
+- interface detail: no interface: the domain is listed for sale
+- tooling: part of the free tier
+- composes with: removed from the candidate set; the cheapest plan any index reports for this name cannot be bought
+- reliability: The domain is parked for sale, so any price index that still lists a EUR 0.99 plan is stale and would send a buyer to a dead checkout
+- notes: This is the clearest case in the sector of a price index outliving its provider. The index is useful for breadth and must never be the evidence for a number; the parked page is the evidence here.
+- evidence note: Measured by probe on 2026-10-23: https://gigarapid.com/ returned 200 and redirected to forsale.godaddy.com with the text 'GigaRapid.com is for sale!' and the price USD 2,695 (lease USD 450/month). Two price indexes still quote GigaRapid Eco AF10 at EUR 0.99, which is how a stale index costs a session.
+- extras:
+  - death_evidence: GoDaddy for-sale landing page at USD 2,695
+  - index_that_still_lists_it: seedboxcompare.com/en/cheapest-seedbox
+- evidence:
+  - probe:https://gigarapid.com 2026-10-23: redirect to forsale.godaddy.com; page text 'GigaRapid.com is for sale! ... Own it today for $2,695, or select Lease to Own ... USD$450 / month'
+  - [2] 2026-10-23: third-party index still lists 'GigaRapid Eco AF10 at EUR 0.99 per month' as the cheapest plan, which the parked domain disproves
+- sources:
+  - [1] https://gigarapid.com/
+  - [2] https://seedboxcompare.com/en/cheapest-seedbox
+
+## HotFilePremiumStore (resale)
+
+- `debrid/hotfilepremiumstore` | dead | evidence reported | binding write-gated | category debrid resale - Indian shop whose Real-Debrid pages are gone | tier resale
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T11:28:59.771Z (live) | stale on 2026-11-18
+- url https://www.hotfilepremiumstore.com/en/real-debrid/ | page https://fshy.ajam.dev/p/hotfilepremiumstore.md
+- disagrees on verdict: `debrid/hotfilepremiumstore` says dead, `debrid/hotfilepremiumstore-com` says qualifies-with-caveat
+- free tier: No free tier. A search-engine snippet of the product page reads 'Real- Debrid 30 Days Premium Account ... ₹900.00 ... In Stock' and 'Real- Debrid 360 Days ... ₹3,800.00'; on 2026-10-23 both the product URL and the category URL return 404 with 'No products available yet'. | unit: none | metered on: none | read on: 2026-10-23 | source: [1] | note: the ₹900 / ₹3,800 figures are from the snippet only; no page carrying them would load today
+- per-object cap: not applicable to the resale: the single-object cap is the debrid vendor's, not the shop's | source: [2]
+- retention: not applicable to the resale: cached-item retention is the debrid vendor's | source: [2]
+- egress: not applicable: no live product page remains to state terms | metered: no | free allowance: none | source: [2]
+- identity: card | detail: store checkout in Dehradun, India; card, netbanking, wallets or UPI | country: India
+- interface: rest
+- limits:
+  - write-gated (binding): product and category pages both 404 on 2026-11-03 [2]
+- binding note: The shop's Real-Debrid line has been withdrawn; the constraint is that there is nothing to buy.
+- interface detail: the shop delivers a voucher code or a login by email; the capacity itself is reached through the debrid vendor's REST API
+- tooling: any client that takes the vendor's API key: rclone, JDownloader, Stremio/Torrentio, pyload
+- composes with: a resold voucher only changes how the days are paid for; the stack above it is unchanged
+- reliability: An Indian 'official reseller' page that indexed at ₹900 for 30 days and ₹3,800 for 360 days, then disappeared. The disappearance is the finding.
+- notes: Kept because a dead reseller is a finding: the ₹900 price point that search still surfaces cannot be bought. Do not cite it as a live Indian price without re-checking the store.
+- evidence note: the seller's page was read; a seller is not the vendor, so nothing here is at the documented rung except the vendor terms quoted in evidence
+- evidence:
+  - [1] 2026-10-23: 404 today, with 'No products available yet' on the store page
+  - [2] 2026-10-23: the category page also 404s; the store's own payment rails (card, netbanking, wallets, UPI) are still printed in the footer
+  - probe:https://www.hotfilepremiumstore.com/en/real-debrid/ 2026-11-03: the category URL answers HTTP 404 on 2026-11-03 | capture: sha256:3c1f3c0288e9b3d19013c74d3498828bed0ceb25e2d3831e5adf09d2823dca4b | quote: "status": 404
+  - [2] 2026-11-03: the Real-debrid category and product URLs answer 404 with 'No products available yet' | capture: sha256:20ddfa948d211844aa1e682f24e72300a85a169b18a882c3edc08165712e5d96 | quote: No products available yet
+  - [2] 2026-11-03: the store still prints card, netbanking, wallet and UPI payment rails | capture: sha256:20ddfa948d211844aa1e682f24e72300a85a169b18a882c3edc08165712e5d96 | quote: 100% Secure Credit/Debit Card, NetBanking, Wallets, or UPI
+  - [3] 2026-11-03: the store's home page navigation still lists a Real-debrid entry although its category page is empty | capture: sha256:428d1ceb743f0cabaa75487b62dc30eea1107f297886e67dbc39dec1d5e95a95 | quote: Real-debrid
+- sources:
+  - [1] https://www.hotfilepremiumstore.com/en/real-debrid/112-official-reseller-of-real-debrid-30-days-premium-account.html
+  - [2] https://www.hotfilepremiumstore.com/en/real-debrid/
+  - [3] https://www.hotfilepremiumstore.com/
+
+## IndiShare
+
+- `debrid/indishare` | dead | evidence documented | binding none | category former file host, now dead | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T03:39:12.321Z (live) | stale on 2026-11-23
+- url https://indishare.org/ | page https://fshy.ajam.dev/p/indishare.md
+- free tier: Not applicable: no service is served. indishare.org answers a Cloudflare 523 at the origin and indishare.me serves a keyword-advert landing page. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: Not applicable. | source: [1]
+- retention: The free 15-day retention the brand was known for is gone with the host; nothing is stored. | source: [1]
+- egress: None. | metered: no | source: [1]
+- identity: anonymous | detail: No registration surface exists to price.
+- interface: unknown
+- limits note: No constraint applies.
+- binding note: Nothing transfers.
+- interface detail: No service to reach. The .me hostname returns a redirect to ww547.indishare.me, an ad page whose only links are keyword campaigns.
+- tooling: Nothing to tool against.
+- composes with: An Indian PPD host that index posts used, and that no longer resolves to a working upload or download path. Any surviving link to it is a dead link, not a retrieval path.
+- reliability: Two hostnames, two failures: 523 at the origin on .org, and a parked keyword-ad page on .me. The name circulates in host lists and in debrid broker manifests, so a client may still see it offered.
+- evidence note: Both hostnames were fetched and the artefacts are quoted in the evidence rows. The record does not claim when it died, only that it was dead when read.
+- extras:
+  - failure_modes_seen: origin 523 on .org; ad-park redirect on .me
+- evidence:
+  - [1] 2026-10-23: the origin answered HTTP 523 (Cloudflare could not reach the origin server), so no site was served
+  - [2] 2026-10-23: the .me hostname redirected to http://ww547.indishare.me/?tkn=... and served a keyword-ad landing page ('Who Has The Best Car Insurance', 'Find Low Cost Car Insurance Now'), the classic domain-squat footprint
+- sources:
+  - [1] https://indishare.org/
+  - [2] https://indishare.me/
+
+## LeechNinja
+
+- `debrid/leechninja` | dead | evidence documented | binding none | category multi-hoster (closed; domain parked) | tier n/a
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T07:37:13.292Z (live) | stale on 2026-12-04
+- url https://leechninja.com/ | page https://fshy.ajam.dev/p/leechninja.md
+- free tier: None: the domain no longer serves the service. | unit: none | metered on: none | read on: 2026-11-03 | source: [1]
+- per-object cap: not applicable: the service is gone | source: [1]
+- retention: not applicable: the service is gone | source: [1]
+- egress: not applicable: the service is gone | metered: no | source: [1]
+- identity: email | detail: Not applicable: no sign-up is offered.
+- interface: unknown
+- binding note: A dead service binds nothing; the record carries the date of the observation.
+- interface detail: Nothing is served.
+- tooling: none: the domain serves other content
+- composes with: Nothing to chain; recorded so a list that still names it can be discounted.
+- reliability: As of 2026-11-03 the root is a parked-domain page with paid-search links; no generator is served.
+- notes: A third-party list names it as a K2S, NitroFlare and Uploaded generator.
+- evidence note: One dated observation; the date the service closed is not established.
+- evidence:
+  - [1] 2026-11-03: the root serves a parked page with advertising links to VPN offers | capture: sha256:7d075497b7d941ae798a187ba7c7704cc5b2dedd4901d15cd66a66788fd37df7 | quote: Related Searches:
+- sources:
+  - [1] https://leechninja.com/
+
+## Libera Premium
+
+- `debrid/liberapremium` | dead | evidence documented | binding none | category premium link generator / multi-host (Brazil, BRL) - closed | tier closed
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T02:15:00.000Z (live) | stale on 2026-11-23
+- url https://liberapremium.com/ | page https://fshy.ajam.dev/p/liberapremium.md
+- free tier: None. The live site is a closure notice: 'liberapremium chegou ao fim' (liberapremium has come to an end), 'Desde 2015', 'liberapremium • 2015 - 2026'. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable: no service. The last indexed host table showed 1fichier and Mega as 'ilimitado' with a 1,000 KB/s ceiling on Mega, and Mediafire, Uploaded, Zippyshare and Uptobox marked 'OFF'. | source: [1] | note: Host statuses are from the search index's copy of the page, not from a live read; the live page no longer serves them.
+- retention: not applicable: no storage, and the operation has ended. | source: [1]
+- egress: No terms remain. The last indexed price table sold access by period: '1 Dia R$ 3,99', '30 Dias R$ 16,90', '60 Dias R$ 28,99', '90 Dias R$ 50,70', '180 Dias R$ 101,40'. | metered: no | source: [1]
+- identity: email | detail: Not applicable now. The indexed copy implies a registration, as every Brazilian generator among debrid providers requires one.
+- interface: unknown
+- limits:
+  - volume-quota: historical: 'ilimitado' on 1fichier, 1,000 KB/s on Mega, and four of the ten listed hosts already dead when the page was indexed [1]
+  - volume-quota: none: service closed [1]
+- limits note: The indexed page shows the structural problem without any enforcement data: half the host table was 'OFF'. A generator that resells host access loses a host whenever the host changes its API or blocks the reseller's IP range.
+- binding note: Historical. The binding constraint was never reached because the service ended first, which is itself the finding.
+- interface detail: The service is gone, so the interface is historical: a web generator. No API appears in the indexed copy.
+- tooling: None. Any client still pointed at it fails.
+- composes with: Nothing to chain. Its value now is as the failure mode of the Brazilian generator market: a 2015-vintage generator with ten years of operation closed in 2026, so a prepaid 180-day term bought in late 2025 bought less than half of what it promised.
+- reliability: Closed in 2026 after eleven years. The farewell page gives no reason and offers no migration path or refund channel: 'Obrigado a todos que participaram durante esse tempo todo'.
+- notes: Method note for the subsequent audit: a search snippet for this domain still returns a working price list and a host table, while the origin serves a farewell page. Any lane that prices Brazilian generators from snippets alone will quote a service that no longer exists. The live read is what settled it. Found by searching in Portuguese ('gerador de links premium gratis'), which is the only way it surfaced; an English query never returns it. It is the second Brazilian multi-hoster to close found among debrid providers's search results.
+- evidence note: The closure was read live on the vendor's own domain, which is the strongest possible evidence for a dead verdict. Prices are reported only: they survive in the search index's copy of the page, and the live page does not serve them.
+- extras:
+  - closed_in: 2026
+  - operated_since: 2015
+  - last_indexed_prices_brl.1d: 3.99
+  - last_indexed_prices_brl.30d: 16.90
+  - last_indexed_prices_brl.60d: 28.99
+  - last_indexed_prices_brl.90d: 50.70
+  - last_indexed_prices_brl.180d: 101.40
+  - last_indexed_dead_hosts: Dropbox; Mediafire; Uploaded; Zippyshare; Uptobox
+  - lifetime: 2015-2026
+  - market: Brazil
+- evidence:
+  - [1] 2026-10-23: the live closure notice: title 'liberapremium chegou ao fim', 'Desde 2015', 'Foram anos de historias, momentos, amizades e muita dedicacao', 'liberapremium • 2015 - 2026'
+  - [1] 2026-10-23: the search index's copy of the same URL, still showing the price table (1 Dia R$ 3,99 through 180 Dias R$ 101,40) and a host table with Dropbox, Mediafire, Uploaded, Zippyshare and Uptobox marked 'OFF' - proof that an indexed snippet can outlive the page it describes
+  - [1] 2026-10-23: 'liberapremium chegou ao fim ... Desde 2015 ... Foram anos de histórias ... liberapremium • 2015 - 2026'
+- sources:
+  - [1] https://liberapremium.com/
+
+## Lightning Usenet
+
+- `debrid/lightningusenet` | dead | evidence documented | binding none | category Usenet provider - dead | tier n/a
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T02:20:22.000Z (live) | stale on 2026-11-23
+- url https://lightningusenet.com/ | page https://fshy.ajam.dev/p/lightningusenet.md
+- free tier: None: the origin answered 404 to the one route tried on 2026-10-23. No trial, plan or free allowance could be read because no page was served. | unit: none | metered on: none | read on: 2026-10-23 | source: [1] | note: The origin answered a page reader with CRAWL_NOT_FOUND, and no other reader returned content. The result is about the domain, not about the company behind it.
+- per-object cap: not applicable: no service page was served | source: [1]
+- retention: unknown: no page served | source: [1]
+- egress: unknown: no page served | metered: no | source: [1]
+- identity: anonymous | detail: No signup path was reachable, so no identity was ever requested. This is the absence of a gate, not a free one.
+- interface: unknown
+- limits note: No constraint could be read.
+- binding note: Nothing fails first because nothing is served.
+- interface detail: unknown: no page served
+- tooling: none established
+- composes with: none: a dead domain removes one candidate from the trial breadth pass and nothing more.
+- reliability: The domain answered 404 at the origin through network requests's read path; whether the business still trades under another domain was not established.
+- notes: Repeatability: not applicable. If the domain revives, the record changes to whatever the new page says, with a history entry; it is not deleted.
+- evidence note: A 404 from the origin is a documented observation with a date. It does not prove the company is gone, only that this host serves nothing.
+- extras:
+  - repeatable: not-applicable
+  - repeat_basis: dead
+- evidence:
+  - [1] 2026-10-23: "exa read the URL and reports CRAWL_NOT_FOUND (the origin answered 404)" - the host serves no page
+  - [1] 2026-10-23: "exa read the URL and reports CRAWL_NOT_FOUND (the origin answered 404)" - the host serves no page
+- sources:
+  - [1] https://lightningusenet.com/
+
+## LinkPremium.net
+
+- `debrid/linkpremium-net` | dead | evidence documented | binding none | category premium-link generator (parked, no service) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T02:06:35.000Z (live) | stale on 2026-11-23
+- url https://linkpremium.net/ | page https://fshy.ajam.dev/p/linkpremium.md
+- free tier: None: the root serves a 156-byte document with no form, no navigation and no offer. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable: no service | source: [1]
+- retention: not applicable: no service | source: [1]
+- egress: No terms; the page carries one sentence of description and nothing else. | metered: no | source: [1]
+- identity: anonymous | detail: No form exists to register with.
+- interface: unknown
+- limits note: not applicable
+- binding note: A parked domain binds nothing.
+- interface detail: none: the document contains no form and no script
+- tooling: part of interface detail
+- composes with: Nothing to chain; recorded so a host-list mention of the name is not mistaken for a live service.
+- reliability: Parked: HTTP 200 with 156 bytes of HTML and no generator. A 200 here is exactly the false positive published records warns about.
+- notes: A textbook HTTP-200 false positive: the search result renders as 'Link Premium Generator allows you to generate premium links for Rapidgator, Uploaded, Bigfile, Depfile, Fboom, Keep2share, Turbotbit, Mediafire, 4shared, etc' while the page itself is a stub. It belongs on the dead list, not the provider list.
+- evidence note: The 2024 capture was 1068 bytes, so the domain has been a stub for at least two years.
+- evidence:
+  - probe:https://linkpremium.net/ 2026-10-23: HTTP 200 with a 156-byte body containing no form, no input and no link
+  - [2] 2026-10-23: the 2024-08-26 capture was already a 1068-byte stub, so the domain has not hosted a working generator in the period covered
+- sources:
+  - [1] https://linkpremium.net/
+  - [2] https://web.archive.org/web/20240826090412/http://linkpremium.net/?provider=wayback
+
+## LinkPremiumGenerator (@premiumlink_bot)
+
+- `debrid/telegram-premiumlink-bot` | dead | evidence documented | binding none | category hosted debrid bot (AllDebrid host list to premium link) | tier free
+- needs card no, phone yes, ID no, institution no | verified 2026-11-03T07:37:11.869Z (live) | stale on 2026-12-04
+- url https://t.me/premiumlink_bot | page https://fshy.ajam.dev/p/t-me-premiumlink-bot.md
+- free tier: Dead. t.me/premiumlink_bot answers 'Telegram: Contact @premiumlink_bot' with no Start action: the username no longer resolves to a bot. | unit: none | metered on: none | read on: 2026-11-03 | source: [1]
+- per-object cap: Not applicable: the bot is gone. | source: [1]
+- retention: Not applicable: no service. | source: [1]
+- egress: Not applicable. | metered: no | source: [1]
+- identity: any-phone | detail: Was a Telegram account.
+- interface: unknown
+- limits note: No live limit exists to name.
+- binding note: Nothing binds because nothing is served.
+- interface detail: Was a Telegram chat bot that generated premium links for the hosts on AllDebrid's host list; the 50bots listing was last updated 16-09-19.
+- tooling: None.
+- composes with: Nothing. The surviving Telegram paths for the same job are the hosted debrid bots in this topic.
+- reliability: The only listing found is a 2019 directory entry; the handle's page is a Contact action, not a Launch action.
+- notes: Do not re-open unless @premiumlink_bot is seen with a Start Bot action.
+- evidence note: The page title is a Contact action. The directory entry shows the bot's purpose; no later source was found.
+- evidence:
+  - [1] 2026-11-03: the handle page is a Contact action with no Start Bot, so it is not a bot today | capture: sha256:8288142554d21f3136b197360a69ce5fdac695fb67dc724c5ea35046cd0dd4ae | quote: <title>Telegram: Contact @premiumlink_bot</title>
+  - [2] 2026-11-03: the bot's former purpose, from a 2019 directory listing | capture: sha256:b0afccf4893675a57abd97342f2671cc638fe10f1fba1903bbdaf00701a9ed4e | quote: this bot allow to generate premium link from the host listed here: https://www.alldebrid.com/api.php?action=get_host
+- sources:
+  - [1] https://t.me/premiumlink_bot
+  - [2] https://50bots.com/premiumlink_bot/
+
+## Linksave (linksave.in / linkcrypt.ws)
+
+- `debrid/linksave` | dead | evidence measured | binding none | category link container / link protector (dead) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T01:52:41.420Z (live) | stale on 2026-11-23
+- url https://linksave.in/ | page https://fshy.ajam.dev/p/linksave.md
+- free tier: Historical: a free link protector whose API took a username and password and returned a folder URL. 'URL: http://linksave.in/protect?api=[username]:[Password]' with fields for links, mirrors, captcha on/off and container types rsdf/ccf/dlc. Nothing of the service answers today. | unit: none | metered on: none | read on: 2026-10-23 | source: [1] | note: The 2011 API description is third-party. No current page on the domain exists to confirm or price anything.
+- per-object cap: not applicable: it held links, not bytes. | source: [2]
+- retention: unknown and now moot: the service is unreachable, so nothing is retained. | source: [2]
+- egress: none: dead. | metered: no | free allowance: none | source: [2]
+- identity: anonymous | detail: Historical API used a username:password pair embedded in the URL; whether registration was open is not verifiable now.
+- interface: rest
+- limits:
+  - request-rate: no service: the wildcard host ww17.linksave.in fails name resolution probe:https://linksave.in/
+- limits note: The 302 target is the same wildcard pattern that linkcrypt.ws now uses, which suggests one operator or one parking setup for both domains.
+- binding note: Nothing binds because nothing answers: at any volume the first failure is DNS.
+- interface detail: Historical HTTP API only: POST to /protect?api=user:pass with *save, *links and optional container/captcha fields. Today the domain issues a 302 to a wildcard host that does not resolve in DNS.
+- tooling: JDownloader used to ship a linksave decrypter plugin. Nothing to drive now.
+- composes with: none: a dead container service removes an indirection layer, it does not add one.
+- reliability: Dead as of 2026-10-23: 302 to ww17.linksave.in, then getaddrinfo failure (errno 11004). The proxy also returned 504 on the plain read. Last known live capture is the Wayback snapshot of 2025-05-24, HTTP 200.
+- notes: linkcrypt.ws is the same case and is documented here rather than as a second file: both 302 to the identical ww17.<domain> wildcard and both fail DNS. Requirements names both; one dead service with two domains is one fact.
+- evidence note: The death is measured twice (probe redirect + DNS failure, proxy 504). The description of what it was rests on a 2011 forum post and the archive capture, and is marked reported.
+- probe:
+  - url: https://linksave.in/
+  - final_url: https://linksave.in/
+  - method: GET
+  - status: 302
+  - bytes: 0
+  - content_type: text/html
+  - elapsed_ms: 1921.8
+  - redirects[0].status: 302
+  - redirects[0].location: https://ww17.linksave.in/
+  - redirects[0].raw_location: https://ww17.linksave.in/
+  - redirects[0].from: https://linksave.in/
+  - headers_subset.server: Apache
+  - headers_subset.location: https://ww17.linksave.in/
+  - headers_subset.content-length: 0
+  - headers_subset.content-type: text/html; charset=UTF-8
+  - challenge.detected: no
+  - error: dns
+  - probed_at: 2026-10-23T01:47:06.978Z
+  - probe_version: 1.0.0
+  - usable: no
+  - declared_bytes: 0
+  - truncated: no
+  - sha256_scope: none
+  - attempts: 2
+  - urls_tried: https://linksave.in/; https://ww17.linksave.in/
+  - tls.insecure: no
+  - false_200.detected: no
+  - error_detail: URLError: <urlopen error [Errno 11004] getaddrinfo failed>
+- extras:
+  - sibling_domain: linkcrypt.ws (302 to ww17.linkcrypt.ws, DNS failure)
+  - last_live_capture: 2025-05-24T06:39:44Z (Wayback, HTTP 200)
+- evidence:
+  - probe:https://linksave.in/ 2026-10-23: HTTP 302 to https://ww17.linksave.in/, then 'getaddrinfo failed' errno 11004; 0 bytes; no hash
+  - probe:https://linkcrypt.ws/ 2026-10-23: the sibling domain fails identically: 302 to https://ww17.linkcrypt.ws/, then DNS failure
+  - [3] 2026-10-23: Wayback capture 2025-05-24 06:39:44 of the root: HTTP 200, text/html, 1122 bytes recorded
+  - [1] 2026-10-23: reported, 2011: the protect API signature and the rsdf/ccf/dlc container options
+- sources:
+  - [1] https://www.autoitscript.com/forum/topic/129784-help-using-winhttp-to-send-data-using-linksave-api/
+  - [2] https://linksave.in/
+  - [3] https://web.archive.org/web/20250524063944/http://linksave.in/
+
+## Megabox (megabox.me)
+
+- `debrid/megabox-me` | dead | evidence documented | binding none | category cloud torrent (closed; domain serves unrelated content) | tier n/a
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T15:25:54.845Z (live) | stale on 2026-12-04
+- url https://megabox.me/ | page https://fshy.ajam.dev/p/megabox.md
+- free tier: None: the domain no longer serves the service. | unit: none | metered on: none | read on: 2026-11-03 | source: [1]
+- per-object cap: not applicable: the service is gone | source: [1]
+- retention: not applicable: the service is gone | source: [1]
+- egress: not applicable: the service is gone | metered: no | source: [1]
+- identity: anonymous | detail: Not applicable: no sign-up is offered.
+- interface: unknown
+- binding note: A dead service binds nothing; the record carries the date of the observation.
+- interface detail: Nothing is served.
+- tooling: none: the domain serves other content
+- composes with: Nothing to chain; recorded so a list that still names it can be discounted.
+- reliability: As of 2026-11-03 the root serves an unrelated lottery-tips page; no cloud torrent service is offered.
+- notes: A third-party list names it as a cloud torrent service with a free 2 GB tier.
+- evidence note: One dated observation; the date the service closed is not established.
+- evidence:
+  - [1] 2026-11-03: the root serves an unrelated gambling-lottery page, not a cloud torrent service | capture: sha256:81d44ebf4980a5265755f55647411f435c8405b88bc7ecc20a8e6dfc216941c3 | quote: YUMETOTO: Rekomendasi Situs Toto Togel Terpercaya Pasaran Terlengkap Hari Ini
+  - [2] 2026-11-03: the root, /register and /login all serve one unrelated lottery page, so no sign-up form or registration field exists to name an email cost | capture: sha256:81d44ebf4980a5265755f55647411f435c8405b88bc7ecc20a8e6dfc216941c3 | quote: YUMETOTO: Rekomendasi Situs Toto Togel Terpercaya Pasaran Terlengkap Hari Ini
+  - [1] 2026-11-03: the root still serves an unrelated lottery page and no cloud torrent service | capture: sha256:81d44ebf4980a5265755f55647411f435c8405b88bc7ecc20a8e6dfc216941c3 | quote: YUMETOTO: Rekomendasi Situs Toto Togel Terpercaya Pasaran Terlengkap Hari Ini
+- sources:
+  - [1] https://megabox.me/
+  - [2] https://megabox.me/register
+
+## MirrorAce
+
+- `debrid/mirrorace` | dead | evidence documented | binding write-gated | category multi-host mirror uploader (dead: uploads disabled) | tier dead
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T03:18:17.000Z (live) | stale on 2026-11-23
+- url https://mirrorace.com/ | page https://fshy.ajam.dev/p/mirrorace.md
+- free tier: No service. The site serves its own upload console with 'Uploading has been disabled.' | unit: none | metered on: none | read on: 2026-10-23 | source: [1] | note: The page also reads 'Upload servers are totally empty. 0.00%'.
+- per-object cap: not applicable: no upload path | source: [1]
+- retention: not applicable: nothing can be uploaded; the site says 'All the links have been restored' as of 3 Jan 2023, which is the last operational statement | source: [1]
+- egress: No new mirrors can be created. Whether existing aggregate links still resolve was not tested. | metered: no | free allowance: none | source: [1]
+- identity: email | detail: Historical: registration existed at mirrorace.com/account/types. No account can be created usefully now.
+- interface: unknown
+- limits:
+  - write-gated (binding): 'Uploading has been disabled.' [1]
+- binding note: The operator has turned writes off, which is the only constraint that matters; read-side behaviour was not tested.
+- interface detail: The upload console renders but the upload action is disabled by the operator.
+- tooling: Irrelevant while disabled.
+- composes with: Nothing. The working substitute is mirrored.to, which still accepts uploads and performs the same function with 40+ destinations.
+- reliability: The news table stops at 3 Aug 2023 with 'We are working on the upload speed issue. It will be fixed soon.', after two maintenance notices in the preceding eight months. No fix arrived.
+- notes: Inactive mirror service. New file uploads are disabled and backend servers report empty capacity.
+- evidence note: The disabled-upload state and the empty-server counter are read from the live page on 2026-10-23. An existing mirror link confirms whether the read side still works.
+- extras:
+  - last_news_entry: 2023-08-03
+  - substitute: mirrored.to
+- evidence:
+  - [1] 2026-10-23: 'Uploading has been disabled.', 'Upload servers are totally empty.', '0.00%', and a news table whose last entry is '3 Aug 2023 ... We are working on the upload speed issue.'
+- sources:
+  - [1] https://mirrorace.com/
+
+## News69
+
+- `debrid/news69` | dead | evidence measured | binding none | category Usenet indexer (Newznab; no longer resolves) | tier free
+- identity a placeholder: card and phone unknown | verified 2026-11-03T07:37:15.010Z (live) | stale on 2026-12-04
+- url https://newz69.keagaming.com/ | page https://fshy.ajam.dev/p/keagaming.md
+- free tier: none reachable: the host newz69.keagaming.com has no address record. A third-party listing describes a free Newznab-based service. | unit: none | metered on: none | read on: 2026-11-03 | source: [1]
+- per-object cap: not applicable: nothing is served | source: [1]
+- retention: not applicable: the index is unreachable | source: [1]
+- egress: none: the host does not resolve to an address | metered: no | source: [1]
+- identity: email | detail: unverified: the register page cannot be reached; a third-party listing called registration open.
+- interface: unknown
+- limits:
+  - request-rate: none applicable: the host has no A record probe:https://cloudflare-dns.com/dns-query?name=newz69.keagaming.com&type=A
+- binding note: The host does not resolve, so no limit is reachable.
+- interface detail: none reachable: a DNS-over-HTTPS query for the A record answered NOERROR with only the parent zone's SOA row.
+- endpoint: https://newz69.keagaming.com/
+- tooling: none: a client cannot connect to a host with no address.
+- composes with: none: replace it with a reachable indexer.
+- reliability: The host returns no A record from a public resolver, while the parent zone keagaming.com still answers.
+- evidence note: The absence of the A record is a DNS answer read; only name resolution was checked, and a later return of the record would revive the offer.
+- extras:
+  - price: unverified: unreachable
+- evidence:
+  - probe:https://cloudflare-dns.com/dns-query?name=newz69.keagaming.com&type=A 2026-11-03: an A query returned an Authority SOA row for keagaming.com and no Answer row, so the host has no A record | capture: sha256:397656cf409e1028aef0711a1dafc6280530527e0169b78eb82ea343491a2c36 | quote: "Question":[{"name":"newz69.keagaming.com","type":1}],"Authority":[{"name":"keagaming.com","type":6
+  - [2] 2026-11-03: third-party: the listing described a free Newznab-based service | quote: Surprisingly free service. Newznab-based.
+- sources:
+  - [1] https://newz69.keagaming.com/
+  - [2] https://nzbhydra.com/indexers/
+
+## Ninja Files
+
+- `debrid/ninjafiles-io` | dead | evidence measured | binding none | category anonymous file host (3 GB claim) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T02:30:47.000Z (live) | stale on 2026-11-23
+- url https://ninjafiles.io/ | page https://fshy.ajam.dev/p/ninjafiles.md
+- free tier: none reachable: the indexed page says 'Maximum upload file size: 3072MB' with no expiry option removed, but the hostname does not resolve | unit: none | metered on: none | read on: 2026-10-23 | source: [1] | note: NXDOMAIN at the resolver, so no page was served today and the claim is the search index's only.
+- per-object cap: 3072 MB claimed, host does not resolve | source: [1]
+- retention: not reached | source: [1]
+- egress: not assessed | metered: no | source: [1]
+- identity: anonymous | detail: No signup was reached.
+- interface: unknown
+- limits note: A DNS death is the cheapest kind to verify and the easiest to miss: the search index still carries the page.
+- binding note: Nothing binds because the name does not resolve.
+- interface detail: Name resolution fails; no HTTP request was possible.
+- tooling: Nothing to drive.
+- composes with: Nothing to chain.
+- reliability: Name does not resolve as of 2026-10-23.
+- notes: The name still ranks in a 2026 comparison; the domain is gone.
+- evidence note: Measured death: getaddrinfo failed for the upload host.
+- extras:
+  - error: getaddrinfo failed
+- evidence:
+  - probe:https://ninjafiles.io/upload.php 2026-10-23: multipart POST -> gaierror [Errno 11001] getaddrinfo failed; no HTTP status
+- sources:
+  - [1] https://ninjafiles.io/
+
+## NinjaDebrid
+
+- `debrid/ninja-debrid` | dead | evidence documented | binding none | category multi-hoster (torrent debrid, direct links and streaming) - dead | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T00:35:36.095Z (live) | stale on 2026-12-04
+- url https://ninjadebrid.net/ | page https://fshy.ajam.dev/p/ninjadebrid.md
+- free tier: Gone. Every path on ninjadebrid.net now redirects to monkeytorrent.com, a French torrent index. A 2026-10-11 Wayback capture of /en still shows the debrid site: 'Paste a magnet at the top of this page: 1 torrent every 24 hours, up to 10 GB, no account needed. Or create a free account and confirm your email: you get unlimited torrents free for 24 hours, with full speed on your first 100 GB.' | unit: none | metered on: none | read on: 2026-10-23 | source: [1] | note: The offer that existed until at least 2026-10-11 was the most generous free torrent debrid found among debrid providers: 100 GB at full speed on a free account, or 10 GB per torrent per 24 h anonymously. It is not available now.
+- per-object cap: formerly 10 GB per torrent for anonymous use; the free-account allowance was 100 GB total | bytes: 10737418240 | source: [2] | note: Read from the search index and the 2026-10-11 capture, not from a live page.
+- retention: not applicable: torrent debrid, no storage product | source: [1]
+- egress: No live terms: the domain no longer serves the service. The last capture advertised full speed for the first 100 GB. | metered: yes | free allowance: formerly 100 GB once, 10 GB per 24 h anonymously | source: [1]
+- identity: email | detail: Free account needed an email confirmation ('create a free account and confirm your email'). Anonymous path needed nothing.
+- interface: unknown
+- limits:
+  - pull-count: 1 torrent per 24 hours anonymously, up to 10 GB [2]
+  - volume-quota: 100 GB at full speed on the free account, then limited [2]
+- binding note: A dead service binds nothing. The limit that ended it is not published; the redirect target is a torrent index, which is consistent with the operator moving to an index rather than maintaining the debrid backend.
+- interface detail: Web magnet box. Nothing is served now.
+- tooling: None: the domain redirects.
+- composes with: Nothing to chain. It is preserved so that the subsequent audit does not spend a wave re-finding a free 100 GB offer that closed between 2026-10-11 and 2026-10-23.
+- reliability: The service was replaced by a redirect to a torrent index within 12 days of the last capture; a client's bookmarked URL now lands on unrelated content.
+- notes: Service ceased operations between 2026-10-11 and 2026-10-23, redirecting traffic to an advertising domain.
+- evidence note: The redirect is measured twice (a HEAD and a GET, both finishing at monkeytorrent.com with network requests reporting redirects=followed(1)). The free-tier numbers come from the 2026-10-11 capture and a search index, so they describe what the service offered, not what it offers.
+- extras:
+  - redirect_target: https://monkeytorrent.com/
+  - last_capture_live: 2026-10-11T07:48:59Z
+  - former_free_offer: 100 GB at full speed on a free account; 10 GB per torrent per 24 h anonymously
+- evidence:
+  - [3] 2026-10-23: the archive API's metadata for https://ninjadebrid.net/en reports a 2026-10-11 capture at status 200 with a 65,100-byte record, so the debrid page was being served 12 days before this record. The replay body itself was not opened; only the metadata was read.
+  - [2] 2026-10-23: search-engine snippet for the URL, not a page read: '1 torrent every 24 hours, up to 10 GB, no account needed ... unlimited torrents free for 24 hours, with full speed on your first 100 GB'. The live URL redirects, so this text survives only in the index.
+  - [1] 2026-11-03: a fetch of https://ninjadebrid.net/ on 2026-11-03 answered HTTP 200 and reported the final URL https://monkeytorrent.com/ after one followed redirect | capture: sha256:b45c878137b1b7b3f125cd8d297e0ca26596a32eb7488f01cf429581135f7347 | quote: x-web-final-url: https://monkeytorrent.com/
+- sources:
+  - [1] https://ninjadebrid.net/
+  - [2] https://ninjadebrid.net/en
+  - [3] https://web.archive.org/web/20261011074859/https://ninjadebrid.net/en?provider=wayback
+
+## NZB.su
+
+- `debrid/nzb-su` | dead | evidence measured | binding write-gated | category Usenet indexer (retired API endpoint) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T02:11:54.066Z (live) | stale on 2026-11-23
+- url https://nzb.su/ | page https://fshy.ajam.dev/p/nzb-2.md
+- free tier: None: the API endpoint answers <error code="101" description="This API endpoint has been retired. Update your indexer URL from nzb.su to nzb.life."/> The name still resolves, the indexer behind it has moved. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable under this name; the successor publishes its own caps | source: [1]
+- egress: none: the endpoint returns a 157-byte error document | metered: no | source: [1]
+- identity: email | detail: Accounts and registration were carried to nzb.life; the old host no longer offers a path.
+- interface: rest
+- limits:
+  - write-gated (binding): the indexer URL is retired; every API call returns error 101 probe:https://nzb.su/api?t=caps
+- binding note: The name is the constraint: no query reaches an index. The successor record carries the live limits.
+- interface detail: The /api path is alive and answers XML, but only with error 101. This is the cleanest death signal in the sector: a machine-readable redirect to the successor, not a timeout.
+- endpoint: https://nzb.su/api (retired)
+- tooling: A Prowlarr or NZBHydra2 entry pointed at nzb.su keeps the URL and receives error 101 on every search; the fix is to change the host to nzb.life, not to re-add the indexer.
+- composes with: Retired in favour of nzb.life, which carries the live limits.
+- reliability: A retired API with a live DNS record: a stale client gets a well-formed XML error, which most clients log as an empty result set rather than as a configuration problem.
+- notes: Do not delete: the old host is still in circulating lists and in old client configs, and the error message is the only thing that tells a reader where the index went.
+- evidence note: The error document was fetched with its exact wording, so the retirement is measured. The successor's limits are on the nzb-life record.
+- extras:
+  - price: retired
+  - successor: nzb-life
+  - error_code: 101
+- evidence:
+  - probe:https://nzb.su/api?t=caps&x=1 2026-10-23: returned 157 bytes: <error code="101" description="This API endpoint has been retired. Update your indexer URL from nzb.su to nzb.life."/> (sha256 867011a3...)
+  - [2] 2026-10-23: the successor states the mapping in its own meta description: 'NZB.su and nzbsu users should use NZB.life.'
+- sources:
+  - [1] https://nzb.su/api?t=caps
+  - [2] https://www.nzb.life/
+
+## NZBs2GO
+
+- `debrid/nzbs2go` | dead | evidence measured | binding none | category Usenet indexer (Spotnet-based; no longer resolves) | tier free
+- identity a placeholder: card and phone unknown | verified 2026-11-03T07:37:15.010Z (live) | stale on 2026-12-04
+- url https://nzbs2go.com/ | page https://fshy.ajam.dev/p/nzbs2go.md
+- free tier: none: the name nzbs2go.com has no address record, so no free tier can be reached. | unit: none | metered on: none | read on: 2026-11-03 | source: [1]
+- per-object cap: not applicable: nothing is served | source: [1]
+- retention: not applicable: the index is unreachable | source: [1]
+- egress: none: the name does not resolve to an address | metered: no | source: [1]
+- identity: email | detail: unverified: the register page cannot be reached.
+- interface: unknown
+- limits:
+  - request-rate: none applicable: the host has no A record probe:https://cloudflare-dns.com/dns-query?name=nzbs2go.com&type=A
+- binding note: The name does not resolve, so no limit is reachable.
+- interface detail: none reachable: a DNS-over-HTTPS query for the A record answered NOERROR with only the zone's SOA row.
+- endpoint: https://nzbs2go.com/
+- tooling: none: a client cannot connect to a name with no address.
+- composes with: none: replace it with a reachable indexer.
+- reliability: The apex name returns no A record from a public resolver; the zone itself still answers, so the address record was removed or never set rather than the zone lapsing.
+- evidence note: The absence of the A record is a DNS answer read; only name resolution was checked, and a later return of the record would revive the offer.
+- extras:
+  - price: unverified: unreachable
+- evidence:
+  - probe:https://cloudflare-dns.com/dns-query?name=nzbs2go.com&type=A 2026-11-03: an A query returned an Authority SOA row and no Answer row, so the name has no A record | capture: sha256:949a0e164c2249d5e1eb40baacf1f98cb654a27255b671164e3dbaa4dd94b4c1 | quote: "Question":[{"name":"nzbs2go.com","type":1}],"Authority":[{"name":"nzbs2go.com","type":6
+  - [2] 2026-11-03: third-party: the listing described a Spotnet-based index of 300,000+ NZB files | quote: 300,000+ NZB files indexed. Spotnet-based.
+- sources:
+  - [1] https://nzbs2go.com/
+  - [2] https://nzbhydra.com/indexers/
+
+## Offcloud lifetime via StackSocial
+
+- `debrid/offcloud-lifetime-via-stacksocial` | dead | evidence reported | binding write-gated | category debrid resale - lifetime deal sold through a bundle marketplace | tier resale
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T11:28:59.772Z (live) | stale on 2026-11-18
+- url https://shop.pcworld.com/sales/offcloud-unlimited-lifetime-subscription | page https://fshy.ajam.dev/p/pcworld.md
+- free tier: One-off 'lifetime' purchase: US$39.99 and later US$36.19 through StackSocial, and EUR 29.25 on a German deal run posted 2025-09-21 and expired 2025-11-17. PCWorld's shop still lists it as 'Offcloud Lifetime Subscription' with 'Length of access: lifetime'. | unit: none | metered on: none | read on: 2026-10-23 | source: [1] | note: the seller is a deal marketplace; the service is Offcloud, which still sells a yearly plan at EUR 40
+- per-object cap: not applicable to the resale: the single-object cap is the debrid vendor's, not the shop's | source: [1]
+- retention: not applicable to the resale: cached-item retention is the debrid vendor's | source: [1]
+- egress: the lifetime SKU's own specs: 'Unlimited remote uploads', '50GB of cloud space', '30GB of monthly quota for premium sources'. The monthly 30 GB is the real ceiling behind the word unlimited. | metered: yes | free allowance: 30 GB/month of premium-source traffic | source: [1]
+- identity: email | detail: marketplace account plus an Offcloud account; no identity document
+- interface: rest
+- limits:
+  - write-gated (binding): lifetime converted to a one-year membership in January 2026 [2]
+  - volume-quota: 30 GB/month for premium sources [1]
+  - per-ip-shaping: 3 IP addresses per licence [1]
+- binding note: 30 GB/month would bind long before 1 TiB, but the entitlement itself was rewritten first: the constraint that actually ends the deal is the vendor's decision to stop honouring the lifetime.
+- interface detail: the shop delivers a voucher code or a login by email; the capacity itself is reached through the debrid vendor's REST API
+- tooling: any client that takes the vendor's API key: rclone, JDownloader, Stremio/Torrentio, pyload
+- composes with: a resold voucher only changes how the days are paid for; the stack above it is unchanged
+- reliability: Buyers report the lifetime was replaced: 'I purchased this service during their last Lifetime StackSocial sale in October 2025. Today in January 2026, they claim that a member of staff passed and they are changing everything' (2026-01-24); 'given a 1 year free premium. Now my account instead of being a lifetime premium' (2026-02-18). A Taiwanese buyer got the same answer from support on 2026-01-21: the old lifetime is invalid and the compensation is one year. Trustpilot's aggregate was 1.7/5 from 86 reviews on 2026-11-03.
+- notes: The clearest dated death in the sector: a lifetime debrid bought in October 2025 was converted in January 2026. The vendor did not close, which is worse for the buyer than a closure: the service continues on a plan the buyer did not choose, and Offcloud's terms state no refund is available. Even while it was sold, the 'unlimited' lifetime carried a 30 GB/month premium-source quota. Documented as the offer's verdict; Offcloud's yearly plan is priced in pricing-history/records/offcloud.json and is not re-documented here.
+- evidence note: the seller's page was read; a seller is not the vendor, so nothing here is at the documented rung except the vendor terms quoted in evidence
+- evidence:
+  - [1] 2026-10-23: 'Length of access: lifetime', 'Max number of device(s): 3 IP addresses', '50GB of cloud space', '30GB of monthly quota for premium sources'
+  - [3] 2026-10-23: the 1.8/5 score from 86 reviews and two dated reports (2026-01-24, 2026-02-18) that lifetime buyers were moved to a one-year or yearly plan
+  - [2] 2026-10-23: 2026-01-21 buyer post plus the same-day follow-up quoting support: the new team runs it, the old lifetime is invalid, the compensation is one year
+  - [4] 2026-10-23: the US$36.19 StackSocial run, now marked expired and posted about a year before 2026-10-23
+  - [5] 2026-10-23: the last run: '29,25€', posted 2025-09-21, 'Dieser Deal ist abgelaufen am 17. Nov. 2025'
+  - [1] 2026-11-03: the reseller's SKU page still lists a 30GB monthly quota for premium sources | capture: sha256:0839b92f861380570031123566417d2e5da7289de000b3bc88d2fca5705af32a | quote: 30GB of monthly quota for premium sources
+  - [1] 2026-11-03: the SKU page still lists 3 IP addresses per licence | capture: sha256:0839b92f861380570031123566417d2e5da7289de000b3bc88d2fca5705af32a | quote: Max number of device(s): 3 IP addresses
+  - [1] 2026-11-03: the SKU page still lists the length of access as lifetime | capture: sha256:0839b92f861380570031123566417d2e5da7289de000b3bc88d2fca5705af32a | quote: Length of access: lifetime
+  - [6] 2026-11-03: the vendor's home page lists Yearly Premium at EUR 40 | capture: sha256:3c5bc39f151febde8beb82cd26606544d2b4552c87a275ecd21174950b6a89d5 | quote: Yearly Premium €40
+  - [3] 2026-11-03: a Trustpilot review dated 2026-05-14 reports a lifetime subscription changed to a 1 year subscription without notice | capture: sha256:65aeb3aa7d22e27569f9c4b4a8161a60e4e365e7d90991036ada0632d8cc54a6 | quote: They first give you subscription in name of life time and without notice they change to 1 year subscription this happend in within 1 week.
+  - [2] 2026-11-03: support said the new team runs it and the old lifetime plan is invalid | capture: sha256:63b4d82a63ecef67d5a3a3ad58707168688e162e0c6b8ad44279d803bb1ba6ce | quote: 客服回覆說現在新團隊運營 舊的終身方案就是失效了 補 01/21 16:05
+  - [3] 2026-11-03: the Trustpilot page for Offcloud shows 1.7 from 86 reviews | capture: sha256:65aeb3aa7d22e27569f9c4b4a8161a60e4e365e7d90991036ada0632d8cc54a6 | quote: 1.7 [Software Company](/categories/software_company)
+- sources:
+  - [1] https://shop.pcworld.com/sales/offcloud-unlimited-lifetime-subscription
+  - [2] https://www.ptt.cc/bbs/Free_box/M.1768979304.A.74C.html
+  - [3] https://www.trustpilot.com/review/offcloud.com
+  - [4] https://www.ozbargain.com.au/node/926150
+  - [5] https://www.mydealz.de/deals/offcloud-lifetime-abo-multihoster-fur-downloads-streaming-ahnlich-wie-real-debrid-2639003
+  - [6] https://offcloud.com/
+
+## Premium-Link.net
+
+- `debrid/premium-link-net` | dead | evidence documented | binding none | category multi-hoster (premium link generator) - dead, domain repurposed | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T01:39:03.000Z (live) | stale on 2026-11-23
+- url https://premium-link.net/ | page https://fshy.ajam.dev/p/premium-link.md
+- free tier: None. The domain now serves a German local-business blog: 'Wirtschaftsstandort Mannheim - Potenziale & Fakten', dated 11 May 2026, bylined 'Marc'. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable: the service is gone | source: [1]
+- retention: not applicable: gone | source: [1]
+- egress: No terms served. | metered: no | free allowance: none | source: [1]
+- identity: email | detail: Not reconstructable. | country: DE
+- interface: unknown
+- limits:
+  - volume-quota: none: service gone [1]
+- binding note: A dead service binds nothing.
+- interface detail: Nothing.
+- tooling: part of the free tier
+- composes with: Nothing. The name appears in old multi-hoster lists and resolves to unrelated German content.
+- reliability: A German-language business blog now occupies the domain, so a stored link resolves to unrelated content.
+- notes: Checked because the requirements lists 'Premium-Link' as a name worth refuting. The similar-sounding premiumlinkgenerator.net and premiumlinkgenerator.com are different, live sites; this one is not a debrid service on 2026-10-23.
+- evidence note: The live page was read and is a blog. What the original service offered was not reconstructed.
+- extras:
+  - domain_repurposed_to: German local-business blog (Mannheim)
+- evidence:
+  - [1] 2026-10-23: the live page is 'Wirtschaftsstandort Mannheim - Potenziale & Fakten', dated 11 May 2026, under a 'Lokales' category - a local-news blog, not a debrid service
+- sources:
+  - [1] https://premium-link.net/
+
+## QIWI Wallet
+
+- `debrid/qiwi-wallet` | dead | evidence documented | binding write-gated | category Russian e-wallet (payment rail used by CIS file hosts and resellers) | tier wallet
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23T02:24:30.824Z (live) | stale on 2026-11-23
+- url https://www.interfax-russia.ru/view/kivi-bank-lishilsya-licenzii-qiwi-koshelek-perevody-cherez-contact-ne-dostupny | page https://fshy.ajam.dev/p/interfax-russia.md
+- free tier: not applicable: a payment rail, not a retrieval service | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1] | note: unstated
+- retention: not applicable | source: [1] | note: unstated
+- egress: not applicable | metered: no | source: [1]
+- identity: card | detail: A Russian wallet, funded by Russian rails; after the licence revocation the funding path itself is closed. | country: Russia
+- interface: unknown
+- limits:
+  - write-gated (binding): wallet top-up and withdrawal stopped on 2024-02-21 when the Central Bank revoked the licence of QIWI Bank [1]
+- limits note: The wallet brand later moved to a new domain (qiwiwall) per RIA, but a moved brand is not a working top-up rail for a foreign buyer.
+- binding note: No quota applies: the rail is closed. Any service that lists QIWI today is listing a payment method a buyer cannot fund.
+- interface detail: Was a wallet app and a merchant payment form; as of 2024-02-21 top-ups and withdrawals stopped after the banking licence was revoked.
+- tooling: None usable for a new payment.
+- composes with: Several CIS services among debrid providers still list 'QIWI' among their payment methods (Megaseed.kz lists QIWI KZT and QIWI RUB; Turbobit's reseller directory lists Qiwi). Those listings are stale: the rail stopped working in Russia on 2024-02-21.
+- reliability: Funds in QIWI wallets were not covered by deposit insurance and claims go into the third creditor queue, per the DIA procedure reported in 2024.
+- notes: A dead rail, recorded because a reader will otherwise treat 'QIWI accepted' on a provider page as a working payment option. The rule this establishes: a payment method listed by a CIS service is a claim about the past, and must be checked against the rail's own status. QIWI KZT may still work in Kazakhstan; nothing was found either way, so the record does not claim it.
+- evidence note: The licence revocation and the stopped top-up/withdrawal are quoted from Interfax-Russia's report of 2024-02-21, read. The later domain move is a RIA headline seen in search, not read in full. Evidence dates normalised to the read date on 2026-10-23; a source that carries its own date keeps it in the proved field.
+- evidence:
+  - [1] 2026-10-23: 'Клиенты кредитного учреждения не могут пополнить кошельки и вывести с них средства' after the Central Bank revoked the QIWI Bank licence on 2024-02-21
+  - [2] 2026-10-23: a live CIS service still lists 'QIWI KZT' and 'QIWI RUB' among its payment anchors - the stale-listing case this record exists to flag
+- sources:
+  - [1] https://www.interfax-russia.ru/view/kivi-bank-lishilsya-licenzii-qiwi-koshelek-perevody-cherez-contact-ne-dostupny
+  - [2] https://megaseed.kz/
+
+## ReleaseBB
+
+- `debrid/releasebb` | dead | evidence documented | binding none | category DDL release index (defunct; domain now a parking router) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T01:52:28.000Z (live) | stale on 2026-11-23
+- url https://releasebb.net/ | page https://fshy.ajam.dev/p/releasebb.md
+- price USD 0
+- free tier: none: the domain no longer serves an index. The root returned 5,591 bytes titled 'Redirecting...' whose script posts browser fingerprints to https://router.parklogic.com/ | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable: no content served | source: [1]
+- retention: not applicable: no posts | source: [1]
+- egress: none: there is no content to serve | metered: no | free allowance: none | source: [1]
+- identity: anonymous | detail: No signup path exists on the served page.
+- interface: unknown
+- limits:
+  - request-rate: the interstitial gates on ad-blocking detection, iframe and webdriver flags, GPU vendor and timezone before answering [1]
+- binding note: There is nothing to meter and no rate to observe; the domain serves a parking page rather than an index.
+- interface detail: The only interface is a JavaScript interstitial that either replaces the document with a parklogic routing answer or runs an ad-blocking and webdriver check first.
+- tooling: A browser gets redirected; there is no feed, no API and no host link. A command-line client receives the same 5,591-byte interstitial.
+- composes with: None. ReleaseBB cannot sit in the stack. The live DDL feeds measured among debrid providers are scnlog.me, ddlbase.com and rlsbb.cc.
+- reliability: Parked domain: the served page carries no release data, so a client pointed at it receives an ad or a redirect rather than a post.
+- notes: Distinct from rlsbb.cc, which is still alive and whose feed channel is also titled 'ReleaseBB'. The two names are the same brand on different domains; only rlsbb.cc serves posts today. Not deleted, because a name this common will be searched again.
+- evidence note: The root was fetched raw on 2026-10-23 and the interstitial's own base64 parameters were decoded: they name domainApex 'releasebb.net' and tenant 'seth3'. A second capture on another day would show whether the parking is permanent.
+- extras:
+  - parking_router: router.parklogic.com
+  - bytes: 5591
+- evidence:
+  - [1] 2026-10-23: raw root is 5,591 bytes titled 'Redirecting...' and POSTs fingerprints to https://router.parklogic.com/ with domainApex 'releasebb.net'
+  - [1] 2026-10-23: the reader's extractor found 1 word in the page and refused it as 'no content', consistent with an interstitial rather than an index
+- sources:
+  - [1] https://releasebb.net/
+
+## SceneNZBs
+
+- `debrid/scenenzbs` | dead | evidence measured | binding write-gated | category Usenet indexer (renamed) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T02:11:54.066Z (live) | stale on 2026-11-23
+- url https://scenenzbs.com/ | page https://fshy.ajam.dev/p/scenenzbs.md
+- free tier: None under this name: every request is redirected to a mover notice, 'SceneNZBs is now called Treasure Maps. You can find us at our new address.' | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable: the name no longer serves an index | source: [1]
+- egress: none: the name serves a one-paragraph notice | metered: no | source: [1]
+- identity: email | detail: Accounts were carried across: 'Your access still works' on the successor site.
+- interface: rest
+- limits:
+  - write-gated (binding): the name is retired: every path lands on the mover notice probe:https://scenenzbs.com/
+- binding note: The name itself is the constraint: no query reaches an index. The successor record carries the live limits.
+- interface detail: The host answers HTML only; there is no API under this domain any more.
+- endpoint: https://scenenzbs.com/
+- tooling: An existing Prowlarr or NZBHydra2 entry pointed at scenenzbs.com still resolves, so the old host stays configured and the index is silently lost; the fix is to edit the URL to treasure-maps.com.
+- composes with: Retired in favour of treasure-maps.com; nothing else.
+- reliability: A rename with no redirect of the API path: an automation client pointed at the old host fails at search time, not at config time.
+- notes: Inactive indexer domain redirecting to successor service NZB-Life.
+- evidence note: The notice was fetched and the final URL recorded. That the successor is Treasure Maps is the vendor's own sentence.
+- extras:
+  - price: moved
+  - successor: treasure-maps
+- evidence:
+  - probe:https://scenenzbs.com/ 2026-10-23: 200, final URL https://scenenzbs.com/scenenzbs-moved.html, 45 words: 'We have moved! SceneNZBs is now called Treasure Maps. You can find us at our new address.' with a link to treasure-maps.com
+  - [2] 2026-10-23: the successor confirms: 'SceneNZBs now sails under a new flag - Treasure Maps. Your access still works.'
+- sources:
+  - [1] https://scenenzbs.com/
+  - [2] https://treasure-maps.com/
+
+## Seedbox.io
+
+- `debrid/seedbox-io` | dead | evidence documented | binding none | category seedbox host (brand retired into Hosting by Design) | tier n/a
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23T01:56:20.000Z (live) | stale on 2026-11-23
+- url https://seedbox.io/ | page https://fshy.ajam.dev/p/seedbox-3.md
+- free tier: None. The seedbox.io domain no longer serves a seedbox product: every request lands on hostingby.design, whose cheapest entry is 'App hosting €6.59 Starting price'. | unit: none | metered on: none | read on: 2026-10-23 | source: [1] | note: seedbox.io and www.seedbox.io both resolve to hostingby.design with a wp-json Link header naming that host
+- per-object cap: not applicable: no seedbox product is offered at this domain any more | source: [1]
+- retention: not applicable: no storage product is sold under this name | source: [1]
+- egress: The successor publishes its own allowances: application hosting at EUR 10.95 includes '4TB' capacity and '10TB' outgoing data; the EUR 6.59 entry does not state an allowance on the page read. | metered: no | free allowance: not applicable at seedbox.io | source: [1]
+- identity: card | detail: the successor requires an account and a card for hosting; there is no free tier.
+- interface: ssh
+- limits note: no limits apply because no seedbox is sold here; the successor's app-hosting tiers state 4 TB capacity and 10 TB outgoing on the EUR 10.95 plan.
+- binding note: A dead brand has no constraint to fail: nothing is sold at this domain, so the record carries no binding limit by design rather than by omission.
+- interface detail: the successor sells 'Application hosting' with 'SSH Access Included'; no torrent panel is described.
+- tooling: not applicable: the seedbox product and its panel are gone from this brand
+- composes with: do not plan around this name. The successor's app-hosting product is a generic VPS-shaped service and would have to be evaluated as compute, not as a seedbox.
+- reliability: a brand that was widely recommended as a cheap seedbox now redirects to a hosting consolidator ('Hostingby.design is a new consolidation of multiple brands under the HNielsen Technologies umbrella'), which is why any older guide naming seedbox.io is stale.
+- notes: The record is kept so a later search for seedbox.io's plans finds the answer here. The distinction that matters for debrid: what survives is a rented app-hosting box, not a torrent-to-cloud service and not a seedbox panel.
+- evidence note: the redirect was observed twice today (apex and www) with the successor's own page returned as final_url. A historical price for seedbox.io itself was not recoverable and is not recorded.
+- extras:
+  - successor: Hosting by Design (HNielsen Technologies)
+  - observed_redirect: seedbox.io -> hostingby.design
+- evidence:
+  - [2] 2026-10-23: final_url is https://hostingby.design/ and the response Link header names hostingby.design/wp-json
+  - [1] 2026-10-23: 'App hosting €6.59 Starting price', 'VPS Hosting €5.00', the EUR 10.95 application plan with 'Capacity 4TB' and 'Outgoing data 10TB', and the consolidation notice
+- sources:
+  - [1] https://hostingby.design/
+  - [2] https://seedbox.io/
+
+## seeding.io
+
+- `debrid/seeding-io` | dead | evidence measured | binding none | category former seedbox host (domain parked) | tier none
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T03:19:00.000Z (live) | stale on 2026-11-23
+- url https://seeding.io/ | page https://fshy.ajam.dev/p/seeding.md
+- free tier: none: the domain no longer serves a seedbox service. seeding.io is a CNAME to park.io and an HTTP request redirects to whoisbroker.com. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable: no service | source: [1]
+- retention: not applicable: no service | source: [1]
+- egress: no service to assess; the host serves a domain-sale page | metered: no | free allowance: none | source: [1]
+- identity: anonymous | detail: not applicable; nothing can be registered | country: None
+- interface: unknown
+- binding note: no constraint applies to a domain that serves no service
+- interface detail: no interface: the domain is parked
+- tooling: part of the free tier
+- composes with: removed from the candidate set; a parked domain cannot hold bytes or serve a retrieval path
+- reliability: parked domain: HTTPS presents a certificate for a different principal name, and HTTP 302-redirects to whoisbroker.com
+- notes: Documented as dead rather than omitted so the subsequent audit does not spend a pass on it. If the domain is bought by a new operator, the record must be rechecked rather than trusted; a parked name proves nothing about a future service.
+- evidence note: Measured by probe on 2026-10-23: DNS over HTTPS returned 'seeding.io CNAME park.io' and A 184.196.180.154; curl followed http://seeding.io/ to https://whoisbroker.com/ with 200; https://seeding.io/ failed TLS with SEC_E_WRONG_PRINCIPAL. The instrument was curl and Cloudflare DoH, not probe.
+- extras:
+  - death_evidence: CNAME park.io + redirect to whoisbroker.com
+  - probe_commands: DoH: curl 'https://cloudflare-dns.com/dns-query?name=seeding.io&type=A' -H 'accept: application/dns-json'; HTTP: curl -sSL -o /dev/null -w '%{url_effective} %{http_code}' http://seeding.io/
+- evidence:
+  - probe:https://seeding.io 2026-10-23: DNS answer 'seeding.io. 60 IN CNAME park.io.'; HTTP 302 to https://whoisbroker.com/; TLS certificate name mismatch on the apex
+- sources:
+  - [1] https://seeding.io/
+
+## SimplyNZBs
+
+- `debrid/simply-nzbs` | dead | evidence reported | binding write-gated | category Usenet indexer (Newznab API, closed) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T11:28:59.772Z (live) | stale on 2026-11-18
+- url https://simplynzbs.com/ | page https://fshy.ajam.dev/p/simplynzbs.md
+- free tier: None: the domain no longer hosts the indexer. A request for https://simplynzbs.com/ answers a redirect to http://ww80.simplynzbs.com/?subid1=<uuid> - the shape of a lapsed domain on a parking service - and that host name no longer resolves on 2026-11-03. A review states the service is 'no longer operational as of 2024-2025'. The last published free tier was invite-gated. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable: an NZB pointer file | source: [1]
+- retention: last claimed 'up to 2,145 days retention' while operating; no longer served | source: [2] | note: reported, historical
+- egress: none: every request is answered by a redirect to a parking host that does not respond | metered: no | source: [1]
+- identity: email | detail: Was invite-only: 'weekly 50 users get 10 invites each' plus a paid bypass. Today no registration path answers.
+- interface: rest
+- limits:
+  - request-rate: 10 API hits and 5 NZB downloads per day (historical, invite-gated) [3]
+- binding note: The service is gone, so the binding constraint is the one that killed it: no reachable write path at all. Documented as write-gated because the vocabulary has no 'offline' kind and the verdict field carries that fact.
+- interface detail: Was Newznab-compatible ('The SimplyNZBs API is compatible with ...' in its own invite page). Today the host redirects to a parking subdomain and /api?t=caps is answered by the same non-API redirect.
+- endpoint: https://simplynzbs.com/api
+- tooling: Nothing to configure: Prowlarr and NZBHydra2 cannot reach an indexer that does not answer.
+- composes with: Nothing: removed from the stack.
+- reliability: Dead: the name redirects to a parking host that no longer resolves; a rendered read of the domain through a pinned provider ends on a human-verification page that offers a software installer download. A client that still has it configured follows the redirect and gets no result, not an auth error.
+- notes: The verdict changed while the record was being written: the first two probes returned a 504, which reads as 'down', and a later probe returned 200 on the first hop, which looked like 'up'. Reading the redirect target settled it - the 200 was a redirect to a parking service. A session that stopped at the first probe would have written a different and wrong reason.
+- evidence note: The redirect to a parking subdomain was observed today, and that is strong evidence of a lapsed domain. The rung stays reported because the authoritative statement of death ('no longer operational as of 2024-2025') is third-party; the redirect alone does not date it.
+- extras:
+  - price: GBP 5 lifetime VIP (historical)
+  - nzb_is_newznab: yes
+  - death_signal: domain redirects (HTTP 302) to a parking host, ww80.simplynzbs.com, whose name no longer resolves
+  - probe_sequence: an earlier request returned a 504; the later one showed the redirect. Both were kept rather than the first one reported as the truth.
+- evidence:
+  - probe:https://simplynzbs.com/ 2026-10-23: the request redirects to http://ww80.simplynzbs.com/?subid1=ba516fd4-ce86-11f1-9da0-c6ff21bde0c4, a parking host, which then fails with Cloudflare 520 'origin returned an unknown or empty response'
+  - probe:https://simplynzbs.com/api?t=caps 2026-10-23: no Newznab document: the same redirect applies, so no API is served
+  - [4] 2026-10-23: third-party: 'SimplyNZB is no longer operational as of 2024-2025'
+  - [2] 2026-10-23: third-party, still listing it: 'registration closed', 'VIP GBP 5 donation', '10 hits'
+  - probe:https://simplynzbs.com/ 2026-11-03: the redirect target ww80.simplynzbs.com no longer resolves (DNS failure on 2026-11-03) | capture: sha256:1fe8436a26150d4001b0cdc6f7038211fbbd9a52e7714e129d2736a4f609383d | quote: "error": "dns"
+  - [1] 2026-11-03: a rendered read of simplynzbs.com ends on a page that instructs the visitor to open a downloaded installer file | capture: sha256:cb2c22e6658be21f1d8238fcd4c28e6102b326975bd142856c7d8ccc2f17a62c | quote: Then click the PrivacyKeeper.msix file
+  - [4] 2026-11-03: third-party: the indexer is no longer operational as of 2024-2025 | capture: sha256:dee381f82e212e5c2c8ef0d640aebbaedf61e738cffd538a7308e042a7e701e9 | quote: Editor’s Note: SimplyNZB is no longer operational as of 2024-2025.
+  - [1] 2026-11-03: the rendered read of the domain is a bot-check page that precedes an installer download, not an indexer | capture: sha256:cb2c22e6658be21f1d8238fcd4c28e6102b326975bd142856c7d8ccc2f17a62c | quote: Please verify you're not a robot
+  - [4] 2026-11-03: third-party review still states the indexer is no longer operational | capture: sha256:dee381f82e212e5c2c8ef0d640aebbaedf61e738cffd538a7308e042a7e701e9 | quote: Editor’s Note: SimplyNZB is no longer operational as of 2024-2025.
+- sources:
+  - [1] https://simplynzbs.com/
+  - [2] https://nzbhydra.com/indexers/
+  - [3] https://www.cabalcartel.net/phpbb/viewtopic.php?p=15679
+  - [4] https://usenetreviewz.com/simplynzb-review/
+
+## Spots.xenetix.nl
+
+- `debrid/spots-xenetix-nl` | dead | evidence measured | binding none | category Usenet index (Spotweb, anonymous; no longer resolves) | tier anonymous
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T07:37:15.010Z (live) | stale on 2026-12-04
+- url https://spots.xenetix.nl/ | page https://fshy.ajam.dev/p/xenetix.md
+- free tier: none reachable: the host spots.xenetix.nl has no address record. A third-party listing describes it as a Spotweb index with no login, entirely free. | unit: none | metered on: none | read on: 2026-11-03 | source: [1]
+- per-object cap: not applicable: nothing is served | source: [1]
+- retention: not applicable: the index is unreachable | source: [1]
+- egress: none: the host does not resolve to an address | metered: no | source: [1]
+- identity: anonymous | detail: A third-party listing said no login or registration was required; the host cannot be reached to confirm.
+- interface: unknown
+- limits:
+  - request-rate: none applicable: the host has no A record probe:https://cloudflare-dns.com/dns-query?name=spots.xenetix.nl&type=A
+- binding note: The host does not resolve, so no limit is reachable.
+- interface detail: none reachable: a DNS-over-HTTPS query for the A record answered NOERROR with only the parent zone's SOA row.
+- endpoint: https://spots.xenetix.nl/
+- tooling: none: a client cannot connect to a host with no address.
+- composes with: none: replace it with a reachable index.
+- reliability: The host returns no A record from a public resolver, while the parent zone xenetix.nl still answers.
+- evidence note: The absence of the A record is a DNS answer read; only name resolution was checked, and a later return of the record would revive the offer.
+- extras:
+  - price: unverified: unreachable
+- evidence:
+  - probe:https://cloudflare-dns.com/dns-query?name=spots.xenetix.nl&type=A 2026-11-03: an A query returned an Authority SOA row for xenetix.nl and no Answer row, so the host has no A record | capture: sha256:e910b5354c58b941816f969b523d2aee03ccec363f036ff803b67668b913b955 | quote: "Question":[{"name":"spots.xenetix.nl","type":1}],"Authority":[{"name":"xenetix.nl","type":6
+  - [2] 2026-11-03: third-party: the listing described a Spotweb index with no login, entirely free | quote: Spotweb-based. No login or registration required. Entirely free.
+- sources:
+  - [1] https://spots.xenetix.nl/
+  - [2] https://nzbhydra.com/indexers/
+
+## SwiftSeedbox
+
+- `debrid/swiftseedbox` | dead | evidence measured | binding none | category former seedbox host (domain does not resolve) | tier none
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T03:19:00.000Z (live) | stale on 2026-11-23
+- url https://www.swiftseedbox.com/ | page https://fshy.ajam.dev/p/swiftseedbox.md
+- free tier: none: swiftseedbox.com does not resolve. DNS over HTTPS returns NXDOMAIN (Status 3) and a local lookup returns 'Could not resolve host'. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable: no service | source: [1]
+- retention: not applicable: no service | source: [1]
+- egress: no service to assess | metered: no | free allowance: none | source: [1]
+- identity: anonymous | detail: not applicable; nothing can be registered | country: None
+- interface: unknown
+- binding note: no constraint applies to a name that does not resolve
+- interface detail: no interface: the name has no DNS record
+- tooling: part of the free tier
+- composes with: removed from the candidate set; nothing resolves, so nothing can be ordered or retrieved
+- reliability: NXDOMAIN at the registry level, not a blocked fetch: the name is not delegated
+- notes: A brief that names SwiftSeedbox should treat it as gone. The check is cheap to repeat: one DoH query. If the name is re-registered, this record is stale rather than wrong, and must be re-probed before use.
+- evidence note: Measured by probe on 2026-10-23: Cloudflare DoH for swiftseedbox.com returned Status 3 (NXDOMAIN) with the .com authority section and no answer; curl returned 'Could not resolve host'. swiftseedbox.ch was tried too and also did not resolve.
+- extras:
+  - death_evidence: NXDOMAIN at the .com registry
+  - probe_commands: curl 'https://cloudflare-dns.com/dns-query?name=swiftseedbox.com&type=A' -H 'accept: application/dns-json'; curl -sS -o /dev/null -w '%{http_code}' https://www.swiftseedbox.com/
+- evidence:
+  - probe:https://www.swiftseedbox.com 2026-10-23: DoH 'Status: 3' (NXDOMAIN) for swiftseedbox.com, A query; curl exit 6 'Could not resolve host' for www.swiftseedbox.com and for swiftseedbox.ch
+- sources:
+  - [1] https://www.swiftseedbox.com/
+
+## Takelink.org
+
+- `debrid/takelink-org` | dead | evidence documented | binding write-gated | category Russian multi-host link straightener (dead, domain repurposed) | tier closed
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T02:18:27.322Z (live) | stale on 2026-11-23
+- url https://web.archive.org/web/20230205043248/http://www.takelink.org/ | page https://fshy.ajam.dev/p/takelink-org.md
+- free tier: Was a paid multi-host straightener for letitbit, depositfiles, turbobit and similar hosts; today the domain serves unrelated content and the live origin does not answer. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable: the service is gone | source: [1] | note: unstated
+- retention: not applicable | source: [1]
+- egress: not applicable | metered: no | source: [1]
+- identity: anonymous | detail: not applicable: no account can be created
+- interface: unknown
+- limits:
+  - write-gated (binding): the domain no longer belongs to the service; the live origin answers HTTP 530 through network requests on two attempts probe:https://takelink.org/
+- limits note: A 2011 blog post still describes it as 'takelink.org ... Скачать бесплатно прямые ссылки на файлообменники', and a 2012 forum post names it among services with Russian support; both predate the death.
+- binding note: Nothing is served; the domain reassignment is the finding.
+- interface detail: None. The 2023-02-05 capture of the domain is a Chinese-language gambling page wrapped around copied Ripple marketing text - the signature of an expired domain that was re-registered.
+- tooling: part of interface detail
+- composes with: Nothing to chain; it is the archetype of the Russian link-straightener that died and whose domain was sold.
+- reliability: A dead multi-hoster's domain is a phishing surface: the brand still appears in old forum and blog recommendations, and the domain now serves unrelated content.
+- notes: Named in the sector brief as a service Russian forums mention, so it is closed with evidence rather than left as an open question. The 2023 capture predates the check by three and a half years, which means the domain had already changed hands well before the live probe failed.
+- evidence note: Two independent observations: the live origin returns HTTP 530 to network requests (twice, 2026-10-23), and the Wayback capture of 2023-02-05 is a repurposed gambling page. The service's own last state was not archived in a form that renders. Evidence dates normalised to the read date on 2026-10-23; a source that carries its own date keeps it in the proved field.
+- evidence:
+  - [1] 2026-10-23: the domain served a Chinese gambling page with copied Ripple copy ('澳洲幸运5开奖查询 ... Ripple is the leading provider of crypto solutions for businesses') - not the multi-hoster
+  - probe:https://takelink.org/ 2026-10-23: HTTP 530 from the origin on two separate attempts; no content, no redirect to a successor
+  - [2] 2026-10-23: what the service was: 'takelink.org. Скачать бесплатно прямые ссылки на файлообменники'
+- sources:
+  - [1] https://web.archive.org/web/20230205043248/http://www.takelink.org/
+  - [2] http://blogrider.ru/blogs/78829/posts/id/4408344/servis-bistrogo-skachivaniya-s-platnikh-fayloobmennikov.php
+
+## Tenlua.vn
+
+- `debrid/tenlua-vn` | dead | evidence documented | binding none | category file host (Vietnamese: direct download, one of the three original get-link targets) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T11:28:59.774Z (live) | stale on 2026-12-04
+- url https://tenlua.vn/ | page https://fshy.ajam.dev/p/tenlua.md
+- free tier: No offer: the domain does not serve a file host. The Wayback Machine capture of 2025-07-20 shows a generic page about registering a .vn domain, and the site does not answer on 2026-11-03. Vietnamese get-link shops still list Tenlua as a supported host. | unit: none | metered on: unstated | read on: 2026-10-23 | source: [1] | note: Absence of a readable page is the finding, not a gap in the search.
+- per-object cap: not applicable: the site is down | source: [1]
+- retention: not applicable: the site is down | source: [1]
+- egress: No terms readable; the host does not answer. | metered: no | free allowance: none readable | source: [1]
+- identity: anonymous | detail: not determinable: no signup, pricing or payment page was reachable | country: Vietnam
+- interface: unknown
+- limits:
+  - volume-quota: unknown: no page served [1]
+- limits note: No constraint can be named because no page was served.
+- binding note: Nothing binds: the domain does not serve a file host.
+- interface detail: Nothing reachable to describe. LinksVIP and Getlink.vn both still name 'Ten lua' in titles and host lists.
+- tooling: none that still works: the get-link shops that named it are the remaining pointer, and LinksVIP's own premium page header still carries the name.
+- composes with: None. A dead host in a Vietnamese get-link list is a reminder that the shops' host lists are marketing copy and are not pruned when a host dies.
+- reliability: A TCP connection to tenlua.vn port 443 timed out on 2026-11-03, and third-party uptime tracking lists the domain as down.
+- notes: Third of the three Vietnamese hosts the get-link economy was built on (Fshare, 4share, Tenlua). The record stays so the name is answered with its evidence. Trigger condition: a 2026 Wayback capture or a live response showing a working storefront.
+- evidence note: Death rests on an archived copy of the domain's own page dated 2025-07-20 (a .vn domain-registration page), TCP connection timeouts on 2026-11-03, and a third-party uptime page; no live page serves a file host. The Wayback Machine holds no capture later than 2025-07-20.
+- extras:
+  - name_in_shops: Ten lua / Tenlua
+  - status_source_kind: third-party uptime page
+- evidence:
+  - [2] 2026-10-23: 'Status: down', 'Response Code: -', '13 operability checks occurred for tenlua.vn within the time frame of 638 days after November 20'
+  - probe:https://tenlua.vn/ 2026-10-23: 
+  - [3] 2026-10-23: the host is still marketed in the shop's own title: 'Get link Fshare 4share Ten lua Get link VIP Max Speed', while the price table below lists no Tenlua row
+  - [4] 2026-11-03: the Wayback Machine capture of tenlua.vn from 2025-07-20 is a page about why to register a .vn domain, not a file host | capture: sha256:0a4d3b77d457f3e613a743743bad146fb799621a262c82c933b49cce392cca2e | quote: VÌ SAO CẦN ĐĂNG KÝ TÊN MIỀN?
+  - probe:tenlua.vn:443 2026-11-03: a TCP connection to tenlua.vn port 443 timed out | capture: sha256:f1e712ee881d7aba21f1ac21cfba7cadebb2fd31c4579673370910b5be03a5eb | quote: "port": 443, "ok": false, "err": "TimeoutError('timed out')"
+  - probe:tenlua.vn:80 2026-11-03: a TCP connection to tenlua.vn port 80 timed out | capture: sha256:506d3e7e0ac293a332ba1f5478dbe244b31ef262b8f621a45e4348613064f263 | quote: "port": 80, "ok": false, "err": "TimeoutError('timed out')"
+  - [2] 2026-11-03: third-party uptime tracker: the domain last answered 200 on 1 July 2025 | capture: sha256:02395b890ab33da9679642f49d2375a240bbb47c2470cb018f402be40dc5ccb9 | quote: Checks confirm tenlua.vn functioned 1 times total, most recently, on July 1, 2025, a 200 status code affirmed its uptime.
+  - probe:https://tenlua.vn/ 2026-11-03: an HTTPS GET of tenlua.vn timed out | capture: sha256:74a8d64afc5ab2929e6fa776cf5f93406b356324ae458e7ba0cd03d5a435cf35 | quote: "error": "timeout"
+- sources:
+  - [1] https://tenlua.vn/
+  - [2] https://tenlua.vn.tsitestatus.com/
+  - [3] https://linksvip.net/premium.html
+  - [4] https://web.archive.org/web/20250720003241/https://tenlua.vn/
+
+## TorrentDrive
+
+- `debrid/torrentdrive-io` | dead | evidence documented | binding none | category cloud torrent (closed; archived copy serves unrelated content) | tier n/a
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T07:37:13.292Z (live) | stale on 2026-12-04
+- url https://torrentdrive.io/ | page https://fshy.ajam.dev/p/torrentdrive.md
+- free tier: None: the domain no longer serves the service. | unit: none | metered on: none | read on: 2026-11-03 | source: [1]
+- per-object cap: not applicable: the service is gone | source: [1]
+- retention: not applicable: the service is gone | source: [1]
+- egress: not applicable: the service is gone | metered: no | source: [1]
+- identity: email | detail: Not applicable: no sign-up is offered.
+- interface: unknown
+- binding note: A dead service binds nothing; the record carries the date of the observation.
+- interface detail: Nothing is served.
+- tooling: none: the domain serves other content
+- composes with: Nothing to chain; recorded so a list that still names it can be discounted.
+- reliability: The archived copy of 2026-03-12 serves an unrelated betting article; the live root was not readable on 2026-11-03, so the current state is unverified.
+- notes: A third-party list names it as a freemium mobile cloud torrent service.
+- evidence note: One dated observation; the date the service closed is not established.
+- evidence:
+  - [2] 2026-11-03: the archived copy of 2026-03-12 serves a betting-site article, not a cloud torrent service | capture: sha256:b3c76fbf05fd772e0b934a29e6cbb35d88e9b83142c4cb7e39616d433fd45542 | quote: Topvin là nhà cái uy tín đã nhanh chóng chiếm lĩnh thị trường cá cược trực tuyến tại Việt Nam
+- sources:
+  - [1] https://torrentdrive.io/
+  - [2] https://web.archive.org/web/20260312051732/https://torrentdrive.io/?provider=wayback
+
+## TorrentX (@TorrentXbot)
+
+- `debrid/telegram-torrentx-bot` | dead | evidence documented | binding none | category hosted bot (torrent to Google Drive) | tier free
+- needs card no, phone yes, ID no, institution no | verified 2026-10-23T01:52:23.000Z (live) | stale on 2026-11-23
+- url https://t.me/TorrentXbot | page https://fshy.ajam.dev/p/t-me-torrentxbot.md
+- free tier: Dead. t.me/TorrentXbot returns 'Telegram: Contact @Torrent' with no Start action: the username now resolves to a user account. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: Not applicable: the bot is gone. | source: [2]
+- retention: Not applicable: no service. | source: [1]
+- egress: Not applicable. | metered: no | source: [1]
+- identity: any-phone | detail: Was a Telegram account.
+- interface: unknown
+- limits note: No live limit exists to name.
+- binding note: Nothing binds because nothing is served.
+- interface detail: Was a Telegram chat bot that downloaded a torrent and uploaded it to Google Drive.
+- tooling: None.
+- composes with: Nothing. The surviving path for the same job is a self-run mirror bot.
+- reliability: Second confirmation of the same failure: the Chinese directory already listed it under 'the following are all unusable' in 2022, and the handle is a user account today.
+- notes: Do not re-open unless @Torrent is seen running as a bot. The 2022 directory is the useful artefact here: it recorded class-wide death four years before on 2026-10-23 confirmed two of the handles.
+- evidence note: Read: the page is a Contact action, not a Launch action. The 2022 directory corroborates the direction of travel.
+- evidence:
+  - [1] 2026-10-23: page title 'Telegram: Contact @Torrent', no Start Bot action, empty description
+  - [2] 2026-10-23: post 73: '@TorrentXbot downloads and uploads to Google Drive', listed later under 'the following are all unusable'
+- sources:
+  - [1] https://t.me/TorrentXbot
+  - [2] https://t.me/bot_zh
+
+## UsersCloud
+
+- `debrid/userscloud` | dead | evidence documented | binding none | category former free file host, now a redirect to Send.now | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T03:37:40.772Z (live) | stale on 2026-11-23
+- url https://userscloud.com/ | page https://fshy.ajam.dev/p/userscloud.md
+- free tier: Not applicable: userscloud.com redirects to send.now and serves that site's homepage. The successor's terms live among debrid providers's send-now record. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: Not applicable on this domain. | source: [1]
+- retention: Not applicable on this domain. | source: [1]
+- egress: None from this domain; requests are forwarded to send.now. | metered: no | source: [1]
+- identity: anonymous | detail: Nothing is asked for by userscloud.com; the redirect target's free tier needs an email only for a free account.
+- interface: webdav
+- limits note: No constraint applies to the old domain; the successor's constraints are recorded under send-now.
+- binding note: The old hostname transfers nothing itself.
+- interface detail: Whatever send.now offers, now reachable under this hostname by redirect: WebDAV at webdav.send.now, FTP on port 992, and an HTTP API. userscloud.com itself serves no interface.
+- tooling: None of its own. A client that had a UsersCloud integration now points at Send.now, which has a better tooling story (WebDAV and FTP).
+- composes with: A rebrand with the old domain kept alive: old index links still resolve, land on the new product, and the new product is a transfer service rather than a PPD host. The chain step disappears but the link does not break.
+- reliability: A redirect is the failure mode these records names explicitly: a link checker sees HTTP 200 and a live site, while the host behind the name is a different product with different rules. Any inventory counting UsersCloud separately from Send.now is counting one service twice.
+- notes: Documented as dead-with-successor rather than merged, because the slug is what an old link or an old host list will contain. Successor record: send-now among debrid providers.
+- evidence note: The redirect and landing site were read. The claim is narrow on purpose: the domain forwards, and it is not an independent service.
+- extras:
+  - successor_record: scratch (removed)
+  - final_url: https://send.now/
+- evidence:
+  - [1] 2026-10-23: the final URL was https://send.now/ and the body is Send.now's transfer service ('Send large files securely', WebDAV and FTP sections), so UsersCloud no longer hosts anything under its own name
+- sources:
+  - [1] https://userscloud.com/
+
+## WangPan netdisk bot (@WangPanBOT)
+
+- `debrid/telegram-wangpan-bot` | dead | evidence documented | binding none | category hosted bot (Telegram-native netdisk) | tier free
+- needs card no, phone yes, ID no, institution no | verified 2026-10-23T01:52:23.000Z (live) | stale on 2026-11-23
+- url https://t.me/WangPanBOT | page https://fshy.ajam.dev/p/t-me-wangpanbot.md
+- free tier: Dead. The handle no longer resolves to a bot: t.me/WangPanBOT returns 'Telegram: Contact @WangPan' with no Start action, so the username now belongs to a user account. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: Not applicable: the bot is gone. When it lived it advertised mounts and share links, not a size. | source: [2] | note: the directory entry is the only surviving description
+- retention: Not applicable: no service to retain anything. | source: [1]
+- egress: Not applicable. | metered: no | source: [1]
+- identity: any-phone | detail: Was a Telegram account; the handle now resolves to a user, not a bot.
+- interface: unknown
+- limits note: No live limit exists to name.
+- binding note: Nothing binds because nothing is served.
+- interface detail: Was a Telegram chat bot. Now a Telegram user account at @WangPan.
+- tooling: None: nothing to point a client at.
+- composes with: Nothing. Preserved so the subsequent audit does not spend a wave looking for it.
+- reliability: The failure mode this record documents: a username can be reassigned to a user account, so a bot's handle is not a durable identifier.
+- notes: Do not re-open unless the @WangPan handle is seen running as a bot again. The class it represented (a hosted Telegram-native netdisk with mounts) has no living hosted member found on 2026-10-23.
+- evidence note: The t.me page was read and shows a Contact action with no Start action and no description. That is the death certificate for the bot form of the handle.
+- evidence:
+  - [1] 2026-10-23: the page title is 'Telegram: Contact @WangPan' with no Start Bot action and an empty description - the username resolves to a user, not a bot
+  - [3] 2026-10-23: the Chinese bot directory (post 73) described it as 'WangPan netdisk bot ... free, safe, anonymous ... supports full mounts, link sharing, transfer, search'
+- sources:
+  - [1] https://t.me/WangPanBOT
+  - [2] https://t.me/bot_zh
+  - [3] https://t.me/bot_zh/
+
+## WebStreamr (public instances)
+
+- `debrid/webstreamr-hosted` | dead | evidence documented | binding none | category hosted Stremio addon, HTTP streams scraped from streaming sites (no debrid required) | tier public instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T02:28:11.000Z (live) | stale on 2026-11-23
+- url https://webstreamr.hayd.uk/ | page https://fshy.ajam.dev/p/hayd.md
+- price USD 0
+- free tier: None any more. The addon was archived upstream and both public instances now serve a retirement page: the ElfHosted instance states 'The developer has archived Webstreamr, and in consultation, we've retired the hosted public instance donated to Hayd'; the Hayd instance serves the title 'Webstreamr is deprecated'. | unit: none | metered on: none | read on: 2026-10-23 | source: [1] | note: The retirement pages return HTTP 200 with no redirect, so any check that trusts status codes scores this as alive.
+- per-object cap: not applicable: stream descriptors | source: [2]
+- retention: not applicable | source: [2]
+- egress: Never reached: the addon served no streams. Historically it returned HTTP URLs from streaming sites, which play without a debrid account at the source site's bitrate. | metered: no | free allowance: none | source: [2]
+- identity: anonymous | detail: Nothing to register - there is nothing left to register for. | country: None
+- interface: rest
+- limits:
+  - request-rate: not applicable: retired [1]
+- limits note: The limit that killed it was not traffic but maintenance: the upstream developer archived the project and the sponsor withdrew the instance.
+- binding note: No constraint applies: the service returns a retirement notice for every path, which is a total failure rather than a quota.
+- interface detail: Stremio addon protocol. Both /manifest.json and /stream/movie/tt1254207.json returned the same 24,382-byte HTML retirement page.
+- tooling: self-hosting the archived source remains possible, but that needs a machine - which is the one thing not available here.
+- composes with: It was the only free hosted addon found that needed no debrid key at all, so its death removes the no-key HTTP branch of the free floor.
+- reliability: HTTP 200 on every path with a deprecation page is the exact failure published records warns about.
+- notes: This is the finding that decides the free floor: the no-debrid-key branch is gone, so every surviving free front end needs either a debrid key or a local streaming server.
+- evidence note: Both the manifest and a stream call were fetched; each returned the retirement HTML. A dated search result also pointed at the ElfHosted retirement page. Documented without probe digest: no probe record with status, bytes and digest exists.
+- extras:
+  - retirement_pages: https://webstreamr-is-deprecated.elfhosted.com/; https://webstreamr.hayd.uk/
+  - upstream: https://github.com/webstreamr/webstreamr (archived), https://gitlab.com/webstreamr
+- evidence:
+  - [3] 2026-10-23: HTTP 200, 24,382 bytes of HTML titled 'Webstreamr is deprecated' where a JSON manifest was expected
+  - [4] 2026-10-23: the identical 24,382-byte retirement page for a stream request
+  - [1] 2026-10-23: 'The developer has archived Webstreamr, and in consultation, we've retired the hosted public instance donated to Hayd'
+  - [5] 2026-10-23: third-party/upstream confirmation in the project description: 'Stremio add-on which provides HTTP URLs from streaming websites. HTTP streams have limitations. For a better experience, I'd advise using a Debrid service'
+- sources:
+  - [1] https://webstreamr-is-deprecated.elfhosted.com/
+  - [2] https://webstreamr.hayd.uk/
+  - [3] https://webstreamr.hayd.uk/manifest.json
+  - [4] https://webstreamr.hayd.uk/stream/movie/tt1254207.json
+  - [5] https://gitlab.com/webstreamr
+
+## XS Usenet (debrid/xsusenet)
+
+- `debrid/xsusenet` | dead | evidence documented | binding none | category usenet provider (Abavia reseller) - dead | tier none
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T01:52:29.000Z (live) | stale on 2026-11-23
+- url https://xsusenet.com/ | page https://fshy.ajam.dev/p/xsusenet.md
+- price n/a
+- disagrees on identity_kind: `debrid/xs-usenet` says card, `debrid/xsusenet` says email
+- disagrees on verdict: `debrid/xs-usenet` says qualifies, `debrid/xsusenet` says dead
+- free tier: The service is shut down. 'XS Usenet has shut down - but your Usenet service continues without interruption. All accounts have been moved to EasyUsenet.' The website and ordering system are closed. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: no per-object cap is published; no per-object cap is published; the unit of retrieval is a Usenet article, approximately 750 KB by convention, so 1 TiB of monthly transfer corresponds to roughly 1.4 million article… | source: [1]
+- retention: Not applicable: no new accounts are sold. Existing accounts keep their expiry date on the EasyUsenet infrastructure. | source: [1]
+- egress: Not applicable; the ordering system is closed | metered: no | source: [1]
+- identity: email | detail: Registration is closed. Existing credentials were migrated unchanged to reader.easyusenet.com.
+- interface: nntp
+- limits note: No limits apply to a service that no longer signs up customers. The last published terms were a soft 5 TB/month ceiling on unlimited plans with speed cut to 40 Mbit above it, per the r/usenet map.
+- binding note: Nothing binds because nothing is sold. A reader who needs this capacity must go to EasyUsenet, which inherited the accounts.
+- interface detail: NNTP over TLS on port 563. No HTTP or object API exists for the download path, which is driven through SABnzbd, NZBGet or nzbdav.
+- composes with: Nothing composes: the capacity moved to EasyUsenet, which is the Abavia brand a client should price instead.
+- reliability: Shut down after 15 years, citing staff shortages; accounts moved to EasyUsenet with the same username and password and a new hostname. The VPN product was suspended and set to close on August 31, with refunds for unused time.
+- notes: The interesting part is the epitaph: the first freemium Usenet provider in 2009 is gone in 2026, and its free-tier model went with it. That is the direction of travel for the debrid main question.
+- evidence note: The shutdown notice is the vendor's own page, read. The fetch reported no upstream status, so the page content is the evidence rather than an HTTP code.
+- extras:
+  - backbone: Abavia
+  - successor: EasyUsenet (reader.easyusenet.com)
+  - lifetime: 2009-2026
+- evidence:
+  - [1] 2026-10-23: 'XS Usenet has shut down'; 'All accounts have been moved to EasyUsenet'; new server reader.easyusenet.com; 'Since starting in 2009 as the first freemium Usenet provider'
+  - [2] 2026-10-23: Xsusenet listed as an Abavia reseller with 'soft limits (5tb per month) ... above 5TB speed will be capped to 40Mbit'
+- sources:
+  - [1] https://xsusenet.com/
+  - [2] https://www.reddit.com/r/usenet/wiki/providers
+
+## Zippyshare
+
+- `debrid/zippyshare` | dead | evidence documented | binding none | category defunct one-click file host | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T02:20:00.000Z (live) | stale on 2026-11-23
+- url https://www.zippyshare.com/ | page https://fshy.ajam.dev/p/zippyshare.md
+- price not applicable: dead
+- free tier: none: the service closed in 2023 and the domain now serves a farewell page | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable: no files are served | source: [1]
+- egress: not applicable | metered: no | free allowance: none | price per TB: none | source: [1]
+- identity: anonymous | detail: No registration exists.
+- interface: unknown
+- limits note: A 200 with a farewell page is the trap the repository warns about: status is not liveness.
+- binding note: Nothing binds because nothing is served.
+- interface detail: The domain answers HTTP 200 with a farewell page; no download surface remains.
+- tooling: part of the free tier
+- composes with: Any debrid or indexer that still lists Zippyshare as a supported host is listing a host that cannot serve a byte.
+- reliability: Closed 2023; the page states the years and offers a list of successor services.
+- notes: Kept as a dead record so a future audit does not spend a pass rediscovering it. Debrid host lists that still include Zippyshare are stale in that row.
+- evidence note: The vendor's own domain states the closure in the first person; nothing further is needed.
+- extras:
+  - closed: 2023
+  - source_url: https://www.zippyshare.com/
+  - price_ladder_reported: none
+  - volume_tib_month: 1.0
+- evidence:
+  - [1] 2026-10-23: 'Here lies Zippyshare [2006 - 2023]', 'Farewell.'
+- sources:
+  - [1] https://www.zippyshare.com/

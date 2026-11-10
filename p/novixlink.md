@@ -1,0 +1,44 @@
+# NovixLink
+
+> novixlink.com | IP and proxies; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/novixlink/ | JSON https://fshy.ajam.dev/api/v1/entity/novixlink.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## NovixLink (诺联主机)
+
+- `ip-proxy/novixlink-isp-vps` | qualifies-with-caveat | evidence documented | binding volume-quota | category ISP-registered VPS (Chinese market) | tier LAX-CUPN Lite (NTT line) and LAS-COX Lite (Cox line)
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T10:07:11.000Z (live) | stale on 2026-11-24
+- url https://novixlink.com/store/nttispipvps
+- free tier: No free tier. LAX-CUPN Lite CAD 7.99/month: 1 vCPU, 768 MB DDR4, 10 GB RAID10 SSD, 100 Mbps up and 100 Mbps down, 500 GB bidirectional traffic per month, 1 dedicated US dual-ISP native residential IPv4, test IP 192.220.114.2. LAS-COX Lite CAD 19.99/month: 1 vCPU, 768 MB DDR4, 10 GB RAID10 SSD, 200 Mbps up and 200 Mbps down, 1000 GB bidirectional traffic per month, 1 dedicated US dual-ISP native home-broadband IPv4, test IP 24.120.*.*. | unit: none | metered on: none | read on: 2026-10-24 | source: [1] | note: The Cox store page states 1000 GB per month for LAS-COX Lite. The commissioning summary for this record abbreviated that to 1 GB; the page is the authority and the record carries the page's figure.
+- per-object cap: not applicable | source: [1]
+- retention: not applicable: a rented machine and its address, not stored bytes. Terms 5.3: on non-payment the VPS, its IP and its data are deleted at expiry, with a grace period of about 48 hours that is stated not to be a guarantee of resource retention. | source: [2] | note: Deletion at expiry is a property of the rental, not a retention window on stored objects.
+- egress: 500 GB 每月双向流量 (bidirectional traffic per month) on LAX-CUPN Lite, 1000 GB on LAS-COX Lite. The vendor publishes no overage price on either page: what happens past the allowance is not stated, so the allowance is a ceiling without a stated consequence. | metered: yes | free allowance: 500 GB/month on LAX-CUPN Lite; 1000 GB/month on LAS-COX Lite | source: [1]
+- identity: email | detail: The registration form asks for a name, an email address and a password and nothing else: no phone, no card, no identity document. Payment is Alipay, card or crypto. Terms 5.2 names Alipay and crypto as methods that cannot auto-debit and a card as the one that can; 6.2 names crypto again, as a payment that can only be refunded to site balance.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 500 GB bidirectional traffic per month on LAX-CUPN Lite; 1000 GB on LAS-COX Lite, 2000 GB on LAS-COX Basic, 4000 GB on Pro, 8000 GB on Ultra [1]
+  - per-ip-shaping: 100 Mbps peak up and down on LAX-CUPN Lite; 200 Mbps peak up and down on every LAS-COX plan [3]
+- limits note: Two constraints the vocabulary cannot name. First, the ISP label is only what the vendor's own IPLense reading said at first delivery (terms 4.2), so it is a claim about one database's reading of the address rather than a property of the address, and it does not move when that database changes. Second, every LAS-COX plan was shown as 全部售罄 (all sold out) on 2026-10-24, so the one line that passed the registration check could not be bought that day.
+- binding note: 500 GB a month is about eleven times the gateway's ~45 GB/month, so the quota does not fail at the scale; it is named because it is the only constraint here the vocabulary can express and the one the product states. The constraint that actually decides this record is the registration class, which has no vocabulary value, and it is what the verdict's caveat is about.
+- interface detail: SSH to the VPS on its static address. SOCKS5 or HTTP proxying is whatever runs on the machine, not a vendor endpoint: the vendor sells the address and the box, not a proxy service. Orders, renewals and IPv4 changes are handled in the customer portal.
+- tooling: An SSH client plus a proxy daemon installed on the VPS. The vendor publishes no proxy endpoint, no API and no wrapper. That is a note about tooling and not a reason to reject the provider: the address is the product, and the machine is only how it is held.
+- composes with: The Worker opens an outbound connection to the VPS's static IPv4 and the VPS makes the upstream request, so the upstream sees an address in AS2914, AS3257 or AS22773 instead of AS13335.
+- reliability: The address is static for the life of the plan, but terms 7.3 lets the vendor switch the line, rate-limit, block ports or null-route the IP for at least an hour on a DDoS or attack, and terms 4.2 fixes the ISP label to the IPLense reading at first delivery, so a later re-registration of the range does not reopen the claim.
+- notes: The decisive vendor sentence, from terms 4.2: '双 ISP 住宅 IP 和双 ISP 家宽 IP 仅以服务首次交付时的 IPLense 快速模式结果和系统记录作为正式交付标准'. Read against knowledgebase 48, 双 ISP means the ASN name and the company type label both read ISP on one database, not that two networks carry the traffic, so the claim this record tests is exactly the two fields that were measured. Terms 4.3 also matters for how far the measurement travels: a delivered IP need not be in the sampled /24, only in the same ASN and the same operating company, so the pass on 24.120.4.1 is evidence about the prefix sampled and about the ASN, not proof that every address the vendor hands out in that ASN reads ISP. Each line was checked with one address, taken from the test IP the vendor itself publishes.
+- evidence note: Plan pricing, bandwidth quotas, and signup fields are documented from vendor pages read on 2026-10-24. Registration classes for the three sample lines were measured using RIPE, ARIN RDAP, and IP2Location on 2026-10-24.
+- extras:
+  - rung: 5
+  - rung_note: The product is a claim about how the address is registered and nothing else, so the record sits at rung 5 and the measurement tested exactly that: ASN name and usage-type, per line, one sample each.
+- evidence:
+  - [1] 2026-10-24: LAX-CUPN Lite at CAD 7.99/month: 1 vCPU, 768 MB DDR4, 10 GB RAID10 SSD, 100 Mbps up and down, 500 GB bidirectional traffic per month, one dedicated dual-ISP residential IPv4, test IP 192.220.114.2. The page names NTT America as the upstream and the product 美国NTT洛杉矶双ISP住宅IP中国优化VPS.
+  - [3] 2026-10-24: LAS-COX Lite at CAD 19.99/month: 1 vCPU, 768 MB, 10 GB RAID10 SSD, 200 Mbps up and down, 1000 GB bidirectional traffic per month, test IP 24.120.*.*, described as 真实家宽运营商直供 (supplied directly by the real home-broadband operator). All four LAS-COX plans show 全部售罄 (all sold out).
+  - [2] 2026-10-24: Terms 4.2 is the delivery standard quoted in notes; 4.3 states a delivered IP need not share the test IP's subnet, prefix, /24 or neighbours but must be in the same ASN and run by the same operating company; 5.2 names Alipay, crypto and card as payment methods; 7.3 allows line switching, rate limiting, port blocking and null routing during an attack.
+  - [4] 2026-10-24: The vendor's own definition of 双 ISP: the ASN name and the operating company's type label must both read ISP on IPLense, and the article says this does not mean two lines. It also states that geography, risk score, purity, platform results and speed are not part of the delivery standard, and that IPLense 专业模式 is for comparison only.
+  - probe:192.220.114.2 2026-10-24: RIPE stat: AS2914 NTT America; ARIN RDAP: NET-192-220-0-0-1, a direct allocation; IP2Location demo: usage_type DCH and as_usage_type DCH. The NTT line fails the dual-ISP claim on the vendor's own two-field test.
+  - probe:216.36.86.2 2026-10-24: RIPE stat: AS3257 GTT-BACKBONE; IP2Location demo: usage_type DCH and as_usage_type DCH. The GTT line fails the dual-ISP claim.
+  - probe:24.120.4.1 2026-10-24: RIPE stat: AS22773 Cox Communications; IP2Location demo: usage_type ISP and as_usage_type ISP; PTR wsip-24-120-4-1.lv.lv.cox.net. The Cox line passes the dual-ISP claim.
+- sources:
+  - [1] https://novixlink.com/store/nttispipvps
+  - [2] https://novixlink.com/legal/terms-of-services
+  - [3] https://novixlink.com/store/cox-isp-vps
+  - [4] https://novixlink.com/knowledgebase/48/

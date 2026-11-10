@@ -1,0 +1,187 @@
+# Stack Exchange
+
+> stackexchange.com | Data APIs, Storage; 3 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/stackexchange/ | JSON https://fshy.ajam.dev/api/v1/entity/stackexchange.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Stack Exchange API
+
+- `data-apis/stack-exchange-api` | qualifies-with-caveat | evidence documented | binding request-rate | category Q&A knowledge API (REST, JSON) with quarterly XML data dumps | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T00:28:12.185Z (live) | stale on 2026-12-04
+- url https://api.stackexchange.com/docs
+- free tier: With no key, 300 requests per day per IP. A free app key from Stack Apps raises the daily limit to 10,000 per IP; an access token gives a separate 10,000-per-day quota for each user and app pair, up to 5 per user. Every site's content is also published quarterly as an XML data dump. | unit: requests | metered on: request-count | read on: 2026-10-31 | source: [1] | note: A keyless call answered 200 with quota_max 300. When one IP uses several keys, the highest key's limit applies to that IP, so more keys do not add quota. Anonymous paging stops at page 25: a page above 25 answered access_denied with no key or token.
+- per-object cap: at most 100 items per page and 100 ids per {ids} parameter; page numbers above 25 need an app key or an access token | source: [2]
+- retention: the API serves the live sites; the official dump page offers the current quarterly dump, and Academic Torrents lists community uploads of the network dump from 2024-02-29 to 2026-09-30 | source: [3] | note: The company states it will keep the dumps online for as long as reasonably possible.
+- egress: Free: API responses are gzip-compressed JSON with no byte price; the official dumps download free from a logged-in profile, and the community copy on the Internet Archive downloads over anonymous HTTP with Range support | metered: no | free allowance: no byte allowance published | source: [4]
+- identity: email | detail: Keyless reads need nothing: a call with no key answered 200 at 300 requests a day. The 10,000-a-day key needs an application registered on Stack Apps, whose registration page sends a visitor with no session to the login page, and then an API key generated on the application's dashboard, because a new application has no key until one is generated. The Stack Apps signup takes an email and a password, or a Google sign-in; the network signup takes an email and a password, or a Google or GitHub sign-in. The official dump of one site needs a logged-in profile on that site; the official whole-network dump is downloaded from the data dumps page of user preferences on Meta Stack Exchange, which sends a visitor with no session to the Meta Stack Exchange login page; the community copy on the Internet Archive needs no account.
+- interface: rest
+- limits:
+  - request-rate (binding): 300 requests per day per IP with no key; 10,000 per day per IP with a free app key, and an IP using several keys gets the highest key's limit [1]
+  - request-rate (binding): 10,000 requests per day for each user and app pair with an access token; up to 5 such quotas per user [5]
+  - per-ip-shaping: more than 30 requests a second from one IP are dropped, with a ban on the order of 30 seconds to a few minutes [5]
+  - request-rate (binding): a response carrying backoff means that method must not be called again for that many seconds; semantically identical requests at most once a minute [5]
+  - per-object-cap: 100 items per page and 100 ids per call; page numbers above 25 need an app key or an access token [2]
+- limits note: The keyless quota is shared by every keyless application on one IP. The network-wide dump download is reported to fail around 19.5 GB for some downloaders.
+- binding note: An IP gets 300 requests a day with no key and 10,000 with a free key, so a whole-site read goes to the quarterly dump, which has no request count.
+- interface detail: JSON over HTTPS GET at https://api.stackexchange.com/2.3/, every response compressed; the authentication documentation says an application key or access token goes in an Authorization header as a Bearer value; OAuth 2.0 for user-scoped calls and writes; quarterly XML dumps as one 7z archive per site, downloaded from the Data dump access page in that site's profile settings (one site for each download; a meta site is a separate download from its own profile), or for the whole network from the data dumps page of user preferences on Meta Stack Exchange; the community copies of the whole-network dump are also distributed as BitTorrent torrents (the interface vocabulary has no BitTorrent term, so the record lists rest); the Stack Exchange Data Explorer runs SQL over a copy refreshed every Sunday.
+- endpoint: part of interface detail
+- tooling: Any HTTP client that decompresses gzip; 7-Zip or p7zip for the dump archives; a BitTorrent client for the Internet Archive and Academic Torrents copies of the network dump.
+- composes with: The quarterly XML dump is the bulk path for a whole-site or whole-network read (official download from a logged-in profile, or the anonymous community copy on the Internet Archive and Academic Torrents); the API at 300 requests a day keyless, or 10,000 with a free key, serves fresh lookups; the Data Explorer answers SQL over the weekly copy.
+- reliability: The network-wide dump came back in October 2026 after a removal of about two years, and downloads of the full archive are reported to fail around 19.5 GB; the Internet Archive copy is a community upload, not an official release.
+- notes: Caveat: the keyless quota is 300 requests a day, and the 10,000-a-day quota needs an account and a registered app. Bulk path: the quarterly XML dump, per site or for the whole network, from a logged-in profile; the 2026-09-30 network dump is also on the Internet Archive (91.9G) and Academic Torrents (99,497,279,488 bytes) as community uploads.
+- evidence note: The quotas and throttles are documented, not exhausted. A keyless call answered 200 with quota_max 300, page 26 with no key answered access_denied, and a HEAD on one site archive of the Internet Archive copy answered 200 with its size. The 10,000-a-day key quota sits behind a sign-up. quota_max of a call made with a new key: unverified: behind a sign-up. The fields of the Stack Apps registration form after its June 2025 redesign: unverified: behind a sign-up; a 2021 Stack Apps post lists four required fields, Application Name, Description, OAuth domain and Application Website. Whether the whole-network dump page opens for an account with no profile on Meta Stack Exchange: unverified: behind a sign-up.
+- evidence:
+  - [1] 2026-10-31: the daily request limit is counted per IP address | capture: sha256:fdd5cfb8f1b2b14128f5e67e220bbd173ffabc02ccb92813c57ee5b07fc9242d | quote: A single IP address can only make a limited number of requests per day to the API.
+  - [1] 2026-10-31: with an API key the daily limit is 10,000 requests | capture: sha256:fdd5cfb8f1b2b14128f5e67e220bbd173ffabc02ccb92813c57ee5b07fc9242d | quote: - Key: `10,000`
+  - [1] 2026-10-31: with no key the daily limit is 300 requests | capture: sha256:fdd5cfb8f1b2b14128f5e67e220bbd173ffabc02ccb92813c57ee5b07fc9242d | quote: - No Key: `300`
+  - [1] 2026-10-31: an IP using several keys gets the highest key's limit, not a sum | capture: sha256:fdd5cfb8f1b2b14128f5e67e220bbd173ffabc02ccb92813c57ee5b07fc9242d | quote: Should an IP address be using more than one key, the highest request limit will be used.
+  - [6] 2026-10-30: a keyless call to /2.3/info answered with quota_max 300 | capture: sha256:2a7afc9ca71f4a6691cfda0a0191d67e24ac9503c6f2277b38303df46e2f777a | quote: "has_more":false,"quota_max":300,"quota_remaining":299
+  - probe:https://api.stackexchange.com/2.3/info?site=stackoverflow 2026-10-31: a keyless GET of /2.3/info?site=stackoverflow answered 200 | capture: sha256:b4aff130cbd799f269b779148d24e87f9e7bb85231206a208d2909ead3cbe89a | quote: "status": 200
+  - [7] 2026-10-31: page 26 with no key or token answered access_denied | capture: sha256:d3eee9ed2be73e57d3066c8bfda0b5f9794331af3d656f5e6a025244a52972cf | quote: {"error_id":403,"error_message":"page above 25 requires access token or app key","error_name":"access_denied"}
+  - [2] 2026-10-30: anonymous paging stops at page 25 | capture: sha256:c50b33cbc51a04fd3fa66267cbb9cf719d86df0f7f0654af8e99de1214bde51b | quote: The maximum page number that will be returned for anonymous API access (no access token or app key) is 25
+  - [2] 2026-10-30: a page holds at most 100 items and an {ids} parameter at most 100 ids | capture: sha256:c50b33cbc51a04fd3fa66267cbb9cf719d86df0f7f0654af8e99de1214bde51b | quote: Unless otherwise noted, the maximum size of any page is `100`, any `{ids}` parameter likewise is capped at `100` elements, all indexes start at 1.
+  - [2] 2026-10-30: a request key needs an application registered on Stack Apps | capture: sha256:c50b33cbc51a04fd3fa66267cbb9cf719d86df0f7f0654af8e99de1214bde51b | quote: Applications must be registered on [Stack Apps](http://stackapps.com/apps/oauth/register) to get a request key or [enable OAuth for authentication](https://api.stackexchange.com/docs/authentication).
+  - [2] 2026-10-30: every API response is compressed | capture: sha256:c50b33cbc51a04fd3fa66267cbb9cf719d86df0f7f0654af8e99de1214bde51b | quote: Additionally, all API responses are compressed.
+  - [5] 2026-10-30: more than 30 requests a second from one IP are dropped | capture: sha256:44e77939f9c8ab30ac0851cfa17729c9d9ca7e5659e502af2cb1d7652de9b8b9 | quote: If a single IP is making more than 30 requests a second, new requests will be dropped.
+  - [5] 2026-10-30: the ban after the 30-a-second throttle lasts about 30 seconds to a few minutes | capture: sha256:44e77939f9c8ab30ac0851cfa17729c9d9ca7e5659e502af2cb1d7652de9b8b9 | quote: The exact ban period is subject to change, but will be on the order of 30 seconds to a few minutes typically.
+  - [5] 2026-10-30: keyed applications without a token share an IP quota of 10,000 a day by default | capture: sha256:44e77939f9c8ab30ac0851cfa17729c9d9ca7e5659e502af2cb1d7652de9b8b9 | quote: it is the max of the daily request limit for the applications involved, which by default is 10,000.
+  - [5] 2026-10-30: an access token gives a separate 10,000-a-day quota for each user and app pair | capture: sha256:44e77939f9c8ab30ac0851cfa17729c9d9ca7e5659e502af2cb1d7652de9b8b9 | quote: then the application is on a distinct user/app pair daily quota (default size of 10,000).
+  - [5] 2026-10-30: a user can hold up to 5 such quotas | capture: sha256:44e77939f9c8ab30ac0851cfa17729c9d9ca7e5659e502af2cb1d7652de9b8b9 | quote: A user can have up to 5 distinct quotas at any one time
+  - [5] 2026-10-30: a backoff field obliges a wait before calling that method again | capture: sha256:44e77939f9c8ab30ac0851cfa17729c9d9ca7e5659e502af2cb1d7652de9b8b9 | quote: If an application receives a response with the `backoff` field set, it must wait that many seconds before hitting the same method again.
+  - [5] 2026-10-30: identical requests are asked to be at most once a minute | capture: sha256:44e77939f9c8ab30ac0851cfa17729c9d9ca7e5659e502af2cb1d7652de9b8b9 | quote: no application should make semantically identical requests more than once a minute.
+  - [8] 2026-10-30: user-scoped access uses OAuth 2.0 | capture: sha256:1eb8d65dbad9edbe2ce1730bbbc406d4e9856e9c185307998e4568eaa06532b1 | quote: The Stack Exchange API offers user authentication via OAuth 2.0
+  - [9] 2026-10-30: the Stack Apps application registration page redirects a visitor with no session to the login page | capture: sha256:48ec0d8b519ad05b6cabfc2ebf0f0f1cf00902397057fbc0e5ce7ad7a026d389 | quote: x-web-final-url: https://stackapps.com/users/login?returnurl=/applications
+  - [10] 2026-10-30: the network signup offers GitHub sign-in beside the email and password fields | capture: sha256:eafdc00381d3d096f9acf1651a8e245cc37312d5a1d5658b30deeb7393a33250 | quote: Sign up with GitHub
+  - [10] 2026-10-30: the network signup offers Google sign-in | capture: sha256:eafdc00381d3d096f9acf1651a8e245cc37312d5a1d5658b30deeb7393a33250 | quote: Sign up with Google
+  - [4] 2026-10-30: each site's dump is published quarterly and downloaded from the account settings page | capture: sha256:66188c6853d8963f0472798032fed98e80ef908b4eb01f5a79c15caedc37c6c0 | quote: Content from each Stack Exchange site is made available quarterly in the form of a “data dump” file that can be accessed by a user via their account settings page.
+  - [4] 2026-10-30: the official download is a checkbox and a button on a logged-in settings page | capture: sha256:66188c6853d8963f0472798032fed98e80ef908b4eb01f5a79c15caedc37c6c0 | quote: Check the box affirming that you do not intend to use the file for LLM training, and then use the “Download data” button to begin downloading the file.
+  - [3] 2026-10-31: the network-wide dump had been removed about two years earlier | capture: sha256:0404e037bdeda36f5b73c27e8bf40af5e56193262d6aa9707e000b11fd0ed647 | quote: A couple of years ago, we announced some changes to the way that we handled data dumps.
+  - [3] 2026-10-31: the network-wide dump was restored in October 2026 | capture: sha256:0404e037bdeda36f5b73c27e8bf40af5e56193262d6aa9707e000b11fd0ed647 | quote: I am very pleased to tell you that we are now restoring the network-level data dump, effective today.
+  - [3] 2026-10-31: the network and per-site dumps download from the user preferences page | capture: sha256:0404e037bdeda36f5b73c27e8bf40af5e56193262d6aa9707e000b11fd0ed647 | quote: The tool to download these dumps can be found on the data dumps page in [user preferences](https://meta.stackexchange.com/users/data-dump-access/current), along with the per-site data dump.
+  - [3] 2026-10-31: new dumps are published quarterly | capture: sha256:0404e037bdeda36f5b73c27e8bf40af5e56193262d6aa9707e000b11fd0ed647 | quote: We will publish new dumps quarterly, as soon as reasonably possible after the beginning of each quarter.
+  - [3] 2026-10-31: full-archive downloads are reported to fail around 19.5 GB for some downloaders | capture: sha256:0404e037bdeda36f5b73c27e8bf40af5e56193262d6aa9707e000b11fd0ed647 | quote: We have reports of successful downloads, including the full archive, and reports that the full archive still fails around 19.5 GB.
+  - [3] 2026-10-31: the dumps are kept online for as long as reasonably possible, with no fixed period | capture: sha256:0404e037bdeda36f5b73c27e8bf40af5e56193262d6aa9707e000b11fd0ed647 | quote: On availability: we will keep the dumps online for as long as reasonably possible.
+  - [11] 2026-10-31: the Internet Archive copy is a community upload, not an official release | capture: sha256:87037267276672adbfa956d91bf53a210b45db5b612e1bea79fb208a6df2cff9 | quote: This community release is an unofficial replacement for the now-killed official archive.org release.
+  - [11] 2026-10-31: the Internet Archive item holds the dump through 2026-09-30 | capture: sha256:87037267276672adbfa956d91bf53a210b45db5b612e1bea79fb208a6df2cff9 | quote: This dump contains data up to and including 2026-09-30.
+  - [11] 2026-10-31: the official dump format is XML | capture: sha256:87037267276672adbfa956d91bf53a210b45db5b612e1bea79fb208a6df2cff9 | quote: Note that Stack Exchange themselves only publish a .XML-formatted data dump, meaning converted formats are fully community-generated.
+  - [11] 2026-10-31: the Internet Archive item is 91.9G | capture: sha256:87037267276672adbfa956d91bf53a210b45db5b612e1bea79fb208a6df2cff9 | quote: 91.9G
+  - probe:https://archive.org/download/stackexchange_20260930/stackexchange_20260930/math.stackexchange.com.7z 2026-10-31: a HEAD with no account on math.stackexchange.com.7z in the Internet Archive copy answered 200 with 3,933,317,407 bytes | capture: sha256:46551f7976e9a5642ff79cfd2b6b302c3b1e5579d5e1532fbb3dacb7a0907c72 | quote: "content-length": "3933317407"
+  - probe:https://archive.org/download/stackexchange_20260930/stackexchange_20260930/math.stackexchange.com.7z 2026-10-31: the Internet Archive copy supports HTTP ranges | capture: sha256:46551f7976e9a5642ff79cfd2b6b302c3b1e5579d5e1532fbb3dacb7a0907c72 | quote: "accept-ranges": "bytes"
+  - [12] 2026-10-30: Academic Torrents lists the 2026-09-30 network dump at 99,497,279,488 bytes | capture: sha256:5799d50446402c3530e14fe026f68649efeb29f9f0426f0549ebc1b7a77e61b1 | quote: | Dataset | Stack Exchange Data Dump (2026-09-30) | c32cdd0306ee7717cd63f98f8df6486af55f79c8 | 99497279488 |
+  - [12] 2026-10-30: the oldest dump listed on Academic Torrents is 2024-02-29 | capture: sha256:5799d50446402c3530e14fe026f68649efeb29f9f0426f0549ebc1b7a77e61b1 | quote: | Dataset | Stack Exchange Data Dump (2024-02-29) | 5a3d9b0c0855056a5ef6e90d9766c3005145c979 | 91754594304 |
+  - [13] 2026-10-30: the Data Explorer copy is refreshed every Sunday | capture: sha256:143c29f697e47de6aa97e4ca34948346cc33e432993baa5e8a57141ef8e6e608 | quote: The data is updated early every Sunday morning around 3:00 UTC.
+  - [13] 2026-10-30: the Data Explorer runs queries for anonymous users | capture: sha256:143c29f697e47de6aa97e4ca34948346cc33e432993baa5e8a57141ef8e6e608 | quote: While anonymous users can run queries without any imposed restrictions, there are a few perks to registering:
+  - [3] 2026-11-02: the whole-network dump is downloaded from the data dumps page of user preferences on Meta Stack Exchange, beside the per-site dump | capture: sha256:894552ea34d88a54a742a3ee7128f12f3048cde6946731726b837b4c21a2ad6d | quote: The tool to download these dumps can be found on the data dumps page in [user preferences](https://meta.stackexchange.com/users/data-dump-access/current), along with the per-site data dump.
+  - [14] 2026-11-02: a site and its meta site are separate downloads, each requested from its own site | capture: sha256:9924206ec492e87311c7f616df7266381f97309f18b8e493cbae15ee1aab7ea1 | quote: So if you want to get the download for a site and its meta, you will need to do the request on both sites.
+  - [14] 2026-11-02: each further site's dump needs the same download from that site | capture: sha256:9924206ec492e87311c7f616df7266381f97309f18b8e493cbae15ee1aab7ea1 | quote: If you wish to access the data for additional Stack Exchange sites, you will need to go through the same process for each
+  - [8] 2026-11-02: the authentication documentation says an application key or access token goes in an Authorization header as a Bearer value | capture: sha256:1eb8d65dbad9edbe2ce1730bbbc406d4e9856e9c185307998e4568eaa06532b1 | quote: must be provided using the authorization header `Authorization: Bearer {API key or access token}`.
+  - [12] 2026-11-02: Academic Torrents lists the 2026-09-30 network dump with a BitTorrent infohash and a mirror count | capture: sha256:218378d76c0da4865714f1cc06159c89b79d1222cefada647d7ac00af3c9bcad | quote: | Dataset | Stack Exchange Data Dump (2026-09-30) | c32cdd0306ee7717cd63f98f8df6486af55f79c8 | 99497279488 | 9 | 1 | 29 | 1791749451 | 1791749451 |
+  - [15] 2026-11-02: a Meta Stack Exchange wiki lists the network dump releases with links to download them over BitTorrent or from the Internet Archive | capture: sha256:612bd950dbaa93030357333c64803c964f5930077958737188d27e12419f32a1 | quote: with links to download using BitTorrent or from the Internet Archive.
+  - [4] 2026-11-02: a per-site dump is downloaded from the Data dump access page in the profile settings of that site | capture: sha256:66188c6853d8963f0472798032fed98e80ef908b4eb01f5a79c15caedc37c6c0 | quote: choose the “Settings” tab at the top of your profile page, then choose “Data dump access” under the “Access” heading on the left.
+  - [16] 2026-11-02: an API key is generated on the application's page in Stack Apps after the application is registered | capture: sha256:846247521ad99eaaac9416b350c8d48321566655f2c05d039452edda9e21591d | quote: To generate an API key, click Generate API Key on your application in Stack Apps.
+  - [16] 2026-11-02: a registered application gets an increased throttle quota | capture: sha256:846247521ad99eaaac9416b350c8d48321566655f2c05d039452edda9e21591d | quote: Registered applications will also be granted an [increased throttle quota](https://api.stackexchange.com/docs/throttle).
+  - [17] 2026-11-02: a newly created application has no key until one is generated on its dashboard | capture: sha256:0687b4ef9bb278ec6793fe8415ec1c52789662f30248dbca6c36f5f3e3e7f1f5 | quote: For newly created apps, keys and client secrets are not issued by default and can be generated and rotated here
+  - [9] 2026-11-02: the Stack Apps signup page, shown to a visitor sent from the registration page, offers Google sign-in beside the email and password fields | capture: sha256:b4c23d2989c050b0ba68c7d7c34909c133eda3755e82ee2f31f54c94829a64a4 | quote: Sign up with Google # OR Email Password Sign up
+  - [18] 2026-11-02: the whole-network dump page sends a visitor with no session to the Meta Stack Exchange login page | capture: sha256:dfabd9cd2273fb02be59d1de4929c89f4221af79f232fe5dd867cb7a2f0b8640 | quote: x-web-final-url: https://meta.stackexchange.com/users/login?returnurl=https%3a%2f%2fmeta.stackexchange.com%2fusers%2fdata-dump-access%2fcurrent
+  - [19] 2026-11-02: a Stack Exchange account is created with an email address and a password, or through Google or Facebook sign-in | capture: sha256:efe73f84ea80f54082ac6b18d95e2968bb1aa7bd812fd6b0cb5a62052508231a | quote: To create an account on Stack Overflow, please [sign up through Google, Facebook, or create a new Stack Exchange account](https://stackoverflow.com/users/login) using an email address and password.
+  - [20] 2026-11-02: a Stack Apps post of 2021 lists the four required fields of the registration form: Application Name, Description, OAuth domain and Application Website | capture: sha256:908fabc5ad824c36997d7007dfc0b2f6a2e59abcbe6672f3ee780e26b7f5af6a | quote: there are 4 fields that are required: - Application Name - Description - OAuth domain - Application Website
+  - [21] 2026-11-02: a Stack Apps answer says a key registered with placeholder values in the required fields still gives the 10K quota | capture: sha256:c6033c542868d28933360017c74e89858c8795dbbcdcf01bb8c70cde138fa94f | quote: This still allows you to use the `key` to get 10K quota.
+  - [21] 2026-11-02: a Stack Apps answer says an application registered for a key is visible only to its owner and Stack Exchange staff | capture: sha256:c6033c542868d28933360017c74e89858c8795dbbcdcf01bb8c70cde138fa94f | quote: No one can see the apps you register at [stackapps.com/apps/oauth/register](https://stackapps.com/apps/oauth/register) except you (and the SE devs).
+  - [22] 2026-11-02: a Stack Apps FAQ answer, edited June 2025, says the key is generated in the API Keys section of the application's dashboard | capture: sha256:2ad2d0ab6d6153b62de1f1c863315f4bc86ccc8f6e2c048d144e2524bccaf85d | quote: Once you have registered an app, you will need to generate a key. You can do this in the API Keys section on your app's dashboard page.
+- sources:
+  - [1] https://stackapps.com/questions/2
+  - [2] https://api.stackexchange.com/docs
+  - [3] https://meta.stackexchange.com/questions/419975/the-return-of-the-network-data-dump
+  - [4] https://stackoverflow.com/help/data-dumps
+  - [5] https://api.stackexchange.com/docs/throttle
+  - [6] https://api.stackexchange.com/2.3/info?site=stackoverflow
+  - [7] https://api.stackexchange.com/2.3/questions?page=26&pagesize=1&site=stackoverflow
+  - [8] https://api.stackexchange.com/docs/authentication
+  - [9] https://stackapps.com/apps/oauth/register
+  - [10] https://stackoverflow.com/users/signup
+  - [11] https://archive.org/details/stackexchange_20260930
+  - [12] https://academictorrents.com/collection/stack-exchange-data-dumps.csv
+  - [13] https://data.stackexchange.com/help
+  - [14] https://meta.stackexchange.com/questions/401324/announcing-a-change-to-the-data-dump-process
+  - [15] https://meta.stackexchange.com/questions/224873/all-stack-exchange-data-dump-releases
+  - [16] https://stackapps.com/help/api-authentication
+  - [17] https://meta.stackexchange.com/questions/410541
+  - [18] https://meta.stackexchange.com/users/data-dump-access/current
+  - [19] https://stackoverflow.com/help/creating-accounts
+  - [20] https://stackapps.com/questions/8975/the-fieldnames-in-the-error-message-do-not-match-the-names-used-on-the-form
+  - [21] https://stackapps.com/questions/8107/can-i-make-a-private-application
+  - [22] https://stackapps.com/questions/8971
+
+## stack exchange as bulk storage
+
+- `storage/stack-exchange-as-bulk-storage` | fails-quota | evidence documented | binding per-object-cap | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-04T01:24:40.826Z (live) | stale on 2026-12-05
+- url https://meta.stackexchange.com/questions/308507/image-size-limit-why-it-is-set-to-2-mib
+- free tier: Per-image upload cap of 10 MiB (raised from 2 MiB); images are uploaded into posts | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: 10 MiB per uploaded image (raised from 2 MiB) | bytes: 10485760 | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- limits:
+  - per-object-cap (binding): 10 MiB per uploaded image [2]
+- binding note: 10 MiB per uploaded image, images only; no total quota or egress meter is documented on the pages read
+- interface detail: not documented
+- tooling: unverified: whether a public image-upload API exists; a 2021 comment says images uploaded via the API went to the same image host
+- composes with: not recorded
+- reliability: 10 MiB per uploaded image (raised from 2 MiB); the storage is images attached to posts
+- notes: the same as reliability
+- evidence note: documented from the Stack Exchange staff and accepted-answer posts captured on 2026-11-03: https://meta.stackexchange.com/questions/395024/stack-exchange-s-image-hosting-arrangement-with-imgur-has-ended-migration-complete (10 MiB cap) and https://meta.stackexchange.com/questions/308507/image-size-limit-why-it-is-set-to-2-mib (10MiB limit, API uploads reach the image host); posting rate limits are unverified
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: 2 MiB cap plus no API upload path plus per-site posting rate limits; the permanence is excellent but the throughput is a human-editor workflow
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 2 MiB cap plus no API upload path plus per-site posting rate limits; the permanence is excellent but the throughput is a human-editor workflow
+  - [2] 2026-11-03: a staff member states the image upload cap is now 10 MiB | capture: sha256:655366f5ac5f260d6904490213356ac4c4896356239e78997ce84674d20ee580 | quote: We've expanded the 2MiB cap, and now allow uploads up to 10 Mib
+  - [1] 2026-11-03: the accepted answer states the upload limit is now 10 MiB | capture: sha256:57ddd1c427d9ac1cc0a81d8934d346bd9638d4dd36fe1bb85bb6053276c17c1f | quote: Update - The upload file limit is now 10MiB
+  - [1] 2026-11-03: a commenter reports API uploads reach the image host | capture: sha256:57ddd1c427d9ac1cc0a81d8934d346bd9638d4dd36fe1bb85bb6053276c17c1f | quote: Even if you upload the image the normal way via the stackexchange api it ends up going to stack.imgur.com
+  - [2] 2026-11-03: the documented constraint is a per-image cap, not egress | capture: sha256:655366f5ac5f260d6904490213356ac4c4896356239e78997ce84674d20ee580 | quote: We've expanded the 2MiB cap, and now allow uploads up to 10 Mib
+  - [2] 2026-11-03: the image upload cap is now 10 MiB | capture: sha256:655366f5ac5f260d6904490213356ac4c4896356239e78997ce84674d20ee580 | quote: We've expanded the 2MiB cap, and now allow uploads up to 10 Mib
+- sources:
+  - [1] https://meta.stackexchange.com/questions/308507/image-size-limit-why-it-is-set-to-2-mib
+  - [2] https://meta.stackexchange.com/questions/395024/stack-exchange-s-image-hosting-arrangement-with-imgur-has-ended-migration-complete
+
+## Stack Exchange image host (i.sstatic.net, ex-i.stack.imgur.com)
+
+- `storage/stack-exchange-image-host` | fails-quota | evidence reported | binding per-object-cap | category media
+- identity a placeholder: card and phone unknown | verified 2026-11-04T01:24:40.827Z (live) | stale on 2026-11-19
+- url https://stackexchange.com
+- free tier: 10 MiB per uploaded image, animated GIFs 2 MiB; images over 2 MiB are resized below 2 MiB; no per-account total is stated on the page read | unit: unlimited | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: 10 MiB hard cap per upload (file or URL); images over 2 MiB are resized below 2 MiB; animated GIFs stay capped at 2 MiB | bytes: 10485760 | source: [1] | note: not stated
+- retention: Images over 2 MiB are automatically resized below 2 MiB, so stored bytes differ from the upload; historical Imgur images were migrated to i.sstatic.net (migration complete 2024-05-28). | source: [1] | note: not stated
+- egress: Free, Cloudflare-fronted, cacheable. Probe showed 'Server: cloudflare', 'cf-cache-status: HIT'. | metered: no
+- identity: email
+- interface: rest
+- limits:
+  - per-object-cap (binding): 10 MiB hard cap per upload (file or URL); animated GIFs 2 MiB [1]
+- limits note: 10 MiB hard cap per upload, images over 2 MiB are automatically resized below 2 MiB (best effort), animated GIFs capped at 2 MiB; not byte-exact storage; posting rate limits per site
+- interface detail: rest
+- tooling: No official image-upload endpoint in the SE API; images are inserted by the web editor or by POSTing a post body containing an already-hosted URL. Wrapper only (Selenium/editor automation). This is the failure point.
+- composes with: 2 MiB x unlimited posts x unlimited answers x N Stack Exchange sites (180+ sites, one network account). 500 GB = ~256,000 images; not a practical bulk store without a browser farm
+- reliability: The most permanent image host in this set. SE migrated every historical Imgur URL to i.sstatic.net in May 2024 precisely to guarantee links never rot; a live 2013-era test image still returns 200 with Last-Modified 2024-05-01.
+- notes: 10 MiB per image (animated GIFs 2 MiB), resized below 2 MiB; no per-account total stated
+- evidence note: read on 2026-11-03: two Stack Exchange meta posts: https://meta.stackexchange.com/questions/401308 (10MiB hard cap, resize of images over 2MiB, animated GIFs capped at 2MiB) and https://meta.stackexchange.com/questions/395024/ (images migrated from Imgur); the unlimited unit and the permanence of old image URLs rest on a probe of 2026-10-21 that is not repeated, so the rung stays reported
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 2 MiB per image, no per-account total; unlimited images per post
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [2] 2026-10-21: probe: GET -> 200, content-type image/jpeg, 138754 bytes, Server: cloudflare, cf-cache-status: HIT, Last-Modified Wed, 01 May 2024
+  - [3] 2026-10-21: probe: GET -> 302 (redirect to the new host, old URLs still resolve)
+  - [4] 2026-10-21: ... — 'Created a new image uploading service at i.sstatic.net ... Migrated all images from Imgur ... Migration complete! May 28th 2024'
+  - [5] 2026-11-03: the hard cap is 10MiB, by upload or URL | capture: sha256:7691f82dbc5b60091094e46cd17c4798bb033a4217c774e6d5fa8f22d18a583b | quote: We still have a hard cap if the image is over 10MiB, whether by file upload or URL.
+  - [5] 2026-11-03: uploads over 2 MiB are resized below 2 MiB | capture: sha256:7691f82dbc5b60091094e46cd17c4798bb033a4217c774e6d5fa8f22d18a583b | quote: Any images over 2MiB will be allowed, but automatically resized below 2MiB so they load reasonably well for users
+  - [4] 2026-11-03: all images were migrated from Imgur to the Stack-run service | capture: sha256:e99200b7afb3961ab07fa6ab8df8534ff1c57a7e45bbed81aba7071481578de6 | quote: Migrated all images from Imgur to our new Stack service.
+  - [5] 2026-11-03: animated GIFs stay capped at 2MiB | capture: sha256:7691f82dbc5b60091094e46cd17c4798bb033a4217c774e6d5fa8f22d18a583b | quote: Animated gifs are hard to re-size so still remain capped at 2MiB.
+- sources:
+  - [1] https://meta.stackexchange.com/questions/308507/image-size-limit-why-it-is-set-to-2-mib
+  - [2] https://i.sstatic.net/mHJfs.jpg
+  - [3] https://i.stack.imgur.com/mHJfs.jpg
+  - [4] https://meta.stackexchange.com/questions/395024/
+  - [5] https://meta.stackexchange.com/questions/401308

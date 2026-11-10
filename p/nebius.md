@@ -1,0 +1,243 @@
+# Nebius
+
+> nebius.com | Compute, Inference; 5 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/nebius/ | JSON https://fshy.ajam.dev/api/v1/entity/nebius.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Nebius ConTree (Token Factory Sandboxes)
+
+- `compute/nebius-contree` | qualifies-with-caveat | evidence documented | binding write-gated | category container and VM sandbox
+- identity a placeholder: card and phone unknown | verified 2026-11-04T02:24:14.181Z (live) | stale on 2026-12-05
+- url https://tokenfactory.nebius.com/sandboxes/about
+- free tier: free while in beta: runs do not consume credits, but calling it from your own agents requires beta access | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published: the Sandboxes page and docs state no egress allowance or price; the service is free while in beta | metered: no | source: [1]
+- identity: email
+- interface: rest, cli
+- limits:
+  - write-gated (binding): calling the sandbox from your own agents requires beta access; the browser shell is open [1]
+  - retention-clamped: the free position is 'while in beta', so it ends when beta does and no notice is promised [1]
+- interface detail: Python SDK, REST API, CLI and MCP server; beta access is requested before use
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: The sandboxes page was read on 2026-10-22 and states the free-while-in-beta condition and access requirements.
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: the page states no session clock; the gate is beta access rather than a quota
+  - free_tier_kind: allowance
+  - net.out: yes
+  - net.in: no
+  - net.ports: SDK and an in-browser shell
+  - net.static_ip: no
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Free while in beta - runs don't consume your credits.' and 'request beta access to call it from your own agents - free while in beta', quoted
+  - [1] 2026-11-03: the beta is free and no egress price is stated | capture: sha256:c73d0d609954afe5c6bc21409189ef3c80fcc9a58fc0e8f8095933dc0af30f64 | quote: Free while in beta — runs don't consume your credits.
+  - [1] 2026-11-03: REST API and CLI exist | capture: sha256:c73d0d609954afe5c6bc21409189ef3c80fcc9a58fc0e8f8095933dc0af30f64 | quote: Easy to integrate — use Sandboxes from the Python SDK, REST API, CLI, or MCP server.
+- sources:
+  - [1] https://tokenfactory.nebius.com/sandboxes/about
+
+## Nebius Token Factory
+
+- `inference/nebius-token-factory` | trial-only | evidence documented | binding volume-quota | category serverless inference, card-backed pay-as-you-go with a promo credit | tier Starter Plan
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T01:04:07.768Z (live) | stale on 2026-12-04
+- url https://docs.tokenfactory.nebius.com/quickstart
+- free tier: no standing free allowance on the Starter Plan, which is pay-as-you-go. A promotional credit of USD 25 for Token Factory (and USD 25 of Tavily credit) is issued through the Nebius Builder Program and expires 90 days after issue; applying a promo code is done in the console after a billing account with a bank card exists | unit: credits | metered on: unstated | read on: 2026-11-03 | source: [1] | note: the credit is drawn down by per-token prices that depend on the model; the Builder Program page was last modified September 2026
+- per-object cap: not applicable
+- retention: the plans page lists 'Zero-retention inference.' for the Starter Plan; the supplemental terms separately allow storing input and output unless the customer opts out in the onboarding form or by email to support, and which of the two is the default is…
+- egress: metered: no
+- identity: card | detail: Sign-in with a Google or GitHub account, then a billing account with a bank card is mandatory to finish onboarding ('Billing setup is mandatory—you cannot complete onboarding without it.'); bank transfer is for companies only. The Builder Program form separately asks for name, email, company or university name, role, country and a description of what is being built, with a verified email. A Nebius Cloud Support answer relayed on a hackathon forum says promotional-credit-only access is unavailable.
+- interface: rest
+- limits:
+  - request-rate: Starter Plan baseline of 400K TPM and 600 RPM on the plans page (the rate-limits page example table prints 60 RPM and 400,000 TPM as its baseline); the limit rises x1.2 for the next 15-minute window at 80 per cent or more average use, falls by 1.5 at 50 per cent or less, up to 20 times the base; HTTP 429 above the limit [2]
+  - volume-quota (binding): USD 25 of Token Factory promo credit from the Builder Program, expiring 90 days after issue; the account can be auto-paused when monthly consumption exceeds the credit by more than 30 per cent [1]
+- binding note: the USD 25 promo credit is the only free allowance and runs out first; the card on file then bills pay-as-you-go
+- interface detail: OpenAI-compatible chat completions API at https://api.tokenfactory.nebius.com/v1/ (the console home page also shows a regional host, api.tokenfactory.us-central1.nebius.com)
+- endpoint: https://api.tokenfactory.nebius.com/v1/chat/completions
+- tooling: any OpenAI-compatible client pointed at the base URL with an API key created in the console; model ids are vendor/model, for example deepseek-ai/DeepSeek-R1-0528
+- composes with: the Builder Program credit is the only free lane found; the card on file means usage beyond the credit is billed pay-as-you-go
+- reliability: Best-effort 99% availability on the Starter Plan and no SLA for the service; free credits may be modified or revoked without notice; a failed card charge suspends the account; sudden bursts may be throttled with HTTP 429
+- notes: the plans page prints a 600 RPM baseline while the rate-limits page example table prints 60 RPM at the same 400,000 TPM; the same lane is labelled Starter Plan on one page and Startup Tier on the other
+- evidence note: every field is quoted from first-party pages read on 2026-11-03; the card requirement is also relayed by a third-party forum post; unverified: whether a promo code redeems without a card, and the per-model rate limits
+- evidence:
+  - [3] 2026-11-03: a billing account is mandatory to complete onboarding | capture: sha256:efdc0dc2c9fe02d1cd408f9389217723b6e0c789ba95676457ce7b62c7744666 | quote: Billing setup is mandatory—you cannot complete onboarding without it.
+  - [3] 2026-11-03: the billing account needs a bank card | capture: sha256:efdc0dc2c9fe02d1cd408f9389217723b6e0c789ba95676457ce7b62c7744666 | quote: Setting up a billing account requires a bank card.
+  - [3] 2026-11-03: the card-free payment route is closed to individuals | capture: sha256:efdc0dc2c9fe02d1cd408f9389217723b6e0c789ba95676457ce7b62c7744666 | quote: Bank transfers are available to companies only and are not supported for individual accounts.
+  - [3] 2026-11-03: a failed card charge suspends the account | capture: sha256:efdc0dc2c9fe02d1cd408f9389217723b6e0c789ba95676457ce7b62c7744666 | quote: If a card charge fails, your account is suspended.
+  - [3] 2026-11-03: promo codes give free credits and are applied in the console after billing setup | capture: sha256:efdc0dc2c9fe02d1cd408f9389217723b6e0c789ba95676457ce7b62c7744666 | quote: A promo code provides free Nebius Token Factory credits and is typically issued as part of a special offer.
+  - [4] 2026-11-03: sign-in is a Google or GitHub account | capture: sha256:f59ae66f965fb0d6479e3445d0bbfb7ba541aba00b2869a26aac72501f743c4c | quote: 2. Log in using your Google or GitHub account
+  - [4] 2026-11-03: the OpenAI-compatible base URL | capture: sha256:f59ae66f965fb0d6479e3445d0bbfb7ba541aba00b2869a26aac72501f743c4c | quote: base_url="https://api.tokenfactory.nebius.com/v1/",
+  - [5] 2026-11-03: the console home page shows a regional host of the same API | capture: sha256:e43cc19263f39d620e31bd2c042c8238e2fa502abdb999adb61aee893fc89011 | quote: base_url="https://api.tokenfactory.us-central1.nebius.com/v1/",
+  - [6] 2026-11-03: serverless inference is the shared lane aimed at evaluation and prototyping | capture: sha256:5727ce6f90879e670ff8b712fa6c1361e721d4d35b30d5c6524db17c25a8fedf | quote: Best for: evaluation, prototyping and variable workloads.
+  - [7] 2026-11-03: the Starter Plan baseline rate limit | capture: sha256:a136cbd33e913e698414061c8a4d21dc8a88edcbfa570fe235a8a893adf93224 | quote: 400K TPM / 600 RPM baseline. Burst capacity on request.
+  - [7] 2026-11-03: the Starter Plan availability level | capture: sha256:a136cbd33e913e698414061c8a4d21dc8a88edcbfa570fe235a8a893adf93224 | quote: Best-effort 99% availability.
+  - [7] 2026-11-03: the Starter Plan is billed pay-as-you-go, with no free allowance listed | capture: sha256:a136cbd33e913e698414061c8a4d21dc8a88edcbfa570fe235a8a893adf93224 | quote: Pay-as-you-go.
+  - [7] 2026-11-03: the Starter Plan lists zero-retention inference | capture: sha256:a136cbd33e913e698414061c8a4d21dc8a88edcbfa570fe235a8a893adf93224 | quote: Zero-retention inference.
+  - [2] 2026-11-03: the rate-limits page example table prints a baseline of 60 RPM and 400,000 TPM, which disagrees with the 600 RPM of the plans page | capture: sha256:7f8c040889c8964058330c70969257846441205ba1aad6fe491bb6ca1606038d | quote: | Baseline | `1.00×` | 60 | 400,000 |
+  - [2] 2026-11-03: the limit scales up by 1.2 at 80 per cent or more average use per 15-minute window | capture: sha256:7f8c040889c8964058330c70969257846441205ba1aad6fe491bb6ca1606038d | quote: Scale‑up rule – When average usage in a 15‑minute window ≥ 80 % of the current limit, the limit for the next window increases by 20 % (`× 1.2`).
+  - [2] 2026-11-03: the limit scales down by 1.5 at 50 per cent or less | capture: sha256:7f8c040889c8964058330c70969257846441205ba1aad6fe491bb6ca1606038d | quote: Scale‑down rule – When average usage in a 15‑minute window ≤ 50 %, the limit for the next window decreases by one‑third (`÷ 1.5`).
+  - [2] 2026-11-03: the ceiling is 20 times the base | capture: sha256:7f8c040889c8964058330c70969257846441205ba1aad6fe491bb6ca1606038d | quote: Hard ceiling – The limit can grow to 20 × your base allocation. Beyond that we require an Enterprise plan.
+  - [2] 2026-11-03: over-limit requests answer 429 | capture: sha256:7f8c040889c8964058330c70969257846441205ba1aad6fe491bb6ca1606038d | quote: If you exceed the active limit you will receive HTTP 429.
+  - [1] 2026-11-03: the Builder Program grants USD 25 of Token Factory credit and USD 25 of Tavily credit | capture: sha256:52c47cd7087a24394dddd3c44616869dcf2fe88ca05895ed385efe8ef83dfd64 | quote: C.1 Upon successful registration and verification, Customer will receive promotional credit codes for: (i) USD $25 in Nebius Token Factory credits; and (ii) USD $25 in Tavily partner credits.
+  - [1] 2026-11-03: the credits expire 90 days after issue | capture: sha256:52c47cd7087a24394dddd3c44616869dcf2fe88ca05895ed385efe8ef83dfd64 | quote: C.2 All promotional credits are nonrefundable, nontransferable, and expire 90 days from the date of issuance.
+  - [1] 2026-11-03: the Builder Program form fields | capture: sha256:52c47cd7087a24394dddd3c44616869dcf2fe88ca05895ed385efe8ef83dfd64 | quote: B.1 To register for the Programme, Customer must complete the Programme registration form with all required information, including: name, email address, company or university name, role, country, a description of what Customer is building, and acceptance of these Service-Specific Terms.
+  - [1] 2026-11-03: Builder Program membership needs a verified email | capture: sha256:52c47cd7087a24394dddd3c44616869dcf2fe88ca05895ed385efe8ef83dfd64 | quote: B.2 Customer must verify its email address via the double opt-in verification email sent upon registration.
+  - [1] 2026-11-03: the account can be auto-paused when monthly consumption exceeds the credit by more than 30 per cent | capture: sha256:52c47cd7087a24394dddd3c44616869dcf2fe88ca05895ed385efe8ef83dfd64 | quote: H.4 Nebius reserves the right to auto-pause or suspend Customer’s account if monthly resource consumption exceeds the credit allocation by more than 30%.
+  - [8] 2026-11-03: free credits can be modified or revoked without notice | capture: sha256:b1bb7ec64a4d5f9b2e4a1ebd4e6eaf4c46ccea0598c0849d53c7b208dfb3c8b3 | quote: **6.2. Credits.** If Customer is granted or otherwise receives any free credits for use of the Services, Nebius reserves the right to modify or revoke any such credits at any time and without prior notice.
+  - [8] 2026-11-03: the Token Factory service is outside the SLA | capture: sha256:b1bb7ec64a4d5f9b2e4a1ebd4e6eaf4c46ccea0598c0849d53c7b208dfb3c8b3 | quote: **7.4. No Service Level Agreement.** The Service Level Agreement (“SLA”) available at
+  - [8] 2026-11-03: a payment method is required on the account | capture: sha256:b1bb7ec64a4d5f9b2e4a1ebd4e6eaf4c46ccea0598c0849d53c7b208dfb3c8b3 | quote: Customer is required to set up a payment method in the Customer Account in accordance with Nebius’ or the Platform’s instructions.
+  - [8] 2026-11-03: input and output storage is on by default with an opt-out | capture: sha256:b1bb7ec64a4d5f9b2e4a1ebd4e6eaf4c46ccea0598c0849d53c7b208dfb3c8b3 | quote: **5.4. Opt Out.** If Customer prefers that Nebius (i) does not store Customer’s Inputs and Outputs for the purposes of providing the Services
+  - [9] 2026-11-03: a participant relays a Nebius Cloud Support answer that a bank card is required | capture: sha256:04558b9cde5485cecbe96007861c1619cd6c75a5e44f17cf64ab6e6de4004a64 | quote: A bank card is required to complete onboarding.
+  - [9] 2026-11-03: the relayed support answer says access on promotional credit alone is unavailable | capture: sha256:04558b9cde5485cecbe96007861c1619cd6c75a5e44f17cf64ab6e6de4004a64 | quote: Promotional-credit-only access is currently unavailable.
+  - [9] 2026-11-03: the relayed support answer says no hard spending limit is guaranteed | capture: sha256:04558b9cde5485cecbe96007861c1619cd6c75a5e44f17cf64ab6e6de4004a64 | quote: There is no guaranteed hard spending limit to prevent charges beyond the $25 promotional balance.
+  - probe:api.tokenfactory.nebius.com 2026-11-03: the API host answers 401 to an unauthenticated model-list request, so a key is needed | capture: sha256:ab6639693ff5eb5d5ddb35c6500d01b43bcb779e97a05ecbc3cae1ad15e51171 | quote: "status": 401
+- sources:
+  - [1] https://nebius.com/builders-terms-and-conditions
+  - [2] https://docs.tokenfactory.nebius.com/ai-models-inference/rate-limits
+  - [3] https://docs.tokenfactory.nebius.com/other-capabilities/billing-new
+  - [4] https://docs.tokenfactory.nebius.com/quickstart
+  - [5] https://tokenfactory.nebius.com/
+  - [6] https://nebius.com/services/token-factory
+  - [7] https://nebius.com/services/token-factory/enterprise-grade-inference
+  - [8] https://docs.nebius.com/legal/token-factory
+  - [9] https://nebiusglobalaihackathon.devpost.com/forum_topics/45365
+
+## Nebius
+
+- `compute/nebius` | paid-only | evidence documented | binding request-rate | category GPU cloud
+- identity a placeholder: card and phone unknown | verified 2026-11-03T08:50:29.736Z (live) | stale on 2026-12-04
+- url https://docs.nebius.com/compute/resources/pricing
+- free tier: no free tier: computing resources bill per second of running time only, with a B300 NVLink GPU at $9.50 a GPU-hour on demand, an H100 NVLink at $4.50 a GPU-hour on demand (eu-north1 only) and from $0.79 a GPU-hour preemptible, an L40S at $1.35 a GPU-hour on demand and $0.65 preemptible (CPU and RAM billed separately by the hour), and a stopped VM not charged for compute. The page lists no A100, RTX 4090 or L4 and states no minimum bill. | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - request-rate (binding): $9.50 a GPU-hour for a B300 NVLink on demand; billed per second with a one-hour pricing unit [1]
+  - retention-clamped: a stopped VM is not charged for compute but its storage volumes are; preemptible pricing for the newest GPU platforms switched to dynamic spot pricing on 2026-10-08 [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the GPU pricing page was read on 2026-10-22 and states the billing and pricing units, the stopped-VM rule and the B300 rates. There is no free tier, so the verdict moves to paid-only
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - shape.gpu_class: NVIDIA B300 NVLink
+  - shape.gpu_count: 8
+  - shape.note: the gpu-b300-sxm platform; preemptible B300 starts from $0.99 a GPU-hour under dynamic spot pricing
+  - session_cap.restart_required: no
+  - session_cap.note: a stopped VM stops the compute charge; the page states no automatic reap
+  - free_tier_kind: none
+  - burst_x: 1.0
+  - ps.price: volumes and shared filesystems bill separately, running or stopped
+  - ps.durability: volume
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: while the volume exists
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'You are charged for computing resources (GPUs, vCPUs, RAM) of running virtual machines (VMs). Computing resources of stopped VMs are not charged (this does not apply to storage volumes)' with 'Billing unit: 1 second' and 'Pricing unit: 1 hour', and B300 NVLink at $9.50 a GPU-hour or $7.85 on a different term, quoted
+  - [1] 2026-11-03: H100 NVLink on demand is USD 4.50 per GPU hour | capture: sha256:620ff54ba512ea324f0d3d15d6d69862ba900ab62c732b76404445c43bf62206 | quote: > | NVIDIA® H100 NVLink | \$4.50 | 1 GPU hour |
+  - [1] 2026-11-03: preemptible H100 NVLink is priced from USD 0.79 per GPU hour | capture: sha256:620ff54ba512ea324f0d3d15d6d69862ba900ab62c732b76404445c43bf62206 | quote: > | Preemptible NVIDIA® H100 NVLink | [From \$0.79](https://docs.nebius.com/signup-billing/pricing-policy.md) | 1 GPU hour |
+  - [1] 2026-11-03: L40S on demand is USD 1.35 per GPU hour | capture: sha256:620ff54ba512ea324f0d3d15d6d69862ba900ab62c732b76404445c43bf62206 | quote: > | NVIDIA® L40S Intel. GPU | \$1.35 | 1 GPU hour |
+  - [1] 2026-11-03: preemptible L40S is USD 0.65 per GPU hour | capture: sha256:620ff54ba512ea324f0d3d15d6d69862ba900ab62c732b76404445c43bf62206 | quote: > | Preemptible NVIDIA® L40S Intel. GPU | \$0.65 | 1 GPU hour |
+  - [1] 2026-11-03: GPU billing unit is 1 second and the pricing unit is 1 hour | capture: sha256:620ff54ba512ea324f0d3d15d6d69862ba900ab62c732b76404445c43bf62206 | quote: For example, for GPUs on running VMs, the billing unit is 1 second, and the pricing unit is 1 hour (3600 seconds).
+- sources:
+  - [1] https://docs.nebius.com/compute/resources/pricing
+
+## Nebius AI Cloud
+
+- `compute/nebius-ai-cloud` | paid-only | evidence measured | binding none | category GPU cloud
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T10:14:38.954Z (live) | stale on 2026-12-19
+- url https://nebius.com/spot-prices
+- free tier: Live spot (preemptible) prices from a public REST endpoint that needs no authentication, readable anonymously. NVIDIA H100 NVLink in eu-north1 at USD 0.84 per GPU-hour, effective 2026-11-03T08:46:00Z. The same snapshot (snapshotTime 2026-11-03T08:52:18.839288Z) lists H200 at USD 1.09 in eu-north1, USD 1.3 in eu-west1 and USD 1.99 in us-central1, B200 at USD 2.5 in me-west1 and USD 4.6 in us-central1, B300 at USD 4.99 in us-north1, USD 9.49 in uk-south1 and USD 12.5 in eu-west2, and RTX PRO 6000 at USD 0.79 in eu-south1 and uk-south2 and USD 1.5 in us-central1. The H100 floor is a dynamic price that changes between readings. | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: card | detail: sign-up through a Google, GitHub or Microsoft account, then a name and email on the contact-details page; billing details are required before the first resource is created; an individual payer adds a bank card, and the account activates after a first card payment of USD 25, which is added to the balance; a company may pay by bank transfer or be activated manually by the Nebius team. The signup guide lists no phone or ID-document step.
+- interface: rest
+- limits note: The price is the floor of a dynamic range that can rise to one cent below on-demand every 15 minutes, and the deep rates are single-region, so the failure mode is the rate moving rather than the capacity being unreachable.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: USD 0.79 an H100-hour means USD 300 of credit buys 380 H100-hours, which is the largest measured H100 budget in documented records at any identity cost.
+- reliability: no reliability event recorded
+- notes: This number is better than every third-party H100 spot rate found and it is measurable with no account, which makes it the reference point the rest of the class should be judged against. It is also 2.8 times cheaper than Verda's flat 50 per cent H100 spot at USD 2.235. The risk is entirely in the dynamic clause: the range ceiling is one cent under USD 4.50, so a run without a pricing policy has unbounded cost, and a pricing policy that caps it converts the price risk into a stop. H100 is single-region (eu-north1), so there is no region to move to when the price rises. qualifies-with-caveat via a05-spot. The one recorded is the better-evidenced.
+- extras:
+  - facets.class: spot-arbitrage
+  - facets.free_tier_kind: none
+  - facets.shape.gpu_class: H100-80GiB
+  - facets.shape.gpu_count: 1
+- evidence:
+  - [1] 2026-10-22: probe record 20261022T134509, status 200, 202986 bytes, sha256 1dff7ee3cbb2c33999164e31daf37bd124d2d68f1a0b0774cf1e630b86ae5d8f, page states 'Updated 22 Oct 2026, 13:40 UTC'
+  - [1] 2026-10-22: the All live prices table lists 'NVIDIA H100 | eu-north1 | $0.79 | 9 Oct 2026, 17:01', 'NVIDIA H200 | us-central1 | $0.89 | 22 Oct 2026, 13:11', 'NVIDIA B200 | us-central1 | $3.60', and 12 markets in total
+  - [2] 2026-10-22: on-demand NVIDIA H100 NVLink is USD 4.50 per GPU hour and H200 NVLink is USD 5.40, both from October 8 2026, quoted from the pricing tables
+  - [2] 2026-10-22: the change note states that from October 8 2026 preemptible pricing for B300, B200, H200, H100 and RTX PRO 6000 switches to dynamic spot pricing and the preemptible cell shows the minimum spot price, quoted
+  - [2] 2026-10-22: the B300 table gives USD 9.50 on-demand and 'From $0.99' preemptible from October 8 2026, USD 4.30 preemptible between October 1 and October 8, and the H200 table gives USD 5.40 on-demand against 'From $0.79'
+  - [3] 2026-10-22: the spot price 'may change as often as every 15 minutes', 'The highest preemptible VM price is always one cent below the current pay-as-you-go (PAYG) on-demand rate', and spot prices are viewable without an account
+  - [1] 2026-10-22: the All live prices table gives three H200 regions at USD 0.89, USD 2.45 and USD 5.09 on the same reading, and RTX PRO 6000 at USD 1.08, USD 1.38 and USD 1.39, read at 13:40 UTC
+  - [1] 2026-10-22: the per-platform cards show 24-hour movement: H200 us-central1 down USD 0.41 or 31.5 per cent, B300 eu-west2 up USD 1.80 or 44.0 per cent, RTX PRO 6000 uk-south2 down USD 0.30 or 21.7 per cent
+  - [3] 2026-10-22: 'You don't need a Nebius AI Cloud account to view them', quoted, and the worked example charges 8 GPUs at USD 2.00 for the first 15 minutes and USD 2.50 for the next
+  - [3] 2026-10-22: the 15-minute interval billing example: 8 GPUs at 0.25 hours at USD 2.00 is USD 4.00, then 8 GPUs at 0.25 hours at USD 2.50 is USD 5.00
+  - [4] 2026-10-22: 'Compute sends a SIGTERM signal 60 seconds before stopping the VM', volumes are preserved, and the only supported preemption action is STOP, quoted
+  - [5] 2026-10-31: an individual account activates only after a card is added and an initial USD 25 is paid; a company may be activated manually by the Nebius team | capture: sha256:cef9a5f57a58ddbfda0e6f6da715a18c442ef164a5a9ae456d959a2a419e06e2 | quote: | Activation | Automatic after adding a card and paying the initial $25 | Automatic after adding a card and paying the initial $25 (except Israel), or manual through the Nebius team |
+  - [6] 2026-10-31: sign-up is through a Google, GitHub or Microsoft account | capture: sha256:2bc8088d827e98915f24d7fe991ce78c151c83945f216aa1356c755bf313019a | quote: Select whether you want to use a Google, GitHub or Microsoft account to work with Nebius AI Cloud.
+  - [6] 2026-10-31: the contact-details step asks for a name and an email | capture: sha256:2bc8088d827e98915f24d7fe991ce78c151c83945f216aa1356c755bf313019a | quote: On the Contact details page that opens, enter your name and email.
+  - [6] 2026-10-31: billing details are required before the first resource is created | capture: sha256:2bc8088d827e98915f24d7fe991ce78c151c83945f216aa1356c755bf313019a | quote: Specify details for payment in the Billing section. If you skip this step, you will be prompted for billing details when you create the first resource.
+  - [7] 2026-10-31: a card payer makes a required first payment of USD 25 | capture: sha256:8ef23076cfd8b7e1ec414c3072c13761ac781ac53ef76bfda4db045374bbcc4e | quote: To pay with a bank card, add it to your billing details after signup. Make sure the card has sufficient funds for the required first payment, $25.
+  - [8] 2026-10-31: a promo code (the only free-credit route documented) can be applied only after the card is added and USD 25 is charged | capture: sha256:ad7cc065ab4bed1732bbb76f7d9905bdface0c6897793107d5ed935357829e3c | quote: Once you add a bank card, Nebius charges $25 and adds this amount to your account balance. After that, you can apply promo codes.
+  - probe:https://docs.nebius.com/signup-billing/free-trial.md 2026-10-31: the Nebius AI Cloud free trial is suspended since 2026-07-13 and takes no new sign-ups, so no free allowance remains | capture: sha256:248a90340265be7e92705c2842e6a22cc40765f0e76cb58a86ddbbed541bf82c | quote: The free trial program in Nebius AI Cloud has been suspended as of July 13, 2026. New sign-ups aren't accepted.
+  - [1] 2026-10-31: the H100 eu-north1 spot floor is still USD 0.79 per GPU-hour, read anonymously on 2026-10-31 | capture: sha256:e5c8398a2a7b0a7b582b4f2669485d5982a8704709f820b8bbcfa0560eb36697 | quote: | NVIDIA H100 | eu-north1 | $0.79 | 31 Oct 2026, 00:26 |
+  - probe:https://docs.nebius.com/signup-billing/payments/payers.md 2026-10-31: an individual account activates only after a card is added and an initial USD 25 is paid; the offer is pay-as-you-go | capture: sha256:cef9a5f57a58ddbfda0e6f6da715a18c442ef164a5a9ae456d959a2a419e06e2 | quote: | Activation | Automatic after adding a card and paying the initial \$25 | Automatic after adding a card and paying the initial \$25 (except Israel), or manual through the Nebius team |
+  - [9] 2026-11-03: L40S preemptible is a flat rate, not on the spot table | capture: sha256:887eefe071f840f5b0010886c93e0271628f79fff9fc1910ce30387b8cb94d66 | quote: ** NVIDIA L40S preemptible instances are excluded from spot pricing and billed at the current flat rate.
+  - [9] 2026-11-03: L40S with Intel CPU is listed from USD 0.74 preemptible and from USD 1.55 on demand per GPU-hour | capture: sha256:887eefe071f840f5b0010886c93e0271628f79fff9fc1910ce30387b8cb94d66 | quote: | NVIDIA L40S with Intel CPU | 8-40 | 32-160 | from $0.74** | from $1.55 |
+  - [1] 2026-11-03: live spot price of an H100 in eu-north1 is USD 0.82 per GPU-hour | capture: sha256:12bedd712c412a2308e55d1b2e5c0cdc19c649b23257351c665619c621faea8c | quote: | NVIDIA H100 | Finlandeu-north1 | $0.82 | 2 Nov 2026, 17:51 |
+  - probe:https://api.nebius.cloud/billing/v1alpha1/spot-price 2026-11-03: an unauthenticated GET of the spot-price endpoint returned HTTP 200 with the H100 NVLink eu-north1 price at 0.84 usd per GPU hour, effective 2026-11-03T08:46Z, in a 12-item snapshot | capture: sha256:ec336745c88d36d152bcc7e569097886a2971cb7745fe7ffb5d83d603fcf248f | quote: "productTitle":"Preemptible NVIDIA® H100 NVLink","region":"eu-north1","computeInstance":{"platform":"gpu-h100-sxm"},"price":{"value":"0.84","currency":"usd","unitTitle":"GPU hour"},"effectiveTime":"2026-11-03T08:46:00Z"
+  - [10] 2026-11-03: spot prices are readable on the website and through the API without an account | capture: sha256:9bf36016e57fdf091ec7f1b52820b8a9b3df5caab2135c16db40d5a37975e8b0 | quote: You don't need a Nebius AI Cloud account to view spot prices on the website or to get them by using the API.
+  - [1] 2026-11-03: the rendered public spot-prices page shows the same H100 eu-north1 price of USD 0.84 effective 3 Nov 2026 08:46 UTC | capture: sha256:a0ad86a725aec506c434e50c4742132258e9a9141d9a9b31feb56d8d3c67fa40 | quote: | NVIDIA H100 | Finlandeu-north1 | $0.84 | 3 Nov 2026, 08:46 |
+- sources:
+  - [1] https://nebius.com/spot-prices
+  - [2] https://docs.nebius.com/compute/resources/pricing
+  - [3] https://docs.nebius.com/signup-billing/pricing-policy
+  - [4] https://docs.nebius.com/compute/virtual-machines/preemptible
+  - [5] https://docs.nebius.com/signup-billing/payments/payers
+  - [6] https://docs.nebius.com/signup-billing/sign-up
+  - [7] https://docs.nebius.com/signup-billing/payments/card
+  - [8] https://docs.nebius.com/signup-billing/payments/promo-codes
+  - [9] https://nebius.com/prices
+  - [10] https://docs.nebius.com/signup-billing/spot-prices
+
+## Nebius research grants
+
+- `compute/nebius-research-grants` | fails-identity | evidence documented | binding write-gated | category GPU cloud
+- needs card no, phone no, ID no, institution yes | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://nebius.com/nebius-research-grants
+- free tier: GPU cloud credits, Token Factory tokens and Tavily credits. The page states 'The exact amount is determined individually based on each proposal' and states no ceiling. Eligibility is a closed list of four roles, all academic: 'Postgraduate students conducting academic research', 'PhD students and postdoctoral researchers', 'Faculty members from accredited academic institutions', 'Researchers from accredited academic institutions or non-profit research organizations'. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: one-time-credit
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution
+- interface: unknown
+- limits:
+  - write-gated (binding): the eligible-role list names only students, postdocs and staff of accredited institutions, so an unaffiliated applicant has no category to apply under. [1]
+- limits note: the eligible-role list names only students, postdocs and staff of accredited institutions, so an unaffiliated applicant has no category to apply under.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: None usable: the award is denominated in the vendor's own credits and tokens, so it does not compose with another provider's allowance, and the identity gate precedes it.
+- reliability: no reliability event recorded
+- notes: The absence of a published ceiling is the trap: 'determined individually' means the record has no number to compare against any other entry, and the four-role list has no independent lane. A co-marketing obligation is attached ('being open to publicly acknowledging Nebius support'), which is a publishing condition rather than a compute one. Nothing here is a reason to reject it as a product; the door is the finding.
+- extras:
+  - facets.class: research-credit
+  - facets.free_tier_kind: one-time-credit
+- evidence:
+  - [1] 2026-10-22: the 'Who can apply' list names exactly four roles, every one tied to an accredited academic or non-profit institution; 'The exact amount is determined individually based on each proposal'; page 200
+  - [1] 2026-10-22: 'We are now accepting applications for the 2026-2027 academic year', 'Nebius Academy will review applications throughout summer 2026', 'Successful applicants will be notified by email in late Q3 to early Q4 2026' - a seasonal cycle, not a rolling one
+- sources:
+  - [1] https://nebius.com/nebius-research-grants

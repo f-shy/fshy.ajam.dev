@@ -1,0 +1,484 @@
+# RackNerd
+
+> racknerd.com | Compute, Egress and tunnels, Storage; 9 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/racknerd/ | JSON https://fshy.ajam.dev/api/v1/entity/racknerd.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## RackNerd (1 GB KVM VPS Special)
+
+- `compute/racknerd-1gb-special` | qualifies | evidence documented | binding volume-quota | category VPS | tier 1 GB KVM VPS Special
+- needs card unknown, phone unknown, ID no, institution no | verified 2026-11-02T02:17:27.463Z (live) | stale on 2026-12-03
+- url https://www.racknerd.com/specials/
+- price parsed USD 1.83/mo
+- disagrees on verdict: `compute/racknerd` says paid-only, `compute/racknerd-1gb-special` says qualifies
+- disagrees on identity_kind: `compute/racknerd-1gb-special` says email, `compute/racknerd-4gb` says card
+- disagrees on verdict: `compute/racknerd-1gb-special` says qualifies, `compute/racknerd-4gb` says qualifies-with-caveat
+- disagrees on identity_kind: `compute/racknerd-1gb-special` says email, `compute/racknerd-8gb-annual-special` says card
+- disagrees on verdict: `compute/racknerd-1gb-special` says qualifies, `compute/racknerd-8gb-annual-special` says paid-only
+- disagrees on identity_kind: `compute/racknerd-1gb-special` says email, `compute/racknerd-black-friday-2025` says card
+- disagrees on verdict: `compute/racknerd-1gb-special` says qualifies, `compute/racknerd-black-friday-2025` says dead
+- disagrees on identity_kind: `compute/racknerd-1gb-special` says email, `compute/racknerd-specials` says card
+- disagrees on verdict: `compute/racknerd-1gb-special` says qualifies, `compute/racknerd-specials` says paid-only
+- free tier: no free tier; the smallest plan on the specials page is USD 21.99 a year for 1 GB RAM, 1 vCPU, 20 GB SSD and 3000 GB a month | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the annual plan is paid; the page read states no deletion policy for non-payment
+- egress: 3000 GB a month on a 1 Gbps port, stated on the plan card as '3000GB Monthly Premium Bandwidth' | metered: yes | free allowance: 3000 GB a month | source: [1]
+- identity: email | detail: no payment field is on it. Whether a phone number is required is unverified: a phone input is on the form but carries no required attribute and its label is hidden, while the name and address fields carry one. Whether the checkout then asks for a card is unverified, because the cart's own checkout page returns an empty cart. No country limit is stated: the billing-address country selector runs from Afghanistan to Zimbabwe.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 3000 GB a month of transfer, then the port is shaped [1]
+  - per-object-cap: 20 GB SSD on this rung [1]
+- binding note: 3 TB a month is generous for the shape, so the 20 GB disk is what a real workload meets first; there is no published overage price, only a shape.
+- interface detail: KVM guest with root access and one-click apps in the vendor's 'ctrl' panel.
+- tooling: Any SSH client; KVM, so its own kernel.
+- composes with: Not a Q2 machine at today's price, but it is the reference point the annual-prepay market is measured against: USD 21.99 a year for 1 GB with a real IPv4 and 3 TB a month.
+- reliability: no reliability event recorded
+- notes: What that establishes is that the link prices the advertised plan; it does not establish what payment methods the next step asks for. The other four rungs were read the same way and each priced its own plan: pid=953 USD 35.99/yr, pid=954 USD 59.99/yr, pid=955 USD 89.99/yr, pid=956 USD 119.99/yr.
+- evidence note: price, shape and the cart total were read from the vendor's own pages, including the rendered cart at cart.php?a=add&pid=952 which shows '1 GB KVM VPS Special' and '$21.99 USD Total Due Today'
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.disk_gib: 20
+  - billing_model: annual prepay
+  - term: 12 months
+  - m24h_usd: 1.83
+  - m10h_usd: 1.83
+  - price_arithmetic: USD 21.99 a year divided by 12 = USD 1.8325 a month, paid once as USD 21.99 out of pocket
+  - renewal_usd: 1.8325
+  - first_payment_usd: 21.99
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: no
+  - payment_methods: not read
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - renewal_note: the vendor's FAQ states the specials are 'lifetime recurring' and renew 'at the same rate', which is the vendor's claim about the renewal rather than a printed renewal invoice
+  - renewal_evidence: www.racknerd.com/specials/ FAQ 'Can I renew a RackNerd VPS special at the same rate?'
+  - signup_url: https://my.racknerd.com/register.php
+  - cart_url: https://my.racknerd.com/cart.php?a=add&pid=952
+  - cart_works: yes
+  - price_on_page: USD 21.99/yr
+  - price_in_cart: USD 21.99 Total Due Today
+  - stock: in stock: the cart rendered a configurator rather than a sold-out notice
+  - free_tier_kind: none
+- evidence:
+  - [1] 2026-10-24: quoted: '1 GB KVM VPS $21.99/year - 1 vCPU Core - 20 GB SSD Storage - 1 GB RAM - 3 TB Monthly Transfer'
+  - [1] 2026-10-24: quoted: '2 GB KVM VPS $35.99/year ... 8 GB KVM VPS $119.99/year' - the page's whole ladder, none of it under USD 12 a year
+  - [1] 2026-10-24: quoted: 'Can I renew a RackNerd VPS special at the same rate? Yes. These RackNerd VPS specials are lifetime recurring. You can renew at the same rate for as long as you decide to keep the service.'
+  - [1] 2026-10-24: quoted: '1 GB KVM VPS' with '1 GB RAM', '20 GB PURE SSD RAID-10 Storage', '3000GB Monthly Premium Bandwidth', '1Gbps Public Network Port' and '$21.99/YEAR'
+  - [2] 2026-10-24: the cart redirects to cart.php?a=confproduct&i=0 and renders the product '1 GB KVM VPS Special' with '$21.99 USD Total Due Today', agreeing with the page price
+  - [3] 2026-11-02: the register form asks for an email address and carries no payment field | capture: sha256:77befe0ab0d4330fcec7613ccd219f0f59242df8a662eccef9322bec3d5f14ae | quote: <input type="email" name="email" id="inputEmail" class="field form-control" placeholder="Email Address" value="">
+  - [3] 2026-11-02: the name and address fields of the register form carry a required attribute, and the form has no payment field | capture: sha256:77befe0ab0d4330fcec7613ccd219f0f59242df8a662eccef9322bec3d5f14ae | quote: placeholder="First Name" value="" required="" autofocus=""
+  - [3] 2026-11-02: the billing address has a country selector, which lists Afghanistan through Zimbabwe | capture: sha256:77befe0ab0d4330fcec7613ccd219f0f59242df8a662eccef9322bec3d5f14ae | quote: <select name="country" id="inputCountry" class="field form-control">
+  - [3] 2026-11-02: the street address is a required field of the register form, which has no payment field | capture: sha256:77befe0ab0d4330fcec7613ccd219f0f59242df8a662eccef9322bec3d5f14ae | quote: name="address1" id="inputAddress1" class="field form-control" placeholder="Street Address" value="" required=""
+- sources:
+  - [1] https://www.racknerd.com/specials/
+  - [2] https://my.racknerd.com/cart.php?a=add&pid=952
+  - [3] https://my.racknerd.com/register.php
+
+## RackNerd, 4 GB KVM VPS (annual special)
+
+- `compute/racknerd-4gb` | qualifies-with-caveat | evidence documented | binding volume-quota | category VPS | tier 4 GB KVM VPS (annual special)
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T06:30:00.000Z (live) | stale on 2026-11-24
+- url https://www.racknerd.com/specials/
+- price parsed USD 5/mo
+- disagrees on identity_kind: `compute/racknerd` says email, `compute/racknerd-4gb` says card
+- disagrees on verdict: `compute/racknerd` says paid-only, `compute/racknerd-4gb` says qualifies-with-caveat
+- disagrees on identity_kind: `compute/racknerd-1gb-special` says email, `compute/racknerd-4gb` says card
+- disagrees on verdict: `compute/racknerd-1gb-special` says qualifies, `compute/racknerd-4gb` says qualifies-with-caveat
+- disagrees on verdict: `compute/racknerd-4gb` says qualifies-with-caveat, `compute/racknerd-8gb-annual-special` says paid-only
+- disagrees on verdict: `compute/racknerd-4gb` says qualifies-with-caveat, `compute/racknerd-black-friday-2025` says dead
+- disagrees on verdict: `compute/racknerd-4gb` says qualifies-with-caveat, `compute/racknerd-specials` says paid-only
+- free tier: no free tier; the specials ladder starts at USD 21.99 a year for the 1 GB rung | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the plan is paid; annual prepay on the specials
+- egress: 7 TB a month on a '1Gbps Network Port', stated as '7 TB Monthly Transfer' | metered: yes | free allowance: 7 TB | source: [1]
+- identity: card | detail: the store is a WHMCS cart; no ID document or company is stated on the specials page. Card hold not stated: unverified rather than none.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 7 TB a month of transfer [1]
+- binding note: 7 TB is generous; the row fails on the shape and on being exactly at the line rather than under it.
+- interface detail: full root SSH, KVM, the vendor's 'ctrl' control panel
+- tooling: any SSH client; ctrl panel; custom ISO on request by ticket
+- composes with: a cheap second box for batch work, or the annual-prepaid fallback when the monthly hosts change price
+- reliability: no reliability event recorded
+- notes: CHANGED in verdict, not in number. USD 59.99 a year / 12 = USD 4.999, which is exactly USD 5.00 a month: on the line, not under it, so it does not qualify as a sub-USD-5 row however the rounding is done. And the shape is 4 GiB, half the beefy bar. The 8 GB rung exists on the same page at USD 119.99 a year (USD 10.00 a month), so RackNerd's 8 GiB option is twice the line. Worst case exposure is 1.0x because the annual special is the published rate.
+- evidence note: shape and annual price quoted from the vendor's own specials page read; the order link carries pid 954.
+- extras:
+  - shape.vcpu: 3
+  - shape.ram_gib: 4
+  - shape.disk_gib: 60
+  - billing_model: annual prepay
+  - term: 12 months
+  - m10h_usd: 5.0
+  - m24h_usd: 5.0
+  - price_arithmetic: USD 59.99 a year / 12 = USD 4.9992 a month, rounded USD 5.00. It is on the line rather than under it. One payment of USD 59.99. It is a VPS on annual prepay, so no 730-hour multiplication.
+  - out_of_pocket_usd: 59.99
+  - renewal_usd: 5.0
+  - renewal_note: the specials page prices 'per year' with no promo end date, so the annual is treated as the recurring rate; no renewal sentence is published either way.
+  - promo: no
+  - port_mbps: 1000
+  - ipv4_included: yes
+  - ipv6: not stated on the specials card
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: no
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - renewal_evidence: www.racknerd.com/specials/ FAQ 'Can I renew a RackNerd VPS special at the same rate?'
+  - signup_url: https://www.racknerd.com/specials/
+  - cart_url: https://my.racknerd.com/cart.php?a=add&pid=954
+  - worst_case_exposure_x: 1.0
+  - worst_case_note: 1.0x on the published rate. The row fails on shape and on being at the line, not on exposure.
+  - payment_methods: not read: the specials page links to a WHMCS cart which was not opened. unverified
+  - stock: in stock: the specials page renders an active 'Order now' link with a pid for every rung and no sold-out flag. Read at https://www.racknerd.com/specials/
+  - vat: prices quoted in USD with no VAT line
+- evidence:
+  - [1] 2026-10-24: quoted: '4 GB KVM VPS $59.99/year', '3 vCPU Cores', '60 GB SSD Storage', '4 GB RAM', '7 TB Monthly Transfer', '1Gbps Network Port', '1 IPv4 Address'
+  - [1] 2026-10-24: quoted for the lower rungs: '2 GB KVM VPS $35.99/year' and '6 GB KVM VPS $89.99/year'
+  - [1] 2026-10-24: quoted: 'Can I renew a RackNerd VPS special at the same rate? Yes. These RackNerd VPS specials are lifetime recurring. You can renew at the same rate for as long as you decide to keep the service.'
+  - [1] 2026-10-24: quoted from the 4 GB card: '4 GB KVM VPS / $59.99/year / 3 vCPU Cores / 60 GB SSD Storage / 4 GB RAM / 7 TB Monthly Transfer / 1Gbps Network Port / Full Root Access / 1 IPv4 Address / KVM/ctrl Panel' with 'Order now' pointing at cart.php?a=add&pid=954
+  - [1] 2026-10-24: quoted from the 8 GB card for comparison: '8 GB KVM VPS / $119.99/year / 7 vCPU Cores / 150 GB SSD Storage / 8 GB RAM / 20 TB Monthly Transfer'
+- sources:
+  - [1] https://www.racknerd.com/specials/
+
+## RackNerd (compute/racknerd)
+
+- `compute/racknerd` | paid-only | evidence documented | binding none | category cloud VM
+- identity a placeholder: card and phone unknown | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://www.racknerd.com/specials
+- disagrees on verdict: `compute/racknerd` says paid-only, `compute/racknerd-1gb-special` says qualifies
+- disagrees on identity_kind: `compute/racknerd` says email, `compute/racknerd-4gb` says card
+- disagrees on verdict: `compute/racknerd` says paid-only, `compute/racknerd-4gb` says qualifies-with-caveat
+- disagrees on identity_kind: `compute/racknerd` says email, `compute/racknerd-8gb-annual-special` says card
+- disagrees on identity_kind: `compute/racknerd` says email, `compute/racknerd-black-friday-2025` says card
+- disagrees on verdict: `compute/racknerd` says paid-only, `compute/racknerd-black-friday-2025` says dead
+- disagrees on identity_kind: `compute/racknerd` says email, `compute/racknerd-specials` says card
+- free tier: 1 GB KVM VPS at USD 21.99/year: 1 vCPU, 1 GB RAM, 20 GB SSD, 3 TB monthly transfer on a 1 Gbps port, 1 IPv4, full root, KVM. The 2 GB plan is USD 35.99/year with 2 vCPU, 35 GB SSD and 5 TB. The FAQ states 'These RackNerd VPS specials are lifetime recurring. You can renew at the same rate for as long as you decide to keep the service', quoted. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: kind not stated
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email | detail: unverified: no page stating the signup requirement was read; the record's evidence covers the KVM plan ladder (USD 21.99/year for 1 GB, USD 35.99 for 2 GB, USD 119.99 for 8 GB), the lifetime-recurring renewal FAQ, the datacentre list and a 404 at a guessed storage path. Whether signup needs an email, a card, a phone number or an ID document, and whether any hold is taken, is not stated.
+- interface: unknown
+- limits note: no binding constraint identified
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: no open question recorded
+- extras:
+  - benchmark[0].plan: 2.5 GB KVM VPS (Black Friday 2024), 2 vCPU / 2 GiB
+  - benchmark[0].cpu_model: Intel(R) Xeon(R) CPU E5-2690 v4 @ 2.60GHz
+  - benchmark[0].dedicated_or_shared: shared
+  - benchmark[0].gb6_single: 943
+  - benchmark[0].gb6_multi: 1633
+  - benchmark[0].source_url: https://www.vpsbenchmarks.com/yabs/racknerd-2c-2gb-20260810-24caad
+  - benchmark[0].source_date: 2026-08-10
+  - benchmark[0].rung: reported
+  - benchmark[0].note: Xeon E5-2690 v4 at 2.60 GHz. The $1.83 is the 1 GB annual special, not this 2 core plan; the list price of the 2c/1G plan is $17.99. Per-dollar figures for this row are indicative only.
+  - refund: none by default, "case-by-case"; credit is ineligible
+- evidence:
+  - [1] 2026-10-22: 1 GB KVM VPS USD 21.99/year with 1 vCPU, 20 GB SSD, 1 GB RAM, 3 TB monthly transfer, 1 Gbps port, quoted as a plan card
+  - [1] 2026-10-22: 2 GB plan USD 35.99/year (2 vCPU, 35 GB SSD, 5 TB); 4 GB USD 59.99/year (3 vCPU, 60 GB, 7 TB)
+  - [1] 2026-10-22: 'Can I renew a RackNerd VPS special at the same rate? Yes. These RackNerd VPS specials are lifetime recurring', quoted from the FAQ
+  - [2] 2026-10-22: '512 MB RAM | 1 vCore | 30 GB RAID-10 SSD | 500 GB @ 1Gbps | 1 Free IP | USD 26.99 /year', quoted from the plan table
+  - [2] 2026-10-22: 'All plans include instant setup and an intuitive control panel with KVM virtualization' and locations including Los Angeles, Amsterdam, France, Dublin and Toronto, quoted
+  - [1] 2026-10-22: five plans quoted, the largest being '8 GB KVM VPS', '$119.99/year', '150 GB SSD Storage', '8 GB RAM', '20 TB Monthly Transfer', '1Gbps Network Port'
+  - [3] 2026-10-22: 'VPS from $2.24/mo', 'Dedicated servers from $139/mo', '20 datacenter locations'; no storage product is listed among the services
+  - [4] 2026-10-22: the guessed storage path returns a LiteSpeed 404, so there is no storage-servers page at that name
+- sources:
+  - [1] https://www.racknerd.com/specials
+  - [2] https://www.racknerd.com/kvm-vps
+  - [3] https://www.racknerd.com/
+  - [4] https://www.racknerd.com/storage-servers
+
+## RackNerd, 8 GB KVM VPS (annual special)
+
+- `compute/racknerd-8gb-annual-special` | paid-only | evidence documented | binding volume-quota | category VPS | tier 8 GB KVM VPS (annual special)
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T06:30:00.000Z (live) | stale on 2026-11-24
+- url https://www.racknerd.com/specials/
+- price parsed USD 10/mo
+- disagrees on identity_kind: `compute/racknerd` says email, `compute/racknerd-8gb-annual-special` says card
+- disagrees on identity_kind: `compute/racknerd-1gb-special` says email, `compute/racknerd-8gb-annual-special` says card
+- disagrees on verdict: `compute/racknerd-1gb-special` says qualifies, `compute/racknerd-8gb-annual-special` says paid-only
+- disagrees on verdict: `compute/racknerd-4gb` says qualifies-with-caveat, `compute/racknerd-8gb-annual-special` says paid-only
+- disagrees on verdict: `compute/racknerd-8gb-annual-special` says paid-only, `compute/racknerd-black-friday-2025` says dead
+- free tier: no free tier; the specials ladder starts at USD 21.99 a year for the 1 GB rung | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the plan is paid; annual prepay on the specials
+- egress: 20 TB a month on a '1Gbps Network Port', stated as '20 TB Monthly Transfer' | metered: yes | free allowance: 20 TB | source: [1]
+- identity: card | detail: the store is a WHMCS cart; no ID document or company is stated on the specials page. Card hold not stated: unverified rather than none.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 20 TB a month of transfer [1]
+- binding note: 20 TB a month is generous; the thing that disqualifies the row is price, not traffic.
+- interface detail: KVM with full root SSH, 'ctrl' control panel, custom ISO installs on request
+- tooling: any SSH client; ctrl panel
+- composes with: 7 vCPU and 8 GiB with 20 TB of transfer, but at USD 10.00 a month it is twice the line
+- reliability: no reliability event recorded
+- notes: CHANGED: this row does not belong in the under-USD-5 band. The 8 GB special is USD 119.99 a year / 12 = USD 10.00 a month, twice the line. The 4 GB rung is USD 59.99 a year = USD 5.00 a month, exactly on the line and with half the memory, so it fails the beefy bar too. RackNerd's real value is at 1-2 GB, not here. Worst case exposure is 1.0x because the annual special is the published rate with no promo end date, but that is irrelevant at USD 10.00 a month.
+- evidence note: shape and annual price quoted from the vendor's own specials page read; the order link carries a pid, so the SKU exists.
+- extras:
+  - shape.vcpu: 7
+  - shape.ram_gib: 8
+  - shape.disk_gib: 150
+  - billing_model: annual prepay
+  - term: 12 months
+  - m10h_usd: 10.0
+  - m24h_usd: 10.0
+  - price_arithmetic: USD 119.99 a year / 12 = USD 9.999, rounded USD 10.00 a month; one payment of USD 119.99. It is a VPS on annual prepay, so no 730-hour multiplication. The 4 GB rung is USD 59.99 / 12 = USD 5.00, exactly on the line.
+  - out_of_pocket_usd: 119.99
+  - signup_url: https://www.racknerd.com/specials/
+  - cart_url: https://my.racknerd.com/cart.php?a=add&pid=956
+  - renewal_usd: 10.0
+  - renewal_note: the specials page prices 'per year' with no promo end date, so the annual is treated as the recurring rate; no renewal sentence is published either way.
+  - promo: no
+  - worst_case_exposure_x: 1.0
+  - worst_case_note: 1.0x on the published rate. The row fails on price, not on exposure.
+  - port_mbps: 1000
+  - ipv4_included: yes
+  - ipv6: not stated on the specials card
+  - payment_methods: not read: the specials page links to a WHMCS cart which was not opened. unverified
+  - stock: in stock: the specials page renders an active 'Order now' link with a pid for every rung and no sold-out flag. Read at https://www.racknerd.com/specials/
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: no
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - vat: prices quoted in USD with no VAT line
+- evidence:
+  - [1] 2026-10-24: quoted from the 8 GB card: '8 GB KVM VPS / $119.99/year / 7 vCPU Cores / 150 GB SSD Storage / 8 GB RAM / 20 TB Monthly Transfer / 1Gbps Network Port / Full Root Access / 1 IPv4 Address / KVM/ctrl Panel' with 'Order now' pointing at cart.php?a=add&pid=956
+  - [1] 2026-10-24: quoted from the 4 GB card: '4 GB KVM VPS / $59.99/year / 3 vCPU Cores / 60 GB SSD Storage / 4 GB RAM / 7 TB Monthly Transfer', pid 954
+  - [2] 2026-10-24: the standard (non-special) ladder prices the same 8 GB shape at '$36.59 /month' with 6 vCPU and 220 GB, so the special is a 3.7x discount on the list
+- sources:
+  - [1] https://www.racknerd.com/specials/
+  - [2] https://www.racknerd.com/kvm-vps
+
+## RackNerd (specials)
+
+- `compute/racknerd-specials` | paid-only | evidence documented | binding volume-quota | category VPS | tier 1 GB / 2 GB / 4 GB / 6 GB / 8 GB KVM VPS (current specials)
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T06:20:13.000Z (live) | stale on 2026-11-24
+- url https://www.racknerd.com/specials/
+- price parsed USD 1.83/mo
+- disagrees on identity_kind: `compute/racknerd` says email, `compute/racknerd-specials` says card
+- disagrees on identity_kind: `compute/racknerd-1gb-special` says email, `compute/racknerd-specials` says card
+- disagrees on verdict: `compute/racknerd-1gb-special` says qualifies, `compute/racknerd-specials` says paid-only
+- disagrees on verdict: `compute/racknerd-4gb` says qualifies-with-caveat, `compute/racknerd-specials` says paid-only
+- disagrees on verdict: `compute/racknerd-black-friday-2025` says dead, `compute/racknerd-specials` says paid-only
+- free tier: no free tier; the smallest current special is USD 21.99 a year | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the annual plan is paid; no deletion clock stated
+- egress: 3 TB a month on the 1 GB tier, 5 TB on 2 GB, 7 TB on 4 GB, stated as Monthly Transfer | metered: yes | free allowance: 3 TB | source: [1]
+- identity: card | detail: card or PayPal at signup; no hold stated on the order form
+- interface: ssh
+- limits:
+  - volume-quota (binding): 3 TB a month of transfer on the 1 GB tier [1]
+- binding note: Price, not capacity: the cart sells, but at USD 21.99 a year rather than the USD 10.60 the Black Friday store still advertises.
+- interface detail: root SSH, KVM/ctrl panel, one IPv4
+- tooling: any SSH client; the ctrl panel
+- composes with: This is RackNerd's live price, and it is roughly double the 2025 Black Friday price for the same shape; it is the baseline a stale BF page has to beat.
+- reliability: no reliability event recorded
+- notes: This row exists to price the fossil: RackNerd's Black Friday store advertises USD 10.60 a year for a 1 GiB machine and sells nothing, while the live specials page sells a smaller 1 GiB machine (20 GB rather than 25 GB of disk, 3 TB rather than 2000 GB of transfer) at USD 21.99 a year. The arbitrage the operator is looking for does not exist here. The cart also offers a biennial term at USD 43.98, which is the same per-year rate.
+- evidence note: Page and cart both read and they agree at USD 21.99 annually. This is a documented price for an orderable plan; no order was placed.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.disk_gib: 20
+  - billing_model: annual
+  - term: annual or biennial prepay
+  - m10h_usd: 1.83
+  - m24h_usd: 1.83
+  - price_arithmetic: USD 21.99 a year divided by 12 is USD 1.8325 a month, paid once. Biennial: USD 43.98 over 24 months is USD 1.8325 a month.
+  - renewal_usd: not published
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: no
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+- evidence:
+  - [1] 2026-10-24: quoted: '1 GB KVM VPS $21.99/year - 1 vCPU Core, 20 GB SSD Storage, 1 GB RAM, 3 TB Monthly Transfer'; larger tiers at $35.99, $59.99, $89.99 and $119.99 a year
+  - [2] 2026-10-24: the cart renders '$21.99 USD Annually' and '$43.98 USD Biennially' for the same plan, so page and cart agree
+  - [3] 2026-10-24: redirects to /specials/ (x-web-final-url), so the Black Friday landing path now serves current pricing
+- sources:
+  - [1] https://www.racknerd.com/specials/
+  - [2] https://my.racknerd.com/cart.php?a=add&pid=952
+  - [3] https://www.racknerd.com/BlackFriday/
+
+## RackNerd (1 GB KVM VPS)
+
+- `egress/racknerd-kvm-1gb` | paid-only | evidence documented | binding volume-quota | category vps (hosted, multiple US locations, KVM) | tier 1 GB KVM VPS
+- identity a placeholder: card and phone unknown | verified 2026-11-03T07:36:42.856Z (live) | stale on 2026-12-04
+- url https://www.racknerd.com/
+- price USD 21.99 per year with 3 TB/month included | parsed USD 0.6108/TB-mo
+- free tier: No free tier. The 1 GB KVM VPS special is USD 21.99 a year: 1 vCPU, 20 GB SSD, 1 GB RAM, 3 TB monthly transfer, 1Gbps network port, 1 IPv4 address, full root, deployable in multiple locations. The ladder goes to USD 35.99 (2 GB, 5 TB), USD 59.99 (4 GB, 7 TB), USD 89.99 (6 GB, 12 TB) and USD 119.99 (8 GB, 20 TB) a year. | unit: none | metered on: none | read on: 2026-11-03 | source: [1]
+- per-object cap: not applicable: a virtual server, not an object store | source: [1]
+- retention: not applicable: a live server, not stored bytes | source: [1]
+- egress: 3 TB monthly transfer on a 1Gbps port on the 1 GB plan; 5 TB on 2 GB, 7 TB on 4 GB. No overage rate is published on the pages read. | metered: yes | free allowance: 3 TB/month included in the 1 GB plan | source: [1]
+- identity: email | detail: unverified: the registration page asks for personal information and a billing address, and the individual fields were not rendered; the page read lists no payment method.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 3 TB/month on the 1 GB plan [1]
+  - per-ip-shaping: 1Gbps network port [1]
+- binding note: 3 TB/month is the ceiling on the cheapest plan; a 1Gbps port can move that allowance in hours, so the allowance fails first.
+- interface detail: KVM guest with full root; the ctrl panel gives reboot, reinstall, console, firewall and one-click apps.
+- tooling: ssh; ctrl control panel with an optional inbound network firewall; any daemon the KVM guest supports.
+- composes with: The inbound firewall in ctrl is optional, so a guest with the one IPv4 address can accept inbound UDP and TCP; up to 100 IPv6 addresses are available on request in Los Angeles and France.
+- reliability: No reliability event recorded on the pages read.
+- notes: The IPv6 offer is a ticket request after the order, not a plan line: up to 100 addresses in Los Angeles and France, with more locations promised. The inbound firewall is optional.
+- evidence note: The price, the allowance, the one IPv4 address, the optional inbound firewall and the IPv6-on-request line are vendor sentences read on 2026-11-03. Identity fields are behind the sign-up form.
+- extras:
+  - nat: not stated; one IPv4 address listed
+  - ipv6: up to 100 free IPv6 addresses on request after ordering, Los Angeles and France only
+  - inbound: optional inbound network firewall in ctrl; no default block stated
+  - udp: not stated; a KVM guest with root
+- evidence:
+  - [1] 2026-11-03: 1 GB KVM VPS at USD 21.99 a year | capture: sha256:e9be8a3161b4d3e93894217747ece253b82de003c9fa1aafddf9e06ec0335a4f | quote: $21.99/year
+  - [1] 2026-11-03: the 1 GB plan includes 3 TB monthly transfer | capture: sha256:e9be8a3161b4d3e93894217747ece253b82de003c9fa1aafddf9e06ec0335a4f | quote: - 3 TB Monthly Transfer
+  - [1] 2026-11-03: the plan lists a 1Gbps network port | capture: sha256:e9be8a3161b4d3e93894217747ece253b82de003c9fa1aafddf9e06ec0335a4f | quote: - 1Gbps Network Port
+  - [1] 2026-11-03: the plan lists one IPv4 address | capture: sha256:e9be8a3161b4d3e93894217747ece253b82de003c9fa1aafddf9e06ec0335a4f | quote: - 1 IPv4 Address
+  - [2] 2026-11-03: third-party post of the same ladder, USD 21.99 a year for 1 GB | capture: sha256:14282086f78e5a0f1f4d6be33c0fe8ded5a9d8a4e186271698915fe60e9c793d | quote: | 1 GB KVM VPS $21.99/year | 2 GB KVM VPS $35.99/year | 4 GB KVM VPS $59.99/year | 6 GB KVM VPS $89.99/year |
+  - [3] 2026-11-03: up to 100 free IPv6 addresses are available on request in Los Angeles and France | capture: sha256:1d2dacb8ea90eaee13097222378521c65677eae88163205710d42138e2fe0757 | quote: Yes, RackNerd provides up to 100 free IPv6 addresses upon request in our Los Angeles and France locations
+  - [4] 2026-11-03: the control panel includes an optional inbound network firewall | capture: sha256:789cf51057adee8af976a6e4d091614fbb0cf8ae2d7e36140356b954e7c1ce74 | quote: an optional inbound network firewall
+  - [5] 2026-11-03: the registration page asks for personal information and a billing address; individual fields were not rendered | capture: sha256:470bfdf676e25afbcab9c3fa41b14e618814fb0ffddcdaa4618aba341fdc4016 | quote: Personal Information
+- sources:
+  - [1] https://racknerd.com/specials/
+  - [2] https://lowendbox.com/blog/racknerds-fall-giveaway-has-started-win-a-meta-quest-3-a-synology-nas-a-gaming-monitor-and-more-plus-cheap-vps-deals-from-21-99-year/
+  - [3] https://www.racknerd.com/kvm-vps
+  - [4] https://www.racknerd.com/ctrl-control-panel
+  - [5] https://my.racknerd.com/register.php
+
+## racknerd (Storage)
+
+- `storage/racknerd` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.racknerd.com/kvm-vps
+- disagrees on verdict: `storage/racknerd` says fails-quota, `storage/racknerd-as-a-storage-provider` says dead
+- free tier: none reachable: On the named list, checked, and there is no storage VPS product. The whole KVM line is RAID-10 SSD with 30-75 GB disks; the cheapest 20 GB plan is $21.99/yr. The only big-disk offering is a | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: On the named list, checked, and there is no storage VPS product. The whole KVM line is RAID-10 SSD with 30-75 GB disks; the cheapest 20 GB plan is $21.99/yr. The only big-disk offering is a
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: On the named list, checked, and there is no storage VPS product. The whole KVM line is RAID-10 SSD with 30-75 GB disks; the cheapest 20 GB plan is $21.99/yr. The only big-disk offering is a
+  - [2] 2026-10-21: cited as the basis of the rejection: On the named list, checked, and there is no storage VPS product. The whole KVM line is RAID-10 SSD with 30-75 GB disks; the cheapest 20 GB plan is $21.99/yr. The only big-disk offering is a
+- sources:
+  - [1] https://www.racknerd.com/kvm-vps
+  - [2] https://www.racknerd.com/specials/
+
+## RackNerd (black friday 2025)
+
+- `compute/racknerd-black-friday-2025` | dead | evidence documented | binding volume-quota | category VPS | tier 1 GB / 2.5 GB / 4 GB / 6 GB / 8 GB KVM VPS (Black Friday 2025)
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T06:20:13.000Z (live) | stale on 2026-11-24
+- url https://my.racknerd.com/index.php?rp=/store/blackfriday2025
+- disagrees on identity_kind: `compute/racknerd` says email, `compute/racknerd-black-friday-2025` says card
+- disagrees on verdict: `compute/racknerd` says paid-only, `compute/racknerd-black-friday-2025` says dead
+- disagrees on identity_kind: `compute/racknerd-1gb-special` says email, `compute/racknerd-black-friday-2025` says card
+- disagrees on verdict: `compute/racknerd-1gb-special` says qualifies, `compute/racknerd-black-friday-2025` says dead
+- disagrees on verdict: `compute/racknerd-4gb` says qualifies-with-caveat, `compute/racknerd-black-friday-2025` says dead
+- disagrees on verdict: `compute/racknerd-8gb-annual-special` says paid-only, `compute/racknerd-black-friday-2025` says dead
+- disagrees on verdict: `compute/racknerd-black-friday-2025` says dead, `compute/racknerd-specials` says paid-only
+- free tier: no free tier; the Black Friday 2025 store lists annual plans from USD 10.60, all at zero availability | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the annual plan is paid; no deletion clock stated
+- egress: 2000 GB a month on the 1 GB tier, 3000 GB on 2.5 GB, 6500 GB on 4 GB, stated as Monthly Premium Bandwidth | metered: yes | free allowance: 2000 GB | source: [1]
+- identity: card | detail: card or PayPal at signup; the LowEndBox post of 2025-11-28 lists PayPal, credit cards, Alipay, 30+ cryptocurrencies via Coinify and UnionPay. No hold stated.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 2000 GB a month of premium bandwidth on the 1 GB tier [1]
+- binding note: Availability. The store renders the Black Friday prices but every VPS and dedicated line reports zero available.
+- interface detail: root SSH, KVM/SolusVM control panel, one dedicated IPv4
+- tooling: any SSH client; SolusVM panel
+- composes with: A USD 10.60 a year 1 GiB VPS would be the cheapest orderable machine among documented hosts, if any of the five VPS tiers had stock.
+- reliability: no reliability event recorded
+- notes: The store still renders the 2025 Black Friday prices, which makes it look buyable, and it is not: every VPS and dedicated line carries '0 Available' and the pids return Out of Stock. The 2024 event is gone entirely - /BlackFriday/ now redirects to /specials/ at current pricing, and the pids from the 2024 page (923-927 are 2025; the 2024 equivalents did not resolve) return Out of Stock. So RackNerd is a fossil on both counts, but an unusually legible one: the price is still printed next to the stock counter that denies it. Not verified: whether stock ever returns to these SKUs.
+- evidence note: the Out of Stock notice was read at the product URL itself in a browser render on 2026-10-24, not inferred from a stock counter elsewhere in the store
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.disk_gib: 25
+  - billing_model: annual
+  - term: annual prepay
+  - price_arithmetic: USD 10.60 a year divided by 12 is USD 0.88 a month, paid once. Not recorded as a live price because the tier has zero stock.
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: no
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - sale_page_year: 2025
+  - order_links_tested: 8
+  - order_links_out_of_stock: 8
+  - stock: out of stock, confirmed at the product URL: my.racknerd.com/index.php?rp=store/blackfriday2025/1-gb-kvm-vps-black-friday-2025 renders 'Oops, there's a problem... Out of Stock — The plan you selected is out of stock and not available for ordering at this time.'
+  - cart_works: no
+  - price_in_cart: none: the cart refuses the plan with an Out of Stock notice
+  - price_on_page: USD 10.60/yr
+- evidence:
+  - [1] 2026-10-24: quoted: '1 GB KVM VPS (Black Friday 2025) 0 Available ... JUST $10.60/YEAR - WOW!!'; the same '0 Available' precedes the 2.5 GB ($18.66), 4 GB ($29.98), 6 GB ($44.98) and 8 GB ($62.49) tiers and all five dedicated lines
+  - [2] 2026-10-24: quoted: 'Out of Stock' - the pid behind the 1 GB Black Friday 2025 tier
+  - [3] 2026-10-24: quoted: 'Out of Stock' - the 2.5 GB tier
+  - [4] 2026-10-24: quoted: 'Out of Stock' - the 4 GB tier
+  - [5] 2026-10-24: the 2025-11-28 Wayback capture of /BlackFriday/ carries pids 923-938 and the same USD 10.60 to USD 62.49 prices, which is what fixes this store as the 2025 event
+  - [6] 2026-10-24: the product page renders 'Oops, there's a problem...' and 'Out of Stock — The plan you selected is out of stock and not available for ordering at this time.'
+- sources:
+  - [1] https://my.racknerd.com/index.php?rp=/store/blackfriday2025
+  - [2] https://my.racknerd.com/cart.php?a=add&pid=923
+  - [3] https://my.racknerd.com/cart.php?a=add&pid=924
+  - [4] https://my.racknerd.com/cart.php?a=add&pid=925
+  - [5] https://web.archive.org/web/20251128161916/https://www.racknerd.com/BlackFriday/?provider=wayback
+  - [6] https://my.racknerd.com/index.php?rp=store/blackfriday2025/1-gb-kvm-vps-black-friday-2025
+
+## racknerd — as a storage provider
+
+- `storage/racknerd-as-a-storage-provider` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.racknerd.com/storage-vps/
+- disagrees on verdict: `storage/racknerd` says fails-quota, `storage/racknerd-as-a-storage-provider` says dead
+- free tier: none reachable: Universally recommended on NodeSeek for cheap compute ('RN 14刀 20T流量') but they have no storage-VPS product line: /storage-vps/ and /storage both 404, and the homepage sells 'KVM VPS, AI… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Universally recommended on NodeSeek for cheap compute ('RN 14刀 20T流量') but they have no storage-VPS product line: /storage-vps/ and /storage both 404, and the homepage sells 'KVM VPS, AI…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Universally recommended on NodeSeek for cheap compute ('RN 14刀 20T流量') but they have no storage-VPS product line: /storage-vps/ and /storage both 404, and the homepage sells 'KVM VPS, AI…
+  - [2] 2026-10-21: cited as the basis of the rejection: Universally recommended on NodeSeek for cheap compute ('RN 14刀 20T流量') but they have no storage-VPS product line: /storage-vps/ and /storage both 404, and the homepage sells 'KVM VPS, AI VPS
+  - [3] 2026-10-21: cited as the basis of the rejection: Universally recommended on NodeSeek for cheap compute ('RN 14刀 20T流量') but they have no storage-VPS product line: /storage-vps/ and /storage both 404, and the homepage sells 'KVM VPS, AI VPS
+- sources:
+  - [1] https://www.racknerd.com/storage-vps/
+  - [2] https://www.racknerd.com/storage
+  - [3] https://www.racknerd.com/

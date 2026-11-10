@@ -1,0 +1,273 @@
+# Fly.io
+
+> fly.io | Compute, Egress and tunnels, Storage; 5 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/fly/ | JSON https://fshy.ajam.dev/api/v1/entity/fly.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Fly.io, Pay as you go (no free tier)
+
+- `compute/fly-io` | trial-only | evidence documented | binding volume-quota | category platform host | tier Pay as you go (no free tier)
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T03:21:02.824Z (live) | stale on 2026-11-24
+- url https://fly.io/docs/about/pricing/
+- price parsed USD 2.19/mo
+- free tier: no free tier: 'New organizations don't have a free tier or a monthly free usage allowance.' A trial of up to 2 hours of Machine runtime or 7 days, no card to start it, card afterwards. | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable: the unit is a Machine, not an object
+- retention: a stopped Machine bills only its rootfs at USD 0.15 per GB a month; volumes bill whether attached or not
+- egress: outbound USD 0.02 per GB in North America and Europe, USD 0.04 in Asia Pacific, Oceania and South America, USD 0.12 in Africa and India; inbound free | metered: yes | free allowance: none after the trial | source: [1]
+- identity: card | detail: no card to start the trial, which runs 2 hours of Machine runtime or 7 days; a card on file is required for most accounts afterwards; under USD 10 pre-authorisation after signup, cancelled immediately, which a bank may show for up to 10 business days; prepaid refused as a default or saved method but accepted to buy credits at a USD 25 minimum; debit is not stated
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): no free allowance for new organizations; a 2-hour or 7-day trial is the whole of it [1]
+  - per-ip-shaping: egress USD 0.02 per GB in NA and EU, USD 0.12 per GB in Africa and India [1]
+  - request-rate: organizations may be subject to automated scaling limits to prevent abuse [1]
+- limits note: The trial's 5-minute auto-stop is a hard cap on any single run, and the 2-hour total is shared across every machine launched.
+- binding note: there is no recurring free meter at all, so the first billable second after the trial is the constraint.
+- interface detail: flyctl, a GraphQL API, and a Machines API
+- tooling: flyctl, the Machines API, LiteFS; fly ssh console reaches a Machine
+- composes with: the cheapest always-on container is USD 2.19 a month, and egress at USD 0.02/GB is the bill that follows
+- reliability: Machines can auto-stop when idle, which leaves the app with no capacity until a request wakes it
+- notes: The free tier is withdrawn, not the product. The trial starts without a card, as today's page says. A prepaid card is refused as a saved payment method, and the evidence quotes the page that says so. The distinction that matters without a credit card is that a prepaid card still buys credits at a USD 25 minimum, which keeps an app running even though the card cannot be saved.
+- evidence note: the free-tier question, the trial terms and the smallest always-on price are all on the pricing page read | Payment facts re-read on 2026-10-24: the card types, the hold and the identity gate each come from a first-party page quoted in evidence.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 0.25
+  - billing_model: per-second
+  - granularity.min_billed_s: 1
+  - granularity.rounding_s: 1
+  - session_cap.restart_required: no
+  - session_cap.note: Machines can auto-stop on idle and auto-start on request; the platform does not force a stop
+  - keep_rate.value: 0.15
+  - keep_rate.basis: a stopped or suspended Machine bills its rootfs at USD 0.15 per GB-month
+  - keep_rate.source: https://fly.io/docs/about/pricing/
+  - persistent_storage.included_gib: 0
+  - persistent_storage.price_gib_month: USD 0.15 per GB-month for a stopped rootfs
+  - persistent_storage.durability: volume
+  - persistent_storage.survives_stop: yes
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: while the volume exists
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: any TCP/UDP port through the app's shared IPv4 or IPv6
+  - network_out.static_ip: no
+  - network_out.ipv6: yes
+  - free_tier_kind: trial-only
+  - m10h_usd: 0.91
+  - m24h_usd: 2.19
+  - price_arithmetic: USD 2.19 per 30 days of continuous runtime for shared-cpu-1x with 256 MB; 10 h a day is 2.19 x 10 x 30 / 720 = USD 0.91
+  - term: monthly
+  - credit_usd: 0
+  - trial_hours: 2
+  - credit_months_at_shape: 0
+  - credit_hours_at_shape: 2
+  - credit_expiry: 7 days or 2 hours, whichever comes first
+  - payment_methods.card_at_signup: no-for-trial
+  - payment_methods.debit: not-stated
+  - payment_methods.prepaid: refused-as-saved-method
+  - payment_methods.virtual: not-stated
+  - payment_methods.hold_amount: under USD 10
+  - payment_methods.hold_detail: pre-authorisation after signup, cancelled immediately, bank may show it 10 business days
+  - payment_methods.identity: email; card only to keep billable resources
+  - payment_methods.source_url: https://docs.fly.io/about/billing
+  - payment_methods.read_on: 2026-10-24
+- evidence:
+  - [1] 2026-10-22: 'Is there a free tier? No. New organizations don't have a free tier or a monthly free usage allowance.'
+  - [1] 2026-10-22: a new account gets a trial of up to 2 hours of Machine runtime or 7 days, whichever comes first
+  - [1] 2026-10-22: the cheapest always-on app is a shared-cpu-1x Machine with 256 MB of RAM at USD 2.19 per 30 days
+  - [2] 2026-10-24: quoted: 'A free trial on Fly.io includes 2 hours of machine runtime or 7 days of access, whichever comes first.'; '2 total VM hours'; 'Trial Machines are set to automatically stop after running for 5 minutes'; 'Up to 2 vCPUs per machine'; '4GB memory per machine'.
+  - [1] 2026-10-24: quoted: 'New organizations use Pay As You Go pricing. There's no monthly platform fee'; 'Started Machine, shared-cpu-1x with 256MB RAM | $2.19/month'; 'shared-cpu-1x with 1GB RAM | $6.70/month'; 'Outbound data to the internet | $0.02/GB in North America and Europe'.
+  - [1] 2026-10-24: quoted: 'No. New organizations don't have a free tier or a monthly free usage allowance.'
+  - [1] 2026-10-24: quoted: 'New accounts do get a free trial, which lasts for up to 2 hours of Machine runtime or 7 days, whichever comes first. You don't need a credit card to start the trial.'
+  - [1] 2026-10-24: quoted: 'The cheapest always-on app is a shared-cpu-1x Machine with 256MB of RAM in Ashburn (iad) or Secaucus (ewr). It costs $2.19 per 30 days of continuous runtime'
+  - [1] 2026-10-24: quoted: 'All organizations (except for Linked Organizations) require a credit card on file.'
+  - [1] 2026-10-24: quoted: 'No. New organizations don't have a free tier or a monthly free usage allowance.' and 'New accounts do get a free trial ... up to 2 hours of Machine runtime or 7 days ... You don't need a credit card to start the trial' and 'All organizations (except for Linked Organizations) require a credit card on file'
+  - [3] 2026-10-24: quoted: 'You can't use a prepaid card as a default (or saved) payment method. You can, however, use a prepaid card to add credits to your account.'
+  - [3] 2026-10-24: quoted, the hold: 'We'll typically pre-authorize a small amount (usually less than US $10) after signup, then cancel the authorization immediately. Banks may show the pre-auth for up to 10 business days'
+  - [4] 2026-10-24: quoted: 'New accounts do get a free trial, which lasts for up to 2 hours of Machine runtime or 7 days, whichever comes first. You don't need a credit card to start the trial.'
+- sources:
+  - [1] https://fly.io/docs/about/pricing/
+  - [2] https://fly.io/docs/about/free-trial/
+  - [3] https://docs.fly.io/about/billing
+  - [4] https://docs.fly.io/about/pricing
+
+## Fly.io Machines
+
+- `compute/fly-machines` | trial-only | evidence documented | binding volume-quota | category platform host | tier shared-cpu-1x with 512 MiB RAM, no volume
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T02:24:29.907Z (live) | stale on 2026-12-05
+- url https://fly.io/docs/about/pricing/
+- price parsed USD 3.74/mo
+- free tier: No. New organizations don't have a free tier or a monthly free usage allowance. A trial runs up to 2 hours of Machine runtime or 7 days, whichever comes first, with no card; after that a card is required. | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: A stopped Machine keeps only its rootfs, billed at USD 0.15/GB/month; a Fly Volume is billed at USD 0.15/GB/month whether attached or not, including while the Machine is stopped. | source: [1]
+- egress: Outbound data to the internet is billed per GB: USD 0.02/GB in North America and Europe, USD 0.04/GB in Asia Pacific, Oceania and South America, USD 0.12/GB in Africa and India; inbound data is free; no free egress allowance is stated. | metered: yes | free allowance: none stated for egress; inbound free | price per TB: USD 20 per TB (North America and Europe) | source: [1]
+- identity: card | detail: Card at signup after the trial: 'All organizations (except for Linked Organizations) require a credit card on file.' The trial itself needs no card. No hold amount is published on the pricing page. Debit acceptance is not stated.
+- interface: rest, cli, ssh
+- limits:
+  - volume-quota (binding): outbound transfer billed at USD 0.02/GB in North America and Europe; no free egress allowance [1]
+  - per-ip-shaping: UDP is not supported over a shared IPv4 or over IPv6; UDP needs a dedicated IPv4 at USD 2/month [2]
+- binding note: Egress is the meter with no allowance: a 24/7 machine that serves 1 TB a month adds USD 20 to a USD 3.74 bill, ten times the compute line.
+- interface detail: Machines REST API (OpenAPI spec), the flyctl CLI and fly ssh
+- tooling: not stated
+- composes with: not established
+- reliability: Billed by the second while the Machine runs; a stopped Machine bills its rootfs alone at USD 0.15/GB/month, so an idle box is not free.
+- notes: The product is live and priced, so this record replaces that verdict with qualifies-with-caveat and the caveat is the card. Egress arithmetic: USD 0.02/GB x 1000 GB = USD 20 per TB, hence price_per_tb_month. The vendor quotes a monthly figure per 30 days (720 h), so 730 h is rate x 730/720: 512 MiB = 3.69 x 1.0139 = USD 3.74; 256 MiB = 2.19 x 1.0139 = USD 2.22. A persistent volume is not included; 1 GB adds USD 0.15, 10 GB adds USD 1.50. The 1 GB Machine is USD 6.70 per 30 days = USD 6.79 at 730 h, over the line. Not established: whether a debit card is accepted, and the smallest volume Fly will provision.
+- evidence note: Prices, the stopped-Machine rate, the dedicated-IPv4 price and the no-free-tier statement are quoted from the pricing page read; VM-ness and the root shell from the Machines overview read; the UDP restriction from the services page read. What would raise it: a probe that starts a Machine and reads the invoice after 24 hours.
+- extras:
+  - keep_rate: 1.0
+  - billing_model: per-second
+  - shape.vcpu: 1
+  - shape.ram_gib: 0.5
+  - shape.note: shared-cpu-1x is one shared vCPU; no disk is included, a Fly Volume is bought separately at USD 0.15/GB/month
+  - session_cap.restart_required: no
+  - session_cap.note: none; a Machine runs until stopped, and auto-stop is opt-in
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: TCP on a shared IPv4 (80/443, other ports through the TLS handler) and any port over IPv6; UDP only with a dedicated IPv4 at USD 2/month
+  - network_out.static_ip: no
+  - network_out.ipv6: yes
+  - free_tier_kind: trial
+  - granularity.min_billed_s: 0
+  - burst_x: 1.0
+  - ps.price: a stopped or suspended Machine bills its rootfs
+  - ps.durability: volume or rootfs
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: while the volume exists
+  - net.out: yes
+  - net.in: yes
+  - net.ports: anycast
+  - net.static_ip: yes
+  - net.ipv6: yes
+  - term: usage, no commitment
+  - m10h_usd: 1.54
+  - m24h_usd: 3.74
+  - price_arithmetic: USD 3.69 per 30 days of continuous runtime (720 h) x 730/720 = USD 3.74 at 730 h; 10 h/day = 3.69 x 300/720 = USD 1.54. 256 MiB: 2.19 x 730/720 = USD 2.22, 10 h/day USD 0.91. Add USD 2.00/month for a dedicated IPv4 if UDP is needed, and USD 0.15/GB/month for a volume.
+- evidence:
+  - [3] 2026-10-02: 
+  - [3] 2026-10-22: 'Compute bills by the second, storage on what you provision. No plans to pick.' with 'shared-cpu-1x · 256MB $0.0030 per hour / $2.19 per month' as the cheapest preset, quoted; the page states no free tier
+  - [1] 2026-10-24: quoted: 'Started Machine, `shared-cpu-1x` with 512MB RAM | $3.69/month' and 'Started Machine, `shared-cpu-1x` with 256MB RAM | $2.19/month | Smallest Machine size. Billed by the second while running'
+  - [1] 2026-10-24: quoted: 'Stopped or suspended Machine | $0.15/GB/month of rootfs | Only the Machine's root file system is billed while it's stopped' and 'Volume | $0.15/GB/month'
+  - [1] 2026-10-24: quoted: 'Dedicated IPv4 address | $2/month | Optional. Apps get a shared IPv4 address and IPv6 addresses at no charge'
+  - [1] 2026-10-24: quoted: 'Is there a free tier? No. New organizations don't have a free tier or a monthly free usage allowance.' and 'It costs $2.19 per 30 days of continuous runtime'
+  - [4] 2026-10-24: quoted: 'Fly Machines are fast-launching VMs'; 'A Machine is the configuration and state for a single VM running on Fly.io'; the `fly machine run --shell` transcript ends at 'root@d8d9510a295118:/# uname -a'
+  - [2] 2026-10-24: quoted: 'Your app needs to do something over UDP (we don't support UDP over shared IPv4 or dedicated IPv6).'
+  - [1] 2026-11-03: outbound internet data is USD 0.02/GB in North America and Europe, USD 0.04 and 0.12 elsewhere | capture: sha256:56e8e0632ee7fd3d80e75391326b0147efb8a55282ca93d81849ef5c5fefc9c4 | quote: \$0.02/GB in North America and Europe \$0.04/GB in Asia Pacific, Oceania, and South America \$0.12/GB in Africa and India
+  - [5] 2026-11-03: a REST API exists | capture: sha256:d96ffe14eea870a1193093e8fe4865f1b3d7a152fc2f8dc61958499d84cba015 | quote: The Fly Machines REST API provides resources to provision and manage Fly Apps, Fly Machines, and Fly Volumes.
+  - [6] 2026-11-03: a CLI exists | capture: sha256:45b1aed8013a7199cc02ce38db84b66def445290c07004191959b7e6f7e40889 | quote: flyctl, the Fly.io CLI, is one of the primary ways to interact with the Fly.io platform.
+  - [7] 2026-11-03: fly ssh provides SSH | capture: sha256:20d30d2465a76468f11a13de8f76a51e609b5597657e10b085578aff9c81e8e7 | quote: Use SSH to log into or run commands on Machines
+- sources:
+  - [1] https://fly.io/docs/about/pricing/
+  - [2] https://fly.io/docs/networking/services/
+  - [3] https://fly.io/pricing
+  - [4] https://fly.io/docs/machines/overview/
+  - [5] https://fly.io/docs/machines/api/
+  - [6] https://fly.io/docs/flyctl/
+  - [7] https://fly.io/docs/flyctl/ssh/
+
+## Fly.io (paid)
+
+- `egress/fly-io` | paid-only | evidence documented | binding volume-quota | category paas l4 port | tier paid
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://docs.fly.io/networking/udp-and-tcp
+- price USD 2
+- free tier: Fly.io bills for the resources you use, with no monthly platform fee. The smallest always-on app costs $2.19 per 30 days. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No free allowance. Outbound data $0.02/GB in North America and Europe, inbound free; dedicated IPv4 $2/month.; ingress: tcp+udp | metered: yes | free allowance: No free allowance. Outbound data $0.02/GB in North America and Europe, inbound free; dedicated IPv4 $2/month. | source: [2]
+- identity: card | detail: An account with a payment method; the pricing page prices every resource, with no free tier to sign up for. | country: None
+- interface: cli, rest
+- limits:
+  - volume-quota (binding): no free allowance; $0.02/GB egress plus $2/month dedicated IPv4 [1]
+- binding note: 1 TiB/month of egress is $20.48 at $0.02/GB, plus $2/month for the dedicated IPv4 that UDP requires, plus machine time.
+- interface detail: flyctl and the Machines API; services declared in fly.toml.
+- tooling: flyctl, fly.toml, wg-quick inside the Machine.
+- composes with: Fly Machine running wg-quick on a dedicated IPv4 is a working endpoint; pairs with any free client.
+- reliability: "Fly will not rewrite the port; Fly only rewrites the IP address for UDP packets." A couple dozen bytes of MTU are taken for UDP.
+- notes: Cloud application platform providing dedicated IPv4 and IPv6 addresses with arbitrary UDP and TCP port allocation. Commercial service with paid usage starting at approximately $2 to $4 monthly.
+- evidence note: A measured handshake would confirm the endpoint; the price and the UDP requirement are already documented.
+- extras:
+  - wg_path: inside-udp
+  - wg_detail: "You need a dedicated IPv4 address. You can't use a shared IPv4 address or an IPv6 address for UDP." The app binds UDP to fly-global-services on the same external port.
+  - ingress: tcp+udp
+  - volume_tib_month: 0
+  - volume_stated: No free allowance. Outbound data $0.02/GB in North America and Europe, inbound free; dedicated IPv4 $2/month.
+  - bytes_transit: yes
+  - transit_note: Fly's edge forwards UDP to the Machine on the same port.
+- evidence:
+  - [2] 2026-10-23: "You need a dedicated IPv4 address. You can't use a shared IPv4 address or an IPv6 address for UDP."
+  - [1] 2026-10-23: Dedicated IPv4 $2/month; outbound $0.02/GB NA and EU; "no monthly platform fee"
+- sources:
+  - [1] https://fly.io/docs/about/pricing/
+  - [2] https://docs.fly.io/networking/udp-and-tcp
+
+## fly.io — volumes and free allowance
+
+- `storage/fly-io-volumes-and-free-allowance` | paid-only | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://fly.io/docs/about/pricing/
+- free tier: none reachable: There is no free tier for new organizations, full stop: 'Is there a free tier? No. New organizations don't have a free tier or a monthly free usage allowance.' New accounts get a trial of… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: paid
+  - dead_end.why: There is no free tier for new organizations, full stop: 'Is there a free tier? No. New organizations don't have a free tier or a monthly free usage allowance.' New accounts get a trial of…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: There is no free tier for new organizations, full stop: 'Is there a free tier? No. New organizations don't have a free tier or a monthly free usage allowance.' New accounts get a trial of…
+- sources:
+  - [1] https://fly.io/docs/about/pricing/
+
+## Sprites (Fly.io)
+
+- `compute/sprites` | paid-only | evidence documented | binding request-rate | category container and VM sandbox
+- identity a placeholder: card and phone unknown | verified 2026-10-22T04:46:55.000Z (live) | stale on 2026-11-22
+- url https://fly.io/pricing
+- free tier: no free tier: compute bills by the second from $0.0030 an hour for a shared-cpu-1x with 256 MB, storage bills on what is provisioned, and a suspended Sprite uses no compute | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - request-rate (binding): $0.0030 an hour for shared-cpu-1x with 256 MB, up to $0.4584 for performance-10x [1]
+  - retention-clamped: a Sprite that is suspended uses no compute, but storage bills per hour of active use on what is provisioned [1]
+  - per-object-cap: each preset takes more RAM at $6.00 a GB a month, up to 128 GB [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the fly.io pricing page was read on 2026-10-22 and carries the Sprite meters and the full Machine ladder. There is no USD 30 credit on it, so the record's figure is not established and the verdict moves to paid-only
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - shape.vcpu: 1
+  - shape.ram: 0.25
+  - shape.note: shared-cpu-1x with 256 MB is the cheapest preset at $0.0030 an hour
+  - session_cap.restart_required: no
+  - session_cap.note: a suspended Sprite uses no compute; the page states no automatic reap
+  - free_tier_kind: none
+  - granularity.min_billed_s: 0
+  - burst_x: 1.0
+  - ps.price: storage bills on provisioned size, per hour of active use
+  - ps.durability: volume
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: while the volume exists
+  - net.out: yes
+  - net.in: yes
+  - net.ports: anycast
+  - net.static_ip: yes
+  - net.ipv6: yes
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Compute bills by the second, storage on what you provision. No plans to pick.' with 'Suspended, it uses no compute' and 'storage are metered per hour of active use; a Sprite that exists but does', plus the preset ladder from 'shared-cpu-1x · 256MB $0.0030 per hour' to 'performance-10x · 20GB $0.4584', quoted
+- sources:
+  - [1] https://fly.io/pricing

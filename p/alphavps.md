@@ -1,0 +1,340 @@
+# AlphaVPS
+
+> alphavps.com | Compute, Storage, Egress and tunnels; 5 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/alphavps/ | JSON https://fshy.ajam.dev/api/v1/entity/alphavps.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## AlphaVPS, C6G (Cheap VPS ladder)
+
+- `compute/alphavps-c6g` | qualifies | evidence documented | binding volume-quota | category VPS | tier C6G (Cheap VPS ladder)
+- needs card yes, phone no, ID no, institution no | verified 2026-11-02T02:17:41.061Z (live) | stale on 2026-12-03
+- url https://alphavps.com/cheap-vps
+- price parsed USD 5.59/mo
+- disagrees on verdict: `compute/alphavps` says paid-only, `compute/alphavps-c6g` says qualifies
+- disagrees on identity_kind: `compute/alphavps-c2g` says email, `compute/alphavps-c6g` says card
+- disagrees on verdict: `compute/alphavps-c2g` says paid-only, `compute/alphavps-c6g` says qualifies
+- free tier: no free tier; the ladder starts at EUR 2.54 a month on annual billing for the 2 GB C2G rung | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the plan is paid; a 14-day money-back guarantee applies
+- egress: 6 TB a month on a port listed as 'up to 10 GBit'; the page sells transfer as flat rather than metered | metered: no | free allowance: 6 TB | source: [1]
+- identity: card | detail: card, PayPal or crypto at checkout: 'Cards, PayPal and crypto.' on https://alphavps.com/cheap-vps, and the page advertises 'NO ID HOOPS'. Hold amount: not published on https://alphavps.com/cheap-vps, on the order form, on https://alphavps.com/clients/cart.php?a=checkout&e=false or in the terms, which put a manual order check where a card check would sit: 'All orders placed with AlphaVPS are subject to manual verification' and 'All anonymous orders would be rejected.' Charged or verified: the plan itself is charged in full and no separate verification amount is published. Prepaid and virtual cards: not published.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 6 TB a month of transfer [1]
+- binding note: 6 TB is the only published ceiling and it stops hard rather than billing overage.
+- interface detail: root SSH in about 60 seconds, plus a client area for reinstall and resize
+- tooling: any SSH client; WHMCS client area; no API documented on the page read
+- composes with: a multi-service box: the 6 GiB and 3 vCPU run a database, a queue worker and a small web app on one invoice
+- reliability: no reliability event observed; the vendor advertises a 99.9% uptime SLA and a 14-day money-back guarantee.
+- notes: CONFIRMED, unchanged. EUR 50.90 a year / 12 = EUR 4.24 a month = USD 4.75 at the ECB rate. The renewal claim holds and is stated three ways on one page: the promo banner, the invoice block and FAQ 04. Worst case exposure is 1.0x because the discount is stated as locked at renewal: there is no month 13 where the price moves. This remains the only row in the band whose sub-USD-5 monthly is a recurring rate rather than a first-term promo. Shape is 3 vCPU / 6 GiB / 55 GB / 6 TB: less RAM than the 8 GiB rows, more CPU than most of them.
+- evidence note: shape, monthly price, annual price, term, transfer and port quoted from the vendor's own pricing table and JSON-LD read; the renewal sentence is quoted from three separate places on the same page.
+- extras:
+  - shape.vcpu: 3
+  - shape.ram_gib: 6
+  - shape.disk_gib: 55
+  - billing_model: annual prepay or monthly
+  - term: 12 months (or monthly at EUR 4.99)
+  - m10h_usd: 4.75
+  - m24h_usd: 4.75
+  - price_arithmetic: EUR 50.90 a year / 12 = EUR 4.2417 a month; x 1.1193 (ECB reference, 2026-10-23) = USD 4.747, rounded USD 4.75. Monthly billing is EUR 4.99 = USD 5.59, over the line. It is a VPS, so the monthly bill is the bill and there is no 730-hour multiplication.
+  - out_of_pocket_usd: 56.97
+  - renewal_usd: 4.75
+  - renewal_note: published three times on the page: 'LOCKED AT RENEWAL, FOREVER', 'The price on the order form is the price on every invoice - renewal included.', and FAQ 04 'the annual -15% stays locked for the life of the service'.
+  - promo: no
+  - fx.pair: EUR/USD
+  - fx.rate: 1.1193
+  - fx.date: 2026-10-23
+  - port_mbps: 10000
+  - ipv4_included: yes
+  - ipv6: /64
+  - ladder.C2G.ram_gib: 2
+  - ladder.C2G.vcpu: 2
+  - ladder.C2G.disk_gib: 30
+  - ladder.C2G.tb: 3
+  - ladder.C2G.monthly_eur: 2.99
+  - ladder.C2G.annual_eur_mo: 2.54
+  - ladder.C4G.ram_gib: 4
+  - ladder.C4G.vcpu: 2
+  - ladder.C4G.disk_gib: 40
+  - ladder.C4G.tb: 5
+  - ladder.C4G.monthly_eur: 3.99
+  - ladder.C4G.annual_eur_mo: 3.39
+  - ladder.C8G.ram_gib: 8
+  - ladder.C8G.vcpu: 4
+  - ladder.C8G.disk_gib: 75
+  - ladder.C8G.tb: 8
+  - ladder.C8G.monthly_eur: 6.49
+  - ladder.C8G.annual_eur_mo: 5.52
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - renewal_evidence: alphavps.com/cheap-vps banner, invoice block and FAQ 04
+  - vat: the page states 'PRICES EXCL. VAT' with a VAT / REST OF WORLD selector, so the EUR 50.90 is before VAT and a non-EU buyer pays it
+  - checkout.order_url: https://alphavps.com/clients/cart.php?a=add&pid=509&billingcycle=annually
+  - checkout.order_url_verified: the add-to-cart URL redirects to https://alphavps.com/clients/store/cheap-cloud-vps; the configure step is https://alphavps.com/clients/cart.php?a=confproduct&i=0 and the checkout is https://alphavps.com/clients/cart.php?a=checkout&e=false
+  - checkout.in_stock: yes, in Sofia and Los Angeles; four of the six locations are sold out
+  - checkout.stock_evidence: the Location selector on the order form lists 'Sofia, Bulgaria' with a latency figure and no stock flag, 'Los Angeles, US' likewise, and marks London, Nuremberg, Dallas, New York and Seattle 'Out of stock'
+  - checkout.payment_methods: Credit Cards (Stripe); PayPal; Bank wire; Crypto via CoinGate (BTC); Alipay; PayPal (Legacy)
+  - checkout.debit: accepted per the vendor's own FAQ ('Credit and debit cards, PayPal, and major cryptocurrencies'); the checkout's own list says only 'Credit Cards (Stripe)', so the debit claim rests on the FAQ, not on the form
+  - checkout.hold: not published: no hold, deposit or minimum top-up is stated on https://alphavps.com/cheap-vps, on the order form or on the checkout, and the terms place a manual order verification in place of a card…
+  - checkout.checkout_asks: First Name, Last Name, Email Address, Phone Number; then Billing Address: Company (optional), Street Address, Street Address 2 (optional), City, Postcode, Country, VAT Number (optional); then a password. No ID document field, no company requirement
+  - checkout.first_payment_eur: 50.9
+  - checkout.first_payment_note: the order summary reads 'Setup Fees: €0.00EUR' and 'Total Due Today €50.90EUR'
+  - checkout.vat: prices are ex-VAT and the cart's own tax estimator adds it by country: with Country=United States the summary shows 'Subtotal €50.90EUR' and 'Total Due Today €50.90EUR' with no tax line; with Country=Germany the same cart shows 'VAT @ 19.00% €9.67EUR' and 'Total Due Today €60.57EUR'. A non-EU buyer pays the ex-VAT figure
+  - checkout.renewal_at_checkout: the checkout form carries no renewal sentence; the plan page's banner, invoice block and FAQ 04 carry it (see renewal_note)
+  - checkout.non_eu_buyable: yes on the evidence: the checkout takes any of the ~200 countries in its Country selector, asks for no ID and no local address, and the vendor's page advertises 'NO TICKETS · NO ID HOOPS · NO "PENDING REVIEW"'
+  - checkout.currency: billed in EUR; the site header carries a EUR / BGN / USD selector, so a USD invoice is offered, but the USD figure was not read, so the conversion in price_arithmetic stands on the ECB rate rather than on a USD invoice
+  - signup_url: https://alphavps.com/clients/cart.php?a=add&pid=509
+  - cart_url: https://alphavps.com/clients/cart.php?a=add&pid=509
+  - worst_case_exposure_x: 1.0
+  - worst_case_note: renewal / promo = 4.75 / 4.75 = 1.0x. There is no step-up to be exposed to, which is why this row is the band's reference point.
+  - payment_methods: cards, PayPal and crypto, quoted from FAQ 05: 'Cards, PayPal and crypto.'; no card hold, deposit or minimum top-up is published on the plan page, the order form or the checkout
+  - stock: in stock; the cart URL renders the rung with an Add to Cart control. Read at https://alphavps.com/clients/cart.php?a=add&pid=509
+  - price_on_page: EUR 4.99/mo or EUR 50.90/yr
+  - cart_works: yes
+  - cart_evidence: rendered in a real browser: 'Store Cheap Cloud VPS C6G / Configure / C6G / 6GB ECC RAM / 55GB NVMe / 6TB Bandwidth / 3 Shared Intel Xeon CPU Cores / 10Gbps Port / 1 IPv4 IP / /64 of IPv6', billing cycles 'Monthly EUR 4.99 / Semi-Annual EUR 27.54 / Annual EUR 50.90', Order Summary 'Annually: EUR 50.90', 'Total Due Today EUR 50.90'
+  - needs_account_first: no
+  - price_in_cart: EUR 50.90 Total Due Today (annually)
+- evidence:
+  - [1] 2026-10-24: pricing table row: 'C6G Xeon Scalable 6 GB 3 55 GB 6 TB EUR 4.99 EUR 4.24 *- EUR 50.90/YR*'
+  - [1] 2026-10-24: quoted: 'PROMO ANNUAL BILLING - 15% OFF EVERY RUNG - LOCKED AT RENEWAL' and 'The price on the order form is the price on every invoice - renewal included.'
+  - [1] 2026-10-24: quoted: 'IPv4 + /64 IPv6 included', 'TRANSFER - 8 TB @ UP TO 10 GBIT FLAT' (the invoice example is for C8G; C6G carries 6 TB)
+  - [2] 2026-10-24: quoted: 'Credit and debit cards, PayPal, and major cryptocurrencies. You can be billed in EUR or USD'
+  - [1] 2026-10-24: quoted from the plan ladder: 'C6G Xeon Scalable 6 GB 3 55 GB 6 TB €4.99 €4.24 · €50.90 /YR'
+  - [1] 2026-10-24: quoted verbatim from the promo banner: 'ANNUAL BILLING - 15% OFF EVERY RUNG · LOCKED AT RENEWAL, FOREVER'
+  - [1] 2026-10-24: quoted verbatim banner: 'ANNUAL BILLING - 15% OFF EVERY RUNG · LOCKED AT RENEWAL, FOREVER'
+  - [1] 2026-10-24: quoted FAQ 04: 'What happens to the price at renewal? Nothing. The sticker price is the forever price, and the annual −15% stays locked for the life of the service.'
+  - [1] 2026-10-24: quoted: 'PRICES EXCL. VAT', with a VAT and region selector in the site header; the EUR figures in the ladder are before VAT
+  - [1] 2026-10-24: quoted: 'The price on the order form is the price on every invoice - renewal included.'
+  - [1] 2026-10-24: quoted: 'NO TICKETS · NO ID HOOPS · NO "PENDING REVIEW"' — the vendor's own claim that registration asks for no identity document
+  - [2] 2026-10-24: quoted: 'Credit and debit cards, PayPal, and major cryptocurrencies. You can be billed in EUR or USD - switch currency any time.'
+  - [3] 2026-10-24: order form read, not submitted. Billing cycles: 'Monthly €4.99EUR ... Semi-Annual €27.54EUR ... Annual €50.90EUR Annually'. Order summary: 'Setup Fees: €0.00EUR', 'Annually: €50.90EUR', 'Total Due Today €50.90EUR'
+  - [3] 2026-10-24: stock, from the Location selector: 'Sofia, Bulgaria' and 'Los Angeles, US' carry a latency figure; 'London, UK', 'Nuremberg, DE Germany', 'Dallas, US Texas, US', 'New York, US New York, US' and 'Seattle, US Washington, US' are each followed by 'Out of stock'
+  - [4] 2026-10-24: tax estimator, Country=United States: 'Subtotal €50.90EUR', 'Totals €50.90EUR Annually', 'Total Due Today €50.90EUR' with no tax line
+  - [4] 2026-10-24: tax estimator, Country=Germany (the control): 'VAT @ 19.00% €9.67EUR', 'Totals €60.57EUR Annually', 'Total Due Today €60.57EUR'
+  - [5] 2026-10-24: checkout fields read, not submitted: 'First Name', 'Last Name', 'Email Address', 'Phone Number', 'Company Name (Optional)', 'Street Address', 'City', 'Postcode', 'Country', 'VAT Number (Optional)', 'Password'; payment list 'Credit Cards (Stripe) PayPal Bank wire Crypto via CoinGate (BTC) Alipay PayPal (Legacy)'; 'Total Due Today €50.90EUR'. No ID-document field and no national-ID requirement appear
+  - [5] 2026-10-24: quoted warning on the checkout form: 'Orders placed with incomplete, obscure, or fictitious information will be flagged for manual review and may be delayed. Orders placed through a VPN or proxy may be rejected.'
+  - [1] 2026-10-24: quoted: 'PROMO ANNUAL BILLING - 15% OFF EVERY RUNG - LOCKED AT RENEWAL, FOREVER LOCK IT IN'
+  - [1] 2026-10-24: quoted FAQ 04: 'What happens to the price at renewal? Nothing. The sticker price is the forever price, and the annual -15% stays locked for the life of the service.'
+  - [1] 2026-10-24: JSON-LD Offer: {"name":"C6G Business","price":"4.24","priceCurrency":"EUR","url":"https://alphavps.com/clients/cart.php?a=add&pid=509"}
+  - [6] 2026-10-24: the cart page lists the rung at 'from €4.24 /mo €50.90/yr' with 'FREE! Setup Fee' and an 'Add to Cart' control
+  - [7] 2026-10-24: time='2026-10-23' currency='USD' rate='1.1193'
+  - [8] 2026-10-24: the rendered configurator prints the C6G shape and 'Total Due Today EUR 50.90' on the annual cycle, and marks 5 of 7 locations 'Out of stock'
+  - [9] 2026-11-02: the order is verified by hand, so no card authorisation is described at signup | capture: sha256:c3b138fb55675a98c5cbf44ab8d421b09b7348a557df630905666ab6d5333891 | quote: All orders placed with AlphaVPS are subject to manual verification
+  - [9] 2026-11-02: an anonymous order is refused, so the order carries the contact details the manual check needs | capture: sha256:c3b138fb55675a98c5cbf44ab8d421b09b7348a557df630905666ab6d5333891 | quote: All anonymous orders would be rejected.
+  - [1] 2026-11-02: the payment rails are cards, PayPal and crypto, and no hold or deposit is named beside them | capture: sha256:0c8569fc97bd1586bb92e03ad761ea6a649527c926ed9e6faff9c93048909a61 | quote: Cards, PayPal and crypto. Every plan carries the 14-day money-back guarantee - no forms, no questions.
+  - [1] 2026-11-02: the order flow is one payment step with no separate verification amount | capture: sha256:0c8569fc97bd1586bb92e03ad761ea6a649527c926ed9e6faff9c93048909a61 | quote: Pay by card, PayPal or crypto - that's the whole form.
+  - [1] 2026-11-02: the payment rails are unchanged and still need no identity document | capture: sha256:0c8569fc97bd1586bb92e03ad761ea6a649527c926ed9e6faff9c93048909a61 | quote: Cards, PayPal and crypto. Every plan carries the 14-day money-back guarantee - no forms, no questions.
+- sources:
+  - [1] https://alphavps.com/cheap-vps
+  - [2] https://alphavps.com/
+  - [3] https://alphavps.com/clients/cart.php?a=confproduct&i=0
+  - [4] https://alphavps.com/clients/cart.php?a=view
+  - [5] https://alphavps.com/clients/cart.php?a=checkout&e=false
+  - [6] https://alphavps.com/clients/cart.php?a=add&pid=509
+  - [7] https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml
+  - [8] https://alphavps.com/clients/cart.php?a=add&pid=509&billingcycle=annually
+  - [9] https://alphavps.com/terms
+
+## AlphaVPS Storage VPS
+
+- `storage/alphavps-storage-vps` | qualifies | evidence reported | binding none | category storage-vps
+- needs card yes, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://alphavps.com/storage-vps
+- price $3.74/TB/mo (€3.33). At 5 TB: not a ladder rung — cheapest 5 TB shape is 4 TB + 2 TB = €20.00/mo = €3.33/TB = $3.74/TB. At 20 TB: exceeds the 16 TB per-VPS ceiling, so cheapest shape is 16 TB (€53.33) + 4 TB (€13.33) on a second VPS = €66.66/mo = €3.33/TB = $3.74/TB. Price is flat from 1 TB to 16… | parsed USD 3.74/TB-mo
+- free tier: 256 GB / 512 GB / 1 TB / 2 TB / 3 TB / 4 TB / 8 TB / 16 TB. 16 TB is the ceiling on a single VPS; the ladder is flat-priced, so €/TB does not improve above 1 TB. | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Metered, not free. Plan transfer allowances: 1 TB plan = 3 TB/mo, 2 TB plan = 6 TB, 4 TB = 10 TB, 8 TB = 20 TB, 16 TB = 40 TB, all on ports 'up to 10 Gbit'. Overage is charged, not throttled: the provider, §Traffic Usage, read 'All account plans come with a predetermined monthly amount of traffic allowance. We charge 3.0EUR additional per TB over the allowance, unless otherwise agreed upon.' (https://alphavps.com/terms). The backup-storage landing page separately advertises 'No egress fees, no vendor lock-in' and 'EGRESS €0 - FLAT'. Treat egress as €3/TB metered. | metered: no | free allowance: 3 TB per month | price per TB: €3/TB | source: [2]
+- identity: card | detail: card
+- interface: s3, rest, webdav, sftp, rsync, nfs, rclone
+- limits note: per-object-cap: none (block device). RAID-60 with NVMe read cache. 14-day money-back on FIRST order only, excludes promos, crypto, and orders from China.
+- interface detail: sftp, rsync, nfs, rest (self-hosted: MinIO/SeaweedFS/Nextcloud on the VPS, or WebDAV)
+- tooling: Rclone over SFTP/WebDAV, BorgBackup, Restic, rsync. No native S3. You host your own gateway.
+- composes with: Best of the VPS class for the archive half: root KVM, so AList/OpenList or MinIO can be installed and fronted by Cloudflare for cache-covered egress. Not usable as a raw S3 origin without running MinIO.
+- reliability: Bulgarian operator (DA International Group Ltd.), own AS203380 since 2013, 99.9% uptime SLA in the published SLA. Long-running positive sentiment on LowEndTalk; one 2022 thread documents a bad provisioning experience but not data loss.
+- notes: the same as the free tier
+- extras:
+  - price_verbatim: $3.74/TB/mo (€3.33). At 5 TB: not a ladder rung — cheapest 5 TB shape is 4 TB + 2 TB = €20.00/mo = €3.33/TB = $3.74/TB. At 20 TB: exceeds the 16 TB per-VPS ceiling, so cheapest shape is 16 TB (€53.33) + 4 TB (€13.33) on a second VPS = €66.66/mo = €3.33/TB = $3.74/TB. Price is flat from 1 TB to 16 TB, so no volume discount exists.
+- evidence:
+  - [1] 2026-10-21: 
+  - [2] 2026-10-21: 'We charge 3.0EUR additional per TB over the allowance'
+  - [3] 2026-10-21: 'zero egress fees' / 'EGRESS €0 - FLAT' marketing claim, contradicted above
+  - [4] 2026-10-21: order page for the 16 TB SKU, loads and configures
+- sources:
+  - [1] https://alphavps.com/storage-vps
+  - [2] https://alphavps.com/terms
+  - [3] https://alphavps.com/solutions/backup-storage
+  - [4] https://alphavps.com/clients/cart.php?a=add&pid=521
+
+## AlphaVPS (compute/alphavps)
+
+- `compute/alphavps` | paid-only | evidence documented | binding per-object-cap | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://alphavps.com/cheap-vps
+- disagrees on identity_kind: `compute/alphavps` says card, `compute/alphavps-c2g` says email
+- disagrees on verdict: `compute/alphavps` says paid-only, `compute/alphavps-c6g` says qualifies
+- free tier: Entry plan c2g: 2 GB ECC DDR4, 2 vCPU on Intel Xeon Scalable, 30 GB NVMe RAID-10, IPv4 plus /64 IPv6, at EUR 2.54/month on annual billing, 'flat at renewal'. C8G: 8 GB, 4 vCPU, 75 GB NVMe, 8 TB transfer, EUR 5.52/month billed EUR 66.20 a year. 14-day money-back, 7 locations, up to 10 Gbit ports. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: card
+- interface: rest
+- limits:
+  - per-object-cap (binding): 30 GB of NVMe on a 2 GB box fills before the transfer allowance does, and there is no block volume on this rung [1]
+- limits note: 30 GB of NVMe on a 2 GB box fills before the transfer allowance does, and there is no block volume on this rung
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: 7 locations at one price buys placement control the free tiers cannot: proxy in Sofia, scraper in Seattle, one invoice
+- reliability: no reliability event recorded
+- notes: EUR, ex-VAT rest-of-world rate (the page carries a VAT and currency selector), and it stays an ISO amount with no conversion. Storage VPS from EUR 1.67/mo belongs to the storage topic, not this one. Open corner: the c2g transfer allowance is not printed, only the C8G's 8 TB.
+- extras:
+  - facets.class: price-floor
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 2
+  - facets.shape.ram_gib: 2
+  - facets.shape.disk_gib: 30
+  - benchmark[0].plan: Specials Ryzen-1GB (2 vCPU / 1 GiB)
+  - benchmark[0].cpu_model: AMD Ryzen 9 7900 12-Core Processor
+  - benchmark[0].dedicated_or_shared: not stated
+  - benchmark[0].gb6_single: 2242
+  - benchmark[0].gb6_multi: 2517
+  - benchmark[0].source_url: https://www.vpsbenchmarks.com/yabs/alphavps-2c-1gb-20250831-f11962
+  - benchmark[0].source_date: 2025-08-31
+  - benchmark[0].rung: reported
+  - benchmark[0].note: Ryzen 9 7900 at 3.70 GHz. Highest single-core per dollar of any row here.
+  - refund: 14 days on a first order, unused only; promo and China orders excluded
+- evidence:
+  - [1] 2026-10-22: 'from EUR 2.54/month on annual billing, flat at renewal' with the entry plan described as 2 GB and 2 vCores, quoted
+  - [1] 2026-10-22: C8G: 8 GB ECC DDR4, 4 vCPU Xeon Scalable, 75 GB NVMe RAID-10, 8 TB transfer at EUR 5.52/mo, 'BILLED EUR 66.20 / YEAR - SAVES 15%', quoted
+  - [2] 2026-10-22: navigation prices: Cheap VPS from EUR 2.54/mo, High-Performance VPS from EUR 4.24/mo, Ryzen VPS from EUR 2.54/mo, Storage VPS from EUR 1.67/mo
+- sources:
+  - [1] https://alphavps.com/cheap-vps
+  - [2] https://alphavps.com/
+
+## AlphaVPS, C2G (entry tier)
+
+- `compute/alphavps-c2g` | paid-only | evidence documented | binding volume-quota | category VPS | tier C2G (entry tier)
+- needs card no, phone no, ID no, institution no | verified 2026-11-06T17:20:15.329Z (live) | stale on 2026-12-07
+- url https://alphavps.com/cheap-vps
+- price parsed USD 2.86/mo
+- disagrees on identity_kind: `compute/alphavps` says card, `compute/alphavps-c2g` says email
+- disagrees on identity_kind: `compute/alphavps-c2g` says email, `compute/alphavps-c6g` says card
+- disagrees on verdict: `compute/alphavps-c2g` says paid-only, `compute/alphavps-c6g` says qualifies
+- free tier: No free tier. The entry plan C2G is EUR 2.54 a month on annual billing, EUR 30.50 a year, and the vendor states it is 'flat at renewal'. | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: The server persists while the term is paid; a 14-day money-back guarantee is stated. | source: [1]
+- egress: 3 TB a month on C2G, on a port up to 10 Gbit. | metered: yes | free allowance: 3 TB | source: [1]
+- identity: email | detail: Self-service order through the client area with an email account; the page read states no card hold and lists no payment methods.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 3 TB a month of transfer on C2G [1]
+- binding note: 3 TB a month is the published ceiling, but 2 GiB of RAM and a 30 GB disk are what a daily driver meets first.
+- interface detail: root SSH; the plan ships 1 IPv4 plus a /64 IPv6
+- tooling: any SSH client; a documented CLI in the page's own illustration, which is marketing copy and not a verified interface
+- composes with: the only machine among evaluated providers whose vendor markets a WireGuard endpoint as a supported use, which removes the 'is a VPN allowed' question from the decision.
+- reliability: Vendor states it owns the fleet rather than reselling. No suspension or data loss event was observed.
+- notes: Converted at 1 USD = EUR 0.89342 (frankfurter.app, rates dated 2026-10-23): EUR 30.50 = USD 34.14 a year = USD 2.84 a month. The vendor's own storage tier starts at EUR 1.67 a month and would still be over the line.
+- evidence note: The plan ladder, both billing cycles and the shape are quoted from the vendor's page read. The euro figure is converted at the ECB rate dated 2026-10-23.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 2
+  - shape.disk_gib: 30
+  - billing_model: monthly or annual
+  - term: monthly or 12 months; 12 months at EUR 30.50 a year
+  - m10h_usd: 2.84
+  - m24h_usd: 2.84
+  - price_arithmetic: EUR 30.50 a year / 0.89342 = USD 34.14 a year / 12 = USD 2.845 a month. Monthly billing is EUR 2.99 = USD 3.35 a month.
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all, on one IPv4 and a /64
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - network_out.ipv6_prefix: /64
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - ipv6_prefix: /64
+  - renewal_usd: 34.14
+  - renewal_note: stated three times on the page: 'LOCKED AT RENEWAL, FOREVER', 'The price on the order form is the price on every invoice - renewal included.' and FAQ 04 'the annual -15% stays locked for the life of the service'. The annual price is EUR 30.50 a year, the monthly one EUR 2.99.
+  - first_payment_usd: 34.14
+  - fx: frankfurter.app/latest?from=USD read 2026-10-24: 1 USD = EUR 0.89342, GBP 0.74804 (rates dated 2026-10-23)
+  - payment_methods: not established on the page read
+  - monthly_usd: 3.35
+  - annual_usd: 34.14
+  - stock: listed for order: the store renders C2G with a Select control and no out-of-stock marker; the per-location configurator needs a cart session, so location stock is unverified
+  - cart_url: https://alphavps.com/clients/cart.php?a=add&pid=506
+  - price_on_page: EUR 2.99/mo billed monthly, EUR 2.54/mo billed annually (EUR 30.50/yr)
+  - price_in_cart: EUR 2.99 monthly, EUR 30.50 annually
+  - cart_works: yes: the cart renders C2G with a Select control and both billing cycles
+- evidence:
+  - [1] 2026-10-24: quoted table row: 'C2G Xeon Scalable 2 GB 2 30 GB 3 TB EUR 2.99 monthly, EUR 2.54 annual per month, EUR 30.50/YR'
+  - [1] 2026-10-24: quoted: 'IPv4 + /64 IPv6 included, root shell in 60 seconds, 14-day money-back'
+  - [1] 2026-10-24: quoted: 'Pay by card, PayPal or crypto - that's the whole form.'
+  - [2] 2026-10-24: quoted: 'AlphaVPS VPN server hosting = your own WireGuard, OpenVPN or IPsec server on an isolated VPS' and 'from EUR 2.54/mo'
+  - [3] 2026-10-24: quoted rate table dated 24.10.2026: USD 80,5381 and EUR 90,2429 RUB, giving 1.1205 USD per EUR, the cross rate used to convert EUR 2.54 to USD 2.85 in price_arithmetic
+  - [1] 2026-10-24: quoted: 'C2G Xeon Scalable 2 GB 2 30 GB 3 TB EUR 2.99 EUR 2.54 EUR 30.50/YR'
+  - [1] 2026-10-24: quoted: 'from EUR 2.54/month on annual billing, flat at renewal. IPv4 + /64 IPv6 included, root shell in 60 seconds, 14-day money-back.'
+  - [1] 2026-11-06: the C2G table row prints EUR 2.99 on monthly billing | capture: sha256:0c8569fc97bd1586bb92e03ad761ea6a649527c926ed9e6faff9c93048909a61 | quote: €2.99
+  - [1] 2026-11-06: the C2G row prints EUR 30.50 a year | capture: sha256:0c8569fc97bd1586bb92e03ad761ea6a649527c926ed9e6faff9c93048909a61 | quote: €30.50
+  - [1] 2026-11-06: the FAQ states the annual price stays locked at renewal | capture: sha256:0c8569fc97bd1586bb92e03ad761ea6a649527c926ed9e6faff9c93048909a61 | quote: Nothing. The sticker price is the forever price, and the annual −15% stays locked for the life of the service.
+  - [1] 2026-11-06: the page states the price is locked at renewal forever | capture: sha256:0c8569fc97bd1586bb92e03ad761ea6a649527c926ed9e6faff9c93048909a61 | quote: LOCKED AT RENEWAL, FOREVER
+  - [1] 2026-11-06: the plan table prints a monthly and an annual column | capture: sha256:0c8569fc97bd1586bb92e03ad761ea6a649527c926ed9e6faff9c93048909a61 | quote: PLANCPURAMVCPUNVMETRANSFER *@ 10G*MONTHLYANNUAL - PER MO
+  - [4] 2026-11-06: the cart offers a monthly and an annual cycle | capture: sha256:7e1da1fb914399a54b9754e2aa63dc4e62d68e0c780374c486b11ad98308b8b4 | quote: Monthly Annual 2 mo free
+  - [4] 2026-11-06: the store renders C2G with a Select control and no out-of-stock marker | capture: sha256:7e1da1fb914399a54b9754e2aa63dc4e62d68e0c780374c486b11ad98308b8b4 | quote: C2G 2GB ECC RAM
+  - [1] 2026-11-06: the C2G row links this cart URL | capture: sha256:0c8569fc97bd1586bb92e03ad761ea6a649527c926ed9e6faff9c93048909a61 | quote: https://alphavps.com/clients/cart.php?a=add&pid=506
+  - [1] 2026-11-06: the C2G row prints EUR 2.99 monthly and EUR 2.54 a month on annual billing, EUR 30.50 a year | capture: sha256:0c8569fc97bd1586bb92e03ad761ea6a649527c926ed9e6faff9c93048909a61 | quote: C2GXeon Scalable2 GB230 GB3 TB €2.99 €2.54 *· €30.50/YR*
+  - [4] 2026-11-06: the cart prints EUR 30.50 a year for C2G | capture: sha256:7e1da1fb914399a54b9754e2aa63dc4e62d68e0c780374c486b11ad98308b8b4 | quote: from €2.54 /mo €30.50/yr
+  - [4] 2026-11-06: the cart renders both cycles | capture: sha256:7e1da1fb914399a54b9754e2aa63dc4e62d68e0c780374c486b11ad98308b8b4 | quote: Monthly Annual 2 mo free
+  - [1] 2026-11-06: C2G is still EUR 30.50 a year on annual billing, flat at renewal | capture: sha256:0c8569fc97bd1586bb92e03ad761ea6a649527c926ed9e6faff9c93048909a61 | quote: €30.50
+- sources:
+  - [1] https://alphavps.com/cheap-vps
+  - [2] https://alphavps.com/solutions/vpn-servers
+  - [3] https://www.cbr.ru/scripts/XML_daily.asp
+  - [4] https://alphavps.com/clients/cart.php?a=add&pid=506
+
+## AlphaVPS (128G)
+
+- `egress/alphavps-storage-128g` | paid-only | evidence reported | binding volume-quota | category cheap-egress VPS (storage KVM, 500 GB bandwidth) | tier 128G
+- identity a placeholder: card and phone unknown | verified 2026-11-04T05:55:17.777Z (live) | stale on 2026-11-19
+- url https://alphavps.com/storage-vps
+- free tier: No free tier. The 128G storage plan is listed by an aggregator at EUR 15.0 a year with 500 GB bandwidth and a 1Gbps port; the vendor's current storage page starts at 256 GB. | unit: none | metered on: none | read on: 2026-11-04 | source: [1] | note: unverified: the vendor order link for the plan opens the cheap VPS page, which lists no storage plan.
+- per-object cap: not applicable: a VPS, not an object store | source: [2]
+- retention: not applicable | source: [2]
+- egress: 500 GB per month on a 1.0 Gbps port per a forum listing of the plan; the vendor's storage page states no egress meters and says the bandwidth line is on the order form. | metered: yes | free allowance: 500 GB per month | source: [3]
+- identity: email | detail: unverified: behind a sign-up. The vendor order page read lists no sign-up fields.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 500 GB per month on the 128 GB plan (forum listing of the plan) [3]
+- limits note: The vendor's current page lists plans from 256 GB and prints no 128 GB plan.
+- binding note: The 500 GB monthly bandwidth is the only cap stated, by a forum post and the aggregator, not by the vendor's current page.
+- interface detail: KVM storage VPS on RAID-60 HDD with an NVMe read cache; IPv4 plus a /64 IPv6.
+- tooling: Any SSH client.
+- composes with: IPv4 plus a /64 IPv6 on a port of up to 10 Gbit; no port filter or protocol list is published on the page read.
+- reliability: The 128 GB plan is absent from the vendor's current storage page; the aggregator may list a plan that is no longer orderable.
+- notes: Existing storage and compute records cover other AlphaVPS plans.
+- evidence note: Values come from an aggregator and a forum post; the vendor storage page lists no 128 GB plan.
+- extras:
+  - nat_ports: not applicable: dedicated IPv4
+  - ipv6: /64 per the vendor storage page
+  - udp_forwarding: unverified: not stated
+  - routed_ipv6_prefix: /64
+  - inbound_ipv4_ports: unverified
+  - term: 12 months
+  - virtualization: KVM
+- evidence:
+  - [3] 2026-11-04: a forum post lists the 128 GB AlphaVPS plan with 500 GB a month | capture: sha256:ffe5f6ba674cd33a1a6156759d14c7256535a560e3644790abb69b60341ff600 | quote: 500 GB/month bandwidth
+  - [3] 2026-11-04: the forum listing gives a 1.0 Gbps port | capture: sha256:ffe5f6ba674cd33a1a6156759d14c7256535a560e3644790abb69b60341ff600 | quote: 1.0 Gbps port speed
+  - [2] 2026-11-04: the vendor's current storage plans start at 256 GB | capture: sha256:fa41819717de14f5334bb50dc0b62d6bd5ed273678165eacfd8413eb69b09376 | quote: Plans run 256 GB to 16 TB of HDD storage.
+  - [2] 2026-11-04: the vendor states no egress meters and puts the bandwidth line on the order form | capture: sha256:fa41819717de14f5334bb50dc0b62d6bd5ed273678165eacfd8413eb69b09376 | quote: No setup fees, no egress meters, no per-request API charges - the bandwidth line is on the order form.
+  - [1] 2026-11-04: serverdeals lists AlphaVPS 128G at EUR 15.0 a year | quote: #### EUR 15.0 / year
+- sources:
+  - [1] https://serverdeals.cc/
+  - [2] https://alphavps.com/storage-vps
+  - [3] https://lowendtalk.com/discussion/199807/any-cheap-storage-vps-bf-deal

@@ -1,0 +1,81 @@
+# Financial Modeling Prep
+
+> financialmodelingprep.com | Data APIs; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/financialmodelingprep/ | JSON https://fshy.ajam.dev/api/v1/entity/financialmodelingprep.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Financial Modeling Prep
+
+- `data-apis/financial-modeling-prep` | qualifies-with-caveat | evidence documented | binding request-rate | category market and fundamentals data API (stocks, statements, ratios, crypto, forex, news) | tier Basic
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T00:28:53.393Z (live) | stale on 2026-12-04
+- url https://site.financialmodelingprep.com/pricing-plans
+- free tier: Basic plan USD 0/month: 250 API calls per day, end-of-day historical data, profile and reference data, up to 5 years of annual statements for US companies, 500MB of bandwidth over a trailing 30 days | unit: requests | metered on: request-count | read on: 2026-10-31 | source: [1] | note: Many endpoints on Basic are limited to a sample symbol set (AAPL, TSLA, AMZN and 84 more) or to US exchanges. There is no free trial of the paid plans. The cheapest paid plan is Starter at USD 19.00/month billed annually with 300 calls per minute and 20GB of trailing 30-day bandwidth; bulk endpoints come with Ultimate at USD 99.00/month billed annually.
+- per-object cap: not stated per call; history reaches 5 years on Basic and Starter | source: [1]
+- retention: not applicable
+- egress: 500MB of API bandwidth over a trailing 30 days on the free plan; 20GB on Starter, 50GB on Premium, 150GB on Ultimate | metered: yes | free allowance: 500MB per trailing 30 days | source: [1]
+- identity: email | detail: The create-account form asks for an email and a password, or a Google sign-in; the page says no card is required.
+- interface: rest
+- limits:
+  - request-rate (binding): 250 API calls per day on Basic [1]
+  - volume-quota: 500MB of bandwidth over a trailing 30 days on the free plan [1]
+- limits note: Symbol scope: many Basic endpoints answer only for AAPL, TSLA, AMZN and 84 more, or for US exchanges. History window: 5 years. Bulk path: bulk endpoints are an Ultimate feature (paid); the FAQ paces them at once per 10 seconds, and profile or ETF bulk at once per 60 seconds.
+- binding note: 250 calls a day is reached before 500MB a month for quote and statement calls; the sample symbol set narrows what those calls can reach.
+- interface detail: GET https://financialmodelingprep.com/stable/... with ?apikey= on every request; a call with the key demo answered HTTP 401 Invalid API KEY, so no keyless or demo route was found.
+- endpoint: part of interface detail
+- tooling: curl or any HTTP client
+- composes with: Statements and ratios for a sample of large US names at 250 calls a day; for prices it sits beside Tiingo's deeper end-of-day history, and FRED covers the macro side.
+- reliability: A call past the rate answers HTTP 429; bandwidth is counted over a trailing 30 days rather than reset on a date.
+- notes: 250 calls a day with no card, but the free plan reaches many endpoints only for a sample of large symbols, and history stops at 5 years; bulk delivery is paid.
+- evidence note: The daily calls, bandwidth, symbol scope and signup fields are documented on the pricing, FAQ and register pages. A probe measured that the demo key is refused with HTTP 401. The 429 status is documented; the daily-limit body, its reset moment and the symbols that answer outside the sample set need a free key to measure (unverified: behind a sign-up).
+- extras:
+  - bulk_path: bulk endpoints on the Ultimate plan only (paid); no bulk path on Basic
+  - history_depth: 5 years on Basic and Starter; 30+ years on Premium and Ultimate
+  - symbol_scope: many Basic endpoints limited to AAPL, TSLA, AMZN and 84 more, or to US exchanges
+  - cutoff_resets: The 250 daily requests reset daily; bandwidth is a rolling 30-day limit that updates daily with no specific restore date, and keys over the bandwidth limit are restricted.
+  - cutoff_body_reported: Bandwidth limit, as shown in a third-party discussion: {"Error Message": "Bandwidth Limit Reach . Please upgrade your plan or visit our documentation for more details at https://site.financialmodelingprep.com/"}; the status and the daily-limit body are not in the source
+  - symbol_outside_sample_reported: A client package README, checked against a live Basic key on 2026-07-23, says: the 87-symbol sample list is not published; a plan restriction answers HTTP 403 (402 also occurs); an unknown symbol answers HTTP 200 with an empty list
+- evidence:
+  - [1] 2026-10-31: Basic allows 250 calls per day | capture: sha256:a52c0b50d7db2a7db9a6259bbf1f30cddb32eaf84f65490c0983234348a80807 | quote: 250 Calls / Day
+  - [1] 2026-10-31: Basic includes end-of-day historical data | capture: sha256:a52c0b50d7db2a7db9a6259bbf1f30cddb32eaf84f65490c0983234348a80807 | quote: - End of Day Historical Data
+  - [1] 2026-10-31: history reaches 5 years on Basic and Starter and 30+ years above | capture: sha256:a52c0b50d7db2a7db9a6259bbf1f30cddb32eaf84f65490c0983234348a80807 | quote: Historical Data Range 5 years 5 years 30+ years 30+ years
+  - [1] 2026-10-31: the free plan has 500MB of bandwidth over a trailing 30 days | capture: sha256:a52c0b50d7db2a7db9a6259bbf1f30cddb32eaf84f65490c0983234348a80807 | quote: API usage has a trailing 30 days bandwidth limit of: Free plan - 500MB, Starter plan - 20GB, Premium plan - 50GB, Ultimate plan - 150GB, and Enterprise plan 1TB+.
+  - [1] 2026-10-31: many endpoints are limited to a sample symbol set | capture: sha256:a52c0b50d7db2a7db9a6259bbf1f30cddb32eaf84f65490c0983234348a80807 | quote: Symbol Limited to AAPL, TSLA, AMZN and 84 more
+  - [1] 2026-10-31: Starter is USD 19.00/month billed annually | capture: sha256:a52c0b50d7db2a7db9a6259bbf1f30cddb32eaf84f65490c0983234348a80807 | quote: $19.00/monthSave 34%
+  - [1] 2026-10-31: Starter allows 300 calls per minute | capture: sha256:a52c0b50d7db2a7db9a6259bbf1f30cddb32eaf84f65490c0983234348a80807 | quote: 300 API Calls / Minute
+  - [1] 2026-10-31: Ultimate is USD 99.00/month billed annually | capture: sha256:a52c0b50d7db2a7db9a6259bbf1f30cddb32eaf84f65490c0983234348a80807 | quote: $99.00/monthSave 29%
+  - [1] 2026-10-31: bulk and batch delivery is listed under the Ultimate plan | capture: sha256:a52c0b50d7db2a7db9a6259bbf1f30cddb32eaf84f65490c0983234348a80807 | quote: - Bulk and Batch Delivery
+  - [2] 2026-10-31: the free plan allows 250 requests per day and 5 years of annual statements for US companies | capture: sha256:270028936261335d832d4013327786971b896221e18782bb0451d0e45609d544 | quote: We offer a free plan that will allow users to make up to 250 market data API requests per day, for example you can access up to 5 years of annual statements for US companies.
+  - [2] 2026-10-31: bulk endpoints are paced at once per 10 seconds, profile and ETF bulk at once per 60 seconds | capture: sha256:270028936261335d832d4013327786971b896221e18782bb0451d0e45609d544 | quote: You can hit the bulk endpoints Once / 10 seconds and the Profile Bulk / ETF Bulk - Once / 60 seconds.
+  - [2] 2026-10-31: there is no free trial of the paid plans | capture: sha256:270028936261335d832d4013327786971b896221e18782bb0451d0e45609d544 | quote: We currently do not offer free trials, but our sales team will be happy to provide sample data sets as needed.
+  - [3] 2026-10-31: the free key needs no card | capture: sha256:4bf9a4416fb485dce808c9132fe3d55ba2b1d3f93ec796ecc70c69aaafc1c182 | quote: Get your free API key. No card required.
+  - [3] 2026-10-31: the create-account form has an email field | capture: sha256:42dbaa2e8b4a42f7d3addbec2e06637e5c29faaef0bc2350128a8fc1ebb5e5e4 | quote: <input class="Field_control__hxMJu" id="_R_1spb6_" name="email" value=""/>
+  - [3] 2026-10-31: the create-account form has a password field | capture: sha256:42dbaa2e8b4a42f7d3addbec2e06637e5c29faaef0bc2350128a8fc1ebb5e5e4 | quote: <input class="Field_control__hxMJu" id="_R_2spb6_" type="password" name="password" value=""/>
+  - [3] 2026-10-31: a Google sign-up is offered | capture: sha256:42dbaa2e8b4a42f7d3addbec2e06637e5c29faaef0bc2350128a8fc1ebb5e5e4 | quote: Sign up with Google
+  - [4] 2026-10-31: received data, cached data included, is deleted when the agreement ends | capture: sha256:0d286f4cbaf7e80ea76383f17630b3ecd290e8e5647024b2fa62f7018875c6a3 | quote: Upon termination of this Agreement, Customer must delete all Data it has received from FMP under all applicable Order Forms, including data cached, and sign the Data Deletion Agreement in Exhibit A.
+  - [4] 2026-10-31:  | capture: sha256:0d286f4cbaf7e80ea76383f17630b3ecd290e8e5647024b2fa62f7018875c6a3
+  - [5] 2026-10-31: every request carries the key as an apikey parameter | capture: sha256:b22c347eac43777bce993ae0731a7ae8c38a822edb5b8ff2ea2c8b16a4bdd4c2 | quote: To authorize your requests, add ?apikey=YOUR_API_KEY at the end of every request.
+  - [4] 2026-10-31: the terms anticipate FMP data held in the customer's storage locations | capture: sha256:0d286f4cbaf7e80ea76383f17630b3ecd290e8e5647024b2fa62f7018875c6a3 | quote: Customer affirms that all locations where FMP data is stored have implemented industry-standard physical, technical, and administrative controls
+  - [1] 2026-10-31:  | capture: sha256:a52c0b50d7db2a7db9a6259bbf1f30cddb32eaf84f65490c0983234348a80807
+  - [5] 2026-10-31: a call past the rate limit answers HTTP 429 | capture: sha256:b22c347eac43777bce993ae0731a7ae8c38a822edb5b8ff2ea2c8b16a4bdd4c2 | quote: Too many requests (rate limit exceeded)
+  - probe:https://financialmodelingprep.com/stable/quote?symbol=AAPL&apikey=demo 2026-10-31: the demo key answered HTTP 401 | capture: sha256:42d50f932df71727a70d6d6a5a477d448a4b4351b9baee8e9dfe0796cb2010d6 | quote: "status": 401
+  - probe:https://financialmodelingprep.com/stable/quote?symbol=AAPL&apikey=demo 2026-10-31: the API refuses the demo key and points to a free key | capture: sha256:06715a4a9ad6e58abdf7284732fae1e3869278264d8972e7edd5b65c680b3e77 | quote: Invalid API KEY. Feel free to create a Free API Key
+  - [2] 2026-11-02: bandwidth is a rolling 30-day limit with no restore date | capture: sha256:ded413479feac1de2f0f312b27f6617898263d921fb3a28bc0a720b6a967d404 | quote: The usage limit for the API is a rolling 30-day limit that updates daily. There is not a specific date that the limit is restored.
+  - [6] 2026-11-02: keys over the bandwidth limit are restricted | capture: sha256:971011997873238d98d7f56ce5b9a318f27896799f106a055fd4b198f791b2f2 | quote: API Keys over the bandwidth limit are now restricted due to high data transfer and downloads.
+  - [7] 2026-11-02: the 250 daily requests reset daily | capture: sha256:0ded4b20200a4800579d4d51fb0023942d6a730061e966c7f2be8ca962b1411d | quote: The free API key gives you 250 requests per day, which is often enough for personal or small-scale use. This resets daily.
+  - [5] 2026-11-02: HTTP 429 is the rate-limit answer | capture: sha256:b22c347eac43777bce993ae0731a7ae8c38a822edb5b8ff2ea2c8b16a4bdd4c2 | quote: Too many requests (rate limit exceeded)
+  - [2] 2026-11-02: a request with many symbols or dates counts as one call | capture: sha256:ded413479feac1de2f0f312b27f6617898263d921fb3a28bc0a720b6a967d404 | quote: One request counts as one API call. A request can include a range of dates, data, and symbols, and when the request is made, it counts as one call
+  - [8] 2026-11-02: a key over the bandwidth limit received this message | capture: sha256:e27320b8145c5c44edfb34576347346e88fd31fa8d5bc8f85e85ebad1512e09c | quote: Bandwidth Limit Reach . Please upgrade your plan or visit our documentation for more details at https://site.financialmodelingprep.com/
+  - [9] 2026-11-02: a third party reports 403 or 402 for a plan restriction | capture: sha256:6cf893520d908aefcfc28dd3fa95cbd42e6f2bf8bf59fb0fcefc621ad07038ac | quote: a plan or legacy restriction returns 403 (FMP also uses 402)
+  - [9] 2026-11-02: the sample symbol list is not published | capture: sha256:6cf893520d908aefcfc28dd3fa95cbd42e6f2bf8bf59fb0fcefc621ad07038ac | quote: the list is not published
+  - [9] 2026-11-02: an unknown symbol answers 200 with an empty list | capture: sha256:6cf893520d908aefcfc28dd3fa95cbd42e6f2bf8bf59fb0fcefc621ad07038ac | quote: An unknown symbol returns HTTP 200 with `[]`
+  - [2] 2026-11-02: the free plan is unchanged: 250 requests a day | capture: sha256:ded413479feac1de2f0f312b27f6617898263d921fb3a28bc0a720b6a967d404 | quote: We offer a free plan that will allow users to make up to 250 market data API requests per day, for example you can access up to 5 years of annual statements for US companies.
+- sources:
+  - [1] https://site.financialmodelingprep.com/pricing-plans
+  - [2] https://site.financialmodelingprep.com/faqs
+  - [3] https://site.financialmodelingprep.com/register
+  - [4] https://site.financialmodelingprep.com/terms-of-service
+  - [5] https://site.financialmodelingprep.com/developer/docs/quickstart
+  - [6] https://site.financialmodelingprep.com/developer/docs/changelog
+  - [7] https://site.financialmodelingprep.com/how-to/five-key-steps-to-integrate-fmp-apis-without-writing-a-single-line-of-code
+  - [8] https://github.com/JerBouma/FinanceToolkit/discussions/171
+  - [9] https://pypi.org/pypi/parsimony-fmp/json

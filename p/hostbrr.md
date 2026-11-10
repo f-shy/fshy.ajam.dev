@@ -1,0 +1,841 @@
+# HostBrr
+
+> hostbrr.com | Compute, Storage, Egress and tunnels; 11 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/hostbrr/ | JSON https://fshy.ajam.dev/api/v1/entity/hostbrr.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## HostBrr, Value 2GB (Cloud VPS)
+
+- `compute/hostbrr-value-2gb` | qualifies | evidence documented | binding volume-quota | category VPS | tier Value 2GB (Cloud VPS)
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T03:20:00.000Z (live) | stale on 2026-11-24
+- url https://hostbrr.com/vps.html
+- price parsed USD 2.24/mo
+- disagrees on verdict: `compute/hostbrr` says qualifies-with-caveat, `compute/hostbrr-value-2gb` says qualifies
+- disagrees on identity_kind: `compute/hostbrr-ipv6-1g` says email, `compute/hostbrr-value-2gb` says card
+- disagrees on verdict: `compute/hostbrr-ipv6-1g` says qualifies-with-caveat, `compute/hostbrr-value-2gb` says qualifies
+- disagrees on verdict: `compute/hostbrr-value-2gb` says qualifies, `compute/hostbrr-windows` says fails-quota
+- free tier: no free tier; 'Cloud VPS - NVMe KVM Servers from EUR 2.00/mo' | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the plan is paid; 'Billed monthly. Cancel anytime.'
+- egress: '2.5 TB @ 10Gbps' on the Value 2GB plan | metered: yes | free allowance: 2.5 TB | source: [1]
+- identity: card | detail: an account and a payment method at order; the order configurator was not completed on 2026-10-24, so debit acceptance and any hold are unverified.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 2.5 TB a month of transfer [1]
+  - per-object-cap: 25 GB NVMe on this rung [1]
+- binding note: 2.5 TB is small for a 10 Gbps port: at line rate it is gone in under an hour, so the quota and the port are badly matched.
+- interface detail: root SSH on KVM, WHMCS client area for reinstall and console
+- tooling: any SSH client
+- composes with: the cheapest 2 GiB row with a 10 Gbps port, which makes it the cheapest box that can survive a short traffic spike
+- reliability: no reliability event recorded
+- notes: EUR 2.00 is USD 2.24, the cheapest 2 GiB row verified. Only the default plan rendered: the page is a configurator and the other rungs are behind a selector, so a 4 GiB rung at EUR 4 would change the ranking and was not read. RENEWAL PASS 2026-10-24: the monthly list price is the renewal price and it is published, so this row carries no month-13 unknown. The full Value ladder was recovered from the page source; the rendered page shows one card at a time. Value 8GB at EUR 50.00 a year (USD 55.00) is 8 GiB for USD 4.58 a month with a published USD 5.50 monthly ceiling, which is the best published-renewal 8 GiB shape found. Whether the Value line includes IPv4 is not stated anywhere on the page read, so it is not claimed here.
+- evidence note: shape, price, traffic and port for the default plan are quoted from the configurator page read; the higher rungs are behind a selector that did not render.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 2
+  - shape.disk_gib: 25
+  - billing_model: monthly
+  - term: monthly
+  - m10h_usd: 2.24
+  - m24h_usd: 2.24
+  - price_arithmetic: EUR 2.00/month x 1.1193 = USD 2.24/month
+  - out_of_pocket_usd: 2.24
+  - renewal_usd: 2.24
+  - renewal_note: published as a monthly list price: the card reads 'Monthly Total €2.00' with 'Billed monthly. Cancel anytime.' monthly. Cancel anytime.' There is no annual discount being applied to the monthly figure, so the renewal is the same EUR 2.00 = USD 2.24 a month. The annual cycle is a separate standing rate of EUR 20.00.
+  - promo: no
+  - fx.pair: EUR/USD
+  - fx.rate: 1.1193
+  - fx.date: 2026-10-23
+  - port_mbps: 10000
+  - ipv4_included: yes
+  - ipv6: yes
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - renewal_evidence: hostbrr.com/vps.html Value tab, monthly billing note
+  - ladder_source: hostbrr.com/vps.html page source, `const valuePlans` array
+  - value_ladder.Value 2GB.vcpu: 1
+  - value_ladder.Value 2GB.ram_gib: 2
+  - value_ladder.Value 2GB.disk_gib: 25
+  - value_ladder.Value 2GB.tb: 2.5
+  - value_ladder.Value 2GB.eur_mo: 2.0
+  - value_ladder.Value 2GB.eur_yr: 20.0
+  - value_ladder.Value 2GB.usd_mo: 2.15
+  - value_ladder.Value 2GB.usd_yr: 21.5
+  - value_ladder.Value 4GB.vcpu: 1
+  - value_ladder.Value 4GB.ram_gib: 4
+  - value_ladder.Value 4GB.disk_gib: 40
+  - value_ladder.Value 4GB.tb: 2.5
+  - value_ladder.Value 4GB.eur_mo: 3.0
+  - value_ladder.Value 4GB.eur_yr: 30.0
+  - value_ladder.Value 4GB.usd_mo: 3.25
+  - value_ladder.Value 4GB.usd_yr: 32.5
+  - value_ladder.Value 8GB.vcpu: 2
+  - value_ladder.Value 8GB.ram_gib: 8
+  - value_ladder.Value 8GB.disk_gib: 80
+  - value_ladder.Value 8GB.tb: 5.0
+  - value_ladder.Value 8GB.eur_mo: 5.0
+  - value_ladder.Value 8GB.eur_yr: 50.0
+  - value_ladder.Value 8GB.usd_mo: 5.5
+  - value_ladder.Value 8GB.usd_yr: 55.0
+  - value_ladder.Value 12GB.vcpu: 3
+  - value_ladder.Value 12GB.ram_gib: 12
+  - value_ladder.Value 12GB.disk_gib: 120
+  - value_ladder.Value 12GB.tb: 5.0
+  - value_ladder.Value 12GB.eur_mo: 8.0
+  - value_ladder.Value 12GB.eur_yr: 80.0
+  - value_ladder.Value 12GB.usd_mo: 9.0
+  - value_ladder.Value 12GB.usd_yr: 90.0
+  - value_ladder.Value 16GB.vcpu: 4
+  - value_ladder.Value 16GB.ram_gib: 16
+  - value_ladder.Value 16GB.disk_gib: 160
+  - value_ladder.Value 16GB.tb: 10.0
+  - value_ladder.Value 16GB.eur_mo: 10.0
+  - value_ladder.Value 16GB.eur_yr: 100.0
+  - value_ladder.Value 16GB.usd_mo: 11.0
+  - value_ladder.Value 16GB.usd_yr: 110.0
+  - value_ladder.Value 20GB.vcpu: 5
+  - value_ladder.Value 20GB.ram_gib: 20
+  - value_ladder.Value 20GB.disk_gib: 200
+  - value_ladder.Value 20GB.tb: 15.0
+  - value_ladder.Value 20GB.eur_mo: 12.0
+  - value_ladder.Value 20GB.eur_yr: 120.0
+  - value_ladder.Value 20GB.usd_mo: 13.5
+  - value_ladder.Value 20GB.usd_yr: 135.0
+  - value_ladder.Value 32GB.vcpu: 8
+  - value_ladder.Value 32GB.ram_gib: 32
+  - value_ladder.Value 32GB.disk_gib: 320
+  - value_ladder.Value 32GB.tb: 15.0
+  - value_ladder.Value 32GB.eur_mo: 18.0
+  - value_ladder.Value 32GB.eur_yr: 180.0
+  - value_ladder.Value 32GB.usd_mo: 20.0
+  - value_ladder.Value 32GB.usd_yr: 200.0
+  - value_ladder_note: read from the page's own `const valuePlans` array, which the rendered card cross-checks on the 2 GB rung: the card shows 'Monthly Total EUR 2.00' and the array carries priceEUR 2.00. The yearly column is exactly ten times the monthly column on every rung, which is the '2 Months Free' annual cycle the page advertises. Value 8GB is 8 GiB at USD 55.00 a year = USD 4.58 a month with a published USD 5.50 monthly ceiling.
+- evidence:
+  - [1] 2026-10-24: quoted: 'Value 2GB ... Monthly Total EUR 2.00 ... 1 Core ... 2 GB ECC ... 25 GB ... 2.5 TB @ 10Gbps ... Frankfurt, Germany'
+  - [1] 2026-10-24: quoted: 'Billed monthly. Cancel anytime.'
+  - [1] 2026-10-24: quoted from the page source `const valuePlans`: '{ name: "Value 8GB", cpu: "2 Cores", ram: "8 GB", storage: "80 GB", bw: "5 TB @ 10Gbps", priceEUR: 5.00, priceUSD: 5.50, yearlyEUR: 50.00, yearlyUSD: 55.00 }'
+  - [1] 2026-10-24: quoted: 'Monthly Total €2.00' with 'Billed monthly. Cancel anytime.' and the billing tab '2 Months Free'
+  - [2] 2026-10-24: 
+- sources:
+  - [1] https://hostbrr.com/vps.html
+  - [2] https://hostbrr.com/terms.html
+
+## HostBrr, ECO Memory-Optimized 4 GB (Value 4GB)
+
+- `compute/hostbrr-value-4gb` | qualifies | evidence documented | binding volume-quota | category VPS | tier ECO Memory-Optimized 4 GB (Value 4GB)
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T06:30:00.000Z (live) | stale on 2026-11-24
+- url https://my.hostbrr.com/order/main/packages/largeram/?group_id=67
+- price parsed USD 2.71/mo
+- disagrees on verdict: `compute/hostbrr` says qualifies-with-caveat, `compute/hostbrr-value-4gb` says qualifies
+- disagrees on identity_kind: `compute/hostbrr-ipv6-1g` says email, `compute/hostbrr-value-4gb` says card
+- disagrees on verdict: `compute/hostbrr-ipv6-1g` says qualifies-with-caveat, `compute/hostbrr-value-4gb` says qualifies
+- disagrees on verdict: `compute/hostbrr-value-4gb` says qualifies, `compute/hostbrr-windows` says fails-quota
+- free tier: no free tier; the group's smallest rung is the 2 GB at USD 2.15 a month | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the plan is paid; the page states 'Billed monthly. Cancel anytime.'
+- egress: 2500 GB a month at 10 Gbps, stated as '2500 GB Bandwidth @ 10 Gbps' | metered: yes | free allowance: 2500 GB | source: [1]
+- identity: card | detail: the order path is a Blesta cart which states 'Any applicable taxes will be calculated after you register or log in'. No ID document, no company and no country restriction are stated. Card hold not stated: unverified rather than none.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 2500 GB a month of bandwidth [1]
+- binding note: 2500 GB a month is the published ceiling, and it is half what the 8 GB rung carries.
+- interface detail: KVM managed through VirtFusion: rebuild, VNC console, rescue mode and SSH keys
+- tooling: any SSH client; VirtFusion panel
+- composes with: the cheapest EU rung here; 4 GiB is half the beefy bar, so it is the fallback rather than the daily driver
+- reliability: no reliability event recorded
+- notes: CONFIRMED on price and shape. USD 32.50 a year / 12 = USD 2.71 a month, or USD 3.25 monthly, for 1 vCore / 4 GiB / 40 GB / 2500 GB. It is comfortably under the line and comfortably under the beefy bar: 4 GiB is half the 8 GiB the band is looking for. Documented because the previous listing listed it in this band and because it is the cheapest genuinely in-stock EU rung with a published renewal. Worst case exposure is 3.25 / 2.71 = 1.20x, the same 2-months-free structure as the 8 GB rung: the annual is exactly ten times the monthly.
+- evidence note: shape, monthly and annual prices quoted from the vendor's own package page for group 67 read.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 4
+  - shape.disk_gib: 40
+  - billing_model: annual or monthly
+  - term: 12 months at USD 32.50, or monthly at USD 3.25
+  - m10h_usd: 2.71
+  - m24h_usd: 2.71
+  - price_arithmetic: USD 32.50 a year / 12 = USD 2.7083 a month, paid once as USD 32.50. The monthly list is USD 3.25, so the annual saves exactly two months (10 x 3.25 = 32.50). It is a VPS, so no 730-hour multiplication.
+  - out_of_pocket_usd: 32.5
+  - signup_url: https://my.hostbrr.com/order/main/packages/largeram/?group_id=67
+  - cart_url: https://my.hostbrr.com/order/config/index/largeram/?group_id=67&pricing_id=1193&currency=USD
+  - renewal_usd: 3.25
+  - renewal_note: not stated as a renewal sentence. The annual is exactly ten times the published monthly, which bounds month 13 at USD 3.25 if the annual cycle is withdrawn, and the page labels the yearly option '2 Months Free'.
+  - promo: no
+  - worst_case_exposure_x: 1.2
+  - worst_case_note: 3.25 / 2.71 = 1.20x if the annual cycle disappears and the plan falls back to monthly list.
+  - port_mbps: 10000
+  - ipv4_included: yes
+  - ipv6: /64
+  - payment_methods: not read: the Blesta cart renders an empty order summary and 'Any applicable taxes will be calculated after you register or log in'. unverified
+  - stock: in stock: the package page renders all seven rungs with a Select control and no sold-out flag. Read at https://my.hostbrr.com/order/main/packages/largeram/?group_id=67
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - vat: quoted in USD with a Currency selector for EUR/GBP/USD; taxes are added after registration
+- evidence:
+  - [1] 2026-10-24: quoted from the package card: 'ECO Memory-Optimized 4 GB / 1 Month @ $3.25 USD 1 Year @ $32.50 USD / 1 vCore AMD EPYC / Intel Xeon / 4 GB DDR4 ECC RAM / 40 GB NVMe SSD Storage / 2500 GB Bandwidth @ 10 Gbps / 1 IPv4 & IPv6/64 included / Hosted in Frankfurt, Germany'
+  - [2] 2026-10-24: the page's own data array: '{ name: "Value 4GB", cpu: "1 Core", ram: "4 GB", storage: "40 GB", bw: "2.5 TB @ 10Gbps", priceEUR: 3.00, priceUSD: 3.25, yearlyEUR: 30.00, yearlyUSD: 32.50 }'
+- sources:
+  - [1] https://my.hostbrr.com/order/main/packages/largeram/?group_id=67
+  - [2] https://hostbrr.com/vps.html
+
+## HostBrr, ECO Memory-Optimized 8 GB (Value 8GB)
+
+- `compute/hostbrr-value-8gb` | qualifies | evidence documented | binding volume-quota | category VPS | tier ECO Memory-Optimized 8 GB (Value 8GB)
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T06:30:00.000Z (live) | stale on 2026-11-24
+- url https://my.hostbrr.com/order/main/packages/largeram/?group_id=67
+- price parsed USD 5.5/mo
+- disagrees on verdict: `compute/hostbrr` says qualifies-with-caveat, `compute/hostbrr-value-8gb` says qualifies
+- disagrees on identity_kind: `compute/hostbrr-ipv6-1g` says email, `compute/hostbrr-value-8gb` says card
+- disagrees on verdict: `compute/hostbrr-ipv6-1g` says qualifies-with-caveat, `compute/hostbrr-value-8gb` says qualifies
+- disagrees on verdict: `compute/hostbrr-value-8gb` says qualifies, `compute/hostbrr-windows` says fails-quota
+- free tier: no free tier; the group's smallest rung is the 2 GB at USD 2.15 a month | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the plan is paid; the page states 'Billed monthly. Cancel anytime.'
+- egress: 5000 GB a month at 10 Gbps, stated as '5000 GB Bandwidth @ 10 Gbps' | metered: yes | free allowance: 5000 GB | source: [1]
+- identity: card | detail: the order path is a Blesta cart which states 'Any applicable taxes will be calculated after you register or log in'. No ID document, no company and no country restriction are stated on the package page. Card hold not stated: unverified rather than none.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 5000 GB a month of bandwidth [1]
+- binding note: 5000 GB a month is the published ceiling; the page states no overage price, so it binds rather than bills.
+- interface detail: root SSH on KVM, WHMCS client area for reinstall and console
+- tooling: any SSH client
+- composes with: the 8 GiB rung of HostBrr's Value ladder, and the only 8 GiB shape found under USD 5 whose renewal is bounded by a published monthly rate rather than by a discount that may lapse
+- reliability: no reliability event recorded
+- notes: CONFIRMED on price and shape, with one caveat that decides the verdict. USD 55.00 a year / 12 = USD 4.58 a month, and the annual is exactly 10x the published USD 5.50 monthly, so the yearly cycle is '2 Months Free' rather than a first-term promo. The 1.20x figure applies only if the annual cycle is withdrawn entirely and the plan falls back to the USD 5.50 monthly list. Payment methods are not readable without registering: the Blesta cart renders '$0.00 USD' and 'Any applicable taxes will be calculated after you register or log in' for both pricing_id=1171 (monthly) and 1172 (yearly).
+- evidence note: shape, monthly and annual prices quoted from the vendor's own package page for group 67 read. The annual is exactly ten times the monthly, so the yearly cycle is a 2-months-free discount rather than a teaser.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 8
+  - shape.disk_gib: 80
+  - billing_model: annual or monthly
+  - term: 12 months at USD 55.00, or monthly at USD 5.50
+  - m10h_usd: 4.58
+  - m24h_usd: 4.58
+  - price_arithmetic: USD 55.00 a year / 12 = USD 4.5833 a month, paid once as USD 55.00. The monthly list is USD 5.50, so the annual saves exactly two months (10 x 5.50 = 55.00). It is a VPS, so no 730-hour multiplication applies.
+  - out_of_pocket_usd: 55.0
+  - renewal_usd: 4.58
+  - renewal_note: published on the cart, not on the plan page: the existing corpus record quotes the cart as 'Total When Renewing: 1 Year @ $55.00 USD', so the renewal equals the first payment at USD 55.00/yr = USD 4.58 a month. The plan page itself states no renewal sentence. The USD 5.50 monthly rate bounds month 13 only if the annual cycle is withdrawn, which the cart's own renewal line contradicts.
+  - promo: no
+  - fx.pair: EUR/USD
+  - fx.rate: 1.1193
+  - fx.date: 2026-10-23
+  - port_mbps: 10000
+  - ipv4_included: yes
+  - ipv6: /64
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - renewal_evidence: hostbrr.com/vps.html Value tab, monthly billing note
+  - ladder_source: hostbrr.com/vps.html page source, `const valuePlans` array
+  - value_ladder.Value 2GB.vcpu: 1
+  - value_ladder.Value 2GB.ram_gib: 2
+  - value_ladder.Value 2GB.disk_gib: 25
+  - value_ladder.Value 2GB.tb: 2.5
+  - value_ladder.Value 2GB.eur_mo: 2.0
+  - value_ladder.Value 2GB.eur_yr: 20.0
+  - value_ladder.Value 2GB.usd_mo: 2.15
+  - value_ladder.Value 2GB.usd_yr: 21.5
+  - value_ladder.Value 4GB.vcpu: 1
+  - value_ladder.Value 4GB.ram_gib: 4
+  - value_ladder.Value 4GB.disk_gib: 40
+  - value_ladder.Value 4GB.tb: 2.5
+  - value_ladder.Value 4GB.eur_mo: 3.0
+  - value_ladder.Value 4GB.eur_yr: 30.0
+  - value_ladder.Value 4GB.usd_mo: 3.25
+  - value_ladder.Value 4GB.usd_yr: 32.5
+  - value_ladder.Value 8GB.vcpu: 2
+  - value_ladder.Value 8GB.ram_gib: 8
+  - value_ladder.Value 8GB.disk_gib: 80
+  - value_ladder.Value 8GB.tb: 5.0
+  - value_ladder.Value 8GB.eur_mo: 5.0
+  - value_ladder.Value 8GB.eur_yr: 50.0
+  - value_ladder.Value 8GB.usd_mo: 5.5
+  - value_ladder.Value 8GB.usd_yr: 55.0
+  - value_ladder.Value 12GB.vcpu: 3
+  - value_ladder.Value 12GB.ram_gib: 12
+  - value_ladder.Value 12GB.disk_gib: 120
+  - value_ladder.Value 12GB.tb: 5.0
+  - value_ladder.Value 12GB.eur_mo: 8.0
+  - value_ladder.Value 12GB.eur_yr: 80.0
+  - value_ladder.Value 12GB.usd_mo: 9.0
+  - value_ladder.Value 12GB.usd_yr: 90.0
+  - value_ladder.Value 16GB.vcpu: 4
+  - value_ladder.Value 16GB.ram_gib: 16
+  - value_ladder.Value 16GB.disk_gib: 160
+  - value_ladder.Value 16GB.tb: 10.0
+  - value_ladder.Value 16GB.eur_mo: 10.0
+  - value_ladder.Value 16GB.eur_yr: 100.0
+  - value_ladder.Value 16GB.usd_mo: 11.0
+  - value_ladder.Value 16GB.usd_yr: 110.0
+  - value_ladder.Value 20GB.vcpu: 5
+  - value_ladder.Value 20GB.ram_gib: 20
+  - value_ladder.Value 20GB.disk_gib: 200
+  - value_ladder.Value 20GB.tb: 15.0
+  - value_ladder.Value 20GB.eur_mo: 12.0
+  - value_ladder.Value 20GB.eur_yr: 120.0
+  - value_ladder.Value 20GB.usd_mo: 13.5
+  - value_ladder.Value 20GB.usd_yr: 135.0
+  - value_ladder.Value 32GB.vcpu: 8
+  - value_ladder.Value 32GB.ram_gib: 32
+  - value_ladder.Value 32GB.disk_gib: 320
+  - value_ladder.Value 32GB.tb: 15.0
+  - value_ladder.Value 32GB.eur_mo: 18.0
+  - value_ladder.Value 32GB.eur_yr: 180.0
+  - value_ladder.Value 32GB.usd_mo: 20.0
+  - value_ladder.Value 32GB.usd_yr: 200.0
+  - value_ladder_note: read from the page's own `const valuePlans` array, which the rendered card cross-checks on the 2 GB rung: the card shows 'Monthly Total EUR 2.00' and the array carries priceEUR 2.00. The yearly column is exactly ten times the monthly column on every rung, which is the '2 Months Free' annual cycle the page advertises. Value 8GB is 8 GiB at USD 55.00 a year = USD 4.58 a month with a published USD 5.50 monthly ceiling.
+  - checkout.order_url: https://my.hostbrr.com/order/config/index/largeram/?group_id=67&pricing_id=1172&currency=USD
+  - checkout.order_url_note: the page's own `config.value.orderBase` is 'https://my.hostbrr.com/order/config/index/largeram/?group_id=67&pricing_id=' and its `pids` table gives the Value 8GB yearly-USD id as 1172 (yearly EUR 1173). The plan-selection page is https://my.hostbrr.com/order/main/packages/largeram/?group_id=67 and the cart is https://my.hostbrr.com/order/cart/index/largeram
+  - checkout.in_stock: yes: the cart accepted the plan and printed a line item, and the plan-selection page renders Value 8GB with no sold-out flag. No stock counter is printed for this rung
+  - checkout.stock_evidence: the plan page lists 'ECO Memory-Optimized 8 GB ... 1 Month @ $5.50 USD / 1 Year @ $55.00 USD' with no availability flag; the cart then reads 'ECO Memory-Optimized 8 GB ( Oct 24, 2026 - Oct 24, 2027) ... 1 @ $55.00'
+  - checkout.payment_methods: credit card; debit card; PayPal; cryptocurrency
+  - checkout.payment_evidence: the vendor's homepage FAQ: 'We accept credit and debit cards, PayPal, and cryptocurrency.' The payment step itself sits behind the account form and was not reached
+  - checkout.debit: accepted per the vendor's homepage FAQ and per its own terms heading '5.2 Credit & Debit Cards'
+  - checkout.hold: unverified: no hold, deposit or minimum top-up is stated on the plan page, the cart or the registration form.
+  - checkout.checkout_asks: Contact Information: First Name, Last Name, Company/Org., Title, Address 1, Address 2, City, Country, State/Province, Zip/Postal Code, Phone, Fax, Email; Billing Information: Tax ID/VATIN; then username (= email) and password. No ID-document field
+  - checkout.first_payment_usd: 55.0
+  - checkout.first_payment_note: cart reads 'Subtotal: $55.00 USD' and 'Total Due Today: $55.00 USD'. Taxes are deferred: 'Any applicable taxes will be calculated after you register or log in.'
+  - checkout.vat: deferred, not zero: the cart states 'Any applicable taxes will be calculated after you register or log in.' No VAT line appears pre-registration, so the tax-inclusive total is unverified
+  - checkout.renewal_at_checkout: stated on the cart: 'Total When Renewing: 1 Year @ $55.00 USD'. That is the same figure as the first payment, which is the strongest renewal evidence
+  - checkout.non_eu_buyable: yes on the evidence: the Country field is free-entry with no restriction stated, and no ID or local-address requirement appears on the registration form
+  - checkout.currency: USD or EUR, chosen at the order URL; both are priced separately in the page's `pids` table
+  - signup_url: https://my.hostbrr.com/order/main/packages/largeram/?group_id=67
+  - cart_url: https://my.hostbrr.com/order/config/index/largeram/?group_id=67&pricing_id=1172&currency=USD
+  - worst_case_exposure_x: 1.0
+  - worst_case_note: 1.00x if the cart's 'Total When Renewing: 1 Year @ $55.00 USD' holds; 1.20x only if the annual cycle is withdrawn and the plan falls back to the USD 5.50 monthly list. The cart line is the stronger evidence and it says 1.00x.
+  - payment_methods: not read: the Blesta cart renders an empty order summary and 'Any applicable taxes will be calculated after you register or log in'. unverified
+  - stock: in stock: the package page renders all seven rungs with a Select control and no sold-out flag. Read at https://my.hostbrr.com/order/main/packages/largeram/?group_id=67
+  - vat: the package page quotes USD with a Currency selector for EUR/GBP/USD; taxes are added after registration, so the USD 55.00 is pre-tax
+  - price_on_page: USD 5.50/mo or USD 55.00/yr
+  - price_in_cart: USD 5.50/mo, USD 55.00/yr
+  - cart_works: yes
+  - cart_evidence: group page renders 'ECO Memory-Optimized 8 GB Choose your billing cycle. 1 Month @ $5.50 USD 1 Year @ $55.00 USD ... 8 GB DDR4 ECC RAM'
+  - needs_account_first: no
+- evidence:
+  - [2] 2026-10-24: quoted from the page's `const valuePlans` array: Value 8GB at USD 5.50 monthly, 2 vCPU, 8 GiB, 80 GB, 5 TB at 10 Gbps. The annual cycle is ten times the monthly, i.e. '2 Months Free', so USD 55.00 a year.
+  - [2] 2026-10-24: quoted from the page's `const valuePlans` array: Value 8GB at USD 5.50 monthly, 2 vCPU, 8 GiB, 80 GB, 5 TB at 10 Gbps, yearlyUSD 55.00
+  - [1] 2026-10-24: order page: 'ECO Memory-Optimized 8 GB ... 1 Month @ $5.50 USD ... 1 Year @ $55.00 USD ... 2 vCore ... 8 GB DDR4 ECC RAM ... 80 GB NVMe SSD Storage ... 5000 GB Bandwidth @ 10 Gbps ... 1 IPv4 & IPv6/64 included ... Hosted in Frankfurt, Germany'
+  - [3] 2026-10-24: cart read, not submitted: 'ECO Memory-Optimized 8 GB ( Oct 24, 2026 - Oct 24, 2027) ... 1 @ $55.00', 'Subtotal: $55.00 USD', 'Total Due Today: $55.00 USD', 'Total When Renewing: 1 Year @ $55.00 USD'
+  - [3] 2026-10-24: quoted on the cart: 'Any applicable taxes will be calculated after you register or log in.' — so the cart's USD 55.00 is pre-tax
+  - [3] 2026-10-24: registration fields read: 'Contact Information: First Name, Last Name, Company/Org., Title, Address 1, Address 2, City, Country, State/Province, Zip/Postal Code, Phone, Fax, Email', 'Billing Information: Tax ID/VATIN', 'Authentication: Password, Confirm Password'. No ID-document field
+  - [4] 2026-10-24: quoted FAQ: 'We accept credit and debit cards, PayPal, and cryptocurrency. You can pay in EUR or USD - use the currency toggle in the header to see prices in your preferred currency.'
+  - [5] 2026-10-24: quoted section heading: '5.2 Credit & Debit Cards' — debit is a named payment class in the vendor's own terms
+  - [5] 2026-10-24: quoted 5.2.2: 'Card transactions for virtual private server (VPS) plans are eligible for refund request within 7 days of the initial order payment.'
+  - [1] 2026-10-24: quoted from the package card: 'ECO Memory-Optimized 8 GB / Choose your billing cycle. / 1 Month @ $5.50 USD 1 Year @ $55.00 USD / 2 vCore AMD EPYC / Intel Xeon / 8 GB DDR4 ECC RAM / 80 GB NVMe SSD Storage / 5000 GB Bandwidth @ 10 Gbps / 1 IPv4 & IPv6/64 included / Hosted in Frankfurt, Germany'
+  - [2] 2026-10-24: the page's own data array: '{ name: "Value 8GB", cpu: "2 Cores", ram: "8 GB", storage: "80 GB", bw: "5 TB @ 10Gbps", priceEUR: 5.00, priceUSD: 5.50, yearlyEUR: 50.00, yearlyUSD: 55.00 }'
+  - [2] 2026-10-24: quoted billing label: 'Yearly <span>2 Months Free</span>' beside the monthly/annual toggle, and 'Billed monthly. Cancel anytime.'
+- sources:
+  - [1] https://my.hostbrr.com/order/main/packages/largeram/?group_id=67
+  - [2] https://hostbrr.com/vps.html
+  - [3] https://my.hostbrr.com/order/cart/index/largeram
+  - [4] https://hostbrr.com/
+  - [5] https://hostbrr.com/terms.html
+
+## HostBrr storage VPS + HDD block
+
+- `storage/hostbrr-storage-vps-hdd-block` | qualifies | evidence reported | binding none | category storage-vps
+- needs card yes, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://my.hostbrr.com/order/main/packages/storage/?group_id=26
+- price $5.00/TB/mo at the 1 TB block rate ($2.50/500 GB add-on, per LowEndSpirit thread 6258: 'additional can be added for $2.5/month per 500 GB'). At 5 TB: Premium StorageBrr 2GB base ($7) + 4.5 TB of block at $5/TB ($22.50) = $29.50/mo = $5.90/TB all-in. At 20 TB the block dominates: $7 + $97.50 =… | parsed USD 5/TB-mo
+- free tier: Premium StorageBrr 1/2/4/6/8 GB RAM with 500 GB HDD block included, configurable upward. Budget line quoted at '$2.5 per TB of HDD storage' and hybrid at '$3.75 per TB' on the order forms page. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Metered: 3,000 GB on the 1 GB plan, 5,000 GB on the 2 GB, 10,000 GB on the 4 GB, 15,000 GB on the 6 GB, 20,000 GB on the 8 GB. @ 1 Gbps. No published overage rate. | metered: yes
+- identity: card | detail: card
+- interface: s3, webdav, sftp, rclone
+- limits note: Per-object-cap: none. Block storage is 'NVMe cached HDD .. RAID6'. Not for latency-sensitive work. The provider says so explicitly.
+- interface detail: sftp, s3 (via DirectAdmin Storagebox line), webdav
+- tooling: rclone SFTP/WebDAV, DirectAdmin Storagebox
+- composes with: Falkenstein DE. The HDD block is a separate attachable volume, so it grows with a slider at checkout.
+- reliability: German provider, generally well regarded on LET/LowEndSpirit for the price. The eye-catching €1/TB figure is a Black Friday 2025 promotional rate, not list.
+- notes: the same as the free tier
+- extras:
+  - price_verbatim: $5.00/TB/mo at the 1 TB block rate ($2.50/500 GB add-on, per LowEndSpirit thread 6258: 'additional can be added for $2.5/month per 500 GB'). At 5 TB: Premium StorageBrr 2GB base ($7) + 4.5 TB of block at $5/TB ($22.50) = $29.50/mo = $5.90/TB all-in. At 20 TB the block dominates: $7 + $97.50 = $104.50 = $5.23/TB. The €1/TB BF2025 rate would be $1.12/TB but is promotional and expired.
+- evidence:
+  - [2] 2026-10-21: 
+  - [1] 2026-10-21: 'Our budget storage starts at just $2.5 per TB of HDD storage and our Hybrid Storage Servers with NVMe boot drive starts at just $3.75 per TB'
+  - [3] 2026-10-21: 'HDD block storage at a unheard price of just €1/month per TB ... The price is recurring as long as your service is active' (BF2025 promotional)
+- sources:
+  - [1] https://my.hostbrr.com/order/forms/
+  - [2] https://my.hostbrr.com/order/main/packages/storage/?group_id=26
+  - [3] https://lowendtalk.com/discussion/212070/
+
+## HostBrr (Value 4GB)
+
+- `compute/hostbrr` | qualifies-with-caveat | evidence documented | binding volume-quota | category cloud VM | tier Value 4GB
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T18:45:35.799Z (live) | stale on 2026-12-05
+- url https://hostbrr.com/vps.html
+- price parsed USD 3.25/mo
+- disagrees on identity_kind: `compute/hostbrr` says card, `compute/hostbrr-ipv6-1g` says email
+- disagrees on verdict: `compute/hostbrr` says qualifies-with-caveat, `compute/hostbrr-value-2gb` says qualifies
+- disagrees on verdict: `compute/hostbrr` says qualifies-with-caveat, `compute/hostbrr-value-4gb` says qualifies
+- disagrees on verdict: `compute/hostbrr` says qualifies-with-caveat, `compute/hostbrr-value-8gb` says qualifies
+- disagrees on verdict: `compute/hostbrr` says qualifies-with-caveat, `compute/hostbrr-windows` says fails-quota
+- free tier: no free tier; the entry rung is EUR 2.00 or USD 2.15 a month | unit: none | metered on: none | read on: 2026-11-04 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the plan is paid; no deletion grace period is stated on the pricing page | source: [1]
+- egress: 2.5 TB a month on a 10 Gbps port for this rung, stated in the plan row as 'bw: 2.5 TB @ 10Gbps'; no overage price is published | metered: yes | free allowance: 2.5 TB | source: [1]
+- identity: card | detail: account plus payment at order.
+- interface: rest
+- limits:
+  - volume-quota (binding): 2.5 TB a month of transfer on a 10 Gbps port [1]
+  - per-ip-shaping: 2.5 TB against a 10 Gbps port is a two-hour burst at line rate, so the transfer cap binds long before the port does [1]
+- limits note: 2.5 TB a month on Value 2GB at a 10 Gbps port. The tracker's cheapest USD 1.44 row carries the same 2,500 GB but on a 1 Gbps port and IPv6 only, so the cheaper row is the same allowance at a tenth of the throughput and without an IPv4 address. No overage price and no post-allowance throttle are stated on the page read.
+- binding note: 2.5 TB a month on a 10 Gbps port is the mismatch: the port can move the whole allowance in about 33 minutes, so the monthly transfer is what actually limits use.
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: order links go to my.hostbrr.com/order/config/index/largeram with a group and pricing id; DDoS mitigation is described as always-on with instant mitigation; no API appears on the page read
+- composes with: EUR 2.00 for 2 GB and 25 GB of NVMe on a 10 Gbps port in Frankfurt is the cheapest plan among evaluated providers per gigabyte of RAM outside InterServer, and 2.5 TB at 10 Gbps suits a mirror or a package cache in the EU; the USD 1.44 IPv6-only row is cheaper still but at 1 Gbps and without IPv4, which rules out anything that has to reach an IPv4-only client.
+- reliability: no reliability event recorded
+- notes: This fills the 4 GiB rung that the earlier read could not render: the selector is a JavaScript category filter and every plan lives in a `plans = [...]` array in the page source, so a fetch plus a parse of that array returns all ten rows. The 4 GiB rung is USD 3.25 a month monthly, or USD 32.50 a year (USD 2.71 a month) on annual prepay. It sits under the USD 5 line but well below the 8 GiB winner, and its 2.5 TB allowance on a 10 Gbps port is the thinnest part of the offer. The 8 GiB rung is USD 5.50 and therefore over the line. Not established: the payment rails and any card hold; whether the monthly price carries a first-term discount (no strike-through or renewal note is present in the array).
+- evidence note: the whole plan ladder, including this rung, is held in a JavaScript array on the vendor's page and is not rendered into the DOM until a category tab is clicked, which is why the earlier read showed only the default plan. Prices are published in both EUR and USD by the vendor; the USD figures are recorded and no conversion was applied.
+- extras:
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 2
+  - facets.shape.disk_gib: 25
+  - shape.vcpu: 1
+  - shape.ram_gib: 4
+  - shape.disk_gib: 40
+  - billing_model: monthly
+  - term: monthly, or 12 months at USD 32.50
+  - m10h_usd: 3.25
+  - m24h_usd: 3.25
+  - price_arithmetic: USD 3.25 a month billed monthly as published by the vendor, no conversion applied; annual prepay is USD 32.50, which is USD 2.708 a month and USD 32.50 out of pocket. A VPS bills whether it runs or not, so the 24/7 and 10 h/day figures are the same number.
+  - out_of_pocket_usd: 3.25
+  - renewal_usd: 3.25
+  - renewal_note: the plan array publishes both cycles and no first-term price, so the renewal is the published monthly rate of USD 3.25; the terms make the invoice for the recurring service automatic and state no rate change for a later term.
+  - promo: not stated as a promo
+  - port_mbps: 10000
+  - ipv4_included: yes
+  - ipv6: not stated for this rung in the array
+  - ladder[0].plan: Value 2GB
+  - ladder[0].usd_month: 2.15
+  - ladder[0].eur_month: 2.0
+  - ladder[0].vcpu: 1
+  - ladder[0].ram_gib: 2
+  - ladder[0].disk_gib: 25
+  - ladder[0].tb_month: 2.5
+  - ladder[0].port: 10 Gbps
+  - ladder[1].plan: Value 4GB
+  - ladder[1].usd_month: 3.25
+  - ladder[1].eur_month: 3.0
+  - ladder[1].vcpu: 1
+  - ladder[1].ram_gib: 4
+  - ladder[1].disk_gib: 40
+  - ladder[1].tb_month: 2.5
+  - ladder[1].port: 10 Gbps
+  - ladder[2].plan: Value 8GB
+  - ladder[2].usd_month: 5.5
+  - ladder[2].eur_month: 5.0
+  - ladder[2].vcpu: 2
+  - ladder[2].ram_gib: 8
+  - ladder[2].disk_gib: 80
+  - ladder[2].tb_month: 5
+  - ladder[2].port: 10 Gbps
+  - ladder[3].plan: Value 12GB
+  - ladder[3].usd_month: 9.0
+  - ladder[3].eur_month: 8.0
+  - ladder[3].vcpu: 3
+  - ladder[3].ram_gib: 12
+  - ladder[3].disk_gib: 120
+  - ladder[3].tb_month: 5
+  - ladder[3].port: 10 Gbps
+  - ladder[4].plan: Balanced 4GB
+  - ladder[4].usd_month: 4.25
+  - ladder[4].eur_month: 4.0
+  - ladder[4].vcpu: 2
+  - ladder[4].ram_gib: 4
+  - ladder[4].disk_gib: 40
+  - ladder[4].tb_month: 2.5
+  - ladder[4].port: 10 Gbps
+  - ladder[5].plan: Balanced 8GB
+  - ladder[5].usd_month: 7.5
+  - ladder[5].eur_month: 7.0
+  - ladder[5].vcpu: 4
+  - ladder[5].ram_gib: 8
+  - ladder[5].disk_gib: 80
+  - ladder[5].tb_month: 5
+  - ladder[5].port: 10 Gbps
+  - ladder[6].plan: 9950X-1GBrr
+  - ladder[6].usd_month: 4.3
+  - ladder[6].eur_month: 3.9
+  - ladder[6].vcpu: 1
+  - ladder[6].ram_gib: 1
+  - ladder[6].disk_gib: 15
+  - ladder[6].tb_month: 3
+  - ladder[6].port: 10 Gbps
+  - ladder[7].plan: 9950X-2GBrr
+  - ladder[7].usd_month: 5.5
+  - ladder[7].eur_month: 5.0
+  - ladder[7].vcpu: 1
+  - ladder[7].ram_gib: 2
+  - ladder[7].disk_gib: 30
+  - ladder[7].tb_month: 5
+  - ladder[7].port: 10 Gbps
+  - ladder[8].plan: 9950X-4GBrr
+  - ladder[8].usd_month: 11.0
+  - ladder[8].eur_month: 9.99
+  - ladder[8].vcpu: 2
+  - ladder[8].ram_gib: 4
+  - ladder[8].disk_gib: 60
+  - ladder[8].tb_month: 10
+  - ladder[8].port: 10 Gbps
+  - ladder[9].plan: 9950XP 1 Core VDS
+  - ladder[9].usd_month: 9.0
+  - ladder[9].eur_month: 8.0
+  - ladder[9].vcpu: 1
+  - ladder[9].ram_gib: 6
+  - ladder[9].disk_gib: 75
+  - ladder[9].tb_month: 5
+  - ladder[9].port: 1 Gbps
+  - ladder[9].note: one dedicated core
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - benchmark[0].plan: FI-3900-4GBrr (2 vCPU / 4 GiB)
+  - benchmark[0].cpu_model: AMD Ryzen 9 3900 12-Core Processor
+  - benchmark[0].dedicated_or_shared: not stated
+  - benchmark[0].gb6_single: 1244
+  - benchmark[0].gb6_multi: 2064
+  - benchmark[0].source_url: https://techbits.cc/vps-yabs/hostbrrr-20250127/
+  - benchmark[0].source_date: 2025-01-27
+  - benchmark[0].rung: reported
+  - benchmark[0].note: Ryzen 9 3900 at 3.09 GHz. One of the few rows where the price and the measured package are the same line of text.
+  - refund: 7 days on a VPS paid by card or PayPal, 30 days on shared; crypto none
+  - price_on_page: USD 3.25/mo
+  - price_in_cart: not read: the group route renders the package-selection page and the configure route renders an empty order summary ('Total Due Today: $0.00 USD')
+  - cart_works: no: the group route answers 'Please select a package group below to continue.' and the configure route renders an empty order summary
+  - cart_url: https://my.hostbrr.com/order/main/packages/largeram/?group_id=67
+  - signup_url: https://my.hostbrr.com/order/main/packages/largeram/?group_id=67
+  - cart_evidence: group page renders 'ECO Memory-Optimized 4 GB Choose your billing cycle. 1 Month @ $3.25 USD 1 Year @ $32.50 USD ... 4 GB DDR4 ECC RAM'
+  - needs_account_first: no
+  - annual_usd: 32.5
+  - stock: not stated: the plan array carries no stock counter, and the order route prints no availability line
+- evidence:
+  - [2] 2026-10-22: cheapest row, quoted: 'HostBrr - $1.44 / month', '1 Ryzen Cores (shared)', '1,024 MB RAM', '15 GB NVMe', '2,500 GB/month bandwidth', '1 Gbps port speed', 'IPv6', 'Falkenstein Germany'; product slug DE_Performance_1GBrr_IPv6_Only. The page states 'These are the cheapest VPSs currently offered by HostBrr, starting at $1.44 per month'.
+  - [2] 2026-10-22: next rows: '$2.13 / month' with '2,048 MB RAM', '30 GB NVMe', '5,000 GB/month bandwidth', '1 Gbps port speed', 'IPv6'; '$2.15 / month' with '1 Epyc Cores (shared)', '2,048 MB RAM', '25 GB NVMe', '2,500 GB/month bandwidth', '10 Gbps port speed', 'IPv4 + IPv6', 'Frankfurt Germany'
+  - [1] 2026-10-22: vendor plan card, quoted: 'Value 2GB', 'AMD EPYC and Intel Xeon Nodes', 'Boost Up To 3.4 GHz', 'Frankfurt, Germany', 'Monthly Total EUR 2.00', 'vCPU 1 Core', 'RAM 2 GB ECC', 'Storage 25 GB', 'Bandwidth 2.5 TB @ 10Gbps'. Page title: 'Cloud VPS - NVMe KVM Servers from EUR 2.00/mo'.
+  - [3] 2026-10-22: homepage product blocks, quoted: 'From EUR 2.00/mo Value VPS ... View Value VPS', 'From EUR 3.90/mo Performance VPS', 'From EUR 3.50/mo Storage VPS'. The first figure matches the 2 GB card, so no cheaper plan is advertised on the homepage.
+  - [1] 2026-10-24: quoted from the page's plan array: '{ name: "Value 4GB", cpu: "1 Core", ram: "4 GB", storage: "40 GB", bw: "2.5 TB @ 10Gbps", priceEUR: 3.00, priceUSD: 3.25, yearlyEUR: 30.00, yearlyUSD: 32.50 }'
+  - [1] 2026-10-24: quoted from the same array: the rungs above and below, '{ name: "Value 2GB", cpu: "1 Core", ram: "2 GB", storage: "25 GB", bw: "2.5 TB @ 10Gbps", priceEUR: 2.00, priceUSD: 2.15, yearlyEUR: 20.00, yearlyUSD: 21.50 }' and '{ name: "Value 8GB", cpu: "2 Cores", ram: "8 GB", storage: "80 GB", bw: "5 TB @ 10Gbps", priceEUR: 5.00, priceUSD: 5.50 }'
+  - [1] 2026-10-24: quoted from the rendered default card on the same page, which is the only one in the DOM: 'Monthly Total | €2.00 | 1 Core | 2 GB ECC | 25 GB'
+  - [1] 2026-11-04: the Value 4GB array row prices the rung at USD 3.25 a month and USD 32.50 a year | capture: sha256:9391786618951c1a851a361637a8cdb155ea0f239708284c71fe2571adfabf4e | quote: { name: "Value 4GB", cpu: "1 Core", ram: "4 GB", storage: "40 GB", bw: "2.5 TB @ 10Gbps", priceEUR: 3.00, priceUSD: 3.25, yearlyEUR: 30.00, yearlyUSD: 32.50 }
+  - [4] 2026-11-04: the configure route renders an empty order summary with no line item | capture: sha256:58ab8e44c870dc835540b995a5919419e0036f9000c6039e7251bc0909c766b3 | quote: $0.00 USD
+  - [5] 2026-11-04: the group route renders a package-selection page instead of a priced cart | capture: sha256:7b3890a3c0add316ef9f614e01969263e799ce5dd23fb8c3af29f43c67e27a30 | quote: Please select a package group below to continue.
+  - [1] 2026-11-04: the Value line is billed monthly with no minimum term | capture: sha256:9391786618951c1a851a361637a8cdb155ea0f239708284c71fe2571adfabf4e | quote: Billed monthly. Cancel anytime.
+  - [6] 2026-11-04: the terms issue recurring invoices automatically, with no rate lock | capture: sha256:28e32272e884efd2c4f9f51a82a9ad6fca3cbaf4e26581e2adba7813f1990ad4 | quote: Invoices for recurring hosting and server services will be issued automatically 5 days in advance of the active service's due date.
+- sources:
+  - [1] https://hostbrr.com/vps.html
+  - [2] https://vpspricetracker.com/provider/HostBrr/vps
+  - [3] https://hostbrr.com/
+  - [4] https://my.hostbrr.com/order/config/index/largeram/?group_id=67&pricing_id=1166&currency=EUR
+  - [5] https://my.hostbrr.com/order/main/packages/largeram/?group_id=67
+  - [6] https://hostbrr.com/terms.html
+
+## HostBrr (DE-Performance-1GBrr IPv6 Only)
+
+- `compute/hostbrr-ipv6-1g` | qualifies-with-caveat | evidence documented | binding volume-quota | category VPS | tier DE-Performance-1GBrr IPv6 Only
+- needs card unknown, phone no, ID no, institution no | verified 2026-11-04T18:45:35.799Z (live) | stale on 2026-12-05
+- url https://my.hostbrr.com/order/main/packages/limited/?group_id=40
+- price parsed USD 1.44/mo
+- disagrees on identity_kind: `compute/hostbrr` says card, `compute/hostbrr-ipv6-1g` says email
+- disagrees on identity_kind: `compute/hostbrr-ipv6-1g` says email, `compute/hostbrr-value-2gb` says card
+- disagrees on verdict: `compute/hostbrr-ipv6-1g` says qualifies-with-caveat, `compute/hostbrr-value-2gb` says qualifies
+- disagrees on identity_kind: `compute/hostbrr-ipv6-1g` says email, `compute/hostbrr-value-4gb` says card
+- disagrees on verdict: `compute/hostbrr-ipv6-1g` says qualifies-with-caveat, `compute/hostbrr-value-4gb` says qualifies
+- disagrees on identity_kind: `compute/hostbrr-ipv6-1g` says email, `compute/hostbrr-value-8gb` says card
+- disagrees on verdict: `compute/hostbrr-ipv6-1g` says qualifies-with-caveat, `compute/hostbrr-value-8gb` says qualifies
+- disagrees on identity_kind: `compute/hostbrr-ipv6-1g` says email, `compute/hostbrr-windows` says card
+- disagrees on verdict: `compute/hostbrr-ipv6-1g` says qualifies-with-caveat, `compute/hostbrr-windows` says fails-quota
+- free tier: No free tier. 'DE-Performance-1GBrr IPv6 Only' is USD 10.50 a year, USD 3.25 for three months or USD 1.4375 a month: 1 vCore, 1 GB DDR4/5 ECC RAM, 15 GB NVMe, 2500 GB at 1 Gbps, one IPv6 /64, one backup slot, Falkenstein Germany. | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: The server persists while the term is paid. The order page states no deletion schedule; the group page offers no refund term. | source: [1]
+- egress: 2500 GB a month at 1 Gbps on the 1 GB plan, as printed on the package row. | metered: yes | free allowance: 2500 GB | source: [1]
+- identity: email | detail: Self-service order and a client portal login with an email address. The package page read lists no card hold and no payment methods, so the accepted card, PayPal or crypto routes are not established.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 2500 GB a month at 1 Gbps on the 1 GB plan [1]
+  - per-ip-shaping: one IPv6 /64 and no IPv4, so IPv4-only peers cannot reach the guest [1]
+- binding note: 2.5 TB a month is the first hard number; the 1 GB shape and the absent IPv4 both fail earlier in practice but neither is a quota.
+- interface detail: KVM guest with full root access, Linux templates or a custom ISO, managed through VirtFusion with VNC console and rescue mode.
+- tooling: Any SSH client; KVM means your own kernel, so WireGuard is loaded inside the guest without depending on the host.
+- composes with: A 1 GB KVM guest in Falkenstein with a /64 and 2.5 TB a month for USD 10.50 a year: the cheapest machine among evaluated providers that can run its own kernel.
+- reliability: sole proprietorship registered in Denmark and active since 21 April 2023; the vendor calls itself 'a no-SLA, budget service' and sells IPv6-only machines, so an IPv4-only peer cannot reach this box at all
+- notes: The annual term is USD 10.50 against USD 17.25 for twelve monthly payments, so the annual prepay is the only way this machine is under the line. WireGuard should work here because KVM gives the guest its own kernel; that is a design property, not a measurement, and was not probed. | 2026-10-24: the entity is now established. HostBrr's own terms name PFWeb Solutions as the operator, and two Danish registry mirrors return a CVR number, status Aktiv, a sole proprietorship founded 21 April 2023 in Glostrup with www.hostbrr.com as its website. datacvr.virk.dk itself answered a Cloudflare bot challenge and proff.dk refused the request, so the primary register was not read. This is the beefiest machine in the sub-USD-1 band by RAM (1 GB) and the only one with a verifiable European registration that is definitely trading. The catch is the address family: no IPv4 at all, so a WireGuard peer must have working IPv6, and the vendor publishes no port policy because a routed /64 needs none.
+- evidence note: price, cycles, shape, transfer and the /64 are quoted from the vendor's order page read; the Danish registration is quoted from two registry mirrors, not from the CVR register itself, which answered a Cloudflare challenge to every route tried
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.disk_gib: 15
+  - billing_model: monthly-or-annual
+  - term: 1 month at USD 1.4375 or 1 year at USD 10.50
+  - m24h_usd: 0.875
+  - m10h_usd: 0.875
+  - price_arithmetic: USD 10.50 a year / 12 = USD 0.875 a month, paid once. The monthly cycle on the same page is USD 1.4375, so annual prepay is the only way under the line. A VPS bills whether it runs or not, so the 24/7 and 10 h/day figures are the same.
+  - renewal_usd: not published
+  - first_payment_usd: 10.5
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all, over IPv6 only; there is no IPv4 address and no NAT forwarding layer on this plan
+  - network_out.static_ip: no
+  - network_out.ipv6: yes
+  - network_out.ipv6_prefix: /64
+  - payment_methods: not established on the page read
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - renewal_note: not published: the terms make the invoice for the recurring hosting and server service automatic in advance of the due date, and they print no renewal rate and no price-change clause.
+  - renewal_evidence: my.hostbrr.com order page lists three cycles; no renewal statement found
+  - monthly_usd: 1.4375
+  - quarterly_usd: 3.25
+  - annual_usd: 10.5
+  - price_risk: 1.64x if the annual cycle stops being offered; the monthly rate is published, so the exposure is bounded
+  - udp: not stated as such, and none needs to be: the plan has a routed /64 and no port-forwarding layer, so a UDP listener needs only the guest firewall open. The vendor prints no port policy on the order page. Inferred from the architecture, not measured.
+  - price_in_cart: not read: the IPv6-only order group renders the package-selection page and no priced line, and no session was opened
+  - cart_works: no: the IPv6-only order group answers 'Please select a package group below to continue.' and prices nothing
+  - stock: not stated: the IPv6-only order group prints no stock counter and no availability line
+- evidence:
+  - [1] 2026-10-24: quoted: '1 Month @ $1.4375 USD 3 Months @ $3.25 USD 1 Year @ $10.50 USD'
+  - [1] 2026-10-24: quoted: '1 vCore AMD Ryzen 3900 / Intel i9-12900K / Intel Xeon Gold 5142u', '1 GB DDR4/5 ECC RAM', '15 GB NVMe Gen4 SSD Storage', '2500 GB Bandwidth @ 1 Gbps', '1 IPv6/64'
+  - [2] 2026-10-24: quoted: 'Value 2GB ... Monthly Total EUR 2.00 ... 25 GB ... 2.5 TB @ 10Gbps' - the IPv4 line, which costs more than the IPv6-only line at the same RAM
+  - [1] 2026-10-24: quoted: 'DE-Performance-1GBrr IPv6 Only Choose your billing cycle. 1 Month @ $1.4375 USD 3 Months @ $3.25 USD 1 Year @ $10.50 USD'
+  - [3] 2026-10-24: quoted, and the whole of the renewal language on this page: 'Invoices for recurring hosting and server services will be issued automatically'. A search of the same page found no price-change clause and no rate lock.
+  - [1] 2026-10-24: quoted: 'DE-Performance-1GBrr IPv6 Only' at '1 Month @ $1.4375 USD 3 Months @ $3.25 USD 1 Year @ $10.50 USD', with '1 GB DDR4/5 ECC RAM', '15 GB NVMe Gen4 SSD Storage', '2500 GB Bandwidth @ 1 Gbps', '1 IPv6/64', 'Hosted in Falkenstein, Germany'
+  - [3] 2026-10-24: 
+  - [4] 2026-10-24: quoted: 'We're a small team in Denmark and usually reply within a few hours, worst case within one business day.'
+  - [5] 2026-10-24: the registry page lists PFWeb Solutions in Glostrup with a CVR number, status 'Aktiv', 'Virksomhedsform ENK', 'Stiftet 21. april 2023', 'Website www.hostbrr.com'
+  - [6] 2026-10-24: the registry page lists PFWeb Solutions with a CVR number, status 'Aktiv', 'Enkeltmandsvirksomhed', 'Stiftet 21. april 2023', with an individual as the registered owner - a second registry mirror agreeing with the first
+  - [3] 2026-11-04: the terms issue recurring invoices automatically, with no rate lock | capture: sha256:28e32272e884efd2c4f9f51a82a9ad6fca3cbaf4e26581e2adba7813f1990ad4 | quote: Invoices for recurring hosting and server services will be issued automatically 5 days in advance of the active service's due date.
+  - [1] 2026-11-04: the IPv6-only order group renders the package-selection page and no priced line | capture: sha256:7b3890a3c0add316ef9f614e01969263e799ce5dd23fb8c3af29f43c67e27a30 | quote: Please select a package group below to continue.
+- sources:
+  - [1] https://my.hostbrr.com/order/main/packages/limited/?group_id=40
+  - [2] https://hostbrr.com/vps.html
+  - [3] https://hostbrr.com/terms.html
+  - [4] https://hostbrr.com/contact.html
+  - [5] https://datacvrapi.dk/virksomhed/pfweb-solutions-44002698
+  - [6] https://empiri.dk/virksomhed/44002698
+
+## HostBrr StorageBox 16 TB (BFBOX recurring coupon)
+
+- `storage/hostbrr-storagebox-16-tb` | qualifies-with-caveat | evidence reported | binding none | category DirectAdmin-managed storage box (NVMe-cached HDD, RAID-6/60)
+- needs card no, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://my.hostbrr.com/order/main/packages/storagebox/?group_id=65
+- price List: $1.85/TB/mo at 16 TB ($355/yr), $1.93 at 8 TB. With BFBOX 40% recurring on yearly: 16 TB = $213/yr = $1.11/TB/mo; 8 TB = $111/yr = $1.16/TB/mo; 4 TB = $57/yr = $1.19/TB/mo. at 5 TB: 8 TB plan = $1.16/TB/mo. at 20 TB: two 16 TB boxes = $2.22/TB/mo 16 TB is their ceiling, so the… | parsed USD 1.16/TB-mo
+- free tier: 500 GB / 1 / 2 / 4 / 8 / 16 TB, US (Utah) and DE (Falkenstein). 16 TB = $35.50/mo or $355/yr. 8 TB = $18.50/mo or $185/yr. 4 TB = $9.50/mo or $95/yr. | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Bandwidth is quoted as a hard multiple of storage. "5 TB Bandwidth @ 10 Gbps" on 1 TB, "40 TB" on 8 TB, "80 TB" on 16 TB. So 5x storage per month. NOT unmetered. A LET poster claims "its actually unmetered if you know how to set it up". Treat that as unverified forum folklore, not a policy. | metered: no
+- identity: email | detail: email
+- interface: s3, webdav, sftp, ftp, rsync, smb, ssh, rclone
+- limits note: DirectAdmin is a web-hosting panel bolted onto storage. You manage FTP users and bandwidth there. RAID-6 (DE) / RAID-60 (500 GB) at order-page level. US inventory and DE inventory are separate products with separate coupons.
+- interface detail: SSH, FTP, rsync, SFTP, DirectAdmin panel. No WebDAV, no SMB. Confirmed by LET users comparing it to Hetzner.
+- tooling: rsync/rclone-over-SFTP only. No S3, no WebDAV, no object API.
+- composes with: Protocol support is limited to SFTP, rsync, and Borg without native WebDAV or S3 interfaces. Well-suited for backend backup targets rather than public origin distribution.
+- reliability: Real hosting business (labze), 2+ years on LET with a Patron Provider tag; users report multi-year renewals at the same price, which is rare. But it is a small operator reselling/colocating, not owning DCs. And the 500 GB SKU is excluded from BFBOX by design.
+- notes: the same as the free tier
+- extras:
+  - price_verbatim: List: $1.85/TB/mo at 16 TB ($355/yr), $1.93 at 8 TB. With BFBOX 40% recurring on yearly: 16 TB = $213/yr = $1.11/TB/mo; 8 TB = $111/yr = $1.16/TB/mo; 4 TB = $57/yr = $1.19/TB/mo. at 5 TB: 8 TB plan = $1.16/TB/mo. at 20 TB: two 16 TB boxes = $2.22/TB/mo (16 TB is their ceiling, so the discount curve breaks at the 20 TB archive size). Caveat: no WebDAV/SMB and egress = 5x storage.
+- evidence:
+  - [1] 2026-10-21: 
+  - [2] 2026-10-21: 
+  - [3] 2026-10-21: "For just €57/year with the recurring coupon code BFBOX (40% off), you get the StorageBox 4 TB plan"
+  - [4] 2026-10-21: "BFBOX for Hostbrr DA boxes gives 40% off and is re-enabled"
+  - [5] 2026-10-21: ... — BF2025 thread: "The 40% off our DirectAdmin storageboxes return this year", plus separate "HDD Block Storage at ... €1/month per TB ... recurring as long as your service is active"
+  - [6] 2026-10-21: "Hostbrr's storagebox ... No smb or webdav support though"
+  - [7] 2026-10-21: and payment threads — PayPal, Stripe card, Coinbase Commerce crypto
+- sources:
+  - [1] https://my.hostbrr.com/order/main/packages/storagebox/?group_id=65
+  - [2] https://my.hostbrr.com/order/forms/
+  - [3] https://lowendtalk.com/discussion/205842/can-a-let-be-cheaper-than-cloud-storage
+  - [4] https://lowendtalk.com/discussion/212154/.../p278
+  - [5] https://lowendtalk.com/discussion/212070/
+  - [6] https://lowendtalk.com/discussion/210850/alternative-to-hetzner-storage-box
+  - [7] https://hostbrr.com/terms.html
+
+## HostBrr — StorageBox 16TB
+
+- `storage/hostbrr-storagebox-16tb` | qualifies-with-caveat | evidence reported | binding per-ip-shaping | category storage-only shared host (DirectAdmin)
+- needs card no, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://hostbrr.com/storageboxes.html
+- price 16TB: €32.00 -> €2.00/TB/mo ($2.22). 8TB: €16.50 -> €2.06/TB. 4TB: €8.50 -> €2.13/TB. 1TB: €2.50 -> €2.50/TB | parsed USD 2.25/TB-mo
+- free tier: 16 TB on NVMe-cached HDD RAID-60 (500 GB / 1 / 2 / 4 / 8 / 16 TB) | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Bandwidth scales to 5x storage: 16TB plan = 80 TB/mo; 1TB plan = 5 TB/mo. Byte cap, not unmetered. Page footer claims "10 Gbps Connectivity". | metered: no | free allowance: 80 TB per month
+- identity: email | detail: email
+- interface: s3, sftp, ftps, ftp, rsync, ssh, rclone
+- limits:
+  - per-ip-shaping (binding): 100 MB/s [1]
+  - per-ip-shaping (binding): 10 Gbps [1]
+- limits note: 5x-storage monthly bandwidth cap; ~100 MB/s I/O ceiling reported by buyers
+- binding note: one stream is shaped, and aggregate throughput is the shaped rate times the number of streams
+- interface detail: SSH, FTP, FTPS, SFTP, rsync; DirectAdmin panel; Nextcloud 1-click
+- tooling: rsync/rclone over SSH; no S3
+- composes with: rsync target for archive tier; too RAM-poor for Nextcloud-in-front
+- reliability: Forum reality check: LET buyers report the '10 Gbps' is not delivered (480 Mbps measured), a 100 MB/s I/O cap, and one thread reports a storage box down 10 days during a server upgrade. German location.
+- notes: the same as the free tier
+- extras:
+  - price_verbatim: 16TB: €32.00 -> €2.00/TB/mo ($2.22). 8TB: €16.50 -> €2.06/TB. 4TB: €8.50 -> €2.13/TB. 1TB: €2.50 -> €2.50/TB
+- evidence:
+  - [1] 2026-10-21: embedded pricing object read from raw HTML: 1TB €2.50/$2.75, 2TB €4.50, 4TB €8.50, 8TB €16.50, 16TB €32.00, bw 5/10/20/40/80 TB
+  - [2] 2026-10-21: ... — 'Storage Box might be capped at around 20 MiB/s', 'slow af... but so far it seems much more stable'
+  - [3] 2026-10-21: 10-day outage report
+  - [4] 2026-10-21: advertised vs actual performance discrepancy
+- sources:
+  - [1] https://hostbrr.com/storageboxes.html
+  - [2] https://lowendtalk.com/discussion/221489/
+  - [3] https://lowendtalk.com/discussion/210825/storage-box-down-hostbrr
+  - [4] https://www.webhostingtalk.com/showthread.php?t=1935318
+
+## HostBrr (NICE-EPYC)
+
+- `egress/hostbrr-nice-epyc` | paid-only | evidence reported | binding volume-quota | category cheap-egress VPS (KVM, 10 Gbps, Frankfurt) | tier NICE-EPYC
+- identity a placeholder: card and phone unknown | verified 2026-11-04T05:55:17.777Z (live) | stale on 2026-11-19
+- url https://my.hostbrr.com/order/main/packages/anniversary/?group_id=59&currency=EUR&a=OTU1
+- free tier: No free tier. NICE-EPYC is listed by an aggregator at EUR 4.0 a month with 2 TB bandwidth on a 10Gbps port; the vendor's anniversary order group read does not list it. | unit: none | metered on: none | read on: 2026-11-04 | source: [1] | note: unverified: the vendor order group read lists six other plans and none with 2 TB on an EPYC 9534.
+- per-object cap: not applicable: a VPS, not an object store | source: [2]
+- retention: not applicable | source: [2]
+- egress: 2 TB bandwidth at 10 Gbps per a forum listing of the plan (May 2024) and the aggregator; the vendor order group read does not list the plan. | metered: yes | free allowance: 2 TB, period not stated | source: [3]
+- identity: email | detail: unverified: behind a sign-up. The vendor order page read lists no sign-up fields.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 2 TB bandwidth, period not stated (forum listing and aggregator) [3]
+- limits note: The vendor's current page for this plan was not found.
+- binding note: 2 TB is the only cap stated, by a forum post and the aggregator, not by the vendor.
+- interface detail: KVM VPS; IPv4 and a /64 IPv6 per the sibling plans of the same order group.
+- tooling: Any SSH client; VirtFusion panel.
+- composes with: unverified: the plan is not on the vendor order group read, so no port or protocol list was read.
+- reliability: The plan is absent from the vendor's anniversary order group on 2026-11-04; the aggregator may list a plan that is no longer orderable.
+- notes: Not found on the vendor's order group on 2026-11-04.
+- evidence note: Values come from an aggregator and a May 2024 forum post; the vendor page read does not list the plan.
+- extras:
+  - nat_ports: not applicable: dedicated IPv4 per the sibling plans
+  - ipv6: /64 per the sibling plans
+  - udp_forwarding: unverified: not stated
+  - routed_ipv6_prefix: unverified
+  - inbound_ipv4_ports: unverified
+  - term: monthly
+  - virtualization: KVM
+- evidence:
+  - [3] 2026-11-04: a forum post lists the plan's 2 TB bandwidth at 10 Gbps | capture: sha256:e4e2cf2944bdc0cd5ea87c24c9f2c5e57957c9750e940485278dc5882a1bb2ee | quote: 2 TB Bandwidth @ 10 Gbps
+  - [3] 2026-11-04: the forum post gives a renewal price of EUR 4 a month | capture: sha256:e4e2cf2944bdc0cd5ea87c24c9f2c5e57957c9750e940485278dc5882a1bb2ee | quote: Renewal price: 4 €/m
+  - [2] 2026-11-04: the vendor order group lists a 2 vCore plan with 20 TB, not the 2 TB EPYC 9534 plan | capture: sha256:d0692afab8a2613b519476d7c7325ffe39e7c312ed1f1d95ea95ce63d19c2b55 | quote: 2 vCore AMD EPYC Turin 9655 6 GB DDR5 ECC RAM 60 GB NVMe Gen4 Storage 20 TB Bandwidth @ 10 Gbps IPv4 & IPv6/64 included 1 Backup slot included DDOS Protection Hosted in Frankfurt, Germany
+  - [1] 2026-11-04: serverdeals lists HostBrr NICE-EPYC at EUR 4.0 a month | quote: #### EUR 4.0 / month
+- sources:
+  - [1] https://serverdeals.cc/
+  - [2] https://my.hostbrr.com/order/main/packages/anniversary/?group_id=59&currency=EUR&a=OTU1
+  - [3] https://lowendtalk.com/discussion/194863/hostbrr-nice-epyc
+
+## HostBrr (Value 16GB)
+
+- `compute/hostbrr-windows` | fails-quota | evidence documented | binding write-gated | category KVM VPS | tier Value 16GB
+- needs card yes, phone no, ID no, institution no | verified 2026-10-26T13:30:00.000Z (live) | stale on 2026-11-26
+- url https://hostbrr.com/vps.html
+- price parsed USD 11/mo
+- disagrees on verdict: `compute/hostbrr` says qualifies-with-caveat, `compute/hostbrr-windows` says fails-quota
+- disagrees on identity_kind: `compute/hostbrr-ipv6-1g` says email, `compute/hostbrr-windows` says card
+- disagrees on verdict: `compute/hostbrr-ipv6-1g` says qualifies-with-caveat, `compute/hostbrr-windows` says fails-quota
+- disagrees on verdict: `compute/hostbrr-value-2gb` says qualifies, `compute/hostbrr-windows` says fails-quota
+- disagrees on verdict: `compute/hostbrr-value-4gb` says qualifies, `compute/hostbrr-windows` says fails-quota
+- disagrees on verdict: `compute/hostbrr-value-8gb` says qualifies, `compute/hostbrr-windows` says fails-quota
+- free tier: no free tier; the Value 16GB plan is USD 11.00 a month, or EUR 10.00, for 4 cores, 16 GB of RAM, 160 GB of NVMe and 10 TB of transfer on a 10 Gbps port, with a yearly price of USD 110.00 | unit: none | metered on: none | read on: 2026-10-26 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the plan is paid; the page states no deletion clock
+- egress: 10 TB a month on a 10 Gbps port, from the plan's own price array; no overage price is printed | metered: yes | free allowance: 10 TB per month | source: [1]
+- identity: card | detail: an account and a payment method at order; the order path is a Blesta registration wall reached after the Deploy Server button
+- interface: rest, cli
+- limits:
+  - volume-quota: 10 TB a month [1]
+  - per-ip-shaping: 10 Gbps port [1]
+  - write-gated (binding): the order page is a registration wall that returns an empty cart with a EUR 0.00 subtotal and does not configure this plan; no operating system is selectable before payment [2]
+- limits note: the plan array prints the transfer and the port, and the page carries no IPv4 statement at all: the strings 'IPv4' and 'IP address' do not occur in the 102 KB page. The order path lands on a Blesta cart that reads 'Some items have been removed from your cart because of package restrictions' with a EUR 0.00 subtotal, so a price cannot be carried through checkout and no public address is promised.
+- binding note: the row fails before a quota matters: there is no Windows option to buy, the order page does not configure the plan, and no public IPv4 is stated. The 10 TB allowance and the port sit behind a purchase path the buyer cannot complete as a Windows order.
+- interface detail: a KVM VPS with custom-ISO integration named on the page and no operating-system selector at all: the page carries zero select elements and orders by size and power only, so the OS is chosen after payment and the buyer supplies the media
+- tooling: any RDP client once a Windows image is installed from the buyer's own media; no licence, template or OS field is offered by the vendor
+- composes with: the cheapest 16 GB machine in the sweep and not a Windows row: it is a KVM box whose Windows route is a buyer-supplied ISO after payment, with no licence and no stated public IPv4. It is a candidate for a buyer who already holds a licence, and it is the reason a Windows table needs a licence column rather than a price column alone.
+- reliability: no reliability event observed; the configurator returns a EUR 0.00 subtotal and an empty cart, which is a wrong pricing identifier rather than a price, and Windows appears on the page as a logo tile and one FAQ sentence only.
+- notes: Classified as the negative that keeps the cheapest number honest. As a machine at USD 11.00 for 4 cores and 16 GB it is the cheapest in the sweep; as a Windows row it fails, because the vendor sells no licence, offers no operating-system choice at order, and states no public IPv4. A buyer who holds a licence and uploads their own ISO gets a Windows machine here, and that is a real route worth the record, but it is not what a Windows VPS row claims. The USD 11.00 and the EUR 10.00 are both vendor-printed for one plan at an implied rate of 1.10, below the 1.1209 used elsewhere, so the vendor's USD figure is rounded and a buyer converting from EUR pays about USD 11.21.
+- evidence note: the plan, the USD 11.00 and EUR 10.00 prices, the yearly USD 110.00, the shape, the absence of an OS selector, the absence of any IPv4 statement and the empty-cart order path are all confirmed by a fresh fetch of the 102,506-byte page on 2026-10-26. The Windows question is answered negatively and that negative is documented, not inferred: the word appears three times in the page, in a logo tile and in one FAQ sentence and its structured copy. No licence wording exists anywhere on the site.
+- extras:
+  - shape.vcpu: 4
+  - shape.ram_gib: 16
+  - shape.disk_gib: 160
+  - billing_model: monthly or yearly
+  - term: none monthly; yearly USD 110.00
+  - monthly_usd: 11.0
+  - monthly_eur: 10.0
+  - yearly_usd: 110.0
+  - yearly_monthly_usd: 9.17
+  - first_payment_usd: 11.0
+  - windows_licence: none offered: no licence wording on the site and no OS selector at order
+  - windows_path: buyer-supplied ISO after payment, per the page's 'Custom ISO integration'; no vendor image and no licence
+  - ipv4_stated: no
+  - port_mbps: 10000
+  - traffic: 10 TB/month
+  - order_path_failure: Blesta cart at my.hostbrr.com/order/cart/index/largeram renders a EUR 0.00 subtotal and a registration wall
+  - page_url: https://hostbrr.com/vps.html
+- evidence:
+  - [1] 2026-10-26: quoted from the page's own price array: '{ name: "Value 16GB", cpu: "4 Cores", ram: "16 GB", storage: "160 GB", bw: "10 TB @ 10Gbps", priceEUR: 10.00, priceUSD: 11.00, yearlyEUR: 100.00, yearlyUSD: 110.00 }'
+  - [1] 2026-10-26: the word Windows occurs three times in the whole page: a logo tile, the FAQ sentence 'You can deploy Debian, Ubuntu, AlmaLinux, Rocky Linux, or Windows', and the structured-data copy of that sentence; the page carries zero select elements, so no OS is chosen at order
+  - [1] 2026-10-26: the strings 'IPv4' and 'IP address' do not occur in the page, so no public address is stated for this plan
+  - [2] 2026-10-26: quoted from the rendered order page: 'Some items have been removed from your cart because of package restrictions', 'Subtotal: EUR 0.00 EUR', 'Total Due Today: EUR 0.00 EUR', followed by a registration wall; the group reached is not the Value line
+- sources:
+  - [1] https://hostbrr.com/vps.html
+  - [2] https://my.hostbrr.com/order/cart/index/largeram
+
+## HostBrr StorageBox (Germany / USA)
+
+- `storage/hostbrr-storagebox` | fails-quota | evidence reported | binding write-gated | category managed storage box / shared hosting with mass HDD
+- needs card no, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://hostbrr.com/storageboxes.html
+- price 16 TB €32.00 ÷ 16 = €2.00/TB/mo ≈$2.32 (best tier). 8 TB €2.06 · 4 TB €2.13 · 2 TB €2.25 · 1 TB €2.50 · 500 GB €1.17/TB only when billed annually. Beats Hetzner BX41 on €/TB but gives 80 TB transfer instead of unlimited — the trade is explicit. | parsed USD 1.32/TB-mo
+- free tier: 500 GB – 16 TB | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: 'Every plan includes transfer equal to five times its storage, so there is never a surprise line item for downloading your own data.' 1 TB → 5 TB transfer; 16 TB → 80 TB transfer. NOT unmetered. A 5:1 ratio. | metered: yes
+- identity: email | detail: email
+- interface: s3, sftp, ftps, ftp, rsync, ssh, rclone
+- limits:
+  - write-gated (binding): reviews over 12+ months reporting positive uptime and speed [1]
+- limits note: No root. Bandwidth ratio 5:1. At 10 TB stored you get 50 TB/mo, enough for 30 TB serving but with a hard edge. Coupon BFBOX (40% recurring) is widely cited on LET and moves the effective price materially; the list price is what is recorded below.
+- interface detail: SSH, FTP, FTPS, rsync, DirectAdmin file manager; Nextcloud one-click
+- tooling: rclone over SFTP/rsync; no S3
+- composes with: SSH/rsync target behind a cheap VPS; Nextcloud via Softaculous for a WebDAV/S3 facade
+- reliability: Multiple positive LET reviews over 12+ months ('uptime + speed has me impressed', 'genuinely, I couldn't be a happier customer'). One documented US storage-box migration with TB-scale accounts moved by batched rsync. Crypto payments are explicitly non-refundable (7-day money-back applies to card/PayPal only).
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: No root. Bandwidth ratio 5:1 — at 10 TB stored you get 50 TB/mo, enough for 30 TB serving but with a hard edge. Coupon BFBOX (40% recurring) is widely cited on LET and moves the effective price materially; the list price is what is recorded below.
+  - dead_end.first_recorded: 2026-10-21
+  - price_verbatim: 16 TB €32.00 ÷ 16 = €2.00/TB/mo ≈$2.32 (best tier). 8 TB €2.06 · 4 TB €2.13 · 2 TB €2.25 · 1 TB €2.50 · 500 GB €1.17/TB only when billed annually. Beats Hetzner BX41 on €/TB but gives 80 TB transfer instead of unlimited — the trade is explicit.
+- evidence:
+  - [1] 2026-10-21: 'Storage 1 TB from €2.50/mo', capacity ladder 500GB/1TB/2TB/4TB/8TB/16TB, 'Bandwidth 2.5 TB' on the 500 GB model, RAID-60 + NVMe cache, 10 Gbps, DirectAdmin
+  - [2] 2026-10-21: (published 2026-07-06) — ladder: 1 TB €2.50 (€2.50/TB), 2 TB €4.50 (€2.25), 4 TB €8.50 (€2.13), 8 TB €16.50 (€2.06), 16 TB €32.00 (€2.00)
+  - [3] 2026-10-21: 500 GB billed €7.00 per YEAR (≈€1.17/TB/mo), confirming the annual price is real and not a teaser
+  - [4] 2026-10-21: '€57/year with the recurring coupon BFBOX (40% off), StorageBox 4 TB, 20 TB bandwidth, Falkenstein'
+  - [5] 2026-10-21: 12-month customer verdict
+- sources:
+  - [1] https://hostbrr.com/storageboxes.html
+  - [2] https://hostbrr.com/storagebox-vs-hetzner-vs-s3.html
+  - [3] https://my.hostbrr.com/order/config/index/storagebox/?group_id=63&pricing_id=1071&currency=EUR
+  - [4] https://lowendtalk.com/discussion/205842/can-a-let-be-cheaper-than-cloud-storage
+  - [5] https://lowendtalk.com/discussion/208387/hostbrr-reliable-and-steady

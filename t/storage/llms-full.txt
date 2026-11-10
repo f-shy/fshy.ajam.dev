@@ -1,0 +1,29 @@
+# fshy: Storage in full
+
+> Where bytes can live: object storage, drives, registries, academic repositories, hosts used as storage.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic is 4,866 KB, about 1,315K tokens in full, more than the 300 KB, about 81K tokens one file holds, so it is split: its hosted records by verdict group, then its self-hosted records in one last group, and a group over that size into balanced parts. The parts in the order below are the one order (hosted before self-hosted, then verdict, provider name, record id). How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## Parts
+
+- [Usable part 1 of 5](https://fshy.ajam.dev/t/storage/llms-full-usable-1.txt): 68 records, AlphaVPS Storage VPS (qualifies) to SourceForge File Release System (FRS) + project web space (qualifies); 271 KB, about 73K tokens
+- [Usable part 2 of 5](https://fshy.ajam.dev/t/storage/llms-full-usable-2.txt): 59 records, Telnyx Object Storage ($6/TB, zero metered egress) (qualifies) to Dailymotion (qualifies-with-caveat); 269 KB, about 73K tokens
+- [Usable part 3 of 5](https://fshy.ajam.dev/t/storage/llms-full-usable-3.txt): 83 records, Debian Salsa (salsa.debian.org) - GitLab with Generic package registry (qualifies-with-caveat) to jsDelivr as the free CDN layer over GitHub repos (qualifies-with-caveat); 271 KB, about 73K tokens
+- [Usable part 4 of 5](https://fshy.ajam.dev/t/storage/llms-full-usable-4.txt): 82 records, Kaggle dataset quota-request program (the >200 GB escape hatch) (qualifies-with-caveat) to RSS.com — Free plan (qualifies-with-caveat); 270 KB, about 73K tokens
+- [Usable part 5 of 5](https://fshy.ajam.dev/t/storage/llms-full-usable-5.txt): 79 records, rsync.net — Standard (ZFS, SSH-only filesystem) (qualifies-with-caveat) to 蓝奏云优享版 iLanzou (ilanzou.com) (qualifies-with-caveat); 271 KB, about 73K tokens
+- [Trial](https://fshy.ajam.dev/t/storage/llms-full-trial.txt): 33 records; 116 KB, about 31K tokens
+- [Paid only part 1 of 2](https://fshy.ajam.dev/t/storage/llms-full-paid-1.txt): 53 records, acronis cyber protect (bundled cloud storage) (paid-only) to OVHcloud Cold Archive (paid-only); 229 KB, about 62K tokens
+- [Paid only part 2 of 2](https://fshy.ajam.dev/t/storage/llms-full-paid-2.txt): 50 records, OVHcloud High Performance (1-AZ) (paid-only) to zoolz (paid-only); 216 KB, about 58K tokens
+- [Rejected part 1 of 9](https://fshy.ajam.dev/t/storage/llms-full-rejected-1.txt): 97 records, 123pan vip (20 tb) (fails-identity) to IEEE DataPort - 2 TB per dataset free upload, but every read costs $40/month (fails-egress); 286 KB, about 77K tokens
+- [Rejected part 2 of 9](https://fshy.ajam.dev/t/storage/llms-full-rejected-2.txt): 97 records, IEEE DataPort — Data Competition module (the free + public route) (fails-egress) to anubis / techaro botstopper walls (dans, dataverse.nl, bonndata, uni-bonn, (fails-quota); 283 KB, about 77K tokens
+- [Rejected part 3 of 9](https://fshy.ajam.dev/t/storage/llms-full-rejected-3.txt): 120 records, api.video (fails-quota) to codeberg (as a storage host) (fails-quota); 284 KB, about 77K tokens
+- [Rejected part 4 of 9](https://fshy.ajam.dev/t/storage/llms-full-rejected-4.txt): 113 records, codeberg (forgejo flagship instance) (fails-quota) to febbox / feb (fails-quota); 287 KB, about 77K tokens
+- [Rejected part 5 of 9](https://fshy.ajam.dev/t/storage/llms-full-rejected-5.txt): 118 records, febbox / feb 1 tb free (fails-quota) to HAL (Hyper Articles en Ligne, CCSD / CNRS) (fails-quota); 284 KB, about 77K tokens
+- [Rejected part 6 of 9](https://fshy.ajam.dev/t/storage/llms-full-rejected-6.txt): 121 records, halalcloud / 6盘 / 清真云 (2dland.cn) (fails-quota) to Maven Central (Sonatype Central Portal) - post-2026 publishing limits (fails-quota); 287 KB, about 78K tokens
+- [Rejected part 7 of 9](https://fshy.ajam.dev/t/storage/llms-full-rejected-7.txt): 123 records, maven central as bulk storage (fails-quota) to PrivateBin public instance network (fails-quota); 285 KB, about 77K tokens
+- [Rejected part 8 of 9](https://fshy.ajam.dev/t/storage/llms-full-rejected-8.txt): 116 records, Proton Drive (fails-quota) to tensorart (tensor.art) (fails-quota); 283 KB, about 77K tokens
+- [Rejected part 9 of 9](https://fshy.ajam.dev/t/storage/llms-full-rejected-9.txt): 130 records, termbin.com (fails-quota) to 파일노리 / 싸다파일 / 빅파일 / 온디스크 / 위디스크 / 파일마루 / 파일구리 (korean webhard category) (fails-quota); 286 KB, about 77K tokens
+- [Dead](https://fshy.ajam.dev/t/storage/llms-full-dead.txt): 108 records; 210 KB, about 57K tokens
+- [Self-hosted, the last resort](https://fshy.ajam.dev/t/storage/llms-full-self-hosted.txt): 70 records; 186 KB, about 50K tokens

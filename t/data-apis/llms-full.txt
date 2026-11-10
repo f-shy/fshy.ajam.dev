@@ -1,0 +1,20 @@
+# fshy: Data APIs in full
+
+> Data APIs with free calls, and their bulk downloads: maps, IP location, markets, weather, news and open data.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic is 1,422 KB, about 384K tokens in full, more than the 300 KB, about 81K tokens one file holds, so it is split: its hosted records by verdict group, then its self-hosted records in one last group, and a group over that size into balanced parts. The parts in the order below are the one order (hosted before self-hosted, then verdict, provider name, record id). How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## Parts
+
+- [Usable part 1 of 5](https://fshy.ajam.dev/t/data-apis/llms-full-usable-1.txt): 37 records, AllRatesToday (open keyless endpoints) (qualifies) to Open-Meteo (qualifies); 243 KB, about 66K tokens
+- [Usable part 2 of 5](https://fshy.ajam.dev/t/data-apis/llms-full-usable-2.txt): 25 records, OpenAlex (qualifies) to CurrencyFreaks (qualifies-with-caveat); 259 KB, about 70K tokens
+- [Usable part 3 of 5](https://fshy.ajam.dev/t/data-apis/llms-full-usable-3.txt): 26 records, Currents API (qualifies-with-caveat) to LatLng (qualifies-with-caveat); 250 KB, about 68K tokens
+- [Usable part 4 of 5](https://fshy.ajam.dev/t/data-apis/llms-full-usable-4.txt): 20 records, Mapbox (qualifies-with-caveat) to Stack Exchange API (qualifies-with-caveat); 247 KB, about 67K tokens
+- [Usable part 5 of 5](https://fshy.ajam.dev/t/data-apis/llms-full-usable-5.txt): 18 records, Stadia Maps (qualifies-with-caveat) to Wolfram|Alpha API (qualifies-with-caveat); 250 KB, about 68K tokens
+- [Trial](https://fshy.ajam.dev/t/data-apis/llms-full-trial.txt): 3 records; 15 KB, about 4K tokens
+- [Paid only](https://fshy.ajam.dev/t/data-apis/llms-full-paid.txt): 5 records; 32 KB, about 9K tokens
+- [Rejected](https://fshy.ajam.dev/t/data-apis/llms-full-rejected.txt): 12 records; 78 KB, about 21K tokens
+- [Dead](https://fshy.ajam.dev/t/data-apis/llms-full-dead.txt): 8 records; 42 KB, about 11K tokens
+- [Self-hosted, the last resort](https://fshy.ajam.dev/t/data-apis/llms-full-self-hosted.txt): 1 records; 9 KB, about 3K tokens

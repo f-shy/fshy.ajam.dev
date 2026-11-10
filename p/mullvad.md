@@ -1,0 +1,151 @@
+# Mullvad VPN
+
+> mullvad.net | IP and proxies, Egress and tunnels; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/mullvad/ | JSON https://fshy.ajam.dev/api/v1/entity/mullvad.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Mullvad VPN
+
+- `ip-proxy/mullvad-vpn` | qualifies | evidence documented | binding request-rate | category VPN subscription (exit source) | tier flat: one plan, EUR 5 per month at every term
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T10:07:11.000Z (live) | stale on 2026-11-24
+- url https://mullvad.net/en/pricing
+- price EUR 5 per month flat at 1 month, 1 year and 1 decade, including VAT; a subscription price, not a per-TB price | parsed USD 5.6/mo
+- free tier: No free tier. The pricing page read 2026-10-24 lists one plan at one rate: '1 month EUR 5 per month', '1 year EUR 5 per month', '1 decade EUR 5 per month', with the heading 'A fair pricing model' and the qualifier 'Including VAT.'. The same page offers a '14-day money back guarantee (except for cash payments due to anti-money laundering regulations)' and answers 'Do you ever have any sales?' with 'Nope.' | unit: none | metered on: none | read on: 2026-10-24 | source: [1] | note: All three terms carry the same monthly rate, so the length of the commitment buys no discount and the only difference between them is how many months are paid at once. The page renders the currency as a euro sign; EUR is written here instead of the glyph.
+- per-object cap: not applicable: an exit address, not an object | source: [2] | note: The pool is 566 named relays over 258 distinct /24s in 27 ASNs, measured 2026-10-24; none of those numbers is an object size.
+- retention: not applicable: a live tunnel and a rented exit address, not stored bytes | source: [1] | note: An exit address lasts for the life of a connection and nothing is stored at the exit, so there is no byte that could expire.
+- egress: The pricing page read on 2026-10-24 states a flat rate of EUR 5 per month across all terms, with no byte allowance, traffic cap, or per-gigabyte pricing published. Traffic is unmetered. | metered: no | free allowance: none published: the page prices a month, not a volume | source: [1]
+- identity: anonymous | detail: No email is asked for at signup: the pricing page says 'Start with one click to generate an account. You'll immediately get an account number and be able to choose a payment option.' Payment runs from cash by post to card - 'We accept cash, Bitcoin, Bitcoin Cash, Monero, bank wire, credit card, PayPal, Swish, Eps transfer, Bancontact, iDEAL | Wero, and Przelewy24' - and 'Our accepted cryptocurrencies are discounted at 10% due to lower fees and less administration.' No card is required: a card is one option among many, and the anonymous paths cost nothing extra; the crypto paths cost 10% less.
+- interface: rest
+- limits:
+  - request-rate (binding): 5 devices per account: 'You can use a Mullvad VPN account on up to 5 devices.' [1]
+  - volume-quota: none published: the pricing page read 2026-10-24 lists no byte allowance, no traffic cap and no per-GB price, and no byte count through a tunnel was run, so a cap has not been ruled out either way [1]
+- limits note: Address distribution: 566 relay servers resolve to 258 /24 subnets across 27 autonomous systems. Two networks represent 61 /24 subnets each: AS9009 (M247) at 23.6% and AS11878 (tzulo, inc.) at 23.6%. The top three autonomous systems encompass 65.1% of total /24 subnets. Inbound traffic: Mullvad ended port forwarding on 2023-07-01. The service operates strictly as an outbound exit source.
+- binding note: The 5-device cap fails first: at about 45 GB a month across about 599,000 requests no byte quota exists to hit and no rate was observed to be shaped, so what bounds it is how many devices one account may register - five exits held at once, and a sixth means a second EUR 5 account. The nearest alternative in the vocabulary is per-ip-shaping, which the sibling ip-proxy/nordvpn-exits uses for its 8-connection ceiling, and the two labels describe the same shape, a ceiling on how many sessions one account may hold rather than a ceiling on bytes or on requests per second.
+- interface detail: The public relay list at https://api.mullvad.net/www/relays/all/ is an unauthenticated HTTPS JSON document: HTTP 200, 294,015 bytes, 566 records, each carrying hostname, fqdn, ipv4_addr_in, ipv6_addr_in, socks_name, socks_port, multihop_port, pubkey, provider, owned, active and type. 553 records are type wireguard and publish a SOCKS5 name with socks_port 1080; 13 are type bridge and publish no socks_name.
+- endpoint: https://api.mullvad.net/www/relays/all/ - no key, no session, no header; HTTP 200, 294,015 bytes on 2026-10-24.
+- tooling: An HTTP client is the whole of it for the relay list, and the list names each relay's fqdn and its SOCKS5 name, so a client pins a hostname rather than a country. Reaching an exit needs an account registered to a device and a dialler that runs on the local machine; a Cloudflare Worker cannot open a WireGuard tunnel, so that dialler has to be written. No wrapper for relay selection exists and that is a tooling note, not a reason to reject the provider.
+- composes with: A Worker or a free compute node dials one named relay and the request leaves at that relay's address, so the target sees a hosting ASN instead of Cloudflare's, and because 27 ASNs are reachable through one account the rotation is across relays rather than across subscriptions. The 5-device cap bounds how many of those relays can be held open at once, so the rotation is sequential on five slots, not parallel over 566 hosts.
+- reliability: Mullvad ended port forwarding on 2023-07-01, precluding inbound routing. Infrastructure composition: 124 of 566 relays are vendor-owned, while 442 operate in third-party hosting facilities. Shared exit IP blocks belong to datacenter and hosting network classes.
+- notes: What makes it work here and not elsewhere is the pair of numbers beside it: the list needs no account, and 2.19 relays per /24 means a hostname is nearly an address, so naming a host names a network. NordVPN's list is also public and also gives hostnames, but at 9.3 relays per /24 a hostname there is a pick inside a network and not a pick of one; Proton's equivalent listing refuses unauthenticated reads, which is what ip-proxy/protonvpn-exits records from its own probe of /vpn/logicals. (3) Relay count close to address count: 566 relays over 258 /24s is 2.19 relays per /24, against NordVPN's 9.3, so reading the headline count overstates the reachable networks by a factor of two rather than by 288. Also supported, and recorded because it is the trap this topic exists to name. The page read returns the figure: EUR 5 per month at 1 month, 1 year and 1 decade, including VAT, and it also answers the device cap, the payment list, the 10% crypto discount and the port-forwarding question, so four of that record's gaps are closed by one page. A discrepancy between the assigned facts and the artefacts, recorded rather than smoothed. The facts give the largest ASN as AS9009 M247 at 61 /24s and 24%. Re-resolving all 258 prefixes found M247 at 61 and AS11878 tzulo, inc. at 61 as well, with CDNEXT third at 46. The share is right - 61 of 258 is 23.6%, which rounds to 24% - and the ranking is not a single leader. Both are carried, and the tie is the reason limits_note says 'the two largest' rather than 'the largest'. A second number that the facts do not carry: the same document flags 542 of the 566 records active and 24 inactive. 566 is the count of named relays, which is what a reader sees on the page and what the facts give; 542 is the count a client could dial on the day. Neither is wrong and they answer different questions, so both are in extras. Cross-record, and it matters for the stack. AS212238 CDNEXT Datacamp holds 46 of Mullvad's 258 /24s, 17.8%, and it is the same ASN measured for the Proton exit in ip-proxy/protonvpn-exits and holding 45% of the NordVPN pool in ip-proxy/nordvpn-exits; So four subscriptions do not buy four independent top networks, and a rotation built from Mullvad alone is concentrated in two networks that together hold 47.2% of its /24s. Why rung 4 and not 5. Every ASN measured here is a hosting network by holder name, M247, tzulo, Datacamp, HostRoyale, ESAB, so the exit is a datacenter address and the registration-class question is answered no, which is a property of the pool and not of a single exit. What rests on one sample. One fetch of the relay list on one day, one resolution pass over its 258 prefixes, and one read of the pricing page; the pool as handed out at connect time was never observed, so every address claim here is a claim about the published list and not about a connection. The 5-device cap was read, not tested, and the absence of a traffic cap is an absence in one page rather than a measurement. The one-sentence vendor claim that this is an exit source rather than an ingress one was checked against the vendor's own announcement rather than carried from the facts.
+- evidence note: Autonomous system diversity was measured on 2026-10-24: the vendor relay list was parsed and all 258 distinct /24 subnets were resolved via RIPEstat prefix-overview without errors. Flat pricing of EUR 5 monthly, 5-device account limit, supported payment methods, 10% cryptocurrency discount, and port forwarding policies are documented from vendor pages.
+- extras:
+  - rung: 4
+  - rung_note: Every distinct /24 in the vendor's relay list was resolved to an announcing ASN through RIPEstat, so the record knows which networks the exits sit in; it stops at rung 4 because no relay was connected to and no holder was checked against a hosting flag.
+  - asn_diversity.measured_on: 2026-10-24
+  - asn_diversity.relays: 566
+  - asn_diversity.relays_active: 542
+  - asn_diversity.countries: 50
+  - asn_diversity.cities: 91
+  - asn_diversity.providers: 14
+  - asn_diversity.relays_owned_by_vendor: 124
+  - asn_diversity.subnets_24: 258
+  - asn_diversity.asns: 27
+  - asn_diversity.largest_asn: AS9009 M247 Europe SRL
+  - asn_diversity.largest_asn_subnets_24: 61
+  - asn_diversity.largest_asn_share: 23.6%
+  - asn_diversity.tied_largest_asn: AS11878 tzulo, inc.
+  - asn_diversity.tied_largest_subnets_24: 61
+  - asn_diversity.top3_share: 65.1%
+  - asn_diversity.relays_per_subnet_24: 2.19
+  - asn_diversity.prefixes_resolved: 258 of 258, 0 errors
+  - top_asns[0].asn: AS9009
+  - top_asns[0].holder: M247 Europe SRL
+  - top_asns[0].subnets_24: 61
+  - top_asns[0].share: 23.6%
+  - top_asns[1].asn: AS11878
+  - top_asns[1].holder: tzulo, inc.
+  - top_asns[1].subnets_24: 61
+  - top_asns[1].share: 23.6%
+  - top_asns[2].asn: AS212238
+  - top_asns[2].holder: CDNEXT Datacamp Limited
+  - top_asns[2].subnets_24: 46
+  - top_asns[2].share: 17.8%
+  - top_asns[3].asn: AS203020
+  - top_asns[3].holder: HostRoyale Technologies Pvt Ltd
+  - top_asns[3].subnets_24: 21
+  - top_asns[3].share: 8.1%
+  - top_asns[4].asn: AS39351
+  - top_asns[4].holder: ESAB-AS 31173 Services AB
+  - top_asns[4].subnets_24: 20
+  - top_asns[4].share: 7.8%
+  - top_asns[5].asn: AS21859
+  - top_asns[5].holder: ZEN-ECN Zenlayer Inc
+  - top_asns[5].subnets_24: 8
+  - top_asns[5].share: 3.1%
+  - shared_asn_with: AS212238 CDNEXT Datacamp is the ASN measured for the Proton exit in ip-proxy/protonvpn-exits and holds 45% of the NordVPN pool in ip-proxy/nordvpn-exits; AS9009 M247 is also the largest network in AirVPN's pool.
+  - addressable_by_name: Each of the 566 records carries a hostname, an fqdn and a socks_name, so an exit is pinned by name rather than drawn from a country pool.
+  - device_cap: 5
+  - price: EUR 5 per month flat at 1 month, 1 year and 1 decade, including VAT
+  - payment: cash by post, Bitcoin, Bitcoin Cash, Monero, bank wire, credit card, PayPal, Swish, Eps transfer, Bancontact, iDEAL | Wero, Przelewy24; cryptocurrencies discounted 10%
+  - ingress: none: port forwarding withdrawn 2023-07-01
+  - relay_types: 553 wireguard, 13 bridge
+  - asn_comparison.measured_on: 2026-10-24
+  - asn_comparison.basis: distinct ASNs announcing the /24s of the addresses in each vendor's published server list; the Windscribe figures count primary addresses only
+  - asn_comparison.comparison: Mullvad VPN has more ASNs than NordVPN (27 against 25) and fewer than Windscribe (27 against 58)
+  - asn_comparison.windscribe.asns: 58
+  - asn_comparison.windscribe.subnets_24: 239
+  - asn_comparison.windscribe.servers: unverified: the 2026-10-24 table gives 1074 under servers for this vendor, and the vendor's list carries ip2 and ip3 addresses beside the primary one, so 1074 is not shown to be a count of servers
+  - asn_comparison.mullvad.asns: 27
+  - asn_comparison.mullvad.subnets_24: 258
+  - asn_comparison.mullvad.servers: 566
+  - asn_comparison.nordvpn.asns: 25
+  - asn_comparison.nordvpn.subnets_24: 775
+  - asn_comparison.nordvpn.servers: 7193
+- evidence:
+  - [1] 2026-10-24: One flat rate at every term - '1 month EUR 5 per month', '1 year EUR 5 per month', '1 decade EUR 5 per month', 'Including VAT.' - plus 'You can use a Mullvad VPN account on up to 5 devices.', 'Start with one click to generate an account. You'll immediately get an account number', 'Do you support port forwarding? No.', the payment list naming cash and Monero, 'Our accepted cryptocurrencies are discounted at 10%', and the 14-day money-back guarantee that excludes cash.
+  - [2] 2026-10-24: The relay list returns 566 records over 50 country codes, 91 city codes and 14 providers, 124 marked owned and 542 marked active; 553 are type wireguard with a socks_name and socks_port 1080, 13 are type bridge with no socks_name; the document carries no ASN field, so the ASN figure in this record came from resolving its addresses, not from reading them off it.
+  - probe:mullvad-asn-diversity-2026-10-24 2026-10-24: The 258 distinct /24s in the relay list resolved through RIPEstat prefix-overview to 27 distinct ASNs, 258 of 258 prefixes answered with 0 errors: AS9009 M247 Europe SRL 61 /24s (23.6%), AS11878 tzulo, inc. 61 (23.6%), AS212238 CDNEXT Datacamp Limited 46 (17.8%), AS203020 HostRoyale 21, AS39351 ESAB 20, AS21859 Zenlayer 8, AS43357 Owl 7, AS136557 Host Universal 6.
+  - [3] 2026-10-24: One worked example of the method: the /24 holding relay al-tia-wg-001 is announced by AS39351, holder ESAB-AS 31173 Services AB, which is how each of the 258 prefixes was classified.
+  - [4] 2026-10-24: 'Today we announce that we no longer support port forwarding. New port forwards will no longer be supported, and existing ports will be removed 2023-07-01.' Posted May 29, 2023, so the provider has no inbound path and the record can only be about exit.
+  - probe:mullvad-asn-diversity-2026-10-24 2026-10-24: How the 2026-10-24 measurement counted ASNs: each vendor's own machine-readable server list, every distinct /24 in it resolved to an ASN through RIPE, and the Windscribe count rechecked on primary addresses only (58 ASNs on 239 /24s). | capture: sha256:f7097f944b12b64cd648068f937b2c47b1e6b2496927a6cfb9b84bd91ee582bb | quote: Each vendor's own machine-readable server list ... Every distinct /24 in that list resolved to an ASN with RIPE ... Headline numbers, all measured 2026-10-24 ... the count survives a primary-IP-only recount (58 on 239 /24s, not an artefact of the ip2/ip3 fields)
+  - probe:mullvad-asn-diversity-2026-10-24 2026-10-24: The 2026-10-24 table lists servers, /24s and ASNs per vendor: Windscribe 1074, 239 and 58; Mullvad 566, 258 and 27; NordVPN 7193, 775 and 25. Mullvad's 27 ASNs are more than NordVPN's 25 and fewer than Windscribe's 58. | capture: sha256:f7097f944b12b64cd648068f937b2c47b1e6b2496927a6cfb9b84bd91ee582bb | quote: | vendor | price | servers | /24s | ASNs | ... | Windscribe | $5.75/mo ($69/yr) | 1074 | 239 | 58 | 26% (AS212238) | 0.10 | | Mullvad | €5/mo flat | 566 | 258 | 27 | 24% (AS9009) | 0.19 | | NordVPN | $3.49/mo | 7193 | 775 | 25 | 45% (AS212238) | 0.14 |
+- sources:
+  - [1] https://mullvad.net/en/pricing
+  - [2] https://api.mullvad.net/www/relays/all/
+  - [3] https://stat.ripe.net/data/prefix-overview/data.json?resource=45.142.26.0/24
+  - [4] https://mullvad.net/en/blog/removing-the-support-for-forwarded-ports
+
+## Mullvad
+
+- `egress/mullvad` | fails-egress | evidence documented | binding write-gated | category vpn port forward | tier paid
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T10:29:23.989Z (live) | stale on 2026-12-05
+- url https://mullvad.net/en/blog/removing-the-support-for-forwarded-ports
+- price EUR 5 per month; a year is paid at the same monthly rate (EUR 60 for 12 months) | parsed USD 5.63/mo
+- free tier: No free tier, and no port forwarding since 2023: Today we announce that we no longer support port forwarding. New port forwards will no longer be supported, and existing ports will be removed 2023-07-01. Price: 5 EUR per month, and a year is paid at the same monthly rate, so 60 EUR for one year. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: flat price of EUR 5 per month, the same monthly rate for a year; unverified: no page read states a byte allowance.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: The pricing page links Get started - generate an account, and account generation is the registration step; no email is required to generate an account number. | country: None
+- interface: cli
+- limits:
+  - write-gated (binding): port forwarding withdrawn: We have removed the ability to add port forwards on all accounts. [1]
+- binding note: No inbound path exists at any price, so no volume or identity constraint is reachable.
+- interface detail: Account number generation; config download per device.
+- tooling: wg-quick with generated configs; official app. SOCKS5 endpoint: 10.64.0.1 port 1080, reachable while connected over WireGuard. Obfuscation in the app: LWO, QUIC, Shadowsocks and UDP-over-TCP. BitTorrent rule: unverified: the help page was not found.
+- composes with: Client-side tunnel only.
+- reliability: No inbound path exists, so there is no throttle or drop to record.
+- notes: Mullvad is the reference case for the whole lane: a provider with the best identity story in the set, a native WireGuard config and a flat price of EUR 5 per month, that nevertheless cannot pass the ingress test.
+- evidence note: The removal is documented from the vendor blog, and the 2023-07-01 removal date has long passed, so the state is settled. Measured is impossible.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: WireGuard is the primary protocol and configs are generated per device; irrelevant for ingress because there is no forwarded port.
+  - ingress: none
+  - volume_stated: unverified: no page read states a byte allowance; the price is a flat EUR 5 per month.
+  - bytes_transit: yes
+  - transit_note: Outbound only from a user's point of view.
+- evidence:
+  - [1] 2026-10-23: Support for forwarded ports ended, announced 2023-05-29, existing ports removed 2023-07-01, with abuse, blacklisting and hosting cancellations given as the reason.
+  - [2] 2026-10-23: A flat rate that has not changed since 2009, a 14-day money-back guarantee, and account generation as the signup step; the page renders no price figure.
+  - [3] 2026-11-03: flat 5 EUR per month | capture: sha256:e9366b1736bb764e18d275f344d4ef7866c1499a08c7795ad305817f486d0889 | quote: ## €5/month
+  - [2] 2026-11-03: a year costs the same monthly rate | capture: sha256:1daeb20baec843184dc336084d688e6e478c7ecae9125b79983921f86c4152bf | quote: Feel free to top up your VPN account for an entire year, or just pay month to month for the exact same rate.
+  - [4] 2026-11-03: SOCKS5 endpoint | capture: sha256:1a97c9dd14692f3241c50224779bdd6d5c519a2dbf76e408d0a4eee27f13c875 | quote: The SOCKS5 proxy is listening on 10.64.0.1 port 1080.
+  - [5] 2026-11-03: obfuscation methods | capture: sha256:ce1b5258178f906aa75d3278353017f4f2b62306c358bf95284d97fa090bbd1b | quote: ### Obfuscation: LWO, QUIC, Shadowsocks, UDP-over-TCP
+  - [5] 2026-11-03: QUIC obfuscation over UDP 443 | capture: sha256:ce1b5258178f906aa75d3278353017f4f2b62306c358bf95284d97fa090bbd1b | quote: QUIC uses UDP port 443. It is made to make your VPN traffic look like normal web traffic.
+  - [3] 2026-11-04: the VPN page states a flat price of 5 EUR per month | capture: sha256:e9366b1736bb764e18d275f344d4ef7866c1499a08c7795ad305817f486d0889 | quote: ## €5/month
+  - [2] 2026-11-04: a year costs the same monthly rate as a month | capture: sha256:1daeb20baec843184dc336084d688e6e478c7ecae9125b79983921f86c4152bf | quote: Feel free to top up your VPN account for an entire year, or just pay month to month for the exact same rate.
+- sources:
+  - [1] https://mullvad.net/en/blog/removing-the-support-for-forwarded-ports
+  - [2] https://mullvad.net/en/pricing
+  - [3] https://mullvad.net/en/vpn
+  - [4] https://mullvad.net/en/help/socks5-proxy/
+  - [5] https://mullvad.net/en/help/connecting-to-mullvad-vpn-from-restrictive-locations

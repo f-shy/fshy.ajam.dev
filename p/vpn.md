@@ -1,0 +1,150 @@
+# VPN.ac
+
+> vpn.ac | Egress and tunnels, IP and proxies; 3 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/vpn/ | JSON https://fshy.ajam.dev/api/v1/entity/vpn.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## VPN.ac (Egress and tunnels)
+
+- `egress/vpn-ac` | paid-only | evidence documented | binding none | category tunnel (hosted): VPN with OpenVPN, WireGuard, IKEv2 and L2TP on shared addresses; no port forwarding | tier 1 year
+- identity a placeholder: card and phone unknown | verified 2026-11-04T10:11:45.490Z (live) | stale on 2026-12-05
+- url https://vpn.ac/vpn-accounts
+- price USD 58 for 1 year; a subscription price, not a per-TB price
+- free tier: No free plan. The plans page lists '1 Year' at '$58' ('$4,8 / month') beside 1 Month '$9', 3 Months '$24' ('$8 / month') and 2 Years '$90'. A trial exists: 'a 1-week trial account for only $2'. | unit: none | metered on: none | read on: 2026-11-04 | source: [1] | note: The plan links carry a promotion code (OCT26), so the listed prices may be promotional. The trial allows 3 simultaneous connections instead of 6.
+- per-object cap: not applicable | source: [1]
+- retention: not applicable: a tunnel, not stored bytes | source: [2] | note: The vendor states it does not log or monitor user activity such as visited sites or files transferred; its FAQ also describes the connection logs it keeps.
+- egress: No speed limit and no byte cap stated: the features list says 'No speed limit', and servers are 'connected to gigabit ports'. The vendor says it does not oversell bandwidth. | metered: no | free allowance: none: no free plan; 1-week trial at USD 2 | source: [3]
+- identity: email | detail: unverified: the checkout and sign-up form are behind a sign-up and were not read; the FAQ says the vendor sends auto-generated payment reminders and confirmations to customers, and accepts Bitcoin and other cryptocurrencies, PayPal, cards and vouchers. The email kind is the structured value inferred from the payment reminders; no phone, card or ID requirement is stated on the pages read.
+- interface: unknown
+- limits:
+  - per-ip-shaping: shared addresses: 'all users connected to the same VPN node will use the same IP addresses'; no dedicated IP is sold [2]
+  - request-rate: 6 simultaneous connections with OpenVPN or IPsec plus 6 with WireGuard (12 in total); the trial allows 3 [2]
+- limits note: The connection counts are filed under request-rate because the vocabulary has no concurrent-connection kind. The P2P guidance names seven locations (Canada - Toronto, Sweden, Netherlands, Finland, Switzerland, France, Romania) and the 28 gigabit servers in them.
+- binding note: No byte quota or rate is published; the shared-address model and the connection counts are stated, and the vocabulary cannot rank them against a quota.
+- interface detail: A tunnel and a browser proxy. Protocols: OpenVPN (TCP and UDP on several ports, with XOR and a V2Ray-based TCP obfuscation), IKEv2/IPsec, WireGuard (stated 'in beta' in the FAQ) and L2TP/IPsec. UDP: yes, OpenVPN UDP is offered. Port forwarding: not offered ('No, we don't. We believe it is a risk for the privacy and security of users.'). SOCKS5: unverified: the SecureProxy browser extension is an HTTPS proxy, and the SOCKS5 knowledge-base page returned the vendor's home page; no SOCKS5 endpoint is confirmed. Obfuscation: OpenVPN XOR on TCP 443 and a V2Ray TCP obfuscation layer. BitTorrent: not blocked; advised only on the P2P-optimised locations.
+- tooling: The vendor's apps (Windows, macOS, iOS, Android, Linux beta) and OpenVPN, WireGuard, IKEv2 or L2TP clients with the account's credentials; SecureProxy browser extensions for Chrome and Firefox.
+- composes with: A tunnel exit: the vendor states it provides shared IP addresses only, so the upstream sees an address shared with every user on the node.
+- reliability: The FAQ says accounts are activated when the payment is confirmed; the vendor keeps connection logs described in its FAQ (connection start and end) and states it does not log activity.
+- notes: Cheapest yearly price: USD 58 for 1 year ('$4,8 / month') on the plans page; the 2-year price is USD 90. Plan links carry a promotion code. SecureProxy covers 32 locations against 21 for the VPN.
+- evidence note: Documented: price, protocols, UDP, port-forwarding refusal, obfuscation and the BitTorrent line are quoted from the vendor's plans page, FAQ and knowledge base. Identity is inferred, not read, because the checkout is behind a sign-up. Nothing was connected through the service.
+- evidence:
+  - [1] 2026-11-04: the 1-year plan is USD 58 | capture: sha256:aabaa76fd463e044f113f846fe1761eebbc2ec9a8d28cc7ae262f38efa431b92 | quote: 1 Year Save 46% $58 ($4,8 / month)
+  - [1] 2026-11-04: the 2-year plan is USD 90 | capture: sha256:aabaa76fd463e044f113f846fe1761eebbc2ec9a8d28cc7ae262f38efa431b92 | quote: 2 Years SAVE 62%-BEST DEAL- $90 ($3,75 / month)
+  - [2] 2026-11-04: A 1-week trial costs USD 2. | capture: sha256:0b204b97389a111c280079e35da96b942e137eb225c60d564d29db515ec5fada | quote: Yes, we provide a 1-week trial account for only $2.
+  - [2] 2026-11-04: Protocols and UDP. | capture: sha256:0b204b97389a111c280079e35da96b942e137eb225c60d564d29db515ec5fada | quote: We offer support for OpenVPN (with different encryption types, TCP and UDP on several ports), IKEv2/IPsec, WireGuard (in beta), L2TP/IPsec.
+  - [2] 2026-11-04: Port forwarding is not provided. | capture: sha256:0b204b97389a111c280079e35da96b942e137eb225c60d564d29db515ec5fada | quote: No, we don't. We believe it is a risk for the privacy and security of users.
+  - [2] 2026-11-04: P2P/torrent is not blocked. | capture: sha256:0b204b97389a111c280079e35da96b942e137eb225c60d564d29db515ec5fada | quote: Yes, we don't block such protocols.
+  - [2] 2026-11-04: Addresses are shared. | capture: sha256:0b204b97389a111c280079e35da96b942e137eb225c60d564d29db515ec5fada | quote: We provide shared IP addresses, which means that all users connected to the same VPN node will use the same IP addresses (best practice for privacy purposes).
+  - [2] 2026-11-04: Customers receive payment reminders, so an email is held. | capture: sha256:0b204b97389a111c280079e35da96b942e137eb225c60d564d29db515ec5fada | quote: We will send you only auto-generated payment reminders/confirmations and important announcements on very rare occasions.
+  - [2] 2026-11-04: Cryptocurrency payment is accepted. | capture: sha256:0b204b97389a111c280079e35da96b942e137eb225c60d564d29db515ec5fada | quote: Bitcoin and many altcoins, such as Bitcoin Cash, Litecoin, Ethereum, Monero, Dash and others
+  - [4] 2026-11-04: P2P is not blocked anywhere; seven locations are advised. | capture: sha256:51496c56a57779325a9cc78adcf9451ecd84ba496a1be28d29f7f0c322395067 | quote: While P2P/torrent traffic isn't blocked in any location, it's advised to use it only in the following locations: Canada - Toronto, Sweden, Netherlands, Finland, Switzerland, France, Romania.
+  - [5] 2026-11-04: OpenVPN runs over UDP and TCP. | capture: sha256:01178e9a5968f576603494b731fc838764d4f01e904414897b89c4f87eb2d71e | quote: OpenVPN UDP can be faster than OpenVPN TCP over high-speed connections (over 100 Mbps).
+  - [5] 2026-11-04: OpenVPN XOR obfuscation on TCP 443. | capture: sha256:01178e9a5968f576603494b731fc838764d4f01e904414897b89c4f87eb2d71e | quote: If you're connecting from a firewall-restricted network, try OpenVPN XOR with port TCP-443.
+  - [5] 2026-11-04: Two obfuscation methods are used. | capture: sha256:01178e9a5968f576603494b731fc838764d4f01e904414897b89c4f87eb2d71e | quote: For that reason, an extra obfuscation layer needs to be implemented and we use 2 different obfuscation methods to make it stealthier.
+  - [3] 2026-11-04: No speed limit is stated. | capture: sha256:4797bfe8318260803d6497c55ac06ab96c9d75a27c2dece0cd5c4bc8537f1b88 | quote: No speed limit
+  - [6] 2026-11-04: SecureProxy is an HTTPS browser proxy. | capture: sha256:de72bee5108b2238d766210a8de8def6fc87c58e84345d6161288e82ab2ca3e8 | quote: Strong encryption for all browsing activity using TLS (pure HTTPS traffic)
+  - [7] 2026-11-04: the register page shows a character-image verification | capture: sha256:f6f754d8c3a817f25739f34f1fc2847e8b30ab75f3fefd714e39f32519ecc79a | quote: Spam Bot Verification
+- sources:
+  - [1] https://vpn.ac/vpn-accounts
+  - [2] https://vpn.ac/faq
+  - [3] https://vpn.ac/
+  - [4] https://vpn.ac/knowledgebase/80/What-are-the-P2P-optimized-locations.html
+  - [5] https://vpn.ac/what-vpn-protocols
+  - [6] https://vpn.ac/secureproxy
+  - [7] https://vpn.ac/register.php
+
+## VPN.ac (ip-proxy/vpn-ac)
+
+- `ip-proxy/vpn-ac` | paid-only | evidence documented | binding none | category VPN subscription (exit source) | tier 1 year
+- identity a placeholder: card and phone unknown | verified 2026-11-04T05:58:00.000Z (live) | stale on 2026-12-05
+- url https://vpn.ac/vpn-accounts
+- price USD 58 for 1 year; a subscription price, not a per-TB price
+- duplicate of `egress/vpn-ac`
+- disagrees on identity_kind: `ip-proxy/vpn-ac` says email, `ip-proxy/vpn-ac-exits` says card
+- free tier: No free plan. The plans page lists '1 Year' at '$58' ('$4,8 / month') beside 1 Month '$9', 3 Months '$24' ('$8 / month') and 2 Years '$90'. A trial exists: 'a 1-week trial account for only $2'. | unit: none | metered on: none | read on: 2026-11-04 | source: [1] | note: The plan links carry a promotion code (OCT26), so the listed prices may be promotional. The trial allows 3 simultaneous connections instead of 6.
+- per-object cap: not applicable | source: [1]
+- retention: not applicable: a tunnel, not stored bytes | source: [2] | note: The vendor states it does not log or monitor user activity such as visited sites or files transferred; its FAQ also describes the connection logs it keeps.
+- egress: No speed limit and no byte cap stated: the features list says 'No speed limit', and servers are 'connected to gigabit ports'. The vendor says it does not oversell bandwidth. | metered: no | free allowance: none: no free plan; 1-week trial at USD 2 | source: [3]
+- identity: email | detail: unverified: the checkout and sign-up form are behind a sign-up and were not read; the FAQ says the vendor sends auto-generated payment reminders and confirmations to customers, and accepts Bitcoin and other cryptocurrencies, PayPal, cards and vouchers. The email kind is the structured value inferred from the payment reminders; no phone, card or ID requirement is stated on the pages read.
+- interface: unknown
+- limits:
+  - per-ip-shaping: shared addresses: 'all users connected to the same VPN node will use the same IP addresses'; no dedicated IP is sold [2]
+  - request-rate: 6 simultaneous connections with OpenVPN or IPsec plus 6 with WireGuard (12 in total); the trial allows 3 [2]
+- limits note: The connection counts are filed under request-rate because the vocabulary has no concurrent-connection kind. The P2P guidance names seven locations (Canada - Toronto, Sweden, Netherlands, Finland, Switzerland, France, Romania) and the 28 gigabit servers in them.
+- binding note: No byte quota or rate is published; the shared-address model and the connection counts are stated, and the vocabulary cannot rank them against a quota.
+- interface detail: A tunnel and a browser proxy. Protocols: OpenVPN (TCP and UDP on several ports, with XOR and a V2Ray-based TCP obfuscation), IKEv2/IPsec, WireGuard (stated 'in beta' in the FAQ) and L2TP/IPsec. UDP: yes, OpenVPN UDP is offered. Port forwarding: not offered ('No, we don't. We believe it is a risk for the privacy and security of users.'). SOCKS5: unverified: the SecureProxy browser extension is an HTTPS proxy, and the SOCKS5 knowledge-base page returned the vendor's home page; no SOCKS5 endpoint is confirmed. Obfuscation: OpenVPN XOR on TCP 443 and a V2Ray TCP obfuscation layer. BitTorrent: not blocked; advised only on the P2P-optimised locations.
+- tooling: The vendor's apps (Windows, macOS, iOS, Android, Linux beta) and OpenVPN, WireGuard, IKEv2 or L2TP clients with the account's credentials; SecureProxy browser extensions for Chrome and Firefox.
+- composes with: A tunnel exit: the vendor states it provides shared IP addresses only, so the upstream sees an address shared with every user on the node.
+- reliability: The FAQ says accounts are activated when the payment is confirmed; the vendor keeps connection logs described in its FAQ (connection start and end) and states it does not log activity.
+- notes: Duplicate of egress/vpn-ac, which holds the offer; both records cite the same vendor page.
+- evidence note: Documented: price, protocols, UDP, port-forwarding refusal, obfuscation and the BitTorrent line are quoted from the vendor's plans page, FAQ and knowledge base. Identity is inferred, not read, because the checkout is behind a sign-up. Nothing was connected through the service.
+- evidence:
+  - [1] 2026-11-04: The 1-year plan link; its price on the page is $58. | capture: sha256:7b34384a12b7532e76f1775660e4824c1873eaefa14787426ade3517c5b5b853 | quote: billingcycle=annually
+  - [1] 2026-11-04: The 1-year plan is shown as USD 58 or USD 4.8 a month. | capture: sha256:7b34384a12b7532e76f1775660e4824c1873eaefa14787426ade3517c5b5b853 | quote: ($4,8 / month)
+  - [2] 2026-11-04: A 1-week trial costs USD 2. | capture: sha256:0b204b97389a111c280079e35da96b942e137eb225c60d564d29db515ec5fada | quote: Yes, we provide a 1-week trial account for only $2.
+  - [2] 2026-11-04: Protocols and UDP. | capture: sha256:0b204b97389a111c280079e35da96b942e137eb225c60d564d29db515ec5fada | quote: We offer support for OpenVPN (with different encryption types, TCP and UDP on several ports), IKEv2/IPsec, WireGuard (in beta), L2TP/IPsec.
+  - [2] 2026-11-04: Port forwarding is not provided. | capture: sha256:0b204b97389a111c280079e35da96b942e137eb225c60d564d29db515ec5fada | quote: No, we don't. We believe it is a risk for the privacy and security of users.
+  - [2] 2026-11-04: P2P/torrent is not blocked. | capture: sha256:0b204b97389a111c280079e35da96b942e137eb225c60d564d29db515ec5fada | quote: Yes, we don't block such protocols.
+  - [2] 2026-11-04: Addresses are shared. | capture: sha256:0b204b97389a111c280079e35da96b942e137eb225c60d564d29db515ec5fada | quote: We provide shared IP addresses, which means that all users connected to the same VPN node will use the same IP addresses (best practice for privacy purposes).
+  - [2] 2026-11-04: Customers receive payment reminders, so an email is held. | capture: sha256:0b204b97389a111c280079e35da96b942e137eb225c60d564d29db515ec5fada | quote: We will send you only auto-generated payment reminders/confirmations and important announcements on very rare occasions.
+  - [2] 2026-11-04: Cryptocurrency payment is accepted. | capture: sha256:0b204b97389a111c280079e35da96b942e137eb225c60d564d29db515ec5fada | quote: Bitcoin and many altcoins, such as Bitcoin Cash, Litecoin, Ethereum, Monero, Dash and others
+  - [4] 2026-11-04: P2P is not blocked anywhere; seven locations are advised. | capture: sha256:51496c56a57779325a9cc78adcf9451ecd84ba496a1be28d29f7f0c322395067 | quote: While P2P/torrent traffic isn't blocked in any location, it's advised to use it only in the following locations: Canada - Toronto, Sweden, Netherlands, Finland, Switzerland, France, Romania.
+  - [5] 2026-11-04: OpenVPN runs over UDP and TCP. | capture: sha256:01178e9a5968f576603494b731fc838764d4f01e904414897b89c4f87eb2d71e | quote: OpenVPN UDP can be faster than OpenVPN TCP over high-speed connections (over 100 Mbps).
+  - [5] 2026-11-04: OpenVPN XOR obfuscation on TCP 443. | capture: sha256:01178e9a5968f576603494b731fc838764d4f01e904414897b89c4f87eb2d71e | quote: If you're connecting from a firewall-restricted network, try OpenVPN XOR with port TCP-443.
+  - [5] 2026-11-04: Two obfuscation methods are used. | capture: sha256:01178e9a5968f576603494b731fc838764d4f01e904414897b89c4f87eb2d71e | quote: For that reason, an extra obfuscation layer needs to be implemented and we use 2 different obfuscation methods to make it stealthier.
+  - [3] 2026-11-04: No speed limit is stated. | capture: sha256:4797bfe8318260803d6497c55ac06ab96c9d75a27c2dece0cd5c4bc8537f1b88 | quote: No speed limit
+  - [6] 2026-11-04: SecureProxy is an HTTPS browser proxy. | capture: sha256:de72bee5108b2238d766210a8de8def6fc87c58e84345d6161288e82ab2ca3e8 | quote: Strong encryption for all browsing activity using TLS (pure HTTPS traffic)
+  - [1] 2026-11-04: the VPN.ac plans page lists the 1 Year plan, the offer both records describe | capture: sha256:aabaa76fd463e044f113f846fe1761eebbc2ec9a8d28cc7ae262f38efa431b92 | quote: $58 ($4,8 / month)
+- sources:
+  - [1] https://vpn.ac/vpn-accounts
+  - [2] https://vpn.ac/faq
+  - [3] https://vpn.ac/
+  - [4] https://vpn.ac/knowledgebase/80/What-are-the-P2P-optimized-locations.html
+  - [5] https://vpn.ac/what-vpn-protocols
+  - [6] https://vpn.ac/secureproxy
+
+## VPN.ac (exit addresses)
+
+- `ip-proxy/vpn-ac-exits` | paid-only | evidence documented | binding per-ip-shaping | category vpn subscription (exit source) | tier exit addresses
+- identity a placeholder: card and phone unknown | verified 2026-11-04T00:14:00.000Z (live) | stale on 2026-12-05
+- url https://vpn.ac/
+- price unverified: regular plan price not read; trial USD 2 for 1 week
+- disagrees on identity_kind: `ip-proxy/vpn-ac` says email, `ip-proxy/vpn-ac-exits` says card
+- free tier: No free tier. A 1-week trial account costs $2 and allows 3 simultaneous connections; regular accounts allow up to 12 (6 OpenVPN/IPsec and 6 WireGuard). | unit: none | metered on: none | read on: 2026-11-04 | source: [1] | note: unverified: the regular plan price is not in the captured page text.
+- per-object cap: not applicable | source: [2]
+- retention: not applicable: an address, not an object | source: [2]
+- egress: unverified: this record covers the exit addresses of the fleet, not the plan; the plan-level traffic terms belong to the vendor's own egress record where one exists. | metered: no | free allowance: none published for the address list | source: [1]
+- identity: card | detail: unverified: behind a sign-up. The page lists Bitcoin, other cryptocurrencies, PayPal, cards and prepaid vouchers as payment methods, and a $2 trial; what the account needs was not read.
+- interface: unknown
+- limits:
+  - per-ip-shaping (binding): Up to 12 simultaneous connections (6 using WireGuard); 3 on a trial account [1]
+- limits note: Address concentration: 61 addresses, 60 with an announcing ASN, in 32 ASNs; 58 datacenter-listed and 17 VPN-listed.
+- binding note: The connection ceiling binds first, since the vendor states no speed limit and no byte quota.
+- interface detail: The status page at https://vpn.ac/status lists node hostnames, which resolve by DNS to the exit addresses; no JSON API was found.
+- endpoint: part of interface detail
+- tooling: Reading the exits needs the status page and a DNS resolver; using one needs the vendor client or OpenVPN, WireGuard or StrongSwan configs from an account. The page names a SecureProxy browser addon; its protocol was not established.
+- composes with: A free compute node dials the tunnel and the traffic leaves at one of 61 addresses; 16 are in M247 (AS9009), 32 ASNs in all.
+- reliability: No suspension, throttle or data loss was measured. 58 of 61 addresses are on the datacenter list.
+- notes: Exit-address record for the VPN.ac fleet, classified with detector index 20261103T163900Z-00d117b2 on 2026-11-03: 61 addresses, 58 datacenter-listed, 17 VPN-listed (all also datacenter), 0 Tor exits, 1 on an abuse list, 3 on none of the lists; 32 ASNs, largest AS9009 M247 with 16 addresses, 1 address with no ASN in the network source. The tier differs from any plan record.
+- evidence note: Plan facts are documented; list classification measured on 2026-11-03. Weakest rung documented; the regular price is unverified.
+- extras:
+  - exit_classification.detector_index_version: 20261103T163900Z-00d117b2
+  - exit_classification.classified_on: 2026-11-03
+  - exit_classification.n: 61
+  - exit_classification.datacenter_listed: 58
+  - exit_classification.vpn_listed: 17
+  - exit_classification.tor_exit: 0
+  - exit_classification.abuse_listed: 1
+  - exit_classification.in_none_of_the_lists: 3
+  - exit_classification.asns: 32
+  - exit_classification.largest_asn: AS9009 M247 Europe SRL
+  - exit_classification.largest_asn_addresses: 16
+  - exit_classification.endpoint: https://vpn.ac/status (node hostnames DNS-resolved)
+  - exit_classification.derived: counts taken over the 61 answers of the registered record; 16 / 61 = 26.2%
+- evidence:
+  - probe:https://vpn.ac/status 2026-11-03: The node hostnames resolved to 61 addresses which were classified. | capture: sha256:2e5577653ee968540a65b7575d2536db1f0719bd9249cf577288b36a13138560 | quote: "n": 61,
+  - [1] 2026-11-04: The trial costs $2. | capture: sha256:4797bfe8318260803d6497c55ac06ab96c9d75a27c2dece0cd5c4bc8537f1b88 | quote: Yes, we provide a 1-week trial account for only $2.
+  - [1] 2026-11-04: The connection ceiling. | capture: sha256:4797bfe8318260803d6497c55ac06ab96c9d75a27c2dece0cd5c4bc8537f1b88 | quote: Up to 12 simultaneous connections (6 using WireGuard)
+- sources:
+  - [1] https://vpn.ac/
+  - [2] https://vpn.ac/status

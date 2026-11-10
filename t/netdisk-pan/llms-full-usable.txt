@@ -1,0 +1,2134 @@
+# fshy: Netdisk and pan, usable
+
+> Netdisks, also called pan drives: cloud drives, many of them from China, and public AList and OpenList instances, and whether they mount.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/netdisk-pan/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## Allsync (managed Nextcloud, pay-as-you-go)
+
+- `netdisk-pan/allsync` | qualifies | evidence documented | binding per-object-cap | category managed Nextcloud, paid only
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22T04:06:37.166Z (live) | stale on 2026-11-13
+- url https://allsync.com/pricing | page https://fshy.ajam.dev/p/allsync.md
+- price From EUR 4/TB/month on the 1 to 10 TB pool, excluding any tax an EU resident pays; the per-tier ladder above 1 TB is not published | parsed USD 4.51/TB-mo
+- free tier: No free tier. Pay-as-you-go in two pools: a GB pool from 10 to 1,000 GB starting at EUR 0.10 per GB billed annually, and a TB pool from 1 to 10 TB starting at EUR 4 billed monthly or annually | unit: TiB | metered on: stored-bytes | read on: 2026-10-22 | source: [1] | note: EUR 4 is the TB pool's stated starting price. The page does not publish a per-tier price ladder beyond that floor, so the 10 TB figure is not established from the vendor page
+- per-object cap: 'File size Unlimited' is stated as a plan property, and 'Devices Unlimited', 'Users Unlimited', 'Bandwidth Unlimited' and 'Speed Unlimited' are stated beside it. There is no published per-file ceiling | source: [1] | note: an unlimited file size claim is a claim about the absence of a limit and it is not a measured number; a Nextcloud instance still chunks uploads
+- retention: Cancel any time; a refund may be requested within 14 days. No retention clock stated | source: [1]
+- egress: 'Bandwidth Unlimited' as a plan property. The FAQ narrows it: 'We've set our bandwidth limits so high that 99% of our customers don't even come close', which is a fair-use statement and not an unmetered guarantee | metered: no | free allowance: unlimited, subject to a fair-use sentence | source: [1]
+- identity: card | detail: a card, PayPal, SEPA direct debit or cryptocurrency. The FAQ lists 'Paypal, Mastercard, Visa, American Express, Ideal, Cryptocurrency, Bancontact, KBC/CBC, Belfius, SOFORT, paysafecard, CartaSi, Cartes Bancaires, SEPA Direct Debit, SEPA bank transfer'. The account itself needs only an email address, browser information and an IP address per the privacy answer
+- interface: webdav, rest, rclone
+- limits:
+  - per-object-cap (binding): 'File size Unlimited', per the plan page, with no number behind it [1]
+- binding note: Nothing is published that can bind: bandwidth, file size, users and devices are all stated as unlimited. The per-file cap is therefore unestablished rather than absent, and a plan built on it needs a chunker until one upload over 100 GB has been tried.
+- tooling: rclone webdav, the Nextcloud clients for Windows, macOS, Linux, iOS and Android, and the Nextcloud AppStore. End-to-end encryption is optional and needs a master password
+- composes with: Per-terabyte billing with no published egress line is the best-shaped contract of the five for a hot working set, because the cost tracks the bytes stored and not the bytes served. End-to-end encryption and server-side Office are mutually exclusive in Nextcloud, so choosing the encryption costs the collaboration features
+- reliability: Registered Dutch company, EU storage. Crypto is accepted, which is unusual and which some buyers need. The 'Unlimited' claims are marketing-page assertions with no published quota table; the FAQ answers the bandwidth question with a fair-use sentence rather than a number
+- notes: What is not verified is the price ladder above 1 TB: the page states a starting price and no per-tier table, so a buyer pricing 10 TB gets EUR 40/month only if the floor scales linearly, which the page does not say. That arithmetic is flagged as unconfirmed rather than published as a number.
+- evidence note: The plan properties and the two pools are from the live page. The per-tier price above 1 TB is published nowhere, so `price_per_tb_month` carries the floor and the note says it is a floor. `documented`, not `measured`: nothing was ordered.
+- extras:
+  - access_mode: paid
+  - free_tier_exists: no
+  - region: Netherlands, EU storage
+  - gb_pool: 10 to 1,000 GB, from EUR 0.10/GB billed annually
+  - tb_pool: 1 to 10 TB, from EUR 4/TB billed monthly or annually
+  - price_ladder_published: no
+  - payment_methods_include_crypto: yes
+  - e2ee: optional, master-password, and incompatible with server-side Office
+- evidence:
+  - [1] 2026-10-22: 'Users Unlimited', 'Bandwidth Unlimited', 'File size Unlimited', 'Devices Unlimited', 'Speed Unlimited' in the plan-property block
+  - [1] 2026-10-22: 'Allsync GB ... Location: EU ... 10 - 1000 GB ... Free subdomain ... Starting from EUR 0,10 billed annually' and 'Allsync TB ... 1 - 10 TB ... Custom domain ... Starting from EUR 4 monthly or annually'
+  - [1] 2026-10-22: FAQ: 'What is the bandwidth limit? We've set our bandwidth limits so high that 99% of our customers don't even come close'; 'If you're not satisfied, you can request a refund waiting 14 days'; payment methods list includes Cryptocurrency
+  - [2] 2026-10-22: the TB product is orderable: 'Selected Product: Pay-As-You-Go - TB', a subdomain field, and a domain-or-subdomain choice, so the product page is a live order flow and not a marketing page
+  - [1] 2026-10-21: the GB pool at EUR 0.10/GB billed annually and the TB pool at EUR 4, plus the same four 'Unlimited' claims
+- sources:
+  - [1] https://allsync.com/pricing
+  - [2] https://allsync.com/store/pay-as-you-go/tb
+
+## DanubeData Storage Share (managed Nextcloud)
+
+- `netdisk-pan/danubedata-storage-share` | qualifies | evidence documented | binding request-rate | category managed Nextcloud, paid only
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22T04:06:37.166Z (live) | stale on 2026-11-13
+- url https://docs.danubedata.ro/storage-share | page https://fshy.ajam.dev/p/danubedata.md
+- price EUR 4.99/TB/month at 1 TB falling to EUR 3.00/TB/month at 10 TB, read 2026-10-22 | parsed USD 3.38/TB-mo
+- free tier: No free tier. Three resource profiles: DD1 Sulina 1 TB at EUR 4.99/month, DD5 Sf. Gheorghe 5 TB at EUR 14.99, DD10 Chilia 10 TB at EUR 29.99 | unit: TiB | metered on: stored-bytes | read on: 2026-10-22 | source: [1]
+- per-object cap: Not published as a per-file cap. The published per-profile numbers are subdomains and concurrent connections: 3 and 50, 7 and 100, 10 and 200 | source: [1] | note: The docs say 'S3-backed storage, up to 10 TB of object storage per instance', which is the instance total and not a per-object ceiling
+- retention: Until deleted. The instance lifecycle is Pending, Provisioning, Running, Error, Destroying, with redeploy from Error. No retention clock is documented | source: [1]
+- egress: No egress price and no traffic quota are published anywhere in the vendor documentation, so this field is false by the schema's own definition (false when traffic out has neither a price nor a quota) and not because the vendor granted anything. The instance is S3-backed and DanubeData sells object storage separately, so a traffic line may exist behind the Nextcloud facade and the docs do not say | metered: no | source: [1]
+- identity: card | detail: a DanubeData account and a payment method. The docs do not describe the signup gate
+- interface: webdav, rest, s3
+- limits:
+  - request-rate (binding): 50, 100 or 200 concurrent connections depending on the profile [1]
+- binding note: The only published numbers that can bind are the concurrent-connection caps, because the traffic terms are unstated and the per-file cap is unstated. 50 connections on the 1 TB profile is ample for a copy job and thin for a serving path.
+- tooling: a WebDAV endpoint on every profile, the Nextcloud clients, and one-scan QR setup for iOS and Android. S3-backed means the same bytes are in an object store, so an S3 tool may reach them without a second copy, but the docs do not publish the bucket
+- composes with: S3-backed Nextcloud is the cleanest architecture of the four: the bytes live in an object store behind a Nextcloud facade, so either access path should reach the same copy. Ten subdomains per instance is an unusual sharding affordance and it is the only reseller here that offers it
+- reliability: Falkenstein, Germany, the same data centre as Hetzner, so the failure domain is shared with the Hetzner option. Dedicated CPU and memory per instance, automatic TLS renewal. The product is young and the documentation is thin: the WebDAV page returned 404 when requested
+- notes: The cheapest 10 TB managed Nextcloud of the five at EUR 3.00/TB/month, and the only one whose storage is documented as an object store behind the Nextcloud facade. Two things are unverified that a buyer needs: the traffic terms, and whether the S3 backend is reachable with credentials the customer holds. The docs describe the second as a property of the product and publish no endpoint.
+- evidence note: Prices and profile numbers are from the vendor's own table read. `documented` at best: the traffic terms and the per-file cap are published nowhere, so the egress field carries a null `metered` rather than a guess.
+- extras:
+  - access_mode: paid
+  - free_tier_exists: no
+  - region: Falkenstein, Germany
+  - tier_prices_eur_month.DD1_1TB: 4.99
+  - tier_prices_eur_month.DD5_5TB: 14.99
+  - tier_prices_eur_month.DD10_10TB: 29.99
+  - connections_per_profile.DD1: 50
+  - connections_per_profile.DD5: 100
+  - connections_per_profile.DD10: 200
+  - subdomains_per_instance.DD1: 3
+  - subdomains_per_instance.DD5: 7
+  - subdomains_per_instance.DD10: 10
+  - vat_position: the price table does not state whether VAT is included
+  - nextcloud_version: 32
+- evidence:
+  - [1] 2026-10-22: the profile table reads 'DD1 Sulina 1 TB 3 50 EUR 4.99', 'DD5 Sf. Gheorghe 5 TB 7 100 EUR 14.99', 'DD10 Chilia 10 TB 10 200 EUR 29.99'
+  - [1] 2026-10-22: 'Managed Nextcloud 32', 'S3-backed storage, up to 10 TB of object storage per instance', 'All profiles include ... WebDAV endpoint', 'EU data residency, all data stored in Falkenstein, Germany'
+  - [1] 2026-10-22: the instance lifecycle is documented as Pending, Provisioning, Running, Error, Destroying, with redeploy from Error, and status is pushed over WebSocket
+  - [2] 2026-10-22: this path returned 404 'The documentation page you're looking for doesn't exist yet', so the WebDAV endpoint is claimed in the profile table and not documented separately
+- sources:
+  - [1] https://docs.danubedata.ro/storage-share
+  - [2] https://docs.danubedata.ro/storage-share/webdav
+
+## Hetzner Storage Share (managed Nextcloud)
+
+- `netdisk-pan/hetzner-storage-share` | qualifies | evidence documented | binding per-object-cap | category managed Nextcloud, paid only
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22T04:06:37.166Z (live) | stale on 2026-11-13
+- url https://www.hetzner.com/storage/storage-share/ | page https://fshy.ajam.dev/p/hetzner.md
+- price EUR 4.29/TB/month on NX11, falling to EUR 2.74/TB/month on NX31 at 10 TB, excluding VAT, read 2026-10-22 | parsed USD 3.09/TB-mo
+- free tier: No free tier, no trial, and no hourly cap. The smallest plan NX11 is 1 TB at EUR 4.29/month excluding VAT, billed by the hour to a monthly maximum | unit: TiB | metered on: stored-bytes | read on: 2026-10-22 | source: [1] | note: Hetzner writes the sizes as TB. The figure is quoted as stated and not converted
+- per-object cap: Not published as a per-file cap. The limit that is published is the instance quota, and the FAQ states that an administrator's 'unlimited' per-user quota is bounded by the instance total | source: [1]
+- retention: Until deleted. No minimum contract period and no cancellation period, and the vendor states that a plan change causes no data loss. Backups of the database and the storage backend run several times a day, to a host the instance is not running on, restorable from konsoleH | source: [1]
+- egress: Unlimited internal and external traffic, stated as a product feature rather than implied: 'Storage Shares have unlimited internal and external traffic' | metered: no | free allowance: unlimited | source: [1]
+- identity: card | detail: a Hetzner account with a payment method; the order form is at konsoleH. No identity document and no phone verification was seen on the order path. A new account goes through Hetzner's own risk review, which is not the same gate as a card check
+- interface: webdav, rest, rclone
+- limits:
+  - per-object-cap (binding): not published; the JVM-free Nextcloud upload chunking limits a single object in practice and the smaller partners cap at 10 GB per file [1]
+- binding note: The instance total is bought and the traffic is unlimited, so what decides the object size is the per-file ceiling nobody publishes. A single 300 GiB file is.
+- tooling: rclone webdav backend, the Nextcloud desktop and mobile clients, davfs2, curl -u, and the Nextcloud OCC command line through the managed instance
+- composes with: WebDAV is the whole point: OpenList mounts it as a first-class remote, and a Cloudflare cache in front turns it into a serving origin. One 10 TB instance can also be sharded internally into per-user quotas with separate credentials, which is the only way in this survey to divide one paid unit rather than make more accounts
+- reliability: Falkenstein, Germany. RAID backend with checksummed integrity checking, several backups a day to a different host, restore from konsoleH. Managed Nextcloud inherits Nextcloud's sync semantics, which is worse for millions of small objects than a raw storage box
+- notes: The cheapest verified managed Nextcloud per terabyte in this survey is not this one, and the reason is the tier shape: EUR 2.74/TB/month at 10 TB against Serverdiscounter's EUR 2.40/TB including VAT at 25 TB. What Hetzner sells instead is the shortest contract and the most boring operations record. The user count is per instance and additional users are not a listed add-on, so a sharded plan must live inside that number.
+- evidence note: Every number is from the vendor's own pricing block, read. It is `documented` and not `measured` because no instance was ordered and no WebDAV endpoint was exercised: the order path needs a card.
+- extras:
+  - access_mode: paid
+  - free_tier_exists: no
+  - region: FSN1, Falkenstein, Germany
+  - tier_prices_eur_month_ex_vat.NX11_1TB: 4.29
+  - tier_prices_eur_month_ex_vat.NX21_5TB: 14.19
+  - tier_prices_eur_month_ex_vat.NX31_10TB: 27.39
+  - users_per_instance.NX11: 3
+  - users_per_instance.NX21: 7
+  - users_per_instance.NX31: 10
+  - webdav: enabled on every tier; the vendor FAQ documents subdomains and CNAME for a custom domain
+  - vat_position: prices are stated excluding VAT, so a private buyer in the EU pays the local rate on top
+- evidence:
+  - [1] 2026-10-22: the pricing block reads 'NX11 max/mo. EUR 4.29 per month, excl. VAT ... Storage 1 TB ... 3 Users ... unlimited Simultaneous Connections 50', 'NX21 EUR 14.19 ... Storage 5 TB ... 7 Users ... 100', 'NX31 EUR 27.39 ... Storage 10 TB ... 10 Users ... 200'; all three FSN1
+  - [1] 2026-10-22: 'Storage Shares have unlimited internal and external traffic' in the Features block, and 'WebDAV lets you automate your access to it'
+  - [1] 2026-10-22: FAQ: 'this "unlimited" space will actually be limited by the overall storage quota size of the Storage Share instance that you (the admin) have bought', and a backup 'is always made to another host machine on which the instance is not running'
+  - [1] 2026-10-22: 'No minimum contract period. No cancellation period.' and 'upgrade or downgrade your Storage Share ... without worrying about data loss'
+  - [1] 2026-10-21: 1 TB EUR 4.29, 5 TB EUR 14.19, 10 TB EUR 27.39 per month excluding VAT, and the same three tiers
+- sources:
+  - [1] https://www.hetzner.com/storage/storage-share/
+
+## nextfiles.one (managed Nextcloud CE and Seafile Pro)
+
+- `netdisk-pan/nextfiles-one` | qualifies | evidence documented | binding per-object-cap | category managed Nextcloud and Seafile, paid only
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22T04:06:37.166Z (live) | stale on 2026-11-13
+- url https://www.nextfiles.one/en/secure-cloud-for-private-customers-and-associations-29/ | page https://fshy.ajam.dev/p/nextfiles.md
+- price EUR 4.99/TB/month at 1 TB rising to EUR 10.00/TB/month at 10 TB, including VAT, read 2026-10-22 | parsed USD 5.62/TB-mo
+- free tier: No free tier. A one-month free trial on the Nextcloud CE plans. Nextcloud CE: Premium Silver 1 TB at EUR 4.99/month, Premium Gold 3 TB at EUR 14.99, Premium Platinum 5 TB at EUR 39.99, Premium Max 10 TB at EUR 99.99. Seafile Pro from EUR 9.90/month for 500 GB | unit: TiB | metered on: stored-bytes | read on: 2026-10-22 | source: [1]
+- per-object cap: Not published as a per-file cap on the private-customer plans. The plan table publishes storage, a recommended user count and the storage type ('Cluster') | source: [1]
+- retention: Contract term from one month with automatic renewal for the same period; a consumer may cancel any time before a new billing period. Disaster-recovery backups of the last 7 days are kept, with managed or own backups offered for up to 10 years | source: [1]
+- egress: No egress price and no traffic quota are published on the private-customer plans, so this field is false by the schema's own definition rather than on a stated guarantee. The features block says 'Unlimited storage space in the Cloud', which is about capacity and not about traffic | metered: no | source: [1]
+- identity: card | detail: a nextfiles.one account and a card. The trial needs no card, per the plan text, and the paid order does. No identity document stated
+- interface: webdav, rest, rclone
+- limits:
+  - per-object-cap (binding): not published on the private-customer plans [1]
+- binding note: The price curve decides the tier and the tier is small, so the unstated per-file cap is the number a buyer cannot plan around. At EUR 10/TB/month on the 10 TB plan it is also four times Serverdiscounter, which is why it is recorded as a small-instance option.
+- tooling: rclone webdav against any Nextcloud CE plan; the Nextcloud clients; administrator access to the AppStore. The Seafile Pro plans need the Seafile client or the Seafile WebDAV extension, which is a weaker tooling story
+- composes with: Reseller providing managed Seafile hosting with library-level client-side encryption. The cost structure is lowest on smaller capacities and increases per terabyte on larger allocations, suiting small-scale deployments rather than bulk archives.
+- reliability: Germany, ISO 27001 data centres, renewable power. The per-terabyte price rises with size, which is the opposite of every other reseller here and is the signal that the large tiers are not built for price comparison
+- evidence note: The Nextcloud CE plan table was read live. `documented`: no plan was ordered and no WebDAV endpoint was exercised.
+- extras:
+  - access_mode: paid
+  - free_tier_exists: no
+  - trial: 1 month free on Nextcloud CE
+  - region: Germany
+  - price_includes_vat: yes
+  - tier_prices_eur_month_inc_vat.silver_1TB: 4.99
+  - tier_prices_eur_month_inc_vat.gold_3TB: 14.99
+  - tier_prices_eur_month_inc_vat.platinum_5TB: 39.99
+  - tier_prices_eur_month_inc_vat.max_10TB: 99.99
+  - seafile_tiers_seen_live: Business S from EUR 9.90/month up to 3 users, Business M from EUR 29.90 up to 9 users, Business L priced per user
+- evidence:
+  - [1] 2026-10-22: 'Premium Silver (C) 1 TB storage space ... 4,99 EUR / Month', 'Premium Gold (C) 3 TB ... 14,99 EUR / Month', 'Premium Platinum (C) 5 TB ... 39,99 EUR / Month', 'Premium Max (C) 10 TB ... 99,99 EUR / Month', all 'Storage Type Cluster', 'Server location Germany'
+  - [1] 2026-10-22: 'Try now for free for 1 month', 'Test for free for one month and check - cancel anytime', and 'Contract term from one month, with automatic renewal for the same period unless canceled in advance ... Prices incl. VAT'
+  - [1] 2026-10-22: 'Unlimited storage space in the Cloud' appears in the Product Features block and nowhere in the plan table, where the four storage sizes are stated explicitly
+  - [2] 2026-10-22: 'Business S ... from 9,90 EUR / Month ... Storage space from 500 GB ... up to 3 users', 'Business M ... from 29,90 EUR / Month ... from 500 GB ... up to 9 users', 'Business L ... Price per user ... from 9,90 EUR / Month'
+- sources:
+  - [1] https://www.nextfiles.one/en/secure-cloud-for-private-customers-and-associations-29/
+  - [2] https://www.nextfiles.one/en/seafile-pro-82/
+
+## Serverdiscounter NEXT Share (managed Nextcloud)
+
+- `netdisk-pan/serverdiscounter-next-share` | qualifies | evidence documented | binding per-object-cap | category managed Nextcloud, paid only
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22T04:06:37.166Z (live) | stale on 2026-11-13
+- url https://serverdiscounter.com/en/nextcloud | page https://fshy.ajam.dev/p/serverdiscounter.md
+- price EUR 2.40/TB/month including VAT at 25 TB (EUR 59.95/month), rising to EUR 4.95/TB/month at 1 TB, read 2026-10-22 | parsed USD 2.7/TB-mo
+- free tier: No free tier. A 14-day free trial with no credit card and 'no commitment', which is deleted at the end unless extended. Plans: Small 1 TB at EUR 4.95/month including VAT, Basic 5 TB at EUR 15.95, Grow 10 TB at EUR 29.95, Big 25 TB at EUR 59.95 | unit: TiB | metered on: stored-bytes | read on: 2026-10-22 | source: [1]
+- per-object cap: 10 GB per file | bytes: 10000000000 | source: [1] | note: 10 GB is a decimal figure the vendor writes as 10 GB.
+- retention: Minimum term one month, cancellation monthly, no setup fee, and a 30-day money-back guarantee | source: [1]
+- egress: 'Traffic Flatrate' on all four tiers, stated as a line of the feature comparison rather than a footnote | metered: no | free allowance: flatrate | source: [1]
+- identity: card | detail: a Serverdiscounter account and a card. The trial is advertised as needing no card; the paid order does. No identity document stated
+- interface: webdav, rest, rclone
+- limits:
+  - per-object-cap (binding): 10 GB per file on every tier, including 25 TB [1]
+- binding note: The 10 GB per-file ceiling is then the only number that shapes the plan: every object over 10 GB has to be chunked client-side, which is a property of the tooling and not of the quota.
+- tooling: rclone webdav, the Nextcloud clients, and the admin panel for per-user quotas. 'Mount as network drive' is an advertised feature on every tier
+- composes with: Full admin access plus per-user storage quotas means the archive can be divided into shares with separate credentials without buying more accounts
+- reliability: Stuttgart, Germany, 100% renewable power, UPS and backup power stated. 30-day money-back. The per-file cap is the friction and it is uniform across tiers, so it never improves with size
+- notes: The trial is 14 days and needs no card, which is the cheapest way to test a WebDAV mount before paying.
+- evidence note: Prices and the per-file cap are from the vendor's own comparison table, read. `documented`, not `measured`: no order was placed, so the WebDAV endpoint and the real per-file behaviour are unexercised.
+- extras:
+  - access_mode: paid
+  - free_tier_exists: no
+  - trial: 14 days, no card, deleted unless extended
+  - region: Stuttgart, Germany
+  - contract: 1 month minimum, monthly cancellation, no setup fee
+  - price_includes_vat: yes
+  - tier_prices_eur_month_inc_vat.small_1TB: 4.95
+  - tier_prices_eur_month_inc_vat.basic_5TB: 15.95
+  - tier_prices_eur_month_inc_vat.grow_10TB: 29.95
+  - tier_prices_eur_month_inc_vat.big_25TB: 59.95
+  - per_file_cap_bytes_derived: 10000000000
+- evidence:
+  - [1] 2026-10-22: 'NEXT Share Small ... EUR 4,95 /M, incl. VAT ... 1 TB', 'NEXT Share Basic EUR 15,95 ... 5 TB', 'NEXT Share Grow EUR 29,95 ... 10 TB', 'NEXT Big EUR 59,95 ... 25 TB', each with 'Users: Unlimited', 'Admin Access', 'Traffic Flatrate'
+  - [1] 2026-10-22: the detailed feature comparison gives 'Max. file size 10 GB 10 GB 10 GB 10 GB' against 1 TB / 5 TB / 10 TB / 25 TB, and 'Minimum term 1 Month' with 'Cancellation period Monthly'
+  - [1] 2026-10-22: FAQ: 'Is cloud storage per user? No, it's a quota per contract. You can create unlimited users and distribute the storage among all users'
+- sources:
+  - [1] https://serverdiscounter.com/en/nextcloud
+
+## 萌盘 PAN.MOE (Moe Drive)
+
+- `netdisk-pan/pan-moe` | qualifies | evidence documented | binding write-gated | category community cloud drive on Cloudreve, non-profit
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T04:06:37.166Z (live) | stale on 2026-11-13
+- url https://pan.moe/ | page https://fshy.ajam.dev/p/pan.md
+- free tier: 1 TB free for every registrant and described as permanent, 2 to 5 TB for community members by application, and above 5 TB a cold-storage plan. Terms section 3.1 confirms '1TB（或更高）空间' | unit: TiB | metered on: stored-bytes | read on: 2026-10-22 | source: [1]
+- per-object cap: Not published | source: [1] | note: per-object cap unknown and not published anywhere in the terms or on the landing page
+- retention: No durability guarantee at all: terms section 2.1 states '不对用户的数据进行任何形式的长期或永久性保证' | source: [1]
+- egress: No published egress cap for the free tier; bandwidth is policed only by a fair-use clause allowing throttling for '占用过多带宽'. Both domestic and overseas storage nodes are offered with cross-region transfer | metered: no | source: [1]
+- identity: email | detail: the signup form at pan.moe/signup asks for email, password, a repeat and a human-verification step, with no phone field
+- interface: webdav
+- limits:
+  - write-gated (binding):  [1]
+  - per-object-cap: not published [1]
+- binding note: Offers 1 TB of free storage with class 2 WebDAV endpoint access without phone verification. the provider explicitly prohibits maintaining multiple accounts, enforcing a strict 1 TB account limit.
+- tooling: a Cloudreve front end with a live WebDAV endpoint at https://pan.moe/dav answering as DAV class 2 with PUT in Allow, plus the standard Nextcloud-family clients. No S3 layer is exposed
+- composes with: Terms section 3.1 explicitly routes anyone needing more than 5 TB to a bespoke cold-storage plan, so it is a 1 TB building block and not a pool. Its value is the WebDAV endpoint, which mounts into TrueNAS Cloud Sync, rclone, Duplicati and restic without a wrapper
+- reliability: Zero durability commitment in the terms plus an explicit rule against the several-accounts pattern that would make it useful at 20 TB. The domestic storage node carries a compliance clause, so the overseas node is the only one that fits
+- notes: The service provides no formal uptime or data durability SLA.
+- evidence note: The 1 TB offer was re-read live on the landing page; `documented` and not `measured` because the DAV endpoint refused without a credential, which is the expected answer and not a measurement of the read path.
+- extras:
+  - access_mode: registration-gated
+  - free_tier_exists: yes
+  - webdav_class: 2
+  - webdav_put_enabled: yes
+  - bans_multi_account_expansion: yes
+  - durability_commitment: none, disclaimed in terms 2.1
+  - aliases: 萌盘 PAN.MOE (Moe Drive); pan.moe / 萌盘 (Moe Drive); Moe Drive; 萌社区网盘
+  - alias_note: this record is the single home for both deferred spellings: '萌盘 PAN.MOE (Moe Drive)' and the audit's 'pan.moe / 萌盘 (Moe Drive)'
+  - launched: 2025-02-01
+- evidence:
+  - [2] 2026-10-22: the served page reads '萌社区网盘（萌盘）是一款面向广大用户的免费云存储服务，注册即享1TB永久免费空间，萌社区成员可享最大5TB容量。支持境内外多节点高速存储、WebDav挂载'
+  - [1] 2026-10-21: section 3.1 gives 1 TB free, 2 to 5 TB for members and a cold-storage plan above 5 TB; section 2.1 disclaims any permanence guarantee
+  - [3] 2026-10-21: the launch announcement on 2025-02-01 offering 免费 1TB / 5TB, WebDAV support, 4,681 views
+  - [4] 2026-10-21: the form is email, password, repeat and a human-verification step only, with no phone field
+  - probe:https://pan.moe/dav 2026-10-21: OPTIONS returned HTTP 401 with www-authenticate Basic realm="cloudreve" and Allow: OPTIONS, LOCK, PUT, MKCOL, and dav: 1, 2, so WebDAV class 2 with PUT enabled behind Cloudflare
+  - probe:https://pan.moe/dav 2026-10-21: PROPFIND returned 401 with 0 bytes, so the endpoint is auth-gated and not a 200 carrying an error body
+- sources:
+  - [1] https://pan.moe.one/terms/
+  - [2] https://pan.moe/
+  - [3] https://moe.one/thread-924.htm
+  - [4] https://pan.moe/signup
+
+## 123pan (123云盘)
+
+- `netdisk-pan/123pan-123` | qualifies-with-caveat | evidence reported | binding per-ip-shaping | category consumer-pan
+- needs card no, phone yes, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.123pan.com | page https://fshy.ajam.dev/p/123pan.md
+- free tier: Free: 50 GB of 专业空间 (own uploads, no deduplication) plus 2 TB of 标准空间 (files saved from other people's shares, deduplicated) for accounts registered before 2026-09-24 14:30. New accounts get 50 GB plus 50 GB until real-name verification, then 2 TB standard | unit: TiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1] | note: the quota regime changed twice in twelve months, so the date qualifier is part of the fact
+- per-object cap: 10 GB per file in 标准空间. Files over 10 GB, multi-volume archives, direct-link and image-host output are billed to the 50 GB 专业空间 instead | bytes: 10000000000 | source: [2]
+- retention: Share links expire; live keys returned 5104 分享已过期. Account retention is not published | source: [1]
+- egress: Uploads and downloads are stated as unlimited in speed (上传下载不限速) with CDN direct links, but a free account is capped at 10 GB of extraction traffic per month across all clients, quoted at CNY 0.05/GB beyond. Since 2025-11-26 every share download requires a login | metered: yes | free allowance: 10 GB per month | price per TB: CNY 0.05/GB beyond the allowance | source: [3]
+- identity: country-phone | detail: the login page offers app or WeChat QR login, or a phone-or-email password login, but the signup path terminates at +86 SMS. A 2026 guide states 'mainland +86 number only, email sign-up stops at phone binding' | country: 86
+- interface: rest, webdav
+- limits:
+  - per-object-cap: 10 GB per file in 标准空间 [2]
+  - per-ip-shaping (binding): 10 GB of extraction traffic per month on a free account, all clients [3]
+  - write-gated: share downloads require a login since 2025-11-26 [4]
+- binding note: The capacity is real and large, so the quota is not what stops a plan.
+- tooling: an official Open Platform at open-api.123pan.com with client id and key and a refresh-token flow; the OpenList '123 Open' driver; WebDAV at webdav.123pan.cn/webdav with app passwords, up to ten per account; the Python client ChenyangGao/p123client
+- composes with: The one interesting shape is the deduplicated 标准空间: saving an already-present blob costs no quota, so a shared corpus can be mirrored into many accounts at no storage cost
+- reliability: Two independent failure modes seen on the same day: 5104 分享已过期 on most public keys, and 5112 分享方提取流量包不足 on live ones. The sharer's traffic pack is the binding constraint, so a valid share with an exhausted pack is unusable by anyone including a logged-in user. The quota regime changed in 2025-11 and again in 2026-09 and the operator blames bulk registration
+- notes: Evaluation covers both capacity and retrieval constraints, with the 10 GB extraction cap identified as binding. The site headline advertises free storage up to 2 TB, VIP at 20 TB, and SVIP at 100 TB, which reflects the tier structure prior to the September 2026 split.
+- extras:
+  - access_mode: registration-gated
+  - anonymous_read: metadata anonymous, bytes refused
+  - free_tier_regime_changed: 2025-11 traffic cut, 2026-09 space split
+  - openapi_paid_addon: a 开发者权益包 at CNY 20/month from 2026, reported on linux.do
+- evidence:
+  - [5] 2026-10-21: '老用户免费配额为专业空间 50GB 加标准空间 2TB'; '大于 10GB 的超大文件、分卷压缩文件组，以及直链、图床、视频转码服务产生的文件，也计入专业空间'
+  - [3] 2026-10-21: free users '每月累计提取流量上限为合计 10GB', client downloads bill at half, overage CNY 0.05/GB
+  - [4] 2026-10-21: '免登录下载100M内小文件的权益取消了，以后要想下载文件，必须登录'
+  - probe:https://1813769031.share.123pan.cn/b/api/share/get?shareKey=1oglVv-x3Z4 2026-10-21: 200, 539 B, code 0, FileName, Size 469732600 and Etag returned with no cookie and no token
+  - probe:POST https://1813769031.share.123pan.cn/b/api/share/download/info 2026-10-21: 200, 68 B, {"code":5112,"message":"分享方提取流量包不足"}, no URL issued
+  - probe:https://open-api.123pan.com/api/v1/user/info 2026-10-21: 200 {"code":401,"message":"token is expired"}, so the Open API is live
+  - probe:https://webdav.123pan.cn/webdav 2026-10-21: 401, so the WebDAV endpoint is live and auth-gated
+- sources:
+  - [1] https://www.123pan.com/
+  - [2] https://xiaoyi.vc/123yunpan-storage-adjustment-professional-standard-space.html
+  - [3] https://www.ithome.com/0/900/421.htm
+  - [4] https://www.laoliang.net/news/27693.html
+  - [5] https://www.ithome.com/1/007/104.htm
+
+## 1yunpan (易云盘)
+
+- `netdisk-pan/1yunpan` | qualifies-with-caveat | evidence reported | binding per-ip-shaping | category Cloudreve-family drive with native S3 and WebDAV
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T00:20:59.760Z (inherited) | stale on 2026-11-19
+- url https://www.1yunpan.com | page https://fshy.ajam.dev/p/1yunpan.md
+- price Pro at CNY 29/month is 1 TB storage and 10 TB/month; the free tier is not purchasable and has no per-terabyte price | parsed USD 4.35/mo
+- free tier: 100 GB on registration plus 400 GB earned by daily check-in, so 500 GB is reachable on a free account but only through a login streak. The free plan also carries 1 TB of monthly bandwidth | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1] | note: the pricing block reads '100GB Storage +400GB via check-in' and the check-in panel says 'up to 500GB free'
+- per-object cap: 32212254720 bytes (30 GiB) per upload, as the site's published config.json sets limit.upload_allow_max_size | bytes: 32212254720 | source: [1]
+- retention: Not published. The 400 GB is drip-fed by daily check-in, so an account that stops logging in cannot earn the rest | source: [1]
+- egress: 1 TB per month on the free Starter tier, published, then paid. Direct links are served from per-user subdomains with Cache-Control: public, max-age=15552000 | metered: yes | free allowance: 1 TB per month | source: [1]
+- identity: email | detail: an email address at one of a fixed list of domains (including gmail.com, qq.com, icloud.com, 163.com and yahoo.com) and an emailed six-digit code; the register form has username, password, confirm, email, email_code and an agreement checkbox with no phone or mobile input present
+- interface: s3, webdav, rest
+- limits:
+  - per-ip-shaping (binding): 1 TB of bandwidth per month on the free tier [1]
+  - write-gated: 400 of the 500 GB is granted 5 GB at a time by daily check-in [1]
+- binding note: 1 TB a month corresponds to 33 GB a day, meaning the transfer allowance binds before the 500 GB storage ceiling does under sustained extraction.
+- tooling: rclone s3 against s3.1yunpan.com, rclone webdav, s3cmd, any S3 SDK, and a raw GET on the per-user host. Registration is an email address and an emailed six-digit code with no phone field in the DOM; Google and GitHub OAuth are also offered
+- composes with: The strongest chaining candidate in its group: a free bucket that answers both S3 and WebDAV drops into a chunk-and-replicate scheme as a first-class target with no AList shim. The 1 TB monthly bandwidth is the binding number, not the 500 GB of space
+- reliability: Reads are real: a 1,326,142,372-byte MP4 came back byte-exact against Content-Length with Range honoured, and a ranged GET returned 206 with a correct Content-Range. The site notice states that files uploaded between 2026-10-05_22:00:00 and 2026-10-30_23:59:59 are temporarily not downloadable and that file upload is temporarily stopped, and config.json sets upload.temporarily_disabled to true. The 400 GB is streak-gated, so an account that stops logging in loses headroom
+- notes: 500 GB reachable on an email address with no phone is unusual, and the S3 endpoint answering real S3 error semantics is what makes it useful: rclone, restic and Duplicati can each treat an account as a bucket. The check-in ladder is a daily quota rather than a wall-clock trial, so it is repeatable, but it also means the account is worth less the moment the streak stops.
+- extras:
+  - access_mode: registration-gated
+  - free_tier_exists: yes
+  - check_in_bytes: 429496729600
+  - bandwidth_bytes_month: 1099511627776
+  - oauth: email; google; github
+  - s3_endpoint: https://s3.1yunpan.com
+  - fronting: direct links carry Server: cloudflare and CF-Cache-Status: DYNAMIC
+  - fx.pair: USD/CNY
+  - fx.rate: 6.6702
+  - fx.date: 2026-10-23
+- evidence:
+  - [1] 2026-10-21: rendered pricing 'Starter CNY 0/month, 1TB Monthly Bandwidth, 100GB Storage +400GB via check-in'
+  - probe:https://id5mjj37zbn85c.1yunpan.com/Videos/test.mp4 2026-10-21: HTTP 200, Content-Length 1326142372, 1326142372 bytes downloaded, sha256 04b36ea0dc7a3bac5776b37432e16ad6d5a560a7da32b1ad7efbf00bfb5b6be7, so a 1.33 GB object came back byte-exact
+  - probe:https://id5mjj37zbn85c.1yunpan.com/Videos/test.mp4#range 2026-10-21: Range bytes=1000000-1000255 returned HTTP 206 with Content-Range bytes 1000000-1000255/1326142372 and 256 bytes
+  - probe:https://s3.1yunpan.com/ 2026-10-21: HTTP 400 with S3 XML InvalidArgument / Invalid path, and /testbucket returned 403 AccessDenied / Missing AWS authentication, so it is a real S3 implementation
+  - probe:https://s3.1yunpan.com/testbucket 2026-10-21: 403 AccessDenied with real S3 error semantics rather than a stub
+  - [2] 2026-10-21: the form DOM has username, password, confirm, email, email_code and 2FA support, and zero phone or mobile inputs
+  - probe:https://www.1yunpan.com/config.json 2026-11-03: the site config sets the per-upload size limit to 32212254720 bytes | capture: sha256:6ce2e8085f6efcb6680948e05ef4cd11edc846997f85dc9948a0f5210d19570d | quote: "upload_allow_max_size": 32212254720
+  - probe:https://www.1yunpan.com/config.json 2026-11-03: the config disables registration with any email domain and carries an email_whitelist of permitted domains | capture: sha256:6ce2e8085f6efcb6680948e05ef4cd11edc846997f85dc9948a0f5210d19570d | quote: "allow_all_email_to_register": 0,
+  - [1] 2026-11-03: the front page carries a notice that files uploaded in a stated window are temporarily not downloadable, older files are unaffected, and file upload is temporarily stopped | capture: sha256:ba040c4c5957d054c511d27c79634b26062899734df270bc6760b45649a73604 | quote: 技术故障导致 2026-10-05_22:00:00 至 2026-10-30_23:59:59 期间上传的文件暂时无法下载，技术人员正在维护系统并从冷备份中恢复，我们会尽快恢复文件的正常下载。对于 2026-10-05:20:00:00 以前上传的文件均可正常下载未受影响。系统目前暂时停止文件上传功能。
+  - probe:https://www.1yunpan.com/config.json 2026-11-03: the config the web app loads sets upload.temporarily_disabled to true | capture: sha256:6ce2e8085f6efcb6680948e05ef4cd11edc846997f85dc9948a0f5210d19570d | quote: "temporarily_disabled": true,
+  - probe:https://id5mjj37zbn85c.1yunpan.com/Videos/test.mp4#head 2026-11-03: a HEAD on the demo MP4 answers HTTP 200 with Content-Length 1326142372 | capture: sha256:da84e4fbf59e71966245c47f355e5a175e03077211cf150a630a5f19f257c8cc | quote: "content-length": "1326142372"
+  - probe:https://id5mjj37zbn85c.1yunpan.com/Videos/test.mp4#range 2026-11-03: a ranged GET returns the matching Content-Range, so Range is honoured on the direct host | capture: sha256:1da5e49ad74c30c1fe7d4115f6729ff103ae67da1c292d1ba45f6223db94ece7 | quote: "content_range": "bytes 1000000-1000255/1326142372"
+  - probe:https://s3.1yunpan.com/ 2026-11-03: the S3 endpoint answers an S3-shaped XML error body to an unauthenticated GET of the root | capture: sha256:d8a819a2a379f435a64e66d22fc3da77424bdfec19ba321be0deb450c663c239 | quote: <Message>Invalid path</Message>
+  - [1] 2026-11-03: the front-page Starter plan lists 1 TB of monthly bandwidth | capture: sha256:8db69290d523f57ce63a5017f1035788ad618ef51cce49c294e25acefa49caec | quote: 1TB Monthly Bandwidth
+  - [1] 2026-11-03: the front-page Starter plan still lists 100 GB of storage plus 400 GB via check-in | capture: sha256:8db69290d523f57ce63a5017f1035788ad618ef51cce49c294e25acefa49caec | quote: 100GB Storage +400GB via check-in
+- sources:
+  - [1] https://www.1yunpan.com/
+  - [2] https://www.1yunpan.com/register
+
+## AList
+
+- `netdisk-pan/alist-tianmoy-cn` | qualifies-with-caveat | evidence measured | binding write-gated | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://alist.tianmoy.cn/ | page https://fshy.ajam.dev/p/tianmoy.md
+- free tier: anonymous guest read of 3 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through no identified front; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - write-gated (binding): no write offered probe:https://alist.tianmoy.cn/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier
+- reliability: 3 root entries on AList v4.2.6. It flaps between answering as an AList API and answering 200 with no API at all, and between listing and not listing, across runs minutes apart.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: not-tested
+  - upstream_provider: unknown
+  - advertised_write_flag: yes
+  - write_content_bypass: no
+  - base_path: /
+  - listing_sha256: 78ea8a65
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 0
+- evidence:
+  - probe:https://alist.tianmoy.cn/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title 'AList'
+  - probe:https://alist.tianmoy.cn/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 3 root entries; write:true, write_content_bypass:False, provider:unknown
+- sources:
+  - [1] https://alist.tianmoy.cn/
+
+## Alist追番
+
+- `netdisk-pan/zhuifan-link` | qualifies-with-caveat | evidence measured | binding write-gated | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://zhuifan.link/ | page https://fshy.ajam.dev/p/zhuifan.md
+- free tier: anonymous guest read of 8 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through cloudflare; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - write-gated (binding): PUT denied at the guest role probe:https://zhuifan.link/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier Read-only. Its value is as a template and as a fetch source, and it demonstrates that an instance with allow_mounted true exposes the mounted provider through the API, which is how to identify which pan backs a site without an account
+- reliability: An anime index on an AList v3.23 build from about 2022, which makes it one of the two oldest instances still listing. base_path is /新番/anime/new, so / in the API is not the instance root. Read-only by design.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: permission-denied
+  - upstream_provider: GoogleDrive
+  - fronting_cdn: cloudflare
+  - advertised_write_flag: no
+  - permission_bitmask: 256
+  - base_path: /新番/anime/new
+  - listing_sha256: 710d5e20
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 0
+  - aliases: Alist追番 (zhuifan.link) — public AList, read-only, WebDAV guest account works
+  - guest_credentials: zhuifan:zhuifan; guest:guest
+- evidence:
+  - probe:https://zhuifan.link/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title 'Alist追番'
+  - probe:https://zhuifan.link/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 8 root entries; write:false, write_content_bypass:None, provider:GoogleDrive
+  - probe:https://zhuifan.link/api/fs/put 2026-10-22: the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written
+- sources:
+  - [1] https://zhuifan.link/
+
+## Amazon Photos (Prime)
+
+- `netdisk-pan/amazon-photos` | qualifies-with-caveat | evidence reported | binding write-gated | category retail-ecosystem photo cloud
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T00:20:56.365Z (inherited) | stale on 2026-11-19
+- url https://www.amazon.com/gp/help/customer/display.html?nodeId=G6PT8TMLM9NVZCSL | page https://fshy.ajam.dev/p/amazon.md
+- price Bundled with Prime at about USD 139/yr; the unlimited photo tier has no standalone price
+- free tier: 5 GB for every Amazon customer. Unlimited full-resolution photo storage plus 5 GB of video for Amazon Prime members | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 5 GB of video even on Prime; photos are unlimited. Paid plans exist above 5 GB | source: [1]
+- retention: While the account and the Prime membership persist; photos are removed from the unlimited tier if Prime lapses | source: [1]
+- egress: Downloads run through Amazon's CDN, effectively free and fast, but only for objects the account uploaded | metered: no | source: [1]
+- identity: email | detail: an Amazon account and a Prime membership. Prime is the price of admission, so unlimited is bundled and not free
+- interface: rest, cli
+- limits:
+  - per-object-cap: 5 GB of video total, even on Prime; photos are unlimited but must be photographs [1]
+  - write-gated (binding): cookie authentication with no OAuth or key flow, so the credential is a browser session that expires [2]
+- binding note: The capacity is genuinely unlimited for photographs and the gate is the credential: a browser cookie with no OAuth flow, which expires and cannot be renewed programmatically. That makes it a manual-ingest target at any scale.
+- tooling: unofficial and cookie-authenticated only: trevorhobenshield/amazon_photos in Python, entourloop/amazon-photo-uploader in Rust, and an MCP server. There is no OAuth and no API key, and every wrapper says cookies expire and must be refreshed by hand. No rclone backend
+- composes with: The classic unlimited-photos shape: if arbitrary image bytes are accepted, and they are because it is a photo service, then a photo-shaped payload is free across accounts. The 5 GB video cap is what stops it being a general drive, and the absence of an API stops it being a pipeline
+- reliability: Cookie-authenticated wrappers break on any change to Amazon's login flow; the MCP wrapper's own README calls it an unofficial API that may break. Photo-only means ingest may re-encode or reject non-image payloads
+- notes: Combines evaluation of both the photo storage and video limits. Unlimited full-resolution photo backup is available to Amazon Prime members, while non-photo video storage is capped at 5 GB. Authentication requires web session cookies.
+- extras:
+  - access_mode: paid
+  - free_tier_exists: yes
+  - api: unofficial cookie auth only
+  - aliases: Amazon Photos (Prime)
+  - cross_topic_record: storage/amazon-photos
+  - cross_topic_note: A record for this provider already exists under the storage topic; this one is scoped to its role as a pan, following the same split netdisk-pan/lanzou uses.
+- evidence:
+  - [1] 2026-10-21: '5 GB of free storage for all Amazon customers. Unlimited full-resolution photo storage, plus 5 GB of video storage, for Amazon Prime members'
+  - [3] 2026-10-21: 'unlimited photo storage and 5 GB of video storage to Amazon Prime members in eight marketplaces'
+  - [4] 2026-10-21: a Python client with md5 deduplication that preserves directory structure on upload
+  - [2] 2026-10-21: 'Amazon Photos has no OAuth or API key flow'; 'Cookie auth is fragile'
+  - [1] 2026-11-03: Prime members get unlimited full-resolution photos and 5 GB of video | capture: sha256:cf70fe114bf2bf1b6f2d9f3f826c9975c8e432b6de305702e4c07c95feb06765 | quote: Unlimited full-resolution photo storage, plus 5 GB of video storage, for Amazon Prime members.
+  - [1] 2026-11-03: 5 GB free for every Amazon customer | capture: sha256:cf70fe114bf2bf1b6f2d9f3f826c9975c8e432b6de305702e4c07c95feb06765 | quote: 5 GB of free storage for all Amazon customers.
+  - [2] 2026-11-03: the wrapper still authenticates by browser cookie that expires | capture: sha256:976732ae42f0c69ae48bdbaf858e34d78977aa0925938232cdcda930244e2e38 | quote: Cookie auth is fragile. Amazon cookies expire and must be refreshed manually.
+- sources:
+  - [1] https://www.amazon.com/gp/help/customer/display.html?nodeId=G6PT8TMLM9NVZCSL
+  - [2] https://github.com/vanessa/immich-amazon-sync
+  - [3] https://www.aws.amazon.com/blogs/storage/how-amazon-photos-uses-amazon-s3-intelligent-tiering
+  - [4] https://github.com/trevorhobenshield/amazon_photos
+
+## bangumi.tv AList/OpenList index (the live community list)
+
+- `netdisk-pan/bangumi-alist-index` | qualifies-with-caveat | evidence measured | binding retention-clamped | category index-list
+- needs card no, phone no, ID no, institution no | verified 2026-10-30T17:26:52.225Z (live) | stale on 2026-11-21
+- url https://bangumi.tv/m/topic/group/472627 | page https://fshy.ajam.dev/p/bangumi.md
+- free tier: not stated: https://bangumi.tv/m/topic/group/472627 is a public forum post listing AList/OpenList sites, with WebDAV guest logins for many of them, and prints no allowance, quota or price | unit: none | metered on: none | read on: 2026-10-30 | source: [1]
+- per-object cap: not applicable; it is a list | source: [1]
+- retention: maintained; the post read on 2026-10-22 is the current revision and a maintainer prunes dead entries | source: [1]
+- egress: no egress; it is a page | metered: no | source: [1]
+- identity: anonymous | detail: an open forum page
+- interface: rest
+- limits:
+  - retention-clamped (binding): a maintainer prunes dead entries, so a survivor count from this list measures the maintainer's diligence and not the population's survival [1]
+- binding note: The list is current by construction, so it is the right discovery input and the wrong decay measurement; the constraint is on what the list can prove.
+- tooling: A flat forum thread at /m/topic/... accessible without authentication. HTTP GET returns the full post content directly.
+- composes with: the highest-yield discovery input measured, and the one whose curation hides churn rather than showing it
+- reliability: 20 of the 28 real hostnames on the page answered with a mount list, which is selection and not longevity: a pruned list cannot show you what died.
+- notes: The one live index worth automating against. It also carries the WebDAV credential next to each site, which is how the WebDAV read path was testable without an account. Of 31 hostname-shaped strings extracted from it, 3 are not instances (ssl, www, www.kdocs.cn), leaving 28, of which 26 answered HTTP and 20 listed mounts.
+- extras:
+  - access_mode: index
+  - listed_hosts: 28
+  - answered_http: 26
+  - listed_mounts: 20
+  - carries_webdav_credentials: yes
+- evidence:
+  - [1] 2026-10-22: the post lists public AList/OpenList sites with a WebDAV credential beside most of them, and its own preamble states that AList was sold and recommends OpenList instead
+  - probe:https://bangumi.tv/m/topic/group/472627 2026-10-22: 31 hostname-shaped strings were extracted, of which 3 are not instances (ssl, www, www.kdocs.cn), leaving 28; 26 answered HTTP and 20 returned a non-empty mount list
+  - probe:https://bangumi.tv/m/topic/group/472627 2026-10-30: the page answered 200 to a request with no session and is a forum post titled as a summary of public AList/OpenList sites; it carries no quota, unit or price | capture: sha256:d25a0db1b35385cfa0951078d1a1f1f0694124ad92f0c9c68a737777bd499450 | quote: 公开 AList/OpenList 在线网盘资源站点汇总
+- sources:
+  - [1] https://bangumi.tv/m/topic/group/472627
+
+## crt.sh certificate transparency search (AList and OpenList hostnames)
+
+- `netdisk-pan/crt-sh-alist-openlist-ct-channel` | qualifies-with-caveat | evidence measured | binding request-rate | category index-list
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T02:15:21.167Z (live) | stale on 2026-11-26
+- url https://crt.sh/ | page https://fshy.ajam.dev/p/crt.md
+- free tier: not stated: crt.sh is a public certificate transparency search with a JSON output and prints no allowance, quota or price | unit: none | metered on: none | read on: 2026-11-03 | source: [1]
+- per-object cap: not applicable; it is a search over issued certificates | source: [1]
+- retention: a certificate stays listed after it expires; exclude=expired limits a query to certificates that are still valid | source: [1]
+- egress: no egress; it is a search answer, and one prefix query returned a JSON body of several hundred KB | metered: no | source: [1]
+- identity: anonymous | detail: an open search page and JSON endpoint, read with no account
+- interface: rest
+- limits:
+  - request-rate (binding): a single wildcard query alist.%25 returned a truncated result set (the four known hosts alist.qsesvick.top, alist.tianmoy.cn, alist.shenzjd.com and alist.jiejingfan.vip were all missing from it) and crt.sh answered 502, 404 or no reply on many attempts; one query per next character, retried, was needed [2]
+- binding note: crt.sh throttles and truncates wide wildcard queries, so a prefix partition is required and the result is a lower bound.
+- tooling: GET https://crt.sh/?q=alist.PREFIX%25&output=json&exclude=expired, one query per next character; a read client needs no login. The hostnames then go through GET /api/public/settings and GET /api/me on each host; the listing step is a POST that a GET-only probe cannot make
+- composes with: a hostname list for the capability probe in the public-instances protocol, to be run after the hosted index lists (bangumi.tv, kuhehe.github.io) and in addition to them
+- reliability: crt.sh answered HTTP 502, 404 or no reply on a share of its requests and needed repeated tries; a hostname in CT is a certificate, not a live instance.
+- notes: Certificate transparency lists hosts whose name starts with alist or openlist, including hosts that no forum or GitHub index names. It holds 7447 distinct hostnames with such a label (wildcard form included), 4 with an existing record. Of these, 2356 return the AList or OpenList envelope on GET /api/public/settings and 588 an enabled guest session on GET /api/me, so 586 new hostnames pass steps 0 and 1. The listing step (POST /api/fs/list) is not done, so none counts as a readable instance. Hosts named pan, cloud or share are not reachable by this channel.
+- extras:
+  - access_mode: index
+  - ct_hostnames: 7447
+  - with_existing_record: 4
+  - answered_settings: 2356
+  - guest_enabled: 588
+  - new_guest_enabled: 586
+  - listing_step_run: no
+- evidence:
+  - probe:crt.sh-alist-a-body 2026-11-03: the prefix query alist.a%25 with exclude=expired returns certificates whose names carry an alist label, such as the wildcard *.alist.anhdv.workers.dev | capture: sha256:ccf4e04be45ae1d71dd6409c1c1dae07782e1d21c52453e1bc0d8bf52bf554e2 | quote: "common_name":"anhdv.workers.dev","name_value":"*.alist.anhdv.workers.dev"
+  - probe:crt.sh-openlist-a-body 2026-11-03: the prefix query openlist.a%25 with exclude=expired returns certificates whose names carry an openlist label, such as openlist.akz.cc.cd | capture: sha256:752bbd2cb48601a932cbf5e6364d7249e60dd68b568e50944396bab6f2a7199a | quote: "common_name":"openlist.akz.cc.cd","name_value":"openlist.akz.cc.cd"
+  - probe:crt.sh-alist-tianmoy-body 2026-11-03: a direct query for a known instance finds its certificate, so the instance is in CT even where the broad alist.%25 query did not return it | capture: sha256:2e03b5526ebfd78ebbf14debaf25d33da19ed561acd18337fa84cc49fc9280f2 | quote: "common_name":"alist.tianmoy.cn","name_value":"alist.tianmoy.cn"
+  - probe:openlist.011206.xyz-me 2026-11-03: a hostname found only through CT, openlist.011206.xyz, answers GET /api/me with an enabled guest session, which is step 1 of the instance protocol | capture: sha256:92b5f17df4530587fe3412ec271b5970bf2cf3764f1adab0b418c9d9a10368fe | quote: "username":"guest","password":"","base_path":"/","role":1,"disabled":false
+  - probe:crt-sh-alist-openlist-ct-hostnames 2026-11-04: the stored CT hostname list holds 7447 lines, one distinct hostname with an alist or openlist label each | capture: sha256:e47630d7f625ce61eb6469313ffb18decb8d26e8435460ede8ba07b91bf79b51 | quote: alist-barbers.com
+  - probe:crt-sh-alist-openlist-settings-hosts 2026-11-04: the stored list of hosts that answered GET /api/public/settings holds 2356 lines | capture: sha256:422e5df1133eb71181bbf74f14e1623e10713162ca5771bdc418a2f504e12ecb | quote: alist.002199.xyz
+  - probe:crt-sh-alist-openlist-guest-hosts 2026-11-04: the stored list of guest-enabled hosts holds 588 lines | capture: sha256:28cb921d51cc591ca2e910a7877f05ab5f38ab6676354929ef9d3a907432c458 | quote: alist.0101111.xyz
+  - probe:crt-sh-alist-openlist-guest-hosts 2026-11-04: the stored guest-enabled host list holds 588 lines | capture: sha256:28cb921d51cc591ca2e910a7877f05ab5f38ab6676354929ef9d3a907432c458 | quote: alist.0101111.xyz
+- sources:
+  - [1] https://crt.sh/?q=alist.a%25&output=json&exclude=expired
+  - [2] https://crt.sh/?q=alist.%25&output=json
+
+## Ctfile (城通网盘, ctfile.com)
+
+- `netdisk-pan/ctfile` | qualifies-with-caveat | evidence documented | binding retention-clamped | category consumer-pan
+- needs card no, phone yes, ID no, institution no | verified 2026-11-04T00:21:08.723Z (live) | stale on 2026-11-26
+- url https://www.ctfile.com/ | page https://fshy.ajam.dev/p/ctfile.md
+- free tier: 5 TB of shared space on the free tier, 20 GB per file, and no upload speed cap | unit: TB | metered on: stored-bytes | read on: 2026-10-22 | source: [1] | note: the landing page and the register page agree on 5 TB and 20 GB; the help centre adds 20 GB free and 30 GB for Standard members
+- per-object cap: 20 GB per file on the free tier; 30 GB on Standard | bytes: 20000000000 | source: [2] | note: terms section 3.2.8 states the same two numbers as a default
+- retention: files are deleted after 30 consecutive days without a sign-in on a free account, or 365 days on a paid account | days: 30 | source: [3] | note: terms section 3.2.5, quoted; the landing page states it as 'log in once a month to renew'
+- egress: downloads are metered by tier rather than by byte: free accounts have no published volume cap but a slow channel, Standard is stated at 'up to 5MB/sec', and Super removes the limit; no per-GB egress price is published | metered: no | source: [4]
+- identity: email | detail: the register page offers email and password as the primary path with 'Sign up with phone instead' as the alternative; no card, no ID, no +86 requirement stated
+- interface: rest, webdav, cli
+- limits:
+  - retention-clamped (binding): 30 consecutive days without a sign-in deletes files on a free account [3]
+  - per-object-cap: 20 GB per file on the free tier [3]
+  - request-rate: 200,000 files and 10,000 folders per account; 10,000 file uploads per day; 5 concurrent download and 5 concurrent upload threads [3]
+- binding note: The identity gate is the one that usually closes a Chinese pan, and this one is open; what binds is the 30-day inactivity clock, which makes it a working set and not an archive.
+- tooling: first-party desktop client and a WebDAV endpoint; the free tier advertises WebDAV and the Super tier advertises 'WebDAV batch download'; the nfd-parser project ships a ct driver
+- composes with: the only Chinese pan in this survey that a foreigner can self-register for with an email address alone, so it is the one that can sit under a self-hosted bridge without a +86 number
+- reliability: Over-quota triggers deletion of the excess without prior notice, and the inactivity clock deletes a free account's files at 30 days; a monthly sign-in cron keeps it alive and nothing else does.
+- notes: 5 TB free, 20 GB per file, email-only registration, WebDAV advertised. The 30-day inactivity deletion is the number that decides how it can be used: a monthly cron job keeps it, and nothing else does. Terms section 3.2.7 also caps the account at 200,000 files, which at 20 GB per file is a 4 PB nominal ceiling and therefore not the constraint.
+- extras:
+  - access_mode: registration-gated
+  - registration: email + password + human-verification step
+  - webdav_tier: advertised on the free tier and on Super as batch download
+  - inactivity_days_free: 30
+  - inactivity_days_paid: 365
+  - file_count_cap: 200000
+  - daily_upload_cap: 10000
+- evidence:
+  - [1] 2026-10-22: the signup form offers Email and Password with a human-verification step, and states 'Sign up with phone instead'; the page advertises 5TB free, 20GB per file, and 'Direct link sharing, WebDAV and online media playback'
+  - [2] 2026-10-22: 'Free users: Max 20GB per file / Standard members: Max 30GB per file', and the registration steps are email, password, email verification with no identity document
+  - [3] 2026-10-22: section 3.2.5 deletes stored files after 30 consecutive days without sign-in on a free account; 3.2.7 caps an account at 200,000 files and 10,000 uploads per day; 3.2.8 caps a file at 20GB; 3.2.9 caps 5 concurrent download and 5 concurrent upload threads
+  - [4] 2026-10-22: 'Free users enjoy 5TB shared space, upgrade to membership for up to 70TB'; Standard CNY 28/month or CNY 98/year; Super CNY 38/month or CNY 258/year with 10TB shared and 2TB private
+  - [4] 2026-11-03: free users get 5 TB of shared space | capture: sha256:38b10c9fd71081c03698c44f19e126ce1cc8c3607f248023342b02b33f35c7e9 | quote: Free users enjoy 5TB shared space, upgrade to membership for up to 70TB storage
+  - [2] 2026-11-03: the per-file cap on a free account is 20 GB | capture: sha256:f3b0bbf1f5f3425d6674b90327807706a4485a1879abd2257f4928e5fb3a06ee | quote: Free users: Max 20GB per file
+  - [3] 2026-11-03: long-term inactivity of about 30 days on a free account clears its files | capture: sha256:83bac7a60ad35b548b75a5c4a61811d2dc755d0f6af371186a1aebfde97c25f6 | quote: (~30 days for free users; ~365 days for paid members)
+  - [1] 2026-11-03: the registration form takes an email and password with a phone alternative | capture: sha256:166b980491e5ddde53a7620213cb1afa54ac79e6df6e591f5b4ca756c83cdd77 | quote: Sign up with phone instead
+- sources:
+  - [1] https://www.ctfile.com/register
+  - [2] https://www.ctfile.com/help
+  - [3] https://www.ctfile.com/terms
+  - [4] https://www.ctfile.com/
+
+## DumpApp
+
+- `netdisk-pan/pan-dumpapp-com` | qualifies-with-caveat | evidence measured | binding write-gated | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://pan.dumpapp.com/ | page https://fshy.ajam.dev/p/dumpapp.md
+- free tier: anonymous guest read of 4 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through nginx; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - write-gated (binding): PUT denied at the guest role probe:https://pan.dumpapp.com/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier
+- reliability: 4 root entries on AList v3.57.0, providers unknown and 189CloudPC, write:false.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: permission-denied
+  - upstream_provider: unknown
+  - fronting_cdn: nginx
+  - advertised_write_flag: no
+  - permission_bitmask: 2
+  - base_path: /
+  - listing_sha256: f42e02da
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 0
+- evidence:
+  - probe:https://pan.dumpapp.com/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title 'DumpApp'
+  - probe:https://pan.dumpapp.com/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 4 root entries; write:false, write_content_bypass:None, provider:unknown
+  - probe:https://pan.dumpapp.com/api/fs/put 2026-10-22: the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written
+- sources:
+  - [1] https://pan.dumpapp.com/
+
+## GoPro Cloud / Quik (GoPro subscription)
+
+- `netdisk-pan/gopro-cloud-quik` | qualifies-with-caveat | evidence reported | binding write-gated | category action-camera ecosystem cloud
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T00:20:56.362Z (inherited) | stale on 2026-11-19
+- url https://gopro.com/en/us/legal/subscriptionterms | page https://fshy.ajam.dev/p/gopro.md
+- price USD 59.99/yr Premium and USD 99.99/yr Premium+, which is about USD 120/TB/yr on the 500 GB non-GoPro half and approaches zero on the GoPro half | parsed USD 10/TB-mo
+- free tier: Unlimited cloud storage for GoPro content, meaning footage captured with a GoPro camera excluding Fusion, on any paid tier, plus 100 GB for non-GoPro content on Premium at USD 59.99/yr or 500 GB on Premium+ at USD 99.99/yr | unit: unlimited | metered on: stored-bytes | read on: 2026-10-21 | source: [1] | note: unlimited applies to provenance, not to bytes: the terms draw the line at content captured with a GoPro camera
+- per-object cap: Not published as a byte cap. Non-GoPro storage is restricted to MP4, Quicktime/MOV, JPEG, ASF and PNG files | source: [1]
+- retention: While the subscription is active. No retention clock published | source: [1]
+- egress: CDN downloads of originals with no published cap; access is by a bearer token against api.gopro.com | metered: no | source: [1]
+- identity: card | detail: a credit card or other payment method at sign-up, including for the Free Introductory Trial
+- interface: rest
+- limits:
+  - write-gated (binding): unlimited applies only to content captured with a GoPro camera, plus media trimmed from it in the Quik app; GoPro footage edited with non-GoPro software and re-imported counts as non-GoPro [1]
+  - per-object-cap: non-GoPro storage is limited to MP4, Quicktime/MOV, JPEG, ASF and PNG files [2]
+- binding note: The capacity is unlimited on paper and the gate is a provenance rule plus an upload path nobody has documented. Until one large non-GoPro file is uploaded and accepted, the offer is 100 GB at USD 59.99/yr, which is bad.
+- tooling: reverse-engineered and read-only in every public wrapper: himewel/gopro-api in Python, dustin/gopro in Go with 139 stars and a push on 2026-10-13, gsora/gpdwn, mvisonneau/gpcd. All of them search, download and sync; none uploads. Auth is a bearer token lifted from a plus.gopro.com web session
+- composes with: The most valuable unresolved lead in its group and it is one upload experiment, not a research question. The terms draw the line at provenance by device, not by file inspection, so if ingest does not verify capture provenance then unlimited capacity at USD 59.99/yr exists; if it does, the offer collapses to 100 or 500 GB
+- reliability: No public wrapper implements upload, so the write path is undocumented rather than absent: the Quik app clearly uploads. Treat the write path as unproven. The supported non-GoPro file types are MP4, Quicktime/MOV, JPEG, ASF and PNG
+- notes: Testing evaluates whether non-GoPro media qualifies for unlimited backup or remains restricted to the 100 GB cap. Pricing for general non-GoPro storage runs approximately USD 120 per TB per year, making device provenance verification the defining constraint.
+- extras:
+  - access_mode: paid
+  - upload_api: none documented; the Quik app uploads but no wrapper implements it
+  - provenance_rule: by capture device, excluding Fusion
+  - test_that_settles_it: one account, one large non-GoPro upload, then read the quota back through api.gopro.com
+- evidence:
+  - [1] 2026-10-21: 'You receive unlimited cloud storage for content You capture with a GoPro camera (excluding Fusion)'; 'up to 100GB of cloud storage for content You capture with a non-GoPro camera'; 'Storage of non-GoPro footage is limited to the file types listed'
+  - [3] 2026-10-21: Premium USD 59.99/yr with unlimited GoPro and 100 GB non-GoPro; Premium+ USD 99.99/yr with 500 GB
+  - [4] 2026-10-21: 'Unofficial Python client for the GoPro cloud / Quik HTTP API at api.gopro.com: search your library and fetch download metadata', download only
+  - [5] 2026-10-21: 139 stars, last push 2026-10-13, sync and download with no upload
+  - [6] 2026-10-21: GoPro's own forum, users asking for upload functionality, which confirms there is no official upload API
+  - [2] 2026-11-03: the article now renders and lists the non-GoPro types: MP4, Quicktime/MOV, JPEG, ASF, PNG | capture: sha256:8c994c5f6d1d46ff669eb87140bf2967dfb38eaf6ff740673348461d5dcf3b5c | quote: Supported non-GoPro types in the GoPro Cloud - MP4 - Quicktime / MOV - JPEG - ASF - PNG
+  - [2] 2026-11-03: media trimmed from GoPro-captured content in Quik counts as GoPro content (unlimited); the same article lists GoPro footage edited in non-GoPro software as non-GoPro content | capture: sha256:8c994c5f6d1d46ff669eb87140bf2967dfb38eaf6ff740673348461d5dcf3b5c | quote: Any new, trimmed media made from content captured with a GoPro camera and trimmed using the Quik app (mobile or desktop) and uploaded to GoPro Cloud.
+  - [1] 2026-11-03: sign-up requires a credit card or other payment method, for the free introductory trial too | capture: sha256:e62d571b8791348b46d14d5f6cd73ff9a38f9a01a8014fbaddf0c493cb4bb06d | quote: You must provide a credit card or other payment method at sign-up to ensure uninterrupted access to the Subscription at the end of the Free Introductory Trial
+  - [3] 2026-11-03: Premium is still USD 59.99/yr with unlimited GoPro content and 100 GB non-GoPro | capture: sha256:72fc36427ad26611bdce5ae6b03f3f1bee809f8b65a3ea48376df426d732df42 | quote: | GoPro Premium12 | Unlimited GoPro plus 100 GB non-GoPro Footage: $59.99/yr |
+  - [3] 2026-11-03: Premium+ is USD 99.99/yr with 500 GB non-GoPro | capture: sha256:72fc36427ad26611bdce5ae6b03f3f1bee809f8b65a3ea48376df426d732df42 | quote: | GoPro Premium+13 | Unlimited GoPro plus 500 GB non-GoPro Footage: $99.99/yr |
+  - [1] 2026-11-03: the terms, effective 2026-04-17, still give unlimited storage for content captured with a GoPro camera excluding Fusion | capture: sha256:e62d571b8791348b46d14d5f6cd73ff9a38f9a01a8014fbaddf0c493cb4bb06d | quote: You receive unlimited cloud storage for content You capture with a GoPro camera (excluding Fusion), subject to the compatibility limitations listed
+  - [1] 2026-11-03: non-GoPro content, and GoPro footage edited or imported by third-party software, is allocated 100 GB | capture: sha256:e62d571b8791348b46d14d5f6cd73ff9a38f9a01a8014fbaddf0c493cb4bb06d | quote: You are allocated up to 100GB of cloud storage for content You capture with a non-GoPro camera or device and content captured by a GoPro camera that is subsequently edited by (or imported from) a third party software application.
+  - [1] 2026-11-03: uploads of non-GoPro content past the limit may be restricted | capture: sha256:e62d571b8791348b46d14d5f6cd73ff9a38f9a01a8014fbaddf0c493cb4bb06d | quote: Once You reach Your cloud storage limit for non-GoPro footage, GoPro may restrict the upload of any additional non-GoPro content to the GoPro cloud.
+- sources:
+  - [1] https://gopro.com/en/us/legal/subscriptionterms
+  - [2] https://community.gopro.com/s/article/What-Content-Is-Supported-In-GoPro-Cloud
+  - [3] https://gopro.com/en/dj/shop/subscriptions
+  - [4] https://github.com/himewel/gopro-api
+  - [5] https://github.com/dustin/gopro
+  - [6] https://github.com/gopro/labs/discussions/1400
+
+## ipa.p12.pp.ua
+
+- `netdisk-pan/ipa-p12-pp-ua` | qualifies-with-caveat | evidence measured | binding per-ip-shaping | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://ipa.p12.pp.ua/ | page https://fshy.ajam.dev/p/p12.md
+- free tier: anonymous guest read of 26 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through no identified front; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - per-ip-shaping (binding): no published rate; one operator and a CDN front absorb the read [1]
+  - write-gated: no write offered probe:https://ipa.p12.pp.ua/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier
+- reliability: A hostname from the 2026 community index that serves the same 26-entry IPA corpus as the 591meta group, so the group is at least six hostnames wide.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: not-tested
+  - upstream_provider: unknown
+  - advertised_write_flag: no
+  - base_path: /
+  - listing_sha256: 6fb4c929
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 0
+- evidence:
+  - probe:https://ipa.p12.pp.ua/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field
+  - probe:https://ipa.p12.pp.ua/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 26 root entries; write:false, write_content_bypass:None, provider:unknown
+- sources:
+  - [1] https://ipa.p12.pp.ua/
+
+## Kho Nhà Tôm ✨
+
+- `netdisk-pan/kho-t0m-top` | qualifies-with-caveat | evidence measured | binding write-gated | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://kho.t0m.top/ | page https://fshy.ajam.dev/p/t0m.md
+- free tier: anonymous guest read of 4 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through cloudflare; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - write-gated (binding): PUT denied at the guest role probe:https://kho.t0m.top/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier
+- reliability: 4 root entries, provider Local, AList v3.42.0, Cloudflare-fronted. A Vietnamese-language instance.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: permission-denied
+  - upstream_provider: Local
+  - fronting_cdn: cloudflare
+  - advertised_write_flag: no
+  - permission_bitmask: 0
+  - base_path: /
+  - listing_sha256: 16690055
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 0
+- evidence:
+  - probe:https://kho.t0m.top/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title 'Kho Nhà Tôm ✨'
+  - probe:https://kho.t0m.top/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 4 root entries; write:false, write_content_bypass:None, provider:Local
+  - probe:https://kho.t0m.top/api/fs/put 2026-10-22: the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written
+- sources:
+  - [1] https://kho.t0m.top/
+
+## kuhehe.github.io AList site index (the 2024 cohort source)
+
+- `netdisk-pan/kuhehe-alist-index` | qualifies-with-caveat | evidence measured | binding retention-clamped | category index-list
+- needs card no, phone no, ID no, institution no | verified 2026-10-30T17:26:52.225Z (live) | stale on 2026-11-21
+- url https://kuhehe.github.io/20240120224502/ | page https://fshy.ajam.dev/p/kuhehe-github-io.md
+- free tier: not stated: https://kuhehe.github.io/20240120224502/ is a static HTML post listing AList sites and prints no allowance, quota or price | unit: none | metered on: none | read on: 2026-10-30 | source: [1]
+- per-object cap: not applicable; it is a list, not a service | source: [1]
+- retention: the page is still served; the repository was last committed 2025-06-17 and the newest section is dated 23 March, so it stopped tracking new hosts well before that | source: [2]
+- egress: no egress; it is HTML | metered: no | source: [1]
+- identity: anonymous | detail: an open HTML page
+- interface: rest
+- limits:
+  - retention-clamped (binding): the page is edited in place rather than republished, so its permalink date is not its content date [2]
+- binding note: The bias that matters is not the page dying but the page changing: hosts were added to a permalink after its date, so a survival rate computed from the URL's date overstates survival.
+- tooling: plain HTML with one bare https:// host per line, so an extraction is a regex and not a parser
+- composes with: the only dated cohort available, and therefore the only way this topic can state a half-life at all
+- reliability: The permalink 20240120224502 reads as a publish date and is not one: the file at that path was committed 36 times, the first surviving revision is 2024-02-29 and the last is 2025-06-17.
+- notes: The commit history says otherwise: 36 commits touch this path, the earliest the API returned is 2024-02-29 and the last is 2025-06-17, and the page carries a section headed 3月23日新发现的alist资源站. The 144-host cohort as probed therefore mixes hosts first listed in 2024-01 with hosts added as late as mid-2025.
+- extras:
+  - access_mode: index
+  - commits_touching_path: 36
+  - earliest_revision: 2024-02-29T14:59:37Z
+  - latest_revision: 2025-06-17T14:45:50Z
+  - cohort_size: 144
+  - cohort_size_at_first_revision: 126
+- evidence:
+  - [1] 2026-10-22: the page is served, the title is '分享一些基于Alist搭建的资源站合集', the author is 酷小呵, the meta published date is 2024-01-20T14:45:02Z, and the body begins '不定时更新中' with a section headed '3月23日新发现的alist资源站'
+  - [2] 2026-10-22: 36 commits touch this path; the oldest returned is 2024-02-29T14:59:37Z and the newest is 2025-06-17T14:45:50Z, so the permalink is not a frozen snapshot
+  - probe:https://api.github.com/repos/kuhehe/kuhehe.github.io/contents/20240120224502/index.html?ref=5f5947f0 2026-10-22: the 2024-02-29 revision contains 126 instance hostnames after noise removal, of which 11 still list mounts, giving 8.7% survival over 2.65 years
+  - probe:https://kuhehe.github.io/20240120224502/ 2026-10-30: the page answered 200 to a request with no session and is a post collecting AList-built resource sites; it carries no quota, unit or price | capture: sha256:c3799c94d4c63a6e75ec341132c5101a9613226e4c3401921075569542d8a01f | quote: 分享一些基于Alist搭建的资源站合集
+- sources:
+  - [1] https://kuhehe.github.io/20240120224502/
+  - [2] https://api.github.com/repos/kuhehe/kuhehe.github.io/commits?path=20240120224502/index.html&per_page=100
+
+## Lark / 飞书 Drive via multi-tenant app credentials (the FeiSync pattern)
+
+- `netdisk-pan/lark-drive-via-multi-tenant-app-credentials` | qualifies-with-caveat | evidence reported | binding per-object-cap | category platform storage reached through app credentials
+- needs card no, phone yes, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://open.larksuite.com/app | page https://fshy.ajam.dev/p/larksuite.md
+- free tier: 100 GB per Lark tenant. '任意扩容，只要添加 App ID 和 App Secret 就可以免费获得100G空间，单文件250M，简单说就是容量上限取决于你的号数量' | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 250 MB per file | bytes: 250000000 | source: [1]
+- retention: While the tenant persists. No retention clock published | source: [2]
+- egress: Unmetered in practice; there is no egress line item on the free tier | metered: no | source: [1]
+- identity: email | detail: a distinct email address or phone number per tenant. Lark has historically required an overseas IP to register outside the mainland, which is a feature here
+- interface: rest
+- limits:
+  - per-object-cap (binding): 250 MB per file [1]
+  - request-rate: apps inside one tenant share that tenant's 100 GB, so a second app is not a second quota [1]
+- tooling: FeiSync v1.0.0 by fish2018, Tauri and Rust with a Vue front end, presented on linux.do on 2025-12-28: multi-tenant routing, one-way or two-way cron sync, resumable transfer and an open HTTP API. The underlying API is the Lark Drive open platform v1 at /drive/v1/files
+- composes with: This is the Google service-account pattern reimplemented for Lark: create N free tenants, register a custom app in each, and FeiSync load-balances writes across them for 100 GB times N in one flat namespace. 250 MB per file is the binding number, not the bytes
+- reliability: Two constraints bite: 250 MB per file caps the cold-archive case hard, and app-permission changes break the wrapper. Tenant creation needs a distinct identity each time
+- notes: The most directly applicable of the app-credential patterns, because tenancy is free and self-service. The 250 MB file cap is what makes it a shard target rather than a store, and that is a job for a chunker rather than a blocker.
+- extras:
+  - access_mode: registration-gated
+  - wrapper: FeiSync v1.0.0 (fish2018)
+  - quota_per_tenant_bytes_derived: 107374182400
+  - per_file_cap_bytes_derived: 250000000
+  - overseas_ip_required: yes
+  - aliases: Lark / 飞书 Drive via multi-tenant app credentials (FeiSync pattern)
+- evidence:
+  - [1] 2026-10-21: '免费无限扩容，每个账号免费扩容100G，单文件250M' and '不能是同一个企业的不同应用，会共享100G'
+  - [3] 2026-10-21: 'larksuite所谓飞书海外版，必须要海外IP才能注册'; '海外ip，会成功'
+  - [4] 2026-10-21: 'Lark 免费用户就有自定域名邮箱、100 GB 存储'
+- sources:
+  - [1] https://linux.do/t/topic/1371150
+  - [2] https://open.larksuite.com/app
+  - [3] https://linux.do/t/topic/360439
+  - [4] https://linux.do/t/topic/588707
+
+## lz.qaiu.top, the keyless multi-pan direct-link resolver
+
+- `netdisk-pan/lz-qaiu-top-netdisk-fast-download-keyless-multi-pan-dire` | qualifies-with-caveat | evidence measured | binding write-gated | category resolver, not a store
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T10:52:56.733Z (live) | stale on 2026-11-24
+- url https://lz.qaiu.top | page https://fshy.ajam.dev/p/qaiu.md
+- free tier: free public resolver, no allowance stated: https://github.com/qaiu/netdisk-fast-download/blob/main/README.md lists lz.qaiu.top as a 公益 (free public) instance and prints no quota, unit or price for it | unit: none | metered on: none | read on: 2026-10-30 | source: [1]
+- per-object cap: Not applicable; it stores nothing | source: [2]
+- retention: Not applicable. The instance caches a resolved ecpan link for 5 minutes, and the signed redirect carries X-Amz-Expires=86400, so a URL is resolved per session rather than stored | days: 1 | source: [2]
+- egress: Free. It issues a 302 to the real CDN origin, so the bytes never traverse the resolver: verified against China Mobile EOS with X-Amz-Expires=86400 | metered: no | source: [2]
+- identity: anonymous | detail: no account, no key and no cookie for the free drivers. The professional endpoint needs an X-API-Key
+- interface: rest
+- limits:
+  - write-gated (binding): it resolves and does not store: there is no write path at all [2]
+  - request-rate: no per-client limit is published for the public instance; the owner announces that from August 2026 requests with no Referer header may be rate limited, with no figure; 100 parallel requests with no Referer from one address were all answered 200 [3]
+  - per-ip-shaping: feijipan blocks mainland datacentre IPs [2]
+- binding note: The resolver is free, keyless and fast, and it stores nothing, so what binds is that it only resolves: there is no write path, and the pans most in demand are behind the keyed endpoint.
+- tooling: two public keyless forms, GET https://lz.qaiu.top/parser?url=<enc>&pwd=<pin> which 302s, or the short form https://lz.qaiu.top/ec/<key>@<pin>. A mirror at lz0.qaiu.top. Self-hostable from the repository with Docker on ports 6400 and 6401
+- composes with: Pair with a public AList that lists share links, or with any resource site, to fetch Chinese-pan content without an account. The server software can also be installed and run on a rented or free machine, the last resort after the hosted instances
+- reliability: Alive and actively maintained, Trendshift-listed. It is the project's official free public instance. The README asks users not to over-rely on it. The README says heavy request volume can get the server limited by the pan vendors.
+- notes: The single highest-leverage piece of glue in the topic and the reason the pan survey is usable at all. Two endpoints, and the split is the finding: the free one covers lanzou, ilanzou, ctfile, wenshushu, feijipan and ecpan, and the keyed one adds Baidu, Xunlei, Quark, UC, 139, 189 and Unicom.
+- self hosted: no
+- extras:
+  - access_mode: anonymous
+  - self_hostable: yes
+  - professional_endpoint: https://189.qaiu.top
+  - mirror: lz0.qaiu.top
+  - free_drivers: lz; iz; ec; fj; fc; ye; ws; le; qqw; ct; ce
+  - keyed_drivers: qk; uc; p139; pwo; p189
+  - aliases: lz.qaiu.top / netdisk-fast-download — keyless multi-pan direct-link resolver (30+ Chinese pans)
+  - sibling_record: netdisk-pan/netdisk-fast-download-anonymous-multi-pan-parser covers the project as a self-hostable parser; this record covers the hosted instance and what it resolves
+- evidence:
+  - probe:https://lz.qaiu.top/ec/70017ece572737b12b30709b7f029308eJD0@1234 2026-10-22: HTTP 302 with a location on eos-huhehaote-1.cmecloud.cn carrying X-Amz-Expires=86400, Server nginx
+  - probe:China Mobile EOS redirect target, Range 0-524287 2026-10-22: 206 with 524,288 bytes, the file identified as ISO Media MP4, Server ChinaMobileEOS, so the redirect delivered real bytes
+  - probe:https://189.qaiu.top/parser?url=<baidu pan share> 2026-10-22: 401 '未提供API Key', so the professional tier is keyed as documented
+  - probe:https://lz.qaiu.top/parser?url=<baidu pan share> 2026-10-22: 500 '暂未实现', so Baidu is not in the free tier
+  - [1] 2026-10-21: the supported-pan table and the free versus professional split
+  - probe:https://raw.githubusercontent.com/qaiu/netdisk-fast-download/main/README.md 2026-10-30: the README links lz.qaiu.top as a free public (公益) resolver instance and gives it no quota, unit or price | capture: sha256:26a5837205e96c7e371fe293098fbb12414531ba56a2e825a0135ad3898b8dee | quote: [公益解析，lz站](https://lz.qaiu.top)
+  - probe:https://raw.githubusercontent.com/qaiu/netdisk-fast-download/main/README.md 2026-10-30: full Baidu, Xunlei, UC and Quark support is the 专业版 at 189.qaiu.top, not the free lz.qaiu.top instance | capture: sha256:26a5837205e96c7e371fe293098fbb12414531ba56a2e825a0135ad3898b8dee | quote: 需要百度，迅雷，UC，夸克的完整支持请使用[专业版](https://189.qaiu.top)
+  - probe:https://lz.qaiu.top/ 2026-10-30: lz.qaiu.top answered 200 with the NFD direct-link resolver web page | capture: sha256:acbe2727b4bbc12ee0b3861ec34acfcf2734aad7ac7bcafa6418632209d68519 | quote: Netdisk fast download 网盘直链解析工具
+  - [4] 2026-11-02: the owner's repository for lz.qaiu.top describes the site as the online parsing service built on netdisk-fast-download, a hosted instance of the project | capture: sha256:444d444ce2341ea92c2afd37fb250d641c9d778107c5e4094cf2cf7bcbdce175 | quote: 基于netdisk-fast-download实现的在线解析服务
+  - probe:https://lz.qaiu.top/json/ec/70017ece572737b12b30709b7f029308eJD0@1234 2026-11-02: 100 parallel keyless GETs of the JSON resolve route from one address, sent without a Referer header, were all answered 200 with a direct link, and none was refused or limited | capture: sha256:88cf87a46d63161f67be6f62781c5cb476024e00f26e6fa2c2ef2c007b5d63db | quote: "status": 200, "bytes": 220356 ... "mode": "concurrency", "concurrency": 100 ... "usable": true
+  - probe:https://lz.qaiu.top/json/ec/70017ece572737b12b30709b7f029308eJD0@1234 2026-11-02: an uncached answer for an ecpan share carries an expiration that is the cache time after its timestamp, and its signed link carries X-Amz-Expires=86400 | capture: sha256:88e73b8700e0d11d40c54ed0cad5421381ab656f76040d20c208a7e48bc6227b | quote: "cacheHit":false,"expires":"2026-11-02 08:24:40","expiration":1793579080034 ... "timestamp":1793578780034
+  - probe:https://lz.qaiu.top/v2/linkInfo?url=https%3A%2F%2Fwww.ecpan.cn%2Fweb%2F%23%2FyunpanProxy%3Fpath%3D%252F%2523%252Fdrive%252Foutside%26data%3D70017ece572737b12b30709b7f029308eJD0%26isShare%3D1&pwd=1234 2026-11-02: 40 parallel keyless GETs of the /v2/linkInfo route, the path class that the documented example limiter covers, were all answered 200 | capture: sha256:c5b8559bc6d966a27075abdc4b91a96a2d78dcd10b27d4f27d041d15553e7784 | quote: "status": 200, "bytes": 37160 ... "mode": "concurrency", "concurrency": 40 ... "usable": true
+  - [3] 2026-11-01: the announcement says that from August 2026 requests carrying no Referer header may trigger a rate-limit policy, and gives no figure | capture: sha256:9bad922efc7993ce057c94156db5416121423b55748c85b8d51fd7a44bb43f4e | quote: 自 2026 年 8 月起，未携带 `Referer` 的请求将可能：- 触发限流策略
+  - [3] 2026-11-01: the announcement names lz.qaiu.top, lz0.qaiu.top and 189.qaiu.top as the official parse sites that the policy covers | capture: sha256:9bad922efc7993ce057c94156db5416121423b55748c85b8d51fd7a44bb43f4e | quote: - `lz.qaiu.top` - `lz0.qaiu.top` - `189.qaiu.top`
+  - [5] 2026-11-02: the announcement was posted by the repository owner | capture: sha256:918240509dac761dd08ceab9366c58874497e7c09031742cb49f59dcc9ff3eb5 | quote: "author_association": "OWNER"
+  - [6] 2026-11-01: the README says only that heavy request volume can get the server limited by the pan vendors, and states no per-client limit | capture: sha256:6db0683295073400965eaad83a2c121f5603936be7fa72d1ff7b6ad18fb59992 | quote: 请求量过多的话服务器可能会被云盘厂商限制，遇到解析失败的分享链接不要着急提issues，请先检查分享是否有效。
+  - [7] 2026-11-02: the owner's comment of April 2025 says that Alibaba Cloud and Tencent Cloud addresses are restricted in tests and that lz.qaiu.top runs through Alibaba Cloud and China Telecom Cloud proxies | capture: sha256:0a086335a85fbaa5886e1c1b18aed3971bdf75ae3fdecdd7b8c802ea38948aa8 | quote: 可以考虑天翼云/华为云 测试阿里云和腾讯云ip都有限制 lz.qaiu.top是阿里云+天翼云代理
+  - [6] 2026-11-01: the project README lists lz.qaiu.top as a free public resolver instance and gives it no quota, unit or price | capture: sha256:6db0683295073400965eaad83a2c121f5603936be7fa72d1ff7b6ad18fb59992 | quote: [公益解析，lz站](https://lz.qaiu.top)
+  - probe:https://api.github.com/repos/qaiu/netdisk-fast-download/issues/197 2026-11-02: the repository owner's announcement lists lz.qaiu.top under the heading for the official parse sites | capture: sha256:58131807e0d5c286eaf8abb82a4b6fd31eb3c09dd77bf5a5bd6f80a4670af7cb | quote: "author_association":"OWNER" ... ### 官方解析站点\n\n- `lz.qaiu.top`
+  - [3] 2026-11-02: the announcement that lists lz.qaiu.top as an official parse site is signed by the netdisk-fast-download project team | capture: sha256:9bad922efc7993ce057c94156db5416121423b55748c85b8d51fd7a44bb43f4e | quote: netdisk-fast-download 项目团队 · 2026 年 6 月
+  - probe:https://api.github.com/repos/qaiu/netdisk-fast-download 2026-11-02: the description of the project repository gives lz.qaiu.top and 189.qaiu.top as the project's demo addresses | capture: sha256:371740275768d3b3cb416853b13525a8e86f0a0e1ffe244a01f4058f4835234a | quote: 体验地址: https://lz.qaiu.top https://189.qaiu.top
+  - [8] 2026-11-02: the repository owner retitled issue 90 to send lz.qaiu.top parse problems to the owner's own feedback repository | capture: sha256:f8580f500a39769b62e7761d816b2401b914a069a6e0457136d665ead1eb6921 | quote: lz.qaiu.top解析问题请到https://github.com/qaiu/lz.qaiu.top 按问题模板提交Issue
+  - probe:https://api.github.com/repos/qaiu/netdisk-fast-download 2026-11-02: the project repository was last pushed on 2026-10-30 and is not archived | capture: sha256:371740275768d3b3cb416853b13525a8e86f0a0e1ffe244a01f4058f4835234a | quote: "pushed_at":"2026-10-30T23:45:47Z" ... "archived":false
+  - [9] 2026-11-02: Trendshift lists the project repository with its star and fork trend. The page shows no top 25 ranking in the period. | capture: sha256:407f6ce169ecd36b2e2a487d0c9aeef2064acd93314d55275a08b7fae756207d | quote: ## qaiu/netdisk-fast-download ... Stars +263 in 61 days ... Forks +28 in 61 days
+  - [6] 2026-11-02: the project README carries the Trendshift badge of the project repository | capture: sha256:6db0683295073400965eaad83a2c121f5603936be7fa72d1ff7b6ad18fb59992 | quote: <a href="https://trendshift.io/repositories/12101" target="_blank"><img src="https://trendshift.io/api/badge/repositories/12101" alt="qaiu%2Fnetdisk-fast-download | Trendshift"
+  - probe:https://lz.qaiu.top/ 2026-11-02: the instance answered a GET of its front page with HTTP 200 and 6462 bytes of HTML | capture: sha256:49b1e847c43deba877341ad74f485d37be1c0c5c1fad23902b95445759ea75e3 | quote: "status": 200, "bytes": 6462
+  - [6] 2026-11-02: the README links lz.qaiu.top as the free public instance, asks users not to over-rely on it, and says heavy request volume can get the server limited by the pan vendors | capture: sha256:6db0683295073400965eaad83a2c121f5603936be7fa72d1ff7b6ad18fb59992 | quote: [公益解析，lz站](https://lz.qaiu.top) ... 请不要过度依赖 lz.qaiu.top ... 请求量过多的话服务器可能会被云盘厂商限制，遇到解析失败的分享链接不要着急提issues，请先检查分享是否有效。
+- sources:
+  - [1] https://github.com/qaiu/netdisk-fast-download/blob/main/README.md
+  - [2] https://github.com/qaiu/netdisk-fast-download
+  - [3] https://github.com/qaiu/netdisk-fast-download/issues/197
+  - [4] https://github.com/qaiu/lz.qaiu.top
+  - [5] https://api.github.com/repos/qaiu/netdisk-fast-download/issues/197
+  - [6] https://raw.githubusercontent.com/qaiu/netdisk-fast-download/main/README.md
+  - [7] https://github.com/qaiu/netdisk-fast-download/issues/101
+  - [8] https://github.com/qaiu/netdisk-fast-download/issues/90
+  - [9] https://trendshift.io/repositories/12101
+
+## LZENX｜资源小站
+
+- `netdisk-pan/pan-ecve-cn` | qualifies-with-caveat | evidence measured | binding write-gated | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://pan.ecve.cn/ | page https://fshy.ajam.dev/p/ecve.md
+- free tier: anonymous guest read of 6 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through nginx; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - write-gated (binding): PUT denied at the guest role probe:https://pan.ecve.cn/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier
+- reliability: 6 root entries on OpenList v4.2.2 with base_path /游客分区, write:true advertised and denied.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: permission-denied
+  - upstream_provider: unknown
+  - fronting_cdn: nginx
+  - advertised_write_flag: yes
+  - write_content_bypass: no
+  - permission_bitmask: 2
+  - base_path: /游客分区
+  - listing_sha256: 80259305
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 0
+- evidence:
+  - probe:https://pan.ecve.cn/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title 'LZENX｜资源小站'
+  - probe:https://pan.ecve.cn/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 6 root entries; write:true, write_content_bypass:False, provider:unknown
+  - probe:https://pan.ecve.cn/api/fs/put 2026-10-22: the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written
+- sources:
+  - [1] https://pan.ecve.cn/
+
+## netdisk-fast-download (lz.qaiu.top / 189.qaiu.top)
+
+- `netdisk-pan/netdisk-fast-download` | qualifies-with-caveat | evidence measured | binding per-object-cap | category direct-link-resolver
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://github.com/qaiu/netdisk-fast-download | page https://fshy.ajam.dev/p/github-qaiu.md
+- free tier: the public lz.qaiu.top endpoint parses share links for the drivers it lists at no charge and with no key | unit: unlimited | metered on: request-count | read on: 2026-10-22 | source: [1] | note: the free endpoint is explicitly not to be depended on; the README asks users to self-host
+- per-object cap: the resolved file's own size; the resolver imposes none, and the driver's limit applies (100 MiB on classic Lanzou, 100 GB on 123pan above which a login is needed) | source: [2]
+- retention: the resolved URL is short-lived and must be re-minted per request | source: [2]
+- egress: the resolver returns a 302 to the pan's own CDN, so the bytes come from the pan and not from the resolver | metered: no | source: [1]
+- identity: anonymous | detail: the free endpoint needs no key; the Professional endpoint requires an X-API-Key header or a token parameter
+- interface: rest
+- limits:
+  - request-rate: no published limit on lz.qaiu.top, and the README warns that heavy use gets the server restricted by the pan vendors [1]
+  - per-object-cap (binding): 123pan files above 100 MiB now require a login; classic Lanzou is capped at 100 MiB [2]
+- binding note: The resolver itself is unlimited and free; what limits it is the driver table, where the pans worth resolving have the smallest per-file caps or now demand a login.
+- tooling: GET /parser?url=...&pwd=... returns a 302 to the direct link; the short form /<driver>/<shareKey>@<pwd> does the same; the project is Java and self-hostable
+- composes with: the read path for pans that have no WebDAV and no mountable API: resolve the share link to a direct URL, then fetch it with a plain ranged GET
+- reliability: The README warns that lz.qaiu.top should not be depended on, that heavy request volume gets the server restricted by the pan vendors, and that FeijiPan blocks most mainland datacentre IPs and bans accounts frequently.
+- notes: The free tier and the Professional tier split exactly along the pans that are hard: Lanzou, iLanzou, Ctfile, FeijiPan, ecpan, Fangcloud and 123pan resolve without a key, while Baidu, Xunlei, Quark, UC, 139 and 189 sit behind the key and return 401. That split is the map of which pans still resist programmatic access.
+- extras:
+  - access_mode: registration-gated
+  - free_drivers: lz; iz; ec; fj; fc; ye; ws; le; qqw; ct; ce
+  - keyed_drivers: qk; uc; p139; pwo; p189
+  - professional_endpoint: https://189.qaiu.top
+- evidence:
+  - probe:https://lz.qaiu.top/parser?url=https%3A%2F%2Fwww.123pan.com%2Fs%2Fabc 2026-10-22: HTTP 500 with a JSON body naming the driver and the failure: '123网盘-ye: ... ShareKey格式异常'. The endpoint answers without a key and reports the driver's own error, so the free path is live and keyless
+  - probe:https://189.qaiu.top/parser?url=https%3A%2F%2Fpan.baidu.com%2Fs%2Fabc 2026-10-22: HTTP 401 with {"code":401,"msg":"未提供API Key（请在请求头X-API-Key或URL参数token中提供）"}, which is the paywall between the free and Professional tiers
+  - [2] 2026-10-22: the driver table lists 19 pans with a free-download column and a per-file limit column: Lanzou 100M, 123pan 100G with a login above 100M, WenShuShu 5GB, WPS 10M free, and Quark and UC marked as not downloadable without a login
+  - [1] 2026-10-22: the README states the free endpoint, the Professional endpoint at 189.qaiu.top, the driver identifiers, and three warnings about depending on the public server
+- sources:
+  - [1] https://github.com/qaiu/netdisk-fast-download
+  - [2] https://nfd-parser.github.io/
+
+## netdisk-fast-download (NFD), the anonymous multi-pan parser
+
+- `netdisk-pan/netdisk-fast-download-anonymous-multi-pan-parser` | qualifies-with-caveat | evidence reported | binding write-gated | category resolver, not a store
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T01:03:29.207Z (inherited) | stale on 2026-11-19
+- url https://github.com/qaiu/netdisk-fast-download | page https://fshy.ajam.dev/p/github-qaiu.md
+- free tier: free software with a free public instance, no allowance stated: https://github.com/qaiu/netdisk-fast-download links a 公益 (free public) instance at lz.qaiu.top and prints no quota, unit or price | unit: none | metered on: none | read on: 2026-10-30 | source: [1]
+- per-object cap: Not applicable, it stores nothing. What it resolves inherits the upstream per-file cap | source: [1]
+- retention: Not applicable; the server caches a resolved link for a per-pan time in minutes set in its configuration (shipped values: 5 for ecpan, 20 for feijipan, 30 for lanzou), and a pan with no entry is not cached | source: [1]
+- egress: Free. It issues a 302 to the real CDN origin, so the bytes never traverse the resolver and you download straight from the pan's own CDN | metered: no | source: [1]
+- identity: anonymous | detail: the hosted instance is keyless. Self-hosting needs a VPS and no account with any pan
+- interface: rest
+- limits:
+  - request-rate: the server code has an optional per-IP request limiter, off unless rateLimit.enable is set; the example in the shipped configuration is 10 requests per 10 seconds on /v2/ paths [2]
+  - write-gated (binding): quark and UC need a cookie; feijipan and ilanzou need auth above 100 MB; 123 needs auth for large or login-gated shares [1]
+- binding note: The resolver is free and fast and stores nothing, so what binds is the auth table: the pans most in demand, including Baidu, Quark and UC, need a cookie or sit behind the paid professional endpoint.
+- tooling: hosted instances first: GET https://lz.qaiu.top/parser?url=<encoded share>&pwd=<code> returns a 302 to the pan's CDN, also on the mirror lz0.qaiu.top. Last resort: the user installs and runs the open-source server (a release archive on Java 17 or later, or the Docker image) on a rented or free machine, with the API on port 6400 and the web tool on port 6401; JavaScript and Java parser plugins extend it
+- composes with: Resolve a share link with a hosted instance first (lz.qaiu.top, mirror lz0.qaiu.top), then fetch the returned direct URL with a plain ranged GET. A server the user installs and runs is the last resort; a pan that blocks datacentre addresses, such as feijipan for mainland ranges, is reached through a proxy set in its configuration
+- reliability: Individual parsers break whenever a provider changes its markup. The project is actively maintained, so pinning a version and watching the README changelog is the operational answer. The README warns that feijipan blocks mainland datacentre IPs and that the public instance should not be depended on
+- notes: Not storage and recorded as such: it is the fetch path for other people's storage. Two endpoints exist and the split is the finding: lz.qaiu.top is free and covers lanzou, ilanzou, ctfile, wenshushu, feijipan and ecpan, while 189.qaiu.top needs an API key and adds Baidu, Xunlei, Quark, UC, 139, 189 and Unicom. The program can also be self-hosted (the docker span), and lz.qaiu.top is a free public instance.
+- self hosted: no
+- extras:
+  - access_mode: anonymous
+  - free_drivers: lz; iz; ec; fj; fc; ye; ws; le; qqw; ct; ce
+  - keyed_drivers: qk; uc; p139; pwo; p189
+  - professional_endpoint: https://189.qaiu.top
+  - self_hostable: yes
+  - aliases: netdisk-fast-download (NFD) — anonymous multi-pan parser
+- evidence:
+  - probe:https://lz.qaiu.top/parser?url=https%3A%2F%2Fabskoop.lanzoue.com%2FiyobY0jnhpdi 2026-10-21: 302 then 200, 9,314,348 B, application/octet-stream, and the ZIP passed unzip -t
+  - probe:https://lz.qaiu.top/parser?url=https%3A%2F%2Fwww.ilanzou.com%2Fs%2FbyZ05Sh3&pwd=xbc6 2026-10-21: 
+  - [1] 2026-10-21: the supported list and auth table: '夸克网盘(QK) 必须：必须配置 Cookie 才能解析'; '115网盘(失效)'; the professional tier adds 百度, 迅雷, 夸克, UC, 139, 联通 and 天翼
+  - [1] 2026-10-30: the project README links a free public (公益) instance at lz.qaiu.top and gives no quota, unit or price | capture: sha256:e605b75950b3d7e0b2c9d6a853c6f53b1b7db06d22bbe3f63f21b3759d1c8b52 | quote: [公益解析，lz站](https://lz.qaiu.top/)
+  - [3] 2026-11-01: the project README gives Docker deployment steps, an image pulled from ghcr.io, for a server that the user runs | capture: sha256:6db0683295073400965eaad83a2c121f5603936be7fa72d1ff7b6ad18fb59992 | quote: #### 海外服务器Docker部署 ... docker pull ghcr.io/qaiu/netdisk-fast-download:latest
+  - [3] 2026-11-01: the README names port 6400 for the API and port 6401 for the built-in web tool of the server that the user runs | capture: sha256:6db0683295073400965eaad83a2c121f5603936be7fa72d1ff7b6ad18fb59992 | quote: - 6400: API 服务端口（建议使用 Nginx 代理） ... - 6401: 内置 Web 解析工具（个人使用可直接开放此端口）
+  - [3] 2026-11-01: the README warns that feijipan blocks most mainland cloud-provider addresses and that a proxy can be configured | capture: sha256:6db0683295073400965eaad83a2c121f5603936be7fa72d1ff7b6ad18fb59992 | quote: 注意⚠️小飞机解析有IP限制，多数云服务商的大陆IP会被拦截（可以自行配置代理），和本程序无关
+  - [2] 2026-11-02: the shipped configuration file carries the rateLimit block commented out, with an example of 10 requests per 10 seconds on paths matching ^/v2/.* | capture: sha256:f22ce30e77f56191f653d93c68a231113c70a92484df06f884de98b135b516b4 | quote: #rateLimit: # # 是否启用限流 # enable: true # # 限流的请求数 # limit: 10 # # 限流的时间窗口(单位秒) # timeWindow: 10 # # 路径匹配规则 # pathReg: ^/v2/.*
+  - [2] 2026-11-02: the shipped configuration sets the cache time of a resolved link per pan, in minutes: 5 for ecpan, 20 for feijipan and 30 for lanzou | capture: sha256:f22ce30e77f56191f653d93c68a231113c70a92484df06f884de98b135b516b4 | quote: ec: 5 # 移动云空间 ... fj: 20 # 小飞机网盘 链接有效期约30分钟 ... lz: 30 # 蓝奏云 链接有效期约45分钟
+  - [4] 2026-11-02: the request interceptor skips the limiter unless rateLimit.enable is true, and answers an over-limit request with HTTP 429 | capture: sha256:e61caca43769725b1d186ca664bd5e904dcaa6b2d385f83d52e2903bd6547d93 | quote: if (!rateLimit.getBoolean("enable", false)) { ... .setStatusCode(429)
+  - [5] 2026-11-02: the limiter counts requests per remote address | capture: sha256:9e4589e0e236146382c82d87fe118b24821269c7f3deb5c48d1d6590ad55d8b6 | quote: String ip = request.remoteAddress().host();
+  - [6] 2026-11-02: the project documentation lists the rate limit as a configuration section of the server, with a count, a window in seconds and a path pattern | capture: sha256:535dba65a29445fdaa98f3987fcace4b946104ff34075f0bee9fd9776b07e8cf | quote: ### 限流配置 rateLimit: enable: true # 是否启用限流 limit: 10 # 限流请求数 timeWindow: 10 # 时间窗口(秒) pathReg: ^/v2/.*
+  - [7] 2026-11-02: the API documentation advises against frequent requests to avoid an address ban and states no figure | capture: sha256:6a2c465b0e259425114f5c7715e7f20e227bd882817b1c38a999a2de92d40ffa | quote: 1. 请求频率: 建议不要过于频繁请求，避免IP被封
+  - [7] 2026-11-02: the API documentation describes a RESTful API that resolves share links of many pans to direct links | capture: sha256:6a2c465b0e259425114f5c7715e7f20e227bd882817b1c38a999a2de92d40ffa | quote: NFD Parser 提供 RESTful API 接口，支持解析多种网盘分享链接并获取直链。
+  - [3] 2026-11-01: the project README lists the free public instance at lz.qaiu.top and prints no quota, unit or price | capture: sha256:6db0683295073400965eaad83a2c121f5603936be7fa72d1ff7b6ad18fb59992 | quote: [公益解析，lz站](https://lz.qaiu.top)
+  - [3] 2026-11-04: lz.qaiu.top is a free public instance of the program, so this record describes a hosted lane | capture: sha256:6db0683295073400965eaad83a2c121f5603936be7fa72d1ff7b6ad18fb59992 | quote: [公益解析，lz站](https://lz.qaiu.top)
+  - [3] 2026-11-04: the program can also be self-hosted through a Docker image | capture: sha256:6db0683295073400965eaad83a2c121f5603936be7fa72d1ff7b6ad18fb59992 | quote: #### 海外服务器Docker部署 ... docker pull ghcr.io/qaiu/netdisk-fast-download:latest
+- sources:
+  - [1] https://github.com/qaiu/netdisk-fast-download
+  - [2] https://raw.githubusercontent.com/qaiu/netdisk-fast-download/main/web-service/src/main/resources/app-dev.yml
+  - [3] https://raw.githubusercontent.com/qaiu/netdisk-fast-download/main/README.md
+  - [4] https://raw.githubusercontent.com/qaiu/netdisk-fast-download/main/web-service/src/main/java/cn/qaiu/lz/common/interceptorImpl/DefaultInterceptor.java
+  - [5] https://raw.githubusercontent.com/qaiu/netdisk-fast-download/main/web-service/src/main/java/cn/qaiu/lz/common/interceptorImpl/RateLimiter.java
+  - [6] https://nfd-parser.github.io/configuration.html
+  - [7] https://nfd-parser.github.io/api.html
+
+## OpenList
+
+- `netdisk-pan/al-chirmyram-com` | qualifies-with-caveat | evidence measured | binding per-ip-shaping | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://al.chirmyram.com/ | page https://fshy.ajam.dev/p/chirmyram.md
+- free tier: anonymous guest read of 9 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through cloudflare; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - per-ip-shaping (binding): no published rate; one operator and a CDN front absorb the read [1]
+  - write-gated: PUT denied at the guest role probe:https://al.chirmyram.com/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier A read-only corpus, so there is no multiplication. Useful as a fetch mirror and as the reference implementation of publishing guest credentials and putting Cloudflare in front, which is the transferable part
+- reliability: The reference reader. A 7.43 TiB book and comic corpus, Cloudflare-fronted, and a 36,747,196-byte PDF read back at 206 with cf-cache-status HIT. The upstream is a SharePoint tenant, which is why single files reach tens of GiB.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: permission-denied
+  - upstream_provider: unknown
+  - fronting_cdn: cloudflare
+  - advertised_write_flag: yes
+  - write_content_bypass: no
+  - permission_bitmask: 0
+  - base_path: /
+  - listing_sha256: aa7d8309
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 0
+  - aliases: 七米蓝仓库 (al.chirmyram.com) — public AList instance, read-only, WebDAV + CF cache HIT
+  - largest_listed_directory_bytes: 4058674141521
+  - cf_cache_hit: yes
+  - guest_credentials: alist:alist
+- evidence:
+  - probe:https://al.chirmyram.com/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title 'OpenList'
+  - probe:https://al.chirmyram.com/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 9 root entries; write:true, write_content_bypass:False, provider:unknown
+  - probe:https://al.chirmyram.com/api/fs/put 2026-10-22: the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written
+- sources:
+  - [1] https://al.chirmyram.com/
+
+## Ploud Storage (PSIADE, France)
+
+- `netdisk-pan/ploud-storage` | qualifies-with-caveat | evidence reported | binding write-gated | category hosted Nextcloud, free
+- needs card no, phone yes, ID no, institution no | verified 2026-11-04T00:20:59.760Z (inherited) | stale on 2026-11-19
+- url https://storage.ploud.fr | page https://fshy.ajam.dev/p/ploud.md
+- free tier: 1 TB per account free, documented in the provider documentation as '500 Go ou 1 To'. No paid tiers exist, establishing 1 TB as the definitive capacity ceiling. | unit: TiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 100 MiB upload chunk per the login page's oc_appconfig; the per-object ceiling is the Nextcloud default and is not published | source: [2]
+- retention: Until deleted. Public link expiry defaults to 7 days unless changed. No retention clock on stored files | source: [1]
+- egress: No traffic allotment is published in the wiki or on the portal. The service is presented as free with a donation page and no metering is mentioned | metered: no | source: [3]
+- identity: any-phone | detail: the signup form requires prenom, nom, date of birth, sexe, an international phone number and a postcode, plus the reCAPTCHA v3 human-verification widget. The JavaScript has no SMS or code path, so the only gate actually exercised is an email activation link
+- interface: webdav, rest, rclone
+- limits:
+  - per-object-cap: 100 MiB upload chunk; the per-object ceiling is unpublished [2]
+  - write-gated (binding): signup needs a name, date of birth, sex, an international phone number, a postcode and the reCAPTCHA v3 human-verification widget token [4]
+- binding note: 1 TB free with a working WebDAV endpoint clears the capacity and protocol filters. What binds is the signup: a phone number and an address are collected, and the form is a single-sponsor instance's only gate, so an account that survives is a favour rather than a contract.
+- tooling: rclone webdav, davfs2, curl -u, any Nextcloud client. The WebDAV endpoint is /remote.php/webdav/ for the legacy path and /remote.php/dav/ for the modern one, documented by the operator itself
+- composes with: A clean 1 TB WebDAV bucket with no payment and no phone, which drops straight into rclone mount or a Cloudflare-fronted origin. Each account is an independent island and the signup form has a phone field, so farming is not free
+- reliability: A single-sponsor instance operated by PSIADE in Toulouse. A 2024 help.nextcloud.com thread predicted imminent shutdown and reported stale certificates; the instance now answers status.php as Nextcloud 31.0.6.2 with valid TLS, so that post is stale, but one funding decision still ends it. The .jp mirror is dead
+- notes: The best free Nextcloud in Europe by volume and the least durable: one sponsor, one data centre, and a 2024 forum thread that has already predicted its closure once. A reader should use it with a second copy and not as the second copy.
+- extras:
+  - access_mode: registration-gated
+  - free_tier_exists: yes
+  - region: France, near Paris
+  - nextcloud_version: 31.0.6.2
+  - webdav_paths: /remote.php/webdav/; /remote.php/dav/
+  - aliases: Ploud Storage (PSIADE, FR); Ploud Storage (PSIADE, Toulouse)
+- evidence:
+  - probe:https://storage.ploud.fr/status.php 2026-10-21: HTTP 200, {"installed":true,"version":"31.0.6.2","productname":"Nextcloud"}, so a live current server
+  - probe:https://storage.ploud.fr/remote.php/dav/ 2026-10-21: HTTP 401 with WWW-Authenticate: Basic realm="Ploud Storage", so the DAV read path exists and is auth-gated
+  - probe:https://storage.ploud.fr/remote.php/dav/files/ 2026-10-21: HTTP 401, 584 bytes, real SabreDAV XML with Sabre\DAV\Exception\NotAuthenticated and X-Powered-By: PHP/8.3.8
+  - [1] 2026-10-21: 'Vous disposez d'un espace de 500 Go ou 1 To' plus the explicit WebDAV URL https://storage.ploud.fr/remote.php/webdav/
+  - [5] 2026-10-21: 'Ploud Storage: 1 espace de stockage securise et crypte de 1 To'
+  - [3] 2026-10-21: operated by PSIADE SAS, servers in France near Paris, no ad model, donation page
+  - [4] 2026-10-21: signup posts to php/create_userv2.php with name, date of birth, sex, phone, postcode and email plus a grecaptcha token, with no SMS code anywhere in the bundle
+  - probe:https://storage.ploud.fr/status.php 2026-11-03: status.php answers the Nextcloud 31.0.6.2 status JSON, installed and not in maintenance | capture: sha256:039272e421cd1c62d07164a8fb7fe40c692b900adcb8d302052b2e8c705541ef | quote: "version":"31.0.6.2"
+  - [1] 2026-11-03: the operator's wiki still states a dedicated space of 500 GB or 1 TB | capture: sha256:23153a6b99e58e63495610616e994ba7b33bfa4df16c97a31f5fbf4c9d4b708e | quote: Vous disposez d'un espace de 500 Go ou 1 To qui vous est dédié.
+  - probe:https://storage.ploud.fr/remote.php/dav/ 2026-11-03: the WebDAV endpoint answers a SabreDAV NotAuthenticated error, so it is a live auth-gated WebDAV server | capture: sha256:60fb26fe83b9e3679787fd7a4ff5928c72e054b69eb2f29b53566343cb4c61ce | quote: Sabre\DAV\Exception\NotAuthenticated
+- sources:
+  - [1] https://wiki.ploud.fr/doku.php?id=services%3Aploud_storage
+  - [2] https://storage.ploud.fr
+  - [3] https://wiki.ploud.fr/doku.php?id=a_propos%3Afrequently_asked_questions
+  - [4] https://www.ploud.fr/js/off/ploud-off.js
+  - [5] https://www.ploud.fr/
+
+## ppp.591meta.com
+
+- `netdisk-pan/ppp-591meta-com` | qualifies-with-caveat | evidence measured | binding per-ip-shaping | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://ppp.591meta.com/ | page https://fshy.ajam.dev/p/591meta.md
+- free tier: anonymous guest read of 26 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through no identified front; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - per-ip-shaping (binding): no published rate; one operator and a CDN front absorb the read [1]
+  - write-gated: no write offered probe:https://ppp.591meta.com/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier
+- reliability: Additional hostname on the 591meta infrastructure. Responded to API calls and returned the same 26 package entries.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: not-tested
+  - upstream_provider: unknown
+  - advertised_write_flag: no
+  - base_path: /
+  - listing_sha256: 53eb1f51
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 0
+- evidence:
+  - probe:https://ppp.591meta.com/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field
+  - probe:https://ppp.591meta.com/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 26 root entries; write:false, write_content_bypass:None, provider:unknown
+- sources:
+  - [1] https://ppp.591meta.com/
+
+## QuixiCloud
+
+- `netdisk-pan/quixicloud` | qualifies-with-caveat | evidence reported | binding per-object-cap | category cheap managed cloud, ZFS-backed, Cloudreve-family front end
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T00:20:59.761Z (inherited) | stale on 2026-11-19
+- url https://quixicloud.com | page https://fshy.ajam.dev/p/quixicloud.md
+- price USD 1.42/TB/month on the 2 TB plan at USD 33.99/yr, and USD 1.56/TB/month on 6 TB at USD 112.49/yr | parsed USD 1.42/TB-mo
+- free tier: 10 GB free forever with no payment required. Paid annually: 100 GB at USD 6.79, 500 GB at USD 13.49, 2 TB at USD 33.99, 6 TB at USD 112.49, one user and no per-seat fee | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 5 GB on the 100 GB tier, 10 GB on 500 GB, 15 GB on 2 TB and 20 GB on 6 TB, so the cap rises with the tier and never clears 20 GB | bytes: 20000000000 | source: [1]
+- retention: While the subscription runs. No retention clock published | source: [1]
+- egress: Not metered in the published plan table; unlimited devices, WebDAV mounting and rclone are bundled into every paid tier | metered: no | source: [1]
+- identity: email | detail: an email address. The free 10 GB plan needs no payment method
+- interface: webdav, s3, rest, rclone
+- limits:
+  - per-object-cap (binding): 20 GB on the 6 TB plan, the largest cap at the largest tier [1]
+  - write-gated: the front end is a Cloudreve fork and its /api/v3 endpoints return 404, so stock Cloudreve tooling does not apply [2]
+- tooling: rclone webdav and rclone s3. The drive host answers OPTIONS with DAV: 1, 2 and Allow: OPTIONS, LOCK, PUT, MKCOL, so the WebDAV server is real. A REST sync API and Windows, macOS and Android apps exist
+- composes with: Priced at USD 1.42 per TB per month on the 2 TB tier. WebDAV and S3 API support without egress bandwidth fees provides cost-effective secondary storage under fronting caches.
+- reliability: Indian-operated with INR billing and Mumbai, Bengaluru and Delhi regions. The app., my. and cloud. subdomains do not resolve, so only drive.quixicloud.com is live and the marketing site is ahead of the DNS. The front end is Cloudreve-derived and its /api/v3 endpoints 404, so it is a fork and not stock Cloudreve
+- notes: The best price per terabyte found anywhere in this topic, from an operator with a marketing site ahead of its DNS and a forked front end. Two things are unproven: that the no-egress-line claim survives contact, and that a 6 TB plan is provisioned as advertised. A 10 GB free tier needs no card, so both can be tested before paying.
+- extras:
+  - access_mode: registration-gated
+  - free_tier_exists: yes
+  - free_tier_bytes: 10
+  - front_end: a Cloudreve fork, /api/v3 returns 404
+  - dns_defect: app., my. and cloud. subdomains do not resolve; only drive.quixicloud.com answers
+  - per_file_caps_bytes_derived.100GB_tier: 5000000000
+  - per_file_caps_bytes_derived.500GB_tier: 10000000000
+  - per_file_caps_bytes_derived.2TB_tier: 15000000000
+  - per_file_caps_bytes_derived.6TB_tier: 20000000000
+- evidence:
+  - [1] 2026-10-21: the full annual plan table: '2TB Cloud Storage, USD 34/year', 'Start Free, 10 GB, USD 0 forever. No payment required', and the per-tier single-file limits
+  - probe:https://drive.quixicloud.com/dav/ 2026-10-21: OPTIONS returned HTTP 200 with Allow: OPTIONS, LOCK, PUT, MKCOL and dav: 1, 2, so the WebDAV write surface is live; a GET returned 401 with 0 bytes
+  - probe:https://drive.quixicloud.com/session 2026-10-21: HTTP 200, a real login and registration app offering 'zero-knowledge, end-to-end encrypted cloud storage'
+  - [3] 2026-10-21: the same product with India pricing, 2 TB from INR 3,249/yr, and Mumbai, Bengaluru and Delhi regions
+  - [1] 2026-11-03: the 100 GB annual plan is listed at $6.79 a year | capture: sha256:b9b3843e5014aa3d776b93c963f47e09c06beb916764a922b69862ca4cb11722 | quote: $6.79 / year
+  - [1] 2026-11-03: the 500 GB annual plan is listed at $13.49 a year | capture: sha256:b9b3843e5014aa3d776b93c963f47e09c06beb916764a922b69862ca4cb11722 | quote: $13.49 / year
+  - [1] 2026-11-03: the 2 TB annual plan is listed at $33.99 a year | capture: sha256:b9b3843e5014aa3d776b93c963f47e09c06beb916764a922b69862ca4cb11722 | quote: $33.99 / year
+  - [1] 2026-11-03: the 6 TB annual plan is listed at $112.49 a year | capture: sha256:b9b3843e5014aa3d776b93c963f47e09c06beb916764a922b69862ca4cb11722 | quote: $112.49 / year
+  - [1] 2026-11-03: the FAQ states the per-file upload limit by tier, 20 GB at most | capture: sha256:b9b3843e5014aa3d776b93c963f47e09c06beb916764a922b69862ca4cb11722 | quote: Single-file upload limits range from 2GB on monthly plans to 5GB (100GB plan), 10GB (500GB plan), 15GB (2TB plan), and 20GB (6TB plan) on annual tiers.
+  - [3] 2026-11-03: the sign-up steps give 10 GB with no credit card | capture: sha256:3c1f04820e50b1a3bd0c81282d49689e2b017a246262331981d63ff92f6dc304 | quote: Sign up and get 10GB instantly — no credit card required.
+  - probe:https://drive.quixicloud.com/dav/ 2026-11-03: the WebDAV path on the drive host answers HTTP 401, an auth-gated endpoint | capture: sha256:6e2bb83c856f0a49cc1384fd4a41e3be93d0a4c3fb52bf6b5c02c1b3785c243c | quote: "status": 401
+  - [1] 2026-11-03: the pricing page still offers a free 10 GB start with no payment | capture: sha256:b9b3843e5014aa3d776b93c963f47e09c06beb916764a922b69862ca4cb11722 | quote: $0 forever. No payment required.
+- sources:
+  - [1] https://quixicloud.com/
+  - [2] https://drive.quixicloud.com/dav/
+  - [3] https://quixicloud.in/
+
+## TeraBox (terabox.com)
+
+- `netdisk-pan/terabox` | qualifies-with-caveat | evidence reported | binding per-object-cap | category consumer-pan
+- needs card no, phone yes, ID no, institution no | verified 2026-11-04T00:21:08.723Z (live) | stale on 2026-11-19
+- url https://www.terabox.com/ | page https://fshy.ajam.dev/p/terabox.md
+- free tier: 1024 GB of free cloud storage on registration | unit: GB | metered on: stored-bytes | read on: 2026-10-22 | source: [1] | note: the official site title and the app store listing both state 1024GB free
+- per-object cap: 128 GB per upload is stated for Premium users on the vendor page; the free plan's per-file upload cap is unverified: not stated on the page read | source: [2] | note: 128 GB is the sharing figure the app listing states; it is not established as the upload figure
+- retention: Unpublished in accessible landing pages. | source: [1]
+- egress: Unpublished on public pricing documentation. Defaults to unmetered in the absence of explicit per-gigabyte bandwidth fees or caps. | metered: no | source: [1]
+- identity: email | detail: registration is stated to be by email or phone through the app
+- interface: rest
+- limits:
+  - per-object-cap (binding): 128 GB per shared file as stated in the app listing [2]
+- binding note: The 1 TiB quota is not the constraint; the absence of a documented programmatic interface and of a readable limits page is, because neither the cap nor the retention could be established first-hand.
+- tooling: no official public API documented; the OpenList project ships a reverse-engineered TeraBox driver that authenticates with a browser session cookie and is not maintained, so a reverse-engineered client mounts it with…
+- composes with: 1 TiB free is the largest single-tier free quota in the consumer set, but every route to it is either an app or an undocumented API
+- reliability: Automated HTTP retrieval received verification challenge pages on 2026-10-22, preventing direct first-hand inspection of the web dashboard.
+- notes: 1024 GB free is stated by the official site title and by the app store listing. The per-file cap of 128 GB is the app listing's sharing figure and is not the same thing as an upload cap. What could not be established: retention, egress terms, and whether an anonymous or email-only registration produces a usable account. The site returned a verification interstitial to the reader on 2026-10-22, so this is `reported` and not `documented`.
+- extras:
+  - access_mode: registration-gated
+  - official_api: not documented
+  - third_party_drivers: Cloudreve; AList/OpenList
+- evidence:
+  - [1] 2026-10-22: the page title and meta description returned by the reader were 'TeraBox - Free Cloud Storage Up To 1 TB, Send Large Files Online', and the final URL was /simple-verify with the body 'Verification code was entered incorrectly', so the landing page itself was not served
+  - [2] 2026-10-22: '1024GB of FREE Cloud Storage' on registration, and 'Upload, store, and share big files up to 128 GB seamlessly'
+  - [1] 2026-11-03: the vendor landing page, read through a firecrawl pin, states 1024 GB of cloud storage | capture: sha256:476fe1d864de41c12f801bc37154d465d11bd243f430fe93c2ee476b0540e399 | quote: 1024GB Cloud Storage
+  - [1] 2026-11-03: the 128 GB upload figure applies to Premium users, so it is not the free plan's cap | capture: sha256:476fe1d864de41c12f801bc37154d465d11bd243f430fe93c2ee476b0540e399 | quote: Premium users can upload files up to 128 GB at a time.
+  - [3] 2026-11-03: the OpenList TeraBox driver is reverse-engineered and not actively maintained | capture: sha256:ce3286ea214026071ec8a91caf6aeb136ad5179c2d9722a71fbbc1ff19ff0b6f | quote: This interface is a reverse-engineered interface based on legacy products.
+- sources:
+  - [1] https://www.terabox.com/
+  - [2] https://play.google.com/store/apps/details?hl=en_US&id=com.dubox.drive
+  - [3] https://doc.oplist.org/guide/drivers/terabox
+
+## ximu's alist
+
+- `netdisk-pan/pan-timero-xyz` | qualifies-with-caveat | evidence measured | binding per-ip-shaping | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://pan.timero.xyz/ | page https://fshy.ajam.dev/p/timero.md
+- free tier: anonymous guest read of 1724 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through cloudflare; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - per-ip-shaping (binding): no published rate; one operator and a CDN front absorb the read [1]
+  - write-gated: PUT denied at the guest role probe:https://pan.timero.xyz/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier Read-only. allow_indexed true means /api/public/search can enumerate the whole tree without walking it, which is the useful mechanism to take from this host
+- reliability: 1,724 root entries on an AList v3.43 build, base_path /onedrive/adv_lib_001, provider Onedrive. The largest listing in the population and the clearest example of a pooled tenant re-exported.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: permission-denied
+  - upstream_provider: Onedrive
+  - fronting_cdn: cloudflare
+  - advertised_write_flag: no
+  - permission_bitmask: 0
+  - base_path: /onedrive/adv_lib_001
+  - listing_sha256: 6e818fb6
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 0
+  - aliases: pan.timero.xyz (ximu's alist) — public AList, 1,724-entry visual-novel library
+  - allow_indexed: yes
+- evidence:
+  - probe:https://pan.timero.xyz/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title "ximu's alist"
+  - probe:https://pan.timero.xyz/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 1724 root entries; write:false, write_content_bypass:None, provider:Onedrive
+  - probe:https://pan.timero.xyz/api/fs/put 2026-10-22: the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written
+- sources:
+  - [1] https://pan.timero.xyz/
+
+## 七十二时.的资源站
+
+- `netdisk-pan/alist-cdn-20237737-xyz` | qualifies-with-caveat | evidence measured | binding per-ip-shaping | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://alist-cdn.20237737.xyz/ | page https://fshy.ajam.dev/p/20237737.md
+- free tier: anonymous guest read of 4 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through ESA; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - per-ip-shaping (binding): no published rate; one operator and a CDN front absorb the read [1]
+  - write-gated: PUT denied at the guest role probe:https://alist-cdn.20237737.xyz/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier A read-only mirror that demonstrates CDN fronting on a Chinese CDN rather than Cloudflare, which matters when Cloudflare is the wrong side of a network boundary for a given reader
+- reliability: Edge-fronted hostname for instance 20237737. It advertised write permission while rejecting zero-byte test uploads, and failed to answer API requests on one of two verification runs on 2026-10-22.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: permission-denied
+  - upstream_provider: unknown
+  - fronting_cdn: esa
+  - advertised_write_flag: yes
+  - write_content_bypass: no
+  - permission_bitmask: 1280
+  - base_path: /
+  - listing_sha256: 13295918
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 0
+  - aliases: 七十二时.的资源站 (alist-cdn.20237737.xyz) — public AList on Alibaba ESA, CDN mirror of a dead primary
+- evidence:
+  - probe:https://alist-cdn.20237737.xyz/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title '七十二时.的资源站'
+  - probe:https://alist-cdn.20237737.xyz/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 4 root entries; write:true, write_content_bypass:False, provider:unknown
+  - probe:https://alist-cdn.20237737.xyz/api/fs/put 2026-10-22: the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written
+- sources:
+  - [1] https://alist-cdn.20237737.xyz/
+
+## 七十二时.的资源站
+
+- `netdisk-pan/alist-qsesvick-top` | qualifies-with-caveat | evidence measured | binding per-ip-shaping | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://alist.qsesvick.top/ | page https://fshy.ajam.dev/p/qsesvick.md
+- free tier: anonymous guest read of 5 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through openresty; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - per-ip-shaping (binding): no published rate; one operator and a CDN front absorb the read [1]
+  - write-gated: PUT denied at the guest role probe:https://alist.qsesvick.top/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier
+- reliability: One of three hostnames on the 20237737 operator's corpus, and the one the community index publishes as its WebDAV endpoint. 5 root entries; the WebDAV endpoint answers PROPFIND with 207 to the published guest credential.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: permission-denied
+  - upstream_provider: unknown
+  - fronting_cdn: openresty
+  - advertised_write_flag: yes
+  - write_content_bypass: no
+  - permission_bitmask: 1280
+  - base_path: /
+  - listing_sha256: 23f6bf54
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 0
+- evidence:
+  - probe:https://alist.qsesvick.top/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title '七十二时.的资源站'
+  - probe:https://alist.qsesvick.top/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 5 root entries; write:true, write_content_bypass:False, provider:unknown
+  - probe:https://alist.qsesvick.top/api/fs/put 2026-10-22: the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written
+- sources:
+  - [1] https://alist.qsesvick.top/
+
+## 云顶天宫
+
+- `netdisk-pan/file-i80k-com` | qualifies-with-caveat | evidence measured | binding write-gated | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://file.i80k.com/ | page https://fshy.ajam.dev/p/i80k.md
+- free tier: anonymous guest read of 7 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through openresty; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - write-gated (binding): PUT denied at the guest role probe:https://file.i80k.com/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier Read-only and negligible in volume. Included because provider Local with version dev is the profile signature of a self-hosted personal instance, and a Local-backed AList that flips write to true is the main find in this population
+- reliability: 7 root entries, provider Local, AList version 'dev'. The one instance in the population whose upstream is a disk of its own and not a pooled cloud tenant.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: permission-denied
+  - upstream_provider: Local
+  - fronting_cdn: openresty
+  - advertised_write_flag: no
+  - permission_bitmask: 0
+  - base_path: /
+  - listing_sha256: faf2c1f7
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 0
+  - aliases: 云顶天宫 (file.i80k.com) — public AList, Local backend
+- evidence:
+  - probe:https://file.i80k.com/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title '云顶天宫'
+  - probe:https://file.i80k.com/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 7 root entries; write:false, write_content_bypass:None, provider:Local
+  - probe:https://file.i80k.com/api/fs/put 2026-10-22: the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written
+- sources:
+  - [1] https://file.i80k.com/
+
+## 光鸭云盘 / GuangYaPan (Xunlei subsidiary)
+
+- `netdisk-pan/guangyapan` | qualifies-with-caveat | evidence reported | binding per-ip-shaping | category consumer-pan, TV-first media drive, launched 2026-04-20
+- needs card no, phone yes, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.guangyapan.com/ | page https://fshy.ajam.dev/p/guangyapan.md
+- price CNY 108/yr promotional and CNY 480/yr list for 500 TB of capacity, but the 1 TB a month member egress makes a per-terabyte price meaningless
+- free tier: 2 TB free at registration: '注册即享 2T 空间，会员畅享 500T 空间'. 100 GB per file free and 1 TB for members | unit: TiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 100 GB per file on the free tier, 1 TB for members, with a 1,000,000-file batch transfer | bytes: 100000000000 | source: [2]
+- retention: No stated expiry for stored files; a 30-day recycle bin | source: [2]
+- egress: 2 GB a day of high-speed traffic on the free tier, then throttled to an undisclosed low speed. Members get 1 TB a month down and 1 TB a month up, and self-download, online playback and third-party mount all count against the same terabyte, with no overage package | metered: yes | free allowance: 2 GB per day at high speed | source: [3]
+- identity: any-phone | detail: SMS only. POST /v1/auth/verification returns 400 'Email or phone_number must be set' when empty, and every email-shaped path returns 404, and the driver's own code only ever sends phone_number. So there is no email-only path
+- interface: rest, webdav
+- limits:
+  - per-ip-shaping (binding): 2 GB a day of high-speed traffic on the free tier, then throttled [4]
+  - per-object-cap: 100 GB per file on the free tier [5]
+  - request-rate: 3 free offline or magnet cloud-adds a day [4]
+- binding note: 2 TB of capacity is the largest free allocation in this survey after Ctfile, and 2 GB a day at high speed is. The traffic cap is what decides the plan, and as a cold archive it never binds.
+- tooling: a merged OpenList driver, guangyapan, which gives WebDAV and 302 direct links once mounted; two-stage SMS login needing a client id, an X-Captcha-Token and an X-Device-Sign; CloudDrive2 v1.0.11 or later reads it
+- composes with: Provides 2 TB of free storage per account with OpenList driver integration, WebDAV support, and TV streaming clients. For active content distribution, the 2 GB daily bandwidth limit is prohibitive. For cold archival storage, the daily limit does not impede initial single-pass uploads.
+- reliability: Auth is SMS-only, so an account with only an email address cannot register. The OpenList docs carry an explicit danger block: use for multi-person sharing, image hosting, software hosting or video external links causes the provider to close accounts, which is the exact workload this survey targets. Xunlei's two previous netdisks both died, and the price rose from CNY 108 to 188 within months of launch
+- notes: The two numbers the marketing merges are capacity and traffic, and they are ten thousand times apart in practical effect. The SMS-only registration is what closes it.
+- extras:
+  - access_mode: registration-gated
+  - launched: 2026-04-20
+  - per_file_cap_bytes_derived: 100000000000
+  - aliases: 光鸭云盘 / GuangYaPan (Xunlei subsidiary 深圳市光闪云科技有限公司)
+  - ban_warning: OpenList docs: sharing, image hosting, software hosting and video links cause the provider to close accounts
+- evidence:
+  - [1] 2026-10-21: '注册即享 2T 空间，会员畅享 500T 空间', '不限速极速上传下载', and a client list ending '下载电脑端下载移动端下载电视端'
+  - [3] 2026-10-21: a six-month reality check: free 2 GB a day high speed, member 1 TB a month down and up, 'online playback and third-party mount all count toward the 1 TB', no overage package, 4K billed at full file size
+  - [5] 2026-10-21: the maintained driver, '100GB 单文件上传', and the closure warning for hosting workloads
+  - [6] 2026-10-21: launch coverage: '永久免费 2TB', '100GB 单文件上传及 100 万文件批量转存'
+  - probe:POST https://account.guangyapan.com/v1/auth/verification 2026-10-21: 400 with {"error":"invalid_argument","error_description":"Email or phone_number must be set"}; the email variant returned 404 not_found; /v1/auth/email/register returned 404
+  - probe:GET https://api.guangyapan.com/v1/user/info 2026-10-21: HTTP 410 with {"code":128,"msg":"路径不允许访问"}, so the old path is closed and it says so
+- sources:
+  - [1] https://www.guangyapan.com/
+  - [2] https://app.guangyapan.com/pan
+  - [3] https://post.smzdm.com/p/a82plxq0/
+  - [4] https://www.freeaday.com/2026/04/guangyapan/
+  - [5] https://docs.oplist.org/guide/drivers/guangyapan
+  - [6] https://www.ithome.com/0/941/203.htm
+
+## 姿势网盘
+
+- `netdisk-pan/cloud-zsxwz-com` | qualifies-with-caveat | evidence measured | binding write-gated | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://cloud.zsxwz.com/ | page https://fshy.ajam.dev/p/zsxwz.md
+- free tier: anonymous guest read of 2 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through nginx/1.22.1; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - write-gated (binding): PUT denied at the guest role probe:https://cloud.zsxwz.com/api/fs/put
+- interface detail: rest
+- composes with: Read-only retrieval source with negligible volume, suitable for caching or mirroring rather than write storage. Documented to track public instance availability.
+- reliability: 2 root entries on AList v4.1.7, built 2025-11. Small, alive, read-only.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: permission-denied
+  - upstream_provider: unknown
+  - fronting_cdn: nginx/1.22.1
+  - advertised_write_flag: no
+  - permission_bitmask: 0
+  - base_path: /
+  - listing_sha256: c2e27863
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 0
+  - aliases: 姿势网盘 (cloud.zsxwz.com) — public AList, OneDrive-backed
+- evidence:
+  - probe:https://cloud.zsxwz.com/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title '姿势网盘'
+  - probe:https://cloud.zsxwz.com/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 2 root entries; write:false, write_content_bypass:None, provider:unknown
+  - probe:https://cloud.zsxwz.com/api/fs/put 2026-10-22: the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written
+- sources:
+  - [1] https://cloud.zsxwz.com/
+
+## 小乐的网盘
+
+- `netdisk-pan/share-xiaole88-com` | qualifies-with-caveat | evidence measured | binding per-ip-shaping | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://share.xiaole88.com/ | page https://fshy.ajam.dev/p/xiaole88.md
+- free tier: anonymous guest read of 15 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through Tengine; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - per-ip-shaping (binding): no published rate; one operator and a CDN front absorb the read [1]
+  - write-gated: PUT denied at the guest role probe:https://share.xiaole88.com/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier Read-only. Useful as an Android TV software mirror and not as capacity
+- reliability: 15 root entries, provider Onedrive, on AList v3.40 behind Tengine. A pooled-tenant export like al.chirmyram.com but without Cloudflare in front, so no edge cache.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: permission-denied
+  - upstream_provider: Onedrive
+  - fronting_cdn: tengine
+  - advertised_write_flag: no
+  - permission_bitmask: 2
+  - base_path: /
+  - listing_sha256: 410d4236
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 0
+  - aliases: 小乐的网盘 (share.xiaole88.com) — public AList, Android TV software
+- evidence:
+  - probe:https://share.xiaole88.com/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title '小乐的网盘'
+  - probe:https://share.xiaole88.com/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 15 root entries; write:false, write_content_bypass:None, provider:Onedrive
+  - probe:https://share.xiaole88.com/api/fs/put 2026-10-22: the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written
+- sources:
+  - [1] https://share.xiaole88.com/
+
+## 小鹿乐玩iOS网盘IPA资源｜路灯网盘-iOS砸壳分享网-IPA分享网-巨魔商店IPA软件资源-后厂村路灯的网盘资源 (p 591meta com)
+
+- `netdisk-pan/p-591meta-com` | qualifies-with-caveat | evidence measured | binding per-ip-shaping | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://p.591meta.com/ | page https://fshy.ajam.dev/p/591meta.md
+- free tier: anonymous guest read of 26 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through nginx; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - per-ip-shaping (binding): no published rate; one operator and a CDN front absorb the read [1]
+  - write-gated: PUT denied at the guest role probe:https://p.591meta.com/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier
+- reliability: One of five hostnames serving an identical 26-entry collection of iOS IPA packages. The file repository serves as an informational index for a commercial signing service.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: permission-denied
+  - upstream_provider: unknown
+  - fronting_cdn: nginx
+  - advertised_write_flag: no
+  - permission_bitmask: 0
+  - base_path: /
+  - listing_sha256: 6fb4c929
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 0
+- evidence:
+  - probe:https://p.591meta.com/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title '小鹿乐玩iOS网盘IPA资源｜路灯网盘-iOS砸壳分享网-IPA分享网-巨魔商店IPA软件资源-后厂村路灯的网盘资源'
+  - probe:https://p.591meta.com/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 26 root entries; write:false, write_content_bypass:None, provider:unknown
+  - probe:https://p.591meta.com/api/fs/put 2026-10-22: the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written
+- sources:
+  - [1] https://p.591meta.com/
+
+## 小鹿乐玩iOS网盘IPA资源｜路灯网盘-iOS砸壳分享网-IPA分享网-巨魔商店IPA软件资源-后厂村路灯的网盘资源
+
+- `netdisk-pan/p-vx365-vip` | qualifies-with-caveat | evidence measured | binding per-ip-shaping | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://p.vx365.vip/ | page https://fshy.ajam.dev/p/vx365.md
+- free tier: anonymous guest read of 26 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through nginx; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - per-ip-shaping (binding): no published rate; one operator and a CDN front absorb the read [1]
+  - write-gated: PUT denied at the guest role probe:https://p.vx365.vip/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier
+- reliability: Same 26-entry IPA corpus as p.591meta.com, identical listing bytes.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: permission-denied
+  - upstream_provider: unknown
+  - fronting_cdn: nginx
+  - advertised_write_flag: no
+  - permission_bitmask: 0
+  - base_path: /
+  - listing_sha256: 6fb4c929
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 0
+- evidence:
+  - probe:https://p.vx365.vip/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title '小鹿乐玩iOS网盘IPA资源｜路灯网盘-iOS砸壳分享网-IPA分享网-巨魔商店IPA软件资源-后厂村路灯的网盘资源'
+  - probe:https://p.vx365.vip/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 26 root entries; write:false, write_content_bypass:None, provider:unknown
+  - probe:https://p.vx365.vip/api/fs/put 2026-10-22: the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written
+- sources:
+  - [1] https://p.vx365.vip/
+
+## 小鹿乐玩iOS网盘IPA资源｜路灯网盘-iOS砸壳分享网-IPA分享网-巨魔商店IPA软件资源-后厂村路灯的网盘资源
+
+- `netdisk-pan/pan-applep12-vip` | qualifies-with-caveat | evidence measured | binding per-ip-shaping | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://pan.applep12.vip/ | page https://fshy.ajam.dev/p/applep12.md
+- free tier: anonymous guest read of 26 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through cloudflare; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - per-ip-shaping (binding): no published rate; one operator and a CDN front absorb the read [1]
+  - write-gated: PUT denied at the guest role probe:https://pan.applep12.vip/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier
+- reliability: Same 26-entry IPA corpus as p.591meta.com, identical listing bytes.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: permission-denied
+  - upstream_provider: unknown
+  - fronting_cdn: cloudflare
+  - advertised_write_flag: no
+  - permission_bitmask: 0
+  - base_path: /
+  - listing_sha256: 6fb4c929
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 0
+- evidence:
+  - probe:https://pan.applep12.vip/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title '小鹿乐玩iOS网盘IPA资源｜路灯网盘-iOS砸壳分享网-IPA分享网-巨魔商店IPA软件资源-后厂村路灯的网盘资源'
+  - probe:https://pan.applep12.vip/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 26 root entries; write:false, write_content_bypass:None, provider:unknown
+  - probe:https://pan.applep12.vip/api/fs/put 2026-10-22: the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written
+- sources:
+  - [1] https://pan.applep12.vip/
+
+## 小鹿乐玩iOS网盘IPA资源｜路灯网盘-iOS砸壳分享网-IPA分享网-巨魔商店IPA软件资源-后厂村路灯的网盘资源 (pp 591meta com)
+
+- `netdisk-pan/pp-591meta-com` | qualifies-with-caveat | evidence measured | binding per-ip-shaping | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://pp.591meta.com/ | page https://fshy.ajam.dev/p/591meta.md
+- free tier: anonymous guest read of 26 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through nginx; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - per-ip-shaping (binding): no published rate; one operator and a CDN front absorb the read [1]
+  - write-gated: PUT denied at the guest role probe:https://pp.591meta.com/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier
+- reliability: Maintained under the same infrastructure as p.591meta.com. Directory listings vary by one dynamic entry across requests, reflecting a shared active package catalogue.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: permission-denied
+  - upstream_provider: unknown
+  - fronting_cdn: nginx
+  - advertised_write_flag: no
+  - permission_bitmask: 0
+  - base_path: /
+  - listing_sha256: 6fb4c929
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 0
+- evidence:
+  - probe:https://pp.591meta.com/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title '小鹿乐玩iOS网盘IPA资源｜路灯网盘-iOS砸壳分享网-IPA分享网-巨魔商店IPA软件资源-后厂村路灯的网盘资源'
+  - probe:https://pp.591meta.com/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 26 root entries; write:false, write_content_bypass:None, provider:unknown
+  - probe:https://pp.591meta.com/api/fs/put 2026-10-22: the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written
+- sources:
+  - [1] https://pp.591meta.com/
+
+## 平凡
+
+- `netdisk-pan/pan-iosi-vip` | qualifies-with-caveat | evidence measured | binding write-gated | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://pan.iosi.vip/ | page https://fshy.ajam.dev/p/iosi.md
+- free tier: anonymous guest read of 6 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through nginx; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - write-gated (binding): PUT denied at the guest role probe:https://pan.iosi.vip/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier
+- reliability: 6 root entries on AList v3.45.0, write:false, read-only by configuration.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: permission-denied
+  - upstream_provider: unknown
+  - fronting_cdn: nginx
+  - advertised_write_flag: no
+  - permission_bitmask: 0
+  - base_path: /
+  - listing_sha256: 352f2d5d
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 0
+- evidence:
+  - probe:https://pan.iosi.vip/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title '平凡'
+  - probe:https://pan.iosi.vip/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 6 root entries; write:false, write_content_bypass:None, provider:unknown
+  - probe:https://pan.iosi.vip/api/fs/put 2026-10-22: the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written
+- sources:
+  - [1] https://pan.iosi.vip/
+
+## 延时の奇妙网盘 (data.yanshiqwq.cn)
+
+- `netdisk-pan/data-yanshiqwq-cn` | qualifies-with-caveat | evidence measured | binding write-gated | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://data.yanshiqwq.cn/ | page https://fshy.ajam.dev/p/yanshiqwq.md
+- free tier: anonymous guest read of the whole mount list, and a write on one path; no account, no payment, no published quota | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: Between 100 MiB and 110 MiB based on HTTP 413 responses from the fronting CDN. No official cap is published. | source: [1]
+- retention: until the operator's disk or Cloudflare account fails; no TTL, no SLA, no notice | source: [1]
+- egress: served through Cloudflare; the reader pays nothing and the operator pays nothing per byte | metered: no | source: [1]
+- identity: anonymous | detail: no registration, no token, no cookie; /api/me returns a guest session with role 1 and permission 256
+- interface: rest, webdav
+- limits:
+  - write-gated (binding): Writable on the guest path only. Calling /api/fs/remove returns HTTP 403, preventing deletion of uploaded files. probe:https://data.yanshiqwq.cn/api/fs/remove
+  - per-object-cap: HTTP 413 from fronting CDN between 100 MiB and 110 MiB
+  - per-ip-shaping: ~1.9 MB/s up, ~1.0 MB/s down on a home uplink
+- binding note: The write is real but undeletable, capped by the CDN body limit, and rate-limited by one home uplink, so the binding constraint is the gate on writing at all, not a quota.
+- interface detail: rest
+- endpoint: https://data.yanshiqwq.cn/api/fs/put
+- tooling: OpenList v4.2.7 REST (/api/fs/*) and its WebDAV endpoint; rclone's alist backend speaks the same REST
+- composes with: the only verified write in 170 hosts: a 4 KiB PUT, a GET, and a SHA-256 match. Useful as a one-object staging area, not as capacity. One instance on one operator's disk, so a second account carries no second allowance here.
+- reliability: One volunteer's home disk behind Cloudflare. No quota, no SLA, no delete, and the bytes are world-listable once written.
+- notes: The only host of 170 that accepted a write and gave the bytes back. It passes the zero-byte oracle with 'file exists', reports permission 256 with no bit 3, and is writable only because a per-path meta overrides the role. Probes left 32-byte files named *-r6probe.bin in its root, because delete is denied.
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: verified
+  - upstream_provider: unknown
+  - fronting_cdn: cloudflare
+  - advertised_write_flag: yes
+  - first_seen: 2026-10-21
+  - last_verified_alive: 2026-10-22T03:37:00.574Z
+  - permission_bitmask: 256
+  - bit3_upload: no
+  - write_content_bypass: yes
+  - listing_sha256: 906b9822fef7
+  - observations[0].at: 2026-10-21T00:00:00Z
+  - observations[0].state: listed
+  - observations[0].writable: yes
+  - observations[1].at: 2026-10-22T03:21:00Z
+  - observations[1].state: listed
+  - observations[1].entries: 27
+  - observations[1].writable: yes
+  - observations[2].at: 2026-10-22T03:37:00.574Z
+  - observations[2].state: listed
+  - observations[2].entries: 27
+  - observations[2].writable: yes
+  - aliases: 延时の奇妙网盘 (data.yanshiqwq.cn) — public OpenList instance, WRITABLE
+- evidence:
+  - probe:https://data.yanshiqwq.cn/api/fs/list 2026-10-22: HTTP 200, code 200, 27 root entries, write:true and write_content_bypass:true, provider:unknown
+  - probe:https://data.yanshiqwq.cn/api/fs/put 2026-10-22: PUT of 32 bytes returned {"code":200,"message":"success"} and GET /p/ returned the same 32 bytes with a matching SHA-256
+  - [2] 2026-10-22: OpenList v4.2.7, build 2026-10-15, allow_indexed false, allow_mounted false
+  - probe:https://data.yanshiqwq.cn/api/me 2026-10-22: guest session, role 1, permission 256 = bit 8 (WebDAV read) only, with no bit 3; the write is granted by a per-path meta, not by the bitmask
+- sources:
+  - [1] https://data.yanshiqwq.cn/
+  - [2] https://data.yanshiqwq.cn/api/public/settings
+
+## 微雨云网盘 (vyuyun.com)
+
+- `netdisk-pan/vyuyun` | qualifies-with-caveat | evidence reported | binding per-object-cap | category consumer-pan
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T00:21:07.066Z (inherited) | stale on 2026-11-19
+- url https://www.vyuyun.com | page https://fshy.ajam.dev/p/vyuyun.md
+- free tier: 50 GB free storage with unlimited traffic ('无限流量 50GB 免费存储空间'), on the vendor home page | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 500 MB per file for a registered member upload ('单文件上传500MB') | bytes: 500000000 | source: [2]
+- retention: A file or account may be deleted when the account has not logged in for six months ('如您的账号超过六个月未登录本平台时，我们可能会未经您的允许对账号、文件进行删除处理') | source: [3]
+- egress: Unmetered and unthrottled: '我们对下载速度和流量没有限制'. A per-IP download request limit applies, 10 requests per 10 seconds, and direct links are limited to 1000 requests per hour per account | metered: no | source: [3]
+- identity: email | detail: the sign-up form asks for an email address ('电子邮箱:'), a nickname, a password and its confirmation, and ends with a slider puzzle to complete; it shows no phone field. Whether the mailbox is verified after submission is unverified: behind a sign-up
+- interface: rest, webdav
+- limits:
+  - per-object-cap (binding): 50 GB is the free tier total; a registered member uploads at most 500 MB per file [1]
+- binding note: 50 GB free with a 500 MB per-file cap, and an email-only sign-up. The REST API and WebDAV are VIP only, so a free account has no programmatic route.
+- tooling: The vendor documents a REST API (token from an appid and appkey) that is open only to VIP accounts, and lists WebDAV under the VIP plan with a 50 MB per-file upload limit. A free account has the web page and the mobile apps. No third-party reverse-engineered client was found: the netdisk-fast-download parser for it is struck through in its list and answered a login-required error to a free account
+- composes with: The distinguishing property is the identity cost: '无需手机号，不收验证码，纯免费50G，不限速', and the poster registered with a throwaway address. 50 GB times unbounded email accounts, with nothing automating the signup
+- reliability: A tiny domestic operator with no published SLA. The domain answered HTTP 200 with a 6.6 KB landing page in 2026-10
+- notes: Recorded despite low confidence because an email-only 50 GB pan with no human-verification step is the rarest thing in this topic. Two facts decide whether it is useful: whether a foreign throwaway address survives registration, and whether any API exists. Neither is established, and the record says so rather than guessing.
+- extras:
+  - access_mode: registration-gated
+  - no_phone_no_captcha: reported
+  - api: none documented
+  - evidence_quality: one forum post plus a landing-page probe
+- evidence:
+  - [4] 2026-10-21: '微雨云网盘正好满足这几点：1.无需手机号 2.不收验证码 3.纯免费50G 4.不限速'
+  - probe:https://www.vyuyun.com 2026-10-21: HTTP 200, 6,634 bytes, so the domain is live
+  - [1] 2026-11-03: the vendor home page advertises 50 GB of free storage with unlimited traffic | capture: sha256:cebb177afc4cfc00e10a84c2443ee3c774ae6f26d524b28a612ef93dec7e9b79 | quote: 无限流量 50GB 免费存储空间
+  - [1] 2026-11-03: under the registered-member plan the per-file upload cap is 500 MB | capture: sha256:cebb177afc4cfc00e10a84c2443ee3c774ae6f26d524b28a612ef93dec7e9b79 | quote: 单文件上传500MB
+  - [3] 2026-11-03: the vendor API document states no limit on download speed and traffic | capture: sha256:74aadf1dfd902cc93ab23ecc1e39247020383e601533ff46f6b584385fca7bfa | quote: 我们对下载速度和流量没有限制
+  - [3] 2026-11-03: the REST API is open only to accounts that bought VIP | capture: sha256:74aadf1dfd902cc93ab23ecc1e39247020383e601533ff46f6b584385fca7bfa | quote: token获取方式：使用appid和appkey调用获取token接口获取（api目前只针对开通vip会员的账号使用）
+  - [1] 2026-11-03: WebDAV, API and SDK support are listed under the VIP monthly plan | capture: sha256:cebb177afc4cfc00e10a84c2443ee3c774ae6f26d524b28a612ef93dec7e9b79 | quote: WebDAV、API、SDK技术支持
+  - [3] 2026-11-03: WebDAV upload is capped at 50 MB per file | capture: sha256:74aadf1dfd902cc93ab23ecc1e39247020383e601533ff46f6b584385fca7bfa | quote: 使用webdav请注意api请求频率限制，因系统限制webdav单文件最大上传为：50MB
+  - [5] 2026-11-03: the resolver lists the Vyuyun parser struck through, so no maintained third-party client covers it | capture: sha256:2aded33baf58d4db11e401f91bd2a995d2ea877fad4fd5cb9aea9b845fbde0ab | quote: ~~[微雨云存储-pvvy](https://www.vyuyun.com/)~~
+  - [6] 2026-11-03: the resolver's Vyuyun parser failed on a free account's share with this server message | capture: sha256:41f04ec82d07d6f47e618c2921557944d7edab9cd59bb2c16795c83093c22357 | quote: 浏览器版本过低，请登录后下载
+  - [3] 2026-11-03: inactive accounts and their files may be deleted after six months | capture: sha256:74aadf1dfd902cc93ab23ecc1e39247020383e601533ff46f6b584385fca7bfa | quote: 如您的账号超过六个月未登录本平台时，我们可能会未经您的允许对账号、文件进行删除处理
+  - [7] 2026-11-03: the sign-up form ends with a slider puzzle that must be completed | capture: sha256:6e574edf9d5938057e19f0c8f9231ac8b1f3154e2f44f0f6ccec5490d278a84c | quote: 请拖动滑块完成拼图
+  - [7] 2026-11-03: the first field of the sign-up form is an email address | capture: sha256:6e574edf9d5938057e19f0c8f9231ac8b1f3154e2f44f0f6ccec5490d278a84c | quote: 电子邮箱:
+- sources:
+  - [1] https://www.vyuyun.com/
+  - [2] https://www.vyuyun.com
+  - [3] https://docs.vyuyun.com/
+  - [4] https://linux.do/t/topic/457202
+  - [5] https://github.com/qaiu/netdisk-fast-download
+  - [6] https://github.com/qaiu/netdisk-fast-download/issues/85
+  - [7] https://www.vyuyun.com/sign-up
+
+## 晴天网盘 (alist.jiejingfan.vip)
+
+- `netdisk-pan/public-alist-fronting-139yun` | qualifies-with-caveat | evidence measured | binding write-gated | category public instance, not storage
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T09:58:35.803Z (live) | stale on 2026-11-24
+- url https://alist.jiejingfan.vip | page https://fshy.ajam.dev/p/jiejingfan.md
+- free tier: not stated: https://alist.jiejingfan.vip/api/public/settings returns the AList v3.45.1 site settings of 晴天网盘 and carries no allowance, quota or price field | unit: none | metered on: none | read on: 2026-10-30 | source: [1]
+- per-object cap: Not applicable | source: [2]
+- retention: No guarantee. This host refused on one sweep run and listed on another, so it flaps | source: [2]
+- egress: Unmetered direct links. No CDN cache was observed | metered: no | source: [2]
+- identity: anonymous | detail: the API answers a guest session
+- interface: rest
+- limits:
+  - write-gated (binding): write=false in the listing probe:https://alist.jiejingfan.vip/api/fs/list
+  - request-rate: deep subdirectory listings frequently return 500 because parent directories are stubs probe:https://alist.jiejingfan.vip/api/fs/list
+- binding note: The read path reaches a Chinese carrier pan and that is the finding. What binds is the write gate plus a tree that is half stubs, so it is a fetch source at best.
+- tooling: the AList v3.45.1 REST API anonymously. No working WebDAV was observed. The root listing shows eight directories of iOS sideloading content: 自签, Trollstore, IPCC, shortcuts, jailbreak tools, signing tools, shared enterprise certificates and Windows. Five root-level paths are absent from the root listing: /Apple Arcade, /天翼, /看书软件, /越狱插件 and /视频教程. The /天翼 listing is empty
+- composes with: Read-only. The structural point is the important one: a 139Yun-backed public AList proves that a non-Chinese reader can reach Chinese carrier pan bytes through a proxy layer with no account. The access problem is solved by the proxy and only the write problem remains
+- reliability: Volunteer-run and small. Reads return real files and the tree is half broken: file-level get works where the path resolves and directory walks fail against stub parents
+- notes: A host whose upstream is Chinese carrier netdisk storage, which makes it an existence proof for the bridge pattern: a proxy layer converts an unreachable quota into a reachable read path without transferring an account. A direct-link request answers 302 to a carrier object-storage host: cmecloud.cn for a file in the root tree, telecomjs.com for the /天翼 mount.
+- extras:
+  - access_mode: public-instance
+  - upstream_provider: 139Yun
+  - fronting_cdn: nginx
+  - advertised_write_flag: no
+  - flaps: yes
+  - root_providers[0].path: /
+  - root_providers[0].provider: 139Yun
+  - root_providers[1].path: /Apple Arcade
+  - root_providers[1].provider: 139Yun
+  - root_providers[1].listed_at_root: no
+  - root_providers[2].path: /天翼
+  - root_providers[2].provider: 189CloudPC
+  - root_providers[2].listed_at_root: no
+  - root_providers[3].path: /看书软件
+  - root_providers[3].provider: 139Yun
+  - root_providers[3].listed_at_root: no
+  - root_providers[3].read_at: /看书软件/书源
+  - root_providers[4].path: /越狱插件
+  - root_providers[4].provider: 139Yun
+  - root_providers[4].listed_at_root: no
+  - root_providers[4].read_at: /越狱插件/H5GG
+  - root_providers[5].path: /视频教程
+  - root_providers[5].provider: 139Yun
+  - root_providers[5].listed_at_root: no
+  - root_providers[5].read_at: /视频教程/Quantumult X教程
+- evidence:
+  - probe:https://alist.jiejingfan.vip/api/fs/list 2026-10-22: code 200 with provider 139Yun, write false and 8 directories
+  - probe:https://alist.jiejingfan.vip/api/fs/list (Windows) 2026-10-22: listed entries including a 4,398,583-byte archive, so real files are reachable
+  - probe:https://alist.jiejingfan.vip/api/fs/get 2026-10-22: a path returned code 500 'failed get dir: object not found', confirming stub directories
+  - withheld 2026-10-22: sweep row: api_kind alist, http 200, anon_settings yes, permission 0, 8 root entries, 4/1 mounts, provider 139Yun, 0 mounts with the write flag, fronting nginx, verdict read-only. A second run recorded this same host as no-api, which is the documented flake
+  - probe:https://alist.jiejingfan.vip/api/public/settings 2026-10-30: the public settings endpoint answered 200 with no session and returns the AList site settings of 晴天网盘, none of which is a quota, unit or price | capture: sha256:9993727c81cbe25cd44bb82971f481da8e24e04c968f71c83f76a9fe37598be6 | quote: "site_title":"晴天网盘"
+  - probe:https://alist.jiejingfan.vip/api/fs/get?path=%2F%E5%A4%A9%E7%BF%BC 2026-11-02: fs/get on /天翼 answers provider 189CloudPC for a path that the root listing omits | capture: sha256:9f0d63138523ed0a6527f012a843e402dc286f2e9b50fa1753d7296a3118f9a5 | quote: "id":"","path":"","name":"天翼" ... "provider":"189CloudPC"
+  - probe:https://alist.jiejingfan.vip/api/fs/list?path=%2F&page=1&per_page=0 2026-11-02: the root listing answers code 200 to a request with no session: eight directories, write false, provider 139Yun | capture: sha256:3626ddad174eaa933c34160cab7af2d12c8144361b5bdab8fe2f575c7aea76de | quote: "name":"自签" ... "name":"Windows" ... "total":8 ... "write":false,"provider":"139Yun"}}
+  - probe:https://alist.jiejingfan.vip/d/%E5%BF%AB%E6%8D%B7%E6%8C%87%E4%BB%A4/%E9%94%81%E5%B1%8F%E5%A4%A9%E6%B0%94.txt 2026-11-02: a direct link to a file in the root tree answers 302 to the object-storage host hcybf06.eos-huhehaote-5.cmecloud.cn; the query string is redacted in the stored record | capture: sha256:f47822a53605bbe9c31a62f6fa042bcecd744463d76ced79f6a97a1cc66bcb84 | quote: "status": 302, "location": "https://hcybf06.eos-huhehaote-5.cmecloud.cn/K5127205e001c3bdd966011e9fef47f733?[redacted]"
+  - probe:https://alist.jiejingfan.vip/api/public/settings 2026-11-02: the settings answer serves the favicon and the logo from /d/天翼/素材/, a path under the 天翼 mount | capture: sha256:9993727c81cbe25cd44bb82971f481da8e24e04c968f71c83f76a9fe37598be6 | quote: "favicon":"https://alist.jiejingfan.vip/d/%E5%A4%A9%E7%BF%BC/%E7%B4%A0%E6%9D%90/ ... "logo":"https://alist.jiejingfan.vip/d/%E5%A4%A9%E7%BF%BC/%E7%B4%A0%E6%9D%90/
+  - probe:https://alist.jiejingfan.vip/api/fs/get?path=%2FApple%20Arcade 2026-11-02: fs/get on /Apple Arcade answers provider 139Yun for a path that the root listing omits | capture: sha256:d7bf5aac5788622c87d03a1ca4bf0f7af119d175f502f681745595c9e6297433 | quote: "id":"","path":"","name":"Apple Arcade" ... "provider":"139Yun"
+  - probe:https://alist.jiejingfan.vip/api/fs/list?path=%2F%E5%A4%A9%E7%BF%BC&page=1&per_page=0 2026-11-02: fs/list on /天翼 answers code 200 with no entries and provider 189CloudPC; the path header reads that the netdisk is under maintenance | capture: sha256:4faa82b9c2d5c725b38257f46388d7e0fe03ca7ae3f3ac47c67acc816d28e2cc | quote: "content":null,"total":0,"readme":"","header":"网盘维护中...关注公众号：捷径范 开放时间另行通知","write":false,"provider":"189CloudPC"}}
+  - probe:https://alist.jiejingfan.vip/d/%E5%A4%A9%E7%BF%BC/%E7%B4%A0%E6%9D%90/%E7%BD%91%E7%AB%99%E5%9B%BE%E6%A0%87.jpg 2026-11-02: the site icon under /天翼/素材/ answers 302 to the object-storage host cloudcube.telecomjs.com; the query string is redacted in the stored record | capture: sha256:0304c324d30356f31fbb47432a1df72c97e38be05c32af17d2df29984e3bceea | quote: "status": 302, "location": "https://cloudcube.telecomjs.com/media-bjcy-fy-person/PERSONCLOUD/
+  - probe:https://alist.jiejingfan.vip/api/fs/get?path=%2F%E7%9C%8B%E4%B9%A6%E8%BD%AF%E4%BB%B6%2F%E4%B9%A6%E6%BA%90 2026-11-02: fs/get on /看书软件/书源 answers provider 139Yun; /看书软件 is absent from the root listing | capture: sha256:04cc91b17e20f6bb0c4e42241cfab7fa75100c88cd3295fa1663b732d9e38bb2 | quote: "name":"书源" ... "provider":"139Yun"
+  - probe:https://alist.jiejingfan.vip/api/fs/get?path=%2F%E8%B6%8A%E7%8B%B1%E6%8F%92%E4%BB%B6%2FH5GG 2026-11-02: fs/get on /越狱插件/H5GG answers provider 139Yun; /越狱插件 is absent from the root listing | capture: sha256:c34f4ee251ef066235ecef727b9d52acd49a89fabca242ff586269132e97b6f5 | quote: "name":"H5GG" ... "provider":"139Yun"
+  - probe:https://alist.jiejingfan.vip/api/fs/get?path=%2F%E8%A7%86%E9%A2%91%E6%95%99%E7%A8%8B%2FQuantumult%20X%E6%95%99%E7%A8%8B 2026-11-02: fs/get on /视频教程/Quantumult X教程 answers provider 139Yun; /视频教程 is absent from the root listing | capture: sha256:12e5deaee28ae693c700ee2c831d4506e3f0a733f5f9cf253676ea167fcd839e | quote: "name":"Quantumult X教程" ... "provider":"139Yun"
+  - probe:https://alist.jiejingfan.vip/api/public/settings 2026-11-02: the settings endpoint answers code 200 with no session and carries the site title and version v3.45.1; it holds no allowance, quota, unit or price field | capture: sha256:9993727c81cbe25cd44bb82971f481da8e24e04c968f71c83f76a9fe37598be6 | quote: "site_title":"晴天网盘"
+- sources:
+  - [1] https://alist.jiejingfan.vip/api/public/settings
+  - [2] https://alist.jiejingfan.vip
+
+## 槿南盘
+
+- `netdisk-pan/pan-jinnan-top` | qualifies-with-caveat | evidence measured | binding write-gated | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://pan.jinnan.top/ | page https://fshy.ajam.dev/p/jinnan.md
+- free tier: anonymous guest read of 6 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through cloudflare; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - write-gated (binding): PUT denied at the guest role probe:https://pan.jinnan.top/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier Read-only despite the directory name. The guest-upload folder is the single clearest example of the gap between an instance's intent and what it actually permits
+- reliability: The cleanest illustration of the write-flag lie: its root listing contains a directory named 05 游客上传, every mount advertises write:true, and every PUT returns permission denied inside an HTTP 200. The operator intended guest upload and the permission never reached the guest role.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: permission-denied
+  - upstream_provider: unknown
+  - fronting_cdn: cloudflare
+  - advertised_write_flag: yes
+  - write_content_bypass: no
+  - permission_bitmask: 0
+  - base_path: /
+  - listing_sha256: dd9a52fe
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 0
+  - aliases: 槿南盘 (pan.jinnan.top) — public OpenList with a literal '05 游客上传' guest-upload directory
+- evidence:
+  - probe:https://pan.jinnan.top/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title '槿南盘'
+  - probe:https://pan.jinnan.top/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 6 root entries; write:true, write_content_bypass:False, provider:unknown
+  - probe:https://pan.jinnan.top/api/fs/put 2026-10-22: the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written
+- sources:
+  - [1] https://pan.jinnan.top/
+
+## 洛琪希图书馆 - 借书柜台
+
+- `netdisk-pan/pan-roxylib-com` | qualifies-with-caveat | evidence measured | binding write-gated | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://pan.roxylib.com/ | page https://fshy.ajam.dev/p/roxylib.md
+- free tier: anonymous guest read of 1 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through cloudflare; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - write-gated (binding): PUT denied at the guest role probe:https://pan.roxylib.com/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier
+- reliability: 1 root entry on OpenList v4.2.3. The smallest listing in the population, and it still advertises write:true and denies the oracle.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: permission-denied
+  - upstream_provider: unknown
+  - fronting_cdn: cloudflare
+  - advertised_write_flag: yes
+  - write_content_bypass: no
+  - permission_bitmask: 0
+  - base_path: /
+  - listing_sha256: d60da3f8
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 0
+- evidence:
+  - probe:https://pan.roxylib.com/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title '洛琪希图书馆 - 借书柜台'
+  - probe:https://pan.roxylib.com/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 1 root entries; write:true, write_content_bypass:False, provider:unknown
+  - probe:https://pan.roxylib.com/api/fs/put 2026-10-22: the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written
+- sources:
+  - [1] https://pan.roxylib.com/
+
+## 电喵科技
+
+- `netdisk-pan/pan-110014-xyz` | qualifies-with-caveat | evidence measured | binding write-gated | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://pan.110014.xyz/ | page https://fshy.ajam.dev/p/110014.md
+- free tier: anonymous guest read of 15 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through cloudflare; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - write-gated (binding): PUT denied at the guest role probe:https://pan.110014.xyz/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier
+- reliability: 15 root entries on OpenList v4.2.7, Cloudflare-fronted, write:true advertised and denied.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: permission-denied
+  - upstream_provider: unknown
+  - fronting_cdn: cloudflare
+  - advertised_write_flag: yes
+  - write_content_bypass: no
+  - permission_bitmask: 0
+  - base_path: /
+  - listing_sha256: 3c353692
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 0
+- evidence:
+  - probe:https://pan.110014.xyz/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title '电喵科技'
+  - probe:https://pan.110014.xyz/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 15 root entries; write:true, write_content_bypass:False, provider:unknown
+  - probe:https://pan.110014.xyz/api/fs/put 2026-10-22: the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written
+- sources:
+  - [1] https://pan.110014.xyz/
+
+## 神族九帝云盘，转存网盘资源请去网盘搜索
+
+- `netdisk-pan/alist-shenzjd-com` | qualifies-with-caveat | evidence measured | binding write-gated | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://alist.shenzjd.com/ | page https://fshy.ajam.dev/p/shenzjd.md
+- free tier: anonymous guest read of 3 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through openresty; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - write-gated (binding): PUT denied at the guest role probe:https://alist.shenzjd.com/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier
+- reliability: 3 root entries on AList v4.2.6; advertises write:true on one mount and denies the oracle.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: permission-denied
+  - upstream_provider: unknown
+  - fronting_cdn: openresty
+  - advertised_write_flag: yes
+  - write_content_bypass: no
+  - permission_bitmask: 0
+  - base_path: /
+  - listing_sha256: 24c26aa0
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 0
+- evidence:
+  - probe:https://alist.shenzjd.com/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title '神族九帝云盘，转存网盘资源请去网盘搜索'
+  - probe:https://alist.shenzjd.com/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 3 root entries; write:true, write_content_bypass:False, provider:unknown
+  - probe:https://alist.shenzjd.com/api/fs/put 2026-10-22: the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written
+- sources:
+  - [1] https://alist.shenzjd.com/
+
+## 组织云盘合集
+
+- `netdisk-pan/w2-apachecn-org` | qualifies-with-caveat | evidence measured | binding write-gated | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://w2.apachecn.org/ | page https://fshy.ajam.dev/p/apachecn.md
+- free tier: anonymous guest read of 18 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through cloudflare; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - write-gated (binding): PUT denied at the guest role probe:https://w2.apachecn.org/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier Read-only. The ApacheCN corpus is the largest publicly listable AList library found, so a reader who needs a specific dataset should search here before paying anyone
+- reliability: An 18-entry public corpus on AList v3.35 with base_path /公共. Read-only by design and stable since at least 2024-01.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: permission-denied
+  - upstream_provider: unknown
+  - fronting_cdn: cloudflare
+  - advertised_write_flag: no
+  - permission_bitmask: 0
+  - base_path: /公共
+  - listing_sha256: 81e2e3af
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 0
+  - aliases: 组织云盘合集 (w2.apachecn.org) — public AList, largest visible corpus, 252 TB claimed
+- evidence:
+  - probe:https://w2.apachecn.org/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title '组织云盘合集 '
+  - probe:https://w2.apachecn.org/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 18 root entries; write:false, write_content_bypass:None, provider:unknown
+  - probe:https://w2.apachecn.org/api/fs/put 2026-10-22: the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written
+- sources:
+  - [1] https://w2.apachecn.org/
+
+## 萤火虫资源站
+
+- `netdisk-pan/www-yhcres-top` | qualifies-with-caveat | evidence measured | binding write-gated | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://www.yhcres.top/ | page https://fshy.ajam.dev/p/yhcres.md
+- free tier: anonymous guest read of 13 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through cloudflare; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - write-gated (binding): PUT denied at the guest role probe:https://www.yhcres.top/api/fs/put
+- interface detail: rest
+- composes with: Read-only retrieval target for specialized router firmware downloads. Functions as an external read repository rather than writable application storage.
+- reliability: 13 root entries on OpenList v4.2.7, base_path /public, write:true advertised and denied. An Android-flashing resource site.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: permission-denied
+  - upstream_provider: unknown
+  - fronting_cdn: cloudflare
+  - advertised_write_flag: yes
+  - write_content_bypass: no
+  - permission_bitmask: 0
+  - base_path: /public
+  - listing_sha256: 8b6933f4
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 0
+  - aliases: 萤火虫资源站 (www.yhcres.top) — public AList, Android flashing/repair corpus
+  - allow_indexed: yes
+- evidence:
+  - probe:https://www.yhcres.top/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title '萤火虫资源站'
+  - probe:https://www.yhcres.top/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 13 root entries; write:true, write_content_bypass:False, provider:unknown
+  - probe:https://www.yhcres.top/api/fs/put 2026-10-22: the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written
+- sources:
+  - [1] https://www.yhcres.top/
+
+## 趣盘 - 存兴趣，享乐趣
+
+- `netdisk-pan/pan-mediy-cn` | qualifies-with-caveat | evidence measured | binding write-gated | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://pan.mediy.cn/ | page https://fshy.ajam.dev/p/mediy.md
+- free tier: anonymous guest read of 7 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through nginx; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - write-gated (binding): PUT denied at the guest role probe:https://pan.mediy.cn/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier Read-only. A book and software corpus, and the index notes that parts of it are already dead
+- reliability: Contains 7 root entries. Advertised write permissions are denied on execution. Responded as an active API endpoint on 2026-10-22 and intermittently failed to respond on separate test queries.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: permission-denied
+  - upstream_provider: unknown
+  - fronting_cdn: nginx
+  - advertised_write_flag: yes
+  - write_content_bypass: no
+  - permission_bitmask: 0
+  - base_path: /
+  - listing_sha256: 29b5335a
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 0
+  - aliases: 趣盘 (pan.mediy.cn) — public OpenList, mixed media/book corpus
+- evidence:
+  - probe:https://pan.mediy.cn/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title '趣盘 - 存兴趣，享乐趣'
+  - probe:https://pan.mediy.cn/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 7 root entries; write:true, write_content_bypass:False, provider:unknown
+  - probe:https://pan.mediy.cn/api/fs/put 2026-10-22: the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written
+- sources:
+  - [1] https://pan.mediy.cn/
+
+## 龙猫网盘
+
+- `netdisk-pan/s3-776161-xyz` | qualifies-with-caveat | evidence measured | binding write-gated | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://s3.776161.xyz/ | page https://fshy.ajam.dev/p/776161.md
+- free tier: anonymous guest read of 8 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through openresty; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - write-gated (binding): PUT denied at the guest role probe:https://s3.776161.xyz/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier Read-only and described by the index as scattered and mostly personal. Not a capacity play
+- reliability: 8 root entries on OpenList v4.2.2, write:true advertised and denied. The hostname says s3 and the API is AList; the name is not the protocol.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: permission-denied
+  - upstream_provider: unknown
+  - fronting_cdn: openresty
+  - advertised_write_flag: yes
+  - write_content_bypass: no
+  - permission_bitmask: 0
+  - base_path: /
+  - listing_sha256: e47646b6
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 0
+  - aliases: 龙猫网盘 (s3.776161.xyz) — public OpenList, OS/tool mirrors
+- evidence:
+  - probe:https://s3.776161.xyz/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title '龙猫网盘'
+  - probe:https://s3.776161.xyz/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 8 root entries; write:true, write_content_bypass:False, provider:unknown
+  - probe:https://s3.776161.xyz/api/fs/put 2026-10-22: the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written
+- sources:
+  - [1] https://s3.776161.xyz/

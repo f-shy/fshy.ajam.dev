@@ -1,0 +1,453 @@
+# Vercel
+
+> vercel.com | Compute, Inference, CI runners, Storage, Egress and tunnels; 10 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/vercel/ | JSON https://fshy.ajam.dev/api/v1/entity/vercel.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Vercel
+
+- `compute/vercel` | qualifies-with-caveat | evidence documented | binding volume-quota | category platform host | tier Hobby
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:00:44.692Z (live) | stale on 2026-12-05
+- url https://vercel.com/docs/plans/hobby
+- free tier: Hobby at USD 0: 4 CPU-hours of active CPU, 360 GB-hours of provisioned memory, 1 million function invocations, 100 GB of fast data transfer and 1 million CDN requests a month; 100 cron jobs per project, once a day each. | unit: mixed | metered on: wall-clock | read on: 2026-10-24 | source: [1]
+- per-object cap: functions cap at 2 GB of memory and 300 seconds of duration on Hobby
+- retention: no persistent disk; a function is stateless
+- egress: 100 GB of fast data transfer and 10 GB of fast origin transfer a month | metered: yes | free allowance: 100 GB | source: [1]
+- identity: email | detail: a Vercel account; no card on Hobby
+- interface: unknown
+- limits:
+  - volume-quota (binding): 360 GB-hours of provisioned memory and 4 CPU-hours a month [1]
+  - retention-clamped: cron jobs run once a day on Hobby with per-hour precision plus or minus 59 minutes [2]
+  - per-ip-shaping: 100 GB of fast data transfer a month [1]
+  - per-object-cap: 45 minutes of build time per deployment; a build that passes 45 minutes fails [3]
+  - request-rate: 1 concurrent build on Hobby; further builds run one after another [4]
+  - volume-quota (binding): Hobby builds run only on the Basic build machine, 2 vCPUs and 8 GB of memory, and its build minutes are included with no monthly minute count stated; the Hobby plan, pricing and fair-use usage-guideline pages list no monthly build-minute allowance or ceiling [4]
+  - request-rate: 100 deployments a day and 100 builds an hour on Hobby; at either limit the next one waits until the window has passed [3]
+- limits note: the 360 GB-hours of provisioned memory runs out before the 4 hours of Active CPU: a function pinned at the Hobby 2 GB maximum consumes 360 GB-hours in 180 hours, and memory is billed for the whole invocation, not only the CPU slice.
+- binding note: 360 GB-hours at the 2 GB function ceiling is 180 hours of wall clock, and memory is billed for the whole invocation rather than the CPU slice.
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: 360 GB-hours at 1 GB of provisioned memory is 360 hours a month, which is a cron worker that never sleeps; the 300 s duration cap forces chunking, so the shape is a queue plus short functions rather than a daemon.
+- reliability: exceeding a Hobby limit usually means waiting 30 days, not paying an overage; some limits have shorter pause periods
+- notes: The cron row is the part that matters for a 03:00 job: the trigger is free and allowed on Hobby, but its precision is plus or minus 59 minutes, so it cannot be relied on for an exact hour. Confirms documented records row on the quotas.
+- evidence note: the Hobby usage table, the cron limits and the 30-day pause rule were all read in Vercel's documentation
+- extras:
+  - facets.class: perpetual-allowance
+  - facets.free_tier_kind: monthly-allowance
+  - facets.shape.ram_gib: 2
+  - shape.ram_gib: 2
+  - billing_model: free
+  - term: none
+  - m10h_usd: 0.0
+  - m24h_usd: 0.0
+  - price_arithmetic: no charge inside the Hobby allowances
+  - free_tier_kind: free-allowance
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: no
+  - network_out.ports: HTTP only; no listening socket
+  - network_out.static_ip: no
+  - network_out.ipv6: no
+  - session_cap.wall_clock_min: 300
+  - session_cap.restart_required: no
+  - session_cap.note: a function may run 300 s on Hobby; nothing stays resident
+- evidence:
+  - [5] 2026-10-22: Hobby included usage: Active CPU 4 hours, Provisioned Memory 360 GB-hrs, Invocations 1 million; Fast Data Transfer first 100 GB; CDN requests 1M/month, quoted
+  - [6] 2026-10-22: Hobby maximum memory 2 GB; maximum duration 300 s default and maximum; 1,024 file descriptors shared across concurrent executions; single region iad1 by default, quoted
+  - [7] 2026-10-22: Hobby USD 0/mo, 1M CDN requests/month included, 100 GB/month fast data transfer included, quoted
+  - [1] 2026-10-24: quoted table: 'Active CPU | 4 CPU-hrs', 'Provisioned Memory | 360 GB-hrs', 'Function Invocations | First 1,000,000', 'Fast Data Transfer | First 100 GB'
+  - [1] 2026-10-24: quoted: 'if you exceed your usage limits on the Hobby plan, you will have to wait until 30 days have passed before you can use the feature again'
+  - [2] 2026-10-24: quoted: 'Hobby | 100 cron jobs | Once per day | Per-hour (±59 min)'
+  - [3] 2026-10-30: a build is limited to 45 minutes on every plan, Hobby included | capture: sha256:bdab86d67542dcbe7bbda6ec3f482c59ec834894a676f9d3023fa753925ff871 | quote: If the build time exceeds 45 minutes then the build will fail.
+  - [4] 2026-10-30: Hobby runs 1 build at a time and queues the rest | capture: sha256:906b40b8ce1fed97f96d7d787a35c540cb04447000c2372ee863e8f6db8ad62b | quote: Hobby: 1 concurrent deployment. Builds beyond this run sequentially.
+  - [4] 2026-10-30: Hobby builds use the Basic machine with 2 vCPUs and 8 GB; the same page says Basic is included with Hobby, and the pricing page lists Basic machines as Included for Hobby with no minute count | capture: sha256:906b40b8ce1fed97f96d7d787a35c540cb04447000c2372ee863e8f6db8ad62b | quote: Hobby teams always use the Basic build machine. Basic has 2 vCPUs and 8 GB of memory.
+  - [3] 2026-10-30: Hobby is limited to 100 deployments a day; the same page limits Hobby to 100 builds every 3600 seconds | capture: sha256:bdab86d67542dcbe7bbda6ec3f482c59ec834894a676f9d3023fa753925ff871 | quote: You are able to deploy `100` times every `86400` seconds (1 day).
+  - [7] 2026-10-30: the pricing page lists Basic build machine minutes as Included on Hobby, with no monthly count | capture: sha256:3c8802f87eda6c33dd4b4036ee6e3ea0e147fea3219cb3852c2fa4d201f8ee2b | quote: | Basic machines | Included | $0.007 per minute | Custom |
+  - [8] 2026-10-30: the Wayback capture of 2025-06-04 of the Hobby plan page listed 6,000 build execution minutes for Hobby; the page read on 2026-10-30 lists no build-minute count | capture: sha256:c2429abe1aba5c066335698fc4caa2eb54568ec7ee2112cad5f6bfe10179e078 | quote: | Build execution minutes | 6,000 | 24,000 |
+  - [1] 2026-10-30: an exceeded Hobby limit pauses the feature for 30 days rather than billing an overage | capture: sha256:215a12e591ee28f0ae0bdf0e2628bd144b83cee3cefe7132c65ec2c3199e5c82 | quote: In most cases, if you exceed your usage limits on the Hobby plan, you will have to wait until 30 days have passed before you can use the feature again.
+  - [4] 2026-11-03: Hobby builds use only the Basic machine, 2 vCPUs and 8 GB; the pricing and plan pages list no build-minute count for it | capture: sha256:906b40b8ce1fed97f96d7d787a35c540cb04447000c2372ee863e8f6db8ad62b | quote: Hobby teams always use the Basic build machine. Basic has 2 vCPUs and 8 GB of memory.
+  - [5] 2026-11-03: the pricing docs state Basic build machines are included with Hobby and state no minute count | capture: sha256:648cca3dcebcdb518c0973a04c80eeda2327c3b8c38ef5750257ff6de17df9b3 | quote: Basic build machines are included with Hobby.
+  - [9] 2026-11-03: the fair-use page applies a notify-on-outlier guideline; its Typical monthly usage table for Hobby lists data transfer, invocations, Active CPU, memory and image rows and no build-minute… | capture: sha256:2bca014bf4a64948756f3dac03fed876be40aeaded01ddcf08a09ac7d210536e | quote: We will notify you if your usage is an outlier.
+  - [3] 2026-11-03: the only build-time bound on Hobby is 45 minutes per deployment; the limits page lists no monthly build-minute ceiling | capture: sha256:bdab86d67542dcbe7bbda6ec3f482c59ec834894a676f9d3023fa753925ff871 | quote: | Build Time per Deployment (Minutes) | 45 | 45 | 45 |
+  - [4] 2026-11-03: the build docs state Basic is included with Hobby; Hobby builds use only Basic | capture: sha256:906b40b8ce1fed97f96d7d787a35c540cb04447000c2372ee863e8f6db8ad62b | quote: Basic is included with Hobby.
+  - [3] 2026-11-04: a build past 45 minutes fails | capture: sha256:9db9ec1fa747b6a32dcca28afa15960502504bed5622fe8a76296c2f49ed49ce | quote: If the build time exceeds 45 minutes then the build will fail.
+  - [4] 2026-11-04: Hobby has one concurrent build, others queue | capture: sha256:12d310df469a8629679e6d884e21a57bbb2e4ec7e7b8fba6cba87e0e89a4702b | quote: Hobby: 1 concurrent deployment. Builds beyond this run sequentially.
+- sources:
+  - [1] https://vercel.com/docs/plans/hobby
+  - [2] https://vercel.com/docs/cron-jobs/usage-and-pricing
+  - [3] https://vercel.com/docs/limits
+  - [4] https://vercel.com/docs/builds/managing-builds
+  - [5] https://vercel.com/docs/pricing
+  - [6] https://vercel.com/docs/functions/limitations
+  - [7] https://vercel.com/pricing
+  - [8] https://web.archive.org/web/20250604022455/https://vercel.com/docs/plans/hobby
+  - [9] https://vercel.com/docs/limits/fair-use-guidelines
+
+## Vercel AI Gateway
+
+- `inference/vercel-ai-gateway` | qualifies-with-caveat | evidence documented | binding volume-quota | category inference gateway, monthly free credit
+- needs card yes, phone unknown, ID no, institution no | verified 2026-11-04T05:38:59.837Z (live) | stale on 2026-12-05
+- url https://vercel.com/docs/ai-gateway/pricing
+- free tier: every Vercel team account has a free tier with a monthly included credit usable on a subset of the catalogue, with a lower per-model rate limit than the paid tier; the credit starts at the first AI Gateway request and stops applying once AI Gateway Credits are purchased. USD 5 of credits every 30 days per the vendor's launch post of 2025-08-21; the current pricing page prints 'monthly free credit' and no amount. Models priced $0 for input and output also exist; their ids are in free_tier.notes | unit: mixed | metered on: unstated | read on: 2026-10-28 | source: [1] | note: the free-tier model list is a filtered view of the catalogue (freeTier=true) that renders only in the browser, so the eligible set is not enumerated here; the keyless list at https://ai-gateway.vercel.sh/v1/models prices these language ids at input 0 and output 0: nvidia/nemotron-3.5-lightning-free, poolside/laguna-s-2.1-free, reflection/beam, reflection/beam-free and stealth/glyph-cluster; whether $0 ids also need the payment method on file is unverified
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: card | detail: a Vercel account (email one-time-password sign-up is offered) plus a valid payment method added to the Vercel team before the free AI Gateway Credits can be used ('To use free AI Gateway Credits, add a valid payment method to your team'); the dashboard prompt reads 'Verify your identity by adding a credit card and unlock $5 in free credits'; unverified: no first-party page states whether the card is only verified or also charged, or which card types are rejected; unverified: whether team creation needs a phone number (behind a sign-up)
+- interface: rest
+- limits:
+  - volume-quota (binding): USD 5 of credits every 30 days per the vendor's launch post of 2025-08-21; the current pricing page prints 'monthly free credit' and no amount; the credit stops applying once AI Gateway Credits are purchased [2]
+  - request-rate: unverified: the free tier applies a lower limit per model and the vendor page 'describes behavior rather than fixed numbers'; exceeding it returns HTTP 429 with type rate_limit_exceeded [3]
+- binding note: the monthly credit runs out first on paid-priced models; the $0 models are bound by the unpublished per-model rate limit
+- endpoint: https://ai-gateway.vercel.sh/v1/chat/completions
+- tooling: AI SDK, or any OpenAI-compatible client at the gateway base URL; model ids are provider/model
+- composes with: free credit plus several $0 models behind one key; the paid tier removes the gateway's own limits
+- reliability: a 429 on either tier can come from the upstream provider rather than the gateway; the free credit no longer applies after any credit purchase
+- notes: the per-model request limits need a first-party figure; the current pricing page prints no credit amount and the USD 5 figure rests on the launch post of 2025-08-21.
+- evidence note: the free tier, the lower per-model limit, the credit basis, the payment-method requirement and the USD 5 every 30 days credit are quoted from vendor pages; the per-model limits are unpublished, and the USD 5 figure comes from the launch post of 2025-08-21, not from the current pricing page.
+- evidence:
+  - [1] 2026-10-28: every team account has a free tier | capture: sha256:e416b4d8e7f3f52aef08f994060a9aa1b3f33970c90c7da7e7b7a0090b8cb4fe | quote: Every Vercel team account gets access to both a free tier and a paid tier for AI Gateway Credits.
+  - [1] 2026-10-28: the free tier covers a subset of models | capture: sha256:e416b4d8e7f3f52aef08f994060a9aa1b3f33970c90c7da7e7b7a0090b8cb4fe | quote: The free tier includes a subset of models, not the full catalog.
+  - [1] 2026-10-28: free-tier requests carry a lower per-model rate limit | capture: sha256:e416b4d8e7f3f52aef08f994060a9aa1b3f33970c90c7da7e7b7a0090b8cb4fe | quote: Free tier requests are also rate limited per model, with lower limits than the paid tier.
+  - [3] 2026-10-28: the free tier's credit basis is a monthly included credit | capture: sha256:591145d1694f6c70e008baaac4c526f166523cdecfa8c2531cdb7caa2da4200f | quote: | Credit basis | Monthly included credit | Purchased AI Gateway Credits |
+  - [3] 2026-10-28: no per-model limit numbers are published | capture: sha256:591145d1694f6c70e008baaac4c526f166523cdecfa8c2531cdb7caa2da4200f | quote: Limits can change, so this page describes behavior rather than fixed numbers.
+  - [4] 2026-10-28: third-party list gives the free credit as $5/month | capture: sha256:506f69c417fd4f138c3fa74cd7a5abe4f27a61d92ed0259f5e6e0165dcd6ebb9 | quote: Limits: [$5/month](https://vercel.com/docs/ai-gateway/pricing)
+  - [5] 2026-10-28: the model list prices nemotron-3.5-lightning-free at $0.00 input and output | capture: sha256:bcbbbb8926e9471fc67e988b98ed936e5a165593b64032a6502c68c39e3c9525 | quote: | nvidia/nemotron-3.5-lightning-free | chat | 1M | $0.00/1M | $0.00/1M | nvidia | reasoning, tool-use, structured-output, implicit-caching, open-weights, free |
+  - [6] 2026-10-28: using the free AI Gateway Credits requires a valid payment method added to the team | capture: sha256:a2e961bef754cae320f79d1b0ee9dd55ef05dd2f610db7bbeb0db4077dbd3c89 | quote: To use free AI Gateway Credits, add a valid payment method to your team.
+  - [2] 2026-10-28: the launch FAQ states USD 5 of credits every 30 days for a Vercel account | capture: sha256:a1fbeab2ab309945b7a4bfea10ce32599b8001b78be0469866ef0404e70abf63 | quote: Yes! When you sign up for a Vercel account, you get $5 of credits every 30 days to try out any model from our model list.
+  - [7] 2026-10-28: the keyless model list carries entries priced at input 0 and output 0; the language-type ones are the five ids named | capture: sha256:020271214aaead3547d605a585c645d5ac9562ef189e19c2533cf50bd6619d5f | quote: "pricing":{"input":"0","output":"0"}
+  - [1] 2026-10-28: the current pricing page names a monthly free credit and prints no amount | capture: sha256:e416b4d8e7f3f52aef08f994060a9aa1b3f33970c90c7da7e7b7a0090b8cb4fe | quote: Once you purchase credits, your account transitions to the paid tier and the monthly free credit no longer applies.
+  - [1] 2026-10-28: a recurring monthly free credit exists, ended by a credit purchase, so the offer is a capped recurring credit rather than a trial | capture: sha256:e416b4d8e7f3f52aef08f994060a9aa1b3f33970c90c7da7e7b7a0090b8cb4fe | quote: Once you purchase credits, your account transitions to the paid tier and the monthly free credit no longer applies.
+  - [3] 2026-10-28: the free-tier per-model request limit is described, not given as a number; the page shows the 429 body type rate_limit_exceeded | capture: sha256:591145d1694f6c70e008baaac4c526f166523cdecfa8c2531cdb7caa2da4200f | quote: Limits can change, so this page describes behavior rather than fixed numbers.
+  - [8] 2026-10-28: a Vercel staff reply of 2025-09-08 on the vendor's community forum states the card requirement for the free credits | capture: sha256:b38c5be825a06a5054c01bf3afcb58e334c1381ce40a9ddfef5df447ea9e44b5 | quote: AI Gateway requires a valid credit card on file. You can unlock the free credits by adding a payment method.
+  - [9] 2026-10-28: a Vercel community reply of 2026-03-12 says a card that fails verification leaves the USD 5 credit at 0 | capture: sha256:083aa43bfd8115f75f4710aa0c8f9d06c5c352f9620558ac70898f097669ce8b | quote: it seems like the card you added isn't accepted at Vercel and that's why the verification wasn't marked finished.
+  - [10] 2026-11-03: a vendor community reply asks whether a verification payment was charged, without stating it | capture: sha256:26bbbf49290bf87f12a2edf246edb7abfcd8558b7a21f66faa2ded9a25bbf093 | quote: Were you charged a verification payment? Can you try adding another credit card?
+  - [10] 2026-11-03: the dashboard AI Gateway tab prompts a credit card to unlock $5 in free credits (user report, 2025-09-23) | capture: sha256:26bbbf49290bf87f12a2edf246edb7abfcd8558b7a21f66faa2ded9a25bbf093 | quote: The AI gateway tab says: Verify your identity by adding a credit card and unlock $5 in free credits.
+  - [11] 2026-11-03: the gateway error text states a valid card on file is required (shown on a BYOK test request, 2026-01-27) | capture: sha256:0b6cd5fcd91649a0d323b1f869e776d15c0648859cd5115507efcc9f168c7879 | quote: AI Gateway requires a valid credit card on file to service requests.
+  - [3] 2026-11-03: the free-tier per-model limit is still not published as a number | capture: sha256:81b2940737b564c3b1d0b3c6d8f814c3e8897c66fabad889fb070e2bde0d0e27 | quote: Limits can change, so this page describes behavior rather than fixed numbers.
+  - [1] 2026-11-03: free-tier requests carry a lower per-model limit | capture: sha256:61304ae91b92fe1242b313d11f9ad2bbecd293c826110be8c1ce16ab7d1a0068 | quote: Free tier requests are also rate limited per model, with lower limits than the paid tier.
+  - [6] 2026-11-03: free credits need a valid payment method on the team | capture: sha256:a2e961bef754cae320f79d1b0ee9dd55ef05dd2f610db7bbeb0db4077dbd3c89 | quote: To use free AI Gateway Credits, [add a valid payment method]
+  - probe:https://ai-gateway.vercel.sh/v1/chat/completions 2026-11-10: a keyless POST on 2026-11-10 answered HTTP 401 with the vendor's own gate message, so the tier is gated on a key | capture: sha256:fc232326d47f2515ce295eff402e0ce892a9732cc504c7899c51019b8ae67afa | quote: "status": 401
+- sources:
+  - [1] https://vercel.com/docs/ai-gateway/pricing
+  - [2] https://vercel.com/blog/ai-gateway-is-now-generally-available
+  - [3] https://vercel.com/docs/ai-gateway/rate-limits
+  - [4] https://github.com/tiennm99/cheahjs-free-llm-api-resources
+  - [5] https://vercel.com/ai-gateway/models?freeTier=true
+  - [6] https://vercel.com/docs/ai-gateway/getting-started
+  - [7] https://ai-gateway.vercel.sh/v1/models
+  - [8] https://community.vercel.com/t/free-credits-temporarily-have-restricted-access-due-to-abuse/21461
+  - [9] https://community.vercel.com/t/vercel-ai-gateway-promotional-credit-not-showing-after-payment-verification/35992
+  - [10] https://community.vercel.com/t/ai-gateway-credit-issues/23147
+  - [11] https://community.vercel.com/t/ai-gateway-bug/32219
+
+## Vercel CI
+
+- `ci-cd-runners/vercel-ci` | qualifies-with-caveat | evidence documented | binding volume-quota | category CI runner | tier Hobby
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:00:42.536Z (live) | stale on 2026-12-05
+- url https://vercel.com/docs/ci
+- free tier: Hobby: 200 CPU minutes a month included; a CPU minute is one CPU running for one minute. Pro: USD 0.0035 per CPU minute. Beta on all plans | unit: minutes | metered on: wall-clock | read on: 2026-11-02 | source: [1] | note: the true unit is CPU minutes (CPUs multiplied by task run time, rounded up to the second, 1 second minimum); the vocabulary has no core-minutes term, so unit is minutes. Each run spends 4 CPUs on bootstrapping and 2 CPUs by default on each task that runs; cached and skipped tasks cost nothing
+- per-object cap: 2 CPUs and 4 GB of memory per task by default, up to 32 CPUs and 64 GB of memory with a ci:cpus tag; bootstrapping install step 4 CPUs and 8 GB by default. Job time limit: unverified: no Vercel CI page states a task or run time limit | source: [2]
+- retention: unverified: no Vercel CI page states how long runs and task logs are kept | source: [3]
+- egress: unverified: no Vercel CI page states a network egress policy for tasks; the network traffic of tasks passes through a Vercel CI certificate authority | metered: no | source: [4]
+- identity: email | detail: a Vercel account opened with an email address (six-digit one-time password) or a Git provider; a GitHub repository connected to a Vercel project. No card is asked on Hobby; Pro adds USD 20 a month
+- interface: git, cli, rest
+- limits:
+  - volume-quota (binding): 200 CPU minutes a month on Hobby; Pro USD 0.0035 per CPU minute [1]
+  - per-object-cap: 2 CPUs and 4 GB of memory per task by default, up to 32 CPUs and 64 GB; install step 4 CPUs and 8 GB [2]
+  - write-gated: GitHub repositories only, private repositories only, a git push as the only trigger, Linux only, Turborepo required [3]
+- limits note: the job time limit and the largest task size available on Hobby are not stated on any page read; the 45-minute build limit of the Vercel limits page applies to deployment builds, not to Vercel CI tasks
+- binding note: 200 CPU minutes a month are spent faster than wall-clock minutes because bootstrapping bills 4 CPUs by default and every task that runs bills 2 CPUs by default, so the monthly quota runs out before any size limit
+- interface detail: a git push to a GitHub repository connected to a Vercel project runs every task tagged ci in turbo.json; a repository is enabled with the vercel ci enable command, runs and task logs are read in the dashboard CI tab, with the vercel ci CLI, the Vercel MCP and the REST API, and the status of the tasks is posted to the pull request as a check
+- tooling: Turborepo 2.11.7 or later and Vercel CLI 64.3.1 or later; tasks run in Linux containers on x86_64, Amazon Linux 2023 by default or Ubuntu 24.04 with a ci:os:ubuntu tag, with Node.js 24, git, Docker and common build tools preinstalled; extra tools are installed during bootstrapping with an install command in vercel.json
+- composes with: a hosted runner for tagged Turborepo tasks (lint, type check, tests, builds) triggered only by a git push to a private GitHub repository; it has no schedule, manual or pull-request trigger and no public-repository support, so GitHub Actions on a public repository and the other hosted runners of this topic come first for general jobs
+- reliability: Beta: features and configuration may change; behaviour once the 200 Hobby CPU minutes are spent is unverified
+- notes: Confirmed as a hosted CI runner: it runs the Turborepo tasks tagged ci (lint, type checks, tests, builds) on every git push, each task in its own isolated container. It is not a general workflow runner: no YAML workflows, no scheduled or manual triggers, GitHub private repositories only. Launched in Beta on 2026-10-28 on all plans. Whether Hobby can use the 32-CPU task size and what a run does after the Hobby allowance is spent are unverified.
+- evidence note: every number is quoted from Vercel's pricing page and Vercel CI documentation; no run was made, so the job time limit, the largest task size on Hobby and the behaviour once the 200 CPU minutes are spent are unverified
+- evidence:
+  - [1] 2026-11-02: Hobby includes 200 CPU minutes a month; Pro pays USD 0.0035 per CPU minute | capture: sha256:3c8802f87eda6c33dd4b4036ee6e3ea0e147fea3219cb3852c2fa4d201f8ee2b | quote: | 200 CPU minutes / month included | $0.0035 per CPU minute | Custom |
+  - [1] 2026-11-02: Vercel CI runs tests, linting and type checks; a CPU minute is one CPU for one minute | capture: sha256:3c8802f87eda6c33dd4b4036ee6e3ea0e147fea3219cb3852c2fa4d201f8ee2b | quote: Run tests, linting, and type checks on Vercel with native Turborepo support. A CPU minute is one CPU running for one minute.
+  - [3] 2026-11-02: the service is in Beta | capture: sha256:2027418a2b53f8f57894283e1fc273994e675d25ae64325297acc386aa349655 | quote: Vercel CI is in Beta. Features and configuration may change.
+  - [5] 2026-11-02: the Beta is open to every plan, Hobby included | capture: sha256:639a6bb61fe40adf8325c74ae58f350444c10dc19270f574ac030fca465930fe | quote: [Vercel CI is available in Beta today](https://vercel.com/changelog/vercel-ci-is-now-in-beta) on all plans.
+  - [2] 2026-11-02: default task size is 2 CPUs and 4 GB | capture: sha256:1519f9e7c52682aa0d33cd87622bfeaa822b378c08bf75f19463d5b4443ca90a | quote: Vercel CI assigns 2 CPUs and 4 GB of memory to each task by default.
+  - [2] 2026-11-02: a task can be given up to 32 CPUs | capture: sha256:1519f9e7c52682aa0d33cd87622bfeaa822b378c08bf75f19463d5b4443ca90a | quote: Add a `ci:cpus:<count>` tag to assign up to 32 CPUs to a task:
+  - [2] 2026-11-02: 32 CPUs carry 64 GB of memory | capture: sha256:1519f9e7c52682aa0d33cd87622bfeaa822b378c08bf75f19463d5b4443ca90a | quote: | 32 | 64 GB |
+  - [2] 2026-11-02: the bootstrapping install step defaults to 4 CPUs and 8 GB | capture: sha256:1519f9e7c52682aa0d33cd87622bfeaa822b378c08bf75f19463d5b4443ca90a | quote: The install step uses 4 CPUs and 8 GB of memory by default.
+  - [6] 2026-11-02: cached and skipped tasks use no CPU minutes | capture: sha256:c716f7a5718a7f06a4f5dbef9c797a3723ac2b539bf742922dbf780a5fe80cde | quote: Tasks that Vercel CI restores from cache or skips because your changes don't affect them don't run, so they don't use CPU minutes.
+  - [6] 2026-11-02: usage rounds up to the next second, 1 second minimum | capture: sha256:c716f7a5718a7f06a4f5dbef9c797a3723ac2b539bf742922dbf780a5fe80cde | quote: Vercel CI rounds up to the next second, with a minimum of 1 second.
+  - [6] 2026-11-02: Pro price per CPU minute | capture: sha256:c716f7a5718a7f06a4f5dbef9c797a3723ac2b539bf742922dbf780a5fe80cde | quote: | Pro | $0.0035 per CPU minute |
+  - [3] 2026-11-02: GitHub is the only supported forge | capture: sha256:2027418a2b53f8f57894283e1fc273994e675d25ae64325297acc386aa349655 | quote: - GitHub is currently the only supported source code forge.
+  - [3] 2026-11-02: public repositories are not supported | capture: sha256:2027418a2b53f8f57894283e1fc273994e675d25ae64325297acc386aa349655 | quote: - Public repositories are not currently supported.
+  - [3] 2026-11-02: a git push is the only trigger | capture: sha256:2027418a2b53f8f57894283e1fc273994e675d25ae64325297acc386aa349655 | quote: - Pushing code to GitHub with `git push` is currently the only supported trigger.
+  - [3] 2026-11-02: Linux only | capture: sha256:2027418a2b53f8f57894283e1fc273994e675d25ae64325297acc386aa349655 | quote: - Vercel CI currently only offers Linux for its base image.
+  - [3] 2026-11-02: Turborepo 2.11.7 or later is required | capture: sha256:2027418a2b53f8f57894283e1fc273994e675d25ae64325297acc386aa349655 | quote: Vercel CI requires Turborepo 2.11.7 or later.
+  - [3] 2026-11-02: CI is enabled per repository | capture: sha256:2027418a2b53f8f57894283e1fc273994e675d25ae64325297acc386aa349655 | quote: You must explicitly enable Vercel CI for your repository before it can run tasks.
+  - [3] 2026-11-02: a repository must be connected to a Vercel project | capture: sha256:2027418a2b53f8f57894283e1fc273994e675d25ae64325297acc386aa349655 | quote: - A repository must be connected to at least one Vercel project.
+  - [4] 2026-11-02: default image is Amazon Linux 2023 on x86_64, Ubuntu 24.04 optional | capture: sha256:54dbc20849d34c1c27105a43295acbb9195b2c0ae4da55aa8428ab7cc5c13f9d | quote: Tasks without a `ci:os` tag use the Amazon Linux image. Both images run on the `x86_64` architecture.
+  - [4] 2026-11-02: tasks can run Docker containers | capture: sha256:54dbc20849d34c1c27105a43295acbb9195b2c0ae4da55aa8428ab7cc5c13f9d | quote: Your tasks can build and run Docker containers.
+  - [7] 2026-11-02: a CLI command enables CI; others list runs and read logs | capture: sha256:fbdd8b4ab6255083da27e01d737e4d73eefcaeb01fcdf49adac71ced3c37f045 | quote: `vercel ci enable` enables Vercel CI for the current Git repository.
+  - [8] 2026-11-02: sign-up is by email address or Git provider | capture: sha256:1d33b20f4dc43f7ad912f4604f63ab43b7694c2eb0a48dbb4cf8da74bf66c04c | quote: When signing up for Vercel, you can choose to sign up with an email address or a Git provider.
+  - [9] 2026-11-02: Hobby overage generally means a 30-day pause rather than a charge (stated for Hobby usage limits in general, not for Vercel CI) | capture: sha256:09fcdb38ca8d6639deec2529077e24911b2a2d6be39ea57f2beb299b23d06eb1 | quote: In most cases, if you exceed your usage limits on the Hobby plan, you will have to wait until 30 days have passed before you can use the feature again.
+  - [6] 2026-11-04: Hobby includes 200 CPU minutes a month | capture: sha256:58aaaed1d5bcc1e1c64c1f42232801923a6a837895bb19bf014694afffb70f55 | quote: | Hobby | 200 CPU minutes per month included |
+  - probe:https://vercel.com/docs/ci/pricing 2026-11-04: the CI pricing page answered HTTP 200 on 2026-11-04 | capture: sha256:a8199a60ba84c136cf5850719c4d224649e9c31c902b2d6b0959b088d179a5de | quote: "status": 200
+- sources:
+  - [1] https://vercel.com/pricing
+  - [2] https://vercel.com/docs/ci/configuration
+  - [3] https://vercel.com/docs/ci
+  - [4] https://vercel.com/docs/ci/image
+  - [5] https://vercel.com/blog/introducing-vercel-ci
+  - [6] https://vercel.com/docs/ci/pricing
+  - [7] https://vercel.com/docs/cli/ci
+  - [8] https://vercel.com/docs/accounts/create-an-account
+  - [9] https://vercel.com/docs/plans/hobby
+
+## Vercel Sandbox
+
+- `compute/vercel-sandbox` | qualifies-with-caveat | evidence documented | binding volume-quota | category container and VM sandbox | tier Hobby
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T01:52:56.000Z (live) | stale on 2026-11-24
+- url https://vercel.com/docs/sandbox/pricing
+- price parsed USD 61.9/mo
+- free tier: 'Sandbox is free for Hobby users within the usage quotas': 'Sandbox Active CPU | 5 hours/month', 'Sandbox Provisioned Memory | 420 GB-hours/month', 'Sandbox Creations | 5,000/month', 'Sandbox Data Transfer | 20 GB/month', 'Snapshot Storage | 15 GB (lifetime)'. 'Max Session Duration | 45 minutes' on Hobby. | unit: mixed | metered on: wall-clock | read on: 2026-10-24 | source: [1] | note: No cash credit on Hobby; the Pro plan's USD 20 monthly credit is a plan credit.
+- per-object cap: 'You can provision 1 or an even number of vCPUs between 2 and 32 depending on your plan ... The default is 2 vCPUs' and 'Each vCPU includes 2 GB of memory'. | source: [1] | note: Default 2 vCPU / 4 GB, which is the shape used in the arithmetic.
+- retention: Snapshot storage is 15 GB lifetime on Hobby; Drive storage 15 GB lifetime. Sandboxes themselves are ephemeral. | source: [1]
+- egress: 'Data your sandbox sends to the internet, plus all traffic to and from exposed ports, is billable and measured in GB'; downloads into the sandbox are free. Hobby includes 20 GB a month, then USD 0.15/GB. | metered: yes | free allowance: 20 GB a month | price per TB: USD 150 per TB | source: [1]
+- identity: email | detail: A Hobby account needs only a Vercel login; no card is required for the free sandbox quota. No hold exists at that tier.
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): 5 hours of active CPU and 420 GB-hours of provisioned memory a month on Hobby [1]
+  - volume-quota (binding): 45-minute maximum session on Hobby; 24 hours on Pro [1]
+  - volume-quota (binding): 20 GB of data transfer a month on Hobby [1]
+- limits note: Active CPU is billed only while code runs, but provisioned memory is billed for the whole time the sandbox exists, so an idle box is not free.
+- binding note: The 45-minute session cap is the first wall; 5 hours of active CPU a month is the second, and neither reaches a day of uptime, let alone a month.
+- interface detail: SDK and REST; persistent sandboxes and snapshots
+- tooling: Vercel SDK, CLI, snapshots and drives
+- composes with: active-CPU billing makes an idle agent nearly free here, and the 45-minute session cap is what stops it being a host
+- reliability: A sandbox that reaches 45 minutes is stopped by the platform, and its state is only preserved if a snapshot was taken.
+- notes: Even setting the 45-minute cap aside, the allowance cannot hold a box up: 730 hours of a 2 vCPU / 4 GB sandbox needs 2,920 GB-hours of provisioned memory against 420 included, and 730 hours of active CPU against 5. The Pro plan's USD 20 monthly credit would buy 154 hours of memory alone. This row is for batch jobs.
+- evidence note: Quotas, the session cap, the vCPU rule and the transfer terms are on the pricing doc read.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 4
+  - billing_model: per-hour on active CPU plus provisioned memory
+  - granularity.min_billed_s: 60
+  - granularity.rounding_s: 60
+  - session_cap.wall_clock_min: 45
+  - session_cap.restart_required: yes
+  - session_cap.note: 45 minutes on Hobby, 24 hours on Pro
+  - keep_rate.value: 0.0
+  - keep_rate.basis: only active CPU and provisioned memory while running are billed
+  - keep_rate.source: https://vercel.com/docs/sandbox/pricing
+  - persistent_storage.included_gib: 64
+  - persistent_storage.price_gib_month: snapshot storage USD 0.08 per GB-month on Pro
+  - persistent_storage.durability: ephemeral NVMe; snapshots are separate
+  - persistent_storage.survives_stop: no
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: a snapshot persists until deleted
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: exposed ports
+  - free_tier_kind: monthly-allowance
+  - m24h_usd: 61.9
+  - price_arithmetic: 4 GB x 730 h = 2920 GB-h x 0.0212 = 61.90 for memory; active CPU at 5% of a 2 vCPU box = 36.5 CPU-h x 0.128 = 4.67; total about 66.57 a month if CPU is near idle
+  - price_note: 2 vCPU and 4 GiB billed as active CPU plus provisioned memory, at 100 per cent CPU. At 50 per cent CPU the same shape is USD 63.84 for 300 hours.
+  - price_basis: 10 h/day x 30 = 300 h; 24/7 x 30 = 730 h
+  - burst_x: 1.0
+  - burst_bill: $6e-07 per start
+  - crosscheck.boat_compare_2026-09-26: USD 0.682/h at 4 vCPU / 8 GB
+  - term: monthly allowance
+  - credit_usd: 0
+  - credit_months_at_shape: 0.144
+  - credit_hours_at_shape: 105
+  - credit_expiry: resets monthly
+- evidence:
+  - [1] 2026-10-22: Hobby: 5 hours active CPU and 420 GB-hours memory a month, 45-minute maximum session, 10 concurrent sandboxes
+  - [1] 2026-10-22: active CPU is time actually using the CPU; waiting on I/O does not count
+  - [1] 2026-10-22: Hobby: max 4 vCPU, 8 GB memory, 64 GB disk, 15 open ports; over the included limit, creation pauses until the next cycle
+  - [2] 2026-10-22: a competitor's comparison table lists Vercel Sandbox at USD 0.682 per hour for a 4 vCPU / 8 GB / 50 GB machine, with list prices dated 2026-09-26; this is a reported rate about a third party and not a reading of the vendor's own page
+  - [1] 2026-10-24: quoted: 'Sandbox Active CPU | 5 hours/month | $0.128/hour', 'Sandbox Provisioned Memory | 420 GB-hours/month | $0.0212/GB-hour', 'Max Session Duration | 45 minutes' on Hobby and '24 hours' on Pro, 'Sandbox is free for Hobby users within the usage quotas', 'Each vCPU includes 2 GB of memory'.
+- sources:
+  - [1] https://vercel.com/docs/sandbox/pricing
+  - [2] https://boat.dev/compare
+
+## vercel blob
+
+- `storage/vercel-blob-2` | fails-egress | evidence documented | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-03T15:04:20.875Z (live) | stale on 2026-12-04
+- url https://vercel.com/docs/vercel-blob/usage-and-pricing
+- disagrees on verdict: `storage/vercel-blob` says fails-quota, `storage/vercel-blob-2` says fails-egress
+- free tier: none reachable: Hobby plan includes 1 GB per month blob storage and 10 GB data transfer. Overage is billed at regional metered rates per gigabyte. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: Hobby includes the first 10 GB of Blob data transfer and blocks access once a limit is exceeded, until 30 days have passed; Pro is billed per GB at a regional rate ($0.05/GB in iad1 in the pricing example). | metered: yes
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: page read on 2026-11-03: vercel.com/docs/vercel-blob/usage-and-pricing (Hobby includes Blob Storage Size 1GB/month and Blob Data Transfer First 10 GB; on Hobby you will not pay for additional usage but cannot access Vercel Blob when limits are exceeded, until 30 days have passed; example Data Transfer (iad1): 350 GB total at $0.05/GB = $17.50). The identity cost was not read on a vendor page and stays as recorded.
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: Hobby includes 1 GB/month blob storage and 10 GB data transfer, then regional metered pricing. 1 GB per account is 3 orders of magnitude and the overage is per-GB paid.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Hobby includes 1 GB/month blob storage and 10 GB data transfer, then regional metered pricing. 1 GB per account is 3 orders of magnitude and the overage is per-GB paid.
+  - [1] 2026-11-03: the Hobby plan includes the first 10 GB of Blob data transfer; Pro pays a regional rate | capture: sha256:3cea50a7811e9bdf56c64509e7a5cb7069c3ee2ef7a8d65d7d761642b89bdd52 | quote: | [Blob Data Transfer](/docs/vercel-blob/usage-and-pricing#pricing) | Regional | Flat Rate CDN | First 10 GB |
+  - [1] 2026-11-03: a Hobby store is blocked, not billed, when a limit is exceeded | capture: sha256:3cea50a7811e9bdf56c64509e7a5cb7069c3ee2ef7a8d65d7d761642b89bdd52 | quote: However, you will not be able to access Vercel Blob if limits are exceeded.
+  - [1] 2026-11-03: the pricing example prices Blob data transfer at $0.05 per GB in iad1 | capture: sha256:3cea50a7811e9bdf56c64509e7a5cb7069c3ee2ef7a8d65d7d761642b89bdd52 | quote: Data Transfer (iad1): 350 GB total at $0.05/GB = $17.50
+  - [1] 2026-11-03: the Hobby plan includes 1GB/month of Blob Storage Size | capture: sha256:3cea50a7811e9bdf56c64509e7a5cb7069c3ee2ef7a8d65d7d761642b89bdd52 | quote: | [Blob Storage Size](/docs/vercel-blob/usage-and-pricing#pricing) | Regional | Usage-based | 1GB/month |
+- sources:
+  - [1] https://vercel.com/docs/vercel-blob/usage-and-pricing
+
+## Vercel Blob (Hobby plan)
+
+- `storage/vercel-blob` | fails-quota | evidence reported | binding per-object-cap | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://vercel.com/storage/blob
+- disagrees on verdict: `storage/vercel-blob` says fails-quota, `storage/vercel-blob-2` says fails-egress
+- free tier: 1 GB/month of storage, TOTAL per Hobby team. Not per project. Pricing table: 'Blob Storage Size | Regional | Usage-based | 1GB/month' for the Hobby Included column, alongside 'Blob Simple Operations | First 10,000', 'Blob Advanced Operations | First 2,000', 'Blob Data Transfer | First 10 GB'. Per-file ceiling is genuinely large: 'you can store files up to 5 TB' (multipart above 100 MB). Unlimited stores since Sept 2026. But the changelog is explicit that this buys no storage: 'Splitting the same data across more stores doesn't change those costs.'. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: Per-file ceiling is genuinely large: 'you can store files up to 5 TB | bytes: 5000000000000 | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Metered and small: 10 GB of Blob Data Transfer included, then hard-stopped. 'You will not pay for any additional usage. However, you will not be able to access Vercel Blob if limits are exceeded. In this scenario, you will have to wait until 30 days have passed before using Blob storage again.' Public blobs are served from `*.public.blob.vercel-storage.com` with no auth. | metered: yes
+- identity: email
+- interface: rest, rclone
+- limits:
+  - per-object-cap (binding): Per-file ceiling is genuinely large: 'you can store files up to 5 TB [1]
+- limits note: 1 GB storage/month, 10 GB transfer, 2,000 advanced ops (each store creation counts as one), 10,000 simple ops. Operation rate limit 1,200/min simple, 900/min advanced. 512 MB max cacheable blob. Larger blobs MISS every time and incur Fast Origin Transfer. 30-day total lockout on exceeding any limit.
+- interface detail: rest
+- tooling: `@vercel/blob` JS/TS SDK (`put`, `get`, `del`, `head`, `copy`, `list`, client `upload`) and a Python SDK; usable from any host with a token. No rclone backend.
+- composes with: The obvious idea. Unlimited stores x 1 GB. Is explicitly dead: storage is billed on total GB-months regardless of store count, and the Hobby allowance is per team. Chaining requires multiplying Vercel accounts, and a Hobby team is 1 per person with a hard 30-day lockout on breach, so the practical rate is roughly 1 GB per person per month.
+- reliability: Reliable while under quota; the failure mode is a 30-day feature freeze, not deletion. Public URLs are stable. Cache HITs are free but misses are billed, so large blobs are unusually expensive.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 1 GB/month of storage, TOTAL per Hobby team — not per project. Pricing table: 'Blob Storage Size | Regional | Usage-based | 1GB/month' for the Hobby Included column, alongside 'Blob Simple Operations | First 10,000', 'Blob Advanced Operations | First 2,000', 'Blob Data Transfer | First 10 GB'. Per-file ceiling is genuinely large: 'you can store files up to 5 TB' (multipart above 100 MB). Unlimited stores since Sept 2026 — but the changelog is explicit that this buys no storage: 'Splitting the same data across more stores doesn't change those costs.'
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Hobby Included column: '1GB/month' storage, 'First 10 GB' data transfer, 'First 10,000' simple ops, 'First 2,000' advanced ops; 'you will not be able to access Vercel Blob if limits are exceeded ... wait until 30 days have passed'
+  - [2] 2026-10-21: published Sep 23, 2026: unlimited stores, but 'Splitting the same data across more stores doesn't change those costs'
+  - [3] 2026-10-21: 'you can store files up to 5 TB'
+  - [4] 2026-10-21: probe: curl -D - -> 200, Content-Length 2275823, Server: Vercel, X-Vercel-Cache: HIT, no auth
+- sources:
+  - [1] https://vercel.com/docs/vercel-blob/usage-and-pricing
+  - [2] https://vercel.com/changelog/unlimited-vercel-blob-stores-on-every-plan
+  - [3] https://vercel.com/docs/vercel-blob
+  - [4] https://1sxstfwepd7zn41q.public.blob.vercel-storage.com/blob-oYnXSVczoLa9yBYMFJOSNdaiiervF5.png
+
+## Vercel Deployment Storage / artifact store (Hobby, 30-day TTL)
+
+- `storage/vercel-deployment-storage-artifact-store` | fails-quota | evidence reported | binding retention-clamped | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://vercel.com/docs/deployment-storage
+- free tier: 10 GB of Deployment Storage per Hobby team, and that pool is what every retained deployment output draws from. This is the clearest example in the whole slot of a 'free tier' that is a build-artifact store, not storage. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: Deployment Retention defaults for Hobby are now 30 days for ALL four states. Canceled, errored, pre-production, production (Pro gets 180 days preview / 1 year production). | days: 30 | source: [1] | note: not stated
+- egress: Served by Vercel's CDN at no separate charge while the deployment exists (Fast Data Transfer Hobby allowance is 100 GB, shared across all Vercel services). Deployment URLs are public unless Deployment Protection is on. | metered: yes
+- identity: email
+- interface: rest, git, rclone, cli
+- limits:
+  - retention-clamped (binding): Retention defaults for Hobby are now 30 days [1]
+  - write-gated: review / 1 year production) [1]
+  - write-gated: review deployments no longer get their own protection [1]
+- limits note: THE TTL IS THE STORY, and it tightened twice in 2026. Deployment Retention defaults for Hobby are now 30 days for ALL four states. Canceled, errored, pre-production, production (Pro gets 180 days preview / 1 year production). The Sept 16, 2026 changelog cut it further: 'Each Hobby project now keeps its 3 most recent production deployments, plus its 3 most recent deployments of any type, regardless of age. Preview deployments no longer get their own protection.' Deletion runs within 48 hours of eligibility, then a recovery window, then permanent removal. CLI source upload is capped at 100 MB per deploy (Hobby), 15,000 files.
+- binding note: a clock, not a quota: bytes leave whether or not transfer is completed
+- interface detail: rest
+- tooling: `vercel deploy` CLI / Git integration / REST Deployments API. No object-level API at all. You cannot address a file inside a deployment except by URL. No rclone backend and no possible wrapper, because there is no list/put primitive.
+- composes with: None useful. 10 GB is a hard pool shared by every project on the team, and going over it 'can block you from deploying until you free some up'. 200 projects on Hobby but one shared 10 GB. The multiplier actively works against you here.
+- reliability: Hard, automatic, irreversible expiry after 30 days. Any file hosted only in a deployment URL is gone a month later. Treat as a 30-day hot tier and nothing else.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: not-storage
+  - dead_end.why: 10 GB of Deployment Storage per Hobby team, and that pool is what every retained deployment output draws from. This is the clearest example in the whole slot of a 'free tier' that is a build-artifact store, not storage.
+  - dead_end.retry_when: never; it is not storage
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [2] 2026-10-21: default table: 'Hobby | 30 days | 30 days | 30 days | 30 days' vs 'Pro and Enterprise | 30 days | 90 days | 180 days | 1 year'; last_updated 2026-09-16
+  - [1] 2026-10-21: published Sep 16, 2026: 'Hobby teams get 10GB of Deployment Storage'; 'keeps its 3 most recent production deployments, plus its 3 most recent deployments of any type'; 'deployments outside those exceptions are now deleted immediately instead of after 30 days'
+  - [3] 2026-10-21: 'Projects | 200' on Hobby; 'the maximum size of the source files that can be uploaded is limited to 100 MB for Hobby'; '15,000' source files
+- sources:
+  - [1] https://vercel.com/changelog/hobby-projects-now-retain-fewer-deployments-to-free-up-storage
+  - [2] https://vercel.com/docs/deployment-retention
+  - [3] https://vercel.com/docs/limits
+
+## vercel edge config / global config
+
+- `storage/vercel-edge-config-global-config` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://vercel.com/docs/storage/edge-config/edge-config-limits
+- free tier: none reachable: Renamed to Global Config, and the Free limits are absurd for storage: 'Maximum store size / 1 MB' and 'Maximum number of stores (total) / 1' on Hobby. One megabyte. This is a feature-flag… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Renamed to Global Config, and the Free limits are absurd for storage: 'Maximum store size / 1 MB' and 'Maximum number of stores (total) / 1' on Hobby. One megabyte. This is a feature-flag…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Renamed to Global Config, and the Free limits are absurd for storage: 'Maximum store size / 1 MB' and 'Maximum number of stores (total) / 1' on Hobby. One megabyte. This is a feature-flag…
+- sources:
+  - [1] https://vercel.com/docs/storage/edge-config/edge-config-limits
+
+## Vercel Hobby
+
+- `egress/vercel-hobby` | fails-quota | evidence documented | binding volume-quota | category CDN and serverless
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:20:00.000Z (live) | stale on 2026-11-22
+- url https://vercel.com/docs/plans/hobby
+- free tier: 100 GB fast data transfer, 1M CDN requests and 1M invocations per month | unit: GB | metered on: downloaded-bytes | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable: billed by volume
+- retention: not applicable | source: [1]
+- egress: 100 GB/month of fast data transfer; excess is held rather than billed | metered: yes | free allowance: 100 GB/month | source: [1]
+- identity: email | detail: a Vercel account
+- interface: cli
+- limits note: the allowance is a byte volume over a period, which none of the six kinds names; the number is in egress.free_allowance and binding names per-ip-shaping as the nearest kind
+- binding note: the monthly byte allowance in egress.free_allowance is what runs out, and no kind in the six-value vocabulary names a byte volume over a period counted per account. per-ip-shaping is the closest, because it is the only kind that bounds a volume, and its subject here is the account rather than the caller's address
+- interface detail: vercel deploy
+- tooling: vercel CLI
+- composes with: composes with a git repository and a domain; the 100 GB is the whole allowance and the excess pauses rather than bills.
+- reliability: Hobby usage past the allowance pauses until the window resets rather than billing
+- notes: The same 100 GB ceiling as Fastly and the same verdict for the same arithmetic.
+- extras:
+  - stale_after_days: 180
+  - bytes_transit: yes
+  - transit_note: the CDN serves the deployment's bytes from Vercel's edge
+- evidence:
+  - [1] 2026-10-22: 100 GB fast data transfer per month
+- sources:
+  - [1] https://vercel.com/docs/plans/hobby
+
+## vercel hobby (static deployments)
+
+- `storage/vercel-hobby` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://vercel.com/docs/limits
+- free tier: none reachable: 100 MB max static upload per deployment on Hobby, and since Apr 29 2026 Hobby deployment retention is capped at 30 days ('Deployments outside your retention window will be automatically… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: retention
+  - dead_end.why: 100 MB max static upload per deployment on Hobby, and since Apr 29 2026 Hobby deployment retention is capped at 30 days ('Deployments outside your retention window will be automatically…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 100 MB max static upload per deployment on Hobby, and since Apr 29 2026 Hobby deployment retention is capped at 30 days 'Deployments outside your retention window will be automatically remo
+  - [2] 2026-10-21: cited as the basis of the rejection: 100 MB max static upload per deployment on Hobby, and since Apr 29 2026 Hobby deployment retention is capped at 30 days 'Deployments outside your retention window will be automatically remo
+  - [3] 2026-10-21: cited as the basis of the rejection: 100 MB max static upload per deployment on Hobby, and since Apr 29 2026 Hobby deployment retention is capped at 30 days 'Deployments outside your retention window will be automatically remo
+- sources:
+  - [1] https://vercel.com/docs/limits
+  - [2] https://vercel.com/changelog/hobby-projects-now-default-to-30-day-deployment-retention
+  - [3] https://vercel.com/docs/deployment-storage

@@ -1,0 +1,15 @@
+# fshy: Inference in full
+
+> Model APIs that answer a completion request, keyless or behind a free key.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic is 654 KB, about 177K tokens in full, more than the 300 KB, about 81K tokens one file holds, so it is split: its hosted records by verdict group, then its self-hosted records in one last group, and a group over that size into balanced parts. The parts in the order below are the one order (hosted before self-hosted, then verdict, provider name, record id). How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## Parts
+
+- [Usable](https://fshy.ajam.dev/t/inference/llms-full-usable.txt): 40 records; 268 KB, about 72K tokens
+- [Trial](https://fshy.ajam.dev/t/inference/llms-full-trial.txt): 26 records; 193 KB, about 52K tokens
+- [Paid only](https://fshy.ajam.dev/t/inference/llms-full-paid.txt): 20 records; 104 KB, about 28K tokens
+- [Rejected](https://fshy.ajam.dev/t/inference/llms-full-rejected.txt): 10 records; 47 KB, about 13K tokens
+- [Dead](https://fshy.ajam.dev/t/inference/llms-full-dead.txt): 12 records; 45 KB, about 12K tokens

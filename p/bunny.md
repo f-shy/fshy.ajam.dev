@@ -1,0 +1,325 @@
+# Bunny
+
+> bunny.net | Storage, Compute, Domains and DNS, Egress and tunnels; 9 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/bunny/ | JSON https://fshy.ajam.dev/api/v1/entity/bunny.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Bunny.net Edge Storage (+ free origin→CDN transit)
+
+- `storage/bunny-net-edge-storage` | qualifies-with-caveat | evidence reported | binding per-ip-shaping | category object-storage
+- needs card yes, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://bunny.net/pricing/storage/
+- price $10/TB stored (HDD, 1 region); $20/TB (SSD); delivery +$10/TB EU/NA, +$30/TB Asia, +$5/TB on Volume Network. 20 TiB stored + 30 TB/mo served EU/NA = $200 + $300 = $500/mo ≈ $25 per stored TB all-in. | parsed USD 10/TB-mo
+- free tier: Unlimited volume, pay-as-you-go. $0.01/GB/mo HDD per region (up to 9 regions), $0.02/GB/mo SSD per region (up to 15). 20 TiB single-region HDD = $200/mo. $1 monthly minimum. | unit: GB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: The structurally important bit: origin→CDN transit is free ('Free traffic to Bunny CDN', 'Free API egress'). Only end-user CDN delivery is billed, at $0.01/GB EU/NA, $0.03/GB Asia-Oceania, $0.045/GB South America, $0.06/GB ME-Africa. Or a flat $0.005/GB on the 10-PoP Volume Network. So storage and delivery are one bill with no double charge, unlike B2/R2-style metres. | metered: yes
+- identity: card | detail: card
+- interface: s3-compatible, rest, ftps, ftp, rclone
+- limits:
+  - per-ip-shaping (binding): 1 Gbps [1]
+- limits note: per-ip-shaping: 100 concurrent conns per IP per server; 500 RPS per storage zone; 8 MB POST body for zip/download requests; 1 Gbps per connection. Geo-replication multiplies the storage price linearly (2 regions = 2x).
+- binding note: one stream is shaped, and aggregate throughput is the shaped rate times the number of streams
+- interface detail: s3 + rest + ftp
+- tooling: S3-compatible API and an HTTP API, FTP/FTPS, plus rclone bunny backend. Limits are per-server: 100 concurrent HTTP connections per IP, 500 RPS per zone, 1 Gbps per connection. Documentation recommends sharding across connections.
+- composes with: Can front external storage origins such as Hetzner Storage Box or Bunny Storage ($10/TB) with Bunny CDN edge distribution ($5 to $10 per TB delivered). Pull zones can point to any origin endpoint and handle external delivery.
+- reliability: PCI/99.99% SLA on storage; $1 minimum means idle cost is trivial. Card required at signup is the binding constraint, and is why the free CDNs above matter more than Bunny's own storage.
+- notes: the same as the free tier
+- extras:
+  - price_verbatim: $10/TB stored (HDD, 1 region); $20/TB (SSD); delivery +$10/TB EU/NA, +$30/TB Asia, +$5/TB on Volume Network. 20 TiB stored + 30 TB/mo served EU/NA = $200 + $300 = $500/mo ≈ $25 per stored TB all-in.
+- evidence:
+  - [2] 2026-10-21: '$0.01/GB … Up to 9 regions', '$1 monthly minimum', 'Free traffic to Bunny CDN', 'Free API egress'
+  - [3] 2026-10-21: EU/NA $0.01/GB, Asia & Oceania $0.03/GB, Volume Network 'First 500 TB $0.005/GB'
+  - [1] 2026-10-21: per-region arithmetic: 1 region $0.01/GB, 9 regions $0.055/GB; 'Traffic from Storage to CDN is FREE'
+  - [4] 2026-10-21: 100 concurrent HTTP conns/IP, 500 RPS/zone, 1 Gbps per connection, 8 MB POST body
+- sources:
+  - [1] https://docs.bunny.net/storage/pricing
+  - [2] https://bunny.net/pricing/storage/
+  - [3] https://bunny.net/pricing/cdn/
+  - [4] https://docs.bunny.net/storage/limits
+
+## hop.js CDN (cdn.hopjs.net) — Bunny.net's free OSS mirror of npm + cdnjs
+
+- `storage/hop-js-cdn-bunny-net-s-free-oss-mirror-of-npm-cdnjs` | qualifies-with-caveat | evidence reported | binding per-object-cap | category cdn
+- needs card no, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://hopjs.bunny.net/
+- free tier: No quota of its own. It is a permanent mirror: every file is copied into Bunny Storage SSD and served from there, so your ceiling is the npm cap. Probed single files of 32.2 MB, 54.0 MB and 64.5 MB. All served complete and byte-identical to the unpkg copy (sha256 match on the 53,974,528-byte .node and the 64,458,752-byte .exe). No per-file cap was hit at any size tried. | unit: unlimited | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: single files of 32.2 MB | bytes: 32200000 | source: [1] | note: not stated
+- retention: No quota of its own. It is a permanent mirror: every file is copied into Bunny Storage SSD and served from there, so your ceiling is the npm cap | source: [1] | note: not stated
+- egress: Free and unmetered. It is a free public CDN; no account, no key, no billing surface at all. Origin->CDN transit is Bunny's own storage, so there is no origin bill either. | metered: no
+- identity: anonymous | detail: anonymous
+- interface: rest, rclone
+- limits:
+  - per-ip-shaping: 1 TiB/day [1]
+  - per-ip-shaping: 11.3 MB/s [1]
+  - per-object-cap (binding): single files of 32.2 MB [1]
+- limits note: Per-object-cap: ~64 MB proven, likely bounded by npm's own ~100 MB tarball publish limit rather than by hop.js. cache-write-gated: only packages already in the npm/cdnjs index are mirrored. You cannot upload to hop.js directly, you publish upstream. /gh/ (GitHub) paths are not supported (404).
+- interface detail: rest
+- tooling: Plain HTTPS GET: https://cdn.hopjs.net/npm/<pkg>@<ver>/<path>. No auth. Drop-in for any HTTP client / rclone http remote / curl. NOTE the path form carries the version twice when the mirror rewrites you, and the un-versioned form 302s to a broken URL. Always pin <pkg>@<ver> explicitly.
+- composes with: This is the missing piece for the npm-as-storage chain: publish the blob to npm (email-only identity), then serve it from hop.js instead of jsDelivr and the 50 MB jsDelivr file cap stops applying. Publish a 64 MB shard per npm version, chain thousands of versions, serve all of them free with no bandwidth ceiling. Because the mirror is permanent and Bunny-hosted, an npm unpublish does not remove the served copy in the short term.
+- reliability: Young third-party service (Bunny-backed, 119 PoPs, logging disabled by design). Single point of failure with no SLA; Sustained single-stream measured 11.3 MB/s vs jsDelivr's 6.4 MB/s on the same 32 MB object.
+- notes: the same as the free tier
+- evidence:
+  - [2] 2026-10-21: HTTP 200, 32,232,419 bytes (probed)
+  - [3] 2026-10-21: HTTP 200, 53,974,528 bytes, sha256 0c7aecd6… identical to the unpkg copy (probed)
+  - [4] 2026-10-21: HTTP 200, 64,458,752 bytes, sha256 c8abc49e… identical to unpkg (probed); jsDelivr 403s this exact file
+  - [5] 2026-10-21: 404, so no GitHub proxy
+  - [1] 2026-10-21: 'every package is permanently distributed across Bunny Storage's globally deployed SSD regions'; 119 PoPs; all logging disabled
+- sources:
+  - [1] https://hopjs.bunny.net/about/
+  - [2] https://cdn.hopjs.net/npm/@ffmpeg/core@0.12.10/dist/esm/ffmpeg-core.wasm
+  - [3] https://cdn.hopjs.net/npm/@swc/core-win32-x64-msvc@1.7.0/swc.win32-x64-msvc.node
+  - [4] https://cdn.hopjs.net/npm/@ffmpeg-installer/win32-x64@4.1.0/ffmpeg.exe
+  - [5] https://cdn.hopjs.net/gh/jquery/jquery@3.7.1/dist/jquery.min.js
+
+## Bunny Sandbox
+
+- `compute/bunny-sandbox` | trial-only | evidence documented | binding retention-clamped | category container and VM sandbox
+- needs card no, phone unknown, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://bunny.net/magic-containers/
+- free tier: A sandbox billed at Magic Containers rates: USD 0.02 per CPU core-hour billed per second up to 8 cores, USD 0.005 per GB-hour of RAM billed in 64 MB blocks, USD 0.10 per GB per month for the allocated 10 GB workspace, and USD 2 per month for the anycast IPv4 billed per minute. Every sandbox is a clean Ubuntu image with Node.js, Bun, Python and Claude Code installed, plus a 10 GB persistent workspace. | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: trial-credit
+- per-object cap: not applicable | source: [1]
+- retention: The trial ends at 14 days or when the USD 20 balance is spent, and a sandbox keeps running and billing until it is deleted, so an orphaned box eats the whole trial. | source: [1]
+- egress: egress is metered: USD 0.01 per GB Europe and North America, USD 0.03 Asia and Oceania, USD 0.045 Latin America, USD 0.06 Middle East and Africa | metered: yes | source: [1]
+- identity: email | detail: no card required: the bunny.net FAQ states "Every user starts with USD 20 of trial credits upon signup. No credit card is required", with the balance rising to USD 50 when a card is linked, so the card is optional rather than a gate; no hold or authorisation is stated, no phone or identity document is mentioned, and whether debit or prepaid cards work for the optional link is not stated. The record does not name the signup identifier beyond that FAQ
+- interface: ssh
+- limits:
+  - retention-clamped (binding): The trial ends at 14 days or when the USD 20 balance is spent, and a sandbox keeps running and billing until it is deleted, so an orphaned box eats the whole trial. [1]
+- limits note: The trial ends at 14 days or when the USD 20 balance is spent, and a sandbox keeps running and billing until it is deleted, so an orphaned box eats the whole trial.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: The USD 20 trial at USD 0.06 per hour for 2 cores with 4 GB buys about 333 sandbox-hours inside a 14-day window, and the anycast IP plus port exposure makes each one reachable by SSH or HTTPS without a tunnel, which is the piece the free container sandboxes usually lack.
+- reliability: no reliability event recorded
+- notes: The trial credit is recorded against the site-wide bunny.net trial, not a sandbox-specific allowance; nothing on the sandbox page carves out a separate free lane. Egress is the term that can dominate: at USD 0.01 per GB in Europe, serving 1 TiB inside the trial costs USD 10.24, half the balance. Compute at 2 cores and 4 GB is USD 0.06 per hour, or USD 43.80 for 730 hours, plus USD 1 for the workspace and USD 2 for the IP.
+- extras:
+  - facets.class: trial-credit-sandbox
+  - facets.free_tier_kind: trial-credit
+  - facets.shape.vcpu: 2
+  - facets.shape.ram_gib: 4
+  - facets.shape.disk_gib: 10
+- evidence:
+  - [2] 2026-10-22: Bunny Sandbox announced 2026-07-16, Magic Containers underneath, clean Ubuntu with Node.js, Bun, Python and Claude Code, 10 GB persistent workspace, USD 0.02 per CPU core per hour per second up to 8 cores, USD 0.005 per GB per hour in 64 MB increments, USD 2 per month anycast IP
+  - [2] 2026-10-22: 'a sandbox keeps running, and keeps costing you, until you delete it'
+  - [3] 2026-10-22: 'Every user starts with USD 20 of trial credits upon signup. No credit card is required', the balance rises to USD 50 with a linked card, and the trial ends at 14 days or when the balance is used
+  - [1] 2026-10-22: egress is metered: USD 0.01 per GB Europe and North America, USD 0.03 Asia and Oceania, USD 0.045 Latin America, USD 0.06 Middle East and Africa
+  - [1] 2026-10-22: 
+- sources:
+  - [1] https://bunny.net/magic-containers/
+  - [2] https://bunny.net/blog/introducing-bunny-sandbox-a-disposable-room-where-ai-can-build/
+  - [3] https://bunny.net/docs/faq
+
+## Bunny DNS
+
+- `domains-dns/bunny-dns` | paid-only | evidence documented | binding none | category managed authoritative DNS | tier DNS hosting, no query fees, USD 1 minimum monthly account usage
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T02:45:32.881Z (live) | stale on 2026-12-05
+- url https://bunny.net/pricing/dns/
+- free tier: DNS hosting has no charge of its own for up to 500 zones per account and no per-query fee, but the account-wide USD 1 minimum monthly usage applies while a zone is active, so a DNS-only account pays USD 1 a month; a 14-day trial with trial credits and no payment card comes first | unit: objects | metered on: object-count | read on: 2026-11-03 | source: [1]
+- per-object cap: 5,000 records per zone and 500 zones per account by default; both can be raised on request to sales | source: [2]
+- retention: a trial account is disabled when the trial ends unless the balance is topped up; a negative balance disables the account and after 60 days the stored data is deleted | days: 60 | source: [3]
+- egress: no per-query charges | metered: no | source: [1]
+- identity: card | detail: trial sign-up needs an e-mail address confirmed by a link, and the trial credits come with no payment card; after the trial the account is disabled unless funds are added, by card, PayPal or crypto, from USD 10 (https://bunny.net/docs/quickstart.md, https://bunny.net/docs/billing/add-funds.md)
+- interface: rest, cli
+- limits:
+  - per-object-cap: 5,000 records per zone and 500 zones per account [2]
+- limits note: USD 1 minimum monthly usage across the whole account while a DNS zone is active; usage below USD 1 is rounded up to USD 1 for that month; recharge amounts start at USD 10
+- binding note: no limit kind binds; a DNS-only account is charged the USD 1 monthly minimum, and a trial account is disabled when the trial ends unless funds are added
+- interface detail: the bunny.net REST API v3 with an AccessKey header: PUT /dnszone/{zoneId}/records adds a record and POST /dnszone/{zoneId}/records/{id} updates one; no dyndns2 or other HTTP-GET update URL is documented in the pages read, so a dynamic update is a REST call with the record id
+- tooling: curl against the REST API, the bunny CLI command bunny dns for zones and records, and BIND zone-file import
+- composes with: scriptable DNS records answer queries with logic, and custom nameservers on the user's own domain are included at no extra cost
+- reliability: an account whose trial has ended or whose balance is negative is disabled, and a disabled account does not keep its zones online; the stored data is deleted 60 days after a negative balance
+- notes: Confirmation interval: none; there is no renewal or keep-alive step for a zone while the account is funded. The USD 1 minimum is shared with every other bunny.net product on the account. If DNS is the only service you use, you are still charged the $1 minimum for that month, and the minimum applies to the entire account, not per zone.
+- evidence note: the DNS pricing page, the DNS and billing documentation, the limits page and the API reference were read and quoted; no sign-up form was submitted, so whether DNS zones can be created before the trial credits are used is as documented, not measured
+- evidence:
+  - [1] 2026-11-03: up to 500 DNS zones are free of DNS charges | capture: sha256:251d79f91fa7c875dd2b9919a308d496c24aa935162e87737c85f2f42ee9aa5c | quote: Manage up to 500 DNS zones completely free.
+  - [1] 2026-11-03: the USD 1 minimum account fee still applies to a DNS-only account | capture: sha256:251d79f91fa7c875dd2b9919a308d496c24aa935162e87737c85f2f42ee9aa5c | quote: *If this is the only product you use, the $1 minimum account fee still applies.
+  - [4] 2026-11-03: DNS hosting is free for up to 500 domains per account with no per-query charges | capture: sha256:034caee499a12b1211eb9c127d968a4139ace9497f4be6dbe4a22ec2e9e5f0fe | quote: DNS hosting is free for up to 500 domains per account. There are no per-query charges, and smart records and health monitoring are included.
+  - [2] 2026-11-03: the default limit is 5,000 records per zone | capture: sha256:87c90b429f3172447fd27a6e0b1727e92962e188bb64f14a8050b7019cb4332c | quote: | Records per zone | 5,000 | Maximum number of DNS records in a single zone. |
+  - [2] 2026-11-03: the default limit is 500 DNS zones per account | capture: sha256:87c90b429f3172447fd27a6e0b1727e92962e188bb64f14a8050b7019cb4332c | quote: | DNS zones per account | 500 | Maximum number of DNS zones across your account. |
+  - [3] 2026-11-03: a DNS zone that answers queries is active usage, so a DNS-only account is charged the minimum | capture: sha256:8eba95c61265be763efedccdb422d34b6e34640f17eb953041eeccc68af3a737 | quote: DNS hosting has no charges of its own, but a DNS zone that answers queries is active usage on your account.
+  - [3] 2026-11-03: usage below USD 1 is rounded up to USD 1 for the month | capture: sha256:8eba95c61265be763efedccdb422d34b6e34640f17eb953041eeccc68af3a737 | quote: If your usage is below \$1, it will be rounded up to \$1 for that month.
+  - [3] 2026-11-03: trial credits are removed at the end of the trial and not carried over | capture: sha256:8eba95c61265be763efedccdb422d34b6e34640f17eb953041eeccc68af3a737 | quote: trial credits are an exception: they are removed at the end of your trial period and any unused balance is not carried over.
+  - [3] 2026-11-03: a negative balance disables the account and the stored data is deleted after 60 days | capture: sha256:8eba95c61265be763efedccdb422d34b6e34640f17eb953041eeccc68af3a737 | quote: If your balance becomes negative and is not topped up, your account is disabled and, after 60 days, your stored data is deleted.
+  - [3] 2026-11-03: recharge amounts start at USD 10 | capture: sha256:8eba95c61265be763efedccdb422d34b6e34640f17eb953041eeccc68af3a737 | quote: Select an amount: \$10, \$25, \$50, \$100
+  - [5] 2026-11-03: a trial account is disabled when the trial ends unless the balance is topped up | capture: sha256:c79a885478d08279b454f56c9e8acbc9eaed440f030cdfd0a8a4c8989eaa22a9 | quote: Trial accounts are automatically disabled when the trial period ends, unless you top up your account.
+  - [6] 2026-11-03: the trial credits need no payment card | capture: sha256:81d5af2eb31753760db2611c213efc273b2e3b32f13ab927a09e2df3a6649d66 | quote: trial credits** with no payment card
+  - [6] 2026-11-03: sign-up requires confirming the e-mail address through a link | capture: sha256:81d5af2eb31753760db2611c213efc273b2e3b32f13ab927a09e2df3a6649d66 | quote: You must use the link in the email sent to you.
+  - [7] 2026-11-03: the trial is 14 days | capture: sha256:0cccdecfdb2e7da89e6aafbf943cd11b4ae4a67563c8698d6bbef49ba451235a | quote: Start 14-Day FREE Trial
+  - [7] 2026-11-03: the trial needs no credit card | capture: sha256:0cccdecfdb2e7da89e6aafbf943cd11b4ae4a67563c8698d6bbef49ba451235a | quote: No credit card required. Complete setup in 2 minutes.
+  - [7] 2026-11-03: custom nameservers on the user's own domain come at no extra cost | capture: sha256:0cccdecfdb2e7da89e6aafbf943cd11b4ae4a67563c8698d6bbef49ba451235a | quote: Easily set up custom nameservers on your own custom domain with just a few clicks at no extra cost.
+  - [7] 2026-11-03: scriptable DNS records are part of the product | capture: sha256:0cccdecfdb2e7da89e6aafbf943cd11b4ae4a67563c8698d6bbef49ba451235a | quote: Simplify deployments, deliver complex global logic, or automate your infrastructure with scriptable DNS records.
+  - [4] 2026-11-03: a BIND-compatible zone file can be imported | capture: sha256:034caee499a12b1211eb9c127d968a4139ace9497f4be6dbe4a22ec2e9e5f0fe | quote: Import a BIND-compatible zone file to migrate all records at once.
+  - [3] 2026-11-03: funds are added by card, PayPal or crypto | capture: sha256:8eba95c61265be763efedccdb422d34b6e34640f17eb953041eeccc68af3a737 | quote: We accept the following payment methods with no extra fees:
+  - [8] 2026-11-03: the REST API adds a DNS record with PUT on /dnszone/{zoneId}/records | capture: sha256:ec2ef1ab47be04457bdfe6b44b43bef7d2f06909893123ec654d150202b10330 | quote: put /dnszone/{zoneId}/records
+  - [9] 2026-11-03: the REST API updates a DNS record with POST on /dnszone/{zoneId}/records/{id} | capture: sha256:3dea2e945a01fd76be3398f19279978898c1ab94f205e9d910281e26b6dc2ca3 | quote: post /dnszone/{zoneId}/records/{id}
+  - [10] 2026-11-03: the API authenticates with an AccessKey key | capture: sha256:f45db682b8ed8cbb5d003f5e04c72dc85070c248fed1eb53bdf0089bfc5550dd | quote: name: AccessKey
+  - [11] 2026-11-03: a bunny dns CLI command manages zones and records | capture: sha256:c3be68441049d5caef863f13bca66931e60b813fb57e966d37c9d27a01fefe6f | quote: Manage DNS zones and records from the command line.
+  - [3] 2026-11-04: the USD 1 monthly minimum applies while the account has active zones | capture: sha256:8eba95c61265be763efedccdb422d34b6e34640f17eb953041eeccc68af3a737 | quote: there is a \$1 minimum monthly usage while you have active zones on your account.
+  - [3] 2026-11-04: a DNS-only account is still charged the USD 1 monthly minimum | capture: sha256:8eba95c61265be763efedccdb422d34b6e34640f17eb953041eeccc68af3a737 | quote: If DNS is the only service you use, you are still charged the \$1 minimum for that month.
+  - [3] 2026-11-04: the USD 1 monthly minimum is unchanged | capture: sha256:8eba95c61265be763efedccdb422d34b6e34640f17eb953041eeccc68af3a737 | quote: If DNS is the only service you use, you are still charged the \$1 minimum for that month.
+  - [3] 2026-11-04: a DNS-only account is charged the USD 1 monthly minimum, so the write-gated limit row stays | capture: sha256:8eba95c61265be763efedccdb422d34b6e34640f17eb953041eeccc68af3a737 | quote: If DNS is the only service you use, you are still charged the \$1 minimum for that month.
+  - [2] 2026-11-04: the limits can be raised on request | capture: sha256:87c90b429f3172447fd27a6e0b1727e92962e188bb64f14a8050b7019cb4332c | quote: These limits can be raised upon request.
+  - [3] 2026-11-04: a DNS-only account is charged the USD 1 minimum | capture: sha256:8eba95c61265be763efedccdb422d34b6e34640f17eb953041eeccc68af3a737 | quote: If DNS is the only service you use, you are still charged the \$1 minimum for that month.
+  - [3] 2026-11-04: the minimum applies to the whole account | capture: sha256:8eba95c61265be763efedccdb422d34b6e34640f17eb953041eeccc68af3a737 | quote: This applies to the entire account, not per zone.
+  - [2] 2026-11-04: 500 zones per account and 5,000 records per zone are the default limits | capture: sha256:87c90b429f3172447fd27a6e0b1727e92962e188bb64f14a8050b7019cb4332c | quote: | DNS zones per account | 500 | Maximum number of DNS zones across your account. |
+- sources:
+  - [1] https://bunny.net/pricing/dns/
+  - [2] https://bunny.net/docs/dns/limits.md
+  - [3] https://bunny.net/docs/billing/add-funds.md
+  - [4] https://bunny.net/docs/dns
+  - [5] https://bunny.net/docs/account/account-suspended.md
+  - [6] https://bunny.net/docs/quickstart.md
+  - [7] https://bunny.net/dns/
+  - [8] https://docs.bunny.net/reference/dnszonepublic_addrecord
+  - [9] https://docs.bunny.net/reference/dnszonepublic_updaterecord
+  - [10] https://docs.bunny.net/reference/dnszonepublic_index
+  - [11] https://bunny.net/docs/llms.txt
+
+## bunny stream
+
+- `storage/bunny-stream` | paid-only | evidence documented | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-03T15:04:24.328Z (live) | stale on 2026-12-04
+- url https://bunny.net/pricing/stream/
+- free tier: None reachable: Paid per GB stored and per GB delivered. Transcoding and player are free, storage is 'From $0.01/GB' and traffic is billed on top. This is exactly the per-GB metered model that was rejected. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: Delivery is billed per GB of traffic with no cap stated; the Stream page lists CDN from $0.005/GB. | metered: yes
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Re-read on 2026-11-03 from vendor pages: https://bunny.net/pricing/stream/ (player, transcoding and security free; traffic billed, CDN from $0.005/GB) and https://bunny.net/pricing/ (first 500 TB $0.005/GB). Delivery is billed by traffic with no free allowance stated, which decides the verdict. The per-GB storage price stays unverified.
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: Paid per GB stored and per GB delivered. Transcoding and player are free, storage is 'From $0.01/GB' and traffic is billed on top — this is exactly the per-GB metered model that was…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Paid per GB stored and per GB delivered. Transcoding and player are free, storage is 'From $0.01/GB' and traffic is billed on top — this is exactly the per-GB metered model that was…
+  - [1] 2026-11-03: delivery traffic is billed by use; no egress cap or free allowance is stated | capture: sha256:668577b39f13e506201951f11c823bddb30f87941ddd3c4ccb5bc8a96660ce60 | quote: Utilize video player, transcoding, and all security features completely free of charge. Only pay for the traffic you use!
+  - [1] 2026-11-03: egress is priced per GB at a low rate with no cap, so 1 TiB a day is reachable at a price | capture: sha256:668577b39f13e506201951f11c823bddb30f87941ddd3c4ccb5bc8a96660ce60 | quote: CDN From $0.005/GB
+  - [2] 2026-11-03: volume network CDN rate for the first 500 TB | capture: sha256:47ccbe43b84ce194020f0a641fb3be29f6d99fa7fab8e26cc98f769657bcd744 | quote: First 500 TB $0.005/GB
+- sources:
+  - [1] https://bunny.net/pricing/stream/
+  - [2] https://bunny.net/pricing/
+
+## bunny stream / bunny storage
+
+- `storage/bunny-stream-bunny-storage` | paid-only | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://bunny.net/pricing/stream/
+- free tier: None reachable: No free tier. Stream is 'only pay for the traffic' plus $1/month minimum and a 14-day trial; Storage is $0.01/GB/mo with free traffic to Bunny CDN only. Note for the swarm: Bunny Storage. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: paid
+  - dead_end.why: No free tier — Stream is 'only pay for the traffic' plus $1/month minimum and a 14-day trial; Storage is $0.01/GB/mo with free traffic to Bunny CDN only. Note for the swarm: Bunny Storage
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: No free tier — Stream is 'only pay for the traffic' plus $1/month minimum and a 14-day trial; Storage is $0.01/GB/mo with free traffic to Bunny CDN only. Note for the swarm: Bunny Storage
+  - [2] 2026-10-21: cited as the basis of the rejection: No free tier — Stream is 'only pay for the traffic' plus $1/month minimum and a 14-day trial; Storage is $0.01/GB/mo with free traffic to Bunny CDN only. Note for the swarm: Bunny Storage
+  - [3] 2026-10-21: cited as the basis of the rejection: No free tier — Stream is 'only pay for the traffic' plus $1/month minimum and a 14-day trial; Storage is $0.01/GB/mo with free traffic to Bunny CDN only. Note for the swarm: Bunny Storage
+- sources:
+  - [1] https://bunny.net/pricing/stream/
+  - [2] https://bunny.net/pricing/
+  - [3] https://bunny.net/pricing/storage/
+
+## bunny.net
+
+- `egress/bunny-net` | paid-only | evidence documented | binding per-object-cap | category CDN (paid)
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22T03:20:00.000Z (live) | stale on 2026-11-22
+- url https://bunny.net/pricing/
+- free tier: no free tier; USD 1/month minimum | unit: none | metered on: downloaded-bytes | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable: billed per GB with no free allowance
+- retention: not applicable | source: [1]
+- egress: USD 0.01/GB in EU and North America, USD 0.005/GB on the volume network | metered: yes | source: [1]
+- identity: card | detail: a card, with a USD 1/month minimum
+- interface: rest
+- limits:
+  - per-object-cap (binding): billed per GB with no free allowance [1]
+- interface detail: a pull zone hostname
+- tooling: bunny API
+- composes with: the paid comparison every free claim here should be read against: at USD 0.005/GB a day of the workload is USD 5.5 to 11.
+- reliability: the cheapest per-GB CDN rate found, which is why the arithmetic matters more than the rate
+- notes: At 1 TiB/day, 1,024 GiB is 1.10 TB, so USD 5.5 to 11 per day and USD 165 to 330 per month.
+- extras:
+  - stale_after_days: 180
+  - bytes_transit: yes
+  - transit_note: a pull zone serves the origin's bytes from bunny's edge
+- evidence:
+  - [1] 2026-10-22: USD 0.005/GB on the volume network and USD 0.01/GB in EU and North America
+- sources:
+  - [1] https://bunny.net/pricing/
+
+## bunny.net as a *free* egress source
+
+- `storage/bunny-net-as-a-free-egress-source` | fails-egress | evidence documented | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-03T15:04:23.414Z (live) | stale on 2026-12-04
+- url https://docs.bunny.net/storage/pricing
+- free tier: none reachable: Free transit applies only from Bunny Storage into Bunny CDN. There is no free public egress: end-user delivery is $0.01/GB EU/NA and $0.03/GB Asia, with a $1/month minimum, so Bunny is… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: Public delivery is billed per GB by region (CDN Standard Network: USD 0.01/GB Europe and North America, USD 0.03/GB Asia and Oceania, USD 0.045/GB South America, USD 0.06/GB Middle East and Africa); traffic from storage to the CDN and API egress for managing data are free; USD 1 monthly minimum; no free public egress allowance. | metered: yes
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Re-read on 2026-11-03 from vendor pages: https://bunny.net/pricing/cdn/ (Europe and North America $0.01/GB, Asia and Oceania $0.03/GB), https://bunny.net/pricing/storage/ (free egress for managing data, public distribution paid) and https://docs.bunny.net/storage/pricing (storage-to-CDN transit and API egress free, end-user CDN delivery billed). Registration fields stay unverified.
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: Free transit applies only from Bunny Storage into Bunny CDN. There is no free public egress: end-user delivery is $0.01/GB EU/NA and $0.03/GB Asia, with a $1/month minimum, so Bunny is…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Free transit applies only from Bunny Storage into Bunny CDN. There is no free public egress: end-user delivery is $0.01/GB EU/NA and $0.03/GB Asia, with a $1/month minimum, so Bunny is the
+  - [2] 2026-10-21: cited as the basis of the rejection: Free transit applies only from Bunny Storage into Bunny CDN. There is no free public egress: end-user delivery is $0.01/GB EU/NA and $0.03/GB Asia, with a $1/month minimum, so Bunny is the
+  - [2] 2026-11-03: public CDN delivery in Europe and North America is billed at USD 0.01/GB | capture: sha256:498c451dce3d67f568fc88d7575af462df0b4cf612b7351aa78adc2bf0042405 | quote: Europe & North America $0.01/GB
+  - [2] 2026-11-03: public CDN delivery in Asia and Oceania is billed at USD 0.03/GB | capture: sha256:498c451dce3d67f568fc88d7575af462df0b4cf612b7351aa78adc2bf0042405 | quote: Asia & Oceania $0.03/GB
+  - [3] 2026-11-03: free egress covers managing data; public distribution is paid | capture: sha256:6eccff9d6ca45c3c3eb1ee622f78316f7c2b3c332be5a7c335d9b16733c795c7 | quote: Enjoy FREE egress for managing your data and only pay for public distribution.
+  - [1] 2026-11-03: storage-to-CDN transit and API egress are free, end-user delivery is billed | capture: sha256:c4d5d113bf95620ea630715561cea73bf834f09fe8c42208b7c47e073a9cb8ea | quote: Only end-user CDN delivery is billed
+  - [2] 2026-11-03: the vendor page lists South America at $0.045/GB | capture: sha256:498c451dce3d67f568fc88d7575af462df0b4cf612b7351aa78adc2bf0042405 | quote: $0.045/GB
+  - [2] 2026-11-03: the vendor page lists Middle East and Africa at $0.06/GB | capture: sha256:498c451dce3d67f568fc88d7575af462df0b4cf612b7351aa78adc2bf0042405 | quote: $0.06/GB
+  - [2] 2026-11-03: the vendor page states a $1 monthly minimum | capture: sha256:498c451dce3d67f568fc88d7575af462df0b4cf612b7351aa78adc2bf0042405 | quote: $1 Monthly Minimum
+- sources:
+  - [1] https://docs.bunny.net/storage/pricing
+  - [2] https://bunny.net/pricing/cdn/
+  - [3] https://bunny.net/pricing/storage/
+
+## cdnjs / cdnjs.cloudflare.com as a personal store
+
+- `storage/cdnjs-cdnjs-cloudflare-com-as-a-personal-store` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://hopjs.bunny.net/about/
+- free tier: none reachable: Not open-write: packages are added by maintainer PR against the cdnjs/cdnjs repo, i.e. write-gated by review. Its free mirror hop.js is useful (see candidate 1) but the underlying store is… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: write-gated
+  - dead_end.why: Not open-write: packages are added by maintainer PR against the cdnjs/cdnjs repo, i.e. write-gated by review. Its free mirror hop.js is useful (see candidate 1) but the underlying store is…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Not open-write: packages are added by maintainer PR against the cdnjs/cdnjs repo, i.e. write-gated by review. Its free mirror hop.js is useful (see candidate 1) but the underlying store is…
+- sources:
+  - [1] https://hopjs.bunny.net/about/

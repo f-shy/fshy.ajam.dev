@@ -1,0 +1,1249 @@
+# OVHcloud
+
+> ovhcloud.com | Email, Compute, Storage, Egress and tunnels; 25 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/ovhcloud/ | JSON https://fshy.ajam.dev/api/v1/entity/ovhcloud.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## OVH MX Plan
+
+- `email/ovh-mx-plan` | qualifies-with-caveat | evidence documented | binding write-gated | category mailbox
+- needs card yes, phone no, ID no, institution no | verified 2026-11-02T10:00:29.728Z (live) | stale on 2026-12-03
+- url https://www.ovhcloud.com/en/emails/
+- free tier: 5 GB mailbox per account, free 100 MB web hosting with a domain, no database | unit: GB | metered on: stored-bytes | read on: 2026-10-22 | source: [1]
+- per-object cap: 5 GB per mailbox | source: [1]
+- retention: 5 GB per mailbox | source: [1]
+- egress: not applicable | metered: no | source: [2]
+- identity: card | detail: an OVH account with a payment method. Activation also needs a domain at OVH, which is a second gate and is recorded in the limits rather than in the identity kind, because identity_cost carries one value
+- interface: unknown
+- limits:
+  - write-gated (binding): one mailbox per domain on the free activation, with regional variation [1]
+- limits note: the 5 GB is a mailbox storage volume and not an object size, so no kind in the six-value vocabulary names it. One mailbox per domain is the count that shapes the tier
+- interface detail: webmail from a browser, and an email client over IMAP (imap.mail.ovh.net or ssl0.ovh.net, port 993, SSL/TLS), POP (pop.mail.ovh.net or ssl0.ovh.net, port 995, SSL/TLS) and SMTP (smtp.mail.ovh.net or ssl0.ovh.net, port 465, SSL/TLS) in the Europe and Africa zone
+- tooling: any IMAP client, per the MX Plan documentation
+- composes with: the cheapest route to a real mailbox with a custom domain, at the cost of a domain and a hosting plan at OVH.
+- reliability: the free activation depends on a domain and a hosting plan at OVH, with regional variation
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [1] 2026-10-22: the free Mail MX activation bundled with a Start 10M hosting plan
+  - [3] 2026-11-02: MX Plan mail is used through webmail or an email client, with IMAP, POP and SMTP settings given for a user, for which the schema has no term, and the guide documents no WebDAV access | capture: sha256:e6357369a3badaff39d6a69e8c245b4010c2f002bdc2e090a3c8b5364ef07eb4 | quote: Once you have created your email addresses, you can start using them. There are two ways of doing this: using webmail from a browser, or using an email client.
+  - [3] 2026-11-02: IMAP is at imap.mail.ovh.net or ssl0.ovh.net for the Europe and Africa zone | capture: sha256:e6357369a3badaff39d6a69e8c245b4010c2f002bdc2e090a3c8b5364ef07eb4 | quote: Server (incoming): imap.mail.ovh.net or ssl0.ovh.net.
+  - [3] 2026-11-02: an MX Plan mailbox is read over IMAP, or over POP | capture: sha256:e6357369a3badaff39d6a69e8c245b4010c2f002bdc2e090a3c8b5364ef07eb4 | quote: When you choose your account type, we recommend using IMAP to receive emails. However, you can select POP as well.
+  - [3] 2026-11-02: IMAP uses port 993 with SSL/TLS for the Europe and Africa zone | capture: sha256:e6357369a3badaff39d6a69e8c245b4010c2f002bdc2e090a3c8b5364ef07eb4 | quote: Server (incoming): imap.mail.ovh.net or ssl0.ovh.net. - Port: 993. - Security type: SSL/TLS.
+  - [3] 2026-11-02: POP is at pop.mail.ovh.net or ssl0.ovh.net on port 995 with SSL/TLS for the Europe and Africa zone | capture: sha256:e6357369a3badaff39d6a69e8c245b4010c2f002bdc2e090a3c8b5364ef07eb4 | quote: Server (incoming): pop.mail.ovh.net or ssl0.ovh.net. - Port: 995. - Security type: SSL/TLS.
+  - [3] 2026-11-02: SMTP uses port 465 with SSL/TLS for the Europe and Africa zone | capture: sha256:e6357369a3badaff39d6a69e8c245b4010c2f002bdc2e090a3c8b5364ef07eb4 | quote: Server (outgoing): smtp.mail.ovh.net or ssl0.ovh.net. - Port: 465. - Security type: SSL/TLS.
+  - [3] 2026-11-02: SMTP is at smtp.mail.ovh.net or ssl0.ovh.net for the Europe and Africa zone | capture: sha256:e6357369a3badaff39d6a69e8c245b4010c2f002bdc2e090a3c8b5364ef07eb4 | quote: Server (outgoing): smtp.mail.ovh.net or ssl0.ovh.net.
+  - [3] 2026-11-02: the MX Plan guide was captured on 2026-11-02 and gives the IMAP and POP settings | capture: sha256:e6357369a3badaff39d6a69e8c245b4010c2f002bdc2e090a3c8b5364ef07eb4 | quote: When you choose your account type, we recommend using IMAP to receive emails. However, you can select POP as well.
+  - [3] 2026-11-02: the MX Plan guide still documents IMAP, POP and SMTP client access | capture: sha256:e6357369a3badaff39d6a69e8c245b4010c2f002bdc2e090a3c8b5364ef07eb4 | quote: Server (outgoing): smtp.mail.ovh.net or ssl0.ovh.net.
+- sources:
+  - [1] https://docs.ovhcloud.com/en/guides/web-cloud/web-hosting/activate-start10m.md
+  - [2] https://www.ovhcloud.com/en/emails/
+  - [3] https://docs.ovhcloud.com/en/guides/web-cloud/email-and-collaborative-solutions/mx-plan/email-generalities.md
+
+## OVHcloud, VPS-1 (2027 range)
+
+- `compute/ovhcloud-vps-1-2027` | qualifies-with-caveat | evidence documented | binding volume-quota | category VPS | tier VPS-1 (2027 range)
+- needs card yes, phone no, ID no, institution no | verified 2026-11-06T19:33:06.062Z (live) | stale on 2026-12-07
+- url https://www.ovhcloud.com/en/vps/
+- price parsed USD 4.54/mo
+- disagrees on verdict: `compute/ovhcloud-2` says paid-only, `compute/ovhcloud-vps-1-2027` says qualifies-with-caveat
+- disagrees on verdict: `compute/ovhcloud-vps-1-2027` says qualifies-with-caveat, `compute/ovhcloud-windows` says paid-only
+- free tier: no free tier; VPS-1 is the entry rung of the 2027 range at USD 4.54 a month on 12-month upfront | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the plan is paid; a daily backup of the previous 24 hours is included and replicated three times in the same datacentre
+- egress: 'Unlimited traffic' with a '500 Mbps public bandwidth' port on VPS-1. The footnote carves out the Asia-Pacific regions: '500 GB for VPS-1... Beyond this, the bandwidth is capped at 10 Mbps' | metered: no | free allowance: unlimited outside APAC; 500 GB a month in Mumbai, Singapore and Sydney | source: [1]
+- identity: card | detail: the order goes through a configurator that requires an OVHcloud account with billing details; a card is the standard rail. No ID document is stated on the pricing page. Card hold not stated: unverified rather than none. The configurator could not be read on 2026-10-24, so this is from the pricing page only.
+- interface: ssh, rest
+- limits:
+  - volume-quota (binding): 500 GB a month in Mumbai, Singapore and Sydney, then capped at 10 Mbps; unlimited elsewhere [1]
+- binding note: unlimited in the EU and US, so the traffic term only binds if the box is placed in APAC.
+- interface detail: root SSH, the OVHcloud control panel, and the OVHcloud API
+- tooling: any SSH client; OVHcloud API and CLI
+- composes with: a 4 GiB box with genuinely unmetered EU traffic, which makes it the one row here that can serve bytes rather than only compute
+- reliability: no reliability event recorded
+- notes: CHANGED in shape, not in price. USD 4.54 a month is confirmed and it is the 12-month-upfront rate. But VPS-1 is 4 GB of RAM and 2 vCPU, not 8 GiB: it is under the line on price and under the beefy bar on memory, so it does not compete with the 8 GiB rows. The next rung up, VPS-2 at USD 8.50, is 8 GB and 4 vCPU and over the line. Two things were not settled: the renewal after the 12-month term (the configurator that would show it refused to load), and whether VAT is added (the page prints no VAT line at all, and the 'World [$]' locale implies no EU VAT for a non-EU buyer). Worst case exposure is not computable without the renewal.
+- evidence note: price, shape, port and the APAC quota carve-out are quoted from the vendor's own pricing page read on 2026-10-24. The configurator, which would carry the renewal and the tax basis, was not readable on 2026-10-24: its DNS lookup timed out.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 4
+  - shape.disk_gib: 40
+  - billing_model: 12-month upfront or monthly
+  - term: 12 months upfront for the USD 4.54 figure
+  - m10h_usd: 4.54
+  - m24h_usd: 4.54
+  - price_arithmetic: USD 4.54 a month on the 12-month-upfront term ('pricing=upfront12' in the Configure link). x 12 = USD 54.48 out of pocket. It is a VPS, so no 730-hour multiplication. No conversion was needed: the page prints USD for the World locale.
+  - out_of_pocket_usd: 54.48
+  - out_of_pocket_note: USD 54.48 is the vendor's own USD rate ($4.54) x 12 on the .com storefront. The EU catalogue price converts to USD 51.17. The two differ because OVHcloud's internal EUR/USD rate sits near 1.19, above the ECB 1.1193; the vendor's own USD figure is the one a buyer on the English site pays.
+  - renewal_usd: not published
+  - renewal_note: not published on the pricing page. So the post-12-month price is unverified rather than absent.
+  - promo: no
+  - fx.pair: EUR/USD
+  - fx.rate: 1.1193
+  - fx.date: 2026-10-23
+  - port_mbps: 500
+  - ipv4_included: yes
+  - ipv6: not stated on the pricing card
+  - vat: the page prints no VAT line and the 'en' locale is 'World [$]', so the USD figures are for a non-EU buyer. Not verified in a cart
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: no
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - signup_url: https://www.ovhcloud.com/en/vps/configurator/?planCode=vps-2027-model1&brick=VPS%2BModel%2B1&pricing=upfront12
+  - cart_url: https://www.ovhcloud.com/en/vps/configurator/?planCode=vps-2027-model1&brick=VPS%2BModel%2B1&pricing=upfront12
+  - worst_case_note: not computable: the renewal is not readable. The unknown is the exposure.
+  - payment_methods: not read: the configurator was unreachable. OVHcloud is an incumbent and takes cards; the specific rails were not verified today. unverified
+  - stock: in stock: the pricing page renders a Configure button for every rung and no sold-out flag. Read at https://www.ovhcloud.com/en/vps/
+  - ladder.VPS-1.ram_gib: 4
+  - ladder.VPS-1.vcpu: 2
+  - ladder.VPS-1.disk_gib: 40
+  - ladder.VPS-1.usd_mo: 4.54
+  - ladder.VPS-1.port_mbps: 500
+  - ladder.VPS-2.ram_gib: 8
+  - ladder.VPS-2.vcpu: 4
+  - ladder.VPS-2.disk_gib: 75
+  - ladder.VPS-2.usd_mo: 8.5
+  - ladder.VPS-2.port_mbps: 1000
+  - ladder.VPS-3.ram_gib: 12
+  - ladder.VPS-3.vcpu: 6
+  - ladder.VPS-3.disk_gib: 100
+  - ladder.VPS-3.usd_mo: 12.32
+  - ladder.VPS-3.port_mbps: 2000
+  - ladder.VPS-4.ram_gib: 24
+  - ladder.VPS-4.vcpu: 8
+  - ladder.VPS-4.disk_gib: 200
+  - ladder.VPS-4.usd_mo: 23.37
+- evidence:
+  - [1] 2026-10-24: quoted: 'VPS-1 From $4.54 /month', '2 vCores', '4 GB RAM', '40 GB SSD NVMe', 'Daily backup of the previous 24 hours', 'Unlimited traffic', '500 Mbps public bandwidth'
+  - [2] 2026-10-24: price catalogue for planCode vps-2027-model1: 'default 1 month 449000000' (EUR 4.49/month ex-VAT) and 'upfront12 1 month 381000000' (EUR 3.81/month ex-VAT on a 12-month upfront)
+  - [3] 2026-10-24: quoted: 'Credit/Debit cards', 'Cards accepted are Visa, Mastercard, Maestro', 'Paypal', 'Prepaid account'
+  - [1] 2026-10-24: quoted: 'Our VPS solutions in the Asia-Pacific region (Mumbai, Singapore, Sydney) come with a set monthly quota: 500 GB for VPS-1'
+  - [1] 2026-10-24: quoted from the VPS-1 card: 'VPS-1 / From $4.54 /month / 2 vCores / 4 GB RAM / 40 GB SSD NVMe / Daily backup of the previous 24 hours / Unlimited traffic / 500 Mbps public bandwidth'
+  - [1] 2026-10-24: the Configure link carries 'pricing=upfront12', so the USD 4.54 is the 12-month-upfront rate rather than a monthly rate
+  - [1] 2026-10-24: quoted footnote: 'Our VPS solutions in the Asia-Pacific region (Mumbai, Singapore, Sydney) come with a set monthly quota: 500 GB for VPS-1, 1 TB for VPS-2 and VPS-3, 3 TB for VPS-4. Beyond this, the bandwidth is capped at 10 Mbps.'
+  - [1] 2026-10-24: the page's own language map: 'en' maps to {"currencyCode":"USD","country":"World"}, so the '$' figures are USD for a rest-of-world visitor
+  - [3] 2026-11-06: OVHcloud accepts Visa, Mastercard and Maestro cards | capture: sha256:1bb040f010d78fc15cad2155da6cdc0195337f3af99e51d70c12b68810997e37 | quote: Cards accepted are Visa, Mastercard, Maestro.
+  - [1] 2026-11-06: the pricing page states the VPS-1 price, its port and the APAC quota carve-out | capture: sha256:77b859d778c9e0c773d96d5fcd6b93406e78b762fde6cc0cc8911b6d4f937ad0 | quote: From $4.54 /month ... Unlimited traffic ... 500 Mbps public bandwidth ... 500 GB for VPS-1, 1 TB for VPS-2 and VPS-3, 3 TB for VPS-4. Beyond this, the bandwidth is capped at 10 Mbps.
+- sources:
+  - [1] https://www.ovhcloud.com/en/vps/
+  - [2] https://api.ovh.com/v1/order/catalog/public/vps?ovhSubsidiary=IE
+  - [3] https://www.ovhcloud.com/en/terms-and-conditions/payment/
+
+## OVHcloud GPU instances
+
+- `compute/ovh-gpu` | trial-only | evidence documented | binding request-rate | category GPU cloud
+- needs card yes, phone no, ID no, institution no | verified 2026-11-02T02:17:25.933Z (live) | stale on 2026-12-03
+- url https://www.ovhcloud.com/en/public-cloud/prices/
+- free tier: USD 200 of free credit for a new public-cloud account, one time; there is no free instance tier, and b3-8 at $0.0605 an hour is the cheapest general-purpose row | unit: mixed | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: card | detail: A valid email address is the only requirement the account-creation guide lists, but the free trial cannot start before a valid payment method is added, and creating the first project carries a USD 0.99 fee. The trial credit is limited to the US regions. No phone number and no identity document is named.
+- interface: unknown
+- limits:
+  - request-rate (binding): $0.0605 an hour for b3-8 at 2 vCore and 8 GB, up to $4.829 for b3-640 at 160 vCore [1]
+  - per-ip-shaping: public network bandwidth is fixed per instance size, from 500 Mbit/s to 20 Gbit/s, so the egress ceiling is bought with the instance [1]
+  - write-gated: the USD 200 is a one-time new-account credit; there is no free tier under it [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the public-cloud price list was read on 2026-10-22 and carries both the USD 200 trial credit and the full instance ladder. The credit is one-time, so the verdict stays trial-only and the ladder gives the duty-cycle arithmetic
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - shape.vcpu: 2
+  - shape.ram: 8
+  - shape.note: b3-8 is the cheapest general-purpose row; GPU instances are priced on the same page
+  - session_cap.restart_required: no
+  - session_cap.note: an instance bills while it exists; the price list carries hourly and 12-month rates, and the page states no reap
+  - free_tier_kind: one-time-credit
+  - burst_x: 1.0
+  - ps.price: local storage priced with the instance; block storage separately
+  - ps.durability: local or block storage
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: while the volume exists
+  - net.out: yes
+  - net.in: yes
+  - net.ports: any
+  - net.allowance: public bandwidth is fixed per instance size, 500 Mbit/s to 20 Gbit/s
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: '### Get started with US$ 200 free' with 'You can find out if our solutions meet your needs by trying them out for free', against b3-8 at '$0.0605' an hour and '12 months -15%' savings plans; the GPU table sits in the same price list
+  - [2] 2026-11-02: the free trial cannot start before a valid payment method is added to the account | capture: sha256:86b748df471785db7febf3271b92a133ffc89df2c554ea1ae33ece8fb651656e | quote: Before starting your free trial, you need to add a valid payment method to your OVHcloud customer account. This payment method will be used after your free trial ends if you choose to continue running the project you have launched.
+  - [2] 2026-11-02: a valid payment method must be added before the free trial starts, so the card gates the credit | capture: sha256:86b748df471785db7febf3271b92a133ffc89df2c554ea1ae33ece8fb651656e | quote: Before starting your free trial, you need to add a valid payment method to your OVHcloud customer account. This payment method will be used after your free trial ends if you choose to continue running the project you have launched.
+  - [3] 2026-11-02: the account itself needs only a valid and accessible email address | capture: sha256:945f4e98b5d2464730e482bbf6d18a52f2b8a530031f2e94ba7fcf8f4fc3af25 | quote: ## Requirements - A valid and accessible email address
+  - [2] 2026-11-02: creating the first project carries a fee, so a payment card is used | capture: sha256:86b748df471785db7febf3271b92a133ffc89df2c554ea1ae33ece8fb651656e | quote: As a part of the setup, you must add a payment method with a $0.99 fee for creating your first project.
+  - [2] 2026-11-02: the trial is offered only in the US regions, which is the country limit | capture: sha256:86b748df471785db7febf3271b92a133ffc89df2c554ea1ae33ece8fb651656e | quote: This free trial is available in all the US regions with Public Cloud services.
+  - [2] 2026-11-02: the trial requires a payment method before it starts | capture: sha256:86b748df471785db7febf3271b92a133ffc89df2c554ea1ae33ece8fb651656e | quote: Before starting your free trial, you need to add a valid payment method to your OVHcloud customer account. This payment method will be used after your free trial ends if you choose to continue running the project you have launched.
+- sources:
+  - [1] https://www.ovhcloud.com/en/public-cloud/prices/
+  - [2] https://us.ovhcloud.com/public-cloud/free-trial/
+  - [3] https://docs.ovhcloud.com/en/guides/account-and-service-management/account-information/ovhcloud-account-creation
+
+## OVHcloud Public Cloud (Compute)
+
+- `compute/ovhcloud` | trial-only | evidence documented | binding volume-quota | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T10:36:19.924Z (live) | stale on 2026-12-05
+- url https://us.ovhcloud.com/public-cloud/prices/
+- price parsed USD 18.43/mo
+- free tier: US$200 in Public Cloud credits for one month, on the first Public Cloud project only: 'We are offering you US$ 200 credits, so you can try our solution and explore its possibilities!' The voucher must be activated when the first project is created and excludes services in beta. A payment method is required before the trial starts. | unit: mixed | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not stated | source: [2]
+- retention: not stated | source: [2]
+- egress: Outbound public traffic is included in the price of instances in all locations except Singapore, Sydney and Mumbai; in those three each Public Cloud project includes 1 TB/month of outbound public traffic and each additional GB is charged. Inbound public traffic is included everywhere. | metered: no | source: [2]
+- identity: card | detail: a payment method before the first project; no hold amount published on the payment page; debit accepted (Visa, Mastercard, Maestro); PayPal accepted; the 'prepaid account' OVHcloud offers is a points balance bought in advance and redeemed against products, which is not a prepaid card; no identity document named on the payment page
+- interface: unknown
+- limits:
+  - volume-quota (binding): USD 200 of Public Cloud credit for one month, on the first project only [1]
+  - request-rate: $31.19 a month for b2-7 at 2 vCore, 7 GB and 50 GB of SSD, up to $2,996.39 for b3-640 [2]
+  - per-ip-shaping: outbound public traffic is included in the instance price everywhere except Singapore, Sydney and Mumbai; guaranteed bandwidth runs from 250 Mbit/s to 20 Gbit/s by size [2]
+- limits note: the price list bills the Gen3 shapes per hour and the local-disk size is not stated: the cell reads 'Local storage low latency **' with no footnote
+- binding note: the one-month window ends the USD 200 before any per-hour rate limit is reached
+- interface detail: Access interface not documented in published terms.
+- tooling: part of limits note
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: OVH Public Cloud bills hourly compute instances with separate storage allocations. Introductory credits of USD 200 for Public Cloud and USD 100 for Managed Databases are available for new projects. Payment accepts standard credit and debit cards.
+- evidence note: the US price list and the trial page were read on 2026-10-23; the per-hour figures below exclude any local-disk line | Payment facts re-read on 2026-10-24: the card types, the hold and the identity gate each come from a first-party page quoted in evidence[].
+- extras:
+  - keep_rate: 1.0
+  - billing_model: flat-pool
+  - shape.vcpu: 2
+  - shape.ram: 7
+  - shape.disk: 50
+  - shape.note: b2-7: 2 vCore, 7 GB, 50 GB of SSD and 250 Mbit/s guaranteed
+  - session_cap.restart_required: no
+  - session_cap.note: billing is per hour or per month; the page states no reap
+  - price_note: a VPS bills by the month with an hourly rate capped at the monthly figure, so the two columns answer two questions: destroying the box between runs versus keeping it up.
+  - free_tier_kind: none
+  - m10h_usd: 7.68
+  - m24h_usd: 18.43
+  - price_basis: 10 h/day column = 300 h at the hourly rate, which is what a server destroyed between runs costs; 24/7 column = the monthly cap, because a VPS kept up all month stops at the cap.
+  - granularity.min_billed_s: 60
+  - burst_x: 1.0
+  - ps.gib: 50
+  - ps.price: included in the instance
+  - ps.durability: SSD
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: while the instance exists
+  - net.out: yes
+  - net.in: yes
+  - net.ports: any
+  - net.allowance: outbound included except Asia-Pacific
+  - hourly_usd.c3-4: 0.054
+  - hourly_usd.c3-8: 0.1078
+  - hourly_usd.c3-16: 0.2154
+  - hourly_usd.b3-8: 0.0605
+  - hourly_usd.b3-16: 0.1208
+  - hourly_usd.b3-32: 0.2415
+  - hourly_usd.local_disk_per_gb_hour: 0.0001721
+  - benchmark[0].plan: VPS-1 (2 vCPU / 4 GiB)
+  - benchmark[0].cpu_model: Intel Core Processor (Haswell, no TSX)
+  - benchmark[0].dedicated_or_shared: not stated
+  - benchmark[0].gb6_single: 696
+  - benchmark[0].gb6_multi: 1206
+  - benchmark[0].source_url: https://www.vpsbenchmarks.com/yabs/ovhcloud-2c-4gb-20261011-adf71e
+  - benchmark[0].source_date: 2026-10-11
+  - benchmark[0].rung: reported
+  - benchmark[0].note: Haswell at 2.39 GHz. Newest CPU of any host here and the slowest single core among the 2 vCPU rows on x86.
+  - payment_methods.card_at_signup: yes
+  - payment_methods.debit: accepted
+  - payment_methods.prepaid: not-stated
+  - payment_methods.virtual: not-stated
+  - payment_methods.hold_detail: no hold amount published
+  - payment_methods.identity: no identity document named on the payment page
+  - payment_methods.source_url: https://www.ovhcloud.com/en/terms-and-conditions/payment/
+  - payment_methods.read_on: 2026-10-24
+- evidence:
+  - [2] 2026-10-23: quoted hourly: c3-4 $0.054, c3-8 $0.1078, c3-16 $0.2154, b3-8 $0.0605, b3-16 $0.1208, b3-32 $0.2415
+  - [2] 2026-10-23: quoted: 'The monthly price is estimated based on 730 hours per month for Gen 3 instances (B3, C3, R3).'
+  - [1] 2026-10-23: quoted: 'We are offering you US$ 200 credits ... Get the one-month free trial and create your first Public Cloud project.'
+  - [2] 2026-10-23: quoted footnote: 'Customers are eligible to receive up to $300.00 (USD) in Public Cloud credits' with '$200.00 (USD) in Public Cloud Credits when creating your first Public Cloud infrastructure project' plus '$100.00 (USD)' for a first Managed Databases service, and 'The Public Cloud Credits are valid for 90 days from the day the credit has been applied.'
+  - [3] 2026-10-24: quoted from the page body: 'Payment methods offered by OVHcloud' then '## Credit/Debit cards' — 'Cards accepted are Visa, Mastercard, Maestro.' and 'You have two possibilities to pay by credit/debit card'. The page also carries a 'Prepaid account' section and a PayPal section
+  - [4] 2026-10-24: quoted: 'The prepaid account is added to the My payment methods page as soon as it is created. It allows you to credit your customer account in advance and use these funds to pay for your orders and renewal invoices.'
+  - [2] 2026-11-04: Singapore, Sydney and Mumbai cap outbound traffic at 1 TB/month per project, then charge per GB | capture: sha256:7a39158ec664d36212eb8527bf6784dcb882532d62956e28370ddc8b29699110 | quote: In these three regions, each Public Cloud project includes 1 TB/month of outbound public traffic. Beyond this quota, each additional GB of traffic is charged.
+  - [2] 2026-11-04: outbound traffic is included everywhere except the three Asia-Pacific locations | capture: sha256:7a39158ec664d36212eb8527bf6784dcb882532d62956e28370ddc8b29699110 | quote: Outbound public network traffic is included in the price of instances in all locations except the Asia-Pacific region (Singapore, Sydney, and Mumbai).
+- sources:
+  - [1] https://www.ovhcloud.com/en/public-cloud/free-trial/
+  - [2] https://us.ovhcloud.com/public-cloud/prices/
+  - [3] https://www.ovhcloud.com/en/terms-and-conditions/payment/
+  - [4] https://docs.ovhcloud.com/en/guides/account-and-service-management/managing-billing-payments-and-services/manage-payment-methods
+
+## OVHcloud (2)
+
+- `compute/ovhcloud-2` | paid-only | evidence documented | binding per-ip-shaping | category cloud VM
+- identity a placeholder: card and phone unknown | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://us.ovhcloud.com/vps/
+- disagrees on verdict: `compute/ovhcloud-2` says paid-only, `compute/ovhcloud-vps-1-2027` says qualifies-with-caveat
+- free tier: VPS 2027 line. VPS-1 starting at USD 4.54/month: 2 vCores, 4 GB RAM, 40 GB NVMe SSD, daily backup of the previous 24 hours, unlimited traffic, 500 Mbps public bandwidth. VPS-2 at USD 8.50/month: 4 vCores, 8 GB RAM, 75 GB NVMe, 1 Gbps. VPS-3 at USD 12.32/month: 6 vCores, 12 GB, 100 GB NVMe, 2 Gbps. | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: VPS-1 card: 'Starting at $4.54 /month', 2 vCores, 4 GB RAM, 40 GB SSD NVMe, 'Daily backup of the previous 24 hours', 'Unlimited traffic', '500 Mbps public bandwidth', quoted | metered: yes | source: [1]
+- identity: card | detail: unverified: no page stating the signup requirement was read; the record's evidence covers the VPS-2027 rate card (VPS-1 at USD 4.54 a month, VPS-2 at USD 8.50, VPS-3 at USD 12.32) but not the order form. Whether a card is required, any hold amount, and whether debit or prepaid is accepted are not stated, so the stored card kind is unsupported by this record's evidence.
+- interface: unknown
+- limits:
+  - per-ip-shaping (binding): unlimited traffic at 500 Mbps means no byte counter stops you, but 500 Mbps is about 5.4 TB a day at saturation and is the real ceiling [1]
+- limits note: unlimited traffic at 500 Mbps means no byte counter stops you, but 500 Mbps is about 5.4 TB a day at saturation and is the real ceiling
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: 4 GB, unlimited traffic and an included daily backup for USD 4.54 is the cheapest combination of memory and egress with a backup among documented hosts, and the backup removes the need for a second host just to hold a copy
+- reliability: no reliability event recorded
+- notes: ADDS a product line to an existing provider: compute/ovhcloud covers OVH Public Cloud (b2-7 at USD 31.19) and records no VPS row at all, so the whole VPS 2027 ladder is new. 'Starting at' is not a monthly rate and the configurator was not read, so the term behind 4.54 is unknown. Unverified: the configurator's monthly price for VPS-1, and whether the daily backup survives a machine rebuild.
+- extras:
+  - facets.class: price-floor
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 2
+  - facets.shape.ram_gib: 4
+  - facets.shape.disk_gib: 40
+- evidence:
+  - [1] 2026-10-22: VPS-1 card: 'Starting at $4.54 /month', 2 vCores, 4 GB RAM, 40 GB SSD NVMe, 'Daily backup of the previous 24 hours', 'Unlimited traffic', '500 Mbps public bandwidth', quoted
+  - [1] 2026-10-22: VPS-2 'Starting at $8.50 /month' with 4 vCores, 8 GB, 75 GB NVMe and 1 Gbps; VPS-3 'Starting at $12.32 /month' with 6 vCores, 12 GB, 100 GB and 2 Gbps
+  - [1] 2026-10-22: the page states 'There is a new VPS-1 entry-level model, and the configurations for the other models have shifted', so older VPS-1 figures in circulation describe a different machine
+- sources:
+  - [1] https://us.ovhcloud.com/vps/
+
+## OVHcloud (windows)
+
+- `compute/ovhcloud-windows` | paid-only | evidence documented | binding per-ip-shaping | category Windows VPS | tier VPS-4 2027 + Windows Server 2025 Standard (Desktop)
+- needs card yes, phone no, ID no, institution no | verified 2026-10-26T11:33:32.317Z (live) | stale on 2026-11-26
+- url https://www.ovhcloud.com/en/vps/os/vps-windows/
+- price parsed USD 57.63/mo
+- disagrees on verdict: `compute/ovhcloud-vps-1-2027` says qualifies-with-caveat, `compute/ovhcloud-windows` says paid-only
+- free tier: no free tier; VPS-4 is EUR 23.49/month on the monthly term and the Windows option is EUR 28.00/month more | unit: none | metered on: none | read on: 2026-10-26 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the VPS is paid; the price is metered monthly or prepaid on a 6 or 12 month term
+- egress: unlimited traffic with 3 Gbps public bandwidth in the European and American regions; the Asia-Pacific VPS-4 carries a 3 TB/month quota and then 10 Mbps | metered: yes | free allowance: unlimited in EU and US; 3 TB/month in Asia-Pacific | source: [2]
+- identity: card | detail: an account and a payment method at order; the order flow is account-gated and its instrument list was not read
+- interface: rest, cli
+- limits:
+  - per-ip-shaping (binding): 3 Gbps public bandwidth [2]
+  - volume-quota: unlimited traffic in EU and US; the Asia-Pacific VPS-4 carries 3 TB/month and then 10 Mbps [2]
+- limits note: the Windows option is EUR 28.00/month on every term and the installation fee is EUR 0.00; the VPS page's 'From $23.37' is the Linux price
+- binding note: the 3 Gbps port is the published ceiling in the EU and US; only the Asia-Pacific region has a byte quota, so the port is the first limit in the likely region.
+- interface detail: RDP over a dedicated public IPv4; the OVHcloud API and control panel exist
+- tooling: any RDP client; OVHcloud API and control panel
+- composes with: 24 GiB and 8 vCPU for about USD 58 a month with the licence; the VPS-4 is the only 2027 rung that reaches 16 GiB, and the tier below is 12 GiB
+- reliability: no reliability event observed; the VPS range includes a daily backup of the previous 24 hours
+- notes: The VPS page's 'From $23.37' is the Linux rate. The Windows option is a separate EUR 28.00 line, so the monthly bill is EUR 51.49 and the 12-month prepaid bill is EUR 47.96 a month. First payment on the 12-month term is EUR 575.52. The 16 GiB rung is VPS-4 only; VPS-3 is 12 GiB.
+- evidence note: the shape, the base price and the EUR 28.00 Windows option come from the VPS page and OVH's public order catalogue read. The USD figures are arithmetic at the ECB rate of 2026-10-23.
+- extras:
+  - shape.vcpu: 8
+  - shape.ram_gib: 24
+  - shape.disk_gib: 200
+  - billing_model: monthly, 6-month or 12-month prepaid
+  - base_eur_monthly: 23.49
+  - base_eur_6mo: 22.31
+  - base_eur_12mo: 19.96
+  - licence_eur_monthly: 28.0
+  - total_eur_monthly: 51.49
+  - total_eur_12mo: 47.96
+  - monthly_usd: 57.63
+  - monthly_12mo_usd: 53.68
+  - first_month_usd: 57.63
+  - first_payment_12mo_usd: 644.44
+  - first_payment_note: EUR 47.96 x 12 = EUR 575.52, converted at 1.1193
+  - setup_fee_eur: 0.0
+  - renewal_eur: 51.49
+  - fx.pair: EUR/USD
+  - fx.rate: 1.1193
+  - fx.date: 2026-10-23
+  - windows_licence: add-on, EUR 28.00/month, printed in the order catalogue
+  - ipv4_included: yes
+  - port_mbps: 3000
+  - traffic: unlimited in EU and US; 3 TB/month in Asia-Pacific
+  - stock: orderable via the configurator; no stock count published
+  - cart_url: https://www.ovhcloud.com/en/vps/os/vps-windows/
+- evidence:
+  - [2] 2026-10-26: quoted: 'VPS-4 From $23.37/month 8 vCores 24 GB RAM 200 GB SSD NVMe Daily backup of the previous 24 hours Unlimited traffic 3 Gbps public bandwidth'
+  - [1] 2026-10-26: the VPS OS catalogue lists 'Windows Server 2025 Standard (Desktop)' as an image, and the page links the Windows VPS option
+  - [3] 2026-10-26: catalogue price for 'option-windows-2027-model4' is '1 month 2800000000 644000000' in micro-units, which is EUR 28.00 plus EUR 6.44 tax; installation fee is EUR 0.00
+- sources:
+  - [1] https://www.ovhcloud.com/en/vps/os/vps-windows/
+  - [2] https://www.ovhcloud.com/en/vps/
+  - [3] https://api.ovh.com/1.0/order/catalog/public/vps?ovhSubsidiary=IE&locale=en_GB
+
+## OVHcloud 3-AZ Active Archive class
+
+- `storage/ovhcloud-active-archive` | paid-only | evidence documented | binding none | category S3-compatible object storage, instant-access archive class in 3-AZ regions | tier Active Archive
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T01:30:27.153Z (live) | stale on 2026-12-04
+- url https://www.ovhcloud.com/en/public-cloud/prices/?currency=USD
+- price USD 4.96 per TB per month (USD 0.0053217 per GiB-month x 931.32 GiB per TB), plus USD 19.74 per TB retrieved; 90-day minimum | parsed USD 4.96/TB-mo
+- free tier: No free tier: the Active Archive class in a 3-AZ (Multi Zone) region is billed from the first GiB at USD 0.00000729 per GiB-hour (about USD 0.0053217 per GiB-month), with a 90-day minimum storage duration and USD 0.0212 per GiB retrieved | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: billed per GiB-hour; the monthly figure is the hourly price x 730 hours
+- per-object cap: 48 TiB per object through multipart upload; 5 GiB through a single PUT | bytes: 52776558133248 | source: [2] | note: the Object Storage technical limits page states one set of limits for the Object Storage offer
+- retention: unlimited volume and time; each object is billed for a minimum of 2,190 hours (90 days), and an object deleted or moved to another class earlier is charged for the remaining hours | source: [1] | note: a billing minimum, not a deletion clock
+- egress: External ingoing and outgoing traffic, internal traffic and API requests are free; reading data back costs USD 0.0212 per GiB retrieved, counted on get-object requests, and the object stays instantly readable | metered: no | price per TB: USD 19.74 per TB retrieved (USD 0.0212 per GiB x 931.32 GiB per TB)
+- identity: card | detail: an email address validated by a one-time code, the country of tax residence, and a valid payment method on the account before the first Public Cloud project
+- interface: s3-compatible, rclone, cli
+- limits:
+  - per-object-cap: 48 TiB per object by multipart upload; 5 GiB by a single PUT [2]
+  - request-rate: 300 PUT and 900 GET requests per second per bucket, soft defaults [2]
+  - per-ip-shaping: 1 Gbps per connection [2]
+- limits note: Available only in the 3-AZ regions Paris and Milan: 99.99% availability SLA; a retrieval fee and a 90-day minimum storage duration apply
+- binding note: none: storage has no stated cap, an object may reach 48 TiB, the per-bucket rates are soft defaults, and the 90-day minimum storage duration and the USD 0.0212 per GiB retrieval fee are billing terms, not limits
+- interface detail: S3-compatible API
+- tooling: AWS CLI, rclone, s3cmd, any S3 SDK; lifecycle rules move objects between classes
+- composes with: S3 origin behind a CDN or proxy; lifecycle rules move objects between this class and the Standard class
+- reliability: 99.99% availability SLA, 3-AZ regions only; durability is stated as 11 nines for every class
+- notes: offered only in 3-AZ Paris (eu-west-par) and 3-AZ Milan (eu-south-mil); objects stay instantly readable, unlike Cold Archive, which needs a restore first
+- evidence note: documented: the international price list, the storage classes pages, the endpoints page and the technical limits page were read and quoted on 2026-11-03; a read timed from a bucket would make it measured
+- evidence:
+  - [1] 2026-11-03: the Active Archive class costs USD 0.00000729 per GiB-hour, about USD 0.0053217 per GiB-month, with a 90-day minimum, USD 0.0212 per GiB retrieved, and free traffic and API requests | capture: sha256:7150d4e359dd22bb1cdc6984242255f12708be00d1b6f62832ce91c97940d3c0 | quote: | Active Archive | - | Free | Free | $0.0212 | Free | 90 days | $0.00000729 | ~$0.0053217 |
+  - [1] 2026-11-03: Object Storage is invoiced per GiB-hour and the monthly figure assumes 730 hours | capture: sha256:7150d4e359dd22bb1cdc6984242255f12708be00d1b6f62832ce91c97940d3c0 | quote: For optimal readability, the price is displayed as GiB/month – but since there are 730 hours in an average month, the invoicing granularity is GiB/hour.
+  - [1] 2026-11-03: the minimum storage durations are 30 days for Infrequent Access and 90 days for Active Archive, and an early delete is charged for the remaining hours | capture: sha256:7150d4e359dd22bb1cdc6984242255f12708be00d1b6f62832ce91c97940d3c0 | quote: A minimum storage duration applies to cold storage classes: 730 hours (30 days) for Infrequent Access, 2,190 hours (90 days) for Active Archive and 4,380 hours (180 days) for Cold Archive.
+  - [3] 2026-11-03: Active Archive is a 3-AZ-only class with millisecond first-byte time, a 99.99% SLA, a 90-day minimum and a retrieval fee | capture: sha256:181f031145ebc4092e7912a123b416ab4d8a3ed5f61aacc1989c525d296d9ebd | quote: | Active Archive | Long-term regulatory data storage, disaster recovery plans | milliseconds | 3-AZ | 3-AZ regions: 99.99% | 90 days | Yes | Object-level, lifecycle management support |
+  - [4] 2026-11-03: the Paris 3-AZ region supports the Active Archive class | capture: sha256:7fa9967c74bf60e460ce1928ebaf0fcb8ae54c8fb540727602f50d635249382d | quote: | Paris | eu-west-par | HTTPS | 4 | 3-AZ region | Standard, Infrequent Access, Active Archive and Cold Archive |
+  - [4] 2026-11-03: the Milan 3-AZ region supports the Active Archive class | capture: sha256:7fa9967c74bf60e460ce1928ebaf0fcb8ae54c8fb540727602f50d635249382d | quote: | Milan | eu-south-mil | HTTPS | 4 | 3-AZ region | Standard, Infrequent Access and Active Archive |
+  - [5] 2026-11-03: Active Archive is offered in the 3-AZ Paris and 3-AZ Milan regions and in no other European region | capture: sha256:ed05c64d307df4f56f30479f23c904466a1c8994037dd586f71cca6566bf8ce5 | quote: | Object Storage - Active Archive | | | | ✓ | ✓ | | | | |
+  - [2] 2026-11-03: the largest object is 48 TiB by multipart upload and 5 GiB by a single PUT | capture: sha256:4f37b76756413096aac5c8c8c167ae1b5887e6332b7adca0b35dd6981129e475 | quote: | Maximum Object size | 48 TiB | This maximum can be achieved using Multi-Part Upload (MPU), via a single PUT request, the maximum object size is 5 GiB |
+  - [2] 2026-11-03: Object Storage bandwidth is 1 Gbps per connection, lifted by parallel requests | capture: sha256:4f37b76756413096aac5c8c8c167ae1b5887e6332b7adca0b35dd6981129e475 | quote: 1 Gbps/connection.
+  - [2] 2026-11-03: the default write rate is 300 requests per second on a bucket, a soft limit | capture: sha256:4f37b76756413096aac5c8c8c167ae1b5887e6332b7adca0b35dd6981129e475 | quote: - PUT: 300 requests per second
+  - [6] 2026-11-03: a valid payment method is required on the account before the first Public Cloud project | capture: sha256:d4ea1558739c101bb88cd8c0b2bc33aea7af1e71433784b49df80af7e8259376 | quote: You need to add a valid payment method to your OVHcloud customer account before starting the free trial, which will be used after your free trial ends, if you want to keep running the project you have launched.
+  - [7] 2026-11-03: account creation validates the email address with a one-time code | capture: sha256:103df8a17f5d1de37f2b9d7093e796f5dfd8f164e951a986315a007a2e91b6a1 | quote: After you submit this form, a one-time code will be sent to the email address you entered.
+- sources:
+  - [1] https://www.ovhcloud.com/en/public-cloud/prices/?currency=USD
+  - [2] https://docs.ovhcloud.com/en/guides/storage-and-backup/object-storage/s3-limitations.md
+  - [3] https://docs.ovhcloud.com/en/guides/storage-and-backup/object-storage/s3-choosing-the-right-storage-class-for-your-needs
+  - [4] https://docs.ovhcloud.com/en/guides/storage-and-backup/object-storage/s3-location
+  - [5] https://www.ovhcloud.com/en-ie/public-cloud/regions-availability/
+  - [6] https://www.ovhcloud.com/en-ie/public-cloud/free-trial/
+  - [7] https://docs.ovhcloud.com/en/guides/account-and-service-management/account-information/ovhcloud-account-creation.md
+
+## OVHcloud Cold Archive
+
+- `storage/ovhcloud-cold-archive` | paid-only | evidence documented | binding none | category S3-compatible tape archive class
+- needs card yes, phone no, ID no, institution no | verified 2026-11-01T23:50:06.643Z (live) | stale on 2026-12-02
+- url https://www.ovhcloud.com/en/public-cloud/prices/
+- price USD 1.84 per TB per month (USD 0.001971 per GiB-month x 931.32 GiB per TB, billed per GiB-hour) at every volume from the first byte; a restore adds a retrieval fee of USD 9.89 per TB retrieved (USD 0.01062 per GiB) and bills the restored copy at the Standard rate while it is readable | parsed USD 1.84/TB-mo
+- free tier: No free tier: the Cold Archive class is billed from the first GiB at USD 0.0000027 per GiB-hour (about USD 0.001971 per GiB-month), with no capacity cap stated; a 180-day minimum storage duration is billed and data retrieval costs USD 0.01062 per GiB | unit: none | metered on: none | read on: 2026-10-21 | source: [1] | note: billed per GiB-hour; the monthly figure is the hourly price x 730 hours
+- per-object cap: 48 TiB per object through multipart upload (up to 10,000 parts of 5 MiB to 5 GiB); 5 GiB through a single PUT | bytes: 52776558133248 | source: [2] | note: the Object Storage technical limits page states one set of limits for the Object Storage offer
+- retention: no expiry stated; a minimum storage duration of 4,380 hours (180 days) is billed per object, and an object deleted or moved to another class earlier is charged for the remaining hours | source: [1] | note: a billing minimum, not a deletion clock
+- egress: External ingoing and outgoing traffic free and API requests free; an object is read back only after a restore request, which carries the per-GiB retrieval fee and bills the restored copy upfront at the Standard Multi Zone rate of USD 0.00002152 per GiB-hour for the number of days set in the request | metered: no | price per TB: USD 9.89 per TB retrieved, the retrieval fee; outgoing traffic itself is free
+- identity: card | detail: an email address validated by a one-time code, the country of tax residence, and a valid payment method on the account before the first Public Cloud project; Visa, Mastercard and Maestro cards are accepted, and PayPal and a prepaid account are offered as payment methods
+- interface: s3-compatible, rclone, cli
+- limits:
+  - per-object-cap: 48 TiB per object by multipart upload; 5 GiB by a single PUT [2]
+- limits note: Restore time: from a few minutes to several hours for a few megabytes up to a terabyte, and at most 48 hours for hundreds of terabytes; data sits on magnetic tape; a 180-day minimum storage duration is billed per object
+- binding note: none: no limit row binds before the restore step, which takes up to 48 hours for hundreds of terabytes and carries a retrieval fee
+- interface detail: S3-compatible API, reachable only from the Paris 3-AZ region (EU-WEST-PAR)
+- tooling: AWS CLI, rclone, any S3 SDK; lifecycle rules supported
+- composes with: archive tier behind a hot S3 bucket: lifecycle rules move objects from Standard or Infrequent Access into Cold Archive, and a restore brings an object back into the Standard class for reading
+- reliability: Tape-backed class with a 99.9% availability SLA and eleven nines of durability; a restore takes from a few minutes to several hours up to a terabyte and at most 48 hours for hundreds of terabytes
+- notes: EUR price list: EUR 0.00000228 per GiB-hour (about EUR 0.0016644 per GiB-month) and EUR 0.009 per GiB retrieved, 180 days minimum
+- evidence note: documented: the international and EUR price lists, the Cold Archive page, the storage classes page, the Object Storage limits page, the restore guides, the rclone guide, the account-creation guide and the free-trial page were read and quoted on 2026-11-01, and the public price catalogue answered a direct query; a timed read and restore from a bucket would make it measured
+- extras:
+  - price_verbatim: USD 1.84/TB/month (USD 0.001971 per GiB-month x 931.32 GiB per TB) at every volume, billed per GiB-hour from the first byte; archive-class, so a restore adds a retrieval fee of USD 0.01062/GiB (USD 9.89/TB) and bills the restored copy at the Standard rate. The EUR price list gives EUR 0.00000228 per GiB-hour (about EUR 0.0016644 per GiB-month) and EUR 0.009 per GiB retrieved.
+- evidence:
+  - [3] 2026-10-21: "No more egress fees on OVHcloud Object Storage as of 1/1/26"; storage classes incl. One-Zone, Local Zone
+  - [4] 2026-10-21: "Minimum storage billed: 180 days; Retrieval fee: Yes; Magnetic tapes; Durability: 11 nines; SLA 99.9%" and restore-time FAQ (max 48 h at hundreds of TB)
+  - [1] 2026-10-30: Cold Archive costs USD 0.0000027 per GiB-hour, about USD 0.001971 per GiB-month, with free external traffic and API requests, a USD 0.01062 per GiB retrieval fee and 180 days of minimum storage billed | capture: sha256:592d28765238669188fc8855269fbcad0c1ae6d8adf83d80063cda0ff79c8325 | quote: | Cold Archive | \- | Free | Free | $0.01062 | Free | 180 days | $0.0000027 | ~$0.001971 |
+  - [1] 2026-10-30: Object Storage is invoiced per GiB-hour and the monthly figure assumes 730 hours | capture: sha256:592d28765238669188fc8855269fbcad0c1ae6d8adf83d80063cda0ff79c8325 | quote: For optimal readability, the price is displayed as GiB/month – but since there are 730 hours in an average month, the invoicing granularity is GiB/hour.
+  - [5] 2026-10-30: a valid payment method is required on the account before the first Public Cloud project | capture: sha256:833a8cfc5f5b014146b61bc60e022d12222c9157a6b8ef84510e03864ce36f6e | quote: You need to add a valid payment method to your OVHcloud customer account before starting the free trial, which will be used after your free trial ends, if you want to keep running the project you have launched.
+  - [6] 2026-10-30: OVHcloud accepts Visa, Mastercard and Maestro cards; the same page offers PayPal and a prepaid account | capture: sha256:1bb040f010d78fc15cad2155da6cdc0195337f3af99e51d70c12b68810997e37 | quote: Cards accepted are Visa, Mastercard, Maestro.
+  - [7] 2026-10-30: account creation validates the email address with a one-time code | capture: sha256:945f4e98b5d2464730e482bbf6d18a52f2b8a530031f2e94ba7fcf8f4fc3af25 | quote: After you submit this form, a one-time code will be sent to the email address you entered.
+  - [1] 2026-10-30: Cold Archive bills a minimum storage duration of 4,380 hours (180 days) per object | capture: sha256:592d28765238669188fc8855269fbcad0c1ae6d8adf83d80063cda0ff79c8325 | quote: A minimum storage duration applies to cold storage classes: 730 hours (30 days) for Infrequent Access, 2,190 hours (90 days) for Active Archive and 4,380 hours (180 days) for Cold Archive.
+  - [2] 2026-10-30: the largest object is 48 TiB by multipart upload and 5 GiB by a single PUT | capture: sha256:eb85a82eeca983386bbc398a29f6fd8610cb084c18e136ed158079d3ccc499eb | quote: | Maximum Object size | 48 TiB | This maximum can be achieved using Multi-Part Upload (MPU), via a single PUT request, the maximum object size is 5 GiB |
+  - [4] 2026-10-30: a Cold Archive restore of hundreds of terabytes may take up to 48 hours | capture: sha256:3275d4e576183a62178d980a162ab6eac023abf0991241084a584488999d2876 | quote: For datasets in the hundreds of terabytes, the process may take a maximum of 48 hours.
+  - [8] 2026-10-30: Cold Archive is reachable only from the Paris region EU-WEST-PAR | capture: sha256:13c979ffcc3e5955e7055d779498ef0b07db7a5a56e291588cbfa3c2042e0768 | quote: Accessible only from the Paris region (EU-WEST-PAR): your data is securely stored in France, distributed across four dedicated datacentres optimised for this storage class.
+  - [9] 2026-10-30: the EUR price list gives Cold Archive EUR 0.00000228 per GiB-hour, about EUR 0.0016644 per GiB-month, and EUR 0.009 per GiB retrieved | capture: sha256:db0447476db522100f19cffd79be867a3dfb442fd6e4763e43ce2a2cdb23b78a | quote: | Cold Archive | - | Free | Free | €0.009 | Free | 180 days | €0.00000228 | ~€0.0016644 |
+  - [4] 2026-10-30: Cold Archive carries a 99.9% availability SLA and eleven nines of durability | capture: sha256:3275d4e576183a62178d980a162ab6eac023abf0991241084a584488999d2876 | quote: Cold Archive is built to ISO standards (27001, 27017, 27018, 27701), and data availability is ensured by a 99.9% service level agreement (SLA), with a data durability of eleven nines.
+  - [4] 2026-10-30: lifecycle rules move objects from Standard or Infrequent Access into Cold Archive | capture: sha256:3275d4e576183a62178d980a162ab6eac023abf0991241084a584488999d2876 | quote: Set lifecycle rules to automatically shift your objects from another compatible S3 storage class (Standard or Infrequent Access) to Cold Archive.
+  - [10] 2026-10-30: the legacy bucket-archive model on the legacy price page bills USD 0.005 per GB restored, the source of the old 0.005 retrieval figure; the current class bills USD 0.01062 per GiB | capture: sha256:f0553abf517acadc679110ebbedb8777ec2018f60d7ef9bccc0c59e10c425963 | quote: | Cold restore | $0.005 |
+  - [1] 2026-11-01: the USD price list bills Cold Archive storage at USD 0.0000027 per GiB-hour, about USD 0.001971 per GiB-month, with a USD 0.01062 per GiB data-retrieval column, free external traffic and API requests, and 180 days of minimum storage billed | capture: sha256:592d28765238669188fc8855269fbcad0c1ae6d8adf83d80063cda0ff79c8325 | quote: | Cold Archive | \- | Free | Free | $0.01062 | Free | 180 days | $0.0000027 | ~$0.001971 |
+  - [1] 2026-11-01: Cold Archive is billed USD 0.0000027 per GiB-hour (about USD 0.001971 per GiB-month) with a USD 0.01062 per GiB retrieval fee and 180 days of minimum storage | capture: sha256:592d28765238669188fc8855269fbcad0c1ae6d8adf83d80063cda0ff79c8325 | quote: | Cold Archive | \- | Free | Free | $0.01062 | Free | 180 days | $0.0000027 | ~$0.001971 |
+  - [1] 2026-11-01: a restored Cold Archive object is moved into the Object Storage Standard class and billed there for the period named in the restore request | capture: sha256:592d28765238669188fc8855269fbcad0c1ae6d8adf83d80063cda0ff79c8325 | quote: Once restored, you can access the object, which is then stored in the Object Storage (Standard) class and billed for the specified timeframe.
+  - [9] 2026-11-01: the EUR price list bills Cold Archive at EUR 0.00000228 per GiB-hour (about EUR 0.0016644 per GiB-month) with a EUR 0.009 per GiB data-retrieval fee, free external traffic and API requests, and 180 days of minimum storage | capture: sha256:4a49769519017d015bd7fd5450cb2d0db66da5a0cc79b2433aed3f69fafe95ed | quote: | Cold Archive | \- | Free | Free | €0.009 | Free | 180 days | €0.00000228 | ~€0.0016644 |
+  - [4] 2026-11-01: Cold Archive carries 11 nines of durability, a 99.9% SLA and 180 days of minimum storage billed, and the restore-time FAQ on the same page gives a maximum of 48 hours for hundreds of terabytes | capture: sha256:3275d4e576183a62178d980a162ab6eac023abf0991241084a584488999d2876 | quote: Data durability: 11 nines Service Level Agreement (SLA): 99.9% Minimum storage billed: 180 days
+  - [1] 2026-11-01: Object Storage bills in GiB, not GB, with a granularity of 1 GiB | capture: sha256:592d28765238669188fc8855269fbcad0c1ae6d8adf83d80063cda0ff79c8325 | quote: 1 TiB = 1024 GiB. Object Storage is billed based on the storage space used, with a granularity of 1 GiB.
+  - [1] 2026-11-01: the monthly figure on the page is the hourly rate x 730 hours, so the published per-GiB-month rate is the one to compare | capture: sha256:592d28765238669188fc8855269fbcad0c1ae6d8adf83d80063cda0ff79c8325 | quote: For optimal readability, the price is displayed as GiB/month – but since there are 730 hours in an average month, the invoicing granularity is GiB/hour.
+  - [4] 2026-11-01: the Cold Archive product page states eleven nines of durability, a 99.9% SLA and 180 days of minimum storage billed | capture: sha256:3275d4e576183a62178d980a162ab6eac023abf0991241084a584488999d2876 | quote: Data durability: 11 nines Service Level Agreement (SLA): 99.9% Minimum storage billed: 180 days
+  - [11] 2026-11-01: a restore bills the per-GiB restoration fee and the Standard-class storage of the restored object, so the retrieval fee is not the only restore charge | capture: sha256:181f031145ebc4092e7912a123b416ab4d8a3ed5f61aacc1989c525d296d9ebd | quote: In summary, for each object restored, a one time restoration fee per GiB of data plus the storage cost at the Standard rate of the object are billed.
+  - [12] 2026-11-01: a restore takes up to 48 hours, and the same guide states the restored copy is billed upfront at the Standard class rate for the days set in the request | capture: sha256:adc9b57b2683f88357e78ffe930c704884827efb89ecc3acd0fa1e5d74da5a1a | quote: Restore process can take up to 48 hours depending on the size of the objects.
+  - [13] 2026-11-01: OVHcloud documents an rclone remote configuration for its S3-compatible Object Storage endpoint | capture: sha256:5c760086d892be44928eff3316336fe9f57989e4f3b88b81be17dcd8619b51ea | quote: This guide explains how to set up Rclone to synchronize your files to and from Object Storage.
+  - [8] 2026-11-01: the Cold Archive class is reachable only from the Paris region EU-WEST-PAR | capture: sha256:13c979ffcc3e5955e7055d779498ef0b07db7a5a56e291588cbfa3c2042e0768 | quote: Accessible only from the Paris region (EU-WEST-PAR): your data is securely stored in France, distributed across four dedicated datacentres optimised for this storage class.
+  - [2] 2026-11-01: the largest object is 48 TiB by multipart upload and 5 GiB by a single PUT, unchanged on 2026-11-01 | capture: sha256:eb85a82eeca983386bbc398a29f6fd8610cb084c18e136ed158079d3ccc499eb | quote: | Maximum Object size | 48 TiB | This maximum can be achieved using Multi-Part Upload (MPU), via a single PUT request, the maximum object size is 5 GiB |
+  - [5] 2026-11-01: a valid payment method is required on the account before the first Public Cloud project, unchanged on 2026-11-01 | capture: sha256:833a8cfc5f5b014146b61bc60e022d12222c9157a6b8ef84510e03864ce36f6e | quote: You need to add a valid payment method to your OVHcloud customer account before starting the free trial, which will be used after your free trial ends, if you want to keep running the project you have launched.
+  - [7] 2026-11-01: account creation validates the email address with a one-time code, unchanged on 2026-11-01 | capture: sha256:945f4e98b5d2464730e482bbf6d18a52f2b8a530031f2e94ba7fcf8f4fc3af25 | quote: After you submit this form, a one-time code will be sent to the email address you entered.
+  - [6] 2026-11-01: OVHcloud accepts Visa, Mastercard and Maestro cards, unchanged on 2026-11-01 | capture: sha256:1bb040f010d78fc15cad2155da6cdc0195337f3af99e51d70c12b68810997e37 | quote: Cards accepted are Visa, Mastercard, Maestro.
+  - probe:https://api.ovh.com/1.0/order/catalog/public/cloud?ovhSubsidiary=IE 2026-11-01: OVHcloud's public price catalogue for the IE subsidiary answered HTTP 200 with 8,322,930 bytes of JSON, so the Cold Archive rates are also published in machine-readable form; the record's saved body in this workspace carries the coldarchive addons | capture: sha256:45475671e2ca4647bc1fc33542dd314ee7b9411892315b1cad646591896e34f1 | quote: "status": 200
+  - [1] 2026-11-01: the Cold Archive row of the international price list is unchanged as of 2026-11-01: storage USD 0.0000027 per GiB-hour with a monthly equivalent of USD 0.001971, retrieval USD 0.01062 per GiB, free external traffic and API requests, 180 days of minimum storage, and no free tier | capture: sha256:592d28765238669188fc8855269fbcad0c1ae6d8adf83d80063cda0ff79c8325 | quote: | Cold Archive | \- | Free | Free | $0.01062 | Free | 180 days | $0.0000027 | ~$0.001971 |
+- sources:
+  - [1] https://www.ovhcloud.com/en/public-cloud/prices/
+  - [2] https://docs.ovhcloud.com/en/guides/storage-and-backup/object-storage/s3-limitations
+  - [3] https://us.ovhcloud.com/public-cloud/object-storage/
+  - [4] https://www.ovhcloud.com/en/public-cloud/cold-archive/
+  - [5] https://www.ovhcloud.com/en/public-cloud/free-trial/
+  - [6] https://www.ovhcloud.com/en/terms-and-conditions/payment/
+  - [7] https://docs.ovhcloud.com/en/guides/account-and-service-management/account-information/ovhcloud-account-creation
+  - [8] https://www.ovhcloud.com/en/public-cloud/object-storage/classes/
+  - [9] https://www.ovhcloud.com/en-ie/public-cloud/prices/
+  - [10] https://www.ovhcloud.com/en/public-cloud/old-prices/
+  - [11] https://docs.ovhcloud.com/en/guides/storage-and-backup/object-storage/s3-choosing-the-right-storage-class-for-your-needs
+  - [12] https://docs.ovhcloud.com/en/guides/storage-and-backup/object-storage/s3-restoring-objects
+  - [13] https://docs.ovhcloud.com/en/guides/storage-and-backup/object-storage/s3-rclone
+
+## OVHcloud High Performance (1-AZ)
+
+- `storage/ovhcloud-high-performance-1-az` | paid-only | evidence documented | binding none | category S3-compatible object storage, NVMe SSD class in 1-AZ regions | tier High Performance, One Zone
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T01:30:27.153Z (live) | stale on 2026-12-04
+- url https://www.ovhcloud.com/en/public-cloud/prices/?currency=USD
+- price USD 18.89 per TB per month (USD 0.0202794 per GiB-month x 931.32 GiB per TB); one rate at every volume | parsed USD 18.89/TB-mo
+- free tier: No free tier: the High Performance class in a 1-AZ (One Zone) region is billed from the first GiB at USD 0.00002778 per GiB-hour (about USD 0.0202794 per GiB-month), with no capacity cap stated | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: billed per GiB-hour; the monthly figure is the hourly price x 730 hours
+- per-object cap: 48 TiB per object through multipart upload; 5 GiB through a single PUT | bytes: 52776558133248 | source: [2] | note: the Object Storage technical limits page states one set of limits for the Object Storage offer
+- retention: unlimited volume and time: objects are kept until deleted, and the High Performance class has no minimum storage duration | source: [1] | note: the price table marks the High Performance minimum storage billed N/A
+- egress: External ingoing and outgoing traffic, internal traffic, data retrieval and API requests are all free | metered: no
+- identity: card | detail: an email address validated by a one-time code, the country of tax residence, and a valid payment method on the account before the first Public Cloud project
+- interface: s3-compatible, rclone, cli
+- limits:
+  - per-object-cap: 48 TiB per object by multipart upload; 5 GiB by a single PUT [2]
+  - request-rate: 300 PUT and 900 GET requests per second per bucket, soft defaults [2]
+  - per-ip-shaping: 1 Gbps per connection [2]
+- limits note: Single availability zone: 99.9% availability SLA; not offered in the 3-AZ regions or in Local Zones
+- binding note: none: storage has no stated cap, an object may reach 48 TiB, the per-bucket rates of 300 PUT and 900 GET requests per second are soft defaults, and the 1 Gbps per connection is lifted by parallel connections
+- interface detail: S3-compatible API
+- tooling: AWS CLI, rclone, s3cmd, any S3 SDK; lifecycle rules move objects between classes
+- composes with: S3 origin behind a CDN or proxy; lifecycle rules move objects between this class and the Standard class
+- reliability: 99.9% availability SLA for a 1-AZ deployment; durability is stated as 11 nines for every class
+- notes: the class is built on NVMe SSD disks and serves AI and analytics, data lake and high-performance computing workloads; the legacy perf endpoint writes to this class by default
+- evidence note: documented: the international price list, the storage classes pages, the endpoints page and the technical limits page were read and quoted on 2026-11-03; a read timed from a bucket would make it measured
+- evidence:
+  - [1] 2026-11-03: the One Zone High Performance class costs USD 0.00002778 per GiB-hour, about USD 0.0202794 per GiB-month, with no minimum duration and free traffic, retrieval and API requests | capture: sha256:7150d4e359dd22bb1cdc6984242255f12708be00d1b6f62832ce91c97940d3c0 | quote: | High Performance | - | Free | Free | Free | Free | N/A | $0.00002778 | ~$0.0202794 |
+  - [1] 2026-11-03: Object Storage is invoiced per GiB-hour and the monthly figure assumes 730 hours | capture: sha256:7150d4e359dd22bb1cdc6984242255f12708be00d1b6f62832ce91c97940d3c0 | quote: For optimal readability, the price is displayed as GiB/month – but since there are 730 hours in an average month, the invoicing granularity is GiB/hour.
+  - [3] 2026-11-03: High Performance is a 1-AZ-only class with a 99.9% SLA, no minimum storage duration and no retrieval fee | capture: sha256:181f031145ebc4092e7912a123b416ab4d8a3ed5f61aacc1989c525d296d9ebd | quote: | High Performance | AI & Analytics, datalake, High Performance Computing, multimedia/content platforms | milliseconds | 1-AZ | 1-AZ regions: 99.9% | No | No | Object-level, lifecycle management support |
+  - [3] 2026-11-03: the High Performance class stores objects on NVMe SSD disks | capture: sha256:181f031145ebc4092e7912a123b416ab4d8a3ed5f61aacc1989c525d296d9ebd | quote: The solution relies on storage on high-performance NVMe SSD disks, within a resilient architecture in a datacentre.
+  - [4] 2026-11-03: the Gravelines 1-AZ region supports the High Performance class | capture: sha256:7fa9967c74bf60e460ce1928ebaf0fcb8ae54c8fb540727602f50d635249382d | quote: | Gravelines | gra | HTTPS | 4 | 1-AZ region | High Performance, Standard, Infrequent Access |
+  - [2] 2026-11-03: the largest object is 48 TiB by multipart upload and 5 GiB by a single PUT | capture: sha256:4f37b76756413096aac5c8c8c167ae1b5887e6332b7adca0b35dd6981129e475 | quote: | Maximum Object size | 48 TiB | This maximum can be achieved using Multi-Part Upload (MPU), via a single PUT request, the maximum object size is 5 GiB |
+  - [2] 2026-11-03: Object Storage bandwidth is 1 Gbps per connection, lifted by parallel requests | capture: sha256:4f37b76756413096aac5c8c8c167ae1b5887e6332b7adca0b35dd6981129e475 | quote: 1 Gbps/connection.
+  - [2] 2026-11-03: the default write rate is 300 requests per second on a bucket, a soft limit | capture: sha256:4f37b76756413096aac5c8c8c167ae1b5887e6332b7adca0b35dd6981129e475 | quote: - PUT: 300 requests per second
+  - [5] 2026-11-03: a valid payment method is required on the account before the first Public Cloud project | capture: sha256:d4ea1558739c101bb88cd8c0b2bc33aea7af1e71433784b49df80af7e8259376 | quote: You need to add a valid payment method to your OVHcloud customer account before starting the free trial, which will be used after your free trial ends, if you want to keep running the project you have launched.
+  - [6] 2026-11-03: account creation validates the email address with a one-time code | capture: sha256:103df8a17f5d1de37f2b9d7093e796f5dfd8f164e951a986315a007a2e91b6a1 | quote: After you submit this form, a one-time code will be sent to the email address you entered.
+- sources:
+  - [1] https://www.ovhcloud.com/en/public-cloud/prices/?currency=USD
+  - [2] https://docs.ovhcloud.com/en/guides/storage-and-backup/object-storage/s3-limitations.md
+  - [3] https://docs.ovhcloud.com/en/guides/storage-and-backup/object-storage/s3-choosing-the-right-storage-class-for-your-needs
+  - [4] https://docs.ovhcloud.com/en/guides/storage-and-backup/object-storage/s3-location
+  - [5] https://www.ovhcloud.com/en-ie/public-cloud/free-trial/
+  - [6] https://docs.ovhcloud.com/en/guides/account-and-service-management/account-information/ovhcloud-account-creation.md
+
+## OVHcloud Infrequent Access (1-AZ)
+
+- `storage/ovhcloud-infrequent-access-1-az` | paid-only | evidence documented | binding none | category S3-compatible object storage, single-AZ infrequent access class | tier Infrequent Access, One Zone
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T01:30:27.153Z (live) | stale on 2026-12-04
+- url https://www.ovhcloud.com/en/public-cloud/prices/?currency=USD
+- price USD 4.06 per TB per month (USD 0.0043581 per GiB-month x 931.32 GiB per TB), plus USD 4.06 per TB retrieved; 30-day minimum | parsed USD 4.06/TB-mo
+- free tier: No free tier: the Infrequent Access class in a 1-AZ (One Zone) region is billed from the first GiB at USD 0.00000597 per GiB-hour (about USD 0.0043581 per GiB-month), with a 30-day minimum storage duration and USD 0.00436 per GiB retrieved | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: billed per GiB-hour; the monthly figure is the hourly price x 730 hours
+- per-object cap: 48 TiB per object through multipart upload; 5 GiB through a single PUT | bytes: 52776558133248 | source: [2] | note: the Object Storage technical limits page states one set of limits for the Object Storage offer
+- retention: unlimited volume and time; each object is billed for a minimum of 730 hours (30 days), and an object deleted or moved to another class earlier is charged for the remaining hours | source: [1] | note: a billing minimum, not a deletion clock
+- egress: External ingoing and outgoing traffic, internal traffic and API requests are free; reading data back costs USD 0.00436 per GiB retrieved, counted on get-object requests | metered: no | price per TB: USD 4.06 per TB retrieved (USD 0.00436 per GiB x 931.32 GiB per TB)
+- identity: card | detail: an email address validated by a one-time code, the country of tax residence, and a valid payment method on the account before the first Public Cloud project
+- interface: s3-compatible, rclone, cli
+- limits:
+  - per-object-cap: 48 TiB per object by multipart upload; 5 GiB by a single PUT [2]
+  - request-rate: 300 PUT and 900 GET requests per second per bucket, soft defaults [2]
+  - per-ip-shaping: 1 Gbps per connection [2]
+- limits note: Single availability zone: 99.9% availability SLA for a 1-AZ deployment; a retrieval fee and a 30-day minimum storage duration apply
+- binding note: none: storage has no stated cap, an object may reach 48 TiB, the per-bucket rates are soft defaults, and the 30-day minimum storage duration and the USD 0.00436 per GiB retrieval fee are billing terms, not limits
+- interface detail: S3-compatible API
+- tooling: AWS CLI, rclone, s3cmd, any S3 SDK; lifecycle rules move objects between classes
+- composes with: S3 origin behind a CDN or proxy; lifecycle rules move objects between this class and the Standard class
+- reliability: 99.9% availability SLA for a 1-AZ deployment; 1-AZ regions survive server and disk failures and the data becomes unavailable if the datacentre hosting it becomes completely unavailable; durability is stated as 11 nines for every class
+- notes: the 1-AZ regions listed with this class are Gravelines, Roubaix, Strasbourg, Frankfurt, London, Warsaw, Beauharnois, Toronto, Singapore, Sydney and Mumbai; the Standard class of the same zone type is a separate record
+- evidence note: documented: the international price list, the storage classes pages, the endpoints page and the technical limits page were read and quoted on 2026-11-03; a read timed from a bucket would make it measured
+- evidence:
+  - [1] 2026-11-03: the One Zone Infrequent Access class costs USD 0.00000597 per GiB-hour, about USD 0.0043581 per GiB-month, with a 30-day minimum, USD 0.00436 per GiB retrieved, and free traffic and API requests | capture: sha256:7150d4e359dd22bb1cdc6984242255f12708be00d1b6f62832ce91c97940d3c0 | quote: | Infrequent Access | - | Free | Free | $0.00436 | Free | 30 days | $0.00000597 | ~$0.0043581 |
+  - [1] 2026-11-03: Object Storage is invoiced per GiB-hour and the monthly figure assumes 730 hours | capture: sha256:7150d4e359dd22bb1cdc6984242255f12708be00d1b6f62832ce91c97940d3c0 | quote: For optimal readability, the price is displayed as GiB/month – but since there are 730 hours in an average month, the invoicing granularity is GiB/hour.
+  - [1] 2026-11-03: the minimum storage durations are 30 days for Infrequent Access and 90 days for Active Archive, and an early delete is charged for the remaining hours | capture: sha256:7150d4e359dd22bb1cdc6984242255f12708be00d1b6f62832ce91c97940d3c0 | quote: A minimum storage duration applies to cold storage classes: 730 hours (30 days) for Infrequent Access, 2,190 hours (90 days) for Active Archive and 4,380 hours (180 days) for Cold Archive.
+  - [3] 2026-11-03: Infrequent Access is offered in 1-AZ and 3-AZ regions with a 30-day minimum storage duration and a retrieval fee | capture: sha256:181f031145ebc4092e7912a123b416ab4d8a3ed5f61aacc1989c525d296d9ebd | quote: | Infrequent Access | Long-term storage, backups, disaster recovery | milliseconds | 1-AZ and 3-AZ | 1-AZ regions: 99.9% - 3-AZ regions: 99.99% | 30 days | Yes | Object-level, lifecycle management support |
+  - [3] 2026-11-03: the retrieval fee applies to get-object requests on Infrequent Access | capture: sha256:181f031145ebc4092e7912a123b416ab4d8a3ed5f61aacc1989c525d296d9ebd | quote: For the Infrequent Access and the Active Archive classes, only get-object requests are considered as retrieval fee.
+  - [4] 2026-11-03: the Gravelines 1-AZ region supports the Infrequent Access class | capture: sha256:7fa9967c74bf60e460ce1928ebaf0fcb8ae54c8fb540727602f50d635249382d | quote: | Gravelines | gra | HTTPS | 4 | 1-AZ region | High Performance, Standard, Infrequent Access |
+  - [2] 2026-11-03: the largest object is 48 TiB by multipart upload and 5 GiB by a single PUT | capture: sha256:4f37b76756413096aac5c8c8c167ae1b5887e6332b7adca0b35dd6981129e475 | quote: | Maximum Object size | 48 TiB | This maximum can be achieved using Multi-Part Upload (MPU), via a single PUT request, the maximum object size is 5 GiB |
+  - [2] 2026-11-03: Object Storage bandwidth is 1 Gbps per connection, lifted by parallel requests | capture: sha256:4f37b76756413096aac5c8c8c167ae1b5887e6332b7adca0b35dd6981129e475 | quote: 1 Gbps/connection.
+  - [2] 2026-11-03: the default write rate is 300 requests per second on a bucket, a soft limit | capture: sha256:4f37b76756413096aac5c8c8c167ae1b5887e6332b7adca0b35dd6981129e475 | quote: - PUT: 300 requests per second
+  - [5] 2026-11-03: a valid payment method is required on the account before the first Public Cloud project | capture: sha256:d4ea1558739c101bb88cd8c0b2bc33aea7af1e71433784b49df80af7e8259376 | quote: You need to add a valid payment method to your OVHcloud customer account before starting the free trial, which will be used after your free trial ends, if you want to keep running the project you have launched.
+  - [6] 2026-11-03: account creation validates the email address with a one-time code | capture: sha256:103df8a17f5d1de37f2b9d7093e796f5dfd8f164e951a986315a007a2e91b6a1 | quote: After you submit this form, a one-time code will be sent to the email address you entered.
+- sources:
+  - [1] https://www.ovhcloud.com/en/public-cloud/prices/?currency=USD
+  - [2] https://docs.ovhcloud.com/en/guides/storage-and-backup/object-storage/s3-limitations.md
+  - [3] https://docs.ovhcloud.com/en/guides/storage-and-backup/object-storage/s3-choosing-the-right-storage-class-for-your-needs
+  - [4] https://docs.ovhcloud.com/en/guides/storage-and-backup/object-storage/s3-location
+  - [5] https://www.ovhcloud.com/en-ie/public-cloud/free-trial/
+  - [6] https://docs.ovhcloud.com/en/guides/account-and-service-management/account-information/ovhcloud-account-creation.md
+
+## OVHcloud Infrequent Access (3-AZ)
+
+- `storage/ovhcloud-infrequent-access-3-az` | paid-only | evidence documented | binding none | category S3-compatible object storage, three-AZ infrequent access class | tier Infrequent Access, Multi Zone
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T01:30:27.153Z (live) | stale on 2026-12-04
+- url https://www.ovhcloud.com/en/public-cloud/prices/?currency=USD
+- price USD 9.64 per TB per month (USD 0.0103514 per GiB-month x 931.32 GiB per TB), plus USD 4.06 per TB retrieved; 30-day minimum | parsed USD 9.64/TB-mo
+- free tier: No free tier: the Infrequent Access class in a 3-AZ (Multi Zone) region is billed from the first GiB at USD 0.00001418 per GiB-hour (about USD 0.0103514 per GiB-month), with a 30-day minimum storage duration and USD 0.00436 per GiB retrieved | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: billed per GiB-hour; the monthly figure is the hourly price x 730 hours
+- per-object cap: 48 TiB per object through multipart upload; 5 GiB through a single PUT | bytes: 52776558133248 | source: [2] | note: the Object Storage technical limits page states one set of limits for the Object Storage offer
+- retention: unlimited volume and time; each object is billed for a minimum of 730 hours (30 days), and an object deleted or moved to another class earlier is charged for the remaining hours | source: [1] | note: a billing minimum, not a deletion clock
+- egress: External ingoing and outgoing traffic, internal traffic and API requests are free; reading data back costs USD 0.00436 per GiB retrieved, counted on get-object requests | metered: no | price per TB: USD 4.06 per TB retrieved (USD 0.00436 per GiB x 931.32 GiB per TB)
+- identity: card | detail: an email address validated by a one-time code, the country of tax residence, and a valid payment method on the account before the first Public Cloud project
+- interface: s3-compatible, rclone, cli
+- limits:
+  - per-object-cap: 48 TiB per object by multipart upload; 5 GiB by a single PUT [2]
+  - request-rate: 300 PUT and 900 GET requests per second per bucket, soft defaults [2]
+  - per-ip-shaping: 1 Gbps per connection [2]
+- limits note: 3-AZ regions: 99.99% availability SLA; a retrieval fee and a 30-day minimum storage duration apply
+- binding note: none: storage has no stated cap, an object may reach 48 TiB, the per-bucket rates are soft defaults, and the 30-day minimum storage duration and the USD 0.00436 per GiB retrieval fee are billing terms, not limits
+- interface detail: S3-compatible API
+- tooling: AWS CLI, rclone, s3cmd, any S3 SDK; lifecycle rules move objects between classes
+- composes with: S3 origin behind a CDN or proxy; lifecycle rules move objects between this class and the Standard class
+- reliability: 99.99% availability SLA for a 3-AZ deployment, spread over three independent availability zones; durability is stated as 11 nines for every class
+- notes: the 3-AZ regions are Paris (eu-west-par) and Milan (eu-south-mil), both listing Infrequent Access
+- evidence note: documented: the international price list, the storage classes pages, the endpoints page and the technical limits page were read and quoted on 2026-11-03; a read timed from a bucket would make it measured
+- evidence:
+  - [1] 2026-11-03: the Multi Zone Infrequent Access class costs USD 0.00001418 per GiB-hour, about USD 0.0103514 per GiB-month, with a 30-day minimum, USD 0.00436 per GiB retrieved, and free traffic and API requests | capture: sha256:7150d4e359dd22bb1cdc6984242255f12708be00d1b6f62832ce91c97940d3c0 | quote: | Infrequent Access | - | Free | Free | $0.00436 | Free | 30 days | $0.00001418 | ~$0.0103514 |
+  - [1] 2026-11-03: Object Storage is invoiced per GiB-hour and the monthly figure assumes 730 hours | capture: sha256:7150d4e359dd22bb1cdc6984242255f12708be00d1b6f62832ce91c97940d3c0 | quote: For optimal readability, the price is displayed as GiB/month – but since there are 730 hours in an average month, the invoicing granularity is GiB/hour.
+  - [1] 2026-11-03: the minimum storage durations are 30 days for Infrequent Access and 90 days for Active Archive, and an early delete is charged for the remaining hours | capture: sha256:7150d4e359dd22bb1cdc6984242255f12708be00d1b6f62832ce91c97940d3c0 | quote: A minimum storage duration applies to cold storage classes: 730 hours (30 days) for Infrequent Access, 2,190 hours (90 days) for Active Archive and 4,380 hours (180 days) for Cold Archive.
+  - [3] 2026-11-03: Infrequent Access is offered in 1-AZ and 3-AZ regions with a 99.99% SLA in 3-AZ and a 30-day minimum | capture: sha256:181f031145ebc4092e7912a123b416ab4d8a3ed5f61aacc1989c525d296d9ebd | quote: | Infrequent Access | Long-term storage, backups, disaster recovery | milliseconds | 1-AZ and 3-AZ | 1-AZ regions: 99.9% - 3-AZ regions: 99.99% | 30 days | Yes | Object-level, lifecycle management support |
+  - [4] 2026-11-03: the Milan 3-AZ region supports the Infrequent Access class | capture: sha256:7fa9967c74bf60e460ce1928ebaf0fcb8ae54c8fb540727602f50d635249382d | quote: | Milan | eu-south-mil | HTTPS | 4 | 3-AZ region | Standard, Infrequent Access and Active Archive |
+  - [5] 2026-11-03: a 3-AZ region spans three independent availability zones | capture: sha256:afe8e5cc56ba00ffc6beb3517ade25c5890924740c0721295d4c77dcc98e7052 | quote: The 3-AZ regions are based on three independent availability zones, each with an isolated power supply, cooling system, and network.
+  - [2] 2026-11-03: the largest object is 48 TiB by multipart upload and 5 GiB by a single PUT | capture: sha256:4f37b76756413096aac5c8c8c167ae1b5887e6332b7adca0b35dd6981129e475 | quote: | Maximum Object size | 48 TiB | This maximum can be achieved using Multi-Part Upload (MPU), via a single PUT request, the maximum object size is 5 GiB |
+  - [2] 2026-11-03: Object Storage bandwidth is 1 Gbps per connection, lifted by parallel requests | capture: sha256:4f37b76756413096aac5c8c8c167ae1b5887e6332b7adca0b35dd6981129e475 | quote: 1 Gbps/connection.
+  - [2] 2026-11-03: the default write rate is 300 requests per second on a bucket, a soft limit | capture: sha256:4f37b76756413096aac5c8c8c167ae1b5887e6332b7adca0b35dd6981129e475 | quote: - PUT: 300 requests per second
+  - [6] 2026-11-03: a valid payment method is required on the account before the first Public Cloud project | capture: sha256:d4ea1558739c101bb88cd8c0b2bc33aea7af1e71433784b49df80af7e8259376 | quote: You need to add a valid payment method to your OVHcloud customer account before starting the free trial, which will be used after your free trial ends, if you want to keep running the project you have launched.
+  - [7] 2026-11-03: account creation validates the email address with a one-time code | capture: sha256:103df8a17f5d1de37f2b9d7093e796f5dfd8f164e951a986315a007a2e91b6a1 | quote: After you submit this form, a one-time code will be sent to the email address you entered.
+- sources:
+  - [1] https://www.ovhcloud.com/en/public-cloud/prices/?currency=USD
+  - [2] https://docs.ovhcloud.com/en/guides/storage-and-backup/object-storage/s3-limitations.md
+  - [3] https://docs.ovhcloud.com/en/guides/storage-and-backup/object-storage/s3-choosing-the-right-storage-class-for-your-needs
+  - [4] https://docs.ovhcloud.com/en/guides/storage-and-backup/object-storage/s3-location
+  - [5] https://www.ovhcloud.com/en-ie/public-cloud/object-storage/classes/
+  - [6] https://www.ovhcloud.com/en-ie/public-cloud/free-trial/
+  - [7] https://docs.ovhcloud.com/en/guides/account-and-service-management/account-information/ovhcloud-account-creation.md
+
+## OVHcloud Kimsufi
+
+- `compute/ovhcloud-kimsufi` | paid-only | evidence documented | binding volume-quota | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://eco.ovhcloud.com/en-gb/kimsufi/
+- free tier: The KS range is advertised from EUR 9.99 ex VAT a month: KS-B, Intel Xeon E5-1620v2 at 4 cores / 8 threads, 32 GB DDR3 ECC, 1 x 120 GB SATA SSD, 500 Mbps public bandwidth, plus a one-month installation fee. On 2026-10-22 that machine cannot be ordered in any datacenter. Nineteen of the twenty-six KS plan codes in the OVH catalogue return unavailable everywhere; the seven with stock are all either North American or Asia-Pacific: KS-4 at EUR 16.99 in Singapore, KS-3 at EUR 18.99 in Singapore and Sydney, KS-5 at EUR 17.99 in Beauharnois, Gravelines and Warsaw, KS-GAME at EUR 28.99 in Beauharnois and Sydney, and KS-A at EUR 54.99 in Singapore. The cheapest orderable Kimsufi is therefore KS-4 at EUR 16.99 in Singapore, and the vendor's own page states that the Asia-Pacific locations carry a 25 TB monthly traffic limit instead of the unlimited term the European, US and Canadian ones get. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: kind not stated
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 'From GBP 8.89 ex. VAT/month'; KS-B 'Intel Xeon E5-1620v2 4 c / 8 t', 'Memory 32 GB', 'Storage 1 x 120 GB', 'Public bandwidth 500 Mbps', 'Installation fees: GBP 8.89 ex. VAT'; the page states 'Guaranteed and unlimited 500 Mbps public bandwidth' and 'unlimited and free ingress and egress traffic' for Europe, the US and Canada, with 'a 25 TB monthly limit (included)' in Asia-Pacific | metered: no | source: [1]
+- identity: card
+- interface: unknown
+- limits:
+  - volume-quota (binding): Two gates bind in order. Stock: the advertised EUR 9.99 machine is unavailable everywhere, and the surviving stock is in Singapore, Sydney, Beauharnois, Gravelines and Warsaw. Then traffic: the Asia-Pacific machines, which hold most of that stock, are metered at 25 TB a month where the European ones are unlimited. [1]
+- limits note: Two gates bind in order. Stock: the advertised EUR 9.99 machine is unavailable everywhere, and the surviving stock is in Singapore, Sydney, Beauharnois, Gravelines and Warsaw. Then traffic: the Asia-Pacific machines, which hold most of that stock, are metered at 25 TB a month where the European ones are unlimited.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: A KS-5 at EUR 17.99 with 2 x 2 TB is 4 TB of raw disk with a whole machine attached, which is the cheapest way in documented records to get multi-terabyte local storage that is not billed per byte.
+- reliability: no reliability event recorded
+- notes: Kimsufi dedicated servers are integrated into the OVH Eco catalog alongside Rise and Advance servers. Entry-level European configurations frequently experience stock shortages, with availability concentrated in North America and Asia-Pacific datacenters.
+- extras:
+  - facets.class: floor-price
+  - facets.shape.cpu: Intel Xeon E5-1620v2
+  - facets.shape.vcpu: 4
+  - facets.shape.threads: 8
+  - facets.shape.ram_gib: 32
+  - facets.shape.disk: 1 x 120 GB SATA SSD
+  - facets.shape.bandwidth_mbit: 500
+  - facets.shape.traffic: unlimited and unmetered in EU, US and CA
+  - facets.shape.price_eur_month: 9.99
+  - facets.shape.setup_fee_eur: 9.99
+  - facets.shape.price_eur_month_incl_vat_ie: 12.29
+  - facets.shape.gpu_count: 0
+  - facets.shape.price_eur_month_orderable: 16.99
+  - facets.shape.orderable_where: Singapore (KS-4)
+- evidence:
+  - [2] 2026-10-22: 99 eco plans; the KS rows start at planCode 25skb012 'KS-B | Intel Xeon E5-1620v2' at 9.99 EUR a month and 25skc012 'KS-C | Intel Xeon E5-1650v2' at 11.99; 26 KS plan codes in total covering 16 machine types, from KS-B to 24sk702 'KS-7 | AMD Epyc 7451' at 61.99
+  - [3] 2026-10-22: every KS planCode queried one at a time. Unavailable in every datacenter: 25skb012, 25skc012, 24sk102, 24sk40-v1, 24sk40-v1-syd, 24sk50-v1-sgp, 24sk50-v1-syd, 24sk202, 24sk202-sgp, 24sk202-syd, 24sk302, 26sk10b-v1, 26sk50b-v1, 24skstor01-v1, 26sk50a-v1, 24skgame012-sgp, 24sk602, 25sk602b, 24ska012, 24sk702. With stock: 24sk40-v1-sgp sgp=1H-low, 24sk50-v1 bhs=1H-low gra=1H-low waw=1H-low, 24sk302-sgp sgp=1H-low, 24sk302-syd syd=1H-high syd=1H-low, 24skgame012 bhs=1H-low, 24skgame012-syd syd=1H-high, 24ska012-sgp sgp=1H-high
+  - [4] 2026-10-22: returns [{'planCode':'25skb012','server':'25skb01','datacenters':[{'availability':'unavailable','datacenter':'gra'}]}] - the EUR 9.99 listing is not orderable
+  - [1] 2026-10-22: 'From GBP 8.89 ex. VAT/month'; KS-B 'Intel Xeon E5-1620v2 4 c / 8 t', 'Memory 32 GB', 'Storage 1 x 120 GB', 'Public bandwidth 500 Mbps', 'Installation fees: GBP 8.89 ex. VAT'; the page states 'Guaranteed and unlimited 500 Mbps public bandwidth' and 'unlimited and free ingress and egress traffic' for Europe, the US and Canada, with 'a 25 TB monthly limit (included)' in Asia-Pacific
+  - [5] 2026-10-22: third-party availability tracker shows KS-B 25skb012 as 'France - Gravelines: not available' and 12.29 EUR, which is the 9.99 EUR list price plus 23 percent Irish VAT
+  - [6] 2026-10-22: table row quoted: 'KS-5 | Intel Xeon-E3 1270 v6 4c / 8t - 3.8 GHz / 4.2 GHz | 32 GB | 2 x 2 TB - 2 x 4 TB | Public 300 Mbps | US$19.90' with '3/9 regions'
+  - [6] 2026-10-22: SYS rows quoted: 'SYS-1 ... 2 x 1.92 TB - 2 x 4 TB ... US$44.30', 'SYS-3 ... 2 x 960 GB - 2 x 960 GB + 2 x 6 TB ... US$46.50', 'SYS-4 ... US$110.00'
+  - [6] 2026-10-22: RISE rows quoted: 'RISE-1 ... 2 x 512 GB - 4 x 3.84 TB ... Public 1 Gbps ... US$64.00', 'RISE-2 ... US$72.00'
+- sources:
+  - [1] https://eco.ovhcloud.com/en-gb/kimsufi/
+  - [2] https://eu.api.ovh.com/1.0/order/catalog/public/eco?ovhSubsidiary=IE
+  - [3] https://eu.api.ovh.com/1.0/dedicated/server/datacenter/availabilities
+  - [4] https://eu.api.ovh.com/1.0/dedicated/server/datacenter/availabilities?planCode=25skb012
+  - [5] https://serverlist.ovh/
+  - [6] https://www.kimsufi.com/en/
+
+## OVHcloud Local Zone Standard
+
+- `storage/ovhcloud-local-zone-standard` | paid-only | evidence documented | binding none | category S3-compatible object storage, Local Zone deployment | tier Standard, Local Zone
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T01:30:27.153Z (live) | stale on 2026-12-04
+- url https://www.ovhcloud.com/en/public-cloud/prices/?currency=USD
+- price USD 7.55 per TB per month (USD 0.0081103 per GiB-month x 931.32 GiB per TB); one rate at every volume | parsed USD 7.55/TB-mo
+- free tier: No free tier: the Standard class in a Local Zone is billed from the first GiB at USD 0.00001111 per GiB-hour (about USD 0.0081103 per GiB-month), with no capacity cap stated | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: billed per GiB-hour; the monthly figure is the hourly price x 730 hours
+- per-object cap: 48 TiB per object through multipart upload; 5 GiB through a single PUT | bytes: 52776558133248 | source: [2] | note: the Object Storage technical limits page states one set of limits for the Object Storage offer
+- retention: unlimited volume and time: objects are kept until deleted, and no minimum storage duration is stated for the Local Zone Standard class | source: [1] | note: the Local Zone price table has no minimum storage column
+- egress: External ingoing and outgoing traffic, internal traffic, data retrieval and API requests are all free | metered: no
+- identity: card | detail: an email address validated by a one-time code, the country of tax residence, and a valid payment method on the account before the first Public Cloud project
+- interface: s3-compatible, rclone, cli
+- limits:
+  - per-object-cap: 48 TiB per object by multipart upload; 5 GiB by a single PUT [2]
+  - request-rate: 300 PUT and 900 GET requests per second per bucket, soft defaults [2]
+  - per-ip-shaping: 1 Gbps per connection [2]
+- limits note: Local Zones run a single availability zone: 99.9% availability SLA; multi-AZ, High Performance, server-side encryption at rest, user policies and the metadata API are not available there
+- binding note: none: storage has no stated cap, an object may reach 48 TiB, and the per-bucket rates are soft defaults; the Local Zone feature gaps (no multi-AZ, no High Performance, no encryption at rest by the service, no user policies) are capability notes, not quotas
+- interface detail: S3-compatible API
+- tooling: AWS CLI, rclone, s3cmd, any S3 SDK; lifecycle rules move objects between classes
+- composes with: S3 origin behind a CDN or proxy; lifecycle rules move objects between this class and the Standard class
+- reliability: 99.9% availability SLA in 1-AZ regions and Local Zones; MonoAZ only, with no multi-AZ in a Local Zone
+- notes: only the Standard class is offered in a Local Zone; every access key of a project reaches every bucket in the Local Zones
+- evidence note: documented: the international price list, the storage classes pages, the endpoints page and the technical limits page were read and quoted on 2026-11-03; a read timed from a bucket would make it measured
+- evidence:
+  - [1] 2026-11-03: the Local Zone Standard class costs USD 0.00001111 per GiB-hour, about USD 0.0081103 per GiB-month, with free traffic, retrieval and API requests | capture: sha256:7150d4e359dd22bb1cdc6984242255f12708be00d1b6f62832ce91c97940d3c0 | quote: | Standard | - | Free | Free | Free | Free | $0.00001111 | ~$0.0081103 |
+  - [1] 2026-11-03: Object Storage is invoiced per GiB-hour and the monthly figure assumes 730 hours | capture: sha256:7150d4e359dd22bb1cdc6984242255f12708be00d1b6f62832ce91c97940d3c0 | quote: For optimal readability, the price is displayed as GiB/month – but since there are 730 hours in an average month, the invoicing granularity is GiB/hour.
+  - [3] 2026-11-03: the availability SLA is 99.9% in 1-AZ regions and Local Zones | capture: sha256:afe8e5cc56ba00ffc6beb3517ade25c5890924740c0721295d4c77dcc98e7052 | quote: The level of availability depends on the deployment mode chosen: 99.9% service level agreement (SLA) in 1-AZ and Local Zones, 99.99% SLA in our 3-AZ regions.
+  - [4] 2026-11-03: a Local Zone offers the Standard class only | capture: sha256:6550fe382c631284d994172f54ef6511d22bef3db26cb9d253d08e8c961b6d94 | quote: High Performance: High-performance storage classes are not available in Local Zones at this time. Only standard storage classes are supported.
+  - [4] 2026-11-03: Local Zones are single-AZ | capture: sha256:6550fe382c631284d994172f54ef6511d22bef3db26cb9d253d08e8c961b6d94 | quote: MonoAZ configurations are available in Local Zones, making them suitable for use cases that prioritize performance and low latency over cross-zone redundancy.
+  - [4] 2026-11-03: Local Zones have no server-side encryption at rest, only customer-provided keys | capture: sha256:6550fe382c631284d994172f54ef6511d22bef3db26cb9d253d08e8c961b6d94 | quote: Encryption is not supported in Local Zones, meaning that data is not encrypted at rest by the service.
+  - [2] 2026-11-03: the largest object is 48 TiB by multipart upload and 5 GiB by a single PUT | capture: sha256:4f37b76756413096aac5c8c8c167ae1b5887e6332b7adca0b35dd6981129e475 | quote: | Maximum Object size | 48 TiB | This maximum can be achieved using Multi-Part Upload (MPU), via a single PUT request, the maximum object size is 5 GiB |
+  - [2] 2026-11-03: Object Storage bandwidth is 1 Gbps per connection, lifted by parallel requests | capture: sha256:4f37b76756413096aac5c8c8c167ae1b5887e6332b7adca0b35dd6981129e475 | quote: 1 Gbps/connection.
+  - [2] 2026-11-03: the default write rate is 300 requests per second on a bucket, a soft limit | capture: sha256:4f37b76756413096aac5c8c8c167ae1b5887e6332b7adca0b35dd6981129e475 | quote: - PUT: 300 requests per second
+  - [5] 2026-11-03: a valid payment method is required on the account before the first Public Cloud project | capture: sha256:d4ea1558739c101bb88cd8c0b2bc33aea7af1e71433784b49df80af7e8259376 | quote: You need to add a valid payment method to your OVHcloud customer account before starting the free trial, which will be used after your free trial ends, if you want to keep running the project you have launched.
+  - [6] 2026-11-03: account creation validates the email address with a one-time code | capture: sha256:103df8a17f5d1de37f2b9d7093e796f5dfd8f164e951a986315a007a2e91b6a1 | quote: After you submit this form, a one-time code will be sent to the email address you entered.
+- sources:
+  - [1] https://www.ovhcloud.com/en/public-cloud/prices/?currency=USD
+  - [2] https://docs.ovhcloud.com/en/guides/storage-and-backup/object-storage/s3-limitations.md
+  - [3] https://www.ovhcloud.com/en-ie/public-cloud/object-storage/classes/
+  - [4] https://docs.ovhcloud.com/en/guides/storage-and-backup/object-storage/s3-local-zones-limitations
+  - [5] https://www.ovhcloud.com/en-ie/public-cloud/free-trial/
+  - [6] https://docs.ovhcloud.com/en/guides/account-and-service-management/account-information/ovhcloud-account-creation.md
+
+## OVHcloud Managed Private Registry (Harbor)
+
+- `storage/ovhcloud-managed-private-registry` | paid-only | evidence documented | binding volume-quota | category registry
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T01:28:44.369Z, checked 2026-10-21 (inherited) | stale on 2026-11-21
+- url https://www.ovhcloud.com/en/public-cloud/managed-private-registry/
+- price USD 38.64 per TB per month on plan L (USD 212.43 a month for 5 TiB, which is 5.50 TB) | parsed USD 38.64/TB-mo
+- free tier: No free tier. Three paid plans: 'S | 200 GiB | $0.027/hour | ~$19.71/month', 'M | 600 GiB | $0.0613/hour | ~$44.749/month', 'L | 5 TiB | $0.291/hour | ~$212.43/month'. | unit: none | metered on: none | read on: 2026-10-21 | source: [1] | note: plans are billed by the hour actually used; the monthly figure is the hourly price x 730 hours
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Egress is genuinely unlimited and free. 'Traffic is unlimited, no matter what its destination' and 'Inbound/outbound traffic and maintenance are also included in the price'. But the storage is a flat monthly subscription, so the free-egress advantage is unusable without paying. | metered: no
+- identity: card | detail: an email address validated by a one-time code, the country of tax residence, and a valid payment method on the account before the first Public Cloud project; Visa, Mastercard and Maestro cards are accepted, and PayPal and a prepaid account are offered as payment methods
+- interface: oci
+- limits:
+  - volume-quota (binding): 200 GiB on plan S, 600 GiB on plan M, 5 TiB on plan L, per registry [1]
+  - request-rate: 15 concurrent connections on plan S, 45 on plan M and 90 on plan L, per registry (3, 9 and 18 clients at 5 connections each) [1]
+- limits note: 15 concurrent connections on plan S, 45 on M and 90 on L (3, 9 and 18 clients at 5 connections each)
+- binding note: plan storage is the first ceiling, 5 TiB on plan L, the largest plan; traffic is unlimited and included in every plan
+- interface detail: oci
+- tooling: Harbor API + docker/skopeo/ORAS; Harbor's own replication for chaining registries.
+- composes with: None free. The $200 trial credit is a trial, not a free tier.
+- reliability: 99.9% availability SLA on plan S; on plans M and L, 99.9% in a 1-AZ region and 99.99% in a 3-AZ region
+- notes: the same as the free tier
+- evidence note: documented: the international price list, the Managed Private Registry page, the account-creation guide and the free-trial page were read and quoted on 2026-10-30; a pull timed from a registry would make it measured
+- extras:
+  - dead_end.failure_class: paid
+  - dead_end.why: No free tier — three paid plans: 'S | 200 GiB | $0.027/hour | ~$19.71/month', 'M | 600 GiB | $0.0613/hour | ~$44.749/month', 'L | 5 TiB | $0.291/hour | ~$212.43/month'.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: S/M/L plans only, $19.71–$212.43 per month
+  - [2] 2026-10-21: 'Traffic is unlimited, no matter what its destination'
+  - withheld 2026-10-21: US$200 free credit offer on the same page — credit, not a free tier
+  - [1] 2026-10-30: the smallest Managed Private Registry plan is paid: S holds 200 GiB at USD 0.027 an hour, about USD 19.71 a month; no free plan is listed | capture: sha256:592d28765238669188fc8855269fbcad0c1ae6d8adf83d80063cda0ff79c8325 | quote: | S | 200 GiB | Included | 15 connections (3 x 5)\* | \- | $0.027 | ~$19.71 |
+  - [1] 2026-10-30: registry plans are billed by the hour actually used | capture: sha256:592d28765238669188fc8855269fbcad0c1ae6d8adf83d80063cda0ff79c8325 | quote: If you create, modify or remove a service part way through the month, you will be billed only for the actual hours used in your plan.
+  - [1] 2026-10-30: Managed Private Registry plan L holds 5 TiB with 90 concurrent connections at USD 0.291 an hour, about USD 212.43 a month; plans S and M hold 200 GiB and 600 GiB | capture: sha256:592d28765238669188fc8855269fbcad0c1ae6d8adf83d80063cda0ff79c8325 | quote: | L | 5 TiB | Included | 90 connections (18 x 5)\* | | $0.291 | ~$212.43 |
+  - [3] 2026-10-30: a valid payment method is required on the account before the first Public Cloud project | capture: sha256:833a8cfc5f5b014146b61bc60e022d12222c9157a6b8ef84510e03864ce36f6e | quote: You need to add a valid payment method to your OVHcloud customer account before starting the free trial, which will be used after your free trial ends, if you want to keep running the project you have launched.
+  - [4] 2026-10-30: OVHcloud accepts Visa, Mastercard and Maestro cards; the same page offers PayPal and a prepaid account | capture: sha256:1bb040f010d78fc15cad2155da6cdc0195337f3af99e51d70c12b68810997e37 | quote: Cards accepted are Visa, Mastercard, Maestro.
+  - [5] 2026-10-30: account creation validates the email address with a one-time code | capture: sha256:945f4e98b5d2464730e482bbf6d18a52f2b8a530031f2e94ba7fcf8f4fc3af25 | quote: After you submit this form, a one-time code will be sent to the email address you entered.
+  - [2] 2026-10-30: the registry plans carry a 99.9% SLA in 1-AZ and 99.99% in 3-AZ | capture: sha256:a411a3d8b90215bf457f5ebc23c886f6ce31072221bbd27efed0a0e7abb30440 | quote: 1-AZ SLA: 99.9% / 3-AZ SLA: 99.99% Storage up to 5 TB Public network included Up to 90 concurrent connections
+  - [1] 2026-11-03: plan L carries a cap of 90 concurrent connections; plans S and M carry 15 and 45 in the same table column | capture: sha256:7150d4e359dd22bb1cdc6984242255f12708be00d1b6f62832ce91c97940d3c0 | quote: | L | 5 TiB | Included | 90 connections (18 x 5)\* | | $0.291 | ~$212.43 |
+  - [1] 2026-11-03: plan S holds 200 GiB with a 15-connection cap, as recorded | capture: sha256:7150d4e359dd22bb1cdc6984242255f12708be00d1b6f62832ce91c97940d3c0 | quote: | S | 200 GiB | Included | 15 connections (3 x 5)\* | - | $0.027 | ~$19.71 |
+- sources:
+  - [1] https://www.ovhcloud.com/en/public-cloud/prices/
+  - [2] https://www.ovhcloud.com/en/public-cloud/managed-private-registry/
+  - [3] https://www.ovhcloud.com/en/public-cloud/free-trial/
+  - [4] https://www.ovhcloud.com/en/terms-and-conditions/payment/
+  - [5] https://docs.ovhcloud.com/en/guides/account-and-service-management/account-information/ovhcloud-account-creation
+
+## ovhcloud object storage
+
+- `storage/ovhcloud-object-storage` | paid-only | evidence documented | binding none | category S3-compatible object storage
+- needs card yes, phone no, ID no, institution no | verified 2026-10-30T18:30:29.233Z (inherited) | stale on 2026-11-30
+- url https://www.ovhcloud.com/en/public-cloud/object-storage/
+- duplicate of `storage/ovhcloud-object-storage-standard`
+- free tier: No free tier: Object Storage bills the stored capacity and, on some classes, restored data, with no charge for API calls, incoming or outgoing traffic; new customers get a one-time USD 200 credit for a first Public Cloud project | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: Free: no charges for API calls, incoming traffic or outgoing traffic | metered: no
+- identity: card | detail: an email address validated by a one-time code, the country of tax residence, and a valid payment method on the account before the first Public Cloud project; Visa, Mastercard and Maestro cards are accepted, and PayPal and a prepaid account are offered as payment methods
+- interface: s3-compatible
+- interface detail: S3-compatible API
+- tooling: not documented
+- composes with: not recorded
+- reliability: 99.9% availability SLA for a 1-AZ deployment and 99.99% for a 3-AZ deployment
+- notes: No free storage tier at all; S3-compatible and 'no hidden fees for ingress/egress or API calls', but you pay for stored GB from the first one. Only a $200 new-customer trial credit.
+- evidence note: documented: the international price list, the storage classes page, the Object Storage technical limits page, the account-creation guide and the free-trial page were read and quoted on 2026-10-30; a read timed from a bucket would make it measured
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: No free storage tier at all; S3-compatible and 'no hidden fees for ingress/egress or API calls', but you pay for stored GB from the first one. Only a $200 new-customer trial credit.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: No free storage tier at all; S3-compatible and 'no hidden fees for ingress/egress or API calls', but you pay for stored GB from the first one. Only a $200 new-customer trial credit.
+  - [1] 2026-10-30: Object Storage is S3-compatible | capture: sha256:720b23a7846ed60e24ed15bb486dfd93fdaef45f98ebac08c02552536ec794df | quote: Amazon S3* compatible solution: robust security, peak performance from the first GB, and highly competitive pricing.
+  - [1] 2026-10-30: Object Storage bills stored capacity and, by class, restored data; no free capacity is offered | capture: sha256:720b23a7846ed60e24ed15bb486dfd93fdaef45f98ebac08c02552536ec794df | quote: Our model is simple and transparent: you only pay for the stored capacity, as well as restored data, depending on the [storage class](https://www.ovhcloud.com/en/public-cloud/object-storage/classes/) chosen.
+  - [1] 2026-10-30: Object Storage charges nothing for API calls, incoming or outgoing traffic | capture: sha256:720b23a7846ed60e24ed15bb486dfd93fdaef45f98ebac08c02552536ec794df | quote: there are no charges for API calls, incoming traffic, or outgoing traffic.
+  - [2] 2026-10-30: a valid payment method is required on the account before the first Public Cloud project | capture: sha256:833a8cfc5f5b014146b61bc60e022d12222c9157a6b8ef84510e03864ce36f6e | quote: You need to add a valid payment method to your OVHcloud customer account before starting the free trial, which will be used after your free trial ends, if you want to keep running the project you have launched.
+  - [3] 2026-10-30: OVHcloud accepts Visa, Mastercard and Maestro cards; the same page offers PayPal and a prepaid account | capture: sha256:1bb040f010d78fc15cad2155da6cdc0195337f3af99e51d70c12b68810997e37 | quote: Cards accepted are Visa, Mastercard, Maestro.
+  - [4] 2026-10-30: account creation validates the email address with a one-time code | capture: sha256:945f4e98b5d2464730e482bbf6d18a52f2b8a530031f2e94ba7fcf8f4fc3af25 | quote: After you submit this form, a one-time code will be sent to the email address you entered.
+  - [2] 2026-10-30: the USD 200 credit is one-time, for a first Public Cloud project only | capture: sha256:833a8cfc5f5b014146b61bc60e022d12222c9157a6b8ef84510e03864ce36f6e | quote: Please note, however, that this offer is only valid for your first project. i.e., you must never have created a Public Cloud project.
+  - [1] 2026-10-30: Object Storage availability SLA is 99.9% in 1-AZ and 99.99% in 3-AZ | capture: sha256:720b23a7846ed60e24ed15bb486dfd93fdaef45f98ebac08c02552536ec794df | quote: 99.9% SLA for a 1-AZ deployment and 99.99% for a 3-AZ deployment.
+- sources:
+  - [1] https://www.ovhcloud.com/en/public-cloud/object-storage/
+  - [2] https://www.ovhcloud.com/en/public-cloud/free-trial/
+  - [3] https://www.ovhcloud.com/en/terms-and-conditions/payment/
+  - [4] https://docs.ovhcloud.com/en/guides/account-and-service-management/account-information/ovhcloud-account-creation
+
+## ovhcloud object storage (standard / cold archive)
+
+- `storage/ovhcloud-object-storage-2` | paid-only | evidence documented | binding none | category S3-compatible object storage, single-AZ
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T01:57:44.711Z (inherited) | stale on 2026-12-05
+- url https://www.ovhcloud.com/en/public-cloud/prices/
+- duplicate of `storage/ovhcloud-object-storage-one-zone-standard`
+- free tier: No free tier: the Standard class in a 1-AZ (One Zone) region is billed from the first GiB at USD 0.00001111 per GiB-hour (about USD 0.0081103 per GiB-month), one rate at every volume, with no capacity cap stated | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: External ingoing and outgoing traffic, internal traffic, data retrieval and API requests are all free on the 1-AZ Standard row | metered: no
+- identity: card | detail: an email address validated by a one-time code, the country of tax residence, and a valid payment method on the account before the first Public Cloud project; Visa, Mastercard and Maestro cards are accepted, and PayPal and a prepaid account are offered as payment methods
+- interface: s3-compatible
+- interface detail: S3-compatible API
+- tooling: not documented
+- composes with: not recorded
+- reliability: 1-AZ regions survive server and disk failures, and the data becomes unavailable if the datacentre hosting it becomes completely unavailable; durability is stated as 11 nines for every class
+- notes: Standard class in a 1-AZ region: USD 7.55 per TB per month (USD 0.0081103 per GiB-month x 931.32 GiB per TB), no minimum storage duration and no retrieval fee
+- evidence note: documented: the international price list, the storage classes page, the Object Storage technical limits page, the account-creation guide and the free-trial page were read and quoted on 2026-10-30; a read timed from a bucket would make it measured
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: Free egress and free API calls, but Standard One Zone is billed at about USD 0.0081103 per GiB-month, USD 7.55 per TB-month (0.0081103 x 931.32 GiB per TB)
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Free egress and free API calls is genuinely attractive, and OVH is not on the excluded list — but the arithmetic loses. Standard One Zone is ~$0.0081/GiB/mo = ~$8.30/TB/mo, i.e. Wasabi pricing
+  - [2] 2026-10-21: cited as the basis of the rejection: Free egress and free API calls is genuinely attractive, and OVH is not on the excluded list — but the arithmetic loses. Standard One Zone is ~$0.0081/GiB/mo = ~$8.30/TB/mo, i.e. Wasabi pricing
+  - [3] 2026-10-30: Object Storage is S3-compatible | capture: sha256:720b23a7846ed60e24ed15bb486dfd93fdaef45f98ebac08c02552536ec794df | quote: Amazon S3* compatible solution: robust security, peak performance from the first GB, and highly competitive pricing.
+  - [1] 2026-10-30: the 1-AZ (One Zone) Standard class costs USD 0.00001111 per GiB-hour, about USD 0.0081103 per GiB-month, with no tier, no minimum duration and traffic, retrieval and API requests free | capture: sha256:592d28765238669188fc8855269fbcad0c1ae6d8adf83d80063cda0ff79c8325 | quote: | Standard | \- | Free | Free | Free | Free | N/A | $0.00001111 | ~$0.0081103 |
+  - [4] 2026-10-30: a valid payment method is required on the account before the first Public Cloud project | capture: sha256:833a8cfc5f5b014146b61bc60e022d12222c9157a6b8ef84510e03864ce36f6e | quote: You need to add a valid payment method to your OVHcloud customer account before starting the free trial, which will be used after your free trial ends, if you want to keep running the project you have launched.
+  - [5] 2026-10-30: OVHcloud accepts Visa, Mastercard and Maestro cards; the same page offers PayPal and a prepaid account | capture: sha256:1bb040f010d78fc15cad2155da6cdc0195337f3af99e51d70c12b68810997e37 | quote: Cards accepted are Visa, Mastercard, Maestro.
+  - [6] 2026-10-30: account creation validates the email address with a one-time code | capture: sha256:945f4e98b5d2464730e482bbf6d18a52f2b8a530031f2e94ba7fcf8f4fc3af25 | quote: After you submit this form, a one-time code will be sent to the email address you entered.
+  - [7] 2026-10-30: 1-AZ regions survive server and disk failures but not the loss of the hosting datacentre | capture: sha256:13c979ffcc3e5955e7055d779498ef0b07db7a5a56e291588cbfa3c2042e0768 | quote: They provide protection against server and disk failures, but can be affected in the event that the datacentre hosting the data becomes completely unavailable.
+  - [1] 2026-11-04: the One Zone Standard row lists USD 0.0081103 per GiB-month | capture: sha256:d07d63ddae7af9cee296ae373acfbd0085a6ece468db03e32adf47850282e0a9 | quote: | Standard | - | Free | Free | Free | Free | N/A | $0.00001111 | ~$0.0081103 |
+- sources:
+  - [1] https://www.ovhcloud.com/en/public-cloud/prices/
+  - [2] https://www.ovhcloud.com/en/public-cloud/cold-archive/
+  - [3] https://www.ovhcloud.com/en/public-cloud/object-storage/
+  - [4] https://www.ovhcloud.com/en/public-cloud/free-trial/
+  - [5] https://www.ovhcloud.com/en/terms-and-conditions/payment/
+  - [6] https://docs.ovhcloud.com/en/guides/account-and-service-management/account-information/ovhcloud-account-creation
+  - [7] https://www.ovhcloud.com/en/public-cloud/object-storage/classes/
+
+## ovhcloud object storage cold archive
+
+- `storage/ovhcloud-object-storage-cold-archive` | paid-only | evidence documented | binding none | category S3-compatible tape archive class
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T01:57:44.712Z (inherited) | stale on 2026-12-05
+- url https://www.ovhcloud.com/en/public-cloud/prices/
+- duplicate of `storage/ovhcloud-cold-archive`
+- free tier: No free tier: the Cold Archive class is billed from the first GiB at USD 0.0000027 per GiB-hour (about USD 0.001971 per GiB-month), with no capacity cap stated; a 180-day minimum storage duration is billed and data retrieval costs USD 0.01062 per GiB | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: External ingoing and outgoing traffic free and API requests free; an object is read back only after a restore, billed at USD 0.01062 per GiB retrieved, and the restored copy is billed in the Standard class while it stays accessible | metered: no
+- identity: card | detail: an email address validated by a one-time code, the country of tax residence, and a valid payment method on the account before the first Public Cloud project; Visa, Mastercard and Maestro cards are accepted, and PayPal and a prepaid account are offered as payment methods
+- interface: s3-compatible
+- interface detail: S3-compatible API, reachable only from the Paris 3-AZ region (EU-WEST-PAR)
+- tooling: not documented
+- composes with: not recorded
+- reliability: Tape-backed class with a 99.9% availability SLA and eleven nines of durability; a restore takes from a few minutes to several hours up to a terabyte and at most 48 hours for hundreds of terabytes
+- notes: USD 1.84 per TB per month (USD 0.001971 per GiB-month x 931.32 GiB per TB) and USD 9.89 per TB retrieved (USD 0.01062 per GiB); a 180-day minimum storage duration is billed per object
+- evidence note: documented: the international price list, the storage classes page, the Object Storage technical limits page, the account-creation guide and the free-trial page were read and quoted on 2026-10-30; a read timed from a bucket would make it measured
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: USD 1.84 per TB-month (USD 0.001971 per GiB-month x 931.32 GiB per TB); retrieval is USD 0.01062 per GiB, USD 9.89 per TB, plus a 180-day minimum storage duration, and a restore takes hours
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: $2.02/TB/mo — genuinely near the floor — but retrieval is $0.01062/GiB (~$10.87/TB) plus a 180-day minimum storage duration, and restoration takes hours. Fine for the 20 TiB write-once…
+  - [2] 2026-10-30: Cold Archive is an S3-compatible storage class | capture: sha256:3275d4e576183a62178d980a162ab6eac023abf0991241084a584488999d2876 | quote: The most cost-effective Amazon S3* compatible class for sustainably storing your rarely accessed data.
+  - [1] 2026-10-30: Cold Archive costs USD 0.0000027 per GiB-hour, about USD 0.001971 per GiB-month, with free external traffic and API requests, a USD 0.01062 per GiB retrieval fee and 180 days of minimum storage billed | capture: sha256:592d28765238669188fc8855269fbcad0c1ae6d8adf83d80063cda0ff79c8325 | quote: | Cold Archive | \- | Free | Free | $0.01062 | Free | 180 days | $0.0000027 | ~$0.001971 |
+  - [3] 2026-10-30: Cold Archive is reachable only from the Paris region EU-WEST-PAR | capture: sha256:13c979ffcc3e5955e7055d779498ef0b07db7a5a56e291588cbfa3c2042e0768 | quote: Accessible only from the Paris region (EU-WEST-PAR): your data is securely stored in France, distributed across four dedicated datacentres optimised for this storage class.
+  - [4] 2026-10-30: a valid payment method is required on the account before the first Public Cloud project | capture: sha256:833a8cfc5f5b014146b61bc60e022d12222c9157a6b8ef84510e03864ce36f6e | quote: You need to add a valid payment method to your OVHcloud customer account before starting the free trial, which will be used after your free trial ends, if you want to keep running the project you have launched.
+  - [5] 2026-10-30: OVHcloud accepts Visa, Mastercard and Maestro cards; the same page offers PayPal and a prepaid account | capture: sha256:1bb040f010d78fc15cad2155da6cdc0195337f3af99e51d70c12b68810997e37 | quote: Cards accepted are Visa, Mastercard, Maestro.
+  - [6] 2026-10-30: account creation validates the email address with a one-time code | capture: sha256:945f4e98b5d2464730e482bbf6d18a52f2b8a530031f2e94ba7fcf8f4fc3af25 | quote: After you submit this form, a one-time code will be sent to the email address you entered.
+  - [2] 2026-10-30: Cold Archive carries a 99.9% availability SLA and eleven nines of durability | capture: sha256:3275d4e576183a62178d980a162ab6eac023abf0991241084a584488999d2876 | quote: Cold Archive is built to ISO standards (27001, 27017, 27018, 27701), and data availability is ensured by a 99.9% service level agreement (SLA), with a data durability of eleven nines.
+  - [1] 2026-11-04: Cold Archive is USD 0.001971 per GiB-month, retrieval USD 0.01062 per GiB, 180 days minimum | capture: sha256:d07d63ddae7af9cee296ae373acfbd0085a6ece468db03e32adf47850282e0a9 | quote: | Cold Archive | - | Free | Free | $0.01062 | Free | 180 days | $0.0000027 | ~$0.001971 |
+- sources:
+  - [1] https://www.ovhcloud.com/en/public-cloud/prices/
+  - [2] https://www.ovhcloud.com/en/public-cloud/cold-archive/
+  - [3] https://www.ovhcloud.com/en/public-cloud/object-storage/classes/
+  - [4] https://www.ovhcloud.com/en/public-cloud/free-trial/
+  - [5] https://www.ovhcloud.com/en/terms-and-conditions/payment/
+  - [6] https://docs.ovhcloud.com/en/guides/account-and-service-management/account-information/ovhcloud-account-creation
+
+## OVHcloud Object Storage One-Zone Standard (Poland subsidiary)
+
+- `storage/ovhcloud-object-storage-one-zone-standard-flat-s3-with-c` | paid-only | evidence documented | binding none | category object-storage
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T01:57:44.715Z, checked 2026-10-21 (inherited) | stale on 2026-11-21
+- url https://www.ovhcloud.com/pl/public-cloud/prices/
+- price PLN 33.05 per TB per month (PLN 0.0354853 per GiB-month x 931.32 GiB per TB); one rate at every volume | parsed USD 8.42/TB-mo
+- free tier: No free tier: the Standard class in a 1-AZ (One Zone) region is billed from the first GiB at 0,00004861 PLN per GiB-hour (about 0,0354853 PLN per GiB-month) on the Polish price list, one rate at every volume | unit: none | metered on: none | read on: 2026-10-21 | source: [1] | note: billed per GiB-hour; the monthly figure is the hourly price x 730 hours
+- per-object cap: 48 TiB per object through multipart upload (up to 10,000 parts of 5 MiB to 5 GiB); 5 GiB through a single PUT | bytes: 52776558133248 | source: [2] | note: the Object Storage technical limits page states one set of limits for the Object Storage offer
+- retention: unlimited time: objects are kept until deleted, and the Standard class has no minimum storage duration | source: [3] | note: the price table marks the Standard minimum storage billed N/A
+- egress: Free: the Polish price list marks external ingoing and outgoing traffic, internal traffic, data retrieval and API requests «Darmowy» (free) on the One Zone Standard row | metered: no
+- identity: card | detail: an email address validated by a one-time code, the country of tax residence, and a valid payment method on the account before the first Public Cloud project; Visa, Mastercard and Maestro cards are accepted, and PayPal and a prepaid account are offered as payment methods
+- interface: s3, rclone, cli
+- limits:
+  - per-object-cap: 48 TiB per object by multipart upload; 5 GiB by a single PUT [2]
+  - request-rate: 300 PUT and 900 GET requests per second per bucket, soft defaults [2]
+  - per-ip-shaping: 1 Gbps per connection [2]
+- limits note: One Zone Infrequent Access is 0,00002367 PLN per GiB-hour (about 0,0172791 PLN per GiB-month) with a 30-day minimum storage duration and 0,01728 PLN per GiB retrieved; the Standard class has neither
+- binding note: none: storage has no stated cap, an object may reach 48 TiB, the per-bucket rates of 300 PUT and 900 GET requests per second are soft defaults, and the 1 Gbps per connection is lifted by parallel connections
+- interface detail: s3 + swift
+- tooling: rclone `s3` (any S3 client), s3cmd, aws-cli, boto3, restic/borg via rclone. Live endpoints probed: s3.waw.io.cloud.ovh.net -> 307, s3.gra.io.cloud.ovh.net -> 307, s3.rbx.io.cloud.ovh.net -> 307 (all answer with an S3 XML 307 to the product page, i.e. the clusters are up and addressing buckets by region).
+- composes with: Unbounded. A bucket has no plan size, so 10 TiB and 20 TiB are the same product at the same rate. No tier break at all until the 3-AZ Standard 50 TiB step.
+- reliability: Warsaw (WAW) is listed without 3-AZ: the 3-AZ regions are Paris and Milan, so Object Storage bought in Warsaw is a single-zone deployment
+- notes: Unlimited / unbilled minimum: «Możesz przechowywać dowolną ilość danych, nie określamy minimalnego wolumenu». Billed per GiB-hour at 0.00004861 PLN, shown as ~0.0354853 PLN/GiB/month over 730 h.
+- evidence note: documented: the Polish and international price lists, the storage classes page, the Object Storage technical limits page, the account-creation guide and the free-trial page were read and quoted on 2026-10-30; a read timed from a bucket would make it measured
+- extras:
+  - price_verbatim: One-Zone Standard: $9.34/TB/mo ($112.03/TB/yr) with free egress, free API calls, free retrieval — identical at 5 TB and 20 TB because pricing is strictly per-GiB with no tiers. One-Zone Infrequent Access: $4.55/TB/mo storage but +$2.27/TB per full read-back (0.01728 PLN/GiB) and a 30-day minimum, so $6.82/TB/mo effective on one read = $81.83/TB/yr. 3-AZ Standard: $16.07/TB/mo, first 50 TiB. Swift Standard: $12.68/TB/mo. All PLN converted at 0.256916 USD/PLN and 1024 GiB/TB.
+  - fx.pair: USD/PLN
+  - fx.rate: 3.9261
+  - fx.date: 2026-10-23
+- evidence:
+  - [1] 2026-10-21: Object Storage One Zone table: «Standard | Darmowy | Darmowy | Darmowy | Darmowy | N/A | 0,00004861 PLN | ~0,0354853 PLN» across columns Internal traffic / External traffic / Data retrieval / API Requests / price-per-GiB-hour / price-per-GiB-month
+  - [1] 2026-10-21: 3-AZ table: «Standard | Pierwsze 50 TiB | Darmowy | Darmowy | Darmowy | Darmowy | N/A | 0,00008369 PLN | ~0,0610937 PLN»; Swift Standard 0,000066 PLN/GiB/h (~0,04818/mo) with all traffic Darmowy
+  - [4] 2026-10-21: «nie płacisz za wywołania API ani za ruch przychodzący i wychodzący»
+  - [5] 2026-10-21: «Brak opłat za wywołania API … Brak opłat za ruch wychodzący»; durability 99,99999999999 % (11 nines) all classes; SLA 99,9 % 1-AZ vs 99,99 % 3-AZ
+  - withheld 2026-10-21: probes: s3.waw.io.cloud.ovh.net/ -> 307; s3.gra.io.cloud.ovh.net/ -> 307 with x-amz-id-2 header; s3.rbx.io.cloud.ovh.net/ -> 307
+  - [6] 2026-10-21: defines Outgoing public traffic and confirms 1-AZ vs 3-AZ billing models differ
+  - [1] 2026-10-30: the Polish price list gives One Zone Standard 0,00004861 PLN per GiB-hour, about 0,0354853 PLN per GiB-month, with traffic, retrieval and API requests free (Darmowy) | capture: sha256:e5346c95229e5fd0c85b19e9a07d38e612afeee671678ea7337bd6e250d42555 | quote: | Standard | \- | Darmowy | Darmowy | Darmowy | Darmowy | N/A | 0,00004861 PLN | ~0,0354853 PLN |
+  - [7] 2026-10-30: Object Storage is invoiced per GiB-hour and the monthly figure assumes 730 hours | capture: sha256:592d28765238669188fc8855269fbcad0c1ae6d8adf83d80063cda0ff79c8325 | quote: For optimal readability, the price is displayed as GiB/month – but since there are 730 hours in an average month, the invoicing granularity is GiB/hour.
+  - [8] 2026-10-30: a valid payment method is required on the account before the first Public Cloud project | capture: sha256:833a8cfc5f5b014146b61bc60e022d12222c9157a6b8ef84510e03864ce36f6e | quote: You need to add a valid payment method to your OVHcloud customer account before starting the free trial, which will be used after your free trial ends, if you want to keep running the project you have launched.
+  - [9] 2026-10-30: OVHcloud accepts Visa, Mastercard and Maestro cards; the same page offers PayPal and a prepaid account | capture: sha256:1bb040f010d78fc15cad2155da6cdc0195337f3af99e51d70c12b68810997e37 | quote: Cards accepted are Visa, Mastercard, Maestro.
+  - [10] 2026-10-30: account creation validates the email address with a one-time code | capture: sha256:945f4e98b5d2464730e482bbf6d18a52f2b8a530031f2e94ba7fcf8f4fc3af25 | quote: After you submit this form, a one-time code will be sent to the email address you entered.
+  - [1] 2026-10-30: the Polish One Zone Infrequent Access class costs about 0,0172791 PLN per GiB-month with a 30-day minimum and 0,01728 PLN per GiB retrieved | capture: sha256:e5346c95229e5fd0c85b19e9a07d38e612afeee671678ea7337bd6e250d42555 | quote: | Infrequent Access | \- | Darmowy | Darmowy | 0,01728 PLN | Darmowy | 30 dni | 0,00002367 PLN | ~0,0172791 PLN |
+  - [11] 2026-10-30: the European Public Cloud regions with 3-AZ are Paris and Milan; Strasbourg, Gravelines, Roubaix, London, Frankfurt and Warsaw are listed without 3-AZ | capture: sha256:e5211b31df83e3d7974d2f3d50cbcc401e38d929730ff0a33b3bd010ad639cd2 | quote: | | Strasbourg | Gravelines | Roubaix | 3-AZ Paris | 3-AZ Milan | London | Frankfurt | Warsaw | |
+  - [3] 2026-10-30: Object Storage keeps data for an unlimited time and volume; no expiry applies | capture: sha256:e2f754959578b54279d07f11d3711095db3f622bea84cf881f970cef9fff5d07 | quote: Object Storage is adapted to store unstructured data in an unlimited volume and time, for use cases such as websites, e-commerce platforms, video streaming, image libraries, analytics, backups, archives.
+  - [2] 2026-10-30: the largest object is 48 TiB by multipart upload and 5 GiB by a single PUT | capture: sha256:eb85a82eeca983386bbc398a29f6fd8610cb084c18e136ed158079d3ccc499eb | quote: | Maximum Object size | 48 TiB | This maximum can be achieved using Multi-Part Upload (MPU), via a single PUT request, the maximum object size is 5 GiB |
+  - [2] 2026-10-30: Object Storage bandwidth is 1 Gbps per connection, lifted by parallel requests | capture: sha256:eb85a82eeca983386bbc398a29f6fd8610cb084c18e136ed158079d3ccc499eb | quote: 1 Gbps/connection.
+  - [1] 2026-11-04: the Polish list carries the same One Zone Standard row in PLN | capture: sha256:77744b149be162ee03fc09beab721d8e3ef27362d3b04681d65a6b66144f550e | quote: | Standard | - | Darmowy | Darmowy | Darmowy | Darmowy | N/A | 0,00004861 PLN | ~0,0354853 PLN |
+- sources:
+  - [1] https://www.ovhcloud.com/pl/public-cloud/prices/
+  - [2] https://docs.ovhcloud.com/en/guides/storage-and-backup/object-storage/s3-limitations
+  - [3] https://help.ovhcloud.com/csm/en-public-cloud-storage-s3-faq?id=kb_article_view&sysparm_article=KB0059679
+  - [4] https://www.ovhcloud.com/pl/public-cloud/object-storage/
+  - [5] https://www.ovhcloud.com/pl/public-cloud/object-storage/classes/
+  - [6] https://help.ovhcloud.com/csm/en-public-cloud-storage-s3-faq
+  - [7] https://www.ovhcloud.com/en/public-cloud/prices/
+  - [8] https://www.ovhcloud.com/en/public-cloud/free-trial/
+  - [9] https://www.ovhcloud.com/en/terms-and-conditions/payment/
+  - [10] https://docs.ovhcloud.com/en/guides/account-and-service-management/account-information/ovhcloud-account-creation
+  - [11] https://www.ovhcloud.com/en/public-cloud/regions-availability/
+
+## OVHcloud Object Storage Standard (3AZ)
+
+- `storage/ovhcloud-object-storage-standard` | paid-only | evidence documented | binding none | category S3-compatible object storage
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T01:57:44.714Z, checked 2026-10-21 (inherited) | stale on 2026-11-21
+- url https://www.ovhcloud.com/en/public-cloud/prices/
+- price USD 14.63 per TB per month for the first 50 TiB (USD 0.0157096 per GiB-month x 931.32 GiB per TB) | parsed USD 14.63/TB-mo
+- free tier: No free tier: the Standard class in a 3-AZ (Multi Zone) region is billed from the first GiB at USD 0.00002152 per GiB-hour (about USD 0.0157096 per GiB-month) for the first 50 TiB, with no capacity cap stated | unit: none | metered on: none | read on: 2026-10-21 | source: [1] | note: billed per GiB-hour; the monthly figure is the hourly price x 730 hours
+- per-object cap: 48 TiB per object through multipart upload (up to 10,000 parts of 5 MiB to 5 GiB); 5 GiB through a single PUT | bytes: 52776558133248 | source: [2] | note: the Object Storage technical limits page states one set of limits for the Object Storage offer
+- retention: unlimited time: objects are kept until deleted, and the Standard class has no minimum storage duration | source: [3] | note: the price table marks the Standard minimum storage billed N/A
+- egress: External ingoing and outgoing traffic, internal traffic, data retrieval and API requests are all free on the 3-AZ Standard rows | metered: no
+- identity: card | detail: an email address validated by a one-time code, the country of tax residence, and a valid payment method on the account before the first Public Cloud project; Visa, Mastercard and Maestro cards are accepted, and PayPal and a prepaid account are offered as payment methods
+- interface: s3-compatible, rclone, cli
+- limits:
+  - per-object-cap: 48 TiB per object by multipart upload; 5 GiB by a single PUT [2]
+  - request-rate: 300 PUT and 900 GET requests per second per bucket, soft defaults [2]
+  - per-ip-shaping: 1 Gbps per connection [2]
+- limits note: Staircase pricing on the 3-AZ Standard class per GiB-month: USD 0.0157096 for the first 50 TiB, USD 0.0140233 for the next 450 TiB, USD 0.012337 over 500 TiB
+- binding note: none: storage has no stated cap, an object may reach 48 TiB, the per-bucket rates of 300 PUT and 900 GET requests per second are soft defaults, and the 1 Gbps per connection is lifted by parallel connections
+- interface detail: S3 API
+- tooling: AWS CLI, rclone, all S3 SDKs
+- composes with: Drop-in S3 origin; fully Cloudflare-compatible.
+- reliability: 99.99% availability SLA for a 3-AZ deployment, against 99.9% for 1-AZ
+- notes: the 3-AZ regions listed are Paris (PAR) and Milan (MIL); Strasbourg, Gravelines, Roubaix, London, Frankfurt and Warsaw are listed without 3-AZ
+- evidence note: documented: the international price list, the storage classes page, the Object Storage technical limits page, the account-creation guide and the free-trial page were read and quoted on 2026-10-30; a read timed from a bucket would make it measured
+- extras:
+  - price_verbatim: $15.73/TB at both 5 TB and 20 TB (EUR 14.00 = $15.73). Priciest hot tier here, but the only S3 product with no egress ratio at all.
+- evidence:
+  - [4] 2026-10-21: "Pay for what you use, with no hidden costs: free API calls, internal traffic, and outgoing traffic"
+  - [5] 2026-10-20: EUR 0.014/GB/month (0-51.2 TB), EUR 0.0125 (51.2-512 TB), EUR 0.011 (512 TB+); egress and requests free per api.ovh.com catalog addons; verified 2026-10-20
+  - [1] 2026-10-30: the 3-AZ (Multi Zone) Standard class costs USD 0.00002152 per GiB-hour, about USD 0.0157096 per GiB-month, for the first 50 TiB, with traffic, retrieval and API requests free | capture: sha256:592d28765238669188fc8855269fbcad0c1ae6d8adf83d80063cda0ff79c8325 | quote: | Standard | First 50 TiB | Free | Free | Free | Free | N/A | $0.00002152 | ~$0.0157096 |
+  - [1] 2026-10-30: Object Storage is invoiced per GiB-hour and the monthly figure assumes 730 hours | capture: sha256:592d28765238669188fc8855269fbcad0c1ae6d8adf83d80063cda0ff79c8325 | quote: For optimal readability, the price is displayed as GiB/month – but since there are 730 hours in an average month, the invoicing granularity is GiB/hour.
+  - [6] 2026-10-30: a valid payment method is required on the account before the first Public Cloud project | capture: sha256:833a8cfc5f5b014146b61bc60e022d12222c9157a6b8ef84510e03864ce36f6e | quote: You need to add a valid payment method to your OVHcloud customer account before starting the free trial, which will be used after your free trial ends, if you want to keep running the project you have launched.
+  - [7] 2026-10-30: OVHcloud accepts Visa, Mastercard and Maestro cards; the same page offers PayPal and a prepaid account | capture: sha256:1bb040f010d78fc15cad2155da6cdc0195337f3af99e51d70c12b68810997e37 | quote: Cards accepted are Visa, Mastercard, Maestro.
+  - [8] 2026-10-30: account creation validates the email address with a one-time code | capture: sha256:945f4e98b5d2464730e482bbf6d18a52f2b8a530031f2e94ba7fcf8f4fc3af25 | quote: After you submit this form, a one-time code will be sent to the email address you entered.
+  - [9] 2026-10-30: the European Public Cloud regions with 3-AZ are Paris and Milan; Strasbourg, Gravelines, Roubaix, London, Frankfurt and Warsaw are listed without 3-AZ | capture: sha256:e5211b31df83e3d7974d2f3d50cbcc401e38d929730ff0a33b3bd010ad639cd2 | quote: | | Strasbourg | Gravelines | Roubaix | 3-AZ Paris | 3-AZ Milan | London | Frankfurt | Warsaw | |
+  - [1] 2026-10-30: the 3-AZ Standard class steps down to about USD 0.0140233 per GiB-month for the next 450 TiB; the next row of the same table gives USD 0.012337 over 500 TiB | capture: sha256:592d28765238669188fc8855269fbcad0c1ae6d8adf83d80063cda0ff79c8325 | quote: | Standard | Next 450 TiB | Free | Free | Free | Free | N/A | $0.00001921 | ~$0.0140233 |
+  - [10] 2026-10-30: Object Storage availability SLA is 99.9% in 1-AZ and 99.99% in 3-AZ | capture: sha256:720b23a7846ed60e24ed15bb486dfd93fdaef45f98ebac08c02552536ec794df | quote: 99.9% SLA for a 1-AZ deployment and 99.99% for a 3-AZ deployment.
+  - [3] 2026-10-30: Object Storage keeps data for an unlimited time and volume; no expiry applies | capture: sha256:e2f754959578b54279d07f11d3711095db3f622bea84cf881f970cef9fff5d07 | quote: Object Storage is adapted to store unstructured data in an unlimited volume and time, for use cases such as websites, e-commerce platforms, video streaming, image libraries, analytics, backups, archives.
+  - [2] 2026-10-30: the largest object is 48 TiB by multipart upload and 5 GiB by a single PUT | capture: sha256:eb85a82eeca983386bbc398a29f6fd8610cb084c18e136ed158079d3ccc499eb | quote: | Maximum Object size | 48 TiB | This maximum can be achieved using Multi-Part Upload (MPU), via a single PUT request, the maximum object size is 5 GiB |
+  - [2] 2026-10-30: Object Storage bandwidth is 1 Gbps per connection, lifted by parallel requests | capture: sha256:eb85a82eeca983386bbc398a29f6fd8610cb084c18e136ed158079d3ccc499eb | quote: 1 Gbps/connection.
+  - [11] 2026-10-30: the EUR price list gives 3-AZ Standard EUR 0.00001917 per GiB-hour, about EUR 0.0139941 per GiB-month, for the first 50 TiB | capture: sha256:db0447476db522100f19cffd79be867a3dfb442fd6e4763e43ce2a2cdb23b78a | quote: | Standard | First 50 TiB | Free | Free | Free | Free | N/A | €0.00001917 | ~€0.0139941 |
+  - [1] 2026-11-04: 3-AZ Standard first 50 TiB is USD 0.0157096 per GiB-month | capture: sha256:d07d63ddae7af9cee296ae373acfbd0085a6ece468db03e32adf47850282e0a9 | quote: | Standard | First 50 TiB | Free | Free | Free | Free | N/A | $0.00002152 | ~$0.0157096 |
+- sources:
+  - [1] https://www.ovhcloud.com/en/public-cloud/prices/
+  - [2] https://docs.ovhcloud.com/en/guides/storage-and-backup/object-storage/s3-limitations
+  - [3] https://help.ovhcloud.com/csm/en-public-cloud-storage-s3-faq?id=kb_article_view&sysparm_article=KB0059679
+  - [4] https://us.ovhcloud.com/public-cloud/object-storage/
+  - [5] https://s3providers.com/providers/ovhcloud-object-storage
+  - [6] https://www.ovhcloud.com/en/public-cloud/free-trial/
+  - [7] https://www.ovhcloud.com/en/terms-and-conditions/payment/
+  - [8] https://docs.ovhcloud.com/en/guides/account-and-service-management/account-information/ovhcloud-account-creation
+  - [9] https://www.ovhcloud.com/en/public-cloud/regions-availability/
+  - [10] https://www.ovhcloud.com/en/public-cloud/object-storage/
+  - [11] https://www.ovhcloud.com/en-ie/public-cloud/prices/
+
+## OVHcloud Object Storage — One Zone Standard
+
+- `storage/ovhcloud-object-storage-one-zone-standard` | paid-only | evidence documented | binding none | category S3-compatible object storage, single-AZ
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T01:57:44.712Z, checked 2026-10-21 (inherited) | stale on 2026-11-21
+- url https://www.ovhcloud.com/en/public-cloud/prices/
+- price USD 7.55 per TB per month (USD 0.0081103 per GiB-month x 931.32 GiB per TB); one rate at every volume | parsed USD 7.55/TB-mo
+- free tier: No free tier: the Standard class in a 1-AZ (One Zone) region is billed from the first GiB at USD 0.00001111 per GiB-hour (about USD 0.0081103 per GiB-month), one rate at every volume, with no capacity cap stated | unit: none | metered on: none | read on: 2026-10-21 | source: [1] | note: billed per GiB-hour; the monthly figure is the hourly price x 730 hours
+- per-object cap: 48 TiB per object through multipart upload (up to 10,000 parts of 5 MiB to 5 GiB); 5 GiB through a single PUT | bytes: 52776558133248 | source: [2] | note: the Object Storage technical limits page states one set of limits for the Object Storage offer
+- retention: unlimited time: objects are kept until deleted, and the Standard class has no minimum storage duration | source: [3] | note: the price table marks the Standard minimum storage billed N/A
+- egress: Free. Same 'Ingoing/Outgoing external traffic | Free' row. No retrieval fee on Standard. API requests Free. | metered: no
+- identity: card | detail: an email address validated by a one-time code, the country of tax residence, and a valid payment method on the account before the first Public Cloud project; Visa, Mastercard and Maestro cards are accepted, and PayPal and a prepaid account are offered as payment methods
+- interface: s3-compatible, rclone, cli
+- limits:
+  - per-object-cap: 48 TiB per object by multipart upload; 5 GiB by a single PUT [2]
+  - request-rate: 300 PUT and 900 GET requests per second per bucket, soft defaults [2]
+  - per-ip-shaping: 1 Gbps per connection [2]
+- limits note: Single availability zone: 99.9% availability SLA for a 1-AZ deployment, against 99.99% for a 3-AZ deployment
+- binding note: none: storage has no stated cap, an object may reach 48 TiB, the per-bucket rates of 300 PUT and 900 GET requests per second are soft defaults, and the 1 Gbps per connection is lifted by parallel connections
+- interface detail: S3 API
+- tooling: rclone / aws-cli / s3cmd
+- composes with: serve directly or put Cloudflare in front
+- reliability: 1-AZ regions survive server and disk failures, and the data becomes unavailable if the datacentre hosting it becomes completely unavailable; durability is stated as 11 nines for every class
+- notes: unlimited, per GiB
+- evidence note: documented: the international price list, the storage classes page, the Object Storage technical limits page, the account-creation guide and the free-trial page were read and quoted on 2026-10-30; a read timed from a bucket would make it measured
+- extras:
+  - price_verbatim: One Zone Standard $8.31/TB/mo (free egress, free requests). Multi-Zone Standard $16.08/TB/mo at first-50-TiB tier.
+- evidence:
+  - [1] 2026-10-21: One Zone Standard $0.00001111/GiB/hour ≈ $0.0081103/GiB/month, external traffic Free, requests Free, retrieval Free
+  - withheld 2026-10-21: same page — Multi Zone Standard $0.0157096/GiB/month first 50 TiB, $0.0140233 next 450 TiB, $0.012337 over 500 TiB
+  - [1] 2026-10-30: the 1-AZ (One Zone) Standard class costs USD 0.00001111 per GiB-hour, about USD 0.0081103 per GiB-month, with no tier, no minimum duration and traffic, retrieval and API requests free | capture: sha256:592d28765238669188fc8855269fbcad0c1ae6d8adf83d80063cda0ff79c8325 | quote: | Standard | \- | Free | Free | Free | Free | N/A | $0.00001111 | ~$0.0081103 |
+  - [1] 2026-10-30: Object Storage is invoiced per GiB-hour and the monthly figure assumes 730 hours | capture: sha256:592d28765238669188fc8855269fbcad0c1ae6d8adf83d80063cda0ff79c8325 | quote: For optimal readability, the price is displayed as GiB/month – but since there are 730 hours in an average month, the invoicing granularity is GiB/hour.
+  - [4] 2026-10-30: a valid payment method is required on the account before the first Public Cloud project | capture: sha256:833a8cfc5f5b014146b61bc60e022d12222c9157a6b8ef84510e03864ce36f6e | quote: You need to add a valid payment method to your OVHcloud customer account before starting the free trial, which will be used after your free trial ends, if you want to keep running the project you have launched.
+  - [5] 2026-10-30: OVHcloud accepts Visa, Mastercard and Maestro cards; the same page offers PayPal and a prepaid account | capture: sha256:1bb040f010d78fc15cad2155da6cdc0195337f3af99e51d70c12b68810997e37 | quote: Cards accepted are Visa, Mastercard, Maestro.
+  - [6] 2026-10-30: account creation validates the email address with a one-time code | capture: sha256:945f4e98b5d2464730e482bbf6d18a52f2b8a530031f2e94ba7fcf8f4fc3af25 | quote: After you submit this form, a one-time code will be sent to the email address you entered.
+  - [3] 2026-10-30: Object Storage keeps data for an unlimited time and volume; no expiry applies | capture: sha256:e2f754959578b54279d07f11d3711095db3f622bea84cf881f970cef9fff5d07 | quote: Object Storage is adapted to store unstructured data in an unlimited volume and time, for use cases such as websites, e-commerce platforms, video streaming, image libraries, analytics, backups, archives.
+  - [2] 2026-10-30: the largest object is 48 TiB by multipart upload and 5 GiB by a single PUT | capture: sha256:eb85a82eeca983386bbc398a29f6fd8610cb084c18e136ed158079d3ccc499eb | quote: | Maximum Object size | 48 TiB | This maximum can be achieved using Multi-Part Upload (MPU), via a single PUT request, the maximum object size is 5 GiB |
+  - [2] 2026-10-30: Object Storage bandwidth is 1 Gbps per connection, lifted by parallel requests | capture: sha256:eb85a82eeca983386bbc398a29f6fd8610cb084c18e136ed158079d3ccc499eb | quote: 1 Gbps/connection.
+  - [7] 2026-10-30: Object Storage availability SLA is 99.9% in 1-AZ and 99.99% in 3-AZ | capture: sha256:720b23a7846ed60e24ed15bb486dfd93fdaef45f98ebac08c02552536ec794df | quote: 99.9% SLA for a 1-AZ deployment and 99.99% for a 3-AZ deployment.
+  - [8] 2026-10-30: 1-AZ regions survive server and disk failures but not the loss of the hosting datacentre | capture: sha256:13c979ffcc3e5955e7055d779498ef0b07db7a5a56e291588cbfa3c2042e0768 | quote: They provide protection against server and disk failures, but can be affected in the event that the datacentre hosting the data becomes completely unavailable.
+  - [1] 2026-11-04: the One Zone Standard row lists USD 0.0081103 per GiB-month | capture: sha256:d07d63ddae7af9cee296ae373acfbd0085a6ece468db03e32adf47850282e0a9 | quote: | Standard | - | Free | Free | Free | Free | N/A | $0.00001111 | ~$0.0081103 |
+- sources:
+  - [1] https://www.ovhcloud.com/en/public-cloud/prices/
+  - [2] https://docs.ovhcloud.com/en/guides/storage-and-backup/object-storage/s3-limitations
+  - [3] https://help.ovhcloud.com/csm/en-public-cloud-storage-s3-faq?id=kb_article_view&sysparm_article=KB0059679
+  - [4] https://www.ovhcloud.com/en/public-cloud/free-trial/
+  - [5] https://www.ovhcloud.com/en/terms-and-conditions/payment/
+  - [6] https://docs.ovhcloud.com/en/guides/account-and-service-management/account-information/ovhcloud-account-creation
+  - [7] https://www.ovhcloud.com/en/public-cloud/object-storage/
+  - [8] https://www.ovhcloud.com/en/public-cloud/object-storage/classes/
+
+## OVHcloud Public Cloud (paid)
+
+- `egress/ovhcloud-public-cloud` | paid-only | evidence documented | binding none | category paid VM with included traffic | tier paid
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://us.ovhcloud.com/public-cloud/prices/
+- price paid; traffic included
+- free tier: Incoming traffic Included. Outgoing traffic Included. | unit: unlimited | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: incoming and outgoing traffic are both listed as Included, with no byte figure and no overage line on the price page; ingress: udp | metered: no | free allowance: none published | source: [1]
+- identity: card | detail: an account with a payment method; every Start link on the price page carries a FREETRIAL voucher parameter whose value is not stated on the page | country: None
+- interface: cli, rest
+- limits:
+  - volume-quota: outgoing traffic is Included rather than metered, with no stated cap [1]
+- binding note: no byte meter is published: outbound is included in the hourly instance price, so what a reader pays is the instance and not a quota
+- interface detail: the OpenStack CLI and the OVHcloud API
+- tooling: wg-quick on the instance; the OpenStack CLI or the OVH API
+- composes with: a paid instance whose egress line is Included removes the credit question entirely; pair it with the FREETRIAL voucher to start at no cost
+- notes: The strongest non-credit finding and the one that changes what the question is: if outgoing traffic is Included on a paid instance, then no credit arithmetic is needed at 1 TiB a month, and the cheapest OVH instance is the answer rather than any trial. Arithmetic is not applicable: with no per-GB rate there is nothing to divide. Left unstated because the page does not give it. Worth a paid-lane read of the fair-use clause, since Included on a 100 Mbit unmetered port and Included on a 2 Gbit port are different offers.
+- evidence note: the Included line is first-party and unambiguous; the FREETRIAL voucher amount was not readable, and the fair-use terms behind Included were not read.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: a Public Cloud instance with a public IP; wg-quick binds UDP directly
+  - ingress: udp
+  - volume_stated: incoming and outgoing traffic are both listed as Included, with no byte figure and no overage line on the price page
+  - bytes_transit: yes
+  - transit_note: outbound bytes cross OVHcloud's network under the Included line rather than a meter
+- evidence:
+  - [1] 2026-10-23: the Private Network table reads '| Incoming traffic | Included |' and '| Outgoing traffic | Included |'
+  - [1] 2026-10-23: every Start link carries 'voucher%3DFREETRIAL', so a trial voucher exists even though its value is not on the page
+- sources:
+  - [1] https://us.ovhcloud.com/public-cloud/prices/
+
+## OVHcloud Public Cloud Swift Cloud Archive containers
+
+- `storage/ovhcloud-swift-cloud-archive` | paid-only | evidence documented | binding none | category OpenStack Swift cold archive, legacy Public Cloud class | tier Swift Cloud Archive
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T01:30:27.153Z (live) | stale on 2026-12-04
+- url https://www.ovhcloud.com/en/public-cloud/prices/?currency=USD
+- price USD 2.41 per TB per month (USD 0.002409 per GB-month x 1000 GB per TB), plus USD 11 per TB of incoming public traffic | parsed USD 2.41/TB-mo
+- free tier: No free tier: Cloud Archive is billed from the first GB at USD 0.0000033 per GB-hour (about USD 0.002409 per GB-month), plus USD 0.011 per GB of incoming public traffic | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: billed per GiB-hour; the monthly figure is the hourly price x 730 hours
+- per-object cap: 5368709122 bytes (5 GB) for a normal object; a larger object is uploaded in segments of up to that size | bytes: 5368709122 | source: [2] | note: a segmented large object has no total size stated on the page read
+- retention: unlimited volume and time: data is kept until deleted; a retrieval request, the unfreeze, is required before an archived object can be read, and it takes a delay | source: [3] | note: unverified: no minimum storage duration is stated on the pages read
+- egress: Incoming public traffic costs USD 0.011 per GB; internal traffic and outgoing public traffic are free; an object must be unfrozen before it is read | metered: yes | price per TB: USD 11 per TB of incoming public traffic (USD 0.011 per GB x 1000 GB per TB)
+- identity: card | detail: an email address validated by a one-time code, the country of tax residence, and a valid payment method on the account before the first Public Cloud project
+- interface: rest, sftp, scp, cli
+- limits:
+  - per-object-cap: 5368709122 bytes (5 GB) per normal object; larger objects use segments [2]
+- limits note: Legacy cold class: a retrieval request is required and delays reading; the US price list shows USD 0.0121 per GB for incoming public traffic against USD 0.011 on the international list
+- binding note: none: storage has no stated cap; a normal object is limited to 5 GB with larger objects stored as segments, and reads wait on an unfreeze request
+- interface detail: OpenStack Swift API, with SFTP and SCP clients for the download
+- tooling: python-swiftclient, Cyberduck, a Swift, SFTP or SCP client
+- composes with: an archive tier for cold data; an object is unfrozen, then downloaded through a Swift, SFTP or SCP client
+- reliability: no availability SLA figure is stated on the pages read: unverified; the class holds cold data behind a retrieval request
+- notes: billed per GB-hour with a 1 GB granularity; offered in Strasbourg, Gravelines, London, Frankfurt and Warsaw; the US price list charges USD 0.0121 per GB incoming
+- evidence note: documented: the international price list, the storage classes pages, the endpoints page and the technical limits page were read and quoted on 2026-11-03; a read timed from a bucket would make it measured
+- evidence:
+  - [1] 2026-11-03: Cloud Archive costs USD 0.0000033 per GB-hour, about USD 0.002409 per GB-month, with USD 0.011 per GB of incoming public traffic and free internal and outgoing traffic | capture: sha256:7150d4e359dd22bb1cdc6984242255f12708be00d1b6f62832ce91c97940d3c0 | quote: | Cloud Archive | Free | $0.011 /GB | Free | $0.0000033 | ~$0.002409 |
+  - [1] 2026-11-03: Cloud Archive is invoiced per GB-hour and the monthly figure assumes 730 hours | capture: sha256:7150d4e359dd22bb1cdc6984242255f12708be00d1b6f62832ce91c97940d3c0 | quote: For optimal readability, the price is displayed as GB/month – but since there are 730 hours in an average month, the invoicing granularity is GB/hour.
+  - [4] 2026-11-03: the US price list charges USD 0.0121 per GB of incoming public traffic for Cloud Archive, against USD 0.011 on the international list | capture: sha256:7a39158ec664d36212eb8527bf6784dcb882532d62956e28370ddc8b29699110 | quote: | Cloud Archive | Free | $0.0121 /GB | Free | $0.0000033 | ~$0.002409 |
+  - [5] 2026-11-03: Cloud Archive is a Swift-API cold class with several minutes of latency to recover data | capture: sha256:181f031145ebc4092e7912a123b416ab4d8a3ed5f61aacc1989c525d296d9ebd | quote: The Cloud Archive (Swift) storage class offers a storage service for long-term data retention for business needs or other obligations. Adapted to suit this use case, the service offers low storage costs and several minutes of latency for data recovery. The solution is accessible via a Swift API.
+  - [3] 2026-11-03: reading an archived object needs a retrieval request and a delay | capture: sha256:0a083ecce3cef6d0f6d1118590ced994d7f20d4cfd857c0b580596e8d1ce5651 | quote: Since cold storage data is supposed to be rarely accessed, a retrieval request is required, implying a delay prior to recovering the data.
+  - [6] 2026-11-03: the Swift classes are legacy and receive no further development | capture: sha256:e2f754959578b54279d07f11d3711095db3f622bea84cf881f970cef9fff5d07 | quote: The Swift storage classes are from older generations and no longer benefit from further developments.
+  - [7] 2026-11-03: Cloud Archive is offered in Strasbourg, Gravelines, London, Frankfurt and Warsaw | capture: sha256:ed05c64d307df4f56f30479f23c904466a1c8994037dd586f71cca6566bf8ce5 | quote: | Cloud Archive | ✓ | ✓ | | | | ✓ | ✓ | ✓ | |
+  - [2] 2026-11-03: the Cloud Archive Swift maximum normal object is 5368709122 bytes | capture: sha256:752c47afa9b119c05cfeffa74ceac7fcd38b16517ade20109a1c42d4037a9534 | quote: ### max_file_size = 5368709122 (5Gb)
+  - [8] 2026-11-03: a valid payment method is required on the account before the first Public Cloud project | capture: sha256:d4ea1558739c101bb88cd8c0b2bc33aea7af1e71433784b49df80af7e8259376 | quote: You need to add a valid payment method to your OVHcloud customer account before starting the free trial, which will be used after your free trial ends, if you want to keep running the project you have launched.
+  - [9] 2026-11-03: account creation validates the email address with a one-time code | capture: sha256:103df8a17f5d1de37f2b9d7093e796f5dfd8f164e951a986315a007a2e91b6a1 | quote: After you submit this form, a one-time code will be sent to the email address you entered.
+- sources:
+  - [1] https://www.ovhcloud.com/en/public-cloud/prices/?currency=USD
+  - [2] https://docs.ovhcloud.com/en/guides/storage-and-backup/object-storage/pca-capabilities-and-limitations
+  - [3] https://docs.ovhcloud.com/en/guides/storage-and-backup/object-storage/pca-unlock
+  - [4] https://us.ovhcloud.com/public-cloud/prices/
+  - [5] https://docs.ovhcloud.com/en/guides/storage-and-backup/object-storage/s3-choosing-the-right-storage-class-for-your-needs
+  - [6] https://docs.ovhcloud.com/en/guides/storage-and-backup/object-storage/s3-faq
+  - [7] https://www.ovhcloud.com/en-ie/public-cloud/regions-availability/
+  - [8] https://www.ovhcloud.com/en-ie/public-cloud/free-trial/
+  - [9] https://docs.ovhcloud.com/en/guides/account-and-service-management/account-information/ovhcloud-account-creation.md
+
+## OVHcloud So you
+
+- `compute/ovhcloud-so-you` | paid-only | evidence documented | binding per-ip-shaping | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://eco.ovhcloud.com/en-gb/soyoustart/
+- free tier: soyoustart.com no longer sells to new customers: the site now says the brand was grouped into OVHcloud and that the migration was 'planned after the discontinuation of So you Start services on this website'. The SYS SKUs still order: SYS-1 is EUR 29.99 ex VAT a month plus a EUR 29.99 setup fee for an Intel Xeon-E 2136 at 6 cores / 12 threads, 32 GB DDR4 ECC 2666, 2 x 512 GB NVMe in soft RAID and a 1 Gbps guaranteed unmetered port. On 2026-10-22 the OVH availability API returns stock at Beauharnois (1H-high) and London (1H-low). | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: kind not stated
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 'From GBP 26.69 ex. VAT/month' and 'Guaranteed and unlimited 1 Gbps public bandwidth' with free unlimited ingress and egress in Europe, the US and Canada, 25 TB a month in Asia-Pacific, and 100 GB of backup storage included | metered: no | source: [1]
+- identity: card
+- interface: rest
+- limits:
+  - per-ip-shaping (binding): The 1 Gbps port is the ceiling for a transfer job, and stock is the second gate: this SKU exists in two datacenters of the five the range quotes. [1]
+- limits note: The 1 Gbps port is the ceiling for a transfer job, and stock is the second gate: this SKU exists in two datacenters of the five the range quotes.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: A SYS-1 is a EUR 29.99 build runner with 12 threads and a 1 Gbps unmetered port, which covers the compile and upload half of a pipeline whose storage half sits on cheaper object storage.
+- reliability: no reliability event recorded
+- notes: Refutation to record: the historic advice to buy So you Start for cheap bare metal is stale as a website, because the domain sells nothing new; the product behind it still sells under the SYS SKU. One disagreement is left open: ovheco.com lists 24sys01-v1 as 'Currently out of stock' on the same date while the OVH API returns 1H-high and 1H-low stock, and the API is the vendor's own answer, so the finding follows the API.
+- extras:
+  - facets.class: floor-price
+  - facets.shape.cpu: Intel Xeon-E 2136
+  - facets.shape.vcpu: 6
+  - facets.shape.threads: 12
+  - facets.shape.ram_gib: 32
+  - facets.shape.disk: 2 x 512 GB NVMe soft RAID
+  - facets.shape.bandwidth_mbit: 1000
+  - facets.shape.traffic: unmetered and guaranteed in EU, US and CA
+  - facets.shape.price_eur_month: 29.99
+  - facets.shape.setup_fee_eur: 29.99
+  - facets.shape.max_ram_gib: 128
+  - facets.shape.gpu_count: 0
+- evidence:
+  - [2] 2026-10-22: planCode 24sys01-v1 'SYS-1 | Intel Xeon-E 2136' at 29.99 EUR a month; its addon families list memory options ram-32g, ram-64g and ram-128g ECC 2666 and storage options softraid-2x512nvme through softraid-2x3840nvme and hybrid 2x4000sa plus 2x500nvme
+  - [3] 2026-10-22: 'Why are So you Start and Kimsufi now grouped under OVHcloud?' and 'the discontinuation of So you Start services on this website'; the page keeps only support and migration paths and points new orders at eco.ovhcloud.com
+  - [4] 2026-10-22: returns availability entries bhs=1H-high, bhs=1H-low and lon=1H-low; every other datacenter is unavailable or unknown
+  - [5] 2026-10-22: SYS-1 configuration page states 'Intel Xeon-E 2136 6c/12t - 3,3 GHz/4,5 GHz', '32GB DDR4 ECC 2666MHz', 'Storage 2x SSD NVMe 512GB Datacenter Class Soft RAID'
+  - [6] 2026-10-22: 'SYS-1 New Lower Price Intel Xeon-E 2136 6c/12t - 3.3 GHz/4.5 GHz ... From 32 GB to 128 GB 1 Gbps guaranteed $30 /month'
+  - [1] 2026-10-22: 'From GBP 26.69 ex. VAT/month' and 'Guaranteed and unlimited 1 Gbps public bandwidth' with free unlimited ingress and egress in Europe, the US and Canada, 25 TB a month in Asia-Pacific, and 100 GB of backup storage included
+- sources:
+  - [1] https://eco.ovhcloud.com/en-gb/soyoustart/
+  - [2] https://eu.api.ovh.com/1.0/order/catalog/public/eco?ovhSubsidiary=IE
+  - [3] https://www.soyoustart.com/en/
+  - [4] https://eu.api.ovh.com/1.0/dedicated/server/datacenter/availabilities?planCode=24sys01-v1
+  - [5] https://www.kimsufi.com/en/sys/sys-1/
+  - [6] https://us.ovhcloud.com/deals/
+
+## OVHcloud Swift Standard Object Storage
+
+- `storage/ovhcloud-swift-standard` | paid-only | evidence documented | binding none | category OpenStack Swift object storage, legacy Public Cloud class | tier Swift Standard
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T01:30:27.153Z (live) | stale on 2026-12-04
+- url https://www.ovhcloud.com/en/public-cloud/prices/?currency=USD
+- price USD 12.41 per TB per month (USD 0.01241 per GB-month x 1000 GB per TB); one rate at every volume | parsed USD 12.41/TB-mo
+- free tier: No free tier: Standard Object Storage SWIFT is billed from the first GB at USD 0.000017 per GB-hour (about USD 0.01241 per GB-month), with incoming and outgoing public traffic free | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: billed per GiB-hour; the monthly figure is the hourly price x 730 hours
+- per-object cap: 5368709122 bytes (5 GB) for a normal object; a larger object is uploaded in segments of up to that size | bytes: 5368709122 | source: [2] | note: a segmented large object has no total size stated on the page read
+- retention: unlimited volume and time: objects are kept until deleted, and no minimum storage duration is stated | source: [1] | note: the Swift price table has no minimum storage column
+- egress: Internal traffic, incoming public traffic and outgoing public traffic are all free | metered: no
+- identity: card | detail: an email address validated by a one-time code, the country of tax residence, and a valid payment method on the account before the first Public Cloud project
+- interface: rest, s3-compatible, rclone, cli
+- limits:
+  - per-object-cap: 5368709122 bytes (5 GB) per normal object; larger objects use segments [2]
+- limits note: Legacy class: the Swift storage classes no longer benefit from further developments; the S3-compatible classes are recommended for new applications; billing granularity is 1 GB
+- binding note: none: storage has no stated cap, and a normal object is limited to 5 GB, with larger objects stored as segments
+- interface detail: OpenStack Swift API; a partial S3-compatible API on the Standard class
+- tooling: python-swiftclient, rclone (Swift backend), Cyberduck, any Swift or S3 client
+- composes with: a Swift container can serve static content over HTTP; the S3-compatible classes are the recommended path for new data
+- reliability: triple replication of the data within one datacentre; no availability SLA figure is stated on the pages read
+- notes: billed per GB-hour with a 1 GB granularity; Swift containers are offered in Strasbourg, Gravelines, Roubaix, London, Frankfurt and Warsaw
+- evidence note: documented: the international price list, the storage classes pages, the endpoints page and the technical limits page were read and quoted on 2026-11-03; a read timed from a bucket would make it measured
+- evidence:
+  - [1] 2026-11-03: Standard Object Storage SWIFT costs USD 0.000017 per GB-hour, about USD 0.01241 per GB-month, with internal, incoming and outgoing traffic free | capture: sha256:7150d4e359dd22bb1cdc6984242255f12708be00d1b6f62832ce91c97940d3c0 | quote: | Standard Object Storage SWIFT | Free | Free | Free | $0.000017 | ~$0.01241 |
+  - [1] 2026-11-03: Swift Object Storage is invoiced per GB-hour and the monthly figure assumes 730 hours | capture: sha256:7150d4e359dd22bb1cdc6984242255f12708be00d1b6f62832ce91c97940d3c0 | quote: For optimal readability, the price is displayed as GB/month – but since there are 730 hours in an average month, the invoicing granularity is GB/hour.
+  - [3] 2026-11-03: Swift Standard keeps three replicas of the data in one datacentre | capture: sha256:181f031145ebc4092e7912a123b416ab4d8a3ed5f61aacc1989c525d296d9ebd | quote: The Standard storage class (Swift) offers a data storage service with no particular need for performance, within a resilient architecture by triple replication of data within the same datacentre.
+  - [3] 2026-11-03: Swift Standard is reached through the Swift API and a partial S3-compatible API | capture: sha256:181f031145ebc4092e7912a123b416ab4d8a3ed5f61aacc1989c525d296d9ebd | quote: The solution is accessible via a Swift API and an Amazon S3-compatible API (less compatible than the new Object Storage solutions (Standard/High Performance)).
+  - [4] 2026-11-03: the Swift classes are legacy and receive no further development | capture: sha256:e2f754959578b54279d07f11d3711095db3f622bea84cf881f970cef9fff5d07 | quote: The Swift storage classes are from older generations and no longer benefit from further developments.
+  - [5] 2026-11-03: Swift Object Storage is offered in Strasbourg, Gravelines, Roubaix, London, Frankfurt and Warsaw and not in the 3-AZ regions | capture: sha256:ed05c64d307df4f56f30479f23c904466a1c8994037dd586f71cca6566bf8ce5 | quote: | SWIFT Object Storage | ✓ | ✓ | ✓ | | | ✓ | ✓ | ✓ | |
+  - [2] 2026-11-03: the Swift cluster limits a normal object to 5 GB and uses segments for larger ones | capture: sha256:ad985935641ed00bd26d2a7ed275cc804dfa3a2574a16517a458c7d11beb7fd6 | quote: The largest normal object that can be saved in the cluster. This is also the limit on the size of each segment of a large object when using the large object manifest media.
+  - [2] 2026-11-03: the Swift maximum normal object is 5368709122 bytes | capture: sha256:ad985935641ed00bd26d2a7ed275cc804dfa3a2574a16517a458c7d11beb7fd6 | quote: ### max_file_size = 5368709122 (5Gb)
+  - [6] 2026-11-03: a valid payment method is required on the account before the first Public Cloud project | capture: sha256:d4ea1558739c101bb88cd8c0b2bc33aea7af1e71433784b49df80af7e8259376 | quote: You need to add a valid payment method to your OVHcloud customer account before starting the free trial, which will be used after your free trial ends, if you want to keep running the project you have launched.
+  - [7] 2026-11-03: account creation validates the email address with a one-time code | capture: sha256:103df8a17f5d1de37f2b9d7093e796f5dfd8f164e951a986315a007a2e91b6a1 | quote: After you submit this form, a one-time code will be sent to the email address you entered.
+- sources:
+  - [1] https://www.ovhcloud.com/en/public-cloud/prices/?currency=USD
+  - [2] https://docs.ovhcloud.com/en/guides/storage-and-backup/object-storage/pcs-capabilities-and-limitations
+  - [3] https://docs.ovhcloud.com/en/guides/storage-and-backup/object-storage/s3-choosing-the-right-storage-class-for-your-needs
+  - [4] https://docs.ovhcloud.com/en/guides/storage-and-backup/object-storage/s3-faq
+  - [5] https://www.ovhcloud.com/en-ie/public-cloud/regions-availability/
+  - [6] https://www.ovhcloud.com/en-ie/public-cloud/free-trial/
+  - [7] https://docs.ovhcloud.com/en/guides/account-and-service-management/account-information/ovhcloud-account-creation.md
+
+## OVHcloud VPS
+
+- `egress/ovhcloud-vps` | paid-only | evidence documented | binding volume-quota | category origin VM (paid VPS) | tier paid
+- identity a placeholder: card and phone unknown | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://www.ovhcloud.com/en/vps/
+- price from USD 4.54 a month | parsed USD 4.54/mo
+- free tier: no free tier: the VPS range starts at 'From $4.54 /month' and every plan lists 'Unlimited traffic' | unit: unlimited | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: Unlimited traffic, with the Asia-Pacific footnote: 'Our VPS solutions in the Asia-Pacific region (Mumbai, Singapore, Sydney) come with a set monthly quota: 500 GB for VPS-1, 1 TB for VPS-2 and VPS-3, 3 TB for VPS-4. Beyond this, the bandwidth is capped at 10 Mbps.'; ingress: udp | metered: no | free allowance: none published | source: [1]
+- identity: card | detail: unverified on the page read: the VPS page prices the range and does not state the signup instrument | country: None
+- interface: ssh
+- limits:
+  - volume-quota (binding): 500 GB to 3 TB a month in the Asia-Pacific region depending on plan, then capped to 10 Mbps [1]
+- binding note: in Europe nothing in the seven kinds fails at 1 TiB a month, because traffic is unlimited and the wall is the invoice; in the Asia-Pacific region the plan quota fails first and the penalty is a 10 Mbps cap rather than a charge
+- interface detail: SSH to the VPS public IPv4, which is included
+- tooling: wg-quick, nothing vendor-specific
+- composes with: the reference paid comparator: unlimited European egress at USD 4.54 a month sets the price a free path has to beat by being zero
+- reliability: the Asia-Pacific plans cap at 10 Mbps once the monthly quota is passed rather than billing the overage
+- notes: VPS-1 tier provides unlimited monthly data transfer at 500 Mbps in European regions, starting at USD 4.54 monthly.
+- evidence note: the unlimited-traffic line, the four plan prices and the Asia-Pacific footnote are on the vendor page read; no probe was run because there is no free tier to probe
+- extras:
+  - wg_path: native-conf
+  - wg_detail: a VPS is a full Linux VM with a public IPv4 and no managed firewall in the way, so wg-quick is native and 51820 is not special
+  - ingress: udp
+  - volume_stated: Unlimited traffic, with the Asia-Pacific footnote: 'Our VPS solutions in the Asia-Pacific region (Mumbai, Singapore, Sydney) come with a set monthly quota: 500 GB for VPS-1, 1 TB for VPS-2 and VPS-3, 3 TB for VPS-4. Beyond this, the bandwidth is capped at 10 Mbps.'
+  - bytes_transit: yes
+  - transit_note: bytes leave through the VPS public IPv4 on OVHcloud's network
+- evidence:
+  - [1] 2026-10-23: 'Unlimited traffic' on all four plans, with VPS-1 'From $4.54 /month'
+  - [1] 2026-10-23: the Asia-Pacific footnote gives 500 GB for VPS-1, 1 TB for VPS-2 and VPS-3 and 3 TB for VPS-4, then a 10 Mbps cap
+  - [1] 2026-10-23: 'Compatible IPv6' and 'Unlimited bandwidth, up to 3 Gbps' on the plan summary
+- sources:
+  - [1] https://www.ovhcloud.com/en/vps/

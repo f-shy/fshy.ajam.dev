@@ -1,0 +1,127 @@
+# Virtbase
+
+> virtbase.com | Compute, Egress and tunnels; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/virtbase/ | JSON https://fshy.ajam.dev/api/v1/entity/virtbase.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Virtbase (Compute)
+
+- `compute/virtbase` | paid-only | evidence documented | binding per-ip-shaping | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-11-07T06:08:49.243Z (live) | stale on 2026-12-08
+- url https://virtbase.com/
+- free tier: EUR 3.99/month for EPYC-01 in Eygelshoven, Netherlands: 1 vCore on an AMD EPYC with host CPU passthrough, 4 GB RAM, 50 GB NVMe, a routed IPv6 /64 plus one IPv4, unmetered traffic at 300 Mbit/s, no setup fee. EPYC-02 is EUR 7.99/month for 2 vCores, 8 GB and 100 GB at 600 Mbit/s; EPYC-03 is EUR 15.20 for 4 vCores, 16 GB and 150 GB at 1 Gbit/s; the range runs to EPYC-08 at EUR 53.90 for 12 vCores, 64 GB, 300 GB and a 10 Gbit/s port. Prices include VAT where it applies and are billed monthly in EUR. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: unmetered: no traffic limit; the uplink is provided according to the fair use principle and bandwidth may be temporarily throttled in the event of disproportionately high sustained usage | metered: no | free allowance: unmetered at 300 Mbit/s on EPYC-01 | source: [1]
+- identity: email | detail: the register page asks for an email address and nothing else; no card, phone or ID field
+- interface: rest
+- limits:
+  - per-ip-shaping (binding): traffic is unmetered: no monthly volume allowance and no overage billing; the listed port speed is a hard rate limit at the hypervisor NIC, and the FAQ adds that bandwidth may be temporarily throttled in the event of disproportionately high sustained usage. So 300 Mbit/s on the entry plan is the wall, and a byte counter is not. [1]
+- limits note: traffic is unmetered: no monthly volume allowance and no overage billing; the listed port speed is a hard rate limit at the hypervisor NIC, and the FAQ adds that bandwidth may be temporarily throttled in the event of disproportionately high sustained usage. So 300 Mbit/s on the entry plan is the wall, and a byte counter is not.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: unusually well documented for this category: a public REST API of 48 endpoints with scoped keys, a Discord bot for power actions, backups and firewall rules, an AGPL-3.0 control panel published at github.com/virtbase/virtbase, a public status page and a looking glass
+- composes with: EUR 3.99 for 4 GB with no identity document and no phone number is the cheapest route among documented hosts to a machine that can actually be registered for, and the 48-endpoint API plus a Discord control plane makes it the one record here that a script can drive end to end without a browser; 300 Mbit/s caps what it can serve, so it is a control node or a small worker and not a mirror
+- reliability: no reliability event recorded
+- notes: The vendor page returned 403 to this category; the plan figures quoted from it come from the provider-side snapshot the reader returned alongside the refusal, and they agree to the cent with the offer post's table, which is why the record is documented rather than reported. The 403 is recorded rather than retried: a second attempt at the same path would not establish anything the first did not.
+- extras:
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 4
+  - facets.shape.disk_gib: 50
+  - monthly_price: EUR 3.99 per month for EPYC-01, priced identically on the page and in the checkout cart
+  - annual_price: not published: the checkout prints only a monthly price
+  - renewal_price: not published: no page read prints a renewal price
+  - billing_term: monthly; 'All prices include statutory VAT, if applicable.'; cancellation takes effect at the end of the selected billing period
+  - stock: in stock: the homepage's structured data marks all eight plans 'https://schema.org/InStock' (16 occurrences, 0 OutOfStock) and every checkout renders
+  - cart_price: EUR 3.99 per month for EPYC-01 read from the checkout before any account; the cart asks for an account only to continue
+- evidence:
+  - [1] 2026-10-22: the fetch returned upstream_status 403 with a provider-side snapshot of the page, which quotes: 'EPYC-01', 'EUR 3.99 per month', '1 vCore', '4GB RAM', '50GB NVMe SSD', '1 IPv4 + IPv6 /64 Subnet', '0.3Gb/s Uplink', 'Unlimited traffic', 'SkyLink Data Center, NL'; the same block pattern repeats through 'EPYC-08' at 'EUR 53.90 per month'
+  - [2] 2026-10-22: third-party offer post, published 2026-10-16, quoted from its table: 'EPYC-01 4 GB RAM 1 vCore AMD EPYC (host CPU passthrough) 50 GB NVMe SSD Unmetered traffic at 300 Mbit/s 1 x IPv4 + routed IPv6 /64 EUR 3.99/month'; provider quote: 'Traffic is unmetered: the listed port speed is a hard rate limit applied at the hypervisor NIC, so there is no monthly volume allowance, no overage billing and no post-quota throttle'; 'No KYC, no identity documents and no phone number at any point'
+  - [2] 2026-10-22: the post states the eligibility wall in its own numbered list: 'They can currently only bill customers in the EU-27. Their checkout and invoicing are wired for EU VAT only, so a US, UK, Swiss or Canadian buyer cannot complete an order today'
+  - [3] 2026-11-07: the checkout cart prices EPYC-01 at EUR 3.99 per month | capture: sha256:15b54729fc9f87853f50600f9c514ebf03c2971def654bb01fcfee5d9afa7208 | quote: €3.99per month
+  - [3] 2026-11-07: the cart prints only a per-month figure | capture: sha256:15b54729fc9f87853f50600f9c514ebf03c2971def654bb01fcfee5d9afa7208 | quote: €3.99per month
+  - [3] 2026-11-07: the cart's price line carries no renewal figure | capture: sha256:15b54729fc9f87853f50600f9c514ebf03c2971def654bb01fcfee5d9afa7208 | quote: €3.99per month
+  - [3] 2026-11-07: the cart states the VAT rule; the price line states the monthly term | capture: sha256:15b54729fc9f87853f50600f9c514ebf03c2971def654bb01fcfee5d9afa7208 | quote: All prices include statutory VAT, if applicable.
+  - [1] 2026-11-07: the structured data marks the plans in stock | capture: sha256:afeb8cfc593350318b22cc80ee5b428fd1bed73bcae48c5ebd6d23d5a9c3a678 | quote: "availability":"https://schema.org/InStock"
+  - [3] 2026-11-07: the cart prints the price before authentication | capture: sha256:15b54729fc9f87853f50600f9c514ebf03c2971def654bb01fcfee5d9afa7208 | quote: Authentication required
+  - [4] 2026-11-07: the checkout cart prices this plan per month before any account (read 2026-11-07) | capture: sha256:e28f9fd281c98ca956fb6129dfda3090fdfb715de570db0a8ef86c55aa6f7fe5 | quote: €7.99per month
+  - [5] 2026-11-07: the checkout cart prices this plan per month before any account (read 2026-11-07) | capture: sha256:fc5e4de02194c5429539bbeed7ec794314709efe587b25ddcfc6981886a95549 | quote: €15.20per month
+  - [6] 2026-11-07: the checkout cart prices this plan per month before any account (read 2026-11-07) | capture: sha256:2c72ef3290f3ee9e097c6e711d0276456533dca70e12023feadd30ef83176ac1 | quote: €18.99per month
+  - [7] 2026-11-07: the checkout cart prices this plan per month before any account (read 2026-11-07) | capture: sha256:41b2a0632160d4e2142ea0fa7fab81edef6963a17f316ce3f7312646e2038b0a | quote: €30.30per month
+  - [8] 2026-11-07: the checkout cart prices this plan per month before any account (read 2026-11-07) | capture: sha256:610750034b9e7335b40427217fa67b47e76a3bd080c24d76369fb34f45d3f071 | quote: €39.59per month
+  - [9] 2026-11-07: the checkout cart prices this plan per month before any account (read 2026-11-07) | capture: sha256:536253a612f9c74748e75784eeef462df91cfcfa6338822176e570080ef99a0d | quote: €46.79per month
+  - [10] 2026-11-07: the checkout cart prices this plan per month before any account (read 2026-11-07) | capture: sha256:7c5f1a4f7e614a75b044d49ec800d32516027ea04e323df937a663145e3dbb62 | quote: €53.90per month
+  - [11] 2026-11-07: the register page's only field, read 2026-11-07 | capture: sha256:5b48c5dd8a6ce2cbeb7b3d98e608f6bb4f1862617505de661515fcd81cd003fd | quote: Create your Virtbase account Email or
+  - [1] 2026-11-07: the FAQ states the fair-use throttle the record's terms did not have | capture: sha256:efaaacfc5d78275b8b42e5be096d6305a6b2f5253f97bd320e52e4da673fedd6 | quote: No, there is no traffic limit for our servers. The uplink is provided according to the fair use principle. However, bandwidth may be temporarily throttled in the event of disproportionately high sustained usage.
+  - [1] 2026-11-07: the FAQ states the fair-use throttle | capture: sha256:efaaacfc5d78275b8b42e5be096d6305a6b2f5253f97bd320e52e4da673fedd6 | quote: No, there is no traffic limit for our servers. The uplink is provided according to the fair use principle. However, bandwidth may be temporarily throttled in the event of disproportionately high sustained usage.
+  - [1] 2026-11-07: the homepage table's EPYC-01 row, unchanged on 2026-11-07 | capture: sha256:efaaacfc5d78275b8b42e5be096d6305a6b2f5253f97bd320e52e4da673fedd6 | quote: | EPYC-01 | 1 | 4GB | 50GB | €3.99 |
+- sources:
+  - [1] https://virtbase.com/
+  - [2] https://lowendbox.com/blog/virtbase-the-eu-provider-with-an-open-source-control-billing-panel-awesome-deals-for-eu-customers-only/
+  - [3] https://virtbase.com/en/checkout/pck_1KDXCGQDKT1MECV86BWER517A
+  - [4] https://virtbase.com/en/checkout/pck_1KDXCGQDKT1MECV86BWER517B
+  - [5] https://virtbase.com/en/checkout/pck_1KDXCGQDKT1MECV86BWER517C
+  - [6] https://virtbase.com/en/checkout/pck_1KDXCGQDKT1MECV86BWER517D
+  - [7] https://virtbase.com/en/checkout/pck_1KDXCGQDKT1MECV86BWER517E
+  - [8] https://virtbase.com/en/checkout/pck_1KDXCGQDKT1MECV86BWER517F
+  - [9] https://virtbase.com/en/checkout/pck_1KDXCGQDKT1MECV86BWER517G
+  - [10] https://virtbase.com/en/checkout/pck_1KDXCGQDKT1MECV86BWER517H
+  - [11] https://app.virtbase.com/register
+
+## Virtbase (EPYC-01)
+
+- `egress/virtbase-epyc-01` | paid-only | evidence documented | binding per-ip-shaping | category vps (hosted, Netherlands, KVM, routed IPv6 /64) | tier EPYC-01
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T07:36:42.856Z (live) | stale on 2026-12-04
+- url https://virtbase.com/
+- price EUR 3.99 per month, unmetered at 300 Mbit/s | parsed USD 4.47/mo
+- free tier: No free tier. EPYC-01 is EUR 3.99 a month: 1 vCore AMD EPYC, 4GB RAM, 50GB NVMe, unmetered traffic at 300 Mbit/s, 1 IPv4 plus a routed IPv6 /64, in Eygelshoven, Netherlands. The vendor page reads: 1 IPv4 + IPv6 /64 Subnet, Unlimited traffic. | unit: none | metered on: none | read on: 2026-11-03 | source: [1]
+- per-object cap: not applicable: a virtual server, not an object store | source: [1]
+- retention: not applicable: a live server, not stored bytes | source: [1]
+- egress: Unmetered: the port speed, 300 Mbit/s on EPYC-01, is a hard rate limit, with no monthly volume allowance and no overage billing; the vendor FAQ adds that bandwidth may be temporarily throttled on disproportionately high sustained usage. | metered: no | free allowance: unmetered at 300 Mbit/s | source: [1]
+- identity: email | detail: A third-party post quoting the vendor says: No KYC, no ID document, no phone number, no verification call; the vendor privacy notice lists name, address, email address and phone number as examples of data collected when a contract is concluded. Checkout bills EU-27 customers only, so a US, UK, Swiss or Canadian buyer cannot complete an order.
+- interface: ssh, rest
+- limits:
+  - per-ip-shaping (binding): 300 Mbit/s port speed, no volume cap [1]
+- binding note: There is no volume quota; 300 Mbit/s is the limit, and the FAQ allows a temporary throttle on sustained high use.
+- interface detail: SSH on the guest; a public REST API of 48 endpoints, a web portal and a Discord bot manage power, backups and firewall rules.
+- tooling: ssh, the REST API and the per-server stateless firewall; any VPN or tunnel daemon the guest supports.
+- composes with: A dedicated IPv4 plus a routed IPv6 /64 for EUR 3.99 a month, with an Accept-by-default stateless firewall and upstream filtering of TCP and UDP: a UDP-capable endpoint with inbound ports and a routed prefix.
+- reliability: Billing is limited to EU-27 customers; the vendor FAQ allows a temporary throttle on sustained high use, which the offer post states as no post-quota throttle.
+- notes: Lists both a routed IPv6 prefix and an inbound-accept firewall default. Orders are limited to EU-27 billing addresses.
+- evidence note: The price, resources, IPv4 and /64 lines are vendor page lines read on 2026-11-03 and agree with the third-party post. The identity statement rests on that post quoting the vendor, so the rung for identity is reported.
+- extras:
+  - nat: none stated; a dedicated IPv4 is listed
+  - ipv6: routed IPv6 /64 per server
+  - inbound: stateless firewall, all incoming and outgoing connections set to Accept by default
+  - udp: upstream DDoS filtering covers TCP and UDP
+- evidence:
+  - [1] 2026-11-03: EPYC-01 is EUR 3.99 a month with 1 vCore, 4GB RAM, 50GB storage | capture: sha256:efaaacfc5d78275b8b42e5be096d6305a6b2f5253f97bd320e52e4da673fedd6 | quote: | EPYC-01 | 1 | 4GB | 50GB | €3.99 |
+  - [1] 2026-11-03: every plan includes one IPv4 and an IPv6 /64 subnet with unlimited traffic | capture: sha256:efaaacfc5d78275b8b42e5be096d6305a6b2f5253f97bd320e52e4da673fedd6 | quote: 1 IPv4 + IPv6 /64 Subnet, Unlimited traffic.
+  - [1] 2026-11-03: the FAQ qualifies unlimited traffic with temporary throttling on sustained high usage | capture: sha256:efaaacfc5d78275b8b42e5be096d6305a6b2f5253f97bd320e52e4da673fedd6 | quote: However, bandwidth may be temporarily throttled in the event of disproportionately high sustained usage.
+  - [2] 2026-11-03: no volume allowance; the port speed is the limit | capture: sha256:384ef5d3d56566d04c184ceb7b379075895cf0600afa6aa05d672c90715ea2bf | quote: Traffic is unmetered: the listed port speed is a hard rate limit applied at the hypervisor NIC, so there is no monthly volume allowance, no overage billing and no post-quota throttle.
+  - [2] 2026-11-03: EPYC-01 is unmetered at 300 Mbit/s with one IPv4 and a routed IPv6 /64 | capture: sha256:384ef5d3d56566d04c184ceb7b379075895cf0600afa6aa05d672c90715ea2bf | quote: Unmetered traffic at 300 Mbit/s1 × IPv4 + routed IPv6 /64**€3.99/month
+  - [2] 2026-11-03: one dedicated IPv4 and a routed /64 per server | capture: sha256:384ef5d3d56566d04c184ceb7b379075895cf0600afa6aa05d672c90715ea2bf | quote: one dedicated IPv4 address and a routed IPv6 /64 per server
+  - [3] 2026-11-03: the per-server stateless firewall accepts all incoming and outgoing connections by default | capture: sha256:4d1930090163bc9b9011134b2f2545247d62f49a231cf8799bc2469d80aa5a2f | quote: By default, all incoming and outgoing connections are set to Accept.
+  - [4] 2026-11-03: upstream DDoS filtering covers TCP and UDP | capture: sha256:f146953a36f06362f0600e7c267398d558fc89bad23c532eaf3aeb6af2afa6bd | quote: - TCP + UDP Protocols filtered
+  - [2] 2026-11-03: the vendor offers a public REST API of 48 endpoints | capture: sha256:384ef5d3d56566d04c184ceb7b379075895cf0600afa6aa05d672c90715ea2bf | quote: a 48-endpoint public REST API
+  - [2] 2026-11-03: no ID document, phone number or verification call | capture: sha256:384ef5d3d56566d04c184ceb7b379075895cf0600afa6aa05d672c90715ea2bf | quote: No KYC. No ID document, no phone number, no verification call.
+  - [5] 2026-11-03: the privacy notice lists the data collected when a contract is concluded | capture: sha256:ec102d8a3bc300d81d23ad1c4945e6b579b876d2ac78de2179025ce09931bb49 | quote: In the pre-contractual area and when concluding contracts, we collect personal data about you. This includes, for example, first and last name, address, email address, phone number or bank details.
+  - [2] 2026-11-03: checkout bills EU-27 customers only | capture: sha256:384ef5d3d56566d04c184ceb7b379075895cf0600afa6aa05d672c90715ea2bf | quote: They can currently only bill customers in the EU-27.
+  - [1] 2026-11-03: EPYC-01 is EUR 3.99 a month with 1 vCore, 4 GB RAM and 50 GB storage | capture: sha256:efaaacfc5d78275b8b42e5be096d6305a6b2f5253f97bd320e52e4da673fedd6 | quote: | EPYC-01 | 1 | 4GB | 50GB | €3.99 |
+  - [1] 2026-11-03: no traffic limit is published, with a fair-use throttle reserved for disproportionately high sustained usage | capture: sha256:efaaacfc5d78275b8b42e5be096d6305a6b2f5253f97bd320e52e4da673fedd6 | quote: No, there is no traffic limit for our servers. The uplink is provided according to the fair use principle. However, bandwidth may be temporarily throttled in the event of disproportionately high sustained usage.
+  - [6] 2026-11-03: the terms reserve a temporary throttle for excessive use, level and limit at the provider's discretion | capture: sha256:b6e60b70ba265f80ba0946a6b03bf30ea998bb05251822816152de2da1475b66 | quote: In case of excessive use of the data traffic included in the tariff, the connection will be temporarily throttled.
+  - [6] 2026-11-03: account creation needs an email address and a password | capture: sha256:b6e60b70ba265f80ba0946a6b03bf30ea998bb05251822816152de2da1475b66 | quote: A valid email address and a secure password must be provided for account creation.
+  - [2] 2026-11-03: the EPYC-01 offer table lists 300 Mbit/s as the port speed with unmetered traffic | capture: sha256:384ef5d3d56566d04c184ceb7b379075895cf0600afa6aa05d672c90715ea2bf | quote: Unmetered traffic at 300 Mbit/s
+  - [2] 2026-11-03: the provider states the port speed is the only limit and there is no volume allowance | capture: sha256:384ef5d3d56566d04c184ceb7b379075895cf0600afa6aa05d672c90715ea2bf | quote: Traffic is unmetered: the listed port speed is a hard rate limit applied at the hypervisor NIC, so there is no monthly volume allowance, no overage billing and no post-quota throttle.
+  - [2] 2026-11-03: full root access on KVM, a dedicated IPv4 and a routed /64 on every plan | capture: sha256:384ef5d3d56566d04c184ceb7b379075895cf0600afa6aa05d672c90715ea2bf | quote: All plans are KVM on Proxmox VE with full root access, one dedicated IPv4 address and a routed IPv6 /64 per server.
+  - [2] 2026-11-03: no identity document, phone number or verification call is stated | capture: sha256:384ef5d3d56566d04c184ceb7b379075895cf0600afa6aa05d672c90715ea2bf | quote: No KYC. No ID document, no phone number, no verification call.
+  - [2] 2026-11-03: the EUR 3.99 entry plan cannot be paid in cryptocurrency | capture: sha256:384ef5d3d56566d04c184ceb7b379075895cf0600afa6aa05d672c90715ea2bf | quote: Cryptocurrency orders have a €5.00 minimum, so their €3.99 entry plan is card/PayPal only.
+  - [2] 2026-11-03: orders are completed only for billing addresses in the EU-27 | capture: sha256:384ef5d3d56566d04c184ceb7b379075895cf0600afa6aa05d672c90715ea2bf | quote: Their checkout and invoicing are wired for EU VAT only, so a US, UK, Swiss or Canadian buyer cannot complete an order today.
+- sources:
+  - [1] https://virtbase.com/
+  - [2] https://lowendbox.com/blog/virtbase-the-eu-provider-with-an-open-source-control-billing-panel-awesome-deals-for-eu-customers-only/
+  - [3] https://virtbase.com/en/help/article/how-to-use-server-firewall
+  - [4] https://virtbase.com/en/ddos-protection
+  - [5] https://virtbase.com/en/legal/privacy
+  - [6] https://virtbase.com/en/legal/terms

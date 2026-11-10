@@ -1,0 +1,24 @@
+# Free proxies and exit addresses
+
+> Usable proxy lists, VPN exits and address sources.
+
+Ranked by `vorder`, ascending; the rows with no parsed number follow, listed and not dropped, and the self-hosted rows come last. The same list: `https://fshy.ajam.dev/api/v1/need/proxies`, the MCP tool `need`, or this SQL:
+
+```sql
+SELECT rid, vorder FROM record WHERE topic='ip-proxy' AND grp='usable' AND duplicate_of IS NULL AND coalesce(summary,'') NOT LIKE 'no free %' AND coalesce(summary,'') NOT LIKE 'no published free %' AND coalesce(summary,'') NOT LIKE 'no perpetual free %'
+ORDER BY self_hosted, vorder ASC NULLS LAST
+```
+
+## Ranked (11)
+
+1. [monosans/proxy-list](https://fshy.ajam.dev/p/github-monosans.md) [`ip-proxy/monosans-proxy-list`](https://fshy.ajam.dev/api/v1/record/ip-proxy/monosans-proxy-list): qualifies-with-caveat | free tier | anonymous | no card | no phone | measured | stale on 2026-12-03. Free, no key: an unauthenticated GET returned 1,751 proxies in one JSON document, 1,178 SOCKS5, 434 HTTP and 139 SOCKS4, each row carrying its response...
+2. [TheSpeedX/PROXY-List](https://fshy.ajam.dev/p/github-thespeedx.md) [`ip-proxy/thespeedx-proxy-list`](https://fshy.ajam.dev/api/v1/record/ip-proxy/thespeedx-proxy-list): qualifies-with-caveat | free tier | anonymous | no card | no phone | measured | stale on 2026-12-03. Free and keyless: 10,256 lines in total across the three protocol files http.txt, socks4.txt and socks5.txt.
+3. [Riseup VPN (exit addresses)](https://fshy.ajam.dev/p/riseup.md) [`ip-proxy/riseup-vpn-exits`](https://fshy.ajam.dev/api/v1/record/ip-proxy/riseup-vpn-exits): qualifies-with-caveat | free tier | anonymous | no card | no phone | documented | stale on 2026-12-05. Free to use: no configuration, no account registration; the service is funded through donations.
+4. [Proton VPN (paid)](https://fshy.ajam.dev/p/protonvpn.md) [`ip-proxy/protonvpn-exits`](https://fshy.ajam.dev/api/v1/record/ip-proxy/protonvpn-exits): qualifies-with-caveat | free tier | email | no card | no phone | documented | stale on 2026-12-04 | USD 3.49/month. Free plan, quoted from the pricing page: 'Connect to servers in 10 countries (randomly selected) and Secure 1 device at a time' with 'no data limits, no...
+5. [VPN Gate](https://fshy.ajam.dev/p/vpngate.md) [`ip-proxy/vpn-gate-sstp`](https://fshy.ajam.dev/api/v1/record/ip-proxy/vpn-gate-sstp): qualifies-with-caveat | free tier | anonymous | no card | no phone | documented | stale on 2026-12-04. Free with no registration: the relay nodes are volunteered by their operators, and a relay is reachable from a published list without creating an account.
+6. [AnchoredIP (registration corrected)](https://fshy.ajam.dev/p/anchoredip.md) [`ip-proxy/anchoredip-registration-corrected`](https://fshy.ajam.dev/api/v1/record/ip-proxy/anchoredip-registration-corrected): qualifies-with-caveat | free tier | email | no card | no phone | documented | stale on 2026-12-03 | USD 19/month. Trial $0/mo, Dedicated IPv4 1, IPv6 /48 1, Machines 2, Runs for 7 days.
+7. [IPYE (free)](https://fshy.ajam.dev/p/ipye.md) [`ip-proxy/ipye-free-48`](https://fshy.ajam.dev/api/v1/record/ip-proxy/ipye-free-48): qualifies-with-caveat | email | no card | no phone | documented | stale on 2026-12-03. /48 IPv6 (Free): Full /48 prefix, Instant deployment, RPKI ROA and route object, $0.
+8. [Decodo (formerly Smartproxy), isp proxies](https://fshy.ajam.dev/p/decodo.md) [`ip-proxy/decodo-isp-proxies`](https://fshy.ajam.dev/api/v1/record/ip-proxy/decodo-isp-proxies): qualifies-with-caveat | card | no phone | documented | stale on 2026-11-30. 3-day free trial with 100 MB included to test performance before committing; 14-day money-back option on paid plans.
+9. [Oxylabs (isp proxies)](https://fshy.ajam.dev/p/oxylabs.md) [`ip-proxy/oxylabs-isp-proxies`](https://fshy.ajam.dev/api/v1/record/ip-proxy/oxylabs-isp-proxies): qualifies-with-caveat | free tier | card | no phone | documented | stale on 2026-11-30. One-time USD 5.00 Welcome Credit on registration, spent at each product's rates: 'Every new account receives a one-time $5.00 Welcome Credit on...
+10. [Route64 (ipv4 blocks)](https://fshy.ajam.dev/p/route64.md) [`ip-proxy/route64-ipv4-blocks`](https://fshy.ajam.dev/api/v1/record/ip-proxy/route64-ipv4-blocks): qualifies-with-caveat | email | no card | no phone | documented | stale on 2026-11-24. Route64 provides the following services to you completely free of charge.
+11. [Windscribe (paid)](https://fshy.ajam.dev/p/windscribe.md) [`ip-proxy/windscribe-vpn`](https://fshy.ajam.dev/api/v1/record/ip-proxy/windscribe-vpn): qualifies-with-caveat | free tier | email | no card | no phone | documented | stale on 2026-11-24 | USD 9/month. Free plan carries 2 to 10 GB per month and is reachable with no card. Paid plan is USD 9.00 per month list, or USD 39 per year on sale.

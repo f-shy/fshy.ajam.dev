@@ -1,0 +1,41 @@
+# StarverseAI student support
+
+> starverse-ai.com | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/starverse-ai/ | JSON https://fshy.ajam.dev/api/v1/entity/starverse-ai.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## StarverseAI student support
+
+- `compute/starverseai-student-support` | fails-identity | evidence documented | binding volume-quota | category GPU cloud
+- needs card unknown, phone no, ID no, institution yes | verified 2026-11-03T08:50:54.215Z (live) | stale on 2026-12-04
+- url https://www.starverse-ai.com/guide/archives/2814
+- free tier: Quoted from the vendor announcement dated 2026-03-07: the student support plan targets full-time students worldwide, and after completing edu email or CHSI verification a new account receives a CNY 10 trial credit plus 100 hours of NVIDIA A10 or RTX 4090 GPU cloud host. The vendor prices that: single RTX 4090 at CNY 1.8 per hour and A10 at CNY 2.2, so the 100 free hours are worth about CNY 180 to 220. The announcement states no price for an H100, A100, L40S or L4 (an A100 at CNY 8 per hour is quoted only as the going market rate), no tier such as spot or secure, and no minimum bill. | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: one-shot-credit
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution | detail: institution, in the form of student status: the grant needs an.edu email address or a CHSI verification code, or an uploaded student card, reviewed within 30 minutes, and the anti-abuse check is face recognition plus device fingerprint, so a face check is part of the gate. The second offer is narrower - an.edu.cn address specifically for a CNY 500 voucher. No card, hold, debit or prepaid statement appears in any evidence row: unknown.
+- interface: unknown
+- limits:
+  - volume-quota (binding): 100 GPU hours once rather than monthly, behind an.edu address or a CHSI enrollment record, so the largest GPU-hour grant found in this class is unreachable without enrollment and does not renew. [1]
+- limits note: 100 GPU hours once rather than monthly, behind an.edu address or a CHSI enrollment record, so the largest GPU-hour grant found in this class is unreachable without enrollment and does not renew.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: 100 hours of 4090 time is enough to fine-tune a 7B model and is the largest GPU-hour grant found in this class; the composition that would matter is a second one-shot grant from a different vendor, since these cannot stack with themselves.
+- reliability: no reliability event recorded
+- notes: The 300+ hour 4090 variant is recorded because it is the bigger number and strictly harder to reach, a Chinese academic address rather than any academic address. Both are one-shot, so neither becomes a recurring tier. Open question: whether either offer is live in October 2026. The vendor homepage now leads with unrelated video-generation products and carries no education section, so the March 2026 guide post is the only source and the offer may have quietly lapsed.
+- extras:
+  - facets.class: student-pack
+  - facets.free_tier_kind: one-shot-credit
+  - facets.shape.gpu_class: RTX 4090 or A10
+  - facets.shape.gpu_count: 1
+- evidence:
+  - [1] 2026-10-22: The 100-hour A10 or 4090 grant and its two verification routes; application requires uploading a student card or CHSI verification code, or entering an .edu address, reviewed within 30 minutes; anti-abuse is face recognition plus device fingerprint.
+  - [1] 2026-10-22: Vendor pricing that sets the value: CNY 1.8 per hour for a single RTX 4090, CNY 2.2 for an A10, and 100 hours worth CNY 180 to 220.
+  - [2] 2026-10-22: A second education sponsorship for .edu.cn holders: a CNY 500 GPU voucher exchangeable for 300+ hours of RTX 4090 or 80 hours of A100 40G, a larger one-shot grant gated on a Chinese academic address specifically.
+  - [1] 2026-11-03: the page prices a single RTX 4090 at 1.8 CNY per hour and an A10 at 2.2 CNY per hour | capture: sha256:ed6bd5085231f6052ccd85003f729b0bcae0ebac7d9bdaaf1369076816cfc738 | quote: 对比同规格产品，星宇智算将单卡 RTX 4090 的 GPU服务器租用价格打到 1.8 元/小时，A10 低至 2.2 元/小时。
+  - [1] 2026-11-03: the vendor describes its rental unit as hourly | capture: sha256:ed6bd5085231f6052ccd85003f729b0bcae0ebac7d9bdaaf1369076816cfc738 | quote: 把昂贵的 GPU 资源拆成学生也租得起的“小时颗粒”
+  - [1] 2026-11-03: the grant is given after edu email or CHSI verification, so the gate is student status | capture: sha256:ed6bd5085231f6052ccd85003f729b0bcae0ebac7d9bdaaf1369076816cfc738 | quote: 完成 edu 邮箱或学信网认证，新注册账户立领 10 元体验金，再送 100 小时 NVIDIA A10 / RTX 4090 GPU云主机
+- sources:
+  - [1] https://www.starverse-ai.com/guide/archives/2814
+  - [2] https://www.starverse-ai.com/guide/archives/2130

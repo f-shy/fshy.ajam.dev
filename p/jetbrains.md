@@ -1,0 +1,181 @@
+# JetBrains AI
+
+> jetbrains.com | Coding subscriptions, Compute, Storage; 4 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/jetbrains/ | JSON https://fshy.ajam.dev/api/v1/entity/jetbrains.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## JetBrains AI (Coding subscriptions)
+
+- `coding-subs/jetbrains-ai` | qualifies-with-caveat | evidence documented | binding volume-quota | category coding subscription
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T10:28:03.771Z (live) | stale on 2026-12-05
+- url https://www.jetbrains.com/store/ai/
+- free tier: AI Free: USD 0 with unlimited AI completion in JetBrains IDEs and 3 AI credits every 30 days, one AI credit being USD 1.00 of AI use, with no top-up and no rollover; paid plans are AI Pro, USD 100 a year for 10 credits every 30 days, and AI Ultimate, USD 300 a year for 35 credits every 30 days | unit: credits | metered on: unstated | read on: 2026-11-02 | source: [1] | note: credits are spent at the model vendor's public API rate, so the number of tasks that 3 credits buy depends on the agent and model; the page publishes no credits-per-task figure
+- per-object cap: not applicable: a subscription meters AI use, not objects
+- retention: not applicable
+- egress: not applicable | metered: no
+- identity: card | detail: a JetBrains Account, created with an email address (one-time code, name and password) or a third-party login; JetBrains AI support says AI Free and AI Trial sign-up sometimes asks to link a payment card as a verification step with no charge, and the AI Pro trial asks to link a payment card; whether a card is asked for AI Free today is unverified: behind a sign-up, since the support article on it was last updated over a year before the read; AI Free is offered only in serviceable territories and inside a JetBrains IDE
+- interface: cli
+- limits:
+  - volume-quota (binding): AI Free 3 AI credits every 30 days, AI Pro 10, AI Ultimate 35; one AI credit is USD 1.00 of AI use; unused credits do not roll over; top-up credits (AI Pro and AI Ultimate only) stay valid 12 months [1]
+- limits note: AI Free has no top-up, so it ends at 3 credits a month
+- binding note: the monthly AI credit allowance is the cap on every plan, and on AI Free it is 3 credits
+- interface detail: Junie CLI (junie, Linux, macOS and Windows) runs interactively and headless; Claude Agent, Codex, Gemini CLI and Junie also run in the AI chat of a JetBrains IDE and in the JetBrains Air app; JetBrains Central CLI connects Claude Agent, Codex, Gemini CLI and Junie CLI to the JetBrains AI subscription from a terminal
+- tooling: the user installs Junie CLI with a curl or PowerShell install script, or a JetBrains IDE with the AI Assistant plugin, or JetBrains Central CLI; AI Free is offered in JetBrains IDEs except Android Studio, IntelliJ IDEA without Ultimate and PyCharm without Pro
+- composes with: Junie CLI headless takes a Junie API key (usage-based billing) with --auth or a licence key with --auth-license, and JetBrains Central CLI routes Claude Agent, Codex and Gemini CLI to the JetBrains AI subscription and offers service accounts for headless and CI use; whether an AI Free or AI Pro licence qualifies for Central CLI access is not stated. Bring-your-own-key and provider-account routes (OpenAI, Anthropic, Google, OpenRouter, GitHub Copilot) bypass JetBrains credits and bill the provider
+- reliability: the JetBrains AI service stopped serving China on 2026-07-13, and Junie CLI headless mode is described on its own page as an early access program
+- notes: AI Pro is USD 10 and AI Ultimate USD 30 a month on the monthly-billing view of the same plans; the yearly-billing view is USD 100 and USD 300 a year, and AI Ultimate adds 5 bonus credits. compute/jetbrains-ai records the same AI Free offer under the compute topic; this record is the coding-subscription view with the paid plans and the agents.
+- evidence note: plans, credit counts, prices, agents, headless flags, sign-up steps and the card step are quoted from first-party pages read on 2026-11-02; Junie's JetBrains-account login in headless mode, Central CLI access for an AI Free licence, credits per task, and the current AI Free card prompt are unverified
+- evidence:
+  - [1] 2026-11-02: AI Free carries 3 AI credits a month | capture: sha256:2be75e6db40c7967a6cf0a4ca431518e3b8ee21ab0abd207c9db63c9cf3d5d33 | quote: 3 monthly AI credits
+  - [1] 2026-11-02: AI Pro carries 10 AI credits a month | capture: sha256:2be75e6db40c7967a6cf0a4ca431518e3b8ee21ab0abd207c9db63c9cf3d5d33 | quote: 10 monthly AI credits
+  - [1] 2026-11-02: AI Ultimate carries 35 AI credits a month | capture: sha256:2be75e6db40c7967a6cf0a4ca431518e3b8ee21ab0abd207c9db63c9cf3d5d33 | quote: 35 monthly AI credits
+  - [1] 2026-11-02: AI Pro is priced at USD 100.00 per user per year on the yearly-billing view | capture: sha256:2be75e6db40c7967a6cf0a4ca431518e3b8ee21ab0abd207c9db63c9cf3d5d33 | quote: $100.00
+  - [1] 2026-11-02: AI Ultimate is priced at USD 300.00 per user per year on the yearly-billing view | capture: sha256:2be75e6db40c7967a6cf0a4ca431518e3b8ee21ab0abd207c9db63c9cf3d5d33 | quote: $300.00
+  - [2] 2026-11-02: AI Pro is USD 10 on the monthly view for 10 credits per 30 days | capture: sha256:d8ffc267dbcf29cf25d93b57f011052bd29724b78405dc22e1f6c4586759532f | quote: | AI Pro | $10 USD | 10 AI credits per 30-days | Feature is available |
+  - [2] 2026-11-02: AI Ultimate is USD 30 on the monthly view for 35 credits per 30 days | capture: sha256:d8ffc267dbcf29cf25d93b57f011052bd29724b78405dc22e1f6c4586759532f | quote: | AI Ultimate | $30 USD | 35 AI credits per 30-days | Feature is available |
+  - [2] 2026-11-02: AI Free is free with 3 credits per 30 days and no top-up | capture: sha256:d8ffc267dbcf29cf25d93b57f011052bd29724b78405dc22e1f6c4586759532f | quote: | AI Free | Free | 3 AI credits per 30-days | Feature is not available |
+  - [1] 2026-11-02: one AI credit is USD 1.00 of AI use | capture: sha256:2be75e6db40c7967a6cf0a4ca431518e3b8ee21ab0abd207c9db63c9cf3d5d33 | quote: One AI credit equals USD 1.00 of AI use (charged in your local currency).
+  - [1] 2026-11-02: credits renew every 30 days from first activation and do not roll over | capture: sha256:2be75e6db40c7967a6cf0a4ca431518e3b8ee21ab0abd207c9db63c9cf3d5d33 | quote: Each plan includes a different number of AI credits, renewed every 30 days from the date you first activated your JetBrains AI license. Unused credits don't roll over.
+  - [1] 2026-11-02: AI Pro and AI Ultimate can buy top-up credits valid for 12 months | capture: sha256:2be75e6db40c7967a6cf0a4ca431518e3b8ee21ab0abd207c9db63c9cf3d5d33 | quote: Top-up credits remain valid for 12 months from the purchase date.
+  - [1] 2026-11-02: credits are spent at public API rates for third-party models | capture: sha256:2be75e6db40c7967a6cf0a4ca431518e3b8ee21ab0abd207c9db63c9cf3d5d33 | quote: Usage of third-party AI models is billed at public API rates, with no surcharge.
+  - [1] 2026-11-02: AI Ultimate includes 5 bonus credits | capture: sha256:2be75e6db40c7967a6cf0a4ca431518e3b8ee21ab0abd207c9db63c9cf3d5d33 | quote: Best suited for frequent coding agent use, with 5 bonus AI credits.
+  - [1] 2026-11-02: the AI Pro and AI Ultimate cards list the agents Junie, Claude Agent, Codex and Gemini | capture: sha256:2be75e6db40c7967a6cf0a4ca431518e3b8ee21ab0abd207c9db63c9cf3d5d33 | quote: JunieClaude AgentCodexGemini
+  - [1] 2026-11-02: the service gives access to Codex, Claude Agent, Gemini CLI and Junie | capture: sha256:2be75e6db40c7967a6cf0a4ca431518e3b8ee21ab0abd207c9db63c9cf3d5d33 | quote: It powers AI experiences across JetBrains Air, giving you access to coding agents like Codex, Claude Agent, Gemini CLI, and Junie by JetBrains.
+  - [3] 2026-11-02: Junie activates through JetBrains AI or an API key | capture: sha256:c07db48b4580a5db59570ba3a972a940798504317cf82aaf1eb3c240602ee513 | quote: | Junie logo Junie | Supported | Not supported | Supported | Not supported |
+  - [3] 2026-11-02: Claude Agent activates through JetBrains AI, an API key or an Anthropic Console account | capture: sha256:c07db48b4580a5db59570ba3a972a940798504317cf82aaf1eb3c240602ee513 | quote: | Claude Agent | Supported | Not supported | Supported | Anthropic Console |
+  - [3] 2026-11-02: Codex activates through JetBrains AI, a provider account or an API key | capture: sha256:c07db48b4580a5db59570ba3a972a940798504317cf82aaf1eb3c240602ee513 | quote: | Codex | Supported | Supported | Supported | Not supported |
+  - [4] 2026-11-02: Junie in the Air app uses a JetBrains account login | capture: sha256:0bde2a57aeec7720984aa7fa0b4f0d1b2d5a0699e3c71bc5281b1e2fe153e84b | quote: | Junie | You can add Junie by logging in to your JetBrains account. |
+  - [5] 2026-11-02: Junie CLI has a headless mode | capture: sha256:271e1482e561d36e888b2d18ae19394c5780ead290e0e30036c4712a81701db6 | quote: You can run Junie CLI in headless mode without interactive UI in CI/CD environments and build pipelines.
+  - [5] 2026-11-02: the headless page describes Junie CLI as an early access program | capture: sha256:271e1482e561d36e888b2d18ae19394c5780ead290e0e30036c4712a81701db6 | quote: Junie CLI is currently in an [Early Access Program (EAP)](https://junie.jetbrains.com/tos-eap).
+  - [5] 2026-11-02: headless Junie CLI needs a token | capture: sha256:271e1482e561d36e888b2d18ae19394c5780ead290e0e30036c4712a81701db6 | quote: Junie CLI requires an authentication token to run.
+  - [5] 2026-11-02: the headless invocation takes the Junie API key with --auth and the prompt as an argument | capture: sha256:271e1482e561d36e888b2d18ae19394c5780ead290e0e30036c4712a81701db6 | quote: junie --auth="$JUNIE_API_KEY" "Review and fix any code quality issues in the latest commit"
+  - [6] 2026-11-02: a Junie API key is usage-billed | capture: sha256:26de40f7396cde42043e6730db974b4588afa8b6258d8a8b4d574d1f4b0f9583 | quote: Run Junie CLI with usage-based billing.
+  - [6] 2026-11-02: signing in with a JetBrains account spends the subscription plan | capture: sha256:26de40f7396cde42043e6730db974b4588afa8b6258d8a8b4d574d1f4b0f9583 | quote: Use Junie CLI as part of your subscription plan with JetBrains.
+  - [7] 2026-11-02: a licence key can start Junie CLI | capture: sha256:e3ff4e733ccb97c0d2dac3c31d04acaa03081982396a0c5d5b0f6a1a6d005692 | quote: | --auth-license | Provide a license key to start Junie with the specified license. | junie --auth-license ... |
+  - [8] 2026-11-02: service accounts for headless and CI use cover Claude Agent, Codex and Gemini CLI but not Junie CLI | capture: sha256:ffd66cf416daae79040dcfeccc346603d9c9edf2d4e0ebe07b12b246bd88423a | quote: | Service accounts | A non-personal login for headless and CI use | All supported agents except Junie CLI |
+  - [8] 2026-11-02: Central CLI bills Claude Agent, Codex, Gemini CLI and Junie CLI to the JetBrains AI subscription | capture: sha256:ffd66cf416daae79040dcfeccc346603d9c9edf2d4e0ebe07b12b246bd88423a | quote: | Routing through the JetBrains AI Platform | A connected agent's requests are authenticated with your JetBrains credentials and billed to your JetBrains AI subscription, so no model-vendor API key is involved | All supported agents |
+  - [9] 2026-11-02: Central CLI needs a JetBrains Account with an active AI subscription | capture: sha256:07cef8e4b5d463622c79424184357bd832718b7fba49ef844112c4069e9425a2 | quote: - JetBrains Account with an active AI subscription
+  - [9] 2026-11-02: a connected agent runs as its own terminal command | capture: sha256:07cef8e4b5d463622c79424184357bd832718b7fba49ef844112c4069e9425a2 | quote: codex "refactor this function"
+  - [1] 2026-11-02: AI Free is not offered in IntelliJ IDEA without Ultimate, PyCharm without Pro, or Android Studio | capture: sha256:2be75e6db40c7967a6cf0a4ca431518e3b8ee21ab0abd207c9db63c9cf3d5d33 | quote: AI Free isn't available in IntelliJ IDEA without Ultimate subscription and in PyCharm without Pro subscription, and Android Studio.
+  - [2] 2026-11-02: AI Free is not part of an IDE trial licence | capture: sha256:d8ffc267dbcf29cf25d93b57f011052bd29724b78405dc22e1f6c4586759532f | quote: The AI Free license tier is not automatically included in any IDE trial license.
+  - [2] 2026-11-02: AI Free and AI Ultimate are offered only in serviceable territories | capture: sha256:d8ffc267dbcf29cf25d93b57f011052bd29724b78405dc22e1f6c4586759532f
+  - [2] 2026-11-02: the JetBrains AI service stopped serving China on 2026-07-13 | capture: sha256:d8ffc267dbcf29cf25d93b57f011052bd29724b78405dc22e1f6c4586759532f | quote: Since July 13, 2026, the JetBrains AI service is no longer available in China.
+  - [10] 2026-11-02: registration is by third-party login or by email | capture: sha256:6680a8bdfc6eeeff0dad7cf5300fd3f7663086b6eb1c567c53883a8090cdc2e4 | quote: Choose your preferred registration method: use a third-party login provider or register with your email.
+  - [10] 2026-11-02: email registration verifies the address with a one-time code | capture: sha256:6680a8bdfc6eeeff0dad7cf5300fd3f7663086b6eb1c567c53883a8090cdc2e4 | quote: We'll send you a one-time code to verify your email address.
+  - [10] 2026-11-02: the email route asks for a name and a password | capture: sha256:6680a8bdfc6eeeff0dad7cf5300fd3f7663086b6eb1c567c53883a8090cdc2e4 | quote: Enter your name and create a password to complete registration.
+  - [11] 2026-11-02: a JetBrains Account is required to try JetBrains AI | capture: sha256:f826ce3e2983eea5356b49f3792130787b8a641e7005aab3158c64da02252460 | quote: JetBrains Account is required to try out
+  - [12] 2026-11-02: the AI Pro trial asks for a linked payment card | capture: sha256:5ed9b3493dcbc3b388e16e0d5aff646919d6381873547e6191d964ac5ed4607a | quote: Click Verify Account. You will be redirected to your JetBrains Account, where you will need to link a payment card.
+  - [12] 2026-11-02: an expired trial falls back to AI Free | capture: sha256:5ed9b3493dcbc3b388e16e0d5aff646919d6381873547e6191d964ac5ed4607a | quote: When the trial expires, you can switch to a paid license of your choice. Otherwise, you will be automatically moved to the AI Free tier.
+  - [13] 2026-11-02: AI Free sign-up sometimes asks for a card | capture: sha256:cf2de9e31eaa40b4a75d71dce0a41665a46dc069d78b48725f0502ad604da662 | quote: Sometimes, AI Free or AI Trial users receive a request to link their card to activate their subscription.
+  - [13] 2026-11-02: the card step is a verification for AI Free and AI Trial | capture: sha256:cf2de9e31eaa40b4a75d71dce0a41665a46dc069d78b48725f0502ad604da662 | quote: JetBrains has introduced a temporary card verification step during the setup of AI Free and AI Trial subscriptions.
+  - [14] 2026-11-02: Junie's own page says it is free to start with no card or subscription | capture: sha256:d33d260358eac6d6e7763f5f59bbdece106cb70ede154cde168ab98c1b59678d | quote: It is free to start — no credit card or subscription required.
+  - [1] 2026-11-04: AI Free still lists 3 monthly AI credits | capture: sha256:81c1d137bcf96c56f6e0436d4ead5dc5f7b71ebdb219598f7282b0756d4f8515 | quote: 3 monthly AI credits
+- sources:
+  - [1] https://www.jetbrains.com/store/ai/
+  - [2] https://www.jetbrains.com/help/ai-assistant/licensing-and-subscriptions.html
+  - [3] https://www.jetbrains.com/help/ai-assistant/activate-agents.html
+  - [4] https://www.jetbrains.com/help/air/supported-agents.html
+  - [5] https://junie.jetbrains.com/docs/junie-headless.html
+  - [6] https://junie.jetbrains.com/docs/junie-cli.html
+  - [7] https://junie.jetbrains.com/docs/parameters.html
+  - [8] https://www.jetbrains.com/help/central-cli/cli-supported-agents-and-features.html
+  - [9] https://www.jetbrains.com/help/central-cli/quickstart.html
+  - [10] https://sales.jetbrains.com/hc/en-gb/articles/207737419-Create-a-JetBrains-Account
+  - [11] https://sales.jetbrains.com/hc/en-gb/articles/207240605-Do-I-need-a-JetBrains-Account-to-try-JetBrains-products
+  - [12] https://www.jetbrains.com/help/ai-assistant/jetbrains-ai-subscription.html
+  - [13] https://youtrack.jetbrains.com/articles/SUPPORT-A-2340
+  - [14] https://www.jetbrains.com/junie/
+
+## JetBrains AI (Compute)
+
+- `compute/jetbrains-ai` | qualifies-with-caveat | evidence documented | binding request-rate | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T10:27:57.616Z (live) | stale on 2026-12-05
+- url https://www.jetbrains.com/store/ai/
+- free tier: JetBrains AI Free: "Unlimited AI completion in JetBrains IDEs" and "3 monthly AI credits", priced "Free"; "One AI credit equals USD 1.00 of AI use (charged in your local currency)", the credits renew every 30 days and do not roll over, and "A free 30-day AI Pro trial is also available when you first activate JetBrains AI in a JetBrains IDE." | unit: unlimited | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: recurring-allowance
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email | detail: no institution: the record states this AI Free plan needs none, unlike the separately recorded student and teacher pack, which is verification-gated. Beyond that the evidence says nothing about what the JetBrains account signup asks for, so whether an email alone suffices is not stated; no card is stated for the free plan and no hold exists on it
+- interface: unknown
+- limits:
+  - request-rate (binding): 3 credits a month buys almost no agent work, so the only durable free part is inline completion, which needs an IDE on a local machine. [1]
+- limits note: 3 credits a month buys almost no agent work, so the only durable free part is inline completion, which needs an IDE on a local machine.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: unlimited inline completion with no token bill is the one part of evaluated providers that never runs out; it needs a desktop IDE, so it chains with a free remote desktop rather than with a headless server.
+- reliability: no reliability event recorded
+- notes: compute/jetbrains-student-pack records the student and teacher route, which is verification-gated; this record is the AI Free plan, which needs no institution. One AI credit is USD 1.00 of AI use billed at public API rates, so the free plan buys USD 3.00 of model use every 30 days and inline completion is the durable free part. AI Free is not offered in IntelliJ IDEA without an Ultimate subscription, in PyCharm without a Pro subscription, or in Android Studio, so the free plan needs one of the other JetBrains IDEs. A user's own provider account or API key can be connected without a JetBrains AI subscription and does not consume JetBrains AI credits.
+- extras:
+  - facets.class: perpetual-allowance
+  - facets.free_tier_kind: recurring-allowance
+- evidence:
+  - [1] 2026-10-22: the AI Free card reads unlimited AI completion, 3 monthly AI credits and Free, quoted
+  - [2] 2026-10-22: "Try JetBrains AI Pro free for one month, or connect your own agents and model providers - with no JetBrains AI subscription required." quoted
+  - [1] 2026-10-30: the pricing page now defines one AI credit as USD 1.00 of AI use, so the free plan's 3 credits are USD 3.00 of model use every 30 days | capture: sha256:2e4245cf0daf21f4921795e9055c8fff6ce50d83b7802954b9d2909a585015ec | quote: One AI credit equals USD 1.00 of AI use (charged in your local currency).
+  - [1] 2026-10-30: AI Free is excluded from IntelliJ IDEA without Ultimate, PyCharm without Pro, and Android Studio | capture: sha256:2e4245cf0daf21f4921795e9055c8fff6ce50d83b7802954b9d2909a585015ec | quote: AI Free isn't available in IntelliJ IDEA without Ultimate subscription and in PyCharm without Pro subscription, and Android Studio.
+  - [1] 2026-10-30: the AI Free plan still includes three AI credits every 30 days, with unlimited completion | capture: sha256:2e4245cf0daf21f4921795e9055c8fff6ce50d83b7802954b9d2909a585015ec | quote: Individual users can use the AI Free plan, which includes three AI credits every 30 days.
+  - [1] 2026-11-03: the AI Free plan still includes three AI credits every 30 days | capture: sha256:81c1d137bcf96c56f6e0436d4ead5dc5f7b71ebdb219598f7282b0756d4f8515 | quote: Individual users can use the AI Free plan, which includes three AI credits every 30 days.
+  - [1] 2026-11-03: one AI credit is USD 1.00 of AI use, so the free plan carries USD 3.00 of model use every 30 days | capture: sha256:81c1d137bcf96c56f6e0436d4ead5dc5f7b71ebdb219598f7282b0756d4f8515 | quote: One AI credit equals USD 1.00 of AI use (charged in your local currency).
+  - [1] 2026-11-04: the AI Free plan still includes unlimited AI completion in JetBrains IDEs | capture: sha256:81c1d137bcf96c56f6e0436d4ead5dc5f7b71ebdb219598f7282b0756d4f8515 | quote: Unlimited AI completion in JetBrains IDEs
+- sources:
+  - [1] https://www.jetbrains.com/store/ai/
+  - [2] https://www.jetbrains.com/ai-ides/
+
+## JetBrains Student Pack (Compute)
+
+- `compute/jetbrains-student-pack` | fails-quota | evidence documented | binding none | category cloud VM
+- needs card no, phone no, ID no, institution yes | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://www.jetbrains.com/academy/student-pack/
+- free tier: The Student Pack is quoted as '10 JetBrains IDEs - the full versions of IntelliJ IDEA and PyCharm, plus GoLand, PhpStorm, and others' plus a 'JetBrains AI Pro trial', verified by 'your university email address, ISIC/ITIC card, or GitHub Student Developer Pack', and 'Once your account is verified, you'll receive a pack valid for one year'. Beside it, and needing no verification: 'For students who only need one IDE for a class, a personal project, or the language they're learning - no student verification required', naming IntelliJ IDEA, PyCharm, CLion, WebStorm, RustRover, Rider, RubyMine and DataGrip. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: perpetual
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution | detail: student status, by one of four routes the application form lists: "University email address", "ISIC/ITIC membership", "Official document" or "GitHub". The ISIC route is not a bypass, because the card is "only available to full time students", who must prove current full-time study by student ID card or a signed and dated letter on official stationery. No card, phone, hold or payment is stated, and the pack is "valid for one year" with annual renewal; the one-IDE licences need "no student verification required" but carry no compute
+- interface: unknown
+- limits note: No compute is involved, so no technical quota binds; the only bound is that the full pack needs enrollment proof while the one-IDE routes need nothing and give less.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: The ISIC route is the interesting one because it sounds like an international card anyone can buy; the ISIC issuer's own help centre closes it, since the card itself demands dated proof of full-time enrollment. That makes the four JetBrains routes one gate, not four.
+- reliability: no reliability event recorded
+- notes: Refutation of a specific hypothesis: ISIC is not a bypass. Worth keeping because earlier readings and every student-offer list treats 'ISIC cards accepted' as if it widened eligibility. It narrows nothing. The non-commercial IDE licence is genuinely reachable and genuinely irrelevant to compute. The JetBrains AI Pro trial is the only part with any inference value, and it is a trial.
+- extras:
+  - facets.class: student-pack
+  - facets.free_tier_kind: perpetual
+- evidence:
+  - [1] 2026-10-22: 'Verify your student status with your university email address, ISIC/ITIC card, or GitHub Student Developer Pack'; one-IDE options say 'no student verification required'; the pack is 'valid for one year' and renewed annually.
+  - [2] 2026-10-22: The application form offers exactly four verification routes: 'University email address', 'ISIC/ITIC membership', 'Official document', 'GitHub'.
+  - [3] 2026-10-22: The ISIC card is not an alternative to enrollment proof: 'The ISIC is only available to full time students, so you must be able to prove you are currently studying full time at school, college or university', by student ID card or 'a signed and dated letter on official university or school stationery'.
+  - [4] 2026-10-22: 
+- sources:
+  - [1] https://www.jetbrains.com/academy/student-pack/
+  - [2] https://www.jetbrains.com/shop/eform/v2/students
+  - [3] https://www.isic.org/support/
+  - [4] https://sales.jetbrains.com/hc/en-gb/articles/18950890312210-The-free-non-commercial-licensing-FAQ
+
+## jetbrains student pack (Storage)
+
+- `storage/jetbrains-student-pack` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.jetbrains.com/community/education/
+- free tier: None reachable: IDE licences only. No storage product of any kind. Nothing to place bytes in. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: IDE licences only — no storage product of any kind. Nothing to place bytes in.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: IDE licences only — no storage product of any kind. Nothing to place bytes in.
+- sources:
+  - [1] https://www.jetbrains.com/community/education/

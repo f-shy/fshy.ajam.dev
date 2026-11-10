@@ -1,0 +1,844 @@
+# fshy: Egress and tunnels, trial
+
+> Ways to get traffic out or a service in: tunnels, relays, IPv6 brokers, UDP forwards.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/egress/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## 1DUN dedicated scrubbing address
+
+- `egress/1dun` | trial-only | evidence documented | binding none | category L4 reverse proxy (dedicated dedicated scrubbing address) | tier paid
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url http://www.1dun.com/en/product/ddos/ | page https://fshy.ajam.dev/p/1dun.md
+- price USD 149 per month | parsed USD 149/mo
+- free tier: No credit card, Onboard in 5 min, Free trial | unit: none | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: Entry tier is USD 149/month for one dedicated dedicated scrubbing address with 200 Gbps of protection and 10 forwarding rules; no byte allowance is stated; ingress: tcp+udp | metered: no | free allowance: none published | source: [1]
+- identity: card | detail: Sales run through a Telegram bot rather than a self-serve form; the free trial is the only zero-cost path. | country: None
+- interface: rest
+- limits:
+  - volume-quota: USD 149/month minimum [1]
+  - request-rate: 10 forwarding rules on the entry tier [1]
+- binding note: The constraint that ends this option is price, which is not a byte or rate limit: USD 149/month is the floor, so at 1 TiB/month the cost is the plan and not a quota.
+- interface detail: Order through a Telegram bot; configuration in a portal.
+- tooling: portal plus a chat channel for sales
+- composes with: A dedicated IP in front of an origin with any port; priced far above the budget, so it is a reference point only.
+- reliability: Sales and support through a Telegram bot; trial terms are not published.
+- notes: Enterprise DDoS and L4 protection service. Pricing is custom and free trial duration is unpublished.
+- evidence note: Prices and the trial statement are on the product page. The trial's length is not stated, and sales go through a chat channel, so nothing about it can be verified without contacting them.
+- extras:
+  - wg_path: inside-udp
+  - wg_detail: A dedicated IP with full TCP/UDP forwarding would carry a WireGuard listener; there is no free tier.
+  - ingress: tcp+udp
+  - volume_stated: Entry tier is USD 149/month for one dedicated scrubbing address with 200 Gbps of protection and 10 forwarding rules; no byte allowance is stated
+  - bytes_transit: yes
+  - transit_note: 1DUN scrubbing PoP absorbs the flood and forwards clean traffic
+- evidence:
+  - [1] 2026-10-23: A dedicated dedicated scrubbing address forwards all TCP/UDP ports to an origin; 'No credit card, Onboard in 5 min, Free trial'
+  - [1] 2026-10-23: Entry tier USD 149/month with 200 Gbps protection and 10 forwarding rules; every tier includes full TCP/UDP forwarding
+- sources:
+  - [1] http://www.1dun.com/en/product/ddos/
+
+## 3VPC NAT
+
+- `egress/3vpc-nat` | trial-only | evidence reported | binding per-ip-shaping | category free nat vps | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-07
+- url https://www.nodeseek.com/post-967503-1 | page https://fshy.ajam.dev/p/3vpc-nat.md
+- price USD 0
+- free tier: Product 1h1g 50G disk NAT Special VPS, Hong Kong zone 128, price USD 0.00, 7-day billing cycle. [translated from a review post] | unit: unlimited | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No traffic figure is given in the review; the limit named is 20 Mbps bandwidth.; ingress: udp | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: Account registration. Published documentation does not describe identity verification requirements. | country: None
+- interface: ssh
+- limits:
+  - per-ip-shaping (binding): 20 Mbps [1]
+  - retention-clamped: 7-day billing cycle [1]
+- binding note: 20 Mbps sustained is about 6.5 TB per month, so the shaper does not block 1 TiB; what actually fails is the 7-day cycle, which is not a volume constraint.
+- interface detail: SSH key login out of the box on Ubuntu 24.04.
+- tooling: ssh, wg-quick
+- composes with: A throwaway WG endpoint for a week at a time, in Hong Kong.
+- reliability: NAT only, no dedicated public IPv4. Bandwidth is 20 Mbps, which constrains high-throughput workloads.
+- notes: A 7-day free window rather than a durable free tier. Useful as a test box, not as an ingress endpoint. The review is three weeks old at the time of writing.
+- evidence note: One reviewer's post from 2026-10-06; no vendor page was read. The vendor's own page would raise the rung.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: NAT VPS with port mapping; WireGuard runs on the box; whether a UDP port is among the mapped ports is not stated.
+  - ingress: udp
+  - volume_stated: No traffic figure is given in the review; the limit named is 20 Mbps bandwidth.
+  - bytes_transit: yes
+  - transit_note: Hong Kong host carries the traffic.
+- evidence:
+  - [1] 2026-10-23: USD 0.00, 7-day cycle, 20 Mbps, 50 GB disk, port mapping works, no dedicated IPv4
+- sources:
+  - [1] https://www.nodeseek.com/post-967503-1
+
+## Akamai Cloud (Linode)
+
+- `egress/akamai-cloud-linode` | trial-only | evidence reported | binding volume-quota | category trial credit (provider VM) | tier free
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-07
+- url https://www.linode.com/pricing/ | page https://fshy.ajam.dev/p/linode.md
+- price USD 100 of credit
+- free tier: Create an account to try this guide with a $100 credit. This credit will be applied to any valid services used during your first 60 days. | unit: mixed | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: $100 of credit at $0.005 per GB is 18.2 TiB, or 9.1 TiB a month across the 60-day window, plus the plan's included transfer of 0 to 20 TB a month; ingress: udp | metered: yes | free allowance: $100 of credit at $0.005 per GB is 18.2 TiB, or 9.1 TiB a month across the 60-day window, plus the plan's included transfer of 0 to 20 TB a month | source: [1]
+- identity: card | detail: Maintaining a valid credit card on file with your account is a requirement of our Master Services Agreement. | country: None
+- interface: cli, rest
+- limits:
+  - volume-quota (binding): $100 of egress at $0.005 per GB is 18.2 TiB, and the credit expires at 60 days [1]
+- binding note: the 60-day expiry binds, not the volume: at 1 TiB a month the 60 days spend 2 TiB of an 18.2 TiB credit. At this volume the credit is nine times larger than the window it lives in.
+- interface detail: the Linode CLI and API, and the Cloud Manager
+- tooling: wg-quick on the instance; the Linode CLI or API
+- composes with: one instance for 60 days with 18.2 TiB of metered egress behind it, or a plan with a 20 TB bundle and no credit needed
+- reliability: unused promo credit expires at 60 days; plans that bundle no transfer bill every outbound byte
+- notes: A USD 100 promotional credit at USD 0.005 per GB provides 20,000 GB (18.19 TiB) across 60 days, or 9.09 TiB monthly. At USD 0.01 per GB, the credit provides 10,000 GB (9.09 TiB total, 4.55 TiB monthly). Bundled plans include 0 TB to 20 TB per month of transfer.
+- evidence note: the $100 and 60 days come from an archived copy of Linode's own documentation; the current /lp/free-credit/ path returns 404 and the pricing page renders no credit line. The $0.005 overage rate is third-party. A current first-party page carrying both would raise this to documented
+- extras:
+  - wg_path: native-conf
+  - wg_detail: a Compute Instance with a public IPv4; wg-quick binds UDP with no vendor component in the path
+  - ingress: udp
+  - volume_tib_month: 9.09
+  - volume_stated: $100 of credit at $0.005 per GB is 18.2 TiB, or 9.1 TiB a month across the 60-day window, plus the plan's included transfer of 0 to 20 TB a month
+  - bytes_transit: yes
+  - transit_note: outbound bytes cross Akamai's network and draw on a global transfer pool before any overage is billed
+- evidence:
+  - [1] 2026-10-23: 'Older plans include transfer that scales based on plan family and size, from 0 TB to 20 TB per month. G8 and GPU accelerated plans do not include bundled transfer or egress with the plan' and 'Maintaining a valid credit card on file with your account is a requirement'
+  - [2] 2026-10-23: 'You are only billed for additional network transfer if your usage exceeds the global or data center-specific pools during a billing period'
+  - [3] 2026-10-23: archived Linode documentation: 'Create an account to try this guide with a $100 credit. This credit will be applied to any valid services used during your first 60 days.'
+  - [4] 2026-10-23: third party: 'In North America the overage price is US$0.005 per GB', with pooled transfer and only outbound metered
+- sources:
+  - [1] https://www.linode.com/pricing/
+  - [2] https://techdocs.akamai.com/cloud-computing/docs/network-transfer-usage-and-costs
+  - [3] https://archive.ph/4yiBQ
+  - [4] https://wiki.licenseware.io/wiki/akamai-cloud-pricing-and-billing/
+
+## AnchoredIP (Egress and tunnels)
+
+- `egress/anchoredip` | trial-only | evidence documented | binding none | category dedicated IPv4 over WireGuard | tier trial
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://anchoredip.com/pricing | page https://fshy.ajam.dev/p/anchoredip.md
+- price USD 0 for 7 days, then USD 19 per month for Solo (1 IPv4, 1 /48, 2 machines) | parsed USD 19/mo
+- free tier: "Trial $0/mo ... Runs for 7 days" with one dedicated IPv4, one /48, two machines, and from the dedicated-ip page: "Seven days on a real address out of the same range paying customers are in ... No card, and nobody to talk to." | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No allowance and no meter: "We do not meter requests or bandwidth, so the plan decides how many addresses and machines you get and nothing decides how much you may send."; ingress: tcp+udp | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: The trial needs no card: "No card, and nobody to talk to." The paid tiers are "Pay by Card". A trial still needs an account, whose form was not read. | country: None
+- interface: cli
+- limits:
+  - volume-quota: none: bandwidth is stated as unmetered, so there is no byte allowance to exceed [2]
+- binding note: Nothing in the published limits fails at 1 TiB/month: the vendor says it does not meter bandwidth, and the trial carries the same unmetered transport as the paid tiers. What limits the shape is the lease, not a quota: one IPv4, two machines, and one designated peer that can receive inbound. That is an allocation limit with no kind in the constraint vocabulary, so it is recorded here rather than filed under a kind it is not.
+- interface detail: Configuration file per machine plus a dashboard; no API named on the pages read.
+- tooling: wg-quick; documented Docker pattern with one container per machine slot
+- composes with: Pairs with a free-tier VM: the VM becomes the designated inbound peer and the whole lease egresses from one address.
+- reliability: Outbound mail ports blocked on every lease by default; inbound works on one peer only, and a second peer claiming the address silently wins.
+- notes: The product is sold as an outbound identity first, with inbound as a secondary use: "Everything else on the lease still egresses as the address." That is why the machine count is the binding constraint rather than the port count. Outbound 25, 465 and 587 are blocked until asked. Registration class measured 2026-10-24: ASSIGNED PA under an individual in KZ, so the lease is not ISP-registered and does not address rung 5. It invited an ISP reading that the registry does not support.
+- evidence note: Pricing, the trial terms, the unmetered claim and the inbound-peer rule are first-party. A trial run would confirm the inbound behaviour.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: The address arrives as a configuration file: "Set up by: One WireGuard config file" and "The address is delivered over a WireGuard tunnel to machines you already run". One machine per lease may also receive: "One machine per lease can also receive on the public address".
+  - ingress: tcp+udp
+  - volume_stated: No allowance and no meter: "We do not meter requests or bandwidth, so the plan decides how many addresses and machines you get and nothing decides how much you may send."
+  - bytes_transit: yes
+  - transit_note: AnchoredIP announces AS41800, whose holder is an individual, and the space is a personal PA assignment in Kazakhstan. The AS can be checked in public routing data. This says nothing about registration class, which is neither ISP nor organisation.
+  - registration_class: ASSIGNED PA under an individual, Kazakhstan. Not ISP-registered. Measured with RIPE RDAP 2026-10-24; see ip-proxy/anchoredip-registration-corrected.
+- evidence:
+  - [1] 2026-10-23: Trial USD 0 for 7 days with 1 IPv4, 1 /48 and 2 machines; Solo USD 19/mo; Team USD 49/mo; card payment
+  - [3] 2026-10-23: "One WireGuard config file"; space registered at RIPE NCC and announced from AS41800; trial without a card
+  - [2] 2026-10-23: "Bandwidth | [...] Not metered" in the vendor's own comparison table
+  - [4] 2026-10-23: one peer per lease receives inbound, because WireGuard routes an address to exactly one peer
+  - [5] 2026-10-24: 194.0.109.0/24 is registered in country KZ, type ASSIGNED PA, registrant lrp-kz-individual-1-MNT, an individual; AS41800's holder is the same individual. A personal PA assignment, not an eyeball broadband network, so the space is not ISP-registered.
+- sources:
+  - [1] https://anchoredip.com/pricing
+  - [2] https://anchoredip.com/vs/fixie
+  - [3] https://anchoredip.com/dedicated-ip
+  - [4] https://anchoredip.com/docs/use-cases
+  - [5] https://rdap.db.ripe.net/ip/194.0.109.1
+
+## Cosmic Guard
+
+- `egress/cosmic-guard` | trial-only | evidence documented | binding volume-quota | category game L4 reverse proxy (any UDP) | tier payg
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://cosmicguard.com/gaming/ | page https://fshy.ajam.dev/p/cosmicguard.md
+- price USD 0.03 per average player per day, or USD 0.02 per GB transmit
+- free tier: Start a free trial | unit: none | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: Unmetered volumetric traffic mitigation included with every plan; the gaming plan bills USD 0.03 per average player per day and the server plan USD 0.02 per GB of transmit bandwidth; ingress: tcp+udp | metered: no | free allowance: none published | source: [2]
+- identity: card | detail: Signup at cosmicguard.com/signup; the free trial is the only zero-cost path and the paid plans are metered. The signup form was not opened. | country: None
+- interface: rest
+- limits:
+  - volume-quota (binding): USD 0.02 per GB transmit on the server plan [3]
+  - per-ip-shaping: gaming plan is billed per average player per day at USD 0.03 [3]
+- binding note: At 1 TiB/month on the server plan the transmit meter is what runs: 1 TiB is 1099.5 GB, so about USD 22 per month at the published USD 0.02/GB, assuming transmit only. That figure is arithmetic on the vendor's rate, not a quote.
+- interface detail: Signup portal at cosmicguard.com/signup; billing is pay-as-you-go.
+- tooling: portal configuration, no agent
+- composes with: Fronts a public origin with arbitrary UDP; would front a free VM's UDP port at roughly USD 22 per TiB of transmit.
+- reliability: Mitigation is unmetered and flood traffic is not billed; the payable meter is players or transmit bytes.
+- notes: DDoS mitigation and Layer 4 proxy network supporting TCP and UDP. Free trial provides temporary testing; sustained service requires a paid subscription.
+- evidence note: The UDP claim, the per-player and per-GB rates and 'Start a free trial' are first-party. The trial's length and allowance are not published on the pages read.
+- extras:
+  - wg_path: inside-udp
+  - wg_detail: The product scrubs any public UDP port, so a WireGuard listener would be reachable through it; there is no free tier to do it on.
+  - ingress: tcp+udp
+  - volume_stated: Unmetered volumetric traffic mitigation included with every plan; the gaming plan bills USD 0.03 per average player per day and the server plan USD 0.02 per GB of transmit bandwidth
+  - bytes_transit: yes
+  - transit_note: Cosmic Guard's six PoPs scrub and forward the traffic
+- evidence:
+  - [2] 2026-10-23: The service is described for Rust, FiveM, RedM, Minecraft (Java + Bedrock), Ark and 'any UDP game', including 'your own custom UDP daemon'
+  - [3] 2026-10-23: Gaming plan USD 0.03 per average player per day with unmetered mitigation and TCP/UDP compatibility; server plan USD 0.02 per GB transmit bandwidth
+  - [1] 2026-10-23: Six PoPs across NA and EU, sub-second mitigation, and the only zero-cost entry is 'Start a free trial'
+- sources:
+  - [1] https://cosmicguard.com/
+  - [2] https://cosmicguard.com/gaming/
+  - [3] https://cosmicguard.com/pricing/
+
+## DigitalOcean (free)
+
+- `egress/digitalocean` | trial-only | evidence reported | binding volume-quota | category trial credit (provider VM) | tier free
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-07
+- url https://www.digitalocean.com/pricing | page https://fshy.ajam.dev/p/digitalocean.md
+- price USD 200 of credit
+- free tier: $200 in free credit with a 60-day validity period, reported by two third-party pages; DigitalOcean's own pricing and homepage did not carry the offer when read | unit: mixed | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: $200 of credit at $0.01 per GiB is 19.5 TiB, or 9.8 TiB a month across the 60-day credit window, plus 500 GiB a month included per droplet; ingress: udp | metered: yes | free allowance: $200 of credit at $0.01 per GiB is 19.5 TiB, or 9.8 TiB a month across the 60-day credit window, plus 500 GiB a month included per droplet | source: [1]
+- identity: card | detail: a credit card or PayPal to activate the credit, with a small verification hold; reported by the two third-party pages that carry the offer's terms | country: None
+- interface: cli, rest
+- limits:
+  - volume-quota (binding): $200 of egress at $0.01 per GiB is 19.5 TiB, and the credit expires at 60 days [1]
+- binding note: the 60-day expiry binds, not the bandwidth: $200 at $0.01 a GiB is 20,000 GiB, and at 1 TiB a month only 2 TiB of it is used before the credit dies. The credit is nine times larger than the 60 days can spend at this volume.
+- interface detail: doctl and the DigitalOcean REST API
+- tooling: wg-quick on the droplet; doctl or the API for the firewall
+- composes with: USD 200 credit valid for 60 days covers one droplet and up to 19.5 TiB of metered egress.
+- reliability: unused credit expires at 60 days and is not refundable or transferable
+- notes: Arithmetic: $200 over $0.01 a GiB is 20,000 GiB = 19.53 TiB in total. Spread across 60 days that is 9.77 TiB a month, which clears the 1 TiB a month test by a factor of 9.8. This is the best dollars-to-bytes ratio of the egress providers compared, and it is the only one where the bandwidth price is two orders of magnitude below the hyperscalers. The 500 GiB a month of included transfer on the cheapest droplet is 0.49 TiB alone and short of the test; DigitalOcean Startups is egress/digitalocean-startups. Note the egress price is documented and the credit is reported, which makes the whole record reported under the weakest-field rule.
+- evidence note: the $200 and 60 days are third-party; DigitalOcean's pricing page and homepage carry no such offer today and the referral page states only that referrals earn credits. A screenshot of the signed-in billing page, or a first-party campaign page, would raise this to documented
+- extras:
+  - wg_path: native-conf
+  - wg_detail: a Droplet with a public IPv4; wg-quick binds UDP on the droplet directly
+  - ingress: udp
+  - volume_tib_month: 9.77
+  - volume_stated: $200 of credit at $0.01 per GiB is 19.5 TiB, or 9.8 TiB a month across the 60-day credit window, plus 500 GiB a month included per droplet
+  - bytes_transit: yes
+  - transit_note: the droplet's outbound bytes cross DigitalOcean's network and are metered per GiB after the included allowance
+- evidence:
+  - [1] 2026-10-23: 'Public Internet Egress Overage Data transfer is $0.01 per GiB', 'Ingress data transfer is free', 'Droplets include free outbound data transfer, starting at 500 GiB / mo'
+  - [2] 2026-10-23: third party, published 2026-03-23: 'DigitalOcean offers all new users $200 in free credit with a 60-day validity period' and 'The credit is valid for 60 days from account creation'
+  - [3] 2026-10-23: third party: 'DigitalOcean's trial offers new users $200 in credits, usable within 60 days' and 'Valid credit card required'
+- sources:
+  - [1] https://www.digitalocean.com/pricing
+  - [2] https://www.digitaloceanpro.com/promo-code.html
+  - [3] https://cloudcredits.io/providers/digitalocean/programs/digitalocean-200
+
+## freevpshostings.com
+
+- `egress/freevpshostings-com` | trial-only | evidence documented | binding volume-quota | category origin VM (claimed free plan) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://freevpshostings.com/ | page https://fshy.ajam.dev/p/freevpshostings.md
+- price USD 0 for 7 days
+- free tier: Learner ... $0 for 7 days, not for production ... No Root Access ... 1-Core CPU ... 10 GB Bandwidth ... WordPress Only | unit: GB | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 10 GB Bandwidth; ingress: none | metered: yes | free allowance: 10 GB Bandwidth | source: [1]
+- identity: email | detail: the plan page is reached through a registration form and the FAQ advertises 'no credit card requirements for the free tier'; no identity document was stated on the page | country: None
+- interface: ssh
+- limits:
+  - volume-quota (binding): 10 GB of bandwidth on the Learner plan [1]
+  - write-gated: no root access, WordPress only, so the software on the host is fixed [1]
+- binding note: 10 GB a month is 341 MB a day, 0.9% of 1 TiB, and the write gate means there is no WireGuard endpoint to spend even that on; the volume fails first by two orders of magnitude
+- interface detail: the plan advertises no root access, so the only interface is a hosting panel
+- tooling: nothing: no root, no package installs
+- composes with: does not compose into any path
+- reliability: no root access and a fixed WordPress image, so the server cannot host a tunnel at all
+- notes: Surfaced by the search for a free VPS that lasts. The headline says free forever and the plan table says 7 days; the plan table is specific and the FAQ is the marketing line, so the record takes the 7 days. Either way the write gate settles it: a WordPress slice with no root cannot run WireGuard.
+- evidence note: the plan table and the FAQ answer are on the page read; the two contradict each other and the plan table is the specific statement
+- extras:
+  - wg_path: none
+  - wg_detail: no root access and 'WordPress Only', so nothing can be installed and wg-quick cannot run; the plan is a managed WordPress slice, not a server
+  - ingress: none
+  - volume_tib_month: 0.0091
+  - volume_stated: 10 GB Bandwidth
+  - bytes_transit: yes
+  - transit_note: bytes would leave through the host's shared address, but nothing can be installed to generate them
+- evidence:
+  - [1] 2026-10-23: the Learner plan reads '$0 for 7 days, not for production' with 'No Root Access', '500 MB SSD', '10 GB Bandwidth', 'WordPress Only'
+  - [1] 2026-10-23: the FAQ answer reads 'Yes, our Learner plan is completely free with no time limits or hidden charges', which contradicts the 7-day term in the plan table on the same page
+- sources:
+  - [1] https://freevpshostings.com/
+
+## Gcore Edge Proxy
+
+- `egress/gcore-edge-proxy` | trial-only | evidence documented | binding none | category L4 reverse proxy (any TCP/UDP) | tier trial
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://gcore.com/security/edge-proxy | page https://fshy.ajam.dev/p/gcore.md
+- price EUR 17 per month after the trial | parsed USD 19.03/mo
+- free tier: Start for FREE; FREE Trial; 2-day free trial | unit: hours | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No byte allowance is published for the trial; the paid plan is EUR 17 per month with rules priced by count; ingress: tcp+udp | metered: no | free allowance: none published | source: [1]
+- identity: card | detail: A Gcore account at auth.gcore.com. The trial is 2 days and the paid plan follows on the same account; the signup form was not opened. | country: None
+- interface: rest
+- limits:
+  - volume-quota: 2-day free trial, then EUR 17/month [1]
+  - request-rate: proxy rules are priced in bands: 2-5 rules EUR 10/mo, 6-10 EUR 8/mo each, 11+ EUR 6/mo each [1]
+- binding note: The constraint that fails first is the trial length, which the vocabulary has no kind for. At 1 TiB/month the billable unit is the rule count and the monthly fee, not a byte allowance.
+- interface detail: Portal at portal.gcore.com; the product onboards from an IP and port.
+- tooling: portal configuration of a proxy rule, no agent
+- composes with: Fronts a public origin by IP and port; with a free VM as the origin it would give that VM a UDP port for two days, then cost EUR 17/month.
+- reliability: Trial expires in 2 days; the paid plan bills per proxy rule band.
+- notes: Reverse proxy service supporting arbitrary TCP and UDP traffic on dedicated ports. Paid service starting at EUR 17 monthly, with temporary evaluation periods.
+- evidence note: The 2-day trial and the EUR 17 plan are on the product page read. The trial's byte allowance and its egress billing are not published there and would need the portal.
+- extras:
+  - wg_path: inside-udp
+  - wg_detail: Edge Proxy is L4 ingress for TCP and UDP to an origin, so a WireGuard listener would be reachable through it; but the free window is a 2-day trial.
+  - ingress: tcp+udp
+  - volume_stated: No byte allowance is published for the trial; the paid plan is EUR 17 per month with rules priced by count
+  - bytes_transit: yes
+  - transit_note: Gcore's edge filters and forwards the traffic
+- evidence:
+  - [1] 2026-10-23: Edge Proxy is volumetric-protected Layer 4 ingress for TCP and UDP services, filtering at the edge and forwarding clean traffic to an origin
+  - [1] 2026-10-23: The offer is 'FREE Trial' and '2-day free trial'; the PAYG price is EUR 17 per month with flood traffic not billed
+- sources:
+  - [1] https://gcore.com/security/edge-proxy
+
+## Get Real IP
+
+- `egress/get-real-ip` | trial-only | evidence documented | binding none | category dedicated IPv4 over WireGuard | tier tunnel
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://getrealip.net/pricing/ | page https://fshy.ajam.dev/p/getrealip.md
+- price USD 8 per month for one IPv4 and an IPv6 range, unlimited data; 7 days free | parsed USD 8/mo
+- free tier: "Try free for 7 days - no charge until your trial ends", on a "Tunnel $8/mo" plan that "Includes 1 static IP" and "First 7 days free". | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: "Unlimited data" appears in the list of what is included with every tunnel. No fair-use figure accompanies it.; ingress: tcp+udp | metered: no | free allowance: none published | source: [1]
+- identity: card | detail: The trial starts at account.getrealip.net with a signup form and "no charge until your trial ends", which implies a card is taken at signup; the form itself was not read. | country: None
+- interface: cli
+- limits:
+  - volume-quota: unlimited data, no fair-use figure stated [1]
+- binding note: Nothing in the published terms fails at 1 TiB/month: data is unlimited, every port and protocol is open, and the plan is one address at USD 8. The unstated fair-use policy behind "unlimited" is the only risk, and it is not documented.
+- interface detail: Config file, QR code and a dashboard for IP and reverse DNS management.
+- tooling: wg-quick; config plus QR code for phones
+- composes with: Incoming-only mode leaves the local outbound path untouched, so it composes with a free-tier VM that already has outbound.
+- reliability: No throttle or ban policy published; the absence of a fair-use clause is undocumented rather than guaranteed.
+- notes: Provides dedicated IPv4 addresses with unmetered bandwidth at USD 8 monthly, with no port blocking.
+- evidence note: Price, the unlimited-data claim, the config file and the port policy are first-party.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: "WireGuard config + QR code" is a listed feature of the USD 8 plan, and "Full tunnel or incoming only" is offered: "use your static IP for all traffic, or just receive inbound while keeping your normal internet for outbound (requires OS routing policy support)".
+  - ingress: tcp+udp
+  - volume_stated: "Unlimited data" appears in the list of what is included with every tunnel. No fair-use figure accompanies it.
+  - bytes_transit: yes
+  - transit_note: The vendor routes the address to the tunnel from its own network in six regions.
+- evidence:
+  - [1] 2026-10-23: USD 8/mo for 1 static IPv4 and an IPv6 range, unlimited data, any protocol and any port, WireGuard config with QR code, 7 days free; additional IP USD 4/mo
+  - [2] 2026-10-23: "Any protocol, any port - not just HTTP"; "Full tunnel or incoming only"; USD 8 first IP, USD 4 additional; 7-day free trial
+- sources:
+  - [1] https://getrealip.net/pricing/
+  - [2] https://getrealip.net/
+
+## IBM Cloud (free)
+
+- `egress/ibm-cloud` | trial-only | evidence unverified | binding volume-quota | category trial credit (provider VM) | tier free
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T06:52:57.445Z (live) | stale on 2026-11-19
+- url https://www.ibm.com/cloud/free | page https://fshy.ajam.dev/p/ibm.md
+- price USD 200 of credit
+- free tier: To receive the USD 200 credit, you first need to upgrade to a Pay-as-you-go account ... Your promotional credit of USD 200 is automatically applied but might take a few hours to appear in your account. The credit is available for first-time Pay-as-you-go accounts only. | unit: mixed | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: USD 200 of credit; the egress rate it is spent against was not read, so the TB it buys is not established; ingress: udp | metered: no | free allowance: none published | source: [1]
+- identity: card | detail: Payment details are required up front ... there will be a nominal hold placed on your card to verify its authenticity ... typically around USD 1.00. | country: None
+- interface: cli, rest
+- limits:
+  - volume-quota (binding): USD 200 of credit, expiry unstated on the page read [1]
+- binding note: the credit is the only allowance named, and neither its expiry nor the egress rate it buys was readable on the page, so what fails first at 1 TiB a month is unestablished rather than known.
+- interface detail: the IBM Cloud CLI and the VPC API
+- tooling: wg-quick on the VPC instance; the IBM Cloud CLI
+- composes with: a 200 dollar credit that could pay for a VPC instance and its egress, if the rate and expiry turn out to be workable
+- reliability: Lite-plan service instances are deleted after 30 days without development activity
+- notes: Arithmetic is blocked on the egress rate. The credit is real and documented at USD 200, but a credit whose expiry is unstated and whose spend rate is unread cannot be converted to TiB, and inventing either number would be worse than the gap. The 40 Lite-plan products are always free and include no VM with a public IP, and the academic trial needs an accredited institution. Left open: the expiry, which IBM's own promo documentation holds; that page could not be read.
+- evidence note: the credit amount is documented but the two numbers the arithmetic needs, the expiry and the per-GB egress rate, were not on the page and the promo-code documentation returned HTTP 500.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: a VPC virtual server instance with a floating IP; wg-quick binds UDP on the instance
+  - ingress: udp
+  - volume_stated: USD 200 of credit; the egress rate it is spent against was not read, so the TB it buys is not established
+  - bytes_transit: yes
+  - transit_note: outbound bytes cross IBM's network and are metered against the pay-as-you-go account the credit sits on
+- evidence:
+  - [1] 2026-10-23: 'Your promotional credit of USD 200 is automatically applied', 'The credit is available for first-time Pay-as-you-go accounts only', 'Payment details are required up front'
+  - [1] 2026-10-23: 'After 30 days of no development activity, your service instances with Lite plans are deleted', the reliability note for anything left running
+  - [1] 2026-11-04: a card is required at sign-up | capture: sha256:c4b919eacb52997a3436c23a556093034d5a041370b191551c2f0315b2aea2ed | quote: Payment details are required up front, but you won’t be charged until you consume a billable service; however, there will be a nominal hold placed on your card to verify its authenticity.
+- sources:
+  - [1] https://www.ibm.com/cloud/free
+
+## LusoVPS IPv6 free
+
+- `egress/lusovps-ipv6-free` | trial-only | evidence documented | binding volume-quota | category origin VM (free trial) | tier trial
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://www.lusovps.com/products/vps-starter-ipv6 | page https://fshy.ajam.dev/p/lusovps.md
+- price USD 0 for 15 days, then EUR 3.50 a month | parsed USD 3.92/mo
+- free tier: VPS Linux IPv6 Only Free ... 64MB RAM ... 10GB Traffic @ 100Mbps ... 5 IPv6 Addresses ... Price: FREE for 15 days | unit: GB | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 10GB Traffic @ 100Mbps; ingress: udp | metered: yes | free allowance: 10GB Traffic @ 100Mbps | source: [1]
+- identity: email | detail: the order goes through a cart at cart.lusovps.com with no card term stated on the product page; the checkout flow was not read | country: None
+- interface: ssh
+- limits:
+  - volume-quota (binding): 10 GB of traffic [1]
+  - per-object-cap: 64 MB of RAM, 2 GB of disk [1]
+- binding note: 10 GB a month is 341 MB a day, 0.9% of 1 TiB, so the volume fails first; behind it the 15-day term ends the server, and 64 MB of RAM is below what a WireGuard endpoint can be relied on to run
+- interface detail: SolusVM panel plus SSH over one of five IPv6 addresses
+- tooling: wg-quick over IPv6, RAM permitting
+- composes with: does not compose; recorded to close the IPv6-free-VPS question
+- reliability: the free term is 15 days and the server is then deleted or converted to the EUR 3.50 a month plan
+- notes: Provides an IPv6-only virtual machine with 10 GB of bandwidth on a 15-day promotional trial. Standard paid IPv6 plans are priced at EUR 3.50 monthly.
+- evidence note: the specification table and the 'FREE for 15 days' price line are on the product page read; no probe was run
+- extras:
+  - wg_path: native-conf
+  - wg_detail: a Xen VPS with five IPv6 addresses and a SolusVM panel, so wg-quick is native over IPv6; 64 MB of RAM is the practical constraint, since the kernel module plus sshd plus wg-quick is a tight fit and a userspace fallback would not fit at all
+  - ingress: udp
+  - volume_tib_month: 0.0091
+  - volume_stated: 10GB Traffic @ 100Mbps
+  - bytes_transit: yes
+  - transit_note: bytes leave over IPv6 at up to 100 Mbps
+- evidence:
+  - [1] 2026-10-23: the free plan reads '64MB RAM', '2GB Hard Drive', '10GB Traffic @ 100Mbps', '5 IPv6 Addresses' and 'Price: FREE for 15 days'
+  - [1] 2026-10-23: the paid twin of the same shape is 'EUR 3.50EUR monthly', so the free 15 days is a trial of a paid product
+- sources:
+  - [1] https://www.lusovps.com/products/vps-starter-ipv6
+
+## Microsoft Azure free account (azure free account)
+
+- `egress/azure-free-account` | trial-only | evidence documented | binding volume-quota | category trial credit (provider VM) | tier free
+- needs card yes, phone yes, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://azure.microsoft.com/en-us/free/ | page https://fshy.ajam.dev/p/microsoft.md
+- price USD 200 of credit
+- free tier: If you sign up for an Azure free account, you'll get a $200 credit that you can apply to try services that aren't in the free list, or to use more than your free amounts of any services. You have up to 30 days to use your credit. | unit: mixed | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: $200 of credit at $0.087 per GB after the first 100 GB a month, so 2.18 TiB inside the 30-day credit window; ingress: udp | metered: yes | free allowance: $200 of credit at $0.087 per GB after the first 100 GB a month, so 2.18 TiB inside the 30-day credit window | source: [1]
+- identity: card | detail: All you need is a phone number, a credit card or a debit card (non-prepaid), and a Microsoft account or a GitHub account. We don't charge your credit card or debit card anything when you sign up for Azure, but you may see a one-dollar (or equivalent) verification hold. | country: None
+- interface: cli, rest
+- limits:
+  - volume-quota (binding): $200 of egress at $0.087 per GB is 2.18 TiB, and the credit expires at 30 days [2]
+- binding note: the credit is a total byte allowance that dies at 30 days. At 1 TiB a month it carries 2.18 TiB in that one month, so the credit itself is not the binding number; the 30-day expiry ends the arrangement while credit is still nominally available, because the second month does not exist.
+- interface detail: Azure CLI and the Azure Resource Manager REST API
+- tooling: wg-quick on the VM; Azure CLI or the portal for the NIC and network security group
+- composes with: an Azure VM as the WireGuard endpoint for one month, then the arrangement ends; it does not chain into a second month without a paid subscription
+- reliability: the free account must move to pay-as-you-go within 30 days or when the credit is used up, whichever is first, or free services stop
+- notes: Arithmetic: $200 over $0.087 a GB is 2,298.9 GB, plus the 100 GB free each month = 2,398.9 GB = 2.40 TB = 2.18 TiB, all inside a 30-day window. That clears 1 TiB a month for exactly one month. The wider offer also carries 12 months of free monthly amounts of selected services and 65 or more always-free services, but the 100 GB a month egress line is the only one that touches this test, and it is about a tenth of 1 TiB. Routing preference transit ISP at $0.08 per GB buys 2,599 GB = 2.36 TiB instead of 2.18, an 8 percent change that does not move the verdict.
+- evidence note: Free account includes 12 months of popular services and USD 200 in credits for 30 days. Account creation requires a credit card and telephone verification.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: a full Azure VM with a public IP; wg-quick binds UDP directly, with no Azure-side listener in the path
+  - ingress: udp
+  - volume_tib_month: 2.18
+  - volume_stated: $200 of credit at $0.087 per GB after the first 100 GB a month, so 2.18 TiB inside the 30-day credit window
+  - bytes_transit: yes
+  - transit_note: the VM's outbound bytes cross Microsoft's network and are metered as internet egress after 100 GB a month
+- evidence:
+  - [1] 2026-10-23: 'you'll get a $200 credit ... You have up to 30 days to use your credit' and 'All you need is a phone number, a credit card or a debit card (non-prepaid)'
+  - [2] 2026-10-23: 'Internet Egress ... First 100 GB/Month Free', 'Next 10 TB/Month $0.087 per GB' from North America and Europe; 'Data Transfer In Free'; 'Azure already offers the first 100 GB/month of egressed data for free to all customers in all Azure regions around the world'
+  - [3] 2026-10-23: a network security group rule's protocol field accepts UDP, so UDP ingress is expressible and 51820 is not special
+- sources:
+  - [1] https://azure.microsoft.com/en-us/free/
+  - [2] https://azure.microsoft.com/en-us/pricing/details/bandwidth/
+  - [3] https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
+
+## OpenTunnel Free WireGuard Singapore
+
+- `egress/opentunnel-wireguard-singapore` | trial-only | evidence documented | binding retention-clamped | category wireguard endpoint (hosted, Singapore) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://opentunnel.net/wireguard-server-102/ | page https://fshy.ajam.dev/p/opentunnel.md
+- price USD 0
+- free tier: 'Free WireGuard Singapore SGC 1', 'This WireGuard server location in Singapore with daily account limit 50. You can surf with unlimited data and high-speed connections on these servers.' | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 'Unlimited data' per the page. The account itself is 'Active: 7 Days'.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: 'daily account limit 50' per server. The page issues a username and a configuration from a form; no email, card or phone step is described. | country: None
+- interface: cli
+- limits:
+  - retention-clamped (binding): 'Active: 7 Days' [1]
+  - request-rate: 'daily account limit 50' [1]
+- binding note: Unlimited data is stated, so volume does not bind. The 7-day account life binds first, and before that the outbound-only topology does: the peer gets a private address inside the provider's network, not a public port.
+- interface detail: A web form issues the peer configuration; the page lists host, UDP port and account life for a standard WireGuard client.
+- tooling: any WireGuard client; the .conf is issued by the page
+- composes with: Gives a Singapore exit address to a client that has none; it does not give a Singapore ingress, so it cannot front a service.
+- reliability: Accounts expire after 7 days and 50 are issued per server per day; torrent, DDoS and spam are refused on the page; the site is ad-funded and carries a live traffic counter.
+- notes: Generates free WireGuard client configurations with Singapore exit endpoints. Operates as an outbound VPN client endpoint behind provider NAT; inbound connections from external networks are not supported.
+- evidence note: Host, port, account life and the unlimited-data sentence are on the page read on 2026-10-23.
+- extras:
+  - wg_path: registration-api
+  - wg_detail: 'Host: wg-sg-2.optnl.com', 'UDP Port: 51820', 'Active: 7 Days'. The page issues the peer configuration on submission; there is no account to log into afterwards.
+  - ingress: none
+  - volume_stated: 'Unlimited data' per the page. The account itself is 'Active: 7 Days'.
+  - bytes_transit: yes
+  - transit_note: The provider's Singapore host relays the peer's traffic out.
+- evidence:
+  - [1] 2026-10-23: 'Free WireGuard Singapore SGC 1', 'daily account limit 50', 'You can surf with unlimited data and high-speed connections on these servers.'
+  - [1] 2026-10-23: 'Host: wg-sg-2.optnl.com', 'UDP Port: 51820', 'Active: 7 Days', and a counter showing 21,210 accounts created on that server.
+- sources:
+  - [1] https://opentunnel.net/wireguard-server-102/
+
+## PageKite
+
+- `egress/pagekite` | trial-only | evidence documented | binding volume-quota | category tunnel (hosted, trial-based) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://pagekite.net/pricing/ | page https://fshy.ajam.dev/p/pagekite.md
+- price USD 0
+- free tier: Trial period: 31 days & 2.5 GB | unit: GB | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: Trial is 31 days and 2.5 GB; the cheapest paid plan is 15 GB monthly for USD 5.99, and the largest is 750 GB; ingress: tcp | metered: yes | free allowance: Trial is 31 days and 2.5 GB; the cheapest paid plan is 15 GB monthly for USD 5.99, and the largest is 750 GB | source: [2]
+- identity: email | detail: an account on pagekite.net; the free offer is a trial, and the site also says a friendly message can earn free service | country: None
+- interface: cli
+- limits:
+  - volume-quota (binding): 2.5 GB during a 31-day trial [1]
+- binding note: The trial's 2.5 GB and its 31-day life both fail, and the largest paid plan at 750 GB is still under one TiB.
+- interface detail: pagekite.py frontend:localport name.pagekite.me
+- tooling: part of interface detail
+- composes with: web and TCP ingress only
+- reliability: new subscriptions are stated to be unavailable as of this reading
+- notes: The signup page also states 'We are temporarily unable to process new subscriptions', which is a reliability fact about the paid path rather than the trial.
+- evidence note: UDP support is unverified and not claimed: no PageKite page read mentions UDP. The verdict rests on the trial limits, which are explicit.
+- extras:
+  - wg_path: none
+  - wg_detail: PageKite is an HTTP and TCP kite proxy with no documented UDP forward; the pricing page sells monthly traffic for web and TCP kites only
+  - ingress: tcp
+  - volume_tib_month: 0.002274
+  - volume_stated: Trial is 31 days and 2.5 GB; the cheapest paid plan is 15 GB monthly for USD 5.99, and the largest is 750 GB
+  - bytes_transit: yes
+  - transit_note: PageKite relays the kite traffic
+- evidence:
+  - [1] 2026-10-23: 'Trial period: 31 days & 2.5 GB'; paid plans run 15 GB to 750 GB monthly
+- sources:
+  - [1] https://pagekite.net/signup/?more=bw
+  - [2] https://pagekite.net/pricing/
+
+## ProxyLink
+
+- `egress/proxylink-dev` | trial-only | evidence documented | binding none | category WireGuard overlay with public TCP and UDP port forward | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://proxylink.dev/docs/proxy-links/tcp-udp | page https://fshy.ajam.dev/p/proxylink.md
+- price USD 0 during early access
+- free tier: ProxyLink is currently free during early access, with no usage limits except a 200 MB recording cap; the published plan grid gives Free "3 proxy links (HTTP/HTTPS only)" and "No tunnels", and puts TCP and UDP behind the Developer plan at EUR 17/month | unit: users | metered on: identity-count | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: no usage limits except those noted below; the only noted limit is 'Recording storage is limited to 200 MB per account'; ingress: tcp+udp | metered: no | free allowance: none published | source: [2]
+- identity: email | detail: 'Early Access - everything free, no credit card.' and 'No card. No trial countdown.' The registration form at app.proxylink.dev/register was not read. | country: None
+- interface: cli
+- limits note: The same vendor publishes a paid grid that gives Free zero tunnels: Free is "3 proxy links (HTTP/HTTPS only)", "No tunnels"; Developer is EUR 17/month and carries "5 tunnels"; MSP is EUR 69/month and carries 300. The TCP/UDP doc says "TCP links require an active tunnel (VPN)", and the pricing FAQ says "TCP links, browser SSH/RDP/VNC, and LAN access all require a tunnel (Developer plan or above)". So the free tier has no published TCP or UDP path once early access ends.
+- binding note: No byte quota, no rate and no published consumption meter exist, so nothing in the vocabulary fails in bytes; what ends the arrangement is the end of early access, and the exit price is already published at EUR 17/month
+- interface detail: 'import the .conf file in under 2 minutes'; the dashboard assigns the public port
+- tooling: any WireGuard client; browser dashboard; MikroTik one-click autoconfig
+- composes with: The only managed service found that issues a WG peer and forwards arbitrary TCP and UDP, and the free version of that path is time-limited: today everything is free, after early access the free plan is HTTP proxy links only
+- reliability: The free arrangement is bounded by the early-access period rather than by a quota; the vendor states the post-launch position in its own plan grid
+- notes: An adversarial re-read on 2026-10-23 opened proxylink.dev/pricing, which this record had never read. It publishes a free plan with no tunnels at all, and the TCP and UDP docs say a TCP link requires an active tunnel. The early-access sentence is still true today and it is the whole of the free path. Verdict moved from qualifies-with-caveat to trial-only because the free arrangement has a published end and a published price.
+- evidence note: A live UDP packet to tcp.proxylink.dev:PORT and back from a peer would raise this to measured.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: 'OpenWRT, pfSense, OPNsense, TP-Link - import the .conf file in under 2 minutes.' One peer covers the account: 'issue them one WireGuard peer for your whole account, not one per client site'.
+  - ingress: tcp+udp
+  - volume_stated: no usage limits except those noted below; the only noted limit is 'Recording storage is limited to 200 MB per account'
+  - bytes_transit: yes
+  - transit_note: ProxyLink's proxy cluster in Hetzner Germany terminates the public side and relays over WireGuard to the peer
+- evidence:
+  - [2] 2026-10-23: UDP and TCP tunnel links, the tcp.proxylink.dev host with a per-link port, and the UDP transparency sentence
+  - [1] 2026-10-23: 'currently free during early access ... there are no usage limits except those noted below' and the 200 MB recording cap
+  - [3] 2026-10-23: .conf import, one WireGuard peer per account, and EU-only proxying on Hetzner Germany
+  - [4] 2026-10-23: Free plan: '3 proxy links (HTTP/HTTPS only)', 'No tunnels', 'No browser terminals', 'No custom domains'; Developer 'EUR 17 / month' with '5 tunnels'; FAQ: 'TCP links, browser SSH/RDP/VNC, and LAN access all require a tunnel (Developer plan or above)'
+- sources:
+  - [1] https://proxylink.dev/terms
+  - [2] https://proxylink.dev/docs/proxy-links/tcp-udp
+  - [3] https://proxylink.dev/
+  - [4] https://proxylink.dev/pricing
+
+## rdpserverss.com Free IPv6 VPS
+
+- `egress/rdpserverss-free-ipv6` | trial-only | evidence documented | binding volume-quota | category origin VM (credit trial) | tier trial
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://rdpserverss.com/free-ipv6-vps/ | page https://fshy.ajam.dev/p/rdpserverss.md
+- price USD 0 for the first month, then list price
+- free tier: Premium ... $0 first month ... Full Root Access ... 8-Core CPU ... 16 GB RAM ... 1 TB SSD ... 1 TB Transfer | unit: TB | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 1 TB Transfer on the plan that carries root access; ingress: udp | metered: yes | free allowance: 1 TB Transfer on the plan that carries root access | source: [1]
+- identity: email | detail: the page title and description both advertise 'No Credit Card' and the registration form is the only gate read; the $100 credit that funds the first month is granted at registration | country: None
+- interface: ssh
+- limits:
+  - volume-quota (binding): 1 TB of transfer on the root-access plan [1]
+  - write-gated: the standing $0 plan has no root access and is WordPress only [1]
+- binding note: 1 TB is 0.909 TiB, 9% on the decimal reading, so the quota is the first wall and it fails narrowly; the 30-day credit is the second wall, and it is the one that cannot be fixed by buying more traffic
+- interface detail: full root over SSH on the Premium plan
+- tooling: wg-quick, for the length of the credit
+- composes with: a 30-day 1 TB endpoint is a way to measure the path, not a way to keep it
+- reliability: the root-access offer is a first-month credit; the standing $0 plan has no root and no custom software
+- notes: Same template and same plan names as freevpshostings.com, which suggests one operator behind several free-VPS storefronts; that is an observation about the pages, not a finding about the companies. The root-access plan is genuinely $0 for a first month at 1 TB, which would meet for 30 days, and the standing free plan cannot run anything.
+- evidence note: the plan table and the credit framing are on the page read; whether the transfer is per month or per term is not stated, which is why the volume is recorded with the caveat rather than as a monthly rate
+- extras:
+  - wg_path: native-conf
+  - wg_detail: full root access on a KVM-style VPS, so wg-quick is native; the offer is a first-month credit, so the path exists for about 30 days
+  - ingress: udp
+  - volume_tib_month: 0.909
+  - volume_stated: 1 TB Transfer on the plan that carries root access
+  - bytes_transit: yes
+  - transit_note: bytes leave over one of 24 data centres' uplinks
+- evidence:
+  - [1] 2026-10-23: the Premium plan reads '$0 first month', 'Full Root Access', '8-Core CPU', '16 GB RAM', '1 TB SSD', '1 TB Transfer'
+  - [1] 2026-10-23: the page title reads '#1 Free IPv6 VPS Hosting [$100 30 Day] No Credit Card 2026', so the offer is a 30-day credit
+  - [1] 2026-10-23: the standing $0 Learner plan reads 'No Root Access', '500 MB SSD', '10 GB Bandwidth', 'WordPress Only'
+- sources:
+  - [1] https://rdpserverss.com/free-ipv6-vps/
+
+## Rocket Internet Public IPv4
+
+- `egress/rocket-internet-ipv4` | trial-only | evidence documented | binding volume-quota | category dedicated IPv4 over WireGuard | tier trial
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://rocketinternet.com/ipv4-solutions/ | page https://fshy.ajam.dev/p/rocketinternet.md
+- price USD 25 per month after a 30-day free trial with no card
+- free tier: "START YOUR 30-DAY FREE TRIAL" then "$25/month after trial - No credit card required - No long-term contract". | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No allowance is published. The only bandwidth statement answers a speed question: "Will this tunnel limit my download speed? No. Your native internet connection determines your bandwidth."; ingress: tcp+udp | metered: no | free allowance: none published | source: [1]
+- identity: card | detail: The trial takes no card: "No credit card required", and the paid plan bills monthly. The order form itself was not read. | country: None
+- interface: cli
+- limits:
+  - volume-quota (binding): unpublished [1]
+- binding note: No counter is published, so the first thing that fails at 1 TiB/month is an unpublished policy. The address and port shape does not fail: every port is open and the firewall decides.
+- interface detail: Order through the vendor's cart with a promo code for the trial.
+- tooling: vendor gateway or client-side WireGuard; no config file named on the page
+- composes with: 30-day trial allows evaluating architecture requirements before committing to paid address allocations.
+- reliability: The gateway is described as hardware for satellite installs; the FAQ asks for the terminal in bypass mode, which is a setup constraint rather than a usage cap.
+- notes: Offers a 30-day free trial on dedicated public IPv4 transit without requiring a credit card. Targets satellite and remote ISP connectivity.
+- evidence note: Price, the trial terms without a card, the port range and the tunnel type are first-party. Volume is unstated and needs a support answer.
+- extras:
+  - wg_path: extractable
+  - wg_detail: The tunnel is described but no file is named: "Rocket routes a dedicated public IPv4 address through an encrypted WireGuard tunnel directly to your network." Inbound is the product: "INBOUND TCP + UDP" and "65,535 ports! Your firewall determines what's allowed."
+  - ingress: tcp+udp
+  - volume_stated: No allowance is published. The only bandwidth statement answers a speed question: "Will this tunnel limit my download speed? No. Your native internet connection determines your bandwidth."
+  - bytes_transit: yes
+  - transit_note: A US ISP announcing its own addresses, which the vendor argues gives better reputation than a shared VPN block.
+- evidence:
+  - [1] 2026-10-23: 30-day free trial with no credit card, USD 25/month after; dedicated IPv4 with inbound TCP and UDP on 65,535 ports; WireGuard; works behind CGNAT
+  - [1] 2026-10-23: no bandwidth allowance is stated anywhere on the page; the FAQ addresses speed only
+- sources:
+  - [1] https://rocketinternet.com/ipv4-solutions/
+
+## Sakura Internet VPS
+
+- `egress/sakura-internet-vps` | trial-only | evidence documented | binding none | category vps (hosted, Japan) | tier free
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://vps.sakura.ad.jp/ | page https://fshy.ajam.dev/p/sakura.md
+- price JPY 0 for 14 days with a card; JPY 792 per month after (2 GB plan, campaign price on 2026-10-23)
+- free tier: [translated] 'If you select credit-card payment when you apply, you can try every plan free for two weeks.' | unit: hours | metered on: wall-clock | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: [translated] 'Every plan is free for two weeks.' No traffic allowance is stated on the page read; the free window is 14 days.; ingress: tcp+udp | metered: no | free allowance: none published | source: [1]
+- identity: card | detail: [translated] 'If you select credit-card payment when you apply, you can try every plan free for two weeks.' The card is the condition of the trial, not a deposit: the manual states a three-month minimum contract for the paid service. | country: None
+- interface: ssh, cli, rest
+- binding note: No constraint kind fits: the free capacity is a 14-day window, and 1 TiB/month is reachable inside it at the shaping a Tokyo KVM guest gets. The window, not a quota, is what ends the free use.
+- interface detail: [translated] The control panel handles restart, OS reinstall and resource viewing in the browser; every plan ships SSD storage standard.
+- tooling: wg-quick inside the guest; any client works because the guest is a full VM
+- composes with: A 14-day Japanese KVM guest is enough to measure whether a Tokyo address is what a target cares about, and to carry a WireGuard endpoint while it lasts.
+- reliability: The paid service carries a three-month minimum contract per the vendor manual, so a trial that is not cancelled converts into a contract.
+- notes: On the pages read there is no free-forever plan: the offer is a two-week card trial on the VPS line, and the paid plans start at JPY 792 per month. SakuraFrp (natfrp.com) is a different company and is already recorded. Country: Japan, three domestic regions (Ishikari, Osaka, Tokyo). Considered and not read further: ConoHa VPS (a Japanese comparison page states it has no free trial period at all; third-party, unverified).
+- evidence note: The two-week card trial is a vendor sentence with a date. The traffic allowance is not on the page read, so volume stays null.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: A KVM guest with root: WireGuard is installed in the guest and wg-quick writes the .conf. The vendor issues no configuration. The page also sells a VPC router with WireGuard support, which a Japanese write-up prices at JPY 2619 per month for its smallest tier.
+  - ingress: tcp+udp
+  - volume_stated: [translated] 'Every plan is free for two weeks.' No traffic allowance is stated on the page read; the free window is 14 days.
+  - bytes_transit: yes
+  - transit_note: The guest's own address is the endpoint; Sakura's domestic backbone carries the bytes.
+- evidence:
+  - [1] 2026-10-23: [translated] 'If you select credit-card payment when you apply, you can try every plan free for two weeks.'
+  - [1] 2026-10-23: The plan table prices paid tiers from JPY 792 per month (2 GB, campaign price on the day read); no free-forever tier appears on the page.
+- sources:
+  - [1] https://vps.sakura.ad.jp/
+
+## Shenzhuo Hulian
+
+- `egress/shenzhuo-hulian` | trial-only | evidence documented | binding none | category tcp+udp port forward | tier free
+- needs card no, phone no, ID yes, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://www.shenzhuohl.com/price/first.html | page https://fshy.ajam.dev/p/shenzhuohl.md
+- price USD 0
+- free tier: Notice: from 22 May 2020 the free edition no longer limits traffic and becomes a free three-day trial. [translated] | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: Unlimited traffic, but only for three days: the free edition became a three-day trial in May 2020 and the paid ladder starts at CNY 528 with 2 Mbps.; ingress: udp | metered: no | free allowance: none published | source: [1]
+- identity: national-id | detail: Not established: the page offers free registration and an enterprise quote line, but the registration fields were not read. The vendor is a mainland company selling to enterprises on a 400 number. | country: None
+- interface: cli
+- limits:
+  - volume-quota: unlimited during the 3-day trial only [1]
+  - per-ip-shaping: 2 Mbps on the cheapest paid tier at CNY 528 [1]
+- binding note: No kind in the seven-value vocabulary fits what ends the free rung: a three-day wall clock. The trial carries unlimited traffic and an unstated bandwidth, so neither a byte counter nor a shaper can be shown to bind. The wall clock needs no vocabulary to be decisive.
+- interface detail: A client for local servers and NAS, a web console for mappings and mesh groups, and an optional hardware box.
+- tooling: vendor client on a local server or NAS, or the vendor's hardware box; wg-quick on the local box
+- composes with: A three-day window is enough to test a WG-over-UDP path end to end before deciding whether the paid tier is worth CNY 528.
+- reliability: Reconnect times are published per tier, from 30 seconds on the cheapest to 5 seconds on the flagship, which is a statement about how often the link drops.
+- notes: Chinese tunneling provider offering port forwarding with unmetered byte volume subject to bandwidth speed caps. Free tier operates as a temporary 3-day trial.
+- evidence note: The trial notice and the paid ladder are in the page HTML read. Whether the trial is still granted in 2026 needs a registration to confirm; the notice is dated 2020 and nothing on the page supersedes it.
+- extras:
+  - wg_path: inside-udp
+  - wg_detail: The vendor states compatibility with every application above TCP/UDP, so a WG datagram can ride a UDP mapping. No WG config is issued.
+  - ingress: udp
+  - volume_stated: Unlimited traffic, but only for three days: the free edition became a three-day trial in May 2020 and the paid ladder starts at CNY 528 with 2 Mbps.
+  - bytes_transit: yes
+  - transit_note: Vendor clusters of 30 to 180 servers on 3 to 7 lines carry the tunnel.
+- evidence:
+  - [1] 2026-10-23: free edition became a 3-day trial with no traffic limit on 2020-05-22; paid tiers CNY 528 to CNY 1583, all unlimited traffic, 2 to 6 Mbps
+  - [2] 2026-10-23: claims compatibility with everything above TCP/UDP and offers a dedicated public IP product
+- sources:
+  - [1] https://www.shenzhuohl.com/price/first.html
+  - [2] https://www.shenzhuohl.com/index.html
+
+## tunnelto
+
+- `egress/tunnelto` | trial-only | evidence documented | binding none | category tunnel (hosted)
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T10:32:57.642Z (live) | stale on 2026-12-04
+- url https://www.tunnelto.dev/ | page https://fshy.ajam.dev/p/tunnelto.md
+- free tier: Free, no card needed: a 10-minute free trial on a random <name>.tunn.dev subdomain with HTTPS and WebSockets; Pro/Teams USD 4 per user per month: no time limit, up to 20 custom subdomains, up to 5 active tunnels per user | unit: minutes | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable: a stream
+- retention: the generated subdomain is per session | source: [1]
+- egress: no byte cap or transfer allowance is stated for any plan; the pricing section says: Higher volume? Contact us | metered: no | source: [1]
+- identity: email | detail: an account for reserved subdomains; generated names need none
+- interface: cli
+- limits:
+  - volume-quota: no byte cap or transfer allowance is published for any plan; the pricing section lists time (10-minute free trial) and tunnel count (up to 5 active tunnels per user on Pro/Teams) and refers higher volume to the vendor [1]
+- binding note: No byte cap is published, so no byte volume binds. What ends a free tunnel is the 10-minute trial window, a time limit that the limits vocabulary has no kind for.
+- interface detail: tunnelto --port 8000
+- tooling: part of interface detail
+- composes with: composes with an origin and no domain, and with nothing that needs a published quota.
+- reliability: no byte cap is published and limits are set per plan on the pricing section; the terms reserve the right to bill overages, cancel a plan or revoke access when plan limits are not maintained
+- notes: Open-source reverse tunnel tool written in Rust. Free service provides random public subdomains without published bandwidth caps.
+- extras:
+  - stale_after_days: 180
+  - bytes_transit: yes
+  - transit_note: the tunnel relays the origin's bytes
+  - ingress: http-only
+- evidence:
+  - [1] 2026-10-22: the free install line and the USD 4/month pricing block
+  - probe:https://www.tunnelto.dev/pricing 2026-10-22: the standalone /pricing path returns 404; the pricing block lives on the landing page under an anchor
+  - [1] 2026-10-23: 'your local port gets a secure https://<subdomain>.tunnelto.dev address'
+  - [1] 2026-11-03: the Free plan on the pricing section is a 10-minute free trial on a random <name>.tunn.dev subdomain; Pro/Teams is USD 4 per user per month with no time limit, up to 20 custom subdomains and up to 5 active tunnels per user | capture: sha256:c06712830b4b12dea89a48c310e8475c77963add3d396763fb7089e0dfe966d5 | quote: 10-minute free trial
+  - [1] 2026-11-03: volume above the listed plans is handled by contacting the vendor and no byte figure is given | capture: sha256:c06712830b4b12dea89a48c310e8475c77963add3d396763fb7089e0dfe966d5 | quote: Higher volume? [Contact us](mailto:support@tunnelto.dev).
+  - [1] 2026-11-03: no byte figure is published and higher volume is referred to the vendor | capture: sha256:c06712830b4b12dea89a48c310e8475c77963add3d396763fb7089e0dfe966d5 | quote: Higher volume? [Contact us](mailto:support@tunnelto.dev).
+  - [2] 2026-11-03: the terms tie enforcement to plan limits and state no byte figure | capture: sha256:ddd5ca87e5c798e95af2264aff5004f01e3b87135dede4a1cf5f0267cb33b2dd | quote: tunnelto.dev reserves the right to bill overages, cancel your plan, or revoke access if limits are not maintained.
+- sources:
+  - [1] https://www.tunnelto.dev/
+  - [2] https://tunnelto.dev/legal/terms
+
+## VPN Jantit Free SSH Singapore
+
+- `egress/vpnjantit-ssh-singapore` | trial-only | evidence documented | binding retention-clamped | category ssh tunnel account (hosted, Singapore) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://www.vpnjantit.com/free-ssh-singapore | page https://fshy.ajam.dev/p/vpnjantit.md
+- price USD 0
+- free tier: 'Free SSH Tunnel Singapore Servers. Support for Windows, Android, Linux, Iphone etc. Active up to 7 days with unlimited bandwidth.' | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 'unlimited bandwidth' per the page description; the accounts themselves are 'Active 1 Days' on the Singapore 1 and 5 servers, against 'up to 7 days' in the overview.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: The page offers 'Create Username SSH Tunnel' and the site description says 'create username and password whatever you want'; no email confirmation is described on the page read. | country: None
+- interface: ssh
+- limits:
+  - retention-clamped (binding): 'Active 1 Days' on the Singapore 1 and 5 servers; 'up to 7 days' in the overview [1]
+- binding note: Bandwidth is stated unlimited, so volume does not bind. The one-day account life binds first, and the ingress test is not passed at all: the account is an outbound proxy, and SSH remote forwarding would need GatewayPorts enabled on the provider's host, which the page does not state.
+- interface detail: 'Port 22(OpenSSH)', '81,444-SSL(Dropbear)', 'Support UDP CUSTOM port 1-65535', 'Support SlowDNS', 'WebSocket CDN (Port 80)', '446,7200 BADVPN UDPGW'.
+- tooling: any SSH client; Dropbear on 81 and 444, SlowDNS, WebSocket on 80, BADVPN UDPGW on 7200 and 446
+- composes with: A one-day Singapore SSH account is a cheap way to test whether SSH remote forwarding is permitted, which would make it an ingress path that needs no card and no VM.
+- reliability: Accounts reset daily at 21:00 GMT+7 and some servers are full; torrent is refused; the offering is ad-funded with affiliate links to DigitalOcean and Vultr.
+- notes: The second Singapore data point and the cheaper shape of the same idea: a free SSH login on a DigitalOcean or Vultr host in Singapore, no email, one day. It is an outbound proxy. The interesting untested question is whether the host permits SSH remote forwarding, which would turn a free account into a TCP ingress without local hardware; that is a probe, not a read. Country of endpoint: Singapore. Operator: the same Indonesian account-generator network class as OpenTunnel. Several Singapore servers showed 'Server Full' at read time.
+- evidence note: Hosts, ports, account life and the unlimited-bandwidth sentence are on the page read on 2026-10-23.
+- extras:
+  - wg_path: none
+  - wg_detail: An SSH login on a public Singapore address, not a WireGuard peer: no .conf is issued and the host is not controlled, so no WireGuard interface can be created on the far side.
+  - ingress: none
+  - volume_stated: 'unlimited bandwidth' per the page description; the accounts themselves are 'Active 1 Days' on the Singapore 1 and 5 servers, against 'up to 7 days' in the overview.
+  - bytes_transit: yes
+  - transit_note: A rented Singapore host (the page names DigitalOcean and Vultr) carries the bytes.
+- evidence:
+  - [1] 2026-10-23: 'Free SSH Tunnel Singapore Servers', 'Active up to 7 days with unlimited bandwidth', 'Free SSH Tunnel will reset at 21:00 GMT+7'.
+  - [1] 2026-10-23: Server Singapore 1: 'sg1.vpnjantit.com', 'Port 22(OpenSSH)', 'Support UDP CUSTOM port 1-65535', 'BADVPN UDPGW', 'Active 1 Days', 'Provider DIGITALOCEAN'.
+- sources:
+  - [1] https://www.vpnjantit.com/free-ssh-singapore
+
+## Vultr (free)
+
+- `egress/vultr` | trial-only | evidence unverified | binding volume-quota | category trial credit (provider VM) | tier free
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T12:11:59.479Z (live) | stale on 2026-11-19
+- url https://www.vultr.com/pricing/ | page https://fshy.ajam.dev/p/vultr.md
+- price credit amount unverified
+- free tier: Vultr offers free credits for up to 30 days for you to try our services. | unit: mixed | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: Instances bundle a monthly bandwidth quota; bandwidth used in excess of the quota is billed at USD 0.01 per GB. The free-credit amount is not stated on the pages read. | metered: no | free allowance: none published | source: [2]
+- identity: card | detail: Add a payment method for verification purposes. Credit card linking allows verification with a $0.00 deposit. | country: None
+- interface: cli, rest
+- limits:
+  - volume-quota (binding): free credits for up to 30 days, amount unstated on the pages read [1]
+- binding note: the credit amount is the unknown, so what fails first at 1 TiB a month cannot be named. The bundled bandwidth of 2 to 10 TB a month per instance would clear the test on its own if the bundle is the thing being counted.
+- interface detail: the Vultr API and CLI
+- tooling: wg-quick on the instance; the Vultr CLI or API
+- composes with: one instance for 30 days; the bundle, not the credit, is the part that would carry volume
+- reliability: Credits are offered for up to 30 days.
+- notes: Arithmetic cannot be finished: with no credit amount read, the TB the credit buys is unknown. Candidate considered: the per-plan bandwidth bundle, which is documented on the pricing page and does not need a credit at all; the page states the overage rate of USD 0.01 per GB.
+- evidence note: the $250 figure appears only in a search snippet of docs.vultr.com; the page itself renders without it.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: a Cloud Compute instance with a public IPv4; wg-quick binds UDP natively
+  - ingress: udp
+  - volume_stated: the credit amount is not stated on any page read; instances bundle a monthly bandwidth quota, and bandwidth used in excess of the quota is billed at USD 0.01 per GB
+  - bytes_transit: yes
+  - transit_note: outbound bytes cross Vultr's network and draw on the plan's bandwidth allowance
+- evidence:
+  - [1] 2026-10-23: 'Vultr offers free credits for up to 30 days for you to try our services' and 'Add a payment method of your choice for verification purposes'
+  - [2] 2026-10-23: '1 vCPU 2 GB Memory 2.00 TB Bandwidth ... $10.00/mo', with plans listing 2.00 to 10.00 TB Bandwidth; note the origin returned 403 and the text came from the cache
+  - [2] 2026-11-04: bandwidth beyond the instance quota is billed at USD 0.01 per GB | capture: sha256:3d5af8c23f63c17c4e4fe7fe4b5eb752aca0e479f7c7eb0b0e462c66c8520cf9 | quote: We charge $0.01 per GB for bandwidth used in excess of your quota.
+  - [1] 2026-11-04: free credits last up to 30 days | capture: sha256:2071f20d38ef11dbe2b3afaf81ab1966b627f476e7a53e4691a8a3abab163c8f | quote: Vultr offers free credits for up to 30 days for you to try our services.
+  - [2] 2026-11-04: the pricing page was read and states the overage rate of USD 0.01 per GB | capture: sha256:3d5af8c23f63c17c4e4fe7fe4b5eb752aca0e479f7c7eb0b0e462c66c8520cf9 | quote: We charge $0.01 per GB for bandwidth used in excess of your quota.
+- sources:
+  - [1] https://docs.vultr.com/platform/create-an-account
+  - [2] https://www.vultr.com/pricing/
+
+## wstunnel demo relay
+
+- `egress/wstunnel-demo` | trial-only | evidence unverified | binding write-gated | category udp port forward (demo relay, open-source client) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:52:58.387Z (live) | stale on 2026-11-19
+- url https://github.com/erebe/wstunnel | page https://fshy.ajam.dev/p/github-erebe.md
+- price USD 0
+- free tier: You can give it a try with wstunnel demo server | unit: none | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: no allowance published for the demo relay; it is described as a way to check that you can bypass a proxy, not as a service; ingress: udp | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: the demo takes a shared password: '-P demo' with wss://ws.erebe.dev, no account | country: None
+- interface: cli
+- limits:
+  - write-gated (binding): the demo server allowlists one tunnel: 'The tunnel is the only one that is going to be allowed.' [1]
+- binding note: The demo relay's allowlist is the first thing that fails, before any byte count: the documented example is a single fixed TCP forward, so a reverse UDP binding is not established to be permitted at all.
+- interface detail: Documented demo example: wstunnel client -L 'tcp://4443:10.43.0.11:443' -P demo --tls-sni-override=google.fr wss://ws.erebe.dev. Reverse UDP form (client usage, not shown with the demo): -R 'udp://1212:1.1.1.1:53'.
+- tooling: wstunnel static binary
+- composes with: wstunnel -R udp://51820 on any free VM, or the demo relay if it permits the binding; this is the shape that composes with a free compute lane
+- reliability: a shared demo endpoint with no stated capacity; the operator can withdraw it without notice
+- notes: The wstunnel client is genuinely capable of a reverse UDP port and is the standard tool for carrying WireGuard over TCP 443. The free part is the demo relay, which is explicitly a courtesy. A self-run wstunnel server removes the courtesy limit but needs a VM of the user's own, so it is the last resort.
+- evidence note: Unverified because the demo's UDP permission was not tested and its capacity is unpublished.
+- self hosted: no
+- extras:
+  - wg_path: inside-udp
+  - wg_detail: the client carries raw UDP both ways and reverse mode binds a port on the server: 'udp://1212:1.1.1.1:53 => listen on server for incoming udp on port 1212 and forward to cloudflare dns 1.1.1.1 on port 53 from local machine'. Whether the shared demo relay at wss://ws.erebe.dev permits a reverse UDP binding is not documented.
+  - ingress: udp
+  - volume_stated: no allowance published for the demo relay; it is described as a way to check that you can bypass a proxy, not as a service
+  - bytes_transit: yes
+  - transit_note: the wstunnel server unwraps the websocket and emits the datagrams
+- evidence:
+  - [1] 2026-10-23: the demo server, the -P demo shared password, the allowlist sentence, and the -R udp:// reverse UDP form in the client usage block
+  - [1] 2026-10-23: repository metadata: 'Tunnel all your traffic over Websocket or HTTP2 - Bypass firewalls/DPI', public, not archived
+  - [1] 2026-11-03: the README's demo example is a local-to-remote TCP forward with the shared password demo | capture: sha256:5d0df32b0aa8468f1688fdaefc9633bbc56e016f357303bbfd4b38ec453f888c | quote: wstunnel client -L 'tcp://4443:10.43.0.11:443' -P demo --tls-sni-override=google.fr wss://ws.erebe.dev
+  - [1] 2026-11-03: the README offers a demo server for trying the tunnel | capture: sha256:5d0df32b0aa8468f1688fdaefc9633bbc56e016f357303bbfd4b38ec453f888c | quote: You can give it a try with wstunnel demo server.
+  - [1] 2026-11-03: the README's demo example says the one tunnel is the only one allowed | capture: sha256:5d0df32b0aa8468f1688fdaefc9633bbc56e016f357303bbfd4b38ec453f888c | quote: The tunnel is the only one that is going to be allowed.
+  - [1] 2026-11-04: the README says the demo relay allows only the one documented tunnel | capture: sha256:9b62e462d31565682d1f90eab8d08ef210525dd375287d219dfadc25312a200f | quote: The tunnel is the only one that is going to be allowed.
+  - probe:ws.erebe.dev 2026-11-04: the demo host completes a TLS 1.3 handshake on 2026-11-04 presenting a self-signed certificate | capture: sha256:ad0eba00d3842bb79140ee4c9590655ca07255cc355609030f2356bd3d727b32 | quote: "verify_message": "self-signed certificate"
+- sources:
+  - [1] https://github.com/erebe/wstunnel

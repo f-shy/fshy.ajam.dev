@@ -1,0 +1,237 @@
+# fshy: Data APIs, paid only
+
+> Data APIs with free calls, and their bulk downloads: maps, IP location, markets, weather, news and open data.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/data-apis/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## Associated Press (AP Media API)
+
+- `data-apis/associated-press-media-api` | paid-only | evidence documented | binding write-gated | category licensed news content API | tier Contract plan
+- needs card no, phone no, ID no, institution yes | verified 2026-11-03T01:13:17.308Z (live) | stale on 2026-12-04
+- url https://developer.ap.org/ap-media-api/ | page https://fshy.ajam.dev/p/ap.md
+- free tier: a sandbox mode lets a key holder try the API before a contract with demo content, no main renditions and no billing. | unit: none | metered on: unstated | read on: 2026-11-02 | source: [1] | note: Content item prices come from the plan of the contract and are returned on request; a plan meters downloads in meter ticks or credits. The sandbox mode serves demo content only and the same API key opens every mode the account may use; how a key is obtained before a contract is unverified: behind a sales contact.
+- per-object cap: not stated; search reaches 30 days of content and the feed up to the last 72 hours, depending on the contract | source: [2]
+- retention: search covers 30 days of content plus the archive of pictures, video, audio and graphics the contract allows; the feed and the agent reach back 72 hours | days: 30 | source: [2]
+- egress: not applicable to the API answers; a content item has a price or a count against the plan meter | metered: yes | source: [3]
+- identity: institution | detail: Access follows a contract with AP sales or licensing for B2B use; the pages describe no self-serve sign-up, so the exact registration steps are unverified: behind a sales contact.
+- interface: rest
+- limits:
+  - request-rate: unverified: quotas limit the calls per minute and per day of an API key and their size is read with an account call that needs a key [4]
+  - write-gated (binding): an API key and the content rights come from a contract with AP sales or licensing [1]
+- binding note: Nothing is served without a key that a contract provides, so the contract gate binds before any rate.
+- interface detail: REST over HTTPS at api.ap.org/media (content feed, search, item, account plans and quotas) with an OpenAPI file and an API explorer; the key goes in the x-api-key header; an AP Media Agent downloads a continuous feed
+- endpoint: https://api.ap.org/media/v/content/feed
+- tooling: any HTTP client; the AP Media Agent
+- composes with: Text, picture, graphic, video and audio items with AP metadata and curated links; the delivery is B2B into a content ingestion system or CMS.
+- reliability: A keyless call answered HTTP 401 Supply a valid apikey; over the quota the API answers 429 and content can be delayed.
+- notes: Storage: no general storage or caching figure is on the pages read; each item carries its own usage restrictions in its metadata. Bulk path: the feed and the AP Media Agent deliver a continuous stream of the last 72 hours, and search reaches 30 days, both within the contract. Free option: none found.
+- evidence note: Key, quota and delivery facts are read from first-party help pages; the price, any trial and the quota sizes are behind a sales contact and unverified.
+- evidence:
+  - [1] 2026-11-02: the content available depends on the contract | capture: sha256:5cd6e77b462c55a1bc4b2e38210fe3a103c0a6638d9fdcd34bb1ef4f38892e8b | quote: AP Media API supports the same content as [AP Newsroom](https://newsroom.ap.org/), depending on your contract terms.
+  - [1] 2026-11-02: content item pricing follows the contract | capture: sha256:5cd6e77b462c55a1bc4b2e38210fe3a103c0a6638d9fdcd34bb1ef4f38892e8b | quote: [Content item pricing](https://api.ap.org/media/v/docs/Pricing.htm) based on your contract is returned upon request.
+  - [1] 2026-11-02: requests are subject to per-minute and per-day quotas | capture: sha256:5cd6e77b462c55a1bc4b2e38210fe3a103c0a6638d9fdcd34bb1ef4f38892e8b | quote: API requests are subject to quotas, which limit the number of calls per minute and/or per day.
+  - [2] 2026-11-02: search covers 30 days of content plus the archive, depending on the contract | capture: sha256:05d497536bdd5833b1c772a875d11db8ffdaee1dbae864a00fb02a35dcf338a7 | quote: The AP Media API Search method provides programmatic access to 30 days of content, as well as the full library of current and archive picture, video, audio and graphics content; depending on your contract terms.
+  - [2] 2026-11-02: the feed reaches back up to 72 hours | capture: sha256:05d497536bdd5833b1c772a875d11db8ffdaee1dbae864a00fb02a35dcf338a7 | quote: The AP Media API Feed method and the AP Media Agent allow downloading content up to the last 72 hours; depending on your contract terms.
+  - [2] 2026-11-02: the API is designed for B2B integration with content ingestion systems | capture: sha256:05d497536bdd5833b1c772a875d11db8ffdaee1dbae864a00fb02a35dcf338a7 | quote: No, AP Media API is designed for B2B (Business-to-Business) integration with your content ingestion systems or CMSs.
+  - [2] 2026-11-02: an API key is required for every call | capture: sha256:05d497536bdd5833b1c772a875d11db8ffdaee1dbae864a00fb02a35dcf338a7 | quote: An API key is required for making AP Media API calls.
+  - [4] 2026-11-02: going over the quota answers HTTP 429 | capture: sha256:9d638cf5b7ba2d021bbdff061f4be5f578191c9a7688e70d5ae683a99daea542 | quote: If you exceed your quota limit, you will receive a [429 error code](https://api.ap.org/media/v/docs/API_Codes.htm#429_Status_Code).
+  - [3] 2026-11-02: a content item can be included in the plan or priced at an extra charge | capture: sha256:eb66ba54427929408d5c411d9f83386d63749e73e28b5f2595fee92a6c92cfa6 | quote: | Not Included in Your Plan (Extra Charge) | 851 | All plans | Not included in your plan. Available for an extra charge. |
+  - probe:https://api.ap.org/media/v/content/feed 2026-11-03: a keyless call answers HTTP 401 Supply a valid apikey | capture: sha256:bb60448d92d49f1f740e0cd383ef773744b5e2d7ba744833a6327dc3311ac718 | quote: "message":"Supply a valid apikey"
+  - [5] 2026-11-03: a sandbox mode exists for trying the API before a contract is signed | capture: sha256:fa41f7a999d8e03b1429ac5b0271f8fd42629bb1727d474f68bfa511bd4509e4 | quote: Sandbox mode allows you to try out the API before you sign a contract with the AP.
+  - [5] 2026-11-03: sandbox downloads are not billed | capture: sha256:fa41f7a999d8e03b1429ac5b0271f8fd42629bb1727d474f68bfa511bd4509e4 | quote: No billing. Downloads in the sandbox mode do not incur any charges.
+  - [5] 2026-11-03: sandbox gives no main renditions, only demo content | capture: sha256:fa41f7a999d8e03b1429ac5b0271f8fd42629bb1727d474f68bfa511bd4509e4 | quote: Restricted downloads. The main renditions of a content item (for example, high-resolution images) are not available for download in the sandbox mode.
+  - [5] 2026-11-03: one API key opens every mode the account is permitted | capture: sha256:fa41f7a999d8e03b1429ac5b0271f8fd42629bb1727d474f68bfa511bd4509e4 | quote: You can use the same API key to access all of the modes that you are allowed to use.
+- sources:
+  - [1] https://api.ap.org/media/v/docs/Getting_Started_API.htm
+  - [2] https://api.ap.org/media/v/docs/FrequentlyAskedQuestions.htm
+  - [3] https://api.ap.org/media/v/docs/Pricing_Information.htm
+  - [4] https://api.ap.org/media/v/docs/Quota_Limits.htm
+  - [5] https://api.ap.org/media/v/docs/Access_Modes.htm
+
+## Econdb
+
+- `data-apis/econdb` | paid-only | evidence documented | binding write-gated | category economic and shipping data API (macro time series, ports, vessels) | tier Subscription
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T00:30:00.000Z (live) | stale on 2026-12-04
+- url https://www.econdb.com/pricing/ | page https://fshy.ajam.dev/p/econdb.md
+- free tier: No free API: the website allows 15 free views a day; the USD 400 a year subscription includes CSV downloads and API access | unit: none | metered on: none | read on: 2026-11-02 | source: [1] | note: The API docs (released 29 July 2025) require a token in the Authorization header. Keyless calls to both the legacy series endpoint and the v1 ports endpoint answered HTTP 401. Whether a free account can mint a token is unverified: behind a sign-up.
+- per-object cap: not stated | source: [1]
+- retention: not applicable | note: Port calls, congestion, dwell and throughput are available from 2022 onwards.
+- egress: not metered in bytes; no request quota is stated | metered: no | source: [1]
+- identity: email | detail: The account form takes an optional email, a username and a password, or Google sign-in; no card on the form. The paid API needs a payment.
+- interface: rest
+- limits:
+  - write-gated (binding): API access is part of the USD 400 a year subscription; keyless calls answer 401 [1]
+- limits note: Bulk path: CSV downloads are part of the subscription; Enterprise offers bulk files and feeds. Storage terms: unverified, the terms page answered HTTP 404.
+- binding note: A paid subscription, not a request count, stands between a caller and the API.
+- interface detail: GET https://api.econdb.com/v1/... with Authorization: Token KEY
+- endpoint: part of interface detail
+- tooling: curl or any HTTP client; Python and R clients are published
+- composes with: Macro series and port data need a paid token here; FRED and Fiscal Data give macro series with a free key or none.
+- reliability: Keyless calls answer HTTP 401 Authentication credentials were not provided.
+- notes: API needs a paid token; the free tier is website views only. Bulk path: Enterprise. Storage terms: unverified.
+- evidence note: Plan and API terms are read from the vendor pages; two keyless probes answered 401; the free account's token rights were not read.
+- extras:
+  - bulk_path: CSV exports on the subscription; bulk files on Enterprise
+- evidence:
+  - [1] 2026-11-02: 15 free views a day on the website | capture: sha256:0269846ad3a3bef8737e787ca023a3bac61185fe9b8e8bd665c54649c064a824 | quote: You've used 0 of 15 free views today.
+  - [1] 2026-11-02: the subscription is USD 400 a year | capture: sha256:0269846ad3a3bef8737e787ca023a3bac61185fe9b8e8bd665c54649c064a824 | quote: $400per year
+  - [1] 2026-11-02: API access comes with the subscription | capture: sha256:0269846ad3a3bef8737e787ca023a3bac61185fe9b8e8bd665c54649c064a824 | quote: The subscription includes chart CSV exports and API access.
+  - [1] 2026-11-02: Enterprise offers bulk files or feeds | capture: sha256:0269846ad3a3bef8737e787ca023a3bac61185fe9b8e8bd665c54649c064a824 | quote: Bulk files or recurring feeds delivered to your systems.
+  - [2] 2026-11-02: the API was released on 29 July 2025 and uses a token | capture: sha256:a0c9344ccedf1a40ba5adc4d9ecab6f4ffc73d4dc889348ef3cb0bd601471e9b | quote: Released on July 29, 2025, the
+  - [3] 2026-11-02: the account form takes an optional email, a username and a password | capture: sha256:aa0bcd605fe9a25b26b211cddb10412599cf390b9e0bc8396538929a36a83ec1 | quote: Email (optional):
+  - probe:https://api.econdb.com/v1/ports/ 2026-11-02: a keyless v1 call answered HTTP 401 | capture: sha256:f95e70533f8c5d1fb44e54fe939fba26064f6395598b3c61df081580e0e641bb | quote: "status": 401
+  - probe:https://www.econdb.com/api/series/RGDPUS/?format=json 2026-11-02: a keyless legacy series call answered HTTP 401 | capture: sha256:bbd9ca0c7216c8fec3f9a72e79f21cfe940dbf20d05e483a72c82668b55154bd | quote: "status": 401
+- sources:
+  - [1] https://www.econdb.com/pricing/
+  - [2] https://developers.econdb.com/docs/
+  - [3] https://www.econdb.com/accounts/signup/
+
+## geoPlugin
+
+- `data-apis/geoplugin` | paid-only | evidence documented | binding volume-quota | category IP geolocation API | tier Basic
+- needs card yes, phone no, ID no, institution no | verified 2026-11-02T00:23:42.369Z (live) | stale on 2026-12-03
+- url https://www.geoplugin.com/pricing | page https://fshy.ajam.dev/p/geoplugin.md
+- free tier: No free plan: the legacy keyless service at geoplugin.net answers HTTP 403 and says the API is no longer available for free use; the pricing page says there is no free trial and the cheapest plan, Basic, allows 100 requests a day at USD 10 a month. | unit: none | metered on: none | read on: 2026-11-02 | source: [1] | note: Basic is shown as USD 10 a month, or USD 8 a month with the annual option; Starter is USD 25 (1,000 a day), Professional USD 50 (5,000 a day), Business USD 100 (20,000 a day) and Enterprise USD 200 (100,000 a day), each with a cheaper annual price.
+- per-object cap: not stated
+- retention: not stated for the keyed API | source: [2]
+- egress: not applicable | metered: no | source: [1]
+- identity: card | detail: registration takes an email address and a password (full name optional) or Google sign-in; every API plan is paid by card or PayPal, and there is no free plan or trial
+- interface: rest
+- limits:
+  - volume-quota (binding): 100 requests a day on the Basic plan, reset at midnight UTC; cached responses do not count [1]
+- binding note: The plan's daily count is the only stated limit for the keyed API; past it calls continue but may be throttled.
+- interface detail: GET https://api.geoplugin.com/?ip=ADDRESS&auth=KEY and GET https://api.geoplugin.com/me?auth=KEY, with an optional lang parameter; JSON with geoplugin_* fields; a call with no key answers HTTP 400 No API key provided; the legacy http://www.geoplugin.net/json.gp answers HTTP 403
+- endpoint: part of interface detail
+- tooling: any HTTP client
+- composes with: No free route: the cheapest keyed plan is Basic, 100 requests a day for USD 10 a month, and cached responses do not count against the daily limit. Bulk path: none stated
+- reliability: Third-party reports of the same 403 message date from 2025-09-01.
+- notes: Free requests: none; the legacy free endpoint answers HTTP 403. Rate limit: no per-minute limit is stated for the keyed API; the daily count is 100 on Basic. Not stated for the keyed API. Bulk path: none stated.
+- evidence note: The legacy endpoint's HTTP 403 answer was read through a fetch, and a keyless call to the keyed API answered HTTP 400. Two third-party reports (2025-09-01 and 2026-02-22) give the same 403 message. No keyed lookup was made.
+- extras:
+  - bulk_path: none stated
+  - free_requests: none
+- evidence:
+  - [3] 2026-11-02: the legacy geoplugin.net endpoint answers HTTP 403 | capture: sha256:4a84e09ff0e31e55e2e40c090505c5d80acd320dcae2cb0c30e64c7ee09d1162
+  - [3] 2026-11-02: the legacy endpoint states that the API is no longer available for free use | capture: sha256:4a84e09ff0e31e55e2e40c090505c5d80acd320dcae2cb0c30e64c7ee09d1162 | quote: geoPlugin API is no longer available for free use. To continue access, please upgrade to a paid plan
+  - [4] 2026-11-02: a third-party forum thread was created on 2025-09-01 | capture: sha256:fccb67c2f3520f05cface61c84b5a5897126a0e47222011bc50ce662fb3e39a5 | quote: [September 1, 2025, 2:05am UTC]
+  - [4] 2026-11-02: that thread reports the geoPlugin message that the API is no longer available for free use, so the free service had closed by 2025-09-01 | capture: sha256:fccb67c2f3520f05cface61c84b5a5897126a0e47222011bc50ce662fb3e39a5 | quote: is no longer available for free use. To continue access, please upgrade to a paid plan by clicking
+  - [5] 2026-11-02: a third-party issue was opened on 2026-02-22 | capture: sha256:f6bebd837295ff871d2d4578f16bda81a83051162cd5885a0454ef2575d30f22 | quote: opened on Feb 22, 2026
+  - [5] 2026-11-02: that issue shows the same HTTP 403 JSON answer from geoplugin.net/json.gp | capture: sha256:f6bebd837295ff871d2d4578f16bda81a83051162cd5885a0454ef2575d30f22 | quote: "geoplugin_message": "geoPlugin API is no longer available for free use. To continue access, please upgrade to a paid plan",
+  - [1] 2026-11-02: there is no free trial and the cheapest plan allows 100 requests a day | capture: sha256:9fce0c89d507f15990c5b2a3aba75556a624db661313db1feaae48cba2b16fd3 | quote: While we don't offer a free trial, our Basic plan provides an affordable way to test our services with 100 daily requests. You can upgrade at any time once you're ready to scale.
+  - [1] 2026-11-02: Basic is shown at 10 and 8 a month for 100 requests a day | capture: sha256:79226bdaa8bd0204807df9965facd9809556df459514ae95cc27e3d7d1517b88 | quote: $ 10 8 /mo 100 requests/day
+  - [1] 2026-11-02: the page has a monthly and an annual option, the annual one saving 20% | capture: sha256:973eba5bff01225637583addd82bf6e1bef1b571675046d93b9511340b2a1ab2 | quote: Monthly Annual Save 20%
+  - [1] 2026-11-02: Starter is 25 and 20 a month for 1,000 requests a day | capture: sha256:79226bdaa8bd0204807df9965facd9809556df459514ae95cc27e3d7d1517b88 | quote: $ 25 20 /mo 1,000 requests/day
+  - [1] 2026-11-02: Professional is 50 and 40 a month for 5,000 requests a day | capture: sha256:79226bdaa8bd0204807df9965facd9809556df459514ae95cc27e3d7d1517b88 | quote: $ 50 40 /mo 5,000 requests/day
+  - [1] 2026-11-02: Business is 100 and 80 a month for 20,000 requests a day | capture: sha256:79226bdaa8bd0204807df9965facd9809556df459514ae95cc27e3d7d1517b88 | quote: $ 100 80 /mo 20,000 requests/day
+  - [1] 2026-11-02: Enterprise is 200 and 160 a month for 100,000 requests a day | capture: sha256:79226bdaa8bd0204807df9965facd9809556df459514ae95cc27e3d7d1517b88 | quote: $ 200 160 /mo 100,000 requests/day
+  - [1] 2026-11-02: the daily limit resets at midnight UTC and cached responses do not count | capture: sha256:9fce0c89d507f15990c5b2a3aba75556a624db661313db1feaae48cba2b16fd3 | quote: Request limits are calculated on a daily basis and reset at midnight UTC. Each API call to our geolocation service counts as one request. Cached responses do not count against your limit.
+  - [1] 2026-11-02: past the daily limit calls continue but may be throttled | capture: sha256:9fce0c89d507f15990c5b2a3aba75556a624db661313db1feaae48cba2b16fd3 | quote: If you exceed your daily request limit, API calls will continue to work but may be throttled.
+  - [1] 2026-11-02: plans are paid by card or PayPal | capture: sha256:9fce0c89d507f15990c5b2a3aba75556a624db661313db1feaae48cba2b16fd3 | quote: We accept all major credit cards (Visa, MasterCard, American Express, Discover) as well as PayPal.
+  - [1] 2026-11-02: the closing button of the pricing page is labelled Start Free Trial and links to the registration page | capture: sha256:79226bdaa8bd0204807df9965facd9809556df459514ae95cc27e3d7d1517b88 | quote: [Start Free Trial](https://www.geoplugin.com/auth/register)
+  - [6] 2026-11-02: the documented API needs an API key from the developer dashboard | capture: sha256:1c129d78551a9b14671fd58094b5ddb9081a442d93300e80627bbf909a9b2f73 | quote: GeoPlugin uses API keys to allow access to the API. You can register a new GeoPlugin API key at our [Developer Dashboard.](https://www.geoplugin.com/account)
+  - [6] 2026-11-02: the documented request URL carries the key in the auth parameter | capture: sha256:1c129d78551a9b14671fd58094b5ddb9081a442d93300e80627bbf909a9b2f73 | quote: https://api.geoplugin.com/?ip=X.X.X.X&auth=YOUR_API_KEY_HERE
+  - [7] 2026-11-02: registration takes an optional full name, an email address and a password | capture: sha256:30878392a9c30cfcb2a72923f067ccc23b75999caa68840c5f3f82cd4b76b64d | quote: Full Name (Optional)Email AddressPassword
+  - [7] 2026-11-02: Google sign-up is offered | capture: sha256:30878392a9c30cfcb2a72923f067ccc23b75999caa68840c5f3f82cd4b76b64d | quote: Sign Up with Google
+  - [8] 2026-11-02: the pricing blurb on the JSON web service page says no credit card is required | capture: sha256:c4661d16e6c3f04e736c2fd2f33ac770ea17678a906554c207eb6f4a14995f03 | quote: No credit card required
+  - [2] 2026-11-02:  | capture: sha256:9c420c9cf634ea6dcf80bd6806d82d607a634c71bfb9acc64b225597b0d4d447 | quote: or by saving the data obtained from lookups for greater than 24 hours.
+  - [2] 2026-11-02:  | capture: sha256:9c420c9cf634ea6dcf80bd6806d82d607a634c71bfb9acc64b225597b0d4d447 | quote: Greater than 120 API requests per minute will get you blacklisted for 1 hour, during which time you will receive a “429 Too Many Requests” response.
+  - [9] 2026-11-02: the FAQ still describes the free lookup limit of 120 requests a minute | capture: sha256:34f3523b0d223ee66c954ce84904c7ce1c348d01b8725b83598f31660cd368fe | quote: If geoplugin.net was responding perfectly, then stopped, then you have gone over the free lookup limit of 120 requests per minute.
+  - [10] 2026-11-02: the home page still says no API key is required | capture: sha256:9ab4f423c34805ef5daed55299c1aaa2d7f2d6b02886e6c1f4b22a0fabb2a843 | quote: No API key required.
+  - probe:https://api.geoplugin.com/?ip=8.8.8.8 2026-11-02: a keyless call to api.geoplugin.com answered HTTP 400 | capture: sha256:8cd0d4e5d1e34f3401d8f731881f0d5f25733750bd02327a32dea295027085f3 | quote: "status": 400
+  - probe:https://api.geoplugin.com/?ip=8.8.8.8 2026-11-02: the keyed API answers No API key provided to a call with no key | capture: sha256:e863bad2161bc1332a51a005768ff5272f4674febbf8881a376dbfb80f1eaf9b | quote: {"error":"No API key provided."}
+- sources:
+  - [1] https://www.geoplugin.com/pricing
+  - [2] https://www.geoplugin.com/aup
+  - [3] http://www.geoplugin.net/json.gp?ip=8.8.8.8
+  - [4] https://forums.concretecms.org/t/geolocation-service-is-discontinued/9403
+  - [5] https://github.com/viking-gps/viking/issues/357
+  - [6] https://www.geoplugin.com/docs
+  - [7] https://www.geoplugin.com/auth/register
+  - [8] https://www.geoplugin.com/webservices/json
+  - [9] https://www.geoplugin.com/faq
+  - [10] https://www.geoplugin.com/
+
+## Messari (Blockworks Data API)
+
+- `data-apis/messari` | paid-only | evidence documented | binding write-gated | category crypto market and onchain data API (assets, protocols, exchanges, timeseries) | tier Free
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T00:30:00.000Z (live) | stale on 2026-12-04
+- url https://docs.blockworks.com/getting-started/authentication | page https://fshy.ajam.dev/p/blockworks.md
+- free tier: No free market-data allowance found: every call needs an API key, the Free plan lists no Assets endpoints, and most models need a paid plan; models of the unpaid access tier work with any valid key, and the docs do not list them | unit: none | metered on: none | read on: 2026-11-02 | source: [1] | note: The Data API enforces no rate limit and caches answers for 30 minutes. A keyless call to the tabular assets model answered HTTP 401 although the quickstart calls that model public; the legacy api.messari.io v1 endpoint answered 403 invalid auth mechanism. The Pro plan opens only the Assets endpoints; its price is not on the page.
+- per-object cap: not stated | source: [1]
+- retention: not applicable
+- egress: not metered in bytes | metered: no | source: [1]
+- identity: email | detail: A key is made in an account at app.blockworks.com; the sign-up form was not read, so what it asks is unverified: behind a sign-up.
+- interface: rest
+- limits:
+  - write-gated (binding): paid or permission-gated access: a free-plan key answers 403 on models of the paid tier [1]
+- limits note: Bulk path: the legacy Bulk API gave CSV or JSONL downloads by subscription tier; the current Datashares are sales-gated. Storage terms: unverified. Rate limit: none enforced by the Data API; the legacy docs gave 200 requests a minute for unpaid keys.
+- binding note: Access to a model, not a request count, decides what a free key can read.
+- interface detail: GET https://api.blockworks.com/query/tabular/... and /query/timeseries/... with the X-Blockworks-API-Key header; the legacy x-messari-api-key header is still accepted
+- endpoint: part of interface detail
+- tooling: curl or any HTTP client; an MCP server, warehouse Datashares and spreadsheet plugins are sales-gated
+- composes with: Crypto market data from here needs a paid plan; CoinPaprika and CoinLore give keyless prices, DefiLlama keyless DeFi metrics.
+- reliability: A keyless call answered HTTP 401 on the assets model the quickstart calls public; the legacy host answered 403.
+- notes: No keyless route; a free key reaches only unpaid-tier models. Bulk path: sales-gated. Storage terms: unverified.
+- evidence note: Access tiers and the pricing table are first-party; the keyless 401 contradicts the quickstart; the free key was not exercised.
+- extras:
+  - bulk_path: legacy Bulk API by tier; Datashares by sales
+- evidence:
+  - [1] 2026-11-02: unpaid-tier models work with any valid key | capture: sha256:1359bc90b5da1124b6cd4de373205c29e73e681201da5307235baaf6a7beefe2 | quote: Any request that carries a valid API key, on any plan.
+  - [1] 2026-11-02: paid models refuse a free-plan key with 403 | capture: sha256:1359bc90b5da1124b6cd4de373205c29e73e681201da5307235baaf6a7beefe2 | quote: `403 this model requires a paid subscription` with a free-plan key
+  - [1] 2026-11-02: the Data API enforces no rate limit and caches 30 minutes | capture: sha256:1359bc90b5da1124b6cd4de373205c29e73e681201da5307235baaf6a7beefe2 | quote: The Data API itself enforces no rate limit and sends no `RateLimit-*` or `Retry-After` headers.
+  - [2] 2026-11-02: Pro opens only the Assets endpoints of the API | capture: sha256:ba3334e423dfa99270a1e1ec42da34af22477ebcd555709147a8eb406d4a449f | quote: Pro provides access to only the Assets endpoints in the API.
+  - [3] 2026-11-02: legacy docs set unpaid keys at 200 requests a minute | capture: sha256:f2a86683d9b6aef28b6cca433a6af83e2be0452bf721965b90819a71b83e9d82 | quote: | Unpaid / Lite / Pro | 200 requests / min |
+  - probe:https://api.blockworks.com/query/tabular/assets?pageSize=2 2026-11-02: a keyless call to the assets model answered HTTP 401 | capture: sha256:5ade858281fa1069b39c764932b32416c0c8d74e80257bf674c3ef647cf00b39 | quote: "status": 401
+  - probe:https://api.blockworks.com/query/tabular/assets?pageSize=2 2026-11-02: the 401 says the model requires authentication | capture: sha256:47c9d8318f3d9d2f8618e615863608039ae059858e7372140c3113e07c95dfd5 | quote: this model requires authentication
+- sources:
+  - [1] https://docs.blockworks.com/getting-started/authentication
+  - [2] https://app.blockworks.com/pricing
+  - [3] https://docs.messari.io/api-reference/permissions
+
+## Telize
+
+- `data-apis/telize` | paid-only | evidence documented | binding volume-quota | category IP geolocation API | tier Basic
+- needs card yes, phone no, ID no, institution no | verified 2026-11-02T00:23:42.887Z (live) | stale on 2026-12-03
+- url https://www.telize.com/ | page https://fshy.ajam.dev/p/telize.md
+- free tier: none: the public API was permanently shut down on November 15, 2015; the hosted API is sold on RapidAPI from the Basic plan at USD 7.00 a month for 1,000 requests a day | unit: none | metered on: none | read on: 2026-11-02 | source: [1] | note: Pro is USD 22.00 a month for 5,000 requests a day, Ultra USD 50.00 for 20,000 and Mega USD 100.00 for 100,000; each plan adds a per-request price past its daily count and a bandwidth fee past 10240 MB a month.
+- per-object cap: one IP address per request (Location with specific IP) | source: [2]
+- retention: not applicable: a lookup API | source: [1]
+- egress: RapidAPI plans include a bandwidth allowance of 10240 MB a month, then USD 0.001 per 1 MB | metered: yes | free allowance: 10240 MB a month on every paid plan | source: [3]
+- identity: card | detail: a RapidAPI account and a paid subscription; the payment form of RapidAPI was not read
+- interface: rest
+- limits:
+  - volume-quota (binding): Basic: 1,000 requests a day, then USD 0.0005 a request; Pro 5,000, Ultra 20,000, Mega 100,000 a day [3]
+- binding note: there is no free allowance; the lowest paid plan counts 1,000 requests a day.
+- interface detail: RapidAPI endpoints Legacy - GeoIP, JSON IP, IP, Location and Location with specific IP; the project site documents /ip, /jsonip and /geoip/{ip} with JSON and JSONP answers
+- endpoint: https://rapidapi.com/fcambus/api/telize
+- tooling: any HTTP client through a RapidAPI subscription; the open-source Go server over MaxMind GeoLite2 databases is the last resort, which the user installs and runs on a rented or free machine
+- composes with: No free hosted route exists. Hosted first: the paid RapidAPI plans from USD 7.00 a month, or any free keyless or free-key API of this topic. Last resort: the open-source server. Bulk path: none.
+- reliability: the public API has been shut down since 2015-11-15; the project site still serves its documentation, and the hosted API is reached only through paid RapidAPI plans
+- notes: Free requests: none; Basic is USD 7.00 a month for 1,000 requests a day on RapidAPI. Rate limit: the plan's daily count. Bulk path: none. Self-hosted last resort: the open-source Go server over MaxMind GeoLite2 data.
+- evidence note: The project site, the RapidAPI listing and pricing page and the repository README were quoted on 2026-11-02; no paid subscription was made and the RapidAPI payment step was not read.
+- self hosted: no
+- extras:
+  - bulk_path: none
+  - free_requests: none
+- evidence:
+  - [1] 2026-11-02: the public API was shut down on 2015-11-15 | capture: sha256:0d171273ec828c72d4c604e9820302624def876faa6df6459292db6be5f41ef9 | quote: The public API was permanently shut down on November 15, 2015.
+  - [1] 2026-11-02: continued use needs an own instance or a paid plan | capture: sha256:0d171273ec828c72d4c604e9820302624def876faa6df6459292db6be5f41ef9 | quote: To continue using Telize after this date, please spin up your own instance or subscribe to a [paid plan](https://rapidapi.com/fcambus/api/telize).
+  - [3] 2026-11-02: the Basic plan costs USD 7.00 a month | capture: sha256:02c05aa093a81ffe67e6d55fc0c1bf219e8a3c0ba960b06f456408f004fc0378 | quote: $7.00 /mo
+  - [3] 2026-11-02: Basic allows 1,000 requests a day, then USD 0.0005 a request | capture: sha256:02c05aa093a81ffe67e6d55fc0c1bf219e8a3c0ba960b06f456408f004fc0378 | quote: 1,000 / Day + $0.0005
+  - [3] 2026-11-02: Pro allows 5,000 requests a day | capture: sha256:02c05aa093a81ffe67e6d55fc0c1bf219e8a3c0ba960b06f456408f004fc0378 | quote: 5,000 / Day + $0.0002
+  - [3] 2026-11-02: Ultra allows 20,000 requests a day | capture: sha256:02c05aa093a81ffe67e6d55fc0c1bf219e8a3c0ba960b06f456408f004fc0378 | quote: 20,000 / Day + $0.0001
+  - [3] 2026-11-02: Mega allows 100,000 requests a day | capture: sha256:02c05aa093a81ffe67e6d55fc0c1bf219e8a3c0ba960b06f456408f004fc0378 | quote: 100,000 / Day + $0.00005
+  - [3] 2026-11-02: a bandwidth allowance of 10240 MB a month, then USD 0.001 per 1 MB | capture: sha256:02c05aa093a81ffe67e6d55fc0c1bf219e8a3c0ba960b06f456408f004fc0378 | quote: 10240MB / Month + $0.001 per 1MB
+  - [2] 2026-11-02: the RapidAPI listing offers sign in and sign up for subscribing | capture: sha256:3945efc4b522e54812e16a598bc98ce8923115713f377a57635df485ab6c8c2e | quote: Sign InSign Up
+  - [2] 2026-11-02: Pro costs USD 22.00 a month | capture: sha256:3945efc4b522e54812e16a598bc98ce8923115713f377a57635df485ab6c8c2e | quote: $22.00 / mo
+  - [2] 2026-11-02: Ultra costs USD 50.00 a month | capture: sha256:3945efc4b522e54812e16a598bc98ce8923115713f377a57635df485ab6c8c2e | quote: $50.00 / mo
+  - [2] 2026-11-02: Mega costs USD 100.00 a month | capture: sha256:3945efc4b522e54812e16a598bc98ce8923115713f377a57635df485ab6c8c2e | quote: $100.00 / mo
+  - [4] 2026-11-02: the open-source server is a Go REST API | capture: sha256:afcbe53f6147175b78c760a507ecfc83f13d35d9b8479612670af39d579348b9 | quote: Telize is a REST API built in Go allowing to get a visitor IP address and to query location information from any IP address.
+  - [4] 2026-11-02: the server needs the free MaxMind GeoLite2 databases | capture: sha256:afcbe53f6147175b78c760a507ecfc83f13d35d9b8479612670af39d579348b9 | quote: Telize requires the free [GeoLite2 databases](https://dev.maxmind.com/geoip/geoip2/geolite2/) from MaxMind.
+- sources:
+  - [1] https://www.telize.com/
+  - [2] https://rapidapi.com/fcambus/api/telize
+  - [3] https://rapidapi.com/fcambus/api/telize/pricing
+  - [4] https://github.com/fcambus/telize

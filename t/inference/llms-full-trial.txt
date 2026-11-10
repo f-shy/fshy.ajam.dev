@@ -1,0 +1,1164 @@
+# fshy: Inference, trial
+
+> Model APIs that answer a completion request, keyless or behind a free key.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/inference/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## AI21 Studio (Jamba API)
+
+- `inference/ai21-studio` | trial-only | evidence documented | binding volume-quota | category inference endpoint, signup credit
+- identity a placeholder: card and phone unknown | verified 2026-10-28T04:36:18.593Z (live) | stale on 2026-11-28
+- url https://docs.ai21.com/docs/usage-cost | page https://fshy.ajam.dev/p/ai21.md
+- free tier: new accounts are given a $10 credit good for three months on the AI21 platform, usable for the APIs, the SDK and the playground; valid billing information is required once the credit is exceeded or expires | unit: mixed | metered on: unstated | read on: 2026-10-28 | source: [1] | note: third-party lists give the Jamba rate limit as 200 requests per minute and 10 requests per second; no vendor rate-limit page was captured
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: unverified: the sign-up requirements were not captured; the pricing page asks for billing information only after the trial credit is exceeded or expires
+- interface: rest
+- limits:
+  - volume-quota (binding): $10 credit for three months per new account [1]
+  - request-rate: unverified: no vendor rate-limit page was captured; third-party lists report 200 requests per minute [1]
+- binding note: a $10 credit that also expires after three months
+- endpoint: https://api.ai21.com/studio/v1/chat/completions
+- tooling: AI21 SDK, or an OpenAI-compatible client at the studio base URL
+- composes with: Jamba models on a small time-boxed credit; a trial rather than a standing tier
+- reliability: the credit expires after three months whether or not it is spent
+- notes: listed on public free-LLM-API lists as a trial credit.
+- evidence note: the credit and its expiry are quoted from the vendor's pricing page; sign-up requirements and rate limits were not captured.
+- evidence:
+  - [1] 2026-10-28: new accounts get a $10 credit valid for three months | capture: sha256:56166bef7864f433030d93d7e3fd1ec0162b70cd72d80de21d2b6d2481610e08 | quote: New accounts are given a \$10 credit good for three months on the AI21 platform.
+  - [1] 2026-10-28: billing information is needed after the trial credit is used or expires | capture: sha256:56166bef7864f433030d93d7e3fd1ec0162b70cd72d80de21d2b6d2481610e08 | quote: Once your trial usage is exceeded or expires, you must provide valid billing information in your account to continue using the AI21 platform.
+  - probe:https://api.ai21.com/studio/v1/chat/completions 2026-11-10: a keyless POST on 2026-11-10 answered HTTP 400 before a model was chosen | capture: sha256:eb38fdc7e2d8ee5d82bb44a236ec4b8ad0f1495f41897c864d39138eda4acfbc | quote: "status": 400
+- sources:
+  - [1] https://docs.ai21.com/docs/usage-cost
+
+## AkashML (Akash Chat API)
+
+- `inference/akashml` | trial-only | evidence documented | binding volume-quota | category inference endpoint, decentralised GPU network, trial credit behind a payment method
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T06:21:07.039Z (live) | stale on 2026-12-05
+- url https://akashml.com/ | page https://fshy.ajam.dev/p/akashml.md
+- free tier: Trial credits are granted when a payment method is verified during onboarding; the amount is not stated on the current documentation pages. A launch post of 22 November 2025 stated 'New accounts receive $100 in AI token credits'. Trial credits expire; purchased credits do not. | unit: none | metered on: unstated | read on: 2026-10-28 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: card | detail: an email address (or a Google or GitHub sign-in) is verified at signup, and a payment method must be verified during onboarding before trial credits are granted; payments run through Stripe
+- interface: rest
+- limits:
+  - request-rate: unpublished platform-wide; each API key carries optional caps set by its owner for requests per minute, tokens per minute and concurrent requests, and a request over a cap returns HTTP 429 with X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset and Retry-After headers [1]
+  - volume-quota (binding): trial credit of unstated size that expires; HTTP 402 is returned when credits run out; unverified: behind a sign-up [1]
+- binding note: the trial credit balance is the only free resource and it expires; once spent, every request needs purchased credit
+- endpoint: https://api.akashml.com/v1/chat/completions
+- tooling: OpenAI-compatible REST at https://api.akashml.com/v1 and an Anthropic-compatible Messages endpoint at https://api.akashml.com/anthropic; any SDK with a custom base URL
+- composes with: a drop-in base URL for OpenAI and Anthropic clients once a payment method is on file; the documentation carries a Claude Code guide that points the Messages endpoint at open models
+- reliability: no reliability event recorded
+- notes: chat.akash.network is a browser chat front end whose API Access entry points at akashml.com, where the API is served. Its terms allow use without an account, with rate limiting and IP-based access controls; no numeric limit is published. Its models page lists two text models and one image generation model (AkashGen).
+- evidence note: documentation pages only; the size of the current trial credit sits behind the signed-in dashboard and is unverified
+- evidence:
+  - [1] 2026-10-28: the quick start places adding a payment method before trial credits are received | capture: sha256:fa3fbd14d4e415cbc0e229d45af4b2fa77c884570eec2989e6d44de7bda6e09a | quote: 2. Add a payment method during onboarding to receive trial credits.
+  - [1] 2026-10-28: signup is an account verified by email | capture: sha256:fa3fbd14d4e415cbc0e229d45af4b2fa77c884570eec2989e6d44de7bda6e09a | quote: 1. Create an account at [akashml.com/login](https://akashml.com/login) and verify your email.
+  - [1] 2026-10-28: trial credits expire and purchased credits do not | capture: sha256:fa3fbd14d4e415cbc0e229d45af4b2fa77c884570eec2989e6d44de7bda6e09a | quote: Credit pools have optional expiration dates. Trial credits expire; purchased credits do not.
+  - [1] 2026-10-28: each API key can carry a requests-per-minute cap; no platform-wide figure is stated | capture: sha256:fa3fbd14d4e415cbc0e229d45af4b2fa77c884570eec2989e6d44de7bda6e09a | quote: - Rate limit (RPM) — Maximum requests per minute.
+  - [1] 2026-10-28: a request over a cap returns 429 | capture: sha256:fa3fbd14d4e415cbc0e229d45af4b2fa77c884570eec2989e6d44de7bda6e09a | quote: | `429` | Rate limit exceeded |
+  - [1] 2026-10-28: an empty balance returns 402 | capture: sha256:fa3fbd14d4e415cbc0e229d45af4b2fa77c884570eec2989e6d44de7bda6e09a | quote: | `402` | Insufficient credits |
+  - [1] 2026-10-28: the API is OpenAI-compatible with an Anthropic-compatible Messages endpoint | capture: sha256:fa3fbd14d4e415cbc0e229d45af4b2fa77c884570eec2989e6d44de7bda6e09a | quote: integrate via the OpenAI-compatible REST API at `api.akashml.com` and the Anthropic-compatible Messages endpoint at `api.akashml.com/anthropic`
+  - [2] 2026-10-28: payment methods are card payments processed by Stripe | capture: sha256:d38c7aae5b63d81b4474dc2dd4a52918455ad9a3e5840bc0ae2cee275bba92ce | quote: AkashML uses Stripe for payment processing
+  - [3] 2026-10-28: a launch post of 22 November 2025 stated USD 100 in credits for new accounts; the current documentation does not repeat the amount | capture: sha256:cd45c201c2846a25390e24fa3a7aed3e590ca49817ec03cab2a32d9ed7c6dbcc | quote: New accounts receive $100 in AI token credits, which can be used across all supported models in both the Playground and the API platform.
+  - [4] 2026-10-28: the AkashChat web app links its API Access entry to akashml.com | capture: sha256:72623f9f709cfa57e2f06b1723b3883972c1701575b93f2b3349ed87adab038d | quote: [API Access](https://akashml.com/)
+  - [5] 2026-10-28: the catalogue prices per 1M tokens; the cheapest listed text row is openai/gpt-oss-20b at USD 0.02 input and USD 0.10 output | capture: sha256:e770c2ade5e9c7ed355f77ab667b6c94ca1c4d924a665100ac139fee858f2ebc | quote: | `openai/gpt-oss-20b` | 131K | $0.02 | $0.10 | — |
+  - [6] 2026-11-04: the browser chat can be used without an account, subject to rate limiting | capture: sha256:2bfd3a0fc03629872edbc63e69aeb2a68b2ce16581cd1bef33c01e485383e54e | quote: Anonymous users may use the Service with rate limiting without marketing consent requirements
+  - [6] 2026-11-04: anonymous browser chat use is limited by IP address | capture: sha256:2bfd3a0fc03629872edbc63e69aeb2a68b2ce16581cd1bef33c01e485383e54e | quote: Anonymous usage is subject to IP-based access controls
+  - [7] 2026-11-04: the chat models page lists two text models and the AkashGen image generation model | capture: sha256:f04f4bc6e54e5f9f07f862861de44847d14838bfd96e3d0bd30cdfadc18a6eba | quote: Generate images using AkashGen
+  - [1] 2026-11-04: trial credits are granted after onboarding; their size is not on the public pages | capture: sha256:fa3fbd14d4e415cbc0e229d45af4b2fa77c884570eec2989e6d44de7bda6e09a | quote: 2. Add a payment method during onboarding to receive trial credits.
+  - probe:https://api.akashml.com/v1/chat/completions 2026-11-10: a keyless POST on 2026-11-10 answered HTTP 401 with the vendor's own gate message, so the tier is gated on a key | capture: sha256:ed76abe983af4870cdf50718c5f6530f7d0112335550032ecad36c67a7723c2a | quote: "status": 401
+- sources:
+  - [1] https://akashml.com/docs/getting-started/introduction
+  - [2] https://akashml.com/docs/platform/settings
+  - [3] https://akash.network/blog/akashml-managed-ai-inference-on-the-decentralized-supercloud/
+  - [4] https://chat.akash.network/
+  - [5] https://akashml.com/docs/platform/models
+  - [6] https://chat.akash.network/terms/
+  - [7] https://chat.akash.network/models
+
+## AssemblyAI (Inference)
+
+- `inference/assemblyai` | trial-only | evidence documented | binding volume-quota | category speech-to-text, text-to-speech and LLM gateway API, one-time signup credit
+- needs card no, phone unknown, ID no, institution no | verified 2026-11-03T07:34:03.379Z (live) | stale on 2026-12-04
+- url https://assemblyai.com/pricing | page https://fshy.ajam.dev/p/assemblyai.md
+- free tier: USD 50 in free credits at signup, no credit card required; one-time, not a monthly allowance. The credit is spent at the per-model rates: Universal-3.5 Pro pre-recorded USD 0.21 per hour, Universal-2 pre-recorded USD 0.15 per hour, Universal-3.6 Pro Realtime streaming USD 0.45 per hour, text-to-speech USD 15 per 1M characters. Free-tier streaming concurrency is 5 new streams per minute against 100 for pay-as-you-go. | unit: credits | metered on: unstated | read on: 2026-11-03 | source: [1] | note: models on the pricing page: speech-to-text universal-3-5-pro, universal-2, universal-3-6-pro (streaming), universal-streaming-english and universal-streaming-multilingual; text-to-speech AssemblyAI-TTS-1; an LLM gateway that lists OpenAI, Anthropic, Google and Qwen models at per-token rates. unverified: whether the signup credit also pays for the LLM gateway and the text-to-speech endpoint, because the page states the credit once and names no product scope; unverified: whether the credit expires
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: no credit card at signup ('no credit card required'); the signup page offers Continue with Google or Continue with email behind a reCAPTCHA check; unverified: whether a phone number or an email confirmation step follows the form
+- interface: rest
+- limits:
+  - volume-quota (binding): USD 50 in free credits at signup, one-time; the pre-recorded rate is USD 0.15 per hour on Universal-2 and USD 0.21 per hour on Universal-3.5 Pro [1]
+  - request-rate: free-tier streaming concurrency is 5 new streams per minute against 100 new streams per minute on pay-as-you-go [1]
+- binding note: the one-time USD 50 credit is the ceiling for batch work; the 5 new streams per minute cap is a second, separate wall for streaming
+- interface detail: REST at https://api.assemblyai.com (upload, transcript submit and poll); streaming over WebSocket at wss://streaming.assemblyai.com/v3/ws; Python and TypeScript SDKs
+- endpoint: https://api.assemblyai.com/v2/transcript
+- tooling: Python and TypeScript SDKs, and raw HTTP and WebSocket calls with the API key from the dashboard; every model id is set in the speech_models field of the request
+- composes with: the credit pays for batch transcription of recorded audio, which a free CI runner can post file by file; pair it with a free object store for the audio, since the credit covers the API and nothing else. The 5 new streams per minute cap makes live capture on the free tier a poor fit.
+- reliability: streaming is billed on session duration, not audio duration, so an idle open connection spends credit; the default model can differ between free-tier and paid accounts, so speech_models should be set explicitly
+- notes: the pricing page names a streaming v3 endpoint, wss://streaming.assemblyai.com/v3/ws, and states that the v2 realtime endpoint is inactive
+- evidence note: the credit, the card-free signup, the rates and the free-tier streaming cap are quoted from the vendor pricing page; the credit's expiry and its scope over the LLM gateway and text-to-speech were not stated and are unverified.
+- evidence:
+  - [1] 2026-11-03: USD 50 in free credits at signup with no card | capture: sha256:bf1da8421b0cdecf04b7d64676072599a15f2d94a10f3aaac7db7b10566820ea | quote: $50 in free credits at signup, no credit card required. Concurrency is capped (see above) until you upgrade.
+  - [1] 2026-11-03: free-tier streaming is capped at 5 new streams per minute | capture: sha256:bf1da8421b0cdecf04b7d64676072599a15f2d94a10f3aaac7db7b10566820ea | quote: Yes. Free tier: 5 new streams per minute. Pay-as-you-go: 100 new streams per minute. Higher concurrency available via enterprise contracts.
+  - [1] 2026-11-03: Universal-3.5 Pro pre-recorded costs USD 0.21 per hour | capture: sha256:bf1da8421b0cdecf04b7d64676072599a15f2d94a10f3aaac7db7b10566820ea | quote: | Universal-3.5 Pro | `universal-3-5-pro` | $0.21/hr |
+  - [1] 2026-11-03: Universal-2 pre-recorded costs USD 0.15 per hour | capture: sha256:bf1da8421b0cdecf04b7d64676072599a15f2d94a10f3aaac7db7b10566820ea | quote: | Universal-2 | `universal-2` | $0.15/hr |
+  - [1] 2026-11-03: the streaming model universal-3-6-pro costs USD 0.45 per hour | capture: sha256:bf1da8421b0cdecf04b7d64676072599a15f2d94a10f3aaac7db7b10566820ea | quote: | Universal-3.6 Pro Realtime | `universal-3-6-pro` | $0.45/hr base |
+  - [1] 2026-11-03: text-to-speech is billed at USD 15 per 1M input characters | capture: sha256:bf1da8421b0cdecf04b7d64676072599a15f2d94a10f3aaac7db7b10566820ea | quote: - Text-to-Speech API is billed on input characters: $15 per 1M characters.
+  - [1] 2026-11-03: streaming runs on the v3 WebSocket endpoint and the v2 realtime endpoint is inactive | capture: sha256:bf1da8421b0cdecf04b7d64676072599a15f2d94a10f3aaac7db7b10566820ea | quote: > Streaming endpoint: `wss://streaming.assemblyai.com/v3/ws`. The old v2 endpoint (`wss://api.assemblyai.com/v2/realtime/ws`) is inactive.
+  - [1] 2026-11-03: streaming is billed on open-session time, idle time included | capture: sha256:bf1da8421b0cdecf04b7d64676072599a15f2d94a10f3aaac7db7b10566820ea | quote: - Streaming is billed per session duration — the time the WebSocket connection is open, not the duration of audio sent. Idle connection time counts.
+  - [1] 2026-11-03: the default model can differ between free-tier and paid accounts | capture: sha256:bf1da8421b0cdecf04b7d64676072599a15f2d94a10f3aaac7db7b10566820ea | quote: - Default model selection may differ between free-tier and paid accounts. Always set `speech_models` (plural) explicitly to avoid surprises after upgrading.
+  - [1] 2026-11-03: the LLM gateway is one endpoint on the same API key | capture: sha256:bf1da8421b0cdecf04b7d64676072599a15f2d94a10f3aaac7db7b10566820ea | quote: Endpoint: Single unified endpoint, authenticated with your existing AssemblyAI API key. 25+ models from 5 providers.
+  - [2] 2026-11-03: the signup form takes an email address | capture: sha256:782ec8f6872422805f6c2b8c233876166bc256426751704b36c084593602e84b | quote: Continue with email
+  - [2] 2026-11-03: the signup form sits behind a reCAPTCHA check | capture: sha256:782ec8f6872422805f6c2b8c233876166bc256426751704b36c084593602e84b | quote: Recaptcha requires verification.
+  - [3] 2026-11-03: Python and TypeScript SDKs exist for transcription and streaming | capture: sha256:362e8414338322d940742bd730c98b728c835d5506dfc704d797972ba08e9ed8 | quote: Use the Python or TypeScript SDK to integrate transcription, streaming, and voice agents directly into your own codebase.
+  - [4] 2026-11-03: the REST API base URL is https://api.assemblyai.com | capture: sha256:75c5ada878c8768b1ff7c9a689652657029430c28a152567c5b1b48566bbb80a | quote: > base_url = "https://api.assemblyai.com"
+  - probe:https://api.assemblyai.com/v2/transcript 2026-11-10: a keyless POST on 2026-11-10 answered HTTP 401 with the vendor's own gate message, so the tier is gated on a key | capture: sha256:a30a776f0a8dca4cdf91535ff55ac6e73daeccf1de6fd73a96e4a6e9bfff4603 | quote: "status": 401
+- sources:
+  - [1] https://assemblyai.com/pricing
+  - [2] https://www.assemblyai.com/dashboard/signup
+  - [3] https://www.assemblyai.com/docs
+  - [4] https://assemblyai.com/docs/pre-recorded-audio/getting-started/transcribe-an-audio-file.md
+
+## BytePlus ModelArk free inference quota
+
+- `inference/byteplus-modelark-free-tokens` | trial-only | evidence documented | binding volume-quota | category inference API, one-time free tokens
+- needs card unknown, phone unknown, ID no, institution no | verified 2026-11-03T11:30:35.839Z (live) | stale on 2026-12-04
+- url https://ai.byteplus.com/ark/region:ap-southeast-1/docs/free-inference-quota | page https://fshy.ajam.dev/p/byteplus.md
+- free tier: A one-time free inference quota per model, 500K tokens per model, granted to new users on registration. It is calculated separately for each model and shared under the primary account, offsets pay-as-you-go online inference tokens only, and in Free Tokens Only mode the service is suspended near the quota so no fee accrues. The activity page states the quota does not expire but is subject to change | unit: tokens | metered on: request-count | read on: 2026-10-28 | source: [1] | note: one-time-quota
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: The sign-up form asks for email, username and password, or Google or GitHub sign-in. The quota page says to register and authenticate as a BytePlus user; the help centre says individual accounts reach a limited subset of products, business accounts need a business license and company details, and a valid credit card may be required to activate pay-as-you-go models; Free Tokens Only mode is open to identity-verified personal accounts and enterprise accounts; the campaign terms require enterprise information submission and judge uniqueness from email verification, ID documents, domain names, mobile numbers, devices and IP addresses. unverified: whether a card, phone number or identity verification is required before the quota is granted, which only an account shows
+- interface: rest
+- limits:
+  - volume-quota (binding): 500K tokens per model, one-time; offsets online pay-as-you-go inference only, not batch inference, plugins, knowledge bases or context-cache storage [1]
+  - request-rate: Model-list maximums per primary account (theoretical, subject to platform load; all endpoints of a base model share them), for the models the pricing page lists at 500k tokens: Seed 2.0 lite, mini, code-preview and pro 30K RPM and 1500K TPM; DeepSeek V4 pro and flash 260425 versions 15K RPM and 1500K TPM; DeepSeek V4 pro-ga and flash-ga 0.5K RPM and 1000K TPM; Seed 2.1 turbo 0.5K RPM and 1000K TPM (its free-quota row reads 500 tokens); retiring Seed 1.8 30K RPM and 1500K TPM, Seed 1.6 and Seed 1.6 flash 15K RPM and 800K TPM, DeepSeek V3.2 15K RPM and 1500K TPM. Skylark-pro has no row on the model list; which model version carries the quota is not stated [1]
+- binding note: the per-model 500K token quota is the only stated cap
+- tooling: not stated
+- composes with: each model carries its own quota, so one account holds several separate pools; Free Tokens Only mode stops service at the quota and cannot accrue a charge
+- reliability: a separate Data Collaboration Rewards Campaign advertising 5M tokens daily per model behind real-name verification: the campaign page calls it an ongoing benefit while the activity page carries an earlier stated end date; daily resource pack distribution for 18 models, among them Seed 2.0 pro, lite and mini, Seed 1.6, 1.8, DeepSeek V3.2 and V4 pro and flash GA, ended on October 8, 2026
+- notes: the quota is per model and per primary account; the free-trial page lists DeepSeek V3.1 and GPT-OSS-120B among the 500K-token models
+- evidence note: quota size and scope are documented; the identity requirement is unverified beyond the quoted terms
+- evidence:
+  - [1] 2026-10-28: new users receive a free inference trial quota | capture: sha256:bdd3ccfbd3d7380bddce592db7a52659680f90b35e99c31e30c73181221750a8 | quote: ModelArk offers new users a free inference trial quota, allowing them to get started at no cost.
+  - [1] 2026-10-28: Free Tokens Only mode consumes only the 500k token platform quota | capture: sha256:bdd3ccfbd3d7380bddce592db7a52659680f90b35e99c31e30c73181221750a8 | quote: In the Free Tokens Only Mode, when you call the inference API, you only consume the 500k token free quota presented by the platform.
+  - [1] 2026-10-28: the quota is per model and shared under the primary account | capture: sha256:bdd3ccfbd3d7380bddce592db7a52659680f90b35e99c31e30c73181221750a8 | quote: Free inference quota is calculated separately for different models and shared under the primary account.
+  - [2] 2026-10-28: the free-trial page lists 500K free tokens per model for DeepSeek V3.1 and GPT-OSS-120B | capture: sha256:926bfb9f1279297e72305b11505e59f6df2d7eb1efbc7764ce26e0b173a1bf0f | quote: 500K free tokens per model
+  - [2] 2026-10-28: the activity page states the free quota does not expire but can change | capture: sha256:926bfb9f1279297e72305b11505e59f6df2d7eb1efbc7764ce26e0b173a1bf0f | quote: The free quota does not expire, but is subject to change. Available for eligible customers.
+  - [3] 2026-10-28: the free-token campaign terms require account registration and enterprise information submission | capture: sha256:44f4fe6fe386373ffb15ca8541a1b999b9c0c0afe823c873cab0520333f52dac | quote: Eligibility for this Campaign requires the completion of BytePlus account registration and enterprise information submission as required by BytePlus.
+  - [2] 2026-10-28: a separate daily-token campaign behind corporate verification had a stated end date of March 31, 2026 | capture: sha256:926bfb9f1279297e72305b11505e59f6df2d7eb1efbc7764ce26e0b173a1bf0f | quote: Earn up to 5M tokens daily per model! Join the Data Collaboration Rewards Campaign by March 31, 2026. Complete corporate verification to claim.
+  - [4] 2026-11-03: seed-2-0-lite lists Max RPM 30K and Max TPM 1500K | capture: sha256:4452dcc8ba21795da9f0b8abb1d3c4fae69e9ceb0246d095f5114331d29c77fd | quote: | ^^ | [`seed-2-0-lite-260428`](https://ai.byteplus.com/ark/region:ap-southeast-1/model/detail?Id=seed-2-0-lite) | 256K | 224K | 128K | 128K | 30K | 1500K |
+  - [4] 2026-11-03: deepseek-v4-pro 260425 lists 15K RPM and 1500K TPM | capture: sha256:4452dcc8ba21795da9f0b8abb1d3c4fae69e9ceb0246d095f5114331d29c77fd | quote: | ^^ | [`deepseek-v4-pro-260425`](https://ai.byteplus.com/ark/region:ap-southeast-1/model/detail?Id=deepseek-v4-pro) | 1024K | 1024K | 384K | 128K | 15K | 1500K |
+  - [4] 2026-11-03: deepseek-v4-pro-ga lists 0.5K RPM and 1000K TPM | capture: sha256:4452dcc8ba21795da9f0b8abb1d3c4fae69e9ceb0246d095f5114331d29c77fd | quote: | ^^ | [`deepseek-v4-pro-ga-260813`](https://ai.byteplus.com/ark/region:ap-southeast-1/model/detail?Id=deepseek-v4-pro-ga) | 1024K | 1024K | 384K | 128K | 0.5K | 1000K |
+  - [4] 2026-11-03: dola-seed-2-1-turbo lists 0.5K RPM and 1000K TPM | capture: sha256:4452dcc8ba21795da9f0b8abb1d3c4fae69e9ceb0246d095f5114331d29c77fd | quote: | ByteDance | [`dola-seed-2-1-turbo-260628`](https://ai.byteplus.com/ark/region:ap-southeast-1/model/detail?Id=dola-seed-2-1-turbo) | 256K | 256K | 256K | 256K | 0.5K | 1000K |
+  - [4] 2026-11-03: retiring seed-1-6 lists 15K RPM (800K TPM on the next row) | capture: sha256:4452dcc8ba21795da9f0b8abb1d3c4fae69e9ceb0246d095f5114331d29c77fd | quote: | [`seed-1-6-250915`](https://ai.byteplus.com/ark/region:ap-southeast-1/model/detail?Id=seed-1-6) | `dola-seed-2-0-lite-260428` | * Deep reasoning | * Context: 256K | * Max RPM: 15K | \
+  - [4] 2026-11-03: retiring deepseek-v3-2 lists 15K RPM (1500K TPM on the next row) | capture: sha256:4452dcc8ba21795da9f0b8abb1d3c4fae69e9ceb0246d095f5114331d29c77fd | quote: | [`deepseek-v3-2-251201`](https://ai.byteplus.com/ark/region:ap-southeast-1/model/detail?Id=deepseek-v3-2) | `deepseek-v4-flash-ga-260731` | * Deep reasoning | * Context: 128K | * Max RPM: 15K | \
+  - [4] 2026-11-03: the listed rates are theoretical maxima that vary with platform load | capture: sha256:4452dcc8ba21795da9f0b8abb1d3c4fae69e9ceb0246d095f5114331d29c77fd | quote: The rate limits in this document are theoretical maximum values. Actual limits depend on platform load and the invocation method.
+  - [5] 2026-11-03: the pricing page lists DeepSeek-V4-pro at 500k free tokens | capture: sha256:0c21ca3ab362ae20e289f20c844404a451e6a89aae477ce7db6b0c6f68561e42 | quote: | DeepSeek-V4-pro | 500k tokens |
+  - [5] 2026-11-03: the pricing page lists Dola-Seed-2.1-turbo free quota as 500 tokens | capture: sha256:0c21ca3ab362ae20e289f20c844404a451e6a89aae477ce7db6b0c6f68561e42 | quote: | Dola-Seed-2.1-turbo | 500 tokens |
+  - [5] 2026-11-03: Skylark-pro is listed at 500k free tokens | capture: sha256:0c21ca3ab362ae20e289f20c844404a451e6a89aae477ce7db6b0c6f68561e42 | quote: | Skylark-pro | 500k tokens |
+  - [6] 2026-11-03: the sign-up form lists email, username and password fields | capture: sha256:7f72d1d5ca43ca8b6adcd6fdb67d750770aada74cc264d4dc212fff8bb6555bc | quote: Email Username Password
+  - [6] 2026-11-03: the sign-up form offers Google sign-in | capture: sha256:7f72d1d5ca43ca8b6adcd6fdb67d750770aada74cc264d4dc212fff8bb6555bc | quote: Continue with Google
+  - [1] 2026-11-03: the quota page says to register and authenticate as a BytePlus user | capture: sha256:bdd3ccfbd3d7380bddce592db7a52659680f90b35e99c31e30c73181221750a8 | quote: [Register and authenticate](https://console.byteplus.com/auth/signup) as a BytePlus user.
+  - [7] 2026-11-03: Free Tokens Only mode is open to identity-verified personal and enterprise accounts | capture: sha256:f83a88050792368328ac696be5582be26c01789e3ca5825963fac1a483dae9f8 | quote: Accounts that have not activated model services and have never enabled or disabled Free Tokens Only mode (including both identity-verified personal accounts and enterprise accounts) are eligible to enable this mode.
+  - [8] 2026-11-03: business accounts need a business license and company details | capture: sha256:6d4001c206c95c399caca3a7573476e20df7774b8fa77616a2dffc5db77f0b22 | quote: Business accounts typically need to provide a valid business license and company details, while accepted verification methods and required documents depend on your account type and region.
+  - [9] 2026-11-03: individual accounts reach a limited subset of products | capture: sha256:127bb0b9b3112df454f3a61be1cb7b557e68221c1b30e7bd0efc41df47ef4d60 | quote: BytePlus offers two account types: individual accounts, which can access a limited subset of products, and business (enterprise) accounts, which can order the full product catalog and are required for most cloud services.
+  - [10] 2026-11-03: a valid credit card may be required to activate pay-as-you-go models | capture: sha256:dadb5c4e65ef35ad896d0c4d0b29fe10ec7b50013f89413de7f31c12ca4a124b | quote: Some payment methods (for example, certain wallet or PayPal balances) cannot activate pay-as-you-go models, so a valid credit card may be required.
+  - [3] 2026-11-03: the campaign terms require enterprise information submission | capture: sha256:44f4fe6fe386373ffb15ca8541a1b999b9c0c0afe823c873cab0520333f52dac | quote: Eligibility for this Campaign requires the completion of BytePlus account registration and enterprise information submission as required by BytePlus.
+  - [11] 2026-11-03: daily distribution for 18 models ended on October 8, 2026 | capture: sha256:b3f1abf22b24caef90894dfc28e28c7fc69fb9eef198342e3e289febd30d5579 | quote: Starting October 8, 2026, daily resource pack distribution for the 18 models listed below will end as they exit the ModelArk Collaboration Reward Program.
+  - [11] 2026-11-03: the campaign page calls the 5M daily tokens an ongoing benefit | capture: sha256:b3f1abf22b24caef90894dfc28e28c7fc69fb9eef198342e3e289febd30d5579 | quote: > Ongoing Benefit: Enjoy 5,000,000 tokens free every day!
+  - [11] 2026-11-03: the campaign requires real-name authentication | capture: sha256:b3f1abf22b24caef90894dfc28e28c7fc69fb9eef198342e3e289febd30d5579 | quote: * Step 1: You can go to the [BytePlus ModelArk Model Activation Page](https://ai.byteplus.com/ark/region:ap-southeast-1/openManagement?LLM=%7B%7D&advancedActiveKey=modeland) click "Verify Now" to enter the "Real Name Verification" page to complete real-name authentication.
+  - [2] 2026-11-03: the activity page still states March 31, 2026 for the campaign | capture: sha256:97dce388ebef556bae0e72006e56382efe0f6addc1e9261c439b41a06e406b60 | quote: Earn up to 5M tokens daily per model! Join the Data Collaboration Rewards Campaign by March 31, 2026. Complete corporate verification to claim.
+  - [1] 2026-11-03: the quota is per model and shared under the primary account | capture: sha256:bdd3ccfbd3d7380bddce592db7a52659680f90b35e99c31e30c73181221750a8 | quote: Free inference quota is calculated separately for different models and shared under the primary account.
+- sources:
+  - [1] https://ai.byteplus.com/ark/region:ap-southeast-1/docs/free-inference-quota
+  - [2] https://www.byteplus.com/en/activity/free
+  - [3] https://docs.byteplus.com/en/docs/legal/termsandconditions_modelark_free-token_campaign
+  - [4] https://ai.byteplus.com/ark/region:ap-southeast-1/docs/model-list
+  - [5] https://www.byteplus.com/en/product/modelark/pricing
+  - [6] https://console.byteplus.com/auth/signup
+  - [7] https://ai.byteplus.com/ark/region:ap-southeast-1/docs/free-tokens-only-mode
+  - [8] https://ai.byteplus.com/en/help/article/what-identity-verification-real-name-kyc-is-required-and-what-documents-do-i-need
+  - [9] https://ai.byteplus.com/en/help/article/what-is-the-difference-between-individual-and-business-accounts-and-can-i-change-the-type-after-registration
+  - [10] https://ai.byteplus.com/en/help/article/why-cant-i-bind-my-credit-card-and-can-a-card-be-unbound-or-moved-to-another-account
+  - [11] https://ai.byteplus.com/ark/region:ap-southeast-1/docs/collaboration-reward-program
+
+## Cerebras
+
+- `inference/cerebras` | trial-only | evidence documented | binding retention-clamped | category inference endpoint, keyed free trial
+- needs card yes, phone no, ID no, institution no | verified 2026-10-28T09:47:54.945Z (live) | stale on 2026-11-28
+- url https://inference-docs.cerebras.ai/support/rate-limits | page https://fshy.ajam.dev/p/cerebras.md
+- free tier: a Free Trial, not a free tier: USD 5 of credits granted after a verified payment method is added, expiring 30 days after they are granted. The page answers 'Is there a permanently free tier?' with 'No.' | unit: none | metered on: request-count | read on: 2026-10-22 | source: [1] | note: the trial's per-model limits are published: gpt-oss-120b and qwen-3.8-27b each at 5 RPM, 30K uncached TPM, 90K total TPM, 1M TPH and 1M TPD
+- per-object cap: not applicable
+- retention: the trial credits expire 30 days after they are granted | days: 30 | source: [1]
+- egress: metered: no
+- identity: card | detail: a verified payment method is required before the USD 5 of trial credits is granted; without a payment method the Playground and API access remain inactive
+- interface: rest
+- limits:
+  - request-rate: Free Trial, per organization and per model: gpt-oss-120b: 5 RPM, 30K uncached TPM, 90K total TPM, 1M TPH, 1M TPD. qwen-3.8-27b: 5 RPM, 30K uncached TPM, 90K total TPM, 1M TPH, 1M TPD, image limits 2 per request and 10 MiB total request payload. Any metric can trigger rate limiting, whichever comes… [1]
+  - retention-clamped (binding): the USD 5 of trial credits expire 30 days after they are granted, and API access stops when they run out or expire [1]
+- limits note: the Developer (Pay as You Go) tier removes the hourly and daily token caps and raises the per-model rates: gpt-oss-120b 1M uncached TPM, 3M total TPM and 1K RPM; qwen-3.8-27b 150K uncached TPM, 750K total TPM and 300 RPM; that tier is pay-as-you-go and not free
+- binding note: the 30-day credit expiry binds before any rate does: the whole allowance is USD 5 that disappears, so there is no recurring quota to design against
+- interface detail: an OpenAI-compatible chat completions endpoint at https://api.cerebras.ai/v1
+- endpoint: https://api.cerebras.ai/v1/chat/completions
+- tooling: any OpenAI-compatible client; curl against POST {base}/chat/completions
+- composes with: pairs with an agent only inside a 30-day trial and only after a card; the scarce link is the verified payment method, which turns a free offer into a payment relationship
+- reliability: an unauthenticated call returns 401 with 'Wrong API Key' and a 99-byte body, so an unauthenticated probe cannot distinguish a live endpoint from an expired one
+- notes: The vendor's own page says there is no permanently free tier: the offer is USD 5 of credits that expire in 30 days and require a verified payment method. The identity cost is therefore card, not email, and the verdict is trial-only.
+- evidence note: the trial's terms, its expiry, its per-model rates and the vendor's explicit 'No' to a permanently free tier are all quoted from the rate-limits page read 2026-10-22 at 200 with 393345 bytes. The 401 gate was also re-probed at 2026-10-22T04:42:43Z.
+- evidence:
+  - [1] 2026-10-22: 'New accounts receive $5 in free credits after adding a verified payment method. These credits expire 30 days after they're granted'; 'Is there a permanently free tier? No. The Free Trial is time- and credit-bounded'; and the Free Trial table giving gpt-oss-120b 5 RPM, 30K uncached TPM, 90K total TPM, 1M TPH and 1M TPD
+  - probe:https://api.cerebras.ai/v1/chat/completions 2026-10-22: an unauthenticated POST returned 401 with a 99-byte body, {"message":"Wrong API Key","type":"invalid_request_error","param":"api_key"}. The endpoint exists and gates on a key; no key existed here
+  - [1] 2026-10-28: the Free Trial table lists qwen-3.8-27b at 5 RPM, 30K uncached TPM, 90K total TPM, 1M TPH and 1M TPD (gpt-oss-120b has the same row) | capture: sha256:4c51b7a2f6c81ea5384b9480d6c61a803a5e4933a8168faf73a776c0f0444016 | quote: | `qwen-3.8-27b`<sup>1</sup> | 5 | 30K | 90K | 1M | 1M |
+  - [1] 2026-10-28: the Developer (Pay as You Go) table lists qwen-3.8-27b at 150K uncached TPM, 750K total TPM and 300 RPM | capture: sha256:4c51b7a2f6c81ea5384b9480d6c61a803a5e4933a8168faf73a776c0f0444016 | quote: | `qwen-3.8-27b`<sup>1</sup> | 150K | 750K<sup>2</sup> | 300 |
+  - [1] 2026-10-28: API access stays inactive until a payment method is added | capture: sha256:4c51b7a2f6c81ea5384b9480d6c61a803a5e4933a8168faf73a776c0f0444016 | quote: If you skip adding a payment method at sign-up, Playground and API access remain inactive until you do.
+  - [1] 2026-10-28: the Free Trial is USD 5 of credits granted after a verified payment method is added and expiring 30 days after they are granted | capture: sha256:4c51b7a2f6c81ea5384b9480d6c61a803a5e4933a8168faf73a776c0f0444016 | quote: New accounts receive \$5 in free credits after adding a verified payment method. These credits expire 30 days after they're granted and can be used across all public models.
+  - [1] 2026-10-28: the vendor answers 'Is there a permanently free tier?' with No: the trial is USD 5 of credits that expire 30 days after they are granted | capture: sha256:4c51b7a2f6c81ea5384b9480d6c61a803a5e4933a8168faf73a776c0f0444016 | quote: No. The Free Trial is time- and credit-bounded: \$5 in credits that expire 30 days after they're granted.
+- sources:
+  - [1] https://inference-docs.cerebras.ai/support/rate-limits
+
+## Contextual AI reranker API
+
+- `inference/contextual-ai-rerank` | trial-only | evidence documented | binding volume-quota | category rerank API, one-time free credit on signup | tier On-Demand
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T07:34:03.660Z (live) | stale on 2026-12-04
+- url https://contextual.ai/pricing | page https://fshy.ajam.dev/p/contextual.md
+- free tier: new signups receive USD 25 in free credits, USD 50 with a work email; the rerank API launch post states the first USD 50 as 1 billion tokens. Rerank-v2 costs USD 0.05 per million tokens and Rerank-v2-mini USD 0.02 | unit: credits | metered on: request-count | read on: 2026-11-03 | source: [1] | note: the credit is USD and is shared with the vendor's agent and parse products; whether the USD 25 credit applies to the standalone rerank endpoint is stated only by the launch post for the work-email case
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: an account on the vendor's app; a work email earns USD 50 where another address earns USD 25; the billing page asks for a card only to add credits; unverified: the sign-up form fields, because the app page could not be read
+- interface: rest
+- limits:
+  - volume-quota (binding): USD 25 of free credit (USD 50 with a work email), one-time; at USD 0.05 per million tokens USD 25 covers 500 million rerank-v2 tokens (derived), and the launch post states USD 50 as 1 billion tokens [1]
+  - per-object-cap: one request may carry at most 400,000 tokens in total, and the query, instruction and any single document with its metadata at most 8,000 tokens [2]
+  - request-rate: unverified: no requests-per-minute figure for the standalone rerank endpoint was found on the pages read [2]
+- binding note: the one-time USD credit is spent first; no request-rate figure is published for the rerank endpoint
+- endpoint: https://api.contextual.ai/v1/rerank
+- tooling: POST https://api.contextual.ai/v1/rerank with a bearer key; Python SDK; the reranker weights are also on Hugging Face
+- composes with: a rerank-only offer: it takes the candidates that any embedding API or keyword search returned as the first stage
+- reliability: no reliability event recorded; the free credit does not renew
+- notes: derived: USD 25 / USD 0.05 per million tokens = 500 million tokens of rerank-v2
+- evidence note: the credit amounts, prices and request caps are quoted from vendor pages; the standalone-rerank rate limit and the sign-up form are unverified.
+- evidence:
+  - [1] 2026-11-03: new signups receive USD 25 in free credits, USD 50 with a work email | capture: sha256:bdcbc58cd0b6053041f0e5b5da47b25c544b638334152ae756159005b68263b7 | quote: Yes. New signups receive \$25 in free credits (\$50 with a work email) to build and query agents.
+  - [3] 2026-11-03: the rerank API launch post gives the first USD 50, stated as 1 billion tokens, free for a business email | capture: sha256:aa3977ee7be4855e6e8064def367ef086e409668ebe170800a2120d76aa652eb | quote: The first $50 (1 billion tokens) are free when you sign up with a business email.
+  - [4] 2026-11-03: the rerank-v2 price per million tokens | capture: sha256:27487884b66b0ce13835117252e968a26642007bd98499e6421bcb1a9f500978 | quote: - Rerank-v2: $0.05 per million tokens
+  - [4] 2026-11-03: the rerank-v2-mini price per million tokens | capture: sha256:27487884b66b0ce13835117252e968a26642007bd98499e6421bcb1a9f500978 | quote: - Rerank-v2-mini: $0.02 per million tokens
+  - [2] 2026-11-03: per-request caps of 400,000 tokens in total and 8,000 tokens per query, instruction and document | capture: sha256:fa1f93673abbe72063c1bd69376f2cdd882290cc6a2991179cdfd0c22b49e935 | quote: The total request cannot exceed 400,000 tokens. The combined length of the query, instruction and any document with its metadata must not exceed 8,000 tokens.
+  - [5] 2026-11-03: a card is asked for when topping up credits | capture: sha256:43fa7c24ba7ef2089be2a5e9209f78ebb5e3e21837e4e8980fecebb216dd72a5 | quote: 2. Add a valid credit card under Payment Methods if you haven't already
+  - probe:https://api.contextual.ai/v1/rerank 2026-11-10: a keyless POST on 2026-11-10 answered HTTP 503, so the endpoint is failing | capture: sha256:76e5a6deb20602b217392df098092e9b0ab53506a2939b9e62f8a03cdfb24cb8 | quote: "status": 503
+- sources:
+  - [1] https://docs.contextual.ai/reference/faq.md
+  - [2] https://docs.contextual.ai/api-reference/rerank/rerank.md
+  - [3] https://contextual.ai/blog/rerank-v2
+  - [4] https://contextual.ai/pricing
+  - [5] https://docs.contextual.ai/admin-setup/pricing-billing.md
+
+## Coze
+
+- `inference/coze` | trial-only | evidence documented | binding volume-quota | category agent platform API, one-time free API call quota, daily message credits in the app
+- identity a placeholder: card and phone unknown | verified 2026-11-10T01:21:20.151Z (live) | stale on 2026-12-11
+- url https://www.coze.com/open/docs/developer_guides/coze_api_overview | page https://fshy.ajam.dev/p/coze.md
+- free tier: a free quota of 30 Coze API calls for each registered account, counted over all APIs of all agents, then Coze tokens must be bought; separately 10 message credits a day in the app, valid only for the day | unit: requests | metered on: request-count | read on: 2026-11-04 | source: [1] | note: the 10 credits a day cover use in the Coze app and not API calls; the free API quota is 30 calls and is not stated to reset
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: unverified: the sign-up page renders only in a browser and was not readable; the docs say the free quota is for registered users
+- interface: rest
+- limits:
+  - volume-quota (binding): 30 free Coze API calls per account, then Coze tokens are deducted [1]
+  - request-rate: under 2M accumulated purchased Coze tokens: 5 requests per second, 300 per minute, 20,000 per day [1]
+- binding note: 30 free calls is the whole free API allowance
+- endpoint: https://api.coze.com/v3/chat
+- tooling: HTTP API that chats with an agent published as an API service, authenticated with a personal access token; the model is the one configured in the agent
+- composes with: buying Coze tokens raises the Chat API rate limit tier at 2M accumulated tokens
+- reliability: not measured
+- notes: the free API quota is a one-time 30 calls
+- evidence:
+  - [1] 2026-11-04: the free API quota is 30 calls | capture: sha256:0ea7eb5d6882b2a83cec0cdeb28f8ef51d5e0f0fc03fcda54f9cbcc13cd00655 | quote: The free quota for the API service is 30 Coze API calls
+  - [1] 2026-11-04: the rate limit below 2M purchased tokens | capture: sha256:0ea7eb5d6882b2a83cec0cdeb28f8ef51d5e0f0fc03fcda54f9cbcc13cd00655 | quote: | Less than 2M (2,000,000)​ | 5​ | 300​ | 20,000​ |
+  - [2] 2026-11-04: each account gets 30 free API calls | capture: sha256:2d83d4cee27809cc183e5ecf30fb6f8e6d230a2e83114ee3864b68327ee3a060 | quote: Each Coze account is granted 30 free API calls and 100 Web SDK calls.
+  - [3] 2026-11-04: 10 message credits per day in the app | capture: sha256:a677e17bbeb762c93787f2305ab03005537aaef4f5a857967d33ee58a754fb73 | quote: Each account is granted 10 credits per day.
+  - probe:https://api.coze.com/v3/chat 2026-11-10: a keyless POST on 2026-11-10 answered 200 with code 4101 'The token you entered is incorrect', so the endpoint gates on a token | capture: sha256:8638292092c535c247f204d05568f3077ef4b43bf7ae336d7bc57f170824ad01 | quote: "status": 200
+- sources:
+  - [1] https://www.coze.com/open/docs/developer_guides/coze_api_overview
+  - [2] https://docs.coze.com/guides/billing
+  - [3] https://www.coze.com/open/docs/guides/message_credits
+
+## Dahl Inference
+
+- `inference/dahl-inference` | trial-only | evidence documented | binding volume-quota | category inference API on the Gonka network, one-time 100M-token grant, anonymous account
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:15:50.267Z (live) | stale on 2026-12-05
+- url https://inference.dahl.global/docs/tokens/ | page https://fshy.ajam.dev/p/dahl.md
+- free tier: a one-time gift of 100 million tokens to the account pool at signup, with no monthly reset; a new key holds 0 tokens until tokens are allocated from the pool | unit: tokens | metered on: unstated | read on: 2026-11-04 | source: [1] | note: creating extra keys does not grant more free tokens; paid top-ups are about $0.02 per 1M tokens
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: anonymous | detail: an account is a username and a generated fingerprint that is the password; there is no email recovery by design; sign-up runs a Cloudflare browser check
+- interface: rest
+- limits:
+  - volume-quota (binding): 100 million tokens once per account, spent on input plus output tokens [1]
+  - request-rate: parallel-request limits per key and per account and a per-model concurrency cap return 429; free accounts queue behind paid ones at peak; no numbers published [2]
+- binding note: the one-time 100M-token grant is the whole free allowance
+- endpoint: https://inference.dahl.global/v1/chat/completions
+- tooling: OpenAI-compatible client at https://inference.dahl.global/v1 with a Bearer key; sign-up is browser-only behind a Cloudflare check
+- composes with: top-up with crypto (USDT, BTC and others via NOWPayments) makes the account paid and first in the capacity queue
+- reliability: at model capacity, requests are admitted paid accounts first, then free accounts; 429 model_concurrency when a model is full
+- notes: one-time grant, no monthly reset
+- evidence:
+  - [1] 2026-11-04: a new account receives 100 million tokens at signup | capture: sha256:2b66300782144b6629e93fd49ef41abdcef8c97ddaa0208b061df6d172286635 | quote: - New account: 100 million tokens as a gift at signup — they go to the pool, not to the first key.
+  - [1] 2026-11-04: extra keys add no free tokens | capture: sha256:2b66300782144b6629e93fd49ef41abdcef8c97ddaa0208b061df6d172286635 | quote: Creating extra keys does not grant more free tokens.
+  - [3] 2026-11-04: accounts have no email | capture: sha256:adfcb711d814aa8d725a6a4c9424b6c92f195318d378cc23ba9839242b9d847b | quote: If you lose the fingerprint, create a new account. There is no email recovery by design.
+  - [3] 2026-11-04: the account is a username plus a fingerprint | capture: sha256:adfcb711d814aa8d725a6a4c9424b6c92f195318d378cc23ba9839242b9d847b | quote: Username: 3–20 characters, letters, digits, underscore.
+  - [2] 2026-11-04: free accounts queue behind paid at capacity | capture: sha256:30c66a27bb24a911a0406541c93c4134a7817f55343d2872e91bd118009190a2 | quote: When a model is at capacity, requests are admitted by account class: paid accounts first, then free accounts, then keys not linked to an account.
+  - probe:https://inference.dahl.global/v1/chat/completions 2026-11-10: a keyless POST on 2026-11-10 answered HTTP 401 with the vendor's own gate message, so the tier is gated on a key | capture: sha256:fd814a72cba6894c12f9e94198ae5bda6466286f0c0eed7f2c27e2c6ee4deb6a | quote: "status": 401
+- sources:
+  - [1] https://inference.dahl.global/docs/tokens/
+  - [2] https://inference.dahl.global/docs/api/
+  - [3] https://inference.dahl.global/docs/authentication/
+
+## Deepgram (Inference)
+
+- `inference/deepgram` | trial-only | evidence documented | binding volume-quota | category speech-to-text, text-to-speech and voice-agent API, one-time signup credit
+- needs card no, phone unknown, ID no, institution no | verified 2026-11-03T07:34:03.379Z (live) | stale on 2026-12-04
+- url https://deepgram.com/pricing | page https://fshy.ajam.dev/p/deepgram.md
+- free tier: Free USD 200 credit on the Pay as you go plan with no minimums, no expiration and no credit card required; the vendor puts it at roughly 43,000 minutes, over 700 hours, of Nova-3 transcription. One-time, not a monthly allowance. Rates drawn from it: Nova-3 monolingual pre-recorded USD 0.0043 per minute, Aura-2 text-to-speech USD 0.030 per 1k characters, Voice Agent Standard USD 0.075 per minute. | unit: credits | metered on: unstated | read on: 2026-11-03 | source: [1] | note: models on the pricing page: speech-to-text Flux STT and Nova-3 (plus Whisper Large pre-recorded), text-to-speech Flux TTS, Aura-2 and Aura-1, and a Voice Agent API that bundles speech-to-text, a managed language model and text-to-speech at one per-minute rate
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: no credit card ('No credit card needed'); the signup page offers Google, GitHub, Azure or an email address with a password; unverified: whether a phone number or an email confirmation step follows the form
+- interface: rest
+- limits:
+  - volume-quota (binding): USD 200 free credit, one-time, with no expiration stated on the pricing page; the terms state that credits expire upon the closing or termination of the account, and that once the initial credits are used a Pay As You Go account must enroll in auto-load or buy… [1]
+  - request-rate: Pay as you go allows 150 concurrent streaming speech-to-text connections and 45 concurrent Voice Agent connections; limits apply per project, and a secondary project on a self-serve account is limited to a single concurrent stream [2]
+- binding note: the one-time USD 200 credit is the ceiling; the per-project concurrency caps bind only for streaming and voice-agent loads
+- interface detail: REST and WebSocket at api.deepgram.com (North America), with regional hosts api.eu.deepgram.com, api.au.deepgram.com and api.in.deepgram.com
+- endpoint: https://api.deepgram.com
+- tooling: raw HTTP and WebSocket calls with an API key created in the console
+- composes with: the credit pays for batch transcription of recorded audio, which a free CI runner can post file by file, and for text-to-speech; pair it with a free object store for the audio. Streaming and voice-agent loads hit the per-project concurrency caps before the credit is spent.
+- reliability: after the initial credit is used, requests need purchased credits or auto-load; the credit is tied to the account and expires if the account is closed
+- notes: the pricing page says the credit does not expire while the terms say credits expire on account closure or termination; both are quoted in the evidence
+- evidence note: the credit, the card-free signup, the no-expiry statement, the rates and the concurrency caps are quoted from the vendor pricing, signup, terms and rate-limit pages; the signup steps after the form are unverified.
+- evidence:
+  - [1] 2026-11-03: USD 200 credit, about 43,000 minutes of Nova-3, no expiry stated, no card | capture: sha256:15043fff5a513af5b08add9dbe83bb0ed2a8b31609c71aae401c8a2e1a384114 | quote: Roughly 43,000 minutes, over 700 hours, of Nova-3 transcription. It does not expire, so you can prototype without a clock running. No credit card is required to start.
+  - [1] 2026-11-03: the free credit is USD 200 on the Pay as you go plan | capture: sha256:15043fff5a513af5b08add9dbe83bb0ed2a8b31609c71aae401c8a2e1a384114 | quote: Free $200 credit then pay-as-you-go
+  - [1] 2026-11-03: Nova-3 pre-recorded costs USD 0.0043 per minute on Pay as you go | capture: sha256:15043fff5a513af5b08add9dbe83bb0ed2a8b31609c71aae401c8a2e1a384114 | quote: | Nova-3 Monolingual | $0.0043 / min | $0.0036 / min | - |
+  - [1] 2026-11-03: Aura-2 text-to-speech costs USD 0.030 per 1k characters on Pay as you go | capture: sha256:15043fff5a513af5b08add9dbe83bb0ed2a8b31609c71aae401c8a2e1a384114 | quote: | Aura-2 | $0.030 /1k characters | $0.027 /1k characters | - |
+  - [1] 2026-11-03: Voice Agent Standard costs USD 0.075 per minute on Pay as you go | capture: sha256:15043fff5a513af5b08add9dbe83bb0ed2a8b31609c71aae401c8a2e1a384114 | quote: | Standard | $0.075 / min | $0.068 / min | - |
+  - [1] 2026-11-03: Pay as you go allows 150 concurrent streaming speech-to-text connections | capture: sha256:15043fff5a513af5b08add9dbe83bb0ed2a8b31609c71aae401c8a2e1a384114 | quote: Requests beyond your limit are queued or rejected. Pay as you go allows 150 concurrent streaming speech-to-text connections and Growth 225; Enterprise limits are set to your peak traffic.
+  - [2] 2026-11-03: rate limits are counted per project, not per account or key | capture: sha256:37de9b85346b2e949f9d2d12d48b99103a00457516f28c69e025238d14674d62 | quote: Rate limits apply per project, not per account or API key.
+  - [2] 2026-11-03: a secondary project on a self-serve account gets one concurrent stream | capture: sha256:37de9b85346b2e949f9d2d12d48b99103a00457516f28c69e025238d14674d62 | quote: Secondary projects created on a self-serve account are limited to a single concurrent stream by design.
+  - [2] 2026-11-03: the Voice Agent API allows 45 concurrent connections on Pay as you go | capture: sha256:37de9b85346b2e949f9d2d12d48b99103a00457516f28c69e025238d14674d62 | quote: | [Voice Agent API](/reference/voice-agent/voice-agent) | Up to 45 concurrent connections | Up to 45 concurrent connections | Up to 45 concurrent connections | Up to 45 concurrent connections |
+  - [2] 2026-11-03: the North America API host is api.deepgram.com | capture: sha256:37de9b85346b2e949f9d2d12d48b99103a00457516f28c69e025238d14674d62 | quote: > * North America: `api.deepgram.com`
+  - [3] 2026-11-03: the signup page promises USD 200 credit with no card | capture: sha256:6f8a84684c992fd7d4171374e8c2eb0a459f55a42cfa4d392923725822d42258 | quote: Get $200 in credit absolutely free. That's enough to run a standard voice agent for more than 40 hours. No credit card needed.
+  - [3] 2026-11-03: the signup form takes an email address | capture: sha256:68a1040600bdfa3d898800eb2a95321035c4c0acbd81a3f6b716b1d750c03608 | quote: Email address
+  - [4] 2026-11-03: credits expire when the account is closed or terminated | capture: sha256:ba56073ff7df99797ccac4f1811ecf7f408ea05d88c9aec3b46f7e37799692ea | quote: Credits expire upon the closing or termination of your Account or cancellation or termination of your subscription to the Subscription Services.
+  - [4] 2026-11-03: a Pay As You Go account needs auto-load or purchased credits once the initial credits are used | capture: sha256:ba56073ff7df99797ccac4f1811ecf7f408ea05d88c9aec3b46f7e37799692ea | quote: If you are on a Pay As You Go plan, once your initial Credits are used, you must be enrolled in auto-load or purchase additional Credits to continue using the Services.
+  - probe:https://api.deepgram.com 2026-11-10: a POST to the bare host https://api.deepgram.com, with no path and no key, answered HTTP 404 with an empty body; no API route was requested, so the route was not tested | capture: sha256:ccdf064ead2fead1bd728c6de34c8dd6fdc8bdf7afcaecf3c112a3e72f1e1f03 | quote: "status": 404
+- sources:
+  - [1] https://deepgram.com/pricing
+  - [2] https://developers.deepgram.com/reference/api-rate-limits.md
+  - [3] https://console.deepgram.com/signup
+  - [4] https://deepgram.com/terms
+
+## DeepL API (Developer plan)
+
+- `inference/deepl-api-developer` | trial-only | evidence documented | binding volume-quota | category machine translation API, one-time free character credit | tier Developer
+- needs card unknown, phone no, ID no, institution no | verified 2026-11-03T07:34:02.146Z (live) | stale on 2026-12-04
+- url https://www.deepl.com/en/pro-api | page https://fshy.ajam.dev/p/deepl.md
+- disagrees on identity_kind: `inference/deepl-api-developer` says email, `inference/deepl-api-free` says card
+- disagrees on verdict: `inference/deepl-api-developer` says trial-only, `inference/deepl-api-free` says dead
+- free tier: a one-time credit of 1 million characters for text and document translation on the Developer plan: a total translation limit of 1,000,000 characters that does not reset; further use needs the paid Growth plan | unit: mixed | metered on: unstated | read on: 2026-11-03 | source: [1] | note: the true unit is source characters (Unicode code points sent for translation); the schema vocabulary has no character unit, so mixed is the nearest term. The Developer plan does not include speech to text and does not include access to the web translator. The earlier DeepL API Free plan (500,000 characters per month) is a separate record
+- per-object cap: 128 KiB total request size and 16 KiB header size for every API plan; the document limit column for free plans is 10 MB and 500,000 characters for a Word file (whether the Developer plan uses that column is unverified) | source: [2]
+- retention: not applicable: a translation endpoint stores nothing for the caller
+- egress: metered: no
+- identity: email | detail: the sign-up form is step 1 of 3 ('Sign up', 'Plan details', 'Get API key') and asks for an email, a password and a confirmation of being over 14; whether step 2 'Plan details' asks for a card or an address is unverified: behind a sign-up. The paid Growth plan is bought by credit card only
+- interface: rest
+- limits:
+  - volume-quota (binding): 1,000,000 characters in total, one time, does not reset [1]
+  - per-object-cap: 128 KiB total request size; 16 KiB header size [2]
+  - request-rate: unverified: no request-rate figure is published; the API answers HTTP 429 for too many requests in a short period and HTTP 456 when a usage limit is reached [3]
+- binding note: the 1,000,000 character lifetime total is the limit that decides; it does not reset
+- tooling: HTTP REST API with the header 'Authorization: DeepL-Auth-Key <key>' and DeepL's own client libraries; JSON or form-encoded bodies. Free API keys are identified by the suffix ':fx' and use the host api-free.deepl.com; whether a Developer key carries that suffix and host is unverified: behind a sign-up
+- composes with: a lifetime credit of 1,000,000 characters, then the Growth plan at a card-only checkout; the credit does not recur, so it does not replace a recurring free translation route
+- reliability: the allowance is a lifetime total: once it is used up the plan has to be upgraded, and the API answers HTTP 456 when a character quota is used up
+- notes: Supported languages: the API language page lists 126 entries (for example Acehnese, Afrikaans, Albanian, Arabic through Zulu), retrievable from the /v3/languages endpoint; features such as glossaries cover only some of them. Character limit per request: 128 KiB total request size; the API counts source characters, and document formats bill a minimum of 50,000 characters per document. Not keyless: every request needs an API key.
+- evidence note: the 1,000,000 character one-time limit and its non-reset are quoted from the vendor's help centre and pricing page; the sign-up form fields are read from the sign-up page; step 2 of the sign-up and the host of a Developer key are behind a sign-up and unverified.
+- evidence:
+  - [1] 2026-11-03: the Developer plan is free with a total translation limit of 1,000,000 characters | capture: sha256:0951163069adfd52dd6d46bab3ad9975b1b033ac6f542a1d275885a8fced11db | quote: The DeepL API Developer plan allows developers to try out DeepL’s API for free, with a total translation limit of 1,000,000 characters.
+  - [1] 2026-11-03: the Developer allowance does not reset, so it is a one-time credit | capture: sha256:0951163069adfd52dd6d46bab3ad9975b1b033ac6f542a1d275885a8fced11db | quote: Once this limit has been reached, **it will not reset **and you will need to upgrade to the DeepL API Growth plan.
+  - [4] 2026-11-03: the pricing page lists the Developer plan as a one-time credit of 1 million characters | capture: sha256:549d47f8ba7d898a59658e75f3eaa505f8606ca42ed42c698a69d1e04c3c1e30 | quote: One-time credit of 1 million characters
+  - [4] 2026-11-03: the plan comparison gives the Developer character usage limit as 1 million | capture: sha256:549d47f8ba7d898a59658e75f3eaa505f8606ca42ed42c698a69d1e04c3c1e30 | quote: | Character usage limit | 1 million | 50 million per month | Unlimited 1 |
+  - [4] 2026-11-03: API plans are paid for by credit card only, which is what upgrading from Developer to Growth takes | capture: sha256:549d47f8ba7d898a59658e75f3eaa505f8606ca42ed42c698a69d1e04c3c1e30 | quote: For API plans, we accept payment by credit card only.
+  - [5] 2026-11-03: the Developer sign-up page offers 1 million characters for free | capture: sha256:d98205a2b9a7f5d0b41953ea710fe7a1d3cff92ce5b12446f9c6bf0f643a8b44 | quote: Translate 1 million characters for free.
+  - [5] 2026-11-03: the sign-up form has a password field, next to an email field | capture: sha256:d98205a2b9a7f5d0b41953ea710fe7a1d3cff92ce5b12446f9c6bf0f643a8b44 | quote: Use at least 8 characters for your password
+  - [5] 2026-11-03: the sign-up form asks for an age confirmation and is step 1 of a 3 step flow | capture: sha256:ae2dab06ab73274dc03a8adb6637c8a7df79c630ee8608035df4d0626fdb7386 | quote: I confirm that I am over the age of 14.
+  - [2] 2026-11-03: the total request size limit is 128 KiB | capture: sha256:d52d38681e4a88c2cd7f814184c2f4527872904e91293390f18a566b76175cae | quote: | Total request size | 128 KiB (128\*1024 bytes) |
+  - [6] 2026-11-03: the API language list has 126 entries | capture: sha256:f30fc56801f424f6e8357287e68fccc2beee11a3ece2c2d9381ded6542885539 | quote: Showing 126 of 126 languages
+  - [3] 2026-11-03: HTTP 456 is the answer when a usage limit is reached | capture: sha256:6813ac536005d40f1e2776437cb8ca980f2c04fb56f03a76adb466f1d567b3e3 | quote: * HTTP 456: quota exceeded. The request would take the account or API key past one of its usage limits.
+  - probe:api-free.deepl.com/v2/usage 2026-11-03: the DeepL API host answers an unauthenticated request with HTTP 403 and names the key header, so there is no keyless route | capture: sha256:a84af4df923fa1b1452d8954948eb1343518a6e7e56a947c792ad92231f6f164 | quote: Missing Authorization header, expected 'Authorization: DeepL-Auth-Key <API key>'.
+- sources:
+  - [1] https://support.deepl.com/hc/en-us/articles/360021200939-DeepL-API-plans
+  - [2] https://developers.deepl.com/docs/resources/usage-limits
+  - [3] https://developers.deepl.com/docs/best-practices/error-handling.md
+  - [4] https://www.deepl.com/en/pro-api
+  - [5] https://www.deepl.com/en/signup?cta=checkout&is_api=true&productId=api-developer
+  - [6] https://developers.deepl.com/docs/getting-started/supported-languages
+
+## Grokified
+
+- `inference/grokified` | trial-only | evidence documented | binding volume-quota | category inference gateway, prepaid Grok API at half list price, one-time signup credit
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:15:50.267Z (live) | stale on 2026-12-05
+- url https://grokified.com/pricing | page https://fshy.ajam.dev/p/grokified.md
+- free tier: a one-time $5 signup credit spent at 50% off list price, usable on chat, images and video; there is no recurring free tier | unit: credits | metered on: unstated | read on: 2026-11-04 | source: [1] | note: the terms page says the $5 welcome credit unlocks with the first payment, while the pricing page, the quickstart and the login page say it is spendable from signup; a first payment of $4.99 or more adds $5 more once per account
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: the login page carries an email field; the Sep 17, 2026 changelog entry says no card is asked, stored or verified; image and video generation unlock on a first payment
+- interface: rest
+- limits:
+  - volume-quota (binding): $5 signup credit, once; when the balance runs out a key gets 402 insufficient_quota [1]
+  - request-rate: Grokified applies no rate limit of its own; a 429 means the shared upstream account is over its rate [2]
+- binding note: the $5 credit is the only free allowance and a zero balance returns 402
+- endpoint: https://api.grokified.com/v1/chat/completions
+- tooling: any OpenAI-compatible client at https://api.grokified.com/v1 with a gk_live_ or gk_test_ key; a first-party CLI and a VS Code extension exist
+- composes with: the signup credit then prepaid top-ups from $5 at the same 50% rate
+- reliability: 429 responses come from the shared upstream account and carry no reliable Retry-After; accounts flagged for abuse are suspended
+- notes: the card requirement of the Aug 28, 2026 changelog entry, with 20 free requests before the card, was reversed by the Sep 17, 2026 entry and is not a current term
+- evidence:
+  - [1] 2026-11-04: the pricing page states the $5 signup credit at 50% off | capture: sha256:de3c6895fa37a9c7499b6dca2d6076da5f5dd633e1c3f7f5e81544a0466ed16f | quote: $5 in free credits on signup, ready to spend, at the same 50% rate.
+  - [1] 2026-11-04: the pricing FAQ says sign-up needs no card | capture: sha256:de3c6895fa37a9c7499b6dca2d6076da5f5dd633e1c3f7f5e81544a0466ed16f | quote: Signing up needs no card.
+  - [3] 2026-11-04: the Sep 17, 2026 changelog entry removes the card requirement | capture: sha256:60e38192c27d6ebadbc17ffee216fe3dc4462a8d9e01b96c54357149ce22b16f | quote: The card requirement from Aug 28 is gone. Nothing on Grokified asks for a card to be stored or verified, and we no longer keep one.
+  - [3] 2026-11-04: image and video generation unlock on a first payment | capture: sha256:60e38192c27d6ebadbc17ffee216fe3dc4462a8d9e01b96c54357149ce22b16f | quote: Image and video generation now unlock on your first payment instead
+  - [2] 2026-11-04: no recurring free tier exists | capture: sha256:dcd08042049a82b4aaac642ed4612a99301cc36db2f7c2eb6fb5ddca7671fe00 | quote: There is no free tier beyond the signup credit
+  - [2] 2026-11-04: 429 comes from the shared upstream account | capture: sha256:dcd08042049a82b4aaac642ed4612a99301cc36db2f7c2eb6fb5ddca7671fe00 | quote: A `429 rate_limit_exceeded` has one source: the shared account behind Grokified is over its request or token rate for the moment.
+  - [4] 2026-11-04: the terms page says the welcome credit unlocks with the first payment, which conflicts with the pricing page | capture: sha256:294b104224824857f83fce3189bc7a129acb9f17e2a51fa01b7be3c836fa6a93 | quote: The signup welcome credit is $5. It unlocks with your first payment and spends at the same 50% rate as any other usage.
+  - [5] 2026-11-04: the quickstart says a new key works on the signup credit | capture: sha256:a1920009f6b1339c5af7ed7111d00f130a8b112113616068ade1558039aef505 | quote: A brand-new key works on its signup credit straight away.
+  - [6] 2026-11-04: the login page carries an email field | capture: sha256:58b028665aeaf51c0a5a18510ed671aac785cff2dc49b1e1e82b0e7223e2217a | quote: for="email">Email</label>
+  - probe:https://api.grokified.com/v1/chat/completions 2026-11-10: a keyless POST on 2026-11-10 answered HTTP 401 with the vendor's own gate message, so the tier is gated on a key | capture: sha256:8d59857efa7df9b68df58f5771f99773db01828ec70ad2bf5930e63fbe132550 | quote: "status": 401
+- sources:
+  - [1] https://grokified.com/pricing
+  - [2] https://grokified.com/docs/rate-limits
+  - [3] https://grokified.com/changelog
+  - [4] https://grokified.com/terms
+  - [5] https://grokified.com/docs/quickstart
+  - [6] https://grokified.com/login
+
+## Inception Labs (Mercury API)
+
+- `inference/inception-labs` | trial-only | evidence documented | binding volume-quota | category inference endpoint, signup token grant
+- needs card no, phone no, ID no, institution no | verified 2026-10-28T04:36:18.593Z (live) | stale on 2026-11-28
+- url https://docs.inceptionlabs.ai/get-started | page https://fshy.ajam.dev/p/inceptionlabs.md
+- free tier: 100 million free tokens assigned to each new account, no payment details required; free-tier limits are 1,000 API requests, 1,000,000 input tokens and 100,000 output tokens per minute | unit: tokens | metered on: request-count | read on: 2026-10-28 | source: [1] | note: the quick-start page words the grant as 'initially assigned' to each new user and points to the billing page when the tokens run low; no monthly renewal is stated
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: no payment details required, quoted from the quick-start page; the sign-up form itself was not captured, so any further check on it is not established
+- interface: rest
+- limits:
+  - volume-quota (binding): 100 million free tokens per new account; billing information is requested when they run low [1]
+  - request-rate: Free Tier per minute: 1,000 API requests, 1,000,000 input tokens, 100,000 output tokens (Pay As You Go: 3,000 requests, 3,000,000 input, 300,000 output) [2]
+- binding note: the 100 million token grant runs out before the per-minute ceiling is a constraint
+- endpoint: https://api.inceptionlabs.ai/v1/chat/completions
+- tooling: any OpenAI-compatible client against https://api.inceptionlabs.ai/v1, or the vendor SDKs (pip install inceptionai, npm install inceptionai)
+- composes with: a large one-off token grant with a high per-minute ceiling, suited to a burst of batch calls before any paid plan; the grant, not the rate, is the scarce link
+- reliability: a one-off grant rather than a renewing allowance: once the 100 million tokens are spent the account needs billing information
+- notes: the model on the quick-start page is mercury-3; the grant is worded as an initial assignment, so the verdict is trial-only until a renewal is shown.
+- evidence note: the grant and the per-minute limits are quoted from the vendor's quick-start and rate-limit pages; no call was made. Renewal behaviour and the sign-up form are not established.
+- evidence:
+  - [1] 2026-10-28: each new account gets 100 million free tokens and no payment details are required | capture: sha256:0b3590a9eec6b9fba9dd71347e79a98f621a39b4693866d8811bb398ba9c137c | quote: Every new account includes 100 million free tokens — no payment details required.
+  - [1] 2026-10-28: billing information is asked for only when the free tokens run low | capture: sha256:0b3590a9eec6b9fba9dd71347e79a98f621a39b4693866d8811bb398ba9c137c | quote: When your free tokens are running low, navigate to [Billing](https://platform.inceptionlabs.ai/dashboard/billing) to add your payment information for continued usage beyond the free tier.
+  - [2] 2026-10-28: free tier allows 1,000 API requests per minute (3,000 on Pay As You Go) | capture: sha256:279e1aeb81a162e9a016b89107d6949a933e1e6517b60fb0f6e9cccdcf6d28d0 | quote: | API Requests | 1,000 | 3,000 | Custom |
+  - [2] 2026-10-28: free tier allows 1,000,000 input tokens per minute | capture: sha256:279e1aeb81a162e9a016b89107d6949a933e1e6517b60fb0f6e9cccdcf6d28d0 | quote: | Input Tokens | 1,000,000 | 3,000,000 | Custom |
+  - [2] 2026-10-28: free tier allows 100,000 output tokens per minute | capture: sha256:279e1aeb81a162e9a016b89107d6949a933e1e6517b60fb0f6e9cccdcf6d28d0 | quote: | Output Tokens | 100,000 | 300,000 | Custom |
+  - probe:https://api.inceptionlabs.ai/v1/chat/completions 2026-11-10: a keyless POST on 2026-11-10 answered HTTP 401 with the vendor's own gate message, so the tier is gated on a key | capture: sha256:e3b553a615915ce48c40ea1fbe63b09d030a7555acdce22c11804e4827c04b75 | quote: "status": 401
+- sources:
+  - [1] https://docs.inceptionlabs.ai/get-started
+  - [2] https://docs.inceptionlabs.ai/get-started/rate-limits
+
+## Jina AI embeddings and reranker API
+
+- `inference/jina-ai-embeddings-reranker` | trial-only | evidence documented | binding volume-quota | category embedding and rerank API, one-time free token balance on an auto-generated key | tier Free API key
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T07:34:03.660Z (live) | stale on 2026-12-04
+- url https://jina.ai/embeddings/ | page https://fshy.ajam.dev/p/jina.md
+- free tier: an auto-generated API key carries free tokens usable across every Jina model (embeddings, reranker, reader, classifier, segmenter). The first-party pages state no token amount; a third-party catalogue reports 10M tokens per new key, one-time. When the tokens are spent the key needs a purchased top-up | unit: tokens | metered on: request-count | read on: 2026-11-03 | source: [1] | note: unverified: the 10M figure rests on the third-party catalogue only; the vendor pages read say 'free tokens' with no number
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: anonymous | detail: a key is auto-generated for a new user and the vendor only recommends logging in to keep it; unverified: whether the key page asks for any field before it issues the key, and the key page is a browser app that the page reader returned empty
+- interface: rest
+- limits:
+  - volume-quota (binding): free tokens on the key, shared by every Jina API on that key; amount unstated on the vendor pages read, a third-party catalogue reports 10M tokens one-time [1]
+  - request-rate: Free key: 100 requests and 100,000 tokens per minute on /v1/embeddings and /v1/rerank per the product pages (https://jina.ai/embeddings/, https://jina.ai/reranker/); the API reference at https://docs.jina.ai/ states 500 requests and 1,000,000 tokens per minute for the same endpoints; both pages are current and disagree; a per-IP limit of 10,000 requests per 60 seconds also applies; excess answers HTTP 429 [1]
+- binding note: the one-time free token balance runs out before any rate limit matters: at the lower rate (100,000 tokens per minute) 10M tokens would take 100 minutes
+- endpoint: https://api.jina.ai/v1/embeddings
+- tooling: any HTTP client or the OpenAI-schema-compatible /v1/embeddings call; /v1/rerank takes a query and a document list; /v1/batch/embeddings takes JSONL for large jobs
+- composes with: the same key and balance also pay for Reader (r.jina.ai) and Search (s.jina.ai); embeddings from here pair with the rerank endpoint of the same key as a second stage
+- reliability: the vendor's post-acquisition notice states the embeddings and reranker APIs continue to be developed and maintained; the free tokens do not renew
+- notes: models on the keyless list include jina-embeddings-v5-text-small, v5-text-nano, v5-omni-small, v5-omni-nano, jina-embeddings-v4 and v3, jina-code-embeddings-0.5b and 1.5b, jina-clip-v2, jina-colbert-v2, and the rerankers jina-reranker-v3.5, v3, m0 and v2-base-multilingual
+- evidence note: the free key, both rate-limit pairs and the model ids are quoted from vendor pages; the token amount is unverified at the vendor (third-party figure only) and the two rate-limit pairs disagree between vendor pages.
+- evidence:
+  - [1] 2026-11-03: a new user gets an auto-generated key carrying free tokens that work across every Jina model; the first-party page states no token amount | capture: sha256:16d0824ab71c0cd89aaa7776d67f33b355dbe2c6a31aa682f22c19e0fb042b5f | quote: Yes. New users get an auto-generated API key with free tokens usable across any of our models. Once the free tokens are consumed, you can purchase additional tokens for the key in the 'Buy tokens' tab.
+  - [1] 2026-11-03: a free key is limited to 100 requests and 100,000 tokens per minute, with an additional per-IP limit of 10,000 requests per 60 seconds | capture: sha256:16d0824ab71c0cd89aaa7776d67f33b355dbe2c6a31aa682f22c19e0fb042b5f | quote: Rate limits depend on your API key type: Free: 100 RPM, 100K TPM Paid: 500 RPM, 2M TPM Premium: 5,000 RPM, 50M TPM There is an additional IP-based limit of 10,000 requests per 60 seconds to prevent abuse.
+  - [2] 2026-11-03: the embeddings product page gives a free key 100 requests and 100,000 tokens per minute on /v1/embeddings | capture: sha256:c06b8bb0bd531a74d1812410326a8d12e4bc14eb632d3db29b184c700deee62c | quote: | Embedding API | `https://api.jina.ai/v1/embeddings` | Convert text/images to fixed-length vectors | | 100 RPM & 100,000 TPM |
+  - [3] 2026-11-03: the reranker product page gives a free key 100 requests and 100,000 tokens per minute on /v1/rerank | capture: sha256:b2aed74caa12a4405b4ef2fa9593467f379bfcf67dae78889645ce4a09cda3c1 | quote: | Reranker API | `https://api.jina.ai/v1/rerank` | Rank documents by query | | 100 RPM & 100,000 TPM |
+  - [4] 2026-11-03: the API reference gives the Free column 500 requests and 1,000,000 tokens per minute on /v1/embeddings, which differs from the product pages | capture: sha256:7d4e9bc1850b97d96874777a92289ca2c39aa010f1f57c1ffeefa6798ef576d3 | quote: | `/v1/embeddings` | 500 RPM · 1M TPM | 500 RPM · 10M TPM | 5,000 RPM · 100M TPM |
+  - [4] 2026-11-03: the API reference gives the Free column 500 requests and 1,000,000 tokens per minute on /v1/rerank | capture: sha256:7d4e9bc1850b97d96874777a92289ca2c39aa010f1f57c1ffeefa6798ef576d3 | quote: | `/v1/rerank` | 500 RPM · 1M TPM | 500 RPM · 10M TPM | 5,000 RPM · 100M TPM |
+  - [5] 2026-11-03: the keyless model list names jina-embeddings-v5-text-small among the embedding models | capture: sha256:4a7b9f90344ab85b83834202b1cb2f2ea3b013ad50d8a8e7480f052d19a917d0 | quote: "id":"jina-ai/jina-embeddings-v5-text-small","hugging_face_id":"jinaai/jina-embeddings-v5-text-small"
+  - [5] 2026-11-03: the keyless model list names jina-reranker-v3.5 among the rerankers | capture: sha256:4a7b9f90344ab85b83834202b1cb2f2ea3b013ad50d8a8e7480f052d19a917d0 | quote: "id":"jina-ai/jina-reranker-v3.5","hugging_face_id":"jinaai/jina-reranker-v3.5"
+  - [1] 2026-11-03: logging in is recommended and not stated as required to hold a key | capture: sha256:16d0824ab71c0cd89aaa7776d67f33b355dbe2c6a31aa682f22c19e0fb042b5f | quote: It's recommended to log in to keep your API key securely stored and easily accessible.
+  - [4] 2026-11-03: every embeddings and rerank call needs a bearer key, obtained from the key page | capture: sha256:7d4e9bc1850b97d96874777a92289ca2c39aa010f1f57c1ffeefa6798ef576d3 | quote: Authentication. Send `Authorization: Bearer `. Get a key at https://jina.ai/?sui=apikey.
+  - [6] 2026-11-03: a third-party catalogue reports the free allowance as 10M tokens per new key, one-time, with no card | capture: sha256:31a3a81929acb13229c013370fa33b7abe2a057991fadd279e773fe5909d7637 | quote: | [Jina AI](https://aifree.dev/offer/jina-ai-free-api-tokens) | 10M tokens per new API key, shared across Embeddings, Reranker, Reader, Classifier and Segmenter | jina-embeddings-v5-text-small and v5-omni-small (32K) | jina-reranker-v3.5 | No | One-time |
+  - [1] 2026-11-03: the vendor states the embeddings and reranker APIs continue to be served after the acquisition | capture: sha256:16d0824ab71c0cd89aaa7776d67f33b355dbe2c6a31aa682f22c19e0fb042b5f | quote: Yes. The Reader API, Embeddings API, and Reranker API continue to be developed and maintained, and models continue to be published to cloud marketplace platforms.
+  - probe:https://api.jina.ai/v1/embeddings 2026-11-10: a keyless POST on 2026-11-10 answered HTTP 401 with the vendor's own gate message, so the tier is gated on a key | capture: sha256:d658b90813e4980496b49f59bfc7a3809ef73830add47967993cae3dfcc4d575 | quote: "status": 401
+- sources:
+  - [1] https://jina.ai/contact-sales/
+  - [2] https://jina.ai/embeddings/
+  - [3] https://jina.ai/reranker/
+  - [4] https://docs.jina.ai/
+  - [5] https://api.jina.ai/v1/models
+  - [6] https://aifree.dev/learn/free-embeddings-api
+
+## Mixedbread (managed search with reranking)
+
+- `inference/mixedbread-search-starter` | trial-only | evidence documented | binding volume-quota | category managed search store with built-in embedding and rerank, one-time free credit | tier Starter
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T07:34:03.660Z (live) | stale on 2026-12-04
+- url https://www.mixedbread.com/pricing | page https://fshy.ajam.dev/p/mixedbread.md
+- free tier: Starter plan: $5 in one-time credits, no card required; 3 workspace users, 3 stores, 100 queries per minute and 6,000 upload requests per minute. Embeddings and reranking are billed inside Store indexing and search, not as standalone calls: standalone direct embedding and reranking APIs are no longer documented | unit: credits | metered on: unstated | read on: 2026-11-03 | source: [1] | note: the credit is USD and is spent on content tokens indexed, storage, and queries; semantic search is $4 per 1K queries and $7.50 per 1K with reranking
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: the pricing page states 'No card required' for Starter; unverified: the sign-up form fields, because the app page answered with a login wall to the page reader
+- interface: rest
+- limits:
+  - volume-quota (binding): $5 of one-time credit; at the listed prices $5 covers about 1,250 plain semantic queries or about 666 with reranking, before any indexing cost [1]
+  - request-rate: Starter: 100 queries per minute and 6,000 ingestion requests per minute; operation-class limits 1,200 reads, 600 lists, 360 writes per minute [1]
+- binding note: the $5 one-time credit is the binding limit; once spent the plan must move to Scale at $20 a month
+- endpoint: https://api.mixedbread.com/v1/stores/search
+- tooling: Python and TypeScript SDKs and a REST endpoint at api.mixedbread.com/v1/stores/search; upload files to a store, then search with search_options.rerank
+- composes with: a caller that needs raw vectors or a bare rerank call cannot get them here; Jina AI, Pinecone Inference and Cohere trial keys serve that shape
+- reliability: the earlier standalone embedding and reranking APIs were withdrawn from the documentation; the open-weight models remain on Hugging Face
+- notes: derived: $5 / ($7.50 per 1,000 queries) = about 666 queries with reranking; $5 / ($4 per 1,000 queries) = 1,250 queries without
+- evidence note: the plan, credit, no-card statement, limits, prices and the withdrawal of the direct APIs are quoted from vendor pages; the sign-up form was not readable.
+- evidence:
+  - [1] 2026-11-03: the Starter plan is free, with $5 of one-time credits and no card | capture: sha256:2ab2f4bd584891c9f5a5d861e616cace3d0319b23749436db7296e62e0298c3f | quote: Try Mixedbread with $5 in one-time credits. No card required.
+  - [1] 2026-11-03: Starter allows 100 queries per minute | capture: sha256:2ab2f4bd584891c9f5a5d861e616cace3d0319b23749436db7296e62e0298c3f | quote: | Query | 100 req / min | 2,400 req / min | Custom |
+  - [1] 2026-11-03: Starter allows 6,000 ingestion requests per minute | capture: sha256:2ab2f4bd584891c9f5a5d861e616cace3d0319b23749436db7296e62e0298c3f | quote: | Ingestion | 6,000 req / min | 12,000 req / min | Custom |
+  - [1] 2026-11-03: the $5 credit buys roughly 666 semantic queries with reranking, since each thousand cost $7.50 | capture: sha256:2ab2f4bd584891c9f5a5d861e616cace3d0319b23749436db7296e62e0298c3f | quote: Per thousand queries: $0.10 for grep, $4 for semantic search, or $7.50 for semantic search with reranking.
+  - [2] 2026-11-03: the standalone direct embedding and reranking API reference pages were withdrawn | capture: sha256:e1e38524be2ab3d71b5c329bcab847e2151bba3baf0e0b915cad37e7e526c03f | quote: pages are no longer part of the current documentation, but the model artifacts
+  - [2] 2026-11-03: reranking is now a step inside Store search, not a separate endpoint | capture: sha256:e1e38524be2ab3d71b5c329bcab847e2151bba3baf0e0b915cad37e7e526c03f | quote: Stores handle parsing, indexing, retrieval, and reranking as one workflow.
+  - [3] 2026-11-03: the rerank models run inside Store search; mxbai-rerank-large-v2 is one of them | capture: sha256:c3fc8672d21212919653d66e4e63db385fbb20c3c81f0419ab8a7b9f2f0107a0 | quote: | `mixedbread-ai/mxbai-rerank-large-v2` | Pointwise | 1.5B-parameter model tuned for accuracy across 100+ languages. |
+  - [4] 2026-11-03: read operations are limited to 1,200 per minute with a burst capacity of 1,000 | capture: sha256:4daa645d55634686f35b4e141a64ccd6abfd2039024afb3ec9b6e03b1be7fed6 | quote: | Read | 1,200 | 1,000 | 1 minute |
+  - probe:https://api.mixedbread.com/v1/stores/search 2026-11-10: a keyless POST on 2026-11-10 answered HTTP 401 with the vendor's own gate message, so the tier is gated on a key | capture: sha256:e47573ad60ded82e908f726f18ac901c25c365ed878123b9e90a9bd9f8279dc9 | quote: "status": 401
+- sources:
+  - [1] https://www.mixedbread.com/pricing
+  - [2] https://www.mixedbread.com/docs/models/reranking
+  - [3] https://www.mixedbread.com/docs/stores/search/rerank
+  - [4] https://www.mixedbread.com/docs/api-reference/rate-limits
+
+## Nebius Token Factory
+
+- `inference/nebius-token-factory` | trial-only | evidence documented | binding volume-quota | category serverless inference, card-backed pay-as-you-go with a promo credit | tier Starter Plan
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T01:04:07.768Z (live) | stale on 2026-12-04
+- url https://docs.tokenfactory.nebius.com/quickstart | page https://fshy.ajam.dev/p/nebius.md
+- free tier: no standing free allowance on the Starter Plan, which is pay-as-you-go. A promotional credit of USD 25 for Token Factory (and USD 25 of Tavily credit) is issued through the Nebius Builder Program and expires 90 days after issue; applying a promo code is done in the console after a billing account with a bank card exists | unit: credits | metered on: unstated | read on: 2026-11-03 | source: [1] | note: the credit is drawn down by per-token prices that depend on the model; the Builder Program page was last modified September 2026
+- per-object cap: not applicable
+- retention: the plans page lists 'Zero-retention inference.' for the Starter Plan; the supplemental terms separately allow storing input and output unless the customer opts out in the onboarding form or by email to support, and which of the two is the default is…
+- egress: metered: no
+- identity: card | detail: Sign-in with a Google or GitHub account, then a billing account with a bank card is mandatory to finish onboarding ('Billing setup is mandatory—you cannot complete onboarding without it.'); bank transfer is for companies only. The Builder Program form separately asks for name, email, company or university name, role, country and a description of what is being built, with a verified email. A Nebius Cloud Support answer relayed on a hackathon forum says promotional-credit-only access is unavailable.
+- interface: rest
+- limits:
+  - request-rate: Starter Plan baseline of 400K TPM and 600 RPM on the plans page (the rate-limits page example table prints 60 RPM and 400,000 TPM as its baseline); the limit rises x1.2 for the next 15-minute window at 80 per cent or more average use, falls by 1.5 at 50 per cent or less, up to 20 times the base; HTTP 429 above the limit [2]
+  - volume-quota (binding): USD 25 of Token Factory promo credit from the Builder Program, expiring 90 days after issue; the account can be auto-paused when monthly consumption exceeds the credit by more than 30 per cent [1]
+- binding note: the USD 25 promo credit is the only free allowance and runs out first; the card on file then bills pay-as-you-go
+- interface detail: OpenAI-compatible chat completions API at https://api.tokenfactory.nebius.com/v1/ (the console home page also shows a regional host, api.tokenfactory.us-central1.nebius.com)
+- endpoint: https://api.tokenfactory.nebius.com/v1/chat/completions
+- tooling: any OpenAI-compatible client pointed at the base URL with an API key created in the console; model ids are vendor/model, for example deepseek-ai/DeepSeek-R1-0528
+- composes with: the Builder Program credit is the only free lane found; the card on file means usage beyond the credit is billed pay-as-you-go
+- reliability: Best-effort 99% availability on the Starter Plan and no SLA for the service; free credits may be modified or revoked without notice; a failed card charge suspends the account; sudden bursts may be throttled with HTTP 429
+- notes: the plans page prints a 600 RPM baseline while the rate-limits page example table prints 60 RPM at the same 400,000 TPM; the same lane is labelled Starter Plan on one page and Startup Tier on the other
+- evidence note: every field is quoted from first-party pages read on 2026-11-03; the card requirement is also relayed by a third-party forum post; unverified: whether a promo code redeems without a card, and the per-model rate limits
+- evidence:
+  - [3] 2026-11-03: a billing account is mandatory to complete onboarding | capture: sha256:efdc0dc2c9fe02d1cd408f9389217723b6e0c789ba95676457ce7b62c7744666 | quote: Billing setup is mandatory—you cannot complete onboarding without it.
+  - [3] 2026-11-03: the billing account needs a bank card | capture: sha256:efdc0dc2c9fe02d1cd408f9389217723b6e0c789ba95676457ce7b62c7744666 | quote: Setting up a billing account requires a bank card.
+  - [3] 2026-11-03: the card-free payment route is closed to individuals | capture: sha256:efdc0dc2c9fe02d1cd408f9389217723b6e0c789ba95676457ce7b62c7744666 | quote: Bank transfers are available to companies only and are not supported for individual accounts.
+  - [3] 2026-11-03: a failed card charge suspends the account | capture: sha256:efdc0dc2c9fe02d1cd408f9389217723b6e0c789ba95676457ce7b62c7744666 | quote: If a card charge fails, your account is suspended.
+  - [3] 2026-11-03: promo codes give free credits and are applied in the console after billing setup | capture: sha256:efdc0dc2c9fe02d1cd408f9389217723b6e0c789ba95676457ce7b62c7744666 | quote: A promo code provides free Nebius Token Factory credits and is typically issued as part of a special offer.
+  - [4] 2026-11-03: sign-in is a Google or GitHub account | capture: sha256:f59ae66f965fb0d6479e3445d0bbfb7ba541aba00b2869a26aac72501f743c4c | quote: 2. Log in using your Google or GitHub account
+  - [4] 2026-11-03: the OpenAI-compatible base URL | capture: sha256:f59ae66f965fb0d6479e3445d0bbfb7ba541aba00b2869a26aac72501f743c4c | quote: base_url="https://api.tokenfactory.nebius.com/v1/",
+  - [5] 2026-11-03: the console home page shows a regional host of the same API | capture: sha256:e43cc19263f39d620e31bd2c042c8238e2fa502abdb999adb61aee893fc89011 | quote: base_url="https://api.tokenfactory.us-central1.nebius.com/v1/",
+  - [6] 2026-11-03: serverless inference is the shared lane aimed at evaluation and prototyping | capture: sha256:5727ce6f90879e670ff8b712fa6c1361e721d4d35b30d5c6524db17c25a8fedf | quote: Best for: evaluation, prototyping and variable workloads.
+  - [7] 2026-11-03: the Starter Plan baseline rate limit | capture: sha256:a136cbd33e913e698414061c8a4d21dc8a88edcbfa570fe235a8a893adf93224 | quote: 400K TPM / 600 RPM baseline. Burst capacity on request.
+  - [7] 2026-11-03: the Starter Plan availability level | capture: sha256:a136cbd33e913e698414061c8a4d21dc8a88edcbfa570fe235a8a893adf93224 | quote: Best-effort 99% availability.
+  - [7] 2026-11-03: the Starter Plan is billed pay-as-you-go, with no free allowance listed | capture: sha256:a136cbd33e913e698414061c8a4d21dc8a88edcbfa570fe235a8a893adf93224 | quote: Pay-as-you-go.
+  - [7] 2026-11-03: the Starter Plan lists zero-retention inference | capture: sha256:a136cbd33e913e698414061c8a4d21dc8a88edcbfa570fe235a8a893adf93224 | quote: Zero-retention inference.
+  - [2] 2026-11-03: the rate-limits page example table prints a baseline of 60 RPM and 400,000 TPM, which disagrees with the 600 RPM of the plans page | capture: sha256:7f8c040889c8964058330c70969257846441205ba1aad6fe491bb6ca1606038d | quote: | Baseline | `1.00×` | 60 | 400,000 |
+  - [2] 2026-11-03: the limit scales up by 1.2 at 80 per cent or more average use per 15-minute window | capture: sha256:7f8c040889c8964058330c70969257846441205ba1aad6fe491bb6ca1606038d | quote: Scale‑up rule – When average usage in a 15‑minute window ≥ 80 % of the current limit, the limit for the next window increases by 20 % (`× 1.2`).
+  - [2] 2026-11-03: the limit scales down by 1.5 at 50 per cent or less | capture: sha256:7f8c040889c8964058330c70969257846441205ba1aad6fe491bb6ca1606038d | quote: Scale‑down rule – When average usage in a 15‑minute window ≤ 50 %, the limit for the next window decreases by one‑third (`÷ 1.5`).
+  - [2] 2026-11-03: the ceiling is 20 times the base | capture: sha256:7f8c040889c8964058330c70969257846441205ba1aad6fe491bb6ca1606038d | quote: Hard ceiling – The limit can grow to 20 × your base allocation. Beyond that we require an Enterprise plan.
+  - [2] 2026-11-03: over-limit requests answer 429 | capture: sha256:7f8c040889c8964058330c70969257846441205ba1aad6fe491bb6ca1606038d | quote: If you exceed the active limit you will receive HTTP 429.
+  - [1] 2026-11-03: the Builder Program grants USD 25 of Token Factory credit and USD 25 of Tavily credit | capture: sha256:52c47cd7087a24394dddd3c44616869dcf2fe88ca05895ed385efe8ef83dfd64 | quote: C.1 Upon successful registration and verification, Customer will receive promotional credit codes for: (i) USD $25 in Nebius Token Factory credits; and (ii) USD $25 in Tavily partner credits.
+  - [1] 2026-11-03: the credits expire 90 days after issue | capture: sha256:52c47cd7087a24394dddd3c44616869dcf2fe88ca05895ed385efe8ef83dfd64 | quote: C.2 All promotional credits are nonrefundable, nontransferable, and expire 90 days from the date of issuance.
+  - [1] 2026-11-03: the Builder Program form fields | capture: sha256:52c47cd7087a24394dddd3c44616869dcf2fe88ca05895ed385efe8ef83dfd64 | quote: B.1 To register for the Programme, Customer must complete the Programme registration form with all required information, including: name, email address, company or university name, role, country, a description of what Customer is building, and acceptance of these Service-Specific Terms.
+  - [1] 2026-11-03: Builder Program membership needs a verified email | capture: sha256:52c47cd7087a24394dddd3c44616869dcf2fe88ca05895ed385efe8ef83dfd64 | quote: B.2 Customer must verify its email address via the double opt-in verification email sent upon registration.
+  - [1] 2026-11-03: the account can be auto-paused when monthly consumption exceeds the credit by more than 30 per cent | capture: sha256:52c47cd7087a24394dddd3c44616869dcf2fe88ca05895ed385efe8ef83dfd64 | quote: H.4 Nebius reserves the right to auto-pause or suspend Customer’s account if monthly resource consumption exceeds the credit allocation by more than 30%.
+  - [8] 2026-11-03: free credits can be modified or revoked without notice | capture: sha256:b1bb7ec64a4d5f9b2e4a1ebd4e6eaf4c46ccea0598c0849d53c7b208dfb3c8b3 | quote: **6.2. Credits.** If Customer is granted or otherwise receives any free credits for use of the Services, Nebius reserves the right to modify or revoke any such credits at any time and without prior notice.
+  - [8] 2026-11-03: the Token Factory service is outside the SLA | capture: sha256:b1bb7ec64a4d5f9b2e4a1ebd4e6eaf4c46ccea0598c0849d53c7b208dfb3c8b3 | quote: **7.4. No Service Level Agreement.** The Service Level Agreement (“SLA”) available at
+  - [8] 2026-11-03: a payment method is required on the account | capture: sha256:b1bb7ec64a4d5f9b2e4a1ebd4e6eaf4c46ccea0598c0849d53c7b208dfb3c8b3 | quote: Customer is required to set up a payment method in the Customer Account in accordance with Nebius’ or the Platform’s instructions.
+  - [8] 2026-11-03: input and output storage is on by default with an opt-out | capture: sha256:b1bb7ec64a4d5f9b2e4a1ebd4e6eaf4c46ccea0598c0849d53c7b208dfb3c8b3 | quote: **5.4. Opt Out.** If Customer prefers that Nebius (i) does not store Customer’s Inputs and Outputs for the purposes of providing the Services
+  - [9] 2026-11-03: a participant relays a Nebius Cloud Support answer that a bank card is required | capture: sha256:04558b9cde5485cecbe96007861c1619cd6c75a5e44f17cf64ab6e6de4004a64 | quote: A bank card is required to complete onboarding.
+  - [9] 2026-11-03: the relayed support answer says access on promotional credit alone is unavailable | capture: sha256:04558b9cde5485cecbe96007861c1619cd6c75a5e44f17cf64ab6e6de4004a64 | quote: Promotional-credit-only access is currently unavailable.
+  - [9] 2026-11-03: the relayed support answer says no hard spending limit is guaranteed | capture: sha256:04558b9cde5485cecbe96007861c1619cd6c75a5e44f17cf64ab6e6de4004a64 | quote: There is no guaranteed hard spending limit to prevent charges beyond the $25 promotional balance.
+  - probe:api.tokenfactory.nebius.com 2026-11-03: the API host answers 401 to an unauthenticated model-list request, so a key is needed | capture: sha256:ab6639693ff5eb5d5ddb35c6500d01b43bcb779e97a05ecbc3cae1ad15e51171 | quote: "status": 401
+- sources:
+  - [1] https://nebius.com/builders-terms-and-conditions
+  - [2] https://docs.tokenfactory.nebius.com/ai-models-inference/rate-limits
+  - [3] https://docs.tokenfactory.nebius.com/other-capabilities/billing-new
+  - [4] https://docs.tokenfactory.nebius.com/quickstart
+  - [5] https://tokenfactory.nebius.com/
+  - [6] https://nebius.com/services/token-factory
+  - [7] https://nebius.com/services/token-factory/enterprise-grade-inference
+  - [8] https://docs.nebius.com/legal/token-factory
+  - [9] https://nebiusglobalaihackathon.devpost.com/forum_topics/45365
+
+## NVIDIA build
+
+- `inference/nvidia-build-trial` | trial-only | evidence documented | binding request-rate | category inference endpoint, trial tier
+- needs card no, phone yes, ID no, institution no | verified 2026-11-03T01:29:20.039Z (live) | stale on 2026-12-04
+- url https://build.nvidia.com/ | page https://fshy.ajam.dev/p/nvidia.md
+- free tier: free tier with no per-token billing, rate limited to up to 40 requests per minute (RPM) for most models; each account's own limit is shown in the dashboard | unit: requests | metered on: request-count | read on: 2026-10-28 | source: [1] | note: the FAQ states only the per-minute figure, up to 40 requests per minute for most models; it states no per-day request figure; the site's runtime copy file names 'Up to 40 rpm' and '10,000 requests per day' and the dashboard rate-limit chip renders only the per-minute value; the phone verification dialog lists 'Unlimited API requests without daily limits' as a benefit of verifying; whether a daily cap applies to an unverified account and not to a verified one is unverified: behind a sign-up
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: any-phone | detail: an NVIDIA account (email) plus a one-time password sent to a phone number before an API key can be generated; the phone form refuses numbers located in AF, BD, BY, CU, IR, KZ, KG, KP, PK, RU, SY, TJ, TZ and UZ; no card required; the phone form is shown only to an organization owner whose account is unverified, and a member who is not the owner counts as set up without it, but a member still needs the organization's API key permission (canGenerateAPIKey), otherwise the dialog shows 'API Access Restricted by your Organization' with a choice of another account or the account admin; whether the key service enforces the OTP for a member is unverified: behind a sign-up
+- interface: rest
+- limits:
+  - request-rate (binding): up to 40 requests per minute (RPM) for most models, per account; no per-token billing; the account's own limit is shown in the top-right of the dashboard https://build.nvidia.com/search (FAQ)
+- tooling: any OpenAI-compatible client; curl against POST {base}/chat/completions
+- composes with: pairs with an agent only inside a trial
+- reliability: the phone one-time-password step fails for some numbers with 'invalid' or 'exceeded limits' errors; NVIDIA's pinned forum post of 2026-02-17 states verification on build.nvidia.com has been challenging and routes failures to help@build.nvidia.com; the phone form validates a number with libphonenumber isValid only and drops the listed locations, and it offers a Phone Call channel after three SMS resends when the runtime flag killswitches/otp/phone.enabled is true (read true on 2026-11-03), while the WhatsApp and WeChat channels are off (flags read false on 2026-11-03); whether the OTP service accepts VoIP or virtual numbers, and whether a call is delivered where SMS fails, is unverified: behind a sign-up
+- notes: Free tier: up to 40 requests per minute (RPM) for most models and no per-token billing; the account's own limit is shown in the dashboard.
+- evidence note: the 40 requests per minute figure and the no per-token billing statement are quoted from the build.nvidia.com FAQ; the no-credit-card statement is quoted from build.nvidia.com/llms.txt
+- evidence:
+  - [2] 2026-10-07: 'Up to 40 rpm' and '10,000 requests per day' with throttling that 'may vary by model and traffic from other users', captured from the page JSON on 2026-10-07. The 2026-10-22 re-fetch of the same URL did not carry the rate string in the served text
+  - [1] 2026-10-28: the FAQ states the free tier is limited to up to 40 requests per minute for most models, with no per-token billing, and that the personal limit is shown in the dashboard | capture: sha256:ffda2aa5a671df0c05a760f6b355268646ec011d0c7d06e513d594bf5aa8dc46 | quote: The free tier runs on rate limits - up to 40 requests per minute (RPM) for most models, with no per-token billing. Your personal rate limit is shown in the top-right of the dashboard.
+  - [3] 2026-10-28: the first-party catalog text states no credit card is required for the free trial tier and that an API key is generated after sign-in | capture: sha256:6a51456b8d9a4a6eedb9f4ee51145e8233e3f218947291a0c1e7d4aa701b7671 | quote: All models offer a free trial tier with no credit card required. Sign in to generate an API key.
+  - [4] 2026-10-28: the quickstart's key-generation flow starts from an email address | capture: sha256:e7690d7ec8707c75f0e209d65488729317ad7debab73962ffcd1440644592886 | quote: Enter your email ID in the pop-up window, and click Next. By signing up, you will become a member of the Developer Program.
+  - [5] 2026-10-28: a user post of 2026-08-04 on the NVIDIA developer forum reports a phone-number verification step before an API key can be generated (reported, not a vendor statement) | capture: sha256:626af88b226722e9ac7a9f26035d5caefbebc81729a5b23f0590f256e40f7266 | quote: When verifying my phone number (required before API key generation), I first got:
+  - [6] 2026-10-30: the build.nvidia.com phone-verification form, titled 'We'll need to verify your phone number', states a one-time password is required before an API key can be generated | capture: sha256:c1b74a3000e9d555f3defe6661c21a4d8e9e774bd5aa1c7d7defc4efb13e9754 | quote: Validate your account with a one-time password (OTP). This is required before you can generate an API key with your account.
+  - [7] 2026-10-30: the runtime list otp-unsupported-countries.yaml, which the phone OTP form reads to drop locations from its selector and disable Send Code, names these country codes | capture: sha256:3cb69f68ccd47548f1600ec7d24dbd80c579312490b0a21c1235b1da0618865b | quote: ["AF","BD","BY","CU","IR","KZ","KG","KP","PK","RU","SY","TJ","TZ","UZ"]
+  - [8] 2026-10-30: NVIDIA's pinned post of 2026-02-17 on its developer forum states build.nvidia.com verification has been challenging and points affected users to help@build.nvidia.com; replies report 'exceeded limits' errors | capture: sha256:290138469f7d9ee6200a4ac88226e046204293a6725f0822057ad572101bbb49 | quote: It is no secret that the verification process on build.nvidia.com has been challenging for both the community and NVIDIA.
+  - [6] 2026-10-30: the first step of the OTP form is a phone number verification | capture: sha256:c1b74a3000e9d555f3defe6661c21a4d8e9e774bd5aa1c7d7defc4efb13e9754 | quote: "enter-phone-number":"We'll need to verify your phone number"
+  - [6] 2026-10-30: the phone OTP form reads its refused-location list from the runtime config otp-unsupported-countries.yaml | capture: sha256:c1b74a3000e9d555f3defe6661c21a4d8e9e774bd5aa1c7d7defc4efb13e9754 | quote: s=(0,rb.f)("config/otp-unsupported-countries.yaml")
+  - [9] 2026-10-30: the Generate API Key dialog shows the phone OTP form instead of the key generator to an organization owner whose account is not verified | capture: sha256:77cbebc793abb9519e9671676395f9a383d02cd2bf0c24915cae6a0b036a859b | quote: N.isOrgOwner&&E?.user?.verified===!1?(0,t.jsx)(a.f,{handleVerificationSuccess:()=>_(!0),onClose:()=>_(!1),open:P,size:O})
+  - [10] 2026-10-30: the getting-started step 'Create and verify your account' is complete only when the account is verified or is not the organization owner; a blocked account is sent to support | capture: sha256:c43379bc71d4f6c8257007b6bcd7e76cee586b45df49eca67a126b9b4183d8a9 | quote: description:M?"Please contact support to verify your account.":"Create and verify your account to unlock full access to NVIDIA NIM APIs.",isComplete:(n=!!o,a=c.isOrgOwner,s=!!f?.user.verified,r=!!f?.user.blocked,!!n&&!r&&(!!s||!a))
+  - [6] 2026-10-30: the phone form maps an HTTP 429 answer of the OTP endpoint to the 'exceeded limits' error | capture: sha256:c1b74a3000e9d555f3defe6661c21a4d8e9e774bd5aa1c7d7defc4efb13e9754 | quote: 429:"This phone number has exceeded limits, please try a different phone number or try again later."
+  - [11] 2026-10-30: a user post of 2026-07-15 reports Turkey was added to the phone-verification location list, so the refused list changes over time (reported) | capture: sha256:7bc4e375b45f7e15911b9539a9a209366d8cc9af1371b889b8af8854d79cce2d | quote: Turkey has now been added and my verification is complete.
+  - [1] 2026-10-30: the FAQ still states the free tier is rate limited to up to 40 RPM for most models with no per-token billing | capture: sha256:d1111121052fb3d53a300b17c0e4ac89055687721c86b4a98845bb9a5e9d4618 | quote: The free tier runs on rate limits - up to 40 requests per minute (RPM) for most models, with no per-token billing. Your personal rate limit is shown in the top-right of the dashboard.
+  - [6] 2026-11-03: the phone form adds a Phone Call channel only when the voice flag c and the attempt counter h (smsAttempts >= 3) are both true | capture: sha256:6d5d865e2f1b12b3ceae5ec70f0c97e8ea897b2b75f97547d2fe688668f94748 | quote: h=u>=3,m=(0,q.default)([{value:"sms",children:"SMS"},c&&h&&{value:"voice",children:"Phone Call"}
+  - [12] 2026-11-03: the site's runtime copy file still carries both a per-minute and a per-day figure | capture: sha256:01075318402eebbda76ea97f7be76214d29baf66fe9c57e9eeabd5021adeb818 | quote: {"rateLimits":{"requestsPerMinute":"Up to 40 rpm","requestsPerDay":"10,000 requests per day"
+  - [10] 2026-11-03: the account set-up step is complete for a logged-in, unblocked account that is verified or is not the organization owner | capture: sha256:f202b8842c4de757584f5d8307eb7b09827591ebbe5080bd8e7e74e0c69e6e92 | quote: isComplete:(n=!!o,a=c.isOrgOwner,s=!!f?.user.verified,r=!!f?.user.blocked,!!n&&!r&&(!!s||!a))
+  - [1] 2026-11-03: the FAQ still states up to 40 requests per minute for most models with no per-token billing | capture: sha256:4651c19ddcda438f87fb7b05a360485ba146ff4295c74747caaeebb9fd45eb55 | quote: The free tier runs on rate limits - up to 40 requests per minute (RPM) for most models, with no per-token billing.
+  - [6] 2026-11-03: the Send Code button is disabled only when the number fails the parse and validity functions or its location is on the unsupported list | capture: sha256:6d5d865e2f1b12b3ceae5ec70f0c97e8ea897b2b75f97547d2fe688668f94748 | quote: disabled:!!(!((l=r?function(){return ry(ep,arguments)}(r):null)&&function(){return ry(ev,arguments)}(r))||!s||s.includes(l?.country??""))
+  - [6] 2026-11-03: the form's validity function is the libphonenumber isValid check, a numbering-plan test with no VoIP exclusion in the form | capture: sha256:6d5d865e2f1b12b3ceae5ec70f0c97e8ea897b2b75f97547d2fe688668f94748 | quote: function ev(){var t=Y(arguments),e=t.text,n=t.options,r=t.metadata,i=eh(e,n=eg(eg({},n),{},{extract:!1}),r);return i&&i.isValid()||!1}
+  - [6] 2026-11-03: each SMS resend from the code-entry step increments the counter that unlocks the Phone Call channel | capture: sha256:6d5d865e2f1b12b3ceae5ec70f0c97e8ea897b2b75f97547d2fe688668f94748 | quote: handleSendCode:()=>{"sms"===s&&A(t=>t+1),G()}
+  - [6] 2026-11-03: the phone verification dialog lists unlimited API requests without daily limits as a benefit of verifying | capture: sha256:6d5d865e2f1b12b3ceae5ec70f0c97e8ea897b2b75f97547d2fe688668f94748 | quote: Unlimited API requests without daily limits
+  - [13] 2026-11-03: the runtime flag that gates the Phone Call channel read true on 2026-11-03 | capture: sha256:749484de0eda8cf2b309fa5b1ca8588b19709e4c9d0ef95c1cb163bfe9eeacfc | quote: true
+  - [14] 2026-11-03: the runtime flag that gates the WhatsApp channel read false on 2026-11-03 | capture: sha256:21dbd7dfc1748b53e00452f20f4fd1e0aa58cb5be1a8ae0a46eaf8506d9af6fb | quote: false
+  - [15] 2026-11-03: the runtime flag that gates the WeChat channel read false on 2026-11-03 | capture: sha256:82163331664548df493f0eb120b3fcf34b3e7a0857e3db683921d1e7a5af759a | quote: false
+  - [2] 2026-11-03: the served model page embeds the runtime copy data that names 10,000 requests per day | capture: sha256:278e0a855a351ebca5210e4e38af19fdf5ba8510e4d0ec5067bda20ad7343147 | quote: 10,000 requests per day
+  - [10] 2026-11-03: the dashboard rate-limit chip renders the per-minute key of the copy file only | capture: sha256:f202b8842c4de757584f5d8307eb7b09827591ebbe5080bd8e7e74e0c69e6e92 | quote: rateLimitKey:"requestsPerMinute"
+  - [9] 2026-11-03: the Generate API Key dialog shows the phone form only to an organization owner whose account is unverified | capture: sha256:71d04e62bc7e96b6aa5c54f2411f07d73737423fc3d5ca310322bb3c55d8eaec | quote: N.isOrgOwner&&E?.user?.verified===!1?(0,t.jsx)(a.f,{handleVerificationSuccess:()=>_(!0),onClose:()=>_(!1),open:P,size:O})
+  - [16] 2026-11-03: a user without API permission in the current organization sees an organization-restricted notice in the key dialog | capture: sha256:5b1777a3e72949219638a0acab187bd760a87b2b2b3d1f0acade2620245f0268 | quote: API Access Restricted by your Organization.
+  - [16] 2026-11-03: the restricted notice offers choosing another account or contacting the account admin | capture: sha256:5b1777a3e72949219638a0acab187bd760a87b2b2b3d1f0acade2620245f0268 | quote: Select another account or contact the account admin to request API access.
+  - [17] 2026-11-03: key generation is allowed by a per-organization role check and a not-blocked flag, with no verified test | capture: sha256:2e1ab7a20384b3156656bf4f1bd647bfcfe97526f269ec15a1d5c3afad0763f7 | quote: canGenerateAPIKey:c(r.I)&&!u?.blocked
+  - [7] 2026-11-03: the unsupported-location list read names the same 14 country codes | capture: sha256:59915a70806da7873b6a45b3862a3326d6d78cb0d189092bcb407ef3eb208825 | quote: ["AF","BD","BY","CU","IR","KZ","KG","KP","PK","RU","SY","TJ","TZ","UZ"]
+  - [18] 2026-11-03: a user post of 2026-03-25 reports a Google Voice number was not accepted by the phone form (reported; no vendor answer on the page) | capture: sha256:9292384e461bcb2e1e54643bdf934079ac55ccb0154605fee6b15bb90b38a2bb | quote: my Google Voice number is not accepted during phone verification
+  - [19] 2026-11-03: a user post of 2026-03-18 reports the OTP generate call passes an edge reputation service before the SMS is sent (reported) | capture: sha256:fa8ef74ec09ad1f653ff1fc5f6360c1cda5219f43ae742cf987edb493c530e3d | quote: Network inspection reveals the block originates at the edge reputation service
+  - [20] 2026-11-03: a reseller of SMS numbers claims virtual numbers are mostly rejected, with no method published (reported, commercial source) | capture: sha256:6518c6dfcdd918949ae1cbba43ebdcd83bf4aa4e44e60bbf0ee2d7372404c4a9 | quote: Virtual/VoIP number acceptance:~6% (rejected on sight)
+  - [21] 2026-11-03: a third-party write-up claims the key-creation API call returned a key for an owner account without a phone check (reported, not reproduced) | capture: sha256:d3f847dedf396474c4f4ad9f83a4e1e3183d2ebf308317ee80528f15fc065c11 | quote: But the API endpoint that actually creates the key does not check your phone number.
+  - [22] 2026-11-03: a user post of 2026-07-11 reports the API Keys page message shown to an account without the organization's API key permission (reported) | capture: sha256:c69adc6b6f06ad59d241334fe98ee81fa6776877bcff4873c09fea387d7f1f28 | quote: You do not have permissions to create API Keys in this Organization. Switch Orgs or contact your admin.
+- sources:
+  - [1] https://build.nvidia.com/search
+  - [2] https://build.nvidia.com/deepseek-ai/deepseek-v4.1-flash
+  - [3] https://build.nvidia.com/llms.txt
+  - [4] https://docs.api.nvidia.com/nim/docs/api-quickstart
+  - [5] https://forums.developer.nvidia.com/t/phone-verification-fails-invalid-number-then-exceeded-limits-blocked-from-generating-api-key-on-build-nvidia-com/379084
+  - [6] https://build.nvidia.com/_next/static/chunks/30k3_pgjfqlvh.js
+  - [7] https://build.nvidia.com/api/runtime/config/otp-unsupported-countries.yaml
+  - [8] https://forums.developer.nvidia.com/t/account-access-verification-update/360900
+  - [9] https://build.nvidia.com/_next/static/chunks/0bz4psqrhk1gy.js
+  - [10] https://build.nvidia.com/_next/static/chunks/1_3acgk-ajkbl.js
+  - [11] https://forums.developer.nvidia.com/t/turkey-90-is-not-available-for-phone-verification-on-build-nvidia-com/376099
+  - [12] https://build.nvidia.com/api/runtime/content/copy.yaml
+  - [13] https://build.nvidia.com/api/runtime/killswitches/otp/phone.enabled
+  - [14] https://build.nvidia.com/api/runtime/killswitches/otp/whatsapp.enabled
+  - [15] https://build.nvidia.com/api/runtime/killswitches/otp/wechat.enabled
+  - [16] https://build.nvidia.com/_next/static/chunks/2xv_0hdneb8vt.js
+  - [17] https://build.nvidia.com/_next/static/chunks/2ifqamf77-4t0.js
+  - [18] https://forums.developer.nvidia.com/t/google-voice-number-not-accepted-for-nvidia-verification-api-key-issue/364746
+  - [19] https://forums.developer.nvidia.com/t/phone-verification-blocked-on-first-attempt-edge-local-rate-limited-backend-429-while-sms-success/363923
+  - [20] https://gotsms.org/en/check/nvidia
+  - [21] https://dev.to/alaminnna/how-i-bypassed-nvidias-phone-verification-to-access-70-free-ai-models-from-bangladesh-24l0
+  - [22] https://forums.developer.nvidia.com/t/not-able-to-generate-apikeys/376584
+
+## Reducto
+
+- `inference/reducto-standard` | trial-only | evidence documented | binding volume-quota | category document parsing API, one-time free credit | tier Standard
+- needs card unknown, phone no, ID no, institution no | verified 2026-11-03T07:34:02.658Z (live) | stale on 2026-12-04
+- url https://reducto.ai/pricing | page https://fshy.ajam.dev/p/reducto.md
+- free tier: USD 150 of free usage on the Standard plan, then list rates apply: Parse (r-1) USD 10 per 1,000 pages, Extract USD 20 per 1,000 pages | unit: credits | metered on: unstated | read on: 2026-11-03 | source: [1] | note: the credit is denominated in USD; at the USD 10 per 1,000 pages r-1 Parse list rate, USD 150 / USD 10 per 1,000 pages = 15,000 pages. A third-party list prints '15k free credits' for the same free tier. Whether the USD 150 renews is unverified: the pricing page says 'your free $150' and names no period
+- per-object cap: 100 MB per file through direct upload; 5 GB through a presigned-URL upload | source: [2]
+- retention: uploaded files expire 24 hours after upload | source: [2]
+- egress: metered: no
+- identity: email | detail: a free account created at studio.reducto.ai ('sign up for a free account'), then an API key from Studio; unverified: the sign-up form's fields and whether a card is asked, since studio.reducto.ai answers a login wall to every reader route tried
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): USD 150 of free usage on the Standard plan; r-1 Parse is USD 10 per 1,000 pages at list rates effective 2026-09-01; unverified whether the credit renews [1]
+  - per-object-cap: 100 MB per file by direct upload, 5 GB by presigned URL; 30+ file types including PDFs, images, spreadsheets, presentations and scanned documents [2]
+  - request-rate: 1,000 requests per second sustained per API key on all endpoints at the API edge, returning HTTP 429 above it; parallel parse work is separately queued by a concurrency throttle [3]
+- binding note: the USD 150 credit runs out at about 15,000 r-1 Parse pages, long before the 100 MB per-file cap matters
+- interface detail: REST (POST https://platform.reducto.ai/parse with a Bearer API key), SDKs, a CLI (reducto-cli) and an MCP server
+- endpoint: part of interface detail
+- tooling: the Reducto Python, Node.js and Go SDKs, the reducto-cli command line, the MCP server, or plain REST with an API key created in Reducto Studio
+- composes with: a one-time USD 150 credit worth about 15,000 r-1 Parse pages, with the Standard plan's 'No Page Limits' meaning pay-as-you-go afterwards; useful for a single bulk job rather than a recurring free lane
+- reliability: no reliability event recorded; the list prices changed on 2026-09-01 and legacy credit rates were retired, and no request was made because a key needs a signed-in account
+- evidence note: the USD 150 free usage, the page prices, the upload caps and the edge rate limit are quoted from vendor pages read on 2026-11-03; the sign-up fields, any card requirement and the renewal of the credit are unverified, and no request was made.
+- evidence:
+  - [1] 2026-11-03: the Standard plan includes a free USD 150 before standard rates apply | capture: sha256:83fbbf989fff70fba7c0b87433178c19194c92912b14f2d595c40277789c61eb | quote: After your free $150, standard rates apply.
+  - [1] 2026-11-03: the Standard plan includes USD 150 of free usage, then list rates | capture: sha256:83fbbf989fff70fba7c0b87433178c19194c92912b14f2d595c40277789c61eb | quote: Standard includes $150 of free usage, then list rates apply.
+  - [1] 2026-11-03: r-1 Parse is USD 10 per 1,000 pages | capture: sha256:83fbbf989fff70fba7c0b87433178c19194c92912b14f2d595c40277789c61eb | quote: | r-1 Parse | $10 | Custom | Custom |
+  - [1] 2026-11-03: the pricing page lists no page limit on the plan | capture: sha256:4416e23c01dcf680de68f98aa8473d1c7efd99150297a68f2f2acb30426c9f1d | quote: - No Page Limits
+  - [4] 2026-11-03: the Parse r-1 list price in the usage documentation | capture: sha256:092017e7cc6305a1cedcae99380476cdfdef2e7f468da5f8dd51ea3b795c6d90 | quote: | Parse, r-1 | \$10 / 1,000 pages | |
+  - [4] 2026-11-03: the list prices took effect on 2026-09-01 | capture: sha256:092017e7cc6305a1cedcae99380476cdfdef2e7f468da5f8dd51ea3b795c6d90 | quote: These listed prices go into effect on September 1, 2026.
+  - [2] 2026-11-03: direct upload is limited to 100 MB | capture: sha256:28c24fb8c432a2fc7676eefdd8ccc6899554c13ef1e71772b2cbdae0727b4a0f | quote: > | Direct upload (this page) | 100MB |
+  - [2] 2026-11-03: uploaded files expire 24 hours after upload | capture: sha256:28c24fb8c432a2fc7676eefdd8ccc6899554c13ef1e71772b2cbdae0727b4a0f | quote: Files expire 24 hours after upload.
+  - [3] 2026-11-03: the per-API-key request cap at the edge | capture: sha256:dae34f35cb2bbe5847ee45be3422d814d5f10a4ab69f69d8c7e97821517764a1 | quote: | All endpoints | 1,000 req/s sustained |
+  - [5] 2026-11-03: an account is created at studio.reducto.ai as a free account | capture: sha256:6c49a07c2b6700dad752820c1f981bd781c2f89456750a5cc5f43593a822b3b1 | quote: Go to [studio.reducto.ai](https://studio.reducto.ai/) and sign up for a free account.
+  - [5] 2026-11-03: the REST parse endpoint | capture: sha256:6c49a07c2b6700dad752820c1f981bd781c2f89456750a5cc5f43593a822b3b1 | quote: curl -X POST "https://platform.reducto.ai/parse" \
+  - [5] 2026-11-03: a CLI package exists | capture: sha256:6c49a07c2b6700dad752820c1f981bd781c2f89456750a5cc5f43593a822b3b1 | quote: pip install reducto-cli
+  - [6] 2026-11-03: the platform reads PDFs, images, spreadsheets, presentations and scanned documents | capture: sha256:7dffd1af058d44406d1d7f8d0fd8e1228fd36fbe316ed8ad6e18045522ccd09c | quote: including PDFs, images, spreadsheets, presentations, and scanned documents.
+  - [7] 2026-11-03: a third-party list gives the free tier as 15k free credits plus pay-as-you-go | capture: sha256:7eb9f38d0d00b2e6c616bfcd2b507b785e6c1c89fd625d2766a4d0856cfbe450 | quote: Reducto - Turn any unstructured documents (PDF, XLSX, JPG, PPTX, etc.) into structured JSON data. Parse, extract data, and edit PDF forms. Free tier with 15k free credits and pay-as-you-go.
+  - probe:https://platform.reducto.ai/parse 2026-11-10: a keyless POST on 2026-11-10 answered HTTP 403 with the vendor's own gate message, so the tier is gated on a key | capture: sha256:ed9e473c1af35794d0d00f1d47d89b281e5c3679682764476c0a1fa6f291922f | quote: "status": 403
+- sources:
+  - [1] https://reducto.ai/pricing
+  - [2] https://docs.reducto.ai/upload/overview
+  - [3] https://docs.reducto.ai/reference/rate-limits
+  - [4] https://docs.reducto.ai/reference/credit-usage
+  - [5] https://docs.reducto.ai/quickstart
+  - [6] https://docs.reducto.ai/
+  - [7] https://free-for.dev/
+
+## Scaleway Generative APIs (serverless)
+
+- `inference/scaleway-generative-apis` | trial-only | evidence documented | binding volume-quota | category inference endpoint, serverless token API
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T05:39:02.537Z (live) | stale on 2026-12-05
+- url https://www.scaleway.com/en/docs/generative-apis/faq/ | page https://fshy.ajam.dev/p/scaleway.md
+- free tier: Free Tier for Serverless: up to 1,000,000 tokens for models billed by tokens and 60 minutes of audio transcription for models billed by audio minutes; billed per million tokens from token 1,000,001 | unit: tokens | metered on: request-count | read on: 2026-10-28 | source: [1] | note: the FAQ and the pricing page state the allowance as a total; whether it renews monthly or is granted once is not stated on either page
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: card | detail: base rate limits apply if a valid payment method is registered and rise automatically after identity verification, quoted from the rate-limits page; whether the free tier can be used before a payment method is registered is not stated
+- interface: rest
+- limits:
+  - volume-quota (binding): 1,000,000 free tokens and 60 minutes of audio transcription in the Free Tier, applied to the most expensive tokens first [1]
+  - request-rate: Per organization, serverless: tokens per minute 200k per model with a payment method validated, rising with identity validation to 400k (gemma-3-27b-it, llama-3.3-70b-instruct), 1 000k (glm-5.2, gpt-oss-120b) or 2 000k (gemma-4-26b-a4b-it, qwen3.5-397b-a17b); requests per minute 300, rising to 600; concurrent requests 100; Batches API has no rate limit [2]
+- binding note: a fixed 1,000,000-token total that is gone after a short run
+- endpoint: https://api.scaleway.ai/v1/chat/completions
+- tooling: any OpenAI-compatible client at https://api.scaleway.ai/v1; Batches API available
+- composes with: Scaleway-hosted open models; the Batches API has no rate limit and a 50 per cent discount, which matters once the free tokens are gone
+- reliability: per-model ceilings are published on the Organization quotas page: 200k tokens per minute and 300 requests per minute per model with a payment method, up to 400k to 2 000k tokens and 600 requests per minute after identity validation; 100 concurrent…
+- notes: the verdict is trial-only because the allowance is stated as a total with no renewal; a monthly renewal would move it to a recurring allowance.
+- evidence note: the allowance is quoted from the FAQ and pricing pages, the payment-method statement from the rate-limits page, and the per-model token, request and concurrency ceilings from the Organization quotas page; whether the free allowance renews is not stated on any page read
+- evidence:
+  - [1] 2026-10-28: Scaleway offers a Free Tier for serverless Generative APIs | capture: sha256:6136f49e9e2ca0316e9bd20ca14eba2b2aa13556ffba4832587934918375530a | quote: There is a Free Tier available for _Serverless_.
+  - [1] 2026-10-28: the Free Tier covers 1,000,000 tokens | capture: sha256:6136f49e9e2ca0316e9bd20ca14eba2b2aa13556ffba4832587934918375530a | quote: - 1,000,000 tokens for models billed by tokens
+  - [1] 2026-10-28: the Free Tier covers 60 minutes of audio transcription | capture: sha256:6136f49e9e2ca0316e9bd20ca14eba2b2aa13556ffba4832587934918375530a | quote: - 60 minutes of audio transcription for models billed by audio minutes
+  - [3] 2026-10-28: pricing page repeats the 1,000,000-token free tier and states where billing starts | capture: sha256:229ea4112de169255d96b7e3413ce47b96d30e66c5d717378596d593e6be034c | quote: You benefit from a free tier on the first 1,000,000 tokens. You'll be charged from token number 1,000,001.
+  - [4] 2026-10-28: rate limits are tied to a registered payment method | capture: sha256:4e57eeb9ede6341b0623363578b53ae446fac804904e3a3ffb0ec21ab35d6d94 | quote: Base limits apply if you registered a valid payment method
+  - [4] 2026-10-28: the Batches API is exempt from the rate limit | capture: sha256:4e57eeb9ede6341b0623363578b53ae446fac804904e3a3ffb0ec21ab35d6d94 | quote: Requests performed through the Batches API do not have a rate limit
+  - [2] 2026-11-03: glm-5.2 has 200k tokens per minute with a payment method and 1 000k with identity validated | capture: sha256:9937e3012500911e6d3dcbb02a734250297491e928b93adf3dbd9a37690828c7 | quote: | glm-5.2 | 200k | 1 000k |
+  - [2] 2026-11-03: 300 requests per minute with a payment method, 600 after identity validation | capture: sha256:9937e3012500911e6d3dcbb02a734250297491e928b93adf3dbd9a37690828c7 | quote: | gemma-4-26b-a4b-it | 300 | 600 |
+  - [2] 2026-11-03: concurrent requests are 100 for all models at both levels | capture: sha256:9937e3012500911e6d3dcbb02a734250297491e928b93adf3dbd9a37690828c7 | quote: | All models | 100 | 100 |
+  - [1] 2026-11-03: the Free Tier is still 1,000,000 tokens; the page states no monthly renewal | capture: sha256:00467d873ccd335e7a744ab2f17c53fc237a4804ff2ba0c1fdf6bd3018c579d3 | quote: 1,000,000 tokens for models billed by tokens
+  - [2] 2026-11-04: the Organization quotas page holds the per-model ceilings | capture: sha256:150f49dbdc5b02ab3f5afcce2e4db6f9171919a3512edad71fefd7527e93e952 | quote: | glm-5.2 | 200k | 1 000k |
+  - probe:https://api.scaleway.ai/v1/chat/completions 2026-11-10: a keyless POST on 2026-11-10 answered HTTP 401 with the vendor's own gate message, so the tier is gated on a key | capture: sha256:857fb7f7475716a322ce2d9b2e1069ae789e928da9429f887f058d1565302851 | quote: "status": 401
+- sources:
+  - [1] https://www.scaleway.com/en/docs/generative-apis/faq/
+  - [2] https://www.scaleway.com/en/docs/organizations-and-projects/organization/organization-quotas/
+  - [3] https://www.scaleway.com/en/pricing/model-as-a-service/
+  - [4] https://www.scaleway.com/en/docs/generative-apis/reference-content/rate-limits/
+
+## Speechmatics (Inference)
+
+- `inference/speechmatics` | trial-only | evidence documented | binding volume-quota | category speech-to-text and text-to-speech API, one-time signup credit
+- needs card yes, phone unknown, ID no, institution no | verified 2026-11-03T07:34:03.379Z (live) | stale on 2026-12-04
+- url https://www.speechmatics.com/pricing | page https://fshy.ajam.dev/p/speechmatics.md
+- free tier: USD 100 credit grant at signup on the Free plan, no card required; one credit is worth one US dollar, and one balance covers Speech to Text, add-ons and Text to Speech. One-time, not a monthly allowance. Melia 1 pre-recorded base rate is USD 0.24 per hour. | unit: credits | metered on: unstated | read on: 2026-11-03 | source: [1] | note: models on the pricing page: Melia 1 (multilingual, 56 languages), Enhanced, Standard, Oak 1 (clinical language) and Linden 1 (voice agents), in batch (REST) and real-time (WebSocket) modes. unverified: whether the grant expires, because no vendor page read states a validity period; unverified: the rate for Text to Speech, which the pricing page names without a number
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: no payment card on the Free plan ('no payment card required'); signup is an email with a password or a Google or GitHub account, and an email signup must verify the address by a link; unverified: whether a phone number is asked
+- interface: rest
+- limits:
+  - volume-quota (binding): USD 100 credit grant at signup, one-time; Melia 1 pre-recorded base rate USD 0.24 per hour [2]
+  - request-rate: Free plan real-time sessions are capped at 2 concurrent (Pro 50); the batch API asks for no more than 10 new jobs per second and 50 job-status requests per second, with a backstop of 20,000 concurrent jobs [3]
+- binding note: the one-time USD 100 credit is the ceiling for batch work; the 2 concurrent real-time sessions cap is a second wall for live audio
+- interface detail: Batch REST API and real-time WebSocket API; an API key is created in the web portal; Python and JavaScript batch libraries
+- tooling: Python and JavaScript libraries, or raw HTTP and WebSocket with an API key created in the portal
+- composes with: the credit pays for batch transcription of recorded audio, which a free CI runner can post file by file; pair it with a free object store for the audio. The discounted headline rate on the pricing page needs a Pro plan with model training and a top-tier annual commitment, so a Free account pays the base rate.
+- reliability: the Free plan runs on the granted credit only; adding a payment card moves the account to Pro, where usage beyond the granted credits is charged to the card
+- evidence note: the credit, the card-free Free plan, the signup methods and the real-time and batch limits are quoted from vendor pages; the credit's expiry and the text-to-speech rate are unverified.
+- evidence:
+  - [1] 2026-11-03: USD 100 free credit with no card | capture: sha256:f35ab03e8cac3fc972f9790cf630d2c126394182efa1dd12d09f0c1dc4b1f183 | quote: Start with $100 in free credits, no card required.
+  - [1] 2026-11-03: the Melia 1 pre-recorded base rate is USD 0.24 per hour | capture: sha256:f35ab03e8cac3fc972f9790cf630d2c126394182efa1dd12d09f0c1dc4b1f183 | quote: Melia 1 Pre-recorded base rate: $0.24
+  - [1] 2026-11-03: one credit balance covers speech-to-text, add-ons and text-to-speech | capture: sha256:f35ab03e8cac3fc972f9790cf630d2c126394182efa1dd12d09f0c1dc4b1f183 | quote: One balance covers Speech to Text, add-ons and Text to Speech.
+  - [1] 2026-11-03: Melia 1 is a 56-language multilingual model | capture: sha256:f35ab03e8cac3fc972f9790cf630d2c126394182efa1dd12d09f0c1dc4b1f183 | quote: - description: Our next-generation multilingual model. Transcribes 56 languages without choosing one up front, switches language mid-sentence.
+  - [2] 2026-11-03: the Free plan is a USD 100 credit grant with no payment card | capture: sha256:c8813b382b2599d00932c6424e0caf6c8f400911173dfff618fb53ffc62f90c1 | quote: * Free. Get started with a $100 credit grant at no cost, with no payment card required.
+  - [2] 2026-11-03: one credit is one US dollar and new sign-ups receive USD 100 | capture: sha256:c8813b382b2599d00932c6424e0caf6c8f400911173dfff618fb53ffc62f90c1 | quote: Billing is in credits: one credit is worth one US dollar. New sign-ups receive a $100 credit grant.
+  - [4] 2026-11-03: signup is by email and password or Google or GitHub | capture: sha256:43acfbfa6c74704dfad3f0abbc5eaf691debbc8aa7986ed0b1ef80c2b4e1919e | quote: 2. Sign up with email and password, or with a supported OAuth provider (Google or GitHub).
+  - [4] 2026-11-03: an email signup verifies the address by a link | capture: sha256:43acfbfa6c74704dfad3f0abbc5eaf691debbc8aa7986ed0b1ef80c2b4e1919e | quote: 3. If you signed up with email, verify your email address using the link sent to your inbox.
+  - [3] 2026-11-03: the Free plan allows 2 concurrent real-time sessions | capture: sha256:48e5811c56eb0cd8e009d201c4e716b6a1147bbce8472f48cb80731f909bf67c | quote: | Free | 2 |
+  - [5] 2026-11-03: the batch API rate guidance is 10 new jobs per second | capture: sha256:56585e923d43e978a082027f07c6b0f7e0a34f9ca99ebc9cb4da95150c0da21c | quote: * 10 new jobs per second (POST API calls)
+  - [5] 2026-11-03: the batch API has a backstop of 20,000 concurrent jobs | capture: sha256:56585e923d43e978a082027f07c6b0f7e0a34f9ca99ebc9cb4da95150c0da21c | quote: * 20,000 concurrent jobs `HTTP 429 - Max concurrent running jobs exceeded` (POST API calls).
+  - [6] 2026-11-03: an API key is created in the portal | capture: sha256:ccb82a6f095a15ab2a4e7ce5b839d7533dc0ecd329cdb6018165d1cebbe7c3eb | quote: [Create an API key in the portal here](https://portal.speechmatics.com/settings/api-keys), which you'll use to securely access the API.
+- sources:
+  - [1] https://www.speechmatics.com/pricing
+  - [2] https://docs.speechmatics.com/administration/plans.md
+  - [3] https://docs.speechmatics.com/speech-to-text/realtime/limits.md
+  - [4] https://docs.speechmatics.com/administration/accounts.md
+  - [5] https://docs.speechmatics.com/speech-to-text/batch/limits.md
+  - [6] https://docs.speechmatics.com/speech-to-text/batch/quickstart.md
+
+## Stability AI (Inference)
+
+- `inference/stability-ai` | trial-only | evidence documented | binding volume-quota | category image, audio and 3D generation API, one-time signup credit
+- needs card no, phone unknown, ID no, institution no | verified 2026-11-03T07:34:03.379Z (live) | stale on 2026-12-04
+- url https://platform.stability.ai/pricing | page https://fshy.ajam.dev/p/stability.md
+- free tier: 25 free credits for a new account, where 1 credit equals USD 0.01, so the grant is USD 0.25 of API usage; one-time, and the getting-started guide ties the grant to creating the account with Google's social login. At the listed per-call prices 25 credits buys 3 calls of Stable Diffusion 3.5 Large (6.5 credits each), 3 of Stable Image Ultra (8), 10 of Stable Diffusion 3.5 Flash (2.5) or 3 of Stable Audio 3.0 (8, up to six minutes of audio each). | unit: credits | metered on: unstated | read on: 2026-11-03 | source: [1] | note: models: Stable Image Ultra, Stable Diffusion 3.5 Large, Large Turbo, Medium and Flash, Stable Image Core, SDXL 1.0 from 0.9 credits, Stable Audio 3.0 and 2.5, and upscale, edit, control and 3D services. After the free credits, credits are bought at USD 1 per 100 credits. unverified: whether the free credits expire
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: an account on a username and password, or a Google account; the getting-started guide says creating the account with Google's social login grants the 25 free credits; no card is needed for the grant, and credits beyond it are bought on the billing dashboard; unverified: whether a phone number or a verification step is asked, and whether a username-and-password account also receives the grant
+- interface: rest
+- limits:
+  - volume-quota (binding): 25 free credits per new account, one-time; 1 credit is USD 0.01, so the grant is USD 0.25 [1]
+  - request-rate: 150 requests per 10 seconds per API key; exceeding it returns 429 followed by a timeout of 60 seconds [2]
+- binding note: USD 0.25 of one-time credit is gone after a handful of calls, long before the 150 requests per 10 seconds rate limit matters
+- interface detail: REST API authenticated with a bearer API key in the Authorization header; up to 10 active keys per account
+- tooling: raw HTTP with an API key created on the platform dashboard
+- composes with: 25 credits is a smoke test for a wrapper rather than a dataset: it proves an API key works end to end and nothing more. A batch of 100 Stable Diffusion 3.5 Flash images costs 250 credits, ten times the grant.
+- reliability: the grant is tied to the Google social-login signup in the getting-started guide, while the pricing page and the key-lookup article say only that new accounts receive 25 free credits
+- evidence note: the 25 credit grant, the credit price, the per-call credit costs and the rate limit are quoted from vendor pages; credit expiry, the card-free statement and the extra signup steps are unverified.
+- evidence:
+  - [1] 2026-11-03: 25 free credits to get started | capture: sha256:d085394b8395aba1023973fb336c093d03b75feb26f4c1f7dbc89592cbf7d99a | quote: > Get started with 25 free credits. Check your credit balance and purchase additional credits on your account page.
+  - [1] 2026-11-03: 1 credit equals USD 0.01 | capture: sha256:d085394b8395aba1023973fb336c093d03b75feb26f4c1f7dbc89592cbf7d99a | quote: > Credit pricing for Stability AI API services, including Stable Image, Stable Audio, and 3D models. 1 credit equals $0.01.
+  - [1] 2026-11-03: Stable Image Ultra costs 8 credits per call | capture: sha256:d085394b8395aba1023973fb336c093d03b75feb26f4c1f7dbc89592cbf7d99a | quote: | [Stable Image Ultra](https://docs.stability.ai/api-reference/generate/stable-image-ultra.md) | Flagship image service based on Stable Diffusion 3.5 Large, offering the highest quality and detail | 8 |
+  - [1] 2026-11-03: Stable Diffusion 3.5 Flash costs 2.5 credits per call | capture: sha256:d085394b8395aba1023973fb336c093d03b75feb26f4c1f7dbc89592cbf7d99a | quote: | [Stable Diffusion 3.5 Flash](https://docs.stability.ai/api-reference/generate/stable-diffusion-35.md) | The distilled version of Stable Diffusion 3.5 Medium, for fast, high-quality images | 2.5 |
+  - [1] 2026-11-03: Stable Audio 3.0 costs 8 credits for up to six minutes of audio | capture: sha256:d085394b8395aba1023973fb336c093d03b75feb26f4c1f7dbc89592cbf7d99a | quote: | [Stable Audio 3.0](https://docs.stability.ai/api-reference/stable-audio/text-to-audio.md) | Generate up to six minutes high-quality audio with coherent structure from text prompts or audio samples | 8 |
+  - [3] 2026-11-03: the 25 free credits are granted when the account is created with Google's social login | capture: sha256:b2aba28738cbf61b8a87cd8e7883490986e4ae7371bc848c3b636aa733dc78f6 | quote: Google account. Creating your account with Google's social login will grant you `25` free [credits](#credits)!
+  - [3] 2026-11-03: an account can be created with a username and password or a Google account | capture: sha256:b2aba28738cbf61b8a87cd8e7883490986e4ae7371bc848c3b636aa733dc78f6 | quote: First, you'll need to create an account with us.
+  - [4] 2026-11-03: new accounts receive 25 free credits | capture: sha256:01cf19144b7e445cf25b80fbe7a6b1df6b11d0f6cad1986c44993969a710899f | quote: New accounts receive 25 free credits for initial testing and evaluation purposes.
+  - [2] 2026-11-03: the API is limited to 150 requests per 10 seconds | capture: sha256:e48bf149223ff93c7b6b306d52cf3a0ac99c05b6cc5193745af81fd4faa1560f | quote: Stability AI's API has a rate limit of** 150 requests per 10 seconds.**
+  - [2] 2026-11-03: exceeding the limit returns 429 and a 60 second timeout | capture: sha256:e48bf149223ff93c7b6b306d52cf3a0ac99c05b6cc5193745af81fd4faa1560f | quote: Exceeding this limit results in a 429 response, followed by a **timeout lasting 60 seconds. **To maximize efficiency and prevent timeouts, consider the following strategies.
+  - [3] 2026-11-03: credits beyond the grant are bought at USD 1 per 100 credits | capture: sha256:b2aba28738cbf61b8a87cd8e7883490986e4ae7371bc848c3b636aa733dc78f6 | quote: a rate of \$1 USD per 100 credits.
+  - [3] 2026-11-03: requests authenticate with the API key in the Authorization header | capture: sha256:b2aba28738cbf61b8a87cd8e7883490986e4ae7371bc848c3b636aa733dc78f6 | quote: API key in via the `Authorization` header.
+  - [4] 2026-11-03: an account can hold up to 10 active API keys | capture: sha256:01cf19144b7e445cf25b80fbe7a6b1df6b11d0f6cad1986c44993969a710899f | quote: 3. Use the “+” icon to generate a new API key (you can have up to 10 active keys at a time).
+- sources:
+  - [1] https://platform.stability.ai/pricing
+  - [2] https://kb.stability.ai/knowledge-base/api-key-rate-limit-information
+  - [3] https://docs.stability.ai/getting-started.md
+  - [4] https://kb.stability.ai/knowledge-base/where-can-i-find-my-api-key
+
+## StepFun Open Platform (platform.stepfun.ai)
+
+- `inference/stepfun-open-platform` | trial-only | evidence documented | binding request-rate | category inference API, free preview models
+- identity a placeholder: card and phone unknown | verified 2026-11-03T11:30:43.060Z (live) | stale on 2026-12-04
+- url https://platform.stepfun.ai/ | page https://fshy.ajam.dev/p/stepfun.md
+- free tier: No standing token allowance. Billing draws from free credit first and then from the paid balance, free credit can expire, and no credit amount is published on the pages read. The preview speech models stepaudio-3-realtime-preview and stepaudio-3-chat-preview are listed Free (limited time). Text reasoning is paid: step-3.5-flash is USD 0.10 per 1M cache-miss input and USD 0.30 per 1M output | unit: mixed | metered on: unstated | read on: 2026-10-28 | source: [1] | note: free-preview-models
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: unverified: the overseas documentation (platform.stepfun.ai) states individual accounts must complete identity verification first and names no document or country scope; the mainland sibling platform (platform.stepfun.com) documents an individual real-name check of the holder's name and ID card number with an Alipay face-recognition scan, and it is not stated that the overseas platform uses the same check
+- interface: rest
+- limits:
+  - request-rate (binding): tier V0 for cumulative top-up under USD 15: concurrency 5, 100 RPM, 500,000 TPM; the tier rises only with cash top-ups, and vouchers do not count [1]
+- binding note: rate tier follows cumulative cash top-up; an account with no top-up starts at the lowest tier
+- tooling: not stated
+- composes with: the limited-time free audio preview models are the only zero-priced rows; text reasoning models are paid per token
+- reliability: text-to-image models step-2x-large and step-image-edit-2 were retired on October 10, 2026 and stopped serving requests
+- evidence note: the free preview rows are read from the vendor pricing page; the platform terms say limited-time Trial Credits may be given to new users with validity set when issued, and no vendor page states an amount or expiry; the identity document of the overseas platform is unverified
+- evidence:
+  - [1] 2026-10-28: a speech chat preview model is listed Free (limited time) | capture: sha256:d09376206e90e63192fca3540bae3690e6d47dbbe70fc0fc480700cde3206877 | quote: | `stepaudio-3-chat-preview` | N/A | N/A | N/A | N/A | Free (limited time) |
+  - [1] 2026-10-28: step-3.5-flash list price per 1M tokens in USD | capture: sha256:d09376206e90e63192fca3540bae3690e6d47dbbe70fc0fc480700cde3206877 | quote: | `step-3.5-flash` | 1M tokens | \$0.10 | \$0.02 | \$0.30 |
+  - [1] 2026-10-28: individual accounts need identity verification before a rate tier is assigned | capture: sha256:d09376206e90e63192fca3540bae3690e6d47dbbe70fc0fc480700cde3206877 | quote: Individual accounts must complete identity verification first. Tiers are assigned by cumulative top-up amount:
+  - [1] 2026-10-28: the lowest tier has concurrency 5, 100 RPM and 500,000 TPM | capture: sha256:d09376206e90e63192fca3540bae3690e6d47dbbe70fc0fc480700cde3206877 | quote: | V0 | Under \$15 | 5 | 100 | 500,000 |
+  - [2] 2026-10-28: free credit is consumed before the paid balance and can expire | capture: sha256:14b45b030a9acee8a5347082b5d4d2da56dc178260279f39cb1e728bb1a23984 | quote: Fees are deducted as `tokens used × model unit price`, drawing from free credit first, then paid balance. Free credit can expire, so please use it promptly.
+  - [3] 2026-11-03: the mainland sibling platform asks for the holder's name and ID card number | capture: sha256:1ad695d11cb40e1d6efdfbaf6cbb9ed0e5fc9ff2b37fe03bb9eef2bfd29be888 | quote: 在实名认证一行点击认证，选择个人实名认证，填写本人姓名和身份证号。
+  - [4] 2026-11-03: the platform terms allow limited-time trial credits for new users, with no amount stated | capture: sha256:fe9a2ee80534d537cca7a398c89117a97d21cb30eeb340174456a76ae9fa8529 | quote: The Platform may from time to time provide limited-time Trial Credits to new users for service testing and evaluation.
+  - [5] 2026-11-03: a user reported a USD 100 voucher at account creation; reported, not vendor-confirmed, and another user in the thread saw none | capture: sha256:3e3b45933eadee599ec34336f84d4cb0549a7a7d61725594b2e2d95b1533c839 | quote: 100$ free when you create the account, but limited to 10 requests/hour if you don't top up at least 15$
+  - [6] 2026-11-03: the Step Plan free trial promotion ended on August 24, 2026 | capture: sha256:e17695af1fa2fc6d1b6dd83620ee960918ad5c25ce85830463471730ee32d021 | quote: Ends on August 24, 2026, at 23:59 UTC
+  - [3] 2026-11-03: the mainland sibling platform completes verification by Alipay face recognition | capture: sha256:1ad695d11cb40e1d6efdfbaf6cbb9ed0e5fc9ff2b37fe03bb9eef2bfd29be888 | quote: 用支付宝扫码完成人脸识别，返回平台查看结果。
+  - [7] 2026-11-03: on the mainland sibling platform free-plan users must complete real-name verification and every user before paying | capture: sha256:c961f11ceae808ad062f6f10551810f8040411256088c5a5b4728d063a72f90f | quote: 使用免费套餐的用户需要完成实名认证才能继续使用。所有用户在付费前都需要完成实名认证。
+  - [1] 2026-11-03: the overseas platform requires identity verification of individual accounts and names no document | capture: sha256:6daaf65ec793230b80184ed145862ed6b20ff333b915296d14bfa1689efd45d8 | quote: Individual accounts must complete identity verification first. Tiers are assigned by cumulative top-up amount:
+  - [1] 2026-11-03: the lowest tier has concurrency 5, 100 RPM and 500,000 TPM | capture: sha256:6daaf65ec793230b80184ed145862ed6b20ff333b915296d14bfa1689efd45d8 | quote: | V0 | Under \$15 | 5 | 100 | 500,000 |
+- sources:
+  - [1] https://platform.stepfun.ai/docs/en/guides/pricing/details
+  - [2] https://platform.stepfun.ai/docs/en/guides/pricing/intro.md
+  - [3] https://platform.stepfun.com/docs/zh/quickstart/real-name-verification
+  - [4] https://platform.stepfun.ai/docs/en/agreement/userservice.md
+  - [5] https://www.answeroverflow.com/m/1509957427003523202
+  - [6] https://platform.stepfun.ai/step-plan/trial-rules
+  - [7] https://platform.stepfun.com/docs/zh/faq/common-questions
+
+## Tencent HY Text Generation Global (Hunyuan-translation)
+
+- `inference/tencent-hy-text-global` | trial-only | evidence documented | binding volume-quota | category inference API, one-time free tokens
+- needs card no, phone yes, ID yes, institution no | verified 2026-11-03T11:30:41.454Z (live) | stale on 2026-12-04
+- url https://www.tencentcloud.com/document/product/1284/77186 | page https://fshy.ajam.dev/p/tencentcloud.md
+- free tier: A one-time free resource package of 1M tokens for Hunyuan-translation only, shared consumption, valid for 1 year from service activation and deducted before postpaid billing. After the package is used up or expires the service does not switch to postpaid on its own, and calls return a billing error until postpaid is enabled | unit: tokens | metered on: request-count | read on: 2026-10-28 | source: [1] | note: one-time-quota
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: national-id | detail: account sign-up takes an email address (or a Google or WeChat login) with an emailed code, a mobile number of the registration location with an SMS code, and a payment card (the sign-up flow adds a 1.00 USD pre-authorization). The Tencent HY Global quick start puts real-name authentication before activating the Tencent HY console service; on the international site that is individual identity verification with a government ID card, passport, driver's license or work permit from the registration country, or enterprise verification with business registration documents. The account pages tie identity verification to mainland-China services, partner status and invoicing, so whether the Text Generation Global activation enforces it is unverified: behind a sign-up. The quick start page that states it is the 3D Global one; no text-generation quick start exists
+- interface: rest
+- limits:
+  - volume-quota (binding): 1M tokens, one-time, Hunyuan-translation only [1]
+  - retention-clamped: the package expires 1 year after service activation and unused tokens become invalid [1]
+- binding note: the quota covers a single translation model; any other model is billed
+- tooling: not stated
+- composes with: the free package covers one translation model only: the product's API lists hunyuan-translation as its model. The other Tencent HY text models (Hy4 preview, Hy3, Hy-MT2-Pro, Hy-MT2-Plus, Hy-MT2-Lite) are sold on TokenHub, whose international edition grants each root account a one-time free trial of 1 million tokens for every language model, valid 1 year on the billing page (a promotion page states a shorter validity), and freezes 10 USD against the account balance or credit limit on each claim
+- reliability: not assessed: no request was sent to the endpoint
+- notes: postpaid list price after the package: USD 0.2571 input and USD 0.7714 output per million tokens for Hunyuan-translation; the English edition's free-quota table reads 100M tokens, while the Chinese edition reads 100万 (1,000,000) tokens and the English worked example consumes the package at 1 million tokens, so 1M is the figure held
+- evidence note: the quota terms are read from the vendor's own purchase-guide PDF dated 2026-01-27 for the global product; the sign-up pages were read, and whether the activation enforces identity verification for a non-mainland account is unverified: behind a sign-up
+- evidence:
+  - [1] 2026-10-28: a free quota is issued on first-time activation of the global text generation service | capture: sha256:16e0d34e0bf805b7f802beea757739edbf81d3fa5568dc6779920c1bfbaeb169 | quote: Upon first-time activation of the Tencent HY service, Tencent HY Text Generation Global will issue a certain free quota for your testing experience.
+  - [1] 2026-10-28: the free package is 100M tokens for Hunyuan-translation, valid for 1 year from activation | capture: sha256:16e0d34e0bf805b7f802beea757739edbf81d3fa5568dc6779920c1bfbaeb169 | quote: 100M tokens, shared consumption. The resource package is valid for 1 year. If the free resource package is not used up within 1 year after service activation, it will expire and become invalid.
+  - [1] 2026-10-28: no automatic switch to postpaid billing after the free package ends | capture: sha256:16e0d34e0bf805b7f802beea757739edbf81d3fa5568dc6779920c1bfbaeb169 | quote: By default, after the free resource package is used up or expires, it will not automatically switch to postpayment.
+  - [1] 2026-10-28: postpaid list price for Hunyuan-translation in USD per million input and output tokens | capture: sha256:16e0d34e0bf805b7f802beea757739edbf81d3fa5568dc6779920c1bfbaeb169 | quote: Hunyuan-translation 0.2571 0.7714
+  - [2] 2026-10-28: the Chinese edition of the same global purchase guide (updated 2026-01-27) gives the Hunyuan-translation shared free package as 100万 tokens, valid 1 year from activation | capture: sha256:6136600a2a26f66b07f20f944bed6fdaad3ccde41517c424ee3963e337d50d2f | quote: Hunyuan-translation 共100万 tokens，共享消耗。 资源包有效期为1年，⾃开通服务之⽇起1年内若免费资源包未使⽤完，则过期作废。
+  - [1] 2026-10-28: the English edition's own worked example consumes the free package at 1 million tokens | capture: sha256:16e0d34e0bf805b7f802beea757739edbf81d3fa5568dc6779920c1bfbaeb169 | quote: For first-time use in the current month, if a user cumulatively calls the Tencent HY Text Generation Global API for 2 million tokens, the free resource package will be consumed upon reaching 1 million tokens.
+  - [1] 2026-10-28: the one-time package, token unit and no automatic postpaid switch are unchanged in the global purchase guide | capture: sha256:16e0d34e0bf805b7f802beea757739edbf81d3fa5568dc6779920c1bfbaeb169 | quote: By default, after the free resource package is used up or expires, it will not automatically switch to postpayment.
+  - [3] 2026-11-03: the Tencent HY Global quick start puts real-name authentication before activating the Tencent HY console service | capture: sha256:3d1371461006be938e35bc5334e8c420c1d8ef2cce994ed0ba7c3495f7e060a3
+  - [4] 2026-11-03: TokenHub on the international site gives every language model a free trial of 1 million tokens, 1 year validity | capture: sha256:5a15cee5d49e5046a91677860daf2357caa41b98b658a7a9d38e26babce8570f | quote: All language models provide a free trial quota of 1 million Tokens, valid for 1 year.
+  - [1] 2026-11-03: the English worked example consumes the package at 1 million tokens, against the table's 100M | capture: sha256:16e0d34e0bf805b7f802beea757739edbf81d3fa5568dc6779920c1bfbaeb169 | quote: the free resource package will be consumed upon reaching 1 million tokens
+  - [5] 2026-11-03: the account pages tie international-site identity verification to mainland-China services, partner status and invoicing | capture: sha256:bdceb221a6ca25f22ff0a1f547baf10f60411d5926f645f18b1de6f3ec298781 | quote: If you need to purchase or use cloud services in the Chinese mainland (excluding Hong Kong (China), Macao (China), and Taiwan (China)), apply to become a Tencent Cloud partner, or use the online self-service invoice feature, you must complete identity verification for your Tencent Cloud account.
+  - [6] 2026-11-03:  | capture: sha256:f1dcb27c49890d86950f80673dec92cb01581bd90f399940bdedb72a907bec3a
+  - [7] 2026-11-03: the sign-up flow asks for a mobile number of the registration location | capture: sha256:b6750a98148b75d7630a6584256c3e50cb9678ead369907e951075e72d65fba0 | quote: Enter the mobile number of the registration location.
+  - [7] 2026-11-03: the international sign-up flow has a step that binds a payment card | capture: sha256:b6750a98148b75d7630a6584256c3e50cb9678ead369907e951075e72d65fba0 | quote: Enter your card information correctly to complete the card binding.
+  - [7] 2026-11-03: card binding issues a 1.00 USD pre-authorization | capture: sha256:b6750a98148b75d7630a6584256c3e50cb9678ead369907e951075e72d65fba0 | quote: During the bank card binding process, the system will issue a 1.00 USD pre-authorization on your bound bank card to verify its validity.
+  - [7] 2026-11-03: an account registers with an email address, a Google account or WeChat | capture: sha256:b6750a98148b75d7630a6584256c3e50cb9678ead369907e951075e72d65fba0 | quote: Tencent Cloud accounts can be registered using an email address, a Google account, or WeChat (you can choose any one of these methods to sign up):
+  - [8] 2026-11-03: using cloud products on the international site needs a bound bank card or a credit authorization | capture: sha256:3a09aa6c9dd50bceb033b07ab7795888d5cd749e242061cb414f476f0879120e | quote: You can only purchase and use cloud products if you have a registered Tencent Cloud account that has completed bank card binding or credit authorization.
+  - [9] 2026-11-03: the Text Generation Global API lists hunyuan-translation as its model | capture: sha256:d5d5e053f2b6a7c190c869b8d38576d31003c8c7f0f839be1e8aa50a40e1f00d | quote: Model | Yes | String | Model name. optional values include hunyuan-translation.
+  - [4] 2026-11-03: the TokenHub free trial is one-time for each root account | capture: sha256:5a15cee5d49e5046a91677860daf2357caa41b98b658a7a9d38e26babce8570f | quote: TokenHub currently provides a one-time free trial quota for each root account, covering various model capabilities such as language models and visual generation, to help you experience the platform's model services.
+  - [4] 2026-11-03: each TokenHub free-package claim freezes 10 USD against the account balance or credit limit | capture: sha256:5a15cee5d49e5046a91677860daf2357caa41b98b658a7a9d38e26babce8570f | quote: Each time you claim a free resource package for a model or enable postpaid service for a model, 10 USD will be automatically frozen in your account. If your account balance or credit limit is insufficient, the claim or enablement will fail.
+  - [10] 2026-11-03: the international TokenHub quick start requires sign-up and identity verification before use | capture: sha256:7bba6e5d4633276992bb6f4bf509670b0569744e842b9edce4b39cbc505c1f31 | quote: Before using the Tencent Cloud large model service platform TokenHub, you need to [Singing up for a Tencent Cloud Account](https://www.tencentcloud.com/document/product/378/17985) and complete [Identity Verification](https://www.tencentcloud.com/document/product/378/10495).
+  - [11] 2026-11-03: the international TokenHub price table lists Tencent Hy3 (USD 0.132 input, 0.528 output per million tokens) | capture: sha256:98b54f44c5c3df65f352bb1a5f49c5c6148ece2eb9f88d7e213d34ad61d31a23 | quote: | Hy3 | - | - | 0.132 | 0.528 | 0.033 | - | - |
+  - [11] 2026-11-03: the international TokenHub price table lists the Hy-MT2 translation models (Plus: USD 0.074 input, 0.295 output) | capture: sha256:98b54f44c5c3df65f352bb1a5f49c5c6148ece2eb9f88d7e213d34ad61d31a23 | quote: | Hy-MT2-Plus | - | - | 0.074 | 0.295 | - | - | - |
+  - [12] 2026-11-03: the TokenHub promotion page states 90 days validity, against 1 year on the billing page | capture: sha256:28afda2cb9a0b7ba759004eebc405db36b928cf47ea65eff61e3d175a4c4f7f8 | quote: Exclusive for new users · Up to 1 million free tokens, valid for 90 days
+  - [2] 2026-11-03: the Chinese edition of the global purchase guide gives the Hunyuan-translation package as 100万 (1,000,000) tokens, shared, valid 1 year | capture: sha256:6136600a2a26f66b07f20f944bed6fdaad3ccde41517c424ee3963e337d50d2f | quote: Hunyuan-translation 共100万 tokens，共享消耗。 资源包有效期为1年，⾃开通服务之⽇起1年内若免费资源包未使⽤完，则过期作废。
+- sources:
+  - [1] https://staticintl.cloudcachetci.com/doc/pdf/product/pdf/1284_75280_en.pdf
+  - [2] https://staticintl.cloudcachetci.com/doc/pdf/product/pdf/1284_75280_zh.pdf
+  - [3] https://www.tencentcloud.com/document/product/1284/75287
+  - [4] https://staticintl.cloudcachetci.com/doc/pdf/product/pdf/1300_78935_en.pdf
+  - [5] https://www.tencentcloud.com/document/product/378/80678
+  - [6] https://www.tencentcloud.com/document/product/378/10495
+  - [7] https://intl.cloud.tencent.com/document/product/378/17985
+  - [8] https://intl.cloud.tencent.com/document/product/378/80429
+  - [9] https://www.tencentcloud.com/document/product/1284/77188
+  - [10] https://www.tencentcloud.com/document/product/1300/78939
+  - [11] https://www.tencentcloud.com/document/product/1300/78937
+  - [12] https://www.tencentcloud.com/act/pro/tokenhub
+
+## Tetrate Agent Router Service
+
+- `inference/tetrate-agent-router-service` | trial-only | evidence documented | binding volume-quota | category inference gateway, signup credit | tier Flex
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T01:04:08.412Z (live) | stale on 2026-12-04
+- url https://tetrate.io/products/tetrate-agent-router-service | page https://fshy.ajam.dev/p/tetrate.md
+- free tier: a one-time credit: USD 10 of free credits on the first automatic authentication with Tetrate through goose, for new and existing Tetrate users, per the goose installation page; Tetrate's own pages state USD 5 for a new user with a work email and USD 10 for a holder of an existing Goose API key, not stacked, claimed with a company-details form and a USD 1 Stripe payment refunded as account credit; unverified: which of these figures applies to a given account, and whether the credit expires | unit: credits | metered on: unstated | read on: 2026-11-03 | source: [1] | note: credits are denominated in USD and drawn down per request at the model price plus a 5% routing fee; the two vendors' pages disagree on the amount and the claim steps; unverified: whether any model is priced at zero, since the public catalogue read here lists 15 of 220 models
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: card | detail: sign-up by GitHub or Google account; the vendor's bonus claim asks for a verified non-alias email (a work email for the USD 5 credit), a company-details form and a USD 1 Stripe payment within 24 hours refunded as account credit; the goose page states the USD 10 is applied on first automatic authentication and names no payment step; unverified: which path an account takes, behind a sign-up
+- interface: rest
+- limits:
+  - volume-quota (binding): USD 10 of credits once on first goose authentication per the goose page; USD 5 (work email) or USD 10 (existing Goose API key) per the vendor's bonus program, not stacked; no expiry stated [1]
+  - request-rate: unverified: no request-rate limit for the Service tier was read; the models endpoint requires an API key [2]
+- binding note: the one-time credit is spent per token at model price plus 5%; no recurring allowance is stated
+- endpoint: https://api.router.tetrate.ai/v1/chat/completions
+- tooling: any OpenAI-compatible client at https://api.router.tetrate.ai/v1 with an API key from the Developer Console; goose offers it as a provider with browser authentication
+- composes with: a one-time USD credit routed to hundreds of models of OpenAI, Anthropic, Gemini, xAI and Groq behind one OpenAI-compatible key; after the credit, pay as you go at model cost plus 5%
+- reliability: the bonus program says a prior bonus blocks a further one and an email domain has a 5-claim cap; no outage or suspension record was read
+- notes: the goose installation page and the vendor's pages state different credit amounts (USD 10 versus USD 5 or 10) and different claim steps; the public catalogue at https://router.tetrate.ai/api/public/models is readable without a key.
+- evidence note: the credit figures, the claim steps, the fee and the endpoint are quoted from the goose page and from the vendor's own pages; the pages disagree on the amount and on the payment step, and rate limits, expiry and free-priced models were not read.
+- evidence:
+  - [1] 2026-11-03: the goose installation page states USD 10 of free credits on the first automatic authentication with Tetrate through goose, for new and existing users | capture: sha256:755771ceed5735d729126b99545677aeaecf091b28c193ff5a6f52c452b1b659 | quote: You'll receive $10 in free credits the first time you automatically authenticate with Tetrate through goose. This offer is available to both new and existing Tetrate users.
+  - [3] 2026-11-03: the vendor's bonus credit program gives USD 5 to new users with a work email | capture: sha256:f2c94a1cd71f1127189ab65d867799d64aeee0096f60476b2104fbe9c226e2e4 | quote: - $5 for new users (work email required, public domains like Gmail are not eligible)
+  - [3] 2026-11-03: the vendor's bonus credit program gives USD 10 to holders of an existing Goose API key, public email domains accepted | capture: sha256:f2c94a1cd71f1127189ab65d867799d64aeee0096f60476b2104fbe9c226e2e4 | quote: - $10 if you have an existing Goose API key (public email domains accepted)
+  - [3] 2026-11-03: claiming the bonus credit includes a USD 1 Stripe payment within 24 hours, refunded as account credit | capture: sha256:f2c94a1cd71f1127189ab65d867799d64aeee0096f60476b2104fbe9c226e2e4 | quote: 3. Complete a $1 Stripe payment within 24 hours (refunded as account credit).
+  - [3] 2026-11-03: claiming the bonus credit includes a claim form with company details | capture: sha256:f2c94a1cd71f1127189ab65d867799d64aeee0096f60476b2104fbe9c226e2e4 | quote: 2. Submit your company details in the claim form.
+  - [4] 2026-11-03: the Flex plan page states USD 5 free credit with a business email sign-up | capture: sha256:67a0cfebbaf0a1e33e173bb3c4dc8c089e0812a6c77313c5251a13c7602fc80f | quote: * $5 free credit with business email sign-up
+  - [4] 2026-11-03: the Flex plan charges the model provider cost plus a 5% fee | capture: sha256:67a0cfebbaf0a1e33e173bb3c4dc8c089e0812a6c77313c5251a13c7602fc80f | quote: * 5% fee + model provider cost
+  - [2] 2026-11-03: sign-up is by GitHub or Google account, and a business email grants a small starting credit | capture: sha256:4a5199b2fcb4593c7d2c00fa90e0453d4762771fec1c95218e1306d1db73c988 | quote: Sign up with a GitHub or Google account. Signing up with a business email grants a small starting credit balance for evaluation.
+  - [2] 2026-11-03: requests draw down a prepaid credit balance at model cost plus a service fee | capture: sha256:4a5199b2fcb4593c7d2c00fa90e0453d4762771fec1c95218e1306d1db73c988 | quote: Each request is charged at the underlying model's cost plus a small service fee, drawn down from a prepaid credit balance that can be set to replenish automatically.
+  - [5] 2026-11-03: the hosted service is an OpenAI-compatible endpoint at api.router.tetrate.ai/v1 | capture: sha256:c5b6793b182af5dc6ac7bc19b17e98cab3cdbcb1ad54f20f51af47cd2bf87b22 | quote: export OPENAI_BASE_URL=https://api.router.tetrate.ai/v1
+  - [5] 2026-11-03: billing is pay as you go from a credit balance at the model price plus a 5% routing fee | capture: sha256:c5b6793b182af5dc6ac7bc19b17e98cab3cdbcb1ad54f20f51af47cd2bf87b22 | quote: Billing is pay as you go from a credit balance: the model's price plus a 5% routing fee.
+  - [6] 2026-11-03: the models list endpoint requires authentication | capture: sha256:6f58852914d4ce7698e748e5b0c74076f6b25795fb538e04e853bd3c7d6b3107 | quote: The endpoint is OpenAI-compatible and requires authentication.
+  - probe:api.router.tetrate.ai 2026-11-03: an unauthenticated request to the models endpoint answered HTTP 401 | capture: sha256:7469fbad42275610b5d8dcadb285dbd2ab81bdf12b42fd84c9b75487551a2d9d | quote: "status": 401
+  - probe:router.tetrate.ai/api/public/models 2026-11-03: the unauthenticated public catalogue lists 220 models over 15 pages | capture: sha256:0d80dd6eb58ff8c0cbf898ff8a924aa821881c2788e04117547f8a20b0cea869 | quote: "totalCount":220,"totalPages":15,"currentPage":1
+  - [7] 2026-11-03: the vendor FAQ confirms a free starting credit with no amount | capture: sha256:10352aa9848952621de508d432588fc4a96853f0cb98f96257f669914c230c0c | quote: Yes. You can sign up for Agent Router Service and start using it right away, with free credit to get started.
+- sources:
+  - [1] https://goose-docs.ai/docs/getting-started/installation
+  - [2] https://docs.tetrate.ai/agent-router-service/quickstarts/quickstart-explore/
+  - [3] https://tetrate.io/blog/frictionless-setup-of-goose-with-tetrate-agent-router-service
+  - [4] https://tetrate.io/products/tetrate-agent-router-service
+  - [5] https://docs.tetrate.ai/agent-router-service/quickstarts/
+  - [6] https://docs.tetrate.ai/reference/supported-apis/
+  - [7] https://tetrate.io/faq
+
+## Unstructured Transform
+
+- `inference/unstructured-transform-free` | trial-only | evidence documented | binding volume-quota | category document parsing API, one-time free pages | tier Free
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T07:34:02.658Z (live) | stale on 2026-12-04
+- url https://unstructured.io/pricing | page https://fshy.ajam.dev/p/unstructured.md
+- free tier: 10,000 free pages once per account, no card required, all features included; after the first 10,000 pages the API refuses further page processing unless the account is upgraded to Pay-As-You-Go at USD 0.015 a page | unit: mixed | metered on: unstated | read on: 2026-11-03 | source: [1] | note: the unit is pages (a page, slide or image for .pdf, .pptx and .tiff; the file size divided by 100 KB for other types; the vocabulary has no page term). The 10,000-page credit is applied once per account and does not renew
+- per-object cap: 100 MB (104,857,600 bytes) per document on upload, parse or direct extract; one document per request; 50 MB per file through the MCP server | bytes: 104857600 | source: [2]
+- retention: unverified: no retention period for uploaded documents or results read on the Transform pages captured
+- egress: metered: no
+- identity: email | detail: a Transform account: the login page at transform.unstructured.io offers registration with an email address or Continue with Google; the pricing page states no card is required for the 10,000 free pages and a card is entered only to upgrade to Pay-As-You-Go; unverified: whether registration is open or approval-gated, since the quickstart says 'If you do not have access, contact your account team'
+- interface: rest
+- limits:
+  - volume-quota (binding): 10,000 pages once per account; further page requests fail until the account is upgraded to Pay-As-You-Go at USD 0.015 a page [1]
+  - per-object-cap: 100 MB (104,857,600 bytes) per document; extensions .bmp, .docx, .heic, .jpeg, .jpg, .pdf, .png, .pptx, .tiff; one document per request [2]
+  - request-rate: unverified: the limits page states 'No public values are specified for result size, request rate, or concurrent jobs' [2]
+- binding note: the 10,000 pages are a one-time credit that runs out before the 100 MB per-document cap matters
+- interface detail: REST (POST https://transform.unstructured.io/api/v2/parse with an unstructured-api-key header), a Python SDK, and an MCP server
+- endpoint: part of interface detail
+- tooling: plain REST with an API key from the Transform console, the Python SDK, or the Transform MCP server in an MCP client; the endpoint takes one local file per request, with no URL ingestion
+- composes with: 10,000 pages with no card, once, for the file types .bmp, .docx, .heic, .jpeg, .jpg, .pdf, .png, .pptx and .tiff; the next page costs USD 0.015, so it is a one-time trial lane rather than a monthly one
+- reliability: no reliability event recorded; no request was made because an API key needs a signed-in account
+- notes: the Transform MCP server limits files to 50 MB and accepts a broader file-type list than the web app and API
+- evidence note: the 10,000 free pages, their one-time application, the missing card requirement, the per-page price, the 100 MB cap and the nine accepted extensions are quoted from vendor pages read on 2026-11-03; whether registration is open to anyone is unverified, and no request was made.
+- evidence:
+  - [3] 2026-11-03: the Free plan is 10,000 free pages | capture: sha256:6540e1daa072e99c2f3d3b03f99ef7402c367334f79809b43b680981f9b1ef05 | quote: Start processing your data with 10,000 free pages.
+  - [3] 2026-11-03: the Free plan needs no card | capture: sha256:6540e1daa072e99c2f3d3b03f99ef7402c367334f79809b43b680981f9b1ef05 | quote: - No card required.
+  - [3] 2026-11-03: the next page after the first 10,000 costs USD 0.015 | capture: sha256:6540e1daa072e99c2f3d3b03f99ef7402c367334f79809b43b680981f9b1ef05 | quote: Pay only $0.015 a page after your first 10,000 free pages.
+  - [3] 2026-11-03: the Free plan includes all features | capture: sha256:6540e1daa072e99c2f3d3b03f99ef7402c367334f79809b43b680981f9b1ef05 | quote: - All features included.
+  - [2] 2026-11-03: the MCP server has a separate 50 MB per-file limit | capture: sha256:296da417d7a95707b5d4fd860cad91c13bdd666c0ea09b7438f345a7f4d687e7 | quote: MCP clients have a separate documented limit of 50 MB per file.
+  - [4] 2026-11-03: a Python SDK client exists for the Transform API | capture: sha256:f2f1e3225576936424b23cc07303b35d28074d829231295f12657af06531bb5d | quote: from unstructured_transform_client import TransformClient
+  - [1] 2026-11-03: the 10,000-page credit is applied once per account | capture: sha256:ee77e8d2a588e09ba04c70df6850a0dd19545181af9b71d6634bb7e9e9e430ae | quote: Unstructured applies this 10,000-page credit once per account.
+  - [1] 2026-11-03: page requests fail after the first 10,000 pages unless the account is upgraded | capture: sha256:ee77e8d2a588e09ba04c70df6850a0dd19545181af9b71d6634bb7e9e9e430ae | quote: After the first 10,000 pages, future page processing requests will begin failing unless you have upgraded to a Pay-As-You-Go plan.
+  - [1] 2026-11-03: a credit card is entered only when upgrading to Pay-As-You-Go | capture: sha256:ee77e8d2a588e09ba04c70df6850a0dd19545181af9b71d6634bb7e9e9e430ae | quote: Follow the on-screen directions to enter your credit card information.
+  - [1] 2026-11-03: how a page is counted for file types other than PDF, PPTX, TIFF and DOCX with page metadata | capture: sha256:ee77e8d2a588e09ba04c70df6850a0dd19545181af9b71d6634bb7e9e9e430ae | quote: For all other file types, Unstructured calculates the number of pages as the file's size divided by 100 KB.
+  - [2] 2026-11-03: the per-document size cap | capture: sha256:296da417d7a95707b5d4fd860cad91c13bdd666c0ea09b7438f345a7f4d687e7 | quote: | Document upload | 100 MB (104,857,600 bytes) per document on Upload, Parse, or direct Extract. |
+  - [2] 2026-11-03: the accepted file extensions | capture: sha256:296da417d7a95707b5d4fd860cad91c13bdd666c0ea09b7438f345a7f4d687e7 | quote: | Supported extensions | `.bmp`, `.docx`, `.heic`, `.jpeg`, `.jpg`, `.pdf`, `.png`, `.pptx`, `.tiff` |
+  - [2] 2026-11-03: the request rate and concurrency limits are unpublished | capture: sha256:296da417d7a95707b5d4fd860cad91c13bdd666c0ea09b7438f345a7f4d687e7 | quote: No public values are specified for result size, request rate, or concurrent jobs.
+  - [2] 2026-11-03: the API takes one local document per request and has no URL ingestion | capture: sha256:296da417d7a95707b5d4fd860cad91c13bdd666c0ea09b7438f345a7f4d687e7 | quote: The Transform API does not currently support URL ingestion, presigned uploads, or multi-document uploads.
+  - [5] 2026-11-03: requests authenticate with an API key header | capture: sha256:2c3e1a62338eb91bed0bf1908f061c69adca29ff4cb92d31115150d135a37b29 | quote: Transform API requests use an API key in the `unstructured-api-key` header.
+  - [6] 2026-11-03: the parse endpoint of the Transform API | capture: sha256:9aff47c7a26da7d06f9118febb305b6b7d49b3507d492e70d5e9eda4eaec5239 | quote: curl -i https://transform.unstructured.io/api/v2/parse \
+  - [6] 2026-11-03: the quickstart says users without access contact an account team, so open registration is not confirmed by it | capture: sha256:9aff47c7a26da7d06f9118febb305b6b7d49b3507d492e70d5e9eda4eaec5239 | quote: If you do not have access, contact your account team.
+  - [7] 2026-11-03: the Transform login page has a registration link for new users | capture: sha256:67e72d1beb05a53281289db06d44426e97b4242f05f96ce5ce5da45f54d14954 | quote: # Get access to Transform
+  - [7] 2026-11-03: the Transform login page offers Google sign-in beside an email field | capture: sha256:67e72d1beb05a53281289db06d44426e97b4242f05f96ce5ce5da45f54d14954 | quote: Continue with Google
+  - probe:https://transform.unstructured.io/api/v2/parse 2026-11-10: a keyless POST on 2026-11-10 answered HTTP 401 with the vendor's own gate message, so the tier is gated on a key | capture: sha256:dfe56215d11653cfbf9638b5fa5c8463efeb80b18f9e496c70a5f427106e9cef | quote: "status": 401
+- sources:
+  - [1] https://docs.unstructured.io/transform/billing
+  - [2] https://docs.unstructured.io/transform/limits
+  - [3] https://unstructured.io/pricing
+  - [4] https://docs.unstructured.io/transform/parse
+  - [5] https://docs.unstructured.io/transform/authentication
+  - [6] https://docs.unstructured.io/
+  - [7] https://transform.unstructured.io/
+
+## Voyage AI (Inference)
+
+- `inference/voyage-ai` | trial-only | evidence documented | binding volume-quota | category embedding and reranker API, lifetime free token allowance
+- needs card yes, phone unknown, ID no, institution no | verified 2026-11-03T09:59:10.910Z (live) | stale on 2026-12-04
+- url https://docs.voyageai.com/docs/pricing | page https://fshy.ajam.dev/p/voyageai.md
+- free tier: The first 200 million tokens for voyage-4-large, voyage-4, voyage-4-lite, voyage-context-4 and voyage-code-4, or the first 50 million tokens for voyage-finance-2, voyage-law-2 and voyage-code-2, are free for every account. The sentence above the embeddings table also names voyage-code-3 and voyage-multilingual-2, which the tables list as older models with no free tokens. The first 200M text tokens and 150B pixels for voyage-multimodal-3.5 and voyage-multimodal-3 are free, and the first 200 million tokens for the rerankers rerank-3 and rerank-3-lite are free for each account; the sentence above the reranker table also names rerank-2.5, rerank-2.5-lite, rerank-2 and rerank-2-lite, which the older-models table lists with no free tokens. Older models carry no free tokens and Batch API usage does not draw on them. The page says only 'the first' tokens; whether the allowance resets is unverified. | unit: tokens | metered on: unstated | read on: 2026-11-03 | source: [1] | note: the free-token sentence above the embeddings table names voyage-code-3, voyage-multilingual-2 and, above the reranker table, rerank-2.5, rerank-2.5-lite, rerank-2 and rerank-2-lite, while the tables give the 200 million tokens to voyage-code-4, rerank-3 and rerank-3-lite and list the named models in the older-models table with no free tokens; the tables are read as authoritative. After the free tokens, voyage-4 costs USD 0.06 per million tokens and voyage-4-lite USD 0.02. unverified: whether the allowance is counted per account for the life of the account or resets; the page says only 'the first' tokens
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: an account is enough for an API key ('Upon creating an account, we instantly generate an API key'); the rate-limit page says the free tokens still apply after a payment method is entered and ties usage Tier 1 to adding one; unverified: the signup form fields and whether a card or phone is asked, because the dashboard redirects to a login page that answered HTTP 400 on every route tried
+- interface: rest
+- limits:
+  - volume-quota (binding): 200 million free tokens per account on voyage-4-large, voyage-4, voyage-4-lite, voyage-context-4 and voyage-code-4 and 50 million on voyage-finance-2, voyage-law-2 and voyage-code-2; 200M text tokens and 150B pixels on the multimodal models; 200 million on rerank-3 and rerank-3-lite [1]
+  - request-rate: unverified: the rate-limit table lists 2000 RPM and 8M TPM for voyage-4 and voyage-3.5 and 16M TPM for voyage-4-lite, but the usage-tier table ties Tier 1 to a payment method being added, so the limit of an account with no payment method is not stated [2]
+- binding note: the free tokens are a finite per-account allowance (200 million on the current models), which is large but not renewable; request limits for an account with no payment method are unverified
+- interface detail: REST at https://api.voyageai.com/v1 (embeddings and rerank); official Python package voyageai; a Batch API and a Files API exist but are billed and excluded from the free tokens
+- endpoint: https://api.voyageai.com/v1/embeddings
+- tooling: official Python package (pip install voyageai) with the VOYAGE_API_KEY environment variable, or raw HTTP from any language
+- composes with: 200 million embedding tokens is enough to embed a large text corpus once; pair it with a free Postgres with pgvector or another free vector store so the index costs nothing either. A re-embed after a model change draws the allowance down again, and the allowance does not reset.
+- reliability: the free-token sentences above the embeddings and reranker tables of the pricing page name voyage-code-3, voyage-multilingual-2, rerank-2.5, rerank-2.5-lite, rerank-2 and rerank-2-lite, which the older-models table lists with no free tokens; the vendor markets Voyage AI as part of MongoDB
+- evidence note: the free-token counts, the exclusion of batch usage and older models, the instant API key and the rate-limit table are quoted from vendor pages; the free account's rate limit and the signup fields are unverified.
+- evidence:
+  - [1] 2026-11-03: 200 million free tokens on the current embedding models, 50 million on the older domain models, for every account | capture: sha256:0edd42c2be66a948a64eaf6b513c4e5412727c56dc6656c2a32ade235f31abf8 | quote: The first 200 million tokens for `voyage-4-large`, `voyage-4`, `voyage-4-lite`, `voyage-context-4`, and `voyage-code-3`, or the first 50 million tokens for `voyage-multilingual-2`, `voyage-finance-2`, `voyage-law-2`, and `voyage-code-2`, are free for every account.
+  - [1] 2026-11-03: the table gives 200 million free tokens for voyage-code-4 | capture: sha256:0edd42c2be66a948a64eaf6b513c4e5412727c56dc6656c2a32ade235f31abf8 | quote: | `voyage-code-4` | $0.00012 | $0.12 | 200 million |
+  - [1] 2026-11-03: the multimodal models carry 200M free text tokens and 150B free pixels | capture: sha256:0edd42c2be66a948a64eaf6b513c4e5412727c56dc6656c2a32ade235f31abf8 | quote: The first 200M text tokens and 150B pixels for `voyage-multimodal-3.5` and `voyage-multimodal-3` are free for every account.
+  - [1] 2026-11-03: Batch API usage does not draw on the free tokens | capture: sha256:0edd42c2be66a948a64eaf6b513c4e5412727c56dc6656c2a32ade235f31abf8 | quote: Free token credits do not apply to Batch API usage.
+  - [1] 2026-11-03: older models carry no free tokens | capture: sha256:0edd42c2be66a948a64eaf6b513c4e5412727c56dc6656c2a32ade235f31abf8 | quote: The following table shows the pricing for older models. Please note that we do not offer free tokens for them.
+  - [2] 2026-11-03: voyage-3.5 is limited to 2000 requests and 8M tokens per minute | capture: sha256:8de0b520c8b312b20d47252050146a64348c52260fcb1ccece0ca874614f8230 | quote: For example, the `voyage-3.5` API rate limits are set at 2000 RPM (requests per minute) and 8M TPM (tokens per minute)
+  - [2] 2026-11-03: usage Tier 1 is defined as a payment method added | capture: sha256:8de0b520c8b312b20d47252050146a64348c52260fcb1ccece0ca874614f8230 | quote: | 1 | Payment method added. | See table above. |
+  - [2] 2026-11-03: the free tokens still apply after a payment method is entered | capture: sha256:8de0b520c8b312b20d47252050146a64348c52260fcb1ccece0ca874614f8230 | quote: Even with a payment method entered, the free tokens (e.g., 200M tokens for Voyage series 3) will still apply.
+  - [3] 2026-11-03: an API key is generated at account creation | capture: sha256:e2068eb3473f0e8e58729c63e66c607255a6044b68da589c486eca519d3d91d6 | quote: Upon creating an account, we instantly generate an API key for you.
+  - [4] 2026-11-03: the embeddings endpoint is POST https://api.voyageai.com/v1/embeddings | capture: sha256:67f67999c28a90c03d820526d0416ef7c0e3120b6420a15fd714b513c78719a7 | quote: Voyage text embeddings can be accessed by calling the endpoint `POST https://api.voyageai.com/v1/embeddings`.
+  - [5] 2026-11-03: the service is presented as Voyage AI by MongoDB | capture: sha256:10b3dbc44fb9482d5fd23c38ec8f21e5c8892f8b93587128c5aaf602565142d3 | quote: Voyage AI by MongoDB
+  - probe:dashboard.voyageai.com 2026-11-03: the dashboard signup answers HTTP 400 behind a login redirect, so the signup fields are unread | capture: sha256:d1061e09927757424628e6f144872c301b01a5223c3c9b67bfafac0a75226047 | quote: "status": 400
+  - [1] 2026-11-03: the reranker table gives rerank-3 200 million free tokens | capture: sha256:776c20f3d7f4e26c9d096606507eaf4e1fd439b45af427f8601d9252d73ea4fe | quote: | `rerank-3` | $0.00005 | $0.05 | $0.0025 | 200 million |
+  - [1] 2026-11-03: the older-models table carries no free tokens | capture: sha256:776c20f3d7f4e26c9d096606507eaf4e1fd439b45af427f8601d9252d73ea4fe | quote: The following table shows the pricing for older models. Please note that we do not offer free tokens for them.
+  - [1] 2026-11-03: the embeddings table gives voyage-finance-2, voyage-law-2 and voyage-code-2 50 million free tokens | capture: sha256:776c20f3d7f4e26c9d096606507eaf4e1fd439b45af427f8601d9252d73ea4fe | quote: | `voyage-finance-2` `voyage-law-2` `voyage-code-2` | $0.00012 | $0.12 | 50 million |
+  - [1] 2026-11-03: the reranker table gives rerank-3-lite 200 million free tokens | capture: sha256:776c20f3d7f4e26c9d096606507eaf4e1fd439b45af427f8601d9252d73ea4fe | quote: | `rerank-3-lite` | $0.00002 | $0.02 | $0.001 | 200 million |
+  - [1] 2026-11-03: the embeddings table gives voyage-code-4 200 million free tokens | capture: sha256:776c20f3d7f4e26c9d096606507eaf4e1fd439b45af427f8601d9252d73ea4fe | quote: | `voyage-code-4` | $0.00012 | $0.12 | 200 million |
+  - [1] 2026-11-03: voyage-multilingual-2 is in the older-models table with no free-token column | capture: sha256:776c20f3d7f4e26c9d096606507eaf4e1fd439b45af427f8601d9252d73ea4fe | quote: | `voyage-multilingual-2` `voyage-large-2-instruct` `voyage-large-2` | $0.00012 | $0.12 |
+  - [1] 2026-11-03: rerank-2 and rerank-2.5 are in the older-models table | capture: sha256:776c20f3d7f4e26c9d096606507eaf4e1fd439b45af427f8601d9252d73ea4fe | quote: | `rerank-1` `rerank-2` `rerank-2.5` | $0.00005 | $0.05 |
+  - [1] 2026-11-03: rerank-2-lite and rerank-2.5-lite are in the older-models table | capture: sha256:776c20f3d7f4e26c9d096606507eaf4e1fd439b45af427f8601d9252d73ea4fe | quote: | `voyage-3-lite` `rerank-lite-1` `rerank-2-lite` `rerank-2.5-lite` | $0.00002 | $0.02 |
+  - [1] 2026-11-03: the prose sentence above the embeddings table names voyage-code-3 and voyage-multilingual-2 | capture: sha256:776c20f3d7f4e26c9d096606507eaf4e1fd439b45af427f8601d9252d73ea4fe | quote: The first 200 million tokens for `voyage-4-large`, `voyage-4`, `voyage-4-lite`, `voyage-context-4`, and `voyage-code-3`, or the first 50 million tokens for `voyage-multilingual-2`, `voyage-finance-2`, `voyage-law-2`, and `voyage-code-2`, are free for every account.
+- sources:
+  - [1] https://docs.voyageai.com/docs/pricing
+  - [2] https://docs.voyageai.com/docs/rate-limits
+  - [3] https://docs.voyageai.com/docs/faq
+  - [4] https://docs.voyageai.com/docs/embeddings
+  - [5] https://www.voyageai.com/
+
+## Xiaomi MiMo API Open Platform
+
+- `inference/xiaomi-mimo-api` | trial-only | evidence documented | binding volume-quota | category inference API, one-time free credit
+- needs card no, phone yes, ID no, institution no | verified 2026-11-03T11:30:43.059Z (live) | stale on 2026-12-04
+- url https://platform.xiaomimimo.com/ | page https://fshy.ajam.dev/p/xiaomimimo.md
+- free tier: One-time free credits for all new and existing users, collected on the console Balance page, announced with the start of billing. No vendor page read states the amount of this credit. The promotions FAQ states that bonus credit from new user registration or Refer & Earn is currently valid for 40 days; the expiry of the January 2026 one-time credit itself is not stated. Calls deduct the complimentary free quota first and then the recharged balance, and an account with insufficient balance cannot use the API | unit: mixed | metered on: unstated | read on: 2026-10-28 | source: [1] | note: one-time-credit
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: overseas users register a Xiaomi account by email or by Google or Facebook sign-in; mainland users by mobile number or third-party sign-in. Real-name authentication applies to mainland users before recharging or buying a package, and overseas users recharge without it
+- interface: rest
+- limits:
+  - volume-quota (binding): unverified: no vendor page read states the amount of the one-time free credit or the expiry of the January 2026 grant (one news site reports a figure received by one user); after the credit is used the account needs a recharged balance [1]
+- binding note: the one-time credit is the only free allowance and its size is unpublished on the page read
+- tooling: part of the free tier
+- composes with: mainland and overseas accounts have separate base URLs and keys, so usage and credit do not aggregate across regions
+- reliability: an automatic keyword-based protection mechanism can block an account as abnormal usage until the vendor reviews it on request
+- notes: overseas first-recharge bonus: USD 0.72 once per account on a first top-up of any amount, valid 40 days; it needs a payment so it is not a card-free credit
+- evidence note: the billing notice is dated January 23, 2026; whether the credit is still granted is unverified
+- evidence:
+  - [1] 2026-10-28: free credits are offered to all new and existing users | capture: sha256:9392eb0712c5b3455e09d728879f6d28fe01811197058b4c2500964a8304b276 | quote: To thank you for your support, we have prepared exclusive free credits for all new and existing users.
+  - [1] 2026-10-28: only mainland users need real-name authentication before recharging | capture: sha256:9392eb0712c5b3455e09d728879f6d28fe01811197058b4c2500964a8304b276 | quote: Other users can recharge directly without real-name authentication.
+  - [1] 2026-10-28: overseas mimo-v2-flash list price in USD per million tokens | capture: sha256:9392eb0712c5b3455e09d728879f6d28fe01811197058b4c2500964a8304b276 | quote: Overseas: Input $0.1 / 1M tokens, Input (Cache Hit) $0.01 / 1M tokens, Output $0.3 / 1M tokens
+  - [2] 2026-10-28: the FAQ lists a separate registration method for overseas users | capture: sha256:960d475c24eb3523f528bc71d293fba23867a91fd97a88e0fc9056a651ee8550 | quote: Registration Methods for Overseas Users
+  - [2] 2026-10-28: mainland and overseas accounts use separate base URLs and keys | capture: sha256:960d475c24eb3523f528bc71d293fba23867a91fd97a88e0fc9056a651ee8550 | quote: Return different Base URLs + Keys based on the region where the account is located, which are not interoperable.
+  - [2] 2026-10-28: accounts can be blocked by an automatic protection mechanism | capture: sha256:960d475c24eb3523f528bc71d293fba23867a91fd97a88e0fc9056a651ee8550 | quote: It may be because the system captured certain keywords during detection, triggering the automatic protection mechanism.
+  - [3] 2026-11-03: bonus credit from new user registration or Refer & Earn is currently valid for 40 days | capture: sha256:b319d04aee7715f584de56d12ec585532eb2d508e5443a0afb86ede888614faf | quote: Bonus credit is currently valid for 40 days and expires after that.
+  - [1] 2026-11-03: the vendor notice offers free credits to all new and existing users and states no amount | capture: sha256:9392eb0712c5b3455e09d728879f6d28fe01811197058b4c2500964a8304b276 | quote: To thank you for your support, we have prepared exclusive free credits for all new and existing users.
+  - [4] 2026-11-03: overseas first-recharge bonus is USD 0.72 and needs a first top-up | capture: sha256:29005f456884c666ce06d96f2bedbe5b5a26f279e52ed4f2b99c4a26b784359c | quote: Overseas users who make their first recharge of any amount on the Xiaomi MiMo Open Platform will receive an additional $0.72 bonus, which will be credited to their account in real time.
+  - [5] 2026-11-03: a news site reports a user received 20 yuan of the free balance; not stated by the vendor | capture: sha256:0af7bd06ac21e6162ff3790250eafd595b8f40c95ea6b82354ef9b7b00da7835 | quote: 有IT之家小伙伴已经领取到了 20 元赠送余额
+- sources:
+  - [1] https://mimo.mi.com/docs/en-US/news/previous-news/billing
+  - [2] https://mimo.mi.com/docs/quick-start/faq/account
+  - [3] https://mimo.mi.com/docs/en-US/quick-start/faq/promotions
+  - [4] https://mimo.mi.com/docs/en-US/quick-start/promotions/Welcome%20Bonus
+  - [5] https://www.ithome.com/0/914/844.htm

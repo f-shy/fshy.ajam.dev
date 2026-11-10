@@ -1,0 +1,204 @@
+# Railway
+
+> railway.com | Compute, Databases and KV, Egress and tunnels, Storage; 4 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/railway/ | JSON https://fshy.ajam.dev/api/v1/entity/railway.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Railway (Compute)
+
+- `compute/railway` | qualifies-with-caveat | evidence documented | binding volume-quota | category platform host | tier Free
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T01:55:00.000Z (live) | stale on 2026-11-24
+- url https://railway.com/pricing
+- price parsed USD 5/mo
+- free tier: Free plan at USD 0 a month with USD 1 of usage credit a month, 1 vCPU and 0.5 GB RAM per service, 0.5 GB of volume, 1 project, 3 services, 1 replica and 0 custom domains. A separate Free Trial gives a one-time USD 5 credit for 30 days. | unit: mixed | metered on: wall-clock | read on: 2026-10-24 | source: [1]
+- per-object cap: 1 vCPU and 0.5 GB RAM per service on Free; 0.5 GB of volume; 4 GB maximum image size
+- retention: the USD 1 credit does not roll over month to month; a stopped service is not billed
+- egress: USD 0.05 per GB of service egress, drawn from the same USD 1 credit | metered: yes | price per TB: USD 50 | source: [1]
+- identity: email | detail: the Trial needs no card: 'No credit card required'; a card is needed only to upgrade. An unverified GitHub login downgrades the trial's network access
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): USD 1 of usage credit a month on Free; memory is USD 10 per GB a month [1]
+  - per-object-cap: 1 vCPU / 0.5 GB per service, 0.5 GB volume, 0 custom domains, 3 services [1]
+  - request-rate: an unverified account gets a Limited Trial with restricted outbound network access and only a limited set of ports [2]
+  - per-ip-shaping: egress USD 0.05 per GB [1]
+- limits note: Railway bills CPU at USD 0.00001929 per vCPU-second on active use and memory at the same rate per GB-second, so an idle service is cheap and a busy one is not.
+- binding note: USD 1 a month against a memory rate of USD 10 per GB a month is 0.1 GB-months: a 0.5 GB service runs 146 hours, six days, and then the credit is gone.
+- interface detail: CLI and GraphQL API; ssh railway.new for the anonymous VM
+- tooling: railway CLI, the GraphQL API, SSH; sandboxes have an idle timeout and checkpoints
+- composes with: the only anonymous machine in this class, and a paid platform with a USD 5 Hobby floor beside it
+- reliability: an account whose GitHub identity does not meet Railway's automatic verification gets restricted outbound access and a limited port set, with no appeal
+- notes: Arithmetic: 0.5 GB at USD 10/GB/month is USD 5 a month, or USD 0.00685 an hour; USD 1 is 146 hours, 6.1 days. What is not established is whether an exhausted Free credit stops the service or merely stops billing for it; the docs say a stopped service is not billed but do not name the exhaustion behaviour.
+- evidence note: plan table, credit and per-resource rates read on the pricing page; the trial and the Limited Trial restriction on the free-trial docs page today
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 0.5
+  - shape.disk_gib: 0.5
+  - billing_model: usage-credit
+  - granularity.min_billed_s: 1
+  - granularity.rounding_s: 1
+  - session_cap.restart_required: no
+  - session_cap.note: no sleep: the service runs until the credit or the plan limit stops it
+  - keep_rate.value: 1.0
+  - keep_rate.basis: memory remains billable while a VM waits for work
+  - keep_rate.source: https://railway.com/pricing
+  - persistent_storage.included_gib: 4
+  - persistent_storage.price_gib_month: USD 0.15
+  - persistent_storage.durability: volume
+  - persistent_storage.survives_stop: yes
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: unclaimed boxes are deleted
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: the service port plus TCP proxying; the Limited Trial restricts outbound to a limited port set
+  - network_out.static_ip: no
+  - network_out.ipv6: no
+  - free_tier_kind: monthly-usage-credit
+  - m10h_usd: 2.06
+  - m24h_usd: 5.0
+  - price_arithmetic: 0.5 GB x USD 10/GB/month = USD 5.00 a month at 24/7; 10 h a day is 0.5 x 10 x 30 / 730 x 10 = USD 2.06; USD 1 of free credit covers 146 h
+  - probe_result: railway.new:22 timed out; see evidence probe:railway.new:22
+  - burst_x: 1.0
+  - shape_note: 1 vCPU, 0.5 GB RAM, 1 GB ephemeral plus 0.5 GB volume, as the vendor's Free row states
+  - term: monthly
+  - credit_usd: 5
+  - credit_monthly_usd: 1
+  - credit_months_at_shape: 0.013
+  - credit_hours_at_shape: 9.6
+  - credit_expiry: the USD 5 expires after 30 days; the USD 1 resets monthly
+- evidence:
+  - [3] 2026-10-22: ssh railway.new gives a 2 vCPU / 2 GB VM with no account and no card; Railway identifies you by your SSH key
+  - [3] 2026-10-22: 60 minutes to build, then 24 hours to claim; unclaimed boxes are deleted with their files; up to 3 boxes per IP per day
+  - [1] 2026-10-22: Free plan is USD 1 of credit a month with 1 vCPU, 0.5 GB RAM and a 4 GB volume; egress USD 0.05 per GB
+  - probe:railway.new:22 2026-10-22: TCP connect to railway.new:22 timed out twice from this host (8.2 s and 15 s), while hashbang.sh:22 connected in 0.4 s from the same machine, so the failure is the target's path and not this host's egress
+  - [1] 2026-10-22: 'Free - $0/month with $1 of monthly usage credits. Up to 1 vCPU / 0.5 GB per service, 1 replica, and 3-day log history', with a separate 'Free Trial - $5 in credits for 30 days', quoted
+  - [4] 2026-10-24: quoted table, Free row: '1 | 0.5 GB | 1 vCPU | 1 GB | 0.5 GB | 4 GB' under Replicas, RAM, CPU, Ephemeral Storage, Volume Storage, Image Size
+  - [4] 2026-10-24: quoted: 'Railway will delete your data ... Free or Trial plan | 30 days after expiry'
+  - [1] 2026-10-24: quoted: 'Free — $0/month with $1 of monthly usage credits.' and 'Memory $0.00000386 per GB/s | $10 per GB', 'CPU $0.00000772 per vCPU/s | $20 per vCPU'
+  - [4] 2026-10-24: quoted: 'Not anymore as of March 30th, Railway requires the use of a post-paid card.'
+  - [1] 2026-10-24: quoted: 'Free Trial — $5 in credits for 30 days to try Railway. No credit card required. Up to 2 vCPU / 1 GB per service'; 'Free — $0/month with $1 of monthly usage credits. Up to 1 vCPU / 0.5 GB per service'; sandbox table 'Free Trial | 10 | 2 vCPU / 2 GB | 2 vCPU / 2 GB | 5 min'; 'CPU | $0.00001929 per vCPU/s (active use)'.
+  - [1] 2026-10-24: quoted: 'Free | $0 | $1/month | 1 vCPU / 0.5 GB | 1 | 3 days' and 'Free Trial | $0 | $5 one-time credit (30 days) | 2 vCPU / 1 GB'
+  - [1] 2026-10-24: quoted: 'Memory | $0.00000386 per GB/s | $10 per GB', 'CPU | $0.00000772 per vCPU/s | $20 per vCPU', 'Egress | $0.05 per GB'
+  - [1] 2026-10-24: quoted platform limits table: 'Free | 1 | 3 | 1 | 500 MB | 0 | 1' for projects, services, members, max volume, custom domains, concurrent builds
+  - [2] 2026-10-24: quoted: 'After 30 days passes or $5 is spent, the free trial reverts to the Free plan, which provides $1 of free credit per month.'
+  - [2] 2026-10-24: quoted: 'services on the Limited Trial have restricted outbound network access and only a limited set of ports are available'
+- sources:
+  - [1] https://railway.com/pricing
+  - [2] https://docs.railway.com/reference/pricing/free-trial
+  - [3] https://railway.com/free-vm.md
+  - [4] https://docs.railway.com/reference/pricing/plans
+
+## Railway (Databases and KV)
+
+- `databases-kv/railway` | qualifies-with-caveat | evidence documented | binding volume-quota | category application platform with attached Postgres
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T00:44:00.367Z (live) | stale on 2026-12-03
+- url https://railway.com/pricing
+- free tier: Free plan: "Free. $0/month with $1 of monthly usage credits." A new account starts on the Free Trial, "$5 in credits for 30 days", and reverts to Free when the 30 days pass or the $5 is spent; the $1 does not roll over. | unit: credits | metered on: none | read on: 2026-11-02 | source: [1] | note: metered on spend: the USD 1 monthly credit is drawn down by CPU, memory and disk usage billed per second and by outgoing bandwidth billed per GB
+- per-object cap: 500 MB maximum volume size on Free, with 1 vCPU and 0.5 GB of RAM per service; the USD 1 a month of credit is the total ceiling
+- retention: a Trial account's stateful volumes are deleted 30 days after its credits expire unless the account upgrades; the plans FAQ gives 30 days after expiry for the Free or Trial plan; unverified: what counts as expiry for a Free plan | days: 30 | source: [1] | note: the trial credit covers 30 days; a service stopped for a usage limit, exhausted trial credits or a failed payment keeps its attached volume
+- egress: usage is billed against the credit balance | metered: yes | source: [1]
+- identity: email | detail: sign-in with GitHub, Google or an email address; no card for the Free Trial or the Free plan it reverts to; a verified GitHub account gives the Full Trial, otherwise the Limited Trial restricts outbound network access
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): USD 1 per month of usage after the 30-day trial credit [1]
+- binding note: the USD 1 a month of credit runs out first: at USD 10 per GB-month of memory it pays for 0.1 GB-month of memory, before any CPU, volume or egress charge, and it does not roll over
+- interface detail: the Postgres wire protocol on a private network; a GraphQL API and the railway CLI
+- tooling: psql, the railway CLI
+- composes with: the next step above the Free plan is the Hobby plan at USD 5 a month, which includes USD 5 of usage
+- reliability: a Trial account's stateful volumes are deleted 30 days after its credits expire unless the account upgrades
+- notes: a service with Serverless enabled sleeps between 5 and 10 minutes after its last outbound traffic and is woken by inbound traffic from the internet or the project's private network, which can lower the usage billed; the first request to a slept service may return a 502
+- evidence note: the pricing page was read.
+- evidence:
+  - [1] 2026-10-22: USD 5 one-time trial credit for 30 days, then USD 1/month non-rollover; 1 vCPU and 0.5 GB per service
+  - [1] 2026-10-30: the Free plan is $0 a month with $1 of usage credits every month | capture: sha256:a447bf6dcec0e33ac832501bea8da08c08de6207b329144aae1db9e4200d2c8a | quote: Free — $0/month with $1 of monthly usage credits. Up to 1 vCPU / 0.5 GB per service, 1 replica, and 3-day log history.
+  - [1] 2026-10-30: the trial needs no card, and the trial reverts to the Free plan without one | capture: sha256:a447bf6dcec0e33ac832501bea8da08c08de6207b329144aae1db9e4200d2c8a | quote: Free Trial — $5 in credits for 30 days to try Railway. No credit card required.
+  - [2] 2026-10-30: the login page offers GitHub, Google and an email address | capture: sha256:725ccaea03216341ca79184230f9064e1be3a53ae2f7f2a6fa40429ed3e705eb | quote: Log in using email
+  - [3] 2026-10-30: the trial falls back to the Free plan with $1 of credit a month, with no payment step named | capture: sha256:5692ce75daa79cbc25bf9e09c644b2cff31426210043730a9c090426050a9c90 | quote: After 30 days passes or $5 is spent, the free trial reverts to the [Free](/pricing/plans#plans) plan, which provides $1 of free credit per month.
+  - [3] 2026-10-30: a verified GitHub account is what lifts the Limited Trial network restrictions | capture: sha256:5692ce75daa79cbc25bf9e09c644b2cff31426210043730a9c090426050a9c90 | quote: If you connect your GitHub account, and we are able to verify it against a set of parameters, you will be on the Full Trial with full network access.
+  - [4] 2026-10-30: the plans reference states the Free plan's $1 of free credit per month | capture: sha256:6bd4f11e5abbd59b3edbf962fb70e33fed86682e2b8b5d0190adedeb6fabbd17 | quote: For running small apps with $1 of free credit per month
+  - [3] 2026-11-02: the one-time $5 trial reverts to the Free plan, which gives $1 of credit every month | capture: sha256:5692ce75daa79cbc25bf9e09c644b2cff31426210043730a9c090426050a9c90 | quote: After 30 days passes or $5 is spent, the free trial reverts to the [Free](/pricing/plans#plans) plan, which provides $1 of free credit per month.
+  - [1] 2026-11-02: the Free plan is $0 a month with $1 of usage credits every month | capture: sha256:a447bf6dcec0e33ac832501bea8da08c08de6207b329144aae1db9e4200d2c8a | quote: Free — $0/month with $1 of monthly usage credits. Up to 1 vCPU / 0.5 GB per service, 1 replica, and 3-day log history.
+  - [1] 2026-11-02: memory is billed at $10 per GB per month | capture: sha256:a447bf6dcec0e33ac832501bea8da08c08de6207b329144aae1db9e4200d2c8a | quote: | Memory | $0.00000386 per GB/s | $10 per GB |
+  - [1] 2026-11-02: platform limits table, Free row: 1 project, 3 services, 1 member, 500 MB maximum volume size, 0 custom domains, 1 concurrent build | capture: sha256:a447bf6dcec0e33ac832501bea8da08c08de6207b329144aae1db9e4200d2c8a | quote: | Free | 1 | 3 | 1 | 500 MB | 0 | 1 |
+  - [3] 2026-11-02: a Trial account's stateful volumes are deleted 30 days after its credits expire unless the account upgrades | capture: sha256:5692ce75daa79cbc25bf9e09c644b2cff31426210043730a9c090426050a9c90 | quote: Railway deletes stateful volumes created by Trial accounts 30 days after the expiration of your credits. To retain your data, upgrade your account after the Trial period.
+  - [5] 2026-11-02: a service stopped for a usage limit, exhausted trial credits or a failed payment keeps its attached volume | capture: sha256:295c311e3c64c9575449b5a5a09c0597dec1b5d1bd4a6729c50e194b2b196e34 | quote: Note: Although Railway will remove your deployment for any of the above reasons, Railway will not remove the [volume](/overview/the-basics#volumes) attached to the service.
+  - [1] 2026-11-02: the Hobby plan is $5 a month with $5 of included usage | capture: sha256:a447bf6dcec0e33ac832501bea8da08c08de6207b329144aae1db9e4200d2c8a | quote: | Hobby | $5 | $5/month | 48 vCPU / 48 GB | 6 | 7 days |
+  - [6] 2026-11-02: a service with Serverless enabled sleeps between 5 and 10 minutes after its last outbound traffic | capture: sha256:d67ce170697c3e0a7d4262da320b1979712f15303a82a3974f232f6ecfa84fb8 | quote: Once a service stops sending packets it is considered inactive after 5 minutes. Inactivity is sampled on an interval rather than measured continuously, so in practice a service sleeps somewhere between 5 and 10 minutes after its last outbound traffic.
+  - [1] 2026-11-02: usage is billed on CPU, memory and disk per second and on outgoing bandwidth per GB | capture: sha256:a447bf6dcec0e33ac832501bea8da08c08de6207b329144aae1db9e4200d2c8a | quote: Railway charges per-second for the CPU, memory, and disk your services actually use. No overprovisioning, no idle markup, no surprises. Outgoing bandwidth and object storage are billed per GB.
+  - [7] 2026-11-02: the vendor's own post (dated 2025-08-27) says the $1 monthly credit follows the trial every month and is enough to run a small app | capture: sha256:00a5c678429e54555d97696a95ad8ed00b6745057e52b540d8c60010f3e88418 | quote: After $5 or 30 days, we will fund your account with $1 of non-rollover credits each month. This is enough to run a small app for free in perpetuity.
+  - [3] 2026-11-02: the $1 monthly credit does not roll over | capture: sha256:5692ce75daa79cbc25bf9e09c644b2cff31426210043730a9c090426050a9c90 | quote: The credit does not roll over month to month.
+  - [4] 2026-11-02: the plans FAQ gives 30 days after expiry as the volume deletion time for the Free or Trial plan | capture: sha256:6bd4f11e5abbd59b3edbf962fb70e33fed86682e2b8b5d0190adedeb6fabbd17 | quote: | Free or Trial plan | 30 days after expiry |
+  - [5] 2026-11-02: the pricing FAQ answers yes to trying Railway without a credit card, with a one-time $5 grant | capture: sha256:295c311e3c64c9575449b5a5a09c0597dec1b5d1bd4a6729c50e194b2b196e34 | quote: Can I try Railway without a credit-card? Yes. As a new Railway user, you can sign up for a [Free Trial](/pricing/free-trial). You will receive a one-time grant of $5 to use on resources.
+  - [2] 2026-11-02: the login page offers GitHub, Google and email sign-in | capture: sha256:725ccaea03216341ca79184230f9064e1be3a53ae2f7f2a6fa40429ed3e705eb | quote: Continue with GitHub Continue with Google Log in using email
+  - [6] 2026-11-02: a slept service is woken by traffic from the internet or from another service of the project over the private network | capture: sha256:d67ce170697c3e0a7d4262da320b1979712f15303a82a3974f232f6ecfa84fb8 | quote: A service is woken when it receives traffic from the internet or from another service in the same project through the [private network](/networking/private-networking).
+  - [6] 2026-11-02: the first request to a slept service may return a 502 | capture: sha256:d67ce170697c3e0a7d4262da320b1979712f15303a82a3974f232f6ecfa84fb8 | quote: The first request sent to a slept service may return a 502 Bad Gateway response.
+- sources:
+  - [1] https://railway.com/pricing
+  - [2] https://railway.com/login
+  - [3] https://docs.railway.com/pricing/free-trial
+  - [4] https://docs.railway.com/reference/pricing/plans
+  - [5] https://docs.railway.com/pricing/faqs
+  - [6] https://docs.railway.com/deployments/serverless
+  - [7] https://blog.railway.com/p/free-plan
+
+## Railway (Egress and tunnels)
+
+- `egress/railway` | fails-egress | evidence documented | binding volume-quota | category paas l4 port | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://railway.com/pricing
+- price USD 0
+- free tier: Free - $0/month with $1 of monthly usage credits. Up to 1 vCPU / 0.5 GB per service, 1 replica, and 3-day log history. | unit: mixed | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No byte allowance on the Free plan: $1/month of credit against egress at $0.05 per GB.; ingress: tcp | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: Free Trial is "$5 in credits for 30 days ... No credit card required"; the $0 Free plan needs an account. | country: None
+- interface: cli, rest
+- limits:
+  - volume-quota (binding): $1/month credit; egress $0.05/GB [1]
+- binding note: $1 of credit at $0.05/GB is 20 GB, 0.018 TiB, and only if the service consumes no CPU or memory. 1 TiB of egress alone is $51.20/month, i.e. the Hobby plan and then some.
+- interface detail: CLI, dashboard, and API; TCP proxy configurable per service instance.
+- tooling: The railway CLI (railway tcp-proxy) and the dashboard.
+- composes with: Railway TCP proxy carries an SSH tunnel to another free host; it cannot carry WireGuard.
+- reliability: Free plan keeps 3-day log history and 1 replica; a single replica means a restart drops TCP connections. No ban documented.
+- notes: The TCP proxy is a real L4 path for SSH or a database, and the address is stable, but there is no UDP and the free credit is $1. Both tests fail independently.
+- evidence note: UDP absence is established by the TCP proxy documentation naming TCP only; a UDP probe is impossible because no UDP endpoint can be created.
+- extras:
+  - wg_path: none
+  - wg_detail: TCP proxy only: "TCP proxies expose non-HTTP application ports, such as database or game server ports, to the public internet. Only one TCP proxy is allowed per service instance." No UDP path.
+  - ingress: tcp
+  - volume_stated: No byte allowance on the Free plan: $1/month of credit against egress at $0.05 per GB.
+  - bytes_transit: yes
+  - transit_note: Railway's edge terminates the TCP proxy and forwards to the service.
+- evidence:
+  - [1] 2026-10-23: Free plan $1/month credit, 1 vCPU/0.5 GB, 1 replica; egress $0.05 per GB
+  - [2] 2026-10-23: "TCP proxies expose non-HTTP application ports ... Only one TCP proxy is allowed per service instance."
+- sources:
+  - [1] https://railway.com/pricing
+  - [2] https://docs.railway.com/cli/tcp-proxy
+
+## railway — volumes on the free plan
+
+- `storage/railway-volumes-on-the-free-plan` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://docs.railway.com/reference/volumes
+- free tier: none reachable: Free plan is a $1/month credit, and volumes are 0.5 GB on Free with 1 volume per project: 'Free and Trial plans: 0.5GB'. Volumes are a block device mounted into a container, not an… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Free plan is a $1/month credit, and volumes are 0.5 GB on Free with 1 volume per project: 'Free and Trial plans: 0.5GB'. Volumes are a block device mounted into a container, not an…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Free plan is a $1/month credit, and volumes are 0.5 GB on Free with 1 volume per project: 'Free and Trial plans: 0.5GB'. Volumes are a block device mounted into a container, not an…
+  - [2] 2026-10-21: cited as the basis of the rejection: Free plan is a $1/month credit, and volumes are 0.5 GB on Free with 1 volume per project: 'Free and Trial plans: 0.5GB'. Volumes are a block device mounted into a container, not an HTTP-fetc
+- sources:
+  - [1] https://docs.railway.com/reference/volumes
+  - [2] https://docs.railway.com/reference/pricing/plans

@@ -1,0 +1,151 @@
+# OpenAlex
+
+> openalex.org | Crawling, Data APIs; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/openalex/ | JSON https://fshy.ajam.dev/api/v1/entity/openalex.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## OpenAlex (Crawling)
+
+- `crawler-scraper/openalex` | qualifies | evidence documented | binding request-rate | category scholarly index
+- needs card no, phone no, ID no, institution no | verified 2026-10-31T10:03:28.418Z (live) | stale on 2026-12-01
+- url https://help.openalex.org/access/pricing/
+- duplicate of `data-apis/openalex`
+- free tier: USD 1 of API usage a day with a free key; USD 0.10 a day with no key; the budget is priced per call, so it buys 10,000 list-and-filter calls or 1,000 searches a day, and single-entity lookups are free | unit: requests | metered on: request-count | read on: 2026-10-31 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: the daily budget resets at midnight UTC | source: [1]
+- egress: not applicable | metered: no | source: [1]
+- identity: email | detail: The API answers with no key on a smaller daily budget. The free key comes from an account on openalex.org or from a POST to https://api.openalex.org/api-keys with an email address, and works only once that email address is verified. No payment method required.
+- interface: rest
+- limits:
+  - request-rate (binding): 10 requests a second keyless, 30 with a free key, 50 on an annual plan [2]
+  - per-object-cap: basic paging stops at 10,000 results; beyond that needs cursor paging and a key; per_page maximum 100 [2]
+  - request-rate (binding): daily budget USD 1 with a free key, no payment method; prepaid usage in USD 1 increments is drawn only after the free budget runs out and expires 3 months after the most recent purchase; the budget resets every midnight UTC [1]
+- binding note: The daily credit budget runs out first: USD 1 buys 10,000 list calls of up to 100 results, or 1,000 searches, a day.
+- interface detail: REST; cursor paging past the first page needs a free key
+- tooling: curl or any HTTP client; the key goes in the api_key query parameter or an Authorization: Bearer header; each answer reports the day's budget and the call's cost in X-RateLimit-* headers
+- composes with: Results past 10,000 for one query need cursor paging, which needs a free key; a full copy of the index comes from the quarterly S3 snapshot recorded in data-apis/openalex rather than from the API.
+- reliability: Exceeding the daily budget or the per-second limit answers 429; a per-second 429 costs nothing and clears on retry.
+- notes: A dollar a day is a large allowance for this index because a search costs a few credits. The 10,000-result paging wall is the constraint that matters for a literature sweep.
+- evidence note: the quota and the rate limit are documented; the works API was called directly on 2026-10-22 (200, 30,469 bytes, meta.count 189601, X-RateLimit-Cost-USD 0.001), so the read path is probed and the verdict is unqualified
+- evidence:
+  - [1] 2026-10-22: every account gets USD 1 of API usage per day for free; no payment method required; prepaid usage expires 3 months after the most recent purchase
+  - [2] 2026-10-22: no key 10 requests a second, free key or prepaid 30, annual 50; per_page maximum 100; basic paging limit 10,000 results; cursor paging requires a key
+  - withheld 2026-10-22: 200, provider openalex, 3 works, a cursor, and page 2 returned three different DOIs
+  - probe:https://api.openalex.org/works?search=retrieval+augmented+generation&per-page=2 2026-10-22: direct call: 200, 30,469 bytes, meta.count 189601, X-RateLimit-Cost-USD 0.001 and X-RateLimit-Credits-Used 10, X-RateLimit-Limit 1000
+  - [3] 2026-10-31: the keyless daily budget is USD 0.10, a tenth of the free-key USD 1 | capture: sha256:4dde64f6a026bf01b07b0bf97a98ee91c7c1525eb8e0ae58c401f1a886e93e4f | quote: Without a key you get $0.10/day
+  - [3] 2026-10-31: USD 1 a day buys 10,000 list-and-filter calls returning 1,000,000 results | capture: sha256:4dde64f6a026bf01b07b0bf97a98ee91c7c1525eb8e0ae58c401f1a886e93e4f | quote: | List + filter | 10,000 | 1,000,000 | All works from MIT in 2024 |
+  - [1] 2026-10-31: prepaid usage is drawn after the free budget and expires 3 months after the most recent purchase | capture: sha256:cb417b31318ad09da10b92d8db4fd7c090c822a2762b603f2aa144c6c203c11b | quote: Prepaid usage is only drawn down after your free daily budget runs out, and it expires 3 months after your most recent purchase.
+  - [2] 2026-10-31: a free key, from the website or from POST /api-keys, works only after its email address is verified | capture: sha256:264605d06eac1553d48284579c4f66ad65c6f900dac548f06917ccf66513eeb5 | quote: Either way, a key works only once its email address is verified.
+  - [2] 2026-10-31: the key is sent as the api_key query parameter or a bearer token | capture: sha256:264605d06eac1553d48284579c4f66ad65c6f900dac548f06917ccf66513eeb5 | quote: Add it as an `api_key` query parameter:
+  - [2] 2026-10-31: a per-second 429 is free and clears on retry; the daily budget also answers 429 when spent | capture: sha256:264605d06eac1553d48284579c4f66ad65c6f900dac548f06917ccf66513eeb5 | quote: A per-second 429 costs nothing; wait a moment and retry.
+  - [2] 2026-10-31: cursor paging past the first page needs a free key; basic paging stops at 10,000 results | capture: sha256:264605d06eac1553d48284579c4f66ad65c6f900dac548f06917ccf66513eeb5 | quote: with a free key: without one, only the first page works
+  - [3] 2026-10-31: USD 1 a day buys 10,000 list-and-filter calls returning 1,000,000 results, that is 100 a call | capture: sha256:4dde64f6a026bf01b07b0bf97a98ee91c7c1525eb8e0ae58c401f1a886e93e4f | quote: | List + filter | 10,000 | 1,000,000 | All works from MIT in 2024 |
+  - [4] 2026-10-31: the free public snapshot is released quarterly | capture: sha256:9fb07ebedcdcaea4ccbc54f3d9f07deae5b28207539e9a8d3e4eeaf670715aee | quote: quarterly for the free public snapshot, on the second Wednesday of January, April, July and October
+  - probe:https://api.openalex.org/works?filter=publication_year:2024&per_page=1&select=id,doi 2026-10-31: a keyless list call on 2026-10-31 answered 200 with a daily budget header of USD 0.1 | capture: sha256:64e1f4b760ce488a16f4339400ac18b655b9c8eaae152dfac236f3089efdb94e | quote: "x-ratelimit-limit-usd": "0.1"
+  - [2] 2026-10-31: the per-second limits are unchanged: 10 with no key, 30 with a free key or prepaid usage, 50 on an annual plan | capture: sha256:264605d06eac1553d48284579c4f66ad65c6f900dac548f06917ccf66513eeb5 | quote: | Free API key, or prepaid usage | 30 |
+- sources:
+  - [1] https://help.openalex.org/access/pricing/
+  - [2] https://docs.openalex.org/how-to-use-the-api/rate-limits-and-authentication
+  - [3] https://help.openalex.org/access/example-costs/
+  - [4] https://docs.openalex.org/download-all-data/openalex-snapshot
+
+## OpenAlex (free)
+
+- `data-apis/openalex` | qualifies | evidence documented | binding request-rate | category scholarly metadata API (works, authors, sources, institutions) and bulk snapshot | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T00:28:18.836Z (live) | stale on 2026-12-04
+- url https://help.openalex.org/access/example-costs/
+- free tier: USD 1 of API usage a day with a free key: 10,000 list-and-filter calls, 1,000 searches or 100 content downloads, single-entity lookups unlimited; USD 0.10 a day with no key; the budget resets every midnight UTC | unit: credits | metered on: request-count | read on: 2026-10-30 | source: [1] | note: The budget is priced per call: a list or filter call costs USD 0.10 per 1,000, a search USD 1 per 1,000, a content download USD 10 per 1,000. A keyless list call on 2026-10-30 answered X-RateLimit-Limit 1000, X-RateLimit-Limit-USD 0.1 and X-RateLimit-Credits-Used 1, so the keyless day is 1,000 list calls. A keyless list call at per_page=100 on 2026-11-02 also answered X-RateLimit-Credits-Used 1, so one call costs one credit at a page size of 100. The API notice says the keyless budget is shared with everyone on the network IP address. The X-RateLimit-Limit value with a free key is unverified: behind a sign-up. The vendor error page prints X-RateLimit-Limit: 10000 in an example.
+- per-object cap: per_page maximum 100 results; basic paging stops at 10,000 results, and cursor paging past the first page needs a free key; snapshot part files hold up to 400,000 records each | source: [2] | note: Without a key, a call with cursor=* answers with a next_cursor, and the next call that follows it answers 401 with the message 'API key required for cursor paging'. Cursor paging past the first page with a free key is unverified: behind a sign-up.
+- retention: the API is a live index; the free public snapshot is a quarterly release on the second Wednesday of January, April, July and October (latest 2026-10-14); a daily snapshot is a Member+ plan benefit | source: [3] | note: RELEASE_NOTES.txt lists entries 19 to 64 days apart from 2024-01-24 to 2026-06-25. It lists entries dated 2026-09-23 and 2026-10-14, each labelled a quarterly snapshot. The next public release is dated 2027-01-13. A release that fails its checks is retried and can land up to a week late.
+- egress: The API is metered in credits per day, not in bytes. The public snapshot bucket s3://openalex is free to download with no AWS account; the AWS Open Data program covers the transfer, about USD 70 per full download. | metered: no | free allowance: no byte cap published on the snapshot bucket | source: [3]
+- identity: email | detail: The API answers with no key at USD 0.10 a day, and the snapshot bucket needs no account. The free key comes from a sign-up form that asks for a name and an email address behind a CAPTCHA, or from a POST to https://api.openalex.org/api-keys with an email address; the key works only once its email address is verified. No payment method required.
+- interface: rest, s3
+- limits:
+  - request-rate (binding): no key: 10 requests a second; free key or prepaid usage: 30; annual plan: 50 [2]
+  - request-rate (binding): daily budget: USD 0.10 with no key, USD 1 with a free key (10,000 list-and-filter calls or 1,000 searches or 100 content downloads); single-entity lookups free; resets every midnight UTC [1]
+  - per-object-cap: per_page maximum 100; basic paging limit 10,000 results; cursor paging past the first page needs a free key [2]
+- binding note: The daily credit budget runs out first: a free key buys 10,000 list calls of up to 100 results, about 1,000,000 records a day, so a full copy comes from the snapshot, not the API.
+- interface detail: REST at https://api.openalex.org (GET, JSON; a key as the api_key query parameter or an Authorization: Bearer header); the snapshot in the public S3 bucket s3://openalex under data/jsonl/ (gzip JSON Lines) and data/parquet/, read anonymously with --no-sign-request or over HTTPS, each format with a manifest.json
+- endpoint: https://api.openalex.org/works
+- tooling: curl or any HTTP client for the API; aws s3 sync with --no-sign-request (parallel and resumable) for the snapshot; DuckDB reads the gzip JSONL or Parquet part files directly
+- composes with: The S3 snapshot is the bulk path: about 626 million records, about 745 GB compressed as JSON Lines (works alone about 615 GB) or about 770 GB as Parquet, refreshed quarterly; the API at USD 1 a day with a free key covers lookups and the drift between releases, while the daily snapshot and changed-since-any-date filters are Member+ (USD 10,000 a year) benefits.
+- reliability: Exceeding the daily budget or the per-second limit answers 429; a per-second 429 costs nothing and clears on retry.
+- notes: The API record crawler-scraper/openalex describes the same service; this record adds the snapshot bulk path.
+- evidence note: The budget, rates, paging limits and snapshot sizes are vendor pages read on 2026-10-30; a keyless list call and a HEAD of the snapshot manifest were probed the same day and answered 200 with the keyless budget in the headers. No key was requested, so the keyed rate is documented only.
+- extras:
+  - keyless_usd_per_day: 0.1
+  - free_key_usd_per_day: 1
+  - latest_public_snapshot: 2026-10-14
+  - snapshot_jsonl_compressed_gb: 745
+- evidence:
+  - [1] 2026-10-30: the keyless budget is USD 0.10 a day | capture: sha256:4dde64f6a026bf01b07b0bf97a98ee91c7c1525eb8e0ae58c401f1a886e93e4f | quote: Without a key you get $0.10/day
+  - [1] 2026-10-30: USD 1 a day buys 10,000 list-and-filter calls returning 1,000,000 results | capture: sha256:4dde64f6a026bf01b07b0bf97a98ee91c7c1525eb8e0ae58c401f1a886e93e4f | quote: | List + filter | 10,000 | 1,000,000 | All works from MIT in 2024 |
+  - [1] 2026-10-30: USD 1 a day buys 1,000 searches | capture: sha256:4dde64f6a026bf01b07b0bf97a98ee91c7c1525eb8e0ae58c401f1a886e93e4f | quote: | Search | 1,000 | 100,000 |
+  - [1] 2026-10-30: single-entity lookups are unlimited | capture: sha256:4dde64f6a026bf01b07b0bf97a98ee91c7c1525eb8e0ae58c401f1a886e93e4f | quote: | Get a single entity | Unlimited | Unlimited | Look up a work by DOI |
+  - [1] 2026-10-30: USD 1 a day buys 100 content downloads | capture: sha256:4dde64f6a026bf01b07b0bf97a98ee91c7c1525eb8e0ae58c401f1a886e93e4f | quote: | Content download | 100 | 100 PDFs |
+  - [1] 2026-10-30: a list or filter call costs USD 0.10 per 1,000 | capture: sha256:4dde64f6a026bf01b07b0bf97a98ee91c7c1525eb8e0ae58c401f1a886e93e4f | quote: | [List + filter](https://help.openalex.org/api/filtering/) | Query and filter entities | $0.10 |
+  - [4] 2026-10-30: the daily budget resets at midnight UTC | capture: sha256:cb417b31318ad09da10b92d8db4fd7c090c822a2762b603f2aa144c6c203c11b | quote: The budget resets every midnight UTC
+  - [4] 2026-10-30: the free key needs no payment method | capture: sha256:cb417b31318ad09da10b92d8db4fd7c090c822a2762b603f2aa144c6c203c11b | quote: no payment method required
+  - [4] 2026-10-30: the Member+ plan costs USD 10,000 a year | capture: sha256:cb417b31318ad09da10b92d8db4fd7c090c822a2762b603f2aa144c6c203c11b | quote: Member+ — $10,000/year
+  - [4] 2026-10-30: the daily snapshot and changed-since filters are Member+ benefits | capture: sha256:cb417b31318ad09da10b92d8db4fd7c090c822a2762b603f2aa144c6c203c11b | quote: a complete daily snapshot of the database plus API filters that return everything new or changed since any date
+  - [2] 2026-10-30: keyless callers get 10 requests a second | capture: sha256:264605d06eac1553d48284579c4f66ad65c6f900dac548f06917ccf66513eeb5 | quote: | No API key | 10 |
+  - [2] 2026-10-30: a free key gets 30 requests a second | capture: sha256:264605d06eac1553d48284579c4f66ad65c6f900dac548f06917ccf66513eeb5 | quote: | Free API key, or prepaid usage | 30 |
+  - [2] 2026-10-30: an annual plan gets 50 requests a second | capture: sha256:264605d06eac1553d48284579c4f66ad65c6f900dac548f06917ccf66513eeb5 | quote: | [Annual plan](https://help.openalex.org/access/pricing/) | 50 |
+  - [2] 2026-10-30: a call returns at most 100 results | capture: sha256:264605d06eac1553d48284579c4f66ad65c6f900dac548f06917ccf66513eeb5 | quote: | `per_page` maximum | 100 |
+  - [2] 2026-10-30: basic paging stops at 10,000 results | capture: sha256:264605d06eac1553d48284579c4f66ad65c6f900dac548f06917ccf66513eeb5 | quote: | Basic paging limit | 10,000 results |
+  - [2] 2026-10-30: cursor paging needs a free key | capture: sha256:264605d06eac1553d48284579c4f66ad65c6f900dac548f06917ccf66513eeb5 | quote: with a free key: without one, only the first page works
+  - [2] 2026-10-30: a key works only after its email address is verified | capture: sha256:264605d06eac1553d48284579c4f66ad65c6f900dac548f06917ccf66513eeb5 | quote: Either way, a key works only once its email address is verified.
+  - [2] 2026-10-30: a key can be requested with a POST to /api-keys | capture: sha256:264605d06eac1553d48284579c4f66ad65c6f900dac548f06917ccf66513eeb5 | quote: curl -X POST https://api.openalex.org/api-keys
+  - [2] 2026-10-30: a per-second 429 costs nothing | capture: sha256:264605d06eac1553d48284579c4f66ad65c6f900dac548f06917ccf66513eeb5 | quote: A per-second 429 costs nothing; wait a moment and retry.
+  - [5] 2026-10-30: the sign-up form asks for a name | capture: sha256:1f21f174983fa26f452f12307d02fbe6e682098f418d1191d6a2480c79ceb2de | quote: Your name
+  - [5] 2026-10-30: the sign-up form asks for an email address | capture: sha256:1f21f174983fa26f452f12307d02fbe6e682098f418d1191d6a2480c79ceb2de | quote: Email address
+  - [5] 2026-10-30: the sign-up form sits behind a CAPTCHA | capture: sha256:1f21f174983fa26f452f12307d02fbe6e682098f418d1191d6a2480c79ceb2de | quote: CAPTCHA failed to load.
+  - [3] 2026-10-30: the public snapshot bucket needs no authentication | capture: sha256:9fb07ebedcdcaea4ccbc54f3d9f07deae5b28207539e9a8d3e4eeaf670715aee | quote: | Public snapshot (this page) | `s3://openalex` (S3, `data/` prefix) | None — free, anonymous |
+  - [3] 2026-10-30: each snapshot format holds about 626 million records | capture: sha256:9fb07ebedcdcaea4ccbc54f3d9f07deae5b28207539e9a8d3e4eeaf670715aee | quote: As of the September 2026 release, each format holds about 626 million records:
+  - [3] 2026-10-30: the JSON Lines snapshot is about 745 GB compressed, works about 615 GB | capture: sha256:9fb07ebedcdcaea4ccbc54f3d9f07deae5b28207539e9a8d3e4eeaf670715aee | quote: | JSON Lines (`/data/jsonl/`) | \~745 GB (works alone: \~615 GB) |
+  - [3] 2026-10-30: the Parquet snapshot is about 770 GB compressed | capture: sha256:9fb07ebedcdcaea4ccbc54f3d9f07deae5b28207539e9a8d3e4eeaf670715aee | quote: | Parquet (`/data/parquet/`) | \~770 GB |
+  - [3] 2026-10-30: the AWS Open Data program pays about USD 70 of transfer per download | capture: sha256:9fb07ebedcdcaea4ccbc54f3d9f07deae5b28207539e9a8d3e4eeaf670715aee | quote: which covers the data-transfer fees (about $70 per download)
+  - [3] 2026-10-30: snapshot part files hold up to 400,000 records | capture: sha256:9fb07ebedcdcaea4ccbc54f3d9f07deae5b28207539e9a8d3e4eeaf670715aee | quote: of up to 400,000 records each
+  - [3] 2026-10-30: the public snapshot is released quarterly | capture: sha256:9fb07ebedcdcaea4ccbc54f3d9f07deae5b28207539e9a8d3e4eeaf670715aee | quote: quarterly for the free public snapshot, on the second Wednesday of January, April, July and October
+  - probe:https://openalex.s3.amazonaws.com/RELEASE_NOTES.txt 2026-10-30: the latest public release is 2026-10-14 | capture: sha256:a6e5083e10f0992f357ae5eeff338c423dfaed106c024160fe9f6db8df247b93 | quote: RELEASE 2026-10-14
+  - probe:https://api.openalex.org/works?filter=publication_year:2024&per_page=1&select=id,doi 2026-10-30: a keyless list call answered 200 | capture: sha256:ea55650fb0ca8149bded38d9e094f246c8b6021d2b593592177bc4f14b4a8c73 | quote: "status": 200
+  - probe:https://api.openalex.org/works?filter=publication_year:2024&per_page=1&select=id,doi 2026-10-30: the keyless daily budget header was USD 0.1 | capture: sha256:ea55650fb0ca8149bded38d9e094f246c8b6021d2b593592177bc4f14b4a8c73 | quote: "x-ratelimit-limit-usd": "0.1"
+  - probe:https://api.openalex.org/works?filter=publication_year:2024&per_page=1&select=id,doi 2026-10-30: the keyless daily budget was 1,000 credits | capture: sha256:ea55650fb0ca8149bded38d9e094f246c8b6021d2b593592177bc4f14b4a8c73 | quote: "x-ratelimit-limit": "1000"
+  - probe:https://api.openalex.org/works?filter=publication_year:2024&per_page=1&select=id,doi 2026-10-30: a list call cost 1 credit | capture: sha256:ea55650fb0ca8149bded38d9e094f246c8b6021d2b593592177bc4f14b4a8c73 | quote: "x-ratelimit-credits-used": "1"
+  - probe:https://openalex.s3.amazonaws.com/data/jsonl/manifest.json 2026-10-30: the public snapshot manifest answered 200 to an anonymous request | capture: sha256:82e8e86cd5016bde6e8e526ea1945a361668e1c943408dfd6004830fc81201b2 | quote: "status": 200
+  - [6] 2026-11-02: the release notes label the entry dated 2026-09-23 a quarterly snapshot | capture: sha256:a6e5083e10f0992f357ae5eeff338c423dfaed106c024160fe9f6db8df247b93 | quote: RELEASE 2026-09-23 - quarterly snapshot with bug fixes and improvements
+  - [6] 2026-11-02: the release notes label the entry dated 2026-10-14 a quarterly snapshot | capture: sha256:a6e5083e10f0992f357ae5eeff338c423dfaed106c024160fe9f6db8df247b93 | quote: RELEASE 2026-10-14 - quarterly snapshot with bug fixes and improvements
+  - [6] 2026-11-02: the release notes carry an entry dated 2024-01-24, the first of the entries that run to 2026-06-25 | capture: sha256:a6e5083e10f0992f357ae5eeff338c423dfaed106c024160fe9f6db8df247b93 | quote: RELEASE 2024-01-24
+  - [6] 2026-11-02: the release notes carry an entry dated 2026-06-25, the last before the entries labelled quarterly | capture: sha256:a6e5083e10f0992f357ae5eeff338c423dfaed106c024160fe9f6db8df247b93 | quote: RELEASE 2026-06-25
+  - [7] 2026-11-02: the next public release is dated 2027-01-13 | capture: sha256:c8c29a641fff03bc13c78e92c4f712a9a77a3e83037420d2b097614375bc0bc0 | quote: | 2027 Q1 | Wednesday 2027-01-13 |
+  - [7] 2026-11-02: a public release can land up to a week late | capture: sha256:c8c29a641fff03bc13c78e92c4f712a9a77a3e83037420d2b097614375bc0bc0 | quote: If a release build fails its validation checks, it is retried on the following days until it passes, so a release can occasionally land up to a week late.
+  - probe:https://openalex.s3.amazonaws.com/data/jsonl/manifest.json 2026-11-02: the combined JSON Lines manifest of the public bucket is dated 2026-10-14, the date of the latest release entry | capture: sha256:2b3d611b3ec93912b7b655ee139310936048a689c0f3508052a73af03a6c453f | quote: "date": "2026-10-14"
+  - probe:https://api.openalex.org/works?filter=publication_year:2024&per_page=2&select=id&cursor=IlsxMDAuMCwgMjM4NzYsICdodHRwczovL29wZW5hbGV4Lm9yZy9XNDM5MjE0NTg3MyddIg%3D%3D 2026-11-02: a keyless call that follows a next_cursor answered 401 | capture: sha256:46e425132bd9914211292ee52c33ef67245f90737252cb585b64edf612d0ad3e | quote: "status": 401
+  - probe:https://api.openalex.org/works?filter=publication_year:2024&per_page=2&select=id&cursor=IlsxMDAuMCwgMjM4NzYsICdodHRwczovL29wZW5hbGV4Lm9yZy9XNDM5MjE0NTg3MyddIg%3D%3D 2026-11-02: the 401 answer to the second cursor call names the missing API key | capture: sha256:6657336d7055d70c8262369739e0dffa349947cc54ac79ccc740820da9fdc98f | quote: "error":"API key required for cursor paging"
+  - probe:https://api.openalex.org/works?filter=publication_year:2024&per_page=2&select=id&cursor=* 2026-11-02: a keyless call with cursor=* on the first page answered 200 | capture: sha256:43d15ebf81e0a0c39e18f52a798c41b72db21d1459d6592bf35954da05e9783e | quote: "status": 200
+  - probe:https://api.openalex.org/works?filter=publication_year:2024&per_page=2&select=id&cursor=* 2026-11-02: the first keyless cursor page returns a next_cursor | capture: sha256:f2b929e757f494a5fd2a9f9e1589fcd8049c1e07d7c6f10e6de2ff5825acf40b | quote: "next_cursor": "IlsxMDAuMCwgMjM4NzYsICdodHRwczovL29wZW5hbGV4Lm9yZy9XNDM5MjE0NTg3MyddIg=="
+  - [8] 2026-11-02: the paging page states that following next_cursor without a key returns 401 | capture: sha256:61ee15007bf38887fb95e6e6b5c937fe3fb12bba7a9844f611392735a1c74bc7 | quote: without a key, `cursor=*` works, but following `next_cursor` returns a 401.
+  - [1] 2026-11-02: the price page tells callers to use per_page=100 to load many results per query | capture: sha256:4dde64f6a026bf01b07b0bf97a98ee91c7c1525eb8e0ae58c401f1a886e93e4f | quote: > Tip: Use `per_page=100` to load many results per query — it makes your budget go much further.
+  - probe:https://api.openalex.org/works?filter=publication_year:2024&per_page=100&select=id,doi 2026-11-02: a keyless list call at per_page=100 cost 1 credit | capture: sha256:a28d850894d9e78f98a987d5b70d3893a412331ecd49f75eaae93c313f65c60b | quote: "x-ratelimit-credits-used": "1"
+  - probe:https://api.openalex.org/works?filter=publication_year:2024&per_page=100&select=id,doi 2026-11-02: the keyless call that cost 1 credit asked for 100 results | capture: sha256:4f1ba789c26fba8751f339e587c66a16da1cc9c49c3cf5ee07fff0285084caa2 | quote: "per_page": 100
+  - probe:https://api.openalex.org/works?filter=publication_year:2024&per_page=100&select=id,doi 2026-11-02: the API notice says the keyless budget is shared with everyone on the network IP address | capture: sha256:4f1ba789c26fba8751f339e587c66a16da1cc9c49c3cf5ee07fff0285084caa2 | quote: No API key, so this request shares one free daily budget ($0.10) with everyone on your network's IP address.
+  - [9] 2026-11-02: the error page prints X-RateLimit-Limit: 10000 in its example header block | capture: sha256:a07821605d75fd1f532efb144bfb4a2cd1ca0728e7fc9b2e9668e13a03ac063d | quote: X-RateLimit-Limit: 10000
+  - [10] 2026-11-02: a free key gives 10 times the keyless budget | capture: sha256:264605d06eac1553d48284579c4f66ad65c6f900dac548f06917ccf66513eeb5 | quote: a free key gives you 10× the keyless budget
+  - [1] 2026-11-02: USD 1 a day buys 10,000 list-and-filter calls returning 1,000,000 results | capture: sha256:4dde64f6a026bf01b07b0bf97a98ee91c7c1525eb8e0ae58c401f1a886e93e4f | quote: | List + filter | 10,000 | 1,000,000 | All works from MIT in 2024 |
+  - [1] 2026-11-02: the keyless daily budget is USD 0.10 | capture: sha256:4dde64f6a026bf01b07b0bf97a98ee91c7c1525eb8e0ae58c401f1a886e93e4f | quote: Without a key you get $0.10/day
+  - [4] 2026-11-02: the daily budget resets at midnight UTC | capture: sha256:cb417b31318ad09da10b92d8db4fd7c090c822a2762b603f2aa144c6c203c11b | quote: The budget resets every midnight UTC
+  - [3] 2026-11-02: snapshot part files hold up to 400,000 records | capture: sha256:3264b9e80de3653cfd60e64dfc560845c278115a9e477556c20edac1728b1cf9 | quote: of up to 400,000 records each
+  - [2] 2026-11-02: a call returns at most 100 results | capture: sha256:264605d06eac1553d48284579c4f66ad65c6f900dac548f06917ccf66513eeb5 | quote: | `per_page` maximum | 100 |
+  - [2] 2026-11-02: basic paging stops at 10,000 results | capture: sha256:264605d06eac1553d48284579c4f66ad65c6f900dac548f06917ccf66513eeb5 | quote: | Basic paging limit | 10,000 results |
+  - [7] 2026-11-02: the free public snapshot is released quarterly on the second Wednesday of January, April, July and October | capture: sha256:c8c29a641fff03bc13c78e92c4f712a9a77a3e83037420d2b097614375bc0bc0 | quote: | Free (everyone) | New full releases of the public snapshot (`s3://openalex/data/`), released quarterly on the second Wednesday of January, April, July and October (UTC). Each release replaces the bucket contents in place. |
+- sources:
+  - [1] https://help.openalex.org/access/example-costs/
+  - [2] https://docs.openalex.org/how-to-use-the-api/rate-limits-and-authentication
+  - [3] https://docs.openalex.org/download-all-data/openalex-snapshot
+  - [4] https://help.openalex.org/access/pricing/
+  - [5] https://openalex.org/signup
+  - [6] https://openalex.s3.amazonaws.com/RELEASE_NOTES.txt
+  - [7] https://help.openalex.org/access/sync/
+  - [8] https://help.openalex.org/api/paging/
+  - [9] https://help.openalex.org/api/errors/
+  - [10] https://help.openalex.org/api/authentication/

@@ -1,0 +1,1026 @@
+# Hetzner
+
+> hetzner.com | Storage, Netdisk and pan, Domains and DNS, Inference, Compute, Egress and tunnels; 22 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/hetzner/ | JSON https://fshy.ajam.dev/api/v1/entity/hetzner.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Hetzner Object Storage
+
+- `storage/hetzner-object-storage` | qualifies | evidence documented | binding per-object-cap | category S3-compatible object storage
+- needs card yes, phone no, ID no, institution no | verified 2026-11-01T18:05:06.747Z, checked 2026-10-21 (inherited) | stale on 2026-11-21
+- url https://www.hetzner.com/storage/object-storage/
+- price EUR 6.49 a month base price, billed at EUR 0.0104 an hour for every hour at least one bucket exists, including 1 TB of storage (up to 744 TB-hours) and 1 TB of egress; storage beyond it EUR 0.0087 per TB-hour, about EUR 6.47 per TB in a 744-hour month; egress beyond it EUR 1.0000 per TB; prices exclude VAT | parsed USD 7.25/TB-mo
+- free tier: Up to 100 buckets, each up to 100 TB / 50 million objects; 5 TB max per object; regions FSN1/HEL1/NBG1 | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: 5 TB max per object | bytes: 5000000000000 | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: the base price includes 1 TB of egress a month for the whole account, accumulated hourly (at most 1.1160 TB in a 31-day month) and not carried over to the next month; ingress, internal traffic within the eu-central network zone and S3 operations such as PUT, GET and DELETE are free, but the egress those operations cause is billed | metered: yes | free allowance: 1 TB per month | price per TB: EUR 1.0000 per TB beyond the included quota, excl. VAT
+- identity: card | detail: before an order is processed the account may have to be verified with a copy of a valid government-issued ID (ID card or passport) or with an advance payment from the holder's own credit card; registrants are asked not to use a free email address or a VPN service
+- interface: s3-compatible, rclone, cli
+- limits:
+  - per-object-cap (binding): 5 TB max per object [1]
+  - request-rate: 750 requests/s per source IP and 750 requests/s per bucket [2]
+  - per-ip-shaping: 256 active parallel TCP sessions per source IP [2]
+  - volume-quota: 100 TB and 50 million objects per bucket, up to 100 buckets per account [1]
+- limits note: billed for every hour at least one bucket exists, even if empty; minimum billable object size 64 kB; 10 Gbit/s per bucket for reads or writes; 5 GB per single PUT and per multipart part, up to 10,000 parts; 8 kB of metadata per object
+- interface detail: S3 API
+- tooling: AWS CLI, rclone, all S3 SDKs
+- composes with: S3 origin; internal traffic within the eu-central network zone is free of charge, so a Hetzner Cloud server in that zone reads the buckets without egress charges
+- reliability: LowEndTalk scepticism: "bandwidth limit is per bucket (not per object) and the pricing is based on 1TB increments it makes feel that it's just a fancy wrapped single-node storage with S3 compatibility, rather than actual distributed object storage".
+- notes: the same as the free tier
+- evidence note: re-read on 2026-10-22 (HTTP 200, 7102 bytes, sha256 165549bb8b5db4ee). The page states the number in the record. The claim is documented, not measured.
+- extras:
+  - price_verbatim: $8.06/TB at 5 TB stored + 5 TB egress (EUR 35.89 = $40.32); $8.21/TB at 20 TB stored + 20 TB egress (EUR 146.16 = $164.19). Roughly 3.6x the Storage Box for the same bytes.
+  - verified[0].url: https://www.hetzner.com/storage/object-storage/
+  - verified[0].date: 2026-10-22
+  - verified[0].http_status: 200
+  - verified[0].bytes: 7102
+  - verified[0].sha256: 165549bb8b5db4eed914109733b559cbb78bf3f864f0612427c545a368629598
+  - verified[0].pattern_found: yes
+  - verified[0].what_changed: no change: the page still states the claim
+- evidence:
+  - [1] 2026-10-22: the object storage page and its price row answer. Re-read https://www.hetzner.com/storage/object-storage/: HTTP 200, 7102 bytes, sha256 165549bb8b5db4ee.
+  - [1] 2026-10-21: "base price of EUR 6.49 per month... includes 1 TB of storage (up to 744 TB-hours) and 1 TB of egress traffic"; overage "Storage: EUR 0.0087 per hour per TB-hour. Egress traffic: EUR 1.0000 per hour per TB"; 64 KB minimum billable object size
+  - [2] 2026-10-21: egress quota accumulates hourly (max 1.1160 TB in a 31-day month); free traffic classes = ingress, internal eu-central, S3 API calls; quota does not carry over
+  - [3] 2026-10-21: endpoint probe -> 200, https://hel1.your-objectstorage.com/ -> 200, https://nbg1.your-objectstorage.com/ -> 200 (s3.hetzner.com does not resolve)
+  - [4] 2026-10-21: "traffic to other resources within the same region is free. So you can route egress via a Hetzner Cloud VM to get 20TB"
+  - [1] 2026-10-30: the EUR 6.49 base price (EUR 0.0104 an hour) includes 1 TB of storage and 1 TB of egress; overage is EUR 0.0087 per TB-hour stored and EUR 1.0000 per TB of egress, excl. VAT | capture: sha256:d8ae06105caf52381149c3e0cc3781e2fbd75a3f6d7a9e468525aa90ab3e747f | quote: This base price includes 1 TB of storage (up to 744 TB-hours) and 1 TB of egress traffic.
+  - [2] 2026-10-30: the included egress accrues hourly to at most 1.1160 TB in a 31-day month; unused quota expires at month end; ingress, eu-central internal traffic and S3 operations are free, the egress they cause is not | capture: sha256:15eabf26181806275b1779b8a7658fcc0e4073391b5a34d9f4db4590a4bd141c | quote: | Month with 31 days | max. 744 TB-hour | max. 1.1160 TB |
+  - [1] 2026-10-30: the egress overage rate is EUR 1.0000, printed under Egress traffic with the unit per TB on the next line | capture: sha256:d8ae06105caf52381149c3e0cc3781e2fbd75a3f6d7a9e468525aa90ab3e747f | quote: € 1.0000 per hour, excl. VAT
+  - [1] 2026-10-30: internal traffic within the eu-central network zone is free of charge | capture: sha256:d8ae06105caf52381149c3e0cc3781e2fbd75a3f6d7a9e468525aa90ab3e747f | quote: Internal traffic within the eu-central network zone.
+  - [5] 2026-10-30: the account may have to be verified before an order with an ID document or a prepayment from the holder's own credit card; the page asks registrants not to use free email addresses or VPNs | capture: sha256:8f8bb169af727cac3b39ab390075e8c31bae86ecf6e3e05a15d69005c929ca83 | quote: Alternatively, you can verify your account by making an advance payment with your own credit card.
+  - [2] 2026-10-30: 750 requests/s per source IP; the same list gives 750 requests/s per bucket | capture: sha256:15eabf26181806275b1779b8a7658fcc0e4073391b5a34d9f4db4590a4bd141c | quote: - Up to 750 requests/s per source IP
+  - [2] 2026-10-30: 256 parallel TCP sessions per source IP | capture: sha256:15eabf26181806275b1779b8a7658fcc0e4073391b5a34d9f4db4590a4bd141c | quote: - Up to 256 active parallel (TCP) sessions per source IP
+  - [1] 2026-10-30: 100 buckets per account, each up to 100 TB and 50 million objects | capture: sha256:d8ae06105caf52381149c3e0cc3781e2fbd75a3f6d7a9e468525aa90ab3e747f | quote: You can create up to 100 Buckets. Each Bucket can store up to 100 TB of data and up to 50 million objects.
+  - [2] 2026-10-30: 10 Gbit/s per bucket; the same section gives the 64 kB minimum billable object size and the PUT, part and metadata limits | capture: sha256:15eabf26181806275b1779b8a7658fcc0e4073391b5a34d9f4db4590a4bd141c | quote: - Up to 10 Gbit/s per Bucket (read or write)
+  - [2] 2026-10-30: the per-object cap is 5 TB; the page also documents the 1 TB included egress quota and the S3 API endpoints | capture: sha256:15eabf26181806275b1779b8a7658fcc0e4073391b5a34d9f4db4590a4bd141c | quote: - Up to 5 TB per object
+  - [6] 2026-10-30: registration needs a valid email address, personal or business contact information and a billing address, with a phone number optional for advanced verification | capture: sha256:d3e5aa5349963c39e4f56aeb9f2c5f0308880968904d946c8e7ea5b8c5b8ae18 | quote: - a billing address
+  - [1] 2026-11-01: the base price is EUR 6.49 a month, excluding VAT | capture: sha256:d8ae06105caf52381149c3e0cc3781e2fbd75a3f6d7a9e468525aa90ab3e747f | quote: € 6.49 per month, excl. VAT
+  - [1] 2026-11-01: up to 100 buckets per account, each up to 100 TB and 50 million objects | capture: sha256:d8ae06105caf52381149c3e0cc3781e2fbd75a3f6d7a9e468525aa90ab3e747f | quote: You can create up to 100 Buckets. Each Bucket can store up to 100 TB of data and up to 50 million objects.
+  - [2] 2026-11-01: the per-object cap is 5 TB | capture: sha256:15eabf26181806275b1779b8a7658fcc0e4073391b5a34d9f4db4590a4bd141c | quote: Up to 5 TB per object
+  - [2] 2026-11-01: the request-rate cap is 750 requests/s per source IP | capture: sha256:15eabf26181806275b1779b8a7658fcc0e4073391b5a34d9f4db4590a4bd141c | quote: Up to 750 requests/s per source IP
+- sources:
+  - [1] https://www.hetzner.com/storage/object-storage/
+  - [2] https://docs.hetzner.com/storage/object-storage/overview/
+  - [3] https://fsn1.your-objectstorage.com/
+  - [4] https://lowendtalk.com/discussion/197903/hetzner-launches-object-storage-6-50-tb/p2
+  - [5] https://docs.hetzner.com/general/security-and-identify/fraud-prevention-faq/
+  - [6] https://docs.hetzner.com/general/billing-and-account-management/account-getting-started/
+
+## Hetzner Storage Box BX11 / BX21 / BX31 (1/5/10 TB)
+
+- `storage/hetzner-storage-box-bx11-bx21-bx31` | qualifies | evidence documented | binding per-ip-shaping | category managed storage box
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-01T18:05:06.745Z, checked 2026-10-21 (inherited) | stale on 2026-11-21
+- url https://www.hetzner.com/storage/storage-box/
+- price EUR 3.20 per TB per month at 1 TB, EUR 2.18 at 5 TB, EUR 2.08 at 10 TB, EUR 2.03 at 20 TB, all excluding VAT, with no setup fee | parsed USD 3.58/TB-mo
+- duplicate of `storage/hetzner-storage-box`
+- disagrees on verdict: `storage/hetzner-storage-box-bx11-1-tb-3-20-mo` says paid-only, `storage/hetzner-storage-box-bx11-bx21-bx31` says qualifies
+- free tier: 1 TB / 5 TB / 10 TB | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Unlimited on all four tiers. The matrix row 'Traffic | Unlimited' spans 1/5/10/20 TB. Same fair-use caveat as BX41. | metered: no
+- identity: card | detail: registration needs a valid email address, contact information and a billing address, with a phone number optional; payment is by credit card, PayPal, bank transfer or SEPA direct debit, and before an order is processed an account may be verified with a copy of a government-issued ID or an advance payment from a credit card
+- interface: webdav, sftp, scp, rsync, smb, rclone
+- limits:
+  - per-ip-shaping (binding): 10 concurrent connections [1]
+- limits note: 10 concurrent connections on every tier; 10/20/30/40 snapshots at 1/5/10/20 TB; 100 sub-accounts per box
+- binding note: one stream is shaped, and aggregate throughput is the shaped rate times the number of streams
+- interface detail: same as BX41 (SFTP/SCP/SMB/WebDAV/rsync/Borg/Restic/rclone)
+- tooling: rclone, restic, borg, rsync, davfs2
+- composes with: identical; the 5 TB tier is the natural fit for the hot working set, 20 TB for archive
+- reliability: the same platform as BX41; the ladder is close to linear, so EUR 3.20 per TB at 1 TB falls only to EUR 2.03 per TB at 20 TB, and splitting one booking into two buys connections rather than bytes
+- notes: the same as the free tier
+- evidence note: the vendor plan matrix states the capacities, the four monthly prices, the concurrent-connection cap and the snapshot ladder
+- extras:
+  - price_verbatim: 1 TB €3.20/TB · 5 TB €2.18/TB · 10 TB €2.08/TB · 20 TB €2.03/TB (all excl. VAT, no setup, hourly-billed)
+- evidence:
+  - [1] 2026-10-21: BX11 €3.20, BX21 €10.90, BX31 €20.80, BX41 €40.60 per month excl. VAT, all with Traffic Unlimited, setup €0.00
+  - [2] 2026-10-21: payment: 'bank transfer, credit card, Paypal and SEPA direct debit (only in EUR) for accounts from SEPA countries'; no minimum contract term
+  - [3] 2026-10-21: storage box price row reconfirms 1 TB €3.20 / 5 TB €10.90 / 10 TB €20.80 / 20 TB €40.60
+  - [4] 2026-11-01: an order may require account verification by ID document or by a card prepayment | capture: sha256:8f8bb169af727cac3b39ab390075e8c31bae86ecf6e3e05a15d69005c929ca83 | quote: Alternatively, you can verify your account by making an advance payment with your own credit card.
+  - [1] 2026-11-01: the plan matrix's capacity row and the four monthly prices for 1/5/10/20 TB, excluding VAT | capture: sha256:01d2947913be5814b5e76db99e8b3caff57aa13fb9fa8fe8b22ac57b92b7794d | quote: Available storage ... 3.20 per month, excl. VAT ... 10.90 per month, excl. VAT ... 20.80 per month, excl. VAT ... 40.60 per month, excl. VAT
+  - [1] 2026-11-01: the 1 TB tier is EUR 3.20 a month, excluding VAT | capture: sha256:01d2947913be5814b5e76db99e8b3caff57aa13fb9fa8fe8b22ac57b92b7794d | quote: 3.20 per month, excl. VAT
+  - [1] 2026-11-01: the 5 TB tier is EUR 10.90 a month, excluding VAT | capture: sha256:01d2947913be5814b5e76db99e8b3caff57aa13fb9fa8fe8b22ac57b92b7794d | quote: 10.90 per month, excl. VAT
+  - [1] 2026-11-01: the 20 TB tier is EUR 40.60 a month, excluding VAT | capture: sha256:01d2947913be5814b5e76db99e8b3caff57aa13fb9fa8fe8b22ac57b92b7794d | quote: 40.60 per month, excl. VAT
+  - [5] 2026-11-01: payment is by card, PayPal, bank transfer or SEPA direct debit | capture: sha256:51ff5a0305d0b1de1239f42b5f5404195e0ee697262481cf858378073219f612 | quote: Possible payment methods are: bank transfer, credit card, Paypal and SEPA direct debit
+- sources:
+  - [1] https://www.hetzner.com/storage/storage-box/
+  - [2] https://www.hetzner.com/storage/storage-box/bx11/?country=gb
+  - [3] https://www.hetzner.com/dedicated-rootserver/matrix-sx/
+  - [4] https://docs.hetzner.com/general/security-and-identify/fraud-prevention-faq/
+  - [5] https://www.hetzner.com/storage/storage-box/bx21/
+
+## Hetzner Storage Box BX21 (5 TB)
+
+- `storage/hetzner-storage-box-bx21` | qualifies | evidence documented | binding per-ip-shaping | category storage box / NAS
+- needs card yes, phone no, ID no, institution no | verified 2026-11-01T18:05:06.746Z, checked 2026-10-21 (inherited) | stale on 2026-11-21
+- url https://www.hetzner.com/storage/storage-box/
+- price EUR 2.18 per TB per month at 5 TB (EUR 10.90 a month, excluding VAT) | parsed USD 2.44/TB-mo
+- duplicate of `storage/hetzner-storage-box`
+- free tier: 5 TB; 20 snapshots | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: unlimited on this tier: the plan matrix reads Unlimited for traffic at every capacity, and the page publishes no traffic overage price | metered: no
+- identity: card | detail: card / PayPal / bank transfer / SEPA
+- interface: webdav, sftp, scp, rsync, smb, rclone
+- limits:
+  - per-ip-shaping (binding): 10 concurrent connections [1]
+- limits note: 10 concurrent connections
+- binding note: one stream is shaped, and aggregate throughput is the shaped rate times the number of streams
+- interface detail: SFTP/SCP/rsync/Borg/Restic/rclone/WebDAV/SMB
+- tooling: rclone, restic, borg
+- composes with: mountable; no S3
+- reliability: Same RAID-not-mirrored caveat.
+- notes: the same as the free tier
+- evidence note: the vendor tier page states the connection cap and snapshot count, and the plan matrix states the monthly price
+- extras:
+  - price_verbatim: €2.18/TB/mo at 5 TB (€10.90).
+- evidence:
+  - [1] 2026-10-21: 'BX21 … € 10.90 per month, excl. VAT'
+  - [2] 2026-10-21: 'Hetzner, Falkenstein: 2x1 TB, €6.40/mo. + VAT. 5 TB, € 10.90/mo. +VAT' (independent confirmation)
+  - [1] 2026-11-01: the 5 TB tier is EUR 10.90 a month, excluding VAT | capture: sha256:01d2947913be5814b5e76db99e8b3caff57aa13fb9fa8fe8b22ac57b92b7794d | quote: 10.90 per month, excl. VAT
+  - [1] 2026-11-01: traffic is listed as unlimited on every capacity in the plan matrix | capture: sha256:01d2947913be5814b5e76db99e8b3caff57aa13fb9fa8fe8b22ac57b92b7794d | quote: Unlimited
+  - [3] 2026-11-01: the 5 TB tier includes 20 snapshots | capture: sha256:51ff5a0305d0b1de1239f42b5f5404195e0ee697262481cf858378073219f612 | quote: 20 snapshots
+  - [3] 2026-11-01: the 5 TB tier allows 10 concurrent connections | capture: sha256:51ff5a0305d0b1de1239f42b5f5404195e0ee697262481cf858378073219f612 | quote: 10 concurrent connections
+- sources:
+  - [1] https://www.hetzner.com/storage/storage-box/
+  - [2] https://lowendtalk.com/discussion/221257/looking-for-a-reliable-storage-vps-or-storage-box-block-storage-to-mount
+  - [3] https://www.hetzner.com/storage/storage-box/bx21/
+
+## Hetzner Storage Box BX41 (20 TB)
+
+- `storage/hetzner-storage-box-bx41` | qualifies | evidence documented | binding per-ip-shaping | category managed storage box (HDD, RAID6)
+- needs card yes, phone no, ID no, institution no | verified 2026-11-01T18:05:06.746Z, checked 2026-10-21 (inherited) | stale on 2026-11-21
+- url https://www.hetzner.com/storage/storage-box/
+- price EUR 2.03 per TB per month at 20 TB (EUR 40.60 a month), EUR 2.18 at 5 TB (EUR 10.90 a month), EUR 2.08 at 10 TB and EUR 3.20 at 1 TB, all excluding VAT, with no setup fee | parsed USD 2.27/TB-mo
+- duplicate of `storage/hetzner-storage-box`
+- free tier: BX11 1 TB · BX21 5 TB · BX31 10 TB · BX41 20 TB. Prices excl. VAT: €3.20 / €10.90 / €20.80 / €40.60 per month. | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: "Traffic: Unlimited *" on every tier, and "Each Storage Box comes with unlimited traffic" (docs). The asterisk is a real fair-use clause: a documented 2022 enforcement email told a customer "your traffic use, which currently averages above 250 TB/month ... is far above what we consider fair use." The 250 TB/month in that email is the only threshold Hetzner has ever enforced. | metered: no | free allowance: 250 TB per month
+- identity: card | detail: card
+- interface: ftp, ftps, sftp, scp, rsync, smb, webdav, ssh, rclone
+- limits:
+  - per-ip-shaping (binding): 10 concurrent connections [1]
+- limits note: 10 concurrent connections is the ceiling on parallel reads; there is no S3 object API, so no presigned URLs, and every read runs through WebDAV, SFTP or rsync
+- binding note: one stream is shaped, and aggregate throughput is the shaped rate times the number of streams
+- interface detail: SFTP, SCP, rsync, FTPS, SMB/CIFS, WebDAV, BorgBackup, SSH (port 23); 100 sub-accounts; 10 concurrent connections
+- tooling: No S3 endpoint. This is the one real gap. rclone via SFTP or WebDAV; Borg/restic first-class.
+- composes with: WebDAV -> AList -> Cloudflare works. 100 sub-accounts let you hand one directory each to separate services.
+- reliability: High reliability across Hetzner datacenters (FSN1/HEL1) with RAID6 storage, automated snapshots, and large customer base. New account registration enforces identity verification with identity document checks.
+- notes: the same as the free tier
+- evidence note: re-read on 2026-10-22 (HTTP 200, 7332 bytes, sha256 e5e1ee04e00ee5eb). The page states the number in the record. The claim is documented, not measured. | re-read 2026-10-22 from the raw HTML (HTTP 200, 116,243 bytes, sha256 recorded in the capture). The price is documented, not a measured transaction.
+- extras:
+  - price_verbatim: €2.03/TB/mo at the 20 TB tier (€40.60/20). at 5 TB: BX21 = €2.18/TB/mo. at 20 TB: BX41 = €2.03/TB/mo. ~$2.19 and ~$2.19 at 1.08 USD/EUR. Non-EU buyers pay excl. VAT (the €3.81/€12.97/€24.75/€48.31 figures circulating online are VAT-inclusive German prices — do not use them).
+  - verified[0].url: https://docs.hetzner.com/storage/storage-box/general/
+  - verified[0].date: 2026-10-22
+  - verified[0].http_status: 200
+  - verified[0].bytes: 7332
+  - verified[0].sha256: e5e1ee04e00ee5eb5793615e3065feaea046ecac21ef080fb5c48513b36e53a9
+  - verified[0].pattern_found: yes
+  - verified[0].what_changed: no change: the page still states the claim
+  - verified[1].url: https://www.hetzner.com/storage/storage-box/
+  - verified[1].date: 2026-10-22
+  - verified[1].http_status: 200
+  - verified[1].bytes: 116243
+  - verified[1].pattern_found: yes
+  - verified[1].what_changed: no change: €40.60 for 20 TB still stated
+- evidence:
+  - [1] 2026-10-22: BX41 is EUR 40.60 per month for 20 TB. Re-read the raw HTML: HTTP 200, 116,243 bytes; the price block reads product-key="ROBOT_1336" and '€ 40.60 per month, excl. VAT', and the 20 TB row reads '20 TB Upgrade/Downgrade'.
+  - [2] 2026-10-22: each Storage Box includes unlimited traffic. Re-read https://docs.hetzner.com/storage/storage-box/general/: HTTP 200, 7332 bytes, sha256 e5e1ee04e00ee5eb. Quoted: x. ## Pricing For information about available plans and prices, see [hetzner.com/storage/storage-box](https://www.hetzner.com/storage/storage-box/). Each Storage Box comes with unlimited traffic. ## Additional users The original user is the main user. Via Hetzner Console, you can add additional users which will be sub-accounts. The main user has complete access to all directories — including all sub-account directories. Sub-accounts have access to
+  - [3] 2026-10-21: BX21: 5 TB, "Traffic: Unlimited *", 20 snapshots, €10.90/mo excl.
+  - withheld 2026-10-21: search on include_domains=hetzner.com — the full ladder BX11 €3.20 / BX21 €10.90 / BX31 €20.80 / BX41 €40.60 excl. VAT with the storage table 1/5/10/20 TB and "Traffic | Unlimited"
+  - [2] 2026-10-21: "Each Storage Box comes with unlimited traffic", protocol list
+  - [4] 2026-10-21: the 250 TB/month fair-use enforcement email, verbatim
+  - [5] 2026-10-21: and /217671 — KYC rejections
+  - [6] 2026-10-21: Single-stream ranged GET of 200 MB from a residential line measured 1.05 MB/s (47 MB in 45 s) — i.e. the local uplink was the limiter, not Hetzner; do not read this as a Hetzner throughput figure.
+  - [7] 2026-11-01: the tier's protocol list names no S3 API, so the interface list must not carry s3 | capture: sha256:77b1fac98b66adc2d731e1689dc763b8a26fbdb3ee777fdc59e0ca982460c8ae | quote: FTP ... FTPS ... SFTP ... SCP ... Samba/CIFS ... HTTPS ... WebDAV ... Rclone
+  - [1] 2026-11-01: the plan matrix caps concurrent connections at 10 on every tier and lists 10/20/30/40 snapshots | capture: sha256:01d2947913be5814b5e76db99e8b3caff57aa13fb9fa8fe8b22ac57b92b7794d | quote: Concurrent connections ... Snapshots
+  - [1] 2026-11-01: the 20 TB tier is EUR 40.60 a month, excluding VAT | capture: sha256:01d2947913be5814b5e76db99e8b3caff57aa13fb9fa8fe8b22ac57b92b7794d | quote: 40.60 per month, excl. VAT
+  - [7] 2026-11-01: the 20 TB tier includes 40 snapshots | capture: sha256:77b1fac98b66adc2d731e1689dc763b8a26fbdb3ee777fdc59e0ca982460c8ae | quote: 40 snapshots
+- sources:
+  - [1] https://www.hetzner.com/storage/storage-box/
+  - [2] https://docs.hetzner.com/storage/storage-box/general/
+  - [3] https://www.hetzner.com/storage/storage-box/bx21/
+  - [4] https://lowendtalk.com/discussion/180504/hetzner-traffic-use-notice-unlimited-unlimited
+  - [5] https://lowendtalk.com/discussion/207732/hetzner-storage-box-new-account-verification
+  - [6] https://fsn1-speed.hetzner.com/10GB.bin
+  - [7] https://www.hetzner.com/storage/storage-box/bx41/
+
+## Hetzner Storage Share (managed Nextcloud)
+
+- `netdisk-pan/hetzner-storage-share` | qualifies | evidence documented | binding per-object-cap | category managed Nextcloud, paid only
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22T04:06:37.166Z (live) | stale on 2026-11-13
+- url https://www.hetzner.com/storage/storage-share/
+- price EUR 4.29/TB/month on NX11, falling to EUR 2.74/TB/month on NX31 at 10 TB, excluding VAT, read 2026-10-22 | parsed USD 3.09/TB-mo
+- free tier: No free tier, no trial, and no hourly cap. The smallest plan NX11 is 1 TB at EUR 4.29/month excluding VAT, billed by the hour to a monthly maximum | unit: TiB | metered on: stored-bytes | read on: 2026-10-22 | source: [1] | note: Hetzner writes the sizes as TB. The figure is quoted as stated and not converted
+- per-object cap: Not published as a per-file cap. The limit that is published is the instance quota, and the FAQ states that an administrator's 'unlimited' per-user quota is bounded by the instance total | source: [1]
+- retention: Until deleted. No minimum contract period and no cancellation period, and the vendor states that a plan change causes no data loss. Backups of the database and the storage backend run several times a day, to a host the instance is not running on, restorable from konsoleH | source: [1]
+- egress: Unlimited internal and external traffic, stated as a product feature rather than implied: 'Storage Shares have unlimited internal and external traffic' | metered: no | free allowance: unlimited | source: [1]
+- identity: card | detail: a Hetzner account with a payment method; the order form is at konsoleH. No identity document and no phone verification was seen on the order path. A new account goes through Hetzner's own risk review, which is not the same gate as a card check
+- interface: webdav, rest, rclone
+- limits:
+  - per-object-cap (binding): not published; the JVM-free Nextcloud upload chunking limits a single object in practice and the smaller partners cap at 10 GB per file [1]
+- binding note: The instance total is bought and the traffic is unlimited, so what decides the object size is the per-file ceiling nobody publishes. A single 300 GiB file is.
+- tooling: rclone webdav backend, the Nextcloud desktop and mobile clients, davfs2, curl -u, and the Nextcloud OCC command line through the managed instance
+- composes with: WebDAV is the whole point: OpenList mounts it as a first-class remote, and a Cloudflare cache in front turns it into a serving origin. One 10 TB instance can also be sharded internally into per-user quotas with separate credentials, which is the only way in this survey to divide one paid unit rather than make more accounts
+- reliability: Falkenstein, Germany. RAID backend with checksummed integrity checking, several backups a day to a different host, restore from konsoleH. Managed Nextcloud inherits Nextcloud's sync semantics, which is worse for millions of small objects than a raw storage box
+- notes: The cheapest verified managed Nextcloud per terabyte in this survey is not this one, and the reason is the tier shape: EUR 2.74/TB/month at 10 TB against Serverdiscounter's EUR 2.40/TB including VAT at 25 TB. What Hetzner sells instead is the shortest contract and the most boring operations record. The user count is per instance and additional users are not a listed add-on, so a sharded plan must live inside that number.
+- evidence note: Every number is from the vendor's own pricing block, read. It is `documented` and not `measured` because no instance was ordered and no WebDAV endpoint was exercised: the order path needs a card.
+- extras:
+  - access_mode: paid
+  - free_tier_exists: no
+  - region: FSN1, Falkenstein, Germany
+  - tier_prices_eur_month_ex_vat.NX11_1TB: 4.29
+  - tier_prices_eur_month_ex_vat.NX21_5TB: 14.19
+  - tier_prices_eur_month_ex_vat.NX31_10TB: 27.39
+  - users_per_instance.NX11: 3
+  - users_per_instance.NX21: 7
+  - users_per_instance.NX31: 10
+  - webdav: enabled on every tier; the vendor FAQ documents subdomains and CNAME for a custom domain
+  - vat_position: prices are stated excluding VAT, so a private buyer in the EU pays the local rate on top
+- evidence:
+  - [1] 2026-10-22: the pricing block reads 'NX11 max/mo. EUR 4.29 per month, excl. VAT ... Storage 1 TB ... 3 Users ... unlimited Simultaneous Connections 50', 'NX21 EUR 14.19 ... Storage 5 TB ... 7 Users ... 100', 'NX31 EUR 27.39 ... Storage 10 TB ... 10 Users ... 200'; all three FSN1
+  - [1] 2026-10-22: 'Storage Shares have unlimited internal and external traffic' in the Features block, and 'WebDAV lets you automate your access to it'
+  - [1] 2026-10-22: FAQ: 'this "unlimited" space will actually be limited by the overall storage quota size of the Storage Share instance that you (the admin) have bought', and a backup 'is always made to another host machine on which the instance is not running'
+  - [1] 2026-10-22: 'No minimum contract period. No cancellation period.' and 'upgrade or downgrade your Storage Share ... without worrying about data loss'
+  - [1] 2026-10-21: 1 TB EUR 4.29, 5 TB EUR 14.19, 10 TB EUR 27.39 per month excluding VAT, and the same three tiers
+- sources:
+  - [1] https://www.hetzner.com/storage/storage-share/
+
+## Hetzner SX65-2 dedicated storage server
+
+- `storage/hetzner-sx65-2-dedicated-storage-server` | qualifies | evidence reported | binding none | category dedicated server (raw block, full root)
+- needs card no, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.hetzner.com/dedicated-rootserver/sx65/
+- price €1.29/TB/mo at 64 TB raw (€82.30 ÷ 64) ≈ $1.49. €1.71/TB/mo at 48 TB RAID-5 usable (€82.30 ÷ 48). SX65-1 at 88 TB raw: €272.30 ÷ 88 = €3.09/TB — worse, because the 22 TB config carries NVMe. The 16 TB config is the outlier. | parsed USD 1.45/TB-mo
+- free tier: 4× 16 TB SATA = 64 TB raw; 48 TB usable at RAID-5 (4× 22 TB = 88 TB raw available as SX65-1/-3) | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Verbatim matrix: 'Traffic usage is unlimited and free of charge. Please note that our unlimited traffic policy does not apply to servers that have the 10G uplink addon. In this special case, we will charge the usage over 20TB with € 1.00, excl. VAT/ TB.' SX65 has a 1 Gbit port and no 10G option. So for SX65 the unlimited clause is unconditional. Guaranteed bandwidth 1 Gbit/s. | metered: no
+- identity: email | detail: email
+- interface: s3, webdav, sftp, nfs, rclone
+- limits note: Single machine, no provider-side redundancy beyond your own RAID. €39 setup fee. IPv4 billed separately at €1.70/mo per the price-adjustment doc.
+- interface detail: full root: any of S3/MinIO, SFTP, NFS, iSCSI, WebDAV you install
+- tooling: unrestricted (MinIO, Ceph, SeaweedFS, rclone serve)
+- composes with: run MinIO → put Cloudflare in front → signed URLs; or mount as NFS target for an AList/OpenList front-end
+- reliability: Cost is hardware, not service: you own the failure domain. Reddit/LET verdict on Hetzner storage hardware is positive; the SX line is the standard answer when someone asks for '64TB dedi in Europe' on LowEndTalk.
+- notes: the same as the free tier
+- extras:
+  - price_verbatim: €1.29/TB/mo at 64 TB raw (€82.30 ÷ 64) ≈ $1.49. €1.71/TB/mo at 48 TB RAID-5 usable (€82.30 ÷ 48). SX65-1 at 88 TB raw: €272.30 ÷ 88 = €3.09/TB — worse, because the 22 TB config carries NVMe. The 16 TB config is the outlier.
+- evidence:
+  - [2] 2026-10-21: SX65-2: €82.30/mo excl. IPv4, setup €39.00; SX65-1 €272.30 (4×22TB + 2×1TB NVMe); SX65-3 €292.30
+  - [3] 2026-10-21: SX65 from €84.00/mo excl. VAT, 4×16TB up to 4×22TB SATA, 1 GBit/s guaranteed, Traffic Unlimited
+  - [1] 2026-10-21: SX65-2 = 'AMD Ryzen 7 3700X, 64 GB DDR4 ECC, 4x 16 TB SATA Enterprise HDD'; 10 Gbit NIC explicitly 'not for SX65'
+  - [4] 2026-10-21: 'hetzner SX65 would probably be your best bet, just doesn't have the connection speed but I doubt you would at that price'
+- sources:
+  - [1] https://docs.hetzner.com/robot/dedicated-server/server-lines/sx-server/
+  - [2] https://docs.hetzner.com/general/infrastructure-and-availability/price-adjustment/
+  - [3] https://www.hetzner.com/dedicated-rootserver/matrix-sx/
+  - [4] https://lowendtalk.com/discussion/208224/searching-for-60tb-storage-dedicated-in-eu
+
+## Hetzner DNS
+
+- `domains-dns/hetzner-dns` | qualifies-with-caveat | evidence documented | binding per-object-cap | category managed authoritative DNS | tier DNS in Hetzner Console
+- needs card unknown, phone yes, ID no, institution no | verified 2026-11-03T16:43:07.606Z (live) | stale on 2026-12-04
+- url https://www.hetzner.com/dns-console
+- free tier: DNS zones and records are managed in Hetzner Console and the API for free; up to 25 zones by default, up to 500 records per zone and 50 records per RRset; a domain you own is required | unit: objects | metered on: object-count | read on: 2026-11-03 | source: [1]
+- per-object cap: up to 500 records per zone and 50 records per RRset, the 500 raisable on a justified demand; up to 25 zones by default | source: [2]
+- retention: a zone that is not delegated to the Hetzner name servers for more than 28 days is deleted automatically; nothing else is stated about inactivity | days: 28 | source: [3]
+- egress: no DNS query cap published on the pages read | metered: no | source: [2]
+- identity: email | detail: an account needs a valid e-mail address, personal or business contact information and a billing address, with a phone number optional; Hetzner may ask an account to verify before it processes an order, by a government ID copy or by a credit-card prepayment; unverified: whether creating a DNS zone triggers that verification (https://docs.hetzner.com/general/billing-and-account-management/account-getting-started/, https://docs.hetzner.com/general/security-and-identify/fraud-prevention-faq/)
+- interface: rest, cli
+- limits:
+  - per-object-cap (binding): up to 500 records per zone, 50 records per RRset, 25 zones by default [2]
+  - request-rate: 3600 API requests per hour per project, refilling 1 request per second [4]
+  - retention-clamped: a zone not delegated to Hetzner name servers for more than 28 days is deleted [3]
+- binding note: the owned-domain requirement and the 25-zone default decide; the record cap is not binding for a personal set of names
+- interface detail: the Hetzner Cloud API at https://api.hetzner.cloud/v1/ with an Authorization Bearer project token: POST /zones creates a zone, and POST /zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/set_records replaces the records of a record set; there is no dyndns2 or HTTP-GET update URL, so a dynamic update is an API call with a token; the default rate limit is 3600 requests per hour per project; zone names must be a registrable domain under a public suffix, not a subdomain
+- tooling: curl, the hcloud CLI (hcloud zone create), BIND zone-file import, and AXFR secondary zones against an external primary
+- composes with: a zone can also run as a secondary that copies a primary elsewhere by AXFR, and a zone can be shared across projects for managed certificates and load balancers; it cannot hold a name that is not a domain you own
+- reliability: an undelegated zone is deleted after 28 days, and a new account can be asked for an ID copy or a card prepayment before it can order
+- notes: Confirmation interval: none for a delegated zone; the only inactivity rule found is the 28-day deletion of a zone that is not delegated to Hetzner name servers. It is authoritative DNS for a domain the user already owns, not a free subdomain or a dynamic DNS hostname service.
+- evidence note: the DNS Console page, the DNS overview and limits page, the creating-a-zone page, the DNS FAQ, the Cloud API reference and the account pages were read and quoted; the API was probed once without a token and answered 401. The 25-zone default is on the marketing page and the 500-record limit on the docs page
+- evidence:
+  - [1] 2026-11-03: zones and records can be listed, added, modified and removed for free in Hetzner Console and the API | capture: sha256:b2c836b387047697ea65ad694f7b62528e6bf09d6e92de8cfff32b531231bb39 | quote: With our Hetzner Console and API, you can list, add, modify or remove zones and records for free.
+  - [1] 2026-11-03: the default zone limit is 25 | capture: sha256:b2c836b387047697ea65ad694f7b62528e6bf09d6e92de8cfff32b531231bb39 | quote: By default, you can add up to 25 zones.
+  - [1] 2026-11-03: every Console feature is also available through a REST API | capture: sha256:b2c836b387047697ea65ad694f7b62528e6bf09d6e92de8cfff32b531231bb39 | quote: All of Hetzner Console's features are also available via our developer-friendly REST-API.
+  - [1] 2026-11-03: an hcloud CLI command creates a zone | capture: sha256:b2c836b387047697ea65ad694f7b62528e6bf09d6e92de8cfff32b531231bb39 | quote: hcloud zone create --name example.com --mode primary
+  - [2] 2026-11-03: DNS zones carry no charge | capture: sha256:114285b0b5741b86f2d266bbfeea2edbdf3fa35bfa7ce456a1172339182b24c3 | quote: We do not charge for our DNS zones.
+  - [2] 2026-11-03: the limit is up to 500 records per zone, which can be increased on a justified demand | capture: sha256:114285b0b5741b86f2d266bbfeea2edbdf3fa35bfa7ce456a1172339182b24c3 | quote: Up to 500 records per zone
+  - [2] 2026-11-03: the limit is up to 50 records per RRset | capture: sha256:114285b0b5741b86f2d266bbfeea2edbdf3fa35bfa7ce456a1172339182b24c3 | quote: Up to 50 records per RRset
+  - [2] 2026-11-03: limits marked with an asterisk, the 500 records per zone among them, can be increased on a justified demand | capture: sha256:114285b0b5741b86f2d266bbfeea2edbdf3fa35bfa7ce456a1172339182b24c3 | quote: Limits marked with * [can be increased](https://console.hetzner.com/limits) if there is a justified demand.
+  - [4] 2026-11-03: the remaining API requests refill by 1 every second | capture: sha256:39f0b61e3fbd13107e8bb9fbb80c16a48505d3a9f08e3a6d105356cf04893de6 | quote: the number of remaining requests will increase by 1 every second
+  - [1] 2026-11-03: the API authenticates with a Bearer token | capture: sha256:b2c836b387047697ea65ad694f7b62528e6bf09d6e92de8cfff32b531231bb39 | quote: -H "Authorization: Bearer $API_TOKEN"
+  - [1] 2026-11-03: a zone is created with a POST to the zones endpoint of api.hetzner.cloud | capture: sha256:b2c836b387047697ea65ad694f7b62528e6bf09d6e92de8cfff32b531231bb39 | quote: "https://api.hetzner.cloud/v1/zones"
+  - [5] 2026-11-03: records can be imported from a BIND-compatible zone file | capture: sha256:acf19b12a93a64dc7e1daea912b95ffe593de9f6eecf67fcc455b118099271e9 | quote: You can import records via a BIND-compatible zone file.
+  - [5] 2026-11-03: a secondary zone pulls a full copy from an external primary by AXFR | capture: sha256:acf19b12a93a64dc7e1daea912b95ffe593de9f6eecf67fcc455b118099271e9 | quote: The secondary zone periodically sends AXFR requests
+  - [5] 2026-11-03: a zone can be shared with other projects | capture: sha256:acf19b12a93a64dc7e1daea912b95ffe593de9f6eecf67fcc455b118099271e9 | quote: share zone with other projects
+  - [2] 2026-11-03: a domain the user owns is required | capture: sha256:114285b0b5741b86f2d266bbfeea2edbdf3fa35bfa7ce456a1172339182b24c3 | quote: To use our DNS, you have to own a domain.
+  - [2] 2026-11-03: the minimum TTL is 60 seconds | capture: sha256:114285b0b5741b86f2d266bbfeea2edbdf3fa35bfa7ce456a1172339182b24c3 | quote: At least 60 seconds as TTL value
+  - [4] 2026-11-03: the default API rate limit is 3600 requests per hour per project | capture: sha256:39f0b61e3fbd13107e8bb9fbb80c16a48505d3a9f08e3a6d105356cf04893de6 | quote: The default limit is 3600 requests per hour and per Project.
+  - [4] 2026-11-03: the zones API does not accept subdomains as zone names | capture: sha256:39f0b61e3fbd13107e8bb9fbb80c16a48505d3a9f08e3a6d105356cf04893de6 | quote: Subdomains are not supported.
+  - [4] 2026-11-03: an rrset action set_records replaces the records of a record set | capture: sha256:39f0b61e3fbd13107e8bb9fbb80c16a48505d3a9f08e3a6d105356cf04893de6 | quote: [post/zones/{id\_or\_name}/rrsets/{rr\_name}/{rr\_type}/actions/set\_records]
+  - [3] 2026-11-03: a zone not delegated to Hetzner name servers for more than 28 days is deleted | capture: sha256:6f42e7a4a7e30a21a45a5b9cec800507a4cec5229c7891c5628110e8238926c7 | quote: Zones that are not properly delegated to Hetzner’s name servers for more than 28 days will be automatically deleted.
+  - [5] 2026-11-03: an empty zone holds only NS and SOA records after creation | capture: sha256:acf19b12a93a64dc7e1daea912b95ffe593de9f6eecf67fcc455b118099271e9 | quote: Create an empty zone | The new zone only has NS records and a SOA record that point to Hetzner name servers.
+  - [6] 2026-11-03: registration needs a billing address, and a phone number is optional | capture: sha256:d3e5aa5349963c39e4f56aeb9f2c5f0308880968904d946c8e7ea5b8c5b8ae18 | quote: optionally, a phone number for advanced verification
+  - [7] 2026-11-03: an account may be asked to verify before an order is processed | capture: sha256:8f8bb169af727cac3b39ab390075e8c31bae86ecf6e3e05a15d69005c929ca83 | quote: As part of our fraud prevention measures, we may ask you to verify your account before we process an order.
+  - [7] 2026-11-03: verification is by a government-issued ID copy or by a credit-card prepayment | capture: sha256:8f8bb169af727cac3b39ab390075e8c31bae86ecf6e3e05a15d69005c929ca83 | quote: Verification via ID document:
+  - probe:https://api.hetzner.cloud/v1/zones 2026-11-03: the zones endpoint is live and answers HTTP 401 without a token | capture: sha256:d24dc09eaeb3559a9e9516616dac478330b438416d35d912d2ace1f8fb582097 | quote: "status": 401
+  - probe:body-hetzner 2026-11-03: the 401 body says a token is required | capture: sha256:60acfddf7e31f740e190bc89b6ec1ac8053d6d9345e45b193056e6d3453fd221 | quote: token is required
+- sources:
+  - [1] https://www.hetzner.com/dns-console
+  - [2] https://docs.hetzner.com/dns-console/dns/general/dns-overview/
+  - [3] https://docs.hetzner.com/networking/dns/faq/general
+  - [4] https://docs.hetzner.cloud/reference/cloud
+  - [5] https://docs.hetzner.com/networking/dns/getting-started/creating-a-zone
+  - [6] https://docs.hetzner.com/general/billing-and-account-management/account-getting-started/
+  - [7] https://docs.hetzner.com/general/security-and-identify/fraud-prevention-faq/
+
+## Hetzner Inference API (experiment)
+
+- `inference/hetzner-inference-api` | qualifies-with-caveat | evidence reported | binding request-rate | category inference endpoint, experimental free API
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-04T05:39:03.951Z (live) | stale on 2026-11-19
+- url https://docs.hetzner.com/general/company-and-policy/experiments/inference/
+- free tier: free of charge while the Inference API remains in experimental status; two models, Qwen/Qwen3.6-35B-A3B-FP8 and Qwen3.8-27B, each with a 262,144-token context and text plus image input; limits per API key are 4M input tokens and 100k output tokens per 60 s and 10 requests per 60 s | unit: tokens | metered on: request-count | read on: 2026-10-28 | source: [1] | note: the vendor says it will email users before the experimental status changes; the model list changes during the experiment and GET /v1/models is definitive
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: card | detail: a token is created after logging in to a Hetzner account at experiments.hetzner.com; the vendor's account sign-up needs an email address, contact information and a billing address, with a phone number optional. Whether a card or an ID check is required before a token can be created is unverified: behind a sign-up. One third-party write-up reports a credit card is required
+- interface: rest
+- limits:
+  - request-rate (binding): per API key: 10 requests per 60 s, 4M input tokens per 60 s, 100k output tokens per 60 s; HTTP 429 beyond any of them [1]
+- binding note: 10 requests per 60 s per key is the ceiling that decides throughput; the token windows are far above it
+- endpoint: https://inference.hetzner.com/api/v1/chat/completions
+- tooling: any OpenAI-compatible client at https://inference.hetzner.com/api/v1; endpoints /v1/models, /v1/completions and /v1/chat/completions
+- composes with: Hetzner-hosted open-weight models behind a per-key ceiling of 10 requests per minute
+- reliability: experimental service offered as is: performance and availability are not guaranteed, no backups, and the model list can change without a fixed schedule
+- notes: the identity requirement is the open item: the kind is recorded as card because a third-party write-up says a credit card must be added before a token can be generated, and a second third-party page says payment verification can include a card charge; the vendor's account page lists an email address, contact information and a billing address with a phone number optional, and the key-minting page was not captured
+- evidence note: the rate limits and the free status are quoted from the vendor's docs page; the identity requirement is a third-party report because the key-minting page is a client-rendered application that could not be captured as text.
+- evidence:
+  - [1] 2026-10-28: the API is free while it stays experimental | capture: sha256:4ee066eef1b4dbb2a1c5ade07bb0f6588e5c65952249cc6cd2df5b7668b63a9f | quote: As long as the Inference API remains in experimental status, it is free of charge.
+  - [1] 2026-10-28: per API key, 4M input tokens and 100k output tokens per 60 seconds | capture: sha256:4ee066eef1b4dbb2a1c5ade07bb0f6588e5c65952249cc6cd2df5b7668b63a9f | quote: | 60s | 4M | 100k |
+  - [1] 2026-10-28: request-level limit of 10 requests per 60 seconds | capture: sha256:4ee066eef1b4dbb2a1c5ade07bb0f6588e5c65952249cc6cd2df5b7668b63a9f | quote: | 60s | 10 |
+  - [1] 2026-10-28: Qwen3.8-27B is served with a 262,144-token context and image input | capture: sha256:4ee066eef1b4dbb2a1c5ade07bb0f6588e5c65952249cc6cd2df5b7668b63a9f | quote: | Qwen3.8-27B | Dense | 262,144 tokens | Text, Image |
+  - [1] 2026-10-28: no availability guarantee for the experimental service | capture: sha256:4ee066eef1b4dbb2a1c5ade07bb0f6588e5c65952249cc6cd2df5b7668b63a9f | quote: Performance and availability are not guaranteed, especially during periods of high demand.
+  - [2] 2026-10-28: third-party report on what getting a key requires | capture: sha256:a696d1e534ee123752b17c708bcaa98d84a433899e18455b82e7c5f11337febb | quote: Minting a token needs a Hetzner account; payment verification can include a card charge or other routes.
+  - [3] 2026-11-03: a Hetzner account needs an email address, contact information and a billing address; a phone number is optional | capture: sha256:d3e5aa5349963c39e4f56aeb9f2c5f0308880968904d946c8e7ea5b8c5b8ae18 | quote: To create an account, you need:
+  - [4] 2026-11-03: third-party report that a card is needed before a token can be generated | capture: sha256:49f090cf71e2b181d56c72537ce9a57123e2d1473352d0a28fa4a9e8960b711f | quote: you still have to add a credit card to the account before it lets you generate a token
+  - [5] 2026-11-03: the vendor's community tutorial has the token created after logging in to an existing Hetzner account | capture: sha256:0813874058171bf2b885f0606f875cb7e91504c7454513ff553da07210015ebd | quote: Log in at https://experiments.hetzner.com.
+  - [3] 2026-11-03: registration needs email, contact information and billing address; phone optional | capture: sha256:d3e5aa5349963c39e4f56aeb9f2c5f0308880968904d946c8e7ea5b8c5b8ae18 | quote: optionally, a phone number for advanced verification
+  - [4] 2026-11-04: third-party report that a card is needed before a token can be generated | capture: sha256:49f090cf71e2b181d56c72537ce9a57123e2d1473352d0a28fa4a9e8960b711f | quote: you still have to add a credit card to the account before it lets you generate a token
+  - probe:https://inference.hetzner.com/api/v1/chat/completions 2026-11-10: a keyless POST on 2026-11-10 answered HTTP 401 with the vendor's own gate message, so the tier is gated on a key | capture: sha256:2b8739e003d66b27cba5c4385611a7ec8f1efdc7d961ae223379dbbbd2de337e | quote: "status": 401
+- sources:
+  - [1] https://docs.hetzner.com/general/company-and-policy/experiments/inference/
+  - [2] https://mvalentsev.github.io/awesome-free-ai-coding/providers/hetzner-inference/
+  - [3] https://docs.hetzner.com/general/billing-and-account-management/account-getting-started/
+  - [4] https://deepakness.com/raw/hetzner-qwen-in-pi/
+  - [5] https://community.hetzner.com/tutorials/opencode-with-hetzner-inference-api-systemd-sandbox/
+
+## Hetzner Storage Box (BX11/BX21/BX31/BX41)
+
+- `storage/hetzner-storage-box` | qualifies-with-caveat | evidence reported | binding per-object-cap | category storage VPS / managed file storage (not object storage)
+- needs card yes, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.hetzner.com/storage/storage-box/
+- price $2.28/TB at 20 TB (EUR 40.60 = $45.61); $2.45/TB at 5 TB (EUR 10.90 = $12.24); $3.59/TB at 1 TB (EUR 3.20 = $3.59). Cheapest genuine unlimited-egress storage found. | parsed USD 2.28/TB-mo
+- free tier: 1 TB (BX11) / 5 TB (BX21) / 10 TB (BX31) / 20 TB (BX41); no per-file cap published, 100 sub-accounts, 10 snapshots | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: no per-file cap published, 100 sub-accounts, 10 snapshots 10 concurrent connections (hard, prod | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Verbatim, plan table: "Traffic | - Unlimited". Unlimited outbound, no cap tier, no overage SKU exists for this product. | metered: yes
+- identity: card | detail: card
+- interface: s3-compatible, webdav, sftp, ftps, ftp, scp, rsync, smb, ssh, rclone
+- limits:
+  - per-ip-shaping: 10 concurrent connections [1]
+  - per-ip-shaping: 30 Mbit/s [1]
+  - per-object-cap (binding): no per-file cap published, 100 sub-accounts, 10 snapshots 10 concurrent connections (hard, prod [1]
+- limits note: 10 concurrent connections (hard, product page); 10 snapshots; RAID on one host and explicitly 'data is not mirrored onto other servers'. Single-site durability, not object-store 11-nines.
+- interface detail: SFTP, FTP/FTPS, SCP, rsync-over-SSH, WebDAV, Samba/CIFS, HTTPS; BorgBackup and Restic native
+- tooling: rclone (explicitly listed), restic, borg, rsync; no S3 API
+- composes with: Mounts directly to AList/OpenList via WebDAV or SFTP, or to a Hetzner Cloud VM which then fronts S3/HTTP behind Cloudflare. The forum-documented pattern for turning unmetered Storage Box traffic into a served HTTP origin.
+- reliability: LowEndTalk regularly reports throughput is node-dependent (sub-30 Mbit/s on bad nodes) and that Hetzner's automatic usage-anomaly detection has disconnected boxes triggered by third-party traffic; 10-connection cap is the real binding constraint for parallel ranged GETs.
+- notes: the same as the free tier
+- extras:
+  - price_verbatim: $2.28/TB at 20 TB (EUR 40.60 = $45.61); $2.45/TB at 5 TB (EUR 10.90 = $12.24); $3.59/TB at 1 TB (EUR 3.20 = $3.59). Cheapest genuine unlimited-egress storage found.
+- evidence:
+  - [1] 2026-10-21: (firecrawl) — BX11 EUR 3.20/mo 1 TB, BX21 EUR 10.90/mo 5 TB, BX31 EUR 20.80/mo 10 TB, BX41 EUR 40.60/mo 20 TB, excl. VAT; plan table row 'Traffic | - Unlimited'
+  - [1] 2026-10-21: RAID 'can withstand several drive failures... data is not mirrored onto other servers'
+  - [2] 2026-10-21: 10 concurrent connections, payment: bank transfer/credit card/PayPal/SEPA, no minimum contract term, immediate cancellation
+  - [3] 2026-10-21: two 20 TB boxes = EUR 96.62 incl. VAT = EUR 2.42/TB corroborating the 20 TB tier
+  - [4] 2026-10-21: Hetzner unlimited-traffic policy text; the EUR 1.21/TB charge applies only to the 10G-uplink addon, not to Storage Box
+- sources:
+  - [1] https://www.hetzner.com/storage/storage-box/
+  - [2] https://www.hetzner.com/storage/storage-box/bx11/
+  - [3] https://lowendtalk.com/discussion/190385/looking-for-40tb-storage
+  - [4] https://lowendtalk.com/discussion/169107/why-bandwidth-is-so-cheap-at-hetzner
+
+## Hetzner SX135-2 dedicated storage server
+
+- `storage/hetzner-sx135-2-dedicated-storage-server` | qualifies-with-caveat | evidence reported | binding none | category dedicated server
+- needs card no, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.hetzner.com/dedicated-rootserver/sx135/
+- price €2.24/TB/mo at 128 TB raw (€287.30 ÷ 128); €2.56/TB at 112 TB RAID-6 | parsed USD 2.52/TB-mo
+- free tier: 8× 16 TB SATA = 128 TB raw; 112 TB usable at RAID-6 | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Same unlimited clause. SX135 supports the 10G uplink add-on. If you take it, the unlimited policy stops applying and egress over 20 TB is €1.00/TB. On the default 1 Gbit port it stays unlimited. | metered: yes | price per TB: €1.00/TB
+- identity: email | detail: email
+- interface: unknown
+- limits note: €144 setup. 10G uplink add-on converts traffic to metered. Do not take it if egress is the deciding term.
+- interface detail: full root
+- tooling: unrestricted
+- composes with: as SX65
+- reliability: Scales the SX65 down in €/TB. At 128 TB the per-TB rate is worse than SX65-2 but the absolute egress headroom (1 Gbit = ~330 TB/mo theoretical) is unchanged.
+- notes: the same as the free tier
+- extras:
+  - price_verbatim: €2.24/TB/mo at 128 TB raw (€287.30 ÷ 128); €2.56/TB at 112 TB RAID-6
+- evidence:
+  - [2] 2026-10-21: SX135-2 €287.30/mo excl. IPv4, setup €144.00
+  - [3] 2026-10-21: 8×16TB up to 8×22TB SATA, 1 GBit/s, Traffic Unlimited
+  - [1] 2026-10-21: '10 Gbit uplink – for SX62, SX63, SX64, SX133, SX134, SX135 … (traffic limits above 20 TB apply when using)'
+- sources:
+  - [1] https://docs.hetzner.com/robot/dedicated-server/server-lines/sx-server/
+  - [2] https://docs.hetzner.com/general/infrastructure-and-availability/price-adjustment/
+  - [3] https://www.hetzner.com/dedicated-rootserver/matrix-sx/
+
+## Hetzner (compute/hetzner)
+
+- `compute/hetzner` | paid-only | evidence documented | binding per-ip-shaping | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T03:19:16.612Z (live) | stale on 2026-11-24
+- url https://www.hetzner.com/dedicated-rootserver/matrix-sx/
+- free tier: Three SX models, all with SATA HDD plus NVMe. SX65: 4 x 16 TB up to 4 x 22 TB SATA, 2 x 1 TB NVMe, 128 GB DDR4 ECC, Ryzen 7 3700X, from EUR 84.00 to EUR 159.00/month excl. VAT, EUR 39.00 one-time setup. SX135: 8 x 16 TB up to 8 x 22 TB, 2 x 1.92 TB NVMe, 256 GB, Ryzen 9 3900, EUR 289.00 to EUR 309.00/month, EUR 144.00 setup. SX295: 14 x 22 TB SATA (308 TB), 2 x 7.68 TB NVMe, EPYC 7502P, EUR 599.00 to EUR 879.00/month, EUR 439.00 setup. Traffic is unlimited and the port is 1 Gbit/s. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: unlimited and free of charge on the 1 Gbit/s port; over 20 TB is charged at EUR 1.00/TB only on servers with the 10G uplink addon | metered: no | source: [1]
+- identity: card | detail: card, SEPA mandate, bank transfer or PayPal at order; no hold amount published; the payment page lists 'Credit card' with VISA, Mastercard, AMEX and UnionPay and names no debit card, so debit is not stated; prepaid is not stated; identity: Hetzner may require either a copy of a government-issued ID or an advance credit-card payment before it processes an order, and asks for a paid email domain and no VPN at signup
+- interface: ssh
+- limits:
+  - per-ip-shaping (binding): Traffic is unlimited and free of charge and the port is 1 Gbit/s, so throughput is the wall, not a byte allowance. The page adds that the unlimited policy does not apply to servers with the 10G uplink addon, where usage over 20 TB is charged at EUR 1.00/TB. [1]
+- limits note: Traffic is unlimited and free of charge and the port is 1 Gbit/s, so throughput is the wall, not a byte allowance. The page adds that the unlimited policy does not apply to servers with the 10G uplink addon, where usage over 20 TB is charged at EUR 1.00/TB.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: a dedicated server with root, rescue system, VNC install and an installimage script; rsync, rclone, ssh, NFS and MinIO all run on it
+- composes with: 308 TB for EUR 599.00 a month is the largest single machine among evaluated providers and the cheapest per terabyte at that size. It is the only row that covers the 20 TB dataset on one invoice with room for the active dataset.
+- reliability: no reliability event recorded
+- notes: The two prices per card are read as a low and a high configuration of the same model, because the card says '3 Types' for SX65 and '1 Type' for SX295, but the page never prints a price beside a disk count. A per-TB figure for SX65 or SX135 would therefore be an inference about which price pairs with which drive set, so only SX295 is given one. Hetzner also sells a Storage Box on the same page at EUR 3.20/TB (1 TB), EUR 10.90 (5 TB), EUR 20.80 (10 TB) and EUR 40.60 (20 TB); that is a managed NAS product, not a rented machine, and it is out of this document's scope. The identity cost is documented from the billing and fraud-prevention docs. The material finding is not the card but the ID gate: Hetzner may demand a copy of a government-issued ID or an advance card payment before processing an order, and asks for a paid email domain and no VPN at signup.
+- evidence note: Payment facts re-read on 2026-10-24: the card types, the hold and the identity gate each come from a first-party page quoted in evidence[].
+- extras:
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 32
+  - facets.shape.ram_gib: 256
+  - benchmark[0].plan: CX23 (2 vCPU / 4 GiB)
+  - benchmark[0].cpu_model: Intel Xeon Processor (Skylake, IBRS, no TSX)
+  - benchmark[0].dedicated_or_shared: shared
+  - benchmark[0].gb6_single: 638
+  - benchmark[0].gb6_multi: 1059
+  - benchmark[0].gb5_single: 501
+  - benchmark[0].gb5_multi: 912
+  - benchmark[0].source_url: https://www.vpsbenchmarks.com/yabs/hetzner-2c-4gb-20260828-tg10743
+  - benchmark[0].source_date: 2026-08-28
+  - benchmark[0].rung: reported
+  - benchmark[0].note: Intel Xeon Skylake at 2.10 GHz, the cheapest current CX plan; CX22 retired and has no live trial.
+  - payment_methods.card_at_signup: yes
+  - payment_methods.debit: not-stated
+  - payment_methods.prepaid: not-stated
+  - payment_methods.virtual: not-stated
+  - payment_methods.hold_detail: no hold amount published
+  - payment_methods.identity: government-issued ID or an advance credit-card payment, at Hetzner's discretion; paid email domain; no VPN
+  - payment_methods.source_url: https://docs.hetzner.com/general/billing-and-account-management/billing-at-hetzner/payment-overview/
+  - payment_methods.read_on: 2026-10-24
+- evidence:
+  - [1] 2026-10-22: spec table quoted: 'SATA HDD 4x 16 TB up to 4x 22 TB SATA | 8x 16 TB up to 8x 22 TB SATA | 14x 22 TB SATA', 'NVMe SSD 2x 1 TB | 2x 1.92 TB | 2x 7.68 TB', 'RAM 128 GB DDR4 ECC | 256 GB DDR4 ECC reg.', 'Connection 1 GBit/s-Port', 'Traffic Unlimited'
+  - [1] 2026-10-22: card prices quoted: SX65 'EUR 159.00 per month' and 'EUR 84.00 per month' with 'EUR 39.00 one-time setup fee'; SX135 'EUR 309.00' and 'EUR 289.00' with 'EUR 144.00'; SX295 'EUR 599.00' and 'EUR 879.00' with 'EUR 439.00'
+  - [1] 2026-10-22: the hero text states 'SX server with up to 15.36 TB NVMe SSD and 308 TB SATA HDD', which is the 14 x 22 TB configuration of SX295
+  - [2] 2026-10-24: quoted: 'We accept the following payment methods: 1. Credit card — We support VISA, Mastercard, AMEX, and UnionPay. We automatically charge credit card payments, except for UnionPay. 2. SEPA direct debit — SEPA is only available for EUR accounts. 3. Bank/wire transfer ... 4. PayPal' and 'We do not accept other forms of payment, even if they are linked to a credit card (e.g. Apple Pay).'
+  - [3] 2026-10-24: quoted, identity: 'You can do this in two ways: Verification via ID document: You provide us with a copy of a valid government-issued ID (e.g., ID card or passport)... Verification via prepayment (credit card)' and 'please, if it is possible, do not use a free email address ... And during the registration process, do not use a VPN service.'
+- sources:
+  - [1] https://www.hetzner.com/dedicated-rootserver/matrix-sx/
+  - [2] https://docs.hetzner.com/general/billing-and-account-management/billing-at-hetzner/payment-overview/
+  - [3] https://docs.hetzner.com/general/security-and-identify/fraud-prevention-faq/
+
+## Hetzner, CX23 (Cost-Optimized, shared vCPU)
+
+- `compute/hetzner-cx23` | paid-only | evidence documented | binding volume-quota | category VPS | tier CX23 (Cost-Optimized, shared vCPU)
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T01:56:00.000Z (live) | stale on 2026-11-24
+- url https://www.hetzner.com/cloud/cost-optimized/
+- price parsed USD 6.7/mo
+- free tier: no free tier; the cheapest cloud server is 'from EUR 5.99 per month, excl. VAT' | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the server is billed until deleted: 'We will bill you for each cloud server until you choose to delete them.'
+- egress: 'Traffic inclusive 20 TB'; additional traffic at EU-Central locations is charged per TB (the extracted sentence renders the unit as 'per hour' but the sentence is about each additional TB) | metered: yes | free allowance: 20 TB | price per TB: not recorded: the extracted text renders the per-TB rate with a per-hour unit and the number was not confirmed against the raw page | source: [1]
+- identity: card | detail: an account with a payment method.
+- interface: ssh, rest
+- limits:
+  - volume-quota (binding): 20 TB a month of included traffic [1]
+  - per-ip-shaping: shared vCPU: 'the number of available servers is limited' [1]
+- binding note: the price is what fails here, not the quota: 20 TB is the most generous traffic allowance in evaluated offerings and the reason the rows above it are worth their premium.
+- interface detail: root SSH, the Hetzner Cloud Console, and the Hetzner Cloud API
+- tooling: any SSH client; hcloud CLI and API; the widest third-party tooling of any host among evaluated providers.
+- composes with: the default daily driver if the budget moves, but not at today's price
+- reliability: the plan is listed as 'not available' on the vendor's own cost-optimized page at read time, and the page says of this tier: 'this resource-saving use means that the number of available servers is limited'
+- notes: VAT, which is USD 6.70 at the ECB rate, and the page marks it 'not available'. The ARM rung CAX11 has moved to EUR 6.49.
+- evidence note: price, shape, traffic and availability are quoted from the vendor page read; the per-TB overage rate is not recorded because the extracted unit was ambiguous.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 4
+  - shape.disk_gib: 40
+  - billing_model: hourly with a monthly cap
+  - term: monthly (hourly billing, capped at the monthly price)
+  - m10h_usd: 6.7
+  - m24h_usd: 6.7
+  - price_arithmetic: EUR 5.99/month excl. VAT x 1.1193 = USD 6.70/month; hourly EUR 0.0096 x 730 = EUR 7.01, so the monthly cap binds
+  - out_of_pocket_usd: 6.7
+  - renewal_usd: 6.7
+  - renewal_note: monthly price, no contract; the vendor bills monthly at the listed rate
+  - promo: no
+  - over_line: yes
+  - stock: 'not available' on the vendor page
+  - fx.pair: EUR/USD
+  - fx.rate: 1.1193
+  - fx.date: 2026-10-23
+  - port_mbps: 1000
+  - ipv4_included: yes
+  - ipv6: yes
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+- evidence:
+  - [1] 2026-10-24: quoted: 'CX23 not available 2 Intel/AMD 4 GB 40 GB NVMe from /month EUR 5.99 per month, excl. VAT'
+  - [1] 2026-10-24: quoted: 'Traffic inclusive 20 TB' and 'Cloud servers located in the EU include at least 20 TB of included traffic'
+  - [1] 2026-10-24: quoted for the ARM rung: 'CAX11 not available 2 Ampere 4 GB 40 GB NVMe from /month EUR 6.49 per month, excl. VAT'
+- sources:
+  - [1] https://www.hetzner.com/cloud/cost-optimized/
+
+## Hetzner Cloud (Compute)
+
+- `compute/hetzner-cloud` | paid-only | evidence documented | binding per-ip-shaping | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T18:45:35.795Z (live) | stale on 2026-12-05
+- url https://www.hetzner.com/cloud/cost-optimized/
+- price parsed USD 6.75/mo
+- free tier: no free tier; the entry shape CX23 is EUR 5.99 a month excluding VAT and is marked 'not available' on the Cost-Optimized page | unit: none | metered on: wall-clock | read on: 2026-11-04 | source: [1] | note: prices took effect 2026-06-15
+- per-object cap: not applicable
+- retention: a VM is retained all month, including powered-off time | days: 0
+- egress: only outgoing traffic is billed, in 100 MB blocks rounded up. Cloud servers in the EU include at least 20 TB of traffic a month; the product line reads 'Traffic inclusive 20 TB' | metered: yes | free allowance: 20 TB a month at EU-Central locations | price per TB: EUR 1.00 per additional TB at EU-Central locations, excl. VAT, as published. The page's own unit string reads 'EUR 1.00 per hour', which contradicts the FAQ's 100 MB block billing, so the amount is recorded and the unit is not | source: [1]
+- identity: card | detail: card, SEPA mandate, bank transfer or PayPal at order; no hold amount published; the payment page lists 'Credit card' with VISA, Mastercard, AMEX and UnionPay and names no debit card, so debit is not stated; prepaid is not stated; identity: Hetzner may require either a copy of a government-issued ID or an advance credit-card payment before it processes an order, and asks for a paid email domain and no VPN at signup
+- interface: rest, cli
+- limits:
+  - per-ip-shaping (binding): 20 TB a month included; overage billed in 100 MB blocks rounded up [2]
+  - per-object-cap: CX23 is the entry shape at USD 0.0104 an hour or USD 6.49 a month [3]
+- limits note: a usage notification arrives at 75% and at 100% of the included traffic and caps nothing: the FAQ states the notifications do not cap or stop usage, and traffic beyond the allowance is billed as usual
+- binding note: 20 TB a month of included traffic is the term that binds for a high-transfer workload, at EUR 1.00 per extra TB.
+- interface detail: REST API, CLI, Terraform; SSH
+- tooling: hcloud CLI, the Hetzner API, Terraform, Ansible collections
+- composes with: 20 TB of included traffic is what makes a 500 GB to 1 TB daily transfer volume affordable on a VPS.
+- reliability: no reliability event recorded
+- notes: The cheapest always-on box with a real egress allowance: 20 TB a month included at EU locations, with additional transfer charged at the rate the page prints for each additional TB (EUR 1.00, in a unit string that reads 'per hour'). The CX23 is EUR 5.99 a month excl. VAT (EUR 0.0096 an hour) and reads 'not available' at the eu-central locations, so it cannot be ordered from Germany or Finland as read. The console bills hourly up to the monthly cap until the server is deleted, and no renewal rate is printed because there is no fixed term. The plan-level record is hetzner-cx23.
+- evidence note: the price, the hourly rate, the 20 TB allowance, the monthly cap and the availability line each come from the Cost-Optimized page read on 2026-11-04, and the conversion rate is the ECB reference for the same day.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 4
+  - shape.disk_gib: 40
+  - billing_model: flat-pool
+  - granularity.min_billed_s: 3600
+  - granularity.rounding_s: 3600
+  - session_cap.restart_required: no
+  - session_cap.note: none
+  - keep_rate.value: 1.0
+  - keep_rate.basis: a powered-off VM is retained all month and bills
+  - keep_rate.source: https://www.hetzner.com/cloud/
+  - persistent_storage.included_gib: 40
+  - persistent_storage.price_gib_month: included
+  - persistent_storage.durability: local SSD
+  - persistent_storage.survives_stop: yes
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: while the server exists
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all, through the stateful firewall
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - network_out.per_session_bytes: 20 TB a month included
+  - free_tier_kind: none
+  - m10h_usd: 3.12
+  - m24h_usd: 6.75
+  - price_arithmetic: EUR 5.99 a month excl. VAT x 1.1267 (ECB reference 2026-11-04) = USD 6.75 a month, which is the figure the record uses. The hourly rate is EUR 0.0096 and the bill is capped at the monthly price, so the monthly figure is the ceiling and not a multiplication of the hourly one.
+  - burst_x: 2.0
+  - burst_bill: min 1 h
+  - payment_methods.card_at_signup: yes
+  - payment_methods.debit: not-stated
+  - payment_methods.prepaid: not-stated
+  - payment_methods.virtual: not-stated
+  - payment_methods.hold_detail: no hold amount published
+  - payment_methods.identity: government-issued ID or an advance credit-card payment, at Hetzner's discretion
+  - payment_methods.source_url: https://docs.hetzner.com/general/billing-and-account-management/billing-at-hetzner/payment-overview/
+  - payment_methods.read_on: 2026-10-24
+  - stock: out of stock at the eu-central locations NBG1 and HEL1: the CX23 card reads 'not available'
+  - term: hourly with a monthly cap: the bill never exceeds the monthly price, the hourly rate applies if the server is deleted mid-month, and the server bills until it is deleted
+  - annual_usd: not published: the plan is billed hourly up to a monthly cap and no annual term is sold
+  - renewal_usd: not published as a separate rate: the price is hourly with a monthly cap and no fixed term, so the same rate recurs while the server exists
+  - price_on_page: EUR 5.99/month excl. VAT, EUR 0.0096/hour excl. VAT
+  - fx.pair: EUR/USD
+  - fx.rate: 1.1267
+  - fx.date: 2026-11-04
+- evidence:
+  - [4] 2026-10-22: CX23 new price USD 0.0104 an hour or USD 6.49 a month excluding IPv4 and VAT, effective 2026-06-15
+  - [4] 2026-10-22: CX33 USD 0.0160/h or USD 9.99 a month; the table prints old and new prices in EUR and USD
+  - [2] 2026-10-22: only outgoing traffic is billed; overage is billed in 100 MB blocks; the notification at 75% and 100% does not cap usage
+  - [1] 2026-10-22: 'Traffic inclusive 20 TB' as a product line, and 'For each additional TB at EU-Central locations we charge EUR 1.00 per hour, excl. VAT'; the amount is EUR 1.00 and the unit string contradicts the billing FAQ's 100 MB blocks
+  - [1] 2026-10-22: CX23: 2 vCPU, 4 GB, 40 GB NVMe, 'from /month EUR 5.99 per month, excl. VAT' and 'EUR 0.0096 per hour, excl. VAT', with the availability line reading 'not available' for eu-central NBG1 HEL1, quoted
+  - [1] 2026-10-22: 'Your server's bill will never exceed its monthly price cap. If you delete your cloud server before the end of the billing month, we will only bill you for the hourly rate', quoted
+  - [5] 2026-10-22: the product headline reads 'starting from max/mo. EUR 5.99 per month, excl. VAT' for Cost-Optimized and 'EUR 6.49 per month, excl. VAT' for Regular Performance
+  - [6] 2026-10-24: quoted: 'We accept the following payment methods: 1. Credit card — We support VISA, Mastercard, AMEX, and UnionPay ... 2. SEPA direct debit — SEPA is only available for EUR accounts. 3. Bank/wire transfer ... 4. PayPal' and 'We do not accept other forms of payment, even if they are linked to a credit card (e.g. Apple Pay).'
+  - [7] 2026-10-24: quoted, identity: 'Verification via ID document: You provide us with a copy of a valid government-issued ID (e.g., ID card or passport)' or 'Verification via prepayment (credit card)'
+  - [1] 2026-11-04: the CX23 entry shape is marked not available | capture: sha256:6df1a1e1d977cb8aaad550ab58ec0e334f561826c1a69f1199ebc68c4cb8ff07 | quote: CX23 not available
+  - [1] 2026-11-04: the plan bills hourly up to a monthly cap until the server is deleted | capture: sha256:6df1a1e1d977cb8aaad550ab58ec0e334f561826c1a69f1199ebc68c4cb8ff07 | quote: Your server's bill will never exceed its monthly price cap. If you delete your cloud server before the end of the billing month, we will only bill you for the hourly rate. We will bill you for each cloud server until you choose to delete them.
+  - [1] 2026-11-04: the CX23 costs EUR 5.99 a month excluding VAT | capture: sha256:6df1a1e1d977cb8aaad550ab58ec0e334f561826c1a69f1199ebc68c4cb8ff07 | quote: from /month € 5.99 per month, excl. VAT
+  - [8] 2026-11-04: the ECB reference rate for 2026-11-04 is USD 1.1267 per EUR | capture: sha256:677fcb9533349e7c2ec3e992daf30685d7f4143864b7563bc1e76628e327ed91 | quote: "rates":{"USD":1.1267}
+  - [1] 2026-11-04: the CX23 hourly rate is EUR 0.0096 excluding VAT | capture: sha256:6df1a1e1d977cb8aaad550ab58ec0e334f561826c1a69f1199ebc68c4cb8ff07 | quote: € 0.0096 per hour, excl. VAT
+  - [1] 2026-11-04: the plan includes 20 TB of traffic | capture: sha256:6df1a1e1d977cb8aaad550ab58ec0e334f561826c1a69f1199ebc68c4cb8ff07 | quote: Traffic inclusive 20 TB
+  - [4] 2026-11-04: the page the record cites as its source answers HTTP 404 | capture: sha256:3db37a37d86e2712aa622be7f269c92fb26cb4554cb9fc908566ca15a16ac71e | quote: Cannot GET /general/infrastructure-and-availability/price-adjustment
+- sources:
+  - [1] https://www.hetzner.com/cloud/cost-optimized/
+  - [2] https://docs.hetzner.com/cloud/billing/faq
+  - [3] https://docs.hetzner.com/docs/general/infrastructure-and-availability/price-adjustment/
+  - [4] https://docs.hetzner.com/general/infrastructure-and-availability/price-adjustment/
+  - [5] https://www.hetzner.com/cloud/
+  - [6] https://docs.hetzner.com/general/billing-and-account-management/billing-at-hetzner/payment-overview/
+  - [7] https://docs.hetzner.com/general/security-and-identify/fraud-prevention-faq/
+  - [8] https://api.frankfurter.app/latest?from=EUR&to=USD
+
+## Hetzner Cloud (paid)
+
+- `egress/hetzner-cloud` | paid-only | evidence documented | binding volume-quota | category paid VM with included traffic | tier paid
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://www.hetzner.com/cloud/
+- price paid; no credit
+- free tier: We only bill for outgoing traffic. Incoming and internal traffic is free. | unit: TB | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: 20 TB a month of included outgoing traffic per server, with over-usage billed and no free credit anywhere in the offer; ingress: udp | metered: yes | free allowance: 20 TB a month of included outgoing traffic per server, with over-usage billed and no free credit anywhere in the offer | source: [2]
+- identity: card | detail: a payment method at signup; there is no trial credit to verify against, so the first invoice is the gate | country: None
+- interface: cli, rest
+- limits:
+  - volume-quota (binding): 20 TB a month of included outgoing traffic per server, then billed per 100 MB block [1]
+- binding note: the 20 TB a month bundle is eighteen times 1 TiB, so nothing binds at this volume. The constraint is price rather than allowance: there is no credit, so the first euro is spent on day one.
+- interface detail: the hcloud CLI and API, and the Cloud Console
+- tooling: wg-quick on the server; the hcloud CLI
+- composes with: the fallback when every credit is spent: a paid server whose bundle is already eighteen times the monthly figure
+- reliability: over-usage is billed in 100 MB blocks with no cap, and alerts at 75 and 100 percent do not stop the traffic
+- notes: In TB per dollar over a year, Hetzner wins and it is not free, which is a different question from the one asks and belongs in the paid lane. The page offers no credit. The overage rate (widely quoted as EUR 1 per TB) is not on the FAQ page and is not recorded here.
+- evidence note: the 20 TB and the free inbound line are first-party; the per-TB overage price was not in the FAQ text and is left unstated rather than guessed
+- extras:
+  - wg_path: native-conf
+  - wg_detail: a cloud server with a public IPv4; wg-quick binds UDP directly
+  - ingress: udp
+  - volume_tib_month: 18.19
+  - volume_stated: 20 TB a month of included outgoing traffic per server, with over-usage billed and no free credit anywhere in the offer
+  - bytes_transit: yes
+  - transit_note: outbound bytes cross Hetzner's network and draw on the server's included 20 TB
+- evidence:
+  - [1] 2026-10-23: 'We only bill for outgoing traffic. Incoming and internal traffic is free' and 'Your server has 20TB included traffic. Within a month, you use 20.00008TB. We will bill you for 0.0001TB'
+  - [2] 2026-10-23: 'with Hetzner you benefit from generous included traffic and very low prices for additional data transfer', which names the position without a number
+- sources:
+  - [1] https://docs.hetzner.com/cloud/billing/faq/
+  - [2] https://www.hetzner.com/cloud/
+
+## Hetzner Dedicated AX / EX
+
+- `compute/hetzner-dedicated` | paid-only | evidence reported | binding write-gated | category cloud VM
+- identity a placeholder: card and phone unknown | verified 2026-11-04T18:45:35.796Z (live) | stale on 2026-11-19
+- url https://www.hetzner.com/dedicated-rootserver/
+- price parsed USD 66.48/mo
+- free tier: no free allowance: the server finder lists each server 'starting from' a monthly price, an hourly price and a setup fee, and its lowest-priced entry is the AX41 at EUR 59.00 a month | unit: none | metered on: wall-clock | read on: 2026-11-04 | source: [1] | note: The finder loads its price rows by script from its data file (live_data_en_EUR.json). The lowest-priced server in that data is the AX41 at EUR 59 per month, EUR 0.0945 per hour and EUR 0 setup, listed excl. VAT; the data lists no free allowance.
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - request-rate: dedicated hardware is rented by the month; the finder's lowest price is the AX41 at EUR 59 per month excl. VAT, EUR 0.0945 per hour, EUR 0 setup [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: The AX line is a paid product with no free lane. The finder's own data lists the AX41 (Ryzen 5 3600, 64 GB DDR4, two 512 GB NVMe) at EUR 59.00 a month excl. VAT, EUR 0.0945 an hour and no setup fee, with unlimited traffic on a 1 Gbit/s port, offered in Germany and Finland and marked instantly available. It is the lowest-priced server in that data. The line bills by the month and prints no renewal rate, so the monthly price is the recurring charge.
+- evidence note: the monthly, hourly and setup prices, the unlimited traffic and the availability of the AX41 are read from the server finder's own data file on 2026-11-04; the finder's page renders its price table by script, so the data file is the price source.
+- extras:
+  - keep_rate: 1.0
+  - billing_model: monthly rental
+  - session_cap.restart_required: no
+  - session_cap.note: a dedicated server is rented by the month; there is no session clock
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: any
+  - network_out.static_ip: yes
+  - network_out.per_session_bytes: unlimited traffic on a 1 Gbit/s port
+  - free_tier_kind: none
+  - granularity.min_billed_s: 3600
+  - burst_x: 2.0
+  - burst_bill: min 1 h
+  - ps.price: dedicated disks, included in the rental
+  - ps.durability: dedicated hardware
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: the rental term
+  - net.out: yes
+  - net.in: yes
+  - net.ports: any
+  - net.static_ip: yes
+  - net.ipv6: yes
+  - monthly_usd: 66.48
+  - m10h_usd: 66.48
+  - price_arithmetic: EUR 59.00 a month excl. VAT x 1.1267 (ECB reference 2026-11-04) = USD 66.48 a month, and the hourly rate is EUR 0.0945. A monthly rental bills for the whole month whether the machine is idle or not, so the 10 h/day and the always-on figures are the same USD 66.48.
+  - m24h_usd: 66.48
+  - fx.pair: EUR/USD
+  - fx.rate: 1.1267
+  - fx.date: 2026-11-04
+  - term: monthly rental: EUR 59.00 a month, EUR 0.0945 an hour, EUR 0 setup, no fixed term printed
+  - price_on_page: EUR 59.00/mo excl. VAT
+  - stock: orderable: the finder's data marks the AX41 instantly available in Germany and Finland, and it is the only server in that file with a zero setup fee
+  - annual_usd: not published: no annual term is printed, and the line is rented by the month
+  - renewal_usd: not published as a separate rate: the monthly rental price is the recurring charge, and no fixed term or renewal rate is printed
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: the dedicated root server page was read on 2026-10-22 and renders a server-finder application ('SELECT A SERVER IN SECONDS') rather than a price table; it publishes no free tier and the price rows load by script. The AX42 page, cited by the `self-host-baremetal` record, does price the hardware
+  - [1] 2026-10-30: the dedicated line is sold by the month; the server finder lists prices per month, per hour and a setup fee, with no free allowance | capture: sha256:9ef9c1baf74fba6ec6c888a7f8573d8d2fe86164296a199eed067699f5e0e4f8 | quote: Save money and do good for the planet with refurbished servers from € 72.70 per month, excl. VAT
+  - [2] 2026-11-03: the AX41 row of the server finder's data file lists a price of 59, an hourly price of 0.0945 and a setup price of 0; it is the lowest of the finder's rows | capture: sha256:20b4988bae179a28b55aaa6780fa37535dcea1918682450527fd832ef17648dd | quote: "priceData":{"price":59,"hourPrice":0.0945,"setupPrice":0,"maxPrice":59
+  - [1] 2026-11-03: the finder lists its server prices excl. VAT | capture: sha256:c0c73dd774aad4b55be4241d11461374cf631c9ae27bf6f5ad5e09f6cf6c8425 | quote: excl. VAT.
+  - [2] 2026-11-04: the AX41 lists EUR 59 a month, EUR 0.0945 an hour and no setup fee | capture: sha256:6913f180a58ed62ee722a8ffc269a3999f2e3a2f6123f761201066d006dcbb09 | quote: "priceData":{"price":59,"hourPrice":0.0945,"setupPrice":0,"maxPrice":59
+  - [3] 2026-11-04: the ECB reference rate for 2026-11-04 is USD 1.1267 per EUR | capture: sha256:677fcb9533349e7c2ec3e992daf30685d7f4143864b7563bc1e76628e327ed91 | quote: "rates":{"USD":1.1267}
+  - [2] 2026-11-04: the finder's data marks the AX41 instantly available | capture: sha256:6913f180a58ed62ee722a8ffc269a3999f2e3a2f6123f761201066d006dcbb09 | quote: "instantAvailable":true
+  - [2] 2026-11-04: the AX41 traffic is unlimited on a 1 Gbit/s port | capture: sha256:6913f180a58ed62ee722a8ffc269a3999f2e3a2f6123f761201066d006dcbb09 | quote: "traffic":"Unlimited","bandwidth":1000
+  - [2] 2026-11-04: the AX41 is offered in Germany and Finland | capture: sha256:6913f180a58ed62ee722a8ffc269a3999f2e3a2f6123f761201066d006dcbb09 | quote: "countries":[{"name":"Germany","shortcode":"de"},{"name":"Finland","shortcode":"fi"}]
+- sources:
+  - [1] https://www.hetzner.com/dedicated-rootserver/
+  - [2] https://www.hetzner.com/_resources/app/data/app/live_data_en_EUR.json
+  - [3] https://api.frankfurter.app/latest?from=EUR&to=USD
+
+## Hetzner GPU servers
+
+- `compute/hetzner-gpu` | paid-only | evidence documented | binding write-gated | category GPU cloud
+- identity a placeholder: card and phone unknown | verified 2026-10-22T04:47:03.365Z (live) | stale on 2026-11-22
+- url https://www.hetzner.com/dedicated-rootserver/matrix-gpu/
+- free tier: no free tier: GEX GPU servers from EUR 214.00 a month or EUR 0.3429 an hour, each with a one-time setup fee equal to one month's rent | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - request-rate: EUR 0.3429 an hour to EUR 5.7676 an hour depending on the GPU configuration [1]
+  - write-gated (binding): each configuration carries a one-time setup fee equal to its monthly price, from EUR 209 to EUR 3,599, so the first day costs two months [1]
+- limits note: Session cap, idle-reap and network policy are not documented. Exceeds capacity threshold.
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the GPU server matrix was read on 2026-10-22 and prices four GEX configurations with their setup fees. There is no free tier and no trial, which the page makes plain
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - shape.ram: 64
+  - shape.gpu_class: NVIDIA GEX line
+  - shape.gpu_count: 1
+  - shape.note: the entry configuration is 64 GB of DDR4 with one GEX GPU; the largest is 256 GB ECC-registered DDR5
+  - session_cap.restart_required: no
+  - session_cap.note: a dedicated server bills by the month or hour; there is no reap
+  - free_tier_kind: none
+  - ps.price: included in the dedicated server
+  - ps.durability: dedicated disks
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: the rental term
+  - net.out: yes
+  - net.in: yes
+  - net.ports: any
+  - net.static_ip: yes
+  - net.ipv6: yes
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Our GEX line features high-performance NVIDIA GPUs with CUDA technology' at 'EUR 214.00 per month' or 'EUR 0.3429 per hour' plus a 'EUR 209.00 one-time setup fee', with the largest at EUR 3,599.00 a month and a EUR 3,599.00 setup fee, quoted
+- sources:
+  - [1] https://www.hetzner.com/dedicated-rootserver/matrix-gpu/
+
+## Hetzner Server Auction
+
+- `compute/hetzner-server-auction` | paid-only | evidence documented | binding none | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://www.hetzner.com/sb/
+- free tier: The auction listing served on 2026-10-22 holds 116 machines; the cheapest is EUR 64 a month for an Intel Core i7-8700 with 128 GB RAM, no setup fee, a 1 Gbit/s port and 'Traffic: unlimited'. The cheapest machine with 64 GB RAM and 2x NVMe 512 GB is EUR 70. The median listing is EUR 99.50 a month and the dearest is EUR 918. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: kind not stated
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: the endpoint the auction page itself calls returned 116 server objects; the minimum Prices.monthly.EUR is 64, the median is 99.5 and the maximum is 918 on the second read, against 100 and 919.7 on a read four minutes earlier, so the list moves while it is read; the EUR 64 record is Id 3096257, CPU 'Intel Core i7-8700', RAM Size 128 GB (4 x 32768 MB), setup EUR 0, Details.Bandwidth 1000, Details.Traffic 'unlimited' | metered: yes | source: [2]
+- identity: email
+- interface: unknown
+- limits note: no binding constraint identified
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: no open question recorded
+- evidence:
+  - [2] 2026-10-22: the endpoint the auction page itself calls returned 116 server objects; the minimum Prices.monthly.EUR is 64, the median is 99.5 and the maximum is 918 on the second read, against 100 and 919.7 on a read four minutes earlier, so the list moves while it is read; the EUR 64 record is Id 3096257, CPU 'Intel Core i7-8700', RAM Size 128 GB (4 x 32768 MB), setup EUR 0, Details.Bandwidth 1000, Details.Traffic 'unlimited'
+  - [1] 2026-10-22: the page states 'All without setup fees' and lists 'Traffic: Unlimited', 'Bandwidth: 1 Gbit/s-Port', '1 IPv4 address', 'IPv6 Subnet (/64)'; its price table loads by script, so the figures come from the JSON endpoint above
+  - [3] 2026-10-22: the page script fetches '/_resources/app/data/app/live_data_sb.json', which is how the price rows on /sb/ are built; the older live_data_sb_EUR.json path now returns 404
+  - [1] 2026-10-22: rendered DOM at read time, first row quoted: '40:57:06 left EUR 49.70 max. per month EUR 0.0796 per hour CPU Intel Core i7-7700 RAM 32 GB Drives 1 x 3.0 TB HDD 1 x 6.0 TB Enterprise HDD Location #FSN1-DC12 IPv4'
+  - [1] 2026-10-22: '126 results' with 'sort by: Price' and pagination to 13; the next nine rows were all 'EUR 71.70 max. per month EUR 0.1149 per hour' with '2 x 512 GB SSD', '2 x 2.0 TB Enterprise HDD' or '2 x 4.0 TB Enterprise HDD'
+  - [1] 2026-10-22: the page states 'All without setup fees', 'Traffic: Unlimited' and 'Bandwidth: 1 Gbit/s-Port'
+- sources:
+  - [1] https://www.hetzner.com/sb/
+  - [2] https://www.hetzner.com/_resources/app/data/app/live_data_sb.json
+  - [3] https://www.hetzner.com/_resources/themes/hetzner/dist/serverboerse.js
+
+## Hetzner Storage Box BX11 — 1 TB, €3.20/mo
+
+- `storage/hetzner-storage-box-bx11-1-tb-3-20-mo` | paid-only | evidence documented | binding volume-quota | category iaas
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T15:04:17.078Z (live) | stale on 2026-12-04
+- url https://www.hetzner.com/storage/storage-box/
+- price EUR 2.03 per TB per month on BX41 (20 TB, EUR 40.60); EUR 2.08 on BX31 (10 TB, EUR 20.80); EUR 2.18 on BX21 (5 TB, EUR 10.90); EUR 3.20 on BX11 (1 TB); excl. VAT. | parsed USD 2.27/TB-mo
+- duplicate of `storage/hetzner-storage-box`
+- disagrees on verdict: `storage/hetzner-storage-box-bx11-1-tb-3-20-mo` says paid-only, `storage/hetzner-storage-box-bx11-bx21-bx31` says qualifies
+- free tier: No free allowance. Priced plans per month, excl. VAT: BX11 1 TB at € 3.20, BX21 5 TB at € 10.90, BX31 10 TB at € 20.80, BX41 20 TB at € 40.60. Traffic is unlimited on every plan. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: No per-file cap published | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Unlimited traffic on every plan ('Each Storage Box comes with unlimited traffic'); capacity is the only billed axis. Concurrent connections are limited to 10. | metered: no
+- identity: card | detail: payment methods: bank transfer, credit card, Paypal and SEPA direct debit (SEPA-country accounts); the registration fields are unverified: behind a sign-up.
+- interface: webdav, sftp, ftps, ftp, scp, rsync, smb, ssh, rclone
+- limits:
+  - per-ip-shaping: 10 concurrent connections [1]
+  - volume-quota (binding): 1, 5, 10 or 20 TB per Storage Box (BX11 to BX41) [1]
+  - per-object-cap: No per-file cap published [1]
+- limits note: 10 concurrent connections is the binding limit, not bytes. A parallel-GET benchmark will be shaped by connection count: 32 parallel ranged GETs cannot be opened here, only 10. 10 snapshots. No per-file cap published.
+- binding note: the largest plan is 20 TB, too small for 20 TiB of data (about 22 TB); the page does not say whether TB means 10^12 or 2^40 bytes.
+- interface detail: sftp
+- tooling: Comprehensive protocol support documented on product page: FTP, FTPS, SFTP, SCP, Samba/CIFS, HTTPS, WebDAV, BorgBackup, rsync via SSH, Restic, and Rclone. Supports 10 concurrent connections, 10 snapshots, and 100 sub-accounts.
+- composes with: No free allowance; priced benchmark: a 20 TB archive costs € 40.60 per month excl. VAT on BX41, 10 TB costs € 20.80 on BX31.
+- reliability: RAID with checksums, explicitly NOT mirrored off-site ('The data is not mirrored onto other servers'). Snapshots can be automated. Long-standing German host; no data-loss pattern in these forums.
+- notes: the same as the free tier
+- evidence note: the 2026-11-03 evidence rows read the vendor pages https://www.hetzner.com/storage/storage-box/ (plan prices, storage sizes, unlimited traffic, 10 concurrent connections, payment methods) and https://docs.hetzner.com/storage/storage-box/general/ (unlimited traffic); the sign-up fields, per-file cap and retention were not read on 2026-11-03
+- extras:
+  - dead_end.failure_class: paid
+  - dead_end.why: BX11 = 1 TB at €3.20/month excl. VAT (€0.0051/hr). Ladder: BX21 5 TB €10.90, BX31 10 TB €20.80, BX41 20 TB €40.60. Zero setup fee on every tier. No free tier of any size.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'BX11 … € 3.20 per month, excl. VAT … € 0.0051 per hour'; 'BX21 … € 10.90'; 'BX31 … € 20.80'; 'BX41 … € 40.60'
+  - [2] 2026-10-21: '10 concurrent connections … BorgBackup / rsync via SSH / Restic / Rclone'; 'The data is not mirrored onto other servers'
+  - [3] 2026-10-21: Chinese forum thread '最实惠的文件备份存储空间 Hetzner Storage Boxes' (the same conclusion reached independently on Hostloc before it closed)
+  - [1] 2026-11-03: BX11 costs 3.20 EUR per month excl. VAT | capture: sha256:d82a39e84f9d4b478e93cb8901ddb7a4be616b4e79c572e74a63609f995384c5 | quote: max/mo. € 3.20 per month, excl. VAT
+  - [1] 2026-11-03: traffic is unlimited on every plan | capture: sha256:d82a39e84f9d4b478e93cb8901ddb7a4be616b4e79c572e74a63609f995384c5 | quote: | Traffic | * Unlimited |
+  - [4] 2026-11-03: traffic is unlimited | capture: sha256:086437ab935f960103785ae9a1400c1dd9a3afde0f7d578d7dab265e17d909e9 | quote: Each Storage Box comes with unlimited traffic.
+  - [1] 2026-11-03: BX41 costs 40.60 EUR per month for 20 TB | capture: sha256:d82a39e84f9d4b478e93cb8901ddb7a4be616b4e79c572e74a63609f995384c5 | quote: max/mo. € 40.60 per month, excl. VAT
+  - [1] 2026-11-03: BX31 costs 20.80 EUR per month for 10 TB | capture: sha256:d82a39e84f9d4b478e93cb8901ddb7a4be616b4e79c572e74a63609f995384c5 | quote: max/mo. € 20.80 per month, excl. VAT
+  - [1] 2026-11-03: plan sizes run from 1 TB to 20 TB | capture: sha256:d82a39e84f9d4b478e93cb8901ddb7a4be616b4e79c572e74a63609f995384c5 | quote: | Available storage | * 1 TB | * 5 TB | * 10 TB | * 20 TB |
+  - [1] 2026-11-03: the listed payment methods | capture: sha256:d82a39e84f9d4b478e93cb8901ddb7a4be616b4e79c572e74a63609f995384c5 | quote: | Possible payment methods | * bank transfer, credit card, Paypal and SEPA direct debit for accounts from SEPA countries |
+  - [1] 2026-11-03: BX21 costs 10.90 EUR per month for 5 TB | capture: sha256:d82a39e84f9d4b478e93cb8901ddb7a4be616b4e79c572e74a63609f995384c5 | quote: max/mo. € 10.90 per month, excl. VAT
+  - [1] 2026-11-03: 10 concurrent connections on every plan | capture: sha256:d82a39e84f9d4b478e93cb8901ddb7a4be616b4e79c572e74a63609f995384c5 | quote: | Concurrent connections | * 10 | * 10 | * 10 | * 10 |
+- sources:
+  - [1] https://www.hetzner.com/storage/storage-box/
+  - [2] https://www.hetzner.com/storage/storage-box/bx11/
+  - [3] https://hostloc.com/thread-1305667-1-1.html
+  - [4] https://docs.hetzner.com/storage/storage-box/general/
+
+## Hetzner SX storage servers
+
+- `compute/hetzner-storage` | paid-only | evidence documented | binding per-ip-shaping | category cloud VM
+- identity a placeholder: card and phone unknown | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://www.hetzner.com/dedicated-rootserver/matrix-sx/
+- free tier: Three SX models, all with SATA HDD plus NVMe. SX65: 4 x 16 TB up to 4 x 22 TB SATA, 2 x 1 TB NVMe, 128 GB DDR4 ECC, Ryzen 7 3700X, from EUR 84.00 to EUR 159.00/month excl. VAT, EUR 39.00 one-time setup. SX135: 8 x 16 TB up to 8 x 22 TB, 2 x 1.92 TB NVMe, 256 GB, Ryzen 9 3900, EUR 289.00 to EUR 309.00/month, EUR 144.00 setup. SX295: 14 x 22 TB SATA (308 TB), 2 x 7.68 TB NVMe, EPYC 7502P, EUR 599.00 to EUR 879.00/month, EUR 439.00 setup. Traffic is unlimited and the port is 1 Gbit/s. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: unlimited and free of charge on the 1 Gbit/s port; over 20 TB is charged at EUR 1.00/TB only on servers with the 10G uplink addon | metered: no | source: [1]
+- identity: email | detail: not stated
+- interface: ssh
+- limits:
+  - per-ip-shaping (binding): Traffic is unlimited and free of charge and the port is 1 Gbit/s, so throughput is the wall, not a byte allowance. The page adds that the unlimited policy does not apply to servers with the 10G uplink addon, where usage over 20 TB is charged at EUR 1.00/TB. [1]
+- limits note: Traffic is unlimited and free of charge and the port is 1 Gbit/s, so throughput is the wall, not a byte allowance. The page adds that the unlimited policy does not apply to servers with the 10G uplink addon, where usage over 20 TB is charged at EUR 1.00/TB.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: a dedicated server with root, rescue system, VNC install and an installimage script; rsync, rclone, ssh, NFS and MinIO all run on it
+- composes with: 308 TB for EUR 599.00 a month is the largest single machine among evaluated providers and the cheapest per terabyte at that size. It is the only row that covers the 20 TB dataset on one invoice with room for the active dataset.
+- reliability: no reliability event recorded
+- notes: The two prices per card are read as a low and a high configuration of the same model, because the card says '3 Types' for SX65 and '1 Type' for SX295, but the page never prints a price beside a disk count. A per-TB figure for SX65 or SX135 would therefore be an inference about which price pairs with which drive set, so only SX295 is given one. Hetzner also sells a Storage Box on the same page at EUR 3.20/TB (1 TB), EUR 10.90 (5 TB), EUR 20.80 (10 TB) and EUR 40.60 (20 TB); that is a managed NAS product, not a rented machine, and it is out of this document's scope.
+- extras:
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 32
+  - facets.shape.ram_gib: 256
+  - facets.renamed_from: hetzner (ambiguous against hetzner-cloud, hetzner-dedicated, hetzner-gpu and hetzner-server-auction)
+- evidence:
+  - [1] 2026-10-22: spec table quoted: 'SATA HDD 4x 16 TB up to 4x 22 TB SATA | 8x 16 TB up to 8x 22 TB SATA | 14x 22 TB SATA', 'NVMe SSD 2x 1 TB | 2x 1.92 TB | 2x 7.68 TB', 'RAM 128 GB DDR4 ECC | 256 GB DDR4 ECC reg.', 'Connection 1 GBit/s-Port', 'Traffic Unlimited'
+  - [1] 2026-10-22: card prices quoted: SX65 'EUR 159.00 per month' and 'EUR 84.00 per month' with 'EUR 39.00 one-time setup fee'; SX135 'EUR 309.00' and 'EUR 289.00' with 'EUR 144.00'; SX295 'EUR 599.00' and 'EUR 879.00' with 'EUR 439.00'
+  - [1] 2026-10-22: the hero text states 'SX server with up to 15.36 TB NVMe SSD and 308 TB SATA HDD', which is the 14 x 22 TB configuration of SX295
+- sources:
+  - [1] https://www.hetzner.com/dedicated-rootserver/matrix-sx/
+
+## hetzner server auction as a per-tb play
+
+- `storage/hetzner-server-auction-as-a-per-tb-play` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.hetzner.com/sb/
+- free tier: none reachable: The auction page renders prices client-side and returned only marketing copy; more importantly the auction inventory is bursty and the SX-line fixed price (SX65-2 €82.30) already beats it… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: The auction page renders prices client-side and returned only marketing copy; more importantly the auction inventory is bursty and the SX-line fixed price (SX65-2 €82.30) already beats it…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: The auction page renders prices client-side and returned only marketing copy; more importantly the auction inventory is bursty and the SX-line fixed price (SX65-2 €82.30) already beats it…
+- sources:
+  - [1] https://www.hetzner.com/sb/
+
+## no s3/s3-compatible endpoint at any of the three best-value providers
+
+- `storage/no-s3-s3-compatible-endpoint-at-any-of-the-three-best-va` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-04T01:24:31.183Z (live) | stale on 2026-11-19
+- url https://docs.hetzner.com/storage/storage-box/access/access-overview/
+- free tier: Ulož.to Disk free plans: FREE 1 GB and FREE25 25 GB, each with 150 GB for data transfer/month; PREMIUM 3 TB at 6,50 USD per month; Hetzner Storage Box and PulsedMedia M10G Storage Box are paid plans | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: PulsedMedia M10G Storage Box: Internet egress Unlimited@100Mbps (~30TB/Month / ~1TB/Day); Ulož.to free plans: 150 GB for data transfer/month | metered: no
+- identity: email
+- interface: unknown
+- limits:
+  - volume-quota: 1 GB (FREE) and 25 GB (FREE25) on the Ulož.to free plans, 150 GB for data transfer/month [2]
+- interface detail: Hetzner Storage Box: FTP/FTPS, SFTP/SCP, rsync/BorgBackup, SMB/CIFS, HTTPS/WebDAV; PulsedMedia M10G Storage Box: SSH, SCP, SFTP, FTP(S), HTTPS, SSHFS, Rsync, Rclone, Restic, Borg backup
+- tooling: S3 is not among the access methods listed by Hetzner Storage Box or PulsedMedia M10G; the PulsedMedia M10G Storage Box lists Rclone, and Hetzner lists SFTP, rsync, BorgBackup and WebDAV, so the lack of an S3 endpoint is a tooling note, not a verdict reason
+- composes with: not recorded
+- reliability: Hetzner Storage Box access methods: FTP/FTPS, SFTP/SCP, rsync/BorgBackup, SMB/CIFS and HTTPS/WebDAV; S3 is not among them
+- notes: Probed for and did not find one: Hetzner publishes no S3 gateway for Storage Box (SFTP/rsync/WebDAV/SMB only), PulsedMedia exposes no object API (SFTP/rsync/WebDAV/HTTP), and Uloz.to is…
+- evidence note: the Uloz.to free-plan storage and transfer figures at https://uloz.to/koupit-disk, the Hetzner Storage Box access table at https://docs.hetzner.com/storage/storage-box/access/access-overview/ and the PulsedMedia M10G listing at https://pulsedmedia.com/storage-boxes.php were read on 2026-11-03. An absence of an S3 endpoint cannot be proved from those pages: unverified.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Probed for and did not find one: Hetzner publishes no S3 gateway for Storage Box (SFTP/rsync/WebDAV/SMB only), PulsedMedia exposes no object API (SFTP/rsync/WebDAV/HTTP), and Uloz.to is…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Probed for and did not find one: Hetzner publishes no S3 gateway for Storage Box (SFTP/rsync/WebDAV/SMB only), PulsedMedia exposes no object API (SFTP/rsync/WebDAV/HTTP), and Uloz.to is…
+  - [3] 2026-10-21: cited as the basis of the rejection: Probed for and did not find one: Hetzner publishes no S3 gateway for Storage Box (SFTP/rsync/WebDAV/SMB only), PulsedMedia exposes no object API (SFTP/rsync/WebDAV/HTTP), and Uloz.to is REST
+  - [2] 2026-10-21: cited as the basis of the rejection: Probed for and did not find one: Hetzner publishes no S3 gateway for Storage Box (SFTP/rsync/WebDAV/SMB only), PulsedMedia exposes no object API (SFTP/rsync/WebDAV/HTTP), and Uloz.to is REST
+  - [2] 2026-11-03: the Ulož.to FREE25 plan holds 25 GB | capture: sha256:c8727818bca94d4c5ec2267ee7e6b3f6ed8fd1f6ee9a7b7bb216fac64dbbfd5d | quote: 25 GB
+  - [2] 2026-11-03: the free Ulož.to plans carry 150 GB for data transfer per month | capture: sha256:c8727818bca94d4c5ec2267ee7e6b3f6ed8fd1f6ee9a7b7bb216fac64dbbfd5d | quote: - 150 GB for data transfer/month
+  - [3] 2026-11-03: the PulsedMedia M10G Storage Box states its internet egress | capture: sha256:b02b3f6960e56388e5200bb7c4e92a12f013b9686a0d5c6d44422cd6e3f15902 | quote: - Internet egress: Unlimited@100Mbps (~30TB/Month / ~1TB/Day)
+  - [1] 2026-11-03: the Hetzner Storage Box access table lists HTTPS and WebDAV | capture: sha256:f993f7fada6d63eec202c9039f5f556aa2c90f3e64d0ea2d30a01a3da13e8d35 | quote: | HTTPS / WebDAV [2] | Main Account | https://uXXXXX.your-storagebox.de | uXXXXX | 443 |
+  - [3] 2026-11-03: the PulsedMedia M10G Storage Box lists Rclone among its access methods | capture: sha256:b02b3f6960e56388e5200bb7c4e92a12f013b9686a0d5c6d44422cd6e3f15902 | quote: - Rclone
+  - [1] 2026-11-03: the Hetzner Storage Box access table lists rsync, BorgBackup, SFTP and SCP | capture: sha256:f993f7fada6d63eec202c9039f5f556aa2c90f3e64d0ea2d30a01a3da13e8d35 | quote: | rsync / BorgBackup / SFTP / SCP [2] | Main Account | uXXXXX.your-storagebox.de | uXXXXX | 23 |
+  - [2] 2026-11-04: the free Uloz.to plans carry 150 GB of data transfer per month | capture: sha256:c8727818bca94d4c5ec2267ee7e6b3f6ed8fd1f6ee9a7b7bb216fac64dbbfd5d | quote: - 150 GB for data transfer/month
+- sources:
+  - [1] https://docs.hetzner.com/storage/storage-box/access/access-overview/
+  - [2] https://uloz.to/koupit-disk
+  - [3] https://pulsedmedia.com/storage-boxes.php
+
+## Self-hosted bare-metal sandbox fleet (hardware floor)
+
+- `compute/self-host-baremetal` | self-hosted, last resort | verdict paid-only | evidence documented | binding request-rate | category self-hosted
+- identity a placeholder: card and phone unknown | verified 2026-10-22T04:47:58.884Z (live) | stale on 2026-11-22
+- url https://www.hetzner.com/dedicated-rootserver/ax42/
+- free tier: no free server: the AX42 is rented, with free phone and email support and additional IPv4 blocks from EUR 1.70 a month for a /29 plus a setup fee | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - request-rate (binding): the server is rented by the month or hour; the page states no free instance [1]
+  - per-ip-shaping: 50.12 TBit/s of total bandwidth at the data centre; additional IPv4 blocks from a /29 at EUR 1.70 a month plus EUR 4.90 setup [1]
+  - write-gated: each additional IP block carries a one-time setup fee, so address space is not free either [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the AX42 page was read on 2026-10-22 and prices the IP blocks and support rather than granting a server. The two free items are support channels, which is what the record's free-tier claim was picking up
+- self hosted: yes
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - shape.note: the AX42 dedicated configuration; the page is about IP blocks and support, not the machine's shape
+  - session_cap.restart_required: no
+  - session_cap.note: a dedicated server bills by the month; the page states no reap
+  - free_tier_kind: none
+  - ps.price: the server's own disks
+  - ps.durability: dedicated disks
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: the rental term
+  - net.out: yes
+  - net.in: yes
+  - net.ports: additional IPv4 blocks and a /64 IPv6
+  - net.static_ip: yes
+  - net.ipv6: yes
+  - net.allowance: 50.12 TBit/s total data-centre bandwidth
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Free phone support', 'Free email support' and '50.12 TBit/s total bandwidth' with additional IP blocks priced at 'EUR 1.70 per month / EUR 0.0027 per hour + EUR 4.90 setup' for a /29, up to 'EUR 435.20 per month' for a /24, quoted
+- sources:
+  - [1] https://www.hetzner.com/dedicated-rootserver/ax42/

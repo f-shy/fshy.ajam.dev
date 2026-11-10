@@ -1,0 +1,107 @@
+# Tomorrow.io
+
+> tomorrow.io | Data APIs; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/tomorrow/ | JSON https://fshy.ajam.dev/api/v1/entity/tomorrow.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Tomorrow.io
+
+- `data-apis/tomorrow-io` | qualifies-with-caveat | evidence documented | binding request-rate | category weather API | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T00:28:32.383Z (live) | stale on 2026-12-04
+- url https://www.tomorrow.io/weather-api/
+- free tier: Free plan: 500 requests a day, 25 an hour and 3 a second, with a 5-day forecast, 24 hours of historical weather, core data layers, 1 automatically monitored location and 1 weather-based alert. | unit: requests | metered on: request-count | read on: 2026-10-31 | source: [1] | note: Each API key has its own rate limits and token balance. No bulk path on the Free plan: history beyond 24 hours is the Historical API, which runs on a token balance and returns at most 31 days a call.
+- per-object cap: not applicable
+- retention: not applicable: the unit is a request | source: [2]
+- egress: not applicable | metered: no | source: [2]
+- identity: email | detail: The Create Account page offers SSO, Google or GitHub sign-up, or its own form behind a reCAPTCHA: an email address and a password, each marked required, and a terms checkbox. No phone number is asked by default: a link on the form reveals a phone field labelled optional, and the page's script has a phone-verification step with a skip button. A Tomorrow.io landing page says no credit card is required. Steps after the form, such as email confirmation and onboarding, are unverified: behind a sign-up. A keyed call needs the account's key; GET /v4/timelines in the lat,lon query form and map tiles answer with no account.
+- interface: rest
+- limits:
+  - request-rate (binding): 500 requests a day [1]
+  - request-rate (binding): 25 requests an hour [1]
+  - request-rate (binding): 3 requests a second [1]
+- binding note: 25 an hour over 24 hours is 600, above the 500 a day, so the daily cap binds a steady poller and the hourly cap binds a burst.
+- interface detail: REST over HTTPS with the key in the apikey query parameter or header; JSON answers. Tomorrow.io lists the Timeline and Maps APIs as keyless (beta), rate-limited by IP address and meant for testing and evaluation; every other endpoint needs a key. A hosted MCP server at /v4/weather-intelligence/mcp documents no authentication.
+- endpoint: https://api.tomorrow.io/v4/weather/realtime
+- tooling: any HTTP client; the key goes in the apikey query parameter or header. With no key, GET /v4/timelines in the lat,lon query form answers HTTP 200 for core fields, and the answers that carry rate-limit headers list 2 requests a second, 50 an hour and 200 a day; a burst of calls draws a Too Many Calls error with a Retry-After header; a map tile answers HTTP 200; a pollen field (pollenTree) is rejected as an unknown field, and the realtime endpoint needs the key.
+- composes with: A small keyed forecast source: 5-day forecasts and realtime values per location at 500 requests a day, with no history beyond 24 hours on the Free plan.
+- reliability: Over the limits the API answers HTTP 429; a realtime call with no key answered HTTP 401 with code 401001, where the docs name 403, although the LLM docs page says the API can be used with no key.
+- notes: Bulk path: none on Free; the Historical API is token-based and returns 31 days a call at most.
+- evidence note: Free-plan limits are read from a Tomorrow.io FAQ page (the pricing page answered 404); plan contents, storage terms and the sign-up routes are first-party; a call with no key answered HTTP 401, so the free key was not exercised.
+- evidence:
+  - [1] 2026-10-31: the list that follows is the Free plan's rate limits | capture: sha256:0ae21866172082083c37d7c9c508a796311c830992ef4b5f8cf13170507fa9c3 | quote: Here are the rate limits for Tomorrow.io’s free plan:
+  - [1] 2026-10-31: the Free plan allows 500 requests a day | capture: sha256:0ae21866172082083c37d7c9c508a796311c830992ef4b5f8cf13170507fa9c3 | quote: 500 requests per day,
+  - [1] 2026-10-31: the Free plan allows 25 requests an hour | capture: sha256:0ae21866172082083c37d7c9c508a796311c830992ef4b5f8cf13170507fa9c3 | quote: 25 requests per hour,
+  - [1] 2026-10-31: the Free plan allows 3 requests a second | capture: sha256:0ae21866172082083c37d7c9c508a796311c830992ef4b5f8cf13170507fa9c3 | quote: 3 requests per second.
+  - [3] 2026-10-31: over the limits the API answers 429 | capture: sha256:e72548046e9b34b666c0c1c7d9f27d0bb8079c62ec332cc5fccd516ab7e791d5 | quote: When surpassing your rate-limiting you will get a response with a 429 error code.
+  - [3] 2026-10-31: each API key has its own limits and tokens | capture: sha256:e72548046e9b34b666c0c1c7d9f27d0bb8079c62ec332cc5fccd516ab7e791d5 | quote: In case you have multiple API keys, each one is assigned with its own rate limits and tokens.
+  - [2] 2026-10-31: the Free plan forecasts 5 days | capture: sha256:70d34e25d8de3736c64fcac827aef0fd94f9ce7caf3564d65bc75a8f5de330a6 | quote: - 5-Day Forecast
+  - [2] 2026-10-31: the Free plan reaches 24 hours of history | capture: sha256:70d34e25d8de3736c64fcac827aef0fd94f9ce7caf3564d65bc75a8f5de330a6 | quote: - 24 hours Historical Weather Data
+  - [2] 2026-10-31: the Free plan monitors 1 location | capture: sha256:70d34e25d8de3736c64fcac827aef0fd94f9ce7caf3564d65bc75a8f5de330a6 | quote: - 1 Automatically monitored Location
+  - [2] 2026-10-31: the Free plan has 1 alert | capture: sha256:70d34e25d8de3736c64fcac827aef0fd94f9ce7caf3564d65bc75a8f5de330a6 | quote: - 1 Weather-Based Alert
+  - [4] 2026-10-31: the Historical API runs on a token balance | capture: sha256:fb392f4b76a8ee676752540f74b8fb3110e56de94006a68ecaa648e927995220 | quote: Each request deducts tokens from the 'historical' tokens balance.
+  - [4] 2026-10-31: a Historical API call returns at most 31 days | capture: sha256:fb392f4b76a8ee676752540f74b8fb3110e56de94006a68ecaa648e927995220 | quote: Timerange is limited to up to 31 days per API call.
+  - [5] 2026-10-31: storing the unaltered data feed needs an order | capture: sha256:9d85c56447b4550ffeb919cb6c74ffefdb0da602c71afae9522e4340e01ed933
+  - [5] 2026-10-31:  | capture: sha256:9d85c56447b4550ffeb919cb6c74ffefdb0da602c71afae9522e4340e01ed933 | quote: shall prominently display the message “Powered by Tomorrow.io” in a legible manner near such data or any information derived from it.
+  - [6] 2026-10-31: sign-up is by SSO, Google, GitHub or the page's own form | capture: sha256:82ec6a07c11d789b337ac8712c4eefc288fb782b597d7d47e1525c285c3f97ca | quote: [With SSO](https://app.tomorrow.io/sso-discover?planid=648b3f22ef567da8b7fb4599)With Google[With GitHub](https://api.tomorrow.io/v4/auth/github/sign-up)
+  - [7] 2026-10-31: every call needs a key | capture: sha256:c00c622ea53e8a66e9d52e129906dff2ab7745095d42e66635d4c9a321f3b70f | quote: Be sure to include a valid API key with every request in order to access the API.
+  - [7] 2026-10-31: the key goes in a query parameter or a header | capture: sha256:c00c622ea53e8a66e9d52e129906dff2ab7745095d42e66635d4c9a321f3b70f | quote: you can either add the key value in query parameters or in the request header, like so:
+  - [7] 2026-10-31: the docs name 403 for an unauthenticated call | capture: sha256:c00c622ea53e8a66e9d52e129906dff2ab7745095d42e66635d4c9a321f3b70f | quote: Requests not properly authenticated will return a [403 error code](/reference#errors).
+  - [2] 2026-10-31: the Free plan includes the core data layers | capture: sha256:70d34e25d8de3736c64fcac827aef0fd94f9ce7caf3564d65bc75a8f5de330a6 | quote: - Core Weather Data Layers
+  - [8] 2026-10-31: a second Tomorrow.io FAQ page gives the same free-plan limits | capture: sha256:d7fc8f97480aed7d23ba623a10932c281855fd4b9109b38563dbd21b5847da1c | quote: Specifically, the free plan includes: 500 requests per day, 25 requests per hour, 3 requests per second.
+  - [9] 2026-10-31: a Tomorrow.io landing page says sign-up needs no credit card | capture: sha256:d07b1fd324904c65c86d0ad21ae6ca4a6560ca83d3822de2f79bda36fb861592 | quote: Sign up for our free trial and start building in 2 clicks * no credit card required
+  - [10] 2026-10-31: the key comes from an account opened with basic login information | capture: sha256:4841eb3570363615e5e694dccd3e83198357b4516674482eb22f9d8f32f56c72 | quote: First, simply register on [Tomorrow.io’s sign-up page](https://app.tomorrow.io/signup?planid=60d46beae90c3b3549a59ff3) and fill out your basic login information.
+  - [6] 2026-10-31: the rendered sign-up form is behind a reCAPTCHA | capture: sha256:f677e93b1de7948fc0f96b6dc4a6eea0f1bd16d70e1c213f3cee5e2c8a27b065 | quote: Recaptcha requires verification.
+  - [11] 2026-10-31: the LLM docs page states use with no key; the realtime probe with no key answered 401, so no keyless path was confirmed | capture: sha256:896901ec92f6a334ac65fe10af5e7a15221a40757528336a9bc00c9ac0757242 | quote: You can start using Tomorrow.io’s LLM-optimized Weather API right away - no API key required.
+  - probe:https://api.tomorrow.io/v4/weather/realtime 2026-10-31: a call with no key answers HTTP 401 | capture: sha256:0ed7a05176da43ff182b26bd4f56d3d48d823163ce2b80996cf0d1283b197cd7 | quote: {"code":401001,"type":"Invalid Auth","message":"The method requires authentication but it was not presented or is invalid."}
+  - [12] 2026-10-31: listed on free-for.dev as a free weather API plan | capture: sha256:a3bac496b7bbe9c3e469cc7ab5cda64a86be6a5eed50a77839a6822b0e6cab30 | quote: - [Tomorrow.io Weather API](https://www.tomorrow.io/weather-api/) - Offers free plan of weather API.
+  - [13] 2026-10-31: listed under Weather in the public-apis list with an apiKey | capture: sha256:7c0d65a75227ba9bd3f8576a39262f7af32373d3eca4190cd91e66329ca1d059 | quote: | [Tomorrow](https://docs.tomorrow.io) | Weather API Powered by Proprietary Technology | `apiKey` | Yes | Unknown |
+  - [14] 2026-11-02: the phone field that the form's phone link reveals is labelled optional | capture: sha256:85af10f0100e6b93d764bbd9243856578f88e7d7ecf9486a5ed8c8fe7c641634 | quote: "main.auth.signUpPage.signUpForm.phoneNumberOptional",{fallback:"Phone Number (optional)"}
+  - probe:https://api.tomorrow.io/v4/timelines 2026-11-02: a Timelines call with no key answered with limit headers of 2 a second, 50 an hour and 200 a day | capture: sha256:bc969445e09637458a371e4380d6152c9f783e382779c6b6638099d509fb37b1 | quote: "x-ratelimit-limit-second": "2", "x-ratelimit-limit-hour": "50", "x-ratelimit-limit-day": "200",
+  - [15] 2026-11-02: the keyless mode is limited to the Timeline and Maps endpoints | capture: sha256:eceae321f77a57e3ea3852f760d17708609238fb61dd3f61437343a3cc205cf9 | quote: Supported endpoints are limited to Timeline and Maps.
+  - [16] 2026-11-02: the Free API plan allows 25 requests an hour | capture: sha256:90d76520136bb486e65fe0090cd7fb5393180046fc0b4418b8dff19c8a22b4f8 | quote: | Hourly Limit | 25 requests | Resets at the top of each hour |
+  - [16] 2026-11-02: the Free API plan allows 3 requests a second | capture: sha256:90d76520136bb486e65fe0090cd7fb5393180046fc0b4418b8dff19c8a22b4f8 | quote: | Per-Second Limit | 3 requests/second | Managed automatically |
+  - [2] 2026-11-02: the Free plan lists a 5-day forecast, 24 hours of history, core layers, 1 monitored location and 1 alert | capture: sha256:70d34e25d8de3736c64fcac827aef0fd94f9ce7caf3564d65bc75a8f5de330a6 | quote: - 5-Day Forecast - Weather Timelines and Trendlines - Weather API Access - Core Weather Data Layers - Industry-Based Insights Templates - 24 hours Historical Weather Data - 1 Automatically monitored Location - 1 Weather-Based Alert
+  - [6] 2026-11-02: the rendered Create Account form has an email field marked required | capture: sha256:b01bef3e434952db7509343e0f3bc07a57ece4ef36da9452c9b389c0570e59ae | quote: type="text" name="email" placeholder="Email Address *" maxlength="200"
+  - [6] 2026-11-02: the rendered form has a password field marked required | capture: sha256:b01bef3e434952db7509343e0f3bc07a57ece4ef36da9452c9b389c0570e59ae | quote: type="password" name="password" placeholder="Password *" maxlength="200"
+  - [6] 2026-11-02: the form has no phone input; a link reveals a phone field | capture: sha256:b01bef3e434952db7509343e0f3bc07a57ece4ef36da9452c9b389c0570e59ae | quote: aria-label="Show the phone field" id="sms-sign-up-link"
+  - [6] 2026-11-02: the sign-up page loads the reCAPTCHA script | capture: sha256:b01bef3e434952db7509343e0f3bc07a57ece4ef36da9452c9b389c0570e59ae | quote: src="https://www.google.com/recaptcha/api.js?render=6Lf0p-EZAAAAAGAQLjVUYoSiBglIMULvAKyJSaiI"
+  - [14] 2026-11-02: the script's phone-verification step has a Skip for now button | capture: sha256:85af10f0100e6b93d764bbd9243856578f88e7d7ecf9486a5ed8c8fe7c641634 | quote: main.auth.verifyPhonePage.skipForNow",{fallback:"Skip for now"}
+  - [9] 2026-11-02: a Tomorrow.io landing page still says sign-up needs no credit card | capture: sha256:712533f216441e11e2828390a336f9a98e9b7aff981e15ee942ed2ebcff7ce51 | quote: Sign up for our free trial and start building in 2 clicks * no credit card required
+  - [15] 2026-11-02: keyless requests are rate-limited by IP address | capture: sha256:eceae321f77a57e3ea3852f760d17708609238fb61dd3f61437343a3cc205cf9 | quote: Requests are validated and rate-limited automatically based on IP address.
+  - [15] 2026-11-02: keyless mode is for testing and evaluation only | capture: sha256:eceae321f77a57e3ea3852f760d17708609238fb61dd3f61437343a3cc205cf9 | quote: Keyless mode is designed for testing and evaluation only.
+  - [15] 2026-11-02: every endpoint other than Timeline and Maps needs an API key | capture: sha256:eceae321f77a57e3ea3852f760d17708609238fb61dd3f61437343a3cc205cf9 | quote: All other endpoints require standard authentication via an API key.
+  - [17] 2026-11-02: the MCP App server documents no authentication and no account | capture: sha256:04ab79d2e64c5f343bb00f041912425062d88f702158d3b66ee3df9d6ff17582 | quote: Authentication: None. You don't need a Tomorrow\.io account or an API key.
+  - [11] 2026-11-02: the LLM docs home page still says no API key is required | capture: sha256:896901ec92f6a334ac65fe10af5e7a15221a40757528336a9bc00c9ac0757242 | quote: You can start using Tomorrow.io’s LLM-optimized Weather API right away - no API key required.
+  - [18] 2026-11-02: the LLM docs page for Timelines documents POST with the API key as authentication | capture: sha256:2c15350a6ea7b3283b9c54e865ec77bf664dce3302af270714467be942855802 | quote: Method: POST |** Authentication:** API Key (query parameter)
+  - [7] 2026-11-02: the reference docs say every request needs a key | capture: sha256:c00c622ea53e8a66e9d52e129906dff2ab7745095d42e66635d4c9a321f3b70f | quote: Be sure to include a valid API key with every request in order to access the API.
+  - [7] 2026-11-02: the key goes in a query parameter or a header | capture: sha256:c00c622ea53e8a66e9d52e129906dff2ab7745095d42e66635d4c9a321f3b70f | quote: you can either add the key value in query parameters or in the request header, like so:
+  - probe:https://api.tomorrow.io/v4/timelines 2026-11-02: a Timelines call in the lat,lon query form with no key answered HTTP 200 | capture: sha256:bc969445e09637458a371e4380d6152c9f783e382779c6b6638099d509fb37b1 | quote: "status": 200
+  - probe:https://api.tomorrow.io/v4/timelines 2026-11-02: the keyless Timelines answer carries hourly temperature intervals | capture: sha256:a10af43288c851d33f82acd68337bdc1e92f2d60e0bd00f7c2257235d9b4bef3 | quote: {"data":{"timelines":[{"timestep":"1h","endTime":"2026-11-07T15:00:00Z","startTime":"2026-11-02T15:00:00Z","intervals":[{"startTime":"2026-11-02T15:00:00Z","values":{"temperature":16.89}}
+  - probe:https://api.tomorrow.io/v4/timelines 2026-11-02: a second keyless Timelines call listed the same hourly and daily limits | capture: sha256:ca8ecf61aad7b98b1dfb90df473621a7cd4005a77a26614036b5266fa3fe6d9b | quote: "x-ratelimit-limit-hour": "50", "x-ratelimit-limit-day": "200",
+  - probe:https://api.tomorrow.io/v4/timelines 2026-11-02: a keyless Timelines call for three core fields answered with their values | capture: sha256:8b92c533bde93e865721e4b698bafdcd7ba4c5f11a6f7d09a4d41c37ef0b8bfd | quote: "values":{"humidity":87,"precipitationIntensity":0,"windSpeed":1.3}
+  - probe:https://api.tomorrow.io/v4/timelines 2026-11-02: a keyless Timelines call for a pollen field answered a 400 body that names the field unknown | capture: sha256:025d356a6aae0222871ca9e8094f2bc8bd803d5854443893d8e86db2d718e31b | quote: 'fields' - unknown field pollenTree
+  - probe:https://api.tomorrow.io/v4/timelines 2026-11-02: a burst of keyless Timelines calls drew a Too Many Calls error body | capture: sha256:14669f206ebe449d38a79a5ed56397371886ccdcc8ec982b649d195f7e848672 | quote: {"code":429001,"type":"Too Many Calls","message":"The request limit for this resource has been reached for the current rate limit window. Wait and retry the operation, or examine your API request volume."}
+  - probe:https://api.tomorrow.io/v4/timelines 2026-11-02: the keyless Too Many Calls answer carries a Retry-After header | capture: sha256:6d3ac087b3d9f2a5e26dfa33b066101b471b06dc92b04faaa0da925769ff78aa | quote: "retry-after": "1"
+  - probe:https://api.tomorrow.io/v4/weather/realtime 2026-11-02: a realtime call with no key answers HTTP 401 | capture: sha256:0ed7a05176da43ff182b26bd4f56d3d48d823163ce2b80996cf0d1283b197cd7 | quote: {"code":401001,"type":"Invalid Auth","message":"The method requires authentication but it was not presented or is invalid."}
+  - probe:https://api.tomorrow.io/v4/map/tile/3/4/2/precipitationIntensity/now.png 2026-11-02: a map tile call with no key answered HTTP 200 with a PNG image | capture: sha256:3baf89dcbd477cd140e666ceef83d91fcd6d728bd766de2173b8b1b6620e97f3 | quote: "status": 200, "bytes": 31962, "sha256": "c7b1b9f57fbfbc4d5d81edcb63749d9ebdbd4a0c8af71c6e4cd5683d4f549cda", "content_type": "image/png",
+  - probe:https://api.tomorrow.io/v4/weather-intelligence/mcp 2026-11-02: the MCP endpoint answered a GET with HTTP 405 and a JSON-RPC error, not an authentication error | capture: sha256:e3a1d3d6919f99e130e8871b2f924c2fd4b2254343a27bbc75528a4debdd2aca | quote: {"jsonrpc":"2.0","error":{"code":-32000,"message":"Method not allowed. Use POST."},"id":null}
+  - [16] 2026-11-02: the Free API plan allows 500 requests a day | capture: sha256:90d76520136bb486e65fe0090cd7fb5393180046fc0b4418b8dff19c8a22b4f8 | quote: | Daily Limit | 500 requests | Resets at 00:00 UTC daily |
+- sources:
+  - [1] https://www.tomorrow.io/a/faq/weather-api/how-can-i-monitor-my-weather-api-usage
+  - [2] https://www.tomorrow.io/weather-api/
+  - [3] https://docs.tomorrow.io/reference/rate-limiting
+  - [4] https://docs.tomorrow.io/reference/historical-overview
+  - [5] https://www.tomorrow.io/legal/terms-of-service
+  - [6] https://app.tomorrow.io/signup
+  - [7] https://docs.tomorrow.io/reference/api-authentication
+  - [8] https://www.tomorrow.io/a/faq/weather-api/what-is-rate-limiting-in-the-context-of-a-weather-api
+  - [9] https://info.tomorrow.io/weather-api-ad-1
+  - [10] https://www.tomorrow.io/a/faq/weather-api/how-can-i-use-a-weather-api-in-my-application
+  - [11] https://llm-docs.tomorrow.io/
+  - [12] https://free-for.dev/
+  - [13] https://raw.githubusercontent.com/public-apis/public-apis/master/README.md
+  - [14] https://app.tomorrow.io/tomorrow.02c48c8c18b1cb425b03.js
+  - [15] https://support.tomorrow.io/hc/en-us/articles/31227543026708-How-to-Use-the-Tomorrow-io-API
+  - [16] https://support.tomorrow.io/hc/en-us/articles/20273728362644-Free-API-Plan-Rate-Limits
+  - [17] https://docs.tomorrow.io/reference/mcp-app
+  - [18] https://llm-docs.tomorrow.io/weather-timelines

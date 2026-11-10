@@ -1,0 +1,182 @@
+# Debrid-Link
+
+> debrid-link.com | Debrid; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/debrid-link/ | JSON https://fshy.ajam.dev/api/v1/entity/debrid-link.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Debrid-Link
+
+- `debrid/debrid-link` | qualifies-with-caveat | evidence documented | binding volume-quota | category multi-hoster / debrid with cloud storage and seedbox | tier free
+- needs card yes, phone no, ID no, institution no | verified 2026-10-30T13:11:55.965Z (live) | stale on 2026-11-30
+- url https://debrid-link.com/api_doc/v2/introduction
+- price EUR 4.00 per 30 days, flat; EUR 3.00 for 15 days; 9, 16 and 25 EUR tiers listed with durations not readable in the rendered page | parsed USD 4.48/mo
+- free tier: A free tier exists but its allowance is not published in the API documentation. The API types accounts explicitly - 'accountType: 0 = Free, 1 = Premium, 2 = Lifetime premium' and 'premiumLeft: Number of seconds remaining for premium status, always 0 for free users' - and the site describes itself as 'Premium link generator and Seedbox, partially free'. The daily quota exists as error codes maxLink ('Daily link limit reached') and maxData ('Daily data limit reached'), with no number attached anywhere in the reference. | unit: none | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1] | note: unit 'none' means no allowance is stated, not that the tier is empty: free accounts get keys and a daily budget whose size the vendor does not write down.
+- per-object cap: not applicable to unrestrict. Torrent size is capped with 'torrentTooBig - The torrent is too big or have too many files', with no number published. | source: [2]
+- retention: Cloud files live under /files/{idParent}/list until deleted; torrents live in the seedbox list. No expiry is published for either. | source: [1]
+- egress: No byte allowance published. Two account-level daily meters are enforced instead: maxData and maxDataHost ('Daily data limit reached' and 'for this host'), plus maxLink and maxLinkHost for link counts. | metered: yes | free allowance: not published | source: [2]
+- identity: email | detail: Email only for a free account, which is issued an API key; premium needs a payment method. The API key page is https://debrid-link.com/webapp/apikey. | country: None
+- interface: rest
+- limits:
+  - request-rate: no number published; exceeding it returns 'floodDetected - Too many requests on this endpoint, please retry later (~1h)' [2]
+  - volume-quota (binding): daily data meter per account and per host (maxData, maxDataHost), plus daily link counts (maxLink, maxLinkHost), values unpublished [2]
+  - request-rate: the OAuth2 refresh endpoint is itself rate-limited: 'If you call this endpoint too many times, Client and/or User will be blocked by the API rate limits' [3]
+  - volume-quota (binding): up to 400 GB per day on the seedbox [4]
+  - per-ip-shaping:  [5]
+  - pull-count: 20 active slots reported by a third-party client; not published by the vendor [6]
+  - volume-quota (binding): per host `daySize.value` bytes per day (sample 85899345920 = 85.9 GB) [1]
+  - request-rate: per host `dayCount.value` links per day (sample 300) [1]
+  - request-rate: floodDetected parks the account for a full hour, not a minute; retrying into the refusal earns the next one [6]
+  - pull-count: 20 active slots; adding beyond that is refused (third-party client gates on this) [6]
+  - request-rate: 8 concurrent API requests [6]
+  - volume-quota (binding): per-host daily traffic and add quotas (maxData, maxDataHost, maxLink, maxLinkHost, maxTransfer) that reset on the service's own schedule [6]
+  - volume-quota (binding): up to 400 GB per day through the seedbox [4]
+  - request-rate: per-host quotas; not published as a single figure [5]
+- limits note: The throttle is one hour, not one minute, and it is per endpoint rather than per account. A retry loop that re-hammers the same endpoint converts a short burst into an hour of downtime, which is the failure mode a naive exponential backoff still walks into.
+- binding note: The daily data meter on the account is what ends a monthly transfer of 1 TiB on a free key; the request rate only bites when a user polls a single endpoint, and its penalty is an hour rather than a minute.
+- interface detail: REST v2 at https://debrid-link.com/api/v2/ (host also answers as debrid-link.fr), authenticated with a private API key from /webapp/apikey or with an OAuth2 access_token; v1 additionally supported a timestamped X-DL-TOKEN/X-DL-SIGN/X-DL-TS signature scheme. OAuth2 device-code and auth-code flows are documented at /api_doc/v2/oauth2-device-code and /oauth2-auth-code. No WebDAV or filesystem interface was found in the method list.
+- endpoint: part of interface detail
+- tooling: rdt-client and Decypharr both support it for *arr; Torrentio supports it for Stremio; there is a community MCP server and zurg nightlies add a backend. No rclone backend of its own.
+- composes with: The one API here whose documentation is itself a machine-readable JSON endpoint (/api/v2/api_doc/infos plus /api_doc/errors), which means a client can generate its own bindings and refresh them without scraping; pair it with Decypharr for *arr.
+- reliability: The documentation site is a JavaScript application: both docs.debrid-link.com and the rendered /api_doc/v2/* pages return an empty shell to a plain reader, and /api_doc/v2/introduction returns 200 with the body replaced by 'Loading ...'. Only the JSON endpoints behind it carry the text.
+- notes: The self-description 'partially free' plus the existence of maxLink/maxData is as far as the evidence goes on the free tier; do not confuse that with a published quota. Trigger condition: if /api/v2/api_doc/infos ever carries a limits block, replace the 'unpublished' fields with numbers. The vendor's own two pages give 41 and 42 hosts; the record keeps 41, which is the number on the page a buyer reads. There is no annual plan: the ladder stops at 300 days for 25 EUR. The free tier is real but undocumented in public, which is itself the finding: a reader cannot know what it buys without creating an account. The premium page says 41 hosts and the live API lists 43, so the marketing count lags the API. No host in the live list carries isFree:true, while the vendor's own documentation sample does - the free-host set appears to have been emptied. A textbook case of a stable price hiding a shrinking product: the euro figure is byte-identical across 37 months while the host count falls 173 -> 164 -> 53 -> 41, a 76% loss. Any table that compares this service by price alone ranks it first and is wrong. Classified as undetermined in the matrix because the vendor checkout could not be read. The reseller route is real and vendor-published, which is enough to say a cardless account can buy it, but not enough to say the vendor takes crypto. Potential failure points: the flood refusal, the 20-slot ceiling, or a per-host daily quota. The flood refusal is the only one with a stated duration and the only one treated as an hour-long park. The vendor's own error table could not be read, which is the main gap in this record. Technically the best-shaped small debrid for automation, and the one whose retention is least documented. Trigger condition: if no retention statement appears by the future review, keep the null and stop asking; a WebDAV listing after a lapse is the only route that answers it.
+- evidence note: The vendor's own machine-readable documentation endpoints were read, including the method list with per-method login flags and the full error table. The free tier's size is the one gap: the vendor publishes the error code but not the number, so no quota figure appears in this record.
+- extras:
+  - auth_flows: two: a private API key from the webapp (single header), or OAuth2 with a device-code flow (/oauth2-device-code), an auth-code flow (/oauth2-auth-code) and a refresh endpoint. Refresh tokens issue one access_token per authorization and the old one is revoked on refresh.
+  - unrestrict_endpoint: POST /downloader/add; metadata and readiness through GET /downloader/list and GET /downloader/limits
+  - torrent_endpoints: GET /seedbox/list, /seedbox/stats, /seedbox/limits, /seedbox/activity; POST /seedbox/add, /seedbox/:idTorrent/zip, /seedbox/:idTorrent/config; DELETE /seedbox/:idTorrents/remove; RSS under /seedbox/rss/*
+  - account_endpoints: GET /account/infos (username, email, emailVerified, accountType, premiumLeft, pts, upgradeAccountUrl)
+  - public_endpoints_no_account: GET /downloader/hosts, GET /downloader/domains, GET /downloader/regex, GET /stream/transcode/:id/infos - the login:false methods in the method list
+  - doc_discovery: the rendered docs are an Angular app
+  - host_count_claimed: 41 (premium page) / 42 (downloader information page)
+  - usenet: no
+  - torrent: yes, with seeding
+  - annual_plan: none; 300 days is the longest term
+  - host_matrix.published_daily_caps: no
+  - host_matrix.source: https://debrid-link.com/api/v2/downloader/hosts
+  - host_matrix.cap_endpoint: https://debrid-link.com/api/v2/downloader/limits/all
+  - host_matrix.cap_fields: daySize; dayCount; nextResetSeconds
+  - host_matrix.hosts_listed: 43
+  - host_count_marketing_vs_api: 41; 43
+  - price_history[0].date: 2023-09-07
+  - price_history[0].price: EUR 4 / 30 days
+  - price_history[0].plan: 30 Days
+  - price_history[0].source_url: https://web.archive.org/web/20230907134514/https://debrid-link.com/premium
+  - price_history[1].date: 2023-09-07
+  - price_history[1].price: EUR 9 / 90 days
+  - price_history[1].plan: 90 Days
+  - price_history[1].source_url: https://web.archive.org/web/20230907134514/https://debrid-link.com/premium
+  - price_history[2].date: 2024-10-02
+  - price_history[2].price: EUR 4 / 30 days
+  - price_history[2].plan: 30 Days
+  - price_history[2].source_url: https://web.archive.org/web/20241002111726/https://debrid-link.com/premium
+  - price_history[2].change_pct: 0.0
+  - price_history[3].date: 2025-10-31
+  - price_history[3].price: EUR 4 / 30 days
+  - price_history[3].plan: 30 Days
+  - price_history[3].source_url: https://web.archive.org/web/20251031083038/https://debrid-link.com/premium
+  - price_history[3].change_pct: 0.0
+  - price_history[4].date: 2026-10-23
+  - price_history[4].price: EUR 4 / 30 days
+  - price_history[4].plan: 30 Days
+  - price_history[4].source_url: https://debrid-link.com/premium
+  - price_history[4].change_pct: 0.0
+  - price_history[5].date: 2026-10-23
+  - price_history[5].price: EUR 25 / 300 days
+  - price_history[5].plan: 300 Days
+  - price_history[5].source_url: https://debrid-link.com/premium
+  - price_history[5].change_pct: 0.0
+  - change_36m: 0.0% on every term, 2023-09-07 to 2026-10-23
+  - host_count_history[0].date: 2023-09-07
+  - host_count_history[0].hosts: 173
+  - host_count_history[1].date: 2024-10-02
+  - host_count_history[1].hosts: 164
+  - host_count_history[2].date: 2025-10-31
+  - host_count_history[2].hosts: 53
+  - host_count_history[3].date: 2026-10-23
+  - host_count_history[3].hosts: 41
+  - host_count_change: -76.3% since 2023-09-07
+  - currency: EUR
+  - merge_conflicts.usenet[0]: no
+  - merge_conflicts.usenet[1].lane: pricing-history
+  - merge_conflicts.usenet[1].value: no
+  - payment_group: undetermined
+  - payment.card: unknown direct
+  - payment.paypal: unknown direct
+  - payment.crypto: via resellers: BTC, AltCoins
+  - payment.crypto_processor: reseller-dependent
+  - payment.local_rails: via resellers: SEPA, N26, UPI, Alipay, QIWI, Pix
+  - payment.voucher: yes
+  - payment.voucher_detail: 14 authorised resellers listed by the vendor, 11 of them listing Bitcoin or AltCoins; voucher redeemed in the 'Voucher confirmation' field
+  - payment.entry_price: EUR 3 / 15 days direct; reseller example account.us USD 4.50 / 15 days
+  - failure_angle: flood self-lockout
+  - strongest_signal: floodDetected, one hour
+  - account_states: badToken / badSign (credential); floodDetected (hour park); maxTorrent, maxData, maxLink and Host variants (quota); serverNotAllowed, maintenanceHost, maxTransfer (temporarily unavailable); badId (torrent gone)
+  - cache_miss: no cache-check endpoint exists; the add response is the only signal, and an uncached add downloads like any other
+  - host_removal: maintenanceHost and serverNotAllowed are per-request signals; no public announcement page was found
+  - simultaneous_use: No IP or device rule on the pages read. The documented concurrency limits are 20 active slots and 8 API requests.
+  - retention_map.file_retention.stated: not published
+  - retention_map.file_retention.source_url: https://debrid-link.com/privacy
+  - retention_map.log_retention.stated: requests, links, tickets, IP
+  - retention_map.log_retention.days: 180
+  - retention_map.log_retention.source_url: https://debrid-link.com/privacy
+  - retention_map.lapse_grace.stated: not published
+  - retention_map.lapse_grace.source_url: https://debrid-link.com/tos
+  - account_deletion.stated: not published
+  - account_deletion.source_url: https://debrid-link.com/privacy
+  - reactivation: not published
+  - storage_model: Downloader and Seedbox cloud folders over WebDAV
+- evidence:
+  - [1] 2026-10-23: the complete method list with login flags - /account/infos, /seedbox/*, /downloader/add, /files/:idParent/list, /stream/transcode/*, /voucher/*; 'accountType: 0 = Free, 1 = Premium, 2 = Lifetime premium'; 'premiumLeft ... always 0 for free users'
+  - [2] 2026-10-23: 'floodDetected - Too many requests on this endpoint, please retry later (~1h)', 'maxData - Daily data limit reached', 'maxLink - Daily link limit reached', 'torrentTooBig'
+  - [3] 2026-10-23: the OAuth2 refresh endpoint exists, and 'If you call this endpoint too many times, Client and/or User will be blocked by the API rate limits'
+  - probe:https://debrid-link.com/api/v2/downloader/hosts 2026-10-23: the host registry answers with no account: 200 and per-host name, type, status, isFree, domains and regexs
+  - [7] 2026-10-23: the rendered documentation page returns 200 with a body of 'Loading ...' and 132 words, which is the wall the next reader will hit; the JSON endpoints above are the only readable route
+  - [8] 2026-10-23: 15 days 3 EUR, 30 days 4 EUR, 90 days 9 EUR, 180 days 16 EUR, 300 days 25 EUR, 'All hosts available ( 41 )', seedbox downloading/seeding listed as included
+  - [4] 2026-10-23: 'Up to 400GB per day', magnet and .torrent input, 'Debrid-Link seed your private files to boost your ratio'
+  - [9] 2026-10-23: 'With a Debrid-Link account you can download from 42 hosts' and 'Start from 3€, free try' - the host count disagrees with the 41 on the premium page
+  - [5] 2026-10-23: 
+  - [7] 2026-10-23: API v2 with accountType 0 = Free, and limit endpoints for downloader and seedbox
+  - [10] 2026-10-23: third party: free users get 2 hosts, 4 GB per day, 2 links per day
+  - [11] 2026-10-23: third party: 'Free tier ~5GB/day' - disagrees with the 4 GB figure above
+  - probe:https://debrid-link.com/api/v2/downloader/hosts 2026-10-23: 43 hosts with name, type, status, isFree, domains, regexs - the body is valid JSON with success:true (9809 bytes); the HEAD probe returns 404 because the origin does not answer HEAD
+  - probe:https://debrid-link.com/api/v2/downloader/limits/all 2026-10-23: refusal shape: 106 bytes, {"success":false,"error":"badToken","error_description":"The authentication token is invalid or expired."} served with HTTP 404
+  - probe:https://debrid-link.com/api/v2/downloader/limits 2026-10-23: the per-account route returns the identical 106-byte badToken body at HTTP 404
+  - probe:https://debrid-link.com/api/v2/api_doc/infos 2026-10-23: the full endpoint catalogue (29036 bytes) including `/downloader/limits` with daySize/dayCount sample and `/seedbox/limits`
+  - [8] 2026-10-23: '15 Days 3 €', '30 Days 4 €', '90 Days 9 €', 'All hosts available ( 41 )'
+  - [8] 2026-10-23: 15/30/90/180/300 days at 3/4/9/16/25 EUR and 'All hosts available ( 41 )'
+  - [12] 2023-09-07: the identical five prices and 'All hosts available ( 173 )'
+  - [13] 2024-10-02: identical prices, host count down to 164
+  - [14] 2025-10-31: identical prices, host count down to 53
+  - [15] 2026-10-23: the authorised reseller table with per-reseller rails: PremiumKey365 (AltCoins, Bitcoin, PayPal, PaySera, Webmoney), BuyPremiumKey (Card, PayPal, WebMoney), PremiumKeyStore (BitCoin, Card, PayPal, Paysera, Skrill), 24Instant (BitCoin, Credit Card, Payeer, Western Union, iDEAL), UTop (Alipay, AltCoins, Bitcoin, N26, Paysera, Perfect Money, Revolut, SEPA, UPI), Okeys.co (AltCoins, Binance Pay, Bitcoin, Pix Brazil, QIWI, YooMoney), 365Premium, TakePremium, PremiumKeyShop, Dukea (card, EFT/Havale, FAST), AgenPremium (Indonesian banks), InstantKeyStore (PayPal only)
+  - [8] 2026-10-23: the price ladder 3/4/9/16/25 EUR for 15/30/90/180/300 days and the voucher redemption block 'When you have ordered an account with one of our resellers, he send you a code to validate'
+  - [16] 2026-10-23: that the checkout is login-walled: the reader reported 'the origin sent the read to its sign-in page (https://debrid-link.com/login/premium/start/4)'
+  - [17] 2026-10-23: The documentation exists at this URL and at /api_doc/v2/errors, but the page body is 'Loading ...' in a text read: the error table is not in the HTML.
+  - [18] 2026-10-23: Measured: an unauthenticated GET returned HTTP 200 with {"result":"KO","ERR":"unknowR","ts":1792721702} - the API answers, and the refusal is a 200 with a body-level error, not an HTTP status.
+  - [6] 2026-10-23: Third-party client's code map: badToken/badSign bad credential; floodDetected pauses the account for an hour; maxTorrent/maxData/maxLink and Host variants are a spent daily add or traffic quota; serverNotAllowed/maintenanceHost/maxTransfer temporarily unavailable; badId torrent gone. Also '20 active slots', '8 concurrent API requests', 'There is no cache check. Debrid-Link retired that endpoint'.
+  - [5] 2026-10-23: Refund window for an unused account is 14 days, and the service can change without notice.
+  - [5] 2026-10-23: the service may be withdrawn at any time without justification; 14-day refund if unused; no retention clause
+  - [19] 2026-10-23: 'store the data of the User (requests, links generated, tickets, IP ...) until the User delete them and for a period of 6 months'
+  - [4] 2026-10-23: 'Up to 400GB per day' and the magnet/.torrent seedbox flow
+  - [20] 2026-10-23: WebDAV at webdav.debrid.link, a passkey instead of the password, and the Downloader and Seedbox folders a mount exposes
+  - [5] 2026-10-30: the account-use clause of the page (updated 12/05/2022) lists account sharing, sharing generated links, dedicated servers, multiple accounts, remote upload and other professional uses as not permitted | capture: sha256:cfd5c4da1081599f82f624b75a79d49a5431cd6ebff9cd2ba883dc2babd3055a
+- sources:
+  - [1] https://debrid-link.com/api/v2/api_doc/infos
+  - [2] https://debrid-link.com/api/v2/api_doc/errors
+  - [3] https://debrid-link.com/api_doc/v2/oauth2-refresh-token
+  - [4] https://debrid-link.com/infos/seedbox
+  - [5] https://debrid-link.com/tos
+  - [6] https://notes.debridmediamanager.com/providers/debridlink/
+  - [7] https://debrid-link.com/api_doc/v2/introduction
+  - [8] https://debrid-link.com/premium
+  - [9] https://debrid-link.com/infos/downloader
+  - [10] https://www.portalmastips.com/resena-debrid-link-generador-de-links-premium/
+  - [11] https://torentio.com/free-debrid-services-for-torrentio/
+  - [12] https://web.archive.org/web/20230907134514/https://debrid-link.com/premium
+  - [13] https://web.archive.org/web/20241002111726/https://debrid-link.com/premium
+  - [14] https://web.archive.org/web/20251031083038/https://debrid-link.com/premium
+  - [15] https://debrid-link.com/resellers
+  - [16] https://debrid-link.com/premium/start/4
+  - [17] https://debrid-link.com/api_doc
+  - [18] https://debrid-link.com/api
+  - [19] https://debrid-link.com/privacy
+  - [20] https://debrid-link.com/infos/addons/other/rclone-mount

@@ -1,0 +1,76 @@
+# Unpaywall
+
+> unpaywall.org | Data APIs; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/unpaywall/ | JSON https://fshy.ajam.dev/api/v1/entity/unpaywall.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Unpaywall
+
+- `data-apis/unpaywall` | qualifies | evidence documented | binding request-rate | category open-access status API for Crossref DOIs; bulk through the OpenAlex snapshot | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T00:28:18.837Z (live) | stale on 2026-12-04
+- url https://unpaywall.org/products/api
+- free tier: The REST API is free, with up to 100,000 calls per day and an email address as a query parameter; there is no key. Unpaywall no longer makes its own snapshots; the same data is in the OpenAlex public snapshot, free to download from S3 with no AWS account. | unit: requests | metered on: request-count | read on: 2026-10-30 | source: [1] | note: The 100,000 figure is a stated limit on use, not a measured cutoff; no per-second rate is published. DOI lookup is the only API endpoint: title search was retired on 2026-09-18 and answers 410. Unpaywall runs on the OpenAlex database since late 2025.
+- per-object cap: one DOI per API call; the Simple Query Tool takes up to 1,000 DOIs per batch and returns results by email | source: [2] | note: Only Crossref DOIs are covered; another DOI answers 404.
+- retention: the API answers from the live database; Unpaywall snapshots are no longer created; the OpenAlex public snapshot is a point-in-time release, quarterly, on the second Wednesday of January, April, July and October | source: [3] | note: The Unpaywall snapshot page still says the OpenAlex snapshot is updated approximately once per month. The OpenAlex sync page names itself the authoritative reference for releases and says the free public snapshot is quarterly. The combined manifest in the bucket is dated 2026-10-14, and the next release is dated 2027-01-13.
+- egress: Free: API responses carry no byte price; the OpenAlex S3 bucket is free to download with no AWS account, the data-transfer fees covered by the AWS Open Data program | metered: no | free allowance: no byte allowance published | source: [3]
+- identity: anonymous | detail: No account and no key: each call carries an email address as a query parameter, and a call without one answered 422. The example address in the documentation answered 200, so no account stands behind the address. The OpenAlex S3 snapshot needs no AWS account. The Data Feed is paid and priced by quote.
+- interface: rest, s3
+- limits:
+  - request-rate (binding): 100,000 calls per day; no per-second rate published [1]
+  - per-object-cap: one DOI per API call; up to 1,000 DOIs per Simple Query Tool batch [2]
+- limits note: A call without an email parameter answered 422. The search endpoint answers 410 since 2026-09-18.
+- binding note: At 100,000 calls a day, polling the whole DOI space through the API takes many months, so a whole-corpus read goes to the OpenAlex snapshot, which has no request count.
+- interface detail: GET https://api.unpaywall.org/v2/{DOI}?email=ADDRESS returns one JSON DOI object; bulk: the OpenAlex bucket s3://openalex/data/ read with --no-sign-request, JSON Lines about 745 GB and Parquet about 770 GB as of the September 2026 release; the paid Data Feed serves daily and weekly changefiles and a daily snapshot with an API key.
+- endpoint: part of interface detail
+- tooling: Any HTTP client for the API; the AWS CLI (aws s3 sync with --no-sign-request) or any S3 client for the OpenAlex snapshot.
+- composes with: Per-DOI lookups go to the Unpaywall API at up to 100,000 a day; a whole-corpus read goes to the OpenAlex public snapshot on S3, whose open_access and best_oa_location fields carry the same values; search goes to the OpenAlex API.
+- reliability: Title search was retired on 2026-09-18 and answers 410; the DOI lookup API and the Data Feed are stated to stay. Unpaywall-format snapshots are no longer made, so a bulk copy is in the OpenAlex format.
+- notes: Bulk path: the OpenAlex public snapshot (s3://openalex, unsigned), which carries the Unpaywall open-access fields in the OpenAlex format; the Unpaywall-format daily snapshot is part of the paid Data Feed.
+- evidence note: The daily figure is documented, not exhausted. A DOI lookup with an email answered 200, one without answered 422, the search endpoint answered 410, and an anonymous listing of the OpenAlex bucket answered 200.
+- evidence:
+  - [1] 2026-10-30: the REST API is free | capture: sha256:11d85e70211316487d4706d3d43c3cc150e2a0c52a49b15888f10e3f3b9d9c4f | quote: The REST API gives anyone free, programmatic access to the Unpaywall database.
+  - [1] 2026-10-30: each request carries an email address as a URL parameter | capture: sha256:11d85e70211316487d4706d3d43c3cc150e2a0c52a49b15888f10e3f3b9d9c4f | quote: Requests must include your email as a parameter at the end of the URL, like this:
+  - [1] 2026-10-30: the API is limited to 100,000 calls per day | capture: sha256:11d85e70211316487d4706d3d43c3cc150e2a0c52a49b15888f10e3f3b9d9c4f | quote: Please limit use to 100,000 calls per day.
+  - [1] 2026-10-30: the documented bulk path is a full snapshot | capture: sha256:11d85e70211316487d4706d3d43c3cc150e2a0c52a49b15888f10e3f3b9d9c4f | quote: If you need faster access, you'll be better served by downloading the entire [database snapshot](https://unpaywall.org/products/snapshot) for local access.
+  - [1] 2026-10-30: the search endpoint was retired on 18 September 2026 | capture: sha256:11d85e70211316487d4706d3d43c3cc150e2a0c52a49b15888f10e3f3b9d9c4f | quote: Retired 18 September 2026. This endpoint now returns `410 Gone`.
+  - [1] 2026-10-30: v2 is the only supported version | capture: sha256:11d85e70211316487d4706d3d43c3cc150e2a0c52a49b15888f10e3f3b9d9c4f | quote: The current version of the API is Version 2, and this is the only version supported.
+  - probe:https://api.unpaywall.org/v2/10.1038/nature12373?email=unpaywall_01@example.com 2026-10-30: a DOI lookup with an email parameter and no account answered 200 | capture: sha256:27f5621d00e318dfdc41adb4d4c5659a4a98af95c344287bc16c4989c6b545df | quote: "status": 200
+  - probe:https://api.unpaywall.org/v2/10.1038/nature12373 2026-10-30: a DOI lookup with no email parameter is refused | capture: sha256:75bb31e6c19a124e5df7f10ee8215d6b6c3f15f6b33ef563b6b18507221c766a | quote: Email address required in API call, see http://unpaywall.org/products/api
+  - probe:https://api.unpaywall.org/v2/10.1038/nature12373 2026-10-30: the refusal is HTTP 422 | capture: sha256:75bb31e6c19a124e5df7f10ee8215d6b6c3f15f6b33ef563b6b18507221c766a | quote: "HTTP_status_code": 422
+  - probe:https://api.unpaywall.org/v2/search?query=cell%20thermometry&email=unpaywall_01@example.com 2026-10-31: the search endpoint answered 410 with its retirement date | capture: sha256:a29ecd0e53174d244210a4f701f6d87c876ab72da0130f90f4a823a776c3202e | quote: Unpaywall title search was retired on 2026-09-18.
+  - [4] 2026-10-30: Unpaywall no longer creates its own snapshots | capture: sha256:ae9886e51546beb4f9d3fefac4e5a7ad943d5e75e33f9279849237214fd5cb32 | quote: We're no longer creating semi-annual Unpaywall snapshots.
+  - [4] 2026-10-30: the Unpaywall page states a monthly OpenAlex snapshot | capture: sha256:ae9886e51546beb4f9d3fefac4e5a7ad943d5e75e33f9279849237214fd5cb32 | quote: The OpenAlex snapshot is updated approximately once per month.
+  - [5] 2026-10-30: the Data Feed is paid | capture: sha256:d96caafb6be0ecf218371501ed62b222c1747fe6892aa55fc145772d10090085 | quote: The Data Feed is unique among our products in that it costs money.
+  - [5] 2026-10-30: the Data Feed is priced by quote | capture: sha256:d96caafb6be0ecf218371501ed62b222c1747fe6892aa55fc145772d10090085 | quote: If you're interested in the Data Feed, please [drop us a line](mailto:team@ourresearch.org) and let us know the size of your organization and your intended use of the data, and we'll get right back to you with a quote.
+  - [5] 2026-10-30: a daily Unpaywall-format snapshot comes only with the paid Data Feed | capture: sha256:d96caafb6be0ecf218371501ed62b222c1747fe6892aa55fc145772d10090085 | quote: A Data Feed subscription also provides access to a [current snapshot](https://api.unpaywall.org/feed/snapshot?api_key=YOUR_API_KEY), updated daily.
+  - [5] 2026-10-30: polling the whole DOI space through the API takes many months | capture: sha256:d96caafb6be0ecf218371501ed62b222c1747fe6892aa55fc145772d10090085 | quote: Likewise, the [API](https://unpaywall.org/products/api) works poorly for this since it takes many months to scroll through the whole of DOI-space polling for changes.
+  - [2] 2026-10-30: Unpaywall runs on the OpenAlex database since late 2025 | capture: sha256:a2be02980b31e2a4ce37ffb23a61e1c8f431507fd21df7efddb1a780683981a2 | quote: In late 2025 we moved Unpaywall onto the OpenAlex database.
+  - [2] 2026-10-30: the OpenAlex snapshot carries the same open-access values | capture: sha256:a2be02980b31e2a4ce37ffb23a61e1c8f431507fd21df7efddb1a780683981a2 | quote: The `is_oa`, `oa_status`, and PDF link in an Unpaywall record are the same values you’ll find in the OpenAlex work’s [`open_access`](https://help.openalex.org/data/works/open-access/) and `best_oa_location` fields.
+  - [2] 2026-10-30: the DOI lookup API and the Data Feed are stated to stay | capture: sha256:a2be02980b31e2a4ce37ffb23a61e1c8f431507fd21df7efddb1a780683981a2 | quote: The DOI lookup API, the browser extension, and the Data Feed are unchanged and staying.
+  - [2] 2026-10-30: the Simple Query Tool takes up to 1,000 DOIs per batch | capture: sha256:a2be02980b31e2a4ce37ffb23a61e1c8f431507fd21df7efddb1a780683981a2 | quote: | [Simple Query Tool](https://unpaywall.org/products/simple-query-tool) | Paste up to 1,000 DOIs, get results by email — no code needed |
+  - [2] 2026-10-30: only Crossref DOIs are covered | capture: sha256:a2be02980b31e2a4ce37ffb23a61e1c8f431507fd21df7efddb1a780683981a2 | quote: The Unpaywall dataset covers articles issued by one: [Crossref](https://www.crossref.org/).
+  - [2] 2026-10-30: a DOI outside the dataset answers 404 | capture: sha256:a2be02980b31e2a4ce37ffb23a61e1c8f431507fd21df7efddb1a780683981a2 | quote: If a DOI isn’t in Unpaywall, it might be invalid or created by a different agency — in either case the REST API returns 404, the Simple Query Tool gives a blank row, and it’s absent from the dataset.
+  - [3] 2026-10-30: the OpenAlex snapshot bucket is free with no AWS account | capture: sha256:9fb07ebedcdcaea4ccbc54f3d9f07deae5b28207539e9a8d3e4eeaf670715aee | quote: The `openalex` bucket is free to download and needs no AWS account.
+  - [3] 2026-10-30: the snapshot is read with an unsigned S3 sync | capture: sha256:9fb07ebedcdcaea4ccbc54f3d9f07deae5b28207539e9a8d3e4eeaf670715aee | quote: aws s3 sync "s3://openalex/data/jsonl" "openalex-snapshot/data/jsonl" --no-sign-request
+  - [3] 2026-10-30: the JSON Lines snapshot is about 745 GB compressed | capture: sha256:9fb07ebedcdcaea4ccbc54f3d9f07deae5b28207539e9a8d3e4eeaf670715aee | quote: | JSON Lines (`/data/jsonl/`) | \~745 GB (works alone: \~615 GB) |
+  - [3] 2026-10-30: the Parquet snapshot is about 770 GB compressed | capture: sha256:9fb07ebedcdcaea4ccbc54f3d9f07deae5b28207539e9a8d3e4eeaf670715aee | quote: | Parquet (`/data/parquet/`) | \~770 GB |
+  - [3] 2026-10-30: the sizes are those of the September 2026 release | capture: sha256:9fb07ebedcdcaea4ccbc54f3d9f07deae5b28207539e9a8d3e4eeaf670715aee | quote: As of the September 2026 release, each format holds about 626 million records:
+  - [3] 2026-10-30: the free public snapshot is released quarterly | capture: sha256:9fb07ebedcdcaea4ccbc54f3d9f07deae5b28207539e9a8d3e4eeaf670715aee | quote: quarterly for the free public snapshot, on the second Wednesday of January, April, July and October
+  - [3] 2026-10-30: the AWS Open Data program pays the transfer fees | capture: sha256:9fb07ebedcdcaea4ccbc54f3d9f07deae5b28207539e9a8d3e4eeaf670715aee | quote: Many thanks to the [AWS Open Data program](https://aws.amazon.com/opendata/), which covers the data-transfer fees (about $70 per download) so users don’t have to.
+  - probe:https://openalex.s3.amazonaws.com/?list-type=2&prefix=data/jsonl/works/&max-keys=3 2026-10-31: an unsigned listing of the openalex bucket answered 200 with object keys | capture: sha256:93b28722ffaf2f3d6723dd6e15521e7659a22a7ac2fdb98b9d21507e34718240 | quote: <Name>openalex</Name><Prefix>data/jsonl/works/</Prefix>
+  - probe:https://openalex.s3.amazonaws.com/?list-type=2&prefix=data/jsonl/works/&max-keys=3 2026-10-31: the works manifest in the bucket was last modified on 2026-10-14 | capture: sha256:93b28722ffaf2f3d6723dd6e15521e7659a22a7ac2fdb98b9d21507e34718240 | quote: <LastModified>2026-10-14T18:26:07.000Z</LastModified>
+  - [6] 2026-11-02: the OpenAlex sync page names itself the authoritative reference for when releases happen | capture: sha256:c8c29a641fff03bc13c78e92c4f712a9a77a3e83037420d2b097614375bc0bc0 | quote: This page is the authoritative reference for how the [snapshot](https://help.openalex.org/access/snapshot/) changes over time: when releases happen
+  - [6] 2026-11-02: the free public snapshot is released quarterly on the second Wednesday of January, April, July and October | capture: sha256:c8c29a641fff03bc13c78e92c4f712a9a77a3e83037420d2b097614375bc0bc0 | quote: | Free (everyone) | New full releases of the public snapshot (`s3://openalex/data/`), released quarterly on the second Wednesday of January, April, July and October (UTC). Each release replaces the bucket contents in place. |
+  - [6] 2026-11-02: the next public release is dated 2027-01-13 | capture: sha256:c8c29a641fff03bc13c78e92c4f712a9a77a3e83037420d2b097614375bc0bc0 | quote: | 2027 Q1 | Wednesday 2027-01-13 |
+  - [7] 2026-11-02: the release notes header states the quarterly schedule | capture: sha256:a6e5083e10f0992f357ae5eeff338c423dfaed106c024160fe9f6db8df247b93 | quote: Public releases land on the second Wednesday of January, April, July and October (UTC).
+  - probe:https://openalex.s3.amazonaws.com/data/jsonl/manifest.json 2026-11-02: the combined JSON Lines manifest of the public bucket is dated 2026-10-14 | capture: sha256:2b3d611b3ec93912b7b655ee139310936048a689c0f3508052a73af03a6c453f | quote: "date": "2026-10-14"
+  - [4] 2026-11-02: the Unpaywall snapshot page still says the OpenAlex snapshot is updated approximately once per month | capture: sha256:926859db6aa85209e3e00f6d46a966515e0b0be90e8edef726a265e47174d064 | quote: The OpenAlex snapshot is updated approximately once per month.
+  - [4] 2026-11-02: Unpaywall no longer creates its own snapshots | capture: sha256:926859db6aa85209e3e00f6d46a966515e0b0be90e8edef726a265e47174d064 | quote: We're no longer creating semi-annual Unpaywall snapshots.
+- sources:
+  - [1] https://unpaywall.org/products/api
+  - [2] https://help.openalex.org/access/unpaywall/
+  - [3] https://developers.openalex.org/download/snapshot-format
+  - [4] https://unpaywall.org/products/snapshot
+  - [5] https://unpaywall.org/products/data-feed
+  - [6] https://help.openalex.org/access/sync/
+  - [7] https://openalex.s3.amazonaws.com/RELEASE_NOTES.txt

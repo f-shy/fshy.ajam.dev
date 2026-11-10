@@ -1,0 +1,338 @@
+# Kaggle
+
+> kaggle.com | Storage, Compute; 9 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/kaggle/ | JSON https://fshy.ajam.dev/api/v1/entity/kaggle.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Kaggle Datasets (public)
+
+- `storage/kaggle-datasets` | qualifies | evidence documented | binding none | category ml-hub
+- identity a placeholder: card and phone unknown | verified 2026-10-22, checked 2026-10-21 (inherited) | stale on 2026-11-21
+- url https://www.kaggle.com/datasets
+- free tier: 200 GB per dataset (hard, public or private), 50 top-level files per dataset, 200 GB max total PRIVATE datasets. There is NO documented aggregate cap on public datasets. The docs' 'Technical Specifications' section states only '200GB per dataset limit', '200GB max private datasets', 'A max of 50 top-level files'. Public total is therefore effectively unlimited per account, and the 200 GB/dataset ceiling is raised on request (see quota-program candidate). | unit: GB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Free and CDN-backed: the download endpoint 302s to a signed storage.googleapis.com URL (Google Cloud Storage), which is Fastly/Google-fronted. No egress quota documented, no per-GB charge, no auth needed for public datasets. | metered: no
+- identity: institution
+- interface: rest, rclone, cli
+- limits note: 200 GB/dataset; 50 top-level files per dataset (use a directory tree or a ZIP. Kaggle unzips archives server-side and the unzipped size counts); each new version adds a full copy so versioned datasets consume quota per version and old versions cannot be deleted (documented user complaint, unresolved); dynamic rate limiting on the API (HTTP 429). Dataset ingestion of a >100 GB upload via the web UI/API is flaky. Kaggle staff recommend creating from a remote URL or GCS bucket instead.
+- interface detail: rest
+- tooling: Kagglehub (pip install kagglehub, official, github.com/Kaggle/kagglehub). Resolves public datasets with NO credentials; kaggle-api CLI (`kaggle datasets download -d owner/slug`); plain HTTPS + curl/wget against /api/v1/datasets/download/<owner>/<slug>; rclone can front the signed GCS URL with an HTTP remote.
+- composes with: 200 GB x unlimited public datasets x unlimited free accounts. Live proof of the unlimited-public side: one account holds 23 public datasets totalling 1,197.7 GB with a largest single dataset of 163.0 GB (API-verified). I.e. 6x over the 200 GB 'private quota' figure, so the private quota demonstrably does not apply to public datasets. Multiply again by Kaggle Organizations (a dataset can be owned by an org the account belongs to) and by the free quota-request program for >200 GB single datasets.
+- reliability: Stable, corporate-owned (Google), no history of quota clawback; the failure modes are ingestion flakiness on very large uploads and un-deletable old versions, not data loss.
+- notes: the same as the free tier
+- evidence note: re-read on 2026-10-22 (HTTP 200, 29944 bytes, sha256 1d2b0cd026b1e3a6). The page states the number in the record. The claim is documented, not measured.
+- extras:
+  - verified[0].url: https://www.kaggle.com/docs/datasets
+  - verified[0].date: 2026-10-22
+  - verified[0].http_status: 200
+  - verified[0].bytes: 29944
+  - verified[0].sha256: 1d2b0cd026b1e3a6cf001635d0efc4f18bbd4fdd9d6797e2655e713ef215491d
+  - verified[0].pattern_found: yes
+  - verified[0].what_changed: no change: the page still states the claim
+- evidence:
+  - [2] 2026-10-22: the dataset size guidance. Re-read https://www.kaggle.com/docs/datasets: HTTP 200, 29944 bytes, sha256 1d2b0cd026b1e3a6. Quoted: --- title: "Datasets Documentation" words: 3998 upstream_status: 200 content_kind: page extraction: none source: provider contextdev title_source: provider final_url: "https://www.kaggle.com/docs/datasets" fetched_at: "2026-10-22T02:59:53.786Z" --- Kaggle uses cookies from Google to deliver and enhance the quality of its servi
+  - [1] 2026-10-21: '200GB per dataset limit', '200GB max private datasets (if you exceed this, either make your datasets public or delete unused datasets)', 'A max of 50 top-level files'
+  - [3] 2026-10-21: Kaggle staff, 2 years ago: 'Users now have a limit of 200GB for private models and 200GB for private datasets. Kaggle has also doubled the maximum upload size of public models and datasets from 100GB to 200GB.'
+  - [4] 2026-10-21: probe: curl -I -> 302 Location: https://storage.googleapis.com:443/kaggle-data-sets/2756/4568/bundle/archive.zip?X-Goog-... (signed, no auth required)
+  - [5] 2026-10-21: probe: curl -r 0-62914559 -> 206, 62,914,560 bytes in 17.7 s = ~3.5 MB/s; on a 170 GB dataset (a public dataset of that account) same range -> 206, 104,857,600 bytes in 16.5 s = ~6.3 MB/s, anonymous
+  - withheld 2026-10-21: probe: GET /api/v1/datasets/list?user=[account]&pageSize=100 -> 23 public datasets, 1,197.7 GB aggregate, max 163.0 GB single dataset
+- sources:
+  - [1] https://www.kaggle.com/docs/datasets#technical-specifications
+  - [2] https://www.kaggle.com/docs/datasets
+  - [3] https://www.kaggle.com/discussions/product-announcements/512322
+  - [4] https://www.kaggle.com/api/v1/datasets/download/rounakbanik/pokemon
+  - [5] https://www.kaggle.com/api/v1/datasets/download/wanghaohan/imagenetsketch
+
+## Kaggle Notebooks, free Notebooks (CPU, GPU, TPU)
+
+- `compute/kaggle-notebooks` | qualifies | evidence documented | binding volume-quota | category notebook runtime | tier free Notebooks (CPU, GPU, TPU)
+- needs card no, phone yes, ID no, institution no | verified 2026-10-24T01:52:00.000Z (live) | stale on 2026-11-24
+- url https://www.kaggle.com/docs/notebooks
+- free tier: 4 CPU cores and 30 GB RAM, or 1 Tesla P100 with 29 GB RAM, per session; 12 hours of execution for CPU and GPU sessions and 9 hours for TPU; 20 GB of auto-saved disk in /kaggle/working; a weekly GPU quota of 30 hours or more | unit: hours | metered on: wall-clock | read on: 2026-10-24 | source: [1] | note: The 30-hour figure is the GPU quota; the 12-hour figure is the per-session cap. They are different clocks.
+- per-object cap: not applicable: the unit is a session, not an object
+- retention: 20 GB of /kaggle/working is auto-saved and reusable in a later notebook; anything outside /kaggle/working is lost when the session ends | source: [2]
+- egress: not published on the pages read: the Internet toggle governs outbound access and states no allowance and no price | metered: no | source: [2]
+- identity: any-phone | detail: an email account, plus phone verification before the GPU accelerator or the Internet toggle can be switched on; no card. The requirement is not on the two documentation pages read, so it is carried at reported confidence from Kaggle's own product-feedback threads, where the fix for a disabled Internet toggle is 'Verify your phone.'
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): 30 GPU hours a week, resetting weekly, sometimes higher [1]
+  - volume-quota (binding): 12 hours of execution per CPU or GPU session; 9 hours for TPU [2]
+  - write-gated: phone verification gates the GPU accelerator and the Internet toggle [3]
+- limits note: the free accelerator is a single P100; TPU v3-8 is also offered
+- binding note: the 30 GPU-hour weekly quota is what runs out; the 12-hour session cap is large enough that a job normally meets the quota first
+- interface detail: a notebook in the browser; a Jupyter server that Colab can also attach to
+- tooling: Jupyter, the Kaggle API for datasets and notebook versions
+- composes with: 30 GPU hours a week is the largest recurring GPU allowance in this class
+- reliability: interactive sessions are reaped after 20 minutes idle, and free GPU capacity queues at busy times
+- notes: The two Kaggle pages disagree on the interactive idle timeout: the GPU page says 'Interactive sessions remain active until they reach the 60 minute idle timeout limit' while the notebooks page says 20 minutes. Both were read. The notebooks page is the more specific statement, so this record carries 20 minutes and the disagreement is flagged rather than averaged.
+- evidence note: shape, session length, disk and the GPU quota are quoted from two first-party pages read. The phone gate is reported, not documented.
+- extras:
+  - shape.vcpu: 4
+  - shape.ram_gib: 30
+  - shape.disk_gib: 20
+  - shape.gpu_class: Tesla P100
+  - shape.gpu_count: 1
+  - shape.note: CPU shape is 4 cores / 30 GB; the GPU shape drops to 29 GB. A T4 x2 shape is also listed.
+  - billing_model: free
+  - session_cap.wall_clock_min: 720
+  - session_cap.idle_reap_s: 1200
+  - session_cap.restart_required: no
+  - session_cap.note: 12 h per session; 20 min interactive idle timeout; the headless run is the way to exceed the idle window
+  - keep_rate.value: 0.0
+  - keep_rate.basis: a stopped session costs nothing
+  - keep_rate.source: https://www.kaggle.com/docs/efficient-gpu-usage
+  - persistent_storage.durability: notebook versions persist; the runtime does not
+  - persistent_storage.survives_stop: no
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: the session
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: no
+  - network_out.ports: outbound only, behind the Internet toggle
+  - network_out.static_ip: no
+  - network_out.ipv6: no
+  - free_tier_kind: free-forever-with-quota
+  - m10h_usd: 0.0
+  - m24h_usd: 0.0
+  - price_arithmetic: USD 0.00 for the free allowance; no card and no cash price
+  - term: none
+  - unattended: yes
+  - unattended_mechanism: Save & Run All (the commit button) or `kaggle kernels push`: the notebook executes top to bottom in a separate session that does not need the browser tab
+  - units: RAM and disk are quoted in the vendor's own decimal GB, not GiB. The ram_gib and disk_gib keys carry the vendor's number unconverted, so where a vendor writes 30 GB the key holds 30 and the true value is about 27.9 GiB. No conversion was performed.
+- evidence:
+  - [1] 2026-10-22: the GPU quota is 30 hours a week or sometimes higher depending on demand and resources; it resets weekly
+  - [1] 2026-10-22: interactive sessions remain active until the 60-minute idle timeout
+  - [2] 2026-10-22: a single NVIDIA Tesla P100 can be added free; availability is limited and queued
+  - [2] 2026-10-24: quoted: '12 hours execution time for CPU and GPU notebook sessions and 9 hours for TPU notebook sessions'
+  - [2] 2026-10-24: the Technical Specifications bullet list states, in separate bullets: '4 CPU cores', '30 Gigabytes of RAM', '1 Nvidia Tesla P100 GPU', '29 Gigabytes of RAM'
+  - [2] 2026-10-24: quoted: '20 Gigabytes of auto-saved disk space (/kaggle/working)'
+  - [2] 2026-10-24: quoted: 'While editing a Notebook, you are provided with 20 minutes of idle time for your interactive session.'
+  - [2] 2026-10-24: quoted: 'In order to save successfully, the entire Notebook must execute within 12 hours (9 hours for TPU notebooks).' — this is the headless path, and it needs no open tab
+  - [1] 2026-10-24: quoted: 'You can use up to a quota limit per week of GPU. The quota resets weekly and is 30 hours or sometimes higher depending on demand and resources'
+  - [1] 2026-10-24: quoted: 'Free GPU availability is limited: in busy times, you might be placed in a queue.'
+  - [3] 2026-10-24: reported, not first-party documentation — a Kaggle product-feedback reply, captured in notes/raw/kaggle-phone-thread.md: 'Verify your phone. Click on your profile icon (top-right), go to settings and you'll find the option.'
+- sources:
+  - [1] https://www.kaggle.com/docs/efficient-gpu-usage
+  - [2] https://www.kaggle.com/docs/notebooks
+  - [3] https://www.kaggle.com/product-feedback/255038
+
+## Kaggle Benchmarks
+
+- `compute/kaggle-benchmarks` | qualifies-with-caveat | evidence documented | binding write-gated | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T05:43:14.344Z (live) | stale on 2026-12-05
+- url https://www.kaggle.com/page/neurips-2026
+- free tier: Kaggle supplies compute and model access to whoever hosts a benchmark with it, quoted: 'High compute quota & model access: We provide a very high complimentary compute quota and access to leading models for your evaluations, including OpenAI, Google, Anthropic, Grok, Qwen, and DeepSeek.' The open door for conference organisers, quoted: 'As a NeurIPS researcher, we provide additional complimentary compute and support by filling out. Just mention "NeurIPS 2026" in the form for expedited approvals.' The platform is self-serve, quoted: 'Getting started is quick and entirely self-serve. You can get started right away at www.kaggle.com/benchmarks'. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: allowance
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not published: no egress allowance or overage price on https://www.kaggle.com/page/neurips-2026 or https://www.kaggle.com/docs/api, read 2026-11-04 | metered: no | source: [1]
+- identity: email
+- interface: rest, cli
+- limits:
+  - write-gated (binding): the compute is attached to a published benchmark rather than to a person: the quota pays for evaluations that run on Kaggle, so it cannot be spent on a training run, and the larger NeurIPS allocation needs an accepted conference submission. [1]
+- limits note: the compute is attached to a published benchmark rather than to a person: the quota pays for evaluations that run on Kaggle, so it cannot be spent on a training run, and the larger NeurIPS allocation needs an accepted conference submission.
+- binding note: the same as limits note
+- interface detail: Python SDK kaggle-benchmarks, Kaggle Notebooks and a web UI at kaggle.com/benchmarks, plus the Kaggle public API and kaggle CLI; no SSH is published
+- tooling: the provider documents the kaggle CLI, per the Kaggle API page: "kaggle CLI"
+- composes with: This is the one route in evaluated offerings where a solo person can obtain model access to six frontier providers on one quota: the benchmark runs against OpenAI, Google, Anthropic, Grok, Qwen and DeepSeek models from a single Kaggle account, which is otherwise six separate signups with six separate cards. It composes with the free notebook quota in compute/kaggle-notebooks, because the SDK runs inside Kaggle Notebooks.
+- reliability: no reliability event recorded
+- notes: The amount is unverified by design: 'a very high complimentary compute quota' carries no number on any page read, so the record claims the mechanism and not the size. Three explanations for why the quota exists were considered: it subsidises benchmark supply for Kaggle's leaderboards, it is developer marketing for the model providers, and it replaces engineering work the labs would otherwise do. The page states the first two in its own words ('Managed infrastructure', 'Grow exposure to the Kaggle community'). The gate that matters is that the compute is scoped to evaluations, so a reader should not plan a fine-tune on it.
+- extras:
+  - facets.class: benchmark-programme
+  - facets.free_tier_kind: allowance
+- evidence:
+  - [1] 2026-10-22: 'High compute quota & model access: We provide a very high complimentary compute quota and access to leading models for your evaluations'; 'As a NeurIPS researcher, we provide additional complimentary compute and support by filling out. Just mention "NeurIPS 2026" in the form for expedited approvals'; 'Getting started is quick and entirely self-serve'; page 200 through a rendering provider, origin rate-limited with 'Too many requests to GetCurrentUser'
+  - [2] 2026-10-22: 'NeurIPS 2026 will be hosting a Competition Track, with a dedicated workshop for each accepted competition', read through the search index for neurips.cc
+  - [1] 2026-11-04: a Python SDK and Kaggle Notebooks are the access routes; the page names no traffic-out term | capture: sha256:f67d6b8a29fc4cee8f8efc046ca428bc3ba9857e704050ddd20a63094289f468 | quote: Our Python-based open-source SDK (kaggle-benchmarks) provides all the structured primitives needed to define state-of-the-art LLM benchmark tasks locally or within Kaggle Notebooks:
+  - [3] 2026-11-04: Kaggle publishes a CLI and a public API | capture: sha256:56baa514d01c57b3fd9c1bce831165ef7f768a19af031530f24f50281987cf49 | quote: kaggle CLI: This is a command-line interface tool for interacting via commands in a terminal or shell script (Documentation).
+  - [3] 2026-11-04: the Kaggle API page names the kaggle CLI | capture: sha256:56baa514d01c57b3fd9c1bce831165ef7f768a19af031530f24f50281987cf49 | quote: kaggle CLI: This is a command-line interface tool for interacting via commands in a terminal or shell script (Documentation).
+- sources:
+  - [1] https://www.kaggle.com/page/neurips-2026
+  - [2] https://neurips.cc/Conferences/2026/CallForCompetitions
+  - [3] https://www.kaggle.com/docs/api
+
+## Kaggle dataset quota-request program (the >200 GB escape hatch)
+
+- `storage/kaggle-dataset-quota-request-program` | qualifies-with-caveat | evidence reported | binding write-gated | category ml-hub
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.kaggle.com/discussions/product-feedback/346049
+- free tier: Not a fixed number: Kaggle staff grant additional per-dataset storage quota on request via a short Google Form, explicitly to 'host large, important public datasets'. This is the documented path past the 200 GB per-dataset ceiling. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Same free GCS-backed delivery as any other public dataset. | metered: no
+- identity: email
+- interface: rest
+- limits:
+  - write-gated (binding): review, prioritised for datasets of 'general interest to our community and the ML rese [1]
+- limits note: Human review, prioritised for datasets of 'general interest to our community and the ML research community'; not a self-service lever; no published ceiling.
+- interface detail: rest
+- tooling: Same as Kaggle Datasets. The request form is forms.gle/jh4uBjtP7CsfH97C9 (linked from the staff post).
+- composes with: This is what turns 200 GB/dataset into multi-TB single objects. Kaggle's own advice is to shard by meaningful subset, which is exactly the sharding pattern the workload needs anyway. Combine: N shards x 200 GB each (no request needed) OR one request for a multi-TB dataset.
+- reliability: Grants are discretionary and could in principle be withdrawn, but nothing vanishes on its own.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: Kaggle staff: 'we invite you to fill out this short Google Form ... We will prioritize granting additional storage quota for datasets that are likely to be of general interest'
+  - [1] 2026-10-21: FAQ: 'Our default limits today are 200GB per dataset.'
+- sources:
+  - [1] https://www.kaggle.com/discussions/product-feedback/346049
+
+## Kaggle Models (distinct from Kaggle Datasets)
+
+- `storage/kaggle-models` | qualifies-with-caveat | evidence reported | binding per-object-cap | category model-hub
+- needs card no, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.kaggle.com/models
+- free tier: 200 GB for private models, alongside 200 GB for private datasets. From Kaggle's own product announcement 'Doubling of Private Quota and Public File Size Limit': 'Users now have a limit of 200GB for private models and 200GB for private datasets. Kaggle has also doubled the maximum upload size of public models and datasets from 100GB to 200GB.' Public models and public datasets have a 200 GB per-item ceiling and no published aggregate cap. | unit: GB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: File Size Limit': 'Users now have a limit of 200GB | bytes: 200000000000 | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Free. Files come from Kaggle's Google-hosted CDN (storage.googleapis.com) with no egress meter. Downloads require a Kaggle API token. | metered: no
+- identity: email | detail: email
+- interface: rest, git
+- limits:
+  - per-object-cap (binding): File Size Limit': 'Users now have a limit of 200GB [1]
+- limits note: Per-object-cap 200 GB and 50 top-level files per dataset. 'A max of 50 top-level files (if you have more, use a directory structure and upload an archive)'. Uploading via the API is write-gated for most accounts. Practical caveat from the docs: archives are uncompressed server-side so their contents are usable in Notebooks, which means the 200 GB is measured on the expanded tree.
+- interface detail: rest + git
+- tooling: kagglehub and the Kaggle API. GET /api/v1/models/google/bert/get returned 200, 72,158 bytes. Datasets: /api/v1/datasets/list returns 200 JSON with totalBytesNullable per dataset. Note the upload side is narrower than the read side — 'The ability to upload models via the Kaggle API was introduced to a select group of Kaggle accounts starting in version 1.5.18', and kagglehub caps at 50 files per repo and auto-zips beyond that.
+- composes with: Models and datasets are separate quota pools, so the ceiling is 200 GB private models + 200 GB private datasets + 200 GB per public model × N public models + 200 GB per public dataset × N public datasets. Public items are the real multiplier. Each model can carry multiple variations and frameworks, but they share the model's 200 GB.
+- reliability: Kaggle is Google-owned and long-lived; the risk is policy drift on public storage, not disappearance. The 200 GB private pool is enforced hard ('if you exceed this, either make your datasets public or delete unused datasets').
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: opened: 'Users now have a limit of 200GB for private models and 200GB for private datasets. Kaggle has also doubled the maximum upload size of public models and datasets from 100GB to 200GB.' Both numbers on one page.
+  - [2] 2026-10-21: opened, Technical Specifications: '200GB per dataset limit'; '200GB max private datasets (if you exceed this, either make your datasets public or delete unused datasets)'; 'A max of 50 top-level files'; archives are uncompressed on their side.
+  - [3] 2026-10-21: surfaced: 'The ability to upload models via the Kaggle API was introduced to a select group of Kaggle accounts starting in version 1.5.18'. Read path is open, write path is not.
+  - withheld 2026-10-21: PROBED: curl '/api/v1/models/list?search=bert&pageSize=1' -> 200, 184,016 bytes, real model objects. curl '/api/v1/models/google/bert/get' -> 200, 72,158 bytes. curl '/api/v1/datasets/list?search=titanic&pageSize=2' -> 200 with totalBytesNullable present.
+  - [4] 2026-10-21: opened: 'We have increased the limit on our backend to 50 files. If you are uploading more than 50 files, than kagglehub will automatically create a zip for you.' Confirms the 50-file ceiling is live.
+- sources:
+  - [1] https://www.kaggle.com/product-announcements/512322
+  - [2] https://www.kaggle.com/docs/datasets
+  - [3] https://www.kaggle.com/api/v1/models-onboarding-packet
+  - [4] https://github.com/Kaggle/kagglehub/issues/116
+
+## Kaggle Notebook outputs (/kaggle/working) — the free side-channel
+
+- `storage/kaggle-notebook-outputs-the-free-side-channel` | qualifies-with-caveat | evidence reported | binding none | category ml-hub
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.kaggle.com/docs/notebooks
+- free tier: Up to 20 GB of output per notebook version saved to /kaggle/working, and every 'Save & Run All' creates a new version. Outputs are themselves addable as dataset inputs to any future notebook. No documented cap on the number of notebook versions or notebooks per account. | unit: GB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: | Outputs persist indefinitely and are downloadable years later; the flaky part is the commit step (a timed-out run loses the output). | source: [1] | note: not stated
+- egress: Free download of notebook output files from the version's Output tab, same GCS-backed delivery. | metered: no
+- identity: email
+- interface: rest, cli
+- limits note: 20 GB per version is hard; 9 h / 12 h session limits per run; output is only persisted on commit ('Save & Run All'), not on interactive save; GPU/TPU hours are rationed (~30 h/week) but CPU-only runs are not the constraint for pure storage.
+- interface detail: rest
+- tooling: kaggle CLI (`kaggle kernels output <owner>/<kernel> -p ./dir`) and kagglehub. The notebook executes on managed GPU and TPU compute, writing files directly on the host without local upload transfer.
+- composes with: 20 GB per notebook version. Notebook versions, notebooks and accounts each carry no stated limit. The reachable total therefore scales with versions and notebooks per account, and a second account carries a second allowance. The whole write path is server-side (the data is produced or fetched inside the notebook, so there is no client uplink bottleneck). This is the standard community alternative route around the 200 GB private quota: a Kaggle forum answer describes it as 'create a new notebook from your dataset and copy files to /kaggle/working'.
+- reliability: Outputs persist indefinitely and are downloadable years later; the flaky part is the commit step (a timed-out run loses the output).
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: 'Up to 20 GBs of output from a Notebook may be saved to disk in /kaggle/working. This data is saved automatically and you can then reuse that data in any future Notebook'
+  - [2] 2026-10-21: community: 'Use kaggle kernels to keep the datasets. It's unlimited and ofcourse free. Just create a new notebook from your dataset and copy files to /kaggle/working'
+- sources:
+  - [1] https://www.kaggle.com/docs/notebooks
+  - [2] https://www.kaggle.com/competitions/us-patent-phrase-to-phrase-matching/discussion/325968
+
+## Kaggle Notebooks (compute/kaggle)
+
+- `compute/kaggle` | qualifies-with-caveat | evidence documented | binding request-rate | category dev environment
+- identity a placeholder: card and phone unknown | verified 2026-10-30T11:09:07.776Z (live) | stale on 2026-11-30
+- url https://www.kaggle.com/docs/notebooks
+- duplicate of `compute/kaggle-notebooks`
+- free tier: 30 hours of GPU a week: "You can use up to a quota limit per week of GPU. The quota resets weekly and is 30 hours or sometimes higher depending on demand and resources" | unit: hours | metered on: wall-clock | read on: 2026-10-30 | source: [1] | note: The 30-hour figure is the weekly GPU quota; each session is capped at 12 hours for CPU and GPU and 9 hours for TPU. This slug exists only so a lookup for `kaggle` lands on the record; the provider's record is `kaggle-notebooks`.
+- per-object cap: not stated | source: [2]
+- retention: not stated | source: [2]
+- egress: not published | metered: no | source: [2]
+- identity: email
+- interface: unknown
+- limits:
+  - request-rate (binding): a free GPU or TPU is a session accelerator behind a queue; the wait is the constraint [2]
+  - retention-clamped: changing the accelerator restarts the session, which loses in-memory state [2]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: Duplicate slug. The provider's record is `kaggle-notebooks`, read on 2026-10-22. This record exists so a lookup for `kaggle` lands on the fact rather than a 404, and its verdict matches the real record so that no count taken over the directory reports Kaggle as dead.
+- evidence note: the Notebooks documentation was read on 2026-10-22 and confirms the free GPU and free TPU switch and the queue. The record is a merge pointer to `kaggle-notebooks`, and the page is the same one that record cites
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - shape.gpu_class: T4 or P100 class
+  - shape.gpu_count: 1
+  - shape.note: a single free GPU or a TPU v3-8 per session
+  - session_cap.restart_required: yes
+  - session_cap.note: switching the accelerator restarts the session; the queue wait is unbounded
+  - free_tier_kind: allowance
+  - duplicate_of: kaggle-notebooks
+  - count_note: this record duplicates kaggle-notebooks; a count over the directory includes it twice
+  - ps.price: notebook output is saved as a version, not a disk
+  - ps.durability: notebook version
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: the kernel's lifetime; output persists as a version
+  - net.out: no
+  - net.in: no
+  - net.ports: none
+  - net.static_ip: no
+  - net.ipv6: no
+  - net.allowance: internet access is available inside a notebook, but no inbound service
+- evidence:
+  - [2] 2026-10-02: 
+  - [2] 2026-10-22: '##### Adding a free GPU' and '##### Adding a free TPU' with 'Your session will restart which may take a few moments to several minutes if you don't need to wait in a queue', quoted
+  - [1] 2026-10-22: quoted: the GPU quota resets weekly and is 30 hours, sometimes higher depending on demand; single P100 per session; interactive sessions stop at a 60 minute idle timeout
+  - [1] 2026-10-22: quoted: "You can use up to a quota limit per week of GPU"
+  - [1] 2026-10-30: the free GPU quota is 30 hours a week, sometimes higher, and resets weekly | capture: sha256:4cfdb78afb36c17cfa0e193b11e0a1a6a3890b0e91afce6dbc256683f5abdd44 | quote: You can use up to a quota limit per week of GPU. The quota resets weekly and is 30 hours or sometimes higher depending on demand and resources
+  - [2] 2026-10-30: each session runs at most 12 hours on CPU or GPU and 9 hours on TPU; the page states no weekly quota | capture: sha256:291d1a4b300837143db8464716c584304c8ed9f5d408775f7282890938fc6d7b | quote: 12 hours execution time for CPU and GPU notebook sessions and 9 hours for TPU notebook sessions
+- sources:
+  - [1] https://www.kaggle.com/docs/efficient-gpu-usage
+  - [2] https://www.kaggle.com/docs/notebooks
+
+## Kaggle Notebooks + Datasets
+
+- `storage/kaggle-notebooks-datasets` | qualifies-with-caveat | evidence reported | binding none | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.kaggle.com
+- free tier: Notebooks: '20 Gigabytes of auto-saved disk space (/kaggle/working)' per notebook version. Datasets: '200GB per dataset limit', '200GB max private datasets'. The 200 GB private cap is the only account-level storage number published; public datasets are capped per-dataset, not per-account. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: Notebook output survives session end as a versioned artifact. The closest thing here to real object storage. But it is write-once per version, and you cannot run a listener (no inbound ports, no server). | source: [1] | note: not stated
+- egress: Public dataset/notebook downloads are served without auth and without a published egress meter. | metered: no
+- identity: card | detail: inferred from the category 'iaas'; the source record states no identity cost, so this is a class assumption, not evidence
+- interface: rest, rclone, cli
+- limits note: 12 h session for CPU/GPU notebooks, 9 h for TPU; output only auto-saves to /kaggle/working when you 'Save & Run All'; scratch space outside /kaggle/working dies with the session; 50 top-level files per dataset.
+- interface detail: rest
+- tooling: `kaggle` CLI + REST API (`/api/v1/datasets/download/...`, `/api/v1/kernels/output/...`); `kagglehub` Python client. No rclone backend, but the CLI is scriptable and gsutil-style uploads work through the API.
+- composes with: 20 GB per notebook output x unlimited notebook versions (each version is an immutable snapshot, addressable and re-mountable as 'Input' in another notebook) => effectively hundreds of GB per account. Plus unlimited public datasets at 200 GB each. Both layers multiply by N free accounts.
+- reliability: Notebook output survives session end as a versioned artifact. The closest thing here to real object storage. But it is write-once per version, and you cannot run a listener (no inbound ports, no server).
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: '20 Gigabytes of auto-saved disk space (/kaggle/working)'; '12 hours execution time for CPU and GPU notebook sessions and 9 hours for TPU'
+  - [2] 2026-10-21: '200GB per dataset limit'; '200GB max private datasets'
+  - [3] 2026-10-21: 'limit of 200GB for private models and 200GB for private datasets'; public upload size doubled to 200GB
+  - withheld 2026-10-21: probe: GET /api/v1/datasets/download/uciml/iris?datasetVersionNumber=2 -> 302 then 200, Content-Type: application/zip, Content-Length: 3687 (anonymous, no auth)
+- sources:
+  - [1] https://www.kaggle.com/docs/notebooks
+  - [2] https://www.kaggle.com/docs/datasets
+  - [3] https://www.kaggle.com/product-announcements/512322
+
+## kaggle notebooks as a server
+
+- `storage/kaggle-notebooks-as-a-server` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.kaggle.com/docs/notebooks
+- free tier: None reachable: No inbound networking and no port exposure. Kaggle notebooks cannot listen for HTTP. The storage story (20 GB /kaggle/working + 200 GB datasets) is real, the CDN-origin story is not. Split. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: No inbound networking and no port exposure — Kaggle notebooks cannot listen for HTTP. The storage story (20 GB /kaggle/working + 200 GB datasets) is real, the CDN-origin story is not. Split
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: No inbound networking and no port exposure — Kaggle notebooks cannot listen for HTTP. The storage story (20 GB /kaggle/working + 200 GB datasets) is real, the CDN-origin story is not. Split
+- sources:
+  - [1] https://www.kaggle.com/docs/notebooks

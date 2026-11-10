@@ -1,0 +1,39 @@
+# Recraft
+
+> recraft.ai | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/recraft/ | JSON https://fshy.ajam.dev/api/v1/entity/recraft.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Recraft
+
+- `compute/recraft` | qualifies-with-caveat | evidence reported | binding request-rate | category inference API
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T05:24:52.255Z (live) | stale on 2026-11-19
+- url https://www.recraft.ai/pricing
+- free tier: A Free plan exists and is described in the vendor's own FAQ: 'Images generated on the Free plan are owned by Recraft. They are publicly visible in the community gallery.' The size of the daily allowance is reported by a third party that read the vendor page on 2026-10-16 as '30 credits a day (about 15 Recraft V4.1 images) and up to two images per prompt', against 2 credits per V4.1 image, 10 for V4.1 Pro and 32 for Nano Banana Pro. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: recurring-daily-allowance
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email
+- interface: rest
+- limits:
+  - request-rate (binding): the daily allowance resets and does not roll over ('unused credits don't roll over' for subscription credits), so 30 credits a day is 15 images a day at the cheapest model and one image a day on the most expensive, and the free plan's outputs are owned by Recraft and public. [1]
+- limits note: the daily allowance resets and does not roll over ('unused credits don't roll over' for subscription credits), so 30 credits a day is 15 images a day at the cheapest model and one image a day on the most expensive, and the free plan's outputs are owned by Recraft and public.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: a daily 30-credit allowance plus a free runner is a slow synthetic image feed, and it composes with a free vector tool because Recraft generates SVG natively. What breaks: the ownership term at the free tier, which makes the outputs unusable as an owned training set, and the public gallery, which exposes every prompt.
+- reliability: no reliability event recorded
+- notes: These are inference credits, not general compute. The vendor page confirmed the Free plan exists and stated its ownership terms, but the extracted text carried no plan numbers: the plan table is rendered client side and did not survive extraction, so the 30-a-day figure is third-party and the record's rung is reported rather than documented. Unverified: reading the plan table in a browser with JavaScript enabled, or the vendor's own API pricing page at recraft.ai/docs/api-reference/pricing for the API units.
+- extras:
+  - facets.class: perpetual-free-allowance
+  - facets.free_tier_kind: recurring-daily-allowance
+  - facets.shape.gpu_count: 0
+- evidence:
+  - [1] 2026-10-22: 'Images generated on the Free plan are owned by Recraft. They are publicly visible in the community gallery', quoted from the vendor FAQ 'Who owns the images I generate on the Free plan?'
+  - [1] 2026-10-22: 'Subscription credits are included in your plan and reset at the start of each billing cycle - unused credits don't roll over', quoted
+  - [2] 2026-10-22: '30 credits a day (about 15 Recraft V4.1 images) and up to two images per prompt', reported by toolist.ai from the vendor page, updated 2026-10-16; also 'V4.1 uses 2, V4.1 Pro 10 and Nano Banana Pro 32' credits per image
+  - [3] 2026-11-03: Recraft documents a REST API | capture: sha256:526b570930871611e83751e83ecfb164635d695c4e64fc82aea89c2fe683f7ae | quote: Generate and edit raster and vector images with Recraft models over one REST API.
+- sources:
+  - [1] https://www.recraft.ai/pricing
+  - [2] https://toolist.ai/tools/recraft/pricing
+  - [3] https://www.recraft.ai/docs

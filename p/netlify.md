@@ -1,0 +1,187 @@
+# Netlify
+
+> netlify.com | Compute, Inference, Storage; 4 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/netlify/ | JSON https://fshy.ajam.dev/api/v1/entity/netlify.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Netlify
+
+- `compute/netlify` | qualifies-with-caveat | evidence documented | binding volume-quota | category platform host | tier Free
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:00:44.691Z (live) | stale on 2026-12-05
+- url https://www.netlify.com/pricing/
+- free tier: Free at USD 0 forever with a 300-credit monthly limit and a credit hard limit; credits are spent by deploys, compute, bandwidth and requests from one pool. | unit: mixed | metered on: unstated | read on: 2026-10-24 | source: [1]
+- per-object cap: not stated on the pricing page; the pool is total credits, not a per-object size
+- retention: not stated on the pricing page read
+- egress: bandwidth costs 20 credits per GB from the 300-credit pool | metered: yes | free allowance: 300 credits, about 15 GB of bandwidth | source: [1]
+- identity: email | detail: a Netlify account; no card on the Free plan, and the plan has a hard credit limit rather than an overage
+- interface: unknown
+- limits:
+  - volume-quota (binding): 300 credits a month, one pool for deploys, compute, bandwidth and requests [1]
+  - per-object-cap: compute 10 credits per GB-hour, bandwidth 20 credits per GB, requests 2 credits per 10k, production deploys 15 credits each [1]
+  - per-object-cap: 15 minutes per build by default, plus up to 5 more minutes for post-processing; a build that runs past the limit is stopped. A longer limit is not self-service in the web UI: the API accepts build_timelimit up to 1800 seconds (30 minutes) and Netlify Support sets longer ones (3600 seconds, one hour). Support replies disagree on who qualifies: a card on file, the Pro tier, or a Starter team raised to 30 minutes with no stated condition; for a credit-plan Free team it is unverified [2]
+  - request-rate: 1 concurrent build on Free, counted across the whole team [3]
+  - volume-quota (binding): no monthly build-minute allowance on the credit plans: build minutes are not metered, each production deploy costs 15 credits, and deploy previews and branch deploys cost 0 credits [4]
+- limits note: one 300-credit monthly pool is shared by deploys, compute, bandwidth and requests, and the free plan has a hard limit with no recharge, so a site that serves 15 GB of bandwidth in a month has spent its whole allowance and then pauses.
+- binding note: 300 credits is 30 GB-hours of compute or 15 GB of bandwidth, and both come out of the same 300.
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: 300 credits a month is 30 GB-hours, which is 30 hours of a 1 GiB function, or about an hour a day across a month; Netlify Database and Blob storage draw from the same pool, so a storage backend must live elsewhere.
+- reliability: no reliability event recorded
+- notes: Confirms documented records row; the legacy 100 GB bandwidth and 125k invocation figures do not appear on this page. Netlify functions are request-scoped like Vercel's, so it is not an always-on row either.
+- evidence note: the Free plan line and the credit cost table were read on the pricing page
+- extras:
+  - facets.class: perpetual-allowance
+  - facets.free_tier_kind: monthly-credit
+  - billing_model: free
+  - term: none
+  - m10h_usd: 0.0
+  - m24h_usd: 0.0
+  - price_arithmetic: no charge inside 300 credits
+  - free_tier_kind: credit-pool
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: no
+  - network_out.ports: HTTP only
+  - network_out.static_ip: no
+  - network_out.ipv6: no
+  - session_cap.restart_required: no
+  - session_cap.note: functions are request-scoped; no resident process
+- evidence:
+  - [1] 2026-10-22: Free plan: 300 credit limit; rates 15 credits per production deploy, 10 credits per GB-hour compute, 20 credits per GB bandwidth, 2 credits per 10k requests, quoted
+  - [3] 2026-10-22: Free plan is 300 credits/month with a credit hard limit and no auto recharge; monthly credits reset at the start of each cycle and do not roll over; accounts created from 2025-09-04 use credit plans, quoted
+  - [5] 2026-10-22: Free includes 300 credits per month and 1 concurrent build; when credits run out, projects pause until the next billing cycle, quoted
+  - [1] 2026-10-24: quoted: 'Free — $0 forever ... Credits: 300 credit limit'
+  - [1] 2026-10-24: quoted usage credit costs: 'Production deploys 15 credits each', 'Compute 10 credits per GB-hour', 'Bandwidth 20 credits per GB', 'Web requests 2 credits per 10k requests'
+  - [2] 2026-10-30: the default build time limit is 15 minutes plus 5 minutes of post-processing, in a Netlify support guide last reviewed by Netlify Support Staff in November 2024 | capture: sha256:240f8bb48d8faf74477ecadb088cf45d1bcfe89a59a6a06ad9e027b3ab750b29 | quote: The default build time limit for all sites at Netlify is 15 minutes with 5 additional minutes allowed for any post-processing being done by the build system.
+  - [3] 2026-10-30: the Free credit plan allows 1 concurrent build for the entire team | capture: sha256:56ebe6d5a1de8088460cf80dc7bc2e1e1a3a3c8f5dac42182ecf87c8080219ec | quote: 1 concurrent build means that you can only run one build at a time for your entire Netlify team.
+  - [4] 2026-10-30: credit plans meter a production deploy at 15 credits and no longer count build minutes; the same table prices deploy previews and branch deploys at 0 credits | capture: sha256:f393f12cc32635bd9d946c936379dc3516c835bf947e620b9283bdc185c37f52 | quote: | [Production deploys](#credit-usage-for-production-deploys) | 15 credits each | Deploying your project to production, build minutes no longer calculated |
+  - [6] 2026-10-30: the legacy Free and Starter plans held 300 build minutes a month, a hard limit on Free; the credit plans that replaced them for new accounts no longer meter build minutes | capture: sha256:7e6044039b308749e48fbe1747264efcc954cd93e5d9fabe05649f5e4ae3112d | quote: | Build minutes | 300 minutes/month <br /> <br /> (If Free plan, hard limit) <br /> <br /> (If Starter plan, $7 per 500 when exceeded) | 25,000 minutes/month <br /> <br /> (then $7 per 500) | Custom |
+  - [7] 2026-10-30: the credit plans have no build-minute meter | capture: sha256:6ec3964c3cc182b49443c725824e0225d1b8915b30b7334ad94b993b5aaa0042 | quote: Build minutes are not calculated as their own metric in our Credit-based pricing plans.
+  - [3] 2026-10-30: the Free plan is 300 credits a month with a credit hard limit | capture: sha256:56ebe6d5a1de8088460cf80dc7bc2e1e1a3a3c8f5dac42182ecf87c8080219ec | quote: | Monthly credits | 300 credits/month with credit hard limit | 1,000 credits/month with auto recharge option | 3,000 credits/month with auto recharge option |
+  - [2] 2026-11-02: the API accepts a build time limit up to 1800 seconds (30 minutes); Netlify Support can set longer ones | capture: sha256:db24c67c958c7746d99b8c17a5f470368d440ca81c836327b8a34fae9c812331 | quote: 1800 is 30 minutes and that is currently the maximum time that can be set via the API.
+  - [8] 2026-11-02: a Netlify Support reply of 2023-11-16 makes the Pro tier a condition for a longer build timeout | capture: sha256:619afb379518798bd39371a60cafc8bba707a7227c04043797906ac9c87c7b57 | quote: We can definitely bump your build timeout, but you’ll need to be on the Pro tier for us to make that change - that’s a requirement that applies to everyone who wants a bigger timeout.
+  - [9] 2026-11-02: a later Netlify Support reply (2024-10-28) raised a Starter (legacy Free) team's build limit to 30 minutes with no Pro requirement | capture: sha256:0d035a6a8f41d30dfa0693f2dd1540728e4379bfb42a2043cf29a304a8324459 | quote: For a Starter account, I’ve increased the build time limit to 30 minutes.
+  - [10] 2026-11-02: a Netlify Support reply of 2023-09-26 asked a Starter team for a payment method on file before raising the build timeout | capture: sha256:f91a0edc6f9a350550d3286a3167e182d5a60e7067d074c04dd403308801dd4e | quote: Hi, in order to do this as you are on a starter account. Can you please add a payment method on file?
+  - [2] 2026-11-02: the API answers Unprocessable Entity to build_timelimit values above 1800 | capture: sha256:db24c67c958c7746d99b8c17a5f470368d440ca81c836327b8a34fae9c812331 | quote: You will get the ` › JSONHTTPError: Unprocessable Entity` response if you try to use a value greater than 1800.
+  - [11] 2026-11-02: a forum post of 2026-07-07 shows the API call for build_timelimit 1800 answering Unprocessable Entity and asks Support for 30 minutes; the captured page holds no reply | capture: sha256:6d237f15436cebd7ff89fe26d40746df871d8df860c0a18f6927f21253edc110 | quote: can you increase my limit to 30mins on site
+  - [3] 2026-11-04: Free allows one concurrent build per team | capture: sha256:214bf48c7910a9761991ccde9896167d0961fc4759e11e1dab9d7bc8f52f448e | quote: 1 concurrent build means that you can only run one build at a time for your entire Netlify team.
+- sources:
+  - [1] https://www.netlify.com/pricing/
+  - [2] https://answers.netlify.com/t/support-guide-how-to-use-the-api-to-increase-your-sites-build-time-limit/52805
+  - [3] https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/credit-based-pricing-plans
+  - [4] https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/how-credits-work
+  - [5] https://www.netlify.com/pricing/pro-vs-free/
+  - [6] https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-legacy-plans/legacy-pricing-plans
+  - [7] https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/billing-faq-for-credit-based-plans/
+  - [8] https://answers.netlify.com/t/support-guide-how-to-use-the-api-to-increase-your-sites-build-time-limit/52805/53
+  - [9] https://answers.netlify.com/t/increase-build-limit-to-40-mins-please/128327
+  - [10] https://answers.netlify.com/t/support-guide-how-to-use-the-api-to-increase-your-sites-build-time-limit/52805.md?page=2
+  - [11] https://answers.netlify.com/t/request-to-increase-build-time-limit-to-30-mins/164854
+
+## Netlify AI Gateway
+
+- `inference/netlify-ai-gateway` | qualifies-with-caveat | evidence documented | binding volume-quota | category inference gateway, platform credits
+- needs card unknown, phone unknown, ID no, institution no | verified 2026-10-28T04:36:19.143Z (live) | stale on 2026-11-28
+- url https://docs.netlify.com/build/ai-gateway/overview/
+- free tier: available on the Free plan: AI Gateway usage draws on the plan's credit pool, a 300 credit limit on Free, at 180 credits per USD 1 of model usage | unit: mixed | metered on: unstated | read on: 2026-10-28 | source: [1] | note: derived: 300 credits / 180 credits per USD = USD 1.67 of model usage a month, shared with deploys, compute and bandwidth, which draw on the same credits. Derived: 90 credits per minute / 180 credits per USD = USD 0.50 of model usage a minute
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: a Netlify account on the Free plan, which is '$0 forever'; card and phone at signup are unverified on the pages read here
+- interface: rest
+- limits:
+  - volume-quota (binding): a 300 credit limit on the Free plan, shared with every other usage meter; USD 1 of model usage is 180 credits https://www.netlify.com/pricing/ and https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/pricing-for-ai-features/
+  - request-rate: 90 credits per minute for the team across all projects on the Free plan (Personal 450, Pro 1,800) [1]
+  - write-gated: the site must have had at least one production deploy before the gateway activates [1]
+  - per-object-cap: the input prompt context window is limited to 200k tokens [1]
+- binding note: 300 credits a month are USD 1.67 of model usage and are spent by deploys and bandwidth as well, so the monthly pool binds before the per-minute limit
+- interface detail: provider-native REST for OpenAI, Anthropic, Google Gemini and OpenRouter through base URLs and keys that Netlify injects as environment variables in Netlify Functions, Edge Functions and the Netlify CLI dev server
+- endpoint: the base URL Netlify injects as NETLIFY_AI_GATEWAY_URL
+- tooling: the official OpenAI, Anthropic, Google GenAI and OpenRouter SDKs read the injected variables; NETLIFY_AI_GATEWAY_KEY and NETLIFY_AI_GATEWAY_URL are always injected
+- composes with: pairs with the Netlify Free plan recorded at compute/netlify, whose 300 credits it shares; a deployed Function can expose the gateway to a script
+- reliability: the gateway activates only after a production deploy, and the injected key exists inside Netlify runtimes rather than as a key created by hand
+- notes: The supported-model list includes openrouter/free and one id ending in :free; whether those ids spend credits is unverified.
+- evidence note: the credit pool, conversion rate and per-minute limit are quoted from the vendor pages; no call was made because the gateway needs a deployed site
+- evidence:
+  - [1] 2026-10-28: AI Gateway is available on the Free plan | capture: sha256:c1a90f7c3c9c3eaacbf78397692c2d2603305c7923be191d75f224ef0441c1f1 | quote: This feature is available on Credit-based plans only, including the [Free, Personal, and Pro](https://www.netlify.com/pricing/) plans.
+  - [2] 2026-10-28: the Free plan is USD 0 forever | capture: sha256:a2c0b634dcd86c412907d2475717d1bea52ae56958bf20d311b7939891bcfc2b | quote: ### Free — $0 forever
+  - [2] 2026-10-28: the Free plan carries a 300 credit limit | capture: sha256:a2c0b634dcd86c412907d2475717d1bea52ae56958bf20d311b7939891bcfc2b | quote: - Credits: 300 credit limit
+  - [3] 2026-10-28: USD 1 of model usage is 180 Netlify credits | capture: sha256:39455e650d6434421b618d01438fb8726830a29b4c8dbe94c6a284537609afb0 | quote: Netlify then converts every $1 USD spent on AI model usage to 180 Netlify credits.
+  - [3] 2026-10-28: AI Gateway spends the plan's ordinary credit pool | capture: sha256:39455e650d6434421b618d01438fb8726830a29b4c8dbe94c6a284537609afb0 | quote: There are no special credits for the AI Gateway. AI Gateway uses the same pool of credits included in your Netlify pricing plan
+  - [1] 2026-10-28: the Free plan limit is 90 credits per minute | capture: sha256:c1a90f7c3c9c3eaacbf78397692c2d2603305c7923be191d75f224ef0441c1f1 | quote: | Free | 90 |
+  - [1] 2026-10-28: the rate limit applies to the team's usage across all projects | capture: sha256:c1a90f7c3c9c3eaacbf78397692c2d2603305c7923be191d75f224ef0441c1f1 | quote: Netlify applies rate limits for your team's usage of the AI Gateway, across all of your team's projects.
+  - [1] 2026-10-28: a production deploy is required before the gateway works | capture: sha256:c1a90f7c3c9c3eaacbf78397692c2d2603305c7923be191d75f224ef0441c1f1 | quote: Using the AI Gateway requires that the site has had at least one production deployment in the past.
+  - [1] 2026-10-28: the input context window is limited to 200k tokens | capture: sha256:c1a90f7c3c9c3eaacbf78397692c2d2603305c7923be191d75f224ef0441c1f1 | quote: The context window (input prompt) is limited to 200k tokens.
+  - [1] 2026-10-28: the key and base URL are injected as environment variables | capture: sha256:c1a90f7c3c9c3eaacbf78397692c2d2603305c7923be191d75f224ef0441c1f1 | quote: `NETLIFY_AI_GATEWAY_KEY` and `NETLIFY_AI_GATEWAY_URL` environment variables are always injected into the AI Gateway-supported runtimes.
+- sources:
+  - [1] https://docs.netlify.com/build/ai-gateway/overview/
+  - [2] https://www.netlify.com/pricing/
+  - [3] https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/pricing-for-ai-features/
+
+## Netlify Open Source
+
+- `compute/netlify-open-source` | qualifies-with-caveat | evidence documented | binding write-gated | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:27:26.206Z (live) | stale on 2026-12-05
+- url https://www.netlify.com/legal/open-source-policy/
+- free tier: 'Our Open Source plan includes: 10,000 credits per month, Free production deploys, Unlimited team members, Sites remain active even if credits run out'. Available to a project that holds an OSI licence, publishes a Code of Conduct, and links back to Netlify. | unit: unlimited | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: recurring-credit
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No separate bandwidth allowance: bandwidth draws on the monthly credit pool of 10,000 credits at 20 credits per GB (derived: 10,000 / 20 = 500 GB if the whole pool is spent on bandwidth). Overage: extra credits are sold at the Pro plan rate, $0.13 per GB of bandwidth. | metered: yes | source: [1]
+- identity: email
+- interface: rest, cli
+- limits:
+  - write-gated (binding): A review of the application decides entry, and the site must carry a visible Netlify badge; the credit is monthly and does not roll over. [1]
+- limits note: A review of the application decides entry, and the site must carry a visible Netlify badge; the credit is monthly and does not roll over.
+- binding note: the same as limits note
+- interface detail: REST API and CLI documented at docs.netlify.com; no SSH access to a machine is documented.
+- tooling: the provider documents its own CLI, per the Netlify CLI page: "Netlify's command line interface (CLI)"
+- composes with: Build minutes and functions are the cheapest place to run a scheduled job that wakes a rented GPU host and kills it again, which is exactly the control plane a no-budget workload needs.
+- reliability: no reliability event recorded
+- notes: The best-documented small vendor credit in this category: the number, the renewal rule and the durability term are all printed. The one structural catch is the badge requirement, which puts a vendor link on the project's front page. 'Must not be a commercial project, whether created by a company or an individual' is the line that excludes consulting work built on top of the same repository.
+- extras:
+  - facets.class: vendor-oss-credits
+  - facets.free_tier_kind: recurring-credit
+- evidence:
+  - [1] 2026-10-22: quoted the 10,000 credits per month, the 'sites remain active even if credits run out' term, the licence, Code of Conduct and badge conditions, and the exclusion of commercial projects
+  - [1] 2026-10-22: the application route is a form at opensource-form.netlify.com, reviewed by Netlify
+  - [2] 2026-11-03: bandwidth costs 20 credits, $0.13 per GB, at the Pro credit pack rate | capture: sha256:a2c0b634dcd86c412907d2475717d1bea52ae56958bf20d311b7939891bcfc2b | quote: | Bandwidth | 20 | $0.13 per GB |
+  - [1] 2026-11-03: extra credits on the Open Source plan are priced as on Pro | capture: sha256:5c25a7e5377252390e6a04f6b305f6528a5bca1c573eb71e94030e21082e7d52 | quote: If you need additional credits, they’re available at the same rate as our [Pro plan]
+  - [3] 2026-11-03: a REST API exists | capture: sha256:6d3ab34af9f123803170e2261d181bf61c665b67eb63d80380139708b0e57ef3 | quote: Use the Netlify REST API to manage atomic deploys of your sites and apps
+  - [4] 2026-11-03: a CLI exists | capture: sha256:7568cb8a79dadb6d9382222b9cd49e3aa630c36f67d3eac6064f205f480ac8cf | quote: Netlify's command line interface (CLI) lets you configure
+  - [3] 2026-11-04: a REST API exists | capture: sha256:6d3ab34af9f123803170e2261d181bf61c665b67eb63d80380139708b0e57ef3 | quote: Use the Netlify REST API to manage atomic deploys of your sites and apps
+  - [4] 2026-11-04: a CLI exists | capture: sha256:7568cb8a79dadb6d9382222b9cd49e3aa630c36f67d3eac6064f205f480ac8cf | quote: Netlify's command line interface (CLI) lets you configure
+  - [4] 2026-11-04: a Netlify CLI exists | capture: sha256:7568cb8a79dadb6d9382222b9cd49e3aa630c36f67d3eac6064f205f480ac8cf | quote: Netlify's command line interface (CLI) lets you configure
+- sources:
+  - [1] https://www.netlify.com/legal/open-source-policy/
+  - [2] https://www.netlify.com/pricing/
+  - [3] https://docs.netlify.com/api-and-cli-guides/api-guides/get-started-with-api
+  - [4] https://docs.netlify.com/api-and-cli-guides/cli-guides/get-started-with-cli
+
+## Netlify Blobs
+
+- `storage/netlify-blobs` | fails-egress | evidence reported | binding per-object-cap | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://docs.netlify.com/build/data-and-storage/netlify-blobs/
+- free tier: Object store with 5 GB max per object, but the Free plan is 300 credits/month where 1 GB of web bandwidth = 20 credits. I.e. ~15 GB of transfer/month total, shared with every other metered feature. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 5 GB max per object | bytes: 5000000000 | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Metered in credits: 'Web Bandwidth | 1 GB transferred | 20 credits'. Free plan includes 300 credits per month with a hard limit, providing approximately 15 GB per month of transfer. | metered: yes | free allowance: 15 GB per month
+- identity: email
+- interface: s3, rest, webdav, sftp, rclone
+- limits:
+  - per-object-cap (binding): 5 GB per object [1]
+- limits note: 5 GB per object, 600-byte object keys, 2 KB metadata; Free = 300 credits/month hard cap covering bandwidth, requests (10,000 req = 2 credits) and functions compute; Go functions cannot access Blobs.
+- interface detail: rest
+- tooling: Netlify JS/TS SDK (getStore/put/get) callable from Functions or Build Plugins; no S3/WebDAV/SFTP and no rclone backend. Access requires a Netlify site + function invocation.
+- composes with: 500 projects per team x 300 credits, but credits are per team, not per project, so 500 sites do not multiply the allowance. Unlimited free teams would multiply, at ~15 GB egress each.
+- reliability: Netlify moved all new accounts to credit billing on Sep 4, 2025 and the switch is irreversible; deploy-specific stores are deleted when the deploy is deleted.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: Object store with 5 GB max per object, but the Free plan is 300 credits/month where 1 GB of web bandwidth = 20 credits — i.e. ~15 GB of transfer/month total, shared with every other metered feature.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: '300 credits/month with credit hard limit'; 'Web Bandwidth | 1 GB transferred | 20 credits'
+  - [2] 2026-10-21: "An individual object's total size cannot exceed 5 GB"
+- sources:
+  - [1] https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/credit-based-pricing-plans/
+  - [2] https://docs.netlify.com/build/data-and-storage/netlify-blobs/

@@ -1,0 +1,58 @@
+# Atomic_Net
+
+> atomicnetworks.co | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/atomicnetworks/ | JSON https://fshy.ajam.dev/api/v1/entity/atomicnetworks.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Atomic_Net
+
+- `compute/atomic-net` | paid-only | evidence documented | binding volume-quota | category cloud VM
+- needs card no, phone yes, ID no, institution no | verified 2026-11-07T11:15:27.361Z (live) | stale on 2026-12-08
+- url https://billing.atomicnetworks.co/store/premium-vps-hosting
+- price parsed USD 8/mo
+- free tier: 2GB Premium VPS at USD 8.00 per month (the vendor's own cart): 1 CPU vCore, 45 GB disk, 2 GB RAM, 1 Gbps port, 1,000 GB bandwidth, 1 IPv4, 99.99% uptime SLA, Virtfusion panel. The tracker's CHI_P_KVM_2 row names a product the store no longer sells; the Budget VPS group starts at 8GB for USD 14.99 monthly. | unit: GiB | metered on: wall-clock | read on: 2026-11-07 | source: [1] | note: none
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: metered: the vendor cart states 1,000 GB bandwidth on the 2 GB premium tier; the tracker states 51,200 GB/month for the same tier; no overage rate found | metered: yes | free allowance: 1,000 GB/month per the vendor cart; 51,200 GB/month per the tracker | source: [1]
+- identity: email | detail: the signup marks firstname, lastname, street address, city, state and postcode required; email and phone are collected but not marked required; no card
+- interface: rest
+- limits:
+  - volume-quota (binding): unresolved between two sources: the tracker states 51,200 GB a month on a 2.5 Gbps port, while the vendor's own cart for a 2 GB premium plan states 1,000 GB a month on a 1 Gbps port. Either way a monthly allowance is the first limit, and 1,000 GB is the figure that matches the vendor's cart. [2]
+- limits note: unresolved between two sources: the tracker states 51,200 GB a month on a 2.5 Gbps port, while the vendor's own cart for a 2 GB premium plan states 1,000 GB a month on a 1 Gbps port. Either way a monthly allowance is the first limit, and 1,000 GB is the figure that matches the vendor's cart.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: the vendor names the panel: 'Virtfusion panel'; no API documented on the pages read
+- composes with: 60 GB of NVMe for USD 5 is the largest disk per dollar among evaluated providers apart from the promo hosts; if the 1,000 GB cart figure holds, it is a storage-side node with a thin pipe, which suits an index or a small mirror rather than bulk serving.
+- reliability: no reliability event recorded
+- notes: The vendor's cart and documentation pages answered but neither rendered a price for an itemised plan, so the figure stays at confidence reported. The gap between 51,200 GB and 1,000 GB is large enough that no allowance should be relied on until one order confirms it. verification criteria: one cart page with the totals visible, and whether the 'from $1.92' budget line in the 2024 FAQ still exists.
+- extras:
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 2
+  - facets.shape.disk_gib: 60
+  - monthly_usd: 8.0
+  - annual_usd: 76.8
+  - renewal_usd: not published: the store row and the cart's four-cycle ladder print no renewal price; read at https://billing.atomicnetworks.co/store/premium-vps-hosting
+  - term: the cart prices four cycles: monthly USD 8.00, quarterly USD 22.80, semi-annually USD 42.24, annually USD 76.80; the store row advertises the monthly term
+  - in_stock: no stock counter is printed on the store row; the warmed cart resolves the product's configuration with all four cycles priced, so the plan is orderable
+  - cart_url: https://billing.atomicnetworks.co/store/premium-vps-hosting/2gb-premium-vps
+  - cart_note: the cart (WHMCS, session-warmed) renders the four cycle prices in one block without labels in the extracted text; the cycle mapping follows the ascending order (monthly cheapest), anchored by the store's 'Starting from $8.00 USD Monthly'
+- evidence:
+  - [2] 2026-10-22: row quoted: 'Atomic Net. - 5.00 / month', 'cpu 1 Ryzen Cores (shared)', 'ram 2,048 MB RAM', 'disk 60 GB NVMe', 'bandwidth 51,200 GB/month bandwidth', 'rj45 2.5 Gbps port speed', 'inet IPv4 + IPv6', city U.S.A.
+  - [1] 2026-10-22: cart row quoted: '1 CPU vCores', '45 GB Disk', '2 GB RAM', '1 Gbps port speed', '1000 GB bandwidth', '1 IPv4', '99.99% Uptime SLA', 'Virtfusion panel' - the same 2 GB tier with less disk and a smaller allowance than the tracker's row
+  - [3] 2026-10-22: first-party doc dated 'Last Updated: 3/4/24' states 'Budget performance plans starting at $1.92 a month' and 'High performance Ryzen 7950X plans starting at $6.09'; no plan table follows it
+  - [1] 2026-11-07: the vendor's own cart prices the 2GB Premium row | capture: sha256:a176d679a9180cc21478a0f327823344687841bf45a7ae76e340c4231741b190 | quote: 2GB Premium VPS 1 CPU vCores 45 GB Disk 2 GB RAM 1 Gbps port speed 1000 GB bandwidth 1 IPv4 99.99% Uptime SLA Virtfusion panel Starting from $8.00 USD Monthly Order Now
+  - [4] 2026-11-07: WHMCS register: six required fields, no card | capture: sha256:9f2864785371289b34da494ae64f4c3fc5c5b2f3e9e62a56654df64c391b8c6d | quote: Additional Information (required fields are marked with *)
+  - [1] 2026-11-07: the store prices 2GB Premium VPS from USD 8.00 monthly | capture: sha256:224907697ce2c24b651da950dd71bc4372405a0a1110fbe656e3c32ca4a7904e | quote: $8.00 USD
+  - probe:https://billing.atomicnetworks.co/store/premium-vps-hosting/2gb-premium-vps 2026-11-07: the cart renders four cycle prices for the 2GB Premium VPS in ascending order; the store anchors the monthly cycle at USD 8.00 and the fourth is the annual total | capture: sha256:5b1d687cee35cadfc189657ad5f32e982d0d00b23f72b24ee9f24223e0f3fe1c | quote: "prices": ["$8.00", "$22.80", "$42.24", "$76.80"]
+  - [1] 2026-11-07: the row prints one price with no renewal figure beside it | capture: sha256:224907697ce2c24b651da950dd71bc4372405a0a1110fbe656e3c32ca4a7904e | quote: $8.00 USD
+  - probe:https://billing.atomicnetworks.co/store/premium-vps-hosting/2gb-premium-vps 2026-11-07: the cart prices four cycles for the 2GB Premium VPS | capture: sha256:5b1d687cee35cadfc189657ad5f32e982d0d00b23f72b24ee9f24223e0f3fe1c | quote: "prices": ["$8.00", "$22.80", "$42.24", "$76.80"]
+  - probe:https://billing.atomicnetworks.co/store/premium-vps-hosting/2gb-premium-vps 2026-11-07: the warmed cart resolves the 2GB Premium VPS into its configuration page with the cycle prices, so the order path works | capture: sha256:5b1d687cee35cadfc189657ad5f32e982d0d00b23f72b24ee9f24223e0f3fe1c | quote: "final_url": "https://billing.atomicnetworks.co/cart.php?a=confproduct&i=0"
+  - [1] 2026-11-07: the 2GB Premium VPS row's Order Now button links the cart at /store/premium-vps-hosting/2gb-premium-vps | capture: sha256:ace29ae126079b79e5dab6b1365cabbe7fd3c006726621250e738eafc503df70 | quote: id="product192-order-button"
+  - probe:https://billing.atomicnetworks.co/store/premium-vps-hosting/2gb-premium-vps 2026-11-07: the cart's four cycle prices as rendered | capture: sha256:5b1d687cee35cadfc189657ad5f32e982d0d00b23f72b24ee9f24223e0f3fe1c | quote: "prices": ["$8.00", "$22.80", "$42.24", "$76.80"]
+  - [1] 2026-11-07: the store still prices 2GB Premium VPS from USD 8.00 monthly with 45 GB disk, 2 GB RAM and 1,000 GB bandwidth | capture: sha256:224907697ce2c24b651da950dd71bc4372405a0a1110fbe656e3c32ca4a7904e | quote: $8.00 USD
+- sources:
+  - [1] https://billing.atomicnetworks.co/store/premium-vps-hosting
+  - [2] https://vpspricetracker.com/provider/Atomic_Net/vps
+  - [3] https://docs.atomicnetworks.co/vps/frequently-asked-questions
+  - [4] https://billing.atomicnetworks.co/register.php

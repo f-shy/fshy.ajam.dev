@@ -1,0 +1,215 @@
+# Gullo's Hosting
+
+> gullo.me | Compute, Egress and tunnels; 4 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/gullo/ | JSON https://fshy.ajam.dev/api/v1/entity/gullo.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Gullo's Hosting (FR NAT IPv4 128MB)
+
+- `compute/gullos-hosting-nat-128` | qualifies | evidence documented | binding volume-quota | category NAT VPS | tier FR NAT IPv4 128MB
+- needs card unknown, phone no, ID no, institution no | verified 2026-11-04T18:45:35.795Z (live) | stale on 2026-12-05
+- url https://hosting.gullo.me/order/config/index/nat-vps/?group_id=43&pricing_id=352&coupon=LEB-NAT-128MB
+- price parsed USD 0.29/mo
+- disagrees on verdict: `compute/gullo-s-hosting` says paid-only, `compute/gullos-hosting-nat-128` says qualifies
+- free tier: No free tier. The smallest NAT container is USD 3.50 a year, one term of 12 months, and the page prints the same USD 3.50 as the renewal. | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: The container persists while the annual term is paid. The order page states 'No Refunds' as a checkbox the buyer must accept, and gives no suspension or deletion schedule. | source: [1]
+- egress: 125 GB a month on the 128MB plan. More is bought in 125 GB blocks at USD 1.00 each; the page states no throttle after the allowance, only a price. | metered: yes | free allowance: 125 GB | price per TB: USD 8.00 per TB (125 GB blocks at USD 1.00) | source: [2]
+- identity: email | detail: Self-service order behind an email account. The page read lists no payment methods and states no card hold, so the accepted card, PayPal or crypto routes are not established. The buyer must tick 'I understand that there are no refunds'.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 125 GB a month of transfer on the 128MB plan [2]
+  - per-ip-shaping: one shared NAT IPv4; the order page warns some of its IPs are blocked by China, Russia and Iran [1]
+- binding note: 125 GB a month is the first hard number reached; 128 MB of RAM limits what runs but does not fail on a schedule.
+- interface detail: Root shell inside an OpenVZ container; the order page offers Linux templates from AlmaLinux 8/9 and CentOS 7 to Debian 11/12 and Ubuntu 20.04/22.04.
+- tooling: Any SSH client. OpenVZ means no custom kernel and no kernel module of your own, which matters for WireGuard: it works only if the host kernel already carries the module.
+- composes with: A 128 MB always-on box on a shared IPv4 with 20 forwarded ports, for a WireGuard endpoint or an uptime probe that must cost nothing.
+- reliability: The order page warns that some of its IPs are blocked by China, Russia and Iran, and that there are no refunds. No uptime or suspension event was observed.
+- notes: The order page sells this plan at USD 3.50 a year. It renews at the same rate. There is no refund at all: the order form carries a mandatory 'I understand that there are no refunds' checkbox. The operator names no company and is a single person. It is the only vendor in the sub-dollar band with a first-hand public report of WireGuard running on it: a LowEndTalk user installed precompiled wireguard-go and ran it with shadowsocks 'without running out of ram' over 255 days of uptime, and another confirms TUN/TAP can be enabled. That is a report that somebody did it, not a measurement that it works today. UDP on the 20 forwarded ports is still unstated by the vendor. | 2026-10-24: the UDP question is still open. Five pages were read - the packages page, the pricing table, the NAT IPv4 help page, the knowledge-base index and the WireGuard how-to - and none of them says whether the 20 forwarded ports carry UDP. What the vendor does say is that WireGuard should be installed with wireguard-go, which is the userspace implementation an OpenVZ guest needs when the host kernel has no module. The pricing table also puts the 256 MB rung at USD 6.50-10.00 a year (USD 0.54-0.83 a month), so a beefier Gullo box is available inside the band if UDP turns out to be fine.
+- evidence note: Price, term, renewal, shape, port count and IPv6 block are quoted from the vendor's own order pages read. Payment methods would move this to complete, and they are not on the page.
+- extras:
+  - shape.ram_gib: 0.125
+  - shape.disk_gib: 2
+  - billing_model: annual
+  - term: 12 months
+  - m24h_usd: 0.29
+  - m10h_usd: 0.29
+  - price_arithmetic: USD 3.50 a year / 12 = USD 0.2917 a month, rounded to 0.29. The order page prints '1 Year @ $3.50' and the line 'FR NAT IPv4 128MB (Oct 23, 2026 - Oct 23, 2027) 1 @ $3.50'.
+  - renewal_usd: 0.29
+  - first_payment_usd: 3.5
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: 20 forwarded ports on one shared IPv4
+  - network_out.static_ip: no
+  - network_out.ipv6: yes
+  - network_out.ipv6_prefix: /80
+  - payment_methods: not established on the page read
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a container
+  - out_of_pocket_usd: 3.5
+  - payment_rails: not established: the order configuration page read on 2026-10-24 carries no payment-method section at all (306 words, 'Total Due Today: $3.50'), so the rails are only visible after an account is created and checkout is reached
+  - udp: not stated on any page read: not the order page, not the packages page, not the pricing table, not the NAT IPv4 help page, not the knowledge-base index. The vendor does publish a 'How to setup WireGuard on OpenVZ NAT VPS' article, which is a first-party statement that WireGuard runs on a forwarded port.
+  - ladder_annual_usd.128mb: USD 3.50-5.00/yr
+  - ladder_annual_usd.256mb: USD 6.50-10.00/yr
+  - ladder_annual_usd.512mb: USD 12.50-20.00/yr
+  - ladder_annual_usd.1024mb: USD 24.50-40.00/yr
+  - price_on_page: USD 3.50/yr
+  - price_in_cart: USD 3.50/yr
+  - cart_works: yes
+  - cart_url: https://hosting.gullo.me/order/config/index/nat-vps/?group_id=43&pricing_id=352&coupon=LEB-NAT-128MB
+  - signup_url: https://hosting.gullo.me/order/
+  - cart_evidence: configure page titled 'OpenVZ NAT VPS' renders 'Configuration Select desired options, and continue to checkout. Term and Price 1 Year @ $3.50'
+  - needs_account_first: no
+  - renewal_note: published in the cart: 'Total When Renewing: 1 Year @ $3.50', so the year-2 charge is the same USD 3.50 for 12 months, and the order line dates the term 2026-11-04 to 2027-11-04.
+  - stock: orderable: the configure page priced the plan at $3.50, rendered Continue, and prints no stock counter
+  - annual_usd: 3.5
+- evidence:
+  - [1] 2026-10-24: quoted: 'FR NAT IPv4 128MB ( Oct 23, 2026 - Oct 23, 2027)' at '1 @ $3.50', 'Total Due Today: $3.50'
+  - [1] 2026-10-24: quoted: 'Total When Renewing: 1 Year @ $3.50' - the annual price is the renewal price, not a first-term promo
+  - [2] 2026-10-24: quoted: '128MB RAM 2GB Storage 125GB Bandwidth 1 NAT IPv4 w/ 20 Ports /80 Block IPv6 OpenVZ Virtualization'
+  - [1] 2026-10-24: quoted: 'Some of our IPs are blocked by, China, Russia, and Iran' and 'I understand that there are no refunds'
+  - [3] 2026-10-24: quoted: '1 Year @ $3.50' and 'FR NAT IPv4 128MB (Oct 23, 2026 - Oct 23, 2027) 1 @ $3.50'
+  - [4] 2026-10-24: quoted table rows: 'NAT IPv4 128 MB | 128 MB | 1v Core | 20 Ports + 1 SSH | /80 | 2 GB | 125 GB | $3.5-$5 / Year' and 'NAT IPv4 256 MB | 256 MB | ... | $6.5-$10 / Year' and 'NAT IPv4 512 MB | 512 MB | ... | $12.5-$20 / Year'
+  - [5] 2026-10-24: quoted: 'How to setup WireGuard on OpenVZ NAT VPS. - a community member on LowEndTalk wrote up a great guide on how to install WireGuard on our OpenVZ NAT VPS's using WireGuard-Go.'
+  - [6] 2026-10-24: quoted: 'Options do exist for connecting over IPv4 such as DNAT port forwarding and console connectivity. In one of the first emails you get from us after signing up, you will find details on which ports have been configured to forward IPv4 connections to your VPS' - the forwarding is described, the protocol is not
+  - [1] 2026-11-04: the cart prints a renewal line | capture: sha256:7b431b032af8ca7d5f6233e7f377fa25add1790aa994e32dabb576385daa1dd4 | quote: Total When Renewing:
+  - probe:https://hosting.gullo.me/order/config/index/nat-vps/?group_id=43&pricing_id=352&coupon=LEB-NAT-128MB 2026-11-04: the cart resolved and rendered its price with a warmed session | capture: sha256:73fc4c846af95bd7cb326bdff0832b77c5a656fc11fcac73f6ff9f6ddf27f7b8 | quote: "verdict": "priced"
+  - [1] 2026-11-04: the only term sold is one year at USD 3.50 | capture: sha256:7b431b032af8ca7d5f6233e7f377fa25add1790aa994e32dabb576385daa1dd4 | quote: 1 Year @ $3.50
+  - [2] 2026-11-04: the package page states the 128 MB shape and its 125 GB allowance | capture: sha256:faf8139b5baedc217be25d7244a31080f3511607686445aafabe8544bca9dd9c | quote: 128MB RAM 2GB Storage 125GB Bandwidth 1 NAT IPv4 w/ 20 Ports /80 Block IPv6 OpenVZ Virtualization
+  - probe:https://hosting.gullo.me/order/config/index/nat-vps/?group_id=43&pricing_id=352&coupon=LEB-NAT-128MB 2026-11-04: a cart check with a warmed session resolved the configure page and found the price $3.50 | capture: sha256:73fc4c846af95bd7cb326bdff0832b77c5a656fc11fcac73f6ff9f6ddf27f7b8 | quote: "verdict": "priced"
+- sources:
+  - [1] https://hosting.gullo.me/order/config/index/nat-vps/?group_id=43&pricing_id=352&coupon=LEB-NAT-128MB
+  - [2] https://hosting.gullo.me/order/main/packages/nat-vps/?group_id=43
+  - [3] https://hosting.gullo.me/order/config/index/nat-vps/?group_id=43&pricing_id=352
+  - [4] https://hosting.gullo.me/pricing
+  - [5] https://hosting.gullo.me/plugin/support_manager/knowledgebase/view/30/how-to-setup-wireguard-on-openvz-nat-vps/4/
+  - [6] https://hosting.gullo.me/plugin/support_manager/knowledgebase/view/4/nat-ipv4-help-page/4/
+
+## Gullo's Hosting (compute/gullo-s-hosting)
+
+- `compute/gullo-s-hosting` | paid-only | evidence documented | binding volume-quota | category cloud VM
+- identity a placeholder: card and phone unknown | verified 2026-11-07T14:17:07.272Z (live) | stale on 2026-12-08
+- url https://hosting.gullo.me/pricing
+- price parsed USD 0.29/mo
+- disagrees on verdict: `compute/gullo-s-hosting` says paid-only, `compute/gullos-hosting-nat-128` says qualifies
+- free tier: NAT IPv4 128 MB, the entry row of the vendor's own NAT table: 128 MB RAM, 1 vCore, a shared IPv4 with 20 forwarded ports plus SSH, a /80 IPv6, 2 GB of storage, 125 GB of bandwidth, at USD 3.50 to 5.00 a year depending on location. Locations: Bulgaria, Canada, Chicago, Germany, Finland, France, New York, Netherlands, Poland, Singapore. The 256 MB row is USD 6.50 to 10 a year with 4 GB and 250 GB, the 512 MB row USD 12.50 to 20 with 8 GB and 500 GB, and the 1024 MB row USD 24.50 to 40 with 12 GB and 1000 GB. The KVM NAT table starts higher, at 384 MB for USD 15 a year. The tracker lists the 128 MB plan at USD 0.29 a month on a yearly term with 2 GB HDD and a 0.1 Gbps port in the U.S.A., Canada and Germany. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 125 GB of bandwidth stated on the row with no period in the table header; the tracker reads it as monthly. No overage rate is published | metered: yes | free allowance: 125 GB, period not stated on the page read | source: [1]
+- identity: email | detail: not stated
+- interface: ssh
+- limits:
+  - volume-quota (binding): 125 GB of bandwidth is the wall, and it arrives before any CPU or disk limit matters; the shared IPv4 exposes only 20 forwarded ports plus SSH, so the host cannot be reached on arbitrary ports at all [1]
+- limits note: 125 GB of bandwidth is the wall, and it arrives before any CPU or disk limit matters; the shared IPv4 exposes only 20 forwarded ports plus SSH, so the host cannot be reached on arbitrary ports at all
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: NAT VPS: no public IPv4 of its own, 20 forwarded ports plus SSH, /80 IPv6. Enough for an outbound-only worker or a reverse tunnel, not for anything that needs to accept traffic on arbitrary ports
+- composes with: at USD 3.50 a year this is the cheapest way in evaluated offerings to get a machine with outbound network access in ten countries; it is a tunnel endpoint, a monitor or a cron runner, not a crawler, because 125 GB and a NAT port list cap it.
+- reliability: no reliability event recorded
+- notes: The tracker's USD 0.29 a month is the USD 3.50 a year row divided by twelve, which is consistent with the low end of the vendor's per-location range. The entry plan is OpenVZ under NAT, not the KVM NAT tier, and that distinction is the whole finding: the cheap row has no public IPv4 and no full port range. verification criteria: which location carries the USD 3.50 end of the range and whether the 125 GB is monthly.
+- extras:
+  - facets.class: price-floor
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 0.125
+  - facets.shape.disk_gib: 2
+  - monthly_usd: 0.29
+  - renewal_note: not published; the pricing page prints the yearly price and no renewal price
+- evidence:
+  - [1] 2026-10-22: 'NAT IPv4 128 MB' row quoted: '128 MB', '1v Core', '20 Ports + 1 SSH', '/80', '2 GB', '125 GB', '$3.5-$5 / Year', 'BG | CA | CHI | DE | FIN | FR | NY | NL | PL | SGP'
+  - [1] 2026-10-22: the 128 MB and 1024 MB rows sit under the heading 'NAT OpenVZ HDD/SSD (Shared IPv4 with 20 ports)', while 'KVM NAT IPv4 384 MB' at '$15 / Year' starts the separate KVM table
+  - [2] 2026-10-22: row quoted from the Cheapest VPSs table: '$0.29 / month', 'yearly Service', '1 Intel Cores (shared)', '128 MB RAM', '2 GB HDD', '125 GB/month bandwidth', '0.1 Gbps port speed', 'IPv4 (NAT) + IPv6', 'U.S.A.'
+  - [1] 2026-11-07: the vendor's own pricing page prices the NAT IPv4 128 MB entry row at USD 3.50 to 5.00 a year | capture: sha256:07e51a0dc62616529e8d52eff4b23e6ca040e2b4a19a4d0ab9fe32be9ca72825 | quote: $3.5-$5 / Year
+  - [1] 2026-11-07: the NAT table prices are as the record states | capture: sha256:07e51a0dc62616529e8d52eff4b23e6ca040e2b4a19a4d0ab9fe32be9ca72825 | quote: $3.5-$5 / Year
+- sources:
+  - [1] https://hosting.gullo.me/pricing
+  - [2] https://vpspricetracker.com/provider/Gullo_s_Hosting/vps
+
+## Gullo's Hosting (NAT IPv4 128MB)
+
+- `egress/gullos-hosting-nat-ipv4-128mb` | paid-only | evidence documented | binding volume-quota | category NAT VPS | tier NAT IPv4 128MB
+- identity a placeholder: card and phone unknown | verified 2026-11-03T07:36:42.014Z (live) | stale on 2026-12-04
+- url https://hosting.gullo.me/order/main/packages/nat-vps/?group_id=43
+- free tier: No free tier. NAT IPv4 128MB is USD 3.50 for a 1 year term: 128MB RAM, 2GB storage, 125GB bandwidth, 1 NAT IPv4 with 20 ports, a /80 IPv6 block. | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: The page read states no period for the 125GB.
+- per-object cap: not applicable: a NAT VPS, not an object store | source: [2]
+- retention: not applicable | source: [2]
+- egress: 125GB bandwidth with no period stated on the page read; more is sold in 125GB blocks at USD 1.00 (1000GB for USD 8.00). | metered: yes | free allowance: 125GB, period not stated | price per TB: USD 8.00 for 1000GB of additional bandwidth | source: [2]
+- identity: email | detail: unverified: behind a sign-up. The order page says taxes are calculated 'after you register or log in'; its sign-up fields and accepted payment methods are not shown.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 125GB bandwidth, period not stated [2]
+  - per-ip-shaping: one shared NAT IPv4 with 20 forwarded ports; some of the vendor's IPs are blocked by some countries [1]
+- binding note: 125GB is the first hard number: the 20-port NAT and the 128MB RAM limit what runs but do not fail on a schedule.
+- interface detail: Root shell inside an OpenVZ container (one forwarded port is for SSH).
+- tooling: Any SSH client.
+- composes with: A 125GB NAT IPv4 box with a /80 IPv6 block: outbound traffic and IPv6 inbound work with no forwarded port; IPv4 inbound is limited to the 20 forwarded ports, and UDP forwarding is not stated.
+- reliability: The order form warns that some of the IPs are blocked by some countries.
+- notes: Cheapest NAT plan of the vendor's France location at USD 3.50 a year; the vendor's pricing table gives USD 3.5-5 a year by location.
+- evidence note: Price, allowance, port count and IPv6 block are quoted from the vendor's order pages. Identity and payment methods are behind a sign-up.
+- extras:
+  - nat_ports: 20
+  - ipv6: /80 block
+  - udp_forwarding: unverified: not stated
+  - routed_ipv6_prefix: yes
+  - inbound_ipv4_ports: 20
+  - term: 12 months
+  - virtualization: OpenVZ container on a shared NAT IPv4.
+- evidence:
+  - [2] 2026-11-03: the 128MB NAT plan carries 125GB bandwidth, one NAT IPv4 with 20 ports and a /80 IPv6 block on OpenVZ | capture: sha256:faf8139b5baedc217be25d7244a31080f3511607686445aafabe8544bca9dd9c | quote: 128MB RAM 2GB Storage 125GB Bandwidth 1 NAT IPv4 w/ 20 Ports /80 Block IPv6 OpenVZ Virtualization
+  - [1] 2026-11-03: the 128MB plan costs USD 3.50 for a 1 year term | capture: sha256:1f62917cf63bff9c0fe26c243be339d0351e44907e05f731cfb7a591bce832b3 | quote: 1 Year @ $3.50
+  - [1] 2026-11-03: the order page prints a renewal line, so the term renews | capture: sha256:1f62917cf63bff9c0fe26c243be339d0351e44907e05f731cfb7a591bce832b3 | quote: Total When Renewing:
+  - [1] 2026-11-03: extra bandwidth is sold in 125GB blocks at USD 1.00 | capture: sha256:1f62917cf63bff9c0fe26c243be339d0351e44907e05f731cfb7a591bce832b3 | quote: Add 125GB of Bandwidth ($1.00)
+  - [1] 2026-11-03: 1000GB of extra bandwidth costs USD 8.00 | capture: sha256:1f62917cf63bff9c0fe26c243be339d0351e44907e05f731cfb7a591bce832b3 | quote: Add 1000GB of Bandwidth ($8.00)
+  - [1] 2026-11-03: the order flow needs a registered or logged-in account; the sign-up fields are not shown | capture: sha256:1f62917cf63bff9c0fe26c243be339d0351e44907e05f731cfb7a591bce832b3 | quote: Any applicable taxes will be calculated after you register or log in.
+  - [1] 2026-11-03: the order form warns some IPs are blocked by some countries | capture: sha256:1f62917cf63bff9c0fe26c243be339d0351e44907e05f731cfb7a591bce832b3 | quote: I understand this server may be blocked by some countries ($0.00)
+  - [3] 2026-11-03: inbound IPv4 reaches the VPS only through forwarded ports; the page names no protocol | capture: sha256:3acf5f35df3c08a66490dcd8b7302cfc7a5d0db70111e7679b712363cbf13578 | quote: you will find details on which ports have been configured to forward IPv4 connections to your VPS
+  - [3] 2026-11-03: the IPv4 is a private NAT address with no rDNS | capture: sha256:3acf5f35df3c08a66490dcd8b7302cfc7a5d0db70111e7679b712363cbf13578 | quote: With private addresses we cannot set rDNS records for IPv4
+  - [4] 2026-11-03: serverdeals lists this plan in its NAT/OpenVZ/LXC section at USD 3.5 per year | quote: ###### NAT IPv4 128MB
+- sources:
+  - [1] https://hosting.gullo.me/order/config/index/nat-vps/?group_id=43&pricing_id=352&coupon=LEB-NAT-128MB
+  - [2] https://hosting.gullo.me/order/main/packages/nat-vps/?group_id=43
+  - [3] https://hosting.gullo.me/plugin/support_manager/knowledgebase/view/4/nat-ipv4-help-page/4/
+  - [4] https://serverdeals.cc/
+
+## Gullo's Hosting (NAT IPv4 256MB)
+
+- `egress/gullos-hosting-nat-ipv4-256mb` | paid-only | evidence documented | binding volume-quota | category NAT VPS | tier NAT IPv4 256MB
+- identity a placeholder: card and phone unknown | verified 2026-11-03T07:36:42.014Z (live) | stale on 2026-12-04
+- url https://hosting.gullo.me/order/main/packages/nat-vps/?group_id=43
+- free tier: No free tier. NAT IPv4 256MB is USD 6.5 to 10 a year by location: 256MB RAM, 4GB storage, 250GB bandwidth, 1 NAT IPv4 with 20 ports, a /80 IPv6 block. | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: The USD 6.5 end is the price serverdeals lists; the vendor's own table gives the range.
+- per-object cap: not applicable: a NAT VPS, not an object store | source: [2]
+- retention: not applicable | source: [2]
+- egress: 250GB bandwidth with no period stated on the page read; more is sold in 125GB blocks at USD 1.00 on the vendor's NAT order form. | metered: yes | free allowance: 250GB, period not stated | source: [2]
+- identity: email | detail: unverified: behind a sign-up. The vendor's order flow says taxes are calculated 'after you register or log in'; its sign-up fields and accepted payment methods are not shown.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 250GB bandwidth, period not stated [2]
+  - per-ip-shaping: one shared NAT IPv4 with 20 forwarded ports [2]
+- binding note: 250GB is the first hard number: the 20-port NAT and 256MB RAM limit what runs but do not fail on a schedule.
+- interface detail: Root shell inside an OpenVZ container (one forwarded port is for SSH).
+- tooling: Any SSH client.
+- composes with: A 250GB NAT IPv4 box with a /80 IPv6 block; IPv4 inbound is limited to the 20 forwarded ports, and UDP forwarding is not stated.
+- reliability: The vendor's order form warns that some of its IPs are blocked by some countries.
+- notes: The 256MB step of the same NAT ladder as the 128MB plan: twice the allowance (250GB) for USD 6.5 to 10 a year.
+- evidence note: Allowance, ports and IPv6 block are quoted from the vendor's package page and pricing table; the price is a range by location. Identity is behind a sign-up.
+- extras:
+  - nat_ports: 20
+  - ipv6: /80 block
+  - udp_forwarding: unverified: not stated
+  - routed_ipv6_prefix: yes
+  - inbound_ipv4_ports: 20
+  - term: 12 months
+  - virtualization: OpenVZ container on a shared NAT IPv4.
+- evidence:
+  - [2] 2026-11-03: the 256MB NAT plan carries 250GB bandwidth, one NAT IPv4 with 20 ports and a /80 IPv6 block on OpenVZ | capture: sha256:faf8139b5baedc217be25d7244a31080f3511607686445aafabe8544bca9dd9c | quote: 256MB RAM 4GB Storage 250GB Bandwidth 1 NAT IPv4 w/ 20 Ports /80 Block IPv6 OpenVZ Virtualization
+  - [1] 2026-11-03: the pricing table prices the 256 MB NAT plan at USD 6.5 to 10 a year by location | capture: sha256:07e51a0dc62616529e8d52eff4b23e6ca040e2b4a19a4d0ab9fe32be9ca72825 | quote: | NAT IPv4 256 MB | 256 MB | 1v Core | 20 Ports + 1 SSH | /80 | 4 GB | 250 GB | $6.5-$10 / Year |
+  - [3] 2026-11-03: serverdeals lists this plan at USD 6.5 per year | quote: ###### NAT IPv4 256MB
+  - [4] 2026-11-03: extra bandwidth is sold in 125GB blocks at USD 1.00 on the vendor's NAT order form | capture: sha256:1f62917cf63bff9c0fe26c243be339d0351e44907e05f731cfb7a591bce832b3 | quote: Add 125GB of Bandwidth ($1.00)
+  - [4] 2026-11-03: the order flow needs a registered or logged-in account; the sign-up fields are not shown | capture: sha256:1f62917cf63bff9c0fe26c243be339d0351e44907e05f731cfb7a591bce832b3 | quote: Any applicable taxes will be calculated after you register or log in.
+  - [5] 2026-11-03: inbound IPv4 reaches the VPS only through forwarded ports; the page names no protocol | capture: sha256:3acf5f35df3c08a66490dcd8b7302cfc7a5d0db70111e7679b712363cbf13578 | quote: you will find details on which ports have been configured to forward IPv4 connections to your VPS
+- sources:
+  - [1] https://hosting.gullo.me/pricing
+  - [2] https://hosting.gullo.me/order/main/packages/nat-vps/?group_id=43
+  - [3] https://serverdeals.cc/
+  - [4] https://hosting.gullo.me/order/config/index/nat-vps/?group_id=43&pricing_id=352&coupon=LEB-NAT-128MB
+  - [5] https://hosting.gullo.me/plugin/support_manager/knowledgebase/view/4/nat-ipv4-help-page/4/

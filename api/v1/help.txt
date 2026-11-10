@@ -1,0 +1,125 @@
+fshy: every published record as one read-only SQLite store
+store: public; data as of 2026-11-10, source commit 3bf4a55f0cd9; 4866 records, 3445 entities, 31821 evidence rows, 16476 parsed claims
+The record files of data/records/ in the public repository are the source; this store is built from
+them and never edited. The MCP tools are help, search, filter, get, entity, need, sql and worklist.
+The HTTP API has the same operations: /api/v1/search, records (filter), record/TOPIC/SLUG (get),
+entity-search and entity/ID.json (entity), need/ID, sql and worklist/KIND. The route list is /api/v1/.
+
+IDS
+- rid = topic/slug, stable (storage/hetzner-storage-box). Quote rids; never show or store rno.
+- rno is build-local: the text_fts docid and leaf key. Join on it, never cite it.
+- eid = vendor entity. An entity only groups records; each record carries its own verdict.
+
+RULES
+- needs_card, needs_phone, needs_id, needs_institution: 1 yes, 0 no, NULL UNKNOWN (never 'no').
+  'No card' is needs_card=0 AND identity_basis='stated'. identity_basis='defaulted' or 'inferred' means unknown.
+- Freshness: stale on day D when stale_on <= D (today UTC unless you pick as_of).
+  verified_basis='inherited' means checked_on is only an upper bound.
+- usd_month, usd_per_tb_month: headline USD prices, NULL when nothing parsed. Say how many rows a
+  filter or sort on them drops for NULL. interfaces: comma list, NULL = unknown.
+- duplicate_of IS NOT NULL marks a duplicate; the API and the MCP tools exclude them unless asked, and
+  the wiki pages list them. So a page can count a few more records than the API.
+- A need list that asks for no card or no phone ends with the rows whose card or phone requirement is not stated (NULL, or
+  an identity that no source states), under the heading 'Card or phone requirement not stated'. They are never counted as no.
+- A free allowance: the claim of the kind has-free-tier. claim.num 1: the record has a free allowance; 0: it has
+  none; no row: unknown. free_unit is the unit of the headline offer, which can be a price, so it does not say
+  this. Join: JOIN claim c ON c.rid = r.rid AND c.kind = 'has-free-tier' AND c.num = 1 keeps the records with a
+  free allowance (example 8). With LEFT JOIN and no test on c.num, a record with no row has c.num IS NULL.
+  The filter operation applies the same join with free=1: /api/v1/records?free=1, or free true in the MCP tool.
+- TSV output ends with lines that start with '#': the row count, the limit, a cut. Read it with
+  comment='#' in pandas, or drop those lines.
+- vorder 0..7 orders verdicts best first; grp groups them.
+- self_hosted=1: the user installs and runs it, the last resort. Self-hosted options are listed last,
+  because this site is for users who have no hardware: every list sorts on self_hosted first.
+
+TABLES (key columns)
+- record(rid, topic, slug, eid, provider, url, category, verdict, vorder, grp, self_hosted, confidence, binding, identity_kind, identity_basis, needs_card, needs_phone, needs_id, needs_institution, crypto, interfaces, usd_month, usd_per_tb_month, verified_basis, checked_on, stale_on, summary, duplicate_of, doc, rno, +20 more): one row per record; doc is the record JSON of data/records/<topic>/<slug>.json
+- entity(eid, name, domain, resolved_by, topics, n_records, best_vorder, review): a vendor; groups records
+- alias(eid, alias, kind): kind: name, provider, slug, alias, domain
+- evidence(rid, ord, url, url_kind, date, proved, capture): what each source proved
+- limit_row(rid, ord, kind, value, source, is_binding): is_binding=1 for the kind named in binding
+- claim(rid, path, kind, num, unit, per, currency, usd, fx_date, parse): parsed numbers; parse ok, partial or unparsed
+- unknown(rid, path, class, rule): placeholder, default or withheld values
+- leaf(lid, rno, path, type, value): the leaves of the record JSON; a record is lid BETWEEN lid_min AND lid_max
+- edge(src, dst, kind): kind: duplicate_of, variant_of, successor_of, same_offer_as, same-product, mentions
+- drift(kind, subject, other, field, a, b, detail): records of one product that disagree
+- history(hid, when_utc, status, confidence, title, supersedes, body)
+- history_link(hid, rid)
+- ledger(at, rid, path, old, new, rung, url, date, proved, reason, op): one row per change of a record: when, which record, op (what the row did; NULL when the data does not name it), the field, the rung and the source
+- also fx(ccy, date, usd_per_unit, source), capture(url, captured_at, path, sha256), vocab(domain, term, ord, meaning), meta(key, value), keystat(tbl, col, distinct_n, max_key)
+- text_fts: FTS4, contentless, one row per record (docid = record.rno). Columns in order:
+  name, offer, limits, egress, identity, access, notes, evidence, extras. Terms are AND-ed;
+  'word*' is a prefix, 'col:word' limits to a column. CJK text is indexed as runs plus
+  overlapping bigrams: query a CJK run as its bigrams separated by spaces.
+  A word matches anywhere in a column: free also matches 'no free tier'. Use a phrase ('"always free"'),
+  a column (offer:free) or a filter on verdict, free_unit or grp. With filters, put the match in a
+  subquery on record (example 3): a JOIN of text_fts with filters on record is refused.
+  The sql route and the sql tool read a smaller copy of this store: it has no leaf table, and record.doc
+  and evidence.proved are NULL there. Use get, or the download /data/fshy-public.sqlite.gz, for them.
+All columns: SELECT name FROM pragma_table_info('record'). Meanings: SELECT * FROM vocab.
+
+VOCABULARIES
+- verdict:
+    qualifies = usable as stated; the read path was probed
+    qualifies-with-caveat = usable, with a named limit or an unprobed read path
+    trial-only = a time-boxed or one-time trial, not a recurring allowance
+    paid-only = no free allowance; listed for its price
+    fails-identity = the identity required is not reachable without it
+    fails-egress = data cannot be read back out at a usable rate or price
+    fails-quota = the free allowance is too small to matter
+    dead = the offer or the service no longer exists
+- grp:
+    usable = verdict qualifies or qualifies-with-caveat
+    trial = verdict trial-only
+    paid = verdict paid-only
+    rejected = verdict fails-identity, fails-egress or fails-quota
+    dead = verdict dead
+- confidence:
+    measured = a live request was made and its output kept
+    documented = a first-party page was read and the sentence quoted
+    reported = a third party said so
+    inferred = reasoned from other evidence
+    unverified = asserted and not checked
+- binding:
+    request-rate = requests per unit of time
+    pull-count = number of downloads or pulls
+    per-ip-shaping = bandwidth shaped per address or port
+    per-object-cap = largest single object
+    write-gated = writes need approval, payment or a gate
+    retention-clamped = data is deleted after a period
+    volume-quota = total stored or transferred volume
+    none = no named constraint binds
+- identity_kind:
+    anonymous = nothing is asked for
+    email = an email address
+    any-phone = a phone number from any country
+    country-phone = a phone number from a named country
+    national-id = a government identity document
+    card = a payment card
+    institution = membership of a university, lab or company
+- identity_basis:
+    stated = the identity requirement was read from a source
+    defaulted = the identity kind is a placeholder; card and phone are unknown
+    inferred = the kind, or the card or phone requirement, was inferred, not read; card and phone are unknown
+- verified_basis:
+    live = the record was checked against the service
+    inherited = carried from an earlier source; checked_on is an upper bound
+- unknown_class: not-applicable, defaulted, not-recorded, not-extracted, none-observed, not-stated, process, private-url, withheld, partly-held, boilerplate, interface-unknown, egress-unknown, identity-defaulted
+
+EXAMPLES (each runs as written)
+1. Usable storage with no card, cheapest per TB-month first (NULL price last)
+   SELECT rid, provider, usd_per_tb_month FROM record WHERE topic='storage' AND grp='usable' AND needs_card=0 AND identity_basis='stated' AND duplicate_of IS NULL ORDER BY self_hosted, usd_per_tb_month IS NULL, usd_per_tb_month LIMIT 10
+2. Full text, one column filter plus a prefix term (CJK: query bigrams, e.g. MATCH '百度')
+   SELECT r.rid, r.verdict FROM text_fts JOIN record r ON r.rno = text_fts.docid WHERE text_fts MATCH 'offer:gpu* hours' ORDER BY r.self_hosted, r.vorder LIMIT 10
+3. Full text with filters: match in a subquery on record, because a JOIN with filters is refused
+   SELECT r.rid, r.verdict FROM record r WHERE r.rno IN (SELECT docid FROM text_fts WHERE text_fts MATCH 'offer:gpu*') AND r.topic IN ('compute','inference') AND r.grp IN ('usable','trial') AND r.duplicate_of IS NULL ORDER BY r.self_hosted, r.vorder LIMIT 10
+4. Every record of a vendor, by alias
+   SELECT rid, topic, verdict FROM record WHERE eid IN (SELECT eid FROM alias WHERE alias LIKE 'hetzner%') ORDER BY self_hosted, vorder, rid LIMIT 20
+5. What goes stale in the next 30 days
+   SELECT rid, stale_on, verified_basis FROM record WHERE stale_on <= date('now','+30 days') AND grp <> 'dead' ORDER BY self_hosted, vorder, stale_on LIMIT 20
+6. Parsed prices per TB in USD, with the FX date used
+   SELECT c.rid, c.num, c.currency, c.usd, c.fx_date FROM claim c JOIN record r ON r.rid = c.rid WHERE c.kind='price-per-tb' AND c.usd IS NOT NULL ORDER BY r.self_hosted, c.usd LIMIT 10
+7. The binding request-rate limits, and who cites a host
+   SELECT l.rid, l.value FROM limit_row l JOIN record r ON r.rid = l.rid WHERE l.is_binding=1 AND l.kind='request-rate' AND l.rid IN (SELECT rid FROM evidence WHERE url LIKE '%github.com%') ORDER BY r.self_hosted, r.vorder, l.rid LIMIT 10
+8. Compute records that have a free allowance (claim has-free-tier = 1), best verdict first
+   SELECT r.rid, r.verdict FROM record r JOIN claim c ON c.rid = r.rid AND c.kind = 'has-free-tier' AND c.num = 1 WHERE r.topic = 'compute' AND r.grp IN ('usable','trial') AND r.duplicate_of IS NULL ORDER BY r.self_hosted, r.vorder LIMIT 10

@@ -1,0 +1,42 @@
+# NewsDemon
+
+> newsdemon.com | Debrid; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/newsdemon/ | JSON https://fshy.ajam.dev/api/v1/entity/newsdemon.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## NewsDemon
+
+- `debrid/newsdemon` | paid-only | evidence documented | binding none | category usenet provider (UsenetExpress backbone, retail) | tier Unlimited annual
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23T01:52:29.000Z (live) | stale on 2026-11-23
+- url https://www.newsdemon.com/usenet-access
+- price USD 5.00 (unlimited, annual at $60/yr)
+- free tier: No free tier and no free trial, stated explicitly: 'NewsDemon does not offer a free trial. We used to, but payment processing partners discourage trial-to-paid conversion flows'. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: no per-object cap is published; no per-object cap is published; the unit of retrieval is a Usenet article, approximately 750 KB by convention, so 1 TiB of monthly transfer corresponds to roughly 1.4 million article… | source: [1]
+- retention: 5,914+ days of binary and text retention on the plans page; the block page prints 5,854++ days. The conservative figure is recorded. | days: 5854 | source: [1]
+- egress: Unlimited speed and downloads on the unlimited plans; 50 SSL connections on every plan | metered: no | free allowance: unlimited | source: [1]
+- identity: card | detail: No trial at all, so a card or another accepted payment is required before the first byte. The vendor does not publish its payment list on the pages read; crypto is reported by the r/usenet deals wiki and was not confirmed here.
+- interface: nntp
+- limits:
+  - request-rate: 50 SSL connections on every plan, including the $3 metered tier [2]
+  - volume-quota: 50 GB/month on the metered tier; blocks of 100 GB, 500 GB and 1 TB never expire [3]
+  - retention-clamped: 5,854 to 5,914 days depending on the page [3]
+- limits note: Three unlimited terms (monthly, quarterly, annual) plus metered 50/100/200 GB and non-expiring blocks. Blocks are listed twice on the same page at two price columns: 100 GB at $15 or $17, 500 GB at $47 or $49, 1000 GB at $87 or $89. A separate page offers a 100 GB block for $5 and a 50 GB metered plan for $3/mo.
+- binding note: The annual unlimited plan publishes no byte counter. At 1 TiB/month nothing in the vocabulary binds on that tier; the metered tier would bind at 50 GB by construction.
+- interface detail: NNTP over TLS on port 563. No HTTP or object API exists for the download path, which is driven through SABnzbd, NZBGet or nzbdav.
+- composes with: The usual shape is a NewsDemon unlimited primary plus an Abavia block as fill: two independent spools, one subscription and one prepaid allowance.
+- reliability: UsenetExpress backbone with NewsDemon's own spool on top, three regions (US East, US West, EU), 550 TB/day feed claimed. Post-quantum encryption is advertised on every plan.
+- notes: The $3 metered plan is the cheapest paid entry of any provider among debrid providers and carries the same 50 connections as the unlimited plans.
+- evidence note: All prices and the explicit refusal of a free trial come from vendor pages read. The two block price columns disagree with each other on the same page and the record keeps the higher.
+- extras:
+  - backbone: UsenetExpress
+  - server_regions: US East; US West; NL
+  - block_price_columns_conflict: yes
+  - crypto: reported by r/usenet wiki/providerdeals, not vendor-confirmed
+- evidence:
+  - [1] 2026-10-23: unlimited monthly/quarterly/annual plus 50/100/200 GB metered and 100 GB/500 GB/1 TB blocks; 50 SSL connections; 5,914+ days
+  - [2] 2026-10-23: 'NewsDemon does not offer a free trial'; 50 GB metered at $3/mo, 100 GB block at $5, unlimited annual at $60/yr
+  - [3] 2026-10-23: blocks 10 GB $4.00, 25 GB $7.00, 50 GB $12.00, 100 GB $17.00, 500 GB $49.00, 1000 GB $89.00, against a second column $2.50/$5.00/$10.00/$15.00/$47.00/$87.00; 5,854++ days; 50 connections
+- sources:
+  - [1] https://www.newsdemon.com/usenet-access
+  - [2] https://www.newsdemon.com/free-trial
+  - [3] https://www.newsdemon.com/block-accounts

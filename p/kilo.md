@@ -1,0 +1,367 @@
+# Kilo Code
+
+> kilo.ai | Coding subscriptions, Compute, Inference; 3 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/kilo/ | JSON https://fshy.ajam.dev/api/v1/entity/kilo.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Kilo Code (Coding subscriptions)
+
+- `coding-subs/kilo-code` | qualifies-with-caveat | evidence documented | binding request-rate | category coding agent with a hosted model gateway and credit subscription
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T10:28:03.774Z (live) | stale on 2026-12-05
+- url https://kilo.ai/pricing
+- free tier: the platform plan is USD 0 for individuals; free models (Auto Free, `kilo-auto/free`, and models marked free) cost USD 0 and are limited to 200 requests per hour per IP; paid inference is billed at provider rates from purchased credits or Kilo Pass credits, with a 5% processing fee on credit purchases | unit: requests | metered on: request-count | read on: 2026-11-02 | source: [1] | note: the 200 requests per hour limit is per IP address, for anonymous and signed-in requests alike; three free models were listed on 2026-11-02 and the list changes when provider promotions end
+- per-object cap: not applicable: a coding subscription meters usage, not objects
+- retention: not applicable
+- egress: not applicable | metered: no
+- identity: email | detail: free models: a Kilo account, made by signing in with an email address, ChatGPT, Google, Apple, GitHub, GitLab, Discord, LinkedIn or Anaconda, with no credit card; the gateway also serves free models with no account, limited per IP, and the CLI falls back to an anonymous provider when it holds no key. Teams: a GitHub account or a Google Workspace company email and a credit card for billing, while the 14-day Enterprise trial needs no card. Kilo Pass and paid credits: unverified: the payment method is behind a sign-up. The provider page names a temporary hold as identity verification without saying when it applies
+- interface: cli, rest
+- limits:
+  - request-rate (binding): free models: 200 requests per hour per IP address, for anonymous and signed-in requests alike; over the limit the gateway answers HTTP 429 [2]
+- limits note: paid models have no gateway rate limit and stop at a zero balance with HTTP 402, and upstream providers may limit them; Teams is USD 15 per user per month, includes no credits and is documented as having no rate limiting at peak; Kilo Pass is a monthly credit subscription of Starter USD 19 (up to USD 26.60 a month in credits), Pro USD 49 (up to USD 68.60) or Expert USD 199 (up to USD 278.60), with a bonus of 10% in month 1, 50% in month 2 and up to 40% after on monthly plans and 50% every month on annual plans, bonus credits expiring at the end of each monthly cycle, paid allotments one calendar year after issuance, and a 5% processing fee on each Pass purchase
+- binding note: on the free route the 200 requests per hour per IP binds first; on paid models only the credit balance binds
+- interface detail: the `kilo` CLI runs headless as `kilo run --auto "prompt"` (autonomous mode, built for CI/CD): `--format json` emits raw JSON events, `-m provider/model` picks the model, `-c` and `-s ID` continue a session, `--attach URL` targets a running `kilo serve` server, and the exit code is 0 on success, 124 on timeout and 1 on error; without `--auto` a non-interactive run auto-rejects every permission request. `KILO_ORG_ID` selects a Teams organization for `kilo run`. The Kilo Gateway takes OpenAI-SDK and Vercel AI SDK requests with a Bearer API key, and free models also with no key. VS Code and JetBrains extensions share the account
+- endpoint: https://ai-gateway.kilo.ai/api/v1/chat/completions
+- tooling: the open-source (MIT) Kilo Code agent, which the user installs as a VS Code or JetBrains extension or as the `kilo` CLI (`npm install -g @kilocode/cli`); the hosted Kilo Gateway serves the models and takes the user's own keys for over 30 providers; Cloud Agents run in Kilo-hosted containers
+- composes with: Auto Free and the gateway's free-model ids are a hosted USD 0 route that needs no card; Kilo credits or Kilo Pass pay for the paid models behind the same account, and the same balance works in the IDE, the CLI, Cloud Agents and the gateway; inference/kilo-gateway holds the gateway's free models and compute/kilo-code holds Cloud Agents
+- reliability: free models are served by upstream providers that can limit a model on their own; Auto Free may route to providers that log prompts and outputs; the free-model list changes as provider promotions end
+- notes: Kilo Code is an MIT-licensed coding agent whose platform is free for individuals; Teams adds seats at USD 15 a user a month, and Kilo Pass is an optional monthly credit subscription. Auto Model has three tiers: kilo-auto/free, kilo-auto/efficient and kilo-auto/frontier, and the model list also carries Anthropic, OpenAI, Google, DeepSeek, Moonshot and MiniMax models at provider rates. The site footer says Kilo was acquired by Anaconda.
+- evidence note: prices, limits, sign-in methods and the headless command are quoted from first-party pages read on 2026-11-02, and the public model list from a probe of the unauthenticated gateway models endpoint. Nothing was subscribed to, so the Kilo Pass payment method and the free-route quality are unverified.
+- self hosted: no
+- evidence:
+  - [1] 2026-11-02: the platform plan is free for individuals, with Teams and Enterprise adding collaboration, security, governance and support | capture: sha256:62d1a4d1e49646a6ac1e8463c359ad0297c62ce339985138dd5ed26d89aa4211 | quote: Free for individuals. Teams and Enterprise add collaboration, security, governance, and support.
+  - [1] 2026-11-02: Individual is USD 0 and Teams is USD 15 per user per month on the platform plan row | capture: sha256:62d1a4d1e49646a6ac1e8463c359ad0297c62ce339985138dd5ed26d89aa4211 | quote: | Platform plan | $0 | $15/user/month | Custom |
+  - [1] 2026-11-02: the Auto Free route reaches free models through the Kilo Gateway, with BYOK or local models as the alternative | capture: sha256:62d1a4d1e49646a6ac1e8463c359ad0297c62ce339985138dd5ed26d89aa4211 | quote: Auto Free routes to free models through Kilo Gateway where available
+  - [1] 2026-11-02: the Kilo Gateway lists 500+ models across 60+ providers at provider rates | capture: sha256:62d1a4d1e49646a6ac1e8463c359ad0297c62ce339985138dd5ed26d89aa4211 | quote: 500+ models across 60+ providers
+  - [1] 2026-11-02: Teams starts with a 14-day Enterprise trial | capture: sha256:62d1a4d1e49646a6ac1e8463c359ad0297c62ce339985138dd5ed26d89aa4211 | quote: Your 14-day trial is an Enterprise trial, so your team can evaluate Enterprise features before choosing a plan.
+  - [3] 2026-11-02: Kilo Pass is a monthly token subscription with up to 50% bonus credits | capture: sha256:b8cc4dc7db9f4fb2501b981bfcba5993bf64e53d3cc5cebcb9c93f9399c94072 | quote: A monthly AI token subscription with up to 50% bonus credits included.
+  - [3] 2026-11-02: the calculator lists three Kilo Pass tiers: Starter USD 19, Pro USD 49 and Expert USD 199 a month, with the credits each gives at the maximum bonus | capture: sha256:b8cc4dc7db9f4fb2501b981bfcba5993bf64e53d3cc5cebcb9c93f9399c94072 | quote: Starter $19/mo Up to $26.60/mo in credits Pro $49/mo Up to $68.60/mo in credits Expert $199/mo Up to $278.60/mo in credits
+  - [3] 2026-11-02: the annual cycle carries a 50% bonus, and the calculator example shows USD 588 a year | capture: sha256:b8cc4dc7db9f4fb2501b981bfcba5993bf64e53d3cc5cebcb9c93f9399c94072 | quote: Annual 50% bonus $588/year
+  - [3] 2026-11-02: the monthly bonus ladder: 10% in month 1, 50% in month 2, then up to 40% | capture: sha256:b8cc4dc7db9f4fb2501b981bfcba5993bf64e53d3cc5cebcb9c93f9399c94072 | quote: Monthly plans: Get 10% extra credits in month 1, 50% in month 2, then earn up to 40% as your streak grows
+  - [3] 2026-11-02: annual plans earn a 50% bonus every month | capture: sha256:b8cc4dc7db9f4fb2501b981bfcba5993bf64e53d3cc5cebcb9c93f9399c94072 | quote: Annual plans: Get 50% extra credits every single month
+  - [3] 2026-11-02: Kilo Pass credits are spendable in the IDE, the CLI, Cloud Agents and the Kilo Gateway | capture: sha256:b8cc4dc7db9f4fb2501b981bfcba5993bf64e53d3cc5cebcb9c93f9399c94072 | quote: Your balance works across the IDE, CLI, Cloud Agents, and Kilo Gateway
+  - [3] 2026-11-02: Kilo Pass bonus credits expire at the end of the monthly cycle | capture: sha256:23e1d5e6713fabeb94b2f21c0bfe5f2ca57594ebfa9551ab9d6029d327c86229 | quote: Yes, the free bonus credits you get as part of your Kilo Pass subscription expire at the end of the monthly cycle.
+  - [3] 2026-11-02: paid Kilo Pass allotments expire one calendar year after issuance | capture: sha256:23e1d5e6713fabeb94b2f21c0bfe5f2ca57594ebfa9551ab9d6029d327c86229 | quote: each personal or organization Kilo Pass paid allotment expires one calendar year after issuance.
+  - [3] 2026-11-02: Kilo Pass renewals can be cancelled at any time | capture: sha256:23e1d5e6713fabeb94b2f21c0bfe5f2ca57594ebfa9551ab9d6029d327c86229 | quote: Yes, you can cancel future renewals of your Kilo Pass subscription at any time.
+  - [1] 2026-11-02: the 5% processing fee applies to credit top-ups and Kilo Pass purchases, not to Teams seat subscriptions | capture: sha256:312f7e11bb34568c196384fce6a7b6cd28fc33c578be8a36f8f7a3f7dda17d39 | quote: It applies to one-off top-ups, automatic top-ups, and monthly or annual Kilo Pass purchases. It does not apply to Teams and Enterprise seat subscriptions
+  - [1] 2026-11-02: no subscription is needed to start: free models, local models or own keys work | capture: sha256:312f7e11bb34568c196384fce6a7b6cd28fc33c578be8a36f8f7a3f7dda17d39 | quote: No. You can download Kilo Code and start coding with AI immediately using free models, local models (Ollama, LM Studio), or your own API keys.
+  - [4] 2026-11-02: Teams costs USD 15 per user per month | capture: sha256:21e888b8afaa2336d774cb055767a968ce13b6283d7f49fa55f079db166c062f | quote: Cost: $15 per user per month
+  - [4] 2026-11-02: a Teams seat includes no inference credits | capture: sha256:21e888b8afaa2336d774cb055767a968ce13b6283d7f49fa55f079db166c062f | quote: No credits are included with a Teams or Enterprise plan purchase.
+  - [4] 2026-11-02: Teams is documented as having no rate limiting during peak usage | capture: sha256:21e888b8afaa2336d774cb055767a968ce13b6283d7f49fa55f079db166c062f | quote: No rate limiting or quality degradation during peak usage
+  - [5] 2026-11-02: Teams sign-up asks for a credit card for billing setup | capture: sha256:c26574f484ad83fb8981b2873dc4ae7307c9e4ab29cdbb6a186c262f46c7b2cf | quote: Credit card for billing setup
+  - [5] 2026-11-02: Teams sign-up uses a GitHub account or a Google Workspace company email | capture: sha256:c26574f484ad83fb8981b2873dc4ae7307c9e4ab29cdbb6a186c262f46c7b2cf | quote: Your GitHub account or a Google Workspaces company email
+  - [6] 2026-11-02: the Teams trial of 14 days needs no credit card | capture: sha256:74c4e81f5719f43718936f18e5d90c5583fa13bcd395c1399f0a365ba0f89e32 | quote: 14 days free Enterprise trial, no credit card required
+  - [7] 2026-11-02: three free models were listed on the free-models page | capture: sha256:f24e724f0fd685791b1d78ea9fa61af7d14bebbd88cb629b4352bbbb71c4734a | quote: The current free catalog has 3 active models, including Nemotron 3.5 Super VL (free), Dots3-Note Preview (free) and Nemotron 3 Ultra (free).
+  - [7] 2026-11-02: free models need a Kilo Cloud account and no credit card | capture: sha256:f24e724f0fd685791b1d78ea9fa61af7d14bebbd88cb629b4352bbbb71c4734a | quote: Sign up for Kilo Cloud. No credit card is required for free models.
+  - [8] 2026-11-02: Auto Free can route to upstream providers that log prompts and outputs | capture: sha256:85ee9d6f5a3fc436737f3f8700ea22def3a51f57f45ebcb87c371339592968cc | quote: Auto Free may route your requests to providers that log prompts and outputs and use them to improve their services.
+  - [8] 2026-11-02: free models can also be limited by the upstream provider | capture: sha256:85ee9d6f5a3fc436737f3f8700ea22def3a51f57f45ebcb87c371339592968cc | quote: Some free models may be rate limited by the upstream provider.
+  - [9] 2026-11-02: free models are limited to 200 requests per hour per IP | capture: sha256:b079122bf454b03eaf295bd12a45d81541a107a061404460bd8d0d9f639026e9 | quote: Free models (`kilo-auto/free`): 200 requests per hour per IP.
+  - [2] 2026-11-02: the gateway's free-model limit is 200 requests per hour per IP | capture: sha256:dbd437d4c437acebea7725e866affa3b9b127544803384589cbfced0ec5e20ae | quote: | Free models per IP | 200 requests per hour |
+  - [2] 2026-11-02: over the free-model limit the gateway answers HTTP 429 with this message | capture: sha256:dbd437d4c437acebea7725e866affa3b9b127544803384589cbfced0ec5e20ae | quote: Rate limit exceeded for free models. Please try again later.
+  - [2] 2026-11-02: paid models have no gateway rate limit | capture: sha256:dbd437d4c437acebea7725e866affa3b9b127544803384589cbfced0ec5e20ae | quote: Paid model requests are not rate-limited by the gateway itself, but may be rate-limited by upstream providers.
+  - [10] 2026-11-02: free models are reachable with no key, limited per IP | capture: sha256:4de5f3ef1c393df813156536bc81d9b521e83678f7c2e1331c0ea16de76bb6f5 | quote: The gateway allows unauthenticated access for free models only. Anonymous requests are identified by IP address and are subject to rate limiting (200 requests per hour per IP).
+  - [11] 2026-11-02: the CLI falls back to an anonymous Kilo provider when no key exists | capture: sha256:4502c4a13e37abf5dd8f31f3bc49ab801e1c3ca975c96c28793852020242b7f3 | quote: | Anonymous Kilo | If no Kilo key exists, provider loader sets API key value `anonymous`; gateway model catalog can fall back to public unauthenticated endpoint |
+  - [12] 2026-11-02: kilo-auto/free is the free Auto Model tier | capture: sha256:25509e34a17ff458e08190fb2bf4a403147b8418239920a9192826ca2897cf5b | quote: | `kilo-auto/free` | The best free models available | Free |
+  - [12] 2026-11-02: Auto Free routes across free models on OpenRouter | capture: sha256:25509e34a17ff458e08190fb2bf4a403147b8418239920a9192826ca2897cf5b | quote: Free — Routes to the best available free models on OpenRouter, splitting traffic across them.
+  - [12] 2026-11-02: kilo-auto/frontier is the paid top tier | capture: sha256:25509e34a17ff458e08190fb2bf4a403147b8418239920a9192826ca2897cf5b | quote: | `kilo-auto/frontier` | Maximum capability with the best available models | Paid |
+  - [12] 2026-11-02: kilo-auto/efficient is the paid low-cost tier | capture: sha256:25509e34a17ff458e08190fb2bf4a403147b8418239920a9192826ca2897cf5b | quote: | `kilo-auto/efficient` | Lowest cost per task, with capability matched to difficulty | Paid |
+  - [13] 2026-11-02: the gateway model list is public | capture: sha256:e548eeffd0ac0084c01e4de06f265916bd3bcda1c62448d3fcd80efe9e1dbc3c | quote: This returns model information including pricing, context window, and supported features. No authentication is required.
+  - [13] 2026-11-02: the gateway lists Anthropic, OpenAI, Google, DeepSeek, Moonshot and MiniMax models among its popular ones | capture: sha256:e548eeffd0ac0084c01e4de06f265916bd3bcda1c62448d3fcd80efe9e1dbc3c | quote: | `anthropic/claude-sonnet-4.6` | Anthropic | Balanced performance and cost |
+  - [14] 2026-11-02: the sign-in methods of a Kilo account | capture: sha256:e66ec007388e0871d20386888e9c8692de1ab25a5be227b0b1bc615d3c396818 | quote: You can sign in with your email address, ChatGPT, Google, Apple, GitHub, GitLab, Discord, LinkedIn, or Anaconda, or through your organization's single sign-on.
+  - [14] 2026-11-02: the agent takes own keys for over 30 providers | capture: sha256:e66ec007388e0871d20386888e9c8692de1ab25a5be227b0b1bc615d3c396818 | quote: If you prefer to use your own API key or existing subscription, Kilo Code supports over 30 providers.
+  - [14] 2026-11-02: the gateway takes OpenAI-SDK and Vercel AI SDK requests with a key from the account profile | capture: sha256:e66ec007388e0871d20386888e9c8692de1ab25a5be227b0b1bc615d3c396818 | quote: If you're using the Kilo AI Gateway outside of the Kilo Code extension (for example, with the Vercel AI SDK or OpenAI SDK), you'll need an API key:
+  - [15] 2026-11-02: the provider page names a temporary hold as identity verification, without saying when it applies | capture: sha256:def5d13b50e5f6107959659541883f022c9653697e575740f4d975cabd16133a
+  - [16] 2026-11-02: `kilo run --auto` is the non-interactive autonomous mode | capture: sha256:f1313a007c81ec24f19c14d09ea46db809b317993ae2f6291703613575324920 | quote: kilo run --auto "Implement feature X"
+  - [16] 2026-11-02: the autonomous mode is meant for CI/CD | capture: sha256:f1313a007c81ec24f19c14d09ea46db809b317993ae2f6291703613575324920 | quote: Autonomous mode allows Kilo Code to run in automated environments like CI/CD pipelines without requiring user interaction.
+  - [16] 2026-11-02: exit codes: 0 success, 124 timeout, 1 error | capture: sha256:f1313a007c81ec24f19c14d09ea46db809b317993ae2f6291703613575324920 | quote: - `124`: Timeout (task exceeded time limit)
+  - [16] 2026-11-02: without --auto a non-interactive run auto-rejects permission requests | capture: sha256:f1313a007c81ec24f19c14d09ea46db809b317993ae2f6291703613575324920 | quote: Without `--auto`, a non-interactive run cannot prompt for approval and auto-rejects any permission request it receives.
+  - [16] 2026-11-02: an organization is selected for kilo run by KILO_ORG_ID | capture: sha256:f1313a007c81ec24f19c14d09ea46db809b317993ae2f6291703613575324920 | quote: `KILO_ORG_ID` environment variable — Best for non-interactive and CI environments.
+  - [17] 2026-11-02: kilo run can emit raw JSON events | capture: sha256:950ff0df95db3d2ce412fef04e0cfdabd5d98c54f65dd9ec001552a78f379527 | quote: --format format: default (formatted) or json (raw JSON events)
+  - [17] 2026-11-02: kilo run takes a model as provider/model | capture: sha256:950ff0df95db3d2ce412fef04e0cfdabd5d98c54f65dd9ec001552a78f379527 | quote: -m, --model model to use in the format of provider/model
+  - [18] 2026-11-02: the CLI installs from npm | capture: sha256:592872e14539ec6cb03852d14b4effd17c2fabddb00dd37d609f1504f415475c | quote: Run npm install -g @kilocode/cli to install globally on your system.
+  - [19] 2026-11-02: the repository is MIT licensed | capture: sha256:544224343e37076f8bcc413e911da16976a8a0fa85c867cf96bc7057a125a73d | quote: MIT. You're free to use, modify, and distribute this code, including commercially
+  - [20] 2026-11-02: the site footer says Kilo was acquired by Anaconda | capture: sha256:44d647c69aac112cd9b635419bdfe47bc7e9368ccda2e29ec8750d1ca606b284 | quote: Kilo has been acquired by Anaconda
+  - probe:https://ai-gateway.kilo.ai/api/v1/models 2026-11-02: the unauthenticated gateway models endpoint answered HTTP 200 and lists kilo-auto/free | capture: sha256:cf0c8234ee5167bf3ac9b3dba01112cf362755a67e1a26764e6157b9ebba32fa | quote: "id":"kilo-auto/free"
+  - probe:https://ai-gateway.kilo.ai/api/v1/models 2026-11-02: the same list carries kilo-auto/frontier | capture: sha256:cf0c8234ee5167bf3ac9b3dba01112cf362755a67e1a26764e6157b9ebba32fa | quote: "id":"kilo-auto/frontier"
+  - probe:https://ai-gateway.kilo.ai/api/v1/models 2026-11-02: the list carries a free Nemotron 3 Ultra id | capture: sha256:cf0c8234ee5167bf3ac9b3dba01112cf362755a67e1a26764e6157b9ebba32fa | quote: "id":"nvidia/nemotron-3-ultra-550b-a55b:free"
+  - [2] 2026-11-02: a zero balance stops paid-model requests with HTTP 402 | capture: sha256:dbd437d4c437acebea7725e866affa3b9b127544803384589cbfced0ec5e20ae | quote: When your balance reaches zero, requests to paid models will return HTTP 402 with a link to add credits:
+  - [17] 2026-11-02: kilo serve starts a headless server | capture: sha256:950ff0df95db3d2ce412fef04e0cfdabd5d98c54f65dd9ec001552a78f379527 | quote: starts a headless kilo server
+  - [17] 2026-11-02: kilo run --attach targets a running kilo server | capture: sha256:950ff0df95db3d2ce412fef04e0cfdabd5d98c54f65dd9ec001552a78f379527 | quote: attach to a running kilo server (e.g., http://localhost:4096)
+  - [13] 2026-11-02: the gateway chat completions endpoint takes a POST with a Bearer key | capture: sha256:e548eeffd0ac0084c01e4de06f265916bd3bcda1c62448d3fcd80efe9e1dbc3c | quote: curl -X POST "https://ai-gateway.kilo.ai/api/v1/chat/completions"
+  - [7] 2026-11-02: free-model availability changes when provider pricing changes or promotions end | capture: sha256:f24e724f0fd685791b1d78ea9fa61af7d14bebbd88cb629b4352bbbb71c4734a | quote: Availability can change when provider pricing changes or free promotions end
+  - [2] 2026-11-04: the free-model limit is still 200 requests per hour per IP | capture: sha256:dbd437d4c437acebea7725e866affa3b9b127544803384589cbfced0ec5e20ae | quote: | Free models per IP | 200 requests per hour |
+- sources:
+  - [1] https://kilo.ai/pricing
+  - [2] https://kilo.ai/docs/gateway/usage-and-billing
+  - [3] https://kilo.ai/pricing/kilo-pass
+  - [4] https://kilo.ai/docs/collaborate/teams/about-plans
+  - [5] https://kilo.ai/docs/collaborate/teams/getting-started
+  - [6] https://kilo.ai/teams
+  - [7] https://kilo.ai/landing/free-models
+  - [8] https://kilo.ai/docs/getting-started/using-kilo-for-free
+  - [9] https://kilo.ai/docs/getting-started/rate-limits-and-costs
+  - [10] https://kilo.ai/docs/gateway/authentication
+  - [11] https://kilo.ai/docs/contributing/architecture/cli-runtime
+  - [12] https://kilo.ai/docs/code-with-ai/agents/auto-model
+  - [13] https://kilo.ai/docs/gateway/models-and-providers
+  - [14] https://kilo.ai/docs/getting-started/setup-authentication
+  - [15] https://kilo.ai/docs/ai-providers/kilocode
+  - [16] https://kilo.ai/docs/code-with-ai/platforms/cli
+  - [17] https://kilo.ai/docs/code-with-ai/platforms/cli-reference
+  - [18] https://kilo.ai/cli
+  - [19] https://github.com/Kilo-Org/kilocode
+  - [20] https://kilo.ai/pricing/compare
+
+## Kilo Code (Compute)
+
+- `compute/kilo-code` | qualifies-with-caveat | evidence documented | binding request-rate | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:53:22.456Z (live) | stale on 2026-12-05
+- url https://kilo.ai/pricing
+- free tier: Kilo Code: the platform is free for individuals at USD 0; free models (Auto Free, `kilo-auto/free`, and models marked free) are billed at USD 0 and rate-limited to 200 requests per hour per IP; paid inference is at provider rates with no markup, plus a 5% payment-processing fee on credit purchases | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1] | note: free-product
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email | detail: an account: sign-in is by email address, ChatGPT, Google, Apple, GitHub, GitLab, Discord, LinkedIn, Anaconda or organisation single sign-on, and the free-models page says no credit card is required for free models; the provider page also names a temporary hold as identity verification without saying when it applies. At the gateway, free-model requests are served to anonymous callers too, rate-limited by IP.
+- interface: cli, rest
+- limits:
+  - request-rate (binding): free models: 200 requests per hour per IP address, for anonymous and authenticated requests alike; over the limit the gateway answers HTTP 429 [2]
+- limits note: free models: 200 requests per hour per IP; paid models are not rate-limited by the gateway, only by the balance and by upstream providers
+- binding note: the 200 requests per hour per IP on free models binds first; paid models have no gateway rate limit and stop at a zero balance with HTTP 402
+- interface detail: the `kilo` CLI and the IDE extensions; the Kilo Gateway takes OpenAI-SDK and Vercel AI SDK requests with an API key; not probed
+- tooling: the open-source Kilo Code agent for VS Code and JetBrains, the `kilo` CLI, and Cloud Agents in a Kilo-hosted Linux container; models come from the Kilo Gateway, from the user's own keys for over 30 providers, or from a linked ChatGPT subscription
+- composes with: a free VS Code agent with a free-model route is a $0 front end to whichever inference vendor is giving tokens away, so it inherits that vendor's quota and needs no card of its own.
+- reliability: no reliability event recorded
+- notes: A coding subscription in part: Kilo Code is an open-source coding agent whose platform is free for individuals, with Teams at USD 15 a user a month and Kilo Pass, a monthly AI token subscription with up to 50% bonus credits. No coding-subs record holds it; inference/kilo-gateway holds the gateway's free models. It stays in compute for Cloud Agents, an isolated Linux container billed per second from USD 0.60 an hour, separate from inference, which needs a USD 5 balance present to start. The free model list changes as provider promotions end.
+- extras:
+  - facets.class: free-standing-agent
+  - facets.free_tier_kind: free-product
+- evidence:
+  - [1] 2026-10-22: "Platform plan | Free for individuals" and "AI inference | Choose free models, local models, BYOK, Kilo Gateway, or Kilo Pass", quoted
+  - [1] 2026-10-22: cloud compute is a separate metered line, quoted as "Usage-based compute for cloud features, charged separately from inference"
+  - [3] 2026-10-30: free models cost nothing and are limited to 200 requests per hour per IP | capture: sha256:b079122bf454b03eaf295bd12a45d81541a107a061404460bd8d0d9f639026e9 | quote: Free models (`kilo-auto/free`): 200 requests per hour per IP.
+  - [2] 2026-10-30: the free allowance is counted in requests per hour | capture: sha256:dbd437d4c437acebea7725e866affa3b9b127544803384589cbfced0ec5e20ae | quote: | Free models per IP | 200 requests per hour |
+  - [2] 2026-10-30: the gateway limits free-model requests to 200 per hour per IP | capture: sha256:dbd437d4c437acebea7725e866affa3b9b127544803384589cbfced0ec5e20ae | quote: | Free models per IP | 200 requests per hour |
+  - [4] 2026-10-30: the sign-in methods of a Kilo account | capture: sha256:e66ec007388e0871d20386888e9c8692de1ab25a5be227b0b1bc615d3c396818 | quote: You can sign in with your email address, ChatGPT, Google, Apple, GitHub, GitLab, Discord, LinkedIn, or Anaconda, or through your organization's single sign-on.
+  - [5] 2026-10-30: free models need an account but no credit card | capture: sha256:05c1c7d828992607907ce5d1c053423079a6f9c953216d5b85c0a04729f7c7e4 | quote: Sign up for Kilo Cloud. No credit card is required for free models.
+  - [6] 2026-10-30: the provider page names a temporary hold as identity verification | capture: sha256:def5d13b50e5f6107959659541883f022c9653697e575740f4d975cabd16133a
+  - [2] 2026-10-30: free-model requests are accepted without an account at the gateway | capture: sha256:dbd437d4c437acebea7725e866affa3b9b127544803384589cbfced0ec5e20ae | quote: All free model requests (both anonymous and authenticated) are rate-limited by IP address:
+  - [4] 2026-10-30: the agent takes the user's own keys for over 30 providers or an existing subscription | capture: sha256:e66ec007388e0871d20386888e9c8692de1ab25a5be227b0b1bc615d3c396818 | quote: If you prefer to use your own API key or existing subscription, Kilo Code supports over 30 providers.
+  - [7] 2026-10-30: the agent runs in VS Code, JetBrains, a CLI and the cloud | capture: sha256:8b30a519d91e5370c19fd690316b5cdb87258296885acbb5a9ef550d72e3aa21 | quote: Everywhere you code.VS Code, JetBrains, CLI, and Cloud.
+  - [4] 2026-10-30: the Kilo CLI is documented and the gateway takes OpenAI-SDK requests with an API key | capture: sha256:e66ec007388e0871d20386888e9c8692de1ab25a5be227b0b1bc615d3c396818 | quote: If you're using the Kilo AI Gateway outside of the Kilo Code extension (for example, with the Vercel AI SDK or OpenAI SDK), you'll need an API key:
+  - [4] 2026-10-30: the gateway takes OpenAI-SDK and Vercel AI SDK requests with an API key | capture: sha256:e66ec007388e0871d20386888e9c8692de1ab25a5be227b0b1bc615d3c396818 | quote: If you're using the Kilo AI Gateway outside of the Kilo Code extension (for example, with the Vercel AI SDK or OpenAI SDK), you'll need an API key:
+  - [1] 2026-10-30: cloud compute is billed separately from inference, beside a free individual platform, Teams and Kilo Pass | capture: sha256:646dcbb8991cda4807ff4e606e74bddacf615cac00d8e71c36e4a68138345522 | quote: Usage-based compute for cloud features, charged separately from inference.
+  - [8] 2026-10-30: a USD 5 balance must be present to start a Cloud Agent container | capture: sha256:6a85b171d58d6605c48381e49b747fca6548ba23dfa33ea138dd87d15ab1e516 | quote: $5 launch balance
+  - [9] 2026-10-30: Kilo Pass is a monthly token subscription | capture: sha256:597e5c59e97252d41e2e4ac433f957a9fb79680315e34de062d672a0aabb6a92 | quote: A monthly AI token subscription with up to 50% bonus credits included.
+  - [5] 2026-10-30: the free route still exists and needs neither a card nor a provider key | capture: sha256:05c1c7d828992607907ce5d1c053423079a6f9c953216d5b85c0a04729f7c7e4 | quote: Install Kilo Code, pick Auto Free or any model marked Free, and start coding without a credit card or provider key.
+  - [2] 2026-11-03: the limit applies to anonymous and authenticated requests alike | capture: sha256:dbd437d4c437acebea7725e866affa3b9b127544803384589cbfced0ec5e20ae | quote: All free model requests (both anonymous and authenticated) are rate-limited by IP address:
+  - [1] 2026-11-03: the platform plan is free for individuals | capture: sha256:646dcbb8991cda4807ff4e606e74bddacf615cac00d8e71c36e4a68138345522 | quote: Free for individuals. Teams and Enterprise add collaboration, security, governance, and support.
+  - [2] 2026-11-03: free models are limited to 200 requests per hour per IP | capture: sha256:dbd437d4c437acebea7725e866affa3b9b127544803384589cbfced0ec5e20ae | quote: | Free models per IP | 200 requests per hour |
+  - [1] 2026-11-04: the Kilo platform plan is free for individuals | capture: sha256:646dcbb8991cda4807ff4e606e74bddacf615cac00d8e71c36e4a68138345522 | quote: Free for individuals. Teams and Enterprise add collaboration, security, governance, and support.
+- sources:
+  - [1] https://kilo.ai/pricing
+  - [2] https://kilo.ai/docs/gateway/usage-and-billing
+  - [3] https://kilo.ai/docs/getting-started/rate-limits-and-costs
+  - [4] https://kilo.ai/docs/getting-started/setup-authentication
+  - [5] https://kilo.ai/landing/free-models
+  - [6] https://kilo.ai/docs/ai-providers/kilocode
+  - [7] https://app.kilo.ai/users/sign_in
+  - [8] https://kilo.ai/cloud
+  - [9] https://kilo.ai/pricing/kilo-pass
+
+## Kilo Gateway
+
+- `inference/kilo-gateway` | qualifies-with-caveat | evidence measured | binding request-rate | category inference gateway, keyless
+- needs card no, phone no, ID no, institution no | verified 2026-11-10T01:21:21.204Z (live) | stale on 2026-12-11
+- url https://api.kilo.ai/api/gateway
+- free tier: on 2026-11-10 the catalogue listed 380 ids, 8 of them ending in ':free' and requiring no key, and two more free without the suffix (kilo-auto/free, openrouter/free); the free id probed answered in both runs. On 2026-10-22 it listed 401 ids, 14 of them ending in ':free' and requiring no key, and three more free without the suffix (reflection/beam-free, kilo-auto/free, openrouter/free); eight of the nine ids probed then answered in both runs | unit: tokens | metered on: request-count | read on: 2026-11-10 | source: [1] | note: on 2026-11-10 the catalogue held 380 ids by count, 8 ending in ':free'; on 2026-10-22 the catalogue was 542343 bytes and held 401 ids, 14 ending in ':free'; 19 of 401 answering on 2026-10-22 is the third-party probe's own figure, not a count of ours
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: anonymous | detail: No key required for ':free' model identifiers. Third-party endpoint tracking reports 549 of 1,464 calls answered over 10 days (38 percent), and 549 of 685 calls accepted for served models (80 percent).
+- interface: rest
+- limits:
+  - request-rate (binding): Unpublished. Repeated requests to one ':free' identifier returned HTTP 404 while third-party tracking reported 34 of 35 calls answering, indicating per-IP and per-tier rate limits. probe:https://api.kilo.ai/api/gateway/chat/completions, 2026-10-22
+  - request-rate (binding): 200 requests per hour per IP address for free models, anonymous and authenticated alike; over the ceiling the gateway answers HTTP 429 [2]
+- binding note: the per-IP tier binds: an id that answers elsewhere 404s here, which is a ceiling on the caller rather than on the endpoint
+- endpoint: https://api.kilo.ai/api/gateway/chat/completions
+- tooling: any OpenAI-compatible client; curl against POST {base}/chat/completions
+- composes with: pairs with an agent as the widest free catalogue; the scarce link is the per-IP tier, because an id that answers elsewhere 404s from here
+- reliability: One ':free' identifier that third-party monitors showed answering 34 of 35 times returned HTTP 404 across test runs, returning the upstream provider error payload nested within gateway responses.
+- notes: openrouter/free is a router id whose served model changes between calls, which makes it the least predictable row in the sweep and the clearest illustration that an echoed model string must be recorded per call rather than per endpoint.
+- evidence note: eight ids were called twice. The catalogue size is third-party because the 540 KB listing was not enumerated.
+- probe:
+  - records[0].probe_id: kilo-beam-free
+  - records[0].requested_model: reflection/beam-free
+  - records[0].http_run1: 200
+  - records[0].http_run2: 200
+  - records[0].answered_run1: yes
+  - records[0].answered_run2: yes
+  - records[0].model_echoed: reflection/beam
+  - records[0].echo_match: SUBSTITUTED
+  - records[0].latency_ms_run1: 1162
+  - records[0].latency_ms_run2: 967
+  - records[0].ttft_ms_run1: 722
+  - records[0].completion_tokens_run1: 53
+  - records[0].tps_run1: 183.40
+  - records[0].tps_run2: 221.56
+  - records[0].needle_echoed_run1: yes
+  - records[0].body_bytes_run1: 2010
+  - records[0].body_sha256_16_run1: be939d92556687fe
+  - records[0].reasoning_only: no
+  - records[1].probe_id: kilo-lfm-free
+  - records[1].requested_model: liquid/lfm-2.5-2.6b:free
+  - records[1].http_run1: 200
+  - records[1].http_run2: 200
+  - records[1].answered_run1: yes
+  - records[1].answered_run2: yes
+  - records[1].model_echoed: liquid/lfm-2.5-2.6b:free
+  - records[1].echo_match: yes
+  - records[1].latency_ms_run1: 48199
+  - records[1].latency_ms_run2: 5177
+  - records[1].ttft_ms_run1: 6461
+  - records[1].completion_tokens_run1: 98
+  - records[1].tps_run1: 1.29
+  - records[1].tps_run2: 2.85
+  - records[1].needle_echoed_run1: yes
+  - records[1].body_bytes_run1: 1649
+  - records[1].body_sha256_16_run1: 445889b53b605ff9
+  - records[1].reasoning_only: no
+  - records[2].probe_id: kilo-nemotron-super
+  - records[2].requested_model: nvidia/nemotron-3-super-120b-a12b:free
+  - records[2].http_run1: 404
+  - records[2].http_run2: 404
+  - records[2].answered_run1: no
+  - records[2].answered_run2: no
+  - records[2].echo_match: yes
+  - records[2].latency_ms_run1: 642
+  - records[2].latency_ms_run2: 612
+  - records[2].completion_tokens_run1: 0
+  - records[2].needle_echoed_run1: no
+  - records[2].body_bytes_run1: 337
+  - records[2].body_sha256_16_run1: 30aaa6ea8360add1
+  - records[2].reasoning_only: no
+  - records[2].error_run1: {"message": "Provider returned error", "code": 404, "metadata": {"raw": "{\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function 'ac74040f-9fc9-4c5e-ac74-279ba5161d69': Not found for account 'sx
+  - records[2].error_run2: {"message": "Provider returned error", "code": 404, "metadata": {"raw": "{\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function 'ac74040f-9fc9-4c5e-ac74-279ba5161d69': Not found for account 'sx
+  - records[3].probe_id: kilo-laguna-s
+  - records[3].requested_model: poolside/laguna-s-2.1:free
+  - records[3].http_run1: 200
+  - records[3].http_run2: 200
+  - records[3].answered_run1: yes
+  - records[3].answered_run2: yes
+  - records[3].model_echoed: poolside/laguna-s-2.1:free
+  - records[3].echo_match: yes
+  - records[3].latency_ms_run1: 2711
+  - records[3].latency_ms_run2: 1479
+  - records[3].ttft_ms_run1: 1020
+  - records[3].completion_tokens_run1: 20
+  - records[3].needle_echoed_run1: no
+  - records[3].body_bytes_run1: 853
+  - records[3].body_sha256_16_run1: b9b8d0c0f64300e9
+  - records[3].reasoning_only: no
+  - records[4].probe_id: kilo-openrouter-free
+  - records[4].requested_model: openrouter/free
+  - records[4].http_run1: 200
+  - records[4].http_run2: 200
+  - records[4].answered_run1: yes
+  - records[4].answered_run2: yes
+  - records[4].model_echoed: nvidia/nemotron-3.5-lightning:free
+  - records[4].echo_match: SUBSTITUTED
+  - records[4].latency_ms_run1: 2443
+  - records[4].latency_ms_run2: 2004
+  - records[4].ttft_ms_run1: 885
+  - records[4].completion_tokens_run1: 213
+  - records[4].tps_run1: 3.20
+  - records[4].tps_run2: 58.14
+  - records[4].needle_echoed_run1: yes
+  - records[4].body_bytes_run1: 2357
+  - records[4].body_sha256_16_run1: cd0a481762303088
+  - records[4].reasoning_only: no
+  - records[5].probe_id: kilo-dots3-free
+  - records[5].requested_model: dots-studio/dots-3-note-preview:free
+  - records[5].http_run1: 200
+  - records[5].http_run2: 200
+  - records[5].answered_run1: yes
+  - records[5].answered_run2: yes
+  - records[5].model_echoed: dots-studio/dots-3-note-preview:free
+  - records[5].echo_match: yes
+  - records[5].latency_ms_run1: 2366
+  - records[5].latency_ms_run2: 1720
+  - records[5].ttft_ms_run1: 927
+  - records[5].completion_tokens_run1: 84
+  - records[5].tps_run1: 8.04
+  - records[5].tps_run2: 23.86
+  - records[5].needle_echoed_run1: yes
+  - records[5].body_bytes_run1: 1485
+  - records[5].body_sha256_16_run1: ca29873169500ff2
+  - records[5].reasoning_only: no
+  - records[6].probe_id: kilo-cohere-north
+  - records[6].requested_model: cohere/north-mini-code:free
+  - records[6].http_run1: 200
+  - records[6].http_run2: 200
+  - records[6].answered_run1: yes
+  - records[6].answered_run2: yes
+  - records[6].model_echoed: cohere/north-mini-code:free
+  - records[6].echo_match: yes
+  - records[6].latency_ms_run1: 5721
+  - records[6].latency_ms_run2: 3235
+  - records[6].ttft_ms_run1: 881
+  - records[6].completion_tokens_run1: 88
+  - records[6].tps_run1: 33.62
+  - records[6].tps_run2: 44.03
+  - records[6].needle_echoed_run1: yes
+  - records[6].body_bytes_run1: 1546
+  - records[6].body_sha256_16_run1: 6e307e7cd2e6dbc5
+  - records[6].reasoning_only: no
+  - records[7].probe_id: kilo-glyph-cluster
+  - records[7].requested_model: stealth/glyph-cluster
+  - records[7].http_run1: 200
+  - records[7].http_run2: 200
+  - records[7].answered_run1: yes
+  - records[7].answered_run2: yes
+  - records[7].model_echoed: stealth/glyph-cluster
+  - records[7].echo_match: yes
+  - records[7].latency_ms_run1: 22856
+  - records[7].latency_ms_run2: 4630
+  - records[7].ttft_ms_run1: 1437
+  - records[7].completion_tokens_run1: 180
+  - records[7].tps_run1: 0.19
+  - records[7].tps_run2: 0.58
+  - records[7].needle_echoed_run1: yes
+  - records[7].body_bytes_run1: 4296
+  - records[7].body_sha256_16_run1: 2108c232a6e49941
+  - records[7].reasoning_only: no
+  - records[8].probe_id: kilo-minimax-m31-free
+  - records[8].requested_model: minimax/minimax-m3.1-flash:free
+  - records[8].http_run1: 200
+  - records[8].http_run2: 200
+  - records[8].answered_run1: yes
+  - records[8].answered_run2: yes
+  - records[8].model_echoed: minimax/minimax-m3.1-flash:free
+  - records[8].echo_match: yes
+  - records[8].latency_ms_run1: 3454
+  - records[8].latency_ms_run2: 1126
+  - records[8].ttft_ms_run1: 3454
+  - records[8].completion_tokens_run1: 9
+  - records[8].tps_run1: 61.35
+  - records[8].tps_run2: 33.22
+  - records[8].needle_echoed_run1: yes
+  - records[8].body_bytes_run1: 785
+  - records[8].body_sha256_16_run1: 9d1e6a04fd5cf9f1
+  - records[8].reasoning_only: no
+  - runs: probes-w.json; probes-w-run2.json
+  - timing_note: latency_ms and ttft_ms were taken from two different requests by the original instrument, so this record carried a row where ttft_ms exceeded latency_ms, which cannot happen on one call. The row is corrected from a re-probe on 2026-10-22T04:38:22Z with probe3.py, which derives both fields from one streaming request. The tps figures were always computed inside a single call and are unchanged.
+- evidence:
+  - probe:https://api.kilo.ai/api/gateway/chat/completions 2026-10-22: liquid/lfm-2.5-2.6b:free answered 200 with the model echoed, 98 completion tokens, 11702 ms in run 1 and 5177 ms in run 2; cohere/north-mini-code:free answered with 88 tokens at 5721 ms and 3235 ms
+  - probe:https://api.kilo.ai/api/gateway/chat/completions 2026-10-22: openrouter/free echoed nvidia/nemotron-3.5-lightning:free in run 1 and nvidia/nemotron-3.5-content-safety in run 2, so the same id routed to two different models eight minutes apart
+  - probe:https://api.kilo.ai/api/gateway/chat/completions 2026-10-22: nvidia/nemotron-3-super-120b-a12b:free returned 404 in both runs; the body nests the upstream provider's 404 rather than Kilo's
+  - [1] 2026-10-22: 401 model ids in a 542343-byte payload at HTTP 200; 14 ids end in ':free'. The ':free' suffix is not the only free marker: reflection/beam-free, kilo-auto/free and openrouter/free carry no suffix
+  - probe:https://api.kilo.ai/api/gateway/chat/completions 2026-10-28: one POST with no Authorization header for liquid/lfm-2.5-2.6b:free returned 429 whose body names limit_source upstream_provider_shared_pool, provider_error_code model_rate_limit_exceeded and retry_after_seconds 1; the response carried no rate-limit header (headers: server Vercel, cache-control no-cache, x-matched-path /api/v1/[...path])
+  - [3] 2026-10-28: anonymous access to free models is allowed and limited to 200 requests per hour per IP | capture: sha256:4de5f3ef1c393df813156536bc81d9b521e83678f7c2e1331c0ea16de76bb6f5 | quote: Anonymous requests are identified by IP address and are subject to rate limiting (200 requests per hour per IP).
+  - [3] 2026-10-28: the authentication page states the same 200 requests per hour per IP limit for anonymous requests | capture: sha256:4de5f3ef1c393df813156536bc81d9b521e83678f7c2e1331c0ea16de76bb6f5 | quote: Anonymous requests are identified by IP address and are subject to rate limiting (200 requests per hour per IP).
+  - [3] 2026-10-28: free models are reachable with no key, so registration is not required for them | capture: sha256:4de5f3ef1c393df813156536bc81d9b521e83678f7c2e1331c0ea16de76bb6f5 | quote: The gateway allows unauthenticated access for free models only.
+  - [3] 2026-10-28: free models need no key and anonymous requests are limited to 200 requests per hour per IP | capture: sha256:4de5f3ef1c393df813156536bc81d9b521e83678f7c2e1331c0ea16de76bb6f5 | quote: The gateway allows unauthenticated access for free models only. Anonymous requests are identified by IP address and are subject to rate limiting (200 requests per hour per IP).
+  - [2] 2026-11-03: the gateway documents a ceiling of 200 requests per hour per IP for free models | capture: sha256:dbd437d4c437acebea7725e866affa3b9b127544803384589cbfced0ec5e20ae | quote: Free models per IP | 200 requests per hour
+  - probe:https://api.kilo.ai/api/gateway/chat/completions 2026-11-10: a keyless POST on 2026-11-10 for nvidia/nemotron-3.5-super-vl:free answered 200 twice and echoed nvidia/nemotron-3.5-super-vl:free with empty content and the text in the reasoning field, 56 tokens (24 prompt, 32 completion) | capture: sha256:6af0673394988b8c28950a8f6aa3a1e9d65fec5f59c77d9c3d7ebb92e02585d6 | quote: "status": 200
+- sources:
+  - [1] https://api.kilo.ai/api/gateway/models
+  - [2] https://kilo.ai/docs/gateway/usage-and-billing
+  - [3] https://kilo.ai/docs/gateway/authentication

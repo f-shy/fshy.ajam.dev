@@ -1,0 +1,44 @@
+# debrid.web.id Telegram bot
+
+> debrid.web.id | Debrid; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/debrid-2/ | JSON https://fshy.ajam.dev/api/v1/entity/debrid-2.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## debrid.web.id Telegram bot (@debridwebidBot)
+
+- `debrid/telegram-debridwebid-bot` | qualifies-with-caveat | evidence documented | binding pull-count | category hosted debrid bot (file-host link and magnet to download link) | tier free
+- needs card no, phone yes, ID no, institution no | verified 2026-11-03T07:37:11.869Z (live) | stale on 2026-12-04
+- url https://debrid.web.id/telegram-bot
+- free tier: Free account, valid for life ('Masa aktif selamanya'): 'maksimal 2 link per hari' through the bot, reset daily at 00:00 WIB. | unit: requests | metered on: request-count | read on: 2026-11-03 | source: [1] | note: the same 2-links-a-day Free allowance applies on the website ('Limit 2x Generate / Hari')
+- per-object cap: unverified: no per-file cap is published for the Free plan on the pages read. | source: [2] | note: the premium FAQ says hundreds of gigabytes can be pulled if the source provider allows it; that is the paid Basic plan
+- retention: unverified: how long a generated link lives is not stated on the pages read. The bot sends the final link when the server side finishes processing. | source: [1]
+- egress: Files are fetched by the operator's servers and handed back as direct links; Free is 2 links a day, Basic is 'Unlimited Generate Links' under fair use with per-host daily limits. | metered: yes | free allowance: 2 links per day | source: [2]
+- identity: any-phone | detail: The website's registration form asks for Username, Email address, an optional Referral Code and a Password; no card or phone field. The bot also needs a Telegram account (a phone-registered one by Telegram's own rule, not stated on these pages) whose ID is saved on the profile page.
+- interface: unknown
+- limits:
+  - pull-count (binding): 2 links per day on a Free account, reset at 00:00 WIB [1]
+  - request-rate: 1 link per minute; more than 10 links in a short time triggers a 1-hour block, the second offence 24 hours, the third permanent [1]
+- binding note: Two links a day is the Free wall; the one-link-a-minute rate and the auto-block bind only inside it.
+- interface detail: A Telegram chat. The Telegram ID is entered on the website's account profile page first; then a hoster URL or a magnet link is sent to the bot. The bot does not accept .torrent files.
+- tooling: Any Telegram client and a debrid.web.id account. Nothing to install.
+- composes with: A hoster link or magnet in, a direct link out, from an Indonesian operator with local payment methods; the Free allowance is a link count, so it proves the route rather than carrying a workload.
+- reliability: Indonesian-language service; the supported-host list is dynamic and each host can cap daily size. Paid plans are priced in rupiah and paid by QRIS, GoPay, OVO, Dana or bank transfer 'tanpa kartu kredit'.
+- notes: Abandon if the Free count or the profile-linking step changes. Cheapest paid tier is Basic at Rp 25.000 per 30 days; there is no seedbox on it.
+- evidence note: The Free allowance, the rate limit and the linking steps are stated on the cited debrid.web.id pages. No bot reply was observed.
+- evidence:
+  - [1] 2026-11-03: a Free user gets at most 2 links a day through the bot | capture: sha256:61ac6c01a5ff7a3c7d20bb33110b73f52cf7d55bc07352bb39db9c93975ec3b2 | quote: Limit Pengguna Free: Pengguna dengan status FREE tetap bisa menggunakan bot ini dengan kuota maksimal 2 link per hari (di-reset secara otomatis setiap jam 00:00 WIB).
+  - [1] 2026-11-03: the bot allows 1 link per minute | capture: sha256:61ac6c01a5ff7a3c7d20bb33110b73f52cf7d55bc07352bb39db9c93975ec3b2 | quote: Limit Limit per Menit: Untuk menjaga kualitas server, sistem membatasi request menjadi 1 link setiap 1 menit.
+  - [1] 2026-11-03: sending more than 10 links quickly triggers a 1-hour auto-block | capture: sha256:61ac6c01a5ff7a3c7d20bb33110b73f52cf7d55bc07352bb39db9c93975ec3b2 | quote: Mengirim lebih dari 10 link dalam waktu singkat (di limit) akan memicu Auto-Block 1 Jam.
+  - [1] 2026-11-03: the Telegram ID is saved on the website profile first | capture: sha256:3e8717cc7bc5951536d8dc7a87023b9a9de9defcdad421c2dd5e09f255918d11 | quote: Buka halaman Profil Akun di website ini, lalu masukkan Telegram ID kamu dan simpan.
+  - [1] 2026-11-03: torrents are sent as magnet links | capture: sha256:3e8717cc7bc5951536d8dc7a87023b9a9de9defcdad421c2dd5e09f255918d11 | quote: Torrent: Kirim Magnet Link saja.
+  - [3] 2026-11-03: the Free plan costs Rp 0, lasts for life and is limited to 2 generations a day | capture: sha256:565b0cd7c8ca46b3d90dc884bcf2b36cc210fbe2cec2cd193f1ab57896efa9a3 | quote: Masa aktif selamanya No Seedbox - Debrid Torrent - Premium Link Generator - Limit 2x Generate / Hari - Tanpa Seedbox Rp 0
+  - [2] 2026-11-03: the only paid plan listed is Basic at Rp 25.000 for 30 days | capture: sha256:67e601cb7742be6e70a364fa730325eca4435d3b7e1c337a01f2040db0d444c9 | quote: Basic Rp 25.000 / 30 Hari - Debrid Torrent & Premium Link Generator - Unlimited Generate Links - Kecepatan Download Maksimal - Tanpa Seedbox
+  - [2] 2026-11-03: Basic can pull hundreds of gigabytes if the source host allows | capture: sha256:67e601cb7742be6e70a364fa730325eca4435d3b7e1c337a01f2040db0d444c9 | quote: Anda dapat menarik ratusan Gigabyte data asalkan server source provider mengizinkannya.
+  - [4] 2026-11-03: the registration form asks for username, email and password | capture: sha256:a28752dcc0e9eaa65c37ce0365176ab470b2bf01b12829690095d6b44f662fc0 | quote: Username * Email address * Referral Code (Optional) Password * Minimum 6 characters Create Account
+  - [5] 2026-11-03: the handle resolves to a bot with a Start action | capture: sha256:4d988f6af8ffc587459c6d4d4a9ea57f9f2b6b3839ad311f5325fb97df17b0ec | quote: Bot Debrid.web.id @debridwebidBot
+- sources:
+  - [1] https://debrid.web.id/telegram-bot
+  - [2] https://debrid.web.id/pricing
+  - [3] https://debrid.web.id/
+  - [4] https://debrid.web.id/register
+  - [5] https://t.me/debridwebidBot

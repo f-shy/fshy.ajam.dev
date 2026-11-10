@@ -1,0 +1,1634 @@
+# Cloudflare
+
+> cloudflare.com | Databases and KV, Domains and DNS, Storage, Egress and tunnels, Crawling, Compute, Email, CI runners, Inference; 42 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/cloudflare/ | JSON https://fshy.ajam.dev/api/v1/entity/cloudflare.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Cloudflare D1
+
+- `databases-kv/cloudflare-d1` | qualifies | evidence documented | binding request-rate | category serverless SQLite
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:05:00.000Z (live) | stale on 2026-11-22
+- url https://developers.cloudflare.com/d1/platform/limits/
+- price USD 0.75/GB-month beyond 5 GB on Workers Paid | parsed USD 750/TB-mo
+- free tier: 10 databases; 500 MB per database; 5 GB per account; 5 million rows read per day; 100,000 rows written per day | unit: mixed | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: 2,000,000 bytes per row, BLOB or string; 500 MB per database | bytes: 2000000 | source: [2]
+- retention: storage persists; Time Travel point-in-time recovery covers 7 days on Free | source: [2] | note: the free limits reset daily at 00:00 UTC
+- egress: no egress charge; rows read and rows written are the metered quantities | metered: no | source: [1]
+- identity: email | detail: a Cloudflare account
+- interface: rest, cli
+- limits:
+  - request-rate (binding): 100,000 rows written per day on Free [1]
+  - request-rate (binding): 5 million rows read per day on Free [1]
+  - per-object-cap: 500 MB per database and 5 GB per account; a 2,000,000-byte row ceiling [2]
+  - request-rate (binding): 50 queries per Worker invocation on Free; a 30-second maximum query duration [2]
+- interface detail: a Worker binding, a REST API and the wrangler CLI
+- tooling: wrangler d1; the Cloudflare API; better-sqlite3 style calls inside a Worker
+- composes with: per-tenant SQLite in a Worker with a free Postgres as the system of record; 500 MB per database and 10 databases is 5 GB of free relational state
+- reliability: at the daily read or write limit the D1 API returns errors; at the storage limit you must delete data before you can insert, alter a table or create an index
+- notes: The 100,000 rows written a day is the binding number for any ingest, and it is small: 1.16 rows a second sustained. A full table scan counts every row it scans as a row read, so an unindexed query spends the read budget fast.
+- evidence note: the limits and pricing pages were read; nothing was provisioned.
+- evidence:
+  - [2] 2026-10-22: Free: 10 databases, 500 MB maximum database size, 5 GB per account, Time Travel 7 days, 50 queries per Worker invocation; 2,000,000-byte row maximum; 100,000-byte SQL statement; 30-second query maximum
+  - [1] 2026-10-22: Free: 5 million rows read/day, 100,000 rows written/day, 5 GB total storage; 'Free limits reset daily at 00:00 UTC'; at the storage limit you must delete data before inserting
+- sources:
+  - [1] https://developers.cloudflare.com/d1/platform/pricing/
+  - [2] https://developers.cloudflare.com/d1/platform/limits/
+
+## Cloudflare DNS
+
+- `domains-dns/cloudflare-dns` | qualifies | evidence measured | binding per-object-cap | category managed authoritative DNS
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:05:00.000Z (live) | stale on 2027-01-21
+- url https://developers.cloudflare.com/dns/manage-dns-records/
+- free tier: free zone on any plan with anycast resolution, an API, DNSSEC and 200 records per zone on zones created on or after 2024-09-01 | unit: objects | metered on: object-count | read on: 2026-10-22 | source: [1] | note: 1,000 records per zone on zones created before 2024-09-01
+- per-object cap: 200 DNS records per zone on a zone created on or after 2024-09-01; 1,000 on an older free zone; 3,500 on Pro and Business | source: [1] | note: records that other Cloudflare services add, such as Email Routing TXT and MX, count toward the same quota
+- retention: the zone persists while it is active; a zone whose nameservers stop pointing at Cloudflare moves to a Moved state and is deleted after a long enough period | source: [2]
+- egress: DNS queries are never limited or capped on any plan | metered: no | source: [2]
+- identity: email | detail: a Cloudflare account, and the domain must use Cloudflare nameservers
+- interface: rest, cli
+- limits:
+  - per-object-cap (binding): 200 records per zone on a free zone created on or after 2024-09-01 [1]
+  - request-rate: the API is rate limited per account; the published DNS limit is on queries, and there are none [2]
+- limits note: the dashboard warns at 85% of the record quota and the current quota and usage are readable per zone through the API
+- interface detail: a REST API for zones and records; a DoH and DoT resolver at cloudflare-dns.com; flarectl and the Cloudflare Terraform provider
+- tooling: the Cloudflare API, flarectl, Terraform, certbot with a DNS-01 plugin, acme.sh
+- composes with: the only free DNS in this set that also gives a free CDN, a free tunnel, free Universal SSL and free Email Routing on the same zone
+- reliability: no suspension, throttle or data-loss event is recorded on the pages read
+- notes: 200 records is the number a per-tenant subdomain scheme meets, and it is shared with the records Cloudflare adds for Email Routing. The absence of a query cap is what makes it the default choice.
+- evidence note: the keyless DoH resolver answered a real query, and the record quota and the apex CNAME behaviour are both first-party pages. No zone was created.
+- evidence:
+  - probe:https://cloudflare-dns.com/dns-query?name=example.com&type=A 2026-10-22: 200, 251 bytes of JSON with Status 0 and two A records, so the keyless DoH endpoint answers programmatically without an account
+  - [1] 2026-10-22: Per-zone quota: Free zones created before 2024-09-01 00:00:00 UTC 1,000; Free zones created on or after 2024-09-01 200; Pro 3,500; Business 3,500; Enterprise per-account. Records created by other Cloudflare services count toward the quota
+  - [3] 2026-10-22: 'Cloudflare's CNAME flattening allows you to create CNAME records at your zone apex'; an ANAME or ALIAS at a previous provider can be recreated as a CNAME at @
+  - [2] 2026-10-22: 'Cloudflare never limits or caps DNS queries'; a zone in a Moved state for long enough is deleted
+- sources:
+  - [1] https://developers.cloudflare.com/dns/manage-dns-records/
+  - [2] https://developers.cloudflare.com/dns/faq/
+  - [3] https://developers.cloudflare.com/dns/manage-dns-records/how-to/create-zone-apex/
+
+## Cloudflare Pages (Direct Upload / Wrangler)
+
+- `storage/cloudflare-pages` | qualifies | evidence documented | binding per-object-cap | category paas
+- identity a placeholder: card and phone unknown | verified 2026-11-04T00:49:32.326Z, checked 2026-10-21 (inherited) | stale on 2026-11-21
+- url https://pages.cloudflare.com
+- free tier: 20,000 files per site on the Free plan, 25 MiB maximum per file, 100 projects per account: 100 projects x 20,000 files x 25 MiB = 48,828.125 GiB = 47.68 TiB per account. No stated total-bytes cap. | unit: objects | metered on: unstated | read on: 2026-11-01 | source: [1]
+- per-object cap: 25 MiB max per file | bytes: 26214400 | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Unlimited requests and unlimited bandwidth: 'Static asset requests ... are free and unlimited' (pages/functions/pricing) and 'Unlimited bandwidth ... no extra cost to you' (blog.cloudflare.com/big-ideas-on-pages). | metered: no
+- identity: email | detail: A Cloudflare account is created with an email address and a password, and the address is verified by email. An additional Free account needs a user at least seven days old holding the Super Administrator role on an existing account, and up to five additional Free accounts may be created.
+- interface: rest, git, rclone, cli
+- limits:
+  - per-object-cap (binding): 25 MiB max per file [1]
+- limits note: 25 MiB hard per file (no override on Free); 20,000 files per site on Free; 500 builds/month and 20-min build timeout if Git-driven; new-project creation throttled for the first 48h of a new account ('Cloudflare limits the number of new Pages projects you can create within your first 48 hours'); Functions requests draw from the 100k/day Workers quota, but pure static requests do not.
+- interface detail: rest
+- tooling: wrangler pages deploy (official CLI, direct upload of a folder, no Git required); Cloudflare API v4 /accounts/:id/pages/projects/:name/deployments does multipart upload; rclone has no native 'pages' backend but can be driven via 'rclone serve http' + wrangler or a custom remote.
+- composes with: 100 projects per account (docs: 'limit of 100 projects per account. This limit is not routinely increased') x 20,000 files x 25 MiB. Unlimited free Cloudflare accounts x 100 projects. Workers Static Assets (100 Workers free, 20,000 files each) is a second, independent pool on the same account. Sharding is by file: any 10 TiB working set = ~420k shards of 25 MiB spread over ~21 projects.
+- reliability: Assets stay cached on the CDN until the next deployment, so re-upload churn is the only real risk; no data-vanishing mechanism observed, and static serving is not rate-limited or billed.
+- notes: the same as the free tier
+- evidence note: re-read on 2026-10-22 (HTTP 200, 3777 bytes, sha256 c163cd6d9d46f7fd). The page states the number in the record. The claim is documented, not measured. | re-read on 2026-10-22 (HTTP 200, 7360 bytes, sha256 77e09b369ce18a37). The page states the number in the record. The claim is documented, not measured.
+- extras:
+  - verified[0].url: https://developers.cloudflare.com/pages/functions/pricing/
+  - verified[0].date: 2026-10-22
+  - verified[0].http_status: 200
+  - verified[0].bytes: 3777
+  - verified[0].sha256: c163cd6d9d46f7fd46095c5a8ce78102090d9cb7a37c9e9b215f35f8e7615727
+  - verified[0].pattern_found: yes
+  - verified[0].what_changed: no change: the page still states the claim
+  - verified[1].url: https://developers.cloudflare.com/pages/platform/limits/
+  - verified[1].date: 2026-10-22
+  - verified[1].http_status: 200
+  - verified[1].bytes: 7360
+  - verified[1].sha256: 77e09b369ce18a373420038b357e2d023518e2c8875292ac8291036c5f68dd2a
+  - verified[1].pattern_found: yes
+  - verified[1].what_changed: no change: the page still states the claim
+- evidence:
+  - [1] 2026-10-22: Pages Free plan allows 20,000 files per site, 25 MiB per file. Re-read https://developers.cloudflare.com/pages/platform/limits/: HTTP 200, 7360 bytes, sha256 77e09b369ce18a37. Quoted: ch file on your site to Cloudflare's globally distributed network to deliver a low latency experience to every user that visits your site. Cloudflare Pages sites can contain up to 20,000 files on the Free plan. Paid plans (such as Pro, Business, and Enterprise plans) can have up to 100,000 files per site. To enable this increased limit, set the environment variable `PAGES_WRANGLER_MAJOR_VERSION=4` in your Pages project settings. ## File size The
+  - [2] 2026-10-22: requests to static assets are free and unlimited on Free and paid plans. Re-read https://developers.cloudflare.com/pages/functions/pricing/: HTTP 200, 3777 bytes, sha256 c163cd6d9d46f7fd. Quoted: [change usage models](https://developers.cloudflare.com/workers/platform/pricing/#how-to-switch-usage-models). ### Static asset requests On both free and paid plans, requests to static assets are free and unlimited. A request is considered static when it does not invoke Functions. Refer to [Functions invocation routes](https://developers.cloudflare.com/pages/functions/routing/#functions-invocation-routes) to learn more about when Functions are invoked. ## Free Plan…
+  - [1] 2026-10-21: 'Cloudflare Pages sites can contain up to 20,000 files on the Free plan', 'maximum file size for a single Cloudflare Pages site asset is 25 MiB', 'limit of 100 projects per account' (page last updated Sep 5, 2026)
+  - [2] 2026-10-21: 'On both free and paid plans, requests to static assets are free and unlimited'
+  - [3] 2026-10-21: 'Unlimited requests ... Unlimited bandwidth ... for free'
+  - [4] 2026-10-21: probe: curl -D - -> HTTP/1.1 200, Server: cloudflare, x-server: Cloudflare Pages
+  - [5] 2026-10-21: probe: curl -D - -> 200, Content-Type: application/javascript, Content-Length: 1555, Cache-Control: public, max-age=0, must-revalidate (direct binary asset served off pages.dev)
+  - [1] 2026-11-01: the Free plan holds 20,000 files per site; the same page states 25 MiB per asset and 100 projects per account | capture: sha256:7f4078e143d1dd096866771c0468b0d3334be8bd1008840fbb5479ad9d67a818 | quote: Cloudflare Pages sites can contain up to 20,000 files on the Free plan.
+  - [1] 2026-11-01: the limits page as served on 2026-11-01 still states the Free plan file caps | capture: sha256:7f4078e143d1dd096866771c0468b0d3334be8bd1008840fbb5479ad9d67a818 | quote: The maximum file size for a single Cloudflare Pages site asset is 25 MiB.
+  - [6] 2026-11-01: the account page states the sign-up fields (email and password), the email verification, the seven-day age and Super Administrator requirements, and the five-account cap | capture: sha256:0165fdf250cc1338d7e7a94dd78c7adc2df6f592133ad72dfcf0651a080c5543 | quote: You can create up to five additional Free accounts.
+  - [2] 2026-11-01: requests to static assets stay free and unlimited on both plans, so egress stays unmetered for static assets | capture: sha256:04df31b1ccc13435ac7e7a0a2b85e5ec3c3abe1d503e0fe70d3ed5dd5f8e1582 | quote: On both free and paid plans, requests to static assets are free and unlimited.
+  - [1] 2026-11-01: the per-asset cap the per-account total is derived from; the same page states 20,000 files per site and 100 projects per account | capture: sha256:7f4078e143d1dd096866771c0468b0d3334be8bd1008840fbb5479ad9d67a818 | quote: The maximum file size for a single Cloudflare Pages site asset is 25 MiB.
+  - [6] 2026-11-04: account sign-up asks for an email and a password only | capture: sha256:0165fdf250cc1338d7e7a94dd78c7adc2df6f592133ad72dfcf0651a080c5543 | quote: 2. Enter your Email and Password.
+  - [1] 2026-11-04: the Free plan file cap is unchanged, so verdict qualifies stands | capture: sha256:7f4078e143d1dd096866771c0468b0d3334be8bd1008840fbb5479ad9d67a818 | quote: Cloudflare Pages sites can contain up to 20,000 files on the Free plan.
+- sources:
+  - [1] https://developers.cloudflare.com/pages/platform/limits/
+  - [2] https://developers.cloudflare.com/pages/functions/pricing/
+  - [3] https://blog.cloudflare.com/big-ideas-on-pages/
+  - [4] https://vite.pages.dev/
+  - [5] https://vite.pages.dev/assets/index.37d2ad0a.js
+  - [6] https://developers.cloudflare.com/fundamentals/account/create-account/
+
+## Cloudflare Quick Tunnel
+
+- `egress/cloudflare-quick-tunnel` | qualifies | evidence measured | binding retention-clamped | category tunnel (hosted, ephemeral)
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:20:00.000Z (live) | stale on 2026-12-22
+- url https://developers.cloudflare.com/tunnel/setup/
+- free tier: one ephemeral trycloudflare.com hostname per cloudflared run; no account, no card | unit: unlimited | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: no proxy body cap observed: a 400 MiB POST body traversed byte-identically | source: [2]
+- retention: the hostname dies with the process; a new run gets a new random name | source: [1]
+- egress: not metered; no byte quota published or observed | metered: no | source: [1]
+- identity: anonymous | detail: no account, no card; measured by running cloudflared with no login
+- interface: rest, cli
+- limits:
+  - retention-clamped (binding): hostname lifetime equals process lifetime; a restart invalidates every URL probe
+  - request-rate: 400 concurrent GETs of a 3-byte object all returned 200; no 429 seen probe
+  - per-object-cap: no proxy body cap: a 400 MiB POST body was accepted probe
+- binding note: the hostname's lifetime binds the shape of the workload; the 522 rate under concurrency binds its throughput, but a new run restores a fresh hostname and cannot restore a stable one.
+- interface detail: cloudflared tunnel --url, then https://<random>.trycloudflare.com
+- tooling: cloudflared 2026.10.3
+- composes with: the front half of the free public-endpoint chain: origin -> cloudflared -> a random trycloudflare hostname, with no account and no domain. The chain's scarce link is the hostname's lifetime, so it serves a test or a handover, not a stable address.
+- reliability: at 32 concurrent 100 MiB ranged GETs, 8 returned 522 and aggregate throughput fell to 3.79 MiB/s, below the 6.27 MiB/s single-stream baseline
+- notes: Measured 6.27 MiB/s single stream (104,857,600 bytes in 15.948 s), which is 0.52 TiB/day. The earlier figure of 0.55 TiB/day here was the egress topic's row for a different host at 6.72 MiB/s. The concurrency ceiling is real and the 522s are the honest number.
+- extras:
+  - stale_after_days: 180
+  - bytes_transit: yes
+  - transit_note: the tunnel carries the origin's bytes both ways; a 400 MiB POST traversed it byte-identically
+- evidence:
+  - probe:https://ace-wheel-basement-participated.trycloudflare.com/blob100m.bin 2026-10-22: 100 MiB read back: 200, 104,857,600 bytes in 15.948 s, which is 6.27 MiB/s; 3 earlier sequential runs logged 9.32, 7.87 and 10.64 with no unit, byte count or elapsed time kept, so the divisor is unrecoverable and none of the three is used in any arithmetic
+  - probe:https://favors-davis-charges-epic.trycloudflare.com/ 2026-10-22: 400 MiB POST: 200, got=419,430,400 bytes, sha256 d491a95d...1839 matched the source
+  - probe:https://numbers-bras-calculator-quebec.trycloudflare.com/small.txt 2026-10-22: 400 concurrent GETs of a 3-byte object: 400 x 200 in 6.5 s
+  - probe:https://ace-wheel-basement-participated.trycloudflare.com/blob100m.bin 2026-10-22: 8 and 32 concurrent 100 MiB ranged GETs: 6/8 and 24/32 returned 206, the rest 522; 3.72 and 3.79 MiB/s aggregate
+  - [2] 2026-10-22: the 100 MB request-body cap is stated for a request through the Cloudflare proxy on a zone plan, not for a tunnel transport
+- sources:
+  - [1] https://developers.cloudflare.com/tunnel/setup/
+  - [2] https://developers.cloudflare.com/workers/platform/limits/
+
+## Cloudflare Workers Static Assets
+
+- `storage/cloudflare-workers-static-assets` | qualifies | evidence documented | binding per-object-cap | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-22, checked 2026-10-21 (inherited) | stale on 2026-11-21
+- url https://developers.cloudflare.com/workers/static-assets/
+- free tier: 20,000 files per Worker version on Free; 25 MiB per file; 100 Workers per account => ~488 GiB per Worker, ~48.8 TiB per free account. 'There is no additional cost for storing Assets.' | unit: objects | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 25 MiB per file | bytes: 26214400 | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: 'Requests to static assets are free and unlimited'. Workers Static Assets billing doc. Only Worker-script invocations (SSR) count against the 100,000/day free request quota. | metered: no
+- identity: email
+- interface: rest, cli
+- limits:
+  - per-object-cap (binding): 25 MiB per file [1]
+- limits note: 20,000 files and 100 Workers on Free; 25 MiB per file; must stay under the Worker request quota only if a script runs (run_worker_first / SSR). Static-only assets do not count against that quota at all.
+- interface detail: rest
+- tooling: wrangler deploy with an assets binding (wrangler 3.78.10+); Workers REST API; static assets can be deployed with no Worker script logic, so serving is purely static.
+- composes with: 100 Workers on the free plan x 100,000 files (paid) or 20,000 files (free) x 25 MiB. Separate bucket from Pages on the same account, so a single free account presents Pages (100x20k) + Workers (100x20k) file slots. Unlimited accounts multiply further.
+- reliability: Free-tier 429s apply to script-invoking routes only; purely static paths keep serving. No eviction window documented for assets. They live as long as the Worker version.
+- notes: the same as the free tier
+- evidence note: re-read on 2026-10-22 (HTTP 200, 27086 bytes, sha256 574d5088a914872b). The page states the number in the record. The claim is documented, not measured.
+- extras:
+  - verified[0].url: https://developers.cloudflare.com/workers/platform/limits/
+  - verified[0].date: 2026-10-22
+  - verified[0].http_status: 200
+  - verified[0].bytes: 27086
+  - verified[0].sha256: 574d5088a914872b338e03c727adf4ef4ef88a8f2a1bcc41bd3f7b200adfb25e
+  - verified[0].pattern_found: yes
+  - verified[0].what_changed: no change: the page still states the claim
+- evidence:
+  - [1] 2026-10-22: the CDN cache object cap is 512 MB on Free/Pro/Business. Re-read https://developers.cloudflare.com/workers/platform/limits/: HTTP 200, 27086 bytes, sha256 574d5088a914872b. Quoted: g-cloudflare-support/. Cloudflare does not enforce response body size limits. [CDN cache limits](https://developers.cloudflare.com/cache/concepts/default-cache-behavior/) apply: 512 MB for Free, Pro, and Business plans, and 5 GB for Enterprise. --- ## CPU time CPU time measures how long the CPU spends executing your Worker code. Waiting on network requests (such as `fetch` calls, KV reads, or database queries) does not count toward
+  - [2] 2026-10-21: 'Requests to static assets are free and unlimited ... There is no additional cost for storing Assets.' (last updated Apr 23, 2026)
+  - [1] 2026-10-21: Static Assets table: 'Files per Worker version: 20,000 (Free) / 100,000 (Paid)', 'Individual file size: 25 MiB', 'Number of Workers: 100 (Free) / 500 (Paid)'
+  - withheld 2026-10-21: probe: Server: cloudflare + x-server: Cloudflare Pages on a live pages.dev asset confirms the same edge pipeline; range requests against pages.dev returned 200 not 206, so resume is not guaranteed on that path
+- sources:
+  - [1] https://developers.cloudflare.com/workers/platform/limits/
+  - [2] https://developers.cloudflare.com/workers/static-assets/billing-and-limitations/
+
+## Cloudflare Browser Rendering
+
+- `crawler-scraper/cfbr` | qualifies-with-caveat | evidence reported | binding request-rate | category headless browser
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-06
+- url https://developers.cloudflare.com/browser-rendering/
+- free tier: Workers Free: 600 browser-seconds a day, or 10 browser-minutes; 3 concurrent browsers | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable: the unit is browser time | source: [1]
+- retention: browser-seconds reset daily | source: [1]
+- egress: not applicable: Markdown or HTML answers | metered: no | source: [1]
+- identity: email | detail: a Cloudflare account
+- interface: rest
+- limits:
+  - request-rate (binding): 600 browser-seconds a day on Workers Free, 3 concurrent
+  - request-rate (binding): Paid plan provides 1,800 browser-seconds a day and 36,000 a month, with 20 crawl jobs a day.
+  - per-object-cap: crawl /snapshot answers each page whole, refusing main_content query parameters
+- interface detail: REST Quick Action /markdown, /snapshot and /crawl; a synchronous JSON answer per POST
+- tooling: not established
+- composes with: The read ladder's rendered-DOM leg, and one of the four crawl providers; refuses main_content so it answers each page whole
+- reliability: no reliability event recorded
+- notes: The two facts must not be merged: 600 browser-seconds a day is the vendor's Workers Free tier; 1,800 a day is this deployment's paid plan and says nothing about what a new account gets. It is also the only browser lane that adds no new third party to a Worker's trust domain.
+- evidence note: the deployment numbers are measured from status.json
+- evidence:
+  - withheld 2026-10-22: pool browser: 1,800 a day and 36,000 a month, 6.8 and 179.6 spent, one account excluded; pool jobs: 20 a day
+- sources:
+  - [1] https://developers.cloudflare.com/browser-rendering/
+
+## Cloudflare Browser Run / Kitesurf
+
+- `compute/cloudflare-browser` | qualifies-with-caveat | evidence documented | binding request-rate | category browser host
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T05:24:20.761Z (live) | stale on 2026-12-05
+- url https://developers.cloudflare.com/browser-run/pricing/
+- free tier: Workers Free includes 10 minutes of browser time a day, shared across Quick Actions and Browser Sessions, and 3 concurrent browsers (Browser Sessions only). Workers Paid includes 10 hours a month, then USD 0.09 an hour | unit: minutes | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: browser hours are shared across all methods and rounded to the nearest whole hour per billing cycle
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published: https://developers.cloudflare.com/browser-run/pricing/ bills browser hours (USD 0.09 an hour over the included 10 hours on Workers Paid) and concurrent browsers, and lists no data-transfer allowance or price | metered: no | source: [1]
+- identity: email | detail: Account sign-up takes an email address and a password; Cloudflare then sends an email to verify the address
+- interface: rest
+- limits:
+  - request-rate (binding): 10 minutes of browser time a day on Workers Free [1]
+  - retention-clamped: 3 concurrent browsers on Free; browser hours round to the nearest whole hour per cycle [1]
+  - request-rate (binding): Workers Free: 1 new browser instance every 20 seconds (Browser Sessions only) [2]
+  - request-rate (binding): Workers Free: 1 Quick Actions request every 10 seconds [2]
+  - volume-quota: Workers Free /crawl endpoint: 5 crawl jobs per day and a maximum of 100 pages per crawl [2]
+- limits note: A browser closes after 60 seconds of inactivity by default; the keep_alive option extends the timeout to up to 20 minutes
+- binding note: ten minutes a day is the wall: the concurrency limit of three browsers is never reached inside a ten-minute day
+- interface detail: a REST API (Quick Actions and Browser Sessions), a Workers browser binding, and Puppeteer, Playwright or CDP WebSocket control
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: Re-read on 2026-10-22. The pricing page publishes the figure.
+- evidence note: Documented on the vendor's pricing and limits pages: 10 minutes of browser time a day and 3 concurrent browsers on Workers Free.
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - free_tier_kind: allowance
+  - burst_x: 1.0
+- evidence:
+  - [1] 2026-10-22: 'Browser hours: 10 minutes per day' on Workers Free and '10 hours per month, then $0.09 per additional hour' on Workers Paid; 'Concurrent browsers: 3 browsers' on Free
+  - [1] 2026-10-28: browser hours are shared across all methods; the 3-browser concurrency limit on Free applies to Browser Sessions only | capture: sha256:d24133ff356e3e4079047ce47a324bc6c2eb1ea25e73893586de67885baa4175 | quote: Browser hours are shared across all methods. ... | Browser hours | 10 minutes per day | 10 hours per month, then $0.09 per additional hour | ... | Concurrent browsers (Browser Sessions only) | 3 browsers |
+  - [2] 2026-10-28: Workers Free allows one new browser instance every 20 seconds for Browser Sessions | capture: sha256:edd5430a8cb1c40d3776ad5d5cd56ce865b1dd6a30a031128635e21dd5b1e2f8 | quote: | New browser instances (Browser Sessions only) | 1 every 20 seconds |
+  - [2] 2026-10-28: Workers Free allows one Quick Actions request every 10 seconds | capture: sha256:edd5430a8cb1c40d3776ad5d5cd56ce865b1dd6a30a031128635e21dd5b1e2f8 | quote: Total requests (Quick Actions only) ... 1 every 10 seconds
+  - [2] 2026-10-28: Workers Free allows 5 crawl jobs per day and a maximum of 100 pages per crawl on the /crawl endpoint | capture: sha256:edd5430a8cb1c40d3776ad5d5cd56ce865b1dd6a30a031128635e21dd5b1e2f8 | quote: Crawl jobs per day | 5 per day ... Maximum pages per crawl | 100 pages
+  - [2] 2026-10-28: the idle timeout is 60 seconds by default and can be extended to up to 20 minutes with keep_alive | capture: sha256:edd5430a8cb1c40d3776ad5d5cd56ce865b1dd6a30a031128635e21dd5b1e2f8 | quote: By default, a browser instance will time out after 60 seconds of inactivity. If you want to keep the browser open longer, you can use the `keep_alive` option, which allows you to extend the timeout to up to 20 minutes.
+  - [3] 2026-10-28: creating a Cloudflare account takes an email and a password, followed by an email address verification message | capture: sha256:0165fdf250cc1338d7e7a94dd78c7adc2df6f592133ad72dfcf0651a080c5543 | quote: Enter your Email and Password. ... Cloudflare will automatically send an email to your address to verify that email address
+  - [2] 2026-10-28: the limits page states 10 minutes of browser time a day on Workers Free | capture: sha256:edd5430a8cb1c40d3776ad5d5cd56ce865b1dd6a30a031128635e21dd5b1e2f8 | quote: | Browser hours | 10 minutes per day |
+  - [1] 2026-10-28: Workers Free browser time is 10 minutes per day and Workers Paid is 10 hours per month then $0.09 per hour; unchanged | capture: sha256:d24133ff356e3e4079047ce47a324bc6c2eb1ea25e73893586de67885baa4175 | quote: | Browser hours | 10 minutes per day | 10 hours per month, then $0.09 per additional hour |
+  - [3] 2026-10-28: sign-up takes an email and a password and verifies the address by email | capture: sha256:0165fdf250cc1338d7e7a94dd78c7adc2df6f592133ad72dfcf0651a080c5543 | quote: Enter your Email and Password. ... Cloudflare will automatically send an email to your address to verify that email address
+  - [1] 2026-11-03: billing is browser hours and concurrent browsers; no transfer allowance or price is listed | capture: sha256:d24133ff356e3e4079047ce47a324bc6c2eb1ea25e73893586de67885baa4175 | quote: | Browser hours | 10 minutes per day | 10 hours per month, then $0.09 per additional hour |
+  - [4] 2026-11-03: REST API and Workers binding | capture: sha256:1b721c7095e6db8c6d36fb9d25badf5745bdd56ae2366194d619c9211d1e46e2 | quote: Quick Actions can be used via the REST API or directly from a Cloudflare Worker using a browser binding.
+  - [4] 2026-11-03: REST API and binding for sessions | capture: sha256:1b721c7095e6db8c6d36fb9d25badf5745bdd56ae2366194d619c9211d1e46e2 | quote: Browser Sessions give you full control over a headless browser. You can connect from anywhere using the REST API, or from a Cloudflare Worker using a browser binding.
+- sources:
+  - [1] https://developers.cloudflare.com/browser-run/pricing/
+  - [2] https://developers.cloudflare.com/browser-run/limits/
+  - [3] https://developers.cloudflare.com/fundamentals/account/create-account/
+  - [4] https://developers.cloudflare.com/browser-run/get-started/
+
+## Cloudflare Durable Objects
+
+- `compute/cloudflare-durable-objects` | qualifies-with-caveat | evidence documented | binding request-rate | category serverless runtime
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://developers.cloudflare.com/workers/platform/limits/
+- free tier: 13,000 GB-seconds of Durable Object duration a day on the free plan. That is a Durable Object allowance; Workers Free separately carries 100,000 requests a day | unit: mixed | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: an object that is idle and eligible for hibernation is not billed for duration; duration is billed for the 128 MB allocation regardless of actual use
+- per-object cap: not applicable
+- retention: SQLite-backed storage persists; hibernation disconnects clients without destroying state | source: [2]
+- egress: served from the edge; no per-byte charge on the limits page | metered: no | source: [3]
+- identity: email | detail: a Cloudflare account; no card for the Free plan
+- interface: ssh
+- limits:
+  - request-rate (binding): 13,000 GB-s of duration a day; a WebSocket held open on the non-hibernation API bills for the whole connection [1]
+  - per-object-cap: 128 MB of memory per object, billed as a full 128 MB regardless of use [1]
+- limits note: a Durable Object stays active while a request, response stream, WebSocket or pending I/O is in flight
+- binding note: the daily duration allocation binds before the 128 MB ceiling, and a non-hibernating WebSocket spends it at wall-clock rate
+- interface detail: a Worker binding; RPC and WebSocket to the object
+- tooling: Wrangler, the Workers runtime, SQLite storage per object
+- composes with: a stateful coordination point with a WebSocket, which is a relay substrate and not a general machine
+- reliability: no reliability event recorded
+- notes: The 13,000 GB-s figure is on the Durable Objects pricing page, not the Workers limits page earlier evaluation cited. It is a Durable Object allowance and attributing it to Workers was a category error.
+- extras:
+  - billing_model: wall-clock
+  - session_cap.restart_required: no
+  - session_cap.note: no idle kill while connected; duration billed only while active
+  - keep_rate.value: 0.0
+  - keep_rate.basis: duration is billed only while active
+  - keep_rate.source: https://developers.cloudflare.com/workers/platform/limits/
+  - persistent_storage.price_gib_month: SQLite-backed storage billed separately
+  - persistent_storage.durability: survives hibernation
+  - persistent_storage.survives_stop: yes
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: while the object exists
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: HTTP and WebSocket through the edge
+  - network_out.static_ip: no
+  - network_out.ipv6: yes
+  - free_tier_kind: allowance
+- evidence:
+  - [1] 2026-10-22: the included allocation table reads 'Duration | 13,000 GB-s / day | 400,000 GB-s / month, + $12.50/million GB-s'
+  - [1] 2026-10-22: 'Durable Objects that are idle and eligible for hibernation are not billed for duration'; duration is billed for the 128 MB allocation regardless of actual usage
+  - [3] 2026-10-22: Workers Free carries 100,000 requests a day; the page does not carry the 13,000 GB-s figure
+- sources:
+  - [1] https://developers.cloudflare.com/durable-objects/platform/pricing/
+  - [2] https://developers.cloudflare.com/durable-objects/
+  - [3] https://developers.cloudflare.com/workers/platform/limits/
+
+## Cloudflare Email Routing
+
+- `email/cloudflare-email-routing` | qualifies-with-caveat | evidence documented | binding none | category inbound routing
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:20:00.000Z (live) | stale on 2026-11-22
+- url https://developers.cloudflare.com/email-service/
+- free tier: unlimited inbound email on Workers Free and Paid; 200 destination addresses, 200 rules per domain, 30 domains per zone | unit: unlimited | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: 25 MiB inbound message; larger messages are rejected | bytes: 26214400 | source: [2]
+- retention: not applicable: messages are forwarded, not stored | source: [2]
+- egress: not applicable: inbound only on the free plan | metered: no | source: [1]
+- identity: email | detail: a Cloudflare account with the domain delegated to Cloudflare nameservers
+- interface: rest
+- limits:
+  - per-object-cap: 25 MiB inbound message; larger messages are rejected [2]
+- limits note: counts of things, not rates, so no vocabulary kind names them: 200 destination addresses per account, shared across every domain; 200 routing rules per domain and 30 domains per zone
+- binding note: nothing in the vocabulary binds the volume: inbound is unlimited and the 25 MiB message cap bounds a single message rather than a day. What actually caps the shape is the 200 destination addresses per account, which is a count and not one of the six kinds
+- interface detail: MX records on the zone, with rules mapping a pattern to a destination or a Worker
+- tooling: the Cloudflare dashboard, wrangler for Worker handlers
+- composes with: the inbound half of the free mail chain and the only unmetered thing in this topic: unlimited inbound on a domain already held, forwarded to a mailbox. Its scarce link is the 200 verified destinations at the account level.
+- reliability: a routing rule maps one pattern to one destination; a fan-out to several destinations needs a Worker
+- notes: Inbound is genuinely unmetered and is the one unlimited thing in this topic. The 200-destination cap is the quiet one.
+- evidence note: no probe: the inbound path could not be exercised from this host. route1, route2 and route3.mx.cloudflare.net answered 550 on the sender's IPv6 reverse lookup, and TCP 25 was reset over IPv4, so no SMTP-level evidence was obtained either way
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [1] 2026-10-22: 'Inbound emails (Email Routing) | Unlimited | Unlimited' across Workers Free and Paid, while outbound is 'Not available' on Workers Free
+  - [2] 2026-10-22: 200 routing rules per domain, 200 destination addresses per account, and a 25 MiB inbound message limit
+- sources:
+  - [1] https://developers.cloudflare.com/email-service/platform/pricing/
+  - [2] https://developers.cloudflare.com/email-service/platform/limits/
+
+## Cloudflare for Startups — nonprofit / civil-society track
+
+- `storage/cloudflare-for-startups-nonprofit-civil-society-track` | qualifies-with-caveat | evidence reported | binding write-gated | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.cloudflare.com/forstartups/
+- free tier: Up to $350,000 in credits for a year on the current program page (tiered: Tier 3 $10k upward). The nonprofit track announced 2025-09-22 offers 'up to $250,000 in Cloudflare credits ... which can be used for a variety of our developer and core products, including databases & storage, compute services, AI, media, and performance and security'. | unit: mixed | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: Award is discretionary and cohort-based (501(c)(3) or equivalent required); the announcement's application window has closed, so treat as 'reapply at next intake'. Nothing about the credits is permanent. After year one the workload reverts to paid or to the small free tier. | source: [1] | note: not stated
+- egress: N/A by construction. Everything served through Cloudflare's edge, which is the egress-free property the requirement turns on. | metered: no
+- identity: institution
+- interface: s3-compatible, rest, rclone, cli
+- limits:
+  - write-gated (binding): application is declined [1]
+  - write-gated (binding): application window has closed, so treat as 'reapply at next intake' [1]
+- limits note: Per-object-cap: the storage product's own object cap applies (single-part 315 MB / multipart ~5 TiB class) — not binding at 10 TiB. request-rate: Workers/API rate limits apply to control-plane calls; object GETs are not rate-limited at these volumes. retention: credits are for 'a year'; the free-tier storage allowance that exists without credits is small (10 GB-class) and is where data lands if the application is declined.
+- interface detail: rest
+- tooling: Cloudflare API + Wrangler; Workers bindings; rclone backend 's3' works against Cloudflare's S3-compatible object storage endpoints, and the S3 API is the documented path for the storage product.
+- composes with: Credit grant per organisation, applied for in cohorts ('The application period .. runs until December 1', then Cloudflare selects a cohort). So it is a gated annual intake, not an open self-serve tier. $250k of usage-based credit at storage-class rates is a very large number of GB-months; the constraint is the one-year credit window and the cohort gate.
+- reliability: Award is discretionary and cohort-based (501(c)(3) or equivalent required); the announcement's application window has closed, so treat as 'reapply at next intake'. Nothing about the credits is permanent. After year one the workload reverts to paid or to the small free tier.
+- notes: the same as the free tier
+- evidence:
+  - [2] 2026-10-21: 'up to $350k in credits'; tier cards starting at Tier 3 $10k
+  - [1] 2026-10-21: 'up to $250,000 in Cloudflare credits ... including databases & storage'; 'registered 501(c)(3) non-profit'; window closed 2025-12-01
+  - withheld 2026-10-21: probe: GET www.cloudflare.com/forstartups/ -> 200; GET blog.cloudflare.com/expanding-startups-for-nonprofits/ -> 200
+- sources:
+  - [1] https://blog.cloudflare.com/expanding-startups-for-nonprofits/
+  - [2] https://www.cloudflare.com/forstartups/
+
+## Cloudflare Pages
+
+- `egress/cloudflare-pages-egress` | qualifies-with-caveat | evidence documented | binding per-object-cap | category static host
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:20:00.000Z (live) | stale on 2026-11-22
+- url https://developers.cloudflare.com/pages/platform/limits/
+- free tier: unlimited static requests; 100,000 Function invocations per day; 25 MiB per asset | unit: unlimited | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: 25 MiB per static asset | bytes: 26214400 | source: [1]
+- retention: not applicable | source: [1]
+- egress: not metered for static assets; Functions are counted per invocation, not per byte | metered: no | source: [1]
+- identity: email | detail: a Cloudflare account
+- interface: cli
+- limits:
+  - per-object-cap (binding): 25 MiB per static asset [1]
+  - request-rate: 100,000 Function invocations per day, shared with Workers [2]
+- interface detail: wrangler pages deploy
+- tooling: part of interface detail
+- composes with: serves static bytes with no meter, so it is the free front for an object set that fits the 25 MiB cap; the cap sets the shard size and the volume does not bind.
+- reliability: a build is a write gate; 500 builds per month on the free plan
+- notes: This record owns the egress term only. The storage arithmetic belongs to the storage topic and is not restated here.
+- extras:
+  - stale_after_days: 180
+  - bytes_transit: yes
+  - transit_note: static assets leave Cloudflare's edge on every request; the request count is metered, the bytes are not
+- evidence:
+  - [1] 2026-10-22: 25 MiB per static asset and 100,000 Function requests per day
+- sources:
+  - [1] https://developers.cloudflare.com/pages/platform/limits/
+  - [2] https://developers.cloudflare.com/pages/functions/pricing/
+
+## Cloudflare Pages builds
+
+- `ci-cd-runners/cloudflare-pages-builds` | qualifies-with-caveat | evidence documented | binding volume-quota | category CI runner | tier Pages Free
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:00:42.534Z (live) | stale on 2026-12-05
+- url https://developers.cloudflare.com/pages/platform/limits/
+- free tier: Free plan: 500 builds a month, 1 build at a time, 20 minutes per build. Pro: 5,000 builds a month and 5 concurrent builds. Business: 20,000 builds a month and 20 concurrent builds | unit: mixed | metered on: unstated | read on: 2026-11-02 | source: [1] | note: the quota counts builds, not minutes: a one-minute build and a twenty-minute build each use one of the 500; the vocabulary has no builds term for the unit, so mixed stands in
+- per-object cap: 20 minutes per build | source: [1]
+- retention: unverified: the limits and build pages state no retention period for builds or build logs | source: [1]
+- egress: not stated for the build container; the output of a build is a Pages deployment | metered: no | source: [1]
+- identity: email | detail: a Cloudflare account opened with an email address and a password, verified by email; a GitHub or GitLab account authorised to Cloudflare for Git builds
+- interface: git, rest
+- limits:
+  - volume-quota (binding): 500 builds a month on Free; 5,000 on Pro; 20,000 on Business [1]
+  - request-rate: 1 build at a time per account on Free; 5 on Pro; 20 on Business [1]
+  - per-object-cap: 20 minutes per build [1]
+- limits note: only GitHub and GitLab repositories connect; a project connected to Git cannot switch to Direct Upload later
+- binding note: the 500 monthly builds are spent by pushes and Deploy Hook calls whatever their length, so a busy repository reaches the count before the 20-minute cap matters
+- interface detail: a push to a connected GitHub or GitLab repository builds and deploys the project; a Deploy Hook is a unique URL that starts a build for one branch on an HTTP POST
+- endpoint: unverified: the Deploy Hook URL is generated per hook in the dashboard and its format is not stated on the page read
+- tooling: a gVisor container with Ruby, Node.js, Python, PHP and Go preinstalled and versions overridable by environment variable or version file; the user supplies a build command and an output directory
+- composes with: a 20-minute job on every push or Deploy Hook call, ending in a Pages deployment. An external scheduler calling a Deploy Hook makes it a scheduled job, but each call spends one of the 500 monthly builds. Builds run by an external CI system and uploaded with Wrangler direct upload do not use the Pages build runner; Cloudflare Workers Builds is a separate service with its own record
+- reliability: unverified: no page read states what happens to a Free account once the 500 monthly builds are used
+- notes: A Git-driven build service whose job is bound to a Pages deployment: the build command writes an output directory that is deployed. Pro plan price is unverified; no page read states it. A separate Cloudflare service, Workers Builds, offers 3,000 build minutes a month on Free and has its own record.
+- evidence note: every number is quoted from the Cloudflare Pages limits page; no build was run, so CPU, memory and disk of the build container, outbound network access from it and what happens to a build after the 500 monthly builds are spent are unverified
+- evidence:
+  - [1] 2026-11-02: Free allows 500 builds a month; Pro 5,000; Business 20,000 | capture: sha256:7f4078e143d1dd096866771c0468b0d3334be8bd1008840fbb5479ad9d67a818 | quote: | Builds per month | 500 | 5,000 | 20,000 |
+  - [1] 2026-11-02: Free runs 1 build at a time; Pro 5 concurrent; Business 20 | capture: sha256:7f4078e143d1dd096866771c0468b0d3334be8bd1008840fbb5479ad9d67a818 | quote: | Builds | 1 build at a time | 5 concurrent builds | 20 concurrent builds |
+  - [1] 2026-11-02: a build is terminated after 20 minutes; concurrency is counted per account | capture: sha256:7f4078e143d1dd096866771c0468b0d3334be8bd1008840fbb5479ad9d67a818 | quote: Builds will timeout after 20 minutes. Concurrent builds are counted per account.
+  - [2] 2026-11-02: GitHub and GitLab connect; self-hosted instances of either do not | capture: sha256:73c43f19616fcdd6f71df18b93f65612330f53a4caa5ba1e8b3c368c7f03c0ed | quote: Cloudflare supports connecting Cloudflare Pages to your GitHub and GitLab repositories. Pages does not currently support connecting self-hosted instances of GitHub or GitLab.
+  - [2] 2026-11-02: a Git-integrated Pages project cannot later become a Direct Upload project | capture: sha256:73c43f19616fcdd6f71df18b93f65612330f53a4caa5ba1e8b3c368c7f03c0ed | quote: If you deploy using the Git integration, you cannot switch to [Direct Upload](https://developers.cloudflare.com/pages/get-started/direct-upload/) later.
+  - [2] 2026-11-02: Workers has a separate Git build service, Workers Builds | capture: sha256:73c43f19616fcdd6f71df18b93f65612330f53a4caa5ba1e8b3c368c7f03c0ed | quote: Cloudflare Workers now also supports Git integrations to automatically build and deploy Workers from your connected Git repository.
+  - [3] 2026-11-02: a Deploy Hook URL starts a new Pages build on an HTTP POST | capture: sha256:5c3da66547a81eb3218f92253b7126f223e07b342e87b7f420b45046ef6737e4 | quote: Each event source may obtain its own unique URL, which will receive HTTP POST requests in order to initiate new deployments.
+  - [3] 2026-11-02: a Deploy Hook can be called from a scheduler to run builds on a timetable | capture: sha256:5c3da66547a81eb3218f92253b7126f223e07b342e87b7f420b45046ef6737e4 | quote: Schedule a CRON trigger to update your website on a fixed timeline
+  - [4] 2026-11-02: builds run in a gVisor container | capture: sha256:97ab4228abc5cdce1d30735e628db8e97a966c79b10383cfc55a0f45e0ef1d72 | quote: Cloudflare Pages builds are run in a [gVisor ↗︎](https://gvisor.dev/docs/) container.
+  - [4] 2026-11-02: the build image carries Ruby, Node.js, Python, PHP and Go | capture: sha256:97ab4228abc5cdce1d30735e628db8e97a966c79b10383cfc55a0f45e0ef1d72 | quote: Cloudflare Pages' build environment has broad support for a variety of languages, such as Ruby, Node.js, Python, PHP, and Go.
+  - [4] 2026-11-02: older build images are retired into the v3 image | capture: sha256:97ab4228abc5cdce1d30735e628db8e97a966c79b10383cfc55a0f45e0ef1d72 | quote: If you are using the Pages v2 build image, your project will be automatically moved to v3 on February 23, 2027.
+  - [5] 2026-11-02: prebuilt assets can be deployed to Pages from an external CI system with Wrangler | capture: sha256:6fe80c9fb8958c496743818c903c697f12fff897a3f1f552ba1fa06057a80ac2 | quote: Cloudflare Pages supports directly uploading prebuilt assets, allowing you to use custom build steps for your applications and deploy to Pages with
+  - [6] 2026-11-02: the sign-up form asks for an email address and a password | capture: sha256:0165fdf250cc1338d7e7a94dd78c7adc2df6f592133ad72dfcf0651a080c5543 | quote: Enter your Email and Password.
+  - [1] 2026-11-04: Free allows 500 builds a month | capture: sha256:7f4078e143d1dd096866771c0468b0d3334be8bd1008840fbb5479ad9d67a818 | quote: | Builds per month | 500 | 5,000 | 20,000 |
+  - probe:https://developers.cloudflare.com/pages/platform/limits/ 2026-11-04: the limits page answered HTTP 200 on 2026-11-04 | capture: sha256:2097533da27aaba2dcd808d6e409bfc67f207f859cbf72bbeb14c98d994e1edc | quote: "status": 200
+- sources:
+  - [1] https://developers.cloudflare.com/pages/platform/limits/
+  - [2] https://developers.cloudflare.com/pages/configuration/git-integration/
+  - [3] https://developers.cloudflare.com/pages/configuration/deploy-hooks/
+  - [4] https://developers.cloudflare.com/pages/configuration/build-image/
+  - [5] https://developers.cloudflare.com/pages/how-to/use-direct-upload-with-continuous-integration/
+  - [6] https://developers.cloudflare.com/fundamentals/account/create-account/
+
+## Cloudflare Project Alexandria
+
+- `compute/cloudflare-project-alexandria` | qualifies-with-caveat | evidence documented | binding write-gated | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://www.cloudflare.com/lp/project-alexandria/
+- free tier: 'Project Alexandria, our open source credits program, offers flexibility to suit your varying needs' with 'Upgrade to Cloudflare Pro, Business, or Enterprise plan', 'Increased requests to Cloudflare Workers and Pages', 'Increased R2 storage for builds and artifacts', and 'Enhanced Zero Trust access, including Remote Browser Isolation'. Credits are 'recurring annual' and 'Acceptance into Project Alexandria and determination of benefits is at Cloudflare's sole discretion'. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: recurring-credit
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: card | detail: a Cloudflare account plus a valid payment method on file before any credit exists: the programme page states 'You will be required to create a Cloudflare account and upload a valid payment method on file'. The authorisation amount is not stated; whether debit or prepaid is accepted is not stated; no phone or ID step is stated
+- interface: unknown
+- limits:
+  - write-gated (binding): No amount, no cap and no deadline are published: benefits are set case by case at Cloudflare's sole discretion, and acceptance requires a payment method on file before any credit exists. [1]
+- limits note: No amount, no cap and no deadline are published: benefits are set case by case at Cloudflare's sole discretion, and acceptance requires a payment method on file before any credit exists.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: If the allocation includes Workers Paid, this is the only programme here that can put a Python or TypeScript workload on an edge network with no server, which composes with the Cloudflare containers and sandbox records earlier readings already holds.
+- reliability: no reliability event recorded
+- notes: The honest gap is the number: Cloudflare publishes no credit amount, and the terms let it change or withdraw the programme 'at any time without notice'. A reader needs the payment method on file, so this is a card-gated lane, and the credits are non-transferable and not redeemable for cash. Somebody with an OSS project should ask for a number in the contact form rather than assume a tier.
+- extras:
+  - facets.class: vendor-oss-credits
+  - facets.free_tier_kind: recurring-credit
+- evidence:
+  - [1] 2026-10-22: quoted the benefit list, the recurring annual cadence, the sole-discretion sentence, and 'You will be required to create a Cloudflare account and upload a valid payment method on file'
+  - [2] 2026-10-22: the programme launch post, 2024-09-27, describing it as the expanded open source programme; it states no dollar or credit figure, which is why the amount is null here
+  - [3] 2026-10-22: reported 'recurring annual credits and an expanded range of free services' and that Cloudflare gave 'more than $15 million in donated products and services in 2024' across its impact programmes, which is the aggregate and not a per-project figure
+- sources:
+  - [1] https://www.cloudflare.com/lp/project-alexandria/
+  - [2] https://blog.cloudflare.com/expanding-our-support-for-oss-projects-with-project-alexandria/
+  - [3] https://www.cloudflare.com/press-releases/2024/cloudflare-publishes-fourth-annual-impact-report/
+
+## Cloudflare R2
+
+- `egress/cloudflare-r2` | qualifies-with-caveat | evidence documented | binding none | category object storage (zero-egress)
+- needs card yes, phone unknown, ID no, institution no | verified 2026-11-03T00:35:04.397Z (live) | stale on 2026-12-04
+- url https://developers.cloudflare.com/r2/pricing/
+- price USD 15 per TB-month of Standard storage beyond the free 10 GB-month (USD 0.015 / GB-month); egress USD 0 | parsed USD 15/TB-mo
+- free tier: 10 GB-month storage, 1M Class A and 10M Class B operations per month, egress free | unit: GB | metered on: stored-bytes | read on: 2026-10-22 | source: [1] | note: Standard storage only; the free tier does not apply to Infrequent Access. Above it, Standard storage costs USD 0.015 / GB-month, Class A operations USD 4.50 / million requests and Class B operations USD 0.36 / million requests; usage rounds up to the next billing unit (1.1 GB-month bills as 2 GB-month).
+- per-object cap: 5 TiB per object (5 GiB less than 5 TiB, so 4.995 TiB); one upload request or part carries at most 4.995 GiB (5 MiB less than 5 GiB), up to 10,000 parts | bytes: 5492189429760 | source: [2]
+- retention: not applicable: bytes persist while the account is in good standing | source: [1]
+- egress: free for every storage class when read directly from R2 (Workers API, S3 API, r2.dev); metered services connected to a bucket may charge for their part, and Infrequent Access reads carry a USD 0.01 / GB data-retrieval fee | metered: no | free allowance: none for egress: egress to the internet is free on every plan | source: [1]
+- identity: card | detail: A Cloudflare account (sign-up form: email and password; the address is verified by a mailed message) plus an R2 subscription added through a dashboard checkout, which needs a valid payment method on file even for the free monthly usage: a card (Visa, Mastercard, American Express, Discover, UnionPay), PayPal, Apple Pay, Google Pay, Link, or a USDC stablecoin wallet whose permit covers R2 usage charges. A billing address is confirmed with the payment method, and gift or pre-payment cards may be refused for lacking one. No R2 API token can be created before the purchase. A phone number or a manual review at the checkout: unverified: behind a sign-up.
+- interface: s3-compatible, rest
+- limits:
+  - request-rate: 1M Class A and 10M Class B operations per month [1]
+  - per-object-cap: 4.995 TiB per object (5 TiB less 5 GiB); 4.995 GiB per upload request or part [2]
+  - volume-quota: 10 GB-month of Standard storage free each month; storage above it is billed at USD 0.015 / GB-month [1]
+  - request-rate: r2.dev public endpoint: variable rate limit, HTTP 429 above hundreds of requests per second, bandwidth may be throttled; a custom domain carries no such stated limit [2]
+- limits note: the 10 GB-month of free Standard storage is a monthly allowance and not a cap: storage above it is billed at USD 0.015 / GB-month, Class A operations above 1 million at USD 4.50 / million and Class B operations above 10 million at USD 0.36 / million
+- binding note: nothing binds egress, which is free when read directly from R2; the 10 GB-month of free Standard storage (volume-quota) is a billing threshold and not a cap, since storage above it is billed at USD 0.015 / GB-month
+- interface detail: https://<account>.r2.cloudflarestorage.com
+- tooling: aws-cli, rclone (s3 backend)
+- composes with: the origin that makes a free front free: R2 holds the bytes with zero egress and a Cloudflare front serves them, so the read path costs nothing at any volume and the 10 GB is the whole bill.
+- reliability: a failed payment-method preauthorization blocks access to the buckets (requests return errors), and the data may be deleted if the payment method is not updated within 30 days
+- extras:
+  - stale_after_days: 180
+  - bytes_transit: yes
+  - transit_note: the object leaves Cloudflare's network on every read, and egress is free on every plan
+- evidence:
+  - [1] 2026-10-22: 10 GB-month storage, 1M Class A, 10M Class B, egress free; page last updated 2026-10-01
+  - [3] 2026-10-30: a valid payment method must be on file before a subscription such as R2 is enabled | capture: sha256:3863412bc0c1315d74e4aece932afe37fa2ac4ff21b6ff906659728be53e06cb | quote: Ensure that you are using a valid payment method before changing your plan type or enabling subscriptions.
+  - [4] 2026-10-30: R2 is enabled by a dashboard checkout that adds an R2 subscription to the account | capture: sha256:43a181e0b667315d8ee530957b7d95ebda649c7c03975c9af42f0001b2ab5edf | quote: Complete the checkout flow to add an R2 subscription to your account.
+  - [4] 2026-10-30: the R2 subscription carries the free monthly usage; the checkout is needed for the free tier too | capture: sha256:43a181e0b667315d8ee530957b7d95ebda649c7c03975c9af42f0001b2ab5edf | quote: R2 is free to get started with included free monthly usage.
+  - [5] 2026-10-30: purchasing a Cloudflare product, R2 included, needs a primary payment method | capture: sha256:5ce86720b4ddb72032ffe13a60d5c93647cb26a752f272f2d6a3cacfd6a7b023 | quote: A primary payment method is required to purchase Cloudflare products and services.
+  - [6] 2026-10-30: no R2 API token, and so no S3 access key, exists before the R2 checkout | capture: sha256:4a64a98180c92d732424179ea1fce1ab75187531c7bc522e2b60461a38bd9f42 | quote: You must purchase R2 before you can generate an API token.
+  - [7] 2026-10-30: the account sign-up form asks for an email and a password | capture: sha256:0165fdf250cc1338d7e7a94dd78c7adc2df6f592133ad72dfcf0651a080c5543 | quote: Enter your Email and Password.
+  - [7] 2026-10-30: the sign-up email address is verified by a mailed message | capture: sha256:0165fdf250cc1338d7e7a94dd78c7adc2df6f592133ad72dfcf0651a080c5543 | quote: Once you create your account, Cloudflare will automatically send an email to your address to verify that email address.
+  - [5] 2026-10-30: the accepted card networks are Visa, Mastercard, American Express, Discover and UnionPay | capture: sha256:5ce86720b4ddb72032ffe13a60d5c93647cb26a752f272f2d6a3cacfd6a7b023 | quote: Card (Visa, Mastercard, American Express, Discover, UnionPay):
+  - [5] 2026-10-30: Apple Pay, Google Pay and Link wallets are accepted besides a card or PayPal | capture: sha256:5ce86720b4ddb72032ffe13a60d5c93647cb26a752f272f2d6a3cacfd6a7b023 | quote: Wallets: Apple Pay, Google Pay, Link, and Instant Bank Payments via Link (US-based self-serve accounts) are also available.
+  - [8] 2026-10-30: USDC stablecoin is accepted at the checkout as an alternative to a card | capture: sha256:cdb235d18f687faf33c94719a02ee4da276684ff86ae47614c65bfb8fa6628e9 | quote: You can pay for Cloudflare services with USDC stablecoin at the checkout.
+  - [8] 2026-10-30: a USDC stablecoin permit covers R2 usage-based charges | capture: sha256:cdb235d18f687faf33c94719a02ee4da276684ff86ae47614c65bfb8fa6628e9 | quote: Usage-based charges billed at threshold for Workers, R2, and Stream
+  - [5] 2026-10-30: a billing address is confirmed when a payment method is added | capture: sha256:5ce86720b4ddb72032ffe13a60d5c93647cb26a752f272f2d6a3cacfd6a7b023 | quote: Confirm the billing address and select Save.
+  - [3] 2026-10-30: gift and pre-payment cards may be refused because they carry no billing address | capture: sha256:3863412bc0c1315d74e4aece932afe37fa2ac4ff21b6ff906659728be53e06cb | quote: Gift cards and pre-payment cards may not be accepted for payment as they are not associated with a billing address.
+  - [9] 2026-10-30: the vendor's disclosed bug report states that R2 activation requires a valid payment method on file | capture: sha256:0f284e54b5ed913c1f26fc5b2ae03395139c65fc892e0992f8e17e07b8c17b13 | quote: Cloudflare's object storage product, R2, requires customers to have a valid payment method on file in order to activate the subscription.
+  - [2] 2026-10-30: the largest object is 5 TiB less 5 GiB, 4.995 TiB | capture: sha256:ae706399186fdc931e2b5eedaefa76818aea9ffc34ad1f28b9e7c5367e29b9fa | quote: The object size limit is 5 GiB less than 5 TiB, so 4.995 TiB.
+  - [2] 2026-10-30: one upload request or part carries at most 4.995 GiB | capture: sha256:ae706399186fdc931e2b5eedaefa76818aea9ffc34ad1f28b9e7c5367e29b9fa | quote: The max upload size is 5 MiB less than 5 GiB, so 4.995 GiB.
+  - [1] 2026-10-30: the free tier includes 10 GB-month of storage each month | capture: sha256:ed2a0272084040e8c7004cdccad88172c9380b3a84302752b13fcadeb0851f15 | quote: | Storage | 10 GB-month / month |
+  - [2] 2026-10-30: the r2.dev public endpoint is rate limited and answers HTTP 429 above hundreds of requests per second | capture: sha256:ae706399186fdc931e2b5eedaefa76818aea9ffc34ad1f28b9e7c5367e29b9fa | quote: If you exceed the rate limit (hundreds of requests/second), requests to your r2.dev endpoint will be temporarily throttled and you will receive a 429 Too Many Requests response.
+  - [1] 2026-10-30: the free tier covers Standard storage only | capture: sha256:ed2a0272084040e8c7004cdccad88172c9380b3a84302752b13fcadeb0851f15 | quote: The free tier only applies to Standard storage, and does not apply to Infrequent Access storage.
+  - [1] 2026-10-30: Standard storage costs USD 0.015 per GB-month and Infrequent Access USD 0.01 per GB-month | capture: sha256:ed2a0272084040e8c7004cdccad88172c9380b3a84302752b13fcadeb0851f15 | quote: | Storage | $0.015 / GB-month | $0.01 / GB-month |
+  - [1] 2026-10-30: Class A operations cost USD 4.50 per million on Standard storage and USD 9.00 on Infrequent Access | capture: sha256:ed2a0272084040e8c7004cdccad88172c9380b3a84302752b13fcadeb0851f15 | quote: | Class A Operations | $4.50 / million requests | $9.00 / million requests |
+  - [1] 2026-10-30: Class B operations cost USD 0.36 per million on Standard storage and USD 0.90 on Infrequent Access | capture: sha256:ed2a0272084040e8c7004cdccad88172c9380b3a84302752b13fcadeb0851f15 | quote: | Class B Operations | $0.36 / million requests | $0.90 / million requests |
+  - [1] 2026-10-30: usage is rounded up to the next billing unit | capture: sha256:ed2a0272084040e8c7004cdccad88172c9380b3a84302752b13fcadeb0851f15 | quote: If you have used 1.1 GB-month, you will be billed for 2 GB-month.
+  - [1] 2026-10-30: egress read directly from R2 is free; metered services connected to a bucket may charge | capture: sha256:ed2a0272084040e8c7004cdccad88172c9380b3a84302752b13fcadeb0851f15 | quote: If you connect other metered services to an R2 bucket, you may be charged by those services.
+  - [1] 2026-10-30: egress is free for every storage class | capture: sha256:ed2a0272084040e8c7004cdccad88172c9380b3a84302752b13fcadeb0851f15 | quote: There are no charges for egress bandwidth for any storage class.
+  - [1] 2026-10-30: Infrequent Access reads carry a USD 0.01 per GB data-retrieval fee; Standard has none | capture: sha256:ed2a0272084040e8c7004cdccad88172c9380b3a84302752b13fcadeb0851f15 | quote: | Data Retrieval (processing) | None | $0.01 / GB |
+  - [3] 2026-10-30: data of a usage-based service such as R2 may be deleted when the payment method is not updated within 30 days | capture: sha256:3863412bc0c1315d74e4aece932afe37fa2ac4ff21b6ff906659728be53e06cb | quote: If you do not update your payment method within 30 days, the data related to any usage-based billing service(s) may be deleted.
+  - [3] 2026-10-30: a failed payment-method preauthorization blocks access to R2 buckets and requests return errors | capture: sha256:3863412bc0c1315d74e4aece932afe37fa2ac4ff21b6ff906659728be53e06cb | quote: In the case of R2, you will not be able to access your R2 buckets and requests will return errors, but your data will remain secure.
+  - [3] 2026-10-30: the payment method of a usage-based service such as R2 can be preauthorized at any time in a billing period | capture: sha256:3863412bc0c1315d74e4aece932afe37fa2ac4ff21b6ff906659728be53e06cb | quote: For services subject to usage-based billing, Cloudflare may preauthorize your credit card at any point in a billing period to confirm the payment method on file can cover accrued fees.
+  - [2] 2026-10-30: R2 object operations run through an S3-compatible API | capture: sha256:ae706399186fdc931e2b5eedaefa76818aea9ffc34ad1f28b9e7c5367e29b9fa | quote: For high-throughput object operations, use the S3-compatible API or Workers API instead.
+  - [4] 2026-10-30: R2 is reached through S3-compatible SDKs | capture: sha256:43a181e0b667315d8ee530957b7d95ebda649c7c03975c9af42f0001b2ab5edf | quote: You want to use S3-compatible SDKs to interact with R2 in your existing applications
+  - [2] 2026-10-30: R2 also has Cloudflare REST API operations, rate limited to 1,200 requests per five minutes | capture: sha256:ae706399186fdc931e2b5eedaefa76818aea9ffc34ad1f28b9e7c5367e29b9fa | quote: The Cloudflare REST API is rate limited to 1,200 requests per five minutes across all R2 REST API operations on your account.
+  - [1] 2026-10-30: the free storage and operations are a monthly allowance | capture: sha256:ed2a0272084040e8c7004cdccad88172c9380b3a84302752b13fcadeb0851f15 | quote: You can use the following amount of storage and operations each month for free.
+  - [8] 2026-10-30: the checkout's payment-method picker offers Crypto (a USDC wallet) beside card, Apple Pay and Google Pay | capture: sha256:cdb235d18f687faf33c94719a02ee4da276684ff86ae47614c65bfb8fa6628e9 | quote: Select Crypto in the payment method picker, alongside card, Apple Pay, and Google Pay.
+  - [8] 2026-10-30: the stablecoin accepted at the checkout is USDC on the Base and Polygon networks | capture: sha256:cdb235d18f687faf33c94719a02ee4da276684ff86ae47614c65bfb8fa6628e9 | quote: | Stablecoins | USDC on Base and Polygon |
+  - [5] 2026-10-30: a card added as the payment method may need 3D Secure authentication when its issuer requires it | capture: sha256:5ce86720b4ddb72032ffe13a60d5c93647cb26a752f272f2d6a3cacfd6a7b023 | quote: Complete 3D Secure authentication if your card issuer requires it.
+  - [10] 2026-11-03: a community reply of 2026-04-01 in the vendor's developer Discord (a mirror of it) says R2 cannot be paid with crypto; it predates the USDC stablecoin page of 2026-06-12 and is a third-party statement | capture: sha256:30ad6d8a96397f7cb4c7881fe0c344b3490969aa000e41ef286c2e178b17f78d | quote: You cannot pay for R2 with crypto, it requires a valid card.
+  - [11] 2026-11-03: a community reply of 2026-04-18 quotes the R2 add-storage checkout's authorization checkbox: it authorizes charging for usage above the free limits, and is not a hold (third-party report) | capture: sha256:f97878683019316c243f85ad03d1f2a178b83452a019d14c991666679835d909 | quote: I authorize Cloudflare to charge this card for usage that exceeds free limits each month until cancellation.
+  - [12] 2026-11-03: the vendor's own incident notice shows the first-time R2 enable step asks for a payment method; it names no phone number or review step | capture: sha256:a5341802381dc75ba7c02507d739d22e2ceee22848e29c8e1edd2a709680fd87 | quote: users adding R2 for the first time without a payment method already on the account are unable to add a payment method when attempting to enable R2
+  - [1] 2026-11-03: the free tier still gives 10 GB-month of storage each month (page last updated 2026-10-30) | capture: sha256:907df65515a1e94526bccda8afa4f8cf7bc946a0c34d1faffe6bdbbf7a2a59dc | quote: | Storage | 10 GB-month / month |
+  - [5] 2026-11-03: buying a Cloudflare product, the R2 subscription included, needs a primary payment method, so the record's card kind stands | capture: sha256:5ce86720b4ddb72032ffe13a60d5c93647cb26a752f272f2d6a3cacfd6a7b023 | quote: A primary payment method is required to purchase Cloudflare products and services.
+- sources:
+  - [1] https://developers.cloudflare.com/r2/pricing/
+  - [2] https://developers.cloudflare.com/r2/platform/limits/
+  - [3] https://developers.cloudflare.com/billing/understand/billing-policy/
+  - [4] https://developers.cloudflare.com/r2/get-started/
+  - [5] https://developers.cloudflare.com/billing/get-started/create-billing-profile/
+  - [6] https://developers.cloudflare.com/r2/api/tokens/
+  - [7] https://developers.cloudflare.com/fundamentals/account/create-account/
+  - [8] https://developers.cloudflare.com/billing/payment-methods/stablecoin-payments/
+  - [9] https://hackerone.com/reports/2170559
+  - [10] https://www.answeroverflow.com/m/1454396689225093214
+  - [11] https://www.answeroverflow.com/m/1495093200359129139
+  - [12] https://www.cloudflarestatus.com/incidents/q5yz5kb1gwm6
+
+## Cloudflare Tunnel (named)
+
+- `egress/cloudflare-tunnel` | qualifies-with-caveat | evidence documented | binding write-gated | category tunnel (hosted, named)
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:20:00.000Z (live) | stale on 2026-11-22
+- url https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/
+- free tier: unlimited tunnels and unmetered transit; 1,000 tunnels per account | unit: unlimited | metered on: identity-count | read on: 2026-10-22 | source: [1]
+- per-object cap: 100 MB proxied request body on Free and Pro (413), 200 MB Business | source: [2]
+- retention: not applicable: the tunnel and its hostname persist | source: [3]
+- egress: unmetered; no bandwidth figure appears among the account limits | metered: no | source: [1]
+- identity: email | detail: a Cloudflare account plus a domain delegated to Cloudflare nameservers
+- interface: cli, rest
+- limits:
+  - write-gated (binding): the hostname must be a zone on Cloudflare nameservers [3]
+  - per-object-cap: 100 MB proxied request body on Free and Pro [2]
+  - retention-clamped: 125 s proxy read timeout and 30 s proxy write timeout, both 524 [4]
+- limits note: counts of things, not rates, so no vocabulary kind names them: 1,000 cloudflared tunnels per account and 25 active replicas per tunnel; 50,000 routes per account, shared with Cloudflare…
+- binding note: the domain is the only paid element and the gate; the 100 MB body cap binds writes, not reads.
+- interface detail: cloudflared tunnel run; the hostname is a record on a zone owned by the account
+- tooling: part of limits note
+- composes with: the serving chain for a real hostname: a domain on Cloudflare nameservers -> a named tunnel -> an origin that cannot open a port. Composes with Oracle Always Free as the origin and with R2 behind it, and the scarce link is the domain.
+- reliability: community reports describe about 20 Mbit/s on tunnel transfers; not reproduced here
+- notes: Cloudflare Tunnel provides unmetered outbound tunnels to the Cloudflare edge for HTTP and supported protocols without inbound firewall ports.
+- extras:
+  - stale_after_days: 180
+  - bytes_transit: yes
+  - transit_note: cloudflared dials out and Cloudflare relays the request and response bytes
+- evidence:
+  - [1] 2026-10-22: 1,000 tunnels per account, 25 replicas per tunnel, 50,000 routes, and no bandwidth figure anywhere on the page
+  - [4] 2026-10-22: Proxy Read Timeout 125 s and Proxy Write Timeout 30 s, both returning 524
+  - [5] 2026-10-22: Cloudflare staff, 2022-06-21: 'There are no bandwidth limits'
+- sources:
+  - [1] https://developers.cloudflare.com/cloudflare-one/account-limits/
+  - [2] https://developers.cloudflare.com/workers/platform/limits/
+  - [3] https://developers.cloudflare.com/tunnel/setup/
+  - [4] https://developers.cloudflare.com/fundamentals/reference/connection-limits/
+  - [5] https://community.cloudflare.com/t/cloudflare-tunnel-limits-and-bandwith/393006
+
+## Cloudflare Universal SSL
+
+- `domains-dns/cloudflare-universal-ssl` | qualifies-with-caveat | evidence reported | binding per-object-cap | category certificate authority
+- needs card no, phone no, ID no, institution no | verified 2026-11-09T05:04:38.024Z (live) | stale on 2026-11-24
+- url https://developers.cloudflare.com/ssl/edge-certificates/universal-ssl/
+- free tier: a free certificate on every zone, covering the apex and one level of subdomain | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: covers example.com and app.example.com, not a.b.example.com; deeper names need Advanced Certificate Manager | source: [1]
+- retention: the certificate is issued and renewed by Cloudflare while the zone is active | source: [1]
+- egress: no charge | metered: no | source: [1]
+- identity: email | detail: a Cloudflare account and a zone on Cloudflare nameservers
+- interface: rest
+- limits:
+  - per-object-cap (binding): one level of subdomain only; deeper names need Advanced Certificate Manager [1]
+- interface detail: automatic on a proxied zone; no client API of its own, and the zone API reports the certificate
+- tooling: nothing to run: the certificate appears on the zone
+- composes with: the certificate half of the free endpoint, from the same account and zone as the DNS and the tunnel
+- reliability: no suspension, throttle or data-loss event is recorded on the pages read
+- notes: The one-level limit is the trap. A per-tenant scheme at tenant.app.example.com needs a paid certificate manager, or a wildcard from Let's Encrypt over DNS-01, which is free.
+- evidence note: the one-level coverage limit is stated across Cloudflare's TLS documentation and repeated in third-party summaries; the product page was reached only as a stub, so this is reported.
+- evidence:
+  - [1] 2026-10-22: Universal SSL is free on every plan; the one-level subdomain coverage limit and the Advanced Certificate Manager upgrade path are the substance
+  - [1] 2026-11-09: on a full setup the certificate covers the apex and first-level subdomains only | capture: sha256:c6274db1c947c6f3ba83385ab5db05c1de2cc8322821c8be77cf7ba022688cdd | quote: On a full setup, Universal SSL certificates cover your root domain (for example, `example.com`) and first-level subdomains (for example, `www.example.com`).
+- sources:
+  - [1] https://developers.cloudflare.com/ssl/edge-certificates/universal-ssl/
+
+## Cloudflare URL Scanner
+
+- `crawler-scraper/cfscan` | qualifies-with-caveat | evidence documented | binding retention-clamped | category archive
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://developers.cloudflare.com/url-scanner/
+- free tier: free with a Cloudflare account; scans of the exact URL in the last 30 days | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable: the unit is a scan | source: [1]
+- retention: 30 days: a scan older than that is not held, and a pinned request before it is a 400 | source: [1]
+- egress: not applicable: the archived document | metered: no | source: [1]
+- identity: email | detail: a Cloudflare account
+- interface: rest
+- limits:
+  - request-rate: 240 requests a minute on this deployment's account window, shared with read, which keeps 4 free for a read lookup
+  - retention-clamped (binding): 30 days of reach. Requests pinned outside that range return HTTP 400 naming the reach.
+  - per-object-cap: A listing reads the newest 100 scans of the URL. When search is full and the oldest scan postdates the query timestamp, older scans remain unknown.
+- interface detail: REST interface queried for archived page copies without submitting new scans.
+- tooling: not established
+- composes with: The archive fallback when the Wayback Machine is slow or holds nothing; a page it answers always points on to the other archives
+- reliability: no reliability event recorded
+- notes: A 30-day reach functions as a recent-copy cache rather than a permanent archive. Listings do not terminate on a URL Scanner page.
+- evidence:
+  - withheld 2026-10-22: cfscan is the scans of the exact URL in the last 30 days; a page it answers carries skip=cfscan and more=true; provider=cfscan outside the 30 days is a 400 naming its reach
+  - [2] 2026-10-22: 200, 0 captures, more false, misses wayback none, arquivo none, commoncrawl unknown
+- sources:
+  - [1] https://developers.cloudflare.com/url-scanner/
+  - [2] https://web.archive.org/web/*/nodeseek.com/post-918318-1
+
+## Cloudflare WARP (consumer)
+
+- `egress/cloudflare-warp` | qualifies-with-caveat | evidence documented | binding none | category device VPN
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:20:00.000Z (live) | stale on 2026-11-22
+- url https://developers.cloudflare.com/warp-client/
+- free tier: a free client with no published data cap | unit: unlimited | metered on: downloaded-bytes | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable | source: [1]
+- egress: no published cap and no published rate | metered: no | source: [1]
+- identity: email | detail: a Cloudflare account
+- interface: cli
+- interface detail: warp-cli connect
+- tooling: part of interface detail
+- composes with: gives a device a new exit and does not give a server one, so it composes with a client and not with a serving origin.
+- reliability: a community report describes about 1.8 MB/s on WARP; not reproduced here
+- notes: Nothing here can be planned against: no cap and no rate.
+- extras:
+  - stale_after_days: 180
+  - bytes_transit: yes
+  - transit_note: the device's traffic exits through Cloudflare's network rather than its own
+- evidence:
+  - [1] 2026-10-22: the consumer client is free with no published cap
+- sources:
+  - [1] https://developers.cloudflare.com/warp-client/
+
+## Cloudflare Workers
+
+- `compute/cloudflare-workers` | qualifies-with-caveat | evidence documented | binding request-rate | category serverless runtime
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://developers.cloudflare.com/workers/platform/limits/
+- free tier: Workers Free: 100,000 requests a day, 10 ms of CPU time per request, 128 MB memory, 50 subrequests per request | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1] | note: no request-per-second cap; the free wall is CPU time and the daily request count
+- per-object cap: not applicable
+- retention: a Worker holds no disk; state lives in KV, D1, R2 or a Durable Object | days: 0
+- egress: response bodies are served from the edge with no per-byte charge stated on the limits page | metered: no | free allowance: no byte cap stated | source: [1]
+- identity: email | detail: a Cloudflare account; no card for the Free plan
+- interface: rest, cli
+- limits:
+  - request-rate (binding): 100,000 requests a day on Free [1]
+  - pull-count: 50 subrequests per request on Free, 1,000 on Paid [1]
+  - per-ip-shaping: 6 simultaneous outgoing connections per request on both plans [1]
+- limits note: there is no duration limit for an HTTP-triggered Worker while the connection stays open; cron and queue handlers are capped at 15 minutes
+- binding note: 10 ms of CPU per request is the wall: the 100,000-request allowance is generous and a JSON parse meets the CPU limit in the first request
+- interface detail: a JavaScript or WASM module; fetch handler, cron triggers, queue consumers
+- tooling: Wrangler; the runtime API; ctx.waitUntil for work after the response
+- composes with: the only free tier here that answers 100,000 HTTP requests a day and can hold a WebSocket
+- reliability: no reliability event recorded
+- notes: 10 ms of CPU is the wall, not the 100,000 requests. A Worker can hold a connection open for hours and stream a response, which is why this is the only free runtime here that can serve. It cannot run a shell.
+- extras:
+  - billing_model: per-request
+  - session_cap.restart_required: no
+  - session_cap.note: no duration limit while the connection is open; 10 ms of CPU per request on Free
+  - keep_rate.value: 0.0
+  - keep_rate.basis: an isolate is not billed between requests
+  - keep_rate.source: https://developers.cloudflare.com/workers/platform/limits/
+  - persistent_storage.included_gib: 0
+  - persistent_storage.price_gib_month: R2 and D1 are separate products
+  - persistent_storage.durability: isolate has no disk
+  - persistent_storage.survives_stop: no
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: HTTP and WebSocket through the edge
+  - network_out.static_ip: no
+  - network_out.ipv6: yes
+  - free_tier_kind: allowance
+  - m10h_usd: 0.0
+  - m24h_usd: 0.0
+  - price_arithmetic: free at 100,000 requests a day; Paid is USD 5 a month with no request cap
+- evidence:
+  - [1] 2026-10-22: Free: 100,000 requests a day, 10 ms CPU, 128 MB memory, 50 subrequests, 6 simultaneous outgoing connections
+  - [1] 2026-10-22: there is no hard duration limit for HTTP-triggered Workers; cron triggers and queue consumers are capped at 15 minutes
+  - [1] 2026-10-22: Paid raises CPU time to 5 minutes and subrequests to 1,000 per request
+- sources:
+  - [1] https://developers.cloudflare.com/workers/platform/limits/
+
+## Cloudflare Workers AI (Compute)
+
+- `compute/cloudflare-workers-ai` | qualifies-with-caveat | evidence documented | binding request-rate | category inference API
+- needs card unknown, phone unknown, ID no, institution no | verified 2026-10-28T09:47:56.204Z (live) | stale on 2026-11-28
+- url https://developers.cloudflare.com/workers-ai/platform/pricing/
+- free tier: A daily allowance of 10,000 Neurons on both the Workers Free and the Workers Paid plan: 'Our free allocation allows anyone to use a total of 10,000 Neurons per day at no charge.' Limits reset daily at 00:00 UTC. Neurons convert to tokens at a per-model rate, so the same 10,000 Neurons buys a different number of output tokens on each model: @cf/meta/llama-3.1-8b-instruct yields 133K output tokens a day at 75147 Neurons per 1M, @cf/qwen/qwen3-30b-a3b-fp8 yields 328K at 30475 per 1M and @cf/meta/llama-3.2-1b-instruct yields 548K at 18252 per 1M, a spread of about 4 across these three models. Eight models require a paid billing method rather than the Workers Free plan alone: kimi-k2.6, kimi-k2.7-code, glm-5.2, glm-5.3, glm-5.3-flash, deepseek-v4-flash-0731, deepseek-v4.1-flash-1017 and deepseek-v4-pro-0813. | unit: minutes | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: recurring-daily-allowance
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email | detail: a Cloudflare account created on the sign-up page with an email address and a password; Cloudflare then sends an email to verify the address. unverified: whether sign-up asks for a phone number or a card, which the create-account page does not name
+- interface: rest
+- limits:
+  - request-rate (binding): Text generation is limited to 300 requests per minute, a default per task type that the limits page does not tie to one plan and that applies unless the model requires the Workers Paid plan. The models that require the Workers Paid plan are limited per account and per model to 20 requests per minute on standard Workers AI billing and 50 requests per minute with prepaid AI Gateway credits. Token volume is metered separately by the daily Neuron allowance on the pricing page. [1]
+- limits note: Text generation is limited to 300 requests per minute, a default per task type that the limits page does not tie to one plan and that applies unless the model requires the Workers Paid plan. The models that require the Workers Paid plan are limited per account and per model to 20 requests per minute on standard Workers AI billing and 50 requests per minute with prepaid AI Gateway credits. Token volume is metered separately by the daily Neuron allowance on the pricing page.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: the only free lane here with both a perpetual daily meter and 300 rpm: it pairs with a free Cloudflare Worker as the scheduler, so a nightly batch runs inside the free tier with no machine to keep awake.
+- reliability: no reliability event recorded
+- notes: All arithmetic is an estimate and not a vendor figure, but the conversion factor is checkable against the vendor's own two columns: USD 0.011 per 1,000 Neurons is USD 11 per 1M Neurons, and 34,868 Neurons per 1M output tokens for llama-3.1-8b-fp8-fast times USD 11 per 1M Neurons is USD 0.384, exactly the price printed beside it. The same check holds for qwen3-30b-a3b-fp8 (30,475 x USD 11 / 1M = USD 0.335). So Neurons are a linear repricing of GPU seconds and the free allowance has a fixed dollar value of 10,000 x USD 0.011 / 1,000 = USD 0.11 a day, or USD 3.30 a month, whatever model is chosen. The model choice therefore buys tokens, not dollars: 328K output tokens a day on qwen3-30b-a3b-fp8 is about 9.8M a month, and 548K on llama-3.2-1b is about 16.4M a month at visibly lower quality. Verdict is qualifies-with-caveat because no probe was run: the REST endpoint needs a real account id and an API token, and the keyless probe against a placeholder account id returned 404 from the origin, which establishes only that the route requires a credential.
+- extras:
+  - facets.class: perpetual-free-allowance
+  - facets.free_tier_kind: recurring-daily-allowance
+- evidence:
+  - [1] 2026-10-22: 'Our free allocation allows anyone to use a total of 10,000 Neurons per day at no charge' and '$0.011 per 1,000 Neurons', quoted
+  - [1] 2026-10-22: @cf/qwen/qwen3-30b-a3b-fp8 at 4625 neurons per M input and 30475 per M output against $0.051 and $0.335 per M tokens; @cf/meta/llama-3.1-8b-instruct at 25608 and 75147 neurons against $0.282 and $0.827, quoted
+  - [1] 2026-10-22: 'Some models require a paid billing method' listing the eight excluded models, quoted
+  - [2] 2026-10-22: Text Generation 300 requests per minute; paid-plan models 20 rpm on standard Workers AI billing, quoted
+  - [3] 2026-10-22: 
+  - [4] 2026-10-22: quoted table: CPU time per HTTP request, Workers Free 10 ms, Workers Paid 5 min default 30 seconds; CPU time per Cron Trigger, Free 10 ms
+  - [4] 2026-10-22: quoted: 'The average Worker uses approximately 2.2 ms per request. Heavier workloads that handle authentication, server-side rendering, or parse large payloads typically use 10-20 ms'
+  - [5] 2026-10-22: quoted: Error 1102 means the Worker 'has exceeded its CPU time limit or memory limit'; resolution requires the Paid plan to raise the limit
+  - [4] 2026-10-22: quoted: 'Each isolate has some built-in flexibility to allow for cases where your Worker infrequently runs over the configured limit. If your Worker starts hitting the limit consistently, its execution will be terminated'
+  - [6] 2026-10-22: 
+  - [1] 2026-10-28: the Workers Free plan carries 10,000 Neurons per day, as does Workers Paid; the table prints no price on Workers Free | capture: sha256:74e40a4722407253e54b039a5c2eb7e37714cf93ecc0fa8c97dbb9a3449dda6f | quote: | Workers Free | 10,000 Neurons per day | N/A - Upgrade to Workers Paid |
+  - [2] 2026-10-28: Text Generation is limited to 300 requests per minute unless the model requires the Workers Paid plan; the paid-model table gives 20 and 50 requests per minute | capture: sha256:68d4b398c2ee789b63eb87ed697ca20efaaf2fed72c5ac170ac01e353173e4a1 | quote: - 300 requests per minute, unless the model requires the Workers Paid plan
+  - [7] 2026-10-28: account creation asks for an email address and a password, then emails a verification message | capture: sha256:0165fdf250cc1338d7e7a94dd78c7adc2df6f592133ad72dfcf0651a080c5543 | quote: 2. Enter your Email and Password.
+- sources:
+  - [1] https://developers.cloudflare.com/workers-ai/platform/pricing/
+  - [2] https://developers.cloudflare.com/workers-ai/platform/limits/
+  - [3] https://api.cloudflare.com/client/v4/accounts/test/ai/run/@cf/meta/llama-3.1-8b-instruct
+  - [4] https://developers.cloudflare.com/workers/platform/limits/
+  - [5] https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-1xxx-errors/error-1102/
+  - [6] https://community.cloudflare.com/t/what-happens-when-the-cpu-time-is-more-than-10ms/434689
+  - [7] https://developers.cloudflare.com/fundamentals/account/create-account/
+
+## Cloudflare Workers AI (cfai)
+
+- `crawler-scraper/cfai` | qualifies-with-caveat | evidence documented | binding request-rate | category model host
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T01:02:29.983Z (live) | stale on 2026-12-03
+- url https://developers.cloudflare.com/workers-ai/platform/pricing/
+- free tier: 10,000 Neurons a day per account on Workers Free | unit: credits | metered on: request-count | read on: 2026-10-22 | source: [1] | note: counted in Neurons, Cloudflare's way of measuring AI outputs across models by the GPU compute a request needs; Workers Paid bills usage above the allocation at USD 0.011 per 1,000 Neurons. What one Neuron buys differs by model: bge-reranker-base is priced at 283 neurons per M input tokens. Prepaid AI Gateway credits can also pay for Workers AI inference and are not the unit of this allowance
+- per-object cap: not applicable: the unit is a Neuron | source: [1]
+- retention: Neurons reset daily | source: [1]
+- egress: not applicable | metered: no | source: [1]
+- identity: email | detail: a Cloudflare account made with an email and a password, followed by an email verification
+- interface: rest
+- limits:
+  - request-rate (binding): 10,000 Neurons a day per account on Workers Free, reset at 00:00 UTC; further operations fail once it is spent [1]
+  - request-rate (binding): Text Classification models, bge-reranker-base among them, 2000 requests per minute; Text Generation 300 requests per minute [2]
+- limits note: an active user at least seven days old with the Super Administrator role can create up to five additional Free accounts
+- binding note: the 10,000 Neurons a day per account are spent long before any per-minute rate limit binds
+- interface detail: a binding on a Worker, or REST; models for rerank, convert and generate
+- tooling: not established
+- composes with: Reranks search and works, converts documents to Markdown, and describes an image when asked
+- reliability: no reliability event recorded
+- notes: Used for result re-ranking where bge-reranker-base scores query results. When the daily allocation is spent, results fall back to the search provider order.
+- evidence note: allocation, reset time, per-task rate limits and the sign-up quoted from first-party pages
+- evidence:
+  - withheld 2026-10-22: pool neurons: 30,000 a day, 18.038 spent, reset at 2026-10-23T00:00Z
+  - [1] 2026-10-30: the allocation is counted in Neurons, priced at USD 0.011 per 1,000 above 10,000 a day | capture: sha256:74e40a4722407253e54b039a5c2eb7e37714cf93ecc0fa8c97dbb9a3449dda6f | quote: On Workers Paid, you will be charged at $0.011 / 1,000 Neurons for any usage above the free allocation of 10,000 Neurons per day.
+  - [1] 2026-10-30: the daily allocation resets at 00:00 UTC and operations fail once it is spent | capture: sha256:74e40a4722407253e54b039a5c2eb7e37714cf93ecc0fa8c97dbb9a3449dda6f | quote: All limits reset daily at 00:00 UTC. If you exceed any one of the above limits, further operations will fail with an error.
+  - [2] 2026-10-30: Text Classification models run at 2000 requests a minute; Text Generation at 300 a minute | capture: sha256:68d4b398c2ee789b63eb87ed697ca20efaaf2fed72c5ac170ac01e353173e4a1 | quote: Text Classification - 2000 requests per minute
+  - [3] 2026-10-30: an active user at least seven days old with the Super Administrator role can create up to five additional Free accounts | capture: sha256:0165fdf250cc1338d7e7a94dd78c7adc2df6f592133ad72dfcf0651a080c5543 | quote: You can create up to five additional Free accounts.
+  - [3] 2026-10-30: a Cloudflare account is made with an email and a password, followed by an email verification | capture: sha256:0165fdf250cc1338d7e7a94dd78c7adc2df6f592133ad72dfcf0651a080c5543 | quote: Enter your Email and Password.
+  - [1] 2026-10-30: Workers Free carries 10,000 Neurons a day; more needs Workers Paid at USD 0.011 per 1,000 Neurons | capture: sha256:74e40a4722407253e54b039a5c2eb7e37714cf93ecc0fa8c97dbb9a3449dda6f | quote: | Workers Free | 10,000 Neurons per day | N/A - Upgrade to Workers Paid |
+  - [4] 2026-10-30: bge-reranker-base is a Text Classification model | capture: sha256:d93bb6e86371b2217fd53dfe9a120d8e86b42ad9d4707a02fd14228ddca7bb93 | quote: Text Classification • BAAI
+  - [5] 2026-10-30: Workers Free is the default plan of an account | capture: sha256:7ee841f6ac8633cfac31f1c0c35852d58c4e8f2f76ee2660f24b8f810d4f6f6c | quote: By default, users have access to the Workers Free plan.
+  - [1] 2026-11-01: a Neuron is Cloudflare's own measure of the GPU compute that a request needs | capture: sha256:74e40a4722407253e54b039a5c2eb7e37714cf93ecc0fa8c97dbb9a3449dda6f | quote: Neurons are our way of measuring AI outputs across different models, representing the GPU compute needed to perform your request.
+  - [1] 2026-11-01: the page prices bge-reranker-base at 283 neurons per million input tokens | capture: sha256:74e40a4722407253e54b039a5c2eb7e37714cf93ecc0fa8c97dbb9a3449dda6f | quote: | @cf/baai/bge-reranker-base | $0.003 per M input tokens | 283 neurons per M input tokens |
+  - [6] 2026-11-01: the daily free allocation of 10,000 neurons is an account-level limit: spending it answers HTTP 429 with internal code 3036, named Account limited | capture: sha256:04988305d29f5b6bc0a800656965cdb756ffd39579c1569bcecc704fc22c536b | quote: | Account limited | `3036` | `429` | You have used up your daily free allocation of 10,000 neurons. Please upgrade to Cloudflare's Workers Paid plan if you would like to continue usage. |
+  - [7] 2026-11-01: each model's tokens, audio seconds or images map to Neurons, so a Neuron is one unit over several raw units | capture: sha256:f5bc8e48be31354cb59e0c720614a32837fc57d1b5211a2bc4f2260c58b8b013 | quote: Each model's core input format(s) (tokens, audio seconds, images, etc) now include mappings to Neurons, making it easier to understand how your included Neuron volume is consumed and how you are charged at scale
+  - [8] 2026-11-01: prepaid AI Gateway credits can pay for Workers AI inference, a payment route apart from the Neuron allocation | capture: sha256:fe80bebb753a72a5bab0f9a7446f3c03f18ec33c917883f944fe24afcba66ee2 | quote: Workers AI requests routed through that gateway deduct from your prepaid credit balance in real time.
+  - [1] 2026-11-01: Workers Free carries 10,000 Neurons a day; usage beyond it needs an upgrade to Workers Paid | capture: sha256:74e40a4722407253e54b039a5c2eb7e37714cf93ecc0fa8c97dbb9a3449dda6f | quote: | Workers Free | 10,000 Neurons per day | N/A - Upgrade to Workers Paid |
+- sources:
+  - [1] https://developers.cloudflare.com/workers-ai/platform/pricing/
+  - [2] https://developers.cloudflare.com/workers-ai/platform/limits/
+  - [3] https://developers.cloudflare.com/fundamentals/account/create-account/
+  - [4] https://developers.cloudflare.com/workers-ai/models/bge-reranker-base/
+  - [5] https://developers.cloudflare.com/workers/platform/pricing/
+  - [6] https://developers.cloudflare.com/workers-ai/platform/errors/
+  - [7] https://developers.cloudflare.com/changelog/post/2025-02-20-updated-pricing-docs/
+  - [8] https://developers.cloudflare.com/ai-gateway/features/unified-billing/
+
+## Cloudflare Workers AI (Inference)
+
+- `inference/cloudflare-workers-ai` | qualifies-with-caveat | evidence documented | binding request-rate | category inference endpoint, platform allocation
+- needs card no, phone no, ID no, institution no | verified 2026-10-28T05:28:29.330Z (live) | stale on 2026-11-28
+- url https://developers.cloudflare.com/workers-ai/platform/pricing/
+- free tier: 10,000 Neurons per day at no charge on both the Free and the Paid Workers plan. The page states the daily figure; the monthly figure of 300,000 and the token equivalents below are derived arithmetic on it, not vendor statements | unit: tokens | metered on: request-count | read on: 2026-10-22 | source: [1] | note: billing is in Neurons. The page prints a per-token price beside each model as an equivalent, so a single USD per million tokens figure for Workers AI does not exist. The free-plan input rate runs from 1,542 to 60,000 neurons per million tokens across 31 models, a factor of 38.9, so the token count behind one allowance is model-dependent: 194.6 million a month at the cheapest and 5.0 million at the dearest Derived figures and their bases: 300,000 = 10,000 x 30 days; 122.1 million input tokens = 300,000 / 2,457 x 1,000,000; 4.07 million a day = that divided by 30
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: a Cloudflare account; the Workers Free plan is enough for the daily allocation
+- interface: rest
+- limits:
+  - request-rate (binding): 10,000 Neurons per day, reset at 00:00 UTC; further operations fail with an error past it [1]
+  - request-rate (binding): 300 requests per minute for Text Generation, a default per task type, unless the model requires the Workers Paid plan; models that require it fall under the per-account, per-model limit in the next row. unverified: whether the 300 is counted per account is not stated for the default limits [2]
+  - request-rate (binding): 20 requests a minute per account per model on standard billing for the eight paid-only models, 50 requests a minute with prepaid AI Gateway credits [2]
+  - request-rate (binding): other task types, requests per minute: Automatic Speech Recognition 720; Image-to-Text 720; Text-to-Image 720 (@cf/runwayml/stable-diffusion-v1-5-img2img 1500); Translation 720; Image Classification 3000; Object Detection 3000; Summarization 1500; Text Classification 2000; Text Embeddings 3000 (@cf/baai/bge-large-en-v1.5 1500) [2]
+- endpoint: https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/
+- tooling: any OpenAI-compatible client; curl against POST {base}/chat/completions
+- composes with: pairs with a Cloudflare Worker already deployed; the 300,000-neuron monthly allowance is the scarce link, and it covers 42 per cent of the reference workload
+- reliability: eight named models require a paid billing method and fail on a Free plan
+- notes: 300,000 Neurons a month, not 375 million: 10,000 a day times 30. At 2,457 neurons per million input tokens that is 122.1 million input tokens a month and 4.07 million a day. The reference workload of 15 million input and 37.5 million output tokens a month on llama-3.2-1b-instruct needs 15 x 2,457 + 37.5 x 18,252 = 721,305 neurons, which is 2.4 times the whole free allowance; the output half alone is 2.3 times it. The allocation is real, it is model-dependent, and it cannot carry the reference workload, which is why the row is a fallback. Every figure beyond the page's own 10,000 a day is arithmetic on it and is labelled as such in free_tier.stated.
+- evidence note: the allocation, the reset and the paid-only model list are quoted from the vendor pages read. No call was made, because that needs an account.
+- evidence:
+  - [1] 2026-10-22: 10,000 Neurons per day free, USD 0.011 per 1,000 Neurons above it on Workers Paid, all limits reset daily at 00:00 UTC, and eight named models require a paid billing method including @cf/moonshotai/kimi-k2.6 and @cf/zai-org/glm-5.3-flash
+  - [1] 2026-10-22: per-model neuron rates over 39 text-generation models, of which 31 are reachable on the free plan; input runs from 1,542 neurons per million tokens on @cf/ibm-granite/granite-4.0-h-micro to 60,000 on @cf/qwen/qwq-32b, and the eight paid-only ids run to 127,273 on @cf/zai-org/glm-5.3
+  - [2] 2026-10-22: Text Generation is 300 requests per minute, 'unless the model requires the Workers Paid plan'; Image Classification, Object Detection and Text Embeddings are 3000; Summarization 1500; Text Classification 2000; and the eight paid models are 20 requests per minute on standard billing or 50 with prepaid AI Gateway credits
+  - [1] 2026-10-28: the free allocation is 10,000 Neurons per day, limits reset daily at 00:00 UTC, and operations past a limit fail with an error | capture: sha256:74e40a4722407253e54b039a5c2eb7e37714cf93ecc0fa8c97dbb9a3449dda6f | quote: 10,000 Neurons per day at no charge ... All limits reset daily at 00:00 UTC. If you exceed any one of the above limits, further operations will fail with an error.
+  - [2] 2026-10-28: the paid-model limits are 20 requests per minute on standard billing and 50 with prepaid AI Gateway credits, per account and per model | capture: sha256:68d4b398c2ee789b63eb87ed697ca20efaaf2fed72c5ac170ac01e353173e4a1 | quote: The following limits apply per account, per model to any model that requires the Workers Paid plan ... | Standard Workers AI billing | 20 requests per minute | | Prepaid AI Gateway credits | 50 requests per minute |
+  - [1] 2026-10-28: the page names the models that require a paid billing method, kimi-k2.6 among them, and lists eight ids | capture: sha256:74e40a4722407253e54b039a5c2eb7e37714cf93ecc0fa8c97dbb9a3449dda6f | quote: Some models require a paid billing method. This applies to `@cf/moonshotai/kimi-k2.6`, `@cf/moonshotai/kimi-k2.7-code`, `@cf/zai-org/glm-5.2`, `@cf/zai-org/glm-5.3`, `@cf/zai-org/glm-5.3-flash`
+  - [2] 2026-10-28: Text Generation is 300 requests per minute by default per task type, excluding models that require the Workers Paid plan | capture: sha256:68d4b398c2ee789b63eb87ed697ca20efaaf2fed72c5ac170ac01e353173e4a1 | quote: Rate limits are default per task type, with some per-model limits defined as follows: ... - 300 requests per minute, unless the model requires the Workers Paid plan
+  - [2] 2026-10-28: the limits page lists per-task-type request rates, 720 for speech recognition, 3000 for image classification, 1500 for summarization and 2000 for text classification | capture: sha256:68d4b398c2ee789b63eb87ed697ca20efaaf2fed72c5ac170ac01e353173e4a1 | quote: Automatic Speech Recognition - 720 requests per minute ... Image Classification - 3000 requests per minute ... Summarization - 1500 requests per minute ... Text Classification - 2000 requests per minute
+  - [3] 2026-10-28: creating a Cloudflare account asks for an email and a password, then sends an email to verify the address | capture: sha256:0165fdf250cc1338d7e7a94dd78c7adc2df6f592133ad72dfcf0651a080c5543 | quote: Enter your Email and Password.
+  - [1] 2026-10-28: the Workers Free plan carries the 10,000 Neurons per day free allocation | capture: sha256:74e40a4722407253e54b039a5c2eb7e37714cf93ecc0fa8c97dbb9a3449dda6f | quote: | Workers Free | 10,000 Neurons per day | N/A - Upgrade to Workers Paid |
+  - probe:https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/ 2026-11-10: a request with the literal placeholder {account_id} in the account position of the URL answered HTTP 404 with Cloudflare code 7003 "Could not route to /client/v4/accounts/%7Baccount_id%7D/ai/run/, perhaps your object identifier is invalid?"; the recorded route was not tested | capture: sha256:c1cfbc8540e7d9462f2adede5e4d86f8bb2a83ff2072819d2a4bccfaeda4d3e5 | quote: "status": 404
+- sources:
+  - [1] https://developers.cloudflare.com/workers-ai/platform/pricing/
+  - [2] https://developers.cloudflare.com/workers-ai/platform/limits/
+  - [3] https://developers.cloudflare.com/fundamentals/account/create-account/
+
+## Cloudflare Workers Builds
+
+- `ci-cd-runners/cloudflare-workers-builds` | qualifies-with-caveat | evidence documented | binding per-object-cap | category CI runner | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:00:40.517Z (live) | stale on 2026-12-05
+- url https://developers.cloudflare.com/workers/ci-cd/builds/limits-and-pricing/
+- free tier: Workers Free: 3,000 build minutes a month, 1 concurrent build, 20 minutes per build, 2 vCPU, 8 GB memory and 20 GB disk. Workers Paid (USD 5 a month minimum): 6,000 build minutes a month, then USD 0.005 per minute, 6 concurrent builds, 4 vCPU | unit: minutes | metered on: wall-clock | read on: 2026-10-30 | source: [1] | note: a build minute is the time a project takes to build; the overage price applies on Paid plans only; the Builds API reports whether the build-minute allowance is exhausted and when it refreshes, for non-paid plans only; what a push does once the Free minutes are spent (queued, refused or billed) is unverified: behind a sign-up
+- per-object cap: 20 minutes per build on every plan; 8 GB memory and 20 GB disk per build; 64 environment variables per Worker | source: [1]
+- retention: builds and build logs are kept 90 days after the build finishes; the versions and deployments a build created are not removed | days: 90 | source: [1]
+- egress: build commands make HTTPS requests and the build image checks their certificates; no page states whether the build container's outbound traffic is restricted or unrestricted (unverified: no build was run); the build's output is a Worker, and the Workers Paid plan states no additional charge for data transfer (egress) or bandwidth | metered: no | source: [2]
+- identity: email | detail: a Cloudflare account opened with an email address and a password, then verified by email; a GitHub, GitLab or Cursor Origin account authorised to Cloudflare, unless the repository is on Cloudflare Artifacts. Workers Paid adds a USD 5 monthly minimum charge
+- interface: git, rest
+- limits:
+  - per-object-cap (binding): 20 minutes per build on Free and Paid; 8 GB memory; 20 GB disk [1]
+  - request-rate: 3,000 build minutes a month on Free; 6,000 on Paid, then USD 0.005 per minute [1]
+  - request-rate: 1 concurrent build per account on Free, 6 on Paid; Deploy Hooks 10 a minute per Worker and 100 a minute per account [1]
+  - retention-clamped: builds and build logs kept 90 days after the build finishes [1]
+- limits note: a build fails when the Worker name in the dashboard does not match the name in the Wrangler configuration file; Workers Builds does not honour the custom-build settings of the Wrangler file
+- binding note: a job longer than 20 minutes cannot run on any plan, and the 3,000 Free minutes at one concurrent build hold many full-length builds, so the per-build cap fails before the monthly minutes
+- interface detail: a push to a connected GitHub, GitLab, Cursor Origin or Cloudflare Artifacts repository runs an optional build command, then a deploy command that defaults to npx wrangler deploy and can be customised; non-production branches run a preview command. A Deploy Hook is a URL that starts a build for one branch on an HTTP POST with no Authorization header
+- endpoint: https://api.cloudflare.com/client/v4/workers/builds/deploy_hooks/<DEPLOY_HOOK_ID>
+- tooling: an Ubuntu 24.04 build image with Node.js, Python, PHP, Ruby and Go preinstalled and versions overridable by environment variable or version file; the deploy and preview commands are Wrangler commands
+- composes with: a 20-minute Ubuntu job on every push or Deploy Hook call, ending in a Worker deploy; an external cron calling a Deploy Hook makes it a scheduled job, and a repository on Cloudflare Artifacts keeps source, build and deploy inside one Cloudflare account. GitHub Actions on a public repository gives longer jobs and comes first
+- reliability: only GitHub, GitLab, Cursor Origin and Cloudflare Artifacts repositories connect; GitHub or GitLab instances run by their owners do not
+- notes: Confirmed as a CI runner service whose job is bound to a Worker deploy: every production build ends in the deploy command and every other branch in the preview command. Price per minute: USD 0.005 beyond the 6,000 minutes included in the USD 5 Workers Paid plan. Whether the build container has unrestricted outbound network access, and what happens to a build on Free once the 3,000 minutes are spent, are unverified.
+- evidence note: every number is quoted from Cloudflare's Workers Builds limits page and the build documentation; no build was run, so network access from the build container and the behaviour once Free minutes are spent are unverified
+- evidence:
+  - [1] 2026-10-30: Free includes 3,000 build minutes a month; Paid includes 6,000, then USD 0.005 per minute | capture: sha256:6c03d75dc57a16803ff41ce337dcfa48975e762b0e0a107914e70b8808f2c51d | quote: | Build minutes | 3,000 per month | 6,000 per month (then, +$0.005 per minute) |
+  - [1] 2026-10-30: 1 concurrent build on Free, 6 on Paid | capture: sha256:6c03d75dc57a16803ff41ce337dcfa48975e762b0e0a107914e70b8808f2c51d | quote: | Concurrent builds | 1 | 6 |
+  - [1] 2026-10-30: a build is terminated after 20 minutes on every plan | capture: sha256:6c03d75dc57a16803ff41ce337dcfa48975e762b0e0a107914e70b8808f2c51d | quote: | Build timeout | 20 minutes | 20 minutes |
+  - [1] 2026-10-30: a build gets 2 vCPU on Free and 4 on Paid | capture: sha256:6c03d75dc57a16803ff41ce337dcfa48975e762b0e0a107914e70b8808f2c51d | quote: | CPU | 2 vCPU | 4 vCPU |
+  - [1] 2026-10-30: a build gets 8 GB of memory | capture: sha256:6c03d75dc57a16803ff41ce337dcfa48975e762b0e0a107914e70b8808f2c51d | quote: | Memory | 8 GB | 8 GB |
+  - [1] 2026-10-30: a build gets 20 GB of disk | capture: sha256:6c03d75dc57a16803ff41ce337dcfa48975e762b0e0a107914e70b8808f2c51d | quote: | Disk space | 20 GB | 20 GB |
+  - [1] 2026-10-30: builds and build logs are kept 90 days | capture: sha256:6c03d75dc57a16803ff41ce337dcfa48975e762b0e0a107914e70b8808f2c51d | quote: | Build and build log retention | 90 days | 90 days |
+  - [1] 2026-10-30: Deploy Hooks are limited to 10 a minute per Worker and 100 a minute per account | capture: sha256:6c03d75dc57a16803ff41ce337dcfa48975e762b0e0a107914e70b8808f2c51d | quote: | Deploy Hooks | 10/min per Worker, 100/min per account | 10/min per Worker, 100/min per account |
+  - [1] 2026-10-30: 64 environment variables per Worker | capture: sha256:6c03d75dc57a16803ff41ce337dcfa48975e762b0e0a107914e70b8808f2c51d | quote: | Environment variables | 64 | 64 |
+  - [3] 2026-10-30: a push to a connected Artifacts, GitHub or GitLab repository builds and deploys the Worker | capture: sha256:3abe72e22b8b8def2df796bf1fa87cd09138b14968445832400f8cdd390f852b | quote: lets you connect a new or existing Worker to a repository hosted by Artifacts, GitHub, or GitLab, enabling automated builds and deployments for your Worker on push.
+  - [4] 2026-10-30: the deploy command defaults to npx wrangler deploy and can be customised | capture: sha256:a54e6da48d73c15a406b4acf7322079052cdff692c9dae781ff4a917959b7bb0 | quote: Your deploy command will default to `npx wrangler deploy` but you may customize this command.
+  - [4] 2026-10-30: a build command is optional and set by the user | capture: sha256:a54e6da48d73c15a406b4acf7322079052cdff692c9dae781ff4a917959b7bb0 | quote: Set a build command if your project requires a build step (e.g. `npm run build`).
+  - [5] 2026-10-30: the build environment is Ubuntu 24.04 | capture: sha256:4f2ac936310a744762c959b555fd0f9ee414602f29774d6cffa1561c916b6e74 | quote: | Build Environment | Ubuntu 24.04 |
+  - [5] 2026-10-30: the build image carries Node.js, Python, PHP, Ruby and Go | capture: sha256:4f2ac936310a744762c959b555fd0f9ee414602f29774d6cffa1561c916b6e74 | quote: Workers Builds uses a build image with support for a variety of languages and tools such as Node.js, Python, PHP, Ruby, and Go.
+  - [1] 2026-10-30: a build minute is the time a project takes to build | capture: sha256:6c03d75dc57a16803ff41ce337dcfa48975e762b0e0a107914e70b8808f2c51d | quote: Build minutes**: The number of minutes that it takes to build a project.
+  - [3] 2026-10-30: a build fails when the dashboard Worker name differs from the Wrangler configuration name | capture: sha256:3abe72e22b8b8def2df796bf1fa87cd09138b14968445832400f8cdd390f852b | quote: the Worker name in the Cloudflare dashboard must match the `name` in the Wrangler configuration file in the specified root directory, or the build will fail.
+  - [4] 2026-10-30: the custom-build settings of the Wrangler file are not honoured | capture: sha256:a54e6da48d73c15a406b4acf7322079052cdff692c9dae781ff4a917959b7bb0 | quote: Currently, Workers Builds does not honor the configurations set in
+  - [6] 2026-10-30: Artifacts, GitHub, GitLab and Cursor Origin repositories can be connected | capture: sha256:fb02e8d1acf70e81848978c1ddc4cd1216d181615fe0aaf5bc999db8d4c98b66 | quote: Cloudflare supports connecting Cloudflare Workers to your Artifacts, GitHub, GitLab, and Cursor Origin repositories.
+  - [6] 2026-10-30: GitHub or GitLab instances run by their owners cannot be connected | capture: sha256:fb02e8d1acf70e81848978c1ddc4cd1216d181615fe0aaf5bc999db8d4c98b66 | quote: Workers Builds does not currently support connecting self-hosted instances of GitHub or GitLab.
+  - [7] 2026-10-30: with a Cloudflare Artifacts repository, source, build and deploy stay inside Cloudflare | capture: sha256:b26a221dcf2ac2379d26c3d8ab44d562678c41f9d2a18652d305edd78896b11f | quote: With Artifacts and Workers Builds, you can host source code, run builds, test changes with Worker Previews, and deploy Workers entirely within Cloudflare.
+  - [8] 2026-10-30: a Deploy Hook URL starts a build for one branch on an HTTP POST | capture: sha256:395e15577e65d2c1f98f1f06bd17825eecf41677a698d7c7c1f4ee013607a73c | quote: Each hook is a unique URL that triggers a manual build for one branch when it receives an HTTP POST request.
+  - [8] 2026-10-30: a Deploy Hook call needs no Authorization header | capture: sha256:395e15577e65d2c1f98f1f06bd17825eecf41677a698d7c7c1f4ee013607a73c | quote: No `Authorization` header is needed.
+  - [2] 2026-10-30: Workers Paid has a minimum charge of USD 5 a month per account | capture: sha256:7ee841f6ac8633cfac31f1c0c35852d58c4e8f2f76ee2660f24b8f810d4f6f6c | quote: The Workers Paid plan includes Workers, Pages Functions, Workers KV, Hyperdrive, and Durable Objects usage for a minimum charge of $5 USD per month for an account.
+  - [2] 2026-10-30: Workers Paid charges nothing extra for egress or bandwidth | capture: sha256:7ee841f6ac8633cfac31f1c0c35852d58c4e8f2f76ee2660f24b8f810d4f6f6c | quote: There are no additional charges for data transfer (egress) or throughput (bandwidth).
+  - [9] 2026-10-30: the sign-up form asks for an email address and a password | capture: sha256:0165fdf250cc1338d7e7a94dd78c7adc2df6f592133ad72dfcf0651a080c5543 | quote: Enter your Email and Password.
+  - [9] 2026-10-30: the email address is verified after sign-up | capture: sha256:0165fdf250cc1338d7e7a94dd78c7adc2df6f592133ad72dfcf0651a080c5543 | quote: Once you create your account, Cloudflare will automatically send an email to your address
+  - [10] 2026-11-02: a Workers Builds build makes HTTPS requests, which the build image checks against rejected certificate authorities | capture: sha256:46b46becad34d42408fdb281153b84ef3ad1bb6d51510aec8ac09dd69d3e7a0f | quote: The Workers Builds and Pages build images now reject these certificates when your build clones your repository, installs dependencies, or makes HTTPS requests.
+  - [11] 2026-11-02: the Builds API reports an exhausted build-minute limit for non-paid plans only | capture: sha256:60442bd949649fa447a35de2c611e221e0e655a510f82dcb5685079ad5270b36 | quote: Whether build minutes limit has been reached (only for non-paid plans)
+  - [1] 2026-11-02: Free includes 3,000 build minutes a month; Paid includes 6,000, then USD 0.005 per minute | capture: sha256:6c03d75dc57a16803ff41ce337dcfa48975e762b0e0a107914e70b8808f2c51d | quote: | Build minutes | 3,000 per month | 6,000 per month (then, +$0.005 per minute) |
+  - [1] 2026-11-04: Free includes 3,000 build minutes a month; Paid includes 6,000, then USD 0.005 per minute | capture: sha256:6c03d75dc57a16803ff41ce337dcfa48975e762b0e0a107914e70b8808f2c51d | quote: | Build minutes | 3,000 per month | 6,000 per month (then, +$0.005 per minute) |
+- sources:
+  - [1] https://developers.cloudflare.com/workers/ci-cd/builds/limits-and-pricing/
+  - [2] https://developers.cloudflare.com/workers/platform/pricing/
+  - [3] https://developers.cloudflare.com/workers/ci-cd/builds/
+  - [4] https://developers.cloudflare.com/workers/ci-cd/builds/configuration/
+  - [5] https://developers.cloudflare.com/workers/ci-cd/builds/build-image/
+  - [6] https://developers.cloudflare.com/workers/ci-cd/builds/git-integration/
+  - [7] https://developers.cloudflare.com/workers/ci-cd/builds/git-integration/artifacts-integration/
+  - [8] https://developers.cloudflare.com/workers/ci-cd/builds/deploy-hooks/
+  - [9] https://developers.cloudflare.com/fundamentals/account/create-account/
+  - [10] https://developers.cloudflare.com/changelog/post/2026-10-23-build-images-emudhra-certificates/
+  - [11] https://developers.cloudflare.com/api/resources/workers_builds/methods/get_account_limits/
+
+## Cloudflare Workers KV
+
+- `databases-kv/cloudflare-kv` | qualifies-with-caveat | evidence documented | binding request-rate | category edge key-value store
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:05:00.000Z (live) | stale on 2026-11-22
+- url https://developers.cloudflare.com/kv/platform/limits/
+- free tier: 100,000 reads per day; 1,000 writes per day; 1 GB per account; 1,000 namespaces | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: 25 MiB per value; 512 bytes per key | source: [1] | note: keys per namespace are unlimited, so the value size is the object cap
+- retention: no expiry on a stored key unless the write sets one; the free tier does not delete | source: [1]
+- egress: reads are counted, not metered by byte; no egress charge on any plan | metered: no | source: [1]
+- identity: email | detail: a Cloudflare account
+- interface: rest, cli
+- limits:
+  - request-rate (binding): 1,000 writes per day to different keys [1]
+  - request-rate (binding): 1 write per second to the same key [1]
+  - per-object-cap: 25 MiB per value; 1 GB per account [1]
+- limits note: 100,000 reads per day are unlimited on the paid plan; the minimum cacheTtl is 30 seconds
+- interface detail: a REST API and a Worker binding; access through wrangler
+- tooling: wrangler kv; the Cloudflare API; a Worker binding in code
+- composes with: a read cache in front of a free database: 100,000 reads a day is 100 times the write budget, which is the ratio that makes it a cache and not a store
+- reliability: no suspension, throttle or data-loss event is recorded on the pages read
+- notes: The asymmetry is the finding: reads are plentiful and writes are not, by two orders of magnitude. Any design that treats KV as the store hits 1,000 writes a day and stops.
+- evidence note: the limits page was read; no namespace was created.
+- evidence:
+  - [1] 2026-10-22: Free column: 100,000 reads/day, 1,000 writes/day to different keys, 1 write/second to the same key, 1,000 namespaces, 1 GB/account, 1 GB/namespace, 512-byte keys, 25 MiB values, 30-second minimum cacheTtl
+- sources:
+  - [1] https://developers.cloudflare.com/kv/platform/limits/
+
+## Project Alexandria - Cloudflare's recurring OSS credit programme
+
+- `storage/project-alexandria-cloudflare-s-recurring-oss-credit-pro` | qualifies-with-caveat | evidence reported | binding none | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.cloudflare.com/lp/project-alexandria/
+- free tier: Recurring annual credits, amount set per project. Explicitly includes 'Increased R2 storage for builds and artifacts' and 'Increased requests to Cloudflare Workers and Pages'. | unit: mixed | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: R2 egress is free to the internet; Workers/Pages requests are included in the credit. | metered: no
+- identity: card
+- interface: s3-compatible, git, rclone, cli
+- limits note: Must 'maintain an open source project with a recognized OSS license' and 'operate solely on a non-profit basis'. Requires a payment method on file. Acceptance and amount are at Cloudflare's sole discretion; programme can be discontinued at any time.
+- interface detail: s3
+- tooling: R2 is S3-compatible (rclone 's3' with Cloudflare provider, aws CLI, wrangler). Pages via git/wrangler deploy.
+- composes with: Annual renewal is the whole point: unlike the one-shot startup credits, this is stated as 'recurring annual credits'. A maintainer with several OSS projects can plausibly hold several grants; credits are per project, non-transferable.
+- reliability: Credits can be revised or withdrawn; no SLA on the grant. The R2 component is the part already rejected on cost grounds, so the practical value is Pages/Workers request headroom, not bytes.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: 'Apply to receive recurring annual credits with Project Alexandria'; 'Increased R2 storage for builds and artifacts'
+  - [2] 2026-10-21: 'recurring annual credits to even more open source projects'; criteria: non-profit basis + recognised OSS licence
+- sources:
+  - [1] https://www.cloudflare.com/lp/project-alexandria/
+  - [2] https://blog.cloudflare.com/expanding-our-support-for-oss-projects-with-project-alexandria/
+
+## Cloudflare AI Gateway
+
+- `inference/cloudflare-ai-gateway` | paid-only | evidence documented | binding write-gated | category inference gateway, no allowance of its own
+- needs card yes, phone no, ID no, institution no | verified 2026-10-28T09:47:49.726Z (live) | stale on 2026-11-28
+- url https://developers.cloudflare.com/ai-gateway/reference/pricing/
+- free tier: no inference allowance of its own: the core features (dashboard analytics, caching, rate limiting) are free on all plans, while inference is billed by the upstream provider on the caller's own key or through Unified Billing credits bought with a payment method | unit: none | metered on: none | read on: 2026-10-28 | source: [1] | note: a 5% fee applies to credits bought through Unified Billing; provider token rates pass through at no markup
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: the Cloudflare account sign-up form takes an email address and a password; 'all it takes is a Cloudflare account' for the free core features; buying Unified Billing credits needs a payment method
+- interface: rest
+- limits:
+  - write-gated (binding): Unified Billing needs credits bought with a payment method; without them the caller supplies a provider key [2]
+  - volume-quota: 100,000 logs total across all gateways on Workers Free (Legacy Logs) [1]
+- binding note: the gate is the payment method for credits, not a quota; the gateway adds no free tokens
+- interface detail: provider-native endpoints that forward to the provider, with caching, rate limiting and analytics in between
+- tooling: any provider SDK pointed at the gateway base URL; credentials resolve in the order request key, stored key (BYOK), Unified Billing
+- composes with: pair with a provider that has its own free key, such as inference/google-gemini-api or inference/cloudflare-workers-ai, to add caching and rate limiting at no charge
+- reliability: the account's credit balance can go negative, and Cloudflare then charges the payment method on file for the outstanding amount
+- notes: The Workers AI free allocation is a separate offer recorded at inference/cloudflare-workers-ai; the gateway can front it.
+- evidence note: the free core features and the credit requirement are quoted from the vendor pages; no request was made
+- evidence:
+  - [1] 2026-10-28: the gateway's core features are free and need a Cloudflare account | capture: sha256:d2dfb5f9cff131aa5ec54711b272ede1adc5d549f407294b0119897d7f8fe0f0 | quote: AI Gateway's core features available today are offered for free, and all it takes is a Cloudflare account and one line of code to [get started](https://developers.cloudflare.com/ai-gateway/get-started/). Core features include: dashboard analytics, caching, and rate limiting.
+  - [1] 2026-10-28: Workers Free keeps 100,000 logs total across all gateways in Legacy Logs | capture: sha256:d2dfb5f9cff131aa5ec54711b272ede1adc5d549f407294b0119897d7f8fe0f0 | quote: | Workers Free | 100,000 logs total across all gateways |
+  - [2] 2026-10-28: Unified Billing covers Workers AI and third-party providers on one Cloudflare bill | capture: sha256:fe80bebb753a72a5bab0f9a7446f3c03f18ec33c917883f944fe24afcba66ee2 | quote: Unified Billing allows users to call Workers AI and connect to various AI providers (such as OpenAI, Anthropic, and Google AI Studio) and receive a single Cloudflare bill.
+  - [2] 2026-10-28: credentials resolve in a fixed order: request key, stored key, then Unified Billing | capture: sha256:fe80bebb753a72a5bab0f9a7446f3c03f18ec33c917883f944fe24afcba66ee2 | quote: When a request reaches AI Gateway, credentials are resolved in this order:
+  - [2] 2026-10-28: a negative credit balance is charged to the payment method on file | capture: sha256:fe80bebb753a72a5bab0f9a7446f3c03f18ec33c917883f944fe24afcba66ee2 | quote: In rare instances, your credit balance may go negative. If this happens, Cloudflare will charge the payment method on file for the outstanding amount.
+  - [2] 2026-10-28: Unified Billing requires purchased credits | capture: sha256:fe80bebb753a72a5bab0f9a7446f3c03f18ec33c917883f944fe24afcba66ee2 | quote: To use Unified Billing, you must purchase and load credits into your Cloudflare account in the Cloudflare dashboard, which you can then spend with AI Gateway.
+  - [2] 2026-10-28: buying credits needs a payment method on the account | capture: sha256:fe80bebb753a72a5bab0f9a7446f3c03f18ec33c917883f944fe24afcba66ee2 | quote: If your account does not have an available payment method, AI Gateway will prompt you to add a payment method to purchase credits.
+  - [2] 2026-10-28: a 5% fee applies to purchased credits | capture: sha256:fe80bebb753a72a5bab0f9a7446f3c03f18ec33c917883f944fe24afcba66ee2 | quote: A 5% fee is applied to all credits purchased through Unified Billing.
+  - [3] 2026-10-28: the Cloudflare account sign-up form takes an email address and a password | capture: sha256:0165fdf250cc1338d7e7a94dd78c7adc2df6f592133ad72dfcf0651a080c5543 | quote: Enter your Email and Password.
+- sources:
+  - [1] https://developers.cloudflare.com/ai-gateway/reference/pricing/
+  - [2] https://developers.cloudflare.com/ai-gateway/features/unified-billing/
+  - [3] https://developers.cloudflare.com/fundamentals/account/create-account/
+
+## Cloudflare Artifacts
+
+- `ci-cd-runners/cloudflare-artifacts` | paid-only | evidence documented | binding write-gated | category CI runner control plane | tier Workers Paid
+- needs card yes, phone no, ID no, institution no | verified 2026-11-02T15:23:42.470Z (live) | stale on 2026-12-03
+- url https://developers.cloudflare.com/artifacts/
+- free tier: none on Workers Free: Artifacts is unavailable there. Workers Paid (USD 5 a month minimum) includes the first 10,000 operations and the first 1 GB of storage each month, then USD 0.15 per additional 1,000 operations and USD 0.50 per additional GB-month; billing for both starts on 2026-11-12 | unit: none | metered on: none | read on: 2026-11-02 | source: [1] | note: the Paid allowance is 10,000 operations and 1 GB-month of storage a month, inside a plan that costs USD 5 a month; the pricing table names no Workers Free allowance
+- per-object cap: 32 MiB per file, 64 MiB per push, 50,000 objects per push | source: [2]
+- retention: repositories remain stored until they are explicitly deleted | source: [1]
+- egress: unverified: the Artifacts pricing page lists two billed dimensions, operations and storage, and states nothing about egress | metered: no | source: [1]
+- identity: card | detail: sign-up needs an email address and a password; Workers Paid needs a primary payment method (card, PayPal or a wallet) on the billing profile
+- interface: git, rest
+- limits:
+  - write-gated (binding): not available on Workers Free; Workers Paid (USD 5 a month minimum) is required [3]
+  - volume-quota: 1 GB per repository for repos created on or after 2026-09-29, 10 GB for earlier repos; 1 TB per account, raisable on request; repositories and namespaces unlimited [2]
+  - per-object-cap: 32 MiB per file; 64 MiB and 50,000 objects per push [2]
+  - request-rate: 2,000 Git requests per 10 seconds per artifact; 2,000 control-plane requests per 10 seconds per namespace [2]
+- limits note: the account ceiling of 1 TB and the per-repository ceiling apply on top of the billed 1 GB included; the per-repository ceiling was 10 GB before 2026-09-29
+- binding note: the service is not available on the Workers Free plan; a Workers Paid subscription, which needs a payment method, is required before any repository can be created
+- interface detail: a Workers binding, a REST API and the Git smart-HTTP protocol over one repository; any standard Git client clones and pushes to the repository's remote URL with a short-lived repository token; Workers Builds can build and deploy a Worker from a repository
+- endpoint: https://artifacts.cloudflare.net/v1/api/namespaces/<NAMESPACE>/repos
+- tooling: a standard Git client, the Cloudflare REST API with an API token, or the Artifacts binding in a Worker; ArtifactFS is also documented for filesystem access
+- composes with: source hosting for Workers Builds on the same account: a push to the production branch builds and deploys the Worker, other branches create Worker Previews. No runner of its own: it stores code and does not execute jobs. GitHub or GitLab hosting comes first for a free account
+- reliability: Artifacts is in open beta (announced 2026-10-01); billing was first announced for 2026-10-14 and the pricing page now says 2026-11-12
+- notes: Not usable on Workers Free: the docs state usage is unavailable there, so the free-account answer is no. On Workers Paid it is Git-compatible storage with 1 GB of storage and 10,000 operations included each month; its CI relevance is as a source repository for Workers Builds. Per-repository storage was 10 GB for repos created before 2026-09-29 and is 1 GB after.
+- evidence note: every value is quoted from Cloudflare's Artifacts documentation pages read on 2026-11-02; no repository was created, the dashboard sign-up and plan upgrade were not passed, and egress terms for Artifacts are unverified
+- evidence:
+  - [3] 2026-11-02: Artifacts needs Workers Paid and is not available on Workers Free | quote: Artifacts requires a Workers Paid plan. Usage is not available on Workers Free. | capture: sha256:a5ddb463b5373b4ac434bfe6b88f42de7d7023d4855b20f7c07d64ef10347959
+  - [1] 2026-11-02: the Workers Free column is Unavailable for operations | quote: | Operations (1,000 operations) | Unavailable | First 10,000 per month + $0.15 per additional 1,000 operations | | capture: sha256:4e62bdefa58dd0bf46ad2b8e3fd3502b2ddccfd98cccf18dcb2d2215ad6b37fe
+  - [1] 2026-11-02: the Workers Free column is Unavailable for storage; Paid includes 1 GB then USD 0.50 per GB-month | quote: | Storage (GB-mo) | Unavailable | First 1 GB per month + $0.50 per additional GB-mo | | capture: sha256:4e62bdefa58dd0bf46ad2b8e3fd3502b2ddccfd98cccf18dcb2d2215ad6b37fe
+  - [1] 2026-11-02: billing for operations and storage starts on 2026-11-12 | quote: Cloudflare will begin billing for Artifacts operations and storage on November 12, 2026. | capture: sha256:4e62bdefa58dd0bf46ad2b8e3fd3502b2ddccfd98cccf18dcb2d2215ad6b37fe
+  - [1] 2026-11-02: pricing has two dimensions only, operations and storage | quote: Artifacts pricing is billed on two dimensions: | capture: sha256:4e62bdefa58dd0bf46ad2b8e3fd3502b2ddccfd98cccf18dcb2d2215ad6b37fe
+  - [1] 2026-11-02: repositories are kept until deleted | quote: Repos remain stored until you explicitly delete them. | capture: sha256:4e62bdefa58dd0bf46ad2b8e3fd3502b2ddccfd98cccf18dcb2d2215ad6b37fe
+  - [2] 2026-11-02: per-repository storage limit is 1 GB for new repos, 10 GB for older ones | quote: | Maximum storage per repository | 1 GB for repos created on or after 2026-09-29. Repos created earlier have a 10 GB limit. | capture: sha256:bb9340ad653892d311e52690f1c288e0fd713818afd36b634f3f6d2370a97615
+  - [2] 2026-11-02: account storage ceiling is 1 TB, raisable on request | quote: | Maximum storage per account | 1 TB (can be raised on request) | | capture: sha256:bb9340ad653892d311e52690f1c288e0fd713818afd36b634f3f6d2370a97615
+  - [2] 2026-11-02: the number of repositories is unlimited | quote: | Maximum number of repositories | Unlimited | | capture: sha256:bb9340ad653892d311e52690f1c288e0fd713818afd36b634f3f6d2370a97615
+  - [2] 2026-11-02: file size cap is 32 MiB | quote: | Maximum file size | 32 MiB per file. | capture: sha256:bb9340ad653892d311e52690f1c288e0fd713818afd36b634f3f6d2370a97615
+  - [2] 2026-11-02: push size cap is 64 MiB | quote: | Maximum push size | 64 MiB per push. Includes all data sent in the push. | capture: sha256:bb9340ad653892d311e52690f1c288e0fd713818afd36b634f3f6d2370a97615
+  - [2] 2026-11-02: objects per push cap is 50,000 | quote: | Maximum objects per push | 50,000 objects, such as file versions, folders, and commits. | | capture: sha256:bb9340ad653892d311e52690f1c288e0fd713818afd36b634f3f6d2370a97615
+  - [2] 2026-11-02: Git request rate per artifact | quote: | Git request rate, per artifact | 2,000 requests per 10 seconds per artifact | | capture: sha256:bb9340ad653892d311e52690f1c288e0fd713818afd36b634f3f6d2370a97615
+  - [2] 2026-11-02: control-plane request rate per namespace | quote: | Control-plane request rate | 2,000 requests per 10 seconds per Artifacts namespace | | capture: sha256:bb9340ad653892d311e52690f1c288e0fd713818afd36b634f3f6d2370a97615
+  - [4] 2026-11-02: older repositories keep 10 GB | quote: Repos created before September 29, 2026, will retain their 10 GB storage limit. | capture: sha256:cefaf779026a02d24a4cff40142382421c5c0e4d297d482ffba96436066afe03
+  - [5] 2026-11-02: Artifacts is in open beta and available on Workers Paid | quote: Artifacts is available for customers on the Workers Paid plan. | capture: sha256:6c494db254434f6c8d73d3500a21ed8665ff1d07c5325af08ad4810f3e29e969
+  - [6] 2026-11-02: Workers Paid costs a minimum of USD 5 a month per account | quote: The Workers Paid plan includes Workers, Pages Functions, Workers KV, Hyperdrive, and Durable Objects usage for a minimum charge of $5 USD per month for an account. | capture: sha256:9d31eb8daa4dc748c605d2fcf63773aa89d227483a57cc0d989128d353cf2a18
+  - [7] 2026-11-02: buying a Cloudflare product needs a primary payment method | quote: A primary payment method is required to purchase Cloudflare products and services. | capture: sha256:5ce86720b4ddb72032ffe13a60d5c93647cb26a752f272f2d6a3cacfd6a7b023
+  - [8] 2026-11-02: sign-up asks for an email and a password | quote: Enter your Email and Password. | capture: sha256:0165fdf250cc1338d7e7a94dd78c7adc2df6f592133ad72dfcf0651a080c5543
+- sources:
+  - [1] https://developers.cloudflare.com/artifacts/platform/pricing/
+  - [2] https://developers.cloudflare.com/artifacts/platform/limits/
+  - [3] https://developers.cloudflare.com/artifacts/
+  - [4] https://developers.cloudflare.com/changelog/post/2026-09-29-repository-size-limit/
+  - [5] https://developers.cloudflare.com/artifacts/platform/changelog/
+  - [6] https://developers.cloudflare.com/workers/platform/pricing/
+  - [7] https://developers.cloudflare.com/billing/get-started/create-billing-profile/
+  - [8] https://developers.cloudflare.com/fundamentals/account/create-account/
+
+## Cloudflare Containers
+
+- `compute/cloudflare-containers` | paid-only | evidence documented | binding volume-quota | category platform host | tier Workers Paid
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T03:25:00.000Z (live) | stale on 2026-11-24
+- url https://developers.cloudflare.com/containers/platform/pricing/
+- free tier: no free plan: the pricing table's Free row reads 'N/A' for memory, CPU and disk; Containers are included only with the USD 5 a month Workers Paid plan | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: largest instance type standard-4: 4 vCPU, 12 GiB memory, 20 GB disk
+- retention: billing stops when the container instance goes to sleep; the disk is per instance, not a persistent volume
+- egress: 1 TB included a month in North America and Europe at USD 0.025 per GB after; 500 GB included in Oceania, Korea and Taiwan at USD 0.05, and 500 GB everywhere else at USD 0.04 | metered: yes | free allowance: 1 TB (NA/EU) | price per TB: USD 25 | source: [1]
+- identity: card | detail: the Workers Paid subscription at USD 5 a month is a paid plan; no free-tier route to Containers is published
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): 375 vCPU-minutes, 25 GiB-hours of memory and 200 GB-hours of disk a month on Workers Paid, then per-10 ms charges [1]
+  - per-object-cap: standard-4 is the largest instance: 4 vCPU / 12 GiB / 20 GB [1]
+  - per-ip-shaping: egress USD 0.025 per GB in NA and EU after 1 TB [1]
+- limits note: memory and disk bill on provisioned resources while CPU bills on active use only
+- binding note: 25 GiB-hours of memory a month at the 4 GiB standard-1 shape is 6.25 hours of runtime, so a container that stays up is gone in a day.
+- interface detail: Workers binding plus a REST control plane; each container has its own Durable Object
+- tooling: Wrangler and the Workers runtime; the container is called from a Worker
+- composes with: 1 TB of included egress in NA and EU is the largest free traffic allowance in this class
+- reliability: charges start when a request reaches the container or it is started manually and stop when it sleeps; a cold container is billed from its start, not from its first byte
+- notes: Arithmetic from the published rates: 25 GiB-hours a month at the 4 GiB standard-1 shape is 6.25 hours of a single container; at the 256 MiB lite shape it is 100 hours. The free Workers plan does not include Containers at all, which answers earlier readings open question.
+- evidence note: the Free row, the three Workers Paid allotments, the instance table and the egress table were all read on the pricing page
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 4
+  - shape.disk_gib: 8
+  - billing_model: per-10ms
+  - granularity.min_billed_s: 0
+  - granularity.rounding_s: 0.01
+  - session_cap.restart_required: no
+  - session_cap.note: sleeps after a configurable timeout; billing stops at sleep
+  - keep_rate.value: 0.0
+  - keep_rate.basis: charges stop after the instance goes to sleep
+  - keep_rate.source: https://developers.cloudflare.com/containers/platform/pricing/
+  - persistent_storage.included_gib: 20
+  - persistent_storage.price_gib_month: USD 0.00000007 per GB-second beyond 200 GB-hours
+  - persistent_storage.durability: the runtime disk is per instance
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: unpublished
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: the container's port through a Worker binding; no public inbound port of its own
+  - network_out.static_ip: no
+  - network_out.ipv6: no
+  - free_tier_kind: none
+  - m10h_usd: 0.0
+  - m24h_usd: 0.0
+  - price_arithmetic: USD 5 a month for the plan; the included 25 GiB-hours is 6.25 hours at 4 GiB provisioned, then USD 0.0000025 per GiB-second
+  - term: monthly
+- evidence:
+  - [1] 2026-10-22: included on Workers Paid: 25 GiB-hours memory, 375 vCPU-minutes, 200 GB-hours disk a month
+  - [1] 2026-10-22: instance types run from lite (1/16 vCPU, 256 MiB, 2 GB) to standard-4 (4 vCPU, 12 GiB, 20 GB)
+  - [1] 2026-10-22: egress USD 0.025/GB in NA and EU with a 1 TB monthly allotment
+  - [1] 2026-10-24: quoted: 'Free | N/A | N/A |' in the vCPU/Memory/Disk table, against 'Workers Paid | 25 GiB-hours/month included ... 375 vCPU-minutes/month ... 200 GB-hours/month'
+  - [1] 2026-10-24: quoted: 'charges start when a request is sent to the container or when it is manually started. Charges stop after the container instance goes to sleep, which can happen automatically after a timeout.'
+  - [1] 2026-10-24: quoted instance table: 'standard-4 | 4 | 12 GiB | 20 GB' and egress 'North America & Europe | $0.025 | 1 TB'
+  - [1] 2026-10-24: the rate table's Free row reads 'N/A' for Memory, CPU and Disk, and the included usage is described as 'part of the $5 USD per month Workers Paid plan'
+- sources:
+  - [1] https://developers.cloudflare.com/containers/platform/pricing/
+
+## Cloudflare Containers (free tier question)
+
+- `compute/cloudflare-egress-only` | paid-only | evidence documented | binding write-gated | category platform host
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://developers.cloudflare.com/containers/
+- free tier: Cloudflare's machine product is paid; the free Durable Object row is the substitute | unit: none | metered on: wall-clock | read on: 2026-10-06 | source: [1] | note: Recorded separately because catalog listings listed Containers as a free row.
+- per-object cap: not applicable
+- retention: not applicable: no free plan | days: 0 | source: [1]
+- egress: priced per GB with an included allotment on Workers Paid | metered: yes | source: [2]
+- identity: card | detail: Workers Paid is a subscription
+- interface: ssh
+- limits:
+  - write-gated (binding): Containers require the USD 5 a month Workers Paid plan [2]
+- limits note: the Free column of the Containers rate table reads N/A
+- binding note: Containers require the Workers Paid plan, so the gate is at purchase and not at a quota
+- interface detail: a Workers binding
+- tooling: Wrangler
+- composes with: none without Workers Paid
+- reliability: no reliability event recorded
+- notes: Kept as its own record so provider listings row and the pricing fact are joined rather than argued about.
+- extras:
+  - billing_model: wall-clock
+  - free_tier_kind: none
+- evidence:
+  - [2] 2026-10-22: the Free column of the memory, CPU and disk row reads N/A; usage is included with Workers Paid
+- sources:
+  - [1] https://developers.cloudflare.com/containers/
+  - [2] https://developers.cloudflare.com/containers/platform/pricing/
+
+## Cloudflare Email Sending
+
+- `email/cloudflare-email-sending` | paid-only | evidence documented | binding write-gated | category transactional sender
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22T03:20:00.000Z (live) | stale on 2026-11-22
+- url https://developers.cloudflare.com/email-service/
+- free tier: not available on Workers Free; 3,000 emails/month included on Workers Paid at USD 5/month, then USD 0.35 per 1,000 | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: 5 MiB total message with attachments, 25 MiB to verified destinations only | source: [2]
+- retention: not applicable | source: [2]
+- egress: not applicable: an outbound sender | metered: no | source: [1]
+- identity: card | detail: the Workers Paid plan at USD 5/month
+- interface: rest
+- limits:
+  - write-gated (binding): sending to arbitrary recipients requires the Workers Paid plan [1]
+  - request-rate: 3,000 emails per month on Workers Paid, then USD 0.35 per 1,000 [1]
+- limits note: counts of things, not rates, so no vocabulary kind names them: 50 recipients per email combined across to, cc and bcc
+- interface detail: the Workers send_email binding and the Email Sending API
+- tooling: wrangler, the Cloudflare API
+- composes with: unlimited free sends to the account's own verified destinations on any plan, which is a notification channel and not a sender. Arbitrary recipients need the paid Workers plan.
+- reliability: sends to verified destination addresses are free and do not count against the quota, on any plan
+- notes: The free escape hatch is real and narrow: unlimited free sends, but only to the account's own 200 verified destination addresses.
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [1] 2026-10-22: 'Outbound emails (Email Sending) | Not available | 3,000 included per month, then $0.35 per 1,000 emails', and that sends to verified destinations are free on every plan
+- sources:
+  - [1] https://developers.cloudflare.com/email-service/platform/pricing/
+  - [2] https://developers.cloudflare.com/email-service/platform/limits/
+
+## Cloudflare Registrar
+
+- `domains-dns/cloudflare-registrar` | paid-only | evidence reported | binding write-gated | category domain registrar
+- needs card yes, phone no, ID no, institution no | verified 2026-10-30T11:09:01.007Z (live) | stale on 2026-11-14
+- url https://www.cloudflare.com/products/registrar/
+- price USD 10.46 per .com per year, registration and renewal alike
+- free tier: not free. Registration, transfer and renewal at or below what registries and ICANN charge, with no markup | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable: the unit is a domain name
+- retention: a registration runs for its term and renews at the registry and ICANN list price, with no markup | source: [1]
+- egress: not applicable to a registrar | metered: no | source: [1]
+- identity: card | detail: a payment method; no markup is charged but the registry fee is
+- interface: rest, cli
+- limits:
+  - write-gated (binding): the domain must be moved onto Cloudflare nameservers before it can be registered or renewed here [1]
+- interface detail: the Cloudflare dashboard and API; the domain must use Cloudflare nameservers
+- tooling: the Cloudflare API, Terraform, the dashboard
+- composes with: the anchor of the cheapest complete public endpoint: registrar plus free DNS plus free Universal SSL plus a free tunnel
+- reliability: no suspension, throttle or data-loss event is recorded on the pages read
+- notes: The .com row is the finding: USD 10.46 for registration and for renewal, with the ICANN fee inside the price. A promo registrar is cheaper in year one; from year two the renewal decides, so compare renewals with any ICANN fee charged on top added.
+- evidence note: Cloudflare's own pages prove the at-cost model, that the ICANN fee is inside the price, the .uk transfer terms, and which TLDs are offered. The per-TLD prices come from a third-party table, cfdomainpricing.com, because Cloudflare's public search prices one name at a time as it is typed and publishes no per-TLD list. A per-TLD price read from Cloudflare's own search or API would raise it to documented.
+- extras:
+  - icann_fee: included: the price is the registry and ICANN list price with no markup
+  - tld_price_terms: USD; at cost, no promotional or coupon price; Cloudflare's own pages give no per-TLD figure, so the per-TLD rows are from the third-party table at cfdomainpricing.com (updated 2026-10-30)
+  - tld_prices.com: first year USD 10.46; renewal USD 10.46; transfer unverified: no per-TLD transfer figure on any public page
+  - tld_prices.org: first year USD 8.50; renewal USD 11.20; transfer unverified: no per-TLD transfer figure on any public page
+  - tld_prices.net: first year USD 11.86; renewal USD 11.86; transfer unverified: no per-TLD transfer figure on any public page
+  - tld_prices.xyz: first year USD 12.30; renewal USD 11.20; transfer unverified: no per-TLD transfer figure on any public page
+  - tld_prices.uk: first year USD 5.30; renewal USD 5.30; transfer: no transfer fee and no added year, per the transfer guide
+  - tld_prices.cc: first year USD 8.00; renewal USD 8.00; transfer unverified: no per-TLD transfer figure on any public page
+  - tld_prices.vip: first year USD 15.20; renewal USD 15.20; transfer unverified: no per-TLD transfer figure on any public page
+  - tld_prices.top: not offered: .top is absent from the supported-TLD feed and the TLD policies list
+  - tld_prices.de: not offered: .de is absent from the supported-TLD feed and the TLD policies list
+  - tld_prices.eu: not offered: .eu is absent from the supported-TLD feed and the TLD policies list
+- evidence:
+  - [1] 2026-10-22: 'Registration, transfer, and renewal prices are always at or below what registries and ICANN charge us'; 'does not mark up domain prices at all'
+  - [2] 2026-10-22: a table headed 'Updated 2026-10-21' giving registration and renewal per TLD: .com USD 10.46 and USD 10.46, .org 8.50 and 11.20, .net 11.86 and 11.86, .xyz 12.30 and 11.20, .dev 8.20 and 12.20, .online 4.99 and 27.70, .io 32.00 and 50.00, .cc 8.00 and 8.00
+  - [1] 2026-10-30: prices are at or below the registry and ICANN charge for all three operations | capture: sha256:2d6a5dee37fbc533dedd06127fbf9c528f69da30c9a29f976842318b20d5a731 | quote: Registration, transfer, and renewal prices are always at or below what registries and ICANN charge us.
+  - [3] 2026-10-30: renewal is charged at the registry and ICANN list price | capture: sha256:9c9d71d9d558071c156fa754063a97c0f42cb7771a61fbfcf50fe135c6badfe9 | quote: Cloudflare Registrar sells domains at cost: you pay the registry and ICANN list price with no markup.
+  - [3] 2026-10-30: the ICANN fee is part of the at-cost price | capture: sha256:9c9d71d9d558071c156fa754063a97c0f42cb7771a61fbfcf50fe135c6badfe9 | quote: Cloudflare Registrar sells domains at cost: you pay the registry and ICANN list price with no markup.
+  - [2] 2026-10-30: a third-party table of Cloudflare registration and renewal prices, in USD, updated 2026-10-30 | capture: sha256:e3c160323755305886554bb513b4b7a6e943789b459f26606ebe729a21fa495c | quote: Latest Cloudflare Registrar Prices (Updated 2026-10-30)
+  - [2] 2026-10-30: third-party table: .com registration and renewal price at Cloudflare Registrar | capture: sha256:e3c160323755305886554bb513b4b7a6e943789b459f26606ebe729a21fa495c | quote: | .com | US$10.46 | US$10.46 |
+  - [2] 2026-10-30: third-party table: .org registration and renewal price at Cloudflare Registrar | capture: sha256:e3c160323755305886554bb513b4b7a6e943789b459f26606ebe729a21fa495c | quote: | .org | US$8.50 | US$11.20 |
+  - [2] 2026-10-30: third-party table: .net registration and renewal price at Cloudflare Registrar | capture: sha256:e3c160323755305886554bb513b4b7a6e943789b459f26606ebe729a21fa495c | quote: | .net | US$11.86 | US$11.86 |
+  - [2] 2026-10-30: third-party table: .xyz registration and renewal price at Cloudflare Registrar | capture: sha256:e3c160323755305886554bb513b4b7a6e943789b459f26606ebe729a21fa495c | quote: | .xyz | US$12.30 | US$11.20 |
+  - [2] 2026-10-30: third-party table: .uk registration and renewal price at Cloudflare Registrar | capture: sha256:e3c160323755305886554bb513b4b7a6e943789b459f26606ebe729a21fa495c | quote: | .uk | US$5.30 | US$5.30 |
+  - [2] 2026-10-30: third-party table: .cc registration and renewal price at Cloudflare Registrar | capture: sha256:e3c160323755305886554bb513b4b7a6e943789b459f26606ebe729a21fa495c | quote: | .cc | US$8.00 | US$8.00 |
+  - [2] 2026-10-30: third-party table: .vip registration and renewal price at Cloudflare Registrar | capture: sha256:e3c160323755305886554bb513b4b7a6e943789b459f26606ebe729a21fa495c | quote: | .vip | US$15.20 | US$15.20 |
+  - [4] 2026-10-30: the alphabetical supported-TLD feed has no .top entry where it would sort | capture: sha256:4d27de306a3f96d39aa9a9c44e866385a3c72591263b27bff5ea196289eab4c0 | quote: "today","tools","toronto.on.ca","tours"
+  - [4] 2026-10-30: the alphabetical supported-TLD feed has no .de entry where it would sort | capture: sha256:4d27de306a3f96d39aa9a9c44e866385a3c72591263b27bff5ea196289eab4c0 | quote: "date","dating","day","dealer","deals"
+  - [4] 2026-10-30: the alphabetical supported-TLD feed has no .eu entry where it would sort | capture: sha256:4d27de306a3f96d39aa9a9c44e866385a3c72591263b27bff5ea196289eab4c0 | quote: "equipment","esq","estate","events","exchange"
+  - [5] 2026-10-30: the TLD policies list carries com, net, org, uk, cc, vip and xyz and no top, de or eu | capture: sha256:98fda3bf264874097b31d7c006c95c2c034084bd6fa225bb940e0b6128758537 | quote: Cloudflare Registrar can support the registration of the following top-level domains.
+  - [6] 2026-10-30: .uk transfers carry no transfer fee; gTLD transfers include a one-year extension | capture: sha256:73e29aff9070efc55134a453bab3d79d647e65918d26704e4fba03a434ca1c93 | quote: Country-code domains follow their own registry policies — for example, `.uk` transfers do not add an extra year or charge a transfer fee.
+  - [2] 2026-10-30: .com registration and renewal both USD 10.46 | capture: sha256:e3c160323755305886554bb513b4b7a6e943789b459f26606ebe729a21fa495c | quote: | .com | US$10.46 | US$10.46 |
+  - [1] 2026-10-30: Cloudflare's public page prices names through a typed search, not a list | capture: sha256:2d6a5dee37fbc533dedd06127fbf9c528f69da30c9a29f976842318b20d5a731 | quote: Enter a name, domain, or website URL. Results update as you type.
+  - [6] 2026-10-30: a domain at Cloudflare Registrar must use Cloudflare nameservers | capture: sha256:73e29aff9070efc55134a453bab3d79d647e65918d26704e4fba03a434ca1c93 | quote: Cloudflare Registrar requires your domain to use Cloudflare for authoritative DNS (full setup). You cannot use another DNS provider while registered with Cloudflare.
+  - [2] 2026-10-30: third-party table: .com USD 10.46 registration and renewal, unchanged | capture: sha256:e3c160323755305886554bb513b4b7a6e943789b459f26606ebe729a21fa495c | quote: | .com | US$10.46 | US$10.46 |
+- sources:
+  - [1] https://www.cloudflare.com/products/registrar/
+  - [2] https://cfdomainpricing.com/
+  - [3] https://developers.cloudflare.com/registrar/faq/
+  - [4] https://domains.cloudflare.com/api/tlds
+  - [5] https://www.cloudflare.com/tld-policies/
+  - [6] https://developers.cloudflare.com/registrar/get-started/transfer-domain-to-cloudflare/
+
+## Cloudflare Sandbox SDK / Containers
+
+- `compute/cloudflare-sandbox` | paid-only | evidence documented | binding request-rate | category container and VM sandbox
+- identity a placeholder: card and phone unknown | verified 2026-10-22T04:46:38.000Z (live) | stale on 2026-11-22
+- url https://developers.cloudflare.com/containers/platform/pricing/
+- free tier: no free tier: the Free plan row reads N/A for memory and CPU. The included allowance is 25 GiB-hours, 375 vCPU-minutes and 200 GB-hours a month inside the $5 Workers Paid plan | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - request-rate (binding): 375 vCPU-minutes a month included in Workers Paid, then $0.000020 a vCPU-second [1]
+  - per-object-cap: 25 GiB-hours and 200 GB-hours a month included; memory and disk bill on provisioned size, CPU on active use only [1]
+  - per-ip-shaping: egress is $0.025 a GB past 1 TB a month in North America and Europe, and $0.04 or $0.05 a GB past 500 GB elsewhere [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the Containers pricing page was read on 2026-10-22. Its Free row is N/A and the included allowance requires the $5 Workers Paid plan, so the record's free-tier claim is wrong and the verdict moves to paid-only
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: billing is by 10ms of active running; a container that is not handling a request costs nothing, which is the sleep behaviour
+  - free_tier_kind: none
+  - granularity.min_billed_s: 0
+  - burst_x: 1.001
+  - ps.price: $0.00000007 a GB-second past 200 GB-hours a month
+  - ps.durability: instance disk
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: while the instance exists
+  - net.out: yes
+  - net.in: yes
+  - net.ports: Workers and HTTP
+  - net.static_ip: no
+  - net.allowance: 1 TB a month in North America and Europe, 500 GB elsewhere
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Containers are billed for every 10ms that they are actively running ... with included monthly usage as part of the $5 USD per month Workers Paid plan' and the Free row reads 'N/A / N/A', with '25 GiB-hours/month included', '375 vCPU-minutes/month' and '200 GB-hours/month' on Workers Paid, quoted
+- sources:
+  - [1] https://developers.cloudflare.com/containers/platform/pricing/
+
+## Cloudflare Spectrum
+
+- `egress/cloudflare-spectrum` | paid-only | evidence documented | binding write-gated | category L4 anycast proxy (TCP/UDP) | tier enterprise
+- needs card no, phone no, ID no, institution yes | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://developers.cloudflare.com/spectrum/
+- price unpublished (Enterprise contract)
+- free tier: Custom TCP/UDP applications require an Enterprise plan with Spectrum as a paid add-on. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No byte allowance is published. The plan table gives 'TCP' and 'UDP' as 'Paid add-on' on Enterprise and 'No' on Free, Pro and Business; Enterprise Spectrum is metered per GB at an unpublished rate.; ingress: tcp+udp | metered: no | free allowance: none published | source: [2]
+- identity: institution | detail: An Enterprise contract with Cloudflare sales, plus a domain on Cloudflare. The Pro and Business plans carry Spectrum only for 'Minecraft (one app allowed)' and 'SSH (one app allowed)'. | country: None
+- interface: rest, cli
+- limits:
+  - write-gated (binding): custom TCP/UDP needs an Enterprise plan with Spectrum as a paid add-on [2]
+- binding note: No byte count fails at 1 TiB/month; the Enterprise contract is the gate. The only sub-Enterprise route is a Pro or Business plan, where Spectrum is limited to a single Minecraft app (UDP for Bedrock) and a single SSH app.
+- interface detail: configured through the Cloudflare dashboard or the API; Spectrum applications are created per protocol and port
+- tooling: Cloudflare dashboard or API; no client-side daemon
+- composes with: composes with any free VM as the origin: the VM keeps its own address private and the anycast address is the published one, which is what a WireGuard or game endpoint needs.
+- reliability: no reliability event recorded
+- notes: The benchmark. Cloudflare Magic Transit is the adjacent product and is not a substitute: it takes a /24 and BGP or GRE from the customer, where Spectrum takes an origin IP and a port. Two things stay open: the Enterprise per-GB rate, and whether the Pro-tier Minecraft slot is usable for a Bedrock (UDP) server rather than only Java (TCP) - the table names the game, not the protocol.
+- evidence note: The support matrix and the Enterprise requirement are on the pages read. The per-GB rate and the Pro add-on price are not published, so the cost side stays unverified.
+- extras:
+  - wg_path: inside-udp
+  - wg_detail: Spectrum forwards arbitrary UDP to an origin port, so a WireGuard listener on the origin is reachable through the anycast address; no .conf is issued.
+  - ingress: tcp+udp
+  - volume_stated: No byte allowance is published. The plan table gives 'TCP' and 'UDP' as 'Paid add-on' on Enterprise and 'No' on Free, Pro and Business; Enterprise Spectrum is metered per GB at an unpublished rate.
+  - bytes_transit: yes
+  - transit_note: Cloudflare carries the bytes between its edge and the origin
+- evidence:
+  - [2] 2026-10-23: Spectrum provides security and acceleration for any TCP or UDP based application, and custom TCP/UDP applications require an Enterprise plan with Spectrum as a paid add-on
+  - [1] 2026-10-23: Availability: No on Free, Paid add-on on Enterprise; TCP and UDP are No on Pro and Business; Minecraft (one app allowed) and SSH (one app allowed) are Yes on Pro and Business
+- sources:
+  - [1] https://developers.cloudflare.com/spectrum/protocols-per-plan/
+  - [2] https://developers.cloudflare.com/spectrum/
+
+## cloudflare stream
+
+- `storage/cloudflare-stream` | paid-only | evidence documented | binding volume-quota | category rejected-provider
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T05:14:34.867Z (live) | stale on 2026-12-05
+- url https://developers.cloudflare.com/stream/pricing/
+- free tier: none: stored minutes have no Free allowance; storage is prepaid at USD 5 a month for each 1,000 minutes of video storage capacity, and delivery is post-paid at USD 1 per 1,000 minutes delivered | unit: none | metered on: none | read on: 2026-10-31 | source: [1] | note: 100 stored minutes and 10,000 delivered minutes a month are included with the Pro and Business plans, which are paid plans; the Free plan includes none
+- per-object cap: 30 GB per video upload by default | source: [2] | note: the page writes 30 GB without naming base 10 or base 2, so bytes stays null; the cap applies to one video file
+- retention: videos are removed if the Stream subscription is not renewed within 30 days of a cancellation; no other expiry of uploaded videos is stated, and an account cannot upload videos once the total video duration exceeds the purchased storage capacity | days: 30 | source: [2] | note: the 30 days count from a cancelled Stream subscription, not from the upload or the last view; while the subscription is renewed, no expiry is stated
+- egress: delivery is post-paid at USD 1 per 1,000 minutes delivered, counted by HTTP requests for video segments or parts of an MP4; bandwidth is included in it with no separate egress fee | metered: yes | free allowance: none on the Free plan | source: [1]
+- identity: card | detail: Stream storage is a prepaid purchase, and Cloudflare's billing guide requires a primary payment method to purchase products: a card (Visa, Mastercard, American Express, Discover, UnionPay), PayPal, or a wallet (Apple Pay, Google Pay, Link)
+- interface: rest
+- limits:
+  - volume-quota (binding): storage bought in increments of 1,000 minutes of video at USD 5 a month; no upload once the purchased minutes are used [1]
+  - per-object-cap: 30 GB per video upload by default [2]
+  - request-rate: 120 videos queued or encoding at once by default [2]
+- limits note: storage is metered on video duration rounded up to the second, regardless of file size; delivery is metered on minutes delivered, and client-side preloading and buffering count as delivery
+- binding note: the Free plan includes no stored minutes, so the prepaid storage increment of 1,000 minutes at USD 5 a month is the first gate; every delivered minute is billed after it
+- interface detail: the Cloudflare REST API under api.cloudflare.com/client/v4/accounts/<ACCOUNT_ID>/stream and the Stream page of the dashboard; uploads from a link, a file, TUS or a direct creator upload URL; playback through HLS and DASH manifests, and MP4 downloads generated per video through the /downloads endpoint
+- tooling: the Cloudflare REST API with an API token, the Cloudflare SDKs (client.stream), the dashboard, and the Workers Stream binding
+- composes with: none as a byte store: storage is billed by video duration regardless of file size, uploads are video files that Stream re-encodes, and downloads are MP4 files that Stream generates per…
+- reliability: uploads stop once the total video duration exceeds the purchased storage capacity, until more storage is purchased or videos are deleted; after a cancellation, videos are removed if the subscription is not renewed within 30 days
+- notes: A video product priced by duration: storage at USD 5 a month per 1,000 minutes, prepaid; delivery at USD 1 per 1,000 minutes, post-paid; ingress and encoding free. Cloudflare R2 is a separate storage product of the same vendor.
+- evidence note: the prices, the Free column of the price table, the upload cap, the encode queue limit and the payment-method requirement are quoted from Cloudflare's pages read on 2026-10-31; no probe, because every use needs a purchase
+- extras:
+  - dead_end.failure_class: paid
+  - dead_end.why: no stored minutes on the Free plan: storage is prepaid at USD 5 a month for each 1,000 minutes, and delivery is billed at USD 1 per 1,000 minutes
+  - dead_end.retry_when: if the Free plan gains included stored minutes
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Paid, and metered in MINUTES not bytes: $5/month per 1,000 minutes of storage (≈16.7 h) and $1 per 1,000 minutes delivered. The inversion is interesting — because it is duration-priced, a…
+  - [3] 2026-10-31: the developer-platform price table lists no Free allowance for stored minutes, only USD 5.00 per thousand minutes | capture: sha256:351fd2f65b94a87f5105b9bd9a5caca9677190d2b02c4de5c91bb17086a4d207 | quote: | Minutes Stored | — | $5.00 / thousand minutes |
+  - [1] 2026-10-31: storage is prepaid in increments of 1,000 minutes at USD 5 a month | capture: sha256:3db904afb538c2f25a6e69da5fb7bad07131255779eb97b51632b7e273f51cd4 | quote: Storage is a prepaid pricing dimension purchased in increments of $5 per month for each 1,000 minutes of video storage capacity.
+  - [4] 2026-10-31: 100 stored minutes and 10,000 delivered minutes a month come with the Pro and Business plans | capture: sha256:a46067a69f90bd4dfe378931456a99d7428163253b70d1f32e4767f010b4f83a | quote: Or, with a Pro or Business Plan, you get 100 free minutes of video storage and 10,000 minutes of video delivery every month included with your plan.
+  - [4] 2026-10-31: Pro and Business are paid plans | capture: sha256:a46067a69f90bd4dfe378931456a99d7428163253b70d1f32e4767f010b4f83a | quote: If you currently have a paid plan (e.g. Pro) for one of your domains and upgrade to a higher priced plan (e.g. Business), the following happens:
+  - [2] 2026-10-31: one video upload is capped at 30 GB by default | capture: sha256:2e63c68b8bccc6eed6b80468e6da2838531f27140fcee8ac0b3fef2603857861 | quote: By default, a video upload can be at most 30 GB.
+  - [5] 2026-10-31: the upload page repeats the 30 GB file cap under its list of supported video formats | capture: sha256:137e24b209610e72397beb5b2f649749d47197c51038c7dab670e9f4e3cb6fe7 | quote: Files must be less than 30 GB, and content should be encoded and uploaded in the same frame rate it was recorded.
+  - [1] 2026-10-31: uploads and live streams stop when the purchased storage is used up | capture: sha256:3db904afb538c2f25a6e69da5fb7bad07131255779eb97b51632b7e273f51cd4 | quote: If you run out of storage, you will not be able to upload new videos or start new live streams until you purchase more storage or delete videos.
+  - [1] 2026-10-31: delivery is post-paid at USD 1 per 1,000 minutes delivered | capture: sha256:3db904afb538c2f25a6e69da5fb7bad07131255779eb97b51632b7e273f51cd4 | quote: Delivery is a post-paid, usage-based pricing dimension billed at $1 per 1,000 minutes delivered.
+  - [1] 2026-10-31: bandwidth is priced inside the delivered-minutes meter, with no separate egress fee | capture: sha256:3db904afb538c2f25a6e69da5fb7bad07131255779eb97b51632b7e273f51cd4 | quote: Bandwidth is already included in "video delivered" with no additional egress (traffic/bandwidth) fees.
+  - [3] 2026-10-31: the price table lists no Free allowance for delivered minutes, only USD 1.00 per thousand minutes | capture: sha256:351fd2f65b94a87f5105b9bd9a5caca9677190d2b02c4de5c91bb17086a4d207 | quote: | Minutes Delivered | — | $1.00 / thousand minutes |
+  - [1] 2026-10-31: delivery is counted per HTTP request for segments or MP4 parts | capture: sha256:3db904afb538c2f25a6e69da5fb7bad07131255779eb97b51632b7e273f51cd4 | quote: Delivery is counted by HTTP requests for video segments or parts of the MP4.
+  - [6] 2026-10-31: uploads go through the API or the dashboard | capture: sha256:57476626382cf71d0c8e39b9ea7123e54d2f3ca5b3990b5bc58aa1394cd61efb | quote: You can upload videos using the API or directly on the Stream page of the Cloudflare dashboard.
+  - [1] 2026-10-31: large uploads go through upload from a link or TUS | capture: sha256:3db904afb538c2f25a6e69da5fb7bad07131255779eb97b51632b7e273f51cd4 | quote: Be sure to use an upload method like Upload from Link or TUS that handles large files well.
+  - [7] 2026-10-31: an MP4 download is generated per video through the /downloads endpoint | capture: sha256:823709d59d1ae1c66ae9ad5454968774bf09c803196a122f3fdf4fab4eaeeaff | quote: Enable MP4 support by making a POST request to the `/downloads` or `/downloads/default` endpoint.
+  - [7] 2026-10-31: a Workers Stream binding exists | capture: sha256:823709d59d1ae1c66ae9ad5454968774bf09c803196a122f3fdf4fab4eaeeaff | quote: See the full [Workers Stream binding API reference](https://developers.cloudflare.com/stream/manage-video-library/bindings/).
+  - [1] 2026-10-31: storage is metered on video duration, not on bytes | capture: sha256:3db904afb538c2f25a6e69da5fb7bad07131255779eb97b51632b7e273f51cd4 | quote: Storage consumption is rounded up to the second of video duration, regardless of file size.
+  - [5] 2026-10-31: uploaded videos are re-encoded | capture: sha256:137e24b209610e72397beb5b2f649749d47197c51038c7dab670e9f4e3cb6fe7 | quote: During encoding, Stream re-encodes videos for a maximum of 90 FPS playback.
+  - [2] 2026-10-31: uploads are gated by the purchased storage capacity | capture: sha256:2e63c68b8bccc6eed6b80468e6da2838531f27140fcee8ac0b3fef2603857861 | quote: An account cannot upload videos if the total video duration exceeds the video storage capacity purchased.
+  - [2] 2026-10-31: at most 120 videos queue or encode at once by default | capture: sha256:2e63c68b8bccc6eed6b80468e6da2838531f27140fcee8ac0b3fef2603857861 | quote: By default, you can have up to 120 videos queued or being encoded simultaneously.
+  - [1] 2026-10-31: preloading and buffering are billed as delivery | capture: sha256:3db904afb538c2f25a6e69da5fb7bad07131255779eb97b51632b7e273f51cd4 | quote: Client-side preloading and buffering is counted as billable delivery.
+  - [8] 2026-10-31: a purchase on Cloudflare, prepaid Stream storage among them, needs a primary payment method | capture: sha256:5ce86720b4ddb72032ffe13a60d5c93647cb26a752f272f2d6a3cacfd6a7b023 | quote: A primary payment method is required to purchase Cloudflare products and services.
+  - [1] 2026-10-31: R2 is a separate storage product of the same vendor, not the Stream offer | capture: sha256:3db904afb538c2f25a6e69da5fb7bad07131255779eb97b51632b7e273f51cd4 | quote: Video stored in Stream does not incur additional storage fees from other storage products such as R2.
+  - [1] 2026-10-31: ingress and encoding carry no charge | capture: sha256:3db904afb538c2f25a6e69da5fb7bad07131255779eb97b51632b7e273f51cd4 | quote: Ingress (sending your content to us) and encoding are always free.
+  - [2] 2026-10-31: stored videos are removed when a cancelled Stream subscription is not renewed within 30 days | capture: sha256:2e63c68b8bccc6eed6b80468e6da2838531f27140fcee8ac0b3fef2603857861 | quote: Videos are removed if the subscription is not renewed within 30 days.
+  - [2] 2026-10-31: uploads stop once the total video duration exceeds the purchased storage capacity | capture: sha256:2e63c68b8bccc6eed6b80468e6da2838531f27140fcee8ac0b3fef2603857861 | quote: An account cannot upload videos if the total video duration exceeds the video storage capacity purchased.
+  - [1] 2026-11-04: Stream storage is prepaid per 1,000 minutes at USD 5 a month, with no free allowance; unchanged | capture: sha256:3db904afb538c2f25a6e69da5fb7bad07131255779eb97b51632b7e273f51cd4 | quote: Storage is a prepaid pricing dimension purchased in increments of $5 per month for each 1,000 minutes of video storage capacity.
+- sources:
+  - [1] https://developers.cloudflare.com/stream/pricing/
+  - [2] https://developers.cloudflare.com/stream/faq/
+  - [3] https://www.cloudflare.com/plans/
+  - [4] https://www.cloudflare.com/en-in/plans/
+  - [5] https://developers.cloudflare.com/stream/uploading-videos/
+  - [6] https://developers.cloudflare.com/stream/get-started/
+  - [7] https://developers.cloudflare.com/stream/viewing-videos/download-videos/
+  - [8] https://developers.cloudflare.com/billing/get-started/create-billing-profile/
+
+## cloudflare stream — video as storage
+
+- `storage/cloudflare-stream-video-as-storage` | paid-only | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://developers.cloudflare.com/stream/pricing/
+- duplicate of `storage/cloudflare-stream`
+- free tier: None reachable: No free storage at all. Storage is prepaid: 'purchased in increments of $5 per month for each 1,000 minutes of video storage capacity.' Billing is on minutes of DURATION, not bytes. 'Storag. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: paid
+  - dead_end.why: No free storage at all. Storage is prepaid: 'purchased in increments of $5 per month for each 1,000 minutes of video storage capacity.' Billing is on minutes of DURATION, not bytes…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: No free storage at all. Storage is prepaid: 'purchased in increments of $5 per month for each 1,000 minutes of video storage capacity.' Billing is on minutes of DURATION, not bytes…
+- sources:
+  - [1] https://developers.cloudflare.com/stream/pricing/
+
+## Cloudflare Workers for Platforms
+
+- `compute/cloudflare-workers-for-platforms` | paid-only | evidence documented | binding request-rate | category platform host
+- identity a placeholder: card and phone unknown | verified 2026-10-22T04:46:37.000Z (live) | stale on 2026-11-22
+- url https://developers.cloudflare.com/cloudflare-for-platforms/workers-for-platforms/reference/pricing/
+- free tier: no free tier published | unit: none | metered on: wall-clock | read on: 2026-10-02 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - request-rate (binding): $25 a month for 20 million requests and 60 million CPU-milliseconds, then $0.30 a million requests and $0.02 a million CPU-ms [1]
+  - per-object-cap: 1,000 scripts included, then $0.02 each [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the pricing page was read on 2026-10-22 and states a $25 monthly plan with included request, CPU-millisecond and script allowances. There is no free plan, which confirms paid-only and gives the numbers
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: an isolate runs per request; there is no machine to keep alive
+  - free_tier_kind: none
+  - granularity.min_billed_s: 0
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'The Workers for Platforms Paid plan is $25 monthly' with '20,000,000 included requests', '60,000,000 included CPU ms' and '1,000 included scripts', quoted
+- sources:
+  - [1] https://developers.cloudflare.com/cloudflare-for-platforms/workers-for-platforms/reference/pricing/
+
+## Cloudflare for Startups
+
+- `egress/cloudflare-for-startups` | fails-identity | evidence documented | binding write-gated | category startup credit programme | tier free
+- needs card no, phone no, ID no, institution yes | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://www.cloudflare.com/forstartups/
+- price USD 10,000 to 350,000 of credit
+- free tier: Cloudflare for Startups gives early-stage companies up to $350k in credits to build the next big idea ... Get started with $10k in credits to build and launch your product, no minimum funding required. | unit: mixed | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: the $10k tier carries no byte allowance of its own because Cloudflare's developer platform has no metered egress to spend it on; ingress: http-only | metered: no | free allowance: none published | source: [1]
+- identity: institution | detail: early-stage companies, with the tiers set by funding stage: 'Under $1M raised' for the $10k tier and 'Under $5M raised' for the $100k tier | country: None
+- interface: cli, rest
+- limits:
+  - write-gated (binding): a company application, with the tier set by amount raised [1]
+- binding note: two things fail before volume: the applicant must be a company, and the credit spends only on Cloudflare products, which already carry no egress meter. There is nothing for 1 TiB a month to run out of.
+- interface detail: wrangler and the Cloudflare API
+- tooling: wrangler and the Cloudflare API; no VM is involved
+- composes with: composes with a free VM elsewhere rather than replacing it: the credit buys Workers and R2, not an ingress port
+- reliability: credits are tied to programme membership and expire with it
+- notes: Startup program providing Cloudflare credits up to USD 100,000 for funded companies. Standard free tiers on Workers and R2 already include zero-egress data transfer.
+- evidence note: the tier structure is first-party and read; whether a sole founder with no entity can apply is not stated
+- extras:
+  - wg_path: none
+  - wg_detail: Cloudflare sells no VM; the credits spend on Workers, R2 and the rest of the developer platform, none of which hands an account a UDP port on a public IPv4
+  - ingress: http-only
+  - volume_stated: the $10k tier carries no byte allowance of its own because Cloudflare's developer platform has no metered egress to spend it on
+  - bytes_transit: overlay-only
+  - transit_note: Cloudflare carries the bytes on its own network, which is the part that is already free
+- evidence:
+  - [1] 2026-10-23: 'up to $350k in credits', 'Get started with $10k in credits ... no minimum funding required', 'Under $1M raised', 'Credits: $10k', 'Under $5M raised', 'Credits: $100k'
+- sources:
+  - [1] https://www.cloudflare.com/forstartups/
+
+## cloudflare hyperdrive
+
+- `storage/cloudflare-hyperdrive` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://developers.cloudflare.com/hyperdrive/platform/pricing/
+- free tier: None reachable: Not a store. It is a connection pooler/cache in front of YOUR origin database. It carries no storage of its own, so it adds nothing to the byte budget. Its 100,000 queries/day free quota is. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Not a store — it is a connection pooler/cache in front of YOUR origin database. It carries no storage of its own, so it adds nothing to the byte budget. Its 100,000 queries/day free quota…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Not a store — it is a connection pooler/cache in front of YOUR origin database. It carries no storage of its own, so it adds nothing to the byte budget. Its 100,000 queries/day free quota…
+  - [2] 2026-10-21: cited as the basis of the rejection: Not a store — it is a connection pooler/cache in front of YOUR origin database. It carries no storage of its own, so it adds nothing to the byte budget. Its 100,000 queries/day free quota is
+- sources:
+  - [1] https://developers.cloudflare.com/hyperdrive/platform/pricing/
+  - [2] https://developers.cloudflare.com/hyperdrive/platform/limits/
+
+## cloudflare images — storage
+
+- `storage/cloudflare-images-storage` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://developers.cloudflare.com/images/pricing/
+- free tier: none reachable: The Free plan explicitly has NO storage: 'The Paid plan allows transformations, as well as access to storage in Images.' Free is transformations-only, 'up to 5,000 unique transformations… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: The Free plan explicitly has NO storage: 'The Paid plan allows transformations, as well as access to storage in Images.' Free is transformations-only, 'up to 5,000 unique transformations…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: The Free plan explicitly has NO storage: 'The Paid plan allows transformations, as well as access to storage in Images.' Free is transformations-only, 'up to 5,000 unique transformations…
+- sources:
+  - [1] https://developers.cloudflare.com/images/pricing/
+
+## cloudflare pages as a mutable object store
+
+- `storage/cloudflare-pages-as-a-mutable-object-store` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://developers.cloudflare.com/pages/configuration/preview-deployments/
+- free tier: none reachable: Pages and Workers static assets cannot be used as mutable object storage. Uploads require whole-deployment snapshots via git or wrangler without individual PUT or DELETE object operations. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Uploads are whole-deployment snapshots via git or wrangler; there is no…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Uploads are whole-deployment snapshots via git or wrangler; there is no put/delet
+  - [2] 2026-10-21: Uploads are whole-deployment snapshots via git or wrangler; there is no put/delet
+- sources:
+  - [1] https://developers.cloudflare.com/pages/configuration/preview-deployments/
+  - [2] https://surge.sh/docs/api/deploys
+
+## cloudflare queues
+
+- `storage/cloudflare-queues` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://developers.cloudflare.com/queues/platform/limits/
+- free tier: None reachable: Tempting because per-queue backlog is 25 GB, but on Workers Free message retention is 'non-configurable at 24 hours'. Everything written is deleted within a day. Charged at 1 operation per. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: retention
+  - dead_end.why: Tempting because per-queue backlog is 25 GB, but on Workers Free message retention is 'non-configurable at 24 hours' — everything written is deleted within a day. Charged at 1 operation per
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Tempting because per-queue backlog is 25 GB, but on Workers Free message retention is 'non-configurable at 24 hours' — everything written is deleted within a day. Charged at 1 operation per
+- sources:
+  - [1] https://developers.cloudflare.com/queues/platform/limits/
+
+## Cloudflare Realtime TURN
+
+- `egress/cloudflare-turn` | fails-quota | evidence documented | binding volume-quota | category relay (metered, WebRTC)
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:20:00.000Z (live) | stale on 2026-11-22
+- url https://developers.cloudflare.com/realtime/turn/
+- free tier: 1,000 GB/month of Realtime egress shared with the SFU, then USD 0.05/GB | unit: GB | metered on: downloaded-bytes | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable: a monthly allowance
+- retention: not applicable: a monthly allowance | source: [1]
+- egress: metered at 1,000 GB/month, which is 33.3 GB/day or 3.1% of one day's workload | metered: yes | free allowance: 1,000 GB/month shared between TURN and the SFU | price per TB: USD 0.05/GB | source: [1]
+- identity: email | detail: a Cloudflare account and a TURN key
+- interface: rest
+- limits note: the allowance is a byte volume over a period, which none of the six kinds names; the number is in egress.free_allowance and binding names per-ip-shaping as the nearest kind
+- binding note: the monthly byte allowance in egress.free_allowance is what runs out, and no kind in the six-value vocabulary names a byte volume over a period counted per account. per-ip-shaping is the closest, because it is the only kind that bounds a volume, and its subject here is the account rather than the caller's address
+- interface detail: TURN over UDP, TCP or TLS with a short-lived credential
+- tooling: any WebRTC stack's TURN client
+- composes with: a NAT-traversal fallback for a WebRTC-shaped workload and nothing else. It cannot be wrapped into more because a byte quota relayed does not compound.
+- reliability: TURN and the SFU draw on one allowance, so an SFU workload spends the TURN budget
+- notes: Reaching 1 TiB/day would need about 30 accounts at the free allowance, which is not a plan. Quoted in decimal GB because the page states decimal GB.
+- extras:
+  - stale_after_days: 180
+  - bytes_transit: yes
+  - transit_note: TURN relays the media stream when a direct path fails, which is what its byte quota counts
+- evidence:
+  - [1] 2026-10-22: 'The first 1,000 GB each month is free. SFU and TURN share this allowance', page last updated 2026-09-22
+- sources:
+  - [1] https://developers.cloudflare.com/realtime/sfu/platform/pricing/

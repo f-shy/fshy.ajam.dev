@@ -1,0 +1,640 @@
+# fshy: Debrid, self-hosted, the last resort
+
+> A debrid service downloads files from many file hosts through one account, at full speed. Also premium-link generators, usenet and retrieval services.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/debrid/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## CloudDrive2
+
+- `debrid/clouddrive2` | self-hosted, last resort | verdict qualifies | evidence documented | binding none | category cloud-drive mount + cross-cloud transfer licence | tier 核心会员
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T01:56:12.307Z (live) | stale on 2026-11-23
+- url http://www.clouddrive2.com/pricing.html | page https://fshy.ajam.dev/p/clouddrive2.md
+- price CNY 4.99/month; CNY 49.99/year; CNY 499 lifetime | parsed USD 0.7481/mo
+- free tier: 基础会员 free: 最多 2 个云盘, 最多 1 个本地挂载, 2 devices, no core Pro features. '传输不限速' is listed as available even on the free tier. | unit: mixed | metered on: object-count | read on: 2026-10-23 | source: [1] | note: The free tier is counted in connected drives and mounts, not bytes.
+- per-object cap: Encrypted upload is capped at 200 MB per file on every tier except 核心终身版; the cloud drive's own per-file cap still applies beneath it. | source: [1]
+- retention: Not applicable: it is a mount and a transfer layer, not a store. | source: [1]
+- egress: '传输不限速' on every tier including free. Traffic is the cloud drive's traffic, so the pan's own quota binds, not CloudDrive2's. | metered: no | source: [1]
+- identity: email | detail: A CloudDrive account, purchased in-app through App Store or Google Play or directly. No phone gate is published.
+- interface: webdav, cli
+- limits:
+  - write-gated: free tier: 2 drives, 1 mount; Pro unlock at ¥4.99/month [1]
+  - per-object-cap: encrypted upload 200 MB/file below 核心终身版 [1]
+- binding note: A ¥4.99/month licence has no byte counter of its own; the pan's quota is what fails first. Naming a CloudDrive2 quota would misattribute another provider's limit.
+- interface detail: The server runs on the local machine and exposes WebDAV; '独立 WebDAV 用户管理' is a Pro feature. Supported sources include 阿里云盘, 百度网盘, 115网盘, 天翼云盘, 123云盘, 迅雷云盘, OneDrive, Google Drive and WebDAV.
+- tooling: Windows/macOS/Linux/Docker server plus apps for phone, TV and headset. WebDAV means rclone, Infuse, VidHub and any player can mount it.
+- composes with: One licence turns five Chinese pans into one WebDAV endpoint, which is the piece AList does not sell: paid support, encrypted folders and cross-cloud copy in one binary.
+- reliability: The mount is a client-side process: 115's API suspension in 2026 broke third-party mounts for a period, which is the failure mode of every layer that sits on a pan's private endpoints.
+- notes: Runs on a free VM or a local machine - it is software on somebody else's hardware either way. The 视障用户 lifetime tier at ¥299 is a real discount route documented on the page.
+- evidence note: The whole price ladder and the tier comparison table were read off the vendor's pricing page. No mount was run.
+- self hosted: yes
+- extras:
+  - supports: 阿里云盘; 百度网盘; 115; 天翼; 123; 迅雷云盘; OneDrive; Google Drive; WebDAV
+- evidence:
+  - [1] 2026-10-23: 基础会员 free (2 drives, 1 mount); 核心会员 ¥4.99/月, ¥49.99/年; 轻享终身 ¥199; 核心终身版 ¥499; '传输不限速'; encrypted upload 200 MB cap named in the 终身 column
+  - [2] 2026-10-23: '云盘本地挂载' with full random read/write; supported pan list including 阿里云盘/百度网盘/115网盘/天翼云盘/123云盘/迅雷云盘
+- sources:
+  - [1] http://www.clouddrive2.com/pricing.html
+  - [2] https://www.clouddrive2.com/features.html
+
+## Decypharr
+
+- `debrid/decypharr` | self-hosted, last resort | verdict qualifies | evidence documented | binding none | category client: qBittorrent/SABnzbd-compatible debrid gateway | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T01:51:00.000Z (live) | stale on 2026-11-23
+- url https://github.com/sirrobot01/decypharr | page https://fshy.ajam.dev/p/github-sirrobot01.md
+- price USD 0 for the gateway
+- free tier: MIT-licensed and self-hosted, no account of its own; the README calls it 'a Media Gateway for Debrid services and Usenet written in Go' that 'provides a unified interface for Sonarr, Radarr, and other *Arr applications'. | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable to the gateway; the provider's cap applies. | source: [1]
+- retention: not applicable: it proxies the provider's library rather than storing it. | source: [1]
+- egress: No meter of its own; egress is the provider's. | metered: no | free allowance: none of its own | source: [1]
+- identity: anonymous | detail: No account; it takes the provider's key in config.json. | country: None
+- interface: rest, nfs, smb
+- limits:
+  - request-rate: none of its own; it inherits whichever provider's limit, which ranges from 100/min on a free Deepbrid key to an unpublished one on Premiumize [1]
+- limits note: Broadest provider list of any client read here: Real-Debrid, TorBox, Debrid-Link, AllDebrid, Premiumize. It supports no provider whose API is undocumented (LinkSnappy, Mega-Debrid).
+- binding note: A pure client: the provider's per-object cap or add floor fails first at 1 TiB/month.
+- interface detail: 'Mock Qbittorent and Sabnzbd API that supports the Arrs (Sonarr, Radarr, Lidarr etc)', plus 'Read-only NFSv4 and SMB servers for the same libraries, including custom virtual folders'. Runs on port 8282 in the documented compose file.
+- endpoint: http://localhost:8282/
+- tooling: Docker image cy01/blackhole:latest (documented) or a Go binary; integrates with Sonarr, Radarr, Lidarr and anything else that speaks the qBittorrent or SABnzbd API.
+- composes with: This is what makes an *arr stack work without a disk: Sonarr asks Decypharr for a 'torrent', Decypharr adds the magnet to the provider, and the file is served from the provider's library over NFS or SMB.
+- reliability: A mock API is a compatibility promise with two moving targets (the *arr client and the provider); a provider field rename surfaces as a failed grab, not as an error in Decypharr.
+- notes: The *arr answer observed here: every integration read among debrid providers is a qBittorrent-shaped shim (this, rdt-client) or a Torznab indexer (Debrid Media Manager), and no *arr application was found with a debrid client of its own. This is the most capable shim read here.
+- evidence note: README read. Not deployed here, so the NFS/SMB and mock-API behaviour is untested.
+- self hosted: yes
+- extras:
+  - arr_integration: qBittorrent API for grabs, SABnzbd API for usenet grabs
+  - providers: real-debrid, torbox, debrid-link, alldebrid, premiumize
+  - missing_providers: linksnappy (undocumented API), mega-debrid (password-only auth and premium-only)
+- evidence:
+  - [1] 2026-10-23: 'Mock Qbittorent and Sabnzbd API that supports the Arrs', read-only NFSv4 and SMB servers, direct usenet streaming over NNTP, and the five supported providers (Real Debrid, Torbox, Debrid Link, All Debrid, Premiumize)
+- sources:
+  - [1] https://github.com/sirrobot01/decypharr
+
+## Jackett
+
+- `debrid/jackett` | self-hosted, last resort | verdict qualifies | evidence documented | binding request-rate | category self-hosted indexer proxy (Torznab over ~600 trackers) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T01:52:28.000Z (live) | stale on 2026-11-23
+- url https://github.com/Jackett/Jackett | page https://fshy.ajam.dev/p/github-jackett.md
+- price USD 0
+- free tier: The software is free and the API key is generated locally by the instance. The cost is the machine it runs on, not a subscription. | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable: Torznab results | source: [1]
+- retention: the instance caches results per indexer (default 1,000 rows) and can bypass the cache with &cache=false | source: [1]
+- egress: no byte allowance: Torznab XML only; the transfer is client-to-swarm | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: Jackett itself needs no account. Individual indexers may need one, and the README marks some as invite-only with no active maintainer.
+- interface: rest
+- limits:
+  - request-rate (binding): no global limit: each indexer carries its own, and the instance absorbs repeats with a per-indexer result cache (default 1,000 rows) [1]
+- limits note: The binding constraint is the machine: an instance needs a process that stays up, which means a free compute service rather than local hardware. Trackers marked 'invite needed' in the indexer list 'have no active maintainer and may be broken'.
+- binding note: The upstream trackers' own rate limits pass straight through, and the instance's cache is the only thing that reduces how often they are hit.
+- interface detail: Torznab and TorrentPotato over HTTP at the instance's own address: /api/v2.0/indexers/all/results/torznab/api?apikey=...&t=search&q=...
+- endpoint: http://127.0.0.1:9117/api/v2.0/indexers/all/results/torznab/api
+- tooling: A container or a .NET runtime on a free compute instance; Sonarr, Radarr and Prowlarr speak the same Torznab. FlareSolverr is integrated for Cloudflare-walled indexers.
+- composes with: One Torznab endpoint in front of every tracker already accessible, which turns a dozen scrapers into one URL that the automation stack and a debrid cache check both use.
+- reliability: Cloudflare-walled indexers fail without FlareSolverr, and the README warns that invite-only entries may be broken; a client that only runs Jackett gets partial coverage and does not know which indexer failed unless it reads the dashboard.
+- notes: 'public torrent-search API behind Jackett' is really a private Torznab fan-out: Jackett adds no index of its own, it translates scrapers. The nearest hosted equivalent is TorrentClaw's Torznab endpoint, which needs a key and is PRO-gated.
+- evidence note: The README was read on 2026-10-23, including the Torznab query syntax, the cache setting and the FlareSolverr note. A running instance on free compute would raise it to measured.
+- self hosted: yes
+- extras:
+  - protocol: torznab
+  - indexers: hundreds listed in the README; the exact count was not established
+  - requires_host: yes
+  - flaresolverr: yes
+- evidence:
+  - [1] 2026-10-23: Torznab and TorrentPotato endpoints, the /api/v2.0/indexers/all/results/torznab/api path with an apikey, 'Cache max results per indexer: Default is 1000', and the FlareSolverr integration
+  - [1] 2026-10-23: 'Trackers marked with (invite needed) have no active maintainer and may be broken or missing features'
+- sources:
+  - [1] https://github.com/Jackett/Jackett
+
+## RDT-Client
+
+- `debrid/rdt-client` | self-hosted, last resort | verdict qualifies | evidence documented | binding none | category client: debrid download manager with a qBittorrent shim | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T01:51:00.000Z (live) | stale on 2026-11-23
+- url https://github.com/rogerfar/rdt-client | page https://fshy.ajam.dev/p/github-rogerfar.md
+- price USD 0 for the caller
+- free tier: Free software; the README specifies that the underlying service requires a paid account: 'You will need a Premium service at Real-Debrid, AllDebrid, Premiumize, Torbox or DebridLink, or a HIGHWAY account!' | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable to the caller; the provider's cap applies. | source: [1]
+- retention: not applicable: it manages the provider's torrent and usenet lists and deletes completed items locally after download. | source: [1]
+- egress: Downloads the files to the local machine ('Download all files from Real-Debrid, AllDebrid, Premiumize, TorBox or HIGHWAY to your local machine automatically'), so it converts unmetered provider egress into local disk use. | metered: no | free allowance: none of its own | source: [1]
+- identity: anonymous | detail: No account with the project; it stores the provider's key. | country: None
+- interface: rest
+- limits:
+  - request-rate: none of its own; its polling interval is the provider's problem, and its own issue tracker carries reports of it treating client-side retries as provider 429s [1]
+- limits note: The project's issue #952 documents a client-side false 429: 'Evidence this isn't a real RD 429 ... Direct curl from inside the container with the same API key ... all return 200. 30 rapid-fire calls in a row to /torrents also return 200.' A retry layer can invent a throttle that the provider never sent.
+- binding note: A pure client: the provider's per-object cap or add floor fails first.
+- interface detail: Web UI plus 'a fake qBittorrent API so you can hook up other applications like Sonarr, Radarr or Couchpotato'. Built on .NET 10 and Angular 21; runs as a Windows or Linux service or in Docker.
+- endpoint: unverified: the project's default web port was not read; the service is configured through appsettings.json
+- tooling: Docker, Windows service, Linux service; Sonarr, Radarr and Couchpotato as downstream clients.
+- composes with: The download-to-disk counterpart to Decypharr's stream-in-place: Sonarr grabs through it, it fetches from the provider, unpacks, and leaves a normal file where the *arr stack expects one.
+- reliability: Its Polly retry pipeline has produced 429 warnings at ~10 ms execution time, which is too fast to be a network round trip; the log says throttled while the provider is healthy.
+- notes: Named separately from Decypharr because the two make different tradeoffs: rdt-client downloads to disk, Decypharr serves in place over NFS/SMB. The client-side false-429 finding belongs to the user, not to Real-Debrid.
+- evidence note: README read on 2026-10-23; the issue tracker entry is third-party observation of the user's behaviour, carried as such.
+- self hosted: yes
+- extras:
+  - providers: real-debrid, alldebrid, premiumize, torbox, debrid-link, high-way
+  - usenet: torbox, premiumize, high-way
+  - arr_integration: qBittorrent API shim
+- evidence:
+  - [1] 2026-10-23: the six supported providers (Real-Debrid, AllDebrid, Premiumize, TorBox, DebridLink, HIGHWAY), usenet support limited to TorBox/Premiumize/HIGHWAY, automatic unpack, and 'Implements a fake qBittorrent API so you can hook up other applications like Sonarr, Radarr or Couchpotato'
+  - [2] 2026-10-23: a reported case of the client logging 429s while direct calls to /user, /torrents, /torrents/activeCount and /hosts/status returned 200 in the same container
+- sources:
+  - [1] https://github.com/rogerfar/rdt-client
+  - [2] https://github.com/rogerfar/rdt-client/issues/952
+
+## Vidi · Media Center
+
+- `debrid/vidi-media-center` | self-hosted, last resort | verdict qualifies | evidence documented | binding none | category paid one-time media centre app for Apple platforms, Stremio addon API, debrid-aware | tier app purchase
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23T02:28:11.000Z (live) | stale on 2026-11-23
+- url https://apps.apple.com/us/app/vidi-media-center/id6648776878 | page https://fshy.ajam.dev/p/apple.md
+- price USD 4.99
+- free tier: No free tier: 'USD 4.99 · Designed for iPad'. One-time App Store purchase, no subscription line on the listing. | unit: none | metered on: none | read on: 2026-10-23 | source: [1] | note: A regional price was seen only through a search index (INR 499 on the Indian storefront); the USD 4.99 is from the US listing read directly.
+- per-object cap: not applicable: a player | source: [2]
+- retention: not applicable: progress syncs through iCloud; media stays with the debrid provider | source: [1]
+- egress: No allowance: playback goes to whatever URL the installed addon returns. The app itself carries no traffic. | metered: no | free allowance: not applicable | source: [1]
+- identity: card | detail: Apple ID with a payment method for a USD 4.99 purchase. No account with the developer. | country: None
+- interface: rest
+- limits:
+  - write-gated: the App Store purchase is the gate; after it, the app imposes no published request or byte limit [1]
+- limits note: The addon-API subset is the functional limit: an addon that relies on parts of the Stremio API Vidi does not implement will install and then misbehave, which is a support burden rather than a measurable cap.
+- binding note: Nothing here counts bytes or requests; any 1 TiB/month wall is met at the addon or the debrid provider, not at the player.
+- interface detail: 'Currently Vidi only supports addons using the Stremio addon API', with a subset documented on the vendor site. Native player with 'HDR10, HDR10+, and Dolby Vision'; progress syncs 'between your devices with iCloud'.
+- tooling: App Store install for iPhone, iPad, Mac (Apple silicon), Apple TV and Vision. No server, no web app.
+- composes with: The Apple-platform front end for the same addon URL a Stremio client would use: the debrid key lives inside the addon, so one key serves Vidi on an Apple TV and Stremio Web anywhere else.
+- reliability: A single-developer App Store app: the risk is abandonment and iOS-version drift, not quota. It reached the App Store, which most addon front ends never do.
+- notes: The only debrid front end with a publishable per-month cost of essentially zero after the first year: USD 4.99 once, versus USD 9/month for a hosted addon or USD 24/month for a hosted stack. It is the cheapest way to get a TV-native player with no server to run, on a device in Apple's ecosystem.
+- evidence note: The US App Store listing and the vendor site were read. Not measured: installation and playback, and which addons pass the API subset.
+- self hosted: yes
+- extras:
+  - developer: Plata o Plomo AB
+  - api_subset: https://vidi.plomo.se/addons
+  - license_shape: one purchase, all platforms, family sharing, no subscription
+  - alternatives_seen: Streamyfin, Infuse, Swiftfin, Odin (Jellyfin clients, not debrid front ends)
+- evidence:
+  - [1] 2026-10-23: the price and platform list: '$4.99', 'Designed for iPad', iOS 17+/iPadOS 17+/macOS 14+ (M1)/tvOS 17+/visionOS 1.0+, 'Currently Vidi only supports addons using the Stremio addon API', iCloud progress sync, HDR10/HDR10+/Dolby Vision
+  - [2] 2026-10-23: 'Purchase once and get it for all supported platforms', 'Family sharing enabled', 'No subscriptions', 'Supports Stremio Addons', 'Available on iOS, iPadOS and tvOS'
+  - [3] 2026-10-23: reported, not read: a search index shows the Indian storefront listing '₹ 499', which would make the price regional rather than a single global number
+- sources:
+  - [1] https://apps.apple.com/us/app/vidi-media-center/id6648776878
+  - [2] https://vidi.plomo.se/
+  - [3] https://apps.apple.com/in/app/vidi-media-center/id6648776878
+
+## JDownloader 2
+
+- `debrid/jdownloader` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding none | category open-source multi-hoster download manager and link decrypter (desktop/headless) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T01:52:41.420Z (live) | stale on 2026-11-23
+- url https://jdownloader.org/download/index | page https://fshy.ajam.dev/p/jdownloader.md
+- price USD 0
+- free tier: 'JDownloader is a free, open-source download management tool with a huge community that makes downloading as easy and fast as it should be.' The software and its hoster/decrypter plugins are free; what it needs is a machine with Java and disk space. | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1] | note: No hosted first-party instance exists. The vendor offers desktop installers for Windows, Linux and macOS plus a multi-OS JAR, and every remote path points back at a JD installation the caller runs.
+- per-object cap: not applicable to the tool: the largest object is whatever the target host serves. JD writes to local disk, so the practical cap is the device's free space. | source: [1]
+- retention: not applicable: JD downloads to local storage it does not own. Nothing is retained server-side. | source: [1]
+- egress: The transfer runs between the JD host and the file host. JD meters nothing and resells nothing. | metered: no | free allowance: none: no service-side bytes | source: [1]
+- identity: anonymous | detail: No account needed to install and use JDownloader. A MyJDownloader account is optional and only needed for remote control. The support FAQ states: 'Do I need to register an account to use JDownloader? No! You only need an account when you use MyJDownloader which is completely optional!'
+- interface: cli, rest
+- limits:
+  - request-rate: core caps simultaneous connections per file at 20; board staff describe raising it with domain rules [2]
+  - write-gated: captchas and host wait timers must be solved per download unless a premium account is attached [3]
+- limits note: Every cap that matters is imposed by the target host, not by JD. The tool adds a 20-connection ceiling per file and a default concurrency limit.
+- binding note: No JD-side quota binds at 1 TiB/month; the host's free-tier limits and the absence of a local machine bind first. Public instances exist but are private containers behind credentials (see evidence), so they are not a route.
+- interface detail: GUI and headless (jar) modes; a Click'n'Load listener on port 9666 that accepts container posts from a browser; and a 'Deprecated API' the MyJD docs say can be enabled in Advanced Options to bypass the connection server and reach JD directly.
+- tooling: First-party installers and JAR; MyJDownloader for remote control; Docker images by third parties (jlesage/docker-jdownloader-2, junkerderprovinz/jdownloader) that expose the GUI over VNC in a browser. A wrapper needs a machine to install on, which is not available.
+- composes with: JD is the decrypter layer of last resort: one tool covers roughly a hundred hosters and several hundred container/decrypter plugins, so it composes with any storage or debrid service that hands it links.
+- reliability: Public web instances found in the wild are other people's containers: one answered HTTP 200 with a 'Credentials needed' gate, one answered 530, one 502. They are not a service, they disappear without notice, and using one puts the links on a stranger's disk.
+- notes: This is the tool the debrid question is usually answered with, and it fails on the install requirement. The three public instances were found by search and probed as ordinary web pages; no login was attempted on any of them. Their existence shows the pattern (docker + KasmVNC + credentials), not a public service.
+- evidence note: The vendor page, the board thread and three probes are in hand. A measured rung needs a JD install downloading a real link, which needs a machine that is not available.
+- self hosted: yes
+- extras:
+  - public_instance_survey: 3 found by search, 1 up behind a credential gate, 2 dead; 0 accepted anonymous input
+  - hoster_plugin_count: unverified: the vendor feature page was not readable today; a third-party page claims ~110 hosters and 300+ decrypters
+  - probe_records: scratch (removed); scratch (removed); scratch (removed)
+- evidence:
+  - [1] 2026-10-23: 'JDownloader is a free, open-source download management tool'; installers for Windows/Linux/macOS plus a MULTIOS JAR, i.e. an install, not a hosted service
+  - [4] 2026-10-23: the 'Deprecated API' can bypass the MyJD connection server and reach JD directly; JD is the device the API talks to
+  - probe:https://wojd.goip.de/ 2026-10-23: a public JDownloader web instance answers HTTP 200, 17403 bytes, sha256 4fb03946a848be39dea877b14593fe69f55a0f54c332de5cc4fca20744a94979, and its body is 'Credentials needed / Please enter the credentials to connect.'
+  - probe:https://jdownloader.markodj.com/ 2026-10-23: second public instance is down: HTTP 530, 7660 bytes, sha256 f97e88f5ca4fe49388a454ddfce24f2ed91abda9b6ff29e3e3c6be063086c029, retry-after 120
+  - probe:https://jdownloader.stehuenet.selfhost.co/ 2026-10-23: third public instance is down: HTTP 502, 154 bytes, sha256 bf4d0c2fe5252a3e32908499c90a4da5f961c7a7d989c5ef37b406d145929f1b
+  - [2] 2026-10-23: third-party board statement that 20 chunks per file is the core limit
+- sources:
+  - [1] https://jdownloader.org/download/index
+  - [2] https://board.jdownloader.org/showthread.php?t=71264
+  - [3] https://jdownloader.org/home/features
+  - [4] https://my.jdownloader.org/developers/
+
+## MegaBasterd
+
+- `debrid/megabasterd` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding per-ip-shaping | category MEGA-only downloader/uploader/streaming client (Java desktop app) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T01:52:41.420Z (live) | stale on 2026-11-23
+- url https://github.com/tonikelope/megabasterd | page https://fshy.ajam.dev/p/github-tonikelope.md
+- price USD 0
+- free tier: 'Yet another unofficial (and ugly) cross-platform MEGA downloader/uploader/streaming suite.' GPL-3.0, latest release 8.61 on 2026-09-24, distributed as an executable or a jar that 'requires Java 8 or later'. | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1] | note: No hosted version by the author. Anything presented as 'MegaBasterd online' is either a third-party container the user runs or an unofficial redistribution site.
+- per-object cap: MEGA publishes no per-file cap: 'MEGA does not have any file size limits. The only limitations you face are the amount of free space on your local device (if downloading) or in your Cloud drive (if uploading).' | source: [2]
+- retention: not applicable: the user writes to local disk. The MEGA-side file lives until the owner deletes it. | source: [1]
+- egress: MEGA meters downloads per IP for free and anonymous users, not per file: the limit is 'based on the amount of data downloaded from your IP address over the past six hours' and has no fixed byte value. | metered: yes | free allowance: dynamic, IP-based, six-hour window; no published number | source: [3]
+- identity: anonymous | detail: Public MEGA links download without a MEGA account. An account is only needed for private content or to raise the quota, and the app's own proxy rotation exists because the anonymous quota is the binding limit.
+- interface: cli
+- limits:
+  - per-ip-shaping (binding): MEGA transfer quota counted per IP over six hours; over-quota downloads stall with HTTP 509 until the window resets [3]
+  - per-ip-shaping (binding): quota only starts applying to a file once it has been transferred in full more than 10 times [3]
+- limits note: The app's headline feature is working around the 509: it rotates a proxy list when MEGA blocks an IP. MEGA's own help page warns that third-party tools 'can't detect your quota', which is exactly why a client sees stalls rather than an error.
+- binding note: At 1 TiB/month the IP-based six-hour window is what stops a MEGA download; the workaround is proxy rotation, which the app implements, and the fallback is waiting for the window to reset. Nothing else in the vocabulary binds because MEGA has no per-file cap.
+- interface detail: A Java Swing desktop application launched from the jar or the packaged executable. No API documentation and no server mode were found in the repository or README; the closest thing to a machine interface is driving the jar under a virtual framebuffer, or the third-party Docker images that expose its window over VNC.
+- tooling: Jar plus platform executables; AppImage build; community Docker images (vttc08/megabasterd) that wrap the GUI in noVNC. Automating it needs a display server or a wrapper around its GUI, which is a tooling note and not a reason to reject the provider.
+- composes with: It is the MEGA leg of a pipeline: pair it with a hosted relay (saveindrive-style MEGA-to-Drive streaming) when no local machine can run the jar.
+- reliability: MEGA answers over-quota requests with HTTP 509 and the window is per IP, so a shared or datacentre address exhausts it fast. MEGA's help page also warns third-party clients can lock an account when used with credentials.
+- notes: The 'hosted fork' search turned up containers (self-hosted Docker with noVNC) and an unofficial site megabasterd.com that redistributes builds; neither is a hosted service that accepts a URL. The unofficial site was not used and its binaries were not downloaded.
+- evidence note: Repository, README, release date and MEGA's own quota page were read. The proxy-rotation behaviour is a third-party description (deepwiki) and is marked reported. A measured rung needs a real MEGA link downloaded twice, once to quota.
+- self hosted: yes
+- extras:
+  - hosted_forks_found: vttc08/megabasterd (Docker + noVNC, user-run); JairoQuispe/docker-megabasterd-app (Docker); megabasterd.com (unofficial redistribution site, unverified provenance)
+  - quota_workaround: proxy rotation on HTTP 509, per third-party documentation
+- evidence:
+  - [1] 2026-10-23: GPL-3.0 MEGA downloader/uploader/streaming suite; 5.8k stars; release 8.61 dated 2026-09-24; 'requires Java 8 or later'
+  - [4] 2026-10-23: README offers 'Download latest build' and a DEMO video; no hosted/online instance is offered
+  - [3] 2026-10-23: the limit is 'based on the amount of data downloaded from your IP address over the past six hours'; 'MEGA does not have a fixed download limit'; quota starts after 10 full transfers; incomplete transfers discarded after 48 hours
+  - [2] 2026-10-23: 'MEGA does not have any file size limits.'
+  - [5] 2026-10-23: reported, third-party: 'Smart Proxy System helps bypass MEGA's download limitations by automatically rotating through a list of proxies' when MEGA returns 509
+- sources:
+  - [1] https://github.com/tonikelope/megabasterd
+  - [2] https://help.mega.io/files-folders/transfers/no-file-size-limits
+  - [3] https://help.mega.io/plans-storage/space-storage/transfer-quota
+  - [4] https://raw.githubusercontent.com/tonikelope/megabasterd/master/README.md
+  - [5] https://deepwiki.com/tonikelope/megabasterd/4-advanced-features
+
+## megatools
+
+- `debrid/megatools` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding per-ip-shaping | category MEGA command-line client (public-link downloader and account client) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T01:52:41.420Z (live) | stale on 2026-11-23
+- url https://megatools.megous.com/ | page https://fshy.ajam.dev/p/megous.md
+- price USD 0
+- free tier: 'Megatools is a collection of programs for accessing Mega service from a command line of your desktop or server.' Free software; the command set includes 'dl Download file from a "public" Mega link (doesn't require login)'. | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1] | note: The project site megatools.megous.com answered HTTP 503 'We'll be back soon' (scheduled maintenance) today, so the man page was read from a mirror of the same document.
+- per-object cap: not applicable: MEGA states it has no file size limit; the local disk is the cap. | source: [2]
+- retention: not applicable: writes to local disk; no service-side storage. | source: [1]
+- egress: MEGA's IP-based six-hour transfer window applies to the machine running megatools; there is no megatools-side quota or proxy rotation. | metered: yes | free allowance: dynamic, IP-based, six-hour window | source: [3]
+- identity: anonymous | detail: 'megatools dl' takes a public link and needs no login. Account subcommands exist for private files but are not required for the public-link path.
+- interface: cli
+- limits:
+  - per-ip-shaping (binding): MEGA counts downloads from the IP over six hours; no fixed number published [3]
+- limits note: MEGA's help page lists third-party tools as a hazard: 'these tools can't detect your quota', and using them with account credentials can lock the account. Public-link download avoids the credential risk.
+- binding note: The six-hour per-IP window is the only quota in the path; megatools does not rotate proxies, so it is met directly and the reset must be waited for.
+- interface detail: Subcommands: df, ls, get, put, copy, rm, mkdir, export, reg, test and 'dl' for public links. Streaming is supported with '--path -', so a wrapper can pipe a public link into another process without touching disk.
+- tooling: Native builds for Windows and Linux, plus source. A shell wrapper is enough; nothing needs a GUI or a display.
+- composes with: The streaming flag makes it the cheapest MEGA leg for a pipeline that must not stage the file on local disk: piped output can go straight into an uploader or a hash check.
+- reliability: The project site was 503 today and the man page had to be read from a mirror; the tool is maintained but the distribution site is not always up. Over-quota downloads fail mid-transfer and resume after the window resets.
+- notes: Command-line suite providing native streaming access to MEGA links without requiring a browser.
+- evidence note: Man page and MEGA quota page read; the project site's 503 is measured. Running 'megatools dl' against a real link would raise this to measured.
+- self hosted: yes
+- extras:
+  - public_link_command: megatools dl <link>
+  - streaming_command: megatools get --path - <remotefile>
+  - site_status_today: 503 maintenance
+- evidence:
+  - [1] 2026-10-23: 'dl Download file from a "public" Mega link (doesn't require login)'; streaming with 'megatools get --path -'
+  - [4] 2026-10-23: the project site is down for maintenance: HTTP 503, 17 words, 'This site is currently undergoing scheduled maintenance.'
+  - [3] 2026-10-23: per-IP six-hour download limit for free and anonymous users; no fixed limit
+  - [5] 2026-10-23: third-party tools 'can't detect your quota' and may cause account lock-ups when given credentials
+- sources:
+  - [1] https://xff.cz/megatools/man/megatools.html
+  - [2] https://help.mega.io/files-folders/transfers/no-file-size-limits
+  - [3] https://help.mega.io/plans-storage/space-storage/transfer-quota
+  - [4] https://megatools.megous.com/
+  - [5] https://help.mega.io/files-folders/transfers/download-files-folders
+
+## MyJDownloader
+
+- `debrid/myjdownloader` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding none | category hosted remote-control frontend for a JDownloader instance the user runs | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T01:52:41.420Z (live) | stale on 2026-11-23
+- url https://my.jdownloader.org/ | page https://fshy.ajam.dev/p/jdownloader.md
+- price USD 0
+- free tier: Registration is free and the free account is usable: 'The Customer is required to register on AppWork's website in order to use the Service. The Customer can use the Service for free after registration, which does not incur a fee. AppWork shall only offer a limited scope of Service to the Customer who uses the website for free.' No device count, call count or byte quota is published anywhere on the site. | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1] | note: The free tier's scope is described only as 'limited' and the paid packages that expand it are not priced on any public page reached today. The unit field says 'unlimited' because nothing is metered in bytes; it does not mean unlimited devices, which is unpublished.
+- per-object cap: not applicable: MyJDownloader relays control commands and link lists to a JDownloader installation that the customer runs. No file passes through AppWork's servers. | source: [2] | note: API docs: 'the communication between the frontends and JDownloader is routed through our Connection-Server' for control traffic; downloads are made by the JD device itself.
+- retention: not applicable: no file storage. Downloads land on the storage attached to the JDownloader device. | source: [1]
+- egress: No file egress: the service carries API calls and link lists between the web UI/apps and the customer's JDownloader device. Terms section 2(1) defines the service as access to 'the computer program JDownloader ... installed on a computer of the Customer'. | metered: no | free allowance: none: no byte path | source: [1]
+- identity: email | detail: Self-registration on the website, free. The API document exposes /captcha/getCaptcha and an account-registration route, and lists ERROR_EMAIL_NOT_CONFIRMED and EMAIL_FORBIDDEN as server errors, so a working email address is the gate.
+- interface: rest
+- limits:
+  - request-rate: connection server answers 429 TOO_MANY_REQUESTS, 503 OVERLOAD and 503 MAINTENANCE; no published call budget [2]
+  - write-gated: account registration plus email confirmation: 401 ERROR_EMAIL_NOT_CONFIRMED is an API error type [2]
+- limits note: The free tier's 'limited scope' is never enumerated. Features for free users can be added, changed or withdrawn at any time ('Ein Anspruch auf die Zusatzfunktionen hat der Kunde jedoch nicht').
+- binding note: Nothing in the seven-kind vocabulary fails at 1 TiB/month because no bytes cross this service: a JDownloader device does the transfer on its own connection. What fails first is architectural, not a quota: a running JD instance must be supplied, and the free tier's feature set is unpublished.
+- interface detail: REST over HTTPS at https://api.jdownloader.org; the API document states 'The API is REST based, but currently only GET and POST routes are offered'. Every call carries a request id and an HMAC-SHA256 signature built from the AES-CBC session tokens; email must be lower case.
+- endpoint: part of interface detail
+- tooling: myjdapi (Python), the official Android/iOS apps and browser extensions, and third-party clients over the same API. A wrapper must implement AES128-CBC key exchange plus HMAC-SHA256 per call, so the barrier is the signing handshake, not a missing client.
+- composes with: One MyJD account drives any JDownloader device that can be started elsewhere (a free VM), which removes the local machine from the path but not the requirement that some machine runs JD.
+- reliability: Free accounts have no availability guarantee (terms: 95% monthly availability is promised only for paid packages). The connection server returns 429/503 under load, and the docs warn that results syntax 'MAY CHANGE'.
+- notes: Does not answer the debrid question by itself: it resolves links only through a JDownloader installation the caller provides. The device count the requirements asks for is not published; the only device statement found is that the dashboard lists connected devices and the Android app 'manage multiple JDownloaders'. Two public JDownloader web instances were probed as part of the jdownloader record and neither accepted anonymous input.
+- evidence note: Read: the English terms section and the API basics document, both live today, plus a probe of the API host. A measured rung needs a signed /my/connect plus a real device; that was not attempted.
+- self hosted: yes
+- extras:
+  - device_count: unpublished: no page on my.jdownloader.org or the terms names a maximum number of devices; the free tier is described as 'limited scope'
+  - cloud_features: no cloud storage is offered; 'cloud' in the sense of remote access means the connection server relays control traffic
+  - probe_record: scratch (removed)
+- evidence:
+  - [1] 2026-10-23: free registration with a 'limited scope of Service' and paid packages that expand it; 95% availability only for paid packages
+  - [2] 2026-10-23: 'The API is REST based, but currently only GET and POST routes are offered'; AES128CBC + HMAC-SHA256 signing; /my/connect and /captcha/getCaptcha routes; 429 TOO_MANY_REQUESTS and 503 OVERLOAD error types
+  - probe:https://api.jdownloader.org/my/connect?email=probe@example.invalid 2026-10-23: the API host is live and rejects an unsigned call: HTTP 400, 49 bytes, sha256 cfa5193612ce8570c18192a2311ee7d00612dc230092c480a885eba4e29f0ac2, body {"src":"MYJD","type":"BAD_PARAMETERS"}
+  - [3] 2026-10-23: the web UI is a login wall: HTTP 200, 39805 bytes, challenge signature login-wall:login
+- sources:
+  - [1] https://my.jdownloader.org/legal/terms.html
+  - [2] https://my.jdownloader.org/developers/
+  - [3] https://my.jdownloader.org/login.html
+
+## NeoPan (app.neopan.cn)
+
+- `debrid/neopan` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding write-gated | category batch transfer / share tool for Chinese pans | tier VIP1
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23T01:56:12.309Z (live) | stale on 2026-11-23
+- url https://app.neopan.cn/pricing | page https://fshy.ajam.dev/p/neopan.md
+- price CNY 25/month; CNY 360 lifetime | parsed USD 3.75/mo
+- free tier: No free tier of the batch features is priced on the page; the three paid tiers are ¥25/月, ¥30/月 and ¥360 永久. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: Not applicable: it drives the pan's own transfer, so the pan's cap applies. | source: [1]
+- retention: Not applicable: nothing is stored by the tool. | source: [1]
+- egress: No traffic of its own: transfers happen between the pan and the destination account, and downloads consume the pan's own quota. | metered: no | source: [1]
+- identity: card | detail: Licence bought by 支付宝 QR; the account is local to the app. The gate is payment plus a pan account, which is the +86 wall.
+- interface: cli
+- limits:
+  - write-gated (binding): batch 转存 needs the pan account's cookie, pasted into the app [1]
+  - request-rate: not published; the pan's own rate limit applies [1]
+- binding note: Nothing in this tool meters bytes; what gates it is the pan cookie it must hold, so the pan's identity wall is inherited and named here.
+- interface detail: Windows and macOS desktop application. Credentials are stored encrypted locally; there is no server-side API.
+- tooling: Desktop app for 夸克, 百度 and 迅雷: 批量转存, 批量重命名, 批量分享, 链接转换, 自动同步.
+- composes with: The automation layer for 代下 at scale: when the route is 'save the share, then retrieve', this is the tool that turns a thousand share links into a thousand saved files.
+- reliability: It stores pan cookies locally, so a pan that rotates its endpoints breaks the tool until it is updated - the same fragility as every cookie-driven client.
+- notes: Priced per month for a batch tool, which only pays off when many shares are moved. For a single 1 TiB pull it is pure overhead.
+- evidence note: All three prices and the feature matrix were read off the vendor page. No transfer was run.
+- self hosted: yes
+- extras:
+  - pans: 夸克; 百度; 迅雷
+- evidence:
+  - [1] 2026-10-23: VIP1 ¥25/月, VIP2 ¥30/月, 专业版永久 ¥360; '夸克 / 百度 / 迅雷三大网盘'; 批量转存/重命名/分享/链接转换/自动同步; 支付宝付款
+- sources:
+  - [1] https://app.neopan.cn/pricing
+
+## pyLoad
+
+- `debrid/pyload` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding write-gated | category open-source download manager with a web UI, JSON API and Thrift backend | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T01:52:41.420Z (live) | stale on 2026-11-23
+- url https://github.com/pyload/pyload | page https://fshy.ajam.dev/p/github-pyload.md
+- price USD 0
+- free tier: 'pyLoad is a lightweight, pure-Python download manager with a modern web UI and rich plugin ecosystem. It automates downloads from one-click hosters, cloud drives, and many other sources; supports premium accounts, captcha-solving services, and link decryption; and can run headless on servers, NAS devices, or desktops.' Free software, no vendor service and no hosted tier. | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1] | note: Installed with 'pip install --pre pyload-ng[all]' and started with 'pyload'; the web UI listens on localhost:8000.
+- per-object cap: not applicable to the software: the cap is the target host's. Downloads are written to ~/Downloads/pyLoad by default. | source: [1]
+- retention: not applicable: local files in the pyload storage directory until the operator deletes them. | source: [1]
+- egress: No service egress: the instance downloads from the host to the machine it runs on. | metered: no | free allowance: none: no service-side bytes | source: [1]
+- identity: anonymous | detail: The software itself needs no identity. A public instance needs whatever its operator issued: the default is pyload/pyload, and the project tells operators to change it. No public instance that accepts anonymous links was found.
+- interface: rest, cli
+- limits:
+  - write-gated (binding): every API call needs a session from /api/login; the shipped default is user 'pyload' and password 'pyload' and the project says to change it [1]
+  - request-rate: no published rate limit; a public instance applies its own captcha and per-user limits [2]
+- limits note: The wiki still documents the pre-2.0 API ('python pyLoadCore.py', Thrift 7227); the README documents pyload-ng (Python 3.9+). The two describe different generations of the same project.
+- binding note: The first thing that fails is authentication: there is no anonymous add-link path. The API doc opens with 'First you need to authenticate', and the public instance found today serves a login form with a captcha before any package can be added.
+- interface detail: Web UI plus a JSON-over-HTTP API: POST username and password to /api/login returns a session id, then /api/<methodName> for every method in the Api docs. A Thrift RPC backend listens on port 7227. Click'n'Load is supported through a plugin that needs node.js or a JS engine.
+- endpoint: http://<instance>:8000/api/login
+- tooling: pyload-ng on PyPI; LinuxServer.io and QuickBox container images; third-party Android clients over the JSON API. A public instance is reachable with any HTTP client, so the wrapper is trivial once credentials exist.
+- composes with: The instance is the downloader and the storage at once, so it only helps a client that can rent a machine to run it. Paired with a free VM it turns a link list into files on that VM's disk.
+- reliability: Public instances are single-operator hobby servers: the one probed (pyload.dnshome.eu) was live but login-walled with a captcha, so a wrapper cannot add a link without credentials. The legacy pyload.net site still documents Python 2.5-2.7, which is not what the current 2.x code runs.
+- notes: Answers the requirements's pyLoad question: the default login is pyload/pyload; an anonymous user cannot add a link, because both the JSON API and the web UI require a session; and the instance's own quota is not readable without an account - the login page publishes no limit, and the limit is whatever its operator configured. The public instance probed was not logged into.
+- evidence note: README, API wiki and a live public instance were read. Raising it to measured needs an authenticated addPackage call on a real instance, which needs credentials on 2026-10-23 does not have.
+- self hosted: yes
+- extras:
+  - default_login: pyload / pyload
+  - anonymous_add: no
+  - public_instances_found: pyload.dnshome.eu (live, login + captcha); the LinuxServer/QuickBox docs describe the same default credentials on private installs
+  - probe_record: scratch (removed)
+  - probe_records: scratch (removed)
+  - saved_body: scratch (removed)
+- evidence:
+  - [1] 2026-10-23: 'Default username: pyload.' and 'Default password: pyload.'; web UI at localhost:8000; pip install pyload-ng; Python 3.9+
+  - [3] 2026-10-23: authentication is mandatory: POST username/password to /api/login, then call /api/<methodName>; Thrift backend on port 7227
+  - [4] 2026-10-23: the legacy project home still says 'You need at least Python 2.5 or at most Python 2.7', i.e. it describes the abandoned branch
+  - probe:https://pyload.dnshome.eu/login 2026-10-23: a public pyLoad instance is live but gated: HTTP 200, 14235 bytes, challenge login-wall:login. Two requests returned the same byte count with different digests (beb894a20f68df43... at 01:47, c5e8da325f5d00ae... at 02:02), so the digest is per-response; the saved body contains 'Captcha waiting', 'Username' and 'Password'.
+- sources:
+  - [1] https://github.com/pyload/pyload
+  - [2] https://pyload.dnshome.eu/login
+  - [3] https://github.com/pyload/pyload/wiki/How-to-access-the-API
+  - [4] https://pyload.net/
+
+## rclone - premiumizeme backend
+
+- `debrid/rclone-premiumizeme` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding none | category client: mount and sync (rclone backend) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T01:51:00.000Z (live) | stale on 2026-11-23
+- url https://rclone.org/premiumizeme/ | page https://fshy.ajam.dev/p/rclone.md
+- price USD 0 for the caller; the storage behind it is EUR 9.99/month | parsed USD 11.18/mo
+- free tier: Free software with no account and no quota of its own; transfer is metered by the underlying debrid account. The backend was added in v1.49 and carries Tier 3 in rclone's support table. | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable to the caller; the object cap is the debrid account's. | source: [1]
+- retention: not applicable: a mount reflects the remote's contents live. | source: [1]
+- egress: rclone does not meter or bill; it reads through the debrid account and therefore spends that account's fair-use budget. | metered: no | free allowance: none of its own | source: [1]
+- identity: anonymous | detail: No registration with rclone; it inherits the debrid account's identity. Installing it needs no account at all. | country: None
+- interface: rclone, webdav
+- limits:
+  - request-rate: none published by rclone; the upstream Premiumize rate limit is unpublished and surfaces as a 200-with-rate_limit_reached envelope the backend must interpret [1]
+- limits note: Read-only: no upload path exists in this backend, so a workflow that writes into debrid cloud cannot use it.
+- binding note: The client imposes nothing; at 1 TiB/month the binding constraint is the Premiumize fair-use meter, not the mount.
+- interface detail: Configured with 'rclone config' -> 'premiumizeme'; authentication is an interactive OAuth token in a browser, not the raw API key, so a headless box needs the token copied in. The backend is read-only.
+- endpoint: https://www.premiumize.me/api
+- tooling: rclone itself, plus anything that speaks to an rclone mount: Plex, Jellyfin, Emby, restic, rsync over the mount.
+- composes with: This is the only direct, first-party path from a plain Unix command to any of the eight services: 'rclone mount premiumizeme:' and published records has a filesystem, with no zurg, no shim and no container.
+- reliability: A mount is only as stable as the upstream API; a Premiumize throttle comes back as a success-shaped JSON envelope and shows up as a stalled read rather than an error.
+- notes: Named as a separate record because 'which debrid service has an rclone backend' is a question six of the eight answer 'none' and one answers 'yes'. Trigger condition: a real-debrid or torbox backend landing in rclone makes this record a comparison, not a singleton.
+- evidence note: The backend page and the backend table were read. Nothing was mounted, so the throughput claim is absent rather than estimated.
+- self hosted: yes
+- extras:
+  - backend_status: Tier 3 in rclone's own table, which is the lowest support tier for a backend
+  - write_support: none: read-only backend
+  - alternative_route: TorBox publishes a first-party WebDAV endpoint (https://webdav.torbox.app), which rclone can mount as a generic WebDAV remote with no backend at all
+  - shim_route: Real-Debrid reaches rclone only through zurg's WebDAV, which is a separate binary and a separate record
+- evidence:
+  - [1] 2026-10-23: 'added in v1.49', Tier 3, and the browser OAuth configuration flow for the premiumizeme backend
+  - [2] 2026-10-23: the full backend table lists premiumizeme as read-only ('R') and lists no other debrid service
+- sources:
+  - [1] https://rclone.org/premiumizeme/
+  - [2] https://rclone.org/overview/
+
+## Teldrive
+
+- `debrid/teldrive` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding per-object-cap | category software (Telegram-backed drive, self-hosted) | tier self-hosted
+- needs card no, phone yes, ID no, institution no | verified 2026-10-23T01:52:23.000Z (live) | stale on 2026-11-23
+- url https://github.com/tgdrive/teldrive | page https://fshy.ajam.dev/p/github-tgdrive.md
+- free tier: No fee. 'Teldrive requires PostgreSQL and a Telegram account.' The bytes go into the account's own Telegram channels; the software is MIT-licensed. | unit: unlimited | metered on: stored-bytes | read on: 2026-10-23 | source: [1] | note: 'unlimited' is Telegram's own claim about the account, not Teldrive's about itself
+- per-object cap: Inherits Telegram's per-object ceiling: 2 GB on a free account, 4 GB with Premium. | source: [2] | note: Teldrive states no cap of its own
+- retention: As long as the Telegram account and the channel survive. The project warns: 'Accounts and stored files can become unavailable; keep independent backups.' | source: [1]
+- egress: Telegram's own terms; downloads come from Telegram's media DCs, at the speed a free account is allowed. | metered: no | free allowance: no allowance published | source: [2]
+- identity: any-phone | detail: A Telegram account plus api_id/api_hash, and a PostgreSQL instance that must be run. This is software, not a hosted service.
+- interface: rest, rclone, cli
+- limits:
+  - per-object-cap (binding): 2 GB free / 4 GB Premium, governed by Telegram [2]
+  - request-rate: Telegram flood control applies to the account Teldrive drives [3]
+- binding note: Teldrive cannot change the object ceiling; it only hides it. At 1 TiB/month the 2 GB cap still splits every large object, and the account's upload flood limits (FLOOD_PREMIUM_WAIT_X on a non-Premium account) shape the rate.
+- interface detail: 'Telegram-backed file storage with a web interface, an HTTP API, and rclone integration.' Login is by Telegram account, and channels are synced from the UI.
+- tooling: Linux/Windows binaries, Nix, Docker or Podman; a maintained rclone fork (tgdrive/rclone) supplies the backend. PostgreSQL is mandatory.
+- composes with: Turns a set of Telegram channels into one mounted filesystem, which is the only way to make the per-object cap stop being the unit of work: the user sees files, the backend shards them.
+- reliability: The project ships its own warning: 'Follow Telegram's terms and API limits. Accounts and stored files can become unavailable; keep independent backups.' A ban takes the whole drive with it.
+- notes: This is software that must be run locally, unlike every bot among debrid providers. It is included because it is the only maintained path that presents Telegram as a filesystem, and because the free compute tier can host it; abandon if the PostgreSQL requirement or the rclone fork stops being maintained.
+- evidence note: Requirements and the data-safety sentence are from the repository read. No instance was deployed, so the effective throughput is unmeasured.
+- self hosted: yes
+- evidence:
+  - [1] 2026-10-23: 'Teldrive requires PostgreSQL and a Telegram account.' and 'Telegram-backed file storage with a web interface, an HTTP API, and rclone integration.'
+  - [1] 2026-10-23: 'Follow Telegram's terms and API limits. Accounts and stored files can become unavailable; keep independent backups.'
+  - [4] 2026-10-23: 'organize your Telegram files and unlock their full potential as cloud storage' with an rclone mount and optional encryption
+- sources:
+  - [1] https://github.com/tgdrive/teldrive
+  - [2] https://telegram.org/faq
+  - [3] https://core.telegram.org/api/errors
+  - [4] https://teldrive-docs.pages.dev/docs/
+
+## Telegram Bot API server (self-hosted, --local mode)
+
+- `debrid/telegram-bot-api-local-server` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding per-object-cap | category bot API gateway (software, self-hosted) | tier self-hosted
+- needs card no, phone yes, ID no, institution no | verified 2026-10-23T01:52:23.000Z (live) | stale on 2026-11-23
+- url https://github.com/tdlib/telegram-bot-api | page https://fshy.ajam.dev/p/github-tdlib.md
+- free tier: No fee to Telegram. The cost is a host: the server must run somewhere with outbound internet. 'The only mandatory options are --api-id and --api-hash.' | unit: none | metered on: none | read on: 2026-10-23 | source: [1] | note: the account's own 2 GB free / 4 GB Premium per-file ceiling still applies to a user session; this record is about the bot gateway
+- per-object cap: In local mode the server 'Upload[s] files up to 2000 MB' and 'Download[s] files without a size limit.' | source: [1] | note: '2000 MB' is the vendor's own wording; no byte-exact boundary is published
+- retention: Not applicable: a gateway. Bytes live in the chat they were sent to, not on the server. | source: [1]
+- egress: No separate charge from Telegram. The host's outbound bandwidth is the part that is metered, by whoever runs the host. | metered: no | free allowance: none published | source: [1]
+- identity: any-phone | detail: my.telegram.org issues api_id/api_hash to a Telegram account, and a Telegram account is registered to a phone number. No card and no email are required for the app registration.
+- interface: rest
+- limits:
+  - per-object-cap (binding): 2000 MB per upload in --local mode (50 MB on api.telegram.org) [1]
+  - write-gated: requires api_id and api_hash from my.telegram.org [1]
+- limits note: Download has no size limit in local mode; upload does. The asymmetry is the reason a mirror bot can pull a 2 GB file but still split anything above 2 GB.
+- binding note: At 1 TiB/month this still fails first: no object above 2000 MB can be sent, so the month is 512+ objects at best. Flood control is nowhere near binding (see telegram-uploadbot).
+- interface detail: HTTP JSON API. 'By default the Telegram Bot API server is launched on the port 8081, which can be changed using the option --http-port.' The server 'accepts only HTTP requests, so a TLS termination proxy needs to be used to handle remote HTTPS requests.'
+- endpoint: http://127.0.0.1:8081 (default --http-port)
+- tooling: Docker image or CMake build of tdlib/telegram-bot-api; any Bot API client library can be pointed at it. The state-of-the-art in-the-wild user is the Torrs bot, which runs the server to lift its own 50 MB ceiling.
+- composes with: Raises a bot from 50 MB per upload and 20 MB per download to 2000 MB and unlimited, so a 2 GB file in a channel becomes retrievable by a script; needs a VM plus a TLS proxy, which a free compute tier supplies.
+- reliability: One server per bot at a time: moving a bot requires logOut from api.telegram.org first, or updates are silently lost ('If the bot is logged in on more than one server simultaneously, there is no guarantee that it will receive all updates.').
+- notes: Abandon this if Telegram ships the local-mode upload cap below 2 GB, or if the 2000 MB figure disappears from the README without a replacement. This is software that must be run locally, not a hosted service; it is recorded because it is the only documented way to make a bot a 2 GB path, and because hosted leech bots visibly depend on it.
+- evidence note: The limit sentences are on the project README and the Bot API page, both read. A measured rung needs a 2 GB upload through a running instance; that was not done.
+- self hosted: yes
+- evidence:
+  - [1] 2026-10-23: 'To enable Bot API features not available at https://api.telegram.org, specify the option --local. In the local mode the Bot API server allows to: Download files without a size limit. Upload files up to 2000 MB.' and the mandatory --api-id/--api-hash sentence
+  - [1] 2026-10-23: 'If the bot is logged in on more than one server simultaneously, there is no guarantee that it will receive all updates.'
+  - [2] 2026-10-23: 'If you switch to a local Bot API server, your bot will be able to: Download files without a size limit. Upload files up to 2000 MB.' plus 'The majority of bots will be OK with the default configuration, running on our servers.'
+  - [3] 2026-10-23: 'Page not found' on 2026-10-23, and the Wayback capture 20250718224518 of the same URL is the same 'Page not found' - there is no limits page to cite, so flood numbers come from bots/faq and api/errors
+- sources:
+  - [1] https://github.com/tdlib/telegram-bot-api
+  - [2] https://core.telegram.org/bots/api
+  - [3] https://core.telegram.org/api/limits
+
+## Telegram Drive (desktop, caamer20)
+
+- `debrid/telegram-drive-desktop-caamer20` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding per-object-cap | category software (Telegram-backed drive, local-first desktop app) | tier free
+- needs card no, phone yes, ID no, institution no | verified 2026-10-23T01:52:23.000Z (live) | stale on 2026-11-23
+- url https://telegram-drive.com/ | page https://fshy.ajam.dev/p/telegram-drive.md
+- free tier: 'Every feature is free. The optional $5 license only removes sponsor placements.' Files live in the account's Saved Messages and channels; there is no separate storage account. | unit: unlimited | metered on: stored-bytes | read on: 2026-10-23 | source: [1] | note: again, 'unlimited' is Telegram's account claim
+- per-object cap: 'The application caps a Telegram object at exactly 2,000,000,000 bytes.' and 'Files over 2 GB are skipped and logged.' | bytes: 2000000000 | source: [2] | note: 2,000,000,000 is the app's own hard cap, below Telegram's stated 2 GB
+- retention: Until deleted from the account. The site answers the storage question with 'No. Storage and file handling follow Telegram's account, service, and per-file limits.' | source: [1]
+- egress: Telegram's; the app streams from Telegram's media DCs and keeps only caches locally. | metered: no | free allowance: no allowance published | source: [3]
+- identity: any-phone | detail: The account's own Telegram credentials; no account with the project.
+- interface: unknown
+- limits:
+  - per-object-cap (binding): 2,000,000,000 bytes per object in the app [2]
+  - per-object-cap (binding): 2 GB per object at Telegram [3]
+- binding note: The app's own 2e9-byte cap is marginally stricter than Telegram's and is the one a user meets; neither leaves 1 TiB of monthly transfer with fewer than ~550 objects.
+- interface detail: A GUI application over MTProto (Rust/Tauri/Grammers per the repository); no public HTTP API or CLI is documented. Desktop folder sync is the automation surface.
+- tooling: Windows, macOS (Intel and Apple Silicon), Linux, Android and Google TV builds, released on GitHub.
+- composes with: A client-side drive over one Telegram account: no server, no database, and a hard 2e9-byte object cap, so it composes with a free compute tier only as a sync target.
+- reliability: The vendor's own warning: 'Telegram Drive should not be treated as literally unlimited storage or as the only backup of important data.' Files above 2 GB are skipped, not split.
+- notes: Software, not a hosted service. Abandon if the 2e9 cap or the free-everything claim changes; the $5 licence is cosmetic and does not gate a feature.
+- evidence note: Both the 2e9 cap and the skip behaviour are stated on the vendor's site and repository, read. No install was run.
+- self hosted: yes
+- evidence:
+  - [1] 2026-10-23: 'Every feature is free. The optional $5 license only removes sponsor placements.' and 'No. Storage and file handling follow Telegram's account, service, and per-file limits.'
+  - [1] 2026-10-23: 'Files over 2 GB are skipped and logged.' and 'Telegram-Drive currently limits a Telegram object to roughly 2 GB'
+  - [2] 2026-10-23: 'The application caps a Telegram object at exactly 2,000,000,000 bytes.' and 'Telegram Drive should not be treated as literally unlimited storage'
+- sources:
+  - [1] https://telegram-drive.com/
+  - [2] https://github.com/caamer20/Telegram-Drive
+  - [3] https://telegram.org/faq
+
+## Torrs (self-hosted torrent-to-Telegram bot)
+
+- `debrid/torrs` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding per-object-cap | category software (torrent to Telegram file, self-hosted) | tier self-hosted
+- needs card no, phone yes, ID no, institution no | verified 2026-10-23T01:52:23.000Z (live) | stale on 2026-11-23
+- url https://github.com/stxlvn/Torrs | page https://fshy.ajam.dev/p/github-stxlvn.md
+- free tier: No fee. A self-run bot: magnet, hash or .torrent in, selected files out into the chat. Requires a Telegram bot token and, for the full path, a local Bot API server. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: Files above 1.9 GB are split into 7-Zip volumes because 'the self-hosted Bot API server limit is 2 GB per file'. | source: [1] | note: 1.9 GB is the project's own safety margin under the 2 GB ceiling
+- retention: Whatever the chat keeps; the project caches by Telegram file_id so a repeat request re-sends instead of re-downloading. | source: [1]
+- egress: Telegram's; the bot's host carries the swarm traffic and the upload. | metered: no | free allowance: no allowance published | source: [2]
+- identity: any-phone | detail: api_id/api_hash from my.telegram.org, hence a phone-registered Telegram account, plus a host to run TorrServer and the Bot API server.
+- interface: rest, cli
+- limits:
+  - per-object-cap (binding): 1.9 GB split threshold under the 2 GB local Bot API limit [1]
+  - per-object-cap (binding): 50 MB without a local Bot API server [1]
+- binding note: The project documents the sequence exactly: 50 MB without a local server, 2 GB with one, and a 1.9 GB split above that. Nothing about flood control appears, because at these object counts it does not bind.
+- interface detail: A Telegram chat in front of TorrServer, plus a CLI-style configuration; lossless FLAC needs a second, user-account (MTProto) session because the Bot API only accepts .mp3/.m4a audio.
+- tooling: Docker or source, TorrServer, and the tdlib Bot API server for the >50 MB path; 7-Zip is mandatory for objects above 1.9 GB.
+- composes with: The reference implementation of the whole lane: a torrent leeched on somebody else's VM, uploaded to Telegram through a local Bot API server, split at 1.9 GB, and re-sent by file_id on request.
+- reliability: A ban risk the project acknowledges in its own README; a self-run stack also means the Bot API server must be moved with logOut or updates are lost.
+- notes: Software, not hosted. It is the only source found that states the 50 MB -> 2 GB -> 1.9 GB-split chain in one place, which makes it the best independent confirmation of the platform caps among debrid providers. Abandon if the README's limit table changes.
+- evidence note: The 50 MB / 2 GB / 1.9 GB progression is stated in the project's README read. Nothing was built.
+- self hosted: yes
+- evidence:
+  - [1] 2026-10-23: 'files larger than 1.9 GB are automatically split into 7-Zip volumes (the self-hosted Bot API server limit is 2 GB per file)'
+  - [1] 2026-10-23: 'without it Telegram cuts file uploads to 50 MB, with it the limit is 2 GB'
+  - [1] 2026-10-23: for lossless FLAC a second Telegram account ('userbot', via MTProto) is used because the Bot API only accepts .mp3/.m4a for sendAudio
+- sources:
+  - [1] https://github.com/stxlvn/Torrs
+  - [2] https://telegram.org/faq
+
+## zurg (Debrid Media Manager webdav server)
+
+- `debrid/zurg` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding none | category client: WebDAV gateway over a debrid library | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T01:51:00.000Z (live) | stale on 2026-11-23
+- url https://github.com/debridmediamanager/zurg-public | page https://fshy.ajam.dev/p/github-debridmediamanager.md
+- price USD 0 for the gateway; the debrid account is separate
+- free tier: The server is a public release on GitHub and costs nothing; the debrid account behind it is the thing that costs. The stable release is Real-Debrid only: 'A self-hosted Real-Debrid webdav server written from scratch.' Nightlies add backends 'beyond Real-Debrid (TorBox, AllDebrid and Usenet)' and need an active sponsorship. | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable to the gateway; the source account's cap applies. | source: [1]
+- retention: not applicable: the WebDAV tree is a live view of the torrent library. | source: [1]
+- egress: No meter of its own; it spends the debrid account's unmetered premium traffic. | metered: no | free allowance: none of its own | source: [1]
+- identity: anonymous | detail: No account with the project; it needs a debrid API token, which it stores in config.yml. | country: None
+- interface: webdav-proxy, rclone, rest
+- limits:
+  - request-rate: paces itself to the upstream budget: api_rate_limit_per_minute 250 and torrents_rate_limit_per_minute 75 by default [2]
+  - request-rate: paces torrent adds to a 20-second floor it discovered by measurement, because Real-Debrid refuses closer adds [2]
+- limits note: The gateway's own throttle exists because the upstream's limit is not the documented one: zurg had to add an add-pacing floor and a repair subsystem for links that stop working while the torrent still reports healthy.
+- binding note: A pure client: at 1 TiB/month nothing in zurg fails first, the upstream add floor does. Listed as 'none' because that floor is Real-Debrid's and is recorded there.
+- interface detail: Serves the torrent library over WebDAV on localhost:9999 by default, with a per-provider API under /api/providers/realdebrid/ (including /test). rclone mounts the WebDAV; Infuse can read it directly.
+- endpoint: http://localhost:9999/
+- tooling: Ships a bundle with config.yml, docker-compose.yml, rclone.conf and Plex update scripts; 'rclone and ffprobe are automatically downloaded on first run if not already installed'. Docker image ghcr.io/debridmediamanager/zurg-testing.
+- composes with: The bridge that turned debrid into a filesystem for Plex: zurg exposes RD as WebDAV, rclone mounts it, Plex or Jellyfin scans it, and no download ever lands on local disk.
+- reliability: The stable line is Real-Debrid only; every other backend is a sponsors-only nightly, so a user on the stable release cannot point it at TorBox or AllDebrid at all.
+- notes: Included because it is the de facto answer to 'how does a script get a Real-Debrid library onto a disk without downloading it twice'. Trigger condition: a stable multi-provider release moves this from caveat to plain qualifies.
+- evidence note: Repository README and the project's own provider notes were read. Nothing was run: the throughput and mount behaviour are untested here.
+- self hosted: yes
+- extras:
+  - providers_stable: real-debrid
+  - providers_nightly: torbox, alldebrid, usenet
+  - config_keys: api_rate_limit_per_minute, torrents_rate_limit_per_minute, api_timeout_secs, download_timeout_secs, retries_until_failed, retry_503_errors, fetch_torrents_page_size
+- evidence:
+  - [1] 2026-10-23: 'A self-hosted Real-Debrid webdav server written from scratch', the rclone+Plex purpose, the requirements (RD account and API token), and that nightlies add 'TorBox, AllDebrid and Usenet' behind sponsorship
+  - [2] 2026-10-23: the 20-second add floor and the 250/75 per-minute pacing defaults, plus the repair subsystem's reason for existing
+  - [3] 2026-10-23: 'api_rate_limit_per_minute: 250' and 'torrents_rate_limit_per_minute: 75' as documented configuration keys
+- sources:
+  - [1] https://github.com/debridmediamanager/zurg-public
+  - [2] https://notes.debridmediamanager.com/providers/realdebrid/
+  - [3] https://github.com/debridmediamanager/zurg-public/wiki/Config
+
+## alldebridbot (self-hosted AllDebrid Telegram bot)
+
+- `debrid/telegram-alldebrid-bot-bildcraft1` | self-hosted, last resort | verdict paid-only | evidence documented | binding none | category software (Telegram bot for an AllDebrid account, self-hosted) | tier self-hosted
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T07:37:11.869Z (live) | stale on 2026-12-04
+- url https://github.com/bildcraft1/alldebridbot | page https://fshy.ajam.dev/p/github-bildcraft1.md
+- free tier: No fee for the software; it has no allowance of its own. It needs an AllDebrid premium account's API key and a Telegram bot token. | unit: none | metered on: none | read on: 2026-11-03 | source: [1]
+- per-object cap: Not published by the software; the cap is the underlying account's and Telegram's. | source: [1]
+- retention: Not stated by the software; the debrid service keeps or drops the item. | source: [1]
+- egress: The bot hands back the debrid service's links or uploads through the Telegram bot token's route; the underlying account carries the traffic. | metered: no | source: [1]
+- identity: card | detail: 'An AllDebrid premium account (For the API Key, you can get it from AllDebrid Options)', a Telegram bot token and a Telegram App ID and Hash are required.
+- interface: unknown
+- limits note: The software publishes no limit of its own.
+- binding note: Nothing in the software binds; the account behind the key sets every wall.
+- interface detail: A private Telegram chat in front of a debrid account's API.
+- tooling: The user installs and runs the Python 3.6+ bot on a rented or free machine with a Telegram bot token, a Telegram App ID and Hash, and an AllDebrid API key.
+- composes with: A user-run front end for an AllDebrid premium account; it adds a Telegram control surface and no capacity. Hosted bots such as debrid/telegram-torbox-bot and debrid/telegram-deepbrid-bot come first.
+- reliability: Software that the user runs; it needs its own host. Every wall belongs to the AllDebrid account behind the key.
+- notes: Last-resort option: a hosted debrid or a hosted bot comes first. The verdict is paid-only because the README requires an AllDebrid premium account.
+- evidence note: Only the README was read. Nothing was built or run.
+- self hosted: yes
+- evidence:
+  - [1] 2026-11-03: the software is a Telegram front end for AllDebrid | capture: sha256:e8977a03fb8a898996f9bc65fdac6ca2ec97136265b596127b657e35a0238ade | quote: This is a Telegram bot that allows you to download files from AllDebrid.
+  - [1] 2026-11-03: a premium AllDebrid account is required | capture: sha256:e8977a03fb8a898996f9bc65fdac6ca2ec97136265b596127b657e35a0238ade | quote: * An AllDebrid premium account (For the API Key, you can get it from AllDebrid Options)
+  - [2] 2026-11-03: the awesome-debrid list names it under Telegram bots | capture: sha256:63355436304bdf906d541375e56554a21bdb3840ad1bec25394250601f96fb47 | quote: - alldebridBot - (3★) AD
+- sources:
+  - [1] https://github.com/bildcraft1/alldebridbot
+  - [2] https://github.com/debridmediamanager/awesome-debrid

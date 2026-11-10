@@ -1,0 +1,84 @@
+# Earnings Feed
+
+> earningsfeed.com | Data APIs; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/earningsfeed/ | JSON https://fshy.ajam.dev/api/v1/entity/earningsfeed.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Earnings Feed
+
+- `data-apis/earnings-feed` | qualifies-with-caveat | evidence documented | binding request-rate | category SEC EDGAR filings API (filings, insider transactions, 13F holdings, company profiles) | tier Free
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T00:23:43.773Z (live) | stale on 2026-12-03
+- url https://earningsfeed.com/pricing
+- free tier: Free plan USD 0 forever: API access to every endpoint at 15 requests per minute and 5,000 requests per UTC calendar month, a hard cap; plus the SEC filings feed, a 5-company watchlist, 2 alert subscriptions and 10 full-text searches a day. | unit: requests | metered on: request-count | read on: 2026-11-02 | source: [1] | note: The monthly allowance is account-wide across API keys, the interactive docs and the MCP server, and resets at the start of each UTC calendar month. The six documented endpoints are the filings feed, filing detail by accession number, insider transactions (Forms 3, 4 and 5), institutional holdings (13F), company profile by CIK and company search. Forms kept: 8-K, 10-K, 10-Q, 6-K, S-1, 10-D, Forms 3, 4 and 5, Schedules 13D and 13G, 13F and Form 144; EDGAR is checked every minute. The next plan up is Pro at USD 10 a month billed annually (USD 15 monthly) with 60 requests a minute and 250,000 a month.
+- per-object cap: 100 items per page at most (limit 1-100, default 25), paged with an opaque cursor | source: [2]
+- retention: not applicable | source: [3]
+- egress: not metered in bytes; the 5,000 requests a month bound what a free key can pull | metered: no | source: [3]
+- identity: email | detail: The sign-up page is labelled free forever, no credit card, and takes a first name, a last name, an email and a password of at least 8 characters under its or-use-email option; an optional field asks where the user heard about the service.
+- interface: rest
+- limits:
+  - request-rate (binding): 15 requests per minute on the Free plan [4]
+  - request-rate (binding): 5,000 requests per UTC calendar month on the Free plan, a hard cap [4]
+  - per-object-cap: 100 items per page at most (limit 1-100) [2]
+- limits note: Interactive docs tokens keep a fixed limit of 10 requests per minute on every plan. Bulk path: none; list endpoints page 100 items per call with a cursor.
+- binding note: The 5,000 requests a month hard cap is met long before the 15 per minute rate could be.
+- interface detail: GET https://earningsfeed.com/api/v1/{endpoint} with Authorization: Bearer <key>; JSON, cursor-paginated, with an OpenAPI 3.1 spec at /api/v1/openapi.json. An MCP server at https://earningsfeed.com/api/mcp signs in with OAuth on Free, Pro and Trader accounts and shares the same allowance.
+- endpoint: https://earningsfeed.com/api/v1/filings
+- tooling: any HTTP client; official Python (earningsfeed) and Node.js (earningsfeed) SDKs; an MCP server
+- composes with: SEC filings, insider trades and 13F holdings under a hard 5,000-requests-a-month cap, so a free stack uses it for filing lookups and takes prices from a quote feed such as Finnhub or Alpha Vantage.
+- reliability: A minute throttle answers HTTP 429 with code RATE_LIMITED and Retry-After; a spent month answers 429 with code MONTHLY_QUOTA_EXCEEDED, which should not be retried before the UTC reset; a keyless call answered HTTP 401 UNAUTHORIZED.
+- notes: The Free plan reaches every endpoint; the binding limit is the 5,000-request monthly hard cap.
+- evidence note: Limits, plan features and endpoints are read from the first-party pricing, API, FAQ and OpenAPI pages, and a keyless call answered HTTP 401. A free key was not exercised, so the live answer on a spent month is unverified: behind a sign-up.
+- evidence:
+  - [1] 2026-11-02: the Free plan is USD 0 a month, forever | capture: sha256:4541abf1d6cfc3c5df4777c5b7b3d0cd6d4fa20f4d2b02c631f72df19a9f8a80 | quote: ## Free For individual investors $0/mo forever
+  - [1] 2026-11-02: the Free plan includes API access at 15 requests per minute and 5,000 a month | capture: sha256:4541abf1d6cfc3c5df4777c5b7b3d0cd6d4fa20f4d2b02c631f72df19a9f8a80 | quote: - API access (15 req/min · 5,000/mo)
+  - [1] 2026-11-02: the plan table gives Free 15 a minute and 5K a month against 60 and 250K on Pro | capture: sha256:4541abf1d6cfc3c5df4777c5b7b3d0cd6d4fa20f4d2b02c631f72df19a9f8a80 | quote: | API access | 15/min5K/mo | 60/min250K/mo | 300/min2M/mo |
+  - [1] 2026-11-02: the Free plan watchlist holds 5 companies | capture: sha256:4541abf1d6cfc3c5df4777c5b7b3d0cd6d4fa20f4d2b02c631f72df19a9f8a80 | quote: | Company watchlists | 5 | Unlimited | Unlimited |
+  - [1] 2026-11-02: the Free plan has 2 alert subscriptions | capture: sha256:4541abf1d6cfc3c5df4777c5b7b3d0cd6d4fa20f4d2b02c631f72df19a9f8a80 | quote: | Alert subscriptions | 2 | 50 | 250 |
+  - [1] 2026-11-02: the Free plan allows 10 full-text searches a day | capture: sha256:4541abf1d6cfc3c5df4777c5b7b3d0cd6d4fa20f4d2b02c631f72df19a9f8a80 | quote: | Full-text web search | 10/day | No daily quota | No daily quota |
+  - [1] 2026-11-02: the Free sign-up needs no credit card | capture: sha256:4541abf1d6cfc3c5df4777c5b7b3d0cd6d4fa20f4d2b02c631f72df19a9f8a80 | quote: No credit card required
+  - [3] 2026-11-02: the Free plan is 15 per minute and 5,000 per month at USD 0 | capture: sha256:7040cf48a4d87f6bc19721ea73a668d42a3d1b3662469c9e99d6fe0c20507d25 | quote: | Free | 15 | 5,000 | $0 |
+  - [3] 2026-11-02: every plan includes every endpoint and monthly limits are hard caps resetting each UTC month | capture: sha256:7040cf48a4d87f6bc19721ea73a668d42a3d1b3662469c9e99d6fe0c20507d25 | quote: Every plan includes every endpoint. Monthly limits are hard caps and reset at the start of each UTC calendar month.
+  - [3] 2026-11-02: the API documents six endpoints | capture: sha256:7040cf48a4d87f6bc19721ea73a668d42a3d1b3662469c9e99d6fe0c20507d25 | quote: 6 endpoints
+  - [3] 2026-11-02: the filings endpoint is open to all plans | capture: sha256:7040cf48a4d87f6bc19721ea73a668d42a3d1b3662469c9e99d6fe0c20507d25 | quote: | `GET` | `/api/v1/filings` | Paginated feed of SEC filings with filters | All plans |
+  - [3] 2026-11-02: the institutional holdings endpoint is open to all plans | capture: sha256:7040cf48a4d87f6bc19721ea73a668d42a3d1b3662469c9e99d6fe0c20507d25 | quote: | `GET` | `/api/v1/institutional/holdings` | Institutional holdings from 13F filings | All plans |
+  - [3] 2026-11-02: results are paged with a cursor | capture: sha256:7040cf48a4d87f6bc19721ea73a668d42a3d1b3662469c9e99d6fe0c20507d25 | quote: Page through results with the cursor
+  - [3] 2026-11-02: the API authenticates with a bearer token in the Authorization header | capture: sha256:7040cf48a4d87f6bc19721ea73a668d42a3d1b3662469c9e99d6fe0c20507d25 | quote: Bearer token via Authorization header. Generate keys instantly from your dashboard.
+  - [3] 2026-11-02: the forms kept in the API | capture: sha256:7040cf48a4d87f6bc19721ea73a668d42a3d1b3662469c9e99d6fe0c20507d25 | quote: Earnings Feed keeps these SEC forms: 8-K, 10-K, 10-Q, 6-K, S-1, 10-D, insider Forms 3, 4 and 5, Schedules 13D and 13G, 13F and Form 144, with their amendments.
+  - [3] 2026-11-02: EDGAR is checked every minute | capture: sha256:7040cf48a4d87f6bc19721ea73a668d42a3d1b3662469c9e99d6fe0c20507d25 | quote: We check EDGAR every minute.
+  - [4] 2026-11-02: Free accounts include 15 requests per minute and 5,000 requests per UTC calendar month | capture: sha256:2e3aacccd53bc83feef1e89e7cbc29b7f81e0b919da1f75b1fac508c8f4bf97e | quote: Free accounts include 15 requests per minute and 5,000 requests per UTC calendar month.
+  - [4] 2026-11-02: monthly allowances are hard caps on Free | capture: sha256:2e3aacccd53bc83feef1e89e7cbc29b7f81e0b919da1f75b1fac508c8f4bf97e | quote: Monthly allowances are hard caps on Free, Pro, and Trader.
+  - [4] 2026-11-02: interactive docs tokens keep a fixed 10 per minute limit | capture: sha256:2e3aacccd53bc83feef1e89e7cbc29b7f81e0b919da1f75b1fac508c8f4bf97e | quote: interactive docs tokens retain a fixed 10/minute limit
+  - [4] 2026-11-02: the monthly quota is account-wide across API keys, interactive docs and MCP | capture: sha256:2e3aacccd53bc83feef1e89e7cbc29b7f81e0b919da1f75b1fac508c8f4bf97e | quote: The monthly quota is account-wide across API keys, interactive docs, and MCP.
+  - [5] 2026-11-02: monthly limits are hard caps that reset at the start of each UTC calendar month | capture: sha256:5b4a9edfd273cbea1bd8781ef4779e5ab1e89da89046eff9a107c5db9c324133 | quote: Monthly limits are hard caps and reset at the start of each UTC calendar month.
+  - [5] 2026-11-02: Pro is USD 10 a month billed annually and USD 15 monthly | capture: sha256:5b4a9edfd273cbea1bd8781ef4779e5ab1e89da89046eff9a107c5db9c324133 | quote: Pro ($10/mo billed annually, $15/mo monthly) unlocks email alerts within minutes of a filing
+  - [5] 2026-11-02: the MCP server signs in with OAuth on Free, Pro and Trader accounts | capture: sha256:5b4a9edfd273cbea1bd8781ef4779e5ab1e89da89046eff9a107c5db9c324133 | quote: It uses OAuth authentication and is available on Free, Pro, and Trader accounts.
+  - [6] 2026-11-02: the MCP server URL | capture: sha256:9d3a7aa6d87d8618592fb23ef9815fdc7923682cbfa39d217685ce21d492a3a5 | quote: https://earningsfeed.com/api/mcp
+  - [7] 2026-11-02: the sign-up page is free forever with no credit card | capture: sha256:bc9cf04b886b8bbab0a97bda02a54043e5160d8919897fef59a5bb5af82b9c72 | quote: Free forever, no credit card.
+  - [7] 2026-11-02: the sign-up form takes a first name, a last name, an email and a password of at least 8 characters | capture: sha256:bc9cf04b886b8bbab0a97bda02a54043e5160d8919897fef59a5bb5af82b9c72 | quote: First name Last name Email Password At least 8 characters.
+  - [7] 2026-11-02: the sign-up page offers an or-use-email form | capture: sha256:bc9cf04b886b8bbab0a97bda02a54043e5160d8919897fef59a5bb5af82b9c72 | quote: or use email
+  - [2] 2026-11-02: list endpoints take a limit of 1-100 items per page, default 25 | capture: sha256:feefa3647c6179e01c419c09afd5bcaca5d0ccaf081b4a1fb673c62511d0f8b4 | quote: Number of items per page (1-100, default 25)
+  - [2] 2026-11-02: every tier stops at its account-wide UTC monthly allowance, Free at 5,000 requests | capture: sha256:feefa3647c6179e01c419c09afd5bcaca5d0ccaf081b4a1fb673c62511d0f8b4 | quote: Every tier stops at its account-wide UTC monthly allowance: Free at 5,000 requests, Pro at 250,000, and Trader at
+  - [2] 2026-11-02: a minute throttle answers HTTP 429 with code RATE_LIMITED and Retry-After | capture: sha256:feefa3647c6179e01c419c09afd5bcaca5d0ccaf081b4a1fb673c62511d0f8b4 | quote: For a minute throttle, HTTP `429` uses code `RATE_LIMITED`, `X-RateLimit-Scope: minute`, and a `Retry-After`
+  - [2] 2026-11-02: a spent month answers 429 with code MONTHLY_QUOTA_EXCEEDED and monthly scope | capture: sha256:feefa3647c6179e01c419c09afd5bcaca5d0ccaf081b4a1fb673c62511d0f8b4 | quote: `MONTHLY_QUOTA_EXCEEDED`, `X-RateLimit-Scope: monthly`, reset timing, upgrade guidance, and an HTTP-date
+  - [2] 2026-11-02: the spec states that the key goes in the Authorization header as a bearer token | capture: sha256:feefa3647c6179e01c419c09afd5bcaca5d0ccaf081b4a1fb673c62511d0f8b4 | quote: Authorization: Bearer your_api_key
+  - [2] 2026-11-02: the API publishes an OpenAPI 3.1 document titled Earnings Feed API | capture: sha256:feefa3647c6179e01c419c09afd5bcaca5d0ccaf081b4a1fb673c62511d0f8b4 | quote: {"openapi":"3.1.0","info":{"title":"Earnings Feed API"
+  - [8] 2026-11-02: an official Python SDK exists | capture: sha256:4f5616a9fb3376f787e59b311cf99c0ddc2102e13a6e6146ab982c10f43a84ad | quote: Official Python client for the [Earnings Feed API](https://earningsfeed.com/api)
+  - [9] 2026-11-02: an official Node.js SDK exists | capture: sha256:8946e9b49ad2caeab242555fe194b4dbd590b49def84425f8499c26f2659fc2a | quote: Official Node.js client for the [Earnings Feed API](https://earningsfeed.com/api)
+  - [3] 2026-11-02: the filing detail endpoint is open to all plans | capture: sha256:7040cf48a4d87f6bc19721ea73a668d42a3d1b3662469c9e99d6fe0c20507d25 | quote: | `GET` | `/api/v1/filings/{accession}` | Single filing detail by accession number | All plans |
+  - [3] 2026-11-02: the insider transactions endpoint is open to all plans | capture: sha256:7040cf48a4d87f6bc19721ea73a668d42a3d1b3662469c9e99d6fe0c20507d25 | quote: | `GET` | `/api/v1/insider/transactions` | Insider trading transactions (Form 3/4/5) | All plans |
+  - [3] 2026-11-02: the company profile endpoint is open to all plans | capture: sha256:7040cf48a4d87f6bc19721ea73a668d42a3d1b3662469c9e99d6fe0c20507d25 | quote: | `GET` | `/api/v1/companies/{cik}` | Company profile by CIK | All plans |
+  - [3] 2026-11-02: the company search endpoint is open to all plans | capture: sha256:7040cf48a4d87f6bc19721ea73a668d42a3d1b3662469c9e99d6fe0c20507d25 | quote: | `GET` | `/api/v1/companies/search` | Search companies by name or ticker | All plans |
+  - [2] 2026-11-02: interactive documentation tokens keep a fixed limit of 10 requests per minute whatever the subscription tier | capture: sha256:feefa3647c6179e01c419c09afd5bcaca5d0ccaf081b4a1fb673c62511d0f8b4 | quote: fixed limit of 10 requests per minute, regardless of subscription tier
+  - probe:https://earningsfeed.com/api/v1/filings?ticker=AAPL&limit=1 2026-11-02: a keyless call to the API answers HTTP 401 | capture: sha256:ab146ed541fb379859ede20d82d9c54c835660dfc5c9188d079e2b9a6ed0914f | quote: "status": 401
+  - probe:https://earningsfeed.com/api/v1/filings?ticker=AAPL&limit=1 2026-11-02: the keyless 401 body asks for a bearer key and carries code UNAUTHORIZED | capture: sha256:4ad71f4dc0f42f29023078cb1eff7d3c91cdc81450fef8644e9f047b82192c07 | quote: {"error":"API key required. Include your key in the Authorization header as: Bearer <key>","code":"UNAUTHORIZED"}
+  - probe:https://earningsfeed.com/api/v1/openapi.json 2026-11-02: the OpenAPI document answers HTTP 200 with no key | capture: sha256:bc66b9a540c8f45f025f6dab51a414f68afe2fafcd8feb947a0c5ba67349c1f6 | quote: "status": 200
+- sources:
+  - [1] https://earningsfeed.com/pricing
+  - [2] https://earningsfeed.com/api/v1/openapi.json
+  - [3] https://earningsfeed.com/api
+  - [4] https://earningsfeed.com/api/docs
+  - [5] https://earningsfeed.com/faq
+  - [6] https://earningsfeed.com/mcp/docs
+  - [7] https://earningsfeed.com/sign-up
+  - [8] https://github.com/earningsfeed/earningsfeed-python
+  - [9] https://github.com/earningsfeed/earningsfeed-node

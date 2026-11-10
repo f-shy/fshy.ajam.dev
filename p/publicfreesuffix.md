@@ -1,0 +1,59 @@
+# Public Free Suffix
+
+> publicfreesuffix.org | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/publicfreesuffix/ | JSON https://fshy.ajam.dev/api/v1/entity/publicfreesuffix.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Public Free Suffix - SEUS Light Servers
+
+- `compute/seus-light-servers` | qualifies-with-caveat | evidence documented | binding write-gated | category NAT VPS | tier light server
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T06:31:00.000Z (live) | stale on 2026-11-24
+- url https://publicfreesuffix.org/blog/introducing-seus-light-servers/
+- free tier: Quoted from the announcement body: 'One shared vCPU, 512 MB of memory, and 5 GB of storage, enough for a blog, a practice mail server, a bot, or a small flock of containers', plus 'A real, static IPv6 address, with reverse DNS you can edit yourself in the console' and a choice of Debian, Ubuntu, Alpine and minimal images. The page's own meta description states '10 GB of storage' - the two figures on the same page disagree. | unit: GB | metered on: wall-clock | read on: 2026-10-24 | source: [1] | note: the page says 5 GB in its body and 10 GB in its meta description; 5 GB is used because it is the sentence a reader acts on, and the conflict is recorded rather than resolved
+- per-object cap: not applicable: the unit is a virtual machine, not an object
+- retention: 'Each month, a light server needs a small number of community points to renew. ... Miss a month because life happened, and nothing dramatic occurs. The server is paused, not deleted. Your disk and configuration wait for up to 60 days, and the moment your balance recovers, the same machine comes back exactly as you left it.' | days: 60 | source: [1] | note: paused, not deleted, for up to 60 days; renewal is monthly and automatic once the points balance is met
+- egress: not stated: no traffic volume, shaping tier or bandwidth figure appears in the announcement or on the project's home page | metered: no | free allowance: unstated | source: [1]
+- identity: email | detail: No card and no hold, stated plainly: 'Nobody will ever be asked for a payment method, because there is nothing to pay for.' The account is created on the SEUS community console and requires a GitHub account at least two years old: 'create an account and verify your GitHub account (at least two years old), same as for domains'. No phone and no document. The community membership is itself a gate: the points that renew the server are earned by posting.
+- interface: ssh
+- limits:
+  - retention-clamped: monthly renewal against a community-points balance; a missed month pauses the server for up to 60 days [1]
+  - write-gated (binding): the applicant must verify a GitHub account that is at least two years old [1]
+  - volume-quota: 512 MB RAM and 5 GB storage, one shared vCPU; no traffic allowance is stated [1]
+  - volume-quota: the first batch is small: 'The first batch is small; if the queue is full, it moves as boxes are released, so check back.' [1]
+- binding note: a GitHub account at least two years old plus a community-points balance renewed monthly is the gate, and the supply is a queue that was opened on 2026-10-22 and is explicitly small
+- interface detail: SSH over IPv6, plus a web console at s.eus for image choice, reinstall and reverse DNS. Quoted: 'Reinstall from the same page whenever you break something'. No IPv4 at all.
+- tooling: any SSH client, but it must reach IPv6: the announcement says 'for SSH, connect from a network with IPv6 or through a tunnel'
+- composes with: a free always-on IPv6 box with 512 MB and a static address with editable rDNS, which suits a health monitor or an IPv6-only service; it cannot be a WireGuard endpoint without IPv6
+- reliability: no reliability event observed; the project states the machines are 'small and shared' and that 'A noisy neighbor can slow your disk', and asks that nothing be run that 'must never go down'
+- notes: S.EUS community servers provide free container instances with 5 GB to 10 GB storage. Ongoing access requires monthly community project updates.
+- evidence note: shape, the IPv6-only design, the renewal mechanic, the pause window and the GitHub gate are all quoted from the project's own announcement read; the s.eus console itself returned a marketing page rather than a form, so the request flow was not read
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 0.5
+  - shape.disk_gib: 5
+  - billing_model: free
+  - term: monthly, renewed with community points
+  - m10h_usd: 0.0
+  - m24h_usd: 0.0
+  - price_arithmetic: no price: 'Nobody will ever be asked for a payment method, because there is nothing to pay for.'
+  - free_tier_kind: renewable-free
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: IPv6 only, any port; no IPv4
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: monthly renewal; paused rather than deleted for up to 60 days on a missed month
+  - storage_discrepancy: 5 GB in the announcement body, 10 GB in the same page's meta description
+  - renewal_currency: community points earned by posting a build log tagged #PFS, answering a DNS question, or writing up a config; 'roughly one decent post or a handful of helpful replies a month'
+  - queue_state: requests opened 2026-10-22; 'The first batch is small; if the queue is full, it moves as boxes are released'
+- evidence:
+  - [1] 2026-10-24: quoted: 'One shared vCPU, 512 MB of memory, and 5 GB of storage, enough for a blog, a practice mail server, a bot, or a small flock of containers'
+  - [1] 2026-10-24: quoted: 'A real, static IPv6 address, with reverse DNS you can edit yourself in the console' and 'these machines are IPv6-only. There is no IPv4 address'
+  - [1] 2026-10-24: quoted: 'Miss a month because life happened, and nothing dramatic occurs. The server is paused, not deleted. Your disk and configuration wait for up to 60 days'
+  - [1] 2026-10-24: quoted: 'Nobody will ever be asked for a payment method, because there is nothing to pay for.' and 'create an account and verify your GitHub account (at least two years old), same as for domains'
+  - [1] 2026-10-24: quoted: 'Requests open October 22, 2026. The first batch is small; if the queue is full, it moves as boxes are released, so check back.'
+  - [2] 2026-10-24: quoted: 'Public Free Suffix is a non-profit free subdomain service with an education-first mission, built and run by the community since January 1, 2025.' and 'New: SEUS Light Servers are live. A free IPv6-only box of your own ... free forever, powered by community points.'
+- sources:
+  - [1] https://publicfreesuffix.org/blog/introducing-seus-light-servers/
+  - [2] https://publicfreesuffix.org/

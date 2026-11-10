@@ -1,0 +1,117 @@
+# Mysterium VPN
+
+> mysteriumvpn.com | Egress and tunnels, IP and proxies; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/mysteriumvpn/ | JSON https://fshy.ajam.dev/api/v1/entity/mysteriumvpn.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Mysterium VPN (Egress and tunnels)
+
+- `egress/mysterium-vpn` | paid-only | evidence documented | binding none | category tunnel (hosted): VPN with residential and data center exit addresses run by independent node operators | tier Plus, 2 years (Basic and Pro priced alongside)
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T10:11:45.490Z (live) | stale on 2026-12-05
+- url https://www.mysteriumvpn.com/vpn-pricing
+- price USD 54.94 billed every 2 years for Plus (USD 59.77 for Basic); a subscription price, not a per-TB price
+- free tier: No free plan. The pricing page shows, per 2-year term, Basic '$59.77', Plus '$54.94' and Pro '$93.37'; the monthly plan starts at '$12.99/mo' per the FAQ. A 1-year term is named in the page's term toggle ('Monthly1-Year2-Year') but its price is not in the page read: unverified: the 1-year price is behind the term toggle. | unit: none | metered on: none | read on: 2026-11-04 | source: [1] | note: The visible default term is 2 years; every plan card lists a 30-day money-back guarantee. Plus is the cheapest plan that lists '7,500+ residential IPs' and 10 devices.
+- per-object cap: not applicable | source: [1]
+- retention: not applicable: a tunnel, not stored bytes | source: [1]
+- egress: Unlimited data: 'Mysterium VPN is a subscription service with fixed monthly or yearly plans and unlimited data. You don't pay per GB.' The help center adds that the service has no service limitations, no data caps and no speed reductions, with fair-usage guidelines. | metered: no | free allowance: none: no free plan | source: [1]
+- identity: email | detail: An email address is the login and there is no password: 'MysteriumVPN does not use passwords for logging in, instead it requires an email address and access to the respective inboxes'; the magic link expires in 30 minutes. Payment: major cards, cryptocurrencies, in-app purchases, PayPal, Apple Pay and Google Pay.
+- interface: unknown
+- limits:
+  - volume-quota: none published: 'unlimited data. You don't pay per GB.' [1]
+  - per-ip-shaping: exits are home connections of independent node operators ('Our 7,500+ residential IPs come from independent node operators who explicitly agreed to take part'), so speed and availability depend on the node chosen [2]
+- limits note: Concurrent devices are capped by plan: 6 on Basic, 10 on Plus, 15 on Pro (help center); the vocabulary has no kind for it.
+- binding note: No byte quota or request rate is published; the decisive uncertainty is the class of the exit addresses, which is a vendor claim for the plans and is not a limit kind.
+- interface detail: A tunnel through apps (Windows, macOS, Linux, iOS, Android, browser extensions, routers). Protocols: WireGuard and OpenVPN (OpenVPN not on Android). UDP: the help center describes WireGuard as UDP-based and its OpenVPN option as TCP. Port forwarding: not offered ('Mysterium VPN doesn’t offer port forwarding'). SOCKS5: unverified: no page read states a SOCKS5 endpoint for the consumer VPN. Obfuscation: unverified: none is stated; OpenVPN over TCP is offered for restricted networks. BitTorrent: unverified: no first-party page read states a rule.
+- tooling: The vendor's apps; a login with an emailed magic link. No public API for the consumer VPN is documented in the pages read.
+- composes with: A tunnel whose exits are labelled residential (Plus and Pro) or data center (Basic) by the vendor; the upstream sees a node operator's address, so reachability and speed depend on the individual node.
+- reliability: Exits are home connections run by independent node operators, so a given node can go offline or slow; the vendor's help center says its OpenVPN option over TCP is the fallback where WireGuard (UDP) is blocked.
+- notes: Cheapest listed price: Plus at '$54.94 billed every 2 years' ('$2.29/MO'), Basic at '$59.77 billed every 2 years'. The 1-year price is unverified: the term toggle is not rendered in the page read. Residential claim: 7,500+ residential IPs on Plus and Pro, a vendor statement on the plan card and the residential page.
+- evidence note: Documented for price, protocols, UDP, port forwarding and sign-up. The residential claim is a vendor claim ('7,500+ residential IPs from real people in 100+ countries') and is not measured against an address registry. The 1-year price is unverified.
+- evidence:
+  - [1] 2026-11-04: Basic 2-year price. | capture: sha256:e6c640eda68c07a5230bb19b35d902076337d03dcb4303680b00488e999033a5 | quote: $59.77 billed every 2 years
+  - [1] 2026-11-04: The comparison table has no residential IPs for Basic and 7,500+ for Plus and Pro. | capture: sha256:e6c640eda68c07a5230bb19b35d902076337d03dcb4303680b00488e999033a5 | quote: Residential IPs - 7,500+ 7,500+
+  - [1] 2026-11-04: Basic's own description names data center IPs. | capture: sha256:e6c640eda68c07a5230bb19b35d902076337d03dcb4303680b00488e999033a5 | quote: Protect your core connection with rock-solid encryption and data center IPs.
+  - [1] 2026-11-04: Unlimited data, not per-GB. | capture: sha256:e6c640eda68c07a5230bb19b35d902076337d03dcb4303680b00488e999033a5 | quote: Mysterium VPN is a subscription service with fixed monthly or yearly plans and unlimited data. You don’t pay per GB.
+  - [2] 2026-11-04: The vendor's residential claim, as stated. | capture: sha256:a62548086e8ae02e3aa0059b28ee975bbd766b83847bc301a250184830997f90 | quote: 7,500+ residential IPs from real people in 100+ countries.
+  - [2] 2026-11-04: The vendor's registration claim for the residential IPs. | capture: sha256:a62548086e8ae02e3aa0059b28ee975bbd766b83847bc301a250184830997f90 | quote: Residential IPs are registered to real ISPs and real households, so they are less likely to appear in bot-detection databases as known VPN server ranges.
+  - [2] 2026-11-04: The residential exits are node operators' home connections. | capture: sha256:a62548086e8ae02e3aa0059b28ee975bbd766b83847bc301a250184830997f90 | quote: Our 7,500+ residential IPs come from independent node operators who explicitly agreed to take part.
+  - [3] 2026-11-04: Sign-up needs an email address; no password. | capture: sha256:9d79daa8e7cd86fdf10b498131f9217cea0b9a57beb316f9cb255b7e379df335 | quote: MysteriumVPN does not use passwords for logging in, instead it requires an email address and access to the respective inboxes for a verification purposes.
+  - [4] 2026-11-04: Protocols: WireGuard and OpenVPN. | capture: sha256:e1682f98a38a865e834a515062293aa80d65a1b73bb65ca2c893ca1cb41d705a | quote: Our VPN app supports WireGuard and OpenVPN (excluding Android) protocols.
+  - [5] 2026-11-04: The OpenVPN option uses TCP. | capture: sha256:5bff4c50788b8c952c1451ed19492dd86e857f1afd3b791623ca0178d4d5f611 | quote: our OpenVPN option uses TCP which allows users from restricted environments to connect successfully.
+  - [6] 2026-11-04: No service limits stated. | capture: sha256:cacde93f6652fb1945cbc49b1ce19bd622d1cfa5707fa6e28530583014a54e98 | quote: MysteriumVPN has no service limitations.
+  - [7] 2026-11-04: Concurrent devices per plan (Basic 6). | capture: sha256:dcfe6b8c654f95db28691907fdcfdeb8abf6c276c5753802fbb4d561bc36f505 | quote: 6 devices at the same time on a Basic Plan
+  - [8] 2026-11-04: The app selects ports automatically; no port forwarding is stated. | capture: sha256:8b94d2deb21725f6c9328409855e82d43118b547dd62d291e542467d1d64c923 | quote: Mysterium VPN automatically handles port selection, so you don’t have to manually configure ports to get the best experience.
+  - [1] 2026-11-04: Plus is USD 54.94 for 2 years | capture: sha256:e6c640eda68c07a5230bb19b35d902076337d03dcb4303680b00488e999033a5 | quote: $54.94 billed every 2 years
+  - [1] 2026-11-04: the monthly plan starts at USD 12.99 | capture: sha256:e6c640eda68c07a5230bb19b35d902076337d03dcb4303680b00488e999033a5 | quote: Yes, you can get a monthly Mysterium VPN subscription, starting at $12.99/mo (VAT may apply).
+  - [8] 2026-11-04: port forwarding is not offered | capture: sha256:8b94d2deb21725f6c9328409855e82d43118b547dd62d291e542467d1d64c923 | quote: Mysterium VPN doesn’t offer port forwarding, as our network is built around strong privacy and decentralized infrastructure.
+  - [5] 2026-11-04: WireGuard is UDP-based per the help center | capture: sha256:5bff4c50788b8c952c1451ed19492dd86e857f1afd3b791623ca0178d4d5f611 | quote: UDP-based protocols like WireGuard
+- sources:
+  - [1] https://www.mysteriumvpn.com/vpn-pricing
+  - [2] https://www.mysteriumvpn.com/residential-vpn
+  - [3] https://help.mysteriumvpn.com/en/articles/11130494-i-did-not-receive-an-activation-email
+  - [4] https://help.mysteriumvpn.com/en/articles/8954864-what-vpn-protocols-does-the-app-support
+  - [5] https://help.mysteriumvpn.com/en/articles/13783426-can-t-connect-with-wireguard-try-openvpn
+  - [6] https://help.mysteriumvpn.com/en/articles/12669501-are-there-any-service-limitations-in-mysteriumvpn
+  - [7] https://help.mysteriumvpn.com/en/articles/7959648-frequently-asked-questions-faqs
+  - [8] https://www.mysteriumvpn.com/blog/vpn-port
+
+## Mysterium VPN (IP and proxies)
+
+- `ip-proxy/mysterium-vpn` | paid-only | evidence documented | binding none | category VPN subscription (residential exit) | tier Plus, 1 year (Basic and Pro priced alongside)
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T05:58:00.000Z (live) | stale on 2026-12-05
+- url https://www.mysteriumvpn.com/vpn-pricing
+- price USD 41.83 billed yearly for Plus (USD 40.68 for Basic); a subscription price, not a per-TB price
+- duplicate of `egress/mysterium-vpn`
+- free tier: No free plan. Yearly prices read from the pricing page's plan data: Basic '$40.68 billed every year', Plus '$41.83 billed every year', Pro '$74.27 billed every year'. Monthly: Basic $12.99, Plus $14.99, Pro $19.99. 2-year: Basic '$59.77', Plus '$54.94', Pro '$93.37'. Cheapest yearly price is Basic at USD 40.68; the cheapest yearly plan that lists residential IPs is Plus at USD 41.83. | unit: none | metered on: none | read on: 2026-11-04 | source: [1] | note: The 30-day money-back line is on every plan card. The visible default term on the page is 2 years; the yearly and monthly prices are in the page's embedded plan data, whose checkout links name plan_yearly_basic, plan_yearly_plus and plan_yearly_pro. The Basic card lists a 'Residential IPs' bullet while the comparison table shows '-' for Basic in the Residential IPs row and the plan blurb says 'data center IPs'; Plus is therefore the first plan that lists residential IPs unambiguously.
+- per-object cap: not applicable | source: [1]
+- retention: not applicable: a tunnel, not stored bytes | source: [1]
+- egress: Unlimited data: 'Mysterium VPN is a subscription service with fixed monthly or yearly plans and unlimited data. You don't pay per GB.' The help center adds that the service has no service limitations, no data caps and no speed reductions, with fair-usage guidelines. | metered: no | free allowance: none: no free plan | source: [1]
+- identity: email | detail: An email address is the login and there is no password: 'MysteriumVPN does not use passwords for logging in, instead it requires an email address and access to the respective inboxes'; the magic link expires in 30 minutes. Payment: major cards, cryptocurrencies, in-app purchases, PayPal, Apple Pay and Google Pay.
+- interface: unknown
+- limits:
+  - volume-quota: none published: 'unlimited data. You don't pay per GB.' [1]
+  - per-ip-shaping: exits are home connections of independent node operators ('Our 7,500+ residential IPs come from independent node operators who explicitly agreed to take part'), so speed and availability depend on the node chosen [2]
+- limits note: Concurrent devices are capped by plan: 6 on Basic, 10 on Plus, 15 on Pro (help center); the vocabulary has no kind for it.
+- binding note: No byte quota or request rate is published; the decisive uncertainty is the class of the exit addresses, which is a vendor claim for the plans and is not a limit kind.
+- interface detail: A tunnel through apps (Windows, macOS, Linux, iOS, Android, browser extensions, routers). Protocols: WireGuard and OpenVPN (OpenVPN not on Android). UDP: WireGuard runs over UDP; the OpenVPN option uses TCP. Port forwarding: unverified: no page read states it; the vendor's port article says the app selects ports automatically. SOCKS5: unverified: no page read states a SOCKS5 endpoint for the consumer VPN. Obfuscation: unverified: no obfuscation is stated; OpenVPN over TCP is offered for restricted networks. BitTorrent: unverified: no first-party page read states a rule.
+- tooling: The vendor's apps; a login with an emailed magic link. No public API for the consumer VPN is documented in the pages read.
+- composes with: A tunnel whose exits are labelled residential (Plus and Pro) or data center (Basic) by the vendor; the upstream sees a node operator's address, so reachability and speed depend on the individual node.
+- reliability: Exits are home connections run by independent node operators, so a given node can go offline or slow; the vendor's help center says its OpenVPN option over TCP is the fallback where WireGuard (UDP) is blocked.
+- notes: Duplicate of egress/mysterium-vpn, which holds the offer; both records cite the same vendor page.
+- evidence note: Documented for price, protocols, UDP and sign-up. The residential claim is a vendor claim ('7,500+ residential IPs from real people in 100+ countries'; 'Residential IPs are registered to real ISPs and real households'). The vendor's public discovery API labels every node with an ip_type, an ISP and an ASN, which makes the label inspectable: read for Latvia on 2026-11-04, the residential-filtered list names ISPs such as JSC Balticom (AS24651) and SIA Lattelekom (AS12578) and the hosting-filtered list names CGI Global Limited (AS56971). The API publishes no node IP, so no page lets a reader check a label against a registry, and which node a given Plus connection exits through is not published. Class of evidence for the residential claim: a vendor claim with a vendor-published label, documented but not measured against a registry. Measured would need connecting through the service and checking the exit address's registry and usage class.
+- evidence:
+  - [1] 2026-11-04: Basic yearly price (first of the three yearly figures, in plan order). | capture: sha256:68f68df05ad51ac2e8748e3e31e01e91b559658024710bc424704494ecd95f3e | quote: $40.68 billed every year
+  - [1] 2026-11-04: Plus yearly price. | capture: sha256:68f68df05ad51ac2e8748e3e31e01e91b559658024710bc424704494ecd95f3e | quote: $41.83 billed every year
+  - [1] 2026-11-04: Pro yearly price. | capture: sha256:68f68df05ad51ac2e8748e3e31e01e91b559658024710bc424704494ecd95f3e | quote: $74.27 billed every year
+  - [1] 2026-11-04: The yearly checkout link for Plus, which names the 1-year plan the prices belong to. | capture: sha256:68f68df05ad51ac2e8748e3e31e01e91b559658024710bc424704494ecd95f3e | quote: plan_yearly_plus
+  - [1] 2026-11-04: Basic monthly price. | capture: sha256:68f68df05ad51ac2e8748e3e31e01e91b559658024710bc424704494ecd95f3e | quote: $12.99 billed every month
+  - [1] 2026-11-04: WireGuard runs over UDP, per the page's protocol explainer. | capture: sha256:68f68df05ad51ac2e8748e3e31e01e91b559658024710bc424704494ecd95f3e | quote: It runs over UDP using modern cryptography
+  - [1] 2026-11-04: Basic 2-year price. | capture: sha256:e6c640eda68c07a5230bb19b35d902076337d03dcb4303680b00488e999033a5 | quote: $59.77 billed every 2 years
+  - [1] 2026-11-04: The comparison table has no residential IPs for Basic and 7,500+ for Plus and Pro. | capture: sha256:e6c640eda68c07a5230bb19b35d902076337d03dcb4303680b00488e999033a5 | quote: Residential IPs - 7,500+ 7,500+
+  - [1] 2026-11-04: Basic's own description names data center IPs. | capture: sha256:e6c640eda68c07a5230bb19b35d902076337d03dcb4303680b00488e999033a5 | quote: Protect your core connection with rock-solid encryption and data center IPs.
+  - [1] 2026-11-04: Unlimited data, not per-GB. | capture: sha256:e6c640eda68c07a5230bb19b35d902076337d03dcb4303680b00488e999033a5 | quote: Mysterium VPN is a subscription service with fixed monthly or yearly plans and unlimited data. You don’t pay per GB.
+  - [2] 2026-11-04: The vendor's residential claim, as stated. | capture: sha256:a62548086e8ae02e3aa0059b28ee975bbd766b83847bc301a250184830997f90 | quote: 7,500+ residential IPs from real people in 100+ countries.
+  - [2] 2026-11-04: The vendor's registration claim for the residential IPs. | capture: sha256:a62548086e8ae02e3aa0059b28ee975bbd766b83847bc301a250184830997f90 | quote: Residential IPs are registered to real ISPs and real households, so they are less likely to appear in bot-detection databases as known VPN server ranges.
+  - [2] 2026-11-04: The residential exits are node operators' home connections. | capture: sha256:a62548086e8ae02e3aa0059b28ee975bbd766b83847bc301a250184830997f90 | quote: Our 7,500+ residential IPs come from independent node operators who explicitly agreed to take part.
+  - probe:discovery.mysterium.network/lv-res 2026-11-04: The public discovery API answered a residential-filtered query for Latvia. | capture: sha256:1786e2e7b969ee9d9631806384df006b4303ab6e885a048b8953b5bad092b81d | quote: "status": 200
+  - [3] 2026-11-04: A node labelled residential with an ISP name and ASN, and no IP address. | capture: sha256:24663242842e97877722ed3d6bdd65a69b5d06c7040e9ee6a6674b87c1c5b471 | quote: "asn":24651,"isp":"JSC Balticom","ip_type":"residential"
+  - [3] 2026-11-04: A second residential-labelled node on a different ISP. | capture: sha256:24663242842e97877722ed3d6bdd65a69b5d06c7040e9ee6a6674b87c1c5b471 | quote: "asn":12578,"isp":"SIA Lattelekom","ip_type":"residential"
+  - [4] 2026-11-04: The same API labels other nodes hosting, so the label distinguishes classes. | capture: sha256:2ee379cf6a24b2e0e3f7cde162b18ba924d77663a752f85cec0846e0e10a2ece | quote: "asn":56971,"isp":"CGI Global Limited","ip_type":"hosting"
+  - [5] 2026-11-04: Sign-up needs an email address; no password. | capture: sha256:9d79daa8e7cd86fdf10b498131f9217cea0b9a57beb316f9cb255b7e379df335 | quote: MysteriumVPN does not use passwords for logging in, instead it requires an email address and access to the respective inboxes for a verification purposes.
+  - [6] 2026-11-04: Protocols: WireGuard and OpenVPN. | capture: sha256:ee0e342811deea3b828b91e809d1198ebafe9f1819b872c4c51781071fd23838 | quote: Our VPN app supports WireGuard and OpenVPN (excluding Android) protocols.
+  - [7] 2026-11-04: The OpenVPN option uses TCP. | capture: sha256:5bff4c50788b8c952c1451ed19492dd86e857f1afd3b791623ca0178d4d5f611 | quote: our OpenVPN option uses TCP which allows users from restricted environments to connect successfully.
+  - [8] 2026-11-04: No service limits stated. | capture: sha256:cacde93f6652fb1945cbc49b1ce19bd622d1cfa5707fa6e28530583014a54e98 | quote: MysteriumVPN has no service limitations.
+  - [9] 2026-11-04: Concurrent devices per plan (Basic 6). | capture: sha256:dcfe6b8c654f95db28691907fdcfdeb8abf6c276c5753802fbb4d561bc36f505 | quote: 6 devices at the same time on a Basic Plan
+  - [10] 2026-11-04: The app selects ports automatically; no port forwarding is stated. | capture: sha256:8b94d2deb21725f6c9328409855e82d43118b547dd62d291e542467d1d64c923 | quote: Mysterium VPN automatically handles port selection, so you don’t have to manually configure ports to get the best experience.
+  - [1] 2026-11-04: the Mysterium VPN pricing page states the one subscription offer both records describe | capture: sha256:e6c640eda68c07a5230bb19b35d902076337d03dcb4303680b00488e999033a5 | quote: Mysterium VPN is a subscription service with fixed monthly or yearly plans and unlimited data. You don’t pay per GB.
+- sources:
+  - [1] https://www.mysteriumvpn.com/vpn-pricing
+  - [2] https://www.mysteriumvpn.com/residential-vpn
+  - [3] https://discovery.mysterium.network/api/v3/proposals?service_type=wireguard&location_country=LV&ip_type=residential
+  - [4] https://discovery.mysterium.network/api/v3/proposals?service_type=wireguard&location_country=LV&ip_type=hosting
+  - [5] https://help.mysteriumvpn.com/en/articles/11130494-i-did-not-receive-an-activation-email
+  - [6] https://help.mysteriumvpn.com/en/articles/8954864-what-vpn-protocols-does-the-app-support
+  - [7] https://help.mysteriumvpn.com/en/articles/13783426-can-t-connect-with-wireguard-try-openvpn
+  - [8] https://help.mysteriumvpn.com/en/articles/12669501-are-there-any-service-limitations-in-mysteriumvpn
+  - [9] https://help.mysteriumvpn.com/en/articles/7959648-frequently-asked-questions-faqs
+  - [10] https://www.mysteriumvpn.com/blog/vpn-port

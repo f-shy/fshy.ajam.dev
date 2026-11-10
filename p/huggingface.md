@@ -1,0 +1,671 @@
+# Hugging Face
+
+> huggingface.co | Debrid, Compute, Inference, Storage; 16 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/huggingface/ | JSON https://fshy.ajam.dev/api/v1/entity/huggingface.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Hugging Face Hub
+
+- `debrid/hugging-face-hub` | qualifies | evidence measured | binding per-ip-shaping | category model and dataset registry with a CDN (anonymous read) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T03:24:34.450Z (live) | stale on 2026-11-23
+- url https://huggingface.co/docs/hub/rate-limits
+- price USD 0
+- free tier: Anonymous download of any public model or dataset file, no token. The published per-5-minute windows are API 500, Resolvers 3,000, Pages 100 for an anonymous caller, and 1,000 / 5,000 / 200 for a free account; 'All quotas are calculated over 5-minute fixed windows.' | unit: requests | metered on: request-count | read on: 2026-10-23 | source: [1] | note: Bytes are not metered at all; only request counts are.
+- per-object cap: not applicable per file; a repository may hold very large files. The file measured here is 548,118,077 bytes (openai-community/gpt2 pytorch_model.bin). | source: [1]
+- retention: until the repository owner deletes or revises the revision; anonymous readers can pin a commit hash to keep a fixed object | source: [1]
+- egress: Free and unmetered. /resolve/ redirects to a CDN host (us.aws.cdn.hf.co through the xet bridge) with a short-lived signed URL; the signature is issued to the anonymous caller and no token is involved. | metered: no | free allowance: no byte allowance published | source: [1]
+- identity: anonymous | detail: No token: https://huggingface.co/api/whoami-v2 returned 401 for an anonymous client, and the same client downloaded 548,118,077 bytes from /resolve/ successfully. A free account doubles the request windows; it buys no bytes.
+- interface: rest, cli, git
+- limits:
+  - request-rate: anonymous: 500 API, 3,000 Resolvers, 100 Pages per 5-minute window; free account doubles all three [1]
+  - per-ip-shaping (binding): measured here: one connection sustained 34.8-36.6 MiB/s on a 256 MiB range and 39.98 MiB/s on a 548 MB file, while eight parallel range requests totalled only 17.1-21.3 MiB/s probe:https://huggingface.co/openai-community/gpt2/resolve/main/pytorch_model.bin
+- limits note: Whether the 8-connection drop is Hugging Face's CDN, the ISP shaping parallel flows, or the line itself was not established: the Cloudflare speed test endpoint refused this network with 403, so there is no independent line-ceiling measurement.
+- binding note: Request counts never bind at this scale - 3,000 resolver calls per 5 minutes is 864,000 a day, far more files than a TiB holds. What limits a day is the ~36-40 MiB/s ceiling, and adding connections lowers it rather than raising it.
+- interface detail: GET https://huggingface.co/<repo>/resolve/<rev>/<path> for a file; the API at /api/models and /api/datasets; the dataset viewer at datasets-server.huggingface.co (rows, parquet, size); hf CLI and git for repo-level sync.
+- endpoint: https://huggingface.co/api/models
+- tooling: hf CLI, huggingface_hub python, git-lfs, plain curl on /resolve/. rclone reads it through the HTTP remote. The dataset viewer's /parquet endpoint hands back per-file parquet URLs that a client can fetch directly.
+- composes with: The fastest measured pipe among debrid providers and the only one whose content is current ML data rather than a fixed corpus: pull a dataset's parquet parts for training, and mirror the same files to storage with rclone. Common Crawl now mirrors selected crawls into an HF Storage Bucket, so both paths can share one client.
+- reliability: The /resolve/ URL redirects to a signed CDN URL that expires; a client must follow the redirect per request rather than cache the final URL. Anonymous windows are explicitly 'subject to change over time depending on platform health'.
+- notes: About 40 MiB/s over one connection with no account, which is 3.3 TiB/day if the rate held for a day. The eight-connection run is the trap - it is half the speed, so a client that opens eight streams to go faster gets there slower.
+- evidence note: A complete 548 MB file was downloaded and hashed, and three 256 MiB runs at each concurrency were recorded. The extrapolation to bytes/day is arithmetic on those numbers, not a 24-hour run.
+- extras:
+  - full_file_sha256: 7c5d3f4b8b76583b422fcb9189ad6c89d5d97a094541ce8932dce3ecabde1421
+  - full_file_bytes: 548118077
+  - one_conn_mib_s: 36.593; 34.818; 36.61
+  - eight_conn_mib_s: 17.058; 21.332; 20.44
+  - full_file_mib_s: 39.98
+  - arithmetic_tib_per_day_at_40_mib_s: 3.29
+- evidence:
+  - [1] 2026-10-23: the per-5-minute windows: anonymous 500 API / 3,000 Resolvers / 100 Pages; free account 1,000 / 5,000 / 200
+  - probe:https://huggingface.co/openai-community/gpt2/resolve/main/pytorch_model.bin 2026-10-23: full file: 200, 548,118,077 bytes, sha256 7c5d3f4b8b76583b422fcb9189ad6c89d5d97a094541ce8932dce3ecabde1421, 13,072.6 ms = 39.98 MiB/s over one connection
+  - probe:https://huggingface.co/openai-community/gpt2/resolve/main/pytorch_model.bin --range 0-268435455 2026-10-23: 256 MiB at one connection: 36.593, 34.818, 36.610 MiB/s across three runs
+  - probe:https://huggingface.co/openai-community/gpt2/resolve/main/pytorch_model.bin --concurrency 8 --shard-bytes 268435456 2026-10-23: 256 MiB over eight connections: 17.058, 21.332, 20.440 MiB/s total, each below its own one-connection baseline - parallelism loses
+  - probe:https://huggingface.co/api/whoami-v2 2026-10-23: 401 with www-authenticate: Bearer - there was no token in the client that downloaded the 548 MB file
+  - probe:https://datasets-server.huggingface.co/rows?dataset=openai/gsm8k&config=main&split=train&offset=0&length=100 2026-10-23: 200, 61,691 bytes for 100 rows, anonymous - the dataset viewer is readable without a token
+- sources:
+  - [1] https://huggingface.co/docs/hub/rate-limits
+
+## Hugging Face Community
+
+- `compute/hugging-face-community` | qualifies-with-caveat | evidence documented | binding write-gated | category GPU cloud
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T08:50:43.735Z (live) | stale on 2026-12-04
+- url https://huggingface.co/docs/hub/spaces-gpus
+- free tier: 'Do you have an awesome Space but need help covering the GPU hardware upgrade costs? We love helping out those with an innovative Space so please feel free to apply for a community GPU grant and see if yours makes the cut! This application can be found in your Space hardware repo settings in the lower left corner under "sleep time settings"'. There is also a lighter path, quoted: 'You can even request a free upgrade if you are building a cool demo for a side project!' The unit is a hardware tier attached to one Space, not a credit balance, and billing is quoted as 'based on hardware usage and is computed by the minute'. | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: grant
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email
+- interface: rest
+- limits:
+  - write-gated (binding): the grant is attached to a single Space rather than to an account: approval is discretionary, it covers the hardware tier of that Space only, and nothing in the record says the hours can be moved to a training job. [1]
+- limits note: the grant is attached to a single Space rather than to an account: approval is discretionary, it covers the hardware tier of that Space only, and nothing in the record says the hours can be moved to a training job.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: The grant is a route to a dedicated, always-on GPU behind a public URL with no card: a free account gets 2 ZeroGPU Spaces with 5 minutes of GPU a day (the compute record huggingface-spaces-zerogpu), and this grant is what a project applies for when 96 GB and a 5 minute window are not enough. It composes with inference APIs because the Space can sit in front of an external API and hold the connection. Hardware table on the Spaces GPU page (column 'Hourly Price', billed by the minute while a Space is Starting or Running; the page has no on-demand, spot or community label and states no minimum bill): 1x Nvidia L4 24 GB $0.80, 1x Nvidia L40S 48 GB $1.80, Nvidia A100 - large 80 GB $2.50. The Nvidia H100 rows are struck through and marked 'removed December 2025'. No GeForce row.
+- reliability: no reliability event recorded
+- notes: Distinct from the ZeroGPU record already in earlier readings: ZeroGPU is a quota every free account holds, while a community GPU grant is a discretionary hardware allocation to one Space. The amount is unverified and deliberately so: the docs publish no tier list, no hour count and no approval rate, and the public applications found on Spaces range from a demo to 2,500 GPU hours, so the honest claim is the mechanism. A 'community grant' could cover hardware only, hardware plus storage, or a cash-equivalent credit. The docs describe hardware ('covering the GPU hardware upgrade costs') and a public applicant asked for storage separately, which supports hardware-only.
+- extras:
+  - facets.class: community-grant
+  - facets.free_tier_kind: grant
+  - facets.shape.gpu_count: 1
+- evidence:
+  - [1] 2026-10-22: 'Do you have an awesome Space but need help covering the GPU hardware upgrade costs? We love helping out those with an innovative Space so please feel free to apply for a community GPU grant'; 'This application can be found in your Space hardware repo settings in the lower left corner under "sleep time settings"'; 'You can even request a free upgrade if you are building a cool demo for a side project!'; 'Billing on Spaces is based on hardware usage and is computed by the minute'; page 200
+  - [2] 2026-10-22: an open application on a public Space requesting '2,500 GPU hours for model training and evaluation' and '5TB for datasets', which shows the request channel is public and the ask is negotiable rather than fixed (reported: one applicant's request, not an award)
+  - [1] 2026-11-03: the docs read 'makes the cut'; the record quoted 'will make the cut' | capture: sha256:8faf0ca559b28d0c137b5983e14b06a9cef72e6900da15d941bf98ca755946f5 | quote: We love helping out those with an innovative Space so please feel free to apply for a community GPU grant and see if yours makes the cut!
+  - [1] 2026-11-03: 1x Nvidia L4 with 24 GB GPU memory is $0.80 an hour | capture: sha256:8faf0ca559b28d0c137b5983e14b06a9cef72e6900da15d941bf98ca755946f5 | quote: | 1x Nvidia L4 | 8 vCPU | 30 GB | 24 GB | 400 GB | $0.80 |
+  - [1] 2026-11-03: 1x Nvidia L40S with 48 GB is $1.80 an hour | capture: sha256:8faf0ca559b28d0c137b5983e14b06a9cef72e6900da15d941bf98ca755946f5 | quote: | 1x Nvidia L40S | 8 vCPU | 62 GB | 48 GB | 380 GB | $1.80 |
+  - [1] 2026-11-03: Nvidia A100 - large with 80 GB is $2.50 an hour | capture: sha256:8faf0ca559b28d0c137b5983e14b06a9cef72e6900da15d941bf98ca755946f5 | quote: | Nvidia A100 - large | 12 vCPU | 142 GB | 80 GB | 1000 GB | $2.50 |
+  - [1] 2026-11-03: the H100 row is struck through and marked removed December 2025 | capture: sha256:8faf0ca559b28d0c137b5983e14b06a9cef72e6900da15d941bf98ca755946f5 | quote: | ~~Nvidia H100~~ *(removed December 2025)* | | | | | |
+  - [1] 2026-11-03: billing runs only while the Space is Starting or Running | capture: sha256:8faf0ca559b28d0c137b5983e14b06a9cef72e6900da15d941bf98ca755946f5 | quote: During a Space's lifecycle, it is only billed when the Space is `Starting` or `Running`.
+  - [1] 2026-11-03: billing is per minute of running hardware | capture: sha256:8faf0ca559b28d0c137b5983e14b06a9cef72e6900da15d941bf98ca755946f5 | quote: Billing on Spaces is based on hardware usage and is computed by the minute: you get charged for every minute the Space runs on the requested hardware,
+- sources:
+  - [1] https://huggingface.co/docs/hub/spaces-gpus
+  - [2] https://huggingface.co/spaces/cicero-im/marimo/discussions/1
+
+## Hugging Face public Gradio chat Spaces (anonymous API)
+
+- `inference/huggingface-gradio-chat-spaces` | qualifies-with-caveat | evidence documented | binding volume-quota | category inference through public Gradio Spaces, anonymous callers
+- needs card no, phone no, ID no, institution no | verified 2026-10-28T04:36:18.974Z (live) | stale on 2026-11-28
+- url https://huggingface.co/docs/hub/spaces-zerogpu
+- free tier: ZeroGPU Spaces give an unauthenticated caller 2 minutes of GPU quota a day at low queue priority (5 minutes for a free account); a public Gradio chat Space publishes its API schema with no token | unit: minutes | metered on: wall-clock | read on: 2026-10-28 | source: [1] | note: each Space defines its own endpoint names, such as /generate on huggingface-projects/llama-2-13b-chat; there is no OpenAI-shaped route and no model id echo
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: anonymous | detail: an unauthenticated caller is a documented quota tier (Unauthenticated, 2 minutes, Low queue priority); no token was needed to read /gradio_api/info
+- interface: rest
+- limits:
+  - volume-quota (binding): 2 minutes of ZeroGPU GPU quota per day for an unauthenticated caller, low queue priority; 5 minutes for a free account; the quota resets exactly 24 hours after the first GPU usage [1]
+- binding note: the 2 minutes a day of GPU quota binds; a Space on CPU hardware has no such quota stated in the page read
+- endpoint: https://huggingface-projects-llama-2-13b-chat.hf.space/gradio_api/info
+- tooling: gradio_client or the Space's /gradio_api/call/<api_name> routes; the schema is at /gradio_api/info on current Gradio and /info on older ones
+- composes with: pairs with ad hoc scripts; the 2 minutes a day of ZeroGPU quota for an unauthenticated caller is the scarce link
+- reliability: a Space can be paused or in an error state, and an older Gradio Space serves its schema at /info rather than /gradio_api/info
+- evidence note: the quota is first-party; the schema was read by a keyless GET. No chat call was made because probe issues GET and HEAD only, so a completed answer is unverified
+- probe:
+  - records[0].probe_id: hf-llama2-13b-chat-info-get
+  - records[0].method: GET
+  - records[0].url: https://huggingface-projects-llama-2-13b-chat.hf.space/gradio_api/info
+  - records[0].http: 200
+  - records[0].authorization_sent: no
+  - records[0].named_endpoints: /generate
+  - records[0].probed_at: 2026-10-28T04:50:09.841Z
+  - records[0].chat_completion_tested: no
+  - records[1].probe_id: hf-llama3-8b-info-get
+  - records[1].method: GET
+  - records[1].url: https://ysharma-chat-with-meta-llama3-8b.hf.space/info
+  - records[1].http: 200
+  - records[1].named_endpoints: /chat
+  - records[1].probed_at: 2026-10-28T04:50:17.493Z
+  - records[2].probe_id: hf-llama3-8b-gradio-api-info-get
+  - records[2].method: GET
+  - records[2].url: https://ysharma-chat-with-meta-llama3-8b.hf.space/gradio_api/info
+  - records[2].http: 404
+  - records[2].probed_at: 2026-10-28T04:50:14.944Z
+- evidence:
+  - [1] 2026-10-28: an unauthenticated caller has 2 minutes of daily ZeroGPU quota at low priority | capture: sha256:949c22d45251350837459dc32cd16a8713d43068105dd2e610515a6e41af513b | quote: | Unauthenticated | 2 minutes | Low |
+  - [1] 2026-10-28: a free account has 5 minutes a day at medium priority | capture: sha256:949c22d45251350837459dc32cd16a8713d43068105dd2e610515a6e41af513b | quote: | Free account | 5 minutes | Medium |
+  - [1] 2026-10-28: the daily quota resets 24 hours after first use | capture: sha256:949c22d45251350837459dc32cd16a8713d43068105dd2e610515a6e41af513b | quote: Included daily quota resets exactly 24 hours after your first GPU usage.
+  - [2] 2026-10-28: a keyless GET /gradio_api/info answered 200 with a named /generate endpoint on a public chat Space | capture: sha256:21f8d7f4105af2a0de4b0ea8185461b7a2574da42b67e629611232371190b448 | quote: {"named_endpoints":{"/generate":{"parameters":[
+  - probe:https://huggingface-projects-llama-2-13b-chat.hf.space/gradio_api/info 2026-11-10: a keyless POST on 2026-11-10 answered HTTP 405 at the recorded base URL, so the endpoint is not a completion route | capture: sha256:34290497c30ca8ec0d7d6b252647840952ae57af13184db8350622645602c5e3 | quote: "status": 405
+- sources:
+  - [1] https://huggingface.co/docs/hub/spaces-zerogpu
+  - [2] https://huggingface-projects-llama-2-13b-chat.hf.space/gradio_api/info
+
+## Hugging Face Spaces
+
+- `compute/huggingface-spaces` | qualifies-with-caveat | evidence documented | binding retention-clamped | category platform host
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://huggingface.co/docs/hub/en/spaces-overview
+- price parsed USD 9/mo
+- disagrees on identity_kind: `compute/huggingface-spaces` says email, `compute/huggingface-spaces-cpu-basic` says card
+- disagrees on verdict: `compute/huggingface-spaces` says qualifies-with-caveat, `compute/huggingface-spaces-cpu-basic` says paid-only
+- free tier: Static Spaces are free for everyone; Gradio and Docker Spaces require a paid plan to create, PRO for personal accounts; free accounts in good standing may host up to 2 ZeroGPU Spaces | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: the CPU Basic hardware still lists as FREE but you cannot create a Space that uses it on a free account
+- per-object cap: not applicable
+- retention: a Space on free hardware sleeps after a period of inactivity; a paused Space stops executing until restarted | days: 0
+- egress: not priced on the page read | metered: no | source: [1]
+- identity: email | detail: a verified email and an account older than 30 days; no card for the free lane
+- interface: rest, cli
+- limits:
+  - write-gated: creating a Gradio or Docker Space needs PRO or higher; a free account cannot create one [1]
+  - per-object-cap: each Space is limited to 16 GB RAM, 2 CPU cores and 50 GB of non-persistent disk [1]
+  - retention-clamped (binding): a Space on free hardware sleeps after a period of inactivity [1]
+- limits note: ZeroGPU on a free account allows 5 minutes of GPU a day and needs an account older than 30 days
+- binding note: the 5 minutes of GPU a day and the sleep-on-inactivity bind long before the 2-Space limit does
+- interface detail: Gradio, Docker or static SDK; ZeroGPU for Gradio on a free account
+- tooling: huggingface_hub, the Space SDK, git push to the Space repo
+- composes with: ZeroGPU is a GPU allowance of 5 minutes a day, which is an inference budget and not a machine
+- reliability: no reliability event recorded
+- notes: A free account cannot create an active Space on this resource tier.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 16
+  - shape.disk_gib: 50
+  - billing_model: wall-clock
+  - granularity.min_billed_s: 60
+  - granularity.rounding_s: 60
+  - session_cap.restart_required: no
+  - session_cap.note: a free-hardware Space sleeps after inactivity; the interval is not stated on this page
+  - keep_rate.value: 0.0
+  - keep_rate.basis: a sleeping Space is not billed; CPU Basic has no hourly cost
+  - keep_rate.source: https://huggingface.co/docs/hub/en/spaces-overview
+  - persistent_storage.included_gib: 50
+  - persistent_storage.price_gib_month: not persistent
+  - persistent_storage.durability: none
+  - persistent_storage.survives_stop: no
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: the Space lifetime
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: HTTPS on the Space URL
+  - network_out.static_ip: no
+  - free_tier_kind: none
+  - m10h_usd: 9.0
+  - m24h_usd: 9.0
+  - price_arithmetic: USD 9 a month for PRO is the entry price for a compute Space, before hardware upgrades
+- evidence:
+  - [1] 2026-10-22: 'Static Spaces are free for everyone. Gradio and Docker Spaces run on compute and require a paid plan to create: PRO for personal accounts'
+  - [1] 2026-10-22: free personal accounts in good standing can host up to 2 Gradio Spaces on ZeroGPU
+  - [1] 2026-10-22: each Space is limited to 16 GB RAM, 2 CPU cores and 50 GB of non-persistent disk; CPU Basic lists as FREE hardware
+  - [2] 2026-10-22: 'Static Spaces are free for everyone. Gradio and Docker Spaces run on compute and require a paid plan to create: PRO for personal accounts, Team or Enterprise for organizations. Free personal accounts in good standing can still host up to 2 Gradio Spaces running on ZeroGPU', quoted
+- sources:
+  - [1] https://huggingface.co/docs/hub/en/spaces-overview
+  - [2] https://huggingface.co/docs/hub/spaces-overview
+
+## Hugging Face Storage Buckets via S3 gateway (s3.hf.co) — as an annex/DVC backend
+
+- `storage/hugging-face-storage-buckets-via-s3-gateway-as-an-annex` | qualifies-with-caveat | evidence documented | binding volume-quota | category S3-compatible object storage (Hugging Face Storage Buckets through the s3.hf.co gateway)
+- needs card no, phone unknown, ID no, institution no | verified 2026-11-01T18:05:15.747Z, checked 2026-10-21 (inherited) | stale on 2026-11-21
+- url https://huggingface.co/docs/hub/storage-buckets-s3
+- price USD 12 per TB-month public and USD 18 per TB-month private at the base tier; USD 10 and 16 from 50 TB, USD 9 and 14 from 200 TB, USD 8 and 12 from 500 TB; public storage beyond a plan's base needs a PRO, Team or Enterprise plan | parsed USD 12/TB-mo
+- free tier: Free user or organisation: public storage 'Best-effort' with no published figure, private storage 100 GB; the storage plans and policies apply to every repository type, buckets included | unit: GB | metered on: stored-bytes | read on: 2026-10-30 | source: [1] | note: above the first few gigabytes of public storage the page asks for content of value to other users and names abuse mitigations without a figure; PRO, Team and Enterprise plans carry numeric public and private limits
+- per-object cap: unverified: the 500 GB per-file hard limit on the storage-limits page is stated in a section marked as not applying to Storage Buckets, and the bucket and S3 gateway pages publish no per-object limit | source: [1] | note: Git-backed model, dataset and Space repositories keep the 500 GB per-file hard limit
+- retention: unverified: the bucket, S3 gateway and storage-limits pages state no expiry or inactivity rule for stored objects; incomplete multipart uploads expire after 7 days | source: [2] | note: buckets are non-versioned: a delete is immediate and unrecoverable
+- egress: Egress and CDN are included in the storage price up to a ratio of 8:1 to total storage; the storage page publishes no price or action above the ratio. GetObject through the single-region S3 gateway usually answers with a redirect to the nearest Hugging Face CDN edge rather than serving the bytes itself. | metered: yes | free allowance: 8:1 of total storage
+- identity: email | detail: the join form's first step asks an email address and a password and shows no phone field and no card field, and whether a later step asks a phone number is unverified; free-tier accounts exist with no credit card on file, and a card is asked for PRO, Team, paid compute and storage above the free tier
+- interface: s3-compatible, cli, rest
+- limits:
+  - volume-quota (binding): private storage 100 GB on a free user or organisation; public storage 'Best-effort' with no published figure [1]
+  - volume-quota (binding): egress included up to 8:1 of total storage [3]
+- limits note: The S3 gateway is single-region (us-east-1), path-style only and ListObjectsV2 only, and does not parse aws-chunked trailing checksums (request_checksum_calculation and response_checksum_validation set to when_required); ACLs, bucket policies, object tagging, object versioning, lifecycle rules, server-side encryption and bucket notifications are not supported, user metadata is not stored, server-side copy works within one namespace only, and incomplete multipart uploads expire after 7 days; 2 GB multipart parts are recommended. The per-file and file-count figures on the storage-limits page are stated for Git-backed repositories only.
+- binding note: a free account holds 100 GB private, and public storage beyond the first few gigabytes is best-effort under abuse mitigations, so the stored volume binds first
+- interface detail: s3
+- tooling: Any S3 client: AWS CLI, boto3, s5cmd; `hf` CLI (`hf sync`, `hf buckets`); python `huggingface_hub`. For this slot: `git annex initremote type=S3 host=s3.hf.co region=us-east-1 requeststyle=path` (annex needs path-style, which the gateway requires anyway) and `dvc remote add ... ; dvc remote modify myremote endpointurl https://s3.hf.co/<namespace>`. S3 creds are derived from an HF token via 'Generate S3 credentials' (HFAK... key).
+- composes with: Buckets are non-versioned, so a versioning layer on top of the S3 gateway keeps history: DVC is documented as a bucket remote through the gateway, and other S3 clients that take a custom endpoint with path-style addressing reach it the same way; storage is deduplicated at chunk level by Xet, and reads go out through the included CDN.
+- reliability: Public storage on a free account is 'Best-effort': above the first few gigabytes the page names abuse mitigations without a figure; bucket deletions are immediate and unrecoverable; the S3 gateway is single-region (us-east-1).
+- notes: Storage Buckets are non-versioned, mutable object storage on the Xet backend; the S3 gateway at https://s3.hf.co/<namespace> takes access keys with the HFAK prefix, derived from a Hugging Face access token whose read or write scope they inherit
+- evidence note: free allowance, egress ratio, identity, gateway limits and prices quoted from the storage-limits, Storage Buckets, S3 gateway and billing documentation, the storage page and the join page on 2026-10-30; the gateway answered an anonymous GET with an S3-style refusal
+- evidence:
+  - [2] 2026-10-21: endpoint `https://s3.hf.co/<namespace>`, region us-east-1, path addressing, HFAK credentials from an HF token
+  - [1] 2026-10-21: Free user or org: Public 'Best-effort', Private 100GB; 'no single file will exceed 500GB'
+  - [3] 2026-10-21: 'Egress and CDN included at no extra cost'
+  - [4] 2026-10-21: probe: GET -> HTTP 403 with x-amz-request-id (live S3-compatible gateway answering)
+  - [5] 2026-10-30: buckets are object storage reached through an S3-compatible API | capture: sha256:932fd6f99d8800c09c757b9bc78071b08c0266d7af79b31eae4a8d26ccc0c597 | quote: Storage Buckets can be accessed through an S3-compatible API, letting you use existing S3 tooling
+  - [6] 2026-10-30: the storage plans cover buckets | capture: sha256:3151524ee2beb01b75e821c0d45e7cfc23e4a7feda74ce198393d81b23a27079 | quote: Storage limits and policies apply to all types of repositories (models, datasets, buckets, …) on the Hub.
+  - [6] 2026-10-30: a free user or organisation has best-effort public storage and 100 GB private | capture: sha256:3151524ee2beb01b75e821c0d45e7cfc23e4a7feda74ce198393d81b23a27079 | quote: | Free user or org | Best-effort\* | 100GB |
+  - [6] 2026-10-30: the free allowance was read on 2026-10-30 | capture: sha256:3151524ee2beb01b75e821c0d45e7cfc23e4a7feda74ce198393d81b23a27079 | quote: | Free user or org | Best-effort\* | 100GB |
+  - [6] 2026-10-30: public storage above the first few gigabytes is best-effort | capture: sha256:3151524ee2beb01b75e821c0d45e7cfc23e4a7feda74ce198393d81b23a27079 | quote: Beyond the first few gigabytes, please use this resource responsibly by uploading content that offers genuine value to other users.
+  - [3] 2026-10-30: egress is included up to 8 times the stored volume | capture: sha256:d8bdfb698ca943e5373e3abfd569b8a3ed5d9d122888e2fe3f57b769446e4dd4 | quote: Egress is included up to a generous 8:1 ratio of your total storage.
+  - [5] 2026-10-30: downloads redirect to a CDN edge; the gateway is single-region | capture: sha256:932fd6f99d8800c09c757b9bc78071b08c0266d7af79b31eae4a8d26ccc0c597 | quote: The gateway is currently single-region. To improve download performance, `GetObject` typically responds with an HTTP 302 redirect to the nearest Hugging Face CDN edge rather than serving bytes directly.
+  - [3] 2026-10-30: included egress has a quota tied to stored volume | capture: sha256:d8bdfb698ca943e5373e3abfd569b8a3ed5d9d122888e2fe3f57b769446e4dd4 | quote: Egress is included up to a generous 8:1 ratio of your total storage.
+  - [6] 2026-10-30: the repository limitations section, which holds the 500 GB per-file limit, does not apply to buckets | capture: sha256:3151524ee2beb01b75e821c0d45e7cfc23e4a7feda74ce198393d81b23a27079 | quote: This section does not apply to [Storage Buckets](./storage-buckets)
+  - [6] 2026-10-30: Git-backed repositories have a 500 GB per-file hard limit | capture: sha256:3151524ee2beb01b75e821c0d45e7cfc23e4a7feda74ce198393d81b23a27079 | quote: In all cases, no single file will exceed 500GB. I.e. 500GB is the hard limit for a single file size.
+  - [6] 2026-10-30: a free account holds 100 GB private and best-effort public storage | capture: sha256:3151524ee2beb01b75e821c0d45e7cfc23e4a7feda74ce198393d81b23a27079 | quote: | Free user or org | Best-effort\* | 100GB |
+  - [6] 2026-10-30: free public storage is under unstated abuse mitigations | capture: sha256:3151524ee2beb01b75e821c0d45e7cfc23e4a7feda74ce198393d81b23a27079 | quote: We do have mitigations in place to prevent abuse of free public storage
+  - [5] 2026-10-30: incomplete multipart uploads expire after 7 days | capture: sha256:932fd6f99d8800c09c757b9bc78071b08c0266d7af79b31eae4a8d26ccc0c597 | quote: in-flight multipart uploads that are never completed or aborted are automatically expired and cleaned up after 7 days.
+  - [5] 2026-10-30: the listed S3 features are unsupported on the gateway | capture: sha256:932fd6f99d8800c09c757b9bc78071b08c0266d7af79b31eae4a8d26ccc0c597 | quote: ACLs, bucket policies, object tagging, object versioning, lifecycle rules, server-side encryption (SSE), and bucket notifications are not supported.
+  - [7] 2026-10-30: the join form asks an email address and a password | capture: sha256:780d1e325a5b4bcac0666414ea3d40ec8e963dca3fe4b583e151f0ec8a61f026 | quote: Email Address
+  - [8] 2026-10-30: free-tier accounts exist with no credit card on file | capture: sha256:a820b4d02e4aeb23cee791950344e28f8c57d16c89da4377e18be5940a2b0c76 | quote: Organizations on the free tier with no credit card on file usually switch immediately
+  - [7] 2026-10-30: the identity cost is read from the join form | capture: sha256:780d1e325a5b4bcac0666414ea3d40ec8e963dca3fe4b583e151f0ec8a61f026 | quote: Email Address
+  - [9] 2026-10-30: bucket deletions are immediate and unrecoverable | capture: sha256:f67f06947b6064676a74d22692769c70185ff851d07547e501e3109799939d82 | quote: Since buckets are non-versioned, deletions are immediate and permanent — there is no way to recover a deleted file.
+  - [9] 2026-10-30: buckets are reached through the hf CLI and the Python API, not through Git | capture: sha256:f67f06947b6064676a74d22692769c70185ff851d07547e501e3109799939d82 | quote: You can interact with buckets using the Hub web interface, the [`hf` CLI](https://huggingface.co/docs/huggingface_hub/guides/cli#hf-buckets), or the [Python API](https://huggingface.co/docs/huggingface_hub/guides/buckets).
+  - [9] 2026-10-30: an HTTP API under /api/buckets serves bucket change events | capture: sha256:f67f06947b6064676a74d22692769c70185ff851d07547e501e3109799939d82 | quote: streams a bucket's file changes as [server-sent events]
+  - [5] 2026-10-30: DVC uses a bucket as a remote through the gateway | capture: sha256:932fd6f99d8800c09c757b9bc78071b08c0266d7af79b31eae4a8d26ccc0c597 | quote: A bucket works as a DVC remote through the gateway
+  - [3] 2026-10-30: the storage page lists per-TB prices for public and private storage by volume tier | capture: sha256:d8bdfb698ca943e5373e3abfd569b8a3ed5d9d122888e2fe3f57b769446e4dd4 | quote: 500TB+ 33% off
+  - [6] 2026-10-30: paid public storage needs a PRO, Team or Enterprise plan | capture: sha256:3151524ee2beb01b75e821c0d45e7cfc23e4a7feda74ce198393d81b23a27079 | quote: Users on a paid plan (PRO, Team, or Enterprise) can subscribe to a Public Storage add-on for additional public storage on top of their plan's base limit.
+  - [5] 2026-10-30: S3 keys derive from a Hugging Face access token | capture: sha256:932fd6f99d8800c09c757b9bc78071b08c0266d7af79b31eae4a8d26ccc0c597 | quote: The gateway authenticates with AWS-style access keys derived from a Hugging Face [User Access Token](./security-tokens).
+  - [6] 2026-10-30: the vendor documentation was read and quoted | capture: sha256:3151524ee2beb01b75e821c0d45e7cfc23e4a7feda74ce198393d81b23a27079 | quote: Storage limits and policies apply to all types of repositories (models, datasets, buckets, …) on the Hub.
+  - probe:s3.hf.co 2026-10-30: the gateway answers an anonymous GET with an S3-style 403 (application/xml, x-amz-request-id): it is live and refuses unsigned requests | capture: sha256:b021b6667cb130624be0a9f67a4412bdf685ac7bfd6335ca11b49daf3a075fbe | quote: "status": 403
+  - [6] 2026-10-30: the storage plans, including the free allowance, cover buckets | capture: sha256:3151524ee2beb01b75e821c0d45e7cfc23e4a7feda74ce198393d81b23a27079 | quote: Storage limits and policies apply to all types of repositories (models, datasets, buckets, …) on the Hub.
+  - [7] 2026-11-01: the join form asks an email address and a password and no phone field | capture: sha256:780d1e325a5b4bcac0666414ea3d40ec8e963dca3fe4b583e151f0ec8a61f026 | quote: Email Address
+  - [7] 2026-11-01: the free-tier join form takes an email address, a password and Next only, with no phone field | capture: sha256:780d1e325a5b4bcac0666414ea3d40ec8e963dca3fe4b583e151f0ec8a61f026 | quote: Email Address Hint: Use your organization email to easily find and join your company/team org. Password Next
+  - [7] 2026-11-01: the identity cost is an email address and a password | capture: sha256:780d1e325a5b4bcac0666414ea3d40ec8e963dca3fe4b583e151f0ec8a61f026 | quote: Email Address
+- sources:
+  - [1] https://huggingface.co/docs/hub/storage-limits
+  - [2] https://huggingface.co/docs/hub/storage-buckets-s3
+  - [3] https://huggingface.co/storage
+  - [4] https://s3.hf.co/
+  - [5] https://huggingface.co/docs/hub/main/storage-buckets-s3
+  - [6] https://huggingface.co/docs/hub/en/storage-limits
+  - [7] https://huggingface.co/join
+  - [8] https://huggingface.co/docs/hub/billing
+  - [9] https://huggingface.co/docs/hub/storage-buckets
+
+## Hugging Face ZeroGPU
+
+- `compute/huggingface-spaces-zerogpu` | qualifies-with-caveat | evidence documented | binding volume-quota | category notebook runtime | tier free personal account
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T01:52:00.000Z (live) | stale on 2026-11-24
+- url https://huggingface.co/docs/hub/en/spaces-zerogpu
+- free tier: a free account in good standing (verified email, older than 30 days) may host up to 2 ZeroGPU Spaces and use 5 minutes of GPU a day, on a half RTX Pro 6000 Blackwell with 48 GB VRAM | unit: minutes | metered on: wall-clock | read on: 2026-10-24 | source: [1] | note: The quota is per day and resets 24 hours after first use. Only the Gradio SDK is compatible.
+- per-object cap: not applicable: the unit is a session, not an object
+- retention: the Space repo persists; the GPU allocation is per function call and released on completion | source: [1]
+- egress: no egress allowance published | metered: no | source: [1]
+- identity: email | detail: a verified email and an account older than 30 days; no card. The 30-day age is the real gate and cannot be bought past.
+- interface: rest
+- limits:
+  - volume-quota (binding): 5 minutes of GPU a day on a free account [1]
+  - write-gated: verified email and an account older than 30 days [1]
+- limits note: the 48-hour sleep was confirmed server-side by historical research records via the runtime API reporting gcTimeout 172800.
+- binding note: 5 minutes a day is 300 seconds, and a single diffusion call can eat a tenth of it
+- interface detail: one https endpoint per Space serving a Gradio app; no SSH and no shell
+- tooling: Gradio on the Space SDK; huggingface_hub
+- composes with: 5 minutes of GPU a day for a Gradio demo, which is an inference budget and not a training budget
+- reliability: quota exhaustion drops the caller down the GPU queue, and the xlarge size costs double quota for the same wall-clock
+- notes: The best VRAM in evaluated offerings for free and the smallest time budget. It is a serving allowance for a public demo, not a compute allowance for a job.
+- evidence note: the daily quotas, the account gate and the VRAM are quoted from the ZeroGPU docs today.
+- extras:
+  - shape.ram_gib: 16
+  - shape.disk_gib: 50
+  - shape.gpu_class: NVIDIA RTX Pro 6000 Blackwell (half)
+  - shape.gpu_count: 1
+  - shape.note: 48 GB VRAM on the default 'large' size; the 16 GB / 50 GB figures are the CPU Basic envelope the Space runs in
+  - billing_model: free
+  - session_cap.restart_required: no
+  - session_cap.note: no session cap; 5 minutes of GPU a day
+  - persistent_storage.price_gib_month: not persistent
+  - persistent_storage.durability: none
+  - persistent_storage.survives_stop: no
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: the Space lifetime
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: one https endpoint per Space
+  - network_out.static_ip: no
+  - network_out.ipv6: no
+  - free_tier_kind: free-forever-with-quota
+  - term: none
+  - m10h_usd: 0.0
+  - m24h_usd: 0.0
+  - price_arithmetic: USD 0.00 for 5 minutes a day; USD 1.00 per 10 minutes past the quota on a paid plan
+  - unattended: yes
+  - unattended_mechanism: the Space serves requests without a browser tab; each call gets a GPU for its duration
+  - units: RAM and disk are quoted in the vendor's own decimal GB, not GiB. The ram_gib and disk_gib keys carry the vendor's number unconverted, so where a vendor writes 30 GB the key holds 30 and the true value is about 27.9 GiB. No conversion was performed.
+- evidence:
+  - [1] 2026-10-06: free accounts in good standing may host up to 2 ZeroGPU Spaces with 5 minutes of GPU per day
+  - [2] 2026-10-22: free personal accounts in good standing can host up to 2 Gradio Spaces running on ZeroGPU
+  - [3] 2026-10-22: 'Free personal accounts: accounts in good standing (verified email, account older than 30 days) can host up to 2 ZeroGPU Spaces for free', with a usage table row 'Free account | 5 minutes | Medium', quoted
+  - [1] 2026-10-24: quoted: '| Free account | 5 minutes | Medium |' in the daily GPU quota table
+  - [1] 2026-10-24: quoted: 'Free personal accounts: accounts in good standing (verified email, account older than 30 days) can host up to 2 ZeroGPU Spaces for free.'
+  - [1] 2026-10-24: quoted: '| `large` *(default)* | Half NVIDIA RTX Pro 6000 Blackwell | 48GB | 1× |'
+  - [1] 2026-10-24: quoted: 'Included daily quota resets exactly 24 hours after your first GPU usage.'
+  - [1] 2026-10-24: quoted, bold markers in the original: 'PRO, Team, and Enterprise users can continue using ZeroGPU Spaces beyond their included daily quota by consuming pre-paid credits at the rate of $1 per 10 minutes of GPU time.'
+- sources:
+  - [1] https://huggingface.co/docs/hub/en/spaces-zerogpu
+  - [2] https://huggingface.co/docs/hub/en/spaces-overview
+  - [3] https://huggingface.co/docs/hub/spaces-zerogpu
+
+## Hugging Face ZeroGPU Spaces (public Spaces called through the Gradio client)
+
+- `inference/huggingface-zerogpu-spaces-api` | qualifies-with-caveat | evidence documented | binding volume-quota | category inference via hosted demos, GPU quota
+- needs card no, phone no, ID no, institution no | verified 2026-10-28T04:36:19.143Z (live) | stale on 2026-11-28
+- url https://huggingface.co/docs/hub/en/spaces-zerogpu
+- free tier: ZeroGPU Spaces are available to use for free to all users: 2 minutes of GPU a day unauthenticated and 5 minutes a day on a free account, reset exactly 24 hours after the first GPU usage | unit: minutes | metered on: wall-clock | read on: 2026-10-28 | source: [1] | note: the model served is whatever the Space's author runs; the quota counts GPU time of the function call, and the xlarge size costs twice the quota
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: anonymous | detail: the Unauthenticated tier needs no account and gets 2 minutes a day; a free Hugging Face account is the 5-minute tier. What a free account signup requires is unverified on the pages read
+- interface: rest
+- limits:
+  - volume-quota (binding): 2 minutes of GPU a day unauthenticated (queue priority Low) and 5 minutes a day on a free account (Medium); PRO is 40 minutes [1]
+  - request-rate: a public Space used as an API may be rate limited by Hugging Face if too many requests are made; no number is published [2]
+- binding note: minutes of GPU a day bind long before any request count does
+- interface detail: the Gradio API of a public Space, called with gradio_client.Client(space_id, token=...).predict()
+- tooling: gradio_client (pip install --upgrade gradio_client); huggingface_hub for the token
+- composes with: the hosting side of the same GPU pool is recorded at compute/huggingface-spaces-zerogpu; duplicating a Space to a private one moves the cost to the caller's account
+- reliability: quota left lowers queue priority, and whether a gradio_client call made with a token is counted against that account's quota is not stated on the pages read
+- notes: Whether the Gradio API path draws on the same daily quota as the web page is unverified.
+- evidence note: the daily quota table is quoted from the vendor documentation; no Space was called
+- evidence:
+  - [1] 2026-10-28: ZeroGPU Spaces are free to use for all users | capture: sha256:949c22d45251350837459dc32cd16a8713d43068105dd2e610515a6e41af513b | quote: ZeroGPU Spaces are available to use for free to all users.
+  - [1] 2026-10-28: unauthenticated use gets 2 minutes of GPU a day at low queue priority | capture: sha256:949c22d45251350837459dc32cd16a8713d43068105dd2e610515a6e41af513b | quote: | Unauthenticated | 2 minutes | Low |
+  - [1] 2026-10-28: a free account gets 5 minutes of GPU a day at medium queue priority | capture: sha256:949c22d45251350837459dc32cd16a8713d43068105dd2e610515a6e41af513b | quote: | Free account | 5 minutes | Medium |
+  - [1] 2026-10-28: the daily quota resets 24 hours after the first GPU use | capture: sha256:949c22d45251350837459dc32cd16a8713d43068105dd2e610515a6e41af513b | quote: Included daily quota resets exactly 24 hours after your first GPU usage.
+  - [2] 2026-10-28: a public Space can be used as an API through the Gradio client and may be rate limited | capture: sha256:8a90d469d8566c355d893f13f1aad48eb103eca956ffcd588f05e9c923a6bf0b | quote: While you can use any public Space as an API, you may get rate limited by Hugging Face if you make too many requests.
+  - [2] 2026-10-28: the Gradio client takes a Hugging Face token with the token parameter | capture: sha256:8a90d469d8566c355d893f13f1aad48eb103eca956ffcd588f05e9c923a6bf0b | quote: client = Client("abidlabs/my-private-space", token="...")
+- sources:
+  - [1] https://huggingface.co/docs/hub/en/spaces-zerogpu
+  - [2] https://www.gradio.app/guides/getting-started-with-the-python-client
+
+## Hugging Face Inference
+
+- `compute/hugging-face-inference` | paid-only | evidence documented | binding none | category GPU cloud
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T08:50:28.017Z (live) | stale on 2026-12-04
+- url https://huggingface.co/docs/inference-providers/pricing
+- free tier: The monthly credits table now reads: "Free Users | None" and "PRO Users | $2.00", with the note that free users can only use Inference Providers "by purchasing credits, or by upgrading to PRO". | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits note: nothing binds because nothing is granted: the free lane on Inference Providers is now zero credits a month
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: The USD 2 a month that PRO buys is the cheapest documented way to exceed the 5-minute ZeroGPU day, so a single PRO subscription is the paid upgrade path out of both free limits.
+- reliability: no reliability event recorded
+- notes: A refutation of the figure that circulated through 2025, where a free account received a small monthly inference credit. The free lane is now explicitly zero and the monthly credit starts at PRO.
+- extras:
+  - facets.class: refutation-monthly-credit-removed
+  - facets.free_tier_kind: none
+- evidence:
+  - [1] 2026-10-22: quoted monthly credits table: Free Users None, PRO Users USD 2.00, Team or Enterprise USD 2.00 per seat
+  - [1] 2026-10-22: quoted: credits are general-purpose compute credits spendable on Inference Providers, Inference Endpoints, upgraded Spaces hardware including ZeroGPU beyond quota, and Jobs, credited every month
+  - [1] 2026-11-03: the monthly credits table still grants a free user nothing; the page is per-token pricing and lists no hourly card | capture: sha256:e504cc1b75dcdd772ced798f26f0ac05de98b2c9a513ddfe51b1b9b925498f79 | quote: | Free Users | None | - | yes (credits purchase required) |
+- sources:
+  - [1] https://huggingface.co/docs/inference-providers/pricing
+
+## Hugging Face Inference Providers
+
+- `inference/huggingface-inference` | paid-only | evidence documented | binding none | category inference endpoint, platform allocation
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T05:38:55.227Z (live) | stale on 2026-12-05
+- url https://router.huggingface.co/v1
+- free tier: no monthly credits on a free account. 'Free users can use Inference Providers by purchasing credits, or by upgrading to PRO'; monthly credits are granted to PRO and to Team or Enterprise organizations | unit: none | metered on: none | read on: 2026-10-22 | source: [1] | note: the pricing doc's eligibility row reads 'Free Users: yes (credits purchase required)'. So the router is reachable to a free account and only by paying, which is the same shape as a paid-only product with a free door
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: card | detail: a Hugging Face account plus purchased credits, or a PRO subscription; a free account is refused by price rather than by key
+- interface: rest
+- limits:
+  - volume-quota: monthly Inference Providers credits: Free Users none (credits purchase required); PRO Users USD 2.00; Team or Enterprise Organizations USD 2.00 per seat [1]
+- limits note: the monthly credits granted to PRO, Team and Enterprise are shared among all members of an organisation and applied before any pay-as-you-go usage is billed; none of them is available to a free account
+- binding note: no free allowance exists to bind: the free account can call the router only against purchased credits, so there is no ceiling on a free tier to name
+- tooling: any OpenAI-compatible client
+- composes with: pairs with an agent through the router; the scarce link is the monthly credit, and the 401-as-HTML shape means a body-classifying client fails before it reads the quota
+- reliability: the router returns its 401 as an HTML document rather than JSON, so a probe that classifies on body shape mis-handles it
+- notes: Pricing documentation specifies that monthly inference credits are granted only to PRO, Team, or Enterprise tiers. Free accounts access the router by purchasing credits. The verdict is paid-only. Endpoint probes consistently return 401 responses as HTML.
+- evidence note: the eligibility text, the monthly credit amounts per account type and the credit-application rule are quoted from the first-party Inference Providers pricing page; the router's HTML error body for an unauthenticated call is from a probe
+- evidence:
+  - probe:https://router.huggingface.co/v1/chat/completions 2026-10-22: an unauthenticated POST returned 401 with a 3087-byte body, an HTML document, not JSON. The endpoint exists and gates on a key; no key existed here, so no quota was read
+  - [1] 2026-10-22: 'PRO users and Team or Enterprise organizations receive monthly credits to use with Inference Providers. Free users can use Inference Providers by purchasing credits, or by upgrading to PRO'; the eligibility table reads 'Free Users — yes (credits purchase required)'
+  - [1] 2026-10-28: monthly Inference Providers credits go to PRO and Team or Enterprise accounts; a free user must purchase credits | capture: sha256:e504cc1b75dcdd772ced798f26f0ac05de98b2c9a513ddfe51b1b9b925498f79 | quote: PRO users and Team or Enterprise organizations receive monthly credits to use with Inference Providers. Free users can use Inference Providers by purchasing credits, or by upgrading to [PRO](https://huggingface.co/subscribe/pro):
+  - [2] 2026-11-03: the Hub rate-limit page defines API, Resolvers and Pages buckets over 5-minute windows and never names Inference Providers or router.huggingface.co, so it states no router rate and does not say the router counts against them | capture: sha256:715c9e0765ce504cd71f0933e7ca01cd484a4f6ef30c781ec9c5a49cefc38812 | quote: we enforce rate limits on all requests made to the Hugging Face Hub.
+  - [1] 2026-11-03: monthly credits still go to PRO and Team or Enterprise; the pricing page states credits only and no request rate | capture: sha256:e504cc1b75dcdd772ced798f26f0ac05de98b2c9a513ddfe51b1b9b925498f79 | quote: PRO users and Team or Enterprise organizations receive monthly credits to use with Inference Providers.
+- sources:
+  - [1] https://huggingface.co/docs/inference-providers/pricing
+  - [2] https://huggingface.co/docs/hub/rate-limits
+
+## Hugging Face Jobs (hf-sandbox backend)
+
+- `compute/huggingface-jobs` | paid-only | evidence documented | binding request-rate | category platform host
+- identity a placeholder: card and phone unknown | verified 2026-10-22T04:47:08.000Z (live) | stale on 2026-11-22
+- url https://huggingface.co/docs/hub/en/jobs-pricing
+- free tier: no free compute allowance of its own: a Job bills by the minute while it is Starting or Running, at hardware rates from $0.01 an hour for CPU Basic to $23.50 an hour for eight L40S | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - request-rate (binding): billed by the minute only while a Job is Starting or Running, from $0.01 an hour for CPU Basic [1]
+  - per-object-cap: 50 GB of ephemeral storage on CPU Basic, up to 6,500 GB on eight L40S [1]
+  - request-rate (binding): a monthly spending limit can be set per organisation or resource group [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the Jobs pricing page was read on 2026-10-22 and publishes the hardware ladder and the minute billing. It states no free allowance for a Job, so the record's free-tier claim is not established for compute; whatever free tier the Hub has lives elsewhere
+- extras:
+  - keep_rate: 0.0
+  - keep_rate_basis: first-party: t a flat rate per Job, in addition to the hardware price: Product Hourly Price Exposed ports $0.01 Like hardwa
+  - billing_model: unclassified
+  - shape.vcpu: 2
+  - shape.ram: 16
+  - shape.disk: 50
+  - shape.note: CPU Basic at $0.01 an hour; GPU shapes from a T4 at $0.40 to eight L40S at $23.50
+  - session_cap.restart_required: no
+  - session_cap.note: a Job bills only while Starting or Running, and the page documents a timeout setting; the caller bounds it
+  - free_tier_kind: none
+  - ps.gib: 50
+  - ps.price: ephemeral only
+  - ps.durability: ephemeral
+  - ps.on_stop: no
+  - ps.on_destroy: no
+  - ps.retention: the Job's lifetime
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Like hardware, it is billed by the minute, only while the Job is Starting or Running' with the hardware table: 'CPU Basic 2 vCPU 16 GB 50 GB $0.01' an hour, 'Nvidia T4 - small 4 vCPU 15 GB 16 GB 50 GB $0.40', up to '8x Nvidia L40S 192 vCPU 1534 GB 384 GB 6500 GB $23.50', quoted
+- sources:
+  - [1] https://huggingface.co/docs/hub/en/jobs-pricing
+
+## Hugging Face Spaces (CPU Basic)
+
+- `compute/huggingface-spaces-cpu-basic` | paid-only | evidence documented | binding write-gated | category platform host | tier CPU Basic on a free account
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T01:52:00.000Z (live) | stale on 2026-11-24
+- url https://huggingface.co/docs/hub/en/spaces-overview
+- price parsed USD 9/mo
+- disagrees on identity_kind: `compute/huggingface-spaces` says email, `compute/huggingface-spaces-cpu-basic` says card
+- disagrees on verdict: `compute/huggingface-spaces` says qualifies-with-caveat, `compute/huggingface-spaces-cpu-basic` says paid-only
+- free tier: CPU Basic is listed at 2 vCPU / 16 GB for FREE, but creating a Gradio or Docker Space requires a paid plan; a free account may host up to 2 Gradio Spaces on ZeroGPU instead | unit: hours | metered on: wall-clock | read on: 2026-10-24 | source: [1] | note: The hardware is free on the price list; the right to create a compute Space is not.
+- per-object cap: not applicable: the unit is a session, not an object
+- retention: 50 GB of disk per Space, explicitly 'not persistent'; a Space sleeps after inactivity and rebuilds from the repo | source: [1]
+- egress: no egress allowance published for Spaces | metered: no | source: [1]
+- identity: card | detail: a free account gets static Spaces; a Gradio or Docker Space needs PRO at USD 9 a month, so a card is the price of any compute Space. The ZeroGPU exception needs a verified email and an account older than 30 days.
+- interface: ssh
+- limits:
+  - write-gated (binding): PRO at USD 9 a month to create a Gradio or Docker Space on a personal account [1]
+  - per-object-cap: 16 GB RAM, 2 CPU cores and 50 GB of not-persistent disk per Space [1]
+- limits note: this record exists so the free hardware row is not mistaken for a free machine
+- binding note: the gate is a person paying USD 9, not a counter; the hardware would be free if the Space could be created
+- interface detail: the Space URL over HTTPS
+- tooling: the Space SDK; git push to the Space repository
+- composes with: none on a free account: the create step is gated
+- reliability: a free-hardware Space sleeps after inactivity and wakes on request, so the first visitor after a quiet period waits for a cold start
+- notes: This is the sharpest price-list trap in evaluated offerings: the hardware row says FREE and the same page's docs say a paid plan is required to use it. A reader who only reads the price table gets it wrong.
+- evidence note: the plan gate, the shape and the disk are quoted from the Spaces docs today, and the price list agrees that CPU Basic is FREE. The two pages together are the finding.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 16
+  - shape.disk_gib: 50
+  - shape.note: vendor states 16GB and 50GB in decimal; kept as stated
+  - billing_model: free
+  - session_cap.restart_required: no
+  - session_cap.note: no session cap; sleeps on inactivity and wakes on request
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: one https endpoint per Space
+  - network_out.static_ip: no
+  - network_out.ipv6: no
+  - free_tier_kind: feature-gated
+  - term: none
+  - m10h_usd: 9.0
+  - m24h_usd: 9.0
+  - price_arithmetic: USD 9.00 a month for PRO, which is the flat cost of the right to create one compute Space; the hardware itself is USD 0.00
+  - unattended: yes
+  - unattended_mechanism: a Space runs as a server and stays up while it has traffic; it is a daemon, not a job, and sleeps when idle
+  - units: RAM and disk are quoted in the vendor's own decimal GB, not GiB. The ram_gib and disk_gib keys carry the vendor's number unconverted, so where a vendor writes 30 GB the key holds 30 and the true value is about 27.9 GiB. No conversion was performed.
+- evidence:
+  - [1] 2026-10-22: CPU Basic is listed as 2 vCPU / 16 GB at FREE, while creating a Gradio or Docker Space requires a paid plan
+  - [1] 2026-10-22: Static Spaces are free for everyone; Gradio and Docker Spaces need PRO for personal accounts
+  - [1] 2026-10-24: quoted: 'Static Spaces are free for everyone. Gradio and Docker Spaces run on compute and require a paid plan to create: PRO for personal accounts, Team or Enterprise for organizations.'
+  - [1] 2026-10-24: quoted: 'Each Spaces environment is limited to 16GB RAM, 2 CPU cores and 50GB of (not persistent) disk space by default.'
+  - [1] 2026-10-24: quoted: 'The default CPU Basic hardware has no hourly cost, but creating a Space that runs on compute (Gradio or Docker) requires a paid plan, while Static Spaces are free for everyone.'
+  - [2] 2026-10-24: quoted exactly, including the page's escaped hyphens: '| CPU Basic | 2 vCPU | 16 GB | \- | \- | FREE |'
+  - [2] 2026-10-24: quoted: 'Upgrade your HF experience for $9/month.' — the PRO price that the compute-Space gate costs
+- sources:
+  - [1] https://huggingface.co/docs/hub/en/spaces-overview
+  - [2] https://huggingface.co/pricing
+
+## Hugging Face Spaces Dev Mode
+
+- `compute/huggingface-spaces-dev-mode` | paid-only | evidence reported | category platform host
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22T04:24:30.000Z (live) | stale on 2026-11-06
+- url https://huggingface.co/docs/hub/spaces-dev-mode
+- free tier: Spaces Dev Mode is part of the PRO or Team and Enterprise plans | unit: none | metered on: wall-clock | read on: 2026-10-02 | source: [1] | note: Dev Mode exposes an SSH endpoint, and it is paid
+- per-object cap: not applicable
+- retention: the Space persists; Dev Mode is a session on it | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: card | detail: PRO at USD 9 a month
+- interface: ssh
+- limits:
+  - write-gated: Dev Mode is part of PRO or Team and Enterprise [1]
+- limits note: historical research launch base listed this as a free SSH row; it is not free.
+- interface detail: SSH into a running Space while Dev Mode is on
+- tooling: SSH, the Space SDK, a shell in the container
+- composes with: the only SSH path into a Space, and it needs PRO
+- reliability: no reliability event recorded
+- notes: Documented so the SSH claim is not repeated as free.
+- evidence note: re-read live on 2026-10-22 for the free-tier and limit figures
+- extras:
+  - billing_model: wall-clock
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: SSH while Dev Mode is on
+  - network_out.static_ip: no
+  - free_tier_kind: none
+- evidence:
+  - [1] 2026-10-02: 'The Spaces Dev Mode is part of PRO or Team & Enterprise plans.'
+  - [1] 2026-10-22: read live: Dev Mode requires PRO or higher
+- sources:
+  - [1] https://huggingface.co/docs/hub/spaces-dev-mode
+
+## ai data commons as storage: fineweb, common pile, dclm, dolma/olmo, pleias
+
+- `storage/ai-data-commons-as-storage-fineweb-common-pile-dclm-dolm` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-04T00:31:28.057Z (live) | stale on 2026-11-19
+- page https://fshy.ajam.dev/p/huggingface.md
+- price USD 12 per TB-month public and USD 18 per TB-month private at Hugging Face, the host of FineWeb and Common Pile; PRO, Team or Enterprise plan needed for paid public storage | parsed USD 12/TB-mo
+- free tier: none for deposit: the five datasets are published for download; on Hugging Face, where FineWeb and Common Pile sit, a free user or org has public storage 'Best-effort' and private storage 100GB | unit: none | metered on: none | read on: 2026-10-21
+- per-object cap: not recorded | note: not applicable
+- retention: not recorded
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: FineWeb's per-dump table totals 50,446.9 GB on disk
+- notes: All five are read-only distribution, not deposit targets, and they all sit on infrastructure with no write path. FineWeb (25.9B docs / 48.6 TB) and Common Pile (8 TB) and Pleias comm
+- evidence note: The 2026-11-03 evidence rows read https://huggingface.co/docs/hub/storage-limits (free tier storage), https://huggingface.co/datasets/HuggingFaceFW/fineweb/raw/main/README.md (FineWeb size) and https://huggingface.co/common-pile (Common Pile size). No vendor page read states that the five datasets are not deposit targets, and the other datasets named in the record were not read, so the rung stays reported.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: All five are read-only distribution, not deposit targets, and they all sit on infrastructure with no write path. FineWeb (25.9B docs / 48.6 TB) and Common Pile (8 TB) and Pleias comm
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - withheld 2026-10-21: All five are read-only distribution, not deposit targets, and they all sit on infrastructure with no write path. FineWeb (25.9B docs / 48.6 TB) and Common Pile (8 TB) and Pleias comm
+  - [1] 2026-11-03: a free Hugging Face user or org has public storage best-effort and private storage 100GB | capture: sha256:3151524ee2beb01b75e821c0d45e7cfc23e4a7feda74ce198393d81b23a27079 | quote: | Free user or org | Best-effort\* | 100GB |
+  - [1] 2026-11-03: the Public Storage add-on is USD 12 per TB per month; private storage above the included 1TB is USD 18 per TB per month | capture: sha256:3151524ee2beb01b75e821c0d45e7cfc23e4a7feda74ce198393d81b23a27079 | quote: | 1 TB | $12/month | $12/TB/month |
+  - [2] 2026-11-03: FineWeb totals 50,446.9 GB on disk | capture: sha256:f0069fc1b78f9205f5f74d629cfbc13aa714e2e43e1476a9410c46bf884a1f7e | quote: | Total | | 50,446.9 | 18,527.0 |
+  - [3] 2026-11-03: Common Pile v0.1 is an 8TB dataset | capture: sha256:54f4ac134ba76373d3a6e37f8f5b6186254d114e58d4e7bbfc7ef29d421b40cd | quote: Common Pile v0.1 All resources related to Common Pile v0.1, an 8TB dataset of public domain and openly licensed text
+  - [1] 2026-11-04: a free Hugging Face user or org has public storage best-effort and private storage 100GB | capture: sha256:3151524ee2beb01b75e821c0d45e7cfc23e4a7feda74ce198393d81b23a27079 | quote: | Free user or org | Best-effort\*
+- sources:
+  - [1] https://huggingface.co/docs/hub/storage-limits
+  - [2] https://huggingface.co/datasets/HuggingFaceFW/fineweb/raw/main/README.md
+  - [3] https://huggingface.co/common-pile
+
+## Hugging Face Spaces (disk check only)
+
+- `storage/hugging-face-spaces` | fails-quota | evidence reported | binding none | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://huggingface.co/spaces
+- free tier: 50 GB of disk per Space. But per HF's own docs the Space disk is NOT persistent. Persistent storage is the separate Storage Buckets product. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: until the instance is recycled; not persistent | source: [1] | note: not stated
+- egress: Free via the Hub CDN for public Spaces; no egress meter. | metered: no
+- identity: email
+- interface: rest, cli
+- limits note: 16 GB RAM, 2 CPU cores, 50 GB ephemeral disk; creating a Gradio/Docker Space now requires a paid plan (free accounts get 2 ZeroGPU Gradio Spaces); Static Spaces free for everyone.
+- interface detail: rest
+- tooling: `huggingface_hub` / `hf` CLI; Spaces can mount buckets as volumes; Gradio/Docker Spaces are HTTP servers by construction.
+- composes with: Transient storage only: ephemeral disk provides 50 GB that resets on instance restart. Persistent storage requires pairing with external buckets or repository datasets.
+- reliability: Docs are explicit: 'This disk space is ephemeral, meaning its content will be lost if your Space restarts or is stopped.'
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 50 GB of disk per Space — but per HF's own docs the Space disk is NOT persistent. Persistent storage is the separate Storage Buckets product.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [2] 2026-10-21: 'Every Space comes with a small amount of disk storage. This disk space is ephemeral'
+  - [1] 2026-10-21: '50GB of (not persistent) disk space by default'; Gradio/Docker Spaces 'require a paid plan to create'
+- sources:
+  - [1] https://huggingface.co/docs/hub/spaces-overview
+  - [2] https://huggingface.co/docs/hub/spaces-storage
+
+## hugging face spaces disk (as persistent storage)
+
+- `storage/hugging-face-spaces-disk` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://huggingface.co/docs/hub/spaces-storage
+- free tier: none reachable: 50 GB sounds like a finding until you read the second sentence: 'This disk space is ephemeral'. Anything written to a Space is lost on restart, and creating a Gradio/Docker Space now needs… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: retention
+  - dead_end.why: 50 GB sounds like a finding until you read the second sentence: 'This disk space is ephemeral'. Anything written to a Space is lost on restart, and creating a Gradio/Docker Space now needs…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 50 GB sounds like a finding until you read the second sentence: 'This disk space is ephemeral'. Anything written to a Space is lost on restart, and creating a Gradio/Docker Space now needs…
+- sources:
+  - [1] https://huggingface.co/docs/hub/spaces-storage
+
+## hugging face storage buckets
+
+- `storage/hugging-face-storage-buckets` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-30T18:09:47.045Z (inherited) | stale on 2026-11-14
+- url https://huggingface.co/docs/hub/storage-limits
+- free tier: Free user or org: public storage best-effort, private storage 100GB; storage buckets are free to create and draw on the same allowance | unit: GB | metered on: stored-bytes | read on: 2026-10-30 | source: [1] | note: storage buckets are free to create and draw on the account's free storage allowance in the storage-limits table
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: public storage on free accounts is best-effort, with mitigations against abuse of free public storage
+- notes: Free user or org: best-effort public storage and 100GB of private storage, applied to buckets as to other repositories
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: P
+  - [2] 2026-10-21: P
+  - [3] 2026-10-21: P
+  - [1] 2026-10-30: a free user or organisation gets best-effort public storage and 100GB of private storage | capture: sha256:3151524ee2beb01b75e821c0d45e7cfc23e4a7feda74ce198393d81b23a27079 | quote: | Free user or org | Best-effort\* | 100GB |
+  - [1] 2026-10-30: the storage-limits table applies to buckets | capture: sha256:3151524ee2beb01b75e821c0d45e7cfc23e4a7feda74ce198393d81b23a27079 | quote: Storage limits and policies apply to all types of repositories (models, datasets, buckets, …) on the Hub.
+  - [4] 2026-10-30: storage buckets are free to create and share the free storage allowance | capture: sha256:f67f06947b6064676a74d22692769c70185ff851d07547e501e3109799939d82 | quote: As for other repositories, buckets are free to create and have a free storage allowance.
+  - [1] 2026-10-30: free public storage is subject to abuse mitigations | capture: sha256:3151524ee2beb01b75e821c0d45e7cfc23e4a7feda74ce198393d81b23a27079 | quote: We do have mitigations in place to prevent abuse of free public storage
+- sources:
+  - [1] https://huggingface.co/docs/hub/storage-limits
+  - [2] https://huggingface.co/docs/hub/storage-buckets-s3
+  - [3] https://s3.hf.co
+  - [4] https://huggingface.co/docs/hub/storage-buckets

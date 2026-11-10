@@ -1,0 +1,51 @@
+# rustunnel
+
+> rustunnel.com | Egress and tunnels; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/rustunnel/ | JSON https://fshy.ajam.dev/api/v1/entity/rustunnel.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## rustunnel
+
+- `egress/rustunnel` | fails-quota | evidence documented | binding volume-quota | category udp port forward (self-hostable server, managed cloud) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-10T02:22:59.099Z (live) | stale on 2026-12-11
+- url https://www.rustunnel.com/docs/reference/udp-tunnels.md
+- price USD 0
+- free tier: Hobby is USD 0 a month: 1 GB of bandwidth a month, 2 concurrent tunnels, random subdomains only, and HTTP, TCP, UDP and P2P tunnels with TLS termination. The Pay-as-you-go plan is USD 3 a month plus USD 0.10 a GB, with the USD 3 minimum credited against the first 30 GB. | unit: GB | metered on: downloaded-bytes | read on: 2026-11-10 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: The free Hobby plan carries 1 GB a month; beyond it the Pay-as-you-go plan is USD 3 a month plus USD 0.10 a GB, with the minimum credited against the first 30 GB. Self-hosting has no quota because the server is one the user runs.; ingress: udp | metered: yes | free allowance: 1 GB a month on the free Hobby plan | price per TB: USD 0.10 per GB | source: [1]
+- identity: email | detail: a free account and a generated auth token: 'Access to the hosted service requires an auth token. Create a free account and generate one yourself.' https://www.rustunnel.com/docs/quickstart.md | country: None
+- interface: cli, rest
+- limits:
+  - volume-quota (binding): 1 GB of bandwidth a month on the free Hobby plan [1]
+  - request-rate: 2 concurrent tunnels on the free Hobby plan [1]
+  - write-gated: random subdomains only on the free plan; custom subdomains need Pay-as-you-go or self-hosting [1]
+- binding note: 1 GB a month is the first thing to fail: one large download exhausts the month, and the free plan hands out a random subdomain rather than a stable name, so a service that needs a fixed address is gated before the byte count matters.
+- interface detail: mytunnel client, a live dashboard, Prometheus metrics and an audit log
+- tooling: mytunnel client from brew or a binary, self-hostable server in Rust
+- composes with: self-hosting on a free VM turns this into a free UDP relay; the managed cloud does not
+- reliability: sessions are reaped after 60 seconds of inactivity, which suits WireGuard keepalive but means an idle peer is torn down; the free plan subdomain is random and is not a stable name
+- notes: The plan grid sits on the homepage and on /pricing and lists a free Hobby plan; /pricing answered 404 when read on 2026-10-23, which is why the offer was recorded as paid-only. The free plan is the only free tunnel here that carries HTTP, TCP and UDP together, but 1 GB a month is a development allowance rather than a service allowance.
+- evidence note: The plan grid, the free allowance and the paid rate are read from the vendor own pricing page. Raise by running the tunnel agent on a free account and reading the month counter after a counted transfer.
+- self hosted: no
+- extras:
+  - wg_path: unknown
+  - wg_detail: UDP tunnels are real and documented: 'rustunnel UDP tunnels forward datagrams from a public port on the tunnel server to a local UDP service', with 'Public port - allocated from a dedicated UDP port range on the server' and a 60-second session idle timeout. Whether a free hosted account gets a port, and whether the port is fixed, is not stated. https://www.rustunnel.com/docs/reference/udp-tunnels.md
+  - ingress: udp
+  - volume_stated: No free byte allowance is published anywhere read. The managed service is 'Pay-as-you-go from $3/mo - idle time always free'.
+  - bytes_transit: yes
+  - transit_note: the managed relay carries the datagrams, or the self-hosted server does
+- evidence:
+  - [2] 2026-10-23: UDP tunnels exist, the public port comes from a dedicated UDP range, sessions are reaped after 60 seconds of inactivity
+  - [3] 2026-10-23: 'Pay-as-you-go from $3/mo - idle time always free. Or self-host free under AGPL', plus 'Start free' and 'free self-hosting under AGPL'
+  - [4] 2026-10-23: 'Create a free account' and 'Access to the hosted service requires an auth token'; no allowance stated
+  - [1] 2026-11-10: the free Hobby plan carries 1 GB of bandwidth a month | capture: sha256:52bb87e883f8baba486afed1ab72a0f5cc7e6e38e10d1b02706b92b1be6ff0cb | quote: 1 GB bandwidth / month
+  - [1] 2026-11-10: the Pay-as-you-go plan is USD 3 a month plus USD 0.10 a GB | capture: sha256:52bb87e883f8baba486afed1ab72a0f5cc7e6e38e10d1b02706b92b1be6ff0cb | quote: $3 /mo + $0.10 / GB
+  - [1] 2026-11-10: the free Hobby plan allows 2 concurrent tunnels | capture: sha256:52bb87e883f8baba486afed1ab72a0f5cc7e6e38e10d1b02706b92b1be6ff0cb | quote: 2 concurrent tunnels
+  - [1] 2026-11-10: custom subdomains are not part of the free Hobby plan | capture: sha256:52bb87e883f8baba486afed1ab72a0f5cc7e6e38e10d1b02706b92b1be6ff0cb | quote: Random subdomains only
+  - [1] 2026-11-10: the free Hobby plan carries HTTP, TCP, UDP and P2P tunnels | capture: sha256:52bb87e883f8baba486afed1ab72a0f5cc7e6e38e10d1b02706b92b1be6ff0cb | quote: HTTP + TCP + UDP + P2P tunnels
+- sources:
+  - [1] https://www.rustunnel.com/pricing
+  - [2] https://www.rustunnel.com/docs/reference/udp-tunnels.md
+  - [3] https://www.rustunnel.com/
+  - [4] https://www.rustunnel.com/docs/quickstart.md

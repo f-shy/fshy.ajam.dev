@@ -1,0 +1,166 @@
+# NymVPN
+
+> nym.com | IP and proxies, Egress and tunnels; 3 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/nym/ | JSON https://fshy.ajam.dev/api/v1/entity/nym.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## NymVPN (exit addresses)
+
+- `ip-proxy/nymvpn-exits` | trial-only | evidence documented | binding per-ip-shaping | category vpn subscription (exit source) | tier exit addresses
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T10:29:27.354Z (live) | stale on 2026-12-05
+- url https://nym.com/pricing
+- price USD 4.00 per month on a 1-year plan; no per-TB price | parsed USD 4/mo
+- disagrees on identity_kind: `ip-proxy/nymvpn` says anonymous, `ip-proxy/nymvpn-exits` says card
+- disagrees on verdict: `ip-proxy/nymvpn` says paid-only, `ip-proxy/nymvpn-exits` says trial-only
+- free tier: No free tier. The shortest plan read is 1 year at $4.00 per month ($96.00 listed, total $48.00 shown), with a 7-day free trial on select plans that needs a card; the trial cannot be activated with cryptocurrency. | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: The page shows a first-period total of $48.00 against $96.00 listed; the currency code was not printed, so the symbol is repeated.
+- per-object cap: not applicable | source: [2]
+- retention: not applicable: an address, not an object | source: [2]
+- egress: unverified: this record covers the exit addresses of the fleet, not the plan; the plan-level traffic terms belong to the vendor's own egress record where one exists. | metered: no | free allowance: none published for the address list | source: [1]
+- identity: card | detail: The 7-day trial is on select plans with a card and cannot be activated with cryptocurrency; paid plans list card, cryptocurrency, Apple Pay, Google Pay, GNU Taler and cash. unverified: what an account itself needs, behind a sign-up.
+- interface: rest
+- limits:
+  - per-ip-shaping (binding): Up to 10 devices per account (mobile and desktop) [1]
+- limits note: Address concentration is a second constraint with no vocabulary kind: 80 exit addresses sit in 42 ASNs with the largest (AS200651 FlokiNET) holding 11; 50 of the 80 are on the datacenter list. Residential gateways are 37 of 623 listed gateways, 28 of the 37 inside one /24 (128.127.180.0/24, AS6696).
+- binding note: What binds first is the ceiling attached to the account, 10 devices, not any byte quota, since the page states none.
+- interface detail: The directory of gateways and the list of described Nym nodes are public JSON endpoints that answer with no credential; the exit addresses were read from the described-nodes list (exit_ipr) and the residential gateways from the dVPN directory. The vendor sells WireGuard dVPN and mixnet access.
+- endpoint: https://validator.nymtech.net/api/v1/nym-nodes/described
+- tooling: Reading the exit list needs an HTTP client only. Using an exit needs the vendor client and an account; whether a SOCKS5 or HTTP proxy endpoint exists was not established.
+- composes with: A free compute node runs the vendor client and the traffic leaves at one of the 80 exit addresses; the gateways are run by independent node operators, so the exit set is a pool and not one provider network.
+- reliability: No suspension, throttle or data loss was measured. 50 of 80 exit addresses are in the datacenter list and 2 also in the VPN list, so a block met through one is datacenter-class; the 7 residential-classified gateway prefixes are a minority of the directory.
+- notes: Exit-address record for the NymVPN fleet, classified with detector index 20261103T163900Z-00d117b2 on 2026-11-03: 80 addresses, 50 datacenter-listed, 2 VPN-listed (both also datacenter), 0 Tor exits, 6 on an abuse list, 29 on none of the lists; 42 ASNs, largest AS200651 FlokiNET with 11 addresses. The residential gateways are stated apart: of 623 gateways in the vendor directory 37 are marked residential, in 7 prefixes (128.127.180.0/24, 217.118.192.0/21, 95.208.128.0/17, 217.178.0.0/18, 167.179.17.0/24, 38.58.108.0/24, 199.170.132.0/24); the largest prefix, 128.127.180.0/24 (AS6696 VERIXI SA), carries 28 of the 37, 75.7%. One address from inside each of the 7 prefixes was classified: none is datacenter-, VPN- or abuse-listed. The tier differs from the vendor's plan record.
+- evidence note: The list measurements are measured on 2026-11-03 from a registered classifier record; the plan facts are documented. The weakest rung is documented. Measured on the whole needs a live connection recording the address handed out, which was not done.
+- extras:
+  - exit_classification.detector_index_version: 20261103T163900Z-00d117b2
+  - exit_classification.classified_on: 2026-11-03
+  - exit_classification.n: 80
+  - exit_classification.datacenter_listed: 50
+  - exit_classification.vpn_listed: 2
+  - exit_classification.tor_exit: 0
+  - exit_classification.abuse_listed: 6
+  - exit_classification.in_none_of_the_lists: 29
+  - exit_classification.asns: 42
+  - exit_classification.largest_asn: AS200651 FlokiNET
+  - exit_classification.largest_asn_addresses: 11
+  - exit_classification.endpoint: https://validator.nymtech.net/api/v1/nym-nodes/described (exit_ipr)
+  - exit_classification.derived: counts taken over the 80 answers of the registered record; 11 / 80 = 13.8%
+  - residential_gateways.endpoint: https://mainnet-node-status-api.nymtech.cc/dvpn/v1/directory/gateways
+  - residential_gateways.gateways_total: 623
+  - residential_gateways.gateways_residential: 37
+  - residential_gateways.prefixes: 7
+  - residential_gateways.prefix_list: 128.127.180.0/24; 217.118.192.0/21; 95.208.128.0/17; 217.178.0.0/18; 167.179.17.0/24; 38.58.108.0/24; 199.170.132.0/24
+  - residential_gateways.largest_prefix: 128.127.180.0/24
+  - residential_gateways.largest_prefix_gateways: 28
+  - residential_gateways.largest_prefix_share: 75.7%
+  - residential_gateways.one_address_per_prefix_classified: 7
+  - residential_gateways.of_which_listed_datacenter_vpn_or_abuse: 0
+- evidence:
+  - probe:https://validator.nymtech.net/api/v1/nym-nodes/described 2026-11-03: The described-nodes exit list was read and 80 exit addresses were classified. | capture: sha256:f456e12181772ffce5c7faf1e6f1d09f24bdafd380987a02878f4fd4906bba06 | quote: "n": 80,
+  - probe:https://validator.nymtech.net/api/v1/nym-nodes/described 2026-11-03: The classifier index version used for the 80 addresses. | capture: sha256:f456e12181772ffce5c7faf1e6f1d09f24bdafd380987a02878f4fd4906bba06 | quote: "index_version": "20261103T163900Z-00d117b2",
+  - [3] 2026-11-04: The vendor directory marks the gateway announced in 128.127.180.0/24 as residential; 37 of the 623 entries carry that kind, 28 of them in this /24. (37 of 623 gateways carry kind residential, counted over the registered file; 28 / 37 = 75.7%) | capture: sha256:443b48e7f7bc60a417f20bbd8058fae900ab17987648b5b344ac652ea18d5f21 | quote: "route":"128.127.180.0/24","kind":"residential"
+  - [1] 2026-11-03: The plan allows 10 devices per account. | capture: sha256:68299ef74c2d5a2e37271d8a02972af1121e9dcd4f43069a64a91ba4600af152 | quote: Up to 10 devices per account (mobile and desktop)
+  - [1] 2026-11-03: The trial exists only on select plans and with a card. | capture: sha256:68299ef74c2d5a2e37271d8a02972af1121e9dcd4f43069a64a91ba4600af152 | quote: 7 day free trial (on select plans with card)
+  - [1] 2026-11-03: The 1-year plan is $4.00 per month. | capture: sha256:68299ef74c2d5a2e37271d8a02972af1121e9dcd4f43069a64a91ba4600af152 | quote: $ 4.00
+  - [1] 2026-11-04: the trial needs a card | capture: sha256:68299ef74c2d5a2e37271d8a02972af1121e9dcd4f43069a64a91ba4600af152 | quote: 7 day free trial (on select plans with card)
+  - [1] 2026-11-04: the trial cannot use crypto | capture: sha256:68299ef74c2d5a2e37271d8a02972af1121e9dcd4f43069a64a91ba4600af152 | quote: Free trials cannot be activated using cryptocurrency payments.
+- sources:
+  - [1] https://nym.com/pricing
+  - [2] https://validator.nymtech.net/api/v1/nym-nodes/described
+  - [3] https://mainnet-node-status-api.nymtech.cc/dvpn/v1/directory/gateways
+
+## NymVPN (Egress and tunnels)
+
+- `egress/nymvpn` | paid-only | evidence documented | binding none | category tunnel (hosted): VPN with a 24-word anonymous access code, 2-hop AmneziaWG and a 5-hop mixnet mode | tier 1 year
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T10:11:45.490Z (live) | stale on 2026-12-05
+- url https://nym.com/pricing
+- price USD 48 total for 1 year (USD 4.00 a month shown); a subscription price, not a per-TB price
+- free tier: No free plan. The pricing page lists one plan length: 1 year at '$ 4.00' a month, 'Total $ 48.00' ('$ 96.00' struck through), plus a 7-day free trial that 'requires a payment method' and cannot be activated with cryptocurrency. The paid plan is the standing offer, so the verdict is paid-only. | unit: mixed | metered on: wall-clock | read on: 2026-11-04 | source: [1] | note: The trial is 7 days; the unit vocabulary has no days term, so mixed is used. The page lists one plan length only (1 year); the 6-month and monthly prices are not on the page read.
+- per-object cap: not applicable | source: [1]
+- retention: not applicable: a tunnel, not stored bytes | source: [1]
+- egress: No byte cap is stated on the pricing page ('All features on all plans', 'No logs, no ads, no tracking'). A vendor support page says Anonymous mode (5 hops) 'is not designed for high-volume transfers' and recommends Fast mode (2-hop WireGuard) for large downloads. | metered: no | free allowance: none: no free plan; a 7-day trial that needs a card payment method | source: [1]
+- identity: anonymous | detail: The paid plan needs no personal data: the account page says 'Anonymous account generated on your device. No password, no personal info.' and the vendor lists Monero, Zcash, GNU Taler, cash and other cryptocurrency as payment options. A login with email, Google or a crypto wallet through Privy is an optional second path. The 7-day trial is not anonymous: it 'requires a payment method' and cannot be started with cryptocurrency.
+- interface: cli
+- limits:
+  - per-ip-shaping: exit gateways are run by independent operators; the support page says operators in countries where torrenting is restricted may block P2P on their exit, so reachability depends on the exit chosen [2]
+- limits note: Concurrent use is capped at 10 devices per account on the pricing page; the vocabulary has no kind for it. Anonymous mode is not designed for high-volume transfers (vendor wording), so throughput depends on the mode.
+- binding note: No byte quota or request rate is published; the stated caveats are the mode (Anonymous mode is not for large transfers) and exit-operator policy, neither of which the limit vocabulary names.
+- interface detail: A tunnel with apps and a command-line client, nym-vpnc. Protocols: AmneziaWG (a WireGuard fork) in Fast mode, which the vendor states is the only VPN protocol, and the Nym mixnet in Anonymous mode; OpenVPN and IKEv2/IPSec are not supported. UDP: unverified: no page read names the transport. Port forwarding: unverified: no page read states it. SOCKS5: the command-line client has 'nym-vpnc socks5 enable' and the docs say NymVPN can expose a local SOCKS5 proxy; it is a local listener, not a hosted endpoint. Obfuscation: AmneziaWG sends decoy packets before the handshake. BitTorrent: supported; exit operators in some countries may block it.
+- tooling: The vendor's apps and its nym-vpnc command-line client (tunnel set --two-hop on selects 2-hop WireGuard; socks5 enable exposes a local SOCKS5 proxy). No hosted SOCKS5 endpoint is documented in the pages read.
+- composes with: A tunnel exit with two modes: 2-hop WireGuard for throughput and a 5-hop mixnet for metadata protection; the upstream sees the exit gateway's address.
+- reliability: Exit servers are run by independent operators and a restricted-country operator may block P2P on its exit; the fix the vendor gives is to switch exit location and reconnect.
+- notes: Cheapest yearly price: 'Total $ 48.00' for 1 year on the pricing page, struck through from '$ 96.00'. The pricing and account pages state a paid plan with an anonymous access code and a card-gated 7-day trial; they do not state a trial-only offer or a required email.
+- evidence note: Documented: price, trial, account creation, protocol, SOCKS5 and BitTorrent lines are quoted from the vendor's pricing page, account page, support articles and docs. Nothing was connected through the service. UDP and port forwarding are unverified because no first-party page read states them.
+- evidence:
+  - [1] 2026-11-04: The 1-year plan totals USD 48.00 on the pricing page. | capture: sha256:68299ef74c2d5a2e37271d8a02972af1121e9dcd4f43069a64a91ba4600af152 | quote: Total $ 48.00
+  - [1] 2026-11-04: The page lists the 1-year plan. | capture: sha256:68299ef74c2d5a2e37271d8a02972af1121e9dcd4f43069a64a91ba4600af152 | quote: #### 1 year
+  - [1] 2026-11-04: Plans include the WireGuard dVPN and the mixnet. | capture: sha256:68299ef74c2d5a2e37271d8a02972af1121e9dcd4f43069a64a91ba4600af152 | quote: WireGuard dVPN & mixnet
+  - [1] 2026-11-04: A 7-day trial exists. | capture: sha256:68299ef74c2d5a2e37271d8a02972af1121e9dcd4f43069a64a91ba4600af152 | quote: Yes, NymVPN offers a 7-day free trial for new users.
+  - [1] 2026-11-04: The trial needs a non-crypto payment method. | capture: sha256:68299ef74c2d5a2e37271d8a02972af1121e9dcd4f43069a64a91ba4600af152 | quote: Free trials cannot be activated using cryptocurrency payments.
+  - [3] 2026-11-04: Access is by a passphrase, no personal data. | capture: sha256:bfc26a43a09196ddf8c72071227e012ecb918cd4bc3da6749e4fd023b61c9e24 | quote: You access NymVPN with an anonymous 24-word passphrase, nothing else.
+  - [4] 2026-11-04: A local SOCKS5 proxy exists in the command-line client. | capture: sha256:cc93c50fbbe9cd9239e62d279225a0e5234f049e085aea06bd0b73914d1b3bb1 | quote: NymVPN can expose a local SOCKS5 proxy:
+  - [4] 2026-11-04: 2-hop WireGuard mode is selectable from the CLI. | capture: sha256:cc93c50fbbe9cd9239e62d279225a0e5234f049e085aea06bd0b73914d1b3bb1 | quote: nym-vpnc tunnel set --two-hop on
+  - [5] 2026-11-04: The VPN protocol is AmneziaWG. | capture: sha256:903d547b83dc830ee4ac7517f83bf43df05e14a1aa3595f7ec0e434e7988b260 | quote: No. NymVPN uses AmneziaWG, a censorship-resistant fork of WireGuard, exclusively for Fast mode.
+  - [5] 2026-11-04: No OpenVPN or IKEv2. | capture: sha256:903d547b83dc830ee4ac7517f83bf43df05e14a1aa3595f7ec0e434e7988b260 | quote: OpenVPN, IKEv2/IPSec, and other VPN protocols are not currently supported.
+  - [6] 2026-11-04: Obfuscation is decoy packets before the handshake. | capture: sha256:7cc7edc67fe687d6869fb7c9334a0b58ad19cfe0ae535b83d32241e05e9bdd34 | quote: AmneziaWG modifies the WireGuard handshake by introducing decoy packets before the handshake initiation.
+  - [2] 2026-11-04: BitTorrent works. | capture: sha256:8991757e066a73b484bb4f885a4b78fe59e6737c3ad46d43c782820ed3372a4a | quote: Yes. Torrenting and other peer-to-peer (P2P) traffic work on NymVPN
+  - [2] 2026-11-04: Some exits may block P2P. | capture: sha256:8991757e066a73b484bb4f885a4b78fe59e6737c3ad46d43c782820ed3372a4a | quote: Operators in countries where torrenting is restricted may block P2P traffic on their exit server.
+  - [1] 2026-11-04: the 7-day trial needs a payment method | capture: sha256:68299ef74c2d5a2e37271d8a02972af1121e9dcd4f43069a64a91ba4600af152 | quote: Activating a NymVPN free trial is only available with certain payment types and providers, and requires a payment method should the customer decide to keep using the product beyond the trial period.
+  - [1] 2026-11-04: the paid plan can be bought with cryptocurrency | capture: sha256:68299ef74c2d5a2e37271d8a02972af1121e9dcd4f43069a64a91ba4600af152 | quote: Cryptocurrencies: Bitcoin (BTC), ADA, Lightning Network (BTC-LN), Ethereum (ETH) tokens, Binance (BNB) tokens, Liquid Bitcoin (L-BTC), Liquid Tether (L-USDT), Litecoin (LTC), Litecoin MWEB (LTC-MWEB), Monero (XMR), $NYM, Tether (USDT on TRON), Zcash (ZEC)
+  - [7] 2026-11-04: the account is generated on the device with no personal data | capture: sha256:1919c60c99b6d25a51b3850bebec2b241aff61881ee2c0357803876a5feb2c01 | quote: Anonymous account generated on your device. No password, no personal info.
+  - [7] 2026-11-04: email, Google or wallet login through Privy is an optional path | capture: sha256:1919c60c99b6d25a51b3850bebec2b241aff61881ee2c0357803876a5feb2c01 | quote: Privately sign in with email, Google, or crypto wallet, through our partner Privy.
+  - [1] 2026-11-04: 10 devices per account | capture: sha256:68299ef74c2d5a2e37271d8a02972af1121e9dcd4f43069a64a91ba4600af152 | quote: Up to 10 devices per account (mobile and desktop)
+- sources:
+  - [1] https://nym.com/pricing
+  - [2] https://support.nym.com/hc/en-us/articles/47614663055249-Does-NymVPN-support-torrenting-and-P2P
+  - [3] https://nym.com/
+  - [4] https://nym.com/docs/developers/nymvpncli
+  - [5] https://support.nym.com/hc/en-us/articles/40285544072593-Does-NymVPN-support-OpenVPN-or-other-protocols
+  - [6] https://nym.com/docs/network/dvpn-mode/censorship-resistance
+  - [7] https://nym.com/account/create
+
+## NymVPN (ip-proxy/nymvpn)
+
+- `ip-proxy/nymvpn` | paid-only | evidence documented | binding none | category VPN subscription (exit source) | tier 1 year
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T05:58:00.000Z (live) | stale on 2026-12-05
+- url https://nym.com/pricing
+- price USD 48 total for 1 year (USD 4.00 a month shown); a subscription price, not a per-TB price
+- duplicate of `egress/nymvpn`
+- disagrees on identity_kind: `ip-proxy/nymvpn` says anonymous, `ip-proxy/nymvpn-exits` says card
+- disagrees on verdict: `ip-proxy/nymvpn` says paid-only, `ip-proxy/nymvpn-exits` says trial-only
+- free tier: No free plan. The pricing page shows the 1-year plan at '$ 4.00 / month', '$ 96.00' struck through and 'Total $ 48.00', plus a 7-day free trial that is 'only available with certain payment types and providers' and cannot be activated with cryptocurrency. The pricing page lists no other term. | unit: mixed | metered on: wall-clock | read on: 2026-11-04 | source: [1] | note: The trial is 7 days; the unit vocabulary has no days term, so mixed is used. The page lists one plan length only (1 year). A September 2026 vendor post says a 6-month plan was being added and the 2-year plan retired; the 6-month and monthly prices are not on the page read.
+- per-object cap: not applicable | source: [1]
+- retention: not applicable: a tunnel, not stored bytes | source: [1]
+- egress: No byte cap is stated on the pricing page ('All features on all plans', 'No logs, no ads, no tracking'). A vendor support page says Anonymous mode (5 hops) 'is not designed for high-volume transfers' and recommends Fast mode (2-hop WireGuard) for large downloads. | metered: no | free allowance: none: no free plan; a 7-day trial exists | source: [1]
+- identity: anonymous | detail: The home page says NymVPN is accessed 'with an anonymous 24-word passphrase, nothing else'. A later release adds optional social logins through Privy while the passphrase login remains. Paying by card goes through Stripe, and the 7-day trial needs a payment method; cryptocurrency, Monero, Zcash, GNU Taler and cash are listed as payment options.
+- interface: cli
+- limits:
+  - per-ip-shaping: exit gateways are run by independent operators; the support page says operators in countries where torrenting is restricted may block P2P on their exit, so reachability depends on the exit chosen [2]
+- limits note: Concurrent use is capped at 10 devices per account on the pricing page; the vocabulary has no kind for it. Anonymous mode is not designed for high-volume transfers (vendor wording), so throughput depends on the mode.
+- binding note: No byte quota or request rate is published; the stated caveats are the mode (Anonymous mode is not for large transfers) and exit-operator policy, neither of which the limit vocabulary names.
+- interface detail: A tunnel with apps and a command-line client, nym-vpnc. Protocols: AmneziaWG (a WireGuard fork) in Fast mode, which the vendor states is the only VPN protocol, and the Nym mixnet in Anonymous mode; OpenVPN and IKEv2/IPSec are not supported. UDP: unverified: no page read names the transport. Port forwarding: unverified: no page read states it. SOCKS5: the command-line client has 'nym-vpnc socks5 enable' and the docs say NymVPN can expose a local SOCKS5 proxy; it is a local listener, not a hosted endpoint. Obfuscation: AmneziaWG sends decoy packets before the handshake. BitTorrent: supported; exit operators in some countries may block it.
+- tooling: The vendor's apps and its nym-vpnc command-line client (tunnel set --two-hop on selects 2-hop WireGuard; socks5 enable exposes a local SOCKS5 proxy). No hosted SOCKS5 endpoint is documented in the pages read.
+- composes with: A tunnel exit with two modes: 2-hop WireGuard for throughput and a 5-hop mixnet for metadata protection; the upstream sees the exit gateway's address.
+- reliability: Exit servers are run by independent operators and a restricted-country operator may block P2P on its exit; the fix the vendor gives is to switch exit location and reconnect.
+- notes: Duplicate of egress/nymvpn, which holds the offer: both records cite the same vendor page.
+- evidence note: Documented: price, trial, protocol, SOCKS5 and BitTorrent lines are quoted from the vendor's pricing page, support articles and docs. Nothing was connected through the service. UDP and port forwarding are unverified because no first-party page read states them.
+- evidence:
+  - [1] 2026-11-04: The 1-year plan totals USD 48.00 on the pricing page. | capture: sha256:68299ef74c2d5a2e37271d8a02972af1121e9dcd4f43069a64a91ba4600af152 | quote: Total $ 48.00
+  - [1] 2026-11-04: The page lists the 1-year plan. | capture: sha256:68299ef74c2d5a2e37271d8a02972af1121e9dcd4f43069a64a91ba4600af152 | quote: #### 1 year
+  - [1] 2026-11-04: Plans include the WireGuard dVPN and the mixnet. | capture: sha256:68299ef74c2d5a2e37271d8a02972af1121e9dcd4f43069a64a91ba4600af152 | quote: WireGuard dVPN & mixnet
+  - [1] 2026-11-04: A 7-day trial exists. | capture: sha256:68299ef74c2d5a2e37271d8a02972af1121e9dcd4f43069a64a91ba4600af152 | quote: Yes, NymVPN offers a 7-day free trial for new users.
+  - [1] 2026-11-04: The trial needs a non-crypto payment method. | capture: sha256:68299ef74c2d5a2e37271d8a02972af1121e9dcd4f43069a64a91ba4600af152 | quote: Free trials cannot be activated using cryptocurrency payments.
+  - [3] 2026-11-04: Access is by a passphrase, no personal data. | capture: sha256:f213edb2c04d05196e96f3c16dd662ded17969c0e55ff1350be88547883102a5 | quote: You access NymVPN with an anonymous 24-word passphrase, nothing else.
+  - [4] 2026-11-04: A local SOCKS5 proxy exists in the command-line client. | capture: sha256:cc93c50fbbe9cd9239e62d279225a0e5234f049e085aea06bd0b73914d1b3bb1 | quote: NymVPN can expose a local SOCKS5 proxy:
+  - [4] 2026-11-04: 2-hop WireGuard mode is selectable from the CLI. | capture: sha256:cc93c50fbbe9cd9239e62d279225a0e5234f049e085aea06bd0b73914d1b3bb1 | quote: nym-vpnc tunnel set --two-hop on
+  - [5] 2026-11-04: The VPN protocol is AmneziaWG. | capture: sha256:903d547b83dc830ee4ac7517f83bf43df05e14a1aa3595f7ec0e434e7988b260 | quote: No. NymVPN uses AmneziaWG, a censorship-resistant fork of WireGuard, exclusively for Fast mode.
+  - [5] 2026-11-04: No OpenVPN or IKEv2. | capture: sha256:903d547b83dc830ee4ac7517f83bf43df05e14a1aa3595f7ec0e434e7988b260 | quote: OpenVPN, IKEv2/IPSec, and other VPN protocols are not currently supported.
+  - [6] 2026-11-04: Obfuscation is decoy packets before the handshake. | capture: sha256:7cc7edc67fe687d6869fb7c9334a0b58ad19cfe0ae535b83d32241e05e9bdd34 | quote: AmneziaWG modifies the WireGuard handshake by introducing decoy packets before the handshake initiation.
+  - [2] 2026-11-04: BitTorrent works. | capture: sha256:8991757e066a73b484bb4f885a4b78fe59e6737c3ad46d43c782820ed3372a4a | quote: Yes. Torrenting and other peer-to-peer (P2P) traffic work on NymVPN
+  - [2] 2026-11-04: Some exits may block P2P. | capture: sha256:8991757e066a73b484bb4f885a4b78fe59e6737c3ad46d43c782820ed3372a4a | quote: Operators in countries where torrenting is restricted may block P2P traffic on their exit server.
+  - [1] 2026-11-04: the vendor page that both records cite shows the same offer, which the egress record holds | capture: sha256:68299ef74c2d5a2e37271d8a02972af1121e9dcd4f43069a64a91ba4600af152 | quote: Total $ 48.00
+- sources:
+  - [1] https://nym.com/pricing
+  - [2] https://support.nym.com/hc/en-us/articles/47614663055249-Does-NymVPN-support-torrenting-and-P2P
+  - [3] https://nym.com/
+  - [4] https://nym.com/docs/developers/nymvpncli
+  - [5] https://support.nym.com/hc/en-us/articles/40285544072593-Does-NymVPN-support-OpenVPN-or-other-protocols
+  - [6] https://nym.com/docs/network/dvpn-mode/censorship-resistance

@@ -1,0 +1,256 @@
+# Mistral La
+
+> mistral.ai | Compute, Inference, Coding subscriptions; 4 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/mistral/ | JSON https://fshy.ajam.dev/api/v1/entity/mistral.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Mistral La Plateforme (Compute)
+
+- `compute/mistral-la-plateforme` | qualifies-with-caveat | evidence documented | binding request-rate | category inference API
+- needs card no, phone unknown, ID no, institution no | verified 2026-10-31T13:48:50.050Z (live) | stale on 2026-12-01
+- url https://docs.mistral.ai/admin/billing-usage/usage-limits
+- free tier: Free mode still exists and its limits are now unpublished. The docs say 'Free mode lets you create API keys and use included monthly usage within the limits shown on the Limits page', and the help centre names the three limit dimensions, 'Requests per second (RPS)', 'Tokens per minute' and 'Tokens per month'. No figure appears on any public Mistral page: the docs point at admin.mistral.ai/plateforme/limits, which is behind a login. The Free card of mistral.ai/pricing carried 'Test Mistral models in Studio' and '$10 /mo in API credits' in archive captures of 2026-09-01 and 2026-10-05; the live page on 2026-10-31 carries neither line, so the USD 10 monthly credit that third parties still quote is withdrawn. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: recurring-monthly-allowance
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email | detail: account creation asks for an email address and a password, with an optional first and last name, or a sign-up with Apple, Google or Microsoft, and the registration form has no payment field; the registration form has no phone field, but whether Studio asks for a phone number after sign-in, before an API key works, is unverified: behind a sign-up
+- interface: rest
+- limits:
+  - request-rate (binding): the number that binds is not published, so the honest answer is that the monthly token cap is unknown until an account exists; third-party guides that still print '1 billion tokens a month' and '1 request a second' describe the retired Experiment plan, whose help pages now return 404. [1]
+- limits note: unverified: behind a sign-up; the Free mode requests per second, tokens per minute and tokens per month are shown only at admin.mistral.ai/plateforme/limits, which redirects to the sign-in flow at auth.mistral.ai, and no docs or help page prints a figure
+- binding note: the number that binds is not published, so the honest answer is that the monthly token cap is unknown until an account exists; third-party guides that still print '1 billion tokens a month' and '1 request a second' describe the retired Experiment plan, whose help pages now return 404.
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: an unpublished monthly cap is still a cap: the only safe composition is to treat the free key as a prototype lane and move any recurring job to Cloudflare's published 10,000 Neurons a day, which at least prints its meter.
+- reliability: no reliability event recorded; without a key the API answers HTTP 401, so no request was measured
+- notes: Refutation of widely repeated figures: the monthly token and per-second request figures that third-party guides print for Mistral's free API tier are attributed to the Experiment plan, whose help article is no longer served, and no current Mistral docs, help or pricing page prints a Free mode figure; the docs defer to the Limits page behind sign-in. The monthly API credit line of the Free card on mistral.ai/pricing, present in archive captures of 2026-09-01 and 2026-10-05, is absent from the live page on 2026-10-31. Identity: the Experiment plan help article, as archived on 2026-05-18, required a verified phone number, one per plan, and no credit card; the current registration form asks for an email and a password, with no phone field. Free mode inputs and outputs may be used for model training unless the Anonymous improvement data toggle under Privacy in the Admin panel is disabled.
+- extras:
+  - facets.class: refutation
+  - facets.free_tier_kind: recurring-monthly-allowance
+- evidence:
+  - [1] 2026-10-22: 'Free mode lets you create API keys and use included monthly usage within the limits shown on the Limits page', quoted; no figure on the page
+  - [2] 2026-10-22: 'The API enforces three limits: Requests per second (RPS)... Tokens per minute... Tokens per month', and 'See your current limits, usage, and tier on the Limits page', quoted
+  - [3] 2026-10-22: the Free plan card lists Vibe and Studio features only; no API credit figure appears anywhere on the page
+  - [4] 2026-09-01: the 2026-09-01 capture also carries no 'USD 10 /mo in API credits' line, so the figure was already gone by September
+  - [2] 2026-10-28: the API enforces three limits, requests per second, tokens per minute and tokens per month, with Free mode having the lowest limits and no figure printed | capture: sha256:97a643b016805b1af855fc0380f309ccd1e4d2b83726872f71f86ac9f47aac84 | quote: - Tokens per month: overall consumption cap.
+  - [1] 2026-10-28: Free mode has included monthly usage within limits shown on the Limits page, and the page prints no figure | capture: sha256:c5bead261d30ccc38ab09d5cd6eb71bb11af993437e35ee134928e952ab8a3b1 | quote: - Free mode lets you create API keys and use included monthly usage within the limits shown on the Limits page.
+  - [5] 2026-10-28: Free mode needs no credit card and the quickstart names no phone step | capture: sha256:ac3b27be6c4675c73d22b3e5f7d2f8e31227347ef2bd877dd14156f181e64d8f | quote: - Free mode: API access is enabled by default with no credit card required. Usage and rate limits apply.
+  - [1] 2026-10-28: the page names requests per second and tokens per minute as per-model limits and prints no Free mode figure | capture: sha256:c5bead261d30ccc38ab09d5cd6eb71bb11af993437e35ee134928e952ab8a3b1 | quote: - Requests per second: the request throughput limit for the model.
+  - probe:https://auth.mistral.ai/self-service/registration/api 2026-10-31: the registration flow requires an email and a password; its other inputs are an optional first and last name and Apple, Google and Microsoft sign-up buttons, with no phone or payment field | capture: sha256:dbfc04c54fec8bf16c5c51738da4d666a954ad55ac307c9089c22c4308d30af3 | quote: "name":"traits.email","type":"email","required":true,"autocomplete":"email"
+  - probe:https://auth.mistral.ai/schemas 2026-10-31: every identity schema the auth service publishes requires only the email trait and none defines a phone trait | capture: sha256:0a2f3eceb32d0b25c5872ca56754f8e76d61d07a39d3b4e8f1cd136de170dd6d | quote: "required":["email"],"additionalProperties":false
+  - probe:https://auth.mistral.ai/self-service/registration/api 2026-10-31: the registration flow requires a password beside the email | capture: sha256:dbfc04c54fec8bf16c5c51738da4d666a954ad55ac307c9089c22c4308d30af3 | quote: "name":"password","type":"password","required":true,"autocomplete":"new-password"
+  - [6] 2026-10-31: Free mode enables API access by default with no credit card, within usage and rate limits | capture: sha256:d59c24bf70e1b53c00d14084d41f139f7b22704fedcf7de097f670212daf8aa0 | quote: Free mode: API access is enabled by default with no credit card required. Usage and rate limits apply.
+  - probe:https://admin.mistral.ai/plateforme/limits 2026-10-31: the Limits page that holds the Free mode values redirects an unauthenticated request to the sign-in flow | capture: sha256:0df38f59fb3b251ba08586966afc68c98d83adf1fcc30a7918ee87cd5118827a | quote: "location": "https://auth.mistral.ai/self-service/login/browser?return_to=https%3A%2F%2Fadmin.mistral.ai%2Fplateforme%2Flimits"
+  - probe:https://help.mistral.ai/en/articles/455206-how-can-i-try-the-api-for-free-with-the-experiment-plan 2026-10-31: the Experiment plan help article now answers HTTP 404 | capture: sha256:3b68e15bd0ed1e257374c811deaff9417681a4dac289e2061002a38632fb1495 | quote: "status": 404
+  - [7] 2026-04-26: in April 2026 the account help article tied each Experiment subscription to one phone number | capture: sha256:d01a6f070151a9799ffe24021092b11a157dcb8dd379b4bebe9c564b83083d15 | quote: A single phone number can’t be used across multiple Experiment subscriptions (for example, le Chat’s free plan).
+  - [8] 2026-09-02: by 2026-09-02 the account article with the phone number section redirected to the email, password and 2FA version, which has no phone section | capture: sha256:8852486aab0c37d95fea591e855c7308fcdcf68587c10edc5213a6dd8577152b | quote: Got an HTTP 301 response at crawl time
+  - probe:https://api.mistral.ai/v1/models 2026-10-31: an unauthenticated GET of the models endpoint answers HTTP 401 | capture: sha256:b7e6144b7d17c67fd2902c948211669e86b5dd6e17603cff12d175c2cf3d8d4e | quote: "status": 401
+  - probe:https://api.mistral.ai/v1/models 2026-10-31: the unauthenticated answer body names an invalid API key, so the endpoint gates on a key | capture: sha256:08327cbfef8b96819b1da1f1aafd36a014dd15fdd1046df3f2ad539e142de832 | quote: {"detail":"Invalid API Key"}
+  - [1] 2026-10-31: Free mode still exists with included monthly usage within limits shown only on the Limits page; no figure is printed | capture: sha256:c5bead261d30ccc38ab09d5cd6eb71bb11af993437e35ee134928e952ab8a3b1 | quote: Free mode lets you create API keys and use included monthly usage within the limits shown on the Limits page.
+  - [1] 2026-10-31: Free mode limits are shown only on the Limits page; the docs print no Free mode figure | capture: sha256:c5bead261d30ccc38ab09d5cd6eb71bb11af993437e35ee134928e952ab8a3b1 | quote: Free mode lets you create API keys and use included monthly usage within the limits shown on the Limits page.
+  - [3] 2026-10-31: the Free card of the live pricing page lists Vibe features, basic image generation and connectors, with no Studio line and no API credit line | capture: sha256:6b351cb31d7053f83a3859bc743ac5323c8bce24c498e6fae54e87e39f9480bd | quote: Basic image generation and editing.
+  - [9] 2026-09-01: the 2026-09-01 archive capture of the pricing page carries a USD 10 monthly API credit line on the Free card | capture: sha256:9cab31105b3d959f5e738b337992502e3583f6dadd9ef24d8ab63e91d253472f | quote: $10 /mo in API credits.
+  - [9] 2026-09-01: the 2026-09-01 Free card also listed Studio model testing | capture: sha256:9cab31105b3d959f5e738b337992502e3583f6dadd9ef24d8ab63e91d253472f | quote: Test Mistral models in Studio.
+  - [10] 2026-10-05: the 2026-10-05 archive capture of the pricing page still carries the USD 10 monthly API credit line on the Free card | capture: sha256:2a8e818941b315626811ffb98d573a99b465e9f85415f5ace58a162357fdb64e | quote: $10 /mo in API credits.
+  - [11] 2026-05-18: the Experiment plan help article, as archived on 2026-05-18, required a verified phone number, one per plan, and no credit card | capture: sha256:1e1f6f1949fbd1cf92d5e8e653fcc24da1cbed92e815098bc30594f2da5b1e0a | quote: All you need is a verified phone number (one phone number per plan). No credit card is required.
+  - probe:https://help.mistral.ai/en/articles/455206-how-can-i-try-the-api-for-free-with-the-experiment-plan 2026-10-31: the Experiment plan help article answers HTTP 404 on 2026-10-31 | capture: sha256:6e103d627d65058dd1b4d40291c38c789d5afe1a7b296bccfa444a6ef63d9b7c | quote: "status": 404
+  - probe:https://auth.mistral.ai/self-service/registration/api 2026-10-31: the registration flow requires an email; its other inputs are a required password, optional first and last name and Apple, Google and Microsoft sign-up buttons, with no phone field | capture: sha256:306ab899c8c9f368bcef868dc0284635e13a8c7637d3684384dab55e266b91fb | quote: "name":"traits.email","type":"email","required":true,"autocomplete":"email"
+  - [12] 2026-10-31: under the Free mode heading for Mistral Studio, inputs and outputs may be used for model training | capture: sha256:92d4fe9b46b0e7c37855a4f71f1c88f7a473f3ea97243e005563363ec71af65d | quote: As stated during subscription, we may use your data (input and output) to train our artificial intelligence models.
+  - [13] 2026-10-31: the Studio and API training use is switched off with the Anonymous improvement data toggle under Privacy in the Admin panel | capture: sha256:ce6d710f7143fa67fede9c74a79ec8e84e359b8b5a5e7154507bf1ab92908910 | quote: Under the `Anonymous improvement data` section, disable the toggle to prevent API calls and related data from being used to improve Mistral’s services.
+  - [14] 2026-10-31: the included monthly usage of every plan, Free mode among them, is one allowance shared across Studio, the API and Vibe Code | capture: sha256:0e4757b8e3156152aa954326d7a25b582a5c2eb031f7c800dcd43b6059ebf47e | quote: Each Mistral plan includes monthly usage that is shared across Studio, the API, and Vibe Code.
+  - [15] 2026-10-31: a third-party guide attributes the per-month token figure to the Experiment plan; no Mistral page is cited for it | capture: sha256:70d5727be4a6f7e2dd9db300502b92a2c2aa3921040787d25bcc15c174a8e1d2 | quote: Mistral's free "Experiment" plan is the highest monthly token budget available — approximately 1 billion tokens/month.
+  - probe:https://auth.mistral.ai/self-service/registration/api 2026-10-31: the registration flow offers Apple, Google and Microsoft sign-up buttons and a form that requires an email and a password, with first and last name inputs that are not required, and none of its inputs is a phone or payment field | capture: sha256:dc762e485cc02ad0c46f6214d17560552ed94e1732179b805d4eb54b8104624f | quote: Sign up with Apple ... Sign up with Google ... Sign up with Microsoft ... "traits.email","type":"email","required":true ... "password","type":"password","required":true ... "traits.name.first","type":"text","disabled":false ... "traits.name.last","type":"text","disabled":false
+- sources:
+  - [1] https://docs.mistral.ai/admin/billing-usage/usage-limits
+  - [2] https://help.mistral.ai/en/articles/698531-why-am-i-hitting-my-api-usage-limits-and-how-can-i-increase-them
+  - [3] https://mistral.ai/pricing
+  - [4] https://web.archive.org/web/20260901163208/https://mistral.ai/pricing/?provider=wayback
+  - [5] https://docs.mistral.ai/getting-started/quickstarts/studio/activate-and-generate-api-key
+  - [6] https://docs.mistral.ai/getting-started/quickstarts/studio/activate-and-generate-api-key.md
+  - [7] https://web.archive.org/web/20260601000000/https://help.mistral.ai/en/articles/448331-how-do-i-update-my-account-information-email-password-and-phone-number
+  - [8] https://web.archive.org/web/20260902223605/https://help.mistral.ai/en/articles/448331-how-do-i-update-my-account-information-email-password-and-phone-number
+  - [9] https://web.archive.org/web/20260901163208/https://mistral.ai/pricing/
+  - [10] https://web.archive.org/web/20261005155553/https://mistral.ai/pricing/
+  - [11] https://web.archive.org/web/20260518081929/https://help.mistral.ai/en/articles/455206-how-can-i-try-the-api-for-free-with-the-experiment-plan
+  - [12] https://help.mistral.ai/en/articles/347617-do-you-use-my-user-data-to-train-your-artificial-intelligence-models
+  - [13] https://help.mistral.ai/en/articles/455207-can-i-opt-out-of-my-input-or-output-data-being-used-for-training
+  - [14] https://docs.mistral.ai/admin/billing-usage/subscriptions
+  - [15] https://apiscout.dev/guides/free-ai-apis-developers-2026
+
+## Mistral La Plateforme (Inference)
+
+- `inference/mistral-la-plateforme` | qualifies-with-caveat | evidence documented | binding request-rate | category inference endpoint, keyed free tier
+- needs card no, phone unknown, ID no, institution no | verified 2026-10-31T13:48:50.049Z (live) | stale on 2026-12-01
+- url https://api.mistral.ai/v1
+- free tier: Free mode is the default plan for new accounts: API access is enabled by default with no credit card required, within usage and rate limits. unverified: no docs page states a number; the values are shown only at admin.mistral.ai/plateforme/limits after sign-in | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1] | note: limits are set per Workspace and shared by all API keys of the Workspace. The former docs paths deployment/laplateforme/tier and deployment/ai-studio/tier answer page not found; the limits are described under admin/workspaces/usage-limits and admin/billing-usage/usage-limits
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: account creation asks for an email address and a password, with an optional first and last name, or a sign-up with Apple, Google or Microsoft, and the registration form has no payment field; the registration form has no phone field, but whether Studio asks for a phone number after sign-in, before an API key works, is unverified: behind a sign-up
+- interface: rest
+- limits:
+  - request-rate (binding): requests per second (RPS, described as maximum concurrent API requests), tokens per minute and tokens per month, applied at the Workspace level and shared across all API keys in that Workspace; completion limits are listed per model on the Limits page. unverified: the Free mode values are shown only at admin.mistral.ai/plateforme/limits after sign-in and no docs page states a number [2]
+- limits note: unverified: behind a sign-up; the Free mode requests per second, tokens per minute and tokens per month are shown only at admin.mistral.ai/plateforme/limits, which redirects to the sign-in flow at auth.mistral.ai, and no docs or help page prints a figure
+- binding note: the per-workspace request and token rates bind, and the free tier's values are behind a login, so the ceiling cannot be sized before an account exists
+- tooling: any OpenAI-compatible client
+- composes with: pairs with an agent after a signup; the scarce link is the account, and the free tier's ceiling is unread
+- reliability: no reliability event recorded; without a key the API answers HTTP 401, so no request was measured
+- notes: Free mode is the current free API tier: it is the default state of a new account, API access is enabled by default with no credit card, and its rate limits are the lowest, intended for evaluation and prototyping. In its help article as archived on 2026-05-18, the free API tier was the Experiment plan, which required a verified phone number, one phone number per plan, and no credit card; that article is no longer served. The former docs paths deployment/laplateforme/tier and deployment/ai-studio/tier answer page not found; the limits are described under admin/workspaces/usage-limits, admin/billing-usage/usage-limits and the help article on API rate limits.
+- evidence note: the free tier's existence and scope rest on live first-party docs: Free mode lets an account create API keys and use included monthly usage within the limits shown on the Limits page. The archived tier page is superseded by these pages. No page publishes a number, so the ceiling is documented as existing and not as sized.
+- evidence:
+  - [3] 2026-10-22: The documentation path has moved
+  - [4] 2025-10-09: the archived 'Rate limit and usage tiers' page states 'We offer various tiers on the platform, including a free API tier with restrictive rate limits', that limits are 'set at the workspace level' and defined by usage tier, and that the current values are visible only at admin.mistral.ai/plateforme/limits
+  - probe:https://api.mistral.ai/v1/chat/completions 2026-10-22: an unauthenticated POST returned 401 with a 29-byte body, {"detail":"Invalid API Key"}. The endpoint exists and gates on a key
+  - [2] 2026-10-28: rate limits are per Workspace, shared by its API keys, and are RPS, tokens per minute and tokens per month; current values are viewed at the Limits page | capture: sha256:ab149dc482dffa94b54f200923beb261290bc27e103f358ac3e15cb93473e7c6 | quote: Rate limits apply at the Workspace level and are shared across all API keys in that Workspace. ... Requests per second (RPS): maximum concurrent API requests. ... Tokens per minute: throughput limit for token processing. ... Tokens per month: overall consumption cap.
+  - [5] 2026-10-28: completion rate limits are listed per model as tokens per minute and requests per second | capture: sha256:a87d66bade19155886b2a7469a4d33968e50450db006e0a0c4c28de61e78d1c3 | quote: Completion rate limits are listed per model and include: ... Tokens per minute: the token throughput limit for the model. ... Requests per second: the request throughput limit for the model.
+  - [1] 2026-10-28: Free mode enables API access by default with no credit card, subject to usage and rate limits | capture: sha256:d59c24bf70e1b53c00d14084d41f139f7b22704fedcf7de097f670212daf8aa0 | quote: Free mode: API access is enabled by default with no credit card required. Usage and rate limits apply.
+  - [1] 2026-10-28: this live page states the Free mode terms | capture: sha256:d59c24bf70e1b53c00d14084d41f139f7b22704fedcf7de097f670212daf8aa0 | quote: Free mode: API access is enabled by default with no credit card required. Usage and rate limits apply.
+  - [6] 2026-10-28: Free mode is the default state of a new account | capture: sha256:43029f4b69161065a041e220cc67f7ccba583b798b2668473022b70cb30e94c6 | quote: Free mode is the default state for new accounts. Paid plans add seats, features, and included monthly usage.
+  - [7] 2026-10-28: docs.mistral.ai/deployment/ai-studio/tier answers page not found | capture: sha256:d233b355c43f923dd169b73c2175c0d51ddf467e310941b8f25b57a26d089bd2 | quote: The page you’re looking for was either moved or doesn’t exist.
+  - [5] 2026-10-28: Free mode usage is bounded by the limits shown on the Limits page of the admin panel | capture: sha256:a87d66bade19155886b2a7469a4d33968e50450db006e0a0c4c28de61e78d1c3 | quote: Free mode lets you create API keys and use included monthly usage within the limits shown on the Limits page.
+  - [1] 2026-10-28: the prerequisite is a Mistral account and Free mode API access needs no credit card | capture: sha256:d59c24bf70e1b53c00d14084d41f139f7b22704fedcf7de097f670212daf8aa0 | quote: API access is enabled by default with no credit card required. ... Prerequisites - A Mistral account.
+  - [2] 2026-10-28: limits are counted per Workspace and shared by its keys, so the per-workspace rates still bind | capture: sha256:ab149dc482dffa94b54f200923beb261290bc27e103f358ac3e15cb93473e7c6 | quote: Rate limits apply at the Workspace level and are shared across all API keys in that Workspace.
+  - probe:https://auth.mistral.ai/self-service/registration/api 2026-10-31: the registration flow requires an email and a password; its other inputs are an optional first and last name and Apple, Google and Microsoft sign-up buttons, with no phone or payment field | capture: sha256:dbfc04c54fec8bf16c5c51738da4d666a954ad55ac307c9089c22c4308d30af3 | quote: "name":"traits.email","type":"email","required":true,"autocomplete":"email"
+  - probe:https://auth.mistral.ai/schemas 2026-10-31: every identity schema the auth service publishes requires only the email trait and none defines a phone trait | capture: sha256:0a2f3eceb32d0b25c5872ca56754f8e76d61d07a39d3b4e8f1cd136de170dd6d | quote: "required":["email"],"additionalProperties":false
+  - probe:https://auth.mistral.ai/self-service/registration/api 2026-10-31: the registration flow requires a password beside the email | capture: sha256:dbfc04c54fec8bf16c5c51738da4d666a954ad55ac307c9089c22c4308d30af3 | quote: "name":"password","type":"password","required":true,"autocomplete":"new-password"
+  - probe:https://admin.mistral.ai/plateforme/limits 2026-10-31: the Limits page that holds the Free mode values redirects an unauthenticated request to the sign-in flow | capture: sha256:0df38f59fb3b251ba08586966afc68c98d83adf1fcc30a7918ee87cd5118827a | quote: "location": "https://auth.mistral.ai/self-service/login/browser?return_to=https%3A%2F%2Fadmin.mistral.ai%2Fplateforme%2Flimits"
+  - [5] 2026-10-31: the live docs state that Free mode allows API keys and included monthly usage within the limits on the Limits page, and print no figure | capture: sha256:a87d66bade19155886b2a7469a4d33968e50450db006e0a0c4c28de61e78d1c3 | quote: Free mode lets you create API keys and use included monthly usage within the limits shown on the Limits page.
+  - probe:https://help.mistral.ai/en/articles/455206-how-can-i-try-the-api-for-free-with-the-experiment-plan 2026-10-31: the Experiment plan help article now answers HTTP 404 | capture: sha256:3b68e15bd0ed1e257374c811deaff9417681a4dac289e2061002a38632fb1495 | quote: "status": 404
+  - probe:https://api.mistral.ai/v1/models 2026-10-31: an unauthenticated GET of the models endpoint answers HTTP 401 | capture: sha256:b7e6144b7d17c67fd2902c948211669e86b5dd6e17603cff12d175c2cf3d8d4e | quote: "status": 401
+  - probe:https://api.mistral.ai/v1/models 2026-10-31: the unauthenticated answer body names an invalid API key, so the endpoint gates on a key | capture: sha256:08327cbfef8b96819b1da1f1aafd36a014dd15fdd1046df3f2ad539e142de832 | quote: {"detail":"Invalid API Key"}
+  - [6] 2026-10-31: Free mode is the default state of a new account | capture: sha256:d5ece30b02fb64ed4204527ec6b86725d042636c2fc839e2fb10be0d824253a3 | quote: Free mode is the default state for new accounts.
+  - [1] 2026-10-31: Free mode enables API access by default with no credit card, within usage and rate limits | capture: sha256:d59c24bf70e1b53c00d14084d41f139f7b22704fedcf7de097f670212daf8aa0 | quote: Free mode: API access is enabled by default with no credit card required. Usage and rate limits apply.
+  - [8] 2026-10-31: the live help article names Free mode as the default API plan, with the lowest rate limits, intended for evaluation and prototyping | capture: sha256:97a643b016805b1af855fc0380f309ccd1e4d2b83726872f71f86ac9f47aac84 | quote: Free mode (the default) has the lowest limits, intended for evaluation and prototyping.
+  - [9] 2026-05-18: the Experiment plan help article, as archived on 2026-05-18, required a verified phone number, one per plan, and no credit card | capture: sha256:1e1f6f1949fbd1cf92d5e8e653fcc24da1cbed92e815098bc30594f2da5b1e0a | quote: All you need is a verified phone number (one phone number per plan). No credit card is required.
+  - [3] 2026-10-31: the former docs path deployment/laplateforme/tier answers HTTP 404 with a page not found body | capture: sha256:d233b355c43f923dd169b73c2175c0d51ddf467e310941b8f25b57a26d089bd2 | quote: The page you’re looking for was either moved or doesn’t exist.
+  - [7] 2026-10-31: the former docs path deployment/ai-studio/tier redirects to admin/billing-usage/tier, which answers HTTP 404 with a page not found body | capture: sha256:d233b355c43f923dd169b73c2175c0d51ddf467e310941b8f25b57a26d089bd2 | quote: The page you’re looking for was either moved or doesn’t exist.
+  - [8] 2026-10-31: the help article on API rate limits defers the current values to the Limits page of the Admin panel and prints no Free mode figure | capture: sha256:97a643b016805b1af855fc0380f309ccd1e4d2b83726872f71f86ac9f47aac84 | quote: 🔎 See your current limits, usage, and tier on the [Limits page](https://admin.mistral.ai/plateforme/limits) of the Admin panel.
+  - [1] 2026-10-31: the live API key quickstart still states that Free mode enables API access by default with no credit card, within usage and rate limits | capture: sha256:d59c24bf70e1b53c00d14084d41f139f7b22704fedcf7de097f670212daf8aa0 | quote: Free mode: API access is enabled by default with no credit card required. Usage and rate limits apply.
+  - probe:https://auth.mistral.ai/self-service/registration/api 2026-10-31: the registration flow offers Apple, Google and Microsoft sign-up buttons and a form that requires an email and a password, with first and last name inputs that are not required, and none of its inputs is a phone or payment field | capture: sha256:dc762e485cc02ad0c46f6214d17560552ed94e1732179b805d4eb54b8104624f | quote: Sign up with Apple ... Sign up with Google ... Sign up with Microsoft ... "traits.email","type":"email","required":true ... "password","type":"password","required":true ... "traits.name.first","type":"text","disabled":false ... "traits.name.last","type":"text","disabled":false
+- sources:
+  - [1] https://docs.mistral.ai/getting-started/quickstarts/studio/activate-and-generate-api-key.md
+  - [2] https://docs.mistral.ai/admin/workspaces/usage-limits.md
+  - [3] https://docs.mistral.ai/deployment/laplateforme/tier/
+  - [4] https://web.archive.org/web/20251009005412/https://docs.mistral.ai/deployment/laplateforme/tier/
+  - [5] https://docs.mistral.ai/admin/billing-usage/usage-limits.md
+  - [6] https://docs.mistral.ai/admin/billing-usage/subscriptions.md
+  - [7] https://docs.mistral.ai/deployment/ai-studio/tier
+  - [8] https://help.mistral.ai/en/articles/698531-why-am-i-hitting-api-rate-limits-and-how-do-i-increase-them
+  - [9] https://web.archive.org/web/20260601000000/https://help.mistral.ai/en/articles/455206-how-can-i-try-the-api-for-free-with-the-experiment-plan
+
+## Mistral Vibe Code (formerly Mistral Code)
+
+- `coding-subs/mistral-vibe-code` | qualifies-with-caveat | evidence documented | binding volume-quota | category coding subscription
+- needs card no, phone yes, ID no, institution no | verified 2026-11-03T00:31:39.492Z (live) | stale on 2026-12-04
+- url https://mistral.ai/pricing
+- free tier: Free plan, USD 0: 'Limited coding sessions' and 'Vibe for code for agentic coding in your terminal'; Pro is USD 14.99 a month excluding taxes with 'All-day coding in the CLI, IDE, or on web', and verified students pay USD 5.99 a month for Pro | unit: mixed | metered on: unstated | read on: 2026-10-30 | source: [1] | note: the CLI draws on a monthly plan budget shared across Studio, the API and Vibe Code whose size is published for no plan; Vibe Code Web counts sessions instead, 2 a day on Free where access is enabled and 100 a day on paid plans
+- per-object cap: not applicable
+- retention: not applicable
+- egress: not applicable | metered: no
+- identity: any-phone | detail: a Mistral account with a verified phone number, and no card. Help centre copies archived on 2026-05-18 and 2026-08-05 state that the free API plan needs 'a verified phone number (one phone number per plan)' and that one phone number cannot be used across multiple free subscriptions, such as Vibe's free plan. The help centre article's copy archived on 2026-08-24 under its current slug has no phone section and the live article still has none, so the section was removed between 2026-08-05 and 2026-08-24; the live docs state only 'no credit card required', so whether the phone step still applies today is unverified: behind a sign-up. No country restriction is stated; a third-party guide reports a Taiwan number receiving the code. Pro is a paid subscription
+- interface: cli
+- limits:
+  - volume-quota (binding): a monthly included usage shared across Studio, the API and Vibe Code; with pay-as-you-go off, the default, Vibe Code can stop until the next billing period. The size of the allowance is not published for any plan [2]
+  - request-rate: Vibe Code Web: 2 sessions per day for Free users where access is enabled, 100 sessions per day for paid users; maximum session duration 24 hours, inactivity timeout 3 hours [3]
+- binding note: the monthly plan budget is what stops the CLI, and its size is unpublished; the per-day session cap applies to Vibe Code Web only
+- interface detail: the Vibe CLI (`vibe`), the VS Code extension, ACP clients such as JetBrains IDEs, and Vibe Code Web on GitHub repositories in a cloud sandbox. Headless: `vibe --prompt` (`-p`) runs one task and exits, with `--auto-approve`, `--max-turns`, `--max-tokens`, `--time-limit` and `--output text|json|streaming`; only the CLI has a non-interactive mode
+- tooling: Vibe CLI, Apache-2.0, installed with `uv tool install mistral-vibe` or the install script; sign-in by browser or a key from Code > Vibe CLI in the MISTRAL_API_KEY variable; config presets also point the same CLI at other OpenAI-compatible providers
+- composes with: the plan budget is the same pool that Free mode API keys draw on (inference/mistral-la-plateforme), so CLI use and API use on one Organization spend one allowance; Pro and Team continue past the budget at API rates only when prepaid pay-as-you-go is enabled
+- reliability: paid-plan users report the CLI failing with 'Rate limit exceeded for mistral (model: mistral-vibe-cli-latest)' during ordinary use (GitHub issue mistralai/mistral-vibe#740, opened 2026-06-03); one commenter reports reaching the monthly limit after 4 days
+- notes: Mistral Code, launched in June 2025 for enterprises, survives only as legacy Enterprise seats; the self-serve coding product is Vibe Code inside the Mistral plans. Free carries a limited coding allowance with no published size; Pro at USD 14.99 is under USD 20. The 2026-01-27 announcement placed Vibe on Pro and Team only, and the pricing page now lists coding sessions on Free as well.
+- evidence note: plans, the headless flags, the shared budget and the Web session caps are quoted from first-party pages read on 2026-10-30. The Free and Pro budget sizes are shown only after sign-in, so no token capacity is stated; a measured CLI run on a Free account would move the quota to measured.
+- evidence:
+  - [1] 2026-10-30: the Free plan includes a limited number of coding sessions, with no count published | capture: sha256:6b351cb31d7053f83a3859bc743ac5323c8bce24c498e6fae54e87e39f9480bd | quote: Limited coding sessions.
+  - [1] 2026-10-30: the Free plan covers Vibe for code in the terminal | capture: sha256:6b351cb31d7053f83a3859bc743ac5323c8bce24c498e6fae54e87e39f9480bd | quote: including our latest models, chat, search, creation, and Vibe for code for agentic coding in your terminal
+  - [1] 2026-10-30: Pro costs USD 14.99 a month, and USD 5.99 a month for verified students | capture: sha256:6b351cb31d7053f83a3859bc743ac5323c8bce24c498e6fae54e87e39f9480bd | quote: Verified students can get Mistral Pro for $5.99 / month (normally $14.99).
+  - [1] 2026-10-30: Pro is sold as all-day coding across the CLI, IDE and web | capture: sha256:6b351cb31d7053f83a3859bc743ac5323c8bce24c498e6fae54e87e39f9480bd | quote: All-day coding in the CLI, IDE, or on web.
+  - [1] 2026-10-30: the Pro card lists USD 25.5 a month in API credits in its default view; the student view lists USD 15 | capture: sha256:6b351cb31d7053f83a3859bc743ac5323c8bce24c498e6fae54e87e39f9480bd | quote: $25.5 /mo in API credits.
+  - [2] 2026-10-30: the CLI spends the same monthly plan allowance as Studio and the API | capture: sha256:96c999e90c8f0f2305a3724fb6838d74129604618c686e538441d4bb569287f3 | quote: Mistral plans include monthly usage that is shared across Studio, the API, and Vibe Code.
+  - [2] 2026-10-30: with pay-as-you-go off, exhausting the monthly allowance stops the CLI until the next billing period | capture: sha256:96c999e90c8f0f2305a3724fb6838d74129604618c686e538441d4bb569287f3 | quote: Vibe Code can stop until the next billing period.
+  - [2] 2026-10-30: a Vibe CLI key works on the Free plan | capture: sha256:96c999e90c8f0f2305a3724fb6838d74129604618c686e538441d4bb569287f3 | quote: The same key works in Free mode, with a paid plan, or with pay-as-you-go enabled.
+  - [3] 2026-10-30: Vibe Code Web allows Free users 2 sessions a day where enabled; paid users get 100 | capture: sha256:00667e6a984e48a44a1b4f9998266e57a9cf542acfc80057222fdf67aa84c484 | quote: | Free users | 2 sessions per day, where access is enabled |
+  - [3] 2026-10-30: the hosted model behind Vibe Code is Mistral Medium 3.5 | capture: sha256:00667e6a984e48a44a1b4f9998266e57a9cf542acfc80057222fdf67aa84c484 | quote: | Vibe CLI with a Mistral model selected | Uses Mistral Medium 3.5 |
+  - [4] 2026-10-30: the CLI has a non-interactive mode for scripts and CI | capture: sha256:97032d33ed0c4c048118c15f35a6424ec3db1765abc3d5d42a5cefdf724ffa31 | quote: Use the `--prompt` (`-p`) flag to run a single task and exit
+  - [5] 2026-10-30: only the CLI surface runs non-interactively; the VS Code extension and Vibe Code Web do not | capture: sha256:503499ffafbfd199d2cd0b9eacc15080054c39f0e5c4db6baace7558c633885b | quote: | Non-interactive mode | Yes (`vibe --prompt`) | No | No |
+  - [6] 2026-10-30: Free mode needs no card | capture: sha256:ac3b27be6c4675c73d22b3e5f7d2f8e31227347ef2bd877dd14156f181e64d8f | quote: API access is enabled by default with no credit card required.
+  - [7] 2026-10-30: Mistral Code is now a legacy Enterprise seat, and Vibe Code is the current coding product | capture: sha256:0e4757b8e3156152aa954326d7a25b582a5c2eb031f7c800dcd43b6059ebf47e | quote: Mistral Code seats are legacy Enterprise seats for the coding assistant.
+  - [8] 2026-10-30: Mistral Code launched in 2025 as an enterprise product reached through an account team, with no self-serve price | capture: sha256:c1899c8c8f0db3b7cd18bbff8540b83248a71cfd55a21a594d9cbd145639ef86 | quote: from your Mistral account team to spin up a pilot
+  - [9] 2026-10-30: paid subscribers can extend past the plan limit at API rates | capture: sha256:ce2568550da2bd341961cf450f0b1d16131b5d7dd7c6cc0436e7d58a356a85ea | quote: Subscribers can continue beyond limits with pay-as-you-go at API rates until usage resets.
+  - [10] 2026-10-30: a plan key from Code > Vibe Code CLI is tied to the plan's monthly Vibe budget, separate from API rate limits | capture: sha256:97a643b016805b1af855fc0380f309ccd1e4d2b83726872f71f86ac9f47aac84 | quote: When that budget is reached, the plan can stop working until the next billing period.
+  - [11] 2026-10-30: the Vibe CLI is open source under Apache-2.0 | capture: sha256:4c49ad004300beb1106b903e60a047c8b776a75cae34bf13c74f11db376dafcd | quote: Licensed under the Apache License, Version 2.0
+  - [12] 2026-10-30: users on a paid plan report the CLI hitting its rate limit during ordinary use | capture: sha256:3c15d5b6ee2f2472181d8a7291dd2d6bc9cce2e6394bb062ee907db08ac46003 | quote: Rate limit exceeded for mistral (model: mistral-vibe-cli-latest)
+  - [13] 2026-10-30: a third-party directory lists a phone verification step for the Mistral free tier | capture: sha256:44c290efdcb7e07301046eace37bb8d2cbf4abd2da70711a30d56b13504a6d89 | quote: Phone Verification Required
+  - [14] 2026-10-30: the help centre copy archived on 2026-08-05 ties Vibe's free plan to a phone number, one phone number per free subscription | capture: sha256:523831ac8b2f0efcf5a18632e0f2ef724382d4b11393b9bd42ec73b8441c850e | quote: A single phone number can’t be used across multiple free subscriptions, such as Vibe’s free plan.
+  - [15] 2026-10-30: the help centre copy archived on 2026-05-18 says the free API plan needs a verified phone number, one per plan, and no card | capture: sha256:834b2ca955b48d5c142fc21abfb0ea6fbeddf31eb5191556132b03345ce1c3a1 | quote: All you need is a verified phone number (one phone number per plan). No credit card is required.
+  - [14] 2026-10-30: in the 2026-08-05 copy a Mistral account carries a phone number that only support can change or remove | capture: sha256:523831ac8b2f0efcf5a18632e0f2ef724382d4b11393b9bd42ec73b8441c850e | quote: Some changes, such as updating or removing a phone number, require support.
+  - [16] 2026-10-30: the live article now redirects to the email, password and 2FA slug and no longer carries the phone section or the free-subscription phone FAQ | capture: sha256:6372863de55371d484d20614e5faad2a7f2c04289c6117e880b33e3e02b2c327 | quote: You can update most account information from your account settings.
+  - [17] 2026-10-30:  | capture: sha256:f80512be17d0760848aa6ff503c51bbc75723b1148b8e2861f232a8f4b8259e4 | quote: Account Data (such as the phone number or email address you provided to verify or change your account password, etc.)
+  - [18] 2026-10-30: a third-party deal page published 2026-10-01 reports email plus phone verification, one plan per phone number, no card | capture: sha256:ba4195cdf01084f466a8f29ec3f45bccf427c03b42227c1daf6f1808da853bf1 | quote: 参与门槛：console.mistral.ai 注册，验证邮箱 + 手机号（每手机号限一个计划，不可复用），无需信用卡
+  - [19] 2026-10-30: a third-party guide reports the SMS step at key creation and a Taiwan number receiving the code, so the step is not limited to one country | capture: sha256:af6220be168814980e24938be4c9971362d94a449aac70f96041b217d892bc1f | quote: 此時點擊需要建立金鑰時，系統會要求進行手機號碼驗證（填入台灣 +886 門號接收簡訊驗證碼）。
+  - [20] 2026-10-30: a third-party guide reports that the free plan is activated only after SMS verification of a phone number | capture: sha256:5659076ea0397dc5a0f79ce5a41bdee34f65414efbd3a37455188bd94f204b09 | quote: A valid phone number is required, because the plan is activated after SMS verification.
+  - [21] 2026-10-30: a third-party guide updated in October 2026 finds the phone step only in an older Mistral help article | capture: sha256:a12a32efb3c0c1fa09a408ef3ad4aa9767f69ff79374d4f5a59252416cd3d5eb | quote: No credit card required (as of 20 October 2026; an older Mistral help article also asks for a verified phone number).
+  - [6] 2026-10-30: Free mode still needs no card on the live docs page | capture: sha256:ac3b27be6c4675c73d22b3e5f7d2f8e31227347ef2bd877dd14156f181e64d8f | quote: API access is enabled by default with no credit card required.
+  - [22] 2026-11-02: the help centre copy archived on 2026-08-24 under the current slug has email, password and 2FA sections and no phone section or free-subscription phone FAQ | capture: sha256:2b3c84b59beda9a13093fab2bca5b5ba0e49b128387ec1e43dcef6f8c7e97d7c | quote: You can update most account information from your account settings.
+  - [23] 2026-11-02: the Free card lists limited coding sessions with no count; the page carries no Vibe Code budget size for any plan | capture: sha256:d872644b544b88a510d87decd96ebcae3d42a7ae1773e80757b505a2268da837 | quote: Limited coding sessions.
+  - [24] 2026-11-02: a Pro subscriber reports (snapshot of 2026-08-18) that the Subscription panel meters Vibe Code usage as a currency amount against USD 300 a month, separate from API and Studio usage; a user report, not a vendor statement | capture: sha256:15036b0fb9843e1c0ed4ee1ab8859ef39440d9baccaabc0374c4bbb8032d64a8 | quote: Vibe Code usage — “Vibe Code includes extra monthly usage”: $10.26 / $300
+  - [24] 2026-11-02: the same report shows the separate API and Studio meter against USD 30 a month on Pro, which the pricing page now lists as USD 25.5 | capture: sha256:15036b0fb9843e1c0ed4ee1ab8859ef39440d9baccaabc0374c4bbb8032d64a8 | quote: API usage — “Available via the API and Studio”: $12.08 / $30
+  - [25] 2026-11-02: a third-party article of 2026-10-10 reports that Pro includes EUR 255 a month of Vibe Code usage across CLI, VS Code and web, shown in the Subscription panel as a currency amount; a user report, not a vendor statement | capture: sha256:6727c1462bcd44008e81de52b5aaddfd527a49f6efa0463444fb9965b3899cae | quote: 255 € di utilizzo Vibe Code (CLI, VS Code e web)
+  - [25] 2026-11-02: the same article reports that the monthly quotas reset on the first day of each calendar month, not on the renewal date | capture: sha256:6727c1462bcd44008e81de52b5aaddfd527a49f6efa0463444fb9965b3899cae | quote: Le quote si azzerano il primo giorno di ogni mese, non alla data di rinnovo dell'abbonamento.
+  - [26] 2026-11-02: a subscriber quotes vendor support (snapshot of 2026-09-18) saying the included usage is a monthly monetary budget and not a token count, so no token or session figure exists for it; a user report | capture: sha256:c13843568aaf4bf9340378cb0d3a0d4ab5ecdf2a63e655dd5939365e378a406f | quote: The included usage is not based on a fixed number of tokens. Instead, it is a monthly monetary budget shared across Vibe, Vibe Code, and Studio/API.
+  - [2] 2026-11-02: the docs page still states the shared monthly usage and no page of the docs, the help centre or the pricing page gives its size | capture: sha256:d4e43b797f2afff2288a20536dbffdddcbd9f0a5be1cf827296d97d9dc8732b1 | quote: Mistral plans include monthly usage that is shared across Studio, the API, and Vibe Code.
+- sources:
+  - [1] https://mistral.ai/pricing
+  - [2] https://docs.mistral.ai/vibe/code/cli/api-keys-profiles
+  - [3] https://docs.mistral.ai/vibe/code/vibe-code-web/limits-and-lifecycle
+  - [4] https://docs.mistral.ai/vibe/code/cli/work-with-cli
+  - [5] https://docs.mistral.ai/vibe/code/choose-cli-vscode-web-sessions
+  - [6] https://docs.mistral.ai/getting-started/quickstarts/studio/activate-and-generate-api-key
+  - [7] https://docs.mistral.ai/admin/billing-usage/subscriptions
+  - [8] https://mistral.ai/news/mistral-code/
+  - [9] https://mistral.ai/news/mistral-vibe-2-0/
+  - [10] https://help.mistral.ai/en/articles/698531-why-am-i-hitting-api-rate-limits-and-how-do-i-increase-them
+  - [11] https://github.com/mistralai/mistral-vibe
+  - [12] https://github.com/mistralai/mistral-vibe/issues/740
+  - [13] https://freellm.net/providers/mistral-ai
+  - [14] https://web.archive.org/web/20260805065234/https://help.mistral.ai/en/articles/448331-how-do-i-update-my-account-information-email-password-2fa-and-phone-number
+  - [15] https://web.archive.org/web/20260518081929/https://help.mistral.ai/en/articles/455206-how-can-i-try-the-api-for-free-with-the-experiment-plan
+  - [16] https://help.mistral.ai/en/articles/448331-how-do-i-update-my-account-information-email-password-2fa-and-phone-number
+  - [17] https://legal.mistral.ai/terms/privacy-policy?language=en-US
+  - [18] https://igetoken.com/deals/2026-10-mistral-experiment-free/
+  - [19] https://vocus.cc/article/6a3cba9dfd897800014b868c
+  - [20] https://aicreditmart.com/ai-credits-providers/mistral-ai-free-tier-la-plateforme-access-guide-2026/
+  - [21] https://unified.to/blog/how_to_get_a_mistral_ai_api_key_and_connect_it_to_your_product
+  - [22] https://web.archive.org/web/20260824022633/https://help.mistral.ai/en/articles/448331-how-do-i-update-my-account-information-email-password-and-2fa
+  - [23] https://mistral.ai/pricing/
+  - [24] https://reddit.sentinel-team.org/posts/1vps0gv/snapshots/2026-08-18T04%3A08%3A59.225026Z
+  - [25] https://www.vibecodingitalia.org/posts/mistral-pro-vibe-code
+  - [26] https://reddit.sentinel-team.org/posts/1wjk2ng/snapshots/2026-09-18T19%3A46%3A32.443178Z
+
+## Mistral Compute / AI Cloud
+
+- `compute/mistral-compute` | dead | evidence reported | binding write-gated | category GPU cloud
+- identity a placeholder: card and phone unknown | verified 2026-10-22T04:47:25.732Z (inherited) | stale on 2026-11-06
+- url https://mistral.ai/products/aicloud/
+- free tier: no free tier published | unit: none | metered on: wall-clock | read on: 2026-10-02 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - write-gated (binding): No active product offering; service endpoint discontinued. [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: the product page returns 404 and lands on a support shell
+- notes: The product page is gone. The URL now lands on a help-centre shell that offers support channels and no product, price or signup, so whatever Mistral sold at /products/aicloud is no longer sold at that address.
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - free_tier_kind: none
+  - reclassified_from: dead
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: the capture is Mistral's help-centre page, which is where the 404 lands
+- sources:
+  - [1] https://mistral.ai/products/aicloud/

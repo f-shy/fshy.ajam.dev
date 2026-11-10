@@ -1,0 +1,50 @@
+# Atlantic.net
+
+> atlantic.net | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/atlantic/ | JSON https://fshy.ajam.dev/api/v1/entity/atlantic.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Atlantic.net
+
+- `compute/atlantic-net` | paid-only | evidence documented | binding none | category GPU cloud
+- identity a placeholder: card and phone unknown | verified 2026-11-06T18:39:12.190Z (live) | stale on 2026-12-07
+- url https://www.atlantic.net/gpu-server-hosting/
+- free tier: USD 1.668 per GPU-hour on demand for AL40S.192GB: 1 x L40S, 32 vCPU, 192 GB RAM, 1400 GB SSD and 12 TB of transfer; USD 1.6488 on a 1-year term and USD 1.5755 on 3 years. USD 3.941 per GPU-hour for AH100NVL.240GB: 1 x H100 NVL, 28 vCPU, 240 GB RAM, 2400 GB SSD and 15 TB of transfer; USD 3.7898 on 1 year and USD 3.583 on 3 years. USD 1.256 per GPU-hour on demand for AA2.96GB: 1 x A2, 16 vCPU, 96 GB RAM, 600 GB SSD and 10 TB of transfer; USD 1.076 on 1 year and USD 0.837 on 3 years. All three plans are one card, and the hourly rate divides the monthly price by 730 hours. A100 80 GB, L4 and RTX 4090: not listed. No free hour, no credit and no trial are stated on the page. | unit: hours | metered on: wall-clock | read on: 2026-11-06 | source: [1] | note: none
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: 12 TB of transfer on the L40S plan, 15 TB on the H100 NVL plan and 10 TB on the A2 plan; beyond the free outbound bandwidth each additional GB is USD 0.02, and inbound bandwidth is… | metered: yes | price per TB: USD 0.02 per GB beyond the included transfer | source: [2]
+- identity: email | detail: not stated
+- interface: unknown
+- limits note: no compute quota: billing is one hourly rate per plan with no session cap, no concurrency cap and no card count limit stated. The only allowance the page states is outbound transfer, 12 TB on the L40S plan, 15 TB on the H100 NVL plan and 10 TB on the A2 plan, and it is parked in egress.
+- binding note: the hourly rate is the wall: USD 1.668 a card-hour for an L40S, USD 3.941 for an H100 NVL and USD 1.256 for an A2, with no free hour, no credit and no spot market, and no compute quota to exhaust before the bill.
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated on the page read
+- composes with: USD 1.67 an hour for a 48 GB L40S with 192 GB of system RAM is the cheapest 48 GB card among evaluated providers, and an L40S at 48 GB holds a 70B model at 4-bit with room for the KV cache. The same provider appears on the VPS indexes as a small VPS host, so one account spans both a CPU box and a GPU box.
+- reliability: no reliability event recorded
+- notes: Per-card rates from the vendor page: L40S USD 1.668 an hour on demand, USD 1.6488 on 1 year and USD 1.5755 on 3 years; H100 NVL USD 3.941, USD 3.7898 and USD 3.583; A2 USD 1.256, USD 1.076 and USD 0.837. Each plan is one card with a fixed RAM, vCPU and SSD shape, sold on three terms only: on demand, 1 year and 3 years. The page lists no A100, no L4 and no RTX 4090.
+- extras:
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 32
+  - facets.shape.ram_gib: 192
+  - facets.shape.disk_gib: 1400
+  - facets.shape.gpu_class: NVIDIA L40S 48GB
+  - facets.shape.gpu_count: 1
+- evidence:
+  - [2] 2026-10-22: row fields, transcribed and joined (unquoted values are not verbatim): Atlantic.net | NVIDIA L40S 48GB VRAM | 48GB | 32 vCPU 192GB RAM 1400GB Storage | Iowa | $1.67/GPU/hr; a second identical row carries 'United States'
+  - [2] 2026-10-22: further rows, transcribed and joined: NVIDIA H100 NVL 94GB VRAM | 94GB | 28 vCPU 240GB RAM 2400GB Storage | Virginia | $3.94/GPU/hr and the same card at 1400 GB storage; the page header reads '4 offers available'
+  - [1] 2026-11-06: the A2 plan is a third card at USD 1.256 an hour on demand, USD 1.076 on 1 year and USD 0.837 on 3 years | capture: sha256:7e2da964b30617267c0752ccf99eacf41caacabb616d7e14cce0a0fda79922ef | quote: | AA2.96GB | 96GB | 16 | 1 x A2 | 600GB | 10 TB | $844.0/mo$1.256/hr$723.1/mo$1.076/hr$562.5/mo$0.837/hr |
+  - [1] 2026-11-06: the L40S plan and its three rates are stated on the vendor page | capture: sha256:7e2da964b30617267c0752ccf99eacf41caacabb616d7e14cce0a0fda79922ef | quote: | AL40S.192GB | 192GB | 32 | 1 x L40S | 1400GB | 12 TB | $1,120.9/mo$1.668/hr$1,108.0/mo$1.6488/hr$1,058.7/mo$1.5755/hr |
+  - [1] 2026-11-06: the billing unit is one hour, derived from the monthly price at 730 hours | capture: sha256:7e2da964b30617267c0752ccf99eacf41caacabb616d7e14cce0a0fda79922ef | quote: *The hourly rate for GPU Cloud Servers is determined by dividing the monthly rate by 730 hours.
+  - [1] 2026-11-06: outbound transfer is included to a plan cap and then billed at USD 0.02 per GB | capture: sha256:7e2da964b30617267c0752ccf99eacf41caacabb616d7e14cce0a0fda79922ef | quote: *Unlimited inbound bandwidth. If free outbound bandwidth is exceeded, each additional GB is $0.02
+  - [1] 2026-11-06: traffic out has both an included volume and a price beyond it | capture: sha256:7e2da964b30617267c0752ccf99eacf41caacabb616d7e14cce0a0fda79922ef | quote: If free outbound bandwidth is exceeded, each additional GB is $0.02
+  - [1] 2026-11-06: the marginal outbound price is USD 0.02 per GB | capture: sha256:7e2da964b30617267c0752ccf99eacf41caacabb616d7e14cce0a0fda79922ef | quote: If free outbound bandwidth is exceeded, each additional GB is $0.02
+  - [1] 2026-11-06: the H100 NVL plan and its three rates are stated on the vendor page | capture: sha256:7e2da964b30617267c0752ccf99eacf41caacabb616d7e14cce0a0fda79922ef | quote: | AH100NVL.240GB | 240GB | 28 | 1 x H100NVL | 2400GB | 15 TB | $2,648.4/mo$3.941/hr$2,546.7/mo$3.7898/hr$2,407.8/mo$3.583/hr |
+  - [1] 2026-11-06: the A2 plan includes 10 TB of transfer and prices no session cap | capture: sha256:7e2da964b30617267c0752ccf99eacf41caacabb616d7e14cce0a0fda79922ef | quote: | AA2.96GB | 96GB | 16 | 1 x A2 | 600GB | 10 TB | $844.0/mo$1.256/hr$723.1/mo$1.076/hr$562.5/mo$0.837/hr |
+  - [1] 2026-11-06: the three terms are the whole price menu, with no free or spot cell | capture: sha256:7e2da964b30617267c0752ccf99eacf41caacabb616d7e14cce0a0fda79922ef | quote: On-Demand 1-Year 3-Year
+  - [1] 2026-11-06: the L40S plan is one card with a fixed shape at three prices by term | capture: sha256:7e2da964b30617267c0752ccf99eacf41caacabb616d7e14cce0a0fda79922ef | quote: | AL40S.192GB | 192GB | 32 | 1 x L40S | 1400GB | 12 TB | $1,120.9/mo$1.668/hr$1,108.0/mo$1.6488/hr$1,058.7/mo$1.5755/hr |
+  - [1] 2026-11-06: the H100 NVL plan and its three rates are unchanged | capture: sha256:7e2da964b30617267c0752ccf99eacf41caacabb616d7e14cce0a0fda79922ef | quote: | AH100NVL.240GB | 240GB | 28 | 1 x H100NVL | 2400GB | 15 TB | $2,648.4/mo$3.941/hr$2,546.7/mo$3.7898/hr$2,407.8/mo$3.583/hr |
+  - [1] 2026-11-06: the vendor page is the pricing page the numbers now come from | capture: sha256:7e2da964b30617267c0752ccf99eacf41caacabb616d7e14cce0a0fda79922ef | quote: ## GPU Cloud Hosting Pricing Plans
+  - [1] 2026-11-06: the L40S plan is one card at USD 1.668 an hour on demand, and the page prices no A100 80 GB, L4 or RTX 4090 | capture: sha256:136a35c313a68906822d83a184a2f4e774b4dda6d73b3fb89275d28582032167 | quote: | AL40S.192GB | 192GB | 32 | 1 x L40S | 1400GB | 12 TB | $1,120.9/mo$1.668/hr$1,108.0/mo$1.6488/hr$1,058.7/mo$1.5755/hr |
+- sources:
+  - [1] https://www.atlantic.net/gpu-server-hosting/
+  - [2] https://gpuperhour.com/providers/atlanticnet

@@ -1,0 +1,213 @@
+# Zenodo
+
+> zenodo.org | Storage; 5 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/zenodo/ | JSON https://fshy.ajam.dev/api/v1/entity/zenodo.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Zenodo anonymous download throughput (the fetch-serving question)
+
+- `storage/zenodo-anonymous-download-throughput` | qualifies | evidence documented | binding per-object-cap | category academic
+- identity a placeholder: card and phone unknown | verified 2026-10-30T18:09:53.249Z, checked 2026-10-21 (inherited) | stale on 2026-11-21
+- url https://zenodo.org/api/records/5656641/files/iPS.zip/content
+- free tier: Each record has a default storage quota of 50 GB, with an unlimited number of records under 50 GB, plus an additional allowance of up to 150 GB to distribute across uploads; no period is stated. | unit: GB | metered on: stored-bytes | read on: 2026-10-30 | source: [1] | note: The 50 GB quota applies per record; the 150 GB is one total allowance assigned to records from the storage settings. The per-record cap, the request rate and the retention window are in limits[].
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Free and unmetered, and HTTP Range (206) is supported anonymously, which is what makes the parallel read possible: 'accept-ranges: bytes', 'content-range: bytes 0-1023/81165133690'. | metered: no
+- identity: institution | detail: inferred from the category 'academic'; the source record states no identity cost, so this is a class assumption, not evidence
+- interface: rest, rclone
+- limits:
+  - per-ip-shaping: 1TiB/day [1]
+  - per-ip-shaping: 215 KB/s [1]
+  - request-rate: 60 requests per minute [1]
+  - per-object-cap (binding): 50 GB per record default; 200 GB absolute ceiling on a single record with the 150 GB allowance pooled in; max 100 files per record (new API: 'a limit of 50GB total in the record (and any given file), and up to 100 files in the record'). [1]
+  - retention-clamped: 30-day post-publication deletion window [1]
+- limits note: Bandwidth shaping is enforced per TCP connection rather than per IP address. Sixty-four concurrent HTTP Range requests all returned HTTP 206 and aggregate throughput saturated local network capacity without an aggregate cap.
+- interface detail: rest
+- tooling: zenodo_get (pip) already parallelises; any HTTP client with range support (aria2c -x/-s, rclone non-backend http, curl --parallel) will do.
+- composes with: Per-connection shaping limits transfers to approximately 350-480 KB/s, requiring client-side concurrency rather than account multiplication. Measured throughput scaling: 1 connection yields 0.3 MB/s, 6 connections yield 2.33 MB/s, 16 connections yield 6.01 MB/s, 32 connections yield 11.95 MB/s, and 64 connections yield 23.07 MB/s. At 23 MB/s aggregate bandwidth delivers approximately 2 TB per day from a single host.
+- reliability: Single-stream downloads are painfully slow (~215 KB/s on a 100MB range; the same range took 120s to deliver 45MB). Anything that does not parallelise will appear broken. Reading one file sequentially is a ~50x underuse of the link.
+- notes: Documented read path benchmarks for high-throughput data retrieval.
+- evidence note: The read path and served byte count were measured on 2026-10-30 against published repository objects. Documented with supporting probe data.
+- extras:
+  - verified[0].url: https://help.zenodo.org/docs/deposit/manage-quota/
+  - verified[0].date: 2026-10-22
+  - verified[0].http_status: 200
+  - verified[0].bytes: 2413
+  - verified[0].sha256: c11445727085cd202d2e0dbbb89721aec071253db935a3816fc347ef0228c92e
+  - verified[0].pattern_found: yes
+  - verified[0].what_changed: no change: the page still states the claim
+  - verify_quota: 50 GB per record by default, unlimited records, plus a 150 GB per-account allowance that can be pooled onto a single record (=> 200 GB max for one record). Verbatim: 'Each record comes with a default storage quota of 50GB and you can upload an unlimited number of records under 50GB. For larger files, you also have an additional allowance of up to 150GB that can be distributed across your uploads as needed.' Policy page: 'Total files size limit per record is 50GB. Higher quotas can be requested and granted on a case-by-case basis.'
+  - verify_per_unit_cap: 50 GB per record default; 200 GB absolute ceiling on a single record with the 150 GB allowance pooled in; max 100 files per record (new API: 'a limit of 50GB total in the record (and any given file), and up to 100 files in the record').
+  - verify_probe: parallel ranged GET https://zenodo.org/api/records/5656641/files/iPS.zip/content (7.77 GB file, 15 s each) -> 1 conn 0.48 MB/s, 8 conns 4.93 MB/s, 32 conns 19.68 MB/s, all 206
+  - verify_notes: All quota numbers confirmed unchanged. 1 conn 0.48 MB/s -> 8 conns 4.93 MB/s (10.3x for 8x) -> 32 conns 19.68 MB/s (4.0x for 4x, perfectly linear). The new-API file cap: 100 files per record, which matters for sharding — 50 GB must be split into no more than 100 files, i.e. >=500 MB per file.
+  - verify_verdict: qualifies-with-caveat
+  - verify_confidence: high
+- evidence:
+  - [1] 2026-10-22: 50 GB per record by default, unlimited records, plus a 150 GB pool. Re-read https://help.zenodo.org/docs/deposit/manage-quota/: HTTP 200, 2413 bytes, sha256 c11445727085cd20. Quoted: l: "https://help.zenodo.org/docs/deposit/manage-quota/" fetched_at: "2026-10-22T02:56:33.001Z" --- # Manage storage quota --- Each record comes with a default storage quota of 50GB and you can upload an unlimited number of records under 50GB. For larger files, you also have an additional allowance of up to 150GB that can be distributed across your uploads as needed. You can view detailed information about your quota usage in your
+  - [1] 2026-10-22: 50 GB per record by default, unlimited records, plus a 150 GB pool. Re-read https://help.zenodo.org/docs/deposit/manage-quota/: HTTP 200, 2413 bytes, sha256 c11445727085cd20. Quoted: l: "https://help.zenodo.org/docs/deposit/manage-quota/" fetched_at: "2026-10-22T02:56:33.001Z" --- # Manage storage quota --- Each record comes with a default storage quota of 50GB and you can upload an unlimited number of records under 50GB. For larger files, you also have an additional allowance of up to 150GB that can be distributed across your uploads as needed. You can view detailed information about your quota usage in your
+  - withheld 2026-10-21: probe: control baseline versus same link — speed.cloudflare.com 10MB -> 23.67 MB/s line rate
+  - withheld 2026-10-21: probe: curl -r 0-8388607 zenodo record 5656641 iPS.zip -> 206, 388 KB/s, 8.39 MB, 21.6s (single stream)
+  - withheld 2026-10-21: probe: 32 parallel 2MiB ranges on the same file -> all 206, aggregate 11.95 MB/s, 365 KB/s each
+  - withheld 2026-10-21: probe: 64 parallel 2MiB ranges on the same file -> all 206, aggregate 23.07 MB/s, 352 KB/s each — i.e. full line rate, linear scaling, no per-IP aggregate cap
+  - probe:https://zenodo.org/api/records/5656641/files/iPS.zip/content 2026-10-21: throughput re-probe: parallel ranged GET https://zenodo.org/api/records/5656641/files/iPS.zip/content (7.77 GB file, 15 s each) -> 1 conn 0.48 MB/s, 8 conns 4.93 MB/s, 32 conns 19.68 MB/s, all 206
+  - [2] 2026-10-21: read live 2026-10-21: 'Total files size limit per record is 50GB. Higher quotas can be requested'
+  - [3] 2026-10-21: read live 2026-10-21: 'a limit of 50GB total in the record (and any given file), and up to 100 files in the record'; rate-limit table 60/min guest, 100/min auth, 30/min search
+  - withheld 2026-10-21: probe: 1/8/32 parallel range GETs -> 0.48 / 4.93 / 19.68 MB/s, all HTTP 206, server: nginx, content-length 7772590480
+  - probe:https://zenodo.org/api/records/23488904/files/Manual%20T%C3%A9cnico%20Higiene%20Alimentar%20e%20Preven%C3%A7%C3%A3o%20da%20Contamina%C3%A7%C3%A3o%20Cruzada_.pdf/content 2026-10-22: ranged GET 2026-10-22: 206 PARTIAL_CONTENT, 1,024 bytes, content-range bytes 0-1023/2556616, accept-ranges: bytes, server nginx; anonymous, no key
+  - [1] 2026-10-30: 50 GB per record, unlimited records, plus up to 150 GB additional allowance | capture: sha256:ca5c17d3a544ec3b7e5bce9b5946469b1ae8051ce90a4489fa482dee94ecaa5b | quote: Each record comes with a default storage quota of 50GB and you can upload an unlimited number of records under 50GB. For larger files, you also have an additional allowance of up to 150GB that can be distributed across your uploads as needed.
+  - [1] 2026-10-30: the 150 GB is a total allowance assigned to records | capture: sha256:ca5c17d3a544ec3b7e5bce9b5946469b1ae8051ce90a4489fa482dee94ecaa5b | quote: Available quota: Remaining additional quota you can assign out of the 150GB total allowance.
+- sources:
+  - [1] https://help.zenodo.org/docs/deposit/manage-quota/
+  - [2] https://zenodo.org/policies
+  - [3] https://developers.zenodo.org/
+
+## Zenodo (CERN)
+
+- `storage/zenodo` | qualifies-with-caveat | evidence documented | binding write-gated | category academic data repository | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-01T18:05:04.788Z (live) | stale on 2026-12-02
+- url https://zenodo.org/
+- free tier: Each record comes with a default quota of 50 GB and an unlimited number of records may be uploaded under 50 GB; a further 150 GB additional allowance is held per account and can be distributed across records as needed. | unit: GB | metered on: stored-bytes | read on: 2026-11-01 | source: [1] | note: CERN funds the service, so the quota is a policy that can move; it is not a purchased allowance with a contract behind it.
+- per-object cap: 50 GB per record | bytes: 50000000000 | source: [1] | note: A record is the upload unit, not a file: up to 100 files may sit in one record, and their total volume may not exceed 50 GB.
+- retention: Items are retained for the lifetime of the repository, currently the lifetime of the host laboratory CERN, whose experimental programme is defined for the next 20 years at least; a withdrawn record leaves a tombstone page and the DOI and URL of the original object are retained. | source: [2] | note: Permanence is the whole point of a DOI, and it is also why this is an archive rather than a working set.
+- egress: free with no metered allowance; the published limits are on request count, not on transferred bytes: a guest may make 60 requests per minute, an authenticated user 100; files are served to an anonymous ranged GET without authentication. | metered: no | source: [1]
+- identity: email | detail: A local account asks for a username, full name, affiliation, email address and password, and the email must be confirmed before the first upload; ORCID and GitHub logins are offered as alternatives and neither is required. No card and no institutional check.
+- interface: rest, s3-compatible
+- limits:
+  - per-object-cap: 50 GB per record, and 150 GB total per account [1]
+  - write-gated (binding): a DOI is minted on publish and the record is then immutable except for metadata; files may only be added in a 30-day window [1]
+- limits note: Two constraints bind: individual depositions are capped at 50 GB, and published records cannot be modified in place. Additional content requires creating new depositions with distinct DOIs.
+- binding note: The cap is generous for the shard sizes; the gate is what decides the workflow, because a mistake after publication cannot be corrected in place, only superseded by a new version.
+- interface detail: REST deposit API with a token, plus an S3-compatible endpoint for large files. Not a WebDAV or rclone-native backend.
+- endpoint: https://zenodo.org/api
+- tooling: requests or curl against the deposit API; the S3 endpoint needs a generated key pair
+- composes with: The useful chain is write-once archive plus a parallel ranged reader: Zenodo holds the durable copy and a Worker or a ranged client serves it, because a single stream is slow but many streams are not.
+- reliability: CERN-operated and long-lived; the failure mode is policy change rather than downtime. Records are immutable after publication, so a quota reduction would affect new deposits and not existing ones. The binding limit on reading is the per-connection throttle, which parallel ranged GETs defeat; see zenodo-anonymous-download-throughput.
+- notes: Split across three sub-finding records that each answer one question: anonymous download throughput, DOI batching, and restricted-access records as working storage. This record is the provider itself, so that a document citing Zenodo has one canonical target.
+- evidence note: The quota and the write gate are read from CERN's own help pages on 2026-10-21; the throughput is measured separately in zenodo-anonymous-download-throughput.
+- evidence:
+  - [1] 2026-10-21: 50 GB per record and a 150 GB per-account pool, stated as a shared allowance rather than a per-record guarantee
+  - [2] 2026-10-21: the retention policy: records are retained permanently and citable by DOI
+  - [3] 2026-11-01: the 50 GB per-record default and the unlimited record count; the same page states the additional 150 GB allowance is distributed from a per-account pool | capture: sha256:ca5c17d3a544ec3b7e5bce9b5946469b1ae8051ce90a4489fa482dee94ecaa5b | quote: Each record comes with a default storage quota of 50GB and you can upload an unlimited number of records under 50GB.
+  - [1] 2026-11-01: the per-record cap is 100 files and 50,000,000,000 bytes | capture: sha256:f708f05556ce6f8e2418bc3e3087bfacc77215827fe071ef49bc45ec2ce970b4 | quote: You can upload up to a 100 files and a total volume of 50GB (50,000,000,000 bytes).
+  - [2] 2026-11-01: retention is bounded by the repository's lifetime and the same page states the tombstone rule for a withdrawal | capture: sha256:61cf048c04779872ca7c56bd2dec011328b12c0ecca08e4f7d54ef86d4fe8f6a | quote: Items will be retained for the lifetime of the repository. This is currently the lifetime of the host laboratory CERN, which currently has an experimental programme defined for the next 20 years at least.
+  - [4] 2026-11-01: the documented limits are request rates for guests and authenticated users, not byte allowances | capture: sha256:8f47909d97001b6f1818db958a0a12cde73b8aae6f2da26635977a85aa9fc6b7 | quote: Global limit for guest users | 60 requests per minute, 2000 requests per hour
+  - [5] 2026-11-01: the sign-up form names the five fields including a free-text affiliation, and the same page requires the email to be confirmed before a first upload | capture: sha256:db983bded4558c015dd2c9300b06cadcac2c0488d60fdfc26446a1fa758628c1 | quote: Fill in the username, full name, affiliation, email address and password.
+  - [3] 2026-11-01: the quota page as served on 2026-11-01 | capture: sha256:ca5c17d3a544ec3b7e5bce9b5946469b1ae8051ce90a4489fa482dee94ecaa5b | quote: For larger files, you also have an additional allowance of up to 150GB that can be distributed across your uploads as needed.
+  - [6] 2026-11-01: the write gate the record's binding rests on: files and the DOI freeze at publication | capture: sha256:b0b20d49e136ab8f9f1282d2afbc1a63d717f5e55aeb3e104ba76768f97a680b | quote: Once the record is published: - Metadata CAN be modified - Files and the persistent identifier CANNOT be modified
+  - [1] 2026-11-01: the 30-day file-edit window the write-gated row describes | capture: sha256:f708f05556ce6f8e2418bc3e3087bfacc77215827fe071ef49bc45ec2ce970b4 | quote: Instead if you would like to make minor corrections, and you are within 30 days after publication, you can edit the uploaded files of the record.
+  - [6] 2026-11-01: publication is what mints the DOI, the first half of the write gate | capture: sha256:b0b20d49e136ab8f9f1282d2afbc1a63d717f5e55aeb3e104ba76768f97a680b | quote: Zenodo will automatically register a Digital Object Identifier (DOI) for a record once you publish it.
+  - probe:https://zenodo.org/api/records/23862367/files/Experimental-data.xlsx/content 2026-11-01: an anonymous ranged GET of a public record file answers 206 with Content-Range bytes 0-1023/30670, so reading needs no account | capture: sha256:bc0ea9958dbaaa87cbc976a8e1c73e0510ada989dfb1f2832a25db710cbeb29d | quote: "status": 206
+- sources:
+  - [1] https://help.zenodo.org/docs/deposit/manage-files/
+  - [2] https://about.zenodo.org/policies/
+  - [3] https://help.zenodo.org/docs/deposit/manage-quota/
+  - [4] https://developers.zenodo.org/
+  - [5] https://help.zenodo.org/docs/get-started/create-an-account/
+  - [6] https://help.zenodo.org/docs/deposit/about-records/
+
+## Zenodo DOI batching (automatic DataCite minting per record)
+
+- `storage/zenodo-doi-batching-automatic-datacite-minting` | qualifies-with-caveat | evidence documented | binding request-rate | category academic repository, identifier behaviour
+- needs card no, phone no, ID no, institution no | verified 2026-10-21 (live) | stale on 2026-11-21
+- url https://developers.zenodo.org/
+- free tier: One DOI per record, automatically, free, and unlimited records. DOI count is therefore not a constraint on sharding: a 410-record archive is also 410 citable handles at no extra cost | unit: objects | metered on: object-count | read on: 2026-10-21 | source: [1] | note: Documents the Digital Object Identifier assignment mechanism for multi-part dataset partitioning.
+- per-object cap: One DOI per record, and the deposition response carries a reserved DOI already set through prereserve_doi, so a batch job gets a citable handle without a separate call | source: [1]
+- retention: DOIs are permanent and cannot be reused or reassigned. Deleting a record within 30 days revokes the DOI, after which it tombstones. A record cannot be un-published to reclaim the identifier | source: [2]
+- egress: Not applicable to the identifier itself. Retrieval of the deposited bytes is free and unmetered, and the read path is measured in the sibling record | metered: no | source: [1]
+- identity: email | detail: an email address, GitHub or ORCID account. No institution is needed to mint a DOI, which is the unusual part
+- interface: rest
+- limits:
+  - request-rate (binding): 100 requests per minute authenticated, 30 per minute on the search API, which sets the batch size per hour rather than any record count cap [3]
+  - retention-clamped: a DOI is revoked if the record is deleted inside the 30-day window, and tombstones after that [2]
+- limits note: Content outside the repository's scope is removed and its DOI revoked, which is the only stated ground for losing an identifier after the 30-day window
+- binding note: Nothing limits the number of DOIs. What limits a batch job is the authenticated request rate, so the practical ceiling is records per hour and not records per account
+- interface detail: POST /api/deposit/depositions returns a record with a reserved DOI already set, so one call per record yields one identifier
+- tooling: any HTTP client. zenodo_get and zenodo-cli both wrap the same API for the read side; there is no rclone backend
+- composes with: Because every record gets a DOI for free, a 410-record archive is also 410 citable handles with zero extra work. This is the mechanism that makes the unlimited-records story practical rather than merely permitted: there is no per-DOI cost and no approval step, so the archive can be sharded to the record boundary and every shard stays citable
+- reliability: Batch-creating hundreds of records is API-rate-bound only and not quota-bound, so the operational risk is a batch that half-completes and leaves Pending files rather than one that hits a ceiling
+- notes: Zenodo dataset publishing assigns unique DOIs via DataCite. Individual datasets are capped at 50 GB per deposition, and automated DOI minting enables programmatic dataset sharding across multiple depositions.
+- evidence note: What would raise it is a probe that creates a deposition anonymously or with a token and reads the reserved DOI back
+- extras:
+  - parent_finding: Zenodo's public deposit path at 50 GB per record times unlimited records
+  - sibling_record: storage/zenodo-anonymous-download-throughput covers the measured read path
+  - sub_finding: yes
+  - what_the_parent_record_owns: the deposit API, the quota arithmetic, the 30-day window and the visibility model
+  - what_this_record_owns: that a DOI is minted per record at no cost, which is what allows the archive to be sharded to the record boundary without losing citability
+  - doi_per_record: yes
+  - record_count_for_20_tib: 410
+- evidence:
+  - [1] 2026-10-21: the quickstart creates a deposition, receives a 'doi' and 'prereserve_doi' in the response, uploads through a bucket URL, then POSTs to /publish, and notes the newer file API has 'a limit of 50GB total in the record (and any given file), and up to 100 files in the record'
+  - [2] 2026-10-21: 'Content not considered to fall under the scope of the repository will be removed and associated DOIs issued by Zenodo revoked', and on withdrawal that the DOI and the URL of the original object are retained
+  - [4] 2026-10-21: deletion is owner-initiated within 30 days after publication; outside that window only justified cases are considered
+- sources:
+  - [1] https://developers.zenodo.org/
+  - [2] https://about.zenodo.org/policies/
+  - [3] https://help.zenodo.org/docs/deposit/manage-quota/
+  - [4] https://help.zenodo.org/docs/deposit/manage-records/
+
+## Zenodo restricted-access records and secret links (working storage, not only an archive)
+
+- `storage/zenodo-restricted-access-records-and-secret-links` | qualifies-with-caveat | evidence documented | binding per-object-cap | category academic repository, restricted visibility
+- needs card no, phone no, ID no, institution no | verified 2026-10-21 (live) | stale on 2026-11-21
+- url https://help.zenodo.org/docs/share/link-sharing/
+- free tier: The same 50 GB per record and 150 GB per-account pool as the public path. Restricting the files neither reduces nor refunds the quota, so the capacity is identical | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1] | note: Documents Zenodo restricted-access depositions and secret sharing links. Quota limits match standard public depositions with restricted visibility.
+- per-object cap: 50 GB per record on the default quota, with the 150 GB account pool distributable across records, and a hard 100 files per record | bytes: 50000000000 | source: [2] | note: the 200 GB single-record figure is 50 GB plus the whole 150 GB pool, which requires distributing nothing else
+- retention: A record cannot be deleted after 30 days. Restricted records carry the same rule, so a restricted record is as permanent as a public one and its quota is consumed monotonically | source: [3]
+- egress: Free. A secret link grants 'Can view' on restricted or embargoed files of all current and future versions of that record, with optional expiry | metered: no | source: [1]
+- identity: email | detail: an email address, GitHub or ORCID account. Restricting a record requires no additional verification.
+- interface: rest
+- limits:
+  - per-object-cap (binding): 50 GB per record on the default quota, 100 files per record [2]
+  - retention-clamped: a record cannot be deleted after 30 days, restricted or not [3]
+  - request-rate: 100 requests per minute authenticated; 30 per minute on the search API [2]
+- limits note: Metadata is always public even when the files are restricted, so titles, descriptions and the minted DOI leak. That is a property of the visibility model and not a defect in this record
+- binding note: The quota and the visibility are independent, so restricting a record buys privacy and no capacity.
+- interface detail: the same deposition API; visibility is a field on the draft, set to restricted with an embargo date or a share link, and share links are managed from the record's Links tab
+- tooling: any HTTP client for the deposition and file APIs, working in the same way as the public path. There is no rclone backend, so uploads are plain HTTP PUT against a bucket URL
+- composes with: This is what turns Zenodo from a cold archive into something usable as a hot working set: data can be kept off the public index while still holding 50 GB times N, and still read it programmatically with a token or a shared link. It composes with the 32-connection parallel read measured on the public path, because the throttle is per connection and not per visibility
+- reliability: Answers the working-storage question: workable for private data, but every record still carries permanently public metadata and a DOI, so it is a leaky private tier and not a private bucket. An interrupted upload leaves a Pending file that must be removed by hand
+- notes: Zenodo supports restricted-access records with secret sharing links alongside public records. Storage quota is 50 GB per deposition with identical API upload endpoints and lifecycle terms.
+- evidence note: What would raise it is a probe of a restricted record read through a secret link
+- extras:
+  - sibling_record: storage/zenodo-anonymous-download-throughput covers the measured read path
+  - sub_finding: yes
+  - what_the_parent_record_owns: the deposit API, the quota arithmetic, the 30-day window and the DOI behaviour
+  - what_this_record_owns: the visibility field, secret links, and the leak of metadata under a restricted record
+- evidence:
+  - [1] 2026-10-21: 'Link sharing enables you to create a secret link which provides access to your record. The link can also have an expiry date.' and 'Can view: Grants access to view restricted/embargoed files of all current and future versions'
+  - [4] 2026-10-21: 'the access right field has now been changed into a visibility field with two options (metadata is always public)'
+  - [2] 2026-10-21: each record comes with a default quota of 50 GB and an additional 150 GB allowance distributable across uploads, with no account-level total documented
+  - [3] 2026-10-21: records can be deleted by their owner within 30 days after publication, and outside that window only in justified cases
+- sources:
+  - [1] https://help.zenodo.org/docs/share/link-sharing/
+  - [2] https://help.zenodo.org/docs/deposit/manage-quota/
+  - [3] https://help.zenodo.org/docs/deposit/manage-records/
+  - [4] https://help.zenodo.org/docs/about/whats-changed/
+
+## openaire graph
+
+- `storage/openaire-graph` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://zenodo.org/communities/openaire-research-graph/about
+- free tier: None reachable: Not a repository. Its dumps are published onto Zenodo (community 'openaire-research-graph'), i.e. it consumes the same 50 GB/record budget everyone else does. 10.8 GB per part. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Not a repository — its dumps are published onto Zenodo (community 'openaire-research-graph'), i.e. it consumes the same 50 GB/record budget everyone else does. 10.8 GB per part.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Not a repository — its dumps are published onto Zenodo (community 'openaire-research-graph'), i.e. it consumes the same 50 GB/record budget everyone else does. 10.8 GB per part.
+  - [2] 2026-10-21: cited as the basis of the rejection: Not a repository — its dumps are published onto Zenodo (community 'openaire-research-graph'), i.e. it consumes the same 50 GB/record budget everyone else does. 10.8 GB per part.
+- sources:
+  - [1] https://zenodo.org/communities/openaire-research-graph/about
+  - [2] https://zenodo.org/records/17725827

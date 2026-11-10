@@ -1,0 +1,145 @@
+# VDSina
+
+> vdsina.com | Compute; 3 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/vdsina/ | JSON https://fshy.ajam.dev/api/v1/entity/vdsina.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## VDSina (AMD cloud, 8 cores / 16 GiB / 100 GB)
+
+- `compute/vdsina-cloud-configurator` | qualifies-with-caveat | evidence documented | binding none | category Windows VPS (configurable cloud) | tier AMD cloud, 8 cores / 16 GiB / 100 GB
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T06:20:51.331Z (live) | stale on 2026-12-05
+- url https://www.vdsina.com/ru/landing/windows
+- disagrees on verdict: `compute/vdsina` says paid-only, `compute/vdsina-cloud-configurator` says qualifies-with-caveat
+- disagrees on verdict: `compute/vdsina-cloud-configurator` says qualifies-with-caveat, `compute/vdsina-windows` says paid-only
+- free tier: no free tier and no monthly cycle: the AMD cloud configurator prices 8 cores, 16 GiB and 100 GB of NVMe at USD 4.08 per DAY, which is the plan's own USD 4.00 a day plus a USD 0.08 a day IPv4, so a 30-day month is about USD 122.40 and a 365/12 month about USD 124.10; the page states there is no trial period and that payment is per day | unit: none | metered on: wall-clock | read on: 2026-10-26 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the server is paid for; per-day billing means the clock runs whether or not the machine is used, and the page states no deletion clock
+- egress: not stated on the configurator page read beyond the itemised core, RAM, NVMe and IPv4 rates; no byte quota and no overage price appears in the rendered total or the plan JSON | metered: no | source: [1]
+- identity: card | detail: an account and a payment method at order; per-day billing means the first payment is one day, and the page states there is no trial period
+- interface: rest
+- limits note: nothing in the seven-kind vocabulary is printed: no byte quota, no request rate, no object cap, no retention clamp. The limit that matters is the billing unit, which the vocabulary has no kind for, and the page states it three ways: a two-state toggle labelled per day and per month, unit rates quoted per day (USD 0.14 per core, USD 0.12 per GB of RAM, USD 0.006 per GB of NVMe), and a plan JSON reading {"id":48,"name":"AMD cloud","cost":4,"full_cost":4,"period":"day","period_name":"s/day"} with every parameter carrying the same period.
+- binding note: no quota binds because none is published; the field that decides the row is the unit. USD 4.08 a day is about USD 122 to 124 a month, so the row is not the cheapest machine in the sweep and must not be ranked as one.
+- interface detail: a Windows VDS with per-day billing, RDP on the issued IPv4, and an ISO attach path in the control panel for a buyer's own image
+- tooling: any RDP client; the VDSina control panel, which also attaches a buyer's own ISO; a JSON HTTP API at userapi.vdsina.ru that creates, lists and deletes servers
+- composes with: the record that keeps a per-day number out of a monthly ranking. Its USD 4.08 is the second-cheapest figure in the whole sweep and the most expensive row once the unit is read, so it is the control case for whether a table compares like with like.
+- reliability: no reliability event observed; the itemised resource rates at the displayed shape sum to USD 3.72 against the USD 4.08 total, so how the total splits between a base charge and resource charges is unresolved while the unit is not.
+- notes: VDSina configurable cloud instances offer daily and monthly billing rates for GPU instances. The daily rate for a single GPU slice is USD 4.08 (USD 122.40 monthly equivalent), comparing with fixed Hi-CPU plans at USD 120.00 monthly with 320 GB disk.
+- evidence note: the unit is documented three independent ways on one page: the day/month toggle, the per-day unit rates and the plan JSON's period field. The USD 4.08 total is printed, and it reconciles exactly as the plan's USD 4.00 plus a USD 0.08 IPv4 per day. What is inferred rather than documented is the split of the 4.08, because the itemised rates at this shape sum to 3.72; that does not move the unit and does not change the monthly range.
+- extras:
+  - shape.vcpu: 8
+  - shape.ram_gib: 16
+  - shape.disk_gib: 100
+  - billing_model: per day
+  - term: none; billed daily
+  - daily_usd: 4.08
+  - monthly_usd_30_day: 122.4
+  - monthly_usd_365_over_12: 124.1
+  - unit_evidence: plan JSON period 'day'; toggle per day / per month; unit rates quoted per day
+  - plan_base_daily_usd: 4.0
+  - ipv4_daily_usd: 0.08
+  - itemised_sum_daily_usd: 3.72
+  - windows_licence: included in the tariff from 2 vCPU, 4 GB and 20 GB upward, per the FAQ
+  - ipv4_included: yes
+  - sibling_record: compute/vdsina-windows prices the fixed Hi-CPU 8/16/320 plan at USD 120.00 a month with the licence included
+  - page_url: https://www.vdsina.com/ru/landing/windows
+- evidence:
+  - [1] 2026-10-26: quoted from the plan JSON in the page source: '{"id":48,"name":"AMD cloud","cost":4,"full_cost":4,"period":"day","period_name":"s/day"}', with every parameter carrying the same period, including ip4 at 0.08 per day
+  - [1] 2026-10-26: quoted from the rendered total block: a two-state toggle labelled 'V den' and 'V mesyats' (per day and per month) printing '4.08 $', with unit rates '0.14 $ za 1 core', '0.12 $ za 1 Gb' and '0.006 $ za 1 Gb'
+  - [1] 2026-10-26: quoted from the page prose and FAQ: 'Windows VPS server with per-day payment, ready in a minute' and 'there is no trial period, but we have per-day payment'
+  - [1] 2026-10-26: the FAQ states the Windows licence is already included in the tariff from 2 vCPU, 4 GB and 20 GB upward, so this shape is licence-inclusive rather than bring-your-own
+  - [2] 2026-11-04: the vendor publishes a JSON HTTP API at userapi.vdsina.ru | capture: sha256:88271f611d9b8d4e038d1e729260c115ebdcd8b7df69fa067a6585f5efb2556a | quote: URL для подключения: https://userapi.vdsina.ru. Формат данных входящего запроса и возвращаемых данных: JSON.
+  - [2] 2026-11-04: the API creates servers | capture: sha256:88271f611d9b8d4e038d1e729260c115ebdcd8b7df69fa067a6585f5efb2556a | quote: POST /v1/server – создание нового сервера
+  - [3] 2026-11-04: the vendor home page states VDS servers are managed through its panel and its API | capture: sha256:72ea87fba675820cb8044eb8799670365c681cf8f23fc9d08cda17d191b42681 | quote: Own panel with a simple and user-friendly interface and extensive capabilities for managing VDS servers, including through the API.
+- sources:
+  - [1] https://www.vdsina.com/ru/landing/windows
+  - [2] https://vdsina.ru/files/docs/public_api.pdf
+  - [3] https://vdsina.com/
+
+## VDSina (compute/vdsina)
+
+- `compute/vdsina` | paid-only | evidence documented | binding volume-quota | category GPU cloud
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T08:50:36.652Z (live) | stale on 2026-12-04
+- url https://www.vdsina.com/ru/pricing/gpu-servers
+- disagrees on verdict: `compute/vdsina` says paid-only, `compute/vdsina-cloud-configurator` says qualifies-with-caveat
+- free tier: No trial, and the provider says so on its own pricing FAQ: there is no test period, but every server bills by the day. The cheapest GPU shape is a standard server with 8 CPU cores, 8 GB RAM, 150 GB NVMe and 2 GB of video memory from an Nvidia L4, on a 10 Gbit/s port with 32 TB of traffic included per calendar month, at USD 2.00 a day or USD 60 a month. The 8 GB GPU shape is 32 cores, 32 GB RAM, 500 GB NVMe and 8 GB of video memory at USD 20 a day or USD 600 a month. A custom constructor adds a whole L4 with 24 GB at USD 15 a day against a USD 100 minimum balance, or a whole L40S with 48 GB at USD 50 a day against USD 250. Traffic above the allowance costs USD 2.25 per TB, and a single top-up of USD 100 earns a 10 percent bonus on the balance, USD 1,000 earns 20 percent. The pages list no H100, A100 80 GB or RTX 4090 and quote no hourly rate: billing is per day, so the L4 24 GB at USD 15 a day is USD 0.625 an hour averaged over a day and the L40S 48 GB at USD 50 a day is USD 2.083 an hour. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: card | detail: the account is funded from a balance and there is no trial: the pricing FAQ states "There is no test period, but we have a daily payment", a custom GPU constructor requires a minimum balance of USD 100 for a whole L4 and USD 250 for a whole L40S, and a single top-up from USD 100 earns a 10 percent bonus. The record does not name the payment rail, so the card cost rests on the billing model; no hold, debit or prepaid answer appears, and whether a card issued outside Russia works is not…
+- interface: unknown
+- limits:
+  - volume-quota (binding):  [1]
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: This is the only shape in this category that pairs a GPU with 32 TB a month of egress at USD 60: it composes with the free object storage tiers held elsewhere, because the GPU box can pull training data in with no inbound charge and then serve results from a storage tier with its own free egress.
+- reliability: no reliability event recorded
+- notes: Dollar pricing with an Amsterdam data centre is why this record matters more than its Russian peers: a card that is not Russian is the normal way to pay, while the same machines from FirstVDS or Cloud.ru need roubles and a Russian instrument. Arithmetic: 2 x 30 = 60, so the month price is exactly 30 days of the daily rate with no discount for commitment; 32 TB a month against 30 TB of load leaves 2 TB, and one day over the daily average at 1 TB would spend it. Not established: whether the L4 slice can be left stopped without charge, and whether the daily billing rounds up.
+- extras:
+  - facets.class: regional-gpu
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 8
+  - facets.shape.ram_gib: 8
+  - facets.shape.gpu_class: Nvidia L4, 2 GB VRAM slice
+  - facets.shape.gpu_count: 1
+  - facets.shape.disk_gib: 150
+  - facets.shape.port_mbit: 10000
+- evidence:
+  - [1] 2026-10-22: standard GPU server with 8 cores, 8 GB RAM, 150 GB NVMe and 2 GB of L4 video memory at USD 2.00 a day or USD 60 a month, 32 TB of traffic per calendar month on a 10 Gbit/s port, overage USD 2.25 per TB, quoted and translated
+  - [2] 2026-10-22: the FAQ answer 'Is there a test period? There is no test period, but we have a daily payment', quoted
+  - [3] 2026-10-22: constructor with GPU requires a minimum balance of USD 100 for a whole L4 at USD 15 a day and USD 250 for a whole L40S at USD 50 a day, quoted and translated
+  - [2] 2026-10-22: a single top-up from USD 100 carries a 10 percent balance bonus and from USD 1,000 a 20 percent bonus, quoted
+  - [3] 2026-11-03: the constructor lists a whole L4 24 GB at USD 15 a day with a USD 100 minimum balance | capture: sha256:14657a05c69baa91f9d024c71d38df3406a2cf33b2ca7f32de739e93f9d71afd | quote: | GPU NVIDIA L4 / 24GB VRAM | 15.00 $ / день | 100.00 $ | Да |
+  - [3] 2026-11-03: the constructor lists an L40S 48 GB at USD 50 a day with a USD 250 minimum balance | capture: sha256:14657a05c69baa91f9d024c71d38df3406a2cf33b2ca7f32de739e93f9d71afd | quote: | GPU NVIDIA L40S / 48GB VRAM | 50.00 $ / день | 250.00 $ | Да |
+  - [1] 2026-11-03: billing is per day, with no test period | capture: sha256:dc127f04d24ad0f00f3d1102c5b253d1957b035779cc7fa09e0e889a9c33733e | quote: Тестового периода нет, но у нас посуточная оплата.
+- sources:
+  - [1] https://www.vdsina.com/ru/pricing/gpu-servers
+  - [2] https://www.vdsina.com/pricing
+  - [3] https://www.vdsina.com/ru/plans-min-costs
+
+## VDSina (Hi-CPU 8/16/320)
+
+- `compute/vdsina-windows` | paid-only | evidence documented | binding volume-quota | category Windows VPS | tier Hi-CPU 8/16/320
+- needs card yes, phone no, ID no, institution no | verified 2026-10-26T11:33:32.317Z (live) | stale on 2026-11-26
+- url https://www.vdsina.com/pricing/hi-cpu-vds
+- price parsed USD 120/mo
+- disagrees on verdict: `compute/vdsina-cloud-configurator` says qualifies-with-caveat, `compute/vdsina-windows` says paid-only
+- free tier: no free tier; the Hi-CPU 8-core, 16 GiB, 320 GB plan is USD 120.00/month, or USD 4.00/day, with the Windows licence included | unit: none | metered on: none | read on: 2026-10-26 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the plan is paid; the page states no deletion clock
+- egress: 64 TB a month at 10 Gbps, then USD 2.25 per excess TB | metered: yes | free allowance: 64 TB per month | price per TB: USD 2.25 per TB beyond the allowance | source: [1]
+- identity: card | detail: an account and a payment method at order; the payment methods were not published on the pricing pages read
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): 64 TB a month, then USD 2.25 per TB [1]
+  - per-ip-shaping: 10 Gbps [1]
+- limits note: the standard VDS line tops out at 4 cores, 8 GiB and 160 GB; only the Hi-CPU line reaches 16 GiB
+- binding note: 64 TB a month is the published byte ceiling; the 10 Gbps port is the second limit.
+- interface detail: RDP; the Windows landing page states 'you can connect to the server using Remote Desktop (RDP)'; an API and control panel exist
+- tooling: any RDP client; VDSina control panel
+- composes with: 8 vCPU and 16 GiB for USD 120 a month with the licence included, which is the most expensive qualifying row and still half the Azure equivalent
+- reliability: no reliability event recorded
+- notes: The row meets every minimum and is the most expensive row in the qualifying set except Hostwinds. The standard line does not reach 16 GiB, so the Hi-CPU line is the only Windows shape at this size. The tax basis is not stated.
+- evidence note: the shape, the price, the traffic term and the licence sentence are printed on the pricing and Windows landing pages read. The tax basis and payment methods are not stated.
+- extras:
+  - shape.vcpu: 8
+  - shape.ram_gib: 16
+  - shape.disk_gib: 320
+  - billing_model: monthly or daily
+  - term: monthly
+  - monthly_usd: 120.0
+  - daily_usd: 4.0
+  - first_month_usd: 120.0
+  - setup_fee_usd: 0.0
+  - renewal_usd: 120.0
+  - windows_licence: included, printed
+  - ipv4_included: yes
+  - port_mbps: 10000
+  - traffic: 64 TB/month, USD 2.25/TB after
+  - stock: in stock, 'To order'
+  - cart_url: https://www.vdsina.com/pricing/hi-cpu-vds
+- evidence:
+  - [1] 2026-10-26: quoted table row: '8 core | 16 Gb | 320 Gb | 64 Tb | * | 120.00 $ / month'
+  - [2] 2026-10-26: quoted: 'Hi-CPU servers ... from $120.0 / month', 'the license is already included in the tariff price' and 'Yes, you can connect to the server using Remote Desktop (RDP)'
+- sources:
+  - [1] https://www.vdsina.com/pricing/hi-cpu-vds
+  - [2] https://www.vdsina.com/landing/windows

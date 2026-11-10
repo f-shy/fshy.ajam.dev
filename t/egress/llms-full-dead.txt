@@ -1,0 +1,755 @@
+# fshy: Egress and tunnels, dead
+
+> Ways to get traffic out or a service in: tunnels, relays, IPv6 brokers, UDP forwards.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/egress/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## 21tunnel
+
+- `egress/21tunnel` | dead | evidence measured | binding per-ip-shaping | category udp port forward plus relay WireGuard (hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-12-23
+- url https://21tunnel.com/pricing/ | page https://fshy.ajam.dev/p/21tunnel.md
+- price USD 0
+- free tier: Everything, $0 forever: Unlimited concurrent tunnels, Unlimited bandwidth and requests, Private VPN over WireGuard, No card, no trial, no expiry | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: Unlimited bandwidth and requests, with 'Bandwidth is fair-use guidance, not a meter - we don't throttle or bill per-GB.'; ingress: udp | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: 'mytunnel login' opens a browser and saves a 90-day token; signup is at login.21tunnel.com, which does not resolve (see notes) | country: None
+- interface: cli, rest
+- limits:
+  - per-ip-shaping (binding): fair-use guidance only, no meter and no number [1]
+- binding note: As published, nothing binds: unlimited bandwidth, 60-second per-source idle window that matches WireGuard keepalive. That is the published figure. The service is not reachable, which is a stronger failure than any constraint.
+- interface detail: mytunnel udp 51820 --public-port 31099, mytunnel wg up, and a REST API at login.21tunnel.com/api
+- tooling: mytunnel CLI, systemd unit, REST API
+- composes with: Provides a WireGuard endpoint with a reserved UDP port, composable with an external virtual machine.
+- reliability: the documented relay and dashboard hostnames do not exist in DNS as of 2026-10-23; the marketing site is a static Cloudflare page
+- notes: The best-designed free WireGuard ingress and the only provider that ships the .conf, the reserved UDP port and a WireGuard recipe together. It is not running. The wildcard caveat that applies to playit (a bare subdomain legitimately NXDOMAIN while a wildcard serves) does not apply here because login.21tunnel.com is a named host, not a wildcard member.
+- evidence note: Service status is measured: agent.21tunnel.com and login.21tunnel.com both returned DNS status 3 (NXDOMAIN) for A and AAAA from Cloudflare DNS-over-HTTPS on 2026-10-23, while 21tunnel.com resolved on the same zone.
+- extras:
+  - wg_path: registration-api
+  - wg_detail: the vendor documents the full path: '21tunnel reserves a public UDP endpoint and relays datagrams to it', clients get a .conf with 'Endpoint = agent.21tunnel.com:31099', and 'mytunnel udp 51820 --public-port 31099' is the exact relay command; 'Free on all plans.' https://21tunnel.com/docs/private-vpn/
+  - ingress: udp
+  - volume_stated: Unlimited bandwidth and requests, with 'Bandwidth is fair-use guidance, not a meter - we don't throttle or bill per-GB.'
+  - bytes_transit: yes
+  - transit_note: the relay would carry the datagrams; as of this reading there is no relay to carry them
+- evidence:
+  - [1] 2026-10-23: 'It's free. All of it.' - unlimited tunnels, unlimited bandwidth and requests, Private VPN over WireGuard, no card, no trial, no expiry
+  - [2] 2026-10-23: reserved public UDP port, generated wg0.conf with Endpoint agent.21tunnel.com:31099, 'Free on all plans'
+  - [3] 2026-10-23: 'WireGuard endpoint behind NAT' with 'mytunnel udp 51820 --public-port 31820' and a 60-second idle window'
+  - probe:https://cloudflare-dns.com/dns-query?name=agent.21tunnel.com&type=A 2026-10-23: DNS status 3, NXDOMAIN, no answer record; the same query for 21tunnel.com returns status 0 with 172.67.170.252 and 104.21.87.222
+  - probe:https://cloudflare-dns.com/dns-query?name=login.21tunnel.com&type=A 2026-10-23: DNS status 3, NXDOMAIN, for A and AAAA; a direct HTTPS request to login.21tunnel.com from this host returns no status code and no remote IP
+  - [4] 2026-10-23: 'We're newer, and we're up-front about it - MVP-stage', which is consistent with docs published ahead of deployment
+- sources:
+  - [1] https://21tunnel.com/pricing/
+  - [2] https://21tunnel.com/docs/private-vpn/
+  - [3] https://21tunnel.com/docs/tunnels/
+  - [4] https://21tunnel.com/vs/ngrok/
+
+## AWS App Runner
+
+- `egress/aws-app-runner` | dead | evidence documented | binding volume-quota | category paas l4 port | tier free
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://docs.aws.amazon.com/apprunner/latest/dg/what-is-apprunner.html | page https://fshy.ajam.dev/p/amazon.md
+- price USD 0
+- free tier: AWS App Runner is no longer open to new customers. Existing customers can continue to use the service as normal. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No free tier; the service is closed to new customers.; ingress: http-only | metered: yes | free allowance: No free tier; the service is closed to new customers. | source: [1]
+- identity: card | detail: An AWS account with a payment method, which is moot: "AWS App Runner is no longer open to new customers." | country: None
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): closed to new customers [1]
+- binding note: Nothing can be provisioned at all, so no test applies.
+- interface detail: AWS CLI, SDKs, and the App Runner API.
+- tooling: AWS CLI and console for existing customers.
+- composes with: Not reachable for a new client.
+- reliability: None applicable; no new deployments possible.
+- notes: Service is closed to new customer signups. Existing accounts retain access. No free tier is provided.
+- evidence note: Service discontinuation for new accounts is stated on first-party product documentation.
+- extras:
+  - wg_path: none
+  - wg_detail: No UDP path, and no new accounts: the service is closed to new customers.
+  - ingress: http-only
+  - volume_tib_month: 0
+  - volume_stated: No free tier; the service is closed to new customers.
+  - bytes_transit: no
+  - transit_note: HTTP only, and unavailable to new accounts.
+- evidence:
+  - [1] 2026-10-23: "AWS App Runner is no longer open to new customers" and AWS recommends ECS Express Mode instead
+- sources:
+  - [1] https://docs.aws.amazon.com/apprunner/latest/dg/what-is-apprunner.html
+
+## Deta
+
+- `egress/deta` | dead | evidence reported | binding volume-quota | category paas l4 port | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-07
+- url https://news.ycombinator.com/item?id=41426388 | page https://fshy.ajam.dev/p/deta-2.md
+- price USD 0
+- free tier: Deta Space is shutting down and will be sunset on 17 October 2024. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No service; Deta Space was sunset on 2024-10-17.; ingress: none | metered: yes | free allowance: No service; Deta Space was sunset on 2024-10-17. | source: [1]
+- identity: email | detail: Not applicable; the hosting product no longer exists. | country: None
+- interface: unknown
+- limits:
+  - volume-quota (binding): service sunset 2024-10-17 [1]
+- binding note: No service, so no constraint applies.
+- interface detail: No live interface.
+- tooling: None.
+- composes with: Not available.
+- reliability: Service withdrawn; data deleted after sunset.
+- notes: Deta Cloud and Space cloud runtime services are discontinued. Successor products focus on personal computing environments rather than application hosting.
+- evidence note: Discontinuation documented in vendor communications and repository issues. Deta endpoints returned HTTP 530 during verification.
+- extras:
+  - wg_path: none
+  - wg_detail: No service remains to expose a port. Both deta.space and deta.sh returned HTTP 530.
+  - ingress: none
+  - volume_tib_month: 0
+  - volume_stated: No service; Deta Space was sunset on 2024-10-17.
+  - bytes_transit: no
+  - transit_note: No service.
+- evidence:
+  - [1] 2026-10-23: "Deta Space is shutting down and will be sunset on 17 October 2024"
+  - [2] 2026-10-23: quotes Deta: login for 45 days until sunset on October 17, 2024, then deletion of Horizons, apps and data
+  - [3] 2026-10-23: HTTP 530
+- sources:
+  - [1] https://news.ycombinator.com/item?id=41426388
+  - [2] https://github.com/withastro/docs/pull/9345
+  - [3] https://deta.space/
+
+## Freenet6 (gogo6)
+
+- `egress/freenet6` | dead | evidence reported | binding none | category ipv6 tunnel broker | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-07
+- url http://freenet6.net/ | page https://fshy.ajam.dev/p/freenet6.md
+- price USD 0
+- free tier: the service closed in 2016; the announcement is titled 'gogoNET and Freenet6 Closing Down' and the domain now returns an HTTP 200 with an empty body | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not applicable: the service is closed; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: not applicable: no signup exists | country: None
+- interface: unknown
+- binding note: The provider is dead, so no constraint is reached at any volume. It stays in the record because it is still the second entry in most lists of tunnel brokers and because the gogoc client it required was still packaged until 2022.
+- interface detail: not applicable
+- tooling: none: gogoc is no longer packaged
+- composes with: the same as interface detail
+- reliability: closed in 2016; the domain serves an empty response.
+- notes: Kept as the canonical dead entry: any list of brokers that still names Freenet6 or gogo6 is stale, and a user it required (gogoc, formerly Gateway6) is gone from the package trees.
+- evidence note: Service termination was announced in 2016. Provider domain returns HTTP 200 with an empty body.
+- extras:
+  - wg_path: none
+  - wg_detail: not applicable: the service predates WireGuard and closed in 2016
+  - ingress: none
+  - volume_stated: not applicable: the service is closed
+  - bytes_transit: no
+  - transit_note: not applicable
+- evidence:
+  - [2] 2026-10-23: forwarded announcement 'gogoNET and Freenet6 Closing Down', dated 2016-04-14
+  - [1] 2026-10-23: HTTP 200 with an empty body: 'the origin returned an empty body, so there is nothing to read', Last-Modified 2026-07-17
+  - [3] 2026-10-23: the gogoc port was deleted on 2022-04-30 because 'Services were discontinued in 2016'
+- sources:
+  - [1] http://freenet6.net/
+  - [2] https://mail.lacnic.net/pipermail/lacnog/2016-April/004464.html
+  - [3] https://www.freshports.org/net/gogoc/
+
+## KubeSail (Egress and tunnels)
+
+- `egress/kubesail` | dead | evidence documented | binding none | category hosted kubernetes tunnel and dyndns (discontinued) | tier dead
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://kubesail.com/ | page https://fshy.ajam.dev/p/kubesail.md
+- price n/a
+- free tier: we've made the difficult decision to stop operating our hosted services | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No allowance: the hosted service stopped operating.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: accounts are no longer offered; the announcement is the whole page. | country: None
+- interface: unknown
+- binding note: Nothing binds because nothing is served: the hosted services were withdrawn and the page carries a shutdown notice dated 2019-2025.
+- interface detail: no service
+- tooling: none remaining.
+- composes with: part of tooling
+- reliability: Service withdrawn in 2025.
+- notes: The aggregator still lists KubeSail as a live commercial option. This is the sweep's clearest stale entry.
+- evidence note: Hosted ingress services are discontinued. Open-source software at github.com/kubesail remains available for Kubernetes self-hosting.
+- extras:
+  - wg_path: none
+  - ingress: none
+  - volume_stated: No allowance: the hosted service stopped operating.
+  - bytes_transit: no
+  - transit_note: nobody
+- evidence:
+  - [1] 2026-10-23: 'After six wonderful years, we've made the difficult decision to stop operating our hosted services.'
+- sources:
+  - [1] https://kubesail.com/
+
+## LoCyanFrp
+
+- `egress/locyanfrp` | dead | evidence unverified | binding volume-quota | category udp port forward | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T10:32:54.108Z (live) | stale on 2026-11-18
+- url https://www.locyanfrp.cn/ | page https://fshy.ajam.dev/p/locyanfrp.md
+- price USD 0
+- free tier: Free users: unlimited tunnels, speed limit varies by tunnel, traffic claimable by daily check-in, Docker supported. [translated from a forum roundup] | unit: mixed | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: unverified: published terms state no explicit byte allowance. Traffic is allocated via check-in.; ingress: udp | metered: no | free allowance: none published | source: [2]
+- identity: email | detail: Panel registration per the roundup; real-name requirements not stated. | country: None
+- interface: cli
+- limits:
+  - volume-quota (binding): daily check-in grant, amount unpublished [1]
+- binding note: The only metering described is a daily check-in grant of unknown size, so the quota is what would fail first.
+- interface detail: frpc plus a web panel, per the roundup.
+- tooling: frpc, Docker
+- composes with: None until the origin answers.
+- reliability: On 2026-11-03 the name www.locyanfrp.cn answered with a CNAME to www.locyanfrp.cn.a1.inithh.com and DNS status 3 (NXDOMAIN) at a public DNS-over-HTTPS resolver, so the site name resolves to no address.
+- notes: HTTP 530 is Cloudflare reporting an origin DNS or connection failure, which usually means the backend is down rather than the page being blocked. Do not treat this as settled death without a second look.
+- evidence note: Provider endpoint returned HTTP 530 on 2026-10-23, indicating origin connectivity failures.
+- extras:
+  - wg_path: unknown
+  - wg_detail: Nothing could be read from the origin; the roundup does not say whether UDP tunnels are offered.
+  - ingress: udp
+  - volume_stated: Check-in traffic.
+  - bytes_transit: yes
+  - transit_note: Unverified.
+- evidence:
+  - [2] 2026-10-23: nothing established about the page
+  - [1] 2026-10-23: roundup lists unlimited tunnels and check-in traffic
+  - probe:https://8.8.8.8/resolve?name=www.locyanfrp.cn&type=A 2026-11-03: a public DNS-over-HTTPS resolver answered the name www.locyanfrp.cn with a CNAME to www.locyanfrp.cn.a1.inithh.com and DNS status 3 (NXDOMAIN), so the site name resolves to no address | capture: sha256:087ed4d1a5b3cd9c7ca5d5d7305624cdb7f7674c8944e72522ad524c4cd5ec4d | quote: "Status":3,"TC":false,"RD":true,"RA":true,"AD":false,"CD":false,"Question":[{"name":"www.locyanfrp.cn.","type":1}],"Answer":[{"name":"www.locyanfrp.cn.","type":5,"TTL":300,"data":"www.locyanfrp.cn.a1.inithh.com."}]
+  - probe:https://1.1.1.1/dns-query?name=www.locyanfrp.cn&type=A 2026-11-03: a second public DNS-over-HTTPS resolver also answered DNS status 3 (NXDOMAIN) for www.locyanfrp.cn, which is a CNAME to www.locyanfrp.cn.a1.inithh.com | capture: sha256:f09940447ddf393c2dafe7ebb7b2d2f4c172576e1bfe552fac21aeecdace73f9 | quote: "Status":3
+  - probe:locyanfrp.cn:443 2026-11-03: a TCP connect to the apex locyanfrp.cn on port 443 timed out on 2026-11-03, so the HTTPS port of the apex did not accept a connection | capture: sha256:90014ef9d71cebcfc870f324041eb35b8c97cbd12e4ac8ec442fce2d54f77f72 | quote: TimeoutError('timed out')
+  - probe:https://locyanfrp.cn/ 2026-11-03: an HTTPS GET of the apex locyanfrp.cn timed out on 2026-11-03 with no status | capture: sha256:7fdf12c219ca17236d4c5157dbf024e4cea989a20da5b5da1decd4c1205de23e | quote: "error": "timeout"
+  - [3] 2026-11-03: the Wayback Machine copy of the apex dated 2026-05-15 is a CDN not-found page, so the domain was not bound to a site on that date | capture: sha256:58dbf2699dcb0d0d2732b5f7b54e443ee2ffcbf9ddde9cc08ba160540d52b441 | quote: Sorry, Please confirm that this domain name has been bound to your website.
+- sources:
+  - [1] https://www.nodeseek.com/post-570663-1
+  - [2] https://www.locyanfrp.cn/
+  - [3] https://web.archive.org/web/20260515130252/http://locyanfrp.cn/
+
+## Lokal.so
+
+- `egress/lokal-so` | dead | evidence documented | binding none | category http tunnel (domain now serves unrelated content) | tier dead
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://lokal.so/ | page https://fshy.ajam.dev/p/lokal.md
+- price n/a
+- free tier: No offer: the domain returns a gambling-site page instead of the tunnel service. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: Nothing to measure; the product page is gone.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: no signup exists on the page served today. | country: None
+- interface: unknown
+- binding note: Nothing binds: the domain no longer belongs to the service the aggregator describes as HTTP/TCP/UDP.
+- interface detail: n/a
+- tooling: none
+- composes with: the same as tooling
+- reliability: Domain no longer under the original operator.
+- notes: This one hurts because the aggregator lists it as HTTP/TCP/UDP with a desktop GUI, which was the most promising unrecorded commercial entry. The domain is now spam.
+- evidence note: Product website is inactive. Aggregator descriptions list HTTP, TCP and UDP tunneling support.
+- extras:
+  - wg_path: none
+  - ingress: none
+  - volume_stated: Nothing to measure; the product page is gone.
+  - bytes_transit: no
+  - transit_note: n/a
+- evidence:
+  - [1] 2026-10-23: the page served is casino copy ('Free Spins', slot terms); /pricing returns an origin error
+- sources:
+  - [1] https://lokal.so/
+
+## Malai
+
+- `egress/malai` | dead | evidence documented | binding none | category p2p tunnel | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://malai.sh/ | page https://fshy.ajam.dev/p/malai.md
+- price USD 0
+- free tier: The deployment is paused. The last public offer was: No signup, no accounts, and you can self-host your own http bridge if you want. | unit: none | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: Nothing is served: malai.sh answers with This deployment is temporarily paused.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: No signup and no accounts were required when it ran. | country: None
+- interface: cli
+- limits:
+  - volume-quota: service offline [1]
+- binding note: A paused deployment fails before any quota applies.
+- interface detail: malai http 3000 --public, or malai http-bridge to run a bridge.
+- tooling: malai CLI; self-hostable http-bridge.
+- composes with: Would have shared a free VM's HTTP port over iroh; nothing to chain while the bridge is paused.
+- reliability: Hosted bridge is inactive. Software is open source and supports self-hosting.
+- notes: The pattern, an iroh relay plus a community bridge, recurs in several 2025-2026 launches and the bridge is the part that dies. Historical citation moved out of evidence because it no longer proves the present claim: 'Launch: share a dev server over P2P on the iroh stack, no signup, public bridge at kulfi.site.' (https://news.ycombinator.com/item?id=43844500, 2025-04-30).
+- evidence note: A later read of malai.sh would show whether it returned; the pause notice is the current state.
+- extras:
+  - wg_path: none
+  - wg_detail: It carried HTTP and, from 0.2.5, TCP. No UDP path was announced, and the hosted bridge is down.
+  - ingress: none
+  - volume_stated: Nothing is served: malai.sh answers with This deployment is temporarily paused.
+  - bytes_transit: overlay-only
+  - transit_note: iroh relay and direct P2P; no relay is currently operated by the project.
+- evidence:
+  - [1] 2026-10-23: This deployment is temporarily paused, with an HTTP 402 from the host.
+  - [2] 2026-10-23: TCP support added in 0.2.5; no UDP support claimed.
+  - [1] 2026-10-23: the page returns upstream status 402 with the title 'Deployment Paused', which confirms the service is not running
+- sources:
+  - [1] https://malai.sh/
+  - [2] https://news.ycombinator.com/item?id=44107393
+
+## Nilloc
+
+- `egress/nilloc` | dead | evidence inferred | binding none | category overlay network or advanced tunnel tool | tier n/a
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://nilloc.io/ | page https://fshy.ajam.dev/p/nilloc.md
+- price USD 0
+- free tier: Developer-focused. Aims to have better pricing than ngrok. Free tier. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No allowance is published in the list entry.; ingress: none | metered: no | free allowance: none published | source: [2]
+- identity: email | detail: an account on the hosted service, terms not read | country: None
+- interface: cli
+- binding note: No allowance is published, so the byte wall is unknown; the transport column is what the list states. The aggregator claims a free tier; the site returned 404.
+- interface detail: not established
+- tooling: vendor client
+- composes with: Needs an account before any capacity is visible.
+- reliability: the same as interface detail
+- notes: nothing else about the service could be read. The aggregator claims a free tier; the site returned 404. The URL was fetched and produced no product page; see confidence_note.
+- evidence note: nothing else about the service could be read. A vendor page read would raise this to documented; only the aggregator was read for this name.
+- extras:
+  - wg_path: none
+  - ingress: none
+  - volume_stated: No allowance is published in the list entry.
+  - bytes_transit: no
+  - transit_note: none
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Developer-focused. Aims to have better pricing than ngrok. Free tier.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://nilloc.io/
+
+## Optimistix Tunnel
+
+- `egress/optimistix-tunnel` | dead | evidence documented | binding per-ip-shaping | category ssh tunnel (http, tcp, tls) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-10T03:25:21.415Z (live) | stale on 2026-12-11
+- url https://optimistixtunnel.com/features/ssh-tunneling/ | page https://fshy.ajam.dev/p/optimistixtunnel.md
+- price USD 0
+- free tier: None: the service is permanently discontinued and all tunnels, subdomains and accounts are no longer active. | unit: none | metered on: none | read on: 2026-11-10 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No byte, port-count or session limit is published; the page says only that it is free.; ingress: tcp | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: 'No signup, no install' per the aggregator; the page says 'No downloads or installations needed - just use the SSH client'. | country: None
+- interface: ssh
+- limits:
+  - per-ip-shaping (binding): Nothing countable is published, so an unpublished tolerance is what fails at 1 TiB/month. Protocol is the hard wall: HTTPS, TCP and TLS over SSH, with no UDP and no WireGuard path. [1]
+- binding note: Nothing countable is published, so an unpublished tolerance is what fails at 1 TiB/month. Protocol is the hard wall: HTTPS, TCP and TLS over SSH, with no UDP and no WireGuard path.
+- interface detail: SSH remote forwarding.
+- tooling: system ssh only.
+- composes with: Free TCP ingress for a VM without a card.
+- reliability: the vendor page says the service has been permanently discontinued and points readers at Cloudflare Tunnel instead
+- notes: The vendor page read on 2026-11-10 says the service has been permanently discontinued and recommends Cloudflare Tunnel; a third-party harness had already recorded the shutdown on 2026-11-05 after a challenge page had once made the site look alive.
+- evidence note: Tunnel specifications and protocol support are documented in official repository guides.
+- extras:
+  - wg_path: none
+  - ingress: tcp
+  - volume_stated: As read on 2026-10-23, before the shutdown: no byte, port-count or session limit was published; the page said only that it was free. The service has since been discontinued (2026-11-10).
+  - bytes_transit: yes
+  - death.on: 2026-11-10
+  - death.cause: dead-service
+- evidence:
+  - [1] 2026-10-23: '100% Free'; 'Completely Free to Use'; 'HTTPS / TCP / TLS Tunnel'
+  - [2] 2026-10-23: SSH-based, 'HTTPS / TCP / TLS-supported tunnels', no price or plan table
+  - [2] 2026-11-10: the service is permanently discontinued | capture: sha256:2ed63246e7ac6e29e053c7448ce6846586444e97e0ce0b037eebdad775641498 | quote: The service has been permanently discontinued, and all tunnels, subdomains and accounts are no longer active.
+  - [2] 2026-11-10: the vendor recommends Cloudflare Tunnel instead | capture: sha256:2ed63246e7ac6e29e053c7448ce6846586444e97e0ce0b037eebdad775641498 | quote: we recommend Cloudflare Tunnel
+- sources:
+  - [1] https://optimistixtunnel.com/features/ssh-tunneling/
+  - [2] https://optimistixtunnel.com/
+
+## OwnServer
+
+- `egress/ownserver` | dead | evidence documented | binding none | category tcp+udp tunnel for local game servers (hosted, Japan) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://ownserver.kumassy.com/ | page https://fshy.ajam.dev/p/kumassy.md
+- price USD 0
+- free tier: [translated] Headline: 'A game server you can use for free, without limits'. The feature list gives 'Free' and 'Unlimited' as separate items, and the mechanism section says: 'When you start the OwnServer Client, a dedicated secure tunnel is created between OwnServer and your computer, and a public address dedicated to your server is issued.' | unit: unlimited | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: [translated] 'A game server you can use for free, without limits', with 'Unlimited' as a feature heading. No byte figure, no rate, no session length.; ingress: tcp+udp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: [translated] The documented flow is: download the OwnServer Client, download the game server program, start the OwnServer Client, play with friends. No account, email or payment step appears in it. | country: None
+- interface: unknown
+- binding note: Nothing binds: the service is suspended. The announcement dated 2026/04/06 says operation has stopped temporarily and no restart date is set.
+- interface detail: [translated] 'OwnServer Client' is a per-OS desktop download; the page documents no API, no command line and no configuration file.
+- tooling: the vendor's own desktop client only (Windows, Linux x86_64/ARM, macOS Intel/Apple Silicon builds listed); no CLI flag, no API, no .conf
+- composes with: none while suspended; if it reopens it would be the only free Japanese host that publishes an arbitrary local TCP or UDP port without an account.
+- reliability: Suspended 2026-04-06 for stated stability and security problems; a client-side connection drop was patched with auto-reconnect in v0.10.0 (2025-04-20), which is the class of failure that preceded the suspension.
+- notes: Japanese tunneling provider supporting TCP and UDP forwarding. Live endpoints returned HTTP 530 on 2026-10-23. Archived documentation from 2026-04-14 describes custom game server forwarding.
+- evidence note: Service suspension notice is documented on the vendor front page.
+- extras:
+  - wg_path: none
+  - wg_detail: A closed-source desktop client issues a public address for a local server; it does not hand out a WireGuard configuration, and a user is the only documented way in.
+  - ingress: tcp+udp
+  - volume_stated: [translated] 'A game server you can use for free, without limits', with 'Unlimited' as a feature heading. No byte figure, no rate, no session length.
+  - bytes_transit: yes
+  - transit_note: The vendor relays between the issued public address and the local machine.
+- evidence:
+  - [1] 2026-10-23: [translated] '2026/04/06: we had been publishing the service on a trial basis, but because there are many problems with stability and security we are temporarily suspending provision of the service. The restart date is undecided.'
+  - [1] 2026-10-23: The front page lists 'Free' and 'Unlimited' as features and describes a client-created tunnel that issues a public address for the local game server.
+- sources:
+  - [1] https://web.archive.org/web/20260414224601/http://ownserver.kumassy.com/
+  - [2] https://ownserver.kumassy.com/
+
+## PCDeploy
+
+- `egress/pcdeploy` | dead | evidence unverified | binding none | category game tunnel (claimed UDP and TCP) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T10:32:54.109Z (live) | stale on 2026-11-18
+- url https://pcdeploy.net/ | page https://fshy.ajam.dev/p/pcdeploy.md
+- price USD 0 (claimed)
+- free tier: Yes. PCDeploy is completely free to use. Premium subscriptions with added functionality are planned to be added in the future. | unit: mixed | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No byte allowance appears in the copy preserved in the search index; the page itself could not be read.; ingress: tcp+udp | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: Presumed, not observed: the indexed copy describes an account-based .exe, and the site never loaded, so the signup fields are unread. | country: None
+- interface: unknown
+- limits:
+  - write-gated: one server at a time: 'Right now, only one server can be run at a time.' [1]
+- binding note: Service endpoints are inactive. Historical documentation described single-server UDP proxying.
+- interface detail: A .exe that asks for the port and returns a public address, per the indexed copy.
+- tooling: A Windows .exe in the surviving copy
+- composes with: Nothing until the host answers again.
+- reliability: pcdeploy.net does not resolve: DNS-over-HTTPS answered NXDOMAIN (Status 3) for its A record on 2026-10-30, with the .net zone SOA as the authority, so the .net zone holds no delegation for the name.
+- notes: Historical proxy tool designed for game server hosting. Service endpoints are inactive.
+- evidence note: The death is measured: on 2026-10-30 DNS-over-HTTPS queries for the A record of pcdeploy.net answered NXDOMAIN at two public resolvers (Cloudflare and Google), with the .net zone SOA as the authority, and the .net registry's RDAP service answered HTTP 404 for the domain. The rung stays unverified because the offer text (free use, UDP and TCP forwarding, one server at a time) comes from a search-index copy of the vendor page, and the page itself cannot be read while the domain is unregistered.
+- extras:
+  - wg_path: unknown
+  - wg_detail: The surviving copy claims UDP forwarding, which would carry WireGuard, but the site never loaded.
+  - ingress: tcp+udp
+  - volume_stated: No byte allowance appears in the copy preserved in the search index; the page itself could not be read.
+  - bytes_transit: yes
+  - transit_note: The vendor's servers were to sit between the home network and the players.
+  - death.on: 2026-10-30
+  - death.cause: dead-service
+- evidence:
+  - [1] 2026-10-23: 
+  - [1] 2026-10-23: The search index still holds copy dated this week: 'PCDeploy works for any game with self-hosted community servers ... It works for both UDP and TCP connections' and 'Right now, only one server can be run at a time.'
+  - [1] 2026-10-23: The Wayback Machine returned no capture at 2026-06 and Cloudflare URL Scanner held no scan in its last 30 days
+  - probe:https://8.8.8.8/resolve?name=pcdeploy.net&type=A 2026-10-30: a DNS-over-HTTPS query to 8.8.8.8 for the A record of pcdeploy.net answered Status 3 (NXDOMAIN) on 2026-10-30, with the .net zone SOA as the authority | capture: sha256:b38f1c565eafee25652ea392b64a22119df0d1aaa853db12e63a6f719f2c49ec | quote: "Status":3
+  - probe:https://1.1.1.1/dns-query?name=pcdeploy.net&type=A 2026-10-30: a DNS-over-HTTPS query to 1.1.1.1 for the A record of pcdeploy.net answered Status 3 (NXDOMAIN) on 2026-10-30, with the .net zone SOA as the authority | capture: sha256:7d4e072889aa4d63efd22f2e31974b5c9f1c7dc6b4d3aaf62f72c8646ecce7b2 | quote: "Status":3
+  - probe:https://rdap.verisign.com/net/v1/domain/pcdeploy.net 2026-10-30: the .net registry's RDAP service answered HTTP 404 with a 0-byte body for the domain pcdeploy.net on 2026-10-30: the registry holds no registration for the name | capture: sha256:9fc056fd23f7c438e880a7d19cd21601c5ecbf4861c5199df1c43f6e1104bfae | quote: "status": 404
+  - probe:https://8.8.8.8/resolve?name=pcdeploy.net&type=A 2026-11-03: a public DNS-over-HTTPS resolver answered DNS status 3 (NXDOMAIN) for the A record of pcdeploy.net on 2026-11-03, with the .net zone SOA as the authority | capture: sha256:82cde158871b64cad76e6e71fe9f047a4299cd148862b0f86344056344e98ff1 | quote: "Status":3
+  - probe:https://1.1.1.1/dns-query?name=pcdeploy.net&type=A 2026-11-03: a second public DNS-over-HTTPS resolver also answered DNS status 3 (NXDOMAIN) for pcdeploy.net on 2026-11-03 | capture: sha256:38447c5b4dd2fb9123867fc26550ecc714ef57993f63cbef6f8a927658623611 | quote: "Status":3
+  - probe:https://rdap.verisign.com/net/v1/domain/pcdeploy.net 2026-11-03: the .net registry RDAP service answered HTTP 404 for pcdeploy.net on 2026-11-03: the registry holds no registration for the name | capture: sha256:084907c9b18593a85fbfe7208b56d362c913216da271defba3be6279cd887a40 | quote: "status": 404
+- sources:
+  - [1] https://pcdeploy.net/
+
+## pgrok (proxy.jetzt)
+
+- `egress/pgrok-fork` | dead | evidence documented | binding none | category http/tcp tunnel (archived ngrok 1.0 fork) | tier dead
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://www.proxy.jetzt/ | page https://fshy.ajam.dev/p/proxy.md
+- price USD 0
+- free tier: Free Introspected tunnels to localhost, like ngrok but free and unlimited | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 'free and unlimited' in the repository description; the host serving it is a GitHub mirror, not a live relay.; ingress: tcp | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: no signup described; the project is archived. | country: None
+- interface: cli
+- binding note: Nothing binds because the relay is not operating: the page is the archived repository README and the aggregator marks it archived.
+- interface detail: ngrok 1.0 style client.
+- tooling: archived binary.
+- composes with: none
+- reliability: Archived upstream; no relay observed.
+- notes: Self-hosted reverse proxy fork. Public relay endpoint proxy.jetzt was discontinued and redirects to the source repository.
+- evidence note: Public demo relay is discontinued; source repository remains available for self-hosting.
+- extras:
+  - wg_path: none
+  - ingress: tcp
+  - volume_stated: 'free and unlimited' in the repository description; the host serving it is a GitHub mirror, not a live relay.
+  - bytes_transit: no
+  - transit_note: none observed
+- evidence:
+  - [1] 2026-10-23: page serves the jerson/pgrok GitHub README: 'Free Introspected tunnels to localhost, like ngrok but free and unlimited'; 'Expose any tcp service ... on a random port of ejemplo.me'
+- sources:
+  - [1] https://www.proxy.jetzt/
+
+## route48.org
+
+- `egress/route48-org` | dead | evidence documented | binding none | category ipv6 tunnel broker | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://route48.org/ | page https://fshy.ajam.dev/p/route48.md
+- price USD 0
+- free tier: the read of https://route48.org/ on 2026-10-23 returned final_url https://bgptunnel.com/ with the title 'Home' and the description 'BGPTunnel.com offers free IPv4 and IPv6 Transit via GRE Tunnels in various locations for non-commercial and personal networks via AS209533' | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not applicable: the host now serves another provider's page; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: not established: no route48 signup page is reachable, the host redirects to bgptunnel.com | country: None
+- interface: unknown
+- binding note: The provider as an independent broker no longer answers; nothing binds at any volume. What is left at the domain is BGPTunnel.com, which requires an ASN and its own prefix, and that is recorded separately.
+- interface detail: not established
+- tooling: not applicable
+- composes with: the same as tooling
+- reliability: domain now serves a different provider; any published route48 configuration is stale.
+- notes: The 2022 r/ipv6 thread that named it is the reason it is checked at all. Both names in that thread now point at the same successor network: route64.org is live and independent, route48.org is not.
+- evidence note: documented from today's read: the domain resolves to another provider's page. Whether route48 moved, merged or was absorbed is not stated anywhere read; only that its own service is no longer served.
+- extras:
+  - wg_path: unknown
+  - wg_detail: not established for route48 itself; the handwiki list credited it with GRE, BIRD, WireGuard and ZeroTier
+  - ingress: none
+  - volume_stated: not applicable: the host now serves another provider's page
+  - bytes_transit: no
+  - transit_note: not applicable
+- evidence:
+  - [1] 2026-10-23: read returned final_url https://bgptunnel.com/ with the BGPTunnel description, not route48 content
+  - [2] 2026-10-23: listed as active in 2024 with '/48 Automated, /44 Free Ripe Assignement' and GRE, BIRD, WireGuard, ZeroTier
+  - [3] 2026-10-23: recommended in 2022 as an alternative to Hurricane Electric alongside route64.org
+- sources:
+  - [1] https://route48.org/
+  - [2] https://handwiki.org/wiki/List_of_IPv6_tunnel_brokers
+  - [3] https://www.reddit.com/r/ipv6/comments/y896f2/
+
+## Tabserve.dev
+
+- `egress/tabserve` | dead | evidence documented | binding none | category http tunnel (domain now serves unrelated content) | tier dead
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://tabserve.dev/ | page https://fshy.ajam.dev/p/tabserve.md
+- price n/a
+- free tier: No offer: the domain returns a gambling-site page instead of the tunnel service. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: Nothing to measure; the product page is gone.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: no signup exists on the page served today. | country: None
+- interface: unknown
+- binding note: Nothing binds: the domain no longer belongs to the service the aggregator describes.
+- interface detail: n/a
+- tooling: none
+- composes with: the same as tooling
+- reliability: Domain no longer under the original operator.
+- notes: Service domain tabserve.dev is inactive.
+- evidence note: Service domain is inactive. Historical documentation described browser-based tunnel administration.
+- extras:
+  - wg_path: none
+  - ingress: none
+  - volume_stated: Nothing to measure; the product page is gone.
+  - bytes_transit: no
+  - transit_note: n/a
+- evidence:
+  - [1] 2026-10-23: the page served is Indonesian gambling copy (JAWA138), not a tunnel product
+- sources:
+  - [1] https://tabserve.dev/
+
+## Tunnelbroker.li (iFog)
+
+- `egress/tunnelbroker-li` | dead | evidence documented | binding none | category ipv6 tunnel broker | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://tunnelbroker.li/ | page https://fshy.ajam.dev/p/tunnelbroker.md
+- price USD 0
+- free tier: tunnelbroker.li is closing down and is beeing replaced by BGPTunnel.com for non-commerical tunnels and by ifog.ch for commercial offerings. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: not applicable: the service is closing; ingress: none | metered: no | free allowance: none published | source: [2]
+- identity: email | detail: not established: no signup page survives in the capture | country: None
+- interface: unknown
+- binding note: The provider is dead, so no constraint is reached at any volume. The handwiki list still describes it as active with a /64 and WireGuard, which is why the record exists: a reader following that list would spend an evening on a closed service.
+- interface detail: not established
+- tooling: not applicable
+- composes with: not applicable: use route64.org or tahio for the same job
+- reliability: closed; the address space and customers were split between a non-commercial and a commercial successor.
+- notes: The archived first-party notice is what establishes the closure. iFog GmbH (AS34927) continues under bgptunnel.com and ifog.ch.
+- evidence note: documented from the provider's own notice, read through the Wayback capture of 2026-03-15; A fresh capture or a working live page would change this.
+- extras:
+  - wg_path: unknown
+  - wg_detail: the surviving capture names only BGP transit tunnels and does not list transports
+  - ingress: none
+  - volume_stated: not applicable: the service is closing
+  - bytes_transit: no
+  - transit_note: not applicable
+- evidence:
+  - [1] 2026-10-23: 'tunnelbroker.li is closing down and is beeing replaced by BGPTunnel.com for non-commerical tunnels and by ifog.ch for commercial offerings.' (capture of 2026-03-15)
+  - [3] 2026-10-23: still listed as active with a /64 and WireGuard support, dated 2024-02-06
+- sources:
+  - [1] https://web.archive.org/web/20260315143914id_/https://tunnelbroker.li/
+  - [2] https://tunnelbroker.li/
+  - [3] https://handwiki.org/wiki/List_of_IPv6_tunnel_brokers
+
+## VmShell Hong Kong CMI port forward
+
+- `egress/vmshell-hk-port-forward` | dead | evidence reported | binding retention-clamped | category tcp port forward (hosted, Hong Kong) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-30T17:51:45.685Z (live) | stale on 2026-11-14
+- url https://www.logovps.com/1180.html | page https://fshy.ajam.dev/p/logovps.md
+- price USD 0 for one month
+- free tier: unit: hours | metered on: wall-clock | read on: 2026-10-30 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: [translated] 'Free for one month', with no traffic allowance, rate or session length stated. The notice describes it as a test product with no technical support.; ingress: tcp | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: [translated] 'Limit: one product per ID', ordered through a vmshell.com cart link. The notice does not state what registration requires. | country: None
+- interface: unknown
+- limits:
+  - retention-clamped (binding): [translated] 'free for one month' [1]
+- binding note: The month ends before 1 TiB/month can be reached, and the notice publishes no byte allowance to fail first.
+- interface detail: [translated] The notice gives a vmshell.com cart link and a Telegram support group; no client or API is described.
+- tooling: panel-configured port forward; no client documented in the notice
+- composes with: A Hong Kong forward on a high port would front a service that speaks on 13800-59999, for one month.
+- reliability: Described by the vendor as a test product with no technical support; the blocked port list removes 22, 80, 443 and 3306.
+- notes: A free Hong Kong CMI three-network direct port forward. It is a one-month free test product announced in January 2023 with no technical support. Country: Hong Kong. The notice does not say whether UDP is forwarded in the allowed port range.
+- evidence note: The offer facts come from a third-party blog post dated 2023-01-23 that reproduces the vendor's Telegram notice, so the record's rung is reported. On 2026-10-30 the notice's order link https://vmshell.com/cart.php?a=add&pid=76, followed through the site's validator redirect, ended at the store page https://vmshell.com/index.php?rp=/store/cmin2hk, which lists four VPS plans in a Hong Kong data center and no port-forward product.
+- extras:
+  - wg_path: unknown
+  - wg_detail: [translated] The notice names a port range (13800-59999) and no protocol. A TCP-only forward could not carry a WireGuard datagram; whether UDP is forwarded in that range is not stated by the notice.
+  - ingress: tcp
+  - volume_stated: [translated] 'Free for one month', with no traffic allowance, rate or session length stated. The notice describes it as a test product with no technical support.
+  - bytes_transit: yes
+  - transit_note: VmShell's Hong Kong CMI address forwards to the local machine.
+  - death.on: 2026-10-30
+  - death.cause: free-tier-removed
+- evidence:
+  - [1] 2026-10-23: 
+  - [1] 2026-10-30: [translated] the post dated 2023-01-23 reproduces a VmShell notice: Hong Kong CMI port-forwarding test, free for 1 month | capture: sha256:4a6ac694ddd49e5e6b977a41daf960b329814f1df38d688505fa65dbb04a4256 | quote: CMI-端口转发测试通知（获取建议） 免费1个月
+  - [1] 2026-10-30: [translated] the notice blocks ports 22, 443, 80 and 3306 and allows ports 13800-59999 | capture: sha256:4a6ac694ddd49e5e6b977a41daf960b329814f1df38d688505fa65dbb04a4256 | quote: 禁止端口号 22,443,80,3306 允许的端口号 13800-59999
+  - [1] 2026-10-30: [translated] the notice limits each ID to one product | capture: sha256:4a6ac694ddd49e5e6b977a41daf960b329814f1df38d688505fa65dbb04a4256 | quote: 限额：每个ID一个产品
+  - [1] 2026-10-30: [translated] the notice describes the offer as free for a limited time with no technical support | capture: sha256:4a6ac694ddd49e5e6b977a41daf960b329814f1df38d688505fa65dbb04a4256 | quote: 限时免费,无技术支持
+  - probe:https://vmshell.com/cart.php?a=add&pid=76 2026-10-30: a GET of the order link https://vmshell.com/cart.php?a=add&pid=76 answered HTTP 403 with 0 bytes on 2026-10-30 | capture: sha256:0278b7203838553aa9054a05e303479693b850ec1662b7a1675347a6733706bd | quote: "status": 403
+  - [2] 2026-10-30: on 2026-10-30 the store page the order link lands on lists two categories, CMIN2.HK and USA-VPS, and four VPS plans in a Hong Kong data center priced from USD 7.00 to USD 23.00 a month; no port-forward product is listed | capture: sha256:29a18000f7440f9fb14f49460d515b022e57ab58d4ed5bb9137b70df5804109c | quote: Annual Pay For Cheap From $7.00 /mo
+  - [2] 2026-10-30: on 2026-10-30 the order link https://vmshell.com/cart.php?a=add&pid=76, followed through the site's validator redirect, ended at https://vmshell.com/index.php?rp=/store/cmin2hk, a store page and not an order form | capture: sha256:29a18000f7440f9fb14f49460d515b022e57ab58d4ed5bb9137b70df5804109c | quote: x-web-final-url: https://vmshell.com/index.php?rp=/store/cmin2hk
+  - [1] 2026-10-30: it names no carrier and no protocol | capture: sha256:4a6ac694ddd49e5e6b977a41daf960b329814f1df38d688505fa65dbb04a4256 | quote: 免费香港CMI三网直连端口转发： CMI-端口转发测试通知（获取建议） 免费1个月 因为测试产品 建议电报我们 TeleGram 群组建议： https://t.me/vmshellhk 禁止端口号 22,443,80,3306 允许的端口号 13800-59999 欢迎联系我们 因为测试产品 希望大家给出建议 祝大家大展宏兔 我们晚点提供大陆中转服务 限时免费,无技术支持
+- sources:
+  - [1] https://www.logovps.com/1180.html
+  - [2] https://vmshell.com/cart.php?a=add&pid=76
+
+## VPSLog
+
+- `egress/vpslog` | dead | evidence unverified | binding none | category free nat vps | tier free
+- needs card no, phone yes, ID no, institution no | verified 2026-11-04T06:52:57.446Z (live) | stale on 2026-11-19
+- url https://distribute.vpslog.net | page https://fshy.ajam.dev/p/vpslog.md
+- price USD 0
+- free tier: A free NAT IPv4 VPS obtained through a Telegram bot; the panel shows the IPv4 address, an SSH port, and a port list behind a SHOW button. [translated] | unit: unlimited | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No traffic figure is stated in published documentation.; ingress: udp | metered: no | free allowance: none published | source: [2]
+- identity: any-phone | detail: A Telegram account is the only credential: log in through @vpslog_distribute_bot and receive a code. | country: None
+- interface: ssh
+- limits:
+  - request-rate: a fixed list of assignable ports [1]
+  - retention-clamped: renewal required; renewal interval not published [1]
+- binding note: No byte cap is published, so nothing in the vocabulary fails at 1 TiB; the port list is the practical limit.
+- interface detail: SSH to the shared IPv4 on the assigned port, plus a web panel.
+- tooling: ssh, wg-quick
+- composes with: none: the distribution host does not resolve, so no machine is issued and no endpoint exists.
+- reliability: Shared IPv4 with a restricted port list; nothing about durability is documented.
+- notes: Dead: the distribution host distribute.vpslog.net does not resolve (DNS failure), so the free NAT VPS is no longer issued. Kept as the archetype of the Telegram-only free NAT VPS, where only a listed subset of ports of a shared IPv4 is forwarded; the write-ups date from 2023.
+- evidence note: The distribution host answers a DNS failure, so the offer is dead; the other sources are from 2023 and describe the offer while it was live.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: Root on a NAT VPS with a published port list; WG would bind a listed port. The port list is the open question: only a subset of ports is usable.
+  - ingress: udp
+  - volume_stated: No traffic figure is stated in the write-ups.
+  - bytes_transit: yes
+  - transit_note: Unverified.
+  - death.on: 2026-11-04
+  - death.cause: dead-service
+- evidence:
+  - [1] 2026-10-23: Telegram-only signup, NAT IPv4 with a restricted port list, no traffic figure
+  - [3] 2026-10-23: the free NAT machines were handed out through a Telegram bot in 2023
+  - probe:distribute.vpslog.net 2026-11-04: the host distribute.vpslog.net does not resolve; a public DoH resolver answered NXDOMAIN for it and for vpslog.net | capture: sha256:293ea806d2e67139d4a4f6cdc2193eb853e9174773206cf65d10f1e03af4035b | quote: "error": "dns"
+  - probe:distribute.vpslog.net 2026-11-04: the distribution host does not resolve | capture: sha256:fa819a7f5e09e92469c5ed6b7268a3348ac57fd29c66f07768a425db27f95452 | quote: "error": "dns"
+- sources:
+  - [1] https://v2cross.com/4198.html
+  - [2] https://distribute.vpslog.net
+  - [3] https://www.nodeseek.com/post-6248-1
+
+## WebARENA SuitePRO V4 free trial
+
+- `egress/webarena-suitepro-trial` | dead | evidence documented | binding retention-clamped | category vps (hosted, Japan) | tier free
+- needs card no, phone no, ID no, institution yes | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://web.arena.ne.jp/suitepro/entry/trial.html | page https://fshy.ajam.dev/p/arena.md
+- price JPY 0 for 20 days; the paid SuitePRO V4 contract is separate and cannot be converted from the trial
+- free tier: [translated] 'Period: 20 days. Provided environment: server type 4G (4 virtual CPU cores, 4 GB memory, 100 GB boot disk), disk point N200, no backup.' | unit: hours | metered on: wall-clock | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: [translated] The trial is 20 days including the day the activation notice is sent; no traffic allowance is stated. At the end the server is stopped and initialised and 'files installed on it cannot be retrieved'.; ingress: tcp+udp | metered: no | free allowance: none published | source: [1]
+- identity: institution | detail: [translated] 'Fill in the necessary items on the application form and post it to the address given on the form.' There is no online signup for the trial: NTTPC issues a test-server ID within five business days of receiving the paper form. | country: None
+- interface: ssh, cli
+- limits:
+  - retention-clamped (binding): [translated] '20 days', then 'the server is stopped and initialised and data is deleted automatically; files cannot be retrieved' [1]
+- binding note: The 20-day window ends long before 1 TiB/month accumulates, and the machine is wiped rather than throttled. No byte allowance is published, so no volume quota can bind first.
+- interface detail: [translated] Access is by the issued test-server ID; the page documents an application form and a notification email, not an API.
+- tooling: wg-quick inside the guest; SSH
+- composes with: A 20-day 4-core Japanese guest would carry a measurement wave; it cannot be obtained today.
+- reliability: The machine is stopped and initialised the day after the end notice and the data is unrecoverable by design; the trial is limited to verification work and may not be used as a live commercial site.
+- notes: A 4-core 4 GB Japanese guest for 20 days with no card would be the best trial shape, and it is closed twice over: the paper form is a postal step with a five-business-day turnaround, and the page read on 2026-10-23 says new applications are temporarily suspended, pointing at a news item dated 2026-10-21. identity_kind 'institution' is the closest token for a posted, signed form; the gate is process, not a national ID. Country: Japan (NTTPC Communications). WebARENA's other line, VPS Cloud, ended its trial on 2018-02-16 per its own page.
+- evidence note: The 20-day term, the 4G specification, the postal application and the suspension are all on the vendor page read on 2026-10-23. A probe would establish the actual public address and rate; that requires an accepted application, which is currently impossible.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: A root guest on a 4-core 4 GB server; the trial environment is stated to be 'the same specification and environment as the paid contract', so WireGuard runs in the guest and wg-quick writes the .conf.
+  - ingress: tcp+udp
+  - volume_stated: [translated] The trial is 20 days including the day the activation notice is sent; no traffic allowance is stated. At the end the server is stopped and initialised and 'files installed on it cannot be retrieved'.
+  - bytes_transit: yes
+  - transit_note: The guest's own address on NTTPC's Japanese network.
+- evidence:
+  - [1] 2026-10-23: [translated] 'Period: 20 days', 'server type 4G (4 virtual cores, 4 GB memory, 100 GB boot disk)', and 'the trial environment is the same specification and environment as the paid contract'.
+  - [1] 2026-10-23: [translated] 'At present we are temporarily suspending acceptance of new applications.'
+  - [1] 2026-10-23: [translated] 'Fill in the necessary items on the application form and post it to the address given on the form', with the test-server ID issued within five business days of receipt.
+- sources:
+  - [1] https://web.arena.ne.jp/suitepro/entry/trial.html
+
+## WeVPN
+
+- `egress/wevpn` | dead | evidence reported | binding write-gated | category vpn port forward | tier paid
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-07
+- url https://www.techradar.com/news/wevpn-has-shut-down-users-now-moved-onto-windscribe | page https://fshy.ajam.dev/p/techradar.md
+- price not applicable
+- free tier: The service is closed: WeVPN is shutting down, the company confirmed in a short statement published on its website, and users with active subscriptions can migrate to Windscribe. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: Not applicable: the provider stopped serving in April 2023.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: Not applicable; existing subscriptions were migrated to Windscribe at no charge for the remaining term. | country: None
+- interface: unknown
+- limits:
+  - write-gated (binding): the service is closed, so every constraint is moot [1]
+- binding note: A dead provider has no binding constraint; the record exists so the name is not researched again.
+- interface detail: Service closed.
+- tooling: none
+- composes with: the same as tooling
+- reliability: Service closed April 2023.
+- notes: WeVPN discontinued operations in 2023. Customer accounts were transitioned to Windscribe.
+- evidence note: Third-party report dated 2023-04-14. wevpn.com itself returned HTTP 530 on the single attempt made, so the vendor's own shutdown notice was not read. The confirmation would be an archive capture of wevpn.com from mid-2023.
+- extras:
+  - wg_path: none
+  - wg_detail: The service no longer operates, so no config can be obtained. Successor for existing users is Windscribe, which forwards ports only on its paid Pro plan.
+  - ingress: none
+  - volume_stated: Not applicable: the provider stopped serving in April 2023.
+  - bytes_transit: no
+  - transit_note: No service operates.
+- evidence:
+  - [1] 2026-10-23: Published 2023-04-14: WeVPN shut down citing unforeseen financial difficulties and migrated active subscriptions to Windscribe; Windscribe did not acquire the company.
+  - [2] 2026-10-23: Nothing: the attempt returned HTTP 530, which establishes nothing about the target.
+- sources:
+  - [1] https://www.techradar.com/news/wevpn-has-shut-down-users-now-moved-onto-windscribe
+  - [2] https://wevpn.com/
+
+## XServer VPS free plan
+
+- `egress/xserver-vps-free` | dead | evidence documented | binding write-gated | category vps (hosted, Japan) | tier free
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://vps.xserver.ne.jp/free.php | page https://fshy.ajam.dev/p/xserver.md
+- price JPY 0 per month on the free plan; paid plans from JPY 792 per month | parsed USD 5.05/mo
+- free tier: [translated] 'A completely free VPS service. There is no initial cost and no monthly payment, so you can use a domestic VPS casually.' The plan table lists a 2 GB and a 4 GB free VPS at 0 yen per month. | unit: unlimited | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: [translated] 0 yen per month for the 2 GB and 4 GB plans. No traffic allowance is stated on the page. The contract-renewal row says 'manual renewal (every 1 day)' for the free plans against 'automatic renewal' for the paid ones.; ingress: tcp+udp | metered: no | free allowance: none published | source: [1]
+- identity: card | detail: [translated] 'A credit card must be registered to use this service.' | country: None
+- interface: ssh, cli, rest
+- limits:
+  - write-gated (binding): [translated] 'manual renewal (every 1 day)' on the free plans; the paid plans renew automatically [1]
+- binding note: A control-panel action every day stands between the account and the server surviving. That is a manual act, not a byte count, so it binds before any volume does. It is also moot today: the signup button for the free plans reads 'not accepting applications'.
+- interface detail: [translated] 50+ OS and application images install automatically when the order completes; the panel restarts and reinstalls the guest.
+- tooling: wg-quick inside the guest; SSH; the panel installs an OS or app image at order time
+- composes with: If it reopens: a free Japanese root guest is the endpoint for everything else in this topic, and the daily renewal is the one job it needs.
+- reliability: Daily manual renewal with deletion on a missed day; the page's own footnote says an automatic detection system may throttle guests that load the host excessively.
+- notes: Read carefully because it looked like the answer: a Japanese 0-yen VPS with a root guest would pass the ingress test outright. Two facts kill it. The signup is closed ('not accepting applications'). And the renewal row means the server is deleted unless a human clicks a renewal every day, which no unattended workload survives. Country: Japan. The free plan carries 50 GB of disk standard with a 500 GB option per the page footnotes.
+- evidence note: The 0 yen price, the card requirement, the daily manual renewal and the closed signup are all on the vendor page read on 2026-10-23. What no page establishes is whether a free guest gets a public IPv4; a probe would. Applications may reopen, which would make this the strongest Japanese free host.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: A KVM guest with root and a choice of 50+ OS images including Debian 12/13 and Ubuntu 22.04/24.04/26.04, so wg-quick runs in the guest. No configuration is issued by the vendor.
+  - ingress: tcp+udp
+  - volume_stated: [translated] 0 yen per month for the 2 GB and 4 GB plans. No traffic allowance is stated on the page. The contract-renewal row says 'manual renewal (every 1 day)' for the free plans against 'automatic renewal' for the paid ones.
+  - bytes_transit: yes
+  - transit_note: A domestic Japanese guest address carries the traffic.
+- evidence:
+  - [1] 2026-10-23: [translated] 'A completely free VPS service. There is no initial cost and no monthly payment.' Free plans are 2 GB and 4 GB at 0 yen per month.
+  - [1] 2026-10-23: [translated] 'A credit card must be registered to use this service.'
+  - [1] 2026-10-23: [translated] The free plans' contract-renewal row reads 'manual renewal (every 1 day)'; the paid plans read 'automatic renewal'. The free-plan signup button reads 'not accepting applications'.
+- sources:
+  - [1] https://vps.xserver.ne.jp/free.php

@@ -1,0 +1,227 @@
+# EUserv
+
+> euserv.com | Compute, Storage, Egress and tunnels; 5 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/euserv/ | JSON https://fshy.ajam.dev/api/v1/entity/euserv.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## EUserv
+
+- `compute/euserv` | qualifies-with-caveat | evidence documented | binding retention-clamped | category cloud VM
+- needs card no, phone yes, ID no, institution no | verified 2026-10-24T04:09:20.000Z (live) | stale on 2026-11-24
+- url https://www.euserv.com/en/virtual-private-server/root-vserver/v2/vs2-free.php
+- free tier: A container-based Linux root server, free while renewed by hand each month: 'The model "VS2-free" can be used free of charge in the basic version with IPv6 and is ideal for testing, as a development environment or as the basis for creating larger and growing systems.' Spec, quoted: 'Frequency 1 Core @ 1 GHz', 'Virtualization Type Linux Container', 'RAM 1 GB', 'Harddisk 10 GB HDD @ Raid10', 'Network-Card 1x 1Gbit', 'monthly included traffic volume 1 TB'. One IPv6 /128 is included; the IPv4 row is a dash, so the free model ships no IPv4 at all. | unit: GiB | metered on: wall-clock | read on: 2026-10-24 | source: [1] | note: perpetual-renewable, not perpetual: free only while the customer renews it monthly
+- per-object cap: not applicable | source: [1]
+- retention: One month, renewed by hand. The vendor's own forum answers the question directly: asked 'I need to perform a renew action by hand every month?', the support account replies 'yes.'; asked 'Can this be handled automatically?', 'no'; asked 'What happens when I forget this?', 'server becomes down'; asked 'That incurs again a payment?', 'no until offer is valid.' Extension now requires an emailed PIN: 'since the extension of a VS2free server has now verification PINs that we send by email'. | days: 30 | source: [2]
+- egress: 'Traffic | monthly included traffic volume | 1 TB', and above it: 'If the inclusive traffic is exceeded, the connection becomes capped to 1Mbit/s, if no additional traffic is purchased by customer' | metered: yes | free allowance: 1 TB | source: [1]
+- identity: email | detail: No card and no hold: the free model is ordered without payment. The live registration form requires 'Email Address *', 'PIN for Email Validation *', 'Customer Type' (Private or Corporate), 'Salutation *', 'First Name *', 'Last Name *', 'Country *', 'Date of Birth (DD.MM.YYYY) *' and 'Password *'; a company name and a VAT-ID are optional ('VAT-ID (only for EU-Companies) (optional)'). The country list carries 252 entries including 'United States', 'China' and 'Taiwan, Province Of China', so a non-EU signup is offered. The postal address and phone are NOT on the registration form; they are filled in afterwards in the customer panel, and third-party guides report the order only becomes effective once they are. No ID document is requested anywhere read.
+- interface: ssh
+- limits:
+  - per-ip-shaping: 'If the inclusive traffic is exceeded, the connection becomes capped to 1Mbit/s, if no additional traffic is purchased by customer' [1]
+  - retention-clamped (binding): a 1-month contract with manual renewal and an emailed verification PIN; a missed renewal takes the server down [2]
+  - volume-quota: 1 TB of monthly traffic; no IPv4 address is included in the free model [1]
+- limits note: the binding is the address family plus the monthly manual renewal: one /128 of IPv6 and no IPv4, and a server that stops when a human forgets to renew it
+- binding note: the renewal is manual and now needs an emailed PIN, so the machine dies on a human omission before the 1 TB cap is reached; the missing IPv4 is the second wall, because most IPv4-only clients cannot open the SSH session at all
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: 1 GB of RAM with full root and 1 TB of traffic is the largest permanent free general-purpose machine found among evaluated providers, and because it is a Linux container it can run rclone, a crawler or an SSH tunnel from an IPv6-capable peer.
+- reliability: no reliability event observed. The known failure mode is procedural and stated by the vendor: a missed monthly renewal takes the server down, and the renewal needs a reachable email address to receive the PIN.
+- notes: EUserv provides free IPv6-only VPS hosting alongside paid hosting tiers.
+- evidence note: shape, traffic, IPv4 absence and contract term are quoted from the product page read; the manual-renewal consequence is quoted from the vendor's own forum answer; the required signup fields are read from the live registration form. The IPv4 add-on price is a dash: the page renders it client-side from an endpoint whose answer could not be attributed to the IPv4 row.
+- extras:
+  - facets.class: new-provider
+  - facets.free_tier_kind: free-forever
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 1
+- evidence:
+  - [1] 2026-10-22: 'The model VS2-free can be used free of charge in the basic version with IPv6', quoted
+  - [1] 2026-10-22: 'Frequency 1 Core @ 1 GHz', 'RAM 1 GB', 'Harddisk 10 GB HDD @ Raid10', 'monthly included traffic volume 1 TB', quoted
+  - [1] 2026-10-22: 'If the inclusive traffic is exceeded, the connection becomes capped to 1Mbit/s, if no additional traffic is purchased by customer', quoted
+  - [1] 2026-10-22: 'IPv4-Addresses free of charge -', 'additional IPv4 EUR per IP / mo yes, optional up to 16', 'IPv6-Addresses free of charge 1x /128', quoted
+  - [1] 2026-10-24: re-read and still offered: 'can be used free of charge in the basic version with IPv6', '1 Core @ 1 GHz', 'RAM 1 GB', 'Harddisk 10 GB HDD @ Raid10', 'monthly included traffic volume 1 TB', '1x /128' IPv6 and no IPv4 in the free model
+  - [1] 2026-10-24: quoted: 'The model "VS2-free" can be used free of charge in the basic version with IPv6 and is ideal for testing, as a development environment or as the basis for creating larger and growing systems.'
+  - [1] 2026-10-24: quoted spec: 'Frequency | 1 Core @ 1 GHz', 'Virtualization Type | Linux Container', 'RAM | 1 GB', 'Harddisk | 10 GB HDD @ Raid10', 'Network-Card | 1x 1Gbit'
+  - [1] 2026-10-24: quoted, traffic and its cap: 'Traffic | monthly included traffic volume | 1 TB' and 'If the inclusive traffic is exceeded, the connection becomes capped to 1Mbit/s, if no additional traffic is purchased by customer'
+  - [1] 2026-10-24: quoted, the address family: 'IPv4-Addresses | free of charge | -', 'additional IPv4 | EUR per IP / mo | yes, optional up to 16', 'IPv6-Addresses | free of charge | 1x /128' - the dash in the IPv4 row is what makes the free model IPv6-only
+  - [3] 2026-10-24: the series table shows the VS2-free IPv4 count as '-' while every paid VS2 model lists '1' or '4', and describes the line as 'IPv4 / IPv6 dual stack (with " VS2-free" optional IPv4)'
+  - [1] 2026-10-24: quoted, the contract: 'Contract Term* | possible contract terms | 1 month' and 'Contract renewal type | automatic or manual | manual'
+  - [2] 2026-10-24: quoted, the vendor's own answer on 2026-01-20 to 'I need to perform a renew action by hand every month?': 'yes.'; 'Can this be handled automatically?': 'no'; 'What happens when I forget this?': 'server becomes down'; 'That incurs again a payment?': 'no until offer is valid.'
+  - [4] 2026-10-24: quoted: 'since the extension of a VS2free server has now verification PINs that we send by email, please take care that your email-address, that is used in customer data is valid _and_ reachable'
+  - [5] 2026-10-24: the live registration form, fetched through the page's own cmd=display_registration_v3 endpoint, lists as required: 'Email Address *', 'PIN for Email Validation *', 'Salutation *', 'First Name *', 'Last Name *', 'Country *', 'Date of Birth (DD.MM.YYYY) *', 'Password *'; the country select carries 252 options including 'United States', 'China' and 'Taiwan, Province Of China'
+  - [6] 2026-10-24: quoted, that payment is a paid-order matter and is available worldwide: 'Any customer has to prepay each new order in our secured customer panel via - bank transfer or - PayPal or - Credit Card' and 'Worldwide via Credit Card: Make live payments via credit card'
+- sources:
+  - [1] https://www.euserv.com/en/virtual-private-server/root-vserver/v2/vs2-free.php
+  - [2] https://forum.euserv.com/index.php?topic=10932.0
+  - [3] https://www.euserv.com/en/virtual-private-server/root-vserver/v2/index.php
+  - [4] https://forum.euserv.com/index.php?topic=9508.0
+  - [5] https://www.euserv.com/en/register.php
+  - [6] https://cart.euserv.com/en/support/payment-types.php
+
+## EUserv VS2-free (Compute)
+
+- `compute/euserv-vs2-free` | qualifies-with-caveat | evidence documented | binding retention-clamped | category cloud VM
+- needs card no, phone yes, ID no, institution no | verified 2026-11-04T06:40:20.286Z (live) | stale on 2026-12-05
+- url https://www.euserv.com/de/vserver/root-vserver/v2/vs2-free.php
+- free tier: A container-based Linux server with full root, free while renewed by hand each month. Quoted: 'The model "VS2-free" can be used free of charge in the basic version with IPv6'. Spec, quoted from the product table: 'Frequency 1 Core @ 1 GHz', 'Virtualization Type Linux Container', 'RAM 1 GB', 'Harddisk 10 GB HDD @ Raid10', 'Network-Card 1x 1Gbit', 'monthly included traffic volume 1 TB'. One IPv6 /128 is included and the IPv4 row is a dash, so the free model ships no IPv4 at all. | unit: GiB | metered on: wall-clock | read on: 2026-10-24 | source: [1] | note: perpetual-renewable, not perpetual: free only while the customer renews it monthly
+- per-object cap: not applicable | source: [2]
+- retention: The contract is 'Contract Term* | possible contract terms | 1 month' with 'Contract renewal type | automatic or manual | manual', and the vendor's own forum answers the question directly: asked whether the customer must renew by hand each month, the forum support account replies 'yes.'; asked whether it can be automated, 'no'; asked what happens if it is forgotten, 'server becomes down'; asked whether that costs money again, 'no until offer is valid.' Extension now also requires an emailed PIN: 'since the extension of a VS2free server has now verification PINs that we send by email'. | days: 30 | source: [3]
+- egress: 'Traffic | monthly included traffic volume | 1 TB', and above it: 'If the inclusive traffic is exceeded, the connection becomes capped to 1Mbit/s, if no additional traffic is purchased by customer'; the price of additional traffic is not published on the page read | metered: yes | free allowance: 1 TB | source: [1]
+- identity: email | detail: No card and no hold: the free model is ordered without payment, and prepayment is only described for paid orders ('Any customer has to prepay each new order in our secured customer panel'). The registration form was read and its required fields are: 'Email Address *', 'PIN for Email Validation *', 'Customer Type' (Private or Corporate), 'Salutation *', 'First Name *', 'Last Name *', 'Country *', 'Date of Birth (DD.MM.YYYY) *' and 'Password *'. A company name and a VAT-ID are optional ('VAT-ID (only for EU-Companies) (optional)'). The country list has 252 entries including 'United States', 'China' and 'Taiwan, Province Of China', so a non-EU signup is offered. The postal address, city and phone are NOT on the registration form; they are completed afterwards in the customer panel, and third-party guides report that the order only becomes effective once they are filled in. No ID document is requested anywhere read.
+- interface: ssh
+- limits:
+  - per-ip-shaping: 'If the inclusive traffic is exceeded, the connection becomes capped to 1Mbit/s, if no additional traffic is purchased by customer' [1]
+  - retention-clamped (binding): a 1-month contract with manual renewal and an emailed verification PIN; a missed renewal takes the server down [3]
+  - volume-quota: 1 TB of monthly traffic; no IPv4 address is included in the free model [1]
+- limits note: the binding is the address family plus the monthly manual renewal: one /128 of IPv6 and no IPv4, and a server that stops when a human forgets to renew it
+- binding note: the renewal is manual and now needs an emailed PIN, so the machine dies on a human omission before the 1 TB cap is reached; the missing IPv4 is the second wall, because most IPv4-only clients cannot open the SSH session at all
+- interface detail: customer control panel for reboot, reinstall and OS change, plus 24x7 SSH access to the rescue system, documented on the VS2-free product page
+- tooling: the customer control panel and an SSH client for the rescue system; the product page names no specific client
+- composes with: 1 GiB and 1 TB a month for nothing is the cheapest always-on European origin in earlier readings, and it composes with a free IPv4-to-IPv6 front; the monthly manual renewal is the part that cannot be automated without storing credentials somewhere.
+- reliability: no reliability event observed. The known failure mode is procedural and documented by the vendor: a missed monthly renewal takes the server down, and the renewal needs a reachable email address to receive the PIN.
+- notes: VERIFIED 2026-10-24. It is real and it is orderable: the product page is live, the contract table and the vendor's own forum confirm the free model, and a non-EU country is selectable at registration. The contract is one month with manual renewal, the vendor answers 'yes' to 'do I renew by hand every month', and 'server becomes down' if you forget. Calling it 'free forever' is wrong; it is free for as long as a human renews it monthly, and the renewal now needs an emailed PIN. (2) IPv4: the free model includes NONE - the row is a dash - and IPv4 is an optional paid add-on ('additional IPv4 | EUR per IP / mo | yes, optional up to 16'). The price is a dash here because the page renders it client-side from an endpoint that returned the same figure for every row id tried, so the answer could not be attributed to the IPv4 row and was discarded rather than recorded. (3) The registration form asks for a date of birth and a country but NOT a postal address or phone; those go into the customer panel afterwards, and third-party guides report the order stays ineffective until they are filled in. No ID document is requested. The German page carries the same table, so the terms are not an English-only rendering. Signup URL: https://www.euserv.com/en/register.php, then the order link on the product page.
+- evidence note: shape, traffic, IPv4 absence and contract term are quoted from the product page read; the manual-renewal consequence is quoted from the vendor's own forum answer; the required signup fields are read from the live registration form. The IPv4 add-on price is a dash: the page renders it client-side from an endpoint whose answer could not be attributed to the IPv4 row.
+- extras:
+  - facets.class: perpetual-vps
+  - facets.free_tier_kind: perpetual-renewable
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 1
+  - facets.shape.disk_gib: 10
+- evidence:
+  - [2] 2026-10-22: product table states 1 Core @ 1 GHz, 1 GB RAM, 10 GB HDD @ Raid10, 1 TB monthly traffic with a fall to 1 Mbit/s after it, 1x IPv6 /128 and no included IPv4, quoted
+  - [2] 2026-10-22: contract table states 1 Monat term and 手动 renewal, quoted
+  - [3] 2026-10-22: the vendor forum answers that a renewal action must be performed by hand every month and cannot be automated, and that the server becomes down if forgotten, quoted from the search snippet
+  - [4] 2026-10-22: a user reports the renewal screen now shows One-time extension fee: 2.00 EUR with month: 0.00 EUR, which is a change to the free terms and is not confirmed by a vendor page
+  - [1] 2026-10-24: quoted: 'The model "VS2-free" can be used free of charge in the basic version with IPv6 and is ideal for testing, as a development environment or as the basis for creating larger and growing systems.'
+  - [1] 2026-10-24: quoted spec: 'Frequency | 1 Core @ 1 GHz', 'Virtualization Type | Linux Container', 'RAM | 1 GB', 'Harddisk | 10 GB HDD @ Raid10', 'Network-Card | 1x 1Gbit'
+  - [1] 2026-10-24: quoted, traffic and its cap: 'Traffic | monthly included traffic volume | 1 TB' and 'If the inclusive traffic is exceeded, the connection becomes capped to 1Mbit/s, if no additional traffic is purchased by customer'
+  - [1] 2026-10-24: quoted, the address family: 'IPv4-Addresses | free of charge | -', 'additional IPv4 | EUR per IP / mo | yes, optional up to 16', 'IPv6-Addresses | free of charge | 1x /128' - the dash in the IPv4 row is what makes the free model IPv6-only
+  - [5] 2026-10-24: the series table shows the VS2-free row's IPv4 count as '-' while every paid VS2 model lists '1' or '4', and describes the line as 'IPv4 / IPv6 dual stack (with " VS2-free" optional IPv4)'
+  - [1] 2026-10-24: quoted, the contract: 'Contract Term* | possible contract terms | 1 month' and 'Contract renewal type | automatic or manual | manual'
+  - [3] 2026-10-24: quoted, the vendor's own answer on 2026-01-20 to 'I need to perform a renew action by hand every month?': 'yes.'; 'Can this be handled automatically?': 'no'; 'What happens when I forget this?': 'server becomes down'; 'That incurs again a payment?': 'no until offer is valid.'
+  - [6] 2026-10-24: quoted: 'since the extension of a VS2free server has now verification PINs that we send by email, please take care that your email-address, that is used in customer data is valid _and_ reachable'
+  - [7] 2026-10-24: the live registration form (fetched through the page's own cmd=display_registration_v3 endpoint) lists as required: 'Email Address *', 'PIN for Email Validation *', 'Salutation *', 'First Name *', 'Last Name *', 'Country *', 'Date of Birth (DD.MM.YYYY) *', 'Password *'; the country select carries 252 options including 'United States', 'China' and 'Taiwan, Province Of China'
+  - [8] 2026-10-24: quoted, that payment is a paid-order matter and is available worldwide: 'Any customer has to prepay each new order in our secured customer panel via - bank transfer or - PayPal or - Credit Card' and 'Worldwide via Credit Card: Make live payments via credit card'
+  - [9] 2026-10-24: quoted, the account flow: 'On the following page you have to enter your customer data', 'Please fill out the form completely', 'A few minutes after registration a confirmation e-mail with your new customer ID will be sent'
+  - [1] 2026-11-03: over 1 TB the line is capped to 1 Mbit/s; no price for extra traffic is on the page | capture: sha256:fb8a4fa3f674811d3a6d7f2a4cddae17cb3a08c5a4a01658df7d3eceae3bc286 | quote: If the inclusive traffic is exceeded, the connection becomes capped to 1Mbit/s, if no additional traffic is purchased by customer.
+  - [1] 2026-11-03: SSH access exists on the root vServer | capture: sha256:fb8a4fa3f674811d3a6d7f2a4cddae17cb3a08c5a4a01658df7d3eceae3bc286 | quote: | remote Rescue-System | 24x7 SSH access without booting from harddisk | yes |
+  - [1] 2026-11-03: 1 TB of traffic a month is included | capture: sha256:fb8a4fa3f674811d3a6d7f2a4cddae17cb3a08c5a4a01658df7d3eceae3bc286 | quote: | Traffic | monthly included traffic volume | 1 TB |
+  - [1] 2026-11-04: SSH access to the rescue system is included | capture: sha256:fb8a4fa3f674811d3a6d7f2a4cddae17cb3a08c5a4a01658df7d3eceae3bc286 | quote: | remote Rescue-System | 24x7 SSH access without booting from harddisk | yes |
+  - [1] 2026-11-04: reboot is through a customer control panel | capture: sha256:fb8a4fa3f674811d3a6d7f2a4cddae17cb3a08c5a4a01658df7d3eceae3bc286 | quote: | Remote Reboot | reboot server 24x7 via customer control panel | yes |
+- sources:
+  - [1] https://www.euserv.com/en/virtual-private-server/root-vserver/v2/vs2-free.php
+  - [2] https://www.euserv.com/de/vserver/root-vserver/v2/vs2-free.php
+  - [3] https://forum.euserv.com/index.php?topic=10932.0
+  - [4] https://www.nodeseek.com/post-105501-1
+  - [5] https://www.euserv.com/en/virtual-private-server/root-vserver/v2/index.php
+  - [6] https://forum.euserv.com/index.php?topic=9508.0
+  - [7] https://www.euserv.com/en/register.php
+  - [8] https://cart.euserv.com/en/support/payment-types.php
+  - [9] https://www.euserv.com/wiki/index.php/Kundencenter_Kundenaccount/en
+
+## euserv backuphd classic free
+
+- `storage/euserv-backuphd-classic-free` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.euserv.com/en/cloud/backup-hd-free.php
+- free tier: none reachable: Free tier allocation is 2 GB on BackupHD Classic. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 2 GB. The surviving free tier of the host everyone cites for 'free 1 TB'.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 2 GB. The surviving free tier of the host everyone cites for 'free 1 TB'.
+- sources:
+  - [1] https://www.euserv.com/en/cloud/backup-hd-free.php
+
+## EUserv VS2-free (Egress and tunnels)
+
+- `egress/euserv-vs2-free` | fails-quota | evidence documented | binding volume-quota | category origin VM (free container) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://www.euserv.com/en/virtual-private-server/root-vserver/v2/vs2-free.php
+- price USD 0
+- free tier: The model VS2-free can be used free of charge in the basic version with IPv6 and is ideal for testing, as a development environment or as the basis for creating larger and growing systems. | unit: TB | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: Traffic | monthly included traffic volume | 1 TB; ingress: udp | metered: yes | free allowance: Traffic | monthly included traffic volume | 1 TB | source: [1]
+- identity: email | detail: the contract block reads 'Payment Term | prepayment period | -' and 'Contract renewal type | type of contract renewal: automatic or manual | manual', so no payment instrument is part of the free order | country: None
+- interface: ssh
+- limits:
+  - volume-quota (binding): 1 TB a month included [1]
+  - per-ip-shaping: beyond the included volume the connection is capped to 1 Mbit/s [1]
+- binding note: 1 TB a month is 33.3 GB a day, 0.909 TiB, which is 9% short of 1 TiB if the vendor's TB is decimal, so the quota is the first wall and it fails by a narrow margin; the 1 Mbit/s cap behind it is the second wall, and 1 Mbit/s sustained is 10.8 GB a day, a third of even the included volume
+- interface detail: full root over SSH, reached at the container's IPv6 /128
+- tooling: wg-quick if the container exposes /dev/net/tun, otherwise a userspace fallback such as wireguard-go over a TUN the container must still provide
+- composes with: it is a 0.909 TiB path, so it composes as a second region rather than as the origin
+- reliability: the contract renewal type is manual, so an unrenewed server lapses; traffic past 1 TB is capped to 1 Mbit/s rather than billed
+- notes: And the product is an LXC container at 1 GHz with 1 GB of RAM, which is the shape where WireGuard most often cannot load because there is no /dev/net/tun. Third-party posts from 2020 to 2023 describe a monthly manual renewal and, from 2022, a setup fee; those are reports and were not read on the vendor page.
+- evidence note: the free-of-charge sentence, the 1 TB line, the 1 Mbit/s cap and the container virtualization type are all on the vendor page read; whether 1 TB means decimal or binary, and whether the container has TUN, would both need a signup
+- extras:
+  - wg_path: unknown
+  - wg_detail: the offer is 'Virtualization Type | Linux Container' with full root, so wg-quick installs; WireGuard needs /dev/net/tun and the page does not say whether the container exposes it, and an LXC container without TUN cannot load the module. Not tested, because signing up was out of budget
+  - ingress: udp
+  - volume_tib_month: 0.909
+  - volume_stated: Traffic | monthly included traffic volume | 1 TB
+  - bytes_transit: yes
+  - transit_note: bytes leave through the host's 1 Gbit/s uplink, shared with the other containers on that host
+- evidence:
+  - [1] 2026-10-23: 'The model VS2-free can be used free of charge in the basic version with IPv6'
+  - [1] 2026-10-23: 'Traffic | monthly included traffic volume | 1 TB' and 'If the inclusive traffic is exceeded, the connection becomes capped to 1Mbit/s, if no additional traffic is purchased by customer.'
+  - [1] 2026-10-23: 'Virtualization Type | Linux Container', '1 Core @ 1 GHz', 'RAM | 1 GB', 'Harddisk | 10 GB HDD @ Raid10', '1x 1 GBit/s'
+  - [1] 2026-10-23: the IPv4 row reads 'IPv4-Addresses | free of charge | -' with 'additional IPv4 | EUR per IP / mo | yes, optional up to 16', and IPv6 is '1x /128', so the free unit is reachable over IPv6 only
+- sources:
+  - [1] https://www.euserv.com/en/virtual-private-server/root-vserver/v2/vs2-free.php
+
+## euserv backuphd 1t (se2021 / se2019 / wme2018)
+
+- `storage/euserv-backuphd-1t` | dead | evidence documented | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-04T01:24:13.492Z (live) | stale on 2026-12-05
+- url https://www.euserv.com/en/cloud/backup-hd-1T-se2021.php
+- price unverified: the BackupHD Classic price is rendered by a cart script and is absent from the captured page text
+- free tier: none: the 1000 GB free-year offer (BackupHD 1T SE2021) was valid until 31.12.2021; the free period was 1 year, after which regular fees apply | unit: none | metered on: none | read on: 2026-10-21 | source: [1] | note: the current free edition (BackupHD Classic Free) provides 2 GB
+- per-object cap: Maximum single file size 5 TB, additionally limited by the storage space size | bytes: 5000000000000 | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: Bandwidth is listed as unmetered (flat fee, all traffic included) | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: The 1000 GB free-year offer ended 31.12.2021 (one contract per customer, automatic renewal at regular fees after the first year).
+- notes: The 1000 GB free-year offer ended 31.12.2021.
+- evidence note: Documented from vendor pages re-read on 2026-11-04: https://www.euserv.com/en/cloud/backup-hd-1T-se2021.php (offer ended 31.12.2021, one free year), https://www.euserv.com/en/cloud/backup-hd-free.php (current free edition) and https://www.euserv.com/en/cloud/backup-hd.php (paid plan sizes).
+- extras:
+  - dead_end.failure_class: retention
+  - dead_end.why: The 1000 GB free-year offers are expired: the page itself says 'Offer is valid until 31.12.2021', one contract per customer, auto-renews at paid rates. The only current free product is…
+  - dead_end.first_recorded: 2026-10-21
+  - death.on: 2026-11-03
+  - death.cause: free-tier-removed
+- evidence:
+  - [1] 2026-10-21: The 1000 GB free-year offers are expired: the page itself says 'Offer is valid until 31.12.2021', one contract per customer, auto-renews at paid rates. The only current free product is…
+  - [2] 2026-10-21: cited as the basis of the rejection: The 1000 GB free-year offers are expired: the page itself says 'Offer is valid until 31.12.2021', one contract per customer, auto-renews at paid rates. The only current free product is 'Back
+  - [3] 2026-10-21: cited as the basis of the rejection: The 1000 GB free-year offers are expired: the page itself says 'Offer is valid until 31.12.2021', one contract per customer, auto-renews at paid rates. The only current free product is 'Back
+  - [1] 2026-11-03: the 1000 GB free-year offer ended on 31.12.2021 | capture: sha256:722276a3958d71928f930edc6ed096ca21eaeb829e92022dc73f41ebc8551a61 | quote: # Offer is valid until 31.12.2021.
+  - [1] 2026-11-03: the free period of the 1000 GB offer is 1 year | capture: sha256:722276a3958d71928f930edc6ed096ca21eaeb829e92022dc73f41ebc8551a61 | quote: - The free period of this offer is 1 year.
+  - [2] 2026-11-03: the current free edition (BackupHD Classic Free) provides 2 GB | capture: sha256:a8ea93df681aea438b7a6bd08ba197faeb41aa78bf6f3c810be634b715d30400 | quote: | Storage | | 2 GB [see upgrade plans](https://www.euserv.com/en/cloud/backup-hd.php) |
+  - [4] 2026-11-03: the paid BackupHD Classic plans range from 50 to 2000 GB per plan | capture: sha256:95cfdf74101031b5078a63be334d3d0fe87652d40f8474b10855361cd7921f68 | quote: | Storage | | 50 - 2000 GB |
+  - [1] 2026-11-03: regular fees apply after the free year | capture: sha256:722276a3958d71928f930edc6ed096ca21eaeb829e92022dc73f41ebc8551a61 | quote: - After the one-year free period, regular fees will apply.
+  - [1] 2026-11-03: the offer ended 31.12.2021 | capture: sha256:722276a3958d71928f930edc6ed096ca21eaeb829e92022dc73f41ebc8551a61 | quote: # Offer is valid until 31.12.2021.
+  - [1] 2026-11-03: the maximum single file size is 5 TB | capture: sha256:722276a3958d71928f930edc6ed096ca21eaeb829e92022dc73f41ebc8551a61 | quote: | Maximum filesize | technical limited maximum single filesize, additional limitation by reaching storage space size | 5 TB |
+  - [1] 2026-11-03: bandwidth is listed as unmetered | capture: sha256:722276a3958d71928f930edc6ed096ca21eaeb829e92022dc73f41ebc8551a61 | quote: | Bandwidth | | unmetered ¹ |
+  - [4] 2026-11-03: the paid plans range from 50 to 2000 GB; the page text carries no price | capture: sha256:95cfdf74101031b5078a63be334d3d0fe87652d40f8474b10855361cd7921f68 | quote: | Storage | | 50 - 2000 GB |
+  - [1] 2026-11-03: the 1000 GB offer is past its end date | capture: sha256:722276a3958d71928f930edc6ed096ca21eaeb829e92022dc73f41ebc8551a61 | quote: # Offer is valid until 31.12.2021.
+  - [1] 2026-11-04: the 1000 GB free-year offer ended on 31.12.2021 | capture: sha256:722276a3958d71928f930edc6ed096ca21eaeb829e92022dc73f41ebc8551a61 | quote: # Offer is valid until 31.12.2021.
+- sources:
+  - [1] https://www.euserv.com/en/cloud/backup-hd-1T-se2021.php
+  - [2] https://www.euserv.com/en/cloud/backup-hd-free.php
+  - [3] https://www.euserv.com/wiki/index.php/Übersicht_unterstützte_Protokolle_BackupHD/Onlinefestplatte/en
+  - [4] https://www.euserv.com/en/cloud/backup-hd.php

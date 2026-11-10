@@ -1,0 +1,164 @@
+# Lightning AI
+
+> lightning.ai | Storage, Compute; 3 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/lightning/ | JSON https://fshy.ajam.dev/api/v1/entity/lightning.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Lightning AI Studios
+
+- `storage/lightning-ai-studios` | qualifies | evidence reported | binding retention-clamped | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://lightning.ai
+- free tier: Free plan: '1 free active Studio (4 hour restarts)', 'Persistent storage (200 GB limit)'. Studio docs say the default Studio disk is 400 GB; pricing page caps the free tier at 200 GB. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: Free Studio restarts every 4 hours (compute restarts, disk persists); auto-sleep after 10 min idle; free GPU hours come from 'up to 30 credits'; account data deleted after 6 months without login. | days: 0 | source: [1] | note: not stated
+- egress: No egress meter or per-GB transfer price is published on the pricing page. Free/public app serving on Studios is included in the plan. | metered: no
+- identity: card | detail: inferred from the category 'iaas'; the source record states no identity cost, so this is a class assumption, not evidence
+- interface: rest, sftp, ssh, rclone, cli
+- limits:
+  - retention-clamped (binding): deleted after 6 months [1]
+- limits note: Free Studio restarts every 4 hours (compute restarts, disk persists); auto-sleep after 10 min idle; free GPU hours come from 'up to 30 credits'; account data deleted after 6 months without login.
+- binding note: a clock, not a quota: bytes leave whether or not transfer is completed
+- interface detail: rest
+- tooling: SSH/SFTP into a Studio (docs: 'Connect any local IDE or SSH'), plus a documented public-port feature; `lightning` CLI and SDK. No rclone backend.
+- composes with: 1 Studio per free account with 200 GB persistent; N free accounts. Studios can be mounted as read-only 'datasets' shared across a teamspace, so one account can fan out many consumers.
+- reliability: Disk genuinely persists across sleep/switch ('Studios persist their environments when sleeping and switching machines'); the 4-hour restart interrupts serving but does not lose files.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: Free plan list: '1 free active Studio (4 hour restarts)', 'Persistent storage (200 GB limit)'
+  - [2] 2026-10-21: 'Everything in the Studio home (~, /teamspace/studios/this_studio) is persisted'
+  - [3] 2026-10-21: 'Studios support any kind of server as long as it exposes a port'
+  - [4] 2026-10-21: 6-month inactivity -> account scheduled for deletion, 30-day notice
+- sources:
+  - [1] https://lightning.ai/pricing
+  - [2] https://lightning.ai/docs/platform/build/ai-studio/environment-persistence
+  - [3] https://lightning.ai/docs/platform/build/ai-studio/deploy-on-public-ports
+  - [4] https://lightning.ai/docs/platform/security/privacy/data-retention-policy
+
+## Lightning AI (Lightning Studios persistent storage)
+
+- `storage/lightning-ai` | fails-quota | evidence reported | binding none | category iaas
+- needs card no, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://lightning.ai
+- free tier: No GB figure published. The free tier is framed entirely in GPU hours ('Start on the free tier with 80* free GPU hours'), one Studio free 24/7 with a forced restart every 4 hours, and 'Studios include persistent storage, allowing file and data downloads to remain intact even if the instance stops, without incurring costs'. So storage is included-and-unmetered in prose, but with no stated ceiling. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Not metered. 'without incurring costs' is the only storage statement, and there is no egress line. | metered: yes
+- identity: email | detail: email (GitHub OAuth).
+- interface: rest, cli
+- limits note: Free Studio restarts every 4 h (a forced restart, not a deletion). 80 free GPU hours. No published per-file cap, no published total, and. Importantly. No published statement that the volume survives account downgrade or inactivity.
+- interface detail: rest
+- tooling: `lightning` CLI, `lightning studio` mount/sync, and a Python SDK; Studios are Docker containers with a persistent /teamspace. Real client, real product.
+- composes with: One free Studio runs 24/7 per account, so N accounts x 1 persistent volume. The ceiling per volume is undisclosed, which makes planning impossible.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: No GB figure published. The free tier is framed entirely in GPU hours ('Start on the free tier with 80* free GPU hours'), one Studio free 24/7 with a forced restart every 4 hours, and 'Studios include persistent storage, allowing file and data downloads to remain intact even if the instance stops, without incurring costs'. So storage is included-and-unmetered in prose, but with no stated ceiling.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: read live: 'Get up to 80 free GPU hours to start'; 'Run 1 Studio free 24/7 ... Free Studios run 24/7 but require restart every 4 hours'
+  - [2] 2026-10-21: read live (AI Studio docs): 'Studios include persistent storage, allowing file and data downloads to remain intact even if the instance stops, without incurring costs'
+- sources:
+  - [1] https://lightning.ai/pricing
+  - [2] https://lightning.ai/docs/platform/build/ai-studio
+
+## Lightning AI
+
+- `compute/lightning-ai` | dead | evidence documented | binding write-gated | category dev environment
+- needs card no, phone yes, ID no, institution no | verified 2026-10-31T00:39:31.081Z (live) | stale on 2026-12-01
+- url https://lightning.ai/pricing
+- free tier: one CPU Studio free 24/7 with a restart every 4 hours, no credit card; up to 30 free credits to start: 5 at registration and 25 more after a card is added, expiring after 12 months unused; the pricing table states the free GPU hours as T4 75, L4 31, L40S 5, RTXP 6000 3 and A100 40 GB 10, headlined 'up to 80 free GPU hours'; 10 GB of storage free within a 200 GB persistent storage limit | unit: hours | metered on: wall-clock | read on: 2026-10-30 | source: [1] | note: the GPU hours are what the credits buy: the table's hours assume the full 30 credits, and without a card the grant is 5 credits; A100 80 GB, H100 and H200 carry no free hours; on the free tier A100, H100 and H200 sessions stop at 4 hours; 1 credit is USD 1
+- per-object cap: not applicable
+- retention: a Studio keeps its files between sessions; the free tier forces a restart every 4 hours | days: 0
+- egress: no egress charge: the billing page names only two activities that consume credits, running machines and storage above 10 GB | metered: no | source: [2]
+- identity: any-phone | detail: a non-virtual phone number is verified at account creation: 'Lightning AI requires non-virtual phone numbers.' (https://lightning.ai/docs/platform/overview/faq) and 'Verify your phone number to receive up to 80 free GPU hours to start. This step is required for your security.' (https://lightning.ai/docs/platform/build/ai-studio); sign-up is by work or university email, Gmail or GitHub, followed by an identity review in which personal emails take two to three business days (https://lightning.ai/docs/platform/overview/faq/create-account); no card at sign-up, and adding one unlocks 25 more credits; free credits go to one account only; the docs state the service 'is not available in every country' and publish no list; whether the free CPU Studio starts before the phone check is unverified: behind a sign-up
+- interface: rest, cli, ssh
+- limits:
+  - write-gated (binding): all user access revoked on 2026-10-16 01:00 UTC; since 2026-10-28 only read-only Drive access through the CLI is back, and no Studio can be started or account opened while the incident is open [3]
+- limits note: the 4-hour restart is the constraint: a process that must survive it needs a supervisor that resumes after the restart
+- binding note: the platform is closed while the incident is open: Studio, Jobs and Deployments are not restored and the sign-up page redirects to the incident page, so the free allowance cannot be reached; only read-only Drive access through the CLI is back
+- interface detail: web IDE, SSH into a Studio, and a CLI
+- tooling: lightning CLI, SSH, the Studio IDE; persistent filesystem per Studio
+- composes with: the free CPU Studio is the only free 24/7 machine with a persistent disk and no card that on 2026-10-31 found.
+- reliability: access revoked for every user on 2026-10-16 at 01:00 UTC after credential compromise; read-only Drive access through the CLI is back since 2026-10-28, while Studio, Jobs and Deployments stay closed; the status incident was still unresolved on 2026-10-30, its newest update dated 2026-10-29 15:55 UTC, and the sign-up page redirected to the incident page
+- notes: Classified as inactive.
+- extras:
+  - shape.vcpu: 4
+  - billing_model: wall-clock
+  - granularity.min_billed_s: 60
+  - granularity.rounding_s: 1
+  - session_cap.wall_clock_min: 240
+  - session_cap.idle_reap_s: 600
+  - session_cap.restart_required: yes
+  - session_cap.note: a free Studio must restart every 4 hours; Pro removes the restriction
+  - keep_rate.value: 0.0
+  - keep_rate.basis: a stopped Studio bills storage only
+  - keep_rate.source: https://lightning.ai/pricing
+  - persistent_storage.included_gib: 10
+  - persistent_storage.price_gib_month: USD 0.10 per GB per month above the first 10 GB, billed daily; the free tier caps total storage at 200 GB
+  - persistent_storage.durability: Studio filesystem persists
+  - persistent_storage.survives_stop: yes
+  - persistent_storage.max_retention: while the Studio exists
+  - persistent_storage.notes: the billing and pricing pages state 10 GB free and do not say whether GB is decimal or binary; kept as stated; the free 10 GB counts the Drive and the container images together
+  - network_out.allow_outbound: yes
+  - free_tier_kind: allowance
+  - m10h_usd: 0.0
+  - m24h_usd: 0.0
+  - price_arithmetic: the CPU Studio is free at any duty cycle; the 4-hour restart is the cost
+  - burst_x: 1.0
+- evidence:
+  - [1] 2026-10-22: 'Run 1 Studio free 24/7. No credit card. No commitments.'
+  - [1] 2026-10-22: 'Free Studios run 24/7 but require restart every 4 hours. No restrictions in Pro or higher.'
+  - [1] 2026-10-22: 80 free GPU hours; T4 USD 0.55/h, L4 USD 0.79, L40S USD 3.54, A100 40GB USD 2.19, H100 USD 5.45, H200 USD 4.50
+  - [3] 2026-10-22: 'We revoked all user access to the Lightning Platform on October 16 at 1:00 AM UTC' and 'the Platform will remain inaccessible to all users', quoted; affected services named as Studio, Deployments, Pipelines and Drive
+  - [4] 2026-10-22: banner reads 'Service is down to address a security incident', last update 2026-10-19 12:49 UTC, incident still open when read
+  - [1] 2026-10-22: the pricing page still advertises 'Run 1 Studio free 24/7', so the marketing page contradicts the incident page and the incident page is the newer and more specific claim
+  - [1] 2026-10-23: 'You get 5 free Lightning credits upon registration. Add a card for 25 more. If you don't use them, they expire in 12 months. Credits can be used on compute, storage and tokens.', quoted on 2026-10-23; this conflicts with the recorded revocation of user access on 2026-10-16 and does not overturn it
+  - [3] 2026-10-24: quoted: 'This is an active investigation and during this time the Platform will remain inaccessible to all users'
+  - [4] 2026-10-24: banner reads 'Service is down to address a security incident'; the newest update is dated 2026-10-19 12:49 UTC
+  - [1] 2026-10-24: the marketing page still advertises 'Run 1 Studio free 24/7. No credit card. No commitments.' while the platform is down
+  - [1] 2026-10-24: the quoted rate table, all eight rows: T4 USD 0.55 with 75 free hours to start, L4 USD 0.79 with 31, L40S USD 3.54 with 5, RTXP 6000 USD 4.64 with 3, A100 40 GB USD 2.19 with 10, A100 80 GB USD 1.85 with none, H100 USD 5.45 with none and H200 USD 4.50 with none; footnotes read 'Billed by the second' and 'Free Studios run 24/7 but require restart every 4 hours'
+  - [5] 2026-10-30: account creation verifies a phone number, and a virtual number is refused | capture: sha256:6f84a2af913681c70b29b333b6f9ef5b1037d81d155a27192cb45cb371fc9248 | quote: Lightning AI requires non-virtual phone numbers.
+  - [6] 2026-10-30: phone verification is required for the free GPU hours and stated as required for security | capture: sha256:b9a696f33a0d2dac0633b3eac59b14d3591e000f23180597bf3bd3d5bcfbec45 | quote: Verify your phone number to receive up to 80 free GPU hours to start. This step is required for your security.
+  - [1] 2026-10-30: registration grants 5 credits, a card adds 25, and unused credits expire after 12 months | capture: sha256:e015f9460e854e54ce21ce8d7f4daa478fb25401a90705b5d5f3a1c856642415 | quote: You get 5 free Lightning credits upon registration. Add a card for 25 more. If you don't use them, they expire in 12 months.
+  - [1] 2026-10-30: the pricing page still offers one free 24/7 Studio with no card | capture: sha256:e015f9460e854e54ce21ce8d7f4daa478fb25401a90705b5d5f3a1c856642415 | quote: Run 1 Studio free 24/7**. No credit card. No commitments.
+  - [1] 2026-10-30: the per-class free hours in the table are bought with up to 30 credits | capture: sha256:e015f9460e854e54ce21ce8d7f4daa478fb25401a90705b5d5f3a1c856642415 | quote: Free GPU hrs with up to 30 free credits to start.
+  - [4] 2026-10-30: the status page's newest update, 2026-10-29 15:55 UTC, restores only read-only Drive access | capture: sha256:d77070349309d91155b99d8e432f9cfe7c17dee01c36618621dd54396e507cf3 | quote: Read-only access to Drive is restored.
+  - [3] 2026-10-30: Studio, Jobs and Deployments were still closed on 2026-10-30 with no restoration date | capture: sha256:052fc87bf94d0ff430ff95e9a9b926e1593ec59106f6d829512bf92726827790 | quote: Access to Studio, Jobs, and Deployments will follow, and we will provide updates regarding their timing.
+  - [3] 2026-10-30: the only restored access is the Drive, through the CLI | capture: sha256:052fc87bf94d0ff430ff95e9a9b926e1593ec59106f6d829512bf92726827790 | quote: Access to the Drive is available through the CLI.
+  - [7] 2026-10-30: https://lightning.ai/sign-up answered with a redirect to the security-incident page on 2026-10-30 | capture: sha256:a8df347a89330328f6edcfd7b624b14663affdef0ae358e78c1b73de9ac67f93 | quote: x-web-final-url: https://lightning.ai/security-incident
+  - [2] 2026-10-30: only machines and storage above 10 GB consume credits; transfer is not billed | capture: sha256:7b71efc12a2d7be3ccb5fba2239890efd4593cea1ff9f732889e60176d77d3b8 | quote: There are 2 activities that consume credits, running machines (in Studios or Jobs) and storage (above 10 GB).
+  - [2] 2026-10-30: the billing page is the source of the egress terms | capture: sha256:7b71efc12a2d7be3ccb5fba2239890efd4593cea1ff9f732889e60176d77d3b8 | quote: There are 2 activities that consume credits, running machines (in Studios or Jobs) and storage (above 10 GB).
+  - [8] 2026-10-30: a Studio is reachable over SSH | capture: sha256:e9c1b70b38feb0cc41d2b097e9409ee9cbf085589044968feaaf65bfed79f86e | quote: Any editor that connects over SSH works.
+  - [6] 2026-10-30: the free Studio is a 4-CPU instance | capture: sha256:b9a696f33a0d2dac0633b3eac59b14d3591e000f23180597bf3bd3d5bcfbec45 | quote: The first 4-CPU instance on any cloud is always free.
+  - [6] 2026-10-30: an idle Studio sleeps after 10 minutes | capture: sha256:b9a696f33a0d2dac0633b3eac59b14d3591e000f23180597bf3bd3d5bcfbec45 | quote: When Studios are idle for more than 10 minutes, they will automatically sleep.
+  - [1] 2026-10-30: paid machines are billed per second | capture: sha256:e015f9460e854e54ce21ce8d7f4daa478fb25401a90705b5d5f3a1c856642415 | quote: Billed by the second.
+  - [2] 2026-10-30: 10 GB of storage is free | capture: sha256:7b71efc12a2d7be3ccb5fba2239890efd4593cea1ff9f732889e60176d77d3b8 | quote: The first 10 GB of storage is free.
+  - [2] 2026-10-30: storage above 10 GB costs USD 0.10 per GB per month | capture: sha256:7b71efc12a2d7be3ccb5fba2239890efd4593cea1ff9f732889e60176d77d3b8 | quote: After that, it's billed at a rate of $0.10 / GB / month (billed daily).
+  - [1] 2026-10-30: the pricing FAQ asks for a phone number at registration, answered 'To prevent abuse of the platform.' | capture: sha256:e015f9460e854e54ce21ce8d7f4daa478fb25401a90705b5d5f3a1c856642415 | quote: Why do you need my phone number?
+  - [9] 2026-10-30: an identity review follows sign-up; personal emails take two to three business days | capture: sha256:a6e3963459a5319e880b4b880d98372d04b3075ca66d3f5c27f34de2bcee663c | quote: Personal emails are typically harder to verify and may take 2-3 business days.
+  - [5] 2026-10-30: free credits are granted to one account per person | capture: sha256:6f84a2af913681c70b29b333b6f9ef5b1037d81d155a27192cb45cb371fc9248 | quote: You can only get credits for 1 account.
+  - [6] 2026-10-30: the service is restricted by country, with no list on the page | capture: sha256:b9a696f33a0d2dac0633b3eac59b14d3591e000f23180597bf3bd3d5bcfbec45 | quote: Tip: Use a work or university email for the fastest verification. Lightning AI is not available in every country.
+  - [2] 2026-10-30: one credit is worth USD 1 | capture: sha256:7b71efc12a2d7be3ccb5fba2239890efd4593cea1ff9f732889e60176d77d3b8 | quote: 1 Lightning AI credit = $1 US dollar.
+  - [2] 2026-10-30: the billing page also states one free 4-CPU Studio | capture: sha256:7b71efc12a2d7be3ccb5fba2239890efd4593cea1ff9f732889e60176d77d3b8 | quote: Users get 1 free 4-CPU Studio to code in and run workloads on.
+  - [3] 2026-10-30: read-only Drive access returned on 2026-10-28 | capture: sha256:052fc87bf94d0ff430ff95e9a9b926e1593ec59106f6d829512bf92726827790 | quote: We have restored read-only access to Drive as of 2PM ET on Wednesday, October 28.
+  - [10] 2026-10-30: the incident report h20stxqvwg8r is still open, newest update 2026-10-29 15:55 UTC | capture: sha256:39394e906a96cb01625cd51eb7df0ece5c9f4772580aafc98e389a93d11a73fc | quote: Read-only access to Drive is restored.
+  - [4] 2026-10-30: the status history lists the incident as unresolved on 2026-10-29 | capture: sha256:d77070349309d91155b99d8e432f9cfe7c17dee01c36618621dd54396e507cf3 | quote: Unresolved incident: Service is down to address a security incident.
+  - [6] 2026-10-30: a Studio keeps its files across a stop | capture: sha256:b9a696f33a0d2dac0633b3eac59b14d3591e000f23180597bf3bd3d5bcfbec45 | quote: Studios include persistent storage, allowing file and data downloads to remain intact even if the instance stops, without incurring costs.
+  - [3] 2026-10-30: Studio access is still closed on 2026-10-30, so the verdict dead holds | capture: sha256:052fc87bf94d0ff430ff95e9a9b926e1593ec59106f6d829512bf92726827790 | quote: Access to Studio, Jobs, and Deployments will follow, and we will provide updates regarding their timing.
+  - [2] 2026-10-31: the free storage allowance is stated as 10 GB, with no decimal or binary base | capture: sha256:7b71efc12a2d7be3ccb5fba2239890efd4593cea1ff9f732889e60176d77d3b8 | quote: The first 10 GB of storage is free.
+  - [2] 2026-10-31: the free 10 GB is stated in GB with no base and covers the Drive and container images together | capture: sha256:7b71efc12a2d7be3ccb5fba2239890efd4593cea1ff9f732889e60176d77d3b8 | quote: The first 10 GB of storage, across the Drive and container images, is free.
+  - [2] 2026-10-31: the free tier keeps 10 GB free within a 200 GB total storage limit | capture: sha256:7b71efc12a2d7be3ccb5fba2239890efd4593cea1ff9f732889e60176d77d3b8 | quote: Free: 200 GB total storage limit (only first 10 GB free)
+  - [2] 2026-10-31: storage above the free 10 GB costs USD 0.10 per GB per month, billed daily | capture: sha256:7b71efc12a2d7be3ccb5fba2239890efd4593cea1ff9f732889e60176d77d3b8 | quote: After that, it's billed at a rate of $0.10 / GB / month (billed daily).
+  - [2] 2026-10-31: only machines and storage above 10 GB consume credits; transfer is not billed | capture: sha256:7b71efc12a2d7be3ccb5fba2239890efd4593cea1ff9f732889e60176d77d3b8 | quote: There are 2 activities that consume credits, running machines (in Studios or Jobs) and storage (above 10 GB).
+- sources:
+  - [1] https://lightning.ai/pricing
+  - [2] https://lightning.ai/docs/platform/overview/faq/billing
+  - [3] https://lightning.ai/security-incident
+  - [4] https://status.lightning.ai
+  - [5] https://lightning.ai/docs/platform/overview/faq
+  - [6] https://lightning.ai/docs/platform/build/ai-studio
+  - [7] https://lightning.ai/sign-up
+  - [8] https://lightning.ai/docs/platform/overview/getting-started
+  - [9] https://lightning.ai/docs/platform/overview/faq/create-account
+  - [10] https://status.lightning.ai/incidents/h20stxqvwg8r

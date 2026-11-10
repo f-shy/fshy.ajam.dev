@@ -1,0 +1,253 @@
+# Deepbrid
+
+> deepbrid.com | Debrid; 3 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/deepbrid/ | JSON https://fshy.ajam.dev/api/v1/entity/deepbrid.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Deepbrid (premium)
+
+- `debrid/deepbrid-paid` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category debrid link generator with usenet and torrent cloud | tier premium
+- needs card yes, phone no, ID no, institution no | verified 2026-10-30T13:11:55.967Z (live) | stale on 2026-11-30
+- url https://www.deepbrid.com/home
+- price EUR 4.99 per 30 days, flat; EUR 32.99 per year (EUR 2.75/month) | parsed USD 3.08/mo
+- disagrees on identity_kind: `debrid/deepbrid-free` says email, `debrid/deepbrid-paid` says card
+- disagrees on verdict: `debrid/deepbrid-free` says fails-quota, `debrid/deepbrid-paid` says qualifies-with-caveat
+- free tier: No free allowance on the paid tiers; the free account is a separate record. The 14-day entry is paid: '14 Days Trial €4.50'. | unit: none | metered on: none | read on: 2026-10-23 | source: [1] | note: The plan named 'Trial' costs 4.50 EUR, so Deepbrid has no free trial in the sense the other services use the word.
+- per-object cap: 200 GB maximum download size | bytes: 200000000000 | source: [1] | note: The same 200 GB appears on all four paid terms and on the paid 14-day term.
+- retention: cloud space is included ('Save your files to your Deepbrid cloud space') with no size or duration published on the pricing block; torrent cloud is 'limited to 50 active slots per user' | source: [1]
+- egress: 'Unlimited downloads, unlimited bandwidth' on every paid term, with the footnotes 'Some providers have daily limits' and 'Torrent cloud limited to 50 active slots per user'. No account-wide byte cap is published. | metered: no | free allowance: unlimited, with per-provider daily limits governed by the hosts | source: [1]
+- identity: card | detail: E-mail account plus card, crypto and other methods at checkout; 'Crypto (Bitcoin, etc.)' is advertised. VPN use is permitted on premium only.
+- interface: rest, webdav
+- limits:
+  - per-object-cap: 200 GB per download [1]
+  - volume-quota: per-provider daily limits, quantities not published; 'We reserve the right of change the daily limits of the hosters at any time without notice' [2]
+  - pull-count: torrent cloud limited to 50 active slots per user [1]
+  - request-rate: per-account per-minute API quota with X-RateLimit headers and 429 + Retry-After; the number is not published [3]
+  - per-ip-shaping (binding): a generated stream works only for the IP that requested it; account sharing is detected and the account 'will be banned inmediately' [4]
+  - volume-quota: per-host daily limits, changeable 'at any time without notice'; five links/day on the free tier per the comparison index [2]
+  - write-gated: VPN is allowed for premium only [2]
+  - request-rate: 250 requests per minute on premium, 100 per minute on free, 60 per minute unauthenticated per IP; 'When the limit is exceeded, the API returns HTTP 429 with a Retry-After header indicating the seconds until the next minute window' [3]
+  - request-rate: 5 cloud-provider link generations per day on the free account [1]
+  - per-object-cap: per-hoster daily bandwidth-or-link meters, values per hoster, readable at /api/v1/user/limits [3]
+  - request-rate: free tier: 5 links per day; paid terms publish no byte cap [1]
+  - request-rate: 5 files per day on the free tier, 3 of them Filenext [5]
+  - volume-quota: per hoster `limit` in bytes with `reset: daily` on a paid plan [3]
+  - per-ip-shaping (binding): the stream works only for the requesting IP [4]
+  - retention-clamped: no server-side storage of fetched files [2]
+- limits note: The terms describe 'a fair use ... internally implemented' with 'temporary restrictions' when one user degrades service for others, and allow automatic suspension without notice.
+- binding note: The account has no byte cap, so the 200 GB per-object limit only fires on very large single files. What 1 TiB of monthly transfer actually meets is the per-provider daily allowance the terms reserve the right to change without notice - and those numbers are not published, which is the finding: the cap that decides cannot be read before paying.
+- interface detail: REST API v1 with an apikey; rate limits are per account per minute, shared between key and cookie sessions, and every response carries X-RateLimit-Limit and X-RateLimit-Remaining.
+- endpoint: https://www.deepbrid.com/api/v1
+- tooling: Documented REST API (including /downloads, /torrents, /usenet, /hosts, /user/limits), browser extensions, WebDAV, Discord and Telegram integrations advertised on the home page.
+- composes with: One of only three services here that carries usenet, and the cheapest of them at EUR 4.99 for 30 days; with 80+ hosts plus NZB plus a torrent cloud it can replace two subscriptions, as long as the files stay under 200 GB.
+- reliability: Provider-level daily limits exist and can change without notice.
+- notes: The annual term at 32.99 EUR is the lowest per-month price of any service - 2.75 EUR - and the reason this record exists separately from the free tier. The first two are documented; the third is documented as unrefundable. The vendor's API endpoint was not located, so the error strings for this service are unverified and the record does not claim any. Free tier is a trial in shape, not in name: 5 links a day with reduced host coverage and no named expiry. The only provider in the set with a documented price rise inside the window: the entry term went from EUR 3.99 to EUR 4.50 between 2023-10-26 and 2024-10-02, +12.8%, and has not moved since. The free tier moved the other way in the same period, from 4 to 5 links a day, so what the free user got improved while what the paid user paid rose. The comparison corpus lists EUR 4.99/30 days; no pricing page was found at /pricing (404), so the price is not repeated as a verified number here. The contradiction is the finding: the product page sells a cloud the FAQ says does not exist. Until a logged-in account shows a file surviving a session, the conservative vendor statement governs. The price is the gap. A third-party review claims USD 4.99 and lists 'Credit card payments, Bitcoin, Hysterium, litecoin' - 'Hysterium' is not a coin, which is a fair measure of that source's care, so nothing from it is carried into this record.
+- evidence note: Prices, the 200 GB cap, usenet and the API all come from vendor pages read. The per-provider daily limits are real but unpublished, so their size is unverified by construction.
+- extras:
+  - usenet: yes, NZB support
+  - torrent: yes, torrent cloud, no seeding
+  - annual_plan: EUR 32.99 for 12 months
+  - host_count: 80+; 73 online / 7 offline today
+  - failure_angle: IP-bound streams and instant account ban
+  - strongest_signal: stream fails from a second IP; account banned on sharing detection
+  - account_states: no error table located; the states named in the terms are suspended and terminated, both 'without notice'
+  - cache_miss: streams are fetched through on demand; no cache-status field is documented
+  - host_removal: 'We reserve the right of change the daily limits ... at any time without notice'; removal is explicitly excluded from refund
+  - simultaneous_use: 'The user account is personal and unique'; sharing is detected automatically and the account is 'banned inmediately'; a stream works only for the IP that requested it.
+  - auth_flows: one: a long-lived API key, accepted four ways (Bearer header, X-Api-Key header, ?apikey= query, cookie session). No OAuth2, no device code.
+  - unrestrict_endpoint: POST /api/v1/generate/link (link parameter); POST /api/v1/generate/folder for a folder link
+  - torrent_endpoints: POST /api/v1/torrents/add (magnet or torrent), /torrents/info, /torrents/delete; torrent cloud limited to 50 active slots
+  - usenet_endpoints: POST /api/v1/usenet/add (nzb_file upload or nzb_url), /usenet/uploads, /usenet/uploads/delete - the second of only two services here with usenet
+  - account_endpoints: GET /api/v1/user, /api/v1/user/limits, /api/v1/apikey/info, /api/v1/downloads
+  - public_endpoints_no_account: GET /api/v1/hosts
+  - price_history[0].date: 2023-10-26
+  - price_history[0].price: EUR 3.99 (entry, 'starting')
+  - price_history[0].plan: entry term
+  - price_history[0].source_url: https://web.archive.org/web/20231026225108/https://www.deepbrid.com/home
+  - price_history[1].date: 2024-10-02
+  - price_history[1].price: EUR 4.50 (entry, 'starting')
+  - price_history[1].plan: 14 Days Trial
+  - price_history[1].source_url: https://web.archive.org/web/20241002022313/https://www.deepbrid.com/home
+  - price_history[1].change_pct: 12.8
+  - price_history[2].date: 2025-10-10
+  - price_history[2].price: EUR 4.99 / 30 days
+  - price_history[2].plan: 1 Month
+  - price_history[2].source_url: https://web.archive.org/web/20251010161030/https://www.deepbrid.com/home
+  - price_history[3].date: 2026-10-23
+  - price_history[3].price: EUR 4.50 / 14 days
+  - price_history[3].plan: 14 Days Trial
+  - price_history[3].source_url: https://www.deepbrid.com/home
+  - price_history[3].change_pct: 0.0
+  - price_history[4].date: 2026-10-23
+  - price_history[4].price: EUR 4.99 / 30 days
+  - price_history[4].plan: 1 Month
+  - price_history[4].source_url: https://www.deepbrid.com/home
+  - price_history[4].change_pct: 0.0
+  - price_history[5].date: 2026-10-23
+  - price_history[5].price: EUR 32.99 / 12 months
+  - price_history[5].plan: 12 Months
+  - price_history[5].source_url: https://www.deepbrid.com/home
+  - change_36m: +12.8% on the entry term (EUR 3.99 -> 4.50), 2023-10-26 to 2024-10-02; flat since
+  - currency: EUR
+  - free_tier_history[0].date: 2023-10-26
+  - free_tier_history[0].links_per_day: 4
+  - free_tier_history[1].date: 2024-10-02
+  - free_tier_history[1].links_per_day: 5
+  - free_tier_history[2].date: 2026-10-23
+  - free_tier_history[2].links_per_day: 5
+  - host_matrix.published_daily_caps: no
+  - host_matrix.source: https://www.deepbrid.com/api/v1/hosts
+  - host_matrix.cap_endpoint: https://www.deepbrid.com/api/v1/user/limits
+  - host_matrix.cap_fields: type; limit; used; remaining; reset
+  - host_matrix.hosts_listed: 39
+  - marketing_conflict: home page 'No bandwidth caps' vs API '/user/limits' documented per-hoster daily limits
+  - retention_map.fetched_files.stated: no storage on our side
+  - retention_map.fetched_files.days: 0
+  - retention_map.fetched_files.source_url: https://www.deepbrid.com/page/terms
+  - retention_map.stream_session.stated: IP-bound stream, ends with the session
+  - retention_map.stream_session.days: 0
+  - retention_map.stream_session.source_url: https://www.deepbrid.com/page/faq
+  - retention_map.claimed_cloud_space.stated: homepage claim, undocumented
+  - retention_map.claimed_cloud_space.source_url: https://www.deepbrid.com/
+  - account_deletion.stated: on request, processed within 48 hours
+  - account_deletion.source_url: https://www.deepbrid.com/page/terms
+  - reactivation: re-fetch
+  - storage_model: pass-through, IP-bound stream
+  - contradiction: homepage cloud space vs FAQ/terms no storage
+  - payment_group: crypto
+  - payment.card: unverified
+  - payment.paypal: unverified
+  - payment.crypto: BTC; LTC (one third-party claim, not carried)
+  - payment.crypto_processor: not published
+  - payment.voucher: no
+  - payment.entry_price: not published in any page reachable without an account
+- evidence:
+  - [1] 2026-10-23: the five terms - 14 Days 4.50 EUR, 1 Month 4.99 EUR, 3 Months 12.99 EUR, 6 Months 19.99 EUR, 12 Months 32.99 EUR - each with '200GB Max Download Size', usenet support and 80+ providers, plus 'Torrent cloud limited to 50 active slots'
+  - [2] 2026-10-23: 
+  - [3] 2026-10-23: API v1 endpoints and 'Rate limits apply per account per minute ... X-RateLimit-Limit and X-RateLimit-Remaining ... 429 with a Retry-After header'
+  - [6] 2026-10-23: 73 of 80 hosters online today, with the host list behind a premium gate for free users
+  - [7] 2026-10-23: 'No credit card required for free accounts' - the card gate applies to the paid tiers only
+  - [4] 2026-10-23: 'A limited free tier is available'; 'don't try to share direct link anywhere this won't work, since stream is only working for the user IP'; VPN allowed for premium members only.
+  - [2] 2026-10-23: 'The user account is personal and unique, a user not allowed to create multiple accounts'; 'Some of the announced hosters as supported have daily limitations ... We reserve the right of change the daily limits of the hosters at any time without notice'; 'no refund available if one or several filehosting service that may have been supported and then removed'; 'Deepbrid may suspend or terminate an account automatically and without notice'.
+  - [1] 2026-10-23: 80+ cloud providers; 'No bandwidth caps, no speed limits'; cloud space and Usenet/NZB support advertised; a 'Powerful API' claimed.
+  - [7] 2026-10-23: 'No credit card required for free accounts.'
+  - [3] 2026-10-23: the three rate-limit tiers (250 premium, 100 free, 60 unauthenticated per IP), 'X-RateLimit-Limit and X-RateLimit-Remaining headers', 'HTTP 429 with a Retry-After header'; the endpoint list (/generate/link, /generate/folder, /user, /user/limits, /hosts, /torrents/add, /usenet/add, /downloads, /apikey/info); '/hosts' is public with no auth
+  - [1] 2026-10-23: 'With the free account you will be able to fetch up to 5 cloud provider links every day', 'No bandwidth caps, no speed limits', 50 active torrent slots, and usenet/NZB support
+  - [4] 2026-10-23: 'A limited free tier is available so you can try the service before subscribing', files are streamed and not stored, direct links are IP-bound, and JDownloader 2 is supported
+  - probe:https://www.deepbrid.com/api/v1/hosts 2026-10-23: the host list is readable with no account: 200 and a JSON array of enabled host slugs starting '1fichier','4shared','dailyuploads'
+  - [1] 2026-10-23: '14 Days Trial EUR4.50', '1 Month Basic EUR4.99', '3 Months Starter EUR12.99', '6 Months Pro EUR19.99', '12 Months Ultimate EUR32.99'
+  - [8] 2023-10-26: 'starting EUR3.99' as the entry price and 'up to 4 file-hosting links every day' on the free account
+  - [9] 2024-10-02: 'starting EUR4.50' and the free allowance raised to 'up to 5 file-hosting links every day'
+  - [10] 2025-10-10: the full ladder 4.50 / 4.99 / 12.99 / 32.99, unchanged from 2026
+  - probe:https://www.deepbrid.com/api/v1/hosts 2026-10-23: 39 host slugs, names only - GET 200, 439 bytes; no cap field
+  - probe:https://www.deepbrid.com/api/v1/user/limits 2026-10-23: refusal: HTTP 200 with a 43398-byte login page, not JSON, so the endpoint is auth-gated by redirect
+  - [3] 2026-10-23: 'Returns per-hoster daily traffic and link usage with limits ... resets daily', with the sample {domain: turbobit.net, type: bandwidth, limit: 10737418240, reset: daily}
+  - [5] 2026-10-23: 'Your Limits Files per day 0 / 5', 'Filenext Files 0 / 3', 'General 1.2 GB', 'Filenext 300.0 MB', '∞ Bandwidth'
+  - [7] 2026-10-23: 'No credit card required for free accounts'
+  - probe:https://www.deepbrid.com/home 2026-10-23: 'No bandwidth caps, no speed limits' - the sentence the API's per-host limits contradict
+  - probe:https://www.deepbrid.com/pricing 2026-10-23: no pricing route: HTTP 404 in 22 bytes, so the plan price could not be read
+  - [4] 2026-10-23: 'we don't store any files on our servers... stream is only working for the user IP'; the free tier exists but is unspecified; VPN for premium only
+  - [2] 2026-10-23: 'no storage is made on our side, we act as a tool'; one-time payments of 15, 30, 90, 180 and 365 days
+  - [11] 2026-10-23: the 'Cloud Space - Save your files to your Deepbrid cloud space' claim that contradicts the FAQ and the terms, plus usenet/NZB support
+  - [12] 2026-10-23: 'Payments using crypto currencies are not refundable.' - a rail-specific carve-out that only exists if crypto is an accepted payment method
+  - [1] 2026-10-23: the badge list under 'Your Privacy, Our Priority' includes 'Crypto (Bitcoin, etc.)'
+  - [2] 2026-10-23: 'No reccuring subscription is made. This is a one time payment for each service. There is actualy 15, 30, 90, 180 and 365 days premium offer.' and that prices are in EUR excluding VAT
+  - [4] 2026-10-23: the FAQ does not answer the payment question at all: it says only 'we accept many payment options', which is why the refund policy is the load-bearing source here
+  - [2] 2026-10-30: the Personal Use section states that some supported hosters have daily limitations, listed on the Supported Hosters page, that those daily limits may change at any time without notice, and that a fair use is internally implemented | capture: sha256:82d14250bd2e1e9916d2ba919842817082a5aa2a088190fb88c35a05ebc69c8c | quote: Some of the announced hosters as supported have daily limitations, you can see this limitations by checking the "Supported Hosters" list on the top of the page
+  - [2] 2026-10-30: the Personal Use section allows VPN use for premium users only and does not allow dedicated server hosting, proxies or other infrastructure | capture: sha256:82d14250bd2e1e9916d2ba919842817082a5aa2a088190fb88c35a05ebc69c8c | quote: The use of VPN is authorized (only for premium users)
+  - [2] 2026-10-30: the service description states that no storage is made on the vendor's side | capture: sha256:82d14250bd2e1e9916d2ba919842817082a5aa2a088190fb88c35a05ebc69c8c | quote: no storage is made on our side
+- sources:
+  - [1] https://www.deepbrid.com/home
+  - [2] https://www.deepbrid.com/page/terms
+  - [3] https://www.deepbrid.com/api-docs
+  - [4] https://www.deepbrid.com/page/faq
+  - [5] https://www.deepbrid.com/service
+  - [6] https://www.deepbrid.com/status
+  - [7] https://www.deepbrid.com/signup
+  - [8] https://web.archive.org/web/20231026225108/https://www.deepbrid.com/home
+  - [9] https://web.archive.org/web/20241002022313/https://www.deepbrid.com/home
+  - [10] https://web.archive.org/web/20251010161030/https://www.deepbrid.com/home
+  - [11] https://www.deepbrid.com/
+  - [12] https://www.deepbrid.com/page/refund-policy
+
+## Deepbrid Telegram bot (@DeepbridTBot)
+
+- `debrid/telegram-deepbrid-bot` | qualifies-with-caveat | evidence documented | binding request-rate | category hosted debrid bot (file-host link to download link) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T01:52:23.000Z (live) | stale on 2026-11-23
+- url https://www.deepbrid.com/page/telegram-bot
+- price not comparable: sold as link counts and plan bandwidth, not bytes
+- free tier: Inherits the Deepbrid account tier. The site's own FAQ: 'With the free account you will be able to fetch up to 5 cloud provider links every day.' | unit: requests | metered on: request-count | read on: 2026-10-23 | source: [1] | note: the bot has no separate allowance; it reads the account behind the API key
+- per-object cap: No per-file cap is published for the bot. The paid trial advertises a '200GB Max Download Size', which is a plan ceiling, not a per-object one. | source: [1] | note: the 200 GB figure belongs to the 14-day trial listed at EUR 4.50
+- retention: Nothing is stored: the bot returns a premium URL from Deepbrid's download servers. The life of that URL is not stated on the page read. | source: [2]
+- egress: No Telegram traffic. 'Generate premium links, manage torrents, check your stats' in a private chat; the bytes come from premium-dl.deepbrid.com. | metered: yes | free allowance: none: the free allowance is a link count, not bytes | source: [2]
+- identity: email | detail: The bot needs a Deepbrid account's API key, so the account must exist first. The signup fields were not read; email is the minimum such an account implies and is not confirmed.
+- interface: rest
+- limits:
+  - request-rate (binding): 5 cloud-provider links/day on a free account [1]
+  - per-object-cap: '200GB Max Download Size' on the paid trial only [1]
+- binding note: Five links a day is the free wall; a link count is not a byte quota, so the failure mode is 'no more links today', not 'quota exhausted'.
+- interface detail: A private Telegram chat. Setup is '/setkey <api_key>': 'Store your Deepbrid API key. The bot validates it immediately and deletes your message for security.'
+- tooling: Any Telegram client plus a Deepbrid account API key from the Devices page. Torrents and usenet are accepted as magnets, .torrent and .nzb files dropped in the chat.
+- composes with: Turns a magnet, .nzb or 80+ file-host links into a premium URL without leaving Telegram, so the retrieval path is Deepbrid's servers, not Telegram's; needs a paid plan for volume.
+- reliability: Per-hoster daily traffic and link limits apply and the bot can show them but not raise them; an invalid or rotated API key stops the bot with /checkkey.
+- notes: Abandon if /setkey disappears or the free link count changes. The bot is a remote control for a debrid account: it adds no Telegram capacity and is not a way to store bytes.
+- evidence note: The 5-link free allowance and the API-key mechanism are on the vendor pages read on 2026-10-23. Whether the bot answers a message was not tested (no Telegram account in on 2026-10-23).
+- evidence:
+  - [2] 2026-10-23: '/setkey <api_key> Store your Deepbrid API key.' and 'Send magnet links, drop .torrent or .nzb files directly in chat' and 'Per-Hoster Limits - View your daily traffic and link limits per hoster in real time'
+  - [1] 2026-10-23: 'With the free account you will be able to fetch up to 5 cloud provider links every day.'
+  - [1] 2026-10-23: paid tiers: '14 Days Trial EUR 4.50' with '200GB Max Download Size'
+  - [3] 2026-10-23: the handle resolves to a bot titled 'Deepbrid - Official Telegram Bot' with a Start action
+- sources:
+  - [1] https://www.deepbrid.com/home
+  - [2] https://www.deepbrid.com/page/telegram-bot
+  - [3] https://t.me/DeepbridTBot
+
+## Deepbrid (free)
+
+- `debrid/deepbrid-free` | fails-quota | evidence documented | binding per-object-cap | category debrid link generator (free account) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T01:57:49.000Z (live) | stale on 2026-11-23
+- url https://www.deepbrid.com/service
+- price EUR 0 for 5 files a day, 1.2 GB each
+- disagrees on identity_kind: `debrid/deepbrid-free` says email, `debrid/deepbrid-paid` says card
+- disagrees on verdict: `debrid/deepbrid-free` says fails-quota, `debrid/deepbrid-paid` says qualifies-with-caveat
+- free tier: Five files a day and a 1.2 GB maximum file size, on free hosts only. The logged-out downloader page shows the panel 'Files per day 0 / 5', 'Filenext Files 0 / 3' and 'Maximum File Sizes: General 1.2 GB, Filenext 300.0 MB, Emload 300.0 MB'. | unit: objects | metered on: object-count | read on: 2026-10-23 | source: [1] | note: The home page states the same rule in prose: 'With the free account you will be able to fetch up to 5 cloud provider links every day.'
+- per-object cap: 1.2 GB per file generally; 300 MB on Filenext and Emload | bytes: 1200000000 | source: [1]
+- retention: not applicable: no storage is offered on the free account; downloads are proxied to the caller | source: [1]
+- egress: Five files a day at a 1.2 GB maximum is 6 GB a day, 180 GB a month, if every file lands at the cap. The site also warns that 'some providers have daily limits' even on paid plans. | metered: yes | free allowance: 5 files per day | source: [2]
+- identity: email | detail: E-mail account; the signup page states 'No credit card required for free accounts'.
+- interface: rest, webdav
+- limits:
+  - per-object-cap (binding): 1.2 GB per file; 300 MB on Filenext and Emload [1]
+  - volume-quota: 5 files per day; 3 Filenext files per day [1]
+  - write-gated: free accounts reach free hosts only: 'you can only download from Free Hosters with some restrictions' [3]
+  - volume-quota: five files a day, 3 Filenext files a day [1]
+  - per-object-cap (binding): 1.2 GB per file generally, 300 MB on Filenext and Emload [1]
+  - write-gated: free accounts reach the 39 'Free Hosters' only; 80+ hosts exist in total [1]
+- limits note: The 1.2 GB figure is a per-file ceiling, not a daily total, so a 5 GB video cannot be fetched at all on this tier regardless of how many files remain.
+- binding note: The 5-file daily counter allows 180 GB a month, which is already a sixth of 1 TiB monthly volume, but the per-file cap is what a reader meets first: any object above 1.2 GB is refused outright, so no amount of patience recovers it.
+- interface detail: REST API v1 (https://www.deepbrid.com/api/v1) with an apikey, documented publicly, including a /user/limits endpoint.
+- endpoint: part of interface detail
+- tooling: Documented REST API with per-account rate limits and X-RateLimit headers; browser extensions for Chrome, Firefox, Opera and Edge; a WebDAV path advertised in the integrations strip.
+- composes with: Enough to fetch a handful of small files a day from hosts not subscribed to, and not enough for anything larger than a 1.2 GB file, which rules out most media and any dataset.
+- reliability: The account is free but capped on both axes; the site's own status page says free and guest users see only free hosters with restrictions, and the terms allow automatic suspension without notice.
+- notes: The numbers are on the vendor's own downloader page and the per-file cap is the one that matters: it is the only service whose free tier refuses a file by size rather than by count. The ladder multiplies 5 x 1.2 x 30 = 180 GB, which stands as a per-session ceiling but is not proven repeatable across two accounts or two addresses. The 1.2 GB cap is the number hit first, and it is 300 MB on two of the listed hosts.
+- evidence note: The limits panel is rendered by the vendor's own downloader page for a logged-out session, so both numbers are read from the live site. Whether the 1.2 GB is enforced per file or per day is the vendor's wording, taken as written.
+- extras:
+  - usenet: no (usenet is a paid feature: the free account covers 'cloud provider links' only)
+  - torrent: no on free
+  - host_count: 80+ advertised; 73 online / 7 offline on the status page today
+  - free_host_count: 39
+  - counter_scope: session, not proven per account
+  - ladder_gb_month: 180
+- evidence:
+  - [1] 2026-10-23: the logged-out limits panel: 'Files per day 0 / 5', 'Filenext Files 0 / 3', 'Maximum File Sizes General 1.2 GB, Filenext 300.0 MB, Emload 300.0 MB'
+  - [2] 2026-10-23: 'With the free account you will be able to fetch up to 5 cloud provider links every day', and the footnote 'Some providers have daily limits'
+  - [3] 2026-10-23: 73 hosters online and 7 offline of 80, and 'As a free/guest user, you can only download from Free Hosters with some restrictions'
+  - [4] 2026-10-23: REST API v1 endpoints including GET /api/v1/user/limits, per-account per-minute rate limits, 429 with Retry-After
+  - [1] 2026-10-23: 'Files per day 0 / 5', 'Filenext Files 0 / 3', 'Maximum File Sizes General 1.2 GB', 'Filenext 300.0 MB', 'Emload 300.0 MB', rendered beside 'Session Statistics' and 'Session Time <1m'
+  - [1] 2026-10-23: 'we offer a part of our premium service for free' and the 39-name 'Free Hosters Available' list, including Gofile, Mega, Mediafire, Terabox and 1fichier
+- sources:
+  - [1] https://www.deepbrid.com/service
+  - [2] https://www.deepbrid.com/home
+  - [3] https://www.deepbrid.com/status
+  - [4] https://www.deepbrid.com/api-docs

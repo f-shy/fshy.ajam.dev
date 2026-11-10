@@ -1,0 +1,144 @@
+# twilio
+
+> twilio.com | Email, Storage; 3 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/twilio/ | JSON https://fshy.ajam.dev/api/v1/entity/twilio.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## SendGrid
+
+- `email/sendgrid` | trial-only | evidence documented | binding request-rate | category transactional sender
+- needs card no, phone yes, ID no, institution no | verified 2026-11-04T05:33:30.047Z (live) | stale on 2026-12-05
+- url https://www.twilio.com/en-us/products/email-api/pricing
+- free tier: a 60-day free trial for a new account: 100 emails a day, no credit card; no recurring free plan | unit: requests | metered on: request-count | read on: 2026-10-31 | source: [1]
+- per-object cap: not applicable
+- retention: after the trial ends, Marketing Campaigns contacts and single sends are kept but inaccessible until a paid Marketing Campaigns plan is chosen | source: [2]
+- egress: not applicable: an outbound sender | metered: no | source: [3]
+- identity: any-phone | detail: first and last name, a password and an email address verified by a code, a captcha, then a phone number verified by SMS or voice call for two-factor authentication, then company name, company website and a contact phone number
+- interface: rest
+- limits:
+  - request-rate (binding): 100 emails a day over the web API or SMTP during the 60-day trial [2]
+  - write-gated: a new account can be held for review by the Compliance and Onboarding team before it is activated [4]
+- binding note: the trial's 100 emails a day binds first; the 60-day end of the trial is a time box that no limits kind names
+- interface detail: https://api.sendgrid.com/v3/mail/send, which still exists for paid accounts; an SMTP relay at smtp.sendgrid.net, on port 587 or on 25 and 2525 with a TLS connection, or on 465 with SSL, with the username apikey and an API key as the password
+- tooling: curl, any HTTP client, any SMTP client
+- composes with: composes with nothing long-lived for free: 100 emails a day for 60 days, then only a paid plan from USD 19.95 a month (Essentials)
+- reliability: sending over the web API and SMTP stops when the 60-day trial ends unless a paid Email API plan is chosen
+- notes: The recurring free plan was retired; a new account gets the 60-day trial instead. Existing free accounts and accounts made through a partner platform such as Microsoft Azure may stay on their current plan.
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [3] 2026-10-22: 'Twilio SendGrid will be retiring its Free Email API and Free Marketing Campaigns plan starting May 27, 2025', with 60 days of continued access
+  - [1] 2026-10-30: the free offer for a new account is a 60-day trial; every other plan is paid | capture: sha256:6eb98553077ff440429c70be8510a4a565d0ce7060b3afce7fe6a8886d203f17 | quote: Plans run from a free 60-day trial to Essentials at $19.95/mo, Pro at $89.95/mo, and custom Premier pricing.
+  - [1] 2026-10-30: the trial lasts 60 days, allows 100 emails a day and needs no card | capture: sha256:6eb98553077ff440429c70be8510a4a565d0ce7060b3afce7fe6a8886d203f17 | quote: Twilio SendGrid's free trial runs $0 for 60 days and lets you send 100 emails a day — no credit card, no commitment.
+  - [1] 2026-10-30: the trial allowance is counted in emails sent, 100 a day | capture: sha256:6eb98553077ff440429c70be8510a4a565d0ce7060b3afce7fe6a8886d203f17 | quote: Twilio SendGrid's free trial runs $0 for 60 days and lets you send 100 emails a day — no credit card, no commitment.
+  - [1] 2026-10-30: the Email API pricing page now lives on twilio.com | capture: sha256:6eb98553077ff440429c70be8510a4a565d0ce7060b3afce7fe6a8886d203f17 | quote: Twilio SendGrid Email API pricing
+  - [5] 2026-10-30: sendgrid.com/en-us/pricing no longer carries pricing; it points to twilio.com | capture: sha256:e6da1caf934e2beff611636653a0d420a0803b30899876934c3802503a493b3f | quote: We merged our websites to make things simpler. You can now find all our trusted email solutions, plus everything else Twilio offers, over on Twilio.com.
+  - [2] 2026-10-30: the trial caps sending at 100 emails a day over the web API or SMTP | capture: sha256:f87d0c322e61316572631615ab12e7f0d998915ff599b0cd1068be5a64537e02 | quote: Send up to 100 email messages via web API or SMTP per day
+  - [4] 2026-10-30: a new account may need a compliance review before it can be used | capture: sha256:2807cdd0afe03786d2fcfc8d5f5deae511bc96b54c8e92e83d911a5e9b2d56cf | quote: Sometimes our Compliance and Onboarding team needs to review your account, and if that is the case, you will receive an email from them providing additional information or explaining why your account could not be activated.
+  - [2] 2026-10-30: the trial's daily cap is 100 emails | capture: sha256:f87d0c322e61316572631615ab12e7f0d998915ff599b0cd1068be5a64537e02 | quote: Send up to 100 email messages via web API or SMTP per day
+  - [2] 2026-10-30: sending over the web API and SMTP stops when the 60-day trial ends | capture: sha256:f87d0c322e61316572631615ab12e7f0d998915ff599b0cd1068be5a64537e02 | quote: After the 60 day trial period, email send via any web API or SMTP integration for the account will stop unless an appropriate "Email API" plan is chosen before then via "Settings > Account Details > Your Products".
+  - [4] 2026-10-30: signup verifies a phone number by SMS or voice call for two-factor authentication | capture: sha256:2807cdd0afe03786d2fcfc8d5f5deae511bc96b54c8e92e83d911a5e9b2d56cf | quote: Verify your phone number for 2FA purposes: Select the Country code and enter your phone number without trailing zeros. You can choose to verify via SMS or Voice Call.
+  - [4] 2026-10-30: signup asks for name, password, email address and a captcha before the phone step | capture: sha256:2807cdd0afe03786d2fcfc8d5f5deae511bc96b54c8e92e83d911a5e9b2d56cf | quote: Fill in your First Name, Last Name, Password, and Email Address.
+  - [2] 2026-10-30: sending stops at the end of the trial without a paid Email API plan | capture: sha256:f87d0c322e61316572631615ab12e7f0d998915ff599b0cd1068be5a64537e02 | quote: After the 60 day trial period, email send via any web API or SMTP integration for the account will stop unless an appropriate "Email API" plan is chosen before then via "Settings > Account Details > Your Products".
+  - [2] 2026-10-30: trial data is not deleted at the end of the trial and is reachable again after an upgrade | capture: sha256:f87d0c322e61316572631615ab12e7f0d998915ff599b0cd1068be5a64537e02 | quote: Although the data is not deleted, the only way to access this data is to upgrade "Marketing Campaigns" to at least Basic or above plan via "Settings > Account Details > Your Products".
+  - [2] 2026-10-30: the trial help page states what happens to trial data | capture: sha256:f87d0c322e61316572631615ab12e7f0d998915ff599b0cd1068be5a64537e02 | quote: Although the data is not deleted, the only way to access this data is to upgrade "Marketing Campaigns" to at least Basic or above plan via "Settings > Account Details > Your Products".
+  - [1] 2026-10-30: after the 60-day trial the cheapest plan is Essentials at USD 19.95 a month | capture: sha256:6eb98553077ff440429c70be8510a4a565d0ce7060b3afce7fe6a8886d203f17 | quote: Plans run from a free 60-day trial to Essentials at $19.95/mo, Pro at $89.95/mo, and custom Premier pricing.
+  - [2] 2026-10-30: legacy free accounts and partner-platform accounts may keep their current plan | capture: sha256:f87d0c322e61316572631615ab12e7f0d998915ff599b0cd1068be5a64537e02 | quote: Existing free accounts or new accounts created through a partner platform (e.g. Microsoft Azure) may experience a difference in features and will be on their current plan unless otherwise notified.
+  - [3] 2026-10-30: the recurring free plan was retired from May 27, 2025 | capture: sha256:8051386c842ea397786ca993c76625a469cfe6bc8860c81827204cb09d3c93c8 | quote: Twilio SendGrid will be retiring its Free Email API and Free Marketing Campaigns plan starting May 27, 2025.
+  - probe:smtp.sendgrid.net:587 2026-10-31: the SendGrid SMTP relay answers on port 587 with a 220 ESMTP banner, so the sending service is live | capture: sha256:21ba8b1bab525e6e89e778a2ad76f72cca8dfb34d1db49abb91165c33c3ddcd9 | quote: "banner": "220 SG ESMTP service ready at geopod-ismtpd-0"
+  - [1] 2026-10-30: the current free offer is the 60-day trial at 100 emails a day | capture: sha256:6eb98553077ff440429c70be8510a4a565d0ce7060b3afce7fe6a8886d203f17 | quote: Twilio SendGrid's free trial runs $0 for 60 days and lets you send 100 emails a day — no credit card, no commitment.
+  - [1] 2026-10-31: the free_tier source page, read on 2026-10-31, still states a 60-day trial at 100 emails a day with no card | capture: sha256:6eb98553077ff440429c70be8510a4a565d0ce7060b3afce7fe6a8886d203f17 | quote: Twilio SendGrid's free trial runs $0 for 60 days and lets you send 100 emails a day — no credit card, no commitment.
+  - [1] 2026-10-31: the free offer is still a 60-day trial at 100 emails a day with no card | capture: sha256:6eb98553077ff440429c70be8510a4a565d0ce7060b3afce7fe6a8886d203f17 | quote: Twilio SendGrid's free trial runs $0 for 60 days and lets you send 100 emails a day — no credit card, no commitment.
+  - [1] 2026-10-31: after the trial the cheapest plan is still Essentials at USD 19.95 a month | capture: sha256:6eb98553077ff440429c70be8510a4a565d0ce7060b3afce7fe6a8886d203f17 | quote: Plans run from a free 60-day trial to Essentials at $19.95/mo, Pro at $89.95/mo, and custom Premier pricing.
+  - [2] 2026-10-31: the trial still caps sending at 100 emails a day over the web API or SMTP | capture: sha256:f87d0c322e61316572631615ab12e7f0d998915ff599b0cd1068be5a64537e02 | quote: Send up to 100 email messages via web API or SMTP per day
+  - [2] 2026-10-31: sending over the web API and SMTP still stops at the end of the 60-day trial without a paid Email API plan | capture: sha256:f87d0c322e61316572631615ab12e7f0d998915ff599b0cd1068be5a64537e02 | quote: After the 60 day trial period, email send via any web API or SMTP integration for the account will stop unless an appropriate "Email API" plan is chosen before then via "Settings > Account Details > Your Products".
+  - [2] 2026-10-31: trial Marketing Campaigns data is kept but reachable only after an upgrade to a paid Marketing Campaigns plan | capture: sha256:f87d0c322e61316572631615ab12e7f0d998915ff599b0cd1068be5a64537e02 | quote: Although the data is not deleted, the only way to access this data is to upgrade "Marketing Campaigns" to at least Basic or above plan via "Settings > Account Details > Your Products".
+  - [2] 2026-10-31: legacy free accounts and partner-platform accounts may still stay on their current plan | capture: sha256:f87d0c322e61316572631615ab12e7f0d998915ff599b0cd1068be5a64537e02 | quote: Existing free accounts or new accounts created through a partner platform (e.g. Microsoft Azure) may experience a difference in features and will be on their current plan unless otherwise notified.
+  - [6] 2026-11-02: the SMTP relay accepts a TLS connection on ports 25, 2525 and 587 | capture: sha256:8adc4a5001998ac1a849a2020c31fc52ed0e7a17b807ce4e6abedd7b3c578dec | quote: For an unencrypted or a TLS connection, use port `25`, `2525`, or `587`.
+  - [6] 2026-11-02: the SMTP relay host is smtp.sendgrid.net | capture: sha256:8adc4a5001998ac1a849a2020c31fc52ed0e7a17b807ce4e6abedd7b3c578dec | quote: Set the server host in your email client or application to `smtp.sendgrid.net`.
+  - [6] 2026-11-02: an email client or application sends through the SMTP relay at smtp.sendgrid.net | capture: sha256:8adc4a5001998ac1a849a2020c31fc52ed0e7a17b807ce4e6abedd7b3c578dec | quote: Set the server host in your email client or application to `smtp.sendgrid.net`.
+  - [6] 2026-11-02: the SMTP username is the string apikey | capture: sha256:8adc4a5001998ac1a849a2020c31fc52ed0e7a17b807ce4e6abedd7b3c578dec | quote: Set your username to the string `apikey`.
+  - [6] 2026-11-02: the SMTP password is an API key | capture: sha256:8adc4a5001998ac1a849a2020c31fc52ed0e7a17b807ce4e6abedd7b3c578dec | quote: Set your password to the API key generated in step one.
+  - [6] 2026-11-02: the SMTP relay takes an SSL connection on port 465 | capture: sha256:8adc4a5001998ac1a849a2020c31fc52ed0e7a17b807ce4e6abedd7b3c578dec | quote: For a SSL connection, use port `465`.
+  - [1] 2026-11-02: the pricing page captured on 2026-11-02 states a free trial of 60 days at 100 emails a day with no card | capture: sha256:8b7b9f40b719f9d69dcf87285d65da82aa4d0e7eb5029e449c0e35a5d863db45 | quote: Twilio SendGrid's free trial runs $0 for 60 days and lets you send 100 emails a day — no credit card, no commitment.
+  - [1] 2026-11-02: the plans start with the free 60-day trial and continue with the paid Essentials, Pro and Premier plans | capture: sha256:8b7b9f40b719f9d69dcf87285d65da82aa4d0e7eb5029e449c0e35a5d863db45 | quote: Plans run from a free 60-day trial to Essentials at $19.95/mo, Pro at $89.95/mo, and custom Premier pricing.
+  - [2] 2026-11-02: the trial caps sending at 100 emails a day over the web API or SMTP | capture: sha256:4aa207ed4c1eb0be781ea3e498cf23f2169e3b243df5b5c26251704ccdbe81b6 | quote: Send up to 100 email messages via web API or SMTP per day
+  - [4] 2026-11-02: signup verifies a phone number by SMS or voice call for two-factor authentication | capture: sha256:10800c76eb9db2692e41ec3ca6ece97d5b5c1d1a74d929f5d2bcb03e8d362d9a | quote: Verify your phone number for 2FA purposes: Select the Country code and enter your phone number without trailing zeros. You can choose to verify via SMS or Voice Call.
+  - [2] 2026-11-02: the trial help page was captured on 2026-11-02 and still states that sending stops when the 60-day trial ends | capture: sha256:4aa207ed4c1eb0be781ea3e498cf23f2169e3b243df5b5c26251704ccdbe81b6 | quote: After the 60 day trial period, email send via any web API or SMTP integration for the account will stop unless an appropriate "Email API" plan is chosen before then via "Settings > Account Details > Your Products".
+  - [2] 2026-11-02: the trial help page still lists the cap of 100 emails a day over the web API or SMTP | capture: sha256:4aa207ed4c1eb0be781ea3e498cf23f2169e3b243df5b5c26251704ccdbe81b6 | quote: Send up to 100 email messages via web API or SMTP per day
+  - [1] 2026-11-04: the free offer is a 60-day trial of 100 emails a day, unchanged | capture: sha256:6eb98553077ff440429c70be8510a4a565d0ce7060b3afce7fe6a8886d203f17 | quote: Twilio SendGrid's free trial runs $0 for 60 days and lets you send 100 emails a day — no credit card, no commitment.
+- sources:
+  - [1] https://www.twilio.com/en-us/products/email-api/pricing
+  - [2] https://support.sendgrid.com/hc/en-us/articles/35270136965403-Overview-of-60-Day-Free-Trial-Plans-for-New-SendGrid-Accounts
+  - [3] https://www.twilio.com/en-us/changelog/sendgrid-free-plan
+  - [4] https://support.sendgrid.com/hc/en-us/articles/35394877582235-How-to-Create-a-SendGrid-Account
+  - [5] https://sendgrid.com/en-us/pricing
+  - [6] https://www.twilio.com/docs/sendgrid/for-developers/sending-email/integrating-with-the-smtp-api
+
+## twilio gratis turn (the '20-25 gb free' claim)
+
+- `storage/twilio-gratis-turn` | paid-only | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.twilio.com/en-us/stun-turn/pricing
+- free tier: none reachable: No free TURN allowance exists on Network Traversal Service; TURN is $0.40-0.80/GB from byte one. The free figure traces to Twilio Video WebRTC Go, a retired 2020 product. Only STUN is free, | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: paid
+  - dead_end.why: No free TURN allowance exists on Network Traversal Service; TURN is $0.40-0.80/GB from byte one. The free figure traces to Twilio Video WebRTC Go, a retired 2020 product. Only STUN is free,
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: No free TURN allowance exists on Network Traversal Service; TURN is $0.40-0.80/GB from byte one. The free figure traces to Twilio Video WebRTC Go, a retired 2020 product. Only STUN is free
+  - [2] 2026-10-21: cited as the basis of the rejection: No free TURN allowance exists on Network Traversal Service; TURN is $0.40-0.80/GB from byte one. The free figure traces to Twilio Video WebRTC Go, a retired 2020 product. Only STUN is free
+- sources:
+  - [1] https://www.twilio.com/en-us/stun-turn/pricing
+  - [2] https://webrtc.ventures/2020/10/first-thoughts-on-twilio-video-webrtc-go/
+
+## Twilio Programmable Messaging — Media subresource
+
+- `storage/twilio-programmable-messaging-media-subresource` | paid-only | evidence documented | binding per-object-cap | category messaging
+- identity a placeholder: card and phone unknown | verified 2026-11-04T01:24:45.963Z (live) | stale on 2026-12-05
+- url https://www.twilio.com/docs/messaging/api/media-resource
+- free tier: No storage quota is stated on the Media subresource page: Twilio retains stored media until the Media subresource instance is deleted. Media arrives through billed messages: MMS outbound $0.022 and inbound $0.0165 per message on a long code. | unit: unlimited | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 5 MB total across up to 10 media files per message; Twilio rejects messages with over 5MB of media | source: [1] | note: not stated
+- retention: No quota. Media is retained indefinitely. | source: [1] | note: not stated
+- egress: Authenticated only, and Twilio says so outright: 'If you need to embed media in web applications without exposing your credentials, download the media files and serve them from your own server or cloud storage service.' No public URL, ever. | metered: no
+- identity: any-phone | detail: trial sign-up verifies an email address and a personal phone number and needs no credit card; the identity needed for a paid account that sends MMS is unverified
+- interface: rest
+- limits:
+  - per-object-cap (binding): 5 MB total media per message, up to 10 media files [1]
+- limits note: 5 MB TOTAL across up to 10 files per message; 'Twilio rejects messages with over 5MB of media'. Paid per message ($ per MMS segment), not a free tier. Carrier-grade resizing mangles images.
+- binding note: 5 MB of media per message, and every message is billed, so capacity is paid for per message
+- interface detail: rest
+- tooling: twilio-python / twilio-node; .media.list() and .media(sid).fetch(). Clean API, but nothing removes the auth requirement.
+- composes with: 5 MB per message is the wall. To reach 1 TB you need ~200,000 MMS, each billed per message. This is the opposite of a free tier. Retention is excellent and completely unusable at this scale.
+- reliability: The best retention semantics in the slot (never expires unless you delete) ruined by a 5 MB message cap and per-message billing. Interesting only as proof that indefinite retention is commercially possible.
+- notes: No quota. Media is retained indefinitely. The docs say Twilio 'retains the stored media until you delete the related Media subresource instance', i.e. retention is customer-controlled and unbounded in time.
+- evidence note: read 2026-11-03: https://www.twilio.com/docs/messaging/api/media-resource (5MB and 10 files per message; retention until deletion), https://www.twilio.com/en-us/sms/pricing/us (long-code MMS prices) and https://www.twilio.com/docs/usage/tutorials/how-to-use-your-free-trial-account (trial phone verification, no card), all vendor pages; paid-account identity not read.
+- extras:
+  - dead_end.failure_class: retention
+  - dead_end.why: No quota — media is retained indefinitely. The docs say Twilio 'retains the stored media until you delete the related Media subresource instance', i.e. retention is customer-controlled and unbounded in time.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: read live: 'Twilio retains the stored media until you delete the related Media subresource instance.'
+  - [1] 2026-10-21: read live: 'up to 10 media files that have a total size of up to 5MB ... Twilio rejects messages with over 5MB of media'
+  - [2] 2026-11-03: MMS outbound costs $0.022 and inbound $0.0165 on long codes | capture: sha256:ac913cc8e6ac602ce19559dcca0e4ef125adeef5f490c7e35d9c06d10b13794e | quote: | **Long codes ** A 10-digit number for SMS and voice calls with localized identity. | $0.0083 | $0.0083 | $0.022 | $0.0165 |
+  - [1] 2026-11-03: a message carries up to 10 media files totalling up to 5MB | capture: sha256:d3206a671e967c452641522a1e88c7ee368570d2c7a829b3308a6e92b189d52c | quote: You can send messages using Twilio with up to 10 media files that have a total size of up to 5MB.
+  - [2] 2026-11-03: media is stored through per-message billed MMS | capture: sha256:ac913cc8e6ac602ce19559dcca0e4ef125adeef5f490c7e35d9c06d10b13794e | quote: | **Long codes ** A 10-digit number for SMS and voice calls with localized identity. | $0.0083 | $0.0083 | $0.022 | $0.0165 |
+  - [3] 2026-11-03: trial sign-up verifies a personal phone number | capture: sha256:16fa9f01d2429f84bf31c6b1d9daaf30188bf49e2a7b5f8bcd1b27bf48c13745 | quote: * Verify your personal phone number.
+  - [3] 2026-11-03: the trial needs no credit card | capture: sha256:16fa9f01d2429f84bf31c6b1d9daaf30188bf49e2a7b5f8bcd1b27bf48c13745 | quote: You can sign up for a Twilio free trial account without a credit card.
+  - [1] 2026-11-03: media is retained until the Media subresource instance is deleted | capture: sha256:d3206a671e967c452641522a1e88c7ee368570d2c7a829b3308a6e92b189d52c | quote: Twilio retains the stored media until you [delete the related Media subresource instance.](#delete-media)
+  - [1] 2026-11-04: a message carries up to 10 media files totalling up to 5MB | capture: sha256:d3206a671e967c452641522a1e88c7ee368570d2c7a829b3308a6e92b189d52c | quote: You can send messages using Twilio with up to 10 media files that have a total size of up to 5MB.
+- sources:
+  - [1] https://www.twilio.com/docs/messaging/api/media-resource
+  - [2] https://www.twilio.com/en-us/sms/pricing/us
+  - [3] https://www.twilio.com/docs/usage/tutorials/how-to-use-your-free-trial-account

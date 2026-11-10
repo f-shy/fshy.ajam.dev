@@ -1,0 +1,127 @@
+# Decodo
+
+> decodo.com | Debrid, IP and proxies; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/decodo/ | JSON https://fshy.ajam.dev/api/v1/entity/decodo.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Decodo (formerly Smartproxy), Residential, monthly plan
+
+- `debrid/decodo` | qualifies-with-caveat | evidence documented | binding volume-quota | category residential egress: rotating residential, metered per GB | tier Residential, monthly plan
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23T02:21:34.000Z (live) | stale on 2026-11-23
+- url https://decodo.com/pricing
+- price USD 2,048 per TiB (USD 2.00/GB at the 1,000 GB plan)
+- free tier: No free allowance read; entry is '3 GB $3.75/GB Total: $11.25 + VAT billed monthly'. Pay-as-you-go is $4/GB and needs a wallet top-up. | unit: GB | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable: a byte stream, not an object | source: [1]
+- retention: not applicable: a live endpoint, not stored bytes | source: [1]
+- egress: Metered per GB on every plan: 'Decodo residential proxy pricing is bandwidth-based. Monthly subscriptions run from $3.75/GB (3GB) to $2.75/GB (100GB), Enterprise plans start from $2.50/GB (250GB) to $2/GB (1TB), and Pay As You Go is $4/GB.' | metered: yes | free allowance: none | price per TB: USD 2.00/GB at the 1,000 GB plan, USD 2,000 for 1,000 GB | source: [1]
+- identity: card | detail: 'We accept payments with credit cards, PayPal, Alipay, Google Pay, and Apple Pay. You can also pay with cryptocurrency for all products except ISP proxies and datacenter proxies'.
+- interface: rest
+- limits:
+  - volume-quota (binding): every plan is a GB allowance: 3 GB at $11.25 up to 1,000 GB at $2,000 [1]
+- binding note: The product is sold by the byte, so 1 TiB of monthly transfer costs 1,024 times the per-GB rate; there is no flat tier to escape into on this page.
+- interface detail: HTTP(S) and SOCKS5 rotating endpoint with a dashboard API for session control and geo-targeting.
+- endpoint: https://dashboard.decodo.com/
+- tooling: any HTTP/SOCKS5 client; the monthly plan is a username, password and gateway host
+- composes with: The reference metered residential price. At 1 TiB a month it is USD 2,048 of egress to carry traffic a USD 3 debrid subscription already pays for once.
+- reliability: Nothing about the caller is refused by class here; the failure is arithmetic, and the 1 TiB bill arrives monthly.
+- notes: Counted once as the metered-market reference; the same arithmetic holds for Oxylabs, Databay, SOAX and Rayobyte, each of which gets its own record only because the rungs differ by a factor of two and a reader choosing a vendor needs the rung.
+- evidence note: Every rung of the ladder is on the vendor page read; the only unread field is whether a volume discount below $2/GB exists behind 'Enterprise' sales.
+- extras:
+  - ladder: 3.75 / 3.50 / 3.25 / 3.00 / 2.75 / 2.50 / 2.00 USD per GB at 3 / 10 / 25 / 50 / 100 / 250 / 1000 GB
+  - payg: USD 4/GB
+  - pool: 115M+ IPs
+- evidence:
+  - [1] 2026-10-23: the full ladder: '3 GB $3.75/GB', '10 GB $3.50/GB', '25 GB $3.25/GB', '50 GB $3/GB', '100 GB $2.75/GB', '250 GB $2.5/GB', '1000 GB $2/GB', and 'Pay As You Go is $4/GB'
+- sources:
+  - [1] https://decodo.com/pricing
+
+## Decodo (formerly Smartproxy), isp proxies
+
+- `ip-proxy/decodo-isp-proxies` | qualifies-with-caveat | evidence documented | binding none | category per-address ISP proxy | tier isp-proxies (dedicated per IP, shared per GB, shared per IP)
+- needs card yes, phone no, ID no, institution no | verified 2026-10-30T18:28:35.818Z (live) | stale on 2026-11-30
+- url https://decodo.com/proxies/isp-proxies
+- price USD 2.00 per dedicated address at the vendor's headline, USD 2.50 per address at the largest self-serve tier, USD 0.27 per shared address, USD 1.30 per GB of shared traffic. The unit sold is an address or a gigabyte, so no per-TB or per-month price exists to quote.
+- free tier: 3-day free trial with 100 MB included to test performance before committing; 14-day money-back option on paid plans. | unit: MB | metered on: unstated | read on: 2026-10-24 | source: [1] | note: The ISP page states '100MB included' for the 3-day trial and does not say whether incoming bytes, outgoing bytes or both are counted.
+- per-object cap: not applicable | source: [1]
+- retention: not applicable: a live address, not stored bytes | source: [1] | note: No stored bytes are involved. The address is static: the page states that ISP proxies 'hold a fixed IP indefinitely' and that static ISP proxies 'maintain a constant IP for the full duration of your session'.
+- egress: Dedicated ISP is sold per address with no bandwidth figure: the plan list states 'High bandwidth & concurrency support', and each tier is priced '+ VAT billed monthly'. Shared ISP is sold per GB ('From $1.30/GB') or per address ('From $0.27/IP'). The dedicated headline 'From $2/IP' is the price of the 2000-IP tier. | metered: yes | free allowance: 100 MB on the 3-day trial | price per TB: USD 1.30 per GB on shared ISP, the vendor's own unit; the page publishes no per-TB price | source: [1]
+- identity: card | detail: Payment for ISP proxies is by card or wallet, not cryptocurrency: 'We accept payments with credit cards, PayPal, Alipay, Google Pay, and Apple Pay. You can also pay with cryptocurrency for all products except ISP proxies and datacenter proxies (Pay per IP option).' Orders are processed by Paddle as Merchant of Record. Account set-up is 'Create your Decodo account, verify your email address'. Whether the 3-day ISP trial needs a payment method is unverified: behind a sign-up; for residential plans the trial converts on its own ('after the trial period ends, your chosen plan will activate automatically').
+- interface: rest, cli
+- limits:
+  - volume-quota: 100 MB over 3 days on the free trial [1]
+  - volume-quota: shared ISP is billed per gigabyte from USD 1.30/GB with no cap published: cost, not a ceiling, is what stops it [1]
+  - volume-quota: dedicated ISP is billed per address: self-serve from USD 3.33/IP at 3 IPs (USD 9.99 + VAT a month) down to USD 2.50/IP at 200 IPs (USD 500 + VAT a month); 500, 700, 1000 and 2000 IPs at USD 2.30, 2.20, 2.10 and 2.00/IP are sold through contact sales [1]
+- limits note: The page publishes no request-rate limit, concurrency ceiling or per-address bandwidth cap; its only statement on the subject is 'High bandwidth & concurrency support', with no number. Dedicated ISP is paid by 'Number of dedicated IPs', so each additional fixed identity is one more address at the per-IP rate; no limit kind names a per-identity price. Tiers from 500 IPs (USD 2.3/IP, USD 1150 + VAT a month) route to contact sales instead of a buy link.
+- binding note: No limit kind binds: the page states no request rate, concurrency limit or byte cap, and 'High bandwidth & concurrency support' carries no number. Dedicated ISP is priced per address and shared ISP per GB or per address, with 'no minimum commitment on both Pay/IP and Pay/GB plans', so price, not a published limit, bounds use.
+- interface detail: Protocols 'SOCKS5 & HTTP(S)'. Authentication is a username and password against endpoint isp.decodo.com:10000; the page's Python example connects to isp.decodo.com:10001. The price links lead to dashboard.decodo.com/isp/pricing.
+- endpoint: part of interface detail
+- tooling: Any client that accepts a SOCKS5 or HTTP(S) proxy with a username and password. The page's code example is Python requests through 'http://{username}:{password}@isp.decodo.com:10001', with tabs for Python, Node.js, cURL, Go and PHP; it states 'Drop-in compatibility with Requests, Playwright, and Puppeteer' and links integration guides for Multilogin, AdsPower, Proxy SwitchyOmega, a Chrome proxy extension and a Firefox proxy add-on.
+- composes with: The outbound hop of an HTTP client ('Route Python, Node.js, or cURL traffic through the proxy'). A dedicated address gives one fixed source identity across requests ('Dedicated ISP proxies give you a fixed IP that only you can use'); shared ISP is the vendor's option for volume ('Choose shared ISP proxies if your priority is handling large volumes of traffic efficiently across multiple connections').
+- reliability: Of the two addresses the vendor publishes as its own samples, 37.120.211.30 is registered to M247-LTD-Warsaw in AS9009 M247 Europe SRL with the RDAP remark 'M247 LTD Warsaw Infrastructure', a hosting network, so a target that checks registration class sees hosting and not an ISP; the other, 90.135.104.218, is Tele2 Sverige AB (AS1257, LT-TELE2-GPRS, LT) and passes.
+- notes: The page states that ISP proxies 'are registered under ASNs of internet service providers rather than hosting providers' and that addresses come from 'providers, including AT&T, Verizon, Orange, and Tele2'. Its hero image lists two sample addresses, isp_01 37.120.211.30 and isp_02 90.135.104.218; no other address and no per-address ASN list is published. The headline 'From $2/IP' is the 2000-IP dedicated tier, sold through contact sales; the self-serve dedicated ladder ends at USD 2.5/IP for 200 IPs (USD 500 + VAT a month). Shared pay-per-GB shows only 'From $1.30/GB'; its tiers are on dashboard.decodo.com/isp/pricing, unverified: behind a sign-up.
+- evidence note: Documented: prices, protocols, endpoint and the 3-day trial are on the vendor's ISP product page. The addresses whose registration is looked up are the two samples the page publishes in its hero image, 'isp_01 37.120.211.30 and isp_02 90.135.104.218', not addresses issued to a buyer; no purchased address has been looked up, and whether an address stays the same across reconnects is unmeasured.
+- extras:
+  - rung: 5
+  - rung_note: The verdict turns on what the address is registered as rather than what it costs: the price is a published number, and the caveat exists because one of two published samples resolves to a hosting ASN, which is a registration-class fact.
+  - sample_check.isp_01.address: 37.120.211.30
+  - sample_check.isp_01.covering_prefix: 37.120.211.0/24
+  - sample_check.isp_01.asn: AS9009
+  - sample_check.isp_01.asn_holder: M247 Europe SRL
+  - sample_check.isp_01.rdap_name: M247-LTD-Warsaw
+  - sample_check.isp_01.rdap_country: PL
+  - sample_check.isp_01.rdap_remark: M247 LTD Warsaw Infrastructure
+  - sample_check.isp_01.class: hosting
+  - sample_check.isp_01.result: fails
+  - sample_check.isp_01.announced: not announced on its own: RIPEstat aligns 37.120.211.30 to the first-level less-specific 37.120.211.0/24, announced by AS9009 (holder 'M247 M247 Europe SRL')
+  - sample_check.isp_02.address: 90.135.104.218
+  - sample_check.isp_02.covering_prefix: 90.135.0.0/16
+  - sample_check.isp_02.asn: AS1257
+  - sample_check.isp_02.asn_holder: SWIPNET Tele2 Sverige AB
+  - sample_check.isp_02.rdap_name: LT-TELE2-GPRS
+  - sample_check.isp_02.rdap_country: LT
+  - sample_check.isp_02.rdap_remark: Mobile Services Lithuania
+  - sample_check.isp_02.class: isp
+  - sample_check.isp_02.result: passes
+  - sample_check.isp_02.announced: not announced on its own: RIPEstat aligns 90.135.104.218 to the first-level less-specific 90.135.0.0/16, announced by AS1257 (holder 'SWIPNET - Tele2 Sverige AB'), inside 90.128.0.0/12
+  - sample_check.isp_02.rdap_object: RDAP answers the query for 90.135.104.218 with 90.135.0.0 - 90.135.255.255, type ASSIGNED PA, name LT-TELE2-GPRS, country LT, remark 'Mobile Services Lithuania'
+  - sample_check.passed: 1 of 2
+  - sample_check.why_it_matters: The page's hero image publishes two sample addresses, 'isp_01 37.120.211.30 and isp_02 90.135.104.218', so their registration class can be looked up rather than taken from the page's claim that ISP proxies 'are registered under ASNs of internet service providers rather than hosting providers'.
+  - dedicated_ladder_usd_per_ip: 3.33 at 3 IPs, 2.90 at 10, 2.80 at 20, 2.70 at 50, 2.60 at 100, 2.50 at 200 (self-serve); 2.30 at 500, 2.20 at 700, 2.10 at 1000, 2.00 at 2000 (contact sales)
+  - headline_ctas: From $2/IP (dedicated); From $1.30/GB (shared pay per GB); From $0.27/IP (shared pay per IP)
+  - protocols: SOCKS5 & HTTP(S)
+  - auth: username and password
+  - trial: 3-day free trial, 100 MB included
+  - money_back: 14-day money-back option
+  - locations_stated: North and South Americas: US, CA, BR, CO; Europe: UK, DE, FR, NL, IT, BE, PL, SE, ES, RO, IE, CZ, AT; APAC: AU, HK, JP, KR, SG
+  - uptime_claim: 99.99% uptime and <0.2s response time, both vendor-stated and unverified here
+  - interface_enum_note: The schema's interface enum has no token for a proxy endpoint or a tunnel, so this record follows the convention the egress records use: a proxy client or tunnel is 'cli', a vendor API is 'rest'. Previous value: ['socks5', 'http-proxy', 'web-ui']
+- evidence:
+  - [1] 2026-10-24: Three ISP plans (dedicated, pay per GB, pay per IP) with the vendor's own headlines 'From $2/IP', 'From $1.30/GB' and 'From $0.27/IP'; the self-serve dedicated ladder at 3.33, 2.90, 2.80, 2.70, 2.60 and 2.50 USD/IP for 3, 10, 20, 50, 100 and 200 IPs; the 500-IP tier routed to #contact-sales; 'Protocols SOCKS5 & HTTP(S)'; endpoint isp.decodo.com:10000 with username and password; '3-day free trial' with '100MB included'; '14-day money-back option'; 'Premium ASNs' naming AT&T, Verizon, Orange and Tele2.
+  - [1] 2026-10-24: The hero image's alt text is the only machine-readable copy of the two sample addresses: 'Authentication method panel listing isp_01 37.120.211.30 and isp_02 90.135.104.218, Endpoint generator UI and cURL example'. The addresses are pixels in a webp otherwise, which is why they needed an outside registration check.
+  - probe:stat.ripe.net/data/prefix-overview/data.json?resource=37.120.211.30 2026-10-24: 37.120.211.30 is not announced on its own and aligns to 37.120.211.0/24, announced by AS9009 M247 Europe SRL. A hosting ASN, so sample isp_01 fails the vendor's own ISP claim.
+  - probe:rdap.db.ripe.net/ip/37.120.211.0 2026-10-24: RDAP for 37.120.211.0/24: name M247-LTD-Warsaw, country PL, type ASSIGNED PA, remark 'M247 LTD Warsaw Infrastructure', maintained by M247 entities. Confirms the registration is a hosting operator's Warsaw infrastructure.
+  - probe:stat.ripe.net/data/prefix-overview/data.json?resource=90.135.104.218 2026-10-24: 90.135.104.218 aligns to 90.135.0.0/16, announced by AS1257 SWIPNET Tele2 Sverige AB. An ISP ASN, so sample isp_02 agrees with the vendor's claim, and the vendor's 'Premium ASNs' line names Tele2 by name.
+  - probe:rdap.db.ripe.net/ip/90.135.104.218 2026-10-24: RDAP for 90.135.0.0/16: name LT-TELE2-GPRS, country LT, type ASSIGNED PA, remark 'Mobile Services Lithuania'. Passes as an ISP registration, with the sub-registration described as mobile services rather than fixed line.
+  - [2] 2026-10-24: This URL serves residential pricing only, from USD 3.75/GB at 3 GB to USD 2.75/GB at 100 GB plus USD 4/GB pay-as-you-go; it carries no ISP price. The ISP figures in this record therefore come from the product page and its dashboard link, not from this URL.
+  - [1] 2026-10-30: the 3-day ISP trial includes 100MB and the page names no direction for the bytes | capture: sha256:f813e47268772591c22ca5669ae8face2d7033bc414d900775512eac42cf7f6d | quote: 100MB included to test performance before committing.
+  - [1] 2026-10-30: an ISP address is held fixed with no stated expiry | capture: sha256:f813e47268772591c22ca5669ae8face2d7033bc414d900775512eac42cf7f6d | quote: Unlike rotating residential proxies, ISP proxies hold a fixed IP indefinitely, which makes them better suited for login-dependent workflows and long-session tasks.
+  - [1] 2026-10-30: dedicated ISP carries no bandwidth number; the price links read From $2/IP, From $1.30/GB and From $0.27/IP, and the 2000-IP tier is USD 2/IP | capture: sha256:f813e47268772591c22ca5669ae8face2d7033bc414d900775512eac42cf7f6d | quote: High bandwidth & concurrency support
+  - [1] 2026-10-30: username and password authentication against isp.decodo.com:10000, protocols SOCKS5 and HTTP(S) | capture: sha256:f813e47268772591c22ca5669ae8face2d7033bc414d900775512eac42cf7f6d | quote: Use your username and password with endpoint isp.decodo.com:10000.
+  - [1] 2026-10-30: the clients and integrations the vendor names for ISP proxies | capture: sha256:f813e47268772591c22ca5669ae8face2d7033bc414d900775512eac42cf7f6d | quote: Drop-in compatibility with Requests, Playwright, and Puppeteer
+  - [1] 2026-10-30: a dedicated ISP address is a fixed, single-user source address; shared ISP is offered for volume across connections | capture: sha256:f813e47268772591c22ca5669ae8face2d7033bc414d900775512eac42cf7f6d | quote: Dedicated ISP proxies give you a fixed IP that only you can use.
+  - [1] 2026-10-30: the dedicated ladder now prices 500, 700, 1000 and 2000 IPs, each behind a contact-sales link | capture: sha256:f813e47268772591c22ca5669ae8face2d7033bc414d900775512eac42cf7f6d | quote: 500 IPs $ 2.3 / IP Total:$ 1150+ VAT billed monthly
+  - [1] 2026-10-30: the full dedicated ladder from 3 to 2000 IPs | capture: sha256:f813e47268772591c22ca5669ae8face2d7033bc414d900775512eac42cf7f6d | quote: 2000 IPs $ 2 / IP Total:$ 4000+ VAT billed monthly
+  - [1] 2026-10-30: no number is given for bandwidth or concurrency; dedicated is paid per IP and the 500-IP tier is USD 2.3/IP via contact sales | capture: sha256:f813e47268772591c22ca5669ae8face2d7033bc414d900775512eac42cf7f6d | quote: High bandwidth & concurrency support
+  - [1] 2026-10-30: ISP plans are priced per IP or per GB with no minimum commitment and no published ceiling | capture: sha256:f813e47268772591c22ca5669ae8face2d7033bc414d900775512eac42cf7f6d | quote: Decodo’s ISP proxies are available with no minimum commitment on both Pay/IP and Pay/GB plans.
+  - [2] 2026-10-30: accepted payment methods, the cryptocurrency exclusion for ISP proxies, Paddle as merchant of record, and email verification at sign-up | capture: sha256:c84b1afa0c9994327d59fa16416c40f3ce321d0a31cebf13e7d95778447151a6 | quote: You can also pay with cryptocurrency for all products except ISP proxies and datacenter proxies (Pay per IP option).
+  - [1] 2026-10-30: the two sample addresses are published in the page's hero image alt text, beside the prices, protocols and trial | capture: sha256:683dc9c535a96669ab9627bd919c676abbdc98b2f41fbbf73bc4d75796a867c7 | quote: Authentication method panel listing isp_01 37.120.211.30 and isp_02 90.135.104.218, Endpoint generator UI and cURL example
+  - [1] 2026-10-30: the vendor's ISP-registration claim, the named ASN providers, the two sample addresses in the hero image alt text, and the dedicated ladder from 3 to 2000 IPs | capture: sha256:f813e47268772591c22ca5669ae8face2d7033bc414d900775512eac42cf7f6d | quote: ISP proxies are significantly harder to identify as proxy traffic than datacenter proxies because they are registered under ASNs of internet service providers rather than hosting providers.
+  - [1] 2026-10-30: the page publishes the two sample addresses and claims ISP-ASN registration | capture: sha256:683dc9c535a96669ab9627bd919c676abbdc98b2f41fbbf73bc4d75796a867c7 | quote: Authentication method panel listing isp_01 37.120.211.30 and isp_02 90.135.104.218, Endpoint generator UI and cURL example
+  - probe:stat.ripe.net/data/prefix-overview/data.json?resource=37.120.211.30 2026-10-30: 37.120.211.30 is covered by 37.120.211.0/24, announced by AS9009 M247 Europe SRL | capture: sha256:152b476ea525a94b01a5b73d7f4df1ee7ecbbcfcc563efc176ed6347e78d3a2c | quote: Given resource is not announced but result has been aligned to first-level less-specific (37.120.211.0/24).
+  - probe:stat.ripe.net/data/prefix-overview/data.json?resource=90.135.104.218 2026-10-30: 90.135.104.218 is covered by 90.135.0.0/16, announced by AS1257 Tele2 Sverige AB, with 90.128.0.0/12 as the next less-specific | capture: sha256:301e4da7533d7a24c7bba1e3e0c427befc3171250d3c6ee5e6c2a0a726bd9fb3 | quote: Given resource is not announced but result has been aligned to first-level less-specific (90.135.0.0/16).
+  - probe:rdap.db.ripe.net/ip/90.135.104.218 2026-10-30: the RDAP object for 90.135.104.218 is the /16 LT-TELE2-GPRS, ASSIGNED PA, LT, remark Mobile Services Lithuania | capture: sha256:fd6479f6f69fa6ab2e381384431dc3ff3a6f99f66569a4fa243bbd4f80b3d133 | quote: Mobile Services Lithuania
+  - probe:rdap.db.ripe.net/ip/37.120.211.0 2026-10-30: RDAP for 37.120.211.0 - 37.120.211.255: name M247-LTD-Warsaw, country PL, type ASSIGNED PA, remark 'M247 LTD Warsaw Infrastructure' | capture: sha256:3640d795e61245331bc74caa5728848a0c12feadb1d85833879638ea86eb9e58 | quote: M247 LTD Warsaw Infrastructure
+  - [1] 2026-10-30: the 3-day trial with 100MB, the 14-day money-back option, endpoint isp.decodo.com:10000, SOCKS5 & HTTP(S), username and password, the locations and the three price headlines are unchanged | capture: sha256:f813e47268772591c22ca5669ae8face2d7033bc414d900775512eac42cf7f6d | quote: 100MB included to test performance before committing.
+- sources:
+  - [1] https://decodo.com/proxies/isp-proxies
+  - [2] https://decodo.com/pricing

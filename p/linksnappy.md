@@ -1,0 +1,179 @@
+# LinkSnappy
+
+> linksnappy.com | Debrid; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/linksnappy/ | JSON https://fshy.ajam.dev/api/v1/entity/linksnappy.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## LinkSnappy
+
+- `debrid/linksnappy` | paid-only | evidence documented | binding volume-quota | category multi-hoster / debrid (link unrestrict only, no torrent cache) | tier elite
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T00:35:36.091Z (live) | stale on 2026-12-04
+- url https://linksnappy.com/tos
+- free tier: No free tier and no self-service signup: 'In order to obtain Elite Services, you must first submit the applicable application form ... to LinkSnappy for review and initial approval', which 'may include ... your credit card information'. | unit: none | metered on: none | read on: 2026-10-23 | source: [1] | note: Prices are in the terms: 7-day trial 4.70 EUR, 30-day 12.50 EUR, 90-day 28.99 EUR, 180-day 52.99 EUR.
+- per-object cap: Not published; per-host data transfer limits exist ('Data transfer limits exist only on few hosts, rest are unlimited') and are shown on a status page behind a login. | source: [2]
+- retention: No stored content to retain: links are generated on demand and 'We don't seed torrents after they've been downloaded.' Torrent support is absent altogether. | source: [2]
+- egress: Generated links are IP-locked: 'The generated links are IP address locked and they will only work with the IP they were generated with', and 'if your IP changes after the downloading has begun, your download will fail since our system doesn't allow sharing of links among multiple people(IPs)'. | metered: yes | free allowance: none: no free tier | source: [2]
+- identity: card | detail: An application reviewed by the vendor, with email and credit-card details supplied before approval; the terms allow denial 'at any time and for any reason'. Heavier than every other service in this set.
+- interface: rest
+- limits:
+  - per-ip-shaping: every generated link is bound to the IP that generated it; a changed IP fails the download mid-transfer [2]
+  - volume-quota (binding): per-host data transfer limits on 'a few hosts'; the rest are unlimited but the list is behind the login at /myaccount/status [2]
+  - write-gated: account creation is an application reviewed by the vendor; approval is discretionary and refusal is not appealable in the terms [1]
+  - volume-quota (binding): Keep2Share 15 GB/day, Filer 40 GB/day, Isra.Cloud 10 GB/day; the other 5 listed hosts are Unlimited [3]
+  - request-rate: quota counters reset at 00:00 UTC [4]
+  - volume-quota (binding): per-host daily quotas: Keep2Share 15GB/day, Filer 40GB/day, Isra.Cloud 10GB/day [3]
+  - per-ip-shaping: generated links are IP-locked; 'if your IP changes after the downloading has begun, your download will fail' [2]
+  - request-rate: temporary rate-limits, queuing or session pauses on sustained heavy activity, threshold unpublished [1]
+  - per-ip-shaping: generated links are IP address locked [5]
+  - retention-clamped: no server-side storage of fetched files [1]
+  - volume-quota (binding): per-host daily quotas, reset 00:00 UTC [3]
+  - request-rate: unpublished: no rate limit appears on vendor pages, and the API is undocumented [6]
+- limits note: Two failure strings have no defined cause in the documentation: 'Error 503' and '087 Error' are listed as things to report, not as conditions a client can handle.
+- binding note: A monthly transfer of 1 TiB downloading through generated links cannot change network mid-transfer, cannot use a second host for the same link, and cannot resume from another IP; the link dies with the address.
+- interface detail: Web link generator plus browser plugins and download-manager integrations; the FAQ documents no public REST API, and https://linksnappy.com/api returned 404 on 2026-10-23.
+- tooling: browser extensions, JDownloader/IDM via the link generator, mobile app; no rclone backend found
+- composes with: The host-coverage specialist: 11 of 348 hosts in the comparison index, fewer than any other service there, but it reaches some obscure hosts the others drop, so it is a per-link fallback rather than a mount.
+- reliability: Links are IP-locked and a mid-transfer IP change fails the download; host support is the thinnest of the nine; the two most common errors ('Error 503', '087 Error') have no documented cause.
+- notes: The gate is the earliest and the only one that can stop an account existing at all; the IP lock is the one that breaks a working account mid-download. Torrent support is absent, so the cache-behaviour question does not apply. The vendor's host status page requires a login and was not read. The legacy myaccount/news page still lists 2021-era cap upgrades (DDL 30->35 GB, Katfile 20->25 GB), which no longer matches the current 11-host table; The cheapest 7-day entry at US$4.99, and the most expensive 30 days at US$12.99, which is what 75+ hosts costs. Host-count claims conflict inside one site: 75+ (landing), 50 (FAQ), 11 rows (public status table). Flat for 37 months at USD 4.99 / 12.99 / 29.99 / 54.99, and the pricing model removes the promo-versus-renewal question entirely: every term is a one-off payment with 'No Recurring Payment'. The billed monthly rate is USD 12.99, at the highest 30-day entry price in the debrid set, against EUR 2.99-4.00 for the French services. The offer narrowed while the price did not: the FAQ answered 'Do you offer any free trials? Yes' in 2023-09 and the question is gone from 2024-10 onward, so a 37-month history that tracked only the dollar figure would have called this provider unchanged twice over. A proxy with a price, not a store. The terms and the FAQ agree, which makes this one of the cleanest zeroes. Search-engine extracts of the vendor's own checkout page (linksnappy.com/myaccount/extend) show the rail buttons 'Credit/Debit Card, Paysafecard, Bitcoin, Reseller' and linksnappy.com/landing shows 'CashtoCode Paysafecard Cryptocurrency'. No torrent support, which the comparison corpus and the FAQ both imply. A missing client is not a rejection and neither is a missing document: the API exists and answers, it is just not written down.
+- evidence note: The IP-lock rule, the application gate and the prices are in the vendor's own FAQ and terms. The host count is the comparison index's, not the vendor's, and the vendor's own status page is behind a login.
+- extras:
+  - failure_angle: IP-locked links and a human gate
+  - strongest_signal: download failure on IP change
+  - account_states: application denied; account suspended; expired membership (no renewal state documented)
+  - cache_miss: not applicable: no torrent cache and no stored content
+  - host_removal: 'There are instances where a host might stop working, we usually fix such issues quickly'; the live list is behind /myaccount/status
+  - simultaneous_use: Every generated link is bound to the generating IP and a mid-download IP change fails the transfer. The FAQ gives that as the anti-sharing mechanism rather than a login rule.
+  - host_matrix.published_daily_caps: yes
+  - host_matrix.source: https://linksnappy.com/landing
+  - host_matrix.hosts_listed: 11
+  - host_matrix.rows[0].host: 1fichier.com
+  - host_matrix.rows[0].daily_cap: unlimited
+  - host_matrix.rows[1].host: ddownload.com
+  - host_matrix.rows[1].daily_cap: unlimited
+  - host_matrix.rows[2].host: filefactory.com
+  - host_matrix.rows[2].daily_cap: unlimited
+  - host_matrix.rows[3].host: katfile.com
+  - host_matrix.rows[3].daily_cap: unlimited
+  - host_matrix.rows[4].host: mediafire.com
+  - host_matrix.rows[4].daily_cap: unlimited
+  - host_matrix.rows[5].host: mega.nz
+  - host_matrix.rows[5].daily_cap: unlimited
+  - host_matrix.rows[6].host: rapidgator.net
+  - host_matrix.rows[6].daily_cap: unlimited
+  - host_matrix.rows[7].host: turbobit.net
+  - host_matrix.rows[7].daily_cap: unlimited
+  - host_matrix.rows[8].host: isra.cloud
+  - host_matrix.rows[8].daily_gb: 10.0
+  - host_matrix.rows[9].host: keep2share.cc
+  - host_matrix.rows[9].daily_gb: 15.0
+  - host_matrix.rows[10].host: filer.net
+  - host_matrix.rows[10].daily_gb: 40.0
+  - host_count_claimed: 75+ (landing) / 50 (FAQ) / 11 visible rows (public table)
+  - usenet: no
+  - torrent: yes, without seeding
+  - annual_plan: none; 180 days is the longest term
+  - price_history[0].date: 2023-09-23
+  - price_history[0].price: USD 4.99 / 7 days
+  - price_history[0].plan: 7 Days
+  - price_history[0].source_url: https://web.archive.org/web/20230923213024/https://linksnappy.com/faqs
+  - price_history[1].date: 2023-09-23
+  - price_history[1].price: USD 12.99 / 30 days
+  - price_history[1].plan: 30 Days
+  - price_history[1].source_url: https://web.archive.org/web/20230923213024/https://linksnappy.com/faqs
+  - price_history[2].date: 2024-10-07
+  - price_history[2].price: USD 12.99 / 30 days
+  - price_history[2].plan: 30 Days
+  - price_history[2].source_url: https://web.archive.org/web/20241007114808/https://linksnappy.com/faqs
+  - price_history[2].change_pct: 0.0
+  - price_history[3].date: 2025-10-01
+  - price_history[3].price: USD 12.99 / 30 days
+  - price_history[3].plan: 30 Days
+  - price_history[3].source_url: https://web.archive.org/web/20251001233820/https://linksnappy.com/faqs
+  - price_history[3].change_pct: 0.0
+  - price_history[4].date: 2026-10-23
+  - price_history[4].price: USD 12.99 / 30 days
+  - price_history[4].plan: 30 Days
+  - price_history[4].source_url: https://linksnappy.com/faqs
+  - price_history[4].change_pct: 0.0
+  - price_history[5].date: 2026-10-23
+  - price_history[5].price: USD 54.99 / 180 days
+  - price_history[5].plan: 180 Days
+  - price_history[5].source_url: https://linksnappy.com/faqs
+  - price_history[5].change_pct: 0.0
+  - change_36m: 0.0% on all four terms, 2023-09-23 to 2026-10-23
+  - currency: USD
+  - renewal: none: every term is a one-off payment, so there is no promo-to-renewal step
+  - free_tier_closed: a free trial was advertised on 2023-09-23 and is absent from 2024-10-07, 2025-10-01 and 2026-10-23
+  - merge_conflicts.usenet[0]: no
+  - merge_conflicts.usenet[1].lane: pricing-history
+  - merge_conflicts.usenet[1].value: no
+  - retention_map.fetched_files.stated: no server-side storage
+  - retention_map.fetched_files.days: 0
+  - retention_map.fetched_files.source_url: https://linksnappy.com/tos
+  - retention_map.torrent_cloud.stated: 100 GB cloud, retention unpublished
+  - retention_map.torrent_cloud.source_url: https://linksnappy.com/myaccount/news
+  - account_deletion.stated: deleted on request only
+  - account_deletion.source_url: https://linksnappy.com/faqs?lang=en
+  - reactivation: re-fetch: nothing was held
+  - storage_model: pass-through proxy
+  - payment_group: crypto
+  - payment.card: yes
+  - payment.paypal: no
+  - payment.paypal_note: 'If you still wish to pay via paypal you can visit one of our resellers and pay via them'
+  - payment.crypto: BTC
+  - payment.crypto_processor: not named
+  - payment.local_rails: bank transfer
+  - payment.voucher: yes
+  - payment.voucher_detail: CashtoCode voucher (Funanga) redeemed at checkout; Paysafecard; resellers
+  - payment.entry_price: EUR 4.70 / 7 days; USD 4.99 at checkout
+  - auth_flows: one, undocumented: AUTHENTICATE with account credentials returns a session key that later calls carry. No OAuth, no device code, no published token lifetime.
+  - unrestrict_endpoint: GET /api/linkgen?genLinks=<encoded links>
+  - account_endpoints: GET /api/USERDETAILS (the client comments that it 'Does not work well with cookies')
+  - public_endpoints_no_account: GET /api/REGEX; the host registry /api/FILEHOSTSREALTIME appears to want a session but was not probed
+- evidence:
+  - [2] 2026-10-23: 'The generated links are IP address locked and they will only work with the IP they were generated with'; 'if your IP changes after the downloading has begun, your download will fail since our system doesn't allow sharing of links among multiple people(IPs)'; 'We don't seed torrents after they've been downloaded'; 'Data transfer limits exist only on few hosts, rest are unlimited'; the troubleshooting list 'Dead links / Error 503 / 0 kb files', 'Some of the links are unsupported' and '087 Error'.
+  - [1] 2026-10-23: Application-and-approval signup with credit-card data; section 9 prices 4.70/12.50/28.99/52.99 EUR; notice-and-action section citing the DSA.
+  - [7] 2026-10-23: Measured: HTTP 404 from nginx, so no public API lives at that path.
+  - probe:https://linksnappy.com/landing 2026-10-23: the Filehost Status table: RapidGator Unlimited, DDL.to Unlimited, Keep2Share 15GB/Day, 1Fichier Unlimited, Filer 40GB/Day, Turbobit Unlimited, Mega Unlimited, Isra.Cloud 10GB/Day - 44545 bytes
+  - probe:https://linksnappy.com/api/REGEX 2026-10-23: one alternation covering ~100 host domains, 10240 bytes; the origin answers GET but returns 405 to HEAD
+  - [4] 2026-10-23: 'Data transfer limits exist only on few hosts, rest are unlimited' and the 00:00 UTC reset
+  - [8] 2026-10-23: the status route serves the same 29684-byte landing shell as /myaccount/status when logged out; the live table is not in the HTML
+  - probe:https://linksnappy.com/myaccount/news 2026-10-23: the 2021 changelog still lists cap raises (DDL 30->35 GB, Katfile 20->25 GB, Hitfile 20->25 GB), none of which matches today's table
+  - probe:https://linksnappy.com/myaccount/status 2026-10-23: byte-identical to /status: 29684 bytes, sha 5911b573..., so both routes render the same logged-out shell
+  - probe:https://linksnappy.com/js/main.combined.js 2026-10-23: the bare /js path is a 404 (146 bytes); the real bundle is /templates/v3/js/main.combined.js?v=36, 264200 bytes
+  - probe:https://linksnappy.com/templates/v3/js/main.combined.js?v=36 2026-10-23: the bundle's whole API surface is AUTHENTICATE, linkgen, CACHECHECKER and torrents calls - no quota endpoint, so the status table is server-rendered only
+  - [2] 2026-10-23: '7 Days = $4.99 USD, 30 Days = $12.99 USD, 90 Days = $29.99 USD, 180 Days = $54.99 USD', the quota reset at 00:00 UTC, and 'We don't seed torrents after they've been downloaded'
+  - [3] 2026-10-23: the public filehost table with per-host quotas (Keep2Share 15GB/Day, Filer 40GB/Day, Isra.Cloud 10GB/Day, others Unlimited, KatFile Down) and '75+ other Filehosts'
+  - [9] 2026-10-23: 'Premium Proxy - A single interface to request and transfer files from supported hosts', protocols include http, ftp and p2p
+  - [4] 2026-10-23: '7 Days = $4.99 USD', '30 Days = $12.99 USD', '90 Days = $29.99 USD', '180 Days = $54.99 USD' and 'No Recurring Payment'
+  - [10] 2023-09-23: the identical four USD prices three years earlier, plus the FAQ entry 'Do you offer any free trials? > Yes, we offer free trials' that the live page no longer carries
+  - [11] 2024-10-07: unchanged
+  - [12] 2025-10-01: unchanged
+  - [1] 2026-10-23: 'LinkSnappy operates only as a secure web-proxy... We do not host user uploads, provide permanent storage, cyber-locker functions, search indexes or backup/sync capabilities.'
+  - [5] 2026-10-23: 'We do not store anything on our server and the links which are generated act as a mediator between host and the user'; 'The generated links are IP address locked'; the 7 to 180-day price ladder
+  - [13] 2026-10-23: 'Cloud storage for torrents has been doubled to make it 100GB!' (2020) - the only statement of a torrent cloud, with no retention attached
+  - [5] 2026-10-23: 'We support Credit/Debit Cards, Paysafecard, Bitcoins, Webmoney and other Russian payment methods' and the redirection of PayPal to resellers
+  - probe:https://linksnappy.com/api/REGEX 2026-10-23: the API host is live and one route answers with no account: HTTP 200 and a full host-regex alternation covering 1fichier, rapidgator, turbobit, mediafire, mega and ~100 others
+  - probe:https://linksnappy.com/api/GET?request=ACCOUNTINFO 2026-10-23: the API root answers a documented error shape rather than a 404: '400 Bad Request - Invalid request, Please check your request data.'
+  - [14] 2026-10-23: the action names a real client uses: AUTHENTICATE, FILEHOSTSREALTIME, REGEXARR, HOSTCACHECHECK, CACHEDLSTATUS, linkgen, DELETELINK and torrents/ADDMAGNET, torrents/LIST, torrents/HASHCHECK
+  - [4] 2026-10-23: the vendor's own description of use - 'User can supply supported link(s) in our link generator via our website/browser plugins/download managers/mobile app' - with no API section
+  - [15] 2026-10-23: vendor-published clients: browser add-ons, a Synology DiskStation plugin and download-manager integration
+  - [16] 2026-11-03: section 9 of the terms page states membership fees are payable in EUR by bank transfer or CashtoCode voucher (Funanga) redeemed during checkout | capture: sha256:440cb01e1f28461df11628fb6d60f37b586cdc0e03d5946598db034f02f4b89f | quote: Membership fees are payable in Euro (EUR) and may be settled via bank transfer or CashtoCode® voucher (powered by Funanga) redeemed during checkout.
+  - [1] 2026-11-03:  | capture: sha256:440cb01e1f28461df11628fb6d60f37b586cdc0e03d5946598db034f02f4b89f | quote: Although web-proxy transfers are technically unmetered, sustained or atypically heavy activity may trigger temporary rate-limits, queuing, or session pauses so that overall network capacity stays fast and reliable for every customer.
+- sources:
+  - [1] https://linksnappy.com/tos
+  - [2] https://linksnappy.com/index.php?act=faqs
+  - [3] https://linksnappy.com/landing
+  - [4] https://linksnappy.com/faqs
+  - [5] https://linksnappy.com/faqs?lang=en
+  - [6] https://linksnappy.com/
+  - [7] https://linksnappy.com/api
+  - [8] https://linksnappy.com/status
+  - [9] https://linksnappy.com/home
+  - [10] https://web.archive.org/web/20230923213024/https://linksnappy.com/faqs
+  - [11] https://web.archive.org/web/20241007114808/https://linksnappy.com/faqs
+  - [12] https://web.archive.org/web/20251001233820/https://linksnappy.com/faqs
+  - [13] https://linksnappy.com/myaccount/news
+  - [14] https://raw.githubusercontent.com/macinnisrr/kodi-android/master/addons/script.module.resolveurl/lib/resolveurl/plugins/linksnappy.py
+  - [15] https://linksnappy.com/download/plugins
+  - [16] https://linksnappy.com/tos?lang=en

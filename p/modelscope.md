@@ -1,0 +1,158 @@
+# ModelScope
+
+> modelscope.cn | Compute; 3 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/modelscope/ | JSON https://fshy.ajam.dev/api/v1/entity/modelscope.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## ModelScope
+
+- `compute/modelscope` | trial-only | evidence reported | binding retention-clamped | category GPU cloud
+- needs card no, phone yes, ID yes, institution no | verified 2026-10-22 (live) | stale on 2026-11-06
+- url https://modelscope.cn/docs/notebook/intro
+- free tier: " Notebook 36 " - 36 GPU hours as a new-user initial grant, while the CPU environment (8 cores, 32 GB) stays free with no stated limit. | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: one-time-credit
+- per-object cap: not applicable | source: [1]
+- retention: the 36-hour grant does not refill and a single instance may run at most 10 hours, so a 6-hour idle timeout spends the grant without producing anything | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: national-id | detail: A bound Alibaba Cloud account is required, and that account needs real-name verification: one source states "binding an Alibaba Cloud account is required and that account requires real-name verification", and the grant is "36 per new user after binding an Alibaba Cloud account". The record does not state which document that verification accepts. A Chinese national ID or a passport. Whether a card or phone is also needed on either account, any hold, or debit or prepaid acceptance.
+- interface: rest
+- limits:
+  - retention-clamped (binding): the 36-hour grant does not refill and a single instance may run at most 10 hours, so a 6-hour idle timeout spends the grant without producing anything [1]
+- limits note: the 36-hour grant does not refill and a single instance may run at most 10 hours, so a 6-hour idle timeout spends the grant without producing anything
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: The GPU grant is one-time, but the perpetual 8-core CPU notebook with 100 GB of storage is a free place to hold data and run scraping or embedding jobs, which is the part that composes with a storage provider.
+- reliability: no reliability event recorded
+- notes: The official page could not be read directly: the reader returned 'no content' and the Wayback replay of the 2026-08-03 capture was empty, so this row is `reported` on three independent quotations rather than `documented`. The headline number in circulation has changed and the direction is downward: guides say 100 hours, the doc says 36, and one author explicitly corrects the older figure. Two adjacent lanes are separate products and are not added to this row: free xGPU on (shared GPU for Spaces, requires joining an xGPU-Explorers organisation, approval-gated, with per-user duration caps), and the AMD GPU incentive programme (up to 1000 hours, requires an AMD developer account plus publishing activity).
+- extras:
+  - facets.class: recurring-notebook-quota
+  - facets.free_tier_kind: one-time-credit
+  - facets.shape.vcpu: 8
+  - facets.shape.ram_gib: 32
+  - facets.shape.gpu_class: A10 24GB
+  - facets.shape.gpu_count: 1
+- evidence:
+  - [2] 2026-10-22: quoted from the official Notebook doc: 36 per new user after binding an Alibaba Cloud account; CPU 8 cores / 32 GB free long term; 100 GB storage; single instance at most 10 hours; auto-stop after 1 idle hour; the author corrects the widely repeated '100 hours at signup' figure as stale
+  - [3] 2026-10-22: quoted, checked 2026-10-02: 36 hours is a one-time new-user GPU grant; binding an Alibaba Cloud account is required and that account requires real-name verification
+  - [4] 2026-10-22: Alibaba's own Tianchi forum post states the free instance is 36 hours of single-card A10 compute
+  - [1] 2026-10-22: official doc page returned 422 no-content from the reader and the 2026-08-03 Wayback capture replayed empty; the figure rests on three sources quoting the doc, not on the doc itself
+- sources:
+  - [1] https://modelscope.cn/docs/notebook/intro
+  - [2] https://www.3520.net/free-cargo/18257.html
+  - [3] https://lanmao.ai/zh/o/modelscope-notebook-free-gpu/
+  - [4] https://tianchi.aliyun.com/forum/post/570847
+
+## ModelScope Notebook
+
+- `compute/modelscope-notebook` | fails-identity | evidence reported | binding retention-clamped | category notebook runtime
+- needs card unknown, phone no, ID yes, institution no | verified 2026-11-03T10:24:22.537Z (live) | stale on 2026-11-18
+- url https://www.modelscope.cn/learn/433641
+- free tier: ModelScope and AMD run a developer incentive programme. Step 0 is registering for the AMD AI Developer Program through the ModelScope Notebook page, which pays 100 hours of AMD GPU notebook time. Content paths stack on top: 25 hours per approved technical article capped at 50, 50 hours per approved notebook capped at 150, and 700 hours or more for an approved deployed application, which the vendor states totals 1,000 hours or more. The vendor page names MI300X only as an example AMD option and states no core, memory or VRAM figure; the machine shape is in free_tier.notes as a user-reported figure. | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: standing quota for each new user on the vendor notebook page: PAI-DSW GPU 8 cores, 32GB RAM, 24GB VRAM with 36 hours free quota, and EAIS GPU 8 cores, 32GB RAM, 16GB VRAM with 64 hours free quota; the AMD incentive hours in the statement above are a separate one-time grant; AMD notebook shape, reported by a user from their own console and not stated on the vendor page: 8 cores, 200GB RAM and 192G VRAM, with amd-smi showing 196288 MB total, ISA gfx942 (CDNA 3, Instinct MI300 series) and 80 compute units, a slice of a full MI300X rather than the whole card
+- per-object cap: not applicable | source: [1]
+- retention: the 100 hours are a one-time grant that only ticks while the instance runs, a single boot is capped at about 8 to 10 hours, and only files under /workspace persist, so the 192 GB card is reachable in 8-hour slices; the harder wall is that the ModelScope notebook needs a real-name-verified Alibaba Cloud account linked. | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: national-id | detail: national-id: the notebook requires authorising and linking an Alibaba Cloud account, and 'an Alibaba Cloud account requires real-name verification', quoted from a third-party guide rather than a vendor page. The student route is narrower again: a full-time student at a mainland China university, on an account already through individual real-name verification, completed by Alipay scan, valid 30 days and stopping on graduation. No card requirement, hold, debit or prepaid statement appears in any evidence row: unknown.
+- interface: rest
+- limits:
+  - retention-clamped (binding): the 100 hours are a one-time grant that only ticks while the instance runs, a single boot is capped at about 8 to 10 hours, and only files under /workspace persist, so the 192 GB card is reachable in 8-hour slices; the harder wall is that the ModelScope notebook needs a real-name-verified Alibaba Cloud account linked. [1]
+- limits note: the 100 hours are a one-time grant that only ticks while the instance runs, a single boot is capped at about 8 to 10 hours, and only files under /workspace persist, so the 192 GB card is reachable in 8-hour slices; the harder wall is that the ModelScope notebook needs a real-name-verified Alibaba Cloud account linked.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: 192 GB of VRAM is enough to hold a 70B model at half precision with room for activations, which no other free resource in comparative records reaches; it composes with AMD Radeon Cloud's Token Factory for serving and leaves the GPU hours for training.
+- reliability: no reliability event recorded
+- notes: modelscope-studio.json is fails-identity for the Studio tier on the.cn site, with 2 vCPU and 8 GiB. That record is right about the Studio, and the AMD notebook is a different product with a different number. 192 GB of VRAM behind a real-name gate is the largest single free GPU measured. The 1,000-hour total is the vendor's own arithmetic over three paths, two of which are content review, so the realistic first number is 100. Whether modelscope.ai carries the same AMD offer is unverified and is the single most valuable open question here.
+- extras:
+  - facets.class: vendor-developer-program
+  - facets.free_tier_kind: one-time-credit
+  - facets.shape.vcpu: 8
+  - facets.shape.ram_gib: 200
+  - facets.shape.gpu_class: AMD Instinct MI300X
+  - facets.shape.gpu_count: 1
+  - facets.shape.vram_gib: 192
+- evidence:
+  - [1] 2026-10-22: the official guide exists at this URL and its title, read, reads 'modelscope x AMD developer incentive programme: up to 1000 hours and above of free compute, a collection guide'; the body did not extract, so the figures below rest on the republished text
+  - [2] 2026-10-01: a republishing of the ModelScope guide by the AMD China account, quoted: Step 0 pays 100 hours and is the prerequisite for everything else; 25 hours per article capped at 50; 50 hours per notebook capped at 150; 700 hours or more for a deployed application; the three paths are independent and stack
+  - [3] 2026-09-20: reported shape and route: the AMD environment carries a NEW tag and reads about 8 cores, 200 GB RAM and 192 GB of VRAM on a ROCm plus PyTorch image; the 100 hours arrive after binding an AMD developer account from the My Notebook page
+  - [4] 2026-10-01: a comparison table of the three ModelScope environments from a user's own console: CPU 8 cores 32 GB marked long-term use, NVIDIA GPU 8 cores 32 GB with 24 GB of VRAM on a limited quota, AMD GPU 8 cores 200 GB with 192 GB of VRAM at 100 hours, image ubuntu22.04-rocm7.2.3-py312-torch2.11.0
+  - [5] 2026-09-19: first-hand reports, translated: 192 GB of VRAM confirmed; 'single boot at most eight hours, and only files inside workspace persist'; one user reports resource shortage preventing an instance from starting; another says a further 200 hours is available by writing articles
+  - [6] 2026-10-02: the identity gate, quoted: using Notebook requires authorising and linking an Alibaba Cloud account, and an Alibaba Cloud account requires real-name verification
+  - [7] 2026-10-22: Every new user gets a free initial GPU allowance of 36 hours, a single instance run capped at 10 hours, 100 GB of free persistent storage, and a recorded check date of 2026-10-02; the page cites modelscope.cn/docs/notebook/intro as the vendor source.
+  - [8] 2026-10-22: Alibaba Cloud developer community post headlined 300 hours of free GPU for students with an edu email, linking to modelscope.cn/brand/view/GPU.
+  - [9] 2026-10-22: Binding an Alibaba Cloud account also gets 100 hours of free GPU compute on ModelScope Notebook, the smaller figure that recurs across Alibaba's own posts.
+  - [10] 2026-10-22: The Alibaba Cloud student identity check requires a full-time student at a mainland China university and an account already through individual real-name verification, completed by Alipay scan; verification lasts 30 days and stops working on graduation.
+  - [1] 2026-11-03: the vendor guide pays 100 hours of AMD GPU notebook time for registering with the AMD Developer Program, a prerequisite for the other paths | capture: sha256:387658daa58536a17ff020096090c4a3eb0dd1d0ee526efe74ad4656599c8ae6 | quote: Reward: +100 hours of GPU compute time. This step is a prerequisite for all subsequent rewards and takes approximately 3 minutes.
+  - [11] 2026-11-03: the vendor notebook page gives each new user a PAI-DSW GPU quota of 36 hours on 24GB VRAM and an EAIS GPU quota of 64 hours on 16GB VRAM | capture: sha256:19f0622d74296c2aae06d1e9254fc84542c94a4715fbd0f9b031f82fce03a10b | quote: | GPU Environment | 8 cores, 32GB RAM, 24GB VRAM, 36 hours free quota | 8 cores, 32GB RAM, 16GB VRAM, 64 hours free quota |
+  - [11] 2026-11-03: a single free instance runs at most 10 hours | capture: sha256:19f0622d74296c2aae06d1e9254fc84542c94a4715fbd0f9b031f82fce03a10b | quote: The above free computing resources can only be used within ModelScope Notebook, with a maximum single instance runtime of no more than 10 hours.
+  - [11] 2026-11-03: an idle notebook closes after 1 hour | capture: sha256:19f0622d74296c2aae06d1e9254fc84542c94a4715fbd0f9b031f82fce03a10b | quote: ModelScope Notebook prioritizes interactive computing. If your Notebook remains idle for more than 1 hour without activity, it will automatically close due to timeout.
+  - [11] 2026-11-03: the free initial quota needs a bound Alibaba Cloud account; the vendor page does not state a real-name step | capture: sha256:19f0622d74296c2aae06d1e9254fc84542c94a4715fbd0f9b031f82fce03a10b | quote: Using Notebook requires authorization to bind an Alibaba Cloud account to obtain free initial quotas.
+  - [1] 2026-11-03: 25 hours per approved technical article, capped at 50 hours | capture: sha256:387658daa58536a17ff020096090c4a3eb0dd1d0ee526efe74ad4656599c8ae6 | quote: Reward: 25 hours per article, stackable up to 50 hours total
+  - [1] 2026-11-03: 50 hours per approved notebook, capped at 150 hours | capture: sha256:387658daa58536a17ff020096090c4a3eb0dd1d0ee526efe74ad4656599c8ae6 | quote: Reward: 50 hours per submission, stackable up to 150 hours total
+  - [1] 2026-11-03: 700 hours or more for a deployed CreateSpace application, allocated by application quality | capture: sha256:387658daa58536a17ff020096090c4a3eb0dd1d0ee526efe74ad4656599c8ae6 | quote: Allocate 700+ hours based on demand
+  - [1] 2026-11-03: the AMD GPU resources allow 1 concurrent notebook and 1 concurrent CreateSpace application per user | capture: sha256:387658daa58536a17ff020096090c4a3eb0dd1d0ee526efe74ad4656599c8ae6 | quote: Each user may run 1 concurrent CreateSpace app and 1 concurrent Notebook at most.
+  - [1] 2026-11-03: the vendor guide names MI300X as the AMD notebook card; it states no VRAM figure | capture: sha256:387658daa58536a17ff020096090c4a3eb0dd1d0ee526efe74ad4656599c8ae6 | quote: AMD GPU options (e.g., MI300X) and corresponding images in the runtime environment list
+  - [1] 2026-11-03: the vendor guide pays 100 hours for the AMD Developer Program registration; the guide gives no machine shape | capture: sha256:387658daa58536a17ff020096090c4a3eb0dd1d0ee526efe74ad4656599c8ae6 | quote: Reward: +100 hours of GPU compute time. This step is a prerequisite for all subsequent rewards and takes approximately 3 minutes.
+  - [4] 2026-11-03: a user's console table lists the AMD GPU environment at 8 cores and 200GB RAM | capture: sha256:186042bac9232acc4709441f9162abfdf80636d07e8e504bf5826e2c24c45900 | quote: | CPU / 内存 | 8核 / 32GB | 8核 / 32GB | 8核 / 200GB |
+  - [4] 2026-11-03: the same table lists 192G VRAM for the AMD GPU environment | capture: sha256:186042bac9232acc4709441f9162abfdf80636d07e8e504bf5826e2c24c45900 | quote: | 显存 | 无 | 24G | 192G |
+  - [4] 2026-11-03: amd-smi on the instance shows 196288 MB total, matching the 192G VRAM on the page | capture: sha256:186042bac9232acc4709441f9162abfdf80636d07e8e504bf5826e2c24c45900 | quote: `amd-smi` 显示总量 196288 MB（≈192GB），与页面「显存192G」一致
+- sources:
+  - [1] https://www.modelscope.cn/learn/433641
+  - [2] https://zhuanlan.zhihu.com/p/2044198690726860697
+  - [3] https://www.aipromonow.com/promos/modelscope-amd-100h-gpu-notebook-sep2026
+  - [4] https://juejin.cn/post/7675623932943548479
+  - [5] https://linux.do/t/topic/2922778
+  - [6] https://lanmao.ai/o/modelscope-notebook-free-gpu/
+  - [7] https://lanmao.ai/zh/o/modelscope-notebook-free-gpu/
+  - [8] https://developer.aliyun.com/article/1628727
+  - [9] https://developer.aliyun.com/article/1605205
+  - [10] https://help.aliyun.com/zh/account/student-identity-verification
+  - [11] https://www.modelscope.cn/docs/notebook/intro
+
+## ModelScope Studio
+
+- `compute/modelscope-studio` | fails-identity | evidence unverified | category notebook runtime
+- needs card no, phone yes, ID no, institution no | verified 2026-11-03T08:51:16.010Z (live) | stale on 2026-11-18
+- url https://modelscope.cn/openapi/v1/studios/hardware
+- free tier: a free Studio hardware tier: platform/2v-cpu-8g-mem on modelscope.cn and platform/2v-cpu-16g-mem on modelscope.ai, both resource_type free with no GPU | unit: none | metered on: wall-clock | read on: 2026-10-06 | source: [1]
+- per-object cap: not applicable
+- retention: the docs define a Sleeping state after a long period without access, woken by visiting the URL; the exact timeout is not published | source: [2]
+- egress: not published | metered: no | source: [3]
+- identity: country-phone | detail: a Chinese phone number is required on modelscope.cn; modelscope.ai is the international site | country: cn
+- interface: ssh
+- limits:
+  - retention-clamped: a Studio enters a Sleeping state after a long period without access; the timeout is not published [2]
+  - per-object-cap: 2 vCPU with 8 GiB or 16 GiB depending on the site [1]
+  - write-gated: an account is required and the free quota carries a time limit [2]
+- limits note: the sleeping timeout is a documented absence, so the idle policy cannot be designed against
+- interface detail: a Gradio, Streamlit, Docker or static SDK on a public *.ms.show URL; Tailscale plus SSH is reported as achievable
+- tooling: the Studio SDKs; /mnt/workspace is OSS-backed
+- composes with: historical research own work proved a userspace Tailscale node and SSH inside a free Studio, which makes it a machine rather than a demo.
+- reliability: no reliability event recorded
+- notes: The hardware list is a JSON endpoint that the page reader refuses and that a raw fetch returns. An anonymous read lists only a free CPU tier on each site, 2v-cpu-8g-mem on modelscope.cn and a larger-memory free tier on modelscope.ai, and no GPU hardware. The record's identity finding rests on the earlier read and is not re-asserted here.
+- extras:
+  - billing_model: flat-pool
+  - session_cap.restart_required: no
+  - session_cap.note: sleeps after a long period without access; timeout unpublished
+  - persistent_storage.price_gib_month: OSS-backed workspace
+  - persistent_storage.durability: /mnt/workspace
+  - persistent_storage.survives_stop: yes
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: while the Studio exists
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: the *.ms.show URL
+  - network_out.static_ip: no
+  - free_tier_kind: allowance
+  - identity_split: modelscope.cn requires a Chinese phone; modelscope.ai is the international lane with a different tier
+- evidence:
+  - [1] 2026-10-06: hardware list includes platform/2v-cpu-8g-mem with resource_type free and gradio, streamlit, docker and static SDKs
+  - [1] 2026-10-06: the two sites serve different anonymous free tiers: 2v-cpu-8g-mem on .cn and 2v-cpu-16g-mem on .ai
+  - [1] 2026-10-22: The record's 2-vCPU free tier rests on the 2026-10-06 read
+  - [1] 2026-11-03: the anonymous hardware list on modelscope.cn contains one free tier, 2v-cpu-8g-mem, and no GPU hardware | capture: sha256:d63ea559c35e9b5ff8cd6f4cc8f41fec7f3f3016bd23fbd20733585c1b832b13 | quote: "name":"platform/2v-cpu-8g-mem","resource_type":"free"
+  - [4] 2026-11-03: the anonymous hardware list on modelscope.ai contains one free tier, 2v-cpu-16g-mem, and no GPU hardware | capture: sha256:fbdf09afccb2c3ef98364219b0663b810a8d731b936a8ea4ff279bf7d546c596 | quote: "name":"platform/2v-cpu-16g-mem","resource_type":"free"
+  - [1] 2026-11-03: the raw fetch returns the free hardware list on modelscope.cn | capture: sha256:d63ea559c35e9b5ff8cd6f4cc8f41fec7f3f3016bd23fbd20733585c1b832b13 | quote: "name":"platform/2v-cpu-8g-mem","resource_type":"free"
+- sources:
+  - [1] https://modelscope.cn/openapi/v1/studios/hardware
+  - [2] https://modelscope.cn/docs
+  - [3] https://modelscope.cn/
+  - [4] https://modelscope.ai/openapi/v1/studios/hardware

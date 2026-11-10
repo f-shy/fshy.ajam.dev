@@ -1,0 +1,516 @@
+# Oracle Cloud
+
+> oracle.com | Compute, Egress and tunnels, Storage; 10 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/oracle/ | JSON https://fshy.ajam.dev/api/v1/entity/oracle.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Oracle Cloud Always Free (cloud)
+
+- `compute/oracle-cloud` | qualifies-with-caveat | evidence documented | binding retention-clamped | category cloud VM | tier Always Free, on a Free Tier account that begins with a 30-day USD 300 trial
+- needs card yes, phone yes, ID no, institution no | verified 2026-10-24T04:10:12.000Z (live) | stale on 2026-11-24
+- url https://www.oracle.com/cloud/free/
+- free tier: 1,500 OCPU-hours and 9,000 GB-hours a month on VM.Standard.A1.Flex, which Oracle states is equivalent to 2 OCPUs and 12 GB; plus up to two VM.Standard.E2.1.Micro instances and 200 GB of block volume | unit: hours | metered on: wall-clock | read on: 2026-10-24 | source: [1] | note: the allowance is denominated in OCPU-hours, not in a fixed machine size; the grant is two products at once, an always-on allowance and a 30-day USD 300 trial
+- per-object cap: not applicable | note: Disk allocation provides 200 GB of combined boot and block volume; documentation notes minimum boot volume between 47 GB and 50 GB.
+- retention: Always Free resources stay free while the tenancy qualifies; an idle instance may be reclaimed; accounts left idle for 30 days or more may be deemed abandoned and become eligible for suspension or termination | days: 0 | source: [2] | note: reclamation is the retention risk, not a deletion clock; there are two clocks, a 7-day p95 reclaim test and a 30-day abandonment rule
+- egress: 10 TB a month of outbound data transfer is included on Always Free; E2.1.Micro instances are capped at 50 Mbps on the internet | metered: yes | free allowance: 10 TB a month | source: [1]
+- identity: card | detail: card and a phone number at signup, no identity document; USD 1.00 authorisation at sign-up, reversed immediately on Oracle's side while the bank decides how long the release takes; USD 100 applies only to the upgrade to Pay As You Go; debit accepted only if it functions like a credit card, so PIN debit is refused; prepaid, virtual and single-use cards refused; one account per person and one per email address
+- interface: rest, cli
+- limits:
+  - volume-quota: 1,500 OCPU-hours a month: a 2-OCPU box run 24/7 uses 1,460 and leaves 40 [1]
+  - per-ip-shaping: 10 TB a month outbound; E2.1.Micro capped at 50 Mbps on the internet [1]
+  - retention-clamped (binding): an instance idle over a 7-day window may be reclaimed: p95 CPU below 20%, network below 20%, memory below 20% on A1 [1]
+  - retention-clamped (binding): accounts left idle for 30 days or more may be deemed abandoned and become eligible for suspension or termination [2]
+  - per-object-cap: 200 GB of combined boot and block volume; the stated minimum boot volume is 47 GB in one paragraph and 50 GB in another [1]
+- limits note: the reclamation test is a 7-day percentile, so a workload that sleeps for five days and bursts for two is still at risk; a second clock suspends accounts left idle 30 days or more
+- binding note: the 7-day idle reclaim binds: an instance whose p95 utilisation stays under 20 per cent is taken back
+- interface detail: OCI API, CLI and console; SSH key installed at instance creation
+- tooling: oci CLI, Terraform provider, the OCI SDKs; a real Linux VM with a public IP
+- composes with: the only free tier here that gives a full VM with a public IP and 10 TB of egress a month
+- reliability: Always Free A1 instances above the reduced limit were terminated automatically on 2026-08-18; a user in Phoenix reports the boot volume going with the instance
+- notes: SIGNUP PATH, read. The account is created at https://signup.oraclecloud.com/ and nowhere else; oracle.com/cloud/free is the marketing page and signup.cloud.oracle.com serves the same shell. The page is a React application whose HTML carries no form, so the field list is taken from Oracle's own signup document, which walks the same form step by step. In order: country (some countries, Russia named, need the Terms accepted by checkbox), name, email, CAPTCHA, an email verification link valid 30 minutes, a password of 8-40 characters with upper, lower, digit and symbol, an optional company, a cloud account name, a home region that cannot be changed afterwards, the Terms, then address and phone number, then the card, then 'Start my free trial'. There is no identity document and no company requirement; the company field is explicitly optional. The home region matters more than the card: a user in a country with no Oracle region must pick an adjacent one, and the region cannot be changed, so a wrong pick is a new account. THE GRANT IS TWO PRODUCTS, not one. Always Free is the unlimited-period allowance described in free_tier.stated. The USD 300 is a separate 30-day trial that begins at the same signup and expires on its own; the FAQ says Always Free resources survive that expiry, but anything created with trial credit is reclaimed. So 'USD 300 for 90 days' is not what Oracle sells here: it is USD 300 for 30 days plus a permanent allowance. THE HOLD IS USD 1.00, published by Oracle's billing documentation, not by the signup page; the signup page says only 'a small, temporary charge' and names no amount. THE FAILURE MODE is the reason this row is a caveat and not a yes. Oracle refuses signups with a message that names three causes and no remedy, and two 2026 threads on Oracle's own forum show it arriving from Saudi Arabia and from a card that had just verified successfully. The country page says the tier is available wherever commercial OCI runs; there is no OCI region in Viet Nam, Thailand, Indonesia or the Philippines, so a registrant in one of those picks an adjacent region, and Oracle's fraud checks read the mismatch between the declared address and the connection. That is reported, not documented: nobody publishes the rule. Not established: whether a signup from any particular country succeeds, because only a signup can show it; and the true minimum boot volume, because the page states 47 GB and 50 GB in two paragraphs.
+- evidence note: Credit amounts, egress terms, machine shape, storage limits, and card requirements derive from first-party documentation read on 2026-10-24. Registration form requirements derive from published onboarding guides. Country-level registration refusals are reported in customer forums.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 12
+  - shape.disk_gib: 200
+  - billing_model: allocated
+  - granularity.min_billed_s: 60
+  - granularity.rounding_s: 60
+  - session_cap.idle_reap_s: 604800
+  - session_cap.restart_required: no
+  - session_cap.note: no session cap; a 7-day idle window can trigger reclamation, and a 30-day account-idle rule can suspend the tenancy
+  - keep_rate.value: 1.0
+  - keep_rate.basis: a running VM bills its OCPU-hours against the allowance regardless of load
+  - keep_rate.source: https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm
+  - persistent_storage.included_gib: 200
+  - persistent_storage.price_gib_month: included to 200 GB
+  - persistent_storage.durability: block volume
+  - persistent_storage.survives_stop: yes
+  - persistent_storage.survives_destroy: yes
+  - persistent_storage.max_retention: while the tenancy qualifies
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: a public IPv4 on the VNIC; security lists and the instance firewall both have to be opened
+  - network_out.static_ip: yes
+  - network_out.per_session_bytes: 10 TB a month
+  - free_tier_kind: allowance
+  - m10h_usd: 0.0
+  - m24h_usd: 0.0
+  - price_arithmetic: 2 OCPU x 730 h = 1,460 OCPU-h inside the 1,500 allowance; 3 OCPU x 730 h = 2,190, which does not fit
+  - page_conflict: the same page states a 47 GB minimum boot volume and a 50 GB minimum boot volume
+  - price_note: The allowance is time-denominated, 1,500 OCPU-hours and 9,000 GB-hours a month, so it is neither: a 2 OCPU box at 24/7 uses 1,460 of the 1,500 and costs nothing
+  - burst_x: 1.0
+  - payment_methods.card_at_signup: yes
+  - payment_methods.debit: accepted-with-condition
+  - payment_methods.prepaid: refused
+  - payment_methods.virtual: refused
+  - payment_methods.hold_amount: USD 1.00
+  - payment_methods.hold_detail: authorised at sign-up and reversed immediately on Oracle's side; USD 100 only on upgrade to Pay As You Go
+  - payment_methods.identity: phone number, contact details and card; one account per person and one per email address
+  - payment_methods.source_url: https://docs.oracle.com/en-us/iaas/Content/Billing/Tasks/changingpaymentmethod.htm
+  - payment_methods.read_on: 2026-10-24
+  - signup.url: https://signup.oraclecloud.com/
+  - signup.form_fields: country; first name; last name; email (verified by a link valid 30 minutes); CAPTCHA; password (8-40 chars, upper, lower, digit, symbol); company (optional); cloud account name; home region (permanent); address; phone number; card number, expiry, CVV
+  - signup.company_required: no
+  - signup.id_document_required: no
+  - signup.phone_required: yes
+  - signup.non_us_phone: the form takes a country selector and an address, and the region table lists non-US regions as Live, so a non-US number is the normal case; not separately confirmed on a page
+  - signup.source_url: https://docs.oracle.com/en-us/iaas/Content/GSG/Tasks/signingup_topic-Sign_Up_for_Free_Oracle_Cloud_Promotion.htm
+  - signup.read_on: 2026-10-24
+  - signup_failure.symptom: 'We're unable to complete your sign up. Common errors that prevent sign up include incomplete or inaccurate information, masking your location, or attempting to create multiple accounts.'
+  - signup_failure.when: reported 2026-09-16 and 2026-10-03, both on Oracle's own customer forum, one after a card that had verified
+  - signup_failure.no_region_in_client_country: no OCI region in Viet Nam, Thailand, Indonesia or the Philippines on the live region table
+  - signup_failure.rung: reported
+- evidence:
+  - [1] 2026-10-22: 1,500 OCPU hours and 9,000 GB hours a month on A1.Flex, which Oracle states is equivalent to 2 OCPUs and 12 GB
+  - [1] 2026-10-22: up to two E2.1.Micro instances, each 1/8 OCPU and 1 GB with up to 50 Mbps of internet bandwidth
+  - [1] 2026-10-22: an instance may be reclaimed when over 7 days the 95th-percentile CPU is under 20%, network under 20%, and memory under 20% on A1 shapes
+  - [3] 2026-10-22: HTTP 200 from this host
+  - [1] 2026-10-22: the live page states 1,500 OCPU hours and 9,000 GB hours a month on A1.Flex, 'equivalent to 2 OCPUs and 12 GB of memory', quoted
+  - [4] 2026-10-22: the reduction from 4 OCPU / 24 GB and 3,000 OCPU hours to 2 OCPU / 12 GB and 1,500 OCPU hours took effect on 2026-06-15 with no announcement; users discovered it from documentation diffs and stopped instances
+  - [5] 2026-10-22: Oracle emailed Always Free users that instances above the new limits on or after 2026-08-18 will be terminated
+  - [6] 2026-10-22: third-party confirmation that Oracle began enforcing the 2 OCPU / 12 GB Always Free limit on 2026-08-18
+  - [7] 2026-10-22: if an Always Free tenancy holds more A1 capacity than the allowance, all A1 instances are disabled and then deleted after 30 days unless the account upgrades, quoted
+  - [8] 2026-08-19: a user reports the 2026-08-18 automatic termination took the instance and the boot volume, and that the advance email described only the instance
+  - [9] 2026-08-21: a user reports an Always Free 4-core/24 GB instance in Phoenix terminated with the account, three days after the cut, with support quoting 'your account has been terminated by the system' and refusing detail
+  - [10] 2026-08-05: a translation of the OCI email, quoted in the post: Always Free compute limits have been updated; a tenancy above the new limit must reduce use before 2026-08-18; from that date OCI enforces the updated Always Free limits and compute instances above them are terminated automatically; the limit is now at most 2 Ampere A1 OCPUs and 12 GB
+  - [11] 2026-06-24: reported: A1 free quota changed from 4 OCPU / 24 GB to 2 OCPU / 12 GB; the Chuncheon region can no longer create new A1 instances on a free account; support told a user that already-running full-spec instances are grandfathered
+  - [12] 2026-08-18: enforcement observed by a user on the announced day: the console banner announced the A1 limit change and the 4c24g machine was stopped
+  - [13] 2026-07-02: reported: accounts upgraded to pay-as-you-go after mid-June were billed about SGD 7 because a 4C/24G instance was priced against the new 2C/12G allowance, while an older account was still grandfathered, so grandfathering is not a documented right
+  - [14] 2026-06-21: the distinction that decides the finding, quoted: 2 OCPU / 12 GB is the new cap for new non-PAYG users, existing non-PAYG 4/24 instances stay only until deleted, and PAYG users can still destroy and recreate a 4/24 instance for free - so the cut lands on the no-card lane and the 4/24 shape survives behind a card
+  - [15] 2026-10-01: a first-person account of the compound failure: an idle-reclaim, then a quota silently dropped to 2 OCPU / 12 GB, then LimitExceeded, then out of host capacity in Mumbai at even the reduced size
+  - [16] 2026-10-22: 
+  - [17] 2026-10-22: 
+  - [3] 2026-10-24: quoted: 'Oracle may periodically check the validity of your card, resulting in a temporary authorization hold', with no amount stated
+  - [18] 2026-10-24: the 2025-09-30 capture states 3,000 OCPU hours and 18,000 GB hours = 4 OCPUs and 24 GB over four instances, against 1,500 and 9,000 over two today
+  - [2] 2026-10-24: quoted, on payment: 'We accept credit cards and debit cards that function like credit cards. We do not accept debit cards with a PIN or virtual, single-use, or prepaid cards.'
+  - [2] 2026-10-24: quoted, on the hold: 'Oracle may periodically check the validity of your card, resulting in a temporary "authorization" hold. These holds are removed by your bank, typically within three to five days, and do not result in actual charges'
+  - [2] 2026-10-24: quoted, on the second clock: 'Accounts left idle for 30 days or more may be deemed abandoned and become eligible for suspension or termination.'
+  - [19] 2026-10-24: quoted, the published hold: 'When you sign up for the Free Tier, your credit card is authorized for $1 USD (or its equivalent in your country) at the time of sign-up.' and 'When upgrading your free account, however, your credit card is authorized for $100 USD' and 'the credit card authorizations are immediately reversed on the Oracle side. The vendor/banking institution at your location, however, decides how long it takes for the reversal to be processed.'
+  - [2] 2026-10-24: quoted, from the raw HTML because the text extractor dropped this FAQ item: 'What payment methods does Oracle accept? We accept credit cards and debit cards that function like credit cards. We do not accept debit cards with a PIN or virtual, single-use, or prepaid cards.'
+  - [2] 2026-10-24: quoted: 'Oracle may periodically check the validity of your card, resulting in a temporary “authorization” hold. These holds are removed by your bank, typically within three to five days, and do not result in actual charges to your account.'
+  - [20] 2026-10-24: the signup page itself, read, is a JavaScript shell: 200, and the only readable text is the eligibility notice, quoted: 'One Oracle Cloud Free Trial or Always Free account is permitted per person.' The form fields are not in the HTML; they come from Oracle's own step-by-step signup document instead
+  - [21] 2026-10-24: the form, field by field, quoted: 'Select your country.' then 'Enter your name.' then 'Provide a valid email address.' then 'Select the I am human button and follow the instructions in the CAPTCHA dialog'; then 'Verify my email' with a link 'valid for 30 minutes'; then a password with 'a minimum of 8 characters, 1 lowercase, 1 uppercase, 1 numeric, and 1 special character'; then 'Optionally, enter the name of your company'; then 'Create a cloud account name'; then 'Select a Home Region' which 'You can't change this after signing up'; then 'Enter your address and phone number'
+  - [21] 2026-10-24: the card step, quoted: 'Select Add payment verification method, and then select Credit Card.' and 'Debit cards that have a major credit card log (for example, Visa, Mastercard, Discover, American Express) and don't require a PIN number can be used to sign up for a free Oracle Cloud account.'
+  - [21] 2026-10-24: the hold, in the signup document's own words, quoted: 'You might see a small, temporary charge on your payment method. This is a verification hold that will be removed automatically. Note that your credit card won't be charged unless you elect to upgrade your cloud account.' No amount is stated on this page
+  - [19] 2026-10-24: quoted, the published amount: 'When you sign up for the Free Tier, your credit card is authorized for $1 USD (or its equivalent in your country) at the time of sign-up.' and 'When upgrading your free account, however, your credit card is authorized for $100 USD' and 'the credit card authorizations are immediately reversed on the Oracle side. The vendor/banking institution at your location, however, decides how long it takes for the reversal to be processed.'
+  - [2] 2026-10-24: quoted, on card types: 'We accept credit cards and debit cards that function like credit cards. We do not accept debit cards with a PIN or virtual, single-use, or prepaid cards.'
+  - [2] 2026-10-24: quoted, the two products named separately: 'provides a number of Always Free services and a Free Trial with US$300 of free credit to use on all eligible Oracle Cloud Infrastructure services for up to 30 days. The Always Free services are available for an unlimited period of time.'
+  - [2] 2026-10-24: quoted, what the trial end does to the free resources: 'Resources identified as Always Free will not be reclaimed.' and, for a tenancy over the A1 allowance, 'all existing Ampere A1 instances are disabled and then deleted after 30 days unless you upgrade to a paid account'
+  - [2] 2026-10-24: quoted, on country availability: 'Oracle Cloud Free Tier is currently available in all regions where commercial Oracle Cloud Infrastructure service is available.' with the escape 'If you are unable to find the country or territory you require, please contact Oracle Sales or Cloud Support'
+  - [1] 2026-10-24: quoted, the A1 grant: 'All tenancies get the first 1,500 OCPU hours and 9,000 GB hours per month for free for VM instances using the VM.Standard.A1.Flex shape ... For Always Free tenancies, this is equivalent to 2 OCPUs and 12 GB of memory.'
+  - [1] 2026-10-24: quoted, the Micro shape: 'All tenancies get up to two Always Free VM instances using the VM.Standard.E2.1.Micro shape' and 'Processor: 1/8th of an OCPU' and 'Memory: 1 GB' and 'Includes one VNIC with one public IP address and up to 50 Mbps network bandwidth via the internet'
+  - [1] 2026-10-24: quoted, the idle test: 'Idle Always Free compute instances may be reclaimed by Oracle. Oracle will deem virtual machine and bare metal compute instances as idle if, during a 7-day period' CPU p95 'is less than 20%', network 'is less than 20%', memory 'is less than 20%'
+  - [1] 2026-10-24: quoted, the egress grant, read from the raw HTML because the text extractor drops this section: 'As part of your Always Free resources, you get 10 TB per month of outbound data.'
+  - [1] 2026-10-24: quoted, the storage cap and the page's self-contradiction: 'All tenancies receive a total of 200 GB of Block Volume storage' and 'The minimum boot volume size for each instance is 47 GB, regardless of shape' against 'the default boot volume size for the instance is 50 GB' and 'the minimum boot volume size allowed for compute instances is 50 GB'
+  - [1] 2026-10-24: quoted, the A1 region exclusion: 'You can create OCI Ampere A1 Compute instances in any availability domain, except South Korea North (Chuncheon).' and 'Instances using the VM.Standard.E2.1.Micro shape can only be created in one availability domain.'
+  - [2] 2026-10-24: quoted, the out-of-capacity failure: 'An "out of host capacity" error indicates a temporary lack of Always Free shapes in your home region.'
+  - [22] 2026-10-24: reported, 2026-10-03, a signup refused with no proxy and a local bank card, quoting the refusal a signup meets: 'We're unable to complete your sign up. Common errors that prevent sign up include incomplete or inaccurate information, masking your location, or attempting to create multiple accounts.'
+  - [23] 2026-10-24: reported, 2026-09-16, the same refusal arriving after the card passed verification with a green checkmark, so card validity is not the gate
+  - [24] 2026-10-24: reported, the three causes Oracle's forum moderators name for that refusal: 'Using prepaid cards', 'masking one's location or identity', and 'Entering incomplete or inaccurate account details'
+  - [25] 2026-10-24: quoted from the live region table: 'Oracle Cloud offers services from 50+ public cloud regions across 28 countries', and the Asia Pacific rows list Australia East, India West, Japan East, Singapore, South Korea Central and Malaysia West as 'Live' - there is no region in Viet Nam, Thailand, Indonesia or the Philippines
+  - [25] 2026-10-24: the live region table lists 50+ public cloud regions in 28 countries, so a country with no region needs an adjacent home region; the signup document says the home region cannot be changed after signup
+  - [21] 2026-10-24: the signup document lists the form field by field; it does not say which countries a signup succeeds from
+- sources:
+  - [1] https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm
+  - [2] https://www.oracle.com/cloud/free/faq/
+  - [3] https://www.oracle.com/cloud/free/
+  - [4] https://www.infoq.com/news/2026/07/oracle-cloud-free-tier-limits/
+  - [5] https://fullmetalbrackets.com/blog/oci-free-tier-breakdown
+  - [6] https://news.ycombinator.com/item?id=49183750
+  - [7] https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier.htm
+  - [8] https://community.oracle.com/customerconnect/discussion/974419/urgent-always-free-automated-termination-instance-and-boot-volume-disappeared-need-data-recovery
+  - [9] https://www.v2ex.com/t/1236107
+  - [10] https://www.nodeseek.com/post-857938-1
+  - [11] https://www.nodeseek.com/post-792106-1
+  - [12] https://www.nodeseek.com/post-881709-1
+  - [13] https://www.nodeseek.com/post-803618-1
+  - [14] https://www.reddit.com/r/oraclecloud/comments/1ubk2qy/new_always_free_tier_limits_21june2026_update
+  - [15] https://www.reddit.com/r/oraclecloud/comments/1ulme2e/my_always_free_oracle_instance_got_idlereclaimed/
+  - [16] https://community.oracle.com/customerconnect/discussion/663398/compute-instance-idle
+  - [17] https://stackoverflow.com/questions/71209485/how-to-keep-always-free-account-from-being-terminated
+  - [18] https://web.archive.org/web/20251001000000/https://www.oracle.com/cloud/free/
+  - [19] https://docs.oracle.com/en-us/iaas/Content/Billing/Tasks/changingpaymentmethod.htm
+  - [20] https://signup.oraclecloud.com/
+  - [21] https://docs.oracle.com/en-us/iaas/Content/GSG/Tasks/signingup_topic-Sign_Up_for_Free_Oracle_Cloud_Promotion.htm
+  - [22] https://community.oracle.com/customerconnect/discussion/980710/free-tier-sign-up-fails-from-saudi-arabia-were-unable-to-complete-your-sign-up
+  - [23] https://community.oracle.com/customerconnect/discussion/978312/free-tier-signup-failed-after-successful-card-verification-unable-to-complete-your-sign-up
+  - [24] https://forums.oracle.com/ords/apexds/post/signup-issues-with-oracle-cloud-free-tier-account-7894
+  - [25] https://www.oracle.com/cloud/public-cloud-regions/
+
+## Oracle Cloud Always Free (cloud vpn node)
+
+- `compute/oracle-cloud-vpn-node` | qualifies-with-caveat | evidence documented | binding retention-clamped | category cloud VM | tier Always Free, VM.Standard.E2.1.Micro and A1.Flex
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T01:53:22.000Z (live) | stale on 2026-11-24
+- url https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm
+- free tier: up to two VM.Standard.E2.1.Micro instances, plus the first 1,500 OCPU hours and 9,000 GB hours a month on VM.Standard.A1.Flex, which Oracle states is equivalent to 2 OCPUs and 12 GB | unit: hours | metered on: wall-clock | read on: 2026-10-24 | source: [1]
+- per-object cap: 200 GB of combined boot and block volume; the stated minimum boot volume is 47 GB on A1 and 50 GB is the default
+- retention: 'Idle Always Free compute instances may be reclaimed by Oracle.' The test is a 7-day window with 95th-percentile CPU below 20 percent, network below 20 percent and, on A1, memory below 20 percent | days: 7 | source: [1] | note: the reclamation test is the technical risk for this workload, not a deletion clock
+- egress: the first 10 TB a month of public internet egress is not charged, in every region | metered: yes | free allowance: 10 TB a month | source: [2]
+- identity: card | detail: card at signup even at zero charge; Oracle states it may periodically check the card and place a temporary authorisation hold that the bank removes in three to five days. Prepaid, single-use and virtual cards are refused, and debit cards must work like credit cards without a PIN.
+- interface: rest, cli
+- limits:
+  - retention-clamped (binding): reclaimable when 7-day p95 CPU, network and A1 memory all sit below 20 percent [1]
+  - request-rate: 1,500 OCPU hours a month on A1: 2 OCPUs run 24/7 uses 1,460 and leaves 40 [1]
+  - per-object-cap: 200 GB combined boot and block volume [1]
+  - volume-quota: 10 TB a month of public egress, then metered [2]
+- binding note: a WireGuard endpoint carries almost no traffic and almost no CPU, which is exactly the profile Oracle's 7-day percentile test treats as idle, so the machine is at risk of reclamation while it is doing its job correctly.
+- interface detail: OCI console, CLI and API; SSH key installed at instance creation
+- tooling: oci CLI or console; a real Linux VM with a public IPv4 and IPv6 on a VCN
+- composes with: the only free tier that gives a full VM with a public address and 10 TB a month, and the one most likely to be reaped because a tunnel is idle by nature
+- reliability: 'out of host capacity' on A1 is a documented condition when Always Free shapes are unavailable in the home region
+- notes: The 10 TB egress figure is not on the Always Free Resources page: a full read of that page returned 2,119 words and no data-transfer section. The figure is on the VCN pricing page and in the price table on the networking pricing page. Any record that cites the Always Free document for the 10 TB figure has cited a page that does not carry it. Whether Oracle blocks inbound UDP 51820 by default on a VCN security list was not tested; the security list is the account's to configure and the docs do not single out UDP.
+- evidence note: reclamation rule, free-tier shapes and card terms quoted from Oracle pages read; the 10 TB figure is quoted from the networking pricing page, not from the Always Free resources page
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.disk_gib: 47
+  - billing_model: free tier, no charge while inside the allowance
+  - term: monthly allowance, no minimum term
+  - m10h_usd: 0
+  - m24h_usd: 0
+  - price_arithmetic: USD 0 while the tenancy stays inside the Always Free allowance; a card is required but not charged
+  - free_tier_kind: always-free
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all, subject to the VCN security list configured on the account
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: reclamation is a 7-day percentile test, not a timer
+  - ipv6_prefix: a VCN can carry IPv6; the prefix width per instance is not stated on the pages read
+  - renewal_usd: USD 0
+  - renewal_note: Always Free resources stay free while the tenancy qualifies; there is no renewal step
+- evidence:
+  - [1] 2026-10-24: quoted: 'Idle Always Free compute instances may be reclaimed by Oracle. Oracle will deem virtual machine and bare metal compute instances as idle if, during a 7-day period, the following are true: CPU utilization for the 95th percentile is less than 20%; Network utilization is less than 20%; Memory utilization is less than 20% (applies to A1 shapes only)'
+  - [1] 2026-10-24: quoted: 'All tenancies get the first 1,500 OCPU hours and 9,000 GB hours per month for free for VM instances using the VM.Standard.A1.Flex shape ... For Always Free tenancies, this is equivalent to 2 OCPUs and 12 GB of memory.'
+  - [2] 2026-10-24: quoted: 'Customers are not charged for the first 10 TB of data egress per month.'
+  - [3] 2026-10-24: quoted: 'We accept credit cards and debit cards that function like credit cards. We do not accept debit cards with a PIN or virtual, single-use, or prepaid cards.' and 'Oracle may periodically check the validity of your card, resulting in a temporary authorization hold. These holds are removed by your bank, typically within three to five days'
+  - [4] 2026-10-24: quoted: 'Accounts left idle for 30 days or more may be deemed abandoned and become eligible for suspension or termination.'
+- sources:
+  - [1] https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm
+  - [2] https://www.oracle.com/cloud/networking/virtual-cloud-network/pricing/
+  - [3] https://www.oracle.com/cloud/free/faq/
+  - [4] https://www.oracle.com/cloud/free/
+
+## Oracle Cloud Always Free (always free)
+
+- `egress/oracle-always-free` | qualifies-with-caveat | evidence documented | binding volume-quota | category origin VM (free tier)
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://www.oracle.com/cloud/free/
+- free tier: As part of your Always Free resources, you get 10 TB per month of outbound data. | unit: TB | metered on: downloaded-bytes | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable: a VM rather than an object store
+- retention: idle instances are reclaimed after 7 days of low CPU, network and memory | source: [2]
+- egress: 10 TB/month free outbound per region, then metered | metered: yes | free allowance: 10 TB/month outbound per region | source: [1]
+- identity: card | detail: We use your contact information and credit/debit card information for account setup and identity verification. Oracle may periodically check the validity of your card, resulting in a temporary authorization hold. ... We do not accept debit cards with a PIN or virtual, single-use, or prepaid cards.
+- interface: ssh
+- limits:
+  - per-ip-shaping: idle reclamation after 7 days of low utilisation [2]
+  - per-ip-shaping: up to 50 Mbps from the internet on the single free VNIC, and up to 480 Mbps to private and in-region endpoints [2]
+- limits note: the allowance is a byte volume over a period, which none of the six kinds names; the number is in egress.free_allowance and binding names per-ip-shaping as the nearest kind
+- binding note: the monthly byte allowance in egress.free_allowance is what runs out, and no kind in the six-value vocabulary names a byte volume over a period counted per account. per-ip-shaping is the closest, because it is the only kind that bounds a volume, and its subject here is the account rather than the caller's address
+- interface detail: the instance's public IP
+- tooling: OpenSSH
+- composes with: the origin half of the only chain found that can carry 500 GB to 1 TiB of traffic a day for nothing: Oracle's free shape holds and serves, and its scarce link is the 10 TB monthly quota rather than the NIC.
+- reliability: free shapes are reclaimed when idle for 7 days, and an account left idle for 30 days or more may be deemed abandoned and become eligible for suspension; the memory part of the idle rule applies to A1 shapes only
+- notes: 50 Mbit/s sustained is 540 GB/day, so the quota binds first and the rate never has to be shaped against. Two regions double both numbers, which still leaves the quota binding. Trial credit, read 2026-10-23: the Free Trial carries 'US$300 of free credit ... for up to 30 days' and 'until your US$300 of free credits are consumed or the 30 days has expired, whichever comes first', but at 1 TiB a month nothing is charged against it because the Always Free 10 TB a month outbound allowance is already ten times that figure, so the 30-day expiry costs nothing and the credit is the least relevant number in the offer. Sources: https://www.oracle.com/cloud/free/ (credit and expiry, and 'We do not accept debit cards with a PIN or virtual, single-use, or prepaid cards').
+- evidence note: 10 TB monthly transfer and shape bandwidth limits are documented in Oracle Cloud infrastructure specifications.
+- extras:
+  - stale_after_days: 180
+  - bytes_transit: yes
+  - transit_note: the VM's outbound traffic crosses Oracle's network, which is what the 10 TB monthly allowance counts
+  - ingress: udp
+  - wg_path: native-conf
+  - wg_detail: a free AMD micro instance is an ordinary Linux VM with 'one VNIC with one public IP address', and the VCN's security rules take an IP protocol and a UDP destination port, so udp:51820 is one ingress rule and wg-quick runs natively
+- evidence:
+  - [1] 2026-10-22: 'Outbound Data Transfer - Originating in North America, Europe, and UK - First 10 TB / Month Free'
+  - [3] 2026-10-22: a Yggdrasil operator labels an Oracle Always Free Ashburn node '480Mbps, Metered', so the same 10 TB quota sits behind it
+  - [2] 2026-10-22: the Always Free networking line reads 'Includes one VNIC with one public IP address and up to 50 Mbps network bandwidth via the internet. Traffic to private IPs ... is up to 480 Mbps', so 50 Mbit/s is the documented internet rate for the free shape
+  - [4] 2026-10-23: 'a Free Trial with US$300 of free credit ... for up to 30 days' and 'until your US$300 of free credits are consumed or the 30 days has expired, whichever comes first'; 'We do not accept debit cards with a PIN or virtual, single-use, or prepaid cards'
+  - [2] 2026-10-23: 'As part of your Always Free resources, you get 10 TB per month of outbound data.'
+  - [1] 2026-10-23: 'Outbound Data Transfer - Originating in North America, Europe, and UK - First 10 TB / Month | Free' with the same first-10-TB line for APAC/Japan/South America and for Middle East/Africa, and 'Inbound Data Transfer | Free'
+  - [5] 2026-10-23: a security rule carries an IP protocol and, 'For TCP or UDP, you can specify ... a single destination port number, or a range', so udp:51820 is expressible; 'Without security rules, no traffic is allowed in and out of VNICs in the VCN', so the rule is required rather than optional
+- sources:
+  - [1] https://www.oracle.com/cloud/networking/pricing/
+  - [2] https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm
+  - [3] https://raw.githubusercontent.com/yggdrasil-network/public-peers/master/north-america/united-states.md
+  - [4] https://www.oracle.com/cloud/free/
+  - [5] https://docs.oracle.com/en-us/iaas/Content/Network/Concepts/securityrules.htm
+
+## Oracle for Research (Project Award / Cloud Starter)
+
+- `storage/oracle-for-research` | qualifies-with-caveat | evidence reported | binding none | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://go.oracle.com/research-project-award
+- free tier: Credit-based, amount 'will vary depending on the proposal and usage requirements'. OCI Object Storage list price ~$25.5/TB-month, so $10k is roughly 32 TB-months. | unit: TB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Includes 10 TB per month free outbound internet egress on Oracle Cloud Infrastructure, followed by standard metered rates. | metered: yes | free allowance: 10 TB per month
+- identity: institution
+- interface: s3-compatible, oci, rclone, cli
+- limits note: Requires institutional PI context ('research experience of the PI and their institution'); 'subject to regional restrictions' with no published country list - a real unknown for a non-US/EU applicant. Requires signed Cloud Service Agreement before activation. Credits expire.
+- interface detail: s3
+- tooling: OCI Object Storage is S3-compatible (rclone 's3' with Oracle provider); OCI CLI.
+- composes with: Multiple award tracks (Project Award, Cloud Starter Award) can be applied for separately; credits are per-tenancy.
+- reliability: Regional restriction is undisclosed, so eligibility cannot be confirmed without applying. Treat as a lottery ticket.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: 'Researchers must apply for and have their projects accepted'; 'Awarded Oracle Cloud credit amounts will vary'; 'Oracle for Research Project Award is subject to regional restrictions'
+  - [2] 2026-10-21: 'Researchers, scientists, and university-associated innovators can leverage Oracle Cloud technology'
+- sources:
+  - [1] https://go.oracle.com/research-project-award
+  - [2] https://docs.oracle.com/en/programs/research/
+
+## Oracle Cloud Free Trial (USD 300)
+
+- `compute/oracle-cloud-trial` | trial-only | evidence documented | binding volume-quota | category cloud platform trial credit | tier free trial
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23T10:57:29.000Z (live) | stale on 2026-11-23
+- url https://www.oracle.com/cloud/free/
+- free tier: Oracle Cloud Free Tier allows you to sign up for an Oracle Cloud account which provides a number of Always Free services and a Free Trial with US$300 of free credit to use on all eligible Oracle Cloud Infrastructure services for up to 30 days. | unit: mixed | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable: the offer is a spending balance, not a stored object
+- retention: the credit ends at 30 days or when it is consumed, whichever comes first; the Always Free services continue after the credit ends | days: 30 | source: [1]
+- egress: egress bills against the credit at list price; the Always Free allowance includes 10 TB a month of outbound transfer | metered: yes | source: [1]
+- identity: card | detail: a credit or debit card is required at signup, and Oracle states it does not accept debit cards with a PIN or virtual, single-use or prepaid cards; accurate contact and billing information is required, and there is one trial per person
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): USD 300 of credit for up to 30 days [1]
+  - volume-quota (binding): 16 OCPU and 96 GB of A1 per availability domain for a trial tenancy (service limit standard-a1-core-count and standard-a1-memory-count) [2]
+- limits note: the 16-OCPU figure is a per-availability-domain service limit, not a per-tenancy cap; a second AD is a second 16 OCPU, and A1 capacity is subject to availability
+- binding note: the 30-day clock ends the balance before any usage ceiling is reached
+- interface detail: the OCI console, the OCI CLI and every OCI API
+- tooling: the OCI CLI, Terraform provider, SDKs, and a WireGuard or OpenVPN endpoint on an Always Free VM
+- composes with: the trial credit buys 30 days of Ampere or GPU shapes that the Always Free allowance does not include; the separate oracle-cloud record carries the perpetual allowance
+- reliability: the trial credit is consumed by a powered-on instance whether or not it runs work, and the separate Always Free allowance carries an idle reclaim test
+- notes: A1 bills at USD 0.01 per OCPU-hour plus USD 0.0015 per GB-hour; E4 at USD 0.025 and E5 at USD 0.03 per OCPU-hour. The trial service limit of 16 OCPU and 96 GB applies per availability domain, so the largest single A1 machine is 16/96 unless the limit is raised or a second AD is used. The trial page states the credit ends at 30 days or when consumed.
+- evidence note: the free-tier page was read on 2026-10-23 and states the amount, the 30-day window, the card rule and the Always Free continuation.
+- extras:
+  - free_tier_kind: one-time-credit
+  - credit_usd: 300
+  - credit_days: 30
+  - recurring: no
+  - reachable_by: a card that is not prepaid, virtual or single-use
+  - companion_record: oracle-cloud, the Always Free allowance with no end date
+  - hourly_usd.a1_ocpu: 0.01
+  - hourly_usd.a1_gb: 0.0015
+  - hourly_usd.e4_ocpu: 0.025
+  - hourly_usd.e5_ocpu: 0.03
+  - hourly_usd.e5_gb: 0.002
+  - service_limit_a1.ocpu: 16
+  - service_limit_a1.gb: 96
+  - service_limit_a1.scope: per availability domain
+  - service_limit_a1.applies_to: pay as you go or trial
+  - shape_max.ocpu: 76
+  - shape_max.gb: 472
+  - shape_max.gb_per_ocpu_max: 64
+- evidence:
+  - [1] 2026-10-23: quoted: 'a Free Trial with US$300 of free credit to use on all eligible Oracle Cloud Infrastructure services for up to 30 days'
+  - [2] 2026-10-23: quoted: 'Limits apply to each availability domain'; standard-a1-core-count is 16 and standard-a1-memory-count 96 GB for Pay As You Go or Trial
+  - [3] 2026-10-23: quoted: 'VM.Standard.A1.Flex | 76 OCPU | 1 GB or a value matching the number of OCPUs | 64 GB per OCPU, up to 472 GB total'
+  - [4] 2026-10-23: quoted: 'the first 1,500 OCPU hours and 9,000 GB hours per month ... equivalent to 2 OCPUs and 12 GB of memory'
+- sources:
+  - [1] https://www.oracle.com/cloud/free/
+  - [2] https://docs.oracle.com/en-us/iaas/Content/General/service-limits/default.htm
+  - [3] https://docs.oracle.com/en-us/iaas/Content/Compute/References/computeshapes.htm
+  - [4] https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm
+
+## Oracle Cloud Infrastructure
+
+- `compute/oracle-cloud-infrastructure` | paid-only | evidence documented | binding volume-quota | category GPU cloud
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T08:50:29.744Z (live) | stale on 2026-12-04
+- url https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm
+- free tier: A refutation. A widely syndicated claim states that OCI Always Free includes '1 NVIDIA A10 GPU, 24GB VRAM... capped at 500 GPU-hours per month', worth about USD 640 a month, attributed to a December 2025 Oracle blog post. The official Always Free page lists no GPU at all. Its Compute section names exactly two shapes: 'up to two Always Free VM instances using the VM.Standard.E2.1.Micro shape' and 'the first 1,500 OCPU hours and 9,000 GB hours per month for free for VM instances using the VM.Standard.A1.Flex shape'. The cited blog URL returns HTTP 403 and has no Wayback capture. | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: pay-as-you-go list prices per GPU-hour from the vendor's price list data: H100 USD 10, A100 80 GB (A100 v2) USD 4, L40S USD 3.5; no RTX 4090 and no L4 row. unverified: the price list states no billing granularity and no minimum bill for GPU shapes.
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: card
+- interface: unknown
+- limits:
+  - volume-quota (binding): No GPU shape appears in the Always Free entitlement, so the 500 GPU-hour figure has no page behind it. [1]
+- limits note: No GPU shape appears in the Always Free entitlement, so the 500 GPU-hour figure has no page behind it.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: Nothing to chain: the entitlement does not exist on the page that would define it.
+- reliability: no reliability event recorded
+- notes: The secondary article also contains arithmetic errors that a reader can check: it prices the A10 at USD 1.28 an hour in one sentence and says that maps to VM.GPU3.1, which is a V100 shape, and it describes BM.GPU.A10.1, which is not a shape name on OCI's price list (the bare metal A10 shape is BM.GPU.A10.4). Oracle did announce an Always Free compute reduction enforced from 18 August 2026, cutting Ampere A1 from 4 OCPU and 24 GB to 2 OCPU and 12 GB, and the official page reflects the reduced figures, which is independent evidence that the page read is current. The one recorded is the better-evidenced. The claim that OCI Always Free includes an A10 GPU has no page behind it, and that claim is dead. The provider is not: it sells preemptible GPU capacity at about half the on-demand rate, with a two-minute termination event and VM.GPU2 and VM.GPU3 as supported preemptible shapes, as this record's own evidence rows state. `dead` was read as 'OCI has nothing', which the evidence contradicts.
+- extras:
+  - facets.class: spot-arbitrage
+  - facets.free_tier_kind: none
+- evidence:
+  - [1] 2026-10-22: the Available Shapes section lists only VM.Standard.E2.1.Micro and VM.Standard.A1.Flex, and the page contains no GPU entitlement, read in full
+  - [2] 2026-10-22: the syndicated claim of '1 NVIDIA A10 GPU, 24GB VRAM ... capped at 500 GPU-hours per month' and an implicit USD 640 monthly subsidy, published 2026-05-13 and attributed to December 2025
+  - [3] 2026-10-22: 
+  - [4] 2026-10-22: 'Preemptible capacity costs 50% less than on-demand capacity in all regions' and an event fires two minutes before termination, quoted
+  - [4] 2026-10-22: the Supported Shapes list contains VM.GPU2 and VM.GPU3 and does not contain VM.GPU.A10, VM.GPU4, or bare metal, read in full
+  - [5] 2026-11-03: H100 GPU pay-as-you-go is USD 10 per GPU hour | capture: sha256:1cd7bcf4a1d9e4feea339bd1a7c755fde6430d749773bdd3e49c848c356537a8 | quote: "displayName":"Oracle Cloud Infrastructure - Compute - GPU - H100" ... "metricName":"GPU Per Hour","serviceCategory":"Compute - GPU","currencyCodeLocalizations":[{"currencyCode":"USD","prices":[{"model":"PAY_AS_YOU_GO","value":10}]}]
+  - [5] 2026-11-03: A100 v2 (the 80 GB shape, BM.GPU.A100-v2.8 on the price list) pay-as-you-go is USD 4 per GPU hour | capture: sha256:1cd7bcf4a1d9e4feea339bd1a7c755fde6430d749773bdd3e49c848c356537a8 | quote: {"partNumber":"B95907","displayName":"Compute - GPU - A100 - v2","metricName":"GPU Per Hour","serviceCategory":"Compute - GPU","currencyCodeLocalizations":[{"currencyCode":"USD","prices":[{"model":"PAY_AS_YOU_GO","value":4}]}]}
+  - [5] 2026-11-03: L40S pay-as-you-go is USD 3.5 per GPU hour | capture: sha256:1cd7bcf4a1d9e4feea339bd1a7c755fde6430d749773bdd3e49c848c356537a8 | quote: {"partNumber":"B109479","displayName":"Compute - GPU - L40S","metricName":"GPU Per Hour","serviceCategory":"Compute - GPU","currencyCodeLocalizations":[{"currencyCode":"USD","prices":[{"model":"PAY_AS_YOU_GO","value":3.5}]}]}
+  - [6] 2026-11-03: the A100 v2 shape is the 80 GB A100, priced per GPU per hour | capture: sha256:9ee6bbd8391217bd68bd8020e5248a709f6859645ae8245444048d101d89724e | quote: | BM.GPU.A100-v2.8 (8x NVIDIA A100 80GB Tensor Core) | | | GPU per hour |
+- sources:
+  - [1] https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm
+  - [2] https://tcoiq.com/cloud-news/oracle-oci-announces-always-free-gpu-tier-with-nvidia-a10-access-for-ai-develope
+  - [3] https://blogs.oracle.com/cloud-infrastructure/post/oci-always-free-nvidia-a10-gpu-tier-december-2025
+  - [4] https://docs.oracle.com/en-us/iaas/Content/Compute/Concepts/preemptible.htm
+  - [5] https://apexapps.oracle.com/pls/apex/cetools/api/v1/products/?currencyCode=USD
+  - [6] https://www.oracle.com/cloud/price-list/
+
+## Oracle Startup Growth
+
+- `compute/oracle-startup-growth` | fails-identity | evidence documented | binding write-gated | category cloud VM
+- needs card no, phone no, ID no, institution yes | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://www.oracle.com/uk/artificial-intelligence/startup-growth-engine/terms/
+- free tier: Oracle may provide selected participants with Universal Credits for use on OCI. 'The value of Universal Credits available under the Program ranges from USD 5,000 to USD 60,000.' Credits are available for twelve months from the date they are made available, and unused credits expire with no cash value. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: one-shot-credit
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution
+- interface: unknown
+- limits:
+  - write-gated (binding):  [1]
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: USD 5,000 to 60,000 of OCI at Oracle's list prices, which are low for compute, buys a substantial amount of Ampere or GPU time for a year. The 12-month clock and the PAYG conversion at the end are stated, so the chain has a visible cliff.
+- reliability: no reliability event recorded
+- notes: Third-party summaries publish two different ceilings, USD 100,000 from the rules and USD 60,000 from the launch announcement, and one describes a Latin America rollout tied to OPN membership. The UK terms page states USD 5,000 to USD 60,000, so that is the number recorded, and the regional scope is unverified by country. The separate Oracle for Startups offer of USD 500 in OCI credits plus a 70% discount is a different product and was not read on a vendor page in verification.
+- extras:
+  - facets.class: startup-credit
+  - facets.free_tier_kind: one-shot-credit
+- evidence:
+  - [1] 2026-10-22: 'The value of Universal Credits available under the Program ranges from USD 5,000 to USD 60,000', quoted
+  - [1] 2026-10-22: 
+  - [1] 2026-10-22: 'Credits are available for a period of twelve (12) months from the date they are made available', quoted
+- sources:
+  - [1] https://www.oracle.com/uk/artificial-intelligence/startup-growth-engine/terms/
+
+## oracle cloud $300 / 30-day free trial
+
+- `storage/oracle-cloud-300-30-day-free-trial` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm
+- free tier: none reachable: 30 days only, and it is a trap for this workload: during the trial you may store unlimited data against credits, but 'If you are using more than the 20-GB limit when your Free Trial ends… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 30 days only, and it is a trap for this workload: during the trial you may store unlimited data against credits, but 'If you are using more than the 20-GB limit when your Free Trial ends…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 30 days only, and it is a trap for this workload: during the trial you may store unlimited data against credits, but 'If you are using more than the 20-GB limit when your Free Trial ends…
+- sources:
+  - [1] https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm
+
+## Oracle Cloud Infrastructure Registry (OCIR)
+
+- `storage/oracle-cloud-infrastructure-registry` | fails-quota | evidence reported | binding none | category registry
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.oracle.com/cloud/cloud-native/container-registry/
+- free tier: No registry fee at all, and storage is billed at raw Object Storage rates: 'Oracle does not charge separately for the service. Users pay only for the associated storage and network resources that they consume' / 'Customers pay only for resources that they consume, such as storage of images at the rate of Object Storage (Standard).' The Always Free Object Storage allowance is '20 GB of combined Standard tier, Infrequent Access tier, and Archive tier data' per tenancy. Quotas: 500 repos total and 500 images per repo PER region. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Free up to 10 TB per month on every tenancy. Terms state: 'Public internet egress | 10 TB/month free. Oracle charges significantly less for data egress over the public internet in all global regions. Customers are not charged for the first 10 TB of data egress per month.' | metered: no | free allowance: 10 TB per month
+- identity: anonymous
+- interface: oci, cli
+- limits note: 500 repos/region, 500 images/repo; public repos pullable anonymously if the path is known; auto-cleanup retention policies available; storage beyond 20 GB Always Free is billed at Object Storage Standard rates.
+- interface detail: oci
+- tooling: docker/skopeo/ORAS. Auth via IAM auth token ('create an Auth Token via your user settings and login with the Docker CLI').
+- composes with: The 20 GB Always Free OSS is small, but egress is 10 TB/month per tenancy and repos can be made public so pulls need no auth: 'if a user has the complete path to the image, they can pull it, with no authentication needed.' Multiple Always Free tenancies are limited. 'One Oracle Cloud Free Trial or Always Free account is permitted per person'. So this scales by tenancy policy, not by unlimited accounts.
+- reliability: Public pull works but the console is hidden from anonymous users; the binding constraint is the 20 GB storage allowance and the one-tenancy-per-person rule, not throughput.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: No registry fee at all, and storage is billed at raw Object Storage rates: 'Oracle does not charge separately for the service. Users pay only for the associated storage and network resources that they consume' / 'Customers pay only for resources that they consume, such as storage of images at the rate of Object Storage (Standard).' The Always Free Object Storage allowance is '20 GB of combined Standard tier, Infrequent Access tier, and Archive tier data' per tenancy. Quotas: 500 repos total and 500 images per repo PER region.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Oracle does not charge separately for the service ... storage of images at the rate of Object Storage (Standard)'
+  - [2] 2026-10-21: 'Public internet egress 10 TB/month free ... not charged for the first 10 TB of data egress per month'
+  - [3] 2026-10-21: '20 GB of combined Standard tier, Infrequent Access tier, and Archive tier data'
+  - [4] 2026-10-21: 'Quotas are 500 repos total and 500 images per repo PER region'; public repos need no auth to pull
+  - [5] 2026-10-21: 
+- sources:
+  - [1] https://www.oracle.com/europe/cloud/cloud-native/container-registry/
+  - [2] https://www.oracle.com/cloud/networking/virtual-cloud-network/pricing/
+  - [3] https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm
+  - [4] https://www.oracle.com/cloud/cloud-native/container-registry/faq/
+  - [5] https://iad.ocir.io/v2/
+
+## several-accounts multiplication of big-cloud free tiers
+
+- `storage/multi-account-multiplication-of-big-cloud-free-tiers` | fails-quota | evidence documented | binding volume-quota | category rejected-provider
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T01:36:34.398Z (inherited) | stale on 2026-12-04
+- url https://www.oracle.com/cloud/free/
+- free tier: no multiplied allowance: each account holds its own small free tier, such as 20 GB of Always Free Object Storage across the Standard, Infrequent Access and Archive tiers and 200 GB of Block Volume per Oracle Cloud tenancy, and each further account is a further sign-up with its own card check | unit: none | metered on: none | read on: 2026-10-31 | source: [1]
+- per-object cap: not recorded | source: [2] | note: not applicable
+- retention: not recorded | source: [2]
+- egress: not recorded | metered: no
+- identity: card | detail: each account is its own sign-up: Oracle Cloud verifies identity with a credit card, or a debit card that works like one, and refuses debit cards with a PIN and virtual, single-use or prepaid cards; IBM Cloud takes payment details up front with a hold on the card, on an email not tied to an existing account; AWS takes an email and asks for a payment method in some cases, and an identity with an earlier AWS account gets no Free plan and must give payment information
+- interface: unknown
+- limits:
+  - volume-quota (binding): 20 GB of Always Free Object Storage (Standard, Infrequent Access and Archive combined) and 200 GB of Block Volume per Oracle Cloud tenancy; a further account repeats the allowance behind a further card check [1]
+- limits note: one row for Oracle Cloud; IBM Cloud counts Lite plan quotas per org, so a new instance in the same org carries the usage of earlier ones
+- binding note: each account's free storage ends at 20 GB of Object Storage and 200 GB of Block Volume on Oracle Cloud, and every further account needs a further card
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: Oracle Cloud may suspend or terminate a Free Tier account left idle for 30 days or more; IBM Cloud deletes Lite plan instances after 30 days with no development activity; AWS suspends an account when its Free plan expires.
+- notes: The strategy of opening several accounts on big clouds to add up their free tiers. Each account repeats the sign-up and its card check on Oracle Cloud and IBM Cloud; accounts joined in one AWS Organization share the free offers of one account, with usage aggregated across all of them. A single Oracle Cloud account's Object Storage or Archive Storage at its published price is a separate offer.
+- evidence note: the verdict, the free tier, the limits and the identity rest on Oracle, IBM and AWS pages read on 2026-10-31; egress, retention, per-object cap and interface are not assessed
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: One account per person, and usage aggregates across accounts: Oracle 'One Oracle Cloud Free Trial or Always Free account is permitted per person'; AWS aggregates usage across
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [2] 2026-10-21: One account per person, and usage aggregates across accounts: Oracle 'One Oracle Cloud Free Trial or Always Free account is permitted per person'; AWS aggregates usage across
+  - [3] 2026-10-21: cited as the basis of the rejection: One account per person, and usage aggregates across accounts: Oracle 'One Oracle Cloud Free Trial or Always Free account is permitted per person'; AWS aggregates usage across
+  - [4] 2026-10-21: cited as the basis of the rejection: One account per person, and usage aggregates across accounts: Oracle 'One Oracle Cloud Free Trial or Always Free account is permitted per person'; AWS aggregates usage across
+  - [5] 2026-10-31: Oracle Cloud sign-up verifies identity with a credit or debit card | capture: sha256:6c83ee59deecd4389cc9a744ffeadd75a37477018cba894e8b68506ecd811c39 | quote: We use your contact information and credit/debit card information for account setup and identity verification.
+  - [2] 2026-10-31: Oracle Cloud refuses debit cards with a PIN and virtual, single-use or prepaid cards | capture: sha256:1fd6cec8ec20056d8ed3b3b48a040d303e3e21c7cff5495b79fa103578c87928 | quote: We accept credit cards and debit cards that function like credit cards. We do not accept debit cards with a PIN or virtual, single-use, or prepaid cards.
+  - [4] 2026-10-31: IBM Cloud sign-up takes payment details up front and places a hold on the card | capture: sha256:c4b919eacb52997a3436c23a556093034d5a041370b191551c2f0315b2aea2ed | quote: Payment details are required up front, but you won’t be charged until you consume a billable service; however, there will be a nominal hold placed on your card to verify its authenticity.
+  - [4] 2026-10-31: IBM Cloud sign-up needs an email not tied to an existing account | capture: sha256:c4b919eacb52997a3436c23a556093034d5a041370b191551c2f0315b2aea2ed | quote: using an email address first (email address must not be associated with an existing account)
+  - [6] 2026-10-31: AWS sign-up needs no payment method for most new customers and asks for one in some cases | capture: sha256:f1e39e028c6170d12766259740458544c7d3204afaa64c8296f7ec9f220e1322 | quote: No. A payment method isn't required to sign up for most new customers. In some cases, we may request additional information, such as a payment method, to verify your identity.
+  - [6] 2026-10-31: an identity with an existing or earlier AWS account gets no Free plan and no Free Tier credits | capture: sha256:f1e39e028c6170d12766259740458544c7d3204afaa64c8296f7ec9f220e1322 | quote: You would be ineligible for the Free plan or Free Tier credits if you have an existing AWS account or have previously had one.
+  - [7] 2026-10-31: an AWS sign-up found ineligible for the Free Tier must give payment information and goes to the Paid Plan | capture: sha256:8060dfc9d58c4f368718c3be3d2c7d4df02b4491abe10879deab92631dea44bf | quote: In addition, when you sign up for AWS, you might be ineligible for the Free Tier. In that case, you'll need to provide your payment information, and you'll be placed on the Paid Plan.
+  - [1] 2026-10-31: each Oracle Cloud tenancy gets 20 GB of Always Free Object Storage | capture: sha256:f574f79e65c50e5bc9403d143eb77d5ffaf3a50b958b9a20f49fc4c9600126e5 | quote: All tenancies get a total of 20 GB of Always Free
+  - [1] 2026-10-31: each Oracle Cloud tenancy gets 200 GB of Always Free Block Volume storage | capture: sha256:f574f79e65c50e5bc9403d143eb77d5ffaf3a50b958b9a20f49fc4c9600126e5 | quote: 200 GB total of combined boot volume and block volume Always Free Block Volume storage
+  - [4] 2026-10-31: IBM Cloud Lite plan quotas are counted per org, so a new instance carries earlier usage | capture: sha256:c4b919eacb52997a3436c23a556093034d5a041370b191551c2f0315b2aea2ed | quote: Quota limits are per org, not per instance. New instances that are created in the same org reflect any usage from previous instances.
+  - [5] 2026-10-31: an Oracle Cloud Free Tier account idle for 30 days or more may be suspended or terminated | capture: sha256:6c83ee59deecd4389cc9a744ffeadd75a37477018cba894e8b68506ecd811c39 | quote: Accounts left idle for 30 days or more may be deemed abandoned and become eligible for suspension or termination.
+  - [4] 2026-10-31: IBM Cloud deletes Lite plan instances after 30 days with no development activity | capture: sha256:c4b919eacb52997a3436c23a556093034d5a041370b191551c2f0315b2aea2ed | quote: After 30 days of no development activity, your service instances with Lite plans are deleted.
+  - [6] 2026-10-31: AWS suspends an account and cuts access to its data when its Free plan expires | capture: sha256:f1e39e028c6170d12766259740458544c7d3204afaa64c8296f7ec9f220e1322 | quote: When your Free plan expires, AWS suspends your account and any associated projects, and you will lose access to your resources and data.
+  - [3] 2026-10-31: accounts in one AWS Organization share the free offers of one account, with usage aggregated across all of them | capture: sha256:5f7e976617ebe2707b8d07e80a3361abe596c02de4845f2ddb8f5f0c7caabc4c | quote: An Organization (under AWS Organizations) can only benefit from Offers from one account in the Organization, and to calculate the Organization’s use of AWS Services under any Offers, we will aggregate the usage across all accounts in the Organization.
+  - [5] 2026-11-03: Oracle Cloud sign-up verifies identity with a credit or debit card, so identity stays card | capture: sha256:6c83ee59deecd4389cc9a744ffeadd75a37477018cba894e8b68506ecd811c39 | quote: We use your contact information and credit/debit card information for account setup and identity verification.
+- sources:
+  - [1] https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm
+  - [2] https://www.oracle.com/cloud/free/
+  - [3] https://aws.amazon.com/free/terms/
+  - [4] https://www.ibm.com/products/cloud/free
+  - [5] https://www.oracle.com/cloud/free/faq/
+  - [6] https://aws.amazon.com/free/free-tier-faqs/
+  - [7] https://docs.aws.amazon.com/accounts/latest/reference/sign-in-new.html

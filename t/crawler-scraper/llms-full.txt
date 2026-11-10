@@ -1,0 +1,15 @@
+# fshy: Crawling in full
+
+> Crawl, search, reader and unblocker APIs for reading the web at scale.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic is 328 KB, about 89K tokens in full, more than the 300 KB, about 81K tokens one file holds, so it is split: its hosted records by verdict group, then its self-hosted records in one last group, and a group over that size into balanced parts. The parts in the order below are the one order (hosted before self-hosted, then verdict, provider name, record id). How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## Parts
+
+- [Usable](https://fshy.ajam.dev/t/crawler-scraper/llms-full-usable.txt): 38 records; 218 KB, about 59K tokens
+- [Trial](https://fshy.ajam.dev/t/crawler-scraper/llms-full-trial.txt): 9 records; 55 KB, about 15K tokens
+- [Paid only](https://fshy.ajam.dev/t/crawler-scraper/llms-full-paid.txt): 1 records; 2 KB, about 1K tokens
+- [Rejected](https://fshy.ajam.dev/t/crawler-scraper/llms-full-rejected.txt): 3 records; 24 KB, about 6K tokens
+- [Dead](https://fshy.ajam.dev/t/crawler-scraper/llms-full-dead.txt): 8 records; 31 KB, about 8K tokens

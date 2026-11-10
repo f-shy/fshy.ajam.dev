@@ -1,0 +1,149 @@
+# QwenCloud Token Plan
+
+> qwencloud.com | Coding subscriptions; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/qwencloud/ | JSON https://fshy.ajam.dev/api/v1/entity/qwencloud.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## QwenCloud Token Plan (Personal Edition)
+
+- `coding-subs/qwencloud-token-plan-personal-edition` | paid-only | evidence documented | binding volume-quota | category coding subscription | tier Personal Edition
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-10T01:55:59.599Z (live) | stale on 2026-12-11
+- url https://docs.qwencloud.com/token-plan/personal/token-plan-personal-overview
+- price parsed USD 6/mo
+- free tier: no free tier. Four paid plans with a monthly Credit quota: Lite USD 6 a month (list USD 8) for 11,500 Credits, Essential USD 10 (list USD 16) for 25,500, Standard USD 18 (list USD 25) for 45,000 and Pro USD 68 (list USD 80) for 180,000. A Credit Pack adds 20,000 Credits for USD 15 a month | unit: credits | metered on: unstated | read on: 2026-11-02 | source: [1] | note: the unit is the vendor's Credit; the Credits that one request costs depend on model type, token usage, thinking mode and tool calls. The lower prices are marked limited-time, and the vendor may change promotions
+- per-object cap: not applicable
+- retention: not applicable
+- egress: not applicable | metered: no
+- identity: card | detail: A QwenCloud account is made with a GitHub login or an email address with an emailed verification code, and it is an Alibaba Cloud international main account. QwenCloud takes payment with a card, PayPal, Google Pay or Apple Pay plus billing details: a name, an address and a mobile number that receives a verification code. Linking a card places a USD 1.00 pre-authorization, and one card or wallet links to one account. What the Token Plan checkout asks beyond these fields: unverified: behind a sign-up
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): Lite 11,500 Credits a month, Essential 25,500, Standard 45,000, Pro 180,000; no weekly cap; calls are blocked when the quota and any Credit Pack are used up, until the next subscription month; unused quota does not carry over [1]
+  - volume-quota (binding): a Credit Pack gives 20,000 Credits for USD 15 a month, needs an active subscription, is valid for 1 month, and up to 5 packs can be held at a time [2]
+  - request-rate: recommended concurrency of 1-2 agents on Lite, 2-3 on Essential, 3-4 on Standard and 6-8 on Pro; rate limits adjust to load and cannot be raised, and peak hours can queue requests [3]
+- limits note: the quota unit is the vendor's Credit and not a byte, so volume-quota is the nearest term; the plan is sold and used only in the Singapore region with global deployment, and one account holds one Personal Edition subscription
+- binding note: the monthly Credit quota ends use before any rate limit, and the Credits that a request costs grow with model, context length and thinking mode
+- interface detail: OpenAI-compatible base URL https://token-plan.maas.qwencloudapi.com/compatible-mode/v1 and Anthropic-compatible base URL https://token-plan.maas.qwencloudapi.com/apps/anthropic, with a plan key that starts with sk-sp-. Text models include qwen3.8-max, qwen3.7-plus, glm-5.3 and deepseek-v4-pro, and the plan also covers image, speech and video models. Harness tools run only through the Responses API and cost Credits per successful call
+- endpoint: part of interface detail
+- tooling: any tool that accepts a custom base URL and key and speaks the OpenAI or Anthropic protocol; the vendor names Claude Code, Cursor, Qwen Code, Codex, Qoder and OpenClaw, and Qwen Code offers the plan under QwenCloud in its auth menu
+- composes with: the plan key replaces the pay-as-you-go key inside a coding client; an exhausted quota blocks calls and does not bill pay-as-you-go, so a key recorded under inference continues the work until the next subscription month
+- reliability: a plan with no Credits left blocks calls until the next subscription month; peak hours can queue requests; a key used for scripts or batch calls can be suspended; the plan has no cancellation or refund; the limited-time prices can change
+- notes: Lite at USD 6 a month is the lowest entry price of the QwenCloud Token Plan, and its list price is USD 8. Personal Edition and Team Edition can be held at the same time on one account, each billed on its own. The weekly quota was removed on 2026-09-22
+- evidence note: prices, quotas, base URLs and account rules are quoted from the vendor documentation read on 2026-11-02. The quotas are the vendor's published numbers and are not a measurement. Token Plan checkout fields are unverified: behind a sign-up
+- extras:
+  - monthly_usd: 6
+- evidence:
+  - [1] 2026-11-02: Personal Edition list and limited-time prices for four plans and the Credit Pack price | capture: sha256:631704ec020d9246c83a7589be2a36321f803a9a8429b93bf4e62d0dd706ce69 | quote: | Pricing | ~~$8~~/month Limited-time $6/month | ~~$16~~/month Limited-time $10/month | ~~$25~~/month Limited-time $18/month | ~~$80~~/month Limited-time $68/month | $15/pack/month 20,000 Credits/pack Up to 5 at a time |
+  - [1] 2026-11-02: the monthly Credit quota of each Personal Edition plan | capture: sha256:631704ec020d9246c83a7589be2a36321f803a9a8429b93bf4e62d0dd706ce69 | quote: | Monthly quota | 11,500 Credits | 25,500 Credits | 45,000 Credits | 180,000 Credits | Does not count toward plan quota |
+  - [1] 2026-11-02: the concurrent agent count of each plan | capture: sha256:631704ec020d9246c83a7589be2a36321f803a9a8429b93bf4e62d0dd706ce69 | quote: | Concurrent Agents | 1-2 | 2-3 | 3-4 | 6-8 | - |
+  - [1] 2026-11-02: the plan is sold and used only in Singapore, with its own endpoint and sk-sp- keys | capture: sha256:631704ec020d9246c83a7589be2a36321f803a9a8429b93bf4e62d0dd706ce69 | quote: Token Plan can be purchased and used only in the Singapore region. It uses its own endpoint, `token-plan.maas.qwencloudapi.com` (no region ID in the domain), and its own API keys (prefixed with `sk-sp-`).
+  - [1] 2026-11-02: service pauses when the quota and Credit Packs are used up | capture: sha256:631704ec020d9246c83a7589be2a36321f803a9a8429b93bf4e62d0dd706ce69 | quote: When the plan quota is used up and no Credit Pack Credits are available, the service is paused until the next subscription month.
+  - [1] 2026-11-02: unused quota is lost at the end of the subscription month | capture: sha256:631704ec020d9246c83a7589be2a36321f803a9a8429b93bf4e62d0dd706ce69 | quote: Unused quota within a subscription month does not carry over to the next cycle.
+  - [1] 2026-11-02: any tool with a custom base URL and key can connect | capture: sha256:631704ec020d9246c83a7589be2a36321f803a9a8429b93bf4e62d0dd706ce69 | quote: Any tool that supports a custom Base URL and API Key can be integrated.
+  - [3] 2026-11-02: the quota is monthly, in Credits, with no weekly cap | capture: sha256:48b45f60df5e65b0fa411dde747f5d18be5752a662c1b25fdbfd90cdfd3a0bda | quote: Token Plan Individual uses a monthly quota with no weekly quota limit, measured in Credits.
+  - [3] 2026-11-02: the plan has no free trial quota | capture: sha256:48b45f60df5e65b0fa411dde747f5d18be5752a662c1b25fdbfd90cdfd3a0bda | quote: The Token Plan itself does not offer a trial quota or free Tokens.
+  - [3] 2026-11-02: an exhausted quota blocks calls and does not bill pay-as-you-go | capture: sha256:48b45f60df5e65b0fa411dde747f5d18be5752a662c1b25fdbfd90cdfd3a0bda | quote: When the limit is reached, API calls are blocked (you will not be charged on a pay-as-you-go basis).
+  - [3] 2026-11-02: one account holds one Personal Edition subscription | capture: sha256:48b45f60df5e65b0fa411dde747f5d18be5752a662c1b25fdbfd90cdfd3a0bda | quote: No. Each QwenCloud account can hold only one Token Plan Individual subscription.
+  - [3] 2026-11-02: the plan is non-refundable | capture: sha256:48b45f60df5e65b0fa411dde747f5d18be5752a662c1b25fdbfd90cdfd3a0bda | quote: No. Token Plan Individual is non-refundable.
+  - [3] 2026-11-02: a plan cannot be downgraded mid-term | capture: sha256:48b45f60df5e65b0fa411dde747f5d18be5752a662c1b25fdbfd90cdfd3a0bda | quote: No. To switch to a lower plan, wait for your current subscription to expire and repurchase.
+  - [3] 2026-11-02: rate limits adjust to load and cannot be raised | capture: sha256:48b45f60df5e65b0fa411dde747f5d18be5752a662c1b25fdbfd90cdfd3a0bda | quote: Rate limits are adjusted dynamically based on overall load to maintain service stability. Plan rate limits cannot be increased.
+  - [3] 2026-11-02: peak hours can queue requests | capture: sha256:48b45f60df5e65b0fa411dde747f5d18be5752a662c1b25fdbfd90cdfd3a0bda | quote: Peak hours may cause queuing.
+  - [3] 2026-11-02: a Credit Pack lasts one month | capture: sha256:48b45f60df5e65b0fa411dde747f5d18be5752a662c1b25fdbfd90cdfd3a0bda | quote: Credit Packs are valid for 1 month. Unused Credits expire automatically and are non-refundable.
+  - [2] 2026-11-02: the Personal Edition has no cancellation | capture: sha256:7ade3534984d6d7f2e60fdeabd58e5b470610459eb60e56be91fefca8f2428fb | quote: Individual does not currently support cancellation.
+  - [2] 2026-11-02: a key used for non-interactive calls can be suspended or banned | capture: sha256:7ade3534984d6d7f2e60fdeabd58e5b470610459eb60e56be91fefca8f2428fb
+  - [2] 2026-11-02: the plan is for interactive use and not for scripts, backends or batch calls | capture: sha256:7ade3534984d6d7f2e60fdeabd58e5b470610459eb60e56be91fefca8f2428fb | quote: It must not be used for automation scripts, custom application backends, or any non-interactive batch call scenarios.
+  - [2] 2026-11-02: one Personal Edition subscription per account, and Team Edition can be held at the same time | capture: sha256:7ade3534984d6d7f2e60fdeabd58e5b470610459eb60e56be91fefca8f2428fb | quote: Purchase limit: One subscription per account. You can hold both Individual and Team Edition simultaneously.
+  - [2] 2026-11-02: the weekly quota was removed on 2026-09-22 | capture: sha256:7ade3534984d6d7f2e60fdeabd58e5b470610459eb60e56be91fefca8f2428fb | quote: When the weekly quota was removed on September 22, 2026, the remaining quota of existing subscriptions was reset once to the full monthly quota of their plan tier on that day, with subscription periods and expiration dates unchanged.
+  - [2] 2026-11-02: a limited-time night discount cuts Credit use for two models | capture: sha256:7ade3534984d6d7f2e60fdeabd58e5b470610459eb60e56be91fefca8f2428fb | quote: Limited-time night discount (60% off): Invocations between 22:00 and 08:00 (UTC+8) enjoy 60% off Credits consumption for qwen3.8-max and qwen3.8-flash.
+  - [2] 2026-11-02: Credits per request vary with model, tokens, thinking mode and tool calls | capture: sha256:7ade3534984d6d7f2e60fdeabd58e5b470610459eb60e56be91fefca8f2428fb | quote: The Credits consumed per request are dynamically determined by model type, token usage, thinking mode, and tool calls.
+  - [2] 2026-11-02: the limited-time prices and promotions can change | capture: sha256:7ade3534984d6d7f2e60fdeabd58e5b470610459eb60e56be91fefca8f2428fb | quote: QwenCloud reserves the right to modify or adjust promotions based on operational needs, including but not limited to promotion details and validity periods.
+  - [2] 2026-11-02: qwen3.8-max is a Personal Edition model | capture: sha256:7ade3534984d6d7f2e60fdeabd58e5b470610459eb60e56be91fefca8f2428fb | quote: | Qwen | qwen3.8-max | Reasoning, visual understanding, text generation |
+  - [2] 2026-11-02: glm-5.3 is a Personal Edition model | capture: sha256:7ade3534984d6d7f2e60fdeabd58e5b470610459eb60e56be91fefca8f2428fb | quote: | Zhipu AI | glm-5.3 | Reasoning, text generation |
+  - [2] 2026-11-02: deepseek-v4-pro is a Personal Edition model | capture: sha256:7ade3534984d6d7f2e60fdeabd58e5b470610459eb60e56be91fefca8f2428fb | quote: | DeepSeek | deepseek-v4-pro | Reasoning, text generation |
+  - [2] 2026-11-02: the plan runs only in Singapore with global deployment | capture: sha256:7ade3534984d6d7f2e60fdeabd58e5b470610459eb60e56be91fefca8f2428fb | quote: For Token Plan, the only available region is Singapore and the only available deployment mode is Global, which means the model inference will be performed globally.
+  - [4] 2026-11-02: the OpenAI-compatible plan base URL | capture: sha256:888ae13fa2949707d1713c862502c0c3cda365dbabe07a6002674c1fd8734e8b | quote: | OpenAI compatible | `https://token-plan.maas.qwencloudapi.com/compatible-mode/v1` |
+  - [4] 2026-11-02: the Anthropic-compatible plan base URL | capture: sha256:888ae13fa2949707d1713c862502c0c3cda365dbabe07a6002674c1fd8734e8b | quote: | Anthropic compatible | `https://token-plan.maas.qwencloudapi.com/apps/anthropic` |
+  - [4] 2026-11-02: plan keys start with sk-sp- and differ from pay-as-you-go keys | capture: sha256:888ae13fa2949707d1713c862502c0c3cda365dbabe07a6002674c1fd8734e8b | quote: Token Plan API Keys start with `sk-sp-` and are different from regular QwenCloud API Keys (`sk-ws-` prefix).
+  - [4] 2026-11-02: Harness tools need the Responses API and cost Credits per successful call | capture: sha256:888ae13fa2949707d1713c862502c0c3cda365dbabe07a6002674c1fd8734e8b | quote: Harness tools can only be invoked through the Responses API, and Credits are deducted based on the number of successful invocations.
+  - [5] 2026-11-02: Qwen Code offers the international QwenCloud Token Plan with this endpoint | capture: sha256:9b4d0604fdd4cda085eeebcdf4cb2cf717014c36d0781dbce1e326227abe144e | quote: | International — QwenCloud | Token Plan | `https://token-plan.maas.qwencloudapi.com/compatible-mode/v1` | [Token Plan](https://docs.qwencloud.com/token-plan/overview) |
+  - [6] 2026-11-02: a QwenCloud account is made with GitHub or email | capture: sha256:e15f37fa65bcd01d1156452fa87a48cbefe0c631783d095d2cd0290854517186 | quote: Go to [QwenCloud](https://home.qwencloud.com/) and sign in with GitHub or email.
+  - [7] 2026-11-02: email sign-up uses an emailed verification code | capture: sha256:a60609e0b71ee7a8c76a6120044f653e8e7701ef7d6e073c724f041ee112325f | quote: Email: Enter your email to receive a verification code.
+  - [7] 2026-11-02: QwenCloud accounts are Alibaba Cloud international main accounts | capture: sha256:a60609e0b71ee7a8c76a6120044f653e8e7701ef7d6e073c724f041ee112325f | quote: Only Alibaba Cloud International main accounts can access QwenCloud.
+  - [8] 2026-11-02: QwenCloud payment methods | capture: sha256:2c95bd634c0baaadf2355ef7d723692557b98ef69b5e1c4bb71386c8e9a430b8 | quote: Choose a payment method such as Credit & Debit Cards (Visa, Mastercard, JCB, American Express, UnionPay, Diners Club, or Discover), PayPal, Google Pay, or Apple Pay.
+  - [8] 2026-11-02: billing details include a mobile number that receives a verification code | capture: sha256:2c95bd634c0baaadf2355ef7d723692557b98ef69b5e1c4bb71386c8e9a430b8 | quote: Phone Number — Enter your phone number and click Verifying Mobile Number to receive a verification code
+  - [8] 2026-11-02: linking a card places a USD 1.00 pre-authorization | capture: sha256:2c95bd634c0baaadf2355ef7d723692557b98ef69b5e1c4bb71386c8e9a430b8 | quote: The system initiates a $1.00 USD pre-authorization to verify the card.
+  - [8] 2026-11-02: one card or wallet links to one account | capture: sha256:2c95bd634c0baaadf2355ef7d723692557b98ef69b5e1c4bb71386c8e9a430b8 | quote: Each bank card, PayPal, Google Pay, or Apple Pay account can be linked to only one QwenCloud account.
+  - [2] 2026-11-10: the page states the plan page prices the Lite step at USD 6 a month | capture: sha256:499d5214e9738c7740ac270c39a18c58d4bc54c0dfa12213461437741e96afab | quote: Price $6 /month
+- sources:
+  - [1] https://docs.qwencloud.com/token-plan/overview
+  - [2] https://docs.qwencloud.com/token-plan/personal/token-plan-personal-overview
+  - [3] https://docs.qwencloud.com/token-plan/personal/token-plan-personal-faq
+  - [4] https://docs.qwencloud.com/token-plan/personal/token-plan-personal-quickstart
+  - [5] https://qwenlm.github.io/qwen-code-docs/en/users/configuration/auth/
+  - [6] https://docs.qwencloud.com/developer-guides/getting-started/first-api-call
+  - [7] https://docs.qwencloud.com/resources/faq-account
+  - [8] https://docs.qwencloud.com/resources/billing-overview
+
+## QwenCloud Token Plan (Team Edition)
+
+- `coding-subs/qwencloud-token-plan-team-edition` | paid-only | evidence documented | binding volume-quota | category coding subscription | tier Team Edition
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-10T01:55:59.600Z (live) | stale on 2026-12-11
+- url https://docs.qwencloud.com/token-plan/team/token-plan-team-overview
+- price parsed USD 20/mo
+- free tier: no free tier. Three paid seat plans with a monthly Credit quota per seat: Standard seat USD 20 a seat a month (list USD 30) for 25,000 Credits, Pro seat USD 75 (list USD 100) for 100,000 and Max seat USD 200 for 250,000. A shared Credit Pack adds 625,000 Credits for USD 700 a month | unit: credits | metered on: unstated | read on: 2026-11-02 | source: [1] | note: the unit is the vendor's Credit; the Credits that one request costs depend on model type, token usage, thinking mode and tool calls. The lower seat prices apply to monthly subscriptions only and are marked limited-time
+- per-object cap: not applicable
+- retention: not applicable
+- egress: not applicable | metered: no
+- identity: card | detail: A QwenCloud account is made with a GitHub login or an email address with an emailed verification code, and it is an Alibaba Cloud international main account. QwenCloud takes payment with a card, PayPal, Google Pay or Apple Pay plus billing details: a name, an address and a mobile number that receives a verification code. Linking a card places a USD 1.00 pre-authorization. The owner adds each member by account name, and a member added by hand can use a key but cannot sign in to the management console. What the Team Edition checkout asks beyond these fields: unverified: behind a sign-up
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): Standard seat 25,000 Credits a month, Pro seat 100,000, Max seat 250,000; Credits go to the seat quota first, then to the shared Credit Pack; the service is suspended when all quotas are used up, until the next billing cycle or a Credit Pack purchase [1]
+  - volume-quota (binding): a Credit Pack gives 625,000 Credits for USD 700, is shared by all seats and is valid for one month [1]
+  - volume-quota (binding): up to 1,000 seats in one Team Edition subscription [2]
+- limits note: the quota unit is the vendor's Credit and not a byte, so volume-quota is the nearest term; the plan is sold and used only in the Singapore region with global deployment, and one account holds one Token Plan subscription of this edition
+- binding note: the monthly Credit quota of the seat ends use first, and the shared Credit Pack is the only way to add capacity inside the month
+- interface detail: OpenAI-compatible base URL https://token-plan.maas.qwencloudapi.com/compatible-mode/v1 and Anthropic-compatible base URL https://token-plan.maas.qwencloudapi.com/apps/anthropic, with one sk-sp- key for each assigned seat. Models include the Personal Edition set and also kimi-k2.7-code, glm-5 and MiniMax-M2.5. An admin console assigns seats, shows usage by member and offers SAML single sign-on
+- endpoint: part of interface detail
+- tooling: any tool that accepts a custom base URL and key and speaks the OpenAI or Anthropic protocol; the owner assigns a seat to each member in the Token Plan management console and the member's key is set in the tool
+- composes with: a seat key replaces the pay-as-you-go key inside a coding client; the shared Credit Pack takes overage after a seat quota ends, and a key recorded under inference continues the work when every quota is used up
+- reliability: a subscription with no Credits left suspends service until the next billing cycle or a Credit Pack purchase; a key used for scripts or application backends can be suspended; the limited-time seat prices can change
+- notes: The Standard seat at USD 20 a seat a month is the lowest Team Edition entry price. The Team Edition states that conversation data is not used for model training
+- evidence note: seat prices, quotas, base URLs and account rules are quoted from the vendor documentation read on 2026-11-02. The quotas are the vendor's published numbers and are not a measurement. Team Edition checkout fields are unverified: behind a sign-up
+- extras:
+  - monthly_usd: 20
+- evidence:
+  - [1] 2026-11-02: Standard seat price and monthly quota | capture: sha256:bf5cb7832da13ef74b838d02310017aa7268babec5bf71318b25602514656fed | quote: | Standard Seat | ~~$30/seat/month~~ Limited-time $20/seat/month | 25,000 Credits/seat/month | For team members with light AI usage |
+  - [1] 2026-11-02: Pro seat price and monthly quota | capture: sha256:bf5cb7832da13ef74b838d02310017aa7268babec5bf71318b25602514656fed | quote: | Pro Seat | ~~$100/seat/month~~ Limited-time $75/seat/month | 100,000 Credits/seat/month | For team members who frequently use AI for coding |
+  - [1] 2026-11-02: Max seat price and monthly quota | capture: sha256:bf5cb7832da13ef74b838d02310017aa7268babec5bf71318b25602514656fed | quote: | Max Seat | $200/seat/month | 250,000 Credits/seat/month | For core developers who heavily rely on AI for coding |
+  - [1] 2026-11-02: the shared Credit Pack price and size | capture: sha256:bf5cb7832da13ef74b838d02310017aa7268babec5bf71318b25602514656fed | quote: | Credit Pack | $700/pack | 625,000 Credits/pack |
+  - [1] 2026-11-02: the lower seat prices apply to monthly subscriptions only | capture: sha256:bf5cb7832da13ef74b838d02310017aa7268babec5bf71318b25602514656fed | quote: The promotional pricing applies to monthly subscriptions for new purchases, renewals, auto-renewals, seat additions, and seat upgrades. Annual subscriptions are not eligible.
+  - [1] 2026-11-02: a Credit Pack lasts one month | capture: sha256:bf5cb7832da13ef74b838d02310017aa7268babec5bf71318b25602514656fed | quote: Each Credit Pack is valid for one month, and unused Credits expire at the end of the period.
+  - [1] 2026-11-02: service is suspended when every quota is used up | capture: sha256:bf5cb7832da13ef74b838d02310017aa7268babec5bf71318b25602514656fed | quote: 3. When all quotas are depleted, the service is suspended until the next billing cycle or until you purchase a Credit Pack.
+  - [1] 2026-11-02: a key used for scripts or backends can be suspended | capture: sha256:bf5cb7832da13ef74b838d02310017aa7268babec5bf71318b25602514656fed | quote: Scope of use: For interactive use within compatible AI tools only. Not for automated scripts or application backends.
+  - [1] 2026-11-02: the Team Edition runs only in Singapore with global deployment | capture: sha256:bf5cb7832da13ef74b838d02310017aa7268babec5bf71318b25602514656fed | quote: The only available region is Singapore with Global deployment mode.
+  - [1] 2026-11-02: kimi-k2.7-code is a Team Edition model | capture: sha256:bf5cb7832da13ef74b838d02310017aa7268babec5bf71318b25602514656fed | quote: | Moonshot AI | kimi-k2.7-code | Reasoning, vision understanding, text generation |
+  - [1] 2026-11-02: glm-5 is a Team Edition model | capture: sha256:bf5cb7832da13ef74b838d02310017aa7268babec5bf71318b25602514656fed | quote: | Zhipu AI | glm-5 | Reasoning, text generation |
+  - [1] 2026-11-02: the Team Edition does not use conversation data for model training | capture: sha256:bf5cb7832da13ef74b838d02310017aa7268babec5bf71318b25602514656fed | quote: Data security: Your conversation data is never used for model training.
+  - [1] 2026-11-02: an admin console assigns seats and shows usage | capture: sha256:bf5cb7832da13ef74b838d02310017aa7268babec5bf71318b25602514656fed | quote: Team management: Provides an admin console with seat assignment, reclamation, and member usage analytics.
+  - [1] 2026-11-02: a seat without usage can be unsubscribed with a refund to the original payment method | capture: sha256:bf5cb7832da13ef74b838d02310017aa7268babec5bf71318b25602514656fed | quote: Seats with usage cannot be unsubscribed. Refunds are returned to the original payment method.
+  - [2] 2026-11-02: a subscription holds up to 1,000 seats | capture: sha256:4867c694edf134ea6331dafad749d42d124e794b4e112a95d972381c8846c3ed | quote: The seat limit for a Token Plan Team Edition subscription is 1,000.
+  - [2] 2026-11-02: one subscription per account | capture: sha256:4867c694edf134ea6331dafad749d42d124e794b4e112a95d972381c8846c3ed | quote: Each QwenCloud account is limited to one Token Plan subscription.
+  - [3] 2026-11-02: a member added by hand can use a key and cannot sign in to the console | capture: sha256:5d9007d9d0d0ffb75e58cf28fd8957e45d9d22ce931016f8719846b708abbc50 | quote: Manually added members cannot log in to the Management Console — they can only use API Keys for model calls.
+  - [3] 2026-11-02: the console offers SAML single sign-on | capture: sha256:5d9007d9d0d0ffb75e58cf28fd8957e45d9d22ce931016f8719846b708abbc50 | quote: On the Settings page, the SSO Configuration section lets you integrate with your enterprise identity provider (IDP) via SAML 2.0 for single sign-on.
+  - [4] 2026-11-02: any tool with a custom base URL and key can connect | capture: sha256:631704ec020d9246c83a7589be2a36321f803a9a8429b93bf4e62d0dd706ce69 | quote: Any tool that supports a custom Base URL and API Key can be integrated.
+  - [5] 2026-11-02: the OpenAI-compatible plan base URL | capture: sha256:a221a8bd4393309e7119bf0ce4c482abb0de99570d34098b654e6239e3b21596 | quote: | OpenAI compatible | `https://token-plan.maas.qwencloudapi.com/compatible-mode/v1` |
+  - [5] 2026-11-02: the Anthropic-compatible plan base URL | capture: sha256:a221a8bd4393309e7119bf0ce4c482abb0de99570d34098b654e6239e3b21596 | quote: | Anthropic compatible | `https://token-plan.maas.qwencloudapi.com/apps/anthropic` |
+  - [6] 2026-11-02: a QwenCloud account is made with GitHub or email | capture: sha256:e15f37fa65bcd01d1156452fa87a48cbefe0c631783d095d2cd0290854517186 | quote: Go to [QwenCloud](https://home.qwencloud.com/) and sign in with GitHub or email.
+  - [7] 2026-11-02: QwenCloud accounts are Alibaba Cloud international main accounts | capture: sha256:a60609e0b71ee7a8c76a6120044f653e8e7701ef7d6e073c724f041ee112325f | quote: Only Alibaba Cloud International main accounts can access QwenCloud.
+  - [8] 2026-11-02: QwenCloud payment methods | capture: sha256:2c95bd634c0baaadf2355ef7d723692557b98ef69b5e1c4bb71386c8e9a430b8 | quote: Choose a payment method such as Credit & Debit Cards (Visa, Mastercard, JCB, American Express, UnionPay, Diners Club, or Discover), PayPal, Google Pay, or Apple Pay.
+  - [8] 2026-11-02: billing details include a mobile number that receives a verification code | capture: sha256:2c95bd634c0baaadf2355ef7d723692557b98ef69b5e1c4bb71386c8e9a430b8 | quote: Phone Number — Enter your phone number and click Verifying Mobile Number to receive a verification code
+  - [8] 2026-11-02: linking a card places a USD 1.00 pre-authorization | capture: sha256:2c95bd634c0baaadf2355ef7d723692557b98ef69b5e1c4bb71386c8e9a430b8 | quote: The system initiates a $1.00 USD pre-authorization to verify the card.
+  - [1] 2026-11-10: the page states the plan page prices a Standard Seat at USD 20 a seat a month | capture: sha256:a686d3a388f0afe71e4f2a76b2767b63a5e8d2a5ae194f9e0bbdc9a97484ca41 | quote: Standard Seat $20/seat/month
+- sources:
+  - [1] https://docs.qwencloud.com/token-plan/team/token-plan-team-overview
+  - [2] https://docs.qwencloud.com/token-plan/team/token-plan-team-faq
+  - [3] https://docs.qwencloud.com/token-plan/team/team-management
+  - [4] https://docs.qwencloud.com/token-plan/overview
+  - [5] https://docs.qwencloud.com/token-plan/team/token-plan-team-quickstart
+  - [6] https://docs.qwencloud.com/developer-guides/getting-started/first-api-call
+  - [7] https://docs.qwencloud.com/resources/faq-account
+  - [8] https://docs.qwencloud.com/resources/billing-overview

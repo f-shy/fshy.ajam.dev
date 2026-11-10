@@ -1,0 +1,254 @@
+# Warp
+
+> warp.dev | Coding subscriptions, Compute; 4 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/warp/ | JSON https://fshy.ajam.dev/api/v1/entity/warp.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Warp (Free)
+
+- `coding-subs/warp-free` | qualifies-with-caveat | evidence documented | binding write-gated | category coding subscription | tier Free
+- needs card no, phone unknown, ID no, institution no | verified 2026-11-02T15:23:28.704Z (live) | stale on 2026-12-03
+- url https://www.warp.dev/pricing
+- disagrees on identity_kind: `coding-subs/warp-build` says card, `coding-subs/warp-free` says email
+- disagrees on verdict: `coding-subs/warp-build` says paid-only, `coding-subs/warp-free` says qualifies-with-caveat
+- disagrees on identity_kind: `coding-subs/warp-free` says email, `coding-subs/warp-max` says card
+- disagrees on verdict: `coding-subs/warp-free` says qualifies-with-caveat, `coding-subs/warp-max` says paid-only
+- free tier: Free: $0/month with Warp Agent CLI access and bring-your-own AI inference; no Warp-provided inference is included, so an agent conversation runs on the user's own OpenAI, Anthropic or Google key, on an OpenAI-compatible custom endpoint, or on purchased pay-as-you-go usage | unit: none | metered on: none | read on: 2026-11-02 | source: [1] | note: the agent imposes no quota on a user key or endpoint; Free-plan purchases of Warp usage are priced at a premium
+- per-object cap: not applicable
+- retention: not applicable
+- egress: not applicable | metered: no
+- identity: email | detail: the Warp Agent CLI signs in to a Warp account through a browser device-code flow, and a Google or GitHub sign-up gives Warp only the email address; no payment is taken for the $0 plan; whether a phone number is asked at sign-up is unverified: behind a sign-up
+- interface: cli
+- limits:
+  - write-gated (binding): no Warp-provided inference on Free: a conversation runs only on the user's own key, a custom endpoint or purchased usage; Auto models always use Warp-provided inference, so a specific provider model must be chosen [2]
+  - per-ip-shaping: BYOK and custom endpoints are limited to individuals and organizations of 10 or fewer employees; a larger organization needs Business or Enterprise [2]
+- limits note: the plan includes no inference; BYOK and custom endpoints are open only to individuals and organizations of 10 or fewer employees
+- binding note: the plan carries no inference: capacity is whatever the user's own provider key or endpoint supplies
+- interface detail: the Warp Agent CLI (the `warp` binary) is an interactive terminal program; its documented flags are --api-key, --auto-approve, --resume, --set-provider-api-key, --clear-provider-api-key, --help and --version, and none is a prompt-and-exit flag, so a headless prompt mode of `warp` itself is unverified. Headless use is documented two ways: `warp` authenticates with the WARP_API_KEY environment variable on CI runners and remote servers, and the legacy Oz CLI runs a one-shot agent with `oz agent run --prompt "..."` (local) or `oz agent run-cloud` (cloud), authenticated by the same API key
+- tooling: the user installs the Warp Agent CLI with `curl -fsSL https://app.warp.dev/download/agent-cli | bash` (macOS and Linux; Windows and Homebrew installers also exist) or uses the Warp desktop app; the agent is Warp-hosted, and requests route through Warp's servers to the chosen model provider
+- composes with: the cost moves entirely to the key or endpoint: any key in inference/ that serves an OpenAI-compatible endpoint works, and Free-plan purchases of Warp usage cost a premium over paid-plan prices
+- reliability: no reliability event recorded; Warp-managed model traffic is covered by zero-data-retention agreements, while traffic routed through a user key or endpoint follows that provider's retention policy
+- notes: Models on Free are the ones the user's key or endpoint serves: OpenAI, Anthropic or Google through BYOK (the Warp catalogue lists OpenAI, Anthropic, Google and open-source models), and any OpenAI-compatible endpoint such as OpenRouter or LiteLLM, which must be reachable at a public URL. A Claude consumer subscription cannot back the agent; an Anthropic API key can. Cloud agent runs on Free are limited, use the Warp Agent harness only (Claude Code and Codex as cloud harnesses need a paid plan), do not use personal BYOK keys, and incur platform usage of USD 3 per agent hour.
+- evidence note: plan, BYOK, custom-endpoint and CLI statements are quoted from first-party pages read on 2026-11-02. Whether the `warp` binary has a prompt-and-exit mode is not documented on the pages read, and the legacy `oz` CLI is the documented one-shot route. Per-model token prices through a user key are the provider's and were not read.
+- evidence:
+  - [1] 2026-11-02: the Free card is priced at $0/month | capture: sha256:d90e340fb6a3ca2ff671a4e5e471835648c608108269fe9dd98c67d3eefa7d6a | quote: $0/month
+  - [1] 2026-11-02: the Free plan includes access to the Warp Agent CLI | capture: sha256:d90e340fb6a3ca2ff671a4e5e471835648c608108269fe9dd98c67d3eefa7d6a | quote: Warp Agent CLI access
+  - [1] 2026-11-02: the Free plan lists bring your own AI inference | capture: sha256:d90e340fb6a3ca2ff671a4e5e471835648c608108269fe9dd98c67d3eefa7d6a | quote: Bring your own AI inference*
+  - [1] 2026-11-02: Free carries no bundled agent usage; extra usage is pay-as-you-go | capture: sha256:d90e340fb6a3ca2ff671a4e5e471835648c608108269fe9dd98c67d3eefa7d6a | quote: Additional agent usage at pay-as-you-go rates
+  - [1] 2026-11-02: Free has limited cloud agents access | capture: sha256:d90e340fb6a3ca2ff671a4e5e471835648c608108269fe9dd98c67d3eefa7d6a | quote: Limited cloud agents access
+  - [2] 2026-11-02: Free includes no Warp-provided inference; a conversation needs purchased usage or the user's own inference | quote: Without included or purchased usage, or your own inference, conversations on Free cannot run on Warp-provided models.
+  - [2] 2026-11-02: a custom inference endpoint works on Free, Build and Max | quote: Custom inference endpoints are available on Free, Build, Max, Business, and Enterprise.
+  - [2] 2026-11-02: BYOK with an OpenAI, Anthropic or Google key works on Free, Build and Max | quote: Yes. On Free, Build, Max, Business, and Enterprise plans, you can configure your own OpenAI, Anthropic, or Google API key
+  - [2] 2026-11-02: BYOK and custom endpoints are limited to individuals and organizations of 10 or fewer employees | quote: BYOK and custom inference endpoint support are available for individual users and organizations with 10 or fewer employees
+  - [2] 2026-11-02: the Free plan is open to developers at any company size | quote: Yes. Developers at any company size are welcome to use Warp’s Free plan.
+  - [2] 2026-11-02: usage bought on Free costs more than on a paid plan | quote: Free-plan purchases are priced at a premium.
+  - [3] 2026-11-02: a Warp account is optional in the desktop app | capture: sha256:077819201361b9c702ed9f669ba990787edc3945f9bd631ca1a3a5517f0c3510 | quote: Optionally, you can skip this step.
+  - [3] 2026-11-02: sign-up through Google or GitHub shares only the email address | capture: sha256:077819201361b9c702ed9f669ba990787edc3945f9bd631ca1a3a5517f0c3510 | quote: If you sign up using Google or GitHub, Warp only gets access to the associated email address.
+  - [4] 2026-11-02: the Warp Agent CLI signs in to a Warp account | capture: sha256:8b1dd2ab2201a8acbaf599d68bc871d108f0a30a2e64786c5bc11dda0e0fbf5e | quote: The CLI uses the same account as the Warp app, but doesn’t require the app to be installed.
+  - [4] 2026-11-02: the first run logs in through a browser device-code flow | capture: sha256:8b1dd2ab2201a8acbaf599d68bc871d108f0a30a2e64786c5bc11dda0e0fbf5e | quote: The CLI shows a verification link and a device code, and opens the link in your browser.
+  - [4] 2026-11-02: the CLI authenticates headless through WARP_API_KEY | capture: sha256:8b1dd2ab2201a8acbaf599d68bc871d108f0a30a2e64786c5bc11dda0e0fbf5e | quote: Authenticate with a Warp API key instead by setting the `WARP_API_KEY` environment variable:
+  - [4] 2026-11-02: the Warp Agent CLI installs with a one-line script on macOS and Linux | capture: sha256:8b1dd2ab2201a8acbaf599d68bc871d108f0a30a2e64786c5bc11dda0e0fbf5e | quote: curl -fsSL https://app.warp.dev/download/agent-cli | bash
+  - [5] 2026-11-02: the --api-key flag is for CI runners and remote servers | capture: sha256:51ea96636670d75e3b93f60e6cd88a1c977deba0af54c6f9f884690de41037ec | quote: Authenticates with a Warp API key instead of the interactive browser login. Use it on machines that can’t open a browser, such as CI runners and remote servers.
+  - [5] 2026-11-02: --auto-approve removes approval prompts for a launched session | capture: sha256:51ea96636670d75e3b93f60e6cd88a1c977deba0af54c6f9f884690de41037ec | quote: Starts new conversations with auto-approve enabled, so the agent runs actions without asking for approval first.
+  - [5] 2026-11-02: the warp command starts an interactive session; its flag list documents no prompt-and-exit flag | capture: sha256:51ea96636670d75e3b93f60e6cd88a1c977deba0af54c6f9f884690de41037ec | quote: Running `warp` with no flags starts an interactive session in the current directory.
+  - [5] 2026-11-02: --set-provider-api-key stores a BYOK key for openai, anthropic or google from the shell | capture: sha256:51ea96636670d75e3b93f60e6cd88a1c977deba0af54c6f9f884690de41037ec | quote: Stores a model-provider API key for
+  - [6] 2026-11-02: the oz binary is a supported legacy command line | capture: sha256:989829ebfe94c8e8b6184d38d64a32a7b130e6a3dc7a1d2718b492d7fc542e3c | quote: The Oz CLI (the `oz` binary, which previously shipped as `warp-cli`) is a supported legacy interface.
+  - [6] 2026-11-02: API keys give the oz CLI non-interactive authentication | capture: sha256:989829ebfe94c8e8b6184d38d64a32a7b130e6a3dc7a1d2718b492d7fc542e3c | quote: Use an API key when the environment must authenticate on its own, such as CI pipelines, headless servers, VMs, Codespaces, or containers.
+  - [7] 2026-11-02: `oz agent run --prompt` runs a one-shot agent locally | capture: sha256:3827891dbcf7618fcb2c98f5a207a57538bb2104f08b2df00d610971b09d72ab | quote: This uses the default agent profile and executes the run locally.
+  - [8] 2026-11-02: BYOK is open on Free and paid plans | capture: sha256:0636f576de6d6cc639f5b267c4a362b66b16fe74e72f72573b071b7a8e32f872 | quote: BYOK is available on Free and all eligible paid plans for individual users and organizations with 10 or fewer employees
+  - [8] 2026-11-02: personal BYOK keys do not apply to cloud runs | capture: sha256:0636f576de6d6cc639f5b267c4a362b66b16fe74e72f72573b071b7a8e32f872 | quote: Personal BYOK keys work for local Warp Agent runs, not
+  - [8] 2026-11-02: a Claude consumer subscription cannot back the Warp Agent; an API key is needed | capture: sha256:0636f576de6d6cc639f5b267c4a362b66b16fe74e72f72573b071b7a8e32f872 | quote: You can’t connect a Claude consumer subscription to the Warp Agent.
+  - [9] 2026-11-02: a custom endpoint must be publicly reachable | capture: sha256:cfda78c485ecbfc58f7ceb4b71a9694dff33d82ca3da579c50cfa69ffe7590b5 | quote: Your endpoint must be reachable at a public URL.
+  - [10] 2026-11-02: Free has no bundled Warp Agent usage | capture: sha256:8b0527578ccc3eb5bc4db8060d340171c92c254974e3c8f4bc8d6bbb87107cc8 | quote: The Free plan does not include bundled usage for the Warp Agent;
+  - [11] 2026-11-02: cloud runs incur platform charges whoever pays for inference | capture: sha256:de9c771a25383a68e1d9da454e482b408fced32f30c1893cad9299872446eeb3 | quote: Billable agent time incurs platform charges regardless of the harness, inference provider, or compute host.
+  - [11] 2026-11-02: cloud-run platform usage is $3 per agent hour on Free, Build and Max | capture: sha256:de9c771a25383a68e1d9da454e482b408fced32f30c1893cad9299872446eeb3 | quote: On Free, Build, Max, and Business accounts billed in dollars, platform usage costs $3 per AH, or $0.05 per billable minute.
+  - [12] 2026-11-02: Auto models always draw on Warp usage; a specific provider model is needed to bill through a user key | capture: sha256:4aefbd19515d3085b03795161e7d4db203ecd20a5ecacc20016e7407ecd5020c | quote: Warp’s built-in Auto models always use Warp-provided inference, even with BYOK configured.
+  - [13] 2026-11-02: the model catalogue spans OpenAI, Anthropic, Google and open-source models | capture: sha256:baa59207b96abc6dbc445350090ce784bcb41c9a5142cb2d3dcdfa632a1e261f | quote: Models from OpenAI, Anthropic, Google, and open source providers are available
+  - [2] 2026-11-02: choosing Claude Code or Codex as a cloud harness needs a paid plan | quote: as a third-party harness requires a paid plan.
+- sources:
+  - [1] https://www.warp.dev/pricing
+  - [2] https://docs.warp.dev/support-and-community/plans-and-billing/pricing-faqs/
+  - [3] https://docs.warp.dev/getting-started/quickstart/installation-and-setup/
+  - [4] https://docs.warp.dev/agents/cli/quickstart/
+  - [5] https://docs.warp.dev/agents/cli/reference/
+  - [6] https://docs.warp.dev/agents/cli/oz-cli/
+  - [7] https://docs.warp.dev/agents/cli/oz-cli/quickstart/
+  - [8] https://docs.warp.dev/agents/inference/bring-your-own-api-key/
+  - [9] https://docs.warp.dev/agents/inference/custom-inference-endpoint/
+  - [10] https://docs.warp.dev/support-and-community/plans-and-billing/plans-pricing-refunds/
+  - [11] https://docs.warp.dev/support-and-community/plans-and-billing/platform-credits/
+  - [12] https://docs.warp.dev/agents/cli/models-and-usage/
+  - [13] https://docs.warp.dev/agents/inference/model-choice/
+
+## Warp (Compute)
+
+- `compute/warp` | qualifies-with-caveat | evidence documented | binding write-gated | category cloud VM
+- needs card unknown, phone unknown, ID no, institution no | verified 2026-11-04T10:27:57.617Z (live) | stale on 2026-12-05
+- url https://www.warp.dev/pricing
+- free tier: Warp Free: "$0/month" with "Warp Agent CLI access", "Bring your own AI inference", "Limited cloud agents access", "Use any harness in the cloud (beta)", quoted; the billing FAQ says "Free uses pay-as-you-go for Warp-provided inference" | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: free-product
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email | detail: an account is optional for the terminal: the install guide says the sign-up step can be skipped, and a sign-up through Google or GitHub gives Warp only the associated email address; no payment is taken for the Free plan itself. Whether running the Warp Agent with the user's own key needs an account, and whether sign-up asks for a phone number or a card, is not stated
+- interface: cli
+- limits:
+  - write-gated (binding): the free tier includes no Warp-provided inference at all, so a conversation runs only if a key, a subscription or a purchase is supplied. [1]
+- limits note: the free tier includes no Warp-provided inference at all, so a conversation runs only if a key, a subscription or a purchase is supplied.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: the Warp terminal app with the Warp Agent and the Warp Agent CLI; on Free the agent runs on the user's own OpenAI, Anthropic or Google key, or on any OpenAI-compatible custom inference endpoint, and selecting Claude Code or Codex as a cloud harness needs a paid plan; bring-your-own-key and a custom inference endpoint are offered to individual users and organizations of 10 or fewer employees; larger organizations need Business or Enterprise
+- composes with: the free account still grants a CLI and a harness in Warp's cloud, so a key from any inference vendor in documented records turns Warp into a free agent shell with no seat charge; the cost moves entirely to the endpoint.
+- reliability: no reliability event recorded
+- notes: Two older numbers are superseded: warp.dev/blog/warp-new-pricing-flexibility-byok advertises 150 AI credits a month for the first two months and 75 afterwards, and a 2025 source comment in warpdotdev/Warp sets the free request limit at 150 a month. The current billing FAQ states no included allowance.
+- extras:
+  - facets.class: free-standing-agent
+  - facets.free_tier_kind: free-product
+- evidence:
+  - [1] 2026-10-22: the Free card lists Warp Agent CLI access, bring your own AI inference and limited cloud agents access at $0, quoted
+  - [2] 2026-10-22: "Free uses pay-as-you-go for Warp-provided inference ... Without included or purchased usage, or your own inference, conversations on Free cannot run on Warp-provided models." quoted
+  - [3] 2026-10-30: a Warp account is optional and a Google or GitHub sign-up shares only the email address | capture: sha256:077819201361b9c702ed9f669ba990787edc3945f9bd631ca1a3a5517f0c3510 | quote: If you sign up using Google or GitHub, Warp only gets access to the associated email address.
+  - [2] 2026-10-30: the Free plan accepts a custom inference endpoint, and the FAQ adds that BYOK is on all plans including Free since May 21, 2026 | quote: Custom inference endpoints are available on Free, Build, Max, Business, and Enterprise.
+  - [2] 2026-10-30: the Free plan still includes no Warp-provided inference; conversations need purchased usage or the user's own inference | quote: Without included or purchased usage, or your own inference, conversations on Free cannot run on Warp-provided models.
+  - [1] 2026-10-30: the Free card at $0/month still lists Warp Agent CLI access, bring your own AI inference and limited cloud agents access | capture: sha256:d90e340fb6a3ca2ff671a4e5e471835648c608108269fe9dd98c67d3eefa7d6a | quote: Bring your own AI inference*
+  - [2] 2026-11-03: the Free plan has no Warp-provided inference unless usage is bought or the user brings their own inference | quote: Without included or purchased usage, or your own inference, conversations on Free cannot run on Warp-provided models.
+  - [2] 2026-11-03: bring-your-own-key and custom inference endpoints on Free are limited to organizations of 10 or fewer employees | quote: Companies or organizations with more than 10 employees need a Warp Business or Enterprise plan to use these features.
+  - [1] 2026-11-04: the Warp Free plan still lists bring-your-own inference | capture: sha256:d90e340fb6a3ca2ff671a4e5e471835648c608108269fe9dd98c67d3eefa7d6a | quote: Bring your own AI inference
+- sources:
+  - [1] https://www.warp.dev/pricing
+  - [2] https://docs.warp.dev/support-and-community/plans-and-billing/pricing-faqs/
+  - [3] https://docs.warp.dev/getting-started/quickstart/installation-and-setup/
+
+## Warp (Build)
+
+- `coding-subs/warp-build` | paid-only | evidence documented | binding volume-quota | category coding subscription | tier Build
+- needs card yes, phone unknown, ID no, institution no | verified 2026-11-10T01:56:01.011Z (live) | stale on 2026-12-11
+- url https://www.warp.dev/pricing
+- price parsed USD 18/mo
+- disagrees on identity_kind: `coding-subs/warp-build` says card, `coding-subs/warp-free` says email
+- disagrees on verdict: `coding-subs/warp-build` says paid-only, `coding-subs/warp-free` says qualifies-with-caveat
+- free tier: no free tier on this plan: Build is USD 18 a month on the annual plan and includes USD 20 of agent usage each month at API rates; usage beyond that is bought as add-on usage | unit: none | metered on: none | read on: 2026-11-02 | source: [1] | note: included usage resets monthly even on an annual plan and does not roll over; the price for monthly (non-annual) billing is unverified: not on the pricing card read
+- per-object cap: not applicable
+- retention: not applicable
+- egress: not applicable | metered: no
+- identity: card | detail: a Warp account plus payment details at subscription (the upgrade flow takes payment details and emails an invoice); whether a phone number is asked at sign-up is unverified: behind a…
+- interface: cli
+- limits:
+  - volume-quota (binding): USD 20 of agent usage included each month at API rates; resets monthly, no rollover; further usage is bought as add-on usage, optionally with auto-reload under a team spend limit (default USD 200 a month) [1]
+- limits note: the included allowance is USD 20 of agent usage a month at API rates; add-on usage is bought beyond it
+- binding note: the monthly included allowance is USD 20 of agent usage; past it, usage is bought as add-on usage
+- interface detail: the Warp Agent CLI (the `warp` binary) is an interactive terminal program; its documented flags are --api-key, --auto-approve, --resume, --set-provider-api-key, --clear-provider-api-key, --help and --version, and none is a prompt-and-exit flag, so a headless prompt mode of `warp` itself is unverified. Headless use is documented two ways: `warp` authenticates with the WARP_API_KEY environment variable on CI runners and remote servers, and the legacy Oz CLI runs a one-shot agent with `oz agent run --prompt "..."` (local) or `oz agent run-cloud` (cloud), authenticated by the same API key
+- tooling: the user installs the Warp Agent CLI with `curl -fsSL https://app.warp.dev/download/agent-cli | bash` (macOS and Linux; Windows and Homebrew installers also exist) or uses the Warp desktop app; the agent is Warp-hosted, and requests route through Warp's servers to the chosen model provider
+- composes with: usage is metered in dollars at API rates, so dollars of included usage buy tokens at each model's list price; a user key or custom endpoint bypasses the allowance and the provider bills it
+- reliability: no reliability event recorded; Warp-managed model traffic is covered by zero-data-retention agreements with the underlying providers
+- notes: Models: full Warp Agent access to frontier and open-source models from OpenAI, Anthropic, z.ai and more; the pricing page names Fable 5, Claude Opus 5, GPT-5.6, Gemini 3.1 Pro, GLM 5.2 and Kimi K3, and the model picker greys out models that a plan or team setting does not allow. Everything in Free is included, so BYOK and a custom endpoint still work, with extended cloud agents access, and Claude Code or Codex can be chosen as a cloud harness. Cloud runs incur platform usage of USD 3 per agent hour.
+- evidence note: plan price, included usage, add-on controls and the Warp Agent CLI's authentication are quoted from first-party pages read on 2026-11-02; the monthly-billing price and the per-model rates that turn dollars of usage into tokens were not read.
+- extras:
+  - monthly_usd: 18
+- evidence:
+  - [1] 2026-11-02: the Free card is priced at $0/month | capture: sha256:d90e340fb6a3ca2ff671a4e5e471835648c608108269fe9dd98c67d3eefa7d6a | quote: $0/month
+  - [1] 2026-11-02: the Free plan includes access to the Warp Agent CLI | capture: sha256:d90e340fb6a3ca2ff671a4e5e471835648c608108269fe9dd98c67d3eefa7d6a | quote: Warp Agent CLI access
+  - [1] 2026-11-02: Build is $18/month (the card is labelled Annual plan) | capture: sha256:d90e340fb6a3ca2ff671a4e5e471835648c608108269fe9dd98c67d3eefa7d6a | quote: $18/month
+  - [1] 2026-11-02: Build includes $20 of agent usage each month at API rates | capture: sha256:d90e340fb6a3ca2ff671a4e5e471835648c608108269fe9dd98c67d3eefa7d6a | quote: $20 of agent usage included each month at API rates
+  - [1] 2026-11-02: Build gives full Warp Agent access to frontier and open-source models | capture: sha256:d90e340fb6a3ca2ff671a4e5e471835648c608108269fe9dd98c67d3eefa7d6a | quote: Full Warp Agent access (frontier and open-source models from OpenAI, Anthropic, z.ai, and more)
+  - [1] 2026-11-02: the pricing page names the models reachable through Warp | capture: sha256:d90e340fb6a3ca2ff671a4e5e471835648c608108269fe9dd98c67d3eefa7d6a | quote: Access Fable 5, Claude Opus 5, GPT-5.6, Gemini 3.1 Pro, GLM 5.2, Kimi K3, and more.
+  - [1] 2026-11-02: Build and Max can buy add-on usage with auto-reload and a spend cap | capture: sha256:d90e340fb6a3ca2ff671a4e5e471835648c608108269fe9dd98c67d3eefa7d6a | quote: Add-on agent usage, auto-reload, and team-wide spend cap
+  - [2] 2026-11-02: subscribing to a paid plan takes payment details and the invoice is emailed | quote: After entering your payment details, you’ll receive an invoice and confirmation via email.
+  - [2] 2026-11-02: included usage resets monthly even on an annual plan | quote: Included usage resets monthly, including on annual subscriptions.
+  - [2] 2026-11-02: unused included usage does not roll over | quote: Unused included usage does not roll over;
+  - [2] 2026-11-02: a custom inference endpoint works on Free, Build and Max | quote: Custom inference endpoints are available on Free, Build, Max, Business, and Enterprise.
+  - [2] 2026-11-02: BYOK with an OpenAI, Anthropic or Google key works on Free, Build and Max | quote: Yes. On Free, Build, Max, Business, and Enterprise plans, you can configure your own OpenAI, Anthropic, or Google API key
+  - [2] 2026-11-02: BYOK and custom endpoints are limited to individuals and organizations of 10 or fewer employees | quote: BYOK and custom inference endpoint support are available for individual users and organizations with 10 or fewer employees
+  - [2] 2026-11-02: choosing Claude Code or Codex as a cloud harness needs a paid plan | quote: as a third-party harness requires a paid plan.
+  - [3] 2026-11-02: cloud-run platform usage is $3 per agent hour on Free, Build and Max | capture: sha256:de9c771a25383a68e1d9da454e482b408fced32f30c1893cad9299872446eeb3 | quote: On Free, Build, Max, and Business accounts billed in dollars, platform usage costs $3 per AH, or $0.05 per billable minute.
+  - [3] 2026-11-02: cloud runs incur platform charges whoever pays for inference | capture: sha256:de9c771a25383a68e1d9da454e482b408fced32f30c1893cad9299872446eeb3 | quote: Billable agent time incurs platform charges regardless of the harness, inference provider, or compute host.
+  - [4] 2026-11-02: the team monthly spend limit on purchases defaults to $200 | capture: sha256:f30d4e276143bb933cf27f61f0f4342bb0b4e422cb4ceaa0a45a6754f2b24063 | quote: The default is $200; an existing custom limit can be retained.
+  - [5] 2026-11-02: the Warp Agent CLI signs in to a Warp account | capture: sha256:8b1dd2ab2201a8acbaf599d68bc871d108f0a30a2e64786c5bc11dda0e0fbf5e | quote: The CLI uses the same account as the Warp app, but doesn’t require the app to be installed.
+  - [5] 2026-11-02: the CLI authenticates headless through WARP_API_KEY | capture: sha256:8b1dd2ab2201a8acbaf599d68bc871d108f0a30a2e64786c5bc11dda0e0fbf5e | quote: Authenticate with a Warp API key instead by setting the `WARP_API_KEY` environment variable:
+  - [6] 2026-11-02: the --api-key flag is for CI runners and remote servers | capture: sha256:51ea96636670d75e3b93f60e6cd88a1c977deba0af54c6f9f884690de41037ec | quote: Authenticates with a Warp API key instead of the interactive browser login. Use it on machines that can’t open a browser, such as CI runners and remote servers.
+  - [6] 2026-11-02: the warp command starts an interactive session; its flag list documents no prompt-and-exit flag | capture: sha256:51ea96636670d75e3b93f60e6cd88a1c977deba0af54c6f9f884690de41037ec | quote: Running `warp` with no flags starts an interactive session in the current directory.
+  - [6] 2026-11-02: --auto-approve removes approval prompts for a launched session | capture: sha256:51ea96636670d75e3b93f60e6cd88a1c977deba0af54c6f9f884690de41037ec | quote: Starts new conversations with auto-approve enabled, so the agent runs actions without asking for approval first.
+  - [7] 2026-11-02: the oz binary is a supported legacy command line | capture: sha256:989829ebfe94c8e8b6184d38d64a32a7b130e6a3dc7a1d2718b492d7fc542e3c | quote: The Oz CLI (the `oz` binary, which previously shipped as `warp-cli`) is a supported legacy interface.
+  - [8] 2026-11-02: `oz agent run --prompt` runs a one-shot agent locally | capture: sha256:3827891dbcf7618fcb2c98f5a207a57538bb2104f08b2df00d610971b09d72ab | quote: This uses the default agent profile and executes the run locally.
+  - [7] 2026-11-02: API keys give the oz CLI non-interactive authentication | capture: sha256:989829ebfe94c8e8b6184d38d64a32a7b130e6a3dc7a1d2718b492d7fc542e3c | quote: Use an API key when the environment must authenticate on its own, such as CI pipelines, headless servers, VMs, Codespaces, or containers.
+  - [9] 2026-11-02: Auto models always draw on Warp usage; a specific provider model is needed to bill through a user key | capture: sha256:4aefbd19515d3085b03795161e7d4db203ecd20a5ecacc20016e7407ecd5020c | quote: Warp’s built-in Auto models always use Warp-provided inference, even with BYOK configured.
+  - [10] 2026-11-02: the model catalogue spans OpenAI, Anthropic, Google and open-source models | capture: sha256:baa59207b96abc6dbc445350090ce784bcb41c9a5142cb2d3dcdfa632a1e261f | quote: Models from OpenAI, Anthropic, Google, and open source providers are available
+  - [1] 2026-11-02: Build has extended cloud agents access | capture: sha256:d90e340fb6a3ca2ff671a4e5e471835648c608108269fe9dd98c67d3eefa7d6a | quote: Extended cloud agents access
+  - [1] 2026-11-10: the page states the pricing page states the annual plan's per-month figure of USD 18; no conversion is made | capture: sha256:0a65b7f0cd134f0bc7c2d910fca5619e5fba53a7a55a16c248b5bfc864db5a07 | quote: Annual plan $18 /month
+- sources:
+  - [1] https://www.warp.dev/pricing
+  - [2] https://docs.warp.dev/support-and-community/plans-and-billing/pricing-faqs/
+  - [3] https://docs.warp.dev/support-and-community/plans-and-billing/platform-credits/
+  - [4] https://docs.warp.dev/support-and-community/plans-and-billing/add-on-credits/
+  - [5] https://docs.warp.dev/agents/cli/quickstart/
+  - [6] https://docs.warp.dev/agents/cli/reference/
+  - [7] https://docs.warp.dev/agents/cli/oz-cli/
+  - [8] https://docs.warp.dev/agents/cli/oz-cli/quickstart/
+  - [9] https://docs.warp.dev/agents/cli/models-and-usage/
+  - [10] https://docs.warp.dev/agents/inference/model-choice/
+
+## Warp (Max)
+
+- `coding-subs/warp-max` | paid-only | evidence documented | binding volume-quota | category coding subscription | tier Max
+- needs card yes, phone unknown, ID no, institution no | verified 2026-11-10T01:56:01.012Z (live) | stale on 2026-12-11
+- url https://www.warp.dev/pricing
+- price parsed USD 180/mo
+- disagrees on identity_kind: `coding-subs/warp-free` says email, `coding-subs/warp-max` says card
+- disagrees on verdict: `coding-subs/warp-free` says qualifies-with-caveat, `coding-subs/warp-max` says paid-only
+- free tier: no free tier on this plan: Max is USD 180 a month on the annual plan and includes USD 200 of agent usage each month at API rates; usage beyond that is bought as add-on usage | unit: none | metered on: none | read on: 2026-11-02 | source: [1] | note: included usage resets monthly even on an annual plan and does not roll over; the price for monthly (non-annual) billing is unverified: not on the pricing card read
+- per-object cap: not applicable
+- retention: not applicable
+- egress: not applicable | metered: no
+- identity: card | detail: a Warp account plus payment details at subscription (the upgrade flow takes payment details and emails an invoice); whether a phone number is asked at sign-up is unverified: behind a…
+- interface: cli
+- limits:
+  - volume-quota (binding): USD 200 of agent usage included each month at API rates; resets monthly, no rollover; further usage is bought as add-on usage, optionally with auto-reload under a team spend limit (default USD 200 a month) [1]
+- limits note: the included allowance is USD 200 of agent usage a month at API rates; add-on usage is bought beyond it
+- binding note: the monthly included allowance is USD 200 of agent usage; past it, usage is bought as add-on usage
+- interface detail: the Warp Agent CLI (the `warp` binary) is an interactive terminal program; its documented flags are --api-key, --auto-approve, --resume, --set-provider-api-key, --clear-provider-api-key, --help and --version, and none is a prompt-and-exit flag, so a headless prompt mode of `warp` itself is unverified. Headless use is documented two ways: `warp` authenticates with the WARP_API_KEY environment variable on CI runners and remote servers, and the legacy Oz CLI runs a one-shot agent with `oz agent run --prompt "..."` (local) or `oz agent run-cloud` (cloud), authenticated by the same API key
+- tooling: the user installs the Warp Agent CLI with `curl -fsSL https://app.warp.dev/download/agent-cli | bash` (macOS and Linux; Windows and Homebrew installers also exist) or uses the Warp desktop app; the agent is Warp-hosted, and requests route through Warp's servers to the chosen model provider
+- composes with: usage is metered in dollars at API rates, so dollars of included usage buy tokens at each model's list price; a user key or custom endpoint bypasses the allowance and the provider bills it
+- reliability: no reliability event recorded; Warp-managed model traffic is covered by zero-data-retention agreements with the underlying providers
+- notes: Models: the same Warp Agent model catalogue as Build, with ten times Build's included usage (USD 200 against USD 20 a month); the pricing page names Fable 5, Claude Opus 5, GPT-5.6, Gemini 3.1 Pro, GLM 5.2 and Kimi K3. Everything in Build is included, including BYOK, a custom endpoint and add-on usage with auto-reload. Cloud runs incur platform usage of USD 3 per agent hour.
+- evidence note: plan price, included usage, add-on controls and the Warp Agent CLI's authentication are quoted from first-party pages read on 2026-11-02; the monthly-billing price and the per-model rates that turn dollars of usage into tokens were not read.
+- extras:
+  - monthly_usd: 180
+- evidence:
+  - [1] 2026-11-02: the Free card is priced at $0/month | capture: sha256:d90e340fb6a3ca2ff671a4e5e471835648c608108269fe9dd98c67d3eefa7d6a | quote: $0/month
+  - [1] 2026-11-02: the Free plan includes access to the Warp Agent CLI | capture: sha256:d90e340fb6a3ca2ff671a4e5e471835648c608108269fe9dd98c67d3eefa7d6a | quote: Warp Agent CLI access
+  - [1] 2026-11-02: Max is $180/month (the card is labelled Annual plan) | capture: sha256:d90e340fb6a3ca2ff671a4e5e471835648c608108269fe9dd98c67d3eefa7d6a | quote: $180/month
+  - [1] 2026-11-02: Max includes $200 of agent usage each month, ten times Build | capture: sha256:d90e340fb6a3ca2ff671a4e5e471835648c608108269fe9dd98c67d3eefa7d6a | quote: $200 of agent usage included each month (10× Build)
+  - [1] 2026-11-02: Build gives full Warp Agent access to frontier and open-source models | capture: sha256:d90e340fb6a3ca2ff671a4e5e471835648c608108269fe9dd98c67d3eefa7d6a | quote: Full Warp Agent access (frontier and open-source models from OpenAI, Anthropic, z.ai, and more)
+  - [1] 2026-11-02: the pricing page names the models reachable through Warp | capture: sha256:d90e340fb6a3ca2ff671a4e5e471835648c608108269fe9dd98c67d3eefa7d6a | quote: Access Fable 5, Claude Opus 5, GPT-5.6, Gemini 3.1 Pro, GLM 5.2, Kimi K3, and more.
+  - [1] 2026-11-02: Build and Max can buy add-on usage with auto-reload and a spend cap | capture: sha256:d90e340fb6a3ca2ff671a4e5e471835648c608108269fe9dd98c67d3eefa7d6a | quote: Add-on agent usage, auto-reload, and team-wide spend cap
+  - [2] 2026-11-02: subscribing to a paid plan takes payment details and the invoice is emailed | quote: After entering your payment details, you’ll receive an invoice and confirmation via email.
+  - [2] 2026-11-02: included usage resets monthly even on an annual plan | quote: Included usage resets monthly, including on annual subscriptions.
+  - [2] 2026-11-02: unused included usage does not roll over | quote: Unused included usage does not roll over;
+  - [2] 2026-11-02: a custom inference endpoint works on Free, Build and Max | quote: Custom inference endpoints are available on Free, Build, Max, Business, and Enterprise.
+  - [2] 2026-11-02: BYOK with an OpenAI, Anthropic or Google key works on Free, Build and Max | quote: Yes. On Free, Build, Max, Business, and Enterprise plans, you can configure your own OpenAI, Anthropic, or Google API key
+  - [2] 2026-11-02: BYOK and custom endpoints are limited to individuals and organizations of 10 or fewer employees | quote: BYOK and custom inference endpoint support are available for individual users and organizations with 10 or fewer employees
+  - [2] 2026-11-02: choosing Claude Code or Codex as a cloud harness needs a paid plan | quote: as a third-party harness requires a paid plan.
+  - [3] 2026-11-02: cloud-run platform usage is $3 per agent hour on Free, Build and Max | capture: sha256:de9c771a25383a68e1d9da454e482b408fced32f30c1893cad9299872446eeb3 | quote: On Free, Build, Max, and Business accounts billed in dollars, platform usage costs $3 per AH, or $0.05 per billable minute.
+  - [3] 2026-11-02: cloud runs incur platform charges whoever pays for inference | capture: sha256:de9c771a25383a68e1d9da454e482b408fced32f30c1893cad9299872446eeb3 | quote: Billable agent time incurs platform charges regardless of the harness, inference provider, or compute host.
+  - [4] 2026-11-02: the team monthly spend limit on purchases defaults to $200 | capture: sha256:f30d4e276143bb933cf27f61f0f4342bb0b4e422cb4ceaa0a45a6754f2b24063 | quote: The default is $200; an existing custom limit can be retained.
+  - [5] 2026-11-02: the Warp Agent CLI signs in to a Warp account | capture: sha256:8b1dd2ab2201a8acbaf599d68bc871d108f0a30a2e64786c5bc11dda0e0fbf5e | quote: The CLI uses the same account as the Warp app, but doesn’t require the app to be installed.
+  - [5] 2026-11-02: the CLI authenticates headless through WARP_API_KEY | capture: sha256:8b1dd2ab2201a8acbaf599d68bc871d108f0a30a2e64786c5bc11dda0e0fbf5e | quote: Authenticate with a Warp API key instead by setting the `WARP_API_KEY` environment variable:
+  - [6] 2026-11-02: the --api-key flag is for CI runners and remote servers | capture: sha256:51ea96636670d75e3b93f60e6cd88a1c977deba0af54c6f9f884690de41037ec | quote: Authenticates with a Warp API key instead of the interactive browser login. Use it on machines that can’t open a browser, such as CI runners and remote servers.
+  - [6] 2026-11-02: the warp command starts an interactive session; its flag list documents no prompt-and-exit flag | capture: sha256:51ea96636670d75e3b93f60e6cd88a1c977deba0af54c6f9f884690de41037ec | quote: Running `warp` with no flags starts an interactive session in the current directory.
+  - [6] 2026-11-02: --auto-approve removes approval prompts for a launched session | capture: sha256:51ea96636670d75e3b93f60e6cd88a1c977deba0af54c6f9f884690de41037ec | quote: Starts new conversations with auto-approve enabled, so the agent runs actions without asking for approval first.
+  - [7] 2026-11-02: the oz binary is a supported legacy command line | capture: sha256:989829ebfe94c8e8b6184d38d64a32a7b130e6a3dc7a1d2718b492d7fc542e3c | quote: The Oz CLI (the `oz` binary, which previously shipped as `warp-cli`) is a supported legacy interface.
+  - [8] 2026-11-02: `oz agent run --prompt` runs a one-shot agent locally | capture: sha256:3827891dbcf7618fcb2c98f5a207a57538bb2104f08b2df00d610971b09d72ab | quote: This uses the default agent profile and executes the run locally.
+  - [7] 2026-11-02: API keys give the oz CLI non-interactive authentication | capture: sha256:989829ebfe94c8e8b6184d38d64a32a7b130e6a3dc7a1d2718b492d7fc542e3c | quote: Use an API key when the environment must authenticate on its own, such as CI pipelines, headless servers, VMs, Codespaces, or containers.
+  - [9] 2026-11-02: Auto models always draw on Warp usage; a specific provider model is needed to bill through a user key | capture: sha256:4aefbd19515d3085b03795161e7d4db203ecd20a5ecacc20016e7407ecd5020c | quote: Warp’s built-in Auto models always use Warp-provided inference, even with BYOK configured.
+  - [10] 2026-11-02: the model catalogue spans OpenAI, Anthropic, Google and open-source models | capture: sha256:baa59207b96abc6dbc445350090ce784bcb41c9a5142cb2d3dcdfa632a1e261f | quote: Models from OpenAI, Anthropic, Google, and open source providers are available
+  - [1] 2026-11-10: the page states the pricing page states the annual plan's per-month figure of USD 180; no conversion is made | capture: sha256:0a65b7f0cd134f0bc7c2d910fca5619e5fba53a7a55a16c248b5bfc864db5a07 | quote: Annual plan $180 /month
+- sources:
+  - [1] https://www.warp.dev/pricing
+  - [2] https://docs.warp.dev/support-and-community/plans-and-billing/pricing-faqs/
+  - [3] https://docs.warp.dev/support-and-community/plans-and-billing/platform-credits/
+  - [4] https://docs.warp.dev/support-and-community/plans-and-billing/add-on-credits/
+  - [5] https://docs.warp.dev/agents/cli/quickstart/
+  - [6] https://docs.warp.dev/agents/cli/reference/
+  - [7] https://docs.warp.dev/agents/cli/oz-cli/
+  - [8] https://docs.warp.dev/agents/cli/oz-cli/quickstart/
+  - [9] https://docs.warp.dev/agents/cli/models-and-usage/
+  - [10] https://docs.warp.dev/agents/inference/model-choice/

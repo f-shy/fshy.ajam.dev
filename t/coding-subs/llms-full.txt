@@ -1,0 +1,16 @@
+# fshy: Coding subscriptions in full
+
+> Coding-agent subscriptions and their price per unit of work.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic is 515 KB, about 139K tokens in full, more than the 300 KB, about 81K tokens one file holds, so it is split: its hosted records by verdict group, then its self-hosted records in one last group, and a group over that size into balanced parts. The parts in the order below are the one order (hosted before self-hosted, then verdict, provider name, record id). How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## Parts
+
+- [Usable](https://fshy.ajam.dev/t/coding-subs/llms-full-usable.txt): 20 records; 212 KB, about 57K tokens
+- [Trial](https://fshy.ajam.dev/t/coding-subs/llms-full-trial.txt): 1 records; 12 KB, about 3K tokens
+- [Paid only](https://fshy.ajam.dev/t/coding-subs/llms-full-paid.txt): 19 records; 216 KB, about 58K tokens
+- [Rejected](https://fshy.ajam.dev/t/coding-subs/llms-full-rejected.txt): 2 records; 22 KB, about 6K tokens
+- [Dead](https://fshy.ajam.dev/t/coding-subs/llms-full-dead.txt): 2 records; 6 KB, about 2K tokens
+- [Self-hosted, the last resort](https://fshy.ajam.dev/t/coding-subs/llms-full-self-hosted.txt): 6 records; 50 KB, about 13K tokens

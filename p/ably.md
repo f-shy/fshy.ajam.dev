@@ -1,0 +1,82 @@
+# Ably
+
+> ably.com | Developer services; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/ably/ | JSON https://fshy.ajam.dev/api/v1/entity/ably.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Ably
+
+- `dev-services/ably` | qualifies-with-caveat | evidence documented | binding request-rate | category realtime pub/sub messaging over WebSocket and REST | tier Free
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T00:38:24.162Z (live) | stale on 2026-12-03
+- url https://ably.com/docs/platform/pricing/free
+- free tier: Free package: 6,000,000 messages a month, 500 messages a second, 200 concurrent connections and 200 concurrent channels, no credit card and no time limit | unit: requests | metered on: request-count | read on: 2026-10-30 | source: [1] | note: A message counts on publish and on each delivery: a publish received by 10 subscribers counts as 11, and history reads and integrations count too. The account is also held to 250,000 messages an hour, 50 messages a second per channel and 25,000 HTTP API requests an hour at 50 a second. Count-based limits (connections, channels) refuse new resources until existing ones close; a publish above a rate limit is rejected with an error code. Email notifications go out near and past a limit.
+- per-object cap: 64 KiB per published message on the Free package | bytes: 65536 | source: [2]
+- retention: Message and presence history retrievable for 24 hours by default and 1 day at most on Free; messages in an Ably queue are kept 24 hours | days: 1 | source: [2] | note: Paid packages raise the history ceiling to 30 or 365 days.
+- egress: Message bandwidth on Free is capped at 28.6 GiB a month and 1.2 GiB an hour; paid packages charge USD 0.25 per GiB above an allowance of 5 KiB times the messages consumed | metered: yes | free allowance: 28.6 GiB of message bandwidth a month, 1.2 GiB an hour | source: [2]
+- identity: email | detail: The signup form asks for a full name, an optional company name, an email and a password with a reCAPTCHA check, or a GitHub or Google sign-in; the Free package needs no credit card.
+- interface: rest, unknown
+- limits:
+  - request-rate (binding): 6,000,000 messages per month [1]
+  - request-rate (binding): 250,000 messages per hour and 500 messages per second across the account [2]
+  - request-rate (binding): 25,000 HTTP API requests per hour, 50 per second [2]
+  - per-object-cap: 64 KiB per published message [2]
+  - volume-quota: 28.6 GiB of message bandwidth per month, 1.2 GiB per hour [2]
+  - retention-clamped: history kept 1 day at most [2]
+- limits note: 200 concurrent connections, 200 concurrent channels, 200 channels per connection and 50 messages a second per channel, and up to 5 queues per account that hold 50,000 queued messages between them. The vocabulary has no kind for a concurrency cap or a queued-message backlog cap.
+- binding note: 6,000,000 a month is 200,000 a day (6,000,000 / 30) and every delivery counts, so a fan-out meets the monthly count first; messages that average above 5 KiB meet the 28.6 GiB monthly bandwidth before it (6,000,000 x 5 KiB = 28.6 GiB).
+- interface detail: REST API at https://main.realtime.ably.net for publish, history, presence, tokens and stats, in JSON or MessagePack; realtime connections use the native WebSockets-based protocol through the Ably SDKs, and protocol adapters add MQTT, SSE, AMQP, STOMP, Pusher and PubNub at no extra charge. The interface vocabulary has no term for WebSocket, MQTT, SSE, AMQP or STOMP, so they are listed here.
+- endpoint: part of interface detail
+- tooling: Ably SDKs for JavaScript, Python, Go, Java, Ruby, .NET, iOS and Android, any HTTP client against the REST API with an API key or token, or an MQTT 3.1.1 client against main.mqtt.ably.net on port 8883 with TLS.
+- composes with: A fan-out layer that pushes job status from free compute workers to browsers or other workers, with one day of history for a consumer that reconnects.
+- reliability: Rate-limit excess is rejected with an error and count limits refuse new connections or channels; Free support is a best-effort service level objective.
+- notes: The Standard package is USD 29 a month plus usage, with 2,500 messages a second, 10,000 connections and 30 days of history.
+- evidence note: Every limit is quoted from the first-party limits and pricing pages; the REST host was probed and its /time endpoint answered 200 without a key. No message was published, because publishing needs an account key. A publish and history read with a Free key would move it to measured.
+- evidence:
+  - [1] 2026-10-30: the Free package needs no credit card and has no time limit | capture: sha256:a90e5c08b1314172ddbf70bc3ec82be97d8aa141dccd59ad7a55b4fa279c0a34 | quote: No credit card is required to sign up and there's no time limit on how long you can try it for.
+  - [1] 2026-10-30: the Free package includes 6,000,000 messages a month | capture: sha256:a90e5c08b1314172ddbf70bc3ec82be97d8aa141dccd59ad7a55b4fa279c0a34 | quote: | Messages (per month) | 6,000,000 |
+  - [1] 2026-10-30: Free support is best effort | capture: sha256:a90e5c08b1314172ddbf70bc3ec82be97d8aa141dccd59ad7a55b4fa279c0a34 | quote: Free package support includes Ably's best effort Service Level Objective (SLO)
+  - [3] 2026-10-30: Free is 200 concurrent connections, 500 messages a second and 6M messages a month | capture: sha256:fd6419d940694ee6eb59be3ac63c21cae102eaee8e3bd1bf82bb42ca0ac07811 | quote: 200 concurrent connections 500 messages / second 6M messages / month
+  - [2] 2026-10-30: Free allows 500 messages a second across the account | capture: sha256:4d802669870eb4ace7c282dc2ca954e43df46569583fbb23ecc832d9e54c9603 | quote: | Message rate (per second)<p>*the maximum rate at which messages can be published and received across your account each second*</p> | 500 | 2,500 | 10,000 | Unlimited |
+  - [2] 2026-10-30: Free allows 250,000 messages an hour | capture: sha256:4d802669870eb4ace7c282dc2ca954e43df46569583fbb23ecc832d9e54c9603 | quote: | Message count (per hour)<p>*the total number of messages that can be sent across an account per hour*</p> | 250,000 | 5,208,000 | 20,833,000 | Unlimited |
+  - [2] 2026-10-30: Free message bandwidth is 28.6 GiB a month | capture: sha256:4d802669870eb4ace7c282dc2ca954e43df46569583fbb23ecc832d9e54c9603 | quote: | Message bandwidth (monthly, GiB)<p>*the maximum amount of data that can be transferred through messages each month, in GiB*</p> | 28.6 | 1,192 | 4,768 | Unlimited |
+  - [2] 2026-10-30: Free message bandwidth is 1.2 GiB an hour | capture: sha256:4d802669870eb4ace7c282dc2ca954e43df46569583fbb23ecc832d9e54c9603 | quote: | Message bandwidth (hourly, GiB)<p>*the maximum amount of data that can be transferred through messages each hour, in GiB*</p> | 1.2 | 24.8 | 99.3 | Unlimited |
+  - [2] 2026-10-30: a published message is at most 64 KiB on Free | capture: sha256:4d802669870eb4ace7c282dc2ca954e43df46569583fbb23ecc832d9e54c9603 | quote: | Max message size (KiB)<p>the maximum size of a single published message</p> | 64 | 64 | 256 | 256 |
+  - [2] 2026-10-30: history is kept at most 1 day on Free | capture: sha256:4d802669870eb4ace7c282dc2ca954e43df46569583fbb23ecc832d9e54c9603 | quote: | Max history / storage TTL (days)<p>*the maximum time that a message or presence message can be retrieved from history*</p> | 1 | 30 | 365 | 365 |
+  - [2] 2026-10-30: Free allows 200 concurrent connections | capture: sha256:4d802669870eb4ace7c282dc2ca954e43df46569583fbb23ecc832d9e54c9603 | quote: | Concurrent connections<p>*the maximum number of realtime clients connected to Ably simultaneously at any point*</p> | 200 | 10,000 | 50,000 | Unlimited |
+  - [2] 2026-10-30: Free allows 200 concurrent channels | capture: sha256:4d802669870eb4ace7c282dc2ca954e43df46569583fbb23ecc832d9e54c9603 | quote: | Concurrent channels<p>*the maximum number of channels that are active simultaneously at any point*</p> | 200 | 10,000 | 50,000 | Unlimited |
+  - [2] 2026-10-30: each channel takes at most 50 published messages a second | capture: sha256:4d802669870eb4ace7c282dc2ca954e43df46569583fbb23ecc832d9e54c9603 | quote: | Message publish rate per channel (per second)<p>*the maximum rate at which messages can be published for each channel*</p> | 50 | 50 | 50 | 50 |
+  - [2] 2026-10-30: Free allows 25,000 HTTP API requests an hour | capture: sha256:4d802669870eb4ace7c282dc2ca954e43df46569583fbb23ecc832d9e54c9603 | quote: | HTTP API requests (per hour)<p>*the maximum number of HTTP API requests that can be made to Ably per hour, excluding token requests*</p> | 25,000 | 521,000 | 2,083,300 | Custom |
+  - [2] 2026-10-30: Free allows 50 HTTP API requests a second | capture: sha256:4d802669870eb4ace7c282dc2ca954e43df46569583fbb23ecc832d9e54c9603 | quote: | HTTP API request rate (per second)<p>*the maximum rate at which HTTP API requests can be made to Ably*</p> | 50 | 362 | 1,447 | Custom |
+  - [2] 2026-10-30: a message waits in an Ably queue for 24 hours at most | capture: sha256:4d802669870eb4ace7c282dc2ca954e43df46569583fbb23ecc832d9e54c9603 | quote: | Queue TTL (hours)<p>*the maximum time that a message is stored in a queue for, before being transferred to the dead letter queue*</p> | 24 | 24 | 24 | 24 |
+  - [2] 2026-10-30: a publish above a rate limit is rejected | capture: sha256:4d802669870eb4ace7c282dc2ca954e43df46569583fbb23ecc832d9e54c9603 | quote: Usage in excess of a rate limit can be rejected locally, such as a publisher trying to publish at a rate in excess of the publish rate per channel.
+  - [2] 2026-10-30: email notifications go out near and past a limit | capture: sha256:4d802669870eb4ace7c282dc2ca954e43df46569583fbb23ecc832d9e54c9603 | quote: Email notifications are sent out when you are nearing a limit, as well as when you have exceeded it.
+  - [4] 2026-10-30: a publish received by 10 subscribers counts as 11 messages | capture: sha256:9a35b4222d28d0f5348a123178d4c9fa98971f139adeb56ebb71f9ea574054aa | quote: For example, if a user sends (publishes) a message and 10 users receive it (subscribed) that counts as 11 messages.
+  - [4] 2026-10-30: paid bandwidth allowance is 5 KiB times the messages consumed | capture: sha256:9a35b4222d28d0f5348a123178d4c9fa98971f139adeb56ebb71f9ea574054aa | quote: This is worked out based on the average message size of 5KiB multiplied by the number of messages consumed in the month.
+  - [4] 2026-10-30: paid bandwidth above the allowance is USD 0.25 per GiB | capture: sha256:9a35b4222d28d0f5348a123178d4c9fa98971f139adeb56ebb71f9ea574054aa | quote: Anything over this value is charged at $0.25 per GiB.
+  - [4] 2026-10-30: the Standard package base price is USD 29 a month | capture: sha256:9a35b4222d28d0f5348a123178d4c9fa98971f139adeb56ebb71f9ea574054aa | quote: | N/A | $29 | $399 | Custom |
+  - [5] 2026-10-30: the signup asks for a full name, an optional company, an email and a password | capture: sha256:dc7c36e59687fdf2f012ec30dac9d4b28ad4014a8537534adc3e62bd8171e35a | quote: Full name * Company name(Optional) Email * Create password *
+  - [5] 2026-10-30: the signup also accepts a GitHub or Google sign-in | capture: sha256:dc7c36e59687fdf2f012ec30dac9d4b28ad4014a8537534adc3e62bd8171e35a | quote: Continue with GitHub Continue with Google
+  - [6] 2026-10-30: the REST API is a subset of the realtime API without a long-lived connection | capture: sha256:74e3fe9165f876feffac54d4ce5f8f028a5a7f2db1f6abe09b6a8c851aabf2de | quote: The REST API does not provide a realtime long-lived connection to Ably, but in all other respects is a simple subset of the full realtime messaging API
+  - [6] 2026-10-30: the REST API is served at main.realtime.ably.net | capture: sha256:74e3fe9165f876feffac54d4ce5f8f028a5a7f2db1f6abe09b6a8c851aabf2de | quote: curl https://main.realtime.ably.net/channels/rest-example/messages
+  - [6] 2026-10-30: the REST API accepts MessagePack as well as JSON | capture: sha256:74e3fe9165f876feffac54d4ce5f8f028a5a7f2db1f6abe09b6a8c851aabf2de | quote: * `application/x-msgpack`: for [MessagePack](https://msgpack.org/), the efficient binary serialization format that is similar to JSON, but faster and smaller;
+  - probe:https://main.realtime.ably.net/time 2026-10-30: the REST host answers its time endpoint without a key | capture: sha256:41fa823c30c8a92a55964218ea5cb11f0f07ab0a53fdb523531211891f4d0416 | quote: "status": 200
+  - [7] 2026-11-01: Ably offers a native WebSockets-based protocol and adapters for MQTT, SSE, AMQP, STOMP, Pusher and PubNub | capture: sha256:7e642865fa375fe965e39c8ccdc56e9ad1df898533eb557fd6bf7c5adfddc77a | quote: Ably supports multiple protocols in addition to the native WebSockets-based one: MQTT, SSE, AMQP, STOMP, Pusher, PubNub
+  - [8] 2026-11-01: the MQTT adapter takes MQTT 3.1.1 clients at host main.mqtt.ably.net on TLS port 8883 | capture: sha256:eeacede2be1098ca723ff54c1ee3aa7c595c22edab5e2daf373cf6dba3d98133 | quote: Only supports MQTT 3.1.1 clients only ... Set the host to "main.mqtt.ably.net" ... Set SSL / TLS to true and the port to 8883.
+  - [2] 2026-11-01: all queues of an account share one backlog of at most 50,000 queued messages on every package, Free included | capture: sha256:4d802669870eb4ace7c282dc2ca954e43df46569583fbb23ecc832d9e54c9603 | quote: | Max queue length<p>*the maximum number of messages that can be stored in queues whilst waiting to be consumed. This value is shared between all queues in an account*</p> | 50,000 | 50,000 | 50,000 | 50,000 |
+  - [5] 2026-11-01: the email signup form carries a reCAPTCHA check after the name, company, email and password fields | capture: sha256:8b50d7faca4f73c0616d170997a26bb7f3dacc502e4ab9535dc29bc0d29d6011 | quote: Full name * Company name(Optional) Email * Create password * Recaptcha requires verification. I'm not a robot
+  - [7] 2026-11-01: protocol adapters add no charge, and their connections and messages count as they do on the native protocol | capture: sha256:7e642865fa375fe965e39c8ccdc56e9ad1df898533eb557fd6bf7c5adfddc77a | quote: Use of protocol adapters carries no additional charge. You are charged for the total number of peak connections and messages sent as if you were using Ably's native protocol.
+  - [2] 2026-11-01: the Free package allows 5 queues per account | capture: sha256:4d802669870eb4ace7c282dc2ca954e43df46569583fbb23ecc832d9e54c9603 | quote: | Max number of queues (per account)<p>the maximum number of queues that can be created per account</p> | 5 | 10 | 50 | 100+ |
+  - [2] 2026-11-01: a realtime connection attaches to at most 200 channels on every package, Free included | capture: sha256:4d802669870eb4ace7c282dc2ca954e43df46569583fbb23ecc832d9e54c9603 | quote: | Number of channels per connection<p>*the maximum number of channels that each connection can be attached to*</p> | 200 | 200 | 200 | 200 |
+  - probe:https://main.realtime.ably.net/time 2026-11-01: the REST host answers its time endpoint without a key | capture: sha256:a14debbe1d1eb2e1fbf3db591396c68ffe441029145d8062a9a006284565f0af | quote: "status": 200
+  - probe:main.mqtt.ably.net:8883 2026-11-01: the MQTT adapter host accepts a TCP connection on its TLS port 8883 | capture: sha256:146da450eb2db70eea719868d3c5bc30ce6c7ab944f03474eaaf7d18e9e576a1 | quote: "ok": true
+  - [5] 2026-11-01: the signup also accepts a GitHub or Google sign-in | capture: sha256:8b50d7faca4f73c0616d170997a26bb7f3dacc502e4ab9535dc29bc0d29d6011 | quote: Continue with GitHub Continue with Google
+  - [1] 2026-11-01: the Free package page lists 200 concurrent connections, unchanged | capture: sha256:a90e5c08b1314172ddbf70bc3ec82be97d8aa141dccd59ad7a55b4fa279c0a34 | quote: | Concurrent connections | 200 |
+- sources:
+  - [1] https://ably.com/docs/platform/pricing/free
+  - [2] https://ably.com/docs/platform/pricing/limits
+  - [3] https://ably.com/pricing
+  - [4] https://ably.com/docs/platform/pricing
+  - [5] https://ably.com/sign-up
+  - [6] https://ably.com/docs/api/rest-api
+  - [7] https://ably.com/docs/protocols
+  - [8] https://ably.com/docs/protocols/mqtt

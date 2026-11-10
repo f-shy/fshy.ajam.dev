@@ -1,0 +1,274 @@
+# Google
+
+> google.dev | Compute, Inference, Storage; 7 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/google-2/ | JSON https://fshy.ajam.dev/api/v1/entity/google-2.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Gemini API code execution
+
+- `compute/gemini-code-execution` | qualifies-with-caveat | evidence documented | binding per-object-cap | category container and VM sandbox
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T15:51:59.409Z (live) | stale on 2026-12-05
+- url https://ai.google.dev/gemini-api/docs/code-execution
+- free tier: 'There's no additional charge for enabling code execution from the Gemini API.' The generated code, its results and the summary are billed as input and output tokens at the rate of the Gemini model used; https://ai.google.dev/gemini-api/docs/code-execution (read 2026-10-30) states no amount or period of free use | unit: tokens | metered on: request-count | read on: 2026-10-30 | source: [1] | note: The token allowance is the Gemini API free tier of the model used: the pricing page says 'Start building free of charge with generous limits' and lists input and output as 'Free of charge' on the Free Tier of the models that have one; Gemini 4 Argon is not available on the Free tier. The per-model free-tier volume is unverified.
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email | detail: email: a Google account, because the API key page redirects to Google's sign-in, which asks for a Google Account, and AI Studio then creates the project and the key. No card is required for the free tier: linking a billing account is what moving to the paid tier means. No phone is named, and access is limited to the countries and territories Google lists.
+- interface: rest
+- limits:
+  - per-object-cap (binding): the maximum input file size is bounded by the model's token window, not by a code-execution quota [1]
+- limits note: Session cap, idle-reap and network policy are not documented. Exceeds capacity threshold.
+- interface detail: REST API (POST to generativelanguage.googleapis.com/v1beta/interactions with the code_execution tool) and the Google GenAI SDK, both documented on the code execution page.
+- tooling: Google GenAI SDK (Python package google-genai, JavaScript package @google/genai, Go and Java); the REST API directly.
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the code-execution page and the Gemini API pricing page were read on 2026-10-30: code execution carries no charge of its own and bills as model tokens, one code run is capped at 30 seconds, and file input is bounded by the model's token window
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - session_cap.wall_clock_min: 0.5
+  - session_cap.restart_required: no
+  - session_cap.note: 'The maximum runtime of the code environment is 30 seconds.'; after an error the model may regenerate the code up to 5 times
+  - free_tier_kind: allowance
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: the code-execution documentation was read on 2026-10-22 and describes the tool and its limitations; it states no free allowance of its own, so the boundary is the model's token window
+  - [1] 2026-10-30: code execution carries no charge of its own and the page states no amount or period of free use | capture: sha256:9bc3d729aad2d8d3b9fa0e6c6175a15fdcf9632e721aa85371e341a46bf105ab | quote: There's no additional charge for enabling code execution from the Gemini API.
+  - [1] 2026-10-30: code execution is billed as input and output tokens at the rate of the model used | capture: sha256:9bc3d729aad2d8d3b9fa0e6c6175a15fdcf9632e721aa85371e341a46bf105ab | quote: You'll be billed at the current rate of input and output tokens based on the Gemini model you're using.
+  - [2] 2026-10-30: the Gemini API has a free-of-charge tier with limits; the same page marks Free Tier input and output as free of charge per model | capture: sha256:5ab384ae802aa78696805f7765aab6206fdbeb7fb85b2839c8b15e233280c456 | quote: Start building free of charge with generous limits, then scale up with prepaid and pay-as-you-go pricing for your production-ready applications.
+  - [1] 2026-10-30: one code run is capped at 30 seconds | capture: sha256:9bc3d729aad2d8d3b9fa0e6c6175a15fdcf9632e721aa85371e341a46bf105ab | quote: The maximum runtime of the code environment is 30 seconds.
+  - [1] 2026-10-30: the largest file input is bounded by the model's context window, as the limits row says | capture: sha256:9bc3d729aad2d8d3b9fa0e6c6175a15fdcf9632e721aa85371e341a46bf105ab | quote: The maximum file input size is limited by the model token window.
+  - [1] 2026-11-03: a REST call is documented | capture: sha256:876019c9a9109f52ea1d6d40af08a125301e867c13c34bb4b1d6df7db4f9b961 | quote: curl -X POST "https://generativelanguage.googleapis.com/v1beta/interactions"
+  - [1] 2026-11-04: the code execution page documents a REST call that enables the tool | capture: sha256:876019c9a9109f52ea1d6d40af08a125301e867c13c34bb4b1d6df7db4f9b961 | quote: curl -X POST "https://generativelanguage.googleapis.com/v1beta/interactions"
+  - [3] 2026-11-04: google-genai is the documented Python SDK for the Gemini API | capture: sha256:9e8df22992ad56933ddeae4a9d91bf3c8b8652e43063d528d3adf11fb29bcd0c | quote: Installation: `pip install google-genai`
+  - [4] 2026-11-04: the API key page sends the visitor to Google's sign-in, which asks for a Google Account | capture: sha256:e1e6c96d69a53501d7db2a20a5a0ef783ffa89bcaa3ab91d9786b9c3e05e7e4e | quote: Use your Google Account
+  - [5] 2026-11-04: the service is offered only in the listed countries and territories | capture: sha256:16fe97734c44c3907864cb292c14c55f55e91c1bae07a0cb13489905ee25a891 | quote: The Gemini API and Google AI Studio are available in the following countries and territories.
+  - [6] 2026-11-04: a billing account belongs to the paid tier, not to the free tier where code execution is used | capture: sha256:fce5df7e18606f4d34abc098916442b901b3b124c1a23ab16ef1bee3e9e34e73 | quote: Upgrading from the Free Tier to the Paid Tier means linking a billing account
+- sources:
+  - [1] https://ai.google.dev/gemini-api/docs/code-execution
+  - [2] https://ai.google.dev/gemini-api/docs/pricing
+  - [3] https://ai.google.dev/gemini-api/docs/libraries
+  - [4] https://aistudio.google.com/apikey
+  - [5] https://ai.google.dev/gemini-api/docs/available-regions
+  - [6] https://ai.google.dev/gemini-api/docs/billing
+
+## Google Gemini API (Compute)
+
+- `compute/google-gemini-api` | qualifies-with-caveat | evidence documented | binding request-rate | category inference API
+- needs card no, phone unknown, ID no, institution no | verified 2026-11-04T05:24:28.069Z (live) | stale on 2026-12-05
+- url https://ai.google.dev/gemini-api/docs/pricing
+- free tier: The free tier still exists and the pricing page still prints 'Free of charge' against input and output for Gemini 3.8 Flash, 3.6 Flash, 3.5 Flash-Lite, 3.1 Flash-Lite, 2.5 Flash-Lite and other models, and against context caching for Gemini 3.8 Flash and 3.6 Flash (2.5 Flash-Lite caching reads 'Not available'), but Google has stopped publishing how much the free tier carries. The rate-limits page now says only 'Rate limits depend on a variety of factors (such as your usage tier) and can be viewed in Google AI Studio', and the per-model free table the page carried through 2025 has been removed. The free columns that remain describe what is free, never how much. A Google AI Developers Forum post dated 2026-09-03 quotes 20 RPD on Gemini 3.8 Flash against 500 RPD on Flash-Lite. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: recurring-daily-request-allowance
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email | detail: The Free usage tier qualifies on an active project or free trial, and linking an active billing account is the qualification for Tier 1, so no card is named for the Free tier. AI Studio pages, the rate-limit page among them, redirect to a Google Account sign-in. unverified: whether creating the Google Account asks for a phone number
+- interface: rest
+- limits:
+  - request-rate (binding): requests per day binds, not tokens: at a reported 20 RPD on Gemini 3.8 Flash the monthly ceiling is 600 requests, so a 1,000-item job at three requests an item never completes on one free project. [1]
+- limits note: requests per day binds, not tokens: at a reported 20 RPD on Gemini 3.8 Flash the monthly ceiling is 600 requests, so a 1,000-item job at three requests an item never completes on one free project.
+- binding note: the same as limits note
+- interface detail: REST API (generativelanguage.googleapis.com/v1beta) and the Google GenAI SDK, documented on the Gemini API pages.
+- tooling: Google GenAI SDK for Python, JavaScript/TypeScript, Go and Java; the REST API directly.
+- composes with: the pricing page lists the Batch API (50% cost reduction) under the Paid plan; its Free Tier Batch rows read 'Not available' for Gemini 3.8 Flash, 3.6 Flash, 2.5 Pro, 2.5 Flash and 2.5 Flash-Lite, but 'Free of charge' for input and output on Gemini 3.5 Flash-Lite and 3.1 Flash-Lite. The rate-limits page publishes Batch enqueued-token quotas for Tier 1, Tier 2 and Tier 3 only, so a batch on the Flash models needs a billing account, and the free Flash-Lite batch path has no published quota.
+- reliability: no reliability event recorded
+- notes: Arithmetic, labelled estimate: 20 RPD x 30 days = 600 requests a month per model. The gap is the finding: a reader who trusts the word 'generous' on the pricing page and not the forum will design a batch that cannot run. Not measured: limits appear only in AI Studio after an account exists, so the 20 RPD figure rests on a forum report, and the 2025 archive's 250 RPD for 2.5 Flash disagrees with it by an order of magnitude. earlier readings already carries google-gemini-api as qualifies-with-caveat on request-rate; this record adds the capacity shape and the fact that the number is no longer public.
+- extras:
+  - facets.class: capacity-shape
+  - facets.free_tier_kind: recurring-daily-request-allowance
+- evidence:
+  - [1] 2026-10-22: Free Tier column reads 'Free of charge' for input, output and context caching on Gemini 3.8 Flash, while the Batch, Flex and Grounding rows read 'Not available', quoted
+  - [2] 2026-10-22: 'Rate limits depend on a variety of factors (such as your usage tier) and can be viewed in Google AI Studio'; the page carries no free-tier RPM/RPD/TPM table, quoted
+  - [3] 2026-09-03: developer post states 'the free tier limit of 20 RPD is very restrictive' and contrasts 'Flash-Lite's 500 RPD'; reported, not a vendor figure
+  - [4] 2026-10-22: 
+  - [5] 2026-10-28:  | capture: sha256:a1e4070a9bf9ef8d40057020624ce8182e910edfc544234d570ed3566a1b67d0
+  - [2] 2026-10-28: the Free usage tier qualifies on an active project or a free trial with no billing cap, while an active billing account is the Tier 1 qualification | capture: sha256:4a0fb0284036dc725e7291e3a98a5b1143b98458ea7f0b04b87ed341972e7829 | quote: | Free | [Active project](https://ai.google.dev/gemini-api/docs/api-key#google-cloud-projects) or free trial | N/A |
+  - [1] 2026-10-28: under Gemini 3.8 Flash Standard the Free Tier column reads Free of charge for input price | capture: sha256:8b4414605a0f05fe4a694d8a5ea4ef2f7c6695f686bd678973b2493b1aec7583 | quote: | Input price | Free of charge | $0.75 through December 31, 2026. $1.50 starting January 1, 2027. |
+  - [2] 2026-10-28: limits are evaluated per minute and per day on requests and input tokens | capture: sha256:4a0fb0284036dc725e7291e3a98a5b1143b98458ea7f0b04b87ed341972e7829 | quote: Your usage is evaluated against each limit, and exceeding any of them will trigger a rate limit error.
+  - [1] 2026-10-30: the Gemini 3.5 Flash-Lite Batch table reads Free of charge for input on the Free Tier, so the Batch rows are not all Not available | capture: sha256:5ab384ae802aa78696805f7765aab6206fdbeb7fb85b2839c8b15e233280c456 | quote: ## Gemini 3.5 Flash-Lite ... ### Batch ... | Input price | Free of charge | $0.15 (text / image / video / audio) |
+  - [1] 2026-10-30: the Gemini 3.8 Flash Batch table still reads Not available on the Free Tier | capture: sha256:5ab384ae802aa78696805f7765aab6206fdbeb7fb85b2839c8b15e233280c456 | quote: ## Gemini 3.8 Flash ... ### Batch ... | Input price | Not available | $0.375 through December 31, 2026. $0.75 starting January 1, 2027. |
+  - [1] 2026-10-30: the pricing page lists the Batch API among the Paid plan features | capture: sha256:5ab384ae802aa78696805f7765aab6206fdbeb7fb85b2839c8b15e233280c456 | quote: ### Paid ... check_circleBatch API (50% cost reduction)
+  - [2] 2026-10-30: the Batch enqueued-token tables start at Tier 1; no Free-tier Batch quota is published | capture: sha256:abf8ffe1accb93124137d67a9c3d0470cb004e96505d3c7080869415ced71063 | quote: Batch API requests are subject to their own rate limits, separate from the non-batch API calls. ... ### Tier 1
+  - [1] 2026-10-30: Gemini 2.5 Flash-Lite context caching reads Not available on the Free Tier, so caching is not free on that model | capture: sha256:5ab384ae802aa78696805f7765aab6206fdbeb7fb85b2839c8b15e233280c456 | quote: ## Gemini 2.5 Flash-Lite ... | Context caching price | Not available | $0.01 (text / image / video) $0.03 (audio) $1.00 / 1,000,000 tokens per hour (storage price) |
+  - [6] 2026-10-30: the AI Studio rate-limit page answers with a Google Account sign-in, so its per-model values are not readable without an account | capture: sha256:555e52471280fe6709e672c85eb9b8afa0459d0459493f719776fbce64e11f2e | quote: Use your Google Account
+  - probe:aistudio.google.com/rate-limit 2026-10-30: aistudio.google.com/rate-limit redirects with HTTP 302 to the Google Accounts sign-in | capture: sha256:1a60642babb2dc0855632ced11870118ccb0fd5ea26b7b200f5910a65c0a6880 | quote: "location": "https://accounts.google.com/ServiceLogin?passive=1209600&continue=https://aistudio.google.com/rate-limit
+  - [7] 2026-10-30: a third party reading AI Studio's rate-limit page for a Free-tier project on 2026-10-21 reports 5 RPM, 250,000 input TPM and 20 RPD on Gemini 3.8 Flash; reported, not a vendor page | capture: sha256:43765a166d2a152d4e4cc7e2ce2f19e2967c994a3d656175866423f235c73e47 | quote: Gemini 3.8 Flash, 3.6 Flash, 3 Flash and 2.5 Flash: 5 RPM, 250,000 TPM, 20 RPD.
+  - [7] 2026-10-30: the same third-party reading reports 15 RPM, 250,000 input TPM and 500 RPD on Gemini 3.5 and 3.1 Flash-Lite, and 10 RPM and 20 RPD on Gemini 2.5 Flash-Lite; reported | capture: sha256:43765a166d2a152d4e4cc7e2ce2f19e2967c994a3d656175866423f235c73e47 | quote: Gemini 3.5 Flash-Lite and 3.1 Flash-Lite: 15 RPM, 250,000 TPM, 500 RPD. Gemini 2.5 Flash-Lite gets 10 RPM and 20 RPD.
+  - [3] 2026-10-30: a developer post on the vendor forum dated 2026-09-03 reports a 20 RPD Free-tier limit on Gemini 3.8 Flash; reported, not a vendor figure | capture: sha256:85a2cfb02753a1057270d1782ed9d6765488e449bc9f7107b97b8db807de9390 | quote: However, the free tier limit of 20 RPD is very restrictive.
+  - [1] 2026-10-30: Gemini 3.8 Flash input, output and context caching still read Free of charge on the Free Tier | capture: sha256:5ab384ae802aa78696805f7765aab6206fdbeb7fb85b2839c8b15e233280c456 | quote: | Context caching price | Free of charge | $0.075 through December 31, 2026. $0.15 starting January 1, 2027.
+  - [8] 2026-11-04: an official SDK exists in four languages | capture: sha256:9e8df22992ad56933ddeae4a9d91bf3c8b8652e43063d528d3adf11fb29bcd0c | quote: The Google GenAI SDK is available for the Python, JavaScript/TypeScript, Go and Java languages.
+  - [9] 2026-11-04: the Gemini API documentation shows a REST call to generativelanguage.googleapis.com | capture: sha256:876019c9a9109f52ea1d6d40af08a125301e867c13c34bb4b1d6df7db4f9b961 | quote: curl -X POST "https://generativelanguage.googleapis.com/v1beta/interactions"
+- sources:
+  - [1] https://ai.google.dev/gemini-api/docs/pricing
+  - [2] https://ai.google.dev/gemini-api/docs/rate-limits
+  - [3] https://discuss.ai.google.dev/t/gemini-3-8-flash-free-tier-20-rpd-is-too-limited-for-practical-evaluation/180609
+  - [4] https://web.archive.org/web/20251201061102/https://ai.google.dev/gemini-api/docs/rate-limits?provider=wayback
+  - [5] https://ai.google.dev/gemini-api/docs/api-key
+  - [6] https://aistudio.google.com/rate-limit
+  - [7] https://imisofts.com/blog/gemini-api-free-tier-limits/
+  - [8] https://ai.google.dev/gemini-api/docs/libraries
+  - [9] https://ai.google.dev/gemini-api/docs/code-execution
+
+## Google Gemini API (Inference)
+
+- `inference/google-gemini-api` | qualifies-with-caveat | evidence documented | binding request-rate | category inference endpoint, free tier
+- needs card no, phone unknown, ID no, institution no | verified 2026-10-31T00:12:53.943Z (live) | stale on 2026-12-01
+- url https://ai.google.dev/gemini-api/docs/pricing
+- free tier: gemini-3.8-flash is 'Free of charge' for input and output on the Free Tier | unit: tokens | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: billing must be set up to move from the Free tier to a paid tier; available only in the countries and territories listed on the available-regions page. AI Studio pages, the rate-limit page among them, redirect to a Google Account sign-in. unverified: whether creating the Google Account asks for a phone number
+- interface: rest
+- limits:
+  - request-rate (binding): reported, not vendor-published (a third-party reading of the AI Studio rate-limit page for a Free-tier project, 2026-10-21; that page answers with a Google sign-in and the docs page prints no number): Gemini 3.8 Flash, 3.6 Flash, 3 Flash and 2.5 Flash 5 RPM, 250,000 input TPM, 20 RPD; Gemini 3.5 and 3.1 Flash-Lite 15 RPM, 250,000 input TPM, 500 RPD (another third-party table prints 10 RPM); Gemini 2.5 Flash-Lite 10 RPM, 20 RPD; Gemma 4 30 RPM, 14,400 RPD; Gemini 4 Argon, 3.1 Pro and 2.5 Pro 0. Applied per project, not per API key; RPD resets at midnight Pacific time; the Free tier has no spend-based limit [2]
+- endpoint: https://generativelanguage.googleapis.com/v1beta/
+- tooling: any OpenAI-compatible client; curl against POST {base}/chat/completions
+- composes with: pairs with an agent as the email-gated fallback; the scarce link is the per-project allowance behind AI Studio, which no page states
+- reliability: free-tier content is used to improve products; the paid tier is the one the vendor describes for production
+- notes: The binding fact is that the free tier publishes no number. A reader planning against '15 RPM, 1,500 RPD' is planning against an aggregator.
+- evidence note: the price and the gating are documented. The per-model Free-tier numbers are shown only inside AI Studio, behind a Google sign-in, so the numbers in limits are third-party readings of that page (reported), not vendor-published figures.
+- evidence:
+  - [2] 2026-10-22: limits are applied per project and not per API key; RPD resets at midnight Pacific; 'Specified rate limits are not guaranteed and actual capacity may vary'; the per-model numbers are served only at aistudio.google.com/rate-limit
+  - [2] 2026-10-28: limits are per project, RPD resets at midnight Pacific, preview models are tighter, the Free tier has no spend-based limit, and the values are not printed on the page | capture: sha256:4a0fb0284036dc725e7291e3a98a5b1143b98458ea7f0b04b87ed341972e7829 | quote: Rate limits are applied per project, not per API key. Requests per day (RPD) quotas reset at midnight Pacific time. ... Rate limits are more restricted for experimental and preview models. ... | Free | N/A |
+  - [2] 2026-10-28: the per-model values are served in AI Studio, not on the docs page, and the stated limits are not guaranteed | capture: sha256:4a0fb0284036dc725e7291e3a98a5b1143b98458ea7f0b04b87ed341972e7829 | quote: Rate limits depend on a variety of factors (such as your usage tier) and can be viewed in Google AI Studio. ... Specified rate limits are not guaranteed and actual capacity may vary.
+  - [1] 2026-10-28: the gemini-3.8-flash Standard table lists input price as Free of charge on the Free Tier | capture: sha256:8b4414605a0f05fe4a694d8a5ea4ef2f7c6695f686bd678973b2493b1aec7583 | quote: | Input price | Free of charge | $0.75 through December 31, 2026. $1.50 starting January 1, 2027. |
+  - [3] 2026-10-28: a new user gets a default project and key on accepting the terms, with no billing step stated | capture: sha256:a1e4070a9bf9ef8d40057020624ce8182e910edfc544234d570ed3566a1b67d0
+  - [2] 2026-10-28: the Free tier qualification is an active project or free trial, and billing is set up only to leave the Free tier | capture: sha256:4a0fb0284036dc725e7291e3a98a5b1143b98458ea7f0b04b87ed341972e7829 | quote: To transition from the Free tier to a paid tier, you must first set up billing in AI Studio. ... | Free | [Active project](https://ai.google.dev/gemini-api/docs/api-key#google-cloud-projects) or free trial | N/A |
+  - [4] 2026-10-28: the service is gated by a published list of countries and territories | capture: sha256:83bca9a6b750d2543855dfab36ebc9f24f11c7f855d3455e09b8511dd9734df1 | quote: The Gemini API and Google AI Studio are available in the following countries and territories.
+  - [5] 2026-10-30: a third party reading AI Studio's rate-limit page for a Free-tier project on 2026-10-21 reports 5 RPM, 250,000 input TPM and 20 RPD on Gemini 3.8 Flash; reported, not a vendor page | capture: sha256:43765a166d2a152d4e4cc7e2ce2f19e2967c994a3d656175866423f235c73e47 | quote: Gemini 3.8 Flash, 3.6 Flash, 3 Flash and 2.5 Flash: 5 RPM, 250,000 TPM, 20 RPD.
+  - [5] 2026-10-30: the same third-party reading reports 15 RPM, 250,000 input TPM and 500 RPD on Gemini 3.5 and 3.1 Flash-Lite, and 10 RPM and 20 RPD on Gemini 2.5 Flash-Lite; reported | capture: sha256:43765a166d2a152d4e4cc7e2ce2f19e2967c994a3d656175866423f235c73e47 | quote: Gemini 3.5 Flash-Lite and 3.1 Flash-Lite: 15 RPM, 250,000 TPM, 500 RPD. Gemini 2.5 Flash-Lite gets 10 RPM and 20 RPD.
+  - [6] 2026-10-30: a second third-party Free-tier table prints 10 RPM, 250K input TPM and 500 RPD for Gemini 3.5 Flash-Lite, disagreeing on RPM; reported | capture: sha256:bd00d7e4dc5dc36a5de497348f9f6c20c1a55f46395f1e351d4528b69a96abd7 | quote: | Gemini 3.5 Flash-Lite | 10 | 250K | 500 |
+  - [7] 2026-10-30: a third third-party reading of the AI Studio rate-limit page (Free tier, October 2026) shows Gemini 3.8 Flash at 5 RPM, 250K TPM, 20 RPD; reported | capture: sha256:785216187477194687d317fa2162b1fc02d52b0fec8f1ffb1ab0b536ef3b26e2 | quote: | Gemini 3.8 Flash | 5 | 250K | 20 | 최신 성능, 하루 20회라 테스트용 |
+  - probe:aistudio.google.com/rate-limit 2026-10-30: aistudio.google.com/rate-limit redirects with HTTP 302 to the Google Accounts sign-in | capture: sha256:1a60642babb2dc0855632ced11870118ccb0fd5ea26b7b200f5910a65c0a6880 | quote: "location": "https://accounts.google.com/ServiceLogin?passive=1209600&continue=https://aistudio.google.com/rate-limit
+  - [2] 2026-10-30: the docs page still sends the reader to AI Studio for the per-model values and prints none | capture: sha256:abf8ffe1accb93124137d67a9c3d0470cb004e96505d3c7080869415ced71063 | quote: Rate limits depend on a variety of factors (such as your usage tier) and can be viewed in Google AI Studio.
+  - [8] 2026-10-30: the AI Studio rate-limit page answers with a Google Account sign-in, so its per-model values are not readable without an account | capture: sha256:555e52471280fe6709e672c85eb9b8afa0459d0459493f719776fbce64e11f2e | quote: Use your Google Account
+  - [1] 2026-10-30: the Free plan card still states that content is used to improve the vendor's products | capture: sha256:5ab384ae802aa78696805f7765aab6206fdbeb7fb85b2839c8b15e233280c456 | quote: check_circleContent used to improve our products
+  - [1] 2026-10-30: gemini-3.8-flash output (and input) still read Free of charge on the Free Tier | capture: sha256:5ab384ae802aa78696805f7765aab6206fdbeb7fb85b2839c8b15e233280c456 | quote: | Output price (including thinking tokens) | Free of charge | $3.75 through December 31, 2026. $7.50 starting January 1, 2027. |
+- sources:
+  - [1] https://ai.google.dev/gemini-api/docs/pricing
+  - [2] https://ai.google.dev/gemini-api/docs/rate-limits
+  - [3] https://ai.google.dev/gemini-api/docs/api-key
+  - [4] https://ai.google.dev/gemini-api/docs/available-regions
+  - [5] https://imisofts.com/blog/gemini-api-free-tier-limits/
+  - [6] https://www.scriptbyai.com/gemini-api-rate-limits/
+  - [7] https://chatgpt.kwgo.co.kr/posts/google-gemini-api-free-tier-rate-limit-guide.html
+  - [8] https://aistudio.google.com/rate-limit
+
+## Gemini File Search stores (managed RAG)
+
+- `storage/gemini-file-search-stores` | fails-quota | evidence reported | binding per-object-cap | category Managed vector store
+- needs card no, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://ai.google.dev/gemini-api/docs/file-search
+- free tier: Free tier 1 GB of store; Tier 1 10 GB; Tier 2 100 GB; Tier 3 1 TB. 100 MB per document. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: per-object-cap 100 MB | bytes: 100000000 | source: [1] | note: not stated
+- retention: Raw files are deleted after 48 hours; only chunked embeddings persist, and there is no documented route to reassemble originals | days: 2 | source: [1] | note: not stated
+- egress: Storage free, query-time embeddings free. You pay only indexing embeddings ($0.15 / 1M tokens) and context tokens on retrieval. | metered: yes
+- identity: email | detail: email
+- interface: rest
+- limits:
+  - retention-clamped: deleted after 48 hours [1]
+  - per-object-cap (binding): per-object-cap 100 MB [1]
+- limits note: Per-object-cap 100 MB. 'Recommendation: Limit the size of each File Search store to under 20 GB'. No TTL on embeddings. They persist until manually deleted or the model is deprecated.
+- interface detail: google-genai `client.file_search_stores.create` / `uploadToFileSearchStore` / `documents.list`
+- tooling: pip install google-genai; REST fileSearchStores.documents
+- composes with: Multiple stores per project, but the project-wide total is the cap. 'File Search store size is computed on the backend … typically approximately 3 times the size of your input data'. So 1 TB of Tier 3 store ≈ 340 GB of input. On free tier, 1 GB store ≈ 333 MB of input.
+- reliability: Raw files are automatically deleted after 48 hours, leaving only vector embeddings without endpoints to retrieve original source files. Free tier provides 1 GB of storage.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Free tier 1 GB of store; Tier 1 10 GB; Tier 2 100 GB; Tier 3 1 TB. 100 MB per document.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Total size of project File Search stores (based on user tier): Free: 1 GB; Tier 1: 10 GB; Tier 2: 100 GB; Tier 3: 1 TB'; 'Maximum file size / per document limit: 100 MB'
+  - [1] 2026-10-21: 'There is no Time To Live (TTL) for embeddings; they persist until manually deleted … Files, however, are deleted after 48 hours.'
+  - [1] 2026-10-21: 'This is typically approximately 3 times the size of your input data'; 'Storage is free of charge.'
+  - [2] 2026-10-21: 'we're making storage and embedding generation at query time free of charge … $0.15 per 1 million tokens'
+- sources:
+  - [1] https://ai.google.dev/gemini-api/docs/file-search
+  - [2] https://blog.google/innovation-and-ai/technology/developers-tools/file-search-gemini-api/
+
+## gemini file search stores as bulk storage
+
+- `storage/gemini-file-search-stores-as-bulk-storage` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://ai.google.dev/gemini-api/docs/file-search
+- free tier: none reachable: Free tier is 1 GB of store, and store size runs ~3x input size, so real input capacity is ~333 MB. Only embeddings persist; raw files are deleted after 48h. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: retention
+  - dead_end.why: Free tier is 1 GB of store, and store size runs ~3x input size, so real input capacity is ~333 MB. Only embeddings persist; raw files are deleted after 48h.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Free tier is 1 GB of store, and store size runs ~3x input size, so real input capacity is ~333 MB. Only embeddings persist; raw files are deleted after 48h.
+- sources:
+  - [1] https://ai.google.dev/gemini-api/docs/file-search
+
+## gemini files api (ai studio) as an archive
+
+- `storage/gemini-files-api-as-an-archive` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://ai.google.dev/gemini-api/docs/files
+- free tier: none reachable: 48-hour retention, clamped server-side, plus 'you can't download user-uploaded files'. 20 GB/project is moot. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: retention
+  - dead_end.why: 48-hour retention, clamped server-side, plus 'you can't download user-uploaded files'. 20 GB/project is moot.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 48-hour retention, clamped server-side, plus 'you can't download user-uploaded files'. 20 GB/project is moot.
+- sources:
+  - [1] https://ai.google.dev/gemini-api/docs/files
+
+## Google Gemini Files API (AI Studio)
+
+- `storage/google-gemini-files-api` | fails-quota | evidence reported | binding per-object-cap | category LLM provider /v1/files
+- needs card no, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://ai.google.dev/gemini-api/docs/files
+- free tier: 20 GB per project; 2 GB per file; 48-hour retention | unit: GB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: 2 GB per file | bytes: 2000000000 | source: [1] | note: not stated
+- retention: 20 GB per project; 2 GB per file; 48-hour retention | days: 2 | source: [1] | note: not stated
+- egress: Free. 'The Files API is available at no cost in all regions where the Gemini API is available.'. | metered: no
+- identity: email | detail: email
+- interface: rest
+- limits:
+  - per-object-cap (binding): 2 GB per file [1]
+  - retention-clamped: Retention-clamped hard at 48 hours [1]
+- limits note: Per-object-cap 2 GB. Retention-clamped hard at 48 hours. You cannot request longer. PDFs additionally capped at 50 MB / 1,000 pages for processing. Inline path is 100 MB total request.
+- interface detail: REST via google-genai SDK `client.files.upload`; generativelanguage.googleapis.com/v1beta
+- tooling: pip install google-genai; curl multipart to /upload/v1beta/files
+- composes with: 20 GB/project, and Google Cloud projects are the multiplicative axis. But 48-hour retention means capacity, not storage.
+- reliability: Documentation states: 'Files are stored for 48 hours. During that time, you can use the API to get metadata about the files. However, you can't download user-uploaded files.' Uploaded files are deleted after 48 hours and cannot be retrieved via API.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: retention
+  - dead_end.why: 20 GB per project; 2 GB per file; 48-hour retention
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'The Files API lets you store up to 20 GB of files per project, with a per-file maximum size of 2 GB. Files are stored for 48 hours.'; 'you can't download user-uploaded files'
+  - [1] 2026-10-21: 'Files are automatically deleted after 48 hours'
+  - [2] 2026-10-21: 'The File API accepts files under 2GB in size and can store up to 20GB of files per project. Files last for 2 days and cannot be downloaded from the API.'
+  - [3] 2026-10-21: 'The Files API storage has an expiration time of 48 hrs and is restricted to 20GB total storage'
+- sources:
+  - [1] https://ai.google.dev/gemini-api/docs/files
+  - [2] https://github.com/google-gemini/cookbook/blob/main/quickstarts/File_API.ipynb
+  - [3] https://discuss.ai.google.dev/t/uploaded-files-missing-after-a-few-days/50428

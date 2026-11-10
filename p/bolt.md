@@ -1,0 +1,163 @@
+# Bolt
+
+> bolt.new | Compute, Coding subscriptions; 3 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/bolt/ | JSON https://fshy.ajam.dev/api/v1/entity/bolt.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Bolt (Compute)
+
+- `compute/bolt` | qualifies | evidence documented | binding request-rate | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T10:27:57.621Z (live) | stale on 2026-12-05
+- url https://bolt.new/pricing
+- free tier: Bolt Free: "Monthly AI Tokens 1M", "Daily Token Limit 300K", "Web Requests / Month 333K", "Website Hosting Included", quoted from the plan comparison table | unit: tokens | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: recurring-allowance
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email | detail: sign-up with Google, with GitHub, or with an email address, a username and a password, and an email sign-up is confirmed by email before sign-in; the account is shared with StackBlitz. The help page describes no card or phone step; the pricing page states the Free plan is 'Free forever, no card required'
+- interface: unknown
+- limits:
+  - request-rate (binding): the 300K daily token ceiling stops a long session first, and it does not carry over, so a quiet day is lost rather than banked. [1]
+- limits note: the 300K daily token ceiling stops a long session first, and it does not carry over, so a quiet day is lost rather than banked.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: 1M tokens a month builds and hosts an app on Bolt's own infrastructure, and 333K monthly web requests is more served traffic than any other free static host in comparative records states; the build machine, the tokens and the hosting come from one account with no card.
+- reliability: no reliability event recorded
+- notes: compute/webcontainers already records StackBlitz WebContainers as a free Personal plan with unlimited public projects. Bolt is a different product on the same company and its free allowance is denominated in tokens, so the two records answer different questions. Free Bolt omits the newest models, custom domains, private sharing and MCP connectors. Direct code edits in Code view cost no tokens, so the daily cap degrades to manual editing rather than to a hard stop.
+- extras:
+  - facets.class: perpetual-allowance
+  - facets.free_tier_kind: recurring-allowance
+- evidence:
+  - [1] 2026-10-22: the Free column reads 1M monthly AI tokens, 300K daily token limit, 333K web requests a month and website hosting included, quoted
+  - [2] 2026-10-22: "Free plan tokens also have a daily cap of 300K, separate from the 1 million monthly cap above ... if you don't use all 300K today, tomorrow you still start at 300K, not 600K." quoted; free tokens reset on the 1st of the calendar month
+  - [1] 2026-10-22: probe GET returned status 200, 170701 bytes, sha256 c644582d107833de3a9713d802cb3ccccd1621d6ff234c32f057d979a33b3a2b, no challenge detected, at 2026-10-22T15:23:28Z
+  - [1] 2026-10-30: the Free plan's allowance is 1M AI tokens a month | capture: sha256:c85e9343ce0e9e9051b0a041e9c94d308c05d85fdfa0d3c1f756474fcfca0a17 | quote: | Monthly AI Tokens | 1M | Starts at 10M | Starts at 10M per member | Custom |
+  - [3] 2026-10-30: Bolt sign-up needs a Google or GitHub account, or an email address, username and password | capture: sha256:b7967149e8e5995e8a1a31a365b0d1337765942116e4ec84ebb7b01f325dd8ff | quote: Click Sign up with email and password, then enter your email address, a username, and a password.
+  - [2] 2026-10-30: the Free plan still has 1 million tokens a month and a 300K daily cap that does not carry over | capture: sha256:15146d20a3803e62c65cfb7996fa227f657e8c3b62f135be348f75ca4d162f0c | quote: Free plan tokens also have a daily cap of 300K, separate from the 1 million monthly cap above.
+  - [1] 2026-10-30: the pricing table still gives the Free plan a 300K daily token limit and 333K web requests a month | capture: sha256:c85e9343ce0e9e9051b0a041e9c94d308c05d85fdfa0d3c1f756474fcfca0a17 | quote: | Daily Token Limit | 300K | No Limit | No Limit | No Limit |
+  - [1] 2026-11-03: the Free plan still lists 1M tokens per month | capture: sha256:c236e2fb9d978464c19e211e420b6af4d8c353ffdb44e24200ef447e6e6434dc | quote: 1M tokens per month
+  - [1] 2026-11-03: the Free plan still carries a 300K tokens daily limit | capture: sha256:c236e2fb9d978464c19e211e420b6af4d8c353ffdb44e24200ef447e6e6434dc | quote: 300K tokens daily limit
+  - [1] 2026-11-03: the Free plan asks for no card | capture: sha256:c236e2fb9d978464c19e211e420b6af4d8c353ffdb44e24200ef447e6e6434dc | quote: Free forever, no card required
+  - [1] 2026-11-04: the Free plan still has a 300K daily token limit | capture: sha256:c236e2fb9d978464c19e211e420b6af4d8c353ffdb44e24200ef447e6e6434dc | quote: 300K tokens daily limit
+- sources:
+  - [1] https://bolt.new/pricing
+  - [2] https://support.bolt.new/account/tokens.md
+  - [3] https://support.bolt.new/account/account-management
+
+## Bolt (Free)
+
+- `coding-subs/bolt-free` | qualifies-with-caveat | evidence documented | binding volume-quota | category browser app builder with a coding agent | tier Free
+- needs card no, phone yes, ID no, institution no | verified 2026-11-10T01:56:02.006Z (live) | stale on 2026-12-11
+- url https://bolt.new/pricing
+- disagrees on identity_kind: `coding-subs/bolt-free` says email, `coding-subs/bolt-pro` says card
+- disagrees on verdict: `coding-subs/bolt-free` says qualifies-with-caveat, `coding-subs/bolt-pro` says paid-only
+- free tier: Free plan: 1M AI tokens a month and a 300K daily token limit, 333K web requests a month, public and private projects, website hosting on a bolt.host URL; the Standard agent only | unit: tokens | metered on: unstated | read on: 2026-11-02 | source: [1] | note: monthly tokens reset on the 1st of the calendar month; the daily 300K does not carry over; direct edits in Code view use no tokens, so the daily cap leaves manual editing available
+- per-object cap: file upload limit 10MB on the Free plan | source: [1]
+- retention: not applicable: a coding agent meters tokens, not stored bytes
+- egress: published hosting limits for a project on the Free plan: up to 10 GB of bandwidth and 333,333 web requests a month, with the site offline for the rest of the month when exceeded; the limits cannot be raised on Free | metered: yes | source: [2]
+- identity: email | detail: Free sign-up is with Google, GitHub, or an email address, a username and a password; an email sign-up is confirmed by email before sign-in. The pricing page says no credit card is required. A phone step is not described on the pages read
+- interface: unknown
+- limits:
+  - volume-quota (binding): 1M AI tokens a month, reset on the 1st of the calendar month; unused tokens do not roll over [3]
+  - volume-quota (binding): 300K tokens a day, separate from the monthly cap; the daily allowance does not carry over [3]
+  - request-rate: 333K web requests a month and 10 GB of bandwidth for hosted sites; the site goes offline for the rest of the month when exceeded [2]
+- limits note: the daily 300K cap binds before the monthly 1M on a heavy day; Code view edits use no tokens
+- binding note: 1M tokens a month with a 300K daily ceiling; the daily ceiling stops a long session first
+- interface detail: a browser application at bolt.new; no public API, CLI or SDK. A GitHub repository can be synced to a project, which does not drive the agent from outside
+- tooling: browser only: the user prompts the agent in the Bolt web app, which runs on WebContainers; the vendor states there is no public API, CLI or SDK to control it programmatically from outside the product
+- composes with: the token allowance buys prompt-driven builds with hosting on bolt.host in the same account; code can be synced to a GitHub repository and built on elsewhere. No endpoint takes the tokens, so they cannot feed an external agent
+- reliability: Free-plan tokens do not roll over, and a project goes offline for the rest of the month after 333,333 web requests or 10 GB of bandwidth; the Free plan includes only the Standard agent, not Max or Forge
+- notes: The same plan is recorded under compute/bolt as the build machine; this record states it as a coding subscription. Bolt Lite is a separate USD 9 a month standalone plan that gives Forge-only access and is on a waitlist; it is not a Free-plan feature.
+- evidence note: the allowance, the daily cap and the sign-up steps are quoted from first-party pricing and help-center pages read on 2026-11-02. The underlying model of the Standard agent is not published. Nothing was measured behind a sign-up.
+- evidence:
+  - [1] 2026-11-02: the Free plan needs no credit card | capture: sha256:81857273cdaf848c0b838b2dafa729d483c2ead840ffb0dc59aac4dc0811bfa4 | quote: Start for free. No credit card required.
+  - [1] 2026-11-02: the Free plan includes 1M tokens a month | capture: sha256:81857273cdaf848c0b838b2dafa729d483c2ead840ffb0dc59aac4dc0811bfa4 | quote: * 1M tokens/month to try Bolt
+  - [1] 2026-11-02: Free is 1M monthly AI tokens; Pro starts at 10M | capture: sha256:c85e9343ce0e9e9051b0a041e9c94d308c05d85fdfa0d3c1f756474fcfca0a17 | quote: | Monthly AI Tokens | 1M | Starts at 10M | Starts at 10M per member | Custom |
+  - [1] 2026-11-02: Free has a 300K daily token limit, which paid plans do not | capture: sha256:c85e9343ce0e9e9051b0a041e9c94d308c05d85fdfa0d3c1f756474fcfca0a17 | quote: | Daily Token Limit | 300K | No Limit | No Limit | No Limit |
+  - [1] 2026-11-02: Free allows 333K web requests a month | capture: sha256:c85e9343ce0e9e9051b0a041e9c94d308c05d85fdfa0d3c1f756474fcfca0a17 | quote: | Web Requests / Month | 333K | 1M | Up to 1M | Custom |
+  - [1] 2026-11-02: Free allows a 10MB file upload | capture: sha256:c85e9343ce0e9e9051b0a041e9c94d308c05d85fdfa0d3c1f756474fcfca0a17 | quote: | File Upload Limit | 10MB | 100MB | 100MB | Custom |
+  - [3] 2026-11-02: the daily 300K cap is separate from the 1M monthly cap | capture: sha256:d7f6a364c84a2bdeab5c4e83702312032842db2bd38f8995ccd9c21c9a4ab498 | quote: Free plan tokens also have a daily cap of 300K, separate from the 1 million monthly cap above.
+  - [3] 2026-11-02: Free tokens reset on the 1st of each month | capture: sha256:d7f6a364c84a2bdeab5c4e83702312032842db2bd38f8995ccd9c21c9a4ab498 | quote: * For users on a free plan: tokens reset on the 1st of each calendar month.
+  - [2] 2026-11-02: the Free hosting limits cannot be raised and an over-limit site goes offline until the month ends | capture: sha256:09e91ab3bbcac1cf3777d7bb4b9a9f61ba74bae68900debd3cc408b6606719fe | quote: There's no way to increase these limits, so if you go over this usage, your site goes offline for the rest of the month.
+  - [4] 2026-11-02: the Free plan has the Standard agent only, without Max | capture: sha256:0215426801dc37f83d5caf28d8fc0d7eb7b7b898aadba95523117c32ff2333a6 | quote: Only Standard is available on the free plan.
+  - [5] 2026-11-02: Free is Standard only, Lite is Forge only, Pro has Standard, Max and Forge | capture: sha256:6525b60323ee04a077eea70f11d03ffbea245da52085cfa1a9d6dc0c89155c06 | quote: | AI agents | Standard only | Forge only | Standard, Max, and Forge |
+  - [6] 2026-11-02: Bolt has no public API, CLI or SDK, so it cannot be driven headless from outside the product | capture: sha256:19d6e51951a31d3712e5d54f9809a34a0b0d8c8abc1defad62179d034aef44aa | quote: Bolt doesn't currently have a public API, CLI, or SDK to control it programmatically from outside the product.
+  - [4] 2026-11-02: the Standard and Max agents do not name their underlying model; Bolt selects it | capture: sha256:0215426801dc37f83d5caf28d8fc0d7eb7b7b898aadba95523117c32ff2333a6 | quote: You choose the agent that matches your work, and Bolt handles model selection behind the scenes.
+  - [7] 2026-11-02: the agents replaced per-model selection | capture: sha256:acabef3eb39b0a0d75d774bd54b69ef82eaaea53bcce3b49c53fb447d3ea764a | quote: Bolt now offers two agents, Standard and Max, instead of individual model options.
+  - [8] 2026-11-02: sign-up takes an email address, a username and a password, or a Google or GitHub account | capture: sha256:b7967149e8e5995e8a1a31a365b0d1337765942116e4ec84ebb7b01f325dd8ff | quote: Click Sign up with email and password, then enter your email address, a username, and a password.
+  - [8] 2026-11-02: an email sign-up is confirmed by email before sign-in | capture: sha256:b7967149e8e5995e8a1a31a365b0d1337765942116e4ec84ebb7b01f325dd8ff | quote: If you sign up with your email, you need to confirm your email address before you can sign in.
+  - [1] 2026-11-04: the Free plan still lists a 300K daily and 1M monthly token limit | capture: sha256:c236e2fb9d978464c19e211e420b6af4d8c353ffdb44e24200ef447e6e6434dc | quote: 300K tokens daily limit
+  - [6] 2026-11-09: Bolt publishes no public API, CLI or SDK, so no client outside the product can drive the agent | capture: sha256:19d6e51951a31d3712e5d54f9809a34a0b0d8c8abc1defad62179d034aef44aa | quote: Bolt doesn't currently have a public API, CLI, or SDK to control it programmatically from outside the product.
+  - [6] 2026-11-10: Bolt has no public API, CLI or SDK, so the record keeps interface unknown and tooling says browser only | capture: sha256:19d6e51951a31d3712e5d54f9809a34a0b0d8c8abc1defad62179d034aef44aa | quote: Bolt doesn't currently have a public API, CLI, or SDK to control it programmatically from outside the product.
+- sources:
+  - [1] https://bolt.new/pricing
+  - [2] https://support.bolt.new/account/billing.md
+  - [3] https://support.bolt.new/account/tokens.md
+  - [4] https://support.bolt.new/building/agents.md
+  - [5] https://support.bolt.new/account/bolt-forge.md
+  - [6] https://support.bolt.new/reference/faq.md
+  - [7] https://support.bolt.new/release-notes.md
+  - [8] https://support.bolt.new/account/account-management
+
+## Bolt (Pro)
+
+- `coding-subs/bolt-pro` | paid-only | evidence documented | binding volume-quota | category browser app builder with a coding agent | tier Pro
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-10T01:56:02.006Z (live) | stale on 2026-12-11
+- url https://bolt.new/pricing
+- disagrees on identity_kind: `coding-subs/bolt-free` says email, `coding-subs/bolt-pro` says card
+- disagrees on verdict: `coding-subs/bolt-free` says qualifies-with-caveat, `coding-subs/bolt-pro` says paid-only
+- free tier: no free tier on Pro; USD 25 a month for 10M tokens a month with rollover, no daily token limit, Standard and Max agents; larger allowances are chosen on a Monthly tokens slider | unit: none | metered on: none | read on: 2026-11-02 | source: [1] | note: a Pro 10M annual plan is USD 216 a year and a Pro 26M annual plan USD 540 a year; the Pro 100 monthly plan is USD 100 for 55M tokens a month
+- per-object cap: file upload limit 100MB on Pro | source: [1]
+- retention: not applicable: a coding agent meters tokens, not stored bytes
+- egress: Pro allows 1M web requests a month on hosted sites; a bandwidth figure for Pro was not read | metered: yes | source: [1]
+- identity: card | detail: a paid plan: Bolt accepts credit and debit cards for Pro and Teams plans and no other payment method; sign-up is Google, GitHub, or email, username and password. A phone or ID step is not described on the pages read
+- interface: unknown
+- limits:
+  - volume-quota (binding): Pro starts at 10M AI tokens a month for USD 25 a month; larger allowances are chosen on the Monthly tokens slider, for example 55M tokens a month at USD 100 a month [1]
+  - retention-clamped: unused tokens roll over and stay valid for two months from the start of the billing cycle in which they were received [2]
+  - request-rate: 1M web requests a month for hosted sites [1]
+- limits note: Pro has no daily token limit; the monthly allocation, with two-month rollover, is the cap, and extra tokens can be reloaded only on the highest individual monthly Pro plan or any annual Pro plan
+- binding note: the monthly token allocation of the chosen Pro tier, from 10M a month, bounds capacity; there is no daily limit
+- interface detail: a browser application at bolt.new; no public API, CLI or SDK. Pro adds MCP connectors and Supabase as a database provider inside the product, and a GitHub repository can be synced to a project; none drives the agent from outside
+- tooling: browser only: the user prompts the agent in the Bolt web app; no client, API, CLI or SDK exists to automate it
+- composes with: Pro adds custom domains, removal of Bolt branding, MCP connectors and Max, so a build can be hosted and served on the user's own domain from one account; code can be synced to GitHub and built on elsewhere. The tokens cannot be spent outside the Bolt web app
+- reliability: on cancellation all allocated tokens, rollover included, are lost when the billing cycle ends; subscriptions are non-refundable; Bolt Forge was included free with individual Pro plans only during a preview that ran from September 14 to October 14, 2026
+- notes: Bolt Forge runs GLM 5.3, GLM 5.3 Flash, Kimi K3 and DeepSeek v4 Pro; it was included free with individual Pro plans during a preview ending October 14, 2026, and the timeline image's alt text says Pro subscribers lose access afterwards while Lite subscribers keep it. Bolt Lite is a USD 9 a month standalone plan, Forge only, on a waitlist. Teams is USD 30 a month per member and Enterprise is custom; neither is recorded here.
+- evidence note: prices and token allocations are quoted from the pricing page and billing help page read on 2026-11-02; the monthly price of tiers above Pro 100 and the Pro 50 allocation are not stated as a table on the pages read. The models behind Standard and Max are not published. Nothing was measured behind a sign-up.
+- evidence:
+  - [1] 2026-11-02: Pro is listed at USD 25 a month billed monthly | capture: sha256:81857273cdaf848c0b838b2dafa729d483c2ead840ffb0dc59aac4dc0811bfa4 | quote: $25/month
+  - [1] 2026-11-02: Pro includes 10M tokens a month with rollover | capture: sha256:81857273cdaf848c0b838b2dafa729d483c2ead840ffb0dc59aac4dc0811bfa4 | quote: * 10M tokens/month, rollover included
+  - [1] 2026-11-02: Pro starts at 10M monthly AI tokens | capture: sha256:c85e9343ce0e9e9051b0a041e9c94d308c05d85fdfa0d3c1f756474fcfca0a17 | quote: | Monthly AI Tokens | 1M | Starts at 10M | Starts at 10M per member | Custom |
+  - [1] 2026-11-02: Pro has no daily token limit | capture: sha256:c85e9343ce0e9e9051b0a041e9c94d308c05d85fdfa0d3c1f756474fcfca0a17 | quote: | Daily Token Limit | 300K | No Limit | No Limit | No Limit |
+  - [1] 2026-11-02: Pro allows 1M web requests a month | capture: sha256:c85e9343ce0e9e9051b0a041e9c94d308c05d85fdfa0d3c1f756474fcfca0a17 | quote: | Web Requests / Month | 333K | 1M | Up to 1M | Custom |
+  - [1] 2026-11-02: Pro allows a 100MB file upload | capture: sha256:c85e9343ce0e9e9051b0a041e9c94d308c05d85fdfa0d3c1f756474fcfca0a17 | quote: | File Upload Limit | 10MB | 100MB | 100MB | Custom |
+  - [1] 2026-11-02: Pro includes access to the best and newest models, which Free does not | capture: sha256:c85e9343ce0e9e9051b0a041e9c94d308c05d85fdfa0d3c1f756474fcfca0a17 | quote: | Access to Best & Newest AI Models | Not included | Included | Included | Included |
+  - [3] 2026-11-02: the Pro 10M monthly plan costs USD 25 | capture: sha256:09e91ab3bbcac1cf3777d7bb4b9a9f61ba74bae68900debd3cc408b6606719fe | quote: You’re on the \$25 Pro 10M monthly plan that started January 1.
+  - [3] 2026-11-02: the Pro 10M annual plan is USD 216 a year | capture: sha256:09e91ab3bbcac1cf3777d7bb4b9a9f61ba74bae68900debd3cc408b6606719fe | quote: You signed up for the Pro 10M annual plan on January 1 for \$216/year.
+  - [3] 2026-11-02: the Pro 26M annual plan is USD 540 a year | capture: sha256:09e91ab3bbcac1cf3777d7bb4b9a9f61ba74bae68900debd3cc408b6606719fe | quote: you upgrade to the Pro 26M annual plan at \$540/year.
+  - [3] 2026-11-02: the Pro 100 monthly plan is USD 100 for 55M tokens a month | capture: sha256:09e91ab3bbcac1cf3777d7bb4b9a9f61ba74bae68900debd3cc408b6606719fe | quote: Starting on that date, you will be charged \$100 per month for the Pro 100 plan and receive 55M tokens each month on your renewal date.
+  - [3] 2026-11-02: Pro is paid by credit or debit card | capture: sha256:09e91ab3bbcac1cf3777d7bb4b9a9f61ba74bae68900debd3cc408b6606719fe | quote: Bolt accepts credit and debit cards as the payment method for Pro and Teams plans.
+  - [3] 2026-11-02: no payment method other than a card is accepted for Pro | capture: sha256:09e91ab3bbcac1cf3777d7bb4b9a9f61ba74bae68900debd3cc408b6606719fe | quote: Bolt doesn't accept other payment methods, like PayPal or bank transfers, for these plans.
+  - [2] 2026-11-02: unused Pro tokens roll over for two months | capture: sha256:d7f6a364c84a2bdeab5c4e83702312032842db2bd38f8995ccd9c21c9a4ab498 | quote: any unused tokens from your monthly allocation roll over and stay valid for two months from the start of the billing cycle in which you received them.
+  - [2] 2026-11-02: token reloads are available only on the highest individual monthly Pro plan and on annual Pro plans | capture: sha256:d7f6a364c84a2bdeab5c4e83702312032842db2bd38f8995ccd9c21c9a4ab498 | quote: If you're subscribed to the highest individual monthly Pro plan or to any annual Pro plan, you can purchase additional tokens by following the steps below:
+  - [4] 2026-11-02: paid plans, unlike Free, can use the Max agent | capture: sha256:0215426801dc37f83d5caf28d8fc0d7eb7b7b898aadba95523117c32ff2333a6 | quote: Only Standard is available on the free plan.
+  - [5] 2026-11-02: Forge, the open-source-model agent, is an individual-plan feature | capture: sha256:6525b60323ee04a077eea70f11d03ffbea245da52085cfa1a9d6dc0c89155c06 | quote: Forge isn't available on Teams or Enterprise plans.
+  - [5] 2026-11-02: the Forge research preview window, during which individual Pro plans included Forge free | capture: sha256:6525b60323ee04a077eea70f11d03ffbea245da52085cfa1a9d6dc0c89155c06 | quote: The preview runs from September 14 to October 14, 2026.
+  - [6] 2026-11-02: Bolt supports MCP server connectors as tools | capture: sha256:96cc03b2dc563760900fb608fd65f32e7d1621cb8816801a44f0874cf322bb4c | quote: Connect a Model Context Protocol (MCP) server to Bolt so the agent can read your external tools and data.
+  - [7] 2026-11-02: Bolt has no public API, CLI or SDK, so it cannot be driven headless from outside the product | capture: sha256:19d6e51951a31d3712e5d54f9809a34a0b0d8c8abc1defad62179d034aef44aa | quote: Bolt doesn't currently have a public API, CLI, or SDK to control it programmatically from outside the product.
+  - [4] 2026-11-02: the Standard and Max agents do not name their underlying model; Bolt selects it | capture: sha256:0215426801dc37f83d5caf28d8fc0d7eb7b7b898aadba95523117c32ff2333a6 | quote: You choose the agent that matches your work, and Bolt handles model selection behind the scenes.
+  - [8] 2026-11-02: the agents replaced per-model selection | capture: sha256:acabef3eb39b0a0d75d774bd54b69ef82eaaea53bcce3b49c53fb447d3ea764a | quote: Bolt now offers two agents, Standard and Max, instead of individual model options.
+  - [9] 2026-11-02: sign-up takes an email address, a username and a password, or a Google or GitHub account | capture: sha256:b7967149e8e5995e8a1a31a365b0d1337765942116e4ec84ebb7b01f325dd8ff | quote: Click Sign up with email and password, then enter your email address, a username, and a password.
+  - [9] 2026-11-02: an email sign-up is confirmed by email before sign-in | capture: sha256:b7967149e8e5995e8a1a31a365b0d1337765942116e4ec84ebb7b01f325dd8ff | quote: If you sign up with your email, you need to confirm your email address before you can sign in.
+  - [7] 2026-11-09: Bolt publishes no public API, CLI or SDK, so no client outside the product can drive the agent | capture: sha256:19d6e51951a31d3712e5d54f9809a34a0b0d8c8abc1defad62179d034aef44aa | quote: Bolt doesn't currently have a public API, CLI, or SDK to control it programmatically from outside the product.
+  - [7] 2026-11-10: Bolt has no public API, CLI or SDK, so the record keeps interface unknown and tooling says browser only | capture: sha256:19d6e51951a31d3712e5d54f9809a34a0b0d8c8abc1defad62179d034aef44aa | quote: Bolt doesn't currently have a public API, CLI, or SDK to control it programmatically from outside the product.
+- sources:
+  - [1] https://bolt.new/pricing
+  - [2] https://support.bolt.new/account/tokens.md
+  - [3] https://support.bolt.new/account/billing.md
+  - [4] https://support.bolt.new/building/agents.md
+  - [5] https://support.bolt.new/account/bolt-forge.md
+  - [6] https://support.bolt.new/integrations/mcp.md
+  - [7] https://support.bolt.new/reference/faq.md
+  - [8] https://support.bolt.new/release-notes.md
+  - [9] https://support.bolt.new/account/account-management

@@ -1,0 +1,1115 @@
+# fshy: Storage, trial
+
+> Where bytes can live: object storage, drives, registries, academic repositories, hosts used as storage.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/storage/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## ADTAQ Storage VPS — 2 TB, 30 days free (card-gated)
+
+- `storage/adtaq-storage-vps-2-tb-30-days-free` | trial-only | evidence reported | binding per-ip-shaping | category iaas
+- needs card yes, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.adtaq.com/storage-vps/ | page https://fshy.ajam.dev/p/adtaq.md
+- free tier: 2 TB HDD (SSD-cached), 2 vCPU, 2 GB RAM, 6 TB/month bandwidth on 1 Gbps. $20/month, FREE for the first month. Paid ladder is $10/TB/month with RAID6 + NVMe cache, up to 4 TB at $40. | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: 30-day trial then $20/mo unless cancelled | days: 30 | source: [1] | note: not stated
+- egress: Includes 6 TB per month premium bandwidth at 1 Gbps. Overage is metered. Cloudflare proxying is not included. | metered: yes | free allowance: 6 TB per month
+- identity: card | detail: card
+- interface: sftp, rsync, ssh, rclone
+- limits:
+  - per-ip-shaping (binding): 1 Gbps [1]
+- limits note: 30-day trial then $20/mo unless cancelled. 6 TB/month egress cap. 2 TB per server; larger trial sizes explicitly refused ('we are not offering free trials for those at this time (nor do we plan to)').
+- binding note: one stream is shaped, and aggregate throughput is the shaped rate times the number of streams
+- interface detail: sftp
+- tooling: Root KVM VPS: full SSH/SFTP/rsync, mountable as rclone sftp remote or with rclone mount + fuse. Host rep explicitly runs KVM + VirtFusion.
+- composes with: One trial per customer (Stripe ties card to VirtFusion provisioning. 'our provisioning solution ties Stripe directly to Virtfusion'). The flow ties each card to one provisioning record, so a second trial needs a second card and this is NOT repeatable at scale.
+- reliability: Small Idaho host (Lincoln Freedom Group LLC), Boise datacentre, RAID6. New enough that the soft launch itself was the reliability test; no long-run track record. Trial VPS is deleted if not converted.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: 2 TB HDD (SSD-cached), 2 vCPU, 2 GB RAM, 6 TB/month bandwidth on 1 Gbps — $20/month, FREE for the first month. Paid ladder is $10/TB/month with RAID6 + NVMe cache, up to 4 TB at $40.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: '$20/MONTH FREE for 1 Month'; 'Stripe is going to ask you for your credit card … Your card WILL NOT be charged unless you keep the server past the 30 day trial'
+  - [2] 2026-10-21: current page, 'Storage VPS in Boise, Idaho — $10/TB, RAID6, 10G Uplink'
+- sources:
+  - [1] https://lowendtalk.com/discussion/186689/adtaq-soft-launch-free-2tb-storage-vps-for-one-month
+  - [2] https://www.adtaq.com/storage-vps/
+
+## Alibaba Cloud OSS — new-user free trial
+
+- `storage/alibaba-cloud-oss-new-user-free-trial` | trial-only | evidence reported | binding none | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.alibabacloud.com/help/en/oss/free-quota-for-new-users | page https://fshy.ajam.dev/p/alibabacloud.md
+- free tier: Current international page: 'Standard LRS resource plan: 500 GB for 1 month' (individual) / '1 TB for 1 month' (enterprise), stacking with a 5 GB/month perpetual allowance to 505 GB (individual) / 1,029 GB (enterprise) during the trial month. The help.aliyun.com (China) variant of the same doc instead states 20 GB for 3 months. The docs disagree, so treat 500 GB/1 month as the international figure and 20 GB/3 months as the China figure. | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Outbound internet traffic free trial: 2 GB for 3 months (China doc), stacked with a 5 GB/month perpetual quota => ~7 GB/month. Paid after that. This is the hardest egress failure in the slot. | metered: no | free allowance: 5 GB per month
+- identity: institution
+- interface: s3-compatible, rclone
+- limits note: 1 month; 2 GB (trial) + 5 GB/month outbound traffic; 200,000 API requests for 3 months. A 500 GB store with 7 GB/month of egress is a write-only archive you cannot read back for free.
+- interface detail: s3
+- tooling: OSS S3-compatible API. Rclone 's3' provider 'Alibaba Cloud (Aliyun) Object Storage System (OSS)'; ossutil; OSS SDKs.
+- composes with: New-user-only, one trial per verified identity. The 500 GB is 30 days, not recurring. No free per-account multiplication.
+- reliability: Reliable object store; the trial simply expires and billing starts on everything, with an SMS warning at exhaustion.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Current international page: 'Standard LRS resource plan: 500 GB for 1 month' (individual) / '1 TB for 1 month' (enterprise), stacking with a 5 GB/month perpetual allowance to 505 GB (individual) / 1,029 GB (enterprise) during the trial month. The help.aliyun.com (China) variant of the same doc instead states 20 GB for 3 months — the docs disagree, so treat 500 GB/1 month as the international figure and 20 GB/3 months as the China figure.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Standard LRS resource plan: 500 GB for 1 month', 'Individual users ... 505 GB'
+  - [2] 2026-10-21: the conflicting '20 GB for 3 months' + 'outbound traffic 2 GB for 3 months' + '5 GB monthly free quota'
+  - [3] 2026-10-21: 'Standard Storage(LRS) 0~5GB Free' rows across regions (the perpetual sliver)
+- sources:
+  - [1] https://www.alibabacloud.com/help/en/oss/free-quota-for-new-users
+  - [2] https://help.aliyun.com/en/oss/free-quota-for-new-users
+  - [3] https://www.alibabacloud.com/en/product/oss/pricing
+
+## AWS Free Tier — S3 (current, post-2025 restructure)
+
+- `storage/aws-free-tier-s3` | trial-only | evidence reported | binding retention-clamped | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://aws.amazon.com/free/ | page https://fshy.ajam.dev/p/amazon.md
+- free tier: No perpetual S3 storage allowance remains in the current published Free Tier. What exists now: up to $200 in credits ($100 at signup + up to $100 for activities), expiring 6 months after account creation, and the account itself 'closes on its own 6 months after you open it or when your credits run out'. The old 5 GB/12-month S3 allowance is not listed on the current free-tier page or S3 pricing page's Free Tier section, which now describes only the credit model. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: 6-month account lifetime on the Free plan; credits expire at 6 months (12 if you upgrade to Paid); $200 of credits buys roughly 3-4 TB-months of S3 Standard at ~$0.023/GB-month. A one-shot, not a tier. | days: 180 | source: [1] | note: not stated
+- egress: Data transfer out from AWS Regions to the internet: first 100 GB/month free for all customers (announced 2021, still the standing allowance). CloudFront separately gives 1 TB/month free egress + 10M requests, no longer time-limited. But that is a CDN allowance bolted onto a paid origin. | metered: yes | free allowance: 100 GB per month
+- identity: card
+- interface: s3-compatible, rclone, cli
+- limits:
+  - retention-clamped (binding): expire at 6 months [1]
+- limits note: 6-month account lifetime on the Free plan; credits expire at 6 months (12 if you upgrade to Paid); $200 of credits buys roughly 3-4 TB-months of S3 Standard at ~$0.023/GB-month. A one-shot, not a tier.
+- binding note: a clock, not a quota: bytes leave whether or not transfer is completed
+- interface detail: s3
+- tooling: S3 API, rclone 's3', aws-cli; CloudFront in front for the 1 TB egress allowance.
+- composes with: AWS explicitly aggregates usage across an AWS Organization, so claiming credits across several accounts fails (Free Tier Terms: 'You will not be eligible for any Offers if you or your entity create(s) more than one account'). A second account does not carry a second allowance.
+- reliability: The most reliable infrastructure here, but the programme is now a time-boxed credit grant, not free storage. Anything still stored when the Free plan closes is at risk.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: No perpetual S3 storage allowance remains in the current published Free Tier. What exists now: up to $200 in credits ($100 at signup + up to $100 for activities), expiring 6 months after account creation, and the account itself 'closes on its own 6 months after you open it or when your credits run out'. The old 5 GB/12-month S3 allowance is not listed on the current free-tier page or S3 pricing page's Free Tier section, which now describes only the credit model.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'up to $200 over 6 months ... The account closes on its own 6 months after you open it or when your credits run out'
+  - [2] 2026-10-21: 'Free Tier credits expire 6 months from the date you create your AWS account'; 'You cannot extend your Free plan beyond 6 months'
+  - [3] 2026-10-21: Organization-level aggregation and ineligibility when several accounts exist
+  - [4] 2026-10-21: 100 GB/month region egress + 1 TB/month CloudFront, no 12-month limit
+- sources:
+  - [1] https://aws.amazon.com/free/
+  - [2] https://aws.amazon.com/free/free-tier-faqs/
+  - [3] https://aws.amazon.com/free/terms/
+  - [4] https://aws.amazon.com/blogs/aws/aws-free-tier-data-transfer-expansion-100-gb-from-regions-and-1-tb-from-amazon-cloudfront-per-month/
+
+## Bulknews — free Usenet trial (10 GB)
+
+- `storage/bulknews-free-usenet-trial` | trial-only | evidence reported | binding volume-quota | category messaging
+- identity a placeholder: card and phone unknown | verified 2026-11-04T10:28:56.594Z, checked 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.bulknews.eu/usenet-plans/ | page https://fshy.ajam.dev/p/bulknews.md
+- free tier: Trial: 10Gb download volume at no charge, unlimited speed, 30 connections. Paid block ladder: Block 20 (20Gb, EUR 5,00), Block 30 (30Gb, EUR 10,00), Block 100 (100Gb, EUR 15,00), Block 500 (500Gb, EUR 35,00), Block 1000 (1000Gb, EUR 60,00), Block 2500 (2500Gb, EUR 90,00), Block 6000 (6000Gb, EUR 140,00). | unit: GB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: unverified: the plans page states no article or object size limit | bytes: 750000 | source: [1] | note: not stated
+- retention: This is a download-block trial, not free storage: you get 10 GB of retrieval, not 10 GB you can park data in permanently | source: [1] | note: not stated
+- egress: Downloads are metered against the block's volume (10Gb trial, 20Gb to 6000Gb paid blocks); the Bulk plans have unlimited download size at a capped speed. | metered: yes
+- identity: email
+- interface: rest
+- limits:
+  - per-object-cap: unverified: the plans page states no article or object size limit [1]
+  - volume-quota (binding): Block plans meter download volume: 10Gb trial, then 20Gb to 6000Gb blocks (EUR 5,00 to EUR 140,00); all blocks 30 connections. Bulk plans have unlimited download size at capped speed (Bulk 5: 20 Mbit, 10 connections) up to Bulk Unlimited (unlimited speed, 40 connections). [1]
+- limits note: Per-object-cap: standard Usenet article size (~750 KB-1 MB practical). Request-rate: 30 connections. Retention: 10 GB is a download volume block, not a storage quota. There is no storage at all here, it is a retrieval service.
+- binding note: the 10Gb trial download volume is the binding limit; the plans page states no object size cap
+- interface detail: rest
+- tooling: Plain NNTP (port 563 SSL), works with any newsreader or an NNTP library.
+- composes with: Trial-shaped and single-use: 10 GB once per account, and Usenet accounts are tied to a paid order flow. Not repeatable at scale.
+- reliability: This is a download-block trial, not free storage: you get 10 GB of retrieval, not 10 GB you can park data in permanently. Categorically the wrong shape for the workload.
+- notes: Trial: 10 GB, unlimited speed, 30 connections, listed as FREE. Paid blocks start at 20 GB.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Trial: 10 GB, unlimited speed, 30 connections, listed as FREE. Paid blocks start at 20 GB.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Trial / Unlimited speed / 30 Connections / 10Gb / FREE!'; next tier 'Block 20 / 20Gb'
+  - [1] 2026-11-03: the trial is 10Gb, unlimited speed, 30 connections, free | capture: sha256:f605fa56132e17f62a2ce9ad035013e121118c92cb00aecba70a2e3d397b3486 | quote: Trial ### Unlimited speed ### 30 Connections ### 10Gb FREE!
+  - [1] 2026-11-03: Block 20 is 20Gb for EUR 5,00 | capture: sha256:f605fa56132e17f62a2ce9ad035013e121118c92cb00aecba70a2e3d397b3486 | quote: Block 20 ### Unlimited speed ### 30 Connections ### 20Gb € 5,00
+  - [1] 2026-11-03: Block 6000 is 6000Gb for EUR 140,00 | capture: sha256:f605fa56132e17f62a2ce9ad035013e121118c92cb00aecba70a2e3d397b3486 | quote: Block 6000 ### Unlimited speed ### 30 Connections ### 6000Gb € 140,00
+  - [1] 2026-11-03: Bulk Unlimited has no download size limit, 40 connections | capture: sha256:f605fa56132e17f62a2ce9ad035013e121118c92cb00aecba70a2e3d397b3486 | quote: Bulk Unlimited ### Unlimited Speed ### 40 Connections ### Unlimited download size
+  - [1] 2026-11-03: Bulk 5 has no download size limit at 20 Mbit, 10 connections | capture: sha256:f605fa56132e17f62a2ce9ad035013e121118c92cb00aecba70a2e3d397b3486 | quote: Bulk 5 ### 20 Mbit ### 10 Connections ### Unlimited download size
+  - [1] 2026-11-03: the plans page lists volume, speed and connections per plan and states no article or object size | capture: sha256:f605fa56132e17f62a2ce9ad035013e121118c92cb00aecba70a2e3d397b3486 | quote: Block 6000 ### Unlimited speed ### 30 Connections ### 6000Gb € 140,00
+  - [1] 2026-11-03: the trial is capped by a 10Gb download volume | capture: sha256:f605fa56132e17f62a2ce9ad035013e121118c92cb00aecba70a2e3d397b3486 | quote: Trial ### Unlimited speed ### 30 Connections ### 10Gb FREE!
+  - [1] 2026-11-04: the top block is 6000Gb at EUR 140,00; ladder as recorded | capture: sha256:f605fa56132e17f62a2ce9ad035013e121118c92cb00aecba70a2e3d397b3486 | quote: Block 6000 ### Unlimited speed ### 30 Connections ### 6000Gb € 140,00
+  - [1] 2026-11-04: trial: 10Gb at no charge, unlimited speed, 30 connections | capture: sha256:f605fa56132e17f62a2ce9ad035013e121118c92cb00aecba70a2e3d397b3486 | quote: Trial ### Unlimited speed ### 30 Connections ### 10Gb FREE!
+- sources:
+  - [1] https://www.bulknews.eu/usenet-plans/
+
+## Cubbit DS3 Cloud
+
+- `storage/cubbit-ds3-cloud` | trial-only | evidence documented | binding volume-quota | category S3-compatible object storage, geo-distributed (EU/UK) | tier DS3 Cloud trial
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T01:57:50.877Z (live) | stale on 2026-12-05
+- url https://www.cubbit.io/pricing | page https://fshy.ajam.dev/p/cubbit.md
+- free tier: Test-drive 1 TB of Cubbit DS3 Cloud in a demo environment for 30 days; no credit card required | unit: TB | metered on: stored-bytes | read on: 2026-10-30 | source: [1] | note: a one-time 30-day trial, not a recurring allowance. The paid price is a single flat rate per TB a month quoted through partners; no figure is published.
+- per-object cap: Maximum object size 5 TiB; multipart parts of 5 MiB to 5 GiB, 10,000 parts per upload | bytes: 5497558138880 | source: [2] | note: bytes = 5 TiB = 5 x 2^40.
+- retention: data uploaded during the free trial is permanently deleted when the trial expires | days: 30 | source: [3] | note: days is the trial length stated on the pricing page; the account itself remains active after the trial data is deleted.
+- egress: a single flat rate per TB/month with no extra fees: no charges for egress, deletion, bucket replication, or API calls | metered: no | free allowance: unlimited: egress is not charged | source: [1]
+- identity: email | detail: The trial sign-up at console.trial.cubbit.eu is self-service ('Sign up now and get started right away for free') and the pricing page states 'No credit card required' for the trial. The DS3 Cloud agreement linked from the sign-up page requires an account associated with a valid e-mail address, and the DS3 console quickstart has the user set a password and confirm the address through an emailed link. unverified: the sign-up form's own fields did not render through any reader, so a further required field is not excluded. Paid DS3 Cloud is sold through partners after a call or a form.
+- interface: s3-compatible
+- limits:
+  - volume-quota (binding): 1 TB for 30 days on the trial [1]
+  - per-object-cap: 5 TiB per object [2]
+  - retention-clamped: data uploaded during the trial is deleted when the trial expires [3]
+- limits note: Minimum chargeable object size 256KB: a smaller file is counted and billed as 256KB. Paid pricing is a flat rate per TB a month set by partner quote.
+- binding note: the free path is a single 1 TB trial that ends after 30 days; after it every byte is on a partner-quoted price
+- interface detail: ready-to-use, S3-compatible cloud object storage; data stored in partners' data centres in the EU or the UK in the selected regions
+- tooling: S3 clients and SDKs: the vendor documents the AWS CLI and multipart upload; rclone's s3 backend
+- composes with: An S3 origin with no egress or API charge; the 30-day 1 TB trial is a test environment, and recurring capacity is bought through a partner quote.
+- reliability: no throttle, suspension or data-loss event is stated on the pages read; the trial is a demo environment
+- notes: S3-compatible object storage: confirmed. unverified: the paid price per TB a month is set by partner quote and not published. DS3 Composer, the vendor's software-defined product with a 3 TB free tier, is a separate offer and not this hosted trial: its software is managed by Cubbit or self-hosted, and it stores data on nodes the user runs.
+- evidence note: the trial, the fee rule, the object cap and the minimum chargeable size are quoted from Cubbit's own pages read on 2026-10-30; the paid price is not published and the read path is unprobed.
+- evidence:
+  - [1] 2026-10-30: the free path is a 1 TB, 30-day trial in a demo environment | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: Test-drive 1 TB of Cubbit DS3 Cloud in a demo environment for 30 days.
+  - [1] 2026-10-30: the trial asks for no credit card | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: No credit card required
+  - [1] 2026-10-30: pricing is a flat rate per TB a month with no egress, deletion, replication or API charge | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: a single flat rate per TB/month with no extra fees** — no charges for egress, deletion, bucket replication, or API calls.
+  - [1] 2026-10-30: the paid DS3 Cloud price is quoted through partners | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: Get the best market price, tailored to your needs, via our partners.
+  - [1] 2026-10-30: DS3 Cloud is hosted S3-compatible object storage with no hardware to manage | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: Enjoy ready-to-use, S3-compatible cloud object storage without the need to manage any hardware / storage nodes.
+  - [1] 2026-10-30: data is stored in partner data centres in the EU or the UK | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: Your data is securely stored in our partners’ certified data centres in the EU or the UK, with guaranteed localisation in the region(s) you select.
+  - [2] 2026-10-30: the largest object is 5 TiB | capture: sha256:36b10d0b0e05b3126dd178059003c4f57bcfdf2c4c707a7ced85a4f254c3d3d9 | quote: Maximum object size5 TiB
+  - [4] 2026-10-30: objects under 256KB are billed as 256KB | capture: sha256:42e11bd832f74f9aac0c79130f53cbdb0e9deb479f984ba261a9242fe5d8c180 | quote: Cubbit enforces a minimum chargeable size. This size is 256KB. Therefore, files smaller than 256KB will be counted and billed as if they were 256KB.
+  - [5] 2026-10-30: the trial sign-up is self-service and free | capture: sha256:47bbb297a16c3dd4867d0bb3e679fdc3c33e6ba518486d195c5103a41b435f84 | quote: Sign up now and get started right away for free.
+  - [3] 2026-10-31: data uploaded during the free trial is permanently deleted when the trial expires | capture: sha256:8392caa66d7628bb99bc2d0c5e53f49a6e8d684c480537b6dcec350be23b7185 | quote: Upon expiry of the Free Trial, Customer Content uploaded during the trial period shall be permanently deleted.
+  - [1] 2026-10-31: the free path of DS3 Cloud is a 1 TB trial in a demo environment that lasts 30 days | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: Test-drive 1 TB of Cubbit DS3 Cloud in a demo environment for 30 days.
+  - [3] 2026-10-31: the account stays active after the trial data is deleted | capture: sha256:8392caa66d7628bb99bc2d0c5e53f49a6e8d684c480537b6dcec350be23b7185 | quote: The Account remains active.
+  - [3] 2026-10-31: a DS3 Cloud account is registered against a valid e-mail address | capture: sha256:8392caa66d7628bb99bc2d0c5e53f49a6e8d684c480537b6dcec350be23b7185 | quote: To access the Services, the Customer creates an Account associated with a valid e-mail address, providing truthful, accurate and complete information which it undertakes to keep updated for the duration of the Agreement.
+  - [1] 2026-10-31: DS3 Composer is software, managed or self-hosted, and a different offer from hosted DS3 Cloud | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: The software can be provided as a managed solution (SaaS) or self-hosted directly by the customer.
+  - [1] 2026-10-31: the DS3 Cloud trial asks for no credit card | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: No credit card required
+  - [6] 2026-10-31: DS3 console registration is confirmed through a link sent to the e-mail address | capture: sha256:ca6a13e65a97a13517f1956756f594c1ebd6cec9fcc8fa496fd2ff6e66444a47 | quote: Check your inbox and confirm your email by clicking the link you received via email.
+  - [5] 2026-10-31: the trial sign-up is self-service and free | capture: sha256:47bbb297a16c3dd4867d0bb3e679fdc3c33e6ba518486d195c5103a41b435f84 | quote: Sign up now and get started right away for free.
+  - [1] 2026-10-31: pricing is a flat rate per TB a month with no egress, deletion, replication or API charge | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: a single flat rate per TB/month with no extra fees** — no charges for egress, deletion, bucket replication, or API calls.
+  - [1] 2026-10-31: DS3 Cloud is hosted S3-compatible object storage with no storage nodes to manage | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: Enjoy ready-to-use, S3-compatible cloud object storage without the need to manage any hardware / storage nodes.
+  - [2] 2026-10-31: the largest object is 5 TiB | capture: sha256:36b10d0b0e05b3126dd178059003c4f57bcfdf2c4c707a7ced85a4f254c3d3d9 | quote: Maximum object size5 TiB
+  - [4] 2026-10-31: objects under 256KB are billed as 256KB | capture: sha256:42e11bd832f74f9aac0c79130f53cbdb0e9deb479f984ba261a9242fe5d8c180 | quote: Cubbit enforces a minimum chargeable size. This size is 256KB. Therefore, files smaller than 256KB will be counted and billed as if they were 256KB.
+  - [1] 2026-11-04: the trial is 1 TB for 30 days in a demo environment | capture: sha256:076799c97de32fc1d6511c70c54bf02d47975a3052ab42f177b6e961f4cfed63 | quote: Test-drive 1 TB of Cubbit DS3 Cloud in a demo environment for 30 days.
+  - [1] 2026-11-04: the trial asks for no credit card | capture: sha256:076799c97de32fc1d6511c70c54bf02d47975a3052ab42f177b6e961f4cfed63 | quote: No credit card required
+  - [1] 2026-11-04: no egress, deletion, replication or API charge | capture: sha256:395ac5b3f4c29e3e1e09791fcb15785a198292c1cdf67041a5cb0d843b1f342a | quote: a single flat rate per TB/month with no extra fees** â€” no charges for egress, deletion, bucket replication, or API calls.
+- sources:
+  - [1] https://www.cubbit.io/pricing
+  - [2] https://docs.cubbit.io/guides/multipart-upload
+  - [3] https://cubbit.io/legal/ds3-terms-of-service
+  - [4] https://docs.cubbit.io/guides/resource-metrics
+  - [5] https://console.trial.cubbit.eu/signup?mkt=true
+  - [6] https://docs.cubbit.io/getting-started/quickstart
+
+## Databricks Free Edition (default storage / Unity Catalog volumes)
+
+- `storage/databricks-free-edition` | trial-only | evidence reported | binding none | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://docs.databricks.com/aws/en/getting-started/free-edition | page https://fshy.ajam.dev/p/databricks.md
+- disagrees on identity_kind: `storage/databricks-free-edition` says institution, `storage/databricks-free-edition-2` says email
+- disagrees on verdict: `storage/databricks-free-edition` says trial-only, `storage/databricks-free-edition-2` says fails-quota
+- free tier: No published byte quota. Free Edition ships 'serverless compute and default storage, so you can immediately start exploring and building'. Default storage is 'a fully managed object storage platform' and in serverless workspaces you can 'create additional catalogs in either default storage or in your own cloud object storage'. Quotas are documented for compute, jobs, pipelines, model serving and apps. Never for bytes. | unit: mixed | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Not addressed in the Free Edition docs. Outbound internet is 'restricted to a limited set of trusted domains', which throttles external egress to non-approved hosts. | metered: no
+- identity: institution
+- interface: rest, rclone, cli
+- limits note: Per-object-cap: not documented for default storage. Unverified. request-rate: per-account serverless quotas ('Max of 5 concurrent job tasks per account', one SQL warehouse capped at 2X-Small). This is the binding constraint and it is compute, not storage. retention: 'While your compute will be unavailable, your data and settings will not be deleted'; deleting a managed table/volume keeps files 'to allow for a 7-day recovery window' then purges within 48 hours.
+- interface detail: rest
+- tooling: Unity Catalog volumes via SQL (`CREATE CATALOG ..`) or the Databricks CLI / REST API; no rclone backend. File access requires serverless, Unity-Catalog-enabled compute. 'All interactions with default storage require serverless, Unity Catalog-enabled compute'.
+- composes with: One workspace per signup; the docs do not cap workspaces. Storage is uncapped in the docs but only reachable through compute, so the real multiplier is compute quota resets ('your workspace's compute resources will be shut down and unavailable for the rest of the day' on quota exhaustion; data is retained).
+- reliability: Storage without a documented quota but also without a storage-native API. You cannot `PUT` arbitrary bytes without spinning compute, and compute is throttled to 'the rest of the day'. Custom workspace storage locations are unsupported. Realistically a place to park tabular artefacts, not a 20 TiB blob archive.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: not-storage
+  - dead_end.why: No published byte quota. Free Edition ships 'serverless compute and default storage, so you can immediately start exploring and building' — default storage is 'a fully managed object storage platform' and in serverless workspaces you can 'create additional catalogs in either default storage or in your own cloud object storage'. Quotas are documented for compute, jobs, pipelines, model serving and apps — never for bytes.
+  - dead_end.retry_when: never; it is not storage
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [2] 2026-10-21: 'Your new workspace includes serverless compute and default storage'
+  - [3] 2026-10-21: 'Default storage is a fully managed object storage platform'; 'All interactions with default storage require serverless, Unity Catalog-enabled compute'
+  - [1] 2026-10-21: (last updated 2026-10-18) — quota table covers compute/jobs/pipelines/serving only; 'Custom workspace storage locations' unsupported
+  - withheld 2026-10-21: probe: GET docs.databricks.com/aws/en/getting-started/free-edition-limitations -> 200 (read live 2026-10-21)
+- sources:
+  - [1] https://docs.databricks.com/aws/en/getting-started/free-edition-limitations
+  - [2] https://docs.databricks.com/aws/en/getting-started/free-edition
+  - [3] https://docs.databricks.com/aws/en/storage/default-storage
+
+## Datum Storage
+
+- `storage/datum-storage` | trial-only | evidence reported | binding none | category cloud-drive
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://storage.datum.org | page https://fshy.ajam.dev/p/datum.md
+- free tier: 1 TB free from signup ('Get 1TB Free Cloud Storage From Datum'), S3-compatible endpoint | unit: TB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Not published on the getstarted page; sold as 'decentralized cloud storage' with S3 API compatibility (unverified per-GB) | metered: no
+- identity: any-phone
+- interface: s3-compatible
+- limits note: 1 TB/account; requires the Datum ID mobile app on iOS/Android as the identity provider. There is no web-only path.
+- interface detail: s3
+- tooling: S3 API only ('designed to be compatible with the Amazon S3 API format'); tested clients Arq Backup, Duplicati/Duplicity/Duplicacy untested
+- composes with: 1 TB x N identities, but each identity needs a phone-verified Datum ID, so identity cost is the multiplier
+- reliability: app-gated identity makes account automation awkward; the product markets itself as early-stage ('not all [S3 clients] have been tested')
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 1 TB free from signup ('Get 1TB Free Cloud Storage From Datum'), S3-compatible endpoint
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Datum Storage accounts are attached to a Datum Identity... creating a Datum Identity will require verification of your email address and phone number'; 'designed to be compatible with the Amazon S3 API format'
+  - [1] 2026-10-21: 'Datum ID on the App Store / Google Play' (no web signup path)
+- sources:
+  - [1] https://storage.datum.org/getstarted
+
+## DedicatedCore — 6 TB storage VPS, 60 days free (3 slots only)
+
+- `storage/dedicatedcore-6-tb-storage-vps-60-days-free` | trial-only | evidence reported | binding none | category iaas
+- needs card no, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://dedicatedcore.com | page https://fshy.ajam.dev/p/dedicatedcore.md
+- free tier: 6 TB HDD, 3 vCPU, 4 GB RAM, 10,000 GB bandwidth, dedicated IP. Free for 60 days. Only 3 units existed. | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: until the instance is recycled; not persistent | source: [1] | note: not stated
+- egress: Includes 10 TB per month transfer. Bandwidth is metered beyond the allowance and Cloudflare proxying is not provided. | metered: no | free allowance: 10 TB per month
+- identity: email | detail: email
+- interface: sftp, rsync, ssh, rclone
+- limits note: Deleted after 60 days.
+- interface detail: sftp
+- tooling: Root KVM. SSH/SFTP/rsync, so rclone sftp or a local fuse mount works. No object API.
+- composes with: Not repeatable. Explicitly 'non-renewable, and the VPS will be deleted at the end of the 60-day period', 3 slots, application via a Google Form, and the thread closed with 'Filled!' within days. This is a marketing gesture, not a capacity source.
+- reliability: Deliberately ephemeral: the data is destroyed at day 60 by design. Good for one 6 TB cold-archive burst, worthless as standing storage.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: 6 TB HDD, 3 vCPU, 4 GB RAM, 10,000 GB bandwidth, dedicated IP — free for 60 days. Only 3 units existed.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'DISK SPACE: 6 TB (HDD) … completely free for 60 days'; 'there are only 3 Storage VPS servers available'; 'This free offer is non-renewable, and the VPS will be deleted at the end of the 60-day period.'
+- sources:
+  - [1] https://lowendspirit.com/discussion/9079/dedicatedcore-exclusive-offer-for-lowendspirit-community-3-free-6-tb-storage-vps-with-dedicated-ip
+
+## Fil One (formerly Storacha / web3.storage successor)
+
+- `storage/fil-one` | trial-only | evidence reported | binding retention-clamped | category cloud-drive
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.fil.one/pricing/ | page https://fshy.ajam.dev/p/fil.md
+- disagrees on identity_kind: `storage/fil-one` says card, `storage/fil-one-storacha-s3-tier` says email
+- free tier: No standing free tier: '1 TB free for 30 days · No credit card required' and '1 TB of storage and 2 TB of egress for 30 days'. After that '$5.99 per TB stored per month' with a 1 TB minimum. | unit: TB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: retention: 30 days (trial) | days: 30 | source: [1] | note: not stated
+- egress: '$0 Egress and API requests — Subject to reasonable use.' Explicitly excludes 'CDN-like use cases, where egress runs at many times the amount stored'. | metered: yes
+- identity: card
+- interface: s3-compatible
+- limits:
+  - retention-clamped (binding): retention: 30 days [1]
+- limits note: per-object-cap: not stated. retention: 30 days (trial). request-rate: none. Binding constraint is the trial clock, then $5.99/TB with a 1 TB billing minimum.
+- binding note: a clock, not a quota: bytes leave whether or not transfer is completed
+- interface detail: s3
+- tooling: S3-compatible buckets with scoped keys.
+- composes with: 30-day trial x unlimited accounts is a treadmill, not storage. The data must be re-uploaded every 30 days and each new account needs a distinct signup.
+- reliability: Reasonable-use clause explicitly targets egress-heavy workloads and says they 'will contact you first'. A shaping/ban path for serving use.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: No standing free tier: '1 TB free for 30 days · No credit card required' and '1 TB of storage and 2 TB of egress for 30 days'. After that '$5.99 per TB stored per month' with a 1 TB minimum.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: '1 TB free for 30 days · No credit card required'; 'Yes, $5.99 a month. Store under 1 TB and you pay the minimum'
+  - [2] 2026-10-21: the older Arweave/Turbo free path: '105 KiB per file', '10 MiB over the lifetime of a wallet, and 10 MiB over the lifetime of an IP range'
+- sources:
+  - [1] https://www.fil.one/pricing/
+  - [2] https://docs.ar.io/sdks/ario-deploy/free-tier/
+
+## fil one / storacha s3 tier
+
+- `storage/fil-one-storacha-s3-tier` | trial-only | evidence documented | binding none | category rejected-provider
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T01:24:13.492Z (live) | stale on 2026-12-05
+- url https://www.fil.one/pricing/ | page https://fshy.ajam.dev/p/fil.md
+- disagrees on identity_kind: `storage/fil-one` says card, `storage/fil-one-storacha-s3-tier` says email
+- free tier: none reachable: Marketed as cheap S3 ($5.99/TB/month, $0 egress) but the free component is a 30-day 1 TB trial, not a free tier. Below the archive requirement and time-boxed. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: On the paid plan egress costs $0, subject to reasonable use, with no numeric cap stated; the 30-day trial includes 2 TB of egress. | metered: no
+- identity: email | detail: the 30-day trial needs no credit card; the other sign-up fields are not stated on the pricing page
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Documented from the vendor page https://www.fil.one/pricing/ re-read on 2026-11-04: 30-day trial of 1 TB storage and 2 TB egress with no credit card; paid egress free subject to reasonable use.
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: Marketed as cheap S3 ($5.99/TB/month, $0 egress) but the free component is a 30-day 1 TB trial, not a free tier. Below the archive requirement and time-boxed.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Marketed as cheap S3 ($5.99/TB/month, $0 egress) but the free component is a 30-day 1 TB trial, not a free tier. Below the archive requirement and time-boxed.
+  - [1] 2026-11-03: paid egress is $0 under a reasonable-use condition with no numeric cap; the trial carries 2 TB of egress | capture: sha256:cb29291eb5c86b092ba095aaa2198f1669502dd053daccd260870c4a3f84f89f | quote: On a paid plan there is no egress charge, subject to reasonable use, and no per-request charges either. The 30-day trial includes 2 TB of egress.
+  - [1] 2026-11-03: the free component is a 30-day trial of 1 TB storage and 2 TB egress with no card | capture: sha256:cb29291eb5c86b092ba095aaa2198f1669502dd053daccd260870c4a3f84f89f | quote: 1 TB of storage and 2 TB of egress for 30 days, with no credit card required.
+  - [1] 2026-11-04: the free component is a 30-day trial of 1 TB storage and 2 TB egress with no card | capture: sha256:cb29291eb5c86b092ba095aaa2198f1669502dd053daccd260870c4a3f84f89f | quote: 1 TB of storage and 2 TB of egress for 30 days, with no credit card required.
+- sources:
+  - [1] https://www.fil.one/pricing/
+
+## Freshdesk (helpdesk attachments)
+
+- `storage/freshdesk` | trial-only | evidence reported | binding per-object-cap | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.freshdesk.com | page https://fshy.ajam.dev/p/freshdesk.md
+- free tier: Freshworks support states flatly: 'There is no storage limit on the Freshdesk platform. All the data is stored in Cloud.' Per-attachment 20 MB (15 MB on Sprout/trial). | unit: MB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: per-object-cap: 15 MB | bytes: 15000000 | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: No egress meter; attachments are served from `cdn.freshdesk.com` (S3-backed). | metered: no
+- identity: email
+- interface: rest, rclone
+- limits:
+  - per-object-cap (binding): per-object-cap: 15 MB [1]
+- limits note: per-object-cap: 15 MB (Sprout/trial) to 20 MB per conversation. request-rate: Growth 100 req/min, Pro 400, Enterprise 700, with per-endpoint sub-limits (Ticket Create 50/min on Growth). Retention: 'no storage limit' is unqualified in the article, but the Free Program ends after 6 months.
+- interface detail: rest
+- tooling: Freshdesk REST API (multipart attachments), Python/PHP samples in `freshworks/fresh-samples` (`create_ticket_attachment.py`). No rclone backend.
+- composes with: 'No storage limit' x unlimited free-tier portals would be the best finding in the niche. But the free tier is a 6-month program, not a standing plan, so the realistic multiplier is 6 months x N portals.
+- reliability: The 'no storage limit' claim is real and current, but it is a claim about a paid platform. Free access is a 6-month program with 2 agent seats; files >20 MB must be hotlinked from Dropbox/OneDrive, i.e. Freshdesk is not the store.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Freshworks support states flatly: 'There is no storage limit on the Freshdesk platform. All the data is stored in Cloud.' Per-attachment 20 MB (15 MB on Sprout/trial).
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'There is no storage limit on the Freshdesk platform.'
+  - [2] 2026-10-21: '20 MB/conversation for accounts on the Blossom and above plans. For Sprout and trial accounts ... 15 MB'
+  - [3] 2026-10-21: 'available for free for 6 months'
+  - [4] 2026-10-21: rate limit tables (Growth 100/min; Enterprise 700/min)
+- sources:
+  - [1] https://support.freshdesk.com/support/solutions/articles/234965-hi-is-there-a-storage-limit-on-your-platform-
+  - [2] https://support.freshdesk.com/support/solutions/articles/196643-what-is-the-size-limit-for-attachments-to-a-ticket-reply-
+  - [3] https://partnersupport.freshworks.com/support/solutions/articles/50000010099-explore-freshdesk-free-program-freshdesk-only-
+  - [4] https://developers.freshdesk.com/api/
+
+## Frontproxy (unlimited residential, speed-tiered)
+
+- `storage/frontproxy` | trial-only | evidence reported | binding per-ip-shaping | category contributed bandwidth - unmetered, speed-capped
+- needs card yes, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://frontproxy.com/pricing/ | page https://fshy.ajam.dev/p/frontproxy.md
+- price $0.058/GB = $59/TB (egress)
+- free tier: $10 for a 3-day 25 Mbps unlimited trial; Pro from $375/day at 400 Mbps unlimited, stated max transfer 4.3 TB/day at sustained full speed, 'effective cost $0.058 per GB'; scales to 2 Gbps | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: unmetered - 'No per-GB fees, ever'; 'No data caps' | metered: no
+- identity: card | detail: card
+- interface: unknown
+- limits:
+  - per-ip-shaping (binding): 25 Mbps [1]
+  - per-ip-shaping (binding): 400 Mbps [1]
+- limits note: Priced per day, which is hostile to a steady 1 TiB/day: $375/day at 400 Mbps is $11,250/month, and even the $0.058/GB effective rate is worse than Proxyrack's $5/TB equivalent at the same volume. The $10/3-day 25 Mbps entry is a trial, not a product tier (no auto-renew, 3 days only). Speed caps make this predictable but expensive.
+- binding note: one stream is shaped, and aggregate throughput is the shaped rate times the number of streams
+- interface detail: HTTP(S) proxy, rotating and sticky sessions, 195+ countries
+- tooling: curl -x, any HTTP client
+- composes with: Transfer volume is governed by port speed caps: 25 Mbps yields up to 270 GB per day, while 400 Mbps supports up to 4.3 TB per day.
+- reliability: Day-rate billing with no volume discount path; guaranteed throughput is per-session, not aggregate across threads.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: $10 for a 3-day 25 Mbps unlimited trial; Pro from $375/day at 400 Mbps unlimited, stated max transfer 4.3 TB/day at sustained full speed, 'effective cost $0.058 per GB'; scales to 2 Gbps
+  - dead_end.first_recorded: 2026-10-21
+  - price_verbatim: $0.058/GB = $59/TB (egress)
+- evidence:
+  - [1] 2026-10-21: '3-day trial for $10 · Scale up to 2 Gbps'; 'No data caps, no per-GB fees'; trial: '$10 / 3 days ... 25 Mbps Guaranteed throughput ... Unlimited bandwidth'; Pro: '$375 / day ... 400 Mbps · Unlimited bandwidth, Max transfer 4.3 TB at sustained full speed, Effective cost $0.058 per GB transferred'
+- sources:
+  - [1] https://frontproxy.com/pricing/
+
+## Ghost(Pro) — 5 MB on free trial/Starter, 100 MB Publisher; self-hosted is unbounded
+
+- `storage/ghost-5-mb-on-free-trial-starter-100-mb-publisher-self-h` | trial-only | evidence reported | binding per-object-cap | category media
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://ghost.org | page https://fshy.ajam.dev/p/ghost.md
+- free tier: "When uploading media files to Ghost, while there is no limit on the number of files you can upload to your site, there is a file size limit based on your Ghost(Pro) plan. Free trial: 5mb / Starter: 5mb / Publisher: 100mb / Business: 250mb / Custom: 1gb" | unit: mixed | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: per-object-cap 5 MB | bytes: 5000000 | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: CDN-served; free tier has no egress billing. Fair Use Policy applies to media hosting. | metered: no
+- identity: institution
+- interface: rest
+- limits:
+  - per-object-cap (binding): per-object-cap 5 MB [1]
+- limits note: Per-object-cap 5 MB (free/Starter), 100 MB (Publisher), 250 MB (Business), 1 GB (Custom). No file-count cap on any plan. Ghost Fair Use Policy constrains 'other file types made available'. Enforcement is the practical ceiling.
+- interface detail: rest
+- tooling: Ghost Content API + Admin API (REST), official JS SDK. Self-hosted Ghost has no file-count or size limit except the web server config: "The upload limit is effectively determined by the web server that's serving your Ghost site."
+- composes with: The interesting half is not Ghost(Pro). It is that Ghost's unlimited-file design means a self-hosted Ghost on any free host inherits an unbounded media library. That chains Ghost's admin API to whatever free compute/storage is already available, rather than being storage itself.
+- reliability: Ghost(Pro) free trial expires; the unlimited-file behaviour only persists on a paid plan or self-hosted install.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: "When uploading media files to Ghost, while there is no limit on the number of files you can upload to your site, there is a file size limit based on your Ghost(Pro) plan. Free trial: 5mb / Starter: 5mb / Publisher: 100mb / Business: 250mb / Custom: 1gb"
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: per-plan 5mb/100mb/250mb/1gb table, "no limit on the number of files"
+  - [2] 2026-10-21: limit is the web server's on self-hosted
+- sources:
+  - [1] https://ghost.org/help/media-file-size-limits/
+  - [2] https://forum.ghost.org/t/media-upload-limits-hosted-vs-self-hosted/52476
+
+## IDrive e2
+
+- `storage/idrive-e2` | trial-only | evidence documented | binding volume-quota | category S3-compatible object storage | tier pay-as-you-go
+- needs card no, phone no, ID no, institution no | verified 2026-11-01T23:50:14.298Z (live) | stale on 2026-12-02
+- url https://www.idrive.com/s3-storage-e2/pricing | page https://fshy.ajam.dev/p/idrive.md
+- price USD 6 per TB per month pay-as-you-go, 1 TB minimum; yearly 10 TB plan USD 595.00 a year (USD 4.96 per TB-month, derived: 595.00 / 10 / 12), half price in the first year | parsed USD 4.96/TB-mo
+- free tier: Pay-as-you-go at USD 6 per month per TB 'Try with 10GB Free'; the sign-up page calls it a free trial ('Start your Free Trial with 10 GB') and the pages read do not state its length | unit: GB | metered on: stored-bytes | read on: 2026-10-30 | source: [1] | note: The create-account form asks for an email address and a password, with Google or Microsoft sign-in as the alternative, and shows no card field. The length of the trial is not stated on the pricing page or on the sign-up page.
+- per-object cap: Maximum object size 50 TB; maximum object size per PUT operation 50 TB; parts of 5 MB to 5 GB, 10,000 parts per upload | source: [2] | note: the page does not say whether TB is decimal or binary, so bytes is left null; the minimum object size is 0 B.
+- retention: No minimum storage duration: 'IDrive e2 does not impose a minimum storage duration on uploaded objects nor charge users for deleting the objects' | source: [1] | note: no expiry of stored objects is stated on a paid plan; on the free trial an empty region is removed after 30 days.
+- egress: Free while monthly egress is at most 3x the active storage volume; beyond it USD 0.01/GB/month | metered: yes | free allowance: 3x the active storage volume per monthly billing cycle | price per TB: USD 0.01 per GB beyond the 3x allowance | source: [3]
+- identity: email | detail: The create-account form asks for an email address and a password, with Google or Microsoft sign-in as the alternative, and carries no card field; a reCAPTCHA challenge guards submission. Card details are entered in the billing flow of a paid plan, which is paid by credit or debit card.
+- interface: s3-compatible
+- limits:
+  - volume-quota (binding): egress free up to 3x the active storage volume per month; beyond it USD 0.01/GB [3]
+  - volume-quota (binding): 10 GB of storage on the free trial [1]
+  - per-object-cap: 50 TB per object, 50 TB per PUT operation [2]
+- limits note: Pay-as-you-go bills a 1 TB minimum: storage under 1 TB is charged USD 6 for the month. No minimum object size (0 B) and no minimum storage duration; no charge for deletion or API calls. Storage above a yearly plan's quota is billed at USD 0.006/GB/month.
+- binding note: the free path ends at the 10 GB trial; on a paid plan the 3x-of-stored egress allowance is the ceiling that meters
+- interface detail: S3-compatible API; API calls carry no charge
+- tooling: any S3 SDK or S3 client, rclone's s3 backend among them
+- composes with: An S3 origin with no request fees and egress free up to 3x stored bytes; a CDN in front keeps reads inside that allowance.
+- reliability: no throttle, suspension or data-loss event is stated on the pages read; a trial region left empty for 30 days is removed
+- notes: S3-compatible object storage: confirmed. The only free path is the 10 GB trial; recurring use is paid. derived: USD 595.00 a year / 10 TB / 12 months = USD 4.96 per TB-month.
+- evidence note: every value is quoted from a first-party IDrive page read on 2026-10-30; the trial length is behind a sign-up and the read path is unprobed.
+- evidence:
+  - [1] 2026-10-30: pay-as-you-go storage costs USD 6 per TB per month | capture: sha256:50e1a3b694be3250ae301256e7d0bb2c5811e7d95d3622f2f6e712868d636b27 | quote: $6 per month, per TB
+  - [1] 2026-10-30: the pay-as-you-go plan offers 10 GB to try free | capture: sha256:50e1a3b694be3250ae301256e7d0bb2c5811e7d95d3622f2f6e712868d636b27 | quote: (Try with 10GB Free)
+  - [1] 2026-10-30: storage under 1 TB is billed as a full 1 TB at USD 6 | capture: sha256:50e1a3b694be3250ae301256e7d0bb2c5811e7d95d3622f2f6e712868d636b27 | quote: IDrive® e2 charges a minimum storage fee of $6/TB. The minimum charge is per TB; even if your total storage is less than 1 TB, you will be charged for the entire 1 TB.
+  - [1] 2026-10-30: the yearly plan for 10 TB is USD 595.00 a year | capture: sha256:50e1a3b694be3250ae301256e7d0bb2c5811e7d95d3622f2f6e712868d636b27 | quote: $595.00/year
+  - [1] 2026-10-30: there is no minimum storage duration and no delete charge | capture: sha256:50e1a3b694be3250ae301256e7d0bb2c5811e7d95d3622f2f6e712868d636b27 | quote: No, unlike most competitors in the market, IDrive® e2 does not impose a minimum storage duration on uploaded objects nor charge users for deleting the objects.
+  - [1] 2026-10-30: egress up to 3x the active storage volume is free | capture: sha256:50e1a3b694be3250ae301256e7d0bb2c5811e7d95d3622f2f6e712868d636b27 | quote: Free egress policy Download less than or equal to 3X your active storage volume for free!
+  - [1] 2026-10-30: egress beyond the free allowance costs USD 0.01/GB | capture: sha256:50e1a3b694be3250ae301256e7d0bb2c5811e7d95d3622f2f6e712868d636b27 | quote: Free Egress Policy: Charges apply at $0.01/GB/month beyond free limits.
+  - [1] 2026-10-30: API calls carry no charge | capture: sha256:50e1a3b694be3250ae301256e7d0bb2c5811e7d95d3622f2f6e712868d636b27 | quote: IDrive® e2 does not impose any additional charges for your API calls.
+  - [1] 2026-10-30: IDrive e2 is S3-compatible storage | capture: sha256:50e1a3b694be3250ae301256e7d0bb2c5811e7d95d3622f2f6e712868d636b27 | quote: S3 Compatible Storage Integrations
+  - [3] 2026-10-30: the free egress rule is 3x the storage volume per monthly billing cycle | capture: sha256:2c638643d0e72bdded9fa8f27cbfe4ef2e156a1762cf13ab419853b490b670c7 | quote: If you store 100 TB with IDrive® e2 and download 300 TB or less within a monthly billing cycle, then your storage use case is a good fit for our policy.
+  - [3] 2026-10-30: there is no lock-in period and no minimum upload size | capture: sha256:2c638643d0e72bdded9fa8f27cbfe4ef2e156a1762cf13ab419853b490b670c7 | quote: IDrive® e2 does not implement any data lock-in period or limit the minimum file upload size.
+  - [2] 2026-10-30: the maximum object size is 50 TB | capture: sha256:2d9054131ad0cf522b5430e5e8be6f594355f78a84e60cc3b1b6fc5213070252 | quote: | Maximum object size | 50 TB |
+  - [2] 2026-10-30: the minimum object size is 0 B | capture: sha256:2d9054131ad0cf522b5430e5e8be6f594355f78a84e60cc3b1b6fc5213070252 | quote: | Minimum object size | 0 B |
+  - [2] 2026-10-30: paid plans are paid by credit or debit card | capture: sha256:2d9054131ad0cf522b5430e5e8be6f594355f78a84e60cc3b1b6fc5213070252 | quote: IDrive® e2 allows you to process payments via credit and debit cards.
+  - [2] 2026-10-30: a free-trial region with no data for more than 30 days is removed | capture: sha256:2d9054131ad0cf522b5430e5e8be6f594355f78a84e60cc3b1b6fc5213070252 | quote: Free trial users can enable as many regions as they want. However, if a region remains inactive and no data is stored in it for more than 30 days, the region will be removed from the account.
+  - [4] 2026-10-30: the 10 GB is a free trial | capture: sha256:cfac31af9a192f671dec4a506eb01b541674a0c5ac9f5f902ae05ec1f63b177a | quote: Start your Free Trial with 10 GB
+  - [4] 2026-10-30: the sign-up form asks for an email address and a password | capture: sha256:cfac31af9a192f671dec4a506eb01b541674a0c5ac9f5f902ae05ec1f63b177a | quote: Email address*
+  - [4] 2026-11-01: the create-account form asks for an email address and a password and shows no card field | capture: sha256:5dd8781bbf8f135786c112318db8e2c826fa31a85923b0b0c4c90af6a0d5fd22 | quote: # Create account Email address* Password*
+  - [4] 2026-11-01: registration asks for an email address and a password, with no card field on the form | capture: sha256:212d57867069fcaecc21106ab2aa7bfb69ebf8bce186b4b1c26d650d145c8536 | quote: # Create account Email address\* Password\*
+  - [3] 2026-11-01: egress up to 3x the stored volume per monthly billing cycle is free | capture: sha256:2c638643d0e72bdded9fa8f27cbfe4ef2e156a1762cf13ab419853b490b670c7 | quote: If you store 100 TB with IDrive® e2 and download 300 TB or less within a monthly billing cycle, then your storage use case is a good fit for our policy.
+  - [2] 2026-11-01: card details are entered when subscribing to a paid plan, not at account creation | capture: sha256:2d9054131ad0cf522b5430e5e8be6f594355f78a84e60cc3b1b6fc5213070252 | quote: 3. Enter your card details under Credit card information.
+  - [4] 2026-11-01: Google or Microsoft sign-in is offered beside the email and password fields | capture: sha256:212d57867069fcaecc21106ab2aa7bfb69ebf8bce186b4b1c26d650d145c8536 | quote: Continue with Microsoft
+  - [4] 2026-11-01: account creation passes a reCAPTCHA challenge | capture: sha256:212d57867069fcaecc21106ab2aa7bfb69ebf8bce186b4b1c26d650d145c8536 | quote: Recaptcha requires verification.
+  - [2] 2026-11-01: an empty trial region is removed from the account after 30 days | capture: sha256:2d9054131ad0cf522b5430e5e8be6f594355f78a84e60cc3b1b6fc5213070252 | quote: if a region remains inactive and no data is stored in it for more than 30 days, the region will be removed from the account
+  - [1] 2026-11-01: the pay-as-you-go plan still gives 10 GB to try free at USD 6 per TB | capture: sha256:50e1a3b694be3250ae301256e7d0bb2c5811e7d95d3622f2f6e712868d636b27 | quote: Pay-as-you-go $6 per month, per TB (Try with 10GB Free)
+- sources:
+  - [1] https://www.idrive.com/s3-storage-e2/pricing
+  - [2] https://www.idrive.com/s3-storage-e2/faq-account-management
+  - [3] https://www.idrive.com/s3-storage-e2/faq-pricing
+  - [4] https://console.idrivee2.com/signup
+
+## Impossible Cloud
+
+- `storage/impossible-cloud` | trial-only | evidence reported | binding retention-clamped | category cloud-drive
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.impossiblecloud.com/pricing | page https://fshy.ajam.dev/p/impossiblecloud.md
+- free tier: No free tier. '5 TB Cloud Storage Free for 30 Days' trial, then '€7.99 per TB/month' pay-as-you-go. Reserved capacity starts at 25 TB and is partners-only. | unit: TB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: No free tier. '5 TB Cloud Storage Free for 30 Days' trial, then '€7.99 per TB/month' pay-as-you-go. | days: 30 | source: [1] | note: not stated
+- egress: 'Free egress and API calls'. 0 € egress, 0 € API fees, on paid plans. | metered: no
+- identity: card
+- interface: s3-compatible
+- limits:
+  - retention-clamped (binding): retention: 30 days [1]
+- limits note: per-object-cap: 'No minimum file size or storage duration fees' (notably better than Storj). retention: 30 days (trial). Binding constraint: 30-day clock, then €7.99/TB.
+- binding note: a clock, not a quota: bytes leave whether or not transfer is completed
+- interface detail: s3
+- tooling: S3-compatible; positioned as drop-in S3 replacement.
+- composes with: Trial-only x unlimited accounts = 5 TB re-uploaded monthly. Not storage.
+- reliability: EU-only data residency and a sales-gated reserved plan; the self-serve product is pure pay-as-you-go.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: paid
+  - dead_end.why: No free tier — '5 TB Cloud Storage Free for 30 Days' trial, then '€7.99 per TB/month' pay-as-you-go. Reserved capacity starts at 25 TB and is partners-only.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [2] 2026-10-21: 'Pay-as-you-go €7.99 Per TB/month', 'Free egress and API calls'
+  - [1] 2026-10-21: 'Start Free Trial — 5 TB Cloud Storage Free for 30 Days ... Zero egress fees'
+- sources:
+  - [1] https://www.impossiblecloud.com/free-trial
+  - [2] https://www.impossiblecloud.com/pricing
+
+## Intercom (article/Messenger attachments)
+
+- `storage/intercom` | trial-only | evidence reported | binding per-object-cap | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.intercom.com | page https://fshy.ajam.dev/p/intercom.md
+- free tier: 'The size limit on individual attachments is 100mb for uploads via Messenger and there is currently no limit on the number of attachments that can be uploaded.' No account storage figure published. | unit: mixed | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: per-object-cap: 100 MB | bytes: 100000000 | source: [1] | note: not stated
+- retention: Fetching the same object with the signature stripped and the filename changed still returned 200 with the identical 498,804 bytes. So Intercom CDN URLs are effectively unauthenticated and permanent, which is a reusable pattern (and means 'signed' URLs elsewhere may also be decorative). | source: [1] | note: not stated
+- egress: Free, Intercom CDN. Signed URLs with `expires` + `signature` params. | metered: no
+- identity: institution
+- interface: rest
+- limits:
+  - per-object-cap (binding): per-object-cap: 100 MB [1]
+- limits note: per-object-cap: 100 MB (Messenger), 20 MB total per incoming email including all files. request-rate: Intercom API rate limits apply. Retention: no expiry documented.
+- interface detail: rest
+- tooling: Intercom REST API (`/articles`, `/files`), official SDKs.
+- composes with: 100 MB x unlimited attachments would be per-record-unlimited, but there is no free plan. All tiers start with 'Start free trial'. Cannot be multiplied into free storage.
+- reliability: Important control: the CDN `signature` is NOT verified. Fetching the same object with the signature stripped and the filename changed still returned 200 with the identical 498,804 bytes. So Intercom CDN URLs are effectively unauthenticated and permanent, which is a reusable pattern (and means 'signed' URLs elsewhere may also be decorative).
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 'The size limit on individual attachments is 100mb for uploads via Messenger and there is currently no limit on the number of attachments that can be uploaded.' No account storage figure published.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'no limit on the number of attachments that can be uploaded'
+  - [2] 2026-10-21: probe: GET ... -> 200, 498,804 bytes
+  - withheld 2026-10-21: probe: same path with no query string and a truncated filename -> 200, 498,804 bytes, byte-identical — signature not enforced
+  - [3] 2026-10-21: no free plan; every tier shows 'Start free trial'
+- sources:
+  - [1] https://www.intercom.com/help/en/articles/2339426-control-how-attachments-are-uploaded-and-used
+  - [2] https://downloads.intercomcdn.com/i/o/tx2p130c/.../CleanShot...png?expires=...&signature=
+  - [3] https://www.intercom.com/pricing
+
+## microsoft fabric trial / onelake
+
+- `storage/microsoft-fabric-trial-onelake` | trial-only | evidence documented | binding retention-clamped | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-04T01:24:31.180Z (live) | stale on 2026-12-05
+- url https://learn.microsoft.com/en-us/fabric/fundamentals/fabric-trial | page https://fshy.ajam.dev/p/microsoft.md
+- price OneLake storage is billed at a pay-as-you-go rate per GB of data used; the per-GB rate is not shown in the captured Azure pricing page (unverified)
+- free tier: Store up to 1 TB of data in OneLake on a trial capacity | unit: TB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: The trial capacity lasts 60 days; after it ends all content remains stored in OneLake for 7 days and can be reactivated by assigning the workspace to a paid Fabric F or Power BI Premium P capacity | days: 7 | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- limits:
+  - retention-clamped (binding): 60-day trial capacity; content kept 7 days after it ends [1]
+  - volume-quota: 1 TB of data in OneLake [1]
+- binding note: the 60-day trial clock bounds how long data is held; 1 TB is the volume ceiling and content is kept 7 days after the trial ends
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: 1 TB but 60 days only; after expiry non-Power BI items go inactive and content is retained just 7 days. Great API surface (DFS + Blob), wrong duration for a 20 TB archive.
+- notes: 1 TB of OneLake data for a 60-day trial; content is kept 7 days after the trial ends.
+- evidence note: documented: the 1 TB OneLake allowance, the 60-day trial length and the 7-day retention of content after the trial were read on 2026-11-03 at https://learn.microsoft.com/en-us/fabric/fundamentals/fabric-trial, and per-GB paid storage billing at https://learn.microsoft.com/en-us/fabric/onelake/onelake-consumption. The sign-up identity cost is not on those pages: unverified.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 1 TB but 60 days only; after expiry non-Power BI items go inactive and content is retained just 7 days. Great API surface (DFS + Blob), wrong duration for a 20 TB archive.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 1 TB but 60 days only; after expiry non-Power BI items go inactive and content is retained just 7 days. Great API surface (DFS + Blob), wrong duration for a 20 TB archive.
+  - [1] 2026-11-03: the trial capacity allows up to 1 TB of data in OneLake | capture: sha256:d5598fbd504c6499a23ffa6333efb9f39d4edf0a1e9d41756616116c89776711 | quote: - Store up to 1 TB of data in OneLake.
+  - [1] 2026-11-03: the allowance is stated in TB | capture: sha256:d5598fbd504c6499a23ffa6333efb9f39d4edf0a1e9d41756616116c89776711 | quote: - Store up to 1 TB of data in OneLake.
+  - [1] 2026-11-03: the allowance is a stored-data volume | capture: sha256:d5598fbd504c6499a23ffa6333efb9f39d4edf0a1e9d41756616116c89776711 | quote: - Store up to 1 TB of data in OneLake.
+  - [1] 2026-11-03: content stays in OneLake for 7 days after the trial ends | capture: sha256:d5598fbd504c6499a23ffa6333efb9f39d4edf0a1e9d41756616116c89776711 | quote: - All content remains stored in OneLake for 7 days and can be reactivated by assigning the workspace to a paid Fabric F or Power BI Premium P capacity.
+  - [1] 2026-11-03: content stays for 7 days after expiry | capture: sha256:d5598fbd504c6499a23ffa6333efb9f39d4edf0a1e9d41756616116c89776711 | quote: - All content remains stored in OneLake for 7 days and can be reactivated by assigning the workspace to a paid Fabric F or Power BI Premium P capacity.
+  - [1] 2026-11-03: the trial lasts 60 days | capture: sha256:d5598fbd504c6499a23ffa6333efb9f39d4edf0a1e9d41756616116c89776711 | quote: Your Microsoft Fabric trial capacity lasts for 60 days, unless you cancel it earlier.
+  - [2] 2026-11-03: paid OneLake storage is billed per GB used | capture: sha256:b5ad0bb332b7b1e13a36f836913ea289283ca8dbabef0d4fbbd5b6e3e0bc3231 | quote: OneLake storage is billed at a pay-as-you-go rate per GB of data used and doesn't consume Fabric Capacity Units (CUs).
+  - [1] 2026-11-03: the offer is a 60-day trial | capture: sha256:d5598fbd504c6499a23ffa6333efb9f39d4edf0a1e9d41756616116c89776711 | quote: Your Microsoft Fabric trial capacity lasts for 60 days, unless you cancel it earlier.
+  - [1] 2026-11-03: the trial length is as recorded | capture: sha256:d5598fbd504c6499a23ffa6333efb9f39d4edf0a1e9d41756616116c89776711 | quote: Your Microsoft Fabric trial capacity lasts for 60 days, unless you cancel it earlier.
+  - [1] 2026-11-04: the trial capacity allows up to 1 TB of data in OneLake | capture: sha256:d5598fbd504c6499a23ffa6333efb9f39d4edf0a1e9d41756616116c89776711 | quote: - Store up to 1 TB of data in OneLake.
+- sources:
+  - [1] https://learn.microsoft.com/en-us/fabric/fundamentals/fabric-trial
+  - [2] https://learn.microsoft.com/en-us/fabric/onelake/onelake-consumption
+
+## Microsoft Fabric trial capacity / OneLake
+
+- `storage/microsoft-fabric-trial-capacity-onelake` | trial-only | evidence reported | binding none | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://learn.microsoft.com/en-us/fabric/fundamentals/fabric-trial | page https://fshy.ajam.dev/p/microsoft.md
+- free tier: 1 TB of data in OneLake, free for 60 days. | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Not separately metered during trial; capacity is F4 or F64 SKU consumption. | metered: yes
+- identity: card | detail: inferred from the category 'iaas'; the source record states no identity cost, so this is a class assumption, not evidence
+- interface: rest, rclone
+- limits note: 60 days only. On expiry, non-Power BI items become inactive and 'All content remains stored in OneLake for 7 days' before being inaccessible. Then needs a paid F or P capacity.
+- interface detail: rest
+- tooling: Genuinely excellent interface: OneLake speaks the ADLS Gen2 DFS API and the Blob API - https://onelake.dfs.fabric.microsoft.com/<workspace>/<item>.<type>/<path>, plus an ABFS driver URI. Any Azure Storage SDK or rclone 'azureblob' remote can talk to it. 1 TB beats most free tiers on volume.
+- composes with: Trials are per-user/per-tenant, so theoretically N accounts x 1 TB x 60 days - but the trial expires and the data does not survive usefully.
+- reliability: Hard 60-day expiry with a 7-day grace window - this is a trial, not storage. Fine for a one-off bulk ingest/egress burst, useless for a 20 TB archive.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 1 TB of data in OneLake, free for 60 days.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'free access for 60 days'; 'Store up to 1 TB of data in OneLake'; 'All content remains stored in OneLake for 7 days'
+  - [2] 2026-10-21: 'OneLake provides open access to all of your Fabric items through existing Azure Data Lake Storage (ADLS) and Blob APIs'; 'https://onelake.dfs.fabric.microsoft.com/<workspace>/<item>.<itemtype>/<path>/<fileName>'
+  - [3] 2026-10-21: probe: curl -> HTTP 401 {"error":{"code":"Unauthorized","message":"Authentication Failed with Bearer token is not present in the request"}} (endpoint live, needs Entra token; no anonymous access)
+- sources:
+  - [1] https://learn.microsoft.com/en-us/fabric/fundamentals/fabric-trial
+  - [2] https://learn.microsoft.com/en-us/fabric/onelake/onelake-access-api
+  - [3] https://onelake.dfs.fabric.microsoft.com/test?resource=filesystem
+
+## pCloud PhotoDay2026 promo — 500 GB free for 3 months
+
+- `storage/pcloud-photoday2026-promo-500-gb-free-for-3-months` | trial-only | evidence reported | binding none | category trial-stack
+- needs card no, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.pcloud.com/promo.html | page https://fshy.ajam.dev/p/pcloud.md
+- free tier: 500 GB free for 3 months, no card, via promo code `PhotoDay2026` on a fresh signup. Base free tier is 10 GB. | unit: GB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Same as pCloud paid. Unrestricted transfer speeds, no per-GB meter. | metered: no
+- identity: email | detail: email
+- interface: rest, rclone
+- limits note: 3-month expiry hard-stop; capacity reverts to 10 GB (data above the free cap becomes read-only or is reclaimed). No card, so no auto-charge risk. Promo codes rotate seasonally. This one is a 'Photography Day' code live since at least 2026-08-13.
+- interface detail: rest
+- tooling: Rclone backend `pcloud`. The trial grant is a normal quota bump, so rclone works unchanged against it.
+- composes with: The grant repeats: a new email address creates a new account that holds a new 500 GB for 3 months. 4 grant cycles a year x N email addresses. 10 email addresses = 5 TB of rolling free capacity. The friction is re-uploading data each cycle and that rclone remotes must be re-authed per account.
+- reliability: Highest-confidence repeatable trial found. It is a marketing code, not a security hole, so it is unlikely to be retroactively enforced; but pCloud can invalidate a code at any time. Verified the promo-redemption page is live; did not burn an account to confirm the grant lands.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 500 GB free for 3 months, no card, via promo code `PhotoDay2026` on a fresh signup. Base free tier is 10 GB.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [2] 2026-10-21: posted 2026-08-13, 'Register, hit the promo page and paste PhotoDay2026 ... 500GB of pCloud, free for three months. No card'
+  - [1] 2026-10-21: live redemption page, 'Sign up for free and enter your promo code to activate it instantly', fetched 2026-10-21
+  - [3] 2026-10-21: 'pCloud Premium 500 GB：免费3个月' (independent CN-language corroboration)
+- sources:
+  - [1] https://www.pcloud.com/promo?code=3MONTHS500GB
+  - [2] https://onehack.st/t/pcloud-500gb-free-for-3-months-unlocked-by-one-code/324726
+  - [3] https://www.toolnavia.com/zh-cn/coupons/pcloud
+
+## PocketHost (PocketBase hosting)
+
+- `storage/pockethost` | trial-only | evidence reported | binding per-ip-shaping | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://pockethost.io | page https://fshy.ajam.dev/p/pockethost.md
+- free tier: 10 GB file storage + 250 MB DB per PocketBase slot. Slots are $9.99/mo (or $5/mo annual, or lifetime), with a 7-day trial. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: 10 GB file storage + 250 MB DB per PocketBase slot. Slots are $9.99/mo (or $5/mo annual, or lifetime), with a 7-day trial. | days: 7 | source: [1] | note: not stated
+- egress: Unmetered bandwidth and CPU, fair use. This is the standout: storage is paid but egress is genuinely unmetered. | metered: no
+- identity: card
+- interface: s3, rest, sftp
+- limits:
+  - per-ip-shaping (binding): bandwidth could be throttled at sustained high volume [1]
+- limits note: 7-day risk-free trial only; 10 GB per slot; SFTP access is a real plus for bulk transfer; fair-use bandwidth could be throttled at sustained high volume.
+- binding note: one stream is shaped, and aggregate throughput is the shaped rate times the number of streams
+- interface detail: rest
+- tooling: PocketBase REST/realtime API, `pocketbase` JS/Dart SDKs, SFTP file access on PocketHost, S3 storage backend supported (like standalone PocketBase)
+- composes with: Storage pools across slots ('Storage adds to your account pool, shared across every PocketBase you run'), so 10 slots = 100 GB for ~$50-100/mo. Not free, but the only entrant here with unmetered egress. Self-hosting PocketBase is free/MIT. That is the free path, on compute that is already available.
+- reliability: Run by a single maintainer (benallfree) on DigitalOcean; data volume not encrypted at OS level per their own FAQ. Small-operator risk.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 10 GB file storage + 250 MB DB per PocketBase slot — slots are $9.99/mo (or $5/mo annual, or lifetime), with a 7-day trial
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Each slot includes 250 MB DB data storage and 10 GB file storage ... Unmetered bandwidth and CPU (fair use)', '$9.99 per PocketBase, per month', '7 day riskfree trial'
+  - [2] 2026-10-21: 'While the data volume is not encrypted at the OS level ... you can always back up and download your data via SFTP'
+- sources:
+  - [1] https://pockethost.io/pricing
+  - [2] https://pockethost.io/docs/faq
+
+## PulsedMedia Free Seedbox Trial (Helsinki)
+
+- `storage/pulsedmedia-free-seedbox-trial` | trial-only | evidence reported | binding per-ip-shaping | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://pulsedmedia.com/free-seedbox.php | page https://fshy.ajam.dev/p/pulsedmedia.md
+- free tier: 50 GiB storage, 250 MB RAM, 200 GiB torrent traffic, 1 Gbps, for 30 days, free. 'Free Seedbox Trial 30 Days — FREE!!!! Free like Free Speech! — 50 GiB Storage'. | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: Retention: 30-day trial only. The binding clause. | days: 30 | source: [1] | note: not stated
+- egress: Included in the 200 GiB torrent traffic allowance; no per-GB charge stated. | metered: yes
+- identity: card | detail: inferred from the category 'iaas'; the source record states no identity cost, so this is a class assumption, not evidence
+- interface: sftp, ssh, rclone
+- limits:
+  - per-ip-shaping (binding): 1 Gbps [1]
+- limits note: Per-object-cap: none stated. Request-rate: n/a (SSH). Retention: 30-day trial only. The binding clause. Traffic: 200 GiB/month.
+- binding note: one stream is shaped, and aggregate throughput is the shaped rate times the number of streams
+- interface detail: sftp
+- tooling: RTorrent + ruTorrent/Deluge/qBittorrent web UI, SSH, SFTP, Docker rootless, Jellyfin media stack, WireGuard/OpenVPN. SFTP is the storage transport. Usable by rclone's `sftp` backend.
+- composes with: Real but weak: 50 GiB x N accounts, and each trial is 30 days, so the chain has to be re-established monthly. Not a storage tier; a way to test throughput before buying the EUR 1.99/mo 230 GiB plan.
+- reliability: Trial-only by construction, and the parallel paid 'M1000 SSD 230G' plan shows 'Available: 0', so capacity is genuinely constrained, not artificially so.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 50 GiB storage, 250 MB RAM, 200 GiB torrent traffic, 1 Gbps, for 30 days, free. 'Free Seedbox Trial 30 Days — FREE!!!! Free like Free Speech! — 50 GiB Storage'.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Free Seedbox Trial 30 Days ... 50 GiB Storage ... 200 GiB Torrent traffic'; paid 230 GiB SSD plan listed at 'Available: 0'
+- sources:
+  - [1] https://pulsedmedia.com/free-seedbox.php
+
+## RingCentral Team Messaging (Glip) posts/files
+
+- `storage/ringcentral-team-messaging-posts-files` | trial-only | evidence inferred | binding none | category messaging
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-21
+- url https://developers.ringcentral.com/api-reference/Message-Store/readGlipPosts | page https://fshy.ajam.dev/p/ringcentral.md
+- disagrees on identity_kind: `storage/ringcentral-team-messaging` says email, `storage/ringcentral-team-messaging-posts-files` says institution
+- disagrees on verdict: `storage/ringcentral-team-messaging` says fails-quota, `storage/ringcentral-team-messaging-posts-files` says trial-only
+- free tier: No storage quota published; the API reference documents pagination over posts, not a media store with a byte allowance. | unit: mixed | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: Trial-gated ('Try free' signup), per-user licensing, auth-required reads. No evidence of indefinite retention. | source: [1] | note: not stated
+- egress: Authenticated (OAuth bearer) only; attachments are downloaded through the API. No public CDN URL. | metered: no
+- identity: institution
+- interface: rest
+- limits note: Trial-gated ('Try free' signup), per-user licensing, auth-required reads. No evidence of indefinite retention.
+- interface detail: rest
+- tooling: ringcentral-python / ringcentral-js SDKs; POST /team-messaging/v1/chats/{chatId}/posts with attachments.
+- composes with: Not viable: paid per-user seats (a 'Try free' trial), attachment size caps, and no published permanent retention.
+- reliability: Commercial UCaaS seat pricing rather than storage pricing; the free tier is a trial, so it fails the free test before retention even matters.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: No storage quota published; the API reference documents pagination over posts, not a media store with a byte allowance.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: read live: page is the Team Messaging post-listing reference; site-wide CTA 'Try free', seat-based product, no storage quota row
+- sources:
+  - [1] https://developers.ringcentral.com/api-reference/Message-Store/readGlipPosts
+
+## Skool native video hosting
+
+- `storage/skool-native-video-hosting` | trial-only | evidence reported | binding per-object-cap | category media
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.skool.com | page https://fshy.ajam.dev/p/skool.md
+- free tier: 30 GB per uploaded video file, with no documented community-level storage cap. Course/lesson file attachments are separate and much smaller (images 413 above ~10 MB). | unit: MB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 30 GB per upload | bytes: 30000000000 | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Free/unmetered playback from Skool's CDN. Private files on `assets.skool.com` return 403 and get signed URLs minted on download, so the read path is not a public CDN. | metered: no
+- identity: card
+- interface: unknown
+- limits:
+  - per-object-cap (binding): 30 GB per upload [1]
+  - per-object-cap (binding): 30 GB/file [1]
+- limits note: 30 GB per video file; ~10 MB per image; uploads only through the web/mobile UI; private assets require on-demand signed URLs.
+- interface detail: wrapper-only
+- tooling: No official API. A community reverse-engineering effort exists (skool-api.cristiantala.com) using playwright + Google's Browserless actor with cookie auth; the `files:uploadImage` actor is documented empirically, not by Skool.
+- composes with: N free communities? No. Skool is $9/mo hobby or $99/mo pro after a 14-day trial, so the multiplier is paid seats, which fails the 'free' premise.
+- reliability: Paid commercial platform without programmatic API upload endpoints. Supports up to 30 GB per uploaded video file.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 30 GB per uploaded video file, with no documented community-level storage cap. Course/lesson file attachments are separate and much smaller (images 413 above ~10 MB).
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'The file size limit is 30GB'
+  - [2] 2026-10-21: 'Skool accepts up to ~10 MB per image (empirically — not documented). Above that, the upload returns a 413.'; 'assets.skool.com/... URLs for private files return 403'
+- sources:
+  - [1] https://www.skool.com/educate/native-video-hosting-is-here
+  - [2] https://skool-api.cristiantala.com/docs/files/
+
+## Snowflake 30-day trial ($400 credits)
+
+- `storage/snowflake-30-day-trial` | trial-only | evidence reported | binding retention-clamped | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.snowflake.com/en/snowflake-trial/ | page https://fshy.ajam.dev/p/snowflake.md
+- free tier: $400 in free credits on a 30-day trial ('Start your 30-day Snowflake trial today. Get $400 in credits'). No byte quota. Storage is billed from the credit balance. | unit: mixed | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: retention: 'Snowflake trial account credits may be used within 30 days'; 'If you don't upgrade before the trial period ends, the account is suspended and any unused free usage balance expires' and 'you may lose access to your data'. | days: 30 | source: [1] | note: not stated
+- egress: Data leaves via query results, not object GETs; no egress-free download path. | metered: no
+- identity: card
+- interface: rest, rclone
+- limits:
+  - retention-clamped (binding): retention: 'Snowflake trial account credits may be used within 30 days [1]
+- limits note: per-object-cap: internal stage file size limits apply. request-rate: warehouse credits burn while running. retention: 'Snowflake trial account credits may be used within 30 days'; 'If you don't upgrade before the trial period ends, the account is suspended and any unused free usage balance expires' and 'you may lose access to your data'.
+- binding note: a clock, not a quota: bytes leave whether or not transfer is completed
+- interface detail: rest
+- tooling: Snowflake SQL API / Snowpark; internal stages + `GET`/`PUT` for file transfer. No rclone backend; files sit inside stages or named internal stages, not a general object store.
+- composes with: New email = new trial, explicitly ('you can sign up .. all you need is a valid email address; no payment information'). So $400 x N throwaway trials. But each dies at 30 days.
+- reliability: Hard 30-day cliff with documented data loss on non-conversion. Not storage. A compute trial that happens to include stage space.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: $400 in free credits on a 30-day trial ('Start your 30-day Snowflake trial today. Get $400 in credits'). No byte quota — storage is billed from the credit balance.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: '$400 in free credits ... built for a 30-day experience'; 'credits may be used within 30 days'
+  - [2] 2026-10-21: 'the account is suspended and any unused free usage balance expires'
+  - withheld 2026-10-21: probe: GET docs.snowflake.com/en/user-guide/admin-trial-account -> 200; GET www.snowflake.com/en/snowflake-trial/ -> 200
+- sources:
+  - [1] https://www.snowflake.com/en/snowflake-trial/
+  - [2] https://docs.snowflake.com/en/user-guide/admin-trial-account
+
+## Snowflake trial account (internal stage)
+
+- `storage/snowflake-trial-account` | trial-only | evidence reported | binding none | category data-warehouse
+- needs card no, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.snowflake.com/en/snowflake-trial/ | page https://fshy.ajam.dev/p/snowflake.md
+- price $40/TB/month storage after the trial (Standard). | parsed USD 40/TB-mo
+- disagrees on verdict: `storage/snowflake-trial` says fails-quota, `storage/snowflake-trial-account` says trial-only
+- free tier: No byte quota. A $400 credit balance and a 30-day clock, whichever ends first. 'The trial continues for 30 days (from the sign-up date) or until you've depleted your free usage balance.' Storage accrues cost against that balance at standard rates (~$40/TB/month per the documented Standard rate). So the nominal free storage is whatever the credit buys after compute: at $40/TB/mo, $400 buys 10 TB-months, i.e. 10 TB for one month or 1 TB for ten. | unit: TB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Not free. Snowflake bills egress/transfer separately and the trial credit is consumed by it. | metered: no
+- identity: email | detail: email
+- interface: s3, rest
+- limits note: retention-clamped and hard-capped by design. Data is NOT deleted on suspension but is also not retrievable, which is worse than deletion for the purpose of treating it as storage. Identity is email only, which is the one thing in its favour.
+- interface detail: rest + s3
+- tooling: Excellent: PUT to an internal stage, full SQL, Snowflake SDKs, and external stages pointing at your own S3/Azure/GCS. Programmatically the best of the warehouse entrants.
+- composes with: One trial per email; trials cannot be chained legitimately because the account is suspended at day 30. 'At the end of the trial, the account is suspended. You can still log into a suspended account, but you cannot use any features, such as … loading data.'.
+- reliability: Suspension at day 30 makes this a 30-day buffer, not storage. Any chunked-object scheme built on it would need a full re-upload cycle monthly.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: not-storage
+  - dead_end.why: No byte quota — a $400 credit balance and a 30-day clock, whichever ends first. 'The trial continues for 30 days (from the sign-up date) or until you've depleted your free usage balance.' Storage accrues cost against that balance at standard rates (~$40/TB/month per the documented Standard rate). So the nominal free storage is whatever the credit buys after compute: at $40/TB/mo, $400 buys 10 TB-months, i.e. 10 TB for one month or 1 TB for ten.
+  - dead_end.retry_when: never; it is not storage
+  - dead_end.first_recorded: 2026-10-21
+  - price_verbatim: $40/TB/month storage after the trial (Standard).
+- evidence:
+  - [1] 2026-10-21: opened: 'The trial continues for 30 days (from the sign-up date) or until you've depleted your free usage balance, whichever occurs first'; 'At the end of the trial, the account is suspended … you cannot use any features, such as running a virtual warehouse, loading data, or performing queries'; 'To reactivate a suspended trial account, add a credit card.'
+  - [2] 2026-10-21: surfaced: '200 free credits, a $400 value' — the credit figure, confirming the balance framing.
+  - [3] 2026-10-21: surfaced: '$40/TB/month in storage' on standard plan, which is the rate the credit is spent against.
+- sources:
+  - [1] https://docs.snowflake.com/en/user-guide/admin-trial-account
+  - [2] https://www.snowflake.com/wp-content/uploads/2020/06/Test-Driving-Snowflake.pdf
+  - [3] https://news.ycombinator.com/item?id=25978000
+
+## Storacha (successor to web3.storage)
+
+- `storage/storacha` | trial-only | evidence reported | binding none | category p2p
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://storacha.network | page https://fshy.ajam.dev/p/storacha.md
+- free tier: No longer offered. The developer upload and IPFS service was shut down. Was 5 GB free at launch (2025-05); the old web3.storage 1 TB free plan did not survive into Storacha. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: N/A. Service closed. w3s.link, the Storacha/web3.storage gateway, now 301-redirects to dweb.link, which returns 429 with Retry-After: 900. | metered: no
+- identity: email
+- interface: rest, cli
+- limits note: Service wound down; users told to migrate 'by the end of May' (2026).
+- interface detail: rest
+- tooling: Previously @storacha/client, UCAN-based; CLI 'w3'. Repos remain but the hosted service is gone.
+- composes with: None. Dead.
+- reliability: Data-loss event, not a throttle: the team joined Filecoin Foundation and the upload service shut down. The successor for the same shape is Fil One (S3, 1 TB free for 30 days = trial) and Filecoin Onchain Cloud / Filecoin Pin (paid per TiB).
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: No longer offered — the developer upload and IPFS service was shut down. Was 5 GB free at launch (2025-05); the old web3.storage 1 TB free plan did not survive into Storacha.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: (2026-04-03) — 'The Storacha developer upload and IPFS service, however, will be shutting down.' 'you will have to move it — by the end of May at the very latest.'
+  - [2] 2026-10-21: (2025-05-27) — 'You can get started with 5GB for free!'
+  - [3] 2026-10-21: probe: GET -> 301 Location: https://dweb.link/... -> 429 Retry-After 900
+- sources:
+  - [1] https://medium.com/@storacha/an-update-on-storacha-and-important-news-for-you-and-your-data-15a5d10b7da0
+  - [2] https://medium.com/@storacha/you-can-get-started-with-5gb-for-free-e7d456c73729
+  - [3] https://w3s.link/ipfs/bafybei...5u4
+
+## storacha / fil one
+
+- `storage/storacha-fil-one` | trial-only | evidence documented | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-04T01:24:43.354Z (live) | stale on 2026-12-05
+- url https://www.fil.one/pricing | page https://fshy.ajam.dev/p/fil.md
+- free tier: none reachable: 1 TB free but for 30 days only, with 2 TB of egress in the trial: '1 TB free for 30 days · No credit card required ... The 30-day trial includes 2 TB of egress.' After that it is… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: No egress charge on a paid plan, subject to reasonable use; the 30-day trial includes 2 TB of egress | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: re-read on 2026-11-03: the vendor pricing page https://www.fil.one/pricing; it states the 30-day trial of 1 TB of storage and 2 TB of egress with no credit card, the $5.99 per TB per month paid rate and no egress charge on a paid plan subject to reasonable use; interface, tooling and per-object cap are not stated there
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: 1 TB free but for 30 days only, with 2 TB of egress in the trial: '1 TB free for 30 days · No credit card required ... The 30-day trial includes 2 TB of egress.' After that it is…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 1 TB free but for 30 days only, with 2 TB of egress in the trial: '1 TB free for 30 days · No credit card required ... The 30-day trial includes 2 TB of egress.' After that it is…
+  - [1] 2026-11-03: paid egress is not charged, subject to reasonable use; the free offer is a 30-day trial with 2 TB of egress | capture: sha256:cb29291eb5c86b092ba095aaa2198f1669502dd053daccd260870c4a3f84f89f | quote: On a paid plan there is no egress charge, subject to reasonable use, and no per-request charges either. The 30-day trial includes 2 TB of egress.
+  - [1] 2026-11-04: the free offer is a 30-day trial of 1 TB storage and 2 TB egress with no card | capture: sha256:cb29291eb5c86b092ba095aaa2198f1669502dd053daccd260870c4a3f84f89f | quote: 1 TB of storage and 2 TB of egress for 30 days, with no credit card required.
+- sources:
+  - [1] https://www.fil.one/pricing
+
+## Storj DCS
+
+- `storage/storj-dcs` | trial-only | evidence reported | binding volume-quota | category cloud-drive
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T02:43:31.135Z, checked 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.storj.io/pricing | page https://fshy.ajam.dev/p/storj.md
+- duplicate of `storage/storj-object-storage-standard`
+- free tier: No free tier. The free trial is USD 0, free for 30 days, with no credit card required; the pricing page says '25GB free storage for 30 days' and the sign-up page says 'Upload and download 25GB free for 30 days.' After it the Standard plan charges USD 7 per TB per month of storage and USD 7 per TB of egress, with a USD 5 minimum monthly fee. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1] | note: no standing free allowance; the free trial is the only free volume: the pricing page says '25GB free storage for 30 days' and the sign-up page says 'Upload and download 25GB free for 30 days.'
+- per-object cap: no maximum object size on the S3-compatible gateway | source: [2] | note: objects under 50 KB are billed as 50 KB; that is a billing floor, not a size cap
+- retention: no expiry of stored objects is stated; objects deleted before 30 days are billed for the rest of the 30 days, and accounts with a USD 0 balance at the end of a billing cycle and no active storage are suspended and then deleted | source: [1] | note: not stated
+- egress: metered: '$7/TB' on Standard, plus a '$5' monthly minimum invoice floor that 'is not a usage credit'. | metered: yes | price per TB: $7/TB
+- identity: email | detail: sign-up asks for an email address and a password, with no card; Pro account limits follow a payment method: a credit card (some debit cards; prepaid cards are not supported), Google Pay, Apple Pay, a bank account, or a deposit of USD 10 or more in USDC on Ethereum mainnet
+- interface: s3, rclone, cli
+- limits:
+  - volume-quota (binding): free trial: the pricing page says '25GB free storage for 30 days' and the sign-up page says 'Upload and download 25GB free for 30 days.' [3]
+- limits note: Objects under 50 KB are billed as 50 KB, and objects deleted before 30 days are billed for the rest of the 30 days. A USD 5 minimum monthly fee applies from the first billing cycle after the trial; accounts paying with USDC are exempt.
+- binding note: the free trial's volume is the only free allowance: the pricing page says '25GB free storage for 30 days' and the sign-up page says 'Upload and download 25GB free for 30 days.' After it every TB stored and read is billed
+- interface detail: s3
+- tooling: Native rclone backend ('storj', rclone.org/storj/), S3 gateway, uplink CLI.
+- composes with: nothing to chain: the free dimension is one 30-day trial per account; accounts paying with USDC are exempt from the USD 5 monthly minimum
+- reliability: Accounts with a $0 balance and no active storage 'will be suspended and then deleted'; opting out of the 2026 repricing means 'your account will be frozen and data deleted within 45 days'.
+- notes: The Free Tier was discontinued in 2024: users had until March 31 to upgrade to a Pro Account; the trial is the only free access left.
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: No free tier left. Current page: 'Free trial — $0 — Free for 30 days ... No credit card required'. Agentdeals records the removal as effective 2025-07-01 with a $5/month minimum fee.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Free trial ... Free for 30 days ... No credit card required'; 'Monthly storage $7/TB', 'Egress $7/TB'; 'Minimum monthly fee ... $5 ... is not a usage credit'
+  - [4] 2026-10-21: (2023-04-03) — the 25 GB/25 GB free tier that no longer exists
+  - [5] 2026-10-21: 'If you opt-out, your account will be frozen and data deleted within 45 days'
+  - [1] 2026-10-30: the free trial is $0, free for 30 days, with no credit card required and 25GB of storage | quote: 25GB free storage for 30 days
+  - [3] 2026-10-30: the trial allows 25GB of upload and download for 30 days | capture: sha256:51668cf9703df6453c68a48e210ae53de45d83342bd3719192bb1a7241759c3c | quote: Upload and download 25GB free for 30 days.
+  - [6] 2026-10-30: the vendor's announcement of 2024-02-26 ended the Free Tier, with March 31 as the last day to upgrade to a Pro Account | capture: sha256:d79eff65bf4be41516524aca7888e476beb6e680006ff56c9db91f5820e93df9 | quote: Current users of the Free Tier have from now until March 31 to upgrade to a Pro Account to continue using Storj.
+  - [2] 2026-10-30: the S3-compatible gateway sets no maximum object size | capture: sha256:7dbdb30297460285f152437625c535da525a3d7e55f985e9ae3ce7075b04f634 | quote: | Maximum object size | No limit |
+  - [1] 2026-10-30: 50 KB is the minimum billed object size on the Standard plan, not a maximum | quote: Standard: 50 KB minimum per object. Objects under 50 KB are billed as 50 KB.
+  - [1] 2026-10-30: no expiry of stored objects is stated; an account with a $0 balance and no active storage is suspended and then deleted | quote: Accounts with a $0 balance at the end of a billing cycle and no active storage will be suspended and then deleted.
+  - [1] 2026-10-30: the $5 monthly minimum applies from the first billing cycle after the trial, and USDC-paying accounts are exempt | quote: Accounts paying with USDC are exempt from the minimum monthly fee.
+  - [3] 2026-10-30: the sign-up form asks for an email address and a password and states that no credit card is needed | capture: sha256:51668cf9703df6453c68a48e210ae53de45d83342bd3719192bb1a7241759c3c | quote: No credit card needed to create an account.
+  - [7] 2026-10-30: Pro limits follow a payment method, and a USDC deposit of $10 or more upgrades an account without a card | capture: sha256:e3401722243b26d81e0068f3eff66db2d24b5d2ca92ed003387a196ef0a1a6c3 | quote: Adding $10 or more in USDC to your account deposit address will automatically upgrade your account to PRO.
+  - [8] 2026-10-30: opting out of the 2026 repricing froze an account and deleted its data within 45 days | capture: sha256:8c0bffd5912203804c2101d0f0a3a2e73a1caa09b8f62ae00510e93217bc0c5e | quote: your account will be frozen and data deleted within 45 days
+  - [1] 2026-10-30: the Standard plan prices storage at $7/TB per month and egress at $7/TB | quote: Monthly storage$7/TB
+  - [1] 2026-11-04: the trial includes 25GB of storage for 30 days; the page does not state upload and download volumes | quote: 25GB free storage for 30 days
+  - [1] 2026-11-04: Standard storage is $7/TB | quote: Monthly storage$7/TB
+  - [1] 2026-11-04: the pricing page lists the free trial as free for 30 days with 25GB free storage for 30 days | quote: 25GB free storage for 30 days
+  - [3] 2026-11-04: the sign-up page states the trial as upload and download of 25GB free for 30 days | capture: sha256:672fed52fb089a638011be54c29dab90411c92e63b927866644a47a2f763c5b2 | quote: Upload and download 25GB free for 30 days.
+- sources:
+  - [1] https://www.storj.io/pricing
+  - [2] https://storj.dev/dcs/api/s3/s3-compatibility
+  - [3] https://redirects.storj.io/signup
+  - [4] https://forum.storj.io/t/storj-free-tier-update-for-new-accounts-25-gb-storage/22155
+  - [5] https://storj.dev/dcs/pricing/tiered
+  - [6] https://forum.storj.io/t/discontinuation-of-the-storj-free-tier/25332
+  - [7] https://storj.dev/learn/concepts/limits
+  - [8] https://storj.dev/dcs/pricing
+
+## Strapi Cloud (Storage)
+
+- `storage/strapi-cloud` | trial-only | evidence reported | binding none | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://strapi.io | page https://fshy.ajam.dev/p/strapi.md
+- free tier: 50 GB asset storage + 50 GB asset bandwidth on Starter. But Starter is $35/month, NOT free. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: 50 GB/month asset bandwidth included on Starter ($35/mo). Self-hosted Strapi has no storage cap but the compute is paid. | metered: yes | free allowance: 50 GB per month
+- identity: institution
+- interface: s3-compatible, rest, graphql, cli
+- limits note: Paid-only. 50 GB storage / 50 GB bandwidth at $35/mo; unlimited DB entries.
+- interface detail: rest
+- tooling: Strapi REST + GraphQL, upload plugin → any S3-compatible provider, `strapi` CLI; self-host is MIT-licensed
+- composes with: No free tier on Cloud at all. The cheapest plan is $35/project/month. The free path is self-hosting Strapi on free compute (Oracle/AWS free tier) pointed at another storage backend, which is orchestration, not a free storage tier.
+- reliability: N/A. Commercial hosting, stable.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: 50 GB asset storage + 50 GB asset bandwidth on Starter — but Starter is $35/month, NOT free
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Starter $35 per project / month ... 100k API requests | 50 GB asset storage | 50 GB asset bandwidth' (no $0 tier listed)
+- sources:
+  - [1] https://strapi.io/pricing-cloud
+
+## Strato HiDrive — 1 TB for 12 months at €0 (Valentine's promo)
+
+- `storage/strato-hidrive-1-tb-for-12-months-at-0` | trial-only | evidence reported | binding per-object-cap | category cloud-drive
+- needs card yes, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.strato.de/cloud-speicher/hidrive/ | page https://fshy.ajam.dev/p/strato.md
+- free tier: 1 TB, 12 months, €0 (setup €0). Regular price after the free year is €5/month. Captured promo page states verbatim: 'HIDRIVE Basic | 1 TB | 12 Monate | 0 € | danach 5 €/Mon.' STATUS CAVEAT: the 2026 round closed on 15.02.26 ('Nur bis 15.02.26') and the live valentinsaktion URL now 301s away, so this is NOT orderable today — it is recorded as an annual recurring window (Feb), which is what makes it the slot's only repeatable >=1 TB free allocation. | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: No per-file cap published on the plan page | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: No traffic meter appears on the HiDrive plan page; the plan is sold on capacity only. Unverified whether egress is genuinely unmetered. Strato does not publish a traffic line for HiDrive, which in the German market usually means no byte meter. | metered: no
+- identity: card | detail: card
+- interface: rest, webdav, sftp, ftps, rsync, smb, ssh, rclone
+- limits:
+  - per-object-cap (binding): No per-file cap published on the plan page [1]
+- limits note: Contract term 12 months; auto-renews at €5/mo unless cancelled before expiry. This is the real trap and the reason it is 'trial-like'. Signup requires a full checkout with payment details (card/SEPA/PayPal) even at €0. No per-file cap published on the plan page.
+- interface detail: rest
+- tooling: Features a first-class rclone 'hidrive' backend (added v1.59, Tier 1) along with WebDAV, SMB/CIFS, SFTP/FTPS, and rsync over SSH.
+- composes with: One promo contract per customer per year, but the promo is ANNUAL and structural. LowEndTalk users state 'They do this every year' (Feb 2024, Feb 2025, Feb 2026 all ran a 1 TB-for-a-year campaign). So the repeatability is temporal, not per-account: N years x 1 TB with a cancel-before-renewal ritual, or N household members x 1 TB.
+- reliability: Established German host (Strato/IONOS group), German datacentre, TÜV/DSGVO claims. The recurring failure mode reported on LET is billing, not data: forget to cancel and you are charged for year two. Data itself is not reported to vanish.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 1 TB, 12 months, €0 (setup €0). Regular price after the free year is €5/month. Captured promo page states verbatim: 'HIDRIVE Basic | 1 TB | 12 Monate | 0 € | danach 5 €/Mon.' STATUS CAVEAT: the 2026 round closed on 15.02.26 ('Nur bis 15.02.26') and the live valentinsaktion URL now 301s away, so this is NOT orderable today — it is recorded as an annual recurring window (Feb), which is what makes it the slot's only repeatable >=1 TB free allocation.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'HiDrive Valentins-Aktion / 1 TB Cloud-Speicher kostenlos nutzen … HIDRIVE Basic 1 TB 12 Monate 0 € danach 5 €/Mon.'
+  - [2] 2026-10-21: 'Strato offers its HiDrive Cloud with 1TB for 0 euros until 15.02.26. The period is 12 months and without setup fee'; comment: 'They do this every year, its a contract though, if you don't cancel, you renew for another year and they charge you.'
+  - [3] 2026-10-21: current plan page lists protocols 'WebDAV, SMB' and a 1 TB tier at 6 €/mo list price
+  - [4] 2026-10-21: rclone backend exists, 'added in v1.59', Tier 1
+- sources:
+  - [1] https://web.archive.org/web/20260214235234id_/https://www.strato.de/cloud-speicher/valentinsaktion/
+  - [2] https://lowendtalk.com/discussion/214190/strato-hidrive-1tb-12-months-for-free
+  - [3] https://www.strato.de/cloud-speicher/hidrive/
+  - [4] https://rclone.org/hidrive/
+
+## Time4VPS Storage VPS 1 TB (Lithuania, EU)
+
+- `storage/time4vps-storage-vps-1-tb` | trial-only | evidence reported | binding none | category storage VPS
+- needs card yes, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.time4vps.com/storage-vps/ | page https://fshy.ajam.dev/p/time4vps.md
+- price Promotional: €4.17/TB/mo (24-mo term). Steady state: €8.35/TB/mo monthly; €9.28/TB/mo annual; €11.99/TB list. Record the steady-state €8.35, not the €4.17. | parsed USD 9.41/TB-mo
+- free tier: 0.25 / 0.5 / 1 TB | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Metered: '1 TB Plan — 8 TB bandwidth'. 8:1 ratio, good for the workload. | metered: yes
+- identity: card | detail: card
+- interface: unknown
+- limits note: Tops out at 1 TB. Cannot reach 10 TiB or 20 TiB without stacking many units. 'No backups'.
+- interface detail: full root
+- tooling: unrestricted
+- composes with: MinIO/NFS
+- reliability: Advertised 4.17 EUR rate is a promotional discount requiring a 24-month initial commitment. Standard renewal pricing increases to 8.35 EUR monthly, and monthly billing without commitment is 11.99 EUR.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Tops out at 1 TB — cannot reach 10 TiB or 20 TiB without stacking many units. 'No backups'.
+  - dead_end.first_recorded: 2026-10-21
+  - price_verbatim: Promotional: €4.17/TB/mo (24-mo term). Steady state: €8.35/TB/mo monthly; €9.28/TB/mo annual; €11.99/TB list. Record the steady-state €8.35, not the €4.17.
+- evidence:
+  - [1] 2026-10-21: '1 TB Plan ~11,99 €~ 4,17 € 8,35 € / month when you renew — 8 TB bandwidth — 1 vCPU — 1024 GB — 2 GB RAM — No backups'; 0.25 TB Plan €2.22 → renew €4.45 (2 TB BW); 0.5 TB €2.71 → renew €5.42 (4 TB BW)
+  - [2] 2026-10-21: '1 TB 11.99 EUR Monthly … Annually 111.30 EUR … (9.28 EUR per month)' — the true undiscounted ladder
+  - [3] 2026-10-21: 'Storage 1 TB €4.17 (~$4.80)/mo for 24 mo — Then €8.35/mo — 2.0× on renewal'
+- sources:
+  - [1] https://www.time4vps.com/storage-vps/
+  - [2] https://billing.time4vps.com/cart/storage-vps/
+  - [3] https://hostingsift.com/hosting/time4vps
+
+## VPS Server (vpsserver.com) — 30-day trial with 1 TB block storage + $100 credit
+
+- `storage/vps-server-30-day-trial-with-1-tb-block-storage-100-cred` | trial-only | evidence reported | binding none | category iaas
+- needs card yes, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.vpsserver.com/free-vps-server/ | page https://fshy.ajam.dev/p/vpsserver.md
+- free tier: 1 TB of cloud block storage plus one cloud server worth up to $100, 30 days, 20+ locations. | unit: TB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: 30 days, then auto-converts to paid at standard rates | days: 30 | source: [1] | note: not stated
+- egress: Includes 5 TB outbound transfer (1 TB in Asia and Australia), followed by metered overage rates. | metered: yes
+- identity: card | detail: card
+- interface: rest, sftp, rsync, ssh, rclone
+- limits note: 30 days, then auto-converts to paid at standard rates. Config must fit inside $100. Card verification charge $1–$2.
+- interface detail: rest
+- tooling: Root KVM + block volume; SSH/SFTP/rsync, so rclone sftp. The block volume can be attached and served over any protocol you install.
+- composes with: Single trial per customer and the page is explicit that the $1–$2 card authorisation is the gate that limits repeated signups. Not repeatable without new cards.
+- reliability: Reseller-grade infrastructure (20+ DCs, KVM); trial endpoints are commonly rate-limited or suspended for sustained outbound. No data-vanishing reports found, but no long-run evidence either.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 1 TB of cloud block storage plus one cloud server worth up to $100, 30 days, 20+ locations.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'The following is included in the free trial: 1 cloud server valued up to $100 … 1 TB of cloud block storage … 5 TB of outgoing Internet traffic (1 TB in Asia and Australia)'
+  - withheld 2026-10-21: same page — 'a charge of $1 to $2 is initiated to verify the validity of your credit card … Your service type will change from trial to paid when it ends.'
+- sources:
+  - [1] https://www.vpsserver.com/free-vps-server/
+
+## Zendesk Guide (help center article attachments)
+
+- `storage/zendesk-guide` | trial-only | evidence reported | binding per-object-cap | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.zendesk.com | page https://fshy.ajam.dev/p/zendesk.md
+- free tier: 'Each article has no limit on overall storage or total number of attached files.' Per-file 20 MB. But account-level file storage is separately capped at 10 GB base + 2 GB/agent (Team). The article-level 'no limit' sits inside that account bucket. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: 20 MB per file | bytes: 20000000 | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Free and unranged-open. Article attachments are served from `support.zendesk.com/hc/article_attachments/<id>` with no auth, no referer check, `Accept-Ranges: bytes`, `Access-Control-Allow-Origin` permissive, `x-amz-replication-status: COMPLETED`, AES256 at rest. | metered: no
+- identity: institution
+- interface: rest, cli
+- limits:
+  - per-object-cap (binding): 20 MB per file [1]
+- limits note: Per-object-cap: 20 MB per file/image in articles (2 MB for community images). Quota: account file storage 10 GB base + 2 GB/agent. request-rate: Guide API is rate limited; an unauthenticated write probe `POST /api/v2/help_center/articles.json` returned 403 (good. No open write). Retention: archived tickets still count toward storage.
+- interface detail: rest
+- tooling: Help Center API (`/api/v2/help_center/articles/{id}/attachments.json` returns the public `content_url`). Third-party CLI `tukaelu/zgsync` adds a Guide media subcommand.
+- composes with: 20 MB per file x unbounded attachments per article, but the 10 GB account file-storage pool is the wall. Trial-only for a free account, so the multiplier is trial instances, which is a bad trade.
+- reliability: The read path is the cleanest in this whole niche. Public, ranged, unauthenticated, no expiry. But Zendesk has no free plan (14-day trial), so it cannot be a free-storage answer, only a pattern to copy.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 'Each article has no limit on overall storage or total number of attached files.' Per-file 20 MB. But account-level file storage is separately capped at 10 GB base + 2 GB/agent (Team) — the article-level 'no limit' sits inside that account bucket.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [2] 2026-10-21: ... — 'Articles: 20MB limit per file or image upload' and 'Each article has no limit on overall storage or total number of attached files'
+  - [3] 2026-10-21: default storage '10 GB base' + '2 GB per agent' (Team)
+  - [4] 2026-10-21: probe: GET -> 200, 365,146 bytes, image/png, no referer/UA needed (also 200 with `curl/8`), `Range: bytes=0-99` -> 206
+  - withheld 2026-10-21: probe: 8 parallel ranged GETs x 45,000 B -> all 206, 360,000 B in 0.63 s
+- sources:
+  - [1] https://support.zendesk.com/hc/en-us/articles/4408884048794-What-are-the-attachment-limits-and-supported-file-types-in-my-help-center
+  - [2] https://support.zendesk.com/hc/en-us/articles/4408884048794-
+  - [3] https://support.zendesk.com/hc/en-us/articles/4408835043994-Managing-data-storage-in-your-Zendesk-account
+  - [4] https://support.zendesk.com/hc/article_attachments/11203045835930

@@ -1,0 +1,605 @@
+# C-Servers
+
+> c-servers.co.uk | Compute, Egress and tunnels; 6 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/c-servers/ | JSON https://fshy.ajam.dev/api/v1/entity/c-servers.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## C-Servers (NanoVPS-384 Low-Cost Special US)
+
+- `compute/c-servers-nanovps-384-us` | qualifies | evidence documented | binding per-ip-shaping | category NAT VPS | tier NanoVPS-384 Low-Cost Special US
+- needs card yes, phone no, ID no, institution no | verified 2026-11-06T17:20:15.331Z (live) | stale on 2026-12-07
+- url https://web.c-servers.co.uk/order-steps/server/458
+- price parsed USD 0.4/mo
+- disagrees on verdict: `compute/c-servers` says qualifies-with-caveat, `compute/c-servers-nanovps-384-us` says qualifies
+- disagrees on verdict: `compute/c-servers-extravps-6144-ddr5` says qualifies-with-caveat, `compute/c-servers-nanovps-384-us` says qualifies
+- disagrees on verdict: `compute/c-servers-extravps-6144-ddr5-nj` says qualifies-with-caveat, `compute/c-servers-nanovps-384-us` says qualifies
+- disagrees on verdict: `compute/c-servers-nanovps` says qualifies-with-caveat, `compute/c-servers-nanovps-384-us` says qualifies
+- free tier: No free tier. NanoVPS-384 Low-Cost Special US is sold on a four-rung term ladder read at the order page: USD 2.39 for 6 months, USD 3.89 for 12, USD 6.99 for 24, USD 8.99 for 36. Shape: 1 vCore Intel Xeon Silver 4116 at 45 percent fair share, 384 MB DDR4 ECC, 12 GB NVMe, 2 TB guaranteed at 300 Mbps, one NAT IPv4 with 20 ports and one IPv6 /64, Ashburn Virginia. | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the container persists for the paid term; the card states 'No Backups and Non-Refundable'; the terms state unpaid services are suspended four days past the due date and terminated seven days past it | days: 7 | source: [2]
+- egress: 2 TB a month guaranteed at 300 Mbps, then fair use at 300 Mbps rather than a cut or a suspension | metered: yes | free allowance: 2 TB | source: [3]
+- identity: card | detail: card at checkout. Stripe is the main gateway and 'Accepts (Cards): Visa, Mastercard, Discover, American Express, Diners Club, Korean Credit/Debit Cards (one-time payment only), UnionPay', so debit works; a 7.99 percent handling fee applies on Stripe except for UK and EEA buyers, with a 0.30 GBP minimum. PayPal is secondary, geo-restricted to 116 countries, with a 9.99 percent fee and a 10 GBP floor. CoinPayments, Paysafecard (+17.5 percent), OXXO (+15 percent) and PagoFacil (+15 percent) are the other rails. No authorisation hold is published: the card is charged the order total and no pre-authorisation is stated anywhere. Only the buyer's own card is taken: 'Only the personal or corporate user’s payment method is accepted. No other cards, from other entities or other individuals, are accepted. A proof of the card may be required in any way via ticket.' Whether a prepaid or virtual card in the buyer's own name passes is not published at https://web.c-servers.co.uk/info/what-are-the-supported-payment-methods. The sign-up form asks full name, email, address, city, postcode, country, password and a captcha with no phone field, while the terms state 'We require a phone number for registration.' and refuse disposable addresses.
+- interface: ssh
+- limits:
+  - volume-quota: 2 TB a month, then fair use at 300 Mbps [3]
+  - per-ip-shaping (binding): one shared NAT IPv4 with 20 customer-configurable ports plus 3 VirtFusion-reserved service ports; ports below 10000 are restricted on the MultiNAT line except 80 and 443 [4]
+  - pull-count: the shortest term is six months at USD 2.39, so the minimum outlay is USD 2.39 even though the monthly rate is under USD 1; the longest term, 36 months, is USD 8.99 [1]
+- binding note: 2 TB a month is generous for a tunnel; the 20-port NAT address and the 300 Mbps shared port are what a busy tunnel meets first.
+- interface detail: KVM guest; NAT IPv4 with 20 forwarded ports and a public /64 IPv6. Debian, Ubuntu and Alpine only on this plan.
+- tooling: Any SSH client; KVM, so its own kernel.
+- composes with: The cheapest machine found with both a forwarded IPv4 port and a public /64: GBP 3.70 a year for 384 MB, enough for one WireGuard peer.
+- reliability: no reliability event observed
+- notes: The order page opens without an account and sells four terms: USD 2.39 for 6 months, USD 3.89 for 12, USD 6.99 for 24 and USD 8.99 for 36. The 36-month rung is USD 0.2497 a month, cheaper per month than the USD 0.3983 six-month rung, at 3.76 times the six-month out-of-pocket, and the 6-month rung totals USD 2.39 with no setup fee and no tax line. No renewal rate is printed: each longer rung carries a discount ribbon and none says what the next term costs. Port mapping is buyer-configured in the VirtPanel at virtpanel.cfld.uk, and the vendor states it does not accept tickets for NAT port operation. The vendor's own article requires a UDP application to be dual-stack, to listen on the catch-all address and to 'preferentially send a continuous packet stream'; whether a WireGuard handshake with PersistentKeepalive satisfies that is not established. Registration is the sharper constraint than the price: the terms require a phone number and a residential ISP with no VPN, may require a photo of the card, and the sign-up form collects no phone. Not established: the card hold and whether a non-EU buyer is charged VAT.
+- evidence note: the price ladder, the four terms, the stock state and the shape are quoted from the order page and the category page; the payment rails and the phone requirement rest on the payment-methods and terms pages
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 0.375
+  - shape.disk_gib: 12
+  - billing_model: multi-month prepay
+  - term: 6, 12, 24 or 36 months
+  - m24h_usd: 0.4
+  - m10h_usd: 0.4
+  - price_arithmetic: USD 2.39 for 6 months / 6 = USD 0.3983 a month, rounded to USD 0.40. The longer rungs, read: USD 3.89/12 = USD 0.3242, USD 6.99/24 = USD 0.2913, USD 8.99/36 = USD 0.2497. A VPS bills whether it runs or not, so the 24/7 and 10 h/day figures are the same.
+  - renewal_usd: not published: the order page prints four term prices with a discount ribbon on each longer rung and no renewal rate; read at https://web.c-servers.co.uk/order-steps/server/458
+  - first_payment_usd: 2.39
+  - fx: open.er-api.com/v6/latest/USD read 2026-10-24T00:02Z: 1 USD = GBP 0.747655, EUR 0.892784, RUB 81.296693, IDR 18108
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: 20 customizable NAT IPv4 ports plus 3 reserved service ports, TCP and UDP; plus a public /64 IPv6 on all ports
+  - network_out.static_ip: no
+  - network_out.ipv6: yes
+  - network_out.ipv6_prefix: /64
+  - payment_methods: Altcoins, Bitcoin, Credit card (reported by Server Hunter from the provider's data, not read on the vendor page)
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - out_of_pocket_usd: 2.39
+  - renewal_note: the order page prints four term prices with a discount ribbon per longer rung, no strike-through and no renewal sentence; 6 months at USD 2.39 is the shortest, so the minimum outlay is USD 2.39
+  - port_mbps: 300
+  - udp: stated for all 20 configurable ports, with a condition: the vendor's article requires a UDP application to be dual-stack, to listen on the catch-all address, and to 'preferentially send a continuous packet stream over UDP'. WireGuard satisfies the first two and not obviously the third.
+  - payment_rails: Stripe (cards, debit included, 7.99 percent handling fee except UK/EEA, 0.30 GBP minimum), PayPal (116 countries, 9.99 percent fee, 10 GBP minimum), CoinPayments, Paysafecard +17.5 percent, OXXO +15 percent, PagoFacil +15 percent
+  - term_ladder_usd.6mo: 2.39
+  - term_ladder_usd.12mo: 3.89
+  - term_ladder_usd.24mo: 6.99
+  - term_ladder_usd.36mo: 8.99
+  - stock: in stock: the category page lists NanoVPS-384 with an Add to Cart link to its order page and no out-of-stock marker
+  - card_hold: not published: no authorisation amount appears on the payment-methods page or in the terms; the order total is charged, and a risk-flagged order can be refused before provisioning
+  - checkout_fields: full name, email, address, city, postcode, country, password, captcha - no phone field on the form, while a phone number is required for registration
+  - nat_config: buyer-configured in the VirtPanel at virtpanel.cfld.uk; the vendor states it does not accept tickets for NAT port operation
+  - price_on_page: USD 2.39/6mo, USD 3.89/12mo, USD 6.99/24mo, USD 8.99/36mo
+  - price_in_cart: USD 2.39 for 6 months
+  - cart_works: yes
+  - cart_url: https://web.c-servers.co.uk/order-steps/server/458
+  - signup_url: https://web.c-servers.co.uk/sign-up
+  - cart_evidence: order page titled 'NanoVPS-384 Low-Cost Special US Order' renders 'Service Period Selection ... 6 Month(s) $2.39 %20 Discount 12 Month(s) $3.89 %30 Discount 24 Month(s) $6.99 %40 Discount 36 Month(s) $8.99'
+  - needs_account_first: no
+  - monthly_usd: 0.4
+  - annual_usd: 3.89
+- evidence:
+  - [5] 2026-10-24: quoted: 'NanoVPS-384 Low-Cost Special US £1.85 / 6 month(s)' with '384 MB RAM DDR4 ECC', '12GB NVMe High Speed Disk'
+  - [5] 2026-10-24: quoted: '1 NAT IPv4 IP (20 Ports) - Direct IPv4 Communication', '1 IPv6 /64 Public IP', '4 TB Guaranteed @ 1 Gbps (After Exceeded, Fair Use @ 200 Mbps)'
+  - [5] 2026-10-24: 
+  - [6] 2026-10-24: the offer resolves to 'C-Servers WebStore' at web.c-servers.co.uk, which identifies Centerfield Ltd as the trading entity behind the NanoVPS line
+  - [3] 2026-10-24: quoted card: 'NanoVPS-384 Low-Cost Special US | $2.39 / 6 month(s) | 1 vCore Intel Xeon Silver 4116 @ Up To 3.0 GHz (45% Fair Share) | 384 MB RAM DDR4 ECC | 12GB NVMe High Speed Disk | 1 NAT IPv4 IP (20 Ports) - Direct IPv4 Communication | 1 IPv6 /64 Public IP | 2 TB Guaranteed @ 300 Mbps (After Exceeded, Fair Use @ 300 Mbps)'
+  - [7] 2026-10-24: reported from the vendor's own knowledge-base article as returned by the search index, the live page being Cloudflare-challenged: 'This means that: 20 NAT IPv4 ports can be customized directly by the customer, for TCP and UDP; 3 ports are automatically pre-reserved by VirtFusion for services provided for the customer'
+  - [8] 2026-10-24: reported from the French version of the same knowledge base, indexed and last updated 02/02/2026: 'Les ports ouverts par VirtFusion sont-ils TCP ou UDP ? La plage de ports disponibles peut être utilisée pour TCP ou UDP, et les 20 ports peuvent être utilisés pour n'importe quel protocole.'
+  - [3] 2026-10-24: 
+  - [9] 2026-10-24: quoted: 'CENTERFIELD LTD', company number '14864789', 'Company status Active', 'Company type Private limited Company', 'Incorporated on 12 May 2023', registered office '7 Wilson Business Park, Initial Business Centre, Monsall Road, Manchester, England, M40 8WN' - the same address the store prints
+  - [10] 2026-10-24: reported from the vendor's own tool page as returned by the search index, the live page answering 530: 'MultiNAT (IPv4 NAT VPS) - restricted at all ports below 10000, except 80 and 443.'
+  - [1] 2026-10-24: quoted term ladder at the order page: '6 Month(s) $2.39', '12 Month(s) $3.89 %20 Discount', '24 Month(s) $6.99 %30 Discount', '36 Month(s) $8.99 %40 Discount'
+  - [11] 2026-10-24: quoted checkout summary: 'Order Summary NanoVPS-384 Low-Cost Special US | 6 Month(s) Ashburn, Virginia - USA VPS Servers $2.39' and 'Total Amount Payable: $2.39' - no setup fee and no tax line, so the first payment equals the term price
+  - [11] 2026-10-24: quoted required acknowledgement: 'Acknowledging Automated Support * This is a low-cost server. By default, at C-Servers, this product only has automated support.'
+  - [3] 2026-10-24: quoted card: 'NanoVPS-384 Low-Cost Special US $2.39 / 6 month(s)' with '384 MB RAM DDR4 ECC', '12GB NVMe High Speed Disk', '1 NAT IPv4 IP (20 Ports) - Direct IPv4 Communication', '1 IPv6 /64 Public IP', '2 TB Guaranteed @ 300 Mbps', and an 'Add to Cart' link to order-steps/server/458 with no out-of-stock badge, while the same template prints 'Out of Stock!' on the VPS Outlet page, so the plan is in stock
+  - [4] 2026-10-24: quoted, read in a headless browser because the text extractor is challenged: 'ports are always pre-opened automatically at the given outbound port range for you, and you simply map them to the internal ports on the scheme shown at the VirtPortal ... You don't need to send us a ticket, in fact, we explicitly do not support tickets on NAT port operation, which shall be entirely autonomous by the user.'
+  - [4] 2026-10-24: quoted UDP condition: 'Specific for UDP usage only: shall preferentially send send a continuous packet stream over UDP' and 'The application shall prefentially be dual-stack ... Must be able to listen on [::]::0 and/or 0.0.0.0/0'
+  - [12] 2026-10-24: quoted: 'All NAT port assignment and configuration is directly handled from VirtFusion's own control panel, or what we call now - the VirtPanel.' and 'The VirtPanel will be conveniently located at virtpanel.cfld.uk.'
+  - [13] 2026-10-24: quoted: 'Stripe ... Accepts (Cards): Visa, Mastercard, Discover, American Express, Diners Club, Korean Credit/Debit Cards (one-time payment only), UnionPay' and 'A Technical Handling Fee of 7,99% of the purchased product value will be applicable on payments executed through this gateway' and 'PayPal ... payments through PayPal are allowed only above 10 GBP' and 'PaySafeCard ... Additional Fee: 17.5%'
+  - [2] 2026-10-24: quoted terms: 'We require a phone number for registration.' and 'Registration, Order Placement and Payment must take place from a user's residential ISP. Do not use proxy/VPN Services.' and 'A proof of the card may be required in any way via ticket.' and 'Unpaid services will be terminated seven days past the due date on the service.'
+  - [2] 2026-10-24: the sign-up form's inputs, read from the page source: full_name, email, country, city, zipcode, address, password, password_again and captcha_value - no phone field, which contradicts the terms sentence above
+  - [13] 2026-10-24: 
+  - [9] 2026-10-24: quoted: 'CENTERFIELD LTD', 'Company status Active', 'Incorporated on 12 May 2023', registered office '7 Wilson Business Park, Initial Business Centre, Monsall Road, Manchester, England, M40 8WN', last accounts made up to 31 May 2025, next statement due 25 May 2027
+  - [13] 2026-11-02: the card list, the 7.99 percent fee, the 0.30 GBP minimum, the PayPal fee and floors, and the regional rails are printed on the payment-methods page, which states no hold | capture: sha256:b85bf608cdd52daf285c22bb754800219caebea4cbc890232b04b42a1aef2ec0 | quote: Accepts (Cards): Visa, Mastercard, Discover, American Express, Diners Club, Korean Credit/Debit Cards (one-time payment only), UnionPay.
+  - [14] 2026-11-02: the terms accept only the buyer's own payment instrument and may demand proof of the card | capture: sha256:e8220d5d5430e1f8ab542697938c53c455e710072aea8164193fd27e7927a783 | quote: Only the personal or corporate user’s payment method is accepted. No other cards, from other entities or other individuals, are accepted. A proof of the card may be required in any way via ticket.
+  - [14] 2026-11-02: the terms require a regular, payable, non-fraudulent card, which is the nearest first-party statement to a card-type rule | capture: sha256:e8220d5d5430e1f8ab542697938c53c455e710072aea8164193fd27e7927a783 | quote: Credit/debit card and fiat transactions must originate from a regular, payable and non-fraudulent credit card.
+  - [13] 2026-11-02: the page prints a minimum charge but no authorisation amount | capture: sha256:b85bf608cdd52daf285c22bb754800219caebea4cbc890232b04b42a1aef2ec0 | quote: Minimum payment amount: 0,30 GBP or the equivalent in local currency.
+  - [13] 2026-11-02: Stripe is still the primary gateway and the rail list and fee schedule are unchanged | capture: sha256:b85bf608cdd52daf285c22bb754800219caebea4cbc890232b04b42a1aef2ec0 | quote: It is the primary payment medium at C-Servers.
+  - [1] 2026-11-06: the order page sells a 6-month term at USD 2.39 | capture: sha256:ac543505bafb18e7f0cf57cdde7bed1b109298b0699be57619b847b0a7ddaf76 | quote: 6 Month(s)
+  - [1] 2026-11-06: the order page sells a 12-month term at USD 3.89 | capture: sha256:ac543505bafb18e7f0cf57cdde7bed1b109298b0699be57619b847b0a7ddaf76 | quote: 12 Month(s)
+  - [1] 2026-11-06: the order page selects a term and prints no renewal rate | capture: sha256:ac543505bafb18e7f0cf57cdde7bed1b109298b0699be57619b847b0a7ddaf76 | quote: Select the renewal period of the service.
+  - [1] 2026-11-06: the order page prints four term prices and no renewal rate | capture: sha256:ac543505bafb18e7f0cf57cdde7bed1b109298b0699be57619b847b0a7ddaf76 | quote: Select the renewal period of the service.
+  - [3] 2026-11-06: the NanoVPS-384 card carries an Add to Cart link to its order page and no out-of-stock marker | capture: sha256:9437db294a0e550707de90a55d211bf4e277ede34324000d9090372ce72cf1e3 | quote: <a href="https://web.c-servers.co.uk/order-steps/server/458" class="btn btn-secondary fw-semibold">
+  - [1] 2026-11-06: the order page prints four term prices up to USD 8.99 for 36 months | capture: sha256:ac543505bafb18e7f0cf57cdde7bed1b109298b0699be57619b847b0a7ddaf76 | quote: $8.99
+  - [1] 2026-11-06: the order page sells four terms and the longest is USD 8.99 for 36 months | capture: sha256:ac543505bafb18e7f0cf57cdde7bed1b109298b0699be57619b847b0a7ddaf76 | quote: $8.99
+  - [1] 2026-11-06: the order page prints the four term prices | capture: sha256:ac543505bafb18e7f0cf57cdde7bed1b109298b0699be57619b847b0a7ddaf76 | quote: $2.39
+  - [3] 2026-11-06: the plan still carries 2 TB at 300 Mbps | capture: sha256:9437db294a0e550707de90a55d211bf4e277ede34324000d9090372ce72cf1e3 | quote: 2 TB Guaranteed @ 300 Mbps
+- sources:
+  - [1] https://web.c-servers.co.uk/order-steps/server/458
+  - [2] https://web.c-servers.co.uk/sign-up
+  - [3] https://web.c-servers.co.uk/category/ashburn-virginia-usa-vps-servers
+  - [4] https://web.c-servers.co.uk/info/icmp-ipv4-pings-and-nat-ipv4-port-range-testing
+  - [5] https://web.c-servers.co.uk/category/us-xeon-gold-vps
+  - [6] https://www.serverhunter.com/offer/centerfield-ltd-nanovps-384-low-cost-special-us-2/visit/
+  - [7] https://web.c-servers.co.uk/info/what-does-mean-203-ports-on-the-vps-description
+  - [8] https://web.c-servers.co.uk/fr/info/comment-calculer-la-plage-de-ports-pour-le-nat-ipv4
+  - [9] https://find-and-update.company-information.service.gov.uk/company/14864789
+  - [10] https://toolbox.c-servers.co.uk/are-my-ports-open/
+  - [11] https://web.c-servers.co.uk/order-steps/server/458/configuration
+  - [12] https://web.c-servers.co.uk/en/category/germany-intel-quality-vps
+  - [13] https://web.c-servers.co.uk/info/what-are-the-supported-payment-methods
+  - [14] https://web.c-servers.co.uk/service-and-use-agreement
+
+## C-Servers (ExtraVPS-6144 US)
+
+- `compute/c-servers` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category cloud VM | tier ExtraVPS-6144 US
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T03:14:21.000Z (live) | stale on 2026-11-24
+- url https://web.c-servers.co.uk/category/ashburn-virginia-usa-vps-servers
+- price parsed USD 4.29/mo
+- disagrees on verdict: `compute/c-servers` says qualifies-with-caveat, `compute/c-servers-nanovps-384-us` says qualifies
+- free tier: no free tier; the ladder runs from USD 2.39 for six months to USD 10.49 a month | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists for the paid term; the 384 MB plan is marked 'No Backups and Non-Refundable', and no deletion grace period is stated on the page | source: [1]
+- egress: 6 TB a month on ExtraVPS-6144 at a 300 Mbps port | metered: yes | free allowance: 6 TB | source: [1]
+- identity: card | detail: an account plus payment at order in the WISECP store.
+- interface: rest
+- limits:
+  - volume-quota: 5 TB a month of transfer, then fair use at 300 Mbps [1]
+  - per-ip-shaping (binding): the plan ships a NAT IPv4 with 20 forwarded ports and no dedicated IPv4; the page states 'only the European-based offerings support dedicated IPv4 addresses' [1]
+  - pull-count: the cheapest term offered on this SKU is 3 months, USD 2.69, so the minimum outlay is 3 months even though the effective rate is under USD 1 [1]
+- limits note: 2 TB guaranteed at 300 Mbps, then fair use at 300 Mbps rather than a suspension, so the plan degrades in speed instead of stopping; the 0.3 Gbps port is the harder ceiling and the NAT IPv4 gives 20 ports rather than a full address. The forwarded ports carry both TCP and UDP, with a UDP-exclusive range reserved per VPS.
+- binding note: 6 TB a month is the published ceiling; 6 GiB of RAM and 40 GB of disk are what a workload meets first.
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated on the page read: the store is a cart at web.c-servers.co.uk with a separate portal at portal.cfld.uk and a SolusVM-style panel at hostone.cfld.uk:2222; no API is documented
+- composes with: the cheapest always-on address in this slice at about USD 0.40/month, and the only one here with a stated fair-use fallback instead of a hard cut; 384 MB of RAM holds a scheduler or a DNS worker, and the 20-port NAT address cannot serve a public HTTPS endpoint without a tunnel
+- reliability: no reliability event observed; the 384 MB plan is marked 'No Backups and Non-Refundable', the vendor is Centerfield Ltd (Manchester, UK) and the Ashburn upstream is GTHost.
+- notes: The largest shape under USD 5 on a monthly term that on 2026-10-24 found: 4 vCPU / 6 GiB / 40 GB / 6 TB at USD 4.29, billed monthly with no commitment. The ladder below it is prepay: NanoVPS-384 is USD 2.39 for six months (USD 0.40 a month) and NanoVPS-1024 is USD 2.69 for three months (USD 0.90 a month), which is its own record, `c-servers-nanovps`. The store answers 403 to a text extractor and 200 to raw bytes, so the prices come from the raw HTML. Renewal: the page publishes no renewal price and no first-term discount, and ExtraVPS-6144's only term is monthly, so the renewal is the same USD 4.29 a month; that is an inference from one printed price and one printed term, not a quoted renewal figure. UDP: the 20 forwarded NAT ports carry UDP and the vendor reserves a 'UDP-exclusive port-range', so a WireGuard node is reachable here; the one stated condition is that UDP usage send a continuous packet stream.
+- evidence note: price, term, shape, transfer, address families and the NAT port count are quoted from the vendor's own store page read as raw HTML; the store answers 403 to the text extractor and answers 200 to a raw fetch, which is why two earlier routes failed. The UDP capability of the NAT forwards is quoted from the vendor's own knowledge-base article, also read as raw HTML. The currency switcher offers $, EUR and GBP and the page rendered $ with no query parameter; the figures are recorded as USD. Payment rails and any card hold are unverified.
+- extras:
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 0.375
+  - facets.shape.disk_gib: 12
+  - shape.vcpu: 4
+  - shape.ram_gib: 6
+  - shape.disk_gib: 40
+  - billing_model: monthly
+  - term: monthly
+  - m10h_usd: 4.29
+  - m24h_usd: 4.29
+  - price_arithmetic: USD 4.29 a month billed monthly for the ExtraVPS-6144 US plan; no term discount and no strike-through price is shown.
+  - out_of_pocket_usd: 2.69
+  - renewal_usd: 0.9
+  - renewal_note: no first-term discount is stated and no strike-through price is shown; the 3-month term is the SKU's only term, so the renewal rate is the same USD 2.69 per 3 months
+  - promo: the 384 MB plan is named 'Low-Cost Special' but carries no end date; the 1024 SKU is not labelled a promo
+  - port_mbps: 300
+  - ipv4_included: yes
+  - ipv4_detail: one NAT IPv4 with 20 forwarded ports, shared; no dedicated IPv4 on US plans
+  - ipv6: /64 public
+  - ladder_us[0].plan: NanoVPS-384 Low-Cost Special US
+  - ladder_us[0].usd: 2.39
+  - ladder_us[0].term_months: 6
+  - ladder_us[0].usd_month: 0.4
+  - ladder_us[0].vcpu: 1
+  - ladder_us[0].ram_gib: 0.375
+  - ladder_us[0].disk_gib: 12
+  - ladder_us[0].tb_month: 2
+  - ladder_us[0].port_mbps: 300
+  - ladder_us[1].plan: NanoVPS-1024 US
+  - ladder_us[1].usd: 2.69
+  - ladder_us[1].term_months: 3
+  - ladder_us[1].usd_month: 0.9
+  - ladder_us[1].vcpu: 2
+  - ladder_us[1].ram_gib: 1
+  - ladder_us[1].disk_gib: 30
+  - ladder_us[1].tb_month: 5
+  - ladder_us[1].port_mbps: 300
+  - ladder_us[2].plan: CentralVPS-3072 US
+  - ladder_us[2].usd: 2.49
+  - ladder_us[2].term_months: 1
+  - ladder_us[2].usd_month: 2.49
+  - ladder_us[2].vcpu: 3
+  - ladder_us[2].ram_gib: 3
+  - ladder_us[2].disk_gib: 40
+  - ladder_us[2].tb_month: 5
+  - ladder_us[2].port_mbps: 300
+  - ladder_us[3].plan: ExtraVPS-6144 US
+  - ladder_us[3].usd: 4.29
+  - ladder_us[3].term_months: 1
+  - ladder_us[3].usd_month: 4.29
+  - ladder_us[3].vcpu: 4
+  - ladder_us[3].ram_gib: 6
+  - ladder_us[3].disk_gib: 40
+  - ladder_us[3].tb_month: 6
+  - ladder_us[3].port_mbps: 300
+  - ladder_us[4].plan: ExtraVPS-12G US
+  - ladder_us[4].usd: 8.29
+  - ladder_us[4].term_months: 1
+  - ladder_us[4].usd_month: 8.29
+  - ladder_us[4].vcpu: 4
+  - ladder_us[4].ram_gib: 12
+  - ladder_us[4].disk_gib: 50
+  - ladder_us[4].tb_month: 8
+  - ladder_us[4].port_mbps: 300
+  - ladder_us[5].plan: ExtraVPS-16G US
+  - ladder_us[5].usd: 10.49
+  - ladder_us[5].term_months: 1
+  - ladder_us[5].usd_month: 10.49
+  - ladder_us[5].vcpu: 4
+  - ladder_us[5].ram_gib: 16
+  - ladder_us[5].disk_gib: 60
+  - ladder_us[5].tb_month: 10
+  - ladder_us[5].port_mbps: 300
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: 20 forwarded ports on a shared NAT IPv4, carrying TCP and UDP: the vendor documents a 'UDP-exclusive port-range' for NAT IPv4 and gives a netcat UDP test against it; ports are pre-opened on the outbound range and mapped to internal ports. Plus a public /64 IPv6.
+  - network_out.static_ip: no
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - ladder_note: NanoVPS-384 USD 2.39/6 mo = 0.40/mo; NanoVPS-1024 USD 2.69/3 mo = 0.90/mo; CentralVPS-3072 USD 2.49/mo; ExtraVPS-6144 USD 4.29/mo; ExtraVPS-12G USD 8.29/mo
+  - payment_rails: Stripe, PayPal, CoinPayments, Paysafecard, OXXO; Stripe carries a 7.99% handling fee
+  - udp_forwarding.stated: yes
+  - udp_forwarding.detail: the NAT forwards carry UDP. The vendor's NAT article says the application 'Must be able to listen on [::]::0 and/or 0.0.0.0/0' and, 'Specific for UDP usage only: shall preferentially send send a continuous packet stream over UDP'; its UDP test addresses 'the UDP-exclusive port-range you have on your VPS for NAT IPv4'.
+  - udp_forwarding.wireguard_note: a WireGuard listener is UDP and needs a fixed inbound port; the page gives a UDP-exclusive port range per VPS and maps it to any internal port, so a 51820 listener is reachable without vendor action. The stated condition is that UDP traffic be a continuous packet stream, which a persistent WireGuard session is; whether a silent idle tunnel keeps its mapping open is not stated.
+  - udp_forwarding.source_url: https://web.c-servers.co.uk/info/icmp-ipv4-pings-and-nat-ipv4-port-range-testing
+  - price_on_page: USD 4.29/mo
+  - price_in_cart: USD 4.29 monthly; 12 months USD 41.99
+  - cart_works: yes
+  - cart_url: https://web.c-servers.co.uk/order-steps/server/468
+  - signup_url: https://web.c-servers.co.uk/sign-up
+  - cart_evidence: order page titled 'ExtraVPS-6144 US Order' renders 'Service Period Selection ... Monthly $4.29 %4 Discount 3 Month(s) $11.99 %11 Discount 6 Month(s) $22.99 %20 Discount 12 Month(s) $41.99 %26 Discount'
+  - needs_account_first: no
+- evidence:
+  - [1] 2026-10-22: product card quoted: 'NanoVPS-384 Low-Cost Special US', '$2.39', '/ 6 month(s)', '1 vCore Intel Xeon Silver 4116 @ Up To 3.0 GHz (45% Fair Share)', '384 MB RAM DDR4 ECC', '12GB NVMe High Speed Disk', '1 NAT IPv4 IP (20 Ports) - Direct IPv4 Communication', '1 IPv6 /64 Public IP', '2 TB Guaranteed @ 300 Mbps (After Exceeded, Fair Use @ 300 Mbps)', 'Location: Ashburn, Virginia'
+  - [1] 2026-10-22: 
+  - [2] 2026-10-22: tracker row quoted: 'C-Servers - $0.40 / month', 'half-yearly Service', '384 MB RAM', '12 GB NVMe', '2,048 GB/month bandwidth', '0.3 Gbps port speed', 'IPv4 (NAT) + IPv6', 'Ashburn Virginia U.S.A.'; intro 'starting at $2.39 per 6 months'; info page marks it 'In stock now'
+  - [1] 2026-10-24: quoted from the NanoVPS-1024 US card: '$2.69 / 3 month(s) | Add to Cart | 2 vCores Intel Xeon Silver 4116 @ Up To 3.00 GHz (50% Fair Share) | 1024 MB RAM DDR4 ECC | 30GB NVMe High Speed Disk | 1 NAT IPv4 IP (20 Ports) - Direct IPv4 Communication | 1 IPv6 /64 Public IP | 5 TB Guaranteed @ 300 Mbps'
+  - [1] 2026-10-24: quoted from the NanoVPS-384 card: '$2.39 / 6 month(s) | 1 vCore Intel Xeon Silver 4116 @ Up To 3.0 GHz (45% Fair Share) | 384 MB RAM DDR4 ECC | 12GB NVMe High Speed Disk | 1 NAT IPv4 IP (20 Ports) | 1 IPv6 /64 Public IP | 2 TB Guaranteed @ 300 Mbps' and 'No Backups and Non-Refundable'
+  - [1] 2026-10-24: quoted from the monthly-billed cards on the same page: 'CentralVPS-3072 US | $2.49 / monthly | 3 vCores | 3072 MB RAM | 40GB NVMe' and 'ExtraVPS-6144 US | $4.29 / monthly | 4 vCores | 6144 MB RAM | 40GB NVMe | 6 TB'
+  - [1] 2026-10-24: quoted from the location FAQ: 'At the present time, only the European-based offerings support dedicated IPv4 addresses'
+  - [1] 2026-10-24: 
+  - [1] 2026-10-24: the card prints one price and one term and no second figure: no strike-through price, no 'was', no first-term label and no renewal line appear on the ExtraVPS-6144 card or on any other card on the page, so no renewal price is published
+  - [3] 2026-10-24: UDP on the NAT forwards, quoted: 'Example for UDP: ... where [number of your port] will be the UDP-exclusive port-range you have on your VPS for NAT IPv4' and 'Specific for UDP usage only: shall preferentially send send a continuous packet stream over UDP.' and 'ports are always pre-opened automatically at the given outbound port range for you, and you simply map them to the internal ports'
+- sources:
+  - [1] https://web.c-servers.co.uk/category/ashburn-virginia-usa-vps-servers
+  - [2] https://vpspricetracker.com/provider/C_Servers/vps
+  - [3] https://web.c-servers.co.uk/info/icmp-ipv4-pings-and-nat-ipv4-port-range-testing
+
+## C-Servers (NanoVPS-1024 US)
+
+- `compute/c-servers-nanovps` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category cloud VM | tier NanoVPS-1024 US
+- needs card yes, phone no, ID no, institution no | verified 2026-11-06T17:20:15.331Z (live) | stale on 2026-12-07
+- url https://web.c-servers.co.uk/category/ashburn-virginia-usa-vps-servers
+- price parsed USD 0.9/mo
+- disagrees on verdict: `compute/c-servers-nanovps` says qualifies-with-caveat, `compute/c-servers-nanovps-384-us` says qualifies
+- free tier: no free tier; the cheapest server on this page is USD 2.39 for six months | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists for the paid term; the 384 MB plan is marked 'No Backups and Non-Refundable', and no deletion grace period is stated on the page | source: [1]
+- egress: 5 TB a month guaranteed at 300 Mbps, then fair use at 300 Mbps, quoted: '5 TB Guaranteed @ 300 Mbps (After Exceeded, Fair Use @ 300 Mbps)' | metered: yes | free allowance: 5 TB | source: [1]
+- identity: card | detail: an account plus payment at order in the WISECP store.
+- interface: rest
+- limits:
+  - volume-quota: 5 TB a month of transfer, then fair use at 300 Mbps [1]
+  - per-ip-shaping (binding): the plan ships a NAT IPv4 with 20 forwarded ports and no dedicated IPv4; the page states 'only the European-based offerings support dedicated IPv4 addresses' [1]
+  - pull-count: the cheapest term offered on this SKU is 3 months, USD 2.69, so the minimum outlay is 3 months even though the effective rate is under USD 1 [1]
+- limits note: 2 TB guaranteed at 300 Mbps, then fair use at 300 Mbps rather than a suspension, so the plan degrades in speed instead of stopping; the 0.3 Gbps port is the harder ceiling and the NAT IPv4 gives 20 ports rather than a full address
+- binding note: 5 TB a month is the published ceiling, but 1 GiB of RAM is what a workload meets first.
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated on the page read: the store is a cart at web.c-servers.co.uk with a separate portal at portal.cfld.uk and a SolusVM-style panel at hostone.cfld.uk:2222; no API is documented
+- composes with: the cheapest always-on address in this slice at about USD 0.40/month, and the only one here with a stated fair-use fallback instead of a hard cut; 384 MB of RAM holds a scheduler or a DNS worker, and the 20-port NAT address cannot serve a public HTTPS endpoint without a tunnel
+- reliability: no reliability event observed; the 384 MB plan is marked 'No Backups and Non-Refundable', the vendor is Centerfield Ltd (Manchester, UK) and the Ashburn upstream is GTHost.
+- notes: The sub-dollar rung of the C-Servers ladder: 2 vCPU / 1 GiB / 30 GB / 5 TB for USD 2.69 per three months, which is USD 0.90 a month and not a monthly charge. The order page sells five terms, and the longest at USD 19.99 works out to USD 0.555 a month for 7.43 times the three-month outlay. The cheapest monthly-billed plan on the category page is CentralVPS-3072 at USD 2.49. The 6 GiB ExtraVPS-6144 at USD 4.29 is a separate record, `c-servers`, because the shape and term differ and a reader acts on one.
+- evidence note: the five term prices, the stock state and the shape are quoted from the order page and the category page; the transfer allowance and the NAT port count are quoted from the category page
+- extras:
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 0.375
+  - facets.shape.disk_gib: 12
+  - shape.vcpu: 2
+  - shape.ram_gib: 1
+  - shape.disk_gib: 30
+  - billing_model: multi-month prepay
+  - term: 3, 6, 12, 24 or 36 months
+  - m10h_usd: 0.9
+  - m24h_usd: 0.9
+  - price_arithmetic: USD 2.69 per 3 months / 3 = USD 0.8967 a month, rounded to USD 0.90; one payment of USD 2.69 covers three months. A VPS bills whether it runs or not, so the 24/7 and 10 h/day figures are the same number.
+  - out_of_pocket_usd: 2.69
+  - renewal_usd: not published: the order page prints five term prices with a discount ribbon on each longer rung and no renewal rate; read at https://web.c-servers.co.uk/order-steps/server/459
+  - renewal_note: the order page prints five term prices and a discount ribbon per longer rung, with no renewal sentence and no strike-through against a base rate; the 3-month rung is the shortest, so the minimum outlay is USD 2.69
+  - promo: the 384 MB plan is named 'Low-Cost Special' but carries no end date; the 1024 SKU is not labelled a promo
+  - port_mbps: 300
+  - ipv4_included: yes
+  - ipv4_detail: one NAT IPv4 with 20 forwarded ports, shared; no dedicated IPv4 on US plans
+  - ipv6: /64 public
+  - ladder_us[0].plan: NanoVPS-384 Low-Cost Special US
+  - ladder_us[0].usd: 2.39
+  - ladder_us[0].term_months: 6
+  - ladder_us[0].usd_month: 0.4
+  - ladder_us[0].vcpu: 1
+  - ladder_us[0].ram_gib: 0.375
+  - ladder_us[0].disk_gib: 12
+  - ladder_us[0].tb_month: 2
+  - ladder_us[0].port_mbps: 300
+  - ladder_us[1].plan: NanoVPS-1024 US
+  - ladder_us[1].usd: 2.69
+  - ladder_us[1].term_months: 3
+  - ladder_us[1].usd_month: 0.9
+  - ladder_us[1].vcpu: 2
+  - ladder_us[1].ram_gib: 1
+  - ladder_us[1].disk_gib: 30
+  - ladder_us[1].tb_month: 5
+  - ladder_us[1].port_mbps: 300
+  - ladder_us[2].plan: CentralVPS-3072 US
+  - ladder_us[2].usd: 2.49
+  - ladder_us[2].term_months: 1
+  - ladder_us[2].usd_month: 2.49
+  - ladder_us[2].vcpu: 3
+  - ladder_us[2].ram_gib: 3
+  - ladder_us[2].disk_gib: 40
+  - ladder_us[2].tb_month: 5
+  - ladder_us[2].port_mbps: 300
+  - ladder_us[3].plan: ExtraVPS-6144 US
+  - ladder_us[3].usd: 4.29
+  - ladder_us[3].term_months: 1
+  - ladder_us[3].usd_month: 4.29
+  - ladder_us[3].vcpu: 4
+  - ladder_us[3].ram_gib: 6
+  - ladder_us[3].disk_gib: 40
+  - ladder_us[3].tb_month: 6
+  - ladder_us[3].port_mbps: 300
+  - ladder_us[4].plan: ExtraVPS-12G US
+  - ladder_us[4].usd: 8.29
+  - ladder_us[4].term_months: 1
+  - ladder_us[4].usd_month: 8.29
+  - ladder_us[4].vcpu: 4
+  - ladder_us[4].ram_gib: 12
+  - ladder_us[4].disk_gib: 50
+  - ladder_us[4].tb_month: 8
+  - ladder_us[4].port_mbps: 300
+  - ladder_us[5].plan: ExtraVPS-16G US
+  - ladder_us[5].usd: 10.49
+  - ladder_us[5].term_months: 1
+  - ladder_us[5].usd_month: 10.49
+  - ladder_us[5].vcpu: 4
+  - ladder_us[5].ram_gib: 16
+  - ladder_us[5].disk_gib: 60
+  - ladder_us[5].tb_month: 10
+  - ladder_us[5].port_mbps: 300
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: 20 forwarded ports on a shared NAT IPv4, plus a public /64 IPv6; UDP forwarding not stated
+  - network_out.static_ip: no
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - ladder_note: NanoVPS-384 USD 2.39/6 mo = 0.40/mo; NanoVPS-1024 USD 2.69/3 mo = 0.90/mo; CentralVPS-3072 USD 2.49/mo; ExtraVPS-6144 USD 4.29/mo
+  - payment_rails: Stripe, PayPal, CoinPayments, Paysafecard, OXXO; Stripe carries a 7.99% handling fee
+  - price_on_page: USD 2.69/3mo, USD 4.89/6mo, USD 8.99/12mo, USD 14.99/24mo, USD 19.99/36mo
+  - price_in_cart: USD 2.69 for 3 months
+  - cart_works: yes
+  - cart_url: https://web.c-servers.co.uk/order-steps/server/459
+  - signup_url: https://web.c-servers.co.uk/sign-up
+  - cart_evidence: order page titled 'NanoVPS-1024 US Order' renders 'Service Period Selection ... 3 Month(s) $2.69 %10 Discount 6 Month(s) $4.89 %20 Discount 12 Month(s) $8.99 %33 Discount'
+  - needs_account_first: no
+  - monthly_usd: 0.9
+  - annual_usd: 8.99
+  - stock: in stock: the category page lists NanoVPS-1024 with an Add to Cart link to its order page and no out-of-stock marker
+- evidence:
+  - [1] 2026-10-22: product card quoted: 'NanoVPS-384 Low-Cost Special US', '$2.39', '/ 6 month(s)', '1 vCore Intel Xeon Silver 4116 @ Up To 3.0 GHz (45% Fair Share)', '384 MB RAM DDR4 ECC', '12GB NVMe High Speed Disk', '1 NAT IPv4 IP (20 Ports) - Direct IPv4 Communication', '1 IPv6 /64 Public IP', '2 TB Guaranteed @ 300 Mbps (After Exceeded, Fair Use @ 300 Mbps)', 'Location: Ashburn, Virginia'
+  - [1] 2026-10-22: 
+  - [2] 2026-10-22: tracker row quoted: 'C-Servers - $0.40 / month', 'half-yearly Service', '384 MB RAM', '12 GB NVMe', '2,048 GB/month bandwidth', '0.3 Gbps port speed', 'IPv4 (NAT) + IPv6', 'Ashburn Virginia U.S.A.'; intro 'starting at $2.39 per 6 months'; info page marks it 'In stock now'
+  - [1] 2026-10-24: quoted from the NanoVPS-1024 US card: '$2.69 / 3 month(s) | Add to Cart | 2 vCores Intel Xeon Silver 4116 @ Up To 3.00 GHz (50% Fair Share) | 1024 MB RAM DDR4 ECC | 30GB NVMe High Speed Disk | 1 NAT IPv4 IP (20 Ports) - Direct IPv4 Communication | 1 IPv6 /64 Public IP | 5 TB Guaranteed @ 300 Mbps'
+  - [1] 2026-10-24: quoted from the NanoVPS-384 card: '$2.39 / 6 month(s) | 1 vCore Intel Xeon Silver 4116 @ Up To 3.0 GHz (45% Fair Share) | 384 MB RAM DDR4 ECC | 12GB NVMe High Speed Disk | 1 NAT IPv4 IP (20 Ports) | 1 IPv6 /64 Public IP | 2 TB Guaranteed @ 300 Mbps' and 'No Backups and Non-Refundable'
+  - [1] 2026-10-24: quoted from the monthly-billed cards on the same page: 'CentralVPS-3072 US | $2.49 / monthly | 3 vCores | 3072 MB RAM | 40GB NVMe' and 'ExtraVPS-6144 US | $4.29 / monthly | 4 vCores | 6144 MB RAM | 40GB NVMe | 6 TB'
+  - [1] 2026-10-24: quoted from the location FAQ: 'At the present time, only the European-based offerings support dedicated IPv4 addresses'
+  - [3] 2026-11-06: the order page sells a 3-month term at USD 2.69 | capture: sha256:d0118c72a2494772996c15f1f828eb80687395a252204285b6bff8c35670be8b | quote: 3 Month(s)
+  - [3] 2026-11-06: the order page sells a 12-month term at USD 8.99 | capture: sha256:d0118c72a2494772996c15f1f828eb80687395a252204285b6bff8c35670be8b | quote: 12 Month(s)
+  - [3] 2026-11-06: the order page selects a term and prints no renewal rate | capture: sha256:d0118c72a2494772996c15f1f828eb80687395a252204285b6bff8c35670be8b | quote: Select the renewal period of the service.
+  - [3] 2026-11-06: the order page prints five term prices and no renewal rate | capture: sha256:d0118c72a2494772996c15f1f828eb80687395a252204285b6bff8c35670be8b | quote: Select the renewal period of the service.
+  - [3] 2026-11-06: the order page sells terms from 3 to 36 months | capture: sha256:d0118c72a2494772996c15f1f828eb80687395a252204285b6bff8c35670be8b | quote: 36 Month(s)
+  - [1] 2026-11-06: the NanoVPS-1024 card carries an Add to Cart link to its order page and no out-of-stock marker | capture: sha256:9437db294a0e550707de90a55d211bf4e277ede34324000d9090372ce72cf1e3 | quote: <a href="https://web.c-servers.co.uk/order-steps/server/459" class="btn btn-secondary fw-semibold">
+  - [3] 2026-11-06: the order page prints five term prices up to USD 19.99 for 36 months | capture: sha256:d0118c72a2494772996c15f1f828eb80687395a252204285b6bff8c35670be8b | quote: $19.99
+  - [3] 2026-11-06: the order page sells five terms and the longest is USD 19.99 for 36 months | capture: sha256:d0118c72a2494772996c15f1f828eb80687395a252204285b6bff8c35670be8b | quote: $19.99
+  - [1] 2026-11-06: the category page prints the 5 TB allowance | capture: sha256:9437db294a0e550707de90a55d211bf4e277ede34324000d9090372ce72cf1e3 | quote: 5 TB Guaranteed @ 300 Mbps
+  - [3] 2026-11-06: the 3-month rung is still USD 2.69 | capture: sha256:d0118c72a2494772996c15f1f828eb80687395a252204285b6bff8c35670be8b | quote: $2.69
+- sources:
+  - [1] https://web.c-servers.co.uk/category/ashburn-virginia-usa-vps-servers
+  - [2] https://vpspricetracker.com/provider/C_Servers/vps
+  - [3] https://web.c-servers.co.uk/order-steps/server/459
+
+## C-Servers (Centerfield Ltd), ExtraVPS-6144 DDR5
+
+- `compute/c-servers-extravps-6144-ddr5` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category VPS | tier ExtraVPS-6144 DDR5
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-06T18:03:55.344Z (live) | stale on 2026-12-07
+- url https://web.c-servers.co.uk/category/amd-ryzen-quality-vps
+- price parsed USD 4.49/mo
+- disagrees on verdict: `compute/c-servers-extravps-6144-ddr5` says qualifies-with-caveat, `compute/c-servers-nanovps-384-us` says qualifies
+- free tier: no free tier; the category's smallest rung is CentralVPS-2048 DDR5 at USD 2.99 a month | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the plan is paid; the plan is marked 'Non-Refundable' and includes '7 Monthly Backups (C-Servers GoBack Standard)'
+- egress: 20TB a month at 10 Gbps, then 'After Exceeded, Fair Use @ 10 Gbps' | metered: yes | free allowance: 20TB | source: [1]
+- identity: card | detail: an account with a phone number and the user's own card: 'We require a phone number for registration. This phone number must be valid and can't be a disposable number; prepaid mobile phone numbers are allowed and do not fall under such categorization.' The card must belong to the account holder: 'Only the personal or corporate user’s payment method is accepted. No other cards, from other entities or other individuals, are accepted. A proof of the card may be required in any way via ticket.' Hold amount: not published on https://web.c-servers.co.uk/service-and-use-agreement or https://web.c-servers.co.uk/info/what-are-the-supported-payment-methods; no authorisation or deposit is described. Charged or verified: charged; a card payment is a completed transaction eligible for refund ('Credit Card transactions for VPS and VDS services are eligible for refund within 60 days of the initial order payment'), and the proof-of-card check is a separate manual step. Prepaid and virtual cards: not published; the agreement refuses 'No other cards, from other entities or other individuals'.
+- interface: ssh
+- limits:
+  - volume-quota: 20TB a month, then fair use at 10 Gbps [1]
+  - per-ip-shaping (binding): IPv4 is NAT with 20 ports; the plan includes 1 IPv6/64 and 1 IPv4 NAT [1]
+- binding note: the IPv4 is a NAT address with 20 forwarded ports, so any service needing more than 20 inbound ports, or a dedicated IPv4, fails here before traffic does.
+- interface detail: root SSH on KVM; VirtFusion control panel
+- tooling: any SSH client; VirtFusion panel
+- composes with: 3 Ryzen 9 7950X3D vCores and 6 GiB of DDR5 for a latency-sensitive worker, if it comes back in stock
+- reliability: no reliability event observed.
+- notes: CHANGED on stock, unchanged on price. USD 4.49 a month is the published price and 3 vCore / 6 GB DDR5 / 100 GB NVMe / 20 TB is the shape, but the order page for the SKU (server 349) reads 'Out of Stock!' in the body, so the plan cannot be bought today. That is why this is a caveat rather than a qualification: the number is real and the cart is closed. Two further things the previous listing did not carry. (1) The IPv4 is NAT with only 20 ports, so it is not a normal VPS for anything needing more than 20 inbound ports. (2) The German order page shows a term ladder from €3.90 to €104.13, which suggests annual prepay around €104.13, but the rungs are not labelled with their periods on that page, so no annual-divided-by-12 figure is claimed here. Worst case exposure is not computable while the SKU is out of stock and the term ladder is unlabelled.
+- evidence note: price, shape, traffic and the NAT detail are quoted from the vendor's own category page read. Stock is the finding: the order page says 'Out of Stock!', which overrides the price.
+- extras:
+  - shape.vcpu: 3
+  - shape.ram_gib: 6
+  - shape.disk_gib: 100
+  - billing_model: monthly, with a term ladder on the order page
+  - term: monthly at USD 4.49; longer terms priced on the order page but not labelled by period
+  - m10h_usd: 4.49
+  - m24h_usd: 4.49
+  - price_arithmetic: USD 4.49 a month, billed monthly. It is a VPS, so the monthly bill is the bill and there is no 730-hour multiplication. No annual figure is asserted because the order page's term ladder (€3.90 to €104.13) does not label which period each rung is.
+  - out_of_pocket_usd: 4.49
+  - signup_url: https://web.c-servers.co.uk/order-steps/server/349
+  - cart_url: https://web.c-servers.co.uk/order-steps/server/349
+  - renewal_usd: not published
+  - renewal_note: the plan card states a monthly price and no renewal sentence; the order page's term ladder is unlabelled. Whether USD 4.49 recurs or is an introductory rung is not established.
+  - promo: no
+  - worst_case_note: not computable: no renewal price and no labelled term ladder. The unknown is the exposure.
+  - port_mbps: 10000
+  - ipv4_included: NAT only, 20 ports
+  - ipv6: /64
+  - payment_methods: Stripe (main gateway) takes Visa, Mastercard, Discover, American Express, Diners Club, Korean credit/debit cards (one-time payment only) and UnionPay, at a 7.99% Technical Handling Fee that is not applied in the UK and EEA, minimum 0.30 GBP; it also connects Google Pay and Apple Pay (mobile only), Revolut Pay, Samsung Pay (mobile, South Korea only), Alipay (one-time only), iDeal, Twint, Afterpay/Clearpay, Billie and Klarna (pay-later), MBWay and Multibanco (Portugal), NaverPay, KakaoPay and Payco (South Korea) and Pix (Brasil). PayPal (secondary) takes Visa, Mastercard, Discover, American Express and Diners Club, at a 9.99% Technical Added Risk Fee that is not removable in the EU or UK, minimum 10 GBP, geo-restricted to 116 countries. CoinPayments crypto. Regional: PagoFácil at 15% plus rate-conversion fees USD to ARG, OXXO at 15% in MXN, PaySafeCard at 17.5% in EUR. Bank transfer. No card hold or deposit is published.
+  - stock: out of stock: the order page for server 349 reads '## Out of Stock! We are working to increase our stocks.' Read at https://web.c-servers.co.uk/order-steps/server/349
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: 20 forwarded ports on a NAT IPv4, plus a /64 IPv6
+  - network_out.static_ip: no
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - vat: prices quoted in USD on the category page with a $/€/£ selector
+- evidence:
+  - [1] 2026-10-24: quoted from the plan card: 'ExtraVPS-6144 DDR5 $4.49 / monthly / 3 vCore AMD Ryzen 9 7950X3D @ 4.2 GHz (50% Fair Share) / (Turbo Boost Up To 5.7 GHz) / 6GB RAM DDR5 ECC / 100GB NVMe Gen4 RAM-Cached High Speed Disk / 1 IPv6/64 + 1 IPv4 NAT (20 Ports) / 20TB @ 10 Gbps / (After Exceeded, Fair Use @ 10 Gbps)'
+  - [2] 2026-10-24: quoted from the order page for server 349, titled 'ExtraVPS-6144 DDR5': '## Out of Stock! We are working to increase our stocks. Please check again later. Thank you for your interest.'
+  - [3] 2026-10-24: the German order page for the same server 349 lists the term prices '€3,90 / 7% Rabatt', '€11,27 / 13%', '€21,25 / 19%', '€39,91 / 28%', '€72,02 / 32%', '€104,13' before the stock notice; the monthly rung is not separately labelled
+  - [4] 2026-11-02: the card may be checked by hand with a proof, and no authorisation amount is described | capture: sha256:e8220d5d5430e1f8ab542697938c53c455e710072aea8164193fd27e7927a783 | quote: A proof of the card may be required in any way via ticket.
+  - [4] 2026-11-02: registration itself needs a phone number, a second identity gate beside the card | capture: sha256:e8220d5d5430e1f8ab542697938c53c455e710072aea8164193fd27e7927a783 | quote: We require a phone number for registration.
+  - [5] 2026-11-02: the Stripe gateway takes the named credit and debit cards, and no hold is named | capture: sha256:41bf4d4d2fd0b8bd3de48a592be5beb68e14aa9f05ae60a2ce5a8bde3f59354c | quote: Accepts (Cards): Visa, Mastercard, Discover, American Express, Diners Club, Korean Credit/Debit Cards (one-time payment only), UnionPay.
+  - [5] 2026-11-02: the PaySafeCard route carries a 17.5% fee, which is why a card is the cheaper rail | capture: sha256:41bf4d4d2fd0b8bd3de48a592be5beb68e14aa9f05ae60a2ce5a8bde3f59354c | quote: Additional Fee: 17.5%, issued directly in EUR.
+  - [5] 2026-11-02: Stripe is still the primary gateway and its fee is unchanged | capture: sha256:41bf4d4d2fd0b8bd3de48a592be5beb68e14aa9f05ae60a2ce5a8bde3f59354c | quote: A Technical Handling Fee of 7,99% of the purchased product value will be applicable on payments executed through this gateway
+  - [4] 2026-11-06: registration requires a valid, non-disposable phone number | capture: sha256:e8220d5d5430e1f8ab542697938c53c455e710072aea8164193fd27e7927a783 | quote: We require a phone number for registration. This phone number must be valid and can't be a disposable number; prepaid mobile phone numbers are allowed and do not fall under such categorization.
+  - [4] 2026-11-06: the card must be the user's own and may be checked by hand | capture: sha256:e8220d5d5430e1f8ab542697938c53c455e710072aea8164193fd27e7927a783 | quote: Only the personal or corporate user’s payment method is accepted. No other cards, from other entities or other individuals, are accepted. A proof of the card may be required in any way via ticket.
+  - [5] 2026-11-06: Stripe takes the named cards, and the page names PayPal, CoinPayments, PagoFacil, OXXO, PaySafeCard and bank transfer | capture: sha256:1d30159e33bec1d5c2a853aa720649bdce4b29fa68bce5707ff05f5103afb8d8 | quote: Accepts (Cards): Visa, Mastercard, Discover, American Express, Diners Club, Korean Credit/Debit Cards (one-time payment only), UnionPay.
+  - [4] 2026-11-06: registration requires a phone number beside the card | capture: sha256:e8220d5d5430e1f8ab542697938c53c455e710072aea8164193fd27e7927a783 | quote: We require a phone number for registration. This phone number must be valid and can't be a disposable number; prepaid mobile phone numbers are allowed and do not fall under such categorization.
+  - [5] 2026-11-06: PagoFácil's additional fee is 15% plus rate-conversion fees from USD to ARG | capture: sha256:1d30159e33bec1d5c2a853aa720649bdce4b29fa68bce5707ff05f5103afb8d8 | quote: _Additional Fee: 15% + rate-conversion fees USD to ARG_
+  - [5] 2026-11-06: OXXO's additional fee is 15%, issued directly in MXN | capture: sha256:1d30159e33bec1d5c2a853aa720649bdce4b29fa68bce5707ff05f5103afb8d8 | quote: _Additional Fee: 15%, issued directly in MXN_
+  - [5] 2026-11-06: PayPal is geo-restricted to 116 countries and carries a 9.99% Technical Added Risk Fee by default | capture: sha256:1d30159e33bec1d5c2a853aa720649bdce4b29fa68bce5707ff05f5103afb8d8 | quote: it's geo-restricted and available at only 116 countries (Europe, North America and South America in general, plus some other countries in Africa, Asia and Oceania); and has by default an _Technical Added Risk Fee_ of 9,99%
+  - [5] 2026-11-06: PayPal payments are allowed only above 10 GBP | capture: sha256:1d30159e33bec1d5c2a853aa720649bdce4b29fa68bce5707ff05f5103afb8d8 | quote: payments through PayPal are allowed only above 10 GBP (11.55 EUR or 13.54 USD as of 27-04-2026)
+  - [5] 2026-11-06: the 7.99% Stripe fee is not applied for users in the UK and the EEA | capture: sha256:1d30159e33bec1d5c2a853aa720649bdce4b29fa68bce5707ff05f5103afb8d8 | quote: Complying with local laws, the 7.99% Technical Handling Fee is not applied for users on the United Kingdom and the European Economic Area.
+  - [5] 2026-11-06: Stripe accepts the named card networks and UnionPay on the page read | capture: sha256:1d30159e33bec1d5c2a853aa720649bdce4b29fa68bce5707ff05f5103afb8d8 | quote: Accepts (Cards): Visa, Mastercard, Discover, American Express, Diners Club, Korean Credit/Debit Cards (one-time payment only), UnionPay.
+- sources:
+  - [1] https://web.c-servers.co.uk/category/amd-ryzen-quality-vps
+  - [2] https://web.c-servers.co.uk/order-steps/server/349
+  - [3] https://web.c-servers.co.uk/de/order-steps/server/349
+  - [4] https://web.c-servers.co.uk/service-and-use-agreement
+  - [5] https://web.c-servers.co.uk/info/what-are-the-supported-payment-methods
+
+## C-Servers (Centerfield Ltd), extravps 6144 ddr5 nj
+
+- `compute/c-servers-extravps-6144-ddr5-nj` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category VPS | tier ExtraVPS-6144 DDR5 (New Jersey, AMD Ryzen quality VPS)
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-06T17:42:09.297Z (live) | stale on 2026-12-07
+- url https://web.c-servers.co.uk/category/amd-ryzen-quality-vps
+- price parsed USD 4.49/mo
+- disagrees on verdict: `compute/c-servers-extravps-6144-ddr5-nj` says qualifies-with-caveat, `compute/c-servers-nanovps-384-us` says qualifies
+- free tier: no free tier; the category's smallest rung is CentralVPS-2048 DDR5 at USD 2.99 a month | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the plan is paid; the plan is marked 'Non-Refundable' and includes '7 Monthly Backups (C-Servers GoBack Standard)'
+- egress: 20TB a month at 10 Gbps, then 'After Exceeded, Fair Use @ 10 Gbps' | metered: yes | free allowance: 20TB | source: [1]
+- identity: card | detail: an account with a phone number and the user's own card: 'We require a phone number for registration. This phone number must be valid and can't be a disposable number; prepaid mobile phone numbers are allowed and do not fall under such categorization.' The card must belong to the account holder: 'Only the personal or corporate user’s payment method is accepted. No other cards, from other entities or other individuals, are accepted. A proof of the card may be required in any way via ticket.' Hold amount: not published on https://web.c-servers.co.uk/service-and-use-agreement or https://web.c-servers.co.uk/info/what-are-the-supported-payment-methods; no authorisation or deposit is described. Charged or verified: charged; a card payment is a completed transaction eligible for refund ('Credit Card transactions for VPS and VDS services are eligible for refund within 60 days of the initial order payment'), and the proof-of-card check is a separate manual step. Prepaid and virtual cards: not published; the agreement refuses 'No other cards, from other entities or other individuals'.
+- interface: ssh
+- limits:
+  - volume-quota: 20TB a month, then fair use at 10 Gbps [1]
+  - per-ip-shaping (binding): IPv4 is NAT with 20 ports; the plan includes 1 IPv6/64 and 1 IPv4 NAT [1]
+- binding note: the IPv4 is a NAT address with 20 forwarded ports, so any service needing more than 20 inbound ports, or a dedicated IPv4, fails here before traffic does.
+- interface detail: root SSH on KVM; VirtFusion control panel
+- tooling: any SSH client; VirtFusion panel
+- composes with: 3 Ryzen 9 7950X3D vCores and 6 GiB of DDR5 for a latency-sensitive worker, if it comes back in stock
+- reliability: no reliability event observed.
+- notes: CHANGED on stock, unchanged on price. USD 4.49 a month is the published price and 3 vCore / 6 GB DDR5 / 100 GB NVMe / 20 TB is the shape, but the order page for the SKU (server 349) reads 'Out of Stock!' in the body, so the plan cannot be bought today. That is why this is a caveat rather than a qualification: the number is real and the cart is closed. Two further things the previous listing did not carry. (1) The IPv4 is NAT with only 20 ports, so it is not a normal VPS for anything needing more than 20 inbound ports. (2) The German order page shows a term ladder from €3.90 to €104.13, which suggests annual prepay around €104.13, but the rungs are not labelled with their periods on that page, so no annual-divided-by-12 figure is claimed here. Worst case exposure is not computable while the SKU is out of stock and the term ladder is unlabelled. NOTE ON THE EXISTING RECORD: earlier readings already carries 'c-servers' for a different SKU (ExtraVPS-6144 US, Ashburn Virginia, USD 4.29, Xeon Silver 4116, 6 TB). This record is the New Jersey AMD Ryzen 7950X3D SKU at USD 4.49 with 20 TB, a different product on a different category page, filed under its own slug so the two do not overwrite each other. Both read 'Out of Stock' on their respective order pages when checked.
+- evidence note: price, shape, traffic and the NAT detail are quoted from the vendor's own category page read. Stock is the finding: the order page says 'Out of Stock!', which overrides the price.
+- extras:
+  - shape.vcpu: 3
+  - shape.ram_gib: 6
+  - shape.disk_gib: 100
+  - billing_model: monthly, with a term ladder on the order page
+  - term: monthly at USD 4.49; longer terms priced on the order page but not labelled by period
+  - m10h_usd: 4.49
+  - m24h_usd: 4.49
+  - price_arithmetic: USD 4.49 a month, billed monthly. It is a VPS, so the monthly bill is the bill and there is no 730-hour multiplication. No annual figure is asserted because the order page's term ladder (€3.90 to €104.13) does not label which period each rung is.
+  - out_of_pocket_usd: 4.49
+  - signup_url: https://web.c-servers.co.uk/order-steps/server/349
+  - cart_url: https://web.c-servers.co.uk/order-steps/server/349
+  - renewal_usd: not published
+  - renewal_note: the plan card states a monthly price and no renewal sentence; the order page's term ladder is unlabelled. Whether USD 4.49 recurs or is an introductory rung is not established.
+  - promo: no
+  - worst_case_note: not computable: no renewal price and no labelled term ladder. The unknown is the exposure.
+  - port_mbps: 10000
+  - ipv4_included: NAT only, 20 ports
+  - ipv6: /64
+  - payment_methods: Stripe (primary) takes Visa, Mastercard, Discover, American Express, Diners Club, Korean credit and debit cards and UnionPay; PayPal (secondary) takes Visa, Mastercard, Discover, American Express and Diners Club; CoinPayments crypto; regional PagoFácil, OXXO and PaySafeCard at a 17.5% fee; bank transfer; no card hold or deposit is published
+  - stock: out of stock: the order page for server 349 reads '## Out of Stock! We are working to increase our stocks.' Read at https://web.c-servers.co.uk/order-steps/server/349
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: 20 forwarded ports on a NAT IPv4, plus a /64 IPv6
+  - network_out.static_ip: no
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - vat: prices quoted in USD on the category page with a $/€/£ selector
+- evidence:
+  - [1] 2026-10-24: quoted from the plan card: 'ExtraVPS-6144 DDR5 $4.49 / monthly / 3 vCore AMD Ryzen 9 7950X3D @ 4.2 GHz (50% Fair Share) / (Turbo Boost Up To 5.7 GHz) / 6GB RAM DDR5 ECC / 100GB NVMe Gen4 RAM-Cached High Speed Disk / 1 IPv6/64 + 1 IPv4 NAT (20 Ports) / 20TB @ 10 Gbps / (After Exceeded, Fair Use @ 10 Gbps)'
+  - [2] 2026-10-24: quoted from the order page for server 349, titled 'ExtraVPS-6144 DDR5': '## Out of Stock! We are working to increase our stocks. Please check again later. Thank you for your interest.'
+  - [3] 2026-10-24: the German order page for the same server 349 lists the term prices '€3,90 / 7% Rabatt', '€11,27 / 13%', '€21,25 / 19%', '€39,91 / 28%', '€72,02 / 32%', '€104,13' before the stock notice; the monthly rung is not separately labelled
+  - [4] 2026-11-02: the card may be checked by hand with a proof, and no authorisation amount is described | capture: sha256:e8220d5d5430e1f8ab542697938c53c455e710072aea8164193fd27e7927a783 | quote: A proof of the card may be required in any way via ticket.
+  - [4] 2026-11-02: registration itself needs a phone number, a second identity gate beside the card | capture: sha256:e8220d5d5430e1f8ab542697938c53c455e710072aea8164193fd27e7927a783 | quote: We require a phone number for registration.
+  - [5] 2026-11-02: the Stripe gateway takes the named credit and debit cards, and no hold is named | capture: sha256:41bf4d4d2fd0b8bd3de48a592be5beb68e14aa9f05ae60a2ce5a8bde3f59354c | quote: Accepts (Cards): Visa, Mastercard, Discover, American Express, Diners Club, Korean Credit/Debit Cards (one-time payment only), UnionPay.
+  - [5] 2026-11-02: the PaySafeCard route carries a 17.5% fee, which is why a card is the cheaper rail | capture: sha256:41bf4d4d2fd0b8bd3de48a592be5beb68e14aa9f05ae60a2ce5a8bde3f59354c | quote: Additional Fee: 17.5%, issued directly in EUR.
+  - [5] 2026-11-02: Stripe is still the primary gateway and its fee is unchanged | capture: sha256:41bf4d4d2fd0b8bd3de48a592be5beb68e14aa9f05ae60a2ce5a8bde3f59354c | quote: A Technical Handling Fee of 7,99% of the purchased product value will be applicable on payments executed through this gateway
+  - [4] 2026-11-06: registration requires a valid, non-disposable phone number | capture: sha256:e8220d5d5430e1f8ab542697938c53c455e710072aea8164193fd27e7927a783 | quote: We require a phone number for registration. This phone number must be valid and can't be a disposable number; prepaid mobile phone numbers are allowed and do not fall under such categorization.
+  - [4] 2026-11-06: the card must be the user's own and may be checked by hand | capture: sha256:e8220d5d5430e1f8ab542697938c53c455e710072aea8164193fd27e7927a783 | quote: Only the personal or corporate user’s payment method is accepted. No other cards, from other entities or other individuals, are accepted. A proof of the card may be required in any way via ticket.
+  - [5] 2026-11-06: Stripe takes the named cards, and the page names PayPal, CoinPayments, PagoFacil, OXXO, PaySafeCard and bank transfer | capture: sha256:1d30159e33bec1d5c2a853aa720649bdce4b29fa68bce5707ff05f5103afb8d8 | quote: Accepts (Cards): Visa, Mastercard, Discover, American Express, Diners Club, Korean Credit/Debit Cards (one-time payment only), UnionPay.
+  - [4] 2026-11-06: registration requires a phone number beside the card | capture: sha256:e8220d5d5430e1f8ab542697938c53c455e710072aea8164193fd27e7927a783 | quote: We require a phone number for registration. This phone number must be valid and can't be a disposable number; prepaid mobile phone numbers are allowed and do not fall under such categorization.
+- sources:
+  - [1] https://web.c-servers.co.uk/category/amd-ryzen-quality-vps
+  - [2] https://web.c-servers.co.uk/order-steps/server/349
+  - [3] https://web.c-servers.co.uk/de/order-steps/server/349
+  - [4] https://web.c-servers.co.uk/service-and-use-agreement
+  - [5] https://web.c-servers.co.uk/info/what-are-the-supported-payment-methods
+
+## C-Servers (NanoVPS-II 384)
+
+- `egress/c-servers-nanovps-ii-384` | paid-only | evidence documented | binding volume-quota | category NAT VPS | tier NanoVPS-II 384
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-03T07:36:42.014Z (live) | stale on 2026-12-04
+- url https://web.c-servers.co.uk/
+- free tier: No free tier. NanoVPS-II 384 (Finland, AMD VPS Servers) is $2.49 per 6 months: 1 vCore, 384 MB RAM, 20GB NVMe, 1 IPv6/64 + 1 IPv4 NAT (20 Ports). | unit: none | metered on: none | read on: 2026-11-03 | source: [1]
+- per-object cap: not applicable: a NAT VPS, not an object store | source: [1]
+- retention: not applicable | source: [1]
+- egress: 2 TB guaranteed at 1 Gbps; after it is exceeded, fair use at 200 Mbps. | metered: yes | free allowance: 2 TB, period not stated | source: [1]
+- identity: any-phone | detail: The sign-up terms require a valid, non-disposable phone number (prepaid mobile allowed) and accept only the user's own payment method; whether a card is the only payment route is unverified: behind a sign-up.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 2 TB guaranteed at 1 Gbps, then fair use at 200 Mbps [1]
+  - per-ip-shaping: one NAT IPv4 with 20 ports; port speed 200 Mbps after the 2 TB [1]
+- binding note: 2 TB is the first number reached; past it the port is shaped to 200 Mbps rather than cut.
+- interface detail: Root VPS image (Debian, Ubuntu, Alpine and Arch only).
+- tooling: Any SSH client.
+- composes with: A 2 TB NAT IPv4 box with a routed IPv6/64: IPv6 inbound needs no forwarded port; IPv4 inbound is limited to 20 forwarded ports and UDP forwarding is not stated.
+- reliability: The plan card prints 'No Backups and Non-Refundable'.
+- notes: USD 2.49 per 6 months is USD 4.98 a year. The vendor has other NAT plans (NanoVPS-II 640S at USD 2.29 per 3 months in Frankfurt).
+- evidence note: Plan, price and allowance are quoted from the vendor's front page read through a pinned provider; the sign-up terms give identity. The exact serverdeals listing (NanoVPS-384, Germany, USD 4.49 per year) was not found on the vendor's pages.
+- extras:
+  - nat_ports: 20
+  - ipv6: /64
+  - udp_forwarding: unverified: not stated
+  - routed_ipv6_prefix: yes
+  - inbound_ipv4_ports: 20
+  - term: 6 months
+  - virtualization: VPS with a shared NAT IPv4.
+- evidence:
+  - [1] 2026-11-03: the NanoVPS-II 384 plan is listed on the vendor's front page | capture: sha256:6476aabd9dd58a88404ff5eaf032e0b26e5f292db0506199bc6a2bcd01c6e2fd | quote: NanoVPS-II 384 Europe
+  - [1] 2026-11-03: the plan gets a routed IPv6 /64 and one NAT IPv4 with 20 ports | capture: sha256:6476aabd9dd58a88404ff5eaf032e0b26e5f292db0506199bc6a2bcd01c6e2fd | quote: 1 IPv6/64 + 1 IPv4 NAT (20 Ports)
+  - [1] 2026-11-03: the plan guarantees 2 TB at 1 Gbps | capture: sha256:6476aabd9dd58a88404ff5eaf032e0b26e5f292db0506199bc6a2bcd01c6e2fd | quote: 2 TB Guaranteed @ 1 Gbps
+  - [1] 2026-11-03: past the 2 TB the port falls to a 200 Mbps fair use | capture: sha256:6476aabd9dd58a88404ff5eaf032e0b26e5f292db0506199bc6a2bcd01c6e2fd | quote: (After Exceeded, Fair Use @ 200 Mbps)
+  - [1] 2026-11-03: the price printed beside the plan, per the 6 month term printed under it | capture: sha256:6476aabd9dd58a88404ff5eaf032e0b26e5f292db0506199bc6a2bcd01c6e2fd | quote: $2.49
+  - [1] 2026-11-03: the term is 6 months | capture: sha256:6476aabd9dd58a88404ff5eaf032e0b26e5f292db0506199bc6a2bcd01c6e2fd | quote: 6 month(s)
+  - [2] 2026-11-03: registration needs a phone number | capture: sha256:320aa64119ef19f8d735401ded9eeab3257fc23a68c43bb8b7894e6f6b67f4af | quote: We require a phone number for registration.
+  - [2] 2026-11-03: the number must be a valid non-disposable one; prepaid mobile is allowed | capture: sha256:320aa64119ef19f8d735401ded9eeab3257fc23a68c43bb8b7894e6f6b67f4af | quote: This phone number must be valid and can't be a disposable number; prepaid mobile phone numbers are allowed
+  - [2] 2026-11-03: payment is by the user's own method | capture: sha256:320aa64119ef19f8d735401ded9eeab3257fc23a68c43bb8b7894e6f6b67f4af | quote: Only the personal or corporate user's payment method is accepted.
+  - [3] 2026-11-03: serverdeals lists a NanoVPS-384 in Germany at USD 4.49 per year, a listing not found on the vendor's pages read | quote: ###### NanoVPS-384
+- sources:
+  - [1] https://web.c-servers.co.uk/
+  - [2] https://web.c-servers.co.uk/sign-up
+  - [3] https://serverdeals.cc/

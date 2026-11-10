@@ -1,0 +1,184 @@
+# Aeza
+
+> aeza.net | Compute; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/aeza/ | JSON https://fshy.ajam.dev/api/v1/entity/aeza.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Aeza
+
+- `compute/aeza` | paid-only | evidence documented | binding none | category cloud VM | tier WAWs-1
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T03:05:00.000Z (live) | stale on 2026-11-24
+- url https://aeza.net/en/virtual-servers
+- price parsed USD 6.64/mo
+- free tier: no free tier; the smallest general plan is EUR 5.93 a month, and the wiki describes a EUR 1.99 promo plan that is not on the price page | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: hourly or monthly billing; the server persists while paid | source: [1]
+- egress: traffic printed as ∞ (unlimited) on the location panel, with 1 IPv4 address and a /48 IPv6 subnet | metered: no | free allowance: unlimited | source: [1]
+- identity: email | detail: email plus a robot check at signup, with crypto top-up documented in the vendor wiki; the order console is a separate host (my.aeza.net) that did not render for a text read. No card amount or hold read
+- interface: unknown
+- limits:
+  - volume-quota: no traffic quota stated; ∞ [1]
+- limits note: Nothing in the published terms binds above the scale: the provider advertises unlimited traffic on 25 Gbit/s links, and the constraint that does exist is commercial rather than technical, because the hourly rate is roughly five times the monthly rate for the same machine.
+- binding note: the price binds: the smallest orderable shape is over USD 5, so the unlimited traffic never gets used
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: Euro pricing plus crypto is the composition that matters for a registrant without a Russian instrument: a machine in Moscow or Amsterdam at EUR 5.93 a month paid in USDT, with hourly billing for the testing day, and traffic the provider advertises as unlimited, which is the one claim here that would remove the egress ceiling that binds everywhere else.
+- reliability: Aeza Group has been on the US OFAC SDN list since 2025-07-01, so the machine can stop existing for reasons the contract does not cover; its own storefront would not answer through automated retrieval on 2026-10-24.
+- notes: Two prices, two products: EUR 5.93 is the standing plan and EUR 1.99 is a loss-leader described in the wiki with no listed specification. Without the promo's shape the EUR 1.99 claim cannot be ranked, and the promo may be sold out. ⛔ OFAC SDN listed since 2025-07-01. That is a technical reliability fact about continuity, documented because a buyer loses the machine and the balance rather than because of any judgement about the listing. The UK company 15109642 is a shell. The storefront did not answer through automated retrieval on 2026-10-24, so whether it is purchasable today is unverified.
+- evidence note: shape and price from the vendor's own virtual-server page today; the site renders as a script application, so the plan block came through as text without the surrounding table markup
+- extras:
+  - facets.class: regional-crypto-payable
+  - facets.free_tier_kind: none
+  - facets.shape.ram_gib: 2
+  - facets.shape.gpu_count: 0
+  - facets.shape.disk_gib: 30
+  - shape.vcpu: 1
+  - shape.ram_gib: 2
+  - shape.disk_gib: 30
+  - billing_model: hourly or monthly
+  - term: hourly, monthly
+  - m10h_usd: 6.64
+  - m24h_usd: 6.64
+  - price_arithmetic: EUR 5.93 a month / 0.892784 = USD 6.64; the hourly rate EUR 0.04 x 730 = EUR 29.2, so the monthly plan is the real product
+  - renewal_usd: 6.64
+  - fx.pair: USD/EUR
+  - fx.rate: 0.892784
+  - fx.date: 2026-10-24
+  - fx.source: open.er-api.com/v6/latest/USD
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS that bills whether it runs or not
+  - english: yes
+  - payment_methods: crypto documented in the vendor wiki; cards not read
+  - benchmark[0].plan: HKs-1 (1 vCPU / 2 GiB)
+  - benchmark[0].cpu_model: AMD Ryzen 9 7950X3D 16-Core Processor
+  - benchmark[0].dedicated_or_shared: not stated
+  - benchmark[0].gb6_single: 2596
+  - benchmark[0].gb6_multi: 2437
+  - benchmark[0].source_url: https://www.vpsbenchmarks.com/yabs/aeza_international_ltd-1c-2gb-34bcc6
+  - benchmark[0].source_date: 2024-05-05
+  - benchmark[0].rung: reported
+  - benchmark[0].note: Ryzen 9 7950X3D at 4.19 GHz. Fastest single core measured here, on one vCPU. Measurement is from 2024 and Aeza's current fleet may differ.
+- evidence:
+  - [1] 2026-10-22: price grid: EUR 0.04 an hour or EUR 5.93 a month for 2 GB RAM and 30 GB disk, rising to EUR 0.53 an hour or EUR 94.89 a month for 32 GB and 480 GB, quoted from the rendered page
+  - [1] 2026-10-22: the page lists eleven locations including Moscow, St Petersburg, Helsinki, Stockholm, Amsterdam, Frankfurt, Vienna, Paris, London, Warsaw and Charlotte, and advertises a 15 percent cashback within 24 hours of registration
+  - [2] 2026-10-22: a third-party catalogue checked on 2 September 2026 records that a Russian bank card and SBP are accepted, that foreign bank cards are not listed on public pages, that crypto works through a Telegram bot, and that aeza.net and aeza.ru are separate legal entities and separate contracts
+  - [3] 2026-10-22: the Russian-language home page returns a redirect loop of more than five hops to the reader, so the Russian catalogue could not be read and only the English one was measured
+  - [4] 2026-10-22: hardware and network claims read on the page: 'AMD Ryzen 9 9950X', 'Frequency 4.3 - 5.7 GHz', 'Network Up to 25 Gbps', 'Traffic infinity', 'IPv4 1 address', 'IPv6 48 subnet', quoted from the location panel
+  - [4] 2026-10-22: the search index returned this page's own text as 'WAWs-1 25 Gbit/s 1 Core 2 GB RAM 30 GB NVMe EUR 0.04 hour EUR 5.93'
+  - [5] 2026-10-22: 
+  - [4] 2026-10-22: 
+  - [4] 2026-10-22: the promo plan record, quoted from the page payload: '"name":"SWE-PROMO","groupId":43,"payload":{"mgr":"hel","isPromo":true} ... "parameters":{"cpu":1,"net":300,"ram":4,"rom":10},"isPublic":true,"isAvailable":true,"rawPrices":{"month":199},"firstPrices":{},"prices":{"base":{"month":199},"first":{}},"resources":{},"tags":["promo","windows_disabled","windows_server_disabled"]'
+  - [4] 2026-10-22: the promo plan's parent group record: '{"id":37,"role":"location","payload":{"code":"se","ping":"swe.ping.aezastatus.com","label":"STOCKHOLM"}}', and the child group '{"id":43,"name":"Promo"}' described as 'Promo servers based on AMD Ryzen 5 3600. Processor time is distributed among virtual machines.', so SWE-PROMO is the Stockholm promo plan and no Amsterdam promo plan appears in the live plan list
+  - [4] 2026-10-22: the unit in the payload is cents, proved inside the same document: the rendered card reads 'EUR 0.04 hour' and 'EUR 5.93 month' for WAWs-1 while the same plan's record reads 'rawPrices:{hour:4,month:593,year:6263,...}'; 199 is therefore EUR 1.99 per month
+  - [6] 2026-10-22: 'Promo is an advertising plan of our hosting, aimed at attracting new customers ... Aeza pays for you most of its characteristics, so that every client can get their own personal productive server with the best characteristics for only 1.99 euro!', quoted; the page also lists the five restrictions quoted in the offer field and states the AMS-PROMO plan shuts down on RAM overrun while SWE-PROMO 'provides reserve resources'
+  - [7] 2026-10-22: 'When purchasing any plan (except promo), you can choose an hourly rental period.', quoted, which confirms the promo is monthly-only; and 'payment will be charged hourly, starting from the 60th minute from the moment of purchase'
+  - [8] 2026-10-22: 'With active auto-renewal, upon expiration of your service, Aeza will try to renew the service for a new period from your hosting balance.', quoted, so the renewal charge is the plan price taken from balance rather than a repriced invoice
+  - [9] 2026-10-22: 'to rent several virtual servers at once, it will be enough for you to top up your balance by 10 euros over the entire time ... the desired ability to rent 3 or more virtual servers per hour', quoted: a new account is rate-limited on hourly servers until it has funded EUR 10
+  - [10] 2026-10-22: 'To top up your balance, select the ["Finance"] section (https://my.aeza.net/finance), click "Top up", then select the deposit method CryptoBot USDT', quoted, a first-party top-up route that needs no card
+  - [4] 2026-10-22: the signup strings in the page payload: '"registration":{"email":"email","registered":"mail sent","register":"sign up","modal":{"title":"Confirm that you are not a robot"...}}'; and the standing new-user promotion '15% first topup cashback within 24 hours after registration', with the hover text 'cashback will only work when registrating into the current browser'
+  - [11] 2026-10-22: Wayback capture of 2026-04-12 of the knowledge-base page 'Free Test Server': 'we have found the perfect solution for each of them - a completely free, private, fast, and convenient virtual server, without registration, available in your browser from any device and at any time. We created Terminator - terminator.aeza.net', with 'select Windows OS and complete the captcha' or Linux (Debian 12) and the note 'the test server uses older hardware and has lower performance compared to the current virtual servers'
+  - [12] 2026-10-22: the same knowledge-base page is gone today: the origin returns HTTP 404 with an empty body for both /en/servers/terminator and /en/servers/terminator/, and no terminator URL appears in the wiki's 55-URL sitemap, so the free test server has been withdrawn from the documentation
+  - [13] 2026-10-22: the vendor's still-published 2024 results page lists 'Launched the free Terminator service' and '15-minute servers without registration for everyone', quoted, which is the only live first-party statement of the offer
+  - [14] 2026-10-22: 
+  - [15] 2026-10-22: 
+  - [1] 2026-10-24: quoted: 'WAWs-1 25 Gbit/s 1 Core 2 GB RAM 30 GB NVMe € 0.04 hour € 5.93 month'
+  - [1] 2026-10-24: quoted: 'Traffic ∞', 'IPv4 1 address', 'IPv6 48 subnet'
+  - [6] 2026-10-24: quoted: 'every client can get their own personal productive server with the best characteristics for only 1.99 euro', a promo plan that the price page does not list
+  - [16] 2026-10-24: Aeza Group appears on the OFAC SDN list with a listing date of 2025-07-01
+- sources:
+  - [1] https://aeza.net/en/virtual-servers
+  - [2] https://vpsindex.ru/provider/aeza
+  - [3] https://aeza.net/ru
+  - [4] https://aeza.net/virtual-servers
+  - [5] https://my.aeza.net/order/vps
+  - [6] https://wiki.aeza.net/en/servers/virtual/promo-info/
+  - [7] https://wiki.aeza.net/en/cabinet/hourly-servers/
+  - [8] https://wiki.aeza.net/en/cabinet/auto-prolong/
+  - [9] https://wiki.aeza.net/en/cabinet/limits/
+  - [10] https://wiki.aeza.net/en/cabinet/cryptobot/
+  - [11] https://web.archive.org/web/20260412164029/https://wiki.aeza.net/en/servers/terminator/
+  - [12] https://wiki.aeza.net/en/servers/terminator/
+  - [13] https://aeza.net/ny2025
+  - [14] https://terminator.aeza.net/
+  - [15] https://my.aeza.net/order/vps/441
+  - [16] https://ofac.treasury.gov/sanctions-list-search
+
+## Aéza
+
+- `compute/aeza-waws-1` | paid-only | evidence documented | binding per-ip-shaping | category VPS | tier WAWs-1 (Shared)
+- needs card yes, phone no, ID no, institution no | verified 2026-11-06T17:20:15.328Z (live) | stale on 2026-12-07
+- url https://aeza.net/en/virtual-servers
+- price parsed USD 6.64/mo
+- free tier: no free tier; the entry shared plan is 'WAWs-1 ... EUR 5.93 month' | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the plan is paid; the plan is billed hourly or monthly
+- egress: 'Traffic ∞' and 'Network Up to 25 Gbps' on every plan | metered: no | free allowance: unlimited | source: [1]
+- identity: card | detail: an account is required before the order page renders: it answers a login page titled Personal Account. The accepted payment rails and any card hold are unverified: behind a sign-up
+- interface: ssh, rest
+- limits:
+  - per-ip-shaping (binding): shared CPU: 'Processor time is distributed between virtual machines' [1]
+- binding note: traffic is unlimited and the port is 25 Gbit/s, so the shared CPU allocation is the only thing that can throttle; the price still puts the row out of evaluated offerings.
+- interface detail: root SSH, the my.aeza.net panel, and an API
+- tooling: any SSH client; the vendor's API
+- composes with: a high-port, unlimited-traffic 2 GiB box in Europe; the cheapest unlimited-traffic row with a modern CPU, but 2 GiB is the ceiling at this price
+- reliability: no reliability event observed; the vendor's wiki describes a separate class of 'promo plans' aimed at new customers, which are not listed on this page.
+- notes: EUR 5.93 is USD 6.64, so even the smallest Aéza plan misses the line, and 4 GB is EUR 11.87. The row is documented because unlimited traffic on a 25 Gbit/s port with one IPv4 and a /48 of IPv6 is the most generous network term in evaluated offerings. Aéza's wiki advertises separate 'promo plans' for new customers; they were not listed on this page and are the one place a sub-USD-5 Aéza shape could hide.
+- evidence note: shapes and the hourly, monthly, quarterly, half-yearly and yearly prices of all five shared plans are quoted from the plan data the page renders; the order page sits behind an account, so stock and the payment rails are unverified
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 2
+  - shape.disk_gib: 30
+  - billing_model: hourly or monthly
+  - term: hourly, monthly, 3, 6 and 12 months; the plan data prices a quarter-year, half-year and year
+  - m10h_usd: 2.67
+  - m24h_usd: 6.64
+  - price_arithmetic: EUR 5.93/month x 1.1193 = USD 6.64/month; hourly EUR 0.04 x 730 = EUR 29.20, so the monthly cap is far cheaper and binds
+  - out_of_pocket_usd: 6.64
+  - renewal_usd: not published: the plan data carries one base price per term and an empty first-price block, and no renewal sentence is printed; read at https://aeza.net/en/virtual-servers
+  - renewal_note: the plan data prices WAWs-1 at 593 cents a month, 1691 a quarter, 3238 a half year and 6263 a year, with no separate first-term price and no renewal sentence; the visible card prints only the monthly rate and the hourly rate of EUR 0.04
+  - promo: no
+  - over_line: yes
+  - fx.pair: EUR/USD
+  - fx.rate: 1.1193
+  - fx.date: 2026-10-23
+  - port_mbps: 25000
+  - ipv4_included: yes
+  - ipv6: /48
+  - locations: Warsaw, Moscow, Frankfurt, Paris, Amsterdam, Charlotte, Stockholm, Vienna, London, Helsinki, Saint-Petersburg
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - monthly_usd: 6.64
+  - annual_usd: 70.1
+  - stock: unverified: the page's plan data carries 'isAvailable': false for all five shared plans, and the order page answers a login page titled Personal Account, so whether WAWs-1 can be ordered is not established
+  - cart_url: https://my.aeza.net/order/vps/441
+  - price_on_page: EUR 5.93/mo and EUR 0.04/h for WAWs-1
+- evidence:
+  - [1] 2026-10-24: quoted: 'WAWs-1 25 Gbit/s 1 Core 2 GB RAM 30 GB NVMe EUR 0.04 hour EUR 5.93 month'
+  - [1] 2026-10-24: quoted: 'WAWs-2 2 Core 4 GB RAM 60 GB NVMe EUR 0.07 hour EUR 11.87 month' and 'WAWs-3 4 Core 8 GB RAM 120 GB NVMe EUR 23.73'
+  - [1] 2026-10-24: quoted: 'Traffic ∞', 'Network Up to 25 Gbps', 'IPv4 1 address', 'IPv6 48 subnet', 'CPU AMD Ryzen 9 9950X'
+  - [1] 2026-11-06: the WAWs-1 card prints EUR 5.93 a month | capture: sha256:6166f1c3544db1d1e8c5cf8021cd7e6dfd6e2441c0ce123c1a2ae45361317dab | quote: € 5.93
+  - [1] 2026-11-06: the plan data prices WAWs-1 at 6263 cents a year, 593 a month, 3238 for a half year and 1691 for a quarter | capture: sha256:6166f1c3544db1d1e8c5cf8021cd7e6dfd6e2441c0ce123c1a2ae45361317dab | quote: "rawPrices":{"hour":4,"year":6263,"month":593,"half_year":3238,"quarter_year":1691}
+  - [1] 2026-11-06: no separate first-term price is set, so the listed rates are the base rates | capture: sha256:6166f1c3544db1d1e8c5cf8021cd7e6dfd6e2441c0ce123c1a2ae45361317dab | quote: "firstPrices":{}
+  - [1] 2026-11-06: the base prices cover quarter, half year and year, and the first-price block is empty | capture: sha256:6166f1c3544db1d1e8c5cf8021cd7e6dfd6e2441c0ce123c1a2ae45361317dab | quote: "prices":{"base":{"hour":4,"year":6263,"month":593,"half_year":3238,"quarter_year":1691},"first":{}}
+  - [1] 2026-11-06: the plan list sells 3, 6 and 12-month terms beside the hourly and monthly rates | capture: sha256:6166f1c3544db1d1e8c5cf8021cd7e6dfd6e2441c0ce123c1a2ae45361317dab | quote: from 6 months
+  - [1] 2026-11-06: the plan data marks the shared plans unavailable | capture: sha256:6166f1c3544db1d1e8c5cf8021cd7e6dfd6e2441c0ce123c1a2ae45361317dab | quote: "isAvailable":false
+  - [1] 2026-11-06: the WAWs-1 card links this order URL | capture: sha256:6166f1c3544db1d1e8c5cf8021cd7e6dfd6e2441c0ce123c1a2ae45361317dab | quote: https://my.aeza.net/order/vps/441
+  - [1] 2026-11-06: the WAWs-1 card prints EUR 0.04 an hour beside EUR 5.93 a month | capture: sha256:6166f1c3544db1d1e8c5cf8021cd7e6dfd6e2441c0ce123c1a2ae45361317dab | quote: € 0.04
+  - [2] 2026-11-06: the order page answers a login page | capture: sha256:cadfeacc66d8a1e0d4f846358e15e9e98c5fed68b2b2b165323e4cda99496d31 | quote: Personal Account
+  - [1] 2026-11-06: the plan data carries all four term prices for WAWs-1 | capture: sha256:6166f1c3544db1d1e8c5cf8021cd7e6dfd6e2441c0ce123c1a2ae45361317dab | quote: "rawPrices":{"hour":4,"year":6263,"month":593,"half_year":3238,"quarter_year":1691}
+  - [1] 2026-11-06: the entry shared plan is still EUR 5.93 a month | capture: sha256:6166f1c3544db1d1e8c5cf8021cd7e6dfd6e2441c0ce123c1a2ae45361317dab | quote: € 5.93
+- sources:
+  - [1] https://aeza.net/en/virtual-servers
+  - [2] https://my.aeza.net/order/vps/441

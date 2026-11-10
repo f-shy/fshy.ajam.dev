@@ -1,0 +1,85 @@
+# Fastmail
+
+> fastmail.com | Email; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/fastmail/ | JSON https://fshy.ajam.dev/api/v1/entity/fastmail.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Fastmail
+
+- `email/fastmail` | paid-only | evidence documented | binding request-rate | category custom-domain email hosting | tier Individual
+- needs card yes, phone unknown, ID no, institution no | verified 2026-11-04T05:33:22.974Z (live) | stale on 2026-12-05
+- url https://www.fastmail.com/pricing/us/
+- free tier: no free plan: a free trial of up to 30 days with no card, capped at 120 sent messages per day; the cheapest plan with custom domains and IMAP is Individual at $5 per month, billed as $60 for 12 months | unit: none | metered on: none | read on: 2026-10-31 | source: [1] | note: Individual is $6 month to month, $114 for 24 months or $168 for 36 months. Duo is $96 for 12 months for two users and Family $132 for 12 months for up to six. Basic ($36 for 12 months, 6 GB) allows no custom domains and includes no IMAP or SMTP.
+- per-object cap: 70 MB per message sent or received, which usually means an attachment of no more than 50 MB | source: [2]
+- retention: 50 GB for mail, calendar and contacts plus 10 GB of file storage on Individual; mail over quota is soft-bounced, then hard-bounced after a week; an unpaid trial loses sending and receiving, then is disabled and deleted | source: [2]
+- egress: not applicable: a mailbox; sending is capped at 8,000 messages and 2 GB per day per user on Individual, and at 120 messages per day on a trial | metered: yes | free allowance: 120 sent messages per day on a trial account | source: [2]
+- identity: card | detail: the trial asks for a name, a new address on a Fastmail domain or an own domain, and a password, with no card, and may ask for a mobile phone number for an SMS code; a trial user not verified by SMS cannot read mail over IMAP or POP. The paid plan accepts credit and debit cards, PayPal, Apple Pay and Google Pay, and no cash or bank transfer.
+- interface: unknown, webdav
+- limits:
+  - request-rate (binding): 8,000 messages and 2 GB sent per day per user on Individual; the hourly limit is half the daily and the 10-minute limit half the hourly [2]
+  - request-rate (binding): 120 messages sent per day on a trial account [3]
+  - volume-quota: 50 GB of mail storage and 10 GB of file storage per user on Individual [2]
+  - per-object-cap: 70 MB per message [2]
+  - write-gated: a trial user not verified by SMS cannot download mail over IMAP or POP [3]
+- binding note: on a trial the 120 messages per day bind first; on Individual the 8,000 per day is the first stated ceiling, and storage of 50 GB rarely binds before it.
+- interface detail: IMAP at imap.fastmail.com (993), POP at pop.fastmail.com and SMTP at smtp.fastmail.com (465, or 587 with STARTTLS), all with an app password and TLS only; WebDAV file access at https://webdav.fastmail.com/; CalDAV and CardDAV. Basic plans include no IMAP, SMTP, CalDAV or CardDAV
+- endpoint: https://api.fastmail.com/jmap/session
+- tooling: any IMAP, POP or SMTP client with an app password; JMAP over HTTP and JSON with an API token; any WebDAV client for files
+- composes with: a full mailbox with custom domains, IMAP, WebDAV files and 8,000 sends per day at $60 a year; the price buys 50 GB and send volume rather than a low entry cost.
+- reliability: accounts found sending duplicative email are closed permanently; an unpaid trial loses sending and receiving, then is disabled and deleted
+- notes: No free custom-domain mailbox. The cheapest plan with custom domains is Individual at $60 for 12 months; Basic is cheaper at $36 for 12 months but has neither custom domains nor IMAP and SMTP.
+- evidence note: prices and limits read from the vendor pages; imap.fastmail.com:993 accepted a TCP connection and smtp.fastmail.com:587 answered with an ESMTP banner; no login or send was made
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [1] 2026-10-31: Individual is $6 month to month or $5 per month as $60 for 12 months | capture: sha256:21de850f4617846e544d31b4bc84d78f828688b2fd13f4d5403681e57cb35adb | quote: ## Individual 1 Premium email, contacts, and calendars, just for you. $6 per month Pay yearly and save $12 $5 per month $60 for 12 months
+  - [1] 2026-10-31: Individual costs $114 for 24 months | capture: sha256:21de850f4617846e544d31b4bc84d78f828688b2fd13f4d5403681e57cb35adb | quote: $114 for 24 months
+  - [1] 2026-10-31: Individual costs $168 for 36 months | capture: sha256:21de850f4617846e544d31b4bc84d78f828688b2fd13f4d5403681e57cb35adb | quote: $168 for 36 months
+  - [1] 2026-10-31: Individual has 50 GB for mail and 10 GB for files | capture: sha256:21de850f4617846e544d31b4bc84d78f828688b2fd13f4d5403681e57cb35adb | quote: 60 GB total storage (Add more if needed) 50 GB for mail, calendar and contacts, and 10 GB for file storage.
+  - [1] 2026-10-31: the personal plans allow custom domains | capture: sha256:21de850f4617846e544d31b4bc84d78f828688b2fd13f4d5403681e57cb35adb | quote: Use your own domains to make custom addresses
+  - [1] 2026-10-31: a free trial lasts up to 30 days | capture: sha256:21de850f4617846e544d31b4bc84d78f828688b2fd13f4d5403681e57cb35adb | quote: Try free for up to 30 days
+  - [1] 2026-10-31: Duo costs $96 for 12 months | capture: sha256:21de850f4617846e544d31b4bc84d78f828688b2fd13f4d5403681e57cb35adb | quote: $96 for 12 months
+  - [1] 2026-10-31: Family costs $132 for 12 months | capture: sha256:21de850f4617846e544d31b4bc84d78f828688b2fd13f4d5403681e57cb35adb | quote: $132 for 12 months
+  - [1] 2026-10-31: Basic costs $36 for 12 months | capture: sha256:21de850f4617846e544d31b4bc84d78f828688b2fd13f4d5403681e57cb35adb | quote: $36 for 12 months
+  - [1] 2026-10-31: payment is by card, PayPal, Apple Pay or Google Pay | capture: sha256:21de850f4617846e544d31b4bc84d78f828688b2fd13f4d5403681e57cb35adb | quote: We currently accept most major credit and debit cards, plus PayPal, Apple Pay, and Google Pay. We are unable to accept cash, cheques, bank transfers, or money orders.
+  - [2] 2026-10-30: Individual sends 8,000 messages per day per user, Basic 4,000 | capture: sha256:f95ec1455ff3571ee169a9b679fc3cd09bf7881cfd5ed69b454d06f3f72423d1 | quote: | Number of messages sent | 4,000 | 8,000 | 8,000 | 8,000 |
+  - [2] 2026-10-30: Individual sends 2 GB per day | capture: sha256:f95ec1455ff3571ee169a9b679fc3cd09bf7881cfd5ed69b454d06f3f72423d1 | quote: | Total size of messages sent | 1 GB | 2 GB | 2 GB / user | 2 GB / user |
+  - [2] 2026-10-30: Individual has 50 GB of mail storage | capture: sha256:f95ec1455ff3571ee169a9b679fc3cd09bf7881cfd5ed69b454d06f3f72423d1 | quote: | Mail storage | 5 GB | 50 GB | 50 GB / user | 50 GB / user |
+  - [2] 2026-10-30: Basic allows no domains; other plans 100 plus 1 per user | capture: sha256:f95ec1455ff3571ee169a9b679fc3cd09bf7881cfd5ed69b454d06f3f72423d1 | quote: | Number of [domains](https://www.fastmail.help/hc/en-us/articles/360058753394) | None | 100, plus 1 for every user in the account | |
+  - [2] 2026-10-30: a trial sends at most 120 messages per day | capture: sha256:f95ec1455ff3571ee169a9b679fc3cd09bf7881cfd5ed69b454d06f3f72423d1 | quote: All trial accounts are limited to sending a maximum of 120 messages per day to prevent abuse.
+  - [2] 2026-10-30: a message is capped at 70 MB | capture: sha256:f95ec1455ff3571ee169a9b679fc3cd09bf7881cfd5ed69b454d06f3f72423d1 | quote: You may send any kind of attachment, as long as the resulting email is under 70 MB in total size.
+  - [2] 2026-10-30: a week over quota turns soft bounces into hard bounces | capture: sha256:f95ec1455ff3571ee169a9b679fc3cd09bf7881cfd5ed69b454d06f3f72423d1 | quote: If your account remains over storage quota for a week, we will change to returning `5xx` permanent error messages.
+  - [2] 2026-10-30: hourly and 10-minute send limits are half the next longer one | capture: sha256:f95ec1455ff3571ee169a9b679fc3cd09bf7881cfd5ed69b454d06f3f72423d1 | quote: There is an hourly limit for each of these quotas which is half the daily limit, and a 10-minute limit which is half the hourly limit.
+  - [2] 2026-10-30: accounts sending duplicative email are closed | capture: sha256:f95ec1455ff3571ee169a9b679fc3cd09bf7881cfd5ed69b454d06f3f72423d1
+  - [4] 2026-10-30: Basic has no IMAP or SMTP | capture: sha256:7b20a228277c21ea2c8002b3b95ab0eca3fd1d38090555a39ed804958d3b5695 | quote: Note: Basic plans do not include access to IMAP, SMTP, CalDAV, or CardDAV.
+  - [4] 2026-10-30: IMAP is at imap.fastmail.com | capture: sha256:7b20a228277c21ea2c8002b3b95ab0eca3fd1d38090555a39ed804958d3b5695 | quote: | Server | `imap.fastmail.com` |
+  - [4] 2026-10-30: POP is at pop.fastmail.com | capture: sha256:7b20a228277c21ea2c8002b3b95ab0eca3fd1d38090555a39ed804958d3b5695 | quote: | Server | `pop.fastmail.com` |
+  - [4] 2026-10-30: SMTP is at smtp.fastmail.com | capture: sha256:7b20a228277c21ea2c8002b3b95ab0eca3fd1d38090555a39ed804958d3b5695 | quote: | Server | `smtp.fastmail.com` |
+  - [4] 2026-10-30: every protocol requires SSL/TLS | capture: sha256:7b20a228277c21ea2c8002b3b95ab0eca3fd1d38090555a39ed804958d3b5695 | quote: You must use SSL/TLS with all of the protocols; we do not support insecure access.
+  - [4] 2026-10-30: SMTP also accepts STARTTLS on port 587 | capture: sha256:7b20a228277c21ea2c8002b3b95ab0eca3fd1d38090555a39ed804958d3b5695 | quote: If your client supports STARTTLS only, you can use port `587` with STARTTLS enabled.
+  - [4] 2026-10-30: files are reachable over WebDAV at webdav.fastmail.com | capture: sha256:7b20a228277c21ea2c8002b3b95ab0eca3fd1d38090555a39ed804958d3b5695 | quote: | Server | `https://webdav.fastmail.com/` |
+  - [4] 2026-10-30: protocol access needs an app password | capture: sha256:7b20a228277c21ea2c8002b3b95ab0eca3fd1d38090555a39ed804958d3b5695 | quote: You will need to get an [app password](https://www.fastmail.help/hc/en-us/articles/360058752854) to connect to these servers.
+  - [3] 2026-10-30: the trial needs no card | capture: sha256:b1acf536a6bdb14ffd63f42d8b95e1759d830342c6fb7588cf5d7a04bb48dbdf | quote: No credit card is required to sign up for a trial account.
+  - [3] 2026-10-30: the trial may ask for a mobile phone for an SMS code | capture: sha256:b1acf536a6bdb14ffd63f42d8b95e1759d830342c6fb7588cf5d7a04bb48dbdf | quote: In order to prevent trial accounts from being abused for the purposes of spam, we may ask for your mobile phone number so we can send a verification code via SMS.
+  - [3] 2026-10-30: IMAP and POP on a trial need SMS verification | capture: sha256:b1acf536a6bdb14ffd63f42d8b95e1759d830342c6fb7588cf5d7a04bb48dbdf | quote: Users who have not verified their account via SMS cannot download their emails via IMAP or POP.
+  - [3] 2026-10-30: an unpaid trial stops sending and receiving | capture: sha256:b1acf536a6bdb14ffd63f42d8b95e1759d830342c6fb7588cf5d7a04bb48dbdf | quote: Trial accounts lose their ability to send and receive mail if they are [not paid for](https://www.fastmail.help/hc/en-us/articles/1500000279581) at the end of the trial period.
+  - [3] 2026-10-30: an unpaid trial is disabled and then deleted | capture: sha256:b1acf536a6bdb14ffd63f42d8b95e1759d830342c6fb7588cf5d7a04bb48dbdf | quote: Shortly after, the account is disabled and eventually deleted.
+  - [5] 2026-10-30: the signup form takes no card | capture: sha256:c615dbe62a7d12bc667a78069d91a91d7c327eaacce1ead6352c60793ba0042b | quote: Try Fastmail free for up to 30 days. No obligation, no credit card required.
+  - [5] 2026-10-30: the signup form asks for a new address, besides a name and a password | capture: sha256:c615dbe62a7d12bc667a78069d91a91d7c327eaacce1ead6352c60793ba0042b | quote: Choose your email address
+  - probe:smtp.fastmail.com:587 2026-10-30: smtp.fastmail.com:587 answered with an ESMTP banner | capture: sha256:22155dab222b188a4f327424fb88e44f1ecc838cd3d8bc861146ddd95ec04fe1 | quote: 220 smtp.fastmail.com ESMTP ready
+  - probe:imap.fastmail.com:993 2026-10-30: imap.fastmail.com:993 accepted a TCP connection | capture: sha256:22155dab222b188a4f327424fb88e44f1ecc838cd3d8bc861146ddd95ec04fe1 | quote: "host": "imap.fastmail.com", "port": 993, "ok": true
+  - [6] 2026-11-02: Fastmail mail is reached over JMAP, IMAP or POP and sent over JMAP or SMTP | capture: sha256:d4cffabe4f3df1004667c3abd891f1e283cdd1534e2e6d26286e4de2697ff7e5 | quote: Mail — you can access mail via JMAP, IMAP, or POP and send via JMAP or SMTP.
+  - [6] 2026-11-02: the JMAP session resource is at https://api.fastmail.com/jmap/session | capture: sha256:d4cffabe4f3df1004667c3abd891f1e283cdd1534e2e6d26286e4de2697ff7e5 | quote: The JMAP session resource can be found at `https://api.fastmail.com/jmap/session`.
+  - [6] 2026-11-02: the JMAP API authenticates with an API token | capture: sha256:d4cffabe4f3df1004667c3abd891f1e283cdd1534e2e6d26286e4de2697ff7e5 | quote: To authenticate, you’ll need an API token, as discussed above.
+  - [6] 2026-11-02: the JMAP API runs over HTTP and JSON | capture: sha256:d4cffabe4f3df1004667c3abd891f1e283cdd1534e2e6d26286e4de2697ff7e5 | quote: Like most modern APIs, JMAP uses HTTP and JSON so it’s easy to implement in just about any language.
+  - [6] 2026-11-02: the developer page still documents JMAP, IMAP, POP and SMTP access to mail | capture: sha256:d4cffabe4f3df1004667c3abd891f1e283cdd1534e2e6d26286e4de2697ff7e5 | quote: Mail — you can access mail via JMAP, IMAP, or POP and send via JMAP or SMTP.
+  - [1] 2026-11-04: Individual is still $60 for 12 months | capture: sha256:21de850f4617846e544d31b4bc84d78f828688b2fd13f4d5403681e57cb35adb | quote: ## Individual 1 Premium email, contacts, and calendars, just for you. $6 per month Pay yearly and save $12 $5 per month $60 for 12 months
+  - [1] 2026-11-04: Individual still has 50 GB mail and 10 GB file storage | capture: sha256:21de850f4617846e544d31b4bc84d78f828688b2fd13f4d5403681e57cb35adb | quote: 60 GB total storage (Add more if needed) 50 GB for mail, calendar and contacts, and 10 GB for file storage.
+  - probe:imap.fastmail.com:993 2026-11-04: imap.fastmail.com:993 accepted a TCP connection on 2026-11-04 | capture: sha256:8d307673fda6b863808c18f726fd5821ce990059c185ac25a875f51121740c41 | quote: "port": 993
+- sources:
+  - [1] https://www.fastmail.com/pricing/us/
+  - [2] https://www.fastmail.help/hc/en-us/articles/1500000277382-Account-limits
+  - [3] https://www.fastmail.help/hc/en-us/articles/1500000277442-Trial-accounts
+  - [4] https://www.fastmail.help/hc/en-us/articles/1500000278342-Server-names-and-ports
+  - [5] https://app.fastmail.com/signup/
+  - [6] https://www.fastmail.com/dev/

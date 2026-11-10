@@ -1,0 +1,141 @@
+# Microsoft Azure
+
+> azure.com | Compute; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/azure/ | JSON https://fshy.ajam.dev/api/v1/entity/azure.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Microsoft Azure Spot
+
+- `compute/microsoft-azure-spot` | qualifies | evidence inferred | binding none | category GPU cloud
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-02T02:17:36.635Z (live) | stale on 2026-12-03
+- url https://prices.azure.com/api/retail/prices
+- free tier: The answer to the ten-minute-checkpoint question, computed from published inputs rather than measured. Take a checkpoint interval of 10 minutes, so the expected work lost per preemption is 5 minutes. With a preemption rate of 2.3 per cent an hour, the overhead is 0.19 per cent and the effective A100 80 GiB rate is USD 0.680 an hour. At 4.1 per cent an hour the overhead is 0.34 per cent and the rate is USD 0.681. Even at AWS's reported 17.5 per cent an hour for p4d, the overhead is 1.46 per cent, which raises USD 5.7337 to USD 5.8173. Survival of a one-hour run is 97.7 per cent at 2.3 per cent an hour, 96.0 per cent at 4.1 per cent, and 83.9 per cent at 17.5 per cent; over ten hours the same three are 79.5, 66.4 and 17.4 per cent. | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: card | detail: a phone number, a credit or debit card that is not prepaid, and a Microsoft account or a GitHub account. 'We don't charge your credit card or debit card anything when you sign up for Azure, but you may see a one-dollar (or equivalent) verification hold'; the hold 'is removed within three to five days'. The offer page adds 'Your card will not be charged initially except for a temporary authorization hold', and 'We do not accept prepaid or virtual credit cards'.
+- interface: unknown
+- limits note: Checkpointing every ten minutes makes preemption overhead a rounding error on every lane measured, so the discount is real rather than eaten by restarts; what breaks a run is the absence of a resume path, not the interruption rate.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: This closes the loop between the discount and the checkpoint: a 10-minute checkpoint turns a 5.41 times discount into a 5.40 times discount, so the interruption risk costs almost nothing and the rate is the whole finding.
+- reliability: no reliability event recorded
+- notes: No provider publishes a run-survival figure. Azure publishes a per-hour eviction probability per SKU and region through Resource Graph over 28 trailing days, and GCP publishes a preemption rate through advice.capacityHistory, but neither is a survival curve and the two are not the same statistic: GCP divides preempted VMs by VMs that stopped running, which counts user-caused stops in the denominator and so understates the rate a long job experiences. GCP also publishes an estimated uptime in three buckets only (60 minutes, 10 minutes, 1 minute) from advice.capacity, which is the closest thing to a published survival figure and is coarse. The numbers above use third-party rates as the probability input, so the finding is inferred, not measured. qualifies-with-caveat via a05-spot; fails-identity via a05-spot; qualifies-with-caveat via a05-spot. The one recorded is the better-evidenced.
+- extras:
+  - facets.class: spot-arbitrage
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 24
+  - facets.shape.ram_gib: 220
+  - facets.shape.gpu_class: A100-80GiB
+  - facets.shape.gpu_count: 1
+  - payment_methods.card_at_signup: yes
+  - payment_methods.debit: accepted
+  - payment_methods.prepaid: refused
+  - payment_methods.virtual: refused
+  - payment_methods.hold_amount: USD 1 (or equivalent)
+  - payment_methods.hold_detail: 'a one-dollar (or equivalent) temporary authorization charge may be placed on your card and then removed upon verification'; 'The hold is temporary and will be removed', and 'This hold is removed within three to five days'. The offer page adds 'Your card will not be charged initially except for a temporary authorization hold', and 'We do not accept prepaid or virtual credit cards.'
+  - payment_methods.identity: a phone number, a non-prepaid credit or debit card, and a Microsoft or GitHub account
+  - payment_methods.source_url: https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account
+  - payment_methods.read_on: 2026-11-02
+- evidence:
+  - [1] 2026-10-22: the A100 80 GiB spot and on-demand rates used as the price inputs: 0.67877 and 3.673 in eastus
+  - [2] 2026-10-22: a third-party analysis of 10 million spot instance hours reports A100 at 2.3 per cent hourly interruption, V100 at 0.8 per cent, H100 at 4.1 per cent, weekend rates 40 per cent lower, and us-east-1 3x higher than us-west-2
+  - [3] 2026-10-22: the vendor defines its eviction rate as a per-hour probability, which is the rate the overhead formula needs, quoted
+  - [1] 2026-10-22: a query for armSkuName eq 'Standard_NC24ads_A100_v4' with priceType Consumption and productName containing Linux returns 78 rows; eastus Spot is 0.67877 and eastus on-demand is 3.673, both unitOfMeasure '1 Hour'
+  - [1] 2026-10-22: the same 78-row set shows Spot at 0.67877 in eastus, eastus2, westus2 and westus3, and at 1.357541 in brazilsouth, so the discount is regional rather than flat
+  - [4] 2026-10-22: NC_A100_v4 starts with 'a default of zero cores', quoted
+  - [1] 2026-10-22: filter armRegionName eq 'eastus' and armSkuName eq 'Standard_NC24ads_A100_v4' returns meterName 'NC24ads_A100_v4 Spot' Linux at 0.67877 and the same SKU on-demand at 3.673, both unitOfMeasure '1 Hour'
+  - [1] 2026-10-22: the same query returns 'NV6ads A10 v5 Spot' Linux at 0.083899 against on-demand 0.454, and 'NC4as T4 v3 Spot' Linux at 0.149174 against on-demand 0.526
+  - [3] 2026-10-22: supported offer types are Enterprise Agreement, pay-as-you-go 003P, and Sponsored 0036P and 0136P, quoted
+  - [4] 2026-10-22: 'Specialized VM families like NCasT4_v3, NC_A100_v4, or NDv2 series start with a default of zero cores. GPUs also default to zero cores', quoted
+  - [3] 2026-10-22: Spot supports only Enterprise Agreement, pay-as-you-go 003P and Sponsored offer types, quoted
+  - [5] 2026-10-22: the free account gives USD 200 of credit usable within the first 30 days, and the account must be upgraded to pay-as-you-go to continue, quoted
+  - [3] 2026-10-22: eviction happens 'with 30-seconds notice', scheduled-event delivery is 'best effort', and the eviction rate is quoted as a probability per hour, quoted
+  - [3] 2026-10-22: pricing history for 90 days and eviction rates for 28 trailing days are queryable through Azure Resource Graph in the SpotResources table, with a sample KQL query
+  - [6] 2026-11-02: the signup hold is USD 1 or the local equivalent and is removed on verification | capture: sha256:13afa84fbe53f911296fa20915e4949a8c610aa3a56be64ebb351a753d2af7a6 | quote: During the signup verification process, a one-dollar (or equivalent) temporary authorization charge may be placed on your card and then removed upon verification.
+  - [6] 2026-11-02: signup places a verification hold and no charge | capture: sha256:13afa84fbe53f911296fa20915e4949a8c610aa3a56be64ebb351a753d2af7a6 | quote: We don't charge your credit card or debit card anything when you sign up for Azure, but you may see a one-dollar (or equivalent) verification hold on your credit card or debit card account.
+  - [7] 2026-11-02: debit and credit cards are accepted; prepaid and virtual cards are refused | capture: sha256:3e9ff04eb42253f2c897b4fda500ffd2171265f1d0db788cfa337d5973b642e4 | quote: Both debit card and credit cards are accepted. We do not accept prepaid or virtual credit cards.
+  - [8] 2026-11-02: prepaid and stored-value cards are not valid payment instruments | capture: sha256:838087dbc2fd6cb7951e2b1e5de115443a4eb2d0e9a2dbd776e6bb91a47a3f02 | quote: Prepaid cards (aka stored value cards, Visa gift cards, MasterCard gift cards, etc.) are not accepted as valid payment instruments.
+  - [9] 2026-11-02: the hold is removed within three to five days | capture: sha256:5f7503baf33fdce6b37b81eaea6f06ec6e969b077016fffeeee4a612f20fac81 | quote: You might see a small, temporary verification hold on your credit card account after you sign up. This hold is removed within three to five days.
+  - [7] 2026-11-02: nothing is charged at signup except the temporary authorisation | capture: sha256:3e9ff04eb42253f2c897b4fda500ffd2171265f1d0db788cfa337d5973b642e4 | quote: Your card will not be charged initially except for a temporary authorization hold.
+- sources:
+  - [1] https://prices.azure.com/api/retail/prices
+  - [2] https://introl.com/blog/spot-instances-preemptible-gpus-cutting-ai-costs-70-percent
+  - [3] https://learn.microsoft.com/en-us/azure/virtual-machines/spot-vms
+  - [4] https://learn.microsoft.com/en-us/azure/machine-learning/how-to-manage-quotas
+  - [5] https://azure.microsoft.com/en-us/pricing/offers/ms-azr-0017g
+  - [6] https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account
+  - [7] https://azure.microsoft.com/en-au/pricing/offers/ms-azr-0017g
+  - [8] https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/supported-payment-methods
+  - [9] https://learn.microsoft.com/en-us/azure/cost-management-billing/troubleshoot-subscription/troubleshoot-azure-sign-up
+
+## Microsoft Azure GPU VMs
+
+- `compute/azure-gpu` | qualifies-with-caveat | evidence documented | binding volume-quota | category GPU cloud
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-06T17:18:19.274Z (live) | stale on 2026-12-07
+- url https://prices.azure.com/api/retail/prices
+- free tier: USD 200 of Azure credit for 30 days on a new account; the monthly 750-hour allowance names B1s, B2pts v2 and B2ats v2, all burstable CPU sizes, so a GPU VM is paid from the credit. At the East US on-demand rate that is 54.45 A100 80 GB card-hours (USD 200 / USD 3.673) or 18.08 H100 80 GB card-hours (USD 200 / USD 11.061). No GPU size carries a free hour. | unit: credits | metered on: wall-clock | read on: 2026-11-06 | source: [1] | note: the credit is stated on the free-account page and the 750-hour allowance names CPU sizes only
+- per-object cap: not stated | source: [2]
+- retention: not stated | source: [2]
+- egress: not published | metered: no | source: [2]
+- identity: card | detail: A phone number, a credit card or a debit card (non-prepaid) and a Microsoft account or a GitHub account are all required, and the vendor states the phone and the card are used for identity verification. The free account is available in the 140 countries and regions the vendor lists and the offer is not available in a country that is not on it; only credit cards are accepted in Hong Kong and Brazil.
+- interface: unknown
+- limits:
+  - volume-quota (binding): Azure GPU sizes bill per hour of wall clock at the published retail rate and carry no free hour; the free account's monthly 750 hours name B1s, B2pts v2 and B2ats v2, so a GPU VM runs on the USD 200 credit [2]
+- limits note: the only limit is the USD 200 credit: no session cap, no idle-reap and no concurrency cap is stated for a GPU VM
+- binding note: the USD 200 credit binds twice over: it is spent at the first GPU hour and it expires 30 days after signup, and no GPU size carries a free hour that would outlast either.
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: Per-card hourly rates from the retail feed, East US, Linux, on demand: H100 80 GB USD 11.061 on Standard_ND96is_H100_v5 (USD 88.488 for the eight-GPU size), H100 NVL 94 GB USD 6.98 on Standard_NC40ads_H100_v5 (one card), A100 80 GB USD 3.673 on Standard_NC24ads_A100_v4 (one card). L40S, RTX 4090 and L4: not listed; no NC, NV or ND GPU-series SKU in the whole feed has a name containing L4, and the L4-named rows are Lsv storage VMs.
+- evidence note: the per-card rates divide the retail feed's hourly size price by the GPU count on the vendor's size page, and the free allowance is stated on the vendor's free-account page; both are first-party captures dated 2026-11-06
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - shape.gpu_class: varies by series
+  - shape.note: the retail API is the price source; there is no free GPU row
+  - session_cap.restart_required: no
+  - session_cap.note: no free GPU allowance; a GPU VM bills until deallocated
+  - free_tier_kind: one-time-credit
+- evidence:
+  - [2] 2026-10-02: 
+  - [2] 2026-10-22: the Azure retail-prices API was read on 2026-10-22 and returns JSON price records rather than a page; the free-tier position for a GPU is unchanged and is set by the VM pages, which state that GPU series carry no free allowance
+  - [3] 2026-11-02: the free account needs a phone number, a credit or debit card and a Microsoft or GitHub account, so the card is the strongest gate | capture: sha256:f1d70fff507d29dd9a1375ee033db2b5b2ac9fe30cb65fa34c2601393d095941 | quote: All you need is a phone number, a credit card or a debit card (non-prepaid), and a Microsoft account or a GitHub account.
+  - [3] 2026-11-02: the phone number and the card are used for identity verification of a real person, so both are required | capture: sha256:f1d70fff507d29dd9a1375ee033db2b5b2ac9fe30cb65fa34c2601393d095941 | quote: We use the phone number and credit card or debit card for identity verification to validate that account holders are real people and not bots.
+  - [3] 2026-11-02: a country that is not listed cannot take the offer | capture: sha256:f1d70fff507d29dd9a1375ee033db2b5b2ac9fe30cb65fa34c2601393d095941 | quote: If your country is not listed, the offer is not available in your region.
+  - [3] 2026-11-02: only credit cards are accepted in Hong Kong and Brazil | capture: sha256:f1d70fff507d29dd9a1375ee033db2b5b2ac9fe30cb65fa34c2601393d095941 | quote: Only credit cards are accepted in Hong Kong and Brazil.
+  - [3] 2026-11-02: the phone, the card and the Microsoft or GitHub account are the signup requirements | capture: sha256:f1d70fff507d29dd9a1375ee033db2b5b2ac9fe30cb65fa34c2601393d095941 | quote: All you need is a phone number, a credit card or a debit card (non-prepaid), and a Microsoft account or a GitHub account.
+  - [1] 2026-11-06: the free account carries a USD 200 credit, the only allowance a GPU VM can draw on | capture: sha256:905ed2c8165a8145de0bacfa59d4a0f757768f315ec0c99a2b20c6a5ec547736 | quote: #### $200 credit
+  - [1] 2026-11-06: the free account carries a USD 200 credit | capture: sha256:905ed2c8165a8145de0bacfa59d4a0f757768f315ec0c99a2b20c6a5ec547736 | quote: #### $200 credit
+  - [1] 2026-11-06: the credit and its 30-day life are stated on the free-account page | capture: sha256:905ed2c8165a8145de0bacfa59d4a0f757768f315ec0c99a2b20c6a5ec547736 | quote: You have up to 30 days to use your credit.
+  - [1] 2026-11-06: the monthly 750-hour allowance names three burstable CPU sizes and no GPU size | capture: sha256:905ed2c8165a8145de0bacfa59d4a0f757768f315ec0c99a2b20c6a5ec547736 | quote: 750 hours each of B1s, B2pts v2 (Arm-based), and B2ats v2 (AMD-based) burstable VMs
+  - [1] 2026-11-06: the allowance a GPU VM draws on is a USD 200 credit, a volume | capture: sha256:905ed2c8165a8145de0bacfa59d4a0f757768f315ec0c99a2b20c6a5ec547736 | quote: #### $200 credit
+  - [1] 2026-11-06: the credit is available for 30 days | capture: sha256:905ed2c8165a8145de0bacfa59d4a0f757768f315ec0c99a2b20c6a5ec547736 | quote: You have up to 30 days to use your credit.
+  - [1] 2026-11-06: the credit expires 30 days after signup | capture: sha256:905ed2c8165a8145de0bacfa59d4a0f757768f315ec0c99a2b20c6a5ec547736 | quote: You have up to 30 days to use your credit.
+  - https://prices.azure.com/api/retail/prices?$filter=armSkuName eq 'Standard_ND96is_H100_v5' and armRegionName eq 'eastus' and priceType eq 'Consumption' 2026-11-06: the eight-GPU ND96is H100 v5 size is USD 88.488 an hour in East US on demand | capture: sha256:48af1daa8dfd3ad9549d2597a134117bf161ae0d07a9bf95623070c3670451a5 | quote: "retailPrice":88.488,"unitPrice":88.488,"armRegionName":"eastus"
+  - [4] 2026-11-06: the ND96is size carries eight H100 GPUs, so its hourly price is a whole-node price | capture: sha256:9017494365238f3caf45eecac7ca4dfc6601a2749af01ae4c264c9a6c6042202 | quote: eight NVIDIA H100 Tensor Core GPUs
+  - [4] 2026-11-06: the ND96is size carries eight H100 GPUs, so the per-card rate is 88.488 / 8 | capture: sha256:9017494365238f3caf45eecac7ca4dfc6601a2749af01ae4c264c9a6c6042202 | quote: eight NVIDIA H100 Tensor Core GPUs
+  - https://prices.azure.com/api/retail/prices?$filter=armSkuName eq 'Standard_NC40ads_H100_v5' and armRegionName eq 'eastus' and priceType eq 'Consumption' 2026-11-06: the one-GPU NC40ads H100 v5 size is USD 6.98 an hour in East US on demand | capture: sha256:c51923619f37b4f798c1d709b9666722a51b4ee3d6fe4080d994164c51d69f34 | quote: "retailPrice":6.98,"unitPrice":6.98,"armRegionName":"eastus"
+  - [5] 2026-11-06: the NC40ads size carries one H100 NVL of 94 GB, so its hourly price is one card | capture: sha256:bd32196b9cdd790a625fea8c2e64fde8410880fc8686525774b6c3b7bbe867a3 | quote: | Standard\_NC40ads\_H100\_v5 | 1 | 94 |
+  - https://prices.azure.com/api/retail/prices?$filter=armSkuName eq 'Standard_NC24ads_A100_v4' and armRegionName eq 'eastus' and priceType eq 'Consumption' 2026-11-06: the one-GPU NC24ads A100 v4 size is USD 3.673 an hour in East US on demand | capture: sha256:20aa545b29b20bf054c38c3455ff3f5cfa1544be78fe846982579273f2b2d126 | quote: "retailPrice":3.673,"unitPrice":3.673,"armRegionName":"eastus"
+  - [6] 2026-11-06: the NC24ads size carries one A100 of 80 GB, so its hourly price is one card | capture: sha256:a3b58f6ddfc0f401207078ec13e6b2833e0470beba4edcd5e0da1a4b96b5b241 | quote: | Standard\_NC24ads\_A100\_v4 | 1 | 80 |
+  - [7] 2026-11-06: no row of the whole retail feed has an armSkuName containing L40, so no L40 or L40S is priced | capture: sha256:300cdf5645d72422f8f68dd88c96c6d0737727a39f653058fd27245c1c06cdbb | quote: "Items":[],"NextPageLink":null,"Count":0
+  - [8] 2026-11-06: no row of the whole retail feed has an armSkuName containing 4090 | capture: sha256:6f5c322a7c0517a38728769193e0fa8c70d4835f169ddcd459245cf36170d081 | quote: "Items":[],"NextPageLink":null,"Count":0
+  - [9] 2026-11-06: the L4-named rows are Lsv storage VMs, not an NVIDIA L4 GPU | capture: sha256:3bddd15a6e50a5e6fb2c13b33b0fd681919304023b6d90bea556a0b3f9b64c20 | quote: "skuName":"L4s","serviceName":"Virtual Machines"
+  - [1] 2026-11-06: the USD 200 credit and the CPU-only 750-hour allowance are unchanged | capture: sha256:905ed2c8165a8145de0bacfa59d4a0f757768f315ec0c99a2b20c6a5ec547736 | quote: #### $200 credit
+  - https://prices.azure.com/api/retail/prices?$filter=contains(armSkuName,'L4') and (contains(armSkuName,'NC') or contains(armSkuName,'NV') or contains(armSkuName,'ND')) 2026-11-06: no NC, NV or ND GPU-series SKU in the whole retail feed has a name containing L4 | capture: sha256:802501bb4171ff2d78971ec2cd101d4b39e8aa6f63d634dbcf795caa90c2a3a4 | quote: "Items":[],"NextPageLink":null,"Count":0
+  - [1] 2026-11-06: the free account carries a one-time USD 200 credit | capture: sha256:905ed2c8165a8145de0bacfa59d4a0f757768f315ec0c99a2b20c6a5ec547736 | quote: #### $200 credit
+  - [1] 2026-11-06: the credit is read from the free-account page on this date | capture: sha256:905ed2c8165a8145de0bacfa59d4a0f757768f315ec0c99a2b20c6a5ec547736 | quote: #### $200 credit
+  - [1] 2026-11-06: the allowance a GPU VM draws on is the USD 200 credit | capture: sha256:905ed2c8165a8145de0bacfa59d4a0f757768f315ec0c99a2b20c6a5ec547736 | quote: #### $200 credit
+- sources:
+  - [1] https://azure.microsoft.com/en-us/free/
+  - [2] https://prices.azure.com/api/retail/prices
+  - [3] https://azure.microsoft.com/en-us/free/free-account-faq/
+  - [4] https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/gpu-accelerated/ndh100v5-series
+  - [5] https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/gpu-accelerated/ncadsh100v5-series
+  - [6] https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/gpu-accelerated/nca100v4-series
+  - [7] https://prices.azure.com/api/retail/prices?$filter=contains(armSkuName,'L40')
+  - [8] https://prices.azure.com/api/retail/prices?$filter=contains(armSkuName,'4090')
+  - [9] https://prices.azure.com/api/retail/prices?$filter=contains(armSkuName,'L4')

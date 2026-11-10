@@ -1,0 +1,124 @@
+# ByteVirt
+
+> bytevirt.com | Compute, Egress and tunnels; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/bytevirt/ | JSON https://fshy.ajam.dev/api/v1/entity/bytevirt.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## ByteVirt (ByteVirt LLC)
+
+- `compute/bytevirt-nat-512-lxc` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category NAT VPS | tier NAT-512-LXC
+- needs card yes, phone no, ID no, institution no | verified 2026-11-02T02:17:38.783Z (live) | stale on 2026-12-03
+- url https://www.bytevirt.com/store/nat-lxc
+- price parsed USD 0.64/mo
+- free tier: No free tier. NAT-512-LXC is USD 7.70 a year, printed as 'Starting from $7.70 USD Annually'; the group page showed '6 Available'. | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: annual prepay; the terms state 'After an invoice becomes 1 day past due, all services affiliated with the invoice are subject to immediate suspension and will be terminated after 3 days past due' | days: 3 | source: [2]
+- egress: 550 GB a month at 500 Mbps on NAT-512-LXC, in the vendor's decimal unit; the page states 'Port speed limited to 1Mbps after traffic exceeded' | metered: yes | free allowance: 550 GB a month | source: [1]
+- identity: card | detail: a WHMCS account created during an order, not on a separate form: the register page answers 'To create an account, please place an order with us'. The rails are Alipay, UnionPay and USDT only, quoted from the site's payment block: 'Alipay Pay in CNY.', 'UnionPay UnionPay cards and QuickPass.', 'USDT (TRC20) Pay with crypto.', and the FAQ answers 'Alipay, UnionPay and USDT (TRC20).' No Visa or Mastercard rail is named, so whether a prepaid or virtual card passes is not published at https://bytevirt.com/?language=chinese. No authorisation hold is published either: the order is charged in full at the annual price printed on the plan card, and no card is kept on file by the terms. No ID document is requested on the registration route.
+- interface: ssh
+- limits:
+  - volume-quota: 550 GB a month, then the port is limited to 1 Mbps [1]
+  - per-ip-shaping (binding): 20 IPv4 NAT ports, for example 30101-30120, allocated from a NAT panel; all other ports are unreachable over public IPv4 [3]
+- binding note: 20 forwarded IPv4 ports is the whole inbound budget over IPv4, and the vendor states the public IPv4 is blocked by the GFW by default, so in practice every reachable service has to go over the IPv6 address.
+- interface detail: LXC guest with root; 20 IPv4 NAT ports managed from a NAT panel in the product detail page, plus an IPv6 subnet reachable on all ports
+- tooling: any SSH client; the WHMCS client area; no API documented on the pages read
+- composes with: a low-end NAT box with a real /64 that answers on every port, which makes it a WireGuard endpoint and an IPv6-reachable service host, at USD 0.64 a month on annual prepay
+- reliability: the vendor advertises 'No surprise shutdowns - Going over quota slows you down instead'; no uptime figure or SLA was published on the pages read; no reliability event observed.
+- notes: The stock is real and stated: 6 Available on the group page today, which is more than most rows in this class can say. USD 7.70 a year is USD 0.6417 a month, and 512 MB with a /64 and all ports open over IPv6 is the second-best shape per dollar found in this class after CrockyHost. The caveat is the one the vendor prints itself: 'IPv4 is blocked by GFW by defaults, please use IPv6'. For an international registrant that is a note about reachability from China, not a blocker, but it does mean the IPv4 half of the product is close to decorative and the IPv6 half is what is actually being bought. The 20-port rule is confirmed in the vendor's own knowledgebase with an example range, and the same article says IPv6 answers on any port. What is not established: whether the 20 forwarded IPv4 ports carry UDP, because the knowledgebase article read mentions only TCP conditions and never names UDP; the accepted card types beyond UnionPay; any authorisation hold; and whether ByteVirt LLC appears in the Missouri state register, because every route to the Missouri Secretary of State search timed out or returned the search form rather than a result. The LLC name is corroborated by an allocated AS holder name in RIPEstat and by a PeeringDB organisation record, which is stronger than a website claim but is not a state register. That is the same gap this topic has already been burned by once, so the row carries it openly rather than closing it.
+- evidence note: price, shape, traffic allowance, port count, IPv6 subnet, stock count and the GFW note are quoted from the vendor's own group page read; the 20-port rule and the all-ports IPv6 rule are quoted from the vendor's own Chinese-language knowledgebase article read; the entity is corroborated by RIPEstat and PeeringDB, not by a state register. The cart could not be priced: every cart.php route through automated retrieval resolved to the LA CN2 GIA group, including a deliberately invalid pid, so that redirect is a property of the route.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 0.5
+  - shape.disk_gib: 6
+  - billing_model: annual
+  - term: annual
+  - m10h_usd: 0.64
+  - m24h_usd: 0.64
+  - price_arithmetic: USD 7.70 a year / 12 = USD 0.6417 a month. VPS billing: the machine bills whether it runs or not, so the 10 h/day and 24/7 figures are identical. The money out of pocket is USD 7.70 once a year.
+  - out_of_pocket_usd: 7.7
+  - renewal_usd: not published separately; the ladder shows one annual price and no renewal column
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: 20 IPv4 NAT ports from a panel range such as 30101-30120; the IPv6 subnet answers on all ports
+  - network_out.static_ip: no
+  - network_out.ipv6: yes
+  - network_out.ipv6_prefix: /64
+  - udp: not stated for the IPv4 ports: the vendor's knowledgebase article names only TCP conditions and never says UDP. The same article states 'IPv6 支持全端口开放' (IPv6 supports all ports open), which carries UDP by construction.
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - payment_rails: Alipay, UnionPay and USDT (TRC20) only, per the site's payment block and the FAQ answer; no Visa or Mastercard rail is listed
+  - card_hold: not published: no authorisation amount is stated on any page read, and prepaid or virtual cards are not addressed because the only rails listed are Alipay, UnionPay and USDT (TRC20)
+  - checkout_fields: WHMCS registration form; no ID document field observed
+  - stock: 6 Available on NAT-512-LXC and 29 Available on NAT-1024-LXC, read from the group page on 2026-10-24
+  - cart_works: unknown
+  - product_url: https://www.bytevirt.com/store/nat-lxc
+  - signup_url: https://bytevirt.com/register.php
+  - cart_url_note: the Order Now button targets https://www.bytevirt.com/store/nat-lxc/nat-512-lxc (product id 168), but that route and every cart.php route returned the LA CN2 GIA group.
+  - other_plans: NAT-1024-LXC at USD 12.00 a year: 2 cores, 1 GB RAM, 8 GB SSD, 20 NAT ports, 1 /64 or /80, 750 GB a month. 29 Available.
+  - special_locations: Falkenstein, Germany is the network-in point; network-out options listed as Islamabad, Lagos, Amsterdam, Vinnytsya and Milan, in a block the vendor marks 'No refunds'
+- evidence:
+  - [1] 2026-10-24: quoted plan card: 'NAT-512-LXC Starting from $7.70 USD Annually ... 1 Core(s) (Fair Share), 512 MB RAM, 6 GB SSD, 20 IPv4 NAT Ports, 1 /64 IPv6 Subnet (DE / TR: /80), 550 GB @ 500 Mbps per month, LXC Virtualization, 1 Backup'
+  - [1] 2026-10-24: quoted stock and caveats: '6 Available' and 'IPv4 is blocked by GFW by defaults, please use IPv6' and 'Location can't be changed after order placed' and 'Port speed limited to 1Mbps after traffic exceeded'
+  - [1] 2026-10-24: quoted location list: 'Hong Kong, China 香港', 'Singapore 新加坡', 'Tokyo, JP 日本', 'Taiwan, China 台湾', 'Istanbul, Turkey 土耳其', 'Falkenstein, Germany 德国', plus a special-locations block reading 'Special Locations (No refunds) 特殊地区 (不支持退款)'
+  - [3] 2026-10-24: quoted port rule: '仅能使用我们分配的 20个IPv4端口（如 30101-30120 ...），其他端口无法通过公网IPv4访问' and 'IPv6 支持全端口开放，可直接通过IPv6地址访问任意端口'
+  - [4] 2026-10-24: quoted: 'ByteVirt LLC is a US hosting provider. Since 2023 we have run Proxmox-based KVM and LXC servers across multiple regions and network lines.' and payment rails 'Alipay, UnionPay and USDT.'
+  - [5] 2026-10-24: quoted JSON: "holder":"BYTEVIRTLLC ByteVirt LLC", "announced":true - an allocated AS with a matching holder name, read from RIPEstat
+  - [6] 2026-10-24: the record is titled 'ByteVirt LLC' with address '117 S Lexington St Ste 100' and 'Harrisonville, MO, 64701-2443', country code US
+  - [2] 2026-10-24: quoted: 'After an invoice becomes 1 day past due, all services affiliated with the invoice are subject to immediate suspension and will be terminated after 3 days past due.'
+  - [7] 2026-10-24: the route did not price the product: HTTP 200 with final URL https://www.bytevirt.com/store/la-china-optimized-cn2-gia. A control request to cart.php?a=add&pid=999999 resolved to the same URL, so this is a property of the route, not evidence about NAT-512-LXC.
+  - [8] 2026-11-02: the vendor names exactly three rails, none of them a Visa or Mastercard rail, and states no hold | capture: sha256:82f00308fc224adeb8a2bd613268e979a4bff428f2e08b605e96326422dce247 | quote: Which payment methods do you accept? Alipay, UnionPay and USDT (TRC20).
+  - [9] 2026-11-02: the register page sends the buyer to the order flow instead of a standalone signup form | capture: sha256:2ff587d941ba818cb9a4db87b051a8f4835ad9bd2e1d2870e857a1dfe4090527 | quote: To create an account, please
+  - [1] 2026-11-02: NAT-512-LXC is sold at USD 7.70 a year, so the charge is the annual price in full | capture: sha256:84b02c1ee40da000f9684ad0e4086687dee7f1a1f4d140e99169572956413252 | quote: $7.70 USD
+  - [2] 2026-11-02: the terms address chargebacks against PayPal or a card issuer and state no authorisation amount | capture: sha256:190dd0580c788a1c229cb37e8284496b1e0dbfcf4461361db05c3aadbeb4d15a | quote: The Customer acknowledges that any attempt to dispute or initiate a chargeback with Paypal or their Credit Card issuer will result in a suspension or termination of all services.
+  - [8] 2026-11-02: UnionPay cards and QuickPass are the only card-shaped rail the site names | capture: sha256:82f00308fc224adeb8a2bd613268e979a4bff428f2e08b605e96326422dce247 | quote: UnionPay cards and QuickPass.
+  - [8] 2026-11-02: the rail list carries no authorisation amount and no statement about prepaid or virtual cards | capture: sha256:82f00308fc224adeb8a2bd613268e979a4bff428f2e08b605e96326422dce247 | quote: Alipay Pay in CNY.
+  - [8] 2026-11-02: the payment block is unchanged: Alipay, UnionPay and USDT, with no Visa or Mastercard rail and no hold | capture: sha256:82f00308fc224adeb8a2bd613268e979a4bff428f2e08b605e96326422dce247 | quote: UnionPay cards and QuickPass.
+- sources:
+  - [1] https://www.bytevirt.com/store/nat-lxc
+  - [2] https://bytevirt.com/terms-of-service.php
+  - [3] https://bytevirt.com/knowledgebase/1/NAT-VPS%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html
+  - [4] https://bytevirt.com/about-us
+  - [5] https://stat.ripe.net/data/as-overview/data.json?resource=AS212336
+  - [6] https://www.peeringdb.com/org/36842
+  - [7] https://www.bytevirt.com/cart.php?a=add&pid=168&_=1
+  - [8] https://bytevirt.com/?language=chinese
+  - [9] https://bytevirt.com/register.php
+
+## ByteVirt
+
+- `egress/bytevirt-nat-256-lxc` | paid-only | evidence reported | binding volume-quota | category NAT VPS | tier NAT-256-LXC
+- identity a placeholder: card and phone unknown | verified 2026-11-03T07:36:42.014Z (live) | stale on 2026-11-18
+- url https://bytevirt.com/store/nat-lxc
+- free tier: No free tier. NAT-256-LXC is listed by an aggregator at USD 5.5 a year with 350 GB, 1x IPv4 and a /64 IPv6; the vendor's order page answers 'out of stock'. | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: unverified: the vendor page for the 256 MB plan shows no plan values, only the out-of-stock message.
+- per-object cap: not applicable: a NAT VPS, not an object store | source: [2]
+- retention: not applicable | source: [2]
+- egress: 350 GB per the aggregator listing; the vendor's NAT-512-LXC plan is shaped to 1Mbps once its allowance is exceeded. | metered: yes | free allowance: 350 GB (aggregator), period not stated | source: [3]
+- identity: email | detail: unverified: behind a sign-up. The vendor's register page read lists no fields.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 350 GB per the aggregator listing, period not stated [3]
+- binding note: The only stated cap is the aggregator's 350 GB; the vendor page for this plan states none.
+- interface detail: Container VPS with SSH.
+- tooling: Any SSH client.
+- composes with: Not orderable on the date read: the order page reports the item out of stock.
+- reliability: The vendor's order page reports the item out of stock and orders suspended.
+- notes: Sold out at the vendor on 2026-11-03. The in-stock sibling NAT-512-LXC is a separate plan.
+- evidence note: Values come from an aggregator listing; the vendor page read confirms only that the item is out of stock.
+- extras:
+  - nat_ports: unverified: the 256 MB plan page is out of stock
+  - ipv6: /64 per aggregator
+  - udp_forwarding: unverified: not stated
+  - routed_ipv6_prefix: unverified: aggregator lists a /64
+  - inbound_ipv4_ports: unverified
+  - term: 12 months
+  - virtualization: LXC container on a shared NAT IPv4.
+- evidence:
+  - [1] 2026-11-03: the vendor's order page for the NAT-256-LXC link is out of stock and orders are suspended | capture: sha256:a8453165fe964e9c1782258b91566aee495e2c404073b45805a8cca1a187eb13 | quote: We are currently out of stock on this item so orders for it have been suspended until more stock is available.
+  - [3] 2026-11-03: serverdeals lists NAT-256-LXC at USD 5.5 per year, 350 GB, a /64 IPv6 and 500Mbps | quote: ###### NAT-256-LXC
+  - [3] 2026-11-03: the serverdeals price line | quote: #### USD 5.5 / year
+  - [2] 2026-11-03: the sibling NAT-512-LXC plan includes a /64 IPv6 subnet | capture: sha256:aae9b09c6d993e63b5a65fa7db1322cc9a27a49fb4d4b50241119c8cdbed3b63 | quote: 1 /64 IPv6 Subnet (DE / TR: /80)
+  - [2] 2026-11-03: the sibling NAT-512-LXC plan is shaped to 1Mbps past its allowance | capture: sha256:aae9b09c6d993e63b5a65fa7db1322cc9a27a49fb4d4b50241119c8cdbed3b63 | quote: Port speed limited to 1Mbps after traffic exceeded
+- sources:
+  - [1] https://bytevirt.com/aff.php?aff=450&pid=166
+  - [2] https://bytevirt.com/store/nat-lxc
+  - [3] https://serverdeals.cc/

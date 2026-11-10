@@ -1,0 +1,182 @@
+# 62yun
+
+> 62yun.com | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/62yun/ | JSON https://fshy.ajam.dev/api/v1/entity/62yun.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## 62yun
+
+- `compute/62yun-promo-vds` | qualifies-with-caveat | evidence documented | binding per-object-cap | category VPS | tier promo-S
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T03:16:51.000Z (live) | stale on 2026-11-24
+- url https://www.62yun.com/
+- price parsed USD 2.97/mo
+- free tier: no free tier; promo-S is RUB 239 a month, and a test period of up to 3 days is offered, which needs a confirmed e-mail and an identified account: 'Необходимо идентифицировать аккаунт. Для этого достаточно привязать Yandex.ID или оплатить 1руб.' | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: disks persist while the plan is paid; backups are kept up to 7 days on request; the FAQ says a server is deleted when the balance will not cover renewal, and that a partial balance renews it daily at 1/25 of the monthly price | source: [2]
+- egress: unlimited traffic ('Не ограничен') on a 1 Gbit/s port for promo-S; the FAQ states there is no speed guarantee because the port is a shared channel | metered: no | free allowance: unlimited, stated | source: [3]
+- identity: email | detail: registration by email or Yandex.ID, quoted from the sign-in form: 'Войти по email' and 'Войти с Yandex.ID'. No card hold is stated anywhere and no national ID is requested. Payment rails, quoted from the FAQ: 'Банковские карты МИР', 'Криптовалюта', and 'Банковской картой VISA/MC выпущенной любой страной кроме:' followed by a 38-country blocklist. A non-Russian card is accepted unless it is issued in one of those countries; the blocklist names Canada and the United States among them.
+- interface: ssh
+- limits:
+  - per-ip-shaping: 1 Gbit/s port shared; the plan states no per-session or per-IP cap, and the FAQ states no speed guarantee on a shared channel [2]
+  - per-object-cap (binding): 10 GB NVMe is the whole disk, and promo-S is excluded from the Windows images: 'На всех тарифах, кроме promo-S и ultra-S, доступны... Windows Server 2019/2022' [3]
+- binding note: 10 GB of NVMe is the first thing that fails: promo-S is the smallest disk on the page and it cannot take the Windows images the higher tariffs can.
+- interface detail: VDS with Debian, CentOS or Ubuntu and root access implied by the OS choice; the page states 'IPv4 и IPv6'
+- tooling: any SSH client
+- composes with: a RUB-priced VDS with stated IPv4 and IPv6 and unmetered traffic, one of the few non-NAT machines near the price line
+- reliability: no reliability event observed; the site announces it has moved to 62yun.ru and states the prices on the page 'носят информационный характер и не являются публичной офертой' (informational, not a public offer); the FAQ says a server is deleted when the balance will not cover renewal
+- notes: This settles the buyability question. promo-S at RUB 239 a month is buyable: the card's own order button redirects to the order form for plan 481, and that form's price table prices plan 481 at 239 with 104 free IPv4 addresses and pre-selects it. So a document that lists this vendor under 'advertised and not buyable' is wrong on that point, and wrong twice over because 239 RUB is USD 2.97, which is not a sub-dollar row in the first place. There is a real finding underneath: the order form's price table carries cheaper plans that the form will not sell. It holds 'low-S' and 'START_archive' at 118 RUB, 'ultra-S-discount' at 159 RUB and two promo-S rows at 159 RUB, none of which appear in the selector, and the four legacy plan ids tried as order URLs (33, 124, 331, 107) each render the same generic form with promo-S at 239 pre-selected. The cheapest thing the form will actually take is therefore 239 RUB, and the deepest term discount, 24 months at -25%, is 179.25 RUB a month, USD 2.23, still above the USD 1 line. Even the cheapest number anywhere in the vendor's own table, the unsold 118 RUB, is USD 1.47, so no 62yun price is under USD 1 at any term. The site prices only in RUB: no CNY figure appears on the home page, the VDS section, the order form or the FAQ, so a CNY figure could not be recorded and none was invented. On cards: MIR is a Russian domestic scheme and the FAQ lists it without qualification, while VISA and Mastercard are accepted from any country except the 36 named, which includes Canada and the United States, so a non-Russian card works unless it is issued in a blocked country. The tariff is named Promo and its category heading is Промо, but no strike-through price, no 'first month' wording and no post-promo rate appears anywhere; the only discount the order form offers is by prepay length. Not established: whether promo-S is capacity-limited, and whether an account can be opened without a Russian phone number, because the registration step was not taken.
+- evidence note: the promo-S price is read twice: from the card's order button ('Заказать за 239₽ в месяц') and from the order form's own plan table, which prices plan 481 promo-S at 239 and pre-selects it. The shape, the port, the traffic term, the payment periods and the payment rails are quoted from the vendor's pages read.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.disk_gib: 10
+  - billing_model: monthly
+  - term: monthly by default; prepay 3, 6, 12 or 24 months at -5%, -10%, -15% and -25%
+  - m10h_usd: 2.97
+  - m24h_usd: 2.97
+  - price_arithmetic: RUB 239 a month, billed monthly, at the Central Bank of Russia rate for 2026-10-24 of 80.5381 RUB per USD = USD 2.9675, rounded to USD 2.97. On the deepest term, 24 months at -25%, RUB 179.25 a month = USD 2.2257, and RUB 4,302 out of pocket = USD 53.42. A VPS bills whether it runs or not, so the 24/7 and 10 h/day figures are the same number.
+  - free_tier_kind: trial
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VDS
+  - ipv6_prefix: unstated
+  - renewal_note: not published; the tariff is named Promo and no post-promo rate appears anywhere on the page
+  - out_of_pocket_usd: 2.97
+  - promo: the tariff name is 'promo-S' and the category heading is 'Промо'; no end date, no strike-through price and no 'first month' wording
+  - port_mbps: 1000
+  - ipv4_included: yes
+  - ipv6: yes, 'IPv4 и IPv6' stated on the homepage
+  - locations: USA; Canada
+  - payment_methods: Mir; Visa; Mastercard; bitcoin
+  - ladder[0].plan: promo-S
+  - ladder[0].rub_month: 239
+  - ladder[0].vcpu: 1
+  - ladder[0].ram_gib: 1
+  - ladder[0].disk_gib: 10
+  - ladder[0].disk_type: NVMe
+  - ladder[0].port_mbps: 1000
+  - ladder[0].locations: USA, Canada
+  - ladder[1].plan: promo-M
+  - ladder[1].rub_month: 369
+  - ladder[1].vcpu: 2
+  - ladder[1].ram_gib: 2
+  - ladder[1].disk_gib: 500
+  - ladder[1].disk_type: HDD
+  - ladder[1].port_mbps: 500
+  - ladder[2].plan: promo-B
+  - ladder[2].rub_month: 1199
+  - ladder[2].vcpu: 4
+  - ladder[2].ram_gib: 8
+  - ladder[2].disk_gib: 150
+  - ladder[2].disk_type: NVMe
+  - ladder[2].port_mbps: 500
+  - ladder[3].plan: START HDD+
+  - ladder[3].rub_month: 599
+  - ladder[3].vcpu: 1
+  - ladder[3].ram_gib: 1
+  - ladder[3].disk_gib: 1000
+  - ladder[3].disk_type: HDD
+  - ladder[3].port_mbps: 500
+  - ladder[4].plan: MEDIUM HDD+
+  - ladder[4].rub_month: 799
+  - ladder[4].vcpu: 2
+  - ladder[4].ram_gib: 2
+  - ladder[4].disk_gib: 2048
+  - ladder[4].disk_type: HDD
+  - ladder[4].port_mbps: 500
+  - ladder[5].plan: BIG HDD+
+  - ladder[5].rub_month: 999
+  - ladder[5].vcpu: 4
+  - ladder[5].ram_gib: 4
+  - ladder[5].disk_gib: 4096
+  - ladder[5].disk_type: HDD
+  - ladder[5].port_mbps: 500
+  - ladder[6].plan: ultra-S
+  - ladder[6].rub_month: 269
+  - ladder[6].vcpu: 1
+  - ladder[6].ram_gib: 1
+  - ladder[6].disk_gib: 10
+  - ladder[6].disk_type: NVMe
+  - ladder[6].port_mbps: 500
+  - ladder[7].plan: ultra-M
+  - ladder[7].rub_month: 539
+  - ladder[7].vcpu: 2
+  - ladder[7].ram_gib: 2
+  - ladder[7].disk_gib: 40
+  - ladder[7].disk_type: NVMe
+  - ladder[7].port_mbps: 500
+  - ladder[8].plan: ultra-B
+  - ladder[8].rub_month: 859
+  - ladder[8].vcpu: 4
+  - ladder[8].ram_gib: 6
+  - ladder[8].disk_gib: 100
+  - ladder[8].disk_type: NVMe
+  - ladder[8].port_mbps: 500
+  - trial_note: quoted: 'Тестовый период до 3-х дней, бесплатно' (up to 3 days free trial), conditional on a confirmed e-mail and an identified account, which the order form says can be satisfied by linking Yandex.ID or paying 1 RUB
+  - addon_prices_rub.vcpu: 150
+  - addon_prices_rub.ram_gib: 200
+  - addon_prices_rub.hdd_gib: 0.5
+  - addon_prices_rub.ssd_gib: 10
+  - addon_prices_rub.ipv4: 150
+  - free_tier_kind_note: the trial is not a free tier; it is granted on request and gated on account identification
+  - payment_rails_detail: MIR bank cards; cryptocurrency; VISA/MC issued by any country except the 38 named in the FAQ, which includes Canada and the United States. No card hold is stated.
+  - payment_periods.1_month.discount_pct: 0
+  - payment_periods.1_month.rub_month: 239
+  - payment_periods.3_months.discount_pct: 5
+  - payment_periods.3_months.rub_month: 227.05
+  - payment_periods.6_months.discount_pct: 10
+  - payment_periods.6_months.rub_month: 215.1
+  - payment_periods.12_months.discount_pct: 15
+  - payment_periods.12_months.rub_month: 203.15
+  - payment_periods.24_months.discount_pct: 25
+  - payment_periods.24_months.rub_month: 179.25
+  - order_form.url: https://www.62yun.com/servers/order/index/481
+  - order_form.selectable_plans: promo-S, ultra-S, promo-M, ultra-M, START HDD+, MEDIUM HDD+, ultra-B, BIG HDD+, promo-B, plus a custom configuration
+  - order_form.cheapest_selectable_rub_month: 239
+  - order_form.free_ipv4_counts: promo-S has 104 free addresses in the pre-selected location and 85 in the other
+  - order_form.note: the form requires an e-mail, a location, an OS and a payment period; a location with no free address queues the buyer 1-2 days for an IPv4
+  - cheaper_skus_not_sold[0].plan_id: 33
+  - cheaper_skus_not_sold[0].name: low-S
+  - cheaper_skus_not_sold[0].rub_month: 118
+  - cheaper_skus_not_sold[1].plan_id: 11
+  - cheaper_skus_not_sold[1].name: START_archive
+  - cheaper_skus_not_sold[1].rub_month: 118
+  - cheaper_skus_not_sold[2].plan_id: 107
+  - cheaper_skus_not_sold[2].name: ultra-S-discount
+  - cheaper_skus_not_sold[2].rub_month: 159
+  - cheaper_skus_not_sold[3].plan_id: 124
+  - cheaper_skus_not_sold[3].name: promo-S
+  - cheaper_skus_not_sold[3].rub_month: 159
+  - cheaper_skus_not_sold[4].plan_id: 331
+  - cheaper_skus_not_sold[4].name: promo-S
+  - cheaper_skus_not_sold[4].rub_month: 159
+- evidence:
+  - [3] 2026-10-24: quoted: 'от 239р в месяц, без ограничения трафика, локации: США, Гонконг, Испания, Нидерланды, Финляндия, Германия, Канада'
+  - [3] 2026-10-24: quoted promo-S spec block: '1x2.3GHz Intel Xeon Gold, RAM 1 GB DDR4, SSD 10GB NVMe, Debian, CentOS, Ubuntu, США, Канада, Трафик Не ограничен, Порт 1Gbit/s'
+  - [3] 2026-10-24: quoted: 'IPv4 и IPv6'
+  - [4] 2026-10-24: quoted rate table dated 24.10.2026: CharCode USD, Nominal 1, Value 80,5381. This is the rate used to convert RUB 239 to USD 2.97 in price_arithmetic
+  - [3] 2026-10-24: quoted from the promo-S card, the order button inside it: 'Заказать за 239₽' followed by 'в месяц'
+  - [3] 2026-10-24: quoted promo-S specification block: '1x2.3GHz Intel Xeon Gold | RAM 1 GB DDR4 | SSD 10GB NVMe | Debian, CentOS, Ubuntu | США, Канада | Трафик Не ограничен | Порт 1Gbit/s'
+  - [3] 2026-10-24: the other eight VDS cards in page order, quoted from their buttons: 369₽, 1199₽, 599₽, 799₽, 999₽, 269₽, 539₽, 859₽ a month, which matches the page's three 'от' sentences of 239, 269 and…
+  - [3] 2026-10-24: quoted from the payment block: '<img ... alt="bitcoin">', '<img ... alt="visa">', '<img ... alt="mastercard">', '<img ... alt="MirAccept">'
+  - [3] 2026-10-24: quoted: 'Войти по email' and 'Войти с Yandex.ID'; and 'Указанные цены на сайте носят информационный характер и не являются публичной офертой'
+  - [4] 2026-10-24: RUB 239 / 80.5381 = USD 2.9675
+  - [3] 2026-10-24: quoted from the promo-S card, the order button inside it: 'Заказать за 239₽' followed by 'в месяц'; the button's handler redirects to '/servers/order/index/481'
+  - [1] 2026-10-24: quoted from the order form's own price table, var planData: '481: { price: 239, name: promo-S, freeip: 104 }' and '403: { price: 239, name: promo-S, freeip: 85 }', which are the Silicon Valley and Vancouver variants of promo-S; plan 481 is the one the form pre-selects
+  - [1] 2026-10-24: quoted payment periods on the order form: '1 месяц', '3 месяца (-5%)', '6 месяцев (-10%)', '12 месяцев (-15%)', '24 месяца (-25%)'
+  - [1] 2026-10-24: counted from the order form's plan buttons, 44 location variants across nine plan names, each carrying its own price in the button handler: promo-S 239 (2 locations), ultra-S 269 (3), promo-M 369 (5), ultra-M 539 (6), START HDD+ 599 (5), MEDIUM HDD+ 799 (5), ultra-B 859 (6), BIG HDD+ 999 (5), promo-B 1199 (7). Nothing cheaper than 239 is selectable
+  - [5] 2026-10-24: the order URL for the legacy plan id 33 renders the same generic form as plan 481, with promo-S at 239 pre-selected and no legacy plan selectable; plan ids 124, 331 and 107 behave the same way. The plan table still carries '33: { price: 118, name: low-S }', '11: { price: 118, name: START_archive }', '107: { price: 159, name: ultra-S-discount }' and two promo-S rows at 159, none of which the form will sell
+  - [2] 2026-10-24: quoted payment rails: 'Банковские карты МИР', 'Криптовалюта', 'Банковской картой VISA/MC выпущенной любой страной кроме: Азербайджан, Албания, Афганистан, Барбадос, Беларусь, Буркина-фасо, Венесуэла, Гаити, Западная сахара, Зимбабве, Иордания, Ирак, Иран, Йемен, Камбоджа, Канада, Корейская ндр, Корея, Куба, Мали, Мальта, Марокко, Мьянма, Никарагуа, Острова Кайман, Пакистан, Панама, Сенегал, Сингапур, Сирия, Судан, Сша, Турция, Уганда, Украина, Филиппины, Южный Судан, Ямайка.'
+  - [2] 2026-10-24: quoted: 'Нашими тарифами не предусматривается гарантия скорости, мы предоставляем подключение по методу shared канала.' and 'Если на балансе недостаточно средств, то сервер удаляется.' and 'Мы возвращаем средства удобным вам способом в течение 14 рабочих дней'
+  - [3] 2026-10-24: quoted: 'IPv4 и IPv6'; 'Войти по email' and 'Войти с Yandex.ID'; 'Указанные цены на сайте носят информационный характер и не являются публичной офертой'
+  - [4] 2026-10-24: quoted rate table dated 24.10.2026: 'CharCode USD, Nominal 1, Value 80,5381'. This is the rate used to convert RUB 239 to USD 2.97 in price_arithmetic
+- sources:
+  - [1] https://www.62yun.com/servers/order/index/481
+  - [2] https://www.62yun.com/index/faq
+  - [3] https://www.62yun.com/
+  - [4] https://www.cbr.ru/scripts/XML_daily.asp
+  - [5] https://www.62yun.com/servers/order/index/33

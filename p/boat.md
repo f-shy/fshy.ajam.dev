@@ -1,0 +1,96 @@
+# boat
+
+> boat.dev | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/boat/ | JSON https://fshy.ajam.dev/api/v1/entity/boat.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## boat
+
+- `compute/boat` | paid-only | evidence documented | binding volume-quota | category container and VM sandbox | tier USD 20 plan
+- needs card yes, phone no, ID no, institution no | verified 2026-11-06T17:20:15.330Z (live) | stale on 2026-12-07
+- url https://docs.boat.dev/pricing
+- price parsed USD 20/mo
+- free tier: No signup credit. 'Your first plan starts with a 7-day free trial. A card is required. The trial has its own lower limits.' A plan is prepaid time: 'boat grants the included time each month. It expires at the end of the month.' | unit: none | metered on: none | read on: 2026-10-24 | source: [1] | note: A plan credit, not a grant: USD 20 buys 555 hours of the default size and the balance lapses monthly.
+- per-object cap: Sizes: 'small 2 vCPU / 4 GB / 12 GB' at USD 0.018 an hour, 'default 4 vCPU / 8 GB / 50 GB' at USD 0.036, 'large 8 vCPU / 16 GB / 125 GB' at USD 0.072, 'xlarge 16 vCPU / 32 GB / 251 GB' at USD 0.200, the last needing the USD 100 plan. | source: [1] | note: Every size is a full Linux virtual machine with a public IPv6 address and public URLs for its ports.
+- retention: A stopped sandbox keeps its disk for 14 days, then 'boat deletes the data, and the sandbox cannot resume'. Saved snapshots have no auto-deletion date. | days: 14 | source: [1]
+- egress: 'Network traffic. boat does not bill egress.' | metered: no | free allowance: unmetered | source: [1]
+- identity: card | detail: 'A card is required' for the first plan, including the 7-day trial. No hold amount is stated anywhere on the pricing page.
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): USD 20 plan = USD 20 of time = 555 h of the 4 vCPU default [1]
+  - retention-clamped: a stopped sandbox keeps its disk 14 days, then the data is deleted [1]
+  - volume-quota (binding): 7-day free trial, card required [1]
+- limits note: Included plan time expires at the end of the month; credit packs cost USD 20 and never expire, which is the only way to bank time.
+- binding note: The prepaid balance is what ends the month: 555 hours of the default size against the 730 a month needs.
+- interface detail: HTTP API at https://boat.dev/api/v1 plus a CLI; hostPort exposes a port on a public URL
+- tooling: boat CLI, Python SDK, REST; GET /limits reports the balance in seconds of default time
+- composes with: the only cheap sandbox here that publishes a public URL per port and an IPv6 address per sandbox
+- reliability: A stopped box loses its disk after 14 days, which is shorter than most providers here and is stated in a warning block rather than a footnote.
+- notes: USD 0.036 x 730 = USD 26.28 for a 4 vCPU / 8 GB / 50 GB VM for a month, with no egress bill and a public IPv6 address; boat's own arithmetic gives the same figure. It is the cheapest full-VM month among the providers compared after Zipbox's USD 20, and it is a real VM, but every path to it starts with a card.
+- evidence note: sizes, rates, the expiring plan time, the 14-day disk deletion and the card requirement are on the docs pricing page; the trial's own limits are on a separate page
+- extras:
+  - shape.vcpu: 4
+  - shape.ram_gib: 8
+  - shape.disk_gib: 50
+  - billing_model: per-second against prepaid plan time
+  - granularity.min_billed_s: 1
+  - granularity.rounding_s: 1
+  - session_cap.restart_required: no
+  - session_cap.note: no wall-clock cap published for a paid plan
+  - keep_rate.value: 0.0
+  - keep_rate.basis: a stopped sandbox costs no machine time, quoted
+  - keep_rate.source: https://docs.boat.dev/pricing
+  - persistent_storage.included_gib: 50
+  - persistent_storage.price_gib_month: included
+  - persistent_storage.durability: 14 days after stop
+  - persistent_storage.survives_stop: yes
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: 14 days
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: public URLs per port
+  - network_out.static_ip: no
+  - network_out.ipv6: yes
+  - free_tier_kind: plan-credit
+  - m10h_usd: 10.8
+  - m24h_usd: 26.28
+  - price_arithmetic: 0.036/h x 730 = 26.28; 20 plan / 0.036 = 555 h
+  - price_note: priced on `small` (2 vCPU / 4 GB / 12 GB) so the row is comparable with the others. The USD 20 plan is a floor: a light month still bills USD 20.
+  - price_basis: 10 h/day x 30 = 300 h; 24/7 x 30 = 730 h
+  - burst_x: 1.0
+  - term: monthly plan; machine time counted per second against the included amount
+  - credit_usd: 0
+  - credit_hours_at_shape: 555
+  - credit_expiry: plan time expires at the end of the month; USD 20 credit packs never expire
+  - monthly_usd: 20.0
+  - annual_usd: not published: the plan table prices four plans by the month and prints no annual or yearly cycle; read at https://docs.boat.dev/pricing
+  - renewal_usd: not published: the plan table prints a monthly price and no renewal sentence; read at https://docs.boat.dev/pricing
+  - renewal_note: a plan is a monthly charge and the machine time it buys expires at the end of the billing period, so an unused balance is not carried over; the wallet pays for time beyond the included amount
+  - stock: not applicable: the plan table prints a price and an included amount per plan with no stock or capacity state
+  - cart_url: https://boat.dev/dashboard?tab=billing
+  - price_on_page: USD 20/mo plan (555 h of default included); USD 0.018/h small, USD 0.036/h default, USD 0.072/h large, USD 0.200/h xlarge
+- evidence:
+  - [1] 2026-10-22: small USD 0.018 (2 vCPU/4 GB/12 GB), default USD 0.036 (4/8/50), large USD 0.072 (8/16/125), xlarge USD 0.200 (16/32/251)
+  - [1] 2026-10-22: a stopped sandbox keeps its disk for 14 days; then boat deletes the data and it cannot resume
+  - [1] 2026-10-22: boat does not bill egress; every sandbox gets a public IPv6 address and outbound IPv4
+  - [2] 2026-10-22: hostPort publishes a port on a stable HTTPS subdomain plus a token, and can open a raw TCP or UDP port
+  - [1] 2026-10-22: 'Your first plan starts with a 7-day free trial. A card is required. The trial has its own lower limits.', quoted
+  - [3] 2026-10-22: '25 free hours to start', which contradicts the docs' 7-day trial; the /free-trial link the docs point to returns 404
+  - [4] 2026-10-22: 'Billed per second, free when stopped. 7-day free trial, then from $20/mo', quoted
+  - [1] 2026-10-24: quoted: 'small ... $0.018 ... 2 vCPU 4 GB 12 GB', 'default ... $0.036 ... 4 vCPU 8 GB 50 GB', 'One `default` sandbox that runs a full month (730 h) costs $26.'; 'Your first plan starts with a 7-day free trial. A card is required.'; 'boat grants the included time each month. It expires at the end of the month.'; 'A stopped sandbox keeps its disk for 14 days.'; 'Network traffic. boat does not bill egress.'
+  - [1] 2026-10-24: quoted comparison table pricing the same machine elsewhere: 'Daytona $0.331' and 'E2B $0.331' for the 4 vCPU / 8 GB class, against boat's '$0.036'.
+  - [1] 2026-11-06: the entry plan is USD 20 a month and includes 555 hours of the default size | capture: sha256:1d011157d6ae53d7e220e6a8eedef9cf44aa3663ef8bf8a5a2b62a43da0bd968 | quote: | \$20/mo | 100 | 12 / 60 / 200 | 555 h of `default` (\$20) | 10 |
+  - [1] 2026-11-06: the plan table prices every plan by the month and prints no annual cycle | capture: sha256:1d011157d6ae53d7e220e6a8eedef9cf44aa3663ef8bf8a5a2b62a43da0bd968 | quote: A plan is a monthly price that your card pays.
+  - [1] 2026-11-06: the plan is a monthly charge with no renewal sentence | capture: sha256:1d011157d6ae53d7e220e6a8eedef9cf44aa3663ef8bf8a5a2b62a43da0bd968 | quote: A plan is a monthly price that your card pays.
+  - [1] 2026-11-06: the included time expires at the end of the billing period and is not carried over | capture: sha256:1d011157d6ae53d7e220e6a8eedef9cf44aa3663ef8bf8a5a2b62a43da0bd968 | quote: Included VM time expires at the end of the billing period. boat does not carry it over.
+  - [1] 2026-11-06: machine time is billed per second against the plan's included amount | capture: sha256:1d011157d6ae53d7e220e6a8eedef9cf44aa3663ef8bf8a5a2b62a43da0bd968 | quote: You pay per second, only while a sandbox runs.
+  - [1] 2026-11-06: the plan table prints no stock or capacity state | capture: sha256:1d011157d6ae53d7e220e6a8eedef9cf44aa3663ef8bf8a5a2b62a43da0bd968 | quote: A plan is a monthly price that your card pays.
+  - [1] 2026-11-06: the page sends a plan change to the dashboard billing tab | capture: sha256:1d011157d6ae53d7e220e6a8eedef9cf44aa3663ef8bf8a5a2b62a43da0bd968 | quote: [Dashboard > Billing](https://boat.dev/dashboard?tab=billing)
+  - [1] 2026-11-06: the USD 20 plan includes 555 hours of the default size | capture: sha256:1d011157d6ae53d7e220e6a8eedef9cf44aa3663ef8bf8a5a2b62a43da0bd968 | quote: 555 h of `default`
+  - [1] 2026-11-06: the 14-day disk clock and the card requirement are on the pricing page | capture: sha256:1d011157d6ae53d7e220e6a8eedef9cf44aa3663ef8bf8a5a2b62a43da0bd968 | quote: A stopped sandbox keeps its disk for at least 14 days.
+  - [1] 2026-11-06: the entry plan is still USD 20 a month with 555 hours of the default size | capture: sha256:1d011157d6ae53d7e220e6a8eedef9cf44aa3663ef8bf8a5a2b62a43da0bd968 | quote: A plan is a monthly price that your card pays.
+- sources:
+  - [1] https://docs.boat.dev/pricing
+  - [2] https://docs.boat.dev/hosting
+  - [3] https://boat.dev/compare
+  - [4] https://boat.dev/

@@ -1,0 +1,507 @@
+# DediRock
+
+> dedirock.com | Compute, Egress and tunnels; 9 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/dedirock/ | JSON https://fshy.ajam.dev/api/v1/entity/dedirock.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## DediRock (Promo VPS Special NY)
+
+- `compute/dedirock-promo-vps-special-ny` | qualifies | evidence documented | binding volume-quota | category VPS | tier Promo VPS Special NY
+- needs card no, phone unknown, ID no, institution no | verified 2026-11-02T02:17:27.463Z (live) | stale on 2026-12-03
+- url https://billing.dedirock.com/index.php/store/promo-vp/promo-vps-special-ny
+- price parsed USD 0.82/mo
+- disagrees on verdict: `compute/dedirock` says paid-only, `compute/dedirock-promo-vps-special-ny` says qualifies
+- disagrees on identity_kind: `compute/dedirock-black-friday` says card, `compute/dedirock-promo-vps-special-ny` says email
+- disagrees on verdict: `compute/dedirock-black-friday` says dead, `compute/dedirock-promo-vps-special-ny` says qualifies
+- disagrees on identity_kind: `compute/dedirock-cyber-monday` says card, `compute/dedirock-promo-vps-special-ny` says email
+- disagrees on verdict: `compute/dedirock-cyber-monday` says dead, `compute/dedirock-promo-vps-special-ny` says qualifies
+- disagrees on verdict: `compute/dedirock-promo-vps-saver` says qualifies-with-caveat, `compute/dedirock-promo-vps-special-ny` says qualifies
+- disagrees on verdict: `compute/dedirock-promo-vps-saver-ny-bf31` says qualifies-with-caveat, `compute/dedirock-promo-vps-special-ny` says qualifies
+- free tier: no free tier; this is the cheapest plan in the store at USD 9.88 a year | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the annual plan is paid; no deletion policy for non-payment is stated on the order form
+- egress: 2 TB a month, stated on the order form as '2 TB Bandwidth' on a '1 Gbps Network Port' | metered: yes | free allowance: 2 TB a month | source: [1]
+- identity: email | detail: an email address, and the account is created by ordering: 'To create an account, please place an order with us'. A card is not required: the vendor's own payment page lists credit cards, PayPal, Bitcoin and checks as the accepted rails. Whether the order form asks for a phone number is unverified, because it answers a bot challenge. No list of excluded countries is stated on the terms or payment pages, which say only that 'Payment availability may vary depending on the customer’s location, currency, service, risk profile, and the applicable processor’s policies.'
+- interface: ssh
+- limits:
+  - volume-quota (binding): 2 TB a month of transfer [1]
+  - per-object-cap: 30 GB SSD [1]
+- binding note: 2 TB is generous against 30 GB of disk and 1 vCore, so the single vCore is what a real workload meets first; there is no published overage price.
+- interface detail: KVM with root; the order form carries a full OS picker (AlmaLinux, Rocky, CentOS, Debian, Ubuntu) and asks for a hostname and a root password
+- tooling: any SSH client; the Virtualizor panel
+- composes with: the cheapest row in earlier readings with a dedicated IPv4 and 2 GiB of RAM: USD 0.82 a month buys a real KVM guest with 30 GB of disk, enough to be a daily-driver side box, a WireGuard node or a monitor that answers on a routable address.
+- reliability: no reliability event observed; the order form renders and prices normally.
+- notes: DediRock's Black Friday page (dedirock.com/black-friday/) advertises a USD 9.88/yr Saver but its own Order Now href (store/promo-vp/promo-vps-saver-ny-bf) lands on a category listing whose cheapest line is USD 5.99 a MONTH for a different shape. That is a dead link. The standing promo SKU at store/promo-vp/promo-vps-special-ny is a different product and it does sell, at USD 9.88 a year, which the browser render above confirms. Both facts are true at once: the seasonal page is a fossil and the cheap SKU it made famous is alive at a URL the seasonal page never links to.
+- evidence note: read in a real browser on the vendor's own configured product page after the vendor cleared the Cloudflare challenge: the order summary prints the plan name, the annual price and 'Total Due Today'
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 2
+  - shape.disk_gib: 30
+  - billing_model: annual prepay
+  - term: 12 months
+  - m10h_usd: 0.82
+  - m24h_usd: 0.82
+  - price_arithmetic: USD 9.88 a year divided by 12 = USD 0.8233 a month, paid once as USD 9.88 out of pocket
+  - renewal_usd: not published
+  - renewal_note: the order form states the annual price and says nothing about what year two costs; the earlier BF page's prices are not a renewal statement
+  - signup_url: https://billing.dedirock.com/index.php/store/promo-vp/promo-vps-special-ny
+  - cart_url: https://billing.dedirock.com/index.php/store/promo-vp/promo-vps-special-ny
+  - cart_works: yes
+  - price_on_page: USD 9.88/yr
+  - price_in_cart: USD 9.88 Total Due Today
+  - stock: in stock: the form rendered a configurator with an OS picker and no sold-out notice
+  - payment_methods: Stripe and Alipay named on the vendor's payment page; not reached at checkout
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: no
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+- evidence:
+  - [1] 2026-10-24: the rendered order summary reads 'Promo VPS Special NY | PROMO VPS NY | Promo VPS Special NY $9.88 USD', 'Setup Fees: $0.00 USD', 'Annually: $9.88 USD', '$9.88 USD Total Due Today', with 'Choose Billing Cycle: $9.88 USD Annually'
+  - [1] 2026-10-24: the plan specification on the same form reads '2 GB RAM', '1x vCore CPU', '30 GB SSD', '2 TB Bandwidth', '1 Gbps Network Port', '1 IPv4'
+  - [2] 2026-10-24: the category page advertises the same SKU as 'Promo VPS Special NY ... Starting from $9.88 USD Annually'
+  - [3] 2026-11-02: a check is an accepted rail beside cards, PayPal and Bitcoin, so a card is not required | capture: sha256:2be8bca33f5a4e8f44dbf7a380b8cc21e3a305632e96a1a75158f417c0e472e6 | quote: Checks – Traditional payments by check are also accepted.
+  - [3] 2026-11-02: cards are one of four accepted rails, beside PayPal, Bitcoin and checks | capture: sha256:2be8bca33f5a4e8f44dbf7a380b8cc21e3a305632e96a1a75158f417c0e472e6 | quote: Credit Cards – We accept all major credit cards, including Visa, MasterCard, American Express (Amex), and Discover.
+  - [4] 2026-11-02: there is no separate registration form: the account exists only through an order | capture: sha256:c485b036b6b328c9f5cd0e53a640b697ee4775bb2ea0ee0b6a643b2b4153bd71 | quote: To create an account, please place an order with us
+  - [5] 2026-11-02: payment availability can vary by location, and no country is excluded by name | capture: sha256:628e96f0aedb1087687dda4348603ea537c0b65a6cabe875c4de5e9a55a04ce0 | quote: Payment availability may vary depending on the customer’s location, currency, service, risk profile, and the applicable processor’s policies.
+  - [3] 2026-11-02: PayPal is a second rail, so the account can be paid for without a card | capture: sha256:2be8bca33f5a4e8f44dbf7a380b8cc21e3a305632e96a1a75158f417c0e472e6 | quote: PayPal – Secure and convenient for quick online payments.
+- sources:
+  - [1] https://billing.dedirock.com/index.php/store/promo-vp/promo-vps-special-ny
+  - [2] https://billing.dedirock.com/index.php/store/promo-vp
+  - [3] https://billing.dedirock.com/index.php/knowledgebase/9/Ways-to-Pay-for-Your-Dedirock-Account.html
+  - [4] https://billing.dedirock.com/register.php
+  - [5] https://dedirock.com/terms-of-services/
+
+## DediRock (Promo VPS Saver LA BF / NY BF)
+
+- `compute/dedirock-promo-vps-saver` | qualifies-with-caveat | evidence documented | binding volume-quota | category VPS | tier Promo VPS Saver LA BF / NY BF
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T03:18:31.000Z (live) | stale on 2026-11-24
+- url https://dedirock.com/black-friday/
+- price parsed USD 0.82/mo
+- disagrees on verdict: `compute/dedirock` says paid-only, `compute/dedirock-promo-vps-saver` says qualifies-with-caveat
+- disagrees on identity_kind: `compute/dedirock-black-friday` says card, `compute/dedirock-promo-vps-saver` says email
+- disagrees on verdict: `compute/dedirock-black-friday` says dead, `compute/dedirock-promo-vps-saver` says qualifies-with-caveat
+- disagrees on identity_kind: `compute/dedirock-cyber-monday` says card, `compute/dedirock-promo-vps-saver` says email
+- disagrees on verdict: `compute/dedirock-cyber-monday` says dead, `compute/dedirock-promo-vps-saver` says qualifies-with-caveat
+- disagrees on verdict: `compute/dedirock-promo-vps-saver` says qualifies-with-caveat, `compute/dedirock-promo-vps-special-ny` says qualifies
+- free tier: No free tier. The Black Friday page read sells 'Promo VPS Saver LA BF' and 'Promo VPS Saver NY BF' at USD 9.88 a year for 1 GB RAM, 1 vCPU, 10 GB SSD, 1 TB and 1 IPv4; the same shape is USD 2.99 a month on the promo page. | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: The server persists while the term is paid. The billing portal is behind a Cloudflare challenge, so no deletion schedule was read. | source: [2]
+- egress: 1 TB a month on the Saver plan at 1 Gbps, in the vendor's spelling '1 TB Bandwith'. | metered: yes | free allowance: 1 TB | source: [2]
+- identity: email | detail: Self-service order with an email account. The promo and Black Friday pages read state no card hold and list no payment methods; the cart is on billing.dedirock.com behind a Cloudflare challenge.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 1 TB a month on the Saver plan [2]
+- binding note: 1 TB a month is the first hard number; the 1 GB shape limits concurrency but has no monthly clock on it.
+- interface detail: KVM guest with root access, Virtualizor panel, one IPv4.
+- tooling: Any SSH client; KVM, so the guest runs its own kernel.
+- composes with: The only IPv4 machine found among evaluated providers under USD 12 a year: a 1 GB KVM guest in Buffalo or Los Angeles for USD 9.88, which can hold a WireGuard listener on a public IPv4 that IPv4-only peers can reach.
+- reliability: the USD 9.88 price sits on a page titled Black Friday that is still served on 2026-10-24, so it is a seasonal campaign that can be withdrawn; the vendor names 'Dedi Rock LLC' and the Florida register carries no entity of that name
+- notes: This is the only sub-USD-1 row found in the whole lane with a dedicated IPv4, and it is also the cheapest 1 GiB machine with one: USD 0.82 a month on annual prepay, USD 9.88 out of pocket. A dedicated IPv4 removes the UDP-forwarding question entirely, and KVM means the guest's own kernel can load the wireguard module instead of a userspace wireguard-go build. What weakens it: the price is a Black Friday campaign page still served in October, the renewal is not published, and the seller's named entity 'Dedi Rock LLC' is not in the Florida register. ATLAS CLOUD LLC (L21000425604, ACTIVE, Clearwater FL 33755) sits at the same city and ZIP and is the entity earlier readings previously paired with this brand, but no page read makes that link. Not established: whether a host firewall filters UDP; whether the USD 9.88 renews at the same rate; the payment rails and any card hold.
+- evidence note: price, shape, term and address family quoted from the vendor's own Black Friday page read
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.disk_gib: 10
+  - billing_model: annual
+  - term: 1 year at USD 9.88, or 1 month at USD 2.99
+  - m24h_usd: 0.82
+  - m10h_usd: 0.82
+  - m24h_monthly_billed_usd: 2.99
+  - price_arithmetic: USD 9.88 a year / 12 = USD 0.8233 a month, paid once. The monthly SKU is USD 2.99 a month. A VPS bills whether it runs or not, so the 24/7 and 10 h/day figures are the same.
+  - renewal_usd: not published
+  - first_payment_usd: 9.88
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all, on one dedicated IPv4; no NAT forwarding layer exists on this plan
+  - network_out.static_ip: yes
+  - network_out.ipv6: no
+  - payment_methods: not established on the page read
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - payment_rails: Visa, MC, Amex, Discover, PayPal, Bitcoin, cheque; Stripe on the cart
+  - default_billing: monthly
+  - default_price_usd_month: 2.99
+  - m24h_annual_prepay_usd: 0.82
+  - under_one_dollar: only on the annual prepay: USD 9.88 a year / 12 = USD 0.8233 a month, paid once, on a Black Friday SKU
+  - promo: yes
+  - promo_note: the annual SKU carries a Black Friday name and a '-bf' product code and is not linked from the monthly offer page; no renewal price is published for either SKU
+  - udp: not stated on any page read, and no page states a UDP restriction. The plan carries a dedicated IPv4 with no port-forwarding layer, so there is no forwarding rule that could omit UDP; a host-side firewall could still filter it and that was not tested.
+  - virtualization: KVM (Virtualizor panel), so the guest runs its own kernel and the in-kernel WireGuard module
+- evidence:
+  - [2] 2026-10-24: quoted: 'Promo VPS Saver $2.99 /month * 10 GB SSD Storage * 1 GB RAM Memory * 1 vCPU Core * 1 TB Bandwidth * 1 Gbp/s Connection * 1 IpV4 Address * KVM Virtualization'
+  - [1] 2026-10-24: quoted: 'Promo VPS Saver NY BF $9.88 /year - 1 GB RAM - 1x vCore CPU - 10 GB SSD - 1 TB Bandwith - 1 Gbp/s connection - 1 IPv4'
+  - [2] 2026-10-24: quoted page statement above the plan cards: 'All Prices are Monthly Plans'
+  - [1] 2026-10-24: quoted page statement above the plan cards: 'All Prices are Yearly Plans', under the heading 'Black Friday' and '29 November'
+  - [1] 2026-10-24: quoted, two location variants at the same price: 'Promo VPS Saver LA BF $9.88 /year - 1 GB RAM - 1x vCore CPU - 10 GB SSD - 1 TB Bandwith - 1 Gbp/s connection - 1 IPv4 - Virtualizor panel' and 'Promo VPS Saver NY BF $9.88 /year'
+  - [2] 2026-10-24: quoted order links: monthly SKU 'https://billing.dedirock.com/index.php/store/promo-vp/promo-vps-saver' and '.../promo-vps-los-angeles/promo-vps-saver-la'; the Black Friday page's links are different codes, '.../promo-vp/promo-vps-saver-ny-bf' and '.../promo-vps-los-angeles/promo-vps-saver-la-bf'
+  - [3] 2026-10-24: the order page returned HTTP 403 with the title 'Shopping Cart - DediRock' and no product content, so the checkout's billing-cycle options were not read
+  - [1] 2026-10-24: quoted: 'Promo VPS Saver LA BF $9.88 /year' with '1 GB RAM', '1x vCore CPU', '10 GB SSD', '1 TB Bandwith', '1 Gbp/s connection', '1 IPv4', 'Virtualizor panel'; the same page carries 'Promo VPS Saver NY BF'
+  - [2] 2026-10-24: quoted: 'Promo VPS Saver $2.99 /month' with '1 GB RAM Memory', '1 vCPU Core', '10 GB SSD Storage', '1 TB Bandwidth', '1 IpV4 Address', 'KVM Virtualization'
+  - [4] 2026-10-24: quoted: 'Dedi Rock LLC was founded with a clear focus on providing great experiences.'
+  - [5] 2026-10-24: quoted: 'By mail: 600 Cleveland St Suite 348 Clearwater FL 33755'
+  - [6] 2026-10-24: quoted: 'ATLAS CLOUD LLC', Document Number 'L21000425604', Date Filed '09/28/2021', State 'FL', Status 'ACTIVE', Principal Address 'CLEARWATER, FL 33755' - the same city and ZIP as the vendor's mailing address, but no page on dedirock.com names this entity
+  - [7] 2026-10-24: searched the Florida register for 'DEDI ROCK LLC' and 'DEDIROCK'; the result list runs from 'D & E DISPATCH SERVICES, LLC' to 'D & E DISTRIBUTION LLC' with no entity named Dedi Rock - the name the vendor uses is not registered in Florida
+- sources:
+  - [1] https://dedirock.com/black-friday/
+  - [2] https://dedirock.com/promo/
+  - [3] https://billing.dedirock.com/index.php/store/promo-vp/promo-vps-saver
+  - [4] https://dedirock.com/about-us/
+  - [5] https://dedirock.com/privacy-policy/
+  - [6] https://search.sunbiz.org/Inquiry/CorporationSearch/SearchResultDetail?inquirytype=EntityName&directionType=Initial&searchNameOrder=ATLASCLOUD%20L210004256040&aggregateId=flal-l21000425604-f98c2e31-b535-47c1-b676-07ba6fcfbd6d&searchTerm=atlas%20cloud&listNameOrder=ATLASCLOUD%20L210004256040
+  - [7] https://search.sunbiz.org/Inquiry/CorporationSearch/SearchResults?inquiryType=EntityName&searchTerm=DEDI%20ROCK%20LLC
+
+## DediRock (Promo VPS Saver NY BF31)
+
+- `compute/dedirock-promo-vps-saver-ny-bf31` | qualifies-with-caveat | evidence reported | binding pull-count | category VPS | tier Promo VPS Saver NY BF31
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T04:26:37.000Z (live) | stale on 2026-11-08
+- url https://dedirock.com/black-friday/
+- price parsed USD 0.74/mo
+- disagrees on verdict: `compute/dedirock` says paid-only, `compute/dedirock-promo-vps-saver-ny-bf31` says qualifies-with-caveat
+- disagrees on identity_kind: `compute/dedirock-black-friday` says card, `compute/dedirock-promo-vps-saver-ny-bf31` says email
+- disagrees on verdict: `compute/dedirock-black-friday` says dead, `compute/dedirock-promo-vps-saver-ny-bf31` says qualifies-with-caveat
+- disagrees on identity_kind: `compute/dedirock-cyber-monday` says card, `compute/dedirock-promo-vps-saver-ny-bf31` says email
+- disagrees on verdict: `compute/dedirock-cyber-monday` says dead, `compute/dedirock-promo-vps-saver-ny-bf31` says qualifies-with-caveat
+- disagrees on verdict: `compute/dedirock-promo-vps-saver-ny-bf31` says qualifies-with-caveat, `compute/dedirock-promo-vps-special-ny` says qualifies
+- free tier: No free tier. The NY BF31 promo is USD 8.88 a year: 2 GB RAM, 1 vCore, 30 GB SSD, 2 TB bandwidth, 1 Gbps port, one dedicated IPv4. Reported from a LowEndTalk comment, not read on the vendor's own page, which answers a Cloudflare challenge. | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: not read; the billing panel is behind a Cloudflare challenge on every route tried on 2026-10-24. | source: [2]
+- egress: 2 TB a month per the forum report; no first-party page was readable to confirm it | metered: yes | free allowance: 2 TB | source: [1]
+- identity: email | detail: not read first-party; the billing panel answered a Cloudflare challenge to the text extractor and to the headless browser on every attempt. No card hold is stated anywhere read.
+- interface: ssh
+- limits:
+  - volume-quota: 2 TB a month, reported [1]
+  - pull-count (binding): annual prepay of USD 8.88 is the first payment [1]
+- binding note: USD 8.88 paid once a year is the constraint, not the rate: there is no monthly option reported for this SKU, so a buyer who wants to test the seller must pay a year up front to a company whose US entity could not be found.
+- interface detail: not read first-party; the sibling LA promo on the vendor's own Black Friday page lists 'Virtualizor panel' and '1 IPv4'
+- tooling: any SSH client; Virtualizor panel per the vendor's Black Friday page for the sibling plan
+- composes with: the only sub-dollar row found that pairs a dedicated IPv4 with 2 GB of RAM, which makes every port reachable without a NAT mapping and removes the UDP question entirely
+- reliability: no reliability event observed; nothing about uptime or suspension could be read first-party because the billing panel is challenge-walled.
+- notes: The row that would win's own ranking if it could be verified, and it could not. A dedicated IPv4 with 2 GB and 30 GB for USD 0.74 a month beats every NAT row on the second and fourth criteria at once, and because there is no forwarding layer there is no port budget and no UDP question. Three things stop it being the pick. The figures are a forum comment, not a vendor page: the billing panel answered a Cloudflare challenge to the text extractor and stayed on 'Just a moment...' in a headless browser, and the vendor's own Black Friday page lists only the Los Angeles siblings at USD 9.88 a year for 1 GB. The entity does not check out: the vendor names Dedi Rock LLC of Clearwater, Florida, and a Florida entity-name search returns no such company. And the SKU is annual-only, so the cost of finding out whether the seller is real is a year up front.
+- evidence note: every figure on this record comes from a LowEndTalk comment, because the vendor's billing panel answered a Cloudflare challenge to the text extractor and to the headless browser, and the vendor's own Black Friday page lists only the Los Angeles sibling plans. A successful read of the New York store would move this to documented.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 2
+  - shape.disk_gib: 30
+  - billing_model: annual prepay
+  - term: 12 months
+  - m24h_usd: 0.74
+  - m10h_usd: 0.74
+  - price_arithmetic: USD 8.88 a year / 12 = USD 0.74 a month, paid in one go, from the forum figure. A VPS bills whether it runs or not, so the 24/7 and 10 h/day figures are the same.
+  - out_of_pocket_usd: 8.88
+  - first_payment_usd: 8.88
+  - renewal_usd: not published; the vendor calls these 'Promo Prices On Already Discounted Packages', so the renewal is not established
+  - stock: not read; the store is challenge-walled
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all, on one dedicated IPv4; no NAT forwarding layer exists on this plan
+  - network_out.static_ip: yes
+  - network_out.ipv6: no
+  - udp: not stated, and none needs to be: a dedicated IPv4 with no forwarding layer means a UDP listener needs only the guest firewall open. Inferred from the architecture, not measured.
+  - payment_rails: not read
+  - card_hold: not stated on any page read
+  - checkout_fields: not read
+  - nat_config: not applicable: dedicated IPv4, no NAT layer
+  - fx: no conversion used; every figure is quoted in USD
+- evidence:
+  - [1] 2026-10-24: quoted forum comment: 'check out the DediRock Promo VPS Saver NY BF31 deal. It gives you 2 GB RAM, 1x vCore CPU, 30 GB SSD, 2 TB Bandwidth, a 1 Gbps Network Port, and 1 dedicated IPv4 for just $8.88 USD annually (under $0.75/month)'
+  - [3] 2026-10-24: quoted sibling plan on the vendor's own page, which is the Los Angeles rung and not this one: 'Promo VPS Saver LA BF $9.88 /year - 1 GB RAM, 1x vCore CPU, 10 GB SSD, 1 TB Bandwith, 1 Gbp/s connection, 1 IPv4, Virtualizor panel'
+  - [4] 2026-10-24: the billing panel returned a Cloudflare challenge to the text extractor ('just a moment / enable javascript and cookies to continue', upstream 403) and stayed on 'Just a moment...' in the headless browser, so no first-party price, stock or payment field could be read
+  - [5] 2026-10-24: a Florida entity-name search for DEDIROCK returns no row for 'Dedi Rock LLC'; the nearest entries are D & E DISPATCH SERVICES, LLC and DEDIS PROPERTIES LLC, all INACT, so the vendor's named Florida LLC was not found in the state register
+- sources:
+  - [1] https://lowendtalk.com/discussion/219434/need-cheap-vps-under-1
+  - [2] https://billing.dedirock.com/index.php/store/promo-vps-new-york
+  - [3] https://dedirock.com/black-friday/
+  - [4] https://billing.dedirock.com/index.php/store/promo-vps-los-angeles/promo-vps-saver-la-bf
+  - [5] https://search.sunbiz.org/Inquiry/CorporationSearch/SearchResults?inquiryType=EntityName&searchTerm=DEDIROCK
+
+## DediRock (compute/dedirock)
+
+- `compute/dedirock` | paid-only | evidence documented | binding volume-quota | category cloud VM
+- identity a placeholder: card and phone unknown | verified 2026-11-07T11:15:30.076Z (live) | stale on 2026-12-08
+- url https://dedirock.com/KVMSuperSale/
+- price parsed USD 0.91/mo
+- disagrees on identity_kind: `compute/dedirock` says email, `compute/dedirock-black-friday` says card
+- disagrees on verdict: `compute/dedirock` says paid-only, `compute/dedirock-black-friday` says dead
+- disagrees on identity_kind: `compute/dedirock` says email, `compute/dedirock-cyber-monday` says card
+- disagrees on verdict: `compute/dedirock` says paid-only, `compute/dedirock-cyber-monday` says dead
+- disagrees on verdict: `compute/dedirock` says paid-only, `compute/dedirock-promo-vps-saver` says qualifies-with-caveat
+- disagrees on verdict: `compute/dedirock` says paid-only, `compute/dedirock-promo-vps-saver-ny-bf31` says qualifies-with-caveat
+- disagrees on verdict: `compute/dedirock` says paid-only, `compute/dedirock-promo-vps-special-ny` says qualifies
+- free tier: Yearly Promo VPS Saver at USD 10.88/year: 10 GB SSD, 1 GB RAM, 1 vCPU core, 1 TB bandwidth, 1 Gbps connection, 1 IPv4, KVM. The page states 'All Prices are Yearly Plans'. The tracker instead lists USD 9.88/year, about USD 0.82/month, for a 2 GB RAM, 30 GB SSD plan named Promo_VPS_Special_NY, which this page does not show. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 1 TB of bandwidth per month on the Saver plan, printed as '1 TB Monthly Bandwidth' on the cart page; no overage price is published on the pages read | metered: yes | free allowance: 1 TB per month on the Saver plan | source: [2]
+- identity: email | detail: not stated
+- interface: rest
+- limits:
+  - volume-quota (binding): 1 TB of bandwidth per month on a 1 Gbps connection per the cart lines '1 TB Monthly Bandwidth' and '1 Gbps Network Port'; the tracker's row for the larger sibling quotes a monthly figure [1]
+- limits note: 1 TB of bandwidth per month on a 1 Gbps connection per the cart lines '1 TB Monthly Bandwidth' and '1 Gbps Network Port'; the tracker's row for the larger sibling quotes a monthly figure
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated on the page read: order links point into a WHMCS store at billing.dedirock.com under product groups buff-kvm-vps, kvm-vps-hosting, vps-storage and the-i9-dream, with a Virtualizor panel; no API is documented
+- composes with: USD 10.88 a year, under a dollar a month, buys an always-on 1 GB host in Buffalo, which is the cheapest permanent address in this slice; the 10 GB disk and 1 TB of transfer confine it to control-plane work such as a scheduler, a monitor or a DNS secondary
+- reliability: no reliability event recorded
+- notes: The sale page's cheapest is USD 10.88/year for 1 GB / 10 GB; the tracker's USD 9.88/year row is a different, larger 2 GB / 30 GB plan that the sale page does not list, so the vendor figure is recorded and the tracked figure stays in evidence as the cheaper reported one. verification criteria: whether the USD 9.88 Promo_VPS_Special_NY plan is still orderable, since it is both cheaper and larger than anything on the sale page.
+- extras:
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 1
+  - facets.shape.disk_gib: 10
+  - annual_usd: 10.88
+  - monthly_usd: 0.91
+  - renewal_usd: not published: the cart prices the plan at $10.88 USD Annually and prints no separate renewal figure
+  - billing_term: yearly
+  - in_stock: yes
+- evidence:
+  - [1] 2026-10-22: plan card quoted: 'Yearly Promo VPS Saver', '$10.88', '/yearly', '10 GB SSD Storage', '1 GB RAM Memory', '1 vCPU Core', '1 TB Bandwidth', '1 Gbp/s Connection', '1 IpV4 Address', 'KVM Virtualization'; the block is headed 'All Prices are Yearly Plans'
+  - [1] 2026-10-22: the next tiers are 'Yearly Promo VPS Economy' at '$17.88 /yearly' with 20 GB SSD and 2 GB RAM, and 'Yearly Promo VPS Value' at '$31.88 /yearly' with 40 GB SSD, 3 GB RAM and 2 vCPU
+  - [3] 2026-10-22: tracker row quoted: 'DediRock - $0.82 / month', 'yearly Service', '1 Intel Cores (shared)', '2,048 MB RAM', '30 GB SSD', '2,048 GB/month bandwidth', '1 Gbps port speed', 'IPv4', 'Buffalo New York U.S.A.'; intro 'starting at $9.88 per year'; info page marks it 'In stock now'
+  - [4] 2026-10-22: plan table quoted: 'Starter $3.99/mo | Essentials $5.99/mo | Plus $9.99/mo | Advanced $18.99/mo | Premium $35.99/mo', with 'Storage Space 256 GB | 1 TB | 2 TB | 4 TB | 8 TB', 'Maximum Connection 200 Mbp/s ... 1 Gbp/s', 'Bandwidth 1 TB | 2 TB | 4 TB | 8 TB | 16 TB', 'Dedicated IP' ticked on every column
+  - [4] 2026-10-22: the page also prints '~~$5.99~~' above the Storage Starter card and '~~$12.99~~' above the Storage Plus card, with no struck figure on Essentials, Advanced or Premium
+  - [5] 2026-10-22: the site links a storage product at /storage-vps/ and KVM VPS at /kvm-vps-buffalo/ and /kvm-vps-los-angeles/; the storage page itself names no location
+  - [2] 2026-11-07: the cart prices the Yearly Promo Saver at USD 10.88 for the annual term | capture: sha256:506502c0884993dd5c8026ff34c7d9ec7fa4a6370eac09b6799e7d7c251dad80 | quote: $10.88 USD Annually
+  - [1] 2026-11-07: the sale page prices the Saver at USD 10.88 for the yearly term | capture: sha256:9256d77d132fee3af4082af80f42a87dff9b6fbb1b85a381abf252760c1ba5d0 | quote: ## Yearly Promo VPS Saver $10.88 /yearly
+  - [2] 2026-11-07: the cart's order summary totals the annual term at USD 10.88 with no separate renewal line | capture: sha256:506502c0884993dd5c8026ff34c7d9ec7fa4a6370eac09b6799e7d7c251dad80 | quote: Annually:$10.88 USD
+  - [1] 2026-11-07: the sale page states the billing term for every plan it lists | capture: sha256:9256d77d132fee3af4082af80f42a87dff9b6fbb1b85a381abf252760c1ba5d0 | quote: All Prices are Yearly Plans
+  - [2] 2026-11-07: the cart renders the configurator with the annual cycle priced and no out-of-stock phrase | capture: sha256:506502c0884993dd5c8026ff34c7d9ec7fa4a6370eac09b6799e7d7c251dad80 | quote: $10.88 USD Annually
+  - [2] 2026-11-07: the cart page states the transfer allowance with an explicit monthly period | capture: sha256:506502c0884993dd5c8026ff34c7d9ec7fa4a6370eac09b6799e7d7c251dad80 | quote: 1 TB Monthly Bandwidth
+  - [2] 2026-11-07: the cart page is where the transfer allowance is printed with its period | capture: sha256:506502c0884993dd5c8026ff34c7d9ec7fa4a6370eac09b6799e7d7c251dad80 | quote: 1 TB Monthly Bandwidth
+  - [2] 2026-11-07: the cart states the Saver's transfer allowance with an explicit monthly period and the port speed | capture: sha256:506502c0884993dd5c8026ff34c7d9ec7fa4a6370eac09b6799e7d7c251dad80 | quote: Yearly Promo Saver 1 GB RAM 1x vCore CPU 10 GB SSD 1 TB Monthly Bandwidth 1 Gbps Network Port 1 IPv4
+  - [2] 2026-11-07: the cart states the transfer allowance with an explicit monthly period | capture: sha256:506502c0884993dd5c8026ff34c7d9ec7fa4a6370eac09b6799e7d7c251dad80 | quote: 1 TB Monthly Bandwidth
+  - [2] 2026-11-07: a second independent read of the same cart page carries the same monthly transfer line | capture: sha256:16380c35a89c087042e653b80f5df9fa53630dc2b91d855433b9620f0b975006 | quote: 1 TB Monthly Bandwidth 1 Gbps Network Port
+- sources:
+  - [1] https://dedirock.com/KVMSuperSale/
+  - [2] https://billing.dedirock.com/index.php/store/yearly-promo/yearly-promo-saver
+  - [3] https://vpspricetracker.com/provider/DediRock/vps
+  - [4] https://dedirock.com/storage-vps/
+  - [5] https://dedirock.com/
+
+## DediRock, Promo VPS Saver (monthly)
+
+- `egress/dedirock-promo-vps-saver-monthly` | paid-only | evidence documented | binding volume-quota | category vps (hosted, New York or Los Angeles, KVM, one IPv4) | tier Promo VPS Saver (monthly)
+- identity a placeholder: card and phone unknown | verified 2026-11-04T05:55:18.497Z (live) | stale on 2026-12-05
+- url https://dedirock.com/promo/
+- price USD 2.99 per month with 1 TB bandwidth included | parsed USD 2.99/TB-mo
+- disagrees on identity_kind: `egress/dedirock-promo-vps-saver-monthly` says email, `egress/dedirock-yearly-promo-vps-saver` says card
+- free tier: No free tier. Promo VPS Saver is USD 2.99 a month: 1 vCPU, 1 GB RAM, 10 GB SSD, 1 TB bandwidth, a 1 Gbp/s connection and one IPv4, in New York or Los Angeles. | unit: none | metered on: none | read on: 2026-11-04 | source: [1]
+- per-object cap: not applicable: a virtual server, not an object store | source: [1]
+- retention: not applicable: a live server, not stored bytes | source: [1]
+- egress: 1 TB bandwidth on the Saver (2 TB on Economy, 3 TB on Value). Overage price and post-allowance behaviour are not published on the promo page. | metered: yes | free allowance: 1 TB | source: [1]
+- identity: email | detail: unverified: behind a sign-up. The promo page lists no payment method or identity requirement and the cart is on a separate billing host that was not read.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 1 TB bandwidth on Promo VPS Saver; overage rule not published [1]
+- binding note: The 1 TB bandwidth line is the only stated limit; the overage rule is not published.
+- interface detail: A Virtualizor-panel KVM VPS with root; the panel was not read.
+- tooling: ssh; the panel and guest tooling were not read.
+- composes with: One IPv4 and a 1 Gbp/s connection; no IPv6 or NAT is listed and no port set is published.
+- reliability: A promo page: the price can be withdrawn.
+- notes: Monthly-billed twin of the Black Friday annual Saver already held as a compute record; this is the monthly promo page price.
+- evidence note: Price and shape are lines of the vendor promo page read on 2026-11-04; identity and overage terms are not on it.
+- extras:
+  - nat: none stated; one IPv4 is listed
+  - ipv6: not listed
+  - inbound: not stated
+  - udp: not stated
+- evidence:
+  - [1] 2026-11-04: Promo VPS Saver is USD 2.99 a month with 1 TB bandwidth, a 1 Gbps connection and one IPv4 | capture: sha256:ee8caddf492eb3237c26862420b260137bb60096a4d73e115b971e9a4501033d | quote: Promo VPS Saver $2.99 /month * 10 GB SSD Storage * 1 GB RAM Memory * 1 vCPU Core * 1 TB Bandwidth * 1 Gbp/s Connection * 1 IpV4 Address * KVM Virtualization
+  - [1] 2026-11-04: the next tier is USD 5.99 a month with 2 TB bandwidth | capture: sha256:ee8caddf492eb3237c26862420b260137bb60096a4d73e115b971e9a4501033d | quote: Promo VPS Economy $5.99 /month * 20 GB SSD Storage * 2 GB RAM Memory * 1 vCPU Core * 2 TB Bandwidth * 2 Gbp/s Connection * 1 IpV4 Address * KVM Virtualization
+  - [1] 2026-11-04: the Saver is sold in New York and Los Angeles | capture: sha256:ee8caddf492eb3237c26862420b260137bb60096a4d73e115b971e9a4501033d | quote: Order VPS Saver New York Order VPS Saver Los Angeles
+- sources:
+  - [1] https://dedirock.com/promo/
+
+## DediRock (Yearly Promo VPS Saver)
+
+- `egress/dedirock-yearly-promo-vps-saver` | paid-only | evidence documented | binding volume-quota | category cheap-egress VPS: KVM VPS with a metered monthly allowance and a 1 Gbps port | tier Yearly Promo VPS Saver
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T05:55:17.627Z (live) | stale on 2026-12-05
+- url https://dedirock.com/KVMSuperSale/
+- disagrees on identity_kind: `egress/dedirock-promo-vps-saver-monthly` says email, `egress/dedirock-yearly-promo-vps-saver` says card
+- free tier: No free tier. Yearly Promo VPS Saver is $10.88 a year: 10 GB SSD, 1 GB RAM, 1 vCPU, 1 TB bandwidth, 1 Gbp/s connection, 1 IPv4, KVM. | unit: none | metered on: none | read on: 2026-11-04 | source: [1]
+- per-object cap: not applicable: a VPS, not an object store | source: [1]
+- retention: not applicable | source: [1]
+- egress: 1 TB of bandwidth on a 1 Gbp/s connection; the overage rule and the byte tolerance are not published on the plan page or in the terms read. | metered: yes | free allowance: 1 TB, period not stated | source: [1]
+- identity: card | detail: The accepted payment methods are unverified: behind a sign-up.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 1 TB bandwidth, period not stated [1]
+  - per-ip-shaping: 1 Gbp/s connection; any shaping beyond it is not published [1]
+- binding note: The 1 TB stated on the plan is the only countable figure, and it is below 1 TiB a month of transit; its overage action is not published.
+- interface detail: Root KVM VPS managed from a Virtualizor panel.
+- tooling: Any SSH client; the Virtualizor panel reinstalls the OS.
+- composes with: A 1 TB, 1 Gbp/s KVM box on one IPv4 with no IPv6 listed on the plan. Port and protocol restrictions are not published on the pages read.
+- reliability: The terms call promotional and special-sale services best effort and as is.
+- notes: USD 10.88 a year is about USD 0.91 a month for 1 TB.
+- evidence note: Plan card and terms read on 2026-11-04. The serverdeals listing KVM Super Sale (USD 7.00 a year, 2 TB) was not found on the vendor pages read, so the Saver plan is the one recorded.
+- extras:
+  - ipv6: unverified: not listed on the plan
+  - term: yearly
+  - virtualization: KVM
+- evidence:
+  - [1] 2026-11-04: the Yearly Promo VPS Saver plan is on the vendor sale page | capture: sha256:9256d77d132fee3af4082af80f42a87dff9b6fbb1b85a381abf252760c1ba5d0 | quote: ## Yearly Promo VPS Saver
+  - [1] 2026-11-04: the plan costs USD 10.88 a year | capture: sha256:9256d77d132fee3af4082af80f42a87dff9b6fbb1b85a381abf252760c1ba5d0 | quote: $10.88 /yearly
+  - [1] 2026-11-04: the plan lists 1 TB of bandwidth | capture: sha256:9256d77d132fee3af4082af80f42a87dff9b6fbb1b85a381abf252760c1ba5d0 | quote: - 1 TB Bandwidth
+  - [1] 2026-11-04: the plan has a 1 Gbp/s connection | capture: sha256:9256d77d132fee3af4082af80f42a87dff9b6fbb1b85a381abf252760c1ba5d0 | quote: - 1 Gbp/s Connection
+  - [2] 2026-11-04: service starts after payment and a fraud screen | capture: sha256:628e96f0aedb1087687dda4348603ea537c0b65a6cabe875c4de5e9a55a04ce0
+  - [2] 2026-11-04: promotional services are best effort | capture: sha256:628e96f0aedb1087687dda4348603ea537c0b65a6cabe875c4de5e9a55a04ce0 | quote: are provided strictly on an “AS IS” and “BEST EFFORT” basis
+  - [3] 2026-11-04: serverdeals lists a DediRock KVM Super Sale at USD 7.00 a year with 2 TB and a 1 Gbps port, a listing not found on the vendor pages read | quote: ###### KVM Super Sale
+- sources:
+  - [1] https://dedirock.com/KVMSuperSale/
+  - [2] https://dedirock.com/terms-of-services/
+  - [3] https://serverdeals.cc/
+
+## DediRock Storage VPS
+
+- `compute/dedirock-storage-vps` | paid-only | evidence documented | binding volume-quota | category cloud VM
+- identity a placeholder: card and phone unknown | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://dedirock.com/storage-vps/
+- free tier: A large-disk VPS line in New York and Los Angeles, monthly: Starter at USD 3.99 for 512 MB RAM, 256 GB of space, 1 TB a month and a 200 Mbps port; Essentials at USD 5.99 for 1 GB, 1 TB, 2 TB and 400 Mbps; Plus at USD 9.99 for 2 GB, 2 TB, 4 TB and 600 Mbps; Advanced at USD 18.99 for 4 GB, 4 TB, 8 TB and 800 Mbps; Premium at USD 35.99 for 8 GB, 8 TB, 16 TB and 1 Gbps. Every tier has one vCPU core, one IPv4 and full root. Annual promo pricing is lower: a 256 GB plan at USD 11.88 a year, 1 TB at USD 17.68 and 2 TB at USD 27.68, on pages headed 'All Prices are Yearly Plans'. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: included monthly transfer of 1, 2, 4, 8 or 16 TB by tier, with no overage price published on the page read | metered: yes | free allowance: 1 TB a month on the USD 3.99 plan | source: [1]
+- identity: email | detail: not read: the store returns 403 to an unauthenticated fetch, so the payment rails and any identity step are unverified
+- interface: unknown
+- limits:
+  - volume-quota (binding): traffic is capped by tier at 1, 2, 4, 8 and 16 TB a month, and the smallest monthly plan also caps the port at 200 Mbps, so a 256 GB archive is limited by transfer rather than by disk [1]
+- limits note: traffic is capped by tier at 1, 2, 4, 8 and 16 TB a month, and the smallest monthly plan also caps the port at 200 Mbps, so a 256 GB archive is limited by transfer rather than by disk
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: Virtualizor on the promo cards; the storage page itself names no hypervisor, and root access is stated
+- composes with: the annual promo is the cheap route: USD 27.68 a year for 2 TB is USD 13.84 per TB-year, which is below the object-storage rate the same seeds compare against
+- reliability: the New York storage nodes were being migrated from RAID-0 to RAID-5 across three announcements in 2026 and no page states that the migration finished, so a redundancy claim on this line is not supported by the vendor's own notices
+- notes: A separate record from dedirock.json, which covers the KVM promo line at USD 10.88 a year with 10 GB of disk. The two products differ in disk, traffic, price and purchase path. The affiliate seeds that surfaced this line overstate it in three ways: they print 1 Gbps across all plans where the vendor prints 200 to 1,000 Mbps by tier, they describe RAID-5 as delivered rather than in progress, and one prints a 'Storage Wars' batch that no vendor page read carries. Unverified: whether the annual promo plans are still orderable, because the billing store returns 403, and whether the renewal price equals the promo price.
+- extras:
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 0.5
+  - facets.shape.disk_gib: 256
+- evidence:
+  - [1] 2026-10-22: the monthly table prices Starter at USD 3.99 with 512 MB RAM and 256 GB of space, Essentials at USD 5.99 with 1 GB and 1 TB, Plus at USD 9.99 with 2 GB and 2 TB, Advanced at USD 18.99 with 4 GB and 4 TB, and Premium at USD 35.99 with 8 GB and 8 TB, each with one vCPU and a port of 200 Mbps rising to 1 Gbps by tier
+  - [2] 2026-10-22: 'All Prices are Yearly Plans', with Storage Promo Starter at USD 11.88 a year for 256 GB, Essentials at USD 17.68 for 1 TB and Plus at USD 27.68 for 2 TB, quoted
+  - [3] 2026-10-22: three announcements dated 18 Jan 2026, 2 Feb 2026 and 7 Mar 2026 state that the New York storage nodes are 'moving from RAID-0 to RAID-5', 'will soon be fully upgraded to RAID-5' and 'are being moved to RAID-5'; the 12 Oct 2026 announcement names no RAID status
+- sources:
+  - [1] https://dedirock.com/storage-vps/
+  - [2] https://dedirock.com/black-friday/
+  - [3] https://billing.dedirock.com/index.php?rp=/announcements
+
+## DediRock (black friday)
+
+- `compute/dedirock-black-friday` | dead | evidence documented | binding volume-quota | category VPS | tier Promo VPS Saver LA/NY BF, Economy BF, Value BF, Storage Promo BF
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T06:20:13.000Z (live) | stale on 2026-11-24
+- url https://dedirock.com/black-friday/
+- disagrees on identity_kind: `compute/dedirock` says email, `compute/dedirock-black-friday` says card
+- disagrees on verdict: `compute/dedirock` says paid-only, `compute/dedirock-black-friday` says dead
+- disagrees on identity_kind: `compute/dedirock-black-friday` says card, `compute/dedirock-promo-vps-saver` says email
+- disagrees on verdict: `compute/dedirock-black-friday` says dead, `compute/dedirock-promo-vps-saver` says qualifies-with-caveat
+- disagrees on identity_kind: `compute/dedirock-black-friday` says card, `compute/dedirock-promo-vps-saver-ny-bf31` says email
+- disagrees on verdict: `compute/dedirock-black-friday` says dead, `compute/dedirock-promo-vps-saver-ny-bf31` says qualifies-with-caveat
+- disagrees on identity_kind: `compute/dedirock-black-friday` says card, `compute/dedirock-promo-vps-special-ny` says email
+- disagrees on verdict: `compute/dedirock-black-friday` says dead, `compute/dedirock-promo-vps-special-ny` says qualifies
+- free tier: no free tier; the page sells annual promo plans from USD 9.88 a year | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the annual plan is paid; no deletion clock stated on the page
+- egress: 1 TB a month on the Saver tier, 2 TB on Economy, 3 TB on Value, per the page's Bandwidth line | metered: yes | free allowance: 1 TB | source: [1]
+- identity: card | detail: card at signup through the WHMCS store; Stripe is the named processor. No hold amount is published on the order form. Alipay is also named on the page.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 1 TB a month of transfer on the Saver tier [1]
+- binding note: Stock, not quota, is what fails first: every Black Friday cart link on this page is out of stock or repointed.
+- interface detail: root SSH on a KVM guest; Virtualizor control panel named on the page
+- tooling: any SSH client; Virtualizor panel. No API documented.
+- composes with: A USD 0.82 a month 1 GiB VPS would serve as a WireGuard node or health monitor, if the cart sold it.
+- reliability: no reliability event recorded
+- notes: Verification criteria: archived captures of /black-friday/ from late 2024.
+- evidence note: The page and all nine order links were read. The prices are quoted from the page; the stock state is quoted from each cart. Identity detail is documented from the order form, not from a completed registration.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.disk_gib: 10
+  - billing_model: annual
+  - term: annual prepay
+  - price_arithmetic: USD 9.88 a year divided by 12 is USD 0.82 a month, paid once. Not recorded as a live price because the cart does not sell it.
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: no
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - sale_page_year: 2024 (inferred from the matching LowEndBox post of 2024-11-29; the page carries no date)
+  - order_links_tested: 9
+  - order_links_out_of_stock: 8
+  - order_links_repointed: 2
+- evidence:
+  - [1] 2026-10-24: quoted: 'Promo VPS Saver LA BF $9.88 /year ... 1 GB RAM, 1x vCore CPU, 10 GB SSD, 1 TB Bandwith'; also 'Promo VPS Economy LA BF $17.68 /year', 'Promo VPS Value LA BF $27.68 /year', and the same three for New York
+  - [2] 2026-10-24: quoted: 'Out of Stock - We are currently out of stock on this item so orders for it have been suspended until more stock is available.'
+  - [3] 2026-10-24: HTTP 200 but x-web-final-url is /store/kvm-vps-hosting: the slug no longer resolves to a product and the browser lands on a category listing priced $5.99, $8.99 and $12.99 monthly, not the $9.88 annual the page promises
+  - [4] 2026-10-24: same repoint: final URL /store/kvm-vps-hosting, monthly category prices $5.99/$8.99/$12.99
+  - [5] 2026-10-24: quoted: 'Out of Stock ... orders for it have been suspended'
+  - [6] 2026-10-24: quoted: 'Out of Stock ... orders for it have been suspended'
+- sources:
+  - [1] https://dedirock.com/black-friday/
+  - [2] https://billing.dedirock.com/index.php/store/promo-vps-los-angeles/promo-vps-economy-la-bf
+  - [3] https://billing.dedirock.com/index.php/store/promo-vp/promo-vps-saver-ny-bf
+  - [4] https://billing.dedirock.com/index.php/store/promo-vps-los-angeles/promo-vps-saver-la-bf
+  - [5] https://billing.dedirock.com/index.php/store/vps-storage/storage-promo-starter-bf
+  - [6] https://billing.dedirock.com/index.php/store/vps-storage/storage-promo-plus-1
+
+## DediRock (cyber monday)
+
+- `compute/dedirock-cyber-monday` | dead | evidence documented | binding volume-quota | category VPS | tier Promo VPS Saver/Economy/Value LA and NY CM, Storage Promo CM
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T06:20:13.000Z (live) | stale on 2026-11-24
+- url https://dedirock.com/cyber-monday/
+- disagrees on identity_kind: `compute/dedirock` says email, `compute/dedirock-cyber-monday` says card
+- disagrees on verdict: `compute/dedirock` says paid-only, `compute/dedirock-cyber-monday` says dead
+- disagrees on identity_kind: `compute/dedirock-cyber-monday` says card, `compute/dedirock-promo-vps-saver` says email
+- disagrees on verdict: `compute/dedirock-cyber-monday` says dead, `compute/dedirock-promo-vps-saver` says qualifies-with-caveat
+- disagrees on identity_kind: `compute/dedirock-cyber-monday` says card, `compute/dedirock-promo-vps-saver-ny-bf31` says email
+- disagrees on verdict: `compute/dedirock-cyber-monday` says dead, `compute/dedirock-promo-vps-saver-ny-bf31` says qualifies-with-caveat
+- disagrees on identity_kind: `compute/dedirock-cyber-monday` says card, `compute/dedirock-promo-vps-special-ny` says email
+- disagrees on verdict: `compute/dedirock-cyber-monday` says dead, `compute/dedirock-promo-vps-special-ny` says qualifies
+- free tier: no free tier; the page sells annual promo plans from USD 8.88 a year | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the annual plan is paid; no deletion clock stated on the page
+- egress: 1 TB a month on the Saver tier, 2 TB on Economy, 3 TB on Value, per the page's Bandwidth line | metered: yes | free allowance: 1 TB | source: [1]
+- identity: card | detail: card at signup through the WHMCS store; Stripe is the named processor. No hold published.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 1 TB a month of transfer on the Saver tier [1]
+- binding note: Stock. Nine order links, nine out of stock.
+- interface detail: root SSH on a KVM guest; Virtualizor control panel named on the page
+- tooling: any SSH client; Virtualizor panel
+- composes with: A USD 0.74 a month 1 GiB VPS would be the cheapest thing among evaluated providers; all nine carts are out of stock.
+- reliability: no reliability event recorded
+- notes: The Cyber Monday twin of the Black Friday page, one dollar cheaper per tier, and in worse condition: all six VPS carts and all three storage carts return Out of Stock, with none repointing. The page also carries the line 'All Prices are Yearly Plans' and a countdown-style layout, so it presents as a current sale. It is the cleanest example among evaluated providers of a page that looks live, quotes a price, and sells nothing. Not verified: the year, which the page does not state.
+- evidence note: The page and all nine order links were read. Prices quoted from the page, stock quoted from each cart.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.disk_gib: 10
+  - billing_model: annual
+  - term: annual prepay
+  - price_arithmetic: USD 8.88 a year divided by 12 is USD 0.74 a month, paid once. Not recorded as a live price because no cart sells it.
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: no
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - sale_page_year: undated on the page
+  - order_links_tested: 9
+  - order_links_out_of_stock: 9
+- evidence:
+  - [1] 2026-10-24: quoted: 'Promo VPS Saver LA CM $8.88 /year ... 1 GB RAM, 1x vCore CPU, 10 GB SSD, 1 TB Bandwith'; also 'Promo VPS Economy LA CM $16.68 /year', 'Promo VPS Value LA CM $26.68 /year', the same three for New York, and 'Storage Promo Starter CM $10.88 /year'
+  - [2] 2026-10-24: quoted: 'Out of Stock ... orders for it have been suspended until more stock is available'
+  - [3] 2026-10-24: quoted: 'Out of Stock ... orders for it have been suspended'
+  - [4] 2026-10-24: quoted: 'Out of Stock ... orders for it have been suspended'
+- sources:
+  - [1] https://dedirock.com/cyber-monday/
+  - [2] https://billing.dedirock.com/index.php/store/promo-vp/promo-vps-saver-ny-cm
+  - [3] https://billing.dedirock.com/index.php/store/promo-vps-los-angeles/promo-vps-value-la-cm
+  - [4] https://billing.dedirock.com/index.php/store/vps-storage/storage-promo-starter-cm

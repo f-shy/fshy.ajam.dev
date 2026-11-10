@@ -1,0 +1,156 @@
+# DeepSeek API
+
+> deepseek.com | Compute, Inference, Storage; 3 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/deepseek/ | JSON https://fshy.ajam.dev/api/v1/entity/deepseek.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## DeepSeek API (Compute)
+
+- `compute/deepseek-api` | paid-only | evidence documented | binding volume-quota | category inference API
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T14:55:03.474Z (live) | stale on 2026-12-04
+- url https://api-docs.deepseek.com/quick_start/pricing/
+- duplicate of `inference/deepseek-api`
+- free tier: No free grant on the vendor's own pricing page. deepseek-flash is USD 0.15 per 1M input tokens on a cache miss and USD 0.60 per 1M output off-peak, doubling at peak; cache hits cost USD 0.003 per 1M off-peak. The concurrency limit is 2,500 for deepseek-flash and 500 for deepseek-v4-pro, at account level, and 'There is no additional cost for capacity expansion'. Context is 1M tokens with 384K maximum output. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: card | detail: sign-up outside mainland China takes an email address with an emailed code ('Only email registration is supported in your region') or a Google account, and no phone number; the API then draws on a prepaid balance and an empty balance is refused with 402 Insufficient Balance, so the capacity needs a balance topped up online by PayPal, bank card, Alipay or WeChat Pay; whether a new account receives a granted balance is not published and is unverified: behind a sign-up
+- interface: unknown
+- limits:
+  - volume-quota (binding): nothing binds but the balance: 2,500 concurrent requests is the highest concurrency in this class, about eight times Cloudflare's 300 requests a minute, so the only ceiling is the prepaid balance and USD 0.15 per 1M input makes a large job cheap rather than free. [1]
+- limits note: nothing binds but the balance: 2,500 concurrent requests is the highest concurrency in this class, about eight times Cloudflare's 300 requests a minute, so the only ceiling is the prepaid balance and USD 0.15 per 1M input makes a large job cheap rather than free.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: the off-peak window is the chain that matters: at USD 0.15 per 1M input and 2,500 concurrency a weekend batch is the cheapest job in this class and needs no free tier at all.
+- reliability: no reliability event recorded
+- notes: No signup grant appears on the vendor's pricing page, which prices every model. Identity: sign-up on the international lane is an email address, and the API is usable only after a prepaid top-up by PayPal, bank card, Alipay or WeChat Pay, so the binding identity is a payment method.
+- extras:
+  - facets.class: cheapest-paid
+  - facets.free_tier_kind: none
+- evidence:
+  - [1] 2026-10-22: '1M INPUT TOKENS (CACHE MISS) OFF-PEAK $0.15 PEAK $0.3' and '1M OUTPUT TOKENS OFF-PEAK $0.6 PEAK $1.2' for deepseek-flash, quoted
+  - [2] 2026-10-22: 'Concurrency Limit 2500' for deepseek-flash, 'calculated at the account level', quoted
+  - [1] 2026-10-22: peak hours are '01:00 - 04:00 and 06:00 - 10:00 UTC, Monday through Friday', so every other hour including weekends is off-peak, quoted
+  - [3] 2026-11-03: an empty balance is refused with 402 Insufficient Balance, so the API needs a topped-up balance | capture: sha256:c00e3ec23a349438b6bb4d8f912ce2b574a386a1854b2f60a36be768eafdf366 | quote: | 402 - Insufficient Balance | Cause: You have run out of balance. Solution: Please check your account's balance, and go to the [Top up](https://platform.deepseek.com/top_up) page to add funds. |
+  - [4] 2026-11-03: a balance is topped up online by PayPal, bank card, Alipay or WeChat Pay | capture: sha256:e66a2c6206b3eaa593dc2434341fa30abb5670625496e0a1bb043d44e89b6166 | quote: You can top up online via PayPal, bank card, Alipay, or WeChat Pay on the
+  - [5] 2026-11-03: the sign-up page served outside mainland China offers email registration only | capture: sha256:5bed8b11c11960f50a0f4a2c7acc87b2de38dbd996f95e1a978a88d17f4ccc9b | quote: Only email registration is supported in your region.
+  - [6] 2026-11-03: the concurrency limit is 2500 for deepseek-flash and 500 for deepseek-v4-pro | capture: sha256:dca41195344f86821a0756c3c9a4ffcd733b1a016abdcd5fbace69fbf54efa2d | quote: | Concurrency Limit | 2500 | 500 |
+- sources:
+  - [1] https://api-docs.deepseek.com/quick_start/pricing/
+  - [2] https://api-docs.deepseek.com/quick_start/rate_limit/
+  - [3] https://api-docs.deepseek.com/quick_start/error_codes
+  - [4] https://static.deepseek.com/faq/static/main.86961ff339.js
+  - [5] https://platform.deepseek.com/sign_up
+  - [6] https://api-docs.deepseek.com/quick_start/rate_limit
+
+## DeepSeek API (Inference)
+
+- `inference/deepseek-api` | paid-only | evidence documented | binding none | category inference endpoint, paid
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-03T14:55:03.475Z (live) | stale on 2026-12-04
+- url https://api-docs.deepseek.com/
+- free tier: no free tier or signup credit is stated: usage is deducted from a topped-up balance or a granted balance, granted balance first, and no granted amount is published | unit: none | metered on: none | read on: 2026-10-22 | source: [1] | note: a granted balance can expire: the balance endpoint reports granted_balance as the total not expired granted balance, in CNY or USD; topped-up balances do not expire and an unused balance can be refunded; whether a new account receives a granted balance, and its amount and expiry, are not published on the documentation, terms or help-centre pages and are unverified: behind a sign-up
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: card | detail: an API key from an account on platform.deepseek.com, registered by email address with an emailed code or by a Google account; the sign-up page served outside mainland China offers email registration only, WeChat login is limited to mainland-China addresses, and some email domains are refused (Gmail, Outlook, Hotmail or Yahoo are recommended); calls draw on a prepaid balance and an empty balance is refused with an Insufficient Balance error; top-up is online by PayPal, bank card, Alipay or WeChat Pay; the Chinese-language FAQ puts real-name verification (an ID number) before an Alipay or WeChat top-up and opens bank transfer only to enterprise-verified accounts registered with a China-country-code phone number; whether an email-registered account must pass real-name verification before a PayPal or card top-up is unverified: behind a sign-up
+- interface: rest
+- limits:
+  - request-rate: concurrency limit per account, counted across all API keys: 2500 concurrent requests for deepseek-flash and 500 for deepseek-v4-pro; HTTP 429 above the limit; higher concurrency is available on request at no additional cost [2]
+- limits note: the published limit is account-level concurrency, 2500 for deepseek-flash and 500 for deepseek-v4-pro, with higher concurrency available on request at no additional cost; the rate-limit page publishes no requests-per-minute or token quota
+- endpoint: https://api.deepseek.com
+- tooling: any OpenAI-compatible client; curl against POST {base}/chat/completions
+- composes with: pairs with an agent as the cheapest paid per-token route; the scarce link is the prepaid balance, not a rate
+- reliability: the legacy model names deepseek-v4-flash and deepseek-v4-flash-vision-exp are retired and their requests are now served by DeepSeek-V4.1-Flash-1017 at the Flash price
+- notes: Prices per 1M tokens, deepseek-flash / deepseek-v4-pro: input cache hit off-peak USD 0.003 / USD 0.022 and peak USD 0.006 / USD 0.044; input cache miss off-peak USD 0.15 / USD 0.66 and peak USD 0.3 / USD 1.32; output off-peak USD 0.6 / USD 1.98 and peak USD 1.2 / USD 3.96. Off-peak rates are half of the peak rates; peak hours are 01:00 - 04:00 and 06:00 - 10:00 UTC, Monday through Friday, excluding Chinese public holidays
+- evidence note: the model naming, the retirement of the legacy names, the per-token prices and the concurrency limits are quoted from the first-party pricing and rate-limit pages
+- evidence:
+  - [1] 2026-10-22: the served models are deepseek-flash and deepseek-v4-pro; deepseek-flash is served by DeepSeek-V4.1-Flash-1017; the legacy names are accepted but their models are retired and billed at the Flash price; OpenAI and Anthropic compatible base URLs
+  - [2] 2026-10-28: the concurrency limit is 2500 for deepseek-flash and 500 for deepseek-v4-pro | capture: sha256:cb20f8e4f1f49d13770bc5f820d26bbf963c77627bbd02818e8458e6c9065ac7 | quote: | Concurrency Limit | 2500 | 500 |
+  - [2] 2026-10-28: higher concurrency is granted on request at no additional cost | capture: sha256:cb20f8e4f1f49d13770bc5f820d26bbf963c77627bbd02818e8458e6c9065ac7 | quote: We will match the appropriate concurrency based on your actual business needs. There is no additional cost for capacity expansion.
+  - [1] 2026-10-28: usage is deducted from a topped-up balance or a granted balance, granted balance first; no amount is stated | capture: sha256:fcb5d07afdadb10b82724bc83b45b8b456f7702336b4989e279837c2b7e8a55d | quote: The corresponding fees will be directly deducted from your topped-up balance or granted balance, with a preference for using the granted balance first when both balances are available.
+  - [3] 2026-10-28: the balance endpoint's granted_balance is the total not expired granted balance | capture: sha256:f5cc88ab45de56b6ec6d9277e962870c5822f0da5c3b5f77f3258cee3852903a | quote: The total not expired granted balance.
+  - [4] 2026-10-28: an empty balance returns 402 Insufficient Balance and the fix is to top up on platform.deepseek.com | capture: sha256:c00e3ec23a349438b6bb4d8f912ce2b574a386a1854b2f60a36be768eafdf366 | quote: | 402 - Insufficient Balance | Cause: You have run out of balance. Solution: Please check your account's balance, and go to the [Top up](https://platform.deepseek.com/top_up) page to add funds. |
+  - [1] 2026-10-28: the pricing page tabulates the per-token prices and defines the peak hours | capture: sha256:fcb5d07afdadb10b82724bc83b45b8b456f7702336b4989e279837c2b7e8a55d | quote: (2) Off-peak rates are half of the peak rates. Peak hours are 01:00 - 04:00 and 06:00 - 10:00 UTC, Monday through Friday, excluding Chinese public holidays. All other hours are off-peak, including weekends and Chinese public holidays in full.
+  - [1] 2026-10-28: the OpenAI-format base URL is https://api.deepseek.com | capture: sha256:fcb5d07afdadb10b82724bc83b45b8b456f7702336b4989e279837c2b7e8a55d | quote: | BASE URL (OpenAI Format) | [https://api.deepseek.com](https://api.deepseek.com/) | | | |
+  - [1] 2026-10-28: the legacy names are retired and served by DeepSeek-V4.1-Flash-1017 at the Flash price | capture: sha256:fcb5d07afdadb10b82724bc83b45b8b456f7702336b4989e279837c2b7e8a55d | quote: (1) Use `deepseek-flash` as the model name. The legacy names `deepseek-v4-flash` and `deepseek-v4-flash-vision-exp` are still accepted, but the corresponding models have been retired, their requests are served by the DeepSeek-V4.1-Flash-1017 model and billed at the Flash price.
+  - [5] 2026-10-30: a balance is topped up online by PayPal, bank card, Alipay or WeChat Pay | capture: sha256:eb01ad1b0d72d683b28d65e6d1dbaa0630adff102f4f0b0c304e2ca2457efa9b | quote: You can top up online via PayPal, bank card, Alipay, or WeChat Pay on the 「Top Up」 page.
+  - [6] 2026-10-30: the sign-up page served outside mainland China offers email registration only, with a code sent to the address | capture: sha256:5bed8b11c11960f50a0f4a2c7acc87b2de38dbd996f95e1a978a88d17f4ccc9b | quote: Only email registration is supported in your region. One DeepSeek account is all you need to access to all DeepSeek services.
+  - [6] 2026-10-30: the email sign-up form sends a code to the address | capture: sha256:5bed8b11c11960f50a0f4a2c7acc87b2de38dbd996f95e1a978a88d17f4ccc9b | quote: Send code
+  - [7] 2026-10-30: an account is registered with an email address or a third-party account | capture: sha256:147e793e7c30bac50d05fdb003814c17fc07dd821bcff296d8591d0fd1ab44cb | quote: 2.2 Before using the Services, you shall register an account using your Email or third-party account as per the page instructions.
+  - [8] 2026-10-30: WeChat login is limited to mainland-China addresses | capture: sha256:38d0d6df8e98bb81910d1e05889fb1c5565153c7de0d4b73ec0d42a9d995f325 | quote: WeChat login is only supported for IPs in Mainland China.
+  - [9] 2026-10-30: Google login is offered outside mainland China | capture: sha256:b15a0ed70f2c21ca898a4ce890fa65f441d318bedac9ff69451582f98c3a0d84 | quote: Google login is not supported for IPs in Mainland China.
+  - [10] 2026-10-30: the top-up page is behind a login that offers a Google account | capture: sha256:d515ee976906607d5fa1405052024a7ec77dd03db6a3d2c8f7d0f00144b8cef1 | quote: Log in with Google
+  - [11] 2026-10-30: some email domains are refused at registration; Gmail, Outlook, Hotmail or Yahoo are recommended | capture: sha256:705040f0403def49669bb07c77724668d93671738e45ecd93a7333722df34e2e | quote: The email domain you are currently using is not on the support list. We recommend signing up with a major international email provider such as Gmail, Outlook, Hotmail, or Yahoo.
+  - [12] 2026-10-30: the Chinese-language FAQ puts real-name verification before an online Alipay or WeChat top-up | capture: sha256:1897805093f44b1d0f865c1402ffd4b0f859b5b4290d80481069921a98ac4d2d | quote: 在线充值：完成实名认证后，您可以在「充值」页面使用支付宝/微信进行在线充值。
+  - [12] 2026-10-30: bank transfer is for enterprise accounts only, and currently only for accounts registered with a +86 phone number | capture: sha256:1897805093f44b1d0f865c1402ffd4b0f859b5b4290d80481069921a98ac4d2d | quote: 对公汇款：对公汇款仅支持企业用户（暂时仅对 +86 手机号注册用户开放）。
+  - [13] 2026-10-30: real-name verification binds an account to an ID number, with a cap on accounts per ID number | capture: sha256:89c675e62172b73d5a29a97c4c1312446f7fcc6e318baa2e62bb824746e3e0df | quote: The number of accounts bound to this ID number exceeds the limit.
+  - [14] 2026-10-30: the help-centre FAQ (served from its script bundle) states that topped-up balances do not expire | capture: sha256:239bc921cd514bbfc2c44728a75ee70f5ddadb04f99899cbec05325ec96cc363 | quote: Top-up balances do not expire.
+  - [15] 2026-10-30: the Chinese-language FAQ states that topped-up balances never expire | capture: sha256:8baefccfc8ef71029d5cfd8a244aa21b167da2842725d20bd336b32a5921eca9 | quote: 您的充值余额永久有效，不会过期。
+  - [16] 2026-10-30: an unused balance can be refunded | capture: sha256:41a5f6f505de8b7b6042bf1f76b7508e5980b6266ce86012ed0a890dc2e73adc | quote: Unused balances can be refunded.
+  - [3] 2026-10-30: a balance is held in CNY or USD | capture: sha256:f5cc88ab45de56b6ec6d9277e962870c5822f0da5c3b5f77f3258cee3852903a | quote: Possible values: [CNY, USD]
+  - [17] 2026-10-30: the Open Platform terms leave any free quota to the product pages, and the documentation pages publish none | capture: sha256:75cd9051be0c47f7bdcef8a890abca07ee800b5daeb19128fbc8668f5582b3eb | quote: 6.2 The recharge methods, billing prices, consumption methods, and free quota for paid services are subject to the information displayed on our product pages and the platform website.
+  - [1] 2026-10-30: the pricing page is unchanged: usage is deducted from a topped-up or granted balance, granted first, and no granted amount is stated | capture: sha256:fcb5d07afdadb10b82724bc83b45b8b456f7702336b4989e279837c2b7e8a55d | quote: The corresponding fees will be directly deducted from your topped-up balance or granted balance, with a preference for using the granted balance first when both balances are available.
+  - [6] 2026-11-03: the sign-up page served outside mainland China offers email registration only | capture: sha256:5bed8b11c11960f50a0f4a2c7acc87b2de38dbd996f95e1a978a88d17f4ccc9b | quote: Only email registration is supported in your region.
+  - [4] 2026-11-03: an empty balance is refused with 402 Insufficient Balance, so the API needs a topped-up balance | capture: sha256:c00e3ec23a349438b6bb4d8f912ce2b574a386a1854b2f60a36be768eafdf366 | quote: | 402 - Insufficient Balance | Cause: You have run out of balance. Solution: Please check your account's balance, and go to the [Top up](https://platform.deepseek.com/top_up) page to add funds. |
+  - [2] 2026-11-03: the concurrency limit is 2500 for deepseek-flash and 500 for deepseek-v4-pro | capture: sha256:dca41195344f86821a0756c3c9a4ffcd733b1a016abdcd5fbace69fbf54efa2d | quote: | Concurrency Limit | 2500 | 500 |
+  - [1] 2026-11-03: usage is deducted from a topped-up or granted balance, granted first, and no granted amount is stated | capture: sha256:fcb5d07afdadb10b82724bc83b45b8b456f7702336b4989e279837c2b7e8a55d | quote: The corresponding fees will be directly deducted from your topped-up balance or granted balance, with a preference for using the granted balance first when both balances are available.
+  - [17] 2026-11-03: the Open Platform terms leave any free quota to the product pages, and the documentation pages publish none | capture: sha256:75cd9051be0c47f7bdcef8a890abca07ee800b5daeb19128fbc8668f5582b3eb | quote: 6.2 The recharge methods, billing prices, consumption methods, and free quota for paid services are subject to the information displayed on our product pages and the platform website.
+  - [7] 2026-11-03: an account is registered with an email address or a third-party account | capture: sha256:da4d41e6656a80f287cd2410c4e261d831950e2061848f764d52bf1c23125c40 | quote: 2.2 Before using the Services, you shall register an account using your Email or third-party account as per the page instructions.
+  - [14] 2026-11-03: a balance is topped up online by PayPal, bank card, Alipay or WeChat Pay | capture: sha256:e66a2c6206b3eaa593dc2434341fa30abb5670625496e0a1bb043d44e89b6166 | quote: You can top up online via PayPal, bank card, Alipay, or WeChat Pay on the
+- sources:
+  - [1] https://api-docs.deepseek.com/quick_start/pricing
+  - [2] https://api-docs.deepseek.com/quick_start/rate_limit
+  - [3] https://api-docs.deepseek.com/api/get-user-balance
+  - [4] https://api-docs.deepseek.com/quick_start/error_codes
+  - [5] https://static.deepseek.com/faq/index.html?lang=en#/question/top-up
+  - [6] https://platform.deepseek.com/sign_up
+  - [7] https://cdn.deepseek.com/policies/en-US/deepseek-terms-of-use.html
+  - [8] https://static.deepseek.com/faq/index.html?lang=en#/question/wechat-login
+  - [9] https://static.deepseek.com/faq/index.html?lang=en#/question/google-login
+  - [10] https://platform.deepseek.com/top_up
+  - [11] https://static.deepseek.com/faq/index.html?lang=en#/question/unsupported-email
+  - [12] https://static.deepseek.com/faq/index.html?lang=zh#/question/top-up
+  - [13] https://static.deepseek.com/faq/index.html?lang=en#/question/verification-failure
+  - [14] https://static.deepseek.com/faq/static/main.86961ff339.js
+  - [15] https://static.deepseek.com/faq/index.html?lang=zh#/question/balance-validity
+  - [16] https://static.deepseek.com/faq/index.html?lang=en#/question/refund-policy
+  - [17] https://cdn.deepseek.com/policies/en-US/deepseek-open-platform-terms-of-service.html
+
+## DeepSeek Files API
+
+- `storage/deepseek-files-api` | fails-egress | evidence reported | binding per-object-cap | category Chinese LLM platform /v1/files
+- needs card no, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://api-docs.deepseek.com/guides/files_api
+- free tier: 25 GiB per user, 10,000 files, 64 MiB per file. Permanent if `expires_after` is omitted; otherwise 1 hour – 30 days. | unit: GiB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: 64 MiB per file | bytes: 67108864 | source: [1] | note: not stated
+- retention: 25 GiB per user, 10,000 files, 64 MiB per file. Permanent if `expires_after` is omitted; otherwise 1 hour – 30 days | days: 0 | source: [1] | note: not stated
+- egress: Files API itself is free; only inference tokens are billed. No egress fee documented. | metered: no
+- identity: email | detail: email
+- interface: unknown
+- limits:
+  - per-object-cap (binding): 64 MiB per file [1]
+- limits note: Per-object-cap 64 MiB. Upload must complete within 10 minutes. Count cap 10,000 files. `purpose` must be `user_data`. Omit `expires_after` for permanence. '少写一个参数，文件就永久留在他服务器上' (omit one parameter and the file stays on their server forever).
+- interface detail: OpenAI-compatible POST /files, and an Anthropic-compatible /anthropic/v1/files; also list/retrieve/delete
+- tooling: openai-python with base_url https://api.deepseek.com; curl multipart; ai-sdk deepseek provider ships a file store
+- composes with: 25 GiB is per user, not per project. No obvious multiplicative axis except more accounts. Image-only format restriction (JPEG/PNG/GIF/WebP, sniffed from content) makes it a picture store rather than a blob store.
+- reliability: NO DOWNLOAD. The endpoint set is upload/list/retrieve-metadata/delete. There is no content-download route, and the docs describe retrieval as metadata only ('Retrieving file information returns metadata; it is not a request for the model to read the image'). 25 GiB of write-only image storage. Also: DeepSeek's platform forces phone binding on first login for some account classes (`platform.deepseek.com/mobile_verification` — 'please bind your phone number upon first login'), while international email+password signup is reported to work. Uncertain, hence medium.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: retention
+  - dead_end.why: 25 GiB per user, 10,000 files, 64 MiB per file. Permanent if `expires_after` is omitted; otherwise 1 hour – 30 days.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'A single file may be at most 64 MiB'; 'expires_after[seconds] … between 3600 and 2592000. Omit both expires_after fields to keep the file permanently'; supported formats JPEG/PNG/GIF/WebP only
+  - [2] 2026-10-21: '25 GiB of stored files per user; up to 10,000 stored files'
+  - [3] 2026-10-21: '單個文件最大 64 MiB，每個用戶最多存 25 GiB、10000 個文件 … 不設定有效期則可以一直保留'
+  - [4] 2026-10-21: 'DeepSeek 上线 Files API，每用户 25 GiB 永不过期！… 仅支持图片格式，单文件限制 64 MiB' (post dated 2026-08-21)
+  - [5] 2026-10-21: 'Retrieving file information returns metadata; it is not a request for the model to read the image'
+  - [6] 2026-10-21: PROBE: curl -D - -> 401, Content-Length 31, body 'Authentication Fails (governor)' — live, ELB + CloudFront fronted
+- sources:
+  - [1] https://api-docs.deepseek.com/guides/files_api
+  - [2] https://www.datastudios.org/post/deepseek-file-uploading-supported-file-types-maximum-size-limits-upload-rules-and-document-readi
+  - [3] https://news.cnyes.com/news/id/6584205
+  - [4] https://linux.do/top?page=395
+  - [5] https://chat-deep.ai/docs/deepseek-api-file-upload/
+  - [6] https://api.deepseek.com/files

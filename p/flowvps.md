@@ -1,0 +1,58 @@
+# FlowVPS
+
+> flowvps.com | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/flowvps/ | JSON https://fshy.ajam.dev/api/v1/entity/flowvps.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## FlowVPS
+
+- `compute/flowvps` | paid-only | evidence documented | binding volume-quota | category cloud VM
+- identity a placeholder: card and phone unknown | verified 2026-11-07T14:17:06.322Z (live) | stale on 2026-12-08
+- url https://flowvps.com/pricing
+- free tier: The entry tier on the vendor's own pricing page, identical in both regions: AUD 11.00 per month for 2 vCPU, 4 GB RAM, 30 GB NVMe, 5 TB of transfer counted as a combined inbound plus outbound allocation, and 1 IPv4 plus a /56 IPv6. Regions: Melbourne and Sydney. Annual prepay is described as 'pay 10, get 12 months' and prices are stated to be in AUD with GST included. The next tiers are AUD 22.00 for 2 vCPU and 8 GB and 60 GB, AUD 44.00 for 4 vCPU and 16 GB and 120 GB and 10 TB, AUD 88.00 for 8 vCPU and 32 GB and 240 GB and 10 TB, and AUD 176.00 for 12 vCPU and 64 GB and 480 GB and 20 TB. The tracker lists AUD 11.00 with 5,120 GB a month on a 2 Gbps port. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 5 TB a month counted as combined inbound plus outbound, which the page states explicitly; no overage rate is published | metered: yes | free allowance: 5 TB a month, combined inbound and outbound | source: [1]
+- identity: email | detail: not stated
+- interface: rest
+- limits:
+  - volume-quota (binding): 5 TB a month counted as combined inbound plus outbound, which is stricter than most hosts among evaluated providers who count outbound only; 30 GB of NVMe is the second wall. [1]
+- limits note: 5 TB a month counted as combined inbound plus outbound, which is stricter than most hosts among evaluated providers who count outbound only; 30 GB of NVMe is the second wall.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: KVM with a console and ticket support; the navigation names a Looking Glass and a client login, and no API is documented on the page read
+- composes with: the only Australian option among evaluated providers at a low price; 2 vCPU and 4 GB with 5 TB is enough to run a crawler that needs to look like an Australian client, at a cost that is roughly double the US and EU rows among evaluated providers.
+- reliability: no reliability event recorded
+- notes: FlowVPS bills in Australian dollars with GST included, so the headline number is not comparable to the USD and EUR rows without a conversion evaluated providers did not perform. The vendor's 5 TB and the tracker's 5,120 GB agree once GiB and GB are set aside. The port speed is only in the tracker. verification criteria: the port speed from the Looking Glass, and the terms for what counts as a transfer.
+- extras:
+  - facets.class: price-floor
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 2
+  - facets.shape.ram_gib: 4
+  - facets.shape.disk_gib: 30
+  - monthly_aud: 11.0
+  - annual_aud: 110.0
+  - renewal_aud: not published: no renewal price is printed on the pricing page and the cart's price extraction holds only the two cycle figures
+  - term: monthly, or annual prepay at 10 payments for 12 months (2 months free); the cart renders AUD 11.00 monthly and AUD 9.17/mo as the annual equivalent
+  - in_stock: yes for Melbourne (pid 42): the session-warmed cart resolves and prices the plan and its body carries no out-of-stock marker; the Sydney cart also prices but carries a 'sold out' marker whose subject the extraction does not name
+  - cart_url: https://billing.flowvps.com/cart.php?a=add&pid=42
+  - cart_note: the WHMCS cart (session-warmed from billing.flowvps.com) resolves the Melbourne entry plan and renders two figures without cycle labels: AUD 11.00 and AUD 9.17; the second is the annual term's per-month equivalent, derived from the page's annual rule. The Sydney cart renders the same two figures and its body also carries a 'sold out' marker whose subject the extraction does not name; the Melbourne cart carries none
+  - price_on_page: AUD 11.00/month: the entry tier
+- evidence:
+  - [1] 2026-10-22: Melbourne tier card quoted: '2 vCPU', '4 GB RAM', '30 GB NVMe', '5 TB transfer', 'Combined inbound + outbound data allocation', '1 IPv4 + /56 IPv6', '$11 /mo'
+  - [1] 2026-10-22: 'Billing cycle: Annual prepay: 2 months free (pay 10)' and 'Pricing is in AUD with GST included', quoted from the page footer and header
+  - [2] 2026-10-22: row quoted from the Cheapest VPSs table: 'AUD11.00 / month', '2 Epyc Cores (shared)', '4,096 MB RAM', '30 GB NVMe', '5,120 GB/month bandwidth', '2 Gbps port speed', 'Sydney Australia'
+  - probe:https://billing.flowvps.com/cart.php?a=add&pid=42 2026-11-07: the session-warmed WHMCS cart resolves the Melbourne entry plan (pid 42) and renders AUD 11.00 | capture: sha256:8b9d6b65dada0b7aa3992454acc34ef88ed08ba5e1dc34a19c87934f94811547 | quote: "prices": ["$11.00", "$9.17"]
+  - [3] 2026-11-07: the page states the annual term as 10 payments for 12 months | capture: sha256:06b5df34b95f4e2cbf513b5323b33440b2b867128dd2ef49a499426405231278 | quote: Annual prepay: 2 months free (pay 10)
+  - probe:https://billing.flowvps.com/cart.php?a=add&pid=42 2026-11-07: the cart renders only the monthly and annual-equivalent figures, no renewal price | capture: sha256:8b9d6b65dada0b7aa3992454acc34ef88ed08ba5e1dc34a19c87934f94811547 | quote: "prices": ["$11.00", "$9.17"]
+  - [3] 2026-11-07: the page states the two billing terms | capture: sha256:06b5df34b95f4e2cbf513b5323b33440b2b867128dd2ef49a499426405231278 | quote: Annual prepay: 2 months free (pay 10)
+  - probe:https://billing.flowvps.com/cart.php?a=add&pid=42 2026-11-07: the Melbourne cart body carries no out-of-stock marker and the probe verdict is priced | capture: sha256:8b9d6b65dada0b7aa3992454acc34ef88ed08ba5e1dc34a19c87934f94811547 | quote: "stock": []
+  - [3] 2026-11-07: the pricing page's Deploy Now button for the Melbourne entry tier links this cart | capture: sha256:06b5df34b95f4e2cbf513b5323b33440b2b867128dd2ef49a499426405231278 | quote: [Deploy Now](https://billing.flowvps.com/cart.php?a=add&pid=42)
+  - probe:https://billing.flowvps.com/cart.php?a=add&pid=42 2026-11-07: the cart's full price extraction holds exactly these two figures | capture: sha256:8b9d6b65dada0b7aa3992454acc34ef88ed08ba5e1dc34a19c87934f94811547 | quote: "prices": ["$11.00", "$9.17"]
+  - probe:https://billing.flowvps.com/cart.php?a=add&pid=33 2026-11-07: the Sydney cart's body carries a sold-out marker while still pricing the plan; the marker's subject is not named in the extraction | capture: sha256:85d116e1c2b7cff2cf2860b4d5c6227b1c5ee1b5da9dddedea81a235706158e2 | quote: "sold out"
+  - [3] 2026-11-07: the entry tier still prints $11 /mo for 2 vCPU, 4 GB RAM, 30 GB NVMe, 5 TB transfer in both regions | capture: sha256:06b5df34b95f4e2cbf513b5323b33440b2b867128dd2ef49a499426405231278 | quote: $11 /mo
+  - [3] 2026-11-07: the pricing page's entry tier prints $11 a month in both regions | capture: sha256:06b5df34b95f4e2cbf513b5323b33440b2b867128dd2ef49a499426405231278 | quote: $11 /mo
+- sources:
+  - [1] https://flowvps.com/pricing
+  - [2] https://vpspricetracker.com/provider/FlowVPS/vps
+  - [3] https://flowvps.com/pricing?billing=annual

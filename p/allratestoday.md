@@ -1,0 +1,116 @@
+# AllRatesToday
+
+> allratestoday.com | Data APIs; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/allratestoday/ | JSON https://fshy.ajam.dev/api/v1/entity/allratestoday.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## AllRatesToday (open keyless endpoints)
+
+- `data-apis/allratestoday-open` | qualifies | evidence documented | binding request-rate | category currency exchange rate API and central-bank rate datasets, keyless | tier Open keyless
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T00:02:00.000Z (live) | stale on 2026-12-04
+- url https://allratestoday.com/open-api/
+- disagrees on identity_kind: `data-apis/allratestoday` says email, `data-apis/allratestoday-open` says anonymous
+- disagrees on verdict: `data-apis/allratestoday` says qualifies-with-caveat, `data-apis/allratestoday-open` says qualifies
+- free tier: No key and no account: the ECB reference table re-based to any of 30 currencies once a day, and the latest table of each central bank and tax authority; 120 requests a minute per IP address. | unit: unlimited | metered on: none | read on: 2026-11-02 | source: [1] | note: The ECB endpoint is /api/open/latest/{BASE}; the central-bank tables are /api/open/central-bank/{code}, with csv, xml and xlsx output. A table for a past date, a date range and the calendars need a key. A public page that shows the rates carries a visible link to AllRatesToday; back-end use needs no link. The keyless central-bank tables are for development, evaluation, personal projects and internal tooling. A machine caller may also issue itself a trial key with one POST: 100 lifetime calls, valid 7 days, no email and no captcha, 3 keys per IP address a day.
+- per-object cap: not stated | source: [1]
+- retention: not applicable: a query API and a dataset with no stored objects
+- egress: not metered in bytes; the per-IP request rate bounds what a caller can pull | metered: no | source: [1]
+- identity: anonymous | detail: No key and no account for the open endpoints and the GitHub dataset. The agent trial key needs one POST with no email and no captcha.
+- interface: rest
+- limits:
+  - request-rate (binding): 120 requests a minute per IP address, then HTTP 429 with Retry-After [1]
+  - retention-clamped: latest table only on the keyless endpoints; a past date or a range needs a key [1]
+- limits note: Currency coverage: 30 currencies in the ECB table. The site also lists a Hugging Face dataset and a Kaggle dataset.
+- binding note: The 120 a minute per IP address bounds a burst, but the table changes once a day, so the daily refresh and the latest-only rule bind in practice.
+- interface detail: GET https://allratestoday.com/api/open/latest/USD returns JSON with CORS enabled; the central-bank tables and the GitHub dataset also give csv
+- endpoint: part of interface detail
+- tooling: curl or any HTTP client; a browser can call the ECB endpoint directly
+- composes with: Daily ECB reference rates for invoices and reports with no sign-up. For a bulk history, the GitHub dataset holds one CSV file per source and year.
+- reliability: Over the per-IP rate the endpoint answers HTTP 429 with Retry-After. The ECB table changes once a day, and the page asks for at most one request an hour per server.
+- notes: Free requests: no count, no key. Rate limit: 120 a minute per IP address. Bulk path: the GitHub dataset of per-source CSV history.
+- evidence note: Rate, coverage and licence are quoted from first-party pages. One keyless GET of the ECB endpoint answered HTTP 200 with the ECB table; the 429 cut-off was not measured.
+- extras:
+  - bulk_path: GitHub dataset AllRates-Today/central-bank-exchange-rates: per-source latest.json and history/<YYYY>.csv, no key
+  - free_requests: no count; 120 a minute per IP address
+- evidence:
+  - [1] 2026-11-02: the open endpoint needs no key and no account | capture: sha256:f1f47af8ee8b3d658ef711158e6675c4937b8e476c7c33f004a0bbce84f990b2 | quote: No API key, no account. Nothing to register, nothing to rotate.
+  - [1] 2026-11-02: the open endpoint is limited to 120 requests a minute per IP address | capture: sha256:f1f47af8ee8b3d658ef711158e6675c4937b8e476c7c33f004a0bbce84f990b2 | quote: Rate limited per IP (120 requests a minute; over that returns `429` with `Retry-After`).
+  - [1] 2026-11-02: the table has 30 currencies | capture: sha256:f1f47af8ee8b3d658ef711158e6675c4937b8e476c7c33f004a0bbce84f990b2 | quote: Swap `USD` for any of the 30 currencies in the European Central Bank table.
+  - [1] 2026-11-02: the table updates once a day and the ECB endpoint is free | capture: sha256:f1f47af8ee8b3d658ef711158e6675c4937b8e476c7c33f004a0bbce84f990b2 | quote: Updated once a day after the 16:00 CET fixing.
+  - [1] 2026-11-02: past dates and ranges need a key | capture: sha256:f1f47af8ee8b3d658ef711158e6675c4937b8e476c7c33f004a0bbce84f990b2 | quote: Latest only. A table for a past date, a date range, cross-bank comparison and publication calendars are keyed
+  - [1] 2026-11-02:  | capture: sha256:f1f47af8ee8b3d658ef711158e6675c4937b8e476c7c33f004a0bbce84f990b2 | quote: Back-end use needs no link: invoicing, accounting and ERP syncs, reports, scheduled jobs
+  - [1] 2026-11-02: the keyless central-bank tables are for non-production use | capture: sha256:f1f47af8ee8b3d658ef711158e6675c4937b8e476c7c33f004a0bbce84f990b2
+  - [2] 2026-11-02: an agent can issue itself a trial key with no email and no captcha | capture: sha256:a57613320ea00f7f39129a39de6450ddbbde808cecff4dc92b189d118067a324 | quote: returns a trial key instantly: 100 lifetime calls, valid 7 days, no email, no captcha.
+  - [2] 2026-11-02: trial keys are capped at 3 per IP address a day | capture: sha256:a57613320ea00f7f39129a39de6450ddbbde808cecff4dc92b189d118067a324 | quote: Capped at 3 keys per IP per day.
+  - [3] 2026-11-02: the GitHub dataset needs no key and no sign-up | capture: sha256:d09f1d12eebe02dd8e7658e0f9b59c1b5bbf11d3f38c27c91485c36bb361c25a | quote: No API key, no sign-up.
+  - [3] 2026-11-02: the dataset holds one history CSV per source and year | capture: sha256:d09f1d12eebe02dd8e7658e0f9b59c1b5bbf11d3f38c27c91485c36bb361c25a | quote: | `data/<source>/history/<YYYY>.csv` | Long-form history, one row per date, pair and rate type.
+  - [3] 2026-11-02: the oldest series starts in 1914 | capture: sha256:d09f1d12eebe02dd8e7658e0f9b59c1b5bbf11d3f38c27c91485c36bb361c25a | quote: the oldest series (SNB) starts in 1914
+  - [3] 2026-11-02:  | capture: sha256:d09f1d12eebe02dd8e7658e0f9b59c1b5bbf11d3f38c27c91485c36bb361c25a
+  - [3] 2026-11-02: the ECB history in the dataset reaches back to 1999 | capture: sha256:d09f1d12eebe02dd8e7658e0f9b59c1b5bbf11d3f38c27c91485c36bb361c25a | quote: history/ CSV back to 1999
+  - [2] 2026-11-02: the site lists a Hugging Face dataset | capture: sha256:a57613320ea00f7f39129a39de6450ddbbde808cecff4dc92b189d118067a324 | quote: [Hugging Face](https://huggingface.co/datasets/AllRatesToday/central-bank-exchange-rates): central bank exchange rate dataset
+  - [2] 2026-11-02: the site lists a Kaggle dataset | capture: sha256:a57613320ea00f7f39129a39de6450ddbbde808cecff4dc92b189d118067a324 | quote: [Kaggle](https://www.kaggle.com/datasets/allratestoday/central-bank-exchange-rates): central bank exchange rate dataset
+  - [1] 2026-11-02: the page asks for at most one request an hour per server | capture: sha256:f1f47af8ee8b3d658ef711158e6675c4937b8e476c7c33f004a0bbce84f990b2 | quote: one request an hour per server is plenty
+  - [1] 2026-11-02: the ECB endpoint has CORS enabled | capture: sha256:f1f47af8ee8b3d658ef711158e6675c4937b8e476c7c33f004a0bbce84f990b2 | quote: CORS enabled
+  - probe:https://allratestoday.com/api/open/latest/USD 2026-11-03: a keyless GET of the ECB endpoint answered HTTP 200 | capture: sha256:4d54a41a43a2cbe97886fd8b9500072ebf594069be6478384745aa590934e27e | quote: "status": 200
+  - probe:https://allratestoday.com/api/open/latest/USD 2026-11-03: the body of the keyless answer is the ECB reference table | capture: sha256:86715145865f7a398b699755f52a9c0236bdb0cd049dff4f1f3e10dbf6100b52 | quote: "source":"European Central Bank reference rates, served by AllRatesToday"
+- sources:
+  - [1] https://allratestoday.com/open-api/
+  - [2] https://allratestoday.com/llms.txt
+  - [3] https://github.com/AllRates-Today/central-bank-exchange-rates
+
+## AllRatesToday
+
+- `data-apis/allratestoday` | qualifies-with-caveat | evidence documented | binding volume-quota | category currency exchange rate API (live mid-market rates and central-bank reference rates) | tier Free
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T00:23:51.279Z (live) | stale on 2026-12-03
+- url https://allratestoday.com/pricing/
+- disagrees on identity_kind: `data-apis/allratestoday` says email, `data-apis/allratestoday-open` says anonymous
+- disagrees on verdict: `data-apis/allratestoday` says qualifies-with-caveat, `data-apis/allratestoday-open` says qualifies
+- free tier: Free plan, EUR 0, no card: 1 API key and 10 requests a minute on live mid-market rates; the free request count is a lifetime total that never resets, and the pages read do not publish its size. | unit: requests | metered on: request-count | read on: 2026-11-02 | source: [1] | note: The docs rate table lists the Free request count only as the word Free on a lifetime period. The next plan up, Small, is EUR 4.99 a month for 5,000 requests a month, reset at 00:00 UTC on the first of each calendar month. Each call costs 1 request, and one call may name many target currencies. A range of history on a free key answers 403 historical_requires_paid_plan. The latest table of any central bank is on the free key. The same pages offer keyless lanes, which have their own record (data-apis/allratestoday-open).
+- per-object cap: not stated | source: [1] | note: Many targets in one call count as one request.
+- retention: not applicable
+- egress: not metered in bytes; the lifetime request total bounds what a free key can pull | metered: no | source: [1]
+- identity: email | detail: Sign-up by email and password, or Google or GitHub sign-in; no card. The docs say registration has a captcha and an email to verify.
+- interface: rest
+- limits:
+  - volume-quota (binding): a lifetime total of Free requests that never resets; its size is not published on the pages read [1]
+  - request-rate: 10 requests a minute on the Free plan [2]
+- limits note: History: a from or to range, or a time value, on a free key answers 403 historical_requires_paid_plan. Bulk path: none on the free key; the keyless GitHub dataset in data-apis/allratestoday-open is the bulk route.
+- binding note: The lifetime total never resets, so it ends the key long before 10 requests a minute matters; its size is not published.
+- interface detail: GET https://allratestoday.com/api/v1/rates?source=USD&target=EUR,GBP with the key as a Bearer token in the Authorization header; csv, xml and xlsx output on table endpoints
+- endpoint: part of interface detail
+- tooling: any HTTP client
+- composes with: Live mid-market rates for a prototype. The keyless lane in data-apis/allratestoday-open needs no key and carries the daily ECB table and the central-bank datasets.
+- reliability: Past the quota the API answers HTTP 429 and does not recover until the plan changes; the docs say there is no Retry-After header and the body carries resets_at.
+- notes: Free requests: a lifetime total, size not published. Rate limit: 10 requests a minute. Bulk path: none on the free key. The domain exchange-rateapi.com serves this same offer (data-apis/exchange-rateapi).
+- evidence note: Read from the first-party docs, pricing, free-API and sign-up pages. No key was created, so the lifetime count and the 429 cut-off were not measured.
+- extras:
+  - bulk_path: none on the free key; history and file downloads need a paid plan
+  - free_requests: a lifetime total, size not published
+- evidence:
+  - [1] 2026-11-02: the free request count is a lifetime total that never resets | capture: sha256:34b47718483738614d439dadc7020a71076462c171462c2d19b48a565abc5f1d | quote: Free usage counts against a lifetime total that never resets.
+  - [1] 2026-11-02: the rate table gives the Free request count as the word Free, with no number, for a lifetime period and 1 key | capture: sha256:34b47718483738614d439dadc7020a71076462c171462c2d19b48a565abc5f1d | quote: | Free | Free | Lifetime — see below | 1 |
+  - [2] 2026-11-02: the free tier is capped at 10 requests per minute | capture: sha256:7b6a745cbb9b6b246555b45a41c07dc273d8486068fb8379c9cdc9a2f2499a0a | quote: Bursts are capped at 10 requests per minute.
+  - [1] 2026-11-02: history on a free key answers 403 | capture: sha256:34b47718483738614d439dadc7020a71076462c171462c2d19b48a565abc5f1d | quote: A range can span at most 366 days, and `time` or `from`/`to` on a free or trial key returns `403 historical_requires_paid_plan`.
+  - [1] 2026-11-02: one call costs one request | capture: sha256:34b47718483738614d439dadc7020a71076462c171462c2d19b48a565abc5f1d | quote: Each HTTP call to an authenticated endpoint costs 1, whatever it returns.
+  - [3] 2026-11-02:  | capture: sha256:d0a07874bcfaf54a6f618b2620de68f3f72f16dd607157c69b3b5c2c0281045a
+  - [3] 2026-11-02: latest central-bank tables are on the free plan | capture: sha256:d0a07874bcfaf54a6f618b2620de68f3f72f16dd607157c69b3b5c2c0281045a | quote: The latest published rates are available on every plan, including Free.
+  - [3] 2026-11-02: the Free plan card lists historical rates as not included | capture: sha256:d0a07874bcfaf54a6f618b2620de68f3f72f16dd607157c69b3b5c2c0281045a | quote: - ✕ Historical Rates
+  - [2] 2026-11-02: sign-up is by email, Google or GitHub with no card | capture: sha256:7b6a745cbb9b6b246555b45a41c07dc273d8486068fb8379c9cdc9a2f2499a0a | quote: No credit card — sign up with email, Google, or GitHub
+  - [1] 2026-11-02: registration has a captcha and an email to verify | capture: sha256:34b47718483738614d439dadc7020a71076462c171462c2d19b48a565abc5f1d | quote: Registration is built for people: a captcha and an email to verify.
+  - [4] 2026-11-02: the sign-up page offers Google and GitHub | capture: sha256:bc8b8e41cc2ed0d7534f9fe5b815b39f15f5b4e83e900540daf6805cba7d5191 | quote: [Sign up with Google](https://allratestoday.com/api/auth/google) [Sign up with GitHub](https://allratestoday.com/api/auth/github)
+  - [1] 2026-11-02: the docs tell users to cache official rates indefinitely | capture: sha256:34b47718483738614d439dadc7020a71076462c171462c2d19b48a565abc5f1d | quote: Cache it forever and only ever fetch dates you do not hold.
+  - [5] 2026-11-02:  | capture: sha256:4fbb468a447a63042ee660c5ba647b4321cced2a64d744653fca3e783b275f32 | quote: Resell or redistribute API data without permission
+  - [6] 2026-11-02: file downloads of history need a paid plan | capture: sha256:c4034ceed4dff4e0d0445543a03e8601c4b9e8895ae141837ceb36fbd4013a54 | quote: Downloads need a [paid plan](https://allratestoday.com/pricing/); viewing the latest rates on each source’s page stays free.
+  - [1] 2026-11-02: the quota 429 carries resets_at and no Retry-After header | capture: sha256:34b47718483738614d439dadc7020a71076462c171462c2d19b48a565abc5f1d | quote: There is no `Retry-After` header; use `resets_at` from the `429` body.
+  - [3] 2026-11-02: the next plan up, Small, is EUR 4.99 a month | capture: sha256:d0a07874bcfaf54a6f618b2620de68f3f72f16dd607157c69b3b5c2c0281045a | quote: €4.99 /mo
+  - [3] 2026-11-02: Small allows 5,000 requests a month | capture: sha256:d0a07874bcfaf54a6f618b2620de68f3f72f16dd607157c69b3b5c2c0281045a | quote: 5,000 Requests / mo
+  - [1] 2026-11-02: paid plans reset monthly at 00:00 UTC | capture: sha256:34b47718483738614d439dadc7020a71076462c171462c2d19b48a565abc5f1d | quote: Paid plans reset at 00:00 UTC on the first of each calendar month.
+  - [1] 2026-11-02: many targets in one call count as one request | capture: sha256:34b47718483738614d439dadc7020a71076462c171462c2d19b48a565abc5f1d | quote: `/api/v1/rates?source=USD&target=EUR,GBP,JPY` is one request, not three
+  - [1] 2026-11-02: table endpoints answer in json, csv, xml or xlsx | capture: sha256:34b47718483738614d439dadc7020a71076462c171462c2d19b48a565abc5f1d | quote: Every table endpoint returns JSON by default and accepts `?format=` with one of `json`, `csv`, `xml` or `xlsx`.
+- sources:
+  - [1] https://allratestoday.com/docs/
+  - [2] https://allratestoday.com/free-currency-api/
+  - [3] https://allratestoday.com/pricing/
+  - [4] https://allratestoday.com/register
+  - [5] https://allratestoday.com/terms/
+  - [6] https://allratestoday.com/download-central-bank-rates/

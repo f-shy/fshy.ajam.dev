@@ -1,0 +1,72 @@
+# Nebula Block
+
+> nebulablock.com | Storage; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/nebulablock/ | JSON https://fshy.ajam.dev/api/v1/entity/nebulablock.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Nebula Block — Standard object storage tier (storage free, egress billed)
+
+- `storage/nebula-block-standard-object-storage-tier` | qualifies-with-caveat | evidence documented | binding write-gated | category cheap-paid-object-storage
+- needs card no, phone no, ID no, institution no | verified 2026-11-01T23:50:09.131Z, checked 2026-10-21 (inherited) | stale on 2026-11-21
+- url https://www.nebulablock.com/storage
+- price USD 0/TB/month stored on Standard; egress USD 0.01/GB (USD 10/TB); Performance USD 0.015/GB/month (USD 15/TB/month); Accelerated USD 0.02/GB/month (USD 20/TB/month)
+- free tier: No storage quota on the Standard tier. It is priced at $0/GB/month by design: 'Standard — Stored data: Free — Durable, high-capacity storage. The default'. The paid tiers are Performance at $0.015/GB/month and Accelerated at $0.02/GB/month. There is no published cap on bytes stored, only 'availability varies — a tier can show as out of stock'. | unit: unlimited | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Outgoing traffic is billed at $0.01 per GB on all tiers while incoming traffic is included. At $0.01 per GB ($10 per TB), reading 20 TB costs approximately $200, and a continuous 500 GB to 1 TiB daily transfer volume costs $150 to $300 monthly. | metered: yes | price per TB: $10/TB
+- identity: email | detail: email and password, or a Google account, then an activation email; object storage needs credit bought in advance with a payment card or USDC, so no card is needed when paying in USDC, and the vendor's object-storage documentation put the minimum at least USD 0.01 of credit for the workspace that holds the buckets; one payment card cannot be added to more than one account
+- interface: s3, cli
+- limits:
+  - write-gated (binding): A funded credit balance is a stated prerequisite of object storage, and the vendor's object-storage documentation put the minimum at least USD 0.01 credit; credit is bought up front with a payment card or USDC, so an unfunded account owns no workspace and therefore no bucket [2]
+- limits note: Credit on the account is a stated prerequisite, bought with a payment card or USDC; the vendor's object-storage documentation put the minimum at least USD 0.01 and the current page states the prerequisite without a number, so the live console's minimum is unverified behind a sign-up. The console create form prices the three tiers and creates the workspace, and only then does a bucket exist. Tier availability varies: a tier can show as out of stock. Bucket names get a platform prefix (u-<id>-<workspace>.<bucket>), so the name the S3 tools see is read from the console. No per-object cap is published.
+- binding note: the gate is money, not identity: sign-up costs an email address and grants Tier 1, and nothing is stored until a credit purchase funds the account, payable by card or in USDC. Egress at USD 0.01/GB is the recurring cost, not a limit on creation.
+- interface detail: s3
+- endpoint: s3-ca-east.nebulablock.com:443 over HTTPS, path-style addressing, Signature V4; each workspace shows its own Hostname in the S3 Credentials panel of its Overview tab
+- tooling: Real S3: s3cmd, boto3, AWS SDKs, documented setup pages per OS and per language. A workspace issues an access key pair; buckets live inside it and are private by default, switchable to public, in which case 'objects can be accessed directly via permanent URL'. Platform API exposes usage reporting (24h/7d/30d) and key rotation, and usage is metered hourly.
+- composes with: Workspaces are the multiplier and nothing published caps how many you create. The genuinely interesting property is the price inversion: at $0 storage and $10/TB egress this is a very cheap place to PARK 20 TB (write-once, rare read = the cold-archive workload) and an expensive place to serve from. So the correct chain is Nebula Block as the backing store, with Cloudflare in front so the paid egress is consumed once by the cache rather than once per request.
+- reliability: Services may be geo-restricted, and access from outside the provider's list of supported countries may result in service restrictions or account suspension.
+- notes: the same as the free tier
+- evidence note: the object storage documentation, the storage page, the pricing page and the billing documentation were read on 2026-10-30
+- extras:
+  - price_verbatim: $0/TB/month storage on the Standard tier; $10/TB egress ($0.01/GB). Performance $15/TB/mo, Accelerated $20/TB/mo. Effective cost for the cold-archive workload (write once, read rarely) is ~$0/TB/mo.
+- evidence:
+  - [1] 2026-10-21: opened: 'Standard — Stored data: Free — Durable, high-capacity storage. The default'; 'Outgoing traffic is billed at $0.01/GB on all tiers; incoming traffic is included'; 'A Nebula Block account … Credit on your account — Standard workspaces store data free and bill outgoing traffic per GB'; 'Object storage is not covered by the public pricing page, so treat the console as authoritative.'
+  - [3] 2026-10-21: opened: 'Store for Free, Pay Only When You Download … Upload as much as you want. Storage is free. You only pay for what you pull out'; 'S3-compatible storage hosted in Canadian data centres'.
+  - [4] 2026-10-21: opened: 'When public, objects can be accessed directly via permanent URL. When private, you must generate a time-limited download link'; client list boto3 / AWS CLI / Cyberduck.
+  - [5] 2026-10-21: opened and it does NOT contain storage pricing: it is the Libra OS subscription page ($5,000/mo Pilot, $25,000/mo Enterprise). The docs say so explicitly. Recording this because the obvious pricing URL is a decoy.
+  - [6] 2026-10-21: PROBED: curl -> 200, 8,637 bytes (console is live). curl https://s3.nebulablock.com/ -> DNS failure. curl https://storage.nebulablock.com/ -> DNS failure. The endpoint is console-only, which is itself a chaining hazard.
+  - [7] 2026-10-30: credit can be bought with USDC, so a payment card is not required | capture: sha256:3e9b67f635d2c978d0c681cf13b6b74f0ff878cfa898f41db96c32a97c882428 | quote: Select the amount you want on the billing page and pay with your default card, a new card, or USDC if you prefer to pay in crypto.
+  - [8] 2026-10-30: signup is email and password, or a Google account | capture: sha256:5c7b5cb74ec97b3c912adc53d98339b5692fb3441c3534d7d7fd4600412da98b | quote: Sign up on the [Nebula Block website](https://nebulablock.com/) to create an account by clicking on [Sign up](https://console.nebulablock.com/register) in the top right corner of your screen and sign up with either email + password or through Google.
+  - [1] 2026-10-30: credit on the account is a prerequisite of object storage | capture: sha256:df5196d79673bd2c6a41db15bea91b81b6748415008280795d392c1cc16d6e51 | quote: Credit on your account — Standard workspaces store data free and bill outgoing traffic per GB
+  - [1] 2026-10-30: egress is USD 0.01/GB on every tier; ingress is free | capture: sha256:df5196d79673bd2c6a41db15bea91b81b6748415008280795d392c1cc16d6e51 | quote: Outgoing traffic is billed at $0.01/GB on all tiers; incoming traffic is included.
+  - probe:https://s3.nebulablock.com/ 2026-10-30: s3.nebulablock.com does not resolve on 2026-10-30 | capture: sha256:74c7a8865af6133a6d9513b2e0d0aacf84eb05230f3f6cd6aaa1e842d9de6b32 | quote: "error": "dns"
+  - [1] 2026-10-30: the Standard tier stores data free | capture: sha256:df5196d79673bd2c6a41db15bea91b81b6748415008280795d392c1cc16d6e51 | quote: | Standard | Free | Durable, high-capacity storage. The default |
+  - [3] 2026-10-30: the storage page still offers free storage with paid downloads | capture: sha256:bb5522c488318f6538c7d2098f574d33f729f2b0f5b58163b15eae991d214193 | quote: You heard that right. Upload as much as you want. Storage is free. You only pay for what you pull out—simple, transparent, and startup-friendly.
+  - [5] 2026-10-30: the public pricing page still prices the Libra OS tiers, GPU and serverless products, and not object storage | capture: sha256:67d7eff30e2eefd3f162c5c67805ae953661d0dd79fc07a8960a239995ac4c59 | quote: Raw compute (hourly GPU rental) and pay-per-token Serverless AI are priced separately as self-serve developer products.
+  - [9] 2026-10-30: access from outside the listed supported countries risks service restrictions or account suspension | capture: sha256:00e670f2e8c745ec48785755f1a123d1f4de67565f86859e88d18c5f0a03945d | quote: Accessing or attempting to access Nebula Block from outside these supported regions may result in service restrictions or account suspension.
+  - [10] 2026-10-30: the documented S3 host is s3-ca-east.nebulablock.com:443, path-style, SigV4, with the Hostname read from the workspace's S3 Credentials panel | capture: sha256:b4f81c7f9e8ed5d3c80c8bbca75905bd0932e4fdb5f5f842031e135e4fcc8e2d | quote: host_base = s3-ca-east.nebulablock.com:443
+  - probe:https://s3-ca-east.nebulablock.com/ 2026-10-30: s3-ca-east.nebulablock.com answered an anonymous GET with HTTP 200, application/xml and an x-amz-request-id ending in mtl-01 | capture: sha256:33de441fb156d5c79fac4ede84b90db9c9e98a9b7b480f184dbfe8414a28ef5e | quote: "status": 200
+  - probe:https://s3-ca-east.nebulablock.com/ 2026-10-30: the documented endpoint speaks the S3 API: an anonymous GET returns an empty ListAllMyBucketsResult | capture: sha256:dfdee0782db13887450e5f9a0c70656367b21b26a7925b206cc785ea5564c8a2 | quote: <ListAllMyBucketsResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+  - [11] 2026-10-30: a storage workspace is provisioned in Canada unless the location parameter names US | capture: sha256:a17c9e605648449d796c6699e92a04ebf843b0cbed4268818dca09aae42ecd17 | quote: Where to provision the workspace — `Canada` or `US`. Defaults to Canada.
+  - [10] 2026-10-30: the storage speaks the S3 API and works with the s3cmd CLI | capture: sha256:b4f81c7f9e8ed5d3c80c8bbca75905bd0932e4fdb5f5f842031e135e4fcc8e2d | quote: Nebula Block object storage speaks the S3 API, so `s3cmd` works against it unchanged once it is pointed at your workspace's endpoint.
+  - [2] 2026-11-01: the vendor's object-storage page stated a prepaid credit balance of at least USD 0.01 as a prerequisite, quoted from the Wayback copy captured 2026-04-16 of docs.nebulablock.com/core-services/overview-2, which now redirects to /products/object-storage | capture: sha256:19caa3f6eb0385c98bbc303999d37765591dac1c2f963ce2015dd2899036e7da | quote: Credit Balance: Ensure you have at least $0.01 credit balance in your account.
+  - [1] 2026-11-01: credit is a prerequisite of object storage and the Standard tier bills no stored data, only outgoing traffic | capture: sha256:df5196d79673bd2c6a41db15bea91b81b6748415008280795d392c1cc16d6e51 | quote: Credit on your account — Standard workspaces store data free and bill outgoing traffic per GB
+  - [7] 2026-11-01: object storage draws on a prepaid credit balance bought up front, so the write is gated on funding rather than on a rate or a byte allowance | capture: sha256:3e9b67f635d2c978d0c681cf13b6b74f0ff878cfa898f41db96c32a97c882428 | quote: Everything on Nebula Block is paid for with credits. You buy credits up front, and usage — per-token inference, hourly instance charges, object storage egress — is deducted from that balance.
+  - [7] 2026-11-01: credit is bought in advance and the payment method is a card or USDC, so a card is not required when paying in crypto | capture: sha256:3e9b67f635d2c978d0c681cf13b6b74f0ff878cfa898f41db96c32a97c882428 | quote: Select the amount you want on the billing page and pay with your default card, a new card, or USDC if you prefer to pay in crypto.
+  - [12] 2026-11-01: the console create form prices the three tiers and shows the workspace is created before any bucket exists, so the funding gate sits ahead of the bucket | capture: sha256:1381f717171d140499b722a73f9e1e210b85cb8bf8e5b1b778f1a5ade27c43e4 | quote: After creating the object storage, you will be able to create buckets and manage your storage.
+  - [7] 2026-11-01: deposited credit sets the account tier and the rate limits; a deposit is measured against the balance, so the balance is the unit of the gate | capture: sha256:3e9b67f635d2c978d0c681cf13b6b74f0ff878cfa898f41db96c32a97c882428 | quote: How much credit you have deposited or spent also determines your [tier](/account/tiers-and-limits.md), which sets your rate limits and whether you can rent CPU and GPU instances.
+  - [1] 2026-11-01: credit on the account is still the prerequisite, Standard still stores data free, and the tiers still bill only outgoing traffic | capture: sha256:df5196d79673bd2c6a41db15bea91b81b6748415008280795d392c1cc16d6e51 | quote: Credit on your account — Standard workspaces store data free and bill outgoing traffic per GB
+  - [2] 2026-11-01: the documented funding gate is a credit balance of at least USD 0.01 before object storage is usable | capture: sha256:19caa3f6eb0385c98bbc303999d37765591dac1c2f963ce2015dd2899036e7da | quote: Credit Balance: Ensure you have at least $0.01 credit balance in your account.
+- sources:
+  - [1] https://docs.nebulablock.com/products/object-storage.md
+  - [2] https://web.archive.org/web/20260416005407/https://docs.nebulablock.com/core-services/overview-2
+  - [3] https://www.nebulablock.com/storage
+  - [4] https://blog.nebulablock.com/store-serve-scale-unlock-ai-pipelines-with-nebula-block-object-storage/
+  - [5] https://www.nebulablock.com/pricing
+  - [6] https://console.nebulablock.com/
+  - [7] https://docs.nebulablock.com/getting-started/get-started/billing.md
+  - [8] https://docs.nebulablock.com/getting-started/get-started/account.md
+  - [9] https://docs.nebulablock.com/resources/faq.md
+  - [10] https://docs.nebulablock.com/products/object-storage/s3cmd-linux-macos.md
+  - [11] https://docs.nebulablock.com/api-reference/platform-api/list-workspaces/create-workspace.md
+  - [12] https://console.nebulablock.com/create-object-storage

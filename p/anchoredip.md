@@ -1,0 +1,106 @@
+# AnchoredIP
+
+> anchoredip.com | IP and proxies, Egress and tunnels; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/anchoredip/ | JSON https://fshy.ajam.dev/api/v1/entity/anchoredip.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## AnchoredIP (registration corrected)
+
+- `ip-proxy/anchoredip-registration-corrected` | qualifies-with-caveat | evidence documented | binding none | category WireGuard address lease | tier trial
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T09:23:30.177Z (live) | stale on 2026-12-03
+- url https://anchoredip.com/pricing
+- price USD 0 for the 7-day trial; USD 19 per month Solo; USD 49 per month Team; USD 149 per month Business. Bandwidth is unmetered, so no per-TB price exists. | parsed USD 19/mo
+- free tier: Trial $0/mo, Dedicated IPv4 1, IPv6 /48 1, Machines 2, Runs for 7 days. The FAQ adds: 'It is free, there is no credit card and there is nobody to talk to: you fill in three fields and the address is yours. A real address out of the same /24 our paying customers are in, running for seven days.' The same page prices the paid plans: Solo $19/mo (1 IPv4, 1 /48, 2 machines), Team $49/mo (3 IPv4, 1 /48, 6 machines), Business $149/mo (8 IPv4, 1 /48, 20 machines, verification required). | unit: mixed | metered on: wall-clock | read on: 2026-10-24 | source: [1] | note: Denominated in days, addresses and machines at once, so no single unit in the enum is honest: 7 days, 1 IPv4, 1 IPv6 /48, 2 machines. Nothing is counted in bytes or requests, because the vendor states it meters neither. The clock is the quota: the trial ends on day 7 and there is no renewal path, only a conversion to a paid plan that keeps the same address.
+- per-object cap: not applicable | source: [1] | note: The nearest equivalent is the lease size, and that is one dedicated IPv4 with one IPv6 /48 and 2 tunnels on the trial and on Solo. Size scales only by changing plan: Team is 3 IPv4 and 6 tunnels, Business 8 and 20.
+- retention: not applicable: an address, not an object | source: [1] | note: The address has a stated lifetime even though bytes do not. The trial runs 7 days. On a paid lease a missed renewal stops traffic but holds the address for another 7 days, and only then does it return to the pool, where it sits in quarantine for 30 days before reassignment. Paying inside the grace window restores the same address.
+- egress: No allowance and no meter: 'We do not meter requests or bandwidth, so the plan decides how many addresses and machines you get and nothing decides how much you may send.' The same page prices the competition by the request and says an allowance is 'something to monitor, forecast and get paged about'. | metered: no | free allowance: none published | source: [2]
+- identity: email | detail: No card and no account are required for the trial: the pricing FAQ reads 'No card, and nobody to talk to', and POST /api/leases/ with plan trial returns an access_token and active status without payment. The billing email functions as the verification gate: the order body requires billing_email alongside organization_name and country, and the API documentation states 'A trial is one per billing email', with subsequent attempts refused. Paid plans accept credit card or bank transfer for invoices exceeding wire fees. Access is recovered by email through POST /api/auth/link/ and /api/auth/redeem/.
+- interface: rest, cli
+- limits:
+  - request-rate: 5 orders an hour from one address; a throttled call answers 429 [3]
+  - volume-quota: none: 'We do not meter requests or bandwidth, so the plan decides how many addresses and machines you get and nothing decides how much you may send.' [2]
+  - retention-clamped: the trial lease runs 7 days; a paid lease that lapses stops traffic but holds the address 7 more days, then returns it to the pool for a 30-day quarantine [1]
+- limits note: Allocation and identity caps that name no kind in the vocabulary, kept rather than dropped: 2 tunnels on the trial and on Solo, 3 IPv4 and 6 tunnels on Team, 8 IPv4 and 20 tunnels on Business, one IPv4 per lease however many machines sit behind it, and 'One trial per billing email address, and one running at a time per network', with a second trial refused by a 400 that names the paid plans. Inbound is the narrower one: 'One machine per lease can also receive connections on that address.'
+- binding note: Nothing in the vocabulary fails at 45 GB a month and about 599,000 requests: the vendor states it does not meter requests or bandwidth, so there is no byte or request quota to reach, and the five-orders-an-hour throttle applies to lease management, not to traffic through the tunnel. The 7-day term is a property of the free offer rather than a limit traffic meets, and the ceiling that actually arrives first is the 2-tunnel allowance, which has no kind in the vocabulary.
+- interface detail: The lease arrives as one WireGuard configuration file per tunnel, and that is the real access path; the schema's interface enum has no token for a tunnel. Ordering and management are a documented HTTP API at https://api.anchoredip.com/api/ covering plans, leases, tunnels, reverse DNS, renewal and payment, a dashboard that renders the same calls, and an MCP endpoint the pricing page names for agents. Two routing modes: 'source' writes Table = off and PostUp rules and needs wg-quick on Linux, while 'full' works in any WireGuard or AmneziaWG client.
+- endpoint: part of interface detail
+- tooling: wg-quick with the generated config in source mode, or any WireGuard or AmneziaWG client in full mode. The HTTP API creates a tunnel and returns the config once, and the vendor states the private key is not stored on its side, so it has to be written in the same step. The vendor states that a platform which cannot create a network interface, naming Heroku and Lambda, needs one small always-on machine to hold the tunnel; a Workers AI gateway is that shape, with the Worker making the calls and a VM carrying the tunnel.
+- composes with: Pairs with a free-tier VM: the VM holds the WireGuard tunnel and everything it sends leaves as the leased address, so a Workers AI gateway behind it presents one allowlistable identity to the partner API. The lease supplies the identity and the VM supplies the kernel interface the lease needs.
+- reliability: Every address is screened against blocklists before assignment and re-checked daily, but the trial address comes out of the same /24 as paying customers, so blocklist reputation is shared across the block. Traffic detours to Karaganda: the vendor measures 78 ms round trip to Frankfurt and 161 ms to Virginia. Outbound 25, 465 and 587 are blocked on every lease until asked. A lapsed renewal stops traffic and holds the address for 7 days before it returns to the pool.
+- notes: This record corrects egress/anchoredip, whose evidence entry reads 'space registered at RIPE NCC and announced from AS41800' with no registration class. That sentence invites the reading that AnchoredIP is an ISP holding a broadband allocation. RIPE RDAP read on 2026-10-24 returns 194.0.109.0/24 with country KZ, type ASSIGNED PA and registrant lir-kz-individual-1-MNT, an individual, and the autnum object for AS41800 sits under the same registrant. That is a personal provider-independent assignment in Kazakhstan, not an eyeball network, and the announced footprint is five IPv4 /24s plus one IPv6 /29, so every tenant sits inside 1,280 addresses. The vendor's own footer says the same thing: 'AnchoredIP - AS41800 - Karaganda, Kazakhstan'. The egress record must stop implying ISP registration; this record carries the measured class. Each of three possible kinds of holder was tested for this space. (1) An ISP with a broadband allocation: refuted, because the RDAP type is ASSIGNED PA and the registrant is an individual maintenance object rather than a LIR member. (2) A hosting provider's block re-announced by AnchoredIP: refuted, because the AS registrant and the address registrant are the same person. (3) A resold block from a larger carrier: not refuted and not confirmed, because the parent 194.0.108.0-194.0.111.255 was not walked up to the LIR that allocated it. That walk was not run. Two deviations are deliberate and both come from the evidence. First, identity_cost.kind is email and not anonymous. No card and no account is right, but POST /api/leases/ requires billing_email and the API page states 'A trial is one per billing email', so the email is the key the free offer is counted against; a reader planning several trials is misled by anonymous and not by email. Second, the registrant handle reads lir-kz-individual-1-MNT in the live RDAP response; the record carries the measured string. The egress quote is on /vs/fixie and not on /pricing, which the egress record's source_url for that sentence points at. What could not be settled: which /24 a leased address actually lands in. The vendor says the trial is 'a real address out of the same /24 our paying customers are in', and its own API example shows 194.0.108.99 while the RDAP sample is 194.0.109.0/24, so more than one /24 is in use and only a live lease would fix which. The latency figures are the vendor's measurements, not ours. And this rests on one sample: one /24 was classified out of the five announced, so the other four are unverified and the class claim is a claim about 194.0.109.0/24 rather than about the whole service.
+- evidence note: Pricing, trial terms, unmetered bandwidth statements, order body structure, and routing modes are quoted from vendor documentation read on 2026-10-24. The registration class was measured using RIPE RDAP on 2026-10-24. Full measurement would require an active trial lease, tunnel throughput verification, and origin address resolution.
+- extras:
+  - rung: 3
+  - rung_note: Rung 3: the measured facts are a subnet and its registration class, 194.0.109.0/24 read from RIPE RDAP, not a single leased address and not the whole of AS41800.
+  - wg_path: native-conf
+  - registration_class: ASSIGNED PA, country KZ, registrant lir-kz-individual-1-MNT, an individual
+  - announced_prefixes: 194.0.108.0/24; 194.0.109.0/24; 194.0.110.0/24; 194.0.111.0/24; 185.196.8.0/24; 2a05:d840::/29
+  - addresses_in_announced_ipv4: 1280
+  - trial_days: 7
+  - volume_stated: We do not meter requests or bandwidth, so the plan decides how many addresses and machines you get and nothing decides how much you may send.
+  - bytes_transit: yes
+  - transit_note: All traffic from a leased address crosses the edge in Karaganda; the vendor measures 78 ms round trip to Frankfurt and 161 ms to Virginia.
+  - interface_enum_note: Rest and cli are the honest intersection and the WireGuard path lives in interface_detail.
+  - parent_block: 194.0.108.0 - 194.0.111.255
+- evidence:
+  - [4] 2026-10-24: 194.0.109.0/24 is registered in country KZ, type ASSIGNED PA, registrant lir-kz-individual-1-MNT, an individual, with the remark 'Main segment 194.0.109.0/24'. A personal provider-independent assignment in Kazakhstan, not an ISP network.
+  - [5] 2026-10-24: AS41800 carries the same registrant, lir-kz-individual-1-MNT, so the announcing autonomous system and the address holder are the same individual.
+  - [6] 2026-10-24: In the 2026-10-10 to 2026-10-24 window AS41800 announced 194.0.108.0/24, 194.0.109.0/24, 194.0.110.0/24, 194.0.111.0/24, 185.196.8.0/24 and 2a05:d840::/29: five IPv4 /24s, 1,280 addresses, shared by every tenant of the service.
+  - [1] 2026-10-24: Trial $0/mo with 1 dedicated IPv4, 1 IPv6 /48 and 2 machines for 7 days; Solo $19/mo, Team $49/mo, Business $149/mo; 'One trial per billing email address, and one running at a time per network'; the 7-day hold after a lapsed renewal and the 30-day quarantine; the footer 'AnchoredIP - AS41800 - Karaganda, Kazakhstan'.
+  - [2] 2026-10-24: 'We do not meter requests or bandwidth, so the plan decides how many addresses and machines you get and nothing decides how much you may send.' Also 'Seven days on a real address out of the same range paying customers are in ... No card, and nobody to talk to.'
+  - [3] 2026-10-24: The trial order body is plan, organization_name, country and billing_email and returns access_token with status active and no payment step; 'A trial is one per billing email'; 'Limited to five orders an hour from one address' with 429 when throttled; tunnel creation returns the config once and the private key is not stored.
+  - [7] 2026-10-24: One WireGuard config file per tunnel; routing mode 'source' needs wg-quick on Linux and 'full' works in any client; 'One machine per lease can additionally receive connections on the address'; the edge is a router in Karaganda holding the address.
+  - [8] 2026-10-24: 
+  - [4] 2026-11-02: The RDAP answer for 194.0.109.1 gives parentHandle 194.0.108.0 - 194.0.111.255, the block that covers the 194.0.109.0/24 assignment. | capture: sha256:4924fa15ae10f0a20bc2fd75c616effda916bc42c66dd58e20c3a6b04d63219a | quote: "parentHandle" : "194.0.108.0 - 194.0.111.255"
+  - [4] 2026-11-02: The RDAP answer for 194.0.109.1 gives type ASSIGNED PA, country KZ and an individual registrant, lir-kz-individual-1-MNT, for 194.0.109.0/24. | capture: sha256:4924fa15ae10f0a20bc2fd75c616effda916bc42c66dd58e20c3a6b04d63219a | quote: "type" : "ASSIGNED PA" ... "country" : "KZ" ... "lir-kz-individual-1-MNT" ], [ "kind", { }, "text", "individual"
+- sources:
+  - [1] https://anchoredip.com/pricing
+  - [2] https://anchoredip.com/vs/fixie
+  - [3] https://anchoredip.com/docs/api
+  - [4] https://rdap.db.ripe.net/ip/194.0.109.1
+  - [5] https://rdap.db.ripe.net/autnum/41800
+  - [6] https://stat.ripe.net/data/announced-prefixes?resource=AS41800
+  - [7] https://anchoredip.com/docs
+  - [8] https://anchoredip.com/dedicated-ip
+
+## AnchoredIP (Egress and tunnels)
+
+- `egress/anchoredip` | trial-only | evidence documented | binding none | category dedicated IPv4 over WireGuard | tier trial
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://anchoredip.com/pricing
+- price USD 0 for 7 days, then USD 19 per month for Solo (1 IPv4, 1 /48, 2 machines) | parsed USD 19/mo
+- free tier: "Trial $0/mo ... Runs for 7 days" with one dedicated IPv4, one /48, two machines, and from the dedicated-ip page: "Seven days on a real address out of the same range paying customers are in ... No card, and nobody to talk to." | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No allowance and no meter: "We do not meter requests or bandwidth, so the plan decides how many addresses and machines you get and nothing decides how much you may send."; ingress: tcp+udp | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: The trial needs no card: "No card, and nobody to talk to." The paid tiers are "Pay by Card". A trial still needs an account, whose form was not read. | country: None
+- interface: cli
+- limits:
+  - volume-quota: none: bandwidth is stated as unmetered, so there is no byte allowance to exceed [2]
+- binding note: Nothing in the published limits fails at 1 TiB/month: the vendor says it does not meter bandwidth, and the trial carries the same unmetered transport as the paid tiers. What limits the shape is the lease, not a quota: one IPv4, two machines, and one designated peer that can receive inbound. That is an allocation limit with no kind in the constraint vocabulary, so it is recorded here rather than filed under a kind it is not.
+- interface detail: Configuration file per machine plus a dashboard; no API named on the pages read.
+- tooling: wg-quick; documented Docker pattern with one container per machine slot
+- composes with: Pairs with a free-tier VM: the VM becomes the designated inbound peer and the whole lease egresses from one address.
+- reliability: Outbound mail ports blocked on every lease by default; inbound works on one peer only, and a second peer claiming the address silently wins.
+- notes: The product is sold as an outbound identity first, with inbound as a secondary use: "Everything else on the lease still egresses as the address." That is why the machine count is the binding constraint rather than the port count. Outbound 25, 465 and 587 are blocked until asked. Registration class measured 2026-10-24: ASSIGNED PA under an individual in KZ, so the lease is not ISP-registered and does not address rung 5. It invited an ISP reading that the registry does not support.
+- evidence note: Pricing, the trial terms, the unmetered claim and the inbound-peer rule are first-party. A trial run would confirm the inbound behaviour.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: The address arrives as a configuration file: "Set up by: One WireGuard config file" and "The address is delivered over a WireGuard tunnel to machines you already run". One machine per lease may also receive: "One machine per lease can also receive on the public address".
+  - ingress: tcp+udp
+  - volume_stated: No allowance and no meter: "We do not meter requests or bandwidth, so the plan decides how many addresses and machines you get and nothing decides how much you may send."
+  - bytes_transit: yes
+  - transit_note: AnchoredIP announces AS41800, whose holder is an individual, and the space is a personal PA assignment in Kazakhstan. The AS can be checked in public routing data. This says nothing about registration class, which is neither ISP nor organisation.
+  - registration_class: ASSIGNED PA under an individual, Kazakhstan. Not ISP-registered. Measured with RIPE RDAP 2026-10-24; see ip-proxy/anchoredip-registration-corrected.
+- evidence:
+  - [1] 2026-10-23: Trial USD 0 for 7 days with 1 IPv4, 1 /48 and 2 machines; Solo USD 19/mo; Team USD 49/mo; card payment
+  - [3] 2026-10-23: "One WireGuard config file"; space registered at RIPE NCC and announced from AS41800; trial without a card
+  - [2] 2026-10-23: "Bandwidth | [...] Not metered" in the vendor's own comparison table
+  - [4] 2026-10-23: one peer per lease receives inbound, because WireGuard routes an address to exactly one peer
+  - [5] 2026-10-24: 194.0.109.0/24 is registered in country KZ, type ASSIGNED PA, registrant lrp-kz-individual-1-MNT, an individual; AS41800's holder is the same individual. A personal PA assignment, not an eyeball broadband network, so the space is not ISP-registered.
+- sources:
+  - [1] https://anchoredip.com/pricing
+  - [2] https://anchoredip.com/vs/fixie
+  - [3] https://anchoredip.com/dedicated-ip
+  - [4] https://anchoredip.com/docs/use-cases
+  - [5] https://rdap.db.ripe.net/ip/194.0.109.1

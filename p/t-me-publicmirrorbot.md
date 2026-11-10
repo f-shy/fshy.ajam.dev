@@ -1,0 +1,43 @@
+# Public Mirror Leech
+
+> t.me | Debrid; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/t-me-publicmirrorbot/ | JSON https://fshy.ajam.dev/api/v1/entity/t-me-publicmirrorbot.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Public Mirror Leech (@publicmirrorbot)
+
+- `debrid/publicmirrorbot` | qualifies-with-caveat | evidence reported | binding per-object-cap | category Telegram mirror/leech bot: remote-URL fetcher with operator-side storage | tier free
+- needs card no, phone yes, ID no, institution no | verified 2026-11-03T11:28:50.410Z (live) | stale on 2026-11-18
+- url https://t.me/publicmirrorbot
+- price USD 0
+- free tier: Published limits post: "Mirror: upto 80 GB/link; Leech: upto 80 GB/link (4gb support); Yt-dlp: upto 80 GB/link; Mega.nz Link: upto 80 GB/link; Daily Limit: Unlimited". | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1] | note: Unlimited refers to the daily count of links, not to bytes in flight; each link is capped at 80 GB.
+- per-object cap: 80 GB per link on every mode: mirror, leech, yt-dlp and MEGA. | bytes: 85899345920 | source: [1] | note: 80 x 1024^3. The '(4gb support)' note next to leech is the vendor's own remark that Telegram's own file ceiling applies to a leeched file.
+- retention: Not stated. A mirror lands in operator storage and a leech lands in the user's Telegram; no expiry is published for either. | source: [1]
+- egress: The bot pulls from a remote URL and re-serves it: a mirror returns a link on the operator's host, a leech returns the file into the chat. No bandwidth figure or price is published. | metered: no | free allowance: unlimited daily link count | source: [1]
+- identity: any-phone | detail: A Telegram account is the only gate: any phone number that can receive the signup code. No email, payment or identity document is asked for by the bot.
+- interface: unknown
+- limits:
+  - per-object-cap (binding): 80 GB per link (mirror, leech, yt-dlp, MEGA) [1]
+  - request-rate: daily limit stated as unlimited; concurrent-task and queue limits are not published [1]
+- limits note: The 80 GB figure is generous for a free bot and is the only hard number the operator publishes. Nothing is said about how many tasks may run at once, which is where a shared public bot actually queues.
+- binding note: At 1 TiB a month the link ceiling is what stops a single transfer: 80 GB is about 12 links to the monthly target, so a 1 TiB archive has to be split. The daily count is explicitly unlimited, so it cannot bind.
+- interface detail: A Telegram bot, not an HTTP service: the control channel is Telegram chat with @publicmirrorbot, and there is no documented REST endpoint. The bot's preview names a fallback bot and a support group rather than an API.
+- tooling: Telegram client only. Automating it means driving a Telegram user session, which is a real constraint for a client that wants a script rather than a chat window.
+- composes with: A resolver for links a normal client cannot fetch: a MEGA or yt-dlp URL goes in, a direct file comes out, and it bypasses the per-host limits a downloader would otherwise meet. It is the human-shaped version of what a debrid subscription does, with an 80 GB per-link ceiling instead of a monthly one.
+- reliability: A shared public bot with no SLA, with limits published in a channel post rather than on a stable web page. The channel listing includes a beta fallback bot.
+- notes: Classified as a service because it resolves and fetches remote URLs rather than mirroring an account: a user hands it a URL and gets bytes back. The account-mirror bots in the same ledger were not recorded, because they only drive somebody's own cloud account.
+- evidence note: The limits are the vendor's own post in the bot's linked updates channel, not a vendor specification page, and nothing was transferred. Moving to documented needs the numbers on a stable page; moving to measured needs one 80 GB job run and read.
+- extras:
+  - modes: mirror, leech, yt-dlp, MEGA
+- evidence:
+  - [1] 2026-10-23: the limits post verbatim: 80 GB per link on mirror, leech, yt-dlp and MEGA, and 'Daily Limit: Unlimited'
+  - [2] 2026-10-23: the bot exists as 'Mirror Leech Bot 3' and links @PublicMirrorLeechGroup and @PublicMirrorLeechUpdates as its group and channel
+  - [3] 2026-10-23: 3,088 members and 380 online, which is the scale signal for a public bot's queue
+  - [1] 2026-11-03: the same post states the daily limit as unlimited | capture: sha256:22e3ae32d750b2cb259f229b435dea01d56e5c6221d2dd3cf25adb560d4713c5 | quote: Daily Limit: Unlimited
+  - [3] 2026-11-03: the group has 3,143 members and 499 online | capture: sha256:b2f58e281cb27ee7596c0d860329892cda876b945623ecded79274dcc31ae960 | quote: 3 143 members, 499 online
+  - [2] 2026-11-03: the bot page is live as 'Mirror Leech Bot 3' | capture: sha256:2812278b9a374de1431f5d53371e1649aa100cf3d40713ce93fbc8b54371ae31 | quote: Mirror Leech Bot 3
+  - [1] 2026-11-03: the operator's limits post gives 80 GB per link on mirror | capture: sha256:22e3ae32d750b2cb259f229b435dea01d56e5c6221d2dd3cf25adb560d4713c5 | quote: Mirror: upto 80 GB/link
+- sources:
+  - [1] https://t.me/s/PublicMirrorLeechUpdates
+  - [2] https://t.me/publicmirrorbot
+  - [3] https://t.me/PublicMirrorLeechGroup

@@ -1,0 +1,82 @@
+# Marketstack
+
+> marketstack.com | Data APIs; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/marketstack/ | JSON https://fshy.ajam.dev/api/v1/entity/marketstack.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Marketstack (APILayer)
+
+- `data-apis/marketstack` | fails-quota | evidence documented | binding request-rate | category market data API (end-of-day stock prices, tickers, exchanges) | tier Free
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T00:28:53.394Z (live) | stale on 2026-12-04
+- url https://marketstack.com/pricing
+- free tier: Free plan USD 0/month, free forever: 100 requests per month, end-of-day data, 1 year of history, no support | unit: requests | metered on: request-count | read on: 2026-10-31 | source: [1] | note: Each symbol in a request consumes one request, up to 100 symbols per call, and a page holds up to 1000 rows. The APILayer product page shows the free plan as 100 Total Requests while its FAQ on the same page says 100 per month; the marketstack.com pricing page and FAQ say per month. The cheapest paid plan is Basic at USD 8.99/month billed yearly with 10,000 requests per month. US end-of-day prices are licensed from Tiingo.
+- per-object cap: 1000 rows per page and 100 symbols per call; 1 year of history on the free plan | source: [2]
+- retention: not applicable
+- egress: not metered in bytes; the 100 requests a month bound what a free key can pull | metered: no | source: [1]
+- identity: email | detail: The free signup form asks for a first name, last name, email and password, and under Billing Details an address, postal code, country and city (state optional); no card field was seen on the free form. Card payment is named for paid plans.
+- interface: rest
+- limits:
+  - request-rate (binding): 100 requests per month on the free plan; each symbol in a request counts as one [1]
+  - request-rate (binding): 5 requests per second [3]
+  - per-object-cap: 1000 rows per page, 100 symbols per call [2]
+- limits note: History window: 1 year on the free plan, 10 years on Basic, 15+ years above; no limits[] kind names a history window. Bulk path: no bulk path.
+- binding note: 100 a month, with each symbol counted, is spent long before the 5 per second rate or the row caps matter.
+- interface detail: GET https://api.marketstack.com/v2/eod?access_key=...&symbols=AAPL over HTTPS on every plan; v1 paths remain. A call with no access_key answered HTTP 401 missing_access_key.
+- endpoint: part of interface detail
+- tooling: curl or any HTTP client
+- composes with: Its US end-of-day prices are licensed from Tiingo, whose free plan allows 1000 requests a day against 100 a month here, so Tiingo is the larger free route to the same prices.
+- reliability: Past the monthly volume the API answers HTTP 429 too_many_requests, and past 5 requests per second it answers 429 rate_limit_reached; API errors are not counted toward the monthly quota; an error answer is a JSON object with an error member holding a code and a message.
+- notes: A working free key, but 100 requests a month with each symbol counted and 1 year of end-of-day history is too small for a data workload; the same US prices come from Tiingo, whose free plan is 1000 requests a day with 30+ years of history.
+- evidence note: The free quota, history and signup fields are documented on the pricing, FAQ and signup pages; the 5 per second rate is stated on the current Getting Started page of the APILayer documentation. A probe measured that a call with no key answers HTTP 401. The monthly cut-off answer, its body and its reset moment need a free key to measure (unverified: behind a sign-up).
+- extras:
+  - bulk_path: no bulk path
+  - history_depth: 1 year on the free plan; 10 years on Basic; 15+ years on Professional and Business
+  - quota_wording_conflict: apilayer.com/products/marketstack shows 100 Total Requests on the plan card and 100 per month in its FAQ
+  - cutoff_wording_conflict: marketstack.com/contact says the system allows a maximum overdraft of 5% beyond the quota limit and disables API access at 120% unless overage billing is enabled; marketstack.com/faq says overage fees apply after 100% of the allowance; which applies to a Free key, which lists no overage, is unverified: behind a sign-up
+- evidence:
+  - [1] 2026-10-31: the free plan allows 100 requests per month | capture: sha256:67665382a9a938ff3a29cb764b539d4b3e37cee86fadc819b2ac005c3b727062 | quote: - 100 Requests / mo
+  - [1] 2026-10-31: the free plan has 1 year of history | capture: sha256:67665382a9a938ff3a29cb764b539d4b3e37cee86fadc819b2ac005c3b727062 | quote: - 1 Year History
+  - [1] 2026-10-31: the free plan covers end-of-day data | capture: sha256:67665382a9a938ff3a29cb764b539d4b3e37cee86fadc819b2ac005c3b727062 | quote: - End-of-Day Data
+  - [1] 2026-10-31: the free plan has no support | capture: sha256:67665382a9a938ff3a29cb764b539d4b3e37cee86fadc819b2ac005c3b727062 | quote: - No Support
+  - [1] 2026-10-31: the free plan has no end date | capture: sha256:67665382a9a938ff3a29cb764b539d4b3e37cee86fadc819b2ac005c3b727062 | quote: Free forever.
+  - [1] 2026-10-31: Basic is USD 8.99/month billed yearly | capture: sha256:67665382a9a938ff3a29cb764b539d4b3e37cee86fadc819b2ac005c3b727062 | quote: $8.99per monthbilled yearly
+  - [1] 2026-10-31: Basic allows 10,000 requests per month | capture: sha256:67665382a9a938ff3a29cb764b539d4b3e37cee86fadc819b2ac005c3b727062 | quote: - 10,000 Requests / mo
+  - [1] 2026-10-31: the free plan is 100 requests per month with end-of-day data and 12 months of history | capture: sha256:67665382a9a938ff3a29cb764b539d4b3e37cee86fadc819b2ac005c3b727062 | quote: At marketstack we offer a Free Plan that will allow users to make up to 100 market data API requests per month, supporting end-of-day data as well as up to 12 months of history.
+  - [4] 2026-10-31: US end-of-day data is licensed from Tiingo | capture: sha256:0d70096de9d5a4eb613eadaa89a5be76085067e5ebe1886cf3f69d52ebb271ed | quote: Stock market data from United States exchanges is licensed and sourced from Tiingo, Inc. out of New York City, USA.
+  - [5] 2026-10-31: the APILayer plan card states the free plan as 100 total requests | capture: sha256:9ee4628deb296aeb2e0c8fa4805e7bedd51a7bdaee03f09e85444fc7e0de0984 | quote: 100 Total Requests.
+  - [5] 2026-10-31: the same page's FAQ states 100 requests per month | capture: sha256:9ee4628deb296aeb2e0c8fa4805e7bedd51a7bdaee03f09e85444fc7e0de0984 | quote: Yes, Marketstack offers a free plan that includes 100 API requests per month.
+  - [2] 2026-10-31: each symbol in a call consumes one request, up to 100 symbols | capture: sha256:3e126a4e11425f4d1eec6b888508b76e655963ce86a6e1c1ed41ed72fed904db | quote: Each symbol consumes one API request. Maximum: 100 symbols
+  - [2] 2026-10-31: a page holds up to 1000 rows | capture: sha256:503158823ecf4d4c59b7afd122d7c046979731c2078de4a8bb0f41ca65a746ae | quote: Default limit value is 100, maximum allowed limit value is 1000.
+  - [3] 2026-10-31: the API is served over HTTPS | capture: sha256:fdaac2e2f3c1fe2a9d030c3a78a30f824afbfe68690ce72dff56564b982d8963 | quote: Marketstack uses HTTPS for secure API communication.
+  - [6] 2026-10-31: the documentation as archived on 2026-01-13 limits the API to 5 requests per second | capture: sha256:79ce2f4fa9747d33e62e8c96223e582c628c2a75f99d0ffa5c4dfc45ea9c7c7d | quote: Note: The api is limited to 5 requests per second.
+  - [6] 2026-10-31: the monthly volume cut-off answers HTTP 429 too_many_requests | capture: sha256:79ce2f4fa9747d33e62e8c96223e582c628c2a75f99d0ffa5c4dfc45ea9c7c7d | quote: | `429` | `too_many_requests` | The given user account has reached its monthly allowed request volume. |
+  - [1] 2026-10-31: Basic carries 10 years of history | capture: sha256:67665382a9a938ff3a29cb764b539d4b3e37cee86fadc819b2ac005c3b727062 | quote: - 10 Years History
+  - [4] 2026-10-31: paid plans are paid by credit card | capture: sha256:0d70096de9d5a4eb613eadaa89a5be76085067e5ebe1886cf3f69d52ebb271ed | quote: Payments can be made via credit card (Visa, MasterCard, Discover, Diner's Club, American Express).
+  - [6] 2026-10-31: the rate cut-off answers HTTP 429 rate_limit_reached | capture: sha256:79ce2f4fa9747d33e62e8c96223e582c628c2a75f99d0ffa5c4dfc45ea9c7c7d | quote: | `429` | `rate_limit_reached` | The given user account has reached the rate limit. |
+  - [7] 2026-10-31: the free signup asks for a first name; the same form asks for last name, email and password | capture: sha256:20f368f3d30cc30926b39100735c3de0be09377c87017522a62bcf310eefc4c2 | quote: First Name\*
+  - [7] 2026-10-31: the free signup has a Billing Details section | capture: sha256:20f368f3d30cc30926b39100735c3de0be09377c87017522a62bcf310eefc4c2 | quote: Billing Details
+  - [7] 2026-10-31: the free signup requires a postal code; the same section requires an address, a country and a city | capture: sha256:20f368f3d30cc30926b39100735c3de0be09377c87017522a62bcf310eefc4c2 | quote: Postal Code\*
+  - probe:https://api.marketstack.com/v2/eod?symbols=AAPL 2026-10-31: a call with no key answered HTTP 401 | capture: sha256:2bf203dae63c8af0b6d8407df885a554abd95340616649edbe57a1198568e032 | quote: "status": 401
+  - probe:https://api.marketstack.com/v2/eod?symbols=AAPL 2026-10-31: the API asks for an access key | capture: sha256:5dbfe11774badd4884a3660444bf3482ec2b758a66f23acf1a37b320de5d84c3 | quote: You have not supplied an API Access Key.
+  - [1] 2026-10-31: the plans above Basic carry 15+ years of history | capture: sha256:67665382a9a938ff3a29cb764b539d4b3e37cee86fadc819b2ac005c3b727062 | quote: - 15+ Years History
+  - [3] 2026-11-02: the current Getting Started page states 5 requests per second | capture: sha256:fc2d30ee1be8b095705abe217beb093f34b1d59260cae8606b9a603c56a976d3 | quote: The API allows up to 5 requests per second. Exceeding this returns a `429` status code. Monthly request quotas depend on your plan.
+  - [3] 2026-11-02: the monthly quota cut-off answers 429 too_many_requests | capture: sha256:fc2d30ee1be8b095705abe217beb093f34b1d59260cae8606b9a603c56a976d3 | quote: | 429 | `too_many_requests` | Monthly request quota exceeded |
+  - [8] 2026-11-02: error answers do not count toward the monthly quota | capture: sha256:1c1ee5e9f0fb3d014986adc5e0c64013bcb9c8a1f5d3ecbc8d87bda1d0574f8d | quote: API errors are not counted towards your monthly quota.
+  - probe:https://api.marketstack.com/v2/eod?symbols=AAPL 2026-11-02: a call with no key answers a JSON error object with a code | capture: sha256:5dbfe11774badd4884a3660444bf3482ec2b758a66f23acf1a37b320de5d84c3 | quote: "code": "missing_access_key"
+  - [3] 2026-11-02: the rate cut-off answers 429 rate_limit_reached | capture: sha256:fc2d30ee1be8b095705abe217beb093f34b1d59260cae8606b9a603c56a976d3 | quote: | 429 | `rate_limit_reached` | Rate limit (5 req/sec) exceeded |
+  - [3] 2026-11-02: the current documentation states 5 requests per second | capture: sha256:fc2d30ee1be8b095705abe217beb093f34b1d59260cae8606b9a603c56a976d3 | quote: The API allows up to 5 requests per second. Exceeding this returns a `429` status code. Monthly request quotas depend on your plan.
+  - [9] 2026-11-02: the contact page gives a 5% overdraft and a cut-off at 120% | capture: sha256:82b09187db1680a7552f1381dcab517350b13120fa5230baccd7be9863d9902d | quote: our system allows for a maximum overdraft of 5% beyond your quota limit. If 120% of your quota are reached, API access will be disabled, unless overage billing is enabled on your account.
+  - [8] 2026-11-02: the FAQ says overage fees apply after 100% of the allowance | capture: sha256:1c1ee5e9f0fb3d014986adc5e0c64013bcb9c8a1f5d3ecbc8d87bda1d0574f8d | quote: After reaching 100% of the allowance, overages fees will apply
+  - [1] 2026-11-02: the Free plan allows 100 requests a month | capture: sha256:67665382a9a938ff3a29cb764b539d4b3e37cee86fadc819b2ac005c3b727062 | quote: - 100 Requests / mo
+  - [1] 2026-11-02: the Free plan has 1 year of history | capture: sha256:67665382a9a938ff3a29cb764b539d4b3e37cee86fadc819b2ac005c3b727062 | quote: - 1 Year History
+  - [3] 2026-11-02: the 5 requests per second rate is on the current page | capture: sha256:fc2d30ee1be8b095705abe217beb093f34b1d59260cae8606b9a603c56a976d3 | quote: The API allows up to 5 requests per second. Exceeding this returns a `429` status code. Monthly request quotas depend on your plan.
+- sources:
+  - [1] https://marketstack.com/pricing
+  - [2] https://marketstack.com/documentation
+  - [3] https://docs.apilayer.com/marketstack/docs/getting-started
+  - [4] https://marketstack.com/product
+  - [5] https://apilayer.com/products/marketstack
+  - [6] https://web.archive.org/web/20260113090605/https://marketstack.com/documentation
+  - [7] https://marketstack.com/signup/free
+  - [8] https://marketstack.com/faq
+  - [9] https://marketstack.com/contact

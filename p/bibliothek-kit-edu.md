@@ -1,0 +1,53 @@
+# radar4kit
+
+> bibliothek.kit.edu | Storage; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/bibliothek-kit-edu/ | JSON https://fshy.ajam.dev/api/v1/entity/bibliothek-kit-edu.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## radar4kit (kit) — 600 gb per dataset, but kit-members only
+
+- `storage/radar4kit-600-gb-per-dataset-but-kit-members-only` | fails-identity | evidence reported | binding none | category rejected-provider
+- needs card no, phone no, ID no, institution yes | verified 2026-11-03T01:28:39.139Z (inherited) | stale on 2026-11-18
+- url https://www.bibliothek.kit.edu/english/radar4kit.php
+- free tier: Free of charge for KIT members; the usable size of temporary storage and of permanent storage for archived and published data packages is capped by a per-employee quota set in the KIT standard IT configuration (the quota figure is unverified: that page answers only from inside the KIT network); the archive system limits each dataset to 600 GB, and 50 to 100 GB per dataset is the recommended size. | unit: GB | metered on: stored-bytes | read on: 2026-10-30 | source: [1]
+- per-object cap: 600 GB per dataset, the maximum set by the archive system; 50 to 100 GB per dataset is advised for reuse | bytes: 600000000000 | source: [2] | note: the cap applies to one dataset (data package); very large data can be split across several linked datasets
+- retention: Archived data packages: the data provider sets a retention period and KIT guarantees at least 10 years; published data packages: at least 25 years; data packages in temporary storage are deleted after six months unless archived or published | source: [1] | note: temporary storage holds a data package for six months at most; permanent storage is tape, read asynchronously
+- egress: not recorded | metered: no
+- identity: institution | detail: Upload needs a workspace that the KIT Library sets up for a KIT institute, research group or project team, and the service is free for KIT members. Login takes a KIT employee account, another institutional account or a registered RADAR user account; sub-curator rights can be granted to people outside KIT.
+- interface: rest, webdav
+- interface detail: web user interface, REST API, and WebDAV: data can be uploaded and organized via a WebDAV client without an active session, then imported into a data package
+- tooling: not documented
+- composes with: not recorded
+- reliability: Upload needs a workspace set up by the KIT Library and a KIT account login (non-KIT accounts only in special cases); a data package in temporary storage is deleted after six months; permanent storage is tape, with retrieval taking several minutes and in exceptional cases hours.
+- notes: Allowance is 600 GB per dataset with WebDAV and REST API support for large uploads. Access requires academic credentials via KIT Shibboleth single sign-on.
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [3] 2026-10-21: 
+  - [1] 2026-10-30: the RADAR4KIT FAQ states the service is free for KIT members | capture: sha256:51aa274047068ae6550eac4773870761795c5d109b591c0d9c51938830786372 | quote: Is RADAR4KIT free to use? Yes, the service is free for KIT members.
+  - [1] 2026-10-30: the page caps each dataset at 600 GB and states no account-wide storage quota | capture: sha256:51aa274047068ae6550eac4773870761795c5d109b591c0d9c51938830786372 | quote: The limit set by the archive system is a maximum of 600 GB per dataset.
+  - [1] 2026-10-30: upload needs a workspace that the KIT Library sets up for a KIT institute, research group or project team | capture: sha256:51aa274047068ae6550eac4773870761795c5d109b591c0d9c51938830786372 | quote: To upload research data, a workspace (for KIT institutes, research groups, or project teams) must first be set up by the KIT Library.
+  - [1] 2026-10-30: login takes a KIT employee account, another institutional account or a RADAR user account | capture: sha256:51aa274047068ae6550eac4773870761795c5d109b591c0d9c51938830786372 | quote: To log in, you need a valid KIT employee account or another institutional account. Alternatively, you can register a RADAR user account.
+  - probe:https://www.bibliothek.kit.edu/english/radar-faq.php 2026-10-30: the previously cited FAQ URL answers HTTP 302 with a Location on search.php?error=404 | capture: sha256:f3b4109e98f0e60ca30084848a1fc4edf06b533addd7c3af0c250da45c424a15 | quote: "status": 302
+  - [1] 2026-10-30: the RADAR4KIT page states the free terms and the dataset limit on 2026-10-30 | capture: sha256:51aa274047068ae6550eac4773870761795c5d109b591c0d9c51938830786372 | quote: Yes, the service is free for KIT members.
+  - [1] 2026-10-31: the RADAR4KIT quota is counted against the size of temporary and permanent storage used, that is stored bytes | capture: sha256:29ff76b35fff8d765e4924f9693344383e5e58e22fd7fbd3828a4d597b1d72d3 | quote: In RADAR4KIT, the maximum usable size of temporary storage, as well as the permanent storage used for archived and published data packages, is limited.
+  - [1] 2026-10-31: a per-employee storage quota for temporary and permanent storage exists and is set in the KIT standard IT configuration | capture: sha256:29ff76b35fff8d765e4924f9693344383e5e58e22fd7fbd3828a4d597b1d72d3 | quote: The storage quotas available per employee for each category are specified in the standard IT configuration
+  - [4] 2026-10-31: the SCC data services table lists RADAR4KIT storage as a basic contingent in the KIT basic package, with a fee beyond it | capture: sha256:1e077edd25e3c02c8049d26a4bb4d4e733c94f17c54aebec700a1901257fddd7 | quote: Basic contingent in KIT basic package, fee required
+  - [1] 2026-10-31: login takes a KIT employee account, another institutional account or a RADAR user account, unchanged on 2026-10-31 | capture: sha256:29ff76b35fff8d765e4924f9693344383e5e58e22fd7fbd3828a4d597b1d72d3 | quote: To log in, you need a valid KIT employee account or another institutional account. Alternatively, you can register a RADAR user account.
+  - [1] 2026-10-31: the RADAR4KIT page still caps each dataset at 600 GB on 2026-10-31 | capture: sha256:29ff76b35fff8d765e4924f9693344383e5e58e22fd7fbd3828a4d597b1d72d3 | quote: The limit set by the archive system is a maximum of 600 GB per dataset.
+  - [1] 2026-11-03: upload needs a workspace that the KIT Library sets up | capture: sha256:873e175e7190186afeb5fec054d9845f71006c949b1bc2c50692ebaac605e201 | quote: To upload research data, a workspace must first be set up by the KIT Library (administrator).
+  - [2] 2026-11-03: the archive system caps each dataset at 600 GB | capture: sha256:0eea092e37ddb50a75126d71431062a6454957005ded8aad80f36f6f989ecf49 | quote: The maximum file size set by the archive system is 600 GB per dataset.
+  - [1] 2026-11-03: archived data is kept at least 10 years and published data at least 25 years | capture: sha256:873e175e7190186afeb5fec054d9845f71006c949b1bc2c50692ebaac605e201 | quote: KIT guarantees an actual retention period of at least 10 years for archived data. For published data, actual retention for at least 25 years is guaranteed.
+  - [1] 2026-11-03: permanent storage is tape with asynchronous retrieval | capture: sha256:873e175e7190186afeb5fec054d9845f71006c949b1bc2c50692ebaac605e201 | quote: Access to the permanent tape storage is asynchronous, meaning that in some cases several minutes may elapse between the request and delivery.
+  - [1] 2026-11-03: a web UI and a REST API exist | capture: sha256:873e175e7190186afeb5fec054d9845f71006c949b1bc2c50692ebaac605e201 | quote: RADAR4KIT can be accessed via a web-based user interface using modern web browsers or via a REST-based application programming interface (API).
+  - [1] 2026-11-03: WebDAV is an upload route | capture: sha256:873e175e7190186afeb5fec054d9845f71006c949b1bc2c50692ebaac605e201 | quote: Data packages can also be created using WebDAV.
+  - [5] 2026-11-03: the standard IT configuration page that holds the per-employee quota is reachable only from inside the KIT network | capture: sha256:f3b08a0649f98207299bfbbe1335470d222da5be6e9adac230ee27487b03f49b | quote: Die angeforderte Seite ist nur von Rechnern innerhalb des KIT erreichbar.
+  - [1] 2026-11-03: login is by KIT account; non-KIT accounts only in special cases | capture: sha256:873e175e7190186afeb5fec054d9845f71006c949b1bc2c50692ebaac605e201 | quote: All KIT researchers can log in to RADAR4KIT using their KIT account (Shibboleth). In addition, in special cases, additional accounts may be created for non-KIT members.
+- sources:
+  - [1] https://www.bibliothek.kit.edu/english/radar4kit.php
+  - [2] https://www.bibliothek.kit.edu/english/6363.php
+  - [3] https://www.bibliothek.kit.edu/english/radar-faq.php
+  - [4] https://www.scc.kit.edu/en/services/17037.php
+  - [5] https://www.scc.kit.edu/dienste/it-grundausstattung.php

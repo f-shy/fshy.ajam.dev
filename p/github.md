@@ -1,0 +1,1391 @@
+# GitHub
+
+> github.com | Compute, Coding subscriptions, Egress and tunnels, Storage, CI runners; 39 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/github/ | JSON https://fshy.ajam.dev/api/v1/entity/github.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## GitHub Codespaces
+
+- `compute/github-codespaces` | qualifies | evidence documented | binding volume-quota | category dev environment | tier GitHub Free for personal accounts
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T04:00:19.000Z (live) | stale on 2026-11-24
+- url https://docs.github.com/en/billing/concepts/product-billing/github-codespaces
+- free tier: 'All GitHub personal accounts include a quota of free compute time and storage for GitHub Codespaces.' The table row is '| GitHub Free for personal accounts | 15 GB-month | 120 hrs |'. The 120 is a core-hour: the compute column is multiplied by the machine's core count, so 120 core-hours is 60 wall-clock hours on the 2-core default. Quoted: 'The compute cost is proportional to the number of processor cores in the machine type you choose for your codespace, as shown in the following table. For example, the compute cost of using a codespace for an hour on a 16-core machine is eight times greater than a 2-core machine.' | unit: hours | metered on: wall-clock | read on: 2026-10-24 | source: [1] | note: The vendor's own header for the column is 'Compute time per month' and the value is 120 hrs, but the included-usage multiplier makes it core-hours. 120 core-hours / 2 cores = 60 hours of the default machine.
+- per-object cap: not applicable: the unit is a session, not an object
+- retention: 'Inactive codespaces are automatically deleted. You can choose how long your stopped codespaces are retained, up to a maximum of 30 days.' and 'By default, GitHub Codespaces are automatically deleted after they have been stopped and have remained inactive for 30 days.' and 'Automatic deletion happens irrespective of whether a codespace contains unpushed changes.' The disk persists across a stop and start until that clock runs out. | days: 30 | source: [2] | note: The clock runs from the moment the codespace is stopped and restarts when it is connected to again.
+- egress: no egress allowance or per-byte price published on any page read; the billing page prices compute per core-hour and storage per GB-month and says nothing about transfer | metered: no | source: [1]
+- identity: email | detail: a GitHub account and nothing else: no card, no phone and no identity document to create a codespace. No hold exists because no card is taken. The gate is at the quota, not at signup: 'If your account does not have a valid payment method on file, usage is blocked once you use up your quota.' Debit acceptance is not stated on any page read.
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): 120 core-hours of compute a month on GitHub Free, which is 60 wall-clock hours on the 2-core default machine and 30 hours on a 4-core [1]
+  - volume-quota (binding): 15 GB-month of storage a month on GitHub Free; beyond it, USD 0.07 per GB-month [1]
+  - retention-clamped: 'A codespace will stop running after a period of inactivity. By default this period is 30 minutes' and 'Regardless of your idle timeout setting, a codespace has a maximum lifetime of 12 hours.' [3]
+  - retention-clamped: 'By default, GitHub Codespaces are automatically deleted after they have been stopped and have remained inactive for 30 days.' Automatic deletion happens irrespective of unpushed changes. [2]
+  - write-gated: 'If your account does not have a valid payment method on file, usage is blocked once you use up your quota.' A card is the price of continuity past the quota, not of entry. [1]
+  - write-gated: The terms scope the machine away from serving. Quoted: 'Any activity that places a burden on our servers, where that burden is disproportionate to the benefits provided to users (for example, don't use Codespaces as a content delivery network, as part of a serverless application, or to host any kind of production-facing application)'. [4]
+- limits note: 120 core-hours is the number that binds. At the 2-core default it is 60 hours a month, which is 2 hours a day; at 4 cores it is 30 hours a month, which is 1 hour a day. The 12-hour maximum lifetime per session and the 30-minute default idle stop are what keep the quota from being burned in one sitting.
+- binding note: 120 core-hours is 60 hours on the smallest machine, so at 24/7 the month is gone in two and a half days. The quota is what fails, not identity and not the clock.
+- interface detail: gh codespace ssh and the VS Code or browser client; a devcontainer defines the image
+- tooling: gh CLI, the Codespaces API, devcontainer.json, prebuilds
+- composes with: the cheapest path to a real Linux dev machine with a shell that a GitHub identity already opens
+- reliability: a codespace stops on an account-level idle timeout (30 minutes by default, settable between 5 and 240 minutes) and is deleted 30 days after it is stopped, irrespective of unpushed changes
+- notes: The core-hour unit is the trap: 120 reads like hours and is not, because it is spent per core, so the wall-clock allowance halves at 4 cores and quarters at 8. The shape is quoted from the overview page as the bottom of the machine-type range: 2 cores, 8 GB RAM, 32 GB storage, and the vendor writes decimal GB, kept unconverted. Identity is email, not card: the gate is at the quota, so a reader who plans one month never meets a card and a reader who plans a second month does. Two things this record does not establish. First, the egress term: no page read publishes a quota, a shaping tier or a price for transfer, so the field is a dash and not 'unlimited'.
+- evidence note: the quota, the storage allowance, the per-core multiplier and the payment-method block are quoted from GitHub's billing page read; the idle timeout, the 12-hour lifetime and the 30-day retention are quoted from GitHub's own how-to pages read; the 2-core shape is quoted from the Codespaces overview. The egress term is not published anywhere read and is recorded as absent.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 8
+  - shape.disk_gib: 32
+  - shape.note: the 2-core default, quoted as 'from 2 cores, 8 GB RAM, and 32 GB storage'. The vendor writes decimal GB; the numbers are kept unconverted, so 8 GB is about 7.5 GiB and 32 GB about 29.8 GiB.
+  - billing_model: free
+  - granularity.min_billed_s: 60
+  - granularity.rounding_s: 60
+  - session_cap.wall_clock_min: 720
+  - session_cap.idle_reap_s: 1800
+  - session_cap.restart_required: no
+  - session_cap.note: 12 hours maximum lifetime per session regardless of settings; stops after 30 minutes idle by default, settable between 5 and 240 minutes; deleted 30 days after being stopped. The disk survives a stop and start.
+  - keep_rate.value: 0.0
+  - keep_rate.basis: compute stops when the codespace stops; storage keeps billing at USD 0.07 per GB-month past 15 GB-month
+  - keep_rate.source: https://docs.github.com/en/billing/concepts/product-billing/github-codespaces
+  - persistent_storage.included_gib: 15
+  - persistent_storage.price_gib_month: USD 0.07 per GB-month beyond the quota
+  - persistent_storage.durability: the codespace disk survives a stop and a start, and is destroyed when the codespace is deleted or 30 days after it was stopped
+  - persistent_storage.survives_stop: yes
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: 30 days after the codespace is stopped, by default
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: forwarded ports get a URL; a port can be made public, so this is the one GitHub free machine that can serve a request
+  - network_out.static_ip: no
+  - network_out.ipv6: no
+  - free_tier_kind: free-forever-with-quota
+  - m10h_usd: 0.0
+  - m24h_usd: 0.0
+  - price_arithmetic: 120 core-hours / 2 cores = 60 wall-clock hours a month at USD 0.00 inside the quota. 10 h a day x 30 = 300 h needs 600 core-hours, five times the quota. 24/7 x 30 = 730 h needs 1,460 core-hours, twelve times the quota. Past the quota the rate is USD 0.18 per core-hour, so 600 core-hours would be USD 108.00 and 1,460 core-hours USD 262.80, both of which need a payment method on file.
+  - price_basis: 10 h/day x 30 = 300 h; 24/7 x 30 = 730 h; core-hours, not wall-clock hours
+  - burst_x: 1.0
+  - shape_note: vendor states 32 GB (decimal) storage; kept as stated. RAM 8 GB is the vendor's own figure.
+  - term: none
+  - unattended: yes
+  - unattended_mechanism: a codespace keeps running while the browser is closed, subject to the account's idle-stop timeout; a background process survives until the codespace stops
+  - units: RAM and disk are the vendor's decimal GB, kept unconverted in ram_gib and disk_gib so 8 GB reads as 8 and 32 GB reads as 32. The true values are about 7.5 GiB and 29.8 GiB.
+  - concurrency.note: not published on any page read: the number of codespaces one account may run at once is not stated. What is stated is that the quota is spent per core-hour, so running two 2-core codespaces spends it twice as fast.
+  - checked.verified: 120 core-hours and 15 GB-month on GitHub Free; the 2-core / 8 GB / 32 GB bottom shape; 30-minute default idle stop, settable 5 to 240 minutes; 12-hour maximum lifetime per session; 30-day deletion after a stop, irrespective of unpushed changes; no card at signup; a card only past the quota
+  - checked.open: the egress term, and whether a forwarded public port survives an idle stop
+- evidence:
+  - [1] 2026-10-22: GitHub Free for personal accounts: 15 GB-month storage and 120 hours compute a month
+  - [1] 2026-10-22: if the account has no valid payment method, usage is blocked once the quota is used
+  - [1] 2026-10-22: the compute cost is proportional to the core count, so a 16-core machine costs eight times a 2-core one
+  - [2] 2026-10-22: quoted: deleted after 30 days stopped and inactive; maximum retention is 30 days; 'Automatic deletion happens irrespective of whether a codespace contains unpushed changes'
+  - [5] 2026-10-22: quoted: compute counted in core hours as active time multiplied by the machine's core multiplier; default idle timeout stops a codespace after 30 minutes
+  - [6] 2026-10-22: quoted: only the creator, an org owner, or the retention period can delete a codespace
+  - [1] 2026-10-22: the GitHub Free for personal accounts row is 15 GB-month of storage and 120 hrs of compute, and 'the compute cost ... is proportional to the number of processor cores', quoted
+  - [7] 2026-10-22: machine types run 'from 2 cores, 8 GB RAM, and 32 GB storage, up to 32 cores, 128 GB RAM, and 128 GB storage', quoted
+  - [1] 2026-10-22: the page's own worked example: 'the compute cost of using a codespace for an hour on a 16-core machine is eight times greater than a 2-core machine', quoted
+  - [7] 2026-10-24: quoted: 'from 2 cores, 8 GB RAM, and 32 GB storage, up to 32 cores, 128 GB RAM, and 128 GB storage'; and 'You have limited access to the outer Linux virtual machine host.'
+  - [8] 2026-10-24: quoted: 'GitHub will provide users in the free plan 120 core hours or 60 hours of run time on a 2 core codespace, plus 15 GB of storage each month.'
+  - [1] 2026-10-24: quoted: 'If your account does not have a valid payment method on file, usage is blocked once you use up your quota.'
+  - [3] 2026-10-24: quoted: 'A codespace will stop running after a period of inactivity. By default this period is 30 minutes'; and 'a codespace has a maximum lifetime of 12 hours'
+  - [1] 2026-10-24: quoted: '| GitHub Free for personal accounts | 15 GB-month | 120 hrs |'
+  - [1] 2026-10-24: quoted: '| Codespaces compute | 2 core | 1 hour | 2 | $0.18 |' — the rate that makes 120 core-hours 60 hours of 2 cores
+  - [1] 2026-10-24: quoted: 'All GitHub personal accounts include a quota of free compute time and storage for GitHub Codespaces.'
+  - [1] 2026-10-24: quoted: 'All GitHub personal accounts include a quota of free compute time and storage for GitHub Codespaces.' and the table row '| GitHub Free for personal accounts | 15 GB-month | 120 hrs |'
+  - [1] 2026-10-24: quoted: 'The compute cost is proportional to the number of processor cores in the machine type you choose for your codespace ... For example, the compute cost of using a codespace for an hour on a 16-core machine is eight times greater than a 2-core machine.' Rate table: '| Codespaces compute | 2 core | 1 hour | 2 | $0.18 |' and '| Codespaces storage | Storage | 1 GB-month | Not applicable | $0.07 |'
+  - [7] 2026-10-24: quoted: 'Each codespace you create is hosted by GitHub in a Docker container, running on a virtual machine. You can choose from a selection of virtual machine types, from 2 cores, 8 GB RAM, and 32 GB storage, up to 32 cores, 128 GB RAM, and 128 GB storage.'
+  - [3] 2026-10-24: quoted: 'A codespace will stop running after a period of inactivity. By default this period is 30 minutes' and 'Regardless of your idle timeout setting, a codespace has a maximum lifetime of 12 hours.' The settable range is 'between 5 minutes and 240 minutes (4 hours)'.
+  - [2] 2026-10-24: quoted: 'Inactive codespaces are automatically deleted. You can choose how long your stopped codespaces are retained, up to a maximum of 30 days.' and 'By default, GitHub Codespaces are automatically deleted after they have been stopped and have remained inactive for 30 days.' and 'Automatic deletion happens irrespective of whether a codespace contains unpushed changes.'
+  - [9] 2026-10-24: quoted: 'Port forwarding gives you access to TCP ports running within your codespace.' and 'share forwarded ports publicly' — a forwarded port gets a URL, and public visibility makes it reachable, which a standard Actions runner cannot offer.
+  - [4] 2026-10-24: quoted: 'Any activity that places a burden on our servers, where that burden is disproportionate to the benefits provided to users (for example, don't use Codespaces as a content delivery network, as part of a serverless application, or to host any kind of production-facing application)'
+  - [10] 2026-10-24: quoted: 'To get started with GitHub.com, you need to have a personal account and a verified email address.'
+- sources:
+  - [1] https://docs.github.com/en/billing/concepts/product-billing/github-codespaces
+  - [2] https://docs.github.com/en/codespaces/setting-your-user-preferences/configuring-automatic-deletion-of-your-codespaces
+  - [3] https://docs.github.com/en/codespaces/setting-your-user-preferences/setting-your-timeout-period-for-github-codespaces
+  - [4] https://docs.github.com/en/site-policy/github-terms/github-terms-for-additional-products-and-features
+  - [5] https://docs.github.com/en/codespaces/troubleshooting/troubleshooting-included-usage
+  - [6] https://docs.github.com/en/codespaces/troubleshooting/troubleshooting-creation-and-deletion-of-codespaces
+  - [7] https://docs.github.com/en/codespaces/overview
+  - [8] https://github.com/features/codespaces
+  - [9] https://docs.github.com/en/codespaces/developing-in-a-codespace/forwarding-ports-in-your-codespace
+  - [10] https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github
+
+## GitHub Copilot
+
+- `coding-subs/github-copilot` | qualifies | evidence documented | binding request-rate | category coding subscription
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T00:31:37.361Z (live) | stale on 2026-12-04
+- url https://github.com/features/copilot/plans
+- free tier: Free: USD 0, 2,000 completions per month, access to entry level models, limited chat and agent usage, Copilot CLI and agent mode, community support, no credit card required | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1] | note: 2,000 is completions, not agent turns or tokens. Chat, agent mode and the Copilot CLI draw on a Free allowance of GitHub AI Credits whose size is unpublished, and Free reaches models through auto model selection only; 1 AI credit is USD 0.01. Paid tiers carry 1,500, 7,000 and 20,000 credits a month.
+- per-object cap: not applicable
+- retention: not applicable
+- egress: not applicable | metered: no
+- identity: email | detail: a GitHub account; the page states 'No credit card required' for Free
+- interface: cli, rest
+- limits:
+  - request-rate (binding): 2,000 completions per month on Free [1]
+- interface detail: Copilot CLI, plus agent mode and code review inside the editor and on github.com
+- tooling: gh CLI extension; agent mode in VS Code, JetBrains, Neovim, Xcode, Eclipse
+- composes with: a $0 agent surface for a repository task; the Copilot CLI is the part a script can drive
+- reliability: no reliability event recorded
+- notes: Free is the only tier here whose monthly allowance is stated in a unit that does not inflate: completions. The paid tiers moved to GitHub AI Credits, so their allowance is denominated in money rather than in requests.
+- evidence note: prices and the Free allowance are quoted from the vendor page read. The per-credit consumption rate of agent mode is not published here.
+- evidence:
+  - [1] 2026-10-22: Free is USD 0 with 2,000 completions a month and no card; Pro USD 10, Pro+ USD 39, Max USD 100; monthly credit allowances USD 15, USD 70, USD 200
+  - [1] 2026-10-30: Free is 2,000 completions a month with entry level models; the card no longer names Haiku 4.5 or GPT-5 mini | capture: sha256:2729b323b51e8858a385f4902dc5f2548bb835b75eb41c02d99fc76c0ca15999 | quote: GitHub Copilot Free users are limited to 2,000 completions and access to entry level models per month.
+  - [2] 2026-10-30: Free has an AI credit allowance of unstated size and reaches models through auto model selection only | capture: sha256:3401b76b747d67a83b59963444535cd6f147c909a9ec2bc3d313e649d8dbe855 | quote: Copilot Free and Copilot Student both have an allowance of AI credits and access to models through auto model selection only.
+  - [1] 2026-10-30: Free still needs no credit card | capture: sha256:2729b323b51e8858a385f4902dc5f2548bb835b75eb41c02d99fc76c0ca15999 | quote: No credit card required. Verified students have access to the GitHub Copilot Student plan.
+  - [1] 2026-10-30: the Copilot CLI and agent mode remain on Free | capture: sha256:2729b323b51e8858a385f4902dc5f2548bb835b75eb41c02d99fc76c0ca15999 | quote: Free plan supports CLI and agent mode.
+  - [1] 2026-11-02: the plans page states the Free allowance of GitHub AI Credits as a label with no number, in both the Total and Base credits rows | capture: sha256:4d886823d0bd9d7ea2bfccd7fa8e7c5a22a67c70bf81be75c97881f2e28edf76 | quote: Limited chat and agent usage
+  - [3] 2026-11-02: the individual plans table gives the Free AI Credits column as an allowance with no figure, while Pro, Pro+ and Max carry numbers | capture: sha256:3768f0956f357759ce558d6ff982da130a8583b0a4631858bb694c1719541850 | quote: | Copilot Free | Free | An allowance of GitHub AI Credits | Limited | Auto model selection only |
+  - [4] 2026-11-02: the billing page's allowance table covers only the paid plans, and Free is described without a figure | capture: sha256:3401b76b747d67a83b59963444535cd6f147c909a9ec2bc3d313e649d8dbe855 | quote: The following table shows what's included with each paid plan.
+  - [5] 2026-11-02: the vendor's announcement of the individual plans gives Free chat and agent usage as limited, with no credit figure | capture: sha256:78f4d9daacb445dd5f09cf6b2e95804c0839a3aa80096d0a833860eafec76279 | quote: Free will continue to include a limited number of code completions each month, plus limited chat and agent usage with auto mode.
+- sources:
+  - [1] https://github.com/features/copilot/plans
+  - [2] https://docs.github.com/en/copilot/concepts/billing/usage-based-billing-for-individuals
+  - [3] https://docs.github.com/en/copilot/concepts/billing/individual-plans
+  - [4] https://docs.github.com/en/copilot/concepts/billing-and-usage/individuals/billing
+  - [5] https://github.blog/news-insights/company-news/github-copilot-individual-plans-introducing-flex-allotments-in-pro-and-pro-and-a-new-max-plan/
+
+## GitHub Releases
+
+- `egress/github-releases-cdn` | qualifies | evidence measured | binding per-object-cap | category static file host (CDN-backed)
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:20:00.000Z (live) | stale on 2026-12-22
+- url https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases
+- free tier: no total size and no bandwidth limit; under 2 GiB per file; 1,000 assets per release | unit: unlimited | metered on: downloaded-bytes | read on: 2026-10-22 | source: [1]
+- per-object cap: under 2 GiB per asset | bytes: 2147483648 | source: [1]
+- retention: an asset lives until the release is deleted | source: [1]
+- egress: no bandwidth limit stated; ranged GETs served from release-assets.githubusercontent.com with a fresh signature per request | metered: no | source: [1]
+- identity: email | detail: a GitHub account
+- interface: rest, cli
+- limits:
+  - per-object-cap (binding): under 2 GiB per asset [1]
+  - per-object-cap (binding): 1,000 assets per release [1]
+- binding note: 2 GiB per asset sets the shard size; the volume itself is not metered.
+- interface detail: https://github.com/OWNER/REPO/releases/download/TAG/NAME, redirecting to a signed release-assets URL
+- tooling: gh release, curl
+- composes with: the bulk egress lane that needs no domain and no card: the 2 GiB per-asset cap sets the shard size and the volume is not metered, so it composes with a manifest and a ranged fetcher.
+- reliability: the download URL redirects to a signed release-assets host; the signature is per request
+- notes: 14.11 MiB/s at 4 connections is 1.16 TiB/day, which clears the serving floor on one account. A control download from proof.ovh.net on the same machine at the same time reached 29.5 MiB/s, so this is not the machine's ceiling.
+- extras:
+  - stale_after_days: 180
+  - bytes_transit: yes
+  - transit_note: the asset is served from release-assets.githubusercontent.com
+- evidence:
+  - [1] 2026-10-22: 'Up to 1000 release assets may be associated with a single release. Each file included in a release must be under 2 GiB. There is no limit on the total size of a release, nor bandwidth usage'
+  - probe:https://release-assets.githubusercontent.com/github-production-release-asset/ 2026-10-22: 206 with Content-Range bytes 0-1023/40227721 and Accept-Ranges: bytes on a freshly resolved URL
+  - probe:https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 2026-10-22: 1 connection: 40,227,721 bytes in 5.71 s = 6.72 MiB/s. 4 connections with a minted URL each: 40,227,721 bytes in 2.72 s = 14.11 MiB/s
+- sources:
+  - [1] https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases
+
+## GitHub Releases (release assets)
+
+- `storage/github-releases` | qualifies | evidence documented | binding per-object-cap | category paas
+- needs card no, phone no, ID no, institution no | verified 2026-11-01T18:05:04.790Z, checked 2026-10-21 (inherited) | stale on 2026-11-21
+- url https://github.com
+- free tier: No total quota. Docs verbatim: 'Up to 1000 release assets may be associated with a single release. Each file included in a release must be under 2 GiB. There is no limit on the total size of a release, nor bandwidth usage.' Per-file ceiling is the Git LFS max for the plan: GitHub Free 2 GB, Pro 2 GB, Team 4 GB, Enterprise Cloud 5 GB. | unit: GiB | metered on: unstated | read on: 2026-11-01 | source: [1]
+- per-object cap: 2 GiB per file | bytes: 2147483648 | source: [1] | note: Each release asset must be under 2 GiB. The Git LFS per-file maximum for the plan is 2 GB on Free and Pro, 4 GB on Team and 5 GB on Enterprise Cloud.
+- retention: no expiry is stated for release assets, and the documentation states no limit on the total size of a release | source: [1] | note: not stated
+- egress: Free and unmetered. Docs: 'We don't limit the total size of the binary files in the release or the bandwidth used to deliver them.' Served 302 -> release-assets.githubusercontent.com with no auth. | metered: no
+- identity: email | detail: A free personal account needs an email address, verified by email, or a Google or Apple social login; uploading a release asset needs write permission on the repository, and downloading one needs no account.
+- interface: rest, rclone, cli
+- limits:
+  - per-object-cap (binding): 2 GiB per file [1]
+- limits note: 2 GiB per file (2 GB on Free, 4 GB Team, 5 GB Enterprise). 1000 assets per release. This is the ONLY cap found in the entire CI/CD field that is not a quota. No expiry: releases persist until deleted. Upload is authenticated; download is fully anonymous.
+- interface detail: rest
+- tooling: REST POST /repos/{owner}/{repo}/releases + upload asset endpoint (Accept: application/octet-stream); gh CLI 'gh release upload'; rclone has no release backend, but plain curl/Python is a complete client. Proxy/wrapper repos: iBug/cf-github-releases (21 stars, Cloudflare Workers download site), kdrag0n/github-releases-proxy (8 stars), watermint/toolbox has a github-release-asset-upload command (87 stars).
+- composes with: UNBOUNDED: unlimited free repos (GitHub Free = unlimited public and unlimited private repos) x unlimited releases per repo x 1000 assets per release x <2 GiB per asset. 10 repos x 50 releases x 1000 assets x 2 GiB = 1 PiB nominal; the real constraint is API/upload time, not space. Also chain with Cloudflare in front (cf-github-releases) for a clean CDN domain.
+- reliability: Very stable; assets are immutable per release. Deleting a release or repo destroys the assets. Uploading >1000 assets to one release requires multiple releases. Plan release granularity, not asset count.
+- notes: the same as the free tier
+- evidence note: re-read on 2026-10-22 (HTTP 200, 3494 bytes, sha256 422579c390d76156). The page states the number in the record. The claim is documented, not measured.
+- extras:
+  - verified[0].url: https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases
+  - verified[0].date: 2026-10-22
+  - verified[0].http_status: 200
+  - verified[0].bytes: 3494
+  - verified[0].sha256: 422579c390d76156b65ddf5b5f771de58638f91b1c5fc3c624b7153572cc32c1
+  - verified[0].pattern_found: yes
+  - verified[0].what_changed: no change: the page still states the claim
+- evidence:
+  - [1] 2026-10-22: 2 GiB per release asset and 1,000 assets per release, no bandwidth limit. Re-read https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases: HTTP 200, 3494 bytes, sha256 422579c390d76156. Quoted: ease assets](/en/rest/releases). ## Storage and bandwidth quotas Up to 1000 release assets may be associated with a single release. Each file included in a release must be under 2 GiB. There is no limit on the total size of a release, nor bandwidth usage.
+  - [1] 2026-10-21: 'There is no limit on the total size of a release, nor bandwidth usage'
+  - [2] 2026-10-21: 'We don't limit the total size of the binary files in the release or the bandwidth used to deliver them', and LFS max-file table (Free 2 GB / Team 4 GB)
+  - [3] 2026-10-21: probe: curl -L -r 0-1023 -> 302 to release-assets.githubusercontent.com, then 206 with 1024 bytes, no auth
+  - withheld 2026-10-21: probe: 6 parallel anonymous GETs of a release asset -> 302 302 302 302 302 302 (no throttling observed)
+  - [4] 2026-11-01: an account costs an email address with verification, and the page offers Google or Apple social login; nothing institutional is required | capture: sha256:0a0beece02e0570e78f75f239991e8a347ea5999944b0ca711ce7bcb46cdb716 | quote: To get started with GitHub.com, you need to have a personal account and a verified email address.
+  - [4] 2026-11-01: the free account and its social-login alternatives; the releases page states that only write permission manages releases | capture: sha256:0a0beece02e0570e78f75f239991e8a347ea5999944b0ca711ce7bcb46cdb716 | quote: When creating a free account on GitHub.com, you can also authenticate with Google or Apple - which are the supported social login providers.
+  - [1] 2026-11-01: the docs state no total-size or bandwidth limit and give no expiry for an asset | capture: sha256:422579c390d76156b65ddf5b5f771de58638f91b1c5fc3c624b7153572cc32c1 | quote: There is no limit on the total size of a release, nor bandwidth usage.
+  - [2] 2026-11-01: the total is unlimited while each file is bound by the plan's Git LFS maximum, which the LFS page tabulates | capture: sha256:56573364b951253995b5c60a350131476e331f151b925b3e78a8b77f204cdfd4 | quote: We don't limit the total size of the binary files in the release or the bandwidth used to deliver them.
+  - [1] 2026-11-01: the release quotas as served on 2026-11-01 | capture: sha256:422579c390d76156b65ddf5b5f771de58638f91b1c5fc3c624b7153572cc32c1 | quote: Up to 1000 release assets may be associated with a single release. Each file included in a release must be under 2 GiB.
+  - [1] 2026-11-01: all four headline numbers of the record in one sentence: 1000 assets, 2 GiB per file, no total-size limit, no bandwidth limit | capture: sha256:422579c390d76156b65ddf5b5f771de58638f91b1c5fc3c624b7153572cc32c1 | quote: Up to 1000 release assets may be associated with a single release. Each file included in a release must be under 2 GiB. There is no limit on the total size of a release, nor bandwidth usage.
+  - probe:https://github.com/cli/cli/releases/download/v2.80.0/gh_2.80.0_linux_amd64.tar.gz 2026-11-01: an anonymous ranged GET of a release asset answers 302 to release-assets.githubusercontent.com then 206 with Content-Range bytes 0-1023/18079593, no credentials | capture: sha256:6fc7d6a7449fd288f22a59bcaccc02e2a96cb2dedf790b58689f2db3f30e59af | quote: "status": 206
+- sources:
+  - [1] https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases
+  - [2] https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github
+  - [3] https://github.com/cli/cli/releases/download/v2.80.0/gh_2.80.0_linux_amd64.tar.gz
+  - [4] https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github
+
+## GitHub Actions
+
+- `compute/github-actions` | qualifies-with-caveat | evidence documented | binding retention-clamped | category CI runner | tier GitHub Free, public repository, standard GitHub-hosted runner
+- identity a placeholder: card and phone unknown | verified 2026-11-03T01:29:44.365Z (live) | stale on 2026-12-04
+- url https://docs.github.com/en/actions/reference/runners/github-hosted-runners
+- duplicate of `ci-cd-runners/github-actions-public`
+- free tier: On a public repository: 'Use of the standard GitHub-hosted runners is free and unlimited on public repositories.' The billing page repeats it as 'The use of standard GitHub-hosted runners is free: In public repositories / For GitHub Pages / For Dependabot.' On a private repository the GitHub Free plan gets 2,000 minutes a month instead. No card, no phone and no identity document is required for either. The word 'unlimited' is GitHub's own, and it is qualified by the Additional Product Terms, not by the billing page: see limits. | unit: unlimited | metered on: wall-clock | read on: 2026-10-24 | source: [1] | note: The unlimited half is the whole finding. The private-repo 2,000 minutes is the smaller half of the same account and a different product: 2,000 minutes is 33.3 hours of wall clock.
+- per-object cap: not applicable
+- retention: 'When the job begins, GitHub automatically provisions a new VM for that job. All steps in the job execute on the VM ... When the job has finished, the VM is automatically decommissioned.' Nothing on the VM survives the job. Artifacts and caches are separate services: caches are evicted after 7 days without access, capped at 10 GB per repository on GitHub Free. | days: 0 | source: [2] | note: 0 means the disk is destroyed at job end. Cache and artifact storage is a different service with its own clock.
+- egress: not published: no egress quota, shaping tier or per-byte price is stated for a standard GitHub-hosted runner. Reliability note: bandwidth judged significantly excessive can lead to account suspension, throttling or limited activity; no threshold is published. | metered: no | source: [3]
+- identity: email | detail: 'To get started with GitHub.com, you need to have a personal account and a verified email address.' No phone: 'If you have been selected for mandatory 2FA, that does not mean you have to provide GitHub with your phone number.' No card and no hold, but this half is inferred rather than quoted, and the inference is stated: GitHub never writes 'no payment method is needed for public-repo Actions'. What the pages do say is that the card block is conditional on a quota being used up ('If your account does not have a valid payment method on file, usage is blocked once you use up your quota'), that public-repo standard runners are not billed at all, and that the always-charged products are the exception ('Larger runners are always charged for' and 'Usage of larger runners is always blocked until you set up a payment method'). A product that bills nothing has no quota to exhaust, so no card is demanded to use it. That is a documented absence, not a documented exemption, and it is one signup away from being settled.
+- interface: ssh
+- limits:
+  - retention-clamped (binding): 'Each job in a workflow can run for up to 6 hours of execution time. If a job reaches this limit, the job is terminated and fails.' The row is headed 'All GitHub-hosted runners'. [4]
+  - retention-clamped (binding): 'If a workflow run reaches this limit, the workflow run is cancelled. This period includes execution duration, and time spent on waiting and approval.' The threshold is 35 days per workflow run, so the workflow cap is 35 days and the job cap is 6 hours; the job cap binds first. [4]
+  - request-rate: 'The shortest interval you can run scheduled workflows is once every 5 minutes.' A schedule is also only honoured on the default branch. [5]
+  - retention-clamped (binding): 'In a public repository, scheduled workflows are automatically disabled when no repository activity has occurred in 60 days.' [5]
+  - request-rate: Job concurrency on the Free plan: 'Total concurrent jobs' 20, 'Maximum concurrent macOS jobs' 5, GPU 'Not applicable'. GitHub Support can raise it on a ticket. [4]
+  - write-gated: No inbound reachability and no persistent disk. Quoted: 'When the job has finished, the VM is automatically decommissioned.' IPs are dynamic: 'GitHub-hosted runners use dynamically assigned IP addresses from shared infrastructure.' [6]
+  - write-gated: Reliability note: no meter caps the free runner, but use unrelated to building, testing, deploying or publishing the repository's own project, or load disproportionate to its benefit, can end in job termination, Actions restriction, repository disabling or account suspension; no threshold is published. [7]
+- limits note: The shape, the unlimited term, the 6-hour job cap, the 35-day workflow cap, the 5-minute cron floor, the 60-day schedule disablement and the 20-job concurrency are each quoted from a GitHub page read on 2026-10-24. The 6-hour cap is the one that binds: 6 hours x 20 concurrent jobs = 120 job-hours of wall clock, or 480 vCPU-hours, in any rolling window.
+- binding note: the 6-hour job cap, not money and not concurrency: the minutes are free and unlimited on a public repository, so what fails is continuity, and a workload that must survive more than six hours needs its state outside the runner.
+- interface detail: a workflow YAML in .github/workflows; a runner with a shell and a network
+- tooling: a full Ubuntu, Windows or macOS runner with a shell, package managers and a checkout
+- composes with: a runner is a real machine for up to six hours, destroyed at the end of the job
+- reliability: Enforcement outcomes listed by the vendor: job termination, Actions restriction, repository disabling, account suspension, and throttling for excessive bandwidth; no threshold is published and no enforcement event is recorded.
+- notes: The shape is confirmed exactly as the operator's answer states it: 4 vCPU, 16 GB RAM, 14 GB SSD, workflow label ubuntu-latest, on a public repository, on an email alone. Two things the phrase 'free and unlimited' hides, and both were read on a page. First, the sentence is a vendor claim on a documentation page. The meter is unlimited, but use that the vendor judges disproportionate to the benefit to the project's users, such as a content delivery network or a serverless application, can be restricted, and no threshold is published at which it is safe: a worse ceiling than a number. Second, a figure of '14 GiB SSD' understates the vendor: GitHub writes 14 GB, decimal, which is about 13.0 GiB. The record keeps the vendor's number and unit. Not established: the egress term, which no page publishes; and whether enforcement of that restriction looks like a job cancellation, a repository disablement or an account suspension in practice. That would need a probe that has not been run.
+- evidence note: every field the verdict rests on is quoted from a first-party GitHub page read on 2026-10-24: shape, the unlimited term, the 6-hour job cap, the concurrency table, the cron floor, the 60-day disablement and the terms scoping. The egress term is not published and is recorded as absent, not as unlimited.
+- extras:
+  - shape.vcpu: 4
+  - shape.ram_gib: 16
+  - shape.disk_gib: 14
+  - shape.note: ubuntu-latest on a public repository, quoted from the vendor table as 'Linux | 4 | 16 GB | 14 GB | x64'. RAM and disk are the vendor's decimal GB, kept unconverted: 16 GB is about 14.9 GiB and 14 GB is about 13.0 GiB. The private-repo default is a different shape: 2 vCPU / 8 GB / 14 GB.
+  - billing_model: free
+  - session_cap.wall_clock_min: 360
+  - session_cap.restart_required: yes
+  - session_cap.note: 6 hours per job on a GitHub-hosted runner, then the VM is destroyed and the job fails. 35 days per workflow run including queue and approval time. A scheduled workflow is the only way to start again, at a floor of once every 5 minutes, and it is disabled after 60 days without repository activity.
+  - keep_rate.value: 0.0
+  - keep_rate.basis: a public-repository runner is not billed at all; there is no rate to keep
+  - keep_rate.source: https://docs.github.com/en/actions/reference/runners/github-hosted-runners
+  - persistent_storage.included_gib: 0
+  - persistent_storage.price_gib_month: artifacts and caches are separate services: cache is 10 GB per repository on GitHub Free, artifacts 500 MB, both billed if exceeded and both needing a payment method
+  - persistent_storage.durability: none on the runner: the VM is decommissioned at job end
+  - persistent_storage.survives_stop: no
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: the job; caches evict after 7 days without access
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: no
+  - network_out.ports: none inbound: the VM is decommissioned at job end and its address is dynamic and shared
+  - network_out.static_ip: no
+  - free_tier_kind: free-forever
+  - topic_note: belongs to ci-cd-runners
+  - granularity.min_billed_s: 60
+  - burst_x: 20.0
+  - price_arithmetic: USD 0.00 on a public repository. 24 hours a day is four 6-hour jobs, and the vendor charges nothing for standard runners on a public repository, so 4 vCPU x 24 h = 96 vCPU-hours a day at USD 0.00. With 20 concurrent jobs the ceiling is 4 x 6 x 20 = 480 vCPU-hours in any rolling six-hour window, and 4 x 24 x 20 = 1,920 vCPU-hours in a day if every slot is kept full. The private-repo alternative is 2,000 minutes a month = 33.3 hours of one job.
+  - term: none
+  - m10h_usd: 0.0
+  - m24h_usd: 0.0
+  - concurrency.jobs_at_once: 20
+  - concurrency.macos_jobs_at_once: 5
+  - concurrency.gpu_jobs_at_once: 0
+  - concurrency.source: https://docs.github.com/en/actions/reference/limits
+  - concurrency.note: GitHub Free plan, standard GitHub-hosted runners. GitHub Support can raise it on a ticket. 20 jobs x 4 vCPU = 80 vCPU at once, which is the number that turns one runner into a cluster.
+  - schedule.min_interval: once every 5 minutes
+  - schedule.disablement: in a public repository, scheduled workflows are automatically disabled when no repository activity has occurred in 60 days
+  - schedule.branch: scheduled workflows run only on the default branch
+  - schedule.source: https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows
+  - burst_note: 20 concurrent jobs on the Free plan, each 4 vCPU: 80 vCPU at once. burst_x is the concurrency multiplier over a single runner.
+  - checked.verified: shape 4 vCPU / 16 GB / 14 GB on ubuntu-latest, public repo; the exact 'free and unlimited' sentence; 6-hour job cap; 35-day workflow cap; 20 concurrent jobs on Free; 5-minute cron floor; 60-day schedule disablement; email-only identity, no card and no phone
+  - checked.new: the Additional Product Terms scope the unlimited term to work on the repository's own software project, which the billing and limits pages do not say
+- evidence:
+  - [4] 2026-10-22: each job on a GitHub-hosted runner can run up to 6 hours and is terminated and failed at the limit
+  - [4] 2026-10-22: a job matrix generates at most 256 jobs per workflow run; a workflow run is capped at 35 days
+  - [4] 2026-10-22: self-hosted jobs are capped at 5 days of execution and 24 hours of queue time
+  - [1] 2026-10-22: 'Use of the standard GitHub-hosted runners is free and unlimited on public repositories', quoted; the ubuntu-latest shape is 4 vCPU, 16 GB RAM and 14 GB disk
+  - [1] 2026-10-24: quoted: 'For public repositories ... each GitHub-hosted runner is a new virtual machine (VM) hosted by GitHub' and 'Use of the standard GitHub-hosted runners is free and unlimited on public repositories', with ubuntu-latest listed at 4 vCPU, 16 GB and 14 GB
+  - [8] 2026-10-24: quoted: 'GitHub Actions usage is free for self-hosted runners and for public repositories that use standard GitHub-hosted runners'
+  - [4] 2026-10-24: quoted: 'All GitHub-hosted runners | Job execution time | 6 hours ... Each job in a workflow can run for up to 6 hours of execution time'
+  - [5] 2026-10-24: quoted: 'The shortest interval you can run scheduled workflows is once every 5 minutes' and 'In a public repository, scheduled workflows are automatically disabled when no repository activity has occurred in 60 days'
+  - [1] 2026-10-24: quoted: 'Use of the standard GitHub-hosted runners is free and unlimited on public repositories.' and the shape table row '| Linux | 4 | 16 GB | 14 GB | x64 | `ubuntu-latest`, `ubuntu-24.04`, `ubuntu-22.04`, `ubuntu-26.04` |'
+  - [1] 2026-10-24: quoted: 'With the exception of single-CPU runners, each GitHub-hosted runner is a new virtual machine (VM) hosted by GitHub.' The single-CPU `ubuntu-slim` label is a container at 1 CPU / 5 GB / 14 GB, not the default.
+  - [8] 2026-10-24: quoted: 'The use of standard GitHub-hosted runners is free:' followed by the bullet list 'In public repositories', 'For GitHub Pages', 'For Dependabot', with the note 'Larger runners are always charged for, even when used by public repositories or when you have quota available from your plan.'
+  - [8] 2026-10-24: quoted: 'GitHub Actions usage is free for self-hosted runners and for public repositories that use standard GitHub-hosted runners.' The free-minutes table row 'GitHub Free | 500 MB | 2,000 | 10 GB | Not applicable' is the private-repo allowance, not the public one.
+  - [4] 2026-10-24: quoted: 'Each job in a workflow can run for up to 6 hours of execution time. If a job reaches this limit, the job is terminated and fails.' Row category 'All GitHub-hosted runners'.
+  - [4] 2026-10-24: quoted: 'If a workflow run reaches this limit, the workflow run is cancelled. This period includes execution duration, and time spent on waiting and approval.' Threshold column: '35 days / workflow run'.
+  - [4] 2026-10-24: concurrency table quoted: '| Standard GitHub-hosted runner | Free | 20 | 5 | Not applicable |' — 20 total concurrent jobs, 5 macOS, no GPU jobs.
+  - [5] 2026-10-24: quoted: 'The shortest interval you can run scheduled workflows is once every 5 minutes.' and 'In a public repository, scheduled workflows are automatically disabled when no repository activity has occurred in 60 days.'
+  - [2] 2026-10-24: quoted, two sentences from the same section: 'When the job begins, GitHub automatically provisions a new VM for that job.' and 'When the job has finished, the VM is automatically decommissioned.'
+  - [6] 2026-10-24: quoted: 'GitHub-hosted runners use dynamically assigned IP addresses from shared infrastructure.' No static address is available to a standard runner.
+  - [7] 2026-10-24: quoted: 'If using GitHub-hosted runners, any other activity unrelated to the production, testing, deployment, or publication of the software project associated with the repository where GitHub Actions are used.' And: 'Any activity that places a burden on our servers, where that burden is disproportionate to the benefits provided to users (for example, don't use Actions as a content delivery network or as part of a serverless application ...)'
+  - [7] 2026-10-24: 
+  - [9] 2026-10-24: quoted: 'To get started with GitHub.com, you need to have a personal account and a verified email address.'
+  - [10] 2026-10-24: quoted: 'If you have been selected for mandatory 2FA, that does not mean you have to provide GitHub with your phone number. You only have to provide your phone number if you use SMS for 2FA.'
+  - [11] 2026-10-24: quoted: 'GitHub will remove any cache entries that have not been accessed in over 7 days.' and 'By default, the limit is 10 GB per repository'.
+  - [3] 2026-10-24: quoted: 'If we determine your bandwidth usage to be significantly excessive in relation to other users of similar features, we reserve the right to suspend your Account, throttle your file hosting, or otherwise limit your activity' — a discretionary clause, not a published number.
+  - [4] 2026-10-30: a job on a GitHub-hosted runner is capped at 6 hours | capture: sha256:80578bff32c062c9bd42f73df05a742f812ac2687ca700ddcda521568513230b | quote: Each job in a workflow can run for up to 6 hours of execution time. If a job reaches this limit, the job is terminated and fails.
+  - [1] 2026-10-30: standard GitHub-hosted runners have no minute cap and no charge on a public repository | capture: sha256:a52a8d6be5da2b9b0bb0c3018849715008e3234850d5d6f254a34cdb1abe6b60 | quote: Use of the standard GitHub-hosted runners is free and unlimited on public repositories.
+  - [4] 2026-10-30: GitHub Free allows 20 concurrent jobs on standard GitHub-hosted runners, 5 of them macOS | capture: sha256:80578bff32c062c9bd42f73df05a742f812ac2687ca700ddcda521568513230b | quote: | Standard GitHub-hosted runner | Free | 20 | 5 | Not applicable |
+  - [1] 2026-10-30: on a public repository ubuntu-latest is 4 vCPU, 16 GB RAM and 14 GB SSD | capture: sha256:a52a8d6be5da2b9b0bb0c3018849715008e3234850d5d6f254a34cdb1abe6b60 | quote: | Linux | 4 | 16 GB | 14 GB | x64 | `ubuntu-latest`, `ubuntu-24.04`, `ubuntu-22.04`, `ubuntu-26.04` |
+  - [7] 2026-11-03: enforcement on a runner can be job termination, Actions restriction, repository disabling or account suspension | capture: sha256:8f9e1cf4b7c9d2f81f352c463c5b6980416a36c4e2bafca1f6ae1065a95a1e8e
+  - [3] 2026-11-03: excessive bandwidth can lead to suspension, throttling or limits on activity, with no published threshold | capture: sha256:69ff755eda43e1d5a34767d739ecd59017118d4e9855dc4734f69f640d522a08 | quote: If we determine your bandwidth usage to be significantly excessive in relation to other users of similar features, we reserve the right to suspend your Account, throttle your file hosting, or otherwise limit your activity until you can reduce your bandwidth consumption.
+- sources:
+  - [1] https://docs.github.com/en/actions/reference/runners/github-hosted-runners
+  - [2] https://docs.github.com/en/actions/how-tos/manage-runners/github-hosted-runners/use-github-hosted-runners
+  - [3] https://docs.github.com/en/site-policy/acceptable-use-policies/github-acceptable-use-policies
+  - [4] https://docs.github.com/en/actions/reference/limits
+  - [5] https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows
+  - [6] https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-githubs-ip-addresses
+  - [7] https://docs.github.com/en/site-policy/github-terms/github-terms-for-additional-products-and-features
+  - [8] https://docs.github.com/en/billing/concepts/product-billing/github-actions
+  - [9] https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github
+  - [10] https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/about-mandatory-two-factor-authentication
+  - [11] https://docs.github.com/en/actions/reference/workflows-and-actions/dependency-caching
+
+## GitHub Actions Artifacts (public repositories)
+
+- `storage/github-actions-artifacts` | qualifies-with-caveat | evidence reported | binding retention-clamped | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://github.com/features/actions
+- free tier: Plan table still lists artifact storage 500 MB (Free) / 1 GB (Pro) / 2 GB (Team) / 50 GB (Enterprise), and that pool is SHARED with GitHub Packages. Billing docs state Actions usage is free for public repositories. Artifact storage for public repos is not metered in practice, but the docs do not say 'unlimited' explicitly. Flag as ambiguity. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: Retention: default 90 days; public repos may be set 1-90 days only (private repos 1-400 days) | days: 90 | source: [1] | note: not stated
+- egress: Free. Downloads redirect to productionresultssa*.blob.core.windows.net. But the API download endpoint requires a token: anonymous GET of /actions/artifacts/{id}/zip returns 401. | metered: no
+- identity: anonymous
+- interface: rest, cli
+- limits:
+  - retention-clamped (binding): Retention: default 90 days [1]
+- limits note: Retention: default 90 days; public repos may be set 1-90 days only (private repos 1-400 days). retention-days on upload-artifact cannot exceed the repo/org setting. 500 artifacts per job. Anonymous download requires a token, hence the wrapper.
+- binding note: a clock, not a quota: bytes leave whether or not transfer is completed
+- interface detail: rest
+- tooling: actions/upload-artifact@v4 (max 500 artifacts per job), REST /repos/{o}/{r}/actions/artifacts, gh CLI. Third-party: nightly.link (see above), monteslu/loukai and alexreich/SitePix both have commits literally titled 'bypass Actions artifact storage; upload directly to release', which in plain terms means moving the bytes to releases instead; the ecosystem's own conclusion is that releases beat artifacts.
+- composes with: Unlimited public repos x 500 artifacts/job x jobs. But retention caps it: this is a rotating buffer, never an archive.
+- reliability: Hard TTL. Artifacts are deleted at expiry and cannot be restored. Separate 10 GB/repo cache is also 7-day-evicted. Fine as a 90-day hot tier, useless as an archive.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: 'GitHub Actions usage is free for self-hosted runners and for public repositories'; storage table; 'Cache storage is a separate allowance of 10 GB per repository'
+  - [2] 2026-10-21: 'For public repositories: you can change this retention period to anywhere between 1 day or 90 days'
+  - [3] 2026-10-21: probe: curl -D - -> 200, total_count 9646, expires_at present
+  - [4] 2026-10-21: probe: curl -o /dev/null -> 401 (token required, unlike release assets)
+- sources:
+  - [1] https://docs.github.com/en/billing/concepts/product-billing/github-actions
+  - [2] https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository
+  - [3] https://api.github.com/repos/cli/cli/actions/artifacts?per_page=3
+  - [4] https://api.github.com/repos/cli/cli/actions/artifacts/12312575009/zip
+
+## GitHub Actions on a private repository
+
+- `ci-cd-runners/github-actions-private` | qualifies-with-caveat | evidence documented | binding request-rate | category CI runner
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T17:29:36.354Z (live) | stale on 2026-12-04
+- url https://docs.github.com/en/billing/concepts/product-billing/github-actions
+- price USD 0.006 per Linux minute beyond the allowance
+- free tier: USD 12 of included compute usage per month on GitHub Free and GitHub Free for organizations (the vendor states a monetary amount, not minutes); at USD 0.006 a minute on a standard Linux 2-core runner that is 2,000 minutes per month; USD 18 on Pro and Team, USD 300 on Enterprise Cloud, shared with cloud sandbox compute; 500 MB of artifact storage on Free | unit: credits | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: 6 hours per job, the same as the public path; the difference is the monthly minute pool | source: [2]
+- retention: artifacts kept 90 days by default; the runner is destroyed at the end of the job | days: 90 | source: [3]
+- egress: no egress charge; artifact storage is 500 MB on Free and shared with GitHub Packages | metered: yes | free allowance: 500 MB artifact and package storage | source: [4]
+- identity: email | detail: a GitHub account; no card while inside the included amounts
+- interface: git, cli
+- limits:
+  - request-rate (binding): USD 12 of included compute usage a month on Free, or 2,000 minutes on a standard Linux 2-core runner at USD 0.006 a minute; it resets at the start of each billing cycle, and usage is blocked once it is consumed when no payment method is on file [1]
+  - per-object-cap: 6 hours per job; 500 MB of artifact storage shared with Packages on Free [2]
+  - request-rate (binding): 20 concurrent jobs on Free [2]
+- interface detail: the same workflow YAML; minutes are charged to the repository owner, not the trigger
+- tooling: the same runner images as the public path on a smaller machine: on a private repository ubuntu-latest is 2 vCPU, 8 GB RAM and 14 GB SSD, against 4 vCPU and 16 GB RAM on a public repository
+- composes with: the honest paid path: 2,000 minutes is 33 hours of one runner a month, and beyond it Linux billing is USD 0.006 a minute
+- reliability: no suspension, throttle or data-loss event is recorded on the pages read
+- notes: 2,000 minutes is 33 hours and the per-job cap still applies, so the two limits are independent and the smaller one wins. A single six-hour job already spends 18% of the month.
+- evidence note: the billing page's plan table was read.
+- evidence:
+  - [1] 2026-10-22: Free: 500 MB artifact storage and 2,000 minutes; Pro 1 GB and 3,000; Team 2 GB and 3,000 with 75 GB custom images; Enterprise 50 GB and 50,000; Linux baseline USD 0.006 a minute and Windows USD 0.010
+  - [1] 2026-10-22: 'Minutes usage is charged to the repository owner, not the person who triggered the workflow runs'
+  - [1] 2026-10-30: GitHub Free includes 500 MB of artifact storage, USD 12 of compute usage a month and 10 GB of cache per repository | capture: sha256:6a4c243c1922768f9c4e449e67cc73a6db35e567363be67f12c1cf6a432ce318 | quote: | GitHub Free | 500 MB | $12 USD | 10 GB | Not applicable |
+  - [1] 2026-10-30: the private-repository allowance is a monetary amount, not a minute count | capture: sha256:6a4c243c1922768f9c4e449e67cc73a6db35e567363be67f12c1cf6a432ce318 | quote: The included compute usage is expressed as a monetary amount, not a fixed number of minutes or other usage units.
+  - [1] 2026-10-30: no payment method is needed inside the included usage; usage stops when it is consumed | capture: sha256:6a4c243c1922768f9c4e449e67cc73a6db35e567363be67f12c1cf6a432ce318 | quote: If your account does not have a valid payment method on file, usage is blocked once you consume the included compute usage.
+  - [5] 2026-10-30: on a private repository ubuntu-latest is 2 vCPU, 8 GB RAM and 14 GB SSD | capture: sha256:a52a8d6be5da2b9b0bb0c3018849715008e3234850d5d6f254a34cdb1abe6b60 | quote: | Linux | 2 | 8 GB | 14 GB | x64 | `ubuntu-latest`, `ubuntu-24.04`, `ubuntu-22.04`, `ubuntu-26.04` |
+  - [2] 2026-10-30: a job on a GitHub-hosted runner is capped at 6 hours | capture: sha256:80578bff32c062c9bd42f73df05a742f812ac2687ca700ddcda521568513230b | quote: Each job in a workflow can run for up to 6 hours of execution time. If a job reaches this limit, the job is terminated and fails.
+  - [2] 2026-10-30: GitHub Free allows 20 concurrent jobs on standard GitHub-hosted runners, 5 of them macOS | capture: sha256:80578bff32c062c9bd42f73df05a742f812ac2687ca700ddcda521568513230b | quote: | Standard GitHub-hosted runner | Free | 20 | 5 | Not applicable |
+  - [1] 2026-10-30: a standard Linux 2-core runner costs USD 0.006 a minute | capture: sha256:6a4c243c1922768f9c4e449e67cc73a6db35e567363be67f12c1cf6a432ce318 | quote: | Linux 2-core (x64) | `actions_linux` | $0.006 |
+  - [6] 2026-10-30: a GitHub account needs a verified email address | capture: sha256:124e92b5cc7611a060dd61acef3a8b9dc598f1c8b29a55af95ecf39915d1a316 | quote: To get started with GitHub.com, you need to have a personal account and a verified email address.
+  - [1] 2026-11-03: GitHub Free includes USD 12 of included compute usage; the table column is headed per month | capture: sha256:6a4c243c1922768f9c4e449e67cc73a6db35e567363be67f12c1cf6a432ce318 | quote: | GitHub Free | 500 MB | $12 USD | 10 GB | Not applicable |
+  - [1] 2026-11-03: the vendor converts included usage to standard Linux minutes at USD 0.006 a minute | capture: sha256:6a4c243c1922768f9c4e449e67cc73a6db35e567363be67f12c1cf6a432ce318 | quote: As a guide, $300 USD covers 50,000 minutes on a standard Linux runner at $0.006 USD per minute.
+  - [1] 2026-11-03: the private-repository allowance is a monetary amount, not a minute count | capture: sha256:6a4c243c1922768f9c4e449e67cc73a6db35e567363be67f12c1cf6a432ce318 | quote: The included compute usage is expressed as a monetary amount, not a fixed number of minutes or other usage units.
+  - [1] 2026-11-03: the allowance is monthly and resets each billing cycle | capture: sha256:6a4c243c1922768f9c4e449e67cc73a6db35e567363be67f12c1cf6a432ce318 | quote: The included compute usage resets at the start of each billing cycle.
+  - [2] 2026-11-03: a job on a GitHub-hosted runner is capped at 6 hours | capture: sha256:80578bff32c062c9bd42f73df05a742f812ac2687ca700ddcda521568513230b | quote: Each job in a workflow can run for up to 6 hours of execution time. If a job reaches this limit, the job is terminated and fails.
+  - [5] 2026-11-03: on a private repository ubuntu-latest is 2 vCPU, 8 GB RAM and 14 GB SSD | capture: sha256:e770f53d3eb0eae8a10e7076ecbf23801b542f94b001c228d003636c90c960c2 | quote: | Linux | 2 | 8 GB | 14 GB | x64 | `ubuntu-latest`, `ubuntu-24.04`, `ubuntu-22.04`, `ubuntu-26.04` |
+  - [6] 2026-11-03: a GitHub account with a verified email address is the registration requirement | capture: sha256:0a0beece02e0570e78f75f239991e8a347ea5999944b0ca711ce7bcb46cdb716 | quote: To get started with GitHub.com, you need to have a personal account and a verified email address.
+- sources:
+  - [1] https://docs.github.com/en/billing/concepts/product-billing/github-actions
+  - [2] https://docs.github.com/en/actions/reference/limits
+  - [3] https://docs.github.com/en/actions/how-tos/manage-workflow-runs/remove-workflow-artifacts
+  - [4] https://docs.github.com/en/billing/concepts/product-billing/github-packages
+  - [5] https://docs.github.com/en/actions/reference/runners/github-hosted-runners
+  - [6] https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github
+
+## GitHub Actions on a public repository
+
+- `ci-cd-runners/github-actions-public` | qualifies-with-caveat | evidence documented | binding per-object-cap | category CI runner
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T17:29:36.355Z (live) | stale on 2026-12-04
+- url https://docs.github.com/en/billing/concepts/product-billing/github-actions
+- free tier: standard GitHub-hosted runners are free with no minute cap on a public repository; 20 concurrent jobs on Free; 6 hours per job | unit: unlimited | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: 6 hours of execution per job on a GitHub-hosted runner; 35 days per workflow run including waiting and approval; 256 jobs per matrix per run; a 500 KB workflow file | source: [2] | note: a self-hosted job is capped at 5 days instead
+- retention: artifacts and logs are kept 90 days by default and configurable per repository; the runner is destroyed at the end of the job | days: 90 | source: [3]
+- egress: no egress charge on the runner; artifact storage is capped at 500 MB on Free and shared with GitHub Packages | metered: yes | free allowance: 500 MB artifact and package storage | source: [4]
+- identity: email | detail: a GitHub account; no card for a public repository
+- interface: git, cli
+- limits:
+  - per-object-cap (binding): 6 hours per job; 35 days per workflow run; 256 jobs per matrix; a 500 KB workflow file [2]
+  - request-rate: 20 concurrent jobs on GitHub Free (Pro 40, Team 60, Enterprise 500); 5 concurrent macOS [2]
+  - retention-clamped: cache entries not accessed in over 7 days are removed [5]
+  - retention-clamped: artifacts and logs are kept 90 days by default and the window is configurable per repository [3]
+  - per-object-cap (binding): 10 GB of cache per repository, evicted oldest-first beyond it [5]
+- limits note: 100 workflow runs may queue per concurrency group; cache uploads are 200 a minute and downloads 1,500 a minute per repository; in a public repository a scheduled workflow is automatically disabled when the repository has no activity for 60 days (docs.github.com/en/actions/how-tos/manage-workflow-runs/disable-and-enable-workflows)
+- interface detail: a workflow YAML in .github/workflows, triggered by a push, a schedule, a pull request or a repository dispatch; the runner is a shell with a network
+- tooling: the runner image is Ubuntu 24.04 with 4 vCPU, 16 GB RAM and 14 GB SSD; any package manager, any compiler, docker buildx
+- composes with: free compute whose output has to leave immediately: artifacts are 500 MB, GHCR is 500 MB, and the cache evicts at 7 days. R2's 10 GB free tier is the join that makes the chain storable
+- reliability: the repository, its workflows and its logs are public, which is a technical property of the free tier and not a policy question
+- notes: Unlimited minutes is true and it is not the number that decides anything. The capacity is the 20-slot concurrency: 20 slots x 24 h is 480 runner-hours a day, which is the flow ceiling, and the 120 runner-hours the slots hold at one instant is a stock and not a rate. Minutes are not scarce; a single job that runs longer than six hours is impossible. A 256-job matrix at the six-hour ceiling is 1,536 runner-hours, or thirteen waves of 20 and 78 hours of wall clock.
+- evidence note: the billing and limits pages were read on 2026-10-22 and state both the unlimited public minutes and each cap. No workflow was run, so the concurrency and job-duration figures are the pages' own.
+- evidence:
+  - [1] 2026-10-22: 'GitHub Actions usage is free for self-hosted runners and for public repositories that use standard GitHub-hosted runners'; 'Larger runners are always charged for, even when used by public repositories'
+  - [2] 2026-10-22: Job execution time 6 hours on GitHub-hosted and 5 days self-hosted; 35 days per workflow run; 256 jobs per matrix per run; 500 KB workflow file; 20 concurrent jobs on Free and 5 macOS; 500 MB artifact storage, 2,000 minutes and 10 GB cache per repository on Free
+  - [6] 2026-10-22: ubuntu-latest is 4 vCPU, 16 GB RAM, 14 GB SSD; ubuntu-slim is 1 vCPU and 5 GB
+  - [5] 2026-10-22: 10 GB per repository by default; any cache entry not accessed in over 7 days is removed; beyond the limit the oldest entries are evicted
+  - [3] 2026-10-22: 'By default, GitHub stores build logs and artifacts for 90 days'
+  - [2] 2026-10-30: a job on a GitHub-hosted runner is capped at 6 hours | capture: sha256:80578bff32c062c9bd42f73df05a742f812ac2687ca700ddcda521568513230b | quote: Each job in a workflow can run for up to 6 hours of execution time. If a job reaches this limit, the job is terminated and fails.
+  - [6] 2026-10-30: standard GitHub-hosted runners have no minute cap and no charge on a public repository | capture: sha256:a52a8d6be5da2b9b0bb0c3018849715008e3234850d5d6f254a34cdb1abe6b60 | quote: Use of the standard GitHub-hosted runners is free and unlimited on public repositories.
+  - [2] 2026-10-30: GitHub Free allows 20 concurrent jobs on standard GitHub-hosted runners, 5 of them macOS | capture: sha256:80578bff32c062c9bd42f73df05a742f812ac2687ca700ddcda521568513230b | quote: | Standard GitHub-hosted runner | Free | 20 | 5 | Not applicable |
+  - [6] 2026-10-30: on a public repository ubuntu-latest is 4 vCPU, 16 GB RAM and 14 GB SSD | capture: sha256:a52a8d6be5da2b9b0bb0c3018849715008e3234850d5d6f254a34cdb1abe6b60 | quote: | Linux | 4 | 16 GB | 14 GB | x64 | `ubuntu-latest`, `ubuntu-24.04`, `ubuntu-22.04`, `ubuntu-26.04` |
+  - [7] 2026-10-30: a GitHub account needs a verified email address | capture: sha256:124e92b5cc7611a060dd61acef3a8b9dc598f1c8b29a55af95ecf39915d1a316 | quote: To get started with GitHub.com, you need to have a personal account and a verified email address.
+  - [1] 2026-10-30: GitHub Free includes 500 MB of artifact storage, USD 12 of compute usage a month and 10 GB of cache per repository | capture: sha256:6a4c243c1922768f9c4e449e67cc73a6db35e567363be67f12c1cf6a432ce318 | quote: | GitHub Free | 500 MB | $12 USD | 10 GB | Not applicable |
+  - [6] 2026-11-03: standard GitHub-hosted runners on a public repository have no minute cap and no charge | capture: sha256:e770f53d3eb0eae8a10e7076ecbf23801b542f94b001c228d003636c90c960c2 | quote: Use of the standard GitHub-hosted runners is free and unlimited on public repositories.
+  - [6] 2026-11-03: on a public repository ubuntu-latest is 4 vCPU, 16 GB RAM and 14 GB SSD | capture: sha256:e770f53d3eb0eae8a10e7076ecbf23801b542f94b001c228d003636c90c960c2 | quote: | Linux | 4 | 16 GB | 14 GB | x64 | `ubuntu-latest`, `ubuntu-24.04`, `ubuntu-22.04`, `ubuntu-26.04` |
+  - [7] 2026-11-03: a GitHub account with a verified email address is the registration requirement | capture: sha256:0a0beece02e0570e78f75f239991e8a347ea5999944b0ca711ce7bcb46cdb716 | quote: To get started with GitHub.com, you need to have a personal account and a verified email address.
+- sources:
+  - [1] https://docs.github.com/en/billing/concepts/product-billing/github-actions
+  - [2] https://docs.github.com/en/actions/reference/limits
+  - [3] https://docs.github.com/en/actions/how-tos/manage-workflow-runs/remove-workflow-artifacts
+  - [4] https://docs.github.com/en/billing/concepts/product-billing/github-packages
+  - [5] https://docs.github.com/en/actions/reference/workflows-and-actions/dependency-caching
+  - [6] https://docs.github.com/en/actions/reference/runners/github-hosted-runners
+  - [7] https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github
+
+## GitHub Container Registry
+
+- `ci-cd-runners/ghcr` | qualifies-with-caveat | evidence documented | binding per-object-cap | category container registry
+- needs card no, phone no, ID no, institution no | verified 2026-11-09T12:09:21.347Z (live) | stale on 2026-12-10
+- url https://docs.github.com/en/billing/concepts/product-billing/github-packages
+- free tier: container image storage and bandwidth for the Container registry is currently free; a change to that policy is announced at least one month in advance | unit: unlimited | metered on: none | read on: 2026-11-06 | source: [1]
+- per-object cap: a 10 GB size limit for each layer, and a 10 minute timeout limit for uploads | source: [2]
+- retention: a package persists until deleted; it shares the storage pool with artifacts, which expire at 90 days | days: 90 | source: [1]
+- egress: container image storage and bandwidth for the Container registry is currently free; a change to that policy is announced at least one month in advance | metered: no | free allowance: currently free | source: [1]
+- identity: email | detail: a GitHub account; a personal access token with packages scope for a push
+- interface: oci, rest
+- limits:
+  - per-object-cap (binding): a 10 GB size limit for each layer [2]
+  - per-object-cap (binding): a 10 minute timeout limit for uploads [2]
+- limits note: the same as the free tier
+- binding note: the Container registry publishes two limits of its own, a 10 GB size limit for each layer and a 10 minute timeout limit for uploads
+- interface detail: the OCI distribution API at ghcr.io; docker login with a personal access token or GITHUB_TOKEN
+- tooling: docker, podman, skopeo, oras, crane
+- composes with: the artifact store for a GitHub Actions build; the 10 GB per-layer size and the 10 minute upload timeout are the limits to watch
+- reliability: the pull-token endpoint for catthehacker/ubuntu answers 200 with a 69-byte token JSON to a request that carries no credential
+- notes: Container image storage and bandwidth are currently free, so the per-layer size and the upload timeout are the limits that bind. The earlier 'no anonymous pull token' claim came from requesting library/hello-world, which is Docker Hub's namespace; real public packages return a manifest.
+- evidence note: the storage and transfer figures are a first-party page, and they are the fields the verdict rests on. The anonymous token and manifest probes prove the read path, which does not raise a documented quota. The earlier anonymous-pull measurement used library/hello-world, a Docker Hub namespace rather than a ghcr.io one, so it proved nothing about a public ghcr.io package.
+- evidence:
+  - probe:https://ghcr.io/token?scope=repository:catthehacker/ubuntu:pull&service=ghcr.io 2026-10-22: 200 with 69 bytes of token JSON, {"token":"djE6Y2F0dGhlaGFja2VyL3VidW50dToxNzkyNjQxMjI2Njg2NzQ2MTE3"}, sha256 e26b35c1dc64bf51b6e02f5a20f7d7fbf436a944d445155e8fc313a42ec3a808; GHCR issues an anonymous pull token for a public package
+  - probe:https://ghcr.io/v2/catthehacker/ubuntu/manifests/act-latest 2026-10-22: 200 with 754 bytes, schemaVersion 2, mediaType application/vnd.oci.image.index.v1+json, sha256 62d572b92f9f32d3427b6d220ad1f9dca9c7b6ffad37d295425037dbff78abaf; the anonymous token fetches a manifest
+  - probe:https://ghcr.io/token?scope=repository:library/hello-world:pull&service=ghcr.io 2026-10-22: 403 with 86 bytes, DENIED. This is the negative control: library/ is Docker Hub's namespace and does not exist on ghcr.io, so the 403 answers the path, not the anonymity policy
+  - probe:https://auth.docker.io/token?service=registry.docker.io&scope=repository:library/alpine:pull 2026-10-22: 200 with 5,489 bytes of token JSON, so Docker Hub does issue anonymous pull tokens and a public base image is free
+  - [1] 2026-10-22: storage is shared with Actions artifacts and cannot exceed the plan amount; a 500 MB package in a private repository consumes 500 MB of storage and a download consumes 500 MB of transfer; an Actions download with GITHUB_TOKEN does not count
+  - [1] 2026-11-06: container image storage and bandwidth are currently free, with at least one month's notice of a change | capture: sha256:e86d8202da6424d7fe777a09cf7daa8f56612d3bd02b7fe08da73f46ea4aa5a2 | quote: Container image storage and bandwidth for the Container registry is currently free. If you use Container registry, you'll be informed at least one month in advance of any change to this policy.
+  - [2] 2026-11-06: the registry publishes a 10 GB per-layer size limit and a 10 minute upload timeout | capture: sha256:4b3a2c0a26a56c2a4cfd47016d4f6a9c5f388b00b9a4eb57386569eab7a9495b | quote: * The Container registry has a 10 GB size limit for each layer. ... * The Container registry has a 10 minute timeout limit for uploads.
+  - [2] 2026-11-06: the registry publishes a 10 GB per-layer size limit | capture: sha256:4b3a2c0a26a56c2a4cfd47016d4f6a9c5f388b00b9a4eb57386569eab7a9495b | quote: * The Container registry has a 10 GB size limit for each layer.
+  - [2] 2026-11-06: the registry publishes a 10 minute upload timeout | capture: sha256:4b3a2c0a26a56c2a4cfd47016d4f6a9c5f388b00b9a4eb57386569eab7a9495b | quote: * The Container registry has a 10 minute timeout limit for uploads.
+  - probe:https://ghcr.io/token?scope=repository:library/hello-world:pull&service=ghcr.io 2026-11-09: the control: library/hello-world is Docker Hub's namespace and not GHCR's, so its 403 DENIED states nothing about GHCR's private packages | capture: sha256:abf852beb1f3d6601bf0451dc96e7b91cd03ec1a1aad1078f0b2cd4f4836e368 | quote: "status": 403, "bytes": 86
+  - probe:https://ghcr.io/token?scope=repository:catthehacker/ubuntu:pull&service=ghcr.io 2026-11-09: an unauthenticated request for a pull token on catthehacker/ubuntu answers 200 with a 69-byte token JSON, which is the fact the reliability note states | capture: sha256:d44c4c4ecf74b3b7bed1fa7df7dbd511976e0b40d27e8b00412d883ca505eb13 | quote: "status": 200, "bytes": 69,
+  - probe:https://ghcr.io/v2/catthehacker/ubuntu/manifests/act-latest 2026-11-09: the token that request returned fetches the act-latest image index: 200, 754 bytes, digest sha256:62d572b9 | capture: sha256:c890eddac240b46f411af5c4f0f5c46238b9f9a12df46f76275a3c292d66bf34 | quote: "status": 200, "bytes": 754, "sha256": "62d572b92f9f32d3427b6d220ad1f9dca9c7b6ffad37d295425037dbff78abaf"
+  - probe:https://ghcr.io/v2/catthehacker/ubuntu/tags/list?n=1000 2026-11-09: the namespace exists: the anonymous token lists its tags, so the manifest pull answered a real repository | capture: sha256:d5d51658fe09f2df9556b7d00a45d2a312cfe635fe3f1c8abf105c292204a261 | quote: "name":"catthehacker/ubuntu","tags":["act-18.04-20210222"
+  - [1] 2026-11-09: the billing page states that container image storage and bandwidth are free, with a month's notice of any change | capture: sha256:e86d8202da6424d7fe777a09cf7daa8f56612d3bd02b7fe08da73f46ea4aa5a2 | quote: Container image storage and bandwidth for the Container registry is currently free.
+- sources:
+  - [1] https://docs.github.com/en/billing/concepts/product-billing/github-packages
+  - [2] https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry
+
+## GitHub Copilot cloud sandboxes
+
+- `compute/github-copilot-cloud-sandboxes` | qualifies-with-caveat | evidence documented | binding request-rate | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-11-02T02:17:33.709Z (live) | stale on 2026-12-03
+- url https://docs.github.com/en/billing/concepts/product-billing/cloud-and-local-sandboxes
+- free tier: a metered quota on the Copilot plan, with compute at $0.000024 a second, memory at $0.000003 a GiB-second and snapshot storage at $0.005 a GiB-month once it is exhausted; an account with no payment method is blocked at the quota | unit: seconds | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: card | detail: A GitHub personal account with a verified email address, and a card only past the plan's included compute usage. GitHub's account page: 'To get started with GitHub.com, you need to have a personal account and a verified email address.' The billing page puts the payment method after the quota: 'If your account does not have a valid payment method on file, usage is blocked once you use up your quota.' Country limit, quoted: 'These destinations currently include Cuba, Iran, North Korea, Russia, Belarus, and the following regions of Ukraine: Crimea/Sevastopol and the separatist areas of Donetsk and Luhansk.', where Copilot 'may not be sold, exported, or re-exported to any embargoed destination' or a Country Group E:1 destination.
+- interface: unknown
+- limits:
+  - request-rate (binding): compute at $0.000024 a second and memory at $0.000003 a GiB-second once the included quota is spent [1]
+  - per-object-cap: snapshot storage for stopped sessions is $0.005 a GiB-month [1]
+  - write-gated: without a payment method, usage is blocked at the quota rather than billed past it [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the billing concept page was read on 2026-10-22 and states all three meters and the blocked-at-quota rule. The quota's size is in the plan, not on this page, so the record gives the meters and says where the size lives
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: a session bills compute and memory while running and only snapshot storage when stopped, which is the state answer
+  - free_tier_kind: allowance
+  - granularity.min_billed_s: 0
+  - ps.price: $0.005 a GiB-month of snapshot storage
+  - ps.durability: snapshot
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: until the snapshot is deleted
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Compute: time that a cloud sandbox session is running, $0.000024 per compute second', 'Memory: $0.000003 per GiB second', 'Storage: snapshot storage for stopped sessions, $0.005 per GiB month', and 'If your account does not have a valid payment method on file, usage is blocked once you use up your quota', quoted
+  - [1] 2026-11-02: a payment method is what lets a cloud sandbox run past the included quota; without one, use stops at the quota | capture: sha256:1edb9801887154c08fb922f7915819d2e48ca05934897e371c0b33f614bc034f | quote: If your account does not have a valid payment method on file, usage is blocked once you use up your quota.
+  - [2] 2026-11-02: a personal GitHub account with a verified email address is the base identity for the product, and social login with Google or Apple does not remove the email gate | capture: sha256:0a0beece02e0570e78f75f239991e8a347ea5999944b0ca711ce7bcb46cdb716 | quote: To get started with GitHub.com, you need to have a personal account and a verified email address.
+  - [3] 2026-11-02: GitHub names the destinations from which GitHub Copilot is withheld, which is the country limit on the product | capture: sha256:d52dc37346b1de4f3ed885972f35bd2d498c325e4e9b8d2df50ce75538eef2cb | quote: These destinations currently include Cuba, Iran, North Korea, Russia, Belarus, and the following regions of Ukraine: Crimea/Sevastopol and the separatist areas of Donetsk and Luhansk.
+  - [3] 2026-11-02: the country restriction is stated on the product itself, not only on the company | capture: sha256:d52dc37346b1de4f3ed885972f35bd2d498c325e4e9b8d2df50ce75538eef2cb | quote: GitHub Copilot may not be sold, exported, or re-exported to any embargoed destination or a country listed in Country Group E:1 in Supplement No. 1 to part 740 of the EAR without authorization.
+- sources:
+  - [1] https://docs.github.com/en/billing/concepts/product-billing/cloud-and-local-sandboxes
+  - [2] https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github
+  - [3] https://docs.github.com/en/site-policy/other-site-policies/github-and-trade-controls
+
+## GitHub Gist
+
+- `storage/github-gist` | qualifies-with-caveat | evidence reported | binding per-object-cap | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://gist.github.com
+- free tier: Unlimited gists per account; each gist is a full Git repo. Hard block at 100 MiB per single file; 2 GB per push. Total repo size is not capped, only 10 GB on-disk is the documented recommendation. | unit: GB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: 100 MiB per single file | bytes: 104857600 | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: unmetered free downloads from gist.githubusercontent.com; docs state 'We don't limit the total size of the binary files in the release or the bandwidth used to deliver them'. No egress metering observed across repeated 60 MB pulls (~1.3-2.0 s each). | metered: no
+- identity: institution
+- interface: s3, rest, git, rclone
+- limits:
+  - per-object-cap (binding): 100 MiB per single file [1]
+  - per-object-cap (binding): 100 MiB per file [1]
+- limits note: 100 MiB per file hard block (pre-receive hook); ~80 writes/min, 500/hr, 5000 REST req/hr per token; API truncates file content at 1 MB and files list at 300 unless you clone; 6 pushes/min per repo recommended.
+- interface detail: git
+- tooling: Git clone/push against gist.github.com/<id>.git, gh gist create, REST POST /gists, github.com/bharatcj/git-unlimited-storage (S3-shaped shim over a repo, MIT, 0 stars), rclone backend 'gist' does NOT exist. Use plain git plus a CDN in front.
+- composes with: Supports multiple gists per GitHub account, with each gist allowing files up to 100 MiB up to git push limits. Sharding partitions datasets across individual gist repositories.
+- reliability: Push hook is strict and fires at 100 MiB; pushes into a repo already carrying hundreds of MB start failing before the per-file cap is reached, so keep each shard repo small. Read path was consistently fast and cache-friendly.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: 'Single object size ... is enforced at 100 MB', 'Push size: This limit is enforced at 2GB', on-disk 10 GB recommendation, 15 reads/s per repo
+  - withheld 2026-10-21: probe: git push of 60,000,000-byte file into gist 8fafc3fc9486dc10c88b24317cffd7e9 -> rc=0, then GET gist.githubusercontent.com/.../raw/big60.bin -> 200, bytes=60000000, 1.3-2.0 s
+  - withheld 2026-10-21: probe: 119.21 MB file push -> 'remote: error: File big125.bin is 119.21 MB; this exceeds GitHub's file size limit of 100.00 MB' / pre-receive hook declined
+  - withheld 2026-10-21: probe: gh gist create of a 90 MB and 95 MB file -> 'failed to collect files for posting: binary file not supported' (CLI path rejects binaries; use git push instead)
+- sources:
+  - [1] https://docs.github.com/en/repositories/creating-and-managing-repositories/repository-limits
+
+## GitHub Git LFS
+
+- `storage/github-git-lfs` | qualifies-with-caveat | evidence reported | binding per-object-cap | category registry
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://github.com/pricing
+- free tier: 10 GiB storage AND 10 GiB/month bandwidth on GitHub Free (also 10/10 on Pro and Free-for-orgs; 250 GiB each on Team/Enterprise Cloud). This is UP from the old 1 GiB/1 GiB. The docs now show a 10 GiB table. Pre-paid data packs are gone; it is metered with a budget setting. | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: Per-file: 2 GB | bytes: 2000000000 | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Metered but included up to 10 GiB/month. Over quota with no payment method, 'Git LFS support is disabled on your account until the next month'. With a $0 budget, usage is blocked for the rest of the calendar month. No free CDN in front of LFS. | metered: yes | free allowance: 10 GiB per month
+- identity: card
+- interface: rest, git
+- limits:
+  - per-object-cap (binding): Per-file: 2 GB [1]
+- limits note: Per-file: 2 GB on Free/Pro, 4 GB on Team, 5 GB on Enterprise Cloud. Storage is billed on all LFS objects ever associated with a repo, hourly-averaged, and 'If you delete Git LFS objects partway through a calendar month, the storage usage for that month is not recalculated'. Re-pushing a 1-byte change to a 500 MB file consumes another 500 MB. Actions pulling LFS counts against the repo owner's bandwidth.
+- interface detail: git
+- tooling: git-lfs (git-lfs/git-lfs, ~10k stars). git-annex can also use GitHub LFS as a special-remote backend (see the git-lfs remote entry). REST API for repo management.
+- composes with: 10 GiB per account x unlimited free accounts. Note the ownership trick in GitHub's own docs: 'Anyone with write access to a repository can push files to Git LFS without increasing their personal bandwidth and storage use'. Usage lands on the REPO OWNER. So a collaborator-heavy layout concentrates the bill on one account, which is the opposite of what you want; the shardable axis is accounts-as-repo-owners.
+- reliability: Hard-blocked (not billed) without a payment method, so it degrades safely. The monthly non-recalculation on delete means a big upload you remove still burns the month.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: table: 'GitHub Free | 10 GiB | 10 GiB' (bandwidth | storage)
+  - [2] 2026-10-21: 'GitHub Free | 2 GB' maximum file size
+  - [3] 2026-10-21: probe: POST (download, bogus oid) -> HTTP 200 (LFS endpoint live, anonymous batch accepted)
+- sources:
+  - [1] https://docs.github.com/en/billing/concepts/product-billing/git-lfs
+  - [2] https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage
+  - [3] https://github.com/git-lfs/git-lfs.git/info/lfs/objects/batch
+
+## GitHub issue/PR comment attachments (user-attachments)
+
+- `storage/github-issue-pr-comment-attachments` | qualifies-with-caveat | evidence reported | binding per-object-cap | category media
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://github.com
+- free tier: No account-level byte quota stated; per-file only. 10 MB images/GIFs, 25 MB other files, 10 MB video on free plan (100 MB on paid). | unit: MB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: 25 MB/file | bytes: 25000000 | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Free and unmetered. 'For public repositories, uploaded files can be accessed without authentication'; served from githubusercontent CDN, cached by Camo. | metered: no
+- identity: anonymous
+- interface: rest, cli
+- limits:
+  - per-object-cap (binding): 25 MB/file [1]
+- limits note: 25 MB/file (10 MB images), per-comment attachment count not documented; uploads are immediate on attach, so a failed comment still leaves the asset
+- interface detail: rest
+- tooling: GitHub CLI: 'You can also attach local images and videos from the command line with GitHub CLI' (gh issue comment / gh pr comment --attach, changelog 2026-09-01); plus any REST client against the comment API
+- composes with: unlimited comments per issue x unlimited issues x unlimited free repos; 25 MB per non-image attachment. 1 GiB of payload = ~41 comments. Effectively per-record-unlimited storage keyed to comment IDs, not to an account quota
+- reliability: assets persist after comment edit/delete in practice (URL is anonymised and not reference-counted); bulk comment-creation is the one thing GitHub's usage-anomaly systems actually watch, and secondary rate limits are aggressive
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: 'The maximum file size is: 10MB for images and gifs ... 25MB for all other files'
+  - [2] 2026-10-21: uploads get anonymous githubusercontent URLs via Camo
+  - [3] 2026-10-21: scriptable attach path exists (API criterion met)
+  - [4] 2026-10-21: probe: GET -> 404 text/plain for a bogus id (route exists, not a generic 403)
+- sources:
+  - [1] https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/attaching-files
+  - [2] https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-anonymized-urls
+  - [3] https://github.blog/changelog/2026-09-01-github-cli-media-in-issues-pull-requests-and-comments/
+  - [4] https://github.com/user-attachments/assets/<uuid>
+
+## GitHub Packages (CI runners)
+
+- `ci-cd-runners/github-packages` | qualifies-with-caveat | evidence documented | binding per-object-cap | category package registry
+- needs card no, phone no, ID no, institution no | verified 2026-11-09T11:43:22.289Z (live) | stale on 2026-12-10
+- url https://docs.github.com/en/billing/concepts/product-billing/github-packages
+- free tier: 500 MB of storage and 1 GB of transfer a month on GitHub Free, shared with Actions artifacts | unit: MB | metered on: stored-bytes | read on: 2026-10-22 | source: [1]
+- per-object cap: 500 MB total across all package types and artifacts on Free | source: [1]
+- retention: packages persist until deleted; artifacts in the same pool expire at 90 days | days: 90 | source: [1]
+- egress: 1 GB of transfer a month on Free for private packages | metered: yes | free allowance: 1 GB per month | source: [1]
+- identity: email | detail: a GitHub account; GitHub Packages only supports authentication using a personal access token (classic)
+- interface: rest, cli
+- limits:
+  - per-object-cap (binding): 500 MB of storage shared with Actions artifacts [1]
+  - request-rate: 1 GB of transfer a month for private packages [1]
+- interface detail: the npm registry at npm.pkg.github.com; an access token is required to install a package from it, public packages included, and a personal access token (classic) is the credential the registry accepts
+- tooling: the native package manager for each ecosystem, plus the gh CLI
+- composes with: the same account as GHCR, whose container image storage and bandwidth are currently free
+- reliability: an unauthenticated GET of a public npm package at npm.pkg.github.com answers 401 with a 46-byte body, so a token is required to read even a public package here
+- notes: Recorded separately from GHCR because the two are routinely counted as if they were two allowances; container image storage and bandwidth are currently free.
+- evidence note: the billing page was read.
+- evidence:
+  - [1] 2026-10-22: 'The storage amounts shown are shared with GitHub Actions artifacts'; a 500 MB package consumes 500 MB of storage and each download consumes 500 MB of transfer
+  - [2] 2026-11-06: a personal access token (classic) is the only credential GitHub Packages supports | capture: sha256:3a8a5012d92758ae51377843b8e98fcfd5ddba7072c379ed6000b12a6d57a7c4 | quote: GitHub Packages only supports authentication using a personal access token (classic).
+  - [1] 2026-11-06: the included storage is shared with GitHub Actions artifacts | capture: sha256:e86d8202da6424d7fe777a09cf7daa8f56612d3bd02b7fe08da73f46ea4aa5a2 | quote: The storage amounts shown are shared with GitHub Actions artifacts.
+  - [1] 2026-11-06: container image storage and bandwidth are currently free, with at least one month's notice of a change | capture: sha256:e86d8202da6424d7fe777a09cf7daa8f56612d3bd02b7fe08da73f46ea4aa5a2 | quote: Container image storage and bandwidth for the Container registry is currently free. If you use Container registry, you'll be informed at least one month in advance of any change to this policy.
+  - [2] 2026-11-09: GitHub's own npm registry page states that an access token is required to install packages, public ones included, and that a personal access token (classic) is the credential | capture: sha256:3a8a5012d92758ae51377843b8e98fcfd5ddba7072c379ed6000b12a6d57a7c4 | quote: You need an access token to publish, install, and delete private, internal, and public packages.
+  - probe:https://npm.pkg.github.com/@azu%2fnpm-github-package-example 2026-11-09: an unauthenticated GET of a public npm package answers 401 with a 46-byte error body, which is the fact the reliability note states | capture: sha256:7d6007e5af9004434867fc40b60d1bcab1978f034b21751e29f5929235dcbcff | quote: "status": 401, "bytes": 46,
+  - probe:https://npm.pkg.github.com/@actions%2fcore 2026-11-09: the control: a package that does not exist under that owner answers 404, so the 401 is the read gate and not a missing package | capture: sha256:c70d20350d394aaa3c88831d92e700b7b4d9079fbe27c1eaaad5b8c51d39d6ff | quote: "status": 404, "bytes": 72,
+- sources:
+  - [1] https://docs.github.com/en/billing/concepts/product-billing/github-packages
+  - [2] https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry
+
+## GitHub Packages - public packages (npm/Maven/NuGet/RubyGems)
+
+- `storage/github-packages-public-packages` | qualifies-with-caveat | evidence reported | binding none | category registry
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://github.com/features/packages
+- disagrees on verdict: `storage/github-packages` says fails-egress, `storage/github-packages-public-packages` says qualifies-with-caveat
+- disagrees on verdict: `storage/github-packages-maven-registry` says fails-quota, `storage/github-packages-public-packages` says qualifies-with-caveat
+- disagrees on verdict: `storage/github-packages-npm-registry` says fails-quota, `storage/github-packages-public-packages` says qualifies-with-caveat
+- disagrees on verdict: `storage/github-packages-public-packages` says qualifies-with-caveat, `storage/github-packages-rubygems-registry` says fails-quota
+- free tier: Unlimited for PUBLIC packages: 'GitHub Packages usage is free for public packages. In addition, data transferred in from any source is free.' Private packages consume the shared 500 MB/2 GB/50 GB plan pool. | unit: GB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Free for public packages. Paid only for downloads from private packages. | metered: no
+- identity: email
+- interface: rest
+- limits note: Per-format file caps apply; no total. Public = no billing meter at all.
+- interface detail: rest
+- tooling: npm/mvn/nuget/gem clients directly; standard package-manager tooling, no wrapper needed. (GHCR is the container variant and is on the known-list, so this entry is about the non-container registries.)
+- composes with: Unlimited public packages x unlimited versions, each bounded only by the per-ecosystem file cap. Multiplied by unlimited orgs/accounts.
+- reliability: Immutable versions; deletion requires explicit action. Package-manager clients are the bottleneck for bulk blobs (chunking needed).
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: 'GitHub Packages usage is free for public packages. In addition, data transferred in from any source is free.'
+  - [2] 2026-10-21: same statement repeated in the packages overview
+- sources:
+  - [1] https://docs.github.com/en/billing/concepts/product-billing/github-packages
+  - [2] https://docs.github.com/en/packages/learn-github-packages/about-github-packages
+
+## GitHub Secure Open
+
+- `compute/github-secure-open` | qualifies-with-caveat | evidence documented | binding write-gated | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://github.com/open-source/github-secure-open-source-fund
+- free tier: Quoted from the programme page: 'It is $10,000 per project. All funding goes directly to the maintainers that are invited into the program. The funding is broken into tranches aligned to program schedules: $6,000 during program, $2,000 at 6 month check-in, and $2,000 at 12 month check-in.' The same page lists 'Cloud Credits: $10,000 in Azure credits. Eligible projects have potential to receive up to $150,000 in free Azure infrastructure credits from Microsoft for Startups.' | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: cash-grant-plus-credits
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - write-gated (binding): The project must already be a maintained open-source project with demonstrated traction, and the USD 8,000 balance is conditional on two security check-ins at 6 and 12 months, so the money is spread over a year of work. [1]
+- limits note: The project must already be a maintained open-source project with demonstrated traction, and the USD 8,000 balance is conditional on two security check-ins at 6 and 12 months, so the money is spread over a year of work.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: This is the only record in evaluated offerings that pairs cash with a cloud credit: USD 10,000 cash through GitHub Sponsors plus USD 10,000 of Azure credits, with a separate conditional route to as much as USD 150,000 of Azure infrastructure credit through Microsoft for Startups, so it composes with any Azure GPU quotan earlier readings record elsewhere.
+- reliability: no reliability event recorded
+- notes: Program documentation figures are taken as current; published documentation specifies exact grant figures.
+- extras:
+  - facets.class: grant-individual
+  - facets.free_tier_kind: cash-grant-plus-credits
+- evidence:
+  - [1] 2026-10-22: quoted the USD 10,000 per project with the 6,000 / 2,000 / 2,000 tranche split, the Azure credit sentence 'Cloud Credits: $10,000 in Azure credits. Eligible projects have potential to receive up to $150,000 in free Azure infrastructure credits from Microsoft for Startups', and the eligibility list: 'Anyone who is a current maintainer of an open source project', 18 or older, active GitHub profile, 'Be located in one of the regions supported by GitHub Sponsors'
+  - [2] 2026-10-22: quoted 'Session 4 runs late April with each project receiving $10,000, Copilot Pro, $100K of Azure Credits, and 3 weeks of security education' and 'an additional $5.5 million in Azure credits and funding' [this figure conflicts with the $10,000 Azure credits printed on the programme page; see notes]
+  - [3] 2026-10-22: reported: 'each project receives $10,000 USD via GitHub Sponsors', a 3-week sprint inside a 12-month engagement, and that 71 projects had taken part by that post
+  - [4] 2026-10-22: third-party confirmation of the USD 10,000 per project figure and the three-week programme shape
+- sources:
+  - [1] https://github.com/open-source/github-secure-open-source-fund
+  - [2] https://github.blog/security/supply-chain-security/investing-in-the-people-shaping-open-source-and-securing-the-future-together/
+  - [3] https://github.blog/open-source/maintainers/securing-the-supply-chain-at-scale-starting-with-71-important-open-source-projects/
+  - [4] https://opensource.org/blog/improving-open-source-security-with-the-new-github-secure-open-source-fund
+
+## GitHub Sponsors
+
+- `compute/github-sponsors` | qualifies-with-caveat | evidence documented | binding none | category cloud VM
+- needs card unknown, phone unknown, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://docs.github.com/en/sponsors/getting-started-with-github-sponsors/about-github-sponsors
+- free tier: 'Anyone who contributes to an open source project and lives in a supported region is eligible to become a sponsored developer', and 'GitHub Sponsors does not charge any fees for sponsorships from personal accounts, so 100% of these sponsorships go to the sponsored developer or organization' (organisations pay up to 6 percent). | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: cash-passthrough
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email | detail: a GitHub account plus residence in a supported region: 'Anyone who contributes to an open source project and lives in a supported region is eligible to become a sponsored developer'. The record's notes add a payout account as a second gate, which no evidence row quotes, and send unsupported countries to a waitlist rather than naming a document. No card, hold, phone number or ID document is stated in any evidence row: unknown.
+- interface: unknown
+- limits note: No vendor cap binds: the limit is whether a sponsor exists, and the amount is whatever they choose, so the constraint is demand rather than a quota.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: This is the payout pipe for two other records among evaluated providers: the GitHub Secure Open Source Fund pays its USD 10,000 'via GitHub Sponsors', so a region GitHub does not support loses both the rail and the grant.
+- reliability: no reliability event recorded
+- notes: Documented because it is the pipe rather than a programme, and because the widely repeated claim that GitHub matches sponsorships is false: the Matching Fund closed to new applicants on 2020-01-01 and the docs say so. The gate is a supported region plus a payout account, and the docs send unsupported countries to a waitlist rather than a date. earlier readings already holds github-actions, github-codespaces and github-copilot records; none of them covers the payment rail, so this is a new fact rather than a duplicate.
+- extras:
+  - facets.class: payment-rail
+  - facets.free_tier_kind: cash-passthrough
+- evidence:
+  - [1] 2026-10-22: quoted the supported-region eligibility sentence, the 100 percent pass-through for personal accounts, the 6 percent organisation fee split into a 3 percent card fee and a 3 percent GitHub fee, and the note that 'Eligibility for the GitHub Sponsors Matching Fund has passed. Applications received after the January 1, 2020 deadline are not eligible'
+  - [2] 2026-10-22: the fund is 'Powered by GitHub Sponsors' and pays maintainers through it, which is why an unsupported region blocks that grant as well as this rail
+- sources:
+  - [1] https://docs.github.com/en/sponsors/getting-started-with-github-sponsors/about-github-sponsors
+  - [2] https://github.com/open-source/github-secure-open-source-fund
+
+## GitHub Copilot Student
+
+- `compute/github-copilot-student` | fails-identity | evidence documented | binding request-rate | category inference API
+- needs card no, phone no, ID no, institution yes | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://docs.github.com/en/copilot/how-tos/copilot-on-github/set-up-copilot/enable-copilot/set-up-for-students
+- free tier: Quoted from the pack: 'GitHub Copilot Student is available to verified students. The plan includes unlimited code completions and an allowance of GitHub AI Credits, plus limited chat and agent usage with models available through auto model selection only.' The plans table lists Copilot Student at Free with 'An allowance of GitHub AI Credits', against Copilot Pro at USD 10 a month with 'Base: 1,000' credits. | unit: unlimited | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: recurring-credit
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution | detail: student status verified by GitHub Education: the plan is "Copilot Student" against Pro at USD 10 a month, and the vendor states "GitHub reevaluates your eligibility every month", so the licence lapses when verification does, with activation a separate step from verification. The record does not state which documents or which email domain GitHub Education accepts, and no card, phone, hold or payment statement appears. New signups were paused from 20 April 2026 and "sign-ups began reopening on 17 June 2026"
+- interface: rest
+- limits:
+  - request-rate (binding): It is an inference allowance, not compute, it excludes third-party agents and confines model choice to auto-selection, and it sits behind the same GitHub Education verification as the rest of the pack. [1]
+- limits note: It is an inference allowance, not compute, it excludes third-party agents and confines model choice to auto-selection, and it sits behind the same GitHub Education verification as the rest of the pack.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: The only item in the entire pack that is inference rather than compute or licences, and the monthly revaluation is what makes it lapsed-on-graduation by construction rather than by policy.
+- reliability: no reliability event recorded
+- notes: GitHub does not publish the exact AI credit allowance for the Student plan; only Pro and above carry a number. The number is left null rather than inferred from the Pro tier, because the two are different allowances. The April 2026 sign-up pause and the June 2026 reopening are recorded because a reader checking a 2026 article will find contradictory status reports. Revaluation every month is the cleanest example in this class of a grant that cannot survive graduation.
+- extras:
+  - facets.class: student-pack
+  - facets.free_tier_kind: recurring-credit
+- evidence:
+  - [2] 2026-10-22: 'Copilot Student | Free | An allowance of GitHub AI Credits | Excludes third-party agents | Auto model selection only'; 'On Copilot Free and Copilot Student plans, access to models is available through auto model selection only'; Pro is 'Base: 1,000' credits at USD 10.
+  - [3] 2026-10-22: 'unlimited code completions and an allowance of GitHub AI Credits, plus limited chat and agent usage with models available through auto model selection only'.
+  - [1] 2026-10-22: 'GitHub reevaluates your eligibility every month', so the licence lapses the moment verification does, and activation is a separate step from verification.
+  - [4] 2026-10-22: 'we will be pausing new signups for our Student, Pro, and Pro+ plans' from 20 April 2026; sign-ups began reopening on 17 June 2026.
+- sources:
+  - [1] https://docs.github.com/en/copilot/how-tos/copilot-on-github/set-up-copilot/enable-copilot/set-up-for-students
+  - [2] https://docs.github.com/en/copilot/get-started/plans
+  - [3] https://education.github.com/pack
+  - [4] https://github.blog/changelog/2026-04-20-changes-to-github-copilot-plans-for-individuals/
+
+## GitHub Student Developer
+
+- `compute/github-student-developer` | fails-identity | evidence documented | binding write-gated | category dev environment
+- needs card no, phone no, ID no, institution yes | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://education.github.com/pack
+- free tier: Aggregator of about 60 partner offers, most of them software licences rather than compute. The compute-relevant ones in the live October 2026 list are: Microsoft Azure 'Free access to 25+ Microsoft Azure cloud services plus $100 in Azure credit. For students aged 18+'; Camber 'Free Camber Student plan while you are enrolled, including 40 CPU hours, 5 GPU hours, 50 GB of storage, and 50 agent messages per month'; Heroku 'a credit of $13 USD per month for 24 months'; MongoDB '$50 in MongoDB Atlas Credits'; Datadog 'Pro Account, including 10 servers. Free for 2 years'; GitHub Codespaces 'Free Pro level access to Codespaces to use anywhere in your account'; Deepnote 'unlimited basic machines with up to 5GB RAM and 2vCPU'. | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: recurring-credit
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution | detail: student-status documents reviewed by the GitHub Education team: the application page requires that you 'Provide documents that prove your current student status', accepting 'A picture of your school ID with current enrollment date', a class schedule, a transcript, or an affiliation or enrollment verification letter, and where a school was previously verified by academic email 'future applicants from the same school must also use an academic email'. Validation lasts 2 years and must be revalidated. No card, hold, debit or prepaid term is stated.
+- interface: unknown
+- limits:
+  - write-gated (binding): Nothing in the pack can be claimed until a human or automated review accepts enrollment documentation, and that single review gate covers all 60 partner offers at once, so one failure removes the whole bundle. [1]
+- limits note: Nothing in the pack can be claimed until a human or automated review accepts enrollment documentation, and that single review gate covers all 60 partner offers at once, so one failure removes the whole bundle.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: The pack is the widest single aggregator found on 2026-10-22, but it composes with nothing because verification is the single point of failure for all 60 offers at once.
+- reliability: no reliability event recorded
+- notes: The student developer pack requires academic enrollment verification.
+- extras:
+  - facets.class: student-pack
+  - facets.free_tier_kind: recurring-credit
+- evidence:
+  - [2] 2026-10-22: A student must 'Provide documents that prove your current student status', and the accepted documents are 'A picture of your school ID with current enrollment date', 'Your class schedule', 'Your transcript', 'An affiliation or enrollment verification letter'; the page adds that where the system detects prior applicants from a school verified by academic email, 'future applicants from the same school must also use an academic email'.
+  - [1] 2026-10-22: The live partner list as of this read, quoted per partner above; the compute-bearing offers are Azure $100, Camber 40 CPU hours and 5 GPU hours a month, Heroku USD 13 a month for 24 months, Codespaces Pro, Deepnote 2 vCPU and 5 GB RAM.
+  - [3] 2026-10-22: 'All users must be actively verified as a student by the GitHub Education team'; 'Student validation lasts for 2 years, after which you will need to revalidate your student status'; 'Offers may not be redeemed multiple times'.
+- sources:
+  - [1] https://education.github.com/pack
+  - [2] https://docs.github.com/en/education/about-github-education/github-education-for-students/apply-to-github-education-as-a-student
+  - [3] https://docs.github.com/en/education/about-github-education/github-education-for-students/github-terms-and-conditions-for-the-student-developer-pack
+
+## GitHub Student Developer Pack
+
+- `egress/github-student-developer-pack` | fails-identity | evidence documented | binding write-gated | category student credit bundle | tier free
+- needs card no, phone no, ID no, institution yes | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://education.github.com/pack
+- price USD 100 of Azure credit
+- free tier: Free access to 25+ Microsoft Azure cloud services plus $100 in Azure credit. For students aged 18+. | unit: mixed | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: $100 of Azure credit at $0.087 per GB is 1.04 TiB, plus Azure's 100 GB a month free, which is the same 0.18 TiB a month as Azure for Students; ingress: udp | metered: yes | free allowance: $100 of Azure credit at $0.087 per GB is 1.04 TiB, plus Azure's 100 GB a month free, which is the same 0.18 TiB a month as Azure for Students | source: [1]
+- identity: institution | detail: verification as a student, which GitHub establishes through the school; the pack itself is not available without enrolment | country: None
+- interface: cli
+- limits:
+  - write-gated (binding): student status verified by GitHub before any partner offer is issued [1]
+  - volume-quota: $100 of Azure credit at $0.087 per GB is 1.04 TiB [2]
+- binding note: student verification comes before the credit, and there is no enrolment. If it were, the Azure credit's 1.04 TiB would be the next limit, which is a month at 1 TiB.
+- interface detail: GitHub Education application, then the partner's own console
+- tooling: wg-quick on the Azure VM the credit pays for
+- composes with: no chain here: without enrolment the bundle is unreachable, and if it were reachable it would be a slightly worse Azure trial
+- reliability: the pack is re-verified annually and partner offers are withdrawn without notice
+- notes: Arithmetic: the pack's own credit is $100 of Azure, which at $0.087 a GB is 1,149 GB = 1.04 TiB, and Azure's 100 GB a month free sits on top. Heroku's $13 a month is not a VM with a UDP ingress and is not convertible to TiB.
+- evidence note: the pack's current partner list was read and no longer includes DigitalOcean
+- extras:
+  - wg_path: native-conf
+  - wg_detail: the Azure credit inside the pack buys an Azure VM, so wg-quick on that VM is the path
+  - ingress: udp
+  - volume_tib_month: 0.18
+  - volume_stated: $100 of Azure credit at $0.087 per GB is 1.04 TiB, plus Azure's 100 GB a month free, which is the same 0.18 TiB a month as Azure for Students
+  - bytes_transit: yes
+  - transit_note: the bytes cross Microsoft's network under the Azure credit
+- evidence:
+  - [1] 2026-10-23: 'Free access to 25+ Microsoft Azure cloud services plus $100 in Azure credit. For students aged 18+'; for Heroku, 'Enjoy a credit of $13 USD per month for 24 months'
+  - [1] 2026-10-23: the partner headings read are Namecheap, Name.com, Microsoft Azure, .TECH, GitHub, Microsoft 365, Notion, GitHub Copilot, DataCamp, Heroku, Boot.dev, JetBrains, Codedex, Testmail, 1Password, Educative, Termius, MongoDB, Datadog, Camber, Codespaces, Azure for ages 13-17, Clerk, FrontendMasters, GitHub Pages, Visual Studio Code, Stripe, Visual Studio Dev Essentials: no DigitalOcean entry
+- sources:
+  - [1] https://education.github.com/pack
+  - [2] https://azure.microsoft.com/en-us/pricing/details/bandwidth/
+
+## github lfs as bulk storage
+
+- `storage/github-lfs-as-bulk-storage` | fails-egress | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-30T18:09:47.044Z (inherited) | stale on 2026-11-14
+- url https://docs.github.com/en/billing/concepts/product-billing/git-lfs
+- free tier: GitHub Free: 10 GiB of Git LFS storage and 10 GiB of Git LFS download bandwidth per month, the bandwidth quota resetting at the start of each billing cycle | unit: GiB | metered on: stored-bytes | read on: 2026-10-30 | source: [1] | note: download bandwidth is metered separately; above the monthly bandwidth quota with no payment method on file, Git LFS support is disabled until the next month
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: Git LFS download bandwidth: 10 GiB included on GitHub Free, then billed for each GiB downloaded; uploads are not counted as bandwidth | metered: yes
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: Free plan provides 10 GiB storage and 10 GiB per month egress. Egress is metered rather than unmetered.
+- notes: the same as reliability
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 
+  - [1] 2026-10-30: GitHub Free includes 10 GiB of Git LFS bandwidth and 10 GiB of Git LFS storage | capture: sha256:86871fb8f4b2a196b63e1c79129df9937783fd1c3052fef215a4e12ccf0b3d1a | quote: | GitHub Free | 10 GiB | 10 GiB |
+  - [1] 2026-10-30: the bandwidth quota is monthly; above it with no payment method, Git LFS is disabled until the next month | capture: sha256:86871fb8f4b2a196b63e1c79129df9937783fd1c3052fef215a4e12ccf0b3d1a | quote: If you use more than your included quota of bandwidth per month without a payment method on file, Git LFS support is disabled on your account until the next month.
+  - [1] 2026-10-30: storage counts the bytes of every Git LFS object held by a repository | capture: sha256:86871fb8f4b2a196b63e1c79129df9937783fd1c3052fef215a4e12ccf0b3d1a | quote: Git LFS storage is calculated based on all Git LFS objects associated with a repository, regardless of when they were uploaded.
+  - [1] 2026-10-30: download bandwidth above the included amount is billed per GiB | capture: sha256:86871fb8f4b2a196b63e1c79129df9937783fd1c3052fef215a4e12ccf0b3d1a | quote: Bandwidth is billed for each GiB of data downloaded.
+  - [1] 2026-10-30: uploads count toward storage and not toward bandwidth | capture: sha256:86871fb8f4b2a196b63e1c79129df9937783fd1c3052fef215a4e12ccf0b3d1a | quote: When you upload a file to Git LFS, the file is included in the repository owner's storage use but the bandwidth is not measured.
+- sources:
+  - [1] https://docs.github.com/en/billing/concepts/product-billing/git-lfs
+
+## github packages (Storage)
+
+- `storage/github-packages` | fails-egress | evidence documented | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-03T15:04:25.579Z (live) | stale on 2026-12-04
+- page https://fshy.ajam.dev/p/github.md
+- disagrees on verdict: `storage/github-packages` says fails-egress, `storage/github-packages-maven-registry` says fails-quota
+- disagrees on verdict: `storage/github-packages` says fails-egress, `storage/github-packages-npm-registry` says fails-quota
+- disagrees on verdict: `storage/github-packages` says fails-egress, `storage/github-packages-public-packages` says qualifies-with-caveat
+- disagrees on verdict: `storage/github-packages` says fails-egress, `storage/github-packages-rubygems-registry` says fails-quota
+- free tier: 500MB of storage and 1GB of data transfer per month on GitHub Free for private packages, storage shared with Actions artifacts; public packages are free | unit: none | metered on: none | read on: 2026-10-21
+- per-object cap: not recorded | note: not applicable
+- retention: not recorded
+- egress: Private packages on GitHub Free: 1GB of data transfer per month (10GB on Pro and Team, 100GB on Enterprise Cloud); beyond the quota data transfer is billed for each GB, and with no payment method on file usage is blocked at the quota. Public packages are free, and Container registry storage and bandwidth is currently free. The per-GB price is not on the captured page: unverified. | metered: yes
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: Private packages on GitHub Free: 500MB of storage and 1GB of data transfer per month, billed per GB beyond. Public packages and the Container registry are free (see storage/github-packages-public-packages).
+- notes: the same as reliability
+- evidence note: the 2026-11-03 read covered https://docs.github.com/en/billing/concepts/product-billing/github-packages: GitHub Free 500MB storage and 1GB data transfer per month for private packages, transfer billed per GB, usage blocked at the quota with no payment method, public packages free, Container registry currently free
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: 500 MB storage + 1 GB transfer free on Free plan, metered beyond.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - withheld 2026-10-21: 500 MB storage + 1 GB transfer free on Free plan, metered beyond.
+  - [1] 2026-11-03: GitHub Free includes 500MB of storage and 1GB of data transfer per month for private packages | capture: sha256:e86d8202da6424d7fe777a09cf7daa8f56612d3bd02b7fe08da73f46ea4aa5a2 | quote: | GitHub Free | 500MB | 1GB |
+  - [1] 2026-11-03: overage data transfer is billed per GB | capture: sha256:e86d8202da6424d7fe777a09cf7daa8f56612d3bd02b7fe08da73f46ea4aa5a2 | quote: Data transfer is billed for each GB of data transferred.
+  - [1] 2026-11-03: usage is blocked at the quota without a payment method | capture: sha256:e86d8202da6424d7fe777a09cf7daa8f56612d3bd02b7fe08da73f46ea4aa5a2 | quote: If your account does not have a valid payment method on file, usage is blocked once you use up your quota.
+  - [1] 2026-11-03: public packages are free | capture: sha256:e86d8202da6424d7fe777a09cf7daa8f56612d3bd02b7fe08da73f46ea4aa5a2 | quote: GitHub Packages usage is free for public packages.
+  - [1] 2026-11-03: Container registry storage and bandwidth is free for now | capture: sha256:e86d8202da6424d7fe777a09cf7daa8f56612d3bd02b7fe08da73f46ea4aa5a2 | quote: Container image storage and bandwidth for the Container registry is currently free.
+- sources:
+  - [1] https://docs.github.com/en/billing/concepts/product-billing/github-packages
+
+## github pages as bulk storage
+
+- `storage/github-pages-as-bulk-storage` | fails-egress | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-03T15:04:26.603Z (live) | stale on 2026-11-18
+- url https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits
+- free tier: None reachable: 1 GB published site and one user/org site per account; 100 GB/month soft bandwidth. Deduplicating into accounts gives ~hundreds of accounts per TB. Not viable at 10 TiB. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: Soft bandwidth limit of 100 GB per month for a GitHub Pages site; a site that exceeds it may not be served | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: the 2026-11-03 read covered https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits for the 100 GB per month soft bandwidth limit; the 1 GB published-site limit and the one-site-per-account rule were not quoted from a capture
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: 1 GB published site and one user/org site per account; 100 GB/month soft bandwidth. Deduplicating into accounts gives ~hundreds of accounts per TB — not viable at 10 TiB.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 1 GB published site and one user/org site per account; 100 GB/month soft bandwidth. Deduplicating into accounts gives ~hundreds of accounts per TB — not viable at 10 TiB.
+  - [1] 2026-11-03: bandwidth is soft-capped at 100 GB per month per Pages site | capture: sha256:9c89dfc89b409d5ca35f0508d564875bcec0095b21acfffe487907698b3c74e9 | quote: GitHub Pages sites have a soft bandwidth limit of 100 GB per month.
+- sources:
+  - [1] https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits
+
+## Git-tracked repo files (direct, or via git-unlimited-storage wrapper)
+
+- `storage/git-tracked-repo-files` | fails-quota | evidence reported | binding per-object-cap | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://github.com
+- free tier: 100 MiB hard per file ('GitHub blocks files larger than 100 MiB'); repository size is soft. "We recommend repositories remain small, ideally less than 1 GB, and less than 5 GB is strongly recommended". | unit: GB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: per file ('GitHub blocks files larger than 100 MiB | bytes: 104857600 | source: [1] | note: not stated
+- retention: | Clone cost grows with history. Every revision of a file is retained forever, so this is the worst surface for churn. | source: [1] | note: not stated
+- egress: Unmetered via raw.githubusercontent.com (probed 200) and codeload.github.com (probed 200 on a 270,150,054-byte tarball). Free, anonymous, CDN-fronted. | metered: no
+- identity: email
+- interface: s3, git
+- limits:
+  - per-object-cap (binding): per file ('GitHub blocks files larger than 100 MiB [1]
+- limits note: 100 MiB hard per file, 50 MiB warning, 5 GB strongly recommended per repo, ~80 write req/min and 500/hr per token.
+- interface detail: git
+- tooling: git; wrapper bharatcj/git-unlimited-storage (Python + Node, S3-shaped API, jsDelivr serving path, 0 stars but 77 tests passing) and sueszli/github-lfs-bypass (5 stars).
+- composes with: 100 MiB per file x unlimited repos. The wrapper's own honest-limits table caps the practical use at 'anything under a few hundred gigabytes' and calls itself the 'Wrong tool' for 'storage heading past a terabyte'.
+- reliability: Clone cost grows with history. Every revision of a file is retained forever, so this is the worst surface for churn. Repos above ~5 GB may draw a support email asking for remediation.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 100 MiB hard per file ('GitHub blocks files larger than 100 MiB'); repository size is soft — "We recommend repositories remain small, ideally less than 1 GB, and less than 5 GB is strongly recommended".
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'GitHub blocks files larger than 100 MiB'; 'less than 5 GB is strongly recommended'
+  - withheld 2026-10-21: probe: GET raw.githubusercontent.com/torvalds/linux/master/README -> 200, 6034 bytes; GET codeload.github.com/torvalds/linux/tar.gz/refs/heads/master -> 200, 270150054 bytes
+  - [2] 2026-10-21: honest limits table: 100 MB single file, 1-5 GB repo
+- sources:
+  - [1] https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github
+  - [2] https://raw.githubusercontent.com/bharatcj/git-unlimited-storage/main/README.md
+
+## github actions artifacts as an archive
+
+- `storage/github-actions-artifacts-as-an-archive` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://docs.github.com/en/actions/reference/limits
+- free tier: none reachable: 500 MB on Free, 90-day retention, token required for download. It is a build handoff medium, not storage. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: not-storage
+  - dead_end.why: 500 MB on Free, 90-day retention, token required for download. It is a build handoff medium, not storage.
+  - dead_end.retry_when: never; it is not storage
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 500 MB on Free, 90-day retention, token required for download. It is a build handoff medium, not storage.
+- sources:
+  - [1] https://docs.github.com/en/actions/reference/limits
+
+## GitHub Actions dependency cache
+
+- `storage/github-actions-dependency-cache` | fails-quota | evidence reported | binding none | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://github.com
+- free tier: "the limit is 10 GB per repository" by default (configurable up to 10 TB for user-owned repos, but anything past 10 GB is billed). | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: 10 GB/repo; entries unaccessed for over 7 days are removed; 200 uploads/min, 1500 downloads/min, 400 deletes/min per repo. | days: 7 | source: [1] | note: not stated
+- egress: Not a serving path. Caches are only reachable from inside a workflow run. | metered: no
+- identity: email
+- interface: rest
+- limits note: 10 GB/repo; entries unaccessed for over 7 days are removed; 200 uploads/min, 1500 downloads/min, 400 deletes/min per repo.
+- interface detail: rest
+- tooling: actions/cache, /repos/{o}/{r}/actions/caches REST.
+- composes with: 10 GB x unlimited repos, but every entry self-destructs. Multiplication does not help against a 7-day TTL.
+- reliability: Explicitly a cache with eviction: 'GitHub will save the new cache but will begin evicting caches until the total size is less than the repository limit'. I.e. data loss by design.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: "the limit is 10 GB per repository" by default (configurable up to 10 TB for user-owned repos, but anything past 10 GB is billed).
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'GitHub will remove any cache entries that have not been accessed in over 7 days ... the limit is 10 GB per repository'
+  - withheld 2026-10-21: probe: GET api.github.com/repos/cli/cli/actions/caches (anonymous) -> 200
+- sources:
+  - [1] https://docs.github.com/en/actions/reference/workflows-and-actions/dependency-caching
+
+## github actions dependency cache (as storage)
+
+- `storage/github-actions-dependency-cache-2` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://docs.github.com/en/actions/reference/workflows-and-actions/dependency-caching
+- free tier: none reachable: Explicitly a cache with an eviction policy: 10 GB per repo free, entries not accessed for 7 days are removed, LRU eviction at the cap, and caches are never publicly downloadable. Raising… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Explicitly a cache with an eviction policy: 10 GB per repo free, entries not accessed for 7 days are removed, LRU eviction at the cap, and caches are never publicly downloadable. Raising…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Explicitly a cache with an eviction policy: 10 GB per repo free, entries not accessed for 7 days are removed, LRU eviction at the cap, and caches are never publicly downloadable. Raising…
+  - [2] 2026-10-21: cited as the basis of the rejection: Explicitly a cache with an eviction policy: 10 GB per repo free, entries not accessed for 7 days are removed, LRU eviction at the cap, and caches are never publicly downloadable. Raising the
+- sources:
+  - [1] https://docs.github.com/en/actions/reference/workflows-and-actions/dependency-caching
+  - [2] https://github.blog/changelog/2025-11-20-github-actions-cache-size-can-now-exceed-10-gb-per-repository/
+
+## github campus program (school-level github enterprise cloud)
+
+- `storage/github-campus-program` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://docs.github.com/en/education/about-github-education/use-github-at-your-educational-institution/about-github-campus-program
+- free tier: none reachable: Plan provides 50,000 GitHub Actions minutes and 50 GB GitHub Packages storage. Licence is free for one year with annual renewal. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: '50,000 GitHub Actions minutes and 50 GB GitHub Packages storage' — 50 GB, licence 'free for one year and will automatically renew annually'.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: '50,000 GitHub Actions minutes and 50 GB GitHub Packages storage' — 50 GB, licence 'free for one year and will automatically renew annually'.
+- sources:
+  - [1] https://docs.github.com/en/education/about-github-education/use-github-at-your-educational-institution/about-github-campus-program
+
+## github codespaces disk
+
+- `storage/github-codespaces-disk` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://docs.github.com/en/billing/concepts/product-billing/github-codespaces
+- free tier: none reachable: 15 GB-month of storage on GitHub Free, 120 core-hours. Explicitly a time-based quota in GB-hours, not a disk you can leave data on. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 15 GB-month of storage on GitHub Free, 120 core-hours. Explicitly a time-based quota in GB-hours, not a disk you can leave data on.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 15 GB-month of storage on GitHub Free, 120 core-hours. Explicitly a time-based quota in GB-hours, not a disk you can leave data on.
+- sources:
+  - [1] https://docs.github.com/en/billing/concepts/product-billing/github-codespaces
+
+## github packages — maven registry
+
+- `storage/github-packages-maven-registry` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry
+- disagrees on verdict: `storage/github-packages` says fails-egress, `storage/github-packages-maven-registry` says fails-quota
+- disagrees on verdict: `storage/github-packages-maven-registry` says fails-quota, `storage/github-packages-public-packages` says qualifies-with-caveat
+- free tier: None reachable: No file-size figure published on the doc page at all, so no quotable ceiling. Cannot be reported as verified. Anonymous read denied (probed 401 Basic realm="GitHub Package Registry"). | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: No file-size figure published on the doc page at all, so no quotable ceiling — cannot be reported as verified. Anonymous read denied (probed 401 Basic realm="GitHub Package Registry").
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: No file-size figure published on the doc page at all, so no quotable ceiling — cannot be reported as verified. Anonymous read denied (probed 401 Basic realm="GitHub Package Registry").
+- sources:
+  - [1] https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry
+
+## github packages — npm registry
+
+- `storage/github-packages-npm-registry` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry
+- disagrees on verdict: `storage/github-packages` says fails-egress, `storage/github-packages-npm-registry` says fails-quota
+- disagrees on verdict: `storage/github-packages-npm-registry` says fails-quota, `storage/github-packages-public-packages` says qualifies-with-caveat
+- free tier: none reachable: 256 MB per tarball version, and it does not fall under the free-container carve-out; a private package on Free gets 500 MB storage + 1 GB/month transfer shared with Actions artifacts.… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 256 MB per tarball version, and it does not fall under the free-container carve-out; a private package on Free gets 500 MB storage + 1 GB/month transfer shared with Actions artifacts.…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 256 MB per tarball version, and it does not fall under the free-container carve-out; a private package on Free gets 500 MB storage + 1 GB/month transfer shared with Actions artifacts.…
+- sources:
+  - [1] https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry
+
+## github packages — rubygems registry
+
+- `storage/github-packages-rubygems-registry` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-rubygems-registry
+- disagrees on verdict: `storage/github-packages` says fails-egress, `storage/github-packages-rubygems-registry` says fails-quota
+- disagrees on verdict: `storage/github-packages-public-packages` says qualifies-with-caveat, `storage/github-packages-rubygems-registry` says fails-quota
+- free tier: none reachable: Documented cap is on metadata, not payload ('maximum uncompressed size of a gem's metadata.gz file must be less than 2 MB'), and gems are a poor container for bulk bytes. No bulk-win over… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Documented cap is on metadata, not payload ('maximum uncompressed size of a gem's metadata.gz file must be less than 2 MB'), and gems are a poor container for bulk bytes. No bulk-win over…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Documented cap is on metadata, not payload ('maximum uncompressed size of a gem's metadata.gz file must be less than 2 MB'), and gems are a poor container for bulk bytes. No bulk-win over…
+- sources:
+  - [1] https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-rubygems-registry
+
+## GitHub Pages (Fastly-served, 1 GB site)
+
+- `storage/github-pages` | fails-quota | evidence reported | binding none | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://pages.github.com
+- free tier: "Published GitHub Pages sites may be no larger than 1 GB"; source repositories "recommended limit of 1 GB". Bandwidth: "a soft bandwidth limit of 100 GB per month". | unit: GB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: 100 GB/month soft cap, then throttling or a support email; served from Fastly ('Via: 1.1 varnish, X-Served-By: cache-bom-...'). Free to Cloudflare in front. | metered: yes | free allowance: 100 GB per month
+- identity: email
+- interface: git
+- limits note: 1 GB published, 100 GB/month bandwidth, 10-minute deploy timeout, 10 builds/hour (not applicable with a custom Actions workflow).
+- interface detail: git
+- tooling: git push to a pages branch, or actions/deploy-pages; any static generator. No special client needed.
+- composes with: One site per account ('You can only create one user or organization site for each account'), so multiplication is accounts x 1 GB. Hundreds of accounts for a TB. Poor.
+- reliability: Soft limits are enforced by support action rather than by hard rejection; rate limiting returns 429.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: "Published GitHub Pages sites may be no larger than 1 GB"; source repositories "recommended limit of 1 GB". Bandwidth: "a soft bandwidth limit of 100 GB per month".
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Published GitHub Pages sites may be no larger than 1 GB'; 'soft bandwidth limit of 100 GB per month'
+  - withheld 2026-10-21: probe: GET pages.github.com -> 200, Via: 1.1 varnish, X-Served-By: cache-bom-vanm7210067-BOM (Fastly)
+- sources:
+  - [1] https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits
+
+## github pages as a >1 gb site
+
+- `storage/github-pages-as-a-1-gb-site` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits
+- free tier: none reachable: Hard 1 GB per published site. The 10 GB artifact limit in upload-pages-artifact misleads people into thinking 10 GB is available; the served site is still capped at 1 GB. Only useful as a… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Hard 1 GB per published site. The 10 GB artifact limit in upload-pages-artifact misleads people into thinking 10 GB is available; the served site is still capped at 1 GB. Only useful as a…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Hard 1 GB per published site. The 10 GB artifact limit in upload-pages-artifact misleads people into thinking 10 GB is available; the served site is still capped at 1 GB. Only useful as a…
+  - [2] 2026-10-21: cited as the basis of the rejection: Hard 1 GB per published site. The 10 GB artifact limit in upload-pages-artifact misleads people into thinking 10 GB is available; the served site is still capped at 1 GB. Only useful as a mu
+- sources:
+  - [1] https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits
+  - [2] https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages
+
+## github student developer pack (as a storage programme)
+
+- `storage/github-student-developer-pack` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://education.github.com/pack
+- free tier: none reachable: No bulk storage in the pack. The only storage lines are GitHub Pro's 2 GB Packages + 10 GB LFS, plus a Microsoft 365 seat that is tied to a personal account and not API-friendly at scale.… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: No bulk storage in the pack. The only storage lines are GitHub Pro's 2 GB Packages + 10 GB LFS, plus a Microsoft 365 seat that is tied to a personal account and not API-friendly at scale.…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: No bulk storage in the pack. The only storage lines are GitHub Pro's 2 GB Packages + 10 GB LFS, plus a Microsoft 365 seat that is tied to a personal account and not API-friendly at scale.…
+- sources:
+  - [1] https://education.github.com/pack
+
+## github student developer pack (bundled storage)
+
+- `storage/github-student-developer-pack-2` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://education.github.com/pack
+- free tier: none reachable: The 2026 pack bundles no bulk storage at all. GitHub Pro gives only 2 GB Packages + 10 GB LFS; the Microsoft 365 offer is '1TB of cloud Storage' for one student; Azure is '$100 in Azure… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: The 2026 pack bundles no bulk storage at all. GitHub Pro gives only 2 GB Packages + 10 GB LFS; the Microsoft 365 offer is '1TB of cloud Storage' for one student; Azure is '$100 in Azure…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: The 2026 pack bundles no bulk storage at all. GitHub Pro gives only 2 GB Packages + 10 GB LFS; the Microsoft 365 offer is '1TB of cloud Storage' for one student; Azure is '$100 in Azure…
+  - [2] 2026-10-21: cited as the basis of the rejection: The 2026 pack bundles no bulk storage at all. GitHub Pro gives only 2 GB Packages + 10 GB LFS; the Microsoft 365 offer is '1TB of cloud Storage' for one student; Azure is '$100 in Azure…
+- sources:
+  - [1] https://education.github.com/pack
+  - [2] https://docs.github.com/en/billing/reference/product-usage-included
+
+## github student developer pack — storage angle
+
+- `storage/github-student-developer-pack-storage-angle` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://education.github.com/pack
+- free tier: none reachable: The Pack's 2026 partner list has no meaningful bulk-storage grant. What it offers is Microsoft Azure $100 credit (a trial that expires, 5-20 GB practical), 1 TB OneDrive via a Microsoft 365 | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: retention
+  - dead_end.why: The Pack's 2026 partner list has no meaningful bulk-storage grant. What it offers is Microsoft Azure $100 credit (a trial that expires, 5-20 GB practical), 1 TB OneDrive via a Microsoft 365
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: The Pack's 2026 partner list has no meaningful bulk-storage grant. What it offers is Microsoft Azure $100 credit (a trial that expires, 5-20 GB practical), 1 TB OneDrive via a Microsoft 365
+- sources:
+  - [1] https://education.github.com/pack
+
+## iroh-live
+
+- `storage/iroh-live` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://api.github.com/orgs/n0-computer/repos
+- free tier: none reachable: Media livestreaming over iroh (134 stars). Live media is a stream fan-out problem, not a stored-object problem; nothing is retained. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Media livestreaming over iroh (134 stars). Live media is a stream fan-out problem, not a stored-object problem; nothing is retained.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Media livestreaming over iroh (134 stars). Live media is a stream fan-out problem, not a stored-object problem; nothing is retained.
+- sources:
+  - [1] https://api.github.com/orgs/n0-computer/repos
+
+## github releases as buzzheavier's actual upstream (the fafda path)
+
+- `storage/github-releases-as-buzzheavier-s-actual-upstream` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://api.github.com/repos/GrandpaNutz/fafda
+- free tier: none reachable: Repository GrandpaNutz/fafda returned HTTP 404 and the associated user account returned HTTP 404. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Works as an architecture, dead as a specific artifact: `GrandpaNutz/fafda` 404s, the user account 404s, and buzzheavier's own post predicted it 'I don't trust GitHub.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Works as an architecture, dead as a specific artifact: `GrandpaNutz/fafda` 404s, the user account 404s, and buzzheavier's own post predicted it 'I don't trust GitHub.
+  - [2] 2026-10-21: cited as the basis of the rejection: Works as an architecture, dead as a specific artifact: `GrandpaNutz/fafda` 404s, the user account 404s, and buzzheavier's own post predicted it 'I don't trust GitHub.
+  - [3] 2026-10-21: cited as the basis of the rejection: Works as an architecture, dead as a specific artifact: `GrandpaNutz/fafda` 404s, the user account 404s, and buzzheavier's own post predicted it 'I don't trust GitHub.
+- sources:
+  - [1] https://api.github.com/repos/GrandpaNutz/fafda
+  - [2] https://api.github.com/users/GrandpaNutz
+  - [3] https://git.gay/ajtabjs/fafda

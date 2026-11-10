@@ -1,0 +1,118 @@
+# NordVPN
+
+> nordvpn.com | IP and proxies, Egress and tunnels; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/nordvpn/ | JSON https://fshy.ajam.dev/api/v1/entity/nordvpn.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## NordVPN (basic)
+
+- `ip-proxy/nordvpn-exits` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category vpn subscription (exit source) | tier basic
+- needs card unknown, phone no, ID no, institution no | verified 2026-10-24T10:07:11.000Z (live) | stale on 2026-11-24
+- url https://nordvpn.com/pricing/
+- price $3.49 per month on a 2-year term (Basic); no per-TB price exists in the sources read | parsed USD 3.49/mo
+- free tier: No free tier. The cheapest plan read is Basic at $3.49 per month on a 2-year term, billed $94.23 for the first 27 months with 3 extra months and a 69% saving shown; the Dedicated IP is a separate add-on shown as Add at checkout with no price. | unit: none | metered on: none | read on: 2026-10-24 | source: [1] | note: $3.49 per month is the 2-year Basic rate, not a monthly rate. The page states the price with a dollar sign and the locale read was the US one; the currency code was not printed, so the record repeats the symbol rather than asserting USD.
+- per-object cap: not applicable | source: [2] | note: The pool is 7,193 servers over 775 distinct /24s in 25 ASNs, measured 2026-10-24; none of those numbers is an object size.
+- retention: not applicable: an address, not an object | source: [2] | note: No data is retained. Storage retention policies do not apply. Duration of continuous IP address assignment before rotation is unmeasured.
+- egress: unverified: no source read for this record states a traffic allowance or a per-GB price; the plan is quoted by term only. A byte cap has not been ruled out, and one would change the verdict. metered is recorded false because no metered statement was found, which is an absence of evidence and not a vendor promise. | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: Account creation requires an email address. Plan purchase requires an active payment method, though specific card requirements at initial registration are unverified.
+- interface: rest
+- limits:
+  - per-ip-shaping (binding): 10 simultaneous connections on one account, ten devices [1]
+  - per-ip-shaping (binding): a shared server accepts at most five devices at once, one per protocol, so ten connections over one server is not ten exits [3]
+- limits note: Two constraints found that name no vocabulary kind. (1) Address concentration: 775 /24s sit in 25 ASNs, and 347 of them, 45%, are in AS212238 Datacamp, so the number of distinct networks a rotation can reach is 25 and not 7,193. (2) The Dedicated IP is an add-on whose price is not published on the vendor's own pages read for this record; the checkout shows it as Add at checkout with no figure, and its measured subgroup is 209 /24s in 12 ASNs, 155 of them in AS212238. The connection ceiling is ten, not the eight the facts supplied for this record carried: the pricing page says Ten simultaneous connections on ten devices, the support article says You can connect up to 10 devices to a single NordVPN account at the same time, and the app's own error text says If you're connected on 10 devices, first disconnect one of them.
+- binding note: At about 599,000 requests and 45 GB a month no byte quota binds, because no per-GB price or byte allowance appears in the sources read. What binds first is the ceiling attached to the caller: 10 simultaneous connections on one account, of which at most five can share one server, so the 25-ASN pool is reached by rotating ten connections and not by opening 775 addresses.
+- interface detail: Two access paths are established. The server list at https://api.nordvpn.com/v1/servers?limit=100000 answers without a credential and returns the whole pool, which is how it was measured. The vendor also documents HTTP proxy and SOCKS5 as connection methods alongside NordLynx, NordWhisper, OpenVPN TCP and OpenVPN UDP: a total of five devices can be connected to one server at the same time: through HTTP proxy, SOCKS5, NordLynx, NordWhisper, OpenVPN TCP, and OpenVPN UDP. That matters more than the tunnel for this topic, because a SOCKS5 or HTTP proxy endpoint is reachable without a WireGuard implementation. The schema's interface enum has no token for socks5, http-proxy, wireguard or openvpn, so the protocols are named here and not in the array; putting them in the array fails validation, which is the defect four sibling records in this topic already carry.
+- endpoint: part of interface detail
+- tooling: Querying the server fleet requires standard HTTP requests: the public servers API requires no authentication. The vendor documents SOCKS5 and HTTP proxy endpoints alongside standard VPN tunnels, allowing integration with proxy-compatible HTTP clients without custom WireGuard implementations.
+- composes with: A Worker or a free compute node dials the tunnel and the traffic leaves at the exit address, so NordVPN supplies the address and carries the bytes; at about 45 GB a month the tunnel is one of the 10 connections the account allows, so chaining means rotating a handful of exits rather than reaching all 25 ASNs at once.
+- reliability: Suspension and throttling thresholds were unobserved during testing. Exit addresses concentrate heavily in AS212238 (Datacamp Limited), resulting in datacenter network classification rather than residential eyeball status.
+- notes: What the record establishes, and what it refuses to. The 7,193 figure is a node count: the same response holds 775 distinct /24s, so 7,193 servers over 25 ASNs is a ratio of about 288, and a document that reads the server count as an address count overstates the reachable networks by 288x. First, the connection ceiling is 10, not 8, and there is no Shared tier with an 8-connection cap: the pricing page reads Ten simultaneous connections on ten devices secured with one NordVPN account, the support article reads You can connect up to 10 devices to a single NordVPN account at the same time, and the app's own error text reads If you're connected on 10 devices, first disconnect one of them. Three independent first-party sources agreeing is why the number in limits is ten. The qualifier that makes it bite is the per-server rule: a shared server takes at most five devices, one per protocol, so ten connections over one server is not ten exits. Reproduced before writing this record, not relayed: a fresh fetch of the API returned HTTP 200 and 26,946,981 bytes, 7,193 server records, 150 country codes and 775 distinct /24s from the station fields, and five sampled prefixes re-resolved through RIPE to the same ASNs the stored table carries. What that reproduction does not do is re-run all 775 lookups, so the 25-ASN count and the 347 /24s in AS212238 rest on the stored table plus a five-prefix spot check. The dedicated-IP feature page answered 403 outright and is cited for the add-on shape only, on the pricing table's Add at checkout row. Candidate 2 is the live one and it is the one this record cannot close: the measurement is a single fetch of the list on one day, resolved through RIPE, and the pool as handed out at connect time was never observed. The caveat in the verdict is therefore the concentration, not the price: 45% of the shared fleet and 155 of 209 dedicated-IP /24s sit in the same ASN, so a NordVPN exit and a Proton exit can land in the same ASN. The Dedicated IP narrows the pool to 12 ASNs and does not leave AS212238, and its price is unpublished on the pages read, so it cannot be priced into a recommendation. Two attributions this record makes from a neighbour rather than from a page: the datacenter reading of AS212238, whose holder CDNEXT Datacamp Limited is named in ip-proxy/protonvpn-exits, and the Proton comparison itself, which is that record's measured exit. Neither is a hosting flag read from an IP-type database, so the class question stays at ASN and not at registration class. The interface array carries only rest because the schema's enum has no token for socks5, http-proxy, wireguard or openvpn; four sibling records in this topic already fail the gate on exactly that, and interface_detail names the protocols instead of breaking validation. Cross-topic: egress/nordvpn answers a different question, port forwarding, which this vendor sells only as a Dedicated Server, and it carries price_per_tb_month and identity_cost as unverified because its lane read no purchase page. This record supplies the price and the identity class. It does not change that record's verdict and does not edit it.
+- evidence note: The verdict rests on four fields: the plan price (read from the vendor's page, documented), the 10-connection cap (three first-party sources, documented), the identity class (email), and the address diversity (measured). The weakest of those is documented. The traffic-byte position is the one field left unverified, and it does not move the verdict, because the plan is sold by term with no allowance attached in the sources read. Measured would need the server list resolved again from a local network and a live connection recording the address actually handed out, because a /24 in the list is a pool and not an address.
+- extras:
+  - rung: 4
+  - rung_note: Every distinct /24 in the vendor's own server list was resolved to an ASN with RIPE, so the record knows the exit sits in AS212238 rather than in an unnamed network; it stops at rung 4 because no exit was connected to and no IP-type flag was read, so the datacenter reading rests on the holder's name and not on a measured hosting field.
+  - asn_diversity.measured_on: 2026-10-24
+  - asn_diversity.servers: 7193
+  - asn_diversity.countries: 150
+  - asn_diversity.subnets_24: 775
+  - asn_diversity.asns: 25
+  - asn_diversity.largest_asn: AS212238 Datacamp
+  - asn_diversity.largest_asn_subnets_24: 347
+  - asn_diversity.largest_asn_share: 45%
+  - asn_diversity.nodes_per_subnet_24: 9.3
+  - asn_diversity.servers_per_asn: 288, which is why a server count is not an address count
+  - dedicated_ip.product: add-on
+  - dedicated_ip.price: unverified: not published on the vendor's own pages read for this record
+  - dedicated_ip.subnets_24: 209
+  - dedicated_ip.asns: 12
+  - dedicated_ip.largest_asn: AS212238 Datacamp
+  - dedicated_ip.largest_asn_subnets_24: 155
+  - dedicated_ip.note: 155 of the 209 /24s in the dedicated-IP subgroup sit in the ASN that also holds 45% of the shared fleet, so the add-on narrows the pool to 12 ASNs without leaving the ASN that binds.
+  - shared_asn_with: AS212238 is the ASN measured for the Proton VPN exit in ip-proxy/protonvpn-exits, so the two subscriptions do not diversify against each other at the top of their pools.
+  - price: $3.49 per month on a 2-year term, Basic; $94.23 billed for the first 27 months of the 2-year plan with 3 extra months
+  - connection_ceiling.stated: Ten simultaneous connections on ten devices secured with one NordVPN account.
+  - connection_ceiling.value: 10
+  - connection_ceiling.per_server: at most five devices on one server, one per protocol
+  - connection_ceiling.enforcement: client error reads You initiated too many connections or reached the device limit: Wait 10 minutes before the next connection. If you're connected on 10 devices, first disconnect one of…
+  - connection_ceiling.corrects_brief: three first-party sources say 10 and none says 8
+  - access_methods: HTTP proxy, SOCKS5, NordLynx, NordWhisper, OpenVPN TCP, OpenVPN UDP; SOCKS5 and HTTP proxy are documented as ways to connect, which is what makes this reachable from a proxy-aware client without a WireGuard implementation.
+  - reproduced_at: 2026-10-24T12:03:55Z
+  - reproduced_how: curl https://api.nordvpn.com/v1/servers?limit=100000 returned HTTP 200 and 26,946,981 bytes; 7,193 records, 150 country codes, 775 distinct /24s from the station fields, matching the /24 count in the stored ASN table. Five sampled prefixes re-resolved through stat.ripe.net prefix-overview to the same ASNs. The full 775-lookup pass was not re-run. nordvpn.com/pricing answered HTTP 403 to a bare curl and HTTP 200 to a browser user agent, which is where the price, the ten-device line and the Add at checkout row were read; features/dedicated-ip answered 403 either way.
+- evidence:
+  - [1] 2026-10-24: Basic is $3.49 per month on a 2-year term, and the plan table says Ten simultaneous connections on ten devices secured with one NordVPN account; the Dedicated IP row reads Add at checkout / Add-on with no price.
+  - [3] 2026-10-24: You can connect up to 10 devices to a single NordVPN account at the same time; a shared server takes at most five devices, one per protocol, naming HTTP proxy, SOCKS5, NordLynx, NordWhisper, OpenVPN TCP and OpenVPN UDP.
+  - [4] 2026-10-24: The client-side enforcement of the ceiling: You initiated too many connections or reached the device limit, wait 10 minutes, and the app's own text says If you're connected on 10 devices, first disconnect one of them.
+  - [5] 2026-10-24: Dedicated IP is bought per account and multiple IPs may be held, but you can't exceed ten simultaneous connections overall; no price appears in the article.
+  - [6] 2026-10-24: Dedicated IP is sold as an add-on to the subscription; a direct fetch of this page answered HTTP 403, so the add-on claim rests on the pricing table's Add at checkout row and on the support article, not on this URL.
+  - [2] 2026-10-24: The vendor's own server list returns 7,193 servers across 150 countries; this response is the input the ASN measurement ran on.
+  - probe:nordvpn-api-asn-diversity-2026-10-24 2026-10-24: 775 distinct /24s resolved to 25 distinct ASNs; 347 of the 775, 45%, are in AS212238 Datacamp, the ASN measured for the Proton exit; the dedicated-IP subgroup is 209 /24s in 12 ASNs with 155 in AS212238.
+  - probe:api.nordvpn.com/v1/servers?limit=100000@2026-10-24T12:03Z 2026-10-24: Reproduction of the pool from a fresh fetch: HTTP 200, 26,946,981 bytes, 7,193 server records, 150 distinct country codes, and 775 distinct /24s derived from the station fields, which is the same /24 count the ASN measurement used.
+  - probe:stat.ripe.net/data/prefix-overview five sampled /24s 2026-10-24: A live re-check of five sampled prefixes agreed with the stored resolution: 109.204.49.0/24, 138.199.10.0/24 and 138.199.11.0/24 to AS212238 CDNEXT Datacamp Limited, and 130.195.218.0/24 and 135.136.7.0/24 to AS9009 M247 Europe SRL.
+- sources:
+  - [1] https://nordvpn.com/pricing/
+  - [2] https://api.nordvpn.com/v1/servers?limit=100000
+  - [3] https://support.nordvpn.com/hc/en-us/articles/19476515228305-How-many-devices-can-I-use-with-NordVPN
+  - [4] https://support.nordvpn.com/hc/en-us/articles/47181405478417-I-get-the-Session-Limit-Reached-error-on-NordVPN
+  - [5] https://support.nordvpn.com/hc/en-us/articles/19484196251921-How-to-purchase-a-dedicated-IP-address
+  - [6] https://nordvpn.com/features/dedicated-ip/
+
+## NordVPN (paid)
+
+- `egress/nordvpn` | fails-egress | evidence documented | binding write-gated | category vpn port forward | tier paid
+- identity a placeholder: card and phone unknown | verified 2026-11-04T10:29:23.991Z (live) | stale on 2026-12-05
+- url https://support.nordvpn.com/hc/en-us/articles/19483392309649-Does-NordVPN-offer-port-forwarding
+- price USD 4.99 per month on Basic for a first term of 15 months (USD 74.85), renewing at USD 139.08 per year; USD 14.99 per month on the monthly Basic plan | parsed USD 14.99/mo
+- free tier: No free tier, and no forwarding on the standard product: Unfortunately, at the current moment, we do not offer port forwarding, as multiple customers are using the same servers. Pricing page 2026-11-03 (USD): Basic is $4.99 per month for a first term of 15 months, $74.85, renewing at $139.08 per year. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: unverified: published terms state no explicit traffic allowance.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: unverified: the purchase flow was not read; an account is required. | country: None
+- interface: cli
+- limits:
+  - write-gated (binding): forwarding only on a Dedicated Server, which is a rented machine rather than a shared VPN endpoint: Port forwarding is available exclusively with the Dedicated Server add-on. Standard NordVPN servers and Dedicated IP do not support port forwarding. [2]
+- binding note: On the shared product there is no inbound path; on the Dedicated Server there is, but that is a rented server with its own provisioning step, so the gate is commercial rather than technical.
+- interface detail: Official app and Linux CLI; no port API.
+- tooling: NordLynx and community .conf extractors for outbound; no port facility without the add-on. Protocols in the Linux app: NordLynx, NordWhisper, OpenVPN TCP and OpenVPN UDP. P2P servers are listed as a specialty server type. SOCKS5 endpoint and the BitTorrent rule: unverified: the SOCKS5 support page was not found.
+- composes with: Client-side tunnel only unless the Dedicated Server is bought.
+- reliability: No inbound path on the shared fleet; the Dedicated Server is a dedicated machine with its own reliability profile, which did not read.
+- notes: The useful finding is that NordVPN sells ingress as a server, which prices it out's class.
+- evidence note: Both sentences are the vendor's support pages read. The Dedicated Server path was established from the support article's own text, not from the add-on's price, which was not read.
+- extras:
+  - wg_path: extractable
+  - wg_detail: NordLynx is the vendor's WireGuard build, and .conf extractors exist in the community; the tunnel is real but there is nothing to forward into, so a config does not pass the ingress test. The only forwarding path the vendor documents is a separate Dedicated Server product: Port forwarding is available exclusively with the Dedicated Server add-on. Standard NordVPN servers and Dedicated IP do not support port forwarding.
+  - ingress: none
+  - volume_stated: unverified: no page read states a NordVPN traffic allowance.
+  - bytes_transit: yes
+  - transit_note: Outbound only from a user's point of view on the shared fleet.
+- evidence:
+  - [1] 2026-10-23: NordVPN does not offer port forwarding on standard service because multiple customers share servers.
+  - [2] 2026-10-23: Forwarding exists only with the Dedicated Server add-on, not on standard servers or Dedicated IP; settings appear during provisioning.
+  - [3] 2026-11-03: Basic 15-month intro term and renewal | capture: sha256:4062353ad16af26675c0353d98e4f1e4de0cea8fae7243ad0f99e12179982253 | quote: $74.85 for the first 15 months. Sales tax may apply. Savings: intro vs. renewal prices. Renews at $139.08/year.
+  - [4] 2026-11-03: protocol list | capture: sha256:f01c2a865280296a534bbd9cba2709ad8ea897674f50eb2d2ce8a1af16284f48 | quote: NordVPN Linux GUI Settings / VPN connection page showing protocol options (NordLynx selected, NordWhisper, OpenVPN TCP, OpenVPN UDP) highlighted
+  - [4] 2026-11-03: P2P servers | capture: sha256:f01c2a865280296a534bbd9cba2709ad8ea897674f50eb2d2ce8a1af16284f48 | quote: NordVPN Linux GUI Specialty servers list showing Dedicated IP, Double VPN, Onion over VPN, and P2P options
+  - [3] 2026-11-04: Basic is 74.85 USD for the first 15 months, then 139.08 USD per year | capture: sha256:4062353ad16af26675c0353d98e4f1e4de0cea8fae7243ad0f99e12179982253 | quote: $74.85 for the first 15 months. Sales tax may apply. Savings: intro vs. renewal prices. Renews at $139.08/year.
+- sources:
+  - [1] https://support.nordvpn.com/hc/en-us/articles/19483392309649-Does-NordVPN-offer-port-forwarding
+  - [2] https://support.nordvpn.com/hc/en-us/articles/46022896056593-How-to-configure-port-forwarding-on-your-NordVPN-Dedicated-Server
+  - [3] https://nordvpn.com/pricing/
+  - [4] https://support.nordvpn.com/hc/en-us/articles/20164669224337-What-is-obfuscation

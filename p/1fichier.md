@@ -1,0 +1,164 @@
+# 1fichier
+
+> 1fichier.com | Debrid, Storage; 3 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/1fichier/ | JSON https://fshy.ajam.dev/api/v1/entity/1fichier.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## 1fichier
+
+- `debrid/1fichier` | qualifies | evidence measured | binding per-ip-shaping | category file host with a permanent anonymous tier, the flagship debrid source | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T03:31:02.558Z (live) | stale on 2026-11-23
+- url https://1fichier.com/tarifs.html?lg=en
+- price USD 0
+- free tier: 'Every service is available free of charge, in a limited form' and the Visitors column names 'Advertising, captcha, waiting time, limited speed, removal after 15 days' | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1] | note: the four stated restrictions did not bind on the measured path: see egress and limits
+- per-object cap: not stated for Visitors; Premium Light 500 GB names '300 GB per file', so the paid cap is 300 GB | source: [1]
+- retention: Visitors: 'removal after 15 days'; a directory file uploaded 2022-11-25 was still served on 2026-10-23, so the 15 days counts inactivity, not age | source: [1] | note: activity-based; the number of days between last download and deletion was not measured
+- egress: free and unmetered by bytes: 4.36 MiB/s at 1 connection, 6.05 at 8 and 6.40 at 32, with every range honoured; 6.40 MiB/s is 5.3 TB/month of continuous transfer | metered: no | free allowance: not published for Visitors | source: [1]
+- identity: anonymous | detail: no account, cookie or captcha was presented: a bare GET on https://1fichier.com/?29nsorxu2te2sen8ulvq returned 200 with 35,895,659 bytes, twice in a row
+- interface: rest, cli
+- limits:
+  - per-ip-shaping (binding): 6.40 MiB/s aggregate at 32 connections; no connection above 8 improved on 6.05 MiB/s probe:https://1fichier.com/?29nsorxu2te2sen8ulvq
+  - pull-count: Visitors are told 'removal after 15 days', so an object can disappear between sessions [1]
+- binding note: Nothing counts bytes on the free tier; the measured 6.40 MiB/s aggregate is the only thing between the account and 5.3 TB/month, and the paid tier exists to remove the speed limit rather than a quota.
+- interface detail: https://1fichier.com/?<id> 302s straight to a node URL a-NN.1fichier.com/<token> that streams and honours Range; public folders export as JSON with ?json=1
+- endpoint: https://1fichier.com/dir/<folderid>?json=1
+- tooling: rclone has no 1fichier backend; JDownloader, aria2 and a 10-line wrapper all work; the JSON folder export makes listing scriptable without an account
+- composes with: the fastest free host measured here, so it is the right cold-storage mirror for anything a debrid can also read; pair it with a rented debrid for the hosts that rate-limit
+- reliability: The published Visitors restrictions (captcha, waiting time, limited speed) were absent at the HTTP layer on this path, and a second full download from the same IP 90 s later was served at 5.87 MiB/s; a client that trusts the vendor page will implement a queue it does not need.
+- notes: The 41.91 MB FLAC found through MultiUp was dead (HTTP 404 on the 1fichier link), which is why the object is a 2022 zip from a public folder instead.
+- evidence note: Full 34.2 MiB object downloaded and hashed twice, plus two ranged concurrency runs, all in on 2026-10-23. A second IP and a file inside the 15-day inactivity window would test the retention claim.
+- extras:
+  - measured_mib_s.c1: 4.36
+  - measured_mib_s.c1_second: 5.873
+  - measured_mib_s.c8: 6.054
+  - measured_mib_s.c32: 6.398
+  - object_bytes: 35895659
+  - object_sha256: 15b98b4d48c14ff6256dc238826e6dc779c7575c71c281283e5450a4a425f6bb
+  - connections: 1/8/32 connections
+  - wait_between_downloads: none observed: a second full download started 90 s after the first and ran at 5.87 MiB/s
+- evidence:
+  - probe:https://1fichier.com/?29nsorxu2te2sen8ulvq 2026-10-23: 35,895,659 bytes, sha256 15b98b4d48c14ff6256dc238826e6dc779c7575c71c281283e5450a4a425f6bb in 7,850.9 ms (4.360 MiB/s); a second full GET 90 s later 5,828.9 ms (5.873 MiB/s); 8 connections 5,654.3 ms (6.054 MiB/s); 32 connections 5,350.2 ms (6.398 MiB/s) with 32 of 32 ranges honoured
+  - probe:https://1fichier.com/dir/icK5nneQ?json=1 2026-10-23: a public folder exports as JSON with filename, size and link per object, and no credential: the 35,895,659 byte RPI2DMD tutorial zip was found this way
+  - [1] 2026-10-23: 'Every service is available free of charge, in a limited form' and the Visitors column: 'Advertising, captcha, waiting time, limited speed, removal after 15 days'
+- sources:
+  - [1] https://1fichier.com/tarifs.html?lg=en
+
+## 1fichier Premium GOLD (10 TB cold storage)
+
+- `storage/1fichier-premium-gold` | qualifies-with-caveat | evidence documented | binding per-object-cap | category paid file host / cold archive
+- needs card no, phone no, ID no, institution no | verified 2026-11-01T23:50:07.588Z (live) | stale on 2026-12-02
+- url https://1fichier.com/tarifs.html?lg=en
+- price Premium GOLD, 2026-11-01: EUR 50 for 1 year is a sale price against a list of EUR 120 (sale until November 2), so EUR 0.42/TB/month at the 10 TB cold tier on the sale price and EUR 1.00/TB/month on the list price. The 5-year tier is EUR 0.40/TB/month (EUR 237, list EUR 600) and the 10-year tier EUR 0.38/TB/month (EUR 450, list EUR 1,200). Extra cold storage EUR 1/TB/month. | parsed USD 0.4256/TB-mo
+- free tier: Unlimited hot storage; 10 TB cold storage included. Additional cold storage €1/TB/month. File cap 300 GB, unlimited file count. Retention = whole subscription period on paid plans. | unit: TB | metered on: stored-bytes | read on: 2026-11-01 | source: [1]
+- per-object cap: 300 GB/file | bytes: 300000000000 | source: [1] | note: not stated
+- retention: kept for the whole subscription period on a paid plan ('Retention: 15 days without an account, 30 days on a free account, the whole subscription period on a paid plan') | source: [2]
+- egress: Verbatim, prices page: 'Premium … Unlimited downloads, with no monthly allowance'. Unlimited downloads = no egress meter at all on the plan. Plus 500 GB/month of CDN credits (Premium GOLD) valued at '€20 for 1 TB, up to €400 for 20 TB'. No per-GB egress fee anywhere on the page. | metered: yes | free allowance: 500 GB per month
+- identity: email | detail: registration asks only for an email address, a password and an image confirmation code, with no phone; payment by bank transfer, cryptocurrency, credit card or virtual currency, so no card is needed; paid plans do not renew automatically
+- interface: rest, webdav, ftp, rclone
+- limits:
+  - per-object-cap (binding): 300 GB/file [1]
+  - per-object-cap (binding): 500 GB per upload [1]
+- limits note: 300 GB/file; web upload 500 files and 500 GB per upload / 4 h max; cold/hot classification means a file >60 days undownloaded migrates to the cold bucket; Premium = 1 public IP at a time
+- interface detail: REST API (api.html), FTP upload (upload-only), rclone native backend, WebDAV via third party
+- tooling: rclone '1fichier' backend is first-class; REST API documents available_cold_storage / upload_forbidden so quota is machine-readable
+- composes with: AList/OpenList mount; FTP ingest; API copy of an existing 1fichier link is instant and uses zero bandwidth (documented: 'The copy is instant and uses no bandwidth, neither yours nor ours')
+- reliability: Cold-storage overflow is destructive: forum reports say exceeding the cold quota earns a notice that the surplus is erased in 14 days and the account is blocked. Treat cold quota as a hard wall, not a soft one.
+- notes: the same as the free tier
+- evidence note: the prices page, help page, registration form and API page were read on 2026-10-30; the record states what they say
+- extras:
+  - price_verbatim: Premium GOLD, prices page read 2026-11-01: 1 month EUR 10; 1 year EUR 50, struck from a list of EUR 120 and tagged Sale; 5 years EUR 237, struck from EUR 600; 10 years EUR 450, struck from EUR 1,200. Promo bar: 'Premium 1 year at EUR 30, Premium GOLD 1 year at EUR 50, until November 2'.
+  - verified[0].url: https://1fichier.com/premium.html
+  - verified[0].date: 2026-10-22
+  - verified[0].http_status: 200
+  - verified[0].bytes: 2269
+  - verified[0].sha256: 77af6c7927b3a95593473ffd0719a61216abd231e91d1fd60ab528b32fa5a391
+  - verified[0].pattern_found: yes
+  - verified[0].what_changed: no change: the page still states the claim
+- evidence:
+  - [3] 2026-10-22: Premium GOLD is EUR 108 per year, cold storage 10 TB. Re-read https://1fichier.com/premium.html: HTTP 200, 2269 bytes, sha256 77af6c7927b3a955. Quoted: erything in Premium, plus* Support for common VPNs* · cold storage raised to 10 TB · CDN credits raised to 500 GB per month · 1 hour of priority support per month from €108/year * Identified by our partner — see the [Speedtest](https://1fichier.com/network.html) page and the [list of VPNs compatible with the Premium GOLD plan](https://1fichier.com/vpn.html). Additional cold storage at €1/TB/month, from your management consol
+  - [1] 2026-10-21: 'Premium GOLD … cold storage raised to 10 TB … from €108/year'; 'Additional cold storage at €1/TB/month, from your management console'; 'Premium … Unlimited downloads, with no monthly allowance'
+  - [2] 2026-10-21: 'Premium plan includes unlimited hot storage and 4 TB of cold storage. The Premium GOLD plan includes unlimited hot storage and 10 TB of cold storage'; 'Files on paid accounts are not subject to this rule: they are kept for the whole subscription period'
+  - [1] 2026-10-21: raw-byte confirmation of the €1/TB/month extension line (guards against extractor paraphrasing)
+  - [4] 2026-10-21: 'At 60 days without discharge it is considered cold. Exceeded 2TB in cold they send you notice that they will erase the surplus in 14 days and the account is blocked'
+  - [1] 2026-10-30: Premium GOLD for 1 year: EUR 50 sale price, EUR 120 list price | capture: sha256:42b0e79b4db51b24c2d373307451e9d6d07b2d056aeaa2d31b836c4d54548533 | quote: <span class="plan-price"><b class="plan-now">&euro;50</b> <s class="plan-was">&euro;120</s></span>
+  - [1] 2026-10-30: the sale prices of Premium and Premium GOLD run until November 2 | capture: sha256:42b0e79b4db51b24c2d373307451e9d6d07b2d056aeaa2d31b836c4d54548533 | quote: Premium 1 year at &euro;30 &middot; Premium GOLD 1 year at &euro;50 &middot; until November 2
+  - [1] 2026-10-30: Premium GOLD for 10 years: EUR 450 sale price, EUR 1,200 list price | capture: sha256:42b0e79b4db51b24c2d373307451e9d6d07b2d056aeaa2d31b836c4d54548533 | quote: <span class="plan-price"><b class="plan-now">&euro;450</b> <s class="plan-was">&euro;1,200</s></span>
+  - [1] 2026-10-30: paid plans can be bought by bank transfer or cryptocurrency, not only by card | capture: sha256:42b0e79b4db51b24c2d373307451e9d6d07b2d056aeaa2d31b836c4d54548533 | quote: Bank transfer, cryptocurrencies, credit card, virtual currency, SMS and Audiotel.
+  - [5] 2026-10-30: the registration form asks for an email address, a password and an image confirmation code, and nothing else | capture: sha256:1548ab0f3b0cdf59762c125a09c64e454948c8141a5be0313b5d345218f92273 | quote: <input type="text" id="r-mail" name="mail" maxlength="255" class="auth-in" value="" placeholder="Your email" />
+  - [2] 2026-10-30: files on a paid plan are kept for the whole subscription period | capture: sha256:740725a79f1e2dbe2875db44eb7f31bb6f11b3c69ae88135056687afed6db573 | quote: Retention: 15 days without an account, 30 days on a free account, the whole subscription period on a paid plan.
+  - [2] 2026-10-30: Premium GOLD: unlimited hot storage and 10 TB of cold storage | capture: sha256:740725a79f1e2dbe2875db44eb7f31bb6f11b3c69ae88135056687afed6db573 | quote: The Premium GOLD plan includes unlimited hot storage and 10 TB of cold storage.
+  - [3] 2026-10-30: extra cold storage costs EUR 1/TB/month | capture: sha256:1e66919a20611d4db20f9b2a74df31363646aa1770a2b559893805a642a6679e | quote: Additional cold storage at €1/TB/month, from your management console.
+  - [3] 2026-10-30: Premium GOLD includes 10 TB of cold storage and 500 GB of CDN credits per month, from EUR 50/year | capture: sha256:1e66919a20611d4db20f9b2a74df31363646aa1770a2b559893805a642a6679e | quote: Support for common VPNs* · cold storage raised to 10 TB · CDN credits raised to 500 GB per month · 1 hour of priority support per month from €50/year
+  - [1] 2026-11-01: Premium GOLD for 1 year was EUR 50 against a struck list of EUR 120 on 2026-11-01, so the 10 TB tier is EUR 0.42/TB/month on the sale price and EUR 1.00/TB/month on the list | capture: sha256:3d8c64add7bf83a5227c16a491ebbac50210e8fd530cad6a278caed05092bd58 | quote: <span class="plan-price"><b class="plan-now">&euro;50</b> <s class="plan-was">&euro;120</s></span>
+  - [1] 2026-11-01: the promo bar prices Premium GOLD at 1 year for EUR 50 until November 2 | capture: sha256:3d8c64add7bf83a5227c16a491ebbac50210e8fd530cad6a278caed05092bd58 | quote: Premium 1 year at <b>&euro;30</b> &middot; Premium GOLD 1 year at <b>&euro;50</b> &middot; until November 2
+  - [2] 2026-11-01: the help page answered with its limits table on 2026-11-01 | capture: sha256:740725a79f1e2dbe2875db44eb7f31bb6f11b3c69ae88135056687afed6db573 | quote: - Web upload: 500 files and 500 GB per upload, 4 hours maximum.
+  - [1] 2026-11-01: the prices page states the Premium GOLD tier: 10 TB of cold storage and 500 GB of CDN credits per month from EUR 50/year | capture: sha256:1e66919a20611d4db20f9b2a74df31363646aa1770a2b559893805a642a6679e | quote: Premium GOLD*everything in Premium, plus* Support for common VPNs* · cold storage raised to 10 TB · CDN credits raised to 500 GB per month · 1 hour of priority support per month from €50/year
+  - [2] 2026-11-01: the help page states the Premium GOLD cold-storage quota as 10 TB | capture: sha256:740725a79f1e2dbe2875db44eb7f31bb6f11b3c69ae88135056687afed6db573 | quote: The Premium GOLD plan includes unlimited hot storage and 10 TB of cold storage.
+  - [2] 2026-11-01: the retention of a paid plan is the whole subscription period | capture: sha256:740725a79f1e2dbe2875db44eb7f31bb6f11b3c69ae88135056687afed6db573 | quote: Retention: 15 days without an account, 30 days on a free account, the whole subscription period on a paid plan.
+  - [2] 2026-11-01: the file-size cap is 300 GB with no limit on the number of files | capture: sha256:740725a79f1e2dbe2875db44eb7f31bb6f11b3c69ae88135056687afed6db573 | quote: We let you store an unlimited number of files, each up to 300 GB.
+  - [1] 2026-11-01: Premium has unlimited downloads with no monthly allowance on the prices page read on 2026-11-01 | capture: sha256:3d8c64add7bf83a5227c16a491ebbac50210e8fd530cad6a278caed05092bd58 | quote: <b>Unlimited</b> downloads, with no monthly allowance
+  - [5] 2026-11-01: registration asks for an email address on 2026-11-01 | capture: sha256:ec62f231e6750e73d767701c6dcd21f1c9b8571419752c2734f0e8469d9b37ea | quote: <input type="text" id="r-mail" name="mail" maxlength="255" class="auth-in" value="" placeholder="Your email" />
+  - [2] 2026-11-01: the per-upload cap is 500 files and 500 GB with a 4-hour maximum, which is what limits[1] states | capture: sha256:740725a79f1e2dbe2875db44eb7f31bb6f11b3c69ae88135056687afed6db573 | quote: - Web upload: 500 files and 500 GB per upload, 4 hours maximum.
+  - [1] 2026-11-01: the prices page states all four Premium GOLD tiers, the 10 TB cold storage, unlimited downloads and the 300 GB file cap on 2026-11-01 | capture: sha256:3d8c64add7bf83a5227c16a491ebbac50210e8fd530cad6a278caed05092bd58 | quote: <span class="plan-price"><b class="plan-now">&euro;237</b> <s class="plan-was">&euro;600</s></span>
+  - [2] 2026-11-01: a paid plan keeps files for the whole subscription period, and the help page states the 500 GB per-upload cap | capture: sha256:740725a79f1e2dbe2875db44eb7f31bb6f11b3c69ae88135056687afed6db573 | quote: Retention: 15 days without an account, 30 days on a free account, the whole subscription period on a paid plan.
+  - [5] 2026-11-01: the registration form asks for an email address, a password and an image confirmation code, with no phone and no card field | capture: sha256:ec62f231e6750e73d767701c6dcd21f1c9b8571419752c2734f0e8469d9b37ea | quote: <input type="text" id="r-mail" name="mail" maxlength="255" class="auth-in" value="" placeholder="Your email" />
+- sources:
+  - [1] https://1fichier.com/tarifs.html?lg=en
+  - [2] https://1fichier.com/hlp.html
+  - [3] https://1fichier.com/premium.html
+  - [4] https://www.wjunction.com/threads/best-video-backup-solution.241243/
+  - [5] https://1fichier.com/register.pl?lg=en
+
+## 1fichier — registered free account, 5 TB of temporary storage with FTP + API
+
+- `storage/1fichier-registered-free-account-5-tb-of-temporary-stora` | qualifies-with-caveat | evidence documented | binding per-object-cap | category anonymous-dump
+- needs card no, phone no, ID no, institution no | verified 2026-10-30T12:21:42.674Z, checked 2026-10-21 (inherited) | stale on 2026-11-21
+- url https://1fichier.com/tarifs.html
+- free tier: Registered (free) tier: '5 TB of temporary storage', folder sharing, remote upload, FTP upload and API access; files kept 30 days after upload, or 90 days after the last qualified access. Paid ladder, 1-year list prices: Premium Light 500 GB EUR 10, Premium Light 1000 GB EUR 20, Premium EUR 60 with 4 TB cold storage, Premium GOLD EUR 120 with 10 TB cold storage; sale prices until November 2: Premium EUR 30, Premium GOLD EUR 50. | unit: TB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: up to 300 GB per file, as the help page's limits list and the home page state; the prices page lists '300 GB per file' among the Premium Light additions, so a lower cap on free accounts is unverified | bytes: 300000000000 | source: [1] | note: not stated
+- retention: 30 days after upload, or 90 days after the last qualified access; a qualified access is a real view or download, and automated calls do not count | days: 30 | source: [1] | note: not stated
+- egress: Downloads are unlimited on the free tier but ad/wait-gated and speed-limited, with a human-verification step; Premium removes ads and gives 300 GB per file and unlimited speed. Free-tier egress is 'unmetered but shaped'. The shaping, not the bytes, is the limit. | metered: no
+- identity: email | detail: registration asks only for an email address, a password and an image confirmation code; no phone and no card
+- interface: rest, ftp, rclone
+- limits:
+  - retention-clamped: 30 days after upload, or 90 days after the last qualified access [1]
+  - per-object-cap (binding): up to 300 GB per file [1]
+- limits note: Files expire 30 days after upload, or 90 days after the last qualified access. Up to 300 GB per file per the help page; web upload 500 files and 500 GB per upload, 4 hours maximum. The 5 TB is 'temporary storage'.
+- interface detail: rest
+- tooling: Documented REST API, open to every registered account; download tokens and FTP sub-accounts are reserved to paid plans, and requests are limited to 3 per second. FTP upload and remote upload (URL pull) on free accounts. rclone ships a 1fichier backend, whose documentation says a Premium subscription is required to use it.
+- composes with: Free accounts need only an email address, so the up-to-5 TB of temporary storage is per account; every file still expires 30 days after upload, or 90 days after the last qualified access.
+- reliability: 1fichier/DStorage is a carrier with its own transit, so egress is not a marginal cost for them. Which is why the free 5 TB survives where others died. The 30/90-day retention clock is the practical failure mode: it is a staging area, not an archive.
+- notes: the same as the free tier
+- evidence note: the prices page, help page, registration form and API page were read on 2026-10-30; the record states what they say
+- extras:
+  - verified[0].url: https://1fichier.com/?lg=en
+  - verified[0].date: 2026-10-22
+  - verified[0].http_status: 200
+  - verified[0].bytes: 2028
+  - verified[0].sha256: 9c8cb7cfd7c230ca507b1604276140094266e61992045c096f8aedc8ede2ff81
+  - verified[0].pattern_found: yes
+  - verified[0].what_changed: no change: the page still states the claim
+- evidence:
+  - [2] 2026-10-22: 300 GB per file on the free tier. Re-read https://1fichier.com/?lg=en: HTTP 200, 2028 bytes, sha256 9c8cb7cfd7c230ca. Quoted: ink to share. No sign-up, no software to install. Maximum size: 300 GB per file. Files uploaded without an account are removed after 15 days; those on a free account, 30 days after they were uploaded or 90 days after their [last qualified access](https://1fichier.com/hlp.html#accesqualifie). Files on Premium accounts are kept fo
+  - [1] 2026-10-21: 'Registered users … 5 TB of temporary storage · API … Retention: 30 days after upload, or 90 days after the last qualified access'; 'Premium Light 500 GB … 300 GB per file'
+  - [3] 2026-10-21: '1fichier.com: Offers 1 TB of storage for registered free users with files expiring after 30 days of inactivity; … sharing up to 300 GB per file' (forum claim of 1 TB contradicts the pricing page's 5 TB — page wins)
+  - [4] 2026-10-30: Premium for 1 year: EUR 30 sale price, EUR 60 list price | capture: sha256:42b0e79b4db51b24c2d373307451e9d6d07b2d056aeaa2d31b836c4d54548533 | quote: <span class="plan-price"><b class="plan-now">&euro;30</b> <s class="plan-was">&euro;60</s></span>
+  - [5] 2026-10-30: the help page's limits list states files of up to 300 GB | capture: sha256:740725a79f1e2dbe2875db44eb7f31bb6f11b3c69ae88135056687afed6db573 | quote: File size: up to 300 GB.
+  - [5] 2026-10-30: a free-account file is removed 30 days after upload, or 90 days after its last qualified access | capture: sha256:740725a79f1e2dbe2875db44eb7f31bb6f11b3c69ae88135056687afed6db573 | quote: the file is removed 30 days after it was uploaded, or 90 days after its last qualified access.
+  - [5] 2026-10-30: web upload is capped at 500 files and 500 GB per upload, 4 hours maximum | capture: sha256:740725a79f1e2dbe2875db44eb7f31bb6f11b3c69ae88135056687afed6db573 | quote: Web upload: 500 files and 500 GB per upload, 4 hours maximum.
+  - [6] 2026-10-30: the REST API is open to free registered accounts; features marked Customers need a paid plan | capture: sha256:5ac7ea7ec670ef16187ad7611b22a2e9335832dc7ee6796c36cc80caef6c47bc | quote: The API is available to every registered account.
+  - [7] 2026-10-30: rclone ships a 1fichier backend, and its documentation says a Premium subscription is required to use it | capture: sha256:593988b990b5b9f3c7cba438245f9868449d5d835cb7b2b91dc7a23d35802c10 | quote: This is a backend for the [1fichier](https://1fichier.com/) cloud storage service. Note that a Premium subscription is required to use the API.
+  - [8] 2026-10-30: the registration form asks for an email address, a password and an image confirmation code, and nothing else | capture: sha256:1548ab0f3b0cdf59762c125a09c64e454948c8141a5be0313b5d345218f92273 | quote: <input type="text" id="r-mail" name="mail" maxlength="255" class="auth-in" value="" placeholder="Your email" />
+  - [5] 2026-10-30: a free account holds up to 5 TB of temporary storage | capture: sha256:740725a79f1e2dbe2875db44eb7f31bb6f11b3c69ae88135056687afed6db573 | quote: Storage: up to 5 TB of temporary storage on a free account; unlimited hot storage on a paid plan, plus a cold storage quota depending on the plan.
+  - [9] 2026-10-30: registered free accounts get 5 TB of temporary storage, FTP upload, remote upload and the API; files are kept 30 days after upload or 90 days after the last qualified access | capture: sha256:1e66919a20611d4db20f9b2a74df31363646aa1770a2b559893805a642a6679e | quote: Folder sharing · security options · access statistics · remote upload · FTP upload · 5 TB of temporary storage · API · inline function Retention: 30 days after upload, or 90 days after the last
+  - [9] 2026-10-30: downloads without a paid plan carry advertising, a captcha, waiting time and limited speed | capture: sha256:1e66919a20611d4db20f9b2a74df31363646aa1770a2b559893805a642a6679e | quote: SSL encryption · unlimited shares · temporary storage Advertising, captcha, waiting time, limited speed, removal after 15 days Free
+- sources:
+  - [1] https://1fichier.com/tarifs.html
+  - [2] https://1fichier.com/?lg=en
+  - [3] https://lowendtalk.com/discussion/203128/any-free-file-host-with-good-download-speed
+  - [4] https://1fichier.com/tarifs.html?lg=en
+  - [5] https://1fichier.com/hlp.html
+  - [6] https://1fichier.com/api.html?lg=en
+  - [7] https://rclone.org/fichier/
+  - [8] https://1fichier.com/register.pl?lg=en
+  - [9] https://1fichier.com/premium.html

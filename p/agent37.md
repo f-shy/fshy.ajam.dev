@@ -1,0 +1,123 @@
+# Agent 37
+
+> agent37.com | Compute; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/agent37/ | JSON https://fshy.ajam.dev/api/v1/entity/agent37.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Agent 37
+
+- `compute/agent-37` | qualifies-with-caveat | evidence documented | binding per-object-cap | category container and VM sandbox
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://www.agent37.com/pricing
+- price parsed USD 4.76/mo
+- free tier: USD 5 of credit after adding a card; no perpetual free tier is published on the pricing page | unit: mixed | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: page meta description: 'start with $5 credit after adding a card'
+- per-object cap: not applicable
+- retention: disk billed while you keep the instance; deleting an instance settles its final minutes and billing ends | days: 0 | note: the disk outlives a stop and dies on delete
+- egress: not published on the pricing page; recorded as a gap | metered: no | source: [1]
+- identity: card | detail: USD 5 of credit is offered after adding a card; the pricing page states no card-free path
+- interface: rest, cli
+- limits:
+  - per-object-cap (binding): 4 vCPU ceiling on every instance type; a request for more cores returns 4 vCPU at the same price [2]
+  - request-rate: no published concurrency or start-rate cap on the pricing page [1]
+- limits note: disk also caps the shape: 2 to 12 GB on the 2 vCPU shape, 2 to 80 GB on the 4 vCPU/32 GB shape
+- binding note: the 4 vCPU ceiling binds: a create that asks for more cores keeps the memory it asked for and comes back with 4 vCPU, so the shape is capped
+- interface detail: REST instances API: POST /v1/instances, plus stop, start, resize, fork, backup and restore
+- tooling: HTTP API and a CLI; the instance object carries resources so a client can read its real shape
+- composes with: a sandbox that bills disk alone while stopped, so a long-lived agent workspace can sit idle cheaply
+- reliability: no reliability event recorded
+- notes: Cheapest credible 2 vCPU sandbox that bills disk alone while stopped. The 4 vCPU ceiling is the number that binds an agent that wants 8 cores, and it is silent: the create succeeds with a smaller machine.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 4
+  - shape.disk_gib: 12
+  - billing_model: allocated
+  - granularity.min_billed_s: 60
+  - granularity.rounding_s: 60
+  - session_cap.restart_required: no
+  - session_cap.note: an auto-sleep setting exists; the interval was not read on a page that answered
+  - keep_rate.value: 0.0
+  - keep_rate.basis: stopped or sleeping time bills the disk alone, quoted from the sizing page
+  - keep_rate.source: https://www.agent37.com/docs/agents-api/instance-sizing
+  - persistent_storage.included_gib: 12
+  - persistent_storage.price_gib_month: USD 0.09
+  - persistent_storage.durability: survives stop
+  - persistent_storage.survives_stop: yes
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: until delete
+  - network_out.allow_inbound_listen: preview URLs on instance ports
+  - network_out.ports: services on the sandbox ports are reachable
+  - network_out.static_ip: no
+  - network_out.note: egress terms and the outbound policy were not on the page read
+  - free_tier_kind: one-time-credit
+  - m10h_usd: 2.17
+  - m24h_usd: 4.76
+  - price_arithmetic: 2(0.80) + 4(0.70) + 4(0.09) = 4.76 at 730 h; at 10 h/day x30 the same rate gives 1.81
+  - price_note: compute bills while the instance runs, disk bills every month while the instance is kept. At 300 running hours the compute is USD 1.81 and the disk is USD 0.36 for the month, so the bill is USD 2.17.
+  - price_basis: 10 h/day x 30 = 300 h; 24/7 x 30 = 730 h
+  - burst_x: 1.0
+- evidence:
+  - [1] 2026-10-22: rate is USD 0.80/vCPU + USD 0.70/GB RAM + USD 0.09/GB disk per 730-hour month, metered by the minute; a VM costs 2.5x compute
+  - [2] 2026-10-22: four shapes with monthly prices: 2/4/12 GB USD 4.76, 4/8 USD 9.34, 4/16 USD 15.48, 4/32 USD 27.76
+  - [2] 2026-10-22: 4 vCPU is the ceiling on every type; an oversize request silently provisions 4 vCPU
+  - [3] 2026-10-22: REST lifecycle: create, stop, start, restart, resize, fork, backup, restore
+- sources:
+  - [1] https://www.agent37.com/pricing
+  - [2] https://www.agent37.com/docs/agents-api/instance-sizing
+  - [3] https://www.agent37.com/docs/agents-api/instances
+
+## Agent37
+
+- `compute/agent37` | qualifies-with-caveat | evidence documented | binding per-object-cap | category sandbox (default) and full KVM VM (vm type) | tier 2 vCPU / 4 GB / 4 GB disk, default container instance
+- needs card yes, phone no, ID no, institution no | verified 2026-11-09T13:26:53.631Z (live) | stale on 2026-12-10
+- url https://www.agent37.com/docs/agents-api/billing.md
+- price parsed USD 4.76/mo
+- free tier: Add a card from the billing page (nothing is charged) and the workspace gets a one-time USD 5 credit, enough to run the first instance around the clock for about a month. | unit: mixed | metered on: wall-clock | read on: 2026-10-24 | source: [1] | note: credit, and it needs a card on file to be granted
+- per-object cap: not applicable
+- retention: Stopped or sleeping instances bill the disk alone at USD 0.09/GB/month; parked in cold storage at USD 0.03/GB/month on compressed bytes; an instance left suspended for 30 days is permanently deleted. | source: [1]
+- egress: No egress price and no transfer allowance are published on the page read; metered is recorded as false because nothing is known to be charged per gigabyte, which is an absence of evidence, not a promise of free traffic. | metered: no | free allowance: not stated | source: [2]
+- identity: card | detail: Card required for the USD 5 credit and for every top-up ('Add a card from the billing page (nothing is charged)'); top-ups run USD 5 to USD 10,000 through Stripe, minimum USD 5. No card hold is stated. Debit acceptance is not stated. A create only checks that one day of balance exists and debits nothing.
+- interface: ssh, rest
+- limits:
+  - per-object-cap (binding): 4 vCPU ceiling on every instance type; 2 vCPU / 4 GB is the smallest shape [3]
+  - volume-quota: disk is 2-12 GB on the 2 vCPU shape and bills USD 0.09/GB/month [3]
+- binding note: The shape ladder stops at 4 vCPU on every type, so the ceiling is the shape; the money wall is that a real VM is 2.5x the container rate.
+- interface detail: REST API for the lifecycle, SSH into the instance, exec over the API, and an HTTPS URL per published port
+- tooling: the REST API or SSH; Docker and k3s inside a vm instance; no vendor CLI was read
+- composes with: The cheapest 2 vCPU / 4 GiB offer found anywhere among evaluated offerings at USD 4.76 a month, but it is the default container instance, not a VM. The VM type - a real KVM machine with its own kernel - costs 2.5x the compute and lands at USD 11.36 for the same 2 vCPU / 4 GiB / 4 GB disk.
+- reliability: Automatic top-up is on by default after the first top-up; when a settle leaves the wallet negative the instances are force-slept and requests return 402 until a top-up.
+- notes: Two rows live in this provider and the shape decides the verdict. Default (container) 2 vCPU / 4 GB / 4 GB disk: 2 x 0.80 + 4 x 0.70 + 4 x 0.09 = USD 4.76 a month at 730 running hours - the cheapest 2 vCPU / 4 GiB found, but it is a shared-kernel instance. VM 2 vCPU / 4 GB / 4 GB disk: 2.5 x (1.60 + 2.80) + 0.36 = USD 11.36. A VM under USD 5 is impossible because the smallest VM shape is 2 vCPU / 4 GB. Ingress is the other catch: ports are published as HTTPS at {id}-{port}.agent37.app, so no raw TCP listener and no UDP - it cannot be a WireGuard node.
+- evidence note: The rate card, the four shapes, the 2.5x VM multiplier, the per-minute metering, the stopped-disk rate and the card requirement are quoted from the vendor's own documentation read. What would raise it: a probe that creates a vm instance and confirms the 2.5x charge on the ledger.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 4
+  - shape.disk_gib: 4
+  - shape.note: container instance; the vm type carries the same shape at 2.5x compute
+  - billing_model: per-minute
+  - term: prepaid wallet, no commitment
+  - m10h_usd: 1.96
+  - m24h_usd: 4.76
+  - price_arithmetic: Default container: 730 h x (2 x 0.80 + 4 x 0.70 + 4 x 0.09)/730 = USD 4.76 (the vendor's own monthly figure at the default disk). VM type: 730 h x (2.5 x (2 x 0.80 + 4 x 0.70) + 4 x 0.09)/730 = 2.5 x 4.40 + 0.36 = USD 11.36. 10 h/day = 300/730 of either figure: USD 1.96 container, USD 4.67 VM. Stopped, disk only: 4 GB x 0.09 = USD 0.36 a month.
+  - free_tier_kind: credit
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: HTTP(S) through the vendor proxy at https://{id}-{port}.agent37.app; no raw TCP or UDP ingress was described
+  - network_out.static_ip: no
+  - network_out.ipv6: no
+  - session_cap.idle_reap_s: 900
+  - session_cap.restart_required: no
+  - session_cap.note: the idle reap is auto-sleep, off by default: with auto_sleep on, 900 idle seconds checkpoint the instance to disk and billing drops to the disk rate alone, and any request to its URL wakes it. No maximum session lifetime is published, so wall_clock_min stays null
+- evidence:
+  - [1] 2026-10-24: quoted: 'vCPU | $0.80 per vCPU per month', 'RAM | $0.70 per GB per month', 'Disk | $0.09 per GB per month', and 'Shape | Price at the default disk | 2 vCPU / 4 GB RAM / 2-12 GB disk (the default) | $4.76'
+  - [1] 2026-10-24: quoted: 'A VM instance is a whole virtual machine with its own kernel ... Its compute is 2.5x the default rate, and disk is unchanged.' and 'time spent stopped or sleeping bills its disk alone'
+  - [2] 2026-10-24: quoted: 'A `vm` instance is a full Linux virtual machine with its own kernel and KVM hardware virtualization.' and 'Publish a container's HTTP port onto the VM with `docker run -p`, then reach it at https://{id}-{port}.agent37.app'
+  - [1] 2026-10-24: quoted: '$5 free to start. Add a card from the billing page (nothing is charged) and your workspace gets a one-time $5 credit'
+  - [3] 2026-10-24: quoted: '4 vCPU is the ceiling on every instance type.'
+  - [4] 2026-11-09: the idle reap defaults to 900 seconds and is configurable from 300 to 86400 seconds | capture: sha256:c9756708e4356330e6974ee4f15d10daad186a4cd54557ec0926cd5397135dfc | quote: Once no bytes have moved through any of its URLs for `idle_timeout_seconds` (default 900, from five minutes to a day), the platform checkpoints it and `status` becomes `sleeping`
+  - [4] 2026-11-09: the default idle timeout is 900 seconds | capture: sha256:c9756708e4356330e6974ee4f15d10daad186a4cd54557ec0926cd5397135dfc | quote: Once no bytes have moved through any of its URLs for `idle_timeout_seconds` (default 900, from five minutes to a day), the platform checkpoints it
+  - [4] 2026-11-09: auto-sleep is off by default and the default idle_timeout_seconds is 900, taken from the same page | capture: sha256:c9756708e4356330e6974ee4f15d10daad186a4cd54557ec0926cd5397135dfc | quote: Instances default to `auto_sleep: false` and never sleep on their own unless you opt them in.
+  - [4] 2026-11-09: the default idle timeout is 900 seconds and auto-sleep is opt-in | capture: sha256:c9756708e4356330e6974ee4f15d10daad186a4cd54557ec0926cd5397135dfc | quote: Once no bytes have moved through any of its URLs for `idle_timeout_seconds` (default 900, from five minutes to a day), the platform checkpoints it
+- sources:
+  - [1] https://www.agent37.com/docs/agents-api/billing.md
+  - [2] https://www.agent37.com/docs/agents-api/vm-instances.md
+  - [3] https://www.agent37.com/docs/agents-api/instance-sizing.md
+  - [4] https://www.agent37.com/docs/agents-api/instance-auto-sleep.md

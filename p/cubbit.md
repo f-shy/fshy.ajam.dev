@@ -1,0 +1,143 @@
+# Cubbit DS3
+
+> cubbit.io | Storage; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/cubbit/ | JSON https://fshy.ajam.dev/api/v1/entity/cubbit.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Cubbit DS3 Cloud
+
+- `storage/cubbit-ds3-cloud` | trial-only | evidence documented | binding volume-quota | category S3-compatible object storage, geo-distributed (EU/UK) | tier DS3 Cloud trial
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T01:57:50.877Z (live) | stale on 2026-12-05
+- url https://www.cubbit.io/pricing
+- free tier: Test-drive 1 TB of Cubbit DS3 Cloud in a demo environment for 30 days; no credit card required | unit: TB | metered on: stored-bytes | read on: 2026-10-30 | source: [1] | note: a one-time 30-day trial, not a recurring allowance. The paid price is a single flat rate per TB a month quoted through partners; no figure is published.
+- per-object cap: Maximum object size 5 TiB; multipart parts of 5 MiB to 5 GiB, 10,000 parts per upload | bytes: 5497558138880 | source: [2] | note: bytes = 5 TiB = 5 x 2^40.
+- retention: data uploaded during the free trial is permanently deleted when the trial expires | days: 30 | source: [3] | note: days is the trial length stated on the pricing page; the account itself remains active after the trial data is deleted.
+- egress: a single flat rate per TB/month with no extra fees: no charges for egress, deletion, bucket replication, or API calls | metered: no | free allowance: unlimited: egress is not charged | source: [1]
+- identity: email | detail: The trial sign-up at console.trial.cubbit.eu is self-service ('Sign up now and get started right away for free') and the pricing page states 'No credit card required' for the trial. The DS3 Cloud agreement linked from the sign-up page requires an account associated with a valid e-mail address, and the DS3 console quickstart has the user set a password and confirm the address through an emailed link. unverified: the sign-up form's own fields did not render through any reader, so a further required field is not excluded. Paid DS3 Cloud is sold through partners after a call or a form.
+- interface: s3-compatible
+- limits:
+  - volume-quota (binding): 1 TB for 30 days on the trial [1]
+  - per-object-cap: 5 TiB per object [2]
+  - retention-clamped: data uploaded during the trial is deleted when the trial expires [3]
+- limits note: Minimum chargeable object size 256KB: a smaller file is counted and billed as 256KB. Paid pricing is a flat rate per TB a month set by partner quote.
+- binding note: the free path is a single 1 TB trial that ends after 30 days; after it every byte is on a partner-quoted price
+- interface detail: ready-to-use, S3-compatible cloud object storage; data stored in partners' data centres in the EU or the UK in the selected regions
+- tooling: S3 clients and SDKs: the vendor documents the AWS CLI and multipart upload; rclone's s3 backend
+- composes with: An S3 origin with no egress or API charge; the 30-day 1 TB trial is a test environment, and recurring capacity is bought through a partner quote.
+- reliability: no throttle, suspension or data-loss event is stated on the pages read; the trial is a demo environment
+- notes: S3-compatible object storage: confirmed. unverified: the paid price per TB a month is set by partner quote and not published. DS3 Composer, the vendor's software-defined product with a 3 TB free tier, is a separate offer and not this hosted trial: its software is managed by Cubbit or self-hosted, and it stores data on nodes the user runs.
+- evidence note: the trial, the fee rule, the object cap and the minimum chargeable size are quoted from Cubbit's own pages read on 2026-10-30; the paid price is not published and the read path is unprobed.
+- evidence:
+  - [1] 2026-10-30: the free path is a 1 TB, 30-day trial in a demo environment | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: Test-drive 1 TB of Cubbit DS3 Cloud in a demo environment for 30 days.
+  - [1] 2026-10-30: the trial asks for no credit card | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: No credit card required
+  - [1] 2026-10-30: pricing is a flat rate per TB a month with no egress, deletion, replication or API charge | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: a single flat rate per TB/month with no extra fees** — no charges for egress, deletion, bucket replication, or API calls.
+  - [1] 2026-10-30: the paid DS3 Cloud price is quoted through partners | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: Get the best market price, tailored to your needs, via our partners.
+  - [1] 2026-10-30: DS3 Cloud is hosted S3-compatible object storage with no hardware to manage | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: Enjoy ready-to-use, S3-compatible cloud object storage without the need to manage any hardware / storage nodes.
+  - [1] 2026-10-30: data is stored in partner data centres in the EU or the UK | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: Your data is securely stored in our partners’ certified data centres in the EU or the UK, with guaranteed localisation in the region(s) you select.
+  - [2] 2026-10-30: the largest object is 5 TiB | capture: sha256:36b10d0b0e05b3126dd178059003c4f57bcfdf2c4c707a7ced85a4f254c3d3d9 | quote: Maximum object size5 TiB
+  - [4] 2026-10-30: objects under 256KB are billed as 256KB | capture: sha256:42e11bd832f74f9aac0c79130f53cbdb0e9deb479f984ba261a9242fe5d8c180 | quote: Cubbit enforces a minimum chargeable size. This size is 256KB. Therefore, files smaller than 256KB will be counted and billed as if they were 256KB.
+  - [5] 2026-10-30: the trial sign-up is self-service and free | capture: sha256:47bbb297a16c3dd4867d0bb3e679fdc3c33e6ba518486d195c5103a41b435f84 | quote: Sign up now and get started right away for free.
+  - [3] 2026-10-31: data uploaded during the free trial is permanently deleted when the trial expires | capture: sha256:8392caa66d7628bb99bc2d0c5e53f49a6e8d684c480537b6dcec350be23b7185 | quote: Upon expiry of the Free Trial, Customer Content uploaded during the trial period shall be permanently deleted.
+  - [1] 2026-10-31: the free path of DS3 Cloud is a 1 TB trial in a demo environment that lasts 30 days | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: Test-drive 1 TB of Cubbit DS3 Cloud in a demo environment for 30 days.
+  - [3] 2026-10-31: the account stays active after the trial data is deleted | capture: sha256:8392caa66d7628bb99bc2d0c5e53f49a6e8d684c480537b6dcec350be23b7185 | quote: The Account remains active.
+  - [3] 2026-10-31: a DS3 Cloud account is registered against a valid e-mail address | capture: sha256:8392caa66d7628bb99bc2d0c5e53f49a6e8d684c480537b6dcec350be23b7185 | quote: To access the Services, the Customer creates an Account associated with a valid e-mail address, providing truthful, accurate and complete information which it undertakes to keep updated for the duration of the Agreement.
+  - [1] 2026-10-31: DS3 Composer is software, managed or self-hosted, and a different offer from hosted DS3 Cloud | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: The software can be provided as a managed solution (SaaS) or self-hosted directly by the customer.
+  - [1] 2026-10-31: the DS3 Cloud trial asks for no credit card | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: No credit card required
+  - [6] 2026-10-31: DS3 console registration is confirmed through a link sent to the e-mail address | capture: sha256:ca6a13e65a97a13517f1956756f594c1ebd6cec9fcc8fa496fd2ff6e66444a47 | quote: Check your inbox and confirm your email by clicking the link you received via email.
+  - [5] 2026-10-31: the trial sign-up is self-service and free | capture: sha256:47bbb297a16c3dd4867d0bb3e679fdc3c33e6ba518486d195c5103a41b435f84 | quote: Sign up now and get started right away for free.
+  - [1] 2026-10-31: pricing is a flat rate per TB a month with no egress, deletion, replication or API charge | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: a single flat rate per TB/month with no extra fees** — no charges for egress, deletion, bucket replication, or API calls.
+  - [1] 2026-10-31: DS3 Cloud is hosted S3-compatible object storage with no storage nodes to manage | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: Enjoy ready-to-use, S3-compatible cloud object storage without the need to manage any hardware / storage nodes.
+  - [2] 2026-10-31: the largest object is 5 TiB | capture: sha256:36b10d0b0e05b3126dd178059003c4f57bcfdf2c4c707a7ced85a4f254c3d3d9 | quote: Maximum object size5 TiB
+  - [4] 2026-10-31: objects under 256KB are billed as 256KB | capture: sha256:42e11bd832f74f9aac0c79130f53cbdb0e9deb479f984ba261a9242fe5d8c180 | quote: Cubbit enforces a minimum chargeable size. This size is 256KB. Therefore, files smaller than 256KB will be counted and billed as if they were 256KB.
+  - [1] 2026-11-04: the trial is 1 TB for 30 days in a demo environment | capture: sha256:076799c97de32fc1d6511c70c54bf02d47975a3052ab42f177b6e961f4cfed63 | quote: Test-drive 1 TB of Cubbit DS3 Cloud in a demo environment for 30 days.
+  - [1] 2026-11-04: the trial asks for no credit card | capture: sha256:076799c97de32fc1d6511c70c54bf02d47975a3052ab42f177b6e961f4cfed63 | quote: No credit card required
+  - [1] 2026-11-04: no egress, deletion, replication or API charge | capture: sha256:395ac5b3f4c29e3e1e09791fcb15785a198292c1cdf67041a5cb0d843b1f342a | quote: a single flat rate per TB/month with no extra fees** â€” no charges for egress, deletion, bucket replication, or API calls.
+- sources:
+  - [1] https://www.cubbit.io/pricing
+  - [2] https://docs.cubbit.io/guides/multipart-upload
+  - [3] https://cubbit.io/legal/ds3-terms-of-service
+  - [4] https://docs.cubbit.io/guides/resource-metrics
+  - [5] https://console.trial.cubbit.eu/signup?mkt=true
+  - [6] https://docs.cubbit.io/getting-started/quickstart
+
+## Cubbit DS3 Composer
+
+- `storage/cubbit-ds3-composer` | self-hosted, last resort | verdict fails-identity | evidence documented | binding write-gated | category software-defined S3 object storage on user-run storage nodes (self-hosted; Coordinator managed by Cubbit or self-hosted) | tier DS3 Composer free tier
+- needs card no, phone yes, ID no, institution yes | verified 2026-11-03T01:11:15.760Z (live) | stale on 2026-12-04
+- url https://www.cubbit.io/ds3-composer-trial
+- free tier: Up to 3 TB of DS3 Composer free tier access at 0 EUR, no credit card required; the storage itself sits on nodes the user supplies | unit: TB | metered on: unstated | read on: 2026-11-03 | source: [1] | note: a licence for software, not capacity that Cubbit hosts: the pricing FAQ licenses Composer on raw installed capacity, and every stored byte uses disks the user provides. unverified: whether the 3 TB is counted on raw or usable capacity. Above the free tier the rate is EUR 4.99 per TB per month for 3 to 10 TB, discounted above 10 TB.
+- per-object cap: unverified: no Composer page states an object-size limit | source: [2] | note: the DS3 multipart-upload page lists a 5 TiB maximum object size for Cubbit's S3 gateway; whether Composer gateways share it is not stated.
+- retention: unverified: no Cubbit page states a duration or an expiry for the 3 TB free tier | source: [1] | note: the only duration on the pricing page, 30 days, belongs to the hosted DS3 Cloud demo, a separate record. The marketplace listing calls the Composer free tier a free trial with no duration. Licence expiry and grace terms are in the customer contract, which is not public.
+- egress: Cubbit charges no egress, deletion, bucket replication or API fee under its flat per-TB rate; the Cubbit-run public gateway's egress is free for now and may change; bandwidth of the user's own nodes and gateways is the user's own | metered: no | free allowance: no Cubbit egress charge stated | source: [1]
+- identity: institution | detail: The free-tier form asks for a work email, first name, last name, company name and country, then a required yes or no on whether the organisation uses more than 50 TB, with an optional phone number; no credit card is asked. The documentation says DS3 Composer is invite-only, with an emailed invitation to a pre-generated account, and that page was last updated on 22 February 2024. unverified: whether Cubbit approves an entry whose company is not a registered business; the form was read and not submitted.
+- interface: s3-compatible
+- limits:
+  - volume-quota: up to 3 TB on the free tier; EUR 4.99 per TB per month from 3 to 10 TB [1]
+  - write-gated (binding): entry through a form asking for a work email, company name and an organisation-size answer; the documentation calls access invite-only [3]
+- limits note: Licensing counts raw installed capacity (pricing FAQ). A Swarm starts from three servers (marketplace listing, trade report) and each disk needs 1 CPU thread and 1 GB of RAM; the vendor positions Composer from 200 TB upward.
+- binding note: the free tier is entered through a form that asks for a work email and a company name and the documentation describes access as invite-only; the 3 TB is also a licence on machines the user must supply
+- interface detail: S3-compatible API exposed by a DS3 Gateway: a public gateway per tenant that Cubbit runs, or a private gateway the user installs on a Kubernetes cluster
+- tooling: A hosted S3 offer from Cubbit is the separate DS3 Cloud record; this record is the software. The user installs and runs one Cubbit storage agent per disk on Linux machines (1 CPU thread and 1 GB of RAM per disk) registered as nodes in a Swarm, on a rented or free machine; the Coordinator control plane is Cubbit-managed (composer.cubbit.eu) or a licensed self-hosted install; S3 access goes through a Cubbit-run public gateway or a private gateway the user installs on a Kubernetes cluster. Clients: AWS CLI and other S3 clients.
+- composes with: A hosted S3 origin from Cubbit is the DS3 Cloud record (1 TB, 30-day trial); this record gives no hosted capacity. Its 3 TB licence is only useful on disks the user rents or already has, three servers at least per the marketplace listing, so it chains with capacity from other records and adds no storage of its own.
+- reliability: no throttle, suspension or data-loss event is stated on the pages read; licence expiry and grace terms are in the customer contract, which is not public. unverified: what a Swarm does when the free-tier licence ends.
+- notes: A separate offer from storage/cubbit-ds3-cloud, the hosted S3 trial. self_hosted is true: the 3 TB free tier licenses software, every stored byte sits on storage nodes the user installs and runs, and the Cubbit-run Coordinator is a control plane that holds no user data. Third-party listings call the free tier a free trial; no Cubbit page states a duration for it.
+- evidence note: every fact is quoted from Cubbit pages read on 2026-11-03; the free-tier form was read and not submitted, so the approval rule and the free tier's duration are not published and stay unverified.
+- self hosted: yes
+- evidence:
+  - [1] 2026-11-03: the pricing page offers a DS3 Composer free tier of 3 TB | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: Access DS3 Composer (3 TB free tier)
+  - [1] 2026-11-03: DS3 Composer is free up to 3 TB | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: Up to 3 TB: free tier access
+  - [1] 2026-11-03: from 3 to 10 TB the Composer rate is EUR 4.99 per TB per month | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: 3-10 TB: personal-use rate (€4.99 / TB / month)
+  - [1] 2026-11-03: the Composer free tier asks for no credit card | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: No credit card required
+  - [1] 2026-11-03: the only duration on the pricing page, 30 days, is attached to the hosted DS3 Cloud demo; the Composer free tier carries none | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: Test-drive 1 TB of Cubbit DS3 Cloud in a demo environment for 30 days.
+  - [1] 2026-11-03: the vendor positions Composer from 200 TB upward | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: Ideal for PB-scale, starts from 200 TB.
+  - [1] 2026-11-03: Composer is software, a separate offer from hosted DS3 Cloud, with a managed or a self-hosted control plane | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: The software can be provided as a managed solution (SaaS) or self-hosted directly by the customer.
+  - [1] 2026-11-03: the storage nodes are set up by the user on machines the user chooses | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: You then have total freedom in choosing and setting up storage nodes — whether in the public cloud, on bare metal servers, or on your own hardware.
+  - [1] 2026-11-03: a storage node is a Linux machine running Cubbit's agents | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: A Cubbit node is a physical or virtual Linux machine running Cubbit’s agents for storage management and S3 access.
+  - [1] 2026-11-03: the data is stored on infrastructure the user chooses | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: You choose where to deploy the solution and store your data: your own infrastructure, or by accessing existing resources such as bare-metal or public cloud.
+  - [1] 2026-11-03: the flat rate carries no egress, deletion, replication or API charge | capture: sha256:c9fdc77e7e5b86f0eea90e76a2b7cbf786e9f21b60307061b916267be295b02f | quote: a single flat rate per TB/month with no extra fees — no charges for egress, deletion, bucket replication, or API calls.
+  - [4] 2026-11-03: the free tier is priced 0 EUR for up to 3 TB | capture: sha256:548590e19775a0031d5c6cc5b0654b1819473addaefebeba980f7738a6a02bf6 | quote: 0€ / Up to 3 TB
+  - [4] 2026-11-03: the free tier is the entry of a scale of prices, stated with no duration | capture: sha256:548590e19775a0031d5c6cc5b0654b1819473addaefebeba980f7738a6a02bf6 | quote: Start free. Transparent pricing as you scale.
+  - [4] 2026-11-03: the next step is EUR 4.99 per TB per month | capture: sha256:548590e19775a0031d5c6cc5b0654b1819473addaefebeba980f7738a6a02bf6 | quote: Pay as you go 4.99€ / TB / month
+  - [3] 2026-11-03: the free-tier form asks for a work email | capture: sha256:f9940e893db910df7fbf0fb7ee78b83ab7cbae5b34e3e46a935e07c5d4ed1257 | quote: Work Email*
+  - [3] 2026-11-03: the free-tier form requires a company name | capture: sha256:f9940e893db910df7fbf0fb7ee78b83ab7cbae5b34e3e46a935e07c5d4ed1257 | quote: Company Name*
+  - [3] 2026-11-03: the free-tier form requires an answer on organisation size | capture: sha256:f9940e893db910df7fbf0fb7ee78b83ab7cbae5b34e3e46a935e07c5d4ed1257 | quote: Does your organization currently use more than 50 TB of storage?*
+  - [3] 2026-11-03: a phone number field is on the form, not marked required | capture: sha256:f9940e893db910df7fbf0fb7ee78b83ab7cbae5b34e3e46a935e07c5d4ed1257 | quote: Phone Number
+  - [3] 2026-11-03: this form is the entry to the 3 TB free tier | capture: sha256:f9940e893db910df7fbf0fb7ee78b83ab7cbae5b34e3e46a935e07c5d4ed1257 | quote: Activate 3 TB of DS3 Composer free tier
+  - [5] 2026-11-03: the documentation describes DS3 Composer access as invite-only | capture: sha256:68372eb017ab3e998b3771f5233713d24591d61c557bf114d4a62edc3774f83e | quote: Currently, DS3 Composer is invite-only.
+  - [5] 2026-11-03: access is by an emailed invitation to a pre-generated account | capture: sha256:68372eb017ab3e998b3771f5233713d24591d61c557bf114d4a62edc3774f83e | quote: Invitations are sent via email, enabling recipients to reset the password for their pre-generated account.
+  - [5] 2026-11-03: the invite-only page was last updated on 22 February 2024 | capture: sha256:68372eb017ab3e998b3771f5233713d24591d61c557bf114d4a62edc3774f83e | quote: Last updated on Feb 22, 2024
+  - [6] 2026-11-03: the Coordinator can be run by Cubbit | capture: sha256:f3c56c1a7fc3f34b14b5eadb4d6b37b7548cd1651e9580c1ca0b093dfed2811a | quote: Managed: Cubbit hosts and operates the Coordinator.
+  - [6] 2026-11-03: the Coordinator can instead be installed by the user under licence | capture: sha256:f3c56c1a7fc3f34b14b5eadb4d6b37b7548cd1651e9580c1ca0b093dfed2811a | quote: Self-hosted: The Coordinator is installed and managed by the user (under license), offering maximum control, data privacy, and sovereignty — ideal for sensitive or air-gapped environments.
+  - [6] 2026-11-03: the managed Coordinator is at composer.cubbit.eu | capture: sha256:f3c56c1a7fc3f34b14b5eadb4d6b37b7548cd1651e9580c1ca0b093dfed2811a | quote: The managed version of the Coordinator is available at composer.cubbit.eu.
+  - [6] 2026-11-03: the user connects the storage nodes to the Coordinator | capture: sha256:f3c56c1a7fc3f34b14b5eadb4d6b37b7548cd1651e9580c1ca0b093dfed2811a | quote: Operators manually connect nodes—physical or virtual—to the system, which can be distributed across multiple data centers or regions.
+  - [7] 2026-11-03: the Cubbit-run Coordinator holds no user data | capture: sha256:2a5a807522ca0276ee62533872ec5d0477e408a33fa8af5047208289fd4ec278 | quote: It does not store user data and is compatible with zero-knowledge encryption modes.
+  - [8] 2026-11-03: each storage disk runs one Cubbit storage agent | capture: sha256:830fecf46c72964b34f31dfc2755a5afdf270cf3ea82a90f20454c80364dea1e | quote: In a DS3 Swarm, each disk is managed by a dedicated Storage Agent.
+  - [8] 2026-11-03: each disk needs 1 CPU thread | capture: sha256:830fecf46c72964b34f31dfc2755a5afdf270cf3ea82a90f20454c80364dea1e | quote: 1 CPU thread
+  - [8] 2026-11-03: each disk needs 1 GB of RAM | capture: sha256:830fecf46c72964b34f31dfc2755a5afdf270cf3ea82a90f20454c80364dea1e | quote: 1 GB of RAM
+  - [9] 2026-11-03: the gateway exposes the S3-compatible API | capture: sha256:97ca36028ef7ce0806e7bb88c57f9a747551da65994c9770d23a63a5129b626a | quote: It exposes an S3-compatible API to external applications and services, enabling seamless integration with standard tools like:
+  - [9] 2026-11-03: the AWS CLI is a listed client of the gateway | capture: sha256:97ca36028ef7ce0806e7bb88c57f9a747551da65994c9770d23a63a5129b626a | quote: AWS CLI
+  - [9] 2026-11-03: the per-tenant public gateway is run by Cubbit | capture: sha256:97ca36028ef7ce0806e7bb88c57f9a747551da65994c9770d23a63a5129b626a | quote: Managed by Cubbit
+  - [9] 2026-11-03: a private gateway runs in the user's infrastructure | capture: sha256:97ca36028ef7ce0806e7bb88c57f9a747551da65994c9770d23a63a5129b626a | quote: Fully self-hosted in your infrastructure
+  - [9] 2026-11-03: egress through the Cubbit-run public gateway is free for now and may change | capture: sha256:97ca36028ef7ce0806e7bb88c57f9a747551da65994c9770d23a63a5129b626a | quote: Please note: Although egress bandwidth from each Cubbit Public DS3 Gateway is currently free of charge, this policy may change in the near future.
+  - [10] 2026-11-03: a private gateway needs a Kubernetes cluster | capture: sha256:69da181afd3e251595808e2528104847be6b6a407a647253a261acf8ef197997 | quote: Kubernetes cluster A conformant cluster (on-prem, cloud, or edge).
+  - [11] 2026-11-03: Composer is licensed on raw capacity | capture: sha256:f57121958cd75af64c869733a2a1e0f37f437eef630582e113766914cab676e4 | quote: We use raw capacity as the basis for licensing DS3 Composer to keep pricing simple and predictable.
+  - [11] 2026-11-03: the licence counts total installed storage | capture: sha256:f57121958cd75af64c869733a2a1e0f37f437eef630582e113766914cab676e4 | quote: You’re charged based on the total installed storage, regardless of how it’s configured or used.
+  - [11] 2026-11-03: licence expiry and grace terms are in the customer contract | capture: sha256:f57121958cd75af64c869733a2a1e0f37f437eef630582e113766914cab676e4 | quote: Please refer to your contract for details on renewal, grace periods, etc.
+  - [12] 2026-11-03: a Swarm starts from three servers | capture: sha256:c63c12400b717886532eebee8a223ceeca610728c0da4d39c7f940ef5113770e | quote: Spin up a minimum of three bare metal cloud servers and start configuring a go-distributed cloud storage infrastructure through a user friendly Web UI in a few minutes.
+  - [12] 2026-11-03: the marketplace listing labels the free tier a free trial and states no duration | capture: sha256:c63c12400b717886532eebee8a223ceeca610728c0da4d39c7f940ef5113770e | quote: Free trial
+  - [13] 2026-11-03: a trade report gives three nodes as the minimum deployment | capture: sha256:b24bfdce29c055b51ed1808f3ee4347c806f42afd733c4f073385bf3441a9ce8 | quote: Minimum node deployment is three, which allows for data to be sharded for resilience and security.
+  - [2] 2026-11-03: the DS3 multipart-upload page lists a 5 TiB object maximum for Cubbit's S3 gateway | capture: sha256:36b10d0b0e05b3126dd178059003c4f57bcfdf2c4c707a7ced85a4f254c3d3d9 | quote: Maximum object size5 TiB
+- sources:
+  - [1] https://www.cubbit.io/pricing
+  - [2] https://docs.cubbit.io/guides/multipart-upload
+  - [3] https://www.cubbit.io/ds3-composer-trial
+  - [4] https://www.cubbit.io/lp/ai
+  - [5] https://docs.cubbit.io/composer/getting-started/how-to-signup-to-ds3-composer
+  - [6] https://docs.cubbit.io/composer/getting-started/what-is-ds3-composer
+  - [7] https://docs.cubbit.io/composer/coordinator/what-is-the-coordinator
+  - [8] https://docs.cubbit.io/composer/swarms/hardware
+  - [9] https://docs.cubbit.io/composer/gateway/what-is-a-ds3-gateway
+  - [10] https://docs.cubbit.io/composer/gateway/how-to-install
+  - [11] https://help.cubbit.io/pricing-faqs
+  - [12] https://www.scaleway.com/en/marketplace/catalog/cubbit/
+  - [13] https://www.computerweekly.com/news/366560314/Cubbit-DS3-Composer-brings-DIY-cloud-to-object-storage-pool

@@ -1,0 +1,115 @@
+# iHostArt
+
+> ihostart.com | Compute; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/ihostart/ | JSON https://fshy.ajam.dev/api/v1/entity/ihostart.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## iHostArt
+
+- `compute/ihostart` | paid-only | evidence reported | binding volume-quota | category cloud VM
+- identity a placeholder: card and phone unknown | verified 2026-11-07T06:08:33.037Z (live) | stale on 2026-11-22
+- url https://vpspricetracker.com/provider/iHostArt/vps
+- price parsed USD 4.47/mo
+- disagrees on identity_kind: `compute/ihostart` says email, `compute/ihostart-nat64-1g` says card
+- disagrees on verdict: `compute/ihostart` says paid-only, `compute/ihostart-nat64-1g` says dead
+- free tier: Cheapest offer the tracker lists as currently sold: EUR 3.97 / month on a yearly term (the section lead reads 'starting at EUR 47.69 per year'), 1 Intel core (shared), 2,048 MB RAM, 3,000 GB HDD, 20,000 GB/month bandwidth, 1 Gbps port, IPv4 and IPv6, Bucharest, Romania. The tracker's own offer link names the plan VPS_STORAGE_38_year. The vendor's homepage read among evaluated providers advertises the same product line as 'Cheap Storage VPS' at 'Starting at $1.00 /TB per month' and 'VPS KVM SSD' at 'Starting at $9.69 /mo', which corroborates the line and the unit price but not this plan's cores, RAM or disk. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: the plan row states 20,000 GB/month of bandwidth as the included allowance; no per-GB overage price was published on the pages read | metered: yes | free allowance: 20,000 GB a month | source: [1]
+- identity: email | detail: not stated
+- interface: unknown
+- limits:
+  - volume-quota (binding): 20,000 GB a month on a 1 Gbps shared port. The 3 TB HDD is not the wall for an archive role; the monthly transfer is, and it is metered rather than shaped, so the first limit a crawler meets is the 20 TB count. [1]
+- limits note: 20,000 GB a month on a 1 Gbps shared port. The 3 TB HDD is not the wall for an archive role; the monthly transfer is, and it is metered rather than shaped, so the first limit a crawler meets is the 20 TB count.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated on the pages read. The tracker's offer link points at the vendor's own order page, which was not fetched.
+- composes with: Three terabytes of HDD with 20 TB a month of transfer at EUR 3.97 is the cheapest per-TB archive slot among evaluated providers, at the vendor's own stated unit price of about one euro per TB a month; the media is spinning HDD behind a shared 1 Gbps port, so it is a cold or warm store rather than a serving node.
+- reliability: no reliability event observed; the vendor publishes 99.50 percent uptime on its homepage.
+- notes: The page prints the euro sign; every figure here is spelled EUR to keep the strings ASCII. Walls: the HTML fetch of ihostart.com returned a Cloudflare 'Checking your browser' interstitial, 4,484 bytes, on both / and /vps/; the exa-backed read returned the homepage text, so the site is reachable by text extraction but not by raw fetch from evaluated providers. The plan row is tracker-only, which is why the confidence is reported and not documented. verification criteria: the vendor's VPS_STORAGE_38 order page, for the exact core count, the port share and any IPv4 count.
+- extras:
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 2
+  - facets.shape.disk_gib: 3000
+  - term: yearly
+  - price_on_page: EUR 3.97/mo billed yearly (EUR 47.69/yr)
+  - out_of_pocket_usd: 4.43
+  - renewal_usd: not published: no page read prints a renewal price
+  - stock: unverified: the vendor site is Cloudflare-walled and the tracker carries no stock line
+- evidence:
+  - [1] 2026-10-22: cheapest row quoted, in page order: '1 Intel Cores (shared)', '2,048 MB RAM', '3,000 GB HDD', '20,000 GB/month bandwidth', '1 Gbps port speed', 'IPv4 + IPv6', 'Bucharest Romania', at 'EUR 3.97 / month' billed yearly, under the lead 'These are the cheapest VPSs currently offered by iHostArt, starting at EUR 47.69 per year'; the page prints the euro sign, spelled EUR here for ASCII
+  - [2] 2026-10-22: vendor homepage text, fragments quoted separately: the storage product card reads 'Cheap Storage VPS' with 'Storage 4-100TB HDD SAS 4kn RAID', 'Network 1+Gbps', 'Starting at $1.00 /TB per month' and, in the page's opening line, 'Starting at $1.00 per TB'; the other card reads 'VPS KVM SSD' with 'Starting at $9.69 /mo'; the page places both in 'Bucharest, Romania', datacenter 'M247 EUROPE'. The 3 TB row itself is not on the homepage
+  - [1] 2026-11-07: the tracker still lists the cheapest plan at EUR 3.97 a month billed yearly (EUR 47.69 a year) | capture: sha256:1c526b0603e7f32cca272433bdb206325672030589bec3c99cded141aea6af00 | quote: These are the cheapest VPSs currently offered by iHostArt, starting at €47.69 per year:
+  - [1] 2026-11-07: the tracker lists the cheapest plan as currently sold and states no stock count | capture: sha256:1c526b0603e7f32cca272433bdb206325672030589bec3c99cded141aea6af00 | quote: These are the cheapest VPSs currently offered by iHostArt, starting at €47.69 per year:
+- sources:
+  - [1] https://vpspricetracker.com/provider/iHostArt/vps
+  - [2] https://ihostart.com/
+
+## iHostART (MAN HOSTING GMB H S.R.L.)
+
+- `compute/ihostart-nat64-1g` | dead | evidence documented | binding per-ip-shaping | category NAT VPS | tier VPS NAT64 (1 GB KVM)
+- needs card yes, phone yes, ID no, institution no | verified 2026-10-24T06:03:49.000Z (live) | stale on 2026-11-24
+- url https://panel.ihostart.com/index.php?rp=/store/nat64
+- disagrees on identity_kind: `compute/ihostart` says email, `compute/ihostart-nat64-1g` says card
+- disagrees on verdict: `compute/ihostart` says paid-only, `compute/ihostart-nat64-1g` says dead
+- free tier: No free tier and no price published: the store lists 'VPS NAT64 (1 GB KVM) 0 Available' and renders no amount on any route tried, in either EUR or USD. A 2022 forum offer from the operator priced a NAT64 VPS at EUR 5.40 a year, but that is a four-year-old post and not the current page. | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: not published on the pages read; the forum offer states delivery in 5 to 7 days for the storage NAT products | source: [1]
+- egress: unlimited bandwidth a month, printed 'Unlimited bandwidth/month', on a 1000 Mbit port | metered: no | free allowance: unlimited, with no byte figure published | source: [1]
+- identity: card | detail: not established: every product in the group reads '0 Available' and the store's own pages are behind a JavaScript challenge on a direct fetch, so no checkout was reachable. The operator's registered address and phone are published on a third-party profile, not on the store.
+- interface: ssh
+- limits:
+  - per-ip-shaping (binding): 1 shared IPv4 with '0 ports opened, only for connectivity', plus a /64 IPv6 - so there is no inbound IPv4 at all [1]
+  - volume-quota: unlimited bandwidth a month, with no figure, so the limit is discretionary [1]
+- binding note: the shared IPv4 opens zero ports by design, so every inbound service must be reached over the IPv6 /64, which makes the machine IPv6-only in practice despite the listing calling it NAT64.
+- interface detail: KVM guest with root, a shared IPv4 for connectivity only with zero ports opened, and a /64 IPv6
+- tooling: any SSH client over IPv6; a WHMCS client area
+- composes with: a 1 GB KVM box in Romania with a /64 and unlimited bandwidth whose shared IPv4 explicitly opens no ports, so the IPv6 address is the only inbound path
+- reliability: the operator's Romanian company record shows 0 RON turnover for 2025 against 150,075 RON in 2024, a 100 percent fall, with 0 employees reported; the store still lists products, all at 0 Available
+- notes: This is the row the entity check exists for, and it is the most useful finding among evaluated providers even though the product cannot be bought. The shop is iHostART, run from Orastie, Romania. Its company is MAN HOSTING GMB H S.R.L., CUI 44507600, incorporated 29 June 2021, registered at Str. Tudor Vladimirescu nr. 60, Orastie - the same address a third-party profile gives for the shop. Three independent Romanian company-data sources, read, agree that its 2025 turnover was 0 RON, down 100 percent from 150,075 RON in 2024, and that it reported 0 employees. The company is not dissolved and carries no ANAF debt, so this is not the dissolved-UK-company trap; it is the quieter one: an entity that is still registered, still lists products, and reported no revenue at all in its last filed year. A buyer sending EUR 5.40 or any other sum to it is buying from a shell whose filings say nothing came in last year. On top of that the products cannot be bought: all three in the group read '0 Available' and the product route answers 'Out of Stock'. And no price renders on any route tried - the only figure anywhere is EUR 5.40 a year from a September 2022 forum post by the vendor, which is four years old and is classified as reported, not as the current price. The specification itself is worth noting for evaluated offerings's purposes: the NAT64 plan opens zero ports on its shared IPv4 and gives a /64, so it is IPv6-only in practice, which is exactly the shape evaluated providers is hunting. What is not established: the current price, the checkout fields, and whether the shop and the company are still the same operator today - the profile claim dates from 2022. A buyer who wants this should ask for a current invoice before paying anything.
+- evidence note: the shape, the zero-port IPv4, the /64, the unlimited bandwidth and the 0 Available stock state are quoted from the vendor's own store page read; the company identity and its financials are quoted from three independent Romanian company-data sources read, not from the vendor. No price could be read on any route, so the price fields are dashes rather than estimates.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.disk_gib: 5
+  - billing_model: unknown
+  - term: unknown
+  - price_arithmetic: not computed: no price renders on the store for this product on any route tried, so there is no published rate to derive a monthly figure from. The only figure in existence is a September 2022 forum post at EUR 5.40 a year, which is four years old and is not used in arithmetic. A dash rather than a guess.
+  - renewal_usd: not published
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: a /64 IPv6 reachable directly; the shared IPv4 has '0 ports opened', so there is no inbound IPv4
+  - network_out.static_ip: no
+  - network_out.ipv6: yes
+  - network_out.ipv6_prefix: /64
+  - udp: not stated for the IPv4 side, which opens no ports anyway; the /64 IPv6 would carry UDP by construction but no page read says so in words
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - payment_rails: not established: every product is out of stock and the store is behind a JavaScript challenge on direct fetch
+  - card_hold: not stated on any page read
+  - checkout_fields: not established
+  - stock: out of stock: all three products in the group read '0 Available' and the product route answers 'Out of Stock' on 2026-10-24
+  - cart_url: https://panel.ihostart.com/index.php?rp=/store/nat64/1g
+  - cart_works: refused: the product route answered 'Out of Stock ... orders for it have been suspended'
+  - product_url: https://panel.ihostart.com/index.php?rp=/store/nat64
+  - signup_url_note: no registration page could be reached: the store's WHMCS pages return a JavaScript challenge on a direct fetch, and every product is out of stock.
+  - cart_url_note: the 2022 forum post links this exact product route, and it now answers out-of-stock.
+  - other_products: 'VPS Storage NAT 2' with 512 MB OpenVZ, 50 GB SSD and '1 IPv4 nat (with 20 ports open and 1 port for ssh)' plus a /64, and 'VPS Storage NAT 2 x2' with 1024 MB and 90 GB, both also '0 Available'
+- evidence:
+  - [1] 2026-10-24: quoted: 'VPS NAT64 (1 GB KVM) 0 Available 1x vCore (25% allocated) 1 GB Ram DDr3 ECC 5 GB SSD SATA (raid 1) 1000 Mbit speed up/down Romania Location/Orastie City Unlimited bandwidth/month 1 IPv4 shared (0 ports opened , only for conectivity) 1x /64 IPv6 KVM Virtualization'
+  - [1] 2026-10-24: the group carries three products, all at zero stock: 'VPS NAT64 (1 GB KVM) 0 Available', 'VPS Storage NAT 2 0 Available' with '1 IPv4 nat (with 20 ports open and 1 port for ssh)', and 'VPS Storage NAT 2 x2 0 Available'. No currency amount renders for any of them.
+  - [2] 2026-10-24: the product route answers 'Out of Stock We are currently out of stock on this item so orders for it have been suspended until more stock is available.'
+  - [3] 2026-10-24: quoted: 'MAN HOSTING GMB H S.R.L. (CUI 44507600) ... infiintata pe 29 iunie 2021, cu sediul in Municipiul Orastie, Str. TUDOR VLADIMIRESCU, Nr.60, Judet Hunedoara' and 'In 2025 firma a raportat 0 angajati' and the financial table 'Cifra de Afaceri 0 ron -100.00% fata de 150.075 ron in 2024'
+  - [4] 2026-10-24: quoted independently: 'Indicatori financiari din bilantul anului 2025 ... Cifra de afaceri 0 RON'
+  - [5] 2026-10-24: quoted independently: 'Cifra de afaceri raportata de MAN HOSTING GMB H S.R.L. in 2025 a fost de 0 RON ... a raportat un numar de 0 angajati in anul'
+  - [6] 2026-10-24: the third-party profile links the shop to the company: 'Profile claimed by MAN Hosting GMB H SRL in 2022' with address 'Tudor Vladimirescu nr 60, 335700 Orastie RO' - the same street address as the Romanian company record
+  - [7] 2026-10-24: the 2022 forum offer, reported not measured: '5.40€/yr NAT64 VPS / 1 GB Ram / 5 GB SSD raid 1 /1 GBps speed/KVM / 1 IPv4 /1x /64 IPv6', posted by 'Calin' in September 2022 with an order link to panel.ihostart.com/index.php?rp=/store/nat64/1g - four years old and not evidence about today's price
+- sources:
+  - [1] https://panel.ihostart.com/index.php?rp=/store/nat64
+  - [2] https://panel.ihostart.com/index.php?rp=/store/nat64/1g
+  - [3] https://www.risco.ro/verifica-firma/man-hosting-gmb-h-cui-44507600
+  - [4] https://www.firme-on-line.ro/profile/44507600.html
+  - [5] https://termene.ro/firma/44507600-MAN-HOSTING-GMB-H-SRL
+  - [6] https://www.trustprofile.com/webshop/iHostART-Com_4003605
+  - [7] https://lowendspirit.com/discussion/4624/5-40-yr-nat64-vps-1-gb-ram-5-gb-ssd-raid-1-1-gbps-speed-kvm-1-ipv4-1x-64-ipv6-dmca-ignored

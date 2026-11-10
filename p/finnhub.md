@@ -1,0 +1,85 @@
+# Finnhub
+
+> finnhub.io | Data APIs; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/finnhub/ | JSON https://fshy.ajam.dev/api/v1/entity/finnhub.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Finnhub
+
+- `data-apis/finnhub` | qualifies-with-caveat | evidence documented | binding request-rate | category market data API (US quotes, company news, fundamentals, WebSocket) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T00:27:51.443Z (live) | stale on 2026-12-04
+- url https://finnhub.io/pricing
+- free tier: Free plan USD 0/month: 60 API calls/minute; on top of every plan's limit, 30 API calls/second | unit: requests | metered on: request-count | read on: 2026-10-30 | source: [1] | note: No daily cap is stated. The free column covers US data: company news for 1 year, earnings calendar for 1 month, EPS surprises for 4 quarters, and a WebSocket of 50 symbols. The Quote endpoint is marked High Usage, not Premium. Candles (OHLCV), tick data, historical NBBO, last bid-ask, splits and most estimates endpoints are marked Premium in the API documentation, so the free plan carries no historical price bars. The All-In-One plan is USD 3500/month.
+- per-object cap: not applicable: one JSON response per call; the filings endpoint returns up to 250 documents per call | source: [2]
+- retention: not applicable
+- egress: not metered in bytes; the call rate bounds what a free key can pull | metered: no | source: [1]
+- identity: email | detail: The signup form asks for a name, an email and a password, behind a reCAPTCHA; it has no card field. Signing up confirms non-professional status, and the terms use the name and email to file a non-professional subscriber form. When the register call returns a JSON body with status 200 the signup page opens /dashboard, where the docs say the API key is found, and its script holds no email-verification step; a third-party integration guide reports an email verification link before the key is shown, and whether the dashboard withholds the key until that link is followed is unverified: behind a sign-up. A call without a key answers HTTP 401 with 'Please use an API key.'
+- interface: rest
+- limits:
+  - request-rate (binding): 60 API calls per minute on the free plan [1]
+  - request-rate (binding): 30 API calls per second on every plan [2]
+- limits note: Bulk path: filings metadata only. The filings endpoint names a Kaggle dataset, SEC Filings 1994-2020, published by Finnhub for bulk download; prices, candles and news have no bulk path.
+- binding note: 60 calls a minute is the ceiling a free key meets; the 30-per-second limit binds only bursts.
+- interface detail: REST under https://finnhub.io/api/v1 with token=KEY in the URL or an X-Finnhub-Token header; a WebSocket stream of up to 50 symbols on the free plan.
+- endpoint: part of interface detail
+- tooling: curl or any HTTP client; a WebSocket client for the stream
+- composes with: A free real-time US quote and news feed at 60 calls a minute with no historical bars; history comes from another record, such as Alpha Vantage weekly or monthly series, Twelve Data daily series or Massive Basic end-of-day bars.
+- reliability: Inactive users are deleted from time to time; a deleted account needs a new signup.
+- notes: The most generous call rate of the four market data records, but the free plan is a live-data plan: quotes, news, calendars and a 50-symbol stream, with candles and tick history behind Premium.
+- evidence note: The rate and the plan columns are documented on the pricing page and the API documentation. A keyless probe confirmed the API answers and demands a key; the 60-per-minute cut-off needs a free key to measure.
+- extras:
+  - bulk_path: Kaggle dataset SEC Filings 1994-2020 (filings metadata only), a zip of 499804103 bytes that the Kaggle API download link serves with no Kaggle account or credentials; no bulk path for…
+  - cutoff.http_status: 429
+  - cutoff.body: a JSON error message that starts: API limit reached. Please try again later. (reported by users of the free and premium plans)
+  - cutoff.reset: unverified: behind a sign-up: no Finnhub page says whether the 60-per-minute window is fixed or sliding, or when a blocked key may call again
+- evidence:
+  - [1] 2026-10-30: the free plan allows 60 API calls per minute | capture: sha256:4f425bac9a7212fed2d127c40a16d6236b3ff3cab233ea2478b824b695eeb39f | quote: | Limit | 60 API calls/minute | Market data: 900 API calls/minute Fundamental: 300 API calls/minute |
+  - [1] 2026-10-30: the free plan is USD 0 a month and the All-In-One plan USD 3500 a month | capture: sha256:4f425bac9a7212fed2d127c40a16d6236b3ff3cab233ea2478b824b695eeb39f | quote: | Pricing | $0/month [Start Free](https://finnhub.io/register) | $3500/month [Contact Us](mailto:support@finnhub.io) |
+  - [1] 2026-10-30:  | capture: sha256:4f425bac9a7212fed2d127c40a16d6236b3ff3cab233ea2478b824b695eeb39f
+  - [1] 2026-10-30: the free plan streams up to 50 symbols over the WebSocket | capture: sha256:4f425bac9a7212fed2d127c40a16d6236b3ff3cab233ea2478b824b695eeb39f | quote: | Websocket | 50 symbols | Unlimited symbols |
+  - [1] 2026-10-30: the free plan carries 1 year of company news | capture: sha256:4f425bac9a7212fed2d127c40a16d6236b3ff3cab233ea2478b824b695eeb39f | quote: | Company News | 1 year and real-time updates | 20 years and real-time updates |
+  - [1] 2026-10-30: the free plan carries 1 month of the US earnings calendar | capture: sha256:4f425bac9a7212fed2d127c40a16d6236b3ff3cab233ea2478b824b695eeb39f | quote: | Earnings Calendar | 1 month and real-time updates (US) | 20 years and real-time updates |
+  - [1] 2026-10-30: the free plan carries 4 quarters of EPS surprises | capture: sha256:4f425bac9a7212fed2d127c40a16d6236b3ff3cab233ea2478b824b695eeb39f | quote: | EPS Surprises | 4 quarters | 20+ years |
+  - [2] 2026-10-30: every plan is also held to 30 API calls per second | capture: sha256:b993fbe55a0a474a5095b221d2312dad92826e297fbd73306c51e2a2875d7318 | quote: On top of all plan's limit, there is a 30 API calls/ second limit.
+  - [2] 2026-10-30: a call over the limit answers HTTP 429 | capture: sha256:b993fbe55a0a474a5095b221d2312dad92826e297fbd73306c51e2a2875d7318 | quote: If your limit is exceeded, you will receive a response with status code `429`.
+  - [2] 2026-10-30: every call needs the key as a token parameter or an X-Finnhub-Token header | capture: sha256:b993fbe55a0a474a5095b221d2312dad92826e297fbd73306c51e2a2875d7318 | quote: All GET request require a token parameter `token=apiKey` in the URL or a header `X-Finnhub-Token : apiKey`.
+  - [2] 2026-10-30: stock candles (OHLCV) are a premium endpoint | capture: sha256:b993fbe55a0a474a5095b221d2312dad92826e297fbd73306c51e2a2875d7318 | quote: - [Candles (OHLCV)](https://finnhub.io/docs/api/stock-candles) Premium
+  - [2] 2026-10-30: the quote endpoint is marked High Usage, not Premium | capture: sha256:b993fbe55a0a474a5095b221d2312dad92826e297fbd73306c51e2a2875d7318 | quote: - [Quote](https://finnhub.io/docs/api/quote) High Usage
+  - [2] 2026-10-30: filings return up to 250 documents per call and are offered for bulk download on Kaggle | capture: sha256:b993fbe55a0a474a5095b221d2312dad92826e297fbd73306c51e2a2875d7318 | quote: List company's filing. Limit to 250 documents at a time. This data is available for bulk download on [Kaggle SEC Filings database](https://www.kaggle.com/finnhub/sec-filings).
+  - [3] 2026-10-30: the Kaggle dataset is a Finnhub release of filings metadata for bulk download | capture: sha256:a74216c55199661d394796fa81ecf4e693a8dca71e95dd87eb2e8f4870a53e00 | quote: With the sole mission to democratize financial data, Finnhub is excited to release the new Filings metadata dataset for bulk download.
+  - [3] 2026-10-30: the bulk dataset covers SEC filings from 1994 to 2020 | capture: sha256:a74216c55199661d394796fa81ecf4e693a8dca71e95dd87eb2e8f4870a53e00 | quote: The data is cleaned and sourced directly from SEC filings from 1994-2020.
+  - [4] 2026-10-30: the signup form has a name field; the same form has email and password fields and no card field | capture: sha256:673ecaec616b71825311bc98b4b5dd9d483e5d017ecb50000b4445ed757401a8 | quote: React.createElement("input",{type:"text",placeholder:"Name",value:e.state.name,onChange:e.onTextChange.bind(e,"name")})
+  - [4] 2026-10-30: the signup form has an email field | capture: sha256:673ecaec616b71825311bc98b4b5dd9d483e5d017ecb50000b4445ed757401a8 | quote: React.createElement("input",{type:"text",placeholder:"Email",value:e.state.email,onChange:e.onTextChange.bind(e,"email")})
+  - [5] 2026-10-30: signing up confirms non-professional status | capture: sha256:e741d4d2456df8d20a3fda3d4cb97c8560edafde0f8a1368ae3da1b3b7dd91ca
+  - [5] 2026-10-30: the signup page sits behind a reCAPTCHA | capture: sha256:318458060a0c1cd74e8aa960dbcf48785784fbf8f037720ad5306b7d306539c0 | quote: Recaptcha requires verification.
+  - [6] 2026-10-30:  | capture: sha256:0cc2993c29a8050214c6416f9679cc668fa32444b5153f276e0b7f269009bcd8
+  - [6] 2026-10-30:  | capture: sha256:0cc2993c29a8050214c6416f9679cc668fa32444b5153f276e0b7f269009bcd8
+  - [6] 2026-10-30: a personal-use signup is used to file a non-professional subscriber form | capture: sha256:0cc2993c29a8050214c6416f9679cc668fa32444b5153f276e0b7f269009bcd8
+  - [6] 2026-10-30: inactive accounts are deleted from time to time | capture: sha256:0cc2993c29a8050214c6416f9679cc668fa32444b5153f276e0b7f269009bcd8 | quote: Finnhub will automatically delete inactive users from time to time.
+  - [7] 2026-10-30: a third-party guide reports an email verification step before the account is active | capture: sha256:d3c48def98a2bfcc3418b7c2c2c54354aab384b222ad25938be450d815ddf201 | quote: Check your email inbox for a verification message from Finnhub and click the verification link to activate your account.
+  - probe:https://finnhub.io/api/v1/quote?symbol=AAPL 2026-10-30: the quote endpoint answered HTTP 401 to a call without a key | capture: sha256:eb42e6751937c738920feedb81ccfb1f56bab838f1d7c8a9984e4f6a7ced214e | quote: "status": 401
+  - probe:https://finnhub.io/api/v1/quote?symbol=AAPL 2026-10-30: the keyless call is refused with a request for an API key | capture: sha256:f2906267f693bd6aaa3cbe886b1530adff776082a85e4b7a6b69db55900a7174 | quote: {"error":"Please use an API key."}
+  - [2] 2026-11-02: a call over a plan's limit answers HTTP 429 | capture: sha256:2d0e382bf1643996bd5ee74d3e0d7372ed5af1b9864f812e7950ef5fdd7dc6ea | quote: If your limit is exceeded, you will receive a response with status code `429`.
+  - [8] 2026-11-02: a free-plan user's call over the limit got HTTP 429 with the text API limit reached. Please try again later. | capture: sha256:98350404a9bb59dddb5f99b8e9a94482e63e3e35407a6fb1d7efbc850f1e24e9 | quote: returned code 429. Truncated server response: API limit reached. Please try again later.
+  - [9] 2026-11-02: the official Python client reports the 429 body as a JSON error message with this text (a premium-plan key) | capture: sha256:f7ddd20aa01335f7c32247c3df93e3dd94a3cfc480b784381c4bf150a29f8ae1 | quote: JSON error message from Finnhub: API limit reached. Please try again later.
+  - [1] 2026-11-02: the plan table gives 60 API calls a minute and names no reset instant | capture: sha256:71839fe4ba69e46ec240d97f09e1ba3bf45d8c43d61cc49a36138edd5bf59c22 | quote: | Limit | 60 API calls/minute | Market data: 900 API calls/minute Fundamental: 300 API calls/minute |
+  - [10] 2026-11-02: after the register call returns a JSON body with status 200 the signup script shows Successful and sends the browser to /dashboard | capture: sha256:d657a010ad8af17a6a7d8eb7b8d2bf0b5765bb5cea45dec633055f2c026221ac | quote: t.ok?(t.json().then(function(e){console.log(e),200!==e.status?window.pushNoti(e.msg,3e3,"error"):(window.pushNoti("Successful",2e3),window.location="/dashboard")})
+  - [2] 2026-11-02: the docs say the API key is found on the dashboard | capture: sha256:2d0e382bf1643996bd5ee74d3e0d7372ed5af1b9864f812e7950ef5fdd7dc6ea | quote: You can find your API Key under [Dashboard](https://finnhub.io/dashboard).
+  - probe:https://www.kaggle.com/api/v1/datasets/download/finnhub/sec-filings 2026-11-02: a request with no credentials to the Kaggle API download URL was redirected to the archive zip, and a ranged read of its first 1024 bytes answered 206 with a total of 499804103 bytes | capture: sha256:5aabf152b6a5c69b908df827f658705826ad2598b03b394a3406108ac824e5b5 | quote: "content_range": "bytes 0-1023/499804103"
+  - probe:https://www.kaggle.com/api/v1/datasets/download/finnhub/sec-filings 2026-11-02: the ranged read of the archive behind the keyless download link answered HTTP 206 | capture: sha256:5aabf152b6a5c69b908df827f658705826ad2598b03b394a3406108ac824e5b5 | quote: "status": 206
+  - [11] 2026-11-02: Kaggle's own client documentation says authentication is needed only for public resources that require consent, and for private ones | capture: sha256:1a5fce92f06f73a4245934aa6e4fff307fdd9fd16a002be548b23d603dfabd1a | quote: Authenticating is only needed to access public resources requiring user consent or private resources.
+  - [2] 2026-11-02: every plan is also held to 30 API calls per second | capture: sha256:2d0e382bf1643996bd5ee74d3e0d7372ed5af1b9864f812e7950ef5fdd7dc6ea | quote: On top of all plan's limit, there is a 30 API calls/ second limit.
+  - [5] 2026-11-02: signing up confirms non-professional status | capture: sha256:6a7098fde2828d42c75618da92ee087b2d4b412abcea6cf45eb032934de772a4
+  - [1] 2026-11-02: the free plan still allows 60 API calls a minute | capture: sha256:71839fe4ba69e46ec240d97f09e1ba3bf45d8c43d61cc49a36138edd5bf59c22 | quote: | Limit | 60 API calls/minute | Market data: 900 API calls/minute Fundamental: 300 API calls/minute |
+- sources:
+  - [1] https://finnhub.io/pricing
+  - [2] https://finnhub.io/docs/api/rate-limit
+  - [3] https://www.kaggle.com/datasets/finnhub/sec-filings
+  - [4] https://finnhub.io/static/js/webpack/dist/main.bundle.7d2d142701ec3d925af0.js
+  - [5] https://finnhub.io/register
+  - [6] https://finnhub.io/terms-of-service
+  - [7] https://docs.nexla.com/user-guides/connectors/finnhub_api
+  - [8] https://github.com/finnhubio/Finnhub-API/issues/233
+  - [9] https://github.com/Finnhub-Stock-API/finnhub-python/issues/24
+  - [10] https://finnhub.io/static/js/webpack/dist/main.bundle.4de77626bde75a453a2c.js
+  - [11] https://github.com/Kaggle/kagglehub/blob/main/README.md

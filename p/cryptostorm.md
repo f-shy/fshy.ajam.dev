@@ -1,0 +1,152 @@
+# Cryptostorm
+
+> cryptostorm.is | Egress and tunnels, IP and proxies; 3 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/cryptostorm/ | JSON https://fshy.ajam.dev/api/v1/entity/cryptostorm.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Cryptostorm (Egress and tunnels)
+
+- `egress/cryptostorm` | paid-only | evidence documented | binding none | category tunnel (hosted): VPN with an anonymous access token, WireGuard and OpenVPN, on shared exit addresses | tier 1 year token (4 devices)
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T10:11:45.490Z (live) | stale on 2026-12-05
+- url https://cryptostorm.is/
+- price USD 52 for a 1-year token (4 devices); a subscription price, not a per-TB price
+- free tier: No free tier. The cheapest 1-year token is USD 52: the order page lists 'yearly - $52 (4 devices)' as a PayPal subscription and 'one year - $52 (4 devices)' as a single order; the same page lists 'two years - $94 (5 devices)', 'monthly - $6 (1 device)' and 'weekly - $1.86 (1 device)'. | unit: none | metered on: none | read on: 2026-11-04 | source: [1] | note: Prices are read from the order forms of the vendor's home page. The FAQ states a device limit that depends on the token's duration: one year gives 4 WireGuard keys and 4 OpenVPN sessions.
+- per-object cap: not applicable | source: [2]
+- retention: not applicable: a tunnel, not stored bytes | source: [2] | note: The FAQ states the servers keep no logs that identify a customer; no stored-object retention applies.
+- egress: No byte cap and no throttling are stated: the FAQ answers 'Are there any speed/traffic limits?' with "No. We don't do any kind of throttling/QoS." Servers are 1 Gbps, and 10 Gbps at five named sites; bandwidth is shared with other servers in the same cabinet. | metered: no | free allowance: none: no free tier | source: [2]
+- identity: anonymous | detail: A token is the account. The order page's Monero form is labelled 'no 3rd parties, no email or JS required', and the vendor states it accepts Monero 'so people can order an access token anonymously without providing any personal information'. Card and PayPal orders go through PayPal or CCBill, and only recurring subscriptions get the token by email; other orders show it in the browser. The vendor states it has no KYC policy.
+- interface: unknown
+- limits:
+  - volume-quota: none published: "No. We don't do any kind of throttling/QoS."; servers are 1 Gbps (10 Gbps at Switzerland, Finland, Atlanta, Chicago and Oregon) [2]
+  - per-ip-shaping: shared exit addresses: 'Currently over 450 available IPs', used by many clients at once, so destination-side limits and reputation on an address apply to every client behind it [1]
+- limits note: Concurrent connections are capped by token length and the vocabulary has no kind for it: a one-week or one-month token allows 1 WireGuard key and 1 OpenVPN session, a one-year token allows 4 and 4, a two-year token 5 and 5, a lifetime token 6 and 6.
+- binding note: No byte quota, speed cap or request rate is published; the only stated ceiling is the concurrent-session count of the token, which the limit vocabulary cannot name.
+- interface detail: A tunnel, not a data API: OpenVPN (ECC and RSA configurations) and WireGuard, authenticated with a token. Protocols: OpenVPN and WireGuard. UDP: the home page states 'UDP or TCP (1-65535)', so both transports run on any port. Port forwarding: yes, from 30000 to 65535, enabled at http://10.31.33.7/fwd inside the tunnel, 100 forwards per internal IP on each server. SOCKS5 endpoint: unverified: no page read states one. Obfuscation: SSH, HTTPS (Xray or stunnel) and obfs4. BitTorrent: allowed ('BitTorrent allowed').
+- tooling: Any OpenVPN or WireGuard client with the vendor's published server configs; the vendor states all server-side configs are public. Port forwards are made from a web page reachable only inside the tunnel. The vocabulary has no wireguard, openvpn or socks5 interface token, so the interface list says unknown.
+- composes with: A tunnel exit for traffic that must leave from a shared VPN address: a job connects with a token, and the upstream sees one of the provider's shared addresses (over 450 IPs listed).
+- reliability: The FAQ states servers share bandwidth with other servers in the same cabinet, so peak hours can lower speed; port forwards are per server and have to be recreated when moving to another server.
+- notes: Cheapest yearly price: USD 52 for 1 year, 4 devices (2 years: USD 94, 5 devices). The port-forwarding page says the vendor runs a yearly half-off sale every Black Friday to Cyber Monday; the price above is the list price read on the page.
+- evidence note: Documented: price, protocols, UDP, port forwarding, obfuscation and the BitTorrent line are quoted from the vendor's own home page, FAQ and port-forwarding page. Nothing was connected through the service, so no speed, address class or forwarding behaviour is measured. A SOCKS5 endpoint is unverified because no page read mentions one.
+- evidence:
+  - [1] 2026-11-04: The 1-year token is USD 52 for 4 devices on the order form. | capture: sha256:d63724cad233c5d439e350da2d4e610b1dbf52ad184b487e4f3137853e6ba87f | quote: yearly - $52 (4 devices)
+  - [1] 2026-11-04: The 2-year token is USD 94 for 5 devices. | capture: sha256:d63724cad233c5d439e350da2d4e610b1dbf52ad184b487e4f3137853e6ba87f | quote: two years - $94 (5 devices)
+  - [1] 2026-11-04: The Monero order form needs no email and no JavaScript. | capture: sha256:d63724cad233c5d439e350da2d4e610b1dbf52ad184b487e4f3137853e6ba87f | quote: no 3rd parties, no email or JS required
+  - [1] 2026-11-04: Both transports on any port from 1 to 65535. | capture: sha256:7f6bafab398b5ddb8f9310838c3f83c944cba632dcc501665f2e8d4dedfc83b7 | quote: UDP or TCP (1-65535)
+  - [1] 2026-11-04: The home page states BitTorrent is allowed. | capture: sha256:7f6bafab398b5ddb8f9310838c3f83c944cba632dcc501665f2e8d4dedfc83b7 | quote: BitTorrent allowed
+  - [1] 2026-11-04: The home page states port forwarding is supported. | capture: sha256:7f6bafab398b5ddb8f9310838c3f83c944cba632dcc501665f2e8d4dedfc83b7 | quote: Port forwarding supported
+  - [1] 2026-11-04: Obfuscation by SSH, HTTPS (Xray or stunnel) and obfs4. | capture: sha256:7f6bafab398b5ddb8f9310838c3f83c944cba632dcc501665f2e8d4dedfc83b7 | quote: Obfuscate your VPN traffic to look like SSH or HTTPS traffic (via Xray or stunnel), or with obfs4, like nothing
+  - [1] 2026-11-04: WireGuard is offered (its ciphersuite is listed). | capture: sha256:7f6bafab398b5ddb8f9310838c3f83c944cba632dcc501665f2e8d4dedfc83b7 | quote: ChaCha20 for symmetric encryption, authenticated with Poly1305, using RFC7539's AEAD construction
+  - [1] 2026-11-04: OpenVPN is offered with ECC configurations. | capture: sha256:7f6bafab398b5ddb8f9310838c3f83c944cba632dcc501665f2e8d4dedfc83b7 | quote: OpenVPN ECC
+  - [1] 2026-11-04: Exit addresses are shared; over 450 are listed. | capture: sha256:7f6bafab398b5ddb8f9310838c3f83c944cba632dcc501665f2e8d4dedfc83b7 | quote: Currently over 450 available IPs
+  - [2] 2026-11-04: The FAQ states no speed or traffic limits. | capture: sha256:afdd6698a80a6a2030b42f1b77aa1dfd75a4dbacde86149b19dc658e0f92c942 | quote: No. We don't do any kind of throttling/QoS.
+  - [2] 2026-11-04: A 1-year token allows 4 WireGuard keys and 4 OpenVPN sessions. | capture: sha256:afdd6698a80a6a2030b42f1b77aa1dfd75a4dbacde86149b19dc658e0f92c942 | quote: | one year | 4 | 4 |
+  - [2] 2026-11-04: Only recurring subscriptions receive the token by email; other orders show it in the browser. | capture: sha256:afdd6698a80a6a2030b42f1b77aa1dfd75a4dbacde86149b19dc658e0f92c942 | quote: For everyone else the delivery happens in-browser only.
+  - [3] 2026-11-04: Forwarded ports run from 30000 to 65535. | capture: sha256:8a0a6f55fd249245c4c4279af1f843965fd1d0f02b4429bed67454b4696c588a | quote: choose a port between 30000 and 65535
+  - [3] 2026-11-04: Forward limit is 100 per internal IP on each server. | capture: sha256:8a0a6f55fd249245c4c4279af1f843965fd1d0f02b4429bed67454b4696c588a | quote: The limit is 100 port forwards per internal IP (per server).
+  - [3] 2026-11-04: BitTorrent works without a forward; the forward improves swarm reachability. | capture: sha256:8a0a6f55fd249245c4c4279af1f843965fd1d0f02b4429bed67454b4696c588a | quote: BitTorrent will still work correctly on cryptostorm even without port forwarding enabled.
+  - [4] 2026-11-04: A token can be ordered anonymously with Monero. | capture: sha256:ab2d5c98398df62666f2022990a703acf93509deef2110f591bb93df3d15b7dc | quote: That's why we have a .onion and .i2p and why we accept Monero, so people can order an access token anonymously without providing any personal information.
+  - [4] 2026-11-04: the vendor states it implements no age or ID verification | capture: sha256:ab2d5c98398df62666f2022990a703acf93509deef2110f591bb93df3d15b7dc | quote: we will not be implementing any kind of "Age/ID verification"
+- sources:
+  - [1] https://cryptostorm.is/
+  - [2] https://cryptostorm.is/faq
+  - [3] https://cryptostorm.is/portfwd
+  - [4] https://cryptostorm.is/tos
+
+## Cryptostorm (ip-proxy/cryptostorm)
+
+- `ip-proxy/cryptostorm` | paid-only | evidence documented | binding none | category VPN subscription (exit source) | tier 1 year token (4 devices)
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T05:58:00.000Z (live) | stale on 2026-12-05
+- url https://cryptostorm.is/
+- price USD 52 for a 1-year token (4 devices); a subscription price, not a per-TB price
+- duplicate of `egress/cryptostorm`
+- free tier: No free tier. The cheapest 1-year token is USD 52: the order page lists 'yearly - $52 (4 devices)' as a PayPal subscription and 'one year - $52 (4 devices)' as a single order; the same page lists 'two years - $94 (5 devices)', 'monthly - $6 (1 device)' and 'weekly - $1.86 (1 device)'. | unit: none | metered on: none | read on: 2026-11-04 | source: [1] | note: Prices are read from the order forms of the vendor's home page. The FAQ states a device limit that depends on the token's duration: one year gives 4 WireGuard keys and 4 OpenVPN sessions.
+- per-object cap: not applicable | source: [2]
+- retention: not applicable: a tunnel, not stored bytes | source: [2] | note: The FAQ states the servers keep no logs that identify a customer; no stored-object retention applies.
+- egress: No byte cap and no throttling are stated: the FAQ answers 'Are there any speed/traffic limits?' with "No. We don't do any kind of throttling/QoS." Servers are 1 Gbps, and 10 Gbps at five named sites; bandwidth is shared with other servers in the same cabinet. | metered: no | free allowance: none: no free tier | source: [2]
+- identity: anonymous | detail: A token is the account. The order page's Monero form is labelled 'no 3rd parties, no email or JS required', and the vendor states it accepts Monero 'so people can order an access token anonymously without providing any personal information'. Card and PayPal orders go through PayPal or CCBill, and only recurring subscriptions get the token by email; other orders show it in the browser. The vendor states it has no KYC policy.
+- interface: unknown
+- limits:
+  - volume-quota: none published: "No. We don't do any kind of throttling/QoS."; servers are 1 Gbps (10 Gbps at Switzerland, Finland, Atlanta, Chicago and Oregon) [2]
+  - per-ip-shaping: shared exit addresses: 'Currently over 450 available IPs', used by many clients at once, so destination-side limits and reputation on an address apply to every client behind it [1]
+- limits note: Concurrent connections are capped by token length and the vocabulary has no kind for it: a one-week or one-month token allows 1 WireGuard key and 1 OpenVPN session, a one-year token allows 4 and 4, a two-year token 5 and 5, a lifetime token 6 and 6.
+- binding note: No byte quota, speed cap or request rate is published; the only stated ceiling is the concurrent-session count of the token, which the limit vocabulary cannot name.
+- interface detail: A tunnel, not a data API: OpenVPN (ECC and RSA configurations) and WireGuard, authenticated with a token. Protocols: OpenVPN and WireGuard. UDP: the home page states 'UDP or TCP (1-65535)', so both transports run on any port. Port forwarding: yes, from 30000 to 65535, enabled at http://10.31.33.7/fwd inside the tunnel, 100 forwards per internal IP on each server. SOCKS5 endpoint: unverified: no page read states one. Obfuscation: SSH, HTTPS (Xray or stunnel) and obfs4. BitTorrent: allowed ('BitTorrent allowed').
+- tooling: Any OpenVPN or WireGuard client with the vendor's published server configs; the vendor states all server-side configs are public. Port forwards are made from a web page reachable only inside the tunnel. The vocabulary has no wireguard, openvpn or socks5 interface token, so the interface list says unknown.
+- composes with: A tunnel exit for traffic that must leave from a shared VPN address: a job connects with a token, and the upstream sees one of the provider's shared addresses (over 450 IPs listed).
+- reliability: The FAQ states servers share bandwidth with other servers in the same cabinet, so peak hours can lower speed; port forwards are per server and have to be recreated when moving to another server.
+- notes: Duplicate of egress/cryptostorm, which holds the offer: both records cite the same vendor page.
+- evidence note: Documented: price, protocols, UDP, port forwarding, obfuscation and the BitTorrent line are quoted from the vendor's own home page, FAQ and port-forwarding page. Nothing was connected through the service, so no speed, address class or forwarding behaviour is measured. A SOCKS5 endpoint is unverified because no page read mentions one.
+- evidence:
+  - [1] 2026-11-04: The 1-year token is USD 52 for 4 devices on the order form. | capture: sha256:dede0bea5beb12d70b6192285b462da279e3a1644ae0dd43a23faf36150eed48 | quote: yearly - $52 (4 devices)
+  - [1] 2026-11-04: The 2-year token is USD 94 for 5 devices. | capture: sha256:dede0bea5beb12d70b6192285b462da279e3a1644ae0dd43a23faf36150eed48 | quote: two years - $94 (5 devices)
+  - [1] 2026-11-04: The Monero order form needs no email and no JavaScript. | capture: sha256:dede0bea5beb12d70b6192285b462da279e3a1644ae0dd43a23faf36150eed48 | quote: no 3rd parties, no email or JS required
+  - [1] 2026-11-04: Both transports on any port from 1 to 65535. | capture: sha256:b92a7d316f19c66e0a08cb8b66c16dabc69add1ce42bb872ea120fda099c26b0 | quote: UDP or TCP (1-65535)
+  - [1] 2026-11-04: The home page states BitTorrent is allowed. | capture: sha256:b92a7d316f19c66e0a08cb8b66c16dabc69add1ce42bb872ea120fda099c26b0 | quote: BitTorrent allowed
+  - [1] 2026-11-04: The home page states port forwarding is supported. | capture: sha256:b92a7d316f19c66e0a08cb8b66c16dabc69add1ce42bb872ea120fda099c26b0 | quote: Port forwarding supported
+  - [1] 2026-11-04: Obfuscation by SSH, HTTPS (Xray or stunnel) and obfs4. | capture: sha256:b92a7d316f19c66e0a08cb8b66c16dabc69add1ce42bb872ea120fda099c26b0 | quote: Obfuscate your VPN traffic to look like SSH or HTTPS traffic (via Xray or stunnel), or with obfs4, like nothing
+  - [1] 2026-11-04: WireGuard is offered (its ciphersuite is listed). | capture: sha256:b92a7d316f19c66e0a08cb8b66c16dabc69add1ce42bb872ea120fda099c26b0 | quote: ChaCha20 for symmetric encryption, authenticated with Poly1305, using RFC7539's AEAD construction
+  - [1] 2026-11-04: OpenVPN is offered with ECC configurations. | capture: sha256:b92a7d316f19c66e0a08cb8b66c16dabc69add1ce42bb872ea120fda099c26b0 | quote: OpenVPN ECC
+  - [1] 2026-11-04: Exit addresses are shared; over 450 are listed. | capture: sha256:b92a7d316f19c66e0a08cb8b66c16dabc69add1ce42bb872ea120fda099c26b0 | quote: Currently over 450 available IPs
+  - [2] 2026-11-04: The FAQ states no speed or traffic limits. | capture: sha256:afdd6698a80a6a2030b42f1b77aa1dfd75a4dbacde86149b19dc658e0f92c942 | quote: No. We don't do any kind of throttling/QoS.
+  - [2] 2026-11-04: A 1-year token allows 4 WireGuard keys and 4 OpenVPN sessions. | capture: sha256:afdd6698a80a6a2030b42f1b77aa1dfd75a4dbacde86149b19dc658e0f92c942 | quote: | one year | 4 | 4 |
+  - [2] 2026-11-04: Only recurring subscriptions receive the token by email; other orders show it in the browser. | capture: sha256:afdd6698a80a6a2030b42f1b77aa1dfd75a4dbacde86149b19dc658e0f92c942 | quote: For everyone else the delivery happens in-browser only.
+  - [3] 2026-11-04: Forwarded ports run from 30000 to 65535. | capture: sha256:8a0a6f55fd249245c4c4279af1f843965fd1d0f02b4429bed67454b4696c588a | quote: choose a port between 30000 and 65535
+  - [3] 2026-11-04: Forward limit is 100 per internal IP on each server. | capture: sha256:8a0a6f55fd249245c4c4279af1f843965fd1d0f02b4429bed67454b4696c588a | quote: The limit is 100 port forwards per internal IP (per server).
+  - [3] 2026-11-04: BitTorrent works without a forward; the forward improves swarm reachability. | capture: sha256:8a0a6f55fd249245c4c4279af1f843965fd1d0f02b4429bed67454b4696c588a | quote: BitTorrent will still work correctly on cryptostorm even without port forwarding enabled.
+  - [4] 2026-11-04: A token can be ordered anonymously with Monero. | capture: sha256:ab2d5c98398df62666f2022990a703acf93509deef2110f591bb93df3d15b7dc | quote: That's why we have a .onion and .i2p and why we accept Monero, so people can order an access token anonymously without providing any personal information.
+  - [1] 2026-11-04: the vendor page that both records cite shows the same offer, which the egress record holds | capture: sha256:7f6bafab398b5ddb8f9310838c3f83c944cba632dcc501665f2e8d4dedfc83b7 | quote: Currently over 450 available IPs
+- sources:
+  - [1] https://cryptostorm.is/
+  - [2] https://cryptostorm.is/faq
+  - [3] https://cryptostorm.is/portfwd
+  - [4] https://cryptostorm.is/tos
+
+## Cryptostorm (exit addresses)
+
+- `ip-proxy/cryptostorm-exits` | paid-only | evidence measured | binding none | category vpn subscription (exit source) | tier exit addresses
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T00:30:00.000Z (live) | stale on 2026-12-05
+- url https://cryptostorm.is/
+- free tier: No free tier read. Access is a token bought by duration; the captured pages state no amount, so no price is recorded. | unit: none | metered on: none | read on: 2026-11-04 | source: [1] | note: The price is the vendor's plan rate for the subscription whose exits are classified here; the exit-address measurement itself has no price.
+- per-object cap: not applicable | source: [2] | note: The classified sample is 36 addresses over 14 ASNs; none of those numbers is an object size.
+- retention: not applicable: an address, not an object | source: [2] | note: Nothing is stored, so no retention clock applies. How long one exit address is held before it is re-drawn was not observed.
+- egress: unverified: no traffic allowance or per-GB price appears in the captured pages; metered is recorded false because no metered charge was read. | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: Tokens are delivered in the browser, and only recurring PayPal or CCBill subscribers get a token by email; the FAQ advises cryptocurrency and a disposable email for more anonymity. Whether the purchase form asks for an email is unverified.
+- interface: unknown
+- limits:
+  - per-ip-shaping: token duration sets the device limit: a one year token allows 4 WireGuard keys and 4 OpenVPN sessions [1]
+- binding note: No limit kind binds the record: it measures exit addresses and states no byte quota or request rate. What matters is list membership: 35 of 36 sampled exits are on a datacenter list.
+- interface detail: The server list at https://cryptostorm.is/configs/ is the source of the exit addresses classified here. The schema interface enum has no token for a VPN tunnel, so the tunnel protocols are not recorded as an interface.
+- endpoint: part of interface detail
+- tooling: The exit addresses are read from https://cryptostorm.is/configs/ and classified with an IP-class detector; the service itself is reached with the vendor's own client or a WireGuard or OpenVPN configuration.
+- composes with: A Worker or a free compute node dials the tunnel and the traffic leaves at one of these exit addresses, so the upstream sees an address in the ASNs listed here and not the caller's network.
+- reliability: 35 of 36 sampled exit addresses are on a datacenter list and 23 of 36 on a VPN list, so a site that blocks those lists blocks most of this fleet; 0 of 36 are also on an abuse list.
+- notes: List membership of 36 exit addresses (detector index version 20261103T163900Z-00d117b2, 2026-11-03): datacenter 35, VPN 23, abuse 0, none of the three 1. VPN list: 23 of 36, of which 23 are in the x4b VPN list. Definitions: datacenter is an address inside a range the x4b datacenter list publishes; VPN is inside the x4b VPN list or a per-provider server list; abuse is on at least one independent abuse family; none of the three states list membership, not physical siting.
+- evidence note: The list membership, ASN spread and counts are measured: each address was answered by the detector at the stated index version. The plan price and the identity class are documented from the vendor's captured pages; where a page did not state them they are unverified. The sample is the addresses the vendor endpoint returned, not proof that every address a user is handed is in it.
+- extras:
+  - rung: 4
+  - rung_note: Addresses came from the vendor's own server list and each was classified; no exit was connected to, so the address a user is handed at connect time was not observed.
+  - list_membership.measured_on: 2026-11-03
+  - list_membership.n: 36
+  - list_membership.datacenter: 35
+  - list_membership.vpn: 23
+  - list_membership.vpn_in_x4b: 23
+  - list_membership.abuse: 0
+  - list_membership.none_of_the_three: 1
+  - list_membership.detector_index_version: 20261103T163900Z-00d117b2
+  - list_membership.probed_at: 2026-11-03T17:20:54Z
+  - list_membership.endpoint: POST https://cryptostorm.is/configs/ (iponly=on)
+  - asn_diversity.measured_on: 2026-11-03
+  - asn_diversity.addresses: 36
+  - asn_diversity.subnets_24: 36
+  - asn_diversity.asns: 14
+  - asn_diversity.largest_asn: AS9009 M247 M247 Europe SRL
+  - asn_diversity.largest_asn_addresses: 23
+  - asn_diversity.largest_asn_share: 64%
+- evidence:
+  - probe:https://cryptostorm.is/configs/ 2026-11-03: The vendor endpoint https://cryptostorm.is/configs/ gave 36 IPv4 exit addresses, each answered by the address-class detector at index version 20261103T163900Z-00d117b2 on 2026-11-03. Datacenter list: 35 of 36; VPN list: 23 of 36 (23 in the x4b VPN list); abuse list: 0 of 36; on none of the three: 1 of 36. 14 distinct ASNs and 36 distinct /24s; largest ASN AS9009 M247 M247 Europe SRL with 23 addresses. | capture: sha256:19b9eeb97c5a6ad69184d8f01eb07d3dca2c1e8c6ab65673e1f029d8c3e475d1 | quote: "n": 36,
+  - probe:https://cryptostorm.is/configs/ 2026-11-03: Detector index version 20261103T163900Z-00d117b2 was the one every one of the 36 answers carries. | capture: sha256:19b9eeb97c5a6ad69184d8f01eb07d3dca2c1e8c6ab65673e1f029d8c3e475d1 | quote: "index_version": "20261103T163900Z-00d117b2",
+  - [1] 2026-11-04: token duration sets the device limit; a one year token allows 4 WireGuard keys and 4 OpenVPN sessions | capture: sha256:afdd6698a80a6a2030b42f1b77aa1dfd75a4dbacde86149b19dc658e0f92c942 | quote: | one year | 4 | 4 |
+  - [1] 2026-11-04: the token is delivered in the browser unless the buyer holds a recurring subscription | capture: sha256:afdd6698a80a6a2030b42f1b77aa1dfd75a4dbacde86149b19dc658e0f92c942 | quote: Around February of 2024 we changed the delivery setup where now only people who have a recurring subscription (via PayPal or CCBill) get their tokens delivered by email.
+- sources:
+  - [1] https://cryptostorm.is/faq
+  - [2] https://cryptostorm.is/configs/

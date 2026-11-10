@@ -1,0 +1,317 @@
+# koofr lifetime
+
+> stacksocial.com | Storage; 8 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/stacksocial/ | JSON https://fshy.ajam.dev/api/v1/entity/stacksocial.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Drime Secure Cloud Storage 10 TB lifetime (StackSocial)
+
+- `storage/drime-secure-cloud-storage-10-tb-lifetime` | qualifies-with-caveat | evidence reported | binding none | category lifetime cloud storage (European)
+- needs card no, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.stacksocial.com/sales/drime-secure-cloud-storage-lifetime-subscription-advanced-plan-10tb
+- price One-time: 10 TB at $359.97 = $36.00/TB once = $0.60/TB/mo over 5 years, $1.00/TB/mo over 3 years. 8 TB at $279.97 = $35.00/TB. at 5 TB: 6 TB SKU at $41.66/TB once. at 20 TB: two 10 TB SKUs = $719.94 = $36/TB. Cheapest usable lifetime on…
+- free tier: StackSocial lifetime SKUs: 2 TB $149.97 · 6 TB $249.97 · 8 TB $279.97 · 10 TB $359.97. Subscription ladder on drime.cloud: 500 GB €2.39/mo → 2 TB €4.40 → 3 TB €8.79 → 6 TB €15.99 (all billed annually). | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Not stated as a number on the pricing page. | metered: no
+- identity: email | detail: email
+- interface: rclone
+- limits note: Priced per 'members/workspaces' rather than pure capacity. You are buying a collaboration product with storage attached. Not observed a per-file cap.
+- interface detail: Web, desktop, mobile, developer API, rclone (rclone v1.73 native).
+- tooling: Native rclone backend available (rclone v1.73 native).
+- composes with: Composition with external storage pools is not documented.
+- reliability: European hosting, 20 GB free tier, file history 30-120 days by tier. The StackSocial lifetime SKUs have been on sale continuously through 2026 at drifting prices (2 TB moved $149.97 → $149.97 with a '49% off' badge, 6 TB was $187.49 in May 2026 per Slickdeals and $249.97 in October) — the 'discount' is the normal price.
+- notes: the same as the free tier
+- extras:
+  - price_verbatim: One-time: 10 TB at $359.97 = $36.00/TB once = $0.60/TB/mo over 5 years, $1.00/TB/mo over 3 years. 8 TB at $279.97 = $35.00/TB. at 5 TB: 6 TB SKU at $41.66/TB once. at 20 TB: two 10 TB SKUs = $719.94 = $36/TB. Cheapest usable lifetime on the list because rclone is native.
+- evidence:
+  - [2] 2026-10-21: 
+  - [3] 2026-10-21: 
+  - [4] 2026-10-21: 6 TB at $187.49 in May 2026, i.e. the same SKU was $62 cheaper five months earlier
+- sources:
+  - [1] https://www.stacksocial.com/sales/drime-secure-cloud-storage-lifetime-subscription-advanced-plan-10tb
+  - [2] https://www.stacksocial.com/search?query=cloud%20storage
+  - [3] https://drime.cloud/pricing
+  - [4] https://slickdeals.net/f/19512072-6tb-lifetime-subscription-drime-secure-cloud-storage-advanced-plan-digital-delivery-187-50
+
+## Internxt lifetime (via StackSocial)
+
+- `storage/internxt-lifetime` | qualifies-with-caveat | evidence reported | binding write-gated | category E2EE cloud drive, lifetime one-time
+- needs card yes, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.stacksocial.com/sales/internxt-cloud-storage-lifetime-subscription-10tb-plan
+- price One-time $27.00/TB at 10 TB ($269.97); $10.00/TB at 100 TB ($999.99). Amortised over 5 years: $0.45/TB/mo at 10 TB, $0.17/TB/mo at 100 TB — nominally the cheapest number, and the least trustworthy.
+- free tier: 1 TB / 2 TB / 5 TB on internxt.com; StackSocial carries 5 TB $229.99, 10 TB $269.97-$359.99, 100 TB $999.99. Vendor states plans are stackable: 'you can add up to 100 TB of storage to your Internxt lifetime membership'. | unit: TB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: No published egress cap found on any pricing page. Vendor FAQ silent on bandwidth. Absence of a clause is not a guarantee. | metered: no
+- identity: card | detail: card
+- interface: s3, webdav, rclone, cli
+- limits:
+  - write-gated (binding): reviewers report 'Files disappear from time to time' and 'stored files are [gone]' [1]
+- limits note: Constraint type: write-gated (CLI bridge) + request-rate. StackSocial fine print: 'This is available to new users ONLY. Codes are NOT stackable' on the 10 TB and 100 TB SKUs. Directly contradicting the on-site stacking claim. VERIFY WHICH APPLIES.
+- interface detail: Rclone. But CONDITIONAL. Vendor: 'Internxt now supports Rclone in two ways: via our object storage subscription, WebDAV, and natively. Rclone support is available for Ultimate plans.' WebDAV requires the Internxt CLI as a bridge, and rclone issue #7610 / internxt/cli#248 document that the WebDAV layer omits COPY and PROPPATCH, which breaks backup software.
+- tooling: CLI + WebDAV bridge + native rclone on Ultimate only. No S3.
+- composes with: WebDAV implementation lacks support for the COPY HTTP method, requiring file move and copy operations to transfer through local clients.
+- reliability: Documented file-loss pattern, not a single incident: a GitHub controlled test uploaded 198 files and lost some; Trustpilot reviewers report 'Files disappear from time to time' and 'stored files are [gone]'; a 1-year user reported all images and videos gone with support unresponsive. Desktop sync described as non-functional by lifetime holders.
+- notes: the same as the free tier
+- extras:
+  - price_verbatim: One-time $27.00/TB at 10 TB ($269.97); $10.00/TB at 100 TB ($999.99). Amortised over 5 years: $0.45/TB/mo at 10 TB, $0.17/TB/mo at 100 TB — nominally the cheapest number, and the least trustworthy.
+- evidence:
+  - [2] 2026-10-21: 'Deal Price $269.97 ... 10TB Plan ... This is available to new users ONLY'
+  - [3] 2026-10-21: '100TB ... Deal Price $999.99 ... Codes are NOT stacka[ble]'
+  - [1] 2026-10-21: 'you can add up to 100 TB of storage to your Internxt lifetime membership. Internxt lifetime plans are stackable'
+  - [4] 2026-10-21: rclone only on Ultimate; WebDAV requires the Internxt CLI
+  - [5] 2026-10-21: 'WebDAV Limitations Are Breaking Backup Software (Missing COPY and PROPPATCH)'
+  - [6] 2026-10-21: 198-file controlled test, files lost
+  - [1] 2026-10-21: payment: cards, PayPal, crypto, Klarna installments
+- sources:
+  - [1] https://internxt.com/pricing
+  - [2] https://www.stacksocial.com/sales/internxt-cloud-storage-lifetime-subscription-10tb-plan
+  - [3] https://www.stacksocial.com/sales/internxt-cloud-storage-lifetime-subscription-100tb
+  - [4] https://blog.internxt.com/rclone/
+  - [5] https://github.com/internxt/cli/issues/248
+  - [6] https://checkthat.ai/brands/internxt/reviews
+
+## filerule 2 tb lifetime (stacksocial)
+
+- `storage/filerule-2-tb-lifetime` | paid-only | evidence reported | binding volume-quota | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-03T15:03:51.458Z (live) | stale on 2026-11-18
+- url https://www.stacksocial.com/sales/filerule-2tb-cloud-storage-lifetime-subscription
+- free tier: no free tier: lifetime 2TB Storage sold for a one-time $69.00 (USD 34.50 per TB); the code must be redeemed within 30 days of purchase | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: webdav
+- limits:
+  - volume-quota (binding): 2TB Storage, lifetime subscription [1]
+- binding note: the purchase buys 2TB of storage for the length of the lifetime subscription; the listing states no transfer terms
+- interface detail: built-in WebDAV, used with CyberDuck or MountainDuck; drag-and-drop web upload
+- tooling: WebDAV clients such as CyberDuck or MountainDuck, as the vendor lists; a public API: unverified: not stated on the listing or on the vendor site
+- composes with: not recorded
+- reliability: paid lifetime subscription: $69.00 one-time for 2TB Storage; code redeemed within 30 days of purchase
+- notes: paid lifetime subscription: $69.00 one-time for 2TB Storage, built-in WebDAV; only available to new users
+- evidence note: the 2026-11-03 read covered the StackSocial listing (https://www.stacksocial.com/sales/filerule-2tb-cloud-storage-lifetime-subscription): price $69.00, 2TB storage, WebDAV integration, 30-day redemption, new users only. The listing is a reseller page, not the vendor's own, so the rung stays reported; the per-object cap, retention, egress and API were not on it.
+- extras:
+  - dead_end.failure_class: write-gated
+  - dead_end.why: Unvetted white-label, listed at $69 for 2 TB ($34.50/TB one-time). No independent reviews, no API, no rclone backend, no WebDAV. Included here only to document that StackSocial's storage…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Unvetted white-label, listed at $69 for 2 TB ($34.50/TB one-time). No independent reviews, no API, no rclone backend, no WebDAV. Included here only to document that StackSocial's storage…
+  - [1] 2026-11-03: the listing price is $69.00 for a lifetime 2TB subscription | capture: sha256:d24fc4e19729d044325d7700ac7ffcc94afe734608929d5b3359ace6ee18fba0 | quote: <meta name="twitter:data1" content="$69.00"/><meta name="twitter:label1" content="PRICE"/>
+  - [1] 2026-11-03: the subscription includes 2TB of storage | capture: sha256:3fb8a8a8962135f335304ef4d215aa8fb9aa8540bdab93fa449045c10d7c9310 | quote: - 2TB Storage
+  - [1] 2026-11-03: the listing states WebDAV integration | capture: sha256:d24fc4e19729d044325d7700ac7ffcc94afe734608929d5b3359ace6ee18fba0 | quote: Supports WebDAV integration through tools like CyberDuck or MountainDuck</li>
+  - [1] 2026-11-03: the listing documents WebDAV integration | capture: sha256:3fb8a8a8962135f335304ef4d215aa8fb9aa8540bdab93fa449045c10d7c9310 | quote: - WebDAV Integration: Connect & sync files effortlessly across platforms. Edit and save office files with CyberDuck or MountainDuck
+  - [1] 2026-11-03: the code must be redeemed within 30 days of purchase | capture: sha256:d24fc4e19729d044325d7700ac7ffcc94afe734608929d5b3359ace6ee18fba0 | quote: <li>Redemption deadline: redeem your code within 30 days of purchase</li>
+  - [1] 2026-11-03: the deal is only available to new users | capture: sha256:d24fc4e19729d044325d7700ac7ffcc94afe734608929d5b3359ace6ee18fba0 | quote: <li><strong>Only available to <em>NEW </em>users</strong></li>
+- sources:
+  - [1] https://www.stacksocial.com/sales/filerule-2tb-cloud-storage-lifetime-subscription
+
+## Internxt 100 TB lifetime (StackSocial)
+
+- `storage/internxt-100-tb-lifetime` | paid-only | evidence documented | binding none | category lifetime (one-time payment) zero-knowledge cloud storage
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T01:24:26.448Z (live) | stale on 2026-12-05
+- url https://www.stacksocial.com/sales/internxt-cloud-storage-lifetime-subscription-100tb
+- price One-time: 100TB at USD 974.97 is USD 9.75 per TB once (StackSocial listing).
+- free tier: Paid lifetime plan: 100TB for a one-time payment of $974.97 on StackSocial (list price $9,900.00). | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: No numerical egress bandwidth limit is stated in the product listing or FAQ. Written egress terms are unverified. | metered: no
+- identity: email | detail: A free Internxt account needs a name and an email address; no identity or email verification is required.
+- interface: unknown
+- limits note: "This is available to new users ONLY" and "Codes are NOT stackable". Note this contradicts Internxt's own FAQ ("Internxt lifetime plans are stackable .. up to 100 TB"). Filen-style quota withholding behind VPN IPs is a known Internxt behaviour.
+- interface detail: Apps for Windows, macOS, Linux, Android and iOS plus a web browser app; CLI and WebDAV are sold separately and not included.
+- tooling: The lifetime plan does not include CLI, WebDAV, Backups, Mail, Meet, Cleaner, Password-Protected File Sharing, Advanced Sharing, AI, File versioning or Antivirus, which are sold separately; the listing names no programmatic interface.
+- composes with: None available on the lifetime SKU without buying the add-ons separately, at which point the price advantage evaporates.
+- reliability: Technically credible. But the company has run near-continuous 85-91%-off 'lifetime' promotions for years, which is a solvency signal rather than a discount signal, and the StackSocial vs own-site price gap (5 TB $229.99 vs €585) is large enough to make unit economics doubtful.
+- notes: the same as the free tier
+- evidence note: documented from vendor pages read on 2026-11-03: the 100 TB lifetime listing and price (https://www.stacksocial.com/search?query=internxt), the CLI and WebDAV exclusion (the StackSocial listing), and the sign-up fields (https://internxt.com/pricing). Egress, retention and per-object cap were not read on that date.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: StackSocial: 2 TB $129.99 · 5 TB $229.99 · 10 TB $359.99 · 50 TB $699.99 · 100 TB $999.99. Internxt's own site quotes higher (5 TB €585).
+  - dead_end.first_recorded: 2026-10-21
+  - price_verbatim: One-time: 100 TB at $999.99 = $10.00/TB once = $0.17/TB/mo amortised over 5 years. 50 TB at $699.99 = $14.00/TB. 5 TB at $229.99 = $46.00/TB once = $0.77/TB/mo over 5 years. at 5 TB: 5 TB SKU. at 20 TB: 50 TB SKU. Fails on programmatic access, not price.
+- evidence:
+  - [1] 2026-10-21: 
+  - [2] 2026-10-21: 
+  - [3] 2026-10-21: 
+  - [4] 2026-10-21: third-party cross-check: "Internxt | 1 TB €285, 2 TB €435, 5 TB €585"
+  - [5] 2026-11-03: the 100TB lifetime SKU is listed at $974.97 against $9,900.00 | capture: sha256:3430d5f4e44769b71bf72b9cc6c5cbee48ff44563cd4fbb61a5b1c9179dedcb5 | quote: Internxt Cloud Storage Lifetime Subscription: 100TB** 90% Off! 182 Reviews $974.97$9,900.00
+  - [1] 2026-11-03: CLI and WebDAV are not included in the lifetime plan | capture: sha256:b2da48abcf8bfa8656e85ee120fae8dc1cd370512df7949548e2be0973dac405 | quote: It does not include other products or features, such as but not limited to Internxt Mail, Meet, CLI, WebDAV, Cleaner, Backups, Password-Protected File Sharing, Advanced Sharing, AI, File versioning, or Antivirus, which are sold separately by Internxt.
+  - [1] 2026-11-03: the plan is used through the apps and a web browser app | capture: sha256:b2da48abcf8bfa8656e85ee120fae8dc1cd370512df7949548e2be0973dac405 | quote: Apps for Windows, macOS, Linux, Android, and iOS, plus a web browser app.
+  - [1] 2026-11-03: the listing excludes CLI, WebDAV and other products | capture: sha256:b2da48abcf8bfa8656e85ee120fae8dc1cd370512df7949548e2be0973dac405 | quote: It does not include other products or features, such as but not limited to Internxt Mail, Meet, CLI, WebDAV, Cleaner, Backups, Password-Protected File Sharing, Advanced Sharing, AI, File versioning, or Antivirus, which are sold separately by Internxt.
+  - [3] 2026-11-03: signing up needs a name and an email address, with no identity or email verification | capture: sha256:35ba783a0bc18310809ee71a4bef15fb0592b54c2060cd7dfcf1e5318a273e8d | quote: To sign up, simply enter a name and email address. No identity nor email verification is required to start using Internxt's services.
+  - [3] 2026-11-03: payment by debit or credit card, PayPal, crypto or Klarna | capture: sha256:35ba783a0bc18310809ee71a4bef15fb0592b54c2060cd7dfcf1e5318a273e8d | quote: Internxt currently accepts debit and credit cards (Mastercard, VISA, American Express, etc). You can also pay via PayPal, Crypto, Klarna, and others.
+  - [5] 2026-11-03: the 20TB lifetime SKU is listed at $389.97 against $4,900.00 | capture: sha256:3430d5f4e44769b71bf72b9cc6c5cbee48ff44563cd4fbb61a5b1c9179dedcb5 | quote: Internxt Cloud Storage Lifetime Subscription (20TB)** 92% Off! 182 Reviews $389.97$4,900.00
+  - [5] 2026-11-03: the 100TB lifetime SKU is listed at $974.97 against a list price of $9,900.00 | capture: sha256:3430d5f4e44769b71bf72b9cc6c5cbee48ff44563cd4fbb61a5b1c9179dedcb5 | quote: Internxt Cloud Storage Lifetime Subscription: 100TB** 90% Off! 182 Reviews $974.97$9,900.00
+  - [5] 2026-11-04: the 100 TB lifetime SKU is listed at 974.97 USD against 9,900.00 USD | capture: sha256:3430d5f4e44769b71bf72b9cc6c5cbee48ff44563cd4fbb61a5b1c9179dedcb5 | quote: Internxt Cloud Storage Lifetime Subscription: 100TB** 90% Off! 182 Reviews $974.97$9,900.00
+  - [1] 2026-11-04: CLI and WebDAV are not part of the lifetime plan | capture: sha256:b2da48abcf8bfa8656e85ee120fae8dc1cd370512df7949548e2be0973dac405 | quote: It does not include other products or features, such as but not limited to Internxt Mail, Meet, CLI, WebDAV, Cleaner, Backups, Password-Protected File Sharing, Advanced Sharing, AI, File versioning, or Antivirus, which are sold separately by Internxt.
+  - [3] 2026-11-04: sign-up needs a name and an email address | capture: sha256:35ba783a0bc18310809ee71a4bef15fb0592b54c2060cd7dfcf1e5318a273e8d | quote: To sign up, simply enter a name and email address. No identity nor email verification is required to start using Internxt's services.
+- sources:
+  - [1] https://www.stacksocial.com/sales/internxt-cloud-storage-lifetime-subscription-100tb
+  - [2] https://www.stacksocial.com/search?query=cloud%20storage
+  - [3] https://internxt.com/pricing
+  - [4] https://shieldfive.com/resources/lifetime-cloud-storage
+  - [5] https://www.stacksocial.com/search?query=internxt
+
+## koofr lifetime (>1 tb)
+
+- `storage/koofr-lifetime` | paid-only | evidence documented | binding volume-quota | category rejected-provider
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T15:04:37.251Z (live) | stale on 2026-12-04
+- url https://www.stacksocial.com/sales/koofr-cloud-storage-plans-lifetime-subscription-1tb
+- free tier: 10 GB free forever on the Koofr Free plan. The lifetime plan is a separate paid 1 TB plan sold through StackSocial. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: No per-file size limit ('Unlimited file size'). | source: [2] | note: not applicable
+- retention: Deleted files are retained for 7 days on the Free plan and 30 days on paid plans. | source: [2]
+- egress: Daily public transfer limit: 50 GB on Free, 200 GB on Briefcase plans, 1 TB on Suitcase plans, 4 TB on Crate plans. | metered: yes
+- identity: email | detail: The lifetime SKU is only available to new users, and its code must be redeemed within 30 days of purchase.
+- interface: webdav
+- limits:
+  - volume-quota (binding): Free 10 GB; paid plans from 10 GB to 5 TB are priced, '10 TB and up' has no listed price [1]
+- limits note: The 1 TB lifetime plan was listed at $199.99 on StackSocial on 2026-10-17 (reported by a third party, who also lists $119.97 to $159.97 during promotions); the StackSocial page captured shows no price.
+- binding note: a 20 TB archive needs the '10 TB and up' tier, which has no listed price; the largest priced plan is 5 TB at 35 EUR /mo
+- interface detail: web, mobile and WebDAV
+- tooling: Web and mobile apps, a desktop app and WebDAV; external Dropbox, OneDrive and Google Drive accounts can be connected.
+- composes with: not recorded
+- reliability: The lifetime SKU is 1 TB only and is sold through a reseller; Koofr's own site lists yearly subscriptions only, with 5 TB at 35 EUR /mo and '10 TB and up' unpriced.
+- notes: Koofr's own yearly plans: 1 TB at 10 EUR /mo, 2.5 TB at 20 EUR /mo, 5 TB at 35 EUR /mo, VAT included; 10 TB and up is listed without a price. A 1 TB lifetime plan is sold only through StackSocial.
+- evidence note: documented: the free allowance, yearly-only billing, plan prices, the '10 TB and up' tier with no price, file size, deleted-file retention and the daily public transfer limit are quoted from the vendor page https://koofr.eu/pricing/ read on 2026-11-03; WebDAV access and the new-users-only lifetime SKU are quoted from https://www.stacksocial.com/sales/koofr-cloud-storage-lifetime-subscription-1-tb; the lifetime price is reported by https://www.dealkeep.io/blog/koofr-lifetime-deal, a third party, and the StackSocial page shows no price
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: The StackSocial lifetime SKU is 1 TB only, at $159.99-$199.99. No 5 TB or 10 TB lifetime SKU exists on StackSocial, and Koofr's own Crate tiers are subscription-only. So a 20 TB archive…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [2] 2026-10-21: The StackSocial lifetime SKU is 1 TB only, at $159.99-$199.99. No 5 TB or 10 TB lifetime SKU exists on StackSocial, and Koofr's own Crate tiers are subscription-only. So a 20 TB archive…
+  - [1] 2026-10-21: cited as the basis of the rejection: The StackSocial lifetime SKU is 1 TB only, at $159.99-$199.99. No 5 TB or 10 TB lifetime SKU exists on StackSocial, and Koofr's own Crate tiers are subscription-only. So a 20 TB archive cann
+  - [1] 2026-11-03: the Free plan is 10 GB, free forever | capture: sha256:dfbbc02ef1cd4100c03d95eabad8e527ca27ecc9907842045545f8dcdc1b61e4 | quote: 10 GB Free forever
+  - [1] 2026-11-03: unit is GB | capture: sha256:dfbbc02ef1cd4100c03d95eabad8e527ca27ecc9907842045545f8dcdc1b61e4 | quote: 10 GB Free forever
+  - [1] 2026-11-03: quota is on stored bytes | capture: sha256:dfbbc02ef1cd4100c03d95eabad8e527ca27ecc9907842045545f8dcdc1b61e4 | quote: Storage limits apply only to Koofr storage.
+  - [1] 2026-11-03: the vendor pricing page states the free allowance | capture: sha256:dfbbc02ef1cd4100c03d95eabad8e527ca27ecc9907842045545f8dcdc1b61e4 | quote: 10 GB Free forever
+  - [1] 2026-11-03: the offer is a priced plan; the vendor sells yearly subscriptions only | capture: sha256:dfbbc02ef1cd4100c03d95eabad8e527ca27ecc9907842045545f8dcdc1b61e4 | quote: Currently only yearly subscriptions are possible.
+  - [1] 2026-11-03: 1 TB plan price | capture: sha256:dfbbc02ef1cd4100c03d95eabad8e527ca27ecc9907842045545f8dcdc1b61e4 | quote: Suitcase 250 GB XL 4 EUR /mo 500 GB XL+ 7 EUR /mo 1 TB XXL 10 EUR /mo
+  - [1] 2026-11-03: Crate tier prices and the 10 TB and up tier | capture: sha256:dfbbc02ef1cd4100c03d95eabad8e527ca27ecc9907842045545f8dcdc1b61e4 | quote: Crate 2.5 TB XXXL 20 EUR /mo 5 TB 5XXL 35 EUR /mo 10 TB and up
+  - [3] 2026-11-03: third-party report of the lifetime plan price | capture: sha256:d2a6bfdfdb96869b020d69563d3b44581827930d108f742f99cfab44225e9e72 | quote: was listed at $199.99 against a suggested $810 when we checked on 17 October 2026
+  - [1] 2026-11-03: only yearly subscriptions are possible on the vendor site | capture: sha256:dfbbc02ef1cd4100c03d95eabad8e527ca27ecc9907842045545f8dcdc1b61e4 | quote: Currently only yearly subscriptions are possible.
+  - [4] 2026-11-03: WebDAV access is listed | capture: sha256:f16cbc149f97d3a0e7b847d0351eb9090585614add03d3d89d073ab5616e8e51 | quote: Koofr is a safe and simple cloud storage service, accessible through web, mobile, and WebDav.
+  - [4] 2026-11-03: access routes | capture: sha256:f16cbc149f97d3a0e7b847d0351eb9090585614add03d3d89d073ab5616e8e51 | quote: Koofr is a safe and simple cloud storage service, accessible through web, mobile, and WebDav.
+  - [4] 2026-11-03: external clouds connect | capture: sha256:f16cbc149f97d3a0e7b847d0351eb9090585614add03d3d89d073ab5616e8e51 | quote: Connect to external cloud accounts & access all your files
+  - [1] 2026-11-03: no file size limit | capture: sha256:dfbbc02ef1cd4100c03d95eabad8e527ca27ecc9907842045545f8dcdc1b61e4 | quote: Unlimited file size
+  - [1] 2026-11-03: deleted-file retention | capture: sha256:dfbbc02ef1cd4100c03d95eabad8e527ca27ecc9907842045545f8dcdc1b61e4 | quote: 7 days deleted file retention
+  - [1] 2026-11-03: daily public transfer limit of the Free plan | capture: sha256:dfbbc02ef1cd4100c03d95eabad8e527ca27ecc9907842045545f8dcdc1b61e4 | quote: 50 GB daily public transfer limit
+  - [1] 2026-11-03: public transfers are limited per day | capture: sha256:dfbbc02ef1cd4100c03d95eabad8e527ca27ecc9907842045545f8dcdc1b61e4 | quote: 50 GB daily public transfer limit
+  - [1] 2026-11-03: the largest tier has no listed price | capture: sha256:dfbbc02ef1cd4100c03d95eabad8e527ca27ecc9907842045545f8dcdc1b61e4 | quote: 10 TB and up
+  - [1] 2026-11-03: the storage tier is the binding limit | capture: sha256:dfbbc02ef1cd4100c03d95eabad8e527ca27ecc9907842045545f8dcdc1b61e4 | quote: 10 TB and up
+  - [1] 2026-11-03: largest priced tier is 5 TB | capture: sha256:dfbbc02ef1cd4100c03d95eabad8e527ca27ecc9907842045545f8dcdc1b61e4 | quote: 10 TB and up
+  - [4] 2026-11-03: lifetime SKU is for new users only | capture: sha256:f16cbc149f97d3a0e7b847d0351eb9090585614add03d3d89d073ab5616e8e51 | quote: Only available to new users
+  - [1] 2026-11-03: the vendor page was read and quoted on 2026-11-03: the Free plan is 10 GB, free forever | capture: sha256:dfbbc02ef1cd4100c03d95eabad8e527ca27ecc9907842045545f8dcdc1b61e4 | quote: 10 GB Free forever
+- sources:
+  - [1] https://koofr.eu/pricing/
+  - [2] https://www.stacksocial.com/sales/koofr-cloud-storage-plans-lifetime-subscription-1tb
+  - [3] https://www.dealkeep.io/blog/koofr-lifetime-deal
+  - [4] https://www.stacksocial.com/sales/koofr-cloud-storage-lifetime-subscription-1-tb
+
+## Scramble Cloud Premium 6 TB lifetime (StackSocial)
+
+- `storage/scramble-cloud-premium-6-tb-lifetime` | paid-only | evidence documented | binding volume-quota | category lifetime (one-time payment) encrypted cloud storage
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T15:35:01.575Z (live) | stale on 2026-12-04
+- url https://www.stacksocial.com/sales/scramble-cloud-cloud-storage-lifetime-subscription-20tb
+- price StackSocial one-time: USD 23.33 per TB on the 6 TB SKU (USD 139.95); USD 17.50 per TB on the 20 TB SKU (USD 349.95).
+- free tier: No free allowance in this offer. StackSocial one-time lifetime SKUs: 2 TB $59.95, 6 TB $139.95, 12 TB $249.95, 20 TB $349.95. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: 5GB per file | bytes: 5000000000 | source: [1] | note: StackSocial listing states a 5GB per file cap; the direct pricing page lists unlimited file size on its plans.
+- retention: source: [1] | note: not stated
+- egress: "Unlimited bandwidth" stated on both the official pricing page and the StackSocial listing. No counter, no fair-use figure published. | metered: no
+- identity: email | detail: a Scramble account; the StackSocial SKU is a code redeemed within 30 days of purchase; payment and registration fields are unverified: behind a sign-up.
+- interface: webdav, rclone, cli
+- limits:
+  - volume-quota (binding): 21GB per day upload limit [2]
+  - per-object-cap: 5GB per file [2]
+- limits note: StackSocial 6 TB SKU listing: Maximum File Size 5GB per file and Daily Upload Limit 21GB per day; once the daily limit is reached uploads stop until it resets. Fill time at 21 GB per day: 6 TB takes 285.7 days. The 20 TB SKU listing states 70 GB per day instead. WebDAV & Rclone support is listed on the paid direct plans and not on the Free plan.
+- binding note: 21 GB per day means 285.7 days to fill 6 TB; the per-file cap of 5 GB is not the tighter limit.
+- interface detail: WebDAV (Premium only), CLI with a local WebDAV server, desktop client, web app
+- tooling: rclone as a WebDAV remote against either the CLI's local WebDAV server (`scramble-cli webdav`) or the hosted endpoint. Documented by the vendor.
+- composes with: Composition with external storage pools is unestablished.
+- reliability: German provider, ISO 27001 infrastructure, E2E encrypted. Real product, but the lifetime SKUs are retail-consumer-shaped: per-file and per-day write caps, desktop client described as beta in reviews.
+- notes: Direct plans (official pricing page), one-time: Premium 2 TB 129.95€, Premium 6 TB 279.95€; a separate Free plan gives 10 GB and lists no WebDAV; monthly Pro IV 6 TB 24.95€.
+- evidence note: The 2026-11-03 evidence rows read https://www.stacksocial.com/sales/scramble-cloud-cloud-storage-lifetime-subscription-6tb (21GB per day upload limit, 5GB per file, 6TB SKU), the direct pricing page at https://info.scramble.cloud/en/pricing/ and the larger SKU listing (SKU prices, unlimited bandwidth, redemption deadline). Price and limits that decide the paid-only verdict cite vendor captures; payment and registration fields are unverified: behind a sign-up.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 2 TB €129.95 once · 6 TB €279.95 once (official site). StackSocial carries 2/6/12/20 TB SKUs at $59.95 / $139.95 / — / $349.95.
+  - dead_end.first_recorded: 2026-10-21
+  - price_verbatim: One-time, so amortise: 6 TB at €279.95 = €46.66/TB once; over 5 years that is €0.78/TB/mo, over 3 years €1.30/TB/mo. 20 TB SKU at $349.95 = $17.50/TB once = $0.29/TB/mo over 5 years. at 5 TB: the 6 TB SKU. at 20 TB: the 20 TB SKU.
+- evidence:
+  - [3] 2026-10-21: 
+  - [1] 2026-10-21: 
+  - [4] 2026-10-21: and https://docs.scramble.cloud/cli/ — rclone-over-WebDAV instructions (opened via search snippets)
+  - [1] 2026-11-03: the StackSocial SKU ladder and prices | capture: sha256:2f3c5fd9191681a1cca01a8b6ef4a6ce8593c306883dd63d48667fbd8e072381 | quote: [2TB$59.95$172.00(65% off)](/sales/scramble-cloud-cloud-storage-lifetime- subscription-2tb)[6TB$139.95$432.00(67% off)](/sales/scramble-cloud-cloud- storage-lifetime-subscription-6tb)[12TB$249.95$864.00(71%
+  - [3] 2026-11-03: the direct 6 TB lifetime plan is 279.95 EUR | capture: sha256:aa92e11676cb8197972c1fbd3577cd17a70509fa459c2f4768ecf7bc837731bc | quote: 279.95€ One time
+  - [1] 2026-11-03: the 6 TB lifetime SKU is $139.95 | capture: sha256:2f3c5fd9191681a1cca01a8b6ef4a6ce8593c306883dd63d48667fbd8e072381 | quote: [6TB$139.95$432.00(67% off)](/sales/scramble-cloud-cloud- storage-lifetime-subscription-6tb)
+  - [1] 2026-11-03: the 20 TB lifetime SKU is $349.95 | capture: sha256:2f3c5fd9191681a1cca01a8b6ef4a6ce8593c306883dd63d48667fbd8e072381 | quote: [20TB$349.95$1,440.00(75% off)](/sales/scramble-cloud-cloud- storage-lifetime-subscription-20tb)
+  - [1] 2026-11-03: the listing caps a file at 5 GB | capture: sha256:cab84f7a7dff370c8cd04c40a7eca4decb95e81e405aca8fe8e9beb481603151 | quote: - Maximum File Size: 5GB per file
+  - [1] 2026-11-03: uploads stop at the daily limit | capture: sha256:3aca6542edb9a2df6584ff50e49432888f8b72a1e08bfb635bd791d6d8288937 | quote: * Once the daily limit is reached, users will no longer be able to upload files until the limit resets.
+  - [1] 2026-11-03: the code must be redeemed within 30 days | capture: sha256:3aca6542edb9a2df6584ff50e49432888f8b72a1e08bfb635bd791d6d8288937 | quote: * Redemption deadline: redeem your code within 30 days of purchase
+  - [3] 2026-11-03: the direct plans list unlimited file size | capture: sha256:aa92e11676cb8197972c1fbd3577cd17a70509fa459c2f4768ecf7bc837731bc | quote: - Unlimited file size
+  - [3] 2026-11-03: the Free plan is 10 GB | capture: sha256:aa92e11676cb8197972c1fbd3577cd17a70509fa459c2f4768ecf7bc837731bc | quote: - 10 GB cloud storage
+  - [1] 2026-11-03: the listing states unlimited bandwidth | capture: sha256:cab84f7a7dff370c8cd04c40a7eca4decb95e81e405aca8fe8e9beb481603151 | quote: - Unlimited bandwidth
+  - [2] 2026-11-03: the 6 TB SKU listing caps uploads at 21 GB per day | capture: sha256:b0f5e80951228b6b52debc148b79901a330354bb1ab241a6d1eac5021308a549 | quote: - Daily Upload Limit: 21GB per day
+  - [2] 2026-11-03: the page is the 6 TB SKU | capture: sha256:b0f5e80951228b6b52debc148b79901a330354bb1ab241a6d1eac5021308a549 | quote: - 6TB cloud storage
+  - [2] 2026-11-03: the 6 TB SKU listing caps a file at 5 GB | capture: sha256:b0f5e80951228b6b52debc148b79901a330354bb1ab241a6d1eac5021308a549 | quote: - Maximum File Size: 5GB per file
+- sources:
+  - [1] https://www.stacksocial.com/sales/scramble-cloud-cloud-storage-lifetime-subscription-20tb
+  - [2] https://www.stacksocial.com/sales/scramble-cloud-cloud-storage-lifetime-subscription-6tb
+  - [3] https://info.scramble.cloud/en/pricing/
+  - [4] https://docs.scramble.cloud/en/webdav-rclone/
+
+## degoo 10 tb lifetime (stacksocial)
+
+- `storage/degoo-10-tb-lifetime` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.stacksocial.com/sales/degoo-premium-lifetime-backup-plans-10tb
+- free tier: none reachable: Listing is still up but the vendor's reliability record disqualifies it: users report account deactivation and data loss including on the old lifetime plan. Cloudwards' 2026 review says… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: write-gated
+  - dead_end.why: Listing is still up but the vendor's reliability record disqualifies it: users report account deactivation and data loss including on the old lifetime plan. Cloudwards' 2026 review says…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Listing is still up but the vendor's reliability record disqualifies it: users report account deactivation and data loss including on the old lifetime plan. Cloudwards' 2026 review says…
+  - [2] 2026-10-21: cited as the basis of the rejection: Listing is still up but the vendor's reliability record disqualifies it: users report account deactivation and data loss including on the old lifetime plan. Cloudwards' 2026 review says stay
+- sources:
+  - [1] https://www.stacksocial.com/sales/degoo-premium-lifetime-backup-plans-10tb
+  - [2] https://www.cloudwards.net/review/degoo/
+
+## folderfort 2 tb lifetime (stacksocial $109.97)
+
+- `storage/folderfort-2-tb-lifetime` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.stacksocial.com/sales/folderfort-2tb-cloud-storage-pro-plan-lifetime-subscription
+- free tier: None reachable: Listing 404s. FolderFort has moved to a 'Folder Fort 2.0' subscription model with bandwidth allowances (10 GB/month on free). The lifetime SKU is gone and the new model fails the egress fil. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Listing 404s. FolderFort has moved to a 'Folder Fort 2.0' subscription model with bandwidth allowances (10 GB/month on free) — the lifetime SKU is gone and the new model fails the egress…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Listing 404s. FolderFort has moved to a 'Folder Fort 2.0' subscription model with bandwidth allowances (10 GB/month on free) — the lifetime SKU is gone and the new model fails the egress…
+  - [2] 2026-10-21: cited as the basis of the rejection: Listing 404s. FolderFort has moved to a 'Folder Fort 2.0' subscription model with bandwidth allowances (10 GB/month on free) — the lifetime SKU is gone and the new model fails the egress fil
+- sources:
+  - [1] https://www.stacksocial.com/sales/folderfort-2tb-cloud-storage-pro-plan-lifetime-subscription
+  - [2] https://folderfort.com/pricing

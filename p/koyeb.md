@@ -1,0 +1,162 @@
+# Koyeb
+
+> koyeb.com | Compute, Egress and tunnels, Storage; 3 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/koyeb/ | JSON https://fshy.ajam.dev/api/v1/entity/koyeb.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Koyeb (Free Instance)
+
+- `compute/koyeb` | fails-identity | evidence documented | binding retention-clamped | category platform host | tier Free Instance
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T03:21:02.824Z (live) | stale on 2026-11-24
+- url https://www.koyeb.com/docs/reference/instances
+- free tier: One Free Instance per organization: 512 MB of RAM, 0.1 vCPU, 2 GB of SSD, in Frankfurt or Washington D.C. only; not usable as a Worker Service, no custom scaling, no volumes. | unit: mixed | metered on: wall-clock | read on: 2026-10-24 | source: [1]
+- per-object cap: one Free Instance per organization; 512 MB RAM / 0.1 vCPU / 2 GB SSD
+- retention: no persistent storage: 'They can't be used with Volumes to add persistent storage to your services'
+- egress: 100 GB of outbound bandwidth a month free, then USD 0.04 per GB; the vendor says outbound bandwidth is not charged yet and will be announced before it is | metered: yes | free allowance: 100 GB | price per TB: USD 40 | source: [2]
+- identity: card | detail: card required even for the free Instance; USD 29 pre-authorisation hold, released immediately or within 7 to 21 days depending on the issuer; a prorated Pro charge is taken at the same moment; debit accepted; prepaid is not stated
+- interface: ssh
+- limits:
+  - retention-clamped (binding): scales to zero after 1 hour without traffic, not configurable [1]
+  - write-gated: no volumes on a Free Instance, so no state across a restart [1]
+  - per-object-cap: 0.1 vCPU and 512 MB RAM, one Free Instance per organization [1]
+- limits note: Koyeb's startup programme advertises 'up to $30k in credits', which is a separate application, not a signup grant.
+- binding note: one hour of silence and the process is gone; the 0.1 vCPU is second, because it cannot run anything that needs a core.
+- interface detail: git deploy, a public HTTPS endpoint, a CLI and an API
+- tooling: the Koyeb CLI and API, Docker images, git deploy
+- composes with: a free endpoint that scales to zero after an hour, with volumes disabled on free
+- reliability: scale-to-zero is silent from the caller's side, a request after an hour pays a cold start instead of an error; the pricing page carries the banner 'Koyeb is joining Mistral AI to Build The Future of AI Infrastructure', which puts the free tier's longevity in question
+- notes: The pricing FAQ read says the opposite, in a section titled 'Why does Koyeb require a credit card?'. This is the clearest instance of the complaint about undisclosed holds: USD 29, and a charge on top of it. The Scale-to-Zero documentation states the feature is 'currently in public preview', which is a second reason not to build a 03:00 job on it without a watchdog. The USD 29 hold, the prorated charge and the debit acceptance are all confirmed verbatim on the vendor's pricing FAQ. This is the largest published hold of the seventeen vendors checked, and it is on the free tier.
+- evidence note: Free Instance shape and the one-hour scale-to-zero quoted from the instances reference today; the card and the USD 29 hold from the pricing FAQ today. earlier readings previously recorded 'no card', which the FAQ contradicts. | Payment facts re-read on 2026-10-24: the card types, the hold and the identity gate each come from a first-party page quoted in evidence[].
+- extras:
+  - shape.vcpu: 0.1
+  - shape.ram_gib: 0.5
+  - shape.disk_gib: 2
+  - billing_model: free-instance
+  - session_cap.idle_reap_s: 3600
+  - session_cap.restart_required: no
+  - session_cap.note: scale to zero after 1 hour without traffic; not configurable on a Free Instance
+  - keep_rate.value: 0.0
+  - keep_rate.basis: a scaled-to-zero service does not bill
+  - keep_rate.source: https://www.koyeb.com/docs/run-and-scale/scale-to-zero
+  - persistent_storage.included_gib: 2
+  - persistent_storage.price_gib_month: volumes disabled on free
+  - persistent_storage.durability: ephemeral
+  - persistent_storage.survives_stop: no
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: the instance lifetime
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: the service port; TCP and UDP services are supported generally, a Worker Service is not
+  - network_out.static_ip: no
+  - network_out.ipv6: no
+  - free_tier_kind: one-free-instance
+  - granularity.min_billed_s: 0
+  - burst_x: 1.0
+  - shape_note: 512 MB of RAM and 2 GB of SSD as the vendor states
+  - term: none
+  - m10h_usd: 0.0
+  - m24h_usd: 0.0
+  - price_arithmetic: no charge while traffic keeps the instance awake; the cost of entry is the USD 29 hold plus the pro-rated Pro plan charge
+  - credit_usd: 0
+  - plan_credit_usd: 100
+  - credit_hours_at_shape: 0
+  - credit_expiry: monthly, tied to the subscription
+  - payment_methods.card_at_signup: yes
+  - payment_methods.debit: accepted
+  - payment_methods.prepaid: not-stated
+  - payment_methods.virtual: not-stated
+  - payment_methods.hold_amount: USD 29
+  - payment_methods.hold_detail: pre-authorisation released immediately or in 7 to 21 days, plus a prorated Pro charge
+  - payment_methods.identity: card, plus an account-validation review
+  - payment_methods.source_url: https://www.koyeb.com/docs/faqs/pricing
+  - payment_methods.read_on: 2026-10-24
+  - payment_methods.superseded: card, verified by a USD 29 pre-authorisation hold
+- evidence:
+  - [2] 2026-10-22: one free web Service with 512 MB RAM, 0.1 vCPU and 2 GB SSD; one free PostgreSQL database with 5 hours of active time
+  - [3] 2026-10-22: the free Instance scales to zero after 1 hour without traffic and the idle period cannot be customized
+  - [2] 2026-10-22: 100 GB of outbound bandwidth a month free, then USD 0.04 per GB; not charged yet
+  - [1] 2026-10-24: quoted: 'Each Free Instance provides 512MB of RAM, 0.1 vCPU, and 2GB of SSD. Each organization is limited to one Free Instance.'
+  - [1] 2026-10-24: quoted: 'They scale down to zero when they don't receive any traffic for 1 hour.' and 'They can't be used with Volumes to add persistent storage'
+  - [4] 2026-10-24: quoted: 'Additional bandwidth EU/US $0.02/GB'
+  - [4] 2026-10-24: quoted: 'Pro $29/mo ... $10 included compute'; 'Scale ... $299/mo ... $100 included compute'; 'Get up to $30k in credits to accelerate your go-to-market'.
+  - [1] 2026-10-24: quoted: 'Each Free Instance provides 512MB of RAM, 0.1 vCPU, and 2GB of SSD. Each organization is limited to one Free Instance' and 'They scale down to zero when they don't receive any traffic for 1 hour'
+  - [2] 2026-10-24: quoted: 'We require a credit card to prevent fraud and abuse. We verify the card you enter by placing a $29 pre-authorization hold and immediately canceling it'
+  - [2] 2026-10-24: quoted: 'Right after we place the $29 pre-authorization hold to verify your card, we also charge you the pro-rated amount for the plan you select'
+  - [2] 2026-10-24: quoted: 'We provide 100GB of outbound bandwidth per month for free, usage after this allowance will cost $0.04 per GB'
+  - [4] 2026-10-24: the page banner reads 'Koyeb is joining Mistral AI to Build The Future of AI Infrastructure. Read More' and the pricing body carries no free-tier block
+  - [2] 2026-10-24: quoted: 'We verify the card you enter by placing a $29 pre-authorization hold and immediately canceling it' and 'We accept all major credit and debit cards: Visa, Mastercard, American Express, Diners, Discover, and China Union Pay'
+  - [1] 2026-10-24: quoted on the reap: 'They scale down to zero when they don't receive any traffic for 1 hour', and on the free shape: 'Each Free Instance provides 512MB of RAM, 0.1 vCPU, and 2GB of SSD. Each organization is limited to one Free Instance.'
+  - [2] 2026-10-24: quoted: 'We verify the card you enter by placing a $29 pre-authorization hold and immediately canceling it. Depending on your card issuer, the hold will disappear immediately, or after between 7 and 21 days.'
+  - [2] 2026-10-24: quoted: 'Yes. Right after we place the $29 pre-authorization hold to verify your card, we also charge you the pro-rated amount for the plan you select.'
+  - [2] 2026-10-24: quoted: 'We accept all major credit and debit cards: Visa, Mastercard, American Express, Diners, Discover, and China Union Pay.'
+- sources:
+  - [1] https://www.koyeb.com/docs/reference/instances
+  - [2] https://www.koyeb.com/docs/faqs/pricing
+  - [3] https://www.koyeb.com/docs/run-and-scale/scale-to-zero
+  - [4] https://www.koyeb.com/pricing
+
+## Koyeb (free)
+
+- `egress/koyeb` | fails-egress | evidence documented | binding volume-quota | category paas l4 port | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://www.koyeb.com/docs/run-and-scale/tcp-proxy
+- price USD 0
+- free tier: We provide 100GB of outbound bandwidth per month for free, usage after this allowance will cost $0.04 per GB. | unit: GB | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: 100GB of outbound bandwidth per month for free; $0.04 per GB after that.; ingress: tcp | metered: yes | free allowance: 100GB of outbound bandwidth per month for free; $0.04 per GB after that. | source: [2]
+- identity: email | detail: One Free Instance per organization: 512MB RAM, 0.1 vCPU, 2GB SSD; signup by email. | country: None
+- interface: cli, rest
+- limits:
+  - volume-quota (binding): 100 GB per month outbound [1]
+- binding note: Free tier includes 100 GB of monthly bandwidth (approximately 0.091 TiB). Public TCP proxy ports are included and stable.
+- interface detail: "TCP Proxy is available in the Koyeb control panel and the CLI and API."
+- tooling: Control panel, CLI, and API; enable TCP Proxy per service port.
+- composes with: Koyeb TCP proxy carries SSH to another host; with no UDP it cannot carry WireGuard.
+- reliability: Free Instance scales down to zero after 1 hour without traffic; TCP Proxy plus scale-to-zero "may lead to unexpected behavior".
+- notes: Conflict worth naming: the Free Instance scales to zero after an hour idle, and the TCP Proxy is documented as incompatible with scale-to-zero. A free-tier TCP proxy is therefore expected to work only while something else keeps the service awake.
+- evidence note: UDP absence is stated by the product being named TCP Proxy; a probe would only restate it.
+- extras:
+  - wg_path: none
+  - wg_detail: TCP Proxy only: "TCP Proxy lets you expose the TCP ports of your Services to the Internet". No UDP is offered.
+  - ingress: tcp
+  - volume_tib_month: 0.0909
+  - volume_stated: 100GB of outbound bandwidth per month for free; $0.04 per GB after that.
+  - bytes_transit: yes
+  - transit_note: Koyeb provisions a proxy host and port that forward to the service.
+- evidence:
+  - [1] 2026-10-23: "We provide 100GB of outbound bandwidth per month for free, usage after this allowance will cost $0.04 per GB."
+  - [3] 2026-10-23: Free Instance 512MB RAM, 0.1 vCPU, 2GB SSD, one per organization, scales down to zero after 1 hour without traffic
+  - [2] 2026-10-23: Proxy port persists across deployments unless disabled; "TCP Proxy is not compatible with Scale-to-Zero"
+- sources:
+  - [1] https://www.koyeb.com/docs/faqs/pricing
+  - [2] https://www.koyeb.com/docs/run-and-scale/tcp-proxy
+  - [3] https://www.koyeb.com/docs/reference/instances
+
+## koyeb — free starter plan
+
+- `storage/koyeb-free-starter-plan` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.koyeb.com/blog/koyeb-is-joining-mistral-ai-to-build-the-future-of-ai-infrastructure
+- free tier: Their own post: 'The Starter plan will soon be removed and new users will instead need to subscribe to the Pro… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: the same as the free tier
+- notes: the same as the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Their own post: 'The Starter plan will soon be removed and new users will instead need to subscribe to the Pro…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Their own post: 'The Starter plan will soon be removed and new users will instead need to subscribe to the Pro, Scal
+  - [2] 2026-10-21: Their own post: 'The Starter plan will soon be removed and new users will instead need to subscribe to the Pro, Scal
+- sources:
+  - [1] https://www.koyeb.com/blog/koyeb-is-joining-mistral-ai-to-build-the-future-of-ai-infrastructure
+  - [2] https://www.koyeb.com/docs/faqs/pricing

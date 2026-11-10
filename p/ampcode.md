@@ -1,0 +1,241 @@
+# Amp
+
+> ampcode.com | Coding subscriptions, Compute; 4 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/ampcode/ | JSON https://fshy.ajam.dev/api/v1/entity/ampcode.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Amp (Individual)
+
+- `coding-subs/amp-individual` | paid-only | evidence documented | binding volume-quota | category coding subscription | tier Individual
+- needs card unknown, phone no, ID no, institution no | verified 2026-11-10T01:55:58.468Z (live) | stale on 2026-12-11
+- url https://ampcode.com/pricing
+- price parsed USD 20/mo
+- disagrees on verdict: `coding-subs/amp-hobby` says qualifies-with-caveat, `coding-subs/amp-individual` says paid-only
+- free tier: no free allowance inside the paid tier: Individual is USD 20 a month as Megawatt (USD 20 of agent usage and 750 hours, 45,000 minutes, of a1.small Amp-hosted orbs) or USD 200 a month as Gigawatt (USD 200 of agent usage and 1,000 hours of a1.xxlarge orbs); Megawatt is USD 10 a month with the education discount | unit: none | metered on: none | read on: 2026-11-02 | source: [1] | note: the free offer is Hobby (coding-subs/amp-hobby); the included allowances reset each monthly billing period and do not roll over
+- per-object cap: not applicable
+- retention: not applicable
+- egress: not applicable | metered: no
+- identity: email | detail: the sign-up page offers an email address ('Continue with Email') or 'Sign in with ChatGPT'; the payment method the paid tier takes is unverified: behind a sign-up (the pricing page states only that invoices are issued through Stripe)
+- interface: cli
+- limits:
+  - volume-quota (binding): Megawatt: 750 hours (45,000 minutes) of a1.small Amp-hosted orbs a month; larger orbs use the hours faster; included usage resets each monthly billing period and does not roll over [1]
+  - volume-quota (binding): Megawatt: USD 20 of agent usage a month for Amp-served models and tools, then credits at list price; Gigawatt: USD 200 of agent usage and 1,000 hours of a1.xxlarge orbs a month [1]
+  - volume-quota (binding): Amp repository hosting soft limits: Megawatt 1 GB of storage and 10 GB of data transfer; Gigawatt 10 GB and 100 GB [1]
+  - request-rate: orb spawn pacing: a burst of 20 metered orbs per user, then one new orb every five minutes; later orb starts wait instead of failing [2]
+- limits note: the a1.3xlarge orb (16 CPUs, 44 GB) is available only to Gigawatt subscribers and Enterprise workspace members; purchased credits expire twelve months after purchase; the Teams card has no extra charge and each member keeps their own tier, with included orb time per person
+- binding note: the monthly orb-time and agent-usage allowances are the first thing a heavy headless user exhausts; past them, credits at list price keep the work going
+- interface detail: the `amp` CLI. Headless: `amp -x "prompt"` (execute mode) sends the prompt, waits for the agent's turn to end, prints the final message and exits; `amp -ox` is shorthand for `--orb-execute -x` and starts the same prompt in an Amp-hosted orb that spends the tier's orb minutes, prints the thread URL and exits; `--orb-size` picks the orb size and `--stream-json` streams events; scripts and CI set AMP_API_KEY to an access token from Settings that starts with `sgamp_`; the web app and the macOS, iOS and Android apps run the same threads
+- tooling: the amp CLI (macOS, Linux, or Windows through WSL), the web app at ampcode.com, and the macOS, iOS and Android apps; the agent runs in an Amp-hosted orb, locally, or on one of the user's own runners
+- composes with: Megawatt at USD 20 a month bundles USD 20 of Amp-served agent usage and 45,000 orb minutes, so a headless `amp -ox` job runs on the vendor's machines with no machine of the user's own; the free Hobby tier (coding-subs/amp-hobby) takes the same agent with a linked ChatGPT or Claude subscription or own keys, and any key in inference/ works instead of Amp-served usage
+- reliability: no reliability event recorded; an orb pauses 5 minutes after the agent finishes or 20 minutes after the last interaction, whichever comes later, and a paused orb is not billed
+- notes: Individual has two sub-tiers on one card: Megawatt at USD 20 a month and Gigawatt at USD 200 a month. Models behind the Dial on the Modes page of 2026-11-02, which changes as models improve: low GLM-5.3-Flash at high effort, medium Opus 5.5 at high, high GPT-6 Astra at medium, ultra Fable 5.1 at high. The free path is coding-subs/amp-hobby; compute/amp-2 holds the same pricing page as a compute record and compute/amp the orb machine sizes.
+- evidence note: prices and allowances are quoted from the vendor's pricing documentation and pricing page read on 2026-11-02; the Gigawatt sub-tier is shown on the pricing page only behind a client-rendered tab, so its price and allowance rest on the markdown source of the documentation page. The payment method and the live checkout are unverified: behind a sign-up.
+- extras:
+  - monthly_usd: 20
+- evidence:
+  - [1] 2026-11-02: Megawatt is USD 20 a month (USD 10 with the education discount) with USD 20 of agent usage and 750 hours (45,000 minutes) of a1.small orbs | capture: sha256:2fb38947a7e5e6d6e4dd75a0c359da8e74e14f419903c5842cbcf198fa972be1 | quote: | Megawatt | $20/month ($10/month with the [education discount](/edu)) | $20 of agent usage ($10 with the education discount) for Amp-served models and tools. After that, buy credits at list price. | 750 hours (45,000 minutes) of a1.small orbs. Larger orbs use the hours faster. |
+  - [1] 2026-11-02: Gigawatt is USD 200 a month with USD 200 of agent usage and 1,000 hours of a1.xxlarge orbs | capture: sha256:2fb38947a7e5e6d6e4dd75a0c359da8e74e14f419903c5842cbcf198fa972be1 | quote: | Gigawatt | $200/month | $200 of agent usage for Amp-served models and tools. After that, buy credits at list price. | 1,000 hours of a1.xxlarge orbs. |
+  - [1] 2026-11-02: repository hosting soft limits per paid sub-tier | capture: sha256:2fb38947a7e5e6d6e4dd75a0c359da8e74e14f419903c5842cbcf198fa972be1 | quote: Amp repository hosting soft limits: Megawatt has 1 GB of storage and 10 GB of data transfer; Gigawatt has 10 GB and 100 GB.
+  - [1] 2026-11-02: own-subscription and own-key tokens carry no Amp fee or limit on the paid tiers too | capture: sha256:2fb38947a7e5e6d6e4dd75a0c359da8e74e14f419903c5842cbcf198fa972be1 | quote: On every tier except Enterprise, tokens from your own subscriptions (such as ChatGPT) and your own API keys have no Amp fees or limits, and self-hosted orbs are free and unlimited.
+  - [3] 2026-11-02: the Individual card lists 45,000 minutes of orbin' time | capture: sha256:ab2a017a261066befb0df8bd77147eff546cc14712d5edb4bd5e2c1b45e861e8 | quote: 45,000 minutes of orbin' time
+  - [3] 2026-11-02: the included minutes are spent on Amp-hosted orbs | capture: sha256:ab2a017a261066befb0df8bd77147eff546cc14712d5edb4bd5e2c1b45e861e8 | quote: Minutes are for Amp-hosted orbs
+  - [3] 2026-11-02: the Individual card's button names the Megawatt tier | capture: sha256:ab2a017a261066befb0df8bd77147eff546cc14712d5edb4bd5e2c1b45e861e8 | quote: Get Megawatt
+  - [3] 2026-11-02: the Teams card names Hobby, Megawatt and Gigawatt as the member tiers | capture: sha256:ab2a017a261066befb0df8bd77147eff546cc14712d5edb4bd5e2c1b45e861e8 | quote: Members can be on different tiers: Hobby, Megawatt, or Gigawatt
+  - [3] 2026-11-02: the Individual card includes unlimited public and private repositories | capture: sha256:ab2a017a261066befb0df8bd77147eff546cc14712d5edb4bd5e2c1b45e861e8 | quote: Unlimited public/private repositories
+  - [4] 2026-11-02: paid-tier allowances reset monthly with no rollover | capture: sha256:b48961256d82faa3598c89cb4e9d6873a93deeef8f36b3174c64106f34ce5ed7 | quote: Included usage resets at the end of each monthly billing period and does not roll over.
+  - [4] 2026-11-02: bought credits expire after twelve months | capture: sha256:b48961256d82faa3598c89cb4e9d6873a93deeef8f36b3174c64106f34ce5ed7 | quote: Purchased credits expire twelve months after purchase.
+  - [4] 2026-11-02: invoices are issued through Stripe; no card requirement is stated at sign-up | capture: sha256:b48961256d82faa3598c89cb4e9d6873a93deeef8f36b3174c64106f34ce5ed7 | quote: Invoices are issued through Stripe, which supports adding your VAT ID or other tax information.
+  - [5] 2026-11-02: an education discount halves the Megawatt price | capture: sha256:a00bd12a8261896a5b7f2ccb165b9b45728a170cf56234db7c790c2320d48fc3 | quote: Students and teachers get 50% off Amp Megawatt.
+  - [6] 2026-11-02: the largest orb size needs Gigawatt or Enterprise | capture: sha256:0a3d48838b5c8cff6a641487fb03fbcf0662c74c9155e40fc11c434bde62872e | quote: `a1.3xlarge` is available only to Gigawatt subscribers and Enterprise workspace members, due to the general scarcity of compute.
+  - [6] 2026-11-02: the orb pause rule that stops orb-minute billing | capture: sha256:0a3d48838b5c8cff6a641487fb03fbcf0662c74c9155e40fc11c434bde62872e | quote: In other words, an orb pauses 5 minutes after the agent finishes or 20 minutes after your last interaction, whichever comes later.
+  - [6] 2026-11-02: orb usage is billed by the minute and a paused orb costs nothing | capture: sha256:0a3d48838b5c8cff6a641487fb03fbcf0662c74c9155e40fc11c434bde62872e | quote: Orb usage is billed by the minute. A paused orb costs nothing.
+  - [2] 2026-11-02: orb starts are paced at a burst of 20, then one every five minutes | capture: sha256:eb2b1c7d826f0638eca741b1d7022c058408e096e329d07d8da50a7ac203e177 | quote: Each user can start a burst of 20 metered orbs. After that burst, Amp starts one new orb every five minutes.
+  - [7] 2026-11-02: sign-up takes an email address or a ChatGPT sign-in | capture: sha256:99029b643bda537189c7cf547e70fca6f59470a2bd4967f6bc3d3c61b7e8d384 | quote: Email Continue with Email OR OpenAI Sign in with ChatGPT
+  - [8] 2026-11-02: `amp -ox` runs the execute-mode prompt in an Amp-hosted orb | capture: sha256:2df90037870df4ad4cae440a7e59479dac440b76c0dd18a876c577236412b4f6 | quote: `-ox` is shorthand for `--orb-execute -x`.
+  - [8] 2026-11-02: `--orb-size` picks the orb size for an `amp -ox` thread | capture: sha256:2df90037870df4ad4cae440a7e59479dac440b76c0dd18a876c577236412b4f6 | quote: $ amp -ox "Run the full browser test matrix" --orb-size a1.large
+  - [8] 2026-11-02: `--stream-json` works with `-ox` and matches the local `-x` output format | capture: sha256:2df90037870df4ad4cae440a7e59479dac440b76c0dd18a876c577236412b4f6 | quote: The output format is identical to local `amp -x --stream-json`, so existing consumers work without changes:
+  - [9] 2026-11-02: `amp -x` is the CLI's non-interactive execute mode | capture: sha256:74d278b203e096f57501d36aa8cdf5afda4e87c2e8677a38ef6450b8d5e9f079 | quote: Use `-x` or `--execute` to start the CLI in execute mode.
+  - [9] 2026-11-02: scripts and CI authenticate with an access token from Settings beginning sgamp_, set as AMP_API_KEY | capture: sha256:74d278b203e096f57501d36aa8cdf5afda4e87c2e8677a38ef6450b8d5e9f079 | quote: Use an access token from Settings, which starts with `sgamp_`.
+  - [10] 2026-11-02: Amp-hosted orbs are paid from a Megawatt or Gigawatt tier or from credits | capture: sha256:7781b78c3d7e02296367bb7b197181e9e69a061e5a33d08bc28ad56dd79bd021 | quote: When using orbs, you pay for the orbs (from Amp Megawatt/Gigawatt or Amp credits); the orbs aren’t covered by your ChatGPT plan.
+  - [11] 2026-11-02: the medium mode runs Opus 5.5 at high effort | capture: sha256:ec34e2e649f73b3aa3cf9038be1540c556b623eed3b41cd838fd2dce98b9da09 | quote: [Medium Default for most tasks, balancing quality, speed, and cost Agent Opus 5.5 · high](https://ampcode.com/news/the-dial)
+  - [11] 2026-11-02: the ultra mode runs Fable 5.1 at high effort | capture: sha256:ec34e2e649f73b3aa3cf9038be1540c556b623eed3b41cd838fd2dce98b9da09 | quote: [Ultra Use for the hardest open-ended tasks when maximum capability matters more than speed or cost Agent Fable 5.1 · high](https://ampcode.com/news/the-dial)
+  - [11] 2026-11-02: the high mode runs GPT-6 Astra at medium effort | capture: sha256:ec34e2e649f73b3aa3cf9038be1540c556b623eed3b41cd838fd2dce98b9da09 | quote: [High Use for difficult tasks that need deeper reasoning and can tolerate more time and cost Agent GPT-6 Astra · med](https://ampcode.com/news/the-dial)
+  - [11] 2026-11-02: the low mode runs GLM-5.3-Flash at high effort | capture: sha256:ec34e2e649f73b3aa3cf9038be1540c556b623eed3b41cd838fd2dce98b9da09 | quote: [Low Fast, low-cost mode for small, well-defined tasks Agent GLM-5.3-Flash · high](https://ampcode.com/news/the-dial)
+  - [3] 2026-11-10: the page states the pricing page prices Individual at USD 20 a month | capture: sha256:2ab0dcf2b8c0a5d10057dff1a39a70211a49b9febb9f768c19abf2b0e0468f7d | quote: Individual $20
+- sources:
+  - [1] https://ampcode.com/docs/markdown/pricing
+  - [2] https://ampcode.com/docs/orbs
+  - [3] https://ampcode.com/pricing
+  - [4] https://ampcode.com/docs/pricing
+  - [5] https://ampcode.com/edu
+  - [6] https://ampcode.com/docs/orbs/sizes-and-costs
+  - [7] https://ampcode.com/auth/sign-up
+  - [8] https://ampcode.com/docs/cli/spawning-orbs
+  - [9] https://ampcode.com/docs/cli/execute-mode
+  - [10] https://ampcode.com/docs/the-dial
+  - [11] https://ampcode.com/modes
+
+## Amp Orbs
+
+- `compute/amp` | paid-only | evidence documented | binding request-rate | category dev environment
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:53:22.457Z (live) | stale on 2026-12-05
+- url https://ampcode.com/docs/orbs/sizes-and-costs
+- free tier: no free tier: orbs bill by the minute from $0.08 an hour on the smallest size, and a paused orb costs nothing | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email | detail: an Amp account: the sign-up page offers an email address or sign-in with ChatGPT; Amp-hosted orb time is paid, as pay-as-you-go credits on the free Hobby tier or as the orb minutes included in the paid Individual tier
+- interface: unknown
+- limits:
+  - request-rate (binding): $0.08 an hour for `a1.tiny` at 1 CPU and 2 GB, rising to $2.13 an hour for `a1.3xlarge` [1]
+  - per-object-cap: 60 GB of disk on every current orb size [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: Not a coding subscription: an orb is a cloud machine billed by the minute, so the record stays in compute. The coding subscription is the Amp agent's tier ladder, held at compute/amp-2: Hobby is free with pay-as-you-go orbs, and Individual at USD 20 a month includes 45,000 minutes of Amp-hosted orb time. Orb time uses its own allowance, separate from agent usage.
+- evidence note: the orb size and cost page was read on 2026-10-22 and publishes the size ladder and the pause rule. No free tier appears, so the record's verdict moves to paid-only, and the pause model is the axis answer
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - shape.vcpu: 1
+  - shape.ram: 2
+  - shape.disk: 60
+  - shape.note: `a1.tiny`; the ladder runs to `a1.3xlarge` at 16 CPU, 44 GB and the same 60 GB disk
+  - session_cap.idle_reap_s: 300
+  - session_cap.restart_required: no
+  - session_cap.note: an orb pauses 5 minutes after the agent finishes or 20 minutes after the last interaction, whichever comes later, and at once when its thread is archived; these are idle timeouts, not a run limit, and a paused orb bills nothing and wakes on the next message or portal request
+  - free_tier_kind: none
+  - ps.gib: 60
+  - ps.price: included in the orb size
+  - ps.durability: orb disk
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: while the orb exists
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Orb usage is billed by the minute. A paused orb costs nothing. Amp automatically pauses an orb when it is idle and pauses it right away when its thread is archived.' and 'An orb pauses when both of these are true: the agent has done no work for 5 minutes' and 'Every current orb size includes 60 GB of disk' with `a1.tiny` at $0.08 an hour, quoted
+  - [1] 2026-10-30: the smallest orb is still 1 CPU and 2 GB at USD 0.08 an hour | capture: sha256:e8d8f34e7760ed404b9051cbad0620774180ad768ef60f77c23be7766f95fe2d | quote: | `a1.tiny` | 1 | 2 GB | $0.08/hour |
+  - [1] 2026-10-30: the largest orb is still 16 CPU and 44 GB at USD 2.13 an hour | capture: sha256:e8d8f34e7760ed404b9051cbad0620774180ad768ef60f77c23be7766f95fe2d | quote: | `a1.3xlarge` | 16 | 44 GB | $2.13/hour |
+  - [1] 2026-10-30: every orb size still has 60 GB of disk | capture: sha256:e8d8f34e7760ed404b9051cbad0620774180ad768ef60f77c23be7766f95fe2d | quote: Every current orb size includes 60 GB of disk.
+  - [1] 2026-10-30: orbs bill by the minute and a paused orb is free | capture: sha256:e8d8f34e7760ed404b9051cbad0620774180ad768ef60f77c23be7766f95fe2d | quote: Orb usage is billed by the minute. A paused orb costs nothing.
+  - [1] 2026-10-30: the pause rule now has a 20-minute interaction window beside the 5-minute agent window | capture: sha256:e8d8f34e7760ed404b9051cbad0620774180ad768ef60f77c23be7766f95fe2d | quote: In other words, an orb pauses 5 minutes after the agent finishes or 20 minutes after your last interaction, whichever comes later.
+  - [2] 2026-10-30: sign-up takes an email address or a ChatGPT sign-in | capture: sha256:99029b643bda537189c7cf547e70fca6f59470a2bd4967f6bc3d3c61b7e8d384 | quote: Email Continue with Email OR OpenAI Sign in with ChatGPT
+  - [3] 2026-10-30: orb time is metered apart from the agent's usage, inside a tier or pay-as-you-go | capture: sha256:312cfb95c8ba80d76514f9a5b7c01a2df6fed4b76628974ea71a75c092aee768 | quote: Orbs use a separate usage allowance.
+  - [1] 2026-11-03: a1.3xlarge is 16 CPU, 44 GB at $2.13 an hour | capture: sha256:0a3d48838b5c8cff6a641487fb03fbcf0662c74c9155e40fc11c434bde62872e | quote: | `a1.3xlarge` | 16 | 44 GB | $2.13/hour |
+  - [1] 2026-11-03: every orb size has 60 GB of disk | capture: sha256:0a3d48838b5c8cff6a641487fb03fbcf0662c74c9155e40fc11c434bde62872e | quote: Every current orb size includes 60 GB of disk.
+  - [3] 2026-11-03: the Individual tier includes 45,000 orb minutes | capture: sha256:b48961256d82faa3598c89cb4e9d6873a93deeef8f36b3174c64106f34ce5ed7 | quote: 45,000 minutes of orbin' time
+  - [3] 2026-11-03: orb time has its own allowance, separate from agent usage | capture: sha256:b48961256d82faa3598c89cb4e9d6873a93deeef8f36b3174c64106f34ce5ed7 | quote: Orbs use a separate usage allowance.
+  - [1] 2026-11-03: a1.tiny is 1 CPU, 2 GB at $0.08 an hour | capture: sha256:0a3d48838b5c8cff6a641487fb03fbcf0662c74c9155e40fc11c434bde62872e | quote: | `a1.tiny` | 1 | 2 GB | $0.08/hour |
+  - [1] 2026-11-04: orbs are metered by the minute and a paused orb costs nothing; no free orb allowance | capture: sha256:0a3d48838b5c8cff6a641487fb03fbcf0662c74c9155e40fc11c434bde62872e | quote: Orb usage is billed by the minute. A paused orb costs nothing.
+- sources:
+  - [1] https://ampcode.com/docs/orbs/sizes-and-costs
+  - [2] https://ampcode.com/auth/sign-up
+  - [3] https://ampcode.com/docs/pricing
+
+## Amp (Hobby)
+
+- `coding-subs/amp-hobby` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding none | category BYOK coding agent | tier Hobby
+- needs card unknown, phone no, ID no, institution no | verified 2026-11-04T10:28:03.759Z (live) | stale on 2026-12-05
+- url https://ampcode.com/pricing
+- disagrees on verdict: `coding-subs/amp-hobby` says qualifies-with-caveat, `coding-subs/amp-individual` says paid-only
+- free tier: Hobby is Free: tokens from the user's own ChatGPT or Claude subscriptions or own API keys carry no Amp token fees or limits, and runners on the user's own machine are free; Amp-hosted orbs are pay-as-you-go and nothing is included (Amp-served model usage is bought as credits at list price) | unit: none | metered on: none | read on: 2026-11-02 | source: [1] | note: the agent costs nothing on the free path; the first thing that costs money is an Amp-hosted orb at the per-minute rate or an Amp-served model, never a linked subscription or own key
+- per-object cap: not applicable: a coding agent meters nothing itself
+- retention: not applicable
+- egress: not applicable: the chosen endpoint or the user's own subscription serves the inference | metered: no
+- identity: email | detail: the sign-up page offers an email address ('Continue with Email') or 'Sign in with ChatGPT'; a payment method for buying credits or Amp-hosted orb time is unverified: behind a sign-up (the pricing page states only that invoices are issued through Stripe)
+- interface: cli
+- limits:
+  - request-rate: orb spawn pacing: a burst of 20 metered orbs per user, then one new orb every five minutes; later orb starts wait instead of failing [2]
+- limits note: a linked ChatGPT subscription serves only OpenAI models and token sharing is not available on every ChatGPT plan (ChatGPT Business and Enterprise workspaces can turn it off); a linked Claude subscription covers only the Claude Code mode, and Amp's own modes and raw models are never covered by it; web search, web page reads, voice and image generation still use Amp credits; Amp-hosted orbs are not covered by a ChatGPT or Claude plan
+- binding note: the free path (own subscription or key, own runner) has no Amp-side quota; the orb spawn pacing and the per-minute orb price apply only when Amp-hosted orbs are used
+- interface detail: the `amp` CLI. Headless: `amp -x "prompt"` (execute mode) sends the prompt, waits for the agent's turn to end, prints the final message and exits, and turns on by itself when stdout is redirected; `amp -ox` is shorthand for `--orb-execute -x` and starts the same prompt in an Amp-hosted orb, prints the thread URL and exits; `--stream-json` streams the events, locally or from an orb; `--executor runner:<id>` targets one of the user's own runners; scripts and CI set AMP_API_KEY to an access token from Settings that starts with `sgamp_`
+- tooling: the user installs and runs the amp CLI (macOS, Linux, or Windows through WSL) on a rented or free machine, or the user's own runner started with `amp --no-tui --runner-id <id>`; the web app and the macOS, iOS and Android apps run the agent in an Amp-hosted orb instead; models come from the user's linked ChatGPT subscription (`amp config model-providers add-chatgpt-subscription`), the Claude Code mode on a linked Claude subscription, or own API keys in Model Routing
+- composes with: hosted lanes first: an Amp-hosted orb on Hobby is pay-as-you-go from USD 0.08 an hour (a1.tiny), Amp-served models are bought as credits with no markup on provider API prices, and the paid Individual tier (coding-subs/amp-individual) bundles 45,000 orb minutes and USD 20 of agent usage; the free path links a ChatGPT subscription or any key in inference/ and runs the agent on the user's own runner
+- reliability: no reliability event recorded; the earlier Amp Free daily credit grant has been paused or reduced for more users since the update dated 2026-05-23, and the Hobby row lists nothing included
+- notes: Free path: link a ChatGPT subscription or add own API keys, and run the agent on the user's own runner; the web app and Amp-hosted orbs are pay-as-you-go. Models behind the Dial, as listed on the Modes page on 2026-11-02 and said to change as models improve: low GLM-5.3-Flash at high effort, medium Opus 5.5 at high, high GPT-6 Astra at medium, and ultra Fable 5.1 at high; the Claude Code mode runs Claude models on a linked Claude subscription. coding-subs/amp-individual holds the paid Megawatt and Gigawatt tiers; compute/amp-2 holds the same Hobby card as a compute record and compute/amp the orb machine sizes.
+- evidence note: tiers, prices, headless flags and routing are quoted from first-party pages read on 2026-11-02. The sign-up flow past its first page, the payment method it asks for, and the access-token rules on Hobby are unverified: behind a sign-up. The ChatGPT and Claude subscription links are documented, not exercised.
+- self hosted: yes
+- evidence:
+  - [1] 2026-11-02: the Hobby card, Free, states no Amp token fees or limits | capture: sha256:ab2a017a261066befb0df8bd77147eff546cc14712d5edb4bd5e2c1b45e861e8 | quote: No Amp token fees or limits
+  - [1] 2026-11-02: the Hobby card lets the user spend tokens from linked ChatGPT, Claude and other subscriptions | capture: sha256:ab2a017a261066befb0df8bd77147eff546cc14712d5edb4bd5e2c1b45e861e8 | quote: Use your ChatGPT, Claude & other subs
+  - [1] 2026-11-02: the Hobby card lets the user run agents on their own runners for free | capture: sha256:ab2a017a261066befb0df8bd77147eff546cc14712d5edb4bd5e2c1b45e861e8 | quote: Or use your own runners for free
+  - [1] 2026-11-02: Amp-hosted orbs on Hobby are pay-as-you-go | capture: sha256:ab2a017a261066befb0df8bd77147eff546cc14712d5edb4bd5e2c1b45e861e8 | quote: Pay-as-you-go for Amp-hosted orbs
+  - [3] 2026-11-02: Hobby is Free with nothing included; Amp-served models are bought as credits at list price and Amp-hosted orbs are billed at the standard orb prices | capture: sha256:2fb38947a7e5e6d6e4dd75a0c359da8e74e14f419903c5842cbcf198fa972be1 | quote: | Hobby | Free | Nothing included. Buy credits to use Amp-served models at list price. | Pay as you go for Amp-hosted orbs at the [standard orb prices](/docs/orbs/sizes-and-costs). |
+  - [3] 2026-11-02: own-subscription and own-key tokens carry no Amp fee or limit on every tier except Enterprise | capture: sha256:2fb38947a7e5e6d6e4dd75a0c359da8e74e14f419903c5842cbcf198fa972be1 | quote: On every tier except Enterprise, tokens from your own subscriptions (such as ChatGPT) and your own API keys have no Amp fees or limits, and self-hosted orbs are free and unlimited.
+  - [4] 2026-11-02: credits bought for Amp-served models carry no markup over the provider's API price for individuals | capture: sha256:b48961256d82faa3598c89cb4e9d6873a93deeef8f36b3174c64106f34ce5ed7 | quote: For individuals and non-enterprise workspaces, Amp does not add a markup to providers’ API prices.
+  - [4] 2026-11-02: credits can be bought on Hobby without a paid tier | capture: sha256:b48961256d82faa3598c89cb4e9d6873a93deeef8f36b3174c64106f34ce5ed7 | quote: Paid credits require no paid tier or commitment.
+  - [4] 2026-11-02: invoices are issued through Stripe; the pricing page names no card requirement at sign-up | capture: sha256:b48961256d82faa3598c89cb4e9d6873a93deeef8f36b3174c64106f34ce5ed7 | quote: Invoices are issued through Stripe, which supports adding your VAT ID or other tax information.
+  - [5] 2026-11-02: the agent is free when the user brings their own compute and model subscriptions or keys | capture: sha256:3f50ae50ff03ecd8f4f39a8af66b84d3be34656765767e241f4a39d7ea71a96c | quote: Amp is now free to use when you bring your own compute and model subscriptions/keys.
+  - [5] 2026-11-02: no own-key token fees or limits for anyone except Enterprise | capture: sha256:3f50ae50ff03ecd8f4f39a8af66b84d3be34656765767e241f4a39d7ea71a96c | quote: No BYOK token fees or limits for anyone (except our Enterprise tier).
+  - [6] 2026-11-02: sign-up takes an email address or a ChatGPT sign-in | capture: sha256:99029b643bda537189c7cf547e70fca6f59470a2bd4967f6bc3d3c61b7e8d384 | quote: Email Continue with Email OR OpenAI Sign in with ChatGPT
+  - [7] 2026-11-02: `amp -x` is the CLI's non-interactive execute mode | capture: sha256:74d278b203e096f57501d36aa8cdf5afda4e87c2e8677a38ef6450b8d5e9f079 | quote: Use `-x` or `--execute` to start the CLI in execute mode.
+  - [7] 2026-11-02: redirecting stdout turns execute mode on by itself | capture: sha256:74d278b203e096f57501d36aa8cdf5afda4e87c2e8677a38ef6450b8d5e9f079 | quote: Execute mode is automatically turned on when you redirect stdout:
+  - [7] 2026-11-02: scripts and CI authenticate with an access token from Settings beginning sgamp_, set as AMP_API_KEY | capture: sha256:74d278b203e096f57501d36aa8cdf5afda4e87c2e8677a38ef6450b8d5e9f079 | quote: Use an access token from Settings, which starts with `sgamp_`.
+  - [8] 2026-11-02: `amp -ox` runs the execute-mode prompt in an Amp-hosted orb | capture: sha256:2df90037870df4ad4cae440a7e59479dac440b76c0dd18a876c577236412b4f6 | quote: `-ox` is shorthand for `--orb-execute -x`.
+  - [8] 2026-11-02: `--stream-json` works with `-ox` and matches the local `-x` output format | capture: sha256:2df90037870df4ad4cae440a7e59479dac440b76c0dd18a876c577236412b4f6 | quote: The output format is identical to local `amp -x --stream-json`, so existing consumers work without changes:
+  - [9] 2026-11-02: the amp CLI runs on macOS, Linux and Windows through WSL | capture: sha256:0d377db17f41686c3ed11a9d255cc5a1342f7f07357109329cc74eaf13fa8062 | quote: The CLI supports macOS, Linux, and Windows through WSL.
+  - [10] 2026-11-02: with a linked ChatGPT subscription and token sharing, OpenAI model usage bills to that subscription | capture: sha256:7781b78c3d7e02296367bb7b197181e9e69a061e5a33d08bc28ad56dd79bd021 | quote: OpenAI model usage is billed to your ChatGPT subscription instead of Amp credits.
+  - [10] 2026-11-02: the ChatGPT link depends on the plan sharing tokens | capture: sha256:7781b78c3d7e02296367bb7b197181e9e69a061e5a33d08bc28ad56dd79bd021 | quote: Token sharing is not available on every ChatGPT plan, and ChatGPT Business and Enterprise workspaces can turn it off.
+  - [10] 2026-11-02: a linked Claude subscription serves only the Claude Code mode | capture: sha256:7781b78c3d7e02296367bb7b197181e9e69a061e5a33d08bc28ad56dd79bd021 | quote: Only the Claude Code mode uses your Claude plan.
+  - [10] 2026-11-02: runners on the user's own machine cost nothing | capture: sha256:7781b78c3d7e02296367bb7b197181e9e69a061e5a33d08bc28ad56dd79bd021 | quote: You can use [runners](https://ampcode.com/docs/cli/runners) on your own machine for free.
+  - [2] 2026-11-02: orb starts are paced at a burst of 20, then one every five minutes | capture: sha256:eb2b1c7d826f0638eca741b1d7022c058408e096e329d07d8da50a7ac203e177 | quote: Each user can start a burst of 20 metered orbs. After that burst, Amp starts one new orb every five minutes.
+  - [11] 2026-11-02: the smallest Amp-hosted orb is 1 CPU and 2 GB at USD 0.08 an hour | capture: sha256:0a3d48838b5c8cff6a641487fb03fbcf0662c74c9155e40fc11c434bde62872e | quote: | `a1.tiny` | 1 | 2 GB | $0.08/hour |
+  - [12] 2026-11-02: the earlier Amp Free daily allowance was paused or reduced for more users from 2026-05-23 | capture: sha256:11f18ae16d106d53ada908e5815dc558f1dd036bd76d3b610cd0f86b9471debe | quote: Update (2026-05-23): We’re pausing or reducing further Amp Free’s daily allowance for more users and restricting use of free credits by older client releases.
+  - [10] 2026-11-02: web search, page reads and voice are billed to Amp credits even with a linked subscription | capture: sha256:7781b78c3d7e02296367bb7b197181e9e69a061e5a33d08bc28ad56dd79bd021 | quote: Web search, reading web pages, and voice also use Amp credits.
+  - [10] 2026-11-02: a Claude plan does not cover Amp's own modes or raw models | capture: sha256:7781b78c3d7e02296367bb7b197181e9e69a061e5a33d08bc28ad56dd79bd021 | quote: Amp's own modes, such as medium, high, and ultra, and any raw models are never covered by your Claude plan.
+  - [10] 2026-11-02: the Claude Code mode runs Claude models on a linked Claude subscription | capture: sha256:7781b78c3d7e02296367bb7b197181e9e69a061e5a33d08bc28ad56dd79bd021 | quote: The Claude Code mode in Amp lets you use Claude models with your Claude Subscription.
+  - [10] 2026-11-02: the CLI command that links a ChatGPT subscription | capture: sha256:7781b78c3d7e02296367bb7b197181e9e69a061e5a33d08bc28ad56dd79bd021 | quote: From the CLI, run `amp config model-providers add-chatgpt-subscription` (or `amp add-chatgpt-sub`) to open the same sign-in flow in your browser.
+  - [10] 2026-11-02: Amp-hosted orbs are paid from a tier or credits and are not covered by a ChatGPT plan | capture: sha256:7781b78c3d7e02296367bb7b197181e9e69a061e5a33d08bc28ad56dd79bd021 | quote: When using orbs, you pay for the orbs (from Amp Megawatt/Gigawatt or Amp credits); the orbs aren’t covered by your ChatGPT plan.
+  - [9] 2026-11-02: a runner on the user's machine is started with `amp --no-tui --runner-id <id>` | capture: sha256:0d377db17f41686c3ed11a9d255cc5a1342f7f07357109329cc74eaf13fa8062 | quote: A runner ID identifies a connected runner started with `amp --no-tui --runner-id <id>`.
+  - [7] 2026-11-02: `-x --executor runner:<id>` starts a headless thread on one of the user's runners | capture: sha256:74d278b203e096f57501d36aa8cdf5afda4e87c2e8677a38ef6450b8d5e9f079 | quote: Use `--executor runner:<id>` with `-x` to start a thread on one of your running [runners](https://ampcode.com/docs/cli/runners).
+  - [13] 2026-11-02: the low mode runs GLM-5.3-Flash at high effort | capture: sha256:ec34e2e649f73b3aa3cf9038be1540c556b623eed3b41cd838fd2dce98b9da09 | quote: [Low Fast, low-cost mode for small, well-defined tasks Agent GLM-5.3-Flash · high](https://ampcode.com/news/the-dial)
+  - [13] 2026-11-02: the medium mode runs Opus 5.5 at high effort | capture: sha256:ec34e2e649f73b3aa3cf9038be1540c556b623eed3b41cd838fd2dce98b9da09 | quote: [Medium Default for most tasks, balancing quality, speed, and cost Agent Opus 5.5 · high](https://ampcode.com/news/the-dial)
+  - [13] 2026-11-02: the high mode runs GPT-6 Astra at medium effort | capture: sha256:ec34e2e649f73b3aa3cf9038be1540c556b623eed3b41cd838fd2dce98b9da09 | quote: [High Use for difficult tasks that need deeper reasoning and can tolerate more time and cost Agent GPT-6 Astra · med](https://ampcode.com/news/the-dial)
+  - [13] 2026-11-02: the ultra mode runs Fable 5.1 at high effort | capture: sha256:ec34e2e649f73b3aa3cf9038be1540c556b623eed3b41cd838fd2dce98b9da09 | quote: [Ultra Use for the hardest open-ended tasks when maximum capability matters more than speed or cost Agent Fable 5.1 · high](https://ampcode.com/news/the-dial)
+  - [10] 2026-11-02: the model behind each mode changes over time | capture: sha256:7781b78c3d7e02296367bb7b197181e9e69a061e5a33d08bc28ad56dd79bd021 | quote: That routing changes as models improve, but the meaning of each position on the Dial stays the same.
+  - [1] 2026-11-04: the Hobby free path (own runners, own keys) is still listed | capture: sha256:ab2a017a261066befb0df8bd77147eff546cc14712d5edb4bd5e2c1b45e861e8 | quote: Unlimited self-hosted orbs, free
+- sources:
+  - [1] https://ampcode.com/pricing
+  - [2] https://ampcode.com/docs/orbs
+  - [3] https://ampcode.com/docs/markdown/pricing
+  - [4] https://ampcode.com/docs/pricing
+  - [5] https://ampcode.com/news/free-agent
+  - [6] https://ampcode.com/auth/sign-up
+  - [7] https://ampcode.com/docs/cli/execute-mode
+  - [8] https://ampcode.com/docs/cli/spawning-orbs
+  - [9] https://ampcode.com/docs/cli
+  - [10] https://ampcode.com/docs/the-dial
+  - [11] https://ampcode.com/docs/orbs/sizes-and-costs
+  - [12] https://ampcode.com/news/amp-free-is-ad-free
+  - [13] https://ampcode.com/modes
+
+## Amp (2)
+
+- `compute/amp-2` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding none | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T02:17:32.271Z (live) | stale on 2026-12-03
+- url https://ampcode.com/pricing
+- free tier: Amp Hobby: "Free" with "Pay-as-you-go for Amp-hosted orbs", "Unlimited self-hosted orbs, free", "Bring your own keys (BYOK)", "No Amp token fees or limits", quoted | unit: minutes | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: free-product
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email | detail: an Amp account: an email address or a ChatGPT sign-in, quoted 'Continue with Email' and 'OpenAI Sign in with ChatGPT'; the sign-up form carries no card field and no phone field; no country restriction is stated on it
+- interface: unknown
+- limits note: Amp charges nothing for the agent or the tokens, so the first thing that costs money is an Amp-hosted orb at the per-minute rate, never the conversation.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: ampcode.com/docs/orbs/sizes-and-costs is already recorded at USD 0.08 an hour for the smallest orb, so Amp Hobby plus a BYO key is a free agent whose only metered part is the machine; self-hosted orbs are free but need a machine to run them on.
+- reliability: no reliability event recorded
+- notes: compute/amp already records ampcode.com/docs/orbs/sizes-and-costs as an orbs pricing record with 'no free tier' in its free-tier field. That is true of the machine and false of the Hobby plan, which has no token fee and no token limit. The self-hosted-orb lane is the one line on this page that adds no capacity, because it needs a machine to host on.
+- self hosted: yes
+- extras:
+  - facets.class: free-standing-agent
+  - facets.free_tier_kind: free-product
+- evidence:
+  - [1] 2026-10-22: the Hobby card reads pay-as-you-go for Amp-hosted orbs, unlimited self-hosted orbs free, BYOK and "No Amp token fees or limits", quoted
+  - [1] 2026-10-22: Individual is USD 20 a month and carries 45,000 minutes of orb time, which puts the included orb minute at about USD 0.00044 if the allowance is fully used
+  - [2] 2026-11-02: the sign-up form offers an email address or a ChatGPT sign-in and carries no card or phone field | capture: sha256:99029b643bda537189c7cf547e70fca6f59470a2bd4967f6bc3d3c61b7e8d384 | quote: Sign up for Amp Email Continue with Email OR OpenAI Sign in with ChatGPT
+- sources:
+  - [1] https://ampcode.com/pricing
+  - [2] https://ampcode.com/auth/sign-up

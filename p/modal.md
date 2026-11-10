@@ -1,0 +1,192 @@
+# Modal
+
+> modal.com | Storage, Compute; 4 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/modal/ | JSON https://fshy.ajam.dev/api/v1/entity/modal.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Modal (Storage)
+
+- `storage/modal` | qualifies | evidence reported | binding retention-clamped | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://modal.com
+- free tier: Volumes: 'Volumes include up to 1 TiB free' on the Starter plan, then $0.09/GiB/mo (per PricingSaaS capture of the Jun 2026 pricing change). Starter also includes $30/mo of compute. | unit: TiB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: 500,000 inodes per Volume; 1 TiB free per workspace; volumes snapshot once/day for billing (deleted data can bill up to 4 days); $30/mo compute is the real ceiling. Serving costs CPU-seconds, so throughput is bounded by the credit, not the disk. | days: 4 | source: [1] | note: not stated
+- egress: 1 TiB/billing cycle included on Starter, then $0.04/GiB. Metered but with a 1 TiB monthly floor. Explicitly: 'Reads from and writes to Modal Volumes do not count as network egress.'. | metered: yes
+- identity: card
+- interface: s3, rest, cli
+- limits:
+  - retention-clamped (binding): deleted data can bill up to 4 days [1]
+- limits note: 500,000 inodes per Volume; 1 TiB free per workspace; volumes snapshot once/day for billing (deleted data can bill up to 4 days); $30/mo compute is the real ceiling. Serving costs CPU-seconds, so throughput is bounded by the credit, not the disk.
+- binding note: a clock, not a quota: bytes leave whether or not transfer is completed
+- interface detail: rest
+- tooling: `modal` Python SDK + `modal volume put/get/ls` CLI; volumes mount as a POSIX filesystem inside containers. Anyone who needs S3 semantics writes a tiny FastAPI shim on a web endpoint.
+- composes with: 1 TiB free volume per workspace x N free workspaces (Starter allows 3 users/workspace, workspaces themselves are free) => multi-TiB at zero cost. Each TiB is fully read-write and persists with no session attached.
+- reliability: Data persists independent of compute and survives container shutdown; the failure mode is billing, not deletion. Exceed $30/mo of compute and the workspace needs a card.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: 'Volumes include up to 1 TiB free'; 'Starter has no monthly fee and includes $30 of compute'
+  - [2] 2026-10-21: egress pricing table: Starter 1 TiB included, $0.04/GiB after; volumes I/O not counted as egress
+  - [3] 2026-10-21: 500k inode cap, sub_path mounts, read-only mounts
+  - [4] 2026-10-21: 'Added Volumes storage pricing ($0.09/GiB/mo, 1 TiB/mo free)'
+- sources:
+  - [1] https://modal.com/pricing
+  - [2] https://modal.com/docs/guide/network-egress-billing
+  - [3] https://modal.com/docs/guide/volumes
+  - [4] https://pricingsaas.com/companies/modal/diffs/2026Q2
+
+## Modal Volumes
+
+- `storage/modal-volumes` | qualifies | evidence reported | binding none | category paas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://modal.com/docs/guide/volumes
+- free tier: 1 TiB of Volume storage free per workspace on the Starter plan ('Volumes include up to 1 TiB free'; 'Volumes $0.09 / GiB / mo *includes 1 TiB / mo free'), plus 1 TiB/month free network egress. | unit: TiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: Files must be < 1 TiB each; Volumes v1 capped at 500,000 inodes (v2 removes the inode cap); concurrent commits should stay under ~5; billing is a daily snapshot of total storage and deletions keep billing for up to 4 days. | days: 4 | source: [1] | note: not stated
+- egress: 1 TiB/month free egress on Starter (10 TiB on Team, 100 TiB on Enterprise); beyond that $0.04/GiB. Not CDN'd for public download. Egress is measured per workspace. | metered: yes | free allowance: 1 TiB per month
+- identity: card
+- interface: s3, rest, cli
+- limits note: Files must be < 1 TiB each; Volumes v1 capped at 500,000 inodes (v2 removes the inode cap); concurrent commits should stay under ~5; billing is a daily snapshot of total storage and deletions keep billing for up to 4 days.
+- interface detail: rest
+- tooling: Modal Python SDK (`modal.Volume`, `modal volume put/get/ls` CLI), a real distributed POSIX-ish filesystem mounted into containers, 25 MB chunking + caching. Not S3, and no public HTTP object URL. You must go through the CLI or a small deployed app. Frontend download UI caps at 16 MB/file, so bulk extraction is CLI-only.
+- composes with: 1 TiB x unlimited free workspaces (each a separate account/org with its own Starter plan). Also separate storage objects: multiple Volumes per workspace, and Volumes are independent of the $30/month compute credit. The 1 TiB is a storage allowance, not compute spend, so idling costs nothing.
+- reliability: Very stable; the awkward part is retrieval latency and the absence of a public URL. This is storage you must front with your own service, so it fits the 'cold archive' workload better than 'serving'.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: 'Volumes $0.09 / GiB / mo *includes 1 TiB / mo free'; FAQ: 'Included usage applies to compute ... Volumes include up to 1 TiB free.'; plan table 'Included network egress 1 TiB / month' (Starter)
+  - [2] 2026-10-21: 'While there's no file size limit for individual files in a volume, the frontend only supports downloading files up to 16 MB. For larger files, please use the CLI'; 'Files must be less than 1 TiB'; 'hard limit of 500,000 inodes ... per Volume' (v1)
+- sources:
+  - [1] https://modal.com/pricing
+  - [2] https://modal.com/docs/guide/volumes
+
+## Modal (Starter)
+
+- `compute/modal` | fails-identity | evidence documented | binding write-gated | category platform host | tier Starter
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T03:25:00.000Z (live) | stale on 2026-11-24
+- url https://modal.com/pricing
+- price parsed USD 9.99/mo
+- free tier: Starter has no monthly fee and includes USD 30 of compute per month, renewed monthly, plus up to 1 TiB of free Volume storage; a payment method must be on file | unit: none | metered on: none | read on: 2026-10-24 | source: [1] | note: The allowance is denominated in dollars of compute, not hours, so the hours depend on the shape chosen.
+- per-object cap: not applicable: the unit is a session, not an object
+- retention: Volumes persist while the Workspace exists; up to 1 TiB is free | source: [1]
+- egress: a network egress allowance exists and is not part of the USD 30 | metered: yes | free allowance: unstated on the pricing page | source: [1]
+- identity: card | detail: a payment method on file before anything runs: 'you must have a payment method on file in order to use Modal'. No hold is stated on either page read. Debit acceptance is not stated.
+- interface: rest, cli
+- limits:
+  - volume-quota: USD 30 of compute a month on Starter [1]
+  - write-gated (binding): a payment method on file is required to use the service at all [2]
+  - volume-quota: 3 users per Workspace on Starter [1]
+- limits note: The 3x multiplier is the fact that decides this row: functions are preemptible and cheap, Sandboxes are not and cost three times the list rate on CPU and memory.
+- binding note: the card, not the USD 30, is what stops a signup without a card; the credit is unusable without one
+- interface detail: Python SDK, JavaScript client, Go client; Sandbox.create with a timeout up to 24 hours
+- tooling: modal CLI and SDKs; sandbox exec, filesystem API, tunnels
+- composes with: the largest recurring credit in this class, and it buys the most expensive per-hour machine in it
+- reliability: a function is capped at 24 hours and a container is kept alive 60 seconds after its last billed input, so short jobs are billed for a tail
+- notes: USD 30 a month at a 2 vCPU / 4 GB shape is roughly 170 hours a month; the arithmetic depends on the published per-second rates, which this record does not recompute. The card is the whole story. The card gate is settled by first-party prose read on 2026-10-24: 'Note that you must have a payment method on file in order to use Modal.' No hold amount is published anywhere on the two pages read, so the hold is classified as unpublished rather than as zero.
+- evidence note: the credit, the card requirement and the free Volume are quoted from two first-party pages today. earlier readings already recorded the card requirement and it holds.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 4
+  - shape.note: a representative small shape; Modal bills per second for CPU, memory and GPU separately
+  - billing_model: usage
+  - granularity.min_billed_s: 1
+  - granularity.rounding_s: 1
+  - session_cap.wall_clock_min: 1440
+  - session_cap.idle_reap_s: 60
+  - session_cap.restart_required: no
+  - session_cap.note: 24 h maximum function duration; 60 s billed keep-alive
+  - keep_rate.value: 0.0
+  - keep_rate.basis: a scaled-to-zero container is not billed
+  - keep_rate.source: https://modal.com/pricing
+  - persistent_storage.included_gib: 1024
+  - persistent_storage.price_gib_month: up to 1 TiB free
+  - persistent_storage.durability: volume
+  - persistent_storage.survives_stop: yes
+  - persistent_storage.survives_destroy: yes
+  - persistent_storage.max_retention: until deleted
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: web endpoints and tunnels
+  - network_out.static_ip: no
+  - network_out.ipv6: no
+  - free_tier_kind: credit
+  - m10h_usd: 4.11
+  - m24h_usd: 9.99
+  - price_arithmetic: USD 30 of compute a month on Starter. Modal's per-unit rate table was not extractable from the pricing page, so the figure below is derived from the vendor's own worked example on that page, not from a published rate line: '50% of one CPU core and 256 MiB of memory ... $0.02365/day for the CPU, and $0.00200/day for the memory' gives USD 0.0473 per core-hour and USD 0.0080 per GiB-hour. A 2 vCPU / 4 GiB shape is 1 physical core plus 4 GiB, so 0.0473 + 4 x 0.0080 = USD 0.0793 an hour, and USD 30 / 0.0793 = 378 hours = 15.8 days at 24/7. Treat as inferred: the rate line itself was not read.
+  - price_note: 2 vCPU and 4 GiB at the non-preemptible Sandbox rate: 1 physical core is 2 vCPU, so the shape is 1 core plus 4 GiB, which is USD 0.2380/h.
+  - price_basis: 10 h/day x 30 = 300 h; 24/7 x 30 = 730 h
+  - egress_note: the charge began 2026-10-01, three weeks before this read
+  - burst_x: 1.0
+  - crosscheck.boat_compare_2026-09-26: USD 0.760/h at 4 vCPU / 8 GB
+  - term: monthly
+  - credit_usd: 30
+  - credit_expiry: monthly; unused included compute does not accumulate
+  - unattended: yes
+  - unattended_mechanism: cron-scheduled functions and Sandboxes run with no client attached; a function may run 24 hours
+  - units: RAM and disk are quoted in the vendor's own decimal GB, not GiB. The ram_gib and disk_gib keys carry the vendor's number unconverted, so where a vendor writes 30 GB the key holds 30 and the true value is about 27.9 GiB. No conversion was performed.
+- evidence:
+  - [1] 2026-10-22: Starter includes USD 30 of compute a month with no monthly fee; a 3x multiplier applies to CPU and memory for non-preemptible resources
+  - [1] 2026-10-22: Modal Sandboxes are priced at the non-preemptible Function rate; minimum request 128 MiB and 0.125 cores
+  - [3] 2026-10-22: sandboxes default to a 5-minute maximum lifetime, extendable to 24 hours
+  - [4] 2026-10-22: sandboxes reach any public IP by default; outbound can be blocked, allowlisted by CIDR, or allowlisted by domain on 443
+  - [5] 2026-10-22: egress billing started 2026-10-01; Starter includes 1 TiB a cycle and overage is USD 0.04 per GiB
+  - [1] 2026-10-22: 'Starter has no monthly fee and includes $30 of compute (GPUs, CPUs, Memory) per month', quoted; the allowance resets monthly
+  - [6] 2026-10-22: a competitor's comparison table lists Modal at USD 0.760 per hour for a 4 vCPU / 8 GB / 50 GB machine, with list prices dated 2026-09-26; this is a reported rate about a third party and not a reading of the vendor's own page
+  - [2] 2026-10-23: 'Note that you must have a payment method on file in order to use Modal.', quoted; the pricing page states 'Get started with $30 / month free credit' at https://modal.com/pricing on the same date
+  - [1] 2026-10-24: quoted: 'Starter has no monthly fee and includes $30 of compute (GPUs, CPUs, Memory) per month.'; 'Modal Sandboxes are priced at the rate of non-preemptible Functions'; 'On Modal, a 3x multiplier is applied to the CPU and Memory list price for non-preemptible resources.'; 'Included usage applies to compute: Functions and Sandboxes, billed by the second for CPU, memory, and GPU time. Volumes include up to 1 TiB free.'
+  - [2] 2026-10-24: quoted: 'Note that you must have a payment method on file in order to use Modal.'
+  - [1] 2026-10-24: quoted: 'Starter has no monthly fee and includes $30 of compute (GPUs, CPUs, Memory) per month.'
+  - [1] 2026-10-24: quoted: 'Volumes include up to 1 TiB free.'
+  - [1] 2026-10-24: quoted: 'The starter plan allows up to three users in a workspace.'
+  - [1] 2026-10-24: quoted: 'Free usage of Shared Endpoints is not part of the Starter plan. Tokens are billed from your first request' — effective September 1, 2026
+- sources:
+  - [1] https://modal.com/pricing
+  - [2] https://modal.com/docs/guide/billing
+  - [3] https://modal.com/docs/guide/sandbox
+  - [4] https://modal.com/docs/guide/sandbox-networking
+  - [5] https://modal.com/docs/guide/network-egress-billing
+  - [6] https://boat.dev/compare
+
+## Modal for Academics
+
+- `compute/modal-for-academics` | fails-identity | evidence documented | binding write-gated | category academic credit programme | tier Modal for Academics
+- needs card yes, phone yes, ID no, institution yes | verified 2026-11-06T17:01:12.843Z (live) | stale on 2026-12-07
+- url https://modal.com/academics
+- free tier: Stated as 'Unlock up to $10k of credits to be used on Modal to supercharge your project' for 'Graduate students, labs, and researchers'; the form behind the page's grant link states 'We are not currently running a credit grant program', so no award is open. | unit: credits | metered on: wall-clock | read on: 2026-11-04 | source: [1] | note: the page publishes a ceiling ('up to $10k'), not an award floor and not a number of awards; no expiry is stated on the pages read
+- per-object cap: not applicable: the unit is a credit balance, not an object | note: the ceiling that matters is the grant amount, recorded in free_tier
+- retention: not applicable: the grant is a credit balance rather than stored bytes; no expiry is stated on the pages read
+- egress: Charged to the workspace that spends the credit: 'Starting October 1, 2026, Modal charges for network egress.', with 1 TiB included per billing cycle on Starter and '$0.04 per GiB' beyond… | metered: yes | free allowance: 1 TiB per billing cycle on Starter | price per TB: USD 0.04 per GiB beyond the included volume | source: [2]
+- identity: institution | detail: the grant form asks for an 'Academic email', a name and a 'Lab / group website', and the page limits credits to 'Researchers from eligible institutions who are submitting work to select AI/ML conferences (ICLR, ICML, and NeurIPS)'; the platform account that would spend a credit also needs a payment method: 'Note that you must have a payment method on file in order to use Modal.' A phone number or an ID document is not requested. Country: none stated.
+- interface: rest
+- limits:
+  - write-gated (binding): the grant is limited to 'Researchers from eligible institutions who are submitting work to select AI/ML conferences (ICLR, ICML, and NeurIPS)', the form requires an academic email, a name and a lab or group website, and it states 'We are not currently running a credit grant program.' [3]
+  - write-gated (binding): a payment method on file is required to use the platform at all: 'Note that you must have a payment method on file in order to use Modal.' [4]
+- limits note: the grant has no published number of awards, no award floor and no expiry; the only number is the 'up to $10k' ceiling, decided case by case
+- binding note: identity decides it twice: the grant is restricted to researchers at eligible institutions and its window is shut, so no application can be filed from an unaffiliated account, and the platform itself requires a payment method before GPU time runs. No quota can be spent while neither gate opens.
+- interface detail: the programme's page names 'Modal's developer-first Python API'; the API endpoint itself is not stated on the pages read
+- tooling: Modal's Python SDK over the platform API that a credit is spent through; the grant is requested through a web form that asks for a name, an academic email and a lab or group website
+- composes with: A grant would be spent inside the same Starter workspace as the platform's USD 30 monthly compute allowance, on the same B200 and H100 pool the page offers 'without requesting quota', so it would extend that recurring allowance rather than replace it; while the window is shut and restricted to eligible institutions, the USD 30 allowance is the only live route into the pool.
+- reliability: the programme is advertised but not running: the page keeps its 'up to $10k' line while the form behind the 'Academic credits form' link states no grant is open, so the only route a reader reaches is a mailing-list form.
+- notes: The advertised figure is the only published number: no award floor, no number of awards and no expiry appear on the pages read, so the quota is a ceiling decided case by case rather than a quota a user can plan on. What would reverse the finding: a form that accepts an application, and an eligibility line that does not require an institution. The Starter plan's USD 30 monthly compute allowance is a separate, live offer of the same provider.
+- extras:
+  - free_tier_kind: one-time grant
+  - grant_ceiling: up to USD 10k in the vendor's wording
+  - grant_state: not running at the pages read
+  - grant_route: no credit grant programme is running; the route is a form to be informed about future programmes, and that form asks for an academic email
+- evidence:
+  - [1] 2026-11-04: the academics page advertises 'up to $10k of credits' as the programme's headline benefit | capture: sha256:87203d0e66360f12e2b78fad79a597055bd703591afa7dbb5ba4420e297ab031 | quote: Unlock up to $10k of credits to be used on Modal to supercharge your project
+  - [1] 2026-11-04: the page's only call to action is a mailing-list sign-up, not an application form | capture: sha256:87203d0e66360f12e2b78fad79a597055bd703591afa7dbb5ba4420e297ab031 | quote: Sign up to hear about our grant programs
+  - [3] 2026-11-04: the form behind the page's 'Academic credits form' states that no credit grant programme is running and collects interest for future ones | capture: sha256:b3a59636a91ceb1b8e71dabb071a08c14212be3ec208c7a2f4e771455d034832 | quote: We are not currently running a credit grant program. Please fill out the form below if you'd like to be informed about future programs.
+  - [3] 2026-11-04: eligibility is an eligible institution plus a submission to ICLR, ICML or NeurIPS; the form is the 'Modal for Academics mailing list' | capture: sha256:b3a59636a91ceb1b8e71dabb071a08c14212be3ec208c7a2f4e771455d034832 | quote: Researchers from eligible institutions who are submitting work to select AI/ML conferences (ICLR, ICML, and NeurIPS) can get compute credits on Modal to support specific submissions.
+  - [3] 2026-11-04: the form's fields are an academic email, a name and a lab or group website, all marked required in the form definition | capture: sha256:0a06332c59c1f0f5959864605c26b5c60a6e86c98a4878c46d988fecc61074cd | quote: Lab / group website
+  - [3] 2026-11-04: the second required field is labelled 'Academic email', so a personal address is not what the form asks for | capture: sha256:0a06332c59c1f0f5959864605c26b5c60a6e86c98a4878c46d988fecc61074cd | quote: Academic email
+  - [5] 2026-11-04: the pricing page repeats the offer and its audience: graduate students, labs and researchers, up to $10k | capture: sha256:fa2763a632197966aed12c8b8c77f4ff7f079707b408481d9f30f65b24baeeee | quote: Graduate students, labs, and researchers can get up to $10k free compute credits on Modal
+  - [4] 2026-11-04: a payment method on file is a precondition of using the platform the credit is spent on | capture: sha256:cd2d635c7015b41031752b817fa63d76d67049f23f551b039d4ce6c9d7011c0e | quote: Note that you must have a payment method on file in order to use Modal.
+  - [2] 2026-11-04: Starter includes 1 TiB of network egress a billing cycle and charges USD 0.04 per GiB beyond it | capture: sha256:c403454f3cb0ee2db740e076b82c1a916d8bf14382c46b64cfd06acee0403954 | quote: | Starter | 1 TiB | $0.04 per GiB |
+  - [3] 2026-11-06: no credit grant programme is running and the form is the route to be informed about future programmes | capture: sha256:12ab033c2c192cf201ab6b186b12d2ba39a5f06f5c648465d4ba7e5a4c77a996 | quote: We are not currently running a credit grant program. Please fill out the form below if you'd like to be informed about future programs.
+  - [3] 2026-11-06: the grant form asks for an academic e-mail address | capture: sha256:12ab033c2c192cf201ab6b186b12d2ba39a5f06f5c648465d4ba7e5a4c77a996 | quote: Academic email
+- sources:
+  - [1] https://modal.com/academics
+  - [2] https://modal.com/docs/guide/network-egress-billing
+  - [3] https://embed.fillout.com/t/2czD8LNaiJus
+  - [4] https://modal.com/docs/guide/billing
+  - [5] https://modal.com/pricing

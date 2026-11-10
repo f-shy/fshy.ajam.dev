@@ -1,0 +1,531 @@
+# Contabo
+
+> contabo.com | Compute, Storage; 11 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/contabo/ | JSON https://fshy.ajam.dev/api/v1/entity/contabo.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Contabo (Cloud VPS 4)
+
+- `compute/contabo-cloud-vps-4` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category VPS | tier Cloud VPS 4
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-06T17:42:09.298Z (live) | stale on 2026-12-07
+- url https://contabo.com/en-us/vps/cloud-vps-core-4
+- price parsed USD 4.92/mo
+- disagrees on verdict: `compute/contabo` says paid-only, `compute/contabo-cloud-vps-4` says qualifies-with-caveat
+- disagrees on verdict: `compute/contabo-black-friday` says dead, `compute/contabo-cloud-vps-4` says qualifies-with-caveat
+- disagrees on verdict: `compute/contabo-cloud-vps-4` says qualifies-with-caveat, `compute/contabo-windows` says paid-only
+- free tier: no free tier; Cloud VPS 4 is the entry rung of the Core VPS range | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the plan is paid; the contract auto-renews monthly at standard prices after the initial term
+- egress: 'Unlimited Traffic' on a '200 Mbit/s Port' for Cloud VPS 4 | metered: no | free allowance: unlimited | source: [2]
+- identity: card | detail: a card or PayPal, with a preauthorisation hold and a telephone number at order: 'We use a preauthorization process to verify that your payment method is valid and that funds are available.' and 'Please note that this is not an actual charge, it's a temporary hold placed by your bank or card provider to confirm fund availability. Your invoice will still be charged only on the due date, and for the correct billing period.' Hold amount: not published; the help-centre article names no figure and no currency. Charged or verified: charged on the due date, after the temporary hold. Prepaid and virtual cards: not published on the payment-methods article or the unknown-charge article. Phone: required at order, 'Fill in the required fields under Personal Data ... These may include: ... Telephone number'.
+- interface: ssh
+- limits:
+  - per-ip-shaping (binding): 200 Mbit/s port on Cloud VPS 4, the slowest in the range [2]
+- binding note: the 200 Mbit/s port is the real ceiling on this rung; traffic is unlimited but the pipe is the narrowest in the range.
+- interface detail: root SSH, snapshots (one included), the vendor's control panel
+- tooling: any SSH client
+- composes with: 8 GiB and 100 GB for about USD 6, but on a 200 Mbit/s port with a two-year price lock, which is a different machine from a 1 Gbps host
+- reliability: no reliability event observed; the vendor advertises 99.9% uptime.
+- notes: The price is the whole difficulty and the arithmetic decides the verdict. The page prints EUR 5.50 for the 1, 3 and 6 month terms, EUR 4.68 on 12 months and EUR 4.40 on 24 months, all marked 'for the first 24 months'. At the ECB rate EUR 4.40 = USD 4.92, which is under the line by 8 cents. But Contabo's own JSON-LD publishes a USD price for the same product of USD 6.60 against EUR 5.50, which implies a rate of 1.20 rather than 1.1193; at that rate EUR 4.40 = USD 5.28, over the line. So the row is under the line or over it depending on which of the vendor's two published conversions is used, and that is the caveat. The second caveat is the discount: 'for the first 24 months' means the EUR 4.40 is a first-term price, and the vendor's own checkout text says the contract 'automatically renews on a monthly basis at the standard prices' after the initial term, which is EUR 5.50 = USD 6.16 at the ECB rate. Worst case exposure is 6.16 / 4.92 = 1.25x. Third: whether a non-EU buyer pays the 'Including VAT' or 'Excluding VAT' figure is not settled here, because the card prints both against the same EUR 5.50.
+- evidence note: the EUR figures, the term ladder and the 24-month discount are quoted from the vendor's own product page read. The USD figure rests on the vendor's own JSON-LD, which implies a EUR/USD rate of 1.20 rather than the ECB's 1.1193; both are recorded.
+- extras:
+  - shape.vcpu: 4
+  - shape.ram_gib: 8
+  - shape.disk_gib: 100
+  - billing_model: monthly, quarterly, semi-annual, annual or 24-month
+  - term: 24 months for the EUR 4.40 figure; 12 months at EUR 4.68
+  - m10h_usd: 4.92
+  - m24h_usd: 4.92
+  - price_arithmetic: EUR 4.40 a month on the 24-month term x 1.1193 (ECB reference, 2026-10-23) = USD 4.925, rounded USD 4.92. The 12-month term is EUR 4.68 = USD 5.24, over the line. The monthly term is EUR 5.50 = USD 6.16. Contabo's own JSON-LD implies EUR/USD 1.20 (USD 6.60 against EUR 5.50), at which the 24-month figure is USD 5.28 and over the line. It is a VPS, so no 730-hour multiplication.
+  - out_of_pocket_usd: 118.2
+  - renewal_usd: 6.16
+  - promo: yes
+  - over_line: yes
+  - fx.pair: EUR/USD
+  - fx.rate: 1.1193
+  - fx.date: 2026-10-23
+  - port_mbps: 200
+  - ipv4_included: yes
+  - ipv6: not stated on the card
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: no
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - signup_url: https://contabo.com/en-us/vps/cloud-vps-core-4
+  - cart_url: https://contabo.com/en-us/vps/cloud-vps-core-4
+  - worst_case_exposure_x: 1.25
+  - worst_case_note: 6.16 / 4.92 = 1.25x when the 24-month term ends and the plan falls back to the EUR 5.50 monthly standard price.
+  - vendor_implied_fx.pair: EUR/USD
+  - vendor_implied_fx.rate: 1.2
+  - vendor_implied_fx.derivation: the vendor's JSON-LD lists EUR lowPrice 5.5 and USD lowPrice 6.6 for the same product; 6.6 / 5.5 = 1.20
+  - vendor_implied_fx.why_it_matters: at 1.20 the 24-month EUR 4.40 is USD 5.28 and the row is over the line, so the two published conversions disagree about the verdict
+  - payment_methods: EUR: credit card, PayPal, Skrill, bank transfer and direct debit for qualifying customers; USD and GBP: credit card and PayPal; cryptocurrencies are not accepted
+  - stock: in stock: the JSON-LD states availability InStock for all three currency offers, and the configurator renders every term with a selectable control. Read at https://contabo.com/en-us/vps/cloud-vps-core-4
+  - vat: the card prints both 'Including VAT' and 'Excluding VAT' against the same EUR 5.50 and the toggle's default state was not readable in the static HTML; the checkout applies VAT by tax country. If EUR 4.40 is net, it is USD 4.92; if 19% VAT is added it is USD 5.86, over the line. So the VAT basis alone can flip this row
+- evidence:
+  - [1] 2026-10-24: product data on the page: 'Cloud VPS 4', '4 vCPU Cores, 8 GB RAM, 100 GB SSD, 1 Snapshot, unlimited Traffic', with offers at 'priceCurrency EUR lowPrice 5.5' and 'priceCurrency USD lowPrice 6.6'
+  - [1] 2026-10-24: quoted from the plan card: 'Cloud VPS 4 EUR 5.50 ... for the first 24 months'
+  - [1] 2026-10-24: quoted: '200 Mbit/s Port' on the first rung, '300 Mbit/s Port' on the second, '600 Mbit/s Port' on the third
+  - [1] 2026-10-24: quoted from the Cloud VPS 4 card: 'Cloud VPS 4 / EUR 5.50 / 4 / 40 / month / Including VAT / Excluding VAT / for the first 24 months', with the spec row '4 vCPU Cores / 8 GB RAM / 100 GB SSD'
+  - [2] 2026-10-24: quoted term ladder: '1 Month EUR 5.50 / month No Setup Fee', '3 Months EUR 5.50', '6 Months EUR 5.50', 'SAVE 15% 12 Months EUR 5.50 / month EUR 4.68 / month', 'SAVE 20% 24 Months EUR 5.50 / month EUR 4.40 / month'
+  - [2] 2026-10-24: 
+  - [1] 2026-10-24: JSON-LD for Cloud VPS 4: three AggregateOffers, {priceCurrency EUR, lowPrice 5.5}, {priceCurrency USD, lowPrice 6.6}, {priceCurrency GBP, lowPrice 5.4}, all availability InStock
+  - [2] 2026-10-24: quoted config: '4 vCPU Cores / 8 GB RAM / 100 GB SSD / 1 Snapshot / 200 Mbit/s Port', with 'No Setup Fee' on every term
+  - [3] 2026-10-24: time='2026-10-23' currency='USD' rate='1.1193'
+  - [4] 2026-11-06: a preauthorisation hold is placed before the invoice is charged | capture: sha256:0d222b4e3a601a4adb08728710c8de58d03e26eaea2245b91f68d33998cca5e0 | quote: We use a preauthorization process to verify that your payment method is valid and that funds are available.
+  - [5] 2026-11-06: the order form lists a telephone number among the required personal-data fields | capture: sha256:d836a2ffdd7dd97cf8c0c50097fa948069647d9a6da238563e01071257b925bd | quote: - Telephone number
+  - [6] 2026-11-06: a manual verification can be required, and it asks for a telephone number and a proof of address | capture: sha256:94cbf1d4305ab73c967d71748b3cda2333160dafbb14470ce9df4f88e5390885 | quote: In some cases, your order may require a manual verification.
+  - [7] 2026-11-06: the EUR account takes a credit card, PayPal, Skrill, bank transfer and direct debit | capture: sha256:3e413841f0fd25bfc37b7fa8fdcbc50bcb8121bb3d3d30121fcf431d4d33dea0 | quote: Credit Card PayPal Skrill Bank Transfer Direct Debit (for qualifying customers)
+  - [4] 2026-11-06: the hold is temporary and the invoice is charged on the due date | capture: sha256:0d222b4e3a601a4adb08728710c8de58d03e26eaea2245b91f68d33998cca5e0 | quote: Please note that this is not an actual charge, it's a temporary hold placed by your bank or card provider to confirm fund availability. Your invoice will still be charged only on the due date, and for the correct billing period.
+- sources:
+  - [1] https://contabo.com/en-us/vps/
+  - [2] https://contabo.com/en-us/vps/cloud-vps-core-4
+  - [3] https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml
+  - [4] https://help.contabo.com/en/support/solutions/articles/103000358015-why-do-i-see-an-unknown-charge-
+  - [5] https://help.contabo.com/en/support/solutions/articles/103000394299-how-to-order-a-contabo-product
+  - [6] https://help.contabo.com/en/support/solutions/articles/103000348466-why-do-i-need-to-verify-my-purchase-
+  - [7] https://help.contabo.com/en/support/solutions/articles/103000269311-which-currencies-payment-methods-are-accepted-by-contabo-
+
+## Contabo Object Storage (S3-compatible)
+
+- `storage/contabo-object-storage` | qualifies-with-caveat | evidence reported | binding per-object-cap | category S3-compatible object storage, 250 GB slices
+- needs card yes, phone unknown, ID no, institution no | verified 2026-11-01T18:05:15.749Z, checked 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://contabo.com/en/object-storage/
+- price €9.96/TB/mo (€2.49 per 250 GB × 4) ≈ $11.55 — flat at 1, 5, 10 and 20 TB, no volume discount. Free egress is real but does not rescue a 5× storage premium. | parsed USD 11.16/TB-mo
+- disagrees on identity_kind: `storage/contabo-object-storage` says card, `storage/contabo-object-storage-2` says email
+- disagrees on verdict: `storage/contabo-object-storage` says qualifies-with-caveat, `storage/contabo-object-storage-2` says fails-egress
+- free tier: 250 GB increments, up to 25 TB, 5 TB max object size | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: 5 TB per object, with no object size minimum | bytes: 5000000000000 | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Truly free and unlimited. Page title is 'S3-Compatible & Free Egress'; body: 'unlimited transfer included in the flat monthly rate', 'no hidden traffic or download' charges, 'retrieval is not billed separately'. Requests also included. | metered: no
+- identity: card | detail: the order form's Personal Data fields are listed as a first and last name, an email address, a phone number and a postal address, and the vendor words them as fields these may include, so a phone number is asked and whether it is required is not stated. Payment is by credit card, PayPal, Skrill, bank transfer or direct debit, and every rail other than credit card needs the first payment done manually
+- interface: s3-compatible, rclone, cli
+- limits:
+  - per-object-cap (binding): 5 TB per object, with no object size minimum [1]
+- limits note: Slice granularity of 250 GB means you cannot right-size. 5 TB max object size. Regions: EU, US Central, Singapore (+€0.50). No egress fees, no request fees, no retrieval fees. The pricing model is genuinely simple.
+- interface detail: S3 API (Ceph-backed, eu2.contabostorage.com returned HTTP 401 Key realm="kong" on 2026-11-01, endpoint live).
+- tooling: rclone, aws-cli, any S3 SDK
+- composes with: direct origin, Cloudflare-friendly
+- reliability: Triple-replicated Ceph per their docs. The structural oddity: this is the ONLY mainstream S3 provider here with free egress AND no retrieval fee AND no minimum storage duration. But the per-TB price is 2.5× Datalix and 5× Hetzner.
+- notes: the same as the free tier
+- extras:
+  - price_verbatim: €9.96/TB/mo (€2.49 per 250 GB × 4) ≈ $11.55 — flat at 1, 5, 10 and 20 TB, no volume discount. Free egress is real but does not rescue a 5× storage premium.
+- evidence:
+  - [2] 2026-10-21: 'S3-compatible object storage at a fraction of AWS pricing. Unlimited free egress, end-to-end encryption'; 'Prices from €2.49/month'; 'no hidden traffic or download' charges
+  - [3] 2026-10-21: 'Monthly Base Price €2.49', region EU, Singapore +€0.50
+  - [4] 2026-10-21: '$2.99/€2.49 per month for each slice of 250 GB with unlimited traffic'
+  - [1] 2026-10-21: max object size 5 TB, 100 buckets default, 250 GB capacity increments
+  - [5] 2026-11-01: a new-customer order form takes an email address and a telephone number | capture: sha256:d836a2ffdd7dd97cf8c0c50097fa948069647d9a6da238563e01071257b925bd | quote: - Email address - Telephone number
+  - [6] 2026-11-01: payment is by credit card, PayPal, Skrill, bank transfer or direct debit | capture: sha256:3e413841f0fd25bfc37b7fa8fdcbc50bcb8121bb3d3d30121fcf431d4d33dea0 | quote: Credit Card PayPal Skrill Bank Transfer Direct Debit (for qualifying customers)
+  - [2] 2026-11-01: every payment rail other than credit card needs a manual first payment | capture: sha256:b9c21baa6040814736b259183d61519e8469b7edfe3fcba5028a11c5b8568cf4 | quote: For all payment methods other than credit card, the first payment after you have submitted an order has to be done manually.
+  - [2] 2026-11-01: the largest single object is 5 TB | capture: sha256:b9c21baa6040814736b259183d61519e8469b7edfe3fcba5028a11c5b8568cf4 | quote: Our infrastructure supports large file storage up to 5 TB per object.
+  - [2] 2026-11-01: the per-object cap is 5 TB | capture: sha256:b9c21baa6040814736b259183d61519e8469b7edfe3fcba5028a11c5b8568cf4 | quote: Our infrastructure supports large file storage up to 5 TB per object.
+  - [5] 2026-11-01: a new-customer order needs personal details including a telephone number | capture: sha256:d836a2ffdd7dd97cf8c0c50097fa948069647d9a6da238563e01071257b925bd | quote: Fill in the required fields under **Personal Data **in the 'I'm new to Contabo' section. These may include:
+- sources:
+  - [1] https://docs.contabo.com/docs/storage/object-storage/
+  - [2] https://contabo.com/en/object-storage/
+  - [3] https://contabo.com/en/object-storage/order/?qty=1&region=european-union&size=2000
+  - [4] https://contabo.com/blog/introducing-all-inclusive-object-storage/
+  - [5] https://help.contabo.com/en/support/solutions/articles/103000394299-how-to-order-a-contabo-product
+  - [6] https://help.contabo.com/en/support/solutions/articles/103000269311-which-currencies-are-accepted-by-contabo-
+
+## Contabo (compute/contabo)
+
+- `compute/contabo` | paid-only | evidence documented | binding request-rate | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T03:21:02.824Z (live) | stale on 2026-11-24
+- url https://contabo.com/en-us/pricing/
+- price parsed USD 6.6/mo
+- disagrees on verdict: `compute/contabo` says paid-only, `compute/contabo-black-friday` says dead
+- disagrees on verdict: `compute/contabo` says paid-only, `compute/contabo-cloud-vps-4` says qualifies-with-caveat
+- free tier: no free tier; Cloud VPS 4 is USD 6.60 a month with 4 vCPU, 8 GB RAM and 100 GB SSD | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: the schema.org AggregateOffer carries lowPrice 6.6 in USD; a lower visible figure is a 24-month introductory term
+- per-object cap: not applicable
+- retention: the server is rented for a term; the disk persists for the term | days: 0
+- egress: unlimited traffic, stated in the product description | metered: no | free allowance: unlimited | price per TB: USD 0 | source: [1]
+- identity: card | detail: card at order; EUR 1 pre-authorisation hold, reserved and released, never charged; the vendor's accepted-methods list names 'Credit Card' for USD and GBP and adds Direct Debit only for EUR, and names no debit card, so debit is not stated; prepaid is not stated; no identity document is named on the pages read
+- interface: rest, cli
+- limits:
+  - per-object-cap: Cloud VPS 4: 4 vCPU, 8 GB RAM, 100 GB SSD, 1 snapshot [1]
+  - request-rate (binding): traffic is stated unlimited; no rate is published, which is a discretionary throttle rather than a quota [1]
+- limits note: unlimited traffic with no published rate is the weakest kind of term: no ceiling to design against
+- binding note: traffic is stated unlimited with no published rate, which is a discretionary throttle and not a ceiling to design against
+- interface detail: SSH and a control panel; no native API on the page read
+- tooling: SSH, the Contabo control panel; no first-party CLI was found on the page
+- composes with: the largest disk and RAM per dollar at this price, with traffic stated unlimited
+- reliability: no reliability event recorded
+- notes: USD 6.60 is the bill. The unlimited-traffic term has no rate, so it is a discretionary throttle and not a quota. The EUR 1 hold is confirmed verbatim on the vendor's own blog, and the accepted-methods list is confirmed on the help centre. The list names 'Credit Card' only, so debit is not claimed.
+- evidence note: Payment facts re-read on 2026-10-24: the card types, the hold and the identity gate each come from a first-party page quoted in evidence[].
+- extras:
+  - shape.vcpu: 4
+  - shape.ram_gib: 8
+  - shape.disk_gib: 100
+  - billing_model: flat-pool
+  - granularity.min_billed_s: 3600
+  - session_cap.restart_required: no
+  - session_cap.note: none
+  - keep_rate.value: 1.0
+  - keep_rate.basis: a rented server bills for the term
+  - keep_rate.source: https://contabo.com/en-us/pricing/
+  - persistent_storage.included_gib: 100
+  - persistent_storage.price_gib_month: included
+  - persistent_storage.durability: local SSD
+  - persistent_storage.survives_stop: yes
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: the term
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - network_out.per_session_bytes: unlimited, no published rate
+  - free_tier_kind: none
+  - m10h_usd: 6.6
+  - m24h_usd: 6.6
+  - price_arithmetic: USD 6.60 a month is the bill at any duty cycle; dividing by 730 h gives 0.009 an hour, which is a rate and not a price
+  - burst_x: 1.0
+  - burst_bill: min 1 h
+  - benchmark[0].plan: Cloud VPS 10 (4 vCPU / 8 GiB)
+  - benchmark[0].cpu_model: AMD EPYC Processor (with IBPB)
+  - benchmark[0].dedicated_or_shared: shared
+  - benchmark[0].gb6_single: 841
+  - benchmark[0].gb6_multi: 2275
+  - benchmark[0].source_url: https://www.vpsbenchmarks.com/yabs/contabo-4c-8gb-20260909-15add6
+  - benchmark[0].source_date: 2026-09-09
+  - benchmark[0].rung: reported
+  - benchmark[0].note: EPYC at 2.79 GHz. 4 vCPU that a 1 vCPU box beats on single core.
+  - payment_methods.card_at_signup: yes
+  - payment_methods.debit: not-stated
+  - payment_methods.prepaid: not-stated
+  - payment_methods.virtual: not-stated
+  - payment_methods.hold_amount: EUR 1
+  - payment_methods.hold_detail: pre-authorisation, released, never charged
+  - payment_methods.identity: no identity document named on the pages read
+  - payment_methods.source_url: https://contabo.com/blog/enable-automatic-payments-contabo/
+  - payment_methods.read_on: 2026-10-24
+- evidence:
+  - [1] 2026-10-22: schema.org AggregateOffer for Cloud VPS 4 carries lowPrice 6.6 USD
+  - [1] 2026-10-22: the description reads 4 vCPU Cores, 8 GB RAM, 100 GB SSD, 1 Snapshot, unlimited Traffic
+  - [1] 2026-10-22: Cloud VPS 4 row: 4 vCPU Cores, 8 GB RAM, 100 GB SSD, 200 Mbit/s Port, Unlimited Traffic, USD 5.28 per month, with 'for a 24-month term' printed after the table, quoted
+  - [1] 2026-10-22: JSON-LD AggregateOffer for Cloud VPS 4 gives lowPrice 6.6 USD, 5.5 EUR and 5.4 GBP, so USD 6.60 is the list price and 5.28 is 20 per cent below it
+  - [1] 2026-10-22: Cloud VPS 6 at USD 7.20/month (6 vCPU, 12 GB, 200 GB SSD plus 100 GB NVMe, 300 Mbit/s); Cloud VPS 8 at USD 13.44/month (8 vCPU, 24 GB, 300 GB SSD plus 150 GB NVMe, 600 Mbit/s)
+  - [2] 2026-10-22: quoted per plan: 'Storage VPS 10', 'EUR 5.50', '4', '40 / month', 'for the first 24 months', '2 vCPU Cores', '4 GB RAM', '300GB SSD / 150GB NVMe', '200 Mbit/s Port', 'Unlimited Traffic'
+  - [2] 2026-10-22: the same two-figure pattern repeats on every plan: 7.50/6.00, 14.00/11.20, 25.00/20.00, 37.00/29.60
+  - [3] 2026-10-22: the currency parameter did not change the figures: the page still printed EUR 5.50 and 4.40 for Storage VPS 10, so no USD rate is published on this path
+  - [4] 2026-10-24: quoted, a list flattened from the page's own lines: 'Which Payment Methods are Accepted by Contabo?' then 'EUR (€) Credit Card PayPal Skrill Bank Transfer Direct Debit (for qualifying customers) USD ($) Credit Card PayPal GBP (£) Credit Card PayPal' and 'Payments in cryptocurrencies such as Bitcoin are not accepted.'
+  - [5] 2026-10-24: quoted, the hold: 'You might see a temporary €1 (or equivalent in your currency) hold on your account. This is known as pre-authorization.' and 'This small hold is never charged, just temporarily reserved and then released.'
+- sources:
+  - [1] https://contabo.com/en-us/pricing/
+  - [2] https://contabo.com/en/storage-vps/
+  - [3] https://contabo.com/en/storage-vps/?currency=USD
+  - [4] https://help.contabo.com/en/support/solutions/articles/103000226600-how-do-i-update-my-payment-methods-
+  - [5] https://contabo.com/blog/enable-automatic-payments-contabo/
+
+## Contabo (windows)
+
+- `compute/contabo-windows` | paid-only | evidence documented | binding per-ip-shaping | category Windows VPS | tier Cloud VPS 8 + Windows Server Datacenter 2025
+- needs card yes, phone no, ID no, institution no | verified 2026-10-26T11:33:32.317Z (live) | stale on 2026-11-26
+- url https://contabo.com/en-us/vps/cloud-vps-core-8
+- price parsed USD 47.01/mo
+- disagrees on verdict: `compute/contabo-black-friday` says dead, `compute/contabo-windows` says paid-only
+- disagrees on verdict: `compute/contabo-cloud-vps-4` says qualifies-with-caveat, `compute/contabo-windows` says paid-only
+- free tier: no free tier; Cloud VPS 8 is EUR 14.00/month on the 1, 3 and 6 month terms, and the Windows Server Datacenter licence is EUR 28.00/month more | unit: none | metered on: none | read on: 2026-10-26 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the plan is paid; a 24-month term lowers the base rate to EUR 11.20/month but commits the term
+- egress: unlimited traffic on a 600 Mbit/s port; no rate and no byte quota are published | metered: no | free allowance: unlimited | source: [1]
+- identity: card | detail: an account and a payment method at order; the checkout accepts card, PayPal and SEPA, and the plan page states no identity document
+- interface: rest, cli
+- limits:
+  - per-ip-shaping (binding): 600 Mbit/s port on Cloud VPS 8 [1]
+  - volume-quota: traffic is called unlimited and no rate is published, which is a discretionary policy rather than a quota [1]
+- limits note: the Windows Server Datacenter option is EUR 28.00/month on every term and EUR 0.00 setup; the landing page's card price is the base VPS price and does not include it
+- binding note: the 600 Mbit/s port is the first hard ceiling; traffic is unlimited without a published rate, so there is no byte quota to design against.
+- interface detail: RDP over a public IPv4; the vendor control panel and API exist
+- tooling: any RDP client; Contabo's control panel and API
+- composes with: 24 GiB and 8 vCPU for about USD 47 a month with the licence, which is the second-cheapest qualifying row and the cheapest one whose licence is printed as a separate line
+- reliability: no reliability event observed; the vendor advertises 99.9% uptime.
+- notes: The Windows landing page prints the base VPS price on its card, not the Windows total: CLOUD VPS 8 is EUR 14.00 and the licence is a separate EUR 28.00. At the monthly term the bill is EUR 42.00; at the 24-month term it is EUR 39.20 a month but the first payment is EUR 940.80. The 12-month term is EUR 39.90 a month. A reader who quotes the card price understates the bill by 67 per cent.
+- evidence note: the base price, every term, the EUR 28.00 licence line and the shape are printed on the product page read. The USD figures are arithmetic at the ECB rate of 2026-10-23.
+- extras:
+  - shape.vcpu: 8
+  - shape.ram_gib: 24
+  - shape.disk_gib: 300
+  - billing_model: monthly, quarterly, semi-annual, annual or 24-month
+  - term: monthly; 24-month lowers the base rate
+  - base_eur_monthly: 14.0
+  - base_eur_12mo: 11.9
+  - base_eur_24mo: 11.2
+  - licence_eur_monthly: 28.0
+  - total_eur_monthly: 42.0
+  - total_eur_12mo: 39.9
+  - total_eur_24mo: 39.2
+  - monthly_usd: 47.01
+  - monthly_12mo_usd: 44.66
+  - monthly_24mo_usd: 43.88
+  - first_month_usd: 47.01
+  - first_payment_24mo_usd: 1053.09
+  - first_payment_note: EUR 39.20 x 24 = EUR 940.80, converted at 1.1193; the monthly term has no commitment
+  - setup_fee_eur: 0.0
+  - renewal_eur: 42.0
+  - renewal_note: the base returns to the 1-month EUR 14.00 after the term; the licence is EUR 28.00
+  - fx.pair: EUR/USD
+  - fx.rate: 1.1193
+  - fx.date: 2026-10-23
+  - windows_licence: add-on, EUR 28.00/month, printed
+  - ipv4_included: yes
+  - additional_ipv4_eur: 3.5
+  - port_mbps: 600
+  - traffic: unlimited, no published rate
+  - stock: InStock, schema.org Offer
+  - cart_url: https://contabo.com/en-us/vps/cloud-vps-core-8
+- evidence:
+  - [1] 2026-10-26: quoted: '8 vCPU Cores', '24 GB RAM', '300 GB SSD', '3 Snapshots', '600 Mbit/s Port', 'Unlimited Traffic'
+  - [1] 2026-10-26: quoted term ladder: '1 Month EUR 14.00/month No Setup Fee', '3 Months EUR 14.00', '6 Months EUR 14.00', '12 Months EUR 14.00 EUR 11.90', '24 Months EUR 14.00 EUR 11.20'
+  - [1] 2026-10-26: quoted Windows option: 'Windows Server Datacenter 2025 EUR 28.00/month EUR 0.00 Setup fee', with the same EUR 28.00 on 2016, 2019 and 2022
+- sources:
+  - [1] https://contabo.com/en-us/vps/cloud-vps-core-8
+
+## contabo storage vps
+
+- `storage/contabo-storage-vps` | paid-only | evidence documented | binding volume-quota | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-03T15:08:35.328Z (live) | stale on 2026-12-04
+- url https://contabo.com/en/storage-vps/
+- price EUR 11.20 per TB per month for the first 24 months (Storage VPS 30, 1 TB SSD). | parsed USD 12.54/TB-mo
+- disagrees on identity_kind: `storage/contabo-storage-vps` says email, `storage/contabo-storage-vps-unlimited-traffic-300-gb-1-4-tb` says card
+- disagrees on verdict: `storage/contabo-storage-vps` says paid-only, `storage/contabo-storage-vps-unlimited-traffic-300-gb-1-4-tb` says fails-quota
+- free tier: none: Storage VPS is a paid plan only. Storage VPS 30 includes 1 TB SSD, priced EUR 14.00 with 11.20 per month shown for the first 24 months. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: Unlimited outgoing and unlimited inbound data transfer at 200 Mbit/s to 1 Gbit/s port speeds; fair usage policies apply. | metered: no
+- identity: email
+- interface: unknown
+- limits:
+  - volume-quota (binding): disk is fixed per plan at 300 GB to 1.4 TB SSD; hardware specs cannot be customized [1]
+- binding note: disk is fixed per plan at up to 1.4 TB SSD, so a larger stored volume needs several plans; the price is a paid monthly fee
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: Traffic is unlimited under fair usage policies; the port is 200 Mbit/s to 1 Gbit/s depending on the plan.
+- notes: Paid plans only. Storage VPS 30 includes 1 TB SSD, priced EUR 14.00 with 11.20 per month shown for the first 24 months.
+- evidence note: the vendor pages of the 2026-11-03 evidence rows were read and captured (https://contabo.com/en/storage-vps/); every field that decides the verdict cites one of those captures
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Worst $/TB of any storage VPS checked, and the advertised price is explicitly a 24-month teaser. Storage VPS 30 gives 1 TB for €11.20/mo = €11.20/TB — five to six times the price floor…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Worst $/TB of any storage VPS checked, and the advertised price is explicitly a 24-month teaser. Storage VPS 30 gives 1 TB for €11.20/mo = €11.20/TB — five to six times the price floor…
+  - [2] 2026-10-21: cited as the basis of the rejection: Worst $/TB of any storage VPS checked, and the advertised price is explicitly a 24-month teaser. Storage VPS 30 gives 1 TB for €11.20/mo = €11.20/TB — five to six times the price floor — and
+  - [1] 2026-11-03: Storage VPS 30 is 1 TB SSD priced EUR 14.00 with 11 and 20 / month for the first 24 months | capture: sha256:b95cf6d2b661b4b610c9e80e4ab0ddc05e380aa78011d0a4ca0ab8b95b5eda1a | quote: ## Storage VPS 30 €14.00 11 20 / month for the first 24 months ✔️ 6 vCPU Cores 18 GB RAM 1 TB SSD
+  - [1] 2026-11-03: plan hardware, including disk, is fixed per plan | capture: sha256:b95cf6d2b661b4b610c9e80e4ab0ddc05e380aa78011d0a4ca0ab8b95b5eda1a | quote: Each Storage VPS plan is pre-configured to give you the most bang for your buck, so you’re not able to customize or change the hardware specs of your plan.
+  - [1] 2026-11-03: a Storage VPS offers up to 1.4 TB SSD | capture: sha256:b95cf6d2b661b4b610c9e80e4ab0ddc05e380aa78011d0a4ca0ab8b95b5eda1a | quote: Get lots of fast SSD storage for cheap (up to 1.4 TB), and you get full control and on-demand access to your data.
+  - [1] 2026-11-03: traffic is unlimited at 200 Mbit/s to 1 Gbit/s, subject to fair usage | capture: sha256:b95cf6d2b661b4b610c9e80e4ab0ddc05e380aa78011d0a4ca0ab8b95b5eda1a | quote: Unlimited outgoing and unlimited inbound data transfer with 200 Mbit/s to 1 Gbit/s speeds. Fair usage policies apply.
+  - [1] 2026-11-03: Storage VPS 30 is 1 TB SSD priced EUR 14.00 with 11.20 per month shown for the first 24 months | capture: sha256:b95cf6d2b661b4b610c9e80e4ab0ddc05e380aa78011d0a4ca0ab8b95b5eda1a | quote: ## Storage VPS 30 €14.00 11 20 / month for the first 24 months ✔️ 6 vCPU Cores 18 GB RAM 1 TB SSD
+- sources:
+  - [1] https://contabo.com/en/storage-vps/
+  - [2] https://lowendtalk.com/discussion/211559/looking-for-cheaper-storage-vps-alternatives-to-contabo
+
+## Contabo Storage VPS 30
+
+- `storage/contabo-storage-vps-30` | paid-only | evidence documented | binding volume-quota | category storage VPS
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T15:04:08.275Z (live) | stale on 2026-12-04
+- url https://contabo.com/en-us/pricing/
+- price USD 16.8 per TB per month (Storage VPS 30, 1 TB SSD, USD 16.8 per month in the page's structured data; the same plan is listed at EUR 14 per month) | parsed USD 16.8/TB-mo
+- free tier: none: Storage VPS is a paid plan; Storage VPS 30 includes 1 TB SSD | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: 'Unlimited Traffic*'. The asterisk resolves to: 'Incoming traffic is unlimited and unmetered. No extra charges apply. To ensure fair network performance for all customers, traffic usage must align with typical server workloads. If usage is exceptionally high or disruptive, Contabo reserves the right to throttle servers at its own discretion.' Port is 600 Mbit on this tier. No published egress overage rate. Throttling, not billing, is the enforcement. | metered: no
+- identity: card | detail: card
+- interface: unknown
+- limits:
+  - volume-quota (binding): 1.4 TB SSD on the largest Storage VPS plan (Storage VPS 50) [1]
+- limits note: Port speeds are the real ceiling: 200 Mbit (VPS 10), 300 (20), 600 (30), 800 (40), 1 Gbit (50). No S3, no managed redundancy.
+- binding note: the SSD of one plan is at most 1.4 TB (Storage VPS 50), so a 10 TiB set needs several plans, each at its own price
+- interface detail: full root
+- tooling: unrestricted
+- composes with: MinIO/SFTP/NFS
+- reliability: Contabo's storage VPS line is poor €/TB. It is a compute VPS with a big SSD attached, not a storage product. Widely discussed on LET as a value play for compute, not for bulk bytes.
+- notes: Paid Storage VPS plan with 1 TB SSD; no free allowance.
+- evidence note: the verdict rests on the vendor pricing page, read on 2026-11-03: it lists Storage VPS 30 with 1 TB SSD as a priced product (14 EUR, 16.8 USD), Storage VPS 50 with 1.4 TB SSD as the largest Storage VPS plan, and the throttle clause on traffic
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 1 TB SSD (Storage VPS 10/20: 300/400 GB)
+  - dead_end.first_recorded: 2026-10-21
+  - price_verbatim: $13.44/TB/mo (Storage VPS 30). $17.60/TB (VPS 10 at $5.28/300GB). $17.14/TB (VPS 50). Every tier is 4–8× the Hetzner equivalent — the 'unlimited traffic' is real but the storage price is not competitive at any tier.
+- evidence:
+  - [1] 2026-10-21: Storage VPS 10 $5.28 (300GB SSD, 200 Mbit), 20 $7.20 (400GB, 300 Mbit), 30 $13.44 (1TB, 600 Mbit), 40 $24.00 (1.2TB, 800 Mbit), 50 $35.60 (1.4TB, 1 Gbit); all 'Unlimited Traffic*'
+  - withheld 2026-10-21: same page, footnote — throttle-on-excess-use clause quoted verbatim above
+  - [1] 2026-11-03: Storage VPS 30 includes 1 TB SSD and is listed as a priced product | capture: sha256:ca60ddde03caaea39e1979e10b4979f6e01e28967eaca22afe13b5859527680b | quote: "name":"Storage VPS 30","description":"6 vCPU Cores, 18 GB RAM, 1 TB SSD, 600 Mbit/s Port, Unlimited Traffic*"
+  - [1] 2026-11-03: the plan has a price; the page lists no free plan | capture: sha256:ca60ddde03caaea39e1979e10b4979f6e01e28967eaca22afe13b5859527680b | quote: "priceCurrency":"USD","url":"https://www.contabo.com","lowPrice":16.8,"name":"Storage VPS 30"
+  - [1] 2026-11-03: Storage VPS 30 is listed at 16.8 USD | capture: sha256:ca60ddde03caaea39e1979e10b4979f6e01e28967eaca22afe13b5859527680b | quote: "priceCurrency":"USD","url":"https://www.contabo.com","lowPrice":16.8,"name":"Storage VPS 30"
+  - [1] 2026-11-03: the same plan is listed at 14 EUR | capture: sha256:ca60ddde03caaea39e1979e10b4979f6e01e28967eaca22afe13b5859527680b | quote: "priceCurrency":"EUR","url":"https://www.contabo.com","lowPrice":14,"name":"Storage VPS 30"
+  - [1] 2026-11-03: the largest Storage VPS plan has 1.4 TB SSD | capture: sha256:26237e803bd39094afe5f573e9c0742fee59cb18bd822cbf84a1d23150bcec1c | quote: | Storage VPS 50 | 14 vCPU Cores | 50 GB RAM | 1.4 TB SSD | 1 Gbit/s Port | Unlimited Traffic\* | 29 60 / month |
+  - [1] 2026-11-03: the largest plan has 1.4 TB SSD | capture: sha256:26237e803bd39094afe5f573e9c0742fee59cb18bd822cbf84a1d23150bcec1c | quote: | Storage VPS 50 | 14 vCPU Cores | 50 GB RAM | 1.4 TB SSD | 1 Gbit/s Port | Unlimited Traffic\* | 29 60 / month |
+  - [1] 2026-11-03: Storage VPS 30 includes 1 TB SSD | capture: sha256:ca60ddde03caaea39e1979e10b4979f6e01e28967eaca22afe13b5859527680b | quote: "name":"Storage VPS 30","description":"6 vCPU Cores, 18 GB RAM, 1 TB SSD, 600 Mbit/s Port, Unlimited Traffic*"
+  - [1] 2026-11-03: the record is a priced plan | capture: sha256:ca60ddde03caaea39e1979e10b4979f6e01e28967eaca22afe13b5859527680b | quote: "priceCurrency":"USD","url":"https://www.contabo.com","lowPrice":16.8,"name":"Storage VPS 30"
+  - [1] 2026-11-03: the throttle clause on traffic is as recorded | capture: sha256:26237e803bd39094afe5f573e9c0742fee59cb18bd822cbf84a1d23150bcec1c | quote: If usage is exceptionally high or disruptive, Contabo reserves the right to throttle servers at its own discretion.
+- sources:
+  - [1] https://contabo.com/en-us/pricing/
+
+## hetzner storage box / contabo storage vps
+
+- `storage/hetzner-storage-box-contabo-storage-vps` | paid-only | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://contabo.com/en/storage-vps/
+- free tier: none reachable: Neither has a free tier or a trial. Contabo's cheapest storage VPS is EUR 5.50/mo for 300 GB SSD; Hetzner's Storage Box page returned no free offer. This is the 'free VPS with big disk'… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: paid
+  - dead_end.why: Neither has a free tier or a trial. Contabo's cheapest storage VPS is EUR 5.50/mo for 300 GB SSD; Hetzner's Storage Box page returned no free offer. This is the 'free VPS with big disk'…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Neither has a free tier or a trial. Contabo's cheapest storage VPS is EUR 5.50/mo for 300 GB SSD; Hetzner's Storage Box page returned no free offer. This is the 'free VPS with big disk'…
+  - [2] 2026-10-21: cited as the basis of the rejection: Neither has a free tier or a trial. Contabo's cheapest storage VPS is EUR 5.50/mo for 300 GB SSD; Hetzner's Storage Box page returned no free offer. This is the 'free VPS with big disk' sub-
+- sources:
+  - [1] https://contabo.com/en/storage-vps/
+  - [2] https://www.hetzner.com/storage/storage-box/
+
+## contabo object storage
+
+- `storage/contabo-object-storage-2` | fails-egress | evidence reported | binding per-ip-shaping | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-03T15:04:20.873Z (live) | stale on 2026-11-18
+- url https://contabo.com/en/object-storage/order/
+- disagrees on identity_kind: `storage/contabo-object-storage` says card, `storage/contabo-object-storage-2` says email
+- disagrees on verdict: `storage/contabo-object-storage` says qualifies-with-caveat, `storage/contabo-object-storage-2` says fails-egress
+- free tier: none reachable: The 'unlimited free egress' claim is real but the price is €2.49 per 250 GB slice = €9.96/TB/mo, roughly 5× Hetzner Storage Box and 10× the 1fichier floor. Independent trackers split on… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: Data transfer is free and unlimited, with no download fees. The default bandwidth limit is 10 MB/s (80 Mbit/s), which is about 864 GB per day, below 1 TiB per day. | metered: no
+- identity: email
+- interface: unknown
+- limits:
+  - per-ip-shaping (binding): default bandwidth 10 MB/s (80 Mbit/s), about 864 GB per day [2]
+- binding note: The default bandwidth of 10 MB/s (80 Mbit/s) is a throughput limit that holds a day of transfer to about 864 GB; the vendor limits table lists no way to raise it, only storage and object count.
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: re-read on 2026-11-03: the vendor limits article quotes the default bandwidth of 10 MB/s (80 Mbit/s) and the vendor product page quotes free, unlimited data transfer; the storage price is not quoted from a vendor page, so the rung stays reported
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: The 'unlimited free egress' claim is real but the price is €2.49 per 250 GB slice = €9.96/TB/mo, roughly 5× Hetzner Storage Box and 10× the 1fichier floor. Independent trackers split on…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: The 'unlimited free egress' claim is real but the price is €2.49 per 250 GB slice = €9.96/TB/mo, roughly 5× Hetzner Storage Box and 10× the 1fichier floor. Independent trackers split on…
+  - [3] 2026-10-21: cited as the basis of the rejection: The 'unlimited free egress' claim is real but the price is €2.49 per 250 GB slice = €9.96/TB/mo, roughly 5× Hetzner Storage Box and 10× the 1fichier floor. Independent trackers split on whet
+  - [4] 2026-10-21: cited as the basis of the rejection: The 'unlimited free egress' claim is real but the price is €2.49 per 250 GB slice = €9.96/TB/mo, roughly 5× Hetzner Storage Box and 10× the 1fichier floor. Independent trackers split on whet
+  - [2] 2026-11-03: the default bandwidth limit of Contabo Object Storage is 10 MB/s (80 Mbit/s) | capture: sha256:91d967f28e308b4382bb4bf3bdd460cc0010c588fea9736a44ab3c644697c09e | quote: | Bandwidth | 10 MB/s (80 Mbit/s) |
+  - [5] 2026-11-03: data transfer carries no price and no volume cap | capture: sha256:b9c21baa6040814736b259183d61519e8469b7edfe3fcba5028a11c5b8568cf4 | quote: Data transfer is free and unlimited. You only pay for the storage space you use - there are no hidden traffic or download fees.
+- sources:
+  - [1] https://contabo.com/en/object-storage/order/
+  - [2] https://help.contabo.com/en/support/solutions/articles/103000411100-object-storage-limits-and-how-to-expand-your-capacity
+  - [3] https://onedollarvps.com/pricing/contabo-pricing
+  - [4] https://s3providers.com/providers/contabo-object-storage
+  - [5] https://contabo.com/en/object-storage/
+
+## contabo storage vps line (all tiers)
+
+- `storage/contabo-storage-vps-line` | fails-egress | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://contabo.com/en-us/pricing/
+- free tier: none reachable: Checked and rejected on price, not availability: $13.44/TB at the 1 TB tier versus €2.03/TB at Hetzner BX41. The 'Unlimited Traffic*' asterisk is a discretionary-throttle clause, not a… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: Checked and rejected on price, not availability: $13.44/TB at the 1 TB tier versus €2.03/TB at Hetzner BX41. The 'Unlimited Traffic*' asterisk is a discretionary-throttle clause, not a…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Checked and rejected on price, not availability: $13.44/TB at the 1 TB tier versus €2.03/TB at Hetzner BX41. The 'Unlimited Traffic*' asterisk is a discretionary-throttle clause, not a…
+- sources:
+  - [1] https://contabo.com/en-us/pricing/
+
+## Contabo Storage VPS — unlimited traffic, 300 GB–1.4 TB
+
+- `storage/contabo-storage-vps-unlimited-traffic-300-gb-1-4-tb` | fails-quota | evidence reported | binding per-ip-shaping | category iaas
+- needs card yes, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://contabo.com/en/storage-vps/
+- disagrees on identity_kind: `storage/contabo-storage-vps` says email, `storage/contabo-storage-vps-unlimited-traffic-300-gb-1-4-tb` says card
+- disagrees on verdict: `storage/contabo-storage-vps` says paid-only, `storage/contabo-storage-vps-unlimited-traffic-300-gb-1-4-tb` says fails-quota
+- free tier: Storage VPS 10: 300 GB SSD (150 GB NVMe option), 2 vCPU / 4 GB RAM, €5.50/mo for the first 24 months. Top tier 1.4 TB SSD at €37/mo. Higher tiers listed as 'More storage available'. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Unmetered. Quoted verbatim: 'Unlimited Traffic* … Unlimited outgoing and unlimited inbound data transfer with 200 Mbit/s to 1 Gbit/s speeds. Fair usage policies apply.' This is the single most useful egress term in the slot: no byte meter, only a port-speed ceiling and a FUP. | metered: no
+- identity: card | detail: card
+- interface: sftp, rsync, ssh, rclone
+- limits:
+  - per-ip-shaping (binding): 200 Mbit/s [1]
+  - per-ip-shaping (binding): 2 TB/day [1]
+- limits note: Network port is 200 Mbit/s on entry tiers under fair use policies. Setup fees apply on select billing terms.
+- binding note: one stream is shaped, and aggregate throughput is the shaped rate times the number of streams
+- interface detail: sftp
+- tooling: Root KVM. SSH/SFTP/rsync/rclone. No object API.
+- composes with: No free tier. But 'unlimited traffic + capacity-priced' means the composition move is a single large instance rather than many free ones: 1.4 TB unmetered for €37/mo beats ten free tiers that all clamp.
+- reliability: Hostloc thread evidence: a user running Contabo at 3 TB says '现在用的contabo已经只剩1.4t了'. Capacity creep on a shared storage volume is the reported failure mode, not deletion. Widely used, oversold reputation.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Storage VPS 10: 300 GB SSD (150 GB NVMe option), 2 vCPU / 4 GB RAM, €5.50/mo for the first 24 months. Top tier 1.4 TB SSD at €37/mo. Higher tiers listed as 'More storage available'.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Storage VPS 10 … €5.50 … 300GB SSD / 150GB NVMe … 200 Mbit/s Port … Unlimited Traffic*'; 'Unlimited outgoing and unlimited inbound data transfer with 200 Mbit/s to 1 Gbit/s speeds. Fair usage policies apply.'
+  - [2] 2026-10-21: '要3t以上的，现在用的contabo已经只剩1.4t了'
+- sources:
+  - [1] https://contabo.com/en/storage-vps/
+  - [2] https://hostloc.com/thread-1427211-1-1.html
+
+## Contabo (black friday)
+
+- `compute/contabo-black-friday` | dead | evidence documented | binding volume-quota | category VPS | tier none; the page is a newsletter signup for a future event
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T06:20:13.000Z (live) | stale on 2026-11-24
+- url https://contabo.com/en/black-friday/
+- disagrees on verdict: `compute/contabo` says paid-only, `compute/contabo-black-friday` says dead
+- disagrees on verdict: `compute/contabo-black-friday` says dead, `compute/contabo-cloud-vps-4` says qualifies-with-caveat
+- disagrees on verdict: `compute/contabo-black-friday` says dead, `compute/contabo-windows` says paid-only
+- free tier: no offer: the page reads 'Contabo Black Friday Deals Coming Soon!' and asks for an email address | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable; no offer is served
+- egress: not applicable; no seasonal offer is served | metered: no
+- identity: card | detail: not applicable; the page only collects an email address for a reminder
+- interface: ssh
+- binding note: There is no cart. The page is a newsletter form with a 'coming soon' heading.
+- interface detail: not applicable to the seasonal page; the linked regular VPS starts at USD 5.28 a month
+- tooling: part of interface detail
+- composes with: Nothing seasonal to chain. The regular VPS the page links starts at USD 5.28 a month for 4 vCPU and 8 GB, which is above evaluated providers's line.
+- reliability: no reliability event recorded
+- notes: A placeholder, not a fossil: it advertises a future event rather than an old one. Documented so the vendor does not mistake the live URL for a live offer. The USD 5.28 figure is Contabo's ordinary first-24-months price and is not a Black Friday price.
+- evidence note: The page was read and the heading is quoted.
+- extras:
+  - billing_model: none
+  - term: none
+  - price_arithmetic: no seasonal price on this URL; the regular Core VPS is USD 5.28 a month for the first 24 months
+  - free_tier_kind: none
+  - session_cap.restart_required: no
+  - session_cap.note: not applicable
+  - sale_page_year: none; it points forward, not back
+- evidence:
+  - [1] 2026-10-24: quoted: 'Ready for Black Friday deals that live up to the hype? High-value hosting that delivers - coming soon.' with a name and email form below it; no price and no order link on the page
+  - [1] 2026-10-24: the only prices on the page belong to the regular catalogue: 'Core VPS ... from $6.60 $5.28 / month ... for the first 24 months'
+- sources:
+  - [1] https://contabo.com/en/black-friday/

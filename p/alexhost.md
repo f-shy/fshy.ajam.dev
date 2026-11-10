@@ -1,0 +1,88 @@
+# alexhost storage
+
+> alexhost.com | Compute, Storage; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/alexhost/ | JSON https://fshy.ajam.dev/api/v1/entity/alexhost.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## AlexHost
+
+- `compute/alexhost` | paid-only | evidence documented | binding volume-quota | category cloud VM
+- identity a placeholder: card and phone unknown | verified 2026-11-07T14:17:02.758Z (live) | stale on 2026-12-08
+- url https://alexhost.com/vps/
+- price parsed USD 6.76/mo
+- free tier: EUR 6.00/month for U1 in Moldova: 1 vCore, 1.5 GB DDR4, 10 GB NVMe, 'Shared 100 Mbps', IPv4. Next rows: U2 at EUR 10.00/month with 2 vCores, 4 GB DDR4 and 40 GB NVMe, in Moldova at 100 Mbps and in the Netherlands, Sweden, Bulgaria, Switzerland, France, England and Romania at 1 Gbps; U4 at EUR 16.00/month with 4 vCores, 8 GB and 80 GB NVMe, Moldova at 100 Mbps and the same seven locations at 1 Gbps. The billing selector offers 1 month, 3 months, 6 months and yearly. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: the vendor table states only a port: 'Shared 100 Mbps' in Moldova, 'Shared 1 Gbps' in the seven other locations. No monthly byte allowance and no overage price are printed. The tracker states 31,641 GB/month, which is consistent with the 100 Mbps port sustained for about 29 days | metered: yes | free allowance: 31,641 GB per month as the tracker states it; the vendor page states no monthly allowance | source: [1]
+- identity: email | detail: not stated
+- interface: rest
+- limits:
+  - volume-quota (binding): 31,641 GB a month is the allowance the tracker states, and it is the 'Shared 100 Mbps' port the vendor prices, run continuously: 100 Mbps sustained for about 29 days is that byte count. The vendor table prints no monthly byte allowance, so the quota and the port are the same wall and the port is what actually bites; no overage price exists because nothing beyond the port is sold. Moldova is the only location at 100 Mbps, and the FAQ states the 1 Gbps upgrade is confined to selected European locations. [1]
+- limits note: 31,641 GB a month is the allowance the tracker states, and it is the 'Shared 100 Mbps' port the vendor prices, run continuously: 100 Mbps sustained for about 29 days is that byte count. The vendor table prints no monthly byte allowance, so the quota and the port are the same wall and the port is what actually bites; no overage price exists because nothing beyond the port is sold. Moldova is the only location at 100 Mbps, and the FAQ states the 1 Gbps upgrade is confined to selected European locations.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated on the page read: the pricing table, a price-tier filter (entry level under EUR 90, mid tier EUR 90 to 195, top tier above EUR 195) and the billing-cycle selector are all the page documents. No API, control-panel name or image list appears in the extract
+- composes with: EUR 6.00 for 1.5 GB is the lowest entry price among evaluated providers, but 100 Mbps and 10 GB of disk make it a control-plane host for a scheduler, DNS secondary or webhook receiver rather than a host that moves bytes; U2 at EUR 10.00 doubles the disk and buys 1 Gbps in every location except Moldova, which is the row to take if throughput matters.
+- reliability: no reliability event recorded
+- notes: The vendor table and the tracker agree on price, cores, disk and location, and the vendor's '1.5 GB' and the tracker's '1,536 MB RAM' are the same figure. The tracker's 31,641 GB is read here as a conversion of the 100 Mbps port rather than as a published quota, because the vendor page sells a port and no bytes; that reading is arithmetic and is the one claim in this record that is not quoted. The one hit is compute/fossvps, which cites a LowEndTalk thread titled 'fossvps-updates-free-server-for-open-source-developers-from-alexhost-hosteroid-and-st-hosting' in an evidence row - a lead about a free program for open-source developers that was not read, so free_tier_kind stays none here.
+- extras:
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 1.5
+  - facets.shape.disk_gib: 10
+  - monthly_eur: 6.0
+  - annual_eur: 40.8
+  - renewal_eur: not published: the cart prints one price per term and no renewal line
+  - term: the cart prices four cycles: Monthly, Quarterly, Semi-Annually, Annually
+  - stock: in stock: the vendor page's own product data marks the U1 offer InStock; the U2 offer carries the same mark
+  - cart_url: https://bill.alexhost.com/?cmd=module&module=111&cid=3644
+  - price_on_page: EUR 6.00/month for U1
+- evidence:
+  - [2] 2026-10-22: cheapest row, quoted: 'AlexHost - EUR 6.00 / month', '1 Intel Cores (shared)', '1,536 MB RAM', '10 GB NVMe', '31,641 GB/month bandwidth', '0.1 Gbps port speed', 'IPv4', 'Moldova'. The page states 'These are the cheapest VPSs currently offered by AlexHost, starting at EUR 6.00 per month'.
+  - [1] 2026-10-22: vendor plan table row, quoted: '| U1 | Moldova | 1 vCores | DDR4 1.5 GB | 10 GB NVMe | Shared 100 Mbps | 6.00 EUR per month |'. The table's columns are 'Plan | Location | CPU | RAM | Storage | Network | Price' and there is no bandwidth or traffic column.
+  - [1] 2026-10-22: '| U2 | Moldova | 2 vCores | DDR4 4 GB | 40 GB NVMe | Shared 100 Mbps | 10.00 EUR per month |' and seven further U2 rows at '10.00 EUR per month' with 'Shared 1 Gbps' in the Netherlands, Sweden, Bulgaria, Switzerland, France, England and Romania; '| U4 | ... | 4 vCores | DDR4 8 GB | 80 GB NVMe | ... | 16.00 EUR per month |'
+  - [1] 2026-10-22: FAQ, quoted: 'Each AlexHost VPS includes dedicated bandwidth. Standard plans provide 100 Mbps, while selected European locations - including the Netherlands and Sweden - support port speeds up to 1 Gbps.' The billing selector reads '1 month 1 mon. 3 months 3 mon. 6 months 6 mon. Yearly Year'.
+  - [1] 2026-11-07: the vendor plan table prices U1 in Moldova at 6.00 EUR a month with the 1 vCore, 1.5 GB DDR4, 10 GB NVMe and Shared 100 Mbps figures the record states | capture: sha256:a9ffbab67759a8af4ef4926325208a0ea7414aa8391b755dbc2745374ceb4da3 | quote: | U1 | Moldova | 1 vCores | DDR4 1.5 GB | 10 GB NVMe | Shared 100 Mbps | 6.00 € per month |
+  - [1] 2026-11-07: the vendor table still prices U1 in Moldova at 6.00 EUR a month with the shape the record states | capture: sha256:91f73d3a0de72e7609094e79080a8247c70661958796aca38e9e5910a5e923e9 | quote: | U1 | Moldova | 1 vCores | DDR4 1.5 GB | 10 GB NVMe | Shared 100 Mbps | 6.00 € per month |
+  - [3] 2026-11-07: the cart's U1 block prices the monthly cycle at 6.00 EUR | capture: sha256:8f1232dc847a6d11d9f45b08acc026a93b23c82d36740899b34327c83b7b772a | quote: <span class="product-price cycle-m">€6.00 EUR</span><span class="product-price cycle-q">€11.40 EUR</span><span class="product-price cycle-s">€21.60 EUR</span><span class="product-price cycle-a">€40.80 EUR</span>
+  - [3] 2026-11-07: the cart's U1 block prices the annually cycle at 40.80 EUR (cycle-a) | capture: sha256:8f1232dc847a6d11d9f45b08acc026a93b23c82d36740899b34327c83b7b772a | quote: <span class="product-price cycle-m">€6.00 EUR</span><span class="product-price cycle-q">€11.40 EUR</span><span class="product-price cycle-s">€21.60 EUR</span><span class="product-price cycle-a">€40.80 EUR</span>
+  - [3] 2026-11-07: the cart carries one price per cycle class and no renewal field | capture: sha256:8f1232dc847a6d11d9f45b08acc026a93b23c82d36740899b34327c83b7b772a | quote: <span class="product-price cycle-m">€6.00 EUR</span><span class="product-price cycle-q">€11.40 EUR</span><span class="product-price cycle-s">€21.60 EUR</span><span class="product-price cycle-a">€40.80 EUR</span>
+  - [3] 2026-11-07: the cart's U1 block names the four cycles | capture: sha256:8f1232dc847a6d11d9f45b08acc026a93b23c82d36740899b34327c83b7b772a | quote: <span class="product-cycle cycle-m">Monthly</span><span class="product-cycle cycle-q">Quarterly</span><span class="product-cycle cycle-s">Semi-Annually</span><span class="product-cycle cycle-a">Annually</span>
+  - [1] 2026-11-07: the vendor page's structured data marks the U1 offer in stock at EUR 6.00 | capture: sha256:bdc41998311ee3e71b9d7314c0136ebb403292ce72e351ad0ef51444cbf3839a | quote: "url":"https://bill.alexhost.com/?cmd=module&module=111&cid=3644","priceCurrency":"EUR","price":"6.00","availability":"https://schema.org/InStock"
+  - [1] 2026-11-07: the U2 offer carries the same InStock mark at EUR 10.00 | capture: sha256:bdc41998311ee3e71b9d7314c0136ebb403292ce72e351ad0ef51444cbf3839a | quote: "url":"https://bill.alexhost.com/?cmd=module&module=111&cid=3648","priceCurrency":"EUR","price":"10.00","availability":"https://schema.org/InStock"
+  - [1] 2026-11-07: the vendor page's product data links the U1 order URL | capture: sha256:bdc41998311ee3e71b9d7314c0136ebb403292ce72e351ad0ef51444cbf3839a | quote: "url":"https://bill.alexhost.com/?cmd=module&module=111&cid=3644","priceCurrency":"EUR","price":"6.00","availability":"https://schema.org/InStock"
+  - [1] 2026-11-07: the vendor table's printed price | capture: sha256:91f73d3a0de72e7609094e79080a8247c70661958796aca38e9e5910a5e923e9 | quote: | U1 | Moldova | 1 vCores | DDR4 1.5 GB | 10 GB NVMe | Shared 100 Mbps | 6.00 € per month |
+  - [3] 2026-11-07: the cart's U2 block prices the four cycles at 10.00, 25.00, 45.00 and 60.00 EUR | capture: sha256:8f1232dc847a6d11d9f45b08acc026a93b23c82d36740899b34327c83b7b772a | quote: <span class="product-price cycle-m">€10.00 EUR</span><span class="product-price cycle-q">€25.00 EUR</span><span class="product-price cycle-s">€45.00 EUR</span><span class="product-price cycle-a">€60.00 EUR</span>
+  - [3] 2026-11-07: the cart's U4 block prices the four cycles at 16.00, 46.00, 89.00 and 144.00 EUR | capture: sha256:8f1232dc847a6d11d9f45b08acc026a93b23c82d36740899b34327c83b7b772a | quote: <span class="product-price cycle-m">€16.00 EUR</span><span class="product-price cycle-q">€46.00 EUR</span><span class="product-price cycle-s">€89.00 EUR</span><span class="product-price cycle-a">€144.00 EUR</span>
+- sources:
+  - [1] https://alexhost.com/vps/
+  - [2] https://vpspricetracker.com/provider/AlexHost/vps
+  - [3] https://bill.alexhost.com/?cmd=module&module=111&cid=3644
+
+## alexhost storage
+
+- `storage/alexhost-storage` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://alexhost.com/dedicated-servers/storage-dedicated-hosting/
+- free tier: None reachable: Named, checked, and there is no storage VPS. The VPS line is NVMe up to 80 GB. The storage product is a dedicated server starting at 20 TB HDD for €153/mo, and it is listed 'Coming Soon' wi. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Named, checked, and there is no storage VPS — the VPS line is NVMe up to 80 GB. The storage product is a dedicated server starting at 20 TB HDD for €153/mo, and it is listed 'Coming Soon'…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Named, checked, and there is no storage VPS — the VPS line is NVMe up to 80 GB. The storage product is a dedicated server starting at 20 TB HDD for €153/mo, and it is listed 'Coming Soon'…
+  - [2] 2026-10-21: cited as the basis of the rejection: Named, checked, and there is no storage VPS — the VPS line is NVMe up to 80 GB. The storage product is a dedicated server starting at 20 TB HDD for €153/mo, and it is listed 'Coming Soon' wi
+- sources:
+  - [1] https://alexhost.com/dedicated-servers/storage-dedicated-hosting/
+  - [2] https://alexhost.com/vps

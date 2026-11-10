@@ -1,0 +1,267 @@
+# AllDebrid
+
+> alldebrid.com | Debrid; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/alldebrid/ | JSON https://fshy.ajam.dev/api/v1/entity/alldebrid.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## AllDebrid
+
+- `debrid/alldebrid` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category debrid multi-hoster; proxy/VPS/cloud class refused, VPN addresses authorized on request | tier premium subscription; the class route is a VPN whose address has been authorized
+- needs card no, phone yes, ID no, institution no | verified 2026-10-30T13:11:55.960Z (live) | stale on 2026-11-21
+- url https://alldebrid.com/tos
+- disagrees on verdict: `debrid/alldebrid` says qualifies-with-caveat, `debrid/alldebrid-trial` says dead
+- free tier: No free tier for the class question. The route that lifts the refusal is free to ask for but not to assume: 'VPN IPs are subject to authorization', processed 'within 12 hours', with 'no reply from our side to your VPN request' if the address is still blacklisted. | unit: none | metered on: none | read on: 2026-10-23 | source: [1] | note: The subscription price is defined in the primary AllDebrid record.
+- per-object cap: not applicable: an account class rule, not an object cap | source: [2]
+- retention: not applicable: the rule governs who may call, not what is stored | source: [2]
+- egress: Two vendor pages refuse the class in plain words. | metered: no | free allowance: no byte meter on the class route; the cost is a wait and a refusal that is never explained | source: [1]
+- identity: email | detail: An email account and a paid premium subscription. The trial needs an SMS-verified phone on comparative listings's reading, which debrid did not re-check. | country: France
+- interface: rest
+- limits:
+  - per-ip-shaping (binding): dedicated servers, proxies, VPS, cloud services and company networks are refused; a VPN address needs authorization, processed within 12 hours, with no reply if refused [3]
+  - per-ip-shaping (binding): the account is single-owner: 'Only the physical owner of the account is authorized to log to the user account'. A new location triggers an email verification step, which is the sharing detector and a different mechanism from the class rule [2]
+  - request-rate: 12 requests per second and 600 requests per minute; excess returns 429 or 503 [4]
+  - per-ip-shaping (binding): a new location, device or app returns AUTH_BLOCKED and freezes the key until an email confirmation; an old session is not silently grandfathered [4]
+  - per-ip-shaping (binding): the 33rd concurrent connection to one delivery server gets a 429 (third-party measurement 2026-08-23); a VPN or hosting IP is refused with NO_SERVER [5]
+  - volume-quota: 7-day / 25 GB tryout cap for new accounts, refusal FREE_TRIAL_LIMIT_REACHED [4]
+  - request-rate: 12 requests per second per API key [4]
+  - request-rate: 600 requests per minute per API key, 429 or 503 beyond [4]
+  - per-ip-shaping (binding): proxies, dedicated/private servers and cloud/enterprise networks are refused; VPN IPs need prior authorisation, processed within 12 hours and refused if still blacklisted [3]
+  - volume-quota: per-host daily quota where the host caps its own premium accounts; the quota is reduced by that host's limit every 24 hours rather than cleared [6]
+  - request-rate: 12 requests per second and 600 requests per minute: 'Current limits are at 12 requests per second and 600 requests per minute. Any request in excess of those limits will return a 429 or 503 errors.' [4]
+  - volume-quota: 25 GB over the 7-day trial, account-wide [4]
+  - per-ip-shaping (binding): per-host simultaneous download slots and per-host daily quotas, surfaced as limitSimuDl and limitedHostersQuotas and enforced with LINK_TOO_MANY_DOWNLOADS and LINK_HOST_LIMIT_REACHED [4]
+  - volume-quota: per limited host: `quotaMax` in MB, reset by subtracting the cap every 24 hours [6]
+  - retention-clamped: recent link history pruned at 3 days [4]
+  - volume-quota: free tryout stops at 25 GB [4]
+  - per-ip-shaping (binding): per-host daily quota, subtracted every 24 hours and taking several days to reset fully [6]
+  - volume-quota: per-host daily quotas, e.g. 50 GB/day for Rapidgator and DDownload; reset is 24 hours and partial [6]
+  - request-rate: trial accounts carry a global traffic quota in MB, readable as 'remainingTrialQuota' [4]
+- limits note: The class rule and the sharing rule sit on the same page and are separate sentences with separate enforcement: the class refusal is a range check at connect time, the sharing rule is an email challenge at login. A single-address caller never meets the second.
+- binding note: At 1 TiB a month from a rented machine the class rule fails first and blocks the call outright, before any byte is counted. Once the VPN address is authorized there is no byte meter on the class route, so the constraint disappears rather than moving to a quota.
+- interface detail: HTTPS REST API at api.alldebrid.com; the class refusal surfaces as AUTH_BLOCKED with reason 'ip-blocked' on some calls and NO_SERVER on others
+- endpoint: https://api.alldebrid.com/
+- tooling: rclone, Debrid Media Manager, the vendor's own apps; nothing in the tooling defeats the address check
+- composes with: The cheapest shape is a VPN client on the rented machine plus one authorization request from the premium account while connected to the unauthorized address. The request is asynchronous and silent on failure, so it has to be made early and confirmed by re-reading the site from the VPN.
+- reliability: The class block behaves like a flag on a range, and support clears it: on 2026-08-20 a user reported a dedicated-server refusal, was asked whether any part of the setup was on a VPS, and answered on 2026-08-22 'I did, they sorted it, it is working now thank you.' It also misfires the other way: in 2024 a user on ordinary home wifi got the same error, mobile data worked, and 'Enabling a VPN seems to fix the issue'. A refusal is therefore neither proof of a datacenter address nor permanent.
+- notes: The class rule is a range check; the email verification is the sharing detector. It also adds the 2026 counter-example did not have: a flagged address was restored by support in two days, which makes the class block a support ticket rather than a wall. The offer page was read for the billing shape: 2.99 EUR per 30 days recurring by card, or 3.99 EUR for a one-time 30 days, with 90/180/300-day stacks at 8.99/15.99/24.99 EUR. The first is documented in full; the second is documented only as a code with no number; the third has its number inside the error string. Cheapest flat 30-day price and the only one with a documented per-second API budget. The vendor's marketing says 'over 70 hosts' in the home-page meta description while its own live API enumerates 46 (37 premium + 9 free); keep 37 as the premium figure. One pricing caveat the offer page states and the tiles do not show: 'The price is different from the base plan for this payment method (base price + method overcharge)', so 2.99 EUR is the card price and other methods cost more. The trial is the only free path and it is phone-bound, so it is not a tier a script can renew. The public host endpoint deliberately omits quota: its keys are display, domains, hardRedirect, name, regexp, regexps, status, type. That makes the published list useless for capacity planning and is the reason the account-only endpoint is named here. The account survives a long pause: 4 years of inactivity before deletion if it ever paid. Whether the magnets still resolve at the end of that pause is the unpublished part. The price is flat to the cent across 36 months and the only change in the offer is a withdrawal: the 7-day SMS tryout that a new account could use in 2025 is not offered in 2026. A price history that only tracked the euro figure would have called this provider unchanged. Crypto is Bitcoin only, not a coin menu. The cheapest published monthly rate (2.50 EUR/month) sits behind a 300-day commitment plus an unquantified crypto surcharge, which is why the headline cheapest first purchase is TorBox at $3. The cheapest documented multi-hoster, by 1 cent over TorBox Essential, and the only one whose trial allowance is machine-readable. The card-only requirement on the cheapest period is the identity fact a reader needs.
+- evidence note: The class rule, its two vendor pages and the 12-hour authorization are vendor text read. The support-lift and the false positive are single user reports, marked reported, with the thread dates checked. Evidence dates normalised to the read date on 2026-10-23; a source that carries its own date keeps it in the proved field.
+- extras:
+  - class_rule_quoted: dedicated servers / proxy / VPS / cloud service / company network are refused by the service
+  - accepts_bare_cloud_ip: no
+  - accepts_listed_cloud_ip: yes
+  - sanctioned_routes: a VPN address authorized by the vendor, 12 h, silent on refusal
+  - support_lift_reported.date: 2026-08-22
+  - support_lift_reported.latency_days: 2
+  - false_positive_reported.date: 2024-11-25
+  - false_positive_reported.class: residential wifi address refused, mobile data accepted
+  - failure_angle: re-authentication and per-host ceilings
+  - strongest_signal: AUTH_BLOCKED with email token
+  - account_states: AUTH_BAD_APIKEY (revoked); AUTH_USER_BANNED; MUST_BE_PREMIUM; FREE_TRIAL_LIMIT_REACHED; AUTH_BLOCKED (new location)
+  - cache_miss: magnet status 0 In Queue, 1 Downloading, 2 Compressing/Moving, 3 Uploading, 4 Ready; failures are 5-15 and a user must poll rather than wait for a callback
+  - host_removal: LINK_HOST_NOT_SUPPORTED and LINK_HOST_UNAVAILABLE are announced per request; the status page at https://alldebrid.com/status/ redirected to the login form (read 2026-10-23), so there is no unauthenticated host list
+  - simultaneous_use: One key, one location. A new device, app or network returns AUTH_BLOCKED and freezes the key until an email token is confirmed; the terms limit the account to its physical owner. No concurrent-stream count is published.
+  - host_count_claimed: 70+ (home-page meta description and alldebrid.fr: 'plus de 70 hébergeurs')
+  - host_count_measured: 46 total, 37 premium, 9 free (api.alldebrid.com/v4/hosts)
+  - usenet: no
+  - torrent: yes, torrent file or magnet converted to a direct link
+  - annual_plan: none: the longest one-time term is 300 days at 24.99€
+  - auth_flows: two: a long-lived API key from https://alldebrid.com/apikeys, or the PIN/device flow (POST /v4.1/pin/get -> user types pin -> POST /v4/pin/check polls until activated, 600 s expiry). No OAuth2 bearer exchange and no refresh token.
+  - unrestrict_endpoint: POST /v4/link/unlock (link, password); POST /v4/link/infos (metadata probe, no generation); GET /v4/link/redirector; POST /v4/link/streaming; POST /v4/link/delayed for links that are not ready yet
+  - torrent_endpoints: POST /v4/magnet/upload, /v4/magnet/upload/file, /v4/magnet/restart, /v4/magnet/delete; GET /v4.1/magnet/status, /v4/magnet/files
+  - account_endpoints: GET /v4/user (isPremium, isTrial, remainingTrialQuota, notifications), GET /v4.1/user/hosts, GET /v4/user/links, GET /v4/user/history
+  - public_endpoints_no_account: GET /v4/ping, GET /v4/hosts, GET /v4/hosts/domains, GET /v4/hosts/priority, GET /v4.1/pin/get
+  - demo_keys: the documentation publishes three static keys that return fixed demo payloads with "demo": "true" - staticDemoApikeyPrem, staticDemoApikeyTria, staticDemoApikeyFree. They are a shape reference for a client, not an account.
+  - host_matrix.published_daily_caps: no
+  - host_matrix.source: https://api.alldebrid.com/v4.1/hosts
+  - host_matrix.cap_endpoint: https://api.alldebrid.com/v4.1/user/hosts
+  - host_matrix.cap_fields: quota; quotaMax; quotaType; limitSimuDl
+  - host_matrix.hosts_listed: 46
+  - host_matrix.note: No cap is published for any host; the matrix cell for every AllDebrid host is 'no cap published' or 'account-only'.
+  - quota_reset: 24h, subtractive
+  - retention_map.link_history.stated: recent link history
+  - retention_map.link_history.days: 3
+  - retention_map.link_history.source_url: https://docs.alldebrid.com/
+  - retention_map.media_folder_history.stated: streamable links in the media folder History
+  - retention_map.media_folder_history.days: 3
+  - retention_map.media_folder_history.source_url: https://help.alldebrid.com/en/Alldebrid%20tools/media-folder
+  - retention_map.lapse_grace.stated: not published
+  - retention_map.lapse_grace.source_url: https://alldebrid.com/tos/
+  - account_deletion.stated: never-paid account: 1 year of inactivity; account that has subscribed: 4 years of inactivity
+  - account_deletion.days: 1460
+  - account_deletion.source_url: https://alldebrid.com/privacy/
+  - reactivation: not published: the magnet list is account data and survives, the files behind it are the unknown
+  - storage_model: magnets downloaded per account and served from a media folder; vendor text denies hosting
+  - price_history[0].date: 2023-10-02
+  - price_history[0].price: EUR 2.99 / 30 days recurring
+  - price_history[0].plan: Subscription
+  - price_history[0].source_url: https://web.archive.org/web/20231002100345/https://alldebrid.com/offer/
+  - price_history[1].date: 2023-10-02
+  - price_history[1].price: EUR 3.99 / 30 days
+  - price_history[1].plan: One-time 30 days
+  - price_history[1].source_url: https://web.archive.org/web/20231002100345/https://alldebrid.com/offer/
+  - price_history[2].date: 2024-10-05
+  - price_history[2].price: EUR 2.99 / 30 days recurring
+  - price_history[2].plan: Subscription
+  - price_history[2].source_url: https://web.archive.org/web/20241005152246/https://alldebrid.com/offer/
+  - price_history[2].change_pct: 0.0
+  - price_history[3].date: 2025-10-10
+  - price_history[3].price: EUR 2.99 / 30 days recurring
+  - price_history[3].plan: Subscription
+  - price_history[3].source_url: https://web.archive.org/web/20251010021542/https://alldebrid.com/offer/
+  - price_history[3].change_pct: 0.0
+  - price_history[4].date: 2026-10-23
+  - price_history[4].price: EUR 2.99 / 30 days recurring
+  - price_history[4].plan: Subscription
+  - price_history[4].source_url: https://alldebrid.com/offer/
+  - price_history[4].change_pct: 0.0
+  - price_history[5].date: 2026-10-23
+  - price_history[5].price: EUR 3.99 / 30 days
+  - price_history[5].plan: One-time 30 days
+  - price_history[5].source_url: https://alldebrid.com/offer/
+  - price_history[5].change_pct: 0.0
+  - change_36m: 0.0% on both the recurring and the one-time 30-day term, 2023-10-02 to 2026-10-23
+  - currency: EUR
+  - free_tier_closed: 7-day SMS tryout, listed 2023-10-02 and 2025-10-10, absent 2026-10-23
+  - merge_conflicts.usenet[0]: no
+  - merge_conflicts.usenet[1].lane: pricing-history
+  - merge_conflicts.usenet[1].value: no
+  - payment_group: crypto
+  - payment.card: yes
+  - payment.card_note: Visa / MasterCard, and it is the only rail on the auto-renewing subscription
+  - payment.paypal: no
+  - payment.paypal_note: not listed on the offers page, and the subscription is card-only; a third-party review (android-mt.ouest-france.fr, 2025-04) lists 'carte, PayPal, Bitcoin' for AllDebrid, which the vendor page does not confirm today
+  - payment.crypto: BTC
+  - payment.crypto_processor: not named on the page
+  - payment.voucher: yes
+  - payment.voucher_detail: alldebrid.com/voucher redemption plus 6 listed resellers, 3 of which list Bitcoin (Digitadiko, Ecloudy, 24instant)
+  - payment.entry_price: EUR 3.99 / 30 days one-time
+  - payment.entry_price_eur: EUR 3.99
+  - trial_days: 7
+  - trial_fields: isTrial, remainingTrialQuota
+- evidence:
+  - [2] 2026-10-23: 
+  - [3] 2026-10-23: the service refuses proxies, dedicated or private servers and cloud or enterprise networks
+  - [1] 2026-10-23: 'VPN IPs are subject to authorization. Two situations are possible: 1. the IP of your VPN is already authorized ... 2. the IP of your VPN is not yet authorized: in this case simply complete the application form ... All requests for authorization are processed within 12 hours. There is no reply from our side to your VPN request, it means if the submitted IP is still blacklisted after 12h, we can't allow it.'
+  - [7] 2026-08-22: 2026-08-20 post about a dedicated-server refusal; a reply says 'your IP is most likely getting flagged as one of the above and you should contact them asap'; the original poster answers on 2026-08-22 'I did, they sorted it, it is working now thank you.' The post body was deleted by its author; the replies survive.
+  - [8] 2026-10-23: A user on home wifi gets a dedicated-server refusal from Alldebrid, while 'If I switch to my mobile data on my phone the error goes away', and 'Enabling a VPN seems to fix the issue'. A second commenter: 'I got this error sometimes when connecting via VPN. Disconnecting the VPN was the fix for me.' The refusal is per range and misfires on residential addresses.
+  - [4] 2026-10-23: Authentication errors AUTH_MISSING_APIKEY, AUTH_BAD_APIKEY, AUTH_BLOCKED ('This apikey is geo-blocked or ip-blocked'), AUTH_USER_BANNED ('This account is banned'); rate limits '12 requests per second and 600 requests per minute ... 429 or 503'; the AUTH_BLOCKED email flow with token, /user/verif returning waiting/allowed/denied, and PIN_EXPIRED; link errors LINK_HOST_NOT_SUPPORTED, LINK_DOWN, LINK_HOST_UNAVAILABLE, LINK_TOO_MANY_DOWNLOADS, LINK_HOST_FULL, LINK_HOST_LIMIT_REACHED, MUST_BE_PREMIUM, FREE_TRIAL_LIMIT_REACHED, NO_SERVER; magnet status codes 0-15 including 7 'Not downloaded in 20 min', 11 'Deleted on the hoster website', 15 'File not available - no peer'.
+  - [9] 2026-10-23: 
+  - [5] 2026-10-23: Third-party measurement 2026-08-23: 'The 33rd connection to one delivery server gets a 429 ... The limit is per host rather than per key.' Also that magnets are removed over time and a hoster can drop a link.
+  - [10] 2026-10-23: Reported, a user seeing the client-side rendering of AUTH_BLOCKED: 'Access to debrid API is blocked. Check your debrid account or email.' after a trial signup on a new device.
+  - [11] 2026-10-23: Billing: '2.99€ / 30 days' recurring by credit card, and one-time 30 days at 3.99€, with 90/180/300-day stacks at 8.99/15.99/24.99€.
+  - [11] 2026-10-23: 'Base price : 2.99€ / 30 days' for the card subscription, '3.99€ / 30 days' one-time, and the one-time ladder 90 days 8.99€, 180 days 15.99€, 300 days 24.99€
+  - [4] 2026-10-23: 'Current limits are at 12 requests per second and 600 requests per minute', API v4 endpoints, and the AUTH_BLOCKED / AUTH_USER_BANNED error codes
+  - [6] 2026-10-23: per-host daily quota, and 'this is done every 24 hours, but it is not a complete reset'
+  - [3] 2026-10-23: proxies, dedicated or private servers and cloud or enterprise networks are refused, and remote upload is unavailable
+  - [1] 2026-10-23: 'VPN IPs are subject to authorization', 12-hour processing, refusal keeps the IP blacklisted
+  - [12] 2026-10-23: the live public host list: 46 hosts, of which 37 are type 'premium' and 9 are type 'free'
+  - [9] 2026-10-23: dedicated servers, proxies, VPS, cloud services and company networks are refused; an unused account is refunded within 14 days
+  - [4] 2026-10-23: 'Current limits are at 12 requests per second and 600 requests per minute. Any request in excess of those limits will return a 429 or 503 errors.'; the public endpoint list (/ping, /v4.1/pin/get, /hosts, /hosts/domains, /hosts/priority); FREE_TRIAL_LIMIT_REACHED '7 days // 25GB'; static demo keys staticDemoApikeyPrem/Tria/Free
+  - probe:https://api.alldebrid.com/v4/ping 2026-10-23: public ping answers with no credential: {"status":"success","data":{"ping":"pong","version":"4"}}
+  - probe:https://api.alldebrid.com/v4/hosts 2026-10-23: the host registry is readable with no account: a 200 with per-host name, type (premium|free), domains and regexps
+  - [5] 2026-10-23: third-party confirmation that '600 requests a minute for one key. That is the documented budget'
+  - [4] 2026-10-23: 'limitedHostersQuotas Yes Array Remaining quotas for the limited hosts (in MB)' and 'quotaMax ... Daily quota for this host'
+  - probe:https://api.alldebrid.com/v4.1/hosts 2026-10-23: 46 hosts with name, type (37 premium, 9 free), domains, regexps, status; no quota field is present - GET 200, 506706 bytes
+  - probe:https://api.alldebrid.com/v4.1/user/hosts 2026-10-23: refusal shape: HTTP 200 with {"status":"error","error":{"code":"AUTH_MISSING_APIKEY"}} in 98 bytes
+  - [6] 2026-10-23: 'Some file hosting services are limited on our service through a daily quota' and the 24-hour subtractive reset example
+  - probe:https://alldebrid.com/hosts 2026-10-23: the old public host page is gone: HTTP 404 today, and the Wayback capture nearest 2025-06 is also a 404
+  - probe:https://alldebrid.com/hosts/filespace 2026-10-23: per-host pages are gone too: HTTP 404, 21460 bytes of the site's own 404 page
+  - probe:https://alldebrid.com/hosts/1fichier 2026-10-23: same 404 for a second slug, so it is the route and not one host
+  - probe:https://alldebrid.com/hosts/ 2026-10-23: the trailing-slash form is also 404, so no variant of the page survives
+  - probe:https://alldebrid.com/offer/ 2026-10-23: the payments page: '2.99€ / 30 days' subscription, '3.99€ / 30 days' one-off, 8.99€/90 d, 15.99€/180 d, 24.99€/300 d
+  - probe:https://api.alldebrid.com/v4.1/user 2026-10-23: the endpoint that carries `limitedHostersQuotas` answers HTTP 200 with the same 98-byte AUTH_MISSING_APIKEY body
+  - probe:https://api.alldebrid.com/v4/ping 2026-10-23: the API is live and answers without a key: 57 bytes, {"status":"success","data":{"ping":"pong","version":"4"}}
+  - [4] 2026-10-23: 'Links older than 3 days are automatically deleted from the recent history', the 25 GB / 7-day tryout limit string, and the magnet status codes
+  - [9] 2026-10-23: 'we only offer a service based on bandwidth, we do not host any file', best-effort service, and the ban on dedicated servers, proxies, VPS and cloud services
+  - [13] 2026-10-23: 'Data associated with an account that has not subscribed to any offer will be automatically deleted after 1 year of inactivity' and 'after 4 years of inactivity' for an account that has subscribed
+  - [14] 2026-10-23: the media folder lists History (past 72 hours), saved Links, and Magnets, reachable over HTTP
+  - [11] 2026-10-23: 'Base price: 2.99 EUR / 30 days' recurring, '3.99 EUR / 30 days' one-time, and the 90/180/300-day tiers at 8.99/15.99/24.99 EUR
+  - [15] 2026-10-23: the same five prices three years earlier, plus 'Free tryout ... 7 days to test our service ... A SMS verification is required'
+  - [16] 2026-10-23: the same five prices, and the free tryout still listed twelve months ago
+  - [17] 2026-10-23: no mention of a tryout or trial on the FAQ, which is where a moved free offer would be described
+  - [11] 2026-10-23: the two purchase shapes and the rail block: 'Subscription ... Credit-card only', 'One-time ... Multiple payment methods', prices 3.99 EUR/30d, 8.99 EUR/90d, 15.99 EUR/180d, 24.99 EUR/300d, and 'Choose your payment method: Credit - Card ... Crypto Bitcoin'; plus 'The price is different from the base plan for this payment method (base price + method overcharge)'.
+  - [18] 2026-10-23: the voucher path is vendor-sanctioned: 'AllDebrid allows its partners to sell AD credits in countries where there is no appropriate payment system', listing Digitadiko (Bank Wire, Bitcoin, Credit Cards, PaysafeCard, Webmoney), Ecloudy (Bitcoin, Credit Cards, Debit Cards), 24instant (Bank Wire, Bitcoin, Credit Cards, Paysera, Webmoney), Top Modern Technology and Agen Premium (Bank Wire only).
+  - [19] 2026-10-23: fair-use qualifier on the headline speed claim and the existence of a voucher route at alldebrid.com/voucher
+  - [11] 2026-10-23: subscription '2.99€ / 30 days' card-only; one-time '3.99€ / 30 days'; 90 days 8.99€; 180 days 15.99€; 300 days 24.99€
+  - [4] 2026-10-23: API v4 with apikey auth, magnet endpoints, and user fields 'isTrial' and 'remainingTrialQuota'
+  - [6] 2026-10-23: per-host daily quotas and the partial 24-hour reset
+  - [2] 2026-10-30: the Access to the service section names dedicated servers, proxy, VPS, cloud service and company network as connection means not allowed on the service | capture: sha256:d3c1afc7c9dd61c03fedbe61fc4ca9723c20b5635a7da1a22cd22f27683abba4 | quote: dedicated servers / proxy / VPS / cloud service / company network are not allowed on our service
+  - [2] 2026-10-30: the User account section limits login to the physical owner of the account | capture: sha256:d3c1afc7c9dd61c03fedbe61fc4ca9723c20b5635a7da1a22cd22f27683abba4 | quote: Only the physical owner of the account is authorized to log to the user account.
+- sources:
+  - [1] https://help.alldebrid.com/en/faq/vpn
+  - [2] https://alldebrid.com/tos
+  - [3] https://help.alldebrid.com/en/faq/dedicated-servers
+  - [4] https://docs.alldebrid.com/
+  - [5] https://notes.debridmediamanager.com/providers/alldebrid/
+  - [6] https://help.alldebrid.com/en/faq/limited-hosts
+  - [7] https://www.reddit.com/r/AllDebrid/comments/1vtyjyf/dedicated_servers_are_not_allowed_on_alldebrid/
+  - [8] https://www.reddit.com/r/StremioAddons/comments/1gzj8p1/alldebrid_error_dedicated_servers_are_not_allowed/
+  - [9] https://alldebrid.com/tos/
+  - [10] https://www.reddit.com/r/StremioAddons/comments/1mgs0tv/access_to_debrid_api_is_blocked_alldebrid
+  - [11] https://alldebrid.com/offer/
+  - [12] https://api.alldebrid.com/v4/hosts
+  - [13] https://alldebrid.com/privacy/
+  - [14] https://help.alldebrid.com/en/Alldebrid%20tools/media-folder
+  - [15] https://web.archive.org/web/20231002100345/https://alldebrid.com/offer/
+  - [16] https://web.archive.org/web/20251010021542/https://alldebrid.com/offer/
+  - [17] https://alldebrid.com/faq/
+  - [18] https://alldebrid.com/resellers/
+  - [19] https://alldebrid.com/
+
+## AllDebrid - 7-day tryout
+
+- `debrid/alldebrid-trial` | dead | evidence documented | binding write-gated | category multi-host debrid | tier free trial
+- needs card no, phone yes, ID no, institution no | verified 2026-10-30T13:11:55.961Z (live) | stale on 2026-11-30
+- url https://alldebrid.com/offer/
+- disagrees on verdict: `debrid/alldebrid` says qualifies-with-caveat, `debrid/alldebrid-trial` says dead
+- free tier: No free trial is offered on any page read. The offers page carries plan prices only; the FAQ's only occurrence of 'free' is the entry 'Free hosts'; the home page's only call to action is 'Register Free'. The 25 GB / 7-day SMS-verified tryout that the ladder counts is not published. | unit: none | metered on: none | read on: 2026-10-23 | source: [1] | note: An absence of the offer on three pages, not an absence of the feature: the trial may still be granted to selected accounts. What it is not is a published step a client can plan a month around.
+- per-object cap: not applicable: no free tier is published | source: [1]
+- retention: not applicable: nothing is stored | source: [2]
+- egress: no free allowance published; paid plans are the only priced path | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: 'Register Free' on the home page: an email account. The SMS gate belonged to the trial that is gone.
+- interface: rest, webdav, cli
+- limits:
+  - write-gated (binding): the free tryout is no longer published on the offers page, the home page or the FAQ [1]
+  - volume-quota: 25 GB of downloads for the whole trial [3]
+  - write-gated (binding): activation requires SMS verification on a real phone number [3]
+- limits note: The gate is no longer an SMS number, because there is no longer a published offer behind it.
+- binding note: Nothing free is reachable, so nothing free fails first.
+- interface detail: REST API and a WebDAV endpoint on paid accounts; no free account exists to test either
+- tooling: Vendor REST API and community client wrappers.
+- composes with: Contributes nothing to the ladder. The 25 GB it was credited with in group 3 should come out of the byte-committed total.
+- reliability: A trial that existed on the 2023-10-02 and 2025-10-10 captures is absent from the live pages; a client reading a 2026 plan from an index would budget 25 GB that does not exist.
+- notes: Group 3's byte-committed total in ladder.md is '30 + 25 + 15 = 70 GB'; with this step dead it is 45 GB. The 966 GB and 896 GB no-card totals are unaffected because AllDebrid was always card-or-phone gated and never inside them. Kept as its own record because the gate differs from the paid product (phone rather than card) and the ceiling differs by three orders of magnitude. The 25 GB comes from third parties and is the number a reader will plan around, so it is flagged rather than dropped.
+- evidence note: Trial absence was observed on three vendor pages on 2026-10-30. Archive comparisons reflect historical pricing records.
+- extras:
+  - ladder_effect: group 3 byte-committed total falls from 70 GB to 45 GB; no-card totals unchanged
+  - supersedes: scratch (removed)
+  - days: 7
+  - card_required: no
+  - phone_required: yes
+- evidence:
+  - [1] 2026-10-23: no trial, no 'free' label and no 25 GB allowance anywhere on the offers page
+  - [4] 2026-10-23: the word 'free' appears once, in the link text 'Free hosts'; there is no trial entry
+  - [2] 2026-10-23: the only signup call to action is 'Register Free'; no tryout is advertised
+  - [1] 2026-10-23: 
+  - [5] 2026-10-23: third party, French: 'une offre d'essai limitée à 7 jours et surtout à un quota de 25 GO de données téléchargées', no card, phone validation
+  - [6] 2026-10-23: third party, French: 'Essai Gratuit de 7 Jours Limité à 25 Go après Vérification SMS, une Seule Fois'
+  - [7] 2026-10-23: the vendor reserves the right to refuse the trial offer
+  - [3] 2026-10-23: the logged-out offer page lists only the paid 30/90/180/300-day plans; it carries no trial offer to a reader without an account
+  - probe:https://alldebrid.com/offers/ 2026-10-30: a GET of https://alldebrid.com/offers/ answered HTTP 302 with Location https://alldebrid.com/404/ on 2026-10-30, and the final page was 21460 bytes | capture: sha256:f846377baba1fc37ab9c61168d73f26aa5998853736aad81bed1c3fa12593322 | quote: "location": "https://alldebrid.com/404/"
+  - [1] 2026-10-30: the page served for /offers/ on 2026-10-30 is the site's 404 page, 'la page que vous demandez n'existe pas' | capture: sha256:6a6f42c011ce34c9a1305b21ec97728c26c0177f5e9a6ec42fc88252cf9bd0fc | quote: 404 - la page que vous demandez n'existe pas
+  - [8] 2026-10-30: the 2023-10-02 archive copy of the plan page lists a Free tryout: base price Free, 7 days, SMS verification required, new members only | capture: sha256:65e96b9a763842fb29ab792908afd4afd2b24885accd2cc5a916392efc0584ab | quote: Try our service for free after a SMS verification.
+  - [9] 2026-10-30: the 2025-10-10 archive copy of the plan page still lists the Free tryout, 7 days, activated by SMS verification | capture: sha256:a90fcaf65e12a338f210e55406086c39f35b2f08f7d22c887a39dbc6183f62a6 | quote: A SMS verification is required to activate the free tryout.
+  - [4] 2026-10-30: the FAQ index on 2026-10-30 has one entry with the word free, 'Free hosts', and no trial entry | capture: sha256:ae826e99797f86e3fd4d1e65fad63a4673559049f5cde388bd91923ca1540482 | quote: [Free hosts](https://alldebrid.com/en/faq/free-hosts)
+  - [2] 2026-10-30: the home page's signup link reads 'Register Free'; the page advertises no tryout | capture: sha256:a57c550e0882697ce49b5fbedd647625239d4343f4c2c4c511b95d89679148a0 | quote: [Register Free](https://alldebrid.com/register/)
+  - [3] 2026-10-30: live plan page of AllDebrid is https://alldebrid.com/offer/, linked as Pricing and Payments plans | capture: sha256:9707166769dbaef5a460ae2c9b65813fc835c425c4364d4582a91a9f70939392 | quote: You are here :[Home](https://alldebrid.com/) [Payments plans](https://alldebrid.com/offer/)
+  - [3] 2026-10-30: the live plan page on 2026-10-30 lists two payment frequencies, Subscription at 2.99 EUR per 30 days and One-time at 3.99 EUR per 30 days, and no Free tryout | capture: sha256:9707166769dbaef5a460ae2c9b65813fc835c425c4364d4582a91a9f70939392 | quote: Using a credit card you will be billed every 30 days automatically.
+- sources:
+  - [1] https://alldebrid.com/offers/
+  - [2] https://alldebrid.com/
+  - [3] https://alldebrid.com/offer/
+  - [4] https://alldebrid.com/faq/
+  - [5] https://www.mon-depannage-informatique.fr/blog/alldebrid-7-raisons-choisir-debrideur-2026
+  - [6] https://fr.hotdeals.com/code-promo/alldebrid
+  - [7] https://alldebrid.com/tos/
+  - [8] https://web.archive.org/web/20231002100345/https://alldebrid.com/offer/
+  - [9] https://web.archive.org/web/20251010021542/https://alldebrid.com/offer/

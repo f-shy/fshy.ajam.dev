@@ -1,0 +1,111 @@
+# Grafana Cloud
+
+> grafana.com | Compute, Developer services; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/grafana/ | JSON https://fshy.ajam.dev/api/v1/entity/grafana.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Grafana Cloud (Compute)
+
+- `compute/grafana-cloud` | qualifies-with-caveat | evidence documented | binding volume-quota | category hosted metrics, logs, traces and profiles (observability platform)
+- needs card no, phone no, ID no, institution no | verified 2026-10-31T06:50:57.862Z (live) | stale on 2026-12-01
+- url https://grafana.com/pricing/
+- duplicate of `dev-services/grafana-cloud`
+- free tier: Free plan, quoted: 'Always free Always', '$0', 'No credit card required', 'Actually useful free tier with access to everything that Grafana Cloud has to offer'. Metrics: 'Limited to 10k active series per month', '14 days retention'. Logs: 'Limited to 50 GB ingested per month', '14 day retention'. | unit: mixed | metered on: uploaded-bytes | read on: 2026-10-31 | source: [1] | note: perpetual-free
+- per-object cap: 256kb per log line (max_line_size, not modifiable) and 5MB per trace (max_bytes_per_trace) by default | source: [2]
+- retention: 14 days for metrics, logs, traces, profiles and k6 performance tests on the free plan | days: 14 | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email | detail: No credit card required on the free plan; the sign-up page offers Google, GitHub, Microsoft or Amazon sign-in, or an account form.
+- interface: rest
+- limits:
+  - volume-quota (binding): 10k active metric series per month (a count of series, not bytes) [1]
+  - volume-quota (binding): 50 GB of logs, 50 GB of traces and 50 GB of profiles ingested per month [1]
+  - retention-clamped: 14 days for metrics, logs, traces, profiles and k6 performance tests [1]
+  - per-object-cap: 256kb per log line; 5MB per trace by default [2]
+- limits note: 3 active users per month and 500 k6 virtual user hours per month on the free plan.
+- binding note: Metrics stop at 10k active series per month on the free plan; logs, traces and profiles stop at 50 GB ingested each per month.
+- interface detail: Every Grafana instance exposes an HTTP API; the Grafana Cloud API (GCOM) manages the resources of a stack programmatically
+- tooling: the hosted Grafana UI, the Grafana HTTP API and the Grafana Cloud API
+- composes with: A hosted log, metric and trace store for scripts on free compute: 50 GB of logs a month with 14 days of history, queried from the same hosted Grafana.
+- reliability: no reliability event recorded
+- notes: Duplicate of dev-services/grafana-cloud, which records the same free plan. One account yields hosted metrics, logs, traces, profiles and k6 performance tests; retention of 14 days makes it an observation window, not an archive.
+- extras:
+  - facets.class: observability-free-tier
+  - facets.free_tier_kind: perpetual-free
+- evidence:
+  - [1] 2026-10-22: Free plan: 'Always free', '$0', 'No credit card required'; metrics 'Limited to 10k active series per month' with '14 days retention'; logs 'Limited to 50 GB ingested per month' with '14 day retention', quoted
+  - [1] 2026-10-22: free plan includes 'All Grafana Cloud services, with usage limits', 'Adaptive Telemetry, AI Assistant' and '14 days retention for metrics, logs, traces, profiles, & k6 performance tests'
+  - [3] 2026-10-31: Grafana Cloud Free is a managed observability platform, not a machine | capture: sha256:ef51ff39cfd9e39617a7f484a591424f3f37395ef937073609898a8a54cb27df | quote: is a no-cost, fully managed observability platform—no credit card required.
+  - [1] 2026-10-31: metrics are counted in active series, not bytes | capture: sha256:f3a93ef47bdc0c42c18738e7b5b7f13604e874a72be4ee5647ce8fc54ec8a53e | quote: Limited to 10k active series per month
+  - [1] 2026-10-31: logs, traces and profiles are metered on GB ingested per month | capture: sha256:f3a93ef47bdc0c42c18738e7b5b7f13604e874a72be4ee5647ce8fc54ec8a53e | quote: Limited to 50 GB ingested per month
+  - [1] 2026-10-31: the free plan figures of the stated text are on the pricing page as read | capture: sha256:f3a93ef47bdc0c42c18738e7b5b7f13604e874a72be4ee5647ce8fc54ec8a53e | quote: Limited to 10k active series per month
+  - [2] 2026-10-31: a log line is capped at 256kb and the cap cannot be modified | capture: sha256:6fb0d400037539916c7a87766adc63411971981b6ad4e559e042e0d8ee5286d6 | quote: | `max_line_size` | The maximum size of a log line. This limit can’t be modified. | 256kb |
+  - [2] 2026-10-31: a trace is capped at 5MB by default | capture: sha256:6fb0d400037539916c7a87766adc63411971981b6ad4e559e042e0d8ee5286d6 | quote: The default limit for traces is 5MB, which, in Tempo, is configured by `max_bytes_per_trace`.
+  - [1] 2026-10-31: the free plan keeps metrics, logs, traces, profiles and k6 tests for 14 days | capture: sha256:f3a93ef47bdc0c42c18738e7b5b7f13604e874a72be4ee5647ce8fc54ec8a53e | quote: 14 days retention for metrics, logs, traces, profiles, & k6 performance tests
+  - [4] 2026-10-31: the Grafana Cloud API manages stack resources programmatically | capture: sha256:508c332a8482a89782062a5ea2e4c5c99e17cb54a23d45ab803c34d9bcbf7809 | quote: The Grafana Cloud API, also known as the Grafana.com API or GCOM API, allows you to interact with resources from your Grafana Cloud Stack programmatically.
+  - [4] 2026-10-31: every Grafana instance has an HTTP API | capture: sha256:508c332a8482a89782062a5ea2e4c5c99e17cb54a23d45ab803c34d9bcbf7809 | quote: Every Grafana instance exposes an HTTP API
+  - [4] 2026-10-31: the Grafana Cloud API is documented for programmatic access | capture: sha256:508c332a8482a89782062a5ea2e4c5c99e17cb54a23d45ab803c34d9bcbf7809 | quote: The Grafana Cloud API, also known as the Grafana.com API or GCOM API, allows you to interact with resources from your Grafana Cloud Stack programmatically.
+  - [1] 2026-10-31: free metrics are limited to 10k active series a month | capture: sha256:f3a93ef47bdc0c42c18738e7b5b7f13604e874a72be4ee5647ce8fc54ec8a53e | quote: Limited to 10k active series per month
+  - [1] 2026-10-31: free logs, traces and profiles are each limited to 50 GB ingested a month | capture: sha256:f3a93ef47bdc0c42c18738e7b5b7f13604e874a72be4ee5647ce8fc54ec8a53e | quote: Limited to 50 GB ingested per month
+  - [1] 2026-10-31: the free plan keeps data for 14 days | capture: sha256:f3a93ef47bdc0c42c18738e7b5b7f13604e874a72be4ee5647ce8fc54ec8a53e | quote: 14 days retention for metrics, logs, traces, profiles, & k6 performance tests
+  - [2] 2026-10-31: a log line is capped at 256kb | capture: sha256:6fb0d400037539916c7a87766adc63411971981b6ad4e559e042e0d8ee5286d6 | quote: | `max_line_size` | The maximum size of a log line. This limit can’t be modified. | 256kb |
+  - [1] 2026-10-31: free k6 testing is limited to 500 virtual user hours a month; the same page limits free visualization to 3 active users | capture: sha256:f3a93ef47bdc0c42c18738e7b5b7f13604e874a72be4ee5647ce8fc54ec8a53e | quote: Limited to 500 virtual user hours per month
+  - [5] 2026-10-31: the sign-up page offers Google, GitHub, Microsoft or Amazon sign-in, or an account form | capture: sha256:bae5e9d1ee931218281e238fc1b8604a3d0ab5b7d374de2b07d285100ed52f54 | quote: Create your free account GoogleGitHubMicrosoftAmazon or
+  - [1] 2026-10-31: the free product cards state that no credit card is required | capture: sha256:f3a93ef47bdc0c42c18738e7b5b7f13604e874a72be4ee5647ce8fc54ec8a53e | quote: No credit card required
+  - [1] 2026-10-31: free logs are limited to 50 GB ingested a month | capture: sha256:f3a93ef47bdc0c42c18738e7b5b7f13604e874a72be4ee5647ce8fc54ec8a53e | quote: Limited to 50 GB ingested per month
+  - [1] 2026-10-31: the free plan costs nothing and has no charges | capture: sha256:f3a93ef47bdc0c42c18738e7b5b7f13604e874a72be4ee5647ce8fc54ec8a53e | quote: Perfect for personal projects, exploring new ideas, and early-stage startups. No charges ever.
+- sources:
+  - [1] https://grafana.com/pricing/
+  - [2] https://grafana.com/docs/grafana-cloud/platform/pricing-and-usage/usage-limits/
+  - [3] https://grafana.com/products/cloud/free-tier/
+  - [4] https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/
+  - [5] https://grafana.com/auth/sign-up/create-user/
+
+## Grafana Cloud (free)
+
+- `dev-services/grafana-cloud` | qualifies-with-caveat | evidence documented | binding volume-quota | category hosted metrics, logs, traces and profiles (observability platform) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-31T00:43:09.670Z (live) | stale on 2026-12-01
+- url https://grafana.com/pricing/
+- free tier: Free plan at USD 0 with no credit card: all Grafana Cloud services with usage limits, including 10k active metric series, 50 GB of logs, 50 GB of traces and 50 GB of profiles ingested per month, 500 k6 virtual user hours per month, 3 active users and 14 days of retention; a new account starts with a 14-day trial and then moves to the free plan | unit: mixed | metered on: uploaded-bytes | read on: 2026-10-31 | source: [1] | note: Logs, traces and profiles are counted in GB ingested, metrics in active series and k6 tests in virtual user hours. Ingestion past a free limit is discarded rather than billed, according to a Grafana community forum answer.
+- per-object cap: 256kb per log line (max_line_size, not modifiable) and 5MB per trace (max_bytes_per_trace) by default | source: [2]
+- retention: 14 days for metrics, logs, traces, profiles and k6 performance tests on the free plan | days: 14 | source: [1]
+- egress: not stated: the pricing page prices ingestion and retention and names no charge for querying data back | metered: no | source: [1]
+- identity: email | detail: No credit card required on the free plan; the sign-up page offers Google, GitHub, Microsoft or Amazon sign-in, or an account form. Account creation starts a 14-day trial, after which the account moves to the free plan; trial usage is never billed.
+- interface: rest
+- limits:
+  - volume-quota (binding): 50 GB of logs, 50 GB of traces and 50 GB of profiles ingested per month [1]
+  - volume-quota (binding): 10k active metric series per month (a count of series, not bytes) [1]
+  - retention-clamped: 14 days for metrics, logs, traces, profiles and k6 tests [1]
+  - per-object-cap: 256kb per log line; 5MB per trace by default [2]
+- limits note: 3 active users per month and 500 k6 virtual user hours per month on the free plan.
+- binding note: Ingestion past 10k active series or 50 GB of logs in a month is discarded until the month resets; metrics with many label values reach the series count first.
+- interface detail: Every Grafana instance exposes an HTTP API; the Grafana Cloud API (GCOM) manages stack resources; Tempo exposes an API for pushing and querying traces; Synthetic Monitoring has a REST API
+- tooling: the hosted Grafana UI, the Grafana HTTP API, the Grafana Cloud API, and the Tempo and Synthetic Monitoring APIs
+- composes with: A hosted log, metric and trace store for scripts on free compute: 50 GB of logs a month with 14 days of history, queried from the same hosted Grafana.
+- reliability: ingestion past a free limit is discarded for the rest of the month rather than billed (community forum answer)
+- notes: The same free plan is also recorded as compute/grafana-cloud. Retention of 14 days makes this an observation window, not an archive.
+- evidence:
+  - [1] 2026-10-31: the free plan costs nothing and has no charges | capture: sha256:f3a93ef47bdc0c42c18738e7b5b7f13604e874a72be4ee5647ce8fc54ec8a53e | quote: Perfect for personal projects, exploring new ideas, and early-stage startups. No charges ever.
+  - [1] 2026-10-31: the free plan includes all Grafana Cloud services with usage limits | capture: sha256:f3a93ef47bdc0c42c18738e7b5b7f13604e874a72be4ee5647ce8fc54ec8a53e | quote: All Grafana Cloud services, with usage limits
+  - [1] 2026-10-31: the free plan keeps metrics, logs, traces, profiles and k6 tests for 14 days | capture: sha256:f3a93ef47bdc0c42c18738e7b5b7f13604e874a72be4ee5647ce8fc54ec8a53e | quote: 14 days retention for metrics, logs, traces, profiles, & k6 performance tests
+  - [1] 2026-10-31: free metrics are limited to 10k active series a month | capture: sha256:f3a93ef47bdc0c42c18738e7b5b7f13604e874a72be4ee5647ce8fc54ec8a53e | quote: Limited to 10k active series per month
+  - [1] 2026-10-31: free logs, traces and profiles are each limited to 50 GB ingested a month | capture: sha256:f3a93ef47bdc0c42c18738e7b5b7f13604e874a72be4ee5647ce8fc54ec8a53e | quote: Limited to 50 GB ingested per month
+  - [1] 2026-10-31: the free product cards state that no credit card is required | capture: sha256:f3a93ef47bdc0c42c18738e7b5b7f13604e874a72be4ee5647ce8fc54ec8a53e | quote: No credit card required
+  - [1] 2026-10-31: free k6 performance testing is limited to 500 virtual user hours a month | capture: sha256:f3a93ef47bdc0c42c18738e7b5b7f13604e874a72be4ee5647ce8fc54ec8a53e | quote: Limited to 500 virtual user hours per month
+  - [1] 2026-10-31: free visualization is limited to 3 active users a month | capture: sha256:f3a93ef47bdc0c42c18738e7b5b7f13604e874a72be4ee5647ce8fc54ec8a53e | quote: Limited to 3 active users per month
+  - [3] 2026-10-31: the free tier is a no-cost managed platform with no credit card | capture: sha256:ef51ff39cfd9e39617a7f484a591424f3f37395ef937073609898a8a54cb27df | quote: is a no-cost, fully managed observability platform—no credit card required.
+  - [4] 2026-10-31: the sign-up page offers Google, GitHub, Microsoft or Amazon sign-in, or an account form | capture: sha256:bae5e9d1ee931218281e238fc1b8604a3d0ab5b7d374de2b07d285100ed52f54 | quote: Create your free account GoogleGitHubMicrosoftAmazon or
+  - [5] 2026-10-31: account creation starts a trial, after which the account moves to the free plan with usage restrictions | capture: sha256:2627a8255c298d1eed6ec2e907cf537d62f68fb77775735540196793e5f489a6 | quote: When the trial ends, you can transition to the free forever plan, with usage restrictions.
+  - [6] 2026-10-31: trial usage is never billed and the account moves to the free plan when the trial completes | capture: sha256:2ada83365d8c07d1ceb46d4c9ed3825c75c915a79a93937a722048f69c38811d | quote: Trial usage is never billed. When the trial completes, the account automatically moves to the Grafana Cloud Free plan.
+  - [7] 2026-10-31: a forum answer states that ingestion past the free limits is discarded | capture: sha256:ae4fc5ad8ad2b0293c7e76666d0cb579ef0d0dccd790c98da0f75db756ba017a | quote: Usage that exceeds the ingestion limits for the Grafana Cloud Free plan will be discarded.
+  - [2] 2026-10-31: a log line is capped at 256kb and the cap cannot be modified | capture: sha256:6fb0d400037539916c7a87766adc63411971981b6ad4e559e042e0d8ee5286d6 | quote: | `max_line_size` | The maximum size of a log line. This limit can’t be modified. | 256kb |
+  - [2] 2026-10-31: a trace is capped at 5MB by default | capture: sha256:6fb0d400037539916c7a87766adc63411971981b6ad4e559e042e0d8ee5286d6 | quote: The default limit for traces is 5MB, which, in Tempo, is configured by `max_bytes_per_trace`.
+  - [8] 2026-10-31: the Grafana Cloud API manages stack resources programmatically | capture: sha256:508c332a8482a89782062a5ea2e4c5c99e17cb54a23d45ab803c34d9bcbf7809 | quote: The Grafana Cloud API, also known as the Grafana.com API or GCOM API, allows you to interact with resources from your Grafana Cloud Stack programmatically.
+- sources:
+  - [1] https://grafana.com/pricing/
+  - [2] https://grafana.com/docs/grafana-cloud/platform/pricing-and-usage/usage-limits/
+  - [3] https://grafana.com/products/cloud/free-tier/
+  - [4] https://grafana.com/auth/sign-up/create-user/
+  - [5] https://grafana.com/docs/grafana-cloud/get-started/create-account/
+  - [6] https://grafana.com/docs/grafana-cloud/cost-management-and-billing/understand-your-invoice/
+  - [7] https://community.grafana.com/t/what-happens-when-my-usage-exceed-the-free-plan-limitations/102795
+  - [8] https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/

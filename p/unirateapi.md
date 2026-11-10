@@ -1,0 +1,121 @@
+# UniRateAPI public
+
+> unirateapi.com | Data APIs; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/unirateapi/ | JSON https://fshy.ajam.dev/api/v1/entity/unirateapi.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## UniRateAPI
+
+- `data-apis/unirateapi` | qualifies-with-caveat | evidence documented | binding request-rate | category currency exchange-rate API (fiat and crypto rates, conversion, VAT rates, IBAN validation, holiday calendars, central bank rates) | tier Free
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T00:23:43.773Z (live) | stale on 2026-12-03
+- url https://unirateapi.com/pricing
+- free tier: Free tier USD 0 per month: 200 requests per day (6,000 per month) and 30 requests per minute, 170+ fiat currencies and 500+ cryptocurrencies, real-time exchange rates, currency conversion, EU VAT rates, IBAN validation, public holiday and business-day calendars, central bank policy rates and CPI inflation; no historical data access. | unit: requests | metered on: request-count | read on: 2026-11-02 | source: [1] | note: Limits reset at 00:00 UTC; at the limit the API answers HTTP 429 with a reset timestamp and there are no overage charges. Historical rates, time series, precious metals and commodities are on Pro at USD 9 a month with 25,000 requests per day and 1,000 historical requests per day. A keyless widget endpoint on the same host is recorded separately.
+- per-object cap: unverified: no per-response cap is stated on the pages read | source: [1]
+- retention: not applicable: a query API with no stored objects; the Free tier has no historical data access | source: [1]
+- egress: not metered in bytes; the 200 requests a day bound what a free key can pull | metered: no | source: [1]
+- identity: email | detail: The register page offers Sign up with Google or an email, a password and a password confirmation with a how-did-you-hear-about-us field; the pricing page says the Free tier needs no credit card.
+- interface: rest
+- limits:
+  - request-rate (binding): 200 requests per day (6,000 per month) on the Free tier, reset at 00:00 UTC [1]
+  - request-rate (binding): 30 requests per minute on the Free tier [2]
+- limits note: Plan gating: Free has no historical data access; historical rates, time series, precious metals, commodities, VAT number validation and market calendars are Pro. Bulk path: one rates call for a base returns a map of rates.
+- binding note: 200 requests a day is met long before 30 per minute could be.
+- interface detail: GET https://api.unirateapi.com/api/{endpoint} (rates, convert, currencies, historical, vat, iban, calendar, macro) with the key in the api_key query parameter; JSON, XML or JSONP, with an OpenAPI document at https://api.unirateapi.com/apispec_1.json.
+- endpoint: https://api.unirateapi.com/api/rates
+- tooling: any HTTP client; code samples for Python, Node.js, Go, PHP and cURL
+- composes with: 200 requests a day of fiat and crypto rates with VAT, IBAN, holiday and central bank data but no history, so a free stack caches one rates call per refresh; the keyless widget endpoint of the same vendor serves rates at 60 requests a minute per IP, and history needs Pro or another source.
+- reliability: At the limit the API answers HTTP 429 with a reset timestamp; a call with no key answered HTTP 401 Missing API key.
+- notes: Free has no historical data; Pro at USD 9 a month adds historical rates since 1999, time series, precious metals and commodities.
+- evidence note: The tier, limits and features are read from the first-party pricing, home and forex pages, and a keyless call answered HTTP 401. A free key was not exercised, so the answer at the limit is unverified: behind a sign-up.
+- evidence:
+  - [1] 2026-11-02: the Free tier is USD 0 a month | capture: sha256:e198ee54262fc3e7364dbc91952824e7bce4e8fb069ab74491435f277ffeace8 | quote: ### Free Tier $0 /month
+  - [1] 2026-11-02: the Free tier allows 200 requests a day, 6,000 a month | capture: sha256:e198ee54262fc3e7364dbc91952824e7bce4e8fb069ab74491435f277ffeace8 | quote: - 200 requests/day (6,000/month)
+  - [1] 2026-11-02: the Free tier covers 170+ fiat currencies | capture: sha256:e198ee54262fc3e7364dbc91952824e7bce4e8fb069ab74491435f277ffeace8 | quote: - 170+ FIAT currencies
+  - [1] 2026-11-02: the Free tier covers 500+ cryptocurrencies | capture: sha256:e198ee54262fc3e7364dbc91952824e7bce4e8fb069ab74491435f277ffeace8 | quote: - 500+ Cryptocurrencies
+  - [1] 2026-11-02: the Free tier includes real-time exchange rates | capture: sha256:e198ee54262fc3e7364dbc91952824e7bce4e8fb069ab74491435f277ffeace8 | quote: - Real-time exchange rates
+  - [1] 2026-11-02: the Free tier includes currency conversion | capture: sha256:e198ee54262fc3e7364dbc91952824e7bce4e8fb069ab74491435f277ffeace8 | quote: - Currency conversion
+  - [1] 2026-11-02: the Free tier includes EU VAT rates | capture: sha256:e198ee54262fc3e7364dbc91952824e7bce4e8fb069ab74491435f277ffeace8 | quote: - EU VAT rates
+  - [1] 2026-11-02: the Free tier includes IBAN validation | capture: sha256:e198ee54262fc3e7364dbc91952824e7bce4e8fb069ab74491435f277ffeace8 | quote: - IBAN validation (checksum, length, bank/branch/account split)
+  - [1] 2026-11-02: the Free tier includes holiday and business-day calendars for 250 countries | capture: sha256:e198ee54262fc3e7364dbc91952824e7bce4e8fb069ab74491435f277ffeace8 | quote: - Public holiday & business-day calendars (250 countries)
+  - [1] 2026-11-02: the Free tier includes central bank policy rates and CPI inflation | capture: sha256:e198ee54262fc3e7364dbc91952824e7bce4e8fb069ab74491435f277ffeace8 | quote: - Central bank policy rates & CPI inflation (~40 central banks, ~60 economies, full history; source: BIS)
+  - [1] 2026-11-02: the Free tier has no historical data access | capture: sha256:e198ee54262fc3e7364dbc91952824e7bce4e8fb069ab74491435f277ffeace8 | quote: - No historical data access
+  - [1] 2026-11-02: the next plan up, Pro, is USD 9 a month | capture: sha256:e198ee54262fc3e7364dbc91952824e7bce4e8fb069ab74491435f277ffeace8 | quote: $9 /month
+  - [1] 2026-11-02: Pro adds historical data access from 1999 | capture: sha256:e198ee54262fc3e7364dbc91952824e7bce4e8fb069ab74491435f277ffeace8 | quote: - Historical data access (1999-2026)
+  - [1] 2026-11-02: Pro adds time series data | capture: sha256:e198ee54262fc3e7364dbc91952824e7bce4e8fb069ab74491435f277ffeace8 | quote: - Time series data
+  - [1] 2026-11-02: Pro adds a precious metals API | capture: sha256:e198ee54262fc3e7364dbc91952824e7bce4e8fb069ab74491435f277ffeace8 | quote: - Precious metals API (gold, silver, platinum, palladium)
+  - [1] 2026-11-02: Pro adds 19 commodities | capture: sha256:e198ee54262fc3e7364dbc91952824e7bce4e8fb069ab74491435f277ffeace8 | quote: - 19 commodities — Brent, WTI, natural gas, copper, aluminium, wheat, coffee, cocoa & more
+  - [1] 2026-11-02: Pro adds VAT number validation | capture: sha256:e198ee54262fc3e7364dbc91952824e7bce4e8fb069ab74491435f277ffeace8 | quote: - VAT number validation (EU VIES, Norway, Switzerland; UK coming soon)
+  - [1] 2026-11-02: Pro adds exchange market calendars and FX spot value dates | capture: sha256:e198ee54262fc3e7364dbc91952824e7bce4e8fb069ab74491435f277ffeace8 | quote: - Market calendars — exchange trading hours & holidays (60+ exchanges) and FX spot value dates
+  - [1] 2026-11-02: Pro allows 25,000 requests a day | capture: sha256:e198ee54262fc3e7364dbc91952824e7bce4e8fb069ab74491435f277ffeace8 | quote: - 25,000 requests/day (750,000/month)
+  - [1] 2026-11-02: Pro allows 1,000 historical requests a day | capture: sha256:e198ee54262fc3e7364dbc91952824e7bce4e8fb069ab74491435f277ffeace8 | quote: - 1,000 historical requests/day (30,000/month)
+  - [1] 2026-11-02: past the daily limit the API answers HTTP 429 with the reset time at midnight UTC | capture: sha256:e198ee54262fc3e7364dbc91952824e7bce4e8fb069ab74491435f277ffeace8 | quote: API requests will return a 429 error with information about when your limit resets (midnight UTC).
+  - [1] 2026-11-02: the Free tier is available forever with no credit card | capture: sha256:e198ee54262fc3e7364dbc91952824e7bce4e8fb069ab74491435f277ffeace8 | quote: The Free tier is available forever with no credit card required.
+  - [2] 2026-11-02: the Free tier allows 30 requests per minute | capture: sha256:6e6391af4e606ec81421add4aae86463114a84d7bba60e8d657205656119d0ed | quote: Free tier includes 30 requests per minute.
+  - [3] 2026-11-02: at a limit the API answers 429 with a reset timestamp and there are no overage charges | capture: sha256:dbcb953a067b6c5fd79d12dd0c0164d96f586d80723a70f5f8916bf99e5dac38 | quote: Hit a limit and you get a 429 response with a reset timestamp; there are no surprise overage charges.
+  - [2] 2026-11-02: one rates call for a base returns a map of rates | capture: sha256:6e6391af4e606ec81421add4aae86463114a84d7bba60e8d657205656119d0ed | quote: "rates": { "EUR": 0.92, "GBP": 0.79, ... },
+  - [3] 2026-11-02: responses come as JSON, XML or JSONP | capture: sha256:dbcb953a067b6c5fd79d12dd0c0164d96f586d80723a70f5f8916bf99e5dac38 | quote: JSON, XML, or JSONP responses
+  - [3] 2026-11-02: code samples exist for Python, Node.js, Go, PHP and cURL | capture: sha256:dbcb953a067b6c5fd79d12dd0c0164d96f586d80723a70f5f8916bf99e5dac38 | quote: Code samples in Python, Node.js, Go, PHP, and cURL below
+  - [4] 2026-11-02: the register page offers Google sign-in | capture: sha256:f28e0e0cc1e1a884453804b7a6c62d94927733233cb6c764ec75afe3909b3189 | quote: Sign up with Google
+  - [4] 2026-11-02: the register page has an email form with a password and a confirmation | capture: sha256:f28e0e0cc1e1a884453804b7a6c62d94927733233cb6c764ec75afe3909b3189 | quote: Or register with email
+  - [4] 2026-11-02: the register form asks for a password confirmation | capture: sha256:f28e0e0cc1e1a884453804b7a6c62d94927733233cb6c764ec75afe3909b3189 | quote: Confirm Password
+  - [5] 2026-11-02: the API publishes an OpenAPI document for currency conversion and exchange rates | capture: sha256:4abe83a3598e3175d486da2d7ddfe89aa213b3901b63435ee2e0ea3e10c5761d | quote: "description":"API for currency conversion and exchange rates with historical data"
+  - [5] 2026-11-02: the document lists a rates endpoint with optional amount conversion | capture: sha256:4abe83a3598e3175d486da2d7ddfe89aa213b3901b63435ee2e0ea3e10c5761d | quote: "/api/rates":{"get":{"description":"Get exchange rates between currencies with optional amount conversion"
+  - [5] 2026-11-02: the document lists a historical rates endpoint | capture: sha256:4abe83a3598e3175d486da2d7ddfe89aa213b3901b63435ee2e0ea3e10c5761d | quote: "/api/historical/rates":{"get":
+  - [5] 2026-11-02: the document lists a convert endpoint | capture: sha256:4abe83a3598e3175d486da2d7ddfe89aa213b3901b63435ee2e0ea3e10c5761d | quote: "/api/convert":{"get":
+  - [5] 2026-11-02: the document lists a currencies endpoint | capture: sha256:4abe83a3598e3175d486da2d7ddfe89aa213b3901b63435ee2e0ea3e10c5761d | quote: "/api/currencies":{"get":
+  - [5] 2026-11-02: the document lists a VAT rates endpoint | capture: sha256:4abe83a3598e3175d486da2d7ddfe89aa213b3901b63435ee2e0ea3e10c5761d | quote: "/api/vat/rates":{"get":
+  - [5] 2026-11-02: the document lists an IBAN validation endpoint | capture: sha256:4abe83a3598e3175d486da2d7ddfe89aa213b3901b63435ee2e0ea3e10c5761d | quote: "/api/iban/validate":{"get":
+  - [5] 2026-11-02: the document lists a holiday calendar endpoint | capture: sha256:4abe83a3598e3175d486da2d7ddfe89aa213b3901b63435ee2e0ea3e10c5761d | quote: "/api/calendar/holidays":{"get":
+  - [5] 2026-11-02: the document lists an inflation endpoint under macro | capture: sha256:4abe83a3598e3175d486da2d7ddfe89aa213b3901b63435ee2e0ea3e10c5761d | quote: "/api/macro/inflation":{"get":
+  - [5] 2026-11-02: the endpoints take the key in an api_key parameter | capture: sha256:4abe83a3598e3175d486da2d7ddfe89aa213b3901b63435ee2e0ea3e10c5761d | quote: "name":"api_key"
+  - probe:https://api.unirateapi.com/api/rates?from=USD 2026-11-02: a keyless call to the rates endpoint answers HTTP 401 | capture: sha256:12bd2a9b52a10cf779e04bc8c7d504600b180ce576fffcd40e9bbc1deeb82a88 | quote: "status": 401
+  - probe:https://api.unirateapi.com/api/rates?from=USD 2026-11-02: the keyless 401 body says the API key is missing | capture: sha256:adc1dba51e2abf9d6d2beb00f1422d786b01d86aea6186aab28aae8a0ca99ceb | quote: {"error":"Missing API key"}
+- sources:
+  - [1] https://unirateapi.com/pricing
+  - [2] https://unirateapi.com/
+  - [3] https://unirateapi.com/forex-api
+  - [4] https://unirateapi.com/register
+  - [5] https://api.unirateapi.com/apispec_1.json
+
+## UniRateAPI public widget endpoint
+
+- `data-apis/unirateapi-widget-endpoint` | qualifies-with-caveat | evidence measured | binding request-rate | category currency exchange-rate API (keyless endpoint behind the embeddable widgets: rates, currencies, conversion, VAT rates) | tier Public widget endpoint
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T00:23:43.773Z (live) | stale on 2027-01-02
+- url https://unirateapi.com/widgets
+- free tier: Keyless endpoint at api.unirateapi.com/api/widget/v1: 60 requests per minute per IP with no API key, signup or credit card; rates refresh hourly. | unit: requests | metered on: request-count | read on: 2026-11-02 | source: [1] | note: The widgets page names this endpoint as the data source of its embeddable widgets. GET /widget/v1/rates?base=USD answered the full rate table for a base, fiat and crypto, as JSON; the widget script also calls /widget/v1/currencies, /widget/v1/convert and /widget/v1/vat/all. The keyed Free tier of the same vendor is recorded separately.
+- per-object cap: no cap is stated; one rates answer for the base USD was 21969 bytes of JSON | source: [1]
+- retention: not applicable: a query API with no stored objects; the widget calls serve current rates, currencies, conversions and VAT rates | source: [1]
+- egress: not metered in bytes; 60 requests a minute per IP bound what an address can pull | metered: no | source: [1]
+- identity: anonymous | detail: No key, signup or card: the widgets page says the widget pulls rates from the public endpoint with no key, and a keyless GET answered HTTP 200 with a rates table.
+- interface: rest
+- limits:
+  - request-rate (binding): 60 requests per minute per IP, with no authentication; past it the endpoint answers HTTP 429 with Retry-After [1]
+- limits note: Current data only: the widget routes cover rates, currencies, conversion and VAT rates, with no history route.
+- binding note: The only limit stated is 60 requests a minute per IP.
+- interface detail: GET https://api.unirateapi.com/api/widget/v1/rates?base=USD, /widget/v1/currencies, /widget/v1/convert?amount=&from=&to= and /widget/v1/vat/all with no key; JSON answers carrying x-ratelimit-burst-limit, x-ratelimit-burst-remaining and x-ratelimit-burst-reset headers.
+- endpoint: part of interface detail
+- tooling: any HTTP client; the embeddable widget script at unirateapi.com/lander/static/js/unirate-widgets.js calls the same routes
+- composes with: Keyless current fiat and crypto rates for any base at 60 requests a minute per IP, so a free stack can refresh a rate table hourly without a key; history, time series and metals need the keyed Pro tier of the same vendor or another source.
+- reliability: Past the per-minute limit the endpoint answers HTTP 429 with Retry-After 20; it is documented as the data source of the embeddable widgets rather than as a general API, and refreshes hourly.
+- notes: A keyless public endpoint: current rates, currencies, conversion and VAT rates, 60 requests a minute per IP, hourly refresh.
+- evidence note: The keyless HTTP 200 answer, its size, the burst limit of 60 in its headers and the HTTP 429 answer past it are measured; the hourly refresh and the intended use are read from the widgets page.
+- evidence:
+  - [1] 2026-11-02: the widget needs no API key, signup or credit card and pulls rates from a public endpoint | capture: sha256:8252c9dd00e1f81becce21dd380b60b2e52bb52677427193de9ca16343d5b42b | quote: No API key, no signup, no credit card — the widget pulls real exchange rates from UniRate's public endpoint the moment the page loads.
+  - [1] 2026-11-02: the public endpoint allows 60 requests per minute per IP with no auth | capture: sha256:8252c9dd00e1f81becce21dd380b60b2e52bb52677427193de9ca16343d5b42b | quote: Rate limits 60 requests / minute / IP Enough for any mid-traffic embed. No auth required.
+  - [1] 2026-11-02: the data refreshes hourly from central bank and exchange sources | capture: sha256:8252c9dd00e1f81becce21dd380b60b2e52bb52677427193de9ca16343d5b42b | quote: Refreshes hourly Aggregated from ECB, Coinbase, RBA and 9 other sources.
+  - [2] 2026-11-02: the widget script targets the api.unirateapi.com/api host | capture: sha256:96827dfecc434230eb26e493b062b751196a90dd1f3c0a97ac5c60a8af139ced | quote: 'https://api.unirateapi.com/api';
+  - [2] 2026-11-02: the widget script calls the rates route with a base | capture: sha256:96827dfecc434230eb26e493b062b751196a90dd1f3c0a97ac5c60a8af139ced | quote: fetch(`${API_BASE}/widget/v1/rates?base=${base}`)
+  - [2] 2026-11-02: the widget script calls the currencies route | capture: sha256:96827dfecc434230eb26e493b062b751196a90dd1f3c0a97ac5c60a8af139ced | quote: fetch(`${API_BASE}/widget/v1/currencies`)
+  - [2] 2026-11-02: the widget script calls the convert route with an amount and two currencies | capture: sha256:96827dfecc434230eb26e493b062b751196a90dd1f3c0a97ac5c60a8af139ced | quote: fetch(`${API_BASE}/widget/v1/convert?amount=${amount}&from=${from}&to=${to}`)
+  - [2] 2026-11-02: the widget script calls the VAT route | capture: sha256:96827dfecc434230eb26e493b062b751196a90dd1f3c0a97ac5c60a8af139ced | quote: fetch(`${API_BASE}/widget/v1/vat/all`)
+  - probe:https://api.unirateapi.com/api/widget/v1/rates?base=USD 2026-11-02: a keyless GET of the rates route answered HTTP 200 | capture: sha256:274da9ce1651105bf17199b73409dad0fe514a2cc6578a1712f54d40714494af | quote: "status": 200
+  - probe:https://api.unirateapi.com/api/widget/v1/rates?base=USD 2026-11-02: the answer carries a burst limit header of 60 | capture: sha256:274da9ce1651105bf17199b73409dad0fe514a2cc6578a1712f54d40714494af | quote: "x-ratelimit-burst-limit": "60"
+  - probe:https://api.unirateapi.com/api/widget/v1/rates?base=USD 2026-11-02: the answer was 21969 bytes of JSON | capture: sha256:274da9ce1651105bf17199b73409dad0fe514a2cc6578a1712f54d40714494af | quote: "bytes": 21969
+  - probe:https://api.unirateapi.com/api/widget/v1/rates?base=USD 2026-11-02: the keyless answer is a success flag with a base and a rates table | capture: sha256:315f29e89b48417dcc8343fa4849965d7cb634232e3d1d94b0cf4e0ed3da2128 | quote: {"success":true,"base":"USD","rates":{
+  - probe:https://api.unirateapi.com/api/widget/v1/currencies 2026-11-02: past the burst limit the endpoint answered HTTP 429 | capture: sha256:d7bf62d096f37397c0ad11e13e8b659aa191b9adff28523d26053ec7e1ee120a | quote: "status": 429
+  - probe:https://api.unirateapi.com/api/widget/v1/currencies 2026-11-02: the 429 answer carried a Retry-After of 20 seconds | capture: sha256:d7bf62d096f37397c0ad11e13e8b659aa191b9adff28523d26053ec7e1ee120a | quote: "retry-after": "20"
+  - probe:https://api.unirateapi.com/api/widget/v1/currencies 2026-11-02: the 429 answer reported no burst budget remaining against a limit of 60 | capture: sha256:d7bf62d096f37397c0ad11e13e8b659aa191b9adff28523d26053ec7e1ee120a | quote: "x-ratelimit-burst-remaining": "0"
+  - probe:https://api.unirateapi.com/api/widget/v1/currencies 2026-11-02: the 429 body says the rate limit was exceeded | capture: sha256:b43be32713b8745365a3c60285ab9d5e2291d9d7905bc3ce6f7d63de8f138597 | quote: {"error":"Rate limit exceeded. Please try again later."}
+- sources:
+  - [1] https://unirateapi.com/widgets
+  - [2] https://unirateapi.com/lander/static/js/unirate-widgets.js

@@ -1,0 +1,49 @@
+# Inference.net
+
+> inference.net | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/inference/ | JSON https://fshy.ajam.dev/api/v1/entity/inference.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Inference.net
+
+- `compute/inference-net` | qualifies-with-caveat | evidence documented | binding request-rate | category inference API
+- needs card unknown, phone unknown, ID no, institution no | verified 2026-11-04T05:38:57.025Z (live) | stale on 2026-12-05
+- url https://inference.net/pricing
+- free tier: Pay as you go is priced '$0+ usage' and includes '1M included Gateway requests', 1M / mo tracing spans, 14-day data retention, 1 seat and a 30 req/min rate limit. Every plan includes monthly credits that can be spent on fine-tuning, evals, gateway routing and observability; the page gives no credit amount for Pay as you go and no per-token model price. The Growth plan at USD 250 per month adds a USD 50 one-time opening credit, 50M / mo gateway requests, 50M / mo tracing spans, unlimited data retention, unlimited seats and a 250 req/min rate limit. | unit: users | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: perpetual
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email | detail: an account created on the register page ('Sign up with your preferred account to get started'). unverified: which sign-in methods the form offers and whether it asks for a phone number or a card
+- interface: unknown
+- limits:
+  - request-rate (binding): 30 req/min rate limit and 1 seat on Pay as you go; the Growth plan raises the rate limit to 250 req/min and the seats to unlimited. The pricing page says every plan includes monthly credits that can be spent on fine-tuning, evals, gateway routing and observability, and prints no per-token model price. [1]
+  - request-rate (binding): the API docs table gives Free 30 requests per minute (RPM) and Paid (Growth, Enterprise) 1,000 RPM; free-tier teams granted free credits by an operator are raised to 200 RPM for the duration of the grant, and the pay-as-you-go credit-purchase floor is 250 RPM; the pricing page prints 250 req/min for Growth, so the two first-party pages differ on the paid figure [2]
+- limits note: 30 req/min rate limit and 1 seat on Pay as you go; the Growth plan raises the rate limit to 250 req/min and the seats to unlimited. The pricing page says every plan includes monthly credits that can be spent on fine-tuning, evals, gateway routing and observability, and prints no per-token model price.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: A low-rate agent loop fits the Pay as you go rate limit. Serverless model usage is billed per token to a credit balance, so the gateway does not make GPU tokens free by itself; how much of that balance a Pay as you go account holds is unverified.
+- reliability: no reliability event recorded
+- notes: The page states '1M included Gateway requests' without a period for the free tier while the paid tier says per month, so the free period is unstated. Whether Kuzco's decentralized GPU pool still backs the inference or the routing now points at centralized providers was not established. The USD 50 opening credit sits on the paid plan, not the free one.
+- extras:
+  - facets.class: decentralized-free-inference
+  - facets.free_tier_kind: perpetual
+- evidence:
+  - [1] 2026-10-22: Pay as you go '$0+ usage' with 1M included Gateway requests, 30 req/min, 1 seat, 14-day retention; Growth USD 250/month with a USD 50 one-time opening credit
+  - [3] 2026-10-22: kuzco.xyz now redirects to the Inference (inference_net) profile, so the Kuzco brand has been retired
+  - [1] 2026-10-28: Pay as you go is limited to 30 req/min, 1 seat and 1M included Gateway requests; the Growth plan lists 250 req/min | capture: sha256:56d7dcb426f503577862694333d82b166e275f09e3be462a0f814167b1e23ab2 | quote: - 30 req/min rate limit
+  - [1] 2026-10-28: every plan, Pay as you go included, carries monthly credits spendable on fine-tuning, evals, gateway routing and observability | capture: sha256:56d7dcb426f503577862694333d82b166e275f09e3be462a0f814167b1e23ab2 | quote: Every plan includes monthly credits you can spend on fine-tuning, evals, gateway routing, and observability.
+  - [2] 2026-10-28: the API docs rate-limit table lists Free 30 RPM and Paid 1,000 RPM, with a 200 RPM grant rate and a 250 RPM credit-purchase floor | capture: sha256:9f1e58b7e82b995435c976ed322ce8c97132827ef6c69d3e577a25d42af33996 | quote: Free-tier teams granted free credits by an operator are raised to 200 RPM for the duration of the grant.
+  - [4] 2026-10-28: the quickstart says serverless model usage is billed per token to a credit balance | capture: sha256:de8b9d4239e6ea90c4c87512308167dea8d56dcad1bdc1b9959f98a186b69de9 | quote: Usage is billed per token to your credit balance.
+  - [5] 2026-10-28: the billing reference states inference calls are billed per token at a rate that varies by model, drawn from the account credit balance | capture: sha256:c01027e0d61a88804377f8140f7f4f3702244f7c65a26189c3032c97eb5dcfa9 | quote: | Inference calls (API) | Per token, varies by model
+  - [6] 2026-10-28: the register page names no field beyond a preferred account | capture: sha256:1f2ce84aec7584d877f14300950222645bc82f5d1cbb5cf8f4074b537a1dc51c | quote: Sign up with your preferred account to get started.
+  - [1] 2026-11-03: the pricing page still says every plan carries monthly credits and lists no credit amount for Pay as you go | capture: sha256:56d7dcb426f503577862694333d82b166e275f09e3be462a0f814167b1e23ab2 | quote: Every plan includes monthly credits you can spend on fine-tuning, evals, gateway routing, and observability.
+  - [1] 2026-11-03: the pricing page lists 250 req/min on the Growth plan | capture: sha256:56d7dcb426f503577862694333d82b166e275f09e3be462a0f814167b1e23ab2 | quote: - 250 req/min rate limit
+  - [2] 2026-11-03: the API docs list 1,000 RPM for the Paid tier | capture: sha256:dae71eef6bdb589058a1b35708f903812c6ba8ec51eed816c72df4bef1b18815 | quote: | Paid (Growth, Enterprise) | 1,000
+- sources:
+  - [1] https://inference.net/pricing
+  - [2] https://docs.inference.net/api/rate-limits
+  - [3] https://x.com/inference_net
+  - [4] https://docs.inference.net/api/api-quickstart
+  - [5] https://docs.inference.net/reference/billing
+  - [6] https://inference.net/register

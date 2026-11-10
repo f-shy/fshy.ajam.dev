@@ -1,0 +1,281 @@
+# Real-Debrid Remote
+
+> real-debrid.com | Debrid; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/real-debrid/ | JSON https://fshy.ajam.dev/api/v1/entity/real-debrid.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Real-Debrid
+
+- `debrid/real-debrid` | paid-only | evidence documented | binding per-ip-shaping | category debrid multi-hoster; server/VPS/cloud IP class refused in the terms, with a metered exemption and a VPN whitelist that was withdrawn | tier premium subscription plus either a listed VPN exit or the metered Remote Traffic add-on
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T03:34:50.000Z (live) | stale on 2026-11-23
+- url https://real-debrid.com/terms
+- price EUR 4.00 per 30 days, flat (third-party price; the vendor premium page returns 403) | parsed USD 4.48/mo
+- free tier: None. The class exemption is not free either: the terms make Remote Traffic the approved path for a server caller and say it is 'in addition to the subscription'. A listed VPN exit is the only approved route that costs nothing beyond the subscription. | unit: none | metered on: none | read on: 2026-10-23 | source: [1] | note: Subscription pricing is documented under the primary Real-Debrid service tier.
+- per-object cap: not applicable: an account class rule, not an object cap | source: [1]
+- retention: not applicable: the rule governs who may call, not what is stored | source: [1]
+- egress: The terms refuse the class in one sentence: 'The User certifies that he will not use a dedicated server, VPS or any cloud service on our service other than by using his Remote Traffic (which is in addition to the subscription).' The vendor FAQ, reproduced verbatim by a third party, states the default and the exemption separately: 'By default, all server IP addresses are blocked on Real-Debrid to prevent abuse'; 'If you want to download with or through a dedicated server (RDP, personal VPN, private proxy, etc.), you have to use your Remote Traffic.' Enforcement is a range list, not a class check: the /vpn page names the calling address and answers per address. | metered: yes | free allowance: none for a server address; a listed VPN exit costs no more than the subscription | source: [2]
+- identity: email | detail: An email account and a paid premium subscription, with a card or crypto at signup. The exemption is bought inside the same account; no second identity is required. | country: None
+- interface: rest, rclone
+- limits:
+  - per-ip-shaping (binding): dedicated server, VPS, any cloud service, RDP, personal VPN and private proxy addresses are refused by default; the API reports the refusal as ip_not_allowed_<address> [1]
+  - volume-quota:  [3]
+  - per-ip-shaping (binding): one public address at a time; the vendor FAQ says 'You can use your account from any public IP address, but you can't use your account from more than one public IP address at the same time'. This is the account-sharing rule, a different constraint from the class rule and enforced a different way [4]
+  - request-rate: 250 requests per minute, account-wide: 'The API is limited to 250 requests per minute, all refused requests will return HTTP 429 error and will count in the limit (bruteforcing will leave you blocked for undefined amount of time)' [5]
+  - request-rate: roughly one /torrents/addMagnet per 20 seconds in practice, reported as measured against the live API on 2026-08-17: six adds ten seconds apart were refused six times out of six, the same six twenty seconds apart were accepted six times out of six [6]
+  - request-rate: 75 requests per minute for /torrents as the default ceiling in zurg, against 250 for every other endpoint ('torrents_rate_limit_per_minute: 75') [7]
+  - request-rate: 250 requests per minute [5]
+  - retention-clamped: unrestricted link valid 7 days [8]
+  - per-object-cap: per-host maximum file size, published per host in /hosts [5]
+  - volume-quota: per limited host: `limit` in the host's own unit (links, gigabytes or bytes), with a daily, weekly or monthly reset [5]
+  - request-rate: 250 requests per minute per token; refused requests count toward the limit and bruteforcing leaves the caller blocked for an undefined time [5]
+  - request-rate: torrent adds must be at least 20 s apart: six adds at 10 s intervals were refused 6/6, the same six at 20 s accepted 6/6 (third-party measurement, 2026-08-17) [6]
+  - per-ip-shaping (binding): one public IP at a time; a second concurrent public IP returns error_code 22 'IP Address not allowed'; 'Any account sharing or generated links sharing will lead to a suspension of the User account' [1]
+  - volume-quota: unpublished fair-use ceiling, surfaced as error_code 36 'Fair Usage Limit'; the terms call an over-limit month 'temporarily limited' [5]
+  - per-ip-shaping (binding): 'will not use a dedicated server, VPS or any cloud service on our service other than by using his Remote Traffic (which is in addition to the subscription)' [1]
+  - request-rate: 250 requests per minute claimed by a client library; not stated on the vendor's API documentation [9]
+  - volume-quota: 'reasonable use' per host, undefined and temporarily enforceable at the vendor's discretion [1]
+  - request-rate: 32 connections per server ('(2) In the limit of 32 connections per server') [10]
+  - volume-quota: reported 2.5 TB per 30 days, 400 GB per day (seedbox-tier account page, community post) [11]
+  - pull-count: reported 50 torrents per day, 600 per 30 days; 10 concurrent transfers [12]
+- limits note: Two rules that read alike and are not: the class rule refuses server ranges outright unless Remote Traffic is on, and the sharing rule refuses a second simultaneous public address of any class. A client on one stable datacenter address satisfies the sharing rule completely and still fails the class rule.
+- binding note: At 1 TiB a month from a rented machine the class rule fails first and is total: the account cannot unrestrict a link at all until the caller's address is on the list or Remote Traffic is on. If Remote Traffic is on, the binding moves to the volume meter, whose price is unread. The sharing rule never fires for a single-address caller.
+- interface detail: HTTPS REST API at api.real-debrid.com; the class exemption is the 'remote' flag on POST /unrestrict/link, or the 'Remote Traffic' checkbox on real-debrid.com/downloader
+- endpoint: https://api.real-debrid.com/rest/1.0/
+- tooling: rclone's realdebrid backend, rdt-client, zurg and Debrid Media Manager. Debrid Media Manager's provider notes tell users to switch off the automatic Remote Traffic toggle because it spends the metered allowance on ordinary streaming.
+- composes with: A client on a rented machine has two approved shapes: terminate a VPN on the machine and hope the exit is on the list, or leave the machine bare and pay Remote Traffic per byte. The first is cheap and unverifiable before purchase; the second is priced per gigabyte, so its cost scales with the bytes moved.
+- reliability: The published whitelist has been withdrawn while the mechanism it describes has not. On 2026-08-29 the archived /vpn page carried a 113-row table of non-cooperative VPN providers with an allowed-address count for each; on 2026-10-20 the same page carried neither that table nor any cooperative rows, and two live reads today render the cooperative header with zero rows.
+- notes: A later read arrived from 172.69.76.154 and was blocked the same way, and that 'no vendor gives a client a list to check before paying' (one existed eight weeks ago and the per-address oracle is still live). The API is not the free path: /user and /unrestrict/check work anonymously or on a free account, torrents do not. As a fetcher it is the cheapest per month. As a store it fails the month-on/months-off pattern: nothing is held on the caller's behalf, and what looks like retention is other users keeping the same infohash hot. A GET returns the unknown_method 404 already recorded. That endpoint would answer host, size and supported-status for a single link without an account, and it is the cheapest next probe. The filter is confirmed by two independent reports and a client log; the pacing is confirmed by a dated third-party measurement; the expiry path is documented only as error codes 14/15 and was not observed. The vendor's own hoster status endpoint is documented in the API (fields 'supported' and 'status' of 'up'/'down'/'unsupported') but reads are authenticated, so no unauthenticated host-removal signal exists. Two independent price pages read in 2026 agree on 3 / 4 / 9 / 16 EUR for 15 / 30 / 90 / 180 days, and neither lists an annual plan, so the absence of a 365-day term is a finding rather than an omission. The vendor API's public /hosts endpoint worked and is the source of the 140 figure. The price is the most stable in the set and the least observable: 4 EUR for 30 days in February 2020 and 4 EUR for 30 days in the two 2026 reports, a 6.7-year window with no movement and a 5-year hole in the archive where the vendor blocks the crawler. The 2020 page also publishes its own FX rate, '1 EUR = +/- 1.1052 USD', so the USD figures in the 2026 reports are the vendor's approximate conversions and not a price change. The vendor's own /premium page is invisible to every fetch path available here, which is itself the finding: a cardless caller cannot even read the rail list without an account. Two third-party guides published in 2026 still say PayPal is accepted; the mirrored vendor FAQ says it is not. Keep the conservative reading (no PayPal) and note the conflict rather than averaging it. Most important blocked record. Everything a caller would act on (price, quotas, retention) is behind an anti-bot 403 that neither the reader nor a Wayback replay passes, and the API docs do not carry commercial terms.
+- evidence note: The class rule and the oracle are vendor pages read. The FAQ sentences are a third party's verbatim reproduction of vendor support text, dated 2024-07-16, and are marked as such. What is not established: whether any specific datacenter range passes, and the price of the exemption. Both are answerable only with an account or a purchase. Evidence dates normalised to the read date on 2026-10-23; a source that carries its own date keeps it in the proved field.
+- extras:
+  - class_rule_quoted: will not use a dedicated server, VPS or any cloud service on our service other than by using his Remote Traffic
+  - accepts_bare_cloud_ip: no
+  - accepts_listed_cloud_ip: yes
+  - sanctioned_routes: Remote Traffic add-on, metered, price unread; a VPN exit whose provider is listed as cooperative, or whose address was individually authorized
+  - error_code: ip_not_allowed_<address>
+  - whitelist_state_2026_10_23: cooperative header renders zero rows; non-cooperative table absent; the mechanism is still described in vendor support text
+  - whitelist_withdrawn_between: 2026-08-29; 2026-10-20
+  - egress_paths_tested[0].ip: 172.69.76.154
+  - egress_paths_tested[0].class: Cloudflare
+  - egress_paths_tested[0].answer: blocked
+  - egress_paths_tested[1].path: direct probe on this machine
+  - egress_paths_tested[1].ip: a residential ISP address (not recorded)
+  - egress_paths_tested[1].class: residential ISP
+  - egress_paths_tested[1].answer: not blocked
+  - egress_paths_tested[2].path: wayback capture 2026-10-20
+  - egress_paths_tested[2].ip: 207.241.239.100
+  - egress_paths_tested[2].class: Internet Archive
+  - egress_paths_tested[2].answer: not blocked
+  - egress_paths_tested[3].path: undated search-index crawl
+  - egress_paths_tested[3].ip: 152.163.50.146
+  - egress_paths_tested[3].class: page named it 'Leaseweb Phoenix'
+  - egress_paths_tested[3].answer: not blocked
+  - auth_flows: three, all documented: three-legged OAuth2 (/auth + /token, grant_type=authorization_code) for websites; device code (/device/code then /token with grant_type=http://oauth.net/grant_type/device/1.0, verification_url https://real-debrid.com/device, interval 5 s, expires_in 1800) for mobile apps; and the same device flow with new_credentials=yes plus /device/credentials for opensource apps and scripts, which receives a per-user client_id and client_secret
+  - unrestrict_endpoint: POST /unrestrict/link (link, password, remote); POST /unrestrict/check is public and needs no token
+  - torrent_endpoints: GET /torrents, /torrents/info/{id}, /torrents/instantAvailability/{hash}, /torrents/activeCount, /torrents/availableHosts; PUT /torrents/addTorrent; POST /torrents/addMagnet, /torrents/selectFiles/{id}; DELETE /torrents/delete/{id}
+  - account_endpoints: GET /user (type premium|free, premium seconds, points, expiration), GET /traffic, GET /traffic/details?start=&end= (period cannot exceed 31 days)
+  - public_endpoints_no_account: GET /time, GET /time/iso, POST /unrestrict/check
+  - pagination: GET /torrents takes limit 0-5000 (default 100) and an X-Total-Count header
+  - threads: none: the API is synchronous; a magnet goes queued -> downloading -> downloaded and each state change is a separate /torrents/info call
+  - retention_map.unrestricted_link.stated: unrestricted *.download link
+  - retention_map.unrestricted_link.days: 7
+  - retention_map.unrestricted_link.source_url: https://notes.debridmediamanager.com/internals/realdebrid-behavior/
+  - retention_map.cached_link_observed.stated: cached /d/ link, third-party sample
+  - retention_map.cached_link_observed.days: 90
+  - retention_map.cached_link_observed.source_url: https://notes.debridmediamanager.com/internals/realdebrid-behavior/
+  - retention_map.faq_link_claim.stated: RD FAQ, quoted by users
+  - retention_map.faq_link_claim.days: 30
+  - retention_map.faq_link_claim.source_url: https://www.reddit.com/r/RealDebrid/comments/1e3lq2j/deleting_downloads
+  - retention_map.lapse_grace.stated: no grace period published
+  - retention_map.lapse_grace.days: 0
+  - retention_map.lapse_grace.source_url: https://real-debrid.com/terms
+  - account_deletion.stated: no inactivity deletion published
+  - account_deletion.source_url: https://real-debrid.com/terms
+  - reactivation: files reappear if the infohash is still cached; otherwise the torrent is re-added and re-downloaded
+  - storage_model: shared cache, no per-account byte quota
+  - host_matrix.published_daily_caps: no
+  - host_matrix.source: https://api.real-debrid.com/rest/1.0/hosts
+  - host_matrix.cap_endpoint: https://api.real-debrid.com/rest/1.0/traffic
+  - host_matrix.cap_fields: left; limit; type; reset; extra
+  - host_matrix.hosts_listed: 140
+  - host_matrix.note: No cap is published for any host.
+  - unauthenticated_post_blocked: https://api.real-debrid.com/rest/1.0/unrestrict/check returned 404 unknown_method to a GET
+  - failure_angle: account-kill and refusal surface
+  - strongest_signal: error_code 35 + `infringing_file` in the body
+  - status_disagreement: one client log records HTTP 403 on /torrents/addMagnet with that body; another client's notes record 451. The body is the stable signal and the status is not.
+  - second_cause_same_signal: adds inside 20 s
+  - account_states: 14 Account locked; 15 Account not activated; 22 IP Address not allowed; 23 Traffic exhausted; 36 Fair Usage Limit; 8 Bad token (revoked key)
+  - cache_miss: torrent status goes queued -> downloading -> downloaded, or error/dead; a hash the account already holds is accepted and never fetched
+  - host_removal: documented as error_code 16 Unsupported hoster and 17 Hoster in maintenance; a host can be discontinued 'at any time without justification ... (example: new limit in order to keep a host rather than removing it)'
+  - simultaneous_use: One public IP at a time. Devices behind the same router share that address and are allowed; a second concurrent public address returns error_code 22 'IP Address not allowed'. No stream or device count is published. Account or generated-link sharing is a suspension ground in the terms.
+  - host_count_measured: 140 (api.real-debrid.com/rest/1.0/hosts)
+  - host_count_claimed: not readable: real-debrid.com/compare also answers 403
+  - usenet: no
+  - torrent: yes, magnet and torrent file converted to a direct link
+  - annual_plan: none listed by any 2026 price page read
+  - remote_traffic: a paid add-on that dedicated servers, VPS or cloud use need
+  - price_history[0].date: 2020-02-01
+  - price_history[0].price: EUR 3 / 15 days
+  - price_history[0].plan: RD No.1 (15 days)
+  - price_history[0].source_url: https://web.archive.org/web/20200201055939/https://real-debrid.com/premium
+  - price_history[1].date: 2020-02-01
+  - price_history[1].price: EUR 4 / 30 days
+  - price_history[1].plan: RD No.2 (30 days)
+  - price_history[1].source_url: https://web.archive.org/web/20200201055939/https://real-debrid.com/premium
+  - price_history[2].date: 2020-02-01
+  - price_history[2].price: EUR 9 / 90 days
+  - price_history[2].plan: RD No.3 (90 days)
+  - price_history[2].source_url: https://web.archive.org/web/20200201055939/https://real-debrid.com/premium
+  - price_history[3].date: 2020-02-01
+  - price_history[3].price: EUR 16 / 180 days
+  - price_history[3].plan: RD No.4 (180 days)
+  - price_history[3].source_url: https://web.archive.org/web/20200201055939/https://real-debrid.com/premium
+  - price_history[4].date: 2026-02-09
+  - price_history[4].price: EUR 4 / 30 days
+  - price_history[4].plan: 30 Days (third-party table)
+  - price_history[4].source_url: https://firestick.io/blog/best-kodi-addons-for-movies-2026/
+  - price_history[4].change_pct: 0.0
+  - price_history[5].date: 2026-09-10
+  - price_history[5].price: USD 4.65 / 30 days (approx.)
+  - price_history[5].plan: 30 Days (third-party screenshot)
+  - price_history[5].source_url: https://nuviosync.com/blog/real-debrid-pricing-explained
+  - price_history_gap: 2020-02-01 to 2026-02-09: no readable capture. Every Wayback capture of /premium in 2021-2026 is the same 403 page, and the live page returns 403.
+  - change_36m: 0.0% on the 30-day term, measured 2020-02-01 to 2026-09-10
+  - currency: EUR; the vendor publishes '1 EUR = +/- 1.1052 USD' on 2020-02-01 and does not update a rate
+  - archive_blocked: yes
+  - merge_conflicts.usenet[0]: no
+  - merge_conflicts.usenet[1].lane: pricing-history
+  - merge_conflicts.usenet[1].value: no
+  - hosts_stated: no host count on the readable capture; the home page sells 'A wide range of unrestricted hosts'
+  - payment_group: crypto
+  - payment.card: yes
+  - payment.paypal: no
+  - payment.paypal_note: vendor FAQ: 'Unfortunately, Paypal is not available on Real-Debrid'; two 2026 third-party guides claim otherwise and are not trustworthy against the vendor text
+  - payment.crypto: BTC; ETH
+  - payment.crypto_processor: Coinbase (named in the 2024 FAQ; Coinbase Commerce was sunset 2026-03-31)
+  - payment.local_rails: SMS / phone (15-day offer, not all countries)
+  - payment.voucher: yes
+  - payment.voucher_detail: real-debrid.com/voucher plus official resellers; 24instant lists 30 days at EUR 20.00 and is out of stock
+  - payment.entry_price: EUR 3 / 15 days (reported)
+  - blocked_routes: read (403 body), read ?lang=en (403), archive 2026-09 (403 replay), fetch --head (HTTP 200 with 403 body)
+  - api_docs: https://api.real-debrid.com/
+- evidence:
+  - [1] 2026-10-23: 'The User certifies that he will not use a dedicated server, VPS or any cloud service on our service other than by using his Remote Traffic (which is in addition to the subscription).' The same page carries the sharing rule in a separate sentence: 'Any account sharing or generated links sharing will lead to a suspension of the User account.'
+  - [4] 2026-10-23: Vendor support answers reproduced verbatim: 'By default, all server IP addresses are blocked on Real-Debrid to prevent abuse. VPN services use servers to operate, and they can be affected by these restrictions'; 'If you want to download with or through a dedicated server (RDP, personal VPN, private proxy, etc.), you have to use your Remote Traffic'; 'You can use your account from any public IP address, but you can't use your account from more than one public IP address at the same time'. Third-party republication, not a vendor page.
+  - [2] 2026-10-23: Path B, a direct probe from a residential ISP address: 'Your current IP address is not blocked on our website, you don't seem behind a VPN.' Same page, same minute, opposite verdicts, decided by the calling address.
+  - [13] 2026-10-23: The 2026-08-29 capture (record_length 7944) carries a 113-row 'VPN Name | IP Addresses allowed' table from 143VPN|51 to Zscaler|32768. The 2026-10-20 capture (record_length 3595) carries no such table, and its own caller is 207.241.239.100 'Internet Archive', reported by the page as not blocked.
+  - probe:https://real-debrid.com/trafficshare 2026-10-23: The exemption is account-gated and its price is unverified.
+  - [14] 2026-10-23: 2026-01-04 thread on ban avoidance: 'Don't stream from more than one IP adresss at a time (it is not locked to an IP address)'; a reply adds 'There's a list of approved vpn providers+tier that are ok to use. Do pay attention to the tier. Ex. Proton VPN free is trouble but the paid tier is fine.' Community account of the sharing rule and of a tiered whitelist.
+  - [5] 2026-10-23: 'The API is limited to 250 requests per minute, all refused requests will return HTTP 429 error and will count in the limit'; the opensource-app client_id X245A4XAIBGVM with scopes unrestrict, torrents, downloads, user; the /device/code and /device/credentials flows; the 403 'not premium' gate on every torrent endpoint
+  - [6] 2026-10-23: the 20-second per-add floor measured 2026-08-17, that a refused add returns 451 infringing_file, and zurg's 250/75 per-minute defaults
+  - [15] 2026-10-23: a maintained client that implements 'a fake qBittorrent API so you can hook up other applications like Sonarr, Radarr' and requires 'a Premium service'
+  - probe:https://api.real-debrid.com/rest/1.0/time 2026-10-23: the public endpoint answers without a token: returned '2026-10-23 03:46:08', matching the documented 'This request is not requiring authentication'
+  - [1] 2026-10-23: the 'reasonable use' throttling clause, the ban on dedicated-server/VPS/cloud use outside Remote Traffic, and the 7-day refund window; no retention clause at all
+  - [5] 2026-10-23: 'The API is limited to 250 requests per minute', the downloads and torrents namespaces, and per-host size fields; no storage quota in the API surface
+  - [8] 2026-10-23: measured 2026-08: 'Cached links survive the generating account deleting its torrent - but they die of age. Sampled at scale: links minted 1-2 months ago all still unrestricted cross-account; links older than ~3 months all returned hoster_unavailable'
+  - [16] 2026-10-23: users quote the RD FAQ line 'A Real-Debrid link remains valid for 30 days (without any uptime guarantee)'; reported, and the vendor FAQ page is JavaScript-only so the sentence could not be read at source
+  - probe:https://api.real-debrid.com/rest/1.0/hosts 2026-10-23: 140 hosts, each with only id, name, image, image_big - GET 200, 33159 bytes; no cap field
+  - probe:https://api.real-debrid.com/rest/1.0/traffic 2026-10-23: refusal shape: HTTP 401 {"error":"bad_token","error_code":8} in 43 bytes
+  - probe:https://api.real-debrid.com/rest/1.0/hosts/status 2026-10-23: the host-status endpoint also requires a token: HTTP 401, same 43-byte body
+  - [5] 2026-10-23: 'Get traffic informations for limited hosters (limits, current usage, extra packages)' and the Traffic schema with left/bytes/links/limit/type/extra/reset
+  - [5] 2026-10-23: 'POST /unrestrict/check ... Check if a file is downloadable on the concerned hoster. This request is not requiring authentication.' - the only unauthenticated per-link check here
+  - probe:https://api.real-debrid.com/rest/1.0/hosts/regex 2026-10-23: the full host regex set is public: 20157 bytes, so host coverage is scriptable even though caps are not
+  - probe:https://api.real-debrid.com/rest/1.0/time 2026-10-23: the API answers unauthenticated: 19 bytes, '2026-10-23 03:46:08'
+  - probe:https://real-debrid.com/signup 2026-10-23: signup fields could not be read: the vendor serves its own '404 - Not Found' page
+  - probe:https://real-debrid.com/premium 2026-10-23: 
+  - probe:https://api.real-debrid.com/rest/1.0/unrestrict/check 2026-10-23: a GET is refused as unknown_method (48 bytes, error_code 3), which is what a POST-only route looks like through a GET-only wrapper
+  - probe:https://rest.real-debrid.com/ 2026-10-23: the second documentation hostname serves byte-identical content (296575 bytes, sha e2750b91...), so there is one spec and not two
+  - [5] 2026-10-23: Also '250 requests per minute' and the torrent status list magnet_error, magnet_conversion, waiting_files_selection, queued, downloading, downloaded, error, virus, compressing, uploading, dead.
+  - [1] 2026-10-23: 'Any account sharing or generated links sharing will lead to a suspension of the User account.' and 'Hosts without clearly indicated limit are considered unlimited, within the limit of a reasonable use of the User ... any consumption beyond this so-called reasonable use may be temporarily limited.'
+  - [6] 2026-10-23: Third-party measurement dated 2026-08-17: 'Two adds on one account need 20 seconds between them ... Six clean release names added ten seconds apart were refused six times out of six. The same six twenty seconds apart were accepted six times out of six.' And: 'A refused add looks exactly like a blocked filename. Real-Debrid answers both with `451 infringing_file`.' Also 'A second copy of content the account already holds never downloads ... sits at 0 percent with 0 seeders forever.'
+  - [17] 2026-10-23: A client log of the exact refusal: '403 https://api.real-debrid.com/rest/1.0/torrents/addMagnet ... {"error": "infringing_file", "error_code": 35}' - HTTP 403 at the transport, 35 in the body.
+  - [18] 2026-10-23: Reported, by the Debrid Media Manager author: ~280 torrents tested against the API, with per-source block rates of 32% (WEB-DL), 64% (WEBRip), 14% (BluRay encode) and 0% (REMUX, SubsPlease); later stated as 1,500+ torrents tested.
+  - [19] 2026-10-23: Reported, a user's account of error 22: logging in from a different IP produced ip_not_allowed, and 'RD got back to me and asked that I disable IPv6 as that was the IP not allowed.'
+  - [20] 2026-10-23: it carries no price
+  - [1] 2026-10-23: the VPS/cloud clause requiring Remote Traffic, the 'reasonable use' clause, and the sharing-suspension clause
+  - [5] 2026-10-23: the REST API object model and endpoints, including torrent status values
+  - [21] 2026-10-23: the live public host list: 140 host entries
+  - [22] 2026-10-23: third party: 15 days 3.00 EUR, 30 days 4.00 EUR, 90 days 9.00 EUR, 180 days 16.00 EUR
+  - [23] 2026-10-23: third party, prices read on 10 September 2026: the same four terms, and no annual plan listed
+  - [9] 2026-10-23: third party: 'The Real-Debrid API is limited to 250 requests per minute'
+  - [10] 2026-10-23: the four terms at 3/4/9/16 EUR for 15/30/90/180 days, 'Unlimited Traffic' on each, '32 connections per server', and the vendor's own '1 EUR = +/- 1.1052 USD'
+  - [24] 2026-10-23: third-party table dated February 2026: 15 Days EUR 3, 30 Days EUR 4, 90 Days EUR 9, 180 Days EUR 16 - identical to the 2020 capture
+  - [23] 2026-09-10: 'approximate USD prices of $3.48 for 15 days, $4.65 for 30 days, $10.45 for 90 days and $18.59 for 180 days', transcribed from a 2026-09-10 screenshot of the official page
+  - [20] 2026-10-23: the page answers 403 to this infrastructure, so today's number could not be read from the vendor
+  - [4] 2026-10-23: the rail list: 'Unfortunately, Paypal is not available on Real-Debrid ... Credit / debit card, Amazon Pay ..., Prepaid Tickets (Paysafecard and Neosurf), Coinbase (Bitcoin and Ethereum), SMS / Phone (15 premium days offer only ...)'; also 'there are no recurring payments' and the voucher route at real-debrid.com/voucher
+  - [20] 2026-10-23: 
+  - [25] 2026-10-23: that a voucher reseller exists for Real-Debrid: 30-day EUR 20.00, 90-day EUR 40.00, 180-day EUR 75.00, all shown 'Out of stock'
+  - [20] 2026-10-23: a 2026-08-30 Wayback replay returns the same body
+  - [5] 2026-10-23: REST API with /torrents endpoints and a user object carrying 'type': 'premium' or 'free'
+  - [11] 2026-10-23: reported account counters: '400 GB Data / day', '50 Torrents / day', '2.5 TB Data / 30 days', '600 Torrents / 30 days'
+  - [12] 2026-10-23: reported: 'Real Debrid now only allows 10 concurrent torrent downloads at the same time' (December 2024)
+- sources:
+  - [1] https://real-debrid.com/terms
+  - [2] https://real-debrid.com/vpn
+  - [3] https://real-debrid.com/trafficshare
+  - [4] https://github.com/debridmediamanager/awesome-debrid/discussions/7
+  - [5] https://api.real-debrid.com/
+  - [6] https://notes.debridmediamanager.com/providers/realdebrid/
+  - [7] https://github.com/debridmediamanager/zurg-public/wiki/Config
+  - [8] https://notes.debridmediamanager.com/internals/realdebrid-behavior/
+  - [9] https://github.com/SushyDev/real_debrid_ex
+  - [10] https://web.archive.org/web/20200201055939/https://real-debrid.com/premium
+  - [11] https://sanet.st/community/d/30093-real-debrid-alternatives-infringing-torrent-error
+  - [12] https://github.com/rogerfar/rdt-client/issues/633
+  - [13] https://web.archive.org/web/20260829172412/https://real-debrid.com/vpn?provider=wayback
+  - [14] https://www.reddit.com/r/RealDebrid/comments/1q3slq2/
+  - [15] https://github.com/rogerfar/rdt-client
+  - [16] https://www.reddit.com/r/RealDebrid/comments/1e3lq2j/deleting_downloads
+  - [17] https://github.com/LivingWithHippos/unchained-android/issues/377
+  - [18] https://www.reddit.com/r/debridmediamanager/comments/1t9l96i/realdebrids_infringing_file_errors_are
+  - [19] https://www.reddit.com/r/RealDebrid/comments/1eiij7g/ip_not_allowed
+  - [20] https://real-debrid.com/premium
+  - [21] https://api.real-debrid.com/rest/1.0/hosts
+  - [22] https://www.digitbin.com/what-is-real-debrid-kodi/
+  - [23] https://nuviosync.com/blog/real-debrid-pricing-explained
+  - [24] https://firestick.io/blog/best-kodi-addons-for-movies-2026/
+  - [25] https://www.24instant.com/en/69-real-debrid
+
+## Real-Debrid Remote Traffic
+
+- `debrid/real-debrid-remote-traffic` | paid-only | evidence documented | binding volume-quota | category debrid add-on: metered egress that lifts the server-IP ban | tier Remote Traffic (add-on to any premium plan)
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23T02:21:34.000Z (live) | stale on 2026-11-23
+- url https://real-debrid.com/terms
+- price unverified
+- free tier: None. Remote Traffic is sold on top of the subscription: 'The User certifies that he will not use a dedicated server, VPS or any cloud service on our service other than by using his Remote Traffic (which is in addition to the subscription).' The vendor's own support answer says the same: 'If you want to download with or through a dedicated server (RDP, personal VPN, private proxy, etc.), you have to use your Remote Traffic.' | unit: none | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1] | note: The add-on is the only approved way for a VPS, a cloud host or a private proxy to use Real-Debrid. VPN exits are a separate route: they are whitelisted by provider, not bought.
+- per-object cap: not applicable: a traffic allowance, not an object | source: [1]
+- retention: not applicable: traffic is spent, not stored | source: [1]
+- egress: Metered by volume and required for every server-side caller. The API exposes the switch as a per-link flag: 'POST remote | int | 0 or 1, use Remote traffic, dedicated servers and account sharing protections lifted'. An empty allowance returns the error 'traffic_exhausted'. It must be bought inside a premium account: 'your account must be Premium to use this traffic'. | metered: yes | free allowance: none | source: [2]
+- identity: card | detail: An email account plus a paid premium subscription; the add-on is bought inside that account and 'your account must be Premium to use this traffic'. The payment methods were not read.
+- interface: rest, rclone
+- limits:
+  - volume-quota (binding): unverified: the add-on is metered by volume, but the /trafficshare page returned 403 to network requests, to a local reader and to the Wayback replay; no allowance or unit price was… [3]
+  - per-ip-shaping: server, VPS and cloud addresses are blocked unless the add-on is on; one IP address may use the account at a time [1]
+- limits note: The account page carries a second trap: an automatic Remote Traffic toggle that spends the paid allowance before the user asks for it. Debrid Media Manager's provider notes call this out by name.
+- binding note: At 1 TiB a month the metered add-on is what runs out, not the subscription: the subscription itself has no byte meter for hoster traffic, while Remote Traffic is sold by the gigabyte and reports exhaustion as an error.
+- interface detail: HTTPS REST API at api.real-debrid.com. The switch is the 'remote' parameter on POST /unrestrict/link, or the 'Remote Traffic' checkbox on real-debrid.com/downloader.
+- endpoint: https://api.real-debrid.com/rest/1.0/
+- tooling: rclone's realdebrid backend, rdt-client, zurg and Debrid Media Manager all carry a note to switch off the account setting 'Use my Remote Traffic automatically when needed', because leaving it on spends the allowance on ordinary streaming without telling the user.
+- composes with: This is the licence that makes a Real-Debrid subscription usable from a free VM at all: without it the account is used from the VM's residential-like egress, with it the VM downloads directly and pays per byte.
+- reliability: Exhausting the allowance fails the link with 'traffic_exhausted' rather than a retryable 4xx; the automatic toggle can spend it silently.
+- notes: A separate record from the Real-Debrid subscription because it is a separately sold, separately metered product aimed at exactly this machine class. The unit price is the one gap: the German board freesoft-board.de quotes '100GB Traffic fur 9,99 EUR' in a 2012 thread, which is too old and too weakly sourced to promote to a number.
+- evidence note: The requirement, the API flag and the exhaustion error are all on vendor pages read. The price is the one load-bearing number not read: /trafficshare and /premium both render a 403 shell to anonymous readers, including the archive.org capture, so the price is named unverified rather than filled in.
+- extras:
+  - add_on_required_for: dedicated server, VPS, any cloud service, RDP, personal VPN, private proxy
+  - api_flag: remote=1 on /unrestrict/link
+  - error_on_exhaustion: traffic_exhausted
+  - price_route_failed: https://real-debrid.com/trafficshare (403); https://real-debrid.com/premium (403)
+  - volume_stated: unverified
+- evidence:
+  - [1] 2026-10-23: 'The User certifies that he will not use a dedicated server, VPS or any cloud service on our service other than by using his Remote Traffic (which is in addition to the subscription).'
+  - [2] 2026-10-23: POST remote 'int, 0 or 1, use Remote traffic, dedicated servers and account sharing protections lifted'; the /traffic endpoint returns an 'extra' field described as 'Additional traffic / links the user may have buy'
+  - [4] 2026-10-23: Real-Debrid's support answers reproduced verbatim: 'If you want to download with or through a dedicated server (RDP, personal VPN, private proxy, etc.), you have to use your Remote Traffic'; buy link https://real-debrid.com/trafficshare; 'If you get the error "traffic_exhausted", it means that you have no more Remote Traffic.' Third-party republication of vendor text, not a vendor page.
+  - [3] 2026-10-23: the price and allowance are therefore unverified
+  - [5] 2026-10-23: 'On your account page make sure Use my Remote Traffic automatically when needed is unchecked. Left on it spends your remote traffic allowance on ordinary streaming without telling you.'
+  - [6] 2026-10-23: the page names the caller and the verdict: (172.69.41.140) it said 'Your ISP or VPN provider IP address is currently blocked on our website, please contact the support', on two separate reads, while three probes from the local connection returned 'not blocked on our website, you don't seem behind a VPN'. The 'Cooperative VPN providers - Recommended' table rendered its header and zero provider rows in both the blocked and the allowed view.
+- sources:
+  - [1] https://real-debrid.com/terms
+  - [2] https://api.real-debrid.com/
+  - [3] https://real-debrid.com/trafficshare
+  - [4] https://github.com/debridmediamanager/awesome-debrid/discussions/7
+  - [5] https://notes.debridmediamanager.com/providers/realdebrid/
+  - [6] https://real-debrid.com/vpn

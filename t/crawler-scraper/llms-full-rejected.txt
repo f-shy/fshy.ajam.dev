@@ -1,0 +1,155 @@
+# fshy: Crawling, rejected
+
+> Crawl, search, reader and unblocker APIs for reading the web at scale.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/crawler-scraper/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## Brave Search API
+
+- `crawler-scraper/brave-search` | fails-identity | evidence documented | binding request-rate | category search API
+- needs card yes, phone no, ID no, institution no | verified 2026-11-02T01:02:26.755Z (live) | stale on 2026-12-03
+- url https://api-dashboard.search.brave.com/app/subscriptions/subscribe | page https://fshy.ajam.dev/p/brave.md
+- free tier: USD 5 of free credits every month, applied automatically; Search is priced at USD 5.00 per 1,000 requests, so the credit covers about 1,000 Search requests a month | unit: requests | metered on: request-count | read on: 2026-10-30 | source: [1] | note: no standalone free plan exists: each plan carries its own USD 5 monthly credit, reached by activating the plan with a card and setting the prepay amount to USD 0
+- per-object cap: not applicable: the unit is a query | source: [2]
+- retention: credit resets monthly | source: [2]
+- egress: not applicable | metered: no | source: [2]
+- identity: card | detail: an email address and a password open the account, and a credit card is asked at the second step, when a plan is activated; the card is checked with a USD 0 or USD 1 hold that is refunded, some cards fail that check, and on a prepaid plan the service pauses when the balance reaches USD 0; the product FAQ answers 'Why do you ask for a credit card?' with 'To prevent abuse'
+- interface: rest
+- limits:
+  - request-rate (binding): Search 50 requests per second and Answers 2 requests per second, drawn from a monthly credit of USD 5 [1]
+  - request-rate (binding): a 1-second sliding window counts requests per plan, beside a monthly window; a request over the limit answers 429 [3]
+- binding note: the monthly USD 5 credit, about 1,000 Search requests, is spent long before 50 requests per second binds
+- interface detail: REST search API, 50 QPS on search, 2 QPS on answers
+- tooling: not established
+- composes with: the same as tooling
+- reliability: no reliability event recorded
+- notes: The signup gate is the whole finding: the allowance is real, a credit card is asked when a plan is activated, no standalone free plan exists, and a call without an API key is refused.
+- evidence note: free tier, capacity and the card requirement quoted from first-party pages; the quickstart places the card at plan activation, after an account that needs an email address and a password
+- evidence:
+  - [2] 2026-10-22: 409 from the reader: the page is behind an authenticated dashboard and could not be read
+  - [1] 2026-10-30: the Search plan includes USD 5 of free credits every month, at USD 5.00 per 1,000 requests | capture: sha256:7f5e060da618c003c472a509d73e6fde83dcf1df901ae49413577cd7236c2196 | quote: Includes free $5 in credits every month.
+  - [1] 2026-10-30: Search capacity is 50 requests per second; the Answers plan on the same page states 2 requests per second | capture: sha256:7f5e060da618c003c472a509d73e6fde83dcf1df901ae49413577cd7236c2196 | quote: Capacity 50 requests per second
+  - [3] 2026-10-30: a 1-second sliding window counts requests per plan; the same page states that an over-limit request answers 429 and that plans also carry a monthly window | capture: sha256:54eaa26e22e436f81ac3c9055833140c1e3358bc5efcdaca18db5ab608672f73 | quote: Rate limits are enforced using a 1-second sliding window to count requests per plan.
+  - [4] 2026-10-30: the FAQ entry 'Why do you ask for a credit card?' answers that a card is asked to prevent abuse and only bought prepaid credits are charged | capture: sha256:04f88c46ab5236eaf90554a74584e5ccddfea320daeac3f752dd800fcd41e45d | quote: To prevent abuse. Brave uses prepaid credits, not subscriptions, so you’re only charged for credits you choose to buy.
+  - [5] 2026-11-01: the plan activation runs a credit card check with a USD 0 or USD 1 hold even when the prepay amount is USD 0 | capture: sha256:3c7a4a4c5883a3bc5e22a9bc1de14a22e084259b4a279e2ed4150ed15f4fcb1b | quote: Note that even if you intend to set your spend to $0, the service will still need to complete the automatic credit card check with a $0 or $1 charge hold.
+  - [6] 2026-11-01: the card is entered at the second step, plan activation, after the account exists | capture: sha256:e809eac99664e73b8796cb6fc613fc87a3d17358e9ea361f8e984bfe999374f8 | quote: Once your account is created, you'll need to activate a plan to access the API:
+  - [5] 2026-11-01: no standalone free plan exists; each plan carries its own USD 5 monthly credit | capture: sha256:3c7a4a4c5883a3bc5e22a9bc1de14a22e084259b4a279e2ed4150ed15f4fcb1b | quote: We do not offer a standalone free plan. However, each plan receives $5 in free credits that renew every single month, which allows users to run proofs of concept and power small-scale projects.
+  - [6] 2026-11-01: the quickstart lists a credit card as a prerequisite to activate a plan | capture: sha256:e809eac99664e73b8796cb6fc613fc87a3d17358e9ea361f8e984bfe999374f8 | quote: A credit card to activate a plan
+  - [6] 2026-11-01: an account is created with an email address and a password, confirmed by a link sent to the address | capture: sha256:e809eac99664e73b8796cb6fc613fc87a3d17358e9ea361f8e984bfe999374f8 | quote: Enter your email address and create a secure password
+  - [5] 2026-11-01: the USD 0 or USD 1 hold on the card is refunded at once | capture: sha256:3c7a4a4c5883a3bc5e22a9bc1de14a22e084259b4a279e2ed4150ed15f4fcb1b | quote: This is strictly a measure to prevent credit card fraud — any $0 or $1 hold placed on your credit card will be immediately refunded.
+  - [5] 2026-11-01: some cards fail the card check and the FAQ points to a Visa or Mastercard credit or debit card | capture: sha256:3c7a4a4c5883a3bc5e22a9bc1de14a22e084259b4a279e2ed4150ed15f4fcb1b | quote: Try a different Visa or Mastercard credit or debit card, which works reliably with our authorization flow
+  - [5] 2026-11-01: on a prepaid plan the service pauses when the balance reaches USD 0 | capture: sha256:3c7a4a4c5883a3bc5e22a9bc1de14a22e084259b4a279e2ed4150ed15f4fcb1b | quote: On a prepaid plan, further usage draws down your prepaid balance, and the service pauses once that balance reaches $0
+  - [6] 2026-11-01: every request to the REST API carries the API key in the X-Subscription-Token header | capture: sha256:e809eac99664e73b8796cb6fc613fc87a3d17358e9ea361f8e984bfe999374f8 | quote: All requests require your API key in the `X-Subscription-Token` header.
+  - probe:https://api.search.brave.com/res/v1/web/search?q=test 2026-11-01: a GET to the search endpoint without an API key answers HTTP 422 | capture: sha256:4f669ddb6671c994f3b6acae339118b9a9cb8bdff7451358d1d403ca9d2a4584 | quote: "status": 422
+  - probe:https://api.search.brave.com/res/v1/web/search?q=test 2026-11-01: the 422 answer names the missing header x-subscription-token as a required field | capture: sha256:09dc98b2079e40b0822355c1bddfbecf2900a7f14db5362c113b97f539d1e432 | quote: "loc":["header","x-subscription-token"],"msg":"Field required","type":"missing"
+  - [1] 2026-11-01: the Search plan capacity is 50 requests per second | capture: sha256:7f5e060da618c003c472a509d73e6fde83dcf1df901ae49413577cd7236c2196 | quote: Capacity 50 requests per second
+  - [1] 2026-11-01: the Answers plan capacity is 2 requests per second | capture: sha256:7f5e060da618c003c472a509d73e6fde83dcf1df901ae49413577cd7236c2196 | quote: Capacity 2 requests per second
+  - [3] 2026-11-01: a 1-second sliding window counts requests per plan | capture: sha256:54eaa26e22e436f81ac3c9055833140c1e3358bc5efcdaca18db5ab608672f73 | quote: Rate limits are enforced using a 1-second sliding window to count requests per plan.
+  - [5] 2026-11-01: the free monthly credit is replaced each month and not carried over | capture: sha256:3c7a4a4c5883a3bc5e22a9bc1de14a22e084259b4a279e2ed4150ed15f4fcb1b | quote: Free monthly credits are the exception — those are replaced each month rather than carried over.
+  - [1] 2026-11-01: the Search plan includes USD 5 of free credits every month | capture: sha256:7f5e060da618c003c472a509d73e6fde83dcf1df901ae49413577cd7236c2196 | quote: Includes free $5 in credits every month.
+- sources:
+  - [1] https://api-dashboard.search.brave.com/documentation/pricing
+  - [2] https://api-dashboard.search.brave.com/app/subscriptions/subscribe
+  - [3] https://api-dashboard.search.brave.com/documentation/guides/rate-limiting
+  - [4] https://brave.com/search/api/
+  - [5] https://api-dashboard.search.brave.com/documentation/resources/help-feedback
+  - [6] https://api-dashboard.search.brave.com/documentation/quickstart
+
+## Mojeek
+
+- `crawler-scraper/mojeek` | fails-identity | evidence documented | binding request-rate | category search API
+- needs card yes, phone no, ID no, institution no | verified 2026-11-02T01:01:54.326Z (live) | stale on 2026-12-03
+- url https://www.mojeek.com/services/search/web-search-api/ | page https://fshy.ajam.dev/p/mojeek.md
+- free tier: a free credit on the Startup plan, claimed after signup; a bank card is required to open the account; the credit's size and expiry are unverified: not published on any page read | unit: mixed | metered on: request-count | read on: 2026-10-30 | source: [1] | note: The unit is a one-time credit of unstated size against the Startup price of GBP 2 per 1,000 requests.
+- per-object cap: not applicable: the unit is a request; up to 10 results a request on Startup | source: [1]
+- retention: not published: no page read states an expiry for the free credit | source: [1]
+- egress: not applicable | metered: no | source: [1]
+- identity: card | detail: registration at the vendor's accounts site asks for an email address and a password; a bank card is required to open an account, even to claim the free credit; payments go through Stripe and none are taken automatically
+- interface: rest
+- limits:
+  - request-rate (binding): Startup: GBP 2 per 1,000 requests, 5 queries a second, 100,000 queries a day, up to 10 results a request [1]
+  - request-rate (binding): Business: GBP 3 per 1,000 requests, 10 queries a second, 400,000 queries a day, up to 40 results [1]
+- limits note: pay-as-you-go with no automatic payments; prices exclude VAT
+- binding note: identity fails first, since a bank card opens the account; once past it, the 5-a-second Startup cap is the first limit
+- interface detail: GET https://api.mojeek.com/search with q and api_key parameters; JSON or XML output; country and language boosting parameters
+- endpoint: part of interface detail
+- tooling: plain HTTP GET with an api_key query parameter
+- composes with: An independent crawler index rather than a resale of Google or Bing results, at GBP 2 per 1,000 requests once a card is on file
+- reliability: a keyless call to the search endpoint answered 403 with an empty body
+- notes: The card gate is the finding: the credit is real but no account opens without a bank card. The plan buttons link to a contact form rather than a self-serve checkout.
+- evidence note: the card requirement, the Startup price and the rate caps are quoted from the first-party API page; the size of the free credit is behind a card-gated sign-up
+- evidence:
+  - [1] 2026-10-30: the free credit needs a bank card on the account | capture: sha256:495574e0b488e2756e499171344957d9a4fa3e54f6244e93be68b144c488222d | quote: Yes, sign up to our Startup Plan and claim a free credit. A bank card is required to open an account however no automatic payments are processed and you can cancel anytime.
+  - [1] 2026-10-30: the Startup plan allows 5 queries a second | capture: sha256:495574e0b488e2756e499171344957d9a4fa3e54f6244e93be68b144c488222d | quote: * 5 Queries /sec
+  - [1] 2026-10-30: the Startup plan allows 100,000 queries a day | capture: sha256:495574e0b488e2756e499171344957d9a4fa3e54f6244e93be68b144c488222d | quote: * 100,000 Queries /day
+  - [1] 2026-10-30: the Startup plan costs GBP 2 per 1,000 requests | capture: sha256:495574e0b488e2756e499171344957d9a4fa3e54f6244e93be68b144c488222d | quote: Startup £2
+  - [1] 2026-10-30: the API serves Mojeek's own index | capture: sha256:495574e0b488e2756e499171344957d9a4fa3e54f6244e93be68b144c488222d | quote: Global index with billions of fresh webpages.
+  - [1] 2026-10-30: pay-as-you-go with no automatic payments | capture: sha256:4b01bcd5da48744da1f409e63266fd8f218530365459ed504f6d1b540b72b400 | quote: Our PAYG plans do not process automatic payments and you can set alerts on your account to control your budget.
+  - [2] 2026-10-30: the search endpoint and its key parameter | capture: sha256:aa1535e1b0f29644732116299930d58d67c7eb311b9cea04d54d502a20d3e1ea | quote: curl "https://api.mojeek.com/search?q=mojeek&api_key=YOUR_API_KEY&lb=EN&lbb=100&rb=GB&rbb=10&fmt=json"
+  - probe:api.mojeek.com/search 2026-10-30: a keyless call answered 403 | capture: sha256:4e70b72fa4225c9011565a2adcdf94e04bb09b7c50ba790b8d726c9a189f1618 | quote: "status": 403
+  - [1] 2026-11-01: the FAQ offers a free credit after sign-up on the Startup plan and requires a bank card to open an account, and states neither a size nor an expiry for the credit | capture: sha256:495574e0b488e2756e499171344957d9a4fa3e54f6244e93be68b144c488222d | quote: Yes, sign up to our Startup Plan and claim a free credit. A bank card is required to open an account however no automatic payments are processed and you can cancel anytime.
+  - [3] 2026-11-01: the account registration form asks for an email address and a password entered twice, and no other field | capture: sha256:d3caef81fe676f147dfd351682b2c4a4fa56bf7ecd402abbb929369775645a1b | quote: Email address * Password * Password Again *
+  - [4] 2026-11-01: a reply from the vendor on its own forum (December 2025) says a signed-up account can claim some credits and try the API for free, and names no amount or expiry | capture: sha256:14c4304e0df7b104d14a6965cc8721d64ad418a2ade82b87385777a5d2864688 | quote: If you sign up for the Personal plan (initially) you can claim some credits, and then try out the API for free.
+- sources:
+  - [1] https://www.mojeek.com/services/search/web-search-api/
+  - [2] https://www.mojeek.com/support/api/search/quickstart.html
+  - [3] https://accounts.mojeek.com/register
+  - [4] https://community.mojeek.com/t/web-search-api-trial-and-account-page-error/2655
+
+## Scrapingdog
+
+- `crawler-scraper/scrapingdog` | fails-quota | evidence documented | binding request-rate | category search and fetch API
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T01:01:52.277Z (live) | stale on 2026-12-03
+- url https://www.scrapingdog.com/pricing/ | page https://fshy.ajam.dev/p/scrapingdog.md
+- free tier: 100 free credits on the FREE plan (USD 0, forever), no credit card; a Google search costs 5 credits, so the 100 credits are 20 Google searches | unit: credits | metered on: request-count | read on: 2026-10-30 | source: [1] | note: The pricing table lists the 100 in its Monthly credits row, while the documentation states the free plan includes 200 requests a month; the two first-party pages disagree.
+- per-object cap: not applicable | source: [1]
+- retention: unverified: whether a free account's credits renew each month is behind a sign-up; the pricing FAQ says credits reset on the next billing date, and the home page lists the 100 free credits as a 7-day free trial | source: [1]
+- egress: not applicable | metered: no | source: [1]
+- identity: email | detail: the signup form asks for an email address, marked 'Please use your work email address', a password and a referral source; no credit card required
+- interface: rest
+- limits:
+  - request-rate (binding): 100 credits: 20 Google SERP or Brave Search requests at 5 credits, 10 advanced Google requests at 10 credits; the LITE plan is USD 40 a month for 200K credits [1]
+  - request-rate (binding): 1 concurrent request on the FREE plan; exceeding the concurrency limit answers 429 [2]
+- binding note: 20 Google searches is spent before the 1-request concurrency limit matters
+- interface detail: GET https://api.scrapingdog.com/google with api_key and query parameters; one credit pool also serves Bing, Brave Search, Google News, Scholar and a general scraping endpoint
+- endpoint: part of interface detail
+- tooling: plain HTTP GET with an api_key query parameter
+- composes with: Too small to carry search; the same 100 credits buy 100 rotating-proxy page fetches at 1 credit each, which is the better use of the account
+- reliability: the pricing page and the documentation disagree on the free allowance, 100 credits against 200 requests a month; failed, blocked and timed-out requests are credited back
+- notes: A general scraping API with SERP endpoints rather than a search engine of its own. Every plan reaches every API, so the free credits test Google, Bing and Brave Search parsing as well as page fetches.
+- evidence note: the 100 credits, the 1-request concurrency, the per-search credit cost and the no-card statement are quoted from first-party pages; the documentation states a different free allowance, and whether the credits renew monthly is behind a sign-up
+- evidence:
+  - [1] 2026-10-30: 100 free credits on signup, no credit card | capture: sha256:045d143d0d81d7652230e353e53978df68124f6b5a4034c8245dc72ffc0c7450 | quote: Every account starts with 100 free credits and full access to all APIs, no credit card required.
+  - [1] 2026-10-30: the FREE plan column lists 100 monthly credits; LITE lists 200K | capture: sha256:045d143d0d81d7652230e353e53978df68124f6b5a4034c8245dc72ffc0c7450 | quote: | Monthly credits | 100 | 200K | 1M |
+  - [1] 2026-10-30: the FREE plan allows 1 concurrent request | capture: sha256:045d143d0d81d7652230e353e53978df68124f6b5a4034c8245dc72ffc0c7450 | quote: | Max concurrency | 1 | 5 | 50 |
+  - [1] 2026-10-30: the 100 free credits are 20 Google SERP requests | capture: sha256:045d143d0d81d7652230e353e53978df68124f6b5a4034c8245dc72ffc0c7450 | quote: | Google SERP Light API5 credits / req | 20 reqs |
+  - [1] 2026-10-30: the 100 free credits are 100 rotating-proxy fetches | capture: sha256:045d143d0d81d7652230e353e53978df68124f6b5a4034c8245dc72ffc0c7450 | quote: | Rotating proxy1 credit / req | 100 reqs |
+  - [1] 2026-10-30: credits reset on the billing date; an exhausted balance answers over-limit | capture: sha256:045d143d0d81d7652230e353e53978df68124f6b5a4034c8245dc72ffc0c7450 | quote: Once your credits are used up, API requests return an over-limit response until they reset on your next billing date.
+  - [2] 2026-10-30: the documentation states 200 requests a month on the free plan, which disagrees with the pricing page | capture: sha256:4ea264741d899e45ee3a294e071c0ee7f4725655567e82a7d0f5bdb2023e7a05 | quote: Free plan includes 200 requests / month.
+  - [2] 2026-10-30: concurrency is limited per plan and answers 429 over the limit | capture: sha256:4ea264741d899e45ee3a294e071c0ee7f4725655567e82a7d0f5bdb2023e7a05 | quote: Concurrent connections are rate-limited per plan tier. Exceeding limits returns a 429 error.
+  - [3] 2026-10-30: the Google search endpoint | capture: sha256:6554f0727034f3bfbd7b89f03c05da8d6ac121d141fddae1899a29aa97a16d19 | quote: Endpoint: `https://api.scrapingdog.com/google`
+  - [3] 2026-10-30: a Google search costs 5 credits, 10 advanced | capture: sha256:6554f0727034f3bfbd7b89f03c05da8d6ac121d141fddae1899a29aa97a16d19 | quote: Each successful request costs 5 credits for standard search, or 10 credits for advanced search
+  - [4] 2026-10-30: the signup form asks for a work email address | capture: sha256:c20888456c2cdc18ee90d71c1a05e180614cf00ea19fb758657e4a570b786e8d | quote: Please use your work email address.
+  - probe:api.scrapingdog.com/google 2026-10-30: a keyless call to the Google endpoint answered 401 | capture: sha256:25ab0ca50b0042f91c02ca36b0dee3d7c649e2f11123b1461bc8d6a7c85dccad | quote: "message":"Unauthorized request, please make sure your API key is valid."
+  - [5] 2026-11-01: the home page lists the 100 free credits as a 7-day free trial with no credit card required | capture: sha256:a27da4e2c5863231f6c39a775cc69e2f4f2bc7f1d43b731138c00af0c2753e2d | quote: 7-day free trial - No credit card required - 100 credits free
+  - [2] 2026-11-01: the documentation overview states the free plan includes 200 requests a month, the same line as its 2026-07-14 archive copy | capture: sha256:96632e090105bd17d416e7d2ebbfcc1c0adc29b9c9ee8e1054451ac33c1e6905 | quote: Free plan includes 200 requests / month.
+  - [6] 2026-11-01: the 2026-07-14 archive copy of the documentation overview already states the free plan includes 200 requests a month | capture: sha256:ff7ccdf735065c9ecb4606625a4c72d45d0ecc95e8de58192be4f806a5dedbc4 | quote: Free plan includes 200 requests / month.
+  - [7] 2026-11-01: the 2026-09-05 archive copy of the pricing page states 200 free credits per account, the figure the documentation gives as 200 requests a month; the live page states 100 | capture: sha256:394f6382d5e82b45247f21c4d413800f4331e7e88dd4043af4578a0f138199c8 | quote: Every account starts with 200 free credits and full access to all APIs, no credit card required.
+  - [8] 2026-11-01: the 2026-10-08 archive copy of the home page lists the 100 free credits as a 30-day free trial, where the live page says 7-day | capture: sha256:50198df91542eba033fc36eeeb0d1186058d01c1f0def40f4b17809e674ff8e8 | quote: 30-day free trial - No credit card required - 100 credits free
+  - [9] 2026-11-01: the vendor's agent onboarding guide says a new account starts on a free trial with no card required | capture: sha256:94ca16311561703d1891a4524189334e65e29920b46eddc82b8ad04aa3a4779b | quote: A new account starts on a free trial with no card required.
+  - [1] 2026-11-01: the pricing page lists the FREE plan as USD 0 forever | capture: sha256:e58368b7bd09f6c9105f2ab623220a7c0dd584b89050ae1fd8db244c3156c510 | quote: FREE $0forever
+  - [5] 2026-11-01: the home page offers a Sign Up With Google route beside the email signup | capture: sha256:a27da4e2c5863231f6c39a775cc69e2f4f2bc7f1d43b731138c00af0c2753e2d | quote: Try Scrapingdog for Free Sign Up With Google
+  - [1] 2026-11-01: the pricing page still states 100 free credits per account and no credit card | capture: sha256:e58368b7bd09f6c9105f2ab623220a7c0dd584b89050ae1fd8db244c3156c510 | quote: Every account starts with 100 free credits and full access to all APIs, no credit card required.
+  - [4] 2026-11-01: the signup form still asks for an email address, marked work email | capture: sha256:c20888456c2cdc18ee90d71c1a05e180614cf00ea19fb758657e4a570b786e8d | quote: Please use your work email address.
+- sources:
+  - [1] https://www.scrapingdog.com/pricing/
+  - [2] https://www.scrapingdog.com/documentation/
+  - [3] https://www.scrapingdog.com/documentation/google-search-api-documentation/
+  - [4] https://api.scrapingdog.com/register
+  - [5] https://www.scrapingdog.com/
+  - [6] https://web.archive.org/web/20260714213606/https://www.scrapingdog.com/documentation/
+  - [7] https://web.archive.org/web/20260905172744/https://www.scrapingdog.com/pricing/
+  - [8] https://web.archive.org/web/20261008063559/https://www.scrapingdog.com/
+  - [9] https://www.scrapingdog.com/agent-onboarding/SKILL.md

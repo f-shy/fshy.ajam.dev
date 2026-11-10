@@ -1,0 +1,97 @@
+# Stadia Maps
+
+> stadiamaps.com | Data APIs; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/stadiamaps/ | JSON https://fshy.ajam.dev/api/v1/entity/stadiamaps.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Stadia Maps
+
+- `data-apis/stadia-maps` | qualifies-with-caveat | evidence documented | binding volume-quota | category maps, routing and geocoding API | tier Free
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T00:28:26.710Z (live) | stale on 2026-12-04
+- url https://stadiamaps.com/pricing/
+- free tier: 200,000 credits a month for development and evaluation, with standard basemaps and basic APIs only; Autocomplete Search (v2) costs 1 credit a request and Standard Routing 20 credits a request; the docs plan grids mark Reverse Geocoding and Bulk Geocoding unavailable on Free, and mark Forward Geocoding unavailable on Free on the v1 search page while the v2 launch announcement says forward geocoding is available on all plans, including Free; a hard limit with HTTP 429 when the month's credits run out | unit: credits | metered on: request-count | read on: 2026-10-31 | source: [1] | note: every new account first gets a 14-day Professional trial with the same 200,000-credit limit and stays on Free after it; Starter, USD 20 a month, gives 1,000,000 credits with basic and standard geocoding APIs
+- per-object cap: Bulk Geocoding takes up to 5,000 queries a request, on Standard, Professional and Enterprise plans only; a standard route takes up to 50 locations | source: [2]
+- retention: temporary storage in the normal course of work is allowed on Free; permanently storing geocoding results needs an active Standard, Professional or Enterprise subscription | source: [3]
+- egress: not applicable: a query API metered in credits, not bytes | metered: no | source: [1]
+- identity: email | detail: an account at client.stadiamaps.com with an email and a password (first and last name fields optional) behind an hCaptcha check; no credit card for the trial or the Free plan
+- interface: rest
+- limits:
+  - volume-quota (binding): 200,000 credits a month on the Free plan, hard-limited with HTTP 429 when used up [2]
+  - request-rate: no fixed requests-per-second limit for registered API keys; rate limits for abusive or disruptive use and for keyless local development [4]
+  - retention-clamped: geocoding results only stored temporarily on Free; permanent storage needs Standard, Professional or Enterprise [5]
+  - per-object-cap: Bulk Geocoding up to 5,000 queries a request, on Standard, Professional and Enterprise only [2]
+- binding note: registered keys have no fixed request rate, so the monthly 200,000-credit pool is the first limit met
+- interface detail: HTTPS to api.stadiamaps.com (for example /geocoding/v2/autocomplete and /route/v1) with the key in an api_key query parameter or an Authorization: Stadia-Auth header
+- endpoint: https://api.stadiamaps.com/geocoding/v2/autocomplete
+- tooling: any HTTP client; official SDKs and an OpenAPI specification at api.stadiamaps.com/openapi.yaml
+- composes with: 200,000 credits a month, spent at 1 credit an autocomplete lookup or 20 credits a standard route; results are kept only temporarily on Free, and Bulk Geocoding needs a paid Standard plan, so the Free plan has no bulk path
+- reliability: when the month's credits are used up every API answers HTTP 429 until the next calendar month; proxying or bulk downloading and caching bring escalating de-prioritization and then a rate limit
+- notes: Permanent storage of geocoding results needs Standard or above. Bulk path: none on Free; Bulk Geocoding (5,000 queries a request) is on Standard, Professional and Enterprise. On Free, autocomplete and standard routing answer and reverse geocoding does not; whether forward geocoding answers is unverified: behind a sign-up, since the v2 announcement says it is on all plans and the docs plan grid of the v1 search endpoint marks it unavailable on Free.
+- evidence note: the pricing page, the limits docs, the FAQ, the storage article, the terms, the geocoding, routing and autocomplete docs, the routing product page and the raw sign-up form were quoted on 2026-10-31; a keyless search answered HTTP 401. No account was opened, so no keyed request was made; one would move it to measured.
+- extras:
+  - bulk_path: none on Free; Bulk Geocoding up to 5,000 queries a request on Standard and above
+  - free_plan_apis: Autocomplete Search and Standard Routing are on Free; Reverse Geocoding and Bulk Geocoding are not; Forward Geocoding is on all plans per the v2 announcement and marked unavailable on Free in the v1 search docs
+- evidence:
+  - [1] 2026-10-31: the Free plan gives 200,000 credits a month | capture: sha256:3d43f3fa4e7bdf92ce39569b13df9ae4a467c8e56da46d3c4915070be4df3048 | quote: 200,000credits/month
+  - [1] 2026-10-31: the Free plan has basic APIs only | capture: sha256:3d43f3fa4e7bdf92ce39569b13df9ae4a467c8e56da46d3c4915070be4df3048 | quote: Basic APIs only
+  - [1] 2026-10-31:  | capture: sha256:3d43f3fa4e7bdf92ce39569b13df9ae4a467c8e56da46d3c4915070be4df3048
+  - [1] 2026-10-31: every new account starts with a 14-day trial | capture: sha256:3d43f3fa4e7bdf92ce39569b13df9ae4a467c8e56da46d3c4915070be4df3048 | quote: All new accounts receive a no-obligation 14-day trial of
+  - [1] 2026-10-31: after the trial the account stays on the Free plan | capture: sha256:3d43f3fa4e7bdf92ce39569b13df9ae4a467c8e56da46d3c4915070be4df3048 | quote: Your account will remain on our free plan after your trial unless you decide to upgrade.
+  - [1] 2026-10-31: the Starter plan gives 1,000,000 credits a month | capture: sha256:3d43f3fa4e7bdf92ce39569b13df9ae4a467c8e56da46d3c4915070be4df3048 | quote: 1,000,000credits/month
+  - [1] 2026-10-31: the Starter plan is USD 20 a month | capture: sha256:3d43f3fa4e7bdf92ce39569b13df9ae4a467c8e56da46d3c4915070be4df3048 | quote: $20/month
+  - [1] 2026-10-31: standard geocoding APIs start at the Starter plan | capture: sha256:3d43f3fa4e7bdf92ce39569b13df9ae4a467c8e56da46d3c4915070be4df3048 | quote: Basic + standard geocoding APIs
+  - [2] 2026-10-31: the free tier covers development and evaluation | capture: sha256:b976d44ae97ea2650521b1021adadabc94c2e3ea3ce8a5ca741c1702fd9b1829 | quote: Our free tier is available for development and evaluation.
+  - [2] 2026-10-31: used-up credits bring a hard limit with HTTP 429 until the next calendar month | capture: sha256:b976d44ae97ea2650521b1021adadabc94c2e3ea3ce8a5ca741c1702fd9b1829 | quote: After you use all of your credits for a billing period (calendar month for free accounts), our default action is to hard limit until the start of the next billing cycle or plan upgrade (all APIs will respond with HTTP 429 Rate Limit Exceeded).
+  - [2] 2026-10-31: an API outside the plan answers 403 | capture: sha256:b976d44ae97ea2650521b1021adadabc94c2e3ea3ce8a5ca741c1702fd9b1829 | quote: If you try to access an API which you do not have access to, you will receive a `403 Forbidden` response.
+  - [2] 2026-10-31: rate limits apply to abusive or disruptive use | capture: sha256:b976d44ae97ea2650521b1021adadabc94c2e3ea3ce8a5ca741c1702fd9b1829 | quote: We reserve the right to impose rate limits on customers who are abusive or disruptive of service.
+  - [2] 2026-10-31: proxying or bulk downloading and caching bring de-prioritization and then a rate limit | capture: sha256:b976d44ae97ea2650521b1021adadabc94c2e3ea3ce8a5ca741c1702fd9b1829 | quote: Unless you have an enterprise agreement which allows this, such behavior will typically result in escalating de-prioritization of requests and ultimately a rate limit.
+  - [2] 2026-10-31: a bulk geocoding request takes up to 5,000 queries | capture: sha256:b976d44ae97ea2650521b1021adadabc94c2e3ea3ce8a5ca741c1702fd9b1829 | quote: Bulk geocoding requests may contain up to 5,000 queries.
+  - [2] 2026-10-31: a standard route takes up to 50 locations | capture: sha256:b976d44ae97ea2650521b1021adadabc94c2e3ea3ce8a5ca741c1702fd9b1829 | quote: | Automobile, bus, truck, taxi, and motorcycle | 50 | 5000 kilometers |
+  - [4] 2026-10-31: registered keys have no fixed request rate; the monthly credits bind | capture: sha256:f9e390a00ce54b9aaafecfd5d767a1dedf10f43bdd816040774d2b1973e93915 | quote: There's no fixed requests-per-second limit for registered API keys — your real constraint is the monthly credit allowance.
+  - [3] 2026-10-31: temporary storage of results is allowed on Free | capture: sha256:9952950c97b4833747a20a2140fbaa7c8bb389769e64ce7fbd7daad1c013b6c2 | quote: Temporary storage in the normal course of work is allowed on all Stadia Maps plans, including Free.
+  - [5] 2026-10-31: permanent storage of geocoding results needs Standard or above | capture: sha256:5a2cbf597c6fce817a55526262ed711bad7b45c21faaed67f1175bc2e8e95e20 | quote: permanently storing results for future use (e.g., as a database column), in part or in whole, from the Stadia Maps Geocoding APIs without an active Standard, Professional, or Enterprise subscription with appropriate permissions;
+  - [6] 2026-10-31: the bulk geocoding endpoint is not on the Free plan | capture: sha256:8f774d33c6ce629fe03b2d33e70fe4c6b5a4299f1c002d0c0d5b4d6929f5564d | quote: This endpoint is available on our Standard, Professinoal, and Enterprise plans.
+  - [7] 2026-10-31: forward geocoding is marked unavailable on the first plan of the grid, Free | capture: sha256:794b3ed0e2f41cda72ccdb70f62d40c20e6308a579481057898b9bff529bb1a7 | quote: <h1 id="forward-geocoding">Forward Geocoding<a class="headerlink" href="#forward-geocoding" title="Permanent link">&para;</a></h1> <div class="grid plans"> <p><span class="twemoji feature-unavailable">
+  - [8] 2026-10-31: reverse geocoding is marked unavailable on the first plan of the grid, Free | capture: sha256:0a02465c467a79964d4cf4fd2ec64bb38b77a3813bfb95e401ed37b1983953f6 | quote: <h1 id="reverse-geocoding">Reverse Geocoding<a class="headerlink" href="#reverse-geocoding" title="Permanent link">&para;</a></h1> <div class="grid plans"> <p><span class="twemoji feature-unavailable">
+  - [9] 2026-10-31: autocomplete search is available on the first plan of the grid, Free | capture: sha256:7c0c0360c891ec7b33ff2894b16609e42de5bb8f2aff1bb2ff58dcc55fd49e9b | quote: <h1 id="autocomplete-search">Autocomplete Search<a class="headerlink" href="#autocomplete-search" title="Permanent link">&para;</a></h1> <div class="grid plans"> <p><span class="twemoji">
+  - [9] 2026-10-31: the autocomplete endpoint | capture: sha256:7c0c0360c891ec7b33ff2894b16609e42de5bb8f2aff1bb2ff58dcc55fd49e9b | quote: https://api.stadiamaps.com/geocoding/v2/autocomplete
+  - [10] 2026-10-31: standard routing is available on the first plan of the grid, Free | capture: sha256:25abaa019ec36bc5caff4adbfafde9e6ec792f6103ae7c36dface7a3cd6cffa1 | quote: <h1 id="standard-routing">Standard Routing<a class="headerlink" href="#standard-routing" title="Permanent link">&para;</a></h1> <div class="grid plans"> <p><span class="twemoji">
+  - [10] 2026-10-31: the standard routing endpoint | capture: sha256:bd3cc4fb66ae8f26c8f059b33d849c593f1dc81415ae0f41bacd9f8a42288ad5 | quote: Endpoint: `https://api.stadiamaps.com/route/v1`
+  - [1] 2026-10-31: Autocomplete Search (v2) costs 1 credit a request | capture: sha256:bfa8d7e6a0cba52fc14c14c77472dbeb0f0903ce9193049a87e9d3d2606466ef | quote: Autocomplete Search (v2) ... 1/req
+  - [1] 2026-10-31: Forward Geocoding costs 20 credits a request | capture: sha256:bfa8d7e6a0cba52fc14c14c77472dbeb0f0903ce9193049a87e9d3d2606466ef | quote: Forward Geocoding ... 20/req
+  - [11] 2026-10-31: a standard route costs 20 credits | capture: sha256:c976b4a78ea43669f6302a5a1b694c56ac7a9c842faf52135e58187d3e0de46c | quote: Standard Routing: 20 credits/request
+  - [11] 2026-10-31: the Free plan is 200,000 credits a month | capture: sha256:c976b4a78ea43669f6302a5a1b694c56ac7a9c842faf52135e58187d3e0de46c | quote: 200,000 credits/month
+  - [12] 2026-10-31: the key goes in an api_key query parameter | capture: sha256:982f39f0a71b51eb17c562c5cb8f028cbf9f32ed971448d9de07f26bd96d8af9 | quote: The simplest is to add a query string parameter `api_key=YOUR-API-KEY` to your request URL.
+  - [12] 2026-10-31: the key can go in an Authorization header with the Stadia-Auth prefix | capture: sha256:982f39f0a71b51eb17c562c5cb8f028cbf9f32ed971448d9de07f26bd96d8af9 | quote: Authorization: Stadia-Auth YOUR-API-KEY
+  - [4] 2026-10-31: an OpenAPI specification is published | capture: sha256:f9e390a00ce54b9aaafecfd5d767a1dedf10f43bdd816040774d2b1973e93915 | quote: generate your own with our [OpenAPI specification file](https://api.stadiamaps.com/openapi.yaml)
+  - [13] 2026-10-31: the sign-up form requires an email | capture: sha256:dad7d6b87f42e0ed40f943bdc0e8d1341741db2dff745c2d9a75f6f51133f085 | quote: <label for="email" class="form-label">Email (required)</label>
+  - [13] 2026-10-31: the sign-up form requires a password | capture: sha256:dad7d6b87f42e0ed40f943bdc0e8d1341741db2dff745c2d9a75f6f51133f085 | quote: <label for="password" class="form-label">Password (required)</label>
+  - [13] 2026-10-31: first name is a sign-up field not marked required | capture: sha256:dad7d6b87f42e0ed40f943bdc0e8d1341741db2dff745c2d9a75f6f51133f085 | quote: <label for="first-name" class="form-label">First Name</label>
+  - [13] 2026-10-31: the sign-up form is behind hCaptcha | capture: sha256:dad7d6b87f42e0ed40f943bdc0e8d1341741db2dff745c2d9a75f6f51133f085 | quote: This form is protected by hCaptcha
+  - [13] 2026-10-31: the Free plan needs no credit card | capture: sha256:dad7d6b87f42e0ed40f943bdc0e8d1341741db2dff745c2d9a75f6f51133f085 | quote: Free tier includes standard basemaps and basic location APIs. No credit card required.
+  - probe:https://api.stadiamaps.com/geocoding/v1/search?text=Zurich 2026-10-31: the search endpoint answers HTTP 401 to a keyless request | capture: sha256:a3e0dec15be9414a99e7c285e67ad4c4e762e290f373719569333db18bb77fbb | quote: "status": 401
+  - probe:https://api.stadiamaps.com/geocoding/v1/search?text=Zurich#body 2026-10-31: the search endpoint refuses a request with no key | capture: sha256:54d78bd79d5e57f73381fb8b57e1c6cca121ffe717f051adb90bf11a76cc8bf8 | quote: "error": "No valid authentication provided."
+  - [14] 2026-11-02: the Geocoding & Search v2 announcement (updated July 2, 2026) says Forward Geocoding is available on all plans, including Free | capture: sha256:007d9f0ac0cb736509c87e091727f675ba4ec76ed557275bc7d64bb165785fee | quote: Forward Geocoding and Place Details are available on all plans, including Free.
+  - [14] 2026-11-02: the v2 announcement says Forward Geocoding is available on all plans, including Free | capture: sha256:007d9f0ac0cb736509c87e091727f675ba4ec76ed557275bc7d64bb165785fee | quote: Forward Geocoding and Place Details are available on all plans, including Free.
+  - [15] 2026-11-02: the changelog entry of 2025-04-08 says forward geocoding became available on all plans | capture: sha256:2d8da6bed2439e13478b45efe577fc61df5d9ca1ed31b31829c7377cd611a9e0 | quote: Launched Geocoding & Search v2: 14M+ new places and addresses, faster and more accurate results, 80% reduction in autocomplete costs, and forward geocoding now available on all plans.
+  - [12] 2026-11-02: Forward Geocoding is among the endpoints a development server on localhost can call without a key | capture: sha256:982f39f0a71b51eb17c562c5cb8f028cbf9f32ed971448d9de07f26bd96d8af9 | quote: | Geocoding | [Forward Geocoding](https://docs.stadiamaps.com/geocoding-search-autocomplete/search/) |
+  - [1] 2026-11-02: the Free plan is measured in credits, 200,000 a month | capture: sha256:3d43f3fa4e7bdf92ce39569b13df9ae4a467c8e56da46d3c4915070be4df3048 | quote: 200,000credits/month
+  - [13] 2026-11-02: the sign-up form requires an email | capture: sha256:c29b7a5b75d8ee874f0076012c2ed06b0fde94cfb8ba3299cb824f1d086d2585 | quote: <label for="email" class="form-label">Email (required)</label>
+  - [3] 2026-11-02: temporary storage of results is allowed on Free | capture: sha256:9952950c97b4833747a20a2140fbaa7c8bb389769e64ce7fbd7daad1c013b6c2 | quote: Temporary storage in the normal course of work is allowed on all Stadia Maps plans, including Free.
+  - probe:https://api.stadiamaps.com/geocoding/v1/search?text=Zurich#body 2026-11-02: a keyless search request is refused with a no-valid-authentication message | capture: sha256:54d78bd79d5e57f73381fb8b57e1c6cca121ffe717f051adb90bf11a76cc8bf8 | quote: "error": "No valid authentication provided."
+- sources:
+  - [1] https://stadiamaps.com/pricing/
+  - [2] https://docs.stadiamaps.com/limits
+  - [3] https://stadiamaps.com/learn/geocoding-data-storage
+  - [4] https://stadiamaps.com/faqs
+  - [5] https://stadiamaps.com/terms-of-service
+  - [6] https://docs.stadiamaps.com/geocoding-search-autocomplete/bulk-geocoding-search
+  - [7] https://docs.stadiamaps.com/geocoding-search-autocomplete/search/
+  - [8] https://docs.stadiamaps.com/geocoding-search-autocomplete/reverse-search/
+  - [9] https://docs.stadiamaps.com/geocoding-search-autocomplete/autocomplete/
+  - [10] https://docs.stadiamaps.com/routing/standard-routing/
+  - [11] https://stadiamaps.com/products/routing-navigation
+  - [12] https://docs.stadiamaps.com/authentication/
+  - [13] https://client.stadiamaps.com/signup/
+  - [14] https://stadiamaps.com/blog/introducing-stadia-maps-geocoding-search-v2/
+  - [15] https://stadiamaps.com/changelog/

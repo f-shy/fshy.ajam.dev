@@ -1,0 +1,82 @@
+# AyooCloud
+
+> ayoocloud.com.br | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/ayoocloud/ | JSON https://fshy.ajam.dev/api/v1/entity/ayoocloud.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## AyooCloud
+
+- `compute/ayoo-cloud` | fails-identity | evidence documented | binding none | category VPS (virtual machine) | tier Ayoo VPS I (24-hour trial)
+- needs card yes, phone yes, ID yes, institution no | verified 2026-11-06T16:58:46.423Z (live) | stale on 2026-12-07
+- url https://ayoocloud.com.br/Vps
+- free tier: A 24-hour trial of the entry plan, Ayoo VPS I (2 vCPU, 4 GB RAM, 50 GB NVMe), on request: order the plan without paying the invoice, open a ticket or message support, and the machine is activated if an IPv4 block is free; it is suspended after 24 hours and deleted a day later unless paid. | unit: hours | metered on: wall-clock | read on: 2026-11-06 | source: [1] | note: one machine, one request; activation is manual and queued on IPv4 supply, so it is a trial and not a standing allowance
+- per-object cap: not applicable: the unit is a virtual machine, not a stored object | source: [2]
+- retention: A trial machine is suspended after 24 hours and deleted one day later unless the invoice is paid; a paid machine persists while the monthly invoice is paid. The terms place backups and data recovery on the customer. | source: [3] | note: two days from creation for a trial; indefinite while paid
+- egress: Transfer is advertised as unlimited on every plan ('Transf. Mensal: Ilimitada', 'Transferência ilimitada'); the terms require the customer to respect technical limits and avoid abuse of processing, I/O and network, and state no number. | metered: no | free allowance: unlimited | source: [2]
+- identity: national-id | detail: The registration form marks a CPF or CNPJ as required ('CNPJ/CPF*', 'Digite o CNPJ para pessoa Jurídica, CPF para pessoa física'), alongside email, a phone number and a billing address; card payments may prompt a document request. Payment is Pix, boleto or credit or debit card. | country: BR
+- interface: ssh
+- limits:
+  - volume-quota: no traffic quota: 'Transf. Mensal: Ilimitada' on every plan, bounded only by the terms' rule against network abuse [2]
+- limits note: The 24-hour window is a time allowance rather than a byte allowance; no limit kind names time, so it is carried in the free-tier unit (hours) and in the session cap.
+- binding note: Nothing in the allowance binds, because transfer is unlimited and there is no traffic counter; the CPF or CNPJ demanded at registration is what stops a registrant without a Brazilian tax number.
+- interface detail: root SSH on the Linux images and RDP on the Windows images; the AyooPanel web console handles power, reinstall, password, backup and VNC; no API is documented on the vendor pages
+- tooling: any OpenSSH client for a Linux image, an RDP client for Windows, and the AyooPanel console; no provider CLI, SDK or documented API
+- composes with: A 24-hour root machine in Canada with a dedicated IPv4 and unlimited transfer covers a job that needs a full OS and an inbound port for one day; anything longer starts at BRL 49.90 a month, so the offer is a route to Brazilian payment rails and a Canadian address rather than a cheap standing host.
+- reliability: The 24-hour trial is granted by ticket and queued on IPv4 supply, so activation can wait; the terms disclaim data recovery and put backups on the customer; the service is run by a single Brazilian company, CNPJ 69.734.466/0001-17.
+- notes: The standing price is BRL 49.90 a month at the panel's own store, with BRL 39.90 for the first three months under the coupon AYOO20; the English storefront prices the same entry plan at USD 14.00 a month and lists different shapes for plans II to VI, so the two storefronts disagree and the panel is the order point. The France batch (BRL 109.52 for 6 vCPU, 8 GB and 120 GB) is a limited-stock promotion, not a standing tier. The record is abandoned if the trial is withdrawn or the entry price leaves the panel store.
+- evidence note: Trial, price, identity gate and transfer term are each quoted from a first-party page captured; the trial itself was not requested, so activation and the queue are unobserved.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 4
+  - shape.disk_gib: 50
+  - billing_model: monthly prepaid
+  - term: monthly, no loyalty contract
+  - free_tier_kind: one-time-trial
+  - price.brl_month: 49.9
+  - price.brl_month_promo_first_3: 39.9
+  - price.usd_month_english_storefront: 14.0
+  - trial.hours: 24
+  - trial.activation: ticket or WhatsApp after ordering without payment
+  - trial.queue: IPv4 block availability
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: not stated
+  - network_out.static_ip: yes
+  - session_cap.wall_clock_min: 1440
+  - session_cap.restart_required: no
+  - session_cap.note: the trial window is 24 hours (1440 minutes), then suspension and deletion a day later
+  - payment_methods: Pix, boleto, credit or debit card
+- evidence:
+  - [1] 2026-11-06: a 24-hour no-commitment test is offered to prospective customers | capture: sha256:c83945da2c35dc2eec4b1dfc17d698867f333ab9b6c9a2be764e9dee6590e15d | quote: estamos liberando um teste de 24 horas sem compromisso para os nossos futuros clientes
+  - [1] 2026-11-06: the trial machine is suspended automatically after 24 hours | capture: sha256:c83945da2c35dc2eec4b1dfc17d698867f333ab9b6c9a2be764e9dee6590e15d | quote: Após o período de 24 horas, a VPS é suspensa automaticamente.
+  - [1] 2026-11-06:  | capture: sha256:c83945da2c35dc2eec4b1dfc17d698867f333ab9b6c9a2be764e9dee6590e15d | quote: 2. Faça o pedido da VPS normalmente no plano AYOO VPS I, mas NÃO efetue o pagamento da fatura.
+  - [1] 2026-11-06: activation is requested by ticket or WhatsApp, not by a self-service order | capture: sha256:c83945da2c35dc2eec4b1dfc17d698867f333ab9b6c9a2be764e9dee6590e15d | quote: 3. [Abra um Ticket](https://painel.ayoocloud.com.br/submitticket.php) no painel ou entre em contato via [WhatsApp](https://wa.me/55017997327198) informando que deseja a ativação do teste de 24h.
+  - [1] 2026-11-06: trial capacity is limited by IPv4 blocks, so a wait queue is possible | capture: sha256:c83945da2c35dc2eec4b1dfc17d698867f333ab9b6c9a2be764e9dee6590e15d | quote: liberamos uma quantidade limitada de blocos de IPv4 para testes
+  - [3] 2026-11-06: the trial machine is deleted one day after suspension | capture: sha256:1dcd95c73f773ff0674370511191bbc8aec8a8a6f3b272659a21d49c39256c7d | quote: Após o término do período, a VPS ficará suspensa e, após mais 1 dia, será deletada.
+  - [2] 2026-11-06:  | capture: sha256:76099f37fa3495392622390a92f38ca907f6cfdb34ea4a72503ba59f5277cc0f | quote: ### AYOO VPS I - vCPUs 2 - Ram 4GB - Armazenamento 50GB - **Transf. Mensal** Ilimitada - IPV4 1 - Sistema Linux ou Windows a partir de R$49,90BRL Mensalmente
+  - [4] 2026-11-06: the entry plan is BRL 39.90 for the first three months and BRL 49.90 after | capture: sha256:36d704e7903a20da42b520addddb323a0921cda100b283957fb59b9b53c02418 | quote: | Ayoo VPS I | 2 | 4 GB | 50 GB | R$ 39,90 | R$ 49,90 |
+  - [4] 2026-11-06: every plan includes unlimited transfer, a dedicated IP, 1 Gbps networking and backup | capture: sha256:36d704e7903a20da42b520addddb323a0921cda100b283957fb59b9b53c02418 | quote: Todos com transferência ilimitada, IP dedicado, rede de 1 Gbps, backup incluso, reinstalação ilimitada e suporte pelo WhatsApp.
+  - [4] 2026-11-06: the Linux image is reached over SSH with root access | capture: sha256:36d704e7903a20da42b520addddb323a0921cda100b283957fb59b9b53c02418 | quote: Normalmente acessada por SSH, com acesso root.
+  - [4] 2026-11-06: the images offered are Windows Server 2019/2022, Ubuntu 22/24 and Debian 12/13 | capture: sha256:36d704e7903a20da42b520addddb323a0921cda100b283957fb59b9b53c02418 | quote: Windows Server 2019 e 2022, Ubuntu 22 e 24 e Debian 12 e 13.
+  - [5] 2026-11-06: payment is Pix, boleto or credit or debit card | capture: sha256:c03ef1c1ddd2e7cfe89cdaae3c4261a62f5dacf3452feb51054dfee9b406b61a | quote: Pix, boleto e cartão de crédito ou débito.
+  - [5] 2026-11-06: there is no activation fee and the machine is released after payment | capture: sha256:c03ef1c1ddd2e7cfe89cdaae3c4261a62f5dacf3452feb51054dfee9b406b61a | quote: Não. Você paga só o plano. A ativação acontece logo depois da confirmação do pagamento.
+  - [6] 2026-11-06: the registration form marks a CPF or CNPJ field as required | capture: sha256:bb22599e358c1be7b61e1c60a403c9f1466c5e9a3ce3defba6743c8b6943f67b | quote: CNPJ/CPF<i class="l7-req">*</i>
+  - [6] 2026-11-06: the required field takes an individual CPF or a company CNPJ | capture: sha256:bb22599e358c1be7b61e1c60a403c9f1466c5e9a3ce3defba6743c8b6943f67b | quote: Digite o CNPJ para pessoa Jurídica, CPF para pessoa física
+  - [6] 2026-11-06: a phone number is required at registration | capture: sha256:bb22599e358c1be7b61e1c60a403c9f1466c5e9a3ce3defba6743c8b6943f67b | quote: Número de Telefone<i class="l7-req">*</i>
+  - [7] 2026-11-06: the terms require VPS customers to respect technical limits and avoid network abuse | capture: sha256:4bb85ce60eca142934f02caf3dfbf4bf11c60f4780a4cb06fbf608b74ecb176d | quote: Em VPS e Enterprise Cloud, o cliente deve respeitar limites técnicos, evitar abuso de processamento, I/O, rede, inodes
+  - [7] 2026-11-06: no data recovery is guaranteed | capture: sha256:4bb85ce60eca142934f02caf3dfbf4bf11c60f4780a4cb06fbf608b74ecb176d | quote: A AyooCloud não garante recuperação de dados perdidos por falhas, mau uso, cancelamento, suspensão, exclusão, ataques, scripts inseguros ou qualquer eventualidade.
+  - [7] 2026-11-06: the service is operated under one Brazilian company CNPJ | capture: sha256:4bb85ce60eca142934f02caf3dfbf4bf11c60f4780a4cb06fbf608b74ecb176d | quote: inscrita no CNPJ sob o nº 69.734.466/0001-17
+  - [7] 2026-11-06: the service is prepaid and renewed on the contracted cycle | capture: sha256:4bb85ce60eca142934f02caf3dfbf4bf11c60f4780a4cb06fbf608b74ecb176d | quote: Os serviços são pagos antecipadamente e renovados conforme o ciclo contratado.
+  - [7] 2026-11-06: a card payment may prompt a request for documents or additional data | capture: sha256:4bb85ce60eca142934f02caf3dfbf4bf11c60f4780a4cb06fbf608b74ecb176d | quote: Em pagamentos com cartão de crédito, a AyooCloud poderá solicitar documentos ou dados adicionais para confirmar a legitimidade da compra.
+  - [8] 2026-11-06:  | capture: sha256:5fe12e7b7d3e6bf207cd8f6f77dff03786325c57e20083185ad415512bdc6300 | quote: ### AYOO VPS I Ideal for websites and projects in the initial development phase. $14,00 /month
+  - [9] 2026-11-06: a limited-stock France batch offers 6 vCPU, 8 GB and 120 GB at BRL 109.52 for the first three months | capture: sha256:9bbc6b0363da0ce7f7a821b701993564aa67302fb1b81faec2e60e82ffea6538 | quote: | Oferta VPS I | 6 | 8 GB | 120 GB | Windows, Ubuntu, Debian, AlmaLinux | R$ 109,52 | R$ 136,90 |
+- sources:
+  - [1] https://ayoocloud.com.br/blog/2026/05/21/como-testar-uma-vps-gratis-em-2026/
+  - [2] https://painel.ayoocloud.com.br/index.php?rp=/store/vps
+  - [3] https://ayoocloud.com.br/blog/2025/08/24/como-testar-uma-vps-gratis-por-24-horas
+  - [4] https://ayoocloud.com.br/Vps
+  - [5] https://ayoocloud.com.br/
+  - [6] https://painel.ayoocloud.com.br/register.php
+  - [7] https://ayoocloud.com.br/Termos-de-uso
+  - [8] https://ayoocloud.com.br/en/Vps
+  - [9] https://ayoocloud.com.br/Vps-Oferta

@@ -1,0 +1,196 @@
+# OVHcloud AI Endpoints
+
+> ovh.net | Inference; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/ovh-2/ | JSON https://fshy.ajam.dev/api/v1/entity/ovh-2.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## OVHcloud AI Endpoints (anonymous tier)
+
+- `inference/ovh-ai-endpoints` | qualifies | evidence measured | binding request-rate | category inference endpoint, keyless
+- needs card no, phone no, ID no, institution no | verified 2026-11-10T01:21:21.470Z (live) | stale on 2026-12-11
+- url https://oai.endpoints.kepler.ai.cloud.ovh.net/v1
+- free tier: no key required; 21 model ids on /v1/models on 2026-11-10 (22 on 2026-10-22), each carrying a pricing object in USD per token on 2026-10-22. Twelve of the 22 are chat models and two of those, Qwen3Guard-Gen-0.6B and Qwen3Guard-Gen-8B, price at exactly zero on prompt and completion. The other 10 ids are one image model, three embedding models, four TTS models and two ASR models | unit: tokens | metered on: request-count | read on: 2026-11-10 | source: [1] | note: the pricing object is published per model and is the machine form of 'free'. Qwen3Guard-Gen-0.6B and Qwen3Guard-Gen-8B are the only two chat models priced at exactly zero on both prompt and completion. No chat model is priced at 0.00000001 USD: that figure belongs to the two embedding models bge-m3 and bge-multilingual-gemma2
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: anonymous | detail: No Authorization header is sent and none is required. Third-party tracking reports 244 of 343 calls answered over 14 days (71 percent), and 244 of 267 calls accepted for served models (91 percent).
+- interface: rest
+- limits:
+  - request-rate (binding): x-ratelimit-limit-minute: 2, ratelimit-reset: 34 seconds response header from a live POST, 2026-10-22T03:17:26Z
+  - request-rate (binding): anonymous: 2 requests per minute, per IP and per model; with an API access key: 400 requests per minute, per Public Cloud project and per model; 429 above the limit [2]
+- endpoint: https://oai.endpoints.kepler.ai.cloud.ovh.net/v1/chat/completions
+- tooling: any OpenAI-compatible client; curl against POST {base}/chat/completions
+- composes with: pairs with a free-standing agent as a complete no-account stack; the two-a-minute ceiling is the scarce link, not the agent
+- reliability: the per-minute ceiling is 2, published in the response headers, so a burst is refused with 429 rather than throttled
+- notes: The endpoint answers without a key but publishes a price per token, so 'keyless' describes the authentication requirement and not the cost. The two guard models are genuinely zero. Qwen3.5-397B-A17B and Qwen3.6-27B return empty content at max_tokens 256 with the reasoning field populated and finish_reason length, which is budget exhaustion and not a failure.
+- evidence note: Eight models were evaluated across test runs on 2026-10-28. The header ceiling was read directly from a live HTTP response. Long-term availability of zero-cost tiers past user registration remains unmeasured.
+- probe:
+  - records[0].probe_id: ovh-qwen3guard
+  - records[0].requested_model: Qwen3Guard-Gen-0.6B
+  - records[0].http_run1: 200
+  - records[0].http_run2: 200
+  - records[0].answered_run1: yes
+  - records[0].answered_run2: yes
+  - records[0].model_echoed: Qwen3Guard-Gen-0.6B
+  - records[0].echo_match: yes
+  - records[0].latency_ms_run1: 4228
+  - records[0].latency_ms_run2: 4020
+  - records[0].ttft_ms_run1: 1411
+  - records[0].completion_tokens_run1: 11
+  - records[0].tps_run1: 103.11
+  - records[0].tps_run2: 91.75
+  - records[0].needle_echoed_run1: no
+  - records[0].body_bytes_run1: 335
+  - records[0].body_sha256_16_run1: 00913865fb1fc4a9
+  - records[0].reasoning_only: no
+  - records[1].probe_id: ovh-gptoss20b
+  - records[1].requested_model: gpt-oss-20b
+  - records[1].http_run1: 200
+  - records[1].http_run2: 200
+  - records[1].answered_run1: yes
+  - records[1].answered_run2: yes
+  - records[1].model_echoed: gpt-oss-20b
+  - records[1].echo_match: yes
+  - records[1].latency_ms_run1: 1398
+  - records[1].latency_ms_run2: 1241
+  - records[1].ttft_ms_run1: 590
+  - records[1].completion_tokens_run1: 51
+  - records[1].tps_run1: 12.02
+  - records[1].tps_run2: 14.77
+  - records[1].needle_echoed_run1: yes
+  - records[1].body_bytes_run1: 436
+  - records[1].body_sha256_16_run1: 4092e3cd74826e4e
+  - records[1].reasoning_only: no
+  - records[2].probe_id: ovh-qwen397b
+  - records[2].requested_model: Qwen3.5-397B-A17B
+  - records[2].http_run1: 200
+  - records[2].http_run2: 200
+  - records[2].answered_run1: no
+  - records[2].answered_run2: no
+  - records[2].model_echoed: Qwen3.5-397B-A17B
+  - records[2].echo_match: yes
+  - records[2].latency_ms_run1: 4164
+  - records[2].latency_ms_run2: 2261
+  - records[2].completion_tokens_run1: 256
+  - records[2].needle_echoed_run1: no
+  - records[2].body_bytes_run1: 1199
+  - records[2].body_sha256_16_run1: b36f7a15edcc618a
+  - records[2].reasoning_only: yes
+  - records[2].error_run1: empty content; reasoning field populated (865 chars); finish_reason=length
+  - records[2].error_run2: empty content; reasoning field populated (995 chars); finish_reason=length
+  - records[3].probe_id: ovh-llama70b
+  - records[3].requested_model: Meta-Llama-3_3-70B-Instruct
+  - records[3].http_run1: 200
+  - records[3].http_run2: 200
+  - records[3].answered_run1: yes
+  - records[3].answered_run2: yes
+  - records[3].model_echoed: Meta-Llama-3_3-70B-Instruct
+  - records[3].echo_match: yes
+  - records[3].latency_ms_run1: 1027
+  - records[3].latency_ms_run2: 919
+  - records[3].ttft_ms_run1: 639
+  - records[3].completion_tokens_run1: 9
+  - records[3].tps_run1: 9.19
+  - records[3].tps_run2: 8.98
+  - records[3].needle_echoed_run1: yes
+  - records[3].body_bytes_run1: 307
+  - records[3].body_sha256_16_run1: a76c1caf361d54a2
+  - records[3].reasoning_only: no
+  - records[4].probe_id: ovh-mistral-nemo
+  - records[4].requested_model: Mistral-Nemo-Instruct-2407
+  - records[4].http_run1: 200
+  - records[4].http_run2: 200
+  - records[4].answered_run1: yes
+  - records[4].answered_run2: yes
+  - records[4].model_echoed: Mistral-Nemo-Instruct-2407
+  - records[4].echo_match: yes
+  - records[4].latency_ms_run1: 1336
+  - records[4].latency_ms_run2: 1250
+  - records[4].ttft_ms_run1: 563
+  - records[4].completion_tokens_run1: 9
+  - records[4].tps_run1: 3.67
+  - records[4].tps_run2: 3.67
+  - records[4].needle_echoed_run1: yes
+  - records[4].body_bytes_run1: 306
+  - records[4].body_sha256_16_run1: bb415c52464d4e97
+  - records[4].reasoning_only: no
+  - records[5].probe_id: ovh-qwen38-27b
+  - records[5].requested_model: Qwen3.8-27B
+  - records[5].http_run1: 200
+  - records[5].http_run2: 200
+  - records[5].answered_run1: yes
+  - records[5].answered_run2: yes
+  - records[5].model_echoed: Qwen3.8-27B
+  - records[5].echo_match: yes
+  - records[5].latency_ms_run1: 2934
+  - records[5].latency_ms_run2: 67293
+  - records[5].ttft_ms_run1: 617
+  - records[5].completion_tokens_run1: 57
+  - records[5].tps_run1: 27.64
+  - records[5].tps_run2: 21.76
+  - records[5].needle_echoed_run1: yes
+  - records[5].body_bytes_run1: 513
+  - records[5].body_sha256_16_run1: 2bf027e77c4d3a8e
+  - records[5].reasoning_only: no
+  - records[6].probe_id: ovh-qwen36-27b
+  - records[6].requested_model: Qwen3.6-27B
+  - records[6].http_run1: 200
+  - records[6].http_run2: 200
+  - records[6].answered_run1: yes
+  - records[6].answered_run2: no
+  - records[6].model_echoed: Qwen3.6-27B
+  - records[6].echo_match: yes
+  - records[6].latency_ms_run1: 3664
+  - records[6].latency_ms_run2: 4311
+  - records[6].ttft_ms_run1: 546
+  - records[6].completion_tokens_run1: 211
+  - records[6].needle_echoed_run1: yes
+  - records[6].body_bytes_run1: 1070
+  - records[6].body_sha256_16_run1: 5a831ad2fb72237a
+  - records[6].reasoning_only: no
+  - records[6].error_run2: empty content; reasoning field populated (930 chars); finish_reason=length
+  - records[7].probe_id: ovh-gptoss120b
+  - records[7].requested_model: gpt-oss-120b
+  - records[7].http_run1: 200
+  - records[7].http_run2: 200
+  - records[7].answered_run1: yes
+  - records[7].answered_run2: yes
+  - records[7].model_echoed: gpt-oss-120b
+  - records[7].echo_match: yes
+  - records[7].latency_ms_run1: 7186
+  - records[7].latency_ms_run2: 3701
+  - records[7].ttft_ms_run1: 628
+  - records[7].completion_tokens_run1: 124
+  - records[7].tps_run1: 22.67
+  - records[7].tps_run2: 25.84
+  - records[7].needle_echoed_run1: no
+  - records[7].body_bytes_run1: 819
+  - records[7].body_sha256_16_run1: 2d1306c00f54818d
+  - records[7].reasoning_only: no
+  - records[8].probe_id: ovh-qwen32b
+  - records[8].requested_model: Qwen3-32B
+  - records[8].http_run1: 404
+  - records[8].http_run2: 404
+  - records[8].answered_run1: no
+  - records[8].answered_run2: no
+  - records[8].echo_match: yes
+  - records[8].latency_ms_run1: 512
+  - records[8].latency_ms_run2: 537
+  - records[8].completion_tokens_run1: 0
+  - records[8].needle_echoed_run1: no
+  - records[8].body_bytes_run1: 130
+  - records[8].body_sha256_16_run1: 06d1e24ad072bd9c
+  - records[8].reasoning_only: no
+  - records[8].error_run1: {"code": "model_not_found", "message": "The model `Qwen3-32B` does not exist.", "param": null, "type": "invalid_request_error"}
+  - records[8].error_run2: {"code": "model_not_found", "message": "The model `Qwen3-32B` does not exist.", "param": null, "type": "invalid_request_error"}
+  - runs: probes-w.json; probes-w-run2.json
+  - conditions: one machine, one IP, one country, 2026-10-22T03:02Z and 03:10Z
+- evidence:
+  - probe:https://oai.endpoints.kepler.ai.cloud.ovh.net/v1/chat/completions 2026-10-22: gpt-oss-20b answered 200 with the requested model echoed and the needle present, 51 completion tokens, 1305 ms (run 1) and 1241 ms (run 2)
+  - [1] 2026-10-22: 22 model ids with context_length and a per-token pricing object, 12 of them chat models; Qwen3Guard-Gen-0.6B and -8B carry prompt 0 and completion 0; bge-m3 and bge-multilingual-gemma2 carry prompt 0.00000001 and are embeddings; the largest chat model, Qwen3.5-397B-A17B, carries prompt 0.00000071 and completion 0.00000425 USD per token at 262144 context
+  - [2] 2026-10-28: the anonymous tier is limited to 2 requests per minute per IP and per model; the capture also lists 400 requests per minute per Public Cloud project and per model with an API access key and a 429 above the limit | capture: sha256:9a97c364658dd9e0110927dedb18ce8222228b4a1726ed4a6b60fd7c4b004ae3 | quote: - Anonymous: 2 requests per minute, per IP and per model.
+  - probe:https://oai.endpoints.kepler.ai.cloud.ovh.net/v1/chat/completions 2026-10-28: one POST with no Authorization header for Meta-Llama-3_3-70B-Instruct answered 200, echoed model Meta-Llama-3_3-70B-Instruct, returned content NEEDLE-9K2X in 307 bytes, and reported x-ratelimit-limit-minute: 2, x-ratelimit-remaining-minute: 1, ratelimit-limit: 2, ratelimit-remaining: 1, ratelimit-reset: 54 (seconds)
+  - probe:https://oai.endpoints.kepler.ai.cloud.ovh.net/v1/chat/completions 2026-11-10: a keyless POST on 2026-11-10 for Qwen3.8-27B answered 200 twice and echoed Qwen3.8-27B with content 'pong' and 76 tokens (59 prompt, 17 completion) | capture: sha256:0801b9b6684d814973d50674c82e58893cde24765c90a540680791a7664d703a | quote: "status": 200
+- sources:
+  - [1] https://oai.endpoints.kepler.ai.cloud.ovh.net/v1/models
+  - [2] https://docs.ovhcloud.com/en/guides/public-cloud/ai-machine-learning/ai-endpoints-capabilities

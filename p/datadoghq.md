@@ -1,0 +1,144 @@
+# Datadog
+
+> datadoghq.com | Developer services, Compute; 3 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/datadoghq/ | JSON https://fshy.ajam.dev/api/v1/entity/datadoghq.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Datadog (free)
+
+- `dev-services/datadog` | qualifies-with-caveat | evidence documented | binding retention-clamped | category infrastructure monitoring (hosted observability platform) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-31T00:43:09.670Z (live) | stale on 2026-12-01
+- url https://www.datadoghq.com/pricing/
+- disagrees on identity_kind: `dev-services/datadog` says email, `dev-services/datadog-open-source` says institution
+- disagrees on verdict: `dev-services/datadog` says qualifies-with-caveat, `dev-services/datadog-open-source` says fails-identity
+- free tier: Free tier after the 14-day trial: up to five Basic hosts with 1-day metric retention at no cost; LLM Observability separately has a free tier of up to 40K LLM spans per month with 15-day retention and no credit card | unit: mixed | metered on: object-count | read on: 2026-10-31 | source: [1] | note: The infrastructure allowance is counted in hosts, a unit the vocabulary lacks. Container monitoring is not available for Basic hosts. The trial lasts 14 days and monitors any number of servers.
+- per-object cap: unverified: the pricing, sign-up and API pages quoted name no payload limit
+- retention: 1-day metric retention on the Free tier; 15-day retention for LLM spans on the LLM Observability free tier | days: 1 | source: [1]
+- egress: not stated: the pricing page names no charge for reading data back on the Free tier | metered: no | source: [1]
+- identity: email | detail: The sign-up form marks Business Email, Full Name, Company and Password as required, with a data region that cannot be changed later; Phone is not starred among the required fields, so no phone is required; Google sign-up is offered; the form has no card field. Whether an address at a public mail domain passes as a business email is unverified.
+- interface: rest
+- limits:
+  - volume-quota: up to five Basic hosts (a count of hosts, not bytes) [1]
+  - retention-clamped (binding): 1-day metric retention [1]
+- limits note: Container monitoring is not available for Basic hosts.
+- binding note: Metrics older than one day are gone on the Free tier, so the five hosts give a live view and no history.
+- interface detail: The Datadog API is an HTTP REST API authenticated with an API key in the DD-API-KEY header, and for some endpoints an application key in DD-APPLICATION-KEY
+- tooling: the Datadog web app, the REST API and its official client libraries; host metrics come from the Datadog Agent and cloud integrations
+- composes with: Host metrics for up to five machines with a one-day window: a live view of free VMs, not a history.
+- reliability: no reliability event recorded
+- notes: The open source programme recorded as compute/datadog is a different offer, decided on the project's team.
+- evidence:
+  - [1] 2026-10-31: the Free tier gives up to five Basic hosts with 1-day metric retention at no cost | capture: sha256:f2e3f2f0c6a390339cbb440115485c9f92340ffb6bddd7a0a10eaca7129b01b0 | quote: On the Free tier, you get up to five Basic hosts with 1-day metric retention, at no cost.
+  - [1] 2026-10-31: an account moves to the Free tier when the trial ends without an upgrade | capture: sha256:f2e3f2f0c6a390339cbb440115485c9f92340ffb6bddd7a0a10eaca7129b01b0 | quote: When your free trial ends, you can choose to upgrade to a paid plan or move to the Free tier.
+  - [1] 2026-10-31: LLM Observability has a free tier of 40K spans a month, 15-day retention, no credit card | capture: sha256:f2e3f2f0c6a390339cbb440115485c9f92340ffb6bddd7a0a10eaca7129b01b0 | quote: The Free tier includes up to 40K LLM spans per month with 15-day retention, unlimited context, and unlimited evaluations — no credit card required.
+  - [1] 2026-10-31: Basic hosts get no container monitoring | capture: sha256:f2e3f2f0c6a390339cbb440115485c9f92340ffb6bddd7a0a10eaca7129b01b0 | quote: Container monitoring is not available for Basic hosts.
+  - [2] 2026-10-31: the trial lasts 14 days with any number of servers | capture: sha256:5f80cabaac6e67ee162383ce2a7fcb6b5fe15f33b0f291d330a97cf3e415389b | quote: Try it free for 14 days and monitor as many servers as you like.
+  - [2] 2026-10-31: the required sign-up fields are business email, full name, company and password, with no card field | capture: sha256:5f80cabaac6e67ee162383ce2a7fcb6b5fe15f33b0f291d330a97cf3e415389b | quote: Business Email\* Full Name\* Company\* Password\*
+  - [2] 2026-10-31: the Phone field carries no required-field star | capture: sha256:5f80cabaac6e67ee162383ce2a7fcb6b5fe15f33b0f291d330a97cf3e415389b | quote: Phone \*Required Fields.
+  - [2] 2026-10-31: Google sign-up is offered | capture: sha256:5f80cabaac6e67ee162383ce2a7fcb6b5fe15f33b0f291d330a97cf3e415389b | quote: Sign Up With Google
+  - [3] 2026-10-31: the API is HTTP REST | capture: sha256:0d163ba597c216f89a9fddf8fe6db38467e0a27a887508e7e6d3e0b0718b70f0 | quote: The Datadog API is an HTTP REST API.
+  - [3] 2026-10-31: the API authenticates with an API key in the DD-API-KEY header | capture: sha256:0d163ba597c216f89a9fddf8fe6db38467e0a27a887508e7e6d3e0b0718b70f0 | quote: using the header `DD-API-KEY`
+- sources:
+  - [1] https://www.datadoghq.com/pricing/
+  - [2] https://app.datadoghq.com/signup
+  - [3] https://docs.datadoghq.com/api/latest/
+
+## Datadog (Compute)
+
+- `compute/datadog` | fails-identity | evidence documented | binding write-gated | category infrastructure monitoring (hosted observability platform), programme for open source projects
+- needs card no, phone no, ID no, institution yes | verified 2026-10-31T06:50:57.864Z (live) | stale on 2026-12-01
+- url https://www.datadoghq.com/partner/open-source/
+- free tier: 'Use this form to apply for access to Datadog at no cost. We evaluate applications on a case by case basis.' The stated limits are qualitative: 'The number of hosts (or other types of compute units) and telemetry events may be limited.' | unit: none | metered on: unstated | read on: 2026-10-31 | source: [1] | note: No amount is published: hosts and telemetry events may be limited, and applications are evaluated case by case.
+- per-object cap: unverified: the programme page names no payload limit | source: [1]
+- retention: unverified: the programme page names no retention period | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution | detail: The application form requires full name, email, project name, project website or repository, an open source licence and a description, with no card or phone field; eligibility rests on the project's team (its regular contributors and maintainers at different companies), which a single maintainer cannot meet.
+- interface: rest
+- limits:
+  - write-gated (binding): the project must be non-commercial under an approved open source licence, at least 1 year old, with at least 5 regular contributors and at least 2 maintainers working for different companies; applications are evaluated case by case [1]
+  - volume-quota: the number of hosts and telemetry events may be limited; the programme page publishes no figure [1]
+- limits note: The monitored infrastructure and applications must directly support the project, so instances of an open source project run for other uses are out of scope.
+- binding note: At least 5 regular contributors and at least 2 maintainers at different companies are required, so a project with one maintainer cannot apply.
+- interface detail: The Datadog API is an HTTP REST API; its scope under the programme is not stated on the programme page
+- tooling: the Datadog web app and the Datadog REST API
+- composes with: For a project that meets the team conditions, Datadog at no cost for the infrastructure that runs the project; anyone else has the self-serve Free tier of up to five Basic hosts recorded as dev-services/datadog.
+- reliability: unverified: the programme page names no enforcement past its host and telemetry limits
+- notes: Kept apart from dev-services/datadog, which records the self-serve Free tier of up to five Basic hosts with 1-day metric retention: the open source programme is applied for and evaluated case by case, publishes no host or event figure, and is open only to a non-commercial project at least 1 year old with at least 5 regular contributors and maintainers at two or more companies, so the two are different offers.
+- extras:
+  - facets.class: vendor-oss-credits
+  - facets.free_tier_kind: recurring-credit
+- evidence:
+  - [1] 2026-10-22: quoted 'Projects need to be at least 1 year old and have at least 5 regular contributors (maintainers or not). At least 2 maintainers need to work for different companies', the non-commercial and approved-licence conditions, and that the number of hosts and telemetry events 'may be limited'
+  - [1] 2026-10-31: the page is an application for Datadog at no cost | capture: sha256:d71ef95fbe319520d9ee241ffa63c66186059aaa382fdf614617ca4f8f64d03b | quote: Use this form to apply for access to Datadog at no cost. We evaluate applications on a case by case basis.
+  - [1] 2026-10-31: the programme names hosts and telemetry events as limited and publishes no figure | capture: sha256:d71ef95fbe319520d9ee241ffa63c66186059aaa382fdf614617ca4f8f64d03b | quote: The number of hosts (or other types of compute units) and telemetry events may be limited.
+  - [1] 2026-10-31: the stated text is on the page as read | capture: sha256:d71ef95fbe319520d9ee241ffa63c66186059aaa382fdf614617ca4f8f64d03b | quote: Use this form to apply for access to Datadog at no cost. We evaluate applications on a case by case basis.
+  - [1] 2026-10-31: the number of hosts and telemetry events may be limited | capture: sha256:d71ef95fbe319520d9ee241ffa63c66186059aaa382fdf614617ca4f8f64d03b | quote: The number of hosts (or other types of compute units) and telemetry events may be limited.
+  - [1] 2026-10-31: the programme page names hosts and telemetry events as limited and no payload size | capture: sha256:d71ef95fbe319520d9ee241ffa63c66186059aaa382fdf614617ca4f8f64d03b | quote: The number of hosts (or other types of compute units) and telemetry events may be limited.
+  - [1] 2026-10-31: the programme page names hosts and telemetry events as limited and no retention period | capture: sha256:d71ef95fbe319520d9ee241ffa63c66186059aaa382fdf614617ca4f8f64d03b | quote: The number of hosts (or other types of compute units) and telemetry events may be limited.
+  - [2] 2026-10-31: the Datadog API is HTTP REST | capture: sha256:0d163ba597c216f89a9fddf8fe6db38467e0a27a887508e7e6d3e0b0718b70f0 | quote: The Datadog API is an HTTP REST API.
+  - [1] 2026-10-31: projects need to be at least 1 year old with at least 5 regular contributors | capture: sha256:d71ef95fbe319520d9ee241ffa63c66186059aaa382fdf614617ca4f8f64d03b | quote: Projects need to be at least 1 year old and have at least 5 regular contributors (maintainers or not).
+  - [1] 2026-10-31: at least 2 maintainers must work for different companies | capture: sha256:d71ef95fbe319520d9ee241ffa63c66186059aaa382fdf614617ca4f8f64d03b | quote: At least 2 maintainers need to work for different companies.
+  - [1] 2026-10-31: the monitored infrastructure must directly support the project | capture: sha256:d71ef95fbe319520d9ee241ffa63c66186059aaa382fdf614617ca4f8f64d03b | quote: The infrastructure and applications monitored and secured by Datadog need to be directly used to support the project (i.e. instances of specific open source projects are out of scope for the program).
+  - [3] 2026-10-31: the application form requires an email address | capture: sha256:9fc4487195f418227a8fa76be9e4584069718fdee949ff4c6c134a82d379b694 | quote: "Name":"Email","IsRequired":true
+  - [3] 2026-10-31: the application form requires an open source licence | capture: sha256:9fc4487195f418227a8fa76be9e4584069718fdee949ff4c6c134a82d379b694 | quote: "label":"Select Open Source License*"
+  - [1] 2026-10-31: the page says only that hosts and telemetry events may be limited | capture: sha256:d71ef95fbe319520d9ee241ffa63c66186059aaa382fdf614617ca4f8f64d03b | quote: The number of hosts (or other types of compute units) and telemetry events may be limited.
+  - [4] 2026-10-31: the self-serve Free tier gives up to five Basic hosts with 1-day metric retention | capture: sha256:f2e3f2f0c6a390339cbb440115485c9f92340ffb6bddd7a0a10eaca7129b01b0 | quote: On the Free tier, you get up to five Basic hosts with 1-day metric retention, at no cost.
+  - [1] 2026-10-31: the programme is an application evaluated case by case | capture: sha256:d71ef95fbe319520d9ee241ffa63c66186059aaa382fdf614617ca4f8f64d03b | quote: Use this form to apply for access to Datadog at no cost. We evaluate applications on a case by case basis.
+  - [4] 2026-10-31: the self-serve Free tier gives up to five Basic hosts with 1-day metric retention at no cost | capture: sha256:f2e3f2f0c6a390339cbb440115485c9f92340ffb6bddd7a0a10eaca7129b01b0 | quote: On the Free tier, you get up to five Basic hosts with 1-day metric retention, at no cost.
+  - [1] 2026-10-31: the programme page still offers Datadog at no cost on application | capture: sha256:d71ef95fbe319520d9ee241ffa63c66186059aaa382fdf614617ca4f8f64d03b | quote: Use this form to apply for access to Datadog at no cost. We evaluate applications on a case by case basis.
+- sources:
+  - [1] https://www.datadoghq.com/partner/open-source/
+  - [2] https://docs.datadoghq.com/api/latest/
+  - [3] https://lp.datadoghq.com/index.php/form/getForm?munchkinId=875-UVY-685&form=1780
+  - [4] https://www.datadoghq.com/pricing/
+
+## Datadog (Datadog for Open Source Projects)
+
+- `dev-services/datadog-open-source` | fails-identity | evidence documented | binding write-gated | category infrastructure monitoring (hosted observability platform), programme for open source projects | tier Datadog for Open Source Projects
+- needs card no, phone no, ID no, institution yes | verified 2026-11-01T18:13:29.310Z (live) | stale on 2026-12-02
+- url https://www.datadoghq.com/partner/open-source/
+- disagrees on identity_kind: `dev-services/datadog` says email, `dev-services/datadog-open-source` says institution
+- disagrees on verdict: `dev-services/datadog` says qualifies-with-caveat, `dev-services/datadog-open-source` says fails-identity
+- free tier: Datadog at no cost for an open source project, applied for by form and evaluated case by case; the page publishes no amount, and the number of hosts (or other types of compute units) and telemetry events may be limited | unit: mixed | metered on: unstated | read on: 2026-11-01 | source: [1] | note: The allowance is counted in hosts and telemetry events with no figure published; the vocabulary has no hosts unit, so the unit is mixed. The monitored infrastructure and applications must directly support the project. One recipient project reports using logs, metrics, APM and traces under the programme.
+- per-object cap: unverified: the programme page names no payload limit | source: [1]
+- retention: unverified: the programme page names no retention period | source: [1]
+- egress: not stated: the programme page names no charge for reading data back | metered: no | source: [1]
+- identity: institution | detail: The application form requires full name, email, project name, project website or repository, an open source licence and a description, with no card or phone field; eligibility rests on the project's team (at least 5 regular contributors and at least 2 maintainers who work for different companies), which a single maintainer cannot meet.
+- interface: rest
+- limits:
+  - write-gated (binding): the project must be non-commercial under an approved open source licence, at least 1 year old, with at least 5 regular contributors and at least 2 maintainers working for different companies; applications are evaluated case by case [1]
+  - volume-quota: the number of hosts and telemetry events may be limited; the programme page publishes no figure [1]
+- limits note: The monitored infrastructure and applications must directly support the project, so instances of an open source project run for other uses are out of scope. Recipients are asked to let the community know how they use Datadog.
+- binding note: At least 5 regular contributors and at least 2 maintainers at different companies are required, so a project with one maintainer cannot apply.
+- interface detail: The Datadog API is an HTTP REST API; the programme page does not state whether the programme account includes API access
+- tooling: the Datadog web app and the Datadog REST API
+- composes with: For a project that meets the team conditions, Datadog at no cost for the infrastructure that runs the project; anyone else has the self-serve Free tier recorded as dev-services/datadog.
+- reliability: recipients date from 2016 (the Apache Software Foundation, one of the first) and 2017 (the Python Software Foundation); the programme page names no enforcement past its host and telemetry limits
+- notes: The same offer is also recorded as compute/datadog. The self-serve Free tier is a different offer, recorded as dev-services/datadog: the open source programme is applied for and evaluated case by case, and is open only to a project with regular contributors and maintainers at two or more companies.
+- evidence note: The conditions, the application form and the limits wording are documented on the programme page; which products an accepted account includes is reported by one recipient project, and the host and event limits set for an accepted project are unverified: behind an application.
+- evidence:
+  - [1] 2026-11-01: the programme is an application for Datadog at no cost, evaluated case by case | capture: sha256:812f9c9d094b8155e94452c71488e0ec2e5753325bba22e7d4966e5fbe708aa8 | quote: Use this form to apply for access to Datadog at no cost. We evaluate applications on a case by case basis.
+  - [1] 2026-11-01: the programme names hosts and telemetry events as limited and publishes no figure | capture: sha256:812f9c9d094b8155e94452c71488e0ec2e5753325bba22e7d4966e5fbe708aa8 | quote: The number of hosts (or other types of compute units) and telemetry events may be limited.
+  - [1] 2026-11-01: projects should be non-commercial and under an approved open source licence | capture: sha256:812f9c9d094b8155e94452c71488e0ec2e5753325bba22e7d4966e5fbe708aa8 | quote: Projects should be non-commercial and available under an approved open source license.
+  - [1] 2026-11-01: projects need to be at least 1 year old with at least 5 regular contributors | capture: sha256:812f9c9d094b8155e94452c71488e0ec2e5753325bba22e7d4966e5fbe708aa8 | quote: Projects need to be at least 1 year old and have at least 5 regular contributors (maintainers or not).
+  - [1] 2026-11-01: at least 2 maintainers must work for different companies | capture: sha256:812f9c9d094b8155e94452c71488e0ec2e5753325bba22e7d4966e5fbe708aa8 | quote: At least 2 maintainers need to work for different companies.
+  - [1] 2026-11-01: the monitored infrastructure and applications must directly support the project | capture: sha256:812f9c9d094b8155e94452c71488e0ec2e5753325bba22e7d4966e5fbe708aa8 | quote: The infrastructure and applications monitored and secured by Datadog need to be directly used to support the project (i.e. instances of specific open source projects are out of scope for the program).
+  - [1] 2026-11-01: recipients are asked to let the community know how they use Datadog | capture: sha256:812f9c9d094b8155e94452c71488e0ec2e5753325bba22e7d4966e5fbe708aa8 | quote: We do ask that you let the community know how you're using Datadog and/or how it has benefited you.
+  - [2] 2026-11-01: the application form requires a full name | capture: sha256:28afd64af319ef79f8a28c9829e89672ba1e574b5501332e112d902201f23ebd | quote: "Name":"fullName_c","IsRequired":true
+  - [2] 2026-11-01: the application form requires an email address | capture: sha256:28afd64af319ef79f8a28c9829e89672ba1e574b5501332e112d902201f23ebd | quote: "Name":"Email","IsRequired":true
+  - [2] 2026-11-01: the application form requires a project name | capture: sha256:28afd64af319ef79f8a28c9829e89672ba1e574b5501332e112d902201f23ebd | quote: "Name":"Open_Source_Project_Name__c","IsRequired":true
+  - [2] 2026-11-01: the application form requires a project website or repository | capture: sha256:28afd64af319ef79f8a28c9829e89672ba1e574b5501332e112d902201f23ebd | quote: "Name":"Open_Source_Project_Website__c","IsRequired":true,"Datatype":"string","Maxlength":250,"InputLabel":"","InputInitialValue":"","InputSourceChannel":"constant","FieldWidth":300,"LabelWidth":0,"ProfilingFieldNumber":0,"PlaceholderText":"Project Website or Repository*"
+  - [2] 2026-11-01: the application form requires an open source licence | capture: sha256:28afd64af319ef79f8a28c9829e89672ba1e574b5501332e112d902201f23ebd | quote: "Name":"Open_Source_License__c","IsRequired":true
+  - [2] 2026-11-01: the application form requires a project description | capture: sha256:28afd64af319ef79f8a28c9829e89672ba1e574b5501332e112d902201f23ebd | quote: "Name":"Open_Source_Project_Description__c","IsRequired":true
+  - [3] 2026-11-01: Datadog's open source hub says it offers free Datadog accounts to open source projects | capture: sha256:c5b76344e2bc658a15b4711f042a9a9e552d18027ffd8d5fcd6d499e5557e8a3 | quote: Datadog offers free Datadog accounts to Open Source projects that could benefit from the cloud observability and security platform that Datadog provides.
+  - [3] 2026-11-01: the Apache Software Foundation was one of the first recipients, in 2016 | capture: sha256:c5b76344e2bc658a15b4711f042a9a9e552d18027ffd8d5fcd6d499e5557e8a3 | quote: The Apache Software Foundation were one of the first recipients of the Datadog OSS program, back in 2016.
+  - [3] 2026-11-01: the Python Software Foundation has used Datadog since 2017 | capture: sha256:c5b76344e2bc658a15b4711f042a9a9e552d18027ffd8d5fcd6d499e5557e8a3 | quote: The Python Software Foundation has been using Datadog since 2017.
+  - [4] 2026-11-01: the Datadog API is HTTP REST | capture: sha256:0d163ba597c216f89a9fddf8fe6db38467e0a27a887508e7e6d3e0b0718b70f0 | quote: The Datadog API is an HTTP REST API.
+  - [5] 2026-11-01: a recipient project reports using log analytics, metrics and APM data in Datadog dashboards (third-party report) | capture: sha256:ed37015453cd4e19785aaa901baf33920e77d0f00f86eb054966f56fd13a6633 | quote: Datadog allows to visualize log analytics data alongside metrics and application performance monitoring (APM) data in the same dashboards.
+  - [5] 2026-11-01: a recipient project reports capturing traces in Datadog (third-party report) | capture: sha256:ed37015453cd4e19785aaa901baf33920e77d0f00f86eb054966f56fd13a6633 | quote: By utilizing Datadog's tracing capabilities, we can capture traces as requests flow through web servers and databases.
+- sources:
+  - [1] https://www.datadoghq.com/partner/open-source/
+  - [2] https://lp.datadoghq.com/index.php/form/getForm?munchkinId=875-UVY-685&form=1780
+  - [3] https://opensource.datadoghq.com/projects/oss-program/
+  - [4] https://docs.datadoghq.com/api/latest/
+  - [5] https://www.ruby-lang.org/en/news/2024/05/30/datadog-oss-program/

@@ -1,0 +1,99 @@
+# Buttondown
+
+> buttondown.com | Email; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/buttondown/ | JSON https://fshy.ajam.dev/api/v1/entity/buttondown.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Buttondown
+
+- `email/buttondown` | qualifies-with-caveat | evidence documented | binding request-rate | category newsletter sender with a REST API | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T10:00:26.325Z (live) | stale on 2026-12-03
+- url https://buttondown.com/pricing
+- free tier: free for the first 100 subscribers, with the price assuming at most one email a day to the whole subscriber base; API included, no card | unit: users | metered on: identity-count | read on: 2026-10-30 | source: [1] | note: The quota counts subscribers, not messages. Sending from a custom domain is free; without one, mail goes out from the account's username at buttondown.email. Attachments, tagging and segmentation, automations and archives on a custom domain are paid add-ons. Subscribers are confirmed by double opt-in unless created through the API with type regular.
+- per-object cap: not applicable: email attachments are a paid add-on
+- retention: not stated
+- egress: not applicable: an outbound sender | metered: no | source: [1]
+- identity: email | detail: The register page asks for a username, an email address and a password, or Apple or Google sign-in, and states that no card is needed. Every new account is reviewed before it can send, and a verification form asks what the newsletter is about, who its audience is, where imported subscribers came from, and details of the person or organization. No domain is needed: mail goes out from the username at buttondown.email by default. A custom sending domain is free, set up either by delegating a subdomain with two NS records (managed) or by adding the records shown in settings (manual).
+- interface: rest
+- limits:
+  - request-rate (binding): the free price assumes at most one email a day to the whole subscriber base; more needs a contact with the vendor [1]
+  - request-rate (binding): 600 API requests per minute on every endpoint, and 100 subscriber creations per day through POST /v1/subscribers [2]
+  - write-gated: every new account is reviewed before it can send, most reviews within one to three business days [3]
+  - request-rate (binding): new senders are capped per hour until they reach a baseline of engagement and reputation; the figure is not stated [4]
+- limits note: counts of things, not rates, so no vocabulary kind names them: 100 subscribers on the free plan.
+- binding note: one email a day to at most 100 subscribers: the subscriber ceiling caps the recipients and the daily assumption caps the sends.
+- interface detail: the REST API at https://api.buttondown.com/v1 with an OpenAPI spec: POST /v1/emails creates an email for the subscriber base; POST /v1/subscribers/{id_or_email}/emails/{email_id} takes no request body and sends an existing finalized email to one subscriber, and a draft is refused with a 400 whose code is email_invalid_status; POST /v1/emails/{id}/send-draft delivers a draft to the subscriber ids and email addresses named in its body, the documented route for sending drafts for review
+- tooling: curl or any HTTP client; there is no official SDK, and typed clients are generated from the OpenAPI spec
+- composes with: a list sender rather than a transactional relay: every recipient is a subscriber, so it carries a newsletter or a notification list of up to 100 people, and per-message transactional mail belongs on a relay.
+- reliability: sending is disabled temporarily when unsubscribes, complaints or hard bounces run high on a new sender
+- notes: The vendor's summary file (llms.txt) lists API access and custom domains under a USD 9 Basic plan, while the API page, the plan badge on the API guides and the January 2025 pricing post place API access on the free plan, and the sending-domain page and the pricing page place custom-domain sending there; the summary file is out of date.
+- evidence note: no message was sent and no authenticated request was made; the free plan, the API on the free plan, the finalized-only rule of the per-subscriber send endpoint and the rate limits are documented, while the response a free account's key gets from that endpoint, whether an email can reach a final status without a send to the list, and the account review with its verification form are unverified: behind a sign-up.
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [1] 2026-10-30: the free plan covers the first 100 subscribers | capture: sha256:1ddcae945707d0d198b6187ff2bb96d2da5558bc26fa6f79ef4292a00bd44dc4 | quote: Absolutely nothing for your first 100 subscribers.
+  - [1] 2026-10-30: the free price assumes at most one email a day to the whole list | capture: sha256:1ddcae945707d0d198b6187ff2bb96d2da5558bc26fa6f79ef4292a00bd44dc4 | quote: All of these prices assume that you're sending at most one email a day to your entire subscriber base.
+  - [1] 2026-10-30: tagging and segmentation is listed among the add-ons at 9 per month | capture: sha256:1ddcae945707d0d198b6187ff2bb96d2da5558bc26fa6f79ef4292a00bd44dc4 | quote: Tagging & [segmentation](/features/analytics)
+  - [1] 2026-10-30: email attachments are listed among the add-ons at 9 per month | capture: sha256:1ddcae945707d0d198b6187ff2bb96d2da5558bc26fa6f79ef4292a00bd44dc4 | quote: Email [attachments](/features/attachments)
+  - [5] 2026-10-30: the free tier is up to 100 subscribers with no stated email count | capture: sha256:ad99d6be5570e7badcfba48189bbb928d493d4007d3208d941a9275e7d5cad81 | quote: Free tier: Up to 100 subscribers, unlimited emails
+  - [5] 2026-10-30: the summary file lists API access and custom domains under the 9 per month Basic plan | capture: sha256:ad99d6be5570e7badcfba48189bbb928d493d4007d3208d941a9275e7d5cad81 | quote: Basic ($9/month): Custom domains, API access, automations, remove Buttondown branding
+  - [6] 2026-10-30: the API is on the free plan | capture: sha256:dc81a6188a4ba68abb21b19b23645614e2dcd5e7d5ba2e97f3bdc404549a4ed7 | quote: Yes. The API is available on all plans, including free.
+  - [2] 2026-10-30: every API endpoint allows 600 requests per minute | capture: sha256:ce39f02c145e304063c49d8e5b65377339e73627009a93da2828dfa497f595d9 | quote: | All API endpoints | 600 requests per minute |
+  - [2] 2026-10-30: subscriber creation through the API is limited to 100 a day | capture: sha256:ce39f02c145e304063c49d8e5b65377339e73627009a93da2828dfa497f595d9 | quote: | [`POST /v1/subscribers`](/api-subscribers-create) | 100 requests per day |
+  - [7] 2026-10-30: registration needs no card | capture: sha256:319469292117f32f51ec42446aa16d8ef4c099496e12d61b25e16fe202a3cc76 | quote: Get started for free. No credit card required.
+  - [7] 2026-10-30: the register form asks for a username, an email address and a password, beside Apple and Google sign-in | capture: sha256:319469292117f32f51ec42446aa16d8ef4c099496e12d61b25e16fe202a3cc76 | quote: Username Email address Password
+  - [3] 2026-10-30: every new account is reviewed before it can send | capture: sha256:2e3878ae8596a4a369331493adf11f659ec5619859c44d361fcbae475dd79d68 | quote: All new accounts go through an initial review before they can start sending.
+  - [3] 2026-10-30: most reviews finish within one to three business days | capture: sha256:2e3878ae8596a4a369331493adf11f659ec5619859c44d361fcbae475dd79d68 | quote: Most reviews are completed within one to three business days.
+  - [3] 2026-10-30: the verification form asks about the newsletter, its audience, imported subscribers and the person or organization | capture: sha256:2e3878ae8596a4a369331493adf11f659ec5619859c44d361fcbae475dd79d68 | quote: A few details about you or your organization
+  - [8] 2026-10-30: without a custom domain, mail goes out from the username at buttondown.email | capture: sha256:8ad50d57a7588d85121651c4f55a84d74f222e98eeda57a1e90305414b3a3753 | quote: Your username at buttondown.email (the default)
+  - [4] 2026-10-30: a custom sending domain is free | capture: sha256:803e3a4ae952be2311c9d28ba3601cea0aad016e2bc189e56487459570089e1b | quote: Sending from a custom domain is available to everyone
+  - [4] 2026-10-30: the managed domain setup delegates a subdomain with two NS records | capture: sha256:803e3a4ae952be2311c9d28ba3601cea0aad016e2bc189e56487459570089e1b | quote: 2. Add the two `NS` type records that are shown to you in Settings.
+  - [4] 2026-10-30: new senders are capped per hour | capture: sha256:803e3a4ae952be2311c9d28ba3601cea0aad016e2bc189e56487459570089e1b | quote: We cap the number of emails a newsletter can send in a given hour until you've reached a baseline level of engagement and reputation for your content.
+  - [4] 2026-10-30: sending is disabled temporarily on high unsubscribes, complaints or hard bounces | capture: sha256:803e3a4ae952be2311c9d28ba3601cea0aad016e2bc189e56487459570089e1b | quote: we will temporarily disable your sending capability and reach out to help resolve the issue.
+  - [9] 2026-10-30: subscribers are confirmed by double opt-in by default | capture: sha256:510e8cbce4ce6df0f948e74fc9ad1b9219e7fb3c2e83cc6143d75137c67e089f | quote: Buttondown requires double opt-in for all newsletters by default.
+  - [10] 2026-10-30: a subscriber created through the API with type regular skips the confirmation | capture: sha256:38e96c74ef9e594f97cfc1f05b74e9dcd6516b4302076e8115e97d0079ab22b2 | quote: You can't disable this behavior globally, but you can disable it on a per-subscriber basis by providing a `type` of `regular` in the request body.
+  - [11] 2026-10-31: the API sends a specific email to a specific subscriber | capture: sha256:9ca7959104eb65645ce333a1dcf4ff50fafd086456221ad9d01d3dbbe5a3d0e0 | quote: "description": "Send a specific email to a specific subscriber",
+  - [12] 2026-10-30: the first API send of a key needs a one-time confirmation header | capture: sha256:b702da17bdbc53f0dcf821a521dd00b88ac3c277f6e6c717f6f46c69a09b9cc7 | quote: To confirm, pass the `X-Buttondown-Live-Dangerously: true` header.
+  - [13] 2026-11-02: the January 2025 pricing post states that API access became available to everyone, down from USD 9 a month | capture: sha256:0f81ff98c20737498b7035b463ad479eb088c8307bfabdaee23c57579eb37057 | quote: API access is now available to everyone (down from $9/month).
+  - [14] 2026-11-02: a draft sent through the per-subscriber endpoint is refused with the error code email_invalid_status | capture: sha256:ccaafca5a299ba88c273890d5001b07b716e8a30d9bb94c3946a955f1caf16f5 | quote: "code": "email_invalid_status",
+  - [15] 2026-11-02: the endpoint guide limits the per-subscriber endpoint to finalized emails and names the send-draft endpoint for drafts | capture: sha256:a57fc72936221e7a7440a476ccca47a3f12e7c6111bac5a245097cb8c7cd5249 | quote: This endpoint should only be used for sending finalized emails. If you're interested in programmatically sending drafts for review, you'll want to use the [send-drafts endpoint](https://docs.buttondown.com/api-emails-send-draft) instead.
+  - [1] 2026-11-02: the pricing page still prices the first 100 subscribers at nothing | capture: sha256:598ba854174e927b3d17aa847a05f64d8dad25b3db3634c456f6ff564b99b387 | quote: Absolutely nothing for your first 100 subscribers.
+  - [6] 2026-11-02: the API page answers that the API is available on all plans, including free | capture: sha256:dc81a6188a4ba68abb21b19b23645614e2dcd5e7d5ba2e97f3bdc404549a4ed7 | quote: Yes. The API is available on all plans, including free.
+  - [16] 2026-11-02: the API guide for drafting emails carries the plan badge Available on the Free plan | capture: sha256:48aa7de169f4422fecf02ae5932ec5f34918467fdea478ff108db3613e55398a | quote: Available on the[Free plan.](https://buttondown.com/pricing?plan=free)
+  - [17] 2026-11-02: the vendor's update dated February 10, 2025 states that everyone on the free plan has API access | capture: sha256:d8b9302620e396cbaa86d851cd25c9dbd25a2096a0b6fb54f0e05ef4c5fa3a20 | quote: Starting this month, everyone on the free plan has [API access](https://docs.buttondown.com/api-introduction?utm_source=buttondown&utm_medium=email&utm_campaign=updates-from-january-9711).
+  - [1] 2026-11-02: the prices assume at most one email a day to the whole subscriber base, and a higher volume needs a contact with the vendor | capture: sha256:598ba854174e927b3d17aa847a05f64d8dad25b3db3634c456f6ff564b99b387 | quote: All of these prices assume that you're sending at most one email a day to your entire subscriber base. If you're sending more than that, you'll need to contact us and we can talk about what usage-based pricing would look like for you.
+  - [1] 2026-11-02: sending from a custom domain is listed in what the free price includes | capture: sha256:598ba854174e927b3d17aa847a05f64d8dad25b3db3634c456f6ff564b99b387 | quote: Send from a [custom domain](https://docs.buttondown.com/sending-from-a-custom-domain)
+  - [7] 2026-11-02: registration needs no card | capture: sha256:319469292117f32f51ec42446aa16d8ef4c099496e12d61b25e16fe202a3cc76 | quote: Get started for free. No credit card required.
+  - [7] 2026-11-02: the register form asks for a username, an email address and a password, beside Apple and Google sign-in | capture: sha256:319469292117f32f51ec42446aa16d8ef4c099496e12d61b25e16fe202a3cc76 | quote: Username Email address Password
+  - [11] 2026-11-02: the OpenAPI spec names https://api.buttondown.com/v1 as the API server | capture: sha256:24ccbf67753739ad4dc85b28b14b03ff7ed1151122d057ea193464509f59a0c8 | quote: "url": "https://api.buttondown.com/v1"
+  - [11] 2026-11-02: the spec describes POST /emails as creating a new email | capture: sha256:24ccbf67753739ad4dc85b28b14b03ff7ed1151122d057ea193464509f59a0c8 | quote: "description": "Create a new email",
+  - [11] 2026-11-02: the spec describes POST /subscribers/{id_or_email}/emails/{email_id} as sending a specific email to a specific subscriber | capture: sha256:24ccbf67753739ad4dc85b28b14b03ff7ed1151122d057ea193464509f59a0c8 | quote: "description": "Send a specific email to a specific subscriber",
+  - [11] 2026-11-02: the spec describes POST /emails/{id}/send-draft as sending a draft email to specific recipients | capture: sha256:24ccbf67753739ad4dc85b28b14b03ff7ed1151122d057ea193464509f59a0c8 | quote: "description": "Send a draft email to specific recipients",
+  - [11] 2026-11-02: the send-draft body takes a list of subscriber ids | capture: sha256:24ccbf67753739ad4dc85b28b14b03ff7ed1151122d057ea193464509f59a0c8 | quote: "description": "A list of subscriber ids to which to send the email.",
+  - [11] 2026-11-02: the send-draft body takes a list of email addresses | capture: sha256:24ccbf67753739ad4dc85b28b14b03ff7ed1151122d057ea193464509f59a0c8 | quote: "description": "A list of email addresses to send the email to.",
+  - [15] 2026-11-02: the sample request for the per-subscriber endpoint sends no request body | capture: sha256:a57fc72936221e7a7440a476ccca47a3f12e7c6111bac5a245097cb8c7cd5249 | quote: response = requests.request("POST", url, headers=headers)
+  - [14] 2026-11-02: the per-subscriber endpoint no longer sends non-final emails such as drafts | capture: sha256:ccaafca5a299ba88c273890d5001b07b716e8a30d9bb94c3946a955f1caf16f5 | quote: Breaking change: we've removed the ability to send non-final emails like [drafts](https://docs.buttondown.com/api-emails-introduction#EmailStatus-draft) from [`/v1/subscribers/{id}/emails`](https://docs.buttondown.com/api-subscribers-send-email).
+  - [14] 2026-11-02: a draft sent through the per-subscriber endpoint gets a 400 response | capture: sha256:ccaafca5a299ba88c273890d5001b07b716e8a30d9bb94c3946a955f1caf16f5 | quote: This is a breaking change, and apologies if you suddenly started getting 400s as a result of it
+  - [2] 2026-11-02: every API endpoint allows 600 requests per minute | capture: sha256:ce39f02c145e304063c49d8e5b65377339e73627009a93da2828dfa497f595d9 | quote: | All API endpoints | 600 requests per minute |
+  - [2] 2026-11-02: subscriber creation through the API is limited to 100 requests a day | capture: sha256:ce39f02c145e304063c49d8e5b65377339e73627009a93da2828dfa497f595d9 | quote: | [`POST /v1/subscribers`](/api-subscribers-create) | 100 requests per day |
+  - [3] 2026-11-02: every new account is reviewed before it can send | capture: sha256:2e3878ae8596a4a369331493adf11f659ec5619859c44d361fcbae475dd79d68 | quote: All new accounts go through an initial review before they can start sending.
+  - [3] 2026-11-02: most reviews finish within one to three business days | capture: sha256:2e3878ae8596a4a369331493adf11f659ec5619859c44d361fcbae475dd79d68 | quote: Most reviews are completed within one to three business days.
+  - [3] 2026-11-02: an account under review cannot send emails, though it can draft them | capture: sha256:2e3878ae8596a4a369331493adf11f659ec5619859c44d361fcbae475dd79d68 | quote: | Send emails | No |
+- sources:
+  - [1] https://buttondown.com/pricing
+  - [2] https://docs.buttondown.com/api-rate-limits
+  - [3] https://docs.buttondown.com/account-review
+  - [4] https://docs.buttondown.com/sending-from-a-custom-domain
+  - [5] https://buttondown.com/llms.txt
+  - [6] https://buttondown.com/features/api
+  - [7] https://buttondown.com/register
+  - [8] https://buttondown.com/blog/sending-email-address
+  - [9] https://docs.buttondown.com/double-opt-in
+  - [10] https://docs.buttondown.com/api-subscribers-create
+  - [11] https://docs.buttondown.com/openapi.json
+  - [12] https://buttondown.com/blog/safer-email-api-defaults
+  - [13] https://buttondown.com/blog/2025-pricing-update
+  - [14] https://buttondown.com/blog/api-send-draft-status
+  - [15] https://docs.buttondown.com/api-subscribers-send-email
+  - [16] https://docs.buttondown.com/drafting-emails-via-the-api
+  - [17] https://buttondown.com/buttondown/archive/updates-from-january-9711/

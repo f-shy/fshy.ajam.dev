@@ -1,0 +1,16 @@
+# fshy: Netdisk and pan in full
+
+> Netdisks, also called pan drives: cloud drives, many of them from China, and public AList and OpenList instances, and whether they mount.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic is 401 KB, about 108K tokens in full, more than the 300 KB, about 81K tokens one file holds, so it is split: its hosted records by verdict group, then its self-hosted records in one last group, and a group over that size into balanced parts. The parts in the order below are the one order (hosted before self-hosted, then verdict, provider name, record id). How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## Parts
+
+- [Usable](https://fshy.ajam.dev/t/netdisk-pan/llms-full-usable.txt): 52 records; 200 KB, about 54K tokens
+- [Trial](https://fshy.ajam.dev/t/netdisk-pan/llms-full-trial.txt): 2 records; 12 KB, about 3K tokens
+- [Paid only](https://fshy.ajam.dev/t/netdisk-pan/llms-full-paid.txt): 2 records; 8 KB, about 2K tokens
+- [Rejected](https://fshy.ajam.dev/t/netdisk-pan/llms-full-rejected.txt): 32 records; 145 KB, about 39K tokens
+- [Dead](https://fshy.ajam.dev/t/netdisk-pan/llms-full-dead.txt): 14 records; 29 KB, about 8K tokens
+- [Self-hosted, the last resort](https://fshy.ajam.dev/t/netdisk-pan/llms-full-self-hosted.txt): 2 records; 10 KB, about 3K tokens

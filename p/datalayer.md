@@ -1,0 +1,83 @@
+# Datalayer Runtimes
+
+> datalayer.io | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/datalayer/ | JSON https://fshy.ajam.dev/api/v1/entity/datalayer.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Datalayer Runtimes
+
+- `compute/datalayer` | qualifies-with-caveat | evidence documented | binding volume-quota | category dev environment
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T17:58:10.999Z (live) | stale on 2026-12-05
+- url https://datalayer.io/pricing
+- free tier: Free plan: 50 wallet credits per month (reset each calendar month), 500 agent runs per month, 3 agents | unit: mixed | metered on: wall-clock | read on: 2026-11-04 | source: [1] | note: credits are consumed while sandbox environments run; the 1 CPU environment (1 vCPU, 1 GiB, no GPU) is listed at USD 0.3 per hour on the USD / Hour view and at 3 credits per hour on the Credits / Hour view of the same table, so one credit is USD 0.10 at that ratio; the page prints no credits-to-USD rate and no top-up pack price; the 50 monthly Free plan credits therefore cover about 16.7 hours of the 1 CPU environment
+- per-object cap: unverified: the pricing page states no disk size and no object cap for a sandbox | source: [1]
+- retention: unverified: no page read states whether a sandbox disk survives a stop or a delete | source: [1] | note: a runtime launched with the Home Folder keeps contents across sandbox sessions: the User folder is mounted at /home/datalayer/{user-handle} in the sandbox, from home/users/{user-uid} on the shared filesystem, and deleting or replacing the sandbox does not delete it; a paused runtime takes a snapshot that keeps its state; the pricing page and the environments page give no retention period, and the Home Folder page gives no length for the trash retention window
+- egress: not published: no egress allowance or overage price on https://datalayer.ai/pricing and https://datalayer.ai | metered: no | source: [1]
+- identity: email | detail: email: the sign-up form asks for a username, an email address, a first name, a last name, a password and a password confirmation, and carries no phone-number field and no card field; the sign-in page creates the account with an email address, and the address receives a confirmation mail
+- interface: cli
+- limits:
+  - volume-quota (binding): Free plan: 500 agent runs per month, 3 agents and 50 included wallet credits per month, reset each calendar month [2]
+- limits note: sandbox environments listed: 1 CPU (priced), A100 GPU + 4 CPUs, T4 GPU + 2 CPUs and 7 CPUs (each marked Unavailable); no session cap, idle-reap or network policy is stated on the pricing page
+- binding note: the monthly wallet-credit allowance runs out first: the Free plan's 50 credits reset at the start of each calendar month and the 1 CPU sandbox burns 3 credits per hour, about 16.7 hours a month, while the page states no request rate, pull count or per-object cap
+- interface detail: runtimes are reached from JupyterLab, from VS Code and through the datalayer CLI; the CLI lists each environment with its credits per second and its resources
+- tooling: the datalayer CLI, installed with pip install datalayer-core; datalayer envs ls lists the environments with their credits per second and their resources, and JupyterLab and VS Code are the graphical routes to the same runtimes
+- composes with: a runtime is reached from JupyterLab, from VS Code or through the datalayer CLI, and the CLI signs in to the platform; a code sandbox starts from an environment image that fixes its CPU, memory and GPU
+- reliability: no reliability event recorded
+- notes: datalayer.ai/pricing is a single-page application: a plain fetch returns the application shell (a root div and a loader script) with no plan text, while a rendered read returns the Free, Team and Enterprise plan cards and the sandbox environment price table
+- evidence note: documented: the Free plan allowance (50 wallet credits and 500 runs per month, 3 agents), the 1 CPU sandbox rate (USD 0.3 per hour, 3 credits per hour) and the sign-up form's fields (username, email, first name, last name, password) are printed on datalayer.ai; one credit is USD 0.10 as the ratio of the two printed rates for the same environment, a rate the page itself does not print; no top-up pack price is published
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - free_tier_kind: allowance
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: unverified: the pricing page renders a Discord widget and a theme picker with no plan, price or free tier in the extracted body (200, 1,505 bytes on 2026-10-22).
+  - [2] 2026-10-28: the Free plan carries 50 wallet credits and 500 runs per month | capture: sha256:2ac6e0bc8342548c3aaacc319bd2abfd8bea974baac6798d1ff6d19253d63641 | quote: 50 wallet credits / month500 runs / monthMonthly usage periodBilling Entity: UserPersonal usage only
+  - [2] 2026-10-28: the Free plan allowance is two meters: wallet credits and agent runs | capture: sha256:2ac6e0bc8342548c3aaacc319bd2abfd8bea974baac6798d1ff6d19253d63641 | quote: 50 wallet credits / month500 runs / monthMonthly usage periodBilling Entity: UserPersonal usage only
+  - [2] 2026-10-28: the only priced sandbox environment is 1 vCPU / 1 GiB at USD 0.3 per hour | capture: sha256:2ac6e0bc8342548c3aaacc319bd2abfd8bea974baac6798d1ff6d19253d63641 | quote: | 1 CPU | 1 vCPU (1 GiB) | No GPU | 0.3 | Agentic automation, lightweight API tasks, and orchestration. |
+  - [2] 2026-10-28: the Free plan runs and credits restart each calendar month | capture: sha256:2ac6e0bc8342548c3aaacc319bd2abfd8bea974baac6798d1ff6d19253d63641 | quote: Free plan usage is reset every calendar month (included runs and included credits restart at the beginning of each month)
+  - [2] 2026-10-28: the GPU and 7-CPU environments are marked Unavailable on the pricing page | capture: sha256:2ac6e0bc8342548c3aaacc319bd2abfd8bea974baac6798d1ff6d19253d63641 | quote: | A100 GPU + 4 CPUsUnavailable | 4 vCPU (20 GB) | 1 A100 (80 GB) | Unavailable | AI training and fine-tuning, large model inference. |
+  - [2] 2026-10-28: the Free plan is started from a Get Started Free action; no registration requirement is stated on the page | capture: sha256:2ac6e0bc8342548c3aaacc319bd2abfd8bea974baac6798d1ff6d19253d63641 | quote: Get Started Free
+  - [2] 2026-10-28: the Free plan allowance is readable on the rendered pricing page | capture: sha256:2ac6e0bc8342548c3aaacc319bd2abfd8bea974baac6798d1ff6d19253d63641 | quote: 50 wallet credits / month500 runs / monthMonthly usage periodBilling Entity: UserPersonal usage only
+  - [2] 2026-10-28: the allowance is consumed on wall-clock sandbox time, unchanged | capture: sha256:2ac6e0bc8342548c3aaacc319bd2abfd8bea974baac6798d1ff6d19253d63641 | quote: Sandbox usage consumes wallet credits while environments are running.
+  - [2] 2026-10-28: the pricing page's Credits / Hour view lists the 1 CPU environment at 3 credits per hour; its USD / Hour view lists the same environment at 0.3 | capture: sha256:e0ff3dc44e4cb09c1ae0557e1fc218509155ca0dca5b0499504f05f25c7f17da | quote: | 1 CPU | 1 vCPU (1 GiB) | No GPU | 3 | Agentic automation, lightweight API tasks, and orchestration. |
+  - [2] 2026-10-28: the 1 CPU environment is priced at 3 credits per hour on the Credits / Hour view of the pricing page | capture: sha256:e0ff3dc44e4cb09c1ae0557e1fc218509155ca0dca5b0499504f05f25c7f17da | quote: | 1 CPU | 1 vCPU (1 GiB) | No GPU | 3 | Agentic automation, lightweight API tasks, and orchestration. |
+  - [2] 2026-10-28: the Free plan card still lists 50 wallet credits per month, as recorded | capture: sha256:e0ff3dc44e4cb09c1ae0557e1fc218509155ca0dca5b0499504f05f25c7f17da | quote: 50 wallet credits / month
+  - [2] 2026-10-28: the allowance is consumed on wall-clock sandbox time | capture: sha256:e0ff3dc44e4cb09c1ae0557e1fc218509155ca0dca5b0499504f05f25c7f17da | quote: Sandbox usage consumes wallet credits while environments are running.
+  - [2] 2026-11-03: the pricing page lists metered sandbox credits and prints no egress allowance or overage price | capture: sha256:126d6d01076676ebeb11bb312a955e7ba001a7f6ef3e1a28084c870817ea5a74 | quote: Sandbox usage consumes wallet credits while environments are running.
+  - [3] 2026-11-04: the sign-up form asks for a username, an email address, a first name, a last name and a password, with no phone-number field and no card field | capture: sha256:d0533f6c98d70bbc41a3ba7cb12dd9c2545ac403485942b6a599e6c92b42b3fb | quote: Your username\* Your email\* Your first name\* Your last name\* Your password\* Your password confirmation\*
+  - [2] 2026-11-04: the 1 CPU sandbox costs USD 0.3 per hour on the USD / Hour view | capture: sha256:126d6d01076676ebeb11bb312a955e7ba001a7f6ef3e1a28084c870817ea5a74 | quote: | 1 CPU | 1 vCPU (1 GiB) | No GPU | 0.3 | Agentic automation, lightweight API tasks, and orchestration. |
+  - [2] 2026-11-04: the Free plan carries 50 wallet credits and 500 runs a month | capture: sha256:126d6d01076676ebeb11bb312a955e7ba001a7f6ef3e1a28084c870817ea5a74 | quote: 50 wallet credits / month500 runs / monthMonthly usage periodBilling Entity: UserPersonal usage only
+  - [2] 2026-11-04: a plain fetch returns the application shell with no plan text | capture: sha256:d51c0936b7d7b0c3cf16154e8b21d139955e98fe401c0b0880d5062a749ab17d | quote: <div id=root></div>
+  - [2] 2026-11-04: the Free plan credits and runs restart at the start of each calendar month | capture: sha256:126d6d01076676ebeb11bb312a955e7ba001a7f6ef3e1a28084c870817ea5a74 | quote: Free plan usage is reset every calendar month (included runs and included credits restart at the beginning of each month)
+  - [4] 2026-11-04: an account is created with an email address | capture: sha256:1e2b3991534f80c18e075e12c3997748b85b11051fe84e048da28bc1490a6741 | quote: Create a free Datalayer account with your email address.
+  - [5] 2026-11-04: a sign-up sends a confirmation mail to the address given | capture: sha256:87ecef4ab5a957c3ef7487ebc2f44ba22244eb8e75ce8181df02b1a5105f9d7f | quote: without the sign-up's confirmation mail
+  - [6] 2026-11-04: the runtimes are reached through JupyterLab, the CLI and VS Code | capture: sha256:5b9cc727f4e55b1cf8495a6b6f9d390ac75b853d740d4d42009be7aa8323b2b9 | quote: You can access runtimes from [JupyterLab](https://datalayer.ai/docs/jupyterlab), [CLI](https://datalayer.ai/docs/cli), and [VS Code](https://datalayer.ai/docs/vscode).
+  - [6] 2026-11-04: the three routes to a runtime | capture: sha256:5b9cc727f4e55b1cf8495a6b6f9d390ac75b853d740d4d42009be7aa8323b2b9 | quote: You can access runtimes from [JupyterLab](https://datalayer.ai/docs/jupyterlab), [CLI](https://datalayer.ai/docs/cli), and [VS Code](https://datalayer.ai/docs/vscode).
+  - [7] 2026-11-04: the command-line client is a Python package installed with pip | capture: sha256:d543fc32176af318dcec14dba95fc2a6cfaddb826877187e907d6e352402f3d9 | quote: pip install datalayer-core
+  - [8] 2026-11-04: the CLI prints each environment's credits per second and its resources | capture: sha256:c347d1781ee0a8fb775f8d0feb8c228a158a694228975bbe9d88371bdd18cf3d | quote: | python-cpu-… | 0.0008 | Python CPU Enviro… | python | {"cpu": "1", "memory":… |
+  - probe:https://prod1.datalayer.run/api/iam/stripe/v1/plans/prices 2026-11-04: the credit top-up price list is served only to an authenticated session | capture: sha256:fd87e17d9718d8d71e3261fc25726d7be9327f5ba67b4840184c08764abab993 | quote: "status": 401
+  - [2] 2026-11-04: the page prices sandbox time and states no disk size or object cap | capture: sha256:126d6d01076676ebeb11bb312a955e7ba001a7f6ef3e1a28084c870817ea5a74 | quote: Sandbox usage consumes wallet credits while environments are running.
+  - [2] 2026-11-04: the page prices sandbox time and states no retention rule | capture: sha256:126d6d01076676ebeb11bb312a955e7ba001a7f6ef3e1a28084c870817ea5a74 | quote: Sandbox usage consumes wallet credits while environments are running.
+  - [6] 2026-11-04: a runtime keeps persisted state in a Home Folder, chosen when it is launched | capture: sha256:5b9cc727f4e55b1cf8495a6b6f9d390ac75b853d740d4d42009be7aa8323b2b9 | quote: Optional access to the [Home Folder](https://datalayer.ai/docs/contents/home-folder) for persisted state
+  - [8] 2026-11-04: an environment fixes the software and compute resources a sandbox starts with | capture: sha256:c347d1781ee0a8fb775f8d0feb8c228a158a694228975bbe9d88371bdd18cf3d | quote: An Environment defines the software, compute resources and provider content available when a Code Sandbox starts.
+  - [2] 2026-10-28: the same 1 CPU environment is 3 credits per hour on the Credits / Hour view of the price table | capture: sha256:e0ff3dc44e4cb09c1ae0557e1fc218509155ca0dca5b0499504f05f25c7f17da | quote: | 1 CPU | 1 vCPU (1 GiB) | No GPU | 3 | Agentic automation, lightweight API tasks, and orchestration. |
+  - [9] 2026-11-04: the persisted User folder is home/users/{user-uid} on the shared filesystem and appears in the sandbox at /home/datalayer/{user-handle}, not under ~/home | capture: sha256:53835bc7ac0a991b45ecaa15b67b831d95381d066dd15fc496f9246176ffd275 | quote: | User | `home/users/{user-uid}` | `/home/datalayer/{user-handle}` |
+  - [9] 2026-11-04: the Home Folder survives individual sandbox sessions | capture: sha256:53835bc7ac0a991b45ecaa15b67b831d95381d066dd15fc496f9246176ffd275 | quote: The Home Folder is private storage that belongs to a Datalayer user and survives individual Code Sandbox sessions.
+  - [9] 2026-11-04: deleting or replacing a sandbox leaves the Home Folder in place | capture: sha256:53835bc7ac0a991b45ecaa15b67b831d95381d066dd15fc496f9246176ffd275 | quote: Deleting or replacing a sandbox does not delete it.
+  - [9] 2026-11-04: a deleted file is purged after a retention window whose length the page does not give | capture: sha256:53835bc7ac0a991b45ecaa15b67b831d95381d066dd15fc496f9246176ffd275 | quote: After a retention window the trash is purged — the file is removed from disk and its quota is freed.
+  - [9] 2026-11-04: deleting a sandbox removes its working files and leaves the persistent sources, the Home Folder among them | capture: sha256:53835bc7ac0a991b45ecaa15b67b831d95381d066dd15fc496f9246176ffd275 | quote: Restarting or reconnecting reconciles the declared attachments at the same paths; deleting the sandbox removes working files but does not delete persistent sources.
+  - [6] 2026-11-04: a paused runtime preserves its state as a snapshot | capture: sha256:5b9cc727f4e55b1cf8495a6b6f9d390ac75b853d740d4d42009be7aa8323b2b9 | quote: Pausing preserves Agent Runtime state and creates an [Agent Runtime Snapshot](https://datalayer.ai/docs/code-sandbox-snapshots).
+  - [10] 2026-11-04: pausing stops the sandbox and keeps its state | capture: sha256:9a7c4aa9c19cbc9f1d2ef48569fa05f34077a4cae7f07781ac312d024ed10f9a | quote: Unlike [pausing](https://datalayer.ai/docs/code-sandboxes) it, which stops the sandbox to keep its state.
+  - [2] 2026-11-04: the pricing page is unchanged and states no retention period | capture: sha256:126d6d01076676ebeb11bb312a955e7ba001a7f6ef3e1a28084c870817ea5a74 | quote: Sandbox usage consumes wallet credits while environments are running.
+- sources:
+  - [1] https://datalayer.io/pricing
+  - [2] https://datalayer.ai/pricing
+  - [3] https://datalayer.ai/signup
+  - [4] https://datalayer.ai/login
+  - [5] https://datalayer.ai/docs/cli/users
+  - [6] https://datalayer.ai/docs/agent-runtimes
+  - [7] https://datalayer.ai/docs/cli/installation
+  - [8] https://datalayer.ai/docs/environments
+  - [9] https://datalayer.ai/docs/contents/home-folder
+  - [10] https://datalayer.ai/docs/code-sandbox-snapshots

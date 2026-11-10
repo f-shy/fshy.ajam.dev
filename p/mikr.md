@@ -1,0 +1,177 @@
+# Mikrus FROG
+
+> mikr.us | Compute, Egress and tunnels; 3 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/mikr/ | JSON https://fshy.ajam.dev/api/v1/entity/mikr.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Mikrus
+
+- `compute/mikrus-10-ipv6-mostly` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category IPv6-mostly VPS | tier Mikrus 1.0
+- needs card yes, phone no, ID no, institution no | verified 2026-11-02T02:17:36.637Z (live) | stale on 2026-12-03
+- url https://mikr.us/product/mikrus-1-0/
+- price parsed USD 0.74/mo
+- free tier: No free tier on this plan. Mikrus 1.0 is PLN 35 a year gross, printed '35 zł / rok (brutto)'. The vendor also runs a separate free product, FROG, at 256 MB and 3 GB, which requires a one-off deposit of at least PLN 5 as identity verification and is restricted to users in Poland. | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: annual prepay; the terms allow withdrawal within 14 days if the delivered server does not match the advertised resources. The separate free FROG service deletes servers nobody has logged into for 3 months. | days: 14 | source: [1]
+- egress: no byte allowance published on the plan card; the vendor's IPv6 article states 'Nie limitujemy, ile portów zużyjesz na adresacji prywatnej oraz ile wykorzystasz na adresacji IPv6' (we do not limit how much you use on private addressing or on IPv6 addressing) | metered: no | free allowance: not published | source: [2]
+- identity: card | detail: the order form requires a real first name, last name and email address: the terms state 'Podczas składania zamówienia niezbędne jest podanie prawdziwego imienia, nazwiska oraz adresu e-mail'. Payment is settled once through the TPAY processor (Krajowy Integrator Płatności S.A.), where the buyer 'wybiera dogodną dla siebie formę płatności'; the refund clause prices a bank transfer at 'do 5 dni roboczych' and a payment card at 'do 15 dni roboczych', so both rails exist. The terms state no stored card and no renewal authorisation, and the plan is billed annually in advance. VAT invoices are issued on request to a company or a private individual. No national ID number is requested.
+- interface: ssh
+- limits:
+  - per-ip-shaping (binding): 3 forwarded ports on the shared IPv4: SSH at 10000 plus the account ID, and two free ports at 20000 and 30000 plus the ID, which can be extended with 5 more TCP ports in the panel for a total of 7 [2]
+  - volume-quota: no byte allowance published; the IPv6 article states the only real limit is RAM [2]
+- binding note: three forwarded ports, only two of which are freely usable, is a smaller inbound budget than any other in-stock row among evaluated providers, and the two free ports carry both protocols so one of them goes to WireGuard.
+- interface detail: LXC container with full root, in Finland, managed entirely over SSH; a panel at ssp.mikr.us handles restart, reinstall and password changes
+- tooling: any SSH client; the vendor's panel; free subdomains and automatic HTTPS for web services
+- composes with: a 384 MB container at USD 0.7429 a month whose three forwarded ports include two that carry both TCP and UDP, in a Polish-language product built around IPv6-mostly addressing
+- reliability: the vendor states its servers run in 'głównie IPv6' (mostly IPv6) mode rather than IPv6-only, and publishes an article explaining the trade-off; no uptime figure or SLA published
+- notes: The only plan that is genuinely built around IPv6 by design rather than as a way to avoid buying IPv4: the vendor publishes an article explaining that its servers run in 'głównie IPv6' mode, not IPv6-only, and that it deliberately keeps IPv4 scarce so it does not have to buy addresses at about USD 57 each. That is a first-party account of the economics, in Polish, and it is the kind of thing an English search does not surface. The port story is better than the headline suggests and worse than the best rows here: three ports to start, of which two are freely usable, and both of those carry TCP and UDP - the vendor names OpenVPN and WireGuard explicitly - with five more TCP ports free from the panel for a ceiling of seven. At PLN 35 a year gross, which is USD 8.915 a year or USD 0.7429 a month at 3.9261 PLN per USD read, 384 MB and 5 GB NVMe in Finland is good value. Two things hold it to a caveat. The identity story is a bank transfer through a Polish payment processor that passes the buyer's address back to the vendor, and a real first name and surname are required, so this is not an email-only signup; a foreign buyer without a Polish bank account has no published route. And no traffic allowance is published anywhere, which is a documented absence rather than a limit and cannot be used in arithmetic. The VAT ID PL6821639338 is printed in the site metadata and the vendor states it issues VAT invoices, which is more entity disclosure than most rows, though the trading company name behind the VAT number was not read. The separate free FROG product is Poland-only and requires a PLN 5 identity deposit, so it is not available outside Poland. What is not established: the payment step, since the cart was not exercised, and whether a non-Polish bank transfer is accepted.
+- evidence note: price, shape, location, the VAT invoice option and the order-field requirement are quoted from the vendor's own order page and terms read; the port scheme, the dual TCP/UDP capability and the IPv6-mostly design are quoted from the vendor's own wiki article read; the VAT ID is quoted from the vendor's own site metadata. The cart was not exercised, so the payment step is documented from the terms rather than observed.
+- extras:
+  - shape.ram_gib: 0.375
+  - shape.disk_gib: 5
+  - billing_model: annual
+  - term: annual
+  - m10h_usd: 0.74
+  - m24h_usd: 0.74
+  - price_arithmetic: PLN 35 a year gross / 3.9261 PLN per USD = USD 8.915 a year, / 12 = USD 0.7429 a month. The money out of pocket is PLN 35 once a year. Rate from api.frankfurter.app read 2026-10-24, rate date 2026-10-23. VPS billing: the machine bills whether it runs or not, so the 10 h/day and 24/7 figures are identical.
+  - out_of_pocket_usd: 8.92
+  - renewal_usd: PLN 35 a year; the vendor states 'Wszystkie ceny podane na stronie wyrażone są w złotówkach' and that these are not promotional prices, 'To nie są ceny promocyjne - tyle płacisz co roku'
+  - fx: PLN 3.9261 per USD, api.frankfurter.app/latest read 2026-10-24, rate date 2026-10-23
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: 3 forwarded ports to start (SSH at 10000+ID, and 20000+ID and 30000+ID), extendable to 7 with five free TCP ports from the panel; unlimited ports on the private and IPv6 addressing
+  - network_out.static_ip: no
+  - network_out.ipv6: yes
+  - udp: stated: 'Oba porty nasłuchują zarówno komunikacji TCP, jak i UDP, więc bez problemu postawisz tam zarówno serwery webowe, jak i np. aplikacje typu OpenVPN czy Wireguard' - the two free ports carry both protocols
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - payment_rails: Polish bank transfer through TPAY (Krajowy Integrator Płatności S.A., NIP 7773061579); VAT invoice available for a company or a private individual
+  - card_hold: not published: the order is paid once at checkout through TPAY and no page states a stored card or a renewal authorisation, so no hold is stated; the refund clause prices a bank transfer refund at 5 business days and a card refund at 15
+  - checkout_fields: real first name, last name and email address required per the terms; the payment processor supplies the buyer's address data
+  - stock: not stated on the order page; the product page renders the full order form with the price and no out-of-stock marker
+  - cart_url: https://mikr.us/product/mikrus-1-0/
+  - cart_works: priced: the order page renders the line item 'Mikrus 1.0 ... 35 zł / rok (brutto)' with the consents and the payment step below it
+  - product_url: https://mikr.us/product/mikrus-1-0/
+  - signup_url: https://mikr.us/product/mikrus-1-0/
+  - cart_url_note: Mikrus has no separate cart: the product page is the order form, and it priced the plan at PLN 35 a year gross when read. It was not taken to the payment step.
+  - other_plans: Mikrus 2.1 at PLN 75 a year for 1 GB and 10 GB, which the vendor markets for Docker, n8n, WordPress and WireGuard; Mikrus 3.0 at PLN 130 a year for 2 GB and 25 GB; Mikrus 3.5 at PLN 197 for 4 GB and 40 GB; Mikrus 4.1 PRO at PLN 395 for 8 GB and 80 GB; Mikrus 4.2 PRO at PLN 790 for 16 GB and 160 GB. All in Finland.
+  - free_sibling: FROG at 256 MB, 3 GB and Alpine LXC, free but requiring a one-off deposit of at least PLN 5 for identity verification, restricted to users in Poland, one per person, deleted after 3 months without a login
+  - language: Polish only; no English version of the product or wiki was found
+  - payment_methods.card_at_signup: optional, at the payment step
+  - payment_methods.debit: not published: https://mikr.us/product/mikrus-1-0/
+  - payment_methods.prepaid: not published: https://mikr.us/product/mikrus-1-0/
+  - payment_methods.virtual: not published: https://mikr.us/product/mikrus-1-0/
+  - payment_methods.hold_amount: not published, and no hold is stated: the order is paid once at checkout through TPAY
+  - payment_methods.hold_detail: the order redirects to the TPAY payment system where the buyer chooses the payment form; the refund clause prices a refund at 'do 5 dni roboczych przy płatności przelewem i do 15 dni roboczych przy płatności kartą płatniczą', so a bank transfer and a payment card are both rails. No hold amount is published.
+  - payment_methods.identity: a real first name, last name and email address at order; the payment form is chosen at the TPAY step, and the refund clause names both a bank transfer and a payment card
+  - payment_methods.source_url: https://mikr.us/product/mikrus-1-0/
+  - payment_methods.read_on: 2026-11-02
+- evidence:
+  - [1] 2026-10-24: quoted order page: 'Mikrus 1.0 | RAM 384 MB | Dysk SSD NVMe 5 GB | Lokalizacja Finlandia | Dostęp pełny root | Faktura VAT (firma/os. fizyczna) | 35 zł / rok (brutto)'
+  - [1] 2026-10-24: quoted terms: 'Podczas składania zamówienia niezbędne jest podanie prawdziwego imienia, nazwiska oraz adresu e-mail' and 'Klient może odstąpić od umowy z Usługodawcą w terminie do 14 dni od złożenia zamówienia' and 'Wszystkie ceny podane na stronie wyrażone są w złotówkach (PLN)'
+  - [2] 2026-10-24: quoted addressing mode: 'Serwery Mikrusa działają w trybie "głównie IPv6". Nie są to serwery "IPv6-only".'
+  - [2] 2026-10-24: quoted port scheme: 'Otrzymujesz od nas na start (później możesz to zwiększyć) trzy numery portów: 10000 + ID = port SSH, 20000 + ID = port do dowolnego wykorzystania, 30000 + ID = port do dowolnego wykorzystania'
+  - [2] 2026-10-24: quoted dual-protocol statement: 'Oba porty nasłuchują zarówno komunikacji TCP, jak i UDP, więc bez problemu postawisz tam zarówno serwery webowe, jak i np. aplikacje typu OpenVPN czy Wireguard.'
+  - [2] 2026-10-24: quoted port ceiling: 'W panelu zupełnie bezpłatnie możesz wyklikać sobie dodatkowe 5 portów TCP. Oznacza to, że w praktyce możesz nasłuchiwać na aż 7 portach.' and 'Nie limitujemy, ile portów zużyjesz na adresacji prywatnej oraz ile wykorzystasz na adresacji IPv6. ... Realnym limitem jest jedynie ilość pamięci RAM'
+  - [3] 2026-10-24: quoted VAT identity in the site metadata: '"vatID": "PL6821639338"' and 'Tak. Hosting obsługuje legalnie działająca w Polsce firma. możesz wybrać fakturę na firmę lub osobę prywatną.'
+  - [1] 2026-10-24: quoted payment processor from the privacy terms: 'Dane te zapisywane są na serwerach firmy Krajowy Integrator Płatności S.A. ul. Św. Marcin 73/6 61-808 Poznań NIP: 7773061579 ... (TPAY)'
+  - [4] 2026-10-24: quoted the free sibling product and its restriction: 'Usługa przeznaczona jest dla użytkowników z POLSKI' and 'Serwery są darmowe, ale wymagają wpłaty dowolnej kwoty (minimum 5zł) w ramach weryfikacji tożsamości użytkownika' and 'Serwery, na które nikt nie logował się przez 3 miesiące, są usuwane.'
+  - [1] 2026-11-02: the buyer is redirected to TPAY and chooses the payment form there | capture: sha256:123f27c19bdb337f7d9c2602fd32a16a309b7dd90255a9d447d8b305fde38650 | quote: Potencjalny klient zobowiązany jest do uiszczenia opłaty za serwer. W tym celu przekierowywany jest do systemu płatności TPAY, gdzie wybiera dogodną dla siebie formę płatności i uiszcza należność za serwer.
+  - [1] 2026-11-02: the refund clause names both a bank transfer and a payment card as rails | capture: sha256:123f27c19bdb337f7d9c2602fd32a16a309b7dd90255a9d447d8b305fde38650 | quote: Czas zwrotu środków w przypadku rezygnacji z usługi wynosi do 5 dni roboczych przy płatności przelewem i do 15 dni roboczych przy płatności kartą płatniczą
+  - [1] 2026-11-02: a card is a payment rail, so the hold field cannot say bank transfer only | capture: sha256:123f27c19bdb337f7d9c2602fd32a16a309b7dd90255a9d447d8b305fde38650 | quote: Czas zwrotu środków w przypadku rezygnacji z usługi wynosi do 5 dni roboczych przy płatności przelewem i do 15 dni roboczych przy płatności kartą płatniczą
+  - [1] 2026-11-02: the payment processor and the buyer's choice of form are unchanged | capture: sha256:123f27c19bdb337f7d9c2602fd32a16a309b7dd90255a9d447d8b305fde38650 | quote: W tym celu przekierowywany jest do systemu płatności TPAY, gdzie wybiera dogodną dla siebie formę płatności
+- sources:
+  - [1] https://mikr.us/product/mikrus-1-0/
+  - [2] https://wiki.mikr.us/o_co_chodzi_z_ipv6/
+  - [3] https://mikr.us/
+  - [4] https://frog.mikr.us/
+
+## Mikrus FROG (free)
+
+- `egress/mikrus-frog` | qualifies-with-caveat | evidence reported | binding per-ip-shaping | category free nat vps | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-07
+- url https://mikr.us/
+- price USD 0
+- free tier: FROG - free, one-time activation fee: 256 MB RAM, 3 GB disk, Finland, 0 PLN per year. [translated] | unit: unlimited | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: The vendor plan table does not state a traffic figure for FROG; a Chinese-language listing says unlimited traffic.; ingress: udp | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: Account registration on a Polish shop; the free plan carries a one-time activation fee. | country: None
+- interface: ssh
+- limits:
+  - volume-quota: not stated by the vendor [1]
+  - per-ip-shaping (binding): shared 1 Gbps per a third-party listing [2]
+- binding note: The vendor publishes no byte cap, so no volume quota exists to fail. What does fail is the shared 1 Gbps link and, per a third-party listing, a block on traffic to Asia, which for an Asian audience makes the box useless before any quota is reached. The Asia block is the real binder; the shaper is the vocabulary kind that carries it.
+- interface detail: Root SSH; the vendor sells annual plans and one free plan.
+- tooling: ssh, wg-quick
+- composes with: A European WG endpoint with no byte cap, if the Asia block does not matter for the audience.
+- reliability: A third-party listing says traffic from Asia is blocked and only Alpine is supported.
+- notes: Interesting because it is the only free NAT box in the sweep with an unlimited-traffic claim and a European address. Two caveats from the listing: a small activation fee, and traffic to Asia blocked, which would make it useless as an ingress point for Asian visitors.
+- evidence note: The free plan and its specs are on the vendor page today; unlimited traffic and the Asia block are from a Chinese-language listing.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: A full VPS with root, so WG is installed and a conf generated on the box. The plan row confirms root access; the NAT port allocation is not on the page read.
+  - ingress: udp
+  - volume_stated: The vendor plan table does not state a traffic figure for FROG; a Chinese-language listing says unlimited traffic.
+  - bytes_transit: yes
+  - transit_note: Finland host carries the traffic.
+- evidence:
+  - [1] 2026-10-23: FROG plan is free, 256 MB RAM, 3 GB disk, Finland
+  - [2] 2026-10-23: listing states unlimited traffic, 1 Gbps, NAT IPv4 plus IPv6, and blocks traffic to Asia
+- sources:
+  - [1] https://mikr.us/
+  - [2] https://vps.qd.je/tag-nat-vps.html
+
+## Mikrus FROG, FROG (free)
+
+- `compute/mikrus-frog` | fails-identity | evidence reported | binding write-gated | category cloud VM | tier FROG (free)
+- needs card no, phone no, ID yes, institution no | verified 2026-10-24T06:17:00.000Z (live) | stale on 2026-11-08
+- url https://frog.mikr.us/
+- free tier: A free LXC container: 256 MB RAM, 3 GB disk, Alpine Linux, managed at ssp.mikr.us. The vendor's own page states the service is for users in Poland. The live origin returned a Polish-only block page on the day read, so the specification is taken from the search index's cached copy of the vendor's own page, not from a live read. | unit: MB | metered on: wall-clock | read on: 2026-10-24 | source: [1] | note: the shape is reported, not documented: the live page was refused. See evidence for the exact 403 body
+- per-object cap: not applicable: the unit is a container, not an object
+- retention: Reported from the cached copy: 'Serwery, na które nikt nie logował się przez 3 miesiące, są usuwane.' (servers nobody has logged into for 3 months are deleted). | days: 90 | source: [1] | note: reported, because the live origin refused the read
+- egress: not stated on the cached page and not readable live | metered: no | free allowance: unstated | source: [1]
+- identity: national-id | detail: Two gates. First, the offer is limited to Poland: the live origin served a block page reading 'The FROG service is intended for Polish users only. Even if you use a VPN, if we detect that you are not Polish, you will lose your account.' Second, the cached vendor page states a one-off payment of at least PLN 5 is required as identity verification. No card is stored, but the payment is a bank transfer and the account is conditional on being in Poland. | country: Poland
+- interface: unknown
+- limits:
+  - volume-quota: 256 MB RAM and 3 GB disk on the free FROG container [1]
+  - retention-clamped: deleted after 3 months with no login [1]
+  - write-gated (binding): a one-off payment of at least PLN 5 is required as an identity check before the free server is activated [1]
+- limits note: The server is deleted after three months without a login, and the service states it is intended for users in Poland, so the free unit survives only with a recurring manual login.
+- binding note: the free server is not free of payment: a one-off minimum PLN 5 transfer is the identity gate, and on top of it the service refuses non-Polish users outright
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: PLN 35 (about EUR 8) a year for 384 MB and 5 GB on the paid ladder makes this the cheapest documented European VPS floor on 2026-10-24; the free FROG tier is the same operator's loss leader into it.
+- reliability: no reliability event observed; the origin refused every read from outside Poland with HTTP 403 on 2026-10-24, which is the geo gate working as documented
+- notes: The 403 body is the finding: this is a case where an aggregator's snippet shows a live offer and the origin refuses the request. What could not be established: the traffic allowance, the exact IPv6/IPv4 arrangement, and whether the PLN 5 is refunded.
+- evidence note: the shape, the retention clock and the PLN 5 gate come from the search index's cached copy of the vendor's own page; the live origin served only a Polish-only block page, so none of it was read first-hand. The geo restriction itself is documented, from the live 403 body
+- extras:
+  - facets.class: regional-vps
+  - facets.free_tier_kind: perpetual
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 0.25
+  - facets.shape.gpu_count: 0
+  - shape.ram_gib: 0.25
+  - shape.disk_gib: 3
+  - billing_model: free
+  - term: perpetual, with a one-off activation payment
+  - m10h_usd: 0.0
+  - m24h_usd: 0.0
+  - price_arithmetic: PLN 0 per the vendor's own price table, plus a one-off minimum PLN 5 activation transfer described as identity verification
+  - free_tier_kind: perpetual
+  - network_out.allow_outbound: yes
+  - network_out.ports: not stated
+  - session_cap.restart_required: no
+  - session_cap.note: deleted after 3 months without a login
+  - geo_restriction: Poland only, enforced: live origin returns HTTP 403 to a non-Polish reader
+- evidence:
+  - [1] 2026-10-22: 'Projekt FROG to darmowa oferta malych (malutkich!) serwerow VPS', 'RAM: 256MB', 'Dysk: 3GB', 'System: Alpine Linux', 'Technologia: LXC', 'wymagaja wplaty dowolnej kwoty (minimum 5zl) w ramach weryfikacji tozsamosci uzytkownika. Jest to oplata jednorazowa', 'Mozesz posiadac tylko JEDEN darmowy serwer', 'Serwery, na ktore nikt nie logowal sie przez 3 miesiace, sa usuwane', quoted
+  - [1] 2026-10-22: 'Usluga przeznaczona jest dla uzytkownikow z POLSKI' and 'Zainteresowanych z Azji prosimy o nieaktywowanie konta', quoted
+  - [2] 2026-10-22: the paid ladder beside the free row: 'Mikrus 1.0' 384 MB / 5 GB at '35 zl brutto' per year, rising to 'Mikrus 4.2PRO' 16 GB / 160 GB at '790 zl brutto' per year, and the FROG row is priced '0 zl' with 'Jednorazowa oplata aktywacyjna', quoted
+  - [1] 2026-10-24: live origin, HTTP 403, body quoted in full: '<h1>The FROG service is intended for Polish users only. Even if you use a VPN, if we detect that you are not Polish, you will lose your account. Look for another hosting provider.</h1>'
+  - [1] 2026-10-24: cached copy of the vendor page: 'RAM: 256MB', 'Dysk: 3GB', 'System: Alpine Linux', 'Technologia: LXC', 'Serwery są darmowe, ale wymagają wpłaty dowolnej kwoty (minimum 5zł) w ramach weryfikacji tożsamości użytkownika.'
+  - [3] 2026-10-24: the paid sibling's price table lists 'FROG Darmowy Jednorazowa opłata aktywacyjna 256 MB 3 GB Finlandia 0 zł'
+- sources:
+  - [1] https://frog.mikr.us/
+  - [2] https://mikr.us/
+  - [3] https://mikr.us/?landing=

@@ -1,0 +1,50 @@
+# Pipekit
+
+> pipekit.io | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/pipekit/ | JSON https://fshy.ajam.dev/api/v1/entity/pipekit.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Pipekit
+
+- `compute/pipekit` | trial-only | evidence documented | binding write-gated | category dev environment
+- identity a placeholder: card and phone unknown | verified 2026-11-04T05:24:16.616Z (live) | stale on 2026-12-05
+- url https://pipekit.io/pricing
+- free tier: a free trial rather than a free tier; the paid product is priced per cluster a month and manages Argo Workflows on self-hosted Kubernetes | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published: no egress allowance or overage price on https://pipekit.io/pricing and https://docs.pipekit.io/why-pipekit | metered: no | source: [1]
+- identity: email
+- interface: rest, cli
+- limits:
+  - request-rate: priced per cluster a month after the trial [1]
+  - write-gated (binding): the free path is a trial; the compute is self-hosted Kubernetes cluster [1]
+- interface detail: Pipekit CLI, REST API and a web UI; Python SDK and MCP server also listed
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: A trial rather than dead: the product is sold and reachable. Hosted: the trial buys Pipekit's managed control plane, which the vendor runs; the Argo workers run on a Kubernetes cluster the user rents, as with compute/hatchet-run. A self-hosted control plane is the other option.
+- evidence note: the pricing page was read on 2026-10-22 and offers a free trial over a per-cluster monthly price. The product orchestrates self-hosted cluster, so a free trial buys the control plane rather than compute
+- self hosted: no
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: workflows run on a user's own cluster; the page states no clock
+  - persistent_storage.price: log storage is a paid feature
+  - persistent_storage.durability: a user's own cluster
+  - persistent_storage.on_stop: yes
+  - persistent_storage.on_destroy: no
+  - persistent_storage.max_retention: per a user's retention
+  - free_tier_kind: trial
+  - reclassified_from: dead
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: '## Free Trial' above a per-cluster monthly price with 'Enable SSO & RBAC on Day 1', 'Activate compute & workflow optimization metrics on Day 1' and 'Unlock logs streaming & storage for millions of log lines', quoted
+  - [2] 2026-10-29: Pipekit offers a managed control plane for Argo Workflows over a user's clusters, in the cloud or self-hosted, with a free 30-day trial | capture: sha256:78f29dee4f0b1eee086f3c11a39922c40d62bef181a598a73143970625ba6e35 | quote: Pipekit offers a third path: a managed control plane on top of the Argo you already run
+  - [3] 2026-11-03: workflows and data run in the user's own cluster; the pages read print no egress allowance or overage price | capture: sha256:066f8b87e68091193f198ff6b86b066e612b4909798c42faccd36fdb64e6dc3c | quote: Your workflows, data, and compute stay in your cluster; the control plane is hosted by Pipekit
+  - [4] 2026-11-03: a REST API is documented, as is a CLI | capture: sha256:77b22bfdf83f14a4426f0f9292492ff97c49b3e08885543da10655e4dbcfbfab | quote: [REST API](https://docs.pipekit.io/reference/rest-api.md): How to use the Pipekit REST API
+- sources:
+  - [1] https://pipekit.io/pricing
+  - [2] https://pipekit.io
+  - [3] https://docs.pipekit.io/why-pipekit
+  - [4] https://docs.pipekit.io/llms.txt

@@ -1,0 +1,125 @@
+# AlphAI
+
+> alphai.io | Data APIs; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/alphai/ | JSON https://fshy.ajam.dev/api/v1/entity/alphai.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## AlphAI
+
+- `data-apis/alphai` | qualifies-with-caveat | evidence documented | binding request-rate | category financial news API (ticker-linked, relevance-scored news with per-ticker sentiment; SEC insider filings) | tier Free
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T00:23:43.773Z (live) | stale on 2026-12-03
+- url https://alphai.io/pricing
+- free tier: Free plan USD 0 forever: REST API at 20 requests per minute and 100 per day with 1 key, an MCP server at the same 20 per minute and 100 per day, a 30-day news archive, pages of up to 20 items, and Radar data delayed 60 minutes. | unit: requests | metered on: request-count | read on: 2026-11-02 | source: [1] | note: One HTTP request to any /api endpoint counts as one request, an empty page still counts, and on MCP only tool calls count; a request rejected with 429 spends no quota. The website news feed has no daily cap. The next plan up is Basic, listed at USD 2.99 and USD 7.99 a month in early access, with 60 requests per minute and 10,000 per day. The vendor writes the name AlphAI; its TypeScript client class and some listings write AlphaAI.
+- per-object cap: 20 items per page on Free (page size up to 50 on Pro), paged with a cursor | source: [1]
+- retention: 30-day news archive on the Free API; a cursor or from_date window beyond the archive horizon answers HTTP 403 | source: [1] | note: A query API with no stored objects.
+- egress: not metered in bytes; the 100 requests a day bound what a free key can pull | metered: no | source: [1]
+- identity: email | detail: The register page offers Google sign-in or a direct registration; the privacy page lists email, full name and a hashed password as the account data of a direct registration and names a verification email. The developers page says a key is created in the account with no credit card. The exact fields of the form are not exposed in the page text: unverified: behind a sign-up.
+- interface: rest
+- limits:
+  - request-rate (binding): 20 requests per minute on the Free plan, per account across all keys (REST and MCP each) [1]
+  - request-rate (binding): 100 requests per day on the Free plan, reset at 00:00 UTC [1]
+  - per-object-cap: 20 items per page on the Free plan [1]
+- limits note: Archive depth: 30 days on Free, and a window past it answers HTTP 403. Radar data carries an added 60-minute delay on Free. Bulk path: the insider endpoint's format=csv returns a file of up to 500 rows on Free for one request.
+- binding note: 100 requests a day is met long before 20 per minute: the daily volume cap binds first.
+- interface detail: GET https://api.alphai.io/api/news/ with Authorization: Bearer <key>; JSON over HTTPS, cursor-paginated, with an OpenAPI 3.1 spec at https://api.alphai.io/api/schema/; server-side use only, as the API sends no CORS headers. An MCP server at https://mcp.alphai.io/mcp serves the same feed as tools and signs in with OAuth.
+- endpoint: part of interface detail
+- tooling: any HTTP client; official Python and TypeScript SDKs (alphai-sdk); an MCP server
+- composes with: A relevance-scored, ticker-linked news and SEC insider-filing feed at 100 requests a day, so a free stack narrows polling with min_relevance, symbol or category filters and takes prices from a quote feed such as Finnhub or Twelve Data.
+- reliability: A per-minute burst answers HTTP 429 with a short Retry-After; a window past the archive horizon answers HTTP 403; a keyless call answered HTTP 401 API key required.
+- notes: Free is a starter allotment of 100 requests a day on a 30-day archive with Radar data delayed 60 minutes; the website news feed has no daily cap.
+- evidence note: Limits, archive depth and plan features are read from the first-party pricing, developers and OpenAPI pages, and a keyless call answered HTTP 401. A free key was not exercised, and the exact fields of the register form are not exposed in the page text, so they are unverified: behind a sign-up.
+- evidence:
+  - [1] 2026-11-02: the Free plan is USD 0 forever | quote: ### Free $0 Forever
+  - [1] 2026-11-02: the Free REST API is 20 per minute and 100 per day with 1 key | quote: - REST API: 20 / min · 100 / day, 1 key
+  - [1] 2026-11-02: the Free MCP server is 20 per minute and 100 per day | quote: - MCP server: 20 / min · 100 / day
+  - [1] 2026-11-02: the burst cap is 20 per minute on Free, 60 on Basic and 150 on Pro | quote: | REST API — burst | 20 / min | 60 / min | 150 / min |
+  - [1] 2026-11-02: the daily volume cap is 100 on Free and 10,000 on Basic | quote: | REST API — daily volume | 100 / day | 10,000 / day | 100,000 / day |
+  - [1] 2026-11-02: the maximum page size is 20 on Free and 50 on Pro | quote: | News API — max page size | 20 | 20 | 50 |
+  - [1] 2026-11-02: the news archive is 30 days on Free | quote: | News archive depth (API/MCP) | 30 days | 90 days | 180 days |
+  - [1] 2026-11-02: Radar data carries an added 60-minute delay on Free | quote: | Radar added data delay (site, API + MCP) | 60 min delay | 15 min delay | No added delay |
+  - [1] 2026-11-02: the next plan up, Basic, is listed at USD 2.99 and USD 7.99 a month in early access | quote: $2.99$7.99/month
+  - [1] 2026-11-02: what counts as one API request, and that a 429 spends no quota | quote: One HTTP request to any of our /api endpoints: news list, news detail, ticker news, search. On MCP, only tool calls count; the connect handshake and keepalives do not. A request rejected with 429 does not spend quota either.
+  - [1] 2026-11-02: the free plan is available on sign-up, with MCP over OAuth and no waitlist | quote: Yes. Sign up for any plan (free included), generate an API key from your account, or connect Claude Desktop / Cursor to the MCP server using OAuth. No waitlist.
+  - [1] 2026-11-02: the website news feed has no daily cap on Free | quote: The full website news feed with no daily cap, plus a starter API and MCP allotment (20/min + 100/day each, 1 API key) so you can wire up an agent before paying.
+  - [2] 2026-11-02: a key is created in the account with no credit card | capture: sha256:5d782e778f167d5b66df7e5a2db3cdf19d891f692520510e174c1530c90b35b4 | quote: Create a key in your account, no credit card.
+  - [2] 2026-11-02: Free includes one key at 20 requests a minute and 100 a day with no credit card | capture: sha256:5d782e778f167d5b66df7e5a2db3cdf19d891f692520510e174c1530c90b35b4 | quote: Free includes one API key, 20 requests a minute and 100 a day, with no credit card.
+  - [2] 2026-11-02: keyless requests to the API and the public news routes get a 401 | capture: sha256:5d782e778f167d5b66df7e5a2db3cdf19d891f692520510e174c1530c90b35b4 | quote: Both `api.alphai.io` and the public `/api/news` and `/api/symbols` routes on `alphai.io` require a key: keyless requests get a `401`.
+  - [2] 2026-11-02: a no-signup playground proxies the read-only public endpoints | capture: sha256:5d782e778f167d5b66df7e5a2db3cdf19d891f692520510e174c1530c90b35b4 | quote: To try the API without signing up, use the playground above, which proxies the read-only public endpoints through this site.
+  - [2] 2026-11-02: a window beyond the archive horizon returns 403 on the first page | capture: sha256:5d782e778f167d5b66df7e5a2db3cdf19d891f692520510e174c1530c90b35b4 | quote: A window beyond your archive horizon returns 403 on the first page.
+  - [2] 2026-11-02: the API is plain JSON over HTTPS with cursor pagination | capture: sha256:5d782e778f167d5b66df7e5a2db3cdf19d891f692520510e174c1530c90b35b4 | quote: Plain JSON over HTTPS, cursor-paginated.
+  - [2] 2026-11-02: official Python and TypeScript SDKs exist | capture: sha256:5d782e778f167d5b66df7e5a2db3cdf19d891f692520510e174c1530c90b35b4 | quote: The official Python and TypeScript SDKs include text search, Brief and Radar alongside news and symbols.
+  - [2] 2026-11-02: an MCP server serves the same feed as tools | capture: sha256:5d782e778f167d5b66df7e5a2db3cdf19d891f692520510e174c1530c90b35b4 | quote: An MCP server serving the same feed as tools: news search, ticker feed, trending, insider, calendar, macro and alerts.
+  - [2] 2026-11-02: the MCP server URL | capture: sha256:5d782e778f167d5b66df7e5a2db3cdf19d891f692520510e174c1530c90b35b4 | quote: https://mcp.alphai.io/mcp
+  - [2] 2026-11-02: an insider CSV file holds up to 500 rows on Free and counts as one request | capture: sha256:5d782e778f167d5b66df7e5a2db3cdf19d891f692520510e174c1530c90b35b4 | quote: A file holds up to 500 rows on Free, 2,000 on Basic or 10,000 on Pro, within your archive window, and counts as one request.
+  - [2] 2026-11-02: an empty page still counts against the daily quota | capture: sha256:5d782e778f167d5b66df7e5a2db3cdf19d891f692520510e174c1530c90b35b4 | quote: An empty page still counts against your daily quota
+  - [2] 2026-11-02: the TypeScript client class is written AlphaAI | capture: sha256:5d782e778f167d5b66df7e5a2db3cdf19d891f692520510e174c1530c90b35b4 | quote: import { AlphaAI } from "alphai-sdk";
+  - [2] 2026-11-02: Free's 100 calls a day call for narrowing the stream with filters | capture: sha256:5d782e778f167d5b66df7e5a2db3cdf19d891f692520510e174c1530c90b35b4 | quote: On Free’s 100 calls a day, narrow the stream with min_relevance, symbol or category
+  - [3] 2026-11-02: the register page offers Google sign-in | capture: sha256:ca07d9333317362335d68a0e37e964d961501f57e6eb30c5e9315cd702ee9375 | quote: Sign up with Google
+  - [2] 2026-11-02: per-minute and per-day quotas apply to the account across all its keys | capture: sha256:5d782e778f167d5b66df7e5a2db3cdf19d891f692520510e174c1530c90b35b4 | quote: Per-minute and per-day quotas apply to your account, across all its keys.
+  - [4] 2026-11-02: account data is an email, a full name and, for a direct registration, a hashed password | capture: sha256:11d52a927f26eae940178c2be7b1d9f0716e6c4a7428bf5bf22974809427b028 | quote: - Account data: email, full name, and (if provided) a profile avatar. Passwords are hashed if you register directly.
+  - [4] 2026-11-02: service emails include a verification email | capture: sha256:11d52a927f26eae940178c2be7b1d9f0716e6c4a7428bf5bf22974809427b028 | quote: - Send service emails (verification, password reset, receipts) and respond to support requests.
+  - probe:https://api.alphai.io/api/schema/ 2026-11-02: the OpenAPI 3.1 document of the REST API answers with no key | capture: sha256:7a88b559ccfa7d7e601b7d8019b26f34589aad718e5d377d5186983df21d437a | quote: openapi: 3.1.0
+  - probe:https://api.alphai.io/api/schema/ 2026-11-02: per-minute and per-day caps of Free, Basic and Pro | capture: sha256:7a88b559ccfa7d7e601b7d8019b26f34589aad718e5d377d5186983df21d437a | quote: a per-minute burst cap and a per-day volume cap (Free 20/min + 100/day, Basic 60/min + 10,000/day, Pro 150/min + 100,000/day)
+  - probe:https://api.alphai.io/api/schema/ 2026-11-02: the daily reset is at 00:00 UTC | capture: sha256:7a88b559ccfa7d7e601b7d8019b26f34589aad718e5d377d5186983df21d437a | quote: epoch seconds of the next 00:00 UTC reset
+  - probe:https://api.alphai.io/api/schema/ 2026-11-02: a per-minute burst surfaces as a 429 with a short Retry-After | capture: sha256:7a88b559ccfa7d7e601b7d8019b26f34589aad718e5d377d5186983df21d437a | quote: A per-minute burst surfaces only as a 429 with a short `Retry-After`.
+  - probe:https://api.alphai.io/api/schema/ 2026-11-02: the API sends no CORS headers and is for server-side use | capture: sha256:7a88b559ccfa7d7e601b7d8019b26f34589aad718e5d377d5186983df21d437a | quote: The API is server-side only. It sends no CORS headers
+  - probe:https://api.alphai.io/api/schema/ 2026-11-02: the schema endpoint answered HTTP 200 with no key | capture: sha256:7c63fe2755a735ca282c4c0ecda11915c13f3fe5674f5ac468120566817edecf | quote: "status": 200
+  - probe:https://api.alphai.io/api/news/ 2026-11-02: a keyless call to the news endpoint answers HTTP 401 | capture: sha256:35d038d826d6488323e5661ed9928c8586988a4317ead3e23c885c655a07343b | quote: "status": 401
+  - probe:https://api.alphai.io/api/news/ 2026-11-02: the keyless 401 body says an API key is required | capture: sha256:64ff59789e336d6051dd45b2ee051233bb2a91b7502980b1ed35a40c6fe12969 | quote: {"detail": "API key required."}
+  - [1] 2026-11-02: the Free plan is USD 0 with no expiry | quote: ### Free $0 Forever
+  - [1] 2026-11-02: the Free plan allows 20 requests a minute and 100 a day on the REST API with 1 key | quote: - REST API: 20 / min · 100 / day, 1 key
+  - [1] 2026-11-02: the Free plan allows 20 requests a minute and 100 a day on the MCP server | quote: - MCP server: 20 / min · 100 / day
+  - [1] 2026-11-02: the REST and MCP allotments are 20 a minute and 100 a day each, with 1 API key | quote: plus a starter API and MCP allotment (20/min + 100/day each, 1 API key)
+  - [1] 2026-11-02: the Free plan has a 30-day news archive on the API | quote: - 30-day news archive on the API
+  - [1] 2026-11-02: the maximum page size is 20 on Free and Basic and 50 on Pro | quote: | News API — max page size | 20 | 20 | 50 |
+  - [1] 2026-11-02: archive depth is 30 days on Free, 90 on Basic and 180 on Pro | quote: | News archive depth (API/MCP) | 30 days | 90 days | 180 days |
+  - [1] 2026-11-02: Radar data carries a 60-minute added delay on Free | quote: | Radar added data delay (site, API + MCP) | 60 min delay | 15 min delay | No added delay |
+  - [1] 2026-11-02: the burst caps are 20, 60 and 150 a minute by plan | quote: | REST API — burst | 20 / min | 60 / min | 150 / min |
+  - [1] 2026-11-02: the daily volume caps are 100, 10,000 and 100,000 by plan | quote: | REST API — daily volume | 100 / day | 10,000 / day | 100,000 / day |
+  - [1] 2026-11-02: a request rejected with 429 spends no quota | quote: A request rejected with 429 does not spend quota either.
+  - [1] 2026-11-02: what counts as an API request, and that only tool calls count on the MCP server | quote: One HTTP request to any of our /api endpoints: news list, news detail, ticker news, search. On MCP, only tool calls count; the connect handshake and keepalives do not.
+  - [1] 2026-11-02: any plan, free included, gets an API key from the account, or connects to the MCP server with OAuth | quote: Sign up for any plan (free included), generate an API key from your account, or connect Claude Desktop / Cursor to the MCP server using OAuth. No waitlist.
+  - [2] 2026-11-02: Free includes one key at 20 requests a minute and 100 a day, with no credit card | capture: sha256:b8051f4fab378c898c91cd522235ee125f970dc1b7b301e0a4f274a8c47f5c5e | quote: Free includes one API key, 20 requests a minute and 100 a day, with no credit card.
+  - [2] 2026-11-02: the vendor describes the free allotment as enough to evaluate the feed and build a prototype | capture: sha256:b8051f4fab378c898c91cd522235ee125f970dc1b7b301e0a4f274a8c47f5c5e | quote: One key at 20 requests a minute and 100 a day. Enough to evaluate the feed and build a prototype.
+  - [2] 2026-11-02: a key is created in the account and needs no credit card | capture: sha256:b8051f4fab378c898c91cd522235ee125f970dc1b7b301e0a4f274a8c47f5c5e | quote: Create a key in your account, no credit card.
+  - [2] 2026-11-02: the API is server-side only, with no CORS | capture: sha256:b8051f4fab378c898c91cd522235ee125f970dc1b7b301e0a4f274a8c47f5c5e | quote: the API is server-side only, no CORS
+  - [2] 2026-11-02: quotas are per account across all keys | capture: sha256:b8051f4fab378c898c91cd522235ee125f970dc1b7b301e0a4f274a8c47f5c5e | quote: Per-minute and per-day quotas apply to your account, across all its keys.
+  - [2] 2026-11-02: rate-limit headers, the 429 body with Retry-After, and the 403 past the archive horizon | capture: sha256:b8051f4fab378c898c91cd522235ee125f970dc1b7b301e0a4f274a8c47f5c5e | quote: Quotas are per account: a per-minute burst cap plus a per-day volume cap. Every keyed response carries `X-RateLimit-Limit`, `-Remaining` and `-Reset` headers, and a 429 adds `Retry-After` plus your tier's caps and an upgrade pointer in the JSON body.
+  - [2] 2026-11-02: a cursor or date window past the archive horizon answers HTTP 403 | capture: sha256:b8051f4fab378c898c91cd522235ee125f970dc1b7b301e0a4f274a8c47f5c5e | quote: Feed depth is gated per plan: a cursor walked past your archive horizon returns `403` with the same hint, and a `from_date` window reaching past it gets that answer on the first page; Pro keys page back 180 days.
+  - [2] 2026-11-02: keyless calls get HTTP 401, and a keyless playground proxies read-only public endpoints | capture: sha256:b8051f4fab378c898c91cd522235ee125f970dc1b7b301e0a4f274a8c47f5c5e | quote: Both `api.alphai.io` and the public `/api/news` and `/api/symbols` routes on `alphai.io` require a key: keyless requests get a `401`.
+  - [2] 2026-11-02: the playground lets a visitor try the API without signing up | capture: sha256:b8051f4fab378c898c91cd522235ee125f970dc1b7b301e0a4f274a8c47f5c5e | quote: To try the API without signing up, use the playground above, which proxies the read-only public endpoints through this site.
+  - [2] 2026-11-02: each row carries a relevance score, tickers, per-ticker sentiment and the publisher URL | capture: sha256:b8051f4fab378c898c91cd522235ee125f970dc1b7b301e0a4f274a8c47f5c5e | quote: A relevance score from 1 to 10, the tickers the story affects, per-ticker sentiment with written reasoning, the publisher URL and domain, and both publication and ingest timestamps.
+  - [2] 2026-11-02: the feed is plain JSON over HTTPS with cursor pagination | capture: sha256:b8051f4fab378c898c91cd522235ee125f970dc1b7b301e0a4f274a8c47f5c5e | quote: Plain JSON over HTTPS, cursor-paginated.
+  - [2] 2026-11-02: an OpenAPI 3.1 contract is published at api.alphai.io/api/schema/ | capture: sha256:b8051f4fab378c898c91cd522235ee125f970dc1b7b301e0a4f274a8c47f5c5e | quote: Full OpenAPI 3.1 spec at api.alphai.io/api/schema/.
+  - [2] 2026-11-02: page_size is 1 to 20 on Free and Basic and up to 50 on Pro | capture: sha256:b8051f4fab378c898c91cd522235ee125f970dc1b7b301e0a4f274a8c47f5c5e | quote: - Newest first, with cursor pagination. page_size is 1–20 on Free and Basic, up to 50 on Pro (default 10).
+  - [2] 2026-11-02: the per-ticker insider-trades history pages 200 rows on every plan | capture: sha256:b8051f4fab378c898c91cd522235ee125f970dc1b7b301e0a4f274a8c47f5c5e | quote: page_size goes up to 200 on every plan; side filters the paginated list and cursor continues older history.
+  - [2] 2026-11-02: official Python and TypeScript SDKs handle cursor pagination and retries | capture: sha256:b8051f4fab378c898c91cd522235ee125f970dc1b7b301e0a4f274a8c47f5c5e | quote: The official Python and TypeScript SDKs include text search, Brief and Radar alongside news and symbols. They handle cursor pagination, retries on 429/5xx, typed errors, and rate-limit inspection for you.
+  - [5] 2026-11-02: the insider route can stream a CSV file capped at 500 rows on Free | capture: sha256:f6436fae9e52691b27c955c40975b58ad841aa2cb3f7d2d6e79561f8f9ad2262 | quote: `format=csv` only. Your plan's rows-per-file cap (Free 500, Basic 2 000, Pro 10 000).
+  - [5] 2026-11-02: Form 4 insider data flows through the same news shape | capture: sha256:f6436fae9e52691b27c955c40975b58ad841aa2cb3f7d2d6e79561f8f9ad2262 | quote: Insider data (SEC EDGAR Form 4) flows through the same news shape:
+  - [5] 2026-11-02: the contract describes a public REST API for scored, ticker-linked financial news | capture: sha256:f6436fae9e52691b27c955c40975b58ad841aa2cb3f7d2d6e79561f8f9ad2262 | quote: Public REST API for AlphAI's relevance-scored, ticker-linked financial news.
+  - [6] 2026-11-02: the CSV file holds up to 500 rows on Free, inside the plan's archive window | capture: sha256:dfb0865aec3dfb68d31fd8e6febf11be998c114a52ab5d71232feb970d9ba619 | quote: A file holds up to 500 rows on Free, 2,000 on Basic and 10,000 on Pro, inside your plan's archive window.
+  - [6] 2026-11-02: a CSV file counts as one request against the rate limit however long it is | capture: sha256:dfb0865aec3dfb68d31fd8e6febf11be998c114a52ab5d71232feb970d9ba619 | quote: Add `format=csv` to `GET /api/news/insider/` to download the insider feed as a file: one row per insider event with the insider block flattened, the same filters as JSON, and one request against your rate limit however long the file is.
+  - [6] 2026-11-02: the daily limit headers report the daily budget, reset at the next 00:00 UTC | capture: sha256:dfb0865aec3dfb68d31fd8e6febf11be998c114a52ab5d71232feb970d9ba619 | quote: The `X-RateLimit-Limit`, `X-RateLimit-Remaining` and `X-RateLimit-Reset` headers now report your daily volume budget, with `Reset` at the next 00:00 UTC.
+  - [6] 2026-11-02: Free reaches back 30 days | capture: sha256:dfb0865aec3dfb68d31fd8e6febf11be998c114a52ab5d71232feb970d9ba619 | quote: Free reaches back 30 days, Basic 90, Pro 180.
+  - [7] 2026-11-02: an account can be made with an email address and a password | capture: sha256:d92dc0e46342d37886a12c32d15e7cf088082c68c54e2ba705289aae64c24235 | quote: - Email address and password
+  - [7] 2026-11-02: an account can be made with Google OAuth | capture: sha256:d92dc0e46342d37886a12c32d15e7cf088082c68c54e2ba705289aae64c24235 | quote: - Google OAuth authentication
+  - [7] 2026-11-02: bulk and historical endpoints are listed for the Pro tier and above | capture: sha256:d92dc0e46342d37886a12c32d15e7cf088082c68c54e2ba705289aae64c24235 | quote: - Bulk and historical endpoints are available on the Pro tier and above.
+  - [7] 2026-11-02: REST uses a Bearer API key and MCP uses OAuth 2.1 | capture: sha256:d92dc0e46342d37886a12c32d15e7cf088082c68c54e2ba705289aae64c24235 | quote: - Authentication: REST uses an Authorization: Bearer ak_live_… API key; MCP uses OAuth 2.1 with Dynamic Client Registration and PKCE (S256).
+  - [7] 2026-11-02: the REST API is at api.alphai.io and the MCP server at mcp.alphai.io | capture: sha256:d92dc0e46342d37886a12c32d15e7cf088082c68c54e2ba705289aae64c24235 | quote: The REST API (api.alphai.io) and MCP server (mcp.alphai.io) are subject to the rules above and these additional terms:
+  - [7] 2026-11-02: the full article body is not exposed through the REST API or the MCP server | capture: sha256:d92dc0e46342d37886a12c32d15e7cf088082c68c54e2ba705289aae64c24235 | quote: - The full article body used internally for AI prompts is not exposed via the website, REST API, or MCP server.
+  - [7] 2026-11-02: Basic is USD 2.99 a month with 10,000 requests a day | capture: sha256:d92dc0e46342d37886a12c32d15e7cf088082c68c54e2ba705289aae64c24235 | quote: - Basic ($2.99/month or $29.99/year) — ad-free, unlimited watchlist, 10 ticker news alerts (daily digest delivery), 60 requests/minute and 10,000 requests/day on REST API and MCP, a 90-day news-archive window on the API;
+  - [8] 2026-11-02: the register page offers Google sign-up | capture: sha256:deb2b7fda1f458ab40a7e4a031fbc27ac42037f7a1603937bf57151b0961103f | quote: [Sign up with Google](https://alphai.io/data/auth/google-verify?returnUrl=%2Faccount)
+  - [9] 2026-11-02: the home page says a free tier is available with no credit card | capture: sha256:e692c424c7249c11a811108d93dfbf1a7fb84ea430460126549b0431d226d575 | quote: Free tier available. No credit card.
+  - probe:https://api.alphai.io/api/news/ 2026-11-02: a keyless call to the news endpoint answers HTTP 401 with an API-key-required body | capture: sha256:64ff59789e336d6051dd45b2ee051233bb2a91b7502980b1ed35a40c6fe12969 | quote: {"detail": "API key required."}
+  - [10] 2026-11-02: free-for.dev lists AlphaAI with 20 requests a minute and 100 a day on REST and MCP, no card | capture: sha256:332a2db9b08c17ba7ad96ca55df70697bf2f4790a2b272fb1a0bedaf661f15a2 | quote: The free tier includes 20 requests per minute and 100 requests per day on both REST and MCP, no card required.
+- sources:
+  - [1] https://alphai.io/pricing
+  - [2] https://alphai.io/developers
+  - [3] https://alphai.io/auth/register?returnUrl=%2Faccount%2Fapi-keys
+  - [4] https://alphai.io/privacy
+  - [5] https://api.alphai.io/api/schema/
+  - [6] https://alphai.io/changelog
+  - [7] https://alphai.io/terms
+  - [8] https://alphai.io/auth/register
+  - [9] https://alphai.io/
+  - [10] https://free-for.dev/

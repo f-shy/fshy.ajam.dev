@@ -1,0 +1,334 @@
+# fshy: Data APIs, dead
+
+> Data APIs with free calls, and their bulk downloads: maps, IP location, markets, weather, news and open data.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/data-apis/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## Geolocated.io
+
+- `data-apis/geolocated-io` | dead | evidence documented | binding volume-quota | category IP geolocation API | tier Hobby
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T00:23:42.369Z (live) | stale on 2026-12-03
+- url https://geolocated.io/pricing.html | page https://fshy.ajam.dev/p/geolocated.md
+- free tier: Hobby plan, USD 0 a month, as listed on the pricing page: 2,000 requests a day at 100 requests a minute, Essentials data, standard IP lookup only (no self lookup, no batch), no credit card. The home page now links to Contact Us in place of a sign-up page, and the sign-up host answers HTTP 522. | unit: requests | metered on: request-count | read on: 2026-11-02 | source: [1] | note: The daily quota counts every endpoint together; past it the API answers HTTP 429 DailyLimitExceeded until the reset time, and past the per-minute rate HTTP 429 RateLimitExceeded. The API servers are in the US and Asia. Starter is USD 25 a month for 50,000 requests a day at 800 a minute.
+- per-object cap: one IP address per lookup on Hobby; the batch lookup takes up to 25 addresses a request and starts at the Growth plan | source: [2]
+- retention: not stated
+- egress: not applicable | metered: no | source: [1]
+- identity: email | detail: when sign-up was open: a name, email address, business name and country, and an email code to sign in; no credit card for Hobby. The sign-up page is no longer linked.
+- interface: rest
+- limits:
+  - volume-quota (binding): 2,000 requests a day on the Hobby plan, counted across all endpoints [1]
+  - request-rate: 100 requests a minute on the Hobby plan [1]
+- binding note: No quota can be reached while registration is closed; if it reopened, 2,000 requests a day would bind long before 100 a minute.
+- interface detail: GET /ip/{ip-address}?api-key=KEY, GET /ip/me (self lookup) and POST /ip/batch (a JSON array) on an API-server host named {api-server}.geolocated.io, JSON over HTTPS; the key is tied to the chosen API server
+- tooling: any HTTP client
+- composes with: Not reachable for a new account: the sign-up page is no longer linked and its host answers HTTP 522, so the 2,000 daily lookups of Hobby cannot be obtained. Bulk path: none on Hobby; the batch lookup (25 addresses a request) is on Growth and Scale
+- reliability: The home and pricing pages carry Sunset: Mon, 31 Aug 2026 23:59:59 GMT, the archived home page of 2026-08-28 already shows Contact Us in place of the sign-up button, and the sign-up host app.geolocated.io answers HTTP 522 on 2026-11-02.
+- notes: Free requests: 2,000 a day at 100 a minute on the Hobby plan, which no new account can reach because sign-up is not offered. Rate limit: 100 requests a minute (HTTP 429 RateLimitExceeded). Bulk path: batch lookup, 25 addresses a request, on Growth and Scale only; none on Hobby.
+- evidence note: The pricing, documentation, privacy and archived pages were read on 2026-11-02, and the Sunset header and the HTTP 522 answers were measured. No API request was made: the API server host names are not published on the pages that could be read. A sign-up host that answers again would reopen the verdict.
+- extras:
+  - death.on: 2026-11-02
+  - death.cause: registration-closed
+  - bulk_path: batch lookup, 25 addresses a request, Growth and Scale only
+  - free_requests: 2,000 a day
+- evidence:
+  - [1] 2026-11-02: the Hobby plan is listed at USD 0 a month | capture: sha256:12eb92455af0c868c58846dcad29b8803e358996f525bea7bc5f2c5011e488de | quote: ### Hobby ## $0 /Month
+  - [1] 2026-11-02: the free tier needs no credit card | capture: sha256:12eb92455af0c868c58846dcad29b8803e358996f525bea7bc5f2c5011e488de | quote: Start on our FREE tier & upgrade as you scale. No credit card required.
+  - [1] 2026-11-02: Hobby allows 2,000 requests a day, Starter 50,000 | capture: sha256:12eb92455af0c868c58846dcad29b8803e358996f525bea7bc5f2c5011e488de | quote: | Requests / day | | | | | 2000 | 50K | 150K | 350K |
+  - [1] 2026-11-02: Hobby is limited to 100 requests a minute, Starter to 800 | capture: sha256:12eb92455af0c868c58846dcad29b8803e358996f525bea7bc5f2c5011e488de | quote: | Rate Limit | | | | | 100 / minute | 800 / minute | None | None |
+  - [1] 2026-11-02: the API servers are in the US and Asia on every plan | capture: sha256:12eb92455af0c868c58846dcad29b8803e358996f525bea7bc5f2c5011e488de | quote: | API Server Location | | | | | US, Asia | US, Asia | US, Asia | US, Asia |
+  - [1] 2026-11-02: Hobby and Starter return the Essentials data, Growth and Scale the Advanced data | capture: sha256:12eb92455af0c868c58846dcad29b8803e358996f525bea7bc5f2c5011e488de | quote: | Geolocation Data | | | | | Essentials | Essentials | Advanced | Advanced |
+  - [1] 2026-11-02: Starter is listed at USD 25 a month | capture: sha256:12eb92455af0c868c58846dcad29b8803e358996f525bea7bc5f2c5011e488de | quote: ### Starter ## $25 /Month
+  - [1] 2026-11-02: the Self IP Lookup row of the plan table is crossed out for Hobby and ticked for Starter | capture: sha256:fbdb035216e45fd9e4f03ac3010b38ea1381c2fe1d9137d3caf271357ccea986 | quote: <td class="ps-0" colspan="5">Self IP Lookup</td><td class="ps-0"><i class="fe fe-x fs-3 text-muted"></i></td><td class="ps-0"><i class="fe fe-check fs-3 text-success"></i></td>
+  - [1] 2026-11-02: the Batch IP Lookup row is crossed out for Hobby and Starter and ticked from Growth | capture: sha256:fbdb035216e45fd9e4f03ac3010b38ea1381c2fe1d9137d3caf271357ccea986 | quote: <td class="ps-0" colspan="5">Batch IP Lookup</td><td class="ps-0"><i class="fe fe-x fs-3 text-muted"></i></td><td class="ps-0"><i class="fe fe-x fs-3 text-muted"></i></td><td class="ps-0"><i class="fe fe-check fs-3 text-success"></i></td>
+  - [2] 2026-11-02: the batch lookup takes at most 25 addresses a request | capture: sha256:a9d2caf09e1bc86c171b333d63e6583ca4ed1dd6dc6a9fa691ed9d5d5ccd17fc | quote: The request must contain a JSON array of IP addresses. A maximum of 25 addresses per request is allowed.
+  - [3] 2026-11-02: past the daily quota requests are blocked until the reset time | capture: sha256:35ac156b98561c41dbe14cec658d6cc0872b72c9b8825aa8be24604749e75f62 | quote: Upon reaching this daily limit, further requests will be blocked until the reset time.
+  - [4] 2026-11-02: the per-minute limit is answered HTTP 429 RateLimitExceeded | capture: sha256:0cb7a93e1bb6ffb34049879e22a778cfdde8a278a423359d562ebb63607d8951 | quote: | 429 | RateLimitExceeded | The request rate limit for your current subscription level has been exceeded. Please wait before making additional requests or consider upgrading to a plan with a higher or unlimited request quota. |
+  - [4] 2026-11-02: the daily quota is answered HTTP 429 DailyLimitExceeded | capture: sha256:0cb7a93e1bb6ffb34049879e22a778cfdde8a278a423359d562ebb63607d8951 | quote: | 429 | DailyLimitExceeded | The daily request quota for your current subscription level has been reached. Please wait until the limit resets or consider upgrading to a plan with a higher or unlimited daily quota. |
+  - [5] 2026-11-02: every request needs an API key | capture: sha256:5764098ae564da9f563572678c657cd9d017c72c59b68b6b0f071c291f0b8619 | quote: Geolocated.io APIs require an API key for all requests.
+  - [6] 2026-11-02: sign-up collected a name, an email address, a business name and a country | capture: sha256:4fd154c2609e38dc3a6a3cd3357476e76bee18a2e9af9433072949a81961b757 | quote: When you sign up on the Site, we collect certain information, including your name, email address, business name and the country of origin.
+  - [7] 2026-11-02: the app answered on 2026-08-28 with an email-code sign-in | capture: sha256:f895ca490a7bae494a04ce48190a17965b0cd9078c4c6c0d69a7caf8f905aa99 | quote: Send new code
+  - [8] 2026-11-02: the archived home page of 2026-07-09 linked a Get Started For Free button to app.geolocated.io/signup | capture: sha256:c37203c3287629412132fef4c58d3222462a1cdfbf8e777e4b1581a6a1d88453 | quote: [Get Started For Free](https://web.archive.org/web/20260709185334/https://app.geolocated.io/signup)
+  - [9] 2026-11-02: the archived home page of 2026-08-28 ends with a Contact Us Now button where the 2026-07-09 copy had a sign-up button | capture: sha256:c71fa9b6d0d8d637f6506b4d484690f8ef31e1a31a61832f5567dcdf834951fc | quote: Contact Us Now
+  - [10] 2026-11-02: the home page served on 2026-11-02 ends with a Contact Us Now button | capture: sha256:5791b2de8cd3774013b9f290af9ba1f145361e861f5cc2746623d3320b0ef3fc | quote: Contact Us Now
+  - probe:https://geolocated.io/pricing.html 2026-11-02: the pricing page is served with a Sunset header dated 2026-08-31 | capture: sha256:62b1ff7c24d3c4bd1d51a945d12ed6b0b015b3264c511465f03bce46708eada8 | quote: "sunset": "Mon, 31 Aug 2026 23:59:59 GMT"
+  - [10] 2026-11-02: the home page is served with the same Sunset header | capture: sha256:5791b2de8cd3774013b9f290af9ba1f145361e861f5cc2746623d3320b0ef3fc | quote: sunset: Mon, 31 Aug 2026 23:59:59 GMT
+  - [1] 2026-11-02: the pricing page response read through a fetch carries the same Sunset header | capture: sha256:fbdb035216e45fd9e4f03ac3010b38ea1381c2fe1d9137d3caf271357ccea986 | quote: sunset: Mon, 31 Aug 2026 23:59:59 GMT
+  - probe:https://app.geolocated.io/ 2026-11-02: the app host answered HTTP 522, an origin that does not respond, on 2026-11-02 | capture: sha256:ee61d89904157d7f401c1ffda6aa5404ed4b3f326e150bb707d38ef39c3c26d4 | quote: "status": 522
+  - probe:https://app.geolocated.io/signup 2026-11-02: the sign-up page answered HTTP 522 on 2026-11-02 | capture: sha256:121615ebf9e744044995f7db666e705d6c3af1fa2588d4215d3ed44f671f27f0 | quote: "status": 522
+- sources:
+  - [1] https://geolocated.io/pricing.html
+  - [2] https://geolocated.io/docs/lookup-batch.html
+  - [3] https://geolocated.io/docs/limits.html
+  - [4] https://geolocated.io/docs/errors.html
+  - [5] https://geolocated.io/docs/authentication.html
+  - [6] https://geolocated.io/privacy-policy.html
+  - [7] https://web.archive.org/web/20260828130617/https://app.geolocated.io/login
+  - [8] https://web.archive.org/web/20260709185334/https://geolocated.io/
+  - [9] https://web.archive.org/web/20260828130604/https://geolocated.io/
+  - [10] https://geolocated.io/
+
+## Hirak IP to Country
+
+- `data-apis/hirak-ip-to-country` | dead | evidence measured | binding none | category IP geolocation API | tier Trial
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T00:23:42.887Z (live) | stale on 2027-01-02
+- url https://iplocation.hirak.site/ | page https://fshy.ajam.dev/p/hirak.md
+- free tier: none: iplocation.hirak.site now redirects (HTTP 302) to the parking host ww547.hirak.site, which answers HTTP 401; the archived page of 2022-06-11 listed a Trial plan of 50 requests a month and calls without a token stopped at 10 requests | unit: none | metered on: none | read on: 2026-11-02 | source: [1] | note: the archived page also listed paid plans: Basic 225K requests a month for 1 USD, Mega 500K for 2 USD and Yota 1M for 5 USD.
+- per-object cap: not applicable: the API is gone | source: [1]
+- retention: not applicable: the API is gone | source: [1]
+- egress: not applicable: the API is gone | metered: no | source: [1]
+- identity: anonymous | detail: the archived page says no sign up was required to choose a plan; calls carry a token parameter
+- interface: rest
+- binding note: the host no longer serves the API.
+- interface detail: former form GET https://iplocation.hirak.site/?ip={ip}&token={token} (archived 2022-06-11); the host now redirects to a parking host
+- endpoint: part of interface detail
+- tooling: none that works
+- composes with: No working route: any free or paid IP geolocation API of this topic replaces it. Bulk path: none.
+- reliability: iplocation.hirak.site answered an HTTP 302 redirect to the parking host ww547.hirak.site, which answered HTTP 401, on 2026-11-02
+- notes: Free requests: none; the former Trial of 50 requests a month is gone with the host. Rate limit: not applicable. Bulk path: none.
+- evidence note: The redirect of the host was probed on 2026-11-02 and the archived page of 2022-06-11 was read; the plan figures are from the archived page.
+- extras:
+  - bulk_path: none
+  - free_requests: none
+- evidence:
+  - [1] 2026-11-02: the archived request form is a GET with an ip and a token parameter | capture: sha256:baa6b582eb5bde3c8edbcf3243af5497bda2103f51fe978d157e1e4c6065a4c6 | quote: Perform simple GET request to https://iplocation.hirak.site/?ip=THE-IP-ADDRESS&token=YOUR-TOKEN, you recieve result as shown on the top.
+  - [1] 2026-11-02: calls without a token stopped at 10 requests | capture: sha256:baa6b582eb5bde3c8edbcf3243af5497bda2103f51fe978d157e1e4c6065a4c6 | quote: please note requests without token stop on 10 requests
+  - [1] 2026-11-02: the archived page said no sign up was required to choose a plan | capture: sha256:baa6b582eb5bde3c8edbcf3243af5497bda2103f51fe978d157e1e4c6065a4c6 | quote: We've awesome various plans with instant access, no sign up required, choose the sweetable plan that satisfy your needs, moneyback garanteed
+  - [1] 2026-11-02: the archived Trial plan was 50 requests a month and free | capture: sha256:baa6b582eb5bde3c8edbcf3243af5497bda2103f51fe978d157e1e4c6065a4c6 | quote: #### Trial 50 req/month FREE
+  - [1] 2026-11-02: the archived Basic plan was 225K requests a month for 1 USD | capture: sha256:baa6b582eb5bde3c8edbcf3243af5497bda2103f51fe978d157e1e4c6065a4c6 | quote: #### Basic 225K req/month 1$
+  - probe:https://iplocation.hirak.site/ 2026-11-02: the host answered an HTTP 302 redirect | capture: sha256:8c73f39c207e52bc529fa982180185fb5897e970f1a13675d42e14824543740b | quote: "status": 302,
+  - probe:https://iplocation.hirak.site/ 2026-11-02: the redirect target is a parking host | capture: sha256:8c73f39c207e52bc529fa982180185fb5897e970f1a13675d42e14824543740b | quote: "location": "http://ww547.hirak.site/?tkn=19vnMT3S",
+  - probe:https://iplocation.hirak.site/ 2026-11-02: the parking host answered HTTP 401 | capture: sha256:8c73f39c207e52bc529fa982180185fb5897e970f1a13675d42e14824543740b | quote: "status": 401,
+- sources:
+  - [1] https://web.archive.org/web/20220611011308/https://iplocation.hirak.site/
+
+## IP 2 Country (ip2country.info)
+
+- `data-apis/ip2country-info` | dead | evidence measured | binding none | category IP to country API | tier Free
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T00:23:42.887Z (live) | stale on 2027-01-02
+- url https://ip2country.info/ | page https://fshy.ajam.dev/p/ip2country.md
+- free tier: none: every path tried on the documented API host api.ip2country.info answers HTTP 400 Invalid URL, and the home page sends visitors to ipapi.com for a free API key | unit: none | metered on: none | read on: 2026-11-02 | source: [1] | note: the free key the home page points to is the ipapi.com Free plan, which has its own record.
+- per-object cap: not applicable: the API does not answer | source: [1]
+- retention: not applicable: the API does not answer | source: [1]
+- egress: not applicable: the API does not answer | metered: no | source: [1]
+- identity: email | detail: the home page now directs to an ipapi.com account for a free key; the former keyless form no longer answers
+- interface: rest
+- binding note: the documented API host does not answer, so no limit can be reached.
+- interface detail: documented form GET https://api.ip2country.info/ip?{ip}; the host answers HTTP 400 Invalid URL (an error reference page) for that form, for /ip?ip={ip}, for /ip and for /
+- endpoint: part of interface detail
+- tooling: none that works; the home page names an npm package and a messenger bot
+- composes with: No working route: the home page directs callers to a free ipapi.com key, which has its own record. Bulk path: none.
+- reliability: api.ip2country.info answered HTTP 400 Invalid URL for every path tried on 2026-11-02, and ip2country.info/ip answered HTTP 404
+- notes: Free requests: none; the API host does not answer. Rate limit: not applicable. Bulk path: none. The home page names the successor offer: a free key at ipapi.com.
+- evidence note: Four paths of the API host were probed on 2026-11-02 and each answered HTTP 400; the home page was quoted. The former free quota and rate were never published on a page that could be read, so they are unverified.
+- extras:
+  - bulk_path: none
+  - free_requests: none
+- evidence:
+  - [1] 2026-11-02: the home page directs callers to a free ipapi.com key | capture: sha256:4db0ddac4be77910093495e44a7befaf6bbbe3ec5613d32993a6296ffd270193 | quote: Get a FREE API key at [ipapi.com](https://ipapi.com/)
+  - [1] 2026-11-02: the documented request form is GET https://api.ip2country.info/ip?{ip} | capture: sha256:4db0ddac4be77910093495e44a7befaf6bbbe3ec5613d32993a6296ffd270193 | quote: | GET HEAD | `https://api.ip2country.info/ip?5.6.7.8` |
+  - probe:https://api.ip2country.info/ip?8.8.8.8 2026-11-02: the documented request form answered HTTP 400 | capture: sha256:25ffc9ad1a74970b0ead5cd98627c9ed43a472d7c56785916c19b8a0d98a4eab | quote: "status": 400
+  - probe:https://api.ip2country.info/ip?8.8.8.8 2026-11-02: the answer is an Invalid URL error page | capture: sha256:a8c36b58618b5044193fcad8d9065dcb171f9155ceda782d0b75a2f5634fc23b | quote: <TITLE>Invalid URL</TITLE>
+  - probe:https://api.ip2country.info/ip?ip=8.8.8.8 2026-11-02: the form with an ip parameter answered HTTP 400 | capture: sha256:46d77486df2b4a4b00d1606d04387b6f1a6cfe4e1bf7e073714318a983c362bb | quote: "status": 400
+  - probe:https://api.ip2country.info/ 2026-11-02: the API host root answered HTTP 400 | capture: sha256:3b79514c63ab2177fe62744d1dbbf8fbaa422cfd4d02e454e885c9426dafaae3 | quote: "status": 400
+  - probe:https://ip2country.info/ip?8.8.8.8 2026-11-02: the main host answers HTTP 404 for /ip | capture: sha256:a61751ff7bfd5a4fec3dcc1a1ae3badb2a591f9dac84797aa9aca53db3c92f76 | quote: "status": 404
+- sources:
+  - [1] https://ip2country.info/
+
+## IP Vigilante
+
+- `data-apis/ip-vigilante` | dead | evidence measured | binding none | category IP geolocation API | tier Free
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T00:23:42.887Z (live) | stale on 2027-01-02
+- url https://www.ipvigilante.com/ | page https://fshy.ajam.dev/p/ipvigilante.md
+- free tier: none: ipvigilante.com now redirects (HTTP 301 three times) via two other domains to an unrelated site; an archived copy of 2022-11-30 described a free geographical IP locator API answering JSON and CSV | unit: none | metered on: none | read on: 2026-11-02 | source: [1] | note: the archived copy states no quota, rate limit or key.
+- per-object cap: not applicable: the API is gone | source: [1]
+- retention: not applicable: the API is gone | source: [1]
+- egress: not applicable: the API is gone | metered: no | source: [1]
+- identity: anonymous | detail: the former API was a plain GET of /{ip} with no key in the archived example
+- interface: rest
+- binding note: the host no longer serves the API.
+- interface detail: former form GET https://ipvigilante.com/{ip} answering JSON (archived 2022-11-30); the host now answers HTTP 301 redirects to other domains
+- endpoint: part of interface detail
+- tooling: none that works
+- composes with: No working route: any free or paid IP geolocation API of this topic replaces it. Bulk path: none.
+- reliability: https://www.ipvigilante.com/json/8.8.8.8 and the root both redirect (HTTP 301 three times) through groundingspace.net and asopran.org to an unrelated site, on 2026-11-02
+- notes: Free requests: none; the former free API is gone. Rate limit: not applicable. Bulk path: none.
+- evidence note: The redirect chain of the host was probed on 2026-11-02 and the last archived copy (2022-11-30) was read; the former quota was never stated on a page that could be read.
+- extras:
+  - bulk_path: none
+  - free_requests: none
+- evidence:
+  - [1] 2026-11-02: the archived page describes a free geographical IP locator API with JSON and CSV answers | capture: sha256:58f045b31f02d4c53f97c7fd2bd08dc6cde32ffb1d6755f784ef9c849f156b2d | quote: IP Vigilante provides a free geographical IP locator API, so the developers can obtain geographical information of an IP in various formats: JSON and CSV.
+  - [1] 2026-11-02: the archived example is a plain GET of /{ip} with no key | capture: sha256:58f045b31f02d4c53f97c7fd2bd08dc6cde32ffb1d6755f784ef9c849f156b2d | quote: https://ipvigilante.com/8.8.8.8
+  - probe:https://www.ipvigilante.com/json/8.8.8.8 2026-11-02: the former API path redirects to another domain | capture: sha256:fa858a13b647899868dbf5c0d28f0923fc1f3e3cd2211a804cc0c7c9e643d188 | quote: "location": "https://groundingspace.net/",
+  - probe:https://www.ipvigilante.com/json/8.8.8.8 2026-11-02: the redirect chain ends on an unrelated domain | capture: sha256:fa858a13b647899868dbf5c0d28f0923fc1f3e3cd2211a804cc0c7c9e643d188 | quote: "final_url": "https://lugnutscarreviews.com/",
+- sources:
+  - [1] https://web.archive.org/web/20221130105431/https://www.ipvigilante.com/
+
+## ip-fast.com
+
+- `data-apis/ip-fast-com` | dead | evidence measured | binding none | category IP address, country and city API | tier Free
+- identity a placeholder: card and phone unknown | verified 2026-11-02T00:23:42.887Z (live) | stale on 2027-01-02
+- url https://ip-fast.com/docs/ | page https://fshy.ajam.dev/p/ip-fast.md
+- free tier: none: ip-fast.com and its documentation URL serve a domain-parking page with advertising links, and the home page redirects to an advertising feed | unit: none | metered on: none | read on: 2026-11-02 | source: [1] | note: unverified: the former offer; the public-apis listing described IP address, country and city with no key, and no archived copy could be read.
+- per-object cap: not applicable: the API is gone | source: [1]
+- retention: not applicable: the API is gone | source: [1]
+- egress: not applicable: the API is gone | metered: no | source: [1]
+- identity: anonymous | detail: unverified: the former offer; the public-apis listing described no key
+- interface: rest
+- binding note: the domain is parked, so no API limit exists.
+- interface detail: unverified: the former request form; /api/ip/?format=json and /api/country/?ip={ip} no longer serve an API
+- endpoint: https://ip-fast.com/
+- tooling: none that works
+- composes with: No working route: any free keyless IP geolocation API of this topic replaces it. Bulk path: none.
+- reliability: ip-fast.com answers an HTTP 302 redirect to an advertising feed and /docs/ serves a parking page of search-ad links, on 2026-11-02
+- notes: Free requests: none; the domain is parked. Rate limit: not applicable. Bulk path: none.
+- evidence note: The home page redirect was probed and the documentation URL was read on 2026-11-02; the former offer could not be established because no archived copy is readable.
+- extras:
+  - bulk_path: none
+  - free_requests: none
+- evidence:
+  - [1] 2026-11-02: the documentation URL serves a parking page of related searches | capture: sha256:5a66098a62683ca63e6f1e7a8024ccf75c78c7b060e6cb8ca9fb23d54dcbe444 | quote: Related Searches:
+  - [1] 2026-11-02: the parking page links to an advertising click host | capture: sha256:5a66098a62683ca63e6f1e7a8024ccf75c78c7b060e6cb8ca9fb23d54dcbe444 | quote: - [internet speed test](http://ww547.ip-fast.com/kw-click)
+  - probe:https://ip-fast.com/ 2026-11-02: the home page answers a redirect | capture: sha256:4f72b48811385671c005b32ee909b3c85c8b53bab69f684706dd133d01666a80 | quote: "from": "https://ip-fast.com/"
+  - probe:https://ip-fast.com/ 2026-11-02: the home page redirect is an HTTP 302 to an advertising feed | capture: sha256:4f72b48811385671c005b32ee909b3c85c8b53bab69f684706dd133d01666a80 | quote: "status": 302,
+- sources:
+  - [1] https://ip-fast.com/docs/
+
+## ipfind.io
+
+- `data-apis/ipfind-io` | dead | evidence measured | binding none | category IP geolocation API | tier Free
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T00:23:42.887Z (live) | stale on 2027-01-02
+- url https://ipfind.io/ip-location-api-pricing | page https://fshy.ajam.dev/p/ipfind.md
+- free tier: none that can be reached: the pricing page lists a Free plan of 15000 API calls priced $0.0 a month with a free API key, but the API host app.ipfind.io named in the documentation has no DNS record (NXDOMAIN at two public resolvers) and the sign-in and sign-up links of archived pages lead to ipgeolocation.io | unit: none | metered on: none | read on: 2026-11-02 | source: [1] | note: the listed plans are Free (15000 API calls), PRO at $49.90 a month (1M API calls) and Enterprise (unlimited); the period of the free calls is not stated beyond the plan being priced per month.
+- per-object cap: one IP address or domain name per request (the ip parameter) | source: [2]
+- retention: not applicable: the API host does not resolve | source: [2]
+- egress: not applicable: the API host does not resolve | metered: no | source: [2]
+- identity: email | detail: the archived sign-up form asked for a name, email, country and password and said no credit card was required; its links lead to ipgeolocation.io
+- interface: rest
+- limits:
+  - volume-quota: 15000 API calls on the Free plan, as listed; the API host does not resolve [1]
+- binding note: the documented API host does not resolve, so no quota can be reached.
+- interface detail: documented form GET https://app.ipfind.io/api/iplocation?apikey={key}&ip={ip}; the host app.ipfind.io has no DNS record
+- endpoint: part of interface detail
+- tooling: none that works
+- composes with: No working route as documented. The archived sign-in and sign-up links lead to ipgeolocation.io, which has its own record. Bulk path: none.
+- reliability: app.ipfind.io, api.ipfind.io, dashboard.ipfind.io and my.ipfind.io have no DNS record while ipfind.io and www.ipfind.io resolve; the site answers a Cloudflare managed challenge (HTTP 403) to a plain HTTP client
+- notes: Free requests: none that can be reached; the listed 15000 API calls cannot be used because the documented API host does not resolve. Rate limit: not applicable. Bulk path: none.
+- evidence note: The API host was resolved through two public DNS-over-HTTPS resolvers on 2026-11-02 and both answered NXDOMAIN; the pricing and documentation pages were read from stored copies and the sign-up pages from archived copies of 2024 and 2025.
+- extras:
+  - bulk_path: none
+  - free_requests: none reachable
+- evidence:
+  - [1] 2026-11-02: the Free plan lists 15000 API calls | capture: sha256:3d21eaa94bca27285e99dc9d335b37ae2d9b753f545610c7d63f937ff823e7d6 | quote: 15000API calls
+  - [1] 2026-11-02: the Free plan is priced $0.0 a month | capture: sha256:3d21eaa94bca27285e99dc9d335b37ae2d9b753f545610c7d63f937ff823e7d6 | quote: $0.0/Month
+  - [3] 2026-11-02: the archived pricing page lists the same 15000 API calls | capture: sha256:c2290c821adead2b6cb8fed4789e6dc33d87f79230ad0e2765934698b6a3b261 | quote: - 15000 API calls
+  - [3] 2026-11-02: the Get Started button of the Free plan leads to ipgeolocation.io | capture: sha256:c2290c821adead2b6cb8fed4789e6dc33d87f79230ad0e2765934698b6a3b261 | quote: [Get Started](https://ipgeolocation.io/signup.html)
+  - [4] 2026-11-02: the archived sign-up page says no credit card is required | capture: sha256:71efd945085196282521f4d49feddf72fcb5386fd93bb6cf66bd52cc24dc5c19 | quote: Simple registration method just signup and get your dashboard & access APIKEY. No credit card required.
+  - [4] 2026-11-02: the archived sign-up form asked for a name, email, country and password | capture: sha256:71efd945085196282521f4d49feddf72fcb5386fd93bb6cf66bd52cc24dc5c19 | quote: Your Name Email Country Name Password
+  - [4] 2026-11-02: the archived sign-up link leads to ipgeolocation.io | capture: sha256:71efd945085196282521f4d49feddf72fcb5386fd93bb6cf66bd52cc24dc5c19 | quote: - [Sign Up](https://ipgeolocation.io/signup.html)
+  - [5] 2026-11-02: a free API key comes with sign-up and no credit card | capture: sha256:ab2c45c08dc3ced98302c846aafe51dd54d4a8e5d0ee293f3782c8619a7c2e7b | quote: To get our free IP location API just simply Signup, no credit card required & get your free dashboard with free API Key access.
+  - [2] 2026-11-02: the documented endpoint host is app.ipfind.io | capture: sha256:00acda556bb85d6898d5ce36e83b6499be14052120a9295dfc537175cae43bb7 | quote: https://app.ipfind.io/api/iplocation?apikey=YOUR\_APIKEY
+  - probe:https://ipfind.io/ 2026-11-02: a plain GET of the home page answered HTTP 403 | capture: sha256:b46d5c17e04401b866f700265d4e706a1f6c861c8fe75db27d9fd46e56c29e33 | quote: "status": 403
+  - probe:https://ipfind.io/ 2026-11-02: the 403 is a Cloudflare managed challenge | capture: sha256:b46d5c17e04401b866f700265d4e706a1f6c861c8fe75db27d9fd46e56c29e33 | quote: "signature": "cloudflare-challenge:title:just a moment..."
+  - probe:https://cloudflare-dns.com/dns-query?name=app.ipfind.io&type=A 2026-11-02: the public DNS-over-HTTPS query for app.ipfind.io was answered | capture: sha256:82db8d631cbcb5e048309ba8c04b44e01c1bcf29d691a95138bfa3e422ecf61d | quote: "status": 200
+  - probe:https://cloudflare-dns.com/dns-query?name=app.ipfind.io&type=A 2026-11-02: Cloudflare's resolver answered NXDOMAIN for app.ipfind.io | capture: sha256:de9fc61a5b64022fd0fbae84300cda532409d6482af333f58cf73835d5db9633 | quote: "Status":3
+  - probe:https://dns.google/resolve?name=app.ipfind.io&type=A 2026-11-02: a second public resolver query for app.ipfind.io was answered | capture: sha256:c304563cc083a67899ff427860cb112d278cd0bfe2f647fc90d578b1dafd8450 | quote: "status": 200
+  - probe:https://dns.google/resolve?name=app.ipfind.io&type=A 2026-11-02: Google's resolver answered NXDOMAIN for app.ipfind.io | capture: sha256:0fb79147eea88ee043b090764311b60a03075ec05da7fb55ccf2ad5ceeef9aa7 | quote: "Status":3
+- sources:
+  - [1] https://ipfind.io/ip-location-api-pricing
+  - [2] https://ipfind.io/documentation
+  - [3] https://web.archive.org/web/20250918022524/https://ipfind.io/ip-location-api-pricing
+  - [4] https://web.archive.org/web/20250514202754/https://ipfind.io/signup
+  - [5] https://web.archive.org/web/20240716040735/https://ipfind.io/iplocator
+
+## IPInfoDB
+
+- `data-apis/ipinfodb` | dead | evidence documented | binding none | category IP geolocation API | tier Free key
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T00:23:42.887Z (live) | stale on 2026-12-03
+- url https://www.ipinfodb.com/api | page https://fshy.ajam.dev/p/ipinfodb.md
+- free tier: none for a new user: the register page says no new sign-ups are accepted for the API and points to a free IP2Location.io API; a key issued earlier was limited to 2 queries a second | unit: none | metered on: none | read on: 2026-11-02 | source: [1] | note: the page says a faster key from IP2Location.io offers 30K IP geolocation queries a month; that offer has its own record.
+- per-object cap: one IP address per request (the ip parameter, default the caller) | source: [2]
+- retention: not stated; the page suggests keeping the geolocation in a cookie instead of querying on every page view | source: [2]
+- egress: not applicable: raw, XML or JSON answers, not metered in bytes | metered: no | source: [2]
+- identity: email | detail: the former sign-up gave a free key; the register page now says no new sign-ups are accepted
+- interface: rest
+- limits:
+  - request-rate: 2 queries per second; a faster IP is temporarily blocked and then permanently banned [2]
+- binding note: no new key can be created, so no limit can be reached by a new user.
+- interface detail: GET https://api.ipinfodb.com/v3/ip-country/ and /v3/ip-city/ with the key, ip and format parameters (raw, xml or json)
+- endpoint: https://api.ipinfodb.com/v3/ip-city/
+- tooling: any HTTP client; PHP, Ruby, Python, C#, VB.NET and Java examples are on the page
+- composes with: No new key can be created; the register page names the IP2Location.io free API as the replacement. Bulk path: none.
+- reliability: past 2 queries a second an IP address is temporarily blocked by a firewall and then permanently banned; the origin answers HTTP 403 to a plain client and the pages were read from stored copies
+- notes: Free requests: none for new users; sign-ups are closed. Rate limit: 2 queries a second, blocked then banned past it. Bulk path: none. The replacement named on the register page is IP2Location.io, which has its own record.
+- evidence note: The API page and the register page were quoted on 2026-11-02 from stored copies, because the origin answers HTTP 403 to direct reads; whether keys issued earlier still answer was not tested.
+- extras:
+  - bulk_path: none
+  - free_requests: none for new users
+- evidence:
+  - [1] 2026-11-02: new sign-ups for the API are closed | capture: sha256:21a0d9eb95438d1ed0d23b055af884eb146bc92caa59aa43e973cacac64be0d7 | quote: We are no longer accepting new sign ups for the IPInfoDB API.
+  - [1] 2026-11-02: the page points to a free IP2Location.io API | capture: sha256:21a0d9eb95438d1ed0d23b055af884eb146bc92caa59aa43e973cacac64be0d7 | quote: Instead, please sign up for a free IP2Location.io IP Geolocation API, which offers a faster API with more geolocation data points.
+  - [2] 2026-11-02: the API page answers HTTP 403 to a plain client | capture: sha256:39d1caae31592fd311c79e5885cc9f239d885eba7ca24017c1eccac175a1f12c
+  - [2] 2026-11-02: the 403 is a Cloudflare managed challenge | capture: sha256:39d1caae31592fd311c79e5885cc9f239d885eba7ca24017c1eccac175a1f12c | quote: cf-mitigated: challenge
+  - [2] 2026-11-02: the free service is limited to 2 queries a second | capture: sha256:4f5bd071ac9cb30b94e8c43445a1bfbb69bb80576f1dd0cbe00f7bed907dad25 | quote: To remain the stabilities of free service, a rate limit of 2 queries per second applied to our API servers.
+  - [2] 2026-11-02: a faster IP is temporarily blocked | capture: sha256:4f5bd071ac9cb30b94e8c43445a1bfbb69bb80576f1dd0cbe00f7bed907dad25 | quote: Any IP querying the API faster than this rate will be temporarily blocked by our firewall.
+  - [2] 2026-11-02: a request takes one IP address, defaulting to the caller | capture: sha256:4f5bd071ac9cb30b94e8c43445a1bfbb69bb80576f1dd0cbe00f7bed907dad25 | quote: | ip | No | Client IP | IPv4 or IPv6 address. |
+  - [2] 2026-11-02: a key from a free account is required | capture: sha256:4f5bd071ac9cb30b94e8c43445a1bfbb69bb80576f1dd0cbe00f7bed907dad25 | quote: | key | Yes | API key provided with your free account. |
+  - [2] 2026-11-02: the city-precision request form | capture: sha256:4f5bd071ac9cb30b94e8c43445a1bfbb69bb80576f1dd0cbe00f7bed907dad25 | quote: https://api.ipinfodb.com/v3/ip-city/?key=YOUR_API_KEY&ip=IPV4_OR_IPV6_ADDRESS&format=json
+  - [2] 2026-11-02: the page suggests storing the geolocation in a cookie | capture: sha256:4f5bd071ac9cb30b94e8c43445a1bfbb69bb80576f1dd0cbe00f7bed907dad25 | quote: - If you track your visitors, avoid querying our API for all your page views (you can store the geolocation in a cookie, see below for an example).
+- sources:
+  - [1] https://www.ipinfodb.com/register
+  - [2] https://www.ipinfodb.com/api
+
+## IPTrace (iptrace.io)
+
+- `data-apis/iptrace-io` | dead | evidence documented | binding volume-quota | category IP geolocation API | tier Free account
+- identity a placeholder: card and phone unknown | verified 2026-11-02T00:23:42.369Z (live) | stale on 2026-12-03
+- url https://iptrace.io/pricing/ | page https://fshy.ajam.dev/p/iptrace.md
+- free tier: Free account: up to 50k lookups per month, as the pricing page states; the home page says the product is joining ipstack.com and sends sign-ups there, and api.iptrace.io does not accept connections. | unit: requests | metered on: request-count | read on: 2026-11-02 | source: [1] | note: The pricing page also lists paid plans from USD 8 a month, billed as USD 100 a year, for 200k requests a month.
+- per-object cap: not stated
+- retention: not stated
+- egress: not applicable | metered: no | source: [1]
+- identity: email | detail: unverified: the sign-up page answers HTTP 404 and the home page sends sign-ups to ipstack.com; an account was needed for an API key, and the home page says no credit card is required
+- interface: rest
+- limits:
+  - volume-quota (binding): 50k lookups a month on the free account, as listed on the pricing page [1]
+- binding note: The API host accepts no connections, so no quota can be used; the listed 50k a month is the only stated limit.
+- interface detail: GET https://api.iptrace.io/ip/{ip}/json?apikey=KEY, JSON with country, city, region, coordinates, time zone, ISP and country details; the host does not accept connections on ports 443 and…
+- endpoint: part of interface detail
+- tooling: any HTTP client
+- composes with: Not reachable: the API host times out and the home page sends sign-ups to ipstack.com, which has its own record (data-apis/ipstack). Bulk path: none stated
+- reliability: api.iptrace.io does not accept TCP connections on ports 443 and 80 (20-second timeouts) while iptrace.io answers; the ipstack notice is on the home page in every archived copy from 2019-08-23 on.
+- notes: Free requests: up to 50k a month on the pricing page, not reachable now. Rate limit: not stated. Bulk path: none stated. The API host does not answer, and the home page has sent users to ipstack.com since August 2019 in its archived copies.
+- evidence note: The home, pricing and documentation pages and archived copies of 2019, 2025 and 2026 were read on 2026-11-02, and the API host's connection timeouts were measured; no keyed request was possible. A working api.iptrace.io would reopen the verdict.
+- extras:
+  - death.on: 2026-11-02
+  - death.cause: acquired
+  - bulk_path: none stated
+  - free_requests: up to 50k a month, not reachable
+- evidence:
+  - [2] 2026-11-02: the home page announces that the product is joining ipstack.com | capture: sha256:4ddb2a0c12107daadc63f36b0097c372ef47fff676b683cfe6c427f877bf5867 | quote: Our product is joining ipstack.com to offer an even more advanced IP API
+  - [2] 2026-11-02: the home page sends users of the API to an ipstack.com sign-up | capture: sha256:4ddb2a0c12107daadc63f36b0097c372ef47fff676b683cfe6c427f877bf5867 | quote: To keep using our API, [switch to ipstack](https://ipstack.com/signup) and get your free API key.
+  - [2] 2026-11-02: the home page says no credit card is required | capture: sha256:4ddb2a0c12107daadc63f36b0097c372ef47fff676b683cfe6c427f877bf5867 | quote: No credit card required
+  - [2] 2026-11-02: the home page demo link points at the api.iptrace.io host | capture: sha256:4ddb2a0c12107daadc63f36b0097c372ef47fff676b683cfe6c427f877bf5867 | quote: [Try it in the browser.](https://api.iptrace.io/IPTrace/41.236.48.51/json)
+  - [1] 2026-11-02: the pricing page lists a free account of up to 50k lookups a month | capture: sha256:006903c4b6552634b4f795361b355ae4414385225c2a31b0cc79837e996ad5fc | quote: Free account provides up to 50k lookups per month.
+  - [1] 2026-11-02: the pricing page lists Standard at USD 8 a month, billed as USD 100 a year, for 200k requests a month | capture: sha256:006903c4b6552634b4f795361b355ae4414385225c2a31b0cc79837e996ad5fc | quote: $8 billed as $100 a year. 200k requests per month.
+  - [3] 2026-11-02: the documentation names the api.iptrace.io host and the apikey parameter | capture: sha256:1ad3e72083832fe508ddfa30a6529a57aa7e4fcf9d4d055fb63232ad81e8c001 | quote: curl https://api.iptrace.io/ip/54.144.220.0/json?apikey=API_KEY
+  - [4] 2026-11-02: the archived home page of 2019-07-17 opens with the product headline and carries no ipstack notice | capture: sha256:b70a249f1c8aae7776fc4edd03a1e09af4cb50a4715ac6b3073abe12e6d8932d | quote: An embarrassingly simple API that gives your applications and sites the fast, reliable and useful IP geolocation data you need.
+  - [5] 2026-11-02: the archived home page of 2019-08-23 carries the ipstack notice above the same headline, so the notice dates from between 2019-07-17 and 2019-08-23 | capture: sha256:3641ed4bafdd99a530ded0178792599b47934d29b175594fd1f258a5be86c594 | quote: Our product is joining ipstack.com to offer an even more advanced IP API
+  - [6] 2026-11-02: the archived home page of 2025-05-13 still carries the ipstack notice | capture: sha256:4a30401a1428a0bfdfcd175fa2cfeeb19325b3dcae3f8aeaf6188e796d0ca687 | quote: Our product is joining ipstack.com to offer an even more advanced IP API
+  - [7] 2026-11-02: the archived home page of 2026-06-07 carries the ipstack notice | capture: sha256:d26890ff9d65c92d743ac26f6aa188949656ffe94d07f9a1937288ae1c442440 | quote: Our product is joining ipstack.com to offer an even more advanced IP API
+  - probe:api.iptrace.io:443 2026-11-02: TCP connections to api.iptrace.io on ports 443 and 80 timed out after 20 seconds | capture: sha256:f38d74021ec8193544bd2391ecd2e51f11dbcdf7e2d207da20418e3f4de866f5 | quote: "err": "TimeoutError('timed out')"
+  - probe:api.iptrace.io:443 2026-11-02: a TCP connection to iptrace.io on port 443 in the same probe was accepted in 93 milliseconds | capture: sha256:f38d74021ec8193544bd2391ecd2e51f11dbcdf7e2d207da20418e3f4de866f5 | quote: "ok": true
+  - probe:https://api.iptrace.io/ip/54.144.220.0/json?apikey=API_KEY 2026-11-02: the documented request URL timed out after 30 seconds | capture: sha256:6e522120cebd495f97f31c8f12eed33ac874bb2fd4cde8f0264736213af8475c | quote: "error": "timeout"
+  - probe:https://api.iptrace.io/IPTrace/41.236.48.51/json 2026-11-02: the home page demo URL timed out after 30 seconds | capture: sha256:a51701b08793760a9d1ddfe65682d15e18086ef38876164c906f79f2a078d0a1 | quote: "error": "timeout"
+- sources:
+  - [1] https://iptrace.io/pricing/
+  - [2] https://iptrace.io/
+  - [3] https://iptrace.io/docs/
+  - [4] https://web.archive.org/web/20190717032412/https://iptrace.io/
+  - [5] https://web.archive.org/web/20190823142153/https://iptrace.io/
+  - [6] https://web.archive.org/web/20250513111124/https://iptrace.io/
+  - [7] https://web.archive.org/web/20260607175034/https://iptrace.io/

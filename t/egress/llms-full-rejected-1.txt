@@ -1,0 +1,2269 @@
+# fshy: Egress and tunnels, rejected, part 1 of 2
+
+> Ways to get traffic out or a service in: tunnels, relays, IPv6 brokers, UDP forwards.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/egress/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## AWS Activate
+
+- `egress/aws-activate` | fails-identity | evidence documented | binding write-gated | category startup credit programme | tier free
+- needs card no, phone no, ID no, institution yes | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://aws.amazon.com/startups/credits/ | page https://fshy.ajam.dev/p/amazon.md
+- price USD 1,000 to 200,000 of credit
+- free tier: Eligible startups can apply for packages ranging from $1,000 to $200,000 in AWS Activate Credits to access 200+ services, including AI tools, infrastructure, and data services. | unit: mixed | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: $1,000 at $0.09 per GB is 10.1 TiB and $200,000 is 2,022 TiB, on the same 100 GB a month free egress line; ingress: udp | metered: no | free allowance: none published | source: [1]
+- identity: institution | detail: Eligible startups ... Here's what you need to know to apply for Activate Credits ... Choose your credit tier. The page addresses 'early-stage companies' and founders, so an individual with no company is not the applicant. | country: None
+- interface: cli, rest
+- limits:
+  - write-gated (binding): an application reviewed by AWS, with tiers set by funding stage and programme membership [1]
+  - volume-quota: $1,000 to $200,000 of credit spent at $0.09 per GB is 10.1 to 2,022 TiB [2]
+- binding note: no byte moves until an application is approved, and the applicant is a startup rather than a person. The credit size is not the constraint at 1 TiB a month: the smallest package, $1,000, is 10.1 TiB, which is ten months of it.
+- interface detail: the same AWS CLI and EC2 API as any AWS account
+- tooling: wg-quick on the EC2 instance the credits pay for
+- composes with: if granted, the only route whose limit is not the dollar figure: 10 TiB or more against a 20 TB tunnel
+- reliability: credits carry an expiry set at award and are not convertible to cash
+- notes: Arithmetic: $1,000 over $0.09 a GB is 11,111 GB = 11.1 TB = 10.1 TiB; $200,000 is 2,222,222 GB = 2,022 TiB. Any tier above the minimum clears 1 TiB a month for a year by a wide margin, so the arithmetic is not the question and eligibility is. Left open: whether a sole founder with no funding and no accelerator can clear the application, which the page does not answer.
+- evidence note: the page states the range and that the applicant must be an eligible startup; the tier an individual could reach is not stated on this page, so the practical offer for a person is unknown rather than zero
+- extras:
+  - wg_path: native-conf
+  - wg_detail: credits spend against the same EC2 and data transfer line as the Free Tier, so wg-quick on an EC2 instance is the path
+  - ingress: udp
+  - volume_stated: $1,000 at $0.09 per GB is 10.1 TiB and $200,000 is 2,022 TiB, on the same 100 GB a month free egress line
+  - bytes_transit: yes
+  - transit_note: credits offset Amazon's metered data transfer out, so the bytes still cross Amazon's network
+- evidence:
+  - [1] 2026-10-23: 'Eligible startups can apply for packages ranging from $1,000 to $200,000 in AWS Activate Credits' and 'Apply for up to $200,000 in AWS Activate Credits'
+  - [2] 2026-10-23: us-east-1 external outbound 0.09 per GB, the rate any Activate credit is spent against
+- sources:
+  - [1] https://aws.amazon.com/startups/credits/
+  - [2] https://b0.p.awsstatic.com/pricing/2.0/meteredUnitMaps/datatransfer/USD/current/datatransfer.json
+
+## Azure for Students (free)
+
+- `egress/azure-for-students` | fails-identity | evidence documented | binding volume-quota | category trial credit (provider VM) | tier free
+- needs card no, phone no, ID no, institution yes | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://azure.microsoft.com/en-us/free/students/ | page https://fshy.ajam.dev/p/microsoft.md
+- price USD 100 of credit
+- free tier: Access to full catalog of services up to free amounts and $100 credit | unit: mixed | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: $100 of credit at $0.087 per GB is 1.04 TiB, plus 100 GB a month free, so about 0.18 TiB a month across a 12-month renewal; ingress: udp | metered: yes | free allowance: $100 of credit at $0.087 per GB is 1.04 TiB, plus 100 GB a month free, so about 0.18 TiB a month across a 12-month renewal | source: [1]
+- identity: institution | detail: Available only to full-time university students. Use your school email to sign up and renew yearly while you're a student. | country: None
+- interface: cli, rest
+- limits:
+  - volume-quota (binding): $100 of egress at $0.087 per GB is 1.04 TiB in total [2]
+  - write-gated: full-time university enrolment verified through a school email address [1]
+- binding note: two constraints fail before any byte moves: the school email gate, which is not available here, and then $100 of credit, which at 1 TiB a month lasts 31 days. The identity gate fails first of all.
+- interface detail: Azure CLI and the Azure Resource Manager REST API
+- tooling: wg-quick on the VM; Azure CLI
+- composes with: no chain: there is no institution to verify against, so this credit cannot enter the stack
+- reliability: the subscription must be renewed annually while enrolled or the free amounts stop
+- notes: Arithmetic: $100 over $0.087 a GB is 1,149.4 GB = 1.15 TB = 1.04 TiB, which spread across the 12 months the offer runs is 0.087 TiB a month, plus the 100 GB a month free egress at 0.091 TiB, so about 0.18 TiB a month. The no-card detail is real and is the only free-VM route that asks for no payment method, which is why it is recorded rather than dropped; it still needs an institution.
+- evidence note: nothing to raise: the eligibility sentence is unambiguous and excludes this case on its face
+- extras:
+  - wg_path: native-conf
+  - wg_detail: the same Azure VM and the same public IP as the paid offer, so wg-quick is native
+  - ingress: udp
+  - volume_tib_month: 0.18
+  - volume_stated: $100 of credit at $0.087 per GB is 1.04 TiB, plus 100 GB a month free, so about 0.18 TiB a month across a 12-month renewal
+  - bytes_transit: yes
+  - transit_note: the same Microsoft network and the same 100 GB a month free egress line as the paid account
+- evidence:
+  - [1] 2026-10-23: 'Available only to full-time university students', 'No credit card required', 'Access to full catalog of services up to free amounts and $100 credit'
+  - [2] 2026-10-23: 'First 100 GB/Month Free' then '$0.087 per GB', the rate the $100 is spent against
+- sources:
+  - [1] https://azure.microsoft.com/en-us/free/students/
+  - [2] https://azure.microsoft.com/en-us/pricing/details/bandwidth/
+
+## BGPTunnel.com
+
+- `egress/bgptunnel` | fails-identity | evidence reported | binding none | category bgp transit tunnel | tier free
+- needs card no, phone no, ID no, institution yes | verified 2026-10-23 (live) | stale on 2026-11-07
+- url https://bgptunnel.com/ | page https://fshy.ajam.dev/p/bgptunnel.md
+- price USD 0
+- free tier: BGPTunnel.com offers free IPv4 and IPv6 Transit via GRE Tunnels in various locations for non-commercial and personal networks via AS209533. | unit: mixed | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: no traffic allowance is published on the landing page; ingress: tcp+udp | metered: no | free allowance: none published | source: [1]
+- identity: institution | detail: third-party list: 'Only BGP, bring your own subnet/asn.' The vendor page confirms 'Transit via GRE Tunnels ... for non-commercial and personal networks' but names no account fields. | country: None
+- interface: cli
+- binding note: Nothing in the vocabulary is reached, because the offer is not a prefix handed to a client: it is transit for a network that already holds an ASN and its own address space. That gate is identity, recorded in identity_cost, and it is passed before any volume is transferred.
+- interface detail: BGP over GRE tunnels, self-service for ASN holders
+- tooling: a GRE interface, BGP daemon and an announced prefix on the client side
+- composes with: only after obtaining an ASN and PI space, which is a paid prerequisite; not a path to free ingress on its own.
+- reliability: no SLA or allowance published on the landing page.
+- notes: This is the successor to tunnelbroker.li and to route48.org. It is a transit product, not a tunnel broker: an ASN and PI space would be needed first, which NetAssist sells for EUR 300/year. That cost is what makes it unusable rather than the service.
+- evidence note: the landing page read establishes only a GRE-based BGP transit offer; the ASN requirement and the /126 come from the tunnelbroker.services list. A vendor page naming the prerequisites would raise it.
+- extras:
+  - wg_path: none
+  - wg_detail: no WireGuard is described on the landing page; the third-party list credits it with WireGuard but the vendor page names GRE tunnels and BGP transit only
+  - ingress: tcp+udp
+  - volume_stated: no traffic allowance is published on the landing page
+  - bytes_transit: yes
+  - transit_note: AS209533 announces and carries the customer prefix.
+- evidence:
+  - [1] 2026-10-23: 'BGPTunnel.com offers free IPv4 and IPv6 Transit via GRE Tunnels in various locations for non-commercial and personal networks via AS209533.'
+  - [2] 2026-10-23: 'Only BGP, bring your own subnet/asn.' with a /126 prefix and AS209533
+  - [3] 2026-10-23: route48.org now resolves here, which is how the successor was found
+- sources:
+  - [1] https://bgptunnel.com/
+  - [2] https://tunnelbroker.services/
+  - [3] https://route48.org/
+
+## ChmlFrp
+
+- `egress/chmlfrp` | fails-identity | evidence documented | binding per-ip-shaping | category udp port forward | tier free
+- needs card no, phone no, ID yes, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://www.chmlfrp.net/ | page https://fshy.ajam.dev/p/chmlfrp.md
+- price USD 0
+- free tier: Free plan: 8 Mbps speed limit, 4 tunnels, 1 free domain, unlimited traffic. [translated] | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: The site says 'free and unlimited traffic, no need to worry about running out', while bandwidth can be limited for what the vendor calls excessive use.; ingress: udp | metered: no | free allowance: none published | source: [1]
+- identity: national-id | detail: The mapping tutorial lists 'registered a ChmlFrp account and completed real-name verification' as a precondition, and says an unverified account shows 'you are not yet real-name verified' on the home page. | country: None
+- interface: cli, rest
+- limits:
+  - per-ip-shaping (binding): 8 Mbps domestic, 32 Mbps international [1]
+  - volume-quota: none published; unlimited claimed [1]
+- binding note: With no byte quota the rate cap is what bites: 8 Mbps sustained is about 2.6 TB per month, so 1 TiB/month fits under it, but any burst above 8 Mbps is shaped, and bandwidth limiting is also possible.
+- interface detail: frpc client plus a documented REST API for nodes and tunnels.
+- tooling: frpc with a vendor-issued config; wg-quick on the local side
+- composes with: A UDP tunnel on an international node can carry a WG handshake at up to 32 Mbps, enough in principle for 1 TiB/month.
+- reliability: Node API exposes a per-node UDP flag, so a node can silently stop carrying UDP; the FAQ documents nodes going offline or being abandoned.
+- notes: Free frp provider offering unmetered transfer with a 32 Mbps international bandwidth limit. Registration requires national identity verification.
+- evidence note: Unlimited traffic, the 8/32 Mbps split and the real-name precondition are all on vendor pages read. Only a probe could show the shaper's real behaviour.
+- extras:
+  - wg_path: inside-udp
+  - wg_detail: The mapping guide lists TCP, UDP, HTTP and HTTPS as port types, and the public node API returns a per-node 'udp' boolean, so UDP carriage depends on the chosen node.
+  - ingress: tcp+udp
+  - volume_stated: The site says 'free and unlimited traffic, no need to worry about running out', while bandwidth can be limited for what the vendor calls excessive use.
+  - bytes_transit: yes
+  - transit_note: ChmlFrp nodes relay the datagrams.
+- evidence:
+  - [1] 2026-10-23: free plan is 8 Mbps, 4 tunnels, unlimited traffic
+  - [2] 2026-10-23: real-name verification is a stated precondition; port type includes UDP
+  - [3] 2026-10-23: each node reports whether UDP is allowed
+  - [4] 2026-10-23: bandwidth can be limited despite the unlimited-traffic claim
+  - [5] 2026-10-23: 'If you are using a TCP or UDP tunnel ... the final address is your-domain:external-port', for example test.domain.cn:12345 [translated]
+- sources:
+  - [1] https://www.chmlfrp.net/
+  - [2] https://docs.chmlfrp.net/docs/use/mapping
+  - [3] https://docs.chmlfrp.net/API/v2/Node_operations/node
+  - [4] https://docs.chmlfrp.net/terms/terms-of-service.html
+  - [5] https://docs.chmlfrp.net/docs/dns/a-record
+
+## Cloudflare for Startups
+
+- `egress/cloudflare-for-startups` | fails-identity | evidence documented | binding write-gated | category startup credit programme | tier free
+- needs card no, phone no, ID no, institution yes | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://www.cloudflare.com/forstartups/ | page https://fshy.ajam.dev/p/cloudflare.md
+- price USD 10,000 to 350,000 of credit
+- free tier: Cloudflare for Startups gives early-stage companies up to $350k in credits to build the next big idea ... Get started with $10k in credits to build and launch your product, no minimum funding required. | unit: mixed | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: the $10k tier carries no byte allowance of its own because Cloudflare's developer platform has no metered egress to spend it on; ingress: http-only | metered: no | free allowance: none published | source: [1]
+- identity: institution | detail: early-stage companies, with the tiers set by funding stage: 'Under $1M raised' for the $10k tier and 'Under $5M raised' for the $100k tier | country: None
+- interface: cli, rest
+- limits:
+  - write-gated (binding): a company application, with the tier set by amount raised [1]
+- binding note: two things fail before volume: the applicant must be a company, and the credit spends only on Cloudflare products, which already carry no egress meter. There is nothing for 1 TiB a month to run out of.
+- interface detail: wrangler and the Cloudflare API
+- tooling: wrangler and the Cloudflare API; no VM is involved
+- composes with: composes with a free VM elsewhere rather than replacing it: the credit buys Workers and R2, not an ingress port
+- reliability: credits are tied to programme membership and expire with it
+- notes: Startup program providing Cloudflare credits up to USD 100,000 for funded companies. Standard free tiers on Workers and R2 already include zero-egress data transfer.
+- evidence note: the tier structure is first-party and read; whether a sole founder with no entity can apply is not stated
+- extras:
+  - wg_path: none
+  - wg_detail: Cloudflare sells no VM; the credits spend on Workers, R2 and the rest of the developer platform, none of which hands an account a UDP port on a public IPv4
+  - ingress: http-only
+  - volume_stated: the $10k tier carries no byte allowance of its own because Cloudflare's developer platform has no metered egress to spend it on
+  - bytes_transit: overlay-only
+  - transit_note: Cloudflare carries the bytes on its own network, which is the part that is already free
+- evidence:
+  - [1] 2026-10-23: 'up to $350k in credits', 'Get started with $10k in credits ... no minimum funding required', 'Under $1M raised', 'Credits: $10k', 'Under $5M raised', 'Credits: $100k'
+- sources:
+  - [1] https://www.cloudflare.com/forstartups/
+
+## DigitalOcean Startups (Hatch)
+
+- `egress/digitalocean-startups` | fails-identity | evidence documented | binding write-gated | category startup credit programme | tier free
+- needs card no, phone no, ID no, institution yes | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://www.digitalocean.com/hatch | page https://fshy.ajam.dev/p/digitalocean.md
+- price USD 10,000 a month of credit
+- free tier: This includes a range of perks to get you started, including 12 months of DigitalOcean credits ... Participants generally are entitled to a $10,000 monthly limit (and charges apply for any use in a month exceeding this amount). | unit: mixed | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: $10,000 a month at $0.01 per GiB is 976 TiB a month for 12 months, subject to application; ingress: udp | metered: yes | free allowance: $10,000 a month at $0.01 per GiB is 976 TiB a month for 12 months, subject to application | source: [1]
+- identity: institution | detail: Must have raised $10m or less; credits are awarded 'through approved DigitalOcean Startups partners' and the amount is set at onboarding. | country: None
+- interface: cli, rest
+- limits:
+  - write-gated (binding): approval through a DigitalOcean Startups partner, with the award level set by a programme manager [1]
+  - volume-quota: $10,000 a month at $0.01 per GiB is 976 TiB a month [2]
+- binding note: the application is the constraint. The volume is not: the monthly cap is 976 TiB at this egress price, which is three orders of magnitude above 1 TiB.
+- interface detail: doctl and the DigitalOcean REST API
+- tooling: doctl and the API, as with any DigitalOcean account
+- composes with: if granted, 12 months of metered egress at the cheapest rate; without a company it is unreachable
+- reliability: charges apply for any month above the cap, and the award is tied to continued programme membership
+- notes: Arithmetic: $10,000 a month over $0.01 a GiB is 1,000,000 GiB = 976.6 TiB a month, and the programme runs 12 months. The cap is not the award: the page says the amount is set in an onboarding email and that the tier depends on the partner. It is the successor to Hatch and the only DigitalOcean route longer than 60 days. The self-serve $200 trial (egress/digitalocean) needs no company and lasts 60 days.
+- evidence note: the page gives the monthly cap and the eligibility but not a fixed total award, so the 12-month total is unknown rather than the stated cap times twelve
+- extras:
+  - wg_path: native-conf
+  - wg_detail: the same Droplets and the same public IPv4, so wg-quick is native
+  - ingress: udp
+  - volume_tib_month: 976.56
+  - volume_stated: $10,000 a month at $0.01 per GiB is 976 TiB a month for 12 months, subject to application
+  - bytes_transit: yes
+  - transit_note: the same DigitalOcean network and the same per-GiB meter
+- evidence:
+  - [1] 2026-10-23: 'including 12 months of DigitalOcean credits', 'Participants generally are entitled to a $10,000 monthly limit', 'Must have raised $10m or less', 'DigitalOcean awards startups credits through approved DigitalOcean Startups partners'
+  - [2] 2026-10-23: 'Public Internet Egress Overage Data transfer is $0.01 per GiB'
+- sources:
+  - [1] https://www.digitalocean.com/hatch
+  - [2] https://www.digitalocean.com/pricing
+
+## GitHub Student Developer Pack
+
+- `egress/github-student-developer-pack` | fails-identity | evidence documented | binding write-gated | category student credit bundle | tier free
+- needs card no, phone no, ID no, institution yes | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://education.github.com/pack | page https://fshy.ajam.dev/p/github.md
+- price USD 100 of Azure credit
+- free tier: Free access to 25+ Microsoft Azure cloud services plus $100 in Azure credit. For students aged 18+. | unit: mixed | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: $100 of Azure credit at $0.087 per GB is 1.04 TiB, plus Azure's 100 GB a month free, which is the same 0.18 TiB a month as Azure for Students; ingress: udp | metered: yes | free allowance: $100 of Azure credit at $0.087 per GB is 1.04 TiB, plus Azure's 100 GB a month free, which is the same 0.18 TiB a month as Azure for Students | source: [1]
+- identity: institution | detail: verification as a student, which GitHub establishes through the school; the pack itself is not available without enrolment | country: None
+- interface: cli
+- limits:
+  - write-gated (binding): student status verified by GitHub before any partner offer is issued [1]
+  - volume-quota: $100 of Azure credit at $0.087 per GB is 1.04 TiB [2]
+- binding note: student verification comes before the credit, and there is no enrolment. If it were, the Azure credit's 1.04 TiB would be the next limit, which is a month at 1 TiB.
+- interface detail: GitHub Education application, then the partner's own console
+- tooling: wg-quick on the Azure VM the credit pays for
+- composes with: no chain here: without enrolment the bundle is unreachable, and if it were reachable it would be a slightly worse Azure trial
+- reliability: the pack is re-verified annually and partner offers are withdrawn without notice
+- notes: Arithmetic: the pack's own credit is $100 of Azure, which at $0.087 a GB is 1,149 GB = 1.04 TiB, and Azure's 100 GB a month free sits on top. Heroku's $13 a month is not a VM with a UDP ingress and is not convertible to TiB.
+- evidence note: the pack's current partner list was read and no longer includes DigitalOcean
+- extras:
+  - wg_path: native-conf
+  - wg_detail: the Azure credit inside the pack buys an Azure VM, so wg-quick on that VM is the path
+  - ingress: udp
+  - volume_tib_month: 0.18
+  - volume_stated: $100 of Azure credit at $0.087 per GB is 1.04 TiB, plus Azure's 100 GB a month free, which is the same 0.18 TiB a month as Azure for Students
+  - bytes_transit: yes
+  - transit_note: the bytes cross Microsoft's network under the Azure credit
+- evidence:
+  - [1] 2026-10-23: 'Free access to 25+ Microsoft Azure cloud services plus $100 in Azure credit. For students aged 18+'; for Heroku, 'Enjoy a credit of $13 USD per month for 24 months'
+  - [1] 2026-10-23: the partner headings read are Namecheap, Name.com, Microsoft Azure, .TECH, GitHub, Microsoft 365, Notion, GitHub Copilot, DataCamp, Heroku, Boot.dev, JetBrains, Codedex, Testmail, 1Password, Educative, Termius, MongoDB, Datadog, Camber, Codespaces, Azure for ages 13-17, Clerk, FrontendMasters, GitHub Pages, Visual Studio Code, Stripe, Visual Studio Dev Essentials: no DigitalOcean entry
+- sources:
+  - [1] https://education.github.com/pack
+  - [2] https://azure.microsoft.com/en-us/pricing/details/bandwidth/
+
+## Karabro tunnelbroker.se
+
+- `egress/karabro-tunnelbroker-se` | fails-identity | evidence documented | binding none | category ipv6 tunnel broker | tier free
+- needs card no, phone no, ID yes, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://tunnelbroker.se/order-ipv6 | page https://fshy.ajam.dev/p/tunnelbroker-3.md
+- price USD 0
+- free tier: Privat Gratis: upp till 10 Mbit/s fair use, /60 prefix som standard (16 subnat), mojlighet upp till /48 efter behov, pris 0 kr per manad [quoted from a Swedish page with diacritics transliterated to ASCII] | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: no monthly byte allowance; the free plan is capped at 'Upp till 10 Mbit/s fair use'; ingress: tcp+udp | metered: no | free allowance: none published | source: [1]
+- identity: national-id | detail: 'Vi behover ditt namn, din address och personnummer for att kunna folja svensk lagstiftning' (name, address and Swedish personal identity number), and 'Vi tillater bara endpoint IPv4-adresser som ar registrerade i Sverige och som inte ar klassade som VPN eller Proxyadresser' (only Swedish-registered IPv4 endpoints that are not classified as VPN or proxy). | country: None
+- interface: cli
+- limits:
+  - per-ip-shaping: up to 10 Mbit/s fair use on the free plan [1]
+  - write-gated: no automatic provisioning: an order form or an email, then a human builds the tunnel [1]
+- binding note: Nothing in the vocabulary fails at 1 TiB/month: 10 Mbit/s sustains about 3.2 TB/month, and no byte quota is published. What fails is identity, before the first byte - a Swedish personal identity number and a Swedish-registered, non-VPN IPv4 endpoint - and the seven kinds have no name for that, so it is recorded in identity_cost and decides the verdict.
+- interface detail: an order form or email to karabro.se; the tunnel is built by hand
+- tooling: manual: the operator emails the configuration, then wg-quick, GRE or a SIT interface
+- composes with: not chainable here: a free VM's IPv4 is almost always outside Sweden or classified as a hosting/VPN address.
+- reliability: ports 25 and 465 are blocked by default; no SLA on the free plan ('Ingen SLA och best effort').
+- notes: Swedish tunnel broker on AS51519 in Malmo. Free tier provides a WireGuard endpoint with a /60 IPv6 prefix (expandable to /48) at 10 Mbit/s. Registration requires a Swedish personal identity number (personnummer) and a Swedish-registered endpoint IP. Ports 25 and 465 are filtered.
+- evidence note: documented from the vendor's Swedish order page read. Nothing here would be raised by a probe, because the account cannot be created without a Swedish identity number.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: WireGuard is one of three tunnel types: 'Vi stjoder foljande tunneltyper: Generic Routing Encapsulation, GRE / Wireguard / 6in4 (SIT)'. The config is written by hand by the operator because there is no automation.
+  - ingress: tcp+udp
+  - volume_stated: no monthly byte allowance; the free plan is capped at 'Upp till 10 Mbit/s fair use'
+  - bytes_transit: yes
+  - transit_note: Karabro carries the traffic on AS51519 from Sweden.
+- evidence:
+  - [1] 2026-10-23: 'Vi behover ditt namn, din address och personnummer for att kunna folja svensk lagstiftning.'
+  - [1] 2026-10-23: 'Vi tillater bara endpoint IPv4-adresser som ar registrerade i Sverige och som inte ar klassade som VPN eller Proxyadresser.'
+  - [1] 2026-10-23: free plan: 'Upp till 10 Mbit/s fair use', '/60 prefix som standard', 'Pris: 0kr/Manad'
+  - [1] 2026-10-23: tunnel types: GRE, Wireguard, 6in4 (SIT); 'Tyvarr har vi inget system for att automatiskt skapa tunnlar'
+  - [1] 2026-10-23: ports 25 and 465 are blocked by default
+  - [2] 2026-10-23: the service is run by Karabro and is aimed at Swedish internet users
+- sources:
+  - [1] https://tunnelbroker.se/order-ipv6
+  - [2] https://tunnelbroker.se/
+
+## NAVER Cloud Platform Micro Server
+
+- `egress/naver-cloud-micro` | fails-identity | evidence documented | binding none | category vps (hosted, South Korea) | tier free
+- needs card yes, phone no, ID yes, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://www.ncloud.com/main/creditEvent | page https://fshy.ajam.dev/p/ncloud.md
+- price KRW 0 for one year for a Korean resident; billed after that
+- free tier: [translated] 'One Micro Server can be created per person. Free use for one year from the moment payment information is registered. A Micro Server not returned when the free period ends is billed automatically. However, this is provided only when the country of residence is Korea.' | unit: hours | metered on: wall-clock | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: [translated] One year of a Micro Server, one per person. No traffic allowance is stated for it on the page. The separate new-signup credit is '100,000 won of discount credit, valid for 3 months'.; ingress: tcp+udp | metered: no | free allowance: none published | source: [1]
+- identity: national-id | detail: [translated] 'However, this is provided only when the country of residence is Korea.' The page adds: 'If you register payment information after signing up, you can create a Micro Server', so a payment method is a second gate behind the residence one. The 200,000 won Green Rookie credit goes further and requires an email at a partner Korean school or university. | country: None
+- interface: rest, cli, ssh
+- binding note: The account is refused before any quota is reached: a Korean residence is the first constraint and no byte allowance matters behind it.
+- interface detail: [translated] The console creates the server; the platform documents an API and CLI for its services.
+- tooling: console and API (the platform ships an OpenAPI and CLI); WireGuard would run in the guest
+- composes with: Unreachable, so it chains with nothing.
+- reliability: The free server is billed automatically if not returned at the end of the year; the discount credit expires after three months and cannot be applied to products that already have a free period.
+- notes: A free Korean VPS for a year with no card charge would be the answer to Korean question, and the country clause closes it. The page also carries a 300-man won credit promotion on a separate micro site, which is a trial credit requiring a payment method, not a free tier. Country: South Korea. The Green Rookie route needs a partner-institution email address, which is the same wall in a different shape.
+- evidence note: The residence restriction is a vendor sentence on the credit-event page read on 2026-10-23. What would change the verdict is a Korean residence, which is not held here; nothing measurable on the network side would.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: A root Korean guest would run WireGuard in the guest; nothing is issued by NAVER. Moot: the account cannot be opened from outside Korea.
+  - ingress: tcp+udp
+  - volume_stated: [translated] One year of a Micro Server, one per person. No traffic allowance is stated for it on the page. The separate new-signup credit is '100,000 won of discount credit, valid for 3 months'.
+  - bytes_transit: yes
+  - transit_note: The guest's Korean address would carry the traffic.
+- evidence:
+  - [1] 2026-10-23: [translated] 'One Micro Server can be created per person', 'free use for one year from the moment payment information is registered', 'However, this is provided only when the country of residence is Korea.'
+  - [1] 2026-10-23: [translated] 'We give new customers 100,000 won of discount credit applicable to payment for all services (valid for 3 months)', claimable only after 'registering a payment method'.
+- sources:
+  - [1] https://www.ncloud.com/main/creditEvent
+
+## Oray Peanut Hull (Huashengke)
+
+- `egress/oray-peanut-hull` | fails-identity | evidence documented | binding write-gated | category tcp+udp port forward | tier free
+- needs card no, phone no, ID yes, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://hsk.oray.com/price/ | page https://fshy.ajam.dev/p/oray.md
+- price USD 0
+- free tier: The free edition provides 1 GB of traffic per month; when it runs out you wait for the next month's reset or expand it through official tasks, with no compulsory payment. [translated] | unit: GB | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: 1 GB per month on the free edition, resettable monthly or expandable through in-product tasks whose size is not stated.; ingress: udp | metered: yes | free allowance: 1 GB per month on the free edition, resettable monthly or expandable through in-product tasks whose size is not stated. | source: [2]
+- identity: national-id | detail: Registration requires real-name verification before a mapping can be added: 'register a Peanut Hull account and complete real-name verification (the free edition needs the basic check)'. The checks offered are mainland identity checks. | country: None
+- interface: cli
+- limits:
+  - volume-quota: 1 GB per month [1]
+  - per-ip-shaping: 1 Mbps on the free edition, with a 18:00-08:00 speed boost [1]
+  - write-gated (binding): real-name verification before the first mapping [3]
+- binding note: Either of the other two would fail first in arithmetic (1 GB/month is 0.0009 TiB), but the counter is never reached: the real-name gate sits at registration.
+- interface detail: Windows, Linux and NAS clients; a web console at console.hsk.oray.com manages mappings and domains.
+- tooling: vendor client on Windows/Linux/NAS plus wg-quick on the local box
+- composes with: 1 GB/month cannot carry a WG session for long; useful only as a reachability fallback for a control plane.
+- reliability: Free-edition bandwidth is shaped to 1 Mbps outside an 18:00-08:00 window; the vendor rates free-edition stability at 99.5 percent.
+- notes: The largest consumer tunnel brand in China and the one an English reader is most likely to have heard of. Two independent blocks: a 1 GB monthly counter and a mainland real-name check. The free external port can be randomised or set by the operator, and the vendor says free users can switch ports to pick a lower-latency node, so port stability is a choice rather than a guarantee.
+- evidence note: Quota, bandwidth, mapping count and the real-name step are all on the vendor's own pages read. What would raise the rung is a probe of a UDP mapping, which needs a verified account.
+- extras:
+  - wg_path: inside-udp
+  - wg_detail: The mapping form takes a protocol of 'TCP/UDP' or 'ALL', so a public UDP port can be mapped to a local UDP listener, which is all a WG endpoint needs. No WG config is issued.
+  - ingress: udp
+  - volume_tib_month: 0.00091
+  - volume_stated: 1 GB per month on the free edition, resettable monthly or expandable through in-product tasks whose size is not stated.
+  - bytes_transit: yes
+  - transit_note: Oray cloud relays every byte; the vendor states the client opens an encrypted tunnel to the cloud and external requests are forwarded inward.
+- evidence:
+  - [1] 2026-10-23: free edition provides 1 GB per month and 1 Mbps, with a night-time speed boost
+  - [3] 2026-10-23: free edition is 1 Mbps, 2 mapping routes, 10 concurrent connections, 1 free shell domain; protocol may be TCP/UDP or ALL; real-name verification required
+  - [2] 2026-10-23: the paid ladder starts at CNY 1299/year, so the free edition is the only zero-cost rung
+- sources:
+  - [1] https://hsk.oray.com/news/47972.html
+  - [2] https://hsk.oray.com/price/
+  - [3] https://hsk.oray.com/news/49157.html
+
+## Qingting Map (beesdc)
+
+- `egress/qingting-map` | fails-identity | evidence documented | binding volume-quota | category udp port forward | tier free
+- needs card no, phone no, ID yes, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://www.beesdc.com/ | page https://fshy.ajam.dev/p/beesdc.md
+- price USD 0
+- free tier: The free edition includes 1 mapping, 1 Mbps, 1 GB per month. [translated] | unit: GB | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 1 GB per month on the free edition.; ingress: udp | metered: yes | free allowance: 1 GB per month on the free edition. | source: [1]
+- identity: national-id | detail: The page says 'complete real-name verification, install the client' before a public mapping can be created. | country: None
+- interface: cli
+- limits:
+  - volume-quota (binding): 1 GB per month [1]
+  - per-ip-shaping: 1 Mbps [1]
+- binding note: 1 GB per month is about 0.0009 TiB; the 1 Mbps cap alone would also cap a month at roughly 0.32 TB.
+- interface detail: Vendor client for routers, NAS and desktops.
+- tooling: vendor client
+- composes with: Too small for anything but a webhook test.
+- reliability: No reliability report found.
+- notes: Also called flynat on its own page. Two independent blocks: 1 GB and real-name.
+- evidence note: Both the quota and the real-name precondition are in the vendor's own text today.
+- extras:
+  - wg_path: inside-udp
+  - wg_detail: The page states TCP and UDP coverage and says TCP/UDP dual protocol covers mainstream multiplayer games; a WG datagram can ride a UDP mapping.
+  - ingress: udp
+  - volume_tib_month: 0.00091
+  - volume_stated: 1 GB per month on the free edition.
+  - bytes_transit: yes
+  - transit_note: beesdc relays the traffic.
+- evidence:
+  - [1] 2026-10-23: free edition is 1 mapping, 1 Mbps, 1 GB per month, and real-name verification is required
+- sources:
+  - [1] https://www.beesdc.com/
+
+## SakuraFrp
+
+- `egress/sakurafrp` | fails-identity | evidence documented | binding volume-quota | category udp port forward | tier free
+- needs card no, phone no, ID yes, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://www.natfrp.com/ | page https://fshy.ajam.dev/p/natfrp.md
+- price USD 0
+- free tier: Tunnel speed limit 10 Mibps; 2 tunnels; 5 GiB traffic per month; daily check-in grants free traffic. [translated] | unit: GiB | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 5 GiB per month on the free plan, plus whatever the daily check-in adds; the pricing page does not state the check-in amount.; ingress: udp | metered: yes | free allowance: 5 GiB per month on the free plan, plus whatever the daily check-in adds; the pricing page does not state the check-in amount. | source: [1]
+- identity: national-id | detail: Real-name verification is mandatory: the FAQ says to buy a verification slot, enter name and ID number, then scan a QR code in the Alipay app with face check, and that it costs CNY 1. A Telegram status post dated 2024-07-09 says overseas nodes also require it from that date. | country: None
+- interface: cli
+- limits:
+  - volume-quota (binding): 5 GiB per month [1]
+  - per-ip-shaping: 10 Mibps per tunnel [1]
+- binding note: 5 GiB per month is about 200 times below 1 TiB, so the byte quota fails long before the 10 Mibps shaper could matter.
+- interface detail: Vendor launcher for Windows/Linux/Android/OpenWRT, or a standard frpc config; the docs publish an API token page.
+- tooling: vendor launcher or frpc plus wg-quick on the local side
+- composes with: Carries a WG handshake from a CGNAT box to a WG server on a free VM only if a UDP-enabled node is used and the 5 GiB lasts.
+- reliability: A Telegram status post says mainland nodes refuse to start a tunnel from a non-mainland client IP; some nodes carry a 'no UDP' marker.
+- notes: Two blocks, either one decisive: 5 GiB per month, and an Alipay real-name check that requires a mainland Chinese identity document. Forum roundups describe the traffic as 'claimable by daily check-in', which matches the vendor page but understates that the base allowance is 5 GiB. The overseas-node exemption claimed in the nodeloc roundup is contradicted by the vendor's own 2024-07-09 status post.
+- evidence note: The quota and the real-name procedure are both on vendor pages read. Raising the rung would need a probe of an actual UDP tunnel.
+- extras:
+  - wg_path: inside-udp
+  - wg_detail: Help docs list a UDP tunnel type with per-tunnel options (no_budp2, bandwidth_limit), and the Palworld guide says to pick the UDP tunnel type and to avoid servers marked 'no UDP'. A WG datagram fits inside that UDP tunnel; no WG conf is issued.
+  - ingress: tcp+udp
+  - volume_tib_month: 0.0049
+  - volume_stated: 5 GiB per month on the free plan, plus whatever the daily check-in adds; the pricing page does not state the check-in amount.
+  - bytes_transit: yes
+  - transit_note: SakuraFrp nodes carry the datagrams; the local service terminates them.
+- evidence:
+  - [1] 2026-10-23: free plan is 10 Mibps, 2 tunnels, 5 GiB per month
+  - [2] 2026-10-23: real-name verification is mandatory, costs CNY 1, uses Alipay face check and an ID number
+  - [3] 2026-10-23: a UDP tunnel type exists with its own option set
+  - [4] 2026-10-23: servers can be marked 'no UDP'; a user must pick a node without that marker
+  - [5] 2026-10-23: 'To use NetherNet you must tunnel both TCP and UDP' and the tunnel form takes 'Tunnel type: UDP' [translated]
+- sources:
+  - [1] https://www.natfrp.com/
+  - [2] https://doc.natfrp.com/faq/realname.html
+  - [3] https://doc.natfrp.com/frpc/manual
+  - [4] https://doc.natfrp.com/game/palworld.html
+  - [5] https://doc.natfrp.com/game/mc/bedrock.html
+
+## AGG Loop
+
+- `egress/agg-loop` | fails-egress | evidence reported | binding none | category http tunnel | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-07
+- url https://www.producthunt.com/products/agg-loop | page https://fshy.ajam.dev/p/agg-loop.md
+- price USD 0
+- free tier: AGG Loop provides instant, highly secure localhost tunneling with zero config. 100% free forever with no bandwidth limits, fully backed by the Aeolink Group Inc. lab program. | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No bandwidth throttles, no artificial session cuts, and no premium paywalls, per the launch text. No number is given.; ingress: http-only | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: A CLI with zero config; no account, card or phone is mentioned in the launch text or the client repository. | country: None
+- interface: cli
+- limits:
+  - volume-quota: no bandwidth limit claimed; no number published [1]
+- binding note: If the no-limit claim held, nothing would bind on volume; the practical failure is protocol, since the edge is HTTP and WSS only.
+- interface detail: A single terminal command, per the launch text; no syntax published.
+- tooling: Native CLI from the Loop-Client repository.
+- composes with: Nothing to chain while the product page is gone; if it returns, an HTTP-only edge.
+- reliability: Product page missing within six months of launch; the funding is described as a corporate lab program, which is the kind of backing that ends without notice.
+- notes: Free tier claims of unmetered bandwidth originate from a launch page that became unavailable six months after publication. Third-party documentation noted vendor terms specified free while launch announcements stated free forever. Published specifications remain unconfirmed without an active product page.
+- evidence note: The vendor's own product page at agglabs.com/loop returns 404 and the site root served nothing, so only the launch post and third-party write-ups support the claim.
+- extras:
+  - wg_path: none
+  - wg_detail: The client maps local services onto the AGG Labs edge using WebSocket Secure and native HTTP request processing, per the Loop-Client repository. No UDP listener is described.
+  - ingress: http-only
+  - volume_stated: No bandwidth throttles, no artificial session cuts, and no premium paywalls, per the launch text. No number is given.
+  - bytes_transit: yes
+  - transit_note: AGG Labs edge relays the traffic over WSS.
+- evidence:
+  - [1] 2026-04-19: Launch on 2026-04-19; 100% free forever, no bandwidth throttles, no session cuts, funded by Aeolink Group; product acquired from Deposure.
+  - [2] 2026-10-23: 404: the product page could not be found, and the site suggests it may be part of a product that has not launched.
+  - [3] 2026-10-23: Client maps local services to the AGG Labs edge over WebSocket Secure and native HTTP request processing.
+- sources:
+  - [1] https://www.producthunt.com/products/agg-loop
+  - [2] https://agglabs.com/loop
+  - [3] https://github.com/deposure-lab/Loop-Client
+
+## Alibaba Cloud (ECS and CDT free quota)
+
+- `egress/alibaba-cloud-international` | fails-egress | evidence documented | binding volume-quota | category origin VM (trial) with a standing egress quota | tier free trial
+- identity a placeholder: card and phone unknown | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://www.alibabacloud.com/help/en/cdt/internet-data-transfers/ | page https://fshy.ajam.dev/p/alibabacloud.md
+- price USD 90 of trial credit for 3 months; 220 GB a month of egress free on any account
+- free tier: The first 220 GB per month is free: 20 GB for the Chinese mainland and 200 GB for regions outside. Excess traffic is billed starting from the first tier. | unit: GB | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: The first 220 GB per month is free: 20 GB for the Chinese mainland and 200 GB for regions outside.; ingress: udp | metered: yes | free allowance: The first 220 GB per month is free: 20 GB for the Chinese mainland and 200 GB for regions outside. | source: [1]
+- identity: card | detail: unverified: the trial page returned a login shell of 195 words and the CDT page does not state the signup instrument | country: None
+- interface: ssh
+- limits:
+  - volume-quota (binding): 220 GB a month of outbound internet traffic, account level: 20 GB in the Chinese mainland plus 200 GB outside it [1]
+  - volume-quota (binding): the ECS free trial is USD 90 of credit valid for 3 months, recorded on 2026-10-22 [1]
+- binding note: 220 GB a month is 7.33 GB a day, 20% of 1 TiB a month, so a run at a 1 TiB/month pace exhausts the quota in about six days and it is the first wall; the 3-month trial expiry sits behind it
+- interface detail: SSH to the ECS public IP, with a security group rule for any further port
+- tooling: wg-quick, nothing vendor-specific
+- composes with: 220 GB monthly bandwidth composes as a regional relay in front of an origin host.
+- reliability: the free quota does not roll over and resets on the 1st; pay-by-bandwidth billing modes cannot draw on it at all
+- notes: Two clocks: the egress quota is standing and account level, while the VM that would spend it is a 3-month trial. The 220 GB quota applies to pay-by-data-transfer BGP (Multi-ISP) traffic only; pay-by-bandwidth instances cannot use it.
+- evidence note: the 220 GB sentence and the inbound-is-free sentence are on the CDT help page read; the VM trial terms and the signup instrument are not, so those parts stay unverified
+- extras:
+  - wg_path: native-conf
+  - wg_detail: an ECS instance is an ordinary Linux VM with a public IP and a security group that accepts UDP rules, so wg-quick is native; the free trial is the constraint, not the network path
+  - ingress: udp
+  - volume_tib_month: 0.2
+  - volume_stated: The first 220 GB per month is free: 20 GB for the Chinese mainland and 200 GB for regions outside.
+  - bytes_transit: yes
+  - transit_note: bytes leave through the ECS public IP as BGP (Multi-ISP) internet traffic, which is the only class the free quota covers
+- evidence:
+  - [1] 2026-10-23: 'Effective 00:00:00 on June 1, 2025 (UTC+8), the free quota for CDT Internet traffic increases from 200 GB/month to 220 GB/month. Of this, 20 GB/month can be used in the Chinese mainland, and 200 GB/month can be used outside the Chinese mainland.'
+  - [1] 2026-10-23: 'The 220 GB free quota applies only to outbound traffic (data sent to the Internet). Inbound traffic is never billed and does not consume the free quota.'
+  - [1] 2026-10-23: 'The free quota is calculated at the Alibaba Cloud account level ... refreshes at 00:00 on the 1st of each calendar month and does not roll over to the next month.'
+- sources:
+  - [1] https://www.alibabacloud.com/help/en/cdt/internet-data-transfers/
+
+## Arvoris
+
+- `egress/arvoris` | fails-egress | evidence documented | binding none | category game L4/L7 reverse proxy (Minecraft) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://arvor.is/ | page https://fshy.ajam.dev/p/arvor.md
+- price USD 0
+- free tier: Free: 15 players, $0/mo, 1 network, 1 backend, Strict L4/L7 DDoS mitigation, Real client IPs (PROXY protocol) | unit: none | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: Bandwidth to backend per month: Fair use on Free, Unlimited on Budget and above. No byte figure is given for fair use.; ingress: tcp | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: 'free plan, no card required'; an account at beta-panel.arvoris.net/register. The register form was not opened, so its fields are unread. | country: None
+- interface: rest
+- limits:
+  - volume-quota: Fair use, no number published [1]
+  - per-ip-shaping: free plan caps at 15 players [1]
+- binding note: No numeric fair-use byte limit is published, and public documentation offers no UDP port forwarding.
+- interface detail: Self-serve panel at beta-panel.arvoris.net; setup is a single DNS record on every plan.
+- tooling: one DNS record, self-serve
+- composes with: DNS in front of a public origin, so it hides an address but does not create one.
+- reliability: Free tier is capped at 15 players and community support; the fair-use bandwidth term has no published threshold.
+- notes: Budget brand of papyrus.vip with Cloudflare Spectrum protection. Product documentation describes hostname-routed Minecraft Java over TCP; no Bedrock or generic UDP line item is listed in published plan tables.
+- evidence note: The plan table and FAQ are first-party and were read in full. The negative on UDP comes from the landing page and the plan comparison table only, and an absence is weaker than a statement.
+- extras:
+  - wg_path: none
+  - wg_detail: No WireGuard offering and no UDP port on any tier.
+  - ingress: tcp
+  - volume_stated: Bandwidth to backend per month: Fair use on Free, Unlimited on Budget and above. No byte figure is given for fair use.
+  - bytes_transit: yes
+  - transit_note: Arvoris edge on Cloudflare Spectrum capacity proxies the traffic
+- evidence:
+  - [1] 2026-10-23: Free plan at $0/mo: 15 players, 1 network, 1 backend, strict L4/L7, real client IPs, 24-hour analytics; no card required
+  - [1] 2026-10-23: Bandwidth to backend per month is 'Fair use' on Free and 'Unlimited' from Budget up; every tier routes by DNS record and speaks Minecraft hostnames
+  - [1] 2026-10-23: The stack is described as Cloudflare Spectrum powered with a hostname-aware L7 engine, which is a TCP-with-SNI shape rather than a per-customer UDP IP
+- sources:
+  - [1] https://arvor.is/
+
+## AWS Educate (free)
+
+- `egress/aws-educate` | fails-egress | evidence documented | binding write-gated | category education lab programme | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://aws.amazon.com/education/awseducate/ | page https://fshy.ajam.dev/p/amazon.md
+- price USD 0, no credit
+- free tier: Learners as young as 13 can register for AWS Educate with just an email address, gaining access to free hands-on labs to learn and practice cloud skills in real-time. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: no credit and no transfer allowance is stated on the page; the offer is lab access; ingress: none | metered: yes | free allowance: no credit and no transfer allowance is stated on the page; the offer is lab access | source: [1]
+- identity: email | detail: No credit card needed. Learners as young as 13 can register for AWS Educate with just an email address. | country: None
+- interface: unknown
+- limits:
+  - write-gated (binding): access is to curated lab sessions rather than to an account the caller controls [1]
+- binding note: there is no volume to run out of: no instance or public address is ever issued, so 1 TiB a month is not reachable at any price through this programme.
+- interface detail: a browser lab console
+- tooling: nothing to run: no instance is issued
+- composes with: no chain; it is a training programme rather than a source of capacity
+- reliability: lab sessions are time-boxed and reset, so nothing installed survives
+- notes: The only programme with no card and no institution, and it buys no capacity: the page describes training and labs, names no credit and no instance. Read as an absence rather than a number, which is why it is recorded at all: a reader who sees 'no credit card needed' will otherwise spend the session finding out.
+- evidence note: Educational lab environments provide self-contained sandbox exercises without public inbound or outbound network endpoints.
+- extras:
+  - wg_path: none
+  - wg_detail: the programme grants lab sessions rather than an account with a public IPv4, so there is no endpoint for wg-quick to bind
+  - ingress: none
+  - volume_tib_month: 0.0
+  - volume_stated: no credit and no transfer allowance is stated on the page; the offer is lab access
+  - bytes_transit: no
+  - transit_note: the bytes stay inside AWS's lab environment and never reach a client-controlled endpoint
+- evidence:
+  - [1] 2026-10-23: 'Learners as young as 13 can register for AWS Educate with just an email address, gaining access to free hands-on labs', 'No credit card needed', and 'AWS Educate offers an extensive library of free, self-paced online training'
+- sources:
+  - [1] https://aws.amazon.com/education/awseducate/
+
+## AWS Free Tier (EC2)
+
+- `egress/amazon-web-services-free-tier` | fails-egress | evidence documented | binding volume-quota | category origin VM (free plan) | tier free
+- identity a placeholder: card and phone unknown | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://aws.amazon.com/free/ | page https://fshy.ajam.dev/p/amazon.md
+- price USD 0 on the Free plan for 6 months; the 100 GB a month egress allowance is free on every account
+- disagrees on verdict: `egress/amazon-web-services-free-tier` says fails-egress, `egress/aws-free-tier` says fails-quota
+- free tier: When you create a new AWS Free Tier account, you get $100 in credits immediately. As you explore key services, you can earn up to $100 more. That's up to $200 over 6 months to build, break things, and experiment with no charges and no surprise bills on the Free plan. The account closes on its own 6 months after you open it or when your credits run out, whichever comes first. | unit: mixed | metered on: wall-clock | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: AWS customers receive 100 GB of free data transfer out to the internet free each month, aggregated across all AWS Services and Regions (except China and GovCloud).; ingress: udp | metered: yes | free allowance: AWS customers receive 100 GB of free data transfer out to the internet free each month, aggregated across all AWS Services and Regions (except China and GovCloud). | source: [1]
+- identity: card | detail: unverified on the pages read: neither aws.amazon.com/free nor its FAQ states the signup instrument, so a card is recorded as the expected instrument and not as a quoted term | country: None
+- interface: ssh
+- limits:
+  - volume-quota (binding): 100 GB of data transfer out to the internet each month, aggregated across services and regions [2]
+  - retention-clamped: the Free plan account closes 6 months after creation or when credits run out [1]
+- binding note: 100 GB a month is 3.33 GB a day, 9.1% of 1 TiB a month, so a run at a 1 TiB/month pace exhausts the allowance in about 2.7 days; the 6-month account closure sits behind it and would matter only to an idle account
+- interface detail: SSH to the instance's public IPv4 or IPv6 address, with a security group rule for any further port
+- tooling: wg-quick, nothing vendor-specific
+- composes with: 100 GB a month is a signalling or control-plane allowance, not a data path; it does not compose into a 1 TiB a month chain at any price of zero
+- reliability: the Free plan closes the account 6 months after creation or when the credits run out, whichever comes first; nothing in the pages read says an EC2 instance survives that
+- notes: The 750 hours for 12 months that was asked to confirm is not on any page read: aws.amazon.com/free, its free-tier FAQ, the EC2 product page and the EC2 on-demand pricing page all describe USD 200 of credits over a 6-month Free plan, and none carries a per-service hour allowance. The offer appears to have been restructured around credits; whether a 750-hour line survives on a page not read is open, and the pages read do not support the claim. The 100 GB allowance is separate from the plan and is standing for all customers.
+- evidence note: the 100 GB line and the 6-month plan are on AWS pages read; the identity instrument and any per-service hour allowance are not, so those parts stay unverified
+- extras:
+  - wg_path: native-conf
+  - wg_detail: a security group rule takes a protocol number and a port range: 'The most common protocols are 6 (TCP), 17 (UDP), and 1 (ICMP)' and 'For TCP, UDP, or a custom protocol, the range of ports to allow. You can specify a single port number (for example, 22)', so 51820/udp is one rule and wg-quick runs natively
+  - ingress: udp
+  - volume_tib_month: 0.091
+  - volume_stated: AWS customers receive 100 GB of free data transfer out to the internet free each month, aggregated across all AWS Services and Regions (except China and GovCloud).
+  - bytes_transit: yes
+  - transit_note: bytes leave through the instance's public address and are aggregated with every other AWS service's egress into the same 100 GB
+- evidence:
+  - [2] 2026-10-23: 'AWS customers receive 100 GB of free data transfer out to the internet free each month, aggregated across all AWS Services and Regions (except China and GovCloud).'
+  - [1] 2026-10-23: 'up to $200 over 6 months ... The account closes on its own 6 months after you open it or when your credits run out, whichever comes first.'
+  - [3] 2026-10-23: 'The free plan is available for 6 months after account creation' and no 750-hour figure on the EC2 product page
+  - [4] 2026-10-23: a security group rule names protocol 17 (UDP) and a single port, so UDP ingress is expressible and 51820 is not special
+- sources:
+  - [1] https://aws.amazon.com/free/
+  - [2] https://aws.amazon.com/ec2/pricing/on-demand/
+  - [3] https://aws.amazon.com/ec2/
+  - [4] https://docs.aws.amazon.com/vpc/latest/userguide/security-group-rules.html
+
+## Azure DDoS Protection
+
+- `egress/azure-ddos-protection` | fails-egress | evidence documented | binding write-gated | category L3/L4 DDoS mitigation for Azure virtual networks | tier payg
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://learn.microsoft.com/en-us/azure/ddos-protection/ddos-protection-overview | page https://fshy.ajam.dev/p/microsoft.md
+- price unpublished
+- free tier: No free tier and no forwarding: the service is enabled on an Azure virtual network and protects the public IPs of resources inside it. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No volume allowance applies: the product is a mitigation policy on an Azure public IP in the same account, not a proxy with a traffic allowance.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: card | detail: An Azure subscription with a virtual network and a public IP inside it. | country: None
+- interface: rest, cli
+- limits:
+  - write-gated (binding): protection is enabled on an Azure virtual network and covers the public IPs of resources in it [1]
+- binding note: It cannot be the ingress for a service outside Azure at any volume, so 1 TiB/month never becomes the constraint.
+- interface detail: a DDoS protection plan attached to a virtual network, or per-public-IP protection
+- tooling: Azure portal, CLI or ARM/Bicep
+- composes with: chains with an Azure VM, which already has the public IP being protected
+- reliability: no reliability event recorded
+- notes: Provides DDoS mitigation for public IP addresses associated with Azure Virtual Networks. Does not provide standalone proxy addresses, origin mapping or port forwarding.
+- evidence note: The virtual-network scoping and the TCP and UDP mitigation policies are quoted from the page read. What it does not do is stated by what it protects, not by an explicit denial.
+- extras:
+  - wg_path: none
+  - wg_detail: It filters traffic addressed to an Azure public IP; it does not issue an address that forwards to an origin named by the account.
+  - ingress: none
+  - volume_stated: No volume allowance applies: the product is a mitigation policy on an Azure public IP in the same account, not a proxy with a traffic allowance.
+  - bytes_transit: no
+  - transit_note: traffic goes to an Azure public IP in the same account; nothing is forwarded on the account's behalf
+- evidence:
+  - [1] 2026-10-23: It's automatically tuned to help protect your specific Azure resources in a virtual network.
+  - [1] 2026-10-23: Azure DDoS Protection applies three auto-tuned mitigation policies (TCP SYN, TCP, and UDP) for each public IP of the protected resource, in the virtual network that has DDoS enabled.
+- sources:
+  - [1] https://learn.microsoft.com/en-us/azure/ddos-protection/ddos-protection-overview
+
+## Azure Front Door
+
+- `egress/azure-front-door` | fails-egress | evidence inferred | binding write-gated | category HTTP CDN and application delivery | tier payg
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://learn.microsoft.com/en-us/azure/frontdoor/front-door-overview | page https://fshy.ajam.dev/p/microsoft.md
+- price unverified (base and data rates not read)
+- free tier: No free tier for the L4 question: Front Door terminates SSL at the edge and only supports HTTP/1.1 from the edge to the origin. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No UDP allowance exists. The product is billed per request and per GB of HTTP(S) delivery, with no L4 forwarding at any price.; ingress: http-only | metered: no | free allowance: none published | source: [2]
+- identity: card | detail: An Azure subscription with billing enabled. | country: None
+- interface: rest, cli
+- limits:
+  - write-gated (binding): the origin leg is HTTP/1.1 only; there is no protocol field that accepts UDP [1]
+- binding note: Volume never becomes the question: the service cannot forward UDP at any tier, so 1 TiB/month of UDP has no path through it.
+- interface detail: profiles, endpoints, routes and origin groups over HTTP and HTTPS
+- tooling: Azure portal, CLI or ARM/Bicep
+- composes with: chains with HTTP origins only; it cannot expose a WireGuard or game UDP endpoint
+- reliability: no reliability event recorded
+- notes: Layer 7 CDN and application delivery network supporting HTTP and HTTPS. Features include caching, SSL offload and WAF rules. Layer 4 TCP and UDP listeners are not supported.
+- evidence note: No Front Door page read states a UDP forwarding feature, and the origin leg is documented as HTTP/1.1 only. Confirming the negative needs the Front Door 'supported protocols' reference, which was not read.
+- extras:
+  - wg_path: none
+  - wg_detail: There is no UDP forwarding to configure, so no WireGuard datagram can be carried.
+  - ingress: http-only
+  - volume_stated: No UDP allowance exists. The product is billed per request and per GB of HTTP(S) delivery, with no L4 forwarding at any price.
+  - bytes_transit: yes
+  - transit_note: HTTP bytes only; UDP is not carried
+- evidence:
+  - [1] 2026-10-23: Currently, Azure Front Door only supports HTTP/1.1 from the edge to the origin.
+  - [2] 2026-10-23: Accelerate application performance using the Azure Front Door unicast network and split TCP connections; terminate SSL offload at the edge and natively support the HTTP/2 protocol
+- sources:
+  - [1] https://learn.microsoft.com/en-us/azure/frontdoor/front-door-faq
+  - [2] https://learn.microsoft.com/en-us/azure/frontdoor/front-door-overview
+
+## Beeceptor Local Tunnel
+
+- `egress/beeceptor` | fails-egress | evidence documented | binding request-rate | category http tunnel and mock server | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://beeceptor.com/local-tunnel/ | page https://fshy.ajam.dev/p/beeceptor.md
+- price USD 0
+- free tier: Setup a tunnel and get a public URL. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No byte allowance is published on the local-tunnel page.; ingress: http-only | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: an account owns the endpoint name; the page does not state terms. | country: None
+- interface: cli, rest
+- limits:
+  - request-rate (binding): The product counts intercepted requests and mock rules, not bytes, and publishes neither on this page. Transport is HTTP over a socket tunnel, so no UDP. [1]
+- binding note: The product counts intercepted requests and mock rules, not bytes, and publishes neither on this page. Transport is HTTP over a socket tunnel, so no UDP.
+- interface detail: CLI plus mock rules in the dashboard.
+- tooling: CLI plus web console.
+- composes with: none for bulk egress.
+- reliability: Designed for API mocking and inspection.
+- notes: Mock-server first, tunnel second.
+- evidence note: A published request quota would sharpen the binding.
+- extras:
+  - wg_path: none
+  - ingress: http-only
+  - volume_stated: No byte allowance is published on the local-tunnel page.
+  - bytes_transit: yes
+- evidence:
+  - [1] 2026-10-23: 'Beeceptor's Local Tunnel uses secure HTTP Sockets to punch through firewalls and NATs'
+- sources:
+  - [1] https://beeceptor.com/local-tunnel/
+
+## Border0
+
+- `egress/border0` | fails-egress | evidence documented | binding none | category privileged access management (acquired by Tailscale) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://www.border0.com/ | page https://fshy.ajam.dev/p/border0.md
+- price unverified
+- free tier: No allowance could be read: https://www.border0.com/pricing returns a 404 body. The home page offers 'Start for free today' with no number and no plan table. | unit: none | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: unverified: no plan or allowance page could be read; ingress: tcp | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: a portal account at portal.border0.com/register; the company is now part of Tailscale | country: None
+- interface: cli
+- binding note: No meter is published to bind. The deciding fact is elsewhere: the socket families carry no UDP and the generic TCP socket is explicitly 'with authentication', so a public unauthenticated reader is not the shape of the product.
+- interface detail: connector deployed in the private network, clients authenticate through the portal
+- tooling: Border0 connector and client, portal dashboard
+- composes with: Private access layer using authenticated sockets; does not provide public arbitrary ingress.
+- reliability: an acquired product with 'no short-term migrations planned' is a moving target; expect the control plane to fold into Tailscale
+- notes: The 404 and the Tailscale sales link have three possible causes: the provider is dead, the pricing path moved, or the reader rewrote the link. The blog post and a law-firm deal note show the provider is dead only in part - the company was acquired on 2026-03-17 - but its docs still serve and the product still runs, so the record is fails-egress rather than dead. The reader did not rewrite the link: the origin returned a real 404 body with upstream_status 404.
+- evidence note: The socket list and the acquisition are first-party and dated today. The free allowance is unverified because the pricing page is gone.
+- extras:
+  - wg_path: none
+  - wg_detail: No WireGuard and no .conf. A socket is a platform-managed service: 'HTTP(s), SSH, Database: MySQL, Postgres, TLS (Generic TCP ports with authentication)'.
+  - ingress: tcp
+  - volume_stated: unverified: no plan or allowance page could be read
+  - bytes_transit: yes
+  - transit_note: the connector carries the session to Border0's platform, which terminates it for an authenticated user
+- evidence:
+  - [2] 2026-10-23: 'The platform currently support various service types: HTTP(s) SSH Database: MySQL, Postgres TLS (Generic TCP ports with authentication)'
+  - [3] 2026-10-23: 'Today I'm excited to share that Border0 has been acquired by Tailscale', dated March 17, 2026, with 'no short-term migrations planned'
+  - [4] 2026-10-23: the sales path now says 'talk to us about Tailscale PAM', which is where Border0's commercial page leads
+- sources:
+  - [1] https://www.border0.com/
+  - [2] https://docs.border0.com/docs/sockets
+  - [3] https://www.border0.com/blogs/border0-is-joining-tailscale
+  - [4] https://tailscale.com/contact/sales-border0
+
+## cpolar
+
+- `egress/cpolar` | fails-egress | evidence documented | binding per-ip-shaping | category tcp port forward | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://www.cpolar.com/pricing | page https://fshy.ajam.dev/p/cpolar.md
+- price USD 0
+- free tier: Free edition: permanently free, 1 Mbps, random URL subdomain, random TCP port, HTTP / TCP tunnel support, 1 online cpolar process, 4 tunnels per process. [translated] | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No byte quota on any plan: every plan is sold with traffic not limited. The free plan's 1 Mbps caps a saturated month at about 324 GB.; ingress: tcp | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: An account is an email address: the pricing FAQ defines one online process as one email account running on one machine, and specifies that multiple machines require registering multiple email accounts. | country: None
+- interface: cli
+- limits:
+  - per-ip-shaping (binding): 1 Mbps on the free plan [1]
+  - request-rate: connection-rate limit per tunnel endpoint; excess HTTP connections get 429, excess TCP connections are closed [1]
+  - request-rate: 1 online process and 4 tunnels on the free plan [1]
+- binding note: Traffic is unlimited but 1 Mbps is 10.5 GB/day, about 324 GB over 30 days, against 3.24 Mbps for 1 TiB/month. The shaping binds three times.
+- interface detail: Web UI on localhost:9200 after install, a CLI with authtoken authentication, and a dashboard at dashboard.cpolar.com.
+- tooling: vendor client on Windows/Linux/NAS/ARM, authenticating with a token from the dashboard; wg-quick cannot attach to it
+- composes with: Carries HTTP and TCP only, so it composes with a web service or an SSH control channel and not with WireGuard.
+- reliability: Exceeding the connection rate limit returns 429 on HTTP and silently closes TCP and TLS connections; the vendor documents neither the threshold nor a reset window.
+- notes: The best-identified Chinese tunnel vendor in English lists, with an email-only account, and the only one here with a documentation set large enough to make the absence of UDP meaningful. No English pricing arm was found: www.cpolar.com/en/pricing returns 404 and the only pricing page is the Chinese one.
+- evidence note: Pricing table read first-party and the whole documentation site searched for UDP with zero hits. A negative search is strong evidence here because the same docs page documents TCP, HTTP and TLS tunnels by name.
+- extras:
+  - wg_path: none
+  - wg_detail: No UDP reconstruction exists: the pricing page lists only HTTP and TCP tunnels, and an 87 KB full-text read of the documentation site at /docs contains no occurrence of UDP at all.
+  - ingress: tcp
+  - volume_stated: No byte quota on any plan: every plan is sold with traffic not limited. The free plan's 1 Mbps caps a saturated month at about 324 GB.
+  - bytes_transit: yes
+  - transit_note: Vendor relays in mainland China carry the tunnel.
+- evidence:
+  - [1] 2026-10-23: free plan is 1 Mbps, random subdomain, random TCP port, HTTP/TCP tunnels only, 1 process, 4 tunnels; all plans state traffic is not limited
+  - [2] 2026-10-23: 86941-byte documentation read contains no occurrence of UDP
+- sources:
+  - [1] https://www.cpolar.com/pricing
+  - [2] https://www.cpolar.com/docs
+
+## Defined Networking
+
+- `egress/defined-networking` | fails-egress | evidence documented | binding none | category managed nebula overlay (private, no public ingress) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://www.defined.net/ | page https://fshy.ajam.dev/p/defined.md
+- price USD 0 (100 devices)
+- free tier: Get set up in minutes and connect your first 100 devices free, no credit card required. | unit: users | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No byte allowance is published; the free unit is devices.; ingress: tcp+udp | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: signup at admin.defined.net, 'no credit card required'. | country: None
+- interface: cli
+- binding note: Nothing is metered, so no quota fails at 1 TiB/month. The structure fails: a Nebula overlay has no public address, so an outside peer must be enrolled before it can send a packet.
+- interface detail: Web console plus Nebula binaries.
+- tooling: Nebula clients plus the vendor's certificate console.
+- composes with: Private path between two rented boxes; no ingress.
+- reliability: Control plane is hosted and closed; losing it blocks new certificate issuance.
+- notes: Commercial control plane for open-source Nebula. The aggregator is explicit that this is private overlay access rather than public-URL ingress.
+- evidence note: A public ingress feature would change the verdict; the page describes private overlay access.
+- extras:
+  - wg_path: none
+  - wg_detail: The data plane is Nebula, which is its own protocol on UDP 4242, not WireGuard. No .conf export exists; the overlay certificate is issued by the hosted control plane.
+  - ingress: tcp+udp
+  - volume_stated: No byte allowance is published; the free unit is devices.
+  - bytes_transit: overlay-only
+  - transit_note: Peer-to-peer Nebula; the hosted plane issues certificates.
+- evidence:
+  - [1] 2026-10-23: 'connect your first 100 devices free, no credit card required'; 'Encrypted with the Noise Protocol Framework'
+- sources:
+  - [1] https://www.defined.net/
+
+## Deno Deploy (Egress and tunnels)
+
+- `egress/deno-deploy` | fails-egress | evidence documented | binding volume-quota | category paas l4 port | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://deno.com/deploy/pricing | page https://fshy.ajam.dev/p/deno.md
+- price USD 0
+- free tier: Free $0/month ... Requests/month: Allowed inbound HTTP requests to your deployments per month: 1M ... Egress Bandwidth: 20GiB. | unit: GiB | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: Egress Bandwidth 20GiB per month; inbound request data does not count against it.; ingress: http-only | metered: yes | free allowance: Egress Bandwidth 20GiB per month; inbound request data does not count against it. | source: [1]
+- identity: email | detail: Deno Deploy account; the free plan is $0/month with 10 apps. | country: None
+- interface: cli, rest
+- limits:
+  - volume-quota (binding): 20 GiB egress per month [1]
+  - request-rate: 1M inbound HTTP requests per month [1]
+- binding note: 20 GiB is 0.020 TiB, and the 1M requests/month cap would bind even earlier for small datagrams. No non-HTTP transport exists.
+- interface detail: deployctl, console, and GitHub Actions integration.
+- tooling: deployctl, the console, and GitHub integration.
+- composes with: Good for an HTTP API or webhook receiver; no endpoint.
+- reliability: Idle apps shut down after about 20-30 seconds and scale to zero.
+- notes: Deploy Classic was shut down on 2026-07-20, before this read; the current Deno Deploy is the record. Outbound sockets existed for clients, never an inbound port.
+- evidence note: The request meter is described as inbound HTTP; no page states a UDP or raw TCP listener, and none can be configured.
+- extras:
+  - wg_path: none
+  - wg_detail: Inbound is HTTP requests only: the free tier meters "Allowed inbound HTTP requests to your deployments". There is no port to bind.
+  - ingress: http-only
+  - volume_tib_month: 0.0195
+  - volume_stated: Egress Bandwidth 20GiB per month; inbound request data does not count against it.
+  - bytes_transit: no
+  - transit_note: Deno's edge terminates HTTPS.
+- evidence:
+  - [1] 2026-10-23: Free: 1M inbound HTTP requests/month, 20GiB egress, 10 apps, 10 hr active CPU
+  - [2] 2026-10-23: Deploy Classic supported outbound TCP sockets and is "Sunsetting on July 20, 2026"
+- sources:
+  - [1] https://deno.com/deploy/pricing
+  - [2] https://docs.deno.com/deploy/classic/api/runtime-sockets/
+
+## DigitalOcean App Platform
+
+- `egress/digitalocean-app-platform` | fails-egress | evidence documented | binding volume-quota | category paas l4 port | tier free
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://docs.digitalocean.com/products/app-platform/details/pricing/ | page https://fshy.ajam.dev/p/digitalocean.md
+- price USD 0
+- free tier: App Platform offers a free tier for static sites ... Deploying up to three apps that use only static site components ... 1 GiB of outbound data for each app. | unit: GiB | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 1 GiB of outbound data for each free static app; additional outbound $0.02 per GiB on paid plans.; ingress: http-only | metered: yes | free allowance: 1 GiB of outbound data for each free static app; additional outbound $0.02 per GiB on paid plans. | source: [1]
+- identity: card | detail: A DigitalOcean account; paid components need a payment method, and no dynamic component exists on the free tier. | country: None
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): 1 GiB outbound per free static app [1]
+- binding note: 1 GiB per app is 0.001 TiB, and static hosting offers no port at all.
+- interface detail: doctl, API, and console; app spec in YAML.
+- tooling: doctl and the console; app spec YAML.
+- composes with: Serves a static front end; carries no socket.
+- reliability: None; static hosting only.
+- notes: The cheapest runtime component is $5/month; the free tier is a CDN for static files.
+- evidence note: A probe is impossible: the free tier has no runtime service to connect to.
+- extras:
+  - wg_path: none
+  - wg_detail: No raw port: the free tier is static site components only, and paid components are HTTP services, workers and jobs.
+  - ingress: http-only
+  - volume_tib_month: 0.000977
+  - volume_stated: 1 GiB of outbound data for each free static app; additional outbound $0.02 per GiB on paid plans.
+  - bytes_transit: no
+  - transit_note: DigitalOcean's CDN serves the objects.
+- evidence:
+  - [1] 2026-10-23: "App Platform offers a free tier for static sites"; three static apps; 1 GiB outbound each; $0.02/GiB above
+- sources:
+  - [1] https://docs.digitalocean.com/products/app-platform/details/pricing/
+
+## EasyTier
+
+- `egress/easytier` | fails-egress | evidence documented | binding none | category mesh vpn software with community relays | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://easytier.cn/en/ | page https://fshy.ajam.dev/p/easytier.md
+- price USD 0
+- free tier: A simple, secure, decentralized SD-WAN solution for intranet penetration, implemented using Rust and the Tokio framework | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No allowance is published; community relay nodes are voluntary infrastructure with no quota.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: no account; peers join by network name and secret. | country: None
+- interface: cli
+- binding note: Software plus volunteer relays: no hosted endpoint and no published capacity, so reliability rather than a quota is what fails at 1 TiB/month.
+- interface detail: CLI plus web console
+- tooling: easytier-core and GUI.
+- composes with: Needs two hosts; the relay is the free part.
+- reliability: Community relay capacity is unpriced and unaccountable.
+- notes: Strong transport list (WG, QUIC, UDP) but every path needs a host at each end and a relay that somebody else is paying for.
+- evidence note: P2P mesh VPN with community relay support. Protocol and CLI features are documented in source repository.
+- extras:
+  - wg_path: none
+  - ingress: none
+  - volume_stated: No allowance is published; community relay nodes are voluntary infrastructure with no quota.
+  - bytes_transit: overlay-only
+  - transit_note: direct or community relay
+- evidence:
+  - [1] 2026-10-23: 'Supports UDP, IPv6 traversal'; 'WireGuard encryption'; 'Supports TCP / UDP / WS / WSS / WG / QUIC / FakeTCP'
+- sources:
+  - [1] https://easytier.cn/en/
+
+## Enclave
+
+- `egress/enclave` | fails-egress | evidence documented | binding request-rate | category zero trust overlay (private only) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://enclave.io/pricing/ | page https://fshy.ajam.dev/p/enclave.md
+- price USD 8 per system per month
+- free tier: 'Enclave is free for personal and home use for up to 5 systems.' | unit: users | metered on: identity-count | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No byte allowance is published; the plan is priced per enrolled system at USD 8.00 per system per month MSRP.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: a licence key applied to each enrolled system; contact sales for discounts, so the signup is an email and a key | country: None
+- interface: cli
+- limits:
+  - request-rate (binding): The 5-system cap is the only free meter and the vocabulary has no token for a device count, so request-rate is the nearest. It is moot for this test: there is no public ingress to spend 1 TiB through. [1]
+- binding note: The 5-system cap is the only free meter and the vocabulary has no token for a device count, so request-rate is the nearest. It is moot for this test: there is no public ingress to spend 1 TiB through.
+- interface detail: agent install plus a licence key
+- tooling: the Enclave agent; no .conf documented
+- composes with: a private overlay for a private set of machines, so it sits behind whatever public ingress is chosen
+- reliability: the licence key is per system; a sixth system stops enrolling rather than throttling
+- notes: Zero-trust overlay network designed for private mesh connectivity with closed inbound ports.
+- evidence note: Closed firewall design and outbound-only connectivity model are documented in product technical specifications.
+- extras:
+  - wg_path: unknown
+  - wg_detail: The pricing page names no tunnelling protocol, and no protocol page was read, so whether a .conf can be derived is open. The agent model is stated: 'An enrolled system is counted as a single machine, device, computer or container on which the Enclave agent software has been installed'.
+  - ingress: none
+  - volume_stated: No byte allowance is published; the plan is priced per enrolled system at USD 8.00 per system per month MSRP.
+  - bytes_transit: overlay-only
+  - transit_note: peer-to-peer between enrolled systems through the Trust Broker's policy
+- evidence:
+  - [1] 2026-10-23: 'Enclave is free for personal and home use for up to 5 systems'; USD 8.00 per enrolled system per month MSRP
+  - [1] 2026-10-23: 'cloaking systems via a Trust Broker that verifies the identity, context and policy for each user' and 'firewalls are closed; no more access control lists or public VPN servers'
+- sources:
+  - [1] https://enclave.io/pricing/
+
+## EXPOSE
+
+- `egress/expose-ssh` | fails-egress | evidence reported | binding none | category tunnel software with a public relay | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-07
+- url https://github.com/gaetanlhf/EXPOSE | page https://fshy.ajam.dev/p/github-gaetanlhf.md
+- price USD 0
+- free tier: SSH-based open source tool, with no configuration or installation, distributed worldwide, to expose your local services. Uses your GitHub username and public SSH keys to authenticate you and provide you with a short personalised URL. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: the public EXPOSE servers, distributed worldwide, carry the traffic; the list entry states no quota. SSH-based.
+- interface detail: not established
+- tooling: a stock SSH client; the list entry says no configuration or installation
+- composes with: Reaches the public EXPOSE servers over SSH with the user's GitHub keys; no host is needed.
+- reliability: the same as interface detail
+- notes: SSH-based. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: Read the project README and run a client to raise this to documented; the list sentence is the only evidence here.
+- self hosted: no
+- extras:
+  - wg_path: none
+  - ingress: tcp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: SSH-based open source tool, with no configuration or installation, distributed worldwide, to expose your local services. Uses your GitHub username and public SS
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/gaetanlhf/EXPOSE
+
+## FastestVPN (paid)
+
+- `egress/fastestvpn` | fails-egress | evidence documented | binding write-gated | category vpn port forward | tier paid
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T10:29:23.991Z (live) | stale on 2026-12-05
+- url https://fastestvpn.com/resources/how-to-port-forward-pldt-router/ | page https://fshy.ajam.dev/p/fastestvpn.md
+- price USD 5 per month on the 1 Month plan; USD 0.83 per month on the 1 Year + 1 Year Free plan, billed USD 19.95 biennially; Lifetime Plus Plan USD 40 | parsed USD 0.83/mo
+- free tier: No free tier, and the vendor states it does not offer forwarding: some VPNs allow port forwarding. However, FastestVPN doesn't, and we advise against PLDT port forwarding. Pricing page 2026-11-03: 1 Month $5 per month; the 1 Year + 1 Year Free plan is $0.83 per month, billed $19.95 biennially; Lifetime Plus Plan $40. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: unverified: published terms state no explicit traffic allowance.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: A subscription account; the dedicated IP page says you must first create your account by buying a subscription, then either request or buy a dedicated IP. | country: None
+- interface: cli
+- limits:
+  - write-gated (binding): no forwarding offered: FastestVPN doesn't offer router port forwarding features, and separately, some VPNs allow port forwarding. However, FastestVPN doesn't [1]
+- binding note: There is no inbound path to meter, so volume never binds.
+- interface detail: App-based; no port facility in the pages read.
+- tooling: Official apps. Protocols: WireGuard, OpenVPN, IKEv2, IPSec, OpenConnect and L2TP. Servers optimized for P2P file sharing are offered. UDP, SOCKS5 endpoint and obfuscation: unverified: no page read states them.
+- composes with: Client-side tunnel only.
+- reliability: No inbound path is sold, so there is nothing to throttle.
+- notes: Test applied: the vendor's dedicated IP page, which is where a paid ingress add-on would have to be sold, does not mention forwarding at all.
+- evidence note: The negative is documented twice in the vendor's own words, dated 2025-05-21, and the features page read does not list port forwarding.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: WireGuard is one of the listed protocols: FastestVPN has multiple protocols, such as WireGuard, OpenVPN. A config alone gives no inbound path here.
+  - ingress: none
+  - volume_stated: unverified: no page read states a FastestVPN traffic allowance.
+  - bytes_transit: yes
+  - transit_note: Outbound only from a user's point of view.
+- evidence:
+  - [1] 2026-10-23: Published 2025-05-21: FastestVPN doesn't offer router port forwarding features, and some VPNs allow port forwarding, however FastestVPN doesn't.
+  - [2] 2026-10-23: The dedicated IP page read lists no port forwarding among the benefits of a dedicated IP, and describes buying or requesting one.
+  - [3] 2026-11-03: the 1 Year + 1 Year Free plan is billed 19.95 USD every two years | capture: sha256:6bcf9d509058850d787fb8e2330d11e17e995b9592790f28eaa42f13f8c3cc87 | quote: Billed $19.95 Biennially
+  - [4] 2026-11-03: protocol list | capture: sha256:4f895610cb9ec34fb22d8c8cd5c493b93e7ffa7f4c9aa97c08280bab39e2295b | quote: FastestVPN has multiple protocols, such as WireGuard, OpenVPN, IKEv2, IPSec, OpenConnect, L2TP, and more.
+  - [4] 2026-11-03: P2P servers exist | capture: sha256:4f895610cb9ec34fb22d8c8cd5c493b93e7ffa7f4c9aa97c08280bab39e2295b | quote: Choose any of our speedy servers that are optimized for P2P file sharing activities. Get fast speed while downloading files.
+  - [3] 2026-11-04: the 1 Year + 1 Year Free plan is billed 19.95 USD every two years | capture: sha256:6bcf9d509058850d787fb8e2330d11e17e995b9592790f28eaa42f13f8c3cc87 | quote: Billed $19.95 Biennially
+- sources:
+  - [1] https://fastestvpn.com/resources/how-to-port-forward-pldt-router/
+  - [2] https://fastestvpn.com/dedicated-ip-vpn
+  - [3] https://fastestvpn.com/pricing
+  - [4] https://fastestvpn.com/features
+
+## Firezone
+
+- `egress/firezone` | fails-egress | evidence documented | binding none | category zero trust access built on WireGuard (private only) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://github.com/firezone/firezone | page https://fshy.ajam.dev/p/github-firezone.md
+- price USD 0
+- free tier: 'Firezone is a secure remote access platform built on WireGuard. Connect users to private applications, databases, servers, and subnets with granular policies'. 'Sign up free' is offered with no number on the page read. | unit: none | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: unverified: the pricing page renders client-side and its extracted text carries no plan numbers; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: app.firezone.dev sign-up | country: None
+- interface: cli
+- binding note: No published byte meter and no public listener. The design is the constraint: a Gateway 'in the network containing your Resources' answers authenticated Clients, not the internet.
+- interface detail: Gateway deployment plus per-platform clients
+- tooling: Firezone Gateway, the Firezone client (Apple, Android, Rust GUI), Docker
+- composes with: a private access layer over a VPS; it publishes nothing, so it needs an ingress in front
+- reliability: self-hosted production deployment is 'not officially supported'; published clients are only guaranteed against the managed service
+- notes: The strongest WireGuard name that is still not an ingress: it is the same shape as Tailscale's private tailnet, not Funnel. Production self-hosting is explicitly unsupported, which matters if the plan was to run it on a free VPS.
+- evidence note: A rendered read of the pricing page would fill the missing numbers; it would not change the ingress verdict.
+- extras:
+  - wg_path: none
+  - wg_detail: WireGuard is the data plane but a user is the vendor's: 'WireGuard tunnels encrypt traffic between Clients and Gateways or between devices in a Device Pool'. No .conf export is documented.
+  - ingress: none
+  - volume_stated: unverified: the pricing page renders client-side and its extracted text carries no plan numbers
+  - bytes_transit: yes
+  - transit_note: Client to Gateway over WireGuard, with Relays when a direct path fails
+- evidence:
+  - [1] 2026-10-23: 'a secure remote access platform built on WireGuard. Connect users to private applications, databases, servers, and subnets'; 'Gateways run in your infrastructure'
+  - [2] 2026-10-23: the page returned 200 with an extraction that yields plan names only ('Starter: Free tier for small teams'), no numbers
+- sources:
+  - [1] https://github.com/firezone/firezone
+  - [2] https://www.firezone.dev/pricing
+
+## Freehold
+
+- `egress/freehold` | fails-egress | evidence inferred | binding none | category public anycast relay (QUIC/H3) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://github.com/maceip/freehold | page https://fshy.ajam.dev/p/github-maceip.md
+- price USD 0
+- free tier: Your service is now reachable at freehold.lit.app:8080. | unit: none | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No byte allowance is published for the public relay: 'Test the public relay without installing anything.'; ingress: http-only | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: No account: the client registers itself with the relay over UDP and completes an HMAC challenge. | country: None
+- interface: cli
+- limits:
+  - volume-quota: no byte allowance published for the public relay [1]
+- binding note: The relay is a public anycast endpoint with no published quota; what stops the UDP test first is the data path, which is described as QUIC/H3 rather than a raw datagram forward.
+- interface detail: 'freehold --relay freehold.lit.app:9999 --port 8080 --backend 127.0.0.1:3000'
+- tooling: The freehold Rust client; the relay itself needs a Linux host with eBPF and root, which is the relay operator's problem, not a client-side one
+- composes with: Nothing to chain until the datagram question is settled.
+- reliability: NAT traversal is best-effort: the port spray 'opens Bob's NAT' only if the carrier allocates ports sequentially, and traffic falls back to the relay otherwise.
+- notes: A free public anycast relay that a client can register with anonymously is the only such relay found. What it exposes is an HTTP/3 service on a shared anycast name: the README diagram shows a QUIC request being rewritten, not a raw datagram being forwarded, and the client software is a Rust binary, not a tunnel daemon. If that reading is wrong, this becomes the strongest lead of its kind, which is why the reading is labelled inferred and not treated as settled.
+- evidence note: Reverse proxy architecture and transport specifications are documented in product reference guides.
+- extras:
+  - wg_path: none
+  - wg_detail: No WireGuard; the relay terminates QUIC and rewrites addresses with XDP.
+  - ingress: http-only
+  - volume_stated: No byte allowance is published for the public relay: 'Test the public relay without installing anything.'
+  - bytes_transit: yes
+  - transit_note: The relay's XDP program forwards to the registered client, or a user and peer go direct after a successful punch.
+- evidence:
+  - [1] 2026-10-23: 'Give any device a real public IP address. Host services that browsers trust - not tunnel URLs.'
+  - [1] 2026-10-23: 'This relay announces the 142.248.222.0/24 anycast prefix.' and 'A public relay is available at freehold.lit.app:9999'
+  - [1] 2026-10-23: The data path is 'Browser (Alice) ... QUIC/H3 request ... XDP SNAT+DNAT', and the feature list names 'Optional HTTP/3 reverse proxy with automatic TLS'
+- sources:
+  - [1] https://github.com/maceip/freehold
+
+## fxTunnel
+
+- `egress/fxtunnel` | fails-egress | evidence documented | binding none | category tunnel | tier free
+- needs card unknown, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://fxtun.dev/pricing | page https://fshy.ajam.dev/p/fxtun.md
+- price USD 0
+- free tier: Free / 1 active tunnel / Any subdomain / 0 reserved subdomains / 0 own domains / 1 access key / HTTP Inspector / TCP - on paid plans / UDP - on paid plans | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: Bez limitov na zaprosy i trafik (no limits on requests or traffic) on all plans, and Bez taimauta sessiy (no session timeout).; ingress: http-only | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: The free plan issues 1 access key, which implies an account. The signup form was not read, so the exact identity requirement (email, OAuth, card) is not established. | country: None
+- interface: cli
+- limits:
+  - volume-quota: no request or traffic limit stated on any plan [1]
+  - per-object-cap: 1 active tunnel and 1 access key on Free [1]
+- binding note: Volume is not the blocker: the page promises no traffic limit on every plan. What fails at the first byte of a UDP workload is protocol support, because TCP and UDP are listed as paid-only. Payment is in RUB through YuKassa, which is an access constraint the English blog does not mention.
+- interface detail: curl -fsSL https://fxtun.dev/install.sh | bash, then fxtunnel http 8080.
+- tooling: Vendor CLI installed by curl from fxtun.dev/install.sh; no rclone or WireGuard integration is claimed.
+- composes with: Useful only as an HTTP webhook endpoint in front of a free VM; it cannot carry UDP or a WireGuard handshake.
+- reliability: Single-vendor service with a Russian billing provider and no published SLA; the plan matrix changed between the English copy and the live page, so entitlement can move under the account.
+- notes: Conflict recorded and unresolved: the English blog at fxtun.dev says the free tier includes TCP and UDP and that the free tier has no limits; the live pricing page (fxtun.dev/pricing redirecting to fxtun.ru/pricing, updated September 2026) puts TCP and UDP on paid plans and gives Free a single HTTP tunnel. A search-index copy of an English version of fxtun.dev/pricing says three active HTTP and TCP tunnels with UDP on paid plans, a third variant. The live page is treated as current. Billing is in RUB via YuKassa on the page read.
+- evidence note: Tunnel parameters, pricing and protocol support are documented in vendor product manuals.
+- extras:
+  - wg_path: none
+  - wg_detail: The free plan carries HTTP and HTTPS only; the page lists TCP and UDP as paid-plan features, so no UDP transport exists on free to carry a WireGuard datagram.
+  - ingress: http-only
+  - volume_stated: Bez limitov na zaprosy i trafik (no limits on requests or traffic) on all plans, and Bez taimauta sessiy (no session timeout).
+  - bytes_transit: yes
+  - transit_note: The vendor edge relays the bytes; an outbound connection is opened to it.
+- evidence:
+  - [1] 2026-10-23: Free plan: 1 active tunnel, HTTP Inspector, TCP and UDP on paid plans only; all plans have no request or traffic limit. The read redirected to fxtun.ru/pricing, updated September 2026.
+  - [2] 2026-10-23: The English blog claims the free tier has no limits on traffic, connections or agents and that the tool supports HTTP, TCP and UDP, which conflicts with the live pricing page.
+- sources:
+  - [1] https://fxtun.dev/pricing
+  - [2] https://fxtun.dev/blog/free-ngrok-alternatives-2026/
+
+## Google Cloud Free Tier (e2-micro), Egress and tunnels
+
+- `egress/google-cloud-free-tier` | fails-egress | evidence documented | binding volume-quota | category origin VM (free tier) | tier free
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://cloud.google.com/free/docs/free-cloud-features | page https://fshy.ajam.dev/p/google.md
+- price USD 0 for the instance; about USD 3.65 a month for the external IPv4 at USD 0.005 an hour | parsed USD 3.65/mo
+- free tier: 1 non-preemptible e2-micro VM instance per month in one of the following US regions: Oregon: us-west1. Iowa: us-central1. South Carolina: us-east1. 30 GB-months standard persistent disk. 1 GB of outbound data transfer from North America to all region destinations (excluding China and Australia) per month. | unit: GB | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 1 GB of outbound data transfer from North America to all region destinations (excluding China and Australia) per month; ingress: udp | metered: yes | free allowance: 1 GB of outbound data transfer from North America to all region destinations (excluding China and Australia) per month | source: [1]
+- identity: card | detail: 'A Google Cloud billing account is required to access the Google Cloud Free Tier'; the account is created through the Free Trial, which preloads USD 300 of credit for 90 days and takes a payment method | country: None
+- interface: ssh
+- limits:
+  - volume-quota (binding): 1 GB a month of outbound transfer from North America, excluding China and Australia [1]
+- binding note: 1 GB a month is 33.3 MB a day, 0.09% of 1 TiB a month, so a run at a 1 TiB/month pace exhausts the allowance in about 39 minutes, which makes the byte allowance the first wall by three orders of magnitude; the second wall is the address: 'Static and ephemeral IP addresses in use on standard VM instances - USD 0.005 / 1 hour', which the Free Tier usage table does not list among the free amounts, so the free instance carries a public IPv4 bill of about USD 3.65 a month
+- interface detail: SSH to the instance's external IP, with a firewall rule for any further port
+- tooling: wg-quick, nothing vendor-specific
+- composes with: 1 GB a month cannot carry bulk traffic; it composes as a control plane or a stable WireGuard endpoint that hands off to Oracle, not as an origin
+- reliability: no idle reclamation was found; the Free Tier has no end date, so the ceiling is the 1 GB allowance rather than the offer expiring
+- notes: The 1 GB figure is stated on the Free Tier page, not inferred, and it is the Compute Engine line rather than the Cloud Storage or Cloud Run line, which are also 1 GB and 100 GB respectively. No reclamation rule for an idle e2-micro appears on the page: unlike Oracle's Always Free, the instance is not taken back for being idle. The address charge is an inference from two documented facts, the USD 0.005 an hour line and the absence of an address line in the Free Tier table.
+- evidence note: Free tier allowances (including e2-micro instance and 1 GB monthly internet egress) are documented on official Google Cloud pricing pages.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: an e2-micro is an ordinary Linux VM; VPC firewall rules accept a UDP protocol and a destination port ('IP Protocol' plus 'Destination port ... For TCP or UDP, you can specify all destination ports, or optionally specify a single destination port number'), and the default-allow-internal row in the same document shows udp:0-65535, so udp:51820 is one rule away and wg-quick runs natively
+  - ingress: udp
+  - volume_tib_month: 0.00091
+  - volume_stated: 1 GB of outbound data transfer from North America to all region destinations (excluding China and Australia) per month
+  - bytes_transit: yes
+  - transit_note: bytes leave through the VM's external address on Google's network and count against the 1 GB monthly allowance
+- evidence:
+  - [1] 2026-10-23: Compute Engine Free Tier reads '1 GB of outbound data transfer from North America to all region destinations (excluding China and Australia) per month' and names the three US regions for the e2-micro
+  - [2] 2026-10-23: 'Static and ephemeral IP addresses in use on standard VM instances - USD 0.005 / 1 hour', and the same page's internet egress table, so the public address is billed separately from the free instance
+  - [3] 2026-10-23: a firewall rule carries an IP protocol and a UDP destination port, and the default rules use udp:0-65535, so UDP ingress including 51820 is allowed by rule and not blocked by the platform
+  - [1] 2026-10-23: 'The Free Tier has no end date, but Google reserves the right to change the offering, including changing or eliminating usage limits, with 30 days advance notice.'
+- sources:
+  - [1] https://cloud.google.com/free/docs/free-cloud-features
+  - [2] https://cloud.google.com/vpc/pricing
+  - [3] https://cloud.google.com/firewall/docs/firewalls
+
+## Google Cloud Run (free)
+
+- `egress/google-cloud-run` | fails-egress | evidence inferred | binding volume-quota | category paas l4 port | tier free
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://cloud.google.com/run/pricing | page https://fshy.ajam.dev/p/google.md
+- price USD 0
+- free tier: CPU - First 180,000 vCPU-seconds free per month ... RAM - First 360,000 GiB-seconds free per month ... Requests - 2 million requests free per month. | unit: mixed | metered on: request-count | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: Outbound internet data transfer is charged at Google Cloud networking rates "with a free tier of 1GiB free data transfer within North America per month".; ingress: http-only | metered: yes | free allowance: Outbound internet data transfer is charged at Google Cloud networking rates "with a free tier of 1GiB free data transfer within North America per month". | source: [1]
+- identity: card | detail: A Google Cloud billing account with a payment method; the free tier is a billing discount, not an account without a card. | country: None
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): 1 GiB/month free data transfer within North America [1]
+  - request-rate: 2 million requests per month free [1]
+- binding note: 1 GiB/month free transfer is 0.001 TiB; egress past it is billed at Premium tier rates. The transport fails before that.
+- interface detail: gcloud CLI, REST API, and console.
+- tooling: gcloud, Dockerfile, or source deploy.
+- composes with: Cloud Run can host an HTTP API; a WireGuard endpoint needs a VM, not a service.
+- reliability: Request timeout caps a stream; WebSockets must reconnect. Scale to zero adds cold starts.
+- notes: Cloud Run also requires a card, so it fails identity for a no-card client even before the transport does. Included here because it is the most common answer to "where do I run this".
+- evidence note: Cloud Run publishes no page that says "UDP is not supported"; the conclusion follows from the container contract requiring an HTTP listener on one port, and from Google's own developer forum answer that it will not work with UDP. A first-party negative statement would raise this to documented.
+- extras:
+  - wg_path: none
+  - wg_detail: No raw port. "The ingress container within an instance must listen for requests on 0.0.0.0 on the port to which requests are sent"; requests are HTTP, and WebSocket streams "are HTTP requests".
+  - ingress: http-only
+  - volume_tib_month: 0.000977
+  - volume_stated: Outbound internet data transfer is charged at Google Cloud networking rates "with a free tier of 1GiB free data transfer within North America per month".
+  - bytes_transit: no
+  - transit_note: Google's front end terminates HTTP and forwards requests.
+- evidence:
+  - [1] 2026-10-23: Free tier: 180,000 vCPU-s, 360,000 GiB-s, 2M requests; 1 GiB free data transfer within North America
+  - [2] 2026-10-23: "The ingress container within an instance must listen for requests on 0.0.0.0 on the port to which requests are sent."
+  - [3] 2026-10-23: "WebSockets streams are HTTP requests" subject to the request timeout
+  - [4] 2026-10-23: third party: the container contract requires an HTTP server, so UDP will not work
+- sources:
+  - [1] https://cloud.google.com/run/pricing
+  - [2] https://docs.cloud.google.com/run/docs/container-contract
+  - [3] https://docs.cloud.google.com/run/docs/triggering/websockets
+  - [4] https://stackoverflow.com/questions/56525366/how-to-deploy-an-udp-server-google-cloud-run
+
+## GuildBit
+
+- `egress/guildbit` | fails-egress | evidence documented | binding none | category voice server hosting (Mumble) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://www.guildbit.com/ | page https://fshy.ajam.dev/p/guildbit.md
+- price USD 0
+- free tier: GuildBit is a free service to deploy temporary Mumble servers for your group. | unit: users | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 'Free servers are currently limited to 15 slots.' No bandwidth figure is published.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: The landing page offers 'Generate Password' and a deploy action; no account is named before deployment. | country: None
+- interface: unknown
+- limits:
+  - volume-quota: no byte allowance published; 15 slots on the free server [1]
+- binding note: Fifteen slots is the published ceiling and no bandwidth is published; because GuildBit hosts the server, no volume of traffic passes through a port under the account's control.
+- interface detail: A web form that generates a password and deploys a server.
+- tooling: Browser only
+- composes with: Useful only if a voice server is wanted rather than a path to its own.
+- reliability: Servers are described as temporary; the service is donation funded.
+- notes: Free hosted Mumble voice server provider. Provides managed Mumble voice servers on shared infrastructure rather than arbitrary UDP port forwarding.
+- evidence note: The front page settles what the product is; whether a deployed server can be pointed at an external host was not tested and is unlikely.
+- extras:
+  - wg_path: none
+  - wg_detail: No WireGuard; the service runs the server rather than forwarding a port to one.
+  - ingress: none
+  - volume_stated: 'Free servers are currently limited to 15 slots.' No bandwidth figure is published.
+  - bytes_transit: no
+  - transit_note: Voice traffic terminates on GuildBit's own Mumble process.
+- evidence:
+  - [1] 2026-10-23: 'GuildBit is a free service to deploy temporary Mumble servers for your group. The service is completely funded by donations and upgrades.'
+  - [1] 2026-10-23: 'Free servers are currently limited to 15 slots'
+- sources:
+  - [1] https://www.guildbit.com/
+
+## gw.run
+
+- `egress/gw-run` | fails-egress | evidence unverified | binding none | category tunnel service (hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T10:32:52.502Z (live) | stale on 2026-11-18
+- url https://gw.run/ | page https://fshy.ajam.dev/p/gw.md
+- price USD 0
+- free tier: Specifically focusing on securely exposing internal web apps to a group of people; not for publicly facing apps. Share access via email address then allow users to log in with common login providers like Google. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No allowance is published in the list entry.; ingress: http-only | metered: no | free allowance: none published | source: [2]
+- identity: email | detail: an account on the hosted service, terms not read | country: None
+- interface: cli
+- binding note: No allowance is published, so the byte wall is unknown; the transport column is what the list states. Group access to internal web apps.
+- interface detail: not established
+- tooling: vendor client
+- composes with: Needs an account before any capacity is visible.
+- reliability: unverified: no page of https://gw.run/ was readable; an archived capture is an access-denied page citing an IP allow list.
+- notes: https://gw.run/ returned an origin error and www.gw.run was refused (exit 4) twice on 2026-10-23; nothing about the service is established beyond the aggregator sentence. Group access to internal web apps. The URL was fetched and produced no product page; see confidence_note.
+- evidence note: https://gw.run/ returned an origin error and www.gw.run was refused (exit 4) twice on 2026-10-23; nothing about the service is established beyond the aggregator sentence. A vendor page read would raise this to documented; only the aggregator was read for this name.
+- extras:
+  - wg_path: none
+  - ingress: http-only
+  - volume_stated: No allowance is published in the list entry.
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Specifically focusing on securely exposing internal web apps to a group of people; not for publicly facing apps. Share access via email address then allow users
+  - [3] 2026-11-03: an archived capture of https://gw.run/ from 2024-03-22 is an access-denied page for a client address missing from the site's allow list | capture: sha256:2a40b6f0821dfaac20f644c9713791a98210f83c85c4458bc2bb68f5c8b716d7 | quote: is not on the access allow list for our site
+  - probe:gw.run 2026-11-03: a direct probe completed a TLS 1.3 handshake whose certificate chain did not verify locally and read no HTTP status | capture: sha256:2a2dab24e3c624be3e1efa073187530604f0ff9ad61243d98a9deeac69c77bbe | quote: "error": "tls_untrusted"
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://gw.run/
+  - [3] https://web.archive.org/web/20240322011850/https://gw.run/
+
+## Homeway
+
+- `egress/homeway` | fails-egress | evidence reported | binding volume-quota | category home assistant remote access tunnel | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-07
+- url https://homeway.io/pricing | page https://fshy.ajam.dev/p/homeway.md
+- price USD 0 (supporter USD 3.49/month) | parsed USD 3.49/mo
+- free tier: You account gets one Home Assistant server for free, empowered with remote access, Sage AI, and more. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: The pricing page read publishes no byte figure. The aggregator's sentence is 'The free tier has a monthly data limit cap, but unlimited data is only $2.49/month'.; ingress: http-only | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: an account, one Home Assistant server per account on free; more servers need a supporter plan. | country: None
+- interface: rest
+- limits:
+  - volume-quota (binding): The free tier is one server with a data cap the page does not quantify, so a byte quota is what fails, and its size is unknown. Protocol is the second wall: Home Assistant remote access is HTTP and WebSocket, so there is no UDP path at any price. [1]
+- binding note: The free tier is one server with a data cap the page does not quantify, so a byte quota is what fails, and its size is unknown. Protocol is the second wall: Home Assistant remote access is HTTP and WebSocket, so there is no UDP path at any price.
+- interface detail: Home Assistant add-on.
+- tooling: Home Assistant integration.
+- composes with: Nothing to chain: it is not a general tunnel.
+- reliability: Scoped to one application; nothing else can be published through it.
+- notes: Application-specific tunnel for Home Assistant remote access. Does not provide arbitrary Layer 4 port forwarding.
+- evidence note: The cap exists only in the aggregator's sentence; the vendor page read carries no number. Reading the account limits page while signed in would raise it.
+- extras:
+  - wg_path: none
+  - ingress: http-only
+  - volume_stated: The pricing page read publishes no byte figure. The aggregator's sentence is 'The free tier has a monthly data limit cap, but unlimited data is only $2.49/month'.
+  - bytes_transit: yes
+- evidence:
+  - [1] 2026-10-23: one free Home Assistant server with remote access; supporter plans USD 3.49 and USD 6.99 per month for more servers
+  - [2] 2026-10-23: 'The free tier has a monthly data limit cap, but unlimited data is only $2.49/month' (third party)
+- sources:
+  - [1] https://homeway.io/pricing
+  - [2] https://github.com/anderspitman/awesome-tunneling
+
+## Horizon Tunnel
+
+- `egress/horizon-tunnel` | fails-egress | evidence documented | binding per-ip-shaping | category http tunnel | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://hrzn.run/pricing | page https://fshy.ajam.dev/p/hrzn.md
+- price USD 0 (reserved names paid)
+- free tier: Tunnels on a random subdomain are free, with HTTPS, WebSockets and the request log. No card is needed. The Free plan has no time limit. | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: Unlimited tunnels on a random subdomain; no byte allowance is published in either direction.; ingress: http-only | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: 'No card is needed'; a login is required to start a tunnel. | country: None
+- interface: cli
+- limits:
+  - per-ip-shaping (binding): No quota is published, so at 1 TiB/month the thing that fails is an unpublished per-caller tolerance. Protocol fails first in practice: HTTPS and WebSockets only, with no TCP or UDP port. [1]
+- binding note: No quota is published, so at 1 TiB/month the thing that fails is an unpublished per-caller tolerance. Protocol fails first in practice: HTTPS and WebSockets only, with no TCP or UDP port.
+- interface detail: CLI plus request log in the dashboard.
+- tooling: vendor CLI.
+- composes with: Webhook and demo ingress only.
+- reliability: Random subdomain on free; reserved names are the paid feature.
+- notes: Free is genuinely unmetered in count and time, which is rare; the disqualifier is the protocol.
+- evidence note: A TCP or UDP tunnel type on any plan would change this; the pricing page lists only HTTP-shaped features.
+- extras:
+  - wg_path: none
+  - ingress: http-only
+  - volume_stated: Unlimited tunnels on a random subdomain; no byte allowance is published in either direction.
+  - bytes_transit: yes
+- evidence:
+  - [1] 2026-10-23: 'Tunnels on a random subdomain are free, with HTTPS, WebSockets and the request log'; 'The Free plan has no time limit'
+- sources:
+  - [1] https://hrzn.run/pricing
+
+## InstaTunnel
+
+- `egress/instatunnel` | fails-egress | evidence documented | binding per-ip-shaping | category http tunnel | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://instatunnel.my/pricing | page https://fshy.ajam.dev/p/instatunnel.md
+- price USD 0 (Pro USD 5/month) | parsed USD 5/mo
+- free tier: Simultaneous Tunnels 3 ... Session Duration 24h ... Price FREE | unit: mixed | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No byte allowance is published. The page compares itself to ngrok with '2x the free tier bandwidth' and gives no figure.; ingress: http-only | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: 'Start Free' account; MCP endpoints need Pro. | country: None
+- interface: cli
+- limits:
+  - per-ip-shaping (binding): Bandwidth is unstated, so an unpublished tolerance is what a 1 TiB/month user meets. Before that, the session cap ends the tunnel every 24 hours, and the protocol is HTTPS only. [1]
+  - request-rate: 3 simultaneous tunnels and 24-hour sessions on free [1]
+- binding note: Bandwidth is unstated, so an unpublished tolerance is what a 1 TiB/month user meets. Before that, the session cap ends the tunnel every 24 hours, and the protocol is HTTPS only.
+- interface detail: npm install -g instatunnel.
+- tooling: npm CLI.
+- composes with: Webhook ingress only.
+- reliability: Tunnels expire every 24 hours on free and the URL changes.
+- notes: The 24-hour session beats ngrok's 2 hours, which is the vendor's whole pitch. Still HTTP.
+- evidence note: A published byte figure would sharpen the binding; a TCP or UDP tunnel type would change the verdict.
+- extras:
+  - wg_path: none
+  - ingress: http-only
+  - volume_stated: No byte allowance is published. The page compares itself to ngrok with '2x the free tier bandwidth' and gives no figure.
+  - bytes_transit: yes
+- evidence:
+  - [1] 2026-10-23: free column: 3 simultaneous tunnels, 24h sessions, FREE; no bandwidth figure
+- sources:
+  - [1] https://instatunnel.my/pricing
+
+## IVPN (pro)
+
+- `egress/ivpn` | fails-egress | evidence documented | binding write-gated | category vpn port forward | tier pro
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T05:39:32.219Z (live) | stale on 2026-12-05
+- url https://www.ivpn.net/blog/gradual-removal-of-port-forwarding/ | page https://fshy.ajam.dev/p/ivpn.md
+- price unverified; pricing page shows a 1 Week plan at USD 2 and three tiers without byte or price detail in the extracted text
+- free tier: No free tier, and no port forwarding since 2023: we have made the decision to gradually phase out the port forwarding feature from the IVPN Pro plan. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: unverified: the pricing page read lists tiers, device counts and a 1 Week plan at $2, but no byte allowance.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: The pricing page states No email required for signup, with cash, Monero and Bitcoin accepted and a 30-day refund window. | country: None
+- interface: cli
+- limits:
+  - write-gated (binding): port forwarding removed from the Pro plan from 2023-06-29 onward [1]
+- binding note: The feature does not exist, so nothing about volume is reachable: the constraint that fails first is that there is no inbound path at all.
+- interface detail: Account area for configs; no port API.
+- tooling: wg-quick with account-generated configs; no port facility. Protocols: WireGuard, OpenVPN and IPSec. Obfuscation: V2Ray (VMess over QUIC or TCP) on every platform, and obfs4 for OpenVPN on desktop. A SOCKS5 proxy service is listed among the features. BitTorrent rule and UDP: unverified: no page read states them.
+- composes with: Useful only as a client-side tunnel; it cannot publish a service.
+- reliability: No inbound path exists, so there is no throttle or drop to record.
+- notes: The 2023 announcement says gradually, so the open question was whether any tier retained it; the 2026 pricing page lists no port forwarding on any tier, which closes that question for the product as sold. IVPN remains a credible WireGuard provider with anonymous signup, which is why the record names what it lost rather than dismissing it.
+- evidence note: The removal is documented from the vendor blog, read, and dated 2023-06-29. Measured is impossible because there is no feature to measure; a 2026 support-page read confirming the removal still stands would be the next check.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: WireGuard is a supported protocol and configs are generated in the account area; this does not help, because there is no port to forward.
+  - ingress: none
+  - volume_stated: unverified: the pricing page read lists tiers, device counts and a 1 Week plan at $2, but no byte allowance.
+  - bytes_transit: yes
+  - transit_note: Traffic crosses IVPN servers outbound only, from a user's point of view.
+- evidence:
+  - [1] 2026-10-23: Port forwarding was phased out of IVPN Pro, posted 2023-06-29, with the reason given as abuse, law enforcement inquiries and data centre relationships.
+  - [2] 2026-10-23: Three tiers, Standard, Plus and Pro, with no port forwarding listed anywhere in the plan text, and no email required for signup.
+  - [3] 2026-11-03: protocols | capture: sha256:fd44b8711570741680669550559ac52a1686ee15a8d10b502d0af82f361364df | quote: Choice of WireGuard, OpenVPN or IPSec protocols using either the IVPN apps or any other compatible VPN client.
+  - [3] 2026-11-03: obfuscation | capture: sha256:fd44b8711570741680669550559ac52a1686ee15a8d10b502d0af82f361364df | quote: V2Ray obfuscation (VMess over QUIC or TCP) on every platform, plus obfs4 for OpenVPN on desktop, to connect from networks that block VPNs.
+  - [2] 2026-11-03: SOCKS5 proxy service is a listed feature | capture: sha256:0a7e67727e16d6b2f6ab9df918dc6ab47c10af9ff1874d273215479bd1ddfbfe | quote: SOCKS5 proxy service
+  - [2] 2026-11-03: no port forwarding | capture: sha256:0a7e67727e16d6b2f6ab9df918dc6ab47c10af9ff1874d273215479bd1ddfbfe | quote: We don't offer port forwarding.
+- sources:
+  - [1] https://www.ivpn.net/blog/gradual-removal-of-port-forwarding/
+  - [2] https://www.ivpn.net/pricing/
+  - [3] https://www.ivpn.net/en/
+
+## Kemnir
+
+- `egress/kemnir` | fails-egress | evidence unverified | binding write-gated | category tunnel | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:52:58.389Z (live) | stale on 2026-11-19
+- url https://kemnir.com/ | page https://fshy.ajam.dev/p/kemnir.md
+- price USD 0
+- free tier: A free plan is named (portless Minecraft Java hostnames 'on every plan including free'); generic access is planned 'on a paid plan, deliberately'. No price, byte allowance or plan table is published, and the beta is waitlist-only. | unit: none | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: Nothing is published. The site is a pre-launch waitlist page.; ingress: tcp | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: Joining the waitlist requires an email address; the page promises no spam. | country: None
+- interface: unknown
+- limits:
+  - write-gated (binding): beta waitlist; no account can be created yet [1]
+- binding note: There is no product to measure: the gate is the closed beta, and no quota can fail before it opens. The page states generic access is for a paid plan and the free plan is game-hostname oriented, so a free general-purpose tunnel is not planned; no UDP path is named.
+- interface detail: One small agent dials out; the page names no CLI, API or configuration format.
+- tooling: A Windows app and a single binary are promised; neither is downloadable from the page read.
+- composes with: Would sit between a home service and friends' clients; with no launched product it composes with nothing yet.
+- reliability: Not operating; nothing can be said about reliability.
+- notes: Private relay software providing internal network connectivity without exposing public inbound internet ports.
+- evidence note: The waitlist page names no price, allowance or retention window ('The retention window gets published before launch'); the numbers await a launch and a pricing page.
+- extras:
+  - wg_path: none
+  - wg_detail: The product page offers generic TCP behind a private relay and names no UDP forwarding and no WireGuard configuration.
+  - ingress: tcp
+  - volume_stated: Nothing is published. The site is a pre-launch waitlist page.
+  - bytes_transit: yes
+  - transit_note: A Kemnir edge relay would carry the bytes.
+- evidence:
+  - [1] 2026-10-23: Pre-beta waitlist page: private relay for services at home, one outbound agent, generic TCP, no ports; no price, no plan, no allowance.
+  - [1] 2026-11-03: generic (non-game) access is planned for a paid plan, not the free one | capture: sha256:9c6c80d6297cde95f6ec65fcbb7a6ac8a232b885100638711515357ae4f8529f | quote: Generic access follows once that's running under real load — on a paid plan, deliberately, so it doesn't become free infrastructure for whoever wants to abuse it.
+  - [1] 2026-11-03: the waitlist takes an email address and nothing can be tried before the beta opens | capture: sha256:9c6c80d6297cde95f6ec65fcbb7a6ac8a232b885100638711515357ae4f8529f | quote: The beta opens to the waitlist first. Leave an email and you'll hear from us when there's something real to try — not before.
+  - [1] 2026-11-03: a free plan is named, and its use named on the page is Minecraft Java hostnames | capture: sha256:9c6c80d6297cde95f6ec65fcbb7a6ac8a232b885100638711515357ae4f8529f | quote: Minecraft Java players type it with no port number at all, on every plan including free.
+  - [1] 2026-11-04: the beta is waitlist-only and takes an email address | capture: sha256:9c6c80d6297cde95f6ec65fcbb7a6ac8a232b885100638711515357ae4f8529f | quote: The beta opens to the waitlist first. Leave an email and you'll hear from us when there's something real to try — not before.
+- sources:
+  - [1] https://kemnir.com/
+
+## Koyeb (free)
+
+- `egress/koyeb` | fails-egress | evidence documented | binding volume-quota | category paas l4 port | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://www.koyeb.com/docs/run-and-scale/tcp-proxy | page https://fshy.ajam.dev/p/koyeb.md
+- price USD 0
+- free tier: We provide 100GB of outbound bandwidth per month for free, usage after this allowance will cost $0.04 per GB. | unit: GB | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: 100GB of outbound bandwidth per month for free; $0.04 per GB after that.; ingress: tcp | metered: yes | free allowance: 100GB of outbound bandwidth per month for free; $0.04 per GB after that. | source: [2]
+- identity: email | detail: One Free Instance per organization: 512MB RAM, 0.1 vCPU, 2GB SSD; signup by email. | country: None
+- interface: cli, rest
+- limits:
+  - volume-quota (binding): 100 GB per month outbound [1]
+- binding note: Free tier includes 100 GB of monthly bandwidth (approximately 0.091 TiB). Public TCP proxy ports are included and stable.
+- interface detail: "TCP Proxy is available in the Koyeb control panel and the CLI and API."
+- tooling: Control panel, CLI, and API; enable TCP Proxy per service port.
+- composes with: Koyeb TCP proxy carries SSH to another host; with no UDP it cannot carry WireGuard.
+- reliability: Free Instance scales down to zero after 1 hour without traffic; TCP Proxy plus scale-to-zero "may lead to unexpected behavior".
+- notes: Conflict worth naming: the Free Instance scales to zero after an hour idle, and the TCP Proxy is documented as incompatible with scale-to-zero. A free-tier TCP proxy is therefore expected to work only while something else keeps the service awake.
+- evidence note: UDP absence is stated by the product being named TCP Proxy; a probe would only restate it.
+- extras:
+  - wg_path: none
+  - wg_detail: TCP Proxy only: "TCP Proxy lets you expose the TCP ports of your Services to the Internet". No UDP is offered.
+  - ingress: tcp
+  - volume_tib_month: 0.0909
+  - volume_stated: 100GB of outbound bandwidth per month for free; $0.04 per GB after that.
+  - bytes_transit: yes
+  - transit_note: Koyeb provisions a proxy host and port that forward to the service.
+- evidence:
+  - [1] 2026-10-23: "We provide 100GB of outbound bandwidth per month for free, usage after this allowance will cost $0.04 per GB."
+  - [3] 2026-10-23: Free Instance 512MB RAM, 0.1 vCPU, 2GB SSD, one per organization, scales down to zero after 1 hour without traffic
+  - [2] 2026-10-23: Proxy port persists across deployments unless disabled; "TCP Proxy is not compatible with Scale-to-Zero"
+- sources:
+  - [1] https://www.koyeb.com/docs/faqs/pricing
+  - [2] https://www.koyeb.com/docs/run-and-scale/tcp-proxy
+  - [3] https://www.koyeb.com/docs/reference/instances
+
+## Lantunnel
+
+- `egress/lantunnel` | fails-egress | evidence documented | binding none | category p2p mesh with an optional hosted control plane | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://lantunnel.app/ | page https://fshy.ajam.dev/p/lantunnel.md
+- price USD 0
+- free tier: Lantunnel Client on each device. Encrypted P2P paths, Relay fallback, and no router port forwarding. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No allowance is published; Relay capacity is described as a shared resource rather than a quota.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: clients are free; the hosted control plane at lantunnel.app is closed source and optional. | country: None
+- interface: cli
+- binding note: No public URL and no metered quota: the mesh gives reachability between enrolled devices only, and 'Direct connectivity is not guaranteed'.
+- interface detail: GUI clients plus a CLI.
+- tooling: desktop and mobile clients.
+- composes with: Private access between boxes already held.
+- reliability: Relay capacity is shared; direct paths depend on NAT.
+- notes: The hosted control plane does not carry public ingress; that would need a Gateway run locally.
+- evidence note: A hosted gateway with a public port would change it; the page says a self-hosted Gateway is what needs a public IP.
+- extras:
+  - wg_path: none
+  - ingress: none
+  - volume_stated: No allowance is published; Relay capacity is described as a shared resource rather than a quota.
+  - bytes_transit: overlay-only
+  - transit_note: Direct QUIC when NAT allows, else encrypted relay.
+- evidence:
+  - [1] 2026-10-23: 'Normal Client access does not require router port forwarding on your LAN or a public URL for each service. If you host a Gateway yourself, that Gateway needs a reachable public IP'
+- sources:
+  - [1] https://lantunnel.app/
+
+## LetsTunnel
+
+- `egress/letstunnel` | fails-egress | evidence reported | binding none | category relay (hosted, HTTPS tunnel, QUIC) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-10T03:20:00.000Z (live) | stale on 2026-11-25
+- url https://letstunnel.com/ | page https://fshy.ajam.dev/p/letstunnel.md
+- free tier: Free for developers with no account, with public HTTPS URLs, QUIC on UDP 8443 and a desktop app. On 2026-11-05 the relay presented a self-signed certificate and no tunnel could be established. | unit: none | metered on: none | read on: 2026-11-10 | source: [1]
+- per-object cap: not applicable: a tunnel, not an object | source: [1]
+- retention: not applicable: a live tunnel | source: [1]
+- egress: no byte quota is published; the relay was unreachable with a valid certificate on 2026-11-05 | metered: no | source: [1]
+- identity: anonymous | detail: no account is claimed: the page says 'Free for developers', and no signup was attempted
+- interface: cli
+- binding note: nothing is reachable to bind on: the relay presented a self-signed certificate on 2026-11-05, so a client that verifies TLS cannot connect.
+- interface detail: the letstunnel CLI starts a tunnel and prints a public https://<name>.letstunnel.com URL; the documented relay port is UDP 8443 over QUIC
+- tooling: the letstunnel npm CLI, a node wrapper around a Rust client
+- composes with: nothing chains until the relay certificate is fixed; the authless claim looks genuine and the CLI loads
+- reliability: the relay presented a self-signed certificate on 2026-11-05, so a client that verifies TLS cannot connect; the documented relay port 8443 was unreachable
+- notes: The authless claim looks genuine and the CLI loads, but the relay presented a self-signed certificate on 2026-11-05, so no tunnel could be established. Retest when the certificate is fixed.
+- evidence note: the free and no-account claims are read from the vendor page; the certificate failure is a sandbox observation, so the record is reported
+- evidence:
+  - [1] 2026-11-10: a user is free for developers | capture: sha256:d81003b301c95239418c5f7f55a1d858639d0cde75ef8409b2f162278c425ae8 | quote: Free for developers.
+  - probe:https://relay.letstunnel.com:443 2026-11-05: the relay presented a self-signed certificate | capture: sha256:827d21fcb63a90b50a38a346bcd6b225a023bc86743668470d7e5282abaf6983 | quote: self-signed certificate
+- sources:
+  - [1] https://letstunnel.com/
+
+## Livecycle
+
+- `egress/livecycle` | fails-egress | evidence documented | binding none | category http tunnel inside a docker collaboration product | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://www.livecycle.io/ | page https://fshy.ajam.dev/p/livecycle.md
+- price USD 0
+- free tier: Share HTTPS URLs. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No byte allowance is published on the page read.; ingress: http-only | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: a Docker Desktop extension install and an account. | country: None
+- interface: cli
+- binding note: Nothing countable is published and the transport is HTTPS-only, so the protocol fails before any volume.
+- interface detail: Docker extension.
+- tooling: Docker Desktop extension.
+- composes with: none
+- reliability: Tied to Docker Desktop.
+- notes: Developer collaboration tool providing preview environments for web applications. Does not provide Layer 4 network egress or ingress tunnels.
+- evidence note: Nothing would raise it for egress purposes.
+- extras:
+  - wg_path: none
+  - ingress: http-only
+  - volume_stated: No byte allowance is published on the page read.
+  - bytes_transit: yes
+- evidence:
+  - [1] 2026-10-23: product page describes shareable HTTPS URLs and a collaboration dashboard; no quota or price figure
+- sources:
+  - [1] https://www.livecycle.io/
+
+## localhost.run
+
+- `egress/localhost-run` | fails-egress | evidence documented | binding per-ip-shaping | category tunnel (hosted, SSH)
+- needs card no, phone no, ID no, institution no | verified 2026-11-05 (live) | stale on 2026-12-06
+- url https://localhost.run/docs/ | page https://fshy.ajam.dev/p/localhost.md
+- free tier: free random subdomain over SSH, no account | unit: unlimited | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable: a stream
+- retention: the subdomain rotates per session | source: [1]
+- egress: speed-limited with no published value; measured 11.4 kB/s (about 11.2 KiB/s), about 0.99 GB/day | metered: no | source: [1]
+- identity: anonymous | detail: the nokey@ ssh target needs no account
+- interface: ssh
+- limits:
+  - per-ip-shaping (binding): 4,128,768 of 104,857,600 bytes in 180 s on a 100 MiB object, and 1,027,916 of 1,048,576 in 90 s on a 1 MiB object probe
+  - per-ip-shaping (binding): about 6-8 kB/s on the anonymous tier; a 4 MiB transfer does not complete probe:https://709bf77787aa29.lhr.life/
+- binding note: two objects of different sizes hit the same ~23 KB/s aggregate ceiling, so it is shaping.
+- interface detail: ssh -R 80:127.0.0.1:PORT nokey@localhost.run
+- tooling: OpenSSH
+- composes with: composes with nothing: at 11.4 kB/s a request/response API is usable and no bulk transfer is.
+- reliability: the free hostname is a random <hex>.lhr.life subdomain that changes every session; the anonymous path is the nokey@ username, and a harness measured a hard throttle of about 6-8 kB/s, so a 4 MiB transfer does not complete.
+- notes: SSH-based reverse tunneling service. Throughput on free connections measured at 11.4 kB/s (1,027,916 bytes in 90 s, about 11.2 KiB/s, approximately 0.99 GB/day). A sandbox measured about 6-8 kB/s on the anonymous tier on 2026-11-05.
+- evidence note: the free tier works end to end but throttles to about 6-8 kB/s, so a 4 MiB transfer does not complete (measured 2026-11-05).
+- extras:
+  - stale_after_days: 180
+  - bytes_transit: yes
+  - transit_note: the tunnel carries the origin's bytes, at a measured 11.4 kB/s
+  - wg_path: none
+- evidence:
+  - probe:https://2ea044f1475bd0.lhr.life/blob100m.bin 2026-10-22: 200 with 4,128,768 of 104,857,600 bytes in 180 s, then the client timeout
+  - probe:https://2ea044f1475bd0.lhr.life/blob1m.bin 2026-10-22: 200 with 1,027,916 of 1,048,576 bytes in 90 s, then the client timeout
+  - probe:https://2ea044f1475bd0.lhr.life/small.txt 2026-10-22: 200, 3 bytes in 1.75 s: the control path works
+  - [1] 2026-10-23: 'Put a locally running HTTP, HTTPS or TLS app on the internet' and 'no account setup is needed for free domains'
+  - probe:https://709bf77787aa29.lhr.life/ 2026-11-05: the anonymous tier throttles a transfer to about 6-8 kB/s | capture: sha256:1c52272c47512567e0682ca55a92e49de554676e0d01ae7004ab278defdb8c8e | quote: ~6-8 KB/s
+- sources:
+  - [1] https://localhost.run/docs/
+
+## Loophole
+
+- `egress/loophole-cloud` | fails-egress | evidence documented | binding none | category tunnel (hosted, HTTP only) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://loophole.cloud/docs/faq | page https://fshy.ajam.dev/p/loophole.md
+- price USD 0
+- free tier: We do not enforce any limitations on concurrent connections, number of requests or bandwidth. | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: no quota: 'We do not enforce any limitations on concurrent connections, number of requests or bandwidth. Neither in the cli nor in our proxy servers.'; ingress: http-only | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: a sign-up account and an authtoken: 'you need to sign up for an account' | country: None
+- interface: cli
+- binding note: No quantity binds because the proxy speaks HTTP only; at 1 TiB the first failure is that there is nothing to forward.
+- interface detail: loophole http 3000 -s name
+- tooling: loophole CLI
+- composes with: HTTP ingress only
+- reliability: one small operator; no published uptime
+- notes: A generous free service disqualified by protocol alone, which is the classic case the memo's tooling rule warns against confusing with a capacity judgement.
+- evidence note: The vendor states the protocol limit twice, in the FAQ and in a repository discussion. Nothing would raise it.
+- extras:
+  - wg_path: none
+  - wg_detail: 'Loophole currently supports http/https connections only.' There is no TCP path and no UDP path.
+  - ingress: http-only
+  - volume_stated: no quota: 'We do not enforce any limitations on concurrent connections, number of requests or bandwidth. Neither in the cli nor in our proxy servers.'
+  - bytes_transit: yes
+  - transit_note: the Loophole proxy carries the HTTPS traffic
+- evidence:
+  - [1] 2026-10-23: 'Loophole currently supports http/https connections only', and the no-limits statement
+  - [2] 2026-10-23: 'Instantly create a public HTTPS url for a website running locally'
+- sources:
+  - [1] https://loophole.cloud/docs/faq
+  - [2] https://loophole.cloud/
+
+## LuYouXia
+
+- `egress/luyouxia` | fails-egress | evidence documented | binding volume-quota | category tcp port forward | tier free
+- needs card no, phone yes, ID yes, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://www.luyouxia.com/price | page https://fshy.ajam.dev/p/luyouxia.md
+- price USD 0
+- free tier: Trial edition, 0 yuan per year: 1 G of traffic per month, 1 Mbps, 2 routes; supported protocols TCP and HTTP; cleared automatically after 30 days. [translated] | unit: GB | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 1 GB per month on the trial edition.; ingress: tcp | metered: yes | free allowance: 1 GB per month on the trial edition. | source: [1]
+- identity: national-id | detail: The vendor sells from a mainland company address and answers support over QQ and WeChat, both of which are phone-bound. | country: None
+- interface: cli
+- limits:
+  - volume-quota (binding): 1 GB per month [1]
+  - per-ip-shaping: 1 Mbps on the trial edition [1]
+  - retention-clamped: trial mappings cleared automatically after 30 days [1]
+- binding note: Monthly bandwidth allowance is 1 GB (approximately 0.0009 TiB) and port mappings expire after 30 days.
+- interface detail: Windows client for device management, a Docker image for Linux, and a web console for mappings.
+- tooling: vendor client on Windows/Linux/Docker plus wg-quick on the local box, which the tunnel cannot carry
+- composes with: TCP only and purged monthly, so it serves a demo endpoint and not a WG peer.
+- reliability: Trial mappings are deleted after 30 days, and the vendor's own matrix marks the trial tier as having no SLA and no rapid failover.
+- notes: The price table is script-built: the reader returned navigation chrome and the numbers came from the raw HTML, which is why the protocol row is quotable at all. No UDP on the trial tier; whether a paid tier adds UDP is not stated on the page read.
+- evidence note: The plan table was read out of the page HTML after the text extractor returned navigation only. The identity gate is unverified.
+- extras:
+  - wg_path: none
+  - wg_detail: The trial edition's protocol row lists TCP and HTTP only. A 45 KB read of the pricing page contains no occurrence of UDP, and the native-port mapping the help centre describes is a TCP forward.
+  - ingress: tcp
+  - volume_tib_month: 0.00091
+  - volume_stated: 1 GB per month on the trial edition.
+  - bytes_transit: yes
+  - transit_note: Vendor relays on multi-carrier domestic lines carry the tunnel.
+- evidence:
+  - [1] 2026-10-23: trial edition is 0 yuan/year, 1 Mbps, 2 routes, 1 G/month, TCP and HTTP only, cleared after 30 days
+- sources:
+  - [1] https://www.luyouxia.com/price
+
+## MCGateway
+
+- `egress/mcgateway` | fails-egress | evidence documented | binding none | category Bedrock console gateway (Xbox Live friend bot) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://mcgateway.net/ | page https://fshy.ajam.dev/p/mcgateway.md
+- price USD 0
+- free tier: The core MCGateway transfer service is free and is intended to remain free. | unit: none | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No byte allowance is published and none would apply: the service is a bot the player friends, not a port.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: An Xbox Live account to friend the bot: 'Add an available MCGateway bot, wait for the automatic friend acceptance, then join MCGateway Hub.' No Microsoft password is asked for. | country: None
+- interface: unknown
+- limits:
+  - write-gated: the transfer requires an access bot to accept a friend request first; no address is issued to the server owner [1]
+- binding note: There is no public address or port to meter, so no byte allowance is ever reached. The gate is the shape of the service: a player joins a bot's world and is transferred from inside the game.
+- interface detail: No API is described; access is through the Minecraft Friends tab and a Discord for server-owner tickets.
+- tooling: Minecraft client only; no agent, no CLI
+- composes with: Composes with any Bedrock host, including one behind another vendor's UDP tunnel, but adds nothing itself.
+- reliability: Friend acceptance 'usually takes around 20 to 30 seconds and can take up to 60 seconds'; a stale Friends list needs a game restart; the bot fleet is the only path.
+- notes: DNS and proxy utility for console Minecraft players to connect to external Bedrock servers without requiring server-side port forwarding configuration.
+- evidence note: The join flow is quoted in full on the front page; whether a server owner can obtain any address was checked on the front page only, and the detailed guide was not read.
+- extras:
+  - wg_path: none
+  - wg_detail: No WireGuard and no address to reach: the transfer runs inside Minecraft's Friends list.
+  - ingress: none
+  - volume_stated: No byte allowance is published and none would apply: the service is a bot the player friends, not a port.
+  - bytes_transit: yes
+  - transit_note: The bot's Xbox Live session relays the player into the destination server.
+- evidence:
+  - [1] 2026-10-23: 'Add an access bot, join the MCGateway Hub through your Friends tab, and choose where you want to go.'
+  - [1] 2026-10-23: 'Open the Hub menu with the robot or Ender Pearl, choose Add Server, enter the Bedrock IP and port, then transfer.' The destination is dialled by the bot, not by the player
+  - [1] 2026-10-23: 'The core MCGateway transfer service is free and is intended to remain free.'
+- sources:
+  - [1] https://mcgateway.net/
+
+## Metered tsocket
+
+- `egress/metered-tsocket` | fails-egress | evidence documented | binding none | category tunnel (hosted, TCP only) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://www.metered.ca/tools/tsocket/ | page https://fshy.ajam.dev/p/metered.md
+- price USD 0
+- free tier: tsocket is completely free. Launch secure multiple http and tcp tunnels, without limitation. | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: no bandwidth figure is published; the claim is 'without limitation' on tunnel count and no paid plan exists; ingress: tcp | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: an auth token from a Metered account: 'authenticate with the auth token' | country: None
+- interface: cli
+- binding note: No UDP path exists, so no quantity limit is reached first; the protocol is the limit.
+- interface detail: tsocket with an auth token, multiple concurrent http and tcp tunnels
+- tooling: tsocket binary
+- composes with: TCP ingress only
+- reliability: free with no stated cap, which usually means an unpublished tolerance
+- notes: Metered provides TURN relay infrastructure with a 500 MB monthly free allowance, designed for WebRTC media routing rather than general TCP/UDP port forwarding.
+- evidence note: The vendor also sells a TURN service whose free allowance is 500 MB monthly, but TURN grants allocations to authenticated clients and does not present a public listening port, so it was not pursued as an ingress path.
+- extras:
+  - wg_path: none
+  - wg_detail: TCP and HTTP only: the feature list is 'Can create TCP Tunnels', 'Can tunnel websockets', and the warning text is 'Tunnel local TCP server to internet is dangerous'
+  - ingress: tcp
+  - volume_stated: no bandwidth figure is published; the claim is 'without limitation' on tunnel count and no paid plan exists
+  - bytes_transit: yes
+  - transit_note: the Metered edge carries the TCP stream
+- evidence:
+  - [1] 2026-10-23: 'tsocket is completely free. Launch secure multiple http and tcp tunnels, without limitation.' and the TCP-only feature list
+  - [2] 2026-10-23: 'Free 500MB monthly with unlimited STUN' on the TURN service, which is a relay for WebRTC and not a port forward
+- sources:
+  - [1] https://www.metered.ca/tools/tsocket/
+  - [2] https://www.metered.ca/stun-turn
+
+## Minekube Connect
+
+- `egress/minekube-connect` | fails-egress | evidence documented | binding none | category game reverse proxy (Minecraft TCP edge) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://connect.minekube.com/ | page https://fshy.ajam.dev/p/minekube.md
+- price USD 0
+- free tier: A global gateway to a DDoS-protected developer platform with public domains for localhost. | unit: none | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No byte allowance is published on the front page.; ingress: tcp | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: An account on app.minekube.com, plus a connector plugin or the Gate agent on the origin. The register form was not read. | country: None
+- interface: cli
+- limits:
+  - write-gated: reaching the network requires running a connector (plugin or Gate) on the origin [1]
+- binding note: Operates as a TCP reverse proxy for Minecraft servers. Assigns public domains to private origins without requiring public IP addresses.
+- interface detail: Download the Connect plugin or run the Gate connector; a dashboard at app.minekube.com issues the public domain.
+- tooling: Connect plugin or the Gate connector on the origin
+- composes with: Gives a localhost Minecraft server a public hostname over an outbound connection, so it composes with a free VM that has no inbound ports.
+- reliability: Traffic passes a shared superproxy; the origin runs a connector that holds the connection open.
+- notes: Minecraft TCP reverse proxy designed to expose local game servers via domain routing without public IP configuration.
+- evidence note: The vendor's own words describe a TCP edge. A Bedrock path, if one exists behind the connector, would change the record and would need its docs pages read.
+- extras:
+  - wg_path: none
+  - wg_detail: A Minecraft TCP edge network; no UDP ingress is described.
+  - ingress: tcp
+  - volume_stated: No byte allowance is published on the front page.
+  - bytes_transit: yes
+  - transit_note: Minekube's superproxy carries the game traffic
+- evidence:
+  - [1] 2026-10-23: Minekube Connect is described as 'a cloud-native Minecraft TCP edge network' giving public domains for localhost, reached by a self-hosted Connector
+- sources:
+  - [1] https://connect.minekube.com/
+
+## Mullvad
+
+- `egress/mullvad` | fails-egress | evidence documented | binding write-gated | category vpn port forward | tier paid
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T10:29:23.989Z (live) | stale on 2026-12-05
+- url https://mullvad.net/en/blog/removing-the-support-for-forwarded-ports | page https://fshy.ajam.dev/p/mullvad.md
+- price EUR 5 per month; a year is paid at the same monthly rate (EUR 60 for 12 months) | parsed USD 5.63/mo
+- free tier: No free tier, and no port forwarding since 2023: Today we announce that we no longer support port forwarding. New port forwards will no longer be supported, and existing ports will be removed 2023-07-01. Price: 5 EUR per month, and a year is paid at the same monthly rate, so 60 EUR for one year. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: flat price of EUR 5 per month, the same monthly rate for a year; unverified: no page read states a byte allowance.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: The pricing page links Get started - generate an account, and account generation is the registration step; no email is required to generate an account number. | country: None
+- interface: cli
+- limits:
+  - write-gated (binding): port forwarding withdrawn: We have removed the ability to add port forwards on all accounts. [1]
+- binding note: No inbound path exists at any price, so no volume or identity constraint is reachable.
+- interface detail: Account number generation; config download per device.
+- tooling: wg-quick with generated configs; official app. SOCKS5 endpoint: 10.64.0.1 port 1080, reachable while connected over WireGuard. Obfuscation in the app: LWO, QUIC, Shadowsocks and UDP-over-TCP. BitTorrent rule: unverified: the help page was not found.
+- composes with: Client-side tunnel only.
+- reliability: No inbound path exists, so there is no throttle or drop to record.
+- notes: Mullvad is the reference case for the whole lane: a provider with the best identity story in the set, a native WireGuard config and a flat price of EUR 5 per month, that nevertheless cannot pass the ingress test.
+- evidence note: The removal is documented from the vendor blog, and the 2023-07-01 removal date has long passed, so the state is settled. Measured is impossible.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: WireGuard is the primary protocol and configs are generated per device; irrelevant for ingress because there is no forwarded port.
+  - ingress: none
+  - volume_stated: unverified: no page read states a byte allowance; the price is a flat EUR 5 per month.
+  - bytes_transit: yes
+  - transit_note: Outbound only from a user's point of view.
+- evidence:
+  - [1] 2026-10-23: Support for forwarded ports ended, announced 2023-05-29, existing ports removed 2023-07-01, with abuse, blacklisting and hosting cancellations given as the reason.
+  - [2] 2026-10-23: A flat rate that has not changed since 2009, a 14-day money-back guarantee, and account generation as the signup step; the page renders no price figure.
+  - [3] 2026-11-03: flat 5 EUR per month | capture: sha256:e9366b1736bb764e18d275f344d4ef7866c1499a08c7795ad305817f486d0889 | quote: ## €5/month
+  - [2] 2026-11-03: a year costs the same monthly rate | capture: sha256:1daeb20baec843184dc336084d688e6e478c7ecae9125b79983921f86c4152bf | quote: Feel free to top up your VPN account for an entire year, or just pay month to month for the exact same rate.
+  - [4] 2026-11-03: SOCKS5 endpoint | capture: sha256:1a97c9dd14692f3241c50224779bdd6d5c519a2dbf76e408d0a4eee27f13c875 | quote: The SOCKS5 proxy is listening on 10.64.0.1 port 1080.
+  - [5] 2026-11-03: obfuscation methods | capture: sha256:ce1b5258178f906aa75d3278353017f4f2b62306c358bf95284d97fa090bbd1b | quote: ### Obfuscation: LWO, QUIC, Shadowsocks, UDP-over-TCP
+  - [5] 2026-11-03: QUIC obfuscation over UDP 443 | capture: sha256:ce1b5258178f906aa75d3278353017f4f2b62306c358bf95284d97fa090bbd1b | quote: QUIC uses UDP port 443. It is made to make your VPN traffic look like normal web traffic.
+  - [3] 2026-11-04: the VPN page states a flat price of 5 EUR per month | capture: sha256:e9366b1736bb764e18d275f344d4ef7866c1499a08c7795ad305817f486d0889 | quote: ## €5/month
+  - [2] 2026-11-04: a year costs the same monthly rate as a month | capture: sha256:1daeb20baec843184dc336084d688e6e478c7ecae9125b79983921f86c4152bf | quote: Feel free to top up your VPN account for an entire year, or just pay month to month for the exact same rate.
+- sources:
+  - [1] https://mullvad.net/en/blog/removing-the-support-for-forwarded-ports
+  - [2] https://mullvad.net/en/pricing
+  - [3] https://mullvad.net/en/vpn
+  - [4] https://mullvad.net/en/help/socks5-proxy/
+  - [5] https://mullvad.net/en/help/connecting-to-mullvad-vpn-from-restrictive-locations
+
+## Netrinos
+
+- `egress/netrinos` | fails-egress | evidence documented | binding write-gated | category mesh vpn | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://netrinos.com/pricing | page https://fshy.ajam.dev/p/netrinos.md
+- price USD 0
+- free tier: Personal Free Users 3 - Devices 100 - Virtual Devices 3 - Remote Gateways 1 - Remote Routes 3. Port forwarding: not included. | unit: users | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No bandwidth metering: the pricing description says 14-day free trial, no bandwidth charges. Traffic flows peer to peer.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: Install, log in, connected. The signup page is app.netrinos.com/signup. | country: None
+- interface: cli
+- limits:
+  - write-gated (binding): port forwarding not included on Personal Free [1]
+  - per-object-cap: 3 users, 100 devices, 1 remote gateway, 3 remote routes [1]
+- binding note: The free plan has no port forwarding at all, so a public UDP ingress does not exist to be metered; volume never becomes the question.
+- interface detail: Install, log in, connected; no configuration files described.
+- tooling: Netrinos client for Windows, macOS, Linux, iOS, Android and ARM; routing through nftables, PF and WFP.
+- composes with: Replaces a public endpoint with a private overlay: a free VM and a laptop can reach each other without any port, but no third party can dial in.
+- reliability: There is no stated SLA; peer-to-peer means availability depends on the peers' own networks.
+- notes: Launched 2025-12-19. It is a Twingate-shaped private mesh, not an ingress provider. The free tier is explicitly non-commercial, which matters for anything run as a service.
+- evidence note: A measured mesh between two machines would confirm the WireGuard data plane, but it would not change the missing port-forwarding row.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: Every connection uses WireGuard: the product page says Every connection uses WireGuard and the pricing page lists WireGuard encryption and end-to-end encryption as core features. Configs are pushed by a user rather than exported as a .conf file, and no registration API is documented.
+  - ingress: none
+  - volume_stated: No bandwidth metering: the pricing description says 14-day free trial, no bandwidth charges. Traffic flows peer to peer.
+  - bytes_transit: overlay-only
+  - transit_note: Traffic flows directly between devices, with an encrypted relay as fallback.
+- evidence:
+  - [1] 2026-10-23: Personal Free: 3 users, 100 devices, 3 virtual devices, 1 remote gateway, 3 remote routes; the Port forwarding row is marked as not included.
+  - [2] 2026-10-23: Not a privacy VPN; a private network where devices connect peer to peer, encrypted with WireGuard.
+  - [3] 2025-12-19: Show HN launch date.
+- sources:
+  - [1] https://netrinos.com/pricing
+  - [2] https://netrinos.com/
+  - [3] https://news.ycombinator.com/item?id=46331364
+
+## NordVPN (paid)
+
+- `egress/nordvpn` | fails-egress | evidence documented | binding write-gated | category vpn port forward | tier paid
+- identity a placeholder: card and phone unknown | verified 2026-11-04T10:29:23.991Z (live) | stale on 2026-12-05
+- url https://support.nordvpn.com/hc/en-us/articles/19483392309649-Does-NordVPN-offer-port-forwarding | page https://fshy.ajam.dev/p/nordvpn.md
+- price USD 4.99 per month on Basic for a first term of 15 months (USD 74.85), renewing at USD 139.08 per year; USD 14.99 per month on the monthly Basic plan | parsed USD 14.99/mo
+- free tier: No free tier, and no forwarding on the standard product: Unfortunately, at the current moment, we do not offer port forwarding, as multiple customers are using the same servers. Pricing page 2026-11-03 (USD): Basic is $4.99 per month for a first term of 15 months, $74.85, renewing at $139.08 per year. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: unverified: published terms state no explicit traffic allowance.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: unverified: the purchase flow was not read; an account is required. | country: None
+- interface: cli
+- limits:
+  - write-gated (binding): forwarding only on a Dedicated Server, which is a rented machine rather than a shared VPN endpoint: Port forwarding is available exclusively with the Dedicated Server add-on. Standard NordVPN servers and Dedicated IP do not support port forwarding. [2]
+- binding note: On the shared product there is no inbound path; on the Dedicated Server there is, but that is a rented server with its own provisioning step, so the gate is commercial rather than technical.
+- interface detail: Official app and Linux CLI; no port API.
+- tooling: NordLynx and community .conf extractors for outbound; no port facility without the add-on. Protocols in the Linux app: NordLynx, NordWhisper, OpenVPN TCP and OpenVPN UDP. P2P servers are listed as a specialty server type. SOCKS5 endpoint and the BitTorrent rule: unverified: the SOCKS5 support page was not found.
+- composes with: Client-side tunnel only unless the Dedicated Server is bought.
+- reliability: No inbound path on the shared fleet; the Dedicated Server is a dedicated machine with its own reliability profile, which did not read.
+- notes: The useful finding is that NordVPN sells ingress as a server, which prices it out's class.
+- evidence note: Both sentences are the vendor's support pages read. The Dedicated Server path was established from the support article's own text, not from the add-on's price, which was not read.
+- extras:
+  - wg_path: extractable
+  - wg_detail: NordLynx is the vendor's WireGuard build, and .conf extractors exist in the community; the tunnel is real but there is nothing to forward into, so a config does not pass the ingress test. The only forwarding path the vendor documents is a separate Dedicated Server product: Port forwarding is available exclusively with the Dedicated Server add-on. Standard NordVPN servers and Dedicated IP do not support port forwarding.
+  - ingress: none
+  - volume_stated: unverified: no page read states a NordVPN traffic allowance.
+  - bytes_transit: yes
+  - transit_note: Outbound only from a user's point of view on the shared fleet.
+- evidence:
+  - [1] 2026-10-23: NordVPN does not offer port forwarding on standard service because multiple customers share servers.
+  - [2] 2026-10-23: Forwarding exists only with the Dedicated Server add-on, not on standard servers or Dedicated IP; settings appear during provisioning.
+  - [3] 2026-11-03: Basic 15-month intro term and renewal | capture: sha256:4062353ad16af26675c0353d98e4f1e4de0cea8fae7243ad0f99e12179982253 | quote: $74.85 for the first 15 months. Sales tax may apply. Savings: intro vs. renewal prices. Renews at $139.08/year.
+  - [4] 2026-11-03: protocol list | capture: sha256:f01c2a865280296a534bbd9cba2709ad8ea897674f50eb2d2ce8a1af16284f48 | quote: NordVPN Linux GUI Settings / VPN connection page showing protocol options (NordLynx selected, NordWhisper, OpenVPN TCP, OpenVPN UDP) highlighted
+  - [4] 2026-11-03: P2P servers | capture: sha256:f01c2a865280296a534bbd9cba2709ad8ea897674f50eb2d2ce8a1af16284f48 | quote: NordVPN Linux GUI Specialty servers list showing Dedicated IP, Double VPN, Onion over VPN, and P2P options
+  - [3] 2026-11-04: Basic is 74.85 USD for the first 15 months, then 139.08 USD per year | capture: sha256:4062353ad16af26675c0353d98e4f1e4de0cea8fae7243ad0f99e12179982253 | quote: $74.85 for the first 15 months. Sales tax may apply. Savings: intro vs. renewal prices. Renews at $139.08/year.
+- sources:
+  - [1] https://support.nordvpn.com/hc/en-us/articles/19483392309649-Does-NordVPN-offer-port-forwarding
+  - [2] https://support.nordvpn.com/hc/en-us/articles/46022896056593-How-to-configure-port-forwarding-on-your-NordVPN-Dedicated-Server
+  - [3] https://nordvpn.com/pricing/
+  - [4] https://support.nordvpn.com/hc/en-us/articles/20164669224337-What-is-obfuscation
+
+## onlySSH UDP Tunnel
+
+- `egress/onlyssh` | fails-egress | evidence documented | binding none | category proxy account (not a port forward) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://onlyssh.my.id/udp-tunnel | page https://fshy.ajam.dev/p/onlyssh.md
+- price USD 0
+- free tier: Free UDP Tunnel: select a server country and get a UDP tunnel account | unit: none | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: no allowance is published on the selection page; the service hands out per-country proxy accounts; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: an account is issued per server country through the site | country: None
+- interface: cli
+- binding note: Nothing binds because the offer is not ingress: there is no public address and port that reaches a service run locally.
+- interface detail: per-country proxy account with VLESS ws and VMess ws paths
+- tooling: a VLESS or VMess client
+- composes with: an outbound proxy composes with a crawler or an egress lane, not with an ingress lane
+- reliability: single small site; accounts are handed out without stated capacity
+- notes: Provides outbound SSH and UDP proxy tunnels for client internet access. Does not provide inbound public port forwarding or reverse tunneling.
+- extras:
+  - wg_path: none
+  - wg_detail: the product is a QUIC-based proxy account (VLESS and VMess endpoints), which is a client-side outbound proxy, not a public port forwarded to a service run locally
+  - ingress: none
+  - volume_stated: no allowance is published on the selection page; the service hands out per-country proxy accounts
+  - bytes_transit: yes
+  - transit_note: the operator relays outbound proxy traffic
+- evidence:
+  - [1] 2026-10-23: 'UDP Tunnel is a feature-packed proxy & relay tool' with per-country accounts, and VLESS/VMess path options
+- sources:
+  - [1] https://onlyssh.my.id/udp-tunnel
+
+## OpenTunnel
+
+- `egress/opentunnel` | fails-egress | evidence reported | binding none | category hosted blind tls tunnel (tcp 443, tls clienthello only) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-07
+- url https://github.com/anomalyco/opentunnel | page https://fshy.ajam.dev/p/github-anomalyco.md
+- price USD 0
+- free tier: each client gets a unique <id>.opentunnel.xyz subdomain and TLS is terminated locally | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No byte allowance or price is published in the README.; ingress: http-only | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: a client claims a route by hostname; no account is described in the README. | country: None
+- interface: cli
+- binding note: The relay routes by TLS SNI in the ClientHello message; non-TLS traffic and UDP packets are not routed.
+- interface detail: npm client.
+- tooling: vendor client (TypeScript).
+- composes with: Web ingress for a free VM, with client-side TLS termination.
+- reliability: Depends on a Cloudflare TCP Workers beta and a temporary AWS relay.
+- notes: Blind TLS relay on Cloudflare Workers with an AWS relay for inbound TCP. Interesting shape, no UDP.
+- evidence note: The hosted service is young (MIT declared, no LICENSE file); a published quota would sharpen the binding.
+- extras:
+  - wg_path: none
+  - ingress: http-only
+  - volume_stated: No byte allowance or price is published in the README.
+  - bytes_transit: yes
+- evidence:
+  - [1] 2026-10-23: 'It accepts public TCP on 443 and reads only the TLS ClientHello. A tunnel hostname is carried, still encrypted, over the tunnel bridge WebSocket'
+- sources:
+  - [1] https://github.com/anomalyco/opentunnel
+
+## Pipenet
+
+- `egress/pipenet` | fails-egress | evidence documented | binding request-rate | category http tunnel | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://pipenet.dev/ | page https://fshy.ajam.dev/p/pipenet.md
+- price USD 0
+- free tier: Open-source and 100% self-hostable. Public instance at *.pipenet.dev if you don't want to self-host. | unit: none | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No allowance is published for the public instance.; ingress: http-only | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: No account is described: the public instance is a hostname you point a client at. The README shows no signup. | country: None
+- interface: cli, rest
+- limits:
+  - request-rate (binding): maxTcpSockets per client defaults to 10 [1]
+- binding note: The only published control is a socket cap per client, so concurrency fails long before any byte allowance would. The transport is also HTTP-only, so a UDP datagram has no path at all.
+- interface detail: Node client plus a REST status API at /api/status.
+- tooling: npm client; self-hostable Node server.
+- composes with: Only useful as an HTTP ingress for an MCP or webhook endpoint.
+- reliability: Public instance is a courtesy run by the maintainer with no stated capacity or SLA.
+- notes: Launched 2026-01-19. A localtunnel rewrite with multiplexing over one port, built for an MCP inspector. It is a software project with a courtesy public instance, not a capacity provider.
+- evidence note: A measured run against the public instance would show whether it is still up and what it rate-limits; the UDP question is already answered by the maintainer.
+- extras:
+  - wg_path: none
+  - wg_detail: HTTP-focused by the maintainer's own answer: The current implementation is HTTP-focused as that was the primary use case.
+  - ingress: http-only
+  - volume_stated: No allowance is published for the public instance.
+  - bytes_transit: yes
+  - transit_note: The pipenet.dev instance relays HTTP requests to the local client.
+- evidence:
+  - [1] 2026-10-23: Server options include maxTcpSockets default 10 and tunnelPort; the API is an HTTP tunnel server, no UDP or raw port.
+  - [2] 2026-01-19: Launch post and maintainer reply that the implementation is HTTP-focused and UDP support is not planned.
+- sources:
+  - [1] https://pipenet.dev/
+  - [2] https://news.ycombinator.com/item?id=46680597
+
+## Portal
+
+- `egress/portal` | fails-egress | evidence reported | binding none | category tunnel software with a public relay | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-07
+- url https://github.com/gosuda/portal-tunnel | page https://fshy.ajam.dev/p/github-gosuda.md
+- price USD 0
+- free tier: Self-hostable relay tunnel (MIT, Go). `portal expose 3000` publishes a localhost service at a public HTTPS URL through community or self-hosted relays; outbound-only, no account, raw TCP/UDP, SNI-based routing, tenant-side TLS termination. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp+udp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: community relays carry the traffic, outbound only and with no account; the list entry states no quota. Raw TCP/UDP. A self-hosted relay is the last resort.
+- interface detail: not established
+- tooling: the portal client (MIT, Go): portal expose PORT
+- composes with: Reaches a community relay outbound; no host is needed unless a self-hosted relay is chosen.
+- reliability: the same as interface detail
+- notes: Raw TCP/UDP over community or self-hosted relays. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: Read the project README and run a client to raise this to documented; the list sentence is the only evidence here.
+- self hosted: no
+- extras:
+  - wg_path: none
+  - ingress: tcp+udp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Self-hostable relay tunnel (MIT, Go). `portal expose 3000` publishes a localhost service at a public HTTPS URL through community or self-hosted relays; outbound
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/gosuda/portal-tunnel
+
+## Proxlane
+
+- `egress/proxlane` | fails-egress | evidence documented | binding write-gated | category developer tunnel (HTTP, TCP, UDP) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://proxlane.com/ | page https://fshy.ajam.dev/p/proxlane.md
+- price CNY 0 free; Plus CNY 390/month
+- free tier: Free: Active tunnels 1, Connected devices 3, Protocols HTTP / TCP, Monthly transfer 5 GB, Fixed TCP ports 0, Fixed UDP ports 0, UDP Not included. | unit: GB | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 5 GB monthly transfer on Free, 50 GB on Plus at CNY 390 per month, 200 GB on Pro at CNY 980 per month.; ingress: tcp | metered: yes | free allowance: 5 GB monthly transfer on Free, 50 GB on Plus at CNY 390 per month, 200 GB on Pro at CNY 980 per month. | source: [1]
+- identity: email | detail: An account plus a device approval: 'proxlane login' and 'approve this device with proxlane login'. | country: None
+- interface: cli, rest
+- limits:
+  - volume-quota: 5 GB per month on Free [1]
+  - write-gated (binding): UDP is 'Not included' on Free and 'Fixed UDP ports' is 0; Plus is required [1]
+- binding note: At 1 TiB/month the byte allowance is irrelevant because the free tier carries no UDP at all: the plan is what fails first, and the earliest plan with one fixed UDP port is Plus.
+- interface detail: 'The CLI supports Windows and Linux; Launcher is for Windows.', plus automation tokens on the pricing table
+- tooling: Proxlane CLI and a Windows Launcher
+- composes with: The CLI runs on Linux, so a free VM can host the origin; the UDP port still needs Plus.
+- reliability: Free tier is one active tunnel and one device-attached agent; the public UDP port on Plus is a fixed port, one per account.
+- notes: Chinese tunneling provider. Free plan includes 5 GB of monthly bandwidth. Dedicated persistent UDP ports require the paid Plus tier.
+- evidence note: The free plan's protocol list and the vendor's own Bedrock answer both state the gate, so the verdict is settled; only a paid account would show the port behaviour.
+- extras:
+  - wg_path: none
+  - wg_detail: No WireGuard, and the free tier has no UDP endpoint to put one behind.
+  - ingress: tcp
+  - volume_tib_month: 0.0045
+  - volume_stated: 5 GB monthly transfer on Free, 50 GB on Plus at CNY 390 per month, 200 GB on Pro at CNY 980 per month.
+  - bytes_transit: yes
+  - transit_note: Proxlane's relay carries the bytes and rewrites the port.
+- evidence:
+  - [1] 2026-10-23: Free plan rows: 'Protocols HTTP / TCP', 'Fixed UDP ports 0', 'UDP Not included', 'Monthly transfer 5 GB'; Plus lists 'Protocols HTTP / TCP / UDP', 'Fixed UDP ports 1', 'Monthly transfer 50 GB'
+  - [2] 2026-10-23: 'UDP forwarding and public port allocation are enabled on Plus and Pro. Free can publish HTTP and TCP within its active-tunnel limit but cannot start a Bedrock UDP profile.'
+  - [2] 2026-10-23: 'The public port may not be the same as local port 19132.', so even a paid plan hands out a rewritten port on a shared edge
+- sources:
+  - [1] https://proxlane.com/
+  - [2] https://proxlane.com/guides/minecraft-bedrock-server
+
+## proxy.py
+
+- `egress/proxy-py` | fails-egress | evidence reported | binding none | category tunnel software with a public relay | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-07
+- url https://github.com/abhinavsingh/proxy.py | page https://fshy.ajam.dev/p/github-abhinavsingh.md
+- price USD 0
+- free tier: General-purpose HTTP/HTTPS proxy framework written in Python; since v2.4.9 it also bundles `grout`, an ngrok/frp-style tunnel that exposes local HTTP/HTTPS/WebSocket/TCP services at public URLs via the hosted Jaxl relay. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: none | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: the hosted Jaxl relay carries the traffic of grout, the tunnel bundled in proxy.py; the list entry states no quota.
+- interface detail: not established
+- tooling: proxy.py (Python), which bundles the grout client
+- composes with: grout reaches the hosted Jaxl relay outbound; no host is needed.
+- reliability: the same as interface detail
+- notes: Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: Read the project README and run a client to raise this to documented; the list sentence is the only evidence here.
+- self hosted: no
+- extras:
+  - wg_path: none
+  - ingress: none
+  - bytes_transit: no
+  - transit_note: none
+- evidence:
+  - [1] 2026-10-23: list entry sentence: General-purpose HTTP/HTTPS proxy framework written in Python; since v2.4.9 it also bundles `grout`, an ngrok/frp-style tunnel that exposes local HTTP/HTTPS/WebS
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/abhinavsingh/proxy.py
+
+## Railway (Egress and tunnels)
+
+- `egress/railway` | fails-egress | evidence documented | binding volume-quota | category paas l4 port | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://railway.com/pricing | page https://fshy.ajam.dev/p/railway.md
+- price USD 0
+- free tier: Free - $0/month with $1 of monthly usage credits. Up to 1 vCPU / 0.5 GB per service, 1 replica, and 3-day log history. | unit: mixed | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No byte allowance on the Free plan: $1/month of credit against egress at $0.05 per GB.; ingress: tcp | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: Free Trial is "$5 in credits for 30 days ... No credit card required"; the $0 Free plan needs an account. | country: None
+- interface: cli, rest
+- limits:
+  - volume-quota (binding): $1/month credit; egress $0.05/GB [1]
+- binding note: $1 of credit at $0.05/GB is 20 GB, 0.018 TiB, and only if the service consumes no CPU or memory. 1 TiB of egress alone is $51.20/month, i.e. the Hobby plan and then some.
+- interface detail: CLI, dashboard, and API; TCP proxy configurable per service instance.
+- tooling: The railway CLI (railway tcp-proxy) and the dashboard.
+- composes with: Railway TCP proxy carries an SSH tunnel to another free host; it cannot carry WireGuard.
+- reliability: Free plan keeps 3-day log history and 1 replica; a single replica means a restart drops TCP connections. No ban documented.
+- notes: The TCP proxy is a real L4 path for SSH or a database, and the address is stable, but there is no UDP and the free credit is $1. Both tests fail independently.
+- evidence note: UDP absence is established by the TCP proxy documentation naming TCP only; a UDP probe is impossible because no UDP endpoint can be created.
+- extras:
+  - wg_path: none
+  - wg_detail: TCP proxy only: "TCP proxies expose non-HTTP application ports, such as database or game server ports, to the public internet. Only one TCP proxy is allowed per service instance." No UDP path.
+  - ingress: tcp
+  - volume_stated: No byte allowance on the Free plan: $1/month of credit against egress at $0.05 per GB.
+  - bytes_transit: yes
+  - transit_note: Railway's edge terminates the TCP proxy and forwards to the service.
+- evidence:
+  - [1] 2026-10-23: Free plan $1/month credit, 1 vCPU/0.5 GB, 1 replica; egress $0.05 per GB
+  - [2] 2026-10-23: "TCP proxies expose non-HTTP application ports ... Only one TCP proxy is allowed per service instance."
+- sources:
+  - [1] https://railway.com/pricing
+  - [2] https://docs.railway.com/cli/tcp-proxy
+
+## Remote.It
+
+- `egress/remote-it` | fails-egress | evidence documented | binding write-gated | category overlay (device network, not a public relay) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://docs.remote.it/features/services/udp | page https://fshy.ajam.dev/p/remote.md
+- price USD 0
+- free tier: Every plan includes 5 base devices per account | unit: users | metered on: identity-count | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: no byte quota is published for the free tier; the metered resource is devices, five of them; ingress: none | metered: no | free allowance: none published | source: [2]
+- identity: email | detail: an account with devices registered to it; the free tier is five devices | country: None
+- interface: cli
+- limits:
+  - write-gated (binding): the peer must run the remote.it agent and be granted access; there is no anonymous public port [2]
+- binding note: No quantity binds because the address is not public: the access grant is the gate, and a WireGuard peer that is not a remote.it device cannot reach the service at all.
+- interface detail: the remoteit agent registers services; access is through the client's local proxy address
+- tooling: remoteit and connectd packages, desktop and mobile clients
+- composes with: composes with a fleet of devices you control; does not compose with an arbitrary WireGuard peer
+- reliability: connections depend on the vendor's connection broker and on the client agent running on the peer
+- notes: Zero-trust remote access platform. Connects client devices via authenticated peer-to-peer tunnels; does not provide open public Layer 4 ingress.
+- evidence note: Raise by registering a UDP service and attempting a datagram from a host that is not enrolled in the account, which the documentation says cannot work.
+- extras:
+  - wg_path: none
+  - wg_detail: UDP services exist but are reached through a user's own local proxy, not a public address: 'we provide a local device or proxy address and port where all traffic will be routed to the target device and port'. A peer must run the agent and authenticate.
+  - ingress: none
+  - volume_stated: no byte quota is published for the free tier; the metered resource is devices, five of them
+  - bytes_transit: overlay-only
+  - transit_note: traffic is proxied between enrolled devices, not published on a public port
+- evidence:
+  - [2] 2026-10-23: 'Create a Remote.It UDP service on any port you need', with no default UDP port
+  - [3] 2026-10-23: 'we provide a local device or proxy address and port where all traffic will be routed to the target device and port'
+  - [1] 2026-10-23: 'Every plan includes 5 base devices per account'
+- sources:
+  - [1] https://remote.it/pricing/
+  - [2] https://docs.remote.it/features/services/udp
+  - [3] https://docs.remote.it/introduction/get-started
+
+## Render (free)
+
+- `egress/render` | fails-egress | evidence documented | binding volume-quota | category paas l4 port | tier free
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://render.com/docs/free | page https://fshy.ajam.dev/p/render.md
+- price USD 0
+- free tier: You can deploy certain Render service types free of charge ... Free instances have important limitations, described below. Do not use them for production applications. | unit: GB | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: Hobby workspace included bandwidth: 5 GB per month. Above that, $0.15 per GB, or the workspace is spun down until the next month.; ingress: http-only | metered: yes | free allowance: Hobby workspace included bandwidth: 5 GB per month. Above that, $0.15 per GB, or the workspace is spun down until the next month. | source: [2]
+- identity: email | detail: Free instances need an account; a payment method is optional, and without one Render "spins down your workspace's services until the start of the next month" at the cap. | country: None
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): 5 GB per month on Hobby; $0.15/GB above [1]
+- binding note: 5 GB/month is 0.005 TiB. The transport fails first though: no public port other than one HTTP port exists on a free web service.
+- interface detail: Dashboard, API, and render.yaml blueprint.
+- tooling: Git push or Dockerfile; no port configuration beyond PORT.
+- composes with: Render can host the HTTP side of a stack; it cannot host an endpoint.
+- reliability: Free instances spin down when idle; the workspace is spun down at the bandwidth cap if no card is on file.
+- notes: Private services can bind extra ports but only over the private network; the free tier does not include private services. One public HTTP port per service.
+- evidence note: A probe cannot be run because no non-HTTP public port can be created on a free instance.
+- extras:
+  - wg_path: none
+  - wg_detail: HTTP only. "Every Render web service must bind to a port on host 0.0.0.0 to serve HTTP requests ... Render forwards inbound requests to your web service at this port (it is not directly reachable via the public internet)."
+  - ingress: http-only
+  - volume_tib_month: 0.00455
+  - volume_stated: Hobby workspace included bandwidth: 5 GB per month. Above that, $0.15 per GB, or the workspace is spun down until the next month.
+  - bytes_transit: no
+  - transit_note: Render terminates HTTP; no raw socket reaches a user.
+- evidence:
+  - [2] 2026-10-23: Free web services and static sites; bandwidth counted against workspace allowance
+  - [1] 2026-10-23: Hobby 5 GB included bandwidth; $0.15/GB public internet; spin-down without a payment method
+  - [3] 2026-10-23: "Render forwards inbound requests to your web service at this port (it is not directly reachable via the public internet)."
+- sources:
+  - [1] https://render.com/docs/outbound-bandwidth
+  - [2] https://render.com/docs/free
+  - [3] https://render.com/docs/web-services
+
+## serveo
+
+- `egress/serveo` | fails-egress | evidence reported | binding per-ip-shaping | category tunnel (hosted, SSH)
+- needs card no, phone no, ID no, institution no | verified 2026-11-05 (live) | stale on 2026-11-20
+- url https://serveo.net/ | page https://fshy.ajam.dev/p/serveo.md
+- free tier: 3 active tunnels and custom subdomains, no account | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable: a stream
+- retention: the assigned hostname is unusable, so nothing is served for any period | source: [1]
+- egress: not published; the assigned hostname resolves to 0.0.0.0 and ::, so no byte is reachable | metered: no | source: [1]
+- identity: anonymous | detail: the ssh target needs no account; a key is optional for reserved names
+- interface: ssh
+- limits:
+  - per-ip-shaping (binding): the tunnel hostname has no usable A or AAAA record, so the data path does not exist probe
+  - per-ip-shaping (binding): anonymous raw TCP: one random port for 10 minutes, two connections, 256 KiB/s cap; with a key: 30 minutes, five connections, 1 MiB/s [2]
+  - per-ip-shaping (binding): public TCP and UDP forwarding are paid-only [3]
+  - per-object-cap: a large transfer is cut at about 2.4-2.5 MiB after about 10 s on the anonymous tier probe:https://cc2e2fd2b49711e2-104-28-207-178.serveousercontent.com/
+- binding note: with no resolvable address there is no meter and no capacity; the control plane is the whole product that works.
+- interface detail: ssh -R 80:localhost:3000 serveo.net
+- tooling: OpenSSH
+- composes with: composes with nothing: the SSH leg succeeds and the HTTP leg has no DNS record.
+- reliability: the SSH banner printed a tunnel URL that has no usable DNS record, on two separate sessions; a harness measured a 710 ms median latency and a 4 MiB transfer cut at about 2.4-2.5 MiB after about 10 s, while the tunnel itself stayed up.
+- notes: Serveo provides SSH and WireGuard port forwarding. Free tiers receive an HTTP hostname; raw public TCP and UDP forwarding require a paid Pro subscription at $60 annually. A sandbox measured a 710 ms median latency and a transfer cut at about 2.4-2.5 MiB after about 10 s on 2026-11-05, while the tunnel stayed up.
+- evidence note: the anonymous tier carries about 230 kB/s and cuts a transfer at about 2.4-2.5 MiB after about 10 s, while the tunnel stays up (measured 2026-11-05).
+- extras:
+  - stale_after_days: 180
+  - bytes_transit: no
+  - transit_note: the control plane answers and the data path does not exist: the assigned hostname resolves to 0.0.0.0 and ::
+- evidence:
+  - [1] 2026-10-22: 3 active tunnels and custom subdomains on the free plan
+  - probe:https://8c67940209469eab-103-129-134-194.serveousercontent.com/ 2026-10-22: the hostname from the SSH banner resolves to 0.0.0.0 and :: from 8.8.8.8; two sessions, two dead names, curl exits 6
+  - [3] 2026-10-23: 'wg.serveo.net:51820 is the public UDP endpoint used to connect to Serveo.' and 'Paid accounts can forward a raw TCP or UDP port through a WireGuard peer.'
+  - [2] 2026-10-23: 'Public UDP forwarding remains a paid WireGuard feature.' and the anonymous raw TCP cap
+  - [1] 2026-10-23: 'Get 3 active tunnels and custom subdomains for $0/month' and Pro at $60/yr
+  - probe:https://cc2e2fd2b49711e2-104-28-207-178.serveousercontent.com/ 2026-11-05: a 4 MiB transfer is cut at about 2.4-2.5 MiB after about 10 s while the tunnel stays up | capture: sha256:463ee9a99b08d1fdbe7df302753f6e4ab1f14ac4754c77bce1f1b2eca0a65023 | quote: connection died at 10.5s, 2,400,032
+- sources:
+  - [1] https://serveo.net/
+  - [2] https://serveo.net/docs
+  - [3] https://serveo.net/docs/wireguard

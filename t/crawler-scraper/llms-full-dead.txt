@@ -1,0 +1,272 @@
+# fshy: Crawling, dead
+
+> Crawl, search, reader and unblocker APIs for reading the web at scale.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/crawler-scraper/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## 12ft.io
+
+- `crawler-scraper/12ft` | dead | evidence measured | binding request-rate | category fetch relay and proxy
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-12-22
+- url https://12ft.io/ | page https://fshy.ajam.dev/p/12ft.md
+- free tier: none reachable | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not applicable | metered: no | source: [1]
+- identity: anonymous | detail: the route needed nothing and answered nothing
+- interface: unknown
+- limits:
+  - request-rate (binding): no connection: the TLS chain is not trusted [1]
+- interface detail: a URL-prefix route that no longer completes a TLS handshake
+- tooling: not established
+- composes with: the same as tooling
+- reliability: SEC_E_UNTRUSTED_ROOT on 2026-10-22; no HTTP status was received
+- notes: Connection attempts fail below HTTP. A request returns status 000 without an HTTP response, and retries do not succeed.
+- evidence note: one call, which failed at the TLS layer
+- evidence:
+  - [2] 2026-10-22: curl exit 60, SEC_E_UNTRUSTED_ROOT: the certificate chain was issued by an authority that is not trusted, so no HTTP request completed
+- sources:
+  - [1] https://12ft.io/
+  - [2] https://12ft.io/https://example.com
+
+## archive.today
+
+- `crawler-scraper/archive-today` | dead | evidence measured | binding request-rate | category archive
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-12-22
+- url https://archive.ph/ | page https://fshy.ajam.dev/p/archive-2.md
+- free tier: no account and no key stated; a 429 was the answer to the first followed request | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1] | note: the allowance is not published anywhere reachable
+- per-object cap: not applicable: the unit is a capture | source: [2]
+- retention: captures are kept indefinitely, which is the service's purpose | source: [2] | note: not independently established
+- egress: not applicable: it answers HTML | metered: no | source: [2]
+- identity: anonymous | detail: no account was asked for
+- interface: rest
+- limits:
+  - request-rate (binding): 429 on the first followed request; no published allowance [1]
+- limits note: an unpublished allowance is worse than a small one: there is no threshold to design against
+- interface detail: an HTML route, /newest/<url>; no JSON API
+- tooling: none published
+- composes with: Nothing chains to it: the only programmatic route answers a challenge
+- reliability: 429 with a 59,077-byte challenge page on the first followed request
+- notes: The 2035 timestamp in the redirect is the finding worth keeping: a caller that trusts the redirect records a capture that does not exist. Three routes, three refusals, so the class is closed for programmatic use.
+- evidence note: Three endpoint calls executed on 2026-10-22 without reading a landing page.
+- evidence:
+  - [1] 2026-10-22: 302 to https://archive.ph/20351231145959/http://example.com/, a timestamp in 2035, so the redirect names no real capture
+  - [1] 2026-10-22: 429 with 59,077 bytes when the redirect was followed
+  - [3] 2026-10-22: 301 with a zero byte body
+- sources:
+  - [1] https://archive.ph/newest/https://example.com
+  - [2] https://archive.ph/
+  - [3] https://archive.today/
+
+## Bing Search APIs
+
+- `crawler-scraper/bing-search-api` | dead | evidence documented | binding request-rate | category search API
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://learn.microsoft.com/en-us/lifecycle/announcements/bing-search-api-retirement | page https://fshy.ajam.dev/p/microsoft.md
+- free tier: none: retired | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable: decommissioned | source: [1]
+- egress: not applicable | metered: no | source: [1]
+- identity: card | detail: was an Azure subscription
+- interface: rest
+- limits:
+  - request-rate (binding): no allowance: every instance is decommissioned and no new signup is accepted [1]
+- interface detail: was a REST API with a subscription key
+- tooling: not established
+- composes with: the same as tooling
+- reliability: no reliability event recorded
+- notes: Retired on 2025-08-11. Any listing that still carries a Bing Web Search free tier is out of date. The replacement is Grounding with Bing inside Azure AI Agents, which is a separate product with distinct pricing.
+- evidence:
+  - [1] 2026-10-22: Bing Search APIs retired on 2025-08-11; every existing instance is decommissioned completely, the product is no longer available and new customer signup is closed
+- sources:
+  - [1] https://learn.microsoft.com/en-us/lifecycle/announcements/bing-search-api-retirement
+
+## DuckDuckGo HTML endpoint
+
+- `crawler-scraper/duckduckgo-html` | dead | evidence measured | binding request-rate | category search API
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-12-22
+- url https://html.duckduckgo.com/html/ | page https://fshy.ajam.dev/p/duckduckgo.md
+- free tier: no key required; no allowance published | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable: the unit is a query | source: [1]
+- retention: not applicable | source: [1]
+- egress: not applicable: HTML | metered: no | source: [1]
+- identity: anonymous | detail: no key
+- interface: rest
+- limits:
+  - request-rate (binding): unpublished; a 202 with a challenge body was the answer [1]
+- interface detail: an HTML search page meant for programmatic use
+- tooling: not established
+- composes with: Direct web retrieval receives anti-bot challenges identical to origin endpoints.
+- reliability: no reliability event recorded
+- notes: 202 is the shape to distrust: not a 429, not a 403, and the body carries no results. A scraper that checks the status records a win.
+- evidence:
+  - [2] 2026-10-22: 202, 14,258 bytes, zero result nodes (result__a count 0), a challenge page
+- sources:
+  - [1] https://html.duckduckgo.com/html/
+  - [2] https://html.duckduckgo.com/html/?q=cloudflare+workers
+
+## Google Programmable Search / Custom Search JSON API
+
+- `crawler-scraper/google-custom-search` | dead | evidence documented | binding request-rate | category search API
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://developers.google.com/custom-search/v1/overview | page https://fshy.ajam.dev/p/google.md
+- free tier: 100 queries a day for existing customers only | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable: the unit is a query | source: [1]
+- retention: the service is discontinued on 2027-01-01 | source: [1]
+- egress: not applicable | metered: no | source: [1]
+- identity: card | detail: billing had to be enabled past 100 queries a day
+- interface: rest
+- limits:
+  - request-rate (binding): 100 queries a day free, then USD 5 per 1,000 up to 10,000 a day, for existing customers [1]
+  - per-object-cap: 10,000 queries a day hard cap [1]
+- interface detail: REST with a key and a search engine id
+- tooling: not established
+- composes with: the same as tooling
+- reliability: no reliability event recorded
+- notes: Two closures in one page: closed to new customers now, discontinued in 2027. The free tier is real and unreachable, which is the fails-identity shape in a vendor that never asks for an identity.
+- evidence:
+  - [1] 2026-10-22: the Custom Search JSON API is closed to new customers; the pricing applies only to existing customers until the service discontinuation on 2027-01-01; 100 queries a day free, USD 5 per 1,000 beyond
+- sources:
+  - [1] https://developers.google.com/custom-search/v1/overview
+
+## Marginalia Search
+
+- `crawler-scraper/marginalia` | dead | evidence measured | binding request-rate | category search API
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-12-22
+- url https://marginalia-search.com/ | page https://fshy.ajam.dev/p/marginalia-search.md
+- free tier: a free key by email, and a public key with an unpublished shared limit | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable: the unit is a query | source: [1]
+- retention: not applicable | source: [1]
+- egress: not applicable: HTML; a JSON format is not served | metered: no | source: [1]
+- identity: anonymous | detail: the public key route needs nothing
+- interface: rest
+- limits:
+  - request-rate (binding): the public key hits a shared limit whose number is unpublished
+- interface detail: a web search page; the documented JSON format is not returned
+- tooling: not established
+- composes with: Nothing chains to it until a JSON route answers
+- reliability: The host moved and the old one answers an interstitial
+- notes: Three routes, three failures, and the middle one is the expensive shape: a 200 with the wrong content type. A programmatic caller gets HTML and no error.
+- evidence:
+  - [2] 2026-10-22: 302 to https://marginalia-search.com/search
+  - [3] 2026-10-22: 200 but the body is HTML: format=json is ignored
+  - [4] 2026-10-22: 200, 1,023 bytes, an error page titled Wait For A Moment
+- sources:
+  - [1] https://marginalia-search.com/
+  - [2] https://search.marginalia.nu/search?query=free+storage
+  - [3] https://marginalia-search.com/search?query=free+storage&format=json
+  - [4] https://old-search.marginalia.nu/search?query=free+storage&format=json
+
+## SearXNG public instances
+
+- `crawler-scraper/searxng` | dead | evidence measured | binding request-rate | category search API
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T01:02:37.499Z (live) | stale on 2027-01-02
+- url https://searx.space/ | page https://fshy.ajam.dev/p/searx.md
+- free tier: Keyless and anonymous: a public instance takes GET /search?q=...&format=json with no key or account. Each instance is run by its own operator and listed on searx.space. JSON output is off by default (search.formats lists html only) and an operator must enable it. Asked a scripted format=json query on 2026-10-31, none of 20 listed instances returned results: 14 answered 429 Too Many Requests, 3 a bot-challenge page, 1 a 418 cookie-setting script, 1 a 403 and 1 a redirect to its front page; a plain query without format=json returned no results from any of the 20 either (16 answered 429, 3 a bot-challenge page, 1 a 418). | unit: requests | metered on: request-count | read on: 2026-10-31 | source: [1]
+- per-object cap: not applicable: the unit is a query | source: [1]
+- retention: an instance disappears with its operator | source: [1]
+- egress: not applicable: HTML or JSON, and JSON is off by default | metered: no | source: [1]
+- identity: anonymous | detail: no key on a public instance
+- interface: rest
+- limits:
+  - request-rate (binding): unpublished per instance; public instances asked for format=json answered 429, a refusal or an HTML human-verification page, and none answered JSON probe:https://search.utilibre.org/search?q=wikipedia&format=json
+- binding note: a public instance refuses a scripted client per request, before any volume matters
+- interface detail: a metasearch endpoint aggregating about 70 engines
+- tooling: curl or any HTTP client: GET or POST /search with q and format=json, no key. A plain scripted request is refused before any result is returned, for example by the SearXNG limiter with 429 Too Many Requests (its bot detection classes a request as a bot when Accept-Language is unset, Accept lacks text/html or the User-Agent matches a bot list that includes curl, wget and python-requests), by an instance that has not enabled json with 403, or by a bot-challenge page in front of the instance, from Anubis or Substation, that needs JavaScript.
+- composes with: Public instances do not chain as a scripted search source, since every listed instance probed on 2026-10-31 answered a scripted query with 429, 403, 418, a redirect or a bot-challenge page; scripted search goes to the hosted search APIs of this topic (for example crawler-scraper/tavily, crawler-scraper/exa and crawler-scraper/youdotcom), and a self-run SearXNG instance with the json format enabled is the last resort.
+- reliability: On 2026-10-31, 20 listed instances were asked a scripted json query and none returned results: 14 answered 429 Too Many Requests, the default refusal of SearXNG's bot detection, 3 a bot-challenge page, 1 a 403, 1 a 418 cookie-setting script and 1 a redirect to its front page.
+- notes: Every public instance probed answered format=json with 429, a refusal or a challenge page, and none answered JSON; a plain HTML query was refused with 429 too. The public instances are not a search API.
+- evidence note: public instances probed for JSON with registered probe records; the instance count read on searx.space
+- self hosted: no
+- evidence:
+  - probe:https://search.utilibre.org/search?q=wikipedia&format=json 2026-10-30: a public instance asked for format=json answered 429 with a 17-byte Too Many Requests body and no JSON | capture: sha256:aed6b24cfab4c01f3fc9e9c52be5083a55c14145c0093d3dc773f85418b4c8c7 | quote: "status": 429
+  - probe:https://search.utilibre.org/search?q=wikipedia 2026-10-30: the same instance answered 429 to a plain HTML query without format=json, so the refusal is not about the format | capture: sha256:10398e03b84368f3fcabe48c1a2fe4b794083c83776901bd5ce6f0cfa75dd4ec | quote: "status": 429
+  - probe:https://search.jeremyh.xyz/search?q=wikipedia&format=json 2026-10-30: a public instance asked for format=json answered 200 with an HTML human-verification page instead of JSON | capture: sha256:98867670a6f0d257f9ce8cc5c9e71f327d9c02da40aac83acdf1afd074be6dd0 | quote: Confirm you're human once; it lasts 30 days.
+  - probe:https://searx.oloke.xyz/search?q=wikipedia&format=json 2026-10-30: a public instance asked for format=json answered 202 with an HTML bot challenge instead of JSON | capture: sha256:226523c118d7edc1e8ecc150ebffffa0e6d9ce2b420f2b75460002640ab90e00 | quote: Making sure you&#39;re not a bot!
+  - probe:https://searxng.site/search?q=wikipedia&format=json 2026-10-30: a public instance asked for format=json answered 403 | capture: sha256:525c5cb632d47c90c905efdaaceb958f278f3a3981537a09493f2fab5c2745b9 | quote: "status": 403
+  - [1] 2026-10-30: the public instance list holds 72 online instances | capture: sha256:fdda82762cb08f659e54eb738bd0f7c0d4cc05500738842a7c7d4396b0e3bec0 | quote: 72 online instances
+  - [2] 2026-10-30: the default settings list only the html result format; JSON answers only where an operator adds it | capture: sha256:c228fce4b10049a6eb061c42d3780184a54859e1766774fd5000e7bfd4ac91eb | quote: formats: - html
+  - [3] 2026-10-30: the limiter exists to block scripted requests, which is the refusal a scripted client meets | capture: sha256:38695f660898d592a0f3333b01337a8f168f3d951ec2e9c98585f17e506d812c | quote: To avoid blocking, the requests from bots to SearXNG must also be blocked, this is the task of the limiter.
+  - probe:searxng-public-instances 2026-10-31: 20 public instances listed online on searx.space, asked a scripted format=json query, returned no results: 14 answered 429, 3 a bot-challenge page, 1 a 418 script, 1 a 403, 1 a redirect | capture: sha256:cf662eb1ab0eeb09806cdbd19ceca0286aef91185e6a94202c69ff788b116ea3 | quote: q=wikipedia&format=json: 20 instances; returned search results: 0; refused: 429 Too Many Requests: 14; bot-challenge page, no results: 3; refused: 418 with a cookie-setting script, no results: 1; redirected to the front page, no results…
+  - probe:searxng-public-instances 2026-10-31: no listed public instance answered a scripted format=json query with results on 2026-10-31 | capture: sha256:cf662eb1ab0eeb09806cdbd19ceca0286aef91185e6a94202c69ff788b116ea3 | quote: q=wikipedia&format=json: 20 instances; returned search results: 0; refused: 429 Too Many Requests: 14; bot-challenge page, no results: 3; refused: 418 with a cookie-setting script, no results: 1; redirected to the front page, no results…
+  - probe:searxng-public-instances 2026-10-31: the same 20 instances asked a plain query without format=json returned no results either: 16 answered 429, 3 a bot-challenge page, 1 a 418 script | capture: sha256:cf662eb1ab0eeb09806cdbd19ceca0286aef91185e6a94202c69ff788b116ea3 | quote: q=wikipedia, no format parameter: 20 instances; returned search results: 0; refused: 429 Too Many Requests: 16; bot-challenge page, no results: 3; refused: 418 with a cookie-setting script, no results: 1
+  - [4] 2026-10-31: the documented search API call is a plain HTTP GET with the query and the format, and carries no key or token | capture: sha256:b94236c6ee250d24f13bebf011986538fcf9101c9966eb2480dc01ad7e12dc6c | quote: curl 'https://searx.example.org/search?q=searxng&format=json'
+  - [4] 2026-10-31: the SearXNG documentation states that many public instances leave the json, csv and rss formats off | capture: sha256:b94236c6ee250d24f13bebf011986538fcf9101c9966eb2480dc01ad7e12dc6c | quote: Be aware that many public instances have these formats disabled.
+  - [5] 2026-10-31: the 17-byte Too Many Requests answer with HTTP 429 is the default refusal of SearXNG's own bot detection | capture: sha256:7b9d93dc7a959f6a0fb434795fa12c5f564758f5e90a3eadfe47ffdd67f6f19e | quote: This function is used in part by the filter methods to return the default `Too Many Requests` response.
+  - [5] 2026-10-31: a scripted request without browser headers is classed as a bot by the limiter, whatever the format asked | capture: sha256:7b9d93dc7a959f6a0fb434795fa12c5f564758f5e90a3eadfe47ffdd67f6f19e | quote: The `http_accept_language` method evaluates a request as the request of a bot if the Accept-Language header is unset.
+  - [6] 2026-10-31: public instances are run by their own operators, not by the SearXNG project | capture: sha256:f1dd8a8ae6a5f79b6ad021ce79725aaa9675d2c3e166dbe8f7344925ffe6071d | quote: Usually, they are operated by unknown parties (from the users’ point of view).
+  - [1] 2026-10-31: searx.space lists instances that their operators submit | capture: sha256:3c87cee1e80abcfb181cb9ed232017f51c47281f1c95d69c2295cc01a49671aa | quote: To add your instance to this list, open an issue in
+  - [1] 2026-10-31: the public instance list held 70 online instances on 2026-10-31 | capture: sha256:3c87cee1e80abcfb181cb9ed232017f51c47281f1c95d69c2295cc01a49671aa | quote: 70 online instances
+  - [7] 2026-10-31: the instance list the probed hosts were taken from lists them as clearnet instances that answered its check, search.utilibre.org among them | capture: sha256:e6dd6637d74049879b0dc619ebb6c5c9051efbe64fdb00347bec33e7ca4ed9d1 | quote: "https://search.utilibre.org/": {"analytics": false, "comments": [], "alternativeUrls": {}, "main": true, "network_type": "normal", "http": {"status_code": 200
+  - probe:https://anonsearch.win/search?q=wikipedia&format=json 2026-10-31: anonsearch.win answered a scripted format=json query with 429 Too Many Requests and no JSON | capture: sha256:e87bb85f7fe922e59f78c2d053aeab5ba6758c1ec3d21f5f467a87b8d1cfc295 | quote: "status": 429
+  - probe:https://baresearch.org/search?q=wikipedia&format=json 2026-10-31: baresearch.org answered a scripted format=json query with HTTP 200 and a bot-challenge page instead of JSON | capture: sha256:669171f96f8762f6d6154e21327014cdba54f9045a161cccda1590469666a87e | quote: Making sure you&#39;re not a bot!
+  - probe:https://etsi.me/search?q=wikipedia&format=json 2026-10-31: etsi.me answered a scripted format=json query with 429 Too Many Requests and no JSON | capture: sha256:bd8958919c396b6f975515492c5ec0878969cd8f1840548202d1f6026d642379 | quote: "status": 429
+  - probe:https://kantan.cat/search?q=wikipedia&format=json 2026-10-31: kantan.cat answered a scripted format=json query with 429 Too Many Requests and no JSON | capture: sha256:29e5efe4f5874a4049bfb5f45a5ef5829e2d6585dd767f0eac47e9499eba1992 | quote: "status": 429
+  - probe:https://opnxng.com/search?q=wikipedia&format=json 2026-10-31: opnxng.com answered a scripted format=json query with 429 Too Many Requests and no JSON | capture: sha256:502cc736d3ef87e334352a2cb954888d2fa287bf7fc60570bc1b792e38586327 | quote: "status": 429
+  - probe:https://paulgo.io/search?q=wikipedia&format=json 2026-10-31: paulgo.io answered a scripted format=json query with 429 Too Many Requests and no JSON | capture: sha256:96cf4ec1cda195d451ff92618496a0d6b00894d3643c3e9f8588cc944f48bec6 | quote: "status": 429
+  - probe:https://priv.au/search?q=wikipedia&format=json 2026-10-31: priv.au answered a scripted format=json query with 429 Too Many Requests and no JSON | capture: sha256:4b6fe3c68ee318f03df33be5d8149b336ea59e331f04ad01a11d13469e5d5538 | quote: "status": 429
+  - probe:https://search.inetol.net/search?q=wikipedia&format=json 2026-10-31: search.inetol.net answered a scripted format=json query with HTTP 200 and a security-check page instead of JSON | capture: sha256:f5133a5e0babd4b15435a06788056cb9c8e94478de1c29acbccbee2ee4b9ac16 | quote: Security check - Substation
+  - probe:https://searx.tiekoetter.com/search?q=wikipedia&format=json 2026-10-31: searx.tiekoetter.com answered a scripted format=json query with 429 Too Many Requests and no JSON | capture: sha256:56881473627ad059511d7daddd2df35c577b21c8ba2df856acdba9a2d18a5a6c | quote: "status": 429
+  - probe:https://search.rhscz.eu/search?q=wikipedia&format=json 2026-10-31: search.rhscz.eu answered a scripted format=json query with 429 Too Many Requests and no JSON | capture: sha256:76566bac18a00d1ad8998672aeb81e5feb4ea01678f4715f83805fdb6debe25f | quote: "status": 429
+  - probe:https://search.utilibre.org/search?q=wikipedia&format=json 2026-10-31: search.utilibre.org answered a scripted format=json query with 429 Too Many Requests and no JSON | capture: sha256:51e718a9ef51f055124419b3d8d3fabb04a6e3350875e8c7128db7d000e672da | quote: "status": 429
+  - probe:https://searx.oloke.xyz/search?q=wikipedia&format=json 2026-10-31: searx.oloke.xyz answered a scripted format=json query with HTTP 202 and a bot-challenge page instead of JSON | capture: sha256:07789782d06ddc9b54a2938407f907a7c2d59b742b93012fe2222e1f65d6b8a3 | quote: Making sure you&#39;re not a bot!
+  - probe:https://searxng.site/search?q=wikipedia&format=json 2026-10-31:  | capture: sha256:6fb4c5702f6a5d8b130fad1ab54067ec61d9f6fd59c9b28661b2eb1ebe81da89 | quote: "status": 403
+  - probe:https://search.ctq.ro/search?q=wikipedia&format=json 2026-10-31: search.ctq.ro answered a scripted format=json query with HTTP 418 and a cookie-setting script instead of JSON | capture: sha256:8d04bdee5f9551b78cebe2f6dc0fdfca020a18e7ad28280b16871f833f0ba820 | quote: document.cookie = "Yogsototh_opens_the_door=1; Path=/;"; window.location.reload();
+  - probe:https://searx.dresden.network/search?q=wikipedia&format=json 2026-10-31: searx.dresden.network answered a scripted format=json query with 429 Too Many Requests and no JSON | capture: sha256:ba548431c313bb20aa60f0dbcce9696dc8068415da3c906aad8acf173a4541bb | quote: "status": 429
+  - probe:https://searx.mxchange.org/search?q=wikipedia&format=json 2026-10-31: searx.mxchange.org answered a scripted format=json query with 429 Too Many Requests and no JSON | capture: sha256:32db224c1a414f879687972cfc49e435eba88fa015c3186f57a65fc91bdff3a0 | quote: "status": 429
+  - probe:https://sx.catgirl.cloud/search?q=wikipedia&format=json 2026-10-31: sx.catgirl.cloud answered a scripted format=json query with 429 Too Many Requests and no JSON | capture: sha256:84f392a41426bfdcdead180ca2d88a3d63ccfac6ccd05a3154efcf08137d9841 | quote: "status": 429
+  - probe:https://search.hbubli.cc/search?q=wikipedia&format=json 2026-10-31: search.hbubli.cc answered a scripted format=json query with 429 Too Many Requests and no JSON | capture: sha256:dd4a8b0350705e6ea890a6bb552166dd453733d376cd8bf8cf2e00d126bd30be | quote: "status": 429
+  - probe:https://www.isci.si/search?q=wikipedia&format=json 2026-10-31: www.isci.si answered a scripted format=json query with a 302 redirect to its front page and no JSON | capture: sha256:9573b190aa551a7dad5bb6370f948a8bb6f5605e53d1dc177037bfc17544a4ba | quote: "final_url": "https://www.isci.si/"
+  - probe:https://xka.cz/search?q=wikipedia&format=json 2026-10-31: xka.cz answered a scripted format=json query with 429 Too Many Requests and no JSON | capture: sha256:04d33529272f57228212a37a7bd0b569ab35add4fc284dc3e76f36eb07f08a91 | quote: "status": 429
+  - probe:https://searxng.site/search?q=wikipedia 2026-10-31: searxng.site answered a scripted plain query without format=json with 429, so it refuses a user, not only the format | capture: sha256:18fff940391f0295a490ac4733023076ce7ca71e5cee440395e89d071722c7ad | quote: "status": 429
+  - probe:https://www.isci.si/search?q=wikipedia 2026-10-31: www.isci.si answered a scripted plain query without format=json with 429 | capture: sha256:4b95b863a8a50c2a31492a3aea06cd2f3447104dc6bbb6b91c065f8316f689e1 | quote: "status": 429
+  - probe:searxng-public-instances 2026-10-31: the first listed public instance in the probe record was probed at 2026-10-31T06:33:18.951Z, so the listed public instances were probed on 2026-10-31 | capture: sha256:cf662eb1ab0eeb09806cdbd19ceca0286aef91185e6a94202c69ff788b116ea3 | quote: 2026-10-31T06:33:18.951Z
+  - [1] 2026-11-01: the public instance list holds 72 online instances | capture: sha256:1d6ec82cb1759a7da935b8f668d4369a3c1c36f78861452fd137c0493f5dc9b2 | quote: 72 online instances
+  - [4] 2026-11-01: an instance answers a request for a format that its settings do not enable with 403 | capture: sha256:b94236c6ee250d24f13bebf011986538fcf9101c9966eb2480dc01ad7e12dc6c
+  - [5] 2026-11-01: the limiter's Accept check classes a request as a bot when its Accept header does not contain text/html | capture: sha256:7b9d93dc7a959f6a0fb434795fa12c5f564758f5e90a3eadfe47ffdd67f6f19e | quote: The `http_accept` method evaluates a request as the request of a bot if the ... did not contain `text/html`
+  - [5] 2026-11-01: the limiter's User-Agent check matches a bot list that names curl, wget and python-requests | capture: sha256:7b9d93dc7a959f6a0fb434795fa12c5f564758f5e90a3eadfe47ffdd67f6f19e | quote: (unknown|[Cc][Uu][Rr][Ll]|[wW]get|Scrapy|splash|JavaFX|FeedFetcher|python-requests|Go-http-client|Java
+  - [8] 2026-11-02: Anubis checks with a proof-of-work challenge that a client is a modern browser | capture: sha256:e4494224f07faa66c86eabbc4782cf2c4696751b3bdcb4106bb7234e0ed08996 | quote: Anubis uses a proof-of-work challenge to ensure that clients are using a modern browser and are able to calculate SHA-256 checksums.
+  - [9] 2026-11-01: baresearch.org, a listed instance, answers a format=json query with an Anubis challenge page | capture: sha256:7e9bb971b39eb5e1bc2badcc13ce06f92bbb72924f99c8e33623c6ebe6a76bcb | quote: This website is running Anubis version `v1.25.0`.
+  - [9] 2026-11-01: the Anubis challenge page states that it requires modern JavaScript features | capture: sha256:7e9bb971b39eb5e1bc2badcc13ce06f92bbb72924f99c8e33623c6ebe6a76bcb | quote: Please note that Anubis requires the use of modern JavaScript features that plugins like JShelter will disable.
+  - probe:https://search.inetol.net/search?q=wikipedia&format=json 2026-11-02: search.inetol.net answered a scripted format=json query with a Substation security-check page that says it requires JavaScript | capture: sha256:ca905b2ccb3f971ae5d3540bb6e78f2053a226e309e33b52db678b687f6b4560 | quote: This page requires JavaScript to be enabled.
+  - probe:https://search.utilibre.org/search?q=wikipedia&format=json 2026-11-02: search.utilibre.org answered a scripted format=json query with 429 and the 17-byte body Too Many Requests, the text of the SearXNG default refusal | capture: sha256:3850dfdbf4489250268b5f0740240a9f4445e7c5c29e1d03aa0c5446808d7507 | quote: Too Many Requests
+  - probe:https://search.ctq.ro/search?q=wikipedia&format=json 2026-11-02: search.ctq.ro answered a scripted format=json query with HTTP 418 and a script that sets a cookie and reloads the page, with no results | capture: sha256:8d04bdee5f9551b78cebe2f6dc0fdfca020a18e7ad28280b16871f833f0ba820 | quote: document.cookie = "Yogsototh_opens_the_door=1; Path=/;"; window.location.reload();
+  - probe:https://www.isci.si/search?q=wikipedia&format=json 2026-11-01: www.isci.si answered a scripted format=json query with 429 Too Many Requests and no JSON | capture: sha256:2199605470af9ffa3b013ab4a5e460f8ec9c9f591e9a0622bf6029476bfbf942 | quote: "status": 429
+  - [4] 2026-11-01: the SearXNG search API takes GET and POST requests on / and /search | capture: sha256:b94236c6ee250d24f13bebf011986538fcf9101c9966eb2480dc01ad7e12dc6c | quote: Two endpoints, `/` and `/search`, are supported for both GET and POST methods.
+- sources:
+  - [1] https://searx.space/
+  - [2] https://docs.searxng.org/admin/settings/settings_search.html
+  - [3] https://docs.searxng.org/admin/searx.limiter.html
+  - [4] https://docs.searxng.org/dev/search_api.html
+  - [5] https://docs.searxng.org/src/searx.botdetection.html
+  - [6] https://docs.searxng.org/own-instance.html
+  - [7] https://searx.space/data/instances.json
+  - [8] https://github.com/TecharoHQ/anubis/blob/main/docs/docs/design/how-anubis-works.mdx
+  - [9] https://baresearch.org/search?q=wikipedia&format=json
+
+## urlreader.dev
+
+- `crawler-scraper/urlreader` | dead | evidence measured | binding request-rate | category reader and extractor API
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-12-22
+- url https://urlreader.dev/ | page https://fshy.ajam.dev/p/urlreader.md
+- free tier: none: the host does not resolve | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not applicable | metered: no | source: [1]
+- identity: anonymous | detail: nothing was asked for
+- interface: unknown
+- limits:
+  - request-rate (binding): no name resolution, so no request [1]
+- interface detail: no DNS record
+- tooling: not established
+- composes with: the same as tooling
+- reliability: curl exit 6, could not resolve host, on 2026-10-22
+- notes: Listed in catalogues of free reader services. Testing confirms the service endpoint is unreachable, preventing unauthenticated retrieval.
+- evidence note: one call; the name did not resolve
+- evidence:
+  - [2] 2026-10-22: curl exit 6, `Could not resolve host`: the service named in second-hand lists does not exist at that name
+- sources:
+  - [1] https://urlreader.dev/
+  - [2] https://urlreader.dev/https://example.com

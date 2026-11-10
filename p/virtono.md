@@ -1,0 +1,43 @@
+# Virtono
+
+> virtono.com | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/virtono/ | JSON https://fshy.ajam.dev/api/v1/entity/virtono.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Virtono
+
+- `compute/virtono` | paid-only | evidence documented | binding volume-quota | category cloud VM
+- identity a placeholder: card and phone unknown | verified 2026-11-07T17:40:47.141Z (live) | stale on 2026-12-08
+- url https://virtono.com/cloud-vps
+- price parsed USD 2.82/mo
+- free tier: KVM 512M at EUR 2.50 per month: 1 vCPU, 512 MB RAM, 15 GB SSD, 500 GB a month of bandwidth, with 29 locations selectable on the row from Los Angeles and Montreal through Amsterdam, Frankfurt and Manchester to Singapore, Hong Kong, Tokyo and Sydney. KVM 1G is EUR 4.50 with 1 GB RAM, 30 GB SSD and 1 TB; KVM 2G is EUR 9.95 with 2 GB RAM, 50 GB SSD and 2 TB. VAT is not included and is charged separately to European Union customers without a valid VAT ID. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 500 GB a month included on KVM 512M, stated in the plan table; no overage rate published on the page read | metered: yes | free allowance: 500 GB a month | source: [1]
+- identity: email | detail: not stated
+- interface: rest
+- limits:
+  - volume-quota (binding): 500 GB a month on the entry plan, rising to 1 TB on KVM 1G and 2 TB on KVM 2G. The location list is the unusual part: the same allowance applies in every one of the 29 sites. [1]
+- limits note: 500 GB a month on the entry plan, rising to 1 TB on KVM 1G and 2 TB on KVM 2G. The location list is the unusual part: the same allowance applies in every one of the 29 sites.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated on the page read; the vendor documents a client area and store, no client or API
+- composes with: EUR 2.50 for a 512 MB box in any of 29 cities is the cheapest way among documented hosts to place an egress hop in a country the data has to leave from, and 500 GB is the budget that hop can spend
+- reliability: no reliability event recorded
+- notes: Virtono KVM VPS plans start from EUR 2.50 monthly for KVM 512M (512 MB RAM, 15 GB SSD, 1 TB transfer) and EUR 4.50 monthly for KVM 1G (1 GB RAM, 25 GB SSD, 2 TB transfer).
+- extras:
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 0.5
+  - facets.shape.disk_gib: 15
+  - price_on_page: EUR 2.50/month for KVM 512M
+  - renewal_eur: not published: the plan page prices the plans monthly and prints no renewal price
+- evidence:
+  - [1] 2026-10-22: ordered table row: 'KVM 512M / 15GB SSD / 1 vCPU / 512MB RAM / 500GB / [29 locations] / EUR 2.50/mo / Deploy Now', with the price span carrying id='KVM512MYL'
+  - [1] 2026-10-22: next rows: 'KVM 1G 30GB SSD 1 vCPU 1GB RAM 1TB EUR 4.50/mo' and 'KVM 2G 50GB SSD 1vCPU 2GB RAM 2TB EUR 9.95/mo'
+  - [1] 2026-10-22: 'VAT is not included in our advertised price and will be charged separately for customers from European Union, unless they provide a valid VAT ID', quoted under the table
+  - [2] 2026-10-22: tracker agrees on the same plan: 'EUR 2.50 / month yearly Service 1 Intel Cores (shared) 512 MB RAM 15 GB SSD 500 GB/month bandwidth 1 Gbps' in Miami, New York and Amsterdam
+  - [1] 2026-11-07: the plan table's KVM 512M row pairs 15 GB SSD, 1 vCPU, 512 MB RAM and 500 GB with €2.50 a month | capture: sha256:10a460300a852fd4ae8079a679b63d0ae500b47dc75c488e4a53ba7bceb82667 | quote: KVM 512M 15GB SSD 1 vCPU 512MB RAM 500GB ... €2.50/mo
+- sources:
+  - [1] https://virtono.com/cloud-vps
+  - [2] https://vpspricetracker.com/provider/Virtono/vps

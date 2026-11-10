@@ -1,0 +1,378 @@
+# fshy: Crawling, trial
+
+> Crawl, search, reader and unblocker APIs for reading the web at scale.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/crawler-scraper/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## Browserbase (Crawling)
+
+- `crawler-scraper/browserbase` | trial-only | evidence documented | binding request-rate | category headless browser
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://www.browserbase.com/pricing | page https://fshy.ajam.dev/p/browserbase.md
+- free tier: Free plan: 1 browser hour, 1,000 Search calls, 1,000 Fetch calls, 3 concurrent browsers | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable: the unit is browser time | source: [1]
+- retention: one-time on the Free plan; no monthly renewal stated | source: [1]
+- egress: not applicable: Markdown or HTML answers | metered: no | source: [1]
+- identity: email | detail: signup is an account; no card stated for Free
+- interface: rest
+- limits:
+  - request-rate (binding): 3 concurrent browsers and 1 browser hour on Free; Developer USD 20 a month for 100 hours and 25 concurrent [1]
+  - request-rate (binding): browser hours past the included ones bill at USD 0.12 an hour on Developer [1]
+- interface detail: REST sessions and a Search and Fetch API
+- tooling: not established
+- composes with: A session model requiring stateful browser lifecycles, suitable for asynchronous batch crawl jobs rather than short-lived stateless edge functions.
+- reliability: no reliability event recorded
+- notes: One browser hour is one hour. The 1,000 Search and 1,000 Fetch calls are the more useful part of the plan and are easier to spend.
+- evidence:
+  - [1] 2026-10-22: Free plan: 3 concurrent browsers, 1 browser hour, 1,000 Search calls, 1,000 Fetch calls, USD 5 in model tokens; Developer USD 20 a month with 100 browser hours and 25 concurrent
+- sources:
+  - [1] https://www.browserbase.com/pricing
+
+## DataForSEO
+
+- `crawler-scraper/dataforseo` | trial-only | evidence documented | binding request-rate | category search API
+- needs card no, phone yes, ID no, institution no | verified 2026-11-02T01:02:11.861Z (live) | stale on 2026-12-03
+- url https://dataforseo.com/pricing | page https://fshy.ajam.dev/p/dataforseo.md
+- free tier: USD 1 trial credit for new accounts; about 500 live Google SERPs at USD 0.002, or more in the Standard queue at USD 0.0006 a SERP | unit: credits | metered on: request-count | read on: 2026-10-30 | source: [1] | note: Paid use needs a minimum top-up of USD 50, taken by card, PayPal or Amazon Pay; the balance does not expire. A free Sandbox returns sample responses without spending credit.
+- per-object cap: not applicable: the unit is a SERP of up to 10 organic results | source: [2]
+- retention: one-time trial credit; topped-up balances do not expire | source: [1]
+- egress: not applicable | metered: no | source: [1]
+- identity: any-phone | detail: a personal-email address takes a phone number at signup, and the phone fields of the signup form and of the dashboard's phone verification leave out Russia, Belarus, Iran and Cuba (ru, by, ir, cu); a business-email address takes no phone number, and the form gives a company-domain address as the business example and gmail.com, outlook.com, yahoo.com and similar as personal; the dashboard says adding funds bypasses phone verification; unverified: whether the server accepts a given custom domain as business, and whether it refuses numbers of other countries
+- interface: rest
+- limits:
+  - request-rate (binding): USD 1 one-time trial; USD 0.0006 per SERP in the Standard queue, USD 0.0012 Priority, USD 0.002 Live; USD 50 minimum top-up [2]
+  - request-rate (binding): 10,000 requests a minute general rate limit; each POST carries up to 100 tasks [3]
+- binding note: the USD 1 trial is spent long before the 10,000-a-minute rate limit is reached
+- interface detail: POST https://api.dataforseo.com/v3/serp/google/organic/live/advanced with HTTP Basic auth (login email and API password); Standard and Priority queues use separate task_post and task_get calls
+- endpoint: part of interface detail
+- tooling: plain HTTP with Basic auth; a Playground, an MCP route and templates for n8n, Postman and Google Sheets in the dashboard
+- composes with: A paid Google SERP at USD 0.60 per 1,000 in the Standard queue once past the USD 50 minimum top-up; the USD 1 trial only tests it
+- reliability: a keyless call answered 401 with status_code 40100; no throttle or ban event recorded
+- notes: The trial credit buys about 500 live SERPs or more queued ones; the Standard queue averages about 5 minutes with a 45-minute target. A business email skips the phone step and carries higher rate limits.
+- evidence note: the USD 1 trial credit, the USD 50 minimum top-up, the per-SERP prices and the rate limit are quoted from first-party pages; the phone requirement is read from the signup application's own plan table; no keyed call was made
+- evidence:
+  - [1] 2026-10-30: new accounts get a USD 1 trial credit | capture: sha256:188119e4bc8323d58a4b622f04b21259846118875273553bbff10cef81318ed2 | quote: You can sign up for free and use your $1 trial credit available to new accounts for trying our APIs
+  - [1] 2026-10-30: paid use needs a USD 50 minimum top-up | capture: sha256:188119e4bc8323d58a4b622f04b21259846118875273553bbff10cef81318ed2 | quote: The minimum account top-up is $50.
+  - [1] 2026-10-30: top-ups take a card, PayPal or Amazon Pay | capture: sha256:188119e4bc8323d58a4b622f04b21259846118875273553bbff10cef81318ed2 | quote: DataForSEO accepts credit and debit cards, PayPal, and Amazon Pay.
+  - [2] 2026-10-30: per-SERP prices by mode | capture: sha256:961ae98e0181a7dcdf73b34e37f35e5c75700c0cd3c4200535271872b99b2e2d | quote: One SERP (a results page with up to 10 organic results) costs $0.0006 in the Standard queue, $0.0012 in the Priority queue, and $0.002 in Live mode
+  - [4] 2026-10-30: the trial covers about 500 live Google SERPs | capture: sha256:9569d21333ab0a29303ec404d5ae9ddd4e59e593f7e7859dda2ce3bf92a92c38 | quote: New accounts get a $1 trial credit, and the SERP Google Organic Live Advanced endpoint costs $0.002 per call, so the trial covers around 500 live Google SERPs before you spend a cent.
+  - [3] 2026-10-30: the general rate limit is 10,000 requests a minute | capture: sha256:11bf24789e58eedb10843255e16cb05f81b3958f245fcf27c9b7e6fd8779df62 | quote: The general rate limit for DataForSEO API is 10,000 requests per minute.
+  - [5] 2026-10-30: SERP API calls are capped at 10,000 a minute with up to 100 tasks a POST | capture: sha256:52674414aecad2fb52f8f16a65068c90eb48097a68e7cf9da27878c7f4b953fc | quote: You can send up to 10000 POST and GET API calls per minute in total, with each POST call containing no more than 100 tasks.
+  - [6] 2026-10-30: the personal-email plan marks no-phone-verification as unavailable, so a personal email takes phone verification | capture: sha256:2f679faa26770ee967b24e2caa557207d45e24cea1bc65b27f849a1b150c1c46 | quote: {label:`Priority Support`,available:!1},{label:`No phone verification`,available:!1}]},{id:`business`,label:`Business email`
+  - [7] 2026-10-30: the signup offers a personal-email and a business-email account, each with USD 1 trial credit | capture: sha256:469ec1f00f6efcecd4144702f78a9d33538475ed924a623dbf94632894f59cb3 | quote: Personal email
+  - probe:api.dataforseo.com/v3/serp/google/organic/live/advanced 2026-10-30: a keyless call answered 401 | capture: sha256:08c970d9cb960d054b36b3ef905189ca7e658907b7de2217f63af62e5180cdd6 | quote: "status_code":40100,"status_message":"You are not Authorized to Access this Resource.
+  - [1] 2026-11-01: the minimum top-up is USD 50 and takes cards, PayPal or Amazon Pay; the balance does not expire; the Sandbox returns sample responses | capture: sha256:188119e4bc8323d58a4b622f04b21259846118875273553bbff10cef81318ed2 | quote: The minimum account top-up is $50. ... DataForSEO accepts credit and debit cards, PayPal, and Amazon Pay. ... Funds added to your DataForSEO account do not expire. ... The Sandbox provides sample responses for testing
+  - [6] 2026-11-01: the signup phone field preselects a country by geo-IP lookup and sets excludeCountries to ru, by, ir and cu with no onlyCountries option, so every other country stays selectable | capture: sha256:c95566cc3ab7cb55ce2cca80fc39172cc39e49c5f6608afaebf29e37502e4f2a | quote: initialCountry:`auto`,geoIpLookup:(e,i)=>{this.geoIp.countryCode().then(n=>n?e(n):i())},excludeCountries:[`ru`,`by`,`ir`,`cu`],separateDialCode:!0,containerClass:`dfs-theme-light`}
+  - [6] 2026-11-01: the dashboard's phone verification field leaves out the same four countries | capture: sha256:c95566cc3ab7cb55ce2cca80fc39172cc39e49c5f6608afaebf29e37502e4f2a | quote: excludeCountries:[`ru`,`by`,`ir`,`cu`],separateDialCode:!0,dropdownContainer:this.dropdownInBody()?this.document.body:null
+  - [6] 2026-11-01: the dashboard's phone verification is an SMS code sent to the number entered | capture: sha256:c95566cc3ab7cb55ce2cca80fc39172cc39e49c5f6608afaebf29e37502e4f2a | quote: Enter your phone number to receive a quick SMS code.
+  - [6] 2026-11-01: the dashboard tells an account whose phone verification is unavailable to add funds, so the server can mark phone verification unavailable per account | capture: sha256:c95566cc3ab7cb55ce2cca80fc39172cc39e49c5f6608afaebf29e37502e4f2a | quote: Phone verification is not available for your account at this time. To continue using our services, please add funds to your balance.
+  - [6] 2026-11-01: the signup refuses a temporary or disposable address | capture: sha256:c95566cc3ab7cb55ce2cca80fc39172cc39e49c5f6608afaebf29e37502e4f2a | quote: We detected a temporary or disposable email address. DataForSEO accounts require a real, permanent email to ensure account security, prevent abuse, and deliver billing and API notifications reliably.
+  - [6] 2026-11-01: the signup form takes the class of an address (disposable, business or personal) from a server check and selects the business or personal plan from the answer | capture: sha256:c95566cc3ab7cb55ce2cca80fc39172cc39e49c5f6608afaebf29e37502e4f2a | quote: handleEmailCheckResult(e){if(this.emailCheckResult=e,!!e){if(e.is_disposable){this.showDisposableModal=!0;return}e.is_business?this.selectPlan(`business`):e.is_personal&&this.selectPlan(`personal`)}}
+  - [8] 2026-11-01: the class of an address comes from a POST to the signup's check_email endpoint; no page states the rule it applies | capture: sha256:e62a8b8c6cc7961935285e8f973e78433c176df3f104255c9d9b57bf92567a49 | quote: checkEmail(t){return this.httpClient.post(`white_label_url/api/auth/check_email`,{email:t}).pipe(U(r=>r.data))}
+  - [6] 2026-11-01: the signup code sets the business-email trial credit constant to 1 and selects the business plan by default, matching the page's USD 1 trial credits for both plans | capture: sha256:c95566cc3ab7cb55ce2cca80fc39172cc39e49c5f6608afaebf29e37502e4f2a | quote: this.BUSINESS_BONUS_AMOUNT=1,this.selectedPlan=ie$1(`business`)
+  - [9] 2026-11-01: the vendor's own post offers sign-up with a personal address or with a business address from a company, and lists higher rate limits and no phone verification as business-email benefits | capture: sha256:e61a118a56dc7cd7b89b158a972cc693f93e00392927e1a1e047b2b9db2efef1 | quote: You can now sign up with any personal email address (like Gmail) or a business email from your company. ... Higher rate limits ... No phone verification
+  - [10] 2026-11-01: API calls answer 40104 until the account is verified by email and/or phone | capture: sha256:5290f1a2bd864e4705c6a3fce19e3dae11d39aca74a79ef4f548ac3b0a8589f5 | quote: email and/or phone verification is required for new users; to use DataForSEO APIs, you have to complete the account verification process in the User Panel
+  - [11] 2026-11-01:  | capture: sha256:e3da9ee9f9534010e409a532b5fa7e5e2415df82d7774ae3e24be2a16bc8d15f | quote: A personal email works but asks for phone verification; a business-domain email skips it.
+  - [6] 2026-11-01: the signup and dashboard phone fields exclude ru, by, ir and cu (Russia, Belarus, Iran, Cuba); the personal plan cannot be submitted without a phone number; the business plan lists no phone verification; the form's personal-address examples are gmail.com, outlook.com, yahoo.com; adding funds bypasses phone verification | capture: sha256:c95566cc3ab7cb55ce2cca80fc39172cc39e49c5f6608afaebf29e37502e4f2a | quote: excludeCountries:[`ru`,`by`,`ir`,`cu`],separateDialCode:!0 ... selectedPlan()===`personal`&&!this.enteredPhone ... `No phone verification`,available:!0 ... gmail.com, outlook.com, yahoo.com and similar ... Add funds to your account to bypass phone verification entirely.
+- sources:
+  - [1] https://dataforseo.com/pricing
+  - [2] https://dataforseo.com/pricing/google-serp/google-organic-serp-api
+  - [3] https://dataforseo.com/help-center/rate-limits-and-request-limits
+  - [4] https://dataforseo.com/help-center/how-to-authenticate-with-dataforseo-google-search-serp-api-api-key-setup-and-code-examples
+  - [5] https://docs.dataforseo.com/v3/serp/overview/
+  - [6] https://app.dataforseo.com/main-UHWRC3G2.js
+  - [7] https://app.dataforseo.com/register
+  - [8] https://app.dataforseo.com/chunk-Bl0ntuNZ.js
+  - [9] https://www.linkedin.com/posts/dataforseo_you-no-longer-need-a-business-email-to-try-activity-7447282523333746688-95WK
+  - [10] https://docs.dataforseo.com/v3/appendix/errors/
+  - [11] https://meikuio.com/dataforseo-review/
+
+## Hyperbrowser (Crawling)
+
+- `crawler-scraper/hyperbrowser` | trial-only | evidence documented | binding retention-clamped | category headless browser
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://www.hyperbrowser.ai/pricing | page https://fshy.ajam.dev/p/hyperbrowser.md
+- free tier: 5,000 credits on signup, 1 concurrent session, 7 days of data retention | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable: the unit is a browser hour or a page | source: [1]
+- retention: the 5,000 credits are one-time; job results are kept 7 days | source: [1]
+- egress: not applicable: Markdown or JSON answers | metered: no | source: [1]
+- identity: email | detail: signup is an account; no card stated for Free
+- interface: rest
+- limits:
+  - request-rate: 1 concurrent session on Free, or 25 on Startup at USD 30 a month for 30,000 credits [1]
+  - request-rate: browser usage 100 credits an hour, so 5,000 credits is 50 browser hours [1]
+  - retention-clamped (binding): Job results are retained for 7 days on Free and 14 days for Browser Run. Subsequent requests return HTTP 410.
+- interface detail: REST sessions, web crawl and scrape; 1 credit is USD 0.001
+- tooling: not established
+- composes with: Headless browser crawl provider with DOM rendering where per-page billing reflects browser execution time rather than simple request counts.
+- reliability: no reliability event recorded
+- notes: One-time, so it is a trial. It renders every page whatever is asked, which makes it the wrong leg for a cheap plain fetch and the right one for a page that cannot be read any other way.
+- evidence:
+  - [1] 2026-10-22: Free USD 0 to start with 5,000 credits, all four products, 1 concurrent session, 7 days of data retention; 1,000 credits is USD 1; browser usage 100 credits an hour
+- sources:
+  - [1] https://www.hyperbrowser.ai/pricing
+
+## Notte (Crawling)
+
+- `crawler-scraper/notte` | trial-only | evidence documented | binding retention-clamped | category headless browser
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T01:02:34.146Z (live) | stale on 2026-12-03
+- url https://www.notte.cc/ | page https://fshy.ajam.dev/p/notte.md
+- free tier: USD 10 of credits, granted once with no expiry, spent on sessions, proxies, LLM tokens and functions; 5 concurrent browsers and 15-minute sessions | unit: mixed | metered on: wall-clock | read on: 2026-10-30 | source: [1]
+- per-object cap: not applicable: the unit is a session | source: [2]
+- retention: the credits do not expire; a session is capped at 15 minutes | source: [2]
+- egress: not applicable | metered: no | source: [2]
+- identity: email | detail: an account opened with an email magic link, Google, GitHub, AgentID or SSO; the free plan needs no card
+- interface: rest
+- limits:
+  - request-rate: 5 concurrent sessions [1]
+  - retention-clamped (binding): a session is capped at 15 minutes [1]
+- limits note: POST /sessions/start, POST /agents/start and the prompt helpers each have per-minute, per-hour and per-day windows counted per API key; the free plan's numbers are on neither the pricing page nor the rate-limit reference
+- binding note: a free-plan session ends at 15 minutes, with 5 browsers at once
+- interface detail: REST sessions; 5 concurrent and 15 minute sessions
+- tooling: an agent-oriented session API
+- composes with: A session model with a 15-minute cap, so a long crawl needs resubmission
+- reliability: no reliability event recorded
+- notes: At the listed USD 0.01 a browser-hour, the one-time USD 10 credit is 1,000 hours of browser sessions, before the proxy, function and LLM-token charges that draw on the same credit; a Free-plan session ends at 15 minutes.
+- evidence note: free tier, concurrency, session cap and sign-in options read on the vendor's pricing and console pages; the per-minute rate is not published for the free plan
+- evidence:
+  - [3] 2026-10-22: 401 with a 30-byte JSON body `Not authenticated`: the route exists and needs a key
+  - [1] 2026-10-30: the Free plan's USD 10 of credits is granted once and does not expire | capture: sha256:e132955d9bc8a4bd981e388ecb2262080989d181d524257d081b492938441712 | quote: Granted once. No expiry.
+  - [1] 2026-10-30: the Free plan runs 5 browsers at once | capture: sha256:e132955d9bc8a4bd981e388ecb2262080989d181d524257d081b492938441712 | quote: Browser concurrency- 5
+  - [1] 2026-10-30: a Free plan session lasts at most 15 minutes | capture: sha256:e132955d9bc8a4bd981e388ecb2262080989d181d524257d081b492938441712 | quote: Session duration- 15 min
+  - [4] 2026-10-30: the API rate-limits session and agent starts per key in minute, hour and day windows whose sizes depend on the plan | capture: sha256:01ebd8b53f8893281b9510726612667ce11ddfc0571f7e9854f48616015544af | quote: Each endpoint has a per-minute, per-hour, and per-day window.
+  - [5] 2026-10-30: the console sign-in takes an email magic link or an OAuth provider | capture: sha256:427ae61689922767add9c610afecda5ecaaa8f0586a1e7a7a89014108997889a | quote: Use an email magic link or continue with oauth
+  - [1] 2026-10-30: the Free plan needs no card | capture: sha256:e132955d9bc8a4bd981e388ecb2262080989d181d524257d081b492938441712 | quote: Try the full platform without a card.
+  - [5] 2026-10-30: the OAuth options are Google, GitHub, AgentID and SSO | capture: sha256:427ae61689922767add9c610afecda5ecaaa8f0586a1e7a7a89014108997889a | quote: Use GoogleUse GitHubUse AgentIDContinue with SSO
+  - [1] 2026-11-02: the pricing page lists browser sessions at USD 0.01 an hour and a one-time USD 10 Free credit that covers sessions, proxies, LLMs and functions, with 15-minute sessions | capture: sha256:e132955d9bc8a4bd981e388ecb2262080989d181d524257d081b492938441712 | quote: Browser Sessions $0.01 / hour ... $10 credits Granted once. No expiry. Credits cover- Sessions, proxies, LLMs, functions ... Session duration- 15 min
+  - [1] 2026-11-02: the Free card lists a start with no card, USD 10 of credits granted once with no expiry for sessions, proxies, LLMs and functions, 5 concurrent browsers and 15-minute sessions | capture: sha256:e132955d9bc8a4bd981e388ecb2262080989d181d524257d081b492938441712 | quote: Try the full platform without a card. ... $10 credits Granted once. No expiry. ... Credits cover- Sessions, proxies, LLMs, functions ... Browser concurrency- 5 ... Session duration- 15 min
+  - [5] 2026-11-02: the console sign-in takes an email magic link, or Google, GitHub, AgentID or SSO | capture: sha256:427ae61689922767add9c610afecda5ecaaa8f0586a1e7a7a89014108997889a | quote: Use an email magic link or continue with oauth ... Use GoogleUse GitHubUse AgentIDContinue with SSO
+- sources:
+  - [1] https://www.notte.cc/pricing
+  - [2] https://www.notte.cc/
+  - [3] https://api.notte.cc/sessions
+  - [4] https://docs.notte.cc/api-reference/rate-limits
+  - [5] https://console.notte.cc/signin
+
+## Octen
+
+- `crawler-scraper/octenai` | trial-only | evidence documented | binding request-rate | category search API
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://octen.ai/pricing | page https://fshy.ajam.dev/p/octen.md
+- free tier: USD 5 in free balance on signup | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: the balance does not renew | source: [1]
+- egress: not applicable | metered: no | source: [1]
+- identity: email | detail: signup is an account
+- interface: rest
+- limits:
+  - request-rate (binding): USD 5 one-time balance; the page describes pay-as-you-go or a QPS subscription after it [1]
+- interface detail: REST search API
+- tooling: not established
+- composes with: High quality score on search benchmark evaluations, making the USD 5 trial balance practical for selective queries.
+- reliability: no reliability event recorded
+- notes: One-time signup balance. Multi-account residual balances do not constitute an official recurring vendor tier.
+- evidence:
+  - [1] 2026-10-22: sign up and get USD 5 in free balance; plans are pay-as-you-go or a QPS subscription
+- sources:
+  - [1] https://octen.ai/pricing
+
+## SearchApi
+
+- `crawler-scraper/searchapi` | trial-only | evidence reported | binding request-rate | category search API
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T01:01:53.531Z (live) | stale on 2026-11-17
+- url https://www.searchapi.io/pricing | page https://fshy.ajam.dev/p/searchapi.md
+- free tier: 100 free requests on signup, no credit card required; the vendor's launch announcement describes them as complimentary searches for newly registered users; a third-party review states they are granted once, not monthly | unit: requests | metered on: request-count | read on: 2026-11-01 | source: [1] | note: Only searches that answer 200 are charged.
+- per-object cap: not applicable | source: [1]
+- retention: unverified: no first-party page read states whether the 100 free requests renew; the launch announcement describes them as for newly registered users; third-party pages disagree, one stating one-time and three stating monthly | source: [1]
+- egress: not applicable | metered: no | source: [1]
+- identity: email | detail: the signup form asks for a full name, an email and a password, or GitHub or Google sign-in; no credit card required
+- interface: rest
+- limits:
+  - request-rate (binding): up to 20% of the plan's credits each hour; on the 100 free requests, 20% of 100 = 20 requests an hour [1]
+  - request-rate (binding): 100 free requests; Developer plan USD 40 a month for 10,000 searches, USD 4 per 1,000 [1]
+- binding note: the 100 free requests run out before the hourly cap matters: 100 / 20 an hour = 5 hours
+- interface detail: GET https://www.searchapi.io/api/v1/search?engine=google with api_key as a query parameter or a Bearer header; Google verticals, Bing, Baidu, Yandex, DuckDuckGo and other engines through the engine parameter
+- endpoint: part of interface detail
+- tooling: plain HTTP GET with an api_key query parameter or an Authorization: Bearer header
+- composes with: A one-time 100-request test of parsed Google and other engine results; the Developer plan at USD 4 per 1,000 is the paid reference
+- reliability: a keyless call answered 401 with an invalid-key message; failed requests are not billed
+- notes: The paid tiers fall from USD 4 to USD 1 per 1,000 searches at 5 million a month. The hourly cap is a share of the plan's credits, so it scales with the plan.
+- evidence note: the 100 free requests, the no-card statement and the hourly cap are first-party; the vendor's launch announcement describes the 100 as complimentary searches for newly registered users, but no first-party page read states whether they renew; that they are granted once and not monthly rests on a third-party review, while three other third-party pages state a monthly free tier; a first-party statement of the cadence would raise it to documented
+- evidence:
+  - [1] 2026-10-30: the signup grant is 100 free requests | capture: sha256:e523b12a00ea900245746a3de70a3870fdba159b39d9a1a2a2012948e2390b6a | quote: Sign up for 100 free requests
+  - [1] 2026-10-30: no credit card is required | capture: sha256:e523b12a00ea900245746a3de70a3870fdba159b39d9a1a2a2012948e2390b6a | quote: No credit card required. No commitment. Cancel anytime.
+  - [1] 2026-10-30: at most 20% of a plan's credits can be used in an hour | capture: sha256:e523b12a00ea900245746a3de70a3870fdba159b39d9a1a2a2012948e2390b6a | quote: Please note that you can utilize only up to 20% of your plan's credits each hour.
+  - [1] 2026-10-30: the Developer plan costs USD 4 per 1,000 searches | capture: sha256:e523b12a00ea900245746a3de70a3870fdba159b39d9a1a2a2012948e2390b6a | quote: $4 per 1,000 searches
+  - [1] 2026-10-30: only searches that answer 200 are charged | capture: sha256:e523b12a00ea900245746a3de70a3870fdba159b39d9a1a2a2012948e2390b6a | quote: Only successful searches with a 200 status code incur charges.
+  - [2] 2026-10-30: the signup offers GitHub and Google sign-in beside a name, email and password form | capture: sha256:77f652767e7b7fc7744b8e2b6bb0d596740d85b110b07d82374f8883abc457af | quote: Sign in with GitHub Sign in with Google
+  - [3] 2026-10-30: a third-party review states the 100 requests are one-time | capture: sha256:bb0fe7b4feb65d9ef0a8d99e72b589e9d580e14ee1e253030e2b4099676165f3 | quote: Free tier is 100 requests, one time, with no credit card (SearchApi pricing, verified August 2026)
+  - [4] 2026-10-30: the Google search endpoint | capture: sha256:5bb48315846588e16fc19eff797b24f0212ae377f32bd7bcae1b9d6e2f59a027 | quote: GET /api/v1/search?engine=google
+  - probe:www.searchapi.io/api/v1/search 2026-10-30: a keyless call answered 401 with an invalid-key message | capture: sha256:69ea80fd39a31364911e0539cc4c4df1ab19272361bd1293572f8c474b998c02 | quote: "error": "Invalid API key."
+  - [5] 2026-11-01: the vendor's May 2023 launch announcement describes the 100 free searches as complimentary searches that newly registered users can use to test the platform | capture: sha256:2e5626ef766519b12a6e7ce7772436ea0a173151921015710aace8e1e2a0f9a2 | quote: 100 free searches - newly registered users can test our platform with 100 complimentary searches.
+  - [1] 2026-11-01: the pricing page offers 100 free requests on signup and states no credit card is required | capture: sha256:e523b12a00ea900245746a3de70a3870fdba159b39d9a1a2a2012948e2390b6a | quote: No credit card required. No commitment. Cancel anytime. Sign up for 100 free requests
+  - [1] 2026-11-01: at most 20% of a plan's credits can be used in an hour | capture: sha256:e523b12a00ea900245746a3de70a3870fdba159b39d9a1a2a2012948e2390b6a | quote: Please note that you can utilize only up to 20% of your plan's credits each hour.
+  - [1] 2026-11-01: the Developer plan costs USD 40 a month for 10,000 searches, USD 4 per 1,000 | capture: sha256:e523b12a00ea900245746a3de70a3870fdba159b39d9a1a2a2012948e2390b6a | quote: $4 per 1,000 searches ... $40 / month ... 10,000 Searches
+  - [1] 2026-11-01: failed requests are not billed and only searches that answer 200 are charged | capture: sha256:e523b12a00ea900245746a3de70a3870fdba159b39d9a1a2a2012948e2390b6a | quote: Therefore, you won't be billed for failed requests. Only successful searches with a 200 status code incur charges.
+  - [2] 2026-11-01: the signup form asks for a full name, an email and a password, with GitHub and Google sign-in beside it | capture: sha256:766e39c41f7771bb030f5a1e3fa6d3e359f94cfb00a1d5e8505e4d7b77e00885 | quote: Full name Email Password (6 characters minimum) ... Sign in with GitHub Sign in with Google
+  - [4] 2026-11-01: the Google search endpoint is GET /api/v1/search?engine=google | capture: sha256:5bb48315846588e16fc19eff797b24f0212ae377f32bd7bcae1b9d6e2f59a027 | quote: GET /api/v1/search?engine=google
+  - [4] 2026-11-01: the search endpoint takes the api_key as a query parameter or in an Authorization Bearer header | capture: sha256:5bb48315846588e16fc19eff797b24f0212ae377f32bd7bcae1b9d6e2f59a027 | quote: Use it as a query parameter (`https://www.searchapi.io/api/v1/search?api_key=YOUR_API_KEY`) or in the Authorization header (`Bearer YOUR_API_KEY`).
+  - probe:www.searchapi.io/api/v1/search 2026-11-01: a keyless call to the search endpoint answered 401 with an invalid-key message | capture: sha256:69ea80fd39a31364911e0539cc4c4df1ab19272361bd1293572f8c474b998c02 | quote: "error": "Invalid API key."
+  - [3] 2026-11-01: a third-party review states the 100 requests are one-time | capture: sha256:bb0fe7b4feb65d9ef0a8d99e72b589e9d580e14ee1e253030e2b4099676165f3 | quote: Free tier is 100 requests, one time, with no credit card (SearchApi pricing, verified August 2026)
+  - [6] 2026-11-01: a third-party README states the free tier is 100 searches a month, which conflicts with the one-time statement | capture: sha256:72f4bbb330334eea114d4acb012d6acd60706ac747cd76748967b6e313c9dc08 | quote: The free tier is 100 searches a month.
+  - [7] 2026-11-01: a third-party README states the free tier includes 100 searches per month, which conflicts with the one-time statement | capture: sha256:ac425602e7de696cd1c486c83d37c1cedeed4481a3465ca9a9af0eb15c96b55d | quote: The free tier includes 100 searches per month
+  - [8] 2026-11-01: a third-party package page states the free tier is 100 searches a month, which conflicts with the one-time statement | capture: sha256:e4bcd001b48eff75d94bfb2737ca0c0e918ac46ae20615085ca9a0910fe2fbd1 | quote: Get your API key at searchapi.io (free tier: 100 searches/month).
+- sources:
+  - [1] https://www.searchapi.io/pricing
+  - [2] https://www.searchapi.io/users/sign_up
+  - [3] https://webscraping.cc/tool/searchapi/
+  - [4] https://www.searchapi.io/docs/google
+  - [5] https://www.searchapi.io/announcements/1
+  - [6] https://github.com/Byski/mcp-searchapi
+  - [7] https://github.com/Crossmint/worldstore-amazon-e2e
+  - [8] https://pypi.org/project/llama-index-tools-searchapi/
+
+## Serper
+
+- `crawler-scraper/serperdev` | trial-only | evidence documented | binding request-rate | category search API
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T01:02:30.839Z (live) | stale on 2026-12-03
+- url https://serper.dev/ | page https://fshy.ajam.dev/p/serper.md
+- free tier: 2,500 queries on signup, one-time, no credit card | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable: the unit is a query | source: [1]
+- retention: the signup grant does not renew | source: [1]
+- egress: not applicable | metered: no | source: [1]
+- identity: email | detail: an account with name, email and password behind a reCAPTCHA; the sign-up page states no credit card is needed
+- interface: rest
+- limits:
+  - request-rate (binding): paid credit packs from USD 50 for 50k credits (USD 1.00 per 1k) at 50 queries per second to USD 3750 for 12.5M credits (USD 0.30 per 1k) at 300 queries per second; credits valid for 6 months; the FAQ gives a default of 300 queries per second for the Ultimate credits and says the limit can be changed for a specific use case; no rate for the free queries appears on the home page or in its FAQ [1]
+  - request-rate (binding): 2,500 queries on signup, one-time [1]
+- binding note: the 2,500-query grant is spent once and does not renew, before any per-second rate binds
+- interface detail: REST, Google SERP results as JSON
+- tooling: not established
+- composes with: Bills per Google SERP query. Serves as a reference control when primary search results appear irregular.
+- reliability: no reliability event recorded
+- notes: 2,500 free queries on sign-up with no card, stated on the home page. The paid model is top-up packs with no monthly subscription, so the free queries do not renew: a trial, not a tier. The /pricing path is not found.
+- evidence note: free grant, paid packs and the sign-up form quoted from first-party pages; the rate for free queries is not stated
+- evidence:
+  - [1] 2026-10-22: home page headline states USD 0.30 per 1,000 queries and no credit card required
+  - [1] 2026-10-30: the smallest pack is 50k credits at USD 1.00 per 1k and 50 queries per second; the largest is 12.5M credits at USD 0.30 per 1k and 300 queries per second; credits are valid for 6 months | capture: sha256:37e272df6fd96fa33373016b9ef185f3127c4f5dbdd9479b2e786daf635cfdd1 | quote: 50k credits ($1.00/1k)
+  - [1] 2026-10-30: the home page offers 2,500 free queries | capture: sha256:37e272df6fd96fa33373016b9ef185f3127c4f5dbdd9479b2e786daf635cfdd1 | quote: Get 2,500 free queries
+  - [2] 2026-10-30: the sign-up form asks for name, email and password behind a reCAPTCHA and states no card is needed | capture: sha256:540ee29fbafb86bc40aa1798d551dec2c427e5cea797560f70d2f22b25dd6dce | quote: Create a free account, no credit-card needed.
+  - [1] 2026-10-30: the free queries are a try-out grant beside top-up packs with no monthly subscription | capture: sha256:37e272df6fd96fa33373016b9ef185f3127c4f5dbdd9479b2e786daf635cfdd1 | quote: Try 2,500 queries for free
+  - [1] 2026-10-30: the paid model is top-up credit packs with no monthly renewal | capture: sha256:37e272df6fd96fa33373016b9ef185f3127c4f5dbdd9479b2e786daf635cfdd1 | quote: No monthly subscriptions; simply pay for the credits you need.
+  - [1] 2026-11-01: the FAQ answer on queries per second gives a default of 300 for the Ultimate credits and says the limit can be changed for a specific use case | capture: sha256:f568f8ecd0234a5e416e1a5464f27a8d2fbf12532d41ef254c788ea89e8190b8 | quote: Our default rate limit for the Ultimate credits is 300 queries per second. This allows you to perform approximately 15,000 to 18,000 searches in 1 minute. If your specific use case requires a higher concurrency we are able to change this limit.
+  - [2] 2026-11-01: the sign-up form asks for name, email and password behind a reCAPTCHA and states no credit card is needed | capture: sha256:ee210e09d649c4d881079e7451b88da0769a0cd1409b4688ea39752b1461629c | quote: Create a free account, no credit-card needed. [...] Email* [...] Password*
+- sources:
+  - [1] https://serper.dev/
+  - [2] https://serper.dev/signup
+
+## Steel.dev
+
+- `crawler-scraper/steel` | trial-only | evidence documented | binding retention-clamped | category headless browser
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T01:02:34.147Z (live) | stale on 2026-12-03
+- url https://steel.dev/ | page https://fshy.ajam.dev/p/steel.md
+- free tier: USD 30 of credits, one time, valid 90 days (about 300 browser hours at USD 0.10 an hour); 10 concurrent sessions of up to 15 minutes | unit: mixed | metered on: wall-clock | read on: 2026-10-30 | source: [1] | note: one-time credit valid for 90 days; no credit card required; CAPTCHA solving and Steel-provided proxies on Launch need a USD 10 paid deposit, which free credits do not cover
+- per-object cap: not applicable: the unit is a browser session | source: [2]
+- retention: session data is kept 7 days on Launch; the USD 30 credit expires after 90 days | days: 7 | source: [2]
+- egress: not applicable | metered: no | source: [2]
+- identity: email | detail: an account opened with an email address, which the sign-up verifies by a code or a link, or with GitHub or Google; the sign-up configuration has no phone field and no CAPTCHA, makes first and last names optional, and blocks disposable email domains and email sub-addresses; what the dashboard asks after sign-up is unverified: behind a sign-up
+- interface: rest
+- limits:
+  - request-rate: 10 concurrent browser sessions and 60 requests a minute on the Launch plan [1]
+  - retention-clamped (binding): the USD 30 credit expires after 90 days [1]
+- limits note: Browser Tools calls (/scrape, /screenshot, /pdf) are limited to 20 requests a minute per organization, under the plan's request rate
+- binding note: the USD 30 credit is one-time and lapses after 90 days; a Launch session ends at 15 minutes
+- interface detail: REST sessions and a scrape route; 10 concurrent and 20 requests a minute on Browser Tools
+- tooling: a session model with a browser control protocol
+- composes with: A session model, so it is the wrong shape for a Worker and the right shape for a long agent run
+- reliability: no reliability event recorded
+- notes: A 421 naming the missing route is the useful shape: it distinguishes a wrong path from a dead host. Every other browser provider in this class answered 401, which proves less.
+- evidence note: free tier, limits, retention and the deposit rule read on the vendor's pricing and docs pages
+- evidence:
+  - [3] 2026-10-22: 421 with a 35-byte body reading `No route defined for GET /v1/scrape`: the host is live and the path is wrong, which proves the API exists and not that the route does
+  - [1] 2026-10-30: the Launch plan's USD 30 of credits is one-time and valid 90 days | capture: sha256:55115f2554c7ea9c57b12b64d1fde291f49bdf4ed5ef08894f95e58d349c41e0 | quote: Launch includes $30 in one-time free usage credits, valid for 90 days.
+  - [1] 2026-10-30: the Launch plan allows 60 requests a minute; the same table gives it 10 concurrent sessions | capture: sha256:55115f2554c7ea9c57b12b64d1fde291f49bdf4ed5ef08894f95e58d349c41e0 | quote: | Limits | Requests per minute | 60 | 600 | Custom |
+  - [1] 2026-10-30: the Launch plan runs 10 sessions at once | capture: sha256:55115f2554c7ea9c57b12b64d1fde291f49bdf4ed5ef08894f95e58d349c41e0 | quote: | Features | Concurrent browser sessions | 10 | 100 | 1,000+ |
+  - [4] 2026-10-30: Browser Tools calls have their own 20-a-minute limit per organization | capture: sha256:74050b053fe26b60795385b435c1a2f9f4743c1d8b0ce687e3be28c3c4502071 | quote: Calls are rate limited to 20 requests per minute per organization.
+  - [1] 2026-10-30: the Launch plan keeps data 7 days | capture: sha256:55115f2554c7ea9c57b12b64d1fde291f49bdf4ed5ef08894f95e58d349c41e0 | quote: | Limits | Data retention | 7 days | 14 days | Custom |
+  - [1] 2026-10-30: proxies and CAPTCHA solving on the free plan need a USD 10 paid deposit | capture: sha256:55115f2554c7ea9c57b12b64d1fde291f49bdf4ed5ef08894f95e58d349c41e0 | quote: To use CAPTCHA solving or Steel-provided proxies on Launch, verify your account by adding $10 in paid balance.
+  - [5] 2026-10-30: the quickstart opens an account with no credit card | capture: sha256:b4293dac4575356771e569195403817dca6a5a08158f31c30ad51eb33adb3226 | quote: No credit card required
+  - [6] 2026-10-30: the pricing page's Launch card needs no credit card | capture: sha256:db0a3543db430c6f30b30cf91c2f046b01a9531305ae0c895c9ff5b4767a94e4 | quote: No credit card needed
+  - [7] 2026-11-01: the sign-up configuration served by the vendor's authentication service requires an email address verified at sign-up, turns the phone number and CAPTCHA off, makes first and last names optional, and blocks disposable email domains and email sub-addresses | capture: sha256:3fa35f37334836816a238e73acd962fab20738d62909ebbf263e6b175e69abe1 | quote: "email_address":{"enabled":true,"required":true ... "phone_number":{"enabled":false,"required":false ... "first_name":{"enabled":true,"required":false ... "captcha_enabled":false ... "block_email_subaddresses":{"enabled":true},"block_disposable_email_domains":{"enabled":true}
+  - [1] 2026-11-01: the pricing and limits page lists the Launch credit, the request rate, the data retention and the USD 10 deposit rule | capture: sha256:55115f2554c7ea9c57b12b64d1fde291f49bdf4ed5ef08894f95e58d349c41e0 | quote: $30 in one-time free usage credits, valid for 90 days ... Requests per minute | 60 | 600 ... Data retention | 7 days | 14 days ... verify your account by adding $10 in paid balance
+  - [8] 2026-11-02: the vendor's docs state a one-time Launch credit valid for 90 days, no credit card required, and a USD 10 paid deposit for CAPTCHA solving or Steel-provided proxies that free credits do not cover | capture: sha256:46ac8a61f1928c99315cbad15ed7b348b488002b4adb3f3ad0ae873ee378791b | quote: Launch includes $30 in one-time free usage credits, valid for 90 days. ... No credit card required ... To use CAPTCHA solving or Steel-provided proxies on Launch, verify your account by adding $10 in paid balance. Free credits do not count.
+  - [9] 2026-11-01: the sign-in page offers GitHub, Google and email as the ways in | capture: sha256:efb4433b896ad858f0fe887bde446360615d931a52d418e3b5efd6582c6b5885 | quote: Continue with GitHubContinue with Google ... Continue with email
+  - [5] 2026-11-01: the quickstart opens an account for the Launch credits with no credit card | capture: sha256:b4293dac4575356771e569195403817dca6a5a08158f31c30ad51eb33adb3226 | quote: No credit card required
+  - [6] 2026-11-01: the pricing page's Launch card needs no credit card | capture: sha256:db0a3543db430c6f30b30cf91c2f046b01a9531305ae0c895c9ff5b4767a94e4 | quote: No credit card needed
+  - [1] 2026-11-01: the pricing and limits page lists the Launch plan at USD 30 of one-time credits valid for 90 days, 10 concurrent sessions, 15-minute sessions, 60 requests a minute and 7 days of data retention | capture: sha256:55115f2554c7ea9c57b12b64d1fde291f49bdf4ed5ef08894f95e58d349c41e0 | quote: $30 in one-time free usage credits, valid for 90 days ... Concurrent browser sessions | 10 | 100 ... Max session time | 15 minutes | 1 hour ... Requests per minute | 60 | 600 ... Data retention | 7 days | 14 days
+- sources:
+  - [1] https://docs.steel.dev/overview/pricinglimits
+  - [2] https://steel.dev/
+  - [3] https://api.steel.dev/v1/scrape?url=https://example.com
+  - [4] https://docs.steel.dev/overview/browser-tools/overview
+  - [5] https://docs.steel.dev/overview/sessions-api/quickstart
+  - [6] https://steel.dev/pricing
+  - [7] https://clerk.steel.dev/v1/environment
+  - [8] https://docs.steel.dev/llms-full.txt
+  - [9] https://app.steel.dev/sign-in
+
+## Valyu
+
+- `crawler-scraper/valyu` | trial-only | evidence documented | binding request-rate | category search API
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T01:02:19.439Z (live) | stale on 2026-12-03
+- url https://docs.valyu.ai/pricing.md | page https://fshy.ajam.dev/p/valyu.md
+- free tier: USD 10 of free credits on signup, USD 20 with a company email, no card; the free credits expire 12 months after signup | unit: credits | metered on: request-count | read on: 2026-10-30 | source: [1] | note: Search is billed per result returned, not per request, and priced per source: a 10-result web search is 1 credit, and pay-as-you-go buys 1,600 credits per USD 10. The nearest metered_on term is request-count; the true basis is the count of results returned (result-count), a term the vocabulary lacks.
+- per-object cap: not applicable: the unit is a search result | source: [1]
+- retention: one-time signup credit; it expires 12 months after signup and does not renew | source: [1]
+- egress: not applicable | metered: no | source: [1]
+- identity: email | detail: signup by email, Google or GitHub with no card; a company email doubles the signup credit to USD 20
+- interface: rest
+- limits:
+  - request-rate (binding): USD 10 one-time (USD 20 with a company email), about 1,600 ten-result web searches at 1 credit each; a request the balance cannot cover answers 402 and nothing is billed as overage [1]
+  - request-rate (binding): 5 search requests a second on the Pay-as-you-go plan and 10 on Ridiculously Cheap, per the documented 429 example; limits are per organisation and per endpoint, with no daily quota; unverified: the plan and search rate of an account that holds only signup credits, which the billing page, `valyu account whoami` and the plan field of a keyed 429 body show, behind a sign-up [2]
+  - request-rate (binding): 10 requests per second with bursts up to 20 and 86,400 requests per day by default, an over-limit request answered 403, per the OpenAPI description on the Search reference page; the API overview documents per-plan limits answered 429 with no daily quota instead [3]
+- limits note: The pricing page lists the signup credit in its Pay As You Go plan card, priced Free, with every data source while the free credits last and then web, arXiv and PubMed on pay-as-you-go, and the academia page says new accounts get the credits across every source and then pay as you go; the documented plan IDs are tier_0 Pay-as-you-go, tier_1 Ridiculously Cheap, tier_2 Comfortably Pro and tier_3 Serious Business, with no plan named for signup credits
+- binding note: the one-time signup balance is exhausted long before the 5-a-second rate limit is reached
+- interface detail: POST https://api.valyu.ai/v1/search with an x-api-key header; Contents, Answer and DeepResearch endpoints draw on the same key and balance; a hosted MCP server is offered
+- endpoint: part of interface detail
+- tooling: Python SDK (pip install valyu), TypeScript SDK (valyu-js), Rust SDK, a CLI and a hosted MCP server
+- composes with: A bounded search leg whose one key also reaches SEC filings, arXiv, PubMed, patents and clinical trials, priced per result; the signup balance is spent once, so it suits a finite job rather than a standing crawl
+- reliability: a keyless GET to /v1/search answered 403 with a missing-token message, so there is no anonymous route; no throttle or ban event recorded
+- notes: Search is priced per result by source: 0.1 credit per web or news result, 0.05 for arXiv and PubMed, 1.92 for SEC filings, 4.8 for Wiley publications. Monthly plans start at USD 29 for 5,000 credits. The free balance reaches every source on the standard plans while it lasts.
+- evidence note: the signup credit, its 12-month expiry, the no-card statement and the per-result price are quoted from first-party documentation; no keyed search was made, so the read path is unprobed; a keyed call that returns results would raise it to measured
+- evidence:
+  - [1] 2026-10-30: the signup credit is one-time and expires 12 months after signup | capture: sha256:ae12968c52ddd9186c828089f7eabf23e44126359e8b7cf03df0f6828a8f7114 | quote: Free credits expire 12 months after signup.
+  - [1] 2026-10-30: USD 10 free on signup, USD 20 with a company email, no card | capture: sha256:ae12968c52ddd9186c828089f7eabf23e44126359e8b7cf03df0f6828a8f7114 | quote: New accounts get \$10 of free credits, or \$20 when you sign up with a company email. No card is required.
+  - [1] 2026-10-30: a 10-result web search costs 1 credit | capture: sha256:ae12968c52ddd9186c828089f7eabf23e44126359e8b7cf03df0f6828a8f7114 | quote: A web search that returns 10 results uses 1 credit, and a `standard` DeepResearch task uses 100.
+  - [1] 2026-10-30: pay-as-you-go buys 1,600 credits per USD 10, which is 1,600 ten-result web searches | capture: sha256:ae12968c52ddd9186c828089f7eabf23e44126359e8b7cf03df0f6828a8f7114 | quote: | Pay-as-you-go | 1,600 per \$10 | 1,600 | 16 |
+  - [2] 2026-10-30: the documented 429 example sets 5 search requests a second on the Pay-as-you-go plan | capture: sha256:d068625575a023ea4db8a86f9bfb223f344b383e79be5dd3c637b088bbcf0b6c | quote: Search rate limit reached: your Pay-as-you-go plan allows 5 requests per second.
+  - [2] 2026-10-30: rate limits are per second with no daily quota | capture: sha256:d068625575a023ea4db8a86f9bfb223f344b383e79be5dd3c637b088bbcf0b6c | quote: There is no daily quota.
+  - [4] 2026-10-30: the signup page offers email, Google or GitHub with free credits and no card | capture: sha256:4af3a59ebb4f2c042a3088fdf1847d471cce73920dda4a90175388218ce77619 | quote: Free credits on signup · no card required
+  - [5] 2026-10-30: an exhausted balance pauses requests rather than billing overage | capture: sha256:16efefb6579935b281711f692429c18fad8efad203afe6558182d2ddf6de54d3 | quote: When your balance hits zero, new requests are paused until you add credits, so you never get a surprise overage bill.
+  - probe:api.valyu.ai/v1/search 2026-10-30: a keyless GET to the search endpoint answered 403 with a missing-token body | capture: sha256:f249b63cb2fcb66b47e86f906c98f8fd912e82dd035b4e53d7e72fc1960cfd16 | quote: {"message":"Missing Authentication Token"}
+  - [2] 2026-11-01: the documented 429 example gives the Pay-as-you-go plan 5 search requests a second and Ridiculously Cheap 10 | capture: sha256:984e865768830fa44c84cb71f49fc2a066dff030bd6ef7dd16f1a2dc69fd2354 | quote: Search rate limit reached: your Pay-as-you-go plan allows 5 requests per second. Retry after 2 seconds. Upgrade to Ridiculously Cheap for 10 requests per second:
+  - [3] 2026-11-01: the OpenAPI description on the Search reference states a default of 10 requests per second, bursts up to 20 and 86,400 requests a day | capture: sha256:8a0b22d7008a4f900e2f961ffda4c1b238701d1364c126d76330521ba1c2c0b8 | quote: Limits apply per organisation: 10 requests per second with bursts up to 20, and 86,400 requests per day by default.
+  - [6] 2026-11-01: the documented plan IDs are tier_0 Pay-as-you-go to tier_3 Serious Business, with no plan named for signup credits | capture: sha256:9218d746fb737bbb10c4c314f0d945af5fd556ac22550144e1a2722fda9fd87a | quote: Plan IDs map to plans as follows: `tier_0` Pay-as-you-go, `tier_1` Ridiculously Cheap (\$29/mo), `tier_2` Comfortably Pro (\$99/mo), `tier_3` Serious Business (\$499/mo).
+  - [1] 2026-11-01: Search is charged per result returned, priced per source, and not as a flat fee per query | capture: sha256:ae12968c52ddd9186c828089f7eabf23e44126359e8b7cf03df0f6828a8f7114 | quote: Search charges credits for the results it returns, priced per source. It is not a flat fee per query and is not based on tokens.
+  - [5] 2026-11-01: the Pay As You Go plan card of the pricing page is priced Free and holds the signup credit of USD 10, or USD 20 with a work email, with no card | capture: sha256:11e3952e89ecc66f606c4374e09b8be797b8689940fc31724b3fc41c0028f348 | quote: Pay As You Go1,600 CREDITS PER $10 Free $10 free credits on signup, $20 with a work email. No card required.
+  - [7] 2026-11-01: new accounts get the signup credit across every source and then pay as you go, which covers web search, arXiv and PubMed | capture: sha256:286a550ec5bdaac8c0c017edc3295f07f8b517f94fcaf2448044ab17d03752ac | quote: New accounts get $10 in free credits ($20 with a work email) across every source, then pay as you go. Pay-as-you-go covers web search, arXiv and PubMed.
+  - [8] 2026-11-01: the changelog entry of October 21, 2026 states that rate limits scale with the plan and that there is no daily quota | capture: sha256:43908308815234b8742cca21731d22583b81d255ac3b5df02c9acccacf0bf97a | quote: Search, Contents, Answer, and creating or polling DeepResearch tasks each have their own limit, lower on cheaper plans and higher on paid plans. There is no daily quota.
+  - [9] 2026-11-01: the OpenAPI file itself carries the same default-rate sentence | capture: sha256:e8b8d9e9ecd8627c2f69b448fd7b62586099648a3821f75fee089c79d719dff2 | quote: Limits apply per organisation: 10 requests per second with bursts up to 20, and 86,400 requests per day by default.
+  - [2] 2026-11-01: rate limits apply per organisation and per endpoint, and are lower on cheaper plans | capture: sha256:984e865768830fa44c84cb71f49fc2a066dff030bd6ef7dd16f1a2dc69fd2354 | quote: Limits apply per organisation and per endpoint. Search, Contents, Answer, and creating or polling DeepResearch tasks each have their own limit. The limit is lower on cheaper plans and higher on paid plans.
+  - [1] 2026-11-01: USD 10 of free credits on signup, USD 20 with a company email, no card | capture: sha256:ae12968c52ddd9186c828089f7eabf23e44126359e8b7cf03df0f6828a8f7114 | quote: New accounts get \$10 of free credits, or \$20 when you sign up with a company email. No card is required.
+  - [1] 2026-11-01: the signup credit expires 12 months after signup | capture: sha256:ae12968c52ddd9186c828089f7eabf23e44126359e8b7cf03df0f6828a8f7114 | quote: Free credits expire 12 months after signup.
+  - [1] 2026-11-01: a request that the balance cannot cover answers 402 and is not run, with no overage charge | capture: sha256:ae12968c52ddd9186c828089f7eabf23e44126359e8b7cf03df0f6828a8f7114 | quote: There are no overage charges. When your balance cannot cover a request, the API returns `402 Payment Required` and does not run it.
+  - [4] 2026-11-01: the sign-in page offers sign-up by email, Google or GitHub and states free credits with no card | capture: sha256:2b1b664f663a7d717a166b89fa3804d0e92db40cd5e6fa8b82d2272f5821e5b1 | quote: Email Continue with email or Google GitHub Free credits on signup · no card required
+  - [2] 2026-11-01: requests go to api.valyu.ai with the key in an x-api-key header and JSON bodies | capture: sha256:984e865768830fa44c84cb71f49fc2a066dff030bd6ef7dd16f1a2dc69fd2354 | quote: Every request goes to `https://api.valyu.ai` and carries your API key in the `x-api-key` header. Request and response bodies are JSON, except Answer, which streams server-sent events.
+  - probe:api.valyu.ai/v1/search 2026-11-01: a keyless GET to the search endpoint answered 403 with a missing-token body | capture: sha256:f249b63cb2fcb66b47e86f906c98f8fd912e82dd035b4e53d7e72fc1960cfd16 | quote: {"message":"Missing Authentication Token"}
+- sources:
+  - [1] https://docs.valyu.ai/pricing.md
+  - [2] https://docs.valyu.ai/api-reference/overview.md
+  - [3] https://docs.valyu.ai/api-reference/endpoint/search.md
+  - [4] https://platform.valyu.ai/
+  - [5] https://www.valyu.ai/pricing
+  - [6] https://docs.valyu.ai/api-reference/warnings.md
+  - [7] https://www.valyu.ai/academia-research
+  - [8] https://docs.valyu.ai/changelog/sdk-and-api.md
+  - [9] https://docs.valyu.ai/api-reference/openapi.json

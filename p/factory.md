@@ -1,0 +1,129 @@
+# Factory
+
+> factory.com | Coding subscriptions, Compute; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/factory/ | JSON https://fshy.ajam.dev/api/v1/entity/factory.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Factory (Coding subscriptions)
+
+- `coding-subs/factory` | paid-only | evidence documented | binding request-rate | category coding subscription
+- needs card yes, phone unknown, ID no, institution no | verified 2026-11-10T01:55:59.598Z (live) | stale on 2026-12-11
+- url https://factory.com/pricing
+- price parsed USD 20/mo
+- free tier: no free plan: the individual plans are Pro at USD 20, Plus at USD 100 and Max at USD 200 a month; Droid Core (a free open-weight model pool) and BYOK (free up to an allowance) are features of those paid plans, and the trial terms are unverified: not published on the pages read | unit: none | metered on: none | read on: 2026-11-02 | source: [1] | note: the docs mention free accounts and trial states (a free account cannot launch Environment sessions) but publish no free allowance or trial length
+- per-object cap: not applicable: a coding subscription meters usage, not objects
+- retention: not applicable
+- egress: not applicable | metered: no
+- identity: card | detail: paid signup collects card or bank payment details inside the onboarding flow, and payments that need 3D Secure authentication are not supported; sign-in methods (email, Google, GitHub), any phone requirement and any trial terms are unverified: behind a sign-up, the sign-in app does not render without a script
+- interface: cli, rest
+- limits:
+  - request-rate (binding): three independent rolling windows of 5 hours, 7 days and 30 days on every individual plan, each starting when Droid is first used; a request needs headroom in all three; no request or token count is published for any window [1]
+  - request-rate (binding): Plus (USD 100 a month) is stated as about 5x the usage of Pro (USD 20) and Max (USD 200) as about 10x; Teams gives each seat Pro rate limits [2]
+  - request-rate (binding): after Standard Usage runs out the Droid Core open-weight pool has its own separate rate limits; Standard Usage does not roll over month to month, while purchased Extra Usage does [1]
+- limits note: the docs publish the window lengths and the plan multipliers (about 5x and about 10x Pro) but no request, token or credit count per window; the figure appears only in Settings > Usage or the /limits command, behind a sign-up. Missions share the same windows and need Extra Usage enabled
+- binding note: the unquantified Pro rolling windows are the first wall; Droid Core and Extra Usage only move it
+- interface detail: the Droid CLI is a terminal UI, and `droid exec` is its headless mode: one-shot, read-only by default, `--auto low|medium|high` allows edits and commands, `-o json|stream-json|stream-jsonrpc` gives structured output, `-s ID` continues a session and `FACTORY_API_KEY` authenticates it. A Factory Public API at api.factory.ai and Droid SDKs for TypeScript and Python are also documented
+- tooling: the user installs the Droid CLI (`curl -fsSL https://app.factory.ai/cli | sh`, Homebrew cask droid, `irm https://app.factory.ai/cli/windows | iex` or `npm install -g droid`), or the Factory App desktop client; a Factory API key generated in account settings drives `droid exec` in CI. The vendor serves the models; BYOK custom models are set in ~/.factory/settings.json
+- composes with: a paid, vendor-served agent whose first wall is the rolling Standard Usage allowance: after it Droid Core keeps working on open-weight models under its own limits, prepaid Extra Usage (USD 10 minimum, no expiry) extends it, and BYOK keys for any OpenAI- or Anthropic-compatible endpoint in inference/ run free up to an unstated allowance
+- reliability: when a window is exhausted the current request finishes and later requests return a Rate Limit error; Standard Usage does not roll over; the docs list five deprecated Droid Core models (DeepSeek V4 Flash 0731, DeepSeek V4 Pro, MiniMax M2.7, Kimi K2.5, GLM-5.1) that will be removed
+- notes: The Droid coding agent (Factory App, Droid CLI, Droid SDK) sold on individual plans Pro USD 20, Plus USD 100 and Max USD 200 a month, and Teams at USD 60 a month plus USD 40 a seat for up to 10 seats. No free plan is on the pricing page; Droid Core and BYOK work only inside a paid plan, and the trial terms are unverified. The same offer is also filed in compute as compute/factory for its managed Droid Computers. The documentation moved from docs.factory.ai to docs.factory.com.
+- evidence note: prices, windows, Droid Core, BYOK, headless mode and the payment step are quoted from first-party pages read on 2026-11-02; the per-window quota, the BYOK allowance, trial terms and sign-in methods are unverified because they sit behind a sign-up. The pricing page FAQ answers are collapsed and were not read
+- extras:
+  - monthly_usd: 20
+- evidence:
+  - [3] 2026-11-02: the cheapest individual plan is Pro at USD 20 a month | capture: sha256:9bf899577f63263f42a3100e2edefb0bed44730fbadd83eace15dda3e7c2958c | quote: Pro · $20/mo
+  - [3] 2026-11-02: Plus is USD 100 a month | capture: sha256:9bf899577f63263f42a3100e2edefb0bed44730fbadd83eace15dda3e7c2958c | quote: Plus · $100/mo
+  - [3] 2026-11-02: Max is USD 200 a month | capture: sha256:9bf899577f63263f42a3100e2edefb0bed44730fbadd83eace15dda3e7c2958c | quote: Max · $200/mo
+  - [2] 2026-11-02: Teams is USD 60 a month per team | capture: sha256:0c8f18e59e988ea415b676a479718aec1102be3ea6ea5474f346d698a489407a | quote: ## $60/mo
+  - [2] 2026-11-02: Teams adds USD 40 a month per seat | capture: sha256:0c8f18e59e988ea415b676a479718aec1102be3ea6ea5474f346d698a489407a | quote: per team, plus $40/mo per seat
+  - [2] 2026-11-02: Teams is capped at 10 seats with shared billing | capture: sha256:0c8f18e59e988ea415b676a479718aec1102be3ea6ea5474f346d698a489407a | quote: Up to 10 seats with centralized billing
+  - [2] 2026-11-02: Plus carries about 5x the usage of Pro | capture: sha256:0c8f18e59e988ea415b676a479718aec1102be3ea6ea5474f346d698a489407a | quote: ~5x the usage of Pro
+  - [2] 2026-11-02: Max carries about 10x the usage of Pro | capture: sha256:0c8f18e59e988ea415b676a479718aec1102be3ea6ea5474f346d698a489407a | quote: ~10x the usage of Pro
+  - [4] 2026-11-02: a Teams seat has Pro rate limits and billing is month to month | capture: sha256:1431ec6fee433698573a9791a274fa8d3453b8f6a5b0b4d20a10edb294d910e1 | quote: On Teams plans, each seat includes Pro Rate Limits. Billing is centralized and paid month-to-month.
+  - [3] 2026-11-02: individual usage is governed by three independent rolling windows of 5 hours, 7 days and 30 days | capture: sha256:9bf899577f63263f42a3100e2edefb0bed44730fbadd83eace15dda3e7c2958c | quote: Rate Limits: three rolling windows, 5-hour, 7-day, and 30-day. Each runs independently.
+  - [1] 2026-11-02: each window starts at first use and resets when it elapses | capture: sha256:370b476a0f8e1d8f9e876bae9a2d6602aff01660ebbe4a5655d770c390d1cd89 | quote: Each starts ticking when you first use Droid and resets after the window elapses.
+  - [1] 2026-11-02: a request needs headroom in the 5-hour, 7-day and 30-day windows together | capture: sha256:370b476a0f8e1d8f9e876bae9a2d6602aff01660ebbe4a5655d770c390d1cd89 | quote: You need headroom in all three to send a request.
+  - [1] 2026-11-02: an exhausted window ends in a Rate Limit error after the current request | capture: sha256:370b476a0f8e1d8f9e876bae9a2d6602aff01660ebbe4a5655d770c390d1cd89 | quote: The current request finishes, then subsequent requests receive a Rate Limit error in the CLI or Factory App.
+  - [1] 2026-11-02: Standard Usage does not roll over and purchased Extra Usage does | capture: sha256:370b476a0f8e1d8f9e876bae9a2d6602aff01660ebbe4a5655d770c390d1cd89 | quote: No. Standard Usage does not roll over month to month. Extra Usage that you purchase does roll over.
+  - [3] 2026-11-02: Droid Core is a free open-weight model pool with its own rate limits once Standard Usage is spent | capture: sha256:9bf899577f63263f42a3100e2edefb0bed44730fbadd83eace15dda3e7c2958c | quote: Droid Core: free open-weight model pool with separate Rate Limits after Standard Usage runs out.
+  - [1] 2026-11-02: the FAQ states Droid Core is billed as Standard Usage restricted to the Core pool, with no extra charge, so it is a fallback of the paid plan and not a free account | capture: sha256:370b476a0f8e1d8f9e876bae9a2d6602aff01660ebbe4a5655d770c390d1cd89 | quote: No. It uses the same Standard Usage billing, restricted to the Core model pool so you can keep working after premium-model Rate Limits are exhausted.
+  - [5] 2026-11-02: the models page has a Droid Core section of open models | capture: sha256:4d5fcd534672c30566988c4489ac9be97c55e74b376e9e00c54bb686c3f39b7f | quote: ## Droid Core (Open Models)
+  - [5] 2026-11-02: GLM-5.3-Flash is in the Droid Core pool at a 0.06x multiplier | capture: sha256:4d5fcd534672c30566988c4489ac9be97c55e74b376e9e00c54bb686c3f39b7f | quote: | GLM-5.3-Flash | `glm-5.3-flash` | 0.06× | `low`, `high` (default), `max` |
+  - [5] 2026-11-02: Kimi K3 is in the Droid Core pool at a 1.2x multiplier | capture: sha256:4d5fcd534672c30566988c4489ac9be97c55e74b376e9e00c54bb686c3f39b7f | quote: | Kimi K3 | `kimi-k3` | 1.2× | `off`, `low`, `high` (default), `max` |
+  - [3] 2026-11-02: Extra Usage is prepaid with a USD 10 minimum and no expiry | capture: sha256:9bf899577f63263f42a3100e2edefb0bed44730fbadd83eace15dda3e7c2958c | quote: Extra Usage: prepaid credits, $10 minimum, no expiration.
+  - [3] 2026-11-02: Missions share the rolling windows and need Extra Usage enabled | capture: sha256:9bf899577f63263f42a3100e2edefb0bed44730fbadd83eace15dda3e7c2958c | quote: Missions use the same rolling Rate Limits as regular sessions and require Extra Usage to be enabled.
+  - [3] 2026-11-02: BYOK is free up to an allowance, whose size the page does not state, and charged against the plan beyond it | capture: sha256:9bf899577f63263f42a3100e2edefb0bed44730fbadd83eace15dda3e7c2958c | quote: BYOK is free up to an allowance on all Individual plans. After that, usage is charged according to your specific plan.
+  - [6] 2026-11-02: BYOK keys stay in the local settings file | capture: sha256:c694a58bc236db1bfa80a601a92cdb02604702a88dfaa18f2099867d009ae6ca | quote: Your API keys remain local and are not uploaded to Factory servers.
+  - [7] 2026-11-02: the Droid CLI has a headless mode, `droid exec` | capture: sha256:f1374c35f4a5a276a5bcbd55785c3ad46c774ec4ccaefaae6e1f4b85fb641c15 | quote: Droid Exec is Factory's headless execution mode designed for automation workflows.
+  - [7] 2026-11-02: headless runs are read-only unless --auto is given | capture: sha256:f1374c35f4a5a276a5bcbd55785c3ad46c774ec4ccaefaae6e1f4b85fb641c15 | quote: By default the run is read-only: Droid can read files and run read-only commands, but can't edit anything.
+  - [7] 2026-11-02: headless output formats include json and stream-json | capture: sha256:f1374c35f4a5a276a5bcbd55785c3ad46c774ec4ccaefaae6e1f4b85fb641c15 | quote: -o, --output-format <format> text|json|stream-json|stream-jsonrpc|acp
+  - [7] 2026-11-02: headless runs authenticate with a Factory API key in FACTORY_API_KEY | capture: sha256:f1374c35f4a5a276a5bcbd55785c3ad46c774ec4ccaefaae6e1f4b85fb641c15 | quote: export FACTORY_API_KEY=fk-...
+  - [8] 2026-11-02: the Droid CLI installs from npm, a shell script, Homebrew or a Windows script | capture: sha256:dc31c2e3c66c4d47e8849585f620c089cf4f404b105695c9728d95cdc8ff08b1 | quote: npm: `npm install -g droid`
+  - [9] 2026-11-02: a Factory Public API exists at api.factory.ai | capture: sha256:bd05f83c595497ba7d76ebbd9e48eda288375af3438e2c48bb7e05120f322729 | quote: Machine-readable contract for the Factory Public API at api.factory.ai
+  - [9] 2026-11-02: a Droid SDK for TypeScript is documented | capture: sha256:bd05f83c595497ba7d76ebbd9e48eda288375af3438e2c48bb7e05120f322729 | quote: Use the Factory Droid SDK for TypeScript to build custom agents, workflows, and product integrations.
+  - [10] 2026-11-02: the CLI signs in through a browser; the sign-in methods are not stated | capture: sha256:80da5ee021a172a098698a4addee5aecfef9da51c4cfe51dda2b8e96154f5e86 | quote: If prompted, sign in via your browser to connect to Factory's development agent.
+  - [11] 2026-11-02: paid sign-up collects card or bank payment details during onboarding | capture: sha256:0f094ad82e5191d830750a540d37c20fb0e9a6196dd57a052671ad533f035f4e | quote: Paid signup now collects card or bank payment details directly in the onboarding flow (app)
+  - [11] 2026-11-02: the payment step does not support 3D Secure payments | capture: sha256:0f094ad82e5191d830750a540d37c20fb0e9a6196dd57a052671ad533f035f4e | quote: Payment steps now state that payments requiring 3D Secure authentication are not supported (app)
+  - [11] 2026-11-02: a free-trial onboarding flow existed in the app in the May 1, 2026 release notes; no current page states its terms | capture: sha256:0f094ad82e5191d830750a540d37c20fb0e9a6196dd57a052671ad533f035f4e | quote: Free trial onboarding** - Fixed a free trial onboarding issue (Factory App)
+  - [12] 2026-11-02: free and trial account states exist and cannot launch managed-compute Environments | capture: sha256:36385fd1d0a627c0e7cef75ea65426cacc9b4fbdde61ffe4fdf1894777d44900 | quote: Free accounts cannot launch Environment sessions; trial, ended, or overdue subscription states can also block managed compute.
+  - [2] 2026-11-02: the pricing page lists managed Droid Computers under Plus, while the docs list them under Pro | capture: sha256:0c8f18e59e988ea415b676a479718aec1102be3ea6ea5474f346d698a489407a | quote: Droid Computers — access to Factory-managed cloud computers for remote Droids
+  - [3] 2026-11-02: the individual-plans doc lists managed Droid Computers under Pro | capture: sha256:9bf899577f63263f42a3100e2edefb0bed44730fbadd83eace15dda3e7c2958c | quote: Managed Droid Computers for remote runs
+  - [2] 2026-11-10: the page states the pricing page prices Pro at USD 20 a month | capture: sha256:f604db8c9295b5e5942d65b61effa28c5b112de742c64a8d30d91728af17103d | quote: Pro $20 / mo
+- sources:
+  - [1] https://docs.factory.com/pricing/individuals.md
+  - [2] https://factory.com/pricing
+  - [3] https://docs.factory.ai/pricing
+  - [4] https://docs.factory.com/pricing/organizations.md
+  - [5] https://docs.factory.com/models.md
+  - [6] https://docs.factory.com/model-independence/byok.md
+  - [7] https://docs.factory.com/droid-exec/overview.md
+  - [8] https://docs.factory.com/welcome/index.md
+  - [9] https://docs.factory.com/llms.txt
+  - [10] https://docs.factory.com/droid-cli/quickstart.md
+  - [11] https://docs.factory.com/changelog/release-notes.md
+  - [12] https://docs.factory.com/environments/prerequisites.md
+
+## Factory (Compute)
+
+- `compute/factory` | paid-only | evidence documented | binding request-rate | category cloud VM
+- identity a placeholder: card and phone unknown | verified 2026-11-04T06:53:22.458Z (live) | stale on 2026-12-05
+- url https://factory.com/pricing
+- free tier: no free tier: individual plans are Pro at USD 20, Plus at USD 100 and Max at USD 200 a month, and Teams is USD 60 a month plus USD 40 a seat | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: card | detail: unverified: no page stating the signup requirement was read; the record's evidence covers the paid plan prices, that the cloud machine is gated behind the USD 100 Plus tier, and that no free tier appears on the current pricing page, and states nothing about an email, phone, card or ID document
+- interface: unknown
+- limits:
+  - request-rate (binding): three rolling rate-limit windows of 5 hours, 7 days and 30 days, each independent; the docs give no request or token count for any window, so the first wall is unquantified. After Standard Usage runs out, Droid Core, a free open-weight model pool, has separate rate limits [1]
+- limits note: three rolling rate-limit windows of 5 hours, 7 days and 30 days, each independent; the docs give no request or token count for any window, so the first wall is unquantified. After Standard Usage runs out, Droid Core, a free open-weight model pool, has separate rate limits
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: a paid route to remote agent compute, not a free one: the individual-plans doc lists managed Droid Computers for remote runs under Pro at USD 20 a month, while the pricing page lists Droid Computers as an addition of Plus at USD 100 a month; the two first-party pages disagree
+- reliability: no reliability event recorded
+- notes: A coding subscription: Factory sells the Droid coding agent (Factory App, Droid CLI and Droid SDK) on individual plans Pro at USD 20, Plus at USD 100 and Max at USD 200 a month, and Teams at USD 60 a month plus USD 40 a seat. No coding-subs record holds it. It sits in compute only for the managed Droid Computers. No free tier is on the current pricing page; BYOK is free up to an allowance whose size is not published, and Extra Usage is prepaid credit with a USD 10 minimum and no expiry.
+- extras:
+  - facets.class: paid
+  - facets.free_tier_kind: none
+- evidence:
+  - [1] 2026-10-22: the page description reads "Paid plans start at $20/month. Custom coding agent deployments for enterprise." and the plan cards begin at Pro USD 20, quoted
+  - [1] 2026-10-22: Plus at USD 100 adds "Droid Computers - access to Factory-managed cloud computers for remote Droids", quoted, so the cloud machine is gated behind the second paid tier
+  - [1] 2026-10-30: the pricing page lists Pro USD 20, Plus USD 100, Max USD 200 and Teams USD 60 plus USD 40 a seat, with no free card | capture: sha256:2ddea9c64fbcece4328ddbb9b6bb449751a76b737b261c6e38d029ac66275ed2 | quote: per team, plus $40/mo per seat
+  - [2] 2026-10-30: the cheapest individual plan is still Pro at USD 20 a month | capture: sha256:9bf899577f63263f42a3100e2edefb0bed44730fbadd83eace15dda3e7c2958c | quote: Pro · $20/mo
+  - [2] 2026-10-30: individual usage is limited by three independent rolling windows of 5 hours, 7 days and 30 days | capture: sha256:9bf899577f63263f42a3100e2edefb0bed44730fbadd83eace15dda3e7c2958c | quote: Rate Limits: three rolling windows, 5-hour, 7-day, and 30-day. Each runs independently.
+  - [2] 2026-10-30: Droid Core is a free open-weight pool on the paid individual plans | capture: sha256:9bf899577f63263f42a3100e2edefb0bed44730fbadd83eace15dda3e7c2958c | quote: Droid Core: free open-weight model pool with separate Rate Limits after Standard Usage runs out.
+  - [2] 2026-10-30: the individual-plans doc lists managed Droid Computers under Pro | capture: sha256:9bf899577f63263f42a3100e2edefb0bed44730fbadd83eace15dda3e7c2958c | quote: Managed Droid Computers for remote runs
+  - [1] 2026-10-30: the pricing page lists Droid Computers under Plus | capture: sha256:0c8f18e59e988ea415b676a479718aec1102be3ea6ea5474f346d698a489407a | quote: Droid Computers — access to Factory-managed cloud computers for remote Droids
+  - [1] 2026-10-30: Factory sells a software development agent on individual subscription plans | capture: sha256:2ddea9c64fbcece4328ddbb9b6bb449751a76b737b261c6e38d029ac66275ed2 | quote: Complete software development agents for individuals.
+  - [2] 2026-10-30: Extra Usage is prepaid with a USD 10 minimum and no expiry | capture: sha256:9bf899577f63263f42a3100e2edefb0bed44730fbadd83eace15dda3e7c2958c | quote: Extra Usage: prepaid credits, $10 minimum, no expiration.
+  - [2] 2026-10-30: BYOK is free up to an unstated allowance | capture: sha256:9bf899577f63263f42a3100e2edefb0bed44730fbadd83eace15dda3e7c2958c | quote: BYOK is free up to an allowance on all Individual plans.
+  - [3] 2026-11-03: the launch announcement, an undated page, gated managed computers to Max, Growth and Enterprise, a third tier set that matches neither pricing page | capture: sha256:f7a044bfc6689e182e4937a9f1b920187edd98802683425d438c8b4a54f39500 | quote: Managed Computers are available today for Max, Growth, and Enterprise plans.
+  - [4] 2026-11-03: the individual-plans doc lists managed Droid Computers in the Pro tier list, USD 20 a month | capture: sha256:9bf899577f63263f42a3100e2edefb0bed44730fbadd83eace15dda3e7c2958c | quote: Managed Droid Computers for remote runs
+  - [1] 2026-11-03: the pricing page lists managed Droid Computers as a feature of the Plus plan, USD 100 a month, not of Pro | capture: sha256:0c8f18e59e988ea415b676a479718aec1102be3ea6ea5474f346d698a489407a | quote: Droid Computers — access to Factory-managed cloud computers for remote Droids
+  - [1] 2026-11-04: the pricing page sells individual plans starting at Pro, with no free card | capture: sha256:0c8f18e59e988ea415b676a479718aec1102be3ea6ea5474f346d698a489407a | quote: Complete software development agents for individuals.
+- sources:
+  - [1] https://factory.com/pricing
+  - [2] https://docs.factory.ai/pricing
+  - [3] https://factory.com/news/droid-computers
+  - [4] https://docs.factory.com/pricing/individuals

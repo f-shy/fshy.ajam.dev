@@ -1,0 +1,282 @@
+# pCloud
+
+> pcloud.com | Storage; 7 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/pcloud/ | JSON https://fshy.ajam.dev/api/v1/entity/pcloud.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## pCloud Premium Plus 2 TB / Ultra 10 TB (lifetime)
+
+- `storage/pcloud-premium-plus-2-tb-ultra-10-tb` | qualifies-with-caveat | evidence reported | binding none | category Swiss cloud drive, lifetime one-time
+- needs card yes, phone unknown, ID no, institution no | verified 2026-11-01T18:05:15.753Z, checked 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://landing.pcloud.com/lifetime-cloud-storage
+- price One-time $249.50/TB at 2 TB ($499); $149.90/TB at 10 TB ($1,499). Amortised over 5 years: $4.16/TB/mo at 2 TB, $2.50/TB/mo at 10 TB. At the $890 sale price for 10 TB: $1.48/TB/mo over 5 years.
+- free tier: 500 GB $219; 2 TB $499 (list $709); 10 TB $1,499 (list $2,799). Sale ladders reach 2 TB $299 and 10 TB $890. | unit: GB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: TRAP-SHAPED but escapable. Verbatim from support: 'Every pCloud plan includes a specified amount of shared link traffic that resets on a monthly basis (regardless of whether you have a monthly, annual, or Lifetime subscription) .. pCloud Premium Plus (2 TB): 4 TB per month .. pCloud Ultra (10 TB): 20 TB per month'. Blog confirms the ratio is 2x storage: 'As of September, 2026, it is double the amount of your paid storage'. CRITICAL EXEMPTION: this cap applies only to public shared links. API, WebDAV and app downloads are not counted, per pCloud's own link-traffic explainer. | metered: yes | free allowance: 4 TB per month
+- identity: card | detail: the account is created with an email address and a verification link, and the vendor's account guidance names an email address and a password; whether registration asks a phone number is unverified. The lifetime plan is bought with a credit or debit card, with PayPal backed by a linked credit or debit card, or with Alipay in select regions
+- interface: rest, webdav, rsync, rclone
+- limits note: Constraint type: per-object none; egress is pull-count-ish only on public links. Folder share caps: 150 folder shares/day, 25,000 subfolders or 150,000 files per shared folder.
+- interface detail: REST API (api.pcloud.com, probed live: getapiserver returns result 0 with binapi/api hosts), WebDAV, rsync, rclone native `pcloud` backend, FUSE-style virtual drive
+- tooling: rclone native; WebDAV+rsync documented by vendor
+- composes with: rclone/WebDAV -> local -> CDN; virtual drive mount is a genuine advantage vs sync-only competitors
+- reliability: Operates since 2013, Swiss entity. No mass data-loss event. r/DataHoarder 'The Lifetime Trap' thread documents $745 spent and ROI scepticism, not data loss. Payment: card, PayPal, Alipay for select regions; Bitcoin historically accepted (Apple/Google in-app also available).
+- notes: the same as the free tier
+- extras:
+  - price_verbatim: One-time $249.50/TB at 2 TB ($499); $149.90/TB at 10 TB ($1,499). Amortised over 5 years: $4.16/TB/mo at 2 TB, $2.50/TB/mo at 10 TB. At the $890 sale price for 10 TB: $1.48/TB/mo over 5 years.
+- evidence:
+  - [1] 2026-10-21: 'Premium Plus 2 TB Lifetime 499USD 709USD'; 'Ultra 10 TB Lifetime 1499USD 2799USD'
+  - [2] 2026-10-21: per-plan monthly caps quoted verbatim above
+  - [3] 2026-10-21: 'As of September, 2026, it is double the amount of your paid storage'
+  - [4] 2026-10-21: WebDAV + rsync documented
+  - [5] 2026-10-21: live API, returns region hosts
+  - [6] 2026-10-21: 'Credit and Debit Cards ... PayPal — Requires a linked credit/debit card ... Alipay — Available for select regions'
+  - [6] 2026-11-01: the lifetime plan is paid by credit or debit card | capture: sha256:3b62a430d0df68d2b49585c11aa529d90b44c437ce4a8565c0922baca813f3c6 | quote: - Credit and Debit Cards - All major cards accepted
+  - [1] 2026-11-01: the lifetime price needs a pCloud account | capture: sha256:6491f08fb5ab727c6ec9259ebd2138dcbdd67f21251a2cad32137f19754ffb25 | quote: In order to participate in the promotion, you must sign up for a pCloud account or log into a pCloud account through this promotional page.
+  - [6] 2026-11-01: even the PayPal rail needs a linked credit or debit card | capture: sha256:3b62a430d0df68d2b49585c11aa529d90b44c437ce4a8565c0922baca813f3c6 | quote: - PayPal - Requires a linked credit/debit card
+- sources:
+  - [1] https://landing.pcloud.com/lifetime-cloud-storage
+  - [2] https://help.pcloud.com/article/shared-link-traffic
+  - [3] https://blog.pcloud.com/what-is-link-traffic/
+  - [4] https://help.pcloud.com/article/connect-to-pcloud-using-webdav-and-rsync
+  - [5] https://api.pcloud.com/getapiserver
+  - [6] https://help.pcloud.com/article/payment-methods-billing-cycles
+
+## pCloud Ultra 10 TB
+
+- `storage/pcloud-ultra-10-tb` | qualifies-with-caveat | evidence reported | binding per-ip-shaping | category consumer cloud drive (lifetime option)
+- needs card yes, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.pcloud.com/cloud-storage-pricing-plans.html
+- price $2.999/TB/mo at 10 TB annual ($359.88/12). Monthly billing: $2.999/TB. Lifetime: €1499 one-time / 10 TB; at a 3-year horizon that is €4.16/TB/mo, at 5 years €2.50/TB/mo. | parsed USD 3/TB-mo
+- free tier: 10 TB storage; monthly $29.99 / annual $359.88 | unit: TB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: SHARED-LINK TRAFFIC IS METERED. Verbatim from pCloud's own blog (Sep 2026): 'Each pCloud plan comes with a predetermined amount of link traffic each month. As of September, 2026, it is double the amount of your paid storage … Ultra | 10 TB | 20 TB | 2×'. Non-link (own-client) transfers are not metered. | metered: yes
+- identity: card | detail: card
+- interface: webdav, rclone
+- limits:
+  - per-ip-shaping (binding): 666 GB/day [1]
+  - per-ip-shaping (binding): 1 TiB/day [1]
+- limits note: 2× storage as monthly shared-link traffic; on exceed links are suspended until next month
+- binding note: one stream is shaped, and aggregate throughput is the shaped rate times the number of streams
+- interface detail: WebDAV, rclone, API
+- tooling: rclone; WebDAV
+- composes with: WebDAV mount; lifetime plans available (2799→1499 EUR for 10 TB one-time on the pricing page)
+- reliability: It would work at the low end of serving and break at the top.
+- notes: the same as the free tier
+- extras:
+  - price_verbatim: $2.999/TB/mo at 10 TB annual ($359.88/12). Monthly billing: $2.999/TB. Lifetime: €1499 one-time / 10 TB; at a 3-year horizon that is €4.16/TB/mo, at 5 years €2.50/TB/mo.
+- evidence:
+  - [2] 2026-10-21: 'As of September, 2026, it is double the amount of your paid storage … Ultra | 10 TB | 20 TB | 2×'; 'If you hit this limit, your links get suspended until the next month'
+  - [1] 2026-10-21: 'Ultra 10 TB … 29.99 USD … 359.88 USD / Jahr'
+  - [3] 2026-10-21: lifetime ladder 709 EUR→499 EUR (2 TB), 2799 EUR→1499 EUR (10 TB), one_time_payment
+- sources:
+  - [1] https://www.pcloud.com/de/cloud-storage-pricing-plans.html?period=month
+  - [2] https://blog.pcloud.com/what-is-link-traffic/
+  - [3] https://www.pcloud.com/cloud-storage-pricing-plans.html
+
+## pCloud PhotoDay2026 promo — 500 GB free for 3 months
+
+- `storage/pcloud-photoday2026-promo-500-gb-free-for-3-months` | trial-only | evidence reported | binding none | category trial-stack
+- needs card no, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.pcloud.com/promo.html
+- free tier: 500 GB free for 3 months, no card, via promo code `PhotoDay2026` on a fresh signup. Base free tier is 10 GB. | unit: GB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Same as pCloud paid. Unrestricted transfer speeds, no per-GB meter. | metered: no
+- identity: email | detail: email
+- interface: rest, rclone
+- limits note: 3-month expiry hard-stop; capacity reverts to 10 GB (data above the free cap becomes read-only or is reclaimed). No card, so no auto-charge risk. Promo codes rotate seasonally. This one is a 'Photography Day' code live since at least 2026-08-13.
+- interface detail: rest
+- tooling: Rclone backend `pcloud`. The trial grant is a normal quota bump, so rclone works unchanged against it.
+- composes with: The grant repeats: a new email address creates a new account that holds a new 500 GB for 3 months. 4 grant cycles a year x N email addresses. 10 email addresses = 5 TB of rolling free capacity. The friction is re-uploading data each cycle and that rclone remotes must be re-authed per account.
+- reliability: Highest-confidence repeatable trial found. It is a marketing code, not a security hole, so it is unlikely to be retroactively enforced; but pCloud can invalidate a code at any time. Verified the promo-redemption page is live; did not burn an account to confirm the grant lands.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 500 GB free for 3 months, no card, via promo code `PhotoDay2026` on a fresh signup. Base free tier is 10 GB.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [2] 2026-10-21: posted 2026-08-13, 'Register, hit the promo page and paste PhotoDay2026 ... 500GB of pCloud, free for three months. No card'
+  - [1] 2026-10-21: live redemption page, 'Sign up for free and enter your promo code to activate it instantly', fetched 2026-10-21
+  - [3] 2026-10-21: 'pCloud Premium 500 GB：免费3个月' (independent CN-language corroboration)
+- sources:
+  - [1] https://www.pcloud.com/promo?code=3MONTHS500GB
+  - [2] https://onehack.st/t/pcloud-500gb-free-for-3-months-unlocked-by-one-code/324726
+  - [3] https://www.toolnavia.com/zh-cn/coupons/pcloud
+
+## pcloud lifetime
+
+- `storage/pcloud-lifetime` | paid-only | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-04T02:22:32.523Z (live) | stale on 2026-11-19
+- url https://www.pcloud.com/cloud-storage-pricing-plans.html
+- free tier: none: a priced offer only. Lifetime plans, one-time payment: 500 GB EUR 219, 2 TB EUR 499, 10 TB EUR 1499. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: Largest listed lifetime plan is 10 TB for EUR 1499 one time (list EUR 2799); a 20 TB plan is not listed on the page.
+- notes: Priced as a consumer photo product, not bulk storage: €1499 for 10 TB = €150/TB one-time, roughly 4x Drime's $36/TB lifetime and 15x Internxt's $10/TB. Encryption is a separate €150…
+- evidence note: reported: the page read on 2026-11-03 is https://www.pcloud.com/cloud-storage-pricing-plans.html. One read of it lists the 10 TB lifetime plan at 1499EUR one_time_payment against 2799 EUR; a later rendered read of the same page lists 219USD, 499USD and 1499USD against 2799 USD, so the currency the page shows depends on the read and the EUR prices in free_tier.stated are not confirmed. Interface, egress, identity and per-object cap are not stated on it, so the rung stays reported.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Priced as a consumer photo product, not bulk storage: €1499 for 10 TB = €150/TB one-time, roughly 4x Drime's $36/TB lifetime and 15x Internxt's $10/TB. Encryption is a separate €150…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Priced as a consumer photo product, not bulk storage: €1499 for 10 TB = €150/TB one-time, roughly 4x Drime's $36/TB lifetime and 15x Internxt's $10/TB. Encryption is a separate €150…
+  - [2] 2026-10-21: cited as the basis of the rejection: Priced as a consumer photo product, not bulk storage: €1499 for 10 TB = €150/TB one-time, roughly 4x Drime's $36/TB lifetime and 15x Internxt's $10/TB. Encryption is a separate €150 purchase
+  - [1] 2026-11-03: the 10 TB lifetime plan costs EUR 1499 one time | capture: sha256:99d8defcc5b39b20c918ccce9f6aabad18596fdca975c71e6cc989b629191b47 | quote: 1499EUR one_time_payment pCloud PhotosNEW pCloud DocsNEW 10 TB Storage
+  - [1] 2026-11-03: list price EUR 2799 against EUR 1499 on the page | capture: sha256:99d8defcc5b39b20c918ccce9f6aabad18596fdca975c71e6cc989b629191b47 | quote: 2799 EUR 1499EUR one_time_payment
+  - [1] 2026-11-03: the page lists fixed prices with no setup fee | capture: sha256:99d8defcc5b39b20c918ccce9f6aabad18596fdca975c71e6cc989b629191b47 | quote: Prices are final. No setup fees or other hidden charges!
+  - [1] 2026-11-04: a rendered read of the vendor pricing page lists the 10 TB lifetime plan at 1499USD | capture: sha256:2b2e9d76567bbca2d60397679b3fba95ff9ea5af76f38d5ac33785205eee38db | quote: 1499USD
+- sources:
+  - [1] https://www.pcloud.com/cloud-storage-pricing-plans.html
+  - [2] https://shieldfive.com/resources/is-pcloud-lifetime-worth-it
+
+## pCloud — lifetime plans (direct)
+
+- `storage/pcloud-lifetime-plans` | paid-only | evidence documented | binding volume-quota | category cloud-drive
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T02:22:32.523Z (live) | stale on 2026-12-05
+- url https://www.pcloud.com/cloud-storage-pricing-plans.html
+- price One-time: USD 149.90 per TB on the 10 TB plan, USD 249.50 per TB on the 2 TB plan, USD 438 per TB on the 500 GB plan.
+- disagrees on verdict: `storage/pcloud-koofr-icedrive-proton-drive-mediafire-degoo` says fails-quota, `storage/pcloud-lifetime-plans` says paid-only
+- free tier: No free allowance in this offer. One-time lifetime plans in USD: 500 GB $219, 2 TB $499, 10 TB $1,499 (listed against $279, $709, $2,799). | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: Deleted files can be recovered from up to 30 days back. | days: 30 | source: [1] | note: not stated
+- egress: 'Upload files of any size with unrestricted transfer speeds'. No egress meter quoted on pricing page. Traffic quotas exist on some tiers but not metered per-GB billing. | metered: yes
+- identity: email | detail: a pCloud account is required to buy; payment details are unverified: behind a sign-up.
+- interface: rest, webdav, rclone
+- limits:
+  - volume-quota (binding): lifetime plans of 500 GB, 2 TB and 10 TB; the largest is 10 TB [2]
+- limits note: Storage cap only; 30-day file recovery; encryption (zero-knowledge Crypto folder) is a paid add-on.
+- binding note: the largest lifetime plan is 10 TB, plans do not transfer between accounts.
+- interface detail: rest
+- tooling: rclone backend `pcloud` (long-standing, first-class). WebDAV also offered.
+- composes with: $250/TB one-time at 2 TB, $150/TB at 10 TB. No account multiplication needed. Family plan 5 users on one quota is the only multiplier.
+- reliability: Longest-running lifetime seller (since 2013), 14-day refund. Short window, upload real data inside week one. Best-in-class survival odds among lifetime vendors.
+- notes: 500 GB $219, 2 TB $499, 10 TB $1,499 one-time. Live as of 2026-10-17 per price audit; AppSumo listing sold out.
+- evidence note: documented: the pages read on 2026-11-03 are three. https://www.pcloud.com/lifetime.html lists the 500 GB, 2 TB and 10 TB lifetime plans at 219 USD, 499 USD and 1499 USD (against 279 USD and 709 USD), as a limited-time promotion that ends on 4/1/2031, once per participant, with no plan transfer between accounts, no combination with other promotions, a pCloud account required to take part, and the money-back guarantee only within the first 14 days after purchase. https://www.pcloud.com/cloud-storage-pricing-plans.html carries the lifetime plans and, in a general file-management list rather than per plan, the lines on upload size, transfer speed and data recovery. https://www.dealkeep.io/blog/pcloud-lifetime-deal repeats the 219, 499 and 1499 USD prices as a third party. The prices, plan sizes and refund window that decide the paid-only verdict rest on the vendor pages; the identity kind, the encryption add-on and the seller history are not stated on them.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 500 GB $219, 2 TB $499, 10 TB $1,499 one-time. Live as of 2026-10-17 per price audit; AppSumo listing sold out.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'checked 17 Oct 2026: 500 GB $219, 2 TB $499, 10 TB $1,499 sold direct with a 14-day refund'
+  - [3] 2026-10-21: live pricing page, fetched 2026-10-21 (JS price grid not in text extract; prices corroborated by the 2026-10-17 audit)
+  - [4] 2026-10-21: ... — 2025 deal thread now marked 'expired'; the 2026-05 thread f/19491207 is the current one
+  - [1] 2026-11-03: the 2 TB lifetime plan is $499 one-time | capture: sha256:8bb31bcfe163003dd8c24cf9c116417f77a670d056a720ba7079de3c90aed743 | quote: | Premium Plus | 2 TB | $499 | $709 |
+  - [1] 2026-11-03: the 10 TB lifetime plan is $1,499 one-time | capture: sha256:8bb31bcfe163003dd8c24cf9c116417f77a670d056a720ba7079de3c90aed743 | quote: | Ultra | 10 TB | $1,499 | $2,799 |
+  - [3] 2026-11-03: a 30 day recovery window | capture: sha256:dc4ba6bb8849a336ce132df8564d6c42185fc768e398831508a514975742e6bd | quote: Recover your data from up to 30 days ago.
+  - [2] 2026-11-03: the lifetime promotion lists 500 GB, 2 TB and 10 TB plans | capture: sha256:6491f08fb5ab727c6ec9259ebd2138dcbdd67f21251a2cad32137f19754ffb25 | quote: This promotion gives users the opportunity to purchase 500 GB Lifetime, 2 TB Lifetime, 10 TB Lifetime at a promotional price with up to 37% discount.
+  - [2] 2026-11-03: the promotion is once per participant | capture: sha256:6491f08fb5ab727c6ec9259ebd2138dcbdd67f21251a2cad32137f19754ffb25 | quote: Participants can take advantage of the promotion only once. No plan transfers between accounts are allowed.
+  - [2] 2026-11-03: an account is required | capture: sha256:6491f08fb5ab727c6ec9259ebd2138dcbdd67f21251a2cad32137f19754ffb25 | quote: In order to participate in the promotion, you must sign up for a pCloud account or log into a pCloud account through this promotional page.
+  - [2] 2026-11-03: the refund window is 14 days | capture: sha256:6491f08fb5ab727c6ec9259ebd2138dcbdd67f21251a2cad32137f19754ffb25 | quote: Money-back guarantee is allowed only within the first 14 days, following the date of purchase.
+  - [3] 2026-11-03: no file size cap is stated | capture: sha256:dc4ba6bb8849a336ce132df8564d6c42185fc768e398831508a514975742e6bd | quote: Upload files of any size with unrestricted transfer speeds.
+  - [2] 2026-11-04: the 10 TB lifetime plan is listed at 1499 USD on the vendor page | capture: sha256:3e8d9d57f2eea51e97e1fcb5202bcae89709f3fcc6afed01e829c6b59803a1e0 | quote: 1499 USD
+- sources:
+  - [1] https://www.dealkeep.io/blog/pcloud-lifetime-deal
+  - [2] https://www.pcloud.com/lifetime.html
+  - [3] https://www.pcloud.com/cloud-storage-pricing-plans.html
+  - [4] https://slickdeals.net/f/18392425-
+
+## pcloud / koofr / icedrive / proton drive / mediafire / degoo
+
+- `storage/pcloud-koofr-icedrive-proton-drive-mediafire-degoo` | fails-quota | evidence reported | binding none | category rejected-provider
+- needs card no, phone unknown, ID no, institution no | verified 2026-11-03T01:28:36.980Z (inherited) | stale on 2026-11-18
+- url https://www.pcloud.com/
+- disagrees on verdict: `storage/pcloud-koofr-icedrive-proton-drive-mediafire-degoo` says fails-quota, `storage/pcloud-lifetime-plans` says paid-only
+- free tier: pCloud: up to 10 GB of free storage. Koofr Free: 10 GB, free forever, 50 GB daily public transfer limit. Icedrive free account: 10 GB. Proton Drive Free: 5 GB. MediaFire Basic: 10 GB with ad-supported downloads. Degoo Free: 20 GB cloud space with a 90-day account inactivity limit | unit: GB | metered on: stored-bytes | read on: 2026-10-30 | source: [1] | note: pCloud and Proton Drive state that no credit card is required for the free plan; Koofr's free plan is stated as free forever
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email | detail: Email address is the sign-up credential: the Koofr create-account form asks for an email address, Icedrive sends a confirmation code to the email address, and Degoo requests a username, password and email address. Card: pCloud and Proton Drive state none. Phone: Proton may ask for a code by SMS or to a secondary email address as an alternative to a CAPTCHA. The sign-up forms of pCloud and MediaFire were not readable: unverified.
+- interface: unknown
+- binding note: the six free tiers are stored-byte quotas of 20 GB or less; registration is open by email, so quota is the failure, and no limits row exists to name as the binding kind
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: Degoo Free lists a 90 days account inactivity limit; the reliability of the other five providers is unverified.
+- notes: All six free tiers are small stored-byte quotas: the largest is Degoo Free at 20 GB cloud space, so the quota is the failing constraint, not identity.
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Quota: every free tier of the six is 20 GB or less (largest: Degoo Free, 20 GB cloud space), below the 500 GB storage floor.
+  - dead_end.retry_when: if a free tier of any of the six reaches 500 GB
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 
+  - [2] 2026-10-21: 
+  - [3] 2026-10-21: 
+  - [1] 2026-10-30: pCloud offers up to 10 GB of free storage | capture: sha256:7df9f217d9c532e979759bc29bd40a5d2b3253ba3dfede5574aa1bd7702899d0 | quote: Get up to 10 GB of free storage
+  - [1] 2026-10-30: the pCloud free plan needs no credit card | capture: sha256:7df9f217d9c532e979759bc29bd40a5d2b3253ba3dfede5574aa1bd7702899d0 | quote: No credit card required
+  - [2] 2026-10-30: the Koofr Free plan is 10 GB, free forever | capture: sha256:dfbbc02ef1cd4100c03d95eabad8e527ca27ecc9907842045545f8dcdc1b61e4 | quote: Free 10 GB Free forever
+  - [2] 2026-10-30: the Koofr plan table lists a 50 GB daily public transfer limit in the Free plan column | capture: sha256:dfbbc02ef1cd4100c03d95eabad8e527ca27ecc9907842045545f8dcdc1b61e4 | quote: 50 GB daily public transfer limit
+  - [4] 2026-10-30: a free Icedrive account includes 10 GB of storage | capture: sha256:52233b89de2d4a58f6fe878c0cf58760d39c38f6300877b75e842ad92bafda29 | quote: Yes. A free Icedrive account includes 10 GB of storage so you can try the service before choosing a paid plan.
+  - [3] 2026-10-30: the Icedrive home page states 10 GB free | capture: sha256:c8217b5e1913717742164e1599c25c058d320fd70675f79a3f72171b840ab740 | quote: And get 10GB FREE Cloud Storage
+  - [5] 2026-10-30: the Proton Free plan includes 5 GB of storage | capture: sha256:4edf6aa0f6091eb5937fb08be4ec5685494382ba3ae52ba326a44ef35113ea8e | quote: - 5 GB of storage, photos and documents
+  - [5] 2026-10-30: the Proton Free plan needs no credit card | capture: sha256:4edf6aa0f6091eb5937fb08be4ec5685494382ba3ae52ba326a44ef35113ea8e | quote: No credit card required
+  - [6] 2026-10-30: the MediaFire Basic plan is 10 GB of storage with ad-supported downloads | capture: sha256:e5bb1f32b7dc70b237dc2dd54ac09d1f09e777e8c2a4beed87e9394cc8ede0a7 | quote: 10 GB storage, ad-supported downloads
+  - [7] 2026-10-30: the Degoo Free plan is 20 GB of cloud space | capture: sha256:798883fb383daac2481c4b0e874bb0c2a919c3075bab650f283cc77aa4ccf034 | quote: Free # 20 GB cloud space
+  - [7] 2026-10-30: the Degoo Free plan lists a 90-day account inactivity limit | capture: sha256:798883fb383daac2481c4b0e874bb0c2a919c3075bab650f283cc77aa4ccf034 | quote: 90 days account inactivity
+  - [1] 2026-10-31: free_tier.stated, pCloud clause: up to 10 GB of free storage | capture: sha256:17fdd574a6d5f7189262a1f557a3403a6ff572aaef56af6f76abfd7bbec97a94 | quote: Get up to 10 GB of free storage
+  - [1] 2026-10-31: free_tier.notes, pCloud clause: the pCloud free sign-up needs no credit card | capture: sha256:17fdd574a6d5f7189262a1f557a3403a6ff572aaef56af6f76abfd7bbec97a94 | quote: No credit card required
+  - [2] 2026-10-31: free_tier.stated and free_tier.notes, Koofr clause: the Koofr Free plan is 10 GB, free forever | capture: sha256:dfbbc02ef1cd4100c03d95eabad8e527ca27ecc9907842045545f8dcdc1b61e4 | quote: Free 10 GB Free forever
+  - [2] 2026-10-31: free_tier.stated, Koofr clause: the Free plan column lists a 50 GB daily public transfer limit | capture: sha256:dfbbc02ef1cd4100c03d95eabad8e527ca27ecc9907842045545f8dcdc1b61e4 | quote: 50 GB daily public transfer limit
+  - [4] 2026-10-31: free_tier.stated, Icedrive clause: a free Icedrive account includes 10 GB of storage | capture: sha256:52233b89de2d4a58f6fe878c0cf58760d39c38f6300877b75e842ad92bafda29 | quote: Yes. A free Icedrive account includes 10 GB of storage so you can try the service before choosing a paid plan.
+  - [5] 2026-10-31: free_tier.stated, Proton Drive clause: the Proton Free plan includes 5 GB of storage | capture: sha256:4edf6aa0f6091eb5937fb08be4ec5685494382ba3ae52ba326a44ef35113ea8e | quote: 5 GB of storage, photos and documents
+  - [5] 2026-10-31: free_tier.notes, Proton Drive clause: the Proton Free plan needs no credit card | capture: sha256:4edf6aa0f6091eb5937fb08be4ec5685494382ba3ae52ba326a44ef35113ea8e | quote: No credit card required
+  - [6] 2026-10-31: free_tier.stated, MediaFire clause: the Basic plan is 10 GB of storage with ad-supported downloads | capture: sha256:e5bb1f32b7dc70b237dc2dd54ac09d1f09e777e8c2a4beed87e9394cc8ede0a7 | quote: 10 GB storage, ad-supported downloads
+  - [7] 2026-10-31: free_tier.stated, Degoo clause: the Degoo Free plan is 20 GB of cloud space | capture: sha256:798883fb383daac2481c4b0e874bb0c2a919c3075bab650f283cc77aa4ccf034 | quote: Free # 20 GB cloud space
+  - [7] 2026-10-31: free_tier.stated, Degoo clause: the Degoo Free plan lists a 90-day account inactivity limit | capture: sha256:798883fb383daac2481c4b0e874bb0c2a919c3075bab650f283cc77aa4ccf034 | quote: 90 days account inactivity
+  - [1] 2026-10-31: the free tier is a stored-storage quota stated in GB | capture: sha256:17fdd574a6d5f7189262a1f557a3403a6ff572aaef56af6f76abfd7bbec97a94 | quote: Get up to 10 GB of free storage
+  - [7] 2026-11-03: the largest of the six free tiers is Degoo Free at 20 GB of cloud space | capture: sha256:798883fb383daac2481c4b0e874bb0c2a919c3075bab650f283cc77aa4ccf034 | quote: Free # 20 GB cloud space
+  - [7] 2026-11-03: a 500 GB plan exists only as the paid Pro plan, so the free tier is 20 GB | capture: sha256:798883fb383daac2481c4b0e874bb0c2a919c3075bab650f283cc77aa4ccf034 | quote: 500 GB cloud space
+  - [7] 2026-11-03: the Degoo Free plan lists a 90 days account inactivity limit | capture: sha256:798883fb383daac2481c4b0e874bb0c2a919c3075bab650f283cc77aa4ccf034 | quote: 90 days account inactivity
+  - [8] 2026-11-03: the Koofr create-account form asks for an email address | capture: sha256:1ef454619b996bd75db3fc8f2428e7fe51427e696c6ab9d6b9e073845f8e5229 | quote: Create account Already have an account? Sign in instead. Email
+  - [9] 2026-11-03: Icedrive sign-up asks for an email address and confirms it with a 4-digit code | capture: sha256:04aab454ca017371f494f4e841fa1e987caaa7f0627764ee9a71238cba514ef2 | quote: a confirmation email containing a 4-digit code will be sent to the provided email address.
+  - [10] 2026-11-03: Proton human verification can use a code sent to a phone number or secondary email address, with CAPTCHA as the alternative | capture: sha256:cc997dfe8e3e80ff071449efd62a910088d7e3fa82726d2262d5559b525b3941 | quote: We’ll send a verification code to your phone number or secondary email address.
+  - [11] 2026-11-03: Degoo requests a username, password and email address for a user account | capture: sha256:23f7712531a7857be041a9bf56985fc99ea71aac44f35935cd68d68d0c063595 | quote: your username, password, and email address
+- sources:
+  - [1] https://www.pcloud.com/
+  - [2] https://koofr.eu/pricing/
+  - [3] https://icedrive.net/
+  - [4] https://icedrive.net/plans
+  - [5] https://proton.me/drive/pricing
+  - [6] https://www.mediafire.com/upgrade/
+  - [7] https://degoo.com/
+  - [8] https://app.koofr.net/signup
+  - [9] https://chat.icedrive.net/hc/icedrive/articles/1708624199-confirmation-code-new-users
+  - [10] https://proton.me/support/human-verification
+  - [11] https://degoo.com/privacy
+
+## pCloud Transfer
+
+- `storage/pcloud-transfer` | fails-quota | evidence reported | binding per-object-cap | category anonymous-dump
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://transfer.pcloud.com/
+- free tier: 5 GB per transfer, no registration; 200 MB per single file via the web uploader. | unit: GB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: 200 MB per single file | bytes: 200000000 | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Free, but 5 GB total per transfer and short retention. | metered: no
+- identity: institution
+- interface: unknown
+- limits:
+  - per-object-cap (binding): 200 MB per single file [1]
+- limits note: per-object-cap 5 GB per transfer and 200 MB per single file; retention not stated on the page (unverified).
+- interface detail: web-only for Transfer (pCloud Drive itself has an API, but that is a separate 10 GB account product)
+- tooling: none for Transfer; pCloud Drive has an API but a different quota
+- composes with: 5 GB x unlimited transfers, expiring. 200 MB/file on the web path is the real blocker for bulk archives.
+- reliability: Anonymous transfer product is a funnel for pCloud accounts; no API for the transfer path.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 5 GB per transfer, no registration; 200 MB per single file via the web uploader.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Send up to 5GB Free. No need to register.', 'Up to 200MB per single file'
+- sources:
+  - [1] https://transfer.pcloud.com/

@@ -1,0 +1,143 @@
+# LittleCreek
+
+> littlecreekhosting.com | Compute, Egress and tunnels; 3 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/littlecreekhosting/ | JSON https://fshy.ajam.dev/api/v1/entity/littlecreekhosting.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Little Creek Hosting
+
+- `compute/little-creek-hosting` | paid-only | evidence documented | binding volume-quota | category cloud VM
+- identity a placeholder: card and phone unknown | verified 2026-11-07T11:15:23.466Z (live) | stale on 2026-12-08
+- url https://littlecreekhosting.com/vps-hosting
+- price parsed USD 7.95/mo
+- free tier: No storage VPS. Three NVMe plans: Starter at USD 7.95/month with 2 vCPU, 4 GB and 80 GB; Business at USD 14.95/month with 4 vCPU, 8 GB and 160 GB; Professional at USD 21.95/month with 8 vCPU, 16 GB and 320 GB. Every plan has a 1 Gbps port and 4 TB to 16 TB of bandwidth, and the page states 'No introductory tricks - your price is locked forever'. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 4 TB to 16 TB a month by plan | metered: yes | free allowance: 16 TB per month on the Professional plan | source: [1]
+- identity: email | detail: not stated
+- interface: ssh
+- limits:
+  - volume-quota (binding): 4 TB to 16 TB a month by plan, stated on the page; 16 TB on the Professional plan. [1]
+- limits note: 4 TB to 16 TB a month by plan, stated on the page; 16 TB on the Professional plan.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: KVM guest with root, custom ISO mounting and a client-area reinstall; ssh and rsync reach it
+- composes with: nothing for evaluated providers: the largest disk is 320 GB, and at USD 68.59/TB-month it is the most expensive terabyte in the file.
+- reliability: no reliability event recorded
+- notes: Its own page sells NVMe compute only, so this record closes that question. The client area (clients.littlecreekhosting.com) may list a separate storage product; it was not opened.
+- extras:
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 8
+  - facets.shape.ram_gib: 16
+  - stock: out of stock: the WHMCS store answers its out-of-stock page for the starter, business and professional products on 2026-11-07
+  - monthly_usd: 7.95
+  - annual_usd: not published: the vendor page prints a monthly rate only
+  - renewal_usd: not published: no page prints a renewal price; the store is out of stock and renders no cart price
+  - term: monthly: the page's only printed term is '/mo'; the store renders no cycle selector while the products are out of stock
+  - cart_url: https://www.littlecreekhosting.com/clients/index.php?rp=/store/vps-hosting/starter-vps-1
+  - price_on_page: Starter VPS $7.95/mo, Business VPS $14.95/mo, Professional VPS $21.95/mo on the vendor page
+- evidence:
+  - [1] 2026-10-22: three plans quoted: 'Starter VPS 2 vCPU Cores 4 GB DDR4 RAM 80 GB NVMe Storage 4 TB Bandwidth 1 Gbps Network Port $7.95/mo'; 'Business VPS ... 160 GB ... $14.95/mo'; 'Professional VPS 8 vCPU Cores 16 GB DDR4 RAM 320 GB NVMe Storage 16 TB Bandwidth 1 Gbps Network Port $21.95/mo'
+  - [1] 2026-10-22: the page states 'No introductory tricks - your price is locked forever' and 'Enterprise-grade NVMe storage'
+  - [1] 2026-11-07: the vendor page prices the three NVMe plans at USD 7.95, 14.95 and 21.95 a month, all out of stock in the store | capture: sha256:ece34e99b91431f3922d31313d7cbf4582eacfdceb21349916320e918202d1df | quote: $7.95/mo
+  - [1] 2026-11-07: the vendor page still prices the Starter VPS at USD 7.95 a month | capture: sha256:ece34e99b91431f3922d31313d7cbf4582eacfdceb21349916320e918202d1df | quote: $7.95/mo
+  - [2] 2026-11-07: the store suspends orders for the product | capture: sha256:a778a316b8db16acebdf5ecc2a16752cce97ffcedfcc278bdd9596cc64d017b1 | quote: We are currently out of stock on this item so orders for it have been suspended until more stock is available.
+  - [1] 2026-11-07: the Starter plan's printed monthly price | capture: sha256:ece34e99b91431f3922d31313d7cbf4582eacfdceb21349916320e918202d1df | quote: $7.95/mo
+  - [1] 2026-11-07: the only printed term is the monthly one | capture: sha256:ece34e99b91431f3922d31313d7cbf4582eacfdceb21349916320e918202d1df | quote: $7.95/mo
+  - [2] 2026-11-07: no cart price renders while the product is out of stock | capture: sha256:a778a316b8db16acebdf5ecc2a16752cce97ffcedfcc278bdd9596cc64d017b1 | quote: We are currently out of stock on this item so orders for it have been suspended until more stock is available.
+  - [1] 2026-11-07: the printed term is monthly | capture: sha256:ece34e99b91431f3922d31313d7cbf4582eacfdceb21349916320e918202d1df | quote: $7.95/mo
+  - [1] 2026-11-07: the Starter plan's order link | capture: sha256:ece34e99b91431f3922d31313d7cbf4582eacfdceb21349916320e918202d1df | quote: [Order Now](https://www.littlecreekhosting.com/clients/index.php?rp=/store/vps-hosting/starter-vps-1)
+  - [1] 2026-11-07: the Starter plan's printed price | capture: sha256:ece34e99b91431f3922d31313d7cbf4582eacfdceb21349916320e918202d1df | quote: $7.95/mo
+- sources:
+  - [1] https://littlecreekhosting.com/vps-hosting
+  - [2] https://www.littlecreekhosting.com/clients/index.php?rp=/store/vps-hosting/starter-vps-1
+
+## LittleCreek (Compute)
+
+- `compute/littlecreek` | paid-only | evidence documented | binding volume-quota | category cloud VM
+- identity a placeholder: card and phone unknown | verified 2026-11-07T11:15:23.466Z (live) | stale on 2026-12-08
+- url https://littlecreekhosting.com/vps-hosting
+- price parsed USD 7.95/mo
+- duplicate of `compute/little-creek-hosting`
+- free tier: USD 7.95/month (Starter VPS): 2 vCPU, 4 GB DDR4 RAM, 80 GB NVMe, 4 TB bandwidth, 1 Gbps port, United States; the page states there are no introductory tricks and that the price is locked forever. The vendor's next steps are Business VPS at USD 14.95 (4 vCPU, 8 GB, 160 GB, 8 TB) and Professional VPS at USD 21.95 (8 vCPU, 16 GB, 320 GB, 16 TB). The tracker's cheaper LittleCreek offers are not orderable: its USD 1.00 Micro VPS Special (1 core, 2,048 MB, 25 GB NVMe) and USD 2.00 and USD 3.00 plans carry no order link on any card. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 4 TB a month included per the vendor plan card (free_allowance is in GB a month); the overage price and the throttle policy are not stated on the page read | metered: yes | free allowance: 4096 | source: [1]
+- identity: email | detail: not stated
+- interface: unknown
+- limits:
+  - volume-quota (binding): 4 TB a month on a 1 Gbps port; the overage price is not stated on the page read, and the 80 GB NVMe is the disk limit on the plan that is actually for sale [1]
+- limits note: 4 TB a month on a 1 Gbps port; the overage price is not stated on the page read, and the 80 GB NVMe is the disk limit on the plan that is actually for sale
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: WHMCS store at littlecreekhosting.com/clients with root access, custom ISO mounting and Linux or Windows templates; the page states unmanaged service
+- composes with: USD 7.95 buys 4 GB and 80 GB NVMe, and the 80 GB disk is its one advantage over the cheaper machines among evaluated providers; the reason to look elsewhere is the tracker's own reliability flag on every one of this host's cards, and if 4 TB a month of US egress is the requirement it is workable but not distinguished.
+- reliability: the tracker marks all 12 LittleCreek cards with class 'fire' and the title 'Reliability problems were reported for this service'; that is the tracker's claim, and no outage or suspension was observed.
+- notes: Two vendor-side inconsistencies are recorded rather than smoothed: the page meta description advertises a higher entry price while the plan grid starts lower, and the tracker's cheapest three plans are not on the vendor page at all and have no order link, so they are either withdrawn or specials that live only inside an order form. On 2026-11-07 the WHMCS store answers out of stock for all three VPS products, so no plan is orderable today; the vendor page still prints the three prices.
+- extras:
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 2
+  - facets.shape.ram_gib: 4
+  - facets.shape.disk_gib: 80
+  - stock: out of stock: the WHMCS store answers its out-of-stock page for the starter, business and professional products on 2026-11-07
+  - monthly_usd: 7.95
+  - annual_usd: not published: the vendor page prints a monthly rate only
+  - renewal_usd: not published: no page prints a renewal price; the store is out of stock and renders no cart price
+  - term: monthly: the page's only printed term is '/mo'; the store renders no cycle selector while the products are out of stock
+  - cart_url: https://www.littlecreekhosting.com/clients/index.php?rp=/store/vps-hosting/starter-vps-1
+  - price_on_page: Starter VPS $7.95/mo, Business VPS $14.95/mo, Professional VPS $21.95/mo on the vendor page
+- evidence:
+  - [1] 2026-10-22: plan quoted: 'Starter VPS', '2 vCPU Cores', '4 GB DDR4 RAM', '80 GB NVMe Storage', '4 TB Bandwidth', '1 Gbps Network Port', '$7.95/mo', with an order link to /clients/index.php?rp=/store/vps-hosting/starter-vps-1
+  - [1] 2026-10-22: the other two plans quoted as 'Business VPS' at 14.95 (4 vCPU, 8 GB, 160 GB, 8 TB) and 'Professional VPS' at 21.95 (8 vCPU, 16 GB, 320 GB, 16 TB) in the same currency per month; the page also states there are no introductory tricks and the price is locked forever
+  - [2] 2026-10-22: all 12 cards render Go as a span with class 'button_disabled' and carry no order link, and every card has class 'card fire' with title 'Reliability problems were reported for this service'; the cheapest card is quoted as '$1.00 / month', '1 Epyc Cores (shared)', '2,048 MB RAM', '25 GB NVMe', '2,048 GB/month bandwidth', 'Durham North Carolina U.S.A.'
+  - [1] 2026-11-07: the vendor page prices the Starter VPS at USD 7.95 a month; the WHMCS store answers out of stock for the starter product | capture: sha256:ece34e99b91431f3922d31313d7cbf4582eacfdceb21349916320e918202d1df | quote: $7.95/mo
+  - [3] 2026-11-07: the WHMCS store suspends orders for the Starter VPS product on 2026-11-07 | capture: sha256:422430e6b9a50c64581d5da429337394b6fe843cb049d42c0ecba24338f68ebc | quote: We are currently out of stock on this item so orders for it have been suspended until more stock is available.
+  - [1] 2026-11-07: the vendor page still prices the Starter VPS at USD 7.95 a month | capture: sha256:ece34e99b91431f3922d31313d7cbf4582eacfdceb21349916320e918202d1df | quote: $7.95/mo
+  - [4] 2026-11-07: the store suspends orders for the product | capture: sha256:a778a316b8db16acebdf5ecc2a16752cce97ffcedfcc278bdd9596cc64d017b1 | quote: We are currently out of stock on this item so orders for it have been suspended until more stock is available.
+  - [1] 2026-11-07: the Starter plan's printed monthly price | capture: sha256:ece34e99b91431f3922d31313d7cbf4582eacfdceb21349916320e918202d1df | quote: $7.95/mo
+  - [1] 2026-11-07: the only printed term is the monthly one | capture: sha256:ece34e99b91431f3922d31313d7cbf4582eacfdceb21349916320e918202d1df | quote: $7.95/mo
+  - [4] 2026-11-07: no cart price renders while the product is out of stock | capture: sha256:a778a316b8db16acebdf5ecc2a16752cce97ffcedfcc278bdd9596cc64d017b1 | quote: We are currently out of stock on this item so orders for it have been suspended until more stock is available.
+  - [1] 2026-11-07: the printed term is monthly | capture: sha256:ece34e99b91431f3922d31313d7cbf4582eacfdceb21349916320e918202d1df | quote: $7.95/mo
+  - [1] 2026-11-07: the Starter plan's order link | capture: sha256:ece34e99b91431f3922d31313d7cbf4582eacfdceb21349916320e918202d1df | quote: [Order Now](https://www.littlecreekhosting.com/clients/index.php?rp=/store/vps-hosting/starter-vps-1)
+  - [1] 2026-11-07: the Starter plan's printed price | capture: sha256:ece34e99b91431f3922d31313d7cbf4582eacfdceb21349916320e918202d1df | quote: $7.95/mo
+- sources:
+  - [1] https://littlecreekhosting.com/vps-hosting
+  - [2] https://vpspricetracker.com/provider/LittleCreek/vps
+  - [3] https://littlecreekhosting.com/clients/index.php?rp=/store/vps-hosting/starter-vps-1
+  - [4] https://www.littlecreekhosting.com/clients/index.php?rp=/store/vps-hosting/starter-vps-1
+
+## LittleCreek (Starter VPS)
+
+- `egress/littlecreek-starter-vps` | paid-only | evidence documented | binding volume-quota | category cheap-egress VPS: KVM VPS with a metered monthly allowance and a 1 Gbps port | tier Starter VPS
+- identity a placeholder: card and phone unknown | verified 2026-11-04T05:55:17.627Z (live) | stale on 2026-12-05
+- url https://littlecreekhosting.com/vps-hosting
+- free tier: No free tier. Starter VPS is $7.95/mo: 2 vCPU cores, 4 GB DDR4 RAM, 80 GB NVMe, 4 TB bandwidth, 1 Gbps network port, full root access. | unit: none | metered on: none | read on: 2026-11-04 | source: [1]
+- per-object cap: not applicable: a VPS, not an object store | source: [1]
+- retention: not applicable | source: [1]
+- egress: 4 TB bandwidth on a 1 Gbps network port; the overage action and the byte tolerance are not published on the pages read. | metered: yes | free allowance: 4 TB, period not stated | source: [1]
+- identity: card | detail: An account is made when the first order is placed; the form and the accepted payment methods sit behind that order and were not read: unverified: behind a sign-up.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 4 TB bandwidth, period not stated; overage action not published [1]
+- binding note: 4 TB is the only countable figure; its overage action is not published.
+- interface detail: Root VPS, Linux or Windows.
+- tooling: Any SSH client.
+- composes with: A 4 TB, 1 Gbps VPS. Port and protocol restrictions are not published on the pages read.
+- reliability: The store page for the 2026 VPS packages is headed Retired and lists a 1 CPU, 1GB RAM plan at USD 3.50 a month with 10000 GB a month, so the cheaper serverdeals plan is not on a live page.
+- notes: The cheapest live plan read is USD 7.95 a month; the serverdeals USD 3.00 plan is unverified.
+- evidence note: Plan card and the account page read on 2026-11-04; the serverdeals listing KVM-4G for Intel (USD 3.00 a month, 10 TB, 120 GB NVMe) is not on a live vendor page read.
+- extras:
+  - term: monthly
+- evidence:
+  - [1] 2026-11-04: the Starter VPS plan is listed | capture: sha256:ece34e99b91431f3922d31313d7cbf4582eacfdceb21349916320e918202d1df | quote: ### Starter VPS
+  - [1] 2026-11-04: the plan lists 4 TB of bandwidth | capture: sha256:ece34e99b91431f3922d31313d7cbf4582eacfdceb21349916320e918202d1df | quote: - 4 TB Bandwidth
+  - [1] 2026-11-04: the plan costs USD 7.95 a month | capture: sha256:ece34e99b91431f3922d31313d7cbf4582eacfdceb21349916320e918202d1df | quote: $7.95/mo
+  - [1] 2026-11-04: the plan has a 1 Gbps network port | capture: sha256:ece34e99b91431f3922d31313d7cbf4582eacfdceb21349916320e918202d1df | quote: - 1 Gbps Network Port
+  - [2] 2026-11-04: an account is created by placing an order | capture: sha256:861fd8861c87ac2228176ee809f055b37db05694b3cd30b5a2211640169ff982 | quote: To create an account, please **[place an order with us]
+  - [3] 2026-11-04: the store page that carried the cheaper 10000 GB plans is marked Retired | capture: sha256:fd40186dd65361c90e50cd5ec97ba8d936d48c4a076478abac829113bbdbebd1 | quote: # Retired - 2026 VPS Packages
+  - [4] 2026-11-04: serverdeals lists a LittleCreek KVM-4G for Intel at USD 3.00 a month with 10 TB, a listing not found on a live vendor page | quote: ###### KVM-4G for Intel
+- sources:
+  - [1] https://littlecreekhosting.com/vps-hosting
+  - [2] https://littlecreekhosting.com/clients/register.php
+  - [3] https://littlecreekhosting.com/clients/index.php?rp=%2Fstore%2F2026-vps-packages
+  - [4] https://serverdeals.cc/

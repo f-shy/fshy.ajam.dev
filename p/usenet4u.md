@@ -1,0 +1,37 @@
+# Usenet4u
+
+> usenet4u.nl | Debrid; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/usenet4u/ | JSON https://fshy.ajam.dev/api/v1/entity/usenet4u.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Usenet4u
+
+- `debrid/usenet4u` | paid-only | evidence documented | binding volume-quota | category usenet provider (Dutch, unlimited time packages and non-expiring prepaid GB) | tier 4U Unlimited: 1 Maand
+- identity a placeholder: card and phone unknown | verified 2026-11-03T07:37:14.439Z (live) | stale on 2026-12-04
+- url https://usenet4u.nl/
+- price EUR 139.50 for a 1000 GB prepaid package
+- free tier: No free tier and no trial on the shop pages read; the cheapest unlimited package is EUR 8.90 for 1 month and the cheapest prepaid is EUR 8.50 for 15 GB. | unit: none | metered on: none | read on: 2026-11-03 | source: [1]
+- per-object cap: source: [2]
+- retention: unverified: the shop pages read say 'Hoge retentie' without a number of days; a third-party index says over 1,900 days | source: [2]
+- egress: Unlimited packages of 1, 3, 6 or 12 months at fair use up to 50 or 250+ Mbit; prepaid packages with no time limit | metered: yes | free allowance: none | source: [2]
+- identity: card | detail: unverified: the cart and checkout were not opened, so the fields and payment methods are behind a sign-up.
+- interface: nntp
+- limits:
+  - volume-quota (binding): prepaid packages of 15, 25, 50, 100, 150, 250, 500 and 1000 GB with no time limit [3]
+  - per-ip-shaping: unlimited packages up to 50 Mbit or 250+ Mbit at fair use [2]
+- limits note: Unlimited: 1 month EUR 8.90, 3 months EUR 25.90, 6 months EUR 42.90, 12 months EUR 83.90; the 250+ Mbit variants cost EUR 12.90, 36.90, 59.90 and 99.50. Prepaid: 15 GB EUR 8.50, 25 GB EUR 12.50, 50 GB EUR 21.50, 100 GB EUR 32.50, 150 GB EUR 43.50, 250 GB EUR 58.50, 500 GB EUR 72.50, 1000 GB EUR 139.50.
+- binding note: Prepaid products are a fixed number of GB; the unlimited packages are speed-capped under fair use.
+- interface detail: NNTP with SSL
+- composes with: No contract, no renewal and no notice period: unlimited packages simply end, and prepaid GB (15 to 1000 GB) never lapse, so a block can be bought once and used over time.
+- reliability: Backbone is not stated on the pages read.
+- notes: Prepaid GB never lapse; unlimited packages are fixed-term.
+- evidence note: Prices are from the vendor shop pages read on 2026-11-03; the pages are in Dutch.
+- evidence:
+  - [1] 2026-11-03: the cheapest unlimited package, 1 month, is EUR 8.90 | capture: sha256:3388f6a90cd0905a82050ad997f2c629f283bb1dec4fbb07b515d4a7d2a04cdf | quote: € 8,90
+  - [3] 2026-11-03: the cheapest prepaid package, 15 GB, is EUR 8.50 | capture: sha256:6705aaa4e9e6250b4b7361da87fb126887163d7bc4b35d50bad3a1c02c3dcb41 | quote: € 8,50
+  - [2] 2026-11-03: unlimited packages are fair-use with speeds up to 50 or 250+ Mbit | capture: sha256:8e1302630352a4ce913bb47617d1a770c3f793779729bc36f3aa6bf593eeb625 | quote: U kunt dan onbeperkt (fair use) gebruik maken van deze dienst, met een snelheid tot 50 of 250+ Mbit.
+  - [2] 2026-11-03: prepaid packages have no time limit | capture: sha256:8e1302630352a4ce913bb47617d1a770c3f793779729bc36f3aa6bf593eeb625 | quote: De Prepaid pakketten hebben geen tijdslimiet en zijn hierdoor onbeperkt geldig.
+- sources:
+  - [1] https://usenet4u.nl/product-categorie/unlimited/
+  - [2] https://usenet4u.nl/
+  - [3] https://usenet4u.nl/product-categorie/prepaid/

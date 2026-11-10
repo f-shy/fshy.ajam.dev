@@ -1,0 +1,338 @@
+# IBM Cloud
+
+> ibm.com | Compute, Inference, Egress and tunnels, Storage; 9 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/ibm/ | JSON https://fshy.ajam.dev/api/v1/entity/ibm.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## IBM Quantum Open
+
+- `compute/ibm-quantum-open` | qualifies-with-caveat | evidence documented | binding volume-quota | category quantum compute
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T11:19:14.181Z (live) | stale on 2026-12-05
+- url https://quantum.cloud.ibm.com/docs/en/guides/plans-overview
+- free tier: The promotion is quoted: 'As of 16 March 2026, active Open Plan users can opt in to an additional 180 minutes over the next 12 months', and the blog states the precondition: 'Use 20 minutes of runtime within any 12-month period' and that the plan 'reverts back to 10 minutes/month once 12-month period ends'. | unit: minutes | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: monthly-allowance
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - volume-quota (binding): The allowance is 10 minutes in 28 days and every circuit execution plus its transpile and queue overhead spends it, so a single variational loop exhausts a month, and the 180-minute promotion cannot be reached in under two months because it requires 20 minutes of prior runtime. [1]
+- limits note: The allowance is 10 minutes in 28 days and every circuit execution plus its transpile and queue overhead spends it, so a single variational loop exhausts a month, and the 180-minute promotion cannot be reached in under two months because it requires 20 minutes of prior runtime.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: qiskit_ibm_runtime Python package (QiskitRuntimeService); the REST API is also called with curl or Python requests
+- composes with: A 10-minute-a-month QPU allowance composes with a simulator on a free CPU runner, because most of the work in a variational loop can be done on a simulator and only the final evaluation needs the hardware.
+- reliability: no reliability event recorded
+- notes: The promotion is the interesting term: 180 minutes for 12 months is 18 times the base allowance, and it is reachable because the only preconditions are a non-trial account and 20 minutes of prior use. The failure is the price beyond the line: one user cites USD 96 a minute on the pay-as-you-go meter, so an overrun is not a soft stop and the 10-minute window has to be watched rather than delegated. The region restriction and the promotion are additions.
+- extras:
+  - facets.class: verification
+  - facets.free_tier_kind: monthly-allowance
+- evidence:
+  - [1] 2026-10-22: quoted: 'up to 10 minutes per 28-day rolling window'; 'Open Plan instances can only be created in the us-east region'; 'active Open Plan users can opt in to an additional 180 minutes over the next 12 months'
+  - [2] 2026-10-22: Open Plan: 'Access quantum computers for up to 10 minutes of runtime per month. Active users may be eligible to request additional time.' Price: Free, quoted
+  - [1] 2026-10-22: 'Run your quantum circuits on the world's best QPUs for free (up to 10 minutes per 28-day rolling window)'; Open Plan instances can only be created in the us-east region, quoted
+  - [3] 2026-10-22: quoted: 'users who use 20 minutes of runtime within any 12-month period can opt in to a special one-time promotion and get 180 minutes of runtime for the next 12 months'; 'Plan reverts back to 10 minutes/month once 12-month period ends'
+  - [4] 2026-10-22: 
+  - [1] 2026-11-04: the documented Python client is qiskit_ibm_runtime | capture: sha256:9348a864167e7c103c3be430442de37103d555776c311d4f6750dccf8ebe5000 | quote: from qiskit_ibm_runtime import QiskitRuntimeService
+- sources:
+  - [1] https://quantum.cloud.ibm.com/docs/en/guides/plans-overview
+  - [2] https://www.ibm.com/quantum/pricing
+  - [3] https://www.ibm.com/quantum/blog/open-plan-updates
+  - [4] https://quantumcomputing.stackexchange.com/questions/46432/do-paid-pay-as-you-go-minutes-count-toward-the-20-minutes-needed-for-ibms-180-m
+
+## IBM watsonx.ai (Free / Lite plan)
+
+- `inference/ibm-watsonx-ai-free` | qualifies-with-caveat | evidence documented | binding volume-quota | category inference platform with embedding and rerank APIs, monthly free token allowance | tier Free
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T09:59:10.179Z (live) | stale on 2026-12-04
+- url https://www.ibm.com/products/watsonx-ai/pricing
+- free tier: Free plan (Toolbox playground): foundation-model tokens up to 300,000 per month; the embeddings and reranking APIs are listed as available on the free Lite plan | unit: tokens | metered on: request-count | read on: 2026-11-03 | source: [1] | note: unverified: no page read says whether embedding and rerank tokens draw down the 300,000 foundation-model tokens; the embedding and reranker models are billed per token on the paid plans. Of the hosted models, slate-125m, slate-30m, all-minilm-l6-v2 and the ms-marco reranker carry a Deprecated mark; granite-embedding-278m-multilingual and multilingual-e5-large do not
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: card | detail: an IBM Cloud account is needed; IBM's sign-up pages state that email address, personal information and a credit card (used to verify identity) are entered at account creation, with no charge unless the account is upgraded to a billable plan and billable services are consumed; a third-party catalogue reports no payment card for the Lite plan, which IBM's pages contradict
+- interface: rest
+- limits:
+  - volume-quota (binding): 300,000 foundation-model tokens per month on the Free plan; unverified whether embedding and rerank tokens count against it [1]
+  - request-rate: a third-party catalogue reports 2 inference requests per second on the Lite plan; unverified at IBM [2]
+- binding note: 300,000 tokens a month is the stated ceiling, shared at least with foundation-model inference
+- endpoint: https://us-south.ml.cloud.ibm.com/ml/v1/text/embeddings
+- tooling: watsonx.ai REST API and Python library with a bearer token from an IBM Cloud API key and a project id; embeddings via the text embeddings method, rerank via the rerank method
+- composes with: the one account also covers chat models under the same 300,000-token allowance
+- reliability: several hosted encoder models are marked Deprecated in the model table, among them the only listed reranker; the documentation gives a withdrawal date of June 8, 2026 for all-minilm-l6-v2
+- notes: the plans page was reachable only through a provider-pinned read after the origin answered HTTP 403 to the default read
+- evidence note: the Free token allowance, the availability of the embeddings and reranking APIs on the Lite plan and the credit-card step of sign-up are quoted from vendor pages; the draw-down of embedding tokens and the rate limit are unverified at the vendor.
+- evidence:
+  - [1] 2026-11-03: the Free plan includes up to 300,000 foundation-model tokens per month | capture: sha256:24e70dd007bb06fe77f882d0080b2936d7ad5f92f52a41147dbd5994e5ee486a | quote: Foundation Models: Up to 300,000 tokens per month
+  - [3] 2026-11-03: the Lite and Professional plans share the feature list that follows, which includes the embeddings and reranking APIs | capture: sha256:4b982dcd6285bf4d266eccf0a0facfd6e953726f2f6ded0212e706e6154487d4 | quote: Both watsonx.ai Studio plans provide the following features you can use with unstructured data and to develop generative AI solutions:
+  - [3] 2026-11-03: the text reranking API is available on the free Lite plan | capture: sha256:4b982dcd6285bf4d266eccf0a0facfd6e953726f2f6ded0212e706e6154487d4 | quote: - Text reranking API
+  - [4] 2026-11-03: granite-embedding-278m-multilingual is a hosted embedding model with 512 input tokens and 768 dimensions | capture: sha256:48e082b55aace78407f6068eeb5ee6dfdb8a52edec2c0ea9c7f7d982ba1f5016 | quote: | [granite-embedding-278m-multilingual](https://www.ibm.com/docs/en/watsonx/saas?topic=models-supported-encoder#granite-278m-multilingual) | `ibm/granite-embedding-278m-multilingual` | $0.0001 | 512 | 768 |
+  - [4] 2026-11-03: multilingual-e5-large is a hosted embedding model with 1,024 dimensions | capture: sha256:48e082b55aace78407f6068eeb5ee6dfdb8a52edec2c0ea9c7f7d982ba1f5016 | quote: | `intfloat/multilingual-e5-large` | Microsoft | $0.0001 | 512 | 1,024 |
+  - [4] 2026-11-03: the listed hosted reranker is ms-marco-minilm-l-12-v2, marked Deprecated, with 512 input tokens | capture: sha256:48e082b55aace78407f6068eeb5ee6dfdb8a52edec2c0ea9c7f7d982ba1f5016 | quote: | `cross-encoder/ms-marco-minilm-l-12-v2` | Microsoft | $0.000005 | 512 |
+  - [2] 2026-11-03: a third-party catalogue reports a 2 requests per second inference limit on the Lite plan | capture: sha256:f6b8ba8653f20bce8ca5e9ae1f78d530c8fbeaea089799b47fd9f2cc91d03ad6 | quote: Rate-limited to 2 inference requests per second, custom foundation models are not available, and you cannot downgrade back to Lite after upgrading.
+  - [2] 2026-11-03: a third-party catalogue reports that the Lite plan needs no payment card | capture: sha256:f6b8ba8653f20bce8ca5e9ae1f78d530c8fbeaea089799b47fd9f2cc91d03ad6 | quote: - Payment card: Not needed.
+  - [5] 2026-11-03: IBM's watsonx sign-up page states that the IBM Cloud account behind watsonx asks for a credit card for identity verification | capture: sha256:181a5043df6f68a7f9054dfa45216a10d0c23c0f7e38bd5ab4ec0f5084832829 | quote: For your IBM Cloud account, you enter your email address, personal information, and credit card information, which is used to verify your identity.
+  - [6] 2026-11-03: IBM Cloud's account FAQ states that creating a new account requires a credit card for identity verification | capture: sha256:49949e801520d94753f386298206eca96506d0d97fa853508c649c2483ed71a9 | quote: For identity verification, a credit card is required when you create a new account.
+  - [7] 2026-11-03: the watsonx.ai account setup page states that a credit card is entered to create the account | capture: sha256:e1de014a1726d046176ef4de40071b22132c1ce95d3e6e9c62b323451cb86e0c | quote: You must enter a credit card to create a Pay-As-You-Go IBM Cloud account.
+  - probe:https://us-south.ml.cloud.ibm.com/ml/v1/text/embeddings 2026-11-10: a keyless POST on 2026-11-10 answered HTTP 401 with the vendor's own gate message, so the tier is gated on a key | capture: sha256:f9a86e50c8aabda2c75697a0f2cafea63ef1eb20a20b82b6f0c678c037cdca31 | quote: "status": 401
+- sources:
+  - [1] https://www.ibm.com/products/watsonx-ai/pricing
+  - [2] https://aifree.dev/offer/ibm-watsonx-ai-lite-plan
+  - [3] https://www.ibm.com/docs/en/watsonx/saas?topic=cloud-watsonxai-studio-plans
+  - [4] https://www.ibm.com/docs/en/watsonx/saas?topic=models-supported-encoder
+  - [5] https://www.ibm.com/docs/en/watsonx/saas?topic=tutorials-signing-up-watsonx
+  - [6] https://cloud.ibm.com/docs/account?topic=account-accountfaqs
+  - [7] https://dataplatform.cloud.ibm.com/docs/content/wsj/getting-started/setup-account.html?context=dph
+
+## IBM Cloud (Compute)
+
+- `compute/ibm-cloud` | trial-only | evidence documented | binding volume-quota | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T03:21:02.824Z (live) | stale on 2026-11-24
+- url https://cloud.ibm.com/docs/account?topic=account-accounts
+- free tier: The free page states: 'You get credit for your first USD 200 of apps and services on us. Try any IBM Cloud product with this credit, available for 30 days.' The account itself is Pay-As-You-Go from registration: 'Even though you provide your credit card information for account security and identity verification purposes, you can still use IBM Cloud for free by selecting products in the catalog that offer Free and Lite pricing plans.' | unit: mixed | metered on: none | read on: 2026-10-23 | source: [1] | note: the USD 200 is a 30-day offset, not a perpetual free tier
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: not stated | metered: no | source: [2]
+- identity: card | detail: card required to create the account; a temporary verification hold is reversed within 24 to 72 hours, and its amount is not published on the account FAQ; debit accepted only if it is a Visa or Mastercard and not a disposable or one-time-use number, so virtual and prepaid-style cards are refused; email first, then card
+- interface: unknown
+- limits:
+  - volume-quota (binding): USD 200 of usage over 30 days [1]
+- limits note: the card is required before the balance is usable, and no catalog Free plan is a virtual server
+- binding note: the 30-day window ends the USD 200; the card is required before the balance is usable
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: Nothing composes. The USD 200 credit on a new Pay-As-You-Go account is a 30-day trial, and it is spent on billed services rather than held as a free tier.
+- reliability: no reliability event recorded
+- notes: This record refutes the claim that IBM Cloud offers a free account with no card and no end date: registration produces a Pay-As-You-Go account with a card, and the Lite accounts described in old tutorials are only those created before 2021-10-25. The free balance is USD 200 for 30 days. The academic trial remains the institution door. The account FAQ publishes no amount, only the 24-to-72-hour reversal, so the USD 1.00 figure is not confirmed here and is left as a dash. The card-type rule is documented and is the material one: disposable and one-time-use numbers are refused, which is how IBM phrases its prepaid and virtual exclusion.
+- evidence note: Payment facts re-read on 2026-10-24: the card types, the hold and the identity gate each come from a first-party page quoted in evidence[].
+- extras:
+  - facets.class: refutation-no-free-vm
+  - facets.free_tier_kind: one-time-credit
+  - hourly_usd.bx4_4x16_derived: 0.183208
+  - hourly_usd.bx4_2x8_derived: 0.091604
+  - component_rates.usd_per_63_vcpu_hours: 1.7626
+  - component_rates.usd_per_450_gb_hours: 2.0054
+  - rate_basis: derived on 2026-10-23 from IBM's component rates; no per-profile rate is published and the console estimator was not reached
+  - payment_methods.card_at_signup: yes
+  - payment_methods.debit: accepted-with-condition
+  - payment_methods.prepaid: refused
+  - payment_methods.virtual: refused
+  - payment_methods.hold_detail: temporary hold reversed within 24 to 72 hours; amount not published on the page read
+  - payment_methods.identity: email, then a card used for identity verification
+  - payment_methods.source_url: https://cloud.ibm.com/docs/account?topic=account-accountfaqs
+  - payment_methods.read_on: 2026-10-24
+- evidence:
+  - [2] 2026-10-22: docs last updated 2026-04-17: registration produces a Pay-As-You-Go account with a credit card required for identity verification; Lite accounts are only those created before 25 October 2021, quoted
+  - [2] 2026-10-22: the only card-free account is a Trial, which requires institution credentials via ibm.biz/academic and expires after 30 days
+  - [1] 2026-10-22: vendor states a nominal hold of typically about USD 1.00 is placed on the card, and Lite service instances are deleted after 30 days of no development activity
+  - [1] 2026-10-23: 'You get credit for your first USD 200 of apps and services on us. Try any IBM Cloud product with this credit, available for 30 days.', quoted; the same page lists 40 or more always-free Lite products and five promotion codes with a 2026-12-31 expiry
+  - [3] 2026-10-24: quoted: 'For identity verification, a credit card is required when you create a new account. A debit card is acceptable if it is from Visa or Mastercard, and it is not a disposable card or one-time use card number.'
+  - [3] 2026-10-24: quoted, the hold: 'As part of the authorization process, you might see a temporary hold on your credit card for verification and security when creating an account. This credit card hold is reversed within 24 to 72 hours.'
+- sources:
+  - [1] https://www.ibm.com/products/cloud/free
+  - [2] https://cloud.ibm.com/docs/account?topic=account-accounts
+  - [3] https://cloud.ibm.com/docs/account?topic=account-accountfaqs
+
+## IBM Cloud (free)
+
+- `egress/ibm-cloud` | trial-only | evidence unverified | binding volume-quota | category trial credit (provider VM) | tier free
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T06:52:57.445Z (live) | stale on 2026-11-19
+- url https://www.ibm.com/cloud/free
+- price USD 200 of credit
+- free tier: To receive the USD 200 credit, you first need to upgrade to a Pay-as-you-go account ... Your promotional credit of USD 200 is automatically applied but might take a few hours to appear in your account. The credit is available for first-time Pay-as-you-go accounts only. | unit: mixed | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: USD 200 of credit; the egress rate it is spent against was not read, so the TB it buys is not established; ingress: udp | metered: no | free allowance: none published | source: [1]
+- identity: card | detail: Payment details are required up front ... there will be a nominal hold placed on your card to verify its authenticity ... typically around USD 1.00. | country: None
+- interface: cli, rest
+- limits:
+  - volume-quota (binding): USD 200 of credit, expiry unstated on the page read [1]
+- binding note: the credit is the only allowance named, and neither its expiry nor the egress rate it buys was readable on the page, so what fails first at 1 TiB a month is unestablished rather than known.
+- interface detail: the IBM Cloud CLI and the VPC API
+- tooling: wg-quick on the VPC instance; the IBM Cloud CLI
+- composes with: a 200 dollar credit that could pay for a VPC instance and its egress, if the rate and expiry turn out to be workable
+- reliability: Lite-plan service instances are deleted after 30 days without development activity
+- notes: Arithmetic is blocked on the egress rate. The credit is real and documented at USD 200, but a credit whose expiry is unstated and whose spend rate is unread cannot be converted to TiB, and inventing either number would be worse than the gap. The 40 Lite-plan products are always free and include no VM with a public IP, and the academic trial needs an accredited institution. Left open: the expiry, which IBM's own promo documentation holds; that page could not be read.
+- evidence note: the credit amount is documented but the two numbers the arithmetic needs, the expiry and the per-GB egress rate, were not on the page and the promo-code documentation returned HTTP 500.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: a VPC virtual server instance with a floating IP; wg-quick binds UDP on the instance
+  - ingress: udp
+  - volume_stated: USD 200 of credit; the egress rate it is spent against was not read, so the TB it buys is not established
+  - bytes_transit: yes
+  - transit_note: outbound bytes cross IBM's network and are metered against the pay-as-you-go account the credit sits on
+- evidence:
+  - [1] 2026-10-23: 'Your promotional credit of USD 200 is automatically applied', 'The credit is available for first-time Pay-as-you-go accounts only', 'Payment details are required up front'
+  - [1] 2026-10-23: 'After 30 days of no development activity, your service instances with Lite plans are deleted', the reliability note for anything left running
+  - [1] 2026-11-04: a card is required at sign-up | capture: sha256:c4b919eacb52997a3436c23a556093034d5a041370b191551c2f0315b2aea2ed | quote: Payment details are required up front, but you won’t be charged until you consume a billable service; however, there will be a nominal hold placed on your card to verify its authenticity.
+- sources:
+  - [1] https://www.ibm.com/cloud/free
+
+## IBM Cloud VPC
+
+- `compute/ibm-cloud-vpc` | trial-only | evidence documented | binding retention-clamped | category cloud VM
+- needs card yes, phone unknown, ID no, institution no | verified 2026-11-06T17:42:12.763Z (live) | stale on 2026-12-07
+- url https://www.ibm.com/products/virtual-servers/pricing
+- free tier: no free tier: new VPC clients get 70% off for 12 months on virtual servers, block storage and file storage, and the offer expires 2026-12-31 | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: card | detail: card: an account is registered with an email address and a credit card is required for identity verification: 'You can create an account by registering your email address. For identity verification, a credit card is required when you create a new account.' A debit card is accepted when it is from Visa or Mastercard and is not a disposable card or one-time use card number, and authorization places 'a temporary hold on your credit card for verification and security when creating an account', reversed within 24 to 72 hours. Phone: not published: https://cloud.ibm.com/docs/account?topic=account-accountfaqs (2026-11-06) states no phone requirement at registration. Country: not published: the same page states no country restriction.
+- interface: unknown
+- limits:
+  - request-rate: 70% off for 12 months for a new VPC client, then list price [1]
+  - retention-clamped (binding): the offer expires 2026-12-31 and is valid only for new IBM Cloud VPC clients [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the virtual servers pricing page was read on 2026-10-22 and carries a discount rather than an allowance. A 12-month 70% discount is a trial by another name, so the verdict moves to trial-only and the expiry is recorded
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: an instance bills while it exists; the discount is the clock, not a machine
+  - free_tier_kind: trial
+  - granularity.min_billed_s: 0
+  - burst_x: 1.0
+  - ps.price: block and file storage are included in the same 70% discount
+  - ps.durability: block or file storage
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: while the volume exists
+  - net.out: yes
+  - net.in: yes
+  - net.ports: any
+  - net.static_ip: yes
+  - net.ipv6: yes
+  - net.allowance: up to 80 Gbps across general-purpose profiles
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'IBM Cloud VPC - 70% off for 12 months. Only valid for new IBM Cloud VPC clients', covering 'Virtual Server Instances (VSI), Block Storage, and File Storage', with 'Expires 31 December 2026', quoted
+  - [2] 2026-11-04: a card is required to create any IBM Cloud account, and a VPC client needs one | capture: sha256:49949e801520d94753f386298206eca96506d0d97fa853508c649c2483ed71a9 | quote: For identity verification, a credit card is required when you create a new account.
+  - [2] 2026-11-04: a card is required for identity verification, with a temporary hold | capture: sha256:49949e801520d94753f386298206eca96506d0d97fa853508c649c2483ed71a9 | quote: As part of the authorization process, you might see a temporary hold on your credit card for verification and security when creating an account.
+  - [2] 2026-11-04: every new account is Pay-As-You-Go, so the card gate applies to a new VPC client | capture: sha256:49949e801520d94753f386298206eca96506d0d97fa853508c649c2483ed71a9 | quote: New accounts are created as Pay-As-You-Go accounts, except purchased subscriptions and temporary educational accounts.
+  - [2] 2026-11-04: the card gate is unchanged and applies to a new account | capture: sha256:49949e801520d94753f386298206eca96506d0d97fa853508c649c2483ed71a9 | quote: For identity verification, a credit card is required when you create a new account.
+  - [2] 2026-11-06: a credit card is required for identity verification when an account is created, and the page states no phone or country requirement | capture: sha256:49949e801520d94753f386298206eca96506d0d97fa853508c649c2483ed71a9 | quote: For identity verification, a credit card is required when you create a new account.
+- sources:
+  - [1] https://www.ibm.com/products/virtual-servers/pricing
+  - [2] https://cloud.ibm.com/docs/account?topic=account-accountfaqs
+
+## ibm aspera on cloud
+
+- `storage/ibm-aspera-on-cloud` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.ibm.com/docs/en/aspera-on-cloud?topic=started-try-aspera-cloud-free
+- free tier: none reachable: Trial only and small: 30 days OR 50 GB of transfer volume, whichever comes first, and package sending to external users is disabled during the trial. FASP's speed advantage is real but… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Trial only and small: 30 days OR 50 GB of transfer volume, whichever comes first, and package sending to external users is disabled during the trial. FASP's speed advantage is real but…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Trial only and small: 30 days OR 50 GB of transfer volume, whichever comes first, and package sending to external users is disabled during the trial. FASP's speed advantage is real but…
+- sources:
+  - [1] https://www.ibm.com/docs/en/aspera-on-cloud?topic=started-try-aspera-cloud-free
+
+## IBM Cloud Container Registry (free plan)
+
+- `storage/ibm-cloud-container-registry` | fails-quota | evidence reported | binding per-ip-shaping | category registry
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.ibm.com/products/container-registry
+- free tier: 500 MB storage and 5 GB pull traffic per month: 'Amount of storage for images | 500 MB | Unlimited', 'Pull traffic | 5 GB per month | Unlimited' (Free vs Standard). Free-plan allowance confirmed in the quota doc: 'The free tier allowance for storage is 512 MB and traffic is 5120 MB.' | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Pull traffic is metered as a quota, not priced per GB on the free plan: 'Pull traffic across public connections counts toward usage and quota. Pull traffic across private connections doesn't count.' Exceed it and access stops — . 'If you exceed your storage or pull traffic limits, you cannot push or pull images to and from your namespace.'. | metered: yes
+- identity: email
+- interface: oci, cli
+- limits:
+  - per-ip-shaping (binding): traffic | 5 GB per month | Unlimited' (Free vs Standard) [1]
+- limits note: 512 MB storage, 5 GB pull traffic per month, per account across all namespaces in a registry instance; overage blocks push and pull entirely.
+- binding note: one stream is shaped, and aggregate throughput is the shaped rate times the number of streams
+- interface detail: oci
+- tooling: ibmcloud cr CLI, docker/skopeo. OCI distribution spec compliant.
+- composes with: None. 512 MB is per IBM Cloud account and the overage behaviour is a hard stop, not a bill.
+- reliability: Hard cutoff on quota rather than overage billing, so a bulk workload simply stops mid-transfer.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 500 MB storage and 5 GB pull traffic per month: 'Amount of storage for images | 500 MB | Unlimited', 'Pull traffic | 5 GB per month | Unlimited' (Free vs Standard). Free-plan allowance confirmed in the quota doc: 'The free tier allowance for storage is 512 MB and traffic is 5120 MB.'
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Free plan 500 MB storage / 5 GB pull traffic; 'you cannot push or pull images' on exceed
+  - [2] 2026-10-21: 'free tier allowance for storage is 512 MB and traffic is 5120 MB'
+  - [3] 2026-10-21: probe: GET -> 401, Server: IBM Cloud Container Registry, realm https://us.icr.io/oauth/token
+- sources:
+  - [1] https://cloud.ibm.com/docs/Registry?topic=Registry-registry_overview
+  - [2] https://cloud.ibm.com/docs/Registry?topic=Registry-registry_quota
+  - [3] https://us.icr.io/v2/
+
+## ibm cloud object storage lite plan as a storage tier
+
+- `storage/ibm-cloud-object-storage-lite-plan-as-a-storage-tier` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.ibm.com/products/cloud/free
+- free tier: none reachable: The Lite plan is always-free and never expires, but the published storage allowance belongs to the Standard plan Free Tier (5 GB for 12 months). No Lite storage quota was published on any… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: retention
+  - dead_end.why: The Lite plan is always-free and never expires, but the published storage allowance belongs to the Standard plan Free Tier (5 GB for 12 months). No Lite storage quota was published on any…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: The Lite plan is always-free and never expires, but the published storage allowance belongs to the Standard plan Free Tier (5 GB for 12 months). No Lite storage quota was published on any…
+  - [2] 2026-10-21: cited as the basis of the rejection: The Lite plan is always-free and never expires, but the published storage allowance belongs to the Standard plan Free Tier (5 GB for 12 months). No Lite storage quota was published on any IB
+- sources:
+  - [1] https://www.ibm.com/products/cloud/free
+  - [2] https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-provision
+
+## IBM Cloud Object Storage — Standard plan Free Tier
+
+- `storage/ibm-cloud-object-storage-standard-plan-free-tier` | fails-quota | evidence reported | binding retention-clamped | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.ibm.com/products/cloud/free/storage
+- free tier: 5 GB/month of Smart Tier storage, 2,000 Class A + 20,000 Class B requests, 10 GB/month retrieval, 5 GB/month egress. For 12 months. The separate Lite plan (always-free, never expires) does not carry a published storage allowance on the current pages. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: Lite-plan instances are deleted after 30 days of no development activity. | days: 30 | source: [1] | note: not stated
+- egress: 5 GB/month egress inside the Free Tier; beyond that it is metered per GB. Not free egress at any useful scale. | metered: yes | free allowance: 5 GB per month
+- identity: card | detail: inferred from the category 'iaas'; the source record states no identity cost, so this is a class assumption, not evidence
+- interface: s3-compatible, rclone
+- limits:
+  - retention-clamped (binding): deleted after 30 days [1]
+- limits note: 5 GB storage / 5 GB egress / 12 months. Reaching any quota 'suspends the service for that month'. Lite-plan instances are deleted after 30 days of no development activity.
+- binding note: a clock, not a quota: bytes leave whether or not transfer is completed
+- interface detail: s3
+- tooling: IBM COS S3 API. Rclone 's3' provider name 'IBM COS S3'; HMAC or IAM keys; pre-signed URLs (docs note the UI does not generate them, use Cyberduck/clients).
+- composes with: One Lite instance per service per org; quota limits are per ORG, not per instance ('New instances that are created in the same org reflect any usage from previous instances'), which deliberately blocks instance multiplication inside an org.
+- reliability: Service suspends at quota rather than billing overage. No surprise bills, but no headroom either. Lite instances vanish after 30 idle days.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: retention
+  - dead_end.why: 5 GB/month of Smart Tier storage, 2,000 Class A + 20,000 Class B requests, 10 GB/month retrieval, 5 GB/month egress — for 12 months. The separate Lite plan (always-free, never expires) does not carry a published storage allowance on the current pages.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Free Tier allowance: Storage up to 5GB/month ... Up to 5GB/month of egress'
+  - [2] 2026-10-21: '5GB of free monthly usage for up to 12 months from the sign-up date'
+  - [3] 2026-10-21: 'After 30 days of no development activity, your service instances with Lite plans are deleted'; 'Quota limits are per org, not per instance'
+- sources:
+  - [1] https://cloud.ibm.com/objectstorage/create
+  - [2] https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-provision
+  - [3] https://www.ibm.com/products/cloud/free

@@ -1,0 +1,15 @@
+# fshy: Developer services in full
+
+> Monitoring, error tracking, analytics, scheduled jobs, queues, realtime and authentication services.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic is 650 KB, about 176K tokens in full, more than the 300 KB, about 81K tokens one file holds, so it is split: its hosted records by verdict group, then its self-hosted records in one last group, and a group over that size into balanced parts. The parts in the order below are the one order (hosted before self-hosted, then verdict, provider name, record id). How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## Parts
+
+- [Usable part 1 of 2](https://fshy.ajam.dev/t/dev-services/llms-full-usable-1.txt): 25 records, cron-job.org (qualifies) to Inngest (qualifies-with-caveat); 265 KB, about 72K tokens
+- [Usable part 2 of 2](https://fshy.ajam.dev/t/dev-services/llms-full-usable-2.txt): 26 records, Instatus (qualifies-with-caveat) to Zapier (qualifies-with-caveat); 259 KB, about 70K tokens
+- [Trial](https://fshy.ajam.dev/t/dev-services/llms-full-trial.txt): 4 records; 38 KB, about 10K tokens
+- [Rejected](https://fshy.ajam.dev/t/dev-services/llms-full-rejected.txt): 2 records; 33 KB, about 9K tokens
+- [Self-hosted, the last resort](https://fshy.ajam.dev/t/dev-services/llms-full-self-hosted.txt): 4 records; 57 KB, about 15K tokens

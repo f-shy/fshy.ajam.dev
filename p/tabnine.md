@@ -1,0 +1,136 @@
+# Tabnine
+
+> tabnine.com | Coding subscriptions, Compute; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/tabnine/ | JSON https://fshy.ajam.dev/api/v1/entity/tabnine.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Tabnine, Enterprise (SaaS)
+
+- `coding-subs/tabnine-enterprise` | paid-only | evidence documented | binding write-gated | category sales-only enterprise coding assistant subscription | tier Enterprise (SaaS)
+- needs card no, phone no, ID no, institution yes | verified 2026-11-10T01:56:01.010Z (live) | stale on 2026-12-11
+- url https://www.tabnine.com/pricing/
+- free tier: none: no free plan and no self-serve price. Last published seat prices, as archived on 2026-09-18 before tabnine.com/pricing began redirecting to a Tricentis sales form: 59 per user per month for the Agentic Platform (the tier that lists the Tabnine CLI) and 39 per user per month for the Code Assistant Platform, both annual subscriptions by quote; the 39 is USD ($39/user/month on the vendor's comparison page) and the page prints no currency symbol beside the 59. Headless Agents add-on, as archived on 2026-08-04: 1,200 per month (up to 5B tokens) or 5000 per month (up to 50B tokens) | unit: none | metered on: none | read on: 2026-11-02 | source: [1] | note: no price is published today; the current Tricentis-era price is unverified: behind a sales quote
+- per-object cap: not applicable: a coding subscription meters no stored object
+- retention: not applicable
+- egress: not applicable: no egress term is published; model usage is the metered unit | metered: no
+- identity: institution | detail: a sales-led enterprise contract: Enterprise (SaaS) accounts can only be set up together with the Tabnine team, and tabnine.com/pricing redirects to a Tricentis 'Talk with a sales expert' contact form; no self-serve signup and no card flow
+- interface: cli
+- limits:
+  - write-gated (binding): accounts can only be set up together with the Tabnine team; the only route to a price is a sales conversation [2]
+  - volume-quota: 1 billion tokens a month fair-use limit for each regular user [3]
+  - volume-quota: Service Accounts for pipelines: 5 billion tokens a month (Business tier) or 50 billion tokens a month (Enterprise tier), licensed separately from user seats [3]
+- limits note: a seat covers one user, and CI/CD runs go through separately licensed Service Accounts; admins can also set monthly monetary caps per organisation, team and user
+- binding note: the plan is reachable only through a sales conversation, so no quota is reachable by one person with an email
+- interface detail: Headless: `tabnine -p "prompt"` with optional `--output-format json`, authenticated by the TABNINE_TOKEN environment variable holding a Personal Access Token made in the Tabnine console; an admin toggle can block auto-approve (YOLO) in headless mode. The OpenCode-based successor runs `tabnine run "prompt"` with `--model tabnine/<key>` and `--format json`, and rejects ask-first tool prompts when there is no UI. The original CLI is in maintenance mode, with critical updates only through December 31, 2026
+- tooling: the Tabnine Agent in IDEs, Tabnine Chat, and the Tabnine CLI (`tabnine`, a Node.js program installed from the organisation's Tabnine host once an admin has enabled Agents); the CLI's successor is the Tabnine plugin for OpenCode. Models: the AI Models page lists Claude 4.8 Opus down to Claude 4 Sonnet, GPT-5.5 down to GPT-4o, Gemini 3.5 Pro, 3.1 Pro and 3.0 Pro, Devstral Small 2 and Devstral 2, MiniMax-M2.7, GLM-4.7, Qwen-3-Coder-480B-A35B-Instruct and Qwen-3-30B (chat only); the page's table merges its Thinking Model and Tabnine CLI columns, so which of these the CLI serves is unverified; an Enterprise admin can also attach the organisation's own model…
+- composes with: none: there is no free capacity to chain. Model usage through Tabnine-provided access is billed at the model provider's price plus a 5% handling fee, or is unlimited on the organisation's own LLM endpoint; compare the other hosted subscriptions in coding-subs, which a single developer can buy without a sales contract
+- reliability: the vendor was acquired by Tricentis on 2026-07-30 and its public pricing pages now redirect to Tricentis; the original CLI is in maintenance mode, with critical updates only through 2026-12-31
+- notes: A coding subscription sold only to organisations: Tabnine is an AI coding agent for IDEs and a CLI, and its plans are Enterprise (SaaS) and Enterprise (private installation), set up through sales. No individual plan exists to price. The same offer is filed in compute as compute/tabnine, a cloud-VM record, where it is a refutation. unverified: behind a sign-up: no monthly_usd is set. The live page now serves a Tricentis sales page with no Tabnine plan or seat price, and the only published seat prices are the archived 2026-09-18 figures, 59 per user per month for the Agentic Platform and 39 for the Code Assistant Platform, both on an annual subscription by quote, with no currency printed beside either the 59 or the 39 on that archived page; a vendor comparison page archived 2026-05-12 prints $39/user/month for its Enterprise Plan, a different page and date.
+- evidence note: the seat prices are the last published ones, read from archived copies of the vendor's pages dated 2026-09-18 and 2026-08-04; the plan, signup gate, CLI headless mode, models and token limits are read from the vendor's documentation on 2026-11-02
+- evidence:
+  - [1] 2026-11-02: tabnine.com/pricing now resolves to a Tricentis contact page headed 'Talk with a sales expert': a sales form with no plan and no price | capture: sha256:5f3f06b4e329d90f94b0154c47bfd44bba9109da60990cddc8009a1af2671fc8 | quote: Talk with a sales expert
+  - [2] 2026-11-02: an Enterprise (SaaS) account is created only together with the vendor's team | capture: sha256:d3e8928b20be71f6c5f63c2f1481ca8f1ce77b3bc6fe66edcfecc5c9dd56154e | quote: Tabnine Enterprise (SaaS) accounts can only be set up together with the Tabnine team.
+  - [4] 2026-11-02: the subscription-plans page lists Enterprise (SaaS) and Enterprise (private installation) as the plans | capture: sha256:6156a82ace4369e665c036debb621cb2c2027d9c8a15c78d42281e5e0512b84e | quote: [Enterprise (SaaS)](https://docs.tabnine.com/main/welcome/readme/tabnine-subscription-plans/enterprise-saas.md): Tabnine AI code assistant: Enterprise subscription
+  - [5] 2026-11-02: Tabnine is a coding agent sold to organisations | capture: sha256:e360abe1dfb4d0a7015773af025d186ac3647d4c67e83384aecd126970e81957 | quote: Tabnine is a fully private, organization-aware AI coding agent designed to run entirely within your environment.
+  - [6] 2026-11-02: the Agentic Platform was listed at 59 per user per month on an annual subscription, as archived on 2026-09-18 | capture: sha256:1fe389fd5bfe3710a9ef4bab5f4c174455072a7485257646cc09084f3d0d962c | quote: 59 per user per month { Annual subscription * }
+  - [6] 2026-11-02: the Code Assistant Platform was listed at 39 per user per month on an annual subscription, as archived on 2026-09-18 | capture: sha256:1fe389fd5bfe3710a9ef4bab5f4c174455072a7485257646cc09084f3d0d962c | quote: 39 per user per month { Annual subscription * }
+  - [6] 2026-11-02: the Tabnine CLI is listed among the Agentic Platform's features, as archived on 2026-09-18 | capture: sha256:1fe389fd5bfe3710a9ef4bab5f4c174455072a7485257646cc09084f3d0d962c | quote: #### The Tabnine CLI – Agentic AI—Directly in Your Terminal
+  - [6] 2026-11-02: Headless Agents are an optional add-on of the Agentic Platform, as archived on 2026-09-18 | capture: sha256:1fe389fd5bfe3710a9ef4bab5f4c174455072a7485257646cc09084f3d0d962c | quote: Run agents remotely/headless for use in CI/CD processes
+  - [6] 2026-11-02: model usage through Tabnine-provided access is billed at the provider's price plus a 5% handling fee | capture: sha256:1fe389fd5bfe3710a9ef4bab5f4c174455072a7485257646cc09084f3d0d962c | quote: Add payment for reserved token consumption quota when using Tabnine provided LLM access, based on actual LLM provider prices + 5% handling fee
+  - [6] 2026-11-02: usage is unlimited when the organisation supplies its own LLM endpoint | capture: sha256:1fe389fd5bfe3710a9ef4bab5f4c174455072a7485257646cc09084f3d0d962c | quote: Unlimited usage when using your own LLM on-prem or your LLM end point on cloud.
+  - [6] 2026-11-02: each plan on the archived pricing page ends in a Get a quote button, with no checkout | capture: sha256:1fe389fd5bfe3710a9ef4bab5f4c174455072a7485257646cc09084f3d0d962c | quote: [Get a quote]
+  - [7] 2026-11-02: the vendor's own comparison page, archived 2026-05-12, prints the Enterprise Plan as $39/user/month, which fixes the currency of the 39 | capture: sha256:72fbedb8d3967e748e3c56fb44a9127d651d9344af58eb9c0b5fd18e1deeebc1 | quote: $39/user/month flat, predictable
+  - [8] 2026-11-02: Headless Agents - Business was listed at 1,200 per month on an annual subscription, as archived on 2026-08-04 | capture: sha256:38b5beb42eb3b744305889cdea6368d03d8596852d61dfd55eadee2fc6916cef | quote: 1,200 per month
+  - [8] 2026-11-02: Headless Agents - Business covers up to 5B tokens of monthly processing capacity | capture: sha256:38b5beb42eb3b744305889cdea6368d03d8596852d61dfd55eadee2fc6916cef | quote: Up to 5B tokens
+  - [8] 2026-11-02: Headless Agents - Enterprise was listed at 5000 per month on an annual subscription, as archived on 2026-08-04 | capture: sha256:38b5beb42eb3b744305889cdea6368d03d8596852d61dfd55eadee2fc6916cef | quote: 5000 per month
+  - [8] 2026-11-02: Headless Agents - Enterprise covers up to 50B tokens of monthly processing capacity | capture: sha256:38b5beb42eb3b744305889cdea6368d03d8596852d61dfd55eadee2fc6916cef | quote: Up to 50B tokens
+  - [9] 2026-11-02: Tabnine states it was acquired by Tricentis | capture: sha256:f1a99b784d2ea553d2aac5adc7b6793e9afd90e1f462cf8a77c85b43437c1881 | quote: Tabnine has been acquired by Tricentis, the global leader in agentic quality engineering.
+  - [10] 2026-11-02: the acquisition was announced on 2026-07-30 | capture: sha256:b4847114658043a70f33ed6c828c09d48b7d07a97de0ae03ecc993c5e13aa390 | quote: AUSTIN, Texas – July 30, 2026 –
+  - [11] 2026-11-02: the CLI's non-interactive mode is -p with an optional JSON output format | capture: sha256:e824caf8c19b01475ef54ba6f5e2b0805aaac2b59b93d2cec919a0ab84531ab3 | quote: tabnine -p "Analyze the project structure" --output-format json
+  - [11] 2026-11-02: headless runs authenticate with a Personal Access Token in TABNINE_TOKEN | capture: sha256:e824caf8c19b01475ef54ba6f5e2b0805aaac2b59b93d2cec919a0ab84531ab3 | quote: Set `TABNINE_TOKEN` environment variable to a [Personal Access Token](/main/administering-tabnine/managing-your-team/settings/access-tokens.md) generated in the Tabnine admin console.
+  - [12] 2026-11-02: the original CLI is in maintenance mode, with critical updates only through 2026-12-31 | capture: sha256:b39ec5cd7cc13b84d335e4ba589f7dca17f253ae7aba6b91d24ba1f5e59fad14 | quote: It will receive only critical updates through December 31, 2026.
+  - [12] 2026-11-02: an organisation admin must enable Agents before the CLI works | capture: sha256:b39ec5cd7cc13b84d335e4ba589f7dca17f253ae7aba6b91d24ba1f5e59fad14 | quote: Prerequisite: Tabnine CLI requires Tabnine Agents to be enabled for your team. Ask your admin to enable Agents in the Admin Console.
+  - [13] 2026-11-02: the CLI installs from the organisation's Tabnine host with Node.js | capture: sha256:deff405199feb8fbfcf8c8da0e57a1086df56a9e4b9fa117f88a628d748af8d8 | quote: curl $TABNINE_HOST/update/cli/installer.mjs | node --input-type=module - $TABNINE_HOST
+  - [14] 2026-11-02: an admin toggle can block auto-approve in headless mode | capture: sha256:255bd8fd7653d2e9b5cb76e6495824549e3acd6b21f0805737b433097573dec5 | quote: | Headless mode (`-p`) | ✅ |
+  - [15] 2026-11-02: the CLI's successor is a Tabnine distribution of the OpenCode agent | capture: sha256:7550b038b8242f90ea88b886f4bd0e3e7c87d11fd36ecc33191f04861e17e2d6 | quote: The Tabnine plugin for OpenCode is Tabnine's distribution of the [OpenCode](https://opencode.ai/docs/) CLI coding agent.
+  - [16] 2026-11-02: the successor's headless form is tabnine run with --model and --format json, authenticated by TABNINE_TOKEN | capture: sha256:540734a30e5172f69b5b2030653c6cf434325f03ff5785b12f1b086628c36518 | quote: TABNINE_TOKEN=<your-pat> tabnine run --model tabnine/claude-4-5-sonnet --format json "List the public functions in src/"
+  - [16] 2026-11-02: ask-first tools cannot complete in a headless run | capture: sha256:540734a30e5172f69b5b2030653c6cf434325f03ff5785b12f1b086628c36518 | quote: When there's no UI, opencode automatically rejects any permission prompt.
+  - [17] 2026-11-02: the chat and agent model list includes the Claude 4.5 to 4.8 family, GPT-5 family and GPT-4o | capture: sha256:289f473853a0d239b897aaa2b656504d9802a1a82900dd42c39f353efa531a78 | quote: Claude 4.8 Opus✔️Claude 4.7 Opus✔️Claude 4.6 Sonnet✔️Claude 4.6 Opus✔️Claude 4.5 Sonnet✔️Claude 4.5 Opus✔️Claude 4.5 Haiku✔️Claude 4 Sonnet✔️GPT-5.5✔️GPT-5.4✔️GPT-5.3 Codex✔️GPT-5.2 Codex✔️GPT-5.2✔️GPT-5✔️GPT-4o✔️
+  - [17] 2026-11-02: the chat and agent model list also includes Gemini, Devstral, MiniMax, GLM and Qwen models | capture: sha256:289f473853a0d239b897aaa2b656504d9802a1a82900dd42c39f353efa531a78 | quote: Gemini 3.5 ProGemini 3.1 ProGemini 3.0 Pro✔️Devstral-Small-2-24B-Instruct-2512✔️Devstral-2-123B-Instruct-2512*✔️MiniMax-M2.7GLM-4.7✔️Qwen-3-Coder-480B-A35B-Instruct✔️Qwen-3-30B (Chat…
+  - [18] 2026-11-02: an Enterprise admin can attach the organisation's own model endpoints | capture: sha256:36ab4fb6229f3d5e01d38bd2412f80ae1f8e51966754cb392c5e79ed7f0854d7 | quote: Tabnine Enterprise admins can connect Tabnine to their internal endpoints to enrich the Tabnine Chat experience for users.
+  - [3] 2026-11-02: a regular seat is capped at 1 billion tokens a month | capture: sha256:2ea04bc74891e76b9225b2e9f8416656669cd60dfd23430e2eb4b425fe4e869d | quote: Tabnine applies a monthly fair-use limit of 1 billion tokens to each regular user.
+  - [3] 2026-11-02: a Business-tier Service Account is capped at 5 billion tokens a month | capture: sha256:2ea04bc74891e76b9225b2e9f8416656669cd60dfd23430e2eb4b425fe4e869d | quote: | Business | 5 billion tokens/month per Service Account |
+  - [3] 2026-11-02: an Enterprise-tier Service Account is capped at 50 billion tokens a month | capture: sha256:2ea04bc74891e76b9225b2e9f8416656669cd60dfd23430e2eb4b425fe4e869d | quote: | Enterprise | 50 billion tokens/month per Service Account |
+  - [3] 2026-11-02: Service Accounts for automation are licensed separately from user seats | capture: sha256:2ea04bc74891e76b9225b2e9f8416656669cd60dfd23430e2eb4b425fe4e869d | quote: They have their own licenses and capacity tiers, allowing organizations to select the appropriate level of usage without consuming or blocking an individual developer’s account.
+  - [19] 2026-11-02: a seat covers one user, and pipeline use is arranged with the vendor | capture: sha256:de5110f4c3e7be06975272c0dc156224e6addb7eadfdc3c03646a05e813e41e7 | quote: Tabnine use is limited to one user per seat under the license agreement. If you want to use Tabnine in a CI/CD pipeline, please contact our team.
+  - [20] 2026-11-02: a Personal Access Token is made in the Tabnine console by any account holder | capture: sha256:3d37e8cd9582ab6f75a42610bf487244202daf59726014822decab49a7cb738f | quote: Any user with a Tabnine account can create PATs by navigating to `[TABNINE_URL]/app/settings/access-tokens`.
+  - [21] 2026-11-02: admins set organisation, team and per-user monetary caps on model use | capture: sha256:5022498a980e71f61eca5415da7873846ccfaf718757092872fe407f4e92914b | quote: you can set spending limits for usage of AI models by members of your organization.
+  - [22] 2026-11-02: the account license is counted in seats | capture: sha256:200616d729d4884b81133a17e45fa8163bd2035a23b85a19cf6a4b453408d627 | quote: The number of seats currently used and the total number of seats in the license
+  - [1] 2026-11-10: the live pricing page serves a Tricentis page with no Tabnine plan or seat price | capture: sha256:8d1a7a9ba1f06f29560490650d3b10235dff35857593d22ed214acb304e02d12 | quote: Contact us - Tricentis
+- sources:
+  - [1] https://www.tabnine.com/pricing/
+  - [2] https://docs.tabnine.com/main/welcome/readme/tabnine-subscription-plans/enterprise-saas.md
+  - [3] https://docs.tabnine.com/main/administering-tabnine/managing-your-team/user-management/service-accounts-and-token-limits.md
+  - [4] https://docs.tabnine.com/main/welcome/readme/tabnine-subscription-plans.md
+  - [5] https://docs.tabnine.com/main
+  - [6] https://web.archive.org/web/20260918001632/https://www.tabnine.com/pricing/
+  - [7] https://web.archive.org/web/20260512002147/https://www.tabnine.com/tabnine-vs-claude-code/
+  - [8] https://web.archive.org/web/20260804130654/https://www.tabnine.com/headless-agent-pricing/
+  - [9] https://web.archive.org/web/20260909050654/https://www.tabnine.com/blog/a-new-chapter-for-tabnine/
+  - [10] https://www.tricentis.com/news/tricentis-acquires-tabnine
+  - [11] https://docs.tabnine.com/main/getting-started/tabnine-cli/getting-started/quickstart.md
+  - [12] https://docs.tabnine.com/main/getting-started/tabnine-cli.md
+  - [13] https://docs.tabnine.com/main/getting-started/tabnine-cli/getting-started/installation.md
+  - [14] https://docs.tabnine.com/main/getting-started/tabnine-cli/features/yolo-mode.md
+  - [15] https://docs.tabnine.com/main/getting-started/tabnine-plugin-for-opencode.md
+  - [16] https://docs.tabnine.com/main/getting-started/tabnine-plugin-for-opencode/scripts-and-ci.md
+  - [17] https://docs.tabnine.com/main/welcome/readme/ai-models.md
+  - [18] https://docs.tabnine.com/main/administering-tabnine/managing-your-team/settings/models-settings.md
+  - [19] https://docs.tabnine.com/main/getting-started/tabnine-cli/git-integrations/github-actions.md
+  - [20] https://docs.tabnine.com/main/administering-tabnine/managing-your-team/settings/access-tokens.md
+  - [21] https://docs.tabnine.com/main/administering-tabnine/managing-your-team/settings/agent-settings.md
+  - [22] https://docs.tabnine.com/main/administering-tabnine/managing-your-team/settings/license-settings.md
+
+## Tabnine (Compute)
+
+- `compute/tabnine` | paid-only | evidence documented | binding write-gated | category cloud VM
+- needs card no, phone no, ID no, institution yes | verified 2026-11-04T06:53:22.457Z (live) | stale on 2026-12-05
+- url https://www.tabnine.com/pricing/
+- free tier: no free lane and no self-serve price: tabnine.com/pricing resolves to a Tricentis sales contact form, and Tabnine was acquired by Tricentis on 2026-07-30 | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution | detail: a sales-led enterprise contract: Tabnine Enterprise (SaaS) accounts are set up together with the Tabnine team, and the plans page lists only Enterprise (SaaS) and Enterprise (private installation); no self-serve signup page exists
+- interface: cli
+- limits:
+  - write-gated (binding): the only route to a price is a sales conversation, so an individual with an email cannot reach any tier. [1]
+- limits note: the only route to a price is a sales conversation, so an individual with an email cannot reach any tier.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: the Tabnine Agent in IDEs and in the Tabnine CLI, and Tabnine Chat, for an enterprise account
+- composes with: none: there is no free capacity to chain, and the successor product is sold into enterprises through a quality-engineering platform.
+- reliability: no reliability event recorded
+- notes: A coding subscription sold only to organisations: Tabnine is an AI coding agent for IDEs and a CLI, and its only plans are Enterprise (SaaS) and Enterprise (private installation), set up through sales. No coding-subs record holds it. The free Tabnine Basic tier is gone from the web presence, and tabnine.com pages redirect to Tricentis properties since the acquisition.
+- extras:
+  - facets.class: refutation
+  - facets.free_tier_kind: none
+- evidence:
+  - [1] 2026-10-22: 
+  - [2] 2026-10-22: "AUSTIN, Texas - July 30, 2026 - Tricentis ... today announced the acquisition of Tabnine", quoted
+  - [3] 2026-10-22: Tabnine's own post says "Tabnine has been acquired by Tricentis", quoted
+  - [1] 2026-10-30: tabnine.com/pricing still redirects to the Tricentis contact page, a sales form with no plan or price | capture: sha256:5f3f06b4e329d90f94b0154c47bfd44bba9109da60990cddc8009a1af2671fc8 | quote: Talk with a sales expert
+  - [4] 2026-10-30: an account is created only with the vendor's team | capture: sha256:d3e8928b20be71f6c5f63c2f1481ca8f1ce77b3bc6fe66edcfecc5c9dd56154e | quote: Tabnine Enterprise (SaaS) accounts can only be set up together with the Tabnine team.
+  - [5] 2026-10-30: the subscription-plans page lists only the Enterprise (SaaS) and Enterprise (private installation) plans | capture: sha256:6156a82ace4369e665c036debb621cb2c2027d9c8a15c78d42281e5e0512b84e | quote: [Enterprise (SaaS)](https://docs.tabnine.com/main/welcome/readme/tabnine-subscription-plans/enterprise-saas.md): Tabnine AI code assistant: Enterprise subscription
+  - [6] 2026-10-30: the agent runs in a CLI and in IDEs | capture: sha256:e360abe1dfb4d0a7015773af025d186ac3647d4c67e83384aecd126970e81957 | quote: Use Tabnine Agent, via either CLI or IDE environments, to perform your coding tasks.
+  - [6] 2026-10-30: the agent runs in a CLI | capture: sha256:e360abe1dfb4d0a7015773af025d186ac3647d4c67e83384aecd126970e81957 | quote: Use Tabnine Agent, via either CLI or IDE environments, to perform your coding tasks.
+  - [6] 2026-10-30: Tabnine is a coding agent sold to organisations | capture: sha256:e360abe1dfb4d0a7015773af025d186ac3647d4c67e83384aecd126970e81957 | quote: Tabnine is a fully private, organization-aware AI coding agent designed to run entirely within your environment.
+  - [5] 2026-11-03: the plans page lists Enterprise (SaaS) and Enterprise (private installation) only | capture: sha256:6156a82ace4369e665c036debb621cb2c2027d9c8a15c78d42281e5e0512b84e | quote: - [Enterprise (SaaS)](https://docs.tabnine.com/main/welcome/readme/tabnine-subscription-plans/enterprise-saas.md): Tabnine AI code assistant: Enterprise subscription
+  - [1] 2026-11-03: tabnine.com/pricing resolves to a sales contact form with no self-serve price | capture: sha256:5f3f06b4e329d90f94b0154c47bfd44bba9109da60990cddc8009a1af2671fc8 | quote: Talk with a sales expert
+  - [1] 2026-11-04: tabnine.com/pricing still lands on a sales contact page with no plan or price | capture: sha256:5f3f06b4e329d90f94b0154c47bfd44bba9109da60990cddc8009a1af2671fc8 | quote: Talk with a sales expert
+- sources:
+  - [1] https://www.tabnine.com/pricing/
+  - [2] https://www.tricentis.com/news/tricentis-acquires-tabnine
+  - [3] https://www.tabnine.com/blog/a-new-chapter-for-tabnine/
+  - [4] https://docs.tabnine.com/main/welcome/readme/tabnine-subscription-plans/enterprise-saas.md
+  - [5] https://docs.tabnine.com/main/welcome/readme/tabnine-subscription-plans.md
+  - [6] https://docs.tabnine.com/main

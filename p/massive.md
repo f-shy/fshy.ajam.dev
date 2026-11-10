@@ -1,0 +1,83 @@
+# Massive
+
+> massive.com | Data APIs; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/massive/ | JSON https://fshy.ajam.dev/api/v1/entity/massive.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Massive (formerly Polygon.io)
+
+- `data-apis/massive` | qualifies-with-caveat | evidence documented | binding request-rate | category market data API (US stocks, options, indices, currencies, futures) | tier Basic
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T00:27:51.445Z (live) | stale on 2026-12-04
+- url https://massive.com/pricing?product=stocks
+- free tier: Stocks Basic USD 0/month: 5 API calls per minute, 2 years of historical data, end-of-day data; each asset class (stocks, options, indices, currencies, futures) has its own free Basic tier at 5 requests a minute | unit: requests | metered on: request-count | read on: 2026-10-30 | source: [1] | note: Basic reaches end-of-day aggregate bars, reference data, corporate actions and technical indicators over REST only; trades, quotes, snapshots, WebSockets and flat files start at the paid tiers. Paid tiers have no request limit: Stocks Starter is USD 29/month with 5 years of history, 15-minute delayed data and flat files. Extra API keys share the account's limits. Polygon.io was renamed Massive on 2025-10-30, and polygon.io redirects to massive.com.
+- per-object cap: not applicable: one JSON response per call | source: [2]
+- retention: not applicable
+- egress: not metered in bytes; 5 requests a minute per asset class bound what a free key can pull | metered: no | source: [1]
+- identity: email | detail: Signup offers GitHub, Google or email; registration asks for information that may include a name and an email. The stocks page states the free tier needs no credit card. A call without a key answers HTTP 401 with 'API Key was not provided'.
+- interface: rest, s3-compatible
+- limits:
+  - request-rate (binding): 5 requests per minute per asset class on Basic [2]
+- limits note: History depth on Stocks Basic is 2 years, end-of-day; no limits[] kind names a history window, and the term it needs is history-window. Bulk path: flat files over S3 from Stocks Starter (USD 29/month) up; no bulk path on Basic.
+- binding note: 5 requests a minute is the only numeric limit on Basic; the 2-year window bounds what those requests reach.
+- interface detail: REST at https://api.massive.com, with api.polygon.io answering in parallel. Flat files are compressed CSVs over an S3-compatible endpoint, https://files.massive.com, bucket flatfiles, from the first paid tier up; the free Basic tier is REST only.
+- endpoint: part of interface detail
+- tooling: curl or any HTTP client; flat files with an S3 client (the AWS CLI, rclone, the MinIO client and boto3 are named)
+- composes with: Free end-of-day bars for two years at 5 calls a minute; for history past two years the Alpha Vantage weekly or monthly series and the Twelve Data daily series reach further back for free, and the paid tiers sell flat files.
+- reliability: The api.polygon.io base still answers but is announced for phase-out; api.massive.com is the current base.
+- notes: The free tier is a sampler: 5 calls a minute per asset class, end-of-day, two years back. The value of the provider is the paid flat files, which are the only bulk path among the four market data records.
+- evidence note: The Basic tier, the per-asset-class limit and the flat-file gate are documented on the pricing page and knowledge-base articles. Keyless probes of both API bases answered 401 with the same error; the 5-per-minute cut-off needs a free key to measure.
+- extras:
+  - bulk_path: flat files (S3-compatible, files.massive.com, bucket flatfiles) on paid tiers only; no bulk path on Basic
+  - history_depth: 2 years, end-of-day, on Stocks Basic
+  - renamed_from: Polygon.io
+  - cutoff.http_status: 429
+  - cutoff.body: {"status":"ERROR","error":"You've exceeded the maximum requests per minute, please wait or upgrade your subscription to continue. https://massive.com/pricing"}; the 429 response also carries a request_id
+  - cutoff.reset: unverified: behind a sign-up: no Massive page says how the 5-per-minute window resets, and a Basic key is needed to observe it
+- evidence:
+  - [1] 2026-10-30: Stocks Basic allows 5 API calls per minute | capture: sha256:e33d4cbb7f47673bd493d8405812b650852d72de61bffb3663dcb11bf79fd04c | quote: 5 API Calls / Minute
+  - [1] 2026-10-30: Stocks Basic reaches 2 years of history | capture: sha256:e33d4cbb7f47673bd493d8405812b650852d72de61bffb3663dcb11bf79fd04c | quote: 2 Years Historical Data
+  - [1] 2026-10-30: Stocks Basic data is end-of-day | capture: sha256:e33d4cbb7f47673bd493d8405812b650852d72de61bffb3663dcb11bf79fd04c | quote: End of Day Data
+  - [1] 2026-10-30: Stocks Basic costs USD 0 a month | capture: sha256:e33d4cbb7f47673bd493d8405812b650852d72de61bffb3663dcb11bf79fd04c | quote: $0/month
+  - [1] 2026-10-30: the stocks plans, Basic among them, are labelled individual use | capture: sha256:e33d4cbb7f47673bd493d8405812b650852d72de61bffb3663dcb11bf79fd04c | quote: Individual use
+  - [1] 2026-10-30: Stocks Starter reaches 5 years of history | capture: sha256:e33d4cbb7f47673bd493d8405812b650852d72de61bffb3663dcb11bf79fd04c | quote: 5 Years Historical Data
+  - [1] 2026-10-30: Stocks Starter data is 15-minute delayed | capture: sha256:e33d4cbb7f47673bd493d8405812b650852d72de61bffb3663dcb11bf79fd04c | quote: 15-minute Delayed Data
+  - [1] 2026-10-30: Stocks Starter is USD 29 a month | capture: sha256:e33d4cbb7f47673bd493d8405812b650852d72de61bffb3663dcb11bf79fd04c | quote: $29/month Billed monthly
+  - [2] 2026-10-30: each asset class has a free Basic tier at 5 requests a minute, and paid tiers have no request limit | capture: sha256:7904df426060db8470f48dd8341cf17f561d4dba5a251ebbc0f23bbf0359288f | quote: Every asset class you have not subscribed to sits on its free Basic tier, which allows 5 requests a minute, and every asset class you pay for has no request limit.
+  - [2] 2026-10-30: extra API keys share the account's limits | capture: sha256:7904df426060db8470f48dd8341cf17f561d4dba5a251ebbc0f23bbf0359288f | quote: Creating more API keys does not change any of this.
+  - [3] 2026-10-30: Basic is REST only; WebSockets, flat files, trades, quotes and snapshots need a paid tier | capture: sha256:c45a44034bbc92060cc33c7bc2b6e598dab8d19a00fd49bb98392bd1bd8702c0 | quote: The free Basic tier of every product is REST only: the WebSockets and the flat files start at the paid tiers, and so do trades, quotes and snapshots.
+  - [4] 2026-10-30: Basic gives end-of-day bars, reference data, corporate actions and indicators with two years of history at 5 requests a minute | capture: sha256:e2e4b3379cec2d7536d1e308ef700a3c48c9bdb009f44e27a005972e0f9526e1 | quote: It gives you end-of-day aggregate bars, reference data, corporate actions and technical indicators, with two years of history at 5 requests a minute.
+  - [5] 2026-10-30: the bulk path is compressed CSV flat files over an S3-compatible endpoint | capture: sha256:552bbff405009f74bf2b54be8493381473101e3312ac88db4c4003cf0f16d3da | quote: Massive's Flat Files deliver extensive historical market data as compressed CSVs over an S3-compatible endpoint — ideal when you need bulk historical data without making thousands of REST calls.
+  - [5] 2026-10-30: flat files need a subscription that includes them | capture: sha256:552bbff405009f74bf2b54be8493381473101e3312ac88db4c4003cf0f16d3da | quote: Ensure you have an active [Massive subscription](https://massive.com/pricing) with Flat Files access.
+  - [5] 2026-10-30: the flat-file endpoint is files.massive.com | capture: sha256:552bbff405009f74bf2b54be8493381473101e3312ac88db4c4003cf0f16d3da | quote: - Endpoint: `https://files.massive.com`
+  - [5] 2026-10-30: the flat-file bucket is named flatfiles | capture: sha256:552bbff405009f74bf2b54be8493381473101e3312ac88db4c4003cf0f16d3da | quote: - Bucket Name: `flatfiles`
+  - [5] 2026-10-30: flat files are read with S3-compatible clients | capture: sha256:552bbff405009f74bf2b54be8493381473101e3312ac88db4c4003cf0f16d3da | quote: Massive officially supports several popular S3-compatible clients:
+  - [6] 2026-10-30: the free tier is 5 requests a minute and needs no credit card | capture: sha256:5c87480701e0f1b3b0ddaf0bc950f045aebf49b0124ce468a07b5ca8f7a1c72b | quote: Free tier · 5 req/min · no credit card.
+  - [7] 2026-10-30: signup by email is offered beside GitHub and Google | capture: sha256:b79a9b0fc9aeeaf9164f33f7a5c4acc33437d2a993fc8a8297bb9159018408d6 | quote: Sign up with Email
+  - [8] 2026-10-30: registration asks for information that may include a name and an email | capture: sha256:68087e7b753824d460681ed6aa6b0faf32b37a54fbc1c4aa91efbbf52289dd93 | quote: During the registration process, we will ask you for information, which may include, but is not limited to, your name, e-mail address, and other personal information.
+  - [9] 2026-10-30: products labelled Individual Use fall under the individuals terms | capture: sha256:7e00a05d3c8046a992b1fff88608e8397595a4427470731ed73f9a62508e1911
+  - [10] 2026-10-30: Polygon.io was renamed Massive on 2025-10-30 | capture: sha256:838fff25797fce871a739b5aaa2f7104464e8e698f732cff7dfe4e57ed0e791d | quote: We have just renamed Polygon.io to Massive.com, effective today (October 30, 2025) at 4 PM ET.
+  - [10] 2026-10-30: polygon.io redirects to massive.com | capture: sha256:838fff25797fce871a739b5aaa2f7104464e8e698f732cff7dfe4e57ed0e791d | quote: The polygon.io website now redirects automatically to massive.com.
+  - [10] 2026-10-30: api.polygon.io and api.massive.com both serve the API | capture: sha256:838fff25797fce871a739b5aaa2f7104464e8e698f732cff7dfe4e57ed0e791d | quote: API endpoints at api.polygon.io continue to work for an extended period. The new api.massive.com base is available in parallel.
+  - [10] 2026-10-30: the api.polygon.io endpoints are announced for phase-out | capture: sha256:838fff25797fce871a739b5aaa2f7104464e8e698f732cff7dfe4e57ed0e791d | quote: We plan to phase out support for the old endpoints in the new year, but we'll provide plenty of notice and time to ensure a seamless transition.
+  - probe:https://api.massive.com/v2/aggs/ticker/AAPL/prev 2026-10-30: api.massive.com answered HTTP 401 to a call without a key | capture: sha256:f27cde8231039e9441d8595a85505da0c25b7e6d0d9d8e296c01b794ad2833bc | quote: "status": 401
+  - probe:https://api.massive.com/v2/aggs/ticker/AAPL/prev 2026-10-30: the keyless call to api.massive.com is refused for a missing key | capture: sha256:2605ed7e6fa6f2d2f75b87242bc223a02df4e02b4ff23ee1dbfabb701b5f8c92 | quote: "error":"API Key was not provided"
+  - probe:https://api.polygon.io/v2/aggs/ticker/AAPL/prev 2026-10-30: api.polygon.io still answered, with HTTP 401 to a call without a key | capture: sha256:9266a419b190bd1ab251ccabb2263dcb4b054aff2e2d2999cc2720366d316a63 | quote: "status": 401
+  - probe:https://api.polygon.io/v2/aggs/ticker/AAPL/prev 2026-10-30: api.polygon.io returns the same missing-key error as api.massive.com | capture: sha256:58f12784547b61c43fd0d260977dad8546daf4784ba614aeae13ba152f7678f6 | quote: "error":"API Key was not provided"
+  - [2] 2026-11-02: the knowledge base says the over-limit JSON error comes with HTTP 429 when an asset class is on its Basic tier | capture: sha256:7904df426060db8470f48dd8341cf17f561d4dba5a251ebbc0f23bbf0359288f | quote: {"status":"ERROR","error":"You've exceeded the maximum requests per minute, please wait or upgrade your subscription to continue. https://massive.com/pricing"} with HTTP 429 means this request's asset class is on its Basic tier.
+  - [2] 2026-11-02: the knowledge base prints this JSON error as the body that comes with HTTP 429 | capture: sha256:7904df426060db8470f48dd8341cf17f561d4dba5a251ebbc0f23bbf0359288f | quote: {"status":"ERROR","error":"You've exceeded the maximum requests per minute, please wait or upgrade your subscription to continue. https://massive.com/pricing"} with HTTP 429 means this request's asset class is on its Basic tier.
+  - [2] 2026-11-02: the 429 response carries a request_id | capture: sha256:7904df426060db8470f48dd8341cf17f561d4dba5a251ebbc0f23bbf0359288f | quote: start a chat at [massive.com/contact](https://massive.com/contact) with the request_id from the 429 response.
+  - [1] 2026-11-02: Stocks Basic reaches 2 years of historical data at end-of-day recency, a history window that no limits[] kind names | capture: sha256:e23fe8f388e28bec8ff1b11e4335d97d495a986c8bf05b62a5f2063e3420ed2f | quote: Stocks Basic Great for trying our APIs $0/month [Sign up](https://massive.com/dashboard) - All US Stocks Tickers - 5 API Calls / Minute - 2 Years Historical Data - 100% Market Coverage - End of Day Data
+  - [2] 2026-11-02: the knowledge base gives the 5-per-minute limit and names no reset instant | capture: sha256:7904df426060db8470f48dd8341cf17f561d4dba5a251ebbc0f23bbf0359288f | quote: Every asset class you have not subscribed to sits on its free Basic tier, which allows 5 requests a minute, and every asset class you pay for has no request limit.
+  - [1] 2026-11-02: Stocks Basic is USD 0 a month with 5 API calls a minute, 2 years of historical data and end-of-day data | capture: sha256:e23fe8f388e28bec8ff1b11e4335d97d495a986c8bf05b62a5f2063e3420ed2f | quote: Stocks Basic Great for trying our APIs $0/month [Sign up](https://massive.com/dashboard) - All US Stocks Tickers - 5 API Calls / Minute - 2 Years Historical Data - 100% Market Coverage - End of Day Data
+  - [2] 2026-11-02: each asset class not subscribed to sits on a free Basic tier of 5 requests a minute; paid classes have no request limit | capture: sha256:7904df426060db8470f48dd8341cf17f561d4dba5a251ebbc0f23bbf0359288f | quote: Every asset class you have not subscribed to sits on its free Basic tier, which allows 5 requests a minute, and every asset class you pay for has no request limit.
+- sources:
+  - [1] https://massive.com/pricing?product=stocks
+  - [2] https://massive.com/knowledge-base/article/what-is-the-request-limit-for-massives-restful-apis
+  - [3] https://massive.com/knowledge-base/article/what-are-the-different-massive-subscriptions-i-can-use
+  - [4] https://massive.com/knowledge-base/article/does-massive-offer-free-trials
+  - [5] https://massive.com/flat-files
+  - [6] https://massive.com/stocks
+  - [7] https://massive.com/dashboard/signup
+  - [8] https://massive.com/legal/individuals-terms-of-service
+  - [9] https://massive.com/terms
+  - [10] https://massive.com/blog/polygon-is-now-massive

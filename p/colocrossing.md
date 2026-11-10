@@ -1,0 +1,167 @@
+# ColoCrossing
+
+> colocrossing.com | Compute; 3 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/colocrossing/ | JSON https://fshy.ajam.dev/api/v1/entity/colocrossing.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## ColoCrossing (compute/colocrossing)
+
+- `compute/colocrossing` | paid-only | evidence reported | binding volume-quota | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-06
+- url https://www.colocrossing.com/
+- disagrees on verdict: `compute/colocrossing` says paid-only, `compute/colocrossing-cyber-monday` says dead
+- free tier: A sale published on 2026-08-07 lists dedicated servers from USD 25 a month with 32 GB RAM, 1 TB of disk and 40 TB of bandwidth, in Los Angeles or Buffalo, with AMD or Intel hardware. The same vendor's earlier sale listed an Intel Xeon E3-1240 with 16 GB, a 1 TB SSD, 10 TB of bandwidth, a 1 Gbps port and a /30 IPv4 at USD 178.08 a year, which is USD 14.84 a month, and a Xeon E3-1270v6 with 64 GB and a 1 TB SSD at USD 49.88 a month. | unit: GiB | metered on: wall-clock | read on: 2026-08-07 | source: [1] | note: kind not stated
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 'dedicated servers starting at just $25/month! And that's with 32GB of RAM, 1TB of disk, and 40TB of bandwidth', in Los Angeles or Buffalo, AMD or Intel; the post also states 'ColoCrossing is a HostPapa brand' | metered: yes | source: [2]
+- identity: card
+- interface: unknown
+- limits:
+  - volume-quota (binding): 40 TB a month on a 1 Gbps port is the first published limit that a high-transfer workload would reach; the port alone would move about 320 TB a month at line rate. [1]
+- limits note: 40 TB a month on a 1 Gbps port is the first published limit that a high-transfer workload would reach; the port alone would move about 320 TB a month at line rate.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: 32 GB and 40 TB of transfer for USD 25 is the cheapest published 32 GB shape among evaluated providers, and it composes with a cheap VPS as the front end because the port is only 1 Gbps.
+- reliability: no reliability event recorded
+- notes: ColoCrossing provides dedicated server and unmanaged VPS hosting in Buffalo and other US facilities.
+- extras:
+  - facets.class: floor-price
+  - facets.shape.ram_gib: 32
+  - facets.shape.disk: 1 TB
+  - facets.shape.bandwidth_mbit: 1000
+  - facets.shape.traffic: 40 TB a month
+  - facets.shape.price_usd_month: 25.0
+  - facets.shape.gpu_count: 0
+- evidence:
+  - [3] 2026-10-22: the URL redirects to a blog article headed 'Dedicated Servers for the FinTech and AdTech Industry' with no price table, so no vendor price could be read directly
+  - [2] 2026-10-22: 'dedicated servers starting at just $25/month! And that's with 32GB of RAM, 1TB of disk, and 40TB of bandwidth', in Los Angeles or Buffalo, AMD or Intel
+  - [4] 2026-10-22: 
+- sources:
+  - [1] https://www.colocrossing.com/
+  - [2] https://lowendbox.com/blog/colocrossings-dedicated-server-sale-features-systems-as-low-as-25-month-los-angeles-and-buffalo/
+  - [3] https://www.colocrossing.com/dedicated-servers/
+  - [4] https://lowendbox.com/blog/black-friday-colocrossing-obliterates-previous-price-points-annual-dedicated-servers-under-15-month-plus-cheap-vps-offers/
+
+## ColoCrossing, 8GB RAM Specials (twenty SKUs)
+
+- `compute/colocrossing-8gb-annual` | paid-only | evidence documented | binding volume-quota | category VPS | tier 8GB RAM Specials (twenty SKUs)
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T06:30:00.000Z (live) | stale on 2026-11-24
+- url https://cloud.colocrossing.com/index.php?rp=/store/specials
+- price parsed USD 3.33/mo
+- disagrees on verdict: `compute/colocrossing-8gb-annual` says paid-only, `compute/colocrossing-cyber-monday` says dead
+- free tier: no free tier; the specials store's cheapest rung is the 1 GB at USD 3.95 a month | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the plan is paid; the specials are annual prepay with no refund term stated on the card
+- egress: 20TB to 40TB a month depending on the SKU, on a '1Gbps Port Speed' | metered: yes | free allowance: 20TB to 40TB a month | source: [1]
+- identity: card | detail: the store is a WHMCS cart; no ID document or company is stated on the specials page. Card hold not stated: unverified rather than none.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 20TB to 40TB a month depending on SKU [1]
+- binding note: traffic is generous; the thing that fails is stock, because every one of the twenty 8 GB SKUs reads 0 available.
+- interface detail: KVM with full root; the store is a WHMCS cart
+- tooling: any SSH client
+- composes with: 8 GiB with 4 vCPU and 165 GB SSD for USD 3.33 a month, if any of the twenty SKUs is ever in stock
+- reliability: no reliability event recorded
+- notes: A LowEndTalk thread cites USD 44.44 a year for 8 GB / 4 vCPU / 80 GB / 40 TB, which would be USD 3.70 a month. The vendor's own specials page carries twenty 8 GB SKUs at USD 39.99 to USD 75.00 a year, including three at USD 39.99 (USD 3.33 a month) and four at USD 44.44. Every single one reads '0 Available', and a product page returns an explicit 'Out of Stock ... orders for it have been suspended until more stock is available'. So the prices are real, published and unusable. VERDICT: 'paid-only' rather than a qualification, because a row that cannot be bought is not an offer — the DediRock lesson applied one step further. Worst case exposure is moot while nothing can be bought. Worth re-checking: these are restocked periodically, and the shapes are the best in the band if they return.
+- evidence note: twenty 8 GB SKUs were enumerated with their prices, shapes and stock counters from the vendor's own specials page today; every one reads 0 available and the product page returns an explicit Out of Stock body.
+- extras:
+  - shape.vcpu: 4
+  - shape.ram_gib: 8
+  - shape.disk_gib: 165
+  - billing_model: annual prepay on the 8 GB specials; monthly on the older ones
+  - term: 12 months on the USD 39.99 and USD 44.44 SKUs
+  - m10h_usd: 3.33
+  - m24h_usd: 3.33
+  - price_arithmetic: USD 39.99 a year / 12 = USD 3.3325 a month, the cheapest 8 GiB price found in the band. USD 44.44 a year / 12 = USD 3.70. USD 55.00 a year / 12 = USD 4.58. It is a VPS on annual prepay, so no 730-hour multiplication. No conversion needed: the page prices in USD.
+  - out_of_pocket_usd: 39.99
+  - signup_url: https://cloud.colocrossing.com/index.php?rp=/store/specials
+  - cart_url: https://cloud.colocrossing.com/index.php?rp=/store/specials/8gb-ram-spring-special
+  - renewal_usd: not published
+  - renewal_note: not published: the specials cards price 'Annually' with no renewal sentence. Whether the annual recurs at the same price is unstated.
+  - promo: no
+  - worst_case_note: not computable: no renewal is published and no SKU can be bought, so there is no exposure to price, only the absence of stock.
+  - port_mbps: 1000
+  - ipv4_included: yes
+  - ipv6: not stated on the card
+  - payment_methods: not read: every 8 GB product page returns the Out of Stock body before a payment step. unverified
+  - stock: out of stock: every 8 GB SKU reads '0 Available' and the product page body reads 'Out of Stock ... orders for it have been suspended'. Read at https://cloud.colocrossing.com/index.php?rp=/store/specials
+  - stock_enumeration: 93 plans in the specials store, 20 of them 8 GB; zero have a non-zero 'Available' counter
+  - cheapest_8gb_skus.Special 8GB RAM ZP: USD 39.99/yr
+  - cheapest_8gb_skus.Special 8GB RAM VPSJYZ30: USD 39.99/yr
+  - cheapest_8gb_skus.Special 8GB RAM VPSXXS: USD 39.99/yr
+  - cheapest_8gb_skus.Singles Day 8GB RAM Special: USD 44.44/yr
+  - cheapest_8gb_skus.ZP 8GB RAM Special: USD 53.99/yr
+  - cheapest_8gb_skus.8GB RAM Spring Special: USD 55.00/yr
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: no
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - vat: prices quoted in USD with no VAT line on the specials page
+- evidence:
+  - [1] 2026-10-24: quoted from the Singles Day card: 'Singles Day 8GB RAM Special / Starting from $44.44 USD / Annually / 4 vCPU / 8GB RAM / 165GB SSD Space / 1 x IPv4 / 40TB Bandwidth / 1Gbps Port Speed' followed by '0 Available'
+  - [1] 2026-10-24: quoted from the Spring Special card: '8GB RAM Spring Special / Starting from $55.00 USD / Annually / 4 vCPU / 8GB RAM / 165GB SSD Space / 20TB Bandwidth', followed by '0 Available'
+  - [2] 2026-10-24: quoted from the product page body: 'Oops, there's a problem... ## Out of Stock. We are currently out of stock on this item so orders for it have been suspended until more stock is available.'
+  - [3] 2026-10-24: the affiliate link for pid 116 redirects to /index.php?rp=/store/specials/singles-day-8gb-ram-special and renders the same 'Out of Stock' body, so the pid the forum thread cites is also closed
+- sources:
+  - [1] https://cloud.colocrossing.com/index.php?rp=/store/specials
+  - [2] https://cloud.colocrossing.com/index.php?rp=/store/specials/8gb-ram-spring-special
+  - [3] https://cloud.colocrossing.com/aff.php?aff=132&pid=116
+
+## ColoCrossing (cyber monday)
+
+- `compute/colocrossing-cyber-monday` | dead | evidence documented | binding volume-quota | category VPS | tier Yearly Cloud VPS 1/2/3/4 GB, 40% off monthly VPS with BLACKFRIDAY24, dedicated servers
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T06:20:13.000Z (live) | stale on 2026-11-24
+- url https://www.colocrossing.com/cyber-monday/
+- disagrees on verdict: `compute/colocrossing` says paid-only, `compute/colocrossing-cyber-monday` says dead
+- disagrees on verdict: `compute/colocrossing-8gb-annual` says paid-only, `compute/colocrossing-cyber-monday` says dead
+- free tier: no free tier; the page advertises yearly VPS from USD 12.00 and monthly VPS from USD 2.37 after a coupon | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the plan is paid; no deletion clock stated
+- egress: 10 TB a month on the yearly VPS tiers, 20 TB on the monthly tiers, stated as Bandwidth | metered: yes | free allowance: 10 TB | source: [1]
+- identity: card | detail: card at signup through the cloud portal or the register/order portal; no hold stated
+- interface: ssh
+- limits:
+  - volume-quota (binding): 10 TB a month of bandwidth on the yearly VPS tiers [1]
+- binding note: Stock on the yearly tiers and a coupon on the monthly ones: neither price on the page is what a cart shows without one or the other.
+- interface detail: root SSH on a KVM guest; cloud portal at cloud.colocrossing.com
+- tooling: any SSH client; the cloud portal
+- composes with: Would be the cheapest yearly machine among evaluated providers at USD 12.00 for 1 GiB, but every yearly cart is out of stock and the monthly carts reprice.
+- reliability: no reliability event recorded
+- notes: The strongest fossil among evaluated providers, because the product slugs still carry the year: the $12.00 yearly VPS is served from '1gb-black-friday-vps-2024'. Three of the four yearly carts return Out of Stock; the fourth repoints to a monthly category at $3.95. The six monthly VPS offers also repoint to that same category, so the $2.37 figure depends on the BLACKFRIDAY24 coupon being applied to a $3.95 cart - 40% off $3.95 is $2.37, which is consistent but was not tested, because applying a coupon needs a cart session and evaluated providers places no orders. Not verified: whether BLACKFRIDAY24 is still accepted in 2026.
+- evidence note: The Cyber Monday page and four yearly carts plus two monthly carts were read. The page prices and the cart behaviour are both quoted; the coupon's effect on a cart was not tested because that needs a cart session.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.disk_gib: 20
+  - billing_model: annual
+  - term: annual prepay, or monthly on the coupon tiers
+  - price_arithmetic: USD 12.00 a year divided by 12 is USD 1.00 a month, paid once. Not recorded as a live price because the cart is out of stock. The monthly figure USD 2.37 is USD 3.95 less 40%, and 2.37 x 12 = USD 28.44 a year, which is worse than the yearly offer it replaced.
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: no
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - sale_page_year: 2024 (from the product slugs; the page itself carries no year)
+  - coupon: BLACKFRIDAY24, named on the page, not tested
+- evidence:
+  - [1] 2026-10-24: quoted: 'Yearly Cloud VPS Offers 1GB RAM VPS $12.00 / Year ... Order Now'; also '40% Off Cloud VPS BLACKFRIDAY24' with '1GB RAM VPS $2.37 / Month', and dedicated servers at $49.88, $98.88 and $119.88 a month
+  - [2] 2026-10-24: quoted: 'Out of Stock' - the cart behind the $12.00 a year 1 GB offer
+  - [3] 2026-10-24: quoted: 'Out of Stock' - the cart behind the $17.00 a year 2 GB offer
+  - [4] 2026-10-24: quoted: 'Out of Stock' - the cart behind the $26.00 a year 4 GB offer
+  - [5] 2026-10-24: HTTP 200 but repoints to /store/cloud-virtual-private-servers, a monthly category at $3.95/$6.95/$13.95/$24.95, not the $22.00 annual the page quotes
+  - [6] 2026-10-24: every line in the specials store reads '0 Available', including '1GB RAM Spring Special (2025)' and '1GB RAM Fall Special (2025)' at $3.95
+- sources:
+  - [1] https://www.colocrossing.com/cyber-monday/
+  - [2] https://cloud.colocrossing.com/index.php?rp=/store/specials/1gb-black-friday-vps-2024
+  - [3] https://cloud.colocrossing.com/index.php?rp=/store/specials/2gb-black-friday-vps-2024
+  - [4] https://cloud.colocrossing.com/index.php?rp=/store/specials/4gb-black-friday-kvm-vps-2024
+  - [5] https://cloud.colocrossing.com/index.php?rp=/store/specials/3gb-black-friday-kvm-vps-2024
+  - [6] https://cloud.colocrossing.com/index.php?rp=/store/specials

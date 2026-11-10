@@ -1,0 +1,590 @@
+# DigitalOcean
+
+> digitalocean.com | Compute, Egress and tunnels, Storage; 14 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/digitalocean/ | JSON https://fshy.ajam.dev/api/v1/entity/digitalocean.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Paperspace (DigitalOcean) Gradient free tier
+
+- `compute/paperspace-gradient-free-tier` | qualifies | evidence documented | binding retention-clamped | category notebook | tier Gradient Free plan
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T06:32:00.000Z (live) | stale on 2026-11-24
+- url https://docs.digitalocean.com/products/paperspace/pricing/
+- disagrees on verdict: `compute/paperspace` says qualifies-with-caveat, `compute/paperspace-gradient-free-tier` says qualifies
+- free tier: Quoted from the machine table: 'GPU+ (M4000) | $0.45/hr | Free, Pro, Growth' and 'C4 | $0.04/hr | Free, Pro, Growth'. The Free plan row reads 'FREE GPU ... $0 ... Plus utilization costs on paid instances' with 'Public projects', 'Auto-shutdown (12 hour limit)', '5GB storage', 'Basic instances'. No credit card is required for the free machine types. | unit: hours | metered on: wall-clock | read on: 2026-10-24 | source: [1]
+- per-object cap: 'Notebook Limit: Only one notebook can use a free machine at a time.'
+- retention: 'For your machine learning work on Free machines, you have 5GB of dedicated Persistent Storage.' The storage is per-region and is not shared with paid machine types.
+- egress: 'We do not charge for ingress or egress bandwidth for Paperspace Machines.' Free machines are not metered on traffic. | metered: no | free allowance: unmetered | source: [2]
+- identity: email | detail: no card, no phone, no document. The signup page offers '1-click sign up ... Sign up with DigitalOcean, Sign up with GitHub, Sign up with Google' plus an email-and-password form, and carries no payment field. The vendor states it twice: 'Gradient includes a free tier that comes with no-cost CPU and GPU instance types (no credit card required!)' and 'While Gradient requires a subscription tier (and credit card) to enable paid instances, you can always use Free-tier CPU and GPU notebooks for free.'
+- interface: ssh, rest
+- limits:
+  - retention-clamped (binding): free machines auto-shutdown at 6 hours [3]
+  - retention-clamped (binding): a notebook inactive for one hour is shut down [3]
+  - volume-quota: 5 GB of persistent storage on the Free plan [2]
+  - volume-quota: one notebook per user may hold a free machine at a time [3]
+  - write-gated: free machines are drawn from a limited pool and may sit Pending in a queue [4]
+- binding note: The six-hour auto-shutdown and the one-hour inactivity reap are what end a session, so this is a working machine for a run, not a host.
+- interface detail: Jupyter notebooks in the browser, a terminal inside the notebook, and a public IP address on the machine for SSH. The Paperspace API and CLI drive machines programmatically.
+- tooling: a browser for notebooks; any SSH client against the machine's public IP; the Paperspace CLI or REST API
+- composes with: A free NVIDIA M4000 with 8 vCPU and 30 GiB of RAM behind it, no card, for six hours at a stretch: the best free GPU shape documented that does not ask for an institution.
+- reliability: no reliability event observed. Free machines come from a limited pool and can queue: 'your notebook may be Pending in the queue as you wait for a free machine to become available'.
+- notes: The best free GPU among documented hosts that needs no institution and no card: an M4000 with 8 vCPU and 30 GiB of RAM for six-hour stretches, on 5 GB of persistent storage, with unmetered egress. Three caveats. First, the marketing card says a 12-hour auto-shutdown while the documentation says 6; the documentation is recorded and the conflict is left visible rather than resolved. Second, free machines come from a limited pool and can queue, so availability is the real constraint on a busy day. Third, the free plan forces public projects, so a notebook's contents are visible. Whether the machine exposes a reachable SSH port on its public IP, as opposed to notebook-only access, is not stated on any page read. This record adds the shape and the free-GPU row that `paperspace` lacks; the two are different records because `paperspace` prices the C-series hourly and this one prices the free plan.
+- evidence note: Machine types, shapes, idle reaps, storage limits, and payment terms are quoted from DigitalOcean Paperspace pricing pages. Direct SSH access over public IP is unverified in published documentation; inbound listening is recorded as unknown.
+- extras:
+  - shape.vcpu: 8
+  - shape.ram_gib: 30
+  - shape.disk_gib: 5
+  - shape.gpu_class: NVIDIA Quadro M4000
+  - shape.gpu_count: 1
+  - shape.note: the M4000 row is 8 GB GPU memory, 8 vCPU, 30 GB RAM; the CPU-only alternative C4 is 2 vCPU and 4 GB RAM; disk is the 5 GB persistent allocation, not an instance disk
+  - billing_model: free
+  - term: per session; persistent storage survives
+  - m10h_usd: 0
+  - m24h_usd: 0
+  - price_arithmetic: USD 0.00 for the free machine types; the published USD 0.45/hr for the M4000 is the paid Core rate and is not charged on the Free plan
+  - free_tier_kind: always-free
+  - network_out.allow_outbound: yes
+  - network_out.ports: a public IP is assignable to Paperspace machines; whether a free machine gets one is not stated
+  - session_cap.wall_clock_min: 360
+  - session_cap.idle_reap_s: 3600
+  - session_cap.restart_required: yes
+  - session_cap.note: 6 h auto-shutdown and 1 h inactivity reap per the documentation; the marketing card says 12 h
+  - signup_url: https://console.paperspace.com/signup
+  - payment_methods: none for the free machine types; a card is required only for paid instances
+- evidence:
+  - [2] 2026-10-24: quoted: '| GPU+ (M4000) | $0.45/hr | Free, Pro, Growth |' and '| C4 | $0.04/hr | Free, Pro, Growth |'
+  - [2] 2026-10-24: quoted: '### Free Machines ... | Free Machine | Available Plans | ... | Free CPU (C4) | Free, Pro, Growth | | Free GPU (M4000) | Free, Pro, Growth |'
+  - [2] 2026-10-24: quoted: 'We do not charge for ingress or egress bandwidth for Paperspace Machines.'
+  - [3] 2026-10-24: quoted: 'Auto-shutdown: The auto-shutdown limit for free machines is six hours.', 'Inactivity: Notebooks that are inactive for one hour are automatically shut down.', 'Notebook Limit: Only one notebook can use a free machine at a time.'
+  - [4] 2026-10-24: quoted: 'For your machine learning work on Free machines, you have 5GB of dedicated Persistent Storage.' and 'Note: We are currently offering a limited pool of free machines so your notebook may be Pending in the queue'
+  - [5] 2026-10-24: quoted: 'Gradient includes a free tier that comes with no-cost CPU and GPU instance types (no credit card required!)'
+  - [6] 2026-10-24: quoted: 'While Gradient requires a subscription tier (and credit card) to enable paid instances, you can always use Free-tier CPU and GPU notebooks for free.'
+  - [7] 2026-10-24: the form carries 'Sign up with DigitalOcean', 'Sign up with GitHub', 'Sign up with Google', 'Email address', 'Password' and no payment field
+  - [8] 2026-10-24: quoted: '| C4 | 2 | 4 | Linux |' and '| GPU+ (M4000) | 8 | 8 | 30 | Linux |' (GPU memory GB, vCPU, RAM GB)
+  - [1] 2026-10-24: quoted: 'FREE GPU ... $0 ... Public projects, Auto-shutdown (12 hour limit), 5GB storage, Basic instances'. Note the marketing card says 12 hours where the documentation says 6; the documentation is recorded and the disagreement is kept
+- sources:
+  - [1] https://www.paperspace.com/pricing
+  - [2] https://docs.digitalocean.com/products/paperspace/pricing/
+  - [3] https://docs.digitalocean.com/products/paperspace/machines/details/features/
+  - [4] https://paperspace.gitbook.io/gradient/more/instance-types/free-instances
+  - [5] https://ml-showcase.paperspace.com/guide
+  - [6] https://blog.paperspace.com/sagemaker-studio-notebooks-alternative-comparison/
+  - [7] https://console.paperspace.com/signup
+  - [8] https://docs.digitalocean.com/products/paperspace/machines/details/machine-types/index.html.md
+
+## DigitalOcean Startups
+
+- `compute/digitalocean-startups` | qualifies-with-caveat | evidence documented | binding write-gated | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:40:20.285Z (live) | stale on 2026-12-05
+- url https://www.digitalocean.com/startups
+- free tier: 12 months of DigitalOcean credits for accepted startups. Eligibility: must have raised USD 10m or less, must have a company website and an email address on that domain, and must create a registered DigitalOcean team account with a business email. Applicants with no VC, incubator or accelerator apply by selecting Other for the partner field. Participants are generally entitled to a USD 10,000 monthly limit, with charges applying above it. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: one-shot-credit
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not published on the startup program page; the credits pay for ordinary DigitalOcean products, whose Droplet terms are: free outbound transfer included per plan from 500 GiB a month, then $0.01 per GiB; inbound is free | metered: yes | free allowance: 500 GiB a month on the smallest Droplet | price per TB: USD 0.01 per GiB | source: [1]
+- identity: email | detail: The published criteria ask for a company website, a domain email and a registered team account, and provide an explicit route for applicants with no partner organization. No incorporation certificate is named on the program page. The credit amount is set by the partner, not by the applicant.
+- interface: rest, cli
+- limits:
+  - write-gated (binding): A program manager decides the award and the amount stays unnamed until the onboarding email, so an applicant cannot plan against a number; the one-year expiry and the USD 10,000 monthly ceiling bind after that. [1]
+- limits note: A program manager decides the award and the amount stays unnamed until the onboarding email, so an applicant cannot plan against a number; the one-year expiry and the USD 10,000 monthly ceiling bind after that.
+- binding note: the same as limits note
+- interface detail: REST API (HTTP requests) and the doctl CLI, both documented at docs.digitalocean.com/reference
+- tooling: doctl, the official DigitalOcean CLI; the REST API reference has request samples in cURL, Python, Go and Ruby
+- composes with: The core credits exclude every GPU product, so the value is CPU droplets, Spaces and managed databases: at a USD 10,000 monthly limit a small always-on stack runs for a year. GPU access is a separate application and is not covered, which is where the chain breaks for ML work.
+- reliability: no reliability event recorded
+- notes: The credit amount is genuinely not published: the page says DigitalOcean awards credits through partners and directs the applicant to a program manager. Recording a dollar ceiling here would be invention, so the ceiling is null and the monthly limit of USD 10,000 is what the page states. One directory reported a USD 100K figure from a 2024 press release, which the current page supersedes.
+- extras:
+  - facets.class: startup-credit
+  - facets.free_tier_kind: one-shot-credit
+- evidence:
+  - [1] 2026-10-22: eligibility is USD 10m or less raised, a company website with an email on that domain, and a registered team account on a business email, quoted
+  - [1] 2026-10-22: 'Please fill out the application here and select Other when prompted for an affiliated partner organization', the no-VC route, quoted
+  - [1] 2026-10-22: 'Participants generally are entitled to a USD 10,000 monthly limit (and charges apply for any use in a month exceeding this amount)', quoted
+  - [1] 2026-10-22: GPU Droplets, H100 GPU Kubernetes, Bare Metal GPUs, Dedicated Inference and Serverless Inference are excluded from core credits as of 2026-05-13, quoted
+  - [2] 2026-11-03: Droplets include free outbound transfer and the overage is $0.01 per GiB | capture: sha256:271c38771adb38ca72f052eb38b6e9169328520b0491b64110753e2112c044e0 | quote: Each Droplet plan includes an amount of free outbound data transfer. Additional outbound transfer is billed at $0.01 per GiB. Inbound transfer to Droplets is free.
+  - [3] 2026-11-03: the smallest Droplet includes 500 GiB of outbound transfer a month | capture: sha256:1a2b3bda52b6b295be33171012e51cb19a9ddaac045b0e4d768cf75a3e4185d5 | quote: The specific amount depends on the Droplet plan you choose, starting from 500 GiB/month.
+  - [4] 2026-11-03: a REST API exists | capture: sha256:2460b49cb4e7ca5e3515ade0230e0be3f5fdadcda7b9d7c934c9d05f82ab2271 | quote: The DigitalOcean API lets you programmatically manage Droplets and other DigitalOcean resources using conventional HTTP requests.
+  - [5] 2026-11-03: an official CLI exists | capture: sha256:59e12be230b96bd285a8684b5046b8cfc472f030bc33bd4a30608be7c18286e5 | quote: `doctl` is the official DigitalOcean command line interface (CLI).
+  - [4] 2026-11-04: REST API with samples in cURL, Python, Go and Ruby | capture: sha256:2460b49cb4e7ca5e3515ade0230e0be3f5fdadcda7b9d7c934c9d05f82ab2271 | quote: Complete reference documentation for the DigitalOcean API, including request samples in cURL, Python, Go, and Ruby.
+  - [5] 2026-11-04: doctl is the official CLI | capture: sha256:59e12be230b96bd285a8684b5046b8cfc472f030bc33bd4a30608be7c18286e5 | quote: `doctl` is the official DigitalOcean command line interface (CLI).
+- sources:
+  - [1] https://www.digitalocean.com/startups
+  - [2] https://docs.digitalocean.com/platform/billing/bandwidth/
+  - [3] https://www.digitalocean.com/pricing/droplets
+  - [4] https://docs.digitalocean.com/reference/api/
+  - [5] https://docs.digitalocean.com/reference/doctl/
+
+## Paperspace
+
+- `compute/paperspace` | qualifies-with-caveat | evidence documented | binding retention-clamped | category GPU cloud
+- needs card no, phone no, ID no, institution no | verified 2026-11-09T13:13:24.511Z (live) | stale on 2026-12-10
+- url https://docs.digitalocean.com/products/paperspace/pricing/
+- disagrees on verdict: `compute/paperspace` says qualifies-with-caveat, `compute/paperspace-gradient-free-tier` says qualifies
+- free tier: C4, C5 and C7 machines are included in a Free Gradient subscription plan; every machine bills per hour, and a powered-off machine still bills its storage and public IP until destroyed | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: free: the pricing documentation states that ingress and egress bandwidth are not charged for Paperspace Machines, so the transfer is unmetered on the machine price | metered: no | source: [1]
+- identity: email | detail: The signup form offers Sign up with DigitalOcean, Sign up with GitHub and Sign up with Google, or an email address and a password, and carries no card field. The vendor states the free tier includes no-cost CPU and GPU instance types with no credit card required. No phone number is asked for on the form and no country limit is stated.
+- interface: unknown
+- limits:
+  - request-rate: C4 at $0.04 an hour, C5 at $0.08 and C7 at $0.30 are available on the Free subscription plan [1]
+  - retention-clamped (binding): a powered-off machine still bills attached storage, public IPs and add-ons until those are destroyed [1]
+  - per-object-cap: non-GPU resources such as storage and public IPs have a monthly maximum charge and stop billing once reached [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the pricing page was read on 2026-10-22 and marks C4, C5 and C7 as available on the Free plan. The important half is the powered-off rule: stop is not a pause here, because storage and IP keep billing until destroyed
+- extras:
+  - keep_rate: 1.0
+  - keep_rate_basis: first-party: that machine. This differs from DigitalOcean Droplets, which are billed per second for as long as the Droplet
+  - billing_model: unclassified
+  - shape.note: C4 is the cheapest machine on the Free plan at $0.04 an hour; the C-series runs to C8 at $0.60
+  - session_cap.restart_required: no
+  - session_cap.note: no vendor reap; powering off stops the compute charge only, and storage and IP continue until destroyed
+  - free_tier_kind: allowance
+  - burst_x: 2.0
+  - burst_bill: rounds to 1 h
+  - ps.price: billed hourly while attached, with a monthly maximum
+  - ps.durability: attached storage, survives power-off
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: until destroyed
+  - net.out: yes
+  - net.in: yes
+  - net.ports: a public IP is billed separately
+  - net.static_ip: yes
+  - net.allowance: ingress and egress are free for Paperspace machines
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'All Paperspace resources are billed on a per-hour basis' with 'When a Paperspace machine is powered off, attached storage, public IP addresses, and other add-ons continue to be billed on an hourly basis until you destroy those resources', 'We do not charge for ingress or egress bandwidth', and C4 at '$0.04/hr' listed under 'Subscription Plan: Free, Pro, Growth', quoted
+  - [2] 2026-11-02: the signup offers three identity providers or an email and password, with no phone and no card field | capture: sha256:c74947f85ffdac40c9f8508f3380af20dca15c836ec07e03975d7aa00bbe4502 | quote: Sign up with DigitalOcean Sign up with GitHub Sign up with Google Email address Password
+  - [3] 2026-11-02: the vendor states the free tier needs no credit card | capture: sha256:3af59360451575f10d8eabbbd4f87e48a6f8716992c4a0c48ef6cf7740952ef9 | quote: Gradient includes a free tier that comes with no-cost CPU and GPU instance types (no credit card required!)
+  - [2] 2026-11-02: the signup needs an email account, with no phone and no card field | capture: sha256:c74947f85ffdac40c9f8508f3380af20dca15c836ec07e03975d7aa00bbe4502 | quote: Sign up with DigitalOcean Sign up with GitHub Sign up with Google Email address Password
+  - [1] 2026-11-09: the page states in its own words that ingress and egress bandwidth carry no charge, which is the sentence that makes egress free | capture: sha256:05234e1d7cc9639c28d5d5a106e2eefa9ed56a323499c0b7bb90aedba94d6434 | quote: We do not charge for ingress or egress bandwidth for Paperspace Machines.
+  - [1] 2026-11-09: the page states no charge for ingress or egress bandwidth, which supports metered false | capture: sha256:05234e1d7cc9639c28d5d5a106e2eefa9ed56a323499c0b7bb90aedba94d6434 | quote: We do not charge for ingress or egress bandwidth for Paperspace Machines.
+- sources:
+  - [1] https://docs.digitalocean.com/products/paperspace/pricing/
+  - [2] https://console.paperspace.com/signup
+  - [3] https://ml-showcase.paperspace.com/guide
+
+## DigitalOcean (free)
+
+- `egress/digitalocean` | trial-only | evidence reported | binding volume-quota | category trial credit (provider VM) | tier free
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-07
+- url https://www.digitalocean.com/pricing
+- price USD 200 of credit
+- free tier: $200 in free credit with a 60-day validity period, reported by two third-party pages; DigitalOcean's own pricing and homepage did not carry the offer when read | unit: mixed | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: $200 of credit at $0.01 per GiB is 19.5 TiB, or 9.8 TiB a month across the 60-day credit window, plus 500 GiB a month included per droplet; ingress: udp | metered: yes | free allowance: $200 of credit at $0.01 per GiB is 19.5 TiB, or 9.8 TiB a month across the 60-day credit window, plus 500 GiB a month included per droplet | source: [1]
+- identity: card | detail: a credit card or PayPal to activate the credit, with a small verification hold; reported by the two third-party pages that carry the offer's terms | country: None
+- interface: cli, rest
+- limits:
+  - volume-quota (binding): $200 of egress at $0.01 per GiB is 19.5 TiB, and the credit expires at 60 days [1]
+- binding note: the 60-day expiry binds, not the bandwidth: $200 at $0.01 a GiB is 20,000 GiB, and at 1 TiB a month only 2 TiB of it is used before the credit dies. The credit is nine times larger than the 60 days can spend at this volume.
+- interface detail: doctl and the DigitalOcean REST API
+- tooling: wg-quick on the droplet; doctl or the API for the firewall
+- composes with: USD 200 credit valid for 60 days covers one droplet and up to 19.5 TiB of metered egress.
+- reliability: unused credit expires at 60 days and is not refundable or transferable
+- notes: Arithmetic: $200 over $0.01 a GiB is 20,000 GiB = 19.53 TiB in total. Spread across 60 days that is 9.77 TiB a month, which clears the 1 TiB a month test by a factor of 9.8. This is the best dollars-to-bytes ratio of the egress providers compared, and it is the only one where the bandwidth price is two orders of magnitude below the hyperscalers. The 500 GiB a month of included transfer on the cheapest droplet is 0.49 TiB alone and short of the test; DigitalOcean Startups is egress/digitalocean-startups. Note the egress price is documented and the credit is reported, which makes the whole record reported under the weakest-field rule.
+- evidence note: the $200 and 60 days are third-party; DigitalOcean's pricing page and homepage carry no such offer today and the referral page states only that referrals earn credits. A screenshot of the signed-in billing page, or a first-party campaign page, would raise this to documented
+- extras:
+  - wg_path: native-conf
+  - wg_detail: a Droplet with a public IPv4; wg-quick binds UDP on the droplet directly
+  - ingress: udp
+  - volume_tib_month: 9.77
+  - volume_stated: $200 of credit at $0.01 per GiB is 19.5 TiB, or 9.8 TiB a month across the 60-day credit window, plus 500 GiB a month included per droplet
+  - bytes_transit: yes
+  - transit_note: the droplet's outbound bytes cross DigitalOcean's network and are metered per GiB after the included allowance
+- evidence:
+  - [1] 2026-10-23: 'Public Internet Egress Overage Data transfer is $0.01 per GiB', 'Ingress data transfer is free', 'Droplets include free outbound data transfer, starting at 500 GiB / mo'
+  - [2] 2026-10-23: third party, published 2026-03-23: 'DigitalOcean offers all new users $200 in free credit with a 60-day validity period' and 'The credit is valid for 60 days from account creation'
+  - [3] 2026-10-23: third party: 'DigitalOcean's trial offers new users $200 in credits, usable within 60 days' and 'Valid credit card required'
+- sources:
+  - [1] https://www.digitalocean.com/pricing
+  - [2] https://www.digitaloceanpro.com/promo-code.html
+  - [3] https://cloudcredits.io/providers/digitalocean/programs/digitalocean-200
+
+## DigitalOcean GPU Droplets
+
+- `compute/digitalocean-gpu` | trial-only | evidence reported | category GPU cloud
+- needs card yes, phone no, ID no, institution no | verified 2026-11-02T02:17:25.932Z (inherited) | stale on 2026-11-17
+- url https://www.digitalocean.com/pricing/gpu-droplets
+- free tier: USD 5 of credit for a new account, valid for 90 days; it expires with any remainder | unit: mixed | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: card | detail: An email or GitHub or Google account creates the account, but no Droplet or other resource can be created before a valid payment method is added. Credit and debit cards are accepted and virtual, electron and prepaid cards are refused. No phone number is asked for.
+- interface: unknown
+- limits note: Session cap, idle-reap and network policy are not documented. GPU only.
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: the `digitalocean` record was re-read on 2026-10-22 and the credit expires after 90 days; this slug takes the same verdict
+- evidence note: re-read live on 2026-10-22 for the free-tier and limit…
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - free_tier_kind: one-time-credit
+- evidence:
+  - [1] 2026-10-02: 
+  - [2] 2026-10-22: read live: USD 5 new-account credit expires after 90 days
+  - [3] 2026-11-02: no Droplet or other resource can be created before a valid payment method is added | capture: sha256:7f5640e24e276cb2cc0e2421b5d53f9a670f50bd5dffe5ba2e69fef3ac729813 | quote: You must add a [valid payment method](https://docs.digitalocean.com/platform/billing/manage-payment-methods/) before you can create Droplets or other resources.
+  - [4] 2026-11-02: credit and debit cards are the accepted payment method, and no phone is asked for | capture: sha256:c34e80402ea8c7fe187d835b3d0c56bfe8730dbead020176d1f5dedb019348b4 | quote: - Credit and debit cards. We accept Visa, MasterCard, American Express, Discover, UnionPay, Diners Club, and JCB credit cards.
+  - [4] 2026-11-02: prepaid, virtual and electron cards are refused | capture: sha256:c34e80402ea8c7fe187d835b3d0c56bfe8730dbead020176d1f5dedb019348b4 | quote: We do not accept virtual, electron, or prepaid cards.
+  - [4] 2026-11-02:  | capture: sha256:c34e80402ea8c7fe187d835b3d0c56bfe8730dbead020176d1f5dedb019348b4
+  - [3] 2026-11-02: a payment method must be added before the account can create a resource | capture: sha256:7f5640e24e276cb2cc0e2421b5d53f9a670f50bd5dffe5ba2e69fef3ac729813 | quote: You must add a [valid payment method](https://docs.digitalocean.com/platform/billing/manage-payment-methods/) before you can create Droplets or other resources.
+- sources:
+  - [1] https://www.digitalocean.com/pricing/gpu-droplets
+  - [2] https://www.digitalocean.com/pricing
+  - [3] https://docs.digitalocean.com/platform/billing/signup-credit/
+  - [4] https://docs.digitalocean.com/platform/billing/manage-payment-methods/
+
+## DigitalOcean Harness Runtime
+
+- `compute/digitalocean-harness-runtime` | trial-only | evidence documented | binding volume-quota | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T06:40:18.802Z (live) | stale on 2026-12-05
+- url https://www.digitalocean.com/pricing/harness-runtime
+- free tier: Hardware-isolated microVM sandboxes with Chromium and a coding environment built in, billed per second of active compute: USD 0.044 per vCPU-hour of actual CPU consumed, USD 0.0095 per GB-hour of memory allocated over time, USD 0.05 per GiB-month of session storage, USD 0.01 per GiB of public egress and USD 0.05 per GiB-month for snapshots, checkpoints and custom templates. At full allocation the sizes cost USD 0.0535 per hour for XSmall (1 vCPU, 1 GB), USD 0.107 for Small (2, 2), USD 0.126 for Medium (2, 4), USD 0.252 for Large (4, 8) and USD 1.008 for XLarge (16, 32). New customers get a USD 5 promotional credit, which DigitalOcean's own table estimates at 200 agent hours for a light workload. Harness Runtime requires a positive prepaid account balance. | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: one-time-credit
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: CPU USD 0.044 per vCPU-hour of actual CPU consumed, memory USD 0.0095 per GB-hour allocated, session storage USD 0.05 per GiB-month, egress USD 0.01 per GiB, snapshots USD 0.05 per GiB-month, and 'when an agent is waiting and consuming no CPU, its CPU charge falls to zero' | metered: no | source: [1]
+- identity: card
+- interface: cli, rest
+- limits:
+  - volume-quota (binding): The prepaid balance is the binding term: usage draws it down with no per-session limit, retained checkpoints keep accruing storage charges while a session is paused even at a zero balance, and there is no free allowance beyond the one-time USD 5 credit. [1]
+- limits note: The prepaid balance is the binding term: usage draws it down with no per-session limit, retained checkpoints keep accruing storage charges while a session is paused even at a zero balance, and there is no free allowance beyond the one-time USD 5 credit.
+- binding note: the same as limits note
+- interface detail: doctl CLI (doctl harness-runtime commands) and the DigitalOcean API; the Control Panel does not offer the no-harness sandbox
+- tooling: doctl, the DigitalOcean command-line client (doctl harness-runtime create, exec, upload, download, port-forward)
+- composes with: CPU is charged only while it is consumed, so a Harness session that waits on a model costs memory and storage but almost no CPU; combined with pause, resume and fork that makes a long agent conversation cheap to hold open, and the fork semantics let one exploration branch into several for the price of the memory.
+- reliability: no reliability event recorded
+- notes: This is a product no record covers: digitalocean-2 covers the withdrawn student credit and nothing else, and no record mentions Harness Runtime. The CPU meter is the term that decides the bill: at USD 0.044 per vCPU-hour of consumed CPU a Medium sandbox that is 25 percent busy costs about USD 0.011 per hour in CPU plus USD 0.038 in memory, so USD 0.049 against the vendor's USD 0.126 full-allocation figure and below E2B's USD 0.166. Egress at USD 0.01 per GiB matches bunny.net's European rate. The USD 5 credit is small; the real free lane is that the balance can come from a DigitalOcean promotional credit. Checkpoints bill while paused, which is the trap: the vendor says so explicitly, including at a zero balance.
+- extras:
+  - facets.class: major-cloud-agent-runtime
+  - facets.free_tier_kind: one-time-credit
+  - facets.shape.vcpu: 2
+  - facets.shape.ram_gib: 4
+- evidence:
+  - [1] 2026-10-22: CPU USD 0.044 per vCPU-hour of actual CPU consumed, memory USD 0.0095 per GB-hour allocated, session storage USD 0.05 per GiB-month, egress USD 0.01 per GiB, snapshots USD 0.05 per GiB-month, and 'when an agent is waiting and consuming no CPU, its CPU charge falls to zero'
+  - [1] 2026-10-22: sizes at full allocation: XSmall 1 vCPU / 1 GB USD 0.0535 per hour, Small 2 / 2 USD 0.107, Medium 2 / 4 USD 0.126, Large 4 / 8 USD 0.252, XLarge 16 / 32 USD 1.008
+  - [2] 2026-10-22: 'New customer with the $5 promotional credit' is a stated funding case, and the plan table estimates 200 agent hours, 3.5M tokens and 5 GB of storage for a light workload on that credit
+  - [2] 2026-10-22: Agent Droplets plans USD 50 per month for Pro at a 15 percent discount covering USD 58.82 of standard rate usage, and USD 200 for Team at 20 percent covering USD 250, in public preview
+  - [1] 2026-10-22: 'Harness Runtime requires a positive prepaid account balance' and there is no per-session or per-product spend limit
+  - [3] 2026-11-03: sandboxes are reachable through the doctl CLI and the API | capture: sha256:8460667d7d6df6f0c9a7424adf1910c22908a6794c1a4e3ab4b92f1549fc3cdd | quote: This option is available through `doctl` and the API.
+  - [1] 2026-11-03: public egress is billed at USD 0.01 per GiB | capture: sha256:2263f0999b2766b4cb865d44ba5c55aa166db080b6035e841bcb1c7fe7c0a88d | quote: | Public internet egress | $0.01 per GiB | Outbound data transfer from the sandbox |
+  - [4] 2026-11-04: the how-to documents doctl and the API | capture: sha256:2ddf62f36a7778d1464ba4760b4fc104bd6016c76e2a49ffec7fed09e582841f | quote: You can create a sandbox without a harness using `doctl` or the API. The Control Panel does not offer this option.
+  - [4] 2026-11-04: the how-to names the doctl subcommands | capture: sha256:2ddf62f36a7778d1464ba4760b4fc104bd6016c76e2a49ffec7fed09e582841f | quote: you drive it yourself with `doctl harness-runtime exec`, `upload`, `download`, and `port-forward`.
+- sources:
+  - [1] https://www.digitalocean.com/pricing/harness-runtime
+  - [2] https://docs.digitalocean.com/products/managed-agents/agent-harness-runtime/details/pricing/
+  - [3] https://docs.digitalocean.com/products/managed-agents/agent-harness-runtime/
+  - [4] https://docs.digitalocean.com/products/managed-agents/agent-harness-runtime/how-to/run-sandbox/
+
+## DigitalOcean (Basic Droplet, 1 GiB)
+
+- `compute/digitalocean-droplet-1gb` | paid-only | evidence documented | binding volume-quota | category VPS | tier Basic Droplet, 1 GiB
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T01:56:00.000Z (live) | stale on 2026-11-24
+- url https://www.digitalocean.com/pricing/droplets
+- price parsed USD 6/mo
+- disagrees on identity_kind: `compute/digitalocean-2` says institution, `compute/digitalocean-droplet-1gb` says card
+- disagrees on verdict: `compute/digitalocean-2` says dead, `compute/digitalocean-droplet-1gb` says paid-only
+- free tier: no free tier; the cheapest droplet is '512 MiB | 1 vCPU | 500 GiB | 10 GiB | $0.00595 | $4.00' | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the droplet is paid; billed hourly, capped at the monthly price
+- egress: '1,000 GiB' of transfer on the 1 GiB droplet, from the plan table | metered: yes | free allowance: 1,000 GiB | source: [1]
+- identity: card | detail: an account with a payment method, required before any droplet.
+- interface: ssh, rest
+- limits:
+  - volume-quota (binding): 1,000 GiB a month of transfer [1]
+- binding note: 1,000 GiB of transfer is the published ceiling, but the price is what fails here: 1 GiB costs USD 6.00.
+- interface detail: root SSH, the DigitalOcean control panel, and the API
+- tooling: any SSH client; doctl and API; Terraform provider
+- composes with: the most expensive per GiB of the brand-name clouds; justified only by tooling and API maturity
+- reliability: no reliability event recorded
+- notes: The 512 MiB droplet at USD 4.00 is the only sub-USD-5 row and it is too small for anything; 1 GiB is USD 6.00 and 2 GiB is USD 12.00. earlier old '$4 droplet, 1 GiB' figure no longer holds: USD 4.00 now buys 512 MiB.
+- evidence note: the plan table's shape, allowed transfer, disk, hourly and monthly prices are quoted from the vendor's pricing page read.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.disk_gib: 25
+  - billing_model: hourly, capped at the monthly price
+  - term: hourly
+  - m10h_usd: 2.68
+  - m24h_usd: 6.0
+  - price_arithmetic: 24/7: USD 0.00893/h x 730 = USD 6.52, capped at USD 6.00/month. 10 h/day: USD 0.00893 x 300 = USD 2.68.
+  - out_of_pocket_usd: 6.0
+  - renewal_usd: 6.0
+  - renewal_note: hourly list rate, no contract
+  - promo: no
+  - over_line: yes
+  - ipv4_included: yes
+  - ipv6: yes
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VM
+- evidence:
+  - [1] 2026-10-24: quoted: '| 1 GiB | 1 vCPU | 1,000 GiB | 25 GiB | $0.00893 | $6.00 |'
+  - [1] 2026-10-24: quoted: '| 512 MiB | 1 vCPU | 500 GiB | 10 GiB | $0.00595 | $4.00 |'
+- sources:
+  - [1] https://www.digitalocean.com/pricing/droplets
+
+## DigitalOcean Droplets
+
+- `compute/digitalocean` | paid-only | evidence documented | binding write-gated | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T03:21:02.824Z (live) | stale on 2026-11-24
+- url https://www.digitalocean.com/pricing/droplets
+- price parsed USD 24/mo
+- free tier: No current signup amount is published. Both pricing pages carry the same conditional example: 'How does the $5 free credit work? ... For example, if you received a $5 credit for 90 days'. The USD 200 for 60 days survives only in the 2026-05-15 archive of a trial URL that now redirects to the homepage. | unit: mixed | metered on: wall-clock | read on: 2026-10-23 | source: [1]
+- per-object cap: not stated | source: [2]
+- retention: not stated | source: [2]
+- egress: not published | metered: no | source: [2]
+- identity: card | detail: card at signup; the pre-authorisation amount is not published for a card and the hold may show for up to 7 days; PayPal connection uses a USD 5 authorisation and crypto a one-time USD 25 charge; debit accepted; prepaid, virtual and electron cards refused in writing
+- interface: unknown
+- limits:
+  - write-gated (binding): no credit amount is published, so the first spend is a card charge at list price [1]
+- binding note: the card is the gate and the first charge is the price; no credit balance softens it
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: Per-second billing starts 2026-01-01 with a 60-second or $0.01 minimum. The USD 200 for 60 days is a historical offer and is not countable against the current page. The card pre-authorisation amount is genuinely unpublished and is recorded as a dash.
+- evidence note: the pricing pages, the archived offer and the droplet table were read on 2026-10-23; the live offer is a conditional example, so no current amount can be ranked | Payment facts re-read on 2026-10-24: the card types, the hold and the identity gate each come from a first-party page quoted in evidence[].
+- extras:
+  - keep_rate: 1.0
+  - billing_model: flat-pool
+  - price_note: a VPS bills by the month with an hourly rate capped at the monthly figure, so the two columns answer two questions: destroying the box between runs versus keeping it up.
+  - free_tier_kind: none
+  - m10h_usd: 10.71
+  - m24h_usd: 24.0
+  - price_basis: 10 h/day column = 300 h at the hourly rate, which is what a server destroyed between runs costs; 24/7 column = the monthly cap, because a VPS kept up all month stops at the cap. Rates re-read on the vendor pricing page on 2026-10-23.
+  - granularity.min_billed_s: 60
+  - burst_x: 1.0
+  - payment_methods.card_at_signup: yes
+  - payment_methods.debit: accepted
+  - payment_methods.prepaid: refused
+  - payment_methods.virtual: refused
+  - payment_methods.hold_detail: amount not published for a card, hold may show up to 7 days; PayPal USD 5, crypto USD 25
+  - payment_methods.identity: card, used to verify identity
+  - payment_methods.source_url: https://docs.digitalocean.com/platform/billing/manage-payment-methods/
+  - payment_methods.read_on: 2026-10-24
+- evidence:
+  - [1] 2026-10-23: quoted: 'For example, if you received a $5 credit for 90 days, then that $5 credit is automatically applied to your account' and 'Since the credit is valid for 90 days'
+  - [3] 2026-10-23: redirects to the homepage on 2026-10-23; the 2026-05-15 archive reads 'Start your free trial with a $200 credit for 60 days'
+  - [2] 2026-10-23: quoted: s-2vcpu-2gb $18.00/mo $0.02679/hr; s-2vcpu-4gb $24.00/mo $0.03571/hr; s-4vcpu-8gb $48.00/mo $0.07143/hr
+  - [4] 2026-10-24: quoted: 'Credit and debit cards. We accept Visa, MasterCard, American Express, Discover, UnionPay, Diners Club, and JCB credit cards.' and 'We do not accept virtual, electron, or prepaid cards.' (page states 'Last verified 30 Jul 2026')
+  - [4] 2026-10-24: quoted, the hold: 'We may send a preauthorization request to the issuing bank to verify that the bank issued the card and can authorize charges. These temporary preauthorization holds may appear on your statement for up to 7 days' and 'you allow a $5 authorization charge' for PayPal
+  - [5] 2026-10-24: quoted: 'You are trying to pay with a prepaid card. We currently do not accept prepaid cards.'
+- sources:
+  - [1] https://www.digitalocean.com/pricing
+  - [2] https://www.digitalocean.com/pricing/droplets
+  - [3] https://try.digitalocean.com/freetrialoffer/
+  - [4] https://docs.digitalocean.com/platform/billing/manage-payment-methods/
+  - [5] https://docs.digitalocean.com/support/why-was-my-card-declined/
+
+## DigitalOcean Startups (Hatch)
+
+- `egress/digitalocean-startups` | fails-identity | evidence documented | binding write-gated | category startup credit programme | tier free
+- needs card no, phone no, ID no, institution yes | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://www.digitalocean.com/hatch
+- price USD 10,000 a month of credit
+- free tier: This includes a range of perks to get you started, including 12 months of DigitalOcean credits ... Participants generally are entitled to a $10,000 monthly limit (and charges apply for any use in a month exceeding this amount). | unit: mixed | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: $10,000 a month at $0.01 per GiB is 976 TiB a month for 12 months, subject to application; ingress: udp | metered: yes | free allowance: $10,000 a month at $0.01 per GiB is 976 TiB a month for 12 months, subject to application | source: [1]
+- identity: institution | detail: Must have raised $10m or less; credits are awarded 'through approved DigitalOcean Startups partners' and the amount is set at onboarding. | country: None
+- interface: cli, rest
+- limits:
+  - write-gated (binding): approval through a DigitalOcean Startups partner, with the award level set by a programme manager [1]
+  - volume-quota: $10,000 a month at $0.01 per GiB is 976 TiB a month [2]
+- binding note: the application is the constraint. The volume is not: the monthly cap is 976 TiB at this egress price, which is three orders of magnitude above 1 TiB.
+- interface detail: doctl and the DigitalOcean REST API
+- tooling: doctl and the API, as with any DigitalOcean account
+- composes with: if granted, 12 months of metered egress at the cheapest rate; without a company it is unreachable
+- reliability: charges apply for any month above the cap, and the award is tied to continued programme membership
+- notes: Arithmetic: $10,000 a month over $0.01 a GiB is 1,000,000 GiB = 976.6 TiB a month, and the programme runs 12 months. The cap is not the award: the page says the amount is set in an onboarding email and that the tier depends on the partner. It is the successor to Hatch and the only DigitalOcean route longer than 60 days. The self-serve $200 trial (egress/digitalocean) needs no company and lasts 60 days.
+- evidence note: the page gives the monthly cap and the eligibility but not a fixed total award, so the 12-month total is unknown rather than the stated cap times twelve
+- extras:
+  - wg_path: native-conf
+  - wg_detail: the same Droplets and the same public IPv4, so wg-quick is native
+  - ingress: udp
+  - volume_tib_month: 976.56
+  - volume_stated: $10,000 a month at $0.01 per GiB is 976 TiB a month for 12 months, subject to application
+  - bytes_transit: yes
+  - transit_note: the same DigitalOcean network and the same per-GiB meter
+- evidence:
+  - [1] 2026-10-23: 'including 12 months of DigitalOcean credits', 'Participants generally are entitled to a $10,000 monthly limit', 'Must have raised $10m or less', 'DigitalOcean awards startups credits through approved DigitalOcean Startups partners'
+  - [2] 2026-10-23: 'Public Internet Egress Overage Data transfer is $0.01 per GiB'
+- sources:
+  - [1] https://www.digitalocean.com/hatch
+  - [2] https://www.digitalocean.com/pricing
+
+## DigitalOcean App Platform
+
+- `egress/digitalocean-app-platform` | fails-egress | evidence documented | binding volume-quota | category paas l4 port | tier free
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://docs.digitalocean.com/products/app-platform/details/pricing/
+- price USD 0
+- free tier: App Platform offers a free tier for static sites ... Deploying up to three apps that use only static site components ... 1 GiB of outbound data for each app. | unit: GiB | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 1 GiB of outbound data for each free static app; additional outbound $0.02 per GiB on paid plans.; ingress: http-only | metered: yes | free allowance: 1 GiB of outbound data for each free static app; additional outbound $0.02 per GiB on paid plans. | source: [1]
+- identity: card | detail: A DigitalOcean account; paid components need a payment method, and no dynamic component exists on the free tier. | country: None
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): 1 GiB outbound per free static app [1]
+- binding note: 1 GiB per app is 0.001 TiB, and static hosting offers no port at all.
+- interface detail: doctl, API, and console; app spec in YAML.
+- tooling: doctl and the console; app spec YAML.
+- composes with: Serves a static front end; carries no socket.
+- reliability: None; static hosting only.
+- notes: The cheapest runtime component is $5/month; the free tier is a CDN for static files.
+- evidence note: A probe is impossible: the free tier has no runtime service to connect to.
+- extras:
+  - wg_path: none
+  - wg_detail: No raw port: the free tier is static site components only, and paid components are HTTP services, workers and jobs.
+  - ingress: http-only
+  - volume_tib_month: 0.000977
+  - volume_stated: 1 GiB of outbound data for each free static app; additional outbound $0.02 per GiB on paid plans.
+  - bytes_transit: no
+  - transit_note: DigitalOcean's CDN serves the objects.
+- evidence:
+  - [1] 2026-10-23: "App Platform offers a free tier for static sites"; three static apps; 1 GiB outbound each; $0.02/GiB above
+- sources:
+  - [1] https://docs.digitalocean.com/products/app-platform/details/pricing/
+
+## DigitalOcean Container Registry (DOCR) — Starter
+
+- `storage/digitalocean-container-registry-starter` | fails-quota | evidence reported | binding none | category registry
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://docs.digitalocean.com/products/container-registry/details/pricing/
+- free tier: 'Starter is a free offering with a single registry and repository to let you try out DOCR.' Storage 500 MiB: table row 'Storage | 500 MiB | 5 GiB | 100 GiB'. Allowance is prorated by active days: 'If a Starter registry is active for 16 days in a month, it receives ~285 MiB of storage allowance'. | unit: GiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: No egress charge is stated for DOCR anywhere on the pricing or limits page; DOCR is described as 'a private Docker image registry', so there is no public/anonymous pull path and no CDN-facing egress at all. | metered: no
+- identity: email
+- interface: oci
+- limits note: 1 registry, 1 repository, 500 MiB prorated; 100 GB max image, 20 GB max per layer; untagged images count toward quota; storage overage 'Not Available' on Starter (hard stop).
+- interface detail: oci
+- tooling: Doctl registry, docker. Private only. Pulls require a DO API token.
+- composes with: 1 registry, 1 repository, 500 MiB. Not worth chaining; a second account buys 500 MiB more.
+- reliability: Starter's prorated storage means a fresh registry can be charged overage on a partial month; 500 MiB is below any useful dataset.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 'Starter is a free offering with a single registry and repository to let you try out DOCR.' Storage 500 MiB: table row 'Storage | 500 MiB | 5 GiB | 100 GiB'. Allowance is prorated by active days: 'If a Starter registry is active for 16 days in a month, it receives ~285 MiB of storage allowance'.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: (Last verified 13 Jul 2026) — Starter $0.00, 500 MiB, 1 repo; 'Extra Storage | Not Available'
+  - [2] 2026-10-21: 100 GB max image, 20 GB per layer, registry name rules
+  - [3] 2026-10-21: probe: GET -> 401, Server: cloudflare, CF-RAY present (Cloudflare-fronted), realm https://api.digitalocean.com/v2/registry/auth
+- sources:
+  - [1] https://docs.digitalocean.com/products/container-registry/details/pricing/
+  - [2] https://docs.digitalocean.com/products/container-registry/details/limits/
+  - [3] https://registry.digitalocean.com/v2/
+
+## DigitalOcean Spaces
+
+- `storage/digitalocean-spaces` | fails-quota | evidence reported | binding none | category S3-compatible object storage + CDN
+- needs card yes, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.digitalocean.com/pricing/spaces-object-storage
+- price $20.48/TB at 5 TB ($102.40) and $20.48/TB at 20 TB ($409.60), plus $10.24/TB on egress beyond 1 TiB. | parsed USD 20.48/TB-mo
+- free tier: $5.00/mo base subscription includes 250 GiB across all buckets; +$0.02/GiB beyond | unit: GiB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: 1,024 GiB/month outbound included and shared across buckets, then $0.01/GiB (= $10.24/TB). Free only between Spaces and Droplets in the same metro. | metered: yes | free allowance: 1,024 GiB per month | price per TB: $10.24/TB
+- identity: card | detail: card
+- interface: s3-compatible, rclone, cli
+- limits note: The 250 GiB included storage is trivial; the $0.02/GiB marginal rate makes this ~$20/TB, i.e. 4.5x Datalix. Bandwidth allowance is per account, not per bucket.
+- interface detail: S3 API + built-in CDN
+- tooling: AWS CLI, rclone, s3cmd
+- composes with: Built-in CDN is the mitigation: serve through Spaces CDN so origin egress does not accrue.
+- reliability: Mature and reliable; simply not competitively priced above a few hundred GB.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: $5.00/mo base subscription includes 250 GiB across all buckets; +$0.02/GiB beyond
+  - dead_end.first_recorded: 2026-10-21
+  - price_verbatim: $20.48/TB at 5 TB ($102.40) and $20.48/TB at 20 TB ($409.60), plus $10.24/TB on egress beyond 1 TiB.
+- evidence:
+  - [1] 2026-10-21: "base price of a Spaces Standard Storage subscription is $5.00 per month", "includes 250 GiB of storage", "Additional storage beyond this allotment costs $0.02 per GiB per month", "include 1,024 GiB of outbound data transfer... Additional outbound transfer is $0.01 per GiB"
+  - [2] 2026-10-21: accepted payment methods incl. Visa/Mastercard/Amex/Discover/PayPal/Google Pay/Apple Pay
+- sources:
+  - [1] https://docs.digitalocean.com/products/spaces/details/pricing/
+  - [2] https://www.digitalocean.com/pricing/spaces-object-storage
+
+## DigitalOcean (2)
+
+- `compute/digitalocean-2` | dead | evidence reported | binding retention-clamped | category dev environment
+- needs card no, phone no, ID no, institution yes | verified 2026-11-03T01:29:50.805Z (live) | stale on 2026-11-18
+- url https://www.nodeseek.com/post-774667-1
+- disagrees on identity_kind: `compute/digitalocean-2` says institution, `compute/digitalocean-droplet-1gb` says card
+- disagrees on verdict: `compute/digitalocean-2` says dead, `compute/digitalocean-droplet-1gb` says paid-only
+- free tier: USD 200 of platform credit through the GitHub Student Developer Pack, withdrawn: "DigitalOcean is leaving the Student Developer Pack, and their student credit offer for $200 of platform credit will no longer be available after July 31, 2026." | unit: credits | metered on: wall-clock | read on: 2026-10-30 | source: [1] | note: one-time-credit
+- per-object cap: not applicable | source: [2]
+- retention: the credit expired on a fixed date and the balance did not roll over, so the USD 200 was a clock that ran out, and the provider has left the programme that issued it. | source: [2]
+- egress: not stated | metered: no | source: [2]
+- identity: institution | detail: the gate was student verification, and the offer is now dead: the GitHub Student Developer Pack changelog dates the withdrawal to July 2026 and addresses "Verified students who have already redeemed the DigitalOcean offer", so the identity cost was the pack's student check rather than a card. The record does not state which documents GitHub Education requires, and no card, phone, hold, debit or prepaid statement appears. The credit expired on 2026-07-31, so nothing is reachable by this route now
+- interface: unknown
+- limits:
+  - retention-clamped (binding): the credit expired on a fixed date and the balance did not roll over, so the USD 200 was a clock that ran out, and the provider has left the programme that issued it. [2]
+- limits note: the credit expired on a fixed date and the balance did not roll over, so the USD 200 was a clock that ran out, and the provider has left the programme that issued it.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: The student pack is earlier standard free-identity route, so every credit that leaves the pack removes a chain link that other records assume exists.
+- reliability: no reliability event recorded
+- notes: Clarified 2026-10-22: this record is the withdrawn student credit and stays dead. DigitalOcean still sells Droplets from USD 4.00 a month for 512 MiB / 1 vCPU / 10 GiB / 500 GiB transfer, and that paid floor is recorded in `digitalocean` and in the micro floor table rather than here.
+- extras:
+  - facets.class: student-pack
+  - facets.free_tier_kind: one-time-credit
+  - facets.shape.gpu_count: 0
+- evidence:
+  - [1] 2026-10-22: quoted from the GitHub Student Developer Pack changelog, entry dated July 7, 2026: 'DigitalOcean is leaving the Student Developer Pack, and their student credit offer for $200 of platform credit will no longer be available after July 31, 2026. Verified students who have already redeemed the DigitalOcean offer can continue using any existing credits until August 1, 2026. After that date, any remaining credits will expire.' Supports the withdrawal, the USD 200 figure and a fixed expiry with no carry-over; the changelog puts the last usable day at 2026-07-31 with expiry after 2026-08-01, which agrees with the stored 2026-07-31 date to the day boundary
+  - [1] 2026-10-30: the Student Developer Pack offer was USD 200 of DigitalOcean platform credit, withdrawn after 2026-07-31 | capture: sha256:3b9cecd1a5bbd97e6c854ec912f874d012023506aae4968f098d26a96ffa870c | quote: DigitalOcean is leaving the Student Developer Pack, and their student credit offer for $200 of platform credit will no longer be available after July 31, 2026.
+  - [2] 2026-10-30: the forum post still carries the provider notice: DigitalOcean leaves the GitHub Student Developer Pack and all credit issued through it expires on 2026-07-31 | capture: sha256:08f05c2cf7e6d419ba61b532d9ac7f49696a6c1aa453e123b320207e167cc834 | quote: 我们特此通知您，DigitalOcean 即将停止参与 GitHub 学生开发者包计划，所有通过该计划提供的额度将于 2026 年 7 月 31 日到期。
+  - [3] 2026-10-30: the former student-offer URL serves the general product overview and names no student credit offer | capture: sha256:205a77eb75bb3a8120c7112e54de26dd9d37e11f7ca711ea418d41ce168b4647 | quote: Built for agents. Open at every layer.
+  - [2] 2026-11-03: the post carries the provider notice: DigitalOcean leaves the GitHub Student Developer Pack and all credit issued through it expires on 2026-07-31 | capture: sha256:a01d180dc0b113c6eee594b8bc45a5d5d11a738207b108cbfbc7f9b5dd6998c3 | quote: 我们特此通知您，DigitalOcean 即将停止参与 GitHub 学生开发者包计划，所有通过该计划提供的额度将于 2026 年 7 月 31 日到期。
+  - [2] 2026-11-03: the post carries the provider notice: after 2026-07-31 any unused credit balance expires and cannot be carried over or transferred; read through a rendered-page provider pin, since the unpinned read lands on an IPv6 notice page | capture: sha256:a01d180dc0b113c6eee594b8bc45a5d5d11a738207b108cbfbc7f9b5dd6998c3 | quote: 7 月 31 日之后，任何未使用的额度余额都将过期，且无法结转或转让。
+  - [1] 2026-11-03: the student offer was USD 200 of platform credit, withdrawn after 2026-07-31 | capture: sha256:90316aa43637284732ebabe007a41b6427abad64fc29e509fb74a73381551f8d | quote: DigitalOcean is leaving the Student Developer Pack, and their student credit offer for $200 of platform credit will no longer be available after July 31, 2026.
+- sources:
+  - [1] https://raw.githubusercontent.com/github-education-resources/Student-Developer-Pack-Current-Partners-FAQ/main/SDP-changelog.md
+  - [2] https://www.nodeseek.com/post-774667-1
+  - [3] https://www.digitalocean.com/github-students
+
+## DigitalOcean Hatch
+
+- `compute/digitalocean-hatch` | dead | evidence documented | binding write-gated | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://www.digitalocean.com/legal/hatch-terms-of-service
+- free tier: Hatch was DigitalOcean's startup credit program. Its own terms page now states: 'The Hatch Program is no longer an active program offered by DigitalOcean, and has been replaced with DigitalOcean Startups Program.' The URL digitalocean.com/hatch answers with a 301 to digitalocean.com/startups, which serves 200. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email | detail: The successor program's identity cost applies; see the DigitalOcean Startups finding.
+- interface: unknown
+- limits:
+  - write-gated (binding): The program is retired, which binds before any quota or identity question. [1]
+- limits note: The program is retired, which binds before any quota or identity question.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: None: the name is a redirect, and the successor program carries the credits.
+- reliability: no reliability event recorded
+- notes: Classified as dead rather than paid-only because the program is withdrawn, not merely unpriced. Old directories still describe Hatch criteria, including the old partner-affiliation requirement, which contradicts the live successor page. The live page wins.
+- extras:
+  - facets.class: startup-credit
+  - facets.free_tier_kind: none
+- evidence:
+  - [1] 2026-10-22: 'The Hatch Program is no longer an active program offered by DigitalOcean, and has been replaced with DigitalOcean Startups Program', quoted
+  - [2] 2026-10-22: 
+  - [3] 2026-10-22: a legacy landing page still publishes old criteria, including a requirement to be affiliated with an approved accelerator, incubator or VC firm, which no longer matches the current program, reported
+- sources:
+  - [1] https://www.digitalocean.com/legal/hatch-terms-of-service
+  - [2] https://www.digitalocean.com/hatch
+  - [3] https://try.digitalocean.com/hatch/

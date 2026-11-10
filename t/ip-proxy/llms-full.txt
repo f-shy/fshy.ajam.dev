@@ -1,0 +1,17 @@
+# fshy: IP and proxies in full
+
+> Exit addresses: proxy lists, VPN exits, address sources and what the upstream sees.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic is 842 KB, about 227K tokens in full, more than the 300 KB, about 81K tokens one file holds, so it is split: its hosted records by verdict group, then its self-hosted records in one last group, and a group over that size into balanced parts. The parts in the order below are the one order (hosted before self-hosted, then verdict, provider name, record id). How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## Parts
+
+- [Usable part 1 of 2](https://fshy.ajam.dev/t/ip-proxy/llms-full-usable-1.txt): 10 records, Mullvad VPN (qualifies) to NovixLink (诺联主机) (qualifies-with-caveat); 158 KB, about 43K tokens
+- [Usable part 2 of 2](https://fshy.ajam.dev/t/ip-proxy/llms-full-usable-2.txt): 13 records, Oxylabs (qualifies-with-caveat) to Windscribe (qualifies-with-caveat); 175 KB, about 47K tokens
+- [Trial](https://fshy.ajam.dev/t/ip-proxy/llms-full-trial.txt): 6 records; 43 KB, about 12K tokens
+- [Paid only part 1 of 2](https://fshy.ajam.dev/t/ip-proxy/llms-full-paid-1.txt): 22 records, 711Proxy (paid-only) to Obscura (paid-only); 161 KB, about 43K tokens
+- [Paid only part 2 of 2](https://fshy.ajam.dev/t/ip-proxy/llms-full-paid-2.txt): 21 records, Oeck (paid-only) to ZooProxy (formerly FluxISP) (paid-only); 154 KB, about 42K tokens
+- [Rejected](https://fshy.ajam.dev/t/ip-proxy/llms-full-rejected.txt): 9 records; 114 KB, about 31K tokens
+- [Dead](https://fshy.ajam.dev/t/ip-proxy/llms-full-dead.txt): 6 records; 40 KB, about 11K tokens

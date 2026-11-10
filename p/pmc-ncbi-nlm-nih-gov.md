@@ -1,0 +1,128 @@
+# PubMed Central Open Access Subset
+
+> pmc.ncbi.nlm.nih.gov | Data APIs, Debrid; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/pmc-ncbi-nlm-nih-gov/ | JSON https://fshy.ajam.dev/api/v1/entity/pmc-ncbi-nlm-nih-gov.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## PubMed Central Open Access Subset
+
+- `data-apis/pubmed-central-open-access` | qualifies | evidence documented | binding none | category open-access full-text article corpus (public S3 bucket) with E-utilities and OAI-PMH APIs | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-31T10:03:34.105Z (live) | stale on 2026-12-01
+- url https://pmc.ncbi.nlm.nih.gov/tools/pmcaws/
+- free tier: The PMC Article Datasets are free on AWS through an HTTPS or S3 URL with no log-in; E-utilities allow 3 requests a second per IP address without an API key and 10 a second with a free key; the OAI-PMH service allows 3 requests a second with no concurrent requests | unit: requests | metered on: request-count | read on: 2026-10-30 | source: [1] | note: The bucket itself publishes no request or byte cap; the request limits are those of the E-utilities and OAI-PMH services. An anonymous esearch on 2026-10-30 answered x-ratelimit-limit 3.
+- per-object cap: one prefix per article version holding its files; ESearch returns at most 10,000 records per query, and the daily inventory CSV has no record limit | source: [1]
+- retention: the bucket is live: a removed article version's prefix and files are deleted with no notification, detectable only by reconciling the daily inventory; inventory reports are kept 30 days; the legacy baseline packages on FTP and the Cloud Service were removed the week of August 24, 2026 | source: [1]
+- egress: Free: NLM provides the bucket through the AWS Open Data Sponsorship Program without charge, over HTTPS or S3, with no log-in. | metered: no | free allowance: no byte cap published | source: [1]
+- identity: anonymous | detail: No account or key for the bucket: it is read without any log-in. An E-utilities key, for 10 requests a second, comes from the Settings page of an NCBI account, which signs in through federated logins such as Login.gov, Google, Microsoft live.com, ORCiD or an institution.
+- interface: s3, rest
+- limits:
+  - request-rate: E-utilities: more than 3 requests a second per IP address without an API key answers an error; up to 10 a second by default with a key [2]
+  - request-rate: OAI-PMH: 3 requests a second, no concurrent requests [3]
+  - per-object-cap: ESearch: at most 10,000 returned records per query [1]
+- binding note: The bucket publishes no request or byte cap and needs no key; the 3 a second E-utilities limit binds only on selection, which the daily inventory replaces.
+- interface detail: S3 bucket pmc-oa-opendata (arn:aws:s3:::pmc-oa-opendata) read with --no-sign-request, or https://pmc-oa-opendata.s3.amazonaws.com/ over HTTPS, with a daily S3 inventory CSV; E-utilities at https://eutils.ncbi.nlm.nih.gov/entrez/eutils/ (esearch with open access[filter]); OAI-PMH at https://pmc.ncbi.nlm.nih.gov/api/oai/v1/mh/; BioC API. The PMC OA Web Service is no longer available and there are no baseline bulk packages.
+- endpoint: part of interface detail
+- tooling: aws s3 cp or sync with --no-sign-request, or curl over HTTPS; the daily inventory CSV as the list of article versions; EDirect to page past 10,000 ESearch results
+- composes with: The bucket is the bulk path: objects for roughly 8 million article versions, listed in a daily inventory CSV with no record limit; an esearch on open access[filter] counted 8357213 records on 2026-10-30; E-utilities or OAI-PMH select articles by date or licence before the S3 fetch.
+- reliability: Removed article versions vanish from the bucket with no notification; exceeding the E-utilities limits can get an IP address blocked from NCBI.
+- notes: The record debrid/pmc-oa-opendata describes the same bucket; this record adds the API limits and the removal of the baseline packages and the OA Web Service.
+- evidence note: The bucket terms, the inventory and the API limits are NLM pages. An anonymous HTTPS GET of one article's full-text XML answered 200 with 109,974 bytes on 2026-10-31, and the bucket README answered 200 to an anonymous request; the E-utilities and OAI-PMH limits are documented, not measured.
+- extras:
+  - article_versions: roughly 8 million
+  - esearch_open_access_count_2026_10_30: 8357213
+- evidence:
+  - [1] 2026-10-30: the bucket is free over HTTPS or S3 with no log-in | capture: sha256:6c9e149dc5c8448a92bbf5018c90bfeb9bf4897da68f15e7b7a4e2cf09709123 | quote: PMC makes the datasets described below freely accessible on Amazon Web Services (AWS), without charge, through either an HTTPS or S3 URL, and without any log-in requirement for retrieval.
+  - [1] 2026-10-30: the bucket is read anonymously with --no-sign-request | capture: sha256:6c9e149dc5c8448a92bbf5018c90bfeb9bf4897da68f15e7b7a4e2cf09709123 | quote: Add --no-sign-request to any AWS CLI command to access the bucket anonymously.
+  - [1] 2026-10-30: the bucket is pmc-oa-opendata | capture: sha256:6c9e149dc5c8448a92bbf5018c90bfeb9bf4897da68f15e7b7a4e2cf09709123 | quote: | Amazon Resource Name (ARN) | arn:aws:s3:::pmc-oa-opendata |
+  - [1] 2026-10-30: removed versions are deleted with no notification | capture: sha256:6c9e149dc5c8448a92bbf5018c90bfeb9bf4897da68f15e7b7a4e2cf09709123 | quote: If a version is removed from the S3 bucket, its prefix and all associated files are deleted from the bucket with no explicit notification.
+  - [1] 2026-10-30: removals show only in the inventory | capture: sha256:6c9e149dc5c8448a92bbf5018c90bfeb9bf4897da68f15e7b7a4e2cf09709123 | quote: Inventory reconciliation is the only supported way to detect removals.
+  - [1] 2026-10-30: the inventory is daily | capture: sha256:6c9e149dc5c8448a92bbf5018c90bfeb9bf4897da68f15e7b7a4e2cf09709123 | quote: The S3 Inventory is generated once per day.
+  - [1] 2026-10-30: ESearch returns at most 10,000 records per query | capture: sha256:6c9e149dc5c8448a92bbf5018c90bfeb9bf4897da68f15e7b7a4e2cf09709123 | quote: ESearch is capped at 10,000 returned records per query.
+  - [1] 2026-10-30: the inventory has no record limit | capture: sha256:6c9e149dc5c8448a92bbf5018c90bfeb9bf4897da68f15e7b7a4e2cf09709123 | quote: the inventory is a complete snapshot and has no record limit
+  - [1] 2026-10-30: there are no baseline bulk packages | capture: sha256:6c9e149dc5c8448a92bbf5018c90bfeb9bf4897da68f15e7b7a4e2cf09709123 | quote: There are no longer baseline bulk file packages that contain the XML or TXT for millions of articles.
+  - [1] 2026-10-30: the legacy files were removed the week of August 24, 2026 | capture: sha256:6c9e149dc5c8448a92bbf5018c90bfeb9bf4897da68f15e7b7a4e2cf09709123 | quote: All legacy PMC Article Dataset files on the FTP and Cloud Services were removed the week of August 24, 2026.
+  - [1] 2026-10-30: the AWS Open Data Sponsorship Program funds the access | capture: sha256:6c9e149dc5c8448a92bbf5018c90bfeb9bf4897da68f15e7b7a4e2cf09709123 | quote: The National Library of Medicine works with the [AWS Open Data Sponsorship Program](https://aws.amazon.com/opendata/open-data-sponsorship-program/) to provide this access.
+  - [4] 2026-10-30: the OA subset is articles | capture: sha256:4c95150fcb039515510f73bd970da472adb3e5cbc0f9dd61070676a85034e5ba | quote: The PMC Open Access Subset includes journal articles and preprints that are made available
+  - [5] 2026-10-30: the OA Web Service is gone | capture: sha256:574dc97c6c1fc61c4fed0b37f275fbb5849532bc2f0a0f40fdbd764b4c974373 | quote: the PMC OA Web Service is no longer available
+  - [2] 2026-10-30: E-utilities allow 3 requests a second per IP without a key | capture: sha256:d12077540445d95fab60de6efdd733de5228da247d87d36da2b285d33ef7aac2 | quote: Without an API key, any site (IP address) posting more than 3 requests per second to the E-utilities will receive an error message.
+  - [2] 2026-10-30: a key allows 10 requests a second | capture: sha256:d12077540445d95fab60de6efdd733de5228da247d87d36da2b285d33ef7aac2 | quote: By including an API key, a site can post up to 10 requests per second by default.
+  - [2] 2026-10-30: the key comes from an NCBI account | capture: sha256:d12077540445d95fab60de6efdd733de5228da247d87d36da2b285d33ef7aac2 | quote: Users can obtain an API key now from the Settings page of their NCBI account
+  - [2] 2026-10-30: an IP address can be blocked | capture: sha256:d12077540445d95fab60de6efdd733de5228da247d87d36da2b285d33ef7aac2 | quote: Failure to comply with this policy may result in an IP address being blocked from accessing NCBI.
+  - [3] 2026-10-30: OAI-PMH allows 3 requests a second | capture: sha256:9a892fab12539bd02acf0b63083a2a2a3cdf16ccf36be90eacea2fc8ca984512 | quote: Requests are limited to 3 requests per second (rps); rates higher than that will receive an error message.
+  - [3] 2026-10-30: OAI-PMH allows no concurrent requests | capture: sha256:9a892fab12539bd02acf0b63083a2a2a3cdf16ccf36be90eacea2fc8ca984512 | quote: please make sure that your system does not make concurrent requests, even at off-peak times
+  - [6] 2026-10-30: NCBI sign-in offers Login.gov | capture: sha256:8bb890f3a4e8f457301248ba55bf002c04b516dec1c6b8adac5e36b7a8e907de | quote: Login.Gov, USA
+  - [6] 2026-10-30: NCBI sign-in offers Microsoft live.com | capture: sha256:8bb890f3a4e8f457301248ba55bf002c04b516dec1c6b8adac5e36b7a8e907de | quote: Microsoft live.com
+  - [6] 2026-10-30: NCBI sign-in offers ORCiD | capture: sha256:8bb890f3a4e8f457301248ba55bf002c04b516dec1c6b8adac5e36b7a8e907de | quote: ORCiD
+  - probe:https://pmc-oa-opendata.s3.amazonaws.com/README.txt 2026-10-30: the bucket holds roughly 8 million article versions | capture: sha256:4b3eb24a238ccc5f81fab1cb06c0aadf19402980ece8f24d8a6a57360068259b | quote: Objects for each of the roughly 8 million PMC article versions are
+  - probe:https://pmc-oa-opendata.s3.amazonaws.com/README.txt 2026-10-30: inventory reports are kept 30 days | capture: sha256:4b3eb24a238ccc5f81fab1cb06c0aadf19402980ece8f24d8a6a57360068259b | quote: Inventory reports are retained for 30 days and then automatically removed.
+  - probe:https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=open+access%5Bfilter%5D&retmax=0&retmode=json 2026-10-30: esearch counted 8357213 open-access records | capture: sha256:286bb38591781b7a2fc0fd0fb0cdae37cdf4841f8478b0e521769c2953e4326f | quote: "count":"8357213"
+  - probe:https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=open+access%5Bfilter%5D&retmax=0&retmode=json 2026-10-30: an anonymous esearch was limited to 3 requests | capture: sha256:871ff2dbb6869d8fdfa08a7f76a378a12e13c166a20425dc5d1ed8c73d38b7f7 | quote: "x-ratelimit-limit": "3"
+  - probe:https://pmc-oa-opendata.s3.amazonaws.com/PMC10009402.1/PMC10009402.1.xml 2026-10-31: an anonymous GET of one full-text XML answered 200 with 109,974 bytes on 2026-10-31 | capture: sha256:fad04ab29934065a0d3640bc5212928dc32a2a8e443b7b2c4bce34d8d717e44c | quote: "bytes": 109974
+  - probe:https://pmc-oa-opendata.s3.amazonaws.com/PMC10009402.1/PMC10009402.1.xml 2026-10-31: the full-text XML hashes to the sha256 the record holds | capture: sha256:fad04ab29934065a0d3640bc5212928dc32a2a8e443b7b2c4bce34d8d717e44c | quote: "sha256": "75d9e0ab27e80e8660296e33bb1832dd8237080d5782b229bbd81fb4919c323a"
+  - [3] 2026-10-31: OAI-PMH allows 3 requests a second | capture: sha256:9a892fab12539bd02acf0b63083a2a2a3cdf16ccf36be90eacea2fc8ca984512 | quote: Requests are limited to 3 requests per second (rps); rates higher than that will receive an error message.
+  - [1] 2026-10-31: ESearch returns at most 10,000 records per query | capture: sha256:6c9e149dc5c8448a92bbf5018c90bfeb9bf4897da68f15e7b7a4e2cf09709123 | quote: ESearch is capped at 10,000 returned records per query.
+  - [1] 2026-10-31: the bucket is free over HTTPS or S3 with no log-in | capture: sha256:6c9e149dc5c8448a92bbf5018c90bfeb9bf4897da68f15e7b7a4e2cf09709123 | quote: PMC makes the datasets described below freely accessible on Amazon Web Services (AWS), without charge, through either an HTTPS or S3 URL, and without any log-in requirement for retrieval.
+  - [1] 2026-10-31: removed versions are deleted with no notification | capture: sha256:6c9e149dc5c8448a92bbf5018c90bfeb9bf4897da68f15e7b7a4e2cf09709123 | quote: If a version is removed from the S3 bucket, its prefix and all associated files are deleted from the bucket with no explicit notification.
+  - probe:https://pmc-oa-opendata.s3.amazonaws.com/README.txt 2026-10-31: the bucket holds roughly 8 million article versions | capture: sha256:4b3eb24a238ccc5f81fab1cb06c0aadf19402980ece8f24d8a6a57360068259b | quote: Objects for each of the roughly 8 million PMC article versions are
+  - [2] 2026-10-31: E-utilities allow 3 requests a second per IP address without a key | capture: sha256:d12077540445d95fab60de6efdd733de5228da247d87d36da2b285d33ef7aac2 | quote: Without an API key, any site (IP address) posting more than 3 requests per second to the E-utilities will receive an error message.
+- sources:
+  - [1] https://pmc.ncbi.nlm.nih.gov/tools/pmcaws/
+  - [2] https://www.ncbi.nlm.nih.gov/books/NBK25497/
+  - [3] https://pmc.ncbi.nlm.nih.gov/tools/oai/
+  - [4] https://pmc.ncbi.nlm.nih.gov/tools/openftlist/
+  - [5] https://pmc.ncbi.nlm.nih.gov/tools/oa-service/
+  - [6] https://www.ncbi.nlm.nih.gov/account/
+
+## PubMed Central Open Access Subset (pmc-oa-opendata on S3)
+
+- `debrid/pmc-oa-opendata` | qualifies | evidence measured | binding none | category open-access full-text research corpus (world-readable S3 bucket) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-31T10:03:34.105Z (live) | stale on 2026-12-01
+- url https://pmc.ncbi.nlm.nih.gov/tools/pmcaws/
+- price USD 0
+- duplicate of `data-apis/pubmed-central-open-access`
+- free tier: 'PMC makes the datasets described below freely accessible on Amazon Web Services (AWS), without charge, through either an HTTPS or S3 URL, and without any log-in requirement for retrieval.' The README reports 'roughly 8 million PMC article versions'. | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1] | note: The bucket is s3://pmc-oa-opendata in us-east-1; the AWS Open Data Sponsorship Program covers the transfer.
+- per-object cap: not applicable: one object per article file (JATS XML, plain text, PDF, media). A full-text XML measured here was 109,974 bytes. | source: [2]
+- retention: articles stay while their licence holds; 'If a version is removed from the S3 bucket, its prefix and all associated files are deleted from the bucket with no explicit notification. Inventory reconciliation is the only supported way to detect removals.' The inventory is regenerated daily and kept 30 days. | source: [1]
+- egress: Free and unmetered: NLM pays through the AWS Open Data Sponsorship Program. 'No charges, usage fees or royalties are paid to NLM for these data.' Both https://pmc-oa-opendata.s3.amazonaws.com/<prefix>/<file> and s3:// with --no-sign-request work. | metered: no | free allowance: unlimited, sponsored | source: [1]
+- identity: anonymous | detail: 'without any log-in requirement for retrieval'; an unsigned HTTPS GET for a full-text XML returned 200 here. No Earthdata-style account, no API key.
+- interface: s3, rest, cli
+- limits:
+  - request-rate: no request cap is published for the S3 bucket; the article-dataset page restricts automated retrieval to the Cloud Service, OAI-PMH, E-utilities and BioC API [3]
+  - per-object-cap: one object per article file; measured full-text XML is 109,974 bytes, so a 1 TiB pull is roughly 10 million objects probe:https://pmc-oa-opendata.s3.amazonaws.com/PMC10009402.1/PMC10009402.1.xml
+- limits note: The 2026-08-24 change removed the legacy FTP and cloud dataset files and left the S3 bucket as the distribution path.
+- binding note: Nothing fails at 1 TiB/month: the whole corpus is smaller than that. At the measured 109,974 bytes per article version, 8 million versions is about 880 GB of XML before PDFs and media - arithmetic from the two published numbers, not a measurement of the bucket.
+- interface detail: S3 REST and HTTPS on the same bucket. aws s3 cp --no-sign-request s3://pmc-oa-opendata/<PMCID>.<version>/<PMCID>.<version>.xml, or curl the equivalent https URL. S3 Inventory under inventory-reports/ gives a daily CSV manifest.
+- endpoint: https://pmc-oa-opendata.s3.amazonaws.com/
+- tooling: AWS CLI with --no-sign-request, curl, boto3 unsigned, rclone (S3 remote with anonymous access). Any of them reaches the bucket; nothing needs an account.
+- composes with: The full-text corpus that pairs with Europe PMC's metadata index: harvest PMID/PMCID lists from Europe PMC or the PMC inventory, then pull the XML here.
+- reliability: Removed articles vanish with no notification; the inventory lags the bucket by up to a day, so a manifest-driven sync always races deletions.
+- notes: This is the strongest no-account research corpus in the sector: 8 million article versions, no login, S3 range reads, a daily inventory. The 2026-08-24 distribution change is the reason a record written before it would name FTP paths that no longer exist.
+- evidence note: Two objects were fetched anonymously and hashed here (README.txt 14,524 bytes; one full-text XML 109,974 bytes) and the bucket's accept-ranges is byte. What is not measured is aggregate throughput at 1 and 8 connections.
+- extras:
+  - bucket: pmc-oa-opendata
+  - region: us-east-1
+  - article_versions: 8000000
+  - xml_sha256: 75d9e0ab27e80e8660296e33bb1832dd8237080d5782b229bbd81fb4919c323a
+  - estimated_corpus_gib: 819
+- evidence:
+  - [1] 2026-10-23: world-readable bucket s3://pmc-oa-opendata, 'without any log-in requirement for retrieval', --no-sign-request, and the removal-without-notification clause
+  - [2] 2026-10-23: 'roughly 8 million PMC article versions' and the <PMCID>.<version>/ object layout
+  - [4] 2026-10-23: 'All legacy PMC Article Dataset files on the FTP and Cloud Services were removed the week of August 24, 2026' - the bulk path changed in 2026
+  - [3] 2026-10-23: only the Cloud Service, OAI-PMH, E-Utilities and BioC API may be used for automated retrieval of PMC content
+  - probe:https://pmc-oa-opendata.s3.amazonaws.com/README.txt 2026-10-23: 200, 14,524 bytes, sha256 257a001b400485176702ed49ca7607d73cd83c581bffb6dd3c9be127a2e42634, anonymous
+  - probe:https://pmc-oa-opendata.s3.amazonaws.com/PMC10009402.1/PMC10009402.1.xml 2026-10-23: 200, 109,974 bytes, sha256 75d9e0ab27e80e8660296e33bb1832dd8237080d5782b229bbd81fb4919c323a, accept-ranges: bytes
+  - probe:https://pmc-oa-opendata.s3.amazonaws.com/PMC10009402.1/PMC10009402.1.xml 2026-10-31: the full-text XML hashes to the sha256 the record holds | capture: sha256:fad04ab29934065a0d3640bc5212928dc32a2a8e443b7b2c4bce34d8d717e44c | quote: "sha256": "75d9e0ab27e80e8660296e33bb1832dd8237080d5782b229bbd81fb4919c323a"
+  - probe:https://pmc-oa-opendata.s3.amazonaws.com/README.txt 2026-10-31: the bucket README answered 200 to an anonymous GET on 2026-10-31 | capture: sha256:7a8aea1c5221dfd2f80b7bcc077ea9f585a74f199d443c5c77734233fd44b00d | quote: "status": 200
+  - probe:https://pmc-oa-opendata.s3.amazonaws.com/README.txt 2026-10-31: the bucket holds roughly 8 million article versions | capture: sha256:4b3eb24a238ccc5f81fab1cb06c0aadf19402980ece8f24d8a6a57360068259b | quote: Objects for each of the roughly 8 million PMC article versions are
+  - probe:https://pmc-oa-opendata.s3.amazonaws.com/README.txt 2026-10-31: inventory reports are kept 30 days | capture: sha256:4b3eb24a238ccc5f81fab1cb06c0aadf19402980ece8f24d8a6a57360068259b | quote: Inventory reports are retained for 30 days and then automatically removed.
+  - [1] 2026-10-31: the bucket is free over HTTPS or S3 with no log-in | capture: sha256:6c9e149dc5c8448a92bbf5018c90bfeb9bf4897da68f15e7b7a4e2cf09709123 | quote: PMC makes the datasets described below freely accessible on Amazon Web Services (AWS), without charge, through either an HTTPS or S3 URL, and without any log-in requirement for retrieval.
+  - [1] 2026-10-31: removed versions are deleted with no notification | capture: sha256:6c9e149dc5c8448a92bbf5018c90bfeb9bf4897da68f15e7b7a4e2cf09709123 | quote: If a version is removed from the S3 bucket, its prefix and all associated files are deleted from the bucket with no explicit notification.
+  - [1] 2026-10-31: the legacy dataset files were removed the week of August 24, 2026 | capture: sha256:6c9e149dc5c8448a92bbf5018c90bfeb9bf4897da68f15e7b7a4e2cf09709123 | quote: All legacy PMC Article Dataset files on the FTP and Cloud Services were removed the week of August 24, 2026.
+  - [1] 2026-10-31: the bucket is read anonymously with --no-sign-request | capture: sha256:6c9e149dc5c8448a92bbf5018c90bfeb9bf4897da68f15e7b7a4e2cf09709123 | quote: Add --no-sign-request to any AWS CLI command to access the bucket anonymously.
+  - [3] 2026-10-31: the subset's automated retrieval routes are the Cloud Service, OAI-PMH, E-Utilities and the BioC API | capture: sha256:4c95150fcb039515510f73bd970da472adb3e5cbc0f9dd61070676a85034e5ba | quote: are the only services that may be used for automated retrieval of PMC content
+  - probe:https://pmc-oa-opendata.s3.amazonaws.com/PMC10009402.1/PMC10009402.1.xml 2026-10-31: an anonymous GET of one full-text XML answered 200 with 109,974 bytes on 2026-10-31 | capture: sha256:fad04ab29934065a0d3640bc5212928dc32a2a8e443b7b2c4bce34d8d717e44c | quote: "bytes": 109974
+- sources:
+  - [1] https://pmc.ncbi.nlm.nih.gov/tools/pmcaws/
+  - [2] https://pmc-oa-opendata.s3.amazonaws.com/README.txt
+  - [3] https://pmc.ncbi.nlm.nih.gov/tools/openftlist/
+  - [4] https://pmc.ncbi.nlm.nih.gov/tools/cloud/

@@ -1,0 +1,81 @@
+# Market Data API
+
+> marketdata.app | Data APIs; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/marketdata/ | JSON https://fshy.ajam.dev/api/v1/entity/marketdata.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Market Data API (marketdata.app)
+
+- `data-apis/market-data-api` | qualifies-with-caveat | evidence documented | binding request-rate | category market data API (stocks, options and mutual funds) | tier Free Forever
+- needs card no, phone unknown, ID no, institution no | verified 2026-11-02T00:23:43.773Z (live) | stale on 2026-12-03
+- url https://www.marketdata.app/pricing/
+- free tier: Free Forever plan USD 0: 100 daily API credits, standard (pricing) endpoints, 1 year of historical data, 24-hour delayed stock and options data. | unit: credits | metered on: request-count | read on: 2026-11-02 | source: [1] | note: Each successful response costs 1 credit; a response that lists several symbols costs one credit per symbol. The daily counter resets at 9:30 AM Eastern Time. AAPL stock, AAPL options and the VFINX mutual fund consume no credits and answer without a token, while a keyless call for another symbol answers HTTP 401. The plan is reached through a 30-day trial that switches to Free Forever when it ends. The next plan up is Starter at USD 30 a month when paid monthly, with 10,000 daily credits.
+- per-object cap: unverified: no per-response row cap is stated on the pages read; each symbol in a multi-symbol response costs one credit | source: [2]
+- retention: 1 year of historical data on Free Forever; a request for older data is denied | source: [2] | note: A query API with no stored objects.
+- egress: not metered in bytes; the 100 credits a day bound what a free token can pull, with at most 50 simultaneous requests | metered: no | source: [2]
+- identity: email | detail: The sign-up starts with a choice of a 30-day Starter or Trader trial, both labelled no credit card required, and continues with an Account Info step and a Contact Info step. The account verification page lists name, address, email, phone number and employer details as the information collected for the identity check that paid subscribers complete, and free and trial account holders have not completed it. unverified: whether the Account Info and Contact Info steps of the free sign-up ask for a phone number or an address, behind a sign-up. The API token is emailed to the address used to sign in.
+- interface: rest
+- limits:
+  - request-rate (binding): 100 API credits a day on Free Forever, reset at 9:30 AM Eastern Time [3]
+  - per-ip-shaping: one IP address at a time per account; at most 50 simultaneous requests [2]
+- limits note: Plan gating: Free Forever reaches the standard pricing endpoints only; premium endpoints with reference data such as earnings are paid. Bulk path: multi-symbol responses cost one credit per symbol.
+- binding note: 100 credits a day is met first; a response that lists several symbols spends one credit per symbol.
+- interface detail: GET https://api.marketdata.app/v1/{endpoint} with a Bearer token in the Authorization header or in a URL parameter; the answer is HTTP 203 instead of 200 when it is served from the caching tier. A Google Sheets add-in reads the same data.
+- endpoint: https://api.marketdata.app/v1/stocks/quotes/AAPL/
+- tooling: any HTTP client; official SDKs for JavaScript, TypeScript, Python and Go; a Google Sheets add-in
+- composes with: 100 credits a day of 24-hour-delayed prices with 1 year of history, and AAPL stock and options with no token for wiring tests; current quotes need a free real-time feed such as Finnhub or Twelve Data, or a paid plan here.
+- reliability: Past the daily credits the API answers HTTP 429 until the 9:30 AM Eastern Time reset; HTTP 203 is a cached success; free data is delayed 24 hours.
+- notes: Free Forever data is delayed 24 hours and covers the standard pricing endpoints; AAPL stock and options and the VFINX mutual fund answer with no token.
+- evidence note: The plan, credits, delay and history are read from the first-party pricing, plan-limits, rate-limiting and free-accounts pages, and the keyless AAPL path was measured (HTTP 203 with 0 credits consumed). A free token was not exercised, so the behaviour past 100 credits and the later sign-up steps are unverified: behind a sign-up.
+- evidence:
+  - [1] 2026-11-02: the Free Forever plan is USD 0 forever | capture: sha256:6815ce6f55415e54c213b33a392bcbcf43a7d41e5a0943c467200931cc8d0ca0 | quote: Free Forever Best option for students or small side projects. $0 Forever
+  - [1] 2026-11-02: the Free Forever plan lists 100 daily API credits | capture: sha256:6815ce6f55415e54c213b33a392bcbcf43a7d41e5a0943c467200931cc8d0ca0 | quote: - 100 Daily API Credits
+  - [1] 2026-11-02: the Free Forever plan lists 24-hour delayed stock data | capture: sha256:6815ce6f55415e54c213b33a392bcbcf43a7d41e5a0943c467200931cc8d0ca0 | quote: - 24h Delayed Stock Data
+  - [1] 2026-11-02: the Free Forever plan includes 100 Sheets formulas | capture: sha256:6815ce6f55415e54c213b33a392bcbcf43a7d41e5a0943c467200931cc8d0ca0 | quote: - 100 Sheets Formulas
+  - [1] 2026-11-02: the next plan up, Starter, is USD 30 a month when paid monthly | capture: sha256:6815ce6f55415e54c213b33a392bcbcf43a7d41e5a0943c467200931cc8d0ca0 | quote: Annual commitment required. $30 when paid monthly.
+  - [1] 2026-11-02: no credit card is needed to start the trial, which moves to Free Forever at its end | capture: sha256:6815ce6f55415e54c213b33a392bcbcf43a7d41e5a0943c467200931cc8d0ca0 | quote: No credit card is needed to start your trial, so you will never be billed unless you decide to upgrade to a paid plan during your trial.
+  - [4] 2026-11-02: the Free Forever plan allows 100 API requests per day | capture: sha256:11be5edb1830a0cf03f20f6e0132d46d5f26bdc145e339af742ef26e274cfdea | quote: We offer the "Free Forever" plan, which allows for 100 API requests per day.
+  - [4] 2026-11-02: free and trial plans reach back 1 year only | capture: sha256:11be5edb1830a0cf03f20f6e0132d46d5f26bdc145e339af742ef26e274cfdea | quote: Free and trial plans cannot access data older than 1 year.
+  - [4] 2026-11-02: free accounts only receive data delayed by at least 24 hours | capture: sha256:11be5edb1830a0cf03f20f6e0132d46d5f26bdc145e339af742ef26e274cfdea | quote: Free Forever and trial accounts only have access to data that is delayed by at least 24 hours.
+  - [2] 2026-11-02: daily credits are 100 on Free Forever and 10,000 on Starter | capture: sha256:78560bd5ad41b750a20e1be553f928ef3c348a549ed180e41717d61d1e517b2a | quote: | Daily Credits | 100 | 10,000 | 100,000 | No Limit | No Limit |
+  - [2] 2026-11-02: a multi-symbol response costs one credit per symbol | capture: sha256:78560bd5ad41b750a20e1be553f928ef3c348a549ed180e41717d61d1e517b2a | quote: each symbol included in the response consumes credits
+  - [2] 2026-11-02: an account connects from one IP address at a time | capture: sha256:78560bd5ad41b750a20e1be553f928ef3c348a549ed180e41717d61d1e517b2a | quote: Each account may only connect from one IP address at a time.
+  - [2] 2026-11-02: every plan allows at most 50 simultaneous requests | capture: sha256:78560bd5ad41b750a20e1be553f928ef3c348a549ed180e41717d61d1e517b2a | quote: All plans are subject to a maximum of 50 simultaneous requests at any given time.
+  - [2] 2026-11-02: Free Forever reaches pricing data only | capture: sha256:78560bd5ad41b750a20e1be553f928ef3c348a549ed180e41717d61d1e517b2a | quote: The Free Forever plan only provides access to pricing data.
+  - [2] 2026-11-02: a request for data older than the plan allows is denied | capture: sha256:78560bd5ad41b750a20e1be553f928ef3c348a549ed180e41717d61d1e517b2a | quote: If you request data older than your plan allows, the request will be denied.
+  - [3] 2026-11-02: the Free Forever plan is 100 credits per day | capture: sha256:51514694cff2fee874a3c61b2cf8576ee61427c92083690965a5e8115c333fad | quote: - Free Forever Plan: 100 credits per day.
+  - [3] 2026-11-02: the daily counter resets at 9:30 AM Eastern Time | capture: sha256:51514694cff2fee874a3c61b2cf8576ee61427c92083690965a5e8115c333fad | quote: The usage counter for all plans with a daily limit resets at 9:30 AM Eastern Time (NYSE opening bell).
+  - [3] 2026-11-02: requests past the credits answer HTTP 429 until the window resets | capture: sha256:51514694cff2fee874a3c61b2cf8576ee61427c92083690965a5e8115c333fad | quote: further requests will return `429` responses until the credit window resets.
+  - [3] 2026-11-02: AAPL stock, AAPL options and the VFINX mutual fund consume no credits | capture: sha256:51514694cff2fee874a3c61b2cf8576ee61427c92083690965a5e8115c333fad | quote: Certain free trial symbols like AAPL stock, AAPL options, and the VFINX mutual fund do not consume credits.
+  - [5] 2026-11-02: the AAPL ticker works with no authentication and no account | capture: sha256:66011207c5cf8e4867f88d111b1340a02a64f4c0c71b109fec6da349b7ae71c4 | quote: Our API can be used with the AAPL ticker with no authentication needed. No account is necessary.
+  - [6] 2026-11-02: the trial moves to Free Forever after 30 days | capture: sha256:26093f1d7df80b955f179188864e28bb4a5ebbe71442acae3020d85b5ce34537 | quote: Your trial will automatically transition to our Free Forever plan after 30 days, should you decide not to subscribe.
+  - [6] 2026-11-02: the trial sign-up is labelled no credit card required | capture: sha256:26093f1d7df80b955f179188864e28bb4a5ebbe71442acae3020d85b5ce34537 | quote: No credit card required
+  - [6] 2026-11-02: the sign-up has an Account Info step and a Contact Info step after the plan choice | capture: sha256:26093f1d7df80b955f179188864e28bb4a5ebbe71442acae3020d85b5ce34537 | quote: 2 Account Info 3 Contact Info
+  - [7] 2026-11-02: the token is emailed to the address used to sign in | capture: sha256:bb73ed8d764c3baa2d89cd49874e0aaf73f9fb4871bd6e06d1b0df28a1c538c6 | quote: It will be delivered by email to the address you used to sign-in.
+  - [7] 2026-11-02: the token goes in an Authorization header or in a URL parameter | capture: sha256:bb73ed8d764c3baa2d89cd49874e0aaf73f9fb4871bd6e06d1b0df28a1c538c6 | quote: 2. URL Parameter Authentication
+  - [7] 2026-11-02: an endpoint may answer HTTP 203 from the caching tier | capture: sha256:bb73ed8d764c3baa2d89cd49874e0aaf73f9fb4871bd6e06d1b0df28a1c538c6 | quote: Any endpoint may return HTTP `203 Non-Authoritative Information` instead of `200 OK` when the response is served from our caching tier.
+  - [7] 2026-11-02: an official JavaScript and TypeScript SDK exists | capture: sha256:bb73ed8d764c3baa2d89cd49874e0aaf73f9fb4871bd6e06d1b0df28a1c538c6 | quote: import { MarketDataClient } from "@marketdata/sdk";
+  - [7] 2026-11-02: an official Python SDK exists | capture: sha256:bb73ed8d764c3baa2d89cd49874e0aaf73f9fb4871bd6e06d1b0df28a1c538c6 | quote: from marketdata import MarketDataClient
+  - [7] 2026-11-02: an official Go SDK exists | capture: sha256:bb73ed8d764c3baa2d89cd49874e0aaf73f9fb4871bd6e06d1b0df28a1c538c6 | quote: import api "github.com/MarketDataApp/sdk-go"
+  - [2] 2026-11-02: Free Forever reaches the standard endpoints while the paid plans reach premium ones | capture: sha256:78560bd5ad41b750a20e1be553f928ef3c348a549ed180e41717d61d1e517b2a | quote: | API Endpoints | Standard | Premium | Premium | Premium + Custom | Premium + Custom |
+  - [1] 2026-11-02: the Free Forever plan lists standard API endpoints | capture: sha256:6815ce6f55415e54c213b33a392bcbcf43a7d41e5a0943c467200931cc8d0ca0 | quote: - Standard API Endpoints
+  - [1] 2026-11-02: the Free Forever plan lists 1 year of historical data | capture: sha256:6815ce6f55415e54c213b33a392bcbcf43a7d41e5a0943c467200931cc8d0ca0 | quote: - 1 Year Historical Data
+  - [1] 2026-11-02: the Free Forever plan lists 24-hour delayed options data | capture: sha256:6815ce6f55415e54c213b33a392bcbcf43a7d41e5a0943c467200931cc8d0ca0 | quote: - 24h Delayed Options Data
+  - [8] 2026-11-02: identity and employment information is verified for paid subscribers | capture: sha256:c31dd28b2f4b7f62b2ff88fb9fb3dbc94080236bf7eea4667a32b23424aee0ac | quote: Market Data verifies the identity and employment information of all paid subscribers.
+  - [8] 2026-11-02: the collected information includes a phone number and employer details | capture: sha256:c31dd28b2f4b7f62b2ff88fb9fb3dbc94080236bf7eea4667a32b23424aee0ac | quote: | Phone Number | LinkedIn Profile URL |
+  - [9] 2026-11-02: free and trial account holders have not completed the identification process | capture: sha256:351f739e89c38311119be1c8d1f8eae1e6f86ab604f5fe8ee4c6864c0fea9633 | quote: Free and trial account holders have not completed this process.
+  - probe:https://api.marketdata.app/v1/stocks/quotes/AAPL/ 2026-11-02: a keyless GET of the AAPL quote answered HTTP 203 | capture: sha256:f4bdfc4bfa0a97c7eb63cd10dac788bdf2bfb788a6b7ba973519fa643ae1efda | quote: "status": 203
+  - probe:https://api.marketdata.app/v1/stocks/quotes/AAPL/ 2026-11-02: the keyless AAPL answer consumed no credits | capture: sha256:f4bdfc4bfa0a97c7eb63cd10dac788bdf2bfb788a6b7ba973519fa643ae1efda | quote: "x-api-ratelimit-consumed": "0"
+  - probe:https://api.marketdata.app/v1/stocks/quotes/AAPL/ 2026-11-02: the keyless AAPL answer carried a quote body with status ok | capture: sha256:9d0e8379a658f49a258a6cfd2e9aed837d812a59e977157c3e8617deece1bbcf | quote: {"s":"ok","symbol":["AAPL"]
+  - probe:https://api.marketdata.app/v1/stocks/quotes/MSFT/ 2026-11-02: a keyless call for another symbol, MSFT, answered HTTP 401 | capture: sha256:8488b64eb5b985696df6fc25107838dfbadc0a679a4e4022035747bde5847944 | quote: "status": 401
+  - probe:https://api.marketdata.app/v1/stocks/quotes/MSFT/ 2026-11-02: the keyless MSFT answer says no credentials were provided | capture: sha256:8bc64c120a4b27397a6cf65998cf7efc775e9a8a0bf75c25b3b97cea83be93db | quote: {"s":"error","errmsg":"Invalid token header. No credentials provided."}
+- sources:
+  - [1] https://www.marketdata.app/pricing/
+  - [2] https://www.marketdata.app/docs/account/plan-limits
+  - [3] https://www.marketdata.app/docs/api/rate-limiting
+  - [4] https://www.marketdata.app/docs/account/free-accounts/
+  - [5] https://www.marketdata.app/api/stocks/historical-stock-data-api/
+  - [6] https://dashboard.marketdata.app/marketdata/signup
+  - [7] https://www.marketdata.app/docs/api/authentication
+  - [8] https://www.marketdata.app/docs/account/data-policies/account-verification/
+  - [9] https://www.marketdata.app/docs/account/data-policies/free-accounts/

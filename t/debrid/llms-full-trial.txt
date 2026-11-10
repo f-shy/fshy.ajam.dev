@@ -1,0 +1,592 @@
+# fshy: Debrid, trial
+
+> A debrid service downloads files from many file hosts through one account, at full speed. Also premium-link generators, usenet and retrieval services.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/debrid/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## Cheapnews
+
+- `debrid/cheapnews` | trial-only | evidence documented | binding volume-quota | category usenet provider (Abavia reseller, NL) | tier Flat Unlimited
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23T01:52:29.000Z (live) | stale on 2026-11-23
+- url https://www.cheapnews.eu/ | page https://fshy.ajam.dev/p/cheapnews.md
+- price EUR 9.75 (Flat Unlimited, monthly); EUR 20.98 per TB on the 2000 GB block
+- free tier: A 20 GB / 7-day trial is advertised as free: 'We are happy to offer all first time users a free trial of 20GB, no credit card needed!'. The same trial is priced at EUR 3.90 in the plan table on the same page. | unit: GB | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: no per-object cap is published; no per-object cap is published; the unit of retrieval is a Usenet article, approximately 750 KB by convention, so 1 TiB of monthly transfer corresponds to roughly 1.4 million article… | source: [1]
+- retention: 3000+ days of binary and text retention, stated twice on the page | days: 3000 | source: [1]
+- egress: Unlimited downloads on every flat plan; speed and connections are tiered | metered: no | free allowance: unlimited | source: [1]
+- identity: card | detail: The vendor says the 20 GB trial needs no credit card, but the plan card prices the same trial at EUR 3.90, so the honest reading is that something is charged. Crypto and SEPA are accepted for paid plans, which is the card-free route to a block.
+- interface: nntp
+- limits:
+  - request-rate: 10 connections on Flat Basic 20 up to 48 on Flat Unlimited [1]
+  - per-ip-shaping: 20 Mbit on Basic 20 up to unlimited on Flat Unlimited [1]
+  - volume-quota (binding): blocks from 50 GB to 2000 GB, never expiring [1]
+  - retention-clamped: 3000+ days of binary retention [1]
+  - request-rate: 24 connections on block products [2]
+  - volume-quota (binding): 50 GB to 2,000 GB blocks [2]
+- limits note: Flats: Basic 20 EUR 3.50/mo (20 Mbit, 10 connections), Premium 60 EUR 6.25, Ultimate 120 EUR 8.50, Stellar 160 EUR 8.75, Legacy 250 EUR 9.25, Flat Unlimited EUR 9.75 (48 connections). Blocks: 50 GB EUR 2.95, 100 GB EUR 4.95, 500 GB EUR 14.95, 1000 GB EUR 24.95, 2000 GB EUR 41.95, all 'Never Expires'. Payment: SEPA, card, iDEAL, Sofort, crypto, Bancontact, Belfius, Giropay and others.
+- binding note: On the flats the speed tier binds before any volume, because downloads are unlimited; on the blocks the byte allowance is the whole product and a 2 TB block is 24 months at 1 TiB/month.
+- interface detail: NNTP over TLS on port 563. No HTTP or object API exists for the download path, which is driven through SABnzbd, NZBGet or nzbdav.
+- composes with: A prepaid Abavia block stacks as fill under any primary and needs no renewal; the flats duplicate the XS News spool behind a lower speed ceiling.
+- reliability: Abavia reseller operated by Bulk News B.V. (Bulknews), AS48345 upstream, 135,000 newsgroups. The EUR 3.90 trial line and the 'no credit card needed' sentence present an unverified contradiction in published terms.
+- notes: Cheaper than its own parent brand at every block size except the 5 TB tier, which only XS News sells. Same shape as Blocknews with a published retention figure and a free 20 GB trial. Trigger condition: if the block sentence acquires a time limit, the null becomes a number.
+- evidence note: Every price is from the vendor page read on 2026-10-23. The free-trial claim is contradicted by the same page's price table and is documented as trial-only rather than free.
+- extras:
+  - backbone: Abavia
+  - payment_methods: SEPA, card, iDEAL, Sofort, crypto, Bancontact, Belfius, Giropay
+  - block_price_tb_eur: 20.98
+  - retention_map.block_balance.stated: without any time-limits
+  - retention_map.block_balance.source_url: https://www.cheapnews.eu/en/usenet-packages
+  - retention_map.article_retention.stated: 3000+ days binary
+  - retention_map.article_retention.days: 3000
+  - retention_map.article_retention.source_url: https://www.cheapnews.eu/
+  - retention_map.trial.stated: 20 GB or 7 days, whichever first
+  - retention_map.trial.days: 7
+  - retention_map.trial.source_url: https://www.cheapnews.eu/faq/
+  - account_deletion.stated: not published
+  - account_deletion.source_url: https://www.cheapnews.eu/faq/
+  - reactivation: nothing to reactivate: the balance is the account
+  - storage_model: prepaid download block over NNTP
+- evidence:
+  - [1] 2026-10-23: 'Free 20GB Trial, no credit card needed'; 'Free trial ... 20GB downloads, 7 days /20GB' priced 'EUR 3,90' in the plan card
+  - [1] 2026-10-23: blocks 50 GB EUR 2.95, 100 GB EUR 4.95, 500 GB EUR 14.95, 1000 GB EUR 24.95, 2000 GB EUR 41.95, never expires; flats EUR 3.50 to EUR 9.75; 3000+ days
+  - [3] 2026-10-23: 'Get 20GB completely free - no credit card needed! Use it for 7 days or until you reach 20GB'; payment methods SEPA, card, iDEAL, Sofort, crypto, Bancontact, Belfius, Giropay
+  - [2] 2026-10-23: 'You buy a package Gigabytes and download till you used it all without any time-limits!', the block ladder 50 GB to 2,000 GB, 24 connections, and the 20 GB / 7-day trial
+  - [4] 2026-10-23: 'Läuft nie ab' on the Block Starter 50 listing, and '3000+ Tage binäre Aufbewahrung'
+  - [1] 2026-10-23: '3000+ days binary retention' and 'Free 20GB Trial, no credit card needed'
+- sources:
+  - [1] https://www.cheapnews.eu/
+  - [2] https://www.cheapnews.eu/en/usenet-packages
+  - [3] https://www.cheapnews.eu/faq/
+  - [4] https://www.cheapnews.eu/de/usenet-tarife/
+
+## Fastusenet
+
+- `debrid/fastusenet` | trial-only | evidence documented | binding volume-quota | category usenet provider (Omicron reseller) | tier Unlimited
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23T01:52:29.000Z (live) | stale on 2026-11-23
+- url https://www.fastusenet.org/signup/freetrial.php | page https://fshy.ajam.dev/p/fastusenet.md
+- price USD 6.95 (unlimited, monthly)
+- free tier: A free trial of 14 days or 15 GB, whichever comes first, on all three plans, then the plan price applies. The trial signup runs through a three-step flow whose third step is 'Payment Information'. | unit: GB | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: no per-object cap is published; no per-object cap is published; the unit of retrieval is a Usenet article, approximately 750 KB by convention, so 1 TiB of monthly transfer corresponds to roughly 1.4 million article… | source: [1]
+- retention: Not stated by the vendor on any page read. The trial and plans pages carry no day count; the Omicron spool this reseller serves through us.sslusenet.com is sold elsewhere as 6,642+ days, which is inferred rather than measured here. | source: [1]
+- egress: Unlimited after the trial on the top plan; 35 GB and 15 GB on the two cheaper plans | metered: yes | free allowance: 15 GB during the trial on every plan | source: [1]
+- identity: card | detail: 'Payment Information' is step 3 of the trial signup, before 'Create Login' is step 4, so a payment method is captured before the trial starts. The card is what makes this trial-only.
+- interface: nntp
+- limits:
+  - request-rate: 50 SSL connections [1]
+  - volume-quota (binding): 15 GB during the 14-day trial; 15 GB, 35 GB or unlimited after it [1]
+- limits note: Trial then $6.95/mo unlimited, $5.95/mo for 35 GB, $3.95/mo for 15 GB. The trial carries 15 GB whichever plan is chosen, so the most a free trial yields here is 15 GB once.
+- binding note: The trial is hard-capped at 15 GB and the two cheap plans are hard-capped at 15 GB and 35 GB per month. At 1 TiB/month the counter is the first thing that fails, on every tier.
+- interface detail: NNTP over TLS on port 563. No HTTP or object API exists for the download path, which is driven through SABnzbd, NZBGet or nzbdav.
+- composes with: Once the trial converts this is a second Omicron feed and adds nothing to a Newshosting or Eweka subscription; its stack value is the 14-day test window.
+- reliability: Omicron reseller on the sslusenet.com hosts, the same pair Newsgroup Ninja uses. The 14-day window is longer than the 3 to 7 days most competitors allow.
+- notes: Documented as the clearest example of the pattern: a trial advertised as free, gated at a payment step that no vendor page describes as optional.
+- evidence note: Trial terms, prices and step order are on the vendor's signup pages read. The card requirement is read from the step name, not from submitting the form.
+- extras:
+  - backbone: Omicron, via us.sslusenet.com / nl.sslusenet.com
+  - trial_gate: step 3 of 4 is Payment Information
+- evidence:
+  - [1] 2026-10-23: '14 days to test our service or 15GB of downloads, whichever comes first'; 50 SSL connections; then $6.95/$5.95/$3.95 per month
+  - [1] 2026-10-23: the meta description adds 'Choose the plan your account converts to after the trial'
+- sources:
+  - [1] https://www.fastusenet.org/signup/freetrial.php
+
+## FreeDiscussions
+
+- `debrid/freediscussions` | trial-only | evidence documented | binding volume-quota | category usenet provider (volume plans with a 14-day trial) | tier Starter
+- identity a placeholder: card and phone unknown | verified 2026-11-03T07:37:14.439Z (live) | stale on 2026-12-04
+- url https://freediscussions.com/ | page https://fshy.ajam.dev/p/freediscussions.md
+- free tier: A free 14-day trial on every package; a third-party index states it carries 10 GB of high-speed data. | unit: GB | metered on: downloaded-bytes | read on: 2026-11-03 | source: [1] | note: The 10 GB allowance is from usenet.org, not the vendor page.
+- per-object cap: source: [1]
+- retention: unverified: the packages page read does not state retention | source: [1]
+- egress: Metered by plan: 35, 70 or 140 GB of high-speed data a month, plus a 600 GB flat-rate volume at 2 Mbit/s | metered: yes | free allowance: 35 GB high-speed volume per month on the smallest plan | source: [1]
+- identity: email | detail: unverified: the trial signup form was not opened, so what it asks for (email, phone or card) is behind a sign-up.
+- interface: nntp
+- limits:
+  - volume-quota (binding): 35 GB high-speed volume on Starter and Flex, 70 GB on Expert, 140 GB on Master [1]
+  - per-ip-shaping: 600 GB a month flat-rate volume at a maximum of 2 Mbit/s [1]
+- limits note: Starter EUR 13.99 monthly debit, Flex EUR 8.33 one-time, Expert EUR 9.83 one-time, Master EUR 14.99 one-time.
+- binding note: The high-speed volume is a fixed number of GB, after which the 2 Mbit/s flat volume applies.
+- interface detail: NNTP with 256-bit SSL; the vendor ships a free newsreader
+- composes with: Four plans: a monthly Starter at EUR 13.99 and one-time Flex, Expert and Master volumes; every plan adds a 600 GB flat-rate volume at 2 Mbit/s that keeps a slow background download running after the high-speed volume is used.
+- reliability: Backbone and retention are not stated on the vendor page read.
+- notes: Volume-metered, not unlimited.
+- evidence note: Plan prices and the trial are from the vendor packages page read on 2026-11-03; the 10 GB allowance is third-party.
+- evidence:
+  - [1] 2026-11-03: every package carries a free 14-day trial | capture: sha256:78c5fac7f6fb28618889375416d28a32259790e310b6531f59a2a61590528762 | quote: All packages have a free 14-day trial period.
+  - [1] 2026-11-03: every package includes a 600 GB monthly flat-rate volume | capture: sha256:78c5fac7f6fb28618889375416d28a32259790e310b6531f59a2a61590528762 | quote: 600 GB
+  - [2] 2026-11-03: a third-party index gives the trial allowance as 10 GB | capture: sha256:21ad28e1a6ddecd602f2cf8af988ec0914021be2093f90cd885439e5a7f4be2d | quote: FreeDiscussions offers a 14-day free trial with 10 GB of high-speed data access.
+  - [2] 2026-11-03: the cheapest paid tier is the one-time Flex volume at EUR 8.33 | capture: sha256:21ad28e1a6ddecd602f2cf8af988ec0914021be2093f90cd885439e5a7f4be2d | quote: Flex – €8.33 one-time
+  - [2] 2026-11-03: the monthly Starter plan is EUR 13.99 | capture: sha256:21ad28e1a6ddecd602f2cf8af988ec0914021be2093f90cd885439e5a7f4be2d | quote: Starter – €13.99/month
+- sources:
+  - [1] https://freediscussions.com/packages
+  - [2] https://www.usenet.org/providers/freediscussions
+
+## Giganews
+
+- `debrid/giganews` | trial-only | evidence reported | binding retention-clamped | category usenet provider (Certida/Giganews backbone) | tier 1 Year
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T11:28:55.819Z (live) | stale on 2026-11-18
+- url https://www.order.giganews.com/signup/ | page https://fshy.ajam.dev/p/giganews.md
+- price USD 8.33 (12-month term)
+- free tier: A free trial is attached to every term: 14 days on the 12-month and 6-month prepaid plans and 3 days on the 1-month plan, all reached through a billing redirect. | unit: unlimited | metered on: wall-clock | read on: 2026-10-23 | source: [1]
+- per-object cap: no per-object cap is published; no per-object cap is published; the unit of retrieval is a Usenet article, approximately 750 KB by convention, so 1 TiB of monthly transfer corresponds to roughly 1.4 million article… | source: [1]
+- retention: The vendor homepage states 'Over 5 Years of Binaries'; the r/usenet map records 550+ days for binaries and 5,800+ days for text on the same backbone. The conservative figure is recorded. | days: 550 | source: [2]
+- egress: Unlimited Transfer and Unlimited Speed, 100 connections, SSL, VyprVPN included | metered: no | free allowance: unlimited | source: [1]
+- identity: card | detail: The trial is entered through a billing redirect, so a payment method is captured at the start. The vendor's own signup page describes the trial as starting from that billing step.
+- interface: nntp
+- limits:
+  - request-rate: 100 connections [1]
+  - retention-clamped (binding): 550+ days for binaries against 5,800+ days for text, reported; the vendor states over 5 years of binaries [2]
+- limits note: 1 month $9.99, 6 months $9.17/mo, 1 year $8.33/mo billed $100.00 against a stated $217.39 regular price. All terms include VyprVPN. The trial links point at order.giganews.com/signup/billing_redirect.html, which is a payment step.
+- binding note: Binary depth is the constraint, not volume: unlimited transfer at 100 connections never runs out, but a 550-day binary spool cannot retrieve a 2019 post however much bandwidth is left.
+- interface detail: NNTP over TLS on port 563. No HTTP or object API exists for the download path, which is driven through SABnzbd, NZBGet or nzbdav.
+- composes with: Its only stacking value is the bundled VyprVPN; the 550-day binary spool makes it a poor primary beside any Omicron or Abavia plan.
+- reliability: Own US and NL infrastructure on AS30094. The vendor states over 5 years of binary retention; the community map records 550 days, a large gap between vendor and mapped figures.
+- notes: Where two sources disagree the record keeps the conservative number: 550 days of binaries, not the 'Over 5 Years of Binaries' the vendor states.
+- evidence note: Prices, connections and the trial length are vendor-stated and read. Binary retention is third-party and contradicts the vendor's number, so the record keeps 550 days and sits at the reported rung.
+- extras:
+  - backbone: Giganews / Certida, AS30094
+  - retention_conflict: vendor 'Over 5 Years of Binaries' vs mapped 550 days binaries
+- evidence:
+  - [1] 2026-10-23: 1 Year $8.33/mo billed yearly at $100.00; 6 Months $9.17/mo; 1 Month $9.99/mo; '+ 14 days free trial' and '+ 3 days free trial'; 100 connections; unlimited transfer
+  - [2] 2026-10-23: Giganews backbone table: '550+ days (binaries), 5800+ days (text)' on both US and NL
+  - [3] 2026-11-03: the vendor homepage states over 5 years of binaries | capture: sha256:a41f6f4e87170c23158ae10d5130e1c3d5cde4455eaababac6f0b3220019d0e1 | quote: Over 5 Years of Binaries
+  - [2] 2026-11-03: the map records 550+ days of binaries and 5800+ days of text; the vendor's own statement is a separate evidence row | capture: sha256:ce68343303ed49e39a8c4c999a557b78a25d3f976eb44da979781c00dd669f2c
+  - [1] 2026-11-03: 1 Year price unchanged | capture: sha256:54d7c037359326157665c14d0722e17853a28f20d3b4efb97d136f08dbf449b0 | quote: 1 Year $8.33/mo. BILLED YEARLY AT ~~$217.39~~ $100.00
+  - [1] 2026-11-03: 14-day trial on the 12-month and 6-month terms unchanged | capture: sha256:54d7c037359326157665c14d0722e17853a28f20d3b4efb97d136f08dbf449b0 | quote: + 14 days free trial
+  - [1] 2026-11-03: 3-day trial on the 1-month term unchanged | capture: sha256:54d7c037359326157665c14d0722e17853a28f20d3b4efb97d136f08dbf449b0 | quote: + 3 days free trial
+  - [1] 2026-11-03: 100 connections unchanged | capture: sha256:54d7c037359326157665c14d0722e17853a28f20d3b4efb97d136f08dbf449b0 | quote: 100 Connections
+- sources:
+  - [1] https://www.order.giganews.com/signup/
+  - [2] https://www.reddit.com/r/usenet/wiki/providers
+  - [3] https://giganews.com/
+
+## HitNews
+
+- `debrid/hitnews` | trial-only | evidence documented | binding none | category Usenet provider (Netherlands) - €2.50, 3-day trial | tier 3-day trial
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23T02:20:22.000Z (live) | stale on 2026-11-23
+- url https://hitnews.com/ | page https://fshy.ajam.dev/p/hitnews.md
+- free tier: "Start 3-day trial - €2.50" on the home page. No free trial is offered; the three-day entry is bought. | unit: hours | metered on: wall-clock | read on: 2026-10-23 | source: [1] | note: The trial is a paid product against a Power plan priced at €4.67/month (€14.00 per 3 months).
+- per-object cap: No per-object cap is published. The unit of retrieval is a Usenet article, roughly 750 KB by convention. | source: [1]
+- retention: "3700+ days of text retention" on the home page; no separate binary retention figure is published there. | days: 3700 | source: [1] | note: The page describes 3700+ days as text completion and says binaries are kept 'as long as possible' with its own algorithm, so the binary depth is not a published number.
+- egress: "Every plan is unlimited speed and unlimited data"; no traffic price is published. | metered: no | free allowance: none: the 3-day entry costs €2.50 | source: [1]
+- identity: card | detail: The 3-day entry is a €2.50 purchase through /3day.html; no zero-price path is published. The exact instrument at checkout was not read.
+- interface: unknown
+- limits:
+  - per-ip-shaping: unlimited speed; 100 connections on every plan [1]
+  - retention-clamped: 3700+ days text retention [1]
+- binding note: During the three days no vocabulary constraint fails: unlimited data, unlimited speed, 100 connections. At 1 TiB/month the paid Power plan is also unlimited, so the line is the constraint.
+- interface detail: NNTP on news.hitnews.com ports 119 / 563 / 443, 100 connections. The schema has no nntp token, so the array says unknown.
+- tooling: any NNTP client; the site supplies server settings only
+- composes with: A €2.50 three-day burst at unlimited speed is the cheapest way to test a 400 Mbit line, but it is not part of a free month; it is a payment relationship with a 3-day window.
+- reliability: The home page rendered an inline error banner ("Sorry! an error occured. Please contact support") next to the pricing content on the read; the price table itself rendered, so the prices are legible but the site is not clean.
+- notes: Repeatability: a paid trial is repeatable only by paying again; no vendor sentence is needed and none was found. Abandonment: if a free trial appears on the home page, this record needs a new tier rather than an edit.
+- evidence note: The €2.50 / 3-day line and the plan prices are quoted from the vendor page today. Nothing was purchased.
+- extras:
+  - repeatable: not-applicable
+  - repeat_basis: paid trial
+- evidence:
+  - [1] 2026-10-23: "Start 3-day trial - €2.50", "3700+ days of text retention, 140,000 newsgroups and 100 connections on every plan", Power €4.67/month, Family €7.00/month, Block from €12.50 per 500 GB
+- sources:
+  - [1] https://hitnews.com/
+
+## iLoad USENET
+
+- `debrid/iload-usenet` | trial-only | evidence documented | binding volume-quota | category usenet provider (German-language, volume, flat-rate and prepaid tariffs with a 7-day trial) | tier Volume from 12 GB
+- needs card unknown, phone unknown, ID no, institution no | verified 2026-11-03T07:37:14.439Z (live) | stale on 2026-12-04
+- url https://www.iload-usenet.com/ | page https://fshy.ajam.dev/p/iload-usenet.md
+- free tier: A free 7-day test access that needs only an email address: 'Testzugang, den du ohne Einschraenkungen eine Woche lang nutzen kannst'; the access closes automatically after 7 days. Its data allowance is not stated. | unit: none | metered on: wall-clock | read on: 2026-11-03 | source: [1] | note: The trial runs for 7 days; the unit list has no 'days' term, so the nearest term is none with the period named here.
+- per-object cap: source: [2]
+- retention: 7.785 days of retention on the home page ('derzeit 7.785 Tagen') | days: 7785 | source: [3]
+- egress: Volume tariffs of 12 to 240 GB a month, flat-rate tariffs of 1 to 25 MBit plus an Unlimited tariff, and prepaid volumes | metered: yes | free allowance: 7-day test access | source: [2]
+- identity: email | detail: The home page offers 'Jetzt kostenlos testen!' with an email-address field, and the trial page says the access details are sent to the email address. Whether a card or phone is asked for is unverified: behind a sign-up.
+- interface: nntp
+- limits:
+  - volume-quota (binding): 12 to 240 GB each month on the volume tariffs [2]
+  - retention-clamped: 7.785 days of retention [3]
+- limits note: Volume tariffs from EUR 4.95 a month, flat-rate tariffs from EUR 4.95 a month, prepaid from EUR 4.99; the page's prices are listed with 'ab' (from).
+- binding note: The cheapest tariffs are volume-bound (12 GB a month at the entry); the Unlimited flat-rate is a higher tier.
+- interface detail: NNTP with free SSL; the vendor ships its own client and search index
+- composes with: Three tariff types (volume, flat-rate, prepaid) with an entry price near EUR 5.
+- reliability: Backbone is not stated on the pages read.
+- notes: The trial allowance and its card requirement are unverified.
+- evidence note: Entry prices, the trial and retention are from the vendor pages read on 2026-11-03; the pages are in German.
+- evidence:
+  - [1] 2026-11-03: the trial access ends after 7 days | capture: sha256:d9b1e52897519106fd3313f2b3d0eefcece5beef5beea600114c448eee27b949 | quote: Der Zugang wird nach 7 Tagen automatisch geschlossen.
+  - [3] 2026-11-03: a free test is offered on the home page | capture: sha256:cd7bb84af4a3e202b08950e52d6158c5c5b27e8ac947eb9fd116b92b83793151 | quote: ### Jetzt kostenlos testen!
+  - [3] 2026-11-03: the free test form asks for an email address | capture: sha256:cd7bb84af4a3e202b08950e52d6158c5c5b27e8ac947eb9fd116b92b83793151 | quote: E-Mail-Adresse:
+  - [3] 2026-11-03: retention is stated as 7.785 days | capture: sha256:cd7bb84af4a3e202b08950e52d6158c5c5b27e8ac947eb9fd116b92b83793151 | quote: die längste Vorhaltezeit von derzeit 7.785 Tagen
+  - [2] 2026-11-03: the volume and flat-rate tariffs start at EUR 4.95 a month | capture: sha256:73a194dd3c8433315e4120cb3b5efa138cf69c4fe9e38edfe316354ed29b8592 | quote: ## *€*4,95
+  - [2] 2026-11-03: the volume tariffs run from 12 to 240 GB a month | capture: sha256:73a194dd3c8433315e4120cb3b5efa138cf69c4fe9e38edfe316354ed29b8592 | quote: - 12-240 GB jeden Monat
+- sources:
+  - [1] https://www.iload-usenet.com/trial
+  - [2] https://www.iload-usenet.com/prices
+  - [3] https://www.iload-usenet.com/
+
+## NewsLeecher
+
+- `debrid/newsleecher` | trial-only | evidence documented | binding none | category usenet provider (bundled newsreader, search and unlimited access) | tier Ready to Go
+- identity a placeholder: card and phone unknown | verified 2026-11-03T07:37:14.439Z (live) | stale on 2026-12-04
+- url https://www.newsleecher.com/ | page https://fshy.ajam.dev/p/newsleecher.md
+- free tier: A free trial is offered ('Free Trial Signup') on each of the three plans; a third-party index states 14 days. Its data allowance is not stated on the pages read. | unit: none | metered on: unstated | read on: 2026-11-03 | source: [1] | note: The trial length is third-party and the allowance is unverified: behind a sign-up.
+- per-object cap: source: [1]
+- retention: Close to 6,775 days | source: [1]
+- egress: No speed limits and no download limits on the plans that include Usenet access | metered: no | free allowance: unlimited | source: [1]
+- identity: card | detail: unverified: the trial signup form was not opened, so the fields it asks for are behind a sign-up; a third-party index lists PayPal and card payments.
+- interface: nntp
+- limits:
+  - retention-clamped: close to 6,775 days [1]
+- limits note: Prices of the three plans are not on the pages read: unverified: behind a sign-up.
+- binding note: No download, speed or volume limit is stated on the access plans; the cap on connections was not read.
+- interface detail: NNTP with 256-bit SSL; the vendor also ships its own client with SuperSearch and SuperLeech automation
+- composes with: Three plans: Pure Usenet is access only, Ready to Go adds the vendor newsreader and search, and Client Plus is software and search without access, so it adds nothing on its own to a retrieval path.
+- reliability: The status of support is unmeasured.
+- notes: Price unread; verdict rests on the free trial being the only stated entry.
+- evidence note: The trial offer, retention and absence of limits are from the vendor pages read on 2026-11-03; prices and the 14-day length are unverified or third-party.
+- evidence:
+  - [1] 2026-11-03: retention is close to 6,775 days | capture: sha256:5f2b76c8069211a65797dcbdfd7e03fe616492453bbb04f78229a088895f1b07 | quote: World Leading Retention. Close to 6,775 Days
+  - [1] 2026-11-03: access is unlimited | capture: sha256:5f2b76c8069211a65797dcbdfd7e03fe616492453bbb04f78229a088895f1b07 | quote: Unlimited Usenet access to our premium Usenet servers
+  - [2] 2026-11-03: the Ready to Go plan is offered with a free trial | capture: sha256:ee530f44151548e7b4640a4ebae7411d023f33cb4ba7b3c4ef9292b8a6bfd422 | quote: [Sign Up Now - Free Trial](https://www.newsleecher.com/signup?ref=r2g)
+  - [3] 2026-11-03: a third-party index states a 14-day free trial | capture: sha256:cd69ed0a0cfdfacc8ec636adf4771b3ceec457be5d84fdfe8d0105fed5d20f21 | quote: Nearly over 6,600 days retention, 500+ Mbps, unlimited downloads, 14-day free trial.
+- sources:
+  - [1] https://www.newsleecher.com/usenet-access
+  - [2] https://www.newsleecher.com/readytogo/
+  - [3] https://www.usenet.org/providers/newsleecher
+
+## NewsXS
+
+- `debrid/newsxs` | trial-only | evidence documented | binding per-ip-shaping | category usenet provider (Dutch, unlimited flats and block accounts) | tier 10Mbit
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T15:25:55.356Z (live) | stale on 2026-12-04
+- url https://www.newsxs.nl/ | page https://fshy.ajam.dev/p/newsxs.md
+- free tier: A 14-day trial period ('14 dagen proefperiode') is stated on the home page; its data allowance and whether it is charged are not stated on the page read. | unit: none | metered on: unstated | read on: 2026-11-03 | source: [1] | note: The trial allowance is unverified: behind a sign-up.
+- per-object cap: source: [1]
+- retention: 2625+ days of retention ('2625+ dagen retentie') | days: 2625 | source: [1]
+- egress: Unlimited use on the four flat plans (10 Mbit, 24 Mbit, 100 Mbit and unlimited speed); block accounts sold separately | metered: no | free allowance: unlimited | source: [1]
+- identity: email | detail: The trial account is delivered by e-mail and is limited to residents of the Netherlands whose ISP peers with NL-IX, AMS-IX or private peers; one trial per address, no proxies or tunnels. After 14 days it converts to a paid account, paid by direct debit, iDEAL or PayPal; no card is named as a requirement. The trial form fields were not opened: unverified: behind a sign-up.
+- interface: nntp
+- limits:
+  - per-ip-shaping (binding): speed tiers 10 Mbit, 24 Mbit, 100 Mbit and unlimited speed [1]
+  - request-rate: up to 50 connections; 10 on the 10 Mbit plan [1]
+  - retention-clamped: 2625+ days of retention [1]
+- limits note: Flats from EUR 4.50 (10 Mbit), EUR 5.50 (24 Mbit), EUR 7.50 (100 Mbit) and EUR 9.50 (unlimited speed); blocks from EUR 2.95. The home page does not say whether the prices are monthly.
+- binding note: Volume is unlimited on the flats; the speed tier and its connection count bound a month.
+- interface detail: NNTP with free SSL and IPv6 support
+- composes with: Block accounts start from EUR 2.95 at unlimited speed with 50 connections and are the cheaper fill; the flats are speed-tiered.
+- reliability: Backbone is not stated on the vendor page read.
+- notes: Verdict rests on the advertised 14-day trial; its cost is unverified.
+- evidence note: Prices, retention and the trial line are from the vendor home page read on 2026-11-03; the page is in Dutch.
+- evidence:
+  - [1] 2026-11-03: a 14-day trial period is advertised | capture: sha256:4718ea0b8e028eb71112eedef34dc25fe968a204e4d14079f8ad983e9ef629e5 | quote: #### **14 dagen **proefperiode
+  - [1] 2026-11-03: the cheapest flat, 10 Mbit, starts at EUR 4.50 | capture: sha256:4718ea0b8e028eb71112eedef34dc25fe968a204e4d14079f8ad983e9ef629e5 | quote: € 4.50
+  - [1] 2026-11-03: retention is 2625+ days | capture: sha256:4718ea0b8e028eb71112eedef34dc25fe968a204e4d14079f8ad983e9ef629e5 | quote: - 2625+ dagen retentie
+  - [1] 2026-11-03: up to 50 connections | capture: sha256:4718ea0b8e028eb71112eedef34dc25fe968a204e4d14079f8ad983e9ef629e5 | quote: - Tot wel 50 connecties
+  - [2] 2026-11-03: the trial account is delivered to the user by e-mail; no card is named as a sign-up requirement | capture: sha256:d70a26683bf45dddc3ff4c90cee1bc09cb0972373bfe4981770a0b88e943d0ab | quote: per e-mail, aan de gebruiker ter beschikking gesteld.
+  - [2] 2026-11-03: the trial is limited to people resident in the Netherlands | capture: sha256:d70a26683bf45dddc3ff4c90cee1bc09cb0972373bfe4981770a0b88e943d0ab | quote: 3.4 De gratis proefperiode kan niet geactiveerd worden door iemand die buiten Nederland verblijft.
+  - [2] 2026-11-03: payment after the trial is by direct debit (bank details), iDEAL or PayPal, not only a card | capture: sha256:d70a26683bf45dddc3ff4c90cee1bc09cb0972373bfe4981770a0b88e943d0ab | quote: In geval van betaling per automatische incasso wordt deze pas uitgevoerd nadat uw bankgegevens
+- sources:
+  - [1] https://www.newsxs.nl/
+  - [2] https://www.newsxs.nl/NewsXS-usenet-provider/Proef-periode.html
+
+## Prembox
+
+- `debrid/prembox` | trial-only | evidence documented | binding volume-quota | category multi-hoster (pay-per-package) | tier Packages
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T07:37:13.292Z (live) | stale on 2026-12-04
+- url https://prembox.com/ | page https://fshy.ajam.dev/p/prembox.md
+- free tier: Any registered user gets a free transfer for testing; the size of that transfer is unverified. | unit: mixed | metered on: downloaded-bytes | read on: 2026-11-03 | source: [1] | note: Unit is unknown: the amount of the test transfer is not stated on the pages read.
+- per-object cap: unverified: not stated | source: [1]
+- retention: unverified: not stated | source: [1]
+- egress: Packages are valid throughout the year; pay by online payment, text message or cryptocurrency. | metered: yes | free allowance: a free test transfer of unstated size | source: [1]
+- identity: email | detail: A registration page exists; its fields were not rendered, so the identity requirement is unverified.
+- interface: unknown
+- limits:
+  - volume-quota (binding): package-based transfer valid for a year; sizes unverified [1]
+- binding note: Transfer is sold in packages, so the package volume is the metered limit.
+- interface detail: Web account; browser plugins and JDownloader integration are listed.
+- tooling: Browser, JDownloader.
+- composes with: Over 40 hosts under one account; operating since 2011 per the home page.
+- reliability: No outage observed on the day read.
+- notes: Package prices: unverified, no price page readable. A third-party list says pay-per-package, 40+ hosts.
+- evidence note: First-party home page only; package prices were not on a readable page.
+- evidence:
+  - [2] 2026-11-03: registration gives a free test transfer and packages valid for a year | capture: sha256:2196571373d66db1e28bba265276283be2f26a9aa97799c64465deaa709b2d31 | quote: Any registered user gets a free transfer for testing and the opportunity to buy additional packages valid throughout the year, at very attractive prices.
+  - [2] 2026-11-03: over 40 hosts under one account | capture: sha256:2196571373d66db1e28bba265276283be2f26a9aa97799c64465deaa709b2d31 | quote: # Over 40 most popular hosts - one account
+  - [2] 2026-11-03: payment by online payment, text message or cryptocurrency | capture: sha256:2196571373d66db1e28bba265276283be2f26a9aa97799c64465deaa709b2d31 | quote: We offer online payments as well as more anonymous payments - text messages or cryptocurrencies.
+  - [2] 2026-11-03: the service has operated since 2011 | capture: sha256:2196571373d66db1e28bba265276283be2f26a9aa97799c64465deaa709b2d31 | quote: We started in 2011.
+- sources:
+  - [1] https://prembox.com/
+  - [2] https://prembox.com/pricing.html
+
+## Pure Usenet
+
+- `debrid/pureusenet` | trial-only | evidence documented | binding per-ip-shaping | category Usenet provider (Netherlands) - one-week trial | tier free week trial
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T02:20:22.000Z (live) | stale on 2026-11-23
+- url https://www.pureusenet.nl/en/packages/pure-s | page https://fshy.ajam.dev/p/pureusenet.md
+- free tier: "Every Pure Usenet packages can be used for free for one week." The package pages carry "Free week trial" as a feature, and the Dutch page says "Ieder Pure Usenet pakket kun je vrijblijvend een week gratis proberen" (every Pure Usenet package can be tried free for a week, without obligation). | unit: unlimited | metered on: wall-clock | read on: 2026-10-23 | source: [1] | note: The trial is 7 days with no byte counter; the only bound the vendor publishes is the package speed. Support states "There are no limitations on the number of downloads or the amount of data downloaded on any Pure Usenet account."
+- per-object cap: No per-object cap is published. The unit of retrieval is a Usenet article, roughly 750 KB by convention. | source: [1]
+- retention: "4100 days" of retention in the package table; the prose says "More than 4100 days of retention". | days: 4100 | source: [1] | note: The Dutch Pure M page's meta description still says "Meer dan 2000 dagen retentie" while the table on the same page says 4100 dagen. The table is the rendered offer and is what is recorded; the conflict is kept here rather than smoothed over.
+- egress: Download volume is not metered on any package: support says there are "no limitations on the number of downloads or the amount of data downloaded". Speed is the only published throttle. | metered: no | free allowance: 7 days at the package speed: 8 Mbps (S), 20 Mbps (M) or 60 Mbps (XL) | source: [2]
+- identity: email | detail: The order path (/en/signup/form?package=8) renders the cart page, which asks for a plan and a period and lists payment methods; no payment field and no field list were readable without starting a signup. Email is the minimum such a cart implies and is not confirmed. Whether a card is captured at activation is unresolved, which is why this record's trial is counted twice in the ladder (with and without it).
+- interface: unknown
+- limits:
+  - per-ip-shaping (binding): 8 Mbps on Pure S, 20 Mbps on Pure M, 60 Mbps on Pure XL [1]
+  - retention-clamped: 4100 days [1]
+- limits note: Connection counts are 4 on S, 8 on M and 12 on XL, per the package table.
+- binding note: The trial has no byte counter, so what caps it is the package speed over 7 days: 8 Mbps is 1 MB/s, which is 604,800 s x 1 MB/s = 604.8 GB. On XL at 60 Mbps the same week is about 4.5 TB, so the choice of package is the whole of the trial's ceiling.
+- interface detail: NNTP over SSL. The schema has no nntp token, so the array says unknown; the vendor's own pages name SSL Usenet access and a connection count.
+- tooling: any NNTP client; the vendor sells connections, not software
+- composes with: Seven days at 8 Mbps is about 605 GB if the line can hold it; that single step is larger than every no-card Usenet trial in published records combined, and it repeats not at all.
+- reliability: No suspension report was read. The 30-day money-back guarantee is the paid-plan route, not a trial.
+- notes: Repeatability: no vendor sentence was found on any page read, and /en/terms answered 404. A second address is therefore neither documented as allowed nor documented as blocked; the record claims neither. Abandonment: if the package pages drop the free-week line, the record becomes paid-only.
+- evidence note: The free week is documented on three package pages and in two languages. The identity gate is inferred. The terms page at /en/terms answered 404, so no sentence on trial repetition exists to quote.
+- extras:
+  - repeatable: unstated
+  - repeat_basis: no sentence located
+  - speed_bytes_7d.8 Mbps: 604.8 GB
+  - speed_bytes_7d.20 Mbps: 1512 GB
+  - speed_bytes_7d.60 Mbps: 4536 GB
+- evidence:
+  - [1] 2026-10-23: "Every Pure Usenet packages can be used for free for one week." and "Free week trial" with 8 Mbps, 4 connections and 4100 days
+  - [3] 2026-10-23: Page title "Vrijblijvend 1 week gratis proberen!" and body "Ieder Pure Usenet pakket kun je vrijblijvend een week gratis proberen" - the same offer in Dutch, plus the 4100-dagen row in the package table
+  - [2] 2026-10-23: "There are no limitations on the number of downloads or the amount of data downloaded on any Pure Usenet account." - the trial's byte counter is absent, not merely unpublished
+- sources:
+  - [1] https://www.pureusenet.nl/en/packages/pure-s
+  - [2] https://support.pureusenet.nl/kb/article/387-are-my-downloads-limited-in-any-way/
+  - [3] https://www.pureusenet.nl/nl/packages/pure-m
+
+## Rapids.pl
+
+- `debrid/rapids-pl` | trial-only | evidence documented | binding volume-quota | category multi-hoster (Polish; transfer packs) | tier transfer packs
+- needs card no, phone yes, ID no, institution no | verified 2026-11-03T07:37:13.292Z (live) | stale on 2026-12-04
+- url https://rapids.pl/ | page https://fshy.ajam.dev/p/rapids.md
+- free tier: A test package is offered to new users; its size is unverified. Creating an account is free. | unit: mixed | metered on: downloaded-bytes | read on: 2026-11-03 | source: [1] | note: Unit unknown: the size of the test package is not stated on the page read.
+- per-object cap: unverified: no per-file cap is stated on the page read | source: [1]
+- retention: unverified: not stated | source: [1]
+- egress: Packs 5GB, 12GB, 30GB, 45GB, 100GB, 220GB and 500GB, from 2.00 zl; a Happy Hours column doubles the volume. | metered: yes | free allowance: a test package of unstated size | source: [1]
+- identity: email | detail: Registration needs the necessary data and activation by a link sent in an activation email; account creation is free; payment by SMS or online.
+- interface: unknown
+- limits:
+  - volume-quota (binding): packs from 5 GB at 2.00 zl to 500 GB at 119.00 zl; the Happy Hours column shows 2x the volume [1]
+- binding note: Transfer is sold as byte packs, so pack volume is the metered limit.
+- interface detail: Web account; Chrome and Firefox plugins are linked.
+- tooling: Browser, browser plugins.
+- composes with: Small packs make occasional pulls cheap; hosts include Alfafile, Chomikuj, Fastshare, Filesmonster, Hitfile, Icerbox, Turbobit and Wplik.
+- reliability: The footer reads 2019; the page lists current packs and a working store.
+- notes: Prices in zloty (zl). The points column (+2 pkt and so on) is not explained on the page read.
+- evidence note: First-party home page; the host's other paths were not read.
+- evidence:
+  - [1] 2026-11-03: the smallest pack is 5 GB from 2.00 zl, with 10 GB in the Happy Hours column | capture: sha256:d8d5f9200a7ae3fa08a0646a6b1c10cbbd9dede6e1380f7ef9cc015cdafd2273 | quote: | 5GB +2 pkt | 10GB | od 2,00 zł<br>Kup teraz |
+  - [1] 2026-11-03: the largest pack is 500 GB from 119.00 zl | capture: sha256:d8d5f9200a7ae3fa08a0646a6b1c10cbbd9dede6e1380f7ef9cc015cdafd2273 | quote: | 500GB +119 pkt | 1TB | od 119,00 zł<br>Kup teraz |
+  - [1] 2026-11-03: a test package is offered to new users | capture: sha256:669c936b8c1dbbf19d69e51c9c6d663c071c48e80eadf3feeeff7f6acad93124 | quote: Oferujemy pakiet testowy dla nowych użytkowników
+  - [1] 2026-11-03: registration requires activation by an emailed link | capture: sha256:669c936b8c1dbbf19d69e51c9c6d663c071c48e80eadf3feeeff7f6acad93124 | quote: Należy podać niezbędne dane i aktywować konto klikając link w mailu aktywacyjnym.
+  - [1] 2026-11-03: account creation is free | capture: sha256:669c936b8c1dbbf19d69e51c9c6d663c071c48e80eadf3feeeff7f6acad93124 | quote: Założenie konta jest całkowicie darmowe
+- sources:
+  - [1] https://rapids.pl/
+
+## SnelNL
+
+- `debrid/snelnl` | trial-only | evidence documented | binding per-ip-shaping | category usenet provider (Dutch, speed-tiered unlimited plans) | tier Slow
+- identity a placeholder: card and phone unknown | verified 2026-11-03T15:25:56.571Z (live) | stale on 2026-12-04
+- url https://www.snelnl.com/ | page https://fshy.ajam.dev/p/snelnl.md
+- free tier: Free trial of 3 days/10 GB on each plan (Slow, Basic, Fast); no ongoing free tier. | unit: mixed | metered on: none | read on: 2026-11-03 | source: [1] | note: Trial is 3 days/10 GB; which of the two limits ends it first, and the fields the trial order form asks for, are unverified: behind a sign-up. The unit is mixed because the trial is bounded in days and in GB.
+- per-object cap: source: [1]
+- retention: unverified: the vendor page read does not state retention; a third-party index says over 1,100 days | source: [1]
+- egress: Unlimited downloads on all three plans; tiered by speed 5, 60 and 1000 Mbit | metered: no | free allowance: unlimited | source: [1]
+- identity: card | detail: unverified: the order form was not opened, so the fields it asks for are behind a sign-up; a third-party index lists card, PayPal, iDEAL and Paysafe.
+- interface: nntp
+- limits:
+  - per-ip-shaping (binding): 5 Mbit, 60 Mbit and 1000 Mbit download speed by plan [1]
+- limits note: Starting at EUR 3.95 a month (Slow), EUR 6.95 (Basic) and EUR 8.95 (Fast), per the vendor page and a third-party index.
+- binding note: No volume cap; the speed tier bounds a month.
+- interface detail: NNTP; the vendor bundles its own downloading and streaming software
+- composes with: The Slow plan is capped at 5 Mbit; Basic and Fast raise the cap, all at unlimited volume.
+- reliability: Backbone and retention are not stated on the vendor page read.
+- notes: Verdict is trial-only: the vendor offers a 3 days/10 GB free trial on each plan and no ongoing free tier.
+- evidence note: Prices and speeds are from the vendor products page read on 2026-11-03.
+- evidence:
+  - [1] 2026-11-03: the cheapest plan starts at EUR 3.95 a month | capture: sha256:2906f125970e8a6ea2c640f8e1e7572993b57879f07317e38bcb29b0606fd2c3 | quote: - Starting at € 3,95 p/month
+  - [1] 2026-11-03: the cheapest plan is capped at 5 Mbit | capture: sha256:2906f125970e8a6ea2c640f8e1e7572993b57879f07317e38bcb29b0606fd2c3 | quote: - 5 Mbit downloadspeed
+  - [1] 2026-11-03: downloads are unlimited | capture: sha256:2906f125970e8a6ea2c640f8e1e7572993b57879f07317e38bcb29b0606fd2c3 | quote: - Unlimited Downloads
+  - [2] 2026-11-03: a third-party index states three plan prices, 1,100 days retention and a 3-day trial | capture: sha256:5f2b6ae389444f537297ae9ff1cc1c0518e7ac71afdf8c54c391002b88ae9ae7 | quote: SnelNL is a Dutch Usenet provider with three speed-tiered plans: Slow (5 Mbps, €3.95/month), Basic (60 Mbps, €6.95/month), and Fast (1,000 Mbps, €8.95/month). Over 1,100 days retention, 100,000+ newsgroups, SSL, free newsreader with streaming, 3-day trial. Credit card, PayPal, iDEAL, Paysafe.
+  - [3] 2026-11-03: the vendor's test-accounts page offers a free trial period on its subscriptions (Free test! on Slow, Basic and Fast) | capture: sha256:ccda0bb306bf506d05dc163284224895bb61ce0376582f33e828f70ab992de77 | quote: # Start your free trial period
+  - [4] 2026-11-03: the vendor's trial is 3 days or 10 GB | capture: sha256:88b3804aeef025cb40536227ab1e61b6efec49c8f1a5b8fa6e333deb1a6be12d | quote: a referred customer subscribes for a free trial period of 3 days/10 GB
+- sources:
+  - [1] https://www.snelnl.com/en/products
+  - [2] https://www.usenet.org/providers/snelnl
+  - [3] https://www.snelnl.com/en/test-accounts
+  - [4] https://www.snelnl.com/en/affiliate
+
+## Sunny Usenet
+
+- `debrid/sunny-usenet` | trial-only | evidence documented | binding none | category usenet provider (Omicron/Highwinds backbone, EU retail) | tier Sunny UNL
+- identity a placeholder: card and phone unknown | verified 2026-10-23T01:52:29.000Z (live) | stale on 2026-11-23
+- url https://www.sunnyusenet.com/en/packages/sunny-unl | page https://fshy.ajam.dev/p/sunnyusenet.md
+- price EUR 6.23 (Sunny UNL, 12-month term)
+- free tier: '1 Week' is listed as Free in the package price table, and the page says 'Every package can be tested with a one-week free trial period ... without any obligation to pay or order'. | unit: unlimited | metered on: wall-clock | read on: 2026-10-23 | source: [1]
+- per-object cap: no per-object cap is published; no per-object cap is published; the unit of retrieval is a Usenet article, approximately 750 KB by convention, so 1 TiB of monthly transfer corresponds to roughly 1.4 million article… | source: [1]
+- retention: 4100 days retention, in the package feature list | days: 4100 | source: [1]
+- egress: No data transfer limit; unlimited speed on UNL | metered: no | free allowance: unlimited | source: [1]
+- identity: card | detail: The free week is delivered through a signup product named 'SunnyUNLAnnualRecurringWithTrial', which is an annual recurring subscription with a trial attached, so a payment method is captured at signup even though the first week is free. That is inferred from the product id, not observed at checkout.
+- interface: nntp
+- limits:
+  - request-rate: 40 connections [1]
+  - per-ip-shaping: Unlimited Mbps on UNL; Sunny 20 and Sunny 60 cap at 20 and 60 Mbit [1]
+  - retention-clamped: 4100 days retention [1]
+- limits note: UNL: 1 week free, 1 month EUR 14.78, 3 months EUR 7.40/mo, 6 months EUR 7.01/mo, 12 months EUR 6.23/mo. Account sharing with family and friends is allowed. Payment methods per the vendor KB: credit cards, PayPal, SEPA Direct Debit, iDEAL, PaySafe Card and Bitcoin.
+- binding note: Unlimited volume and unlimited speed. At 1 TiB/month nothing in the vocabulary binds.
+- interface detail: NNTP over TLS on port 563. No HTTP or object API exists for the download path, which is driven through SABnzbd, NZBGet or nzbdav.
+- composes with: Stacks as a quota-free secondary on the Omicron spool where account sharing is wanted; as a primary it is the same spool as Newshosting at a higher monthly price.
+- reliability: Omicron spool. Account sharing is explicitly permitted, which is unusual and is the main reason this storefront exists next to the others.
+- notes: Bitcoin is accepted, which matters where a card is the constraint, but the trial itself still runs through the annual recurring product.
+- evidence note: Prices, retention, connections and sharing terms are on the package page read. The card requirement for the trial is inferred from the product id and the recurring billing model.
+- extras:
+  - backbone: Omicron (Highwinds Media), AS33438
+  - payment_methods: card, PayPal, SEPA, iDEAL, PaySafe Card, Bitcoin
+- evidence:
+  - [1] 2026-10-23: '1 Week Free'; EUR 14.78 1 month, EUR 6.23 12 months; 40 connections; 4100 days; 'Share your account with family and friends'
+  - [2] 2026-10-23: credit cards, PayPal, SEPA Direct Debit, iDEAL, PaySafe Card and Bitcoin
+- sources:
+  - [1] https://www.sunnyusenet.com/en/packages/sunny-unl
+  - [2] https://support.sunnyusenet.com/kb/article/930-what-payment-methods-can-i-use/
+
+## Supernews
+
+- `debrid/supernews` | trial-only | evidence documented | binding none | category Usenet provider (United States, 30 connections) - 3-day trial | tier 3-day trial
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23T02:20:22.000Z (live) | stale on 2026-11-23
+- url https://www.supernews.com/newsgroup/ | page https://fshy.ajam.dev/p/supernews.md
+- free tier: "Try Our 3 Day Trial" on the newsgroup page, whose title reads "3 Day Free Trial, Sign up today!". The same page advertises "50% off your first month of Supernews - that's just $5.99 to get started", against a regular "$11.99/MO" on the home page. | unit: unlimited | metered on: wall-clock | read on: 2026-10-23 | source: [1] | note: The trial is 3 days with no byte counter: "We do not limit how much Usenet you can access. Unlimited means Unlimited."
+- per-object cap: No per-object cap is published. The unit of retrieval is a Usenet article, roughly 750 KB by convention. | source: [1]
+- retention: "5+ years Binary and 13+ years text" in the page description; the body says "5+ years Binary and 13+ years text retention". | days: 1825 | source: [1] | note: The 5+ years figure is binary retention; the vendor gives no exact day count on the pages read.
+- egress: No traffic meter is published: unlimited access and unlimited speed during the trial, 30 SSL connections. The only published charge is the $5.99 first month that follows the trial. | metered: no | free allowance: 3 days, unlimited volume, at line speed | source: [1]
+- identity: card | detail: The signup page at /signup/ renders the validation text of a card form: "Please provide valid card number", "Please provide valid card expiration", "Please provide valid card cvv", plus name, address, city, state and ZIP, and the footer says "Payments by GoCardless". A payment method is therefore captured before the trial starts.
+- interface: unknown
+- limits:
+  - per-ip-shaping: unlimited speed, capped only by the line; 30 SSL connections [1]
+  - retention-clamped: 5+ years binary, 13+ years text [1]
+- binding note: During the three days nothing in the vocabulary fails: there is no byte counter and no speed throttle. After the trial the $11.99/month plan is still unlimited, so the binding constraint at 1 TiB/month is the local line, not the provider.
+- interface detail: NNTP over SSL (30 connections). The schema has no nntp token, so the array says unknown.
+- tooling: any NNTP client; the vendor ships no downloader
+- composes with: Three days at line speed is the largest single burst available behind a card: on a 100 Mbps line it is 3.24 TB, which is three times the monthly target, so one trial could cover a month if the line is fast and the card exists.
+- reliability: The trial converts to $11.99/month unless cancelled; no suspension or throttle report was read.
+- notes: Repeatability: no vendor sentence on trial repetition was found; /terms/ answered 404. The card gate plus GoCardless makes a second signup a second payment relationship in practice, which is stated as the mechanism and not as a vendor rule. Abandonment: if the newsgroup page stops advertising the 3-day trial, the record becomes paid-only.
+- evidence note: Trial length and the unlimited terms are quoted from the vendor's own page today; the card gate is quoted from the vendor's signup form validation strings. No trial was executed.
+- extras:
+  - repeatable: unstated
+  - repeat_basis: no sentence located; card gate only
+  - volume_3d_at_line_speed.100 Mbps: 3.24 TB
+  - volume_3d_at_line_speed.50 Mbps: 1.62 TB
+  - volume_3d_at_line_speed.20 Mbps: 648 GB
+- evidence:
+  - [1] 2026-10-23: Page title "3 Day Free Trial, Sign up today!"; body "Try Our 3 Day Trial"; "We do not limit how much Usenet you can access. Unlimited means Unlimited."
+  - [2] 2026-10-23: "Please provide valid card number", "Please provide valid card expiration", "Please provide valid card cvv" and "Payments by GoCardless" - a card is required at signup
+  - [3] 2026-10-23: Regular price "$11.99/MO", "Unlimited Speed & Access", "30 SSL Connections"
+- sources:
+  - [1] https://www.supernews.com/newsgroup/
+  - [2] https://www.supernews.com/signup/?account=SUPER-UNL-SSL-B
+  - [3] https://www.supernews.com/
+
+## TopSeedBox
+
+- `debrid/topseedbox-1tb` | trial-only | evidence documented | binding none | category shared seedbox (private-tracker style, rTorrent) | tier 1 TB
+- needs card no, phone unknown, ID no, institution no | verified 2026-11-03T07:37:15.242Z (live) | stale on 2026-12-04
+- url https://www.topseedbox.com/ | page https://fshy.ajam.dev/p/topseedbox.md
+- free tier: A free seedbox trial account for 1 to 3 days is offered, but the request form answers 'Out of stock' today; the entry paid plan is 1 TB at EUR 10.95 per month. | unit: mixed | metered on: wall-clock | read on: 2026-11-03 | source: [1] | note: The true unit is days (a 1 to 3 day trial); the vocabulary has no days term. The trial request form asks for an email address, a username and a password, and refuses VPN, proxy and Tor requests.
+- per-object cap: not applicable: sold by total disk (930 GB on the 1 TB plan); no single-file cap is published | source: [2]
+- retention: for the life of the subscription; no inactivity deletion is stated | source: [2]
+- egress: 'Unmetered' up/down traffic on a 1Gbps interface; the FAQ says 'No, we do not limit upload and download traffic.' | metered: no | free allowance: unmetered in both directions | source: [2]
+- identity: email | detail: The trial form asks for an email address, a username and a password. Payment is by PayPal or Bitcoin. Phone and document requirements are not stated on the pages read. | country: None
+- interface: ftp
+- limits:
+  - per-ip-shaping: 1 Gbps interface, unmetered traffic; public trackers not allowed [2]
+- limits note: Plans run 1 TB EUR 10.95 to 8 TB EUR 44.95 a month with 930 GB to 7,440 GB of disk. Public trackers are not allowed.
+- binding note: No quota or object cap is published; the trial is out of stock and the paid disk is the planning number.
+- interface detail: Torrent, FTP and HTTP file manager on every plan; ruTorrent web client.
+- tooling: FTP client, HTTP file manager and ruTorrent; no API or CLI is documented
+- composes with: A EUR 10.95 1 TB unmetered seedbox with an FTP pull path; public trackers are not allowed
+- reliability: The free trial request form shows 'Out of stock', so the trial is not obtainable today; the unmetered claim carries no fair-use numbers.
+- notes: A 7-day money-back guarantee is stated on the FAQ page.
+- evidence note: Plans, prices, trial and payment are on the vendor pages read on 2026-11-03. A measured rung needs a slot and a timed transfer.
+- extras:
+  - port_gbps: 1
+  - minimum_term: monthly
+  - trial_card_required: no card field on the trial form; trial out of stock
+  - trial_restock: out of stock on 2026-11-03
+- evidence:
+  - [2] 2026-11-03: monthly prices run from EUR 10.95 (1 TB) to EUR 44.95 (8 TB) | capture: sha256:e22f6a2285991dace48a3d4bdcd16f4889d00251660b9ed0a7d5e0f2c611629e | quote: | Monthly | €10. 95 /month | €15. 95 /month | €19. 85 /month | €25. 50 /month | €29. 95 /month | €34. 50 /month | €39. 85 /month | €44. 95 /month |
+  - [2] 2026-11-03: the 1 TB plan holds 930 GB of disk | capture: sha256:e22f6a2285991dace48a3d4bdcd16f4889d00251660b9ed0a7d5e0f2c611629e | quote: | Disk Space | 930 GB | 1,860 GB | 2,790 GB | 3,720 GB | 4,650 GB | 5,580 GB | 6,510 GB | 7,440 GB |
+  - [2] 2026-11-03: traffic is unmetered on every plan | capture: sha256:e22f6a2285991dace48a3d4bdcd16f4889d00251660b9ed0a7d5e0f2c611629e | quote: | Up/Down Traffic | Unmetered | Unmetered | Unmetered | Unmetered | Unmetered | Unmetered | Unmetered | Unmetered |
+  - [1] 2026-11-03: a 1 to 3 day free trial account is offered | capture: sha256:a22da757b92c85b1727c7db361aa32d85a6b6cb79f18ca98bdcdc7e565a748ff | quote: Yes, we do offer free seedbox trial account for 1 - 3 days.
+  - [1] 2026-11-03: payment is by PayPal or Bitcoin | capture: sha256:a22da757b92c85b1727c7db361aa32d85a6b6cb79f18ca98bdcdc7e565a748ff | quote: We accept Paypal and BitCoin.
+  - [1] 2026-11-03: public trackers are not allowed | capture: sha256:a22da757b92c85b1727c7db361aa32d85a6b6cb79f18ca98bdcdc7e565a748ff | quote: No, We don't allow public tracker.
+  - [3] 2026-11-03: the trial request form shows out of stock | capture: sha256:d21b768e28f1c5466633f3d9010041dc01fb0ac9b86d4b1a32414346c9de798e | quote: Out of stock
+  - [3] 2026-11-03: the trial form asks for an email address, username and password | capture: sha256:d21b768e28f1c5466633f3d9010041dc01fb0ac9b86d4b1a32414346c9de798e | quote: Email address Username Password Confirm Password Submit trial request
+- sources:
+  - [1] https://www.topseedbox.com/faq
+  - [2] https://www.topseedbox.com/pricing
+  - [3] https://www.topseedbox.com/trial_request
+
+## UsenetBucket
+
+- `debrid/usenetbucket` | trial-only | evidence documented | binding per-ip-shaping | category Usenet provider (Netherlands, Scandinavia-focused) - €1 trial | tier Ultimate Bucket trial
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23T02:20:22.000Z (live) | stale on 2026-11-23
+- url https://usenetbucket.com/ | page https://fshy.ajam.dev/p/usenetbucket.md
+- free tier: "Curious? Try our Ultimate Bucket for just €1" and "Try our Ultimate Bucket for just €1! 2 days - 400 Mbit* - 25 connections - Unlimited traffic - SSL-support - 1600 days retention". The page's meta description still advertises "Try us 7 days for free, no strings attached!" | unit: hours | metered on: wall-clock | read on: 2026-10-23 | source: [1] | note: The meta description and the rendered page disagree: 7 days free in the HTML head, 2 days for €1 in the body. The record keeps the rendered offer, which is the one a buyer sees, and treats the meta sentence as stale SEO. Neither is a free trial: €1 is a payment.
+- per-object cap: No per-object cap is published. The unit of retrieval is a Usenet article, roughly 750 KB by convention. | source: [1]
+- retention: "1600 days retention" on every Bucket row and in the trial line. | days: 1600 | source: [1]
+- egress: "Unlimited traffic" on all four buckets; no overage price is published. | metered: no | free allowance: 2 days at 400 Mbit with 25 connections, for €1 | source: [1]
+- identity: card | detail: The €1 trial is bought: the page says "Secure Payments - All payments are safely processed by certified payment providers", and there is no zero-price path on the site. The exact instrument was not read at checkout.
+- interface: unknown
+- limits:
+  - per-ip-shaping (binding): 15 Mbit on Basic, 60 Mbit on Comfort, 400 Mbit on Ultimate [1]
+  - retention-clamped: 1600 days [1]
+- binding note: The €1 trial is two days with unlimited traffic, so the only cap is 400 Mbit over 48 h: 50 MB/s x 172,800 s = 8.64 TB. The paid 30-day Basic bucket at 15 Mbit is the step that binds at 1 TiB/month (about 4.9 TB/month ceiling).
+- interface detail: NNTP over SSL. The schema has no nntp token, so the array says unknown.
+- tooling: any NNTP client
+- composes with: Two days at 400 Mbit is about 8.6 TB of theoretical ceiling for €1 - the cheapest byte in published records - but it is a purchase, so it belongs behind the payment line, not in the free ladder.
+- reliability: Prices are per 30 days, not per calendar month; nothing about suspension was read.
+- notes: Repeatability: no vendor sentence exists. A €1 purchase is repeatable only by paying again, so there is nothing to repeat for free. Abandonment: if the €1 line is removed the record becomes paid-only.
+- evidence note: The rendered €1 / 2-day offer and the 400 Mbit / 25-connection terms are quoted from the vendor page today. The conflict with the site's own meta description is recorded rather than resolved.
+- extras:
+  - repeatable: not-applicable
+  - repeat_basis: paid trial
+  - meta_conflict: meta description: 'Try us 7 days for free, no strings attached!' vs body: '2 days ... for just €1'
+- evidence:
+  - [1] 2026-10-23: "Try our Ultimate Bucket for just €1", "2 days - 400 Mbit* - 25 connections - Unlimited traffic", "1600 days retention", and the Basic/Comfort/Ultimate price rows at €2.95 / €4.95 / €12.95 per 30 days
+  - [2] 2026-10-23: The order page repeats the same €1 line and "All payments are safely processed by certified payment providers"; no 7-day free offer appears in the body
+- sources:
+  - [1] https://usenetbucket.com/
+  - [2] https://usenetbucket.com/order
+
+## USENEXT
+
+- `debrid/usenext` | trial-only | evidence documented | binding volume-quota | category Usenet provider (Aviteo GmbH, Germany) - trial offer | tier 14-day trial
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23T02:20:22.000Z (live) | stale on 2026-11-23
+- url https://www.usenext.com/en-US/anmelden/default | page https://fshy.ajam.dev/p/usenext.md
+- free tier: "You can try out Usenet risk-free for 14 days with free data volume." The trial page prices the Rookie+ package at "0 € During the trial with free download volume" and "30 GB Monthly highspeed data volume", then "7.95 € per month" after the trial. | unit: GB | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1] | note: The trial page prints no separate byte figure for the trial; 30 GB is the Rookie+ package volume the trial runs on. Whether the trial carries exactly that volume is inferred from the page layout, not from a second sentence.
+- per-object cap: No per-object cap is published. The unit of retrieval is a Usenet article, roughly 750 KB by convention, so 30 GB is about 40,000 article fetches. | source: [1]
+- retention: "More than 18 years retention of data (6,600+ days)" in the package feature list on the home page. | days: 6600 | source: [2]
+- egress: No separate traffic price is published; the trial is metered by downloaded volume and the plan list prices volume per month after it. The provider does not state an overage rate for the trial. | metered: yes | free allowance: 30 GB during a 14-day trial | source: [1]
+- identity: card | detail: The provider §1.1b lists "Entering payment information and billing address" as a registration step. §6.1c says the payment provider may "reserve or deduct and reimburse a small amount of money (less than $5.00 US) from the credit card or PayPal account or iDeal account" to verify the customer. A payment instrument is captured before the trial starts.
+- interface: unknown
+- limits:
+  - volume-quota (binding): 30 GB during the 14-day trial; 30 GB/month on Rookie+ afterwards [1]
+  - write-gated: registration requires "Entering payment information and billing address" [3]
+- binding note: At 1 TiB per month target the 30 GB trial counter is exhausted in roughly 1% of a month, so the byte counter binds long before speed or retention. No speed figure is published for the trial.
+- interface detail: NNTP over SSL. The vendor publishes no API. The schema has no nntp token, so the array says unknown; the protocol is not in doubt.
+- tooling: any NNTP client (SABnzbd, NZBGet, nzbget CLI); the package bundles a VPN, not a downloader
+- composes with: A one-off 30 GB that must be spent inside 14 days on the largest remaining object, then cancelled before the monthly plan starts; it does not compose into a repeating month.
+- reliability: The trial converts to a paid monthly plan at 7.95 € unless cancelled inside the 14 days; §6.4c stores the registration IP and §6.1d allows immediate blocking where payment data is judged false.
+- notes: A second address does not defeat this, because the gate is the payment instrument plus the stored registration IP rather than the network address. Abandonment: if the trial stops being priced at 0 € for a full 14 days, the record becomes paid-only.
+- evidence note: Trial length, volume and the payment gate are each quoted from a vendor page read. A signup completed to the payment step would raise the volume attribution from inferred to measured; it was not executed.
+- extras:
+  - repeatable: no
+  - repeat_basis: documented
+  - repeat_quote: The customer may take advantage of the free trial period only once unless the Provider expressly grants the customer an additional free trial period.
+- evidence:
+  - [2] 2026-10-23: "Get your 14 day trial with extra security" and "You can try out Usenet risk-free for 14 days with free data volume. During this time, you can cancel at any moment without any hassle."
+  - [1] 2026-10-23: "USENEXT Rookie+ 30 GB", "0 € During the trial with free download volume", "7.95 € per month" after it, and FAQ "You will only be charged after the trial phase has elapsed, using the payment method you have specified."
+  - [3] 2026-10-23: §4.2a "The customer may take advantage of the free trial period only once unless the Provider expressly grants the customer an additional free trial period"; §1.1b payment information at registration; §6.1c the sub-$5 card hold; §6.4c the stored registration IP
+- sources:
+  - [1] https://www.usenext.com/en-US/anmelden/default
+  - [2] https://www.usenext.com/en-US
+  - [3] https://www.usenext.com/en-US/agb

@@ -1,0 +1,300 @@
+# Codeberg
+
+> codeberg.org | CI runners, Compute, Storage; 8 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/codeberg/ | JSON https://fshy.ajam.dev/api/v1/entity/codeberg.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Codeberg CI (hosted Woodpecker)
+
+- `ci-cd-runners/codeberg-ci` | qualifies-with-caveat | evidence documented | binding write-gated | category CI runner
+- needs card no, phone no, ID no, institution no | verified 2026-11-06T19:14:28.504Z (live) | stale on 2026-12-07
+- url https://docs.codeberg.org/ci/
+- free tier: free for public repositories under a free licence, after a manual access request; linux/amd64 only | unit: unlimited | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: unverified: the Codeberg CI page states no per-job wall clock | source: [1]
+- retention: the CI is provided as-is and may break for an undefined period | source: [1]
+- egress: no charge published | metered: no | source: [1]
+- identity: email | detail: a Codeberg account plus a reviewed access request
+- interface: git, cli
+- limits:
+  - write-gated (binding): onboarding requires a request form reviewed by a Codeberg volunteer [1]
+  - per-object-cap: linux/amd64 is the sole build target; there is no Docker daemon in the hosted runners [1]
+- limits note: the Woodpecker software kills a pipeline at 60 minutes by default and caps the repo setting at 120 minutes by default
+- interface detail: a .woodpecker.yml pipeline against ci.codeberg.org; self-hosted agents can be attached
+- tooling: the Woodpecker pipeline images; no Docker daemon inside the hosted runners
+- composes with: a free control plane on a non-commercial forge, which pairs with a self-hosted agent for long-running or resource-intensive jobs
+- reliability: 'CI access is provided as-is and might break at any time and for an undefined period'
+- notes: The gate is a volunteer and the availability is explicitly not promised; the page publishes no per-job wall clock.
+- evidence note: the Codeberg CI page was read and states the manual onboarding and the amd64-only limit.
+- evidence:
+  - [1] 2026-10-22: 'Onboarding requires a few manual steps ... a Codeberg volunteer will review your request'; 'linux/amd64 is the sole build target'; CI is provided as-is and may break at any time
+  - [1] 2026-11-04: onboarding is a manual request reviewed by a volunteer | capture: sha256:8e71091b439845f5ae6219fac0135e684a18827efc36f77fc73a37b308360d13 | quote: a Codeberg volunteer will review your request and grant you access if your use case is appropriate.
+  - [1] 2026-11-04: amd64 is the only build target | capture: sha256:8e71091b439845f5ae6219fac0135e684a18827efc36f77fc73a37b308360d13 | quote: `linux/amd64` is the sole build target on the Woodpecker CI deployment.
+  - [1] 2026-11-04: the service carries no availability promise | capture: sha256:8e71091b439845f5ae6219fac0135e684a18827efc36f77fc73a37b308360d13 | quote: CI access is provided as-is and might break at any time
+  - probe:https://docs.codeberg.org/ci/ 2026-11-04: the CI page answered HTTP 200 on 2026-11-04 | capture: sha256:d07a3111c5e0485900964a9ed47bf6430b465a9def1ae7bfb7ef43c6410b2963 | quote: "status": 200
+  - [1] 2026-11-06: the page limits resource use by a reasonable-use rule, not a per-job number | capture: sha256:8e71091b439845f5ae6219fac0135e684a18827efc36f77fc73a37b308360d13 | quote: Resource usage must be reasonable for the intended use-case.
+  - [2] 2026-11-06: a pipeline is killed at 60 minutes by default and the repo setting is capped at 120 minutes by default | capture: sha256:e5756a4fdfb6832c692b7bfbc58562fd98196178cee63121f2f042c8c4f5a6d5 | quote: - Default: 60 ... The default time for a repo in minutes before a pipeline gets killed ... - Default: 120 ... The maximum time in minutes you can set in the repo settings before a pipeline gets killed
+  - [3] 2026-11-06: a self-hosted agent is recommended for long-running or resource-intensive jobs | capture: sha256:92475eec5eff9b9c011a6189d761581047da0110d3b33824ca490b2ec5690c34 | quote: when you want faster feedback from CI, to handle long-running or resource-intensive jobs
+- sources:
+  - [1] https://docs.codeberg.org/ci/
+  - [2] https://woodpecker-ci.org/docs/administration/configuration/server
+  - [3] https://docs.codeberg.org/ci/agents
+
+## Codeberg Forgejo Actions
+
+- `compute/codeberg-forgejo-actions` | qualifies-with-caveat | evidence documented | binding per-object-cap | category CI runner | tier Codeberg hosted Forgejo Actions, open alpha, fair use
+- needs card no, phone no, ID no, institution no | verified 2026-10-30T12:41:24.479Z (live) | stale on 2026-11-30
+- url https://codeberg.org/actions/meta
+- duplicate of `ci-cd-runners/codeberg-forgejo-actions`
+- free tier: 'The following runners are available on Codeberg. The specs are guidelines for how many resources builds are allowed to take at most, but we rely on "fair use".' The table is codeberg-tiny 1 CPU / 2G / 2 min, codeberg-small 2 CPU / 4G / 5 min, codeberg-medium 4 CPU / 8G / 10 min, all amd64. No monthly quota is published: the constraint is a per-job runtime ceiling of 10 minutes on the largest runner, plus a fair-use clause. Quoted: 'Currently, we put strict resource and time constraints on hosted Forgejo Actions runs, because we do not have an approval workflow like in our hosted Woodpecker CI/CD.' | unit: none | metered on: wall-clock | read on: 2026-10-24 | source: [1] | note: there is no published monthly allowance; the unit of consumption is a job, capped at 10 minutes on the best runner
+- per-object cap: not applicable | note: the ceiling that matters is the per-job runtime, in limits
+- retention: not stated on the page read: no sentence says how long a runner survives after a job or whether the container is reused. The page grants '2 GB of additional storage for temporary files per container', which implies a per-job container. | days: 0 | source: [1] | note: 0 is an inference from the per-container temp storage grant, not a quoted sentence; the page does not say
+- egress: not stated | metered: no | source: [1]
+- identity: email | detail: 'fill in your username and email address and then choose a good password' and 'After confirming your email address by clicking the link in the email we sent you, you're done and go to go.' No card, no hold, no phone and no identity document. Forgejo Actions needs no approval step, unlike Woodpecker: 'we do not have an approval workflow like in our hosted Woodpecker CI/CD'.
+- interface: unknown
+- limits:
+  - per-object-cap (binding): 10 minutes of wall clock on codeberg-medium, the largest runner, which is 4 CPU and 8G. codeberg-small is 5 minutes and codeberg-tiny is 2 minutes. Quoted: 'The specs are guidelines for how many resources builds are allowed to take at most, but we rely on "fair use".' [1]
+  - per-object-cap (binding): The RAM allocation counts filesystem writes against it: 'If your software uses 1 GB of RAM and wrote 1 GB of temporary files, it will be counted as 2 GB against the quota.' 2 GB of extra temp storage per container is granted. [1]
+  - write-gated:  [1]
+  - request-rate: The queue is shared and its fairness is enforced socially, not by a number: 'Don't jam the queue so other projects can also benefit from our offer.' [1]
+  - retention-clamped: A '-lazy' variant of each runner trades latency for scheduling: 'We aim for completing the job within 24 hours' [1]
+- limits note: The 10-minute per-job ceiling on codeberg-medium binds first and it binds absolutely: no amount of queue patience makes a 30-minute job run. There is no published monthly allowance, so the ceiling is per job and the aggregate is fair use, which is a discretionary throttle rather than a quota.
+- binding note: the 10-minute wall clock on the largest runner fails first and it fails hard: 4 vCPU for 10 minutes is 0.67 vCPU-hours per job, so a job that needs more than ten minutes cannot run at all however idle the queue is.
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: Useful only as a lint-and-check lane beside a real build host: ten minutes of 4 vCPU is enough to run a formatter, a type check or a small unit suite, and the repository hosting is free beside it.
+- reliability: Codeberg's own documentation says of the CI service: 'CI access is provided as-is and might break at any time and for an undefined period of time, due to server issues, for testing and maintenance purposes or human error.' Hosted Forgejo Actions is described as 'open alpha'.
+- notes: The smallest compute ceiling in this class, and the record is worth keeping precisely because it is small: 0.67 vCPU-hours per job against GitHub's 24 vCPU-hours, a factor of 36. Two things make it worse than the arithmetic suggests. First, there is no published monthly allowance, so the aggregate is 'fair use', which is a discretionary throttle with no threshold to design against. Second, Codeberg's rules name the exact use comparative records exists to serve: 'No extensive pipelines to assist LLM-driven workflows'. That is a published-conditions question and it is vendor to judge, not this record's; what the record does is state the sentence. Not established: the egress term; whether the container is destroyed at job end (the 2 GB per-container temp storage grant implies it, but no sentence says so); and whether a job queued on a lazy runner counts against any aggregate at all, because no aggregate is published.
+- evidence note: the 'open alpha' description is quoted from docs.codeberg.org/ci read.
+- extras:
+  - facets.class: ci-runner-capacity
+  - facets.free_tier_kind: fair-use-hosted
+  - facets.shape.vcpu: 4
+  - facets.shape.ram_gib: 8
+  - facets.shape.gpu_count: 0
+  - shape.vcpu: 4
+  - shape.ram_gib: 8
+  - shape.note: codeberg-medium, the largest published runner: '4 | 8G | 10 min'. Disk is not published; the page grants '2 GB of additional storage for temporary files per container' and warns that filesystem writes count against the RAM allocation.
+  - billing_model: free
+  - term: none
+  - price_arithmetic: USD 0.00, and no arithmetic is possible: there is no published monthly allowance. One job on codeberg-medium is 4 vCPU x 10 min = 0.67 vCPU-hours. The aggregate depends on how many jobs the fair-use policy tolerates, which is not a number and so cannot be multiplied.
+  - free_tier_kind: fair-use-hosted
+  - session_cap.wall_clock_min: 10
+  - session_cap.restart_required: yes
+  - session_cap.note: 10 minutes on codeberg-medium, 5 on small, 2 on tiny. A lazy variant may wait up to 24 hours for a slot. No monthly quota published.
+  - concurrency.note: not published: no concurrent-job number appears on the page read. The queue is shared and governed by 'Don't jam the queue'.
+  - keep_rate.value: 0.0
+  - keep_rate.basis: the container is per job; nothing is billed
+  - keep_rate.source: https://codeberg.org/actions/meta
+  - persistent_storage.included_gib: 2
+  - persistent_storage.price_gib_month: not applicable: 2 GB of temp storage per container, not a durable volume
+  - persistent_storage.durability: none stated; per container
+  - persistent_storage.survives_stop: no
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: the job
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: no
+  - network_out.ports: none stated: no page read offers an inbound address
+  - network_out.static_ip: no
+  - units: RAM is the vendor's own unit, written '8G'. Kept as 8.
+  - checked.verified: the three runner shapes and their 2/5/10-minute ceilings; the fair-use clause with no monthly number; public and free-licence repository required; email-only signup with no card and no approval step for Forgejo Actions; the 'open alpha' status
+- evidence:
+  - [1] 2026-10-22: the runner table: codeberg-tiny 1 CPU 2G 2 min, codeberg-small 2 CPU 4G 5 min, codeberg-medium 4 CPU 8G 10 min; the RAM-includes-filesystem warning with 2 GB extra temp storage; the lazy variants aiming at 24-hour completion; rules requiring a public repository under a free licence and 'No extensive pipelines to assist LLM-driven workflows'
+  - [2] 2026-10-22: Woodpecker onboarding requires a request form reviewed by a Codeberg volunteer; 'linux/amd64 is the sole build target'; 'CI access is provided as-is and might break at any time'
+  - [3] 2026-10-22: access is granted per account rather than per project; the Rust note asks projects to cap parallelism with -j4 because the compiler otherwise takes every CPU
+  - [1] 2026-10-24: quoted: 'The following runners are available on Codeberg. The specs are guidelines for how many resources builds are allowed to take at most, but we rely on "fair use".' with the table rows 'codeberg-tiny | amd64 | 1 | 2G | 2 min', 'codeberg-small | amd64 | 2 | 4G | 5 min', 'codeberg-medium | amd64 | 4 | 8G | 10 min'
+  - [1] 2026-10-24: quoted: 'Currently, we put strict resource and time constraints on hosted Forgejo Actions runs, because we do not have an approval workflow like in our hosted Woodpecker CI/CD.'
+  - [1] 2026-10-24: quoted: 'The RAM allocation includes writes to the filesystem. If your software uses 1 GB of RAM and wrote 1 GB of temporary files, it will be counted as 2 GB against the quota.' and 'we grant you 2 GB of additional storage for temporary files per container.'
+  - [1] 2026-10-24: 
+  - [1] 2026-10-24: quoted: 'For each runner variant, we offer a "lazy" runner.' and 'We aim for completing the job within 24 hours, and we are considering experiments like offsite runners which only run when solar energy is available.'
+  - [1] 2026-10-24: quoted: 'Codeberg's runner uses the `ghcr.io/catthehacker/ubuntu:act-latest` by default to provide a certain compatibility level with GitHub Actions.' and 'running the Docker daemon inside those runners is not officially supported'
+  - [2] 2026-10-24: quoted: 'Forgejo Actions can be used with self-hosted runners and Codeberg also provides a hosted version in a limited fashion in open alpha.' and 'CI access is provided as-is and might break at any time and for an undefined period of time'
+  - [4] 2026-10-24: quoted: 'simply fill in your username and email address and then choose a good password' and 'After confirming your email address by clicking the link in the email we sent you, you're done and good to go!'
+  - [1] 2026-10-30: the runner specs are guidelines under fair use, as the record quotes | capture: sha256:49dba4d43c02e96b03fab66e7f3bcf016fc217356f90c72228b4e9ff161dac7d | quote: The specs are guidelines for how many resources builds are allowed to take at most, but we rely on "fair use".
+- sources:
+  - [1] https://codeberg.org/actions/meta
+  - [2] https://docs.codeberg.org/ci/
+  - [3] https://codeberg.org/Codeberg-e.V./requests
+  - [4] https://docs.codeberg.org/getting-started/first-steps/
+
+## Codeberg Forgejo Actions (hosted runners)
+
+- `ci-cd-runners/codeberg-forgejo-actions` | qualifies-with-caveat | evidence documented | binding per-object-cap | category CI runner
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:00:42.534Z (live) | stale on 2026-12-05
+- url https://codeberg.org/actions/meta
+- free tier: three hosted runner labels on a free Codeberg account, in open alpha: tiny, small and medium. No job-count cap and no monthly minute meter is published; the only published ceiling is the per-job runtime of 2, 5 or 10 minutes | unit: minutes | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: codeberg-tiny 1 CPU / 2 GB / 2 min; codeberg-small 2 CPU / 4 GB / 5 min; codeberg-medium 4 CPU / 8 GB / 10 min | source: [1] | note: the RAM allocation includes writes to the filesystem, with 2 GB of extra temporary storage per container
+- retention: no artifact retention is published; the service is in open alpha | source: [1]
+- egress: no charge published | metered: no | source: [1]
+- identity: email | detail: a Codeberg account: a username, an email address and a password, confirmed through a link sent to the email; no card or phone step is stated
+- interface: git, cli
+- limits:
+  - per-object-cap (binding): 2 minutes per job on tiny, 5 on small, 10 on medium [1]
+  - per-object-cap (binding): 1, 2 and 4 CPUs, with 2, 4 and 8 GB of RAM, and the RAM includes filesystem writes [1]
+  - request-rate: lazy variants exist and may wait up to 24 hours for a slot [1]
+  - write-gated: the project must be public and under a free licence [1]
+- interface detail: a GitHub-Actions-compatible workflow with runs-on set to a codeberg label; the default image is ghcr.io/catthehacker/ubuntu:act-latest
+- tooling: the act-compatible image; podman for image builds; no Docker daemon
+- composes with: a GitHub-Actions-compatible workflow on a free runner for jobs that finish in ten minutes, which is the only free path to Actions syntax without a GitHub repository
+- reliability: open alpha: the runner sizes are guidelines enforced by fair use rather than hard quotas, and the CI page states the service 'might break at any time and for an undefined period of time'
+- notes: Ten minutes on four CPUs is 40 CPU-minutes per job. No job count and no monthly meter is published; the runner specs are guidelines under fair use and the page asks projects not to jam the shared queue, so the aggregate is discretionary rather than unlimited.
+- evidence note: the runner table was read on 2026-10-22 from Codeberg's own meta repository. The CPUs are one, two and four cores, each paired with 2, 4 and 8 GB of RAM. A figure of 2, 4 and 8 cores is the RAM column read as a CPU count.
+- evidence:
+  - [1] 2026-10-22: 'codeberg-tiny amd64 1 2G 2 min'; 'codeberg-small amd64 2 4G 5 min'; 'codeberg-medium amd64 4 8G 10 min'; 'The RAM allocation includes writes to the filesystem ... we grant you 2 GB of additional storage for temporary files per container'; the lazy variants may take up to 24 hours
+  - [2] 2026-10-22: Forgejo Actions is available with self-hosted runners and a hosted version in limited fashion in open alpha
+  - [1] 2026-10-30: hosted Forgejo Actions runs only for public projects under a free licence | capture: sha256:49dba4d43c02e96b03fab66e7f3bcf016fc217356f90c72228b4e9ff161dac7d
+  - [3] 2026-10-30: Codeberg signup asks for a username, an email and a password | capture: sha256:fdf7bf562dcea2049610217a6878ada22bbadf499862e18b9a086abff6779051 | quote: Then, simply fill in your username and email address and then choose a good password.
+  - [1] 2026-10-30: the runner specs are maxima under fair use, not a metered allowance | capture: sha256:49dba4d43c02e96b03fab66e7f3bcf016fc217356f90c72228b4e9ff161dac7d | quote: The specs are guidelines for how many resources builds are allowed to take at most, but we rely on "fair use".
+  - [1] 2026-10-30: the runner table is unchanged: medium 4 CPU, 8G, 10 minutes | capture: sha256:49dba4d43c02e96b03fab66e7f3bcf016fc217356f90c72228b4e9ff161dac7d | quote: | codeberg-medium | amd64 | 4 | 8G | 10 min | |
+  - [1] 2026-11-04: medium is 4 CPU, 8 GB, 10 minutes | capture: sha256:49dba4d43c02e96b03fab66e7f3bcf016fc217356f90c72228b4e9ff161dac7d | quote: | codeberg-medium | amd64 | 4 | 8G | 10 min | |
+  - [1] 2026-11-04: tiny is 1 CPU, 2 GB, 2 minutes | capture: sha256:49dba4d43c02e96b03fab66e7f3bcf016fc217356f90c72228b4e9ff161dac7d | quote: | codeberg-tiny | amd64 | 1 | 2G | 2 min | Intended for very lightweight jobs like linters and other helpers |
+  - [1] 2026-11-04: small is 2 CPU, 4 GB, 5 minutes | capture: sha256:49dba4d43c02e96b03fab66e7f3bcf016fc217356f90c72228b4e9ff161dac7d | quote: | codeberg-small | amd64 | 2 | 4G | 5 min | |
+  - probe:https://codeberg.org/actions/meta 2026-11-04: the runner table page answered HTTP 200 on 2026-11-04 | capture: sha256:2c9f420b20d4fc14b40fddd9b0a03c59d6a2c1b7a01b49928e91584b7a89b141 | quote: "status": 200
+- sources:
+  - [1] https://codeberg.org/actions/meta
+  - [2] https://docs.codeberg.org/ci/actions/
+  - [3] https://docs.codeberg.org/getting-started/first-steps/
+
+## codeberg (as a storage host)
+
+- `storage/codeberg` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://docs.codeberg.org/getting-started/faq/
+- free tier: none reachable: Explicitly capacity-managed for F/LOSS code: request approval above 750 MiB Git storage and 1.5 GiB of packages/LFS/attachments, 100 MB private storage without a request. Not a bulk target… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: write-gated
+  - dead_end.why: Explicitly capacity-managed for F/LOSS code: request approval above 750 MiB Git storage and 1.5 GiB of packages/LFS/attachments, 100 MB private storage without a request. Not a bulk target…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Explicitly capacity-managed for F/LOSS code: request approval above 750 MiB Git storage and 1.5 GiB of packages/LFS/attachments, 100 MB private storage without a request. Not a bulk target…
+- sources:
+  - [1] https://docs.codeberg.org/getting-started/faq/
+
+## codeberg (forgejo flagship instance)
+
+- `storage/codeberg-2` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://blog.codeberg.org/new-storage-limits-on-codeberg-what-you-need-to-know.html
+- free tier: none reachable: Quota is ~750 MiB Git + 1.5 GiB combined LFS/packages/attachments per user, plus 100 MiB for non-promoted/private content, plus 100 MB per release/issue attachment. Enforcement began… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Quota is ~750 MiB Git + 1.5 GiB combined LFS/packages/attachments per user, plus 100 MiB for non-promoted/private content, plus 100 MB per release/issue attachment. Enforcement began…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Quota is ~750 MiB Git + 1.5 GiB combined LFS/packages/attachments per user, plus 100 MiB for non-promoted/private content, plus 100 MB per release/issue attachment. Enforcement began…
+  - [2] 2026-10-21: cited as the basis of the rejection: Quota is ~750 MiB Git + 1.5 GiB combined LFS/packages/attachments per user, plus 100 MiB for non-promoted/private content, plus 100 MB per release/issue attachment. Enforcement began 2025-05
+  - [3] 2026-10-21: cited as the basis of the rejection: Quota is ~750 MiB Git + 1.5 GiB combined LFS/packages/attachments per user, plus 100 MiB for non-promoted/private content, plus 100 MB per release/issue attachment. Enforcement began 2025-05
+- sources:
+  - [1] https://blog.codeberg.org/new-storage-limits-on-codeberg-what-you-need-to-know.html
+  - [2] https://docs.codeberg.org/getting-started/faq/
+  - [3] https://codeberg.org/Codeberg-e.V./requests/issues/2412
+
+## Codeberg (Forgejo) Git LFS
+
+- `storage/codeberg-git-lfs` | fails-quota | evidence reported | binding write-gated | category registry
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://codeberg.org
+- free tier: 750 MiB git repository storage + 'Additional 1.5 GiB' for 'LFS, Packages, Releases, Attachments' per user or organization. Non-promoted/personal content is capped at 100 MiB. Enforced since 2025-05-16. | unit: mixed | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Free, no metered bandwidth published. But Codeberg explicitly calls out CDN-style excess use as the reason for the quota, so heavy serving is the thing they police. | metered: no
+- identity: email
+- interface: git
+- limits:
+  - write-gated (binding): reviewed via a request form that Codeberg itself calls 'hardly scalable' [1]
+- limits note: Quota is per user OR per org and the total (repo + LFS) is what's checked. Exceptions are human-reviewed via a request form that Codeberg itself calls 'hardly scalable'. Anubis-style bot protection on some sibling instances.
+- interface detail: part of the free tier
+- tooling: git-lfs; Forgejo API. Codeberg Pages exists but 'Git LFS cannot be used with GitHub Pages sites' equivalent caveats apply.
+- composes with: 1.5 GiB per user/org; unlimited orgs is theoretically possible but Codeberg automates exception-granting by heuristics ('age of the user account, contributions to well-known projects, membership') which specifically blocks the several-accounts pattern. 334 accounts for 500 GB. Not practical.
+- reliability: Fresh accounts are the ones most likely to be limited. Data is not silently vanished, but quota can be applied retroactively.
+- notes: the same as the free tier
+- extras:
+  - unit_note: free_tier.unit is 'mixed' because the headline is denominated in MiB or KiB, which the schema enum does not carry; the verbatim free_tier.stated keeps the true unit.
+  - dead_end.failure_class: quota
+  - dead_end.why: 750 MiB git repository storage + 'Additional 1.5 GiB' for 'LFS, Packages, Releases, Attachments' per user or organization. Non-promoted/personal content is capped at 100 MiB. Enforced since 2025-05-16.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Git repository storage: 750 MiB / LFS, Packages, Releases, Attachments: Additional 1.5 GiB / ... should not exceed 100 MiB'; restrictions starting 'Friday May 16, 2025'
+  - [2] 2026-10-21: LFS is standard git-lfs workflow against Codeberg's server
+  - [3] 2026-10-21: probe: POST -> HTTP 200
+- sources:
+  - [1] https://blog.codeberg.org/new-storage-limits-on-codeberg-what-you-need-to-know.html
+  - [2] https://docs.codeberg.org/git/using-lfs/
+  - [3] https://codeberg.org/forgejo/forgejo.git/info/lfs/objects/batch
+
+## codeberg (forgejo) packages / container registry
+
+- `storage/codeberg-packages-container-registry` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://codeberg.org/v2/
+- free tier: none reachable: Caps are tiny and hard: 750 MiB git repo, plus 1.5 GiB combined for LFS/Packages/Releases/Attachments, and non-promoted personal repos capped at 100 MiB. Quotas enforced by Forgejo with… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Caps are tiny and hard: 750 MiB git repo, plus 1.5 GiB combined for LFS/Packages/Releases/Attachments, and non-promoted personal repos capped at 100 MiB. Quotas enforced by Forgejo with…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Caps are tiny and hard: 750 MiB git repo, plus 1.5 GiB combined for LFS/Packages/Releases/Attachments, and non-promoted personal repos capped at 100 MiB. Quotas enforced by Forgejo with…
+  - [2] 2026-10-21: cited as the basis of the rejection: Caps are tiny and hard: 750 MiB git repo, plus 1.5 GiB combined for LFS/Packages/Releases/Attachments, and non-promoted personal repos capped at 100 MiB. Quotas enforced by Forgejo with huma
+  - [3] 2026-10-21: cited as the basis of the rejection: Caps are tiny and hard: 750 MiB git repo, plus 1.5 GiB combined for LFS/Packages/Releases/Attachments, and non-promoted personal repos capped at 100 MiB. Quotas enforced by Forgejo with huma
+- sources:
+  - [1] https://codeberg.org/v2/
+  - [2] https://codeberg.org/v2/token
+  - [3] https://docs.codeberg.org/getting-started/faq/
+
+## codeberg / forgejo package registry (forgejo packages)
+
+- `storage/codeberg-forgejo-package-registry` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://blog.codeberg.org/new-storage-limits-on-codeberg-what-you-need-to-know.html
+- free tier: none reachable: Hard caps: 750 MiB git repository storage plus 1.5 GiB combined for LFS/Packages/Releases/Attachments per user or org, and non-promoted personal repos capped at 100 MiB. Exceptions require… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Hard caps: 750 MiB git repository storage plus 1.5 GiB combined for LFS/Packages/Releases/Attachments per user or org, and non-promoted personal repos capped at 100 MiB. Exceptions require…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Hard caps: 750 MiB git repository storage plus 1.5 GiB combined for LFS/Packages/Releases/Attachments per user or org, and non-promoted personal repos capped at 100 MiB. Exceptions require…
+- sources:
+  - [1] https://blog.codeberg.org/new-storage-limits-on-codeberg-what-you-need-to-know.html

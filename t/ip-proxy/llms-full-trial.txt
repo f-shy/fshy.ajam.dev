@@ -1,0 +1,305 @@
+# fshy: IP and proxies, trial
+
+> Exit addresses: proxy lists, VPN exits, address sources and what the upstream sees.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/ip-proxy/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## kookeey
+
+- `ip-proxy/kookeey-residential-and-isp` | trial-only | evidence documented | binding volume-quota | category per-GB rotating residential proxy and per-address static ISP proxy (Chinese market) | tier Dynamic residential per GB with 1 GB to 5 TB packs; static ISP per IP
+- identity a placeholder: card and phone unknown | verified 2026-11-04T00:30:31.078Z (live) | stale on 2026-12-05
+- url https://www.kookeey.com/pricing/residential-proxies | page https://fshy.ajam.dev/p/kookeey.md
+- price not applicable: sold by the GB; CNY 10 per GB at the 5 TB pack and CNY 38 per GB at the 1 GB pack
+- free tier: New dynamic-residential accounts can claim 200 MB of dynamic traffic after registration ("现新人注册还可免费领取200MB动态流量"); static products have no free test. Dynamic residential packs: 1 GB at ¥38 (30 days), 10 GB at ¥280 (180 days, ¥28/GB), 100 GB at ¥2000 (365 days, ¥20/GB), 1 TB at ¥15360 (¥15/GB), 5 TB at ¥51200 (¥10/GB). The static ISP order form priced a US Socks5 line at ¥50.00 total for an unstated term, with a 10 yuan coupon shown. | unit: MB | metered on: unstated | read on: 2026-11-03 | source: [1] | note: The currency is yuan (CNY). The static price of ¥50.00 is shown after a coupon and with the duration and quantity fields unfilled, so the per-IP rate and its term are unverified.
+- per-object cap: not applicable: an address or a traffic pack, not an object | source: [2]
+- retention: not applicable: addresses and traffic packs, not stored bytes. Dynamic packs expire after 30, 180 or 365 days (the 1 TB pack is marked 长期有效, long-term valid, and the 5 TB pack 不限时长, no time limit). | source: [2] | note: days is null because no bytes are stored.
+- egress: Dynamic residential is billed by traffic; no limit on concurrency; static products have unlimited concurrency in theory, with a bandwidth limit per line ("一条线路的带宽是有限的"). | metered: yes | free allowance: 200 MB dynamic traffic on registration | source: [2]
+- identity: email | detail: unverified: the registration form is rendered by script and could not be read (HTTP 422 from the reader). A national-ID real-name check ("实名认证") exists but is optional: the page says unverified users can still use the basic services, and verification adds free traffic and Hong Kong, Macau and Taiwan resources. Personal verification takes a valid mainland identity card; enterprise verification takes a business licence. Payment by WeChat, Alipay and UnionPay is shown.
+- interface: cli, rest
+- limits:
+  - volume-quota (binding): dynamic residential is sold as packs of 1 GB (30 days) to 5 TB (unlimited duration); ¥38 per GB at the smallest pack and ¥10 per GB at the largest [2]
+  - per-ip-shaping: static ISP lines are exclusive for the authorised period and carry a limited bandwidth per line [3]
+- binding note: The dynamic product is sold by the GB at prices from ¥10 to ¥38 per GB, so the volume price binds first; the static product is bound by one line and its bandwidth.
+- interface detail: Http/Https/Socks5 for both products, delivery protocols for static lines include Socks5, Http(s), Vmess, Shadowsocks, Wireguard and GRE; an API document is published for automated purchase and management.
+- tooling: Any client that speaks SOCKS5 or an HTTP proxy, reached from a Worker through a relay that dials SOCKS5. An API document (kookeey.com/apidoc) and a help centre exist. That is a note on tooling, not a reason to reject.
+- composes with: The upstream sees a leased or pooled address. The vendor says the static ISP lines come from carriers directly ("运营商直采资源") and that delivered IPs have a cooling period of over 6 months; no delivered address was seen, so the registration class is unverified.
+- reliability: The vendor says its static ISP lines block access from mainland-China addresses, so an offshore network is needed to use them. No throughput, ban or replacement measurement was made.
+- notes: Named on the Chinese-language forum source as an overseas dynamic residential vendor (a thread about a ¥40 per GB price); the forum is the lead and the evidence is the vendor page. The operator is named in the page footer as a company registered in Guangzhou. The page states 4700万 dynamic residential IPs; no pool size was measured.
+- evidence note: Prices, packs, the free-trial line and the optional real-name check are read from vendor pages on 2026-11-03; the sign-up form, the static term and the delivered addresses were not seen.
+- extras:
+  - rung: 6
+  - rung_note: The dynamic pool changes address; the static product is a registration-class claim at rung 5 that was not looked up.
+  - currency: CNY
+  - dynamic_pool_claim: 47 million IPs, 196 countries
+- evidence:
+  - [2] 2026-11-03: The 5 TB dynamic residential pack is ¥10 per GB with no time limit. | capture: sha256:01285ac16558a300f96934adc3a199ed54c7e64579a3a9ada85e5050e3170206 | quote: ¥10/GB 立省 73% 流量5TB 不限时长
+  - [2] 2026-11-03: The 1 GB pack is ¥38 per GB with 30 days of validity. | capture: sha256:01285ac16558a300f96934adc3a199ed54c7e64579a3a9ada85e5050e3170206 | quote: ¥38/GB 流量1GB 有效期30天
+  - [1] 2026-11-03: New registrations can claim 200 MB of free dynamic traffic. | capture: sha256:a8ff08894fd875a53c8eba4103484b84d268b0aa5bb4c4eb1c0327d29503b3c8 | quote: 现新人注册还可免费领取200MB动态流量
+  - [3] 2026-11-03: Static products carry no free test. | capture: sha256:1b34b4bd7ce49bc40013187edb59a600e1086d951d067fc1b4efc65536a48ca5 | quote: 为了防止IP滥用，kookeey的静态产品目前并不提供任何免费测试服务。
+  - [3] 2026-11-03: The vendor describes static ISP IPs as carrier-sourced residential resources. | capture: sha256:1b34b4bd7ce49bc40013187edb59a600e1086d951d067fc1b4efc65536a48ca5 | quote: 运营商直采资源，真实住宅性质判定
+  - [3] 2026-11-03: Delivered static IPs have a cooling period of more than 6 months per business scenario. | capture: sha256:1b34b4bd7ce49bc40013187edb59a600e1086d951d067fc1b4efc65536a48ca5 | quote: 不同业务场景出货IP均超过6个月的冷静期
+  - [4] 2026-11-03: Static ISP delivery protocols include Socks5, Http(s), Vmess, Shadowsocks, Wireguard and GRE. | capture: sha256:3bc0af62558fb8cdf876c64551f773d0ee563a9b8a7a4e0cc85cbdd74b6e8496 | quote: Socks5 Http(s) Vmess Shadowsocks Wireguard GRE交付
+  - [5] 2026-11-03: The real-name check is not mandatory. | capture: sha256:daffb8504597bbda8f2941008f33f4de4ccf6e53b0258c0b4b29e773d651e416 | quote: 不强制。未认证用户仍可正常使用平台的各项基础服务。
+  - [5] 2026-11-03: Personal real-name verification takes both sides of a valid identity card. | capture: sha256:daffb8504597bbda8f2941008f33f4de4ccf6e53b0258c0b4b29e773d651e416 | quote: 个人认证：上传有效身份证正反面
+  - [6] 2026-11-04: The home page headlines the dynamic residential proxy at 10 CNY per GB. | capture: sha256:85a46f56506c3818aeb434c8bc2a6e17a82e19e7e3e1d45db723b5a3b257ddcc | quote: [动态住宅代理 ￥10/GB真人住宅轮转IP池](https://www.kookeey.com/pricing/residential-proxies)
+  - [2] 2026-11-04: The pricing page's five packs run from 38 CNY per GB (1 GB, valid 30 days) down to 10 CNY per GB (5 TB, no time limit), with 28, 20 and 15 CNY per GB between. | capture: sha256:01285ac16558a300f96934adc3a199ed54c7e64579a3a9ada85e5050e3170206 | quote: ¥38/GB
+  - [2] 2026-11-04: The rotating pool is stated as 47 million IPs; the page adds 196 countries, HTTP/HTTPS/Socks5 and whitelist or username-password access. | capture: sha256:01285ac16558a300f96934adc3a199ed54c7e64579a3a9ada85e5050e3170206 | quote: 拥有4700万轮转IP池
+  - [2] 2026-11-04: A free trial is available only after registering and asking web customer service; there is no self-service free tier. | capture: sha256:01285ac16558a300f96934adc3a199ed54c7e64579a3a9ada85e5050e3170206 | quote: 注册后咨询网页客服，即可获取您的免费试用流量
+  - [7] 2026-11-04: Registration works with an email address, a phone number, a Google account or WeChat. | capture: sha256:b612388910adf03b15a755c97ae5c228cc67a451a1b4617918f25eb475af24db | quote: 1、在 kookeey 平台注册自己的账号信息，可通过邮箱/手机/Google账号/微信等方式注册。
+  - [8] 2026-11-04: Paid packs are non-refundable after purchase, with a 24-hour technical-fault exception. | capture: sha256:18e95e36f689bee1f706f076e34d512d61bb28648ae1cd8f45fa462b214baad2 | quote: 若确认购买付费版套餐或定制版服务，一经购买无法退款
+  - [4] 2026-11-04: The static ISP order form is rendered client-side and shows only a default total of 50.00 CNY; its delivery protocols are Socks5, Http(s), Vmess, Shadowsocks, Wireguard and GRE. | capture: sha256:3bc0af62558fb8cdf876c64551f773d0ee563a9b8a7a4e0cc85cbdd74b6e8496 | quote: 合计￥50.00
+  - [9] 2026-11-04: The operator is Guangzhou Zike Network Technology Co., founded in 2018. | capture: sha256:7043a61b72d5c7876e7eb0157ce0ea07179601c382cf7e59ab61da02b40ec45a | quote: 广州孜科网络科技有限公司成立于2018年
+- sources:
+  - [1] https://www.kookeey.com/products/residential-proxies
+  - [2] https://www.kookeey.com/pricing/residential-proxies
+  - [3] https://www.kookeey.com/products/isp-proxies
+  - [4] https://www.kookeey.com/pricing/isp-proxies
+  - [5] https://www.kookeey.com/verification
+  - [6] https://www.kookeey.com/
+  - [7] https://help.kookeey.com/docs/MostLogin-pei-zhi-shi-yong-jiao-cheng
+  - [8] https://www.kookeey.com/refund
+  - [9] https://www.kookeey.com/about
+
+## LycheeIP
+
+- `ip-proxy/lycheeip-residential` | trial-only | evidence reported | binding per-ip-shaping | category per-GB dynamic residential and per-IP monthly static residential proxy (Chinese market) | tier Dynamic per GB and static per IP per month
+- needs card no, phone yes, ID no, institution no | verified 2026-11-03T07:35:32.366Z (live) | stale on 2026-11-18
+- url https://www.lycheeip.com/ | page https://fshy.ajam.dev/p/lycheeip.md
+- free tier: The menu offers "动态住宅代理送500MB体验" (dynamic residential proxy, 500 MB trial). Prices for the dynamic (per GB), static residential (per IP per month, unlimited traffic) and static datacenter products are not in the page text the reader returned: unverified: the pricing path returned the site 404 page. | unit: MB | metered on: unstated | read on: 2026-11-03 | source: [1] | note: A read of the pricing path returned the site 404 page with its menu; no price was captured.
+- per-object cap: not applicable: an address or a traffic pack, not an object | source: [1]
+- retention: not applicable: addresses and traffic, not stored bytes. unverified: the term of a static IP. | source: [1] | note: days is null because no bytes are stored.
+- egress: Dynamic: billed by traffic ("按流量计费"). Static: billed per IP per month with unlimited traffic ("按IP包月计费（不限流量）"). | metered: yes | free allowance: 500 MB dynamic residential trial | source: [1]
+- identity: email | detail: No card or ID document is asked on that page.
+- interface: cli, rest
+- limits:
+  - per-ip-shaping (binding): static IPs are exclusive during the term ("使用期限内保证独享") with unlimited traffic [1]
+  - volume-quota: dynamic residential is metered per GB; the pack sizes and prices are unverified [1]
+- binding note: The prices were not read, so the number that binds is unverified; the stated shape is one exclusive address per unit for the static product.
+- interface detail: http/https/socks5, stated on the page, and an API for automated purchase and management ("API对接，支持自动化采购管理"), plus a documentation centre.
+- tooling: Any client that speaks SOCKS5 or an HTTP proxy, reached from a Worker through a relay that dials SOCKS5. The vendor also sells cloud phones, which are a separate product.
+- composes with: The upstream sees a pooled dynamic address or an exclusive static address. The static product is labelled "真实住宅ISP代理 100%真人住宅属性" (real residential ISP proxy); no delivered address was seen, so the class is unverified.
+- reliability: No measurement was made. A forum thread calls a static line of this vendor a pseudo-residential address; that is a third-party report and was not verified.
+- notes: Named on the Chinese-language forum source in a thread offering a static line of this vendor for resale. The forum is the lead; the evidence is the vendor page. The pricing route needs a rendered read.
+- evidence note: The product labels and the registration route are first-party reads from 2026-11-03; no price was captured, so the record stays at reported until the pricing page is read.
+- extras:
+  - rung: 5
+  - rung_note: The static product is a registration-class claim; nothing was looked up.
+  - pool_claim: 85 million dynamic IPs, 190+ countries
+- evidence:
+  - [2] 2026-11-03: The site menu offers the dynamic residential product with a 500 MB trial. | capture: sha256:b5ebba9ab224552ba4ec1f5d977e3df5f1be827a1397fd4d10bf046bff41dfca | quote: 动态住宅代理送500MB体验
+  - [2] 2026-11-03: The site menu lists the static product as billed per IP per month with unlimited traffic. | capture: sha256:b5ebba9ab224552ba4ec1f5d977e3df5f1be827a1397fd4d10bf046bff41dfca | quote: 按IP包月计费（不限流量）
+  - [1] 2026-11-03: The dynamic pool is claimed at 85 million IPs. | capture: sha256:277c55aadd81d9b382656bc0e3d08aae3609d0d90d6fd0f2ac132ad07241ed7e | quote: 稳定安全的8500万全球IP池
+  - [3] 2026-11-03: Registration is offered by phone or by email. | capture: sha256:fa8c3f7dd899ab9613b69bdd9a6575307d0c80e0e9ab3930aca8b54926043365 | quote: 手机注册 邮箱注册
+- sources:
+  - [1] https://www.lycheeip.com/
+  - [2] https://www.lycheeip.com/pricing
+  - [3] https://www.lycheeip.com/register
+
+## Novproxy
+
+- `ip-proxy/novproxy` | trial-only | evidence documented | binding volume-quota | category rotating residential proxy | tier Free trial (500 MB on request), dynamic residential per GB and static ISP
+- needs card unknown, phone no, ID no, institution no | verified 2026-11-04T01:07:27.091Z (live) | stale on 2026-12-05
+- url https://novproxy.com/ | page https://fshy.ajam.dev/p/novproxy.md
+- price not a per-TB-month product: priced per GB, 0.47 to 1.10 USD per GB by tier.
+- free tier: One-off 500 MB free trial of overseas native IPs, claimed after e-mail registration by contacting customer service (support chat or Telegram); not self-serve, no standing free tier. | unit: MB | metered on: downloaded-bytes | read on: 2026-11-04 | source: [1] | note: Metering is the traffic of the trial allowance; the vendor does not say which direction counts (unverified). The smallest paid purchase is the 2-50 GB dynamic tier at 1.10 USD per GB, 2.20 USD total.
+- per-object cap: not applicable: a traffic plan or an address, not an object | source: [2]
+- retention: 'Traffic never expires' on the dynamic residential plan and 'unused IPs never expire' on the short-term residential IP plan. The static ISP product bills by validity period: 7 days, 30 days or 90 days. | source: [2] | note: Static ISP 'Billing starts after IP extraction'.
+- egress: Dynamic residential is billed per GB ('Billed by GB usage'); static ISP is 'Unlimited traffic'; the unlimited products are priced per day, by bandwidth (38.33 USD per day) or by port (0.3 USD per day per port). | metered: yes | free allowance: 500 MB trial on request | source: [3]
+- identity: email | detail: Registration is by e-mail address and a password of 8 to 22 characters with letters and numbers, plus a slider captcha. The vendor states 'without submitting complicated qualifications'; no ID document or card is asked before the trial. Payment methods for paid plans are unverified.
+- interface: unknown
+- limits:
+  - volume-quota (binding): dynamic residential per GB: 1.10 USD per GB at 2-50 GB, 0.90 at 51-200 GB, 0.70 at 201-999 GB, 0.47 at the TB plan (470.00 USD total) [2]
+  - per-ip-shaping: sticky session length 1 to 120 minutes; the port-based unlimited product rotates each IP for up to 30 minutes [3]
+- limits note: Static ISP is priced per IP by country and kind, for example United States native 4.0 USD, Germany broadcast 3.2 USD, Japan native 5.5 USD, Korea native 6.0 USD, for 7, 30 or 90 days, with 5% to 25% volume discounts from 6 to 800+ IPs. The home page headlines 'Long-term static ISP Just 3.2 USD per month'.
+- binding note: The purchased GB is the quantity that runs out; the 0.47 USD per GB floor needs the TB plan, and the small tiers cost 1.10 USD per GB.
+- interface detail: HTTP(S) and SOCKS5 forward proxy in username-password and API modes; sticky sessions of 1 to 120 minutes or rotating; a web dashboard at dashboard.novproxy.com.
+- tooling: Any client that speaks an HTTP or SOCKS5 proxy with credentials, or the vendor's API mode.
+- composes with: The vendor's gateway is an HTTP or SOCKS5 forward proxy, so it is dialled from a host that can open outbound proxy connections (a rented or free virtual machine); the upstream then sees an address from the vendor's pool instead of the host's own.
+- reliability: The vendor states 99.9% success and under 0.5 s response on the home page, unverified here. A static ISP product is sold in two kinds named 'Native' and 'Broadcast'; the pages do not say what the registration class of either kind is. The trial is claimed through customer service, so its availability and any expiry are unverified.
+- notes: Sells dynamic residential, static ISP, unlimited (by bandwidth or by port) and short-term residential IPs. The static ISP list separates 'Native' and 'Broadcast' addresses at different prices (for example Germany native 4.2 USD, broadcast 3.2 USD); the vendor does not define the two terms on the pages read.
+- evidence note: Trial grant is quoted from the vendor's blog post of 2025-10-20 and the register page description; prices from the pricing pages read 2026-11-04. Whether the trial is still granted today, and its duration, were not read (behind a sign-up and customer service).
+- extras:
+  - rung: 2
+  - rung_note: A rotating residential pool presents a different single address per session (rung 2); the static ISP product would reach rung 5 only if its addresses are registered to an access network, which no page read shows and no address was sampled.
+  - pool_claim: the pages read state no pool size
+  - native_vs_broadcast: two kinds of static ISP address at different prices; the registration class of each is unverified
+- evidence:
+  - [1] 2026-11-04: The trial is 500 MB, granted after registration through customer service. | capture: sha256:be8135872d14719a4e9aec05aa66ca15f08f7de983d839ac73f0f4b58aa49d6d | quote: Users only need to complete a simple registration through the official platform without submitting complicated qualifications, and then contact customer service to receive a 500M free trial
+  - [1] 2026-11-04: The trial is claimed on request, not self-serve. | capture: sha256:be8135872d14719a4e9aec05aa66ca15f08f7de983d839ac73f0f4b58aa49d6d | quote: Users can register via the official website and contact customer service to claim their trial benefits.
+  - [4] 2026-11-04: The register page describes sign-up as a free trial. | capture: sha256:8f9b387cfbeddbd72b0380ec91661814e28df64f244222d4920c1321b200da28 | quote: sign up for free trial
+  - [2] 2026-11-04: The support route answers within 24 hours; its Telegram link is on the pricing page. | capture: sha256:d426b1933994a3ba44d3059cc91e7eebbb16ebefa810550e08e99ac01a77603f | quote: Provide your account or emailaddress and describe theproblem you encountered.We will respond within 24 hours.
+  - [2] 2026-11-04: Dynamic residential tiers 1.10, 0.90, 0.70 and 0.47 USD per GB; traffic never expires. | capture: sha256:d426b1933994a3ba44d3059cc91e7eebbb16ebefa810550e08e99ac01a77603f | quote: Traffic never expires
+  - [3] 2026-11-04: Dynamic residential is headlined at 0.47 USD per GB. | capture: sha256:f33bd4eb7f1f4391b18c608e9987ff9e9d6692d6505a119c6eade83b7dde56ea | quote: Dynamic residential traffic Just $0.47/GB
+  - [3] 2026-11-04: Static ISP is headlined at 3.2 USD per month. | capture: sha256:f33bd4eb7f1f4391b18c608e9987ff9e9d6692d6505a119c6eade83b7dde56ea | quote: Long-term static ISP Just $3.2/month
+  - [3] 2026-11-04: Sticky sessions last 1 to 120 minutes. | capture: sha256:f33bd4eb7f1f4391b18c608e9987ff9e9d6692d6505a119c6eade83b7dde56ea | quote: Supports rotation and sticky sessions, and the session length can be set from 1 to 120 minutes.
+  - [5] 2026-11-04: Static ISP priced per IP by country and kind. | capture: sha256:94697fa6fc5e8ed6443f985a12e3c86bd5f8af821e18094bb328301126f1bb94 | quote: Mexico -Native $5.0/IP United States -Native $4.0/IP Canada -Native $4.8/IP Brazil -Native $5.0/IP Mexico -Broadcast $3.2/IP Canada -Broadcast $3.8/IP
+  - [4] 2026-11-04: Sign-up has a slider captcha; password 8 to 22 characters. | capture: sha256:49e3217b084c6cf976f259933dbcb7523a56a90da6575ac4614aef269afcd7c5 | quote: We've upgraded to slider captcha for better security. Refresh the page before logging in or signing up.
+- sources:
+  - [1] https://novproxy.com/blog/free/
+  - [2] https://novproxy.com/pricing/residential-ip/
+  - [3] https://novproxy.com/
+  - [4] https://novproxy.com/register
+  - [5] https://novproxy.com/pricing/isp/
+
+## NymVPN (exit addresses)
+
+- `ip-proxy/nymvpn-exits` | trial-only | evidence documented | binding per-ip-shaping | category vpn subscription (exit source) | tier exit addresses
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T10:29:27.354Z (live) | stale on 2026-12-05
+- url https://nym.com/pricing | page https://fshy.ajam.dev/p/nym.md
+- price USD 4.00 per month on a 1-year plan; no per-TB price | parsed USD 4/mo
+- disagrees on identity_kind: `ip-proxy/nymvpn` says anonymous, `ip-proxy/nymvpn-exits` says card
+- disagrees on verdict: `ip-proxy/nymvpn` says paid-only, `ip-proxy/nymvpn-exits` says trial-only
+- free tier: No free tier. The shortest plan read is 1 year at $4.00 per month ($96.00 listed, total $48.00 shown), with a 7-day free trial on select plans that needs a card; the trial cannot be activated with cryptocurrency. | unit: none | metered on: none | read on: 2026-11-03 | source: [1] | note: The page shows a first-period total of $48.00 against $96.00 listed; the currency code was not printed, so the symbol is repeated.
+- per-object cap: not applicable | source: [2]
+- retention: not applicable: an address, not an object | source: [2]
+- egress: unverified: this record covers the exit addresses of the fleet, not the plan; the plan-level traffic terms belong to the vendor's own egress record where one exists. | metered: no | free allowance: none published for the address list | source: [1]
+- identity: card | detail: The 7-day trial is on select plans with a card and cannot be activated with cryptocurrency; paid plans list card, cryptocurrency, Apple Pay, Google Pay, GNU Taler and cash. unverified: what an account itself needs, behind a sign-up.
+- interface: rest
+- limits:
+  - per-ip-shaping (binding): Up to 10 devices per account (mobile and desktop) [1]
+- limits note: Address concentration is a second constraint with no vocabulary kind: 80 exit addresses sit in 42 ASNs with the largest (AS200651 FlokiNET) holding 11; 50 of the 80 are on the datacenter list. Residential gateways are 37 of 623 listed gateways, 28 of the 37 inside one /24 (128.127.180.0/24, AS6696).
+- binding note: What binds first is the ceiling attached to the account, 10 devices, not any byte quota, since the page states none.
+- interface detail: The directory of gateways and the list of described Nym nodes are public JSON endpoints that answer with no credential; the exit addresses were read from the described-nodes list (exit_ipr) and the residential gateways from the dVPN directory. The vendor sells WireGuard dVPN and mixnet access.
+- endpoint: https://validator.nymtech.net/api/v1/nym-nodes/described
+- tooling: Reading the exit list needs an HTTP client only. Using an exit needs the vendor client and an account; whether a SOCKS5 or HTTP proxy endpoint exists was not established.
+- composes with: A free compute node runs the vendor client and the traffic leaves at one of the 80 exit addresses; the gateways are run by independent node operators, so the exit set is a pool and not one provider network.
+- reliability: No suspension, throttle or data loss was measured. 50 of 80 exit addresses are in the datacenter list and 2 also in the VPN list, so a block met through one is datacenter-class; the 7 residential-classified gateway prefixes are a minority of the directory.
+- notes: Exit-address record for the NymVPN fleet, classified with detector index 20261103T163900Z-00d117b2 on 2026-11-03: 80 addresses, 50 datacenter-listed, 2 VPN-listed (both also datacenter), 0 Tor exits, 6 on an abuse list, 29 on none of the lists; 42 ASNs, largest AS200651 FlokiNET with 11 addresses. The residential gateways are stated apart: of 623 gateways in the vendor directory 37 are marked residential, in 7 prefixes (128.127.180.0/24, 217.118.192.0/21, 95.208.128.0/17, 217.178.0.0/18, 167.179.17.0/24, 38.58.108.0/24, 199.170.132.0/24); the largest prefix, 128.127.180.0/24 (AS6696 VERIXI SA), carries 28 of the 37, 75.7%. One address from inside each of the 7 prefixes was classified: none is datacenter-, VPN- or abuse-listed. The tier differs from the vendor's plan record.
+- evidence note: The list measurements are measured on 2026-11-03 from a registered classifier record; the plan facts are documented. The weakest rung is documented. Measured on the whole needs a live connection recording the address handed out, which was not done.
+- extras:
+  - exit_classification.detector_index_version: 20261103T163900Z-00d117b2
+  - exit_classification.classified_on: 2026-11-03
+  - exit_classification.n: 80
+  - exit_classification.datacenter_listed: 50
+  - exit_classification.vpn_listed: 2
+  - exit_classification.tor_exit: 0
+  - exit_classification.abuse_listed: 6
+  - exit_classification.in_none_of_the_lists: 29
+  - exit_classification.asns: 42
+  - exit_classification.largest_asn: AS200651 FlokiNET
+  - exit_classification.largest_asn_addresses: 11
+  - exit_classification.endpoint: https://validator.nymtech.net/api/v1/nym-nodes/described (exit_ipr)
+  - exit_classification.derived: counts taken over the 80 answers of the registered record; 11 / 80 = 13.8%
+  - residential_gateways.endpoint: https://mainnet-node-status-api.nymtech.cc/dvpn/v1/directory/gateways
+  - residential_gateways.gateways_total: 623
+  - residential_gateways.gateways_residential: 37
+  - residential_gateways.prefixes: 7
+  - residential_gateways.prefix_list: 128.127.180.0/24; 217.118.192.0/21; 95.208.128.0/17; 217.178.0.0/18; 167.179.17.0/24; 38.58.108.0/24; 199.170.132.0/24
+  - residential_gateways.largest_prefix: 128.127.180.0/24
+  - residential_gateways.largest_prefix_gateways: 28
+  - residential_gateways.largest_prefix_share: 75.7%
+  - residential_gateways.one_address_per_prefix_classified: 7
+  - residential_gateways.of_which_listed_datacenter_vpn_or_abuse: 0
+- evidence:
+  - probe:https://validator.nymtech.net/api/v1/nym-nodes/described 2026-11-03: The described-nodes exit list was read and 80 exit addresses were classified. | capture: sha256:f456e12181772ffce5c7faf1e6f1d09f24bdafd380987a02878f4fd4906bba06 | quote: "n": 80,
+  - probe:https://validator.nymtech.net/api/v1/nym-nodes/described 2026-11-03: The classifier index version used for the 80 addresses. | capture: sha256:f456e12181772ffce5c7faf1e6f1d09f24bdafd380987a02878f4fd4906bba06 | quote: "index_version": "20261103T163900Z-00d117b2",
+  - [3] 2026-11-04: The vendor directory marks the gateway announced in 128.127.180.0/24 as residential; 37 of the 623 entries carry that kind, 28 of them in this /24. (37 of 623 gateways carry kind residential, counted over the registered file; 28 / 37 = 75.7%) | capture: sha256:443b48e7f7bc60a417f20bbd8058fae900ab17987648b5b344ac652ea18d5f21 | quote: "route":"128.127.180.0/24","kind":"residential"
+  - [1] 2026-11-03: The plan allows 10 devices per account. | capture: sha256:68299ef74c2d5a2e37271d8a02972af1121e9dcd4f43069a64a91ba4600af152 | quote: Up to 10 devices per account (mobile and desktop)
+  - [1] 2026-11-03: The trial exists only on select plans and with a card. | capture: sha256:68299ef74c2d5a2e37271d8a02972af1121e9dcd4f43069a64a91ba4600af152 | quote: 7 day free trial (on select plans with card)
+  - [1] 2026-11-03: The 1-year plan is $4.00 per month. | capture: sha256:68299ef74c2d5a2e37271d8a02972af1121e9dcd4f43069a64a91ba4600af152 | quote: $ 4.00
+  - [1] 2026-11-04: the trial needs a card | capture: sha256:68299ef74c2d5a2e37271d8a02972af1121e9dcd4f43069a64a91ba4600af152 | quote: 7 day free trial (on select plans with card)
+  - [1] 2026-11-04: the trial cannot use crypto | capture: sha256:68299ef74c2d5a2e37271d8a02972af1121e9dcd4f43069a64a91ba4600af152 | quote: Free trials cannot be activated using cryptocurrency payments.
+- sources:
+  - [1] https://nym.com/pricing
+  - [2] https://validator.nymtech.net/api/v1/nym-nodes/described
+  - [3] https://mainnet-node-status-api.nymtech.cc/dvpn/v1/directory/gateways
+
+## Trust.Zone (exit addresses)
+
+- `ip-proxy/trust-zone-exits` | trial-only | evidence documented | binding per-ip-shaping | category vpn subscription (exit source) | tier exit addresses
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T10:29:27.355Z (live) | stale on 2026-12-05
+- url https://trust.zone/prices | page https://fshy.ajam.dev/p/trust.md
+- price USD 9.99 per month; no per-TB price | parsed USD 9.99/mo
+- disagrees on verdict: `ip-proxy/trust-zone` says paid-only, `ip-proxy/trust-zone-exits` says trial-only
+- free tier: No free tier. A 3-day free trial with no credit card is limited to 1,000 users a month and 1 simultaneous connection; the monthly plan is $9.99 billed monthly. | unit: none | metered on: none | read on: 2026-11-04 | source: [1] | note: A time-limited sale price is shown on the page; the monthly rate is the stable one.
+- per-object cap: not applicable | source: [2]
+- retention: not applicable: an address, not an object | source: [2]
+- egress: unverified: this record covers the exit addresses of the fleet, not the plan; the plan-level traffic terms belong to the vendor's own egress record where one exists. | metered: no | free allowance: none published for the address list | source: [1]
+- identity: email | detail: The 3-day trial page states no credit card is required; paid checkout lists cryptocurrency, PayPal and credit cards. unverified: what an account itself needs, behind a sign-up.
+- interface: unknown
+- limits:
+  - per-ip-shaping (binding): 3 simultaneous connections on the monthly plan, 1 on the free trial [1]
+- limits note: Address concentration: 54 addresses in 21 ASNs, 23 in AS9009 M247, 47 datacenter-listed and 25 VPN-listed.
+- binding note: The connection ceiling attached to the account binds before any byte quota, because the vendor states unlimited data transfer.
+- interface detail: The server list at https://trust.zone/servers names zone hostnames, which resolve by DNS to the exit addresses; no JSON API was found.
+- endpoint: part of interface detail
+- tooling: Reading the exits needs a DNS resolver and the server page; using one needs the vendor client or an OpenVPN or WireGuard config from an account. A SOCKS5 or HTTP proxy endpoint was not established.
+- composes with: A free compute node dials the tunnel and the traffic leaves at one of 54 addresses; 23 of them are in M247 (AS9009), and the pool spans 21 ASNs.
+- reliability: No suspension, throttle or data loss was measured. 25 of 54 addresses are on the VPN list and 47 on the datacenter list.
+- notes: Exit-address record for the Trust.Zone fleet, classified with detector index 20261103T163900Z-00d117b2 on 2026-11-03: 54 addresses, 47 datacenter-listed, 25 VPN-listed (all also datacenter), 0 Tor exits, 3 on an abuse list, 7 on none of the lists; 21 ASNs, largest AS9009 M247 with 23 addresses. The tier differs from any plan record.
+- evidence note: Plan facts are documented; list classification measured on 2026-11-03. Weakest rung documented.
+- extras:
+  - exit_classification.detector_index_version: 20261103T163900Z-00d117b2
+  - exit_classification.classified_on: 2026-11-03
+  - exit_classification.n: 54
+  - exit_classification.datacenter_listed: 47
+  - exit_classification.vpn_listed: 25
+  - exit_classification.tor_exit: 0
+  - exit_classification.abuse_listed: 3
+  - exit_classification.in_none_of_the_lists: 7
+  - exit_classification.asns: 21
+  - exit_classification.largest_asn: AS9009 M247 Europe SRL
+  - exit_classification.largest_asn_addresses: 23
+  - exit_classification.endpoint: https://trust.zone/servers (zone hostnames DNS-resolved)
+  - exit_classification.derived: counts taken over the 54 answers of the registered record; 23 / 54 = 42.6%
+- evidence:
+  - probe:https://trust.zone/servers 2026-11-03: The server hostnames resolved to 54 addresses which were classified. | capture: sha256:d421e56c6d9377595c09f2d5a153c05b8226c8c89d9fb969dea880dd4d917fbb | quote: "n": 54,
+  - [1] 2026-11-04: The 3-day trial needs no card. | capture: sha256:5df7a3d8120f2a3041a9f4fd119248d192761ebe95e5d6870349a3e826b02b73 | quote: No credit card required
+  - [1] 2026-11-04: The monthly plan price. | capture: sha256:5df7a3d8120f2a3041a9f4fd119248d192761ebe95e5d6870349a3e826b02b73 | quote: ＄9.99 billed monthly\*
+  - [3] 2026-11-03: Paid plans carry no data limit. | capture: sha256:ed6cd89f2fdef260add8794f3471a6d24b1ac3581609c88028caaf5b39d190a5 | quote: unlimited data transfer and unlimited bandwidth
+  - [1] 2026-11-04: the 3-day trial needs no card | capture: sha256:40c1305ae8325561a3ad5337109c8e682d43743fe82f6a731f732e3efe9d5361 | quote: No credit card required
+- sources:
+  - [1] https://trust.zone/prices
+  - [2] https://trust.zone/servers
+  - [3] https://trust.zone/
+
+## ZooProxy
+
+- `ip-proxy/zooproxy-isp-proxy` | trial-only | evidence documented | binding per-ip-shaping | category per-address ISP proxy (native and broadcast) with a residential GB product | tier ISP Proxy, per IP, from $1.80/IP
+- needs card no, phone unknown, ID no, institution no | verified 2026-11-04T00:30:29.989Z (live) | stale on 2026-12-05
+- url https://zooproxy.com/ | page https://fshy.ajam.dev/p/zooproxy.md
+- price not applicable: an address, not a byte; from USD 1.80 per IP at the entry price
+- free tier: A free trial is offered ("Start Free Trial") but its size is not stated on the pages read: unverified, the trial allowance. ISP Proxy is sold per IP "Starting from $1.80/IP"; Residential Proxies from $0.38/GB; Unlimited Traffic - Port from $0.38/Port/Day at 6 Mbps per port; Unlimited Traffic - Bandwidth from $19.67/Day. A cumulative top-up discount of 5 to 30 % applies to static items at $100 to $5000 of recharge. | unit: mixed | metered on: unstated | read on: 2026-11-03 | source: [1] | note: The unit is mixed because the trial allowance is not stated; the true unit would be named by the trial page, which was not read.
+- per-object cap: not applicable: an address or a traffic pack, not an object | source: [1]
+- retention: not applicable: an address, not stored bytes. The vendor states "ZooProxy supports long-term renewal" for the same IP. | source: [2] | note: days is null because no bytes are stored.
+- egress: Static ISP plans: Unlimited Bandwidth and "No Extra Traffic Fees"; the plan is priced by region, rental period and number of IPs. | metered: no | free allowance: unlimited for the static ISP product | source: [2]
+- identity: email | detail: The sign-up page offers Login with Google or a password form (8-20 characters, letters and numbers) with a Verification code; where the code is sent (email or phone) is unverified: unverified, the code channel. The vendor lists a Telegram contact and an email address for support.
+- interface: cli
+- limits:
+  - per-ip-shaping (binding): one dedicated static IP per unit, unlimited bandwidth, unlimited session duration, term chosen at order [2]
+  - volume-quota: none for the static ISP product; the Port plan is 6 Mbps per port [1]
+- binding note: Bandwidth is unlimited, so the address and its registration class are what bind; the vendor itself prices Native above Broadcast because they differ in registration versus egress location.
+- interface detail: HTTP(S) and SOCKS5, stated in the Static ISP FAQ. No API is named on the pages read.
+- tooling: Any client that speaks SOCKS5 or an HTTP proxy, reached from a Worker through a relay that dials SOCKS5. No vendor SDK or CLI is published on the pages read; that is a note on tooling, not a reason to reject.
+- composes with: The upstream sees the leased address. The vendor labels each sample as Native ISP or Broadcast ISP and defines the difference as whether the IP registration location matches its internet egress; the Broadcast sample is announced by a US hosting network, which does not match its stated Malaysian location.
+- reliability: The vendor shows a risk score of 8% and 5% for its two samples; no throughput, ban or replacement measurement was made.
+- notes: The domain fluxisp.com answers HTTP 301 to https://zooproxy.com/, so the vendor named FluxISP on the forum source is this vendor under its present name. The two ISP samples on the pricing page are masked (64.93.*.205 and 162.141.*.52), so they cannot be looked up as addresses; the ASN holders were measured instead. AS7361 is held by DataZone Networks LLC and is announced; the vendor shows it under Johor Bahru, Malaysia with the type Broadcast ISP, so the registration holder and the shown location differ.
+- evidence note: Prices, terms and the two ISP samples are read from the vendor pages on 2026-11-03 and the ASN holders are measured through RIPE. The sold addresses are masked, so no delivered address was looked up.
+- extras:
+  - rung: 5
+  - rung_note: The vendor sells registration class explicitly (Native ISP versus Broadcast ISP) and the sample ASNs were checked with RIPE.
+  - former_name: FluxISP
+  - sample_asns.AS7361: DATAZONE - DataZone Networks LLC (RIPE as-overview, announced)
+  - sample_asns.AS9848: SejongTelecom-AS-KR-KR - SEJONG NETWORKS (RIPE as-overview, announced)
+- evidence:
+  - [1] 2026-11-03: ISP Proxy is sold per IP from $1.80. | capture: sha256:9ee2cd55153be046d87e3c57dc13420a3fb2d1ce051dd9778a7d34be3b811fe4 | quote: Starting from $1.80/IP
+  - [1] 2026-11-03: Unlimited Traffic - Port starts at $0.38 per port per day. | capture: sha256:9ee2cd55153be046d87e3c57dc13420a3fb2d1ce051dd9778a7d34be3b811fe4 | quote: Starting from $0.38/Port/Day
+  - [1] 2026-11-03: A free trial is offered through the sign-up page. | capture: sha256:9ee2cd55153be046d87e3c57dc13420a3fb2d1ce051dd9778a7d34be3b811fe4 | quote: Start Free Trial
+  - [2] 2026-11-03: Native ISP versus Broadcast ISP differ by whether registration location matches egress. | capture: sha256:9d0aed10e272e0375922a8e341022260386b4e36a1a970c4d04f3b3a6a8ff699 | quote: The difference is whether the IP registration location matches its internet egress, affecting account risk control and cost.
+  - [2] 2026-11-03: The static ISP plan has no traffic charge. | capture: sha256:9d0aed10e272e0375922a8e341022260386b4e36a1a970c4d04f3b3a6a8ff699 | quote: No. Static ISP plans are priced by IP and rental period, with no additional charges based on traffic usage.
+  - [2] 2026-11-03: Protocols HTTP(S) and SOCKS5. | capture: sha256:9d0aed10e272e0375922a8e341022260386b4e36a1a970c4d04f3b3a6a8ff699 | quote: Static ISP proxies support HTTP(S) and SOCKS5 protocols.
+  - [2] 2026-11-03: Two samples, a Broadcast ISP one in Johor Bahru under AS7361 and a Native ISP one in Seoul under AS9848. | capture: sha256:9d0aed10e272e0375922a8e341022260386b4e36a1a970c4d04f3b3a6a8ff699 | quote: Broadcast ISP Native ISP IP Address 64.93.*.205 162.141.*.52 Location ZooProxyJohor Bahru, Johor, Malaysia ZooProxySeoul, South Korea ASN AS7361 AS9848
+  - [3] 2026-11-03: The sign-up form takes a password; it also offers Login with Google and a Verification code. | capture: sha256:46a76389528447fcca76a1d54ee551cc33d128d4f7390d686a1d69cb24df75c9 | quote: Password length 8-20 characters
+  - probe:stat.ripe.net/AS7361/body 2026-11-03: RIPE as-overview on 2026-11-03: AS7361 is held by DataZone Networks LLC and is announced. | capture: sha256:6f40fd5871c89ea728d802009c9bda46d0e1f723b4c011a57e03a9c6d6f63cd1 | quote: "holder":"DATAZONE - DataZone Networks LLC"
+  - probe:stat.ripe.net/AS9848/body 2026-11-03: RIPE as-overview on 2026-11-03: AS9848 is held by Sejong Networks and is announced. | capture: sha256:9f662f31ee2d3c5f3bb599dc310d3c161ebafd63aa3f7de9e92952d5d6c47f68 | quote: "holder":"SejongTelecom-AS-KR-KR - SEJONG NETWORKS"
+  - probe:www.fluxisp.com 2026-11-03: A probe of www.fluxisp.com on 2026-11-03 ended at https://zooproxy.com/ after an HTTP 301. | capture: sha256:6cacbc1a9e313eb3b02dd82879bb0d336fac343c9c22cf5cfdd1e38b74ecdf20 | quote: "final_url": "https://zooproxy.com/"
+  - [4] 2026-11-04: The trial is claimed by contacting support; the FAQ does not say which plans include it. | capture: sha256:c3e1a944ec5c69fcaffd5db9010b21c8e4eba22180c449bf44877cf49f54d3b2 | quote: Some plans include a free trial. You can contact our online support to claim it for free.
+  - [1] 2026-11-04: The home page offers a free trial with one sign-up button for the whole product range. | capture: sha256:9ee2cd55153be046d87e3c57dc13420a3fb2d1ce051dd9778a7d34be3b811fe4 | quote: Start with a free trial, or get a custom proxy solution for larger-scale needs.
+  - [4] 2026-11-04: The trial is by request to support, as the record states. | capture: sha256:c3e1a944ec5c69fcaffd5db9010b21c8e4eba22180c449bf44877cf49f54d3b2 | quote: Some plans include a free trial. You can contact our online support to claim it for free.
+- sources:
+  - [1] https://zooproxy.com/
+  - [2] https://zooproxy.com/pricing/isp-proxy/
+  - [3] https://zooproxy.com/sign-up/
+  - [4] https://zooproxy.com/faq/

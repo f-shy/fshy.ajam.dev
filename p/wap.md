@@ -1,0 +1,130 @@
+# wap.ac
+
+> wap.ac | Compute; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/wap/ | JSON https://fshy.ajam.dev/api/v1/entity/wap.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## wap.ac
+
+- `compute/wapac-tw-512-lxc` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category NAT VPS | tier TW 512 LXC
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T06:14:00.000Z (live) | stale on 2026-11-24
+- url https://wap.ac/store/tw-e5-hinet-ipv6-only
+- price parsed USD 1/mo
+- disagrees on identity_kind: `compute/wapac-tw-512-lxc` says email, `compute/wapac-tw-512-lxc-ipv6` says card
+- disagrees on verdict: `compute/wapac-tw-512-lxc` says qualifies-with-caveat, `compute/wapac-tw-512-lxc-ipv6` says fails-quota
+- free tier: No free tier. TW 512 LXC is USD 1.00 a month for 1 CPU, 512 MB RAM, 5 GB SSD, 1 IPv6 address plus NAT IPv4 on 20 ports, 500 GB a month at 500 Mbps in and out, LXC, New Taipei, Taiwan. | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the container persists for the paid term; the page states no refund and no availability guarantee: '无退款承诺，该产品不适用于可用性保证和退款承诺' | source: [1]
+- egress: 500 GB a month in and out at 500 Mbps; the page states no overage price | metered: yes | free allowance: 500 GB | source: [1]
+- identity: email | detail: no card hold and no payment method is printed on the store page read; the page offers a client-area login ('用户中心') and the cart, so an account is required, but the rails are…
+- interface: ssh
+- limits:
+  - volume-quota: 500 GB a month in and out [1]
+  - per-ip-shaping (binding): NAT IPv4 on 20 ports of a shared address [1]
+- binding note: 20 shared-IPv4 ports and no dedicated IPv4 is the first thing that fails: the port count, not the traffic, decides whether a second service fits.
+- interface detail: LXC container, so a root shell; the page lists no control panel and no API
+- tooling: any SSH client; nothing else is documented on the store page
+- composes with: a Taiwan HINET-ISP address with a dedicated IPv6 and 20 NAT IPv4 ports at USD 1.00 a month, the cheapest per-month NAT offer found that is not annual prepay
+- reliability: the store page states no refund and no availability guarantee in the same sentence: '无退款承诺，该产品不适用于可用性保证和退款承诺'
+- notes: Under the line on the published number: USD 1.00 a month for 512 MB, 5 GB, 500 GB of traffic, a dedicated IPv6 and 20 NAT IPv4 ports. The caveat is stock, not price: the store page printed '0 可用' (0 available) for both the 512 MB and the 1 GB SKU when read, so the plan is listed and priced but not buyable today. Not established: whether the 20 ports are assigned by the host or chosen by the buyer, whether the SSH port is one of the 20 or additional, and whether UDP is forwarded at all. Those three decide whether this can run a WireGuard node and the store page does not say. A knowledge-base article referenced after ordering is the likely place they are stated. Payment rails also unstated on the page.
+- evidence note: Price, machine shape, traffic allowance, port count, and location derive from vendor store pages; billing period is monthly. Stock is 0; payment rails and port assignment rules are not documented.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 0.5
+  - shape.disk_gib: 5
+  - billing_model: monthly
+  - term: monthly
+  - m10h_usd: 1.0
+  - m24h_usd: 1.0
+  - price_arithmetic: USD 1.00 a month, billed monthly per the page's own '每月'; a VPS bills whether it runs or not, so the 24/7 and 10 h/day figures are both USD 1.00. No annual or quarterly cycle is printed on this page.
+  - out_of_pocket_usd: 1.0
+  - renewal_usd: not published
+  - renewal_note: one monthly price is printed with no strike-through and no promo code, so USD 1.00 is the ordinary rate
+  - port_mbps: 500
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: 20 NAT IPv4 ports on a shared address, plus one dedicated IPv6 address
+  - network_out.static_ip: no
+  - network_out.ipv6: yes
+  - network_out.ipv6_prefix: not stated (one address, not a prefix)
+  - signup_url: https://wap.ac/store/tw-e5-hinet-ipv6-only
+  - cart_url: https://wap.ac/store/tw-e5-hinet-ipv6-only/tw-256
+  - nat_config.ports_tcp: 20
+  - nat_config.ports_assigned_or_chosen: unknown
+  - udp_forwarding: not stated
+  - payment_methods: not stated on the store page
+  - stock: out of stock: the store page printed '0 可用' (0 available) for TW 512 LXC and TW 1G LXC when read on 2026-10-24
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a container that persists for the paid term
+- evidence:
+  - [1] 2026-10-24: quoted: '1 CPU / 512M RAM / 5GB SSD / 1 IPv6 & NAT IPv4 of 20 Port / 500GB @500Mbps (In & Out) / LXC Linux Containers / New Taipei,Taiwan' with '起价 $1.00 USD' and '每月' (starting at USD 1.00, monthly)
+  - [1] 2026-10-24: quoted stock line: 'TW 512 LXC / 0 可用' (0 available), and the sibling 'TW 1G LXC / 0 可用' at '$2.00 USD / 每月'
+  - [1] 2026-10-24: quoted: '无退款承诺，该产品不适用于可用性保证和退款承诺' (no refund promise; this product carries no availability guarantee and no refund promise)
+- sources:
+  - [1] https://wap.ac/store/tw-e5-hinet-ipv6-only
+
+## wap.ac (WAPAC)
+
+- `compute/wapac-tw-512-lxc-ipv6` | fails-quota | evidence documented | binding volume-quota | category NAT VPS | tier TW 512 LXC
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T06:03:49.000Z (live) | stale on 2026-11-24
+- url https://wap.ac/store/tw-e5-hinet-ipv6-only
+- price parsed USD 1/mo
+- disagrees on identity_kind: `compute/wapac-tw-512-lxc` says email, `compute/wapac-tw-512-lxc-ipv6` says card
+- disagrees on verdict: `compute/wapac-tw-512-lxc` says qualifies-with-caveat, `compute/wapac-tw-512-lxc-ipv6` says fails-quota
+- free tier: No free tier. TW 512 LXC is USD 1.00 a month, printed '起价 $1.00 USD 每月'. The plan is listed on the group page with '0 可用' and the cart refuses it with '缺货' (out of stock). | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: monthly billing; the group page states '无退款承诺，该产品不适用于可用性保证和退款承诺' (no refund promise; this product carries no availability guarantee and no refund commitment). No deletion interval after expiry was published on the pages read. | source: [1]
+- egress: 500 GB a month at 500 Mbps, counted in both directions, printed '500GB @500Mbps (In & Out)' | metered: yes | free allowance: 500 GB a month in and out | source: [1]
+- identity: card | detail: no separate registration form: the page states '要注册账户，请 购买我们的产品' (to register an account, buy our product), so the account is created at checkout and the checkout fields could not be read without placing an order. Payment rails and any authorisation hold are therefore unestablished. No national ID requirement is published anywhere read.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 500 GB a month counted in and out [1]
+  - per-ip-shaping: 20 NAT IPv4 ports plus one dedicated IPv6 address [1]
+- binding note: 500 GB counted in both directions is the tightest traffic term of any row among documented hosts, so a busy WireGuard endpoint or a package mirror would hit it first; the port budget of 20 is generous by comparison.
+- interface detail: LXC container in New Taipei, Taiwan on an HINET ISP line, with a dedicated IPv6 address and 20 NAT IPv4 ports
+- tooling: any SSH client; the vendor's WHMCS client area
+- composes with: a Taiwan ISP-line address with a real IPv6 and 20 IPv4 ports at USD 1.00 a month, which is the only Taiwan HINET row among documented hosts, and it is sold out
+- reliability: the vendor states on the product group '无退款承诺，该产品不适用于可用性保证和退款承诺' (no refund promise; not covered by any availability guarantee), and the site is served from a host named ip194.ip-51-195-241.eu; no uptime figure published; no reliability event observed
+- notes: The product cannot be bought: the group page reads '0 可用' on both plans and the cart returns '缺货 目前该项目缺货' (out of stock, ordering suspended). And the traffic term is the tightest at 500 GB counted in both directions, which halves the usable outbound budget against sellers that count one way. The row is still worth keeping because it is the only Taiwan HINET ISP-line NAT product found, the price is USD 1.00 a month for 512 MB, and 20 IPv4 ports plus a dedicated IPv6 is a good port story. What is not established: whether it ever restocks, the registration fields, the payment rails and the legal entity. WAPAC has no standalone registration form - it creates the account at checkout - so with the product out of stock there was no route to the checkout fields at all. The tengine default 404 page leaks a host name in the ip51.net range, which is infrastructure detail and not an entity.
+- evidence note: price, shape, port count, IPv6, traffic term, stock marker and the no-refund clause are quoted from the vendor's own pages read, and the out-of-stock state was confirmed by the cart rather than inferred from the listing. Not documented: the registration fields and the payment rails, because WAPAC creates the account at checkout and the cart refuses this product as out of stock, so there was no route to the form.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 0.5
+  - shape.disk_gib: 5
+  - billing_model: monthly
+  - term: monthly
+  - m10h_usd: 1.0
+  - m24h_usd: 1.0
+  - price_arithmetic: USD 1.00 a month billed monthly, so the 24/7 and 10 h/day figures are both USD 1.00; a VPS bills whether it runs or not. No conversion needed, the price is already in USD.
+  - out_of_pocket_usd: 1.0
+  - renewal_usd: USD 1.00 a month; no separate renewal price published
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: 20 NAT IPv4 ports plus one dedicated IPv6 address
+  - network_out.static_ip: no
+  - network_out.ipv6: yes
+  - udp: not stated: no page read says whether the 20 NAT ports carry UDP
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - payment_rails: not established: WAPAC creates the account at checkout and the product is out of stock, so no checkout page was reachable
+  - card_hold: not stated on any page read
+  - checkout_fields: not established: no standalone registration form exists, and the checkout was unreachable because the product is out of stock
+  - stock: out of stock: '0 可用' on both plans and the cart returns '缺货 目前该项目缺货，所以订购已被暂停' on 2026-10-24
+  - cart_url: https://wap.ac/cart.php?a=add&pid=18
+  - cart_works: refused: the cart answered '缺货' (out of stock) rather than pricing the plan
+  - product_url: https://wap.ac/store/tw-e5-hinet-ipv6-only
+  - signup_url_note: there is no registration page: /register.php redirects the buyer to the cart with '要注册账户，请 购买我们的产品'.
+  - other_plans: TW 1G LXC at USD 2.00 a month: 1 CPU, 1 GB RAM, 5 GB SSD, 1 IPv6 plus 20 NAT IPv4 ports, 1 TB at 500 Mbps, also '0 可用'
+  - position: the only Taiwan HINET ISP-line NAT row; USD 1.00 for 512 MB is mid-band on price and top on port count
+- evidence:
+  - [1] 2026-10-24: quoted plan: 'TW 512 LXC 0 可用 1 CPU 512M RAM 5GB SSD 1 IPv6 & NAT IPv4 of 20 Port 500GB @500Mbps (In & Out) LXC Linux Containers New Taipei,Taiwan 起价 $1.00 USD 每月'
+  - [1] 2026-10-24: quoted group description: 'ISP线路，HINET运营商。提供独立的IPv6地址 无退款承诺，该产品不适用于可用性保证和退款承诺。下单代表您认可该特殊条款'
+  - [1] 2026-10-24: quoted second plan: 'TW 1G LXC 0 可用 1 CPU 1G RAM 5GB SSD 1 IPv6 & NAT IPv4 of 20 Port 1TB @500Mbps (In & Out) ... 起价 $2.00 USD 每月'
+  - [2] 2026-10-24: the cart refused the product: '缺货 目前该项目缺货，所以订购已被暂停，直到重新补货。如果您要了解更多信息，请联系我们。' (out of stock: ordering is suspended until restocked). A control request with an invalid pid returned a different page, so this route does resolve per product.
+  - [3] 2026-10-24: quoted: '要注册账户，请 购买我们的产品' (to register an account, please buy our product), with links only to login and password reset - there is no standalone registration form
+  - [4] 2026-10-24: the store menu lists the product group as 'TW E5 HINET LXC IPv6' at /store/tw-e5-hinet-ipv6-only, alongside fourteen other VPS groups
+- sources:
+  - [1] https://wap.ac/store/tw-e5-hinet-ipv6-only
+  - [2] https://wap.ac/cart.php?a=add&pid=18
+  - [3] https://wap.ac/register.php
+  - [4] https://wap.ac/

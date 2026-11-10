@@ -1,0 +1,603 @@
+# Datalix
+
+> datalix.de | Storage, Compute; 4 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/datalix/ | JSON https://fshy.ajam.dev/api/v1/entity/datalix.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Datalix S3 Object Storage
+
+- `storage/datalix-s3-object-storage` | qualifies | evidence documented | binding volume-quota | category S3-compatible object storage (German host, Frankfurt EQ datacenter)
+- needs card no, phone no, ID no, institution no | verified 2026-11-01T18:05:06.745Z, checked 2026-10-21 (inherited) | stale on 2026-11-21
+- url https://datalix.de/s3-kompatibler-objectstorage-mieten
+- price EUR 3.95 per TB per month, prepaid, up to 100 TB per account; no volume discount is published. | parsed USD 4.42/TB-mo
+- duplicate of `storage/datalix-s3-compatible-object-storage`
+- free tier: EUR 3.95 per TB, prepaid, up to 100 TB per account, 30 million objects per bucket | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Ingress is free and unlimited; egress includes 10 TB per 1 TB of booked storage. Egress beyond that ratio has no published price. | metered: yes | free allowance: 10 TB per 1 TB of booked storage
+- identity: email | detail: username, email address and password at registration; ordering needs a password-protected customer account and prepayment, paid by card, PayPal, SEPA, bank transfer or cryptocurrency
+- interface: s3-compatible, rclone, cli
+- limits:
+  - volume-quota (binding): 100 TB per account [1]
+- limits note: Prepaid, TB-based. Egress beyond the 10:1 allowance has no published price. The product page publishes no S3 endpoint hostname, so the endpoint comes from the customer panel.
+- binding note: the 100 TB per account cap ends the booking; up to 30 million objects fit in one bucket, and no per-object size cap is stated
+- interface detail: S3 API, IAM-enabled, multi-redundant in Frankfurt
+- tooling: Any S3 SDK / rclone / AWS CLI (vendor states full S3 compatibility)
+- composes with: Direct S3 origin; put Cloudflare in front to make even the included 200 TB/month irrelevant.
+- reliability: Small single-datacenter German host (~TB-scale customer base). No public status page found; treat as single-region.
+- notes: the same as the free tier
+- evidence note: the vendor product page states the price, the account capacity, the per-bucket object count and the egress ratio directly
+- extras:
+  - price_verbatim: $4.44/TB at 5 TB (EUR 19.75 = $22.19) and $4.44/TB at 20 TB (EUR 79.00 = $88.75). Cheapest true S3 object storage in this survey.
+- evidence:
+  - [1] 2026-10-21: "3,95 EUR pro TB", "Monatlicher Prepaid Preis 3,95 EUR", "Inklusiver Egress 10 TB", "Egress enthaelt 10 TB pro 1 TB Storage", "100 TB max. pro Account", "30 Mio. Objekte je Bucket", FAQ: "Preis: 3,95 EUR pro TB" / "Egress enthaelt 10 TB pro 1 TB Storage"
+  - [2] 2026-11-01: an order needs an account; the registration form asks for username, email and password only | capture: sha256:7090e5757058c430d97659d2e5c780a6f1aa53ba6690e6650337c99c7a392b31 | quote: The conclusion of a contract requires the creation of a password-protected customer account.
+  - [1] 2026-11-01: the booked-storage price is EUR 3.95 per TB, capped at 100 TB | capture: sha256:314efc616ba6da4a4aa7b63811af86c01a48ff5809e748ab5d742f44365b21ce | quote: Preis: 3,95 EUR pro TB, bis maximal 100 TB.
+  - [1] 2026-11-01: the account-level capacity ceiling is 100 TB | capture: sha256:314efc616ba6da4a4aa7b63811af86c01a48ff5809e748ab5d742f44365b21ce | quote: Bis zu 100 TB pro Account
+  - [1] 2026-11-01: the per-bucket object count ceiling is 30 million | capture: sha256:314efc616ba6da4a4aa7b63811af86c01a48ff5809e748ab5d742f44365b21ce | quote: Bis zu 30 Mio. Objekte pro Bucket.
+  - [1] 2026-11-01: ingress is free and unlimited; egress is a 10:1 ratio to booked storage | capture: sha256:314efc616ba6da4a4aa7b63811af86c01a48ff5809e748ab5d742f44365b21ce | quote: Ingress ist kostenlos und unbegrenzt. Egress enthält 10 TB pro 1 TB Storage.
+  - [1] 2026-11-01: the included egress is stated as a per-terabyte ratio | capture: sha256:314efc616ba6da4a4aa7b63811af86c01a48ff5809e748ab5d742f44365b21ce | quote: 10 TB Egress pro 1 TB Storage inklusive.
+  - [1] 2026-11-01: the account capacity ceiling is 100 TB | capture: sha256:314efc616ba6da4a4aa7b63811af86c01a48ff5809e748ab5d742f44365b21ce | quote: Bis zu 100 TB pro Account
+- sources:
+  - [1] https://datalix.de/s3-kompatibler-objectstorage-mieten
+  - [2] https://datalix.eu/tos
+
+## Datalix (Ryzen GEN 2 Starter)
+
+- `compute/datalix` | qualifies-with-caveat | evidence documented | binding volume-quota | category cloud VM | tier Ryzen GEN 2 Starter
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:40:18.802Z (live) | stale on 2026-12-05
+- url https://datalix.de/ryzen-kvm-server-mieten
+- price parsed USD 4.45/mo
+- disagrees on identity_kind: `compute/datalix` says email, `compute/datalix-xeon-2026-sale-starter` says card
+- disagrees on verdict: `compute/datalix` says qualifies-with-caveat, `compute/datalix-xeon-2026-sale-starter` says paid-only
+- disagrees on identity_kind: `compute/datalix` says email, `compute/datalix-xeon-kvm-starter` says card
+- free tier: no free tier; the cheapest in-stock server is EUR 2.45 a month | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: prepaid by the booked period; the page states 'Ihr Server wird automatisch nach Ablauf der Laufzeit gesperrt und nach 5 Tagen gelöscht' (locked at expiry, deleted after 5 days) | source: [2]
+- egress: 5 TB a month on the EUR 2.45 rung on a 1 Gbit uplink (rungs run from 5 TB to 80 TB a month); on exhaustion the port is shaped, quoted: 'wird die Geschwindigkeit Ihres Servers auf 10 MB/s (80Mbit/s) begrenzt'; more traffic can be booked, the price is not published on the page read | metered: yes | free allowance: 5 TB | source: [1]
+- identity: email | detail: registration is a username, an email address and a password: the public order page shows the sign-up fields 'Nutzername', 'E-Mail', 'Passwort' and 'Sprache', with no phone field and no identity document. Payment is a prepaid account balance, not a card at signup. The product pages list the rails as 'PayPal, Kreditkarte, Sofortüberweisung, Giropay, EPS, Paysafecard und Przelewy24', with Bitcoin, Litecoin, Alipay, Monero and Banküberweisung also shown; A credit card is named as a rail; a debit or prepaid card is not named, and Paysafecard is the prepaid route. The balance top-up page (datalix.de/cp/credit/add) is behind a login wall, so the rails actually offered at top-up were not read.
+- interface: rest, ssh
+- limits:
+  - volume-quota (binding): 5 TB a month of transfer on the EUR 2.45 rung, then the port is shaped to 80 Mbit/s [1]
+  - retention-clamped: the server is locked at the end of the prepaid term and deleted 5 days later [2]
+  - volume-quota (binding): stock is the real ceiling: 21 of the 24 advertised rungs across the four KVM pages read are marked 'Ausverkauft' [2]
+- limits note: unknown at this shape: the vendor publishes no traffic allowance in readable text, and the traffic panel is part of the same script-rendered page
+- binding note: the 10 TB monthly transfer is the stated ceiling, but stock binds first: every Xeon, 2026-Sale and IPv6-only rung on the vendor's own pages was marked 'Ausverkauft' at read time, and only three Ryzen GEN 2 rungs could be configured.
+- interface detail: REST API covering server management and billing endpoints, stated on the provider home page and documented as OpenAPI 3.0 on the reseller page; SSH key login and root access are documented on the KVM product page
+- tooling: unverified: the home page datalix.de describes an API and names no client, CLI or SDK
+- composes with: a German host on its own AS is the placement a Frankfurt-latency job needs, and EUR 2.45 is below the AlphaVPS and Netcup rungs for the same country
+- reliability: no reliability event observed; 21 of 24 advertised rungs are sold out, which is a capacity signal, not an outage.
+- notes: The 'Server ab 2,45 EUR' banner is the entry rung of four ladders and none of them is 8 GiB. The EUR 2.45 plan is 1 vCPU / 2 GiB / 20 GB / 5 TB in Frankfurt. The 8 GiB shapes are EUR 3.95 on the 2026-Sale ladder and EUR 5.99 on the Xeon ladder, both marked 'Ausverkauft'. Twenty-one of twenty-four rungs across the four KVM pages are sold out; three Ryzen GEN 2 rungs say 'Jetzt konfigurieren'. The buyable 4 GiB row is the one priced here, at EUR 3.95 = USD 4.42 with 10 TB of traffic, which is the largest transfer allowance of any sub-USD-5 row found. EUR converted at 1.1193 (ECB reference 2026-10-23). No card hold is stated anywhere. Two things remain open: the rails actually offered at balance top-up (login wall at /cp/credit/add), and whether a debit or prepaid card is accepted (only 'Kreditkarte' is named). The public order pages rendered a signed-in session string and their price summary did not reconcile with the product-page price, so the absolute figure on those pages was not used; only their structural text was, and it agreed across two pages.
+- evidence note: every price, shape, traffic term and stock state below was read from the vendor's own pages as raw HTML; the text extractor drops the plan-to-price mapping, so the prices were parsed from the card markup. Prices are stated VAT-inclusive on the page; the order form's tax-country list includes '0% - Rest of the World / Outside EU', so a non-EU buyer may be charged less than the figure recorded here, and that net price is not published. No card hold is stated anywhere; the top-up page where a card would be charged is behind a login wall.
+- extras:
+  - facets.class: price-floor
+  - facets.free_tier_kind: none
+  - shape.vcpu: 1
+  - shape.ram_gib: 4
+  - shape.disk_gib: 25
+  - m24h_usd: 4.42
+  - m10h_usd: 4.42
+  - price_arithmetic: EUR 3.95 a month, VAT inclusive, billed monthly, prepaid; 3.95 x 1.1193 USD/EUR (ECB reference rate for 2026-10-23, read 2026-10-24) = USD 4.42 a month. A VPS bills whether it runs or not, so the 24/7 and 10 h/day figures are the same number.
+  - term: monthly
+  - billing_model: monthly prepay
+  - out_of_pocket_usd: 4.42
+  - renewal_usd: 4.42
+  - renewal_note: no term discount and no first-term promo: every card reads 'Monatlich' with no strike-through price, and the order summary prints a 'Verlängerungsbetrag (30 Tage)' equal to the amount due today, so the renewal is the same monthly figure. The order page also describes the price as 'dauerhaft' (permanent).
+  - promo: the 2026-Sale page is named as a sale but states no end date and no post-sale price; the Ryzen ladder is not labelled a sale at all. The sale is capacity-limited, not time-limited: stock is released again when a server lapses, per the vendor's stock page.
+  - port_mbps: 1000
+  - ipv4_included: yes
+  - ipv6: /64
+  - stock_read_at: 2026-10-24T02:14:00Z
+  - ladder[0].line: Ryzen GEN 2
+  - ladder[0].plan: Small
+  - ladder[0].eur_month: 2.45
+  - ladder[0].vcpu: 1
+  - ladder[0].ram_gib: 2
+  - ladder[0].disk_gib: 20
+  - ladder[0].tb_month: 5
+  - ladder[0].stock: in stock
+  - ladder[1].line: Ryzen GEN 2
+  - ladder[1].plan: Starter
+  - ladder[1].eur_month: 3.95
+  - ladder[1].vcpu: 1
+  - ladder[1].ram_gib: 4
+  - ladder[1].disk_gib: 25
+  - ladder[1].tb_month: 10
+  - ladder[1].stock: in stock
+  - ladder[2].line: Ryzen GEN 2
+  - ladder[2].plan: New
+  - ladder[2].eur_month: 4.95
+  - ladder[2].vcpu: 2
+  - ladder[2].ram_gib: 6
+  - ladder[2].disk_gib: 50
+  - ladder[2].tb_month: 15
+  - ladder[2].stock: in stock
+  - ladder[3].line: Ryzen GEN 2
+  - ladder[3].plan: Boost
+  - ladder[3].eur_month: 7.45
+  - ladder[3].vcpu: 2
+  - ladder[3].ram_gib: 8
+  - ladder[3].disk_gib: 50
+  - ladder[3].tb_month: 20
+  - ladder[3].stock: sold out
+  - ladder[4].line: Ryzen GEN 2
+  - ladder[4].plan: Super
+  - ladder[4].eur_month: 9.95
+  - ladder[4].vcpu: 3
+  - ladder[4].ram_gib: 12
+  - ladder[4].disk_gib: 75
+  - ladder[4].tb_month: 25
+  - ladder[4].stock: sold out
+  - ladder[5].line: Ryzen GEN 2
+  - ladder[5].plan: Expert
+  - ladder[5].eur_month: 14.95
+  - ladder[5].vcpu: 4
+  - ladder[5].ram_gib: 16
+  - ladder[5].disk_gib: 120
+  - ladder[5].tb_month: 30
+  - ladder[5].stock: sold out
+  - ladder[6].line: Ryzen GEN 2
+  - ladder[6].plan: Big
+  - ladder[6].eur_month: 19.95
+  - ladder[6].vcpu: 6
+  - ladder[6].ram_gib: 24
+  - ladder[6].disk_gib: 160
+  - ladder[6].tb_month: 35
+  - ladder[6].stock: sold out
+  - ladder[7].line: Ryzen GEN 2
+  - ladder[7].plan: Mega
+  - ladder[7].eur_month: 24.95
+  - ladder[7].vcpu: 6
+  - ladder[7].ram_gib: 32
+  - ladder[7].disk_gib: 200
+  - ladder[7].tb_month: 40
+  - ladder[7].stock: sold out
+  - ladder[8].line: Ryzen GEN 4
+  - ladder[8].plan: Small
+  - ladder[8].eur_month: 2.65
+  - ladder[8].vcpu: 1
+  - ladder[8].ram_gib: 2
+  - ladder[8].disk_gib: 40
+  - ladder[8].tb_month: 10
+  - ladder[8].stock: sold out
+  - ladder[9].line: Ryzen GEN 4
+  - ladder[9].plan: Starter
+  - ladder[9].eur_month: 4.25
+  - ladder[9].vcpu: 1
+  - ladder[9].ram_gib: 4
+  - ladder[9].disk_gib: 60
+  - ladder[9].tb_month: 20
+  - ladder[9].stock: sold out
+  - ladder[10].line: Ryzen GEN 4
+  - ladder[10].plan: Newcomer
+  - ladder[10].eur_month: 5.95
+  - ladder[10].vcpu: 2
+  - ladder[10].ram_gib: 6
+  - ladder[10].disk_gib: 100
+  - ladder[10].tb_month: 30
+  - ladder[10].stock: sold out
+  - ladder[11].line: Ryzen GEN 4
+  - ladder[11].plan: Boost
+  - ladder[11].eur_month: 11.95
+  - ladder[11].vcpu: 3
+  - ladder[11].ram_gib: 12
+  - ladder[11].disk_gib: 250
+  - ladder[11].tb_month: 40
+  - ladder[11].stock: sold out
+  - ladder[12].line: Ryzen GEN 4
+  - ladder[12].plan: Super
+  - ladder[12].eur_month: 15.95
+  - ladder[12].vcpu: 4
+  - ladder[12].ram_gib: 16
+  - ladder[12].disk_gib: 300
+  - ladder[12].tb_month: 50
+  - ladder[12].stock: sold out
+  - ladder[13].line: Ryzen GEN 4
+  - ladder[13].plan: Expert
+  - ladder[13].eur_month: 21.95
+  - ladder[13].vcpu: 6
+  - ladder[13].ram_gib: 24
+  - ladder[13].disk_gib: 400
+  - ladder[13].tb_month: 60
+  - ladder[13].stock: sold out
+  - ladder[14].line: Ryzen GEN 4
+  - ladder[14].plan: Big
+  - ladder[14].eur_month: 27.95
+  - ladder[14].vcpu: 6
+  - ladder[14].ram_gib: 32
+  - ladder[14].disk_gib: 600
+  - ladder[14].tb_month: 70
+  - ladder[14].stock: sold out
+  - ladder[15].line: Ryzen GEN 4
+  - ladder[15].plan: Mega
+  - ladder[15].eur_month: 39.95
+  - ladder[15].vcpu: 8
+  - ladder[15].ram_gib: 48
+  - ladder[15].disk_gib: 800
+  - ladder[15].tb_month: 80
+  - ladder[15].stock: sold out
+  - ladder[16].line: 2026 Sale (Xeon)
+  - ladder[16].plan: Small
+  - ladder[16].eur_month: 2.45
+  - ladder[16].vcpu: 1
+  - ladder[16].ram_gib: 6
+  - ladder[16].disk_gib: 40
+  - ladder[16].tb_month: 5
+  - ladder[16].stock: sold out
+  - ladder[17].line: 2026 Sale (Xeon)
+  - ladder[17].plan: Starter
+  - ladder[17].eur_month: 3.95
+  - ladder[17].vcpu: 2
+  - ladder[17].ram_gib: 8
+  - ladder[17].disk_gib: 50
+  - ladder[17].tb_month: 10
+  - ladder[17].stock: sold out
+  - ladder[18].line: 2026 Sale (Xeon)
+  - ladder[18].plan: Newcomer
+  - ladder[18].eur_month: 4.95
+  - ladder[18].vcpu: 4
+  - ladder[18].ram_gib: 12
+  - ladder[18].disk_gib: 100
+  - ladder[18].tb_month: 15
+  - ladder[18].stock: sold out
+  - ladder[19].line: 2026 Sale (Xeon)
+  - ladder[19].plan: Boost
+  - ladder[19].eur_month: 6.95
+  - ladder[19].vcpu: 4
+  - ladder[19].ram_gib: 16
+  - ladder[19].disk_gib: 150
+  - ladder[19].tb_month: 20
+  - ladder[19].stock: sold out
+  - ladder[20].line: 2026 Sale (Xeon)
+  - ladder[20].plan: Super
+  - ladder[20].eur_month: 9.95
+  - ladder[20].vcpu: 6
+  - ladder[20].ram_gib: 24
+  - ladder[20].disk_gib: 200
+  - ladder[20].tb_month: 25
+  - ladder[20].stock: sold out
+  - ladder[21].line: 2026 Sale (Xeon)
+  - ladder[21].plan: Expert
+  - ladder[21].eur_month: 14.95
+  - ladder[21].vcpu: 6
+  - ladder[21].ram_gib: 36
+  - ladder[21].disk_gib: 250
+  - ladder[21].tb_month: 30
+  - ladder[21].stock: sold out
+  - ladder[22].line: 2026 Sale (Xeon)
+  - ladder[22].plan: Big
+  - ladder[22].eur_month: 19.95
+  - ladder[22].vcpu: 8
+  - ladder[22].ram_gib: 48
+  - ladder[22].disk_gib: 300
+  - ladder[22].tb_month: 35
+  - ladder[22].stock: sold out
+  - ladder[23].line: 2026 Sale (Xeon)
+  - ladder[23].plan: Mega
+  - ladder[23].eur_month: 29.95
+  - ladder[23].vcpu: 8
+  - ladder[23].ram_gib: 64
+  - ladder[23].disk_gib: 350
+  - ladder[23].tb_month: 40
+  - ladder[23].stock: sold out
+  - ladder[24].line: Xeon KVM
+  - ladder[24].plan: KVM Server S
+  - ladder[24].eur_month: 5.99
+  - ladder[24].vcpu: 4
+  - ladder[24].ram_gib: 8
+  - ladder[24].disk_gib: 50
+  - ladder[24].tb_month: 10
+  - ladder[24].stock: sold out
+  - ladder[25].line: Xeon KVM
+  - ladder[25].plan: KVM Server M
+  - ladder[25].eur_month: 9.99
+  - ladder[25].vcpu: 6
+  - ladder[25].ram_gib: 16
+  - ladder[25].disk_gib: 100
+  - ladder[25].tb_month: 20
+  - ladder[25].stock: sold out
+  - ladder[26].line: Xeon KVM
+  - ladder[26].plan: KVM Server L
+  - ladder[26].eur_month: 19.99
+  - ladder[26].vcpu: 8
+  - ladder[26].ram_gib: 32
+  - ladder[26].disk_gib: 200
+  - ladder[26].tb_month: 30
+  - ladder[26].stock: sold out
+  - ladder[27].line: Xeon KVM
+  - ladder[27].plan: KVM Server XL
+  - ladder[27].eur_month: 34.99
+  - ladder[27].vcpu: 10
+  - ladder[27].ram_gib: 64
+  - ladder[27].disk_gib: 400
+  - ladder[27].tb_month: 40
+  - ladder[27].stock: sold out
+  - ladder[28].line: IPv6 only (Xeon)
+  - ladder[28].plan: Small
+  - ladder[28].eur_month: 1.45
+  - ladder[28].vcpu: 1
+  - ladder[28].ram_gib: 6
+  - ladder[28].disk_gib: 40
+  - ladder[28].tb_month: 5
+  - ladder[28].stock: sold out
+  - ladder[28].note: no IPv4 at all
+  - ladder[29].line: IPv6 only (Xeon)
+  - ladder[29].plan: Starter
+  - ladder[29].eur_month: 2.95
+  - ladder[29].vcpu: 2
+  - ladder[29].ram_gib: 8
+  - ladder[29].disk_gib: 50
+  - ladder[29].tb_month: 10
+  - ladder[29].stock: sold out
+  - ladder[29].note: no IPv4 at all
+  - ladder[30].line: IPv6 only (Xeon)
+  - ladder[30].plan: Newcomer
+  - ladder[30].eur_month: 3.95
+  - ladder[30].vcpu: 4
+  - ladder[30].ram_gib: 12
+  - ladder[30].disk_gib: 100
+  - ladder[30].tb_month: 15
+  - ladder[30].stock: sold out
+  - ladder[30].note: no IPv4 at all
+  - ladder[31].line: IPv6 only (Xeon)
+  - ladder[31].plan: Boost
+  - ladder[31].eur_month: 5.95
+  - ladder[31].vcpu: 4
+  - ladder[31].ram_gib: 16
+  - ladder[31].disk_gib: 150
+  - ladder[31].tb_month: 20
+  - ladder[31].stock: sold out
+  - ladder[31].note: no IPv4 at all
+  - ladder[32].line: IPv6 only (Xeon)
+  - ladder[32].plan: Super
+  - ladder[32].eur_month: 8.95
+  - ladder[32].vcpu: 6
+  - ladder[32].ram_gib: 24
+  - ladder[32].disk_gib: 200
+  - ladder[32].tb_month: 25
+  - ladder[32].stock: sold out
+  - ladder[32].note: no IPv4 at all
+  - ladder[33].line: IPv6 only (Xeon)
+  - ladder[33].plan: Expert
+  - ladder[33].eur_month: 13.95
+  - ladder[33].vcpu: 6
+  - ladder[33].ram_gib: 36
+  - ladder[33].disk_gib: 250
+  - ladder[33].tb_month: 30
+  - ladder[33].stock: sold out
+  - ladder[33].note: no IPv4 at all
+  - ladder[34].line: IPv6 only (Xeon)
+  - ladder[34].plan: Big
+  - ladder[34].eur_month: 18.95
+  - ladder[34].vcpu: 8
+  - ladder[34].ram_gib: 48
+  - ladder[34].disk_gib: 300
+  - ladder[34].tb_month: 35
+  - ladder[34].stock: sold out
+  - ladder[34].note: no IPv4 at all
+  - ladder[35].line: IPv6 only (Xeon)
+  - ladder[35].plan: Mega
+  - ladder[35].eur_month: 28.95
+  - ladder[35].vcpu: 8
+  - ladder[35].ram_gib: 64
+  - ladder[35].disk_gib: 350
+  - ladder[35].tb_month: 40
+  - ladder[35].stock: sold out
+  - ladder[35].note: no IPv4 at all
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS. The server is locked at expiry and deleted 5 days later, so an unattended lapse destroys the disk
+  - benchmark[0].plan: Ryzen GEN 2 Small (1 vCPU / 2 GiB)
+  - benchmark[0].cpu_model: AMD Ryzen 9 5950X 16-Core Processor
+  - benchmark[0].dedicated_or_shared: not stated
+  - benchmark[0].gb6_single: 1548
+  - benchmark[0].gb6_multi: 1546
+  - benchmark[0].source_url: https://techbits.cc/vps-yabs/datalix-de-20251106/
+  - benchmark[0].source_date: 2025-11-06
+  - benchmark[0].rung: reported
+  - benchmark[0].note: Ryzen 9 5950X at 3.39 GHz. One vCPU at $2.82 that outruns every 2 and 4 vCPU x86 row here on single core except Aeza.
+  - refund: 14-day EU/EEA withdrawal, prorated; unused credit refunded
+  - payment_rails: PayPal, Kreditkarte, Sofortüberweisung, Giropay, EPS, Paysafecard, Przelewy24; icons also for Bitcoin, Litecoin, Alipay, Monero, Banküberweisung
+  - card_hold: none stated on any page read; payment is a prepaid balance and no authorisation amount is published
+  - sale_expiry.time_limited: no
+  - sale_expiry.capacity_limited: yes
+  - sale_expiry.detail: no end date is published. The 2026-sale page carries no 'befristet', 'solange', 'gültig' or end date, and its plan cards print one price with no strike-through and no post-sale price. The vendor's own stock page states a dynamic stock system: 'Diese sowie alle weiteren KVM-Produkte verwenden unser dynamisches Stock-System. Wird ein bestehender Server nicht verlängert und die dafür reservierte Kapazität anschließend wieder verfügbar, wird der entsprechende Stock automatisch erneut freigegeben.'
+  - sale_expiry.source_url: https://wiki.datalix.eu/de/wiki/general/stock-information
+  - price_on_page: EUR 3.95/mo
+  - price_in_cart: EUR 3.95/mo, titled 'dauerhaft für 3.95€'
+  - cart_works: yes
+  - cart_url: https://datalix.de/cp/order/config/2/093a6396-0308-4f6e-b7e0-447124ae2369
+  - signup_url: https://datalix.de/cp/?register
+  - cart_evidence: the config page returns title 'Datalix - Ryzen GEN 2 Starter - dauerhaft für 3.95€' and a configuration body 'Konfiguration IPv4-Adressen - 1 x IPv4 Traffic - 1 TB Traffic Laufzeit - 30 Tage'
+  - needs_account_first: no
+- evidence:
+  - [3] 2026-10-22: page title 'Xeon KVM Server Sale from EUR 2.45/mo' and meta description 'Rent a Xeon KVM server in the sale from EUR 2.45/month - NVMe storage, full root access, AS203446 DDoS protection and instant setup in Frankfurt am Main', quoted
+  - [4] 2026-10-22: site banner on the 404 page: '2026 Sale: servers from EUR 2.45 [To the offers]', quoted
+  - [5] 2026-10-22: the comparison page renders the control-panel feature list but no plan table and no prices, so the ladder could not be read
+  - [1] 2026-10-24: quoted: '3.95 EUR | Monatlich | 1 Ryzen vCores | 4 GB DDR4 Arbeitsspeicher | 25 GB Raid1 NVMe Speicher | 1 Gbit Uplink | 10 TB Traffic pro Monat | 1x IPv4 | 1x /64 IPv6'
+  - [2] 2026-10-24: quoted: the 8 GiB card reads '3.95 EUR | 2 Xeon vCores | 8 GB DDR3 ECC RAM | 50 GB Raid1 NVMe' and is marked 'Ausverkauft'
+  - [1] 2026-10-24: quoted from the 'Ryzen GEN 2 Starter' card: '3.95 € | Monatlich | 1 Ryzen vCores | 4 GB DDR4 Arbeitsspeicher | 25 GB Raid1 NVMe Speicher | 1 Gbit Uplink | 10 TB Traffic pro Monat | 1x IPv4 | 1x /64 IPv6-Subnetz | AMD Ryzen™ 9 5950x | Deutschland, Frankfurt am Main | Equinix FR7'
+  - [1] 2026-10-24: the same card carries 'Jetzt konfigurieren', the in-stock button; the sold-out cards on the Xeon, 2026-Sale and IPv6-only pages carry 'Ausverkauft' in the same position
+  - [2] 2026-10-24: the cheapest 8 GiB rung found anywhere on the site, quoted: 'Starter | 3.95 € | Monatlich | 2 Xeon vCores | 8 GB DDR3 ECC RAM | 50 GB Raid1 NVMe Speicher | 1 Gbit Uplink | 10 TB Traffic pro Monat | 1x IPv4', followed by 'Ausverkauft'
+  - [2] 2026-10-24: quoted: 'Nein, Sie müssen Ihr Produkt nicht kündigen. Ihr Server wird automatisch nach Ablauf der Laufzeit gesperrt und nach 5 Tagen gelöscht.'
+  - [1] 2026-10-24: quoted on the traffic FAQ: 'wenn das Traffic-Limit Ihres Servers erreicht ist, wird die Geschwindigkeit Ihres Servers auf 10 MB/s (80Mbit/s) begrenzt'
+  - [2] 2026-10-24: quoted footer: 'Alle Preise verstehen sich inklusive der Mehrwertsteuer des jeweiligen EU Mitgliedsstaates'
+  - [6] 2026-10-24: quoted: 'Alle unsere Dienste werden standardmäßig als Prepaid-Server angeboten. Die Server werden nach der gebuchten Zeit gelöscht, eine Kündigung ist nicht erforderlich.' and 'API First'
+  - [7] 2026-10-24: 
+  - [2] 2026-10-24: no end date and no post-sale price on the sale page: the hero reads 'Sichere dir jetzt unsere leistungsstarken 2026 Sale Server ab 2,45€ / Monat!'; the Starter card prints the figure '3.95 €' on one line and the word 'Monatlich' on the next, with no strike-through and no second price; the page contains no 'befristet', 'solange', 'gültig' and no end date
+  - [8] 2026-10-24: the payment rails, quoted from the 'Zahlungsmethoden' section: 'Wir bieten Ihnen eine Vielzahl von Zahlungsmethoden ... Sie können zwischen PayPal, Kreditkarte, Sofortüberweisung, Giropay, EPS, Paysafecard und Przelewy24 wählen.' followed by tiles for PayPal, Sofort Überweisung, CreditCard, Giropay, PaySafeCard, EPS, Przelewy24, Bitcoin, Litecoin, Alipay, Monero, Banküberweisung
+  - [9] 2026-10-24: 5.3: 'Die Vergütung ist im Voraus für die jeweils gewählte Leistungsperiode zu entrichten (Prepaid).'; 5.5 names cryptocurrency and 5.6 names PaySafeCard as rails.
+  - [10] 2026-10-24: the sale is capacity-limited, quoted: 'Diese sowie alle weiteren KVM-Produkte verwenden unser dynamisches Stock-System. Wird ein bestehender Server nicht verlängert und die dafür reservierte Kapazität anschließend wieder verfügbar, wird der entsprechende Stock automatisch erneut freigegeben.'
+  - [11] 2026-10-24: the order page at this public URL renders the sign-up fields 'Nutzername', 'E-Mail', 'Passwort', 'Sprache'; the payment step reads 'Zahlung per Kryptowährung ist nur über eine Guthabenaufladung möglich. Guthaben können Sie hier aufladen.' with a 'Mein Guthaben von € benutzen' control; the summary prints 'Verlängerungsbetrag (30 Tage)' equal to the amount due today, and 'Laufzeit 30 Tage'; the tax-country list includes '0% - Rest of the World / Outside EU'. The same page carries an 'Eingeloggt als ...' string, so whether an anonymous visitor sees an identical render is not established; only the structural text was used.
+  - [12] 2026-10-24: a raw fetch returns the same 'Datalix - Kundenbereich' page, so the rails offered at top-up were not read
+  - [1] 2026-11-03: the first rung (Ryzen GEN 2 Small, 2.45 EUR a month, in stock) includes 5 TB of traffic a month, not 10 TB | capture: sha256:c99c7b7ea9935478e3dde832baf81102019946527ad10398174ce6c509ca056b | quote: - 5 TB Traffic pro Monat
+  - [1] 2026-11-03: on exhaustion the port is shaped to 10 MB/s (80 Mbit/s) | capture: sha256:c99c7b7ea9935478e3dde832baf81102019946527ad10398174ce6c509ca056b | quote: Wenn das Traffic-Limit Ihres Servers erreicht ist, wird die Geschwindigkeit Ihres Servers auf 10 MB/s (80Mbit/s) begrenzt.
+  - [1] 2026-11-03: more traffic can be booked at any time; the page gives no price per TB | capture: sha256:c99c7b7ea9935478e3dde832baf81102019946527ad10398174ce6c509ca056b | quote: Ja, Sie können jederzeit mehr Traffic für Ihren Server buchen.
+  - [13] 2026-11-03: a REST API (OpenAPI 3.0, base https://backend.datalix.de/v1) is documented, authenticated by an API key | capture: sha256:86bfe967ce31f759e3d0f27178466054021c8c593ccbb7053a5eba3d4166cc5d | quote: Direct access to the API is recommended via the provided API Key.
+  - [1] 2026-11-03: servers give full root access | capture: sha256:c99c7b7ea9935478e3dde832baf81102019946527ad10398174ce6c509ca056b | quote: Sie haben vollen Root-Zugriff auf Ihren Server.
+  - [1] 2026-11-03: SSH keys can be added to the server, so SSH access exists | capture: sha256:c99c7b7ea9935478e3dde832baf81102019946527ad10398174ce6c509ca056b | quote: Sie haben die Möglichkeit, SSH-Keys zu Ihrem Server hinzuzufügen
+  - [6] 2026-11-04: the home page states an API with server-management endpoints | capture: sha256:59e7ef4cd429e3ad58d454c62ee64a44ab0ae21e3a0064e31f7bd770d87560c7 | quote: Sie deckt eine breite Palette von Endpunkten ab, darunter Serververwaltung und Abrechnung.
+  - [6] 2026-11-04: the page describes the API and names no client | capture: sha256:59e7ef4cd429e3ad58d454c62ee64a44ab0ae21e3a0064e31f7bd770d87560c7 | quote: Unsere API lässt sich einfach nutzen und in Ihre bestehenden Systeme integrieren.
+  - [1] 2026-11-04: SSH keys can be added for passwordless login, so SSH access is documented | capture: sha256:27f07ae5824e5c118d7b4208e9a6734423448062047c6d0d9ed50966ffa64d29 | quote: Sie haben die Möglichkeit, SSH-Keys zu Ihrem Server hinzuzufügen, um die Sicherheit Ihrer Verbindung zu erhöhen und sich ohne Passwort auf Ihrem Server anzumelden.
+  - [14] 2026-11-04: the reseller page states the API is REST, OpenAPI 3.0 | capture: sha256:68fa9d35917d02443cd72c20f11a820c7527f7cda5acdf8945a6eb1dadd4dd5b | quote: REST-API · OpenAPI 3.0
+- sources:
+  - [1] https://datalix.de/ryzen-kvm-server-mieten
+  - [2] https://datalix.de/2026-sale
+  - [3] https://datalix.eu/2026-sale
+  - [4] https://datalix.eu/en/vps
+  - [5] https://datalix.eu/kvm-server-compare
+  - [6] https://datalix.de/
+  - [7] https://datalix.de/cp/?register
+  - [8] https://datalix.de/storage-kvm-server-mieten
+  - [9] https://datalix.de/tos
+  - [10] https://wiki.datalix.eu/de/wiki/general/stock-information
+  - [11] https://datalix.de/cp/order/config/2/cfb019ab-8bb5-4485-9ae6-4933cb2f393b
+  - [12] https://datalix.de/cp/credit/add
+  - [13] https://apidoc.datalix.de/
+  - [14] https://datalix.de/reseller
+
+## Datalix (xeon kvm starter)
+
+- `compute/datalix-xeon-kvm-starter` | qualifies-with-caveat | evidence documented | binding volume-quota | category VPS | tier Starter (Xeon KVM 2026 Sale)
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T06:30:00.000Z (live) | stale on 2026-11-24
+- url https://datalix.de/2026-sale
+- price parsed USD 6.71/mo
+- disagrees on identity_kind: `compute/datalix` says email, `compute/datalix-xeon-kvm-starter` says card
+- disagrees on verdict: `compute/datalix-xeon-2026-sale-starter` says paid-only, `compute/datalix-xeon-kvm-starter` says qualifies-with-caveat
+- free tier: no free tier; the sale's smallest rung is the Small at EUR 2.45 a month | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: 'Unsere Prepaid-Produkte bieten volle Kostenkontrolle: Kein Vertrag, keine versteckten Kosten' (prepaid, no contract); the balance is not refundable
+- egress: the sale page states '10 TB Traffic pro Monat'; the order page for the same SKU states '1 TB Traffic'. The two disagree by 10x | metered: yes | free allowance: 10 TB per the sale page, 1 TB per the order page | price per TB: EUR 1.00 per additional TB, from the order page's own 'trafficPrice = 1.00' | source: [1]
+- identity: card | detail: the order form asks for an account, a tax country and invoice details, and states 'Adressdaten werden fur Steuerzwecke gespeichert' (address data stored for tax). No ID document field. Payment is by a prepaid balance; crypto is 'nur uber Guthaben aufladen moglich' (only by topping up the balance). Card hold not stated: unverified rather than none.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 1 TB a month per the order page, or 10 TB per the sale page [2]
+- binding note: traffic is the only numeric ceiling and the two pages disagree on it by 10x, so the binding figure is unresolved rather than known.
+- interface detail: root SSH plus a self-written control panel with NoVNC console, ISO mount, snapshots and rDNS
+- tooling: any SSH client; the Datalix control panel; a backend API is referenced in the order page's script
+- composes with: 8 GiB in Frankfurt on a prepaid balance with no contract, if the cart price can be reconciled with the page
+- reliability: no reliability event recorded
+- notes: Multiple promotional configurations are available without preference.
+- evidence note: both the sale page and the order page were read and they disagree on price, traffic and memory type. The record carries the disagreement rather than picking a winner, because a buyer meets the cart.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 8
+  - shape.disk_gib: 50
+  - billing_model: prepaid, 30-day periods
+  - term: 30 days ('Laufzeit 30 Tage')
+  - m10h_usd: 6.71
+  - m24h_usd: 6.71
+  - price_arithmetic: The cart's 'Heute fallig' and 'Verlangerungsbetrag (30 Tage)' are both EUR 5.99. x 1.1193 (ECB reference, 2026-10-23) = USD 6.71. The sale page advertises EUR 3.95, which is USD 4.42. Both are recorded; the cart figure is the one a buyer is charged. It is a VPS on a 30-day prepaid period, so no 730-hour multiplication.
+  - out_of_pocket_usd: 6.71
+  - signup_url: https://datalix.de/cp/order/config/2/57d9ff3c-6e1c-4260-8c32-368705a8ddfe
+  - cart_url: https://datalix.de/cp/order/config/2/57d9ff3c-6e1c-4260-8c32-368705a8ddfe
+  - renewal_usd: 6.71
+  - renewal_note: the cart's own 'Verlangerungsbetrag (30 Tage)' is EUR 5.99, and the page title calls that 'dauerhaft' (permanent). So the renewal is published as EUR 5.99 per 30 days = USD 6.71, which is over the line, while the headline EUR 3.95 is not what the cart charges.
+  - promo: no
+  - worst_case_exposure_x: 1.52
+  - worst_case_note: 5.99 / 3.95 = 1.52x between the advertised and the charged figure in the same visit, before any renewal question.
+  - page_price_eur: 3.95
+  - cart_price_eur: 5.99
+  - disagreement: page EUR 3.95 / 10 TB / DDR4 versus cart EUR 5.99 / 1 TB / DDR4 (and DDR3 on the Small SKU)
+  - fx.pair: EUR/USD
+  - fx.rate: 1.1193
+  - fx.date: 2026-10-23
+  - port_mbps: 1000
+  - ipv4_included: yes
+  - ipv6: /64
+  - payment_methods: prepaid balance; the order page states 'Zahlung per Kryptowahrung ist nur uber Guthaben aufladen moglich' (crypto only by topping up). Which card or bank rails fund the balance was not readable without registering: unverified
+  - stock: unknown: the sale page renders an order button for every rung and the cart resolves to a priced summary, so the SKU exists; no stock counter is published. Read at https://datalix.de/2026-sale
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS on a 30-day prepaid period
+  - vat: the cart adds 'MwSt. (19 %) 0,96 EUR' for a German tax country; the page prices are net
+- evidence:
+  - [1] 2026-10-24: quoted from the Starter card: 'Starter / 3.95 EUR / Monatlich / 2 Xeon Gold vCores / 8 GB DDR4 Arbeitsspeicher / 50 GB Raid1 NVMe Speicher / 10 TB Traffic pro Monat / 1x IPv4 | 1x /64 IPv6-Subnetz / Intel Xeon Gold 6150 / Deutschland, Frankfurt am Main / Equinix FR5'
+  - [2] 2026-10-24: the order page titled 'Datalix - Starter - fur dauerhaft 3.95EUR' renders an order summary of '2 virtuelle Xeon-Gold-Kerne / 8 GB DDR4-Arbeitsspeicher / 50 GB RAID-1-NVMe-Speicher / 1 TB Traffic / MwSt. (19 %) 0,96 EUR / Verlangerungsbetrag (30 Tage) 5,99 EUR / Setup (Einmalig) 0,00 EUR / Heute fallig 5,99 EUR'
+  - [2] 2026-10-24: the page's own script: 'var basePrice = 3.95; var serverAmount = 1; var trafficPrice = 1.00; var ipPrice = 1.49;' with the total computed as basePrice plus per-IP and per-TB extras
+  - [3] 2026-10-24: the same pattern on a second SKU: the order page is titled 'Datalix - Small - fur dauerhaft 2.45EUR' while the summary states '6 GB DDR3 Arbeitsspeicher' where the sale page says DDR4
+- sources:
+  - [1] https://datalix.de/2026-sale
+  - [2] https://datalix.de/cp/order/config/2/57d9ff3c-6e1c-4260-8c32-368705a8ddfe
+  - [3] https://datalix.de/cp/order/config/2/ef9a0243-d7d9-45dc-9ca4-42e3a7c130b1
+
+## Datalix (xeon 2026 sale starter)
+
+- `compute/datalix-xeon-2026-sale-starter` | paid-only | evidence documented | binding volume-quota | category VPS | tier Starter (Xeon KVM 2026 Sale)
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T06:30:00.000Z (live) | stale on 2026-11-24
+- url https://datalix.de/2026-sale
+- price parsed USD 6.71/mo
+- disagrees on identity_kind: `compute/datalix` says email, `compute/datalix-xeon-2026-sale-starter` says card
+- disagrees on verdict: `compute/datalix` says qualifies-with-caveat, `compute/datalix-xeon-2026-sale-starter` says paid-only
+- disagrees on verdict: `compute/datalix-xeon-2026-sale-starter` says paid-only, `compute/datalix-xeon-kvm-starter` says qualifies-with-caveat
+- free tier: no free tier; the sale's smallest rung is the Small at EUR 2.45 a month | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: 'Unsere Prepaid-Produkte bieten volle Kostenkontrolle: Kein Vertrag, keine versteckten Kosten' (prepaid, no contract); the balance is not refundable
+- egress: the sale page states '10 TB Traffic pro Monat'; the order page for the same SKU states '1 TB Traffic'. The two disagree by 10x | metered: yes | free allowance: 10 TB per the sale page, 1 TB per the order page | price per TB: EUR 1.00 per additional TB, from the order page's own 'trafficPrice = 1.00' | source: [1]
+- identity: card | detail: the order form asks for an account, a tax country and invoice details, and states 'Adressdaten werden fur Steuerzwecke gespeichert' (address data stored for tax). No ID document field. Payment is by a prepaid balance; crypto is 'nur uber Guthaben aufladen moglich' (only by topping up the balance). Card hold not stated: unverified rather than none.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 1 TB a month per the order page, or 10 TB per the sale page [2]
+- binding note: traffic is the only numeric ceiling and the two pages disagree on it by 10x, so the binding figure is unresolved rather than known.
+- interface detail: root SSH plus a self-written control panel with NoVNC console, ISO mount, snapshots and rDNS
+- tooling: any SSH client; the Datalix control panel; a backend API is referenced in the order page's script
+- composes with: 8 GiB in Frankfurt on a prepaid balance with no contract, if the cart price can be reconciled with the page
+- reliability: no reliability event recorded
+- notes: UNRECONCILED, and that is the finding. The sale page prices Starter at EUR 3.95 a month with 10 TB and DDR4. The order page for the same SKU is titled 'fur dauerhaft 3.95EUR' (permanently 3.95) but its own order summary computes 'Verlangerungsbetrag (30 Tage) 5,99 EUR' and 'Heute fallig 5,99 EUR', lists '1 TB Traffic' rather than 10 TB, and on the neighbouring Small SKU prints 'DDR3' where the sale page prints 'DDR4'. The script's basePrice is 3.95, so the 5.99 is not a base price plus an add-on the buyer chose. This is the DediRock pattern with an extra twist: the page and the cart disagree while both claim the same price. EUR 3.95 = USD 4.42 and EUR 5.99 = USD 6.71 at the ECB rate, so which one is real decides whether this row is under the line. The only honest statement is that the cart charges EUR 5.99 today and the page advertises EUR 3.95, and a buyer meets the cart. VERDICT: 'paid-only' because the figure the cart charges, EUR 5.99 = USD 6.71, is over the line; if the page's EUR 3.95 = USD 4.42 is the real price the row would qualify, and reconciling the two is the open question.
+- evidence note: both the sale page and the order page were read and they disagree on price, traffic and memory type. The record carries the disagreement rather than picking a winner, because a buyer meets the cart.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 8
+  - shape.disk_gib: 50
+  - billing_model: prepaid, 30-day periods
+  - term: 30 days ('Laufzeit 30 Tage')
+  - m10h_usd: 6.71
+  - m24h_usd: 6.71
+  - price_arithmetic: The cart's 'Heute fallig' and 'Verlangerungsbetrag (30 Tage)' are both EUR 5.99. x 1.1193 (ECB reference, 2026-10-23) = USD 6.71. The sale page advertises EUR 3.95, which is USD 4.42. Both are recorded; the cart figure is the one a buyer is charged. It is a VPS on a 30-day prepaid period, so no 730-hour multiplication.
+  - out_of_pocket_usd: 6.71
+  - signup_url: https://datalix.de/cp/order/config/2/57d9ff3c-6e1c-4260-8c32-368705a8ddfe
+  - cart_url: https://datalix.de/cp/order/config/2/57d9ff3c-6e1c-4260-8c32-368705a8ddfe
+  - renewal_usd: 6.71
+  - renewal_note: the cart's own 'Verlangerungsbetrag (30 Tage)' is EUR 5.99, and the page title calls that 'dauerhaft' (permanent). So the renewal is published as EUR 5.99 per 30 days = USD 6.71, which is over the line, while the headline EUR 3.95 is not what the cart charges.
+  - promo: no
+  - worst_case_exposure_x: 1.52
+  - worst_case_note: 5.99 / 3.95 = 1.52x between the advertised and the charged figure in the same visit, before any renewal question.
+  - page_price_eur: 3.95
+  - cart_price_eur: 5.99
+  - disagreement: page EUR 3.95 / 10 TB / DDR4 versus cart EUR 5.99 / 1 TB / DDR4 (and DDR3 on the Small SKU)
+  - fx.pair: EUR/USD
+  - fx.rate: 1.1193
+  - fx.date: 2026-10-23
+  - port_mbps: 1000
+  - ipv4_included: yes
+  - ipv6: /64
+  - payment_methods: prepaid balance; the order page states 'Zahlung per Kryptowahrung ist nur uber Guthaben aufladen moglich' (crypto only by topping up). Which card or bank rails fund the balance was not readable without registering: unverified
+  - stock: unknown: the sale page renders an order button for every rung and the cart resolves to a priced summary, so the SKU exists; no stock counter is published. Read at https://datalix.de/2026-sale
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS on a 30-day prepaid period
+  - vat: the cart adds 'MwSt. (19 %) 0,96 EUR' for a German tax country; the page prices are net
+- evidence:
+  - [1] 2026-10-24: quoted from the Starter card: 'Starter / 3.95 EUR / Monatlich / 2 Xeon Gold vCores / 8 GB DDR4 Arbeitsspeicher / 50 GB Raid1 NVMe Speicher / 10 TB Traffic pro Monat / 1x IPv4 | 1x /64 IPv6-Subnetz / Intel Xeon Gold 6150 / Deutschland, Frankfurt am Main / Equinix FR5'
+  - [2] 2026-10-24: the order page titled 'Datalix - Starter - fur dauerhaft 3.95EUR' renders an order summary of '2 virtuelle Xeon-Gold-Kerne / 8 GB DDR4-Arbeitsspeicher / 50 GB RAID-1-NVMe-Speicher / 1 TB Traffic / MwSt. (19 %) 0,96 EUR / Verlangerungsbetrag (30 Tage) 5,99 EUR / Setup (Einmalig) 0,00 EUR / Heute fallig 5,99 EUR'
+  - [2] 2026-10-24: the page's own script: 'var basePrice = 3.95; var serverAmount = 1; var trafficPrice = 1.00; var ipPrice = 1.49;' with the total computed as basePrice plus per-IP and per-TB extras
+  - [3] 2026-10-24: the same pattern on a second SKU: the order page is titled 'Datalix - Small - fur dauerhaft 2.45EUR' while the summary states '6 GB DDR3 Arbeitsspeicher' where the sale page says DDR4
+- sources:
+  - [1] https://datalix.de/2026-sale
+  - [2] https://datalix.de/cp/order/config/2/57d9ff3c-6e1c-4260-8c32-368705a8ddfe
+  - [3] https://datalix.de/cp/order/config/2/ef9a0243-d7d9-45dc-9ca4-42e3a7c130b1

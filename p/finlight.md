@@ -1,0 +1,128 @@
+# finlight
+
+> finlight.me | Data APIs; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/finlight/ | JSON https://fshy.ajam.dev/api/v1/entity/finlight.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## finlight
+
+- `data-apis/finlight` | qualifies-with-caveat | evidence documented | binding request-rate | category financial news API (REST, WebSocket and webhooks; sentiment and entity enrichment on paid plans) | tier Launchpad
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T00:23:43.773Z (live) | stale on 2026-12-03
+- url https://finlight.me/pricing
+- free tier: Launchpad plan USD 0 per month: 5,000 requests per month, articles after a 12-hour delay, REST only, Discord support; webhook registration, ticker and entity data, sentiment analysis and WebSocket streams are not included. | unit: requests | metered on: request-count | read on: 2026-11-02 | source: [1] | note: Each REST request consumes one request from the monthly allowance, which resets at the start of the billing period. The Free plan covers roughly the last month of articles. A short-term burst limit per 10 seconds is enforced only on plans that define one. The next plan up is Pro Light at USD 29 a month with 10k requests per month; prices exclude applicable taxes.
+- per-object cap: 100 results per page at most (pageSize 1-100) | source: [2]
+- retention: roughly the last month of articles on the Free plan; requests for dates outside the window return no results | source: [3] | note: A query API with no stored objects.
+- egress: not metered in bytes; the 5,000 requests a month bound what a free key can pull | metered: no | source: [1]
+- identity: email | detail: The sign-up form takes a full name, an email and a password of at least 8 characters with uppercase, lowercase, a number and a symbol, or Continue with Google, with a terms checkbox, and shows no card field. unverified: no first-party page states whether the free plan needs a card.
+- interface: rest
+- limits:
+  - request-rate (binding): 5,000 requests per month on the Free plan; over it the API answers HTTP 429 until the next billing period [4]
+  - request-rate (binding): unverified: a burst limit per 10 seconds is enforced only on plans that define one, and the Free value is not published [3]
+  - per-object-cap: 100 results per page at most (pageSize 1-100) [2]
+- limits note: Plan gating: Free is REST only with no sentiment, ticker or entity data, webhooks or WebSocket streams; a request for a capability outside the plan answers HTTP 403. Bulk path: none; 100 articles per call.
+- binding note: 5,000 requests a month binds first; the burst limit, where a plan defines one, is not published for Free.
+- interface detail: POST https://api.finlight.me/v2/articles with an X-API-KEY header and a JSON body such as {"query": "Nvidia"}; WebSocket streams and webhooks are paid features. An MCP server at https://mcp.finlight.me is available on all plans, signs in with OAuth 2.0 and counts toward the same monthly quota.
+- endpoint: part of interface detail
+- tooling: any HTTP client; official client libraries for eight languages; an MCP server
+- composes with: A news feed delayed 12 hours over the last month at 5,000 requests a month, without sentiment or entity data on the Free plan, so a free stack pairs it with the GDELT event dataset for volume and a quote feed for prices.
+- reliability: Past the monthly quota the API answers HTTP 429, which clears at the start of the billing period; a burst 429 should wait about 10 seconds; no Retry-After or rate-limit headers are sent; a missing key answers HTTP 401.
+- notes: Free is REST only and returns articles after a 12-hour delay without sentiment or entity data; real-time delivery, webhooks and WebSocket streams are paid.
+- evidence note: The plan, quota, delay and history window are read from the first-party pricing and documentation pages. The articles route takes POST only, so the keyless 401 is documented, not measured; a free key was not exercised, so the card requirement and the Free burst limit are unverified: behind a sign-up.
+- evidence:
+  - [1] 2026-11-02: the Launchpad plan is USD 0 per month for individuals and small teams | capture: sha256:5d6d5568aca2ee2e8f8b98233482908fb4d005b001d576dde7fdebd253988104 | quote: ## Launchpad Free for individuals and small teams. $0 USD per month
+  - [1] 2026-11-02: the Launchpad plan includes 5k requests per month | capture: sha256:5d6d5568aca2ee2e8f8b98233482908fb4d005b001d576dde7fdebd253988104 | quote: - 5k requests per month
+  - [1] 2026-11-02: the Launchpad plan has real-time access with a 12-hour delay | capture: sha256:5d6d5568aca2ee2e8f8b98233482908fb4d005b001d576dde7fdebd253988104 | quote: - Real-Time Access 12h delay
+  - [1] 2026-11-02: the Launchpad plan comes with Discord support | capture: sha256:5d6d5568aca2ee2e8f8b98233482908fb4d005b001d576dde7fdebd253988104 | quote: - Discord Support
+  - [1] 2026-11-02: the Launchpad plan does not include sentiment analysis | capture: sha256:5d6d5568aca2ee2e8f8b98233482908fb4d005b001d576dde7fdebd253988104 | quote: - Not included:Sentiment Analysis
+  - [1] 2026-11-02: the Launchpad plan does not include ticker and entity data | capture: sha256:5d6d5568aca2ee2e8f8b98233482908fb4d005b001d576dde7fdebd253988104 | quote: - Not included:Ticker / Entities
+  - [1] 2026-11-02: the Launchpad plan does not include webhook registration | capture: sha256:5d6d5568aca2ee2e8f8b98233482908fb4d005b001d576dde7fdebd253988104 | quote: - Not included:Webhook Registration
+  - [1] 2026-11-02: the Launchpad plan does not include WebSocket streams | capture: sha256:5d6d5568aca2ee2e8f8b98233482908fb4d005b001d576dde7fdebd253988104 | quote: - Not included:Websocket Streams
+  - [1] 2026-11-02: the next plan up, Pro Light, is USD 29 per month | capture: sha256:5d6d5568aca2ee2e8f8b98233482908fb4d005b001d576dde7fdebd253988104 | quote: ## Pro Light For small teams and startups looking to grow. $29 USD per month
+  - [1] 2026-11-02: Pro Light includes 10k requests per month | capture: sha256:5d6d5568aca2ee2e8f8b98233482908fb4d005b001d576dde7fdebd253988104 | quote: - 10k requests per month
+  - [1] 2026-11-02: prices exclude applicable taxes | capture: sha256:5d6d5568aca2ee2e8f8b98233482908fb4d005b001d576dde7fdebd253988104 | quote: All prices are shown in USD or your local currency and exclude applicable taxes.
+  - [4] 2026-11-02: the free tier includes 5,000 requests per month | capture: sha256:9dfacd0f7734d853cd327daf913aa95957cfca0c53e8544b44d3ac43b2fd131d | quote: The free tier includes 5,000 requests per month for more details visit the [pricing section](https://finlight.me/pricing).
+  - [4] 2026-11-02: the free key comes from the dashboard after signing up for a free account | capture: sha256:9dfacd0f7734d853cd327daf913aa95957cfca0c53e8544b44d3ac43b2fd131d | quote: Visit the [finlight Dashboard](https://app.finlight.me) and sign up for a free account.
+  - [4] 2026-11-02: the articles route is a POST that takes the key in an X-API-KEY header | capture: sha256:9dfacd0f7734d853cd327daf913aa95957cfca0c53e8544b44d3ac43b2fd131d | quote: curl -X POST 'https://api.finlight.me/v2/articles' \
+  - [4] 2026-11-02: the request body is JSON with a query field | capture: sha256:9dfacd0f7734d853cd327daf913aa95957cfca0c53e8544b44d3ac43b2fd131d | quote: -d '{ "query": "Nvidia" }'
+  - [4] 2026-11-02: the key travels in the X-API-KEY header | capture: sha256:9dfacd0f7734d853cd327daf913aa95957cfca0c53e8544b44d3ac43b2fd131d | quote: -H 'X-API-KEY: YOUR_API_KEY' \
+  - [4] 2026-11-02: official client libraries exist for eight languages | capture: sha256:9dfacd0f7734d853cd327daf913aa95957cfca0c53e8544b44d3ac43b2fd131d | quote: finlight offers official client libraries for eight languages
+  - [3] 2026-11-02: each REST request consumes one request from the monthly allowance | capture: sha256:4e1a1365ba51373903388e01d6a51366b4f7429f5bf3f326adade2139aba30ca | quote: Each REST request consumes one request from your monthly allowance.
+  - [3] 2026-11-02: a burst limit per 10 seconds exists only on plans that define it | capture: sha256:4e1a1365ba51373903388e01d6a51366b4f7429f5bf3f326adade2139aba30ca | quote: A short-term limit on requests per 10 seconds, smoothing spikes. Only enforced on plans that define it.
+  - [3] 2026-11-02: the Free plan covers roughly the last month of articles | capture: sha256:4e1a1365ba51373903388e01d6a51366b4f7429f5bf3f326adade2139aba30ca | quote: The Free and Pro Light plans currently cover roughly the last month of articles
+  - [3] 2026-11-02: the Free plan is REST only | capture: sha256:4e1a1365ba51373903388e01d6a51366b4f7429f5bf3f326adade2139aba30ca | quote: | Free | Evaluation and low-volume use. REST only (no WebSocket). |
+  - [3] 2026-11-02: monthly counters reset at the start of the billing period and a quota 429 clears automatically | capture: sha256:4e1a1365ba51373903388e01d6a51366b4f7429f5bf3f326adade2139aba30ca | quote: Monthly counters reset at the start of your billing period — a quota `429` clears automatically.
+  - [5] 2026-11-02: a missing or invalid X-API-KEY answers HTTP 401 | capture: sha256:ec40a44fd965ecf2a0e01aea34d5563b149fb8a5a978336a834acd9664a167e5 | quote: | `401` | Unauthorized | Missing or invalid `X-API-KEY`. |
+  - [5] 2026-11-02: a capability outside the plan answers HTTP 403 | capture: sha256:ec40a44fd965ecf2a0e01aea34d5563b149fb8a5a978336a834acd9664a167e5
+  - [5] 2026-11-02: a monthly quota or burst limit answers HTTP 429 | capture: sha256:ec40a44fd965ecf2a0e01aea34d5563b149fb8a5a978336a834acd9664a167e5 | quote: | `429` | Too Many Requests | Monthly quota or burst rate limit exceeded. |
+  - [5] 2026-11-02: the monthly quota 429 names a token limit of 5000 for the current period | capture: sha256:ec40a44fd965ecf2a0e01aea34d5563b149fb8a5a978336a834acd9664a167e5 | quote: "message": "Throttling Exception: Exceeded token limit of 5000 for the current period."
+  - [5] 2026-11-02: no Retry-After or rate-limit headers are sent | capture: sha256:ec40a44fd965ecf2a0e01aea34d5563b149fb8a5a978336a834acd9664a167e5 | quote: > Note: finlight does not currently return `Retry-After` or rate-limit headers.
+  - [2] 2026-11-02: the pageSize parameter takes 1-100 results per page | capture: sha256:055020494b6007d957a76da9b923dc778ac669481b2e56ca3678448e8686b8ef | quote: Number of results per page (1-100).
+  - [6] 2026-11-02: MCP access is on all plans and counts toward the same quota of 5,000 requests a month on the free tier | capture: sha256:994dca3a4b3aa22616c7ad6b9a11e8ac1cd18c29f40781b74976779015c21d81 | quote: MCP server access is available on all plans. MCP requests count toward your normal API quota. The free tier includes 5,000 requests per month.
+  - [6] 2026-11-02: the MCP server URL is mcp.finlight.me | capture: sha256:994dca3a4b3aa22616c7ad6b9a11e8ac1cd18c29f40781b74976779015c21d81 | quote: Add https://mcp.finlight.me as a remote MCP server in your client. No API key or headers in the config.
+  - [6] 2026-11-02: the MCP server signs in with OAuth 2.0 | capture: sha256:994dca3a4b3aa22616c7ad6b9a11e8ac1cd18c29f40781b74976779015c21d81 | quote: The server uses OAuth 2.0 with dynamic client registration.
+  - [7] 2026-11-02: real-time WebSocket delivery and webhooks are paid features | capture: sha256:69f1bf3d7244f3baa51a9982294e447c16bf28a10c67cfa5191f8802a2006c85 | quote: - Real-time delivery (WebSocket) and webhooks are paid features.
+  - [8] 2026-11-02: the sign-up form takes a full name, an email and a strong password | capture: sha256:1cc5ccf49a84db2d8466157ee43d71a935bfd4a68696a3d309feb3a66690ac0d | quote: Full name Email Password At least 8 characters, with uppercase, lowercase, a number and a symbol.
+  - [8] 2026-11-02: the sign-up form carries a terms checkbox | capture: sha256:1cc5ccf49a84db2d8466157ee43d71a935bfd4a68696a3d309feb3a66690ac0d
+  - [8] 2026-11-02: the sign-up page offers Continue with Google | capture: sha256:fdabe04490f387d785fc491721575a43315596a87d33c61f7703d53b1ad2cbb3 | quote: Continue with Google
+  - [1] 2026-11-02: the Launchpad plan is free for individuals and small teams at USD 0 a month | capture: sha256:5d6d5568aca2ee2e8f8b98233482908fb4d005b001d576dde7fdebd253988104 | quote: ## Launchpad Free for individuals and small teams. $0
+  - [1] 2026-11-02: Launchpad allows 5k requests a month | capture: sha256:5d6d5568aca2ee2e8f8b98233482908fb4d005b001d576dde7fdebd253988104 | quote: - 5k requests per month
+  - [1] 2026-11-02: Launchpad access carries a 12-hour delay | capture: sha256:5d6d5568aca2ee2e8f8b98233482908fb4d005b001d576dde7fdebd253988104 | quote: - Real-Time Access 12h delay
+  - [1] 2026-11-02: Launchpad has no WebSocket streams | capture: sha256:5d6d5568aca2ee2e8f8b98233482908fb4d005b001d576dde7fdebd253988104 | quote: - Not included:Websocket Streams
+  - [1] 2026-11-02: Launchpad has no webhook registration | capture: sha256:5d6d5568aca2ee2e8f8b98233482908fb4d005b001d576dde7fdebd253988104 | quote: - Not included:Webhook Registration
+  - [1] 2026-11-02: monthly requests are 5000 on Launchpad and 10000 on Pro Light | capture: sha256:9bd84df07e8c0c29a13f7001377b12fdd359bd05dc72f8b820c404d26d15763e | quote: | Monthly Requests | 5000 | 10000 | 50000 | 150000 |
+  - [1] 2026-11-02: real-time access has a 12-hour delay on Launchpad and is included from Pro Light | capture: sha256:9bd84df07e8c0c29a13f7001377b12fdd359bd05dc72f8b820c404d26d15763e | quote: | Real-Time Access | 12h delay | Included in Pro Light | Included in Pro Standard | Included in Pro Scale |
+  - [1] 2026-11-02: historical data is 1 month on Launchpad and Pro Light | capture: sha256:9bd84df07e8c0c29a13f7001377b12fdd359bd05dc72f8b820c404d26d15763e | quote: | Historical Data | 1 month | 1 month | Included in Pro Standard | Included in Pro Scale |
+  - [1] 2026-11-02: sentiment analysis is not in Launchpad and starts at Pro Standard | capture: sha256:9bd84df07e8c0c29a13f7001377b12fdd359bd05dc72f8b820c404d26d15763e | quote: | Sentiment Analysis | Not included in Launchpad | Not included in Pro Light | Included in Pro Standard | Included in Pro Scale |
+  - [1] 2026-11-02: ticker entities are not in Launchpad and start at Pro Light | capture: sha256:9bd84df07e8c0c29a13f7001377b12fdd359bd05dc72f8b820c404d26d15763e | quote: | Ticker / Entities | Not included in Launchpad | Included in Pro Light | Included in Pro Standard | Included in Pro Scale |
+  - [1] 2026-11-02: webhook registration is not in Launchpad and starts at Pro Light with 1 | capture: sha256:9bd84df07e8c0c29a13f7001377b12fdd359bd05dc72f8b820c404d26d15763e | quote: | Webhook Registration | Not included in Launchpad | 1 | 2 | 5 |
+  - [1] 2026-11-02: Launchpad is free and Pro Light is USD 29 a month | capture: sha256:9bd84df07e8c0c29a13f7001377b12fdd359bd05dc72f8b820c404d26d15763e | quote: | Monthly price | Free | 29 USD | 99 USD | 249 USD |
+  - [9] 2026-11-02: each REST request counts as one request and the counter resets every billing period | capture: sha256:4e1a1365ba51373903388e01d6a51366b4f7429f5bf3f326adade2139aba30ca | quote: Each REST request consumes one request from your monthly allowance. The counter resets at the start of every billing period.
+  - [9] 2026-11-02: the Free plan covers roughly the last month of articles | capture: sha256:4e1a1365ba51373903388e01d6a51366b4f7429f5bf3f326adade2139aba30ca | quote: The Free and Pro Light plans currently cover roughly the last month of articles; higher plans unlock deeper historical coverage.
+  - [9] 2026-11-02: dates outside the plan's window return no results | capture: sha256:4e1a1365ba51373903388e01d6a51366b4f7429f5bf3f326adade2139aba30ca | quote: Use the `from` / `to` date filters to query within your plan's window — requests for dates outside it simply return no results for that range.
+  - [9] 2026-11-02: a burst rate per 10 seconds exists only on plans that define it | capture: sha256:4e1a1365ba51373903388e01d6a51366b4f7429f5bf3f326adade2139aba30ca | quote: A short-term limit on requests per 10 seconds, smoothing spikes. Only enforced on plans that define it.
+  - [9] 2026-11-02: WebSocket needs a paid plan | capture: sha256:4e1a1365ba51373903388e01d6a51366b4f7429f5bf3f326adade2139aba30ca | quote: WebSocket requires a paid plan.
+  - [9] 2026-11-02: no Retry-After or X-RateLimit headers are sent | capture: sha256:4e1a1365ba51373903388e01d6a51366b4f7429f5bf3f326adade2139aba30ca | quote: - No rate-limit headers. finlight does not currently send `Retry-After` or `X-RateLimit-*` headers.
+  - [9] 2026-11-02: dashboard usage is aggregated about once a day and lags by a day | capture: sha256:4e1a1365ba51373903388e01d6a51366b4f7429f5bf3f326adade2139aba30ca | quote: - Dashboard usage isn't live. The usage shown in the [finlight dashboard](https://app.finlight.me/) is aggregated about once a day and reflects activity through the previous day — it is not a real-time counter.
+  - [9] 2026-11-02: the exact numeric limits of each plan are not published on the page | capture: sha256:4e1a1365ba51373903388e01d6a51366b4f7429f5bf3f326adade2139aba30ca | quote: Exact numeric limits (monthly tokens, burst rate, WebSocket connections, webhook quota) and the feature set per plan are part of pricing and can change.
+  - [9] 2026-11-02: a burst 429 means pausing about 10 seconds | capture: sha256:4e1a1365ba51373903388e01d6a51366b4f7429f5bf3f326adade2139aba30ca | quote: - Burst `429` → pause ~10 seconds, then continue.
+  - [10] 2026-11-02: a request returns 1 to 100 articles | capture: sha256:055020494b6007d957a76da9b923dc778ac669481b2e56ca3678448e8686b8ef | quote: Number of results per page (1-100).
+  - [11] 2026-11-02: an example monthly-quota 429 shows a limit of 5000 for the period | capture: sha256:ec40a44fd965ecf2a0e01aea34d5563b149fb8a5a978336a834acd9664a167e5 | quote: "message": "Throttling Exception: Exceeded token limit of 5000 for the current period."
+  - [11] 2026-11-02: an example burst 429 reads 10 requests per 10 seconds, with no plan named | capture: sha256:ec40a44fd965ecf2a0e01aea34d5563b149fb8a5a978336a834acd9664a167e5 | quote: "message": "Throttling Exception: Exceeded rate limit of 10 requests per 10 seconds."
+  - [11] 2026-11-02: a monthly-quota 429 clears at the start of the next billing period | capture: sha256:ec40a44fd965ecf2a0e01aea34d5563b149fb8a5a978336a834acd9664a167e5 | quote: For a monthly quota `429`, requests will succeed again at the start of your next billing period (or after an upgrade).
+  - [8] 2026-11-02: the sign-up page offers Google sign-in or an account form | capture: sha256:ce2320e8315a4b13e24eca1d34f5ea8029a699fbcb7fdc0f90ee86b4ce196c5d | quote: ## Create a new account Continue with Google
+  - [8] 2026-11-02: the account form lists a full name, an email and a password | capture: sha256:ce2320e8315a4b13e24eca1d34f5ea8029a699fbcb7fdc0f90ee86b4ce196c5d | quote: Full name Email Password
+  - [8] 2026-11-02: the password needs 8 characters with upper-case, lower-case, a number and a symbol | capture: sha256:ce2320e8315a4b13e24eca1d34f5ea8029a699fbcb7fdc0f90ee86b4ce196c5d | quote: At least 8 characters, with uppercase, lowercase, a number and a symbol.
+  - [12] 2026-11-02: the API key comes from a free account created at app.finlight.me | capture: sha256:891980973893387fac24cbae6f2875cfb3672e1dad160b62c512e26082e03b3f | quote: 1. Create a free account at [app.finlight.me](https://app.finlight.me/).
+  - [12] 2026-11-02: the API key is generated in the dashboard after sign-up | capture: sha256:891980973893387fac24cbae6f2875cfb3672e1dad160b62c512e26082e03b3f | quote: 2. Open the dashboard and generate an API key.
+  - [12] 2026-11-02: the free plan is REST-only | capture: sha256:891980973893387fac24cbae6f2875cfb3672e1dad160b62c512e26082e03b3f | quote: The free plan is REST-only and great for testing.
+  - [4] 2026-11-02: the quickstart states the free tier includes 5,000 requests a month | capture: sha256:9dfacd0f7734d853cd327daf913aa95957cfca0c53e8544b44d3ac43b2fd131d | quote: - The free tier includes 5,000 requests per month for more details visit the [pricing section](https://finlight.me/pricing).
+  - [7] 2026-11-02: free-plan request volume is capped per month | capture: sha256:69f1bf3d7244f3baa51a9982294e447c16bf28a10c67cfa5191f8802a2006c85 | quote: - Request volume is capped per month.
+  - [7] 2026-11-02: history depth on the free plan is limited to recent news | capture: sha256:69f1bf3d7244f3baa51a9982294e447c16bf28a10c67cfa5191f8802a2006c85 | quote: - History depth is limited to recent news; deeper archives come with higher plans.
+  - [13] 2026-11-02: the MCP server takes the finlight API key as a Bearer token | capture: sha256:dbd1de7882ad8fa10c5269c6570c74958d95287d9d62f2a17ff3e2481a6e33f5 | quote: All tool calls require authentication via Bearer token. Your finlight API key serves as the access token.
+  - [13] 2026-11-02: MCP rate limits depend on the subscription plan and the API answers 429 | capture: sha256:dbd1de7882ad8fa10c5269c6570c74958d95287d9d62f2a17ff3e2481a6e33f5 | quote: Rate limits depend on your finlight subscription plan. When limits are exceeded, the API returns a `429` status code.
+  - [6] 2026-11-02: an MCP server serves financial news to Claude, ChatGPT, Cursor and other MCP clients | capture: sha256:994dca3a4b3aa22616c7ad6b9a11e8ac1cd18c29f40781b74976779015c21d81 | quote: Real-time financial and geopolitical news for Claude, ChatGPT, Cursor, and any MCP client.
+  - [14] 2026-11-02: the REST base URL is api.finlight.me, version v2 | capture: sha256:49a032731e286c95ef71b228e321e6840689c5bbe4a284137233076c9708f169 | quote: - REST base URL: `https://api.finlight.me` (current version: v2, e.g. `POST https://api.finlight.me/v2/articles`)
+  - [14] 2026-11-02: the MCP server is at mcp.finlight.me with OAuth or an x-api-key header and three tools | capture: sha256:49a032731e286c95ef71b228e321e6840689c5bbe4a284137233076c9708f169 | quote: - MCP server (Model Context Protocol, Streamable HTTP): `https://mcp.finlight.me` — connect Claude, ChatGPT, or your own agents; auth via OAuth or `x-api-key` header; tools: `search_articles`, `get_article_by_link`, `list_sources`
+  - [14] 2026-11-02: the REST endpoints are POST /v2/articles, GET /v2/articles/by-link and GET /v2/sources | capture: sha256:49a032731e286c95ef71b228e321e6840689c5bbe4a284137233076c9708f169 | quote: - [REST Endpoints](https://docs.finlight.me/en/v2/rest-endpoints/): Full reference for POST /v2/articles (search articles), GET /v2/articles/by-link (fetch a single article), and GET /v2/sources (list supported sources), including the Article and Company response models
+  - [14] 2026-11-02: official client libraries exist for eight languages | capture: sha256:49a032731e286c95ef71b228e321e6840689c5bbe4a284137233076c9708f169 | quote: Official client libraries are published for TypeScript/JavaScript, Python, Go, .NET, Java/Kotlin, PHP, Ruby, and Rust
+  - [15] 2026-11-02: the vendor's blog describes a Viral Boost of 10,000 requests and real-time access for a month for tagging finlight publicly | capture: sha256:163479b9889cb30a8e7fb72873dd14a4bcc94177ce6efa8dc9db3ebb2baa5615 | quote: finlight adds flexibility with support for both REST and WebSocket protocols, a robust query language (AND, OR, NOT, etc.), and a viral incentive model — 10,000 requests and real-time access for a month when you tag them publicly.
+  - [15] 2026-11-02: the blog's comparison table lists 5k requests a month, 10k with Viral Boost | capture: sha256:163479b9889cb30a8e7fb72873dd14a4bcc94177ce6efa8dc9db3ebb2baa5615 | quote: | Free tier | 100 requests/day | 5k reqs/month (10k with Viral Boost) |
+  - probe:https://api.finlight.me/v2/sources 2026-11-02: a keyless call to the sources endpoint answers HTTP 401 Unauthorized | capture: sha256:e1654c7ad9ce4df238c7c18cafe8b85a27ac81155501831fcb1583963308e9a5 | quote: {"message":"Unauthorized","statusCode":401}
+  - [16] 2026-11-02: free-for.dev lists finlight with 5,000 requests a month on REST and MCP, 12-hour delayed articles, no card | capture: sha256:332a2db9b08c17ba7ad96ca55df70697bf2f4790a2b272fb1a0bedaf661f15a2 | quote: Free tier: 5,000 requests/month on both REST and MCP, 12-hour delayed articles, no card required.
+- sources:
+  - [1] https://finlight.me/pricing
+  - [2] https://docs.finlight.me/v2/rest-endpoints/
+  - [3] https://docs.finlight.me/v2/rate-limits/
+  - [4] https://docs.finlight.me/
+  - [5] https://docs.finlight.me/v2/errors/
+  - [6] https://finlight.me/mcp
+  - [7] https://finlight.me/blog/finlight-free-trial-and-support
+  - [8] https://app.finlight.me/auth/sign-up
+  - [9] https://docs.finlight.me/en/v2/rate-limits/
+  - [10] https://docs.finlight.me/en/v2/rest-endpoints/
+  - [11] https://docs.finlight.me/en/v2/errors/
+  - [12] https://finlight.me/blog/getting-started-finlight-news-api
+  - [13] https://docs.finlight.me/en/v2/ai-assistants/developers/
+  - [14] https://docs.finlight.me/llms.txt
+  - [15] https://finlight.me/blog/newsapi-vs-finlight
+  - [16] https://free-for.dev/

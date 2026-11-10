@@ -1,0 +1,252 @@
+# NATVPS
+
+> natvps.net | Compute; 3 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/natvps/ | JSON https://fshy.ajam.dev/api/v1/entity/natvps.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## NATVPS (NatVPS Services)
+
+- `compute/natvps-net-nat512` | qualifies-with-caveat | evidence documented | binding volume-quota | category NAT VPS | tier VPS - NAT512 (KVM)
+- needs card no, phone no, ID no, institution no | verified 2026-10-31T00:12:46.202Z (live) | stale on 2026-12-01
+- url https://natvps.net/
+- price parsed USD 0.625/mo
+- disagrees on verdict: `compute/natvps` says paid-only, `compute/natvps-net-nat512` says qualifies-with-caveat
+- free tier: No free tier. VPS - NAT512 is USD 7.50 a year: 512 MB RAM, 5 GB SSD, 1 CPU core on fair use, a /80 IPv6 plus a NAT IPv4 with 20 usable ports and 1 SSH port, 750 GB transfer a month. Sold per location; the NAT768 at USD 10 a year (768 MB RAM, 7 GB SSD, 1024 GB a month) is the only other rung. Stock is a dated observation of the cart pages, not a property of either plan: on 2026-10-24 and again on 2026-10-30 the NAT512 card carried no out-of-stock badge and the NAT768 card carried 'Out of stock' at each of eight locations: France, Canada, Netherlands, Norway, New York, Los Angeles, Singapore and Japan. | unit: none | metered on: none | read on: 2026-10-30 | source: [1]
+- per-object cap: not applicable
+- retention: annual prepay; the terms state 'All services are invoiced 10 days before due date. Unpaid services are suspended 3 days after due date. Unpaid services are terminated 5 days after due date, all data is deleted and cannot be recovered.' | days: 5 | source: [2]
+- egress: the monthly transfer allowance is enforced by disabling the server: a server that uses up all of its monthly allowed bandwidth becomes DISABLED and is reactivated automatically on the first day of the next month; a warning email and portal notification go out at 80 percent of the assigned traffic and again when the server is disabled | metered: yes | free allowance: 750 GB | price per TB: USD 8 a year adds 1 TB of transfer to the monthly allowance, which is USD 0.67 per added TB when it is used every month | source: [1]
+- identity: email | detail: email address, password and an image captcha, read from the order form's inputs, which are username, password and captcha only. No card, address, phone or ID field is on the order form; payment is collected after the account exists. No card hold is stated anywhere read. The order page warns 'Turn off your VPN before placing an order'.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 750 GB transfer a month [3]
+  - per-ip-shaping: 20 usable ports on a shared NAT IPv4 plus 1 SSH port; the ports are assigned by the provider, not configured by the buyer [4]
+  - pull-count: annual prepay only at this rung, as read on 2026-10-30: USD 7.50 is the first payment and the smallest term [1]
+- binding note: 750 GB a month is about 25 GB a day, which a tunnel will not reach but a monitoring host with a chatty probe might; the port count is the second constraint and the price is not one.
+- interface detail: KVM guest with root over SSH; the NAT IPv4 ports and the public IPv4 are listed in the control panel's Network tab, and a knowledge-base article walks through finding them. No panel for changing the mapping is documented: the ports are assigned, not chosen.
+- tooling: any SSH client; the vendor's own FAQ recommends 'road warrior WireGuard-installer script for easy setup'
+- composes with: 512 MB and 5 GB for USD 0.625 a month is the largest shape found under the dollar line, and the vendor's FAQ answers the WireGuard question in one line: 'Yes, it can!'
+- reliability: the FAQ states 'Due to the low cost nature of service, we cannot provide SLA' and 'We strive to maintain 99.9% uptime at all locations'; the status page showed the Canada and France KVM nodes at 100 percent on 2026-10-24; the provider bars Tor, torrents, crypto mining and port scanning and caps sustained CPU at 50 percent of a core over 24 hours
+- notes: USD 7.50 a year is USD 0.625 a month for 512 MB and 5 GB. Stock is dated: the cart pages read on 2026-10-24 and on 2026-10-30 showed the NAT512 card without an out-of-stock badge and the NAT768 card marked 'Out of stock' at each of eight locations, so the seller's stock flag is per plan and per location; a later read can differ. The WireGuard question is answered by the vendor in one line on its own home page, which is a sentence about capability, not a measurement, and no page states UDP on the forwarded ports. The 20 NAT ports are assigned, not chosen: the knowledge base tells a buyer to read the port list from the Network tab, and no page describes changing a mapping. Entity: the footer gives 'Registered Name - NatVPS Services' and a GSTIN whose check digit validates under the GSTIN algorithm and whose state code is Maharashtra; it was not checked against the Indian GST portal. A tracker row naming WebHorizon IT Broadband Limited as the owner is not confirmed. Not established: UDP on the forwarded ports, whether the assigned ports can be changed, and the payment rails at checkout, because the gateway list appears only after the account exists.
+- evidence note: price, shape, stock, the annual-only term and the registration fields are quoted from the cart and signup pages read on 2026-10-30 (stock also on 2026-10-24); the WireGuard answer and the entity are quoted from the vendor's own pages; UDP on the forwarded ports is NOT stated anywhere read, and the vendor's WireGuard sentence is the only first-party evidence that a UDP listener works
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 0.5
+  - shape.disk_gib: 5
+  - billing_model: annual prepay
+  - term: annual only: the billing-cycle selector on the cart pages read on 2026-10-24 and 2026-10-30 offers one option, '$7.50 USD Annually'
+  - m24h_usd: 0.625
+  - m10h_usd: 0.625
+  - price_arithmetic: USD 7.50 a year / 12 = USD 0.625 a month, paid in one go. A VPS bills whether it runs or not, so the 24/7 and 10 h/day figures are the same. Annual prepay is the only option at this rung: the billing selector prints one choice.
+  - out_of_pocket_usd: 7.5
+  - first_payment_usd: 7.5
+  - renewal_usd: same USD 7.50; no promotional price and no end date printed
+  - stock: 2026-10-30: the NAT512 card carries no outofstock class and the NAT768 card is marked 'Out of stock' on the cart pages for France, Canada, Netherlands, Norway, New York, Los Angeles, Singapore and Japan. 2026-10-24: the same at the same eight locations.
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: 20 usable ports on a shared NAT IPv4 plus 1 SSH port, assigned by the provider; plus a /80 IPv6
+  - network_out.static_ip: no
+  - network_out.ipv6: yes
+  - network_out.ipv6_prefix: /80
+  - udp: not stated on any page read. The vendor's FAQ says WireGuard works, which implies UDP on at least one forwarded port, but no page names TCP or UDP on the 20 ports.
+  - payment_rails: not read; the gateway list appears only after registration
+  - card_hold: not stated on any page read
+  - checkout_fields: username, password, captcha on the order form; no card, address, phone or ID
+  - nat_config: assigned by the provider and read from the panel's Network tab; no page describes the buyer changing a mapping
+  - fx: open.er-api.com/v6/latest/USD read 2026-10-24T00:02Z: 1 USD = INR 95.036492
+  - price_on_page: USD 7.50/yr
+  - price_in_cart: USD 7.50/yr
+  - cart_works: yes
+  - cart_url: https://clients.natvps.net/?/cart/kvm-netherlands/
+  - signup_url: https://clients.natvps.net/clientarea/
+  - cart_evidence: the cart page titled 'Place new Order - NatVPS.net' renders 'VPS-NAT512-KVM (Netherlands) $7.50 USD / Annually Location Netherlands Disk 5GB SSD RAM 512MB CPU 1 Core(s) (fair use) IPv6 /80 IPv4 NAT IPv4 (20 usable ports) Monthly Bandwidth 750GB', on a card marked 'cart-product selected'
+  - needs_account_first: no
+  - traffic_reset: USD 3 an invoice resets the server's monthly traffic counter
+  - order_checks: the knowledge base article on orders marked as fraud asks for the correct first and last name and address on the account, and any VPN turned off while placing an order
+- evidence:
+  - [1] 2026-10-24: quoted product card: 'VPS-NAT512-KVM (France) $7.50 USD / Annually ... Disk 5GB SSD RAM 512MB CPU 1 Core(s) (fair use) IPv6 /80 IPv4 NAT IPv4 (20 usable ports) Monthly Bandwidth 750GB', with the card class 'selected' and no out-of-stock badge, while the NAT768 card on the same page carries 'Out of stock'
+  - [1] 2026-10-24: quoted billing selector, which offers one option only: '$7.50 USD Annually'
+  - [5] 2026-10-24: the same NAT512 card at USD 7.50 in stock in the Netherlands, New York, Canada, Norway, Los Angeles, Singapore and Japan, with NAT768 out of stock at every one of them - seven locations checked, all NAT512 in stock
+  - [3] 2026-10-24: quoted FAQ: 'Can it run Wireguard / VPN ? Yes, it can! We recommend using road warrior WireGuard-installer script for easy setup & working.' and 'I don't have IPv6, can I still use this service ? Yes you can! We include 20 usable ports + 1 SSH port for IPv4 access.' and 'Due to the low cost nature of service, we cannot provide SLA'
+  - [3] 2026-10-24: the footer gives the registered name 'NatVPS Services' and a GSTIN, an Indian tax registration number
+  - [2] 2026-10-24: quoted: 'At this time, we bill annually, biennially and triennially, depending upon the plan.' and 'Unpaid services are terminated 5 days after due date, all data is deleted and cannot be recovered.'
+  - [6] 2026-10-24: the registration form's inputs, read from the page source: username, password and captcha only - no card, address, phone or ID field
+  - [4] 2026-10-24: quoted: 'In the Network tab, you will find your Shared IPv4 address and the list of available ports.' - the ports are read, not configured
+  - [7] 2026-10-24: registration 2021-06-15T18:40:29Z, expiration 2027-06-15T18:40:29Z - the domain has been registered continuously for five years
+  - [8] 2026-10-24: quoted: 'Canada [CAN-K2] 100%' and 'France [FRA-K3] 100%'
+  - [1] 2026-10-30: on 2026-10-30 the France cart page marks the VPS-NAT768-KVM (France) card with the class outofstock and the badge 'Out of stock', while the VPS-NAT512-KVM (France) card at USD 7.50 annually carries no outofstock class | capture: sha256:12975f4e79870afa6afefa2e4b3fa8ca544a6e8d9d9019e9aa39ff5c85ae378c | quote: class="card cart-product outofstock " data-value="84"
+  - [1] 2026-10-30: on 2026-10-30 the billing-cycle selector of the NAT512 cart offers one option, USD 7.50 annually, and the total due today is USD 7.50 | capture: sha256:0993c375d6f16e673860e5989c7da0db7d77a2e7df853c92ecb32b665be982df | quote: $7.50 USD Annually
+  - [9] 2026-10-30: on 2026-10-30 the Canada cart page marks the VPS-NAT768-KVM (Canada) card with the class outofstock and the badge 'Out of stock', while the VPS-NAT512-KVM (Canada) card at USD 7.50 annually carries no outofstock class | capture: sha256:6271b0669d2c06de6491a13e974477040792b28541ed3d8c709f1d3a40e695b5 | quote: class="card cart-product outofstock " data-value="85"
+  - [5] 2026-10-30: on 2026-10-30 the Netherlands cart page marks the VPS-NAT768-KVM (Netherlands) card with the class outofstock and the badge 'Out of stock', while the VPS-NAT512-KVM (Netherlands) card at USD 7.50 annually carries no outofstock class | capture: sha256:a70a8634c7e9a5d65dfe475447fb80ef50a1f7400eb91d369842e179d1aa1a5a | quote: class="card cart-product outofstock " data-value="86"
+  - [10] 2026-10-30: on 2026-10-30 the Norway cart page marks the VPS-NAT768-KVM (Norway) card with the class outofstock and the badge 'Out of stock', while the VPS-NAT512-KVM (Norway) card at USD 7.50 annually carries no outofstock class | capture: sha256:75205cbc5b0eae68a0fd711f9bbd6344ba45f124f23d1e7870161fe90cd23dd5 | quote: class="card cart-product outofstock " data-value="87"
+  - [11] 2026-10-30: on 2026-10-30 the New York cart page marks the VPS-NAT768-KVM (New York) card with the class outofstock and the badge 'Out of stock', while the VPS-NAT512-KVM (New York) card at USD 7.50 annually carries no outofstock class | capture: sha256:bda0361b7c9ef1d2bee37ba1082cc3fa7ccd583a898c5dca76d2abc57c800ee0 | quote: class="card cart-product outofstock " data-value="88"
+  - [12] 2026-10-30: on 2026-10-30 the Los Angeles cart page marks the VPS-NAT768-KVM (Los Angeles) card with the class outofstock and the badge 'Out of stock', while the VPS-NAT512-KVM (Los Angeles) card at USD 7.50 annually carries no outofstock class | capture: sha256:4ddeed2e2dfbf07046545e343e5a931a605b0666f1b0ec509f4ea24b1d935873 | quote: class="card cart-product outofstock " data-value="89"
+  - [13] 2026-10-30: on 2026-10-30 the Singapore cart page marks the VPS-NAT768-KVM (Singapore) card with the class outofstock and the badge 'Out of stock', while the VPS-NAT512-KVM (Singapore) card at USD 7.50 annually carries no outofstock class | capture: sha256:b863903150628858b39055496ed9f8954b0468b195a2df49da7512f2faed189f | quote: class="card cart-product outofstock " data-value="90"
+  - [14] 2026-10-30: on 2026-10-30 the Japan cart page marks the VPS-NAT768-KVM (Japan) card with the class outofstock and the badge 'Out of stock', while the VPS-NAT512-KVM (Japan) card at USD 7.50 annually carries no outofstock class | capture: sha256:0ab8f7c5fc6b6f8fa46a80cc22af2900d27be21fe0e0665e3f2e895efa80f2fd | quote: class="card cart-product outofstock " data-value="93"
+  - [6] 2026-10-30: the signup form read on 2026-10-30 has three required inputs: an email address (named username), a password and an image captcha; no card, address, phone or ID field | capture: sha256:b2b846c269b160d8379f2976c0f41931d573b010bb440484a349e04bbfa4c50a | quote: name="captcha" class="form-control" autocomplete="off" required
+  - [2] 2026-10-30: the terms read on 2026-10-30 keep the 5-day termination and the annual, biennial and triennial billing | capture: sha256:59b589363a241076c454d887259c4492929a8b6fa0356ad5b7103eb7cebbeb03 | quote: Unpaid services are terminated 5 days after due date, all data is deleted and cannot be recovered.
+  - [8] 2026-10-30: the KVM status page read on 2026-10-30 lists every node at 100% except USA - Los Angeles [LAX-K1] at 99.78% | capture: sha256:2c0cd10869be41f5c08a912c12f319a191fa0eb895b92a5842475b24febe2d4f | quote: Canada [CAN-K2]
+  - [4] 2026-10-30: the port list is read from the panel, re-read 2026-10-30 | capture: sha256:873e0166d6fa3e705f19b2e91db83d40bc3964c331761c5312889e86a0503c6a | quote: In the Network tab, you will find your Shared IPv4 address and the list of available ports.
+  - [15] 2026-10-30: the vendor's knowledge base states what happens past the allowance: the server is disabled, reactivated on the first day of the next month, with notices at 80 percent and at the cut-off | capture: sha256:4619162fe605138a36f24a683ee18483854935a82173e636fcf9f205fbf2ae93 | quote: When you use up all of the monthly allowed bandwidth of your server, your server becomes DISABLED.
+  - [16] 2026-10-30: extra transfer is sold at USD 8 a year for 1 TB more of monthly allowance | capture: sha256:6d69174fdb32b533e3035d9752e7bd673c0f188e9b2e4149cf75e0e7cb685c6d | quote: You can pay an invoice for $8 per year which will add 1TB of traffic to your existing monthly allowed quota.
+  - [17] 2026-10-30: a one-off USD 3 invoice resets the month's traffic counter | capture: sha256:2c70d2ef6fa1042c64e9cd4bbf5e11f9856e506dc8c5d114c61cb68909d579e4 | quote: You can pay an invoice for $3 which will reset the monthly traffic of your server.
+  - [18] 2026-10-30: the account is expected to carry a real first and last name and address, and orders are checked for a VPN | capture: sha256:5bbd8b22c11ed04dcc87f7fa9987b87a5a46c9056995ce91a49cd68e95fa7605 | quote: Please always use the correct name (first and last) and address on your account and also turn off any running VPN while placing an order.
+  - [19] 2026-10-30:  | capture: sha256:e769ebd4a06dcc09d4744a147376705464d4d66bc8a4ea0925734f77da39373c | quote: Your services may be suspended if you exceed this.
+  - [15] 2026-10-30: a server disabled for exhausting its allowance comes back on the first day of the next month | capture: sha256:4619162fe605138a36f24a683ee18483854935a82173e636fcf9f205fbf2ae93 | quote: DISABLED servers are automatically reactivated on first day of the next month.
+  - [15] 2026-10-30: a warning is sent at 80 percent of the assigned traffic and a second notice when the server is disabled | capture: sha256:4619162fe605138a36f24a683ee18483854935a82173e636fcf9f205fbf2ae93 | quote: Prior to disabling a server, we send a warning email and portal notification when user use up +80% of his assigned traffic and also another email and portal notification when server gets disabled.
+  - [3] 2026-10-30: the home page states 750 GB transfer a month on VPS - NAT512, re-read 2026-10-30 | capture: sha256:9e8a07bb8cd391c0b71d29d7ee986f51ec784be785de3a2c42ef0017ef8007b3 | quote: 750GB transfer per month
+- sources:
+  - [1] https://clients.natvps.net/?/cart/kvm-france/
+  - [2] https://natvps.net/tos.html
+  - [3] https://natvps.net/
+  - [4] https://clients.natvps.net/?/knowledgebase/article/16/how-to-find-the-range-of-ports-assigned-to-my-server-/
+  - [5] https://clients.natvps.net/?/cart/kvm-netherlands/
+  - [6] https://clients.natvps.net/?/signup/
+  - [7] https://rdap.org/domain/natvps.net
+  - [8] https://status.natvps.net/status/kvm
+  - [9] https://clients.natvps.net/?/cart/kvm-canada/
+  - [10] https://clients.natvps.net/?/cart/kvm-norway/
+  - [11] https://clients.natvps.net/?/cart/usa-new-york/
+  - [12] https://clients.natvps.net/?/cart/usa-los-angeles/
+  - [13] https://clients.natvps.net/?/cart/kvm-singapore/
+  - [14] https://clients.natvps.net/?/cart/kvm-japan/
+  - [15] https://clients.natvps.net/?/knowledgebase/article/20/why-my-server-is-disabled-/
+  - [16] https://clients.natvps.net/?/knowledgebase/article/22/can-i-request-to-add-additional-traffic-to-my-server-/
+  - [17] https://clients.natvps.net/?/knowledgebase/article/32/can-i-request-to-reset-the-traffic-of-my-server-/
+  - [18] https://clients.natvps.net/?/knowledgebase/article/27/why-my-order-is-marked-as-fraud-/
+  - [19] https://natvps.net/aup.html
+
+## NatVPS.net
+
+- `compute/natvps-net-kvm-512-recheck` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category NAT VPS | tier VPS - NAT512
+- needs card yes, phone no, ID no, institution no | verified 2026-11-02T02:17:38.789Z (live) | stale on 2026-12-03
+- url https://natvps.net/
+- price parsed USD 0.63/mo
+- free tier: No free tier. VPS - NAT512 is USD 7.50 a year, printed '$7.5 / year', for 512 MB RAM, 5 GB SSD, 1 fair-use CPU core, a /80 IPv6 plus NAT IPv4 and 750 GB a month. | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: annual prepay; no deletion interval after expiry was published on the pages read. The terms disclaim all warranties and limit damages to 'the immediate termination of service'. | source: [2]
+- egress: 750 GB a month on NAT512, printed '750GB transfer per month' | metered: yes | free allowance: 750 GB a month | source: [1]
+- identity: card | detail: the cart is priced once a session exists but requires a login to order: with a warmed cookie jar the Canada cart renders 'VPS-NAT512-KVM (Canada)' at '$7.50 USD / Annually', shows 'Out of stock' for that tier, and asks for 'Email Address', 'Password' and 'Image Verification' before submitting, with 'Create Account' beside it. Payment rails, any authorisation hold, and whether a prepaid or virtual card passes are not published at https://clients.natvps.net/?/cart/kvm-canada/; the marketing site and the terms name no rail. No national ID requirement is published.
+- interface: ssh
+- limits:
+  - volume-quota: 750 GB a month on NAT512 [1]
+  - per-ip-shaping (binding): 20 usable ports plus 1 SSH port on the shared IPv4, plus a /80 IPv6 subnet [1]
+- binding note: 21 ports is a workable budget but they are shared-IP ports on a /80 rather than a /64, and the vendor names no legal entity, so the risk sits with the seller rather than the quota.
+- interface detail: KVM guest with root, a /80 IPv6 subnet plus NAT IPv4 with 20 usable ports and one SSH port, across France, Canada, the Netherlands, Norway, New York, Los Angeles, Singapore and Japan
+- tooling: any SSH client; a WHMCS portal at clients.natvps.net; the vendor publishes an IPv4 port calculator
+- composes with: a 512 MB KVM box with a /80 and 21 ports at USD 0.625 a month, from a vendor whose own FAQ says WireGuard and OpenVPN are supported, and which names no legal entity anywhere
+- reliability: the vendor publishes a status page at status.natvps.net showing node health, with 'Canada [CAN-K2]' at 100 percent when read; the terms disclaim all warranties and cap damages at termination of service; no SLA published
+- notes: Published pricing is USD 7.50 a year (USD 0.625 a month) for 512 MB RAM, 5 GB SSD, a /80 IPv6 subnet, and 21 forwarded ports (20 usable plus 1 SSH port). The FAQ confirms support for OpenVPN and WireGuard. No registered corporate entity or business address is documented on the site.
+- evidence note: price, shape, the /80, the port count, the traffic and the vendor's own WireGuard statement are quoted from the vendor's own pages read; the login gate on the cart is quoted from the cart page. Not documented: the checkout fields, the payment rails and the legal entity, which is named nowhere.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 0.5
+  - shape.disk_gib: 5
+  - billing_model: annual
+  - term: annual
+  - m10h_usd: 0.63
+  - m24h_usd: 0.63
+  - price_arithmetic: USD 7.50 a year / 12 = USD 0.625 a month. The money out of pocket is USD 7.50 once a year. No conversion needed. VPS billing: the machine bills whether it runs or not, so the 10 h/day and 24/7 figures are identical.
+  - out_of_pocket_usd: 7.5
+  - renewal_usd: USD 7.50 a year; no separate renewal price published
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: 20 usable ports plus 1 SSH port on the shared IPv4, plus a /80 IPv6 subnet
+  - network_out.static_ip: no
+  - network_out.ipv6: yes
+  - network_out.ipv6_prefix: /80
+  - udp: stated indirectly but first-party: 'Create your own private VPN - most methods including OpenVPN & Wireguard can be used', which requires UDP. No page read uses the word UDP for the forwarded ports.
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - payment_rails: not established: the cart requires a login and no registration page exists
+  - card_hold: not stated on any page read
+  - checkout_fields: not established: the cart is login-gated and ?/register/ returns 404
+  - stock: the Canada cart shows 'Out of stock' for VPS-NAT512-KVM and no marker for VPS-NAT768-KVM
+  - cart_url: https://clients.natvps.net/?/cart/nat-vps--kvm-/
+  - cart_works: unknown
+  - product_url: https://natvps.net/
+  - signup_url_note: there is no standalone registration page: ?/register/ returns 404 and the cart shows a sign-in form, so the account is created during an order.
+  - cart_url_note: the Get Started button targets this cart route, and the route answered 'Your cart is empty' with a login form rather than pricing the plan. Recorded with cart_works unknown rather than as a priced cart.
+  - other_plans: VPS - NAT768 at USD 10 a year for 768 MB, 7 GB SSD, a /80 and 1024 GB a month
+  - locations: France, Canada, Netherlands, Norway, USA New York, USA Los Angeles, Singapore and Japan
+  - corpus_note: compute/natvps-net-nat512 already records this row at USD 0.625 a month; this record confirms the price and shape and adds the /80 prefix size, the exact port split and the absence of any named entity
+- evidence:
+  - [1] 2026-10-24: quoted plan: 'VPS - NAT512 $7.5 / year 512MB RAM 5GB SSD disk space 1 CPU Core (fair use) /80 IPv6 + NAT IPv4 750GB transfer per month' with the order link to clients.natvps.net/?/cart/nat-vps--kvm-/
+  - [1] 2026-10-24: quoted port and protocol answer: 'Yes you can! We include 20 usable ports + 1 SSH port for IPv4 access.' and 'Create your own private VPN - most methods including OpenVPN & Wireguard can be used. Dual stack IPv4+IPv6 connectivity.'
+  - [1] 2026-10-24: quoted second tier: 'VPS - NAT768 $10 / year 768MB RAM 7GB SSD disk space 1 CPU Core (fair use) /80 IPv6 + NAT IPv4 1024GB transfer per month'
+  - [3] 2026-10-24: the cart did not price anything without an account: the page reads 'Your cart is empty Browse Products and Services' and renders a sign-in form with 'Email Address', 'Password' and 'Image Verification'. It also warns 'Turn off your VPN before placing an order'.
+  - [4] 2026-10-24: no standalone registration page exists: the route answers '404 Not Found - Sorry, an error has occurred, Requested page not found!'
+  - [2] 2026-10-24: the terms name no company: the text refers only to 'NatVPS' throughout and states 'NatVPS specifically disclaims all warranties for merchant ability and fitness for a particular purpose' with damages limited to 'the immediate termination of service'
+  - [5] 2026-10-24: a status page exists and lists nodes, reading 'Canada [CAN-K2]' at '100%' when fetched
+  - [6] 2026-11-02: the cart renders the plan and its price, its stock state and a sign-in form with image verification | capture: sha256:16385263716155a3bdf71a83cb4a5c5820a46f738e5f2cf4fe5c74fa13b0614b | quote: Image Verification
+  - [6] 2026-11-02: the Canada cart prices VPS-NAT512-KVM at USD 7.50 a year | capture: sha256:16385263716155a3bdf71a83cb4a5c5820a46f738e5f2cf4fe5c74fa13b0614b | quote: $7.50 USD / Annually
+  - [6] 2026-11-02: the NAT512 tier in Canada is out of stock while NAT768 is not | capture: sha256:16385263716155a3bdf71a83cb4a5c5820a46f738e5f2cf4fe5c74fa13b0614b | quote: Out of stock
+  - probe:https://clients.natvps.net/?/cart/kvm-canada/ 2026-11-02: a session-carrying read of the cart records the NAT512 tier as out of stock | capture: sha256:e74190d3590f28f125a0e8de6ced866c3a68411dda9d42f2970523d6810b046e | quote: "out of stock"
+  - [6] 2026-11-02: the cart still prices the plan and still asks for a login before an order | capture: sha256:16385263716155a3bdf71a83cb4a5c5820a46f738e5f2cf4fe5c74fa13b0614b | quote: Create Account
+  - [7] 2026-11-02: the vendor's own offer post names PayPal and Stripe card payments, which no page of the store states | capture: sha256:afd2de8672e79f86a2c6366345c7fa1d0f9557d165f11f36ca3ffb140d4ae1ff | quote: PayPal payments are available. We recommend using Cards via Stripe Payments.
+  - [8] 2026-11-02: a second vendor offer post names crypto, Stripe cards and PayPal | capture: sha256:42ec0415fffeabed525f3db9203cc34ae63c173d5bd134e32ec9074d28744500 | quote: Crypto, CC via Stripe, PayPal, etc.
+- sources:
+  - [1] https://natvps.net/
+  - [2] https://natvps.net/tos.html
+  - [3] https://clients.natvps.net/?/cart/nat-vps--kvm-/
+  - [4] https://clients.natvps.net/?/register/
+  - [5] https://status.natvps.net/
+  - [6] https://clients.natvps.net/?/cart/kvm-canada/
+  - [7] https://www.lowendspirit.com/discussion/4152/natvps-net-summer-offer-free-da-minimal-hosting-for-2-years
+  - [8] https://lowendtalk.com/discussion/173094/natvps-net-ipv6-nat-ipv4-vps-switzerland-hong-kong-singapore-netherlands-poland-usa
+
+## NATVPS
+
+- `compute/natvps` | paid-only | evidence documented | binding volume-quota | category cloud VM
+- identity a placeholder: card and phone unknown | verified 2026-11-07T11:15:23.466Z (live) | stale on 2026-12-08
+- url https://natvps.net
+- disagrees on verdict: `compute/natvps` says paid-only, `compute/natvps-net-nat512` says qualifies-with-caveat
+- free tier: VPS - NAT512 at USD 7.50/year: 512 MB RAM, 5 GB SSD, 1 CPU core (fair use), a /80 IPv6 plus a shared NAT IPv4 with 20 usable ports and 1 SSH port, 750 GB transfer per month. The second plan, VPS - NAT768, is USD 10/year with 768 MB, 7 GB SSD and 1024 GB transfer per month. Locations listed on the vendor page: Los Angeles, New York, Canada, Netherlands, France, Norway, Japan, Singapore. The tracker row adds a 1 Gbps port and the same USD 0.63/month equivalent. | unit: GiB | metered on: wall-clock | read on: 2026-10-24 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 750 GB transfer per month included on NAT512 and 1024 GB on NAT768, both vendor-stated; nothing is published about what happens past the allowance | metered: yes | free allowance: 750 GB/month | source: [1]
+- identity: email | detail: not stated
+- interface: ssh, rest
+- limits:
+  - volume-quota (binding): 750 GB transfer a month is the vendor's own figure for NAT512 and is the first limit a daytime fetcher meets, at about 25 GB a day. The second limit is address surface: a shared NAT IPv4 with 20 forwarded ports cannot hold many parallel TLS connections. [1]
+- limits note: 750 GB transfer a month is the vendor's own figure for NAT512 and is the first limit a daytime fetcher meets, at about 25 GB a day. The second limit is address surface: a shared NAT IPv4 with 20 forwarded ports cannot hold many parallel TLS connections.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: SSH with root; the vendor states the VPS are 'fully unmanaged' and support is limited to service functionality; no API was mentioned on the page read. IPv4 reach is by NAT port forwarding, 20 usable ports plus 1 SSH port.
+- composes with: At USD 7.50 a year this is the cheapest IPv4-reachable always-on box among documented hosts: a DNS resolver, an uptime probe, a cron runner, a WireGuard endpoint, or an IPv6-only crawler front end behind Cloudflare as the vendor's own use-case list suggests. It cannot be a general crawler egress host, because 20 forwarded ports and 750 GB a month cap both the connection count and the bytes.
+- reliability: the vendor FAQ states 'Due to the low cost nature of service, we cannot provide SLA' and 'We strive to maintain 99.9% uptime at all locations'; no reliability incident observed
+- notes: or docs/ (searched both trees for natvps, no hit). Wall: the order page at clients.natvps.net renders as an empty shell to both the raw fetch and the text extractor, so per-location stock could not be read; the vendor home page carries price, specs and locations. The tracker names the firm as WebHorizon IT Broadband Limited. Not established: whether all 8 locations are in stock at USD 7.50, and the enforcement after 750 GB. | 2026-10-24: the vendor FAQ answers the WireGuard question directly ('Yes, it can!') and the footer names 'NatVPS Services' with a GSTIN, which is an Indian tax registration rather than a company number. That is more than Gullo's or luo_cloud's pages give, and less than a Companies House or CVR hit. UDP on the 20 ports is still not stated. Verdict left at 'paid-only'; in the sub-dollar price band it reads as qualifies-with-caveat.
+- evidence note: price, shape, port count and traffic quoted from the vendor page read; the entity is the vendor's own footer line plus a GSTIN, which is a registration number but was not checked against the Indian registry; UDP on the forwarded ports is not stated anywhere read
+- extras:
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 0.5
+  - facets.shape.disk_gib: 5
+  - udp: not stated. The vendor documents WireGuard on this product and says it can be used, but no page read names UDP on the 20 forwarded ports.
+  - stock: NAT512 (USD 7.50/yr) in stock at all eight locations the cart lists; NAT768 (USD 10.00/yr) out of stock at all eight; cart DOM read on 2026-11-07 (France, Canada, Netherlands, Norway, New York, Los Angeles, Singapore, Japan)
+  - renewal_usd: USD 7.50 a year on NAT512: the cart prints 'Total Recurring: $7.50 USD Annually' for the plan it prices; NAT768: not published, the plan is out of stock at every location read and no cart summary renders for it
+  - term: Annually is the only billing cycle the cart offers for the plan ('Change billing cycle' lists one option at $7.50 USD Annually)
+  - price_on_page: the vendor home page prints '$7.5 / year' (NAT512) and '$10 / year' (NAT768); the cart prints '$7.50 USD / Annually' (NAT512) and '$10.00 USD / Annually' (NAT768) per location
+  - monthly_usd: not published: the vendor sells the annual term only; USD 7.50 / 12 = USD 0.63 a month is arithmetic, which the tracker row also prints
+  - annual_usd: 7.5
+  - cart_url: https://clients.natvps.net/?/cart/kvm-france/ (one cart per location: kvm-canada, kvm-netherlands, kvm-norway, usa-new-york, usa-los-angeles, kvm-singapore, kvm-japan)
+- evidence:
+  - [1] 2026-10-22: plan card quoted: 'VPS - NAT512', '$7.5', '/ year', '512MB RAM', '5GB SSD disk space', '1 CPU Core (fair use)', '/80 IPv6 + NAT IPv4', '750GB transfer per month'
+  - [1] 2026-10-22: second plan quoted: 'VPS - NAT768', '$10', '/ year', '768MB RAM', '7GB SSD disk space', '1024GB transfer per month'
+  - [1] 2026-10-22: FAQ quoted: 'I don't have IPv6, can I still use this service? Yes you can! We include 20 usable ports + 1 SSH port for IPv4 access.' and 'No, these NAT VPS are fully unmanaged'
+  - [2] 2026-10-22: cheapest row: '$0.63 / month', '1 Intel Cores (shared)', '512 MB RAM', '5 GB SSD', '750 GB/month bandwidth', '1 Gbps port speed', 'IPv4 (NAT) + IPv6', France, Canada and Netherlands; header 'starting at $7.50 per year'
+  - [1] 2026-10-24: quoted FAQ: 'Can it run Wireguard / VPN ? Yes, it can! We recommend using road warrior WireGuard-installer script for easy setup & working.'
+  - [1] 2026-10-24: the footer gives the registered name 'NatVPS Services' and a GSTIN, an Indian tax registration number
+  - [1] 2026-10-24: quoted use-case block: 'Private VPN Server - Create your own private VPN - most methods including OpenVPN & Wireguard can be used. Dual stack IPv4+IPv6 connectivity.'
+  - [3] 2026-10-24: reported, posted 2021-08-05 by the provider's account: 'Support tun/tap/fuse ? Yes, can be enabled from control panel.' and 'VPS-NAT256 - $7 per YEAR'
+  - [4] 2026-11-07: the France cart's NAT768 card carries the out-of-stock badge inside its own card and the NAT512 card (data-value 71) carries none | capture: sha256:b863cd3b1940842a2baea4809acfd0c8ce46f2772fc7bc6355f5d25d01c047cc | quote: cart-product-outofstock-badge">Out</br>of stock</div></div><div class="text-center cart-product-section py-4"><h4 class="">VPS-NAT768-KVM (France)</h4>
+  - [4] 2026-11-07: the cart's recurring total for NAT512 equals its listed price | capture: sha256:5bbbd7ca34760f8edfdfdcc4fdfc1eaf9e7480d4cd7883c441f955f30f896ef5 | quote: Total Recurring: $7.50 USD Annually
+  - [4] 2026-11-07: the cart's cycle control lists a single Annually option | capture: sha256:5bbbd7ca34760f8edfdfdcc4fdfc1eaf9e7480d4cd7883c441f955f30f896ef5 | quote: Change billing cycle $7.50 USD Annually
+  - [1] 2026-11-07: the vendor home page prices NAT512 at USD 7.50 a year | capture: sha256:4523ed68ff559ff21dac55a1da2a3515e6c0e716fbbcca052a5cbc3b318ca123 | quote: $7.5 / year
+  - [1] 2026-11-07: the only printed rate is the annual one | capture: sha256:4523ed68ff559ff21dac55a1da2a3515e6c0e716fbbcca052a5cbc3b318ca123 | quote: $7.5 / year
+  - [4] 2026-11-07: the cart page links one cart URL per location | capture: sha256:b863cd3b1940842a2baea4809acfd0c8ce46f2772fc7bc6355f5d25d01c047cc | quote: href="?/cart/kvm-canada/"
+  - [4] 2026-11-07: the cart prices NAT512 at USD 7.50 a year with the same 512 MB RAM, 5 GB SSD, 20-port NAT IPv4 and 750 GB a month the record states | capture: sha256:5bbbd7ca34760f8edfdfdcc4fdfc1eaf9e7480d4cd7883c441f955f30f896ef5 | quote: VPS-NAT512-KVM (France) $7.50 USD / Annually Location France Disk 5GB SSD RAM 512MB CPU 1 Core(s) (fair use) IPv6 /80 IPv4 NAT IPv4 (20 usable ports) Monthly Bandwidth 750GB
+- sources:
+  - [1] https://natvps.net
+  - [2] https://vpspricetracker.com/provider/NATVPS/vps
+  - [3] https://lowendtalk.com/discussion/173094/natvps-net-ipv6-nat-ipv4-vps-switzerland-hong-kong-singapore-netherlands-poland-usa
+  - [4] https://clients.natvps.net/?/cart/kvm-france/

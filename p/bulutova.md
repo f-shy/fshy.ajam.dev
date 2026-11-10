@@ -1,0 +1,100 @@
+# Bulutova
+
+> bulutova.com | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/bulutova/ | JSON https://fshy.ajam.dev/api/v1/entity/bulutova.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Bulutova
+
+- `compute/bulutova-vps-8` | fails-identity | evidence documented | binding volume-quota | category VPS | tier VPS Sunucu 8
+- needs card unknown, phone yes, ID yes, institution no | verified 2026-11-06T17:42:09.295Z (live) | stale on 2026-12-07
+- url https://www.bulutova.com/vps-satin-al
+- price parsed USD 4.07/mo
+- free tier: no free tier; the ladder starts at 99.83 TL a month list, discounted to 59.90 TL a month, for the 1 GB rung | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the plan is paid; the cart offers annual prepay at a discount and the page lists no minimum term
+- egress: 'Sozlesmeler kapsaminda paylasimli olarak limitsiz trafik sunulmaktadir' (unlimited traffic, shared, under the contracts) on a 1 Gbps port. Unlimited is a fair-share claim, not a measured rate | metered: no | free allowance: unlimited, shared | source: [1]
+- identity: national-id | detail: a Turkish identity number and a phone before any card: the individual registration form requires an 11-digit 'T.C Kimlik Numarası' (Turkish national ID number) and a phone number with the +90 prefix, confirmed by SMS ('Telefon numaranıza gönderilen 4 haneli doğrulama kodunu girin.'). Card rails: 'Hizmetler için yapacağınız ödemelerinizi geçerli bir kredi kartı, banka havalesi/EFT ile; ya da ... "BULUTOVA Sanal Kredi" Servisi faydalanarak yerine getirebilirsiniz'. Hold amount: not published on https://www.bulutova.com/sozlesmeler/genel-hizmet-sozlesmesi, which describes no authorisation or deposit. Charged or verified: charged, 'BULUTOVA, bu sözleşmeyi kabul etmenizle, hizmet bedellerinin kayıt sırasında vermiş olduğunuz kredi kartı hesabından tahsil etme hakkına sahiptir.' Prepaid and virtual cards: a virtual card passes only as the vendor's own Sanal Kart funded from the Sanal Kredi balance, 'sipariş sırasında Sanal Kart'ınızdan ilgili ödemeyi gerçekleştirebilirsiniz'; whether an external prepaid or third-party virtual card passes is not published. Phone: required, +90 with SMS confirmation; no page read offers a passport or foreign-ID alternative to the T.C Kimlik Numarası field.
+- interface: ssh
+- limits:
+  - volume-quota (binding): traffic stated as unlimited and shared; no number is published [1]
+- binding note: the only published ceiling is the word 'limitsiz' qualified as shared, so the real limit is enforcement rather than a number.
+- interface detail: the plan card lists CPU, RAM, disk and port only; it does not itself state root or SSH, so the interface is unconfirmed on this page even though a KVM server of this shape normally ships root SSH
+- tooling: any SSH client; the vendor's own order panel
+- composes with: the largest RAM among evaluated providers under USD 5 with a published list price: an 8 GiB daily driver in Istanbul that a WireGuard node or a small service stack fits on.
+- reliability: no reliability event recorded
+- notes: The annual term is 168.87 TL a month, so 2,026.44 TL a year (the cart's own 'Genel Toplam'). The cart as rendered shows 'KDV (%0) ₺0,00' and computes 2,026.44, but the same page's own script sets 'taxEnabled:false, taxRate:0' with a hidden element already carrying 'KDV (%20) 0,00', so the zero is the unconfigured default before a tax country is chosen, not a statement that no VAT applies. The page's FAQ says 'VPS sunucu fiyatlarimiz KDV haric olarak belirtilmistir' (prices are stated excluding VAT), and the 168.87 figure is the annual per-month price. Shape confirmed and sharper than recorded: 2 vCore (1 real core + 1 HT), 8 GB ECC, 60 GB E-NVMe, 1 Gbps, Istanbul or Bursa. Worst case exposure: the 40% discount has no published end date and the list it discounts from is 281.45 TL a month, so exposure is 281.45 / 168.87 = 1.67x on the ex-VAT basis, or 6.79 / 4.07 = 1.67x with KDV. That is the second-worst step-up in the band and the reason this row is 'qualifies-with-caveat' rather than 'qualifies'.
+- evidence note: shape, list price, discount and all four billing terms quoted from the page's own data attributes read; the annual total is confirmed by the cart's own total. The TRY-to-USD conversion carries its rate and date.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 8
+  - shape.disk_gib: 60
+  - billing_model: monthly, quarterly, semi-annual, annual or biennial
+  - term: annual at 168.87 TL a month; monthly at 194.21 TL
+  - m10h_usd: 4.07
+  - m24h_usd: 4.07
+  - price_arithmetic: 168.87 TL a month on the annual term x 12 = 2,026.44 TL a year (the cart's own 'Genel Toplam'). x 0.020105 USD per TRY (1 / 49.738, frankfurter, 2026-10-23) = USD 40.74 a year / 12 = USD 3.395 ex-VAT. The page states prices exclude KDV and the hidden tax element carries 20%, so with KDV the figure is 3.395 x 1.20 = USD 4.07 a month. Monthly billing is 194.21 TL = USD 3.90 ex-VAT. It is a VPS, so no 730-hour multiplication.
+  - out_of_pocket_usd: 48.89
+  - renewal_usd: 6.79
+  - renewal_note: not published as a renewal. The 40% discount has no end date on the page; the list it discounts from is 281.45 TL a month ('data-old-price-1year'), which is USD 5.66 ex-VAT or USD 6.79 with KDV at the same rate. If the discount lapses, month 13 is the list.
+  - promo: yes
+  - over_line: no
+  - fx.pair: TRY/USD
+  - fx.rate: 0.020105
+  - fx.date: 2026-10-23
+  - fx.source: frankfurter.app, derived from USD base 49.738 TRY
+  - gib_per_usd: 1.9634
+  - locations: Istanbul, Turkey (the 16 GB card names Istanbul; this card says 'Multi Lokasyon')
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: no
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - signup_url: https://www.bulutova.com/panel/cart/product/236/annually
+  - cart_url: https://www.bulutova.com/panel/cart/product/236/annually
+  - worst_case_exposure_x: 1.67
+  - worst_case_note: 281.45 / 168.87 = 1.67x if the 40% discount lapses at renewal. Same ratio on both the ex-VAT and KDV-inclusive basis.
+  - vat_basis: ex-VAT 3.40 / with 20% KDV 4.07; the page says prices are ex-KDV and the cart's tax element is preloaded at 20%
+  - port_mbps: 1000
+  - ipv4_included: yes
+  - ipv6: not stated on the plan card
+  - payment_methods: credit card, bank transfer (Havale/EFT), the vendor's Sanal Kredi balance and Sanal Kart, mobile payment through Turkcell, Avea and Vodafone, and PayPal; no card hold or deposit is…
+  - stock: in stock: the card renders a 'Satin Al' button and the annual cart resolves to a product page with a total. Read at https://www.bulutova.com/panel/cart/product/236/annually
+  - vat: the page states prices exclude KDV. The cart as rendered computes 'KDV (%0)' and a total of 2,026.44 TL, but the page's own script sets taxEnabled:false with a hidden element preloaded at 20%, so the zero is the unconfigured default before a tax country is picked. Treated as ex-VAT USD 3.40 with a 20% KDV case of USD 4.07
+- evidence:
+  - [1] 2026-10-24: quoted from the page source: 'VPS Sunucu 8 | Intel Xeon Platinum 8160 | 281.45 TL | 168.87 TL | /ay | 40% Indirim | 2 vCore | CPU | 8 GB | ECC Ram | 60 GB | E-NVMe Disk | 1 Gbps | Bant Genisligi'
+  - [1] 2026-10-24: quoted: the traffic line 'Sozlesmeler kapsaminda paylasimli olarak limitsiz trafik sunulmaktadir' and the cart line 'KDV (%20)'
+  - [2] 2026-10-24: quoted: 'Satin alma ve yenileme siparislerinizi Kredi Karti, Banka Karti ya da Havale / EFT yontemiyle tamamlayabilirsiniz.'
+  - [3] 2026-10-24: quoted: 'Isletme Adi: BITWISE YAZILIM INTERNET VE TICARET LIMITED SIRKETI' and 'ETBIS'e Kayit Tarihi: 25.04.2022'
+  - [4] 2026-10-24: quoted: 'Vergi Numarasi 1781478560 ... GEBZE TICARET SICIL MUDURLUGU Ticaret Sicil No 33061 Mersis No 0178147856000001'
+  - [1] 2026-10-24: the product card's own attributes: 'data-old-price-1year="281.45 TL"' and 'data-price-1year="168.87 TL"', rendered as '281.45 TL / 168.87 TL / /ay / 40% Indirim'
+  - [1] 2026-10-24: quoted shape from the VPS Sunucu 8 card: '2 vCore / 8 GB / ECC Ram / 60 GB / E-NVMe Disk / 1 Gbps / Bant Genisligi / Istanbul / Lokasyon / Intel Xeon Platinum 8160'
+  - [1] 2026-10-24: quoted traffic line: 'Sozlesmeler kapsaminda paylasimli olarak limitsiz trafik sunulmaktadir.'
+  - [5] 2026-10-24: the annual cart for product 236 renders 'VPS Server Bursa VPS Server 8', 'KDV (%0) ₺0,00' and 'Genel Toplam ₺2.026,44'; 2026.44 / 12 = 168.87 TL a month, which matches the card's annual figure
+  - [1] 2026-10-24: quoted FAQ: 'VPS sunucu fiyatlarimiz KDV haric olarak belirtilmistir' (prices are stated excluding VAT), which is why the cart's KDV line matters
+  - [6] 2026-10-24: {"amount":1.0,"base":"USD","date":"2026-10-23","rates":{"EUR":0.89342,"TRY":49.738}}, so 1 TRY = USD 0.020105
+  - [7] 2026-11-02: the card is collected from rather than merely verified, and no authorisation amount is described | capture: sha256:f3a03148235287acd0c78bea8795480f802b23cec78f9ed1966ad55802355964 | quote: hizmet bedellerinin kayıt sırasında vermiş olduğunuz kredi kartı hesabından tahsil etme hakkına sahiptir
+  - [7] 2026-11-02: the vendor's own virtual card can pay an order from a prepaid balance | capture: sha256:f3a03148235287acd0c78bea8795480f802b23cec78f9ed1966ad55802355964 | quote: sipariş sırasında Sanal Kart'ınızdan ilgili ödemeyi gerçekleştirebilirsiniz
+  - [7] 2026-11-02: a bank transfer is one of the payment methods the terms define | capture: sha256:f3a03148235287acd0c78bea8795480f802b23cec78f9ed1966ad55802355964 | quote: Ödeme metodu olarak Banka Havalesi / EFT seçilmesi durumunda
+  - [7] 2026-11-02: the payment rails are a card and a bank transfer, unchanged in kind | capture: sha256:f3a03148235287acd0c78bea8795480f802b23cec78f9ed1966ad55802355964 | quote: Hizmetler için yapacağınız ödemelerinizi geçerli bir kredi kartı, banka havalesi/EFT ile
+  - [8] 2026-11-06: the individual registration form requires an 11-digit T.C Kimlik Numarasi, a Turkish national ID number | capture: sha256:5850e8d1cb7d6e525c2161877c6ea20d635204cf83e7aaf81e71dc872c95d3e9 | quote: <input type="text" name="national_id" id="national_id" required="" maxlength="11" minlength="11" autocomplete="off">
+  - [8] 2026-11-06: the individual registration form requires a Turkish national identity number and a phone number | capture: sha256:5850e8d1cb7d6e525c2161877c6ea20d635204cf83e7aaf81e71dc872c95d3e9 | quote: <input type="text" name="national_id" id="national_id" required="" maxlength="11" minlength="11" autocomplete="off">
+  - [7] 2026-11-06: the card given at registration is charged, and no authorisation amount is described | capture: sha256:f3a03148235287acd0c78bea8795480f802b23cec78f9ed1966ad55802355964 | quote: BULUTOVA, bu sözleşmeyi kabul etmenizle, hizmet bedellerinin kayıt sırasında vermiş olduğunuz kredi kartı hesabından tahsil etme hakkına sahiptir.
+  - [8] 2026-11-06: the registration form requires a phone number | capture: sha256:5850e8d1cb7d6e525c2161877c6ea20d635204cf83e7aaf81e71dc872c95d3e9 | quote: <input type="tel" name="phone" id="phone" required="" pattern="[0-9]{3} [0-9]{3} [0-9]{2} [0-9]{2}" autocomplete="tel">
+  - [8] 2026-11-06: the phone number is confirmed by a 4-digit SMS code | capture: sha256:5850e8d1cb7d6e525c2161877c6ea20d635204cf83e7aaf81e71dc872c95d3e9 | quote: Telefon numaranıza gönderilen 4 haneli doğrulama kodunu girin.
+  - [7] 2026-11-06: the vendor's own virtual card can pay an order | capture: sha256:f3a03148235287acd0c78bea8795480f802b23cec78f9ed1966ad55802355964 | quote: sipariş sırasında Sanal Kart'ınızdan ilgili ödemeyi gerçekleştirebilirsiniz
+  - [8] 2026-11-06: registration cannot be completed without an 11-digit Turkish national identity number | capture: sha256:5850e8d1cb7d6e525c2161877c6ea20d635204cf83e7aaf81e71dc872c95d3e9 | quote: <input type="text" name="national_id" id="national_id" required="" maxlength="11" minlength="11" autocomplete="off">
+  - [7] 2026-11-06: the terms name a credit card, a bank transfer and the Sanal Kredi balance as the payment methods | capture: sha256:f3a03148235287acd0c78bea8795480f802b23cec78f9ed1966ad55802355964 | quote: Hizmetler için yapacağınız ödemelerinizi geçerli bir kredi kartı, banka havalesi/EFT ile; ya da BULUTOVA'nin ücret ödemesi yapmak için yapılandırdığı bir hizmet olan "BULUTOVA Sanal Kredi" Servisi faydalanarak yerine getirebilirsiniz
+  - [8] 2026-11-06: the individual sign-up requires an 11-digit Turkish national identity number | capture: sha256:5850e8d1cb7d6e525c2161877c6ea20d635204cf83e7aaf81e71dc872c95d3e9 | quote: <input type="text" name="national_id" id="national_id" required="" maxlength="11" minlength="11" autocomplete="off">
+- sources:
+  - [1] https://www.bulutova.com/vps-satin-al
+  - [2] https://www.bulutova.com/diger/banka-bilgileri
+  - [3] https://etbis.ticaret.gov.tr/tr/SiteSorgulamaSonuc?siteId=d0394e75-21e1-49da-a92b-64617b8ff498
+  - [4] https://www.bitwise.tr/
+  - [5] https://www.bulutova.com/panel/cart/product/236/annually
+  - [6] https://api.frankfurter.dev/v1/latest?base=USD&symbols=TRY,EUR
+  - [7] https://www.bulutova.com/sozlesmeler/genel-hizmet-sozlesmesi
+  - [8] https://www.bulutova.com/panel/register

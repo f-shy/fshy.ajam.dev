@@ -1,0 +1,204 @@
+# Mega-Debrid
+
+> mega-debrid.eu | Debrid; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/mega-debrid/ | JSON https://fshy.ajam.dev/api/v1/entity/mega-debrid.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Mega-Debrid
+
+- `debrid/mega-debrid` | paid-only | evidence documented | binding volume-quota | category multi-hoster / debrid (link unrestrict + torrent converter) | tier premium
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T00:35:36.094Z (live) | stale on 2026-12-04
+- url https://www.mega-debrid.eu/index.php?page=api
+- free tier: A free account exists but cannot use the API: 'Only Premium members can use this API. If free members try to connect on their accounts with this API, we return "vip_end" at the token generation and debrid link doesn't work.' | unit: none | metered on: none | read on: 2026-10-23 | source: [1] | note: The conditions page describes a free quota at signup for testing; its size is not stated.
+- per-object cap: Not published on any page read. | source: [1]
+- retention: Not published; torrent status is polled and the token, not the torrent, is the documented expiry. | source: [1]
+- egress: Subscriptions are 'limités en temps et de trafic' (limited in time and traffic) per the conditions; no byte figure is published on the pages read. | metered: yes | free allowance: a free test quota at signup, size unstated | source: [2]
+- identity: email | detail: Email validation is the activation step ('Mega-Debrid commence la prestation à compter de la validation de l'adresse email'); card or Allopass/Rentabiliweb code to pay.
+- interface: rest
+- limits:
+  - request-rate: 'If you send more than 50 requests per seconds, your IP address will be banned for some minutes' [1]
+  - per-ip-shaping: 'After 4 login failed (bad login/password), your IP address will be banned for some minutes' [1]
+  - write-gated: the token is invalidated by the next login attempt, so a second client logging in kills the first client's session [1]
+  - request-rate: 50 requests per second per IP: 'If you send more than 50 requests per seconds, your IP address will be banned for some minutes' [3]
+  - write-gated: 4 failed logins from one IP and the IP is banned: 'After 4 login failed (bad login/password), your IP address will be banned for some minutes'. Login is the write gate, because it mints the token. [3]
+  - volume-quota (binding): per host per day: 5 GB (shareonline, wdupload) to 1000 GB (rapidgator) [4]
+  - request-rate: 200 links/day and 250 GB/day on easybytez [4]
+  - request-rate: more than 50 requests/second from one IP bans it for minutes [5]
+  - volume-quota (binding): per-host daily caps: ddownload 10GB/day, Uploady 10GB/day, Isra.cloud 20GB/day, Filestore.me 50GB/day, Turbobit 80GB/day [6]
+  - request-rate: 'After 4 login failed (bad login/password), your IP address will be banned for some minutes' [1]
+  - volume-quota (binding): subscription traffic, counted and reported to the user [2]
+  - volume-quota (binding): not published; the page names no quota at any tier [7]
+- limits note: The token is the failure surface: 'The token will be valid until the next connection attempt' and an obsolete one returns 'Token error, please log-in' at the debrid-link call rather than at authentication.
+- binding note: One token per account and a new login invalidates the old one, so the first thing that breaks a 1 TiB/month automation is a second client or a restart that logs in again; the 50 req/s ban is far above a download client's call rate.
+- interface detail: GET/POST against https://www.mega-debrid.eu/api.php?action=<name>; every response carries 'response_code' ('ok' or an error code) and 'response_text'.
+- endpoint: part of interface detail
+- tooling: first-party apps listed at /index.php?page=applications; JDownloader; no rclone backend found
+- composes with: The French-market multi-hoster with 100 hosters on every plan tier; its API is the simplest of the set, so it is easy to wrap, but the token model makes a long-running daemon fragile.
+- reliability: A second login silently invalidates the running session's token; four bad logins or more than 50 requests a second ban the IP for minutes; a free account is indistinguishable from a broken one until the token call returns vip_end.
+- notes: Potential failure points: token invalidation, the free-account vip_end, or an IP ban. Token invalidation is the only one that hits an otherwise healthy paid account, and it is documented as a property of the token, not an error. The conditions page is French-only in content even on the lang=en URL, so the quota clauses are quoted in the original. Two vendor findings worth carrying: the API is premium-only by design, and authentication is credential-based with a token that dies on re-login. That combination makes it the worst of the eight for an unattended script, independent of price. Trigger condition: if a key-based auth appears, re-read the page the same day. The hosters page (/index.php?page=hebergeurs) is marketing only - '100 Hosters supported' and four logos - while the cap table lives on the registration page, where nobody looking for limits would think to go. Three host counts from one vendor: 100 on the offers page, 'over 200 hosts' in the meta description, 85 rows in the hosters table. The 85 is what a reader can count, so it is the figure to use. No annual plan: the ladder stops at 180 days for 16 EUR. Published comparison EUR 4.00 for 30 days is confirmed. A French proxy with a contract written for a traffic-limited subscription. Nothing in it promises a file will be there tomorrow. Trigger condition: if a tariff or FAQ page states a cloud or a retention window, this record needs a second entry. Same pattern as Debrid-Link, less severe: price identical to the euro for 35 months, host count down 162 -> 161 -> 152 -> 100, a 38% loss. The service is the cheapest 30-day term in the set alongside Debrid-Link and the least observed. Classified card-or-PayPal in the matrix because the vendor's own rail list could not be read and every reseller listing leads with card or PayPal; the Bitcoin leg exists at resellers and is documented here rather than counted in the crypto group. Included as the Spanish-language breadth point, not as a recommendation: debrid found no Latin American operator of a full multi-host. Every Spanish or Portuguese storefront read here resolves to a European operator (AllDebrid, MultiDebrid, Mega-Debrid) or to a Brazilian reseller of somebody else's accounts.
+- evidence note: The API behaviour, the token rule and both ban conditions are on the vendor's own API page. Prices and per-plan traffic are not published on the pages read, so they are absent rather than guessed.
+- extras:
+  - failure_angle: single-token session
+  - strongest_signal: vip_end at token generation; 'Token error, please log-in' mid-transfer
+  - account_states: vip_end (free or lapsed); 'Token error, please log-in' (session replaced); IP banned for minutes (4 bad logins or >50 req/s); expired premium
+  - cache_miss: no cache-status endpoint in the API page read; getTorrent returns status and progress only
+  - host_removal: hosters are enumerated per request by getHostersList with a status field, which is a live list rather than an announcement
+  - simultaneous_use: No multi-IP rule on the API or conditions pages read. The token is single-session by construction and is the effective limit: a second login invalidates the first client's token.
+  - auth_flows: one: action=connectUser&login=&password= in the query string, returning 'token' plus 'vip_end' (premium expiry timestamp). No key, no OAuth, no refresh.
+  - unrestrict_endpoint: POST action=getLink&token= with 'link' and optional 'password'
+  - torrent_endpoints: action=uploadTorrent (POST 'file' or 'magnet'), action=getTorrents, action=getTorrent&hash=
+  - account_endpoints: action=getUserHistory&token= (start, limit)
+  - public_endpoints_no_account: action=getHostersList
+  - mirror_domain: www.unrestrict.link serves the same operator's pages, including the same API documentation text - the same content read through a second domain
+  - host_matrix.published_daily_caps: yes
+  - host_matrix.source: https://www.mega-debrid.eu/?lang=en&page=register
+  - host_matrix.hosts_listed: 100
+  - host_matrix.rows[0].host: share-online.biz
+  - host_matrix.rows[0].daily_gb: 5
+  - host_matrix.rows[1].host: wdupload.com
+  - host_matrix.rows[1].daily_gb: 5
+  - host_matrix.rows[2].host: ddownload.com
+  - host_matrix.rows[2].daily_gb: 10
+  - host_matrix.rows[3].host: uploady.io
+  - host_matrix.rows[3].daily_gb: 10
+  - host_matrix.rows[4].host: isra.cloud
+  - host_matrix.rows[4].daily_gb: 20
+  - host_matrix.rows[5].host: filefactory.com
+  - host_matrix.rows[5].daily_gb: 50
+  - host_matrix.rows[6].host: filestore.me
+  - host_matrix.rows[6].daily_gb: 50
+  - host_matrix.rows[7].host: hitfile.net
+  - host_matrix.rows[7].daily_gb: 50
+  - host_matrix.rows[8].host: katfile.com
+  - host_matrix.rows[8].daily_gb: 50
+  - host_matrix.rows[9].host: filer.net
+  - host_matrix.rows[9].daily_gb: 80
+  - host_matrix.rows[10].host: turbobit.net
+  - host_matrix.rows[10].daily_gb: 80
+  - host_matrix.rows[11].host: dailyuploads.net
+  - host_matrix.rows[11].daily_gb: 100
+  - host_matrix.rows[12].host: ulozto.net
+  - host_matrix.rows[12].daily_gb: 150
+  - host_matrix.rows[13].host: easybytez.com
+  - host_matrix.rows[13].daily_gb: 250
+  - host_matrix.rows[13].daily_links: 200
+  - host_matrix.rows[14].host: oboom.com
+  - host_matrix.rows[14].daily_gb: 300
+  - host_matrix.rows[15].host: rapidgator.net
+  - host_matrix.rows[15].daily_gb: 1000
+  - host_matrix.unit: GB/day and links/day as printed ('Go / jour', 'liens / jour')
+  - host_count_claimed: 100 (offers page) / 'over 200' (meta description)
+  - host_count_measured: 85 rows in the published hosters table
+  - usenet: no
+  - torrent: yes, torrent to direct download
+  - annual_plan: none; 180 days is the longest term
+  - retention_map.fetched_files.stated: not published; contract says the data is not administered by Mega-Debrid
+  - retention_map.fetched_files.source_url: https://www.mega-debrid.eu/index.php?page=conditionsutilisation&lang=en
+  - retention_map.lapse_grace.stated: not published
+  - retention_map.lapse_grace.source_url: https://www.mega-debrid.eu/index.php?page=conditionsutilisation&lang=en
+  - account_deletion.stated: not published
+  - account_deletion.source_url: https://www.mega-debrid.eu/index.php?page=conditionsutilisation&lang=en
+  - reactivation: not published; expected to be a re-fetch
+  - storage_model: proxy, no storage quota in the contract
+  - price_history[0].date: 2023-12-06
+  - price_history[0].price: EUR 4 / 30 days
+  - price_history[0].plan: 30 Days
+  - price_history[0].source_url: https://web.archive.org/web/20231206113657/https://www.mega-debrid.eu/index.php?page=offres
+  - price_history[1].date: 2023-12-06
+  - price_history[1].price: EUR 9 / 90 days
+  - price_history[1].plan: 90 Days
+  - price_history[1].source_url: https://web.archive.org/web/20231206113657/https://www.mega-debrid.eu/index.php?page=offres
+  - price_history[2].date: 2024-10-04
+  - price_history[2].price: EUR 4 / 30 days
+  - price_history[2].plan: 30 Days
+  - price_history[2].source_url: https://web.archive.org/web/20241004025733/https://www.mega-debrid.eu/index.php?page=offres
+  - price_history[2].change_pct: 0.0
+  - price_history[3].date: 2025-10-18
+  - price_history[3].price: EUR 4 / 30 days
+  - price_history[3].plan: 30 Days
+  - price_history[3].source_url: https://web.archive.org/web/20251018122312/https://www.mega-debrid.eu/index.php?page=offres
+  - price_history[3].change_pct: 0.0
+  - price_history[4].date: 2026-10-23
+  - price_history[4].price: EUR 4 / 30 days
+  - price_history[4].plan: 30 Days
+  - price_history[4].source_url: https://www.mega-debrid.eu/index.php?page=offres
+  - price_history[4].change_pct: 0.0
+  - price_history[5].date: 2026-10-23
+  - price_history[5].price: EUR 16 / 180 days
+  - price_history[5].plan: 180 Days
+  - price_history[5].source_url: https://www.mega-debrid.eu/index.php?page=offres
+  - price_history[5].change_pct: 0.0
+  - change_36m: 0.0% on every term, 2023-12-06 to 2026-10-23
+  - host_count_history[0].date: 2023-12-06
+  - host_count_history[0].hosts: 162
+  - host_count_history[1].date: 2024-10-04
+  - host_count_history[1].hosts: 161
+  - host_count_history[2].date: 2025-10-18
+  - host_count_history[2].hosts: 152
+  - host_count_history[3].date: 2026-10-23
+  - host_count_history[3].hosts: 100
+  - host_count_change: -38.3% since 2023-12-06
+  - currency: EUR
+  - merge_conflicts.usenet[0]: no
+  - merge_conflicts.usenet[1].lane: pricing-history
+  - merge_conflicts.usenet[1].value: no
+  - payment_group: card
+  - payment.card: yes
+  - payment.paypal: yes
+  - payment.crypto: BTC (reseller only)
+  - payment.crypto_processor: reseller-dependent
+  - payment.voucher: yes
+  - payment.voucher_detail: KeyOneClick (PayPal, Visa/MasterCard) and PremiumKeys (PayPal, Visa/MasterCard, BitCoin, WebMoney, PaySera) sell Mega-Debrid vouchers
+  - payment.entry_price: not read
+  - hosts_claimed: 100 Hosters supported (home page body heading); 'over 200 hosts' appears only in the home page HTML meta description
+  - author_meta: Xtrem Developpement
+  - price_status: unverified: no price on the home page
+- evidence:
+  - [1] 2026-10-23: 'Only Premium members can use this API. If free members try to connect on their accounts with this API, we return "vip_end" at the token generation and debrid link doesn't work'; 'After 4 login failed ... your IP address will be banned for some minutes'; 'If you send more than 50 requests per seconds, your IP address will be banned for some minutes'; 'The token will be valid until the next connection attempt ... (API return "Token error, please log-in" at the debrid link)'.
+  - [2] 2026-10-23: Subscriptions are 'limités en temps et de trafic'; the account is personal and can be suspended immediately without prior notice ('décâbler et/ou d'interrompre sans délai et sans mise en demeure préalable').
+  - [8] 2026-10-23: Every duration tier lists '100 Hosters available', streaming, torrent-to-DDL conversion and app access; the price blocks extracted out of order, so no price is quoted.
+  - [3] 2026-10-23: 'Only Premium members can use this API. If free members try to connect on their accounts with this API, we return "vip_end"'; 'If you send more than 50 requests per seconds, your IP address will be banned for some minutes'; 'After 4 login failed ... your IP address will be banned'; the action list connectUser, getUserHistory, getHostersList, getLink, uploadTorrent, getTorrents, getTorrent
+  - probe:https://www.mega-debrid.eu/api.php?action=getHostersList 2026-10-23: the registry answers with no token: 200 and 'response_code: ok' with hosters carrying name, url, img, domains, status and regexps
+  - probe:https://www.mega-debrid.eu/?lang=en&page=register 2026-10-23: the 'Membre Gratuit / Membre VIP' table, 60875 bytes, with 16 VIP caps from 'ShareOnline 5 Go / jour' to 'Rapidgator 1000 Go / jour'
+  - probe:https://www.mega-debrid.eu/api.php?action=getHostersList 2026-10-23: 100 hosters with domains, status 'up' and regexps - GET 200, 27234 bytes, response_code ok
+  - probe:https://www.mega-debrid.eu/index.php?lang=en&page=api 2026-10-23: 'Only Premium members can use this API', the 4-failure IP ban, and the 50 requests/second IP ban
+  - [9] 2026-10-23: '4 € / 30 Days', '9 € / 90 Days', '16 € / 180 Days', '100 Hosters available'
+  - probe:https://www.mega-debrid.eu/index.php?page=hebergeurs&lang=en 2026-10-23: the hosters page carries no caps: 11271 bytes of marketing ('100 Hosters supported', four logos)
+  - [8] 2026-10-23: '4€ 30 Days', '9€ 90 Days', '16€ 180 Days', '100 Hosters available', streaming and torrent-to-DDL conversion
+  - [6] 2026-10-23: 85 host rows with per-host Premium allowances: ddownload 10GB/day, Filestore.me 50GB/day, Isra.cloud 20GB/day, Turbobit 80GB/day, Uploady 10GB/day, rest Unlimited
+  - [10] 2026-10-23: 'Some hosts may contain a daily limit ... (for example 30GB)' and 'Limits are reset every day at midnight'
+  - [1] 2026-10-23: the query-string API, premium-only access with 'vip_end' for free accounts, the 50 requests-per-second ban and the 4-login ban
+  - [11] 2026-10-23: the free registration fields, including the captcha and 'Every account with a trash email will be banned'
+  - [2] 2026-10-23: the 'proxy non anonyme' definition, 'abonnements mensuels... limités en temps et de trafic', the undertaking to inform the client of consumption and expiry, and 'ne participe pas à... l'administration des données'
+  - [12] 2026-10-23: 100 supported hosters, torrent converter that sends results to hosters, no storage claim
+  - [8] 2026-10-23: 30/90/180 days at 4/9/16 EUR and '100 Hosters available'
+  - [13] 2023-12-06: the identical three prices and '162 Hosters available'
+  - [14] 2024-10-04: identical prices, 161 hosters
+  - [15] 2025-10-18: identical prices, 152 hosters
+  - [16] 2026-10-23: the paid registration form and its fields ('Nom d'utilisateur', 'Email', 'Liaison du compte forum au compte site'), with no payment rail shown pre-submit
+  - [17] 2026-10-23: a reseller selling 'Mega-Debrid.eu Premium Key Account Voucher via Visa/MasterCard' with 'Non-Recurring payment' - from the search index, page not opened
+  - [7] 2026-10-23: the four headline hosts in the table: RapidGator, Turbobit, Filefactory, 1Fichier; and 'Torrent Converter' as a named feature
+  - [12] 2026-11-03: the home page body heading reads '100 Hosters supported' (HTTP 200 fetch of 2026-11-03) | capture: sha256:30459e90af5102d5f91555cddb2dbf456e3e11a370f8c4deada7c2d602b2a2b5 | quote: 100 Hosters supported
+  - [12] 2026-11-03: the home page HTML meta description (head, not visible body text) says 'over 200 hosts' | capture: sha256:30459e90af5102d5f91555cddb2dbf456e3e11a370f8c4deada7c2d602b2a2b5 | quote: Download your files to over 200 hosts at full speed and, thanks to our torrent converter, download your files securely and anonymously.
+  - [7] 2026-11-03: the Spanish page's HTML meta description says 'más de 200 hosts'; its visible body heading on the same page reads '100 Servicio de almacenamiento' | capture: sha256:855ad394e74b31246945009f927c65181306f3dc7c13950a3fede738455fbba0 | quote: Descargue sus archivos a más de 200 hosts a toda velocidad y, gracias a nuestro convertidor de torrents, descargue sus archivos de forma segura y anónima.
+  - [18] 2026-11-03: conditions article 5 states the service starts once the customer's email address is validated through an automatically generated email | capture: sha256:5bf44e1e089b1399d435c3662d3ac0e6e02f753d2ef0075154e968ae2603cd0e | quote: Mega-Debrid commence la prestation à compter de la validation de l'adresse email du Client suite à un email généré automatiquement et transmis par Mega-Debrid lors de l'inscription.
+  - [18] 2026-11-03: conditions article 5 states registration grants a free quota to test the network and services, with no size given | capture: sha256:5bf44e1e089b1399d435c3662d3ac0e6e02f753d2ef0075154e968ae2603cd0e | quote: Cette inscription lui donne droit à un quota gratuit afin de lui permettre de tester l'accès au réseau ainsi qu'aux services proposés.
+- sources:
+  - [1] https://www.mega-debrid.eu/index.php?page=api
+  - [2] https://www.mega-debrid.eu/index.php?page=conditionsutilisation&lang=en
+  - [3] https://www.mega-debrid.eu/?page=api
+  - [4] https://www.mega-debrid.eu/?lang=en&page=register
+  - [5] https://www.mega-debrid.eu/index.php?lang=en&page=api
+  - [6] https://www.mega-debrid.eu/index.php?page=hosters
+  - [7] https://www.mega-debrid.biz/?lang=es
+  - [8] https://www.mega-debrid.eu/index.php?page=offres
+  - [9] https://www.mega-debrid.eu/index.php?page=offres&lang=en
+  - [10] https://help.mega-debrid.eu/index.php?action=faq&artlang=en&cat=3&id=28
+  - [11] https://www.mega-debrid.eu/index.php?page=freeregister
+  - [12] https://www.mega-debrid.eu/
+  - [13] https://web.archive.org/web/20231206113657/https://www.mega-debrid.eu/index.php?page=offres
+  - [14] https://web.archive.org/web/20241004025733/https://www.mega-debrid.eu/index.php?page=offres
+  - [15] https://web.archive.org/web/20251018122312/https://www.mega-debrid.eu/index.php?page=offres
+  - [16] https://www.mega-debrid.eu/index.php?page=payregister
+  - [17] https://keyoneclick.com/mega-debrid-premium.html
+  - [18] https://www.mega-debrid.eu/index.php?lang=en&page=conditionsutilisation

@@ -1,0 +1,294 @@
+# fshy: Coding subscriptions, self-hosted, the last resort
+
+> Coding-agent subscriptions and their price per unit of work.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/coding-subs/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## Cline
+
+- `coding-subs/cline` | self-hosted, last resort | verdict qualifies | evidence documented | binding none | category BYOK coding agent
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T17:29:12.673Z (live) | stale on 2026-12-04
+- url https://cline.bot/pricing | page https://fshy.ajam.dev/p/cline.md
+- free tier: free for individual developers; bring your own API key or use managed infrastructure | unit: none | metered on: none | read on: 2026-10-22 | source: [1] | note: the product costs nothing; the inference it calls is the bill
+- per-object cap: not applicable
+- retention: not applicable
+- egress: not applicable | metered: no
+- identity: email | detail: a GitHub account for the extension marketplace
+- interface: cli
+- limits note: no vendor-imposed usage cap, because the vendor does not serve the inference no vendor quota binds: the vendor does not serve the usage this record prices
+- interface detail: a VS Code extension; any OpenAI-compatible or Anthropic-compatible endpoint
+- tooling: VS Code extension; accepts an arbitrary base URL and key
+- reliability: no reliability event recorded
+- notes: Its cost is entirely the upstream endpoint.
+- evidence note: the price model is quoted from the vendor page. Nothing about capacity can be measured here because capacity belongs to the endpoint chosen.
+- self hosted: yes
+- evidence:
+  - [1] 2026-10-22: individual use is free, and the product is described as BYO API key or managed infrastructure, with an Enterprise tier for organisations
+  - [1] 2026-10-30: the product stays free for individual developers; inference is billed on usage or brought as an own key | capture: sha256:75a7ec46968077117635d0859cfed55fe422145d6eba50a32382aa066008aa60 | quote: Cline is free for individual developers.
+  - [1] 2026-11-03: the individual plan is still free; there is no vendor quota | capture: sha256:75a7ec46968077117635d0859cfed55fe422145d6eba50a32382aa066008aa60 | quote: Cline is free for individual developers.
+  - [1] 2026-11-03: the Free card lists model inference at cost or with the user's own key, so the inference is the cost and no vendor quota binds | capture: sha256:75a7ec46968077117635d0859cfed55fe422145d6eba50a32382aa066008aa60 | quote: - Purchase and Model Inference at Cost or BYOK
+- sources:
+  - [1] https://cline.bot/pricing
+
+## Aider
+
+- `coding-subs/aider` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding none | category BYOK coding agent
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T10:28:03.757Z (live) | stale on 2026-12-05
+- url https://aider.chat/ | page https://fshy.ajam.dev/p/aider.md
+- free tier: free and open source under the Apache License 2.0; the agent works with any model behind the user's own key, and its docs name free API providers: 'OpenRouter offers free access to many models, with limitations on daily usage' | unit: none | metered on: none | read on: 2026-10-30 | source: [1] | note: the agent costs nothing and imposes no quota; the endpoint it calls is the bill and the binding limit
+- per-object cap: not applicable: a coding agent meters nothing itself
+- retention: not applicable
+- egress: not applicable: the chosen endpoint serves the inference | metered: no
+- identity: anonymous | detail: no account is needed to run the agent, which installs from PyPI with 'python -m pip install aider-install'; each endpoint it calls carries its own identity cost
+- interface: cli
+- limits note: no vendor-imposed usage cap: the vendor serves no inference, so the quota of the chosen endpoint binds
+- binding note: the agent has no quota of its own; the endpoint's quota decides capacity
+- interface detail: a terminal program. Headless: `aider --message` (`-m`) or `--message-file` runs one instruction, applies the edits and exits; `--yes` answers every confirmation; a Python API (`Coder.create`) exists but is documented as unsupported
+- tooling: the user installs and runs the aider CLI (pip `aider-install`, uv, pipx or the install script) on a rented or free machine, and points it at an endpoint with `--model` and `--api-key`; OpenAI-compatible endpoints, OpenRouter and GitHub Copilot's api.githubcopilot.com are documented
+- composes with: pairs with any endpoint in inference/ and with a GitHub Copilot subscription, whose calls through aider are billed to that subscription; the agent is free and the tokens are not
+- reliability: the latest PyPI release is 0.86.2, uploaded 2026-02-12; the release notes list further unreleased changes on the main branch
+- notes: Not a subscription: a free agent with no vendor-served inference. It answers the question only as the USD 0 harness for a free or cheap endpoint chosen from inference/.
+- evidence note: licence, install path, headless flags and the free-provider guidance are quoted from the project's own pages read on 2026-10-30. Capacity belongs to the endpoint chosen, so nothing about quota can be measured on the agent.
+- self hosted: yes
+- evidence:
+  - [2] 2026-10-30: the agent installs from PyPI with no account | capture: sha256:41b2cec5ccf40d12ddd593e4a6c140ad5912033157001e6b6fb571cd6b60c3b4 | quote: python -m pip install aider-install
+  - [1] 2026-10-30: the docs name free API providers the agent works with, OpenRouter with daily limits among them | capture: sha256:5cd7dcb080554bcba8b7e3df1eda965983d7bb2966d8caf21421b61a8915fd15 | quote: OpenRouter offers free access to many models
+  - [3] 2026-10-30: `aider --message` runs non-interactively and exits | capture: sha256:d6cf1eec737eec8954c4c62b904df6e06fa9aa84b27e93f53a3a81e13f8295da | quote: It will do that one thing, apply the edits to the files and then exit.
+  - [3] 2026-10-30: the Python API is unsupported; the CLI flag is the stable headless route | capture: sha256:d6cf1eec737eec8954c4c62b904df6e06fa9aa84b27e93f53a3a81e13f8295da | quote: The python scripting API is not officially supported or documented, and could change in future releases without providing backwards compatibility.
+  - [4] 2026-10-30: the agent is licensed under the Apache License 2.0 | capture: sha256:6c5691d020bcfb35d27cf0ddaaf7b6497da79183ce897bc61405870927c25d89 | quote: Version 2.0, January 2004
+  - [5] 2026-10-30: a Copilot subscription can serve as the endpoint | capture: sha256:2580c7499cc6ee413f31157b71603d65da7832bca143e77b4eb010045c6e5eb7 | quote: Calls made through aider are billed through your Copilot subscription
+  - [6] 2026-10-30: the latest release on PyPI is 0.86.2, whose files were uploaded on 2026-02-12 | capture: sha256:58eacf57856e303ade64fdec05746bfe4a0e19142fc0007b2ddaff37cc24dcce | quote: "version":"0.86.2"
+  - [7] 2026-10-30: the main branch carries unreleased changes after 0.86.2, so development continues | capture: sha256:32f0318a17f1c4461689c750d728dca6a8625f2db049f9c978444fdc388ee6f4 | quote: Added support for GPT‑5.3/5.4 model variants across OpenAI, Azure, and OpenRouter, plus GPT‑4.1‑nano.
+  - [1] 2026-11-04: the docs still name OpenRouter free models as a free endpoint | capture: sha256:5cd7dcb080554bcba8b7e3df1eda965983d7bb2966d8caf21421b61a8915fd15 | quote: OpenRouter offers free access to many models
+- sources:
+  - [1] https://aider.chat/docs/llms.html
+  - [2] https://aider.chat/
+  - [3] https://aider.chat/docs/scripting.html
+  - [4] https://github.com/Aider-AI/aider/blob/main/LICENSE.txt
+  - [5] https://aider.chat/docs/llms/github.html
+  - [6] https://pypi.org/pypi/aider-chat/json
+  - [7] https://aider.chat/HISTORY.html
+
+## Amp (Hobby)
+
+- `coding-subs/amp-hobby` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding none | category BYOK coding agent | tier Hobby
+- needs card unknown, phone no, ID no, institution no | verified 2026-11-04T10:28:03.759Z (live) | stale on 2026-12-05
+- url https://ampcode.com/pricing | page https://fshy.ajam.dev/p/ampcode.md
+- disagrees on verdict: `coding-subs/amp-hobby` says qualifies-with-caveat, `coding-subs/amp-individual` says paid-only
+- free tier: Hobby is Free: tokens from the user's own ChatGPT or Claude subscriptions or own API keys carry no Amp token fees or limits, and runners on the user's own machine are free; Amp-hosted orbs are pay-as-you-go and nothing is included (Amp-served model usage is bought as credits at list price) | unit: none | metered on: none | read on: 2026-11-02 | source: [1] | note: the agent costs nothing on the free path; the first thing that costs money is an Amp-hosted orb at the per-minute rate or an Amp-served model, never a linked subscription or own key
+- per-object cap: not applicable: a coding agent meters nothing itself
+- retention: not applicable
+- egress: not applicable: the chosen endpoint or the user's own subscription serves the inference | metered: no
+- identity: email | detail: the sign-up page offers an email address ('Continue with Email') or 'Sign in with ChatGPT'; a payment method for buying credits or Amp-hosted orb time is unverified: behind a sign-up (the pricing page states only that invoices are issued through Stripe)
+- interface: cli
+- limits:
+  - request-rate: orb spawn pacing: a burst of 20 metered orbs per user, then one new orb every five minutes; later orb starts wait instead of failing [2]
+- limits note: a linked ChatGPT subscription serves only OpenAI models and token sharing is not available on every ChatGPT plan (ChatGPT Business and Enterprise workspaces can turn it off); a linked Claude subscription covers only the Claude Code mode, and Amp's own modes and raw models are never covered by it; web search, web page reads, voice and image generation still use Amp credits; Amp-hosted orbs are not covered by a ChatGPT or Claude plan
+- binding note: the free path (own subscription or key, own runner) has no Amp-side quota; the orb spawn pacing and the per-minute orb price apply only when Amp-hosted orbs are used
+- interface detail: the `amp` CLI. Headless: `amp -x "prompt"` (execute mode) sends the prompt, waits for the agent's turn to end, prints the final message and exits, and turns on by itself when stdout is redirected; `amp -ox` is shorthand for `--orb-execute -x` and starts the same prompt in an Amp-hosted orb, prints the thread URL and exits; `--stream-json` streams the events, locally or from an orb; `--executor runner:<id>` targets one of the user's own runners; scripts and CI set AMP_API_KEY to an access token from Settings that starts with `sgamp_`
+- tooling: the user installs and runs the amp CLI (macOS, Linux, or Windows through WSL) on a rented or free machine, or the user's own runner started with `amp --no-tui --runner-id <id>`; the web app and the macOS, iOS and Android apps run the agent in an Amp-hosted orb instead; models come from the user's linked ChatGPT subscription (`amp config model-providers add-chatgpt-subscription`), the Claude Code mode on a linked Claude subscription, or own API keys in Model Routing
+- composes with: hosted lanes first: an Amp-hosted orb on Hobby is pay-as-you-go from USD 0.08 an hour (a1.tiny), Amp-served models are bought as credits with no markup on provider API prices, and the paid Individual tier (coding-subs/amp-individual) bundles 45,000 orb minutes and USD 20 of agent usage; the free path links a ChatGPT subscription or any key in inference/ and runs the agent on the user's own runner
+- reliability: no reliability event recorded; the earlier Amp Free daily credit grant has been paused or reduced for more users since the update dated 2026-05-23, and the Hobby row lists nothing included
+- notes: Free path: link a ChatGPT subscription or add own API keys, and run the agent on the user's own runner; the web app and Amp-hosted orbs are pay-as-you-go. Models behind the Dial, as listed on the Modes page on 2026-11-02 and said to change as models improve: low GLM-5.3-Flash at high effort, medium Opus 5.5 at high, high GPT-6 Astra at medium, and ultra Fable 5.1 at high; the Claude Code mode runs Claude models on a linked Claude subscription. coding-subs/amp-individual holds the paid Megawatt and Gigawatt tiers; compute/amp-2 holds the same Hobby card as a compute record and compute/amp the orb machine sizes.
+- evidence note: tiers, prices, headless flags and routing are quoted from first-party pages read on 2026-11-02. The sign-up flow past its first page, the payment method it asks for, and the access-token rules on Hobby are unverified: behind a sign-up. The ChatGPT and Claude subscription links are documented, not exercised.
+- self hosted: yes
+- evidence:
+  - [1] 2026-11-02: the Hobby card, Free, states no Amp token fees or limits | capture: sha256:ab2a017a261066befb0df8bd77147eff546cc14712d5edb4bd5e2c1b45e861e8 | quote: No Amp token fees or limits
+  - [1] 2026-11-02: the Hobby card lets the user spend tokens from linked ChatGPT, Claude and other subscriptions | capture: sha256:ab2a017a261066befb0df8bd77147eff546cc14712d5edb4bd5e2c1b45e861e8 | quote: Use your ChatGPT, Claude & other subs
+  - [1] 2026-11-02: the Hobby card lets the user run agents on their own runners for free | capture: sha256:ab2a017a261066befb0df8bd77147eff546cc14712d5edb4bd5e2c1b45e861e8 | quote: Or use your own runners for free
+  - [1] 2026-11-02: Amp-hosted orbs on Hobby are pay-as-you-go | capture: sha256:ab2a017a261066befb0df8bd77147eff546cc14712d5edb4bd5e2c1b45e861e8 | quote: Pay-as-you-go for Amp-hosted orbs
+  - [3] 2026-11-02: Hobby is Free with nothing included; Amp-served models are bought as credits at list price and Amp-hosted orbs are billed at the standard orb prices | capture: sha256:2fb38947a7e5e6d6e4dd75a0c359da8e74e14f419903c5842cbcf198fa972be1 | quote: | Hobby | Free | Nothing included. Buy credits to use Amp-served models at list price. | Pay as you go for Amp-hosted orbs at the [standard orb prices](/docs/orbs/sizes-and-costs). |
+  - [3] 2026-11-02: own-subscription and own-key tokens carry no Amp fee or limit on every tier except Enterprise | capture: sha256:2fb38947a7e5e6d6e4dd75a0c359da8e74e14f419903c5842cbcf198fa972be1 | quote: On every tier except Enterprise, tokens from your own subscriptions (such as ChatGPT) and your own API keys have no Amp fees or limits, and self-hosted orbs are free and unlimited.
+  - [4] 2026-11-02: credits bought for Amp-served models carry no markup over the provider's API price for individuals | capture: sha256:b48961256d82faa3598c89cb4e9d6873a93deeef8f36b3174c64106f34ce5ed7 | quote: For individuals and non-enterprise workspaces, Amp does not add a markup to providers’ API prices.
+  - [4] 2026-11-02: credits can be bought on Hobby without a paid tier | capture: sha256:b48961256d82faa3598c89cb4e9d6873a93deeef8f36b3174c64106f34ce5ed7 | quote: Paid credits require no paid tier or commitment.
+  - [4] 2026-11-02: invoices are issued through Stripe; the pricing page names no card requirement at sign-up | capture: sha256:b48961256d82faa3598c89cb4e9d6873a93deeef8f36b3174c64106f34ce5ed7 | quote: Invoices are issued through Stripe, which supports adding your VAT ID or other tax information.
+  - [5] 2026-11-02: the agent is free when the user brings their own compute and model subscriptions or keys | capture: sha256:3f50ae50ff03ecd8f4f39a8af66b84d3be34656765767e241f4a39d7ea71a96c | quote: Amp is now free to use when you bring your own compute and model subscriptions/keys.
+  - [5] 2026-11-02: no own-key token fees or limits for anyone except Enterprise | capture: sha256:3f50ae50ff03ecd8f4f39a8af66b84d3be34656765767e241f4a39d7ea71a96c | quote: No BYOK token fees or limits for anyone (except our Enterprise tier).
+  - [6] 2026-11-02: sign-up takes an email address or a ChatGPT sign-in | capture: sha256:99029b643bda537189c7cf547e70fca6f59470a2bd4967f6bc3d3c61b7e8d384 | quote: Email Continue with Email OR OpenAI Sign in with ChatGPT
+  - [7] 2026-11-02: `amp -x` is the CLI's non-interactive execute mode | capture: sha256:74d278b203e096f57501d36aa8cdf5afda4e87c2e8677a38ef6450b8d5e9f079 | quote: Use `-x` or `--execute` to start the CLI in execute mode.
+  - [7] 2026-11-02: redirecting stdout turns execute mode on by itself | capture: sha256:74d278b203e096f57501d36aa8cdf5afda4e87c2e8677a38ef6450b8d5e9f079 | quote: Execute mode is automatically turned on when you redirect stdout:
+  - [7] 2026-11-02: scripts and CI authenticate with an access token from Settings beginning sgamp_, set as AMP_API_KEY | capture: sha256:74d278b203e096f57501d36aa8cdf5afda4e87c2e8677a38ef6450b8d5e9f079 | quote: Use an access token from Settings, which starts with `sgamp_`.
+  - [8] 2026-11-02: `amp -ox` runs the execute-mode prompt in an Amp-hosted orb | capture: sha256:2df90037870df4ad4cae440a7e59479dac440b76c0dd18a876c577236412b4f6 | quote: `-ox` is shorthand for `--orb-execute -x`.
+  - [8] 2026-11-02: `--stream-json` works with `-ox` and matches the local `-x` output format | capture: sha256:2df90037870df4ad4cae440a7e59479dac440b76c0dd18a876c577236412b4f6 | quote: The output format is identical to local `amp -x --stream-json`, so existing consumers work without changes:
+  - [9] 2026-11-02: the amp CLI runs on macOS, Linux and Windows through WSL | capture: sha256:0d377db17f41686c3ed11a9d255cc5a1342f7f07357109329cc74eaf13fa8062 | quote: The CLI supports macOS, Linux, and Windows through WSL.
+  - [10] 2026-11-02: with a linked ChatGPT subscription and token sharing, OpenAI model usage bills to that subscription | capture: sha256:7781b78c3d7e02296367bb7b197181e9e69a061e5a33d08bc28ad56dd79bd021 | quote: OpenAI model usage is billed to your ChatGPT subscription instead of Amp credits.
+  - [10] 2026-11-02: the ChatGPT link depends on the plan sharing tokens | capture: sha256:7781b78c3d7e02296367bb7b197181e9e69a061e5a33d08bc28ad56dd79bd021 | quote: Token sharing is not available on every ChatGPT plan, and ChatGPT Business and Enterprise workspaces can turn it off.
+  - [10] 2026-11-02: a linked Claude subscription serves only the Claude Code mode | capture: sha256:7781b78c3d7e02296367bb7b197181e9e69a061e5a33d08bc28ad56dd79bd021 | quote: Only the Claude Code mode uses your Claude plan.
+  - [10] 2026-11-02: runners on the user's own machine cost nothing | capture: sha256:7781b78c3d7e02296367bb7b197181e9e69a061e5a33d08bc28ad56dd79bd021 | quote: You can use [runners](https://ampcode.com/docs/cli/runners) on your own machine for free.
+  - [2] 2026-11-02: orb starts are paced at a burst of 20, then one every five minutes | capture: sha256:eb2b1c7d826f0638eca741b1d7022c058408e096e329d07d8da50a7ac203e177 | quote: Each user can start a burst of 20 metered orbs. After that burst, Amp starts one new orb every five minutes.
+  - [11] 2026-11-02: the smallest Amp-hosted orb is 1 CPU and 2 GB at USD 0.08 an hour | capture: sha256:0a3d48838b5c8cff6a641487fb03fbcf0662c74c9155e40fc11c434bde62872e | quote: | `a1.tiny` | 1 | 2 GB | $0.08/hour |
+  - [12] 2026-11-02: the earlier Amp Free daily allowance was paused or reduced for more users from 2026-05-23 | capture: sha256:11f18ae16d106d53ada908e5815dc558f1dd036bd76d3b610cd0f86b9471debe | quote: Update (2026-05-23): We’re pausing or reducing further Amp Free’s daily allowance for more users and restricting use of free credits by older client releases.
+  - [10] 2026-11-02: web search, page reads and voice are billed to Amp credits even with a linked subscription | capture: sha256:7781b78c3d7e02296367bb7b197181e9e69a061e5a33d08bc28ad56dd79bd021 | quote: Web search, reading web pages, and voice also use Amp credits.
+  - [10] 2026-11-02: a Claude plan does not cover Amp's own modes or raw models | capture: sha256:7781b78c3d7e02296367bb7b197181e9e69a061e5a33d08bc28ad56dd79bd021 | quote: Amp's own modes, such as medium, high, and ultra, and any raw models are never covered by your Claude plan.
+  - [10] 2026-11-02: the Claude Code mode runs Claude models on a linked Claude subscription | capture: sha256:7781b78c3d7e02296367bb7b197181e9e69a061e5a33d08bc28ad56dd79bd021 | quote: The Claude Code mode in Amp lets you use Claude models with your Claude Subscription.
+  - [10] 2026-11-02: the CLI command that links a ChatGPT subscription | capture: sha256:7781b78c3d7e02296367bb7b197181e9e69a061e5a33d08bc28ad56dd79bd021 | quote: From the CLI, run `amp config model-providers add-chatgpt-subscription` (or `amp add-chatgpt-sub`) to open the same sign-in flow in your browser.
+  - [10] 2026-11-02: Amp-hosted orbs are paid from a tier or credits and are not covered by a ChatGPT plan | capture: sha256:7781b78c3d7e02296367bb7b197181e9e69a061e5a33d08bc28ad56dd79bd021 | quote: When using orbs, you pay for the orbs (from Amp Megawatt/Gigawatt or Amp credits); the orbs aren’t covered by your ChatGPT plan.
+  - [9] 2026-11-02: a runner on the user's machine is started with `amp --no-tui --runner-id <id>` | capture: sha256:0d377db17f41686c3ed11a9d255cc5a1342f7f07357109329cc74eaf13fa8062 | quote: A runner ID identifies a connected runner started with `amp --no-tui --runner-id <id>`.
+  - [7] 2026-11-02: `-x --executor runner:<id>` starts a headless thread on one of the user's runners | capture: sha256:74d278b203e096f57501d36aa8cdf5afda4e87c2e8677a38ef6450b8d5e9f079 | quote: Use `--executor runner:<id>` with `-x` to start a thread on one of your running [runners](https://ampcode.com/docs/cli/runners).
+  - [13] 2026-11-02: the low mode runs GLM-5.3-Flash at high effort | capture: sha256:ec34e2e649f73b3aa3cf9038be1540c556b623eed3b41cd838fd2dce98b9da09 | quote: [Low Fast, low-cost mode for small, well-defined tasks Agent GLM-5.3-Flash · high](https://ampcode.com/news/the-dial)
+  - [13] 2026-11-02: the medium mode runs Opus 5.5 at high effort | capture: sha256:ec34e2e649f73b3aa3cf9038be1540c556b623eed3b41cd838fd2dce98b9da09 | quote: [Medium Default for most tasks, balancing quality, speed, and cost Agent Opus 5.5 · high](https://ampcode.com/news/the-dial)
+  - [13] 2026-11-02: the high mode runs GPT-6 Astra at medium effort | capture: sha256:ec34e2e649f73b3aa3cf9038be1540c556b623eed3b41cd838fd2dce98b9da09 | quote: [High Use for difficult tasks that need deeper reasoning and can tolerate more time and cost Agent GPT-6 Astra · med](https://ampcode.com/news/the-dial)
+  - [13] 2026-11-02: the ultra mode runs Fable 5.1 at high effort | capture: sha256:ec34e2e649f73b3aa3cf9038be1540c556b623eed3b41cd838fd2dce98b9da09 | quote: [Ultra Use for the hardest open-ended tasks when maximum capability matters more than speed or cost Agent Fable 5.1 · high](https://ampcode.com/news/the-dial)
+  - [10] 2026-11-02: the model behind each mode changes over time | capture: sha256:7781b78c3d7e02296367bb7b197181e9e69a061e5a33d08bc28ad56dd79bd021 | quote: That routing changes as models improve, but the meaning of each position on the Dial stays the same.
+  - [1] 2026-11-04: the Hobby free path (own runners, own keys) is still listed | capture: sha256:ab2a017a261066befb0df8bd77147eff546cc14712d5edb4bd5e2c1b45e861e8 | quote: Unlimited self-hosted orbs, free
+- sources:
+  - [1] https://ampcode.com/pricing
+  - [2] https://ampcode.com/docs/orbs
+  - [3] https://ampcode.com/docs/markdown/pricing
+  - [4] https://ampcode.com/docs/pricing
+  - [5] https://ampcode.com/news/free-agent
+  - [6] https://ampcode.com/auth/sign-up
+  - [7] https://ampcode.com/docs/cli/execute-mode
+  - [8] https://ampcode.com/docs/cli/spawning-orbs
+  - [9] https://ampcode.com/docs/cli
+  - [10] https://ampcode.com/docs/the-dial
+  - [11] https://ampcode.com/docs/orbs/sizes-and-costs
+  - [12] https://ampcode.com/news/amp-free-is-ad-free
+  - [13] https://ampcode.com/modes
+
+## Crush
+
+- `coding-subs/crush` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding none | category BYOK coding agent
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T10:28:03.757Z (live) | stale on 2026-12-05
+- url https://github.com/charmbracelet/crush | page https://fshy.ajam.dev/p/github-charmbracelet.md
+- free tier: the agent is free to use under FSL-1.1-MIT with keys for many providers; its first-party provider Charm Hyper has no free plan ('We've retired the monthly free Hypercredit allowance') and starts at Shred Diet, USD 10 a month for 180 Hypercredits a week | unit: none | metered on: none | read on: 2026-10-30 | source: [1] | note: the agent imposes no quota; with Hyper as the endpoint, the weekly and five-hour Hypercredit windows bind
+- per-object cap: not applicable: a coding agent meters nothing itself
+- retention: not applicable
+- egress: not applicable: the chosen endpoint serves the inference | metered: no
+- identity: anonymous | detail: no account for the agent, which installs from package managers; Hyper sign-up is 'Sign up with Google, GitHub, or email', and a Shred plan or prepaid credit is billed through Stripe
+- interface: cli
+- limits note: the agent carries no vendor-imposed usage cap, since the vendor serves no inference through it unless Hyper is chosen; Hyper's weekly and five-hour Hypercredit limits then bind
+- binding note: the agent has no quota of its own; the endpoint's quota decides capacity
+- interface detail: a terminal UI. Headless: `crush run "prompt"` runs non-interactively, `--continue` (`-C`) and `--session` (`-s`) resume a session, `crush session list --json` lists sessions, and `--yolo` skips every permission prompt
+- tooling: the user installs and runs the crush binary (Homebrew, npm, winget, scoop, apt, yum or go install) on a rented or free machine; providers come from the Catwalk model list or a custom OpenAI- or Anthropic-compatible entry, and the HYPER_API_KEY variable selects Hyper
+- composes with: Charm Hyper is the first-party endpoint at hyper.charm.land/v1 with OpenAI and Anthropic protocols: Shred Diet USD 10 a month buys 180 Hypercredits a week (about USD 9.00 of inference at 5 cents a credit), 100 per five hours and 2 concurrent requests; Shred Classic is USD 20 for 250; prepaid credits start at USD 5. Any key in inference/ works instead
+- reliability: no reliability event recorded; Shred subscriptions on Hyper are not zero-data-retention, while Business plans and prepaid credits are
+- notes: Not a subscription by itself: the agent is free and source-available, and its first-party plan Charm Hyper is a separate hosted offer with no free tier and a USD 10 entry plan, under USD 20. Hyper models on the probe include prism, kimi-k3, glm-5.3, glm-5.3-flash, deepseek-v4.1-flash, qwen3.8-max, minimax-m3 and gpt-oss-120b.
+- evidence note: licence, headless command, provider support and the Hyper plan table are quoted from first-party pages read on 2026-10-30, and the Hyper model list from a probe of its unauthenticated models endpoint. Hyper's per-model token price inside a Hypercredit was not converted to tokens per week.
+- self hosted: yes
+- evidence:
+  - [1] 2026-10-30: the agent takes keys for many third-party providers | capture: sha256:3de1bde6575792c269eb25f13b7b14885848d65f43fc13b3738fa25b05a5ab83 | quote: You can also use Crush with many other providers such as Anthopic, OpenAI, Gemini, OpenRouter and so on.
+  - [1] 2026-10-30: Charm Hyper is the first-party, subscription-based provider for the agent | capture: sha256:3de1bde6575792c269eb25f13b7b14885848d65f43fc13b3738fa25b05a5ab83 | quote: is the official Crush provider. It’s subscription-based and optimized for Crush.
+  - [1] 2026-10-30: a flag removes every permission prompt for unattended runs | capture: sha256:3de1bde6575792c269eb25f13b7b14885848d65f43fc13b3738fa25b05a5ab83 | quote: You can also skip all permission prompts completely by running Crush with the `--yolo` flag.
+  - [2] 2026-10-30: the agent is licensed under FSL-1.1-MIT | capture: sha256:c9e8c1c4b5371e1046df69760c6b1187dffccffba81bb35bf9b7ba04dbe6fd8f | quote: Functional Source License, Version 1.1, MIT Future License
+  - [3] 2026-10-30: `crush run` is the non-interactive mode, and v0.50.0 added session continuation to it | capture: sha256:e9c4ea548d37043f899e091b798ba0062d3926d8924a15fc64dcaaa812e647cb | quote: Did you know that you can Crush in a non-interactive manner? It's easy as `crush run`.
+  - [4] 2026-10-30: Shred Diet is USD 10 a month for 180 Hypercredits a week, 100 per five hours and 2 concurrent requests | capture: sha256:c744c3a69dece055a87c6f3fac13322665d925c5e413cf215fd688984f6e75ab | quote: | Shred Diet | $10 / month | 180 | ≈ $9.00 | 100 | 2 |
+  - [4] 2026-10-30: Shred Classic is USD 20 a month for 250 Hypercredits a week | capture: sha256:c744c3a69dece055a87c6f3fac13322665d925c5e413cf215fd688984f6e75ab | quote: | Shred Classic | $20 / month | 250 | ≈ $12.50 | 150 | 3 |
+  - [4] 2026-10-30: Hyper plans and credits are paid through Stripe | capture: sha256:c744c3a69dece055a87c6f3fac13322665d925c5e413cf215fd688984f6e75ab | quote: Billing is powered by Stripe
+  - [5] 2026-10-30: Hyper has no free plan | capture: sha256:c183ba6d8152850e3d310fb8ecd5c0d3533a0608ca36080e97da81d646b9a30c | quote: We've retired the monthly free Hypercredit allowance.
+  - [5] 2026-10-30: Shred plans are not zero-data-retention | capture: sha256:c183ba6d8152850e3d310fb8ecd5c0d3533a0608ca36080e97da81d646b9a30c | quote: Shred subscriptions don't include ZDR.
+  - [6] 2026-10-30: the Hypercredit allowance resets weekly, and one Hypercredit is 5 cents | capture: sha256:046e23487292f1ac2d6085feb1613ed1045a62afb61067555355071c19e49b91 | quote: Hypercredits refresh every week at Sunday 00:00 UTC.
+  - [7] 2026-10-30: Hyper sign-up needs a Google or GitHub login or an email address | capture: sha256:595e192a9b02a4847b0cd0f0e30ff550b00a16a838d844cf303c6091c43afcd0 | quote: Sign up with Google, GitHub, or email.
+  - [8] 2026-10-30: the agent signs in to Hyper during its first run or reads HYPER_API_KEY | capture: sha256:45dda5a91fda2a374309ce8fc84767797fab3872850cbbf3ef4bd5da33dc472c | quote: Crush has first-class support for Hyper.
+  - probe:https://hyper.charm.land/v1/models 2026-10-30: the unauthenticated Hyper models endpoint answered 200 with 23 model ids, among them kimi-k3, glm-5.3, deepseek-v4.1-flash, qwen3.8-max and gpt-oss-120b | capture: sha256:cc4d593d1ed20425a984d7e86b3921068e50df20013a85cc25040b9c4a353d61 | quote: "id": "kimi-k3"
+  - [5] 2026-11-04: Hyper still has no free plan; the free route is the agent with other keys | capture: sha256:c183ba6d8152850e3d310fb8ecd5c0d3533a0608ca36080e97da81d646b9a30c | quote: We've retired the monthly free Hypercredit allowance.
+- sources:
+  - [1] https://github.com/charmbracelet/crush
+  - [2] https://github.com/charmbracelet/crush/blob/main/LICENSE.md
+  - [3] https://github.com/charmbracelet/crush/releases/tag/v0.50.0
+  - [4] https://hyper.charm.land/docs/plans-billing.md
+  - [5] https://hyper.charm.land/faq
+  - [6] https://hyper.charm.land/
+  - [7] https://hyper.charm.land/docs/
+  - [8] https://hyper.charm.land/docs/coding-agents/crush.html
+
+## Qwen Code
+
+- `coding-subs/qwen-code` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding none | category BYOK coding agent
+- needs card no, phone no, ID no, institution no | verified 2026-10-30T17:28:48.227Z (live) | stale on 2026-11-30
+- url https://qwen.ai/qwencode | page https://fshy.ajam.dev/p/qwen.md
+- free tier: open-source agent for the terminal; bring an OpenAI, Anthropic or Gemini compatible key; the free Qwen OAuth route was discontinued on 2026-04-15 | unit: none | metered on: none | read on: 2026-10-29 | source: [1] | note: the agent costs nothing; the key it is given is the bill
+- per-object cap: not applicable
+- retention: not applicable
+- egress: not applicable | metered: no
+- identity: anonymous | detail: none to install or run the CLI; the npm package and the standalone install script download with no credential, and each endpoint key carries that endpoint's own registration cost; the qwen.ai account was needed only for the Qwen OAuth route, closed on 2026-04-15
+- interface: cli
+- limits note: no quota binds the agent itself; the provider of the chosen endpoint serves and meters the usage, among them the vendor's QwenCloud (a Token Plan with a monthly Credit quota, or a pay-as-you-go Standard API Key) and Alibaba ModelStudio (a Coding Plan with a weekly quota); the free Qwen OAuth route closed on 2026-04-15
+- binding note: no vendor quota binds: the agent is free software and the endpoint it is given sets every limit, since the free Qwen OAuth route closed
+- interface detail: a terminal agent; multi-protocol, so any OpenAI, Anthropic or Gemini compatible base URL works
+- tooling: the user installs and runs the qwen CLI (npm package @qwen-code/qwen-code, which needs Node.js 22 or later, or the vendor's standalone install script) on any machine, rented or free ones included, and gives it an endpoint key
+- composes with: the agent pairs with a key of a built-in provider (DeepSeek, Grok, MiniMax, Z.AI, Kimi, Idealab, ModelScope, OpenRouter, Requesty) or with any OpenAI, Anthropic or Gemini compatible endpoint, so a free endpoint recorded under inference makes the whole stack free; the key-free Qwen OAuth route closed on 2026-04-15
+- reliability: the vendor cut the free Qwen OAuth quota from 1,000 to 100 requests per day and closed the route on 2026-04-15; cached OAuth tokens may work briefly and new requests are rejected
+- notes: The free Qwen OAuth quota was discontinued on 2026-04-15. The /auth options are now QwenCloud, Alibaba ModelStudio, third-party providers and a custom provider, so the agent's cost is the endpoint it is pointed at. The qwen.ai landing page still offers Qwen OAuth sign-in; the auth documentation, last updated on October 22, 2026, says the route is closed.
+- evidence note: the vendor's auth documentation states the end of the free OAuth tier and the current /auth routes; the anonymous install path was measured with unauthenticated GETs of the npm tarball and the install script; capacity belongs to the endpoint chosen and is not measured here
+- self hosted: yes
+- evidence:
+  - [2] 2026-10-22: Qwen Code is an open-source terminal agent that supports OpenAI, Anthropic and Gemini compatible APIs or Qwen OAuth sign-in
+  - [1] 2026-10-29: the free Qwen OAuth tier was discontinued on 2026-04-15 and new requests are rejected | capture: sha256:9b4d0604fdd4cda085eeebcdf4cb2cf717014c36d0781dbce1e326227abe144e | quote: The Qwen OAuth free tier was discontinued on 2026-04-15. Existing cached tokens may continue working briefly, but new requests will be rejected.
+  - [1] 2026-10-29: the current /auth options are QwenCloud, Alibaba ModelStudio, Third-party Providers and Custom Provider | capture: sha256:9b4d0604fdd4cda085eeebcdf4cb2cf717014c36d0781dbce1e326227abe144e | quote: choose one of the current options (QwenCloud, Alibaba ModelStudio, Third-party Providers, or Custom Provider) instead
+  - [1] 2026-10-30: the /auth dialog connects nine built-in third-party providers by API key | capture: sha256:9b4d0604fdd4cda085eeebcdf4cb2cf717014c36d0781dbce1e326227abe144e | quote: Third-party Providers**: choose a built-in provider and connect with an API key (DeepSeek, Grok, MiniMax, Z.AI, Kimi, Idealab, ModelScope, OpenRouter, Requesty).
+  - probe:registry.npmjs.org/@qwen-code/qwen-code/-/qwen-code-0.26.4.tgz 2026-10-30: an unauthenticated GET of the agent's npm tarball answers 200 and streams the package: no account is needed to install it | capture: sha256:76dae1e3295c8478f8a192258a290ed7641e79fcde4562d715caaef75e4b064b | quote: "status": 200
+  - [1] 2026-10-30: the qwen.ai account requirement belongs to the discontinued Qwen OAuth section of the auth page | capture: sha256:9b4d0604fdd4cda085eeebcdf4cb2cf717014c36d0781dbce1e326227abe144e | quote: Requirements**: a `qwen.ai` account + internet access (at least for the first login).
+  - [3] 2026-10-30: the agent installs from npm as @qwen-code/qwen-code and needs Node.js 22 or later | capture: sha256:d351b8a55481da82b38f27ff4da2dc1852402e3bef5255e1c215a2cfb9e1755d | quote: NPM** (requires [Node.js 22+](https://nodejs.org/)):
+  - [4] 2026-10-30: the vendor's repository announced the closure of the free Qwen OAuth entry point on 2026-04-15 | capture: sha256:bdc214bc0e00441559aa45fa733060f6bcfbfd6522eacd2a1bd8dc7c41b2e308 | quote: Phase out free tier: Completely close the Qwen OAuth free entry point on 2026-04-15
+  - [1] 2026-10-30: Qwen OAuth is no longer offered in the /auth dialog and its free tier ended on 2026-04-15 | capture: sha256:9b4d0604fdd4cda085eeebcdf4cb2cf717014c36d0781dbce1e326227abe144e | quote: Qwen OAuth** is no longer a selectable dialog entry — its free tier was discontinued on 2026-04-15
+  - [1] 2026-10-30: the agent accepts any OpenAI, Anthropic or Gemini compatible endpoint, so the endpoint sets the limits | capture: sha256:9b4d0604fdd4cda085eeebcdf4cb2cf717014c36d0781dbce1e326227abe144e | quote: Custom Provider**: manually connect a local server, proxy, or unsupported provider — supports OpenAI, Anthropic, Gemini, and other compatible endpoints.
+  - [1] 2026-10-30: the free Qwen OAuth tier ended on 2026-04-15; cached tokens may work briefly and new requests are rejected | capture: sha256:9b4d0604fdd4cda085eeebcdf4cb2cf717014c36d0781dbce1e326227abe144e | quote: The Qwen OAuth free tier was discontinued on 2026-04-15. Existing cached tokens may continue working briefly, but new requests will be rejected.
+  - [2] 2026-10-30: the qwen.ai landing page still offers Qwen OAuth sign-in although the auth documentation says the route is closed | capture: sha256:cd72ceb86270f4882cfbd15e17e02198a7bf77b788065d8fb3848a79ec3452d4 | quote: Use OpenAI / Anthropic / Gemini-compatible APIs, or sign in with Qwen OAuth.
+  - [4] 2026-10-30: before the closure the vendor cut the free OAuth quota from 1,000 to 100 requests per day | capture: sha256:bdc214bc0e00441559aa45fa733060f6bcfbfd6522eacd2a1bd8dc7c41b2e308 | quote: Reduce daily free quota: Change from 1,000 requests/day to 100 requests/day effective immediately
+  - [5] 2026-10-30: the vendor's troubleshooting page also states Qwen OAuth is unavailable from 2026-04-15 | capture: sha256:c4cafa144f91021659faa69b3482c2ab849e18fae53c95742717c3ed2855674d | quote: Qwen OAuth is no longer available as of April 15, 2026.
+  - probe:qwen-code-assets.oss-cn-hangzhou.aliyuncs.com/installation/install-qwen-standalone.sh 2026-10-30: an unauthenticated GET of the vendor's standalone install script answers 200 with the full script | capture: sha256:8ee265cb52e8d51045940a9a847d568b470374b4a9743675c4aeb37b7fdb2da2 | quote: "status": 200
+  - [1] 2026-10-30: QwenCloud, the vendor's recommended /auth entry, serves key usage on a Token Plan with a monthly Credit quota or a pay-as-you-go Standard API Key | capture: sha256:9b4d0604fdd4cda085eeebcdf4cb2cf717014c36d0781dbce1e326227abe144e | quote: QwenCloud: official recommended setup. Opens a sub-menu with Token Plan (subscription with a monthly Credit quota · dedicated endpoint, Personal and Team editions) or Standard API Key (pay-as-you-go).
+  - [1] 2026-10-30: Alibaba ModelStudio serves key usage on a Coding Plan with a weekly quota, a usage-billed Token Plan or a Standard API Key | capture: sha256:9b4d0604fdd4cda085eeebcdf4cb2cf717014c36d0781dbce1e326227abe144e | quote: Alibaba ModelStudio: opens a sub-menu with Coding Plan (for individual developers · weekly quota included), Token Plan (for teams and companies · usage-based billing with a dedicated endpoint), or Standard API Key (connect with an existing ModelStudio API key).
+  - [1] 2026-10-30: the agent connects to any OpenAI, Anthropic or Gemini compatible endpoint, unchanged | capture: sha256:9b4d0604fdd4cda085eeebcdf4cb2cf717014c36d0781dbce1e326227abe144e | quote: Custom Provider**: manually connect a local server, proxy, or unsupported provider — supports OpenAI, Anthropic, Gemini, and other compatible endpoints.
+- sources:
+  - [1] https://qwenlm.github.io/qwen-code-docs/en/users/configuration/auth/
+  - [2] https://qwen.ai/qwencode
+  - [3] https://github.com/QwenLM/qwen-code
+  - [4] https://github.com/QwenLM/qwen-code/issues/3203
+  - [5] https://qwenlm.github.io/qwen-code-docs/en/users/support/troubleshooting/
+
+## Zed (Personal)
+
+- `coding-subs/zed-personal` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding none | category BYOK coding editor | tier Personal
+- needs card no, phone no, ID no, institution no | verified 2026-11-10T01:56:02.008Z (live) | stale on 2026-12-11
+- url https://zed.dev/pricing | page https://fshy.ajam.dev/p/zed.md
+- disagrees on identity_kind: `coding-subs/zed-personal` says anonymous, `coding-subs/zed-pro` says card
+- disagrees on verdict: `coding-subs/zed-personal` says qualifies-with-caveat, `coding-subs/zed-pro` says paid-only
+- free tier: Personal is USD 0 forever: 'Unlimited use with your API keys or external agents like Claude Agent, Codex CLI, and more'; the vendor serves no hosted model and no edit predictions on this plan | unit: unlimited | metered on: none | read on: 2026-11-02 | source: [1] | note: the editor imposes no quota of its own; the tokens come from the user's own keys or from the external agent's own plan
+- per-object cap: not applicable: a coding editor meters nothing itself
+- retention: not applicable
+- egress: not applicable: the chosen endpoint serves the inference | metered: no
+- identity: anonymous | detail: no account for the editor or for AI on the user's own API keys: the docs say signing in is not required. Sign-in, needed only for Zed-hosted models and collaboration, is GitHub OAuth with the read:user scope, and the account email is the GitHub one
+- interface: cli
+- limits note: the editor carries no vendor-imposed usage cap on this plan, since the vendor serves no inference through it; the ceiling is the endpoint the keys or the external agent point to
+- binding note: nothing binds in the editor itself; the endpoint's quota decides capacity
+- interface detail: a desktop editor with an Agent Panel; a keys-and-environment headless path exists as the eval-cli binary of the zed repository, run with --workdir, --model, --instruction, --timeout and --output-dir, which writes result.json, thread.md and thread.json to the output directory. External agents attach over the Agent Client Protocol (ACP), which the interface vocabulary has no term for
+- tooling: the user installs and runs the Zed editor, or builds and runs the eval-cli binary from the zed repository with cargo, on a rented or free machine; provider keys come from environment variables such as ANTHROPIC_API_KEY, OPENAI_API_KEY and OPENROUTER_API_KEY, and the External Agents installed from the ACP Registry (Claude, Codex, OpenCode, Copilot, Cursor, Pi Coding Agent) own their own auth and billing. Remote Development runs a Zed headless server over SSH, but the UI and the model calls stay on the local machine
+- composes with: the editor is a front end for keys from inference/ and for agents that carry their own plans, such as Claude Agent and Codex, so it adds no quota of its own to a stack; the hosted Zed models are the separate paid record zed-pro
+- reliability: no reliability event recorded; on this plan the editor does not serve hosted models or edit predictions, and edit predictions from other providers such as GitHub Copilot or a local model still work
+- notes: Not a subscription that serves tokens: Personal is the free editor on the user's own keys or external agents, and the vendor's hosted models are the separate paid record zed-pro at USD 10 a month.
+- evidence note: plan, sign-in, key and external-agent behaviour are quoted from first-party pages read on 2026-11-02. The eval-cli README is a repository file; the binary itself was not built or run.
+- self hosted: yes
+- evidence:
+  - [1] 2026-11-02: the Personal plan allows unlimited use with the user's own keys or external agents | capture: sha256:50edfb49bfab6ab54994f43420179c7ba6dde3bb27f7c2ab548b7e15ab4003b2 | quote: Unlimited use with your API keys or external agents like Claude Agent, Codex CLI, and more
+  - [1] 2026-11-02: the Personal plan is USD 0 with no end date | capture: sha256:50edfb49bfab6ab54994f43420179c7ba6dde3bb27f7c2ab548b7e15ab4003b2 | quote: $0forever
+  - [2] 2026-11-02: hosted models and Zed's edit predictions are not on the free plan | capture: sha256:2b30b97c4029890c881dbb90e099093a7342a45d85ddc0382d7173faaa113c49 | quote: Zed's hosted models and [Edit Predictions](../ai/edit-prediction.md) require a Pro subscription.
+  - [2] 2026-11-02: the free plan takes the user's own API keys for AI agents | capture: sha256:2b30b97c4029890c881dbb90e099093a7342a45d85ddc0382d7173faaa113c49 | quote: Zed is free to use. You can configure AI agents with your own API keys via [Use API Access](../ai/use-api-access.md).
+  - [2] 2026-11-02: AI via own API keys is on every plan, the free one included | capture: sha256:2b30b97c4029890c881dbb90e099093a7342a45d85ddc0382d7173faaa113c49 | quote: | [AI via own API keys](../ai/use-api-access.md) | ✓ | ✓ | ✓ | ✓ |
+  - [2] 2026-11-02: External Agents are on every plan, the free one included | capture: sha256:2b30b97c4029890c881dbb90e099093a7342a45d85ddc0382d7173faaa113c49
+  - [3] 2026-11-02: the editor runs without an account | capture: sha256:454cca4fa0192a06975fcb8a8c0711bb4eb42a24606207a8f0bfaed56c7a9a8a | quote: Signing in to Zed is not required. You can use most features you'd expect in a code editor without ever doing so.
+  - [3] 2026-11-02: AI on the user's own keys needs no sign-in | capture: sha256:454cca4fa0192a06975fcb8a8c0711bb4eb42a24606207a8f0bfaed56c7a9a8a | quote: To use AI without signing in, you can [bring and configure your own API keys](./ai/use-api-access.md).
+  - [3] 2026-11-02: the sign-in that hosted models and collaboration need is GitHub OAuth with the read:user scope | capture: sha256:454cca4fa0192a06975fcb8a8c0711bb4eb42a24606207a8f0bfaed56c7a9a8a | quote: Zed uses GitHub's OAuth flow to authenticate users, requiring only the `read:user` GitHub scope, which grants read-only access to your GitHub profile information.
+  - [4] 2026-11-02: Zed charges nothing for External Agents, which carry their own auth and billing | capture: sha256:08b1b98333f1b97d44a5da73d3ccb1f19fa3d62ff3ba80f8303b571a2a21b732 | quote: Zed does not charge for External Agents.
+  - [4] 2026-11-02: external agents attach over the Agent Client Protocol | capture: sha256:08b1b98333f1b97d44a5da73d3ccb1f19fa3d62ff3ba80f8303b571a2a21b732 | quote: External Agents are agents that integrate with Zed through the [Agent Client Protocol (ACP)](https://agentclientprotocol.com).
+  - [5] 2026-11-02: Zed reads provider keys from environment variables, OpenRouter among them | capture: sha256:b164ec181d366233ab55bfef5968c6d0f4c068695e5ccd05b1680829108484b0 | quote: | OpenRouter | `OPENROUTER_API_KEY` |
+  - [6] 2026-11-02: a headless Zed agent binary exists in the zed repository | capture: sha256:1f2c4cc5a6c788a55b5192dce8b6af8f659a768f39c65422fa9368d8faade822 | quote: Headless Rust binary for running Zed's agent in evaluation and benchmark environments.
+  - [6] 2026-11-02: eval-cli runs the editor's agent loop without a GUI | capture: sha256:1f2c4cc5a6c788a55b5192dce8b6af8f659a768f39c65422fa9368d8faade822 | quote: `eval-cli` uses the same `NativeAgent` + `AcpThread` pipeline as the production Zed editor: a full agentic loop with tool calls, subagents, and retries, without a GUI.
+  - [6] 2026-11-02: eval-cli takes the user's own provider keys from the environment | capture: sha256:1f2c4cc5a6c788a55b5192dce8b6af8f659a768f39c65422fa9368d8faade822 | quote: `eval-cli` reads provider API keys from environment variables such as `ANTHROPIC_API_KEY` and `OPENAI_API_KEY`.
+  - [6] 2026-11-02: eval-cli writes result.json, thread.md and thread.json to its output directory | capture: sha256:1f2c4cc5a6c788a55b5192dce8b6af8f659a768f39c65422fa9368d8faade822 | quote: It writes `result.json`, `thread.md`, and `thread.json` to the output directory.
+  - [6] 2026-11-02: eval-cli takes the task as an --instruction argument, beside --workdir, --model, --timeout and --output-dir | capture: sha256:1f2c4cc5a6c788a55b5192dce8b6af8f659a768f39c65422fa9368d8faade822 | quote: --instruction "Fix the bug described in..." \
+  - [6] 2026-11-02: eval-cli is built from source with cargo | capture: sha256:1f2c4cc5a6c788a55b5192dce8b6af8f659a768f39c65422fa9368d8faade822 | quote: cargo build --release -p eval_cli
+  - [7] 2026-11-02: in Remote Development the model calls stay on the local machine that runs the UI | capture: sha256:1ac3dc4eb87e3373a5b0cafa6989c945178925cdbbd342dade9df9fea3754cc7 | quote: On your local machine, Zed runs its UI, talks to language models, uses Tree-sitter to parse and syntax-highlight code, and stores unsaved changes and recent projects.
+  - [8] 2026-11-10: the eval-cli binary runs the same agent loop from the command line | capture: sha256:94746a214bc40208ad57701d74d99033c48518dfad7e5bb516cacd722a8ca7df | quote: `eval-cli` reads provider API keys from environment variables such as
+- sources:
+  - [1] https://zed.dev/pricing
+  - [2] https://zed.dev/docs/account/plans-and-pricing
+  - [3] https://zed.dev/docs/authentication
+  - [4] https://zed.dev/docs/ai/external-agents
+  - [5] https://zed.dev/docs/ai/use-api-access
+  - [6] https://github.com/zed-industries/zed/blob/main/crates/eval_cli/README.md
+  - [7] https://zed.dev/docs/remote-development
+  - [8] https://raw.githubusercontent.com/zed-industries/zed/main/crates/eval_cli/README.md

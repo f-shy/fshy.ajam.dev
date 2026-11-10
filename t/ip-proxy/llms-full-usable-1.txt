@@ -1,0 +1,810 @@
+# fshy: IP and proxies, usable, part 1 of 2
+
+> Exit addresses: proxy lists, VPN exits, address sources and what the upstream sees.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/ip-proxy/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## Mullvad VPN
+
+- `ip-proxy/mullvad-vpn` | qualifies | evidence documented | binding request-rate | category VPN subscription (exit source) | tier flat: one plan, EUR 5 per month at every term
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T10:07:11.000Z (live) | stale on 2026-11-24
+- url https://mullvad.net/en/pricing | page https://fshy.ajam.dev/p/mullvad.md
+- price EUR 5 per month flat at 1 month, 1 year and 1 decade, including VAT; a subscription price, not a per-TB price | parsed USD 5.6/mo
+- free tier: No free tier. The pricing page read 2026-10-24 lists one plan at one rate: '1 month EUR 5 per month', '1 year EUR 5 per month', '1 decade EUR 5 per month', with the heading 'A fair pricing model' and the qualifier 'Including VAT.'. The same page offers a '14-day money back guarantee (except for cash payments due to anti-money laundering regulations)' and answers 'Do you ever have any sales?' with 'Nope.' | unit: none | metered on: none | read on: 2026-10-24 | source: [1] | note: All three terms carry the same monthly rate, so the length of the commitment buys no discount and the only difference between them is how many months are paid at once. The page renders the currency as a euro sign; EUR is written here instead of the glyph.
+- per-object cap: not applicable: an exit address, not an object | source: [2] | note: The pool is 566 named relays over 258 distinct /24s in 27 ASNs, measured 2026-10-24; none of those numbers is an object size.
+- retention: not applicable: a live tunnel and a rented exit address, not stored bytes | source: [1] | note: An exit address lasts for the life of a connection and nothing is stored at the exit, so there is no byte that could expire.
+- egress: The pricing page read on 2026-10-24 states a flat rate of EUR 5 per month across all terms, with no byte allowance, traffic cap, or per-gigabyte pricing published. Traffic is unmetered. | metered: no | free allowance: none published: the page prices a month, not a volume | source: [1]
+- identity: anonymous | detail: No email is asked for at signup: the pricing page says 'Start with one click to generate an account. You'll immediately get an account number and be able to choose a payment option.' Payment runs from cash by post to card - 'We accept cash, Bitcoin, Bitcoin Cash, Monero, bank wire, credit card, PayPal, Swish, Eps transfer, Bancontact, iDEAL | Wero, and Przelewy24' - and 'Our accepted cryptocurrencies are discounted at 10% due to lower fees and less administration.' No card is required: a card is one option among many, and the anonymous paths cost nothing extra; the crypto paths cost 10% less.
+- interface: rest
+- limits:
+  - request-rate (binding): 5 devices per account: 'You can use a Mullvad VPN account on up to 5 devices.' [1]
+  - volume-quota: none published: the pricing page read 2026-10-24 lists no byte allowance, no traffic cap and no per-GB price, and no byte count through a tunnel was run, so a cap has not been ruled out either way [1]
+- limits note: Address distribution: 566 relay servers resolve to 258 /24 subnets across 27 autonomous systems. Two networks represent 61 /24 subnets each: AS9009 (M247) at 23.6% and AS11878 (tzulo, inc.) at 23.6%. The top three autonomous systems encompass 65.1% of total /24 subnets. Inbound traffic: Mullvad ended port forwarding on 2023-07-01. The service operates strictly as an outbound exit source.
+- binding note: The 5-device cap fails first: at about 45 GB a month across about 599,000 requests no byte quota exists to hit and no rate was observed to be shaped, so what bounds it is how many devices one account may register - five exits held at once, and a sixth means a second EUR 5 account. The nearest alternative in the vocabulary is per-ip-shaping, which the sibling ip-proxy/nordvpn-exits uses for its 8-connection ceiling, and the two labels describe the same shape, a ceiling on how many sessions one account may hold rather than a ceiling on bytes or on requests per second.
+- interface detail: The public relay list at https://api.mullvad.net/www/relays/all/ is an unauthenticated HTTPS JSON document: HTTP 200, 294,015 bytes, 566 records, each carrying hostname, fqdn, ipv4_addr_in, ipv6_addr_in, socks_name, socks_port, multihop_port, pubkey, provider, owned, active and type. 553 records are type wireguard and publish a SOCKS5 name with socks_port 1080; 13 are type bridge and publish no socks_name.
+- endpoint: https://api.mullvad.net/www/relays/all/ - no key, no session, no header; HTTP 200, 294,015 bytes on 2026-10-24.
+- tooling: An HTTP client is the whole of it for the relay list, and the list names each relay's fqdn and its SOCKS5 name, so a client pins a hostname rather than a country. Reaching an exit needs an account registered to a device and a dialler that runs on the local machine; a Cloudflare Worker cannot open a WireGuard tunnel, so that dialler has to be written. No wrapper for relay selection exists and that is a tooling note, not a reason to reject the provider.
+- composes with: A Worker or a free compute node dials one named relay and the request leaves at that relay's address, so the target sees a hosting ASN instead of Cloudflare's, and because 27 ASNs are reachable through one account the rotation is across relays rather than across subscriptions. The 5-device cap bounds how many of those relays can be held open at once, so the rotation is sequential on five slots, not parallel over 566 hosts.
+- reliability: Mullvad ended port forwarding on 2023-07-01, precluding inbound routing. Infrastructure composition: 124 of 566 relays are vendor-owned, while 442 operate in third-party hosting facilities. Shared exit IP blocks belong to datacenter and hosting network classes.
+- notes: What makes it work here and not elsewhere is the pair of numbers beside it: the list needs no account, and 2.19 relays per /24 means a hostname is nearly an address, so naming a host names a network. NordVPN's list is also public and also gives hostnames, but at 9.3 relays per /24 a hostname there is a pick inside a network and not a pick of one; Proton's equivalent listing refuses unauthenticated reads, which is what ip-proxy/protonvpn-exits records from its own probe of /vpn/logicals. (3) Relay count close to address count: 566 relays over 258 /24s is 2.19 relays per /24, against NordVPN's 9.3, so reading the headline count overstates the reachable networks by a factor of two rather than by 288. Also supported, and recorded because it is the trap this topic exists to name. The page read returns the figure: EUR 5 per month at 1 month, 1 year and 1 decade, including VAT, and it also answers the device cap, the payment list, the 10% crypto discount and the port-forwarding question, so four of that record's gaps are closed by one page. A discrepancy between the assigned facts and the artefacts, recorded rather than smoothed. The facts give the largest ASN as AS9009 M247 at 61 /24s and 24%. Re-resolving all 258 prefixes found M247 at 61 and AS11878 tzulo, inc. at 61 as well, with CDNEXT third at 46. The share is right - 61 of 258 is 23.6%, which rounds to 24% - and the ranking is not a single leader. Both are carried, and the tie is the reason limits_note says 'the two largest' rather than 'the largest'. A second number that the facts do not carry: the same document flags 542 of the 566 records active and 24 inactive. 566 is the count of named relays, which is what a reader sees on the page and what the facts give; 542 is the count a client could dial on the day. Neither is wrong and they answer different questions, so both are in extras. Cross-record, and it matters for the stack. AS212238 CDNEXT Datacamp holds 46 of Mullvad's 258 /24s, 17.8%, and it is the same ASN measured for the Proton exit in ip-proxy/protonvpn-exits and holding 45% of the NordVPN pool in ip-proxy/nordvpn-exits; So four subscriptions do not buy four independent top networks, and a rotation built from Mullvad alone is concentrated in two networks that together hold 47.2% of its /24s. Why rung 4 and not 5. Every ASN measured here is a hosting network by holder name, M247, tzulo, Datacamp, HostRoyale, ESAB, so the exit is a datacenter address and the registration-class question is answered no, which is a property of the pool and not of a single exit. What rests on one sample. One fetch of the relay list on one day, one resolution pass over its 258 prefixes, and one read of the pricing page; the pool as handed out at connect time was never observed, so every address claim here is a claim about the published list and not about a connection. The 5-device cap was read, not tested, and the absence of a traffic cap is an absence in one page rather than a measurement. The one-sentence vendor claim that this is an exit source rather than an ingress one was checked against the vendor's own announcement rather than carried from the facts.
+- evidence note: Autonomous system diversity was measured on 2026-10-24: the vendor relay list was parsed and all 258 distinct /24 subnets were resolved via RIPEstat prefix-overview without errors. Flat pricing of EUR 5 monthly, 5-device account limit, supported payment methods, 10% cryptocurrency discount, and port forwarding policies are documented from vendor pages.
+- extras:
+  - rung: 4
+  - rung_note: Every distinct /24 in the vendor's relay list was resolved to an announcing ASN through RIPEstat, so the record knows which networks the exits sit in; it stops at rung 4 because no relay was connected to and no holder was checked against a hosting flag.
+  - asn_diversity.measured_on: 2026-10-24
+  - asn_diversity.relays: 566
+  - asn_diversity.relays_active: 542
+  - asn_diversity.countries: 50
+  - asn_diversity.cities: 91
+  - asn_diversity.providers: 14
+  - asn_diversity.relays_owned_by_vendor: 124
+  - asn_diversity.subnets_24: 258
+  - asn_diversity.asns: 27
+  - asn_diversity.largest_asn: AS9009 M247 Europe SRL
+  - asn_diversity.largest_asn_subnets_24: 61
+  - asn_diversity.largest_asn_share: 23.6%
+  - asn_diversity.tied_largest_asn: AS11878 tzulo, inc.
+  - asn_diversity.tied_largest_subnets_24: 61
+  - asn_diversity.top3_share: 65.1%
+  - asn_diversity.relays_per_subnet_24: 2.19
+  - asn_diversity.prefixes_resolved: 258 of 258, 0 errors
+  - top_asns[0].asn: AS9009
+  - top_asns[0].holder: M247 Europe SRL
+  - top_asns[0].subnets_24: 61
+  - top_asns[0].share: 23.6%
+  - top_asns[1].asn: AS11878
+  - top_asns[1].holder: tzulo, inc.
+  - top_asns[1].subnets_24: 61
+  - top_asns[1].share: 23.6%
+  - top_asns[2].asn: AS212238
+  - top_asns[2].holder: CDNEXT Datacamp Limited
+  - top_asns[2].subnets_24: 46
+  - top_asns[2].share: 17.8%
+  - top_asns[3].asn: AS203020
+  - top_asns[3].holder: HostRoyale Technologies Pvt Ltd
+  - top_asns[3].subnets_24: 21
+  - top_asns[3].share: 8.1%
+  - top_asns[4].asn: AS39351
+  - top_asns[4].holder: ESAB-AS 31173 Services AB
+  - top_asns[4].subnets_24: 20
+  - top_asns[4].share: 7.8%
+  - top_asns[5].asn: AS21859
+  - top_asns[5].holder: ZEN-ECN Zenlayer Inc
+  - top_asns[5].subnets_24: 8
+  - top_asns[5].share: 3.1%
+  - shared_asn_with: AS212238 CDNEXT Datacamp is the ASN measured for the Proton exit in ip-proxy/protonvpn-exits and holds 45% of the NordVPN pool in ip-proxy/nordvpn-exits; AS9009 M247 is also the largest network in AirVPN's pool.
+  - addressable_by_name: Each of the 566 records carries a hostname, an fqdn and a socks_name, so an exit is pinned by name rather than drawn from a country pool.
+  - device_cap: 5
+  - price: EUR 5 per month flat at 1 month, 1 year and 1 decade, including VAT
+  - payment: cash by post, Bitcoin, Bitcoin Cash, Monero, bank wire, credit card, PayPal, Swish, Eps transfer, Bancontact, iDEAL | Wero, Przelewy24; cryptocurrencies discounted 10%
+  - ingress: none: port forwarding withdrawn 2023-07-01
+  - relay_types: 553 wireguard, 13 bridge
+  - asn_comparison.measured_on: 2026-10-24
+  - asn_comparison.basis: distinct ASNs announcing the /24s of the addresses in each vendor's published server list; the Windscribe figures count primary addresses only
+  - asn_comparison.comparison: Mullvad VPN has more ASNs than NordVPN (27 against 25) and fewer than Windscribe (27 against 58)
+  - asn_comparison.windscribe.asns: 58
+  - asn_comparison.windscribe.subnets_24: 239
+  - asn_comparison.windscribe.servers: unverified: the 2026-10-24 table gives 1074 under servers for this vendor, and the vendor's list carries ip2 and ip3 addresses beside the primary one, so 1074 is not shown to be a count of servers
+  - asn_comparison.mullvad.asns: 27
+  - asn_comparison.mullvad.subnets_24: 258
+  - asn_comparison.mullvad.servers: 566
+  - asn_comparison.nordvpn.asns: 25
+  - asn_comparison.nordvpn.subnets_24: 775
+  - asn_comparison.nordvpn.servers: 7193
+- evidence:
+  - [1] 2026-10-24: One flat rate at every term - '1 month EUR 5 per month', '1 year EUR 5 per month', '1 decade EUR 5 per month', 'Including VAT.' - plus 'You can use a Mullvad VPN account on up to 5 devices.', 'Start with one click to generate an account. You'll immediately get an account number', 'Do you support port forwarding? No.', the payment list naming cash and Monero, 'Our accepted cryptocurrencies are discounted at 10%', and the 14-day money-back guarantee that excludes cash.
+  - [2] 2026-10-24: The relay list returns 566 records over 50 country codes, 91 city codes and 14 providers, 124 marked owned and 542 marked active; 553 are type wireguard with a socks_name and socks_port 1080, 13 are type bridge with no socks_name; the document carries no ASN field, so the ASN figure in this record came from resolving its addresses, not from reading them off it.
+  - probe:mullvad-asn-diversity-2026-10-24 2026-10-24: The 258 distinct /24s in the relay list resolved through RIPEstat prefix-overview to 27 distinct ASNs, 258 of 258 prefixes answered with 0 errors: AS9009 M247 Europe SRL 61 /24s (23.6%), AS11878 tzulo, inc. 61 (23.6%), AS212238 CDNEXT Datacamp Limited 46 (17.8%), AS203020 HostRoyale 21, AS39351 ESAB 20, AS21859 Zenlayer 8, AS43357 Owl 7, AS136557 Host Universal 6.
+  - [3] 2026-10-24: One worked example of the method: the /24 holding relay al-tia-wg-001 is announced by AS39351, holder ESAB-AS 31173 Services AB, which is how each of the 258 prefixes was classified.
+  - [4] 2026-10-24: 'Today we announce that we no longer support port forwarding. New port forwards will no longer be supported, and existing ports will be removed 2023-07-01.' Posted May 29, 2023, so the provider has no inbound path and the record can only be about exit.
+  - probe:mullvad-asn-diversity-2026-10-24 2026-10-24: How the 2026-10-24 measurement counted ASNs: each vendor's own machine-readable server list, every distinct /24 in it resolved to an ASN through RIPE, and the Windscribe count rechecked on primary addresses only (58 ASNs on 239 /24s). | capture: sha256:f7097f944b12b64cd648068f937b2c47b1e6b2496927a6cfb9b84bd91ee582bb | quote: Each vendor's own machine-readable server list ... Every distinct /24 in that list resolved to an ASN with RIPE ... Headline numbers, all measured 2026-10-24 ... the count survives a primary-IP-only recount (58 on 239 /24s, not an artefact of the ip2/ip3 fields)
+  - probe:mullvad-asn-diversity-2026-10-24 2026-10-24: The 2026-10-24 table lists servers, /24s and ASNs per vendor: Windscribe 1074, 239 and 58; Mullvad 566, 258 and 27; NordVPN 7193, 775 and 25. Mullvad's 27 ASNs are more than NordVPN's 25 and fewer than Windscribe's 58. | capture: sha256:f7097f944b12b64cd648068f937b2c47b1e6b2496927a6cfb9b84bd91ee582bb | quote: | vendor | price | servers | /24s | ASNs | ... | Windscribe | $5.75/mo ($69/yr) | 1074 | 239 | 58 | 26% (AS212238) | 0.10 | | Mullvad | €5/mo flat | 566 | 258 | 27 | 24% (AS9009) | 0.19 | | NordVPN | $3.49/mo | 7193 | 775 | 25 | 45% (AS212238) | 0.14 |
+- sources:
+  - [1] https://mullvad.net/en/pricing
+  - [2] https://api.mullvad.net/www/relays/all/
+  - [3] https://stat.ripe.net/data/prefix-overview/data.json?resource=45.142.26.0/24
+  - [4] https://mullvad.net/en/blog/removing-the-support-for-forwarded-ports
+
+## AdGuard VPN (IP and proxies)
+
+- `ip-proxy/adguard-vpn` | qualifies-with-caveat | evidence documented | binding volume-quota | category VPN subscription (exit source) | tier 1 year plan, $3.99 per month billed annually ($47.88 per year); free version 3 GB per month
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T11:00:31.322Z (live) | stale on 2026-12-05
+- url https://adguard-vpn.com/en/license.html | page https://fshy.ajam.dev/p/adguard-vpn.md
+- price USD 3.99 per month billed annually (USD 47.88 per year) on the 1 year plan; a subscription price, not a per-TB price | parsed USD 3.99/mo
+- duplicate of `egress/adguard-vpn`
+- free tier: Free version: 'Unlimited VPN traffic, compared to 3 GB per month in the free version', up to 2 devices ('compared to only 2 in the free version') and fewer server locations. Paid: all locations, unlimited speed and traffic, up to 10 devices. | unit: GB | metered on: unstated | read on: 2026-11-03 | source: [1] | note: The free version needs an AdGuard account login (email, or Google, Apple or Facebook sign-in). The paid price cards: 1 month $11.99 per month, 1 year $3.99 per month billed annually, 2 years $2.99 per month billed every two years.
+- per-object cap: not applicable: an exit address, not an object | source: [1] | note: No object is stored; the constraints are the free 3 GB per month and the device counts in limits.
+- retention: not applicable: a live tunnel and a rented exit address, not stored bytes | source: [2] | note: The vendor's privacy page says it does not collect logs on VPN servers; no byte retention applies.
+- egress: Paid plans list 'Unlimited traffic' and 'Unlimited speed'; the free version is '3 GB per month'. No overage price exists because the paid plan is unmetered; no byte was counted through a tunnel. | metered: yes | free allowance: 3 GB per month on the free version | source: [1]
+- identity: email | detail: An AdGuard account is needed even for the free version: 'first you need to log into your AdGuard account', by email or via Google, Apple ID or Facebook; 'We need your email address to register an AdGuard account and log you in.' A paid purchase takes an email address plus 'bank cards, PayPal, and cryptocurrency'. No phone number or identity document is asked on the pages read.
+- interface: cli
+- limits:
+  - volume-quota (binding): Free version: '3 GB per month'; paid plans: 'Unlimited traffic' [1]
+  - request-rate: 10 simultaneous devices on paid plans, 2 on the free version [1]
+- limits note: Server locations on the paid plan are '75+' per the vendor home page.
+- binding note: On the free version the 3 GB monthly traffic cap fails first; on the paid plan no byte quota is stated and the 10-device cap is the first stated limit. No rate was measured.
+- interface detail: AdGuard VPN CLI (adguardvpn-cli) on Linux with a TUN mode and a SOCKS5 mode; apps for Windows, macOS, Android and iOS and browser extensions. The SOCKS5 mode is a local proxy on 127.0.0.1:1080 by default; the vendor documents no remote SOCKS5 endpoint with credentials.
+- tooling: The vendor's CLI on a Linux machine gives a local SOCKS5 proxy (TCP and UDP) that any client on that machine can use; the apps and extensions cover the other platforms. The CLI's protocol option is HTTP2, QUIC or automatic.
+- composes with: A compute node runs the CLI in SOCKS5 mode and sends requests to 127.0.0.1:1080, so they leave at the chosen location's address; a Worker cannot reach that loopback proxy, so it needs a node in front of it.
+- reliability: The default page extraction of the licence page returned no price cards (they load by script); the prices above come from a second reader of the same page, and the vendor blog gives the same $47.88 yearly total. A third reader returned the same page in Korean won, so the displayed currency follows the reader's location. unverified: no exit-IP registry class was measured.
+- notes: Duplicate of egress/adguard-vpn, which holds the offer.
+- evidence note: Documented from the vendor's licence page, home page and knowledge base as served. Measured would need an account, a tunnel brought up in each mode and a byte count against the 3 GB free cap.
+- evidence:
+  - [3] 2026-11-03: The 1 year plan is $3.99 per month (struck-through $11.99 per month); the 2 years plan is $2.99 per month; the 1 month plan is $11.99 per month. | capture: sha256:eb7ae61ef280e375a781814005acabfef9060d0aab9a908e85fc243236354aba | quote: $3.99/month
+  - [3] 2026-11-03: The 1 year price is billed annually, i.e. $3.99 x 12 = $47.88 per year; the vendor's own blog states the same yearly total of $47.88. | capture: sha256:eb7ae61ef280e375a781814005acabfef9060d0aab9a908e85fc243236354aba | quote: billed annually
+  - [3] 2026-11-03: The paid plans include all locations, unlimited speed and unlimited traffic. | capture: sha256:eb7ae61ef280e375a781814005acabfef9060d0aab9a908e85fc243236354aba | quote: Unlimited traffic
+  - [1] 2026-11-03: The free version is limited to 3 GB of VPN traffic per month; the paid version is unlimited. | capture: sha256:27b0d921ee445f3b317e0600f8ebafe8a1d84511e23120d51a908dc10a6bbde5 | quote: Unlimited VPN traffic, compared to 3 GB per month in the free version
+  - [1] 2026-11-03: Paid allows 10 simultaneous devices; the free version 2. | capture: sha256:27b0d921ee445f3b317e0600f8ebafe8a1d84511e23120d51a908dc10a6bbde5 | quote: AdGuard VPN can be used on up to 10 devices simultaneously, compared to only 2 in the free version
+  - [3] 2026-11-03: Payment methods: bank cards, PayPal and cryptocurrency. | capture: sha256:eb7ae61ef280e375a781814005acabfef9060d0aab9a908e85fc243236354aba | quote: We accept bank cards, PayPal, and cryptocurrency for payments.
+  - [3] 2026-11-03: 30-day money-back guarantee on 1-year and 2-year plans; monthly plans are non-refundable. | capture: sha256:eb7ae61ef280e375a781814005acabfef9060d0aab9a908e85fc243236354aba | quote: For 1-year and 2-year subscriptions, we offer a 30-day money-back guarantee.
+  - [4] 2026-11-03: The apps need a login to an AdGuard account (or Google, Apple or Facebook sign-in). | capture: sha256:2bd9e9f05cd4b3fd1495d19c805c3d2ce62ee69c39bd41beb384f77b37e00c01 | quote: To use AdGuard VPN for iOS, first you need to log into your [AdGuard account](https://adguardaccount.com/).
+  - [5] 2026-11-03: Buying on the website needs an email address that is associated with the subscription. | capture: sha256:1708e875af35d8f63e33c8a621544fbbad4953387ea7aec5ff360a608ce39ae3 | quote: enter the email address that will be associated with your subscription
+  - [6] 2026-11-03: The email address is what registers the AdGuard account. | capture: sha256:a524bfec2505beaf79891fa2d5ecdaf99f6cd4ab1fbdb7ff4f1e56a3e1929371 | quote: We need your email address to register an AdGuard account and log you in.
+  - [7] 2026-11-03: The protocol is TrustTunnel, an open-source VPN protocol that 'disguises itself as normal traffic' (obfuscation). | capture: sha256:fd9505371c4c4769ed8d05ad96ceeac5393e46b7ecae2f38ae7c0e46b69eee47 | quote: we use [TrustTunnel](https://trusttunnel.org/) — a modern, stealthy, and fast open-source VPN protocol developed by us. It disguises itself as normal traffic, so it is much more difficult to track and block it.
+  - [8] 2026-11-03: The protocol can be set to HTTP2, QUIC or automatic: the tunnel rides HTTP/2 over TLS or HTTP/3 over QUIC, and QUIC is UDP-based. | capture: sha256:5be55b10ba782ae18773975e1c77e57fd37311b54900cb265a0aabe3e840690a | quote: To set the protocol used by AdGuard VPN (HTTP2, QUIC, or automatic choice between them), type one of the commands, depending on your choice:
+  - [8] 2026-11-03: The only SOCKS5 documented is a local proxy on the user's machine (127.0.0.1:1080) in the CLI's SOCKS5 mode, not a remote endpoint with credentials. | capture: sha256:5be55b10ba782ae18773975e1c77e57fd37311b54900cb265a0aabe3e840690a | quote: Starts a local SOCKS5 proxy that by default listens on 127.0.0.1:1080 (configurable via the `set-socks-host` and `set-socks-port` commands).
+  - [8] 2026-11-03: In the CLI's SOCKS5 mode both TCP and UDP proxying are provided. | capture: sha256:5be55b10ba782ae18773975e1c77e57fd37311b54900cb265a0aabe3e840690a | quote: AdGuard VPN CLI provides both TCP and UDP proxying in SOCKS5 mode.
+  - [3] 2026-11-04: The vendor license page lists the VPN plan that both records cite. | capture: sha256:d2a3f9f083f644e6fd4cdf7a2939772257516afb8ac99a44dcb43a496c09fc8a | quote: unlimited speed and traffic, the ability to connect up to 10 devices
+- sources:
+  - [1] https://adguard-vpn.com/
+  - [2] https://adguard-vpn.com/en/privacy.html
+  - [3] https://adguard-vpn.com/en/license.html
+  - [4] https://adguard-vpn.com/kb/adguard-vpn-for-ios/overview/
+  - [5] https://adguard-vpn.com/kb/general/subscription/
+  - [6] https://adguard-vpn.com/en/privacy/windows.html
+  - [7] https://adguard-vpn.com/kb/
+  - [8] https://adguard-vpn.com/kb/adguard-vpn-for-linux/settings/
+
+## AnchoredIP (registration corrected)
+
+- `ip-proxy/anchoredip-registration-corrected` | qualifies-with-caveat | evidence documented | binding none | category WireGuard address lease | tier trial
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T09:23:30.177Z (live) | stale on 2026-12-03
+- url https://anchoredip.com/pricing | page https://fshy.ajam.dev/p/anchoredip.md
+- price USD 0 for the 7-day trial; USD 19 per month Solo; USD 49 per month Team; USD 149 per month Business. Bandwidth is unmetered, so no per-TB price exists. | parsed USD 19/mo
+- free tier: Trial $0/mo, Dedicated IPv4 1, IPv6 /48 1, Machines 2, Runs for 7 days. The FAQ adds: 'It is free, there is no credit card and there is nobody to talk to: you fill in three fields and the address is yours. A real address out of the same /24 our paying customers are in, running for seven days.' The same page prices the paid plans: Solo $19/mo (1 IPv4, 1 /48, 2 machines), Team $49/mo (3 IPv4, 1 /48, 6 machines), Business $149/mo (8 IPv4, 1 /48, 20 machines, verification required). | unit: mixed | metered on: wall-clock | read on: 2026-10-24 | source: [1] | note: Denominated in days, addresses and machines at once, so no single unit in the enum is honest: 7 days, 1 IPv4, 1 IPv6 /48, 2 machines. Nothing is counted in bytes or requests, because the vendor states it meters neither. The clock is the quota: the trial ends on day 7 and there is no renewal path, only a conversion to a paid plan that keeps the same address.
+- per-object cap: not applicable | source: [1] | note: The nearest equivalent is the lease size, and that is one dedicated IPv4 with one IPv6 /48 and 2 tunnels on the trial and on Solo. Size scales only by changing plan: Team is 3 IPv4 and 6 tunnels, Business 8 and 20.
+- retention: not applicable: an address, not an object | source: [1] | note: The address has a stated lifetime even though bytes do not. The trial runs 7 days. On a paid lease a missed renewal stops traffic but holds the address for another 7 days, and only then does it return to the pool, where it sits in quarantine for 30 days before reassignment. Paying inside the grace window restores the same address.
+- egress: No allowance and no meter: 'We do not meter requests or bandwidth, so the plan decides how many addresses and machines you get and nothing decides how much you may send.' The same page prices the competition by the request and says an allowance is 'something to monitor, forecast and get paged about'. | metered: no | free allowance: none published | source: [2]
+- identity: email | detail: No card and no account are required for the trial: the pricing FAQ reads 'No card, and nobody to talk to', and POST /api/leases/ with plan trial returns an access_token and active status without payment. The billing email functions as the verification gate: the order body requires billing_email alongside organization_name and country, and the API documentation states 'A trial is one per billing email', with subsequent attempts refused. Paid plans accept credit card or bank transfer for invoices exceeding wire fees. Access is recovered by email through POST /api/auth/link/ and /api/auth/redeem/.
+- interface: rest, cli
+- limits:
+  - request-rate: 5 orders an hour from one address; a throttled call answers 429 [3]
+  - volume-quota: none: 'We do not meter requests or bandwidth, so the plan decides how many addresses and machines you get and nothing decides how much you may send.' [2]
+  - retention-clamped: the trial lease runs 7 days; a paid lease that lapses stops traffic but holds the address 7 more days, then returns it to the pool for a 30-day quarantine [1]
+- limits note: Allocation and identity caps that name no kind in the vocabulary, kept rather than dropped: 2 tunnels on the trial and on Solo, 3 IPv4 and 6 tunnels on Team, 8 IPv4 and 20 tunnels on Business, one IPv4 per lease however many machines sit behind it, and 'One trial per billing email address, and one running at a time per network', with a second trial refused by a 400 that names the paid plans. Inbound is the narrower one: 'One machine per lease can also receive connections on that address.'
+- binding note: Nothing in the vocabulary fails at 45 GB a month and about 599,000 requests: the vendor states it does not meter requests or bandwidth, so there is no byte or request quota to reach, and the five-orders-an-hour throttle applies to lease management, not to traffic through the tunnel. The 7-day term is a property of the free offer rather than a limit traffic meets, and the ceiling that actually arrives first is the 2-tunnel allowance, which has no kind in the vocabulary.
+- interface detail: The lease arrives as one WireGuard configuration file per tunnel, and that is the real access path; the schema's interface enum has no token for a tunnel. Ordering and management are a documented HTTP API at https://api.anchoredip.com/api/ covering plans, leases, tunnels, reverse DNS, renewal and payment, a dashboard that renders the same calls, and an MCP endpoint the pricing page names for agents. Two routing modes: 'source' writes Table = off and PostUp rules and needs wg-quick on Linux, while 'full' works in any WireGuard or AmneziaWG client.
+- endpoint: part of interface detail
+- tooling: wg-quick with the generated config in source mode, or any WireGuard or AmneziaWG client in full mode. The HTTP API creates a tunnel and returns the config once, and the vendor states the private key is not stored on its side, so it has to be written in the same step. The vendor states that a platform which cannot create a network interface, naming Heroku and Lambda, needs one small always-on machine to hold the tunnel; a Workers AI gateway is that shape, with the Worker making the calls and a VM carrying the tunnel.
+- composes with: Pairs with a free-tier VM: the VM holds the WireGuard tunnel and everything it sends leaves as the leased address, so a Workers AI gateway behind it presents one allowlistable identity to the partner API. The lease supplies the identity and the VM supplies the kernel interface the lease needs.
+- reliability: Every address is screened against blocklists before assignment and re-checked daily, but the trial address comes out of the same /24 as paying customers, so blocklist reputation is shared across the block. Traffic detours to Karaganda: the vendor measures 78 ms round trip to Frankfurt and 161 ms to Virginia. Outbound 25, 465 and 587 are blocked on every lease until asked. A lapsed renewal stops traffic and holds the address for 7 days before it returns to the pool.
+- notes: This record corrects egress/anchoredip, whose evidence entry reads 'space registered at RIPE NCC and announced from AS41800' with no registration class. That sentence invites the reading that AnchoredIP is an ISP holding a broadband allocation. RIPE RDAP read on 2026-10-24 returns 194.0.109.0/24 with country KZ, type ASSIGNED PA and registrant lir-kz-individual-1-MNT, an individual, and the autnum object for AS41800 sits under the same registrant. That is a personal provider-independent assignment in Kazakhstan, not an eyeball network, and the announced footprint is five IPv4 /24s plus one IPv6 /29, so every tenant sits inside 1,280 addresses. The vendor's own footer says the same thing: 'AnchoredIP - AS41800 - Karaganda, Kazakhstan'. The egress record must stop implying ISP registration; this record carries the measured class. Each of three possible kinds of holder was tested for this space. (1) An ISP with a broadband allocation: refuted, because the RDAP type is ASSIGNED PA and the registrant is an individual maintenance object rather than a LIR member. (2) A hosting provider's block re-announced by AnchoredIP: refuted, because the AS registrant and the address registrant are the same person. (3) A resold block from a larger carrier: not refuted and not confirmed, because the parent 194.0.108.0-194.0.111.255 was not walked up to the LIR that allocated it. That walk was not run. Two deviations are deliberate and both come from the evidence. First, identity_cost.kind is email and not anonymous. No card and no account is right, but POST /api/leases/ requires billing_email and the API page states 'A trial is one per billing email', so the email is the key the free offer is counted against; a reader planning several trials is misled by anonymous and not by email. Second, the registrant handle reads lir-kz-individual-1-MNT in the live RDAP response; the record carries the measured string. The egress quote is on /vs/fixie and not on /pricing, which the egress record's source_url for that sentence points at. What could not be settled: which /24 a leased address actually lands in. The vendor says the trial is 'a real address out of the same /24 our paying customers are in', and its own API example shows 194.0.108.99 while the RDAP sample is 194.0.109.0/24, so more than one /24 is in use and only a live lease would fix which. The latency figures are the vendor's measurements, not ours. And this rests on one sample: one /24 was classified out of the five announced, so the other four are unverified and the class claim is a claim about 194.0.109.0/24 rather than about the whole service.
+- evidence note: Pricing, trial terms, unmetered bandwidth statements, order body structure, and routing modes are quoted from vendor documentation read on 2026-10-24. The registration class was measured using RIPE RDAP on 2026-10-24. Full measurement would require an active trial lease, tunnel throughput verification, and origin address resolution.
+- extras:
+  - rung: 3
+  - rung_note: Rung 3: the measured facts are a subnet and its registration class, 194.0.109.0/24 read from RIPE RDAP, not a single leased address and not the whole of AS41800.
+  - wg_path: native-conf
+  - registration_class: ASSIGNED PA, country KZ, registrant lir-kz-individual-1-MNT, an individual
+  - announced_prefixes: 194.0.108.0/24; 194.0.109.0/24; 194.0.110.0/24; 194.0.111.0/24; 185.196.8.0/24; 2a05:d840::/29
+  - addresses_in_announced_ipv4: 1280
+  - trial_days: 7
+  - volume_stated: We do not meter requests or bandwidth, so the plan decides how many addresses and machines you get and nothing decides how much you may send.
+  - bytes_transit: yes
+  - transit_note: All traffic from a leased address crosses the edge in Karaganda; the vendor measures 78 ms round trip to Frankfurt and 161 ms to Virginia.
+  - interface_enum_note: Rest and cli are the honest intersection and the WireGuard path lives in interface_detail.
+  - parent_block: 194.0.108.0 - 194.0.111.255
+- evidence:
+  - [4] 2026-10-24: 194.0.109.0/24 is registered in country KZ, type ASSIGNED PA, registrant lir-kz-individual-1-MNT, an individual, with the remark 'Main segment 194.0.109.0/24'. A personal provider-independent assignment in Kazakhstan, not an ISP network.
+  - [5] 2026-10-24: AS41800 carries the same registrant, lir-kz-individual-1-MNT, so the announcing autonomous system and the address holder are the same individual.
+  - [6] 2026-10-24: In the 2026-10-10 to 2026-10-24 window AS41800 announced 194.0.108.0/24, 194.0.109.0/24, 194.0.110.0/24, 194.0.111.0/24, 185.196.8.0/24 and 2a05:d840::/29: five IPv4 /24s, 1,280 addresses, shared by every tenant of the service.
+  - [1] 2026-10-24: Trial $0/mo with 1 dedicated IPv4, 1 IPv6 /48 and 2 machines for 7 days; Solo $19/mo, Team $49/mo, Business $149/mo; 'One trial per billing email address, and one running at a time per network'; the 7-day hold after a lapsed renewal and the 30-day quarantine; the footer 'AnchoredIP - AS41800 - Karaganda, Kazakhstan'.
+  - [2] 2026-10-24: 'We do not meter requests or bandwidth, so the plan decides how many addresses and machines you get and nothing decides how much you may send.' Also 'Seven days on a real address out of the same range paying customers are in ... No card, and nobody to talk to.'
+  - [3] 2026-10-24: The trial order body is plan, organization_name, country and billing_email and returns access_token with status active and no payment step; 'A trial is one per billing email'; 'Limited to five orders an hour from one address' with 429 when throttled; tunnel creation returns the config once and the private key is not stored.
+  - [7] 2026-10-24: One WireGuard config file per tunnel; routing mode 'source' needs wg-quick on Linux and 'full' works in any client; 'One machine per lease can additionally receive connections on the address'; the edge is a router in Karaganda holding the address.
+  - [8] 2026-10-24: 
+  - [4] 2026-11-02: The RDAP answer for 194.0.109.1 gives parentHandle 194.0.108.0 - 194.0.111.255, the block that covers the 194.0.109.0/24 assignment. | capture: sha256:4924fa15ae10f0a20bc2fd75c616effda916bc42c66dd58e20c3a6b04d63219a | quote: "parentHandle" : "194.0.108.0 - 194.0.111.255"
+  - [4] 2026-11-02: The RDAP answer for 194.0.109.1 gives type ASSIGNED PA, country KZ and an individual registrant, lir-kz-individual-1-MNT, for 194.0.109.0/24. | capture: sha256:4924fa15ae10f0a20bc2fd75c616effda916bc42c66dd58e20c3a6b04d63219a | quote: "type" : "ASSIGNED PA" ... "country" : "KZ" ... "lir-kz-individual-1-MNT" ], [ "kind", { }, "text", "individual"
+- sources:
+  - [1] https://anchoredip.com/pricing
+  - [2] https://anchoredip.com/vs/fixie
+  - [3] https://anchoredip.com/docs/api
+  - [4] https://rdap.db.ripe.net/ip/194.0.109.1
+  - [5] https://rdap.db.ripe.net/autnum/41800
+  - [6] https://stat.ripe.net/data/announced-prefixes?resource=AS41800
+  - [7] https://anchoredip.com/docs
+  - [8] https://anchoredip.com/dedicated-ip
+
+## Decodo (formerly Smartproxy), isp proxies
+
+- `ip-proxy/decodo-isp-proxies` | qualifies-with-caveat | evidence documented | binding none | category per-address ISP proxy | tier isp-proxies (dedicated per IP, shared per GB, shared per IP)
+- needs card yes, phone no, ID no, institution no | verified 2026-10-30T18:28:35.818Z (live) | stale on 2026-11-30
+- url https://decodo.com/proxies/isp-proxies | page https://fshy.ajam.dev/p/decodo.md
+- price USD 2.00 per dedicated address at the vendor's headline, USD 2.50 per address at the largest self-serve tier, USD 0.27 per shared address, USD 1.30 per GB of shared traffic. The unit sold is an address or a gigabyte, so no per-TB or per-month price exists to quote.
+- free tier: 3-day free trial with 100 MB included to test performance before committing; 14-day money-back option on paid plans. | unit: MB | metered on: unstated | read on: 2026-10-24 | source: [1] | note: The ISP page states '100MB included' for the 3-day trial and does not say whether incoming bytes, outgoing bytes or both are counted.
+- per-object cap: not applicable | source: [1]
+- retention: not applicable: a live address, not stored bytes | source: [1] | note: No stored bytes are involved. The address is static: the page states that ISP proxies 'hold a fixed IP indefinitely' and that static ISP proxies 'maintain a constant IP for the full duration of your session'.
+- egress: Dedicated ISP is sold per address with no bandwidth figure: the plan list states 'High bandwidth & concurrency support', and each tier is priced '+ VAT billed monthly'. Shared ISP is sold per GB ('From $1.30/GB') or per address ('From $0.27/IP'). The dedicated headline 'From $2/IP' is the price of the 2000-IP tier. | metered: yes | free allowance: 100 MB on the 3-day trial | price per TB: USD 1.30 per GB on shared ISP, the vendor's own unit; the page publishes no per-TB price | source: [1]
+- identity: card | detail: Payment for ISP proxies is by card or wallet, not cryptocurrency: 'We accept payments with credit cards, PayPal, Alipay, Google Pay, and Apple Pay. You can also pay with cryptocurrency for all products except ISP proxies and datacenter proxies (Pay per IP option).' Orders are processed by Paddle as Merchant of Record. Account set-up is 'Create your Decodo account, verify your email address'. Whether the 3-day ISP trial needs a payment method is unverified: behind a sign-up; for residential plans the trial converts on its own ('after the trial period ends, your chosen plan will activate automatically').
+- interface: rest, cli
+- limits:
+  - volume-quota: 100 MB over 3 days on the free trial [1]
+  - volume-quota: shared ISP is billed per gigabyte from USD 1.30/GB with no cap published: cost, not a ceiling, is what stops it [1]
+  - volume-quota: dedicated ISP is billed per address: self-serve from USD 3.33/IP at 3 IPs (USD 9.99 + VAT a month) down to USD 2.50/IP at 200 IPs (USD 500 + VAT a month); 500, 700, 1000 and 2000 IPs at USD 2.30, 2.20, 2.10 and 2.00/IP are sold through contact sales [1]
+- limits note: The page publishes no request-rate limit, concurrency ceiling or per-address bandwidth cap; its only statement on the subject is 'High bandwidth & concurrency support', with no number. Dedicated ISP is paid by 'Number of dedicated IPs', so each additional fixed identity is one more address at the per-IP rate; no limit kind names a per-identity price. Tiers from 500 IPs (USD 2.3/IP, USD 1150 + VAT a month) route to contact sales instead of a buy link.
+- binding note: No limit kind binds: the page states no request rate, concurrency limit or byte cap, and 'High bandwidth & concurrency support' carries no number. Dedicated ISP is priced per address and shared ISP per GB or per address, with 'no minimum commitment on both Pay/IP and Pay/GB plans', so price, not a published limit, bounds use.
+- interface detail: Protocols 'SOCKS5 & HTTP(S)'. Authentication is a username and password against endpoint isp.decodo.com:10000; the page's Python example connects to isp.decodo.com:10001. The price links lead to dashboard.decodo.com/isp/pricing.
+- endpoint: part of interface detail
+- tooling: Any client that accepts a SOCKS5 or HTTP(S) proxy with a username and password. The page's code example is Python requests through 'http://{username}:{password}@isp.decodo.com:10001', with tabs for Python, Node.js, cURL, Go and PHP; it states 'Drop-in compatibility with Requests, Playwright, and Puppeteer' and links integration guides for Multilogin, AdsPower, Proxy SwitchyOmega, a Chrome proxy extension and a Firefox proxy add-on.
+- composes with: The outbound hop of an HTTP client ('Route Python, Node.js, or cURL traffic through the proxy'). A dedicated address gives one fixed source identity across requests ('Dedicated ISP proxies give you a fixed IP that only you can use'); shared ISP is the vendor's option for volume ('Choose shared ISP proxies if your priority is handling large volumes of traffic efficiently across multiple connections').
+- reliability: Of the two addresses the vendor publishes as its own samples, 37.120.211.30 is registered to M247-LTD-Warsaw in AS9009 M247 Europe SRL with the RDAP remark 'M247 LTD Warsaw Infrastructure', a hosting network, so a target that checks registration class sees hosting and not an ISP; the other, 90.135.104.218, is Tele2 Sverige AB (AS1257, LT-TELE2-GPRS, LT) and passes.
+- notes: The page states that ISP proxies 'are registered under ASNs of internet service providers rather than hosting providers' and that addresses come from 'providers, including AT&T, Verizon, Orange, and Tele2'. Its hero image lists two sample addresses, isp_01 37.120.211.30 and isp_02 90.135.104.218; no other address and no per-address ASN list is published. The headline 'From $2/IP' is the 2000-IP dedicated tier, sold through contact sales; the self-serve dedicated ladder ends at USD 2.5/IP for 200 IPs (USD 500 + VAT a month). Shared pay-per-GB shows only 'From $1.30/GB'; its tiers are on dashboard.decodo.com/isp/pricing, unverified: behind a sign-up.
+- evidence note: Documented: prices, protocols, endpoint and the 3-day trial are on the vendor's ISP product page. The addresses whose registration is looked up are the two samples the page publishes in its hero image, 'isp_01 37.120.211.30 and isp_02 90.135.104.218', not addresses issued to a buyer; no purchased address has been looked up, and whether an address stays the same across reconnects is unmeasured.
+- extras:
+  - rung: 5
+  - rung_note: The verdict turns on what the address is registered as rather than what it costs: the price is a published number, and the caveat exists because one of two published samples resolves to a hosting ASN, which is a registration-class fact.
+  - sample_check.isp_01.address: 37.120.211.30
+  - sample_check.isp_01.covering_prefix: 37.120.211.0/24
+  - sample_check.isp_01.asn: AS9009
+  - sample_check.isp_01.asn_holder: M247 Europe SRL
+  - sample_check.isp_01.rdap_name: M247-LTD-Warsaw
+  - sample_check.isp_01.rdap_country: PL
+  - sample_check.isp_01.rdap_remark: M247 LTD Warsaw Infrastructure
+  - sample_check.isp_01.class: hosting
+  - sample_check.isp_01.result: fails
+  - sample_check.isp_01.announced: not announced on its own: RIPEstat aligns 37.120.211.30 to the first-level less-specific 37.120.211.0/24, announced by AS9009 (holder 'M247 M247 Europe SRL')
+  - sample_check.isp_02.address: 90.135.104.218
+  - sample_check.isp_02.covering_prefix: 90.135.0.0/16
+  - sample_check.isp_02.asn: AS1257
+  - sample_check.isp_02.asn_holder: SWIPNET Tele2 Sverige AB
+  - sample_check.isp_02.rdap_name: LT-TELE2-GPRS
+  - sample_check.isp_02.rdap_country: LT
+  - sample_check.isp_02.rdap_remark: Mobile Services Lithuania
+  - sample_check.isp_02.class: isp
+  - sample_check.isp_02.result: passes
+  - sample_check.isp_02.announced: not announced on its own: RIPEstat aligns 90.135.104.218 to the first-level less-specific 90.135.0.0/16, announced by AS1257 (holder 'SWIPNET - Tele2 Sverige AB'), inside 90.128.0.0/12
+  - sample_check.isp_02.rdap_object: RDAP answers the query for 90.135.104.218 with 90.135.0.0 - 90.135.255.255, type ASSIGNED PA, name LT-TELE2-GPRS, country LT, remark 'Mobile Services Lithuania'
+  - sample_check.passed: 1 of 2
+  - sample_check.why_it_matters: The page's hero image publishes two sample addresses, 'isp_01 37.120.211.30 and isp_02 90.135.104.218', so their registration class can be looked up rather than taken from the page's claim that ISP proxies 'are registered under ASNs of internet service providers rather than hosting providers'.
+  - dedicated_ladder_usd_per_ip: 3.33 at 3 IPs, 2.90 at 10, 2.80 at 20, 2.70 at 50, 2.60 at 100, 2.50 at 200 (self-serve); 2.30 at 500, 2.20 at 700, 2.10 at 1000, 2.00 at 2000 (contact sales)
+  - headline_ctas: From $2/IP (dedicated); From $1.30/GB (shared pay per GB); From $0.27/IP (shared pay per IP)
+  - protocols: SOCKS5 & HTTP(S)
+  - auth: username and password
+  - trial: 3-day free trial, 100 MB included
+  - money_back: 14-day money-back option
+  - locations_stated: North and South Americas: US, CA, BR, CO; Europe: UK, DE, FR, NL, IT, BE, PL, SE, ES, RO, IE, CZ, AT; APAC: AU, HK, JP, KR, SG
+  - uptime_claim: 99.99% uptime and <0.2s response time, both vendor-stated and unverified here
+  - interface_enum_note: The schema's interface enum has no token for a proxy endpoint or a tunnel, so this record follows the convention the egress records use: a proxy client or tunnel is 'cli', a vendor API is 'rest'. Previous value: ['socks5', 'http-proxy', 'web-ui']
+- evidence:
+  - [1] 2026-10-24: Three ISP plans (dedicated, pay per GB, pay per IP) with the vendor's own headlines 'From $2/IP', 'From $1.30/GB' and 'From $0.27/IP'; the self-serve dedicated ladder at 3.33, 2.90, 2.80, 2.70, 2.60 and 2.50 USD/IP for 3, 10, 20, 50, 100 and 200 IPs; the 500-IP tier routed to #contact-sales; 'Protocols SOCKS5 & HTTP(S)'; endpoint isp.decodo.com:10000 with username and password; '3-day free trial' with '100MB included'; '14-day money-back option'; 'Premium ASNs' naming AT&T, Verizon, Orange and Tele2.
+  - [1] 2026-10-24: The hero image's alt text is the only machine-readable copy of the two sample addresses: 'Authentication method panel listing isp_01 37.120.211.30 and isp_02 90.135.104.218, Endpoint generator UI and cURL example'. The addresses are pixels in a webp otherwise, which is why they needed an outside registration check.
+  - probe:stat.ripe.net/data/prefix-overview/data.json?resource=37.120.211.30 2026-10-24: 37.120.211.30 is not announced on its own and aligns to 37.120.211.0/24, announced by AS9009 M247 Europe SRL. A hosting ASN, so sample isp_01 fails the vendor's own ISP claim.
+  - probe:rdap.db.ripe.net/ip/37.120.211.0 2026-10-24: RDAP for 37.120.211.0/24: name M247-LTD-Warsaw, country PL, type ASSIGNED PA, remark 'M247 LTD Warsaw Infrastructure', maintained by M247 entities. Confirms the registration is a hosting operator's Warsaw infrastructure.
+  - probe:stat.ripe.net/data/prefix-overview/data.json?resource=90.135.104.218 2026-10-24: 90.135.104.218 aligns to 90.135.0.0/16, announced by AS1257 SWIPNET Tele2 Sverige AB. An ISP ASN, so sample isp_02 agrees with the vendor's claim, and the vendor's 'Premium ASNs' line names Tele2 by name.
+  - probe:rdap.db.ripe.net/ip/90.135.104.218 2026-10-24: RDAP for 90.135.0.0/16: name LT-TELE2-GPRS, country LT, type ASSIGNED PA, remark 'Mobile Services Lithuania'. Passes as an ISP registration, with the sub-registration described as mobile services rather than fixed line.
+  - [2] 2026-10-24: This URL serves residential pricing only, from USD 3.75/GB at 3 GB to USD 2.75/GB at 100 GB plus USD 4/GB pay-as-you-go; it carries no ISP price. The ISP figures in this record therefore come from the product page and its dashboard link, not from this URL.
+  - [1] 2026-10-30: the 3-day ISP trial includes 100MB and the page names no direction for the bytes | capture: sha256:f813e47268772591c22ca5669ae8face2d7033bc414d900775512eac42cf7f6d | quote: 100MB included to test performance before committing.
+  - [1] 2026-10-30: an ISP address is held fixed with no stated expiry | capture: sha256:f813e47268772591c22ca5669ae8face2d7033bc414d900775512eac42cf7f6d | quote: Unlike rotating residential proxies, ISP proxies hold a fixed IP indefinitely, which makes them better suited for login-dependent workflows and long-session tasks.
+  - [1] 2026-10-30: dedicated ISP carries no bandwidth number; the price links read From $2/IP, From $1.30/GB and From $0.27/IP, and the 2000-IP tier is USD 2/IP | capture: sha256:f813e47268772591c22ca5669ae8face2d7033bc414d900775512eac42cf7f6d | quote: High bandwidth & concurrency support
+  - [1] 2026-10-30: username and password authentication against isp.decodo.com:10000, protocols SOCKS5 and HTTP(S) | capture: sha256:f813e47268772591c22ca5669ae8face2d7033bc414d900775512eac42cf7f6d | quote: Use your username and password with endpoint isp.decodo.com:10000.
+  - [1] 2026-10-30: the clients and integrations the vendor names for ISP proxies | capture: sha256:f813e47268772591c22ca5669ae8face2d7033bc414d900775512eac42cf7f6d | quote: Drop-in compatibility with Requests, Playwright, and Puppeteer
+  - [1] 2026-10-30: a dedicated ISP address is a fixed, single-user source address; shared ISP is offered for volume across connections | capture: sha256:f813e47268772591c22ca5669ae8face2d7033bc414d900775512eac42cf7f6d | quote: Dedicated ISP proxies give you a fixed IP that only you can use.
+  - [1] 2026-10-30: the dedicated ladder now prices 500, 700, 1000 and 2000 IPs, each behind a contact-sales link | capture: sha256:f813e47268772591c22ca5669ae8face2d7033bc414d900775512eac42cf7f6d | quote: 500 IPs $ 2.3 / IP Total:$ 1150+ VAT billed monthly
+  - [1] 2026-10-30: the full dedicated ladder from 3 to 2000 IPs | capture: sha256:f813e47268772591c22ca5669ae8face2d7033bc414d900775512eac42cf7f6d | quote: 2000 IPs $ 2 / IP Total:$ 4000+ VAT billed monthly
+  - [1] 2026-10-30: no number is given for bandwidth or concurrency; dedicated is paid per IP and the 500-IP tier is USD 2.3/IP via contact sales | capture: sha256:f813e47268772591c22ca5669ae8face2d7033bc414d900775512eac42cf7f6d | quote: High bandwidth & concurrency support
+  - [1] 2026-10-30: ISP plans are priced per IP or per GB with no minimum commitment and no published ceiling | capture: sha256:f813e47268772591c22ca5669ae8face2d7033bc414d900775512eac42cf7f6d | quote: Decodo’s ISP proxies are available with no minimum commitment on both Pay/IP and Pay/GB plans.
+  - [2] 2026-10-30: accepted payment methods, the cryptocurrency exclusion for ISP proxies, Paddle as merchant of record, and email verification at sign-up | capture: sha256:c84b1afa0c9994327d59fa16416c40f3ce321d0a31cebf13e7d95778447151a6 | quote: You can also pay with cryptocurrency for all products except ISP proxies and datacenter proxies (Pay per IP option).
+  - [1] 2026-10-30: the two sample addresses are published in the page's hero image alt text, beside the prices, protocols and trial | capture: sha256:683dc9c535a96669ab9627bd919c676abbdc98b2f41fbbf73bc4d75796a867c7 | quote: Authentication method panel listing isp_01 37.120.211.30 and isp_02 90.135.104.218, Endpoint generator UI and cURL example
+  - [1] 2026-10-30: the vendor's ISP-registration claim, the named ASN providers, the two sample addresses in the hero image alt text, and the dedicated ladder from 3 to 2000 IPs | capture: sha256:f813e47268772591c22ca5669ae8face2d7033bc414d900775512eac42cf7f6d | quote: ISP proxies are significantly harder to identify as proxy traffic than datacenter proxies because they are registered under ASNs of internet service providers rather than hosting providers.
+  - [1] 2026-10-30: the page publishes the two sample addresses and claims ISP-ASN registration | capture: sha256:683dc9c535a96669ab9627bd919c676abbdc98b2f41fbbf73bc4d75796a867c7 | quote: Authentication method panel listing isp_01 37.120.211.30 and isp_02 90.135.104.218, Endpoint generator UI and cURL example
+  - probe:stat.ripe.net/data/prefix-overview/data.json?resource=37.120.211.30 2026-10-30: 37.120.211.30 is covered by 37.120.211.0/24, announced by AS9009 M247 Europe SRL | capture: sha256:152b476ea525a94b01a5b73d7f4df1ee7ecbbcfcc563efc176ed6347e78d3a2c | quote: Given resource is not announced but result has been aligned to first-level less-specific (37.120.211.0/24).
+  - probe:stat.ripe.net/data/prefix-overview/data.json?resource=90.135.104.218 2026-10-30: 90.135.104.218 is covered by 90.135.0.0/16, announced by AS1257 Tele2 Sverige AB, with 90.128.0.0/12 as the next less-specific | capture: sha256:301e4da7533d7a24c7bba1e3e0c427befc3171250d3c6ee5e6c2a0a726bd9fb3 | quote: Given resource is not announced but result has been aligned to first-level less-specific (90.135.0.0/16).
+  - probe:rdap.db.ripe.net/ip/90.135.104.218 2026-10-30: the RDAP object for 90.135.104.218 is the /16 LT-TELE2-GPRS, ASSIGNED PA, LT, remark Mobile Services Lithuania | capture: sha256:fd6479f6f69fa6ab2e381384431dc3ff3a6f99f66569a4fa243bbd4f80b3d133 | quote: Mobile Services Lithuania
+  - probe:rdap.db.ripe.net/ip/37.120.211.0 2026-10-30: RDAP for 37.120.211.0 - 37.120.211.255: name M247-LTD-Warsaw, country PL, type ASSIGNED PA, remark 'M247 LTD Warsaw Infrastructure' | capture: sha256:3640d795e61245331bc74caa5728848a0c12feadb1d85833879638ea86eb9e58 | quote: M247 LTD Warsaw Infrastructure
+  - [1] 2026-10-30: the 3-day trial with 100MB, the 14-day money-back option, endpoint isp.decodo.com:10000, SOCKS5 & HTTP(S), username and password, the locations and the three price headlines are unchanged | capture: sha256:f813e47268772591c22ca5669ae8face2d7033bc414d900775512eac42cf7f6d | quote: 100MB included to test performance before committing.
+- sources:
+  - [1] https://decodo.com/proxies/isp-proxies
+  - [2] https://decodo.com/pricing
+
+## IPRoyal (ISP proxies, billed per IP by term)
+
+- `ip-proxy/iproyal-isp-proxies` | qualifies-with-caveat | evidence documented | binding none | category per-address ISP proxy | tier ISP proxies, billed per IP by term
+- needs card yes, phone no, ID no, institution no | verified 2026-10-30T18:28:45.170Z (live) | stale on 2026-11-30
+- url https://iproyal.com/pricing/isp-proxies/ | page https://fshy.ajam.dev/p/iproyal.md
+- price no per-TB figure exists: the vendor bills per IP with traffic included. The comparable numbers are USD 1.80 per address per 24 hours, USD 2.70 per address per 30 days, USD 2.55 at 60 days and USD 2.40 at 90 days.
+- free tier: No free tier is stated. The cheapest purchase is one address for 24 hours at USD 1.80; the same address costs USD 2.70 for 30 days, USD 2.55 for 60 days and USD 2.40 for 90 days. Included in every plan, in the vendor's words: 500K+ unique IPs in 31+ countries, country, state and city-level targeting, customizable plans, SOCKS5 support, UDP and TCP connections, IP replacement, unlimited sessions, 24/7 support. | unit: none | metered on: none | read on: 2026-10-24 | source: [1] | note: The 24-hour term is the shortest and cheapest unit, which the vendor describes as a test with no long-term commitment; it is the same product at its shortest term, not a free trial.
+- per-object cap: not applicable | source: [2] | note: The unit sold is one IP address with a port, a username and a password, held for the term purchased.
+- retention: not applicable: a rented address, not stored bytes | source: [2] | note: The only clock is the rental term, priced at 24 hours, 30, 60 and 90 days. The vendor describes the address as reserved for the buyer: Dedicated IP Pool, keep the same IP address as long as needed.
+- egress: The product page adds unlimited sessions and included traffic with fair usage protection for high-volume use cases; the pricing page states unlimited threads, and its page description states unlimited bandwidth. | metered: no | free allowance: traffic included with the per-IP price; no byte figure published and the fair-use clause is unquantified | source: [2]
+- identity: card | detail: Payment methods listed: Visa, Mastercard, PayPal, Discover, Amex, Alipay and crypto. Sign-up offers Google, LinkedIn or a form, with an hCaptcha. The KYC policy screens the IP address, email and other data at registration and applies identity verification at purchase, which it says ensures unrestricted access to all services; the product page states the vendor gets to know customers before providing full access to ISP proxies. Whether the purchase-stage identity verification asks for an identity document is not stated.
+- interface: rest
+- limits:
+  - volume-quota:  [2]
+  - request-rate: no published request-rate or concurrency figure; the vendor states unlimited threads and unlimited sessions [1]
+  - per-ip-shaping: one dedicated address per purchased slot, so all of a slot's traffic shares one IP's reputation; the vendor sells IP replacement as the remedy [2]
+- limits note: Zero session limits is prose naming no vocabulary kind: it says the vendor caps neither session length nor session count, which removes a shaping constraint rather than creating one. The fair-use clause behind included traffic is the one qualifier that could become a ceiling, and it publishes no number.
+- binding note: The vendor states unlimited sessions and unlimited threads with traffic included per IP, so no request-rate, count or byte ceiling of the vocabulary is published. Cost scales with the number of addresses held, USD 1.80 to USD 2.70 per address per term, and the one qualifier that could become a ceiling is the provider, which publishes no number.
+- interface detail: The endpoint is a proxy address with a port, a username and a password, over HTTP(S) or SOCKS5, with UDP and TCP connections. The vendor runs a self-service dashboard and an HTTP API at apid.iproyal.com, whose documentation sample is GET https://apid.iproyal.com/v1/reseller/balance with an apiToken. The schema's interface enum has no proxy-protocol token, so rest indexes the API and the proxy protocols are stated here.
+- tooling: Any client that takes a proxy address with credentials: curl --proxy, Python requests with proxies=, a headless browser with proxy settings, or a SOCKS5-capable client. The vendor states a self-service dashboard with IP whitelist management and API access; its documentation sample calls GET https://apid.iproyal.com/v1/reseller/balance with an apiToken. Checking an issued address's registration takes a whois or RIPE lookup on that address.
+- composes with: One purchased address in front of the outbound leg of a Workers AI gateway or a crawler, where a stable source address per request matters. It carries no storage and no compute, so it sits beside compute and egress records rather than replacing either.
+- reliability: One dedicated address carries all of a slot's traffic, so a block follows the address; the vendor's stated remedy is IP replacement. Stated uptime is 99.9% and stated success rate up to 99.99%; neither is measured. The KYC policy states access can be suspended for any customer, usually after a request for an explanation of usage.
+- notes: The unit sold is one dedicated IP address with a port, a username and a password, held for 24 hours, 30, 60 or 90 days. The vendor states the addresses are registered to consumer internet service providers and hosted on data center servers. No sample address, no free trial and no list of announcing ASNs or prefixes is published on the product or pricing page, so the registration class of an address cannot be checked before purchase; the shortest term, USD 1.80 for 24 hours, is the lowest-cost unit on which a whois or RIPE lookup of an issued address is possible. Per-object cap and retention do not apply to an address.
+- evidence note: Documented: the per-IP prices (USD 1.80 for 24 hours, USD 2.70 for 30 days, USD 2.55 for 60 days, USD 2.40 for 90 days), the feature list, the per-IP billing sentence with the provider qualifier, the payment methods and the KYC stages are stated on the vendor's product, pricing and KYC pages. Nothing about an issued address is measured: measured needs one purchased address, a whois or RIPE lookup of its registration class and AS, and a byte and request count through it.
+- extras:
+  - rung: 5
+  - rung_note: The claim under test is the registration class of the issued address, whether it is registered to a consumer ISP rather than to a hosting provider, which is rung 5; the price and the identity gate are lower rungs and are settled.
+  - price_usd_per_address.24_hours: 1.8
+  - price_usd_per_address.30_days: 2.7
+  - price_usd_per_address.60_days: 2.55
+  - price_usd_per_address.90_days: 2.4
+  - cheapest_test: $1.80 for one address for 24 hours, which buys the only pre-purchase check available: the address itself
+  - pool_stated: 500K+ unique IPs in 31+ countries, with country, state and city targeting
+  - pool_by_country_read: US 135,681, GB 77,724, FR 45,921, DE 45,488, AU 17,097, ES 15,923, PL 15,002, CA 14,862, NL 13,485, AT 13,247, BR 10,482, IT 8,420, JP 8,402; 39 locations listed on the product page, down to SI 1,002
+  - session_limits: unlimited sessions and unlimited threads stated
+  - bandwidth: unlimited bandwidth stated
+  - payment_methods: Visa, Mastercard, PayPal, Discover, Amex, Alipay, crypto
+  - protocols: HTTP(S) and SOCKS5, UDP and TCP
+  - class_claim_unchecked: no sample address and no ASN list published, so the ISP registration of an issued address is unverified before purchase
+- evidence:
+  - [2] 2026-10-24: The FAQ, read directly: ISP proxies use IP addresses registered to consumer internet service providers. These IPs are hosted on data center servers. The same page states every ISP proxy belongs only to you, unlimited sessions, 500K+ unique IPs in 31+ countries, country/state/city targeting, SOCKS5 support, UDP and TCP, IP replacement, 99.9% uptime and a self-service dashboard.
+  - [1] 2026-10-24: Same page: unlimited threads, unlimited bandwidth claimed, and the FAQ answer giving an IP address, port, username and password as what the buyer receives.
+  - [1] 2026-10-24: The price ladder and payment methods as recorded by the research pass of 2026-10-24: $1.80 per proxy for 24 hours, $2.70 for 30 days, $2.55 for 60 days, $2.40 for 90 days; Visa, Mastercard, PayPal, Alipay or crypto. Passed on from that read, not re-observed by this record's raw fetch, which returned no dollar figures.
+  - [2] 2026-10-30: the vendor states its ISP proxy addresses are registered to consumer ISPs and hosted on data center servers | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416 | quote: ISP proxies use IP addresses registered to consumer internet service providers. These IPs are hosted on data center servers.
+  - [2] 2026-10-30: the 24-hour price of USD 1.80 per proxy, with the 30, 60 and 90-day prices on the same page | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416 | quote: 24 Hours Starting from $1.80 /proxy
+  - [2] 2026-10-30:  | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416
+  - [2] 2026-10-30: the product page documents an HTTP API at apid.iproyal.com | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416 | quote: GET https://apid.iproyal.com/v1/reseller/balance
+  - [1] 2026-10-30: the address is reserved to one buyer and stays the same for the term | capture: sha256:83e326bf466f31fd6c3f2b61160b79555e267c96db392b60b2a2af09d3eb44a2 | quote: Keep the same IP address as long as needed - it’s reserved exclusively for your uninterrupted access.
+  - [2] 2026-10-30: the proxy is reached over HTTP(S) or SOCKS5 | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416 | quote: Connect to your ISP proxy through your preferred protocol – HTTP(S) or SOCKS5
+  - [2] 2026-10-30: the vendor states a success rate of up to 99.99% | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416 | quote: High-quality dedicated ISP proxies bring the trust level of residential proxies with a success rate of up to 99.99%
+  - [3] 2026-10-30: identity verification is a stage of purchase and gates unrestricted access | capture: sha256:89913ea66e9c5c985a65bb51dfaf0df2549375218cd31dd349f977c60d4daf04 | quote: Identity verification ensures unrestricted access to all our services and features.
+  - [2] 2026-10-30: the 24-hour term is USD 1.80 per proxy; the page lists the 30, 60 and 90-day prices and the every-plan list | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416 | quote: 24 Hours Starting from $1.80 /proxy
+  - [2] 2026-10-30: the 24-hour card is described as a test with no long-term commitment | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416 | quote: Test high-speed ISP proxies with no long-term commitment
+  - [2] 2026-10-30: the per-IP billing sentence is on the product page | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416
+  - [2] 2026-10-30:  | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416
+  - [2] 2026-10-30:  | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416
+  - [2] 2026-10-30: the four per-proxy prices on the product page | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416 | quote: 24 Hours Starting from $1.80 /proxy
+  - [1] 2026-10-30: the payment strip lists seven methods | capture: sha256:83e326bf466f31fd6c3f2b61160b79555e267c96db392b60b2a2af09d3eb44a2 | quote: Visa Mastercard Paypal Discover Amex Alipay Crypto
+  - [2] 2026-10-30: the United States row lists 135,681 IPs | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416 | quote: 135,681 IPs
+  - [1] 2026-10-30: the pricing page states 99.9% uptime | capture: sha256:83e326bf466f31fd6c3f2b61160b79555e267c96db392b60b2a2af09d3eb44a2 | quote: 99.9% Uptime
+  - [1] 2026-10-30: payment by Visa, Mastercard, PayPal, Discover, Amex, Alipay or crypto | capture: sha256:83e326bf466f31fd6c3f2b61160b79555e267c96db392b60b2a2af09d3eb44a2 | quote: Visa Mastercard Paypal Discover Amex Alipay Crypto
+  - [1] 2026-10-30: the pricing page description states unlimited bandwidth | capture: sha256:7cf734fc9f8a80ad3b337bd8c6efeda28af32bb06ba0ab0b4cca1678e75afb1e | quote: The fastest ISP proxy servers with unlimited bandwidth reserved just for you.
+  - [3] 2026-10-30: registration is screened on IP address and email | capture: sha256:89913ea66e9c5c985a65bb51dfaf0df2549375218cd31dd349f977c60d4daf04 | quote: We check and evaluate the IP address, email, and other data against potentially fraudulent activity to detect any potential risks.
+  - [3] 2026-10-30: access can be suspended for any customer | capture: sha256:89913ea66e9c5c985a65bb51dfaf0df2549375218cd31dd349f977c60d4daf04 | quote: IPRoyal reserves the right to suspend access to our services at any point in time and to any customer.
+  - [4] 2026-10-30: sign-up offers Google, LinkedIn or a form with an hCaptcha | capture: sha256:50a792bb2df64c26a07ee3dc6120f29b44e505df09d55b6a91f141103185aec6 | quote: Continue with LinkedIn
+  - [2] 2026-10-30: each address is dedicated to one buyer | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416 | quote: Every ISP proxy belongs only to you – no one else can use the same IP addresses as you
+  - [2] 2026-10-30: the delivered unit is an IP address, a port, a username and a password | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416 | quote: Your provider will give you an IP address, port, username, and password.
+  - [2] 2026-10-30:  | capture: sha256:a94eb0bc950341575201570f38d22bb498fd1c5a9bad79092114de2729409416
+- sources:
+  - [1] https://iproyal.com/pricing/isp-proxies/
+  - [2] https://iproyal.com/isp-proxies/
+  - [3] https://iproyal.com/kyc-policy/
+  - [4] https://dashboard.iproyal.com/register/
+
+## IPYE (free)
+
+- `ip-proxy/ipye-free-48` | qualifies-with-caveat | evidence documented | binding write-gated | category prefix lease (IPv6) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T10:34:06.070Z (live) | stale on 2026-12-03
+- url https://ipye.com/ipv6-rental | page https://fshy.ajam.dev/p/ipye.md
+- disagrees on identity_kind: `ip-proxy/ipye-free-48` says email, `ip-proxy/ipye-isp-network-bundle` says card
+- disagrees on verdict: `ip-proxy/ipye-free-48` says qualifies-with-caveat, `ip-proxy/ipye-isp-network-bundle` says paid-only
+- free tier: /48 IPv6 (Free): Full /48 prefix, Instant deployment, RPKI ROA and route object, $0. The same page prices the larger blocks: /44 $20/yr, /40 $100/yr, /36 $200/yr, /29 $200/mo, and IPv6 Registration at $300 one-time (IPv6 prefix allocation, ARIN or RIPE PI with full control, a company is required). | unit: none | metered on: none | read on: 2026-10-24 | source: [1] | note: The $0 is the checkout total of an orderable product: the /48 IPv6 (Free) checkout at my.ipye.com/products/ipv6-rental/48-ipv6/checkout lists Full /48 Prefix, Instant Deployment and Limited Support, and its order summary reads Total today: $0.00.
+- per-object cap: not applicable: a prefix, not an object. The nearest equivalent is the block size, and the free allocation is one /48, which the page states as Free · 65,536 /64s | source: [1] | note: Anything larger is a paid tier: /44 is 16 × /48 at $20/yr, /40 is 256 × /48 at $100/yr, /36 is 4,096 × /48 at $200/yr, /29 is monthly at $200.
+- retention: not applicable: a routed prefix, not stored bytes. No term is stated for the free /48; /44, /40 and /36 are labelled Yearly and the /29 Monthly | source: [1] | note: /ipv6-rental states no duration for the free /48, while the /44, /40 and /36 are yearly and the /29 monthly. Whether the free /48 persists indefinitely is unverified: no term for it is published.
+- egress: No traffic term is published for a leased prefix: IPYE assigns the prefix to the lessee's compute hardware, which announces it, so the traffic crosses no IPYE port. The traffic statement on /use-cases belongs to the server bundles: 'Our Datacenter Bundles come natively provisioned with 10 Gbps unmetered upstream ports, ensuring your commercial VPNs never face peak-hour throttling, scaling transparently as active users surge.' ipye.com/servers lists the Datacenter Bundle on a 1 Gbps unmetered port, so the two pages give different ports for the Datacenter Bundle. | metered: no | free allowance: none published; a prefix carries no traffic of its own | source: [2]
+- identity: email | detail: An account at my.ipye.com is required to order, and the vendor says the account costs no identity document: the homepage carries 'No KYC/ID Verification Required', the /asn page description reads 'Crypto accepted, no KYC required', and the free /48 checkout asks for ASN(s), Region and Intended Use rather than a document. The exception is a different product on the same site: ASN Registration at $500 one-time requires a Company Registration Certificate (LLC, LTD), proof of ID for the administrative contact and a signed framework agreement. A rented shared ($300/yr) or dedicated ($700/yr) ASN is not described as requiring any of that.
+- interface: rest, cli
+- limits:
+  - write-gated (binding): an origin ASN must exist before the prefix can be announced; the checkout refuses the order without ASN(s), Region and Intended Use [1]
+  - per-object-cap: the free allocation is one /48 (65,536 /64s); a /44 is the next size and costs $20/yr [1]
+  - volume-quota: none published for a prefix; ipye.com/servers lists the Datacenter Bundle on a 1 Gbps unmetered port, while ipye.com/use-cases says 10 Gbps unmetered upstream ports for the Datacenter Bundles [2]
+  - retention-clamped: no term stated for the free /48; /44, /40 and /36 are yearly and the /29 monthly, so a paid prefix is committed for a year [1]
+- limits note: Outside the limit vocabulary: ASN Registration at $500 one-time puts a permanent ASN under the buyer's company and needs 'a Company Registration Certificate (LLC, LTD), proof of ID for the administrative contact, and a signed framework agreement'; new RIR registrations typically take 2 to 7 business days. Shared ASN ($300/yr) and Dedicated ASN Rental ($700/yr) deploy instantly without those documents, and either one originates a prefix rented from IPYE ('If you rent IPs from us and a Dedicated or Shared ASN from us, everything connects natively.').
+- binding note: write-gated binds first: the free /48 cannot be announced until an origin ASN exists ('Announcing the prefix needs an origin ASN. Use one you already operate, or add a shared or dedicated ASN from IPYE.'). The prefix carries no traffic allowance of its own, so no byte quota applies to it.
+- interface detail: Ordering is a web checkout: my.ipye.com/products/ipv6-rental/48-ipv6/checkout requires ASN(s), Region and Intended Use, takes Name Servers for rDNS as optional, and shows an order summary of Total today: $0.00. No endpoint for ordering or for prefix management is documented; the vendor's API covers reverse DNS and geolocation. The prefix itself is reached by announcing it over BGP from the lessee's own routing daemon, a network interface with no token in the interface vocabulary.
+- tooling: A BGP routing daemon on the host that originates the prefix, and a Letter of Authorization from the portal ('Generate Letters of Authorization securely on demand.'). Ordering is a web form and the portal is the management surface, so no wrapper is needed. The one programmatic path is the rDNS and GeoIP API, behind an account: 'Take absolute control via our API and dashboard. Manage Reverse DNS zones, push bulk PTR record updates, and intuitively control WHOIS location configurations instantly.'
+- composes with: Announce the free /48 under an origin ASN from compute the user runs, and every request leaving that host presents an address inside one /48 of 65,536 /64s. That is one prefix behind one origin ASN: it meets a gate that counts the /64 and not a gate that counts the ASN.
+- reliability: One prefix is one network: every address in the free /48 is announced by the same origin ASN, so a gate counting the ASN or the prefix sees one source however many addresses are used. 'We don't shut down your servers for typical bulk operations' is a vendor statement with no measurement behind it. /use-cases says 'We lease prefixes registered to eyeball broadband networks and assign them to your compute hardware' of its ISP Network Subnets; whether the free /48 is registered that way is unverified.
+- notes: The free /48 is a prefix from IPYE at a fixed size and price: $0, 65,536 /64s, deployed immediately, with the same automatic RPKI ROA and route object as the paid sizes, and unannounced until an origin ASN carries it. /ipv6-rental makes no registration-class claim for it. The page separates it from IP Lease, a catalog of listed ranges that includes IPv6 /36 blocks other holders are selling, and from the IPv6 proxy servers on the server bundles page, machines with a prefix already routed to them. Its FAQ answers 'Can I use these for proxies?' with yes and says the page is the prefix alone.
+- evidence note: Documented, not measured. RIPE stat searchcomplete for the string IPYE returns an empty category list, so no ASN registered under that name is findable in RIPE and the ASN behind the Shared ASN product cannot be named before an order. Measured would need an issued prefix, its registration checked in RIPE, and a refusal captured from an upstream that refuses Cloudflare's ranges.
+- self hosted: no
+- extras:
+  - rung: 3
+  - rung_note: A /48 is a subnet, so it clears rung 3 by construction; it does not reach rung 4, because every address in the block is announced by one origin ASN.
+  - price_table./48: USD 0
+  - price_table./44: USD 20/yr
+  - price_table./40: USD 100/yr
+  - price_table./36: USD 200/yr
+  - price_table./29: USD 200/mo
+  - price_table.ipv6_registration: USD 300 one-time, a company required
+  - asn_prices.shared: USD 300/yr
+  - asn_prices.dedicated: USD 700/yr
+  - asn_prices.registration: USD 500 one-time, company certificate and proof of ID
+  - ipv4_prices./24: USD 160/mo
+  - ipv4_prices./23: USD 300/mo
+  - ipv4_prices./22: USD 600/mo
+  - bundle_prices.dc_/24_ipv4: USD 300/mo
+  - bundle_prices.isp_rcn_/22_ipv4_10gbps: USD 1,600/mo
+  - bundle_prices.dc_/44_ipv6_1gbps: USD 160/mo
+  - bundle_prices.isp_/44_ipv6_1gbps: USD 300/mo
+  - bundle_prices.isp_10gbps_/36_ipv6: USD 600.00, no cadence shown (store category label)
+  - bundle_prices.rcn_isp_10gbps_/29_ipv6: USD 1,100/mo
+  - bundle_prices.isp_10gbps_/40_ipv6: USD 600/mo on ipye.com/servers; checkout status in isp_10gbps_ipv6_listings
+  - bundle_prices.isp_10gbps_/29_ipv6: USD 600/mo on ipye.com/servers; checkout status in isp_10gbps_ipv6_listings
+  - checkout_url: https://my.ipye.com/products/ipv6-rental/48-ipv6/checkout
+  - checkout_fields: ASN(s) (required); Region (required); Name Servers for rDNS (optional); Intended Use (required)
+  - order_summary: Total today: $0.00
+  - prefix_obtained: no
+  - registration_class_checked: no
+  - registration_class_note: unverified: the class can only be read from an issued block's registry object. /use-cases claims eyeball-ISP registration for ISP Network Subnets; /ipv6-rental makes no such claim for the free /48.
+  - ripe_probe: stat.ripe.net/data/searchcomplete/data.json?resource=IPYE -> categories: [], 2026-10-24T11:56:15Z
+  - pricing_page: https://ipye.com/pricing returns 404
+  - bundle_page_real_path: https://ipye.com/servers lists the plans and links each one to its store checkout; https://my.ipye.com/products/server-ip-bundles is the store category; https://ipye.com/server-ip-bundles answers 404
+  - interface_enum_note: The interface vocabulary has no token for a BGP announcement or a web checkout: rest stands for the rDNS API ('Take absolute control via our API and dashboard.') and cli for the BGP announcement.
+  - isp_10gbps_ipv6_listings.servers_page: ISP 10 Gbps /29 and ISP 10 Gbps /40 at the same USD 600 price; the page calls the /40 the larger address pool, although a /29 holds more addresses than a /40
+  - isp_10gbps_ipv6_listings.store_category: ISP 10 Gbps /36 IPv6 Proxy Server at USD 600.00 is its only 10 Gbps IPv6 entry apart from the RCN one; no cadence is shown
+  - isp_10gbps_ipv6_listings.store_checkout_/40: https://my.ipye.com/products/server-ip-bundles/isp-10-gbps-40-ipv6-proxy-server/checkout is titled ISP 10 Gbps /40 IPv6 Proxy Server and has an order total of USD 600.00
+  - isp_10gbps_ipv6_listings.store_checkout_/36: https://my.ipye.com/products/server-ip-bundles/isp-10-gbps-36-ipv6-proxy-server36/checkout is titled ISP 10 Gbps /36 IPv6 Proxy Server and has an order total of USD 600.00
+  - isp_10gbps_ipv6_listings.store_checkout_/29: https://my.ipye.com/products/server-ip-bundles/isp-10-gbps-29-ipv6-proxy-server/checkout, the order link of the /29 plan on ipye.com/servers, answers 404
+  - isp_10gbps_ipv6_listings.delivered_prefix: unverified: the IPv4 or IPv6 ranges of an order are published after payment, so the prefix of the USD 600 plan cannot be read before an order
+- evidence:
+  - [1] 2026-10-24: The free /48 at $0 with an automatic RPKI ROA and route object, and the paid ladder: /44 $20/yr, /40 $100/yr, /36 $200/yr, /29 $200/mo, IPv6 Registration $300 one-time with a company required. Also the FAQ answer 'Do I need an ASN? Announcing the prefix needs an origin ASN. Use one you already operate, or add a shared or dedicated ASN from IPYE.' and 'Every prefix, including the free /48, gets an automatic RPKI ROA and route object.'
+  - [3] 2026-10-24: The free /48 is an orderable product with a $0.00 total, and the three required fields are ASN(s), Region and Intended Use, with name servers for rDNS optional.
+  - [2] 2026-10-24: The proxy claim in the vendor's words: 'IPv6 Goldmine: Generate almost infinite proxy instances cheaply utilizing our /48 IPv6 deployments for platforms like Meta and Google', and the registration-class claim 'We lease prefixes registered to eyeball broadband networks and assign them to your compute hardware', plus 'We don't shut down your servers for typical bulk operations' and the 10 Gbps unmetered bundle ports.
+  - [4] 2026-10-24: Shared ASN $300/yr, Dedicated ASN Rental $700/yr, ASN Registration $500 one-time, and the documents ASN Registration demands: a Company Registration Certificate, proof of ID for the administrative contact and a signed framework agreement. Page description: 'Crypto accepted, no KYC required.'
+  - [5] 2026-10-24: The identity claim 'No KYC/ID Verification Required', and the headline price 'IPv6 Blocks $0/yr Starting at /48'.
+  - [6] 2026-10-24: /24 $160/mo, /23 $300/mo, /22 $600/mo with an auto-generated LOA and RPKI ROA, and the same ASN gate on the IPv4 side: 'You can announce the block from an ASN you already have, or add a shared or dedicated ASN from IPYE.'
+  - [7] 2026-10-24: The ISP Network Bundle (RCN /22 IPv4+10 Gbps) at $1,600.00, described as 'Prefixes registered completely under eyeball ISP transit providers', alongside the DC /24 bundle at $300 and the ISP IPv6 proxy servers at $300, $600 and $1,100.
+  - probe:https://stat.ripe.net/data/searchcomplete/data.json?resource=IPYE 2026-10-24: RIPE searchcomplete for the string IPYE returns categories: [] at 2026-10-24T11:56:15Z, so no ASN registered under that name is findable in RIPE, and the ASN behind the shared-ASN product cannot be identified before an order.
+  - withheld 2026-10-24: https://ipye.com/pricing returns HTTP 404, so no pricing page exists to read; the prices live on the per-product pages.
+  - [3] 2026-10-30: the free /48 checkout answers 200 with an order summary whose total is $0.00 | capture: sha256:f468a72c4e2636b1c6d27a2a8985ec23d8ce8a54681204605a8a27d835a8623d | quote: <h4>Total today:</h4> $0.00
+  - [1] 2026-10-30: the free /48 carries no stated term; /44, /40 and /36 are yearly and /29 monthly | capture: sha256:bc632a753d36c9b6241f3d7615fa7a22ce2d631de81d2681d2a8f970ff789890 | quote: Start on a free /48, or take a larger prefix. Yearly blocks are /44, /40, and /36. The /29 is monthly.
+  - [2] 2026-10-30: the only traffic statement on /use-cases is the 10 Gbps unmetered port of the Datacenter Bundles | capture: sha256:3f9871227fa2572bcdfa546f165fe8ec0a2bc08ce608a4a4a1ddabebcc23d4f7 | quote: Our Datacenter Bundles come natively provisioned with 10 Gbps unmetered upstream ports, ensuring your commercial VPNs never face peak-hour throttling, scaling transparently as active users surge.
+  - [3] 2026-10-30: the free /48 checkout is a web form that asks for the origin ASN(s), region and intended use | capture: sha256:f468a72c4e2636b1c6d27a2a8985ec23d8ce8a54681204605a8a27d835a8623d | quote: Enter each Autonomous System Number comma-separated (e.g. AS12345, AS67890).
+  - [5] 2026-10-30: the vendor's API is for rDNS, PTR and WHOIS location, and the portal generates LOAs | capture: sha256:213bf48707e54ab94fa5ac950431609a4febe36397df391134a9e16db734157d | quote: Take absolute control via our API and dashboard. Manage Reverse DNS zones, push bulk PTR record updates, and intuitively control WHOIS location configurations instantly.
+  - [1] 2026-10-30: the free /48 (65,536 /64s) is announced by one origin ASN the lessee supplies or rents | capture: sha256:bc632a753d36c9b6241f3d7615fa7a22ce2d631de81d2681d2a8f970ff789890 | quote: Announcing the prefix needs an origin ASN. Use one you already operate, or add a shared or dedicated ASN from IPYE.
+  - [4] 2026-10-30: ASN Registration needs company documents and proof of ID; the rented Shared and Dedicated ASNs are instant | capture: sha256:acce39556bff6d4dffeb3fb90b4bc42f47af60756c5a24e8ee853ea299ee80ab | quote: You must provide legitimate organization details. This typically includes a Company Registration Certificate (LLC, LTD), proof of ID for the administrative contact, and a signed framework agreement required by the specific RIR (e.g., RIPE NCC).
+  - [1] 2026-10-30: an origin ASN is required before the free /48 can be announced | capture: sha256:bc632a753d36c9b6241f3d7615fa7a22ce2d631de81d2681d2a8f970ff789890 | quote: Announcing the prefix needs an origin ASN. Use one you already operate, or add a shared or dedicated ASN from IPYE.
+  - probe:https://stat.ripe.net/data/searchcomplete/data.json?resource=IPYE 2026-10-30: RIPE stat searchcomplete for IPYE returns no category, so no IPYE ASN is findable in RIPE | capture: sha256:30345d7de81e3cfdd08a6b7b4f35fd380abe0312c7f91e2abbdff4153913745f | quote: "categories":[]
+  - [2] 2026-10-30: the no-shutdown line is a vendor statement on /use-cases, beside the eyeball-registration claim for ISP Network Subnets | capture: sha256:3f9871227fa2572bcdfa546f165fe8ec0a2bc08ce608a4a4a1ddabebcc23d4f7 | quote: We don't shut down your servers for typical bulk operations.
+  - [1] 2026-10-30: the free /48 is IPYE's own fixed-size prefix, distinct from IP Lease listings and from the server bundles | capture: sha256:bc632a753d36c9b6241f3d7615fa7a22ce2d631de81d2681d2a8f970ff789890 | quote: IPv6 rental is a prefix from IPYE at a fixed size and price.
+  - [5] 2026-10-30: the vendor documents an API and dashboard for rDNS and WHOIS location | capture: sha256:213bf48707e54ab94fa5ac950431609a4febe36397df391134a9e16db734157d | quote: Take absolute control via our API and dashboard.
+  - [1] 2026-10-30: /ipv6-rental describes the free /48 without a registration-class claim | capture: sha256:bc632a753d36c9b6241f3d7615fa7a22ce2d631de81d2681d2a8f970ff789890 | quote: IPv6 rental is a prefix from IPYE at a fixed size and price.
+  - [1] 2026-10-30: the free /48 at $0 and the paid ladder /44 $20/yr, /40 $100/yr, /36 $200/yr, /29 $200/mo are unchanged | capture: sha256:bc632a753d36c9b6241f3d7615fa7a22ce2d631de81d2681d2a8f970ff789890 | quote: Start on a free /48, or take a larger prefix. Yearly blocks are /44, /40, and /36. The /29 is monthly.
+  - [8] 2026-10-30: the my.ipye.com register form asks for first and last name, email and password, with no phone, card or document field | capture: sha256:e34986b0993103999f7573e38461a536f1dc33d7cf0ed534cae309021615fedf | quote: <input type="email" id="email" name="email"
+  - [9] 2026-11-02: the Datacenter Bundle card prices the /24 IPv4 plan at $300 per month | capture: sha256:0a39341505d52566f826078343e42f86dd602ef33e97282439a9b78072b87d7e | quote: Included IPs /24 IPv4 Datacenter (256 IPs) Setup Time Generally < 24 Hours $300/mo
+  - [9] 2026-11-02: the ISP Network Bundle card prices the /22 IPv4 ISP plan at $1600 per month | capture: sha256:0a39341505d52566f826078343e42f86dd602ef33e97282439a9b78072b87d7e | quote: Included IPs /22 IPv4 ISP Assigned (1024 IPs) IP Designation Standard ISP Equivalent $1600/mo
+  - [9] 2026-11-02: the DC /44 IPv6 Proxy card prices the plan at $160 per month | capture: sha256:0a39341505d52566f826078343e42f86dd602ef33e97282439a9b78072b87d7e | quote: Included IPs /44 IPv6 Datacenter Best for Browsing and automation $160/mo
+  - [9] 2026-11-02: the ISP /44 IPv6 Proxy card prices the plan at $300 per month | capture: sha256:0a39341505d52566f826078343e42f86dd602ef33e97282439a9b78072b87d7e | quote: Included IPs /44 IPv6 ISP Best for Higher-trust applications $300/mo
+  - [9] 2026-11-02: the RCN ISP 10 Gbps /29 card prices the plan at $1100 per month | capture: sha256:0a39341505d52566f826078343e42f86dd602ef33e97282439a9b78072b87d7e | quote: Premium RCN ISP IPv6 proxy package with a /29 subnet and 10 Gbps port, delivering multiple addresses, enhanced flexibility, and maximum throughput for advanced networking needs. $1100/mo
+  - [7] 2026-11-02: the store category lists the 10 Gbps ISP IPv6 plan as /36 at $600.00 with no billing cadence | capture: sha256:f575b39c496f0920e4d582d1a99ad64e08f10fa4613cec0319a84450742dfbfb | quote: ISP 10 Gbps /36 IPv6 Proxy Server High-speed residential ISP IPv6 proxy with a dedicated 10 Gbps port, designed for demanding tasks such as bulk data transfers, streaming, and enterprise-grade automation. $600.00
+  - [9] 2026-11-02: the ISP 10 Gbps /40 card prices the plan at $600 per month | capture: sha256:0a39341505d52566f826078343e42f86dd602ef33e97282439a9b78072b87d7e | quote: Included IPs /40 IPv6 ISP Best for Large proxy pools $600/mo
+  - [9] 2026-11-02: the ISP 10 Gbps /29 card prices the plan at $600 per month | capture: sha256:0a39341505d52566f826078343e42f86dd602ef33e97282439a9b78072b87d7e | quote: Included IPs /29 IPv6 ISP Best for Streaming and bulk transfer $600/mo
+  - [9] 2026-11-02: ipye.com/servers lists two 10 Gbps ISP IPv6 plans, /29 and /40, at the same $600 price and calls the /40 the larger address pool | capture: sha256:0a39341505d52566f826078343e42f86dd602ef33e97282439a9b78072b87d7e | quote: The /29 and /40 plans add a 10 Gbps port. The /40 is the larger address pool at the same $600 price as the ISP /29.
+  - [7] 2026-11-02: the store category lists the 10 Gbps ISP IPv6 plan as /36 at $600.00; the only other 10 Gbps IPv6 entry is the RCN /29 at $1,100.00 | capture: sha256:f575b39c496f0920e4d582d1a99ad64e08f10fa4613cec0319a84450742dfbfb | quote: ISP 10 Gbps /36 IPv6 Proxy Server High-speed residential ISP IPv6 proxy with a dedicated 10 Gbps port, designed for demanding tasks such as bulk data transfers, streaming, and enterprise-grade automation. $600.00
+  - [10] 2026-11-02: the checkout that ipye.com/servers links for the /40 plan is an orderable page titled /40 with an order total of $600.00 | capture: sha256:58bc9b19e8287d18a0f4f374745ed2b92128f04afb074b8810072e3d0dc03eed | quote: # ISP 10 Gbps /40 IPv6 Proxy Server [...] #### Total today: $600.00
+  - [11] 2026-11-02: the /36 plan of the store category has an orderable checkout titled /36 with an order total of $600.00 | capture: sha256:9cf9e010f3ef1e6b870e5575e2e45b35c4c65f972b5882bd16c3c17be8b0d052 | quote: # ISP 10 Gbps /36 IPv6 Proxy Server [...] #### Total today: $600.00
+  - probe:https://my.ipye.com/products/server-ip-bundles/isp-10-gbps-29-ipv6-proxy-server/checkout 2026-11-02: a direct GET of the /29 plan's order link on ipye.com/servers answers HTTP 404 | capture: sha256:53154a7e8ef9d47c20e874685cd97283ecfe80f153ae1f4d04e75ed0d5729d13 | quote: "status": 404
+  - [9] 2026-11-02: ipye.com/servers says the ranges of an order reach the buyer only after payment, in the service page | capture: sha256:0a39341505d52566f826078343e42f86dd602ef33e97282439a9b78072b87d7e | quote: The service stays in your portal. When delivery is published you receive the host address, login, operating system, port, and the IPv4 or IPv6 ranges for that order.
+  - [9] 2026-11-02: the lineup table of ipye.com/servers lists the Datacenter Bundle on a 1 Gbps unmetered port | capture: sha256:0a39341505d52566f826078343e42f86dd602ef33e97282439a9b78072b87d7e | quote: Datacenter Bundle | Datacenter IPv4 | /24 | 1 Gbps unmetered | $300
+  - probe:https://ipye.com/server-ip-bundles 2026-11-02: a direct GET of https://ipye.com/server-ip-bundles answers HTTP 404 | capture: sha256:dd2e7b7976d195bbe795b83fcca0a3032500bd673ced245daa98fb5ba4178be1 | quote: "status": 404
+  - [2] 2026-11-02: ipye.com/use-cases still says 10 Gbps unmetered upstream ports for the Datacenter Bundles, while ipye.com/servers lists the Datacenter Bundle on a 1 Gbps unmetered port | capture: sha256:3f9871227fa2572bcdfa546f165fe8ec0a2bc08ce608a4a4a1ddabebcc23d4f7 | quote: Our Datacenter Bundles come natively provisioned with 10 Gbps unmetered upstream ports, ensuring your commercial VPNs never face peak-hour throttling, scaling transparently as active users surge.
+  - [9] 2026-11-02: ipye.com/servers says a bundle checkout shows the monthly total, so the store's order total is the monthly price | capture: sha256:0a39341505d52566f826078343e42f86dd602ef33e97282439a9b78072b87d7e | quote: Open the plan. Checkout shows the monthly total before you submit.
+  - [5] 2026-11-02: the homepage links its Server + IP Bundles button to ipye.com/servers | capture: sha256:213bf48707e54ab94fa5ac950431609a4febe36397df391134a9e16db734157d | quote: [View Server + IP Bundles](https://ipye.com/servers)
+  - [9] 2026-11-02: ipye.com/servers lists seven Server + IP bundle plans with prefix, port and monthly price | capture: sha256:0a39341505d52566f826078343e42f86dd602ef33e97282439a9b78072b87d7e | quote: Every plan is billed monthly in the client portal. The prefix and port below are what that service includes. Hardware on the two IPv4 bundles is listed on each card.
+- sources:
+  - [1] https://ipye.com/ipv6-rental
+  - [2] https://ipye.com/use-cases
+  - [3] https://my.ipye.com/products/ipv6-rental/48-ipv6/checkout
+  - [4] https://ipye.com/asn
+  - [5] https://ipye.com/
+  - [6] https://ipye.com/ipv4-rental
+  - [7] https://my.ipye.com/products/server-ip-bundles
+  - [8] https://my.ipye.com/register
+  - [9] https://ipye.com/servers
+  - [10] https://my.ipye.com/products/server-ip-bundles/isp-10-gbps-40-ipv6-proxy-server/checkout
+  - [11] https://my.ipye.com/products/server-ip-bundles/isp-10-gbps-36-ipv6-proxy-server36/checkout
+
+## LinkStatic
+
+- `ip-proxy/linkstatic-c-class` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category contiguous prefix lease | tier /24 block
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T10:34:08.753Z (live) | stale on 2026-12-03
+- url https://linkstatic.com/pricing/isp-subnet/m | page https://fshy.ajam.dev/p/linkstatic.md
+- price not applicable: priced per address per month, not per byte
+- free tier: No free tier is stated; the vendor offers free trials for some plans through customer service, without naming the plans. A whole C-class range is priced per month by region: United States USD 500 at 100 Mbps; Spain, Netherlands, Australia, Brazil, Canada, United Kingdom, France and Germany USD 700 at 100 Mbps; Japan and Italy USD 750; Indonesia and India USD 800; Hong Kong and Vietnam USD 850; Dubai USD 900 at 50 Mbps; Taiwan, Malaysia and Thailand USD 950 at 100 Mbps and the Philippines USD 950 at 50 Mbps; Mexico USD 1,000 at 50 Mbps; South Korea USD 1,100 at 50 Mbps; Singapore USD 1,100 at 100 Mbps. That is USD 1.95 per address per month in the United States. The single static ISP product is USD 2.80 per IP for 30 days in the United States. | unit: none | metered on: none | read on: 2026-10-24 | source: [1] | note: Prices are per range per month, not per byte: nothing on the page is a free allowance. A whole C-class range is a /24, 256 addresses, which is what makes USD 500 a month and USD 1.95 per address per month the same number in the United States. The free-trial sentence is a FAQ entry that the range page shares with the single static ISP, enterprise ISP and TikTok line pages: trials exist for some plans and are claimed through customer service, and no plan is named, so the sentence does not say whether the range is one of them. The description of the global resources page ends with a free-trial claim after listing Standard and Premium plans of 7, 30 and 90 days, and does not name the range.
+- per-object cap: not applicable | source: [1] | note: An address block carries no stored object and therefore no per-object ceiling. The nearest structural cap is the block size itself: one /24, not a larger prefix.
+- retention: not applicable: a leased address block, not stored bytes | source: [1] | note: The range is priced per month and delivered within one week after purchase; longer durations are arranged through online support. The single static ISP product offers validity periods of 7, 30 and 90 days. No minimum lease, renewal or reclaim term is stated for the range.
+- egress: 完整 IP 网段独立交付，优化跨境传输体验，无并发流量上限 (a complete IP range delivered independently; cross-border transport optimised; no concurrent-traffic cap). Each region's range is listed with 100 Mbps (50 Mbps in Dubai, the Philippines, Mexico and South Korea); no byte cap is stated, and whether the bandwidth figure applies per address or to the whole range is not stated. | metered: no | free allowance: not applicable: no byte allowance is metered; 100 Mbps, or 50 Mbps in four regions, is listed per range | source: [1]
+- identity: email | detail: Sign-up asks for an email address and a password of 8-22 characters with upper and lower case letters and numbers, plus an optional invitation code and a click-sequence verification code; Google sign-in is offered. No phone number and no identity document is asked. Payment methods at checkout: Alipay (two entries), cryptocurrency and account balance.
+- interface: unknown
+- limits:
+  - per-ip-shaping (binding): 100 Mbps listed with the price of each region's range (50 Mbps for Dubai, the Philippines, Mexico and South Korea); the page does not state whether the figure applies per address or to the whole range [1]
+  - volume-quota: none: 无并发流量上限 (no concurrent-traffic cap) and no byte cap stated at any price tier [1]
+- limits note: The range is sold whole: no smaller contiguous prefix than a /24 is offered. The vendor states no traffic or concurrency limits; longer durations and greater bandwidth are arranged through online support, and delivery is within one week after purchase. A range order is one line per region with a quantity of 1 and one bandwidth value, and the range page description calls bandwidth customizable; no page states whether the listed bandwidth is a per-address or a whole-range figure.
+- binding note: The named ceiling is the bandwidth listed with each range, 100 Mbps, or 50 Mbps in Dubai, the Philippines, Mexico and South Korea; it is the only throughput figure on the product, since no traffic or concurrency limit is stated. Whether it applies per address or to the whole range is not stated. Structurally, one contiguous prefix means one announcing AS and one registration class, so a prefix-level block or withdrawal takes all 256 addresses at once.
+- interface detail: The range product's page states HTTP, HTTPS and SOCKS5, with other protocols on request to customer service. The range is delivered whole, 完整 IP 网段独立交付, within one week after purchase. The schema's interface enum has no proxy-protocol token, so the array keeps unknown and the protocols are stated here.
+- tooling: Proxy access over HTTP, HTTPS or SOCKS5, which the range product's page states; any client that takes a proxy address with credentials works: curl --proxy, Python requests with proxies=, a headless browser's proxy settings. Orders are managed in a console at console.linkstatic.com. No test address is published for the range product; checking the announcing AS and registration class of a delivered range takes a RIPE or ARIN whois lookup and a looking glass.
+- composes with: The range is an egress-address supply for a Workers gateway or a crawler: 256 addresses from one prefix spread a request stream across distinct source addresses, but every one of them shares one announcing AS, one registration class and one lease, so it adds address count without adding failure domains.
+- reliability: Bandwidth is listed per range, 100 Mbps or 50 Mbps, with no byte cap stated. No test address and no ASN is published for the range product, so the announcing AS and registration class cannot be checked before payment; the 256 addresses are one prefix, so a prefix-level blocklist entry or suspension removes all of them together. Paid services are non-refundable unless there is an IP quality issue.
+- notes: A whole C-class range is one contiguous /24 prefix: 256 addresses behind one announcing AS and one registration class, allocated whole to one customer. In the United States the range is USD 500 a month (a 30-day order line) at 100 Mbps, about USD 1.95 per address. A range order is one line per region with a quantity of 1, and both range order pages total it as the sum of the listed range prices, with no quantity discount in the page: the desktop order summary has a Discount row at -$0.00 that its script never changes. The single static ISP product lists USD 2.80 per IP for 30 days in the United States, and the total its order window displays takes a quantity discount: 5 percent off for 1-5 IPs, 10 percent for 6-49, 15 percent for 50-199, 20 percent for 200-799 and 25 percent for 800 or more. For 256 single addresses that displayed total is USD 573.44 for 30 days (USD 716.80 at list price, less 20 percent), USD 2.24 per address, and the range costs about 13 percent less per address against it. The order requests of both products name each line by region code, days and quantity and carry no price, and the payment window shows the total held in the server's order data, so the amount that checkout charges is first shown after an order is created, and placing an order sends a visitor without a session to the sign-up page. No test address, no ASN and no prefix is published for the range product; the vendor offers free trials for some plans through customer service, and uses IPinfo as its reference for an address's region. A check of a delivered range takes a RIPE or ARIN whois lookup on one address for the registration class and a looking glass for the announcing AS.
+- evidence note: Documented: the regional range prices and bandwidth figures, the protocol list, the free-trial and delivery terms, the payment methods and the sign-up fields are stated on the vendor's pricing and sign-up pages. Nothing about a delivered range is measured: measured needs one delivered or trial range, with an address checked against RIPE or ARIN whois for the registration class and a looking glass for the announcing AS.
+- extras:
+  - rung: 3
+  - rung_note: One contiguous /24 is a single prefix: 256 addresses behind one announcing AS and one registration class, which is the rung-3 unit and the opposite of diversity.
+  - block_size: 256 addresses (/24)
+  - block_price_usd_month.United States: 500
+  - block_price_usd_month.Spain: 700
+  - block_price_usd_month.Netherlands: 700
+  - block_price_usd_month.Australia: 700
+  - block_price_usd_month.Brazil: 700
+  - block_price_usd_month.Canada: 700
+  - block_price_usd_month.United Kingdom: 700
+  - block_price_usd_month.France: 700
+  - block_price_usd_month.Germany: 700
+  - block_price_usd_month.Japan: 750
+  - block_price_usd_month.Italy: 750
+  - block_price_usd_month.Indonesia: 800
+  - block_price_usd_month.India: 800
+  - block_price_usd_month.Hong Kong: 850
+  - block_price_usd_month.Vietnam: 850
+  - block_price_usd_month.Dubai: 900
+  - block_price_usd_month.Taiwan: 950
+  - block_price_usd_month.Philippines: 950
+  - block_price_usd_month.Malaysia: 950
+  - block_price_usd_month.Thailand: 950
+  - block_price_usd_month.Mexico: 1000
+  - block_price_usd_month.South Korea: 1100
+  - block_price_usd_month.Singapore: 1100
+  - price_per_address_month_usd: 1.95
+  - single_ip_price_usd_30_days: 2.8
+  - shaping: 100 Mbps listed per range (50 Mbps in Dubai, the Philippines, Mexico and South Korea); per address or per range is not stated; no byte cap
+  - quote: 完整 IP 网段独立交付，优化跨境传输体验，无并发流量上限
+  - quote_translation: a complete IP prefix delivered independently; cross-border transport optimised; no concurrent-traffic cap
+  - verification_gap: no test IP published for the block product, so the registration class and the announcing AS are unknown
+  - derivation: USD 1.95 per address per month is USD 500 / 256 = 1.953, rounded. 256 single static ISP addresses in the United States are 2.80 x 256 = 716.80 for 30 days at list price and 716.80 x 0.80 = 573.44 after the 20 percent discount for 200-799 IPs that the order window displays, 573.44 / 256 = 2.24 per address; the range is a 30-day order line at USD 500 with no discount in its order total, and 500 / 573.44 = 0.872, about 13 percent less per address. These are arithmetic on listed and displayed prices, not measurements and not amounts charged at checkout.
+- evidence:
+  - [1] 2026-10-24: The /24 block prices by country (United States USD 500/mo at 100 Mbps, Japan 750, Hong Kong 850, Taiwan 950, Singapore 1,100), the USD 1.95 per address per month figure, and the quoted delivery claim 完整 IP 网段独立交付，优化跨境传输体验，无并发流量上限.
+  - [2] 2026-10-24: The single static ISP IP tier at USD 2.80 per IP for 30 days, which is the comparison that makes a whole /24 cheaper per address (USD 1.95) than buying single addresses.
+  - [3] 2026-10-30: the United States range is USD 500.00 a month at 100 Mbps | capture: sha256:f4df8b259b611db2bb0897eb4d28a4c5acbc7aaae254ffe5ac9d89b96ecbfb8c | quote: United States Hot 100 Mbps $500.00/mo
+  - [3] 2026-10-30: a trial exists for some plans, through customer service | capture: sha256:f4df8b259b611db2bb0897eb4d28a4c5acbc7aaae254ffe5ac9d89b96ecbfb8c | quote: We offer free trials for some plans. You can contact customer service to claim a trial for free.
+  - [3] 2026-10-30: regions list 100 or 50 Mbps with the range price | capture: sha256:f4df8b259b611db2bb0897eb4d28a4c5acbc7aaae254ffe5ac9d89b96ecbfb8c | quote: Korea 50 Mbps $1100.00/mo
+  - [1] 2026-10-30: the bandwidth attribute sits on the region's range row, beside its price | capture: sha256:f4199243f2a107152938ca2dc069c189d4e908f288880d1c666d377e38d28e38 | quote: data-code="US" data-country="美国" data-price="500" data-bandwidth="100"
+  - [3] 2026-10-30: a range is delivered within one week of purchase | capture: sha256:f4df8b259b611db2bb0897eb4d28a4c5acbc7aaae254ffe5ac9d89b96ecbfb8c | quote: Delivery will be completed within one week after purchase.
+  - [4] 2026-10-30: the sign-up form asks for an email address and a password; the remaining fields are an optional invitation code and a verification code | capture: sha256:53d51d52f7b71cecad7f53ef2aeeb9b050bb20256206b0c0de9dc251391a28c1 | quote: Password must be 8-22 characters long,must contain uppercase and lowercase letters and numbers,supported special characters: @#$%.!
+  - [3] 2026-10-30: the refund condition is IP quality | capture: sha256:f4df8b259b611db2bb0897eb4d28a4c5acbc7aaae254ffe5ac9d89b96ecbfb8c | quote: All paid services are non-refundable unless there is an IP quality issue.
+  - [3] 2026-10-30: the range product's page states HTTP, HTTPS and SOCKS5 | capture: sha256:f4df8b259b611db2bb0897eb4d28a4c5acbc7aaae254ffe5ac9d89b96ecbfb8c | quote: We support HTTP, HTTPS, and SOCKS5.
+  - [3] 2026-10-30: the range product supports HTTP, HTTPS and SOCKS5 | capture: sha256:f4df8b259b611db2bb0897eb4d28a4c5acbc7aaae254ffe5ac9d89b96ecbfb8c | quote: We support HTTP, HTTPS, and SOCKS5.
+  - [3] 2026-10-30: the range is allocated whole to one customer | capture: sha256:f4df8b259b611db2bb0897eb4d28a4c5acbc7aaae254ffe5ac9d89b96ecbfb8c | quote: Complete IP ranges are exclusively allocated for flexible IP management, eliminating the need for fragmented purchases and improving operational efficiency.
+  - [3] 2026-10-30: the United States range price; the same page lists the other 22 regions with price and bandwidth | capture: sha256:f4df8b259b611db2bb0897eb4d28a4c5acbc7aaae254ffe5ac9d89b96ecbfb8c | quote: United States Hot 100 Mbps $500.00/mo
+  - [3] 2026-10-30: the United States range is USD 500.00 a month | capture: sha256:f4df8b259b611db2bb0897eb4d28a4c5acbc7aaae254ffe5ac9d89b96ecbfb8c | quote: United States Hot 100 Mbps $500.00/mo
+  - [2] 2026-10-30: the single static ISP product is priced for 7, 30 and 90-day validity periods | capture: sha256:631f7b9fd62e0cca518b4950d188dcab9c6e53cc91712a44e70288b4f2d08735 | quote: data-code="US" data-cate="1" data-country="美国" data-day7="1.80" data-day30="2.80" data-day90="7.80"
+  - [1] 2026-10-30: the range is delivered whole with no concurrent-traffic cap | capture: sha256:f4199243f2a107152938ca2dc069c189d4e908f288880d1c666d377e38d28e38 | quote: 完整 IP 网段独立交付，优化跨境传输体验，无并发流量上限
+  - [1] 2026-10-30: a 50 Mbps region row | capture: sha256:f4199243f2a107152938ca2dc069c189d4e908f288880d1c666d377e38d28e38 | quote: data-code="KR" data-country="韩国" data-price="1100" data-bandwidth="50"
+  - [3] 2026-10-30: the Singapore range is USD 1,100 a month; the page lists 23 regions | capture: sha256:f4df8b259b611db2bb0897eb4d28a4c5acbc7aaae254ffe5ac9d89b96ecbfb8c | quote: Singapore 100 Mbps $1100.00/mo
+  - [1] 2026-10-30: bandwidth is an attribute of the range row | capture: sha256:f4199243f2a107152938ca2dc069c189d4e908f288880d1c666d377e38d28e38 | quote: data-code="US" data-country="美国" data-price="500" data-bandwidth="100"
+  - [3] 2026-10-30: the United States range price of USD 500.00 a month | capture: sha256:f4df8b259b611db2bb0897eb4d28a4c5acbc7aaae254ffe5ac9d89b96ecbfb8c | quote: United States Hot 100 Mbps $500.00/mo
+  - [2] 2026-10-30: the single static ISP product is USD 2.80 per IP for 30 days in the United States, the active tab being 30 days | capture: sha256:631f7b9fd62e0cca518b4950d188dcab9c6e53cc91712a44e70288b4f2d08735 | quote: data-code="US" data-cate="1" data-country="美国" data-day7="1.80" data-day30="2.80" data-day90="7.80"
+  - [3] 2026-10-30: checkout payment methods are Alipay, cryptocurrency and balance | capture: sha256:f4df8b259b611db2bb0897eb4d28a4c5acbc7aaae254ffe5ac9d89b96ecbfb8c | quote: Alipay Alipay2 Cryptocurrency Balance
+  - [3] 2026-10-30: the vendor uses IPinfo as its reference for an address's region | capture: sha256:f4df8b259b611db2bb0897eb4d28a4c5acbc7aaae254ffe5ac9d89b96ecbfb8c | quote: We use IPinfo results as the reference.
+  - [1] 2026-10-30: the Chinese range page states HTTP, HTTPS and SOCKS5 | capture: sha256:f4199243f2a107152938ca2dc069c189d4e908f288880d1c666d377e38d28e38 | quote: 我们支持HTTP、HTTPS和SOCKS5协议，如其他协议可咨询在线客服。
+  - [3] 2026-10-30: the United States range is USD 500.00 a month at 100 Mbps, unchanged | capture: sha256:f4df8b259b611db2bb0897eb4d28a4c5acbc7aaae254ffe5ac9d89b96ecbfb8c | quote: United States Hot 100 Mbps $500.00/mo
+  - [5] 2026-10-31: the single static ISP page's discount table gives 20 percent off for 200-799 IPs (5, 10, 15 and 25 percent in the other rows) | capture: sha256:05680f7125cb04dc70a82834bb70c88220d4dbae0cdf61b3fe647dfec7c9969f | quote: 200-799 IPs 20% OFF
+  - [6] 2026-10-31: the single static ISP order script multiplies the order total by 0.80 when the order holds 200-799 IPs | capture: sha256:163509d37d63f4827cd0e2281af7f1d94d8479382018962895ffd83ad10f65ad | quote: if (total <= 799) return 0.80;
+  - [5] 2026-10-31: the single static ISP list price in the United States is USD 2.80 per IP for 30 days | capture: sha256:05680f7125cb04dc70a82834bb70c88220d4dbae0cdf61b3fe647dfec7c9969f | quote: data-code="US" data-cate="1" data-country="United States" data-day7="1.80" data-day30="2.80" data-day90="7.80"
+  - [7] 2026-10-31: the range order total is the listed range price times the number of ranges, with no quantity discount | capture: sha256:d45d6bffba1705103b03f2271b2596c97d66d3d920fb7743b8116fb32f931e69 | quote: totalPrice += price * num;
+  - [7] 2026-10-31: a range order line is for 30 days, the same period as the single static ISP 30-day price | capture: sha256:d45d6bffba1705103b03f2271b2596c97d66d3d920fb7743b8116fb32f931e69 | quote: var DEFAULT_DAY = 30;
+  - [8] 2026-10-31: the United States range is USD 500 at 100 Mbps; the page lists 23 regions, matching the record's prices and bandwidths | capture: sha256:3cd22fa4e34f4cc4b1258bb520c8019a2d7c0479fcf873282fc724dc6b137502 | quote: data-state="AM" data-code="US" data-country="United States" data-price="500" data-bandwidth="100"
+  - [6] 2026-11-02: the single static ISP order window computes its displayed total as the list-price sum times the tier factor, truncated to cents | capture: sha256:8e8f52f725890892acc874fa6e34d27056d776bf73beee34aa5e49bf2a96ba30 | quote: var finalPrice = (hasNewUserHalfPrice && ipCount === 1) ? finalBeforeTier : truncateToTwoDecimals(finalBeforeTier * tierDiscount);
+  - [9] 2026-11-02: the desktop range order total is the sum of the selected regions' listed prices | capture: sha256:422714b456e0d305f519972fb92a628d6dfbc8ce6f7b73e630594b67321adaff | quote: const total = getSelectedCards().toArray().reduce((sum, el) => sum + Number($(el).data('price') || 0), 0);
+  - [10] 2026-11-02: the global resources page description lists Standard and Premium plans of 7, 30 and 90 days and ends with a free-trial claim | capture: sha256:20c79ea8550e41f719bf6bf99218bee3848982ee4df7cee9ac53a3d98a9f6d08 | quote: Linkstatic premium static residential proxies, 30&#43; regions, Standard/Premium, 7/30/90 days, for e-commerce &amp; social media. Free trial!
+  - [9] 2026-11-02: the desktop range order request is one line per region with a quantity of 1 and one bandwidth value | capture: sha256:422714b456e0d305f519972fb92a628d6dfbc8ce6f7b73e630594b67321adaff | quote: num: 1, limit_bytes: Number($(el).data('bandwidth') || 0)
+  - [3] 2026-11-02: the United States range is a 30-day order line at USD 500 and 100 Mbps | capture: sha256:f3e180aef12550dd58dbf9a7595f7ddfa37dbc57a1efb39e19b0078df56c3f8f | quote: data-code="US" data-country="United States" data-price="500" data-day="30" data-bandwidth="100"
+  - [3] 2026-11-02: the desktop range order summary has a Discount row of -$0.00 | capture: sha256:f3e180aef12550dd58dbf9a7595f7ddfa37dbc57a1efb39e19b0078df56c3f8f | quote: <span>Discount</span> <strong>-$0.00</strong>
+  - [7] 2026-11-02: a mobile range order line has a quantity of 1 | capture: sha256:929b550222b2a799ce38854b20d0bce193af31290d370c22688b21b7468d07f3 | quote: Num: 1,
+  - [6] 2026-11-02: the single static ISP order request names each line by day, region code and quantity and carries no price | capture: sha256:8e8f52f725890892acc874fa6e34d27056d776bf73beee34aa5e49bf2a96ba30 | quote: orderList.push({ day: itemData.day, code: itemData.code, num: itemData.num });
+  - [11] 2026-11-02: the payment window shows the total held in the order data it is given | capture: sha256:b62a192aa7bcd7206d75a1839e828789cf598c7c2d42d25f0dc15099ca5740f0 | quote: $('#finalPayment').text('$' + (data.totalMoneyShow || data.totalMoney || '0.00'));
+  - [9] 2026-11-02: the desktop range page requests the payment window's order data from the vendor's API after the order request | capture: sha256:422714b456e0d305f519972fb92a628d6dfbc8ce6f7b73e630594b67321adaff | quote: url: requestApi + "/link_static_pay/" + sessionToken + "/" + orderSn + "/" + lang,
+  - [12] 2026-11-02: a visitor without a session is sent to the sign-up page when an order is placed | capture: sha256:d0b01fc23c03869a50d55a8f4d43db17b11306c226f074c7b79cd226943f4618 | quote: let url = webDomain+language+'sign-up/';
+  - [3] 2026-11-02: the range page description calls bandwidth customizable | capture: sha256:f3e180aef12550dd58dbf9a7595f7ddfa37dbc57a1efb39e19b0078df56c3f8f | quote: Delivered as a dedicated, contiguous IP subnet for exclusive use by your business; bandwidth and server configurations are fully customizable.
+  - [3] 2026-11-02: the range page says free trials exist for some plans and are claimed through customer service | capture: sha256:f3e180aef12550dd58dbf9a7595f7ddfa37dbc57a1efb39e19b0078df56c3f8f | quote: We offer free trials for some plans. You can contact customer service to claim a trial for free.
+  - [5] 2026-11-02: the single static ISP is USD 2.80 per IP for 30 days in the United States, with 7, 30 and 90 day prices | capture: sha256:7e16937f8d2795f7b51e11d9eb01323ca637e9b62693f8a49a9c8dc9e901b382 | quote: data-code="US" data-cate="1" data-country="United States" data-day7="1.80" data-day30="2.80" data-day90="7.80"
+  - [3] 2026-11-02: the Korea range is USD 1,100 a month at 50 Mbps | capture: sha256:f3e180aef12550dd58dbf9a7595f7ddfa37dbc57a1efb39e19b0078df56c3f8f | quote: data-code="KR" data-country="Korea" data-price="1100" data-day="30" data-bandwidth="50"
+  - [13] 2026-11-02: the range is delivered as a whole IP range with no concurrent-traffic cap, as the Chinese page states it | capture: sha256:38b255147e1bafea48d7998a7cd609278dee6ec0635a15eb455075aaef0cfe25 | quote: 整 C 段原生 IP 面向企业规模化海外业务提供专属网络方案，完整 IP 网段独立交付，优化跨境传输体验，无并发流量上限，支持多路业务同时运行，助力企业实现稳步扩张。
+  - [3] 2026-11-02: the range accepts HTTP, HTTPS and SOCKS5, and other protocols through customer service | capture: sha256:f3e180aef12550dd58dbf9a7595f7ddfa37dbc57a1efb39e19b0078df56c3f8f | quote: We support HTTP, HTTPS, and SOCKS5. If you need other protocols, please consult customer service.
+  - [3] 2026-11-02: a range is delivered within one week after purchase | capture: sha256:f3e180aef12550dd58dbf9a7595f7ddfa37dbc57a1efb39e19b0078df56c3f8f | quote: Delivery will be completed within one week after purchase.
+  - [3] 2026-11-02: longer durations and greater bandwidth are arranged through online support | capture: sha256:f3e180aef12550dd58dbf9a7595f7ddfa37dbc57a1efb39e19b0078df56c3f8f | quote: For longer durations and greater bandwidth, reach online support anytime.
+  - [4] 2026-11-02: the sign-up form asks for an email address | capture: sha256:7de8a4de1d13350b0f5539cbf414c65f50faa0b3e3b1bdf3e2f7291229c9f291 | quote: <input type="email" id="email" class="form-input" placeholder="Please enter a valid email address">
+  - [14] 2026-11-02: the single static ISP page carries the same free-trial FAQ entry: some plans, through customer service | capture: sha256:51a9ff0453f66acd434368c538cc62f98449fc25e7df508291de4d1ff0c981f7 | quote: For some plans, we provide a free trial, which you can obtain by contacting our online support.
+  - [15] 2026-11-02: the enterprise ISP page carries the same free-trial FAQ entry | capture: sha256:120fe61a39a2621644342180b3ed2bfddbb6b5722526801491f2e57dd4e19312 | quote: For some plans, we provide a free trial, which you can obtain by contacting our online support.
+  - [16] 2026-11-02: the TikTok line page carries the same free-trial FAQ entry | capture: sha256:89803176ee89af778815ad8e11d3a6ff8a468defde9b53ca3b5c52cb8428a15f | quote: For some plans, we provide a free trial, which you can obtain by contacting our online support.
+  - [17] 2026-11-02: third party, a forum promotion post of 2026-09-23: a draw of four 7-day trials of one static ISP address each, two in the United States and two in Japan | capture: sha256:7e71ebefb3b153a42f471fa64abce8ead8d08ec7039676ecdd89c398e6dc2fe0 | quote: 每位中奖用户可获得 1 个固定 ISP IP 试用资格，单个 IP 价值约 $1.8–$2.8。
+  - [18] 2026-11-02: third party, a forum promotion post: bulk purchase of static ISP addresses goes down to 75 percent of list price | capture: sha256:c3a31ff2482fa75c9300455f98ebccb8be0d52210038d9df01f036e9553ffae0 | quote: 最低6.7元/原生ip/7Days，不限流量，新用户买1ip立享5折，批量购买最高75折
+  - [19] 2026-11-02: third party, a forum promotion post: whole C-segment resources are offered as a customization for bulk or fixed-subnet needs | capture: sha256:469046c31647de0c9c3dc87076c43e44eb294699da847273ef3e4aebf79e8334 | quote: 也可以直接做 整 C 段资源定制
+- sources:
+  - [1] https://linkstatic.com/pricing/isp-subnet/m
+  - [2] https://linkstatic.com/pricing/isp-proxy/m
+  - [3] https://linkstatic.com/en/pricing/isp-subnet/
+  - [4] https://linkstatic.com/en/sign-up
+  - [5] https://linkstatic.com/en/pricing/isp-proxy/m
+  - [6] https://linkstatic.com/static/common/package/js/long-static-ip-m.js
+  - [7] https://linkstatic.com/static/common/package/js/isp_subnet_m.js
+  - [8] https://linkstatic.com/en/pricing/isp-subnet/m
+  - [9] https://linkstatic.com/static/common/package/js/isp_subnet.js
+  - [10] https://linkstatic.com/en/global-resources
+  - [11] https://linkstatic.com/static/common/index/js/pay.js
+  - [12] https://linkstatic.com/static/js/request.js
+  - [13] https://linkstatic.com/pricing/isp-subnet/
+  - [14] https://linkstatic.com/en/pricing/isp-proxy/
+  - [15] https://linkstatic.com/en/pricing/isp-enterprise/
+  - [16] https://linkstatic.com/en/pricing/isp-tiktok/
+  - [17] https://www.nodeloc.com/t/topic/110495
+  - [18] https://www.nodeloc.com/t/topic/104254
+  - [19] https://www.nodeloc.com/t/topic/106655
+
+## monosans/proxy-list
+
+- `ip-proxy/monosans-proxy-list` | qualifies-with-caveat | evidence measured | binding retention-clamped | category public proxy list | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T10:34:16.141Z (live) | stale on 2026-12-03
+- url https://github.com/monosans/proxy-list | page https://fshy.ajam.dev/p/github-monosans.md
+- free tier: Free, no key: an unauthenticated GET returned 1,751 proxies in one JSON document, 1,178 SOCKS5, 434 HTTP and 139 SOCKS4, each row carrying its response time, exit IP, ASN number and organisation, and a geolocation block, and the list is regenerated hourly with a full-fetch verification. | unit: objects | metered on: none | read on: 2026-10-24 | source: [1] | note: The unit is addresses: the 1,751 is the whole published list, counted row by row from the response read on 2026-10-24, not an allowance. Nothing is charged and nothing is metered. The schema's unit enum has no token for an address, so the nearest one is used and the count is stated here in full.
+- per-object cap: not applicable | source: [1] | note: The nearest thing to an object cap is the size of one response: the entire list arrives as a single JSON document of 1,751 rows, so the document and the pool are the same thing.
+- retention: not applicable: a live proxy address, not stored bytes | source: [1] | note: An entry is not durable. The list is regenerated hourly, and measured survival is shorter than that: of the 35 addresses that carried a payload at the first check, 10 carried one 22 minutes later.
+- egress: The publisher meters nothing and states no traffic term: the bytes cross the third-party address that the row names, so the exit network belongs to the proxy's operator and no allowance, cap or price for it is published with the list. | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: No account, key or email: the endpoint answered an unauthenticated GET on 2026-10-24 and the 1,751-row JSON was used as returned. Nothing identifies the caller and nothing about the list costs a registration.
+- interface: rest
+- limits:
+  - retention-clamped (binding): regenerated hourly with a full-fetch verification, so a row is at most one hour old and each regeneration replaces the set rather than appending to it [1]
+  - retention-clamped (binding): measured churn: 35 of 100 sampled addresses carried a payload at the first check and 21 of 100 22 minutes later, but only 10 of the first 35 worked again, so 29% of a verified working set survived 22 minutes while 25 addresses stopped and 11 started probe:kept-privately
+- binding note: Nothing the vendor meters fails first: no key, no account, no published rate limit and no byte quota exist to hit. The ceiling is how long an address stays usable. 29% of a verified working set was still working 22 minutes later, and 11 of the 21 addresses working at the second check had failed at the first, so the list has to be re-pulled and re-verified far more often than the vendor's hourly refresh, and that churn rather than any allowance is what limits the gateway.
+- interface detail: One unauthenticated HTTPS GET on raw.githubusercontent.com/monosans/proxy-list/main/proxies.json returns the list as JSON. The addresses it returns speak socks5, http and socks4. The schema's interface enum has no token for a proxy protocol, so the three protocols are named here rather than in the array.
+- endpoint: https://raw.githubusercontent.com/monosans/proxy-list/main/proxies.json
+- tooling: A single curl, or any HTTP client, pulls the JSON; no account, key, SDK or wrapper is involved. Filtering by registration class is a few lines against the asn.autonomous_system_number field, which is the point of this list: the choice can be made before a request is spent. Using an address afterwards needs a client that speaks its protocol, which curl -x and rclone --http-proxy both do for http and socks5, and which curl -x socks4 does for the SOCKS4 rows.
+- composes with: A supply of egress addresses for the Workers AI gateway that can be filtered before use: the row's ASN lets the measured exits be split into consumer ISP and mobile networks against hosting, which is the split no other free list in this topic publishes, so the gateway can aim at a registration class instead of taking whatever the list returns.
+- reliability: Open proxies of unknown ownership that churn as well as shrink: 35 of 100 sampled addresses carried a payload at the first check and 21 of 100 22 minutes later, with 25 stopping and 11 starting, and 24 of the 59 measured exits sat in consumer ISP or mobile ASNs (China Mobile AS9808, Viettel AS7552, Cox AS22773, Biznet AS17451, TATTELECOM AS28840, Superonline AS34984) rather than in datacentres.
+- notes: The verdict rests on (2) with (3) open. Intersected on host and port, 10 of the 35 addresses that worked at the first check worked at the second, which is 29%, and 11 of the 21 working at the second check had failed at the first. Both results files carry host and port, so the intersection is reproducible in one pass, and the difference matters because a reader planning a pull schedule acts on the survival number and not on the yield ratio. The 59 exit addresses are not the mono sample alone: the mono runs produced 39 distinct exits between them and 29 of those appear in this set, so the file aggregates measured exits from the whole lane and the composition figures describe that population. Why this list is qualifies-with-caveat while ip-proxy/proxyscrape-free-list is dead at a comparable yield, 32% against 35%: the ASN field. Proxyscrape publishes no ASN, so its addresses are indistinguishable until one is spent; here the registration class is on the row, which is rung 5 reachable before the first request, and that is the whole difference between a blind pool and a pool that can be aimed. Weight: each rate is one pair of runs over 100 of 1,751 lines, so the churn is a point estimate with no interval, though 25 addresses stopping against 11 starting is a net fall the sample is large enough to show. None exists outside .tmp, so this record corrects nothing outside itself.
+- evidence note: Every field the verdict rests on was measured on 2026-10-24: the anonymous unauthenticated fetch, the 1,751 rows and their protocol split, the per-row ASN and geolocation fields, and the two payload rates over the identical 100 endpoints. The hourly regeneration is documented from the publisher's own schedule and was not observed; the verdict does not turn on it, because the 22-minute decay already bounds the usable window. Moving up would need a larger sample and runs spread across a day, so that a diurnal effect can be told apart from a list that is simply thin.
+- extras:
+  - rung: 2
+  - rung_note: The unit is a single address, so the list starts at rung 2; the per-row ASN field is what also reaches rung 5, because the registration class of an address is knowable before a request is spent, which no other free list in this topic publishes.
+  - protocol_split.socks5: 1178
+  - protocol_split.http: 434
+  - protocol_split.socks4: 139
+  - protocol_split.total: 1751
+  - handshake_rate_run1: 38 of 100
+  - handshake_rate_run2: 25 of 100
+  - payload_rate_run1: 35 of 100
+  - payload_rate_run2: 21 of 100
+  - survival_same_addresses: 10 of the 35 that carried a payload at run 1 carried one at run 2, 29%; 25 stopped and 11 started
+  - asn_composition.exits: 59
+  - asn_composition.asns: 45
+  - asn_composition.prefixes: 58
+  - asn_composition.isp_or_mobile: 24
+  - asn_composition.scope: measured exits, not the mono sample alone, whose two runs gave 39 distinct exits
+  - row_fields: protocol; host; port; timeout; exit_ip; asn.autonomous_system_number; asn.autonomous_system_organization; geolocation.country.iso_code; geolocation.city.names; geolocation.location
+  - asn_field: yes
+  - geolocation_field: yes
+  - regeneration: hourly, with a full-fetch verification
+  - sample_size: 100 stratified random lines, run twice 22 minutes apart over the identical endpoint set, 40 http, 40 socks5, 20 socks4
+- evidence:
+  - probe:kept-privately 2026-10-24: First run over 100 stratified random lines (40 http, 40 socks5, 20 socks4): 38 completed a handshake and 35 carried a payload, 35%, from 28 distinct exits.
+  - probe:kept-privately 2026-10-24: The identical 100 endpoints re-run 22 minutes later: 25 handshakes and 21 payloads, 21%. Intersected on host and port, only 10 of the 35 addresses that carried a payload at the first run did so again, while 11 of the 21 working at the second run had failed at the first.
+  - probe:kept-privately 2026-10-24: 59 measured exit addresses resolved to a prefix, an ASN and an organisation: 45 distinct ASNs and 58 distinct prefixes, with Cox AS22773 appearing 5 times, Viettel AS7552 4 times, China Mobile AS9808 and Biznet AS17451 twice each, and TATTELECOM AS28840 and Superonline AS34984 once each.
+  - probe:https://github.com/monosans/proxy-list 2026-11-02: the public repository page of monosans/proxy-list answers an unauthenticated GET with HTTP 200 at this URL, which is also the final URL | capture: sha256:b4c74a6bc550225544704242809103e9e1921407bb54869d42137ecf6fbc0f9e | quote: "final_url": "https://github.com/monosans/proxy-list", "method": "GET", "status": 200
+  - probe:https://raw.githubusercontent.com/monosans/proxy-list/main/proxies.json 2026-11-02: an HTTPS GET of proxies.json with no account, key or token answered HTTP 200 at this URL with no redirect and served the file as text/plain with cache-control max-age=300 | capture: sha256:6a13c48fdc0f5239388da89e0137ec57e66aac585e8e211e0b563d7ecb960499 | quote: "final_url": "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies.json" ... "status": 200 ... "redirects": [] ... "content_type": "text/plain" ... "cache-control": "max-age=300"
+  - probe:https://raw.githubusercontent.com/monosans/proxy-list/main/proxies.json 2026-11-02: an unauthenticated HTTPS GET of proxies.json returns a JSON array of objects that carry protocol (socks5, http and socks4 among them), host, port, timeout, exit_ip, an asn object with autonomous_system_number and autonomous_system_organization, and a geolocation object | capture: sha256:af1b0ce5bafdc3750be70f985f2aee92c1d8595d9a2bc193457dcaedd316fcf7 | quote: [{"protocol":"socks5","username":null,"password":null,"host": ... "timeout": ... "exit_ip": ... "asn":{"autonomous_system_number": ... "autonomous_system_organization": ... "geolocation":{ ... "protocol":"http" ... "protocol":"socks4"
+  - probe:https://api.github.com/repos/monosans/proxy-list 2026-11-02: the GitHub API resource repos/monosans/proxy-list names https://github.com/monosans/proxy-list as its repository page | capture: sha256:607bf1baafc8c492c044d36695b90e3bd4e9f0e1987f994bbee650ddecbad60e | quote: "html_url":"https://github.com/monosans/proxy-list"
+  - [1] 2026-11-02: the repository at this URL publishes the free HTTP, SOCKS4 and SOCKS5 proxy lists that the record describes, re-checked every hour, as plain files served by GitHub with no signup, no API key and no rate limit | capture: sha256:6b61666651e816740f7f4de988246df7f9c4aab5f78d0750c0c04da65f49458a | quote: Free HTTP, SOCKS4 and SOCKS5 proxies, re-checked every hour. ... No signup, no API key, no rate limit: these are plain files served by GitHub.
+  - [1] 2026-11-02: the repository lists proxies.json, at https://raw.githubusercontent.com/monosans/proxy-list/main/proxies.json, as its file of every proxy with metadata | capture: sha256:6b61666651e816740f7f4de988246df7f9c4aab5f78d0750c0c04da65f49458a | quote: | [`proxies.json`](https://raw.githubusercontent.com/monosans/proxy-list/main/proxies.json) | every proxy, with metadata |
+- sources:
+  - [1] https://github.com/monosans/proxy-list
+
+## NordVPN (basic)
+
+- `ip-proxy/nordvpn-exits` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category vpn subscription (exit source) | tier basic
+- needs card unknown, phone no, ID no, institution no | verified 2026-10-24T10:07:11.000Z (live) | stale on 2026-11-24
+- url https://nordvpn.com/pricing/ | page https://fshy.ajam.dev/p/nordvpn.md
+- price $3.49 per month on a 2-year term (Basic); no per-TB price exists in the sources read | parsed USD 3.49/mo
+- free tier: No free tier. The cheapest plan read is Basic at $3.49 per month on a 2-year term, billed $94.23 for the first 27 months with 3 extra months and a 69% saving shown; the Dedicated IP is a separate add-on shown as Add at checkout with no price. | unit: none | metered on: none | read on: 2026-10-24 | source: [1] | note: $3.49 per month is the 2-year Basic rate, not a monthly rate. The page states the price with a dollar sign and the locale read was the US one; the currency code was not printed, so the record repeats the symbol rather than asserting USD.
+- per-object cap: not applicable | source: [2] | note: The pool is 7,193 servers over 775 distinct /24s in 25 ASNs, measured 2026-10-24; none of those numbers is an object size.
+- retention: not applicable: an address, not an object | source: [2] | note: No data is retained. Storage retention policies do not apply. Duration of continuous IP address assignment before rotation is unmeasured.
+- egress: unverified: no source read for this record states a traffic allowance or a per-GB price; the plan is quoted by term only. A byte cap has not been ruled out, and one would change the verdict. metered is recorded false because no metered statement was found, which is an absence of evidence and not a vendor promise. | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: Account creation requires an email address. Plan purchase requires an active payment method, though specific card requirements at initial registration are unverified.
+- interface: rest
+- limits:
+  - per-ip-shaping (binding): 10 simultaneous connections on one account, ten devices [1]
+  - per-ip-shaping (binding): a shared server accepts at most five devices at once, one per protocol, so ten connections over one server is not ten exits [3]
+- limits note: Two constraints found that name no vocabulary kind. (1) Address concentration: 775 /24s sit in 25 ASNs, and 347 of them, 45%, are in AS212238 Datacamp, so the number of distinct networks a rotation can reach is 25 and not 7,193. (2) The Dedicated IP is an add-on whose price is not published on the vendor's own pages read for this record; the checkout shows it as Add at checkout with no figure, and its measured subgroup is 209 /24s in 12 ASNs, 155 of them in AS212238. The connection ceiling is ten, not the eight the facts supplied for this record carried: the pricing page says Ten simultaneous connections on ten devices, the support article says You can connect up to 10 devices to a single NordVPN account at the same time, and the app's own error text says If you're connected on 10 devices, first disconnect one of them.
+- binding note: At about 599,000 requests and 45 GB a month no byte quota binds, because no per-GB price or byte allowance appears in the sources read. What binds first is the ceiling attached to the caller: 10 simultaneous connections on one account, of which at most five can share one server, so the 25-ASN pool is reached by rotating ten connections and not by opening 775 addresses.
+- interface detail: Two access paths are established. The server list at https://api.nordvpn.com/v1/servers?limit=100000 answers without a credential and returns the whole pool, which is how it was measured. The vendor also documents HTTP proxy and SOCKS5 as connection methods alongside NordLynx, NordWhisper, OpenVPN TCP and OpenVPN UDP: a total of five devices can be connected to one server at the same time: through HTTP proxy, SOCKS5, NordLynx, NordWhisper, OpenVPN TCP, and OpenVPN UDP. That matters more than the tunnel for this topic, because a SOCKS5 or HTTP proxy endpoint is reachable without a WireGuard implementation. The schema's interface enum has no token for socks5, http-proxy, wireguard or openvpn, so the protocols are named here and not in the array; putting them in the array fails validation, which is the defect four sibling records in this topic already carry.
+- endpoint: part of interface detail
+- tooling: Querying the server fleet requires standard HTTP requests: the public servers API requires no authentication. The vendor documents SOCKS5 and HTTP proxy endpoints alongside standard VPN tunnels, allowing integration with proxy-compatible HTTP clients without custom WireGuard implementations.
+- composes with: A Worker or a free compute node dials the tunnel and the traffic leaves at the exit address, so NordVPN supplies the address and carries the bytes; at about 45 GB a month the tunnel is one of the 10 connections the account allows, so chaining means rotating a handful of exits rather than reaching all 25 ASNs at once.
+- reliability: Suspension and throttling thresholds were unobserved during testing. Exit addresses concentrate heavily in AS212238 (Datacamp Limited), resulting in datacenter network classification rather than residential eyeball status.
+- notes: What the record establishes, and what it refuses to. The 7,193 figure is a node count: the same response holds 775 distinct /24s, so 7,193 servers over 25 ASNs is a ratio of about 288, and a document that reads the server count as an address count overstates the reachable networks by 288x. First, the connection ceiling is 10, not 8, and there is no Shared tier with an 8-connection cap: the pricing page reads Ten simultaneous connections on ten devices secured with one NordVPN account, the support article reads You can connect up to 10 devices to a single NordVPN account at the same time, and the app's own error text reads If you're connected on 10 devices, first disconnect one of them. Three independent first-party sources agreeing is why the number in limits is ten. The qualifier that makes it bite is the per-server rule: a shared server takes at most five devices, one per protocol, so ten connections over one server is not ten exits. Reproduced before writing this record, not relayed: a fresh fetch of the API returned HTTP 200 and 26,946,981 bytes, 7,193 server records, 150 country codes and 775 distinct /24s from the station fields, and five sampled prefixes re-resolved through RIPE to the same ASNs the stored table carries. What that reproduction does not do is re-run all 775 lookups, so the 25-ASN count and the 347 /24s in AS212238 rest on the stored table plus a five-prefix spot check. The dedicated-IP feature page answered 403 outright and is cited for the add-on shape only, on the pricing table's Add at checkout row. Candidate 2 is the live one and it is the one this record cannot close: the measurement is a single fetch of the list on one day, resolved through RIPE, and the pool as handed out at connect time was never observed. The caveat in the verdict is therefore the concentration, not the price: 45% of the shared fleet and 155 of 209 dedicated-IP /24s sit in the same ASN, so a NordVPN exit and a Proton exit can land in the same ASN. The Dedicated IP narrows the pool to 12 ASNs and does not leave AS212238, and its price is unpublished on the pages read, so it cannot be priced into a recommendation. Two attributions this record makes from a neighbour rather than from a page: the datacenter reading of AS212238, whose holder CDNEXT Datacamp Limited is named in ip-proxy/protonvpn-exits, and the Proton comparison itself, which is that record's measured exit. Neither is a hosting flag read from an IP-type database, so the class question stays at ASN and not at registration class. The interface array carries only rest because the schema's enum has no token for socks5, http-proxy, wireguard or openvpn; four sibling records in this topic already fail the gate on exactly that, and interface_detail names the protocols instead of breaking validation. Cross-topic: egress/nordvpn answers a different question, port forwarding, which this vendor sells only as a Dedicated Server, and it carries price_per_tb_month and identity_cost as unverified because its lane read no purchase page. This record supplies the price and the identity class. It does not change that record's verdict and does not edit it.
+- evidence note: The verdict rests on four fields: the plan price (read from the vendor's page, documented), the 10-connection cap (three first-party sources, documented), the identity class (email), and the address diversity (measured). The weakest of those is documented. The traffic-byte position is the one field left unverified, and it does not move the verdict, because the plan is sold by term with no allowance attached in the sources read. Measured would need the server list resolved again from a local network and a live connection recording the address actually handed out, because a /24 in the list is a pool and not an address.
+- extras:
+  - rung: 4
+  - rung_note: Every distinct /24 in the vendor's own server list was resolved to an ASN with RIPE, so the record knows the exit sits in AS212238 rather than in an unnamed network; it stops at rung 4 because no exit was connected to and no IP-type flag was read, so the datacenter reading rests on the holder's name and not on a measured hosting field.
+  - asn_diversity.measured_on: 2026-10-24
+  - asn_diversity.servers: 7193
+  - asn_diversity.countries: 150
+  - asn_diversity.subnets_24: 775
+  - asn_diversity.asns: 25
+  - asn_diversity.largest_asn: AS212238 Datacamp
+  - asn_diversity.largest_asn_subnets_24: 347
+  - asn_diversity.largest_asn_share: 45%
+  - asn_diversity.nodes_per_subnet_24: 9.3
+  - asn_diversity.servers_per_asn: 288, which is why a server count is not an address count
+  - dedicated_ip.product: add-on
+  - dedicated_ip.price: unverified: not published on the vendor's own pages read for this record
+  - dedicated_ip.subnets_24: 209
+  - dedicated_ip.asns: 12
+  - dedicated_ip.largest_asn: AS212238 Datacamp
+  - dedicated_ip.largest_asn_subnets_24: 155
+  - dedicated_ip.note: 155 of the 209 /24s in the dedicated-IP subgroup sit in the ASN that also holds 45% of the shared fleet, so the add-on narrows the pool to 12 ASNs without leaving the ASN that binds.
+  - shared_asn_with: AS212238 is the ASN measured for the Proton VPN exit in ip-proxy/protonvpn-exits, so the two subscriptions do not diversify against each other at the top of their pools.
+  - price: $3.49 per month on a 2-year term, Basic; $94.23 billed for the first 27 months of the 2-year plan with 3 extra months
+  - connection_ceiling.stated: Ten simultaneous connections on ten devices secured with one NordVPN account.
+  - connection_ceiling.value: 10
+  - connection_ceiling.per_server: at most five devices on one server, one per protocol
+  - connection_ceiling.enforcement: client error reads You initiated too many connections or reached the device limit: Wait 10 minutes before the next connection. If you're connected on 10 devices, first disconnect one of…
+  - connection_ceiling.corrects_brief: three first-party sources say 10 and none says 8
+  - access_methods: HTTP proxy, SOCKS5, NordLynx, NordWhisper, OpenVPN TCP, OpenVPN UDP; SOCKS5 and HTTP proxy are documented as ways to connect, which is what makes this reachable from a proxy-aware client without a WireGuard implementation.
+  - reproduced_at: 2026-10-24T12:03:55Z
+  - reproduced_how: curl https://api.nordvpn.com/v1/servers?limit=100000 returned HTTP 200 and 26,946,981 bytes; 7,193 records, 150 country codes, 775 distinct /24s from the station fields, matching the /24 count in the stored ASN table. Five sampled prefixes re-resolved through stat.ripe.net prefix-overview to the same ASNs. The full 775-lookup pass was not re-run. nordvpn.com/pricing answered HTTP 403 to a bare curl and HTTP 200 to a browser user agent, which is where the price, the ten-device line and the Add at checkout row were read; features/dedicated-ip answered 403 either way.
+- evidence:
+  - [1] 2026-10-24: Basic is $3.49 per month on a 2-year term, and the plan table says Ten simultaneous connections on ten devices secured with one NordVPN account; the Dedicated IP row reads Add at checkout / Add-on with no price.
+  - [3] 2026-10-24: You can connect up to 10 devices to a single NordVPN account at the same time; a shared server takes at most five devices, one per protocol, naming HTTP proxy, SOCKS5, NordLynx, NordWhisper, OpenVPN TCP and OpenVPN UDP.
+  - [4] 2026-10-24: The client-side enforcement of the ceiling: You initiated too many connections or reached the device limit, wait 10 minutes, and the app's own text says If you're connected on 10 devices, first disconnect one of them.
+  - [5] 2026-10-24: Dedicated IP is bought per account and multiple IPs may be held, but you can't exceed ten simultaneous connections overall; no price appears in the article.
+  - [6] 2026-10-24: Dedicated IP is sold as an add-on to the subscription; a direct fetch of this page answered HTTP 403, so the add-on claim rests on the pricing table's Add at checkout row and on the support article, not on this URL.
+  - [2] 2026-10-24: The vendor's own server list returns 7,193 servers across 150 countries; this response is the input the ASN measurement ran on.
+  - probe:nordvpn-api-asn-diversity-2026-10-24 2026-10-24: 775 distinct /24s resolved to 25 distinct ASNs; 347 of the 775, 45%, are in AS212238 Datacamp, the ASN measured for the Proton exit; the dedicated-IP subgroup is 209 /24s in 12 ASNs with 155 in AS212238.
+  - probe:api.nordvpn.com/v1/servers?limit=100000@2026-10-24T12:03Z 2026-10-24: Reproduction of the pool from a fresh fetch: HTTP 200, 26,946,981 bytes, 7,193 server records, 150 distinct country codes, and 775 distinct /24s derived from the station fields, which is the same /24 count the ASN measurement used.
+  - probe:stat.ripe.net/data/prefix-overview five sampled /24s 2026-10-24: A live re-check of five sampled prefixes agreed with the stored resolution: 109.204.49.0/24, 138.199.10.0/24 and 138.199.11.0/24 to AS212238 CDNEXT Datacamp Limited, and 130.195.218.0/24 and 135.136.7.0/24 to AS9009 M247 Europe SRL.
+- sources:
+  - [1] https://nordvpn.com/pricing/
+  - [2] https://api.nordvpn.com/v1/servers?limit=100000
+  - [3] https://support.nordvpn.com/hc/en-us/articles/19476515228305-How-many-devices-can-I-use-with-NordVPN
+  - [4] https://support.nordvpn.com/hc/en-us/articles/47181405478417-I-get-the-Session-Limit-Reached-error-on-NordVPN
+  - [5] https://support.nordvpn.com/hc/en-us/articles/19484196251921-How-to-purchase-a-dedicated-IP-address
+  - [6] https://nordvpn.com/features/dedicated-ip/
+
+## NovixLink (诺联主机)
+
+- `ip-proxy/novixlink-isp-vps` | qualifies-with-caveat | evidence documented | binding volume-quota | category ISP-registered VPS (Chinese market) | tier LAX-CUPN Lite (NTT line) and LAS-COX Lite (Cox line)
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T10:07:11.000Z (live) | stale on 2026-11-24
+- url https://novixlink.com/store/nttispipvps | page https://fshy.ajam.dev/p/novixlink.md
+- free tier: No free tier. LAX-CUPN Lite CAD 7.99/month: 1 vCPU, 768 MB DDR4, 10 GB RAID10 SSD, 100 Mbps up and 100 Mbps down, 500 GB bidirectional traffic per month, 1 dedicated US dual-ISP native residential IPv4, test IP 192.220.114.2. LAS-COX Lite CAD 19.99/month: 1 vCPU, 768 MB DDR4, 10 GB RAID10 SSD, 200 Mbps up and 200 Mbps down, 1000 GB bidirectional traffic per month, 1 dedicated US dual-ISP native home-broadband IPv4, test IP 24.120.*.*. | unit: none | metered on: none | read on: 2026-10-24 | source: [1] | note: The Cox store page states 1000 GB per month for LAS-COX Lite. The commissioning summary for this record abbreviated that to 1 GB; the page is the authority and the record carries the page's figure.
+- per-object cap: not applicable | source: [1]
+- retention: not applicable: a rented machine and its address, not stored bytes. Terms 5.3: on non-payment the VPS, its IP and its data are deleted at expiry, with a grace period of about 48 hours that is stated not to be a guarantee of resource retention. | source: [2] | note: Deletion at expiry is a property of the rental, not a retention window on stored objects.
+- egress: 500 GB 每月双向流量 (bidirectional traffic per month) on LAX-CUPN Lite, 1000 GB on LAS-COX Lite. The vendor publishes no overage price on either page: what happens past the allowance is not stated, so the allowance is a ceiling without a stated consequence. | metered: yes | free allowance: 500 GB/month on LAX-CUPN Lite; 1000 GB/month on LAS-COX Lite | source: [1]
+- identity: email | detail: The registration form asks for a name, an email address and a password and nothing else: no phone, no card, no identity document. Payment is Alipay, card or crypto. Terms 5.2 names Alipay and crypto as methods that cannot auto-debit and a card as the one that can; 6.2 names crypto again, as a payment that can only be refunded to site balance.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 500 GB bidirectional traffic per month on LAX-CUPN Lite; 1000 GB on LAS-COX Lite, 2000 GB on LAS-COX Basic, 4000 GB on Pro, 8000 GB on Ultra [1]
+  - per-ip-shaping: 100 Mbps peak up and down on LAX-CUPN Lite; 200 Mbps peak up and down on every LAS-COX plan [3]
+- limits note: Two constraints the vocabulary cannot name. First, the ISP label is only what the vendor's own IPLense reading said at first delivery (terms 4.2), so it is a claim about one database's reading of the address rather than a property of the address, and it does not move when that database changes. Second, every LAS-COX plan was shown as 全部售罄 (all sold out) on 2026-10-24, so the one line that passed the registration check could not be bought that day.
+- binding note: 500 GB a month is about eleven times the gateway's ~45 GB/month, so the quota does not fail at the scale; it is named because it is the only constraint here the vocabulary can express and the one the product states. The constraint that actually decides this record is the registration class, which has no vocabulary value, and it is what the verdict's caveat is about.
+- interface detail: SSH to the VPS on its static address. SOCKS5 or HTTP proxying is whatever runs on the machine, not a vendor endpoint: the vendor sells the address and the box, not a proxy service. Orders, renewals and IPv4 changes are handled in the customer portal.
+- tooling: An SSH client plus a proxy daemon installed on the VPS. The vendor publishes no proxy endpoint, no API and no wrapper. That is a note about tooling and not a reason to reject the provider: the address is the product, and the machine is only how it is held.
+- composes with: The Worker opens an outbound connection to the VPS's static IPv4 and the VPS makes the upstream request, so the upstream sees an address in AS2914, AS3257 or AS22773 instead of AS13335.
+- reliability: The address is static for the life of the plan, but terms 7.3 lets the vendor switch the line, rate-limit, block ports or null-route the IP for at least an hour on a DDoS or attack, and terms 4.2 fixes the ISP label to the IPLense reading at first delivery, so a later re-registration of the range does not reopen the claim.
+- notes: The decisive vendor sentence, from terms 4.2: '双 ISP 住宅 IP 和双 ISP 家宽 IP 仅以服务首次交付时的 IPLense 快速模式结果和系统记录作为正式交付标准'. Read against knowledgebase 48, 双 ISP means the ASN name and the company type label both read ISP on one database, not that two networks carry the traffic, so the claim this record tests is exactly the two fields that were measured. Terms 4.3 also matters for how far the measurement travels: a delivered IP need not be in the sampled /24, only in the same ASN and the same operating company, so the pass on 24.120.4.1 is evidence about the prefix sampled and about the ASN, not proof that every address the vendor hands out in that ASN reads ISP. Each line was checked with one address, taken from the test IP the vendor itself publishes.
+- evidence note: Plan pricing, bandwidth quotas, and signup fields are documented from vendor pages read on 2026-10-24. Registration classes for the three sample lines were measured using RIPE, ARIN RDAP, and IP2Location on 2026-10-24.
+- extras:
+  - rung: 5
+  - rung_note: The product is a claim about how the address is registered and nothing else, so the record sits at rung 5 and the measurement tested exactly that: ASN name and usage-type, per line, one sample each.
+- evidence:
+  - [1] 2026-10-24: LAX-CUPN Lite at CAD 7.99/month: 1 vCPU, 768 MB DDR4, 10 GB RAID10 SSD, 100 Mbps up and down, 500 GB bidirectional traffic per month, one dedicated dual-ISP residential IPv4, test IP 192.220.114.2. The page names NTT America as the upstream and the product 美国NTT洛杉矶双ISP住宅IP中国优化VPS.
+  - [3] 2026-10-24: LAS-COX Lite at CAD 19.99/month: 1 vCPU, 768 MB, 10 GB RAID10 SSD, 200 Mbps up and down, 1000 GB bidirectional traffic per month, test IP 24.120.*.*, described as 真实家宽运营商直供 (supplied directly by the real home-broadband operator). All four LAS-COX plans show 全部售罄 (all sold out).
+  - [2] 2026-10-24: Terms 4.2 is the delivery standard quoted in notes; 4.3 states a delivered IP need not share the test IP's subnet, prefix, /24 or neighbours but must be in the same ASN and run by the same operating company; 5.2 names Alipay, crypto and card as payment methods; 7.3 allows line switching, rate limiting, port blocking and null routing during an attack.
+  - [4] 2026-10-24: The vendor's own definition of 双 ISP: the ASN name and the operating company's type label must both read ISP on IPLense, and the article says this does not mean two lines. It also states that geography, risk score, purity, platform results and speed are not part of the delivery standard, and that IPLense 专业模式 is for comparison only.
+  - probe:192.220.114.2 2026-10-24: RIPE stat: AS2914 NTT America; ARIN RDAP: NET-192-220-0-0-1, a direct allocation; IP2Location demo: usage_type DCH and as_usage_type DCH. The NTT line fails the dual-ISP claim on the vendor's own two-field test.
+  - probe:216.36.86.2 2026-10-24: RIPE stat: AS3257 GTT-BACKBONE; IP2Location demo: usage_type DCH and as_usage_type DCH. The GTT line fails the dual-ISP claim.
+  - probe:24.120.4.1 2026-10-24: RIPE stat: AS22773 Cox Communications; IP2Location demo: usage_type ISP and as_usage_type ISP; PTR wsip-24-120-4-1.lv.lv.cox.net. The Cox line passes the dual-ISP claim.
+- sources:
+  - [1] https://novixlink.com/store/nttispipvps
+  - [2] https://novixlink.com/legal/terms-of-services
+  - [3] https://novixlink.com/store/cox-isp-vps
+  - [4] https://novixlink.com/knowledgebase/48/

@@ -1,0 +1,165 @@
+# FreeVPS.org
+
+> freevps.org | Compute, Egress and tunnels; 3 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/freevps/ | JSON https://fshy.ajam.dev/api/v1/entity/freevps.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## FreeVPS.org (Compute)
+
+- `compute/freevps-org` | qualifies-with-caveat | evidence documented | binding write-gated | category cloud VM | tier Regular Community
+- needs card no, phone yes, ID no, institution no | verified 2026-10-24T06:14:00.000Z (live) | stale on 2026-11-24
+- url https://freevps.org/
+- free tier: '1 core (fair share)', 'RAM 1GB, up to 2GB with justification', 'Disk 20GB NVMe/SSD/HDD, up to 40GB', 'Bandwidth 250GB on 150 Mbps port', 'IPv4 20 forwarded NAT ports', 'IPv6 /64 or /80 dedicated subnet'. The page's own summary reads '$0', 'No credit card or payment ever required'. | unit: GB | metered on: downloaded-bytes | read on: 2026-10-24 | source: [1] | note: the vendor writes GB and does not say whether decimal or binary; kept as stated. The 2026-05 announcement thread on LowEndTalk still shows the older smaller figures (512 MB RAM, 10 GB disk, 250 GB on a 100 Mbps port), so the site is the newer statement
+- per-object cap: not applicable: the unit is a virtual machine, not an object
+- retention: 'There is no fixed term guarantee. Virtual machines may be reclaimed if physical nodes are reorganized.' No inactivity clock is published. | source: [1] | note: the only stated reclamation trigger is a hypervisor being reorganised, which is a capacity event rather than a timer
+- egress: 'Bandwidth 250GB on 150 Mbps port' on the regular allocation, and '500GB on 300 Mbps port' on the charity-donor allocation. The vendor does not say what happens after the 250 GB. | metered: yes | free allowance: 250GB | source: [1]
+- identity: email | detail: No card and no hold: the site states 'No credit card or payment ever required'. No payment field exists on the form. The real gate is not identity but forum standing: 'Active forum account', 'Account age: 3 months or older', '50 or more substantive posts', 'At least 25 received thanks'.
+- interface: ssh
+- limits:
+  - volume-quota: 250 GB of traffic a month on a 150 Mbps port for the regular allocation [1]
+  - per-ip-shaping: 20 forwarded NAT IPv4 ports; a dedicated IPv6 /64 or /80 subnet [1]
+  - write-gated (binding): four forum gates: an account 3 months or older, 50+ substantive posts, 25+ received thanks, and a meaningful comment on the request thread carrying the portal Client No and ID [1]
+  - retention-clamped: no fixed term; a VM may be reclaimed if a physical node is reorganised [1]
+- limits note: Eligibility is gated on a 3-month-old forum account with 50 posts and 25 thanks, so the wait is three months of participation before a machine exists; after that the binding limit is the 250 GB a month and the absence of any term guarantee.
+- binding note: the machine is not bought or booked but awarded: a forum account three months old with 50 posts and 25 thanks is a social-history gate that a client starting today cannot clear at any price
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: NAT KVM with 20 forwarded ports, root over SSH on a non-standard port, IPv6 /64 or /80, no individual support - all questions go to the community thread.
+- composes with: Twenty forwarded IPv4 ports plus a dedicated IPv6 subnet is real inbound reachability for 20 services, which the BoxyBSD box does not give without buying an address or using a shared load balancer. It composes with the forum identity: the same LowEndTalk account that earns this also reaches other sponsored offers.
+- reliability: no reliability event observed; the vendor states 'There is no SLA provided. Uptime is provided on a best-effort basis and sustained by volunteers.' and publishes no status page on the pages read.
+- notes: The eligibility is the whole story: the machine is excellent and free, and it is unavailable to anyone without three months of forum history, 50 posts and 25 thanks. That is not a defect in the offer, it is the offer. What could not be established: whether the 250 GB is a hard cut or a shape-down, whether the 20 forwarded ports include UDP, and what the renewal cadence is (the site names Blesta renewal notifications but publishes no interval).
+- evidence note: shape, traffic, ports and the four eligibility gates are quoted from the vendor's own page read; the portal form was read as…
+- extras:
+  - facets.class: perpetual-vps
+  - facets.free_tier_kind: perpetual
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 1
+  - facets.shape.disk_gib: 20
+  - facets.shape.gpu_count: 0
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.disk_gib: 20
+  - billing_model: free
+  - term: no fixed term
+  - m10h_usd: 0.0
+  - m24h_usd: 0.0
+  - price_arithmetic: no price: '$0' and 'No credit card or payment ever required'
+  - free_tier_kind: perpetual
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: 20 forwarded NAT IPv4 ports; UDP on those ports is not stated
+  - network_out.static_ip: no
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none published; the VM is a KVM guest that persists until reclaimed
+  - fleet.hypervisors: 13
+  - fleet.regions: 7
+  - fleet.locations: USA, UK, Sweden, Romania, Japan, Singapore, New Zealand
+  - eligibility: forum account 3 months or older; 50 or more substantive posts; 25 or more received thanks; a meaningful comment on the request thread with the portal Client No and ID
+  - donor_tier: USD 5 or more to any charity, receipt posted; raises the allocation to 2 cores, 2 GB, 40 GB and 500 GB traffic; the four forum gates still apply
+- evidence:
+  - [1] 2026-10-22: '13 Bare-Metal Nodes Online across 4 continents / 7 Datacenter Regions / $0 Cost to Members / No credit card or payment ever required', quoted; probe 200, 68462 bytes, sha256 709d6c8f8b5c74a533493a657943431898f329b37abc732516347a1387bec30b
+  - [1] 2026-10-22: the four criteria are 'Active forum account', 'Account age: 3 months or older', '50 or more substantive posts', 'At least 25 received thanks', quoted
+  - [1] 2026-10-22: the Regular Community allocation is 'CPU 1 core (fair share) / RAM 1GB, up to 2GB with justification / Disk 20GB / Bandwidth 250GB on 150 Mbps port / IPv4 20 forwarded NAT ports / IPv6 /64 or /80 dedicated subnet', quoted
+  - [1] 2026-10-22: 'There is no SLA provided. Uptime is provided on a best-effort basis' and 'There is no fixed term guarantee. Virtual machines may be reclaimed if physical nodes are reorganized', quoted
+  - [2] 2026-10-22: the offer thread's standing notes read 'There is NO SLA on this service, in fact, frequent server reboots might be needed... No Backups are done on our side, disks are running in RAID0 YOLO mode... There is no term guarantee', quoted in the search snippet
+  - [1] 2026-10-24: quoted: 'CPU 1 core (fair share)', 'RAM 1GB, up to 2GB with justification', 'Disk 20GB NVMe/SSD/HDD, up to 40GB', 'Bandwidth 250GB on 150 Mbps port', 'IPv4 20 forwarded NAT ports', 'IPv6 /64 or /80 dedicated subnet'
+  - [1] 2026-10-24: quoted: '$0', 'Cost to Members', 'No credit card or payment ever required'
+  - [1] 2026-10-24: quoted: 'You must have a verifiable history of recent, ongoing participation on LowEndTalk or LowEndSpirit.', 'Account age: 3 months or older', '50 or more substantive posts', 'At least 25 received thanks'
+  - [1] 2026-10-24: quoted: 'There is no fixed term guarantee. Virtual machines may be reclaimed if physical nodes are reorganized.' and 'There is no SLA provided. Uptime is provided on a best-effort basis and sustained by volunteers.'
+  - [3] 2026-10-24: the registration form as served: inputs for first_name, last_name, address1, city, zip, phone, email, tax_id, custom_field1 labelled 'LET Username', new_password, recovery_email and an agree_tos checkbox; no card or payment input anywhere in the form
+  - [4] 2026-10-24: the vendor's own thread, 'How To Get A Free VPS': 'head over to portal.freevps.org, click Register, and sign up. Note both your "Client No: ____" and "Your ID: ____" for use in a meaningful comment in this thread'; and the twelve named hypervisor sponsors with their locations
+  - [5] 2026-10-24: quoted: 'VirtFusion powers our hypervisor management layer', 'Blesta provides the account lifecycle and client management infrastructure', 'Onidel sponsors the server that hosts our VirtFusion management control panel'
+- sources:
+  - [1] https://freevps.org/
+  - [2] https://lowendtalk.com/discussion/181789/free-nat-kvms-twelve-locations-us-eu-gb-jp-freevps-org
+  - [3] https://portal.freevps.org/order/
+  - [4] https://lowendtalk.com/discussion/181789/free-nat-kvms-courtesy-of-gthost-crunchbits-scaleblade-and-piehasbeeneaten-freevps-org/p1
+  - [5] https://freevps.org/sponsors.html
+
+## FreeVPS.org (Charity Donor)
+
+- `egress/freevps-org-charity-donor` | qualifies-with-caveat | evidence documented | binding write-gated | category free nat vps | tier Charity Donor
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T07:36:42.014Z (live) | stale on 2026-12-04
+- url https://freevps.org/
+- free tier: Charity Donor: 2 cores (fair share), 1GB RAM, 40GB disk, 500GB bandwidth on a 300 Mbps port, 20 forwarded NAT ports, a dedicated /64 or /80 IPv6 subnet; priority while resources remain. | unit: GB | metered on: unstated | read on: 2026-11-03 | source: [1] | note: No period is stated for the 500GB. The USD 5 goes to a charity, not to the vendor.
+- per-object cap: not applicable: a NAT VPS, not an object store | source: [1]
+- retention: not applicable | source: [1]
+- egress: 500GB on a 300 Mbps port; no period or overage rule stated on the page read. | metered: yes | free allowance: 500GB, period not stated | source: [1]
+- identity: email | detail: No payment to the vendor. The four forum criteria apply (active account of 3 months or more, 50 or more posts, at least 25 received thanks) plus a receipt for a donation of USD 5 or more to any charity; the request form is behind a sign-up.
+- interface: ssh
+- limits:
+  - volume-quota: 500GB on a 300 Mbps port, period not stated [1]
+  - write-gated (binding): the four forum criteria still apply, plus a charity donation of USD 5 or more with a receipt posted on the forum [1]
+- binding note: The forum criteria and the charity receipt gate access before any quota matters.
+- interface detail: NAT KVM instance on a donated hypervisor, with SSH.
+- tooling: Any SSH client.
+- composes with: A 500GB NAT box with a dedicated IPv6 subnet; IPv4 inbound is limited to 20 forwarded ports and UDP forwarding is not stated.
+- reliability: No SLA, best effort; instances may be reclaimed when nodes are reorganized.
+- notes: Donor priority does not bypass the forum requirements.
+- evidence note: Allocation and criteria are quoted from the vendor's front page. The aggregator listing shows a lower spec (1024 MB, 20 GB, 200Mbps) than the vendor page.
+- extras:
+  - nat_ports: 20
+  - ipv6: /64 or /80 dedicated subnet
+  - udp_forwarding: unverified: not stated
+  - routed_ipv6_prefix: yes
+  - inbound_ipv4_ports: 20
+  - donation_usd: 5
+  - virtualization: NAT KVM instance with a shared IPv4.
+- evidence:
+  - [1] 2026-11-03: 500GB on a 300 Mbps port | capture: sha256:57ec2f23dd94e5fd7c3457fd5a396ed6a100b3f7eca384f73a47b402c02cebdf | quote: Bandwidth500GB on 300 Mbps port
+  - [1] 2026-11-03: the donor tier asks for a donation of USD 5 or more to any charity with a receipt posted on the forum | capture: sha256:57ec2f23dd94e5fd7c3457fd5a396ed6a100b3f7eca384f73a47b402c02cebdf | quote: Donate $5 or more to any charity, post receipt proof on the forum. Allocation prioritized while resources remain.
+  - [1] 2026-11-03: 20 forwarded NAT ports | capture: sha256:57ec2f23dd94e5fd7c3457fd5a396ed6a100b3f7eca384f73a47b402c02cebdf | quote: IPv420 forwarded NAT ports
+  - [1] 2026-11-03: a dedicated /64 or /80 IPv6 subnet | capture: sha256:57ec2f23dd94e5fd7c3457fd5a396ed6a100b3f7eca384f73a47b402c02cebdf | quote: IPv6/64 or /80 dedicated subnet
+  - [2] 2026-11-03: serverdeals lists the Donor plan at USD 0.0 per year with a lower spec than the vendor page | quote: ###### Donor
+  - [1] 2026-11-03: the free plan needs four forum eligibility criteria | capture: sha256:57ec2f23dd94e5fd7c3457fd5a396ed6a100b3f7eca384f73a47b402c02cebdf | quote: Requires passing all four community eligibility criteria. Subject to spare node capacity.
+  - [1] 2026-11-03: the forum account must be at least 3 months old | capture: sha256:57ec2f23dd94e5fd7c3457fd5a396ed6a100b3f7eca384f73a47b402c02cebdf | quote: Account age: 3 months or older
+  - [1] 2026-11-03: 50 or more forum posts are required | capture: sha256:57ec2f23dd94e5fd7c3457fd5a396ed6a100b3f7eca384f73a47b402c02cebdf | quote: 50 or more substantive posts
+  - [1] 2026-11-03: at least 25 received thanks are required | capture: sha256:57ec2f23dd94e5fd7c3457fd5a396ed6a100b3f7eca384f73a47b402c02cebdf | quote: At least 25 received thanks
+  - [1] 2026-11-03: the host gives no SLA and runs best effort | capture: sha256:57ec2f23dd94e5fd7c3457fd5a396ed6a100b3f7eca384f73a47b402c02cebdf | quote: There is no SLA provided. Uptime is provided on a best-effort basis and sustained by volunteers.
+- sources:
+  - [1] https://freevps.org/
+  - [2] https://serverdeals.cc/
+
+## FreeVPS.org (regular)
+
+- `egress/freevps-org-regular` | qualifies-with-caveat | evidence documented | binding write-gated | category free nat vps | tier Regular Community
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T07:36:42.014Z (live) | stale on 2026-12-04
+- url https://freevps.org/
+- free tier: Regular Community: FREE for qualifying active forum members: 1 core (fair share), 1GB RAM, 20GB disk, 250GB bandwidth on a 150 Mbps port, 20 forwarded NAT ports, a dedicated /64 or /80 IPv6 subnet. | unit: GB | metered on: unstated | read on: 2026-11-03 | source: [1] | note: No period is stated for the 250GB.
+- per-object cap: not applicable: a NAT VPS, not an object store | source: [1]
+- retention: not applicable | source: [1]
+- egress: 250GB on a 150 Mbps port; no period or overage rule stated on the page read. | metered: yes | free allowance: 250GB, period not stated | source: [1]
+- identity: email | detail: No payment. An application needs an active LowEndTalk or LowEndSpirit account of 3 months or more with 50 or more posts and at least 25 received thanks; the instance request form itself is behind a sign-up.
+- interface: ssh
+- limits:
+  - volume-quota: 250GB on a 150 Mbps port, period not stated [1]
+  - write-gated (binding): an application must pass four forum criteria: account 3 months or older, 50 or more posts, at least 25 received thanks, active recent participation [1]
+- binding note: The forum criteria gate access before any quota matters.
+- interface detail: NAT KVM instance on a donated hypervisor, with SSH.
+- tooling: Any SSH client.
+- composes with: A free 250GB NAT box with a dedicated IPv6 subnet; IPv4 inbound is limited to 20 forwarded ports and UDP forwarding is not stated.
+- reliability: No SLA, best effort; instances may be reclaimed when nodes are reorganized.
+- notes: The free plan costs forum standing instead of money.
+- evidence note: Allocation and criteria are quoted from the vendor's front page. The aggregator listing shows a lower spec (512 MB, 10 GB, 100Mbps) than the vendor page.
+- extras:
+  - nat_ports: 20
+  - ipv6: /64 or /80 dedicated subnet
+  - udp_forwarding: unverified: not stated
+  - routed_ipv6_prefix: yes
+  - inbound_ipv4_ports: 20
+  - virtualization: NAT KVM instance with a shared IPv4.
+- evidence:
+  - [1] 2026-11-03: 250GB on a 150 Mbps port | capture: sha256:57ec2f23dd94e5fd7c3457fd5a396ed6a100b3f7eca384f73a47b402c02cebdf | quote: Bandwidth250GB on 150 Mbps port
+  - [1] 2026-11-03: 20 forwarded NAT ports | capture: sha256:57ec2f23dd94e5fd7c3457fd5a396ed6a100b3f7eca384f73a47b402c02cebdf | quote: IPv420 forwarded NAT ports
+  - [1] 2026-11-03: a dedicated /64 or /80 IPv6 subnet | capture: sha256:57ec2f23dd94e5fd7c3457fd5a396ed6a100b3f7eca384f73a47b402c02cebdf | quote: IPv6/64 or /80 dedicated subnet
+  - [1] 2026-11-03: the regular allocation is free for qualifying forum members | capture: sha256:57ec2f23dd94e5fd7c3457fd5a396ed6a100b3f7eca384f73a47b402c02cebdf | quote: For qualifying active forum members, subject to capacity across our global hypervisors.
+  - [2] 2026-11-03: serverdeals lists the Regular plan at USD 0.0 per year with a lower spec than the vendor page | quote: ###### Regular
+  - [1] 2026-11-03: the free plan needs four forum eligibility criteria | capture: sha256:57ec2f23dd94e5fd7c3457fd5a396ed6a100b3f7eca384f73a47b402c02cebdf | quote: Requires passing all four community eligibility criteria. Subject to spare node capacity.
+  - [1] 2026-11-03: the forum account must be at least 3 months old | capture: sha256:57ec2f23dd94e5fd7c3457fd5a396ed6a100b3f7eca384f73a47b402c02cebdf | quote: Account age: 3 months or older
+  - [1] 2026-11-03: 50 or more forum posts are required | capture: sha256:57ec2f23dd94e5fd7c3457fd5a396ed6a100b3f7eca384f73a47b402c02cebdf | quote: 50 or more substantive posts
+  - [1] 2026-11-03: at least 25 received thanks are required | capture: sha256:57ec2f23dd94e5fd7c3457fd5a396ed6a100b3f7eca384f73a47b402c02cebdf | quote: At least 25 received thanks
+  - [1] 2026-11-03: the host gives no SLA and runs best effort | capture: sha256:57ec2f23dd94e5fd7c3457fd5a396ed6a100b3f7eca384f73a47b402c02cebdf | quote: There is no SLA provided. Uptime is provided on a best-effort basis and sustained by volunteers.
+  - [1] 2026-11-03: instances may be reclaimed | capture: sha256:57ec2f23dd94e5fd7c3457fd5a396ed6a100b3f7eca384f73a47b402c02cebdf | quote: There is no fixed term guarantee. Virtual machines may be reclaimed if physical nodes are reorganized.
+- sources:
+  - [1] https://freevps.org/
+  - [2] https://serverdeals.cc/

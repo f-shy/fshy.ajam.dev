@@ -1,0 +1,461 @@
+# fshy: Netdisk and pan, dead
+
+> Netdisks, also called pan drives: cloud drives, many of them from China, and public AList and OpenList instances, and whether they mount.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/netdisk-pan/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## a media instance behind a JavaScript cookie gate (alist.advanced360.top)
+
+- `netdisk-pan/alist-advanced360-top` | dead | evidence measured | binding retention-clamped | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://alist.advanced360.top/ | page https://fshy.ajam.dev/p/advanced360.md
+- free tier: nothing reachable: the host does not serve an anonymous mount list | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable; nothing is readable | source: [1]
+- retention: the host is gone; JS-cookie interstitial | days: 0 | source: [1]
+- egress: nothing to serve | metered: no | source: [1]
+- identity: anonymous | detail: no account would have helped
+- interface: unknown
+- limits:
+  - retention-clamped (binding): the host stopped serving: JS-cookie interstitial probe:https://alist.advanced360.top/api/public/settings
+- binding note: The host is not slow or capped, it is gone; the constraint is that it stopped.
+- tooling: none: no client reaches it
+- composes with: excluded
+- reliability: Death mode: JS-cookie interstitial.
+- notes: a media instance behind a JavaScript cookie gate. JS-cookie interstitial
+- extras:
+  - access_mode: public-instance
+  - read_capability: none
+  - write_capability: not-tested
+  - death_mode: JS-cookie interstitial
+  - last_verified_dead: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 1
+  - first_seen: 2024-01-20
+- evidence:
+  - probe:https://alist.advanced360.top/api/public/settings 2026-10-22: HTTP 200 with a 502-byte body: <title>Loading...</title> and window.location.replace() to the same URL carrying ch=1&js=<JWT>; it is neither JSON nor a page, and the SHA-256 of the body is 770fedcf5d7b62a606978c08b3753fb6ed3c90e6fcae1cb9ecd45fc8e5b88992
+- sources:
+  - [1] https://alist.advanced360.top/
+
+## an instance from the 2024 cohort (pan.t-satoru.top)
+
+- `netdisk-pan/pan-t-satoru-top` | dead | evidence measured | binding retention-clamped | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://pan.t-satoru.top/ | page https://fshy.ajam.dev/p/t-satoru.md
+- free tier: nothing reachable: the host does not serve an anonymous mount list | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable; nothing is readable | source: [1]
+- retention: the host is gone; challenge page | days: 0 | source: [1]
+- egress: nothing to serve | metered: no | source: [1]
+- identity: anonymous | detail: no account would have helped
+- interface: unknown
+- limits:
+  - retention-clamped (binding): the host stopped serving: challenge page probe:https://pan.t-satoru.top/api/public/settings
+- binding note: The host is not slow or capped, it is gone; the constraint is that it stopped.
+- tooling: none: no client reaches it
+- composes with: excluded
+- reliability: Death mode: challenge page.
+- notes: an instance from the 2024 cohort. challenge page
+- extras:
+  - access_mode: public-instance
+  - read_capability: none
+  - write_capability: not-tested
+  - death_mode: challenge page
+  - last_verified_dead: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 1
+  - first_seen: 2024-01-20
+- evidence:
+  - probe:https://pan.t-satoru.top/api/public/settings 2026-10-22: HTTP 403 with an interstitial body from an automated-traffic filter; the host is behind a challenge that no fetch path passed, so its capability is unestablished and it is unusable as a substrate
+- sources:
+  - [1] https://pan.t-satoru.top/
+
+## LG U+ Box / LG Cloud
+
+- `netdisk-pan/lg-u-box-lg-cloud` | dead | evidence reported | binding retention-clamped | category carrier cloud, dead
+- needs card no, phone yes, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://news.lguplus.com/11421 | page https://fshy.ajam.dev/p/lguplus.md
+- free tier: None. U+Box terminated on 2021-12-01 after eleven years | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: Not applicable, the service closed | source: [1]
+- retention: The service ended. No customer data is retained | days: 0 | source: [1]
+- egress: Not applicable | metered: no | source: [1]
+- identity: country-phone | detail: not applicable, the product closed | country: kr
+- interface: unknown
+- limits:
+  - retention-clamped (binding): the service terminated on 2021-12-01 [1]
+- binding note: The service has ended, so the retention clamp is total: there is no offer to test.
+- tooling: none
+- composes with: Nothing to chain. All three Korean carriers exited consumer cloud and folded the product into Google One
+- reliability: No residual product. LG Electronics exited the phone business on 2021-04-05 and LG's own client went with the phone division
+- notes: Service officially decommissioned, reflecting the consolidation of telecom carrier cloud offerings into partner services like Google One.
+- extras:
+  - access_mode: none
+  - closed: 2021-12-01
+  - aliases: LG U+ Box / LG Cloud
+- evidence:
+  - [1] 2026-10-21: 'U+Box가 2021년 12월 1일부로 서비스를 종료' with Google One migration incentives
+  - [2] 2026-10-21: 'U + Box 서비스는 2021년 12월 1일에 종료됩니다'
+  - [3] 2026-10-21: '이통3사 개인용 클라우드 완전 종료', all three carriers exited personal cloud
+  - [4] 2026-10-21: LG Electronics exits the mobile phone business, 2021-04-05
+- sources:
+  - [1] https://news.lguplus.com/11421
+  - [2] https://www.lguplus.com/mobile/plan/addon/addon-life/Z100000127
+  - [3] https://theviewers.co.kr/View.aspx?No=1643482
+  - [4] https://www.lge.co.kr/story/newsroom/187117
+
+## media.advanced360.top
+
+- `netdisk-pan/media-advanced360-top` | dead | evidence measured | binding retention-clamped | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://media.advanced360.top/ | page https://fshy.ajam.dev/p/advanced360.md
+- free tier: nothing reachable: the host does not serve an anonymous mount list | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable; nothing is readable | source: [1]
+- retention: the host is gone; 302 to a host whose TLS fails | days: 0 | source: [1]
+- egress: nothing to serve | metered: no | source: [1]
+- identity: anonymous | detail: no account would have helped
+- interface: unknown
+- limits:
+  - retention-clamped (binding): the host stopped serving: 302 to a host whose TLS fails probe:https://media.advanced360.top/api/public/settings
+- binding note: The host is not slow or capped, it is gone; the constraint is that it stopped.
+- tooling: none: no client reaches it
+- composes with: excluded
+- reliability: Death mode: 302 to a host whose TLS fails.
+- notes: A media mirror. 302 to a host whose TLS fails
+- extras:
+  - access_mode: public-instance
+  - read_capability: none
+  - write_capability: not-tested
+  - death_mode: 302 to a host whose TLS fails
+  - last_verified_dead: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 1
+  - first_seen: 2024-01-20
+- evidence:
+  - probe:https://media.advanced360.top/api/public/settings 2026-10-22: HTTP 302 to ww547.advanced360.top, whose TLS handshake then fails; the pinned notice about excess use and this redirect are the two ends of the same shutdown
+- sources:
+  - [1] https://media.advanced360.top/
+
+## mmpan.net
+
+- `netdisk-pan/mmpan-net` | dead | evidence measured | binding write-gated | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://mmpan.net/ | page https://fshy.ajam.dev/p/mmpan.md
+- free tier: anonymous guest read of 0 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through cloudflare; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - write-gated (binding): no write offered probe:https://mmpan.net/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier
+- reliability: Answers the AList API and returns HTTP 200 on /api/fs/list with no usable body, so there is nothing to read.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: none
+  - write_capability: not-tested
+  - fronting_cdn: cloudflare
+  - advertised_write_flag: no
+  - write_content_bypass: absent
+  - base_path: /
+  - first_seen: 2024-01-20
+  - last_verified_dead: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 1
+- evidence:
+  - probe:https://mmpan.net/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title '?'
+- sources:
+  - [1] https://mmpan.net/
+
+## OpenList
+
+- `netdisk-pan/alist-ucu520-top` | dead | evidence measured | binding write-gated | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://alist.ucu520.top/ | page https://fshy.ajam.dev/p/ucu520.md
+- free tier: anonymous guest read of 0 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through ESA; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - write-gated (binding): no write offered probe:https://alist.ucu520.top/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier
+- reliability: Structurally broken: the OpenList web UI is fully up and /api/public/settings returns 200, while /api/fs/list returns code 500 with 'failed get storage: storage not found' inside an HTTP 200. A liveness check that reads the status marks it alive.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: none
+  - write_capability: not-tested
+  - fronting_cdn: esa
+  - advertised_write_flag: no
+  - write_content_bypass: absent
+  - permission_bitmask: 0
+  - base_path: /
+  - first_seen: 2024-01-20
+  - last_verified_dead: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 1
+- evidence:
+  - probe:https://alist.ucu520.top/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title 'OpenList'
+- sources:
+  - [1] https://alist.ucu520.top/
+
+## Samsung Cloud (storage, discontinued)
+
+- `netdisk-pan/samsung-cloud-storage` | dead | evidence reported | binding retention-clamped | category phone-vendor cloud, dead
+- needs card no, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://www.samsung.com/us/support/answer/ANS10003437/ | page https://fshy.ajam.dev/p/samsung.md
+- free tier: None. It was 15 GB for early Galaxy buyers, cut to 5 GB for new accounts, then discontinued. Gallery Sync and Drive migrated to Microsoft OneDrive | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: Not applicable, the service closed | source: [1]
+- retention: Two-phase shutdown: Gallery Sync and Drive migrated by 2021-09-30, then the remaining sync. Samsung matched the old quota on OneDrive for one year only, after which OneDrive's 5 GB applies | days: 0 | source: [2]
+- egress: Not applicable | metered: no | source: [1]
+- identity: email | detail: a Samsung account, which now gives OneDrive and not Samsung storage
+- interface: unknown
+- limits:
+  - retention-clamped (binding): the storage product was discontinued and migrated to OneDrive by 2021-09-30 [2]
+- binding note: The storage product ended, so the retention clamp is total and there is no offer to test.
+- tooling: none usable. Samsung's own support pages redirect the user to their personal OneDrive account
+- composes with: Nothing to chain: it is now literally OneDrive on a 5 GB free tier. The 15 GB that older guides quote is a number that no longer exists
+- reliability: Do not count this as a live 15 GB. The quota Samsung matched on OneDrive lasted one year and OneDrive's own 5 GB applied afterwards
+- notes: Covers consumer Samsung Cloud device gallery storage, distinct from Samsung SDS enterprise cloud. Consumer file drive services and gallery sync were officially decommissioned in 2021 with data migrated to Microsoft OneDrive.
+- extras:
+  - access_mode: none
+  - closed: 2021-09-30
+  - replaced_by: OneDrive
+  - aliases: Samsung Cloud
+  - reserved_slug: samsung-cloud
+  - cross_topic_record: compute/samsung-cloud
+  - cross_topic_note: a different product from the same company: compute/samsung-cloud.json covers Samsung SDS Cloud Platform
+- evidence:
+  - [1] 2026-10-21: 'Your Gallery app can only be synced to your personal OneDrive account', so the Samsung-side storage is gone
+  - [2] 2026-10-21: the migration deadline of 2021-09-30
+  - [3] 2026-10-21: Samsung's own notice page, 'Sync with OneDrive ending soon'
+  - [4] 2026-10-21: 'dozens of cloud storage companies have either given up on free cloud storage (e.g Samsung, Amazon and Ionos)'
+- sources:
+  - [1] https://www.samsung.com/us/support/answer/ANS10003437/
+  - [2] https://www.androidcentral.com/samsung-cloud-users-have-until-september-30-migrate-data-onedrive
+  - [3] https://www.samsungcloud.com/en/about/sync-with-onedrive-ending-soon
+  - [4] https://www.techradar.com/pro/grab-1-54tb-free-cloud-storage-for-life-but-you-will-need-to-sign-up-43-services
+
+## t.me/alistshare (the Telegram index channel)
+
+- `netdisk-pan/alistshare-telegram` | dead | evidence reported | binding retention-clamped | category index-list
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-06
+- url https://t.me/s/alistshare | page https://fshy.ajam.dev/p/t-me-s.md
+- free tier: a Telegram channel that used to publish public AList instances and their guest WebDAV credentials | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable; it is a channel | source: [1]
+- retention: the channel's recent feed carries tools rather than instances, and its pinned post is a notice about excess use from 2025-01 | source: [1]
+- egress: no egress | metered: no | source: [1]
+- identity: anonymous | detail: the /s/ preview needs no account
+- interface: rest
+- limits:
+  - retention-clamped (binding): the pinned post is a notice about excess use, so the channel stopped publishing instances [1]
+- binding note: The channel is a discovery input that stopped producing discoveries, which is a retention problem in the input and not in the population.
+- tooling: the /s/ preview is readable without an account; the message feed is HTML
+- composes with: Inactive discovery channel. It previously provided instance hosts but no longer publishes new endpoints.
+- reliability: The channel shifted from publishing instance lists to publishing tools (SaveAny-Bot, TaoSync, Alist Helper) and pinned a notice about excess use, so a discovery loop that polls it will return no new hosts.
+- notes: Documented to record channel status. Historical instance listings originated from this Telegram channel, which has ceased publishing new instance hostnames.
+- extras:
+  - access_mode: index
+  - still_lists_instances: no
+- evidence:
+  - [1] 2026-10-22: the pinned post is a notice about excess use and the recent feed carries tools such as SaveAny-Bot, TaoSync and Alist Helper rather than instance lists
+  - [2] 2026-10-21: 
+- sources:
+  - [1] https://t.me/s/alistshare
+  - [2] https://t.me/alistshare
+
+## Zlion, a film and anime instance whose WebDAV was withdrawn for excess use (alist.zlion.top)
+
+- `netdisk-pan/alist-zlion-top` | dead | evidence measured | binding retention-clamped | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://alist.zlion.top/ | page https://fshy.ajam.dev/p/zlion.md
+- free tier: nothing reachable: the host does not serve an anonymous mount list | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable; nothing is readable | source: [1]
+- retention: the host is gone; no TCP service | days: 0 | source: [1]
+- egress: nothing to serve | metered: no | source: [1]
+- identity: anonymous | detail: no account would have helped
+- interface: unknown
+- limits:
+  - retention-clamped (binding): the host stopped serving: no TCP service probe:https://alist.zlion.top/api/public/settings
+- binding note: The host is not slow or capped, it is gone; the constraint is that it stopped.
+- tooling: none: no client reaches it
+- composes with: excluded
+- reliability: Death mode: no TCP service.
+- notes: Zlion instance with media collections where WebDAV access is inactive due to excessive bandwidth utilization. TCP service is offline.
+- extras:
+  - access_mode: public-instance
+  - read_capability: none
+  - write_capability: not-tested
+  - death_mode: no TCP service
+  - last_verified_dead: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 1
+  - first_seen: 2024-01-20
+- evidence:
+  - probe:https://alist.zlion.top/api/public/settings 2026-10-22: curl returned 000 with a TLS handshake failure, so nothing is listening on 443; the community index records that its WebDAV was closed before the host itself went away
+- sources:
+  - [1] https://alist.zlion.top/
+
+## 七十二时, the original hostname of the 20237737 corpus (alist.20237737.xyz)
+
+- `netdisk-pan/alist-20237737-xyz` | dead | evidence measured | binding retention-clamped | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://alist.20237737.xyz/ | page https://fshy.ajam.dev/p/20237737.md
+- free tier: nothing reachable: the host does not serve an anonymous mount list | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable; nothing is readable | source: [1]
+- retention: the host is gone; 301 to nowhere that answers | days: 0 | source: [1]
+- egress: nothing to serve | metered: no | source: [1]
+- identity: anonymous | detail: no account would have helped
+- interface: unknown
+- limits:
+  - retention-clamped (binding): the host stopped serving: 301 to nowhere that answers probe:https://alist.20237737.xyz/api/public/settings
+- binding note: The host is not slow or capped, it is gone; the constraint is that it stopped.
+- tooling: none: no client reaches it
+- composes with: excluded
+- reliability: Death mode: 301 to nowhere that answers.
+- notes: 七十二时, the original hostname of the 20237737 corpus. 301 to nowhere that answers
+- extras:
+  - access_mode: public-instance
+  - read_capability: none
+  - write_capability: not-tested
+  - death_mode: 301 to nowhere that answers
+  - last_verified_dead: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 1
+  - first_seen: 2024-01-20
+- evidence:
+  - probe:https://alist.20237737.xyz/api/public/settings 2026-10-22: HTTP 301 with no AList API behind the redirect; the same corpus is still served at alist.qsesvick.top and alist-cdn.20237737.xyz, so the operator moved rather than died
+- sources:
+  - [1] https://alist.20237737.xyz/
+
+## 七喵的宝藏
+
+- `netdisk-pan/pan-iosrxwy-com` | dead | evidence measured | binding write-gated | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://pan.iosrxwy.com/ | page https://fshy.ajam.dev/p/iosrxwy.md
+- free tier: anonymous guest read of 0 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through nginx; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - write-gated (binding): no write offered probe:https://pan.iosrxwy.com/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier
+- reliability: Answered as an AList API in one run and as a non-API in another, and never returned a listing. Unclassifiable at this sample size.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: none
+  - write_capability: not-tested
+  - fronting_cdn: nginx
+  - advertised_write_flag: no
+  - write_content_bypass: absent
+  - base_path: /
+  - first_seen: 2024-01-20
+  - last_verified_dead: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 1
+- evidence:
+  - probe:https://pan.iosrxwy.com/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title '七喵的宝藏'
+- sources:
+  - [1] https://pan.iosrxwy.com/
+
+## 七嗖云盘 / 长青云盘 (7so.top, cloud.7so.top)
+
+- `netdisk-pan/seven-so-cloud` | dead | evidence documented | binding retention-clamped | category public-benefit pan on resold OneDrive, dead
+- needs card no, phone no, ID no, institution no | verified 2026-10-21 (inherited) | stale on 2026-11-12
+- url https://cloud.7so.top | page https://fshy.ajam.dev/p/7so.md
+- free tier: 1 TB free on registration per the forum, with the sibling 银杏云盘 at 200 GB. Its own site configuration now reads '长青云盘·11月19下线' with registerEnabled false, so the offer is closed | unit: TiB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: Advertised as unlimited per file while the service ran | source: [1]
+- retention: Shutting down: the site's own title is '长青云盘·11月19下线'. Data loss on shutdown is near-certain | days: 0 | source: [2]
+- egress: Unmetered while it ran: '下载文件无需登录' and '不限速' were advertised, and downloads worked without an account | metered: no | source: [1]
+- identity: email | detail: an email address and no phone while registration was open. Registration is now disabled
+- interface: webdav
+- limits:
+  - retention-clamped (binding): the service is shutting down and registration is disabled [2]
+  - write-gated: WebDAV, offline download and the rest of the useful features are paid-tier only [1]
+- binding note: Service officially announced shutdown with new user registration disabled, establishing complete retention expiry.
+- tooling: WebDAV on the paid tier only: '注意：上面三个网盘免费版不支持WebDAV'. The backend is described by third parties as OneDrive-based, making it a white-label reseller
+- composes with: Nothing to chain. One account was 1 TB with email registration and no phone, and the operator is shutting down, so the whole point was that account multiplication was trivial and each one was a single operator's resold quota
+- reliability: Public-benefit drive running on underlying OneDrive storage. Published site configuration documents a scheduled service shutdown.
+- notes: Documented service shutdown following an initial 1 TB free offering. Published site configuration confirms the formal termination date and closure of new registrations.
+- extras:
+  - access_mode: registration-gated
+  - closed: 2026-11-19, per the site's own configuration
+  - registration_disabled: yes
+  - backend: resold OneDrive
+  - aliases: 七嗖云盘 / 长青云盘 (7so.top → cloud.7so.top); 七嗖云盘 / 长青云盘 (7so.top); 银杏云盘 (cloud.7so.top) at 200 GB
+- evidence:
+  - probe:https://cloud.7so.top/api/v3/site/config 2026-10-21: {"title":"长青云盘·11月19下线","registerEnabled":false,"emailActive":true}, so the site says it is closing and has closed registration
+  - [1] 2026-10-21: '1TB免费空间 / 下载文件无需登录 / 支持WebDAV / 不限速', with the caveat '上面三个网盘免费版不支持WebDAV'
+  - [3] 2026-10-21: '七嗖云盘/银杏云盘是由鄢杰与荣6呀运营的公益云盘，注册后将有1TB大容量存储（银杏云盘有200GB）'
+  - probe:https://cloud.7so.top 2026-10-21: HTTP 200 with 7,120 bytes in 2026-10, so the landing page still answers while registration is closed
+- sources:
+  - [1] https://linux.do/t/topic/306810
+  - [2] https://cloud.7so.top/api/v3/site/config
+  - [3] https://www.nodeloc.com/t/topic/24202
+
+## 小雅 xiaoya, the most widely published public instance (alist.xiaoya.pro)
+
+- `netdisk-pan/alist-xiaoya-pro` | dead | evidence measured | binding retention-clamped | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://alist.xiaoya.pro/ | page https://fshy.ajam.dev/p/xiaoya.md
+- free tier: nothing reachable: the host does not serve an anonymous mount list | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable; nothing is readable | source: [1]
+- retention: the host is gone; repurposed domain | days: 0 | source: [1]
+- egress: nothing to serve | metered: no | source: [1]
+- identity: anonymous | detail: no account would have helped
+- interface: unknown
+- limits:
+  - retention-clamped (binding): the host stopped serving: repurposed domain probe:https://alist.xiaoya.pro/api/public/settings
+- binding note: The host is not slow or capped, it is gone; the constraint is that it stopped.
+- tooling: none: no client reaches it
+- composes with: excluded
+- reliability: Death mode: repurposed domain.
+- notes: 小雅 xiaoya, the most widely published public instance. repurposed domain
+- extras:
+  - access_mode: public-instance
+  - read_capability: none
+  - write_capability: not-tested
+  - death_mode: repurposed domain
+  - last_verified_dead: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 1
+  - first_seen: 2024-01-20
+- evidence:
+  - probe:https://alist.xiaoya.pro/api/public/settings 2026-10-22: GET /api/public/settings returned HTTP 302 to a consumer portal rather than JSON, so the domain has been repurposed or seized; no API and no mount list
+- sources:
+  - [1] https://alist.xiaoya.pro/
+
+## 知网云盘
+
+- `netdisk-pan/pan-xyyh-xyz` | dead | evidence measured | binding write-gated | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:37:00.574Z (live) | stale on 2026-11-13
+- url https://pan.xyyh.xyz/ | page https://fshy.ajam.dev/p/xyyh.md
+- free tier: anonymous guest read of 2 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through no identified front; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - write-gated (binding): no write offered probe:https://pan.xyyh.xyz/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier
+- reliability: Answered as an AList API on one run and not on another, and listed 2 root entries once. Its zero-byte oracle returned neither of the two defined messages.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: not-tested
+  - upstream_provider: unknown
+  - advertised_write_flag: no
+  - permission_bitmask: 2
+  - base_path: /
+  - listing_sha256: 9e6193c6
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-10-22T03:37:00.574Z
+  - consecutive_failures: 0
+- evidence:
+  - probe:https://pan.xyyh.xyz/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title '知网云盘'
+  - probe:https://pan.xyyh.xyz/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 2 root entries; write:false, write_content_bypass:None, provider:unknown
+- sources:
+  - [1] https://pan.xyyh.xyz/

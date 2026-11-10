@@ -1,0 +1,430 @@
+# fshy: Inference, dead
+
+> Model APIs that answer a completion request, keyless or behind a free key.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/inference/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## DeepL API (Free plan)
+
+- `inference/deepl-api-free` | dead | evidence documented | binding volume-quota | category machine translation API, legacy recurring free plan closed to new sign-ups | tier API Free
+- identity a placeholder: card and phone unknown | verified 2026-11-04T00:22:57.424Z (live) | stale on 2026-12-05
+- url https://support.deepl.com/hc/en-us/articles/360021200939-DeepL-API-plans | page https://fshy.ajam.dev/p/deepl.md
+- disagrees on identity_kind: `inference/deepl-api-developer` says email, `inference/deepl-api-free` says card
+- disagrees on verdict: `inference/deepl-api-developer` says trial-only, `inference/deepl-api-free` says dead
+- free tier: 500,000 characters per month for free on the DeepL API Free plan; the plan can no longer be purchased and has been replaced by the one-time 1,000,000 character Developer plan | unit: mixed | metered on: unstated | read on: 2026-11-03 | source: [1] | note: the true unit is source characters per month; the schema vocabulary has no character unit, so mixed is the nearest term. The plan does not include DeepL Write or speech to text translation. Whether keys issued earlier still answer is unverified: it needs an existing account
+- per-object cap: 128 KiB total request size and 16 KiB header size; document limit column for free plans is 10 MB and 500,000 characters for a Word file | source: [2]
+- retention: not applicable: a translation endpoint stores nothing for the caller
+- egress: metered: no
+- identity: card | detail: unverified: the plan can no longer be purchased, so its sign-up cannot be read and no first-party page read states the requirement; the kind is a placeholder for the plan as it was sold
+- interface: rest
+- limits:
+  - volume-quota (binding): 500,000 characters per month [3]
+  - per-object-cap: 128 KiB total request size; 16 KiB header size [2]
+- binding note: the plan is closed to new sign-ups; for the keys that exist, the 500,000 characters per month quota decides
+- endpoint: https://api-free.deepl.com/v2/translate
+- tooling: HTTP REST API at https://api-free.deepl.com with the header 'Authorization: DeepL-Auth-Key <key>'; keys of this plan end in ':fx'; up to 2 keys per Free API subscription
+- composes with: none for a new account: the plan is closed; the Developer plan (one-time 1,000,000 characters) is the current free entry
+- reliability: the plan is closed to new sign-ups; the API answers HTTP 456 when the monthly quota is used up
+- notes: Supported languages: see the Developer plan record for the API language list. Character limit per request: 128 KiB total request size. Not keyless: every request needs an API key.
+- evidence note: the closure and the 500,000 characters per month figure are quoted from the vendor's help centre; the sign-up requirement of the closed plan is unverified.
+- evidence:
+  - [1] 2026-11-03: the Free plan can no longer be purchased | capture: sha256:0951163069adfd52dd6d46bab3ad9975b1b033ac6f542a1d275885a8fced11db | quote: The DeepL API Free plan can no longer be purchased.
+  - [1] 2026-11-03: the Free plan allowed 500,000 characters per month | capture: sha256:0951163069adfd52dd6d46bab3ad9975b1b033ac6f542a1d275885a8fced11db | quote: DeepL API Free allows developers to translate up to 500,000 characters per month for free.
+  - [3] 2026-11-03: the billing article still states the 500,000 characters per month allowance | capture: sha256:44d5a3c9f73369097cf55d2476f0cb1b51f3126be0fde628f44772b05defd006 | quote: With DeepL API Free, you can translate up to 500,000 characters per month for free.
+  - [4] 2026-11-03: Free plan keys carry the suffix :fx | capture: sha256:a0c1ea529d3c160fe6998552ac8649ee65b49f7166476bce0844f3ee2acb1441 | quote: DeepL API Free authentication keys can be identified easily by the suffix ":fx"
+  - [4] 2026-11-03: the Free API host is api-free.deepl.com | capture: sha256:a0c1ea529d3c160fe6998552ac8649ee65b49f7166476bce0844f3ee2acb1441 | quote: Free API -> `https://api-free.deepl.com`
+  - [5] 2026-11-03: a Free API plan can hold up to 2 active keys | capture: sha256:88ad7c7991f5c0869566ce6d16726bdb4b83aa1d22a6477af4f58727d0ced7fc | quote: up to 25 on Pro API plans and up to 2 on Free API plans
+  - [2] 2026-11-03: the total request size limit is 128 KiB | capture: sha256:d52d38681e4a88c2cd7f814184c2f4527872904e91293390f18a566b76175cae | quote: | Total request size | 128 KiB (128\*1024 bytes) |
+  - probe:api-free.deepl.com/v2/usage 2026-11-03: the Free API host answers an unauthenticated request with HTTP 403 and names the key header, so there is no keyless route | capture: sha256:a84af4df923fa1b1452d8954948eb1343518a6e7e56a947c792ad92231f6f164 | quote: Missing Authorization header, expected 'Authorization: DeepL-Auth-Key <API key>'.
+  - [3] 2026-11-04: the page states 500,000 characters per month and says nothing about rollover | capture: sha256:44d5a3c9f73369097cf55d2476f0cb1b51f3126be0fde628f44772b05defd006 | quote: With DeepL API Free, you can translate up to 500,000 characters per month for free.
+- sources:
+  - [1] https://support.deepl.com/hc/en-us/articles/360021200939-DeepL-API-plans
+  - [2] https://developers.deepl.com/docs/resources/usage-limits
+  - [3] https://support.deepl.com/hc/en-us/articles/360020685720-Usage-count-and-billing-in-DeepL-API
+  - [4] https://developers.deepl.com/docs/getting-started/auth
+  - [5] https://developers.deepl.com/docs/admin/managing-api-keys.md
+
+## Gemini CLI free tier (Gemini Code Assist for individuals)
+
+- `inference/gemini-cli-free` | dead | evidence documented | binding request-rate | category coding agent CLI, Google account login
+- needs card no, phone unknown, ID no, institution no | verified 2026-10-28T04:36:19.143Z (live) | stale on 2026-11-28
+- url https://github.com/google-gemini/gemini-cli | page https://fshy.ajam.dev/p/github-google-gemini.md
+- free tier: ended: Gemini CLI stopped serving the free Gemini Code Assist for individuals route on June 18, 2026, and free individual access moved to Antigravity CLI | unit: none | metered on: none | read on: 2026-10-28 | source: [1] | note: the quota page on geminicli.com still lists the individual tier at 1,000 requests per user per day and the Gemini API key tier at 250 requests per user per day, Flash only; the repository README and the vendor's transition post state the end of the free individual route
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: a personal Google account; the authentication page lists 'Individual Google accounts | Sign in with Google | No, with exceptions' for the Google Cloud project requirement. Any phone check at Google account creation is unverified
+- interface: cli
+- limits:
+  - request-rate (binding): no free requests served on the individual route since 2026-06-18; the quota page still prints 'Gemini Code Assist (Individual) | 1,000 requests' per user per day [2]
+- binding note: nothing is served on the free individual route, so the last listed ceiling, a daily request count, is moot
+- interface detail: gemini -p runs the agent headless and prints JSON or JSONL; headless mode reuses a cached Google OAuth credential
+- tooling: gemini CLI in headless mode: gemini -p PROMPT --output-format json
+- composes with: nothing chains on the free route; the successor route is recorded at coding-subs/antigravity and the Gemini API key route at inference/google-gemini-api
+- reliability: the geminicli.com quota page still lists the individual tier while the repository README and the vendor post say it moved, so that page overstates what is served
+- notes: The Gemini API free tier is a separate route (inference/google-gemini-api). The transition post names paid API keys for the CLI that remains, so whether an unpaid Gemini API key still works inside the CLI is unverified.
+- evidence note: the end date is stated by the vendor's transition post and by the repository README; no request was made because the route needs an account
+- evidence:
+  - [1] 2026-10-28: the README states free individual access moved to Antigravity CLI on June 18, 2026 | capture: sha256:7cef0e91106c191e1331b8377fce35fbe5f34753d97e62c1293c47bbbc30f32b | quote: No free tier or Google AI plans: Free individual access and Google AI Pro / Ultra (Google One) moved to [Antigravity CLI](https://antigravity.google/product/antigravity-cli) on June 18…
+  - [3] 2026-10-28: the vendor post announces that on June 18, 2026 Gemini CLI stops serving requests for Google AI Pro and Ultra and for free Gemini Code Assist for individuals | capture: sha256:d6f48c91b650f10c0fd35e3ee5a74e64bc07daa57d44650aa57054d8ffc50125 | quote: On June 18, 2026, Gemini CLI and Gemini Code Assist IDE extensions will stop serving requests for Google AI Pro and Ultra, as well as those using it free of charge
+  - [3] 2026-10-28: the vendor post keeps Gemini CLI available through paid API keys, so an unpaid key route is not confirmed | capture: sha256:d6f48c91b650f10c0fd35e3ee5a74e64bc07daa57d44650aa57054d8ffc50125 | quote: Gemini CLI will remain accessible via paid Gemini and Gemini Enterprise Agent Platform API keys.
+  - [4] 2026-10-28: the Gemini Code Assist overview lists two editions, Standard and Enterprise, and no individual edition | capture: sha256:36ccdad1ac0668f43a81d86679b676256083924800bb8381d2397e661b1ad416 | quote: Gemini Code Assist is available in two editions, which are managed through Google Cloud:
+  - [2] 2026-10-28: the quota page still lists 1,000 requests per user per day for the individual tier | capture: sha256:b7cd1156b3c941d10515db1054da96b41a02282e5ce10f43d6184d969c33acf9 | quote: | Google account | Gemini Code Assist (Individual) | 1,000 requests |
+  - [2] 2026-10-28: the quota page lists 250 requests per user per day for an unpaid Gemini API key | capture: sha256:b7cd1156b3c941d10515db1054da96b41a02282e5ce10f43d6184d969c33acf9 | quote: 250 maximum model requests / user / day
+  - [5] 2026-10-28: individual Google accounts sign in with Google and need no Google Cloud project, with exceptions | capture: sha256:f8703e33749bbc66fc68e8824a939e6c0485bb3836c27628a7e88f80ddc1af07 | quote: | Individual Google accounts | Sign in with Google | No, with exceptions |
+  - [6] 2026-10-28: headless mode is a programmatic interface returning structured text or JSON | capture: sha256:a2b712c07b171d2670ebfb149f32d3aa046fa1edf7d9962719fa32e4a92143f4 | quote: Headless mode provides a programmatic interface to Gemini CLI, returning structured text or JSON output without an interactive terminal UI.
+  - [6] 2026-10-28: the -p flag triggers headless mode | capture: sha256:a2b712c07b171d2670ebfb149f32d3aa046fa1edf7d9962719fa32e4a92143f4 | quote: Headless mode is triggered when the CLI is run in a non-TTY environment or when providing a query with the `-p` (or `--prompt`) flag.
+  - [6] 2026-10-28: the output format is chosen with --output-format | capture: sha256:a2b712c07b171d2670ebfb149f32d3aa046fa1edf7d9962719fa32e4a92143f4 | quote: You can specify the output format using the `--output-format` flag.
+  - [5] 2026-10-28: headless mode reuses a cached authentication credential | capture: sha256:f8703e33749bbc66fc68e8824a939e6c0485bb3836c27628a7e88f80ddc1af07 | quote: will use your existing authentication method, if an existing authentication credential is cached.
+- sources:
+  - [1] https://github.com/google-gemini/gemini-cli
+  - [2] https://geminicli.com/docs/resources/quota-and-pricing/
+  - [3] https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/
+  - [4] https://developers.google.com/gemini-code-assist/docs/overview
+  - [5] https://geminicli.com/docs/get-started/authentication/
+  - [6] https://geminicli.com/docs/cli/headless/
+
+## GitHub Models inference
+
+- `inference/github-models-inference` | dead | evidence measured | binding none | category inference endpoint, dead shell
+- needs card no, phone no, ID no, institution no | verified 2026-10-28T09:47:54.948Z (live) | stale on 2026-11-28
+- url https://models.github.ai/inference | page https://fshy.ajam.dev/p/github-2.md
+- free tier: no completion is returned; the endpoint answers 200 with a 4-byte body 'OK' | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: anonymous | detail: no key was sent; the endpoint did not ask for one
+- interface: rest
+- limits note: no rate or quota binds: the gate is access, not allowance
+- endpoint: https://models.github.ai/inference/chat/completions
+- tooling: any OpenAI-compatible client; curl against POST {base}/chat/completions
+- composes with: no chain exists: the service was retired on 2026-07-30 and every caller must move to Azure AI Foundry or Copilot
+- reliability: returns HTTP 200 with Content-Type text/plain and a 4-byte body, which a status-only probe scores as a success
+- notes: This is the control row for the never-trust-200 rule: the status is a success, the body is not a completion, and the body hash is identical across three runs. The verdict is dead, and it now rests on the vendor's own retirement notice at docs.github.com/en/github-models ('fully retired as of July 30, 2026'), not only on the empty body. The distinction matters: an endpoint that gates on a key also returns 402 or 401 rather than 200 with 'OK', and this one returns 200 with 'OK' because the service is gone rather than because it wants a credential.
+- evidence note: Repeated test requests returned identical 4-byte response bodies consistently across runs on 2026-10-28.
+- probe:
+  - records[0].probe_id: github-models
+  - records[0].requested_model: openai/gpt-4o-mini
+  - records[0].http_run1: 200
+  - records[0].http_run2: 200
+  - records[0].answered_run1: no
+  - records[0].answered_run2: no
+  - records[0].echo_match: yes
+  - records[0].latency_ms_run1: 1126
+  - records[0].latency_ms_run2: 914
+  - records[0].completion_tokens_run1: 0
+  - records[0].needle_echoed_run1: no
+  - records[0].body_bytes_run1: 4
+  - records[0].body_sha256_16_run1: 19d8c9921b99c82d
+  - records[0].reasoning_only: no
+  - records[0].error_run1: OK
+  - records[0].error_run2: OK
+  - runs: probes-w.json; probes-w-run2.json
+- extras:
+  - death.on: 2026-07-30
+  - death.cause: dead-service
+- evidence:
+  - probe:https://models.github.ai/inference/chat/completions 2026-10-22: HTTP 200, 4 bytes, body 'OK', identical sha256 19d8c9921b99c82d in three separate runs
+  - [2] 2026-10-22: 'GitHub Models has been retired. As of July 30, 2026, GitHub Models has been fully retired. The playground, model catalog, inference API, and bring your own key (BYOK) are no longer available to any customer.' That is the vendor's own statement of death, which the 4-byte body alone could not establish
+  - [2] 2026-10-28: the vendor states GitHub Models, including the inference API, was fully retired on July 30, 2026 | capture: sha256:a7ac45358c4db70999c6f9945215c9a440091ada92f391b410e267c8a85f602f | quote: As of July 30, 2026, GitHub Models has been fully retired. The playground, model catalog, inference API, and bring your own key (BYOK) are no longer available to any customer.
+  - probe:https://models.github.ai/inference/chat/completions 2026-10-28: a GET to https://models.github.ai/inference/chat/completions returned HTTP 200, 4 bytes, text/plain, body 'OK', sha256 19d8c9921b99c82d78c985136a5e28f6382011641fb6160c0c1a7573a402ea66, the digest recorded for the earlier POST probes
+- sources:
+  - [1] https://models.github.ai/inference
+  - [2] https://docs.github.com/en/github-models
+
+## GLHF (glhf.chat)
+
+- `inference/glhf` | dead | evidence measured | binding none | category inference, usage-billed open-model hosting, renamed Synthetic, old host failing
+- identity a placeholder: card and phone unknown | verified 2026-11-04T06:15:50.267Z (live) | stale on 2026-12-05
+- url https://glhf.chat/pricing | page https://fshy.ajam.dev/p/glhf.md
+- free tier: none now: the glhf.chat host answers HTTP 526 and the product is renamed Synthetic, a $30 a month subscription; the 2025-01-01 billing launch granted $10 of credit to beta users | unit: none | metered on: none | read on: 2026-11-04 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: unverified: the sign-up page does not load (HTTP 526), so what registration asked for cannot be read; the kind is the nearest term
+- interface: rest
+- limits note: no rate or quota can be read: the host answers HTTP 526
+- binding note: no limit binds: the old host does not serve
+- endpoint: https://glhf.chat/api/openai/v1/chat/completions
+- tooling: OpenAI-compatible client; the rebrand post says the old API base URLs keep working, and the new base URL is api.synthetic.new
+- composes with: successor product Synthetic (synthetic.new)
+- reliability: on 2026-11-04 the old API path glhf.chat/api/openai/v1/chat/completions answered HTTP 526 and api.glhf.chat failed TLS verification (certificate not valid for the host name), while the vendor's rebrand post says the old API base URLs should continue to work without interruption
+- notes: dead cause: dead-service; the product continues as Synthetic (synthetic.new), which lists a $30 a month subscription and no free tier on its pricing page
+- evidence note: the 526 answers are probe records; the rename is a first-party post
+- evidence:
+  - probe:glhf.chat 2026-11-04: the root host answered HTTP 526 | capture: sha256:01fba5ae72d26d2578156eb40bd8ab718d948be6db56b98907383c6dbb8d3c8f | quote: "status": 526
+  - [1] 2026-11-04: the vendor retired the glhf.chat name for Synthetic | capture: sha256:a7634dcdb51ebb39457827ce9f3fbf696098e5a3bfb8951a9f6ab8ecb9858ef9 | quote: We're renaming ourselves from glhf.chat to Synthetic!
+  - [2] 2026-11-04: the successor lists a $30 a month subscription plan | capture: sha256:2901e22bda1622cd203dc6fc95a248c99251ae9482b4fa0824784b9b5106145a | quote: $30/month
+  - [3] 2026-11-04: the billing launch of 2025-01-01 ended the free beta and granted $10 credits | capture: sha256:e70d2371e199208eac39e59fecb14861d9b9e5174aec2140b1028b57a2f9b671 | quote: We're giving everyone who tried the site during the free beta $10 in credits to try it out
+  - probe:glhf.chat/api 2026-11-04: the old API path answered HTTP 526 | capture: sha256:fb88deb1687b72617e2fd4633d03b9d4a678aaa7629327f5c23de4b5fd21df93 | quote: "status": 526
+  - probe:api.glhf.chat 2026-11-04: api.glhf.chat failed TLS verification | capture: sha256:386915e03d3fe07d2b031022954f6e92f286d6e8aec95cd132e7e91da3164734 | quote: "error": "tls_untrusted"
+  - probe:api.synthetic.new 2026-11-04: the successor API host answered HTTP 200 on its models path | capture: sha256:8202bb410af556612a4f406586b58d74ce7552c750dabc4b0019c89360fe1559 | quote: "status": 200
+  - [1] 2026-11-04: the vendor states the old API base URLs keep working | capture: sha256:e1878c5579915b3ec4422a64ec107cbbe00ace35c3a428992bc9ccc7d7f5675f | quote: our old API base URLs should also continue to work without interruption
+- sources:
+  - [1] https://synthetic.new/blog/rebrand
+  - [2] https://synthetic.new/pricing
+  - [3] https://glhf.chat/newsletter/entries/billing-launch
+
+## iFlow API (platform.iflow.cn)
+
+- `inference/iflow-api` | dead | evidence documented | binding none | category inference API, closed
+- identity a placeholder: card and phone unknown | verified 2026-10-28T04:36:18.792Z (live) | stale on 2026-11-28
+- url https://platform.iflow.cn/ | page https://fshy.ajam.dev/p/iflow.md
+- free tier: none: the vendor notice dated March 20, 2026 says the iFlow API service and model library close on April 17, 2026 together with iFlow CLI | unit: none | metered on: none | read on: 2026-10-28 | source: [1] | note: service-closed
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: unverified: the service is closed and the sign-up requirement was not read
+- interface: rest
+- tooling: not stated
+- composes with: closed; the vendor notice points users to Qoder
+- reliability: closed on April 17, 2026 per the vendor notice; no request was sent after that date
+- evidence note: the closure is the vendor's own announcement of the shutdown date; the closed state was not probed
+- evidence:
+  - [1] 2026-10-28: iFlow CLI closes on April 17 and the iFlow API service and model library close with it | capture: sha256:60b6ac7bf89bf0d189f8d4c0aa738300767cc359d14c2339dd857b19d598641e | quote: iFlow CLI 产品将于 2026 年 3 月 20 日 起停止维护，并于 4 月 17 日 正式关闭，iFlow API 服务、模型库 将同步关停
+  - [1] 2026-10-28: the FAQ confirms the API service and model library close on April 17, 2026 | capture: sha256:60b6ac7bf89bf0d189f8d4c0aa738300767cc359d14c2339dd857b19d598641e | quote: 是的，iFlow API 服务和模型库将于 2026 年 4 月 17 日同步关闭，请您提前做好迁移工作。
+  - [2] 2026-10-28: the README announces iFlow CLI shutting down on April 17, 2026 | capture: sha256:ca22d3fb75ca38b1ad4b2756c9e4a8a42a5b1f709f7a1ed261514a3ef72f20dc | quote: iFlow CLI will be shutting down on April 17, 2026 (UTC+8).
+  - [1] 2026-10-28: the farewell post says iFlow CLI stops maintenance on 2026-03-20 and closes on 04-17, and the iFlow API service and model library shut down at the same time | capture: sha256:60b6ac7bf89bf0d189f8d4c0aa738300767cc359d14c2339dd857b19d598641e | quote: iFlow CLI 产品将于 2026 年 3 月 20 日 起停止维护，并于 4 月 17 日 正式关闭，iFlow API 服务、模型库 将同步关停
+  - [2] 2026-10-28: the former offer was free access to Kimi K2, Qwen3 Coder and DeepSeek v3 through the iFlow open platform | capture: sha256:ca22d3fb75ca38b1ad4b2756c9e4a8a42a5b1f709f7a1ed261514a3ef72f20dc | quote: 1. Free AI Models: Access powerful and free AI models through the [iFlow open platform](https://platform.iflow.cn/docs/api-mode), including Kimi K2, Qwen3 Coder, DeepSeek v3, and more
+  - [3] 2026-10-28: platform.iflow.cn now describes search results for models, returned as Markdown or JSON | capture: sha256:28c9a7f5bce74f987bfa2e9cf77f2686663ea799011c15ae44f3dfbf39bd716b | quote: 我们提供Markdown、Json格式，让模型能够更加准确理解搜索结果
+  - [2] 2026-10-28: an API key came from an iFlow account | capture: sha256:ca22d3fb75ca38b1ad4b2756c9e4a8a42a5b1f709f7a1ed261514a3ef72f20dc | quote: To get your API key: 1. Register for an iFlow account
+- sources:
+  - [1] https://vibex.iflow.cn/t/topic/4819
+  - [2] https://github.com/iflow-ai/iflow-cli
+  - [3] https://platform.iflow.cn/
+
+## KeylessAI
+
+- `inference/keylessai` | dead | evidence measured | binding none | category inference gateway, keyless router over Pollinations and Api.Airforce, host gone
+- needs card no, phone no, ID no, institution no | verified 2026-10-28T04:36:18.974Z (live) | stale on 2026-11-28
+- url https://keylessai.thryx.workers.dev/v1 | page https://fshy.ajam.dev/p/keylessai-thryx-workers-dev.md
+- free tier: documented as an OpenAI-compatible endpoint with zero API keys and zero signup routing to keyless upstream providers; the workers.dev host no longer resolves and the GitHub repository answers 404 | unit: none | metered on: none | read on: 2026-10-28 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: anonymous | detail: the offer was keyless: zero API keys and zero signup per the package page
+- interface: rest
+- limits note: no rate or quota binds: the host does not resolve
+- endpoint: https://keylessai.thryx.workers.dev/v1/chat/completions
+- tooling: any OpenAI-compatible client with a placeholder key; the same router could run locally via npx, which is software on the caller's own machine
+- composes with: no chain exists: the hosted worker does not resolve
+- reliability: the host keylessai.thryx.workers.dev fails DNS resolution and the GitHub repository lordbasilaiassistant-sudo/keylessai answers 404
+- notes: dead cause: dead-service; the package page named Pollinations and Api.Airforce as the keyless upstreams
+- evidence note: two keyless GETs to the host both failed at DNS; the repository page was read once
+- probe:
+  - records[0].probe_id: keylessai-models-get
+  - records[0].method: GET
+  - records[0].url: https://keylessai.thryx.workers.dev/v1/models
+  - records[0].error: dns
+  - records[0].probed_at: 2026-10-28T04:45:27.962Z
+  - records[1].probe_id: keylessai-root-get
+  - records[1].method: GET
+  - records[1].url: https://keylessai.thryx.workers.dev/
+  - records[1].error: dns
+  - records[1].probed_at: 2026-10-28T04:45:28.971Z
+- evidence:
+  - [1] 2026-10-28: the package page documented the keyless hosted endpoint | capture: sha256:a8751dbcdbd0b350e87244c4bcdedc348fdc9370de65674a9e9ec26960e0977d | quote: A drop-in OpenAI-compatible endpoint with zero API keys, zero signup, zero cost, and zero user compute.
+  - [1] 2026-10-28: the documented hosted base URL | capture: sha256:a8751dbcdbd0b350e87244c4bcdedc348fdc9370de65674a9e9ec26960e0977d | quote: Point your OpenAI client at `https://keylessai.thryx.workers.dev/v1`
+  - [2] 2026-10-28: a GET to the documented host failed at DNS resolution | capture: sha256:9127e53059165295b14e10b10374c3eaf49bcc049923237cadf2eae59eca19fb | quote: error: dns
+  - [3] 2026-10-28: the GitHub repository page answered 404 | capture: sha256:81cb4b2b5ed06adb133ef6805631fca83be93c0a6287be3950eee225ff20420c | quote: 404 “This is not the web page you are looking for”
+- sources:
+  - [1] https://www.npmjs.com/package/keylessai
+  - [2] https://keylessai.thryx.workers.dev/v1/models
+  - [3] https://github.com/lordbasilaiassistant-sudo/keylessai
+
+## Lambda Inference API
+
+- `inference/lambda-inference` | dead | evidence measured | binding none | category inference API, winding down, hosts no longer resolve
+- identity a placeholder: card and phone unknown | verified 2026-11-04T06:15:50.267Z (live) | stale on 2026-12-05
+- url https://lambda.ai/inference | page https://fshy.ajam.dev/p/lambda.md
+- free tier: none: the Inference API is winding down and its hosts do not resolve | unit: none | metered on: none | read on: 2026-11-04 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: unverified: no sign-up for the Inference API can be read because its hosts do not resolve; the vendor's account sign-up page is linked from the inference page
+- interface: rest
+- limits note: no rate or quota can be read: the API hosts do not resolve
+- binding note: no limit binds: the API does not serve
+- endpoint: https://api.lambda.ai/v1/chat/completions
+- tooling: OpenAI-compatible client; the vendor now points users at GPU instances
+- composes with: none: the vendor redirects to NVIDIA GPU instances in its cloud
+- reliability: api.lambda.ai, inference.lambda.ai and api.lambdalabs.com all failed DNS resolution on 2026-11-04
+- notes: dead cause: dead-service
+- evidence note: three DNS-failure probe records plus the vendor's wind-down statement
+- evidence:
+  - [1] 2026-11-04: the vendor says the Inference API is winding down | capture: sha256:db5ffd1fb9fdd33d10369e0c4b9aa74075d21e15fa7379600b37cba0b4cb4022 | quote: As the Inference API winds down, you can continue deploying and scaling models seamlessly on NVIDIA GPU instances.
+  - probe:api.lambda.ai 2026-11-04: the API host fails DNS resolution | capture: sha256:70c39baedee0e362943ab33b3f0b5dd2931a8a836ac13c3e8a1ea2e703dce419 | quote: "error": "dns"
+  - probe:inference.lambda.ai 2026-11-04: the inference host fails DNS resolution | capture: sha256:ab3e3366c2ea383896f0e9da4795adb7172fc3b6de7d5ed17bdd3ad70452dead | quote: "error": "dns"
+  - probe:api.lambdalabs.com 2026-11-04: the legacy API host fails DNS resolution | capture: sha256:fbfec5d2cc360a170b036dbd5a09c494feb1745328ca5e6b45c991c383425601 | quote: "error": "dns"
+- sources:
+  - [1] https://lambda.ai/inference
+
+## LangSearch Rerank API
+
+- `inference/langsearch-rerank-api` | dead | evidence documented | binding none | category rerank API, withdrawn | tier Free Plan
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T07:34:03.660Z (live) | stale on 2026-12-04
+- url https://docs.langsearch.com/resources/faq | page https://fshy.ajam.dev/p/langsearch.md
+- free tier: none: the vendor states Rerank is no longer a documented product offering; the Free Plan covers web search with a daily token allowance | unit: none | metered on: none | read on: 2026-11-03 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: an API key is created in the vendor dashboard; unverified: the dashboard sign-up fields, which are behind a login
+- interface: rest
+- limits:
+  - request-rate: not applicable: the rerank endpoint is withdrawn; the web search Free Plan applies a daily token allowance that resets at 00:00 UTC [1]
+- binding note: the rerank offer is withdrawn
+- tooling: no rerank endpoint is documented; the vendor's web search API remains
+- composes with: none for rerank
+- reliability: third-party lists still describe a free Rerank API; the vendor's own documentation states it is no longer offered and its former reference page answers not found
+- notes: the web search side of the product is separate and still free; it belongs to the crawler-scraper topic
+- evidence note: the withdrawal is quoted from the vendor FAQ and the missing reference page is a stored capture; the exact date of withdrawal is unknown.
+- evidence:
+  - [1] 2026-11-03: the Rerank API is no longer offered | capture: sha256:6d35f2087d9c131494e6f35410eb5671f6bfbb257ce646afc8a9b3e1dc4b54b1 | quote: Our product now focuses on Web Search API. Rerank is no longer a documented product offering.
+  - [2] 2026-11-03: the former Rerank API reference page no longer exists | capture: sha256:b9c07a31c2f48a7715dcb36a0dbf1bc55f46f03263f0ccfaef62662269456fbc | quote: The requested page could not be found.
+  - [3] 2026-11-03: the free plan lists web search features only | capture: sha256:54e45c39adb9d6eab01a1da3abf26b1a1cb7c564da1341d9e220e92946d5b4e4 | quote: Web Search Free More context Free All supported features Free
+- sources:
+  - [1] https://docs.langsearch.com/resources/faq
+  - [2] https://docs.langsearch.com/api/rerank-api
+  - [3] https://langsearch.com/pricing
+
+## mlvoca.com free LLM API
+
+- `inference/mlvoca` | dead | evidence measured | binding none | category inference endpoint, keyless, Ollama format (not OpenAI-compatible), not answering
+- needs card no, phone no, ID no, institution no | verified 2026-10-28T04:36:18.974Z (live) | stale on 2026-11-28
+- url https://mlvoca.com/api/generate | page https://fshy.ajam.dev/p/mlvoca.md
+- free tier: documented as POST /api/generate on tinyllama and deepseek-r1:1.5b with no API key and no rate limit; when read, GET /api/generate answered 502 Bad Gateway from nginx | unit: none | metered on: none | read on: 2026-10-28 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: anonymous | detail: no API key and no rate limit per the project page when it was working
+- interface: rest
+- limits note: no rate or quota binds: the endpoint is not answering
+- endpoint: https://mlvoca.com/api/generate
+- tooling: Ollama-format POST /api/generate with {"model", "prompt", "stream"}; not an OpenAI chat route
+- composes with: no chain exists while the endpoint is not answering
+- reliability: GET /api/generate answered 502 Bad Gateway from nginx on four reads over about 10 minutes, and GET / and /api/tags answered 403 Forbidden; a third-party prober recorded 0 of 336 chat calls answered in 14 days
+- notes: dead cause: dead-service, not confirmed by a POST; revisit with a POST-capable probe
+- evidence note: the 502 was read by GET; no POST was sent because probe issues GET and HEAD only, so a POST that answers while the GET fails cannot be excluded
+- probe:
+  - records[0].probe_id: mlvoca-generate-get
+  - records[0].method: GET
+  - records[0].url: https://mlvoca.com/api/generate
+  - records[0].http: 502
+  - records[0].server: nginx/1.22.1
+  - records[0].probed_at: 2026-10-28T04:48:45.156Z
+  - records[1].probe_id: mlvoca-tags-get
+  - records[1].method: GET
+  - records[1].url: https://mlvoca.com/api/tags
+  - records[1].http: 403
+  - records[1].probed_at: 2026-10-28T04:45:32.339Z
+- evidence:
+  - [1] 2026-10-28: the project page states no rate limit and no API key | capture: sha256:3af9f46cc6901d91489242212b23e0c5b801d851c4b35d165c7b06583eff69eb | quote: - The endpoint of the free llm api currently works without any kind of rate limit or API key. Therefore, it can be used for free without token/call limits.
+  - [2] 2026-10-28: GET /api/generate answered a 502 Bad Gateway page from nginx | capture: sha256:63e384c14fa5327de0db932d60f2ded2e889028eb50e74dcde35c721fe2ce0ee | quote: <center><h1>502 Bad Gateway</h1></center>
+  - [3] 2026-10-28: a third-party prober got no answer from the endpoint in 14 days | capture: sha256:34aa29edf68cc49c49bdcf1119b702b0c338ae9d71d2a58db4b4586122b9a223 | quote: | [mlvoca.com](https://stillworks.supercapybara.com/llm/mlvoca) (Ollama-shaped, not OpenAI-compatible) | 0 of 0 models answering | 0 of 336 (0%) | — | no model answering |
+- sources:
+  - [1] https://mlvoca.github.io/free-llm-api/
+  - [2] https://mlvoca.com/api/generate
+  - [3] https://stillworks.supercapybara.com/free-llm-api-no-key
+
+## Qwen Code OAuth free tier
+
+- `inference/qwen-code-oauth` | dead | evidence documented | binding request-rate | category coding agent CLI, OAuth login
+- needs card no, phone no, ID no, institution no | verified 2026-10-28T04:36:19.143Z (live) | stale on 2026-11-28
+- url https://qwenlm.github.io/qwen-code-docs/en/users/configuration/auth/ | page https://fshy.ajam.dev/p/qwenlm-github-io.md
+- free tier: discontinued on 2026-04-15: Qwen OAuth is no longer a selectable /auth entry and new requests are rejected | unit: none | metered on: none | read on: 2026-10-28 | source: [1] | note: the replacement routes on the same page are the Alibaba Cloud Coding Plan, which is a fixed monthly fee, or a third-party key
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: a qwen.ai account; unverified: the page does not say what creating one requires
+- interface: cli
+- limits:
+  - request-rate (binding): no free quota is served: the Qwen OAuth free tier was discontinued on 2026-04-15 [1]
+- binding note: nothing is served on the OAuth route
+- interface detail: qwen CLI; the OAuth browser login cannot be completed in non-interactive or headless environments
+- tooling: qwen CLI (Qwen Code), /auth to choose a provider
+- composes with: nothing chains on the OAuth route; the same page lists Third-party Providers and Custom Provider entries for the agent, and the agent is recorded at coding-subs/qwen-code
+- reliability: existing cached tokens may continue working briefly but new requests are rejected
+- notes: The coding-subs/qwen-code record covers the agent and its bring-your-own-key routes, which are unaffected; only the OAuth free route is closed here.
+- evidence note: the vendor's authentication page states the end date and the rejection; no request was made because the route is closed
+- evidence:
+  - [1] 2026-10-28: the free Qwen OAuth tier was discontinued on 2026-04-15 and new requests are rejected | capture: sha256:9b4d0604fdd4cda085eeebcdf4cb2cf717014c36d0781dbce1e326227abe144e | quote: The Qwen OAuth free tier was discontinued on 2026-04-15. Existing cached tokens may continue working briefly, but new requests will be rejected.
+  - [1] 2026-10-28: Qwen OAuth is no longer a selectable dialog entry in the CLI | capture: sha256:9b4d0604fdd4cda085eeebcdf4cb2cf717014c36d0781dbce1e326227abe144e | quote: Qwen OAuth** is no longer a selectable dialog entry — its free tier was discontinued on 2026-04-15
+  - [1] 2026-10-28: the OAuth route required a qwen.ai account and internet access for the first login | capture: sha256:9b4d0604fdd4cda085eeebcdf4cb2cf717014c36d0781dbce1e326227abe144e | quote: Requirements: a `qwen.ai` account + internet access (at least for the first login).
+  - [1] 2026-10-28: the OAuth browser login cannot be completed headless | capture: sha256:9b4d0604fdd4cda085eeebcdf4cb2cf717014c36d0781dbce1e326227abe144e | quote: In non-interactive or headless environments (e.g., CI, SSH, containers), you typically cannot complete the OAuth browser login flow.
+  - [1] 2026-10-28: the current /auth options are QwenCloud, Alibaba ModelStudio, Third-party Providers and Custom Provider | capture: sha256:9b4d0604fdd4cda085eeebcdf4cb2cf717014c36d0781dbce1e326227abe144e | quote: choose one of the current options (QwenCloud, Alibaba ModelStudio, Third-party Providers, or Custom Provider) instead.
+  - [1] 2026-10-28: the replacement Coding Plan is a fixed monthly fee | capture: sha256:9b4d0604fdd4cda085eeebcdf4cb2cf717014c36d0781dbce1e326227abe144e | quote: Subscribe to the Coding Plan with a fixed monthly fee, then configure Qwen Code to use the dedicated endpoint and your subscription API key.
+- sources:
+  - [1] https://qwenlm.github.io/qwen-code-docs/en/users/configuration/auth/
+
+## uncloseai (unturf)
+
+- `inference/uncloseai` | dead | evidence measured | binding none | category inference endpoint, keyless beta now closed
+- needs card no, phone no, ID no, institution no | verified 2026-10-28T04:36:18.974Z (live) | stale on 2026-11-28
+- url https://hermes.ai.unturf.com/v1 | page https://fshy.ajam.dev/p/unturf.md
+- free tier: no keyless access: GET /v1/models answers 401 public_beta_closed, saying the endpoint needs an API key and key registration is closed | unit: none | metered on: none | read on: 2026-10-28 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: anonymous | detail: the offer was keyless; the endpoint now answers 401 and states that it needs an API key and that key registration is closed
+- interface: rest
+- limits note: no rate or quota binds: the gate is access, not allowance
+- endpoint: https://hermes.ai.unturf.com/v1/chat/completions
+- tooling: any OpenAI-compatible client; a key is needed and none can be registered
+- composes with: no chain exists while key registration is closed
+- reliability: a third-party prober recorded the endpoint answering 5 to 7 of 24 chat calls a day from 15 to 21 Oct and 0 of 24 a day from 22 to 27 Oct
+- notes: dead cause: registration-closed; the host still answers, and it refuses every keyless call
+- evidence note: the 401 body and the x-maintenance header were read directly; the daily answer counts are third-party
+- probe:
+  - records[0].probe_id: unturf-v1-models-get
+  - records[0].method: GET
+  - records[0].url: https://hermes.ai.unturf.com/v1/models
+  - records[0].http: 401
+  - records[0].authorization_sent: no
+  - records[0].x_maintenance: public-beta-closed
+  - records[0].error_type: public_beta_closed
+  - records[0].probed_at: 2026-10-28T04:47:26.033Z
+- evidence:
+  - [1] 2026-10-28: the endpoint now refuses a keyless call and says key registration is closed | capture: sha256:c5999d03b995013e3490b8a5b3fecb771ee36cc6fb35c0f891578df5ac497b81 | quote: The public beta is closed for now. This endpoint needs an API key, and key registration is closed; check uncloseai.com for when it reopens.
+  - [1] 2026-10-28: the response carries an x-maintenance header of public-beta-closed | capture: sha256:c5999d03b995013e3490b8a5b3fecb771ee36cc6fb35c0f891578df5ac497b81 | quote: x-maintenance: public-beta-closed
+  - [2] 2026-10-28: the keyless offer was claimed as free forever with no signup | capture: sha256:07a6e55675bac7af80e7bd5ac6c5df9b1af98d123bb90d3a050ae65e0c1d6b64 | quote: Claimed free forever with no signup, self-published and carried by OmniRoute's routing registry as an endpoint needing no key.
+  - [2] 2026-10-28: from 22 Oct a third-party prober got no keyless chat answer | capture: sha256:07a6e55675bac7af80e7bd5ac6c5df9b1af98d123bb90d3a050ae65e0c1d6b64 | quote: | 22 Oct | 24 | 0 of 24 | — |
+- sources:
+  - [1] https://hermes.ai.unturf.com/v1/models
+  - [2] https://stillworks.supercapybara.com/llm/uncloseai
+
+## ZeroEntropy zerank reranker and zembed-1 embeddings API
+
+- `inference/zeroentropy-rerank-embeddings` | dead | evidence measured | binding none | category rerank and embedding API, sunset | tier Pay-as-you-go
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T09:59:11.542Z (live) | stale on 2026-12-04
+- url https://zeroentropy.dev/pricing/ | page https://fshy.ajam.dev/p/zeroentropy.md
+- free tier: none: the vendor sunset its hosted products after September 4th, 2026 and disabled new signups; the FAQ still advertises a free tier of unstated size. The models are released as open weights under Apache 2.0 | unit: none | metered on: none | read on: 2026-11-03 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: new signups are disabled; unverified: the former sign-up fields, because the dashboard page shows a marketing shell only
+- interface: rest
+- limits:
+  - request-rate: while the API served: 500,000 bytes and 1,000 requests per minute by default per the rerank reference, 2,500,000 UTF-8 bytes per minute per the pricing page; the endpoint now answers HTTP 503 [2]
+- binding note: the service no longer answers
+- endpoint: https://api.zeroentropy.dev/v1/models/rerank
+- tooling: Python and TypeScript SDKs and a REST API that no longer serve; the open weights of zerank-1, zerank-2 and zembed-1 are on Hugging Face
+- composes with: none: the hosted API is down
+- reliability: the hosted rerank endpoint answered HTTP 503 with the body 'ZeroEntropy inference is unavailable.' on 2026-11-03, after the vendor's announced sunset of 2026-09-04; the docs, FAQ and pricing pages still list prices and a free tier
+- notes: the pricing and docs pages still show USD 0.025 per million tokens for zerank-2 and USD 0.05 for zembed-1; those prices describe the sunset service
+- evidence note: the sunset notice is quoted from the vendor and the 503 is a stored probe of the endpoint.
+- evidence:
+  - [1] 2026-11-03: the vendor announced the sunset of every product after 2026-09-04 | capture: sha256:ac92c6889d72d16e5b2169ebd8125df5b79dfbf2d0f3a0fd6bf3b5c8862c8679 | quote: All ZeroEntropy products will remain fully supported until September 4th, 2026 with no degradation, after which they will be sunset.
+  - [1] 2026-11-03: new signups are disabled | capture: sha256:ac92c6889d72d16e5b2169ebd8125df5b79dfbf2d0f3a0fd6bf3b5c8862c8679 | quote: We have disabled new signups, and encourage existing customers to migrate away from ZeroEntropy products using the following resources.
+  - probe:api.zeroentropy.dev 2026-11-03: the hosted rerank endpoint answers HTTP 503 on 2026-11-03 | capture: sha256:73fd0329b27ad52246503d40a5e7201d9c426b292020755c8c4675bf3303eab6 | quote: "status": 503
+  - probe:api.zeroentropy.dev/body 2026-11-03: the endpoint body states that inference is unavailable | capture: sha256:78fee608fc0ad5bade4536c57b19df4317b0c8c94f504b382a5ea12124f57632 | quote: {"detail":"ZeroEntropy inference is unavailable."}
+  - [3] 2026-11-03: the FAQ still advertises a free tier, with no amount, after the sunset notice | capture: sha256:67eddb0731537d3906bc37ee505a4a8d5773655581b9d7955c93956719649ffd | quote: Yes — every account starts with a free tier sufficient to evaluate the API end-to-end on your own data.
+  - [4] 2026-11-03: the pricing page still lists zerank-2 at $0.025 per million tokens and a rate limit | capture: sha256:9c3178e729860281a8b318af9b51e5a3c02e9e533bf91b2935921c8240535813 | quote: Ratelimits: 2,500,000 UTF-8 bytes per minute
+  - [5] 2026-11-03: a new account started on the free tier, so an account was the entry | capture: sha256:cbbf479aaa8cb0368796fafe1064845d938cb5bb8de0acc9a2d64d7dad5ec863 | quote: New accounts start on the free tier with rate limits sufficient for prototyping.
+- sources:
+  - [1] https://www.zeroentropy.dev/articles/zeroentropy-is-joining-notion/
+  - [2] https://docs.zeroentropy.dev/api-reference/models/rerank
+  - [3] https://zeroentropy.dev/faq/
+  - [4] https://zeroentropy.dev/pricing/
+  - [5] https://docs.zeroentropy.dev/quickstart

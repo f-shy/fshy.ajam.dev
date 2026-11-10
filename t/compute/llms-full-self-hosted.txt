@@ -1,0 +1,1303 @@
+# fshy: Compute, self-hosted, the last resort
+
+> Machines, sandboxes, notebooks, GPU time, platform hosts and how long each runs before it is reaped.
+
+Data as of 2026-11-10, the date of the published data. Version `e7cf1b4a40af`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/compute/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## Amp (2)
+
+- `compute/amp-2` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding none | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T02:17:32.271Z (live) | stale on 2026-12-03
+- url https://ampcode.com/pricing | page https://fshy.ajam.dev/p/ampcode.md
+- free tier: Amp Hobby: "Free" with "Pay-as-you-go for Amp-hosted orbs", "Unlimited self-hosted orbs, free", "Bring your own keys (BYOK)", "No Amp token fees or limits", quoted | unit: minutes | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: free-product
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email | detail: an Amp account: an email address or a ChatGPT sign-in, quoted 'Continue with Email' and 'OpenAI Sign in with ChatGPT'; the sign-up form carries no card field and no phone field; no country restriction is stated on it
+- interface: unknown
+- limits note: Amp charges nothing for the agent or the tokens, so the first thing that costs money is an Amp-hosted orb at the per-minute rate, never the conversation.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: ampcode.com/docs/orbs/sizes-and-costs is already recorded at USD 0.08 an hour for the smallest orb, so Amp Hobby plus a BYO key is a free agent whose only metered part is the machine; self-hosted orbs are free but need a machine to run them on.
+- reliability: no reliability event recorded
+- notes: compute/amp already records ampcode.com/docs/orbs/sizes-and-costs as an orbs pricing record with 'no free tier' in its free-tier field. That is true of the machine and false of the Hobby plan, which has no token fee and no token limit. The self-hosted-orb lane is the one line on this page that adds no capacity, because it needs a machine to host on.
+- self hosted: yes
+- extras:
+  - facets.class: free-standing-agent
+  - facets.free_tier_kind: free-product
+- evidence:
+  - [1] 2026-10-22: the Hobby card reads pay-as-you-go for Amp-hosted orbs, unlimited self-hosted orbs free, BYOK and "No Amp token fees or limits", quoted
+  - [1] 2026-10-22: Individual is USD 20 a month and carries 45,000 minutes of orb time, which puts the included orb minute at about USD 0.00044 if the allowance is fully used
+  - [2] 2026-11-02: the sign-up form offers an email address or a ChatGPT sign-in and carries no card or phone field | capture: sha256:99029b643bda537189c7cf547e70fca6f59470a2bd4967f6bc3d3c61b7e8d384 | quote: Sign up for Amp Email Continue with Email OR OpenAI Sign in with ChatGPT
+- sources:
+  - [1] https://ampcode.com/pricing
+  - [2] https://ampcode.com/auth/sign-up
+
+## Bytebot
+
+- `compute/bytebot` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding write-gated | category container and VM sandbox
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T15:51:56.486Z (live) | stale on 2026-12-05
+- url https://www.bytebot.ai/ | page https://fshy.ajam.dev/p/bytebot.md
+- free tier: the software is free and open source under Apache 2.0 with no licensing fee, subscription or usage limit; the only cost is the machine it runs on and the model API key | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not applicable: the software runs in Docker on infrastructure the user supplies, so the vendor meters no traffic and states no allowance or overage | metered: no | source: [1]
+- identity: anonymous | detail: none at Bytebot, which issues no account: the stack is run by the user from Docker Compose and its prerequisites are Docker, Docker Compose, memory and an 'AI API key from one of these providers'. The site states 'no credit card required' and 'Bytebot itself is completely free and open source under the Apache 2.0 license'. The model provider behind the key does need an account of its own.
+- interface: rest
+- limits:
+  - write-gated (binding): the free product is a repository run in Docker with its own model API key; there is no hosted capacity [1]
+- interface detail: a REST API and a task API
+- tooling: the user installs and runs the Docker compose stack on a rented or free machine and supplies a model API key; the REST API drives tasks
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the site was read on 2026-10-22 and states the Apache 2.0 licence and that there is no usage limit. 'No usage limit' is a claim about an absent sentence, and the record keeps it as the unit unlimited rather than multiplying it
+- self hosted: yes
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: the container runs locally; no vendor clock
+  - free_tier_kind: allowance
+  - ps.price: local disk
+  - ps.durability: the local machine
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.max_retention: as long as it is kept
+  - net.out: yes
+  - net.in: no
+  - net.ports: a local desktop and API
+  - net.static_ip: no
+  - net.ipv6: no
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Bytebot itself is completely free and open source under the Apache 2.0 license. Your only costs are:' ... 'There are no Bytebot licensing fees, subscription costs, or usage limits.' and 'no credit card required', quoted
+  - [2] 2026-11-04: a REST API exists | capture: sha256:87cebcbbd06b625d3bff25f5d5ef75c6c81595254a49a9dfe6abd9cb58e8310b | quote: * REST APIs for programmatic control
+  - [1] 2026-11-04: Bytebot runs on infrastructure the user supplies | capture: sha256:b0ccce2811dc514ff65c7a8df9d31cfab728a7003673fc31f67ed87f5dfac9ab | quote: Bytebot is completely self-hosted on your own infrastructure, meaning your data never leaves your servers.
+  - [3] 2026-11-04: the only credential the stack needs is a model provider's API key; Bytebot itself issues no account | capture: sha256:7f4079b54164be68d3fa4b7fee52f31e80249589508fd27450f6d36179186866 | quote: AI API key from one of these providers
+  - [1] 2026-11-04: the start page names no card requirement | capture: sha256:b0ccce2811dc514ff65c7a8df9d31cfab728a7003673fc31f67ed87f5dfac9ab | quote: no credit card required.
+  - [1] 2026-11-04: the software is a free open-source download with no licence account | capture: sha256:b0ccce2811dc514ff65c7a8df9d31cfab728a7003673fc31f67ed87f5dfac9ab | quote: Bytebot itself is completely free and open source under the Apache 2.0 license.
+- sources:
+  - [1] https://www.bytebot.ai/
+  - [2] https://docs.bytebot.ai
+  - [3] https://docs.bytebot.ai/quickstart.md
+
+## Coder
+
+- `compute/coder` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding write-gated | category dev environment
+- identity a placeholder: card and phone unknown | verified 2026-11-04T05:24:14.690Z (live) | stale on 2026-12-05
+- url https://coder.com/pricing | page https://fshy.ajam.dev/p/coder.md
+- free tier: free Community plan, installed from open source: unlimited self-hosted workspaces and up to 5 active Coder Agents, with no period: "Provision unlimited self-hosted workspaces on the infrastructure you already own." | unit: unlimited | metered on: none | read on: 2026-10-30 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published: the pricing page comparison table lists no egress or bandwidth item; traffic is that of the machines the user rents or runs | metered: no | source: [1]
+- identity: email
+- interface: cli, rest, ssh
+- limits:
+  - request-rate: up to 5 active Coder Agents on Community, unlimited on AI Premium [1]
+  - write-gated (binding): the free product is self-hosted open source: the user supplies the machines, so there is no hosted capacity to rent. [1]
+- interface detail: web UI, the coder CLI (including coder ssh) and a REST API of the server the user installs and runs
+- tooling: the user installs and runs the open-source Coder Community server on a rented or free machine, and it provisions the workspaces on rented or free machines as well
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the pricing page was read on 2026-10-22 and compares a free open-source Community column against two paid ones. The free product is software for the user's own hardware, not hosted compute.
+- self hosted: yes
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: workspaces are a user's own; the page states no clock and Community has no agent cap on workspaces
+  - free_tier_kind: allowance
+  - ps.price: a user's own storage
+  - ps.durability: a user's own infrastructure
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: as long as the host exists
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Provision unlimited self-hosted workspaces on the infrastructure you already own' and the plan table's 'Community (install open source)' column with 'Up to 5 Active Coder Agents' and 'Unlimited workspaces', quoted
+  - [1] 2026-10-30: the free Community plan provisions unlimited self-hosted workspaces, with no period stated | capture: sha256:be2ca22eb89eff7552c3e01f163ee439ae3f31af4cb0961beefdda2590f50a41 | quote: Provision unlimited self-hosted workspaces on the infrastructure you already own.
+  - [1] 2026-10-30: Community allows up to 5 active Coder Agents | capture: sha256:be2ca22eb89eff7552c3e01f163ee439ae3f31af4cb0961beefdda2590f50a41 | quote: | Active Coder Agents | Up to 5 | Up to 5 | Unlimited |
+  - [1] 2026-11-03: the platform is operated through a web UI, a CLI and a REST API | capture: sha256:8d08d3273dafce4bbf9ca8950f8972fa73698d182052aa585558fdee80dda88e | quote: | Web UI, CLI, REST API |
+  - [2] 2026-11-03: the CLI has an ssh command that opens a shell in a workspace | capture: sha256:fc6d8ec0cd288cb3c6145e542419aa0db837acadb1502a38b876791e1acdf31f | quote: | [`ssh`](https://coder.com/docs/reference/cli/ssh/) | Start a shell into a workspace or run a command |
+- sources:
+  - [1] https://coder.com/pricing
+  - [2] https://coder.com/docs/reference/cli
+
+## Dagger
+
+- `compute/dagger` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding write-gated | category dev environment
+- identity a placeholder: card and phone unknown | verified 2026-11-04T05:24:14.690Z (live) | stale on 2026-12-05
+- url https://dagger.io | page https://fshy.ajam.dev/p/dagger.md
+- free tier: the engine is open source and runs locally; the cloud runs the same pipelines, with no plan or price on this page | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: Cloud usage pricing bills pipeline outputs (pushed container images and container egress) at 10 cents per GB for new work and 2 cents per GB for repeat work; no free allowance is stated; plans are Starter USD 20 a month and Scale USD 200 a month, billed at the higher of plan price or usage | metered: yes | price per TB: USD 100 per TB for new work, USD 20 per TB for repeat work | source: [2]
+- identity: email
+- interface: cli
+- limits:
+  - write-gated (binding): no plan or price is published; the local engine is free and the cloud path is priced elsewhere [1]
+- interface detail: the dagger CLI, with modules and SDKs in Go, Python, TypeScript, Java, PHP, Elixir and Rust; engine selectable as cloud, local container, tcp, tls, ssh or kube-pod; no SDK term in the interface vocabulary
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the site was read on 2026-10-22 and describes a portable pipeline engine that runs locally or in the vendor's cloud. It publishes no plan or price, so the free half is the software rather than capacity
+- self hosted: yes
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: a pipeline is a DAG of cached steps; there is no machine to keep alive
+  - free_tier_kind: allowance
+  - ps.price: all cached automatically
+  - ps.durability: content-addressed cache
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: while the cache is kept
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Dagger is the missing software stack for CI. It makes your pipelines faster and more repeatable, not by throwing bigger machines at them, but by replacing artisanal scripts with a clean API' and 'run it locally or let our cloud scale it out', quoted
+  - [2] 2026-11-03: pipeline outputs (container egress) cost 10 cents per GB for new work and 2 cents per GB for repeat work | capture: sha256:fa5ef1ca966dd9bea34f35487c68ac5c775682386f692df14b0b7c613424d852 | quote: | Pipeline outputs | New work: 10¢ / GB | Repeat work: 2¢ / GB |
+  - [3] 2026-11-03: the dagger CLI is the main interface | capture: sha256:f57943c6aef17b30e09bb7f56c79e0237a22a2f72ad5104b373e4c9f33df5e44 | quote: dagger [options] [subcommand | file...]
+  - [1] 2026-11-03: modules are written against language SDKs | capture: sha256:fc1320878f77a7380a2672ba3bdd733f6cc80950d2eac0bad08b4dc44c451d4d | quote: Write your own Dagger modules in Go, Python, TypeScript, Java, PHP, Elixir, Rust or Dang
+- sources:
+  - [1] https://dagger.io
+  - [2] https://dagger.io/pricing
+  - [3] https://docs.dagger.io/reference/cli
+
+## Drone CI (Compute)
+
+- `compute/drone-ci` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding write-gated | category CI runner
+- needs card no, phone no, ID no, institution no | verified 2026-10-30T12:41:24.477Z (live) | stale on 2026-11-30
+- url https://cloud.drone.io | page https://fshy.ajam.dev/p/drone.md
+- duplicate of `ci-cd-runners/drone-ci`
+- free tier: free software, no hosted lane: the Open Source Edition is Apache 2.0 with no licence fee and is built from source, and the Enterprise Edition image is free for individuals; cloud.drone.io is not accepting new registrations | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none-hosted
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: anonymous | detail: the software downloads with no account or trial licence; the closed hosted lane cloud.drone.io signs in through GitHub
+- interface: unknown
+- limits:
+  - write-gated (binding): The missing hosted service fails first: there is no registration path, so the hosted capacity is zero, and the only way to use Drone is to run the server and agents on machines the user supplies. [1]
+- limits note: The missing hosted service fails first: there is no registration path, so the hosted capacity is zero, and the only way to use Drone is to run the server and agents on machines the user supplies.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: None. It is a piece of software that needs a machine.
+- reliability: no reliability event recorded
+- notes: Classified as paid-only rather than dead because the software is alive and maintained; what is gone is the hosted lane, and the two lead a reader to different decisions. This is the case an earlier rule is written for: a provider whose software is fine and whose free hosted capacity does not exist. The 2022 forum date is also the staleness warning: a 200 on the domain would have read as live to any check that did not look for a registration path.
+- self hosted: yes
+- extras:
+  - facets.class: ci-runner-capacity
+  - facets.free_tier_kind: none-hosted
+  - facets.shape.gpu_count: 0
+- evidence:
+  - [1] 2026-10-22: HTTP 200 with a Cloudflare front, and no registration route
+  - [2] 2026-10-22: 'Unable to register with my github account on cloud.drone.io', posted 13 April 2022, and the thread title is the maintainers' own statement of the state
+  - [3] 2026-10-22: 'Drone is a self-service Continuous Integration platform for busy development teams' with pipelines running in containers; the site sells the software and offers no hosted tier
+  - [4] 2026-10-22: the repository now describes Harness Open Source as 'an end-to-end developer platform with Source Control Management, CI/CD Pipelines, Hosted Developer Environments, and Artifact Registries', last pushed 2026-10-22
+  - [5] 2026-10-30: the Open Source Edition is free software under Apache 2.0 | capture: sha256:4685dd24a188e4cf139d2bb4ef3f6c960cc45f44150ddbe16435deab52bf0adb | quote: The Open Source Edition is Free and Open Source software licensed under the Apache2 License.
+  - [6] 2026-10-30: drone.io lists the open-source edition's pricing as Free, licence Apache 2.0 | capture: sha256:22d790f8a3f91a62c10df4b55dd6a2250456bfcd2ed7fa50d532ebe61d8d8cfc | quote: Pricing [Free](https://docs.drone.io/server/overview/)
+  - [3] 2026-10-30: the software downloads with no account, sales contact or trial licence | capture: sha256:8cb9169fa90cd9756a86bcb38f95ddad600b0e8d69c5fff39d9ee6b473ee2c20 | quote: Download our official Docker image or build from source. No need to talk with a sales person or request a trial license.
+  - [2] 2026-10-30: cloud.drone.io takes no new registrations, so no hosted capacity is reachable | capture: sha256:bf03461be8e8b4d40e69394cbbbd2d933c75ffe5ca52ebfa6d6cd62f9aad56e5 | quote: Currently, [cloud.drone.io](http://cloud.drone.io) is not accepting new registrations.
+- sources:
+  - [1] https://cloud.drone.io
+  - [2] https://drone.discourse.group/t/user-registration-is-disabled-on-cloud-drone-io/11904
+  - [3] https://www.drone.io/
+  - [4] https://api.github.com/repos/harness/drone
+  - [5] https://docs.drone.io/enterprise/
+  - [6] https://www.drone.io/enterprise/opensource
+
+## Goose
+
+- `compute/goose` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding none | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:53:22.456Z (live) | stale on 2026-12-05
+- url https://goose-docs.ai/ | page https://fshy.ajam.dev/p/goose-docs.md
+- free tier: not stated: https://goose-docs.ai/ prints no allowance, quota or price; goose is open-source software that "runs on your machine" and sends model calls to a provider the user configures | unit: none | metered on: wall-clock | read on: 2026-10-30 | source: [1] | note: free-product
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, cli
+- limits note: the vendor serves no inference, so nothing binds on its side; the cost is the endpoint key and the machine it runs on.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: the user installs and runs the goose desktop app (macOS, Linux, Windows) or the goose CLI on a rented or free machine, and configures a model provider with an API key or an existing subscription
+- composes with: the CLI and the API mean the agent can run on a free remote machine while the model comes from a separate free inference lane, which is the composition this class exists for.
+- reliability: no reliability event recorded
+- notes: Not a subscription: goose is a free open-source general-purpose agent whose project sells no plan, price or hosted inference; models come from a hosted provider the user configures (15 or more providers, or an existing Claude, ChatGPT or Gemini subscription), and the agent itself runs on a machine the user supplies. A candidate for coding-subs beside the other bring-your-own-key agents; no coding-subs record holds it. The docs moved from block.github.io/goose to goose-docs.ai. The desktop app and the CLI both run on a machine the user supplies. The project now lives under an aaif-goose GitHub organisation, not under block.
+- self hosted: yes
+- extras:
+  - facets.class: free-standing-agent
+  - facets.free_tier_kind: free-product
+- evidence:
+  - [1] 2026-10-22: "Your native open source AI agent. Desktop app, CLI, and API" with 55k+ GitHub stars and "Works with 15+ providers", quoted
+  - [2] 2026-10-22: the install page offers a desktop download for macOS, Linux and Windows plus a CLI, quoted
+  - [1] 2026-10-30: goose is software that runs on the user's machine; the page states no allowance, quota or price | capture: sha256:430bb2c0c4a20efad84cd3a28d7240cd84aec98596e6f8343b8a140018f8af96 | quote: goose is a general-purpose AI agent that runs on your machine.
+  - [1] 2026-10-30: goose ships as a desktop app, a CLI and an embeddable API | capture: sha256:430bb2c0c4a20efad84cd3a28d7240cd84aec98596e6f8343b8a140018f8af96 | quote: A native desktop app for macOS, Linux, and Windows. A full CLI for terminal workflows. An API to embed it anywhere.
+  - [1] 2026-11-03: goose takes models from 15 or more providers or from an existing subscription | capture: sha256:9ae27f0e61c2c274e58ddffd6cc29376d1f1237684b2f069c8748b4cdd529ea2 | quote: Works with 15+ providers — Anthropic, OpenAI, Google, Ollama, OpenRouter, Azure, Bedrock, and more. Use API keys or your existing Claude, ChatGPT, or Gemini subscriptions via ACP.
+  - [1] 2026-11-03: goose is agent software that runs on the user's machine | capture: sha256:9ae27f0e61c2c274e58ddffd6cc29376d1f1237684b2f069c8748b4cdd529ea2 | quote: goose is a general-purpose AI agent that runs on your machine. Not just for code
+  - [1] 2026-11-04: goose is software that runs on the user's machine; the page states no allowance, quota or price | capture: sha256:897250836b7d75e15b7e16a2ea57308a4926891d40f9cf0476037a1cc8f3db19 | quote: goose is a general-purpose AI agent that runs on your machine.
+- sources:
+  - [1] https://goose-docs.ai/
+  - [2] https://goose-docs.ai/docs/getting-started/installation/
+
+## HumanLayer
+
+- `compute/humanlayer` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding request-rate | category container and VM sandbox
+- identity a placeholder: card and phone unknown | verified 2026-10-22T04:47:08.888Z (live) | stale on 2026-11-22
+- url https://humanlayer.com | page https://fshy.ajam.dev/p/humanlayer.md
+- free tier: Free for small teams with up to 200 sessions a month; a local daemon runs sessions on the user's own machine. | unit: objects | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - request-rate (binding): up to 200 sessions a month on the free tier [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the site was read on 2026-10-22 and states the free tier's 200-session bound and that a local daemon is the default execution path. The unit is a session count, not a second
+- self hosted: yes
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: 200 sessions a month; the compute is a user's own laptop unless a cloud daemon is started
+  - free_tier_kind: allowance
+  - ps.price: a user's own storage
+  - ps.durability: a user's own machine, or a cloud daemon
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: as long as the task exists
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Free for small teams' with 'Up to 200 sessions / month', and 'A local daemon runs many Agent sessions in parallel on your laptop. Spin up cloud daemons for long-running work.' quoted
+- sources:
+  - [1] https://humanlayer.com
+
+## Kasm Workspaces
+
+- `compute/kasm-workspaces` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding write-gated | category dev environment
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T05:24:12.386Z (live) | stale on 2026-12-05
+- url https://kasm.com/community-edition | page https://fshy.ajam.dev/p/kasm.md
+- free tier: Community Edition is free for individuals and non-profit organisations, with 5 concurrent sessions | unit: users | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published: the Community Edition page lists no egress allowance and no overage price; Managed Egress is a separate feature marked For Purchase in the Enterprise column only | metered: no | source: [1]
+- identity: email | detail: 'Individuals and non-profit organizations are free to use Kasm Workspaces Community Edition' with no account requirement stated; the licence is the gate, not an email
+- interface: rest
+- limits:
+  - request-rate: 5 concurrent sessions on Community Edition [1]
+  - write-gated (binding): the free edition is restricted to individuals and non-profit organisations [1]
+- limits note: Session cap, idle-reap and network policy are not documented. Exceeds capacity threshold.
+- interface detail: the Developer API, an HTTP API of POST endpoints under /api/public with an API key and secret (Community Edition includes it); the web console in the browser; the user installs and runs the server on a rented or free machine
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the Community Edition page was read on 2026-10-22 and states both the licence grant and the 5-session cap. The free product is self-hosted software, not hosted compute, and the record says so
+- self hosted: yes
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: 5 concurrent sessions; the page states no wall-clock or idle cap
+  - free_tier_kind: allowance
+  - ps.price: a user supplies the storage
+  - ps.durability: a user's own host
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: as long as a user's host exists
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Individuals and non-profit organizations are free to use Kasm Workspaces Community Edition for free' and '5 Concurrent Sessions' on the free edition, quoted
+  - [1] 2026-11-03: the comparison table has a Managed Egress row that is a purchasable Enterprise feature; no bandwidth allowance or price appears | capture: sha256:e93aa062d5e6b84044d9a2707b051340150779d4e4ad201492a24f89918002ab | quote: Managed Egress
+  - [2] 2026-11-03: the Developer API is a set of HTTP POST endpoints | capture: sha256:f04e166d2e9b2f1e7c498a893eb2bfc441f0831a86df9c36f111694a1e3122ef | quote: POST /api/public/create_user
+  - [2] 2026-11-03: the API is for integration | capture: sha256:f04e166d2e9b2f1e7c498a893eb2bfc441f0831a86df9c36f111694a1e3122ef | quote: The Kasm Workspaces Developer API can be leveraged to extend the systems functionality and/or integrate with an exiting platform.
+- sources:
+  - [1] https://kasm.com/community-edition
+  - [2] https://kasm.com/docs/latest/developers/developer_api/
+
+## Lapdev
+
+- `compute/lapdev` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding write-gated | category dev environment
+- identity a placeholder: card and phone unknown | verified 2026-11-04T05:24:16.614Z (live) | stale on 2026-12-05
+- url https://lap.dev/pricing/ | page https://fshy.ajam.dev/p/lap.md
+- free tier: free during public beta, with unlimited developers and catalogs, installed into the user's own Kubernetes clusters. | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published: no egress allowance or overage price on https://lap.dev/pricing/ and https://docs.lap.dev | metered: no | source: [1]
+- identity: email
+- interface: cli
+- limits:
+  - retention-clamped: free only during public beta; the page says so as a state rather than a term [1]
+  - write-gated (binding): the user installs lapdev-kube-manager into their own cluster, so there is no hosted compute. [1]
+- interface detail: lapdev CLI (Devbox) and the dashboard at app.lap.dev; no REST API or SSH documented on the pages read
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the pricing page was read on 2026-10-22 and states that the product is free during beta and runs in the user's own clusters. The free half is the software, and the end of beta is the clock.
+- self hosted: yes
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: environments are namespaces in a user's cluster; a user's cluster sets the clocks
+  - free_tier_kind: allowance
+  - ps.price: a user's own cluster storage
+  - ps.durability: a user's own volumes
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.max_retention: as long as a user keeps it
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Lapdev is currently in public beta and free to use. Install lapdev-kube-manager in your own clusters and keep using the manifests you already ship.' and 'Unlimited developers · Unlimited catalogs', quoted
+  - [1] 2026-11-03: the pricing page prints no egress allowance or overage price; network cost is the user's own cluster cost | capture: sha256:e5c8355a97d252c23f4624afc70972d230991033fce58f6cf6198ca8607c9c60 | quote: No platform subscription fees during beta. Pay only your own Kubernetes infrastructure costs.
+  - [2] 2026-11-03: a CLI (lapdev) is documented; the dashboard is at app.lap.dev | capture: sha256:f2b746f18a5cde7728ae2e23f6810cadc61944f424e78fea4cc30eaa85d613a2 | quote: Devbox is built into the `lapdev` command
+- sources:
+  - [1] https://lap.dev/pricing/
+  - [2] https://docs.lap.dev/how-to-guides/local-development-with-devbox.md
+
+## Magnitude
+
+- `compute/magnitude` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding write-gated | category browser host
+- needs card no, phone unknown, ID no, institution no | verified 2026-11-06T17:42:10.984Z (live) | stale on 2026-12-07
+- url https://magnitude.dev/ | page https://fshy.ajam.dev/p/magnitude.md
+- free tier: the open-source engine is a free download that runs on the user's own hardware | unit: none | metered on: wall-clock | read on: 2026-10-29 | source: [1] | note: read from the vendor site
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published: the page read states no egress allowance and no overage price per TB | metered: no | source: [1]
+- identity: anonymous | detail: none: the download page serves the desktop app and the CLI directly and the install script runs without a key. The site states 'no token costs, nothing leaves your machine', and no card is asked for on the download path. The phone requirement is not published on https://magnitude.dev/download. Country: not published on https://magnitude.dev/download.
+- interface: rest
+- limits:
+  - write-gated (binding): the product is an inference engine the user runs; there is no hosted capacity to rent, and no plan to price. [1]
+- interface detail: Desktop app with a local OpenAI-compatible API, plus one-click connectors for coding agents; the user installs and runs it
+- tooling: the user installs and runs the desktop app; OpenAI-compatible API
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: Self-hosted: Magnitude is an open-source inference engine the user downloads and runs on their own hardware.
+- evidence note: the site was read on 2026-10-22 and states the Apache 2.0 licence and that it runs on the user's own hardware. There is no hosted compute, so the free tier is the software rather than capacity.
+- self hosted: yes
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - shape.gpu_class: any Apple Silicon, NVIDIA or AMD GPU
+  - shape.gpu_count: 1
+  - shape.note: no fixed minimum: a user's own hardware sets the shape
+  - session_cap.restart_required: no
+  - session_cap.note: runs on a user's own GPU or CPU; the session is the process and quantized KV is freed when an agent stops
+  - network_out.out: no
+  - network_out.in: no
+  - network_out.ports: none
+  - network_out.static_ip: no
+  - network_out.ipv6: no
+  - network_out.allowance: 'nothing leaves your machine'
+  - free_tier_kind: none
+  - ps.price: a user's own storage
+  - ps.durability: the client's machine
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.max_retention: as long as a user keeps it
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Free, private, open source: no token costs, nothing leaves your machine, Apache 2.0' and 'Any Apple Silicon, NVIDIA, or AMD GPU, or nothing but a CPU. There is no fixed minimum.' quoted
+  - [1] 2026-10-29: Magnitude is an open-source inference engine the client downloads and runs on its own hardware | capture: sha256:153c033f83b1cf124d5ba11bc2c36f89167e8e51e752a45075321c2b05806fc6 | quote: Magnitude is an open source inference engine that tunes its kernels on your hardware to find the fastest way to run each model.
+  - [1] 2026-10-29: Magnitude is an open-source inference engine the user downloads and runs on their own hardware | capture: sha256:153c033f83b1cf124d5ba11bc2c36f89167e8e51e752a45075321c2b05806fc6 | quote: Magnitude is an open source inference engine that tunes its kernels on your hardware to find the fastest way to run each model.
+  - [1] 2026-11-03: software the user installs and runs; no egress is metered or priced | capture: sha256:153c033f83b1cf124d5ba11bc2c36f89167e8e51e752a45075321c2b05806fc6 | quote: Free, private, open source: no token costs, nothing leaves your machine, Apache 2.0
+  - [1] 2026-11-03: a local OpenAI-compatible API is exposed | capture: sha256:153c033f83b1cf124d5ba11bc2c36f89167e8e51e752a45075321c2b05806fc6 | quote: Anything else works through the OpenAI-compatible API.
+  - [2] 2026-11-04: the installers are served to anyone, with no account or key on the download page | capture: sha256:94490efd5a82752d76af7cb308110a794de9a5945f46f4a42d44c740e67120e2 | quote: Either way you get the desktop app and the CLI.
+  - [2] 2026-11-06: the desktop app and the CLI are served from the download page with no account | capture: sha256:94490efd5a82752d76af7cb308110a794de9a5945f46f4a42d44c740e67120e2 | quote: Either way you get the desktop app and the CLI.
+- sources:
+  - [1] https://magnitude.dev/
+  - [2] https://magnitude.dev/download
+
+## Okteto
+
+- `compute/okteto` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding write-gated | category dev environment
+- identity a placeholder: card and phone unknown | verified 2026-11-04T05:24:16.615Z (live) | stale on 2026-12-05
+- url https://okteto.com | page https://fshy.ajam.dev/p/okteto.md
+- free tier: Starter, self-hosted on a Kubernetes cluster the user owns: free for up to 5 users, no credit card needed | unit: users | metered on: identity-count | read on: 2026-10-29 | source: [1] | note: read from the vendor pricing page; the licence is free, the cluster is not
+- per-object cap: not stated | source: [2]
+- retention: not stated | source: [2]
+- egress: not published: no egress allowance or overage price on https://www.okteto.com/pricing/ | metered: no | source: [2]
+- identity: email
+- interface: cli
+- limits:
+  - write-gated (binding): environments run on self-hosted Kubernetes infrastructure; the free plan does not supply compute [2]
+  - request-rate: resource limits, governance and observability are the plan's levers [2]
+- interface detail: Okteto CLI, a web dashboard, and an Okteto API (BETA, defined with OpenAPI) reached with an Admin Access Token
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: Self-hosted: the pricing page says Okteto runs self-hosted on any Kubernetes cluster the user owns, and the free Starter plan is a self-hosted licence for up to 5 users.
+- evidence note: the site was read on 2026-10-22 and describes environments spun up on self-hosted infrastructure, with a free signup. The compute is the user's cluster, so a free plan is a control plane rather than capacity
+- self hosted: yes
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: an environment is created per task and destroyed after; the page states no clock because a user's cluster sets it
+  - free_tier_kind: allowance
+  - ps.price: a user's own cluster storage
+  - ps.durability: a user's own volumes
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: as long as a user keeps it
+- evidence:
+  - [2] 2026-10-02: 
+  - [2] 2026-10-22: 'When an agent picks up work, Okteto spins up a full-stack, isolated environment on your infrastructure in seconds.' with 'Start for Free' and 'Resource limits, governance, and observability across the entire fleet', quoted
+  - [1] 2026-10-29: Okteto runs self-hosted on a Kubernetes cluster a user owns; the Starter plan is free for up to 5 users | capture: sha256:d394ec3a73bb5e07a9f745b9f70a4e932b42e1e5dde6bd3680725f27ab1cc287 | quote: Okteto runs Self-Hosted on any Kubernetes cluster you own
+  - [1] 2026-10-29: the Starter plan is free for up to 5 users with no credit card, and it is self-hosted | capture: sha256:d394ec3a73bb5e07a9f745b9f70a4e932b42e1e5dde6bd3680725f27ab1cc287 | quote: Free for up to 5 users, no credit card needed.
+  - [1] 2026-11-03: the pricing page prints no egress allowance or overage price; only per-user pricing | capture: sha256:d394ec3a73bb5e07a9f745b9f70a4e932b42e1e5dde6bd3680725f27ab1cc287 | quote: Perfect for exploring Okteto with a small team. Free for up to 5 users, no credit card needed.
+  - [3] 2026-11-03: the Okteto CLI is the documented access interface | capture: sha256:48569c40ad9d2f74f7042f45e35b08306775fe854e730c7989c63f77ca8f5e1d | quote: The Okteto CLI is our [open-source](https://github.com/okteto/okteto) tool that lets you develop your applications on Okteto.
+  - [4] 2026-11-04: Okteto documents an OpenAPI-defined API in beta | capture: sha256:7ea25d5809714e65c0fbcdc3cbc2ebdf9bc22ae547e238f563bcbb05b1035349 | quote: The Okteto API `BETA` is defined using OpenAPI, providing access to resources managed by Okteto.
+- sources:
+  - [1] https://www.okteto.com/pricing/
+  - [2] https://okteto.com
+  - [3] https://www.okteto.com/docs/development/using-okteto-cli/
+  - [4] https://www.okteto.com/docs/admin/okteto-api/
+
+## RunsOn
+
+- `compute/runs-on` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding write-gated | category platform host
+- identity a placeholder: card and phone unknown | verified 2026-11-04T02:24:35.123Z (live) | stale on 2026-12-05
+- url https://runs-on.com/pricing/ | page https://fshy.ajam.dev/p/runs-on.md
+- free tier: A free licence is provided for non-commercial open-source use in exchange for a public link back. Commercial licences cost EUR 300 to EUR 1,800 annually, with AWS compute instances billed directly at spot rates with no markup. | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published by RunsOn: https://runs-on.com/pricing/ read 2026-11-04 states the control plane, S3 cache bucket and data transfer run in the user's AWS region and bill to the user's AWS account, with no egress to a third party | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - write-gated (binding): the free licence requires non-commercial, open-source or non-profit use and a public link back to runs-on.com [1]
+  - request-rate: commercial licences are sized by jobs a month: under 50k at EUR 300 a year, to under 500k at EUR 1,800 [1]
+  - per-object-cap: instances bill to self-hosted AWS account at spot prices with no markup [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the pricing page was read on 2026-10-22 and states the free licence's terms and the commercial ladder. The compute is self-hosted AWS bill, so the free half is a licence rather than capacity, and the licence has a condition
+- self hosted: yes
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: a job runs on an ephemeral AWS instance and is destroyed at the end; the page states no idle clock because there is nothing to keep
+  - free_tier_kind: allowance
+  - granularity.min_billed_s: 0
+  - burst_x: 1.0
+  - ps.price: a gp3 root volume is part of the AWS bill
+  - ps.durability: the instance's ephemeral root volume
+  - ps.on_stop: no
+  - ps.on_destroy: no
+  - ps.retention: the job's lifetime
+  - net.out: yes
+  - net.in: yes
+  - net.ports: the runner is reachable from AWS
+  - net.allowance: egress bills on a user's AWS account
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'AWS bills you for the instances at spot prices, with no markup. You pay us one license a year per company, sized by the jobs you run: no seats, no minute-metering.' with 'Free non-commercial EUR 0, OSS, non-profits' and 'Starter < 50k jobs/mo EUR 300/yr', quoted
+  - [1] 2026-11-04: the control plane and its data transfer run in the user's AWS account; RunsOn publishes no egress allowance or overage price of its own | capture: sha256:cf3df6e4d10116d5b362c456acacede6b61fc3584f5c17013d2fad2b27018f9f | quote: From about $7 a month; no egress to a third party.
+- sources:
+  - [1] https://runs-on.com/pricing/
+
+## ScitiX Agent Sandbox
+
+- `compute/scitix-agent-sandbox` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding write-gated | category container and VM sandbox
+- identity a placeholder: card and phone unknown | verified 2026-11-04T02:24:18.814Z (live) | stale on 2026-12-05
+- url https://scitix.github.io/Agent-Sandbox/ | page https://fshy.ajam.dev/p/scitix-github-io.md
+- free tier: free tier published without a credit amount | unit: none | metered on: wall-clock | read on: 2026-10-02 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published: open-source software with no hosted plan, price or transfer allowance on the project site or docs introduction; egress is whatever the cluster's provider charges | metered: no | source: [1]
+- identity: email
+- interface: rest, cli
+- limits:
+  - write-gated (binding): no plan and no price: the project is software users run, compatible with the E2B API [1]
+- interface detail: HTTP API served by the controller, the `abx` CLI, and E2B-compatible agent SDKs; the user installs the platform with Helm on a Kubernetes cluster and the CLI on a machine
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the project site was read on 2026-10-22. It is an open-source sandbox for evaluation harnesses with no plan or price, which confirms paid-only and explains it: the software runs on the user's cluster
+- self hosted: yes
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: environments are created per evaluation run on a user's own infrastructure
+  - free_tier_kind: none
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Drop-in compatibility with E2B and popular RL frameworks' and 'designed for coding agents, evaluation harnesses, and RL pipelines needing fast, repeatable environments', with references to SWE-Bench Verified, SWE-Gym and Terminal-Bench, quoted; no plan and no price
+  - [2] 2026-11-03: open-source engine with no plan, price or transfer allowance in the docs introduction | capture: sha256:c2e547546d13963740c6833f3495d05eac541a9d1f8b581219ac4b8b3fdbe5ec | quote: Agent Sandbox is an open-source sandbox engine for AI agents.
+  - [3] 2026-11-03: an API served by the controller, driven by the abx CLI | capture: sha256:9ee19fd1f28088b13fe147f91144f13df31aa6a4e064b8b93fabb7426ccdb535 | quote: the operator that renders environments and pools, and the API `abx` talks to
+- sources:
+  - [1] https://scitix.github.io/Agent-Sandbox/
+  - [2] https://scitix.github.io/Agent-Sandbox/docs/
+  - [3] https://scitix.github.io/Agent-Sandbox/docs/installation/
+
+## Signadot
+
+- `compute/signadot` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding write-gated | category dev environment
+- identity a placeholder: card and phone unknown | verified 2026-11-04T05:24:18.387Z (live) | stale on 2026-12-05
+- url https://www.signadot.com/ | page https://fshy.ajam.dev/p/signadot.md
+- free tier: ephemeral environments that share self-hosted cluster, so hundreds fit on one; the changed code joins an existing environment rather than standing up a copy | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published: https://www.signadot.com/pricing and https://www.signadot.com/ state no egress allowance or overage price; billing is by sandboxes, test invocations and concurrent devboxes | metered: no | source: [1]
+- identity: email
+- interface: cli, rest
+- limits:
+  - request-rate: hundreds of ephemeral environments share one cluster; the page states no numeric cap [1]
+  - write-gated (binding): the product is a control plane over self-hosted cluster, so there is no hosted compute [1]
+- interface detail: Signadot CLI and API (the dashboard and API are hosted by the vendor; the operator runs in the user's Kubernetes cluster), plus an MCP server shipped with the CLI
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the site was read on 2026-10-22 and describes the shared-cluster model precisely. The free tier's existence is a claim about a plan, and the page says a free Starter plan exists but does not price it here
+- self hosted: yes
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: an environment is created on the first push and deleted when the pull request closes
+  - free_tier_kind: allowance
+  - ps.price: a user's own cluster storage
+  - ps.durability: a user's own cluster
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.max_retention: the pull request's life
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'A Signadot ephemeral environment starts in seconds and costs a fraction of a full copy, yet behaves like an entire environment, with real services, data and queues. Hundreds share one cluster.' and 'Through the CLI or the MCP server, the changed code joins an ephemeral environment in your cluster', quoted
+  - [2] 2026-11-03: the pricing page meters sandboxes, devboxes and test invocations and lists no egress allowance or overage line | capture: sha256:74ac027c589548333371b579384eb79ef10138b6783437d6c9257ae8c2279c05 | quote: Pricing is a la carte, so you can buy more sandboxes, concurrent devboxes and Test Invocations.
+  - [1] 2026-11-03: a CLI and an API exist | capture: sha256:fda769404ed2768dd95f3e520ab4973c08d898903068f25a4cf3e66e2593b551 | quote: called a Sandbox in the Signadot CLI and API
+  - [1] 2026-11-03: an MCP server exists | capture: sha256:fda769404ed2768dd95f3e520ab4973c08d898903068f25a4cf3e66e2593b551 | quote: The [Signadot MCP server](https://www.signadot.com/docs/integrations/mcp) connects coding agents to your Kubernetes clusters through the Model Context Protocol.
+- sources:
+  - [1] https://www.signadot.com/
+  - [2] https://www.signadot.com/pricing
+
+## Tart + Orchard (Cirrus Labs)
+
+- `compute/tart-orchard` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding per-object-cap | category macOS host
+- identity a placeholder: card and phone unknown | verified 2026-10-22T04:48:09.501Z (live) | stale on 2026-11-22
+- url https://tart.run/licensing/ | page https://fshy.ajam.dev/p/tart.md
+- free tier: a Free Tier licence that applies with no purchase: 100 CPU cores across Tart and 4 Orchard workers; Gold is $12,000 a year for 500 cores and Platinum $36,000 for 3,000 | unit: objects | metered on: identity-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - per-object-cap (binding): 100 CPU cores across Tart and 4 Orchard workers on the Free Tier licence [1]
+  - write-gated: the free licence applies by default; exceeding it requires a paid licence from $12,000 a year [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the licensing page was read on 2026-10-22 and states the free tier's two caps, with worked examples on either side of them. The unit is CPU cores rather than hours, and the examples make the boundary concrete
+- self hosted: yes
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - shape.gpu_class: Apple Silicon host
+  - shape.note: the licence counts host CPU cores: 100 on Free, 500 on Gold, 3,000 on Platinum
+  - session_cap.restart_required: no
+  - session_cap.note: the cap is a core count, not a clock: 12 Mac Minis at 8 CPUs each fits, 13 does not
+  - free_tier_kind: allowance
+  - ps.price: a user's own Mac hardware
+  - ps.durability: a user's own Macs
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.max_retention: as long as a user keeps the hardware
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'By default, when no license is purchased, it is assumed that an organization is using a Free Tier license.' with 'Free Tier license has a 100 CPU core limit for Tart and 4 Orchard Workers limit for Orchard', and the worked examples: 12 Mac Minis with 8 CPUs each fits, 13 does not. Gold is $12,000 a year for 500 cores
+- sources:
+  - [1] https://tart.run/licensing/
+
+## Windmill
+
+- `compute/windmill` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding none | category platform host
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T02:24:26.168Z (live) | stale on 2026-12-05
+- url https://www.windmill.dev/pricing | page https://fshy.ajam.dev/p/windmill.md
+- free tier: Free and open source at USD 0 a month with unlimited executions when self-hosted; Enterprise Self-Host from USD 120 a month. The hosted Community plan is dev-services/windmill-cloud | unit: unlimited | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published: the pricing page and the CLI docs state no egress term; for the self-hosted software egress is set by the machine that runs it | metered: no | source: [1]
+- identity: anonymous | detail: No account with Windmill is needed: the documented install downloads docker-compose.yml, Caddyfile and.env from raw.githubusercontent.com and runs docker compose up, and the first login is on the user's own instance.
+- interface: cli, rest
+- limits:
+  - request-rate: 'Unlimited executions' on the self-hosted open-source tier; Enterprise Self-Host from $120/mo [1]
+- limits note: The free self-hosted edition caps an instance at 3 workspaces, 50 users, 10 users with SSO, a 10 GiB workspace object storage quota, job run details kept up to 30 days and 100 trigger emails a day; executions are unlimited.
+- binding note: Executions are unlimited when self-hosted, so no vendor cap binds a single user's jobs; the machine the user runs the instance on bounds throughput.
+- interface detail: wmill CLI (list, get, new, sync); REST API described by an OpenAPI document linked from the pricing page; no SSH or SDK read
+- tooling: the user installs and runs the Windmill server and worker containers and a Postgres database, with Docker Compose on one machine or the Helm chart on Kubernetes, on a rented or free machine
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: The hosted Community plan that Windmill runs is dev-services/windmill-cloud (also recorded as compute/windmill-cloud) and comes first. This record is no duplicate of it and stays: it is the open-source edition that the user installs and runs, with unlimited executions on the user's own instance, and it is the last resort.
+- evidence note: the pricing page was read on 2026-10-22. 'Unlimited executions' is a claim about a missing limit, so it is recorded as the unit unlimited and not multiplied into a capacity figure
+- self hosted: yes
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - free_tier_kind: allowance
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Free and Open-source · from$0/mo · Unlimited executions', quoted
+  - [2] 2026-10-29: self-hosted Windmill is free and open source with unlimited executions; Enterprise Self-Host starts from a trial portal; the cloud plans are Community, Team and Enterprise | capture: sha256:f052fbcce4a7104913b2835723336a76f878d89b8c2e7cbf79b2b907d1ded8a9 | quote: Windmill is free and open source. If self-hosted, the number of executions will be unlimited.
+  - [2] 2026-10-31: self-hosted Windmill is free and open source with unlimited executions | capture: sha256:c3a4dd5e49ac84d8e100da83ec762ceeccca4e669e7fa2b7911f5df7de1747e2 | quote: Windmill is free and open source. If self-hosted, the number of executions will be unlimited.
+  - [3] 2026-10-31: the documented install downloads the compose file from a public URL with no sign-in step | capture: sha256:a6ad104d25553048396563623ef97ef9e44fe6ef41803884f6ce4a4b76bd0847 | quote: curl https://raw.githubusercontent.com/windmill-labs/windmill/main/docker-compose.yml -o docker-compose.yml
+  - [3] 2026-10-31: the first login after the install is on the user's own instance | capture: sha256:a6ad104d25553048396563623ef97ef9e44fe6ef41803884f6ce4a4b76bd0847 | quote: Go to [http://localhost](http://localhost/) et voilà. Then you can login for the first time.
+  - [3] 2026-10-31: the self-hosted edition runs with Docker Compose on one instance or the Helm chart on Kubernetes | capture: sha256:a6ad104d25553048396563623ef97ef9e44fe6ef41803884f6ce4a4b76bd0847 | quote: For small setups, use Docker and Docker Compose on a single instance. For larger and production use-cases, use our Helm chart to deploy on Kubernetes.
+  - [1] 2026-10-31: the free open-source tier has unlimited executions | capture: sha256:7eb2ec23a2f01097084bd80845847348ddab49259ac06dd0579b8b83ab2466c8 | quote: Unlimited executions.
+  - [1] 2026-10-31: the free self-hosted tier caps email triggers at 100 emails a day, beside its other caps in the feature table | capture: sha256:7eb2ec23a2f01097084bd80845847348ddab49259ac06dd0579b8b83ab2466c8 | quote: Max 100 emails per day
+  - [4] 2026-11-03: a CLI exists | capture: sha256:93f0691df249fe56ded7c6816254898958131393a8f7a384b6a3fb90f7d0767b | quote: The Windmill CLI, `wmill` allows you to interact with Windmill instances right from your terminal.
+  - [1] 2026-11-03: the page links the OpenAPI document of the REST API | capture: sha256:128a2edd1c4f00dfc325723587306f41598bda532b667fc1507ec5aa0f3de2c9 | quote: [OpenAPI](https://app.windmill.dev/openapi.html#/)
+- sources:
+  - [1] https://www.windmill.dev/pricing
+  - [2] https://www.windmill.dev/docs/misc/plans_details
+  - [3] https://www.windmill.dev/docs/advanced/self_host
+  - [4] https://www.windmill.dev/docs/advanced/cli
+
+## Zed (Compute)
+
+- `compute/zed` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding none | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T10:27:57.619Z (live) | stale on 2026-12-05
+- url https://zed.dev/pricing | page https://fshy.ajam.dev/p/zed.md
+- free tier: Zed Personal: "$0 forever", "Unlimited use with your API keys or external agents like Claude Agent, Codex CLI, and more", quoted | unit: unlimited | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: free-product
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: anonymous | detail: no account for the editor or for AI on the user's own API keys: the docs say signing in is not required and that AI without signing in uses the user's own keys. Sign-in, needed for Zed-hosted models and collaboration, is GitHub OAuth with the read:user scope, and the account email is the GitHub one
+- interface: rest, cli
+- limits note: nothing binds because the vendor serves no model on this tier; the ceiling is the endpoint it is pointed at.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: a $0 editor that accepts external agent CLIs is the cheapest way to drive a free inference endpoint from documented records; the editor is free and the tokens come from whichever vendor is granting them.
+- reliability: no reliability event recorded
+- notes: Zed is a desktop application, so its free lane needs a machine. The vendor serves no tokens on the free Personal plan. Pro is USD 10 a month with USD 5 of token credits a month and usage beyond them at API list price +10%; a 14-day Pro trial carries USD 5 of GPT-6 Luna usage with no credit card.
+- self hosted: yes
+- extras:
+  - facets.class: free-standing-agent
+  - facets.free_tier_kind: free-product
+- evidence:
+  - [1] 2026-10-22: the Personal card reads $0 forever with unlimited use on your own API keys or external agents, quoted; Pro is USD 10 a month and is the first tier with Zed-hosted models
+  - [1] 2026-10-22: the FAQ says the Personal plan is for users who want the editor without AI capabilities or who prefer their own keys, quoted
+  - [2] 2026-10-30: the editor and its AI features on the user's own keys run without an account; Zed sign-in is GitHub OAuth | capture: sha256:454cca4fa0192a06975fcb8a8c0711bb4eb42a24606207a8f0bfaed56c7a9a8a | quote: Signing in to Zed is not required. You can use most features you'd expect in a code editor without ever doing so.
+  - [1] 2026-10-30: the Pro trial is 14 days with USD 5 of GPT-6 Luna usage and no card; Pro is USD 10 a month with USD 5 of token credits | capture: sha256:50edfb49bfab6ab54994f43420179c7ba6dde3bb27f7c2ab548b7e15ab4003b2 | quote: We offer a 14-day free trial of Pro with $5 of GPT-6 Luna usage and unlimited accepted edit predictions.
+  - [1] 2026-10-30: the Personal plan is still $0 forever with unlimited use on the user's own keys or external agents | capture: sha256:50edfb49bfab6ab54994f43420179c7ba6dde3bb27f7c2ab548b7e15ab4003b2 | quote: Unlimited use with your API keys or external agents like Claude Agent, Codex CLI, and more
+  - [1] 2026-11-03: the Personal plan still lists unlimited use with the user's own API keys or external agents | capture: sha256:50edfb49bfab6ab54994f43420179c7ba6dde3bb27f7c2ab548b7e15ab4003b2 | quote: Unlimited use with your API keys or external agents like Claude Agent, Codex CLI, and more
+  - [1] 2026-11-03: Pro overage beyond the included monthly credits is billed at API list price +10% | capture: sha256:50edfb49bfab6ab54994f43420179c7ba6dde3bb27f7c2ab548b7e15ab4003b2 | quote: Once you use up your included monthly credits, you’ll be billed for additional token usage at API list price +10%.
+  - [1] 2026-11-04: the Zed Personal plan is still free forever | capture: sha256:50edfb49bfab6ab54994f43420179c7ba6dde3bb27f7c2ab548b7e15ab4003b2 | quote: The next-generation code editor. Free forever.
+- sources:
+  - [1] https://zed.dev/pricing
+  - [2] https://zed.dev/docs/authentication
+
+## Butter
+
+- `compute/butter` | self-hosted, last resort | verdict paid-only | evidence documented | binding write-gated | category container and VM sandbox
+- identity a placeholder: card and phone unknown | verified 2026-10-30T00:03:24.484Z (live) | stale on 2026-11-30
+- url https://butter.dev | page https://fshy.ajam.dev/p/butter.md
+- free tier: no free tier published | unit: none | metered on: wall-clock | read on: 2026-10-02 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - write-gated (binding): no hosted service is offered: the runtime embeds in the user's own process, so there is no capacity to rent. [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: Paid-only rather than dead: the product is sold and reachable. Self-hosted: the bVisor runtime embeds in the user's own local process, with no VM or remote infrastructure.
+- evidence note: the site was read on 2026-10-22 and offers a local runtime rather than hosted compute. There is no plan and no price, which is the record's claim, and the reason is that the product is not a host
+- self hosted: yes
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: the sandbox's lifetime is the client process's lifetime
+  - network_out.in: no
+  - network_out.ports: none
+  - network_out.static_ip: no
+  - network_out.ipv6: no
+  - free_tier_kind: none
+  - reclassified_from: dead
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Butter is building bVisor, an incredibly lightweight sandbox runtime for AI agents. It embeds directly into your local process, providing a safe bash environment without the overhead of VMs or remote infra.' quoted; no hosted service or price is offered
+  - [1] 2026-10-29: the bVisor sandbox runtime embeds in the client's local process, with no remote infrastructure | capture: sha256:de31a70de0f66453b8cc8bf88d22aee69147d632a82e2d64094f26e42a6a758b | quote: It embeds directly into your local process, providing a safe bash environment without the overhead of VMs or remote infra.
+- sources:
+  - [1] https://butter.dev
+
+## Cedana
+
+- `compute/cedana` | self-hosted, last resort | verdict paid-only | evidence documented | binding write-gated | category other (checkpoint/restore software; not a compute provider)
+- identity a placeholder: card and phone unknown | verified 2026-10-22T04:46:29.860Z (live) | stale on 2026-11-22
+- url https://cedana.com/ | page https://fshy.ajam.dev/p/cedana.md
+- free tier: no free tier published | unit: none | metered on: wall-clock | read on: 2026-10-02 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - write-gated (binding): no self-serve plan and no hosted compute: the product moves the user's own GPU jobs between the user's own nodes. [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the site was read on 2026-10-22. It sells checkpoint-and-migrate software for GPUs already in place, so there is no hosted capacity and no free tier to have
+- self hosted: yes
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: the point of the product is that a job survives a stop: state, including KV cache, is checkpointed and resumed elsewhere
+  - persistent_storage.price: a user's own storage
+  - persistent_storage.durability: process and GPU memory checkpoint
+  - persistent_storage.on_stop: yes
+  - persistent_storage.on_destroy: no
+  - persistent_storage.max_retention: the checkpoint
+  - free_tier_kind: none
+  - reclassified_from: dead
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Cedana checkpoints the entire running process (GPU memory and CUDA state, including KV cache and in-flight sessions) and resumes it on another node' and 'Native support for SLURM and Kubernetes', quoted; no plan and no price
+- sources:
+  - [1] https://cedana.com/
+
+## Cyberdesk
+
+- `compute/cyberdesk` | self-hosted, last resort | verdict paid-only | evidence documented | binding write-gated | category Windows host
+- identity a placeholder: card and phone unknown | verified 2026-10-30T00:03:24.955Z (live) | stale on 2026-11-30
+- url https://www.cyberdesk.io | page https://fshy.ajam.dev/p/cyberdesk.md
+- free tier: no free tier published | unit: none | metered on: wall-clock | read on: 2026-10-02 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - write-gated (binding): no plan and no price are published; the product is an SDK [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: Paid-only rather than dead: the product is sold and reachable. Self-hosted: the user installs the Cyberdesk driver on a Windows machine they supply, and the agent drives that machine.
+- evidence note: the site was read on 2026-10-22. It sells an SDK for portal automation with no plan or price, which confirms paid-only and explains why: the compute is the user's.
+- self hosted: yes
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - free_tier_kind: none
+  - reclassified_from: dead
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: the site was read on 2026-10-22 and presents an SDK for driving financial, ERP and logistics portals: 'Pull data from financial platforms, reconcile accounts' and `import { createCyberdeskClient } from 'cyberdesk'`. No plan and no price appears
+  - [1] 2026-10-29: Cyberdesk automates a Windows machine a user supplies, through a driver a user installs on it | capture: sha256:3962824bcfc05b53c01d2bfe3722e5a0deb1d6b97a6663af22c32b7cd677e14d | quote: Works on any physical / virtual Windows machine, no firewall rules or VPN required
+- sources:
+  - [1] https://www.cyberdesk.io
+
+## Expanse
+
+- `compute/expanse` | self-hosted, last resort | verdict paid-only | evidence documented | binding write-gated | category GPU cloud
+- identity a placeholder: card and phone unknown | verified 2026-11-03T08:50:26.531Z (live) | stale on 2026-12-04
+- url https://expanse.sh | page https://fshy.ajam.dev/p/expanse.md
+- free tier: no free tier published | unit: none | metered on: wall-clock | read on: 2026-10-02 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - write-gated (binding): no plan and no price: the product analyses the user's own GPU queue and does not supply capacity. [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: Paid-only rather than dead: the product is sold and reachable. Self-hosted: one command installs Expanse on the user's existing SLURM or Kubernetes cluster, beside its scheduler.
+- evidence note: the site was read on 2026-10-22. It sells a prediction tool for infrastructure that is already running, with no free tier and no compute product, which confirms paid-only
+- self hosted: yes
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - free_tier_kind: none
+  - reclassified_from: dead
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: the site was read on 2026-10-22 and sells workload prediction for GPU scheduling: 'Run Analyse before execution to predict GPU allocation, memory usage, runtime, and completion probability', with a June 2026 benchmark claiming runtime within 10% and memory within 5%. No plan and no price
+  - [1] 2026-10-29: Expanse is installed on a user's existing SLURM or Kubernetes cluster | capture: sha256:ac1b9b163baafbf1768e7b02aff49e8892c23c7e385cf3ccdcede371483ab855 | quote: One command installs Expanse on your existing SLURM or Kubernetes cluster.
+  - [1] 2026-11-03: the 16 x H100 figure on the page is an illustrative workload example, not a rate; the page lists no hourly price for any card and sells analysis software for an existing cluster | capture: sha256:ac1b9b163baafbf1768e7b02aff49e8892c23c7e385cf3ccdcede371483ab855 | quote: Illustrative comparison values showing the same workload before and after Expanse analysis.
+- sources:
+  - [1] https://expanse.sh
+
+## Expanso
+
+- `compute/expanso` | self-hosted, last resort | verdict paid-only | evidence documented | binding write-gated | category cloud VM
+- needs card no, phone no, ID no, institution yes | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://www.expanso.io/ | page https://fshy.ajam.dev/p/expanso.md
+- free tier: Bacalhau-derived pipelines that 'run on your own nodes, where the data is created', positioned for enterprise data control and edge AI inference, with a hosted console at cloud.expanso.io. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: kind not stated
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution
+- interface: unknown
+- limits:
+  - write-gated (binding): The product assumes nodes the customer operates, and the analysis assumes no local hardware, so the first failure is the premise rather than a price. [1]
+- limits note: The product assumes nodes the customer operates, and the analysis assumes no local hardware, so the first failure is the premise rather than a price.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: Only with a rented node: the agent could run on a paid VM, which turns a zero-cost edge product into a paid-VM product.
+- reliability: no reliability event recorded
+- notes: Bacalhau, the open-source compute-over-data project this descends from, allowed free job submission to public nodes; that route was not checked and may still exist. A rented small VM plus the open-source agent is the only composition that needs no owned hardware.
+- self hosted: yes
+- extras:
+  - facets.class: paid-cloud
+- evidence:
+  - [1] 2026-10-22: 'Expanso runs pipelines on your own nodes, where the data is created'; calls to action are a login and a demo booking, with no published plan
+  - [1] 2026-10-22: workloads named are AI inference, threat detection and log processing, all at the edge
+- sources:
+  - [1] https://www.expanso.io/
+
+## Hailo Developer Zone
+
+- `compute/hailo-developer-zone` | self-hosted, last resort | verdict paid-only | evidence reported | binding none | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-06
+- url https://hailo.ai/developer-zone/ | page https://fshy.ajam.dev/p/hailo.md
+- free tier: The Hailo AI Software Suite, the Dataflow Compiler, HailoRT and the Model Zoo are free to a registered developer, and registration is a plain account signup. What is neither free nor rentable is the silicon: a Hailo-8, Hailo-8L, Hailo-10H or Hailo-15 device is a module or card the developer owns. Hailo publishes no hosted device pool, and the third-party free hub that used to execute Hailo models in the cloud, DeGirum AI Hub, ceased operations on 2026-08-01. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: free-software-only
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email | detail: What that form asks for is unknown, because the request-access page returned 403 and the gate could not be read past it. No card, phone or ID document is stated, and no hold exists because nothing is sold to the developer
+- interface: unknown
+- limits note: no quota binds because no accelerator time is offered: the compiler emits a binary that only a Hailo device can execute.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: The compile step chains with any cheap Linux CPU box, because the Dataflow Compiler runs there; the execute step chains with nothing, and the one free cloud executor closed 22 days ago.
+- reliability: no reliability event recorded
+- notes: Classified as paid-only, not dead, because Hailo sells and supports the product. The finding is that the free part is a compiler whose output cannot be run. No price for the module is recorded: Hailo publishes none on the pages read, so the cost is null rather than a guessed figure. What would change the verdict: a partner cloud renting Hailo silicon by the minute at a published rate, or Hailo restarting a hosted pool.
+- self hosted: yes
+- extras:
+  - facets.class: hardware-vendor-programme
+  - facets.free_tier_kind: free-software-only
+  - facets.shape.gpu_class: Hailo-8 / Hailo-8L / Hailo-10H NPU, purchased module
+  - facets.shape.gpu_count: 1
+- evidence:
+  - [2] 2026-10-22: 
+  - [1] 2026-10-22: the Developer Zone is a sign-in and sign-up form gating the AI Software Suite; no hosted device is offered on the page
+  - [3] 2026-10-22: the access form returned 403, so the gate could not be read past the form
+  - [4] 2026-10-22: the free cloud route that executed Hailo models, DeGirum AI Hub, states it 'will no longer be available publicly' after 2026-09-30
+- sources:
+  - [1] https://hailo.ai/developer-zone/
+  - [2] https://community.hailo.ai/t/dataflow-compiler-license-requirement/18491
+  - [3] https://hailo.ai/developer-zone/request-access/
+  - [4] https://degirum.com/
+
+## Onlook
+
+- `compute/onlook` | self-hosted, last resort | verdict paid-only | evidence documented | binding write-gated | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://www.onlook.com/pricing | page https://fshy.ajam.dev/p/onlook.md
+- free tier: Onlook "Free" is a download, not a hosted allowance: "Download Onlook and start designing in your code", and "For the hosted cloud version, please contact our team or book a demo", quoted | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: free-product
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: anonymous | detail: anonymous for the free form: the Free card is 'Download Onlook and start designing in your code' with no usage allowance, and 'Yes, Onlook can be self-hosted for free on GitHub', so no account is created and no identity is checked. The hosted cloud lane publishes no signup at all - 'please contact our team or book a demo' - so what it would require is unknown. No card, hold, phone number or ID document is stated.
+- interface: unknown
+- limits:
+  - write-gated (binding): the hosted lane has no self-serve price at all, so the only free path is running the desktop app locally. [1]
+- limits note: the hosted lane has no self-serve price at all, so the only free path is running the desktop app locally.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: The open-source build can be deployed on self-hosted or remote infrastructure, but as sold it provides no hosted compute and no allowance.
+- reliability: no reliability event recorded
+- notes: The repository has 26.0k stars on the page's own count.
+- self hosted: yes
+- extras:
+  - facets.class: paid
+  - facets.free_tier_kind: free-product
+- evidence:
+  - [1] 2026-10-22: the Free card is "Download Onlook and start designing in your code" with no usage allowance, quoted
+  - [1] 2026-10-22: "Yes, Onlook can be self-hosted for free on GitHub. For the hosted cloud version, please contact our team or book a demo." quoted
+- sources:
+  - [1] https://www.onlook.com/pricing
+
+## Self-hosted bare-metal sandbox fleet (hardware floor)
+
+- `compute/self-host-baremetal` | self-hosted, last resort | verdict paid-only | evidence documented | binding request-rate | category self-hosted
+- identity a placeholder: card and phone unknown | verified 2026-10-22T04:47:58.884Z (live) | stale on 2026-11-22
+- url https://www.hetzner.com/dedicated-rootserver/ax42/ | page https://fshy.ajam.dev/p/hetzner.md
+- free tier: no free server: the AX42 is rented, with free phone and email support and additional IPv4 blocks from EUR 1.70 a month for a /29 plus a setup fee | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - request-rate (binding): the server is rented by the month or hour; the page states no free instance [1]
+  - per-ip-shaping: 50.12 TBit/s of total bandwidth at the data centre; additional IPv4 blocks from a /29 at EUR 1.70 a month plus EUR 4.90 setup [1]
+  - write-gated: each additional IP block carries a one-time setup fee, so address space is not free either [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the AX42 page was read on 2026-10-22 and prices the IP blocks and support rather than granting a server. The two free items are support channels, which is what the record's free-tier claim was picking up
+- self hosted: yes
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - shape.note: the AX42 dedicated configuration; the page is about IP blocks and support, not the machine's shape
+  - session_cap.restart_required: no
+  - session_cap.note: a dedicated server bills by the month; the page states no reap
+  - free_tier_kind: none
+  - ps.price: the server's own disks
+  - ps.durability: dedicated disks
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: the rental term
+  - net.out: yes
+  - net.in: yes
+  - net.ports: additional IPv4 blocks and a /64 IPv6
+  - net.static_ip: yes
+  - net.ipv6: yes
+  - net.allowance: 50.12 TBit/s total data-centre bandwidth
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Free phone support', 'Free email support' and '50.12 TBit/s total bandwidth' with additional IP blocks priced at 'EUR 1.70 per month / EUR 0.0027 per hour + EUR 4.90 setup' for a /29, up to 'EUR 435.20 per month' for a /24, quoted
+- sources:
+  - [1] https://www.hetzner.com/dedicated-rootserver/ax42/
+
+## Tencent Cloud CubeSandbox
+
+- `compute/tencent-cubesandbox` | self-hosted, last resort | verdict paid-only | evidence documented | binding write-gated | category container and VM sandbox
+- identity a placeholder: card and phone unknown | verified 2026-10-22T04:48:09.894Z (live) | stale on 2026-11-22
+- url https://github.com/TencentCloud/CubeSandbox | page https://fshy.ajam.dev/p/github-tencentcloud.md
+- free tier: no hosted tier: the project is self-hosted software for x86_64 Linux with KVM, so there is no capacity to buy; it ships a compatible API gateway and an egress filter | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - write-gated (binding): self-hosted software: users must supply x86_64 Linux with KVM, so there is no hosted capacity [1]
+  - per-ip-shaping: CubeEgress filters egress by L7 domain and audits it, with kernel policies so traffic cannot skip inspection [1]
+  - request-rate: cold start is 60 ms at single concurrency and the P99 is 137 ms under 50 concurrent creations [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the repository was read on 2026-10-22 and states the KVM requirement, the benchmarked cold start and the egress gateway. There is no hosted product, so the verdict stays paid-only with a better reason: it is software users run
+- self hosted: yes
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: a sandbox starts in 60 ms and pause/resume is supported across nodes; a user's own host sets the clocks
+  - free_tier_kind: none
+  - reclassified_from: dead
+  - ps.price: a user's own host and S3
+  - ps.durability: snapshots to S3, resumable across nodes
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.max_retention: as long as a user keeps the snapshot
+  - net.out: yes
+  - net.in: no
+  - net.ports: egress through CubeEgress with L7 domain filtering
+  - net.static_ip: no
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Cube Sandbox requires an x86_64 Linux environment with KVM support' and 'Cold start benchmarked on bare-metal. 60ms at single concurrency; under 50 concurrent creations, avg 67ms, P95 90ms, P99 137ms' with 'CubeEgress - OpenResty-based egress security gateway: L7 domain filtering, credential injection, and access auditing', quoted
+- sources:
+  - [1] https://github.com/TencentCloud/CubeSandbox
+
+## Trainy
+
+- `compute/trainy` | self-hosted, last resort | verdict paid-only | evidence documented | binding write-gated | category platform host
+- identity a placeholder: card and phone unknown | verified 2026-10-30T00:03:24.252Z (live) | stale on 2026-11-30
+- url https://trainy.ai/ | page https://fshy.ajam.dev/p/trainy.md
+- free tier: no free tier published | unit: none | metered on: wall-clock | read on: 2026-10-02 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - write-gated (binding): no plan and no price: the product is orchestration tooling over GPUs rented elsewhere [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: Paid-only rather than dead: the product is sold and reachable. Self-hosted: the user deploys Konduktor on its own cluster in any cloud or on bare metal, and Trainy helps pick a cloud provider rather than being one.
+- evidence note: the site was read on 2026-10-22 and sells cluster orchestration over existing or rented GPUs, with no plan or price. That confirms paid-only
+- self hosted: yes
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: a job is rescheduled onto healthy hardware; the page states no clock
+  - free_tier_kind: none
+  - reclassified_from: dead
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Run your GPUs like a frontier lab' with 'From local to 64 H100s in under an hour' and 'Konduktor detects bad GPUs and nodes, cordons them, and reschedules your job onto healthy hardware', quoted; no plan and no price
+  - [1] 2026-10-29: Trainy's Konduktor is deployed on a user's cluster in a cloud or on bare metal; Trainy is not a cloud provider | capture: sha256:bcc6e9d764dbf5d25615f466c293b873ce6a5fb39cb9909232b1cd89338552f1 | quote: Deploy Konduktor on any cloud or on bare metal.
+- sources:
+  - [1] https://trainy.ai/
+
+## Veertu Anka Build Cloud
+
+- `compute/anka-build-cloud` | self-hosted, last resort | verdict paid-only | evidence documented | binding write-gated | category macOS host
+- identity a placeholder: card and phone unknown | verified 2026-10-22T04:46:09.739Z (live) | stale on 2026-11-22
+- url https://docs.veertu.com/anka/licensing/ | page https://fshy.ajam.dev/p/veertu.md
+- free tier: no free tier published | unit: none | metered on: wall-clock | read on: 2026-10-02 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - request-rate: the trial licence is 30 days; a commercial licence is a yearly subscription priced per host and host model, not per core [1]
+  - write-gated (binding): a licence key must be activated against Veertu's licensing server, which the host must reach over the internet [1]
+- limits note: Session cap, idle-reap and network policy are not documented. Exceeds capacity threshold.
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the licensing page was read on 2026-10-22 and states a 30-day trial licence and a host-count licence model. There is no free tier beyond the trial, which confirms paid-only
+- self hosted: yes
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - shape.gpu_class: Apple Silicon host
+  - shape.note: licensing is per host and host model; the VM runs on Apple hardware a user owns
+  - session_cap.restart_required: no
+  - session_cap.note: the 30-day clock is on the licence, not on a VM; a VM's own lifetime is unbounded
+  - free_tier_kind: trial
+  - reclassified_from: dead
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Trial licenses for Anka products is valid for 30 days from the date of trial registration' and 'Anka Licensing for Apple Silicon machines is determined based on host count and host model and not on CPU core count', quoted
+- sources:
+  - [1] https://docs.veertu.com/anka/licensing/
+
+## Gensyn
+
+- `compute/gensyn` | self-hosted, last resort | verdict fails-quota | evidence documented | binding write-gated | category GPU cloud
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://docs.gensyn.ai/testnet/rl-swarm/getting-started | page https://fshy.ajam.dev/p/gensyn.md
+- free tier: No consumer-facing capacity. Quoted: 'RL Swarm is a peer-to-peer reinforcement-learning swarm you can run on a laptop or a GPU server', with system requirements 'A 64-bit arm64 or x86 CPU with at least 32 GB RAM, or an officially supported NVIDIA GPU (3090, 4090, 5090, A100, H100)'. The dashboard states: 'There are no official swarms running right now.' | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: kind not stated
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email | detail: a Hugging Face write token: the getting-started page is quoted as requiring 'a Hugging Face write token', which in turn implies a Hugging Face account that issues it. No card, hold, phone or ID is stated, and the email kind rests on that Hugging Face account rather than on a quoted signup form. Debit and prepaid do not arise because no payment method is mentioned. The 32 GB RAM or listed NVIDIA GPU requirement is a capacity gate, not an identity one.
+- interface: unknown
+- limits:
+  - write-gated (binding): The direction is inverted: Gensyn pays suppliers who bring hardware, so it consumes hardware rather than supplying it. Even as a supplier lane it fails first on the 32 GB RAM or supported-GPU floor, then on 'no official swarms running right now'. [1]
+- limits note: The direction is inverted: Gensyn pays suppliers who bring hardware, so it consumes hardware rather than supplying it. Even as a supplier lane it fails first on the 32 GB RAM or supported-GPU floor, then on 'no official swarms running right now'.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: None. Gensyn is a market for selling compute, not buying it, and it has no live swarm. A chain that includes Gensyn would need a GPU already in place.
+- reliability: no reliability event recorded
+- notes: REFUTATION OF A COMMON MISREADING. Gensyn appears in free-GPU roundups because RL Swarm is free to join, but joining means contributing hardware, not receiving capacity. Three independent facts kill it as a source of capacity: it needs 32 GB RAM or a listed NVIDIA card, its dashboard says no official swarms are running, and its reward unit is a token allocation out of a 2 percent testnet pool with no published per-node formula. A third-party guide also records that renting a GPU to run a Gensyn node costs USD 65 to USD 300 per month.
+- self hosted: yes
+- extras:
+  - facets.class: decentralized-training-network
+  - facets.shape.ram_gib: 32
+- evidence:
+  - [1] 2026-10-22: quoted: requires a 64-bit arm64/x86 CPU with at least 32 GB RAM or a supported NVIDIA GPU (3090, 4090, 5090, A100, H100); a Hugging Face write token is required
+  - [2] 2026-10-22: quoted: 'There are no official swarms running right now. Please check back later'; the network reports 427,530 on-chain users
+  - [3] 2026-10-22: public testnet launched March 2025; the network tracks participation and makes payments, it does not rent capacity to consumers
+  - [4] 2026-10-22: third-party operator guide states 'No compute-provider earnings have been published for Gensyn mainnet' and that testnet rewards were 'relative and pool-based'
+- sources:
+  - [1] https://docs.gensyn.ai/testnet/rl-swarm/getting-started
+  - [2] https://dashboard.gensyn.ai/
+  - [3] https://docs.gensyn.ai/testnet
+  - [4] https://depinrun.com/guides/gensyn-node-operator-guide
+
+## joule
+
+- `compute/joule` | self-hosted, last resort | verdict fails-quota | evidence documented | binding write-gated | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://github.com/f00-sh/joule | page https://fshy.ajam.dev/p/github-f00-sh.md
+- free tier: Free access is real but is earned by contributing hardware. Quoted: 'Access to the OpenAI-compatible API is earned only by contributing compute - free on the public pool (no cash).' Quoted: 'No live contribution / balance => no access.' The economy is quoted as millijoules minted from 'verified contribution (heartbeats, shards, challenges)', scaled by square root of VRAM with a tenure boost. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: contribution-earned
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: anonymous
+- interface: rest
+- limits:
+  - write-gated (binding): Access requires proving donated GPU contribution first, so the binding constraint is hardware, which the analysis assumes is absent. A CPU-only node is documented as 'lab only'. [1]
+- limits note: Access requires proving donated GPU contribution first, so the binding constraint is hardware, which the analysis assumes is absent. A CPU-only node is documented as 'lab only'.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: None. The exchange rate is compute for compute, so a user with no compute to offer has nothing to trade.
+- reliability: no reliability event recorded
+- notes: Documented because it is the cleanest statement of a pattern that recurs across this class: a pool that is free in dollars but priced in donated compute. Gensyn does the same with testnet points, and Dreamify does it with somebody else's 4090s. Without owned hardware, 'no cash buy-in' is not the same as 'reachable'.
+- self hosted: yes
+- extras:
+  - facets.class: community-compute-pool
+  - facets.free_tier_kind: contribution-earned
+- evidence:
+  - [1] 2026-10-22: quoted: 'Access to the OpenAI-compatible API is earned only by contributing compute - free on the public pool (no cash)'; 'No live contribution / balance => no access'; CPU 'works for lab only'
+  - [2] 2026-10-22: quoted: '100% free - no money - peer-seeded - website only'; 'You bring the watts'; millijoules are 'a sealed ledger of what you give in'
+- sources:
+  - [1] https://github.com/f00-sh/joule
+  - [2] https://joule.f00.sh/
+
+## Browser Linux emulators
+
+- `compute/browser-linux-emulators` | self-hosted, last resort | verdict dead | evidence documented | binding retention-clamped | category browser host
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T04:46:26.205Z (live) | stale on 2026-11-22
+- url https://linuxontab.com/ | page https://fshy.ajam.dev/p/linuxontab.md
+- free tier: a Linux userland running in the browser tab, free with no signup on some sites | unit: none | metered on: none | read on: 2026-10-06 | source: [1] | note: WebVM is the strongest: real Debian x86 and real Tailscale networking, and it dies with the tab
+- per-object cap: not applicable
+- retention: dies with the tab | days: 0 | source: [1]
+- egress: the user's own connection | metered: no | source: [1]
+- identity: anonymous | detail: no signup on the sites that offer it
+- interface: ssh
+- limits:
+  - retention-clamped (binding): closing the tab ends the environment; state survives only as an IndexedDB snapshot [1]
+  - request-rate: the guest runs on the browser's own memory, so the machine's RAM is the ceiling [1]
+- limits note: the CPU is the reader's own, so this is not remote capacity at all
+- interface detail: a browser tab; no inbound endpoint
+- tooling: a WASM Linux userland in the tab
+- composes with: none: the machine is the reader's own laptop
+- reliability: no reliability event recorded
+- notes: Not remote compute: the cycles are the reader's own and the state dies with the tab. provider listings was right to refuse to count these.
+- evidence note: the site was read on 2026-10-22 and states the free no-signup path, the IndexedDB snapshot on tab close, the opt-in WISP TCP egress and the guest-port tunnel. The record was already `dead` with a note that the environment ends when the tab closes, which the page confirms is a snapshot rather than a loss
+- self hosted: yes
+- extras:
+  - shape.note: emulated x86 in the browser tab; the host's RAM bounds it
+  - billing_model: flat-pool
+  - session_cap.restart_required: no
+  - session_cap.note: the tab's lifetime is the session; there is no vendor clock
+  - free_tier_kind: allowance
+  - ps.price: free
+  - ps.durability: IndexedDB snapshot taken on close
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: the browser's storage quota
+  - net.out: yes
+  - net.in: yes
+  - net.ports: in-guest ports tunnelled out over a pairing-code WebSocket; SSH, SCP, SFTP and rsync
+  - net.static_ip: no
+  - net.allowance: WISP v1 over WebSocket, opt-in
+- evidence:
+  - [1] 2026-10-06: 'Free, no signup'; the machine is the browser tab
+  - [1] 2026-10-22: 'Real x86 kernel. Runs offline. Open source stack. Free, no signup.' and 'State after closing tab: IndexedDB snapshots' and 'Networking is opt-in ... gets full TCP egress' and 'Free, no signup' with a pairing-code tunnel for SSH, quoted
+- sources:
+  - [1] https://linuxontab.com/
+
+## Continue
+
+- `compute/continue` | self-hosted, last resort | verdict dead | evidence documented | binding write-gated | category cloud VM
+- needs card no, phone no, ID no, institution yes | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://continue.dev/ | page https://fshy.ajam.dev/p/continue.md
+- free tier: the vendor product is gone: "Continue has been acquired by Cursor." and "our open-source codebase remains freely available", quoted | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution
+- interface: unknown
+- limits:
+  - write-gated (binding): there is no hosted signup to fail against; the acquisition page carries no plan, no price and no product link. [1]
+- limits note: there is no hosted signup to fail against; the acquisition page carries no plan, no price and no product link.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: the source stays usable as a bring-your-own-key agent, which is the Cline pattern already recorded in comparative records; the vendor allowance and the hosted product do not survive.
+- reliability: no reliability event recorded
+- notes: The acquisition date is not on the page. The finding is that a reader who follows an older recommendation to Continue's free tier finds no product and no price.
+- self hosted: yes
+- extras:
+  - facets.class: refutation
+  - facets.free_tier_kind: none
+- evidence:
+  - [1] 2026-10-22: the site now reads "Continue has been acquired by Cursor" and "our open-source codebase remains freely available as a foundation for others", quoted
+  - [2] 2026-10-22: returned a GitHub Pages 404, so no pricing page exists at the former address
+- sources:
+  - [1] https://continue.dev/
+  - [2] https://continue.dev/pricing
+
+## Cua
+
+- `compute/cua` | self-hosted, last resort | verdict dead | evidence documented | binding retention-clamped | category container and VM sandbox
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://cua.ai/pricing | page https://fshy.ajam.dev/p/cua.md
+- free tier: no hosted sandbox rate is published: the pricing page states the offer now connects computer-use agents to your own compute | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: the earlier hosted Fleet rate is withdrawn
+- per-object cap: not applicable
+- retention: not applicable: no hosted machine is sold | days: 0
+- egress: not applicable | metered: no | source: [1]
+- identity: email | detail: no hosted signup exists to price
+- interface: unknown
+- limits:
+  - retention-clamped (binding): the hosted Fleet rate is no longer published [1]
+- limits note: the page offers no managed rate to compare, so there is nothing to price
+- binding note: the hosted Fleet rate is withdrawn; the offer ends at the product, not at a quota
+- interface detail: an agent framework that targets published compute.
+- tooling: a Python framework for computer-use agents
+- composes with: none as a host: it runs on a machine already in place
+- reliability: no reliability event recorded
+- notes: Dead as a compute provider and alive as a framework. A reader who wants a hosted sandbox should not look here, and a reader who already has a machine should.
+- self hosted: yes
+- extras:
+  - billing_model: flat-pool
+  - free_tier_kind: none
+  - burst_x: 1.0
+- evidence:
+  - [1] 2026-10-22: the page states the current offer connects computer-use agents to your own compute and no hosted rate is published
+- sources:
+  - [1] https://cua.ai/pricing
+
+## Cua (Cua Spaces)
+
+- `compute/cua-windows` | self-hosted, last resort | verdict dead | evidence documented | binding request-rate | category Windows host
+- needs card no, phone no, ID no, institution no | verified 2026-10-26T11:33:32.317Z (live) | stale on 2026-11-26
+- url https://cua.ai/pricing | page https://fshy.ajam.dev/p/cua.md
+- free tier: no rented Windows machine; the free tier is 2 live sessions and 20 remote hours a month, where a remote hour is time spent using a computer the customer already owns through Cua's relay. Cua states 'You bring the computers; Cua doesn't rent them.' | unit: hours | metered on: wall-clock | read on: 2026-10-26 | source: [1]
+- per-object cap: not applicable: no machine is provided
+- retention: not applicable: no machine or disk is provided
+- egress: not applicable: no machine is provided; traffic crosses the customer's own computer and Cua's relay | metered: no | source: [1]
+- identity: email | detail: an account is required to use the relay; no card and no phone were read
+- interface: unknown
+- limits:
+  - request-rate (binding): 20 remote hours a month and 2 live sessions on Free, 200 hours and 5 sessions for USD 25 a seat [1]
+- limits note: a remote hour is counted once for each hour with at least one live session through the relay, per calendar month UTC; it is relay time, not machine time
+- binding note: the 20-hour relay allowance is the only meter, and it measures time on hardware the customer owns rather than a rented host.
+- interface detail: a relayed desktop session to a computer the customer already owns; no machine is rented
+- tooling: Cua's client and relay; the customer supplies the computer
+- composes with: not a compute source; it shares a computer already in place, and the analysis assumes no local hardware, so the free tier is worth nothing as compute
+- reliability: no reliability event observed; the service relays to the customer's own computer and provides no machine of its own
+- notes: Corrected on 2026-10-26. The record had read 'using your computers from somewhere else' as a rented Windows Server host. The live page says the opposite: Cua relays to a computer the customer already owns and rents no machine. The 20 remote hours are relay hours, not a Windows host, so the record's qualifies-with-caveat verdict is withdrawn. The analysis assumes no local hardware, so the free tier is worth zero as compute.
+- evidence note: the live pricing page was read on 2026-10-26 and states that Cua does not rent machines. Earlier evaluation read 'using your computers from somewhere else' as a rented Windows host; the page's own words refute that reading.
+- self hosted: yes
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: the meter is an hour with at least one live session through the relay, on a computer the customer owns
+  - free_tier_kind: none
+  - net.out: yes
+  - net.in: yes
+  - net.ports: sessions are relayed to the customer's own computer
+  - net.static_ip: no
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Up to 2 live sessions and 20 remote hours a month' on the free tier against 'Up to 5 live sessions and 200 remote hours a month' at '$25 per seat a month', and 'Remote hours: time spent using your computers from somewhere else. Using a computer from itself is free.', quoted
+  - [1] 2026-10-26: quoted: 'Cua Spaces turns the Macs, Linux boxes and cloud VMs your team already has into shared desktops. ... You bring the computers; Cua doesn't rent them.'
+- sources:
+  - [1] https://cua.ai/pricing
