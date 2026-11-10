@@ -250,8 +250,20 @@ gh pr checks NUMBER
 gh pr merge NUMBER --merge --author-email "$(gh api user --jq '"\(.id)+\(.login)@users.noreply.github.com"')"
 ```
 
-If `gh` does not work, merge on your own machine. Run `git merge --no-ff` with the noreply address as the author,
-then push `main`. The pull request shows as merged when its head is in `main`.
+If `gh` does not work, a pull request that is not a research run can be merged on your own machine. Merge the exact
+commit that CI checked, never the branch name, and set the noreply address as both the author and the committer, because
+the committer of a merge commit is public on `main` too:
+
+```bash
+NOREPLY="ID+LOGIN@users.noreply.github.com"   # the account's noreply address
+git fetch origin main && git checkout main && git merge --ff-only origin/main
+git -c user.name=LOGIN -c user.email="$NOREPLY" merge --no-ff SHA -m "Merge pull request #NUMBER from OWNER/BRANCH"
+git log -1 --format='%ae %ce'                  # both are the noreply address
+git push origin main
+```
+
+The pull request shows as merged when its head is in `main`. ⚠ A research run is not merged this way: `scripts/rq
+merge` also runs the light checks and the steps after the merge (section 4), which a hand merge skips.
 
 ⚠ A pull request runs the workflow, the hook and the leak rules of its own head. Read a change of `.github/`,
 `.githooks/` or `publish/rules/leak.json` as a change of the checks that judge it. In `raw` the same holds
