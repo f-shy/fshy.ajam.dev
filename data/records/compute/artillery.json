@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://www.artillery.io/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: the pricing page quotas list test volume, retention, team members, workers, test duration and test cases, and no egress or bandwidth term",
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "the Artillery CLI and the Artillery Cloud web dashboard; a Stash API row appears in the plan table, with no REST reference read",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -43,7 +43,7 @@
       "source": "https://www.artillery.io/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

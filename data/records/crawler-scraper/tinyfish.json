@@ -39,7 +39,7 @@
     "rest"
   ],
   "interface_detail": "REST search and fetch; free per request, no plan and no monthly minimum",
-  "tooling": "not stated",
+  "tooling": "not established",
   "chaining": "The read path's step-3 renderer behind Jina",
   "limits": [
     {

@@ -37,7 +37,7 @@
   ],
   "interface_detail": "MySQL client and SingleStore Endpoints as command line clients, plus an HTTP Data API, reached from the Cloud Portal Connect menu; documented at docs.singlestore.com/cloud/getting-started-with-singlestore-helios/",
   "tooling": "MySQL client, SingleStore Endpoints, the SingleStore Python client, Node.js, Ruby on Rails, Perl and Java/JDBC connectors, and the HTTP Data API",
-  "chaining": "unlimited Shared clusters per organization turns a 1 GB per-cluster cap into an N-times-1 GB allowance if the schema can be partitioned, which no other free tier allows.",
+  "chaining": "unlimited Shared clusters per organization turns a 1 GB per-cluster cap into an N-times-1 GB allowance if the schema can be partitioned, which no other free tier among documented hosts allows.",
   "limits": [
     {
       "kind": "per-object-cap",

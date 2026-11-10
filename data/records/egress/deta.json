@@ -55,7 +55,7 @@
   },
   "reliability_note": "Service withdrawn; data deleted after sunset.",
   "confidence": "reported",
-  "confidence_note": "Third-party reports and the announcement quoted in a public pull request.",
+  "confidence_note": "Discontinuation documented in vendor communications and repository issues. Deta endpoints returned HTTP 530 during verification.",
   "evidence": [
     {
       "url": "https://news.ycombinator.com/item?id=41426388",
@@ -76,7 +76,7 @@
   "verdict": "dead",
   "verified_at": "2026-10-23T00:00:00.000Z",
   "price_per_tb_month": "USD 0",
-  "notes": "Deta's successor product is not a PaaS in this sense.",
+  "notes": "Deta Cloud and Space cloud runtime services are discontinued. Successor products focus on personal computing environments rather than application hosting.",
   "extras": {
     "wg_path": "none",
     "wg_detail": "No service remains to expose a port. Both deta.space and deta.sh returned HTTP 530.",

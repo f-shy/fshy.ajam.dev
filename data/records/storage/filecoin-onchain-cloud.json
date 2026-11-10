@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.filecoin.cloud/cookbooks/payments-and-storage/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.filecoin.cloud/cookbooks/payments-and-storage/",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "Synapse SDK; FWSS (Filecoin Warm Storage Service); Filecoin Pay streaming payments",
   "tooling": "synapse-sdk, USDFC deposits, lotus/curio on the provider side",
-  "chaining": null,
+  "chaining": "Features low-cost on-chain storage capacity paired with metered egress fees, suitable for cold archival storage.",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -74,5 +74,5 @@
     "price_verbatim": "$2.50/TiB storage + up to $14/TiB egress"
   },
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

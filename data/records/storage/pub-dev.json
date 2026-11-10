@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://dart.dev/tools/publishing",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -43,7 +43,7 @@
   },
   "reliability_note": "'Keep package size within limits. We recommend less than 100 MB after gzip compression and less than 256 MB uncompressed.' Also 'Publishing is forever' (a permanence plus, but no delete…",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "https://dart.dev/tools/publishing",

@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://www.playstation.com/en-us/support/subscriptions/ps5-ps-plus-cloud-storage/",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,7 +31,7 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
+  "interface_detail": "not documented",
   "tooling": "the PlayStation console Saved Data settings (Upload to Cloud Storage and Download to console storage tabs); a public API is not documented on the vendor page",
   "chaining": "not recorded",
   "limits": [

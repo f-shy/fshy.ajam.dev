@@ -55,7 +55,7 @@
   "verified_at": "2026-10-22T03:37:00.574Z",
   "binding": "retention-clamped",
   "binding_note": "The host is not slow or capped, it is gone; the constraint is that it stopped.",
-  "notes": null,
+  "notes": "Zlion instance with media collections where WebDAV access is inactive due to excessive bandwidth utilization. TCP service is offline.",
   "extras": {
     "access_mode": "public-instance",
     "read_capability": "none",

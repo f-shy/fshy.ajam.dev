@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://github.com/dmotz/trystero",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://github.com/dmotz/trystero",
     "notes": "not stated"
   },
@@ -31,7 +31,7 @@
   ],
   "interface_detail": "JavaScript library, `joinRoom` API",
   "tooling": "npm @trystero-p2p/*",
-  "chaining": "The cleanest signalling example: because only SDP crosses the third party, there is no bandwidth quota to hit and no operator who could impose one. Note the caveat that WebRTC needs a TURN relay when both peers are behind symmetric NAT — that is where real relaying cost reappears, and Trystero does not supply it.",
+  "chaining": "The cleanest signalling example: because only SDP crosses the third party, there is no bandwidth quota to hit and no operator who could impose one. Note the caveat that WebRTC needs a TURN relay when both peers are behind symmetric NAT. That is where real relaying cost reappears, and Trystero does not supply it.",
   "limits": [],
   "limits_note": "Signalling only. Browser WebRTC connection-count limits force a room/namespace design.",
   "identity_cost": {

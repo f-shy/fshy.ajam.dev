@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://pixeldrain.com/",
     "notes": "not stated"
   },
@@ -24,7 +24,7 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Free egress capped at 6 GB/day per IP address (sliding 24h window, IP-bound even when logged in); over the cap the speed drops to 1 MiB/s and max 3 concurrent downloads. Pro: 4 TB per 30 days. Prepaid: EUR 1/TB metered. So free egress is metered, not unusable — 6 GB/day x N IPs.",
+    "terms": "Free egress capped at 6 GB/day per IP address (sliding 24h window, IP-bound even when logged in); over the cap the speed drops to 1 MiB/s and max 3 concurrent downloads. Pro: 4 TB per 30 days. Prepaid: EUR 1/TB metered. So free egress is metered, not unusable. 6 GB/day x N IPs.",
     "metered": false,
     "price_per_tb": "EUR 1/TB"
   },
@@ -88,5 +88,5 @@
   "notes": "Free plan: storage 'No limit' for regular uploads (2 TB limit only on the paid filesystem product). Pro: no limit; Prepaid: EUR 4/TB/month metered.",
   "extras": {},
   "binding": "retention-clamped",
-  "binding_note": null
+  "binding_note": "a clock, not a quota: bytes leave whether or not transfer is completed"
 }

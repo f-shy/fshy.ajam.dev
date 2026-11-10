@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://cloudbrowser.ai/",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: the page read states no egress allowance and no overage price per TB",
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "HTTP API to open a browser, then Chrome DevTools Protocol with Puppeteer or Playwright; official .NET and Node.js SDKs; a remote MCP server; a web dashboard",
   "tooling": "HTTP API plus CDP with Puppeteer or Playwright; official .NET and Node.js SDKs",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -53,7 +53,7 @@
       "source": "https://cloudbrowser.ai/"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": "email: an account needs an email address and authentication ('An email address and authentication information are necessary for an account; payment and usage information are necessary for a paid plan.'). A card is not required for the 7-day trial: the same statement makes payment information necessary for a paid plan, and the trial page states 'Start a 7-day free trial on Basic. No browser to install, no servers to run.'. A phone is not required: the policy's account data is 'your email address, password authentication records, language preferences, account identifiers, API credentials and security events', which names no phone. Country: not published at https://cloudbrowser.ai/privacy-policy.",

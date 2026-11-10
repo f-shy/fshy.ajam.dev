@@ -41,7 +41,7 @@
     }
   ],
   "binding": "volume-quota",
-  "binding_note": "500 GB a month is the tightest traffic allowance's buyable rows, and it is the first thing a VPN node or a monitoring fleet exhausts.",
+  "binding_note": "500 GB a month is the tightest traffic allowance among buyable offerings, and it is the first thing a VPN node or a monitoring fleet exhausts.",
   "identity_cost": {
     "kind": "email",
     "detail": "a client account on my.ifog.ch; the checkout form and payment rails were not read on any page reached. No card hold is stated.",

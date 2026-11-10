@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://lowendspirit.com/discussion/3945/kts24-com-free-storage-vps-for-at-least-3-month",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -41,9 +41,9 @@
     "detail": "the March 2022 test needed an account at the provider's panel and a request e-mail sent from the registered address; no card was asked for in the offer text. The offer is closed",
     "country": null
   },
-  "reliability_note": null,
+  "reliability_note": "Promotional offer of 1 TB storage VPS free for 3 months with no card required dates to March 2022. The series was not launched publicly.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "https://lowendspirit.com/discussion/3945/kts24-com-free-storage-vps-for-at-least-3-month",
@@ -123,7 +123,7 @@
   ],
   "verdict": "dead",
   "verified_at": "2026-11-03T01:28:34.900Z",
-  "notes": null,
+  "notes": "Promotional offer of 1 TB storage VPS free for 3 months with no card required dates to March 2022. The series was not launched publicly.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

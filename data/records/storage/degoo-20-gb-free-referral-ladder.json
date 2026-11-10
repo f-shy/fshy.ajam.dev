@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://degoo.com/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "'90 days account inactivity' listed as a free-plan term — inactive accounts are reclaimed",
+    "stated": "'90 days account inactivity' listed as a free-plan term. Inactive accounts are reclaimed.",
     "days": 90,
     "source_url": "https://degoo.com/",
     "notes": "not stated"
@@ -33,9 +33,9 @@
   ],
   "interface_detail": "rest",
   "tooling": "No mainline rclone backend. Third-party desktop client only; web + mobile apps.",
-  "chaining": "The allowance is per account. Not viable.",
+  "chaining": "Storage allowance is 20 GB per registered account, requiring account multiplication to aggregate capacity.",
   "limits": [],
-  "limits_note": "20 GB free. '90 days account inactivity' listed as a free-plan term — inactive accounts are reclaimed. 1,000-file warning threshold on free.",
+  "limits_note": "20 GB free. '90 days account inactivity' listed as a free-plan term. Inactive accounts are reclaimed. 1,000-file warning threshold on free.",
   "identity_cost": {
     "kind": "email",
     "detail": "email",

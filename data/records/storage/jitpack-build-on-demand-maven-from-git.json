@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://github.com/jitpack/jitpack.io/issues/4898",
     "notes": "not stated"
   },

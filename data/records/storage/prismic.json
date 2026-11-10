@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://prismic.io/pricing",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://prismic.io/pricing",
     "notes": "not stated"
   },
@@ -34,7 +34,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "Prismic REST API + GraphQL, `@prismicio/client`, slice-machine CLI; assets public at images.prismic.io/<repo>/<id>.<ext>?w=&auto=format,compress",
-  "chaining": "Unlimited assets per repository, bandwidth-capped. Repositories are the unit; creating additional repos is free and each carries its own 100 GB/mo meter — that is a genuine N x 100 GB bandwidth multiplier, with storage effectively unbounded in each.",
+  "chaining": "Unlimited assets per repository, bandwidth-capped. Repositories are the unit; creating additional repos is free and each carries its own 100 GB/mo meter. That is a genuine N x 100 GB bandwidth multiplier, with storage effectively unbounded in each.",
   "limits": [],
   "limits_note": "Per-asset size cap not published on the pricing page (needs verification in the repo settings); 100 GB/month bandwidth hard stop; Free has 1 repository per... verify. Documents unlimited.",
   "identity_cost": {

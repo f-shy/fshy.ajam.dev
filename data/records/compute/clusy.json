@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://www.clusy.io/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: the pricing page limits table lists checkpoint storage, retention, sandbox RAM, GPUs and concurrent sandboxes, and no egress or bandwidth row",
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "a web notebook IDE (console only); .ipynb import and export, and publish to Hugging Face, Kaggle or GitHub; no REST API, CLI or SSH on the pages read",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -43,7 +43,7 @@
       "source": "https://www.clusy.io/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

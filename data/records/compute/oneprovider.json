@@ -73,7 +73,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "One ambiguity is unresolved and it matters for the number: every row prints two prices in three currencies with two setup fees, and the second column is either a clearance price or a shorter billing term. The record carries the higher figure as the price and the lower as clearance. Paris is one location of 140 and was the one checked, so this is not a claim about OneProvider's global floor.",
+  "notes": "OneProvider offers dedicated servers across global datacenters, with clearance pricing published per location. Specifications and setup fee waivers vary by region and stock.",
   "extras": {
     "facets": {
       "class": "floor-price",

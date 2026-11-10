@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://aws.amazon.com/opendata/faqs/",
     "notes": "not stated"
   },

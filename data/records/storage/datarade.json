@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://datarade.ai/company/blog/ai-ready-data-marketplaces",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://datarade.ai/company/blog/ai-ready-data-marketplaces",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "N/A — no delivery.",
+    "terms": "N/A. No delivery.",
     "metered": false
   },
   "interface": [
@@ -39,7 +39,7 @@
     "detail": "email",
     "country": null
   },
-  "reliability_note": "Anyone reading 'data marketplace' as 'data storage' will waste a wave on this category — every member of it (Datarade, data.world, Snowflake Marketplace-style listings, AWS Data Exchange) hosts metadata, not bytes.",
+  "reliability_note": "Data marketplace directory platform. Hosts dataset metadata, vendor descriptions, and external links rather than raw data files.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

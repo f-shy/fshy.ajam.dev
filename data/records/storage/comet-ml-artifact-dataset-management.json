@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.comet.com/site/pricing/",
     "notes": "not stated"
   },
@@ -24,14 +24,14 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Not applicable — there is no free storage pool to egress from.",
+    "terms": "Not applicable. There is no free storage pool to egress from.",
     "metered": false
   },
   "interface": [
     "rest"
   ],
   "interface_detail": "rest",
-  "tooling": "comet_ml Python SDK (log_artifact, log_dataset), plus Opik's own SDK. Self-hostable: github.com/comet-ml/opik is open source, which is the only unlimited path — on your own disks.",
+  "tooling": "Comet_ml Python SDK (log_artifact, log_dataset), plus Opik's own SDK. Self-hostable: github.com/comet-ml/opik is open source, which is the only unlimited path. On your own disks.",
   "chaining": "None. With no free byte allowance, multiplying accounts multiplies zero.",
   "limits": [
     {
@@ -46,7 +46,7 @@
     "detail": "email; academic Pro requires institutional verification.",
     "country": null
   },
-  "reliability_note": "Stable vendor.",
+  "reliability_note": "Free tier enforces an automatic 60-day retention limit that cannot be overridden by client settings.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -73,5 +73,5 @@
     }
   },
   "binding": "retention-clamped",
-  "binding_note": null
+  "binding_note": "a clock, not a quota: bytes leave whether or not transfer is completed"
 }

@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://www.tensorlake.ai/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "Network egress is free: the pricing page states no allowance cap and no per-GB price",
@@ -40,7 +40,7 @@
   ],
   "interface_detail": "HTTP API, the `tl` CLI, Python and TypeScript SDKs, and standard SSH, scp, sftp and rsync into a sandbox",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -48,7 +48,7 @@
       "source": "https://www.tensorlake.ai/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

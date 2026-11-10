@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "Cash with no stated spending restriction, so at Lambda's documented on-demand rate of USD 3.99 per H100 GPU-hour (compute/lambda) USD 250,000 is about 62,500 H100-hours across two years.",
+  "chaining": "Cash with no stated spending restriction, so at Lambda's documented on-demand rate of USD 3.99 per H100 GPU-hour (compute/lambda) USD 250,000 is about 62,500 H100-hours across two years. It composes with every compute record in documented records for the same reason the Eigenprize does, and it is the only award in this category denominated in years rather than weeks.",
   "limits": [
     {
       "kind": "write-gated",

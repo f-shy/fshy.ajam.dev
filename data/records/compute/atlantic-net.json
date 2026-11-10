@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated on the page read",
-  "chaining": "USD 1.67 an hour for a 48 GB L40S with 192 GB of system RAM is the cheapest 48 GB card, and an L40S at 48 GB holds a 70B model at 4-bit with room for the KV cache. The same provider appears on the VPS indexes as a small VPS host, so one account spans both a CPU box and a GPU box",
+  "chaining": "USD 1.67 an hour for a 48 GB L40S with 192 GB of system RAM is the cheapest 48 GB card among evaluated providers, and an L40S at 48 GB holds a 70B model at 4-bit with room for the KV cache. The same provider appears on the VPS indexes as a small VPS host, so one account spans both a CPU box and a GPU box.",
   "limits": [],
   "limits_note": "no compute quota: billing is one hourly rate per plan with no session cap, no concurrency cap and no card count limit stated. The only allowance the page states is outbound transfer, 12 TB on the L40S plan, 15 TB on the H100 NVL plan and 10 TB on the A2 plan, and it is parked in egress.",
   "binding": "none",

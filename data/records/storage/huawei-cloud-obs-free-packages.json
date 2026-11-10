@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.huaweicloud.com/intl/en-us/activity/free_packages/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.huaweicloud.com/intl/en-us/activity/free_packages/",
     "notes": "not stated"
   },
@@ -31,7 +31,7 @@
     "rclone"
   ],
   "interface_detail": "s3",
-  "tooling": "OBS S3-compatible API — rclone 's3' provider 'Huawei OBS'; OBS Browser+; SDKs. Public-read buckets and temporary URLs available.",
+  "tooling": "OBS S3-compatible API. Rclone 's3' provider 'Huawei OBS'; OBS Browser+; SDKs. Public-read buckets and temporary URLs available.",
   "chaining": "New users registered after 2025-01-01, 12 months, one package per product per account. Enterprise verification needed for the larger OBS quota.",
   "limits": [],
   "limits_note": "100 GB / 12 months (individual, single-AZ); storage packages do NOT reset monthly ('No monthly quota reset'); egress never free.",

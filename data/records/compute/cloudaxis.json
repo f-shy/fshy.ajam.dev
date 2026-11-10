@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://cloudaxis.ai/pricing/",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: https://cloudaxis.ai/pricing/ states no data-transfer allowance or overage price; plans have hard monthly caps with no overages",
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "a web desktop app reached after email sign-up; no REST API, CLI or SSH is documented on the pages read",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -48,7 +48,7 @@
       "source": "https://cloudaxis.ai/pricing/"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": "'No credit card. No API keys.' quoted from cloudaxis.ai/pricing read 2026-10-22",

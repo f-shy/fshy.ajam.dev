@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://firebase.google.com/pricing",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://firebase.google.com/pricing",
     "notes": "not stated"
   },
@@ -32,8 +32,8 @@
     "rclone"
   ],
   "interface_detail": "rest",
-  "tooling": "Firebase SDKs (web/Android/iOS), Admin SDK, gsutil/gcloud storage against the underlying GCS bucket, `firebase storage:upload`; rclone can hit the bucket with GCS (not rclone's 'firebase' — that is the Realtime DB). Public download URLs via `getDownloadURL` / Firebase download tokens.",
-  "chaining": "5 GB per PROJECT. Projects per Google account on Spark are limited to 'a small number of projects (usually around 5-10)' — so ~25-50 GB/account, not a big multiplier. Multiple Google accounts is the only axis. Deleting a project takes 30 days and still counts against quota, which badly hurts churn-and-burn cycling.",
+  "tooling": "Firebase SDKs (web/Android/iOS), Admin SDK, gsutil/gcloud storage against the underlying GCS bucket, `firebase storage:upload`; rclone can hit the bucket with GCS (not rclone's 'firebase'. That is the Realtime DB). Public download URLs via `getDownloadURL` / Firebase download tokens.",
+  "chaining": "5 GB per PROJECT. Projects per Google account on Spark are limited to 'a small number of projects (usually around 5-10)'. So ~25-50 GB/account, not a big multiplier. Multiple Google accounts is the only axis. Deleting a project takes 30 days and still counts against quota, which badly hurts churn-and-burn cycling.",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -41,7 +41,7 @@
       "source": "https://firebase.google.com/pricing"
     }
   ],
-  "limits_note": "1 GB/day egress (~30 GB/mo) is the practical ceiling — a 5 GB store is refetchable only 6x/month. Download-op cap 50k/day. Spark also caps Cloud Storage at 5 GB-months and 100 GB/month downloaded for the default bucket variant. No billing = hard stop, not overage.",
+  "limits_note": "1 GB/day egress (~30 GB/mo) is the practical ceiling. A 5 GB store is refetchable only 6x/month. Download-op cap 50k/day. Spark also caps Cloud Storage at 5 GB-months and 100 GB/month downloaded for the default bucket variant. No billing = hard stop, not overage.",
   "identity_cost": {
     "kind": "email",
     "detail": null,
@@ -74,5 +74,5 @@
     }
   },
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

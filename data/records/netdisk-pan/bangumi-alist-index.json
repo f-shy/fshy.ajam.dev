@@ -28,7 +28,7 @@
   "interface": [
     "rest"
   ],
-  "tooling": "a flat forum page at /m/topic/... that needs no login",
+  "tooling": "A flat forum thread at /m/topic/... accessible without authentication. HTTP GET returns the full post content directly.",
   "chaining": "the highest-yield discovery input measured, and the one whose curation hides churn rather than showing it",
   "limits": [
     {

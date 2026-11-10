@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://prismdrive.com/pricing/",
     "notes": "not stated"
   },
@@ -24,7 +24,7 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": "'Unlimited Shared Traffic' listed on every paid tier — verbatim.",
+    "terms": "'Unlimited Shared Traffic' listed on every paid tier. Verbatim.",
     "metered": false
   },
   "interface": [

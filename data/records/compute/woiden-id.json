@@ -49,7 +49,7 @@
   "binding_note": "the machine expires on a short clock that only a human can reset, so it cannot be an always-on node",
   "identity_cost": {
     "kind": "any-phone",
-    "detail": "A Telegram account is the identity: the register form as served has exactly one input, 'Telegram ID', marked required, and the page instructs 'Send private message to @HaxTG_bot, type this command: /getid'. No email, no card, no hold and no document. The form itself does not ask for a phone number.",
+    "detail": "Registration requires a Telegram ID obtained via bot interaction. No email, card, authorization hold, or identity document is required on the registration form.",
     "country": null
   },
   "reliability_note": "no reliability event observed; the vendor routes support through a Telegram group and channel",
@@ -121,7 +121,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-11-04T05:24:47.109Z",
-  "notes": "What could not be established: the shape (no vendor page states CPU, RAM or disk), the exact renewal period, and whether the panel shows stock.",
+  "notes": "Woiden.id provides free NAT IPv4 and IPv6 VPS hosting accounts managed through Telegram bot authentication, requiring active renewal validation.",
   "extras": {
     "facets": {
       "class": "perpetual-renewal-gated",

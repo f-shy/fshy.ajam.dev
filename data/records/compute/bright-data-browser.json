@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://brightdata.com/pricing/scraping-browser",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "Traffic is metered per GB: the free tier includes 1 GB per month and the pay-as-you-go plan is priced at $8 per GB.",
@@ -33,9 +33,9 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
+  "interface_detail": "Access interface not documented in published terms.",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -48,7 +48,7 @@
       "source": "https://brightdata.com/pricing/scraping-browser"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": "'No credit card required', quoted from the free tier column read 2026-10-22",

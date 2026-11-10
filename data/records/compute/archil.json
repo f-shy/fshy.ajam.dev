@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://archil.com/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "data transfer out of Archil is $0.07 per GB on Developer and Team, not included on Free, custom on Enterprise; transfer within Archil is free",
@@ -37,7 +37,7 @@
   ],
   "interface_detail": "S3 API and a REST API, the `disk` and `archil` CLIs, TypeScript and Python SDKs; disks mount as local folders on Linux",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -55,7 +55,7 @@
       "source": "https://archil.com/pricing"
     }
   ],
-  "limits_note": null,
+  "limits_note": "Session cap, idle-reap and network policy are not documented. Ranked partial.",
   "identity_cost": {
     "kind": "email",
     "detail": "an email address and nothing further: 'Signing up for Archil is free with no credit card required.', and a console session is opened with 'Enter the email address associated with your Archil account, then enter the verification code we send you.' The pricing page prints 'No credit card required.' for the Free plan, and an API key is created from the console after sign-up.",

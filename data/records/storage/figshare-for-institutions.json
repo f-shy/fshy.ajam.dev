@@ -16,7 +16,7 @@
     "stated": "20GB per file on figshare.com accounts; up to 5TB per file in institutional repositories.",
     "bytes": null,
     "source_url": "https://info.figshare.com/user-guide/account-limits/",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -137,7 +137,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-11-04T01:24:13.492Z",
-  "notes": "Raises file size to 5 TB and private space per institution, but only for users with an institutional figshare repository — no self-serve route for an individual. Institutional quotas are…",
+  "notes": "Raises file size to 5 TB and private space per institution, but only for users with an institutional figshare repository. No self-serve route for an individual. Institutional quotas are set.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

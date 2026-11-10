@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "The composition is data locality rather than raw capacity: SciServer hosts SDSS, GALEX and Gaia releases next to the containers, so a 10 GB quota is not a limit on the analysis because the terabyte inputs never enter the user volume, which is the opposite trade from every other free tier in this record.",
+  "chaining": "The composition is data locality rather than raw capacity: SciServer hosts SDSS, GALEX and Gaia releases next to the containers, so a 10 GB quota is not a limit on the analysis because the terabyte inputs never enter the user volume, which is the opposite trade from every other free tier in documented records.",
   "limits": [
     {
       "kind": "volume-quota",

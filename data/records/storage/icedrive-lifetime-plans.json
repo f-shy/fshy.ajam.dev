@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://icedrive.net/lifetime-plans",
     "notes": "not stated"
   },
@@ -34,7 +34,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "rclone backend `icedrive`. Third-party clients exist; WebDAV is not native.",
-  "chaining": "$250/TB at 2 TB. No stacking — lifetime tiers are fixed capacity.",
+  "chaining": "$250/TB at 2 TB. No stacking. Lifetime tiers are fixed capacity.",
   "limits": [
     {
       "kind": "retention-clamped",
@@ -47,13 +47,13 @@
       "source": "https://icedrive.net/lifetime-plans"
     }
   ],
-  "limits_note": "2 sync devices on lifetime, 14 days file versioning. Vendor explicitly says heavy sync/NAS workloads belong on subscriptions — i.e. the lifetime tier is throttled by device count, not bytes.",
+  "limits_note": "2 sync devices on lifetime, 14 days file versioning. Vendor explicitly says heavy sync/NAS workloads belong on subscriptions. I.e. the lifetime tier is throttled by device count, not bytes.",
   "identity_cost": {
     "kind": "email",
     "detail": "email",
     "country": null
   },
-  "reliability_note": "Gibraltar-registered ICE PRIVACY LTD, 30-day guarantee on the lifetime page but 14 days — decide inside 14. Price discrepancy vs the 2026-10-17 audit ($699 for 2 TB) suggests the vendor page is running a deeper promo than third parties track.",
+  "reliability_note": "Gibraltar-registered ICE PRIVACY LTD, 30-day guarantee on the lifetime page but 14 days. Decide inside 14. Price discrepancy vs the 2026-10-17 audit ($699 for 2 TB) suggests the vendor page is running a deeper promo than third parties track.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -80,5 +80,5 @@
     }
   },
   "binding": "retention-clamped",
-  "binding_note": null
+  "binding_note": "a clock, not a quota: bytes leave whether or not transfer is completed"
 }

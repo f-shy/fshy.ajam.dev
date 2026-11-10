@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://www.buzzsprout.com/help/231-what-is-included-in-the-free-plan",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -43,7 +43,7 @@
   },
   "reliability_note": "2 hours of upload per month AND episodes are deleted from the feed after 90 days (with a further 90-day 'safety net' before permanent removal). It is a demo tier, not storage. Also…",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "https://www.buzzsprout.com/help/231-what-is-included-in-the-free-plan",

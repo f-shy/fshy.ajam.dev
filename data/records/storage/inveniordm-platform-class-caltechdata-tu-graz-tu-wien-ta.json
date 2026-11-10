@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://github.com/inveniosoftware/invenio-app-rdm/blob/master/invenio_app_rdm/config.py",
     "notes": "not stated"
   },

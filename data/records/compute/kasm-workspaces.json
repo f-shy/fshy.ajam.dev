@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://kasm.com/community-edition",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: the Community Edition page lists no egress allowance and no overage price; Managed Egress is a separate feature marked For Purchase in the Enterprise column only",
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "the Developer API, an HTTP API of POST endpoints under /api/public with an API key and secret (Community Edition includes it); the web console in the browser; the user installs and runs the server on a rented or free machine",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -48,7 +48,7 @@
       "source": "https://kasm.com/community-edition"
     }
   ],
-  "limits_note": null,
+  "limits_note": "Session cap, idle-reap and network policy are not documented. Exceeds capacity threshold.",
   "identity_cost": {
     "kind": "email",
     "detail": "'Individuals and non-profit organizations are free to use Kasm Workspaces Community Edition' with no account requirement stated; the licence is the gate, not an email",

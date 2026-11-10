@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://www.airtop.ai/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: https://www.airtop.ai/pricing states credits and simultaneous sessions and no egress allowance or overage price",
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "HTTP API with Node.js and Python SDKs (client.sessions.create); Playwright, Puppeteer and Selenium drive the cloud browser",
   "tooling": "Node.js and Python SDKs; Playwright, Puppeteer and Selenium integrations",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -43,7 +43,7 @@
       "source": "https://www.airtop.ai/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": "email: the sign-in form labels its account field 'Email' ('<label for=\"loginId\" class=\"text-[13px] font-medium text-black/50 tracking-tight leading-tight\">Email</label>'), and the terms require an account with a username, a password and contact information ('You may be required to sign up for an account, select a password and username (\"Airtop User ID\"), and provide us with certain information or data, such as your contact information.'). A phone number is optional: 'By signing up for the Services and providing us with your wireless number, you confirm that you want Airtop to send you information regarding your account or transactions with us'. A card is not published: https://www.airtop.ai/pricing lists a $0 Free plan and states no card requirement, and registration is closed ('we’re no longer accepting new signups'), so the sign-up form was not read. Country: not published at https://www.airtop.ai/pricing.",

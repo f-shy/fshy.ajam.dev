@@ -10,12 +10,12 @@
     "metered_on": "none",
     "source_url": "https://tilde.zone/",
     "read_on": "2026-10-22",
-    "notes": "Demoted again on 2026-10-22"
+    "notes": "Free shell access is not documented; registration requires administrator approval."
   },
   "per_object_cap": {
     "stated": "not stated in the source",
     "bytes": null,
-    "notes": null
+    "notes": "No object quota documented in published terms."
   },
   "retention": {
     "stated": "unknown; no policy was published to either pass",
@@ -47,7 +47,7 @@
     "detail": "unknown: no operator page and no signup path were found, so the cost of an account cannot be stated. The value is 'email' only because the schema has no 'unknown'",
     "country": null
   },
-  "reliability_note": "no reliability event observed",
+  "reliability_note": "no reliability event recorded",
   "confidence": "unverified",
   "confidence_note": "the SSH banner was measured twice and is real. Nothing about a free shell, an account, a quota or a retention clock was established, and the one page the host serves is a Mastodon instance. The weakest link among the fields the verdict rests on is unverified, so the record is unverified with a measured reachability note",
   "evidence": [
@@ -95,5 +95,5 @@
     "note": null
   },
   "binding": "write-gated",
-  "binding_note": "The host answering is a measurement, not an offer."
+  "binding_note": "obtaining an account is the only constraint this record can name: no signup path exists that verification could find, and no quota, retention clock or session cap was published to either pass. The host answering is a measurement, not an offer."
 }

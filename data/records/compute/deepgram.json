@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "What breaks: the expiry disagreement below, and any workload that needs more than 150 concurrent streams.",
+  "chaining": "USD 200 of credit composes with CI runners: build jobs fetch audio and post to the REST endpoint up to the 50-connection concurrency ceiling.",
   "limits": [
     {
       "kind": "request-rate",

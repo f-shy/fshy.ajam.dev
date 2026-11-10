@@ -18,7 +18,7 @@
     "notes": ""
   },
   "retention": {
-    "stated": null,
+    "stated": "60 minutes per unauthenticated connection; after expiry the tunnel URL terminates.",
     "days": null,
     "notes": "",
     "source_url": "https://pinggy.io/help/"

@@ -39,7 +39,7 @@
     "rest"
   ],
   "interface_detail": "POST https://api.tavily.com/search or /extract with the header X-Tavily-Access-Mode: keyless, or the remote MCP at mcp.tavily.com/mcp/ with the same header; Crawl, Map and Research need a key",
-  "tooling": "not stated",
+  "tooling": "not established",
   "chaining": "The last search leg, kept for the case where every keyed provider is spent",
   "limits": [
     {

@@ -5,7 +5,7 @@
   "url": "https://www.deviantartsupport.com/kb/en/article/what-is-stash-3391708",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "none reachable: 100 GB requires a paid Core subscription — that is metered spend, not free storage",
+    "stated": "None reachable: 100 GB requires a paid Core subscription. That is metered spend, not free storage.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.deviantartsupport.com/kb/en/article/what-is-stash-3391708",
@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://www.deviantartsupport.com/kb/en/article/what-is-stash-3391708",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -41,7 +41,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "100 GB requires a paid Core subscription — that is metered spend, not free storage",
+  "reliability_note": "100 GB requires a paid Core subscription. That is metered spend, not free storage.",
   "confidence": "documented",
   "confidence_note": "The Sta.sh help article on deviantartsupport.com, re-read on 2026-11-03, states 2GB of storage for every account and up to 100GB for Core members depending on the plan. It states no price or egress allowance.",
   "evidence": [
@@ -67,7 +67,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-11-04T01:24:11.235Z",
-  "notes": "100 GB requires a paid Core subscription — that is metered spend, not free storage",
+  "notes": "100 GB requires a paid Core subscription. That is metered spend, not free storage.",
   "extras": {
     "dead_end": {
       "failure_class": "egress",

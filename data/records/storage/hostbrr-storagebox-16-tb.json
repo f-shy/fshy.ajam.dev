@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://my.hostbrr.com/order/main/packages/storagebox/?group_id=65",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://my.hostbrr.com/order/main/packages/storagebox/?group_id=65",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "bandwidth is quoted as a hard multiple of storage — \"5 TB Bandwidth @ 10 Gbps\" on 1 TB, \"40 TB\" on 8 TB, \"80 TB\" on 16 TB. So 5x storage per month. NOT unmetered. A LET poster claims \"its actually unmetered if you know how to set it up\" — treat that as unverified forum folklore, not a policy.",
+    "terms": "Bandwidth is quoted as a hard multiple of storage. \"5 TB Bandwidth @ 10 Gbps\" on 1 TB, \"40 TB\" on 8 TB, \"80 TB\" on 16 TB. So 5x storage per month. NOT unmetered. A LET poster claims \"its actually unmetered if you know how to set it up\". Treat that as unverified forum folklore, not a policy.",
     "metered": false
   },
   "interface": [
@@ -36,17 +36,17 @@
     "ssh",
     "rclone"
   ],
-  "interface_detail": "SSH, FTP, rsync, SFTP, DirectAdmin panel. No WebDAV, no SMB — confirmed by LET users comparing it to Hetzner.",
+  "interface_detail": "SSH, FTP, rsync, SFTP, DirectAdmin panel. No WebDAV, no SMB. Confirmed by LET users comparing it to Hetzner.",
   "tooling": "rsync/rclone-over-SFTP only. No S3, no WebDAV, no object API.",
-  "chaining": "Fine as a pure rsync/Borg target behind an app server; poor as a served origin.",
+  "chaining": "Protocol support is limited to SFTP, rsync, and Borg without native WebDAV or S3 interfaces. Well-suited for backend backup targets rather than public origin distribution.",
   "limits": [],
-  "limits_note": "DirectAdmin is a web-hosting panel bolted onto storage — you manage FTP users and bandwidth there. RAID-6 (DE) / RAID-60 (500 GB) at order-page level. US inventory and DE inventory are separate products with separate coupons.",
+  "limits_note": "DirectAdmin is a web-hosting panel bolted onto storage. You manage FTP users and bandwidth there. RAID-6 (DE) / RAID-60 (500 GB) at order-page level. US inventory and DE inventory are separate products with separate coupons.",
   "identity_cost": {
     "kind": "email",
     "detail": "email",
     "country": null
   },
-  "reliability_note": "Real hosting business (labze), 2+ years on LET with a Patron Provider tag; users report multi-year renewals at the same price, which is rare. But it is a small operator reselling/colocating, not owning DCs — and the 500 GB SKU is excluded from BFBOX by design.",
+  "reliability_note": "Real hosting business (labze), 2+ years on LET with a Patron Provider tag; users report multi-year renewals at the same price, which is rare. But it is a small operator reselling/colocating, not owning DCs. And the 500 GB SKU is excluded from BFBOX by design.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

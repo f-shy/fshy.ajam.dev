@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.beehiiv.com/support/article/41323776364823",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
     "rclone"
   ],
   "interface_detail": "rest",
-  "tooling": "REST API exists (beehiiv API + Zapier integration, v3 app). No rclone backend.",
+  "tooling": "REST API exists (beehiiv API + Zapier integration, v3 app). No rclone backend. Podcast file upload limit is 500 MB per episode.",
   "chaining": "Episodes are per-show; multiple shows × multiple publications per account. But 500 MB × episodes is a podcasting quota, not a blob store, and the free plan's real limit is subscriber count (2,500), not bytes.",
   "limits": [
     {

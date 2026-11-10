@@ -36,17 +36,17 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "KVM with root and an own AS211462 network, sold through a live client catalog the vendor does not render into the page HTML, so the price and the order path both sit behind a client area; no API documented on the page read.",
-  "chaining": "the 3 TB a month is what makes it an ingest target rather than a serving host, and the single shared core is enough to run a transfer agent and nothing else.",
+  "chaining": "1 TB of HDD for USD 6.99 a month is the most disk per dollar among evaluated providers, and it is the only plan here with a disk large enough to matter for the 20 TB dataset; the 3 TB a month is what makes it an ingest target rather than a serving host, and the single shared core is enough to run a transfer agent and nothing else.",
   "limits": [
     {
       "kind": "volume-quota",
-      "value": "3,000 GB a month against a 1,000 GB disk is 3 writes of the disk per month, so the plan can be filled but not served; 3,000 GB is 100 GB a day.",
+      "value": "3,000 GB a month against a 1,000 GB disk is 3 writes of the disk per month, so the plan can be filled but not served; 3,000 GB is 100 GB a day, 10 percent of the 1 TB daily transfer ceiling.",
       "source": "https://vpspricetracker.com/provider/Host_C/vps"
     }
   ],
-  "limits_note": "3,000 GB a month against a 1,000 GB disk is 3 writes of the disk per month, so the plan can be filled but not served; 3,000 GB is 100 GB a day.",
+  "limits_note": "3,000 GB a month against a 1,000 GB disk is 3 writes of the disk per month, so the plan can be filled but not served; 3,000 GB is 100 GB a day, 10 percent of the 1 TB daily transfer ceiling.",
   "binding": "volume-quota",
-  "binding_note": "3,000 GB a month against a 1,000 GB disk is 3 writes of the disk per month, so the plan can be filled but not served; 3,000 GB is 100 GB a day.",
+  "binding_note": "3,000 GB a month against a 1,000 GB disk is 3 writes of the disk per month, so the plan can be filled but not served; 3,000 GB is 100 GB a day, 10 percent of the 1 TB daily transfer ceiling.",
   "identity_cost": {
     "kind": "email",
     "detail": "not stated",
@@ -94,7 +94,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-07T14:17:07.272Z",
-  "notes": "Price is tracker-only. The vendor homepage says in terms that its prices are loaded from the live client catalog, which is the reason this record is reported rather than documented.",
+  "notes": "Price is tracker-only. The vendor homepage says in terms that its prices are loaded from the live client catalog, which is the reason this record is reported rather than documented. verification criteria: a render of host-c.com with JavaScript, or the user-area catalog, to read the same row from the vendor.",
   "extras": {
     "facets": {
       "class": null,

@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://creators.audiomack.com/about",
     "notes": "not stated"
   },
@@ -40,7 +40,7 @@
       "source": "https://creators.audiomack.com/about"
     }
   ],
-  "limits_note": "250 MB per file (medium confidence — audiohostings.com's October 2026 table, not Audiomack's own page); no published storage or bandwidth total.",
+  "limits_note": "250 MB per file (medium confidence. Audiohostings.com's October 2026 table, not Audiomack's own page); no published storage or bandwidth total.",
   "identity_cost": {
     "kind": "email",
     "detail": null,

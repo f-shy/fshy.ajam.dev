@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://metorial.com",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: https://metorial.com/pricing lists tool-call, team-member and integration limits and no data-transfer term or price",
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "the Metorial API with keys issued in the dashboard, and the metorial and metorial-admin CLIs (npm @metorial/cli)",
   "tooling": "the @metorial/cli npm package and the API",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "write-gated",
@@ -44,7 +44,7 @@
       "source": "https://metorial.com"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

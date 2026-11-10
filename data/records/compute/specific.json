@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://specific.dev/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "Services egress transfer $0.09 / GB; Postgres egress transfer $0.10 / GB; object storage egress transfer free; no free allowance is stated for services or Postgres",
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "the specific CLI (`specific dev` builds a local environment); deploys also run directly from GitHub; a web dashboard exists at dashboard.specific.dev; documented on https://specific.dev/pricing",
   "tooling": "the specific CLI (command `specific dev`); the page names no SDK or API library",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -43,7 +43,7 @@
       "source": "https://specific.dev/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

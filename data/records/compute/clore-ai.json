@@ -49,7 +49,7 @@
   "binding_note": "The roughly USD 5 deposit fails first, and payment rails are CLORE, BTC, USDT or USDC, so a card-only client has no path in.",
   "identity_cost": {
     "kind": "email",
-    "detail": "no KYC for basic use: the FAQ states \"Basic usage does not require KYC. However, for large withdrawals or compliance-related cases, the platform may request identity verification\", and funding is crypto only — \"Add funds via CLORE, BTC, USDT, or USDC (minimum ~USD 5 to start)\" — so no card rail exists and the card questions do not arise; the USD 5 is a minimum deposit, not an authorisation hold. The record does not state what identifier account creation asks for",
+    "detail": "No KYC for basic use: the FAQ states \"Basic usage does not require KYC. However, for large withdrawals or compliance-related cases, the platform may request identity verification\", and funding is crypto only. \"Add funds via CLORE, BTC, USDT, or USDC (minimum ~USD 5 to start)\". So no card rail exists and the card questions do not arise; the USD 5 is a minimum deposit, not an authorisation hold. The record does not state what identifier account creation asks for.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",

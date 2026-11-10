@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://www.manitu.de/root-server/vergleich/",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [
     {
@@ -47,7 +47,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "VAT for 2× 2 TB SSD SATA = €16.81/TB, with a €500 setup fee. No high-capacity HDD storage product. Not a storage…",
+  "reliability_note": "Dedicated servers only. Root-Server M is €67.22 per month excluding VAT for 2x 2 TB SSD SATA (€16.81/TB), with a €500 setup fee. No high-capacity HDD storage product is offered.",
   "confidence": "documented",
   "confidence_note": "documented: the monthly price, disks and setup fee of each Root-Server are quoted from the comparison table https://www.manitu.de/root-server/vergleich/, and the 10 TB per month transfer of L, XL and XXL from https://www.manitu.de/root-server/ (vendor pages read 2026-11-03); the transfer of Root-Server M and the order steps were not read",
   "evidence": [
@@ -94,7 +94,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-03T15:03:54.246Z",
-  "notes": "VAT for 2× 2 TB SSD SATA = €16.81/TB, with a €500 setup fee. No high-capacity HDD storage product. Not a storage…",
+  "notes": "Dedicated servers only. Root-Server M is €67.22 per month excluding VAT for 2x 2 TB SSD SATA (€16.81/TB), with a €500 setup fee. No high-capacity HDD storage product is offered.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

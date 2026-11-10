@@ -47,7 +47,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "They now pay ~EUR 5-6/TB/month. Free-tier terms have ratcheted twice (permanent -> 15d -> 8d base life) and can ratchet again. Download path is Cloudflare-challenge heavy, so unattended clients need the htmx/HX-Request mechanism or a real browser.",
+  "reliability_note": "Storage costs adjusted to approximately EUR 5-6 per TB per month after upstream provider changes. Free-tier retention shortened to 8 days base lifetime. Downloads enforce Cloudflare challenges requiring browser headers or htmx interaction.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

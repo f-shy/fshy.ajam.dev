@@ -37,7 +37,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "a custom customer console at console.arct.cloud with VNC console, snapshots, resize, reinstall and daily backups; no API or CLI is documented on the pages read",
-  "chaining": "USD 3.89 is the lowest monthly rate for a 1 GB machine and the quarterly term brings it to USD 3.50 a month; 1 TB of outbound caps it at a control node or an API front end, and the separate snapshot charge at USD 0.04 per GB per month is the line to watch on a 15 GB disk",
+  "chaining": "USD 3.89 is the lowest monthly rate for a 1 GB machine among evaluated providers and the quarterly term brings it to USD 3.50 a month; 1 TB of outbound caps it at a control node or an API front end, and the separate snapshot charge at USD 0.04 per GB per month is the line to watch on a 15 GB disk.",
   "limits": [
     {
       "kind": "volume-quota",
@@ -53,7 +53,7 @@
     "detail": "not stated",
     "country": null
   },
-  "reliability_note": "no reliability event observed: the thread is a first post from a company registered in Wyoming, with no operating history read",
+  "reliability_note": "no reliability event observed: the thread is a first post from a company registered in Wyoming, with no operating history read.",
   "confidence": "documented",
   "evidence": [
     {
@@ -118,7 +118,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-07T14:17:00.739Z",
-  "notes": null,
+  "notes": "The vendor page prices one plan and the thread prices the same one, and they agree. verification criteria: the General Purpose and High Performance series, which the thread names but does not price, and whether the 25 Gbps network capacity is per-server or per-site, since the thread calls it 'network capacity' and not a port.",
   "extras": {
     "facets": {
       "class": null,

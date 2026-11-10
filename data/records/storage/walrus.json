@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.wal.app/docs/system-overview/storage-costs",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.wal.app/docs/system-overview/storage-costs",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "walrus CLI, TypeScript SDK, HTTP aggregator/publisher endpoints; Lighthouse wraps it as an IPFS-compatible layer.",
-  "chaining": "none — paid per GB-month with a 4.5x encoding tax. 500 GB of real data costs like 2.3 TB of billing.",
+  "chaining": "None. Paid per GB-month with a 4.5x encoding tax. 500 GB of real data costs like 2.3 TB of billing.",
   "limits": [],
   "limits_note": "4.5x encoded-size billing + 64 MB per-blob overhead; SUI gas per blob registration; epoch-based storage duration (must be extended).",
   "identity_cost": {

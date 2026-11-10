@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://gitlab.com/veilid/veilid/-/issues/404",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -43,7 +43,7 @@
   },
   "reliability_note": "No congestion control and no relay throttling implemented; relay bandwidth management is an open to-do. Mobile-first design assumes 'limited storage and bandwidth' at every node.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "https://gitlab.com/veilid/veilid/-/issues/404",

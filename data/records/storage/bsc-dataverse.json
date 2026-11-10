@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://dataverse.bsc.es/api/dataverses/:root/storage/quota?showInherited=true",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://dataverse.bsc.es/api/dataverses/:root/storage/quota?showInherited=true",
     "notes": "not stated"
   },
@@ -31,7 +31,7 @@
   ],
   "interface_detail": "REST (native Dataverse API v1)",
   "tooling": "curl / DVUploader",
-  "chaining": "Open local signup at a supercomputing centre — the operator demographic most likely to have real disk behind the instance.",
+  "chaining": "Open local signup at a supercomputing centre. The operator demographic most likely to have real disk behind the instance.",
   "limits": [],
   "limits_note": "No published cap; no quota number returned.",
   "identity_cost": {

@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://mega.io/storage",
     "notes": "not stated"
   },
@@ -53,7 +53,7 @@
       "source": "https://mega.io/storage"
     }
   ],
-  "limits_note": "Achievements expire after 365 days. Zero-knowledge encryption means every client re-encrypts.",
+  "limits_note": "Transfer quota is calculated per IP address over 6-hour windows on free accounts. Bonus storage achievements expire after 365 days. Client-side encryption is enforced across uploads.",
   "identity_cost": {
     "kind": "email",
     "detail": null,
@@ -89,5 +89,5 @@
   "notes": "20 GB free at signup, plus stacking achievements of 5 GB each (desktop app, mobile app, per invite, VPN trial, Pass trial) valid 365 days",
   "extras": {},
   "binding": "retention-clamped",
-  "binding_note": null
+  "binding_note": "a clock, not a quota: bytes leave whether or not transfer is completed"
 }

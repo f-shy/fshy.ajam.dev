@@ -39,7 +39,7 @@
     "rest"
   ],
   "interface_detail": "REST search API, 50 QPS on search, 2 QPS on answers",
-  "tooling": "not stated",
+  "tooling": "not established",
   "chaining": "not established",
   "limits": [
     {

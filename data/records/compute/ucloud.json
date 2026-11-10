@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://astraflow.ucloud.cn/docs/agent-sandbox",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: the fee page (https://astraflow.ucloud.cn/docs/agent-sandbox/product/fee.md) lists vCPU, memory, local storage and persistent storage and no outbound transfer allowance or price; every sandbox has outbound internet access by default",
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "Python SDK (`pip install ucloud-sandbox`, authenticated with `UCLOUD_SANDBOX_API_KEY`), the UCloud Sandbox CLI and an E2B-compatible mode; no SSH or REST reference read",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "retention-clamped",
@@ -53,7 +53,7 @@
       "source": "https://astraflow.ucloud.cn/docs/agent-sandbox"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

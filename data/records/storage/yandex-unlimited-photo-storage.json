@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://mobi.yandex.com/support/yandex-360/customers/disk/web/en/enlarge/manage-disk-space",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://mobi.yandex.com/support/yandex-360/customers/disk/web/en/enlarge/manage-disk-space",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "wrapper-only",
   "tooling": "Yandex Disk REST/API is the same one rclone uses, but the unlimited bucket is only reachable via the mobile auto-upload path, not the upload API",
-  "chaining": "does not multiply — the 'unlimited' is a plan benefit, not a free-tier property; lapses back to metered when the plan ends",
+  "chaining": "Does not multiply. The 'unlimited' is a plan benefit, not a free-tier property; lapses back to metered when the plan ends.",
   "limits": [],
   "limits_note": "RAW DNG files are excluded and count against quota; photos in unlimited storage do not sync to desktop; uploads happen only from the mobile client",
   "identity_cost": {

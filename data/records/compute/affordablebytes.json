@@ -38,7 +38,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "the vendor advertises its own control panel and published node statistics; no API or CLI is documented on the page read",
-  "chaining": "EUR 3.49 for 6 GB and 45 GB with 5 TB is the lowest cost per gigabyte of RAM by a wide margin, which is what makes it a candidate for a memory-resident index or a build worker rather than for moving bytes; the same vendor's S3 line at EUR 4.95 per TB per month with 10 TB of egress per TB is the paired answer when the same bytes have to be stored as well as processed",
+  "chaining": "EUR 3.49 for 6 GB and 45 GB with 5 TB is the lowest cost per gigabyte of RAM among evaluated providers by a wide margin, which is what makes it a candidate for a memory-resident index or a build worker rather than for moving bytes; the same vendor's S3 line at EUR 4.95 per TB per month with 10 TB of egress per TB is the paired answer when the same bytes have to be stored as well as processed.",
   "limits": [
     {
       "kind": "volume-quota",

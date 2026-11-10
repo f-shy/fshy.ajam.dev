@@ -34,7 +34,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "Deposit API + SWORD for programmatic submission (api.archives-ouvertes.fr/docs), FTP staging at ftp.ccsd.cnrs.fr with explicit TLS (FileZilla), OAI-PMH, and a TripleStore. This is a genuinely automatable write path.",
-  "chaining": "Unlimited deposits x 200 MB/file — 2,500 files for 500 GB, but each deposit is a bibliographic notice, so the multiplier is records not blobs. 5 GB FTP staging expires in 31 days.",
+  "chaining": "Unlimited deposits x 200 MB/file. 2,500 files for 500 GB, but each deposit is a bibliographic notice, so the multiplier is records not blobs. 5 GB FTP staging expires in 31 days.",
   "limits": [
     {
       "kind": "per-ip-shaping",

@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://www.teclada.com/",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: https://www.teclada.com/ lists plans by history days, systems and users and states no egress allowance or overage price",
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "console only: a browser-based terminal (SSH client in the browser); the pages read state no REST API, CLI or SDK",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "write-gated",
@@ -43,7 +43,7 @@
       "source": "https://www.teclada.com/"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

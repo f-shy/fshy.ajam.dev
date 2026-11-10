@@ -158,7 +158,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-07T11:15:30.076Z",
-  "notes": "The sale page's cheapest is USD 10.88/year for 1 GB / 10 GB; the tracker's USD 9.88/year row is a different, larger 2 GB / 30 GB plan that the sale page does not list, so the vendor figure is recorded and the tracked figure stays in evidence as the cheaper reported one.",
+  "notes": "The sale page's cheapest is USD 10.88/year for 1 GB / 10 GB; the tracker's USD 9.88/year row is a different, larger 2 GB / 30 GB plan that the sale page does not list, so the vendor figure is recorded and the tracked figure stays in evidence as the cheaper reported one. verification criteria: whether the USD 9.88 Promo_VPS_Special_NY plan is still orderable, since it is both cheaper and larger than anything on the sale page.",
   "extras": {
     "facets": {
       "class": null,

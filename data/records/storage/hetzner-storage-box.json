@@ -18,7 +18,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.hetzner.com/storage/storage-box/",
     "notes": "not stated"
   },
@@ -40,7 +40,7 @@
   ],
   "interface_detail": "SFTP, FTP/FTPS, SCP, rsync-over-SSH, WebDAV, Samba/CIFS, HTTPS; BorgBackup and Restic native",
   "tooling": "rclone (explicitly listed), restic, borg, rsync; no S3 API",
-  "chaining": "Mounts directly to AList/OpenList via WebDAV or SFTP, or to a Hetzner Cloud VM which then fronts S3/HTTP behind Cloudflare — the forum-documented pattern for turning unmetered Storage Box traffic into a served HTTP origin.",
+  "chaining": "Mounts directly to AList/OpenList via WebDAV or SFTP, or to a Hetzner Cloud VM which then fronts S3/HTTP behind Cloudflare. The forum-documented pattern for turning unmetered Storage Box traffic into a served HTTP origin.",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -58,7 +58,7 @@
       "source": "https://www.hetzner.com/storage/storage-box/"
     }
   ],
-  "limits_note": "10 concurrent connections (hard, product page); 10 snapshots; RAID on one host and explicitly 'data is not mirrored onto other servers' — single-site durability, not object-store 11-nines.",
+  "limits_note": "10 concurrent connections (hard, product page); 10 snapshots; RAID on one host and explicitly 'data is not mirrored onto other servers'. Single-site durability, not object-store 11-nines.",
   "identity_cost": {
     "kind": "card",
     "detail": "card",

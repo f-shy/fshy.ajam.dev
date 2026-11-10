@@ -39,8 +39,8 @@
     "rest"
   ],
   "interface_detail": "REST search API",
-  "tooling": "not stated",
-  "chaining": null,
+  "tooling": "not established",
+  "chaining": "High quality score on search benchmark evaluations, making the USD 5 trial balance practical for selective queries.",
   "limits": [
     {
       "kind": "request-rate",
@@ -64,5 +64,5 @@
       "proved": "sign up and get USD 5 in free balance; plans are pay-as-you-go or a QPS subscription"
     }
   ],
-  "notes": "One-time."
+  "notes": "One-time signup balance. Multi-account residual balances do not constitute an official recurring vendor tier."
 }

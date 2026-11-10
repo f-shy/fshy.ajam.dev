@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://leap0.dev/",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "Sandbox egress is restricted by a per-sandbox firewall that allows only the allowed domains (allow_domains) or ranges (allow_cidrs); outbound TCP is restricted, not stated as blocked; no volume allowance or price is published on the page read",
@@ -33,9 +33,9 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
+  "interface_detail": "Access interface not documented in published terms.",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -48,7 +48,7 @@
       "source": "https://leap0.dev/"
     }
   ],
-  "limits_note": null,
+  "limits_note": "Session cap, idle-reap and network policy are not documented. Prelaunch only.",
   "identity_cost": {
     "kind": "email",
     "detail": null,

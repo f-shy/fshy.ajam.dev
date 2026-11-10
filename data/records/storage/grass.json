@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://www.grass.io/learn/how-your-stage-2-rewards-allocation-works/",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -43,7 +43,7 @@
   },
   "reliability_note": "Pays contributors in points converted to token/USDC; publishes no per-GB rate and no consumer product to buy. Stage 2 rewards closed 8 June 2026 and the claim window shuts 22 January 2027…",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "https://www.grass.io/learn/how-your-stage-2-rewards-allocation-works/",

@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "ispmanager panel offered, FastPanel installable by hand; no API documented on the page read",
-  "chaining": "RUB 14 a day with a five-day minimum is the cheapest way to hold a 512 MB box for a week, which is the shape of a one-off crawl",
+  "chaining": "RUB 14 a day with a five-day minimum is the cheapest way among evaluated providers to hold a 512 MB box for a week, which is the shape of a one-off crawl.",
   "limits": [
     {
       "kind": "per-ip-shaping",

@@ -13,24 +13,24 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://getstream.io/chat/docs/node/storage-and-bandwidth/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://getstream.io/chat/docs/node/storage-and-bandwidth/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Metered past the fair-use allowance — 'You only start to pay extra for storage and bandwidth after you exceed these fair usage limits'. Attachments are served from Stream's CDN but are tied to channel membership/auth.",
+    "terms": "Metered past the fair-use allowance. 'You only start to pay extra for storage and bandwidth after you exceed these fair usage limits'. Attachments are served from Stream's CDN but are tied to channel membership/auth.",
     "metered": true
   },
   "interface": [
     "rest"
   ],
   "interface_detail": "rest",
-  "tooling": "stream-chat SDKs (JS/React/Node/Python); server-side client can upload attachments to a channel. No bulk/opaque-object API — attachment shape is image/file on a message.",
+  "tooling": "Stream-chat SDKs (JS/React/Node/Python); server-side client can upload attachments to a channel. No bulk/opaque-object API. Attachment shape is image/file on a message.",
   "chaining": "Fails the multiplication test: fair-use storage caps plus per-GB overage means more accounts is the only lever, and each account is a SaaS tenant with its own MAU billing.",
   "limits": [],
   "limits_note": "Fair-usage storage + bandwidth ceiling; user-configurable retention policies exist expressly to REDUCE storage, which signals storage is the cost centre. Attachment size caps apply. Overage is billed per GB.",

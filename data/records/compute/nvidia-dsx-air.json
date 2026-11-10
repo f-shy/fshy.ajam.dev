@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "60 vCPU and 60 GiB concurrent with 10,000 compute hours is the largest single free CPU allowance found, and it composes with a domain: a custom-domain mailbox is the price of entry, which the domains topic already prices.",
+  "chaining": "60 vCPU and 60 GiB concurrent with 10,000 compute hours is the largest single free CPU allowance found in among documented hosts, and it composes with a domain: a custom-domain mailbox is the price of entry, which the domains topic already prices.",
   "limits": [
     {
       "kind": "retention-clamped",

@@ -19,19 +19,19 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://edge.network/storage/pricing",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "'Egress / downloads $0 — Free at every scale.' 'API requests $0 — No per-request charges.'",
+    "terms": "'Egress / downloads $0 — Free at every scale.' 'API requests $0 — No per-request charges.'.",
     "metered": true
   },
   "interface": [
     "s3-compatible"
   ],
   "interface_detail": "s3",
-  "tooling": "Full S3-compatible API 'with presigned URLs, multipart uploads, and access keys included' — any S3 SDK.",
+  "tooling": "Full S3-compatible API 'with presigned URLs, multipart uploads, and access keys included'. Any S3 SDK.",
   "chaining": "5 GB x unlimited buckets across accounts; 2 buckets per free account. Zero-egress + zero-request-cost makes it a free CDN origin, not a bulk store.",
   "limits": [
     {
@@ -40,13 +40,13 @@
       "source": "https://edge.network/storage/pricing"
     }
   ],
-  "limits_note": "per-object-cap: not stated on the pricing page. quota-cap: 5 GB total; without a card 'hitting the 5 GB cap blocks writes rather than starting a bill — your existing objects stay readable', which is unusually clean behaviour. retention: none stated.",
+  "limits_note": "Per-object-cap: not stated on the pricing page. quota-cap: 5 GB total; without a card 'hitting the 5 GB cap blocks writes rather than starting a bill — your existing objects stay readable', which is unusually clean behaviour. retention: none stated.",
   "identity_cost": {
     "kind": "institution",
     "detail": null,
     "country": null
   },
-  "reliability_note": "Free tier is explicitly hard-capped and does not start billing, so it degrades to read-only rather than into charges — the opposite of most free tiers.",
+  "reliability_note": "Free tier is explicitly hard-capped and does not start billing, so it degrades to read-only rather than into charges. The opposite of most free tiers.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

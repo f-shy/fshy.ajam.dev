@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "The trial credit is unquantified, so it composes with nothing until an account exists; the A100 40GB row at USD 0.42/hr is the cheapest 40 GB A100 hour seen, below Jarvislabs at USD 0.89.",
+  "chaining": "The trial credit is unquantified, so it composes with nothing until an account exists; the A100 40GB row at USD 0.42/hr is the cheapest 40 GB A100 hour seen among evaluated providers, below Jarvislabs at USD 0.89.",
   "limits": [
     {
       "kind": "write-gated",

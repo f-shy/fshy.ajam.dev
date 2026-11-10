@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "The one-minute minimum and per-minute billing make this the only 192 GB card sold in units a benchmark can afford, which is what a trial run needs before a multi-hour commitment.",
+  "chaining": "The one-minute minimum and per-minute billing make this the only 192 GB card among evaluated providers sold in units a benchmark can afford, which is what a trial run needs before a multi-hour commitment.",
   "limits": [],
   "limits_note": "Nothing published binds above a single GPU for a single minute; the whole cost is prepaid and the smallest unit is one minute.",
   "binding": "none",
@@ -123,7 +123,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-03T08:50:28.017Z",
-  "notes": "Storage price, data-out price and the rule for stopped instances are stated by the tracker as unpublished by the vendor, which matters because a 192 GB card implies a large dataset beside it.",
+  "notes": "Every figure here is reported by the tracker, not read on the vendor's own page: hotaisle.xyz/pricing was unverified on 2026-11-03, so the rung is reported and the vendor page is the check that would raise it. Storage price, data-out price and the rule for stopped instances are stated by the tracker as unpublished by the vendor, which matters because a 192 GB card implies a large dataset beside it.",
   "extras": {
     "facets": {
       "class": "gpu-broker-rate-floor",

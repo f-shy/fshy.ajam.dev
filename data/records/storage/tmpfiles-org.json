@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://tmpfiles.org/",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "POST /api/v1/upload -F file=@x -> JSON; then GET the /dl/<token>/<id>/<name> URL extracted from the HTML",
-  "chaining": "none — 1-hour retention, no accounts.",
+  "chaining": "None. 1-hour retention, no accounts.",
   "limits": [
     {
       "kind": "per-object-cap",

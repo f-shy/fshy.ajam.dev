@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://collimate.ai/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: the price list on https://collimate.ai/ and https://collimate.ai/pricing has vCPU, RAM and suspended-storage meters and states no egress allowance or overage price",
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "REST API, a Python SDK and a hosted MCP server; no CLI or SSH interface is documented",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -48,7 +48,7 @@
       "source": "https://collimate.ai/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": "'Sign up with an email and the gateway mints a key scoped to your tenant', quoted from collimate.ai/pricing read 2026-10-22",

@@ -5,7 +5,7 @@
   "url": "https://www.nebulablock.com/storage",
   "category": "cheap-paid-object-storage",
   "free_tier": {
-    "stated": "No storage quota on the Standard tier — it is priced at $0/GB/month by design: 'Standard — Stored data: Free — Durable, high-capacity storage. The default'. The paid tiers are Performance at $0.015/GB/month and Accelerated at $0.02/GB/month. There is no published cap on bytes stored, only 'availability varies — a tier can show as out of stock'.",
+    "stated": "No storage quota on the Standard tier. It is priced at $0/GB/month by design: 'Standard — Stored data: Free — Durable, high-capacity storage. The default'. The paid tiers are Performance at $0.015/GB/month and Accelerated at $0.02/GB/month. There is no published cap on bytes stored, only 'availability varies — a tier can show as out of stock'.",
     "unit": "unlimited",
     "metered_on": "stored-bytes",
     "source_url": "https://docs.nebulablock.com/products/object-storage.md",
@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.nebulablock.com/products/object-storage.md",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.nebulablock.com/products/object-storage.md",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Cheaper than AWS at $0.09/GB but nowhere near free, and it inverts the usual shape — you pay to read, not to write.",
+    "terms": "Outgoing traffic is billed at $0.01 per GB on all tiers while incoming traffic is included. At $0.01 per GB ($10 per TB), reading 20 TB costs approximately $200, and a continuous 500 GB to 1 TiB daily transfer volume costs $150 to $300 monthly.",
     "metered": true,
     "price_per_tb": "$10/TB"
   },
@@ -234,7 +234,7 @@
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-11-01T23:50:09.131Z",
   "price_per_tb_month": "USD 0/TB/month stored on Standard; egress USD 0.01/GB (USD 10/TB); Performance USD 0.015/GB/month (USD 15/TB/month); Accelerated USD 0.02/GB/month (USD 20/TB/month)",
-  "notes": "No storage quota on the Standard tier — it is priced at $0/GB/month by design: 'Standard — Stored data: Free — Durable, high-capacity storage. The default'. The paid tiers are Performance at $0.015/GB/month and Accelerated at $0.02/GB/month. There is no published cap on bytes stored, only 'availability varies — a tier can show as out of stock'.",
+  "notes": "No storage quota on the Standard tier. It is priced at $0/GB/month by design: 'Standard — Stored data: Free — Durable, high-capacity storage. The default'. The paid tiers are Performance at $0.015/GB/month and Accelerated at $0.02/GB/month. There is no published cap on bytes stored, only 'availability varies — a tier can show as out of stock'.",
   "extras": {
     "price_verbatim": "$0/TB/month storage on the Standard tier; $10/TB egress ($0.01/GB). Performance $15/TB/mo, Accelerated $20/TB/mo. Effective cost for the cold-archive workload (write once, read rarely) is ~$0/TB/mo."
   },

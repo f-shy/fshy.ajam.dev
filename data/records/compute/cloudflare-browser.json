@@ -22,7 +22,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://developers.cloudflare.com/browser-run/pricing/",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: https://developers.cloudflare.com/browser-run/pricing/ bills browser hours (USD 0.09 an hour over the included 10 hours on Workers Paid) and concurrent browsers, and lists no data-transfer allowance or price",
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "a REST API (Quick Actions and Browser Sessions), a Workers browser binding, and Puppeteer, Playwright or CDP WebSocket control",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",

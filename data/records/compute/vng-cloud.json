@@ -73,7 +73,7 @@
   ],
   "verdict": "fails-identity",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "The record also carries a date conflict worth flagging: the promotion policy text still says the program ends on 2023-12-31, while a registration form is live and offers USD 150 in 30 days, so the campaign may be a rolling renewal of the same page. Either way the identity door is shut, which is why the conflict does not change the verdict.",
+  "notes": "VNG Cloud offers cloud infrastructure in Vietnam with promotional startup credits of up to USD 150 for 30 days, requiring corporate business registration and tax ID verification.",
   "extras": {
     "facets": {
       "class": "regional",

@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "Because the endpoint needs no key, a nightly script can record the whole-card floor for a card class over time and detect when a rate moves, which is the only price history that does not depend on a third-party tracker.",
+  "chaining": "Because the endpoint needs no key, a nightly script can record the whole-card floor for a card class over time and detect when a rate moves, which is the only price history among documented hosts that does not depend on a third-party tracker.",
   "limits": [
     {
       "kind": "retention-clamped",

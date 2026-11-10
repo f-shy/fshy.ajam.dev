@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "KVM on NZ-based Proxmox clusters, full root; automated backups, firewall management and monitoring are optional paid add-ons",
-  "chaining": "the endless 2 Mbit/s tail after 1 TB means a slow archive sync can run all month without a bill, which no other host offers",
+  "chaining": "the endless 2 Mbit/s tail after 1 TB means a slow archive sync can run all month without a bill, which no other host among documented hosts offers",
   "limits": [
     {
       "kind": "volume-quota",

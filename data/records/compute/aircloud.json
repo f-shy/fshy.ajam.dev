@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "At USD 0.51 an hour for a 24 GB card this is the cheapest verified GPU rate found, and it composes with a Korean VPS: rent the 4090 by the hour, keep the data on a KRW 5,600 iwinv box, and pay nothing between jobs.",
+  "chaining": "At USD 0.51 an hour for a 24 GB card this is the cheapest verified GPU rate found among evaluated providers, and it composes with a Korean VPS: rent the 4090 by the hour, keep the data on a KRW 5,600 iwinv box, and pay nothing between jobs.",
   "limits": [
     {
       "kind": "volume-quota",

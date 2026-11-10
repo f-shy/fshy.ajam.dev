@@ -23,12 +23,12 @@
       "source": "https://learn.microsoft.com/en-us/azure/cloud-shell/overview"
     }
   ],
-  "limits_note": null,
+  "limits_note": "this slug supersedes historical research microsoft-azure-cloud-shell row, which is the same product renamed.",
   "reliability_note": "no reliability event recorded",
   "confidence": "reported",
   "verified_at": "2026-11-04T05:24:31.815Z",
   "price_per_tb_month": null,
-  "notes": "It is one product and this is its record.",
+  "notes": "Azure Cloud Shell is cataloged under its current service name.",
   "slug": "azure-cloud-shell",
   "provider": "Azure Cloud Shell",
   "url": "https://learn.microsoft.com/en-us/azure/cloud-shell/overview",

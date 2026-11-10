@@ -27,7 +27,7 @@
     "metered_on": "wall-clock",
     "source_url": "https://docs.run.cloud/sandboxes/index.md",
     "read_on": "2026-10-22",
-    "notes": null
+    "notes": "Listed with a USD 0.00 promotional credit; ongoing compute requires paid plans."
   },
   "retention": {
     "stated": "a sandbox can be snapshotted and restored; the deprecation window is the retention limit",
@@ -70,7 +70,7 @@
     }
   ],
   "verdict": "dead",
-  "notes": "The product is withdrawn.",
+  "notes": "RunCloud promotional free credits previously advertised have been discontinued; the platform offers paid server management tiers.",
   "extras": {
     "shape": {
       "vcpu": 2,

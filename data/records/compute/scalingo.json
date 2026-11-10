@@ -118,7 +118,7 @@
   ],
   "verdict": "trial-only",
   "verified_at": "2026-11-04T02:24:35.124Z",
-  "notes": "Worth keeping for one reason: it is the only provider that states plainly that its containers do not sleep, which is the trade the free tiers make in the other direction.",
+  "notes": "Confirms documented records row. Worth keeping for one reason: it is the only provider among documented hosts that states plainly that its containers do not sleep, which is the trade the free tiers make in the other direction.",
   "extras": {
     "facets": {
       "class": "refutation",

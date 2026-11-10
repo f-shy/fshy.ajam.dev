@@ -22,7 +22,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://docs.openhands.dev/openhands/usage/sandboxes/remote",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: no egress allowance or overage price on https://openhands.dev/pricing and https://docs.openhands.dev/openhands/usage/sandboxes/remote",
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "API URL and API key for remote sandboxes; the OpenHands Cloud API with API keys is documented",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "write-gated",
@@ -44,7 +44,7 @@
       "source": "https://docs.openhands.dev/openhands/usage/sandboxes/remote"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

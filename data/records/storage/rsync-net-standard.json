@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.rsync.net/pricing.html",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.rsync.net/pricing.html",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "\"No Egress Charges\" / \"NO Charges for ingress/egress\" — unmetered both ways, no per-request fees.",
+    "terms": "\"No Egress Charges\" / \"NO Charges for ingress/egress\". Unmetered both ways, no per-request fees.",
     "metered": false
   },
   "interface": [
@@ -35,7 +35,7 @@
     "rclone"
   ],
   "interface_detail": "Any SSH tool: rsync, sftp, scp, borg, rclone, restic, git-annex; zfs send/recv on request",
-  "tooling": "The canonical rclone/restic/borg/rsync target — every backend works because it is a real filesystem",
+  "tooling": "The canonical rclone/restic/borg/rsync target. Every backend works because it is a real filesystem.",
   "chaining": "SSHFS mount -> AList -> Cloudflare. No HTTP object API, so a wrapper is mandatory for serving",
   "limits": [],
   "limits_note": "800 GB minimum; price falls in bands only at 10 TB and 100 TB",

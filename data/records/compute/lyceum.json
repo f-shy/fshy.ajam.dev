@@ -46,7 +46,7 @@
     "detail": "not stated",
     "country": null
   },
-  "reliability_note": "no reliability event observed; the 8x configuration of the same card was Sold Out while the 1x and 2x were Available on the read, which is the kind of movement the index records",
+  "reliability_note": "no reliability event observed; the 8x configuration of the same card was Sold Out while the 1x and 2x were Available on the read, which is the kind of movement the index records.",
   "confidence": "documented",
   "evidence": [
     {
@@ -125,7 +125,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-03T08:50:28.020Z",
-  "notes": "Found via gpuperhour.",
+  "notes": "Found via gpuperhour. verification criteria: the vendor's own price book through its API, which the about block says exists but does not link.",
   "extras": {
     "facets": {
       "class": null,

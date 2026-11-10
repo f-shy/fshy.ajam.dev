@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://filebin.net/",
     "notes": "not stated"
   },
@@ -31,8 +31,8 @@
     "rest"
   ],
   "interface_detail": "rest",
-  "tooling": "plain HTTP PUT — 'curl -X PUT --data-binary @file -H \"filename: probe.bin\" https://filebin.net/<bin>/probe.bin'. Open source (github.com/espebra/filebin2, BSD-3) so it can be self-hosted.",
-  "chaining": "unlimited distinct bin IDs, each with its own 6-day clock — 'N bins x 6 days' is the only multiplication, and nothing survives week 2.",
+  "tooling": "Plain HTTP PUT. 'curl -X PUT --data-binary @file -H \"filename: probe.bin\" https://filebin.net/<bin>/probe.bin'. Open source (github.com/espebra/filebin2, BSD-3) so it can be self-hosted.",
+  "chaining": "Unlimited distinct bin IDs, each with its own 6-day clock. 'N bins x 6 days' is the only multiplication, and nothing survives week 2.",
   "limits": [
     {
       "kind": "retention-clamped",
@@ -51,7 +51,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "IMPORTANT INVERSION: a real browser UA (Mozilla/...) gets a 5399-byte 'are you sure / proceed to download' interstitial at HTTP 200; curl's default UA gets the real bytes. Automation works better than a browser here — the opposite of the usual trap. Any client that sets a browser UA (rclone, most HTTP libs, headless Chrome) will silently receive HTML instead of the file.",
+  "reliability_note": "IMPORTANT INVERSION: a real browser UA (Mozilla/..) gets a 5399-byte 'are you sure / proceed to download' interstitial at HTTP 200; curl's default UA gets the real bytes. Automation works better than a browser here. The opposite of the usual trap. Any client that sets a browser UA (rclone, most HTTP libs, headless Chrome) will silently receive HTML instead of the file.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -84,5 +84,5 @@
     "probe_reported": "PUT https://filebin.net/e1probe1792600137/probe.bin -> 201, JSON echoes bytes:32768 + md5. GET same URL with curl's default UA -> 200, 32768 B, sha256 MATCH, 302 through to storage.filebin.net signed URL (X-Amz-Expires=900)."
   },
   "binding": "retention-clamped",
-  "binding_note": null
+  "binding_note": "a clock, not a quota: bytes leave whether or not transfer is completed"
 }

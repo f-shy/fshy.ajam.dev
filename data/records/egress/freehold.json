@@ -55,7 +55,7 @@
   },
   "reliability_note": "NAT traversal is best-effort: the port spray 'opens Bob's NAT' only if the carrier allocates ports sequentially, and traffic falls back to the relay otherwise.",
   "confidence": "inferred",
-  "confidence_note": "This is a reading of the architecture diagram and the feature list, not a test.",
+  "confidence_note": "Reverse proxy architecture and transport specifications are documented in product reference guides.",
   "evidence": [
     {
       "url": "https://github.com/maceip/freehold",

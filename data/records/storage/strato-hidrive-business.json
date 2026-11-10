@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.strato.de/cloud-speicher/hidrive-business/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.strato.de/cloud-speicher/hidrive-business/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Not published as a volume on the pricing page. Protocol access (SFTP, WebDAV, SMB, rsync, SCP, Git) is tier-gated: 'Im Business Essential und Standard Tarif sind die Zugriffsmöglichkeiten WebDAV und SMB inklusive. Wenn Sie sich den Advanced oder Premium Tarif gesichert haben, sind alle genannten Zugriffsmöglichkeiten inklusive.' — i.e. rsync/SCP/SFTP may require the higher tier.",
+    "terms": "Not published as a volume on the pricing page. Protocol access (SFTP, WebDAV, SMB, rsync, SCP, Git) is tier-gated: 'Im Business Essential und Standard Tarif sind die Zugriffsmöglichkeiten WebDAV und SMB inklusive. Wenn Sie sich den Advanced oder Premium Tarif gesichert haben, sind alle genannten Zugriffsmöglichkeiten inklusive.'. I.e. rsync/SCP/SFTP may require the higher tier.",
     "metered": false
   },
   "interface": [

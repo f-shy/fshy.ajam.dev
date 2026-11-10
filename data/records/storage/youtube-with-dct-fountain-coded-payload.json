@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://support.google.com/youtube/answer/71673",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://support.google.com/youtube/answer/71673",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Free and unmetered — playback and yt-dlp retrieval are served from Google's CDN at no cost; there is no egress meter on the account.",
+    "terms": "Free and unmetered. Playback and yt-dlp retrieval are served from Google's CDN at no cost; there is no egress meter on the account.",
     "metered": false
   },
   "interface": [
@@ -55,7 +55,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "From a datacenter IP, yt-dlp hit `Sign in to confirm you're not a bot` on 2 of 3 probe videos and HTTP 429 on the watch page — retrieval reliably needs cookies or a residential egress. Data does not vanish, but the account can be terminated and the whole channel with it.",
+  "reliability_note": "From a datacenter IP, yt-dlp hit `Sign in to confirm you're not a bot` on 2 of 3 probe videos and HTTP 429 on the watch page. Retrieval reliably needs cookies or a residential egress. Data does not vanish, but the account can be terminated and the whole channel with it.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -85,5 +85,5 @@
   "notes": "No total storage cap. Per-upload max 256 GB or 12 hours, whichever is less. Unverified accounts are limited to 15-minute videos; phone verification lifts that.",
   "extras": {},
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

@@ -5,7 +5,7 @@
   "url": "https://partner.steamgames.com/doc/features/workshop",
   "category": "media",
   "free_tier": {
-    "stated": "Per-item size is set by the game developer, not by Valve, and some games are explicitly unlimited — Arma 3: 'Arma 3 Workshop now support items of unlimited size.' Others are tiny: House Flipper raised its cap from 12 MB to 20 MB in a patch. So the quota is per-app, and the number of published items per account is not documented as capped.",
+    "stated": "Per-item size is set by the game developer, not by Valve, and some games are explicitly unlimited. Arma 3: 'Arma 3 Workshop now support items of unlimited size.' Others are tiny: House Flipper raised its cap from 12 MB to 20 MB in a patch. So the quota is per-app, and the number of published items per account is not documented as capped.",
     "unit": "unlimited",
     "metered_on": "unstated",
     "source_url": "https://arma3.com/workshop101",
@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://arma3.com/workshop101",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://arma3.com/workshop101",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Free and CDN-served by Valve's content network — same infrastructure as game downloads, genuinely unmetered.",
+    "terms": "Free and CDN-served by Valve's content network. Same infrastructure as game downloads, genuinely unmetered.",
     "metered": false
   },
   "interface": [
@@ -39,13 +39,13 @@
       "source": "https://arma3.com/workshop101"
     }
   ],
-  "limits_note": "Requires ownership of the game and a Steam client to upload — there is no headless upload path, which is the practical blocker. Per-item caps range from 20 MB to unlimited depending on app; preview images go through a separate Steam Cloud quota.",
+  "limits_note": "Requires ownership of the game and a Steam client to upload. There is no headless upload path, which is the practical blocker. Per-item caps range from 20 MB to unlimited depending on app; preview images go through a separate Steam Cloud quota.",
   "identity_cost": {
     "kind": "anonymous",
     "detail": null,
     "country": null
   },
-  "reliability_note": "Very durable — Workshop items have survived a decade, links do not expire, and downloads are anonymous. Enforcement risk is real but technical: items can be delisted by the app's developer.",
+  "reliability_note": "Very durable. Workshop items have survived a decade, links do not expire, and downloads are anonymous. Enforcement risk is real but technical: items can be delisted by the app's developer.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -72,7 +72,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Per-item size is set by the game developer, not by Valve, and some games are explicitly unlimited — Arma 3: 'Arma 3 Workshop now support items of unlimited size.' Others are tiny: House Flipper raised its cap from 12 MB to 20 MB in a patch. So the quota is per-app, and the number of published items per account is not documented as capped.",
+  "notes": "Per-item size is set by the game developer, not by Valve, and some games are explicitly unlimited. Arma 3: 'Arma 3 Workshop now support items of unlimited size.' Others are tiny: House Flipper raised its cap from 12 MB to 20 MB in a patch. So the quota is per-app, and the number of published items per account is not documented as capped.",
   "extras": {},
   "binding": "write-gated",
   "binding_note": null

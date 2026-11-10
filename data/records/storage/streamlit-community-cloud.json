@@ -5,7 +5,7 @@
   "url": "https://share.streamlit.io",
   "category": "paas",
   "free_tier": {
-    "stated": "'Storage: No minimum, 50GB maximum' per app — but the filesystem is the build container, not durable storage.",
+    "stated": "'Storage: No minimum, 50GB maximum' per app. But the filesystem is the build container, not durable storage.",
     "unit": "mixed",
     "metered_on": "stored-bytes",
     "source_url": "https://docs.streamlit.io/deploy/streamlit-community-cloud/manage-your-app",
@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.streamlit.io/deploy/streamlit-community-cloud/manage-your-app",
     "notes": "not stated"
   },
@@ -39,7 +39,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Ephemeral build filesystem — any file written at runtime is lost on reboot/redeploy. Useful only as a free public egress proxy in front of someone else's storage.",
+  "reliability_note": "Ephemeral build filesystem. Any file written at runtime is lost on reboot/redeploy. Useful only as a free public egress proxy in front of someone else's storage.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -56,7 +56,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "'Storage: No minimum, 50GB maximum' per app — but the filesystem is the build container, not durable storage.",
+  "notes": "'Storage: No minimum, 50GB maximum' per app. But the filesystem is the build container, not durable storage.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

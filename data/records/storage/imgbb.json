@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://imgbb.com/",
     "notes": "not stated"
   },
@@ -30,7 +30,7 @@
     "rest"
   ],
   "interface_detail": "rest",
-  "tooling": "Official API v1 at api.imgbb.com — POST multipart or GET with base64/URL, single 'key' param. ShareX, PicGo and Flameshot all ship ImgBB destinations.",
+  "tooling": "Official API v1 at api.imgbb.com. POST multipart or GET with base64/URL, single 'key' param. ShareX, PicGo and Flameshot all ship ImgBB destinations.",
   "chaining": "Unlimited free accounts, each with its own API key. Each upload returns a delete_url, so per-file turnover is scriptable.",
   "limits": [],
   "limits_note": "32 MB/image via API (binary, base64, or image URL). Optional 'expiration' 60-15,552,000 s. The anonymous upload endpoint needs a session token, so automation must use the API-key path.",

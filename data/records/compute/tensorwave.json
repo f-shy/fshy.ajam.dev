@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "the page states the software stack is ROCm; no API documentation is named",
-  "chaining": null,
+  "chaining": "Provides dedicated AMD MI300X capacity with 192 GB or 288 GB memory for workloads where CUDA is not mandatory. Pricing is available on request.",
   "limits": [],
   "limits_note": "No quota and no price are stated, so nothing in this record binds. The wall is a sales conversation: the provider publishes no hourly rate at all.",
   "binding": "none",
@@ -76,7 +76,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-03T08:50:36.650Z",
-  "notes": "Found via computeprices.",
+  "notes": "Found via computeprices. This is a partial finding by construction: the provider is real, sells the capacity, and publishes no number, so the price fields are empty rather than estimated. Unverified: a quote request, which this category does not make because it would require an account.",
   "extras": {
     "facets": {
       "class": null,

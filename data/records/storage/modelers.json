@@ -5,7 +5,7 @@
   "url": "https://modelers.cn",
   "category": "model-hub",
   "free_tier": {
-    "stated": "Not published. The community is an explicit Hugging-Face-shaped hub — models, datasets, and Spaces, plus its own client (openMind Hub Client) and library (openMind) targeting Ascend NPUs. Its contribution guide instructs 'git lfs track' for '100MB以上' files, which confirms a real LFS backend rather than a web-only uploader.",
+    "stated": "Not published. The platform hosts models, datasets, and Spaces, using the openMind Hub Client for Ascend hardware. The contribution guide specifies 'git lfs track' for files larger than 100 MB. No explicit total storage ceiling is published in documentation.",
     "unit": "GB",
     "metered_on": "unstated",
     "source_url": "https://modelers.cn/docs/zh/best-practices/community_contribution/model_contribution.html",
@@ -18,7 +18,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://modelers.cn/docs/zh/best-practices/community_contribution/model_contribution.html",
     "notes": "not stated"
   },
@@ -45,7 +45,7 @@
     "detail": "email + +86 phone (Huawei-adjacent Chinese community); access token required for any write.",
     "country": null
   },
-  "reliability_note": "API surface is opaque: https://modelers.cn/api/v1/models returns 404, and model detail pages return a 1,638-byte SPA shell regardless of path — so anonymous programmatic access is effectively absent; you need the openMind client.",
+  "reliability_note": "API surface is opaque: https://modelers.cn/api/v1/models returns 404, and model detail pages return a 1,638-byte SPA shell regardless of path. So anonymous programmatic access is effectively absent; you need the openMind client.",
   "confidence": "inferred",
   "confidence_note": null,
   "evidence": [
@@ -67,7 +67,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Not published. The community is an explicit Hugging-Face-shaped hub — models, datasets, and Spaces, plus its own client (openMind Hub Client) and library (openMind) targeting Ascend NPUs. Its contribution guide instructs 'git lfs track' for '100MB以上' files, which confirms a real LFS backend rather than a web-only uploader.",
+  "notes": "Not published. The platform hosts models, datasets, and Spaces, using the openMind Hub Client for Ascend hardware. The contribution guide specifies 'git lfs track' for files larger than 100 MB. No explicit total storage ceiling is published in documentation.",
   "extras": {},
   "binding": "per-object-cap",
   "binding_note": null

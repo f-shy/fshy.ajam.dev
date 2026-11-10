@@ -24,14 +24,14 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": "free, Cloudflare-fronted, cacheable — probe showed 'Server: cloudflare', 'cf-cache-status: HIT'",
+    "terms": "Free, Cloudflare-fronted, cacheable. Probe showed 'Server: cloudflare', 'cf-cache-status: HIT'.",
     "metered": false
   },
   "interface": [
     "rest"
   ],
   "interface_detail": "rest",
-  "tooling": "no official image-upload endpoint in the SE API; images are inserted by the web editor or by POSTing a post body containing an already-hosted URL. Wrapper only (Selenium/editor automation) — this is the failure point",
+  "tooling": "No official image-upload endpoint in the SE API; images are inserted by the web editor or by POSTing a post body containing an already-hosted URL. Wrapper only (Selenium/editor automation). This is the failure point.",
   "chaining": "2 MiB x unlimited posts x unlimited answers x N Stack Exchange sites (180+ sites, one network account). 500 GB = ~256,000 images; not a practical bulk store without a browser farm",
   "limits": [
     {
@@ -46,7 +46,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "the most permanent image host in this set — SE migrated every historical Imgur URL to i.sstatic.net in May 2024 precisely to guarantee links never rot; a live 2013-era test image still returns 200 with Last-Modified 2024-05-01",
+  "reliability_note": "The most permanent image host in this set. SE migrated every historical Imgur URL to i.sstatic.net in May 2024 precisely to guarantee links never rot; a live 2013-era test image still returns 200 with Last-Modified 2024-05-01.",
   "confidence": "reported",
   "confidence_note": "read on 2026-11-03: two Stack Exchange meta posts: https://meta.stackexchange.com/questions/401308 (10MiB hard cap, resize of images over 2MiB, animated GIFs capped at 2MiB) and https://meta.stackexchange.com/questions/395024/ (images migrated from Imgur); the unlimited unit and the permanence of old image URLs rest on a probe of 2026-10-21 that is not repeated, so the rung stays reported",
   "evidence": [

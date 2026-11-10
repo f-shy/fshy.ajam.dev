@@ -37,7 +37,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "client portal at my.landvps.ru (BILLmanager) with a registration redirect straight into the VPS order form; the product page states deployment through the portal, a CLI or a REST API; registration by email, VK or Gosuslugi is offered on the homepage",
-  "chaining": null,
+  "chaining": "768 MB and 10 GB SSD at RUB 90 is a probe, a scheduler or a small proxy inside Russia, not a storage host: the vendor caps its own cloud VPS line at 800 GB NVMe or 3 TB HDD, so the 10 TB active dataset does not fit here at any price.",
   "limits": [
     {
       "kind": "volume-quota",

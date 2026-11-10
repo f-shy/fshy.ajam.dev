@@ -19,12 +19,12 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://blog.kyun.sh/p/bricks",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Not published as a per-plan number. The model is a VM plus attachable block, with the VM carrying the traffic allowance. Treat as unknown/unmetered-by-usage rather than free — this is a one-person operation and the beta explicitly has no published egress schedule.",
+    "terms": "Not published as a per-plan number. The model is a VM plus attachable block, with the VM carrying the traffic allowance. Treat as unknown/unmetered-by-usage rather than free. This is a one-person operation and the beta explicitly has no published egress schedule.",
     "metered": true
   },
   "interface": [

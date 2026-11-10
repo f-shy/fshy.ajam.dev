@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://learn.microsoft.com/en-us/azure/devops/artifacts/artifact-storage?view=azure-devops",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "| 2 GiB total across all feeds in the org; exceeding it makes the org read-only for publishing until you delete data or add billing; Public feeds only exist inside 'public projects', and Microsoft is retiring public projects — 'Starting in 2027, existing public projects will automatically convert to private, and public feeds will no longer be publicly accessible.'",
+    "stated": "| 2 GiB total across all feeds in the org; exceeding it makes the org read-only for publishing until you delete data or add billing; Public feeds only exist inside 'public projects', and Microsoft is retiring public projects. 'Starting in 2027, existing public projects will automatically convert to private, and public feeds will no longer be publicly accessible.'.",
     "source_url": "https://learn.microsoft.com/en-us/azure/devops/artifacts/artifact-storage?view=azure-devops",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "No separate egress SKU for Azure Artifacts; The metered dimension is storage only, which is unusual and mildly favourable — but 2 GiB is the binding constraint long before bandwidth.",
+    "terms": "No separate egress SKU for Azure Artifacts. Downloads are included with Azure DevOps service, with billing metered solely on storage capacity beyond 2 GiB.",
     "metered": true
   },
   "interface": [
@@ -31,9 +31,9 @@
   ],
   "interface_detail": "rest (Azure DevOps Artifacts API), NuGet/npm/Maven/Python/Cargo/Universal Package clients, `az artifacts universal`",
   "tooling": "`nuget push`, `npm publish`, `twine upload`, `mvn deploy`, `az artifacts universal publish`; documented upstream-source proxying for public registries.",
-  "chaining": "Per-org 2 GiB × unlimited free Azure DevOps organizations (each needs a Microsoft account and an org). Note the free tier is per org and pools across all projects in it — you cannot multiply by adding projects or feeds.",
+  "chaining": "Per-org 2 GiB × unlimited free Azure DevOps organizations (each needs a Microsoft account and an org). Note the free tier is per org and pools across all projects in it. You cannot multiply by adding projects or feeds.",
   "limits": [],
-  "limits_note": "2 GiB total across all feeds in the org; exceeding it makes the org read-only for publishing until you delete data or add billing; Public feeds only exist inside 'public projects', and Microsoft is retiring public projects — 'Starting in 2027, existing public projects will automatically convert to private, and public feeds will no longer be publicly accessible.'",
+  "limits_note": "2 GiB total across all feeds in the org; exceeding it makes the org read-only for publishing until you delete data or add billing; Public feeds only exist inside 'public projects', and Microsoft is retiring public projects. 'Starting in 2027, existing public projects will automatically convert to private, and public feeds will no longer be publicly accessible.'.",
   "identity_cost": {
     "kind": "card",
     "detail": null,

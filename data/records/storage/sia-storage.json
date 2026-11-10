@@ -5,7 +5,7 @@
   "url": "https://sia.storage",
   "category": "p2p",
   "free_tier": {
-    "stated": "50 GB free — 'The free plan includes 50 GB of storage, up to 3 connected apps, and transfer speeds up to 524 Mbps — with no Siacoin to buy and no server to run.'",
+    "stated": "50 GB free. 'The free plan includes 50 GB of storage, up to 3 connected apps, and transfer speeds up to 524 Mbps — with no Siacoin to buy and no server to run.'.",
     "unit": "GB",
     "metered_on": "stored-bytes",
     "source_url": "https://docs.sia.tech/store-your-data/using-sia-storage.md",
@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.sia.tech/store-your-data/using-sia-storage.md",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.sia.tech/store-your-data/using-sia-storage.md",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "s3",
   "tooling": "s3d gateway (github.com/SiaFoundation/s3d) exposes an S3-compatible API; docs name Rclone and Cyberduck explicitly. Python/Go/Rust/JS SDKs also exist. rclone has a native 'sia' backend (rclone.org/sia/).",
-  "chaining": "50 GB x unlimited accounts (signup is free, no Siacoin required). The plan gate is '3 connected apps' per account, and an app is a token — the same wrapper pattern as Google service accounts. 400 accounts = 20 TB, but each is a separate signup.",
+  "chaining": "50 GB x unlimited accounts (signup is free, no Siacoin required). The plan gate is '3 connected apps' per account, and an app is a token. The same wrapper pattern as Google service accounts. 400 accounts = 20 TB, but each is a separate signup.",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -68,7 +68,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "50 GB free — 'The free plan includes 50 GB of storage, up to 3 connected apps, and transfer speeds up to 524 Mbps — with no Siacoin to buy and no server to run.'",
+  "notes": "50 GB free. 'The free plan includes 50 GB of storage, up to 3 connected apps, and transfer speeds up to 524 Mbps — with no Siacoin to buy and no server to run.'.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",
@@ -78,5 +78,5 @@
     }
   },
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

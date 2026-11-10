@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://devdocs.xbox.com/services/xbox-services/storage/title-storage/live-title-storage-overview",
     "notes": "not stated"
   },
@@ -40,7 +40,7 @@
       "source": "https://devdocs.xbox.com/services/xbox-services/storage/title-storage/live-title-storage-overview"
     }
   ],
-  "limits_note": "per-object-cap: 64 MB per player on the Creator-Program tier; request-rate: ~60 reads or writes per hour per session, then throttled. Binary must be base64/hex encoded. Retention: not documented as expiring — data persists with the title.",
+  "limits_note": "Per-object-cap: 64 MB per player on the Creator-Program tier; request-rate: ~60 reads or writes per hour per session, then throttled. Binary must be base64/hex encoded. Retention: not documented as expiring. Data persists with the title.",
   "identity_cost": {
     "kind": "email",
     "detail": null,

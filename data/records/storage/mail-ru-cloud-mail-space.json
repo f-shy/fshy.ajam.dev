@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://help.mail.ru/cloud/size/storage/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://help.mail.ru/cloud/size/storage/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "free — direct/share links unmetered, no egress pricing published",
+    "terms": "Free. Direct/share links unmetered, no egress pricing published.",
     "metered": false
   },
   "interface": [

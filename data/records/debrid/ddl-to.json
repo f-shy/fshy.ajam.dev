@@ -47,7 +47,7 @@
     "detail": "Nothing is asked for at ddl.to; whatever the redirect target asks for is DDownload's policy.",
     "country": null
   },
-  "reliability_note": "Any inventory that still counts DDL.to as a separate provider is double-counting DDownload.",
+  "reliability_note": "A link checker sees HTTP 200 and a live host, which is exactly the failure these records warns about: the host answering is not the host the link names. Any inventory that still counts DDL.to as a separate provider is double-counting DDownload.",
   "confidence": "documented",
   "confidence_note": "The redirect and its landing page were read. That is all this record claims.",
   "evidence": [
@@ -60,7 +60,7 @@
   "verdict": "dead",
   "verified_at": "2026-10-23T03:38:10.440Z",
   "price_per_tb_month": null,
-  "notes": "Successor: storage/ddownload.",
+  "notes": "Kept as a dead record rather than deleted so the subsequent audit does not re-open the name and so the DDownload redirect is documented once. Successor: storage/ddownload.",
   "extras": {
     "successor_record": "storage/ddownload"
   }

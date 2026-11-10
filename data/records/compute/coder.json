@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://coder.com/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: the pricing page comparison table lists no egress or bandwidth item; traffic is that of the machines the user rents or runs",
@@ -37,7 +37,7 @@
   ],
   "interface_detail": "web UI, the coder CLI (including coder ssh) and a REST API of the server the user installs and runs",
   "tooling": "the user installs and runs the open-source Coder Community server on a rented or free machine, and it provisions the workspaces on rented or free machines as well",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -46,11 +46,11 @@
     },
     {
       "kind": "write-gated",
-      "value": "the free product is self-hosted open source: a user supplies the machines, so there is no hosted capacity to rent",
+      "value": "the free product is self-hosted open source: the user supplies the machines, so there is no hosted capacity to rent.",
       "source": "https://coder.com/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,
@@ -58,7 +58,7 @@
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
-  "confidence_note": "the pricing page was read on 2026-10-22 and compares a free open-source Community column against two paid ones. The free product is software for a user's own hardware, not hosted…",
+  "confidence_note": "the pricing page was read on 2026-10-22 and compares a free open-source Community column against two paid ones. The free product is software for the user's own hardware, not hosted compute.",
   "evidence": [
     {
       "url": "https://coder.com/pricing",

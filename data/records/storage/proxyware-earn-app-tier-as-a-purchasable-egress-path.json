@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://proxypicker.com/what-your-wifi-is-worth/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://proxypicker.com/what-your-wifi-is-worth/",
     "notes": "not stated"
   },
@@ -33,7 +33,7 @@
   "tooling": "none",
   "chaining": "none - but this tier is the source of the bytes that PacketStream/Proxyrack resell, which is why their retail floor is $1/GB",
   "limits": [],
-  "limits_note": "Answer: no. Every one of them is a supply-side client whose traffic is sold wholesale to a proxy network, and the buyer-side products are sold by the network (Bright Data, IPRoyal, PacketStream, Proxyrack), not by the app. The arbitrage of signing up as a contributor on one and consuming on another does not exist either, because the spread is 10x-45x and the contributor is paid in cash, capped per IP.",
+  "limits_note": "Residential bandwidth sharing applications do not expose HTTP proxy egress endpoints directly. Software clients sell device bandwidth wholesale to residential proxy aggregators (such as Bright Data, IPRoyal, and PacketStream). Contributors receive fixed cash payouts per gigabyte rather than reciprocal routing credits.",
   "identity_cost": {
     "kind": "email",
     "detail": "email",

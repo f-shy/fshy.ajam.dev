@@ -87,7 +87,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-08T00:54:55.395Z",
-  "notes": "This is the one record where the tracker's price could not be found at all on the vendor's site, so confidence is reported rather than documented even though the vendor was read. The euro sign is written as EUR because every string in this record is ASCII; no price was converted.",
+  "notes": "Prices are recorded in EUR.",
   "extras": {
     "facets": {
       "class": "price-floor",

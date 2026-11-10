@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://transfer.archivete.am/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://transfer.archivete.am/",
     "notes": "not stated"
   },
@@ -31,8 +31,8 @@
     "cli"
   ],
   "interface_detail": "rest",
-  "tooling": "curl --upload-file ./f https://transfer.archivete.am/f — the original transfer.sh CLI contract, unchanged. Also supports /virustotal and /scan suffixes.",
-  "chaining": "none — per-file only, no account surface. N files with independent expiry.",
+  "tooling": "Curl --upload-file ./f https://transfer.archivete.am/f. The original transfer.sh CLI contract, unchanged. Also supports /virustotal and /scan suffixes.",
+  "chaining": "None. Per-file only, no account surface. N files with independent expiry.",
   "limits": [],
   "limits_note": "Retention not stated on the landing page (unverified); transfer.sh lineage default was 14 days. No rate limit observed.",
   "identity_cost": {

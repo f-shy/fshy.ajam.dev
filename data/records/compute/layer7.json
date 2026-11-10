@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "the cloud-server page is a configurator (CPU, location, then slider ranges); VNC console, ISO mount and up/down grades through the client area are documented; no published API was found on the pages read",
-  "chaining": "50 TB a month stated plainly on the vendor's own page for EUR 4.90 exclusive of VAT, with 6 GB of RAM, puts it just behind LowHosting's 51,200 GB claim in allowance and far ahead of the 5 TB at Luxvps and the 1 TB at LeapSwitch",
+  "chaining": "50 TB a month stated plainly on the vendor's own page for EUR 4.90 exclusive of VAT, with 6 GB of RAM, puts it just behind LowHosting's 51,200 GB claim in allowance and far ahead of the 5 TB at Luxvps and the 1 TB at LeapSwitch; the 50 GB NVMe is small, but the same vendor sells additional HDD at EUR 2 per TB for the first disk and 2.50, 3.00 and 3.50 for the next three, the cheapest stated disk rate among evaluated providers (LiteServer's 256 GB add-on block works out at EUR 10 per TB), which makes it the plausible route to putting the 20 TB dataset behind one invoice.",
   "limits": [
     {
       "kind": "volume-quota",
@@ -52,7 +52,7 @@
     "detail": "not stated",
     "country": null
   },
-  "reliability_note": "no reliability event observed; the tracker's profile text describes the operator as owning its hardware in ISO/IEC 27001 colocation, which is the tracker's claim and was not checked",
+  "reliability_note": "no reliability event observed; the tracker's profile text describes the vendor as owning its hardware in ISO/IEC 27001 colocation, which is the tracker's claim and was not checked.",
   "confidence": "reported",
   "evidence": [
     {

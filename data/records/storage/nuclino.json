@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.nuclino.com/pricing",
     "notes": "not stated"
   },
@@ -41,7 +41,7 @@
       "source": "https://www.nuclino.com/pricing"
     }
   ],
-  "limits_note": "per-object-cap: 10 MB per file — the API documents `413 ... an uploaded file exceeds the maximum size of 10 MB (code: FILE_TOO_LARGE)`, and a request body over 100 KB also 413s. request-rate: documented `429` rate limiting (separate page). Retention: no expiry documented; storage is freed only by deletion.",
+  "limits_note": "Per-object-cap: 10 MB per file. The API documents `413 .. an uploaded file exceeds the maximum size of 10 MB (code: FILE_TOO_LARGE)`, and a request body over 100 KB also 413s. request-rate: documented `429` rate limiting (separate page). Retention: no expiry documented; storage is freed only by deletion.",
   "identity_cost": {
     "kind": "institution",
     "detail": null,

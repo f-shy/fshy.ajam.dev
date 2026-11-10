@@ -5,7 +5,7 @@
   "url": "https://castbox.fm",
   "category": "media",
   "free_tier": {
-    "stated": "'There is no limit on uploading storage (total) for a channel.' Per-file cap 400 MB, from a help page last updated 7 years ago ('Updated: 7 years ago') — the 400 MB figure is stale and should be treated as unverified.",
+    "stated": "'There is no limit on uploading storage (total) for a channel.' Per-file cap 400 MB, from a help page last updated 7 years ago ('Updated: 7 years ago'). The 400 MB figure is stale and should be treated as unverified.",
     "unit": "MB",
     "metered_on": "stored-bytes",
     "source_url": "https://sites.google.com/castbox.fm/castbox-help-center/podcasters/getting-started/2-start-a-podcast-hosted-on-castbox-for-free",
@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://sites.google.com/castbox.fm/castbox-help-center/podcasters/getting-started/2-start-a-podcast-hosted-on-castbox-for-free",
     "notes": "not stated"
   },
@@ -68,7 +68,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "'There is no limit on uploading storage (total) for a channel.' Per-file cap 400 MB, from a help page last updated 7 years ago ('Updated: 7 years ago') — the 400 MB figure is stale and should be treated as unverified.",
+  "notes": "'There is no limit on uploading storage (total) for a channel.' Per-file cap 400 MB, from a help page last updated 7 years ago ('Updated: 7 years ago'). The 400 MB figure is stale and should be treated as unverified.",
   "extras": {},
   "binding": "per-object-cap",
   "binding_note": null

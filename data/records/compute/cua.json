@@ -8,7 +8,7 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
+  "interface_detail": "an agent framework that targets published compute.",
   "tooling": "a Python framework for computer-use agents",
   "chaining": "none as a host: it runs on a machine already in place",
   "limits": [

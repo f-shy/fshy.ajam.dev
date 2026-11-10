@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.lumi-supercomputer.eu/storage/lumio/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.lumi-supercomputer.eu/storage/lumio/",
     "notes": "not stated"
   },
@@ -35,7 +35,7 @@
   "tooling": "rclone, s3cmd, aws cli, LUMI web interface. Credentials are LUMI-O access tokens generated at auth.lumidata.eu, scoped to a project.",
   "chaining": "150 TB × N LUMI projects. A LUMI project is the unit; Finnish researchers create LUMI projects through MyCSC (the 'LUMI' project category) and LUMI is also reachable through EuroHPC Benchmark/Regular access and through national shares (e.g. SURF's Small Compute applications include 'up to 100,000 TB-hours project space storage' on LUMI). Every LUMI project carries LUMI-O by default: 'All LUMI projects have LUMI-O available by default.'",
   "limits": [],
-  "limits_note": "per-object-cap: 500,000 objects per bucket, same as Allas. No per-object byte cap documented. Retention is the project lifetime, explicitly: 'Data lifetime in LUMI-O is the same as your project lifetime.' request-rate: not published. Note: 'In LUMI-O one project is treated as one account: all project members have the same access/user rights' — so quota is per project, never per person.",
+  "limits_note": "Per-object-cap: 500,000 objects per bucket, same as Allas. No per-object byte cap documented. Retention is the project lifetime, explicitly: 'Data lifetime in LUMI-O is the same as your project lifetime.' request-rate: not published. Note: 'In LUMI-O one project is treated as one account: all project members have the same access/user rights'. So quota is per project, never per person.",
   "identity_cost": {
     "kind": "institution",
     "detail": "inferred from the category 'academic'; the source record states no identity cost, so this is a class assumption, not evidence",
@@ -43,7 +43,7 @@
   },
   "reliability_note": "Data dies with the project; no backup is implied and objects cannot be modified in place.",
   "confidence": "documented",
-  "confidence_note": "The page states the number in the record; the claim is documented, not measured. The verdict is fails-identity on the registration gate; the quota is documented and the gate is documented.",
+  "confidence_note": "re-read on 2026-10-22 (HTTP 404, 93393 bytes, sha256 79f4bb0a87f739c6). The page states the number in the record. The claim is documented, not measured. The verdict is fails-identity on the registration gate; the quota is documented and the gate is documented.",
   "evidence": [
     {
       "url": "https://docs.lumi-supercomputer.eu/storage/lumi-o/",

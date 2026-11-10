@@ -5,7 +5,7 @@
   "url": "https://huggingface.co/spaces",
   "category": "paas",
   "free_tier": {
-    "stated": "50 GB of disk per Space — but per HF's own docs the Space disk is NOT persistent. Persistent storage is the separate Storage Buckets product.",
+    "stated": "50 GB of disk per Space. But per HF's own docs the Space disk is NOT persistent. Persistent storage is the separate Storage Buckets product.",
     "unit": "GB",
     "metered_on": "stored-bytes",
     "source_url": "https://huggingface.co/docs/hub/spaces-overview",
@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://huggingface.co/docs/hub/spaces-overview",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "`huggingface_hub` / `hf` CLI; Spaces can mount buckets as volumes; Gradio/Docker Spaces are HTTP servers by construction.",
-  "chaining": "Not a storage play: each Space's 50 GB dies on restart. The real HF storage is buckets + public repos — Spaces is only useful as the free server in front of them.",
+  "chaining": "Transient storage only: ephemeral disk provides 50 GB that resets on instance restart. Persistent storage requires pairing with external buckets or repository datasets.",
   "limits": [],
   "limits_note": "16 GB RAM, 2 CPU cores, 50 GB ephemeral disk; creating a Gradio/Docker Space now requires a paid plan (free accounts get 2 ZeroGPU Gradio Spaces); Static Spaces free for everyone.",
   "identity_cost": {
@@ -57,7 +57,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "50 GB of disk per Space — but per HF's own docs the Space disk is NOT persistent. Persistent storage is the separate Storage Buckets product.",
+  "notes": "50 GB of disk per Space. But per HF's own docs the Space disk is NOT persistent. Persistent storage is the separate Storage Buckets product.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

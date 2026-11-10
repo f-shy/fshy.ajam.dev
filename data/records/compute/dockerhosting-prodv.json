@@ -41,7 +41,7 @@
   "binding_note": "traffic is unlimited and the disk is fixed, so the shared 2600 MHz cores are the only thing left to throttle.",
   "identity_cost": {
     "kind": "card",
-    "detail": "Russian hosts in this price band commonly take Mir cards and SBP transfers, but nothing on the page read states it.",
+    "detail": "the order page was not opened on 2026-10-24, so card acceptance, debit acceptance and any hold are unverified. Russian hosts in this price band commonly take Mir cards and SBP transfers, but nothing on the page read states it.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",

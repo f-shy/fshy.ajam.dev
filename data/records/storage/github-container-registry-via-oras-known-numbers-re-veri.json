@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry",
     "notes": "not stated"
   },
@@ -30,18 +30,18 @@
     "oci"
   ],
   "interface_detail": "oci",
-  "tooling": "oras-project/oras (2,474 stars) — `oras push` with `--artifact-type`, one file per layer, so the 10 GB/layer cap becomes the per-file cap. Docker/skopeo/crane also work. Androsh7/layerstash (1 star) is a purpose-built 'Data Storage Tool for Docker Hub and GHCR'.",
+  "tooling": "Oras-project/oras (2,474 stars). `oras push` with `--artifact-type`, one file per layer, so the 10 GB/layer cap becomes the per-file cap. Docker/skopeo/crane also work. Androsh7/layerstash (1 star) is a purpose-built 'Data Storage Tool for Docker Hub and GHCR'.",
   "chaining": "unlimited repos x unlimited tags/versions x (10 GB per blob). A 30 TiB corpus = 3,000 x 10 GB ORAS layers, spread over any number of repos/tags; multiply by unlimited accounts and orgs. Effectively unbounded, capped only by upload throughput.",
   "limits": [],
-  "limits_note": "10 GB per layer (per file), 10 minute upload timeout per blob, anonymous PUSH denied, anonymous PULL allowed for public packages. npm/nuget/maven/ruby registries on the same product are NOT free like this — see dead ends.",
+  "limits_note": "10 GB per layer (per file), 10 minute upload timeout per blob, anonymous PUSH denied, anonymous PULL allowed for public packages. npm/nuget/maven/ruby registries on the same product are NOT free like this. See dead ends.",
   "identity_cost": {
     "kind": "anonymous",
     "detail": null,
     "country": null
   },
-  "reliability_note": "Anonymous pull verified end-to-end; nothing expires. The 10-minute upload timeout is the real constraint on large single layers from a slow link — use several smaller layers.",
+  "reliability_note": "Anonymous pull verified end-to-end; nothing expires. The 10-minute upload timeout is the real constraint on large single layers from a slow link. Use several smaller layers.",
   "confidence": "documented",
-  "confidence_note": "The page states the number in the record; the claim is documented, not measured.",
+  "confidence_note": "re-read on 2026-10-22 (HTTP 200, 17000 bytes, sha256 4b3a2c0a26a56c2a). The page states the number in the record. The claim is documented, not measured.",
   "evidence": [
     {
       "url": "https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry",

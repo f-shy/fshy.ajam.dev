@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://kedge.dev/docs/billing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "egress is metered at $0.01 / GiB; no byte allowance is published, and the account's $5 of monthly usage is consumed first",
@@ -37,7 +37,7 @@
   ],
   "interface_detail": "REST API at https://kedge.dev/api (OpenAPI 3.1), the kedge CLI and SSH commands",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -55,7 +55,7 @@
       "source": "https://kedge.dev/docs/billing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

@@ -96,7 +96,7 @@
   ],
   "verdict": "trial-only",
   "verified_at": "2026-11-03T10:32:57.642Z",
-  "notes": "The product is live and the pricing is on the landing page. No limit is published, so there is nothing to plan against.",
+  "notes": "Open-source reverse tunnel tool written in Rust. Free service provides random public subdomains without published bandwidth caps.",
   "extras": {
     "stale_after_days": 180,
     "bytes_transit": "yes",

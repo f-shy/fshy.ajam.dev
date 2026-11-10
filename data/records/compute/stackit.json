@@ -22,10 +22,10 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://pim.api.stackit.cloud/v1/skus",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
-    "terms": "not stated",
+    "terms": "not published",
     "metered": false,
     "free_allowance": null,
     "price_per_tb": null,
@@ -36,9 +36,9 @@
   ],
   "interface_detail": "STACKIT portal (web UI) and the STACKIT IaaS API",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "institution",
     "detail": "a customer account needs contact person name and phone number, company name and address, VAT ID, Commercial Register number and a payment method (invoice or credit card); self-service in Germany, Austria and Switzerland, other countries go through the sales contact form; a Marketplace free trial also needs valid payment details",

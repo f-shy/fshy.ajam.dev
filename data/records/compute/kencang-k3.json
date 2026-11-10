@@ -29,7 +29,7 @@
   ],
   "interface_detail": "KVM with an OS reinstall and a start/stop panel; the page states 'Kontrol VPS' and 'Full SSD' but does not spell out root",
   "tooling": "any SSH client; the vendor's own order panel",
-  "chaining": "4 GiB and 4 vCPU in Jakarta for USD 4.61 a month on the annual term; the highest core count under the line",
+  "chaining": "4 GiB and 4 vCPU in Jakarta for USD 4.61 a month on the annual term; the highest core count under the line among evaluated providers.",
   "limits": [
     {
       "kind": "per-ip-shaping",

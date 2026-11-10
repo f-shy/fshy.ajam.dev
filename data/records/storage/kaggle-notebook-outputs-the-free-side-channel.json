@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.kaggle.com/docs/notebooks",
     "notes": "not stated"
   },
@@ -31,7 +31,7 @@
     "cli"
   ],
   "interface_detail": "rest",
-  "tooling": "kaggle CLI (`kaggle kernels output <owner>/<kernel> -p ./dir`) and kagglehub; the notebook itself runs on free P100/TPU compute so the write happens server-side with no upload from a user at all.",
+  "tooling": "kaggle CLI (`kaggle kernels output <owner>/<kernel> -p ./dir`) and kagglehub. The notebook executes on managed GPU and TPU compute, writing files directly on the host without local upload transfer.",
   "chaining": "20 GB per notebook version. Notebook versions, notebooks and accounts each carry no stated limit. The reachable total therefore scales with versions and notebooks per account, and a second account carries a second allowance. The whole write path is server-side (the data is produced or fetched inside the notebook, so there is no client uplink bottleneck). This is the standard community alternative route around the 200 GB private quota: a Kaggle forum answer describes it as 'create a new notebook from your dataset and copy files to /kaggle/working'.",
   "limits": [],
   "limits_note": "20 GB per version is hard; 9 h / 12 h session limits per run; output is only persisted on commit ('Save & Run All'), not on interactive save; GPU/TPU hours are rationed (~30 h/week) but CPU-only runs are not the constraint for pure storage.",

@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://www.zenrows.com/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "no egress allowance published at https://www.zenrows.com/pricing; residential proxy bandwidth is metered at 25,000 credits per GB",
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "HTTP API at api.zenrows.com with an OpenAPI 3.1 spec; CLI (npx @zenrows/cli); SDKs; MCP server; the Browser primitive takes Puppeteer or Playwright code over WebSocket",
   "tooling": "CLI (npx -y @zenrows/cli), SDKs, MCP server (npx -y @zenrows/mcp), OpenAPI spec",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -44,7 +44,7 @@
       "source": "https://www.zenrows.com/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": "'5,000 credits/month · no card', quoted from the pricing page read 2026-10-22",

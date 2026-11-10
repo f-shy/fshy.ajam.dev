@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://servarica.com/storage-servers-2/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://servarica.com/storage-servers-2/",
     "notes": "not stated"
   },
@@ -37,7 +37,7 @@
   ],
   "interface_detail": "KVM/Xen + root, so anything: SFTP, rsync, NFS, rclone serve s3, MinIO, WebDAV via container",
   "tooling": "Root access makes this the most chainable option among the storage providers compared: AList, MinIO or a Cloudflare tunnel endpoint can run on the box itself.",
-  "chaining": "composition with the pool is unestablished",
+  "chaining": "Composition with external storage pools is unestablished.",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -45,7 +45,7 @@
       "source": "https://servarica.com/storage-servers-2/"
     }
   ],
-  "limits_note": "Bandwidth is a hard counter on these plans. Capacity grows +1 GB/day on the 'expanding' line.",
+  "limits_note": "Bandwidth is a hard counter on these plans. Capacity grows 1 GB per day on the expanding plan series. Billing and ordering systems were offline during testing on 2026-10-21.",
   "identity_cost": {
     "kind": "email",
     "detail": "email",
@@ -84,5 +84,5 @@
     "price_verbatim": "$2.50/TB/mo at 2 TB ($5/mo) and at 8 TB ($20/mo); $2.43/TB/mo at 3.5 TB. On yearly: Polar Bear $48/yr = $2.00/TB/mo; Mammoth $220/yr = $2.29/TB/mo. at 5 TB: 8 TB plan at $2.50/TB/mo (or 3x Polar Bear at $2.00/TB/mo). at 20 TB: 2.5x Mammoth = $2.29/TB/mo. Caveat: active billing outage, bandwidth capped at 2-3x storage."
   },
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

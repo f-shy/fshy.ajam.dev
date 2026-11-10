@@ -39,7 +39,7 @@
     "rest"
   ],
   "interface_detail": "REST with a domain-level cost estimator and a per-request max_cost cap",
-  "tooling": "not stated",
+  "tooling": "not established",
   "chaining": "The clearest published multiplier table in the class, which makes it the reference for what a defended page really costs",
   "limits": [
     {

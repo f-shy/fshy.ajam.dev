@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://cloud.google.com/products/compute/pricing/general-purpose",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "1 GB a month of outbound transfer from North America to all region destinations (excluding China and Australia) in the free tier; beyond it, standard network pricing applies",
@@ -33,9 +33,9 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
+  "interface_detail": "Access interface not documented in published terms.",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -53,7 +53,7 @@
       "source": "https://cloud.google.com/products/compute/pricing/general-purpose"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "card",
     "detail": "'You won't be charged until you activate your full paid account' and the $300 welcome credit require a payment method to activate the paid account; the free tier itself is available to an eligible customer, quoted from cloud.google.com/free read 2026-10-22",

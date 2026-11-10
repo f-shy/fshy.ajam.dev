@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://yepcode.io/pricing/",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: the pricing page meters execution seconds (Yeps) and lists no egress allowance or overage price; docs.yepcode.io states none",
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "REST API at https://cloud.yepcode.io/api/{team}/rest (schedules, executions); also webhooks and cron schedules; no CLI, SSH or SDK read on the pages",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -53,7 +53,7 @@
       "source": "https://yepcode.io/pricing/"
     }
   ],
-  "limits_note": null,
+  "limits_note": "Session cap, idle-reap and network policy are not documented. Exceeds capacity threshold.",
   "identity_cost": {
     "kind": "email",
     "detail": "'FREE, no credit card required', quoted from yepcode.io/pricing read 2026-10-22",

@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://dare.uol.de/api/dataverses/:root/storage/quota?showInherited=true",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://dare.uol.de/api/dataverses/:root/storage/quota?showInherited=true",
     "notes": "not stated"
   },
@@ -39,7 +39,7 @@
     "detail": "email",
     "country": null
   },
-  "reliability_note": "Very low dataset count — an untested production instance; do not assume operational maturity.",
+  "reliability_note": "Very low dataset count. An untested production instance; do not assume operational maturity.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

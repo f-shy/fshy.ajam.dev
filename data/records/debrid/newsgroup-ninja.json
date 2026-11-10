@@ -14,7 +14,7 @@
     "notes": ""
   },
   "per_object_cap": {
-    "stated": "no per-object cap is published",
+    "stated": "no per-object cap is published; no per-object cap is published; the unit of retrieval is a Usenet article, approximately 750 KB by convention, so 1 TiB of monthly transfer corresponds to roughly 1.4 million article…",
     "bytes": null,
     "source_url": "https://www.newsgroup.ninja/en/signup",
     "notes": null
@@ -34,7 +34,7 @@
   "interface": [
     "nntp"
   ],
-  "interface_detail": "NNTP over TLS on port 563; no HTTP or object API exists for the download path, so a user drives it through SABnzbd, NZBGet or nzbdav",
+  "interface_detail": "NNTP over TLS on port 563. No HTTP or object API exists for the download path, which is driven through SABnzbd, NZBGet or nzbdav.",
   "tooling": null,
   "chaining": "An alternative front end to the Omicron spool for a client who wants the VPN bundled; it does not add a second feed to another Omicron subscription.",
   "limits": [

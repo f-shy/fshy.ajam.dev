@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.ebi.ac.uk/biostudies/submit",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "Binding constraint on read is per-ip-shaping — 1 stream 7 KB/s, 16 parallel 25 KB/s against the EBI FTP edge. Retention: permanent, DOI auto-assigned; files can sit 'hold until published' indefinitely before release.",
+    "stated": "Binding constraint on read is per-ip-shaping. 1 stream 7 KB/s, 16 parallel 25 KB/s against the EBI FTP edge. Retention: permanent, DOI auto-assigned; files can sit 'hold until published' indefinitely before release.",
     "source_url": "https://www.ebi.ac.uk/biostudies/submit",
     "notes": "not stated"
   },
@@ -45,7 +45,7 @@
       "source": "https://www.ebi.ac.uk/biostudies/submit"
     }
   ],
-  "limits_note": "per-object-cap: none stated; Aspera recommended above 10 GiB. Binding constraint on read is per-ip-shaping — 1 stream 7 KB/s, 16 parallel 25 KB/s against the EBI FTP edge. Retention: permanent, DOI auto-assigned; files can sit 'hold until published' indefinitely before release.",
+  "limits_note": "Per-object-cap: none stated; Aspera recommended above 10 GiB. Binding constraint on read is per-ip-shaping. 1 stream 7 KB/s, 16 parallel 25 KB/s against the EBI FTP edge. Retention: permanent, DOI auto-assigned; files can sit 'hold until published' indefinitely before release.",
   "identity_cost": {
     "kind": "email",
     "detail": "depositing needs a BioStudies submission-tool account, created with a name, an email address and a password; the ORCID field is optional. No card and no phone number is asked for. Reading published data needs no account at all.",
@@ -102,5 +102,5 @@
   "notes": "Free deposit, no published cap. 'Is there a cost to deposit data in BioStudies? No, both deposition of data to BioStudies and data access are free of charge.' Docs discuss 'larger data volumes (hundreds of GiB)' as routine.",
   "extras": {},
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

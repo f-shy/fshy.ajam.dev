@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://blog.cloudflare.com/expanding-startups-for-nonprofits/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "Award is discretionary and cohort-based (501(c)(3) or equivalent required); the announcement's application window has closed, so treat as 'reapply at next intake'. Nothing about the credits is permanent — after year one the workload reverts to paid or to the small free tier.",
+    "stated": "Award is discretionary and cohort-based (501(c)(3) or equivalent required); the announcement's application window has closed, so treat as 'reapply at next intake'. Nothing about the credits is permanent. After year one the workload reverts to paid or to the small free tier.",
     "source_url": "https://blog.cloudflare.com/expanding-startups-for-nonprofits/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "N/A by construction — everything served through Cloudflare's edge, which is the egress-free property the requirement turns on.",
+    "terms": "N/A by construction. Everything served through Cloudflare's edge, which is the egress-free property the requirement turns on.",
     "metered": false
   },
   "interface": [
@@ -34,7 +34,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "Cloudflare API + Wrangler; Workers bindings; rclone backend 's3' works against Cloudflare's S3-compatible object storage endpoints, and the S3 API is the documented path for the storage product.",
-  "chaining": "Credit grant per organisation, applied for in cohorts ('The application period ... runs until December 1', then Cloudflare selects a cohort) — so it is a gated annual intake, not an open self-serve tier. $250k of usage-based credit at storage-class rates is a very large number of GB-months; the constraint is the one-year credit window and the cohort gate.",
+  "chaining": "Credit grant per organisation, applied for in cohorts ('The application period .. runs until December 1', then Cloudflare selects a cohort). So it is a gated annual intake, not an open self-serve tier. $250k of usage-based credit at storage-class rates is a very large number of GB-months; the constraint is the one-year credit window and the cohort gate.",
   "limits": [
     {
       "kind": "write-gated",
@@ -47,13 +47,13 @@
       "source": "https://blog.cloudflare.com/expanding-startups-for-nonprofits/"
     }
   ],
-  "limits_note": "per-object-cap: the storage product's own object cap applies (single-part 315 MB / multipart ~5 TiB class) — not binding at 10 TiB. request-rate: Workers/API rate limits apply to control-plane calls; object GETs are not rate-limited at these volumes. retention: credits are for 'a year'; the free-tier storage allowance that exists without credits is small (10 GB-class) and is where data lands if the application is declined.",
+  "limits_note": "Per-object-cap: the storage product's own object cap applies (single-part 315 MB / multipart ~5 TiB class) — not binding at 10 TiB. request-rate: Workers/API rate limits apply to control-plane calls; object GETs are not rate-limited at these volumes. retention: credits are for 'a year'; the free-tier storage allowance that exists without credits is small (10 GB-class) and is where data lands if the application is declined.",
   "identity_cost": {
     "kind": "institution",
     "detail": null,
     "country": null
   },
-  "reliability_note": "Award is discretionary and cohort-based (501(c)(3) or equivalent required); the announcement's application window has closed, so treat as 'reapply at next intake'. Nothing about the credits is permanent — after year one the workload reverts to paid or to the small free tier.",
+  "reliability_note": "Award is discretionary and cohort-based (501(c)(3) or equivalent required); the announcement's application window has closed, so treat as 'reapply at next intake'. Nothing about the credits is permanent. After year one the workload reverts to paid or to the small free tier.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

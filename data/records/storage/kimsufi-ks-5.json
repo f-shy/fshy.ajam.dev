@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.kimsufi.com/en/ks/ks-5/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.kimsufi.com/en/ks/ks-5/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "'Unlimited traffic is included, so you won't have to pay extra.' Port is 'Public 300 Mbps' — the shape, not the volume, is the limit.",
+    "terms": "'Unlimited traffic is included, so you won't have to pay extra.' Port is 'Public 300 Mbps'. The shape, not the volume, is the limit.",
     "metered": false
   },
   "interface": [
@@ -73,5 +73,5 @@
     "price_verbatim": "$19.90 ÷ 8 TB = $2.49/TB/mo at the 2×4TB config; ÷ 12 TB (3×4TB) = $1.66/TB; ÷ 4 TB (2×2TB) = $4.98/TB. Unlimited traffic, but 300 Mbps."
   },
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

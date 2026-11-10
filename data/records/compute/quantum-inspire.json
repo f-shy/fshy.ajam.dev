@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "Quantum Inspire is the one provider whose free tier is a physical device rather than a batch queue, so it composes with nothing: the 17-qubit machine cannot be used to prepare data for a GPU job, and the only chain available is the same account also using the emulator for circuit development before spending queue slots on hardware.",
+  "chaining": "Quantum Inspire is the one provider among documented hosts whose free tier is a physical device rather than a batch queue, so it composes with nothing: the 17-qubit machine cannot be used to prepare data for a GPU job, and the only chain available is the same account also using the emulator for circuit development before spending queue slots on hardware.",
   "limits": [
     {
       "kind": "request-rate",

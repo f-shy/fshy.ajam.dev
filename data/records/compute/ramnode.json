@@ -5,7 +5,7 @@
   "url": "https://www.serverhunter.com/offer/ramnode-1024mb-cvz/",
   "category": "cloud VM",
   "free_tier": {
-    "stated": "USD 10.00/month for the 1024MB CVZ plan in New York: 4 cores at 2.3 GHz on '1x Intel E5', 1 GB RAM, 200 GB HDD, 1,000 Mbit uplink, 3 TB traffic, OpenVZ, no setup fee.",
+    "stated": "USD 10.00/month for 1024MB CVZ plan in New York: 4 cores at 2.3 GHz on Intel E5, 1 GB RAM, 200 GB HDD, 1,000 Mbit uplink, 3 TB traffic, OpenVZ, no setup fee. Cloud VPS plans start from $4/month on the homepage.",
     "unit": "GiB",
     "metered_on": "wall-clock",
     "source_url": "https://www.serverhunter.com/offer/ramnode-1024mb-cvz/",
@@ -37,7 +37,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "the homepage states 'Fast deployment via GUI, API, or CLI. Terraform ready. Ansible ready.' and 'Full API for each VPC', and names OpenStack as the cloud platform",
-  "chaining": "200 GB of HDD for USD 10 is the cheapest disk-per-dollar row outside the storage topic, and the OpenVZ row is the wrong one to take for it: OpenVZ shares a host kernel, so the 200 GB belongs on the vendor's KVM cloud line, which the homepage prices from USD 4 without a spec sheet",
+  "chaining": "200 GB of HDD for USD 10 is the cheapest disk-per-dollar row among documented hosts outside the storage topic, and the OpenVZ row is the wrong one to take for it: OpenVZ shares a host kernel, so the 200 GB belongs on the vendor's KVM cloud line, which the homepage prices from USD 4 without a spec sheet",
   "limits": [
     {
       "kind": "volume-quota",
@@ -74,7 +74,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "Found via serverhunter.",
+  "notes": "RamNode standard OpenVZ plans start at USD 10.00 monthly for 1 GB RAM, 200 GB HDD, and 3 TB transfer on a 1 Gbps port. Cloud VPS plans start from USD 4.00 monthly on KVM infrastructure.",
   "extras": {
     "facets": {
       "class": null,

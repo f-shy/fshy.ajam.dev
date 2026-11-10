@@ -37,7 +37,7 @@
   ],
   "interface_detail": "REST API, the croud command-line client, a SQL console in the cloud console, and standard database drivers",
   "tooling": "croud, the CrateDB Cloud command-line client; the Cloud REST API; standard database client libraries and drivers; SQL console in the cloud console",
-  "chaining": "CrateDB is distributed SQL with a Postgres wire protocol, so it accepts ordinary Postgres clients; 8 GB with a daily backup is the only free tier that states a backup schedule at all.",
+  "chaining": "CrateDB is distributed SQL with a Postgres wire protocol, so it accepts ordinary Postgres clients; 8 GB with a daily backup is the only free tier among evaluated providers that states a backup schedule at all.",
   "limits": [
     {
       "kind": "per-object-cap",

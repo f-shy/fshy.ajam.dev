@@ -37,7 +37,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "the vendor page states 'REST API & CLI'; panel at panel.pipehost.net; OS templates plus custom ISO; daily backups included on every plan per the page; regions selected per order with live latency measurement in the browser",
-  "chaining": "EUR 5.90 for 3 GB of RAM and 35 GB of NVMe with 2.5 TB on a 10 Gbps port in Vienna is the fastest port per euro, and with the REST API and CLI it is the easiest to automate of the small hosts here. The 2.5 TB cap, not the port, is what stops it being a transfer host.",
+  "chaining": "EUR 5.90 for 3 GB of RAM and 35 GB of NVMe with 2.5 TB on a 10 Gbps port in Vienna is the fastest port per euro among documented hosts, and with the REST API and CLI it is the easiest to automate of the small hosts here. The 2.5 TB cap, not the port, is what stops it being a transfer host.",
   "limits": [
     {
       "kind": "volume-quota",
@@ -53,7 +53,7 @@
     "detail": "not stated",
     "country": null
   },
-  "reliability_note": "the vendor page states a 99.99 percent network SLA and daily backups on every plan; no incident was observed",
+  "reliability_note": "the vendor page states a 99.99 percent network SLA and daily backups on every plan; no reliability incident observed",
   "confidence": "reported",
   "evidence": [
     {

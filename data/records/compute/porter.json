@@ -5,7 +5,7 @@
   "url": "https://porter.run",
   "category": "platform host",
   "free_tier": {
-    "stated": "a startup programme granting 6 months free; the compute runs in a user's own AWS, Azure or Google Cloud account and bills there",
+    "stated": "a startup programme granting 6 months free; the compute runs in self-hosted AWS, Azure or Google Cloud account and bills there",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://porter.run",
@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://porter.run",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: https://www.porter.run/pricing read 2026-11-04 prints no egress allowance or overage price; the Porter charge excludes the underlying cloud provider's cost, so network transfer bills in the user's own AWS, Azure or Google Cloud account",
@@ -35,15 +35,15 @@
   ],
   "interface_detail": "CLI: the Porter CLI, documented at docs.porter.run/cli/installation, installed on macOS via Homebrew or shell script, on Linux via shell script and on Windows via manual binary download.",
   "tooling": "the Porter CLI (`porter`), installed with `brew install porter-dev/porter/porter` on macOS.",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "write-gated",
-      "value": "the free offer is a 6-month startup programme; the compute bills to a user's own cloud account throughout",
+      "value": "the free offer is a 6-month startup programme; the compute bills to self-hosted cloud account throughout",
       "source": "https://porter.run"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,
@@ -51,7 +51,7 @@
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
-  "confidence_note": "the site was read on 2026-10-22 and states that the cluster runs in a user's own cloud account, with a 6-month free startup programme. The free half is the control plane, not the…",
+  "confidence_note": "the site was read on 2026-10-22 and states that the cluster runs in self-hosted cloud account, with a 6-month free startup programme. The free half is the control plane, not the compute",
   "evidence": [
     {
       "url": "https://porter.run",

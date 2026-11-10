@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://www.shutterfly.com/alp/photo-storage/",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "photos are stored while the account is active; one purchase at least once every 18 months keeps it active",
@@ -31,7 +31,7 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
+  "interface_detail": "not documented",
   "tooling": "upload from a desktop computer, a smartphone or a Facebook account; a public API, WebDAV or rclone backend is not documented on the vendor storage page",
   "chaining": "not recorded",
   "limits": [

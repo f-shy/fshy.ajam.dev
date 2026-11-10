@@ -89,7 +89,7 @@
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-11-04T06:20:51.331Z",
   "price_per_tb_month": null,
-  "notes": "The unit is settled and the composition is not: 4.00 plus 0.08 is 4.08, while 8 x 0.14 plus 16 x 0.12 plus 100 x 0.006 plus 0.08 is 3.72. A reader comparing it with the fixed Hi-CPU plan should note that plan is USD 120.00 a month with the licence included and 320 GB of disk, so the per-day route is not cheaper than the vendor's own fixed plan.",
+  "notes": "VDSina configurable cloud instances offer daily and monthly billing rates for GPU instances. The daily rate for a single GPU slice is USD 4.08 (USD 122.40 monthly equivalent), comparing with fixed Hi-CPU plans at USD 120.00 monthly with 320 GB disk.",
   "extras": {
     "shape": {
       "vcpu": 8,

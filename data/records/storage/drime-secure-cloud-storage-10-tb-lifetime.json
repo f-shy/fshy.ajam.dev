@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.stacksocial.com/sales/drime-secure-cloud-storage-lifetime-subscription-advanced-plan-10tb",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.stacksocial.com/sales/drime-secure-cloud-storage-lifetime-subscription-advanced-plan-10tb",
     "notes": "not stated"
   },
@@ -29,11 +29,11 @@
   "interface": [
     "rclone"
   ],
-  "interface_detail": "Web, desktop, mobile, developer API, rclone (rclone v1.73 native)",
-  "tooling": "Native rclone backend — this is the single reason Drime is on the list at all.",
-  "chaining": "composition with the pool is unestablished",
+  "interface_detail": "Web, desktop, mobile, developer API, rclone (rclone v1.73 native).",
+  "tooling": "Native rclone backend available (rclone v1.73 native).",
+  "chaining": "Composition with external storage pools is not documented.",
   "limits": [],
-  "limits_note": "Priced per 'members/workspaces' rather than pure capacity — you are buying a collaboration product with storage attached. Not observed a per-file cap.",
+  "limits_note": "Priced per 'members/workspaces' rather than pure capacity. You are buying a collaboration product with storage attached. Not observed a per-file cap.",
   "identity_cost": {
     "kind": "email",
     "detail": "email",

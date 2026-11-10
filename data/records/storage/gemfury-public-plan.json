@@ -5,7 +5,7 @@
   "url": "https://fury.co",
   "category": "registry",
   "free_tier": {
-    "stated": "Public plan is $0/mo with UNLIMITED public packages, unlimited versions and unlimited collaborators, and NO private packages. No storage figure appears anywhere on the pricing table — the plan matrix lists only collaborators / private packages / public packages. The only published numbers are per-file caps.",
+    "stated": "Public plan is $0/mo with UNLIMITED public packages, unlimited versions and unlimited collaborators, and NO private packages. No storage figure appears anywhere on the pricing table. The plan matrix lists only collaborators / private packages / public packages. The only published numbers are per-file caps.",
     "unit": "unlimited",
     "metered_on": "stored-bytes",
     "source_url": "https://fury.co/pricing/",
@@ -34,7 +34,7 @@
   ],
   "interface_detail": "rest (push.fury.io upload API), per-ecosystem endpoints (gem/npm/pypi/nuget/apt/yum/maven/php/go), Gemfury CLI",
   "tooling": "`fury push` CLI and `curl` upload; documented at gemfury.com/help/upload-packages; public repo is consumed by stock pip/gem/npm/apt/yum with the account URL.",
-  "chaining": "Unlimited packages × unlimited versions per account, and unlimited free accounts. Since there is no aggregate storage line item, the effective ceiling is (unlimited public packages) × (per-file cap) — the 'per-record unlimited' pattern rather than a bucket cap.",
+  "chaining": "Unlimited packages × unlimited versions per account, and unlimited free accounts. Since there is no aggregate storage line item, the effective ceiling is (unlimited public packages) × (per-file cap). The 'per-record unlimited' pattern rather than a bucket cap.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -85,7 +85,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Public plan is $0/mo with UNLIMITED public packages, unlimited versions and unlimited collaborators, and NO private packages. No storage figure appears anywhere on the pricing table — the plan matrix lists only collaborators / private packages / public packages. The only published numbers are per-file caps.",
+  "notes": "Public plan is $0/mo with UNLIMITED public packages, unlimited versions and unlimited collaborators, and NO private packages. No storage figure appears anywhere on the pricing table. The plan matrix lists only collaborators / private packages / public packages. The only published numbers are per-file caps.",
   "extras": {},
   "binding": "per-object-cap",
   "binding_note": null

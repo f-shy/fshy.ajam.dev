@@ -18,12 +18,12 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://oxen.ai/pricing",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Hard-capped rather than metered: 50 GB of data transfer per month on the free tier.",
+    "terms": "Hard-capped at 50 GB of data transfer per month on the free tier. Transfer allowances are exhausted quickly under continuous data retrieval.",
     "metered": true
   },
   "interface": [
@@ -46,7 +46,7 @@
       "source": "https://oxen.ai/pricing"
     }
   ],
-  "limits_note": "50 GB storage, 50 GB/month transfer, 5 private repos. No per-file cap published. Public repos are unlimited in COUNT, which is the only multiplier — but the 50 GB is account-level, so repo count does not add bytes.",
+  "limits_note": "50 GB storage, 50 GB/month transfer, 5 private repos. No per-file cap published. Public repos are unlimited in COUNT, which is the only multiplier. But the 50 GB is account-level, so repo count does not add bytes.",
   "identity_cost": {
     "kind": "email",
     "detail": "email (self-service signup).",

@@ -87,7 +87,7 @@
   ],
   "verdict": "trial-only",
   "verified_at": "2026-11-04T05:24:52.255Z",
-  "notes": "These are inference credits, not general compute.",
+  "notes": "Runway offers one-time promotional inference credits upon signup for video generation models.",
   "extras": {
     "facets": {
       "class": "credit-too-small-for-a-workload",

@@ -80,7 +80,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-22T03:20:00.000Z",
-  "notes": "'Unmetered' is a documented absence rather than a quota, so it is not multiplied here.",
+  "notes": "Cloudflare Tunnel provides unmetered outbound tunnels to the Cloudflare edge for HTTP and supported protocols without inbound firewall ports.",
   "extras": {
     "stale_after_days": 180,
     "bytes_transit": "yes",

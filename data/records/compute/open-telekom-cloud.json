@@ -21,10 +21,10 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://www.open-telekom-cloud.com/en/prices",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
-    "terms": "not stated",
+    "terms": "not published",
     "metered": false,
     "free_allowance": null,
     "price_per_tb": null,
@@ -33,9 +33,9 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
+  "interface_detail": "Access interface not documented in published terms.",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -48,7 +48,7 @@
       "source": "https://www.open-telekom-cloud.com/en/prices"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "institution",
     "detail": "institution: the contract is sold to a business, not to a consumer. The FAQ states 'Please bear in mind that T Cloud Public is only offered to business users in Europe.' The general terms require that the customer 'declares that they obtain all services that are provided under this agreement for the purposes of their company', and an EU customer outside Germany must 'communicate a valid VAT ID number issued by the tax authority of their state of residence before the first bill is issued.' Card: not published: https://www.t-cloud-public.com/en/support/faq (2026-11-06) states no card requirement, and the eShop cart it names as the ordering route did not render on 2026-11-06. Phone: not published: the same page states no phone requirement.",

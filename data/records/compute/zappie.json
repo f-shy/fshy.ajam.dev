@@ -36,17 +36,17 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "a billing panel is linked and BGP peering is offered; no API or client is documented on the page read",
-  "chaining": "this is the only New Zealand, South Africa and Chile option: $4.50 buys Oceania latency that no other provider here sells, and the 200 GB allowance caps it at a resolver or a small API rather than a crawler",
+  "chaining": "this is the only New Zealand, South Africa and Chile option among documented hosts: $4.50 buys Oceania latency that no other provider here sells, and the 200 GB allowance caps it at a resolver or a small API rather than a crawler",
   "limits": [
     {
       "kind": "volume-quota",
-      "value": "200 GB a month on the entry plan, the tightest allowance. The plan is LXC on the budget page rather than KVM, which the vendor separates into its own KVM pages.",
+      "value": "200 GB a month on the entry plan, the tightest allowance among documented hosts. The plan is LXC on the budget page rather than KVM, which the vendor separates into its own KVM pages.",
       "source": "https://zappiehost.com/new-zealand-linux-ssd-vps-servers"
     }
   ],
-  "limits_note": "200 GB a month on the entry plan, the tightest allowance. The plan is LXC on the budget page rather than KVM, which the vendor separates into its own KVM pages.",
+  "limits_note": "200 GB a month on the entry plan, the tightest allowance among documented hosts. The plan is LXC on the budget page rather than KVM, which the vendor separates into its own KVM pages.",
   "binding": "volume-quota",
-  "binding_note": "200 GB a month on the entry plan, the tightest allowance. The plan is LXC on the budget page rather than KVM, which the vendor separates into its own KVM pages.",
+  "binding_note": "200 GB a month on the entry plan, the tightest allowance among documented hosts. The plan is LXC on the budget page rather than KVM, which the vendor separates into its own KVM pages.",
   "identity_cost": {
     "kind": "email",
     "detail": "not stated",

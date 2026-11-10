@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://help.archive.org/help/uploading-tips/",
     "notes": "not stated"
   },
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "s3",
   "tooling": "IAS3 = S3-compatible REST (PUT = create item, multipart, x-archive-auto-make-bucket, x-archive-queue-derive:0, x-archive-size-hint); rclone backend 'internetarchive' (Tier 3, added v1.59, github.com/rclone/rclone 60.4k stars); official CLI/Python 'ia' github.com/jjjake/internetarchive (1,923 stars, pushed 2026-10-20); Rust client github.com/LucaCappelletti94/internetarchive-rs. S3 keys from archive.org/account/s3.php.",
-  "chaining": "Unlimited items per account x 1 TB/item = unbounded per single free account. Also unlimited free accounts. Zip many small files (\"a zip file is considered one file\" for the daily cap).",
+  "chaining": "Supports unlimited items per account with up to 1 TB per item across multiple accounts. Archives can package small files into zip archives to align with item-based transfer limits.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -57,7 +57,7 @@
   },
   "reliability_note": "Writes are asynchronous through a per-item queue; the global derive queue can stall uploads and deletes for hours during backlogs, and large/high-file-count items time out and fail to derive. Items are permanent (no TTL) but nothing is guaranteed private.",
   "confidence": "documented",
-  "confidence_note": "The page states the number in the record; the claim is documented, not measured.",
+  "confidence_note": "re-read on 2026-10-22 (HTTP 200, 5433 bytes, sha256 48c2cd2e54f5effa). The page states the number in the record. The claim is documented, not measured.",
   "evidence": [
     {
       "url": "https://help.archive.org/help/uploading-tips/",

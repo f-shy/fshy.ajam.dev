@@ -86,7 +86,7 @@
   ],
   "verdict": "trial-only",
   "verified_at": "2026-11-04T06:40:18.802Z",
-  "notes": "The 14 days is the access window, not a stated credit expiry. No all-purpose-cluster DBU rate could be read, so the credit cannot be sized as a machine. Working against a user's own cloud account bills that cloud provider directly, outside the credit.",
+  "notes": "The 14 days is the access window, not a stated credit expiry. No all-purpose-cluster DBU rate could be read, so the credit cannot be sized as a machine. Working against the user's own cloud account bills that cloud provider directly, outside the credit.",
   "extras": {
     "facets": {
       "class": "startup-credit",

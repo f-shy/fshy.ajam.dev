@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://learn.microsoft.com/en-us/office/developer-program/microsoft-365-developer-program-faq",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "Microsoft may require developer tenants to be recreated every 90 days; the tenant is not for long-term data storage.",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [
     {

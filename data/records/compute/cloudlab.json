@@ -83,7 +83,7 @@
   ],
   "verdict": "fails-identity",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "This is the only provider with no allocation counter, so the constraint is purely the project-leader gate plus node availability. Disk and RAM per node are not on the page read and are left null rather than estimated.",
+  "notes": "Disk and RAM per node are not published on documentation pages and remain null.",
   "extras": {
     "facets": {
       "class": "open-science-grid",

@@ -40,7 +40,7 @@
     },
     {
       "kind": "per-object-cap",
-      "value": "10 GB NVMe is the whole disk, and promo-S is excluded from the Windows images: 'На всех тарифах, кроме promo-S и ultra-S, доступны ... Windows Server 2019/2022'",
+      "value": "10 GB NVMe is the whole disk, and promo-S is excluded from the Windows images: 'На всех тарифах, кроме promo-S и ultra-S, доступны... Windows Server 2019/2022'",
       "source": "https://www.62yun.com/"
     }
   ],

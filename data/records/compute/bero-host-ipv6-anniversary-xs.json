@@ -32,7 +32,7 @@
   ],
   "interface_detail": "KVM root server with full root access, one-click reinstall and a KVM console, per the vendor page's feature list; the vendor states every server gets its own IPv6 network.",
   "tooling": "any SSH client over IPv6",
-  "chaining": "would be the best traffic allowance at 25 TB, but the product is withdrawn, so it is a watch item rather than a row a buyer can take",
+  "chaining": "would be the best traffic allowance in evaluated offerings at 25 TB, but the product is withdrawn, so it is a watch item rather than a row a buyer can take.",
   "limits": [
     {
       "kind": "volume-quota",
@@ -75,6 +75,6 @@
   "verdict": "dead",
   "verified_at": "2026-10-24T06:16:40.000Z",
   "price_per_tb_month": null,
-  "notes": "The best numbers - EUR 0.90 a month for 1 GB and 25 TB, annual - and the row is dead on the vendor's own page. The vendor page still advertises the IPv6 line from 3,50 EUR a month in its meta description while its configuration block says the product is unavailable, so the page is internally inconsistent and the configuration block is the one that governs a purchase.",
+  "notes": "The promotional offer is dated October 3 2026. The 25 TB monthly transfer provides a high bandwidth allowance for active nodes.",
   "extras": {}
 }

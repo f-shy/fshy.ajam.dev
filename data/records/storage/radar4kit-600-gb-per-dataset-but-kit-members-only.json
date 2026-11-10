@@ -33,7 +33,7 @@
     "webdav"
   ],
   "interface_detail": "web user interface, REST API, and WebDAV: data can be uploaded and organized via a WebDAV client without an active session, then imported into a data package",
-  "tooling": "not recorded",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -44,7 +44,7 @@
   },
   "reliability_note": "Upload needs a workspace set up by the KIT Library and a KIT account login (non-KIT accounts only in special cases); a data package in temporary storage is deleted after six months; permanent storage is tape, with retrieval taking several minutes and in exceptional cases hours.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "https://www.bibliothek.kit.edu/english/radar-faq.php",
@@ -187,7 +187,7 @@
   ],
   "verdict": "fails-identity",
   "verified_at": "2026-11-03T01:28:39.139Z",
-  "notes": null,
+  "notes": "Allowance is 600 GB per dataset with WebDAV and REST API support for large uploads. Access requires academic credentials via KIT Shibboleth single sign-on.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

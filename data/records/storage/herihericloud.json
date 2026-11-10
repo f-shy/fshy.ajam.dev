@@ -5,7 +5,7 @@
   "url": "https://github.com/AgainsTurb/HeriHeriCloud",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "It adds WebDAV/MCP/OpenWRT surface to a known provider…",
+    "stated": "none reachable: Marketed as unlimited storage with WebDAV support. Service operates as a client wrapper over Lanzou storage.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://github.com/AgainsTurb/HeriHeriCloud",
@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://github.com/AgainsTurb/HeriHeriCloud",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -41,9 +41,9 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "It adds WebDAV/MCP/OpenWRT surface to a known provider…",
+  "reliability_note": "Marketed as unlimited storage with WebDAV support. Service operates as a client wrapper over Lanzou storage.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "https://github.com/AgainsTurb/HeriHeriCloud",
@@ -53,7 +53,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "It adds WebDAV/MCP/OpenWRT surface to a known provider…",
+  "notes": "Marketed as unlimited storage with WebDAV support. Service operates as a client wrapper over Lanzou storage.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

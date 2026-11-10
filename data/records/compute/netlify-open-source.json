@@ -118,7 +118,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-11-04T06:27:26.206Z",
-  "notes": "The best-documented small vendor credit: the number, the renewal rule and the durability term are all printed. The one structural catch is the badge requirement, which puts a vendor link on the project's front page. 'Must not be a commercial project, whether created by a company or an individual' is the line that excludes consulting work built on top of the same repository.",
+  "notes": "The best-documented small vendor credit in this category: the number, the renewal rule and the durability term are all printed. The one structural catch is the badge requirement, which puts a vendor link on the project's front page. 'Must not be a commercial project, whether created by a company or an individual' is the line that excludes consulting work built on top of the same repository.",
   "extras": {
     "facets": {
       "class": "vendor-oss-credits",

@@ -34,7 +34,7 @@
     "unknown"
   ],
   "interface_detail": "Browser drop zone with typed upload pages (image, video, PDF, large file). /api/upload and /upload answer 307 to another host, so the real endpoint is a redirect target that was not followed.",
-  "tooling": "Browser only as observed.",
+  "tooling": "Browser interface only; upload requests redirect via HTTP 307 to the active storage host.",
   "chaining": "A Turkish-market 10 GB drop is the kind of regional option that survives when a Western service rate-limits a whole region; it needs its own measurement before it can be trusted.",
   "limits": [
     {
@@ -69,7 +69,7 @@
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-23T02:30:47.000Z",
   "price_per_tb_month": "USD 0",
-  "notes": null,
+  "notes": "Included because the regional pass is the point: the same 10 GB offer is invisible to an English query.",
   "extras": {
     "language": "tr",
     "api_shapes_tried": [

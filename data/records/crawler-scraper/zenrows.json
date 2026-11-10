@@ -39,7 +39,7 @@
     "rest"
   ],
   "interface_detail": "REST fetch, extract and batch; crawl is a job plus a poll",
-  "tooling": "not stated",
+  "tooling": "not established",
   "chaining": "The fetch-relay lane in the platform's read ladder; 1 credit plain makes it cheaper than ScrapingAnt for a page that needs no render",
   "limits": [
     {

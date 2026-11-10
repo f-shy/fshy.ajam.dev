@@ -25,7 +25,7 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": null,
+    "terms": "Free outbound transfer served from Cloudflare Workers edge nodes with cacheable responses and no egress billing.",
     "metered": false
   },
   "interface": [
@@ -33,7 +33,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "https://api.paste.gg/v1/pastes, JSON body {name, files:[{name, content:{format:'text', value}}]}; no key needed for anonymous, returns a deletion key. API keys available at Settings -> API keys.",
-  "chaining": "unlimited anonymous pastes x up to 10 MiB, but 7-day anonymous expiry makes it a hot/cache tier only. With free accounts: permanent pastes x unlimited per account — that is the only archive-shaped path.",
+  "chaining": "Unlimited anonymous pastes x up to 10 MiB, but 7-day anonymous expiry makes it a hot/cache tier only. With free accounts: permanent pastes x unlimited per account. That is the only archive-shaped path.",
   "limits": [
     {
       "kind": "per-object-cap",

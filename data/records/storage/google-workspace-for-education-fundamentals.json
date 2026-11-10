@@ -25,7 +25,7 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Not metered for Drive reads. Google's own storage page says over-quota tenants 'can still sign in to ... view and download their files' — i.e. reads are never blocked by quota. Direct-download URLs are served from Google's edge; put behind Cloudflare if you want a cache.",
+    "terms": "Not metered for Drive reads. Google's own storage page says over-quota tenants 'can still sign in to .. view and download their files' — i.e. reads are never blocked by quota. Direct-download URLs are served from Google's edge; put behind Cloudflare if you want a cache.",
     "metered": true
   },
   "interface": [
@@ -34,7 +34,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "rclone backend 'drive' (Tier 1, server-side copy, shared-drive support); Google Drive API v3; GAM (github.com/GAM-team/GAM) for admin-side bulk operations; gclone for service-account fan-out.",
-  "chaining": "One qualifying institution = one tenant = 100 TB. Inside a tenant the multiplier is shared drives (unlimited count) and user count: up to 2,500 licenses per new domain, all drawing on the same 100 TB pool. Adding Teaching & Learning add-on licences adds 100 GB each 'with no cap' (paid).",
+  "chaining": "One qualifying institution = one tenant = 100 TB. So the multiplier is domains, not users. Inside a tenant the multiplier is shared drives (unlimited count) and user count: up to 2,500 licenses per new domain, all drawing on the same 100 TB pool. Adding Teaching & Learning add-on licences adds 100 GB each 'with no cap' (paid).",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -42,7 +42,7 @@
       "source": "https://knowledge.workspace.google.com/admin/getting-started/editions/overview-of-google-workspace-for-education-storage"
     }
   ],
-  "limits_note": "per-object-cap 5 TB per single upload, and 750 GB per user per 24 h (upload+copy) — this is the real throttle, and it is refreshing not cumulative. request-rate: standard Drive API quota (per-project, raiseable). retention: none while the tenant is active; data survives account suspension but suspended users still consume the pool. Item cap 500 million items per user. Over-quota: at +25% or 14 days, uploads and Docs creation stop but download keeps working.",
+  "limits_note": "Per-object-cap 5 TB per single upload, and 750 GB per user per 24 h (upload+copy). This is the real throttle, and it is refreshing not cumulative. request-rate: standard Drive API quota (per-project, raiseable). retention: none while the tenant is active; data survives account suspension but suspended users still consume the pool. Item cap 500 million items per user. Over-quota: at +25% or 14 days, uploads and Docs creation stop but download keeps working.",
   "identity_cost": {
     "kind": "institution",
     "detail": null,

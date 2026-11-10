@@ -25,7 +25,7 @@
     "notes": null
   },
   "egress": {
-    "terms": null,
+    "terms": "Bandwidth is priced per Mbps of dedicated China routing rather than per terabyte.",
     "metered": true,
     "free_allowance": null,
     "price_per_tb": null,
@@ -40,13 +40,13 @@
   "limits": [
     {
       "kind": "per-ip-shaping",
-      "value": null,
+      "value": "Bandwidth is sold as a port, not a volume: 30 Mbps in Hong Kong or Los Angeles is about 9.7 TB a month at line rate, and that is the first thing a high-transfer workload exhausts.",
       "source": "https://cstserver.com/index.php?rp=/announcements"
     }
   ],
-  "limits_note": null,
+  "limits_note": "Bandwidth is sold as a port, not a volume: 30 Mbps in Hong Kong or Los Angeles is about 9.7 TB a month at line rate, and that is the first thing a high-transfer workload exhausts.",
   "binding": "per-ip-shaping",
-  "binding_note": null,
+  "binding_note": "Bandwidth is sold as a port, not a volume: 30 Mbps in Hong Kong or Los Angeles is about 9.7 TB a month at line rate, and that is the first thing a high-transfer workload exhausts.",
   "identity_cost": {
     "kind": "email",
     "detail": null,

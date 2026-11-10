@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "per-object-cap: 256 MB per player for Game Saves; request-rate: 100 service endpoint requests per 2-minute period per title player (≈10 uploads/min); 1,000 unique lifetime users per Development Mode title; per-object-cap on UGC requests tiered by request body size. Retention: none stated — data persists until deleted, no expiry clause found.",
+    "stated": "Per-object-cap: 256 MB per player for Game Saves; request-rate: 100 service endpoint requests per 2-minute period per title player (≈10 uploads/min); 1,000 unique lifetime users per Development Mode title; per-object-cap on UGC requests tiered by request body size. Retention: none stated. Data persists until deleted, no expiry clause found.",
     "source_url": "https://learn.microsoft.com/en-us/gaming/playfab/features/pricing/development-mode",
     "notes": "not stated"
   },
@@ -41,7 +41,7 @@
       "source": "https://learn.microsoft.com/en-us/gaming/playfab/features/pricing/development-mode"
     }
   ],
-  "limits_note": "per-object-cap: 256 MB per player for Game Saves; request-rate: 100 service endpoint requests per 2-minute period per title player (≈10 uploads/min); 1,000 unique lifetime users per Development Mode title; per-object-cap on UGC requests tiered by request body size. Retention: none stated — data persists until deleted, no expiry clause found.",
+  "limits_note": "Per-object-cap: 256 MB per player for Game Saves; request-rate: 100 service endpoint requests per 2-minute period per title player (≈10 uploads/min); 1,000 unique lifetime users per Development Mode title; per-object-cap on UGC requests tiered by request body size. Retention: none stated. Data persists until deleted, no expiry clause found.",
   "identity_cost": {
     "kind": "email",
     "detail": null,

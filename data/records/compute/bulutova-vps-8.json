@@ -30,7 +30,7 @@
   ],
   "interface_detail": "the plan card lists CPU, RAM, disk and port only; it does not itself state root or SSH, so the interface is unconfirmed on this page even though a KVM server of this shape normally ships root SSH",
   "tooling": "any SSH client; the vendor's own order panel",
-  "chaining": "the largest RAM under USD 5 with a published list price: an 8 GiB daily driver in Istanbul that a WireGuard node or a small service stack fits on",
+  "chaining": "the largest RAM among evaluated providers under USD 5 with a published list price: an 8 GiB daily driver in Istanbul that a WireGuard node or a small service stack fits on.",
   "limits": [
     {
       "kind": "volume-quota",

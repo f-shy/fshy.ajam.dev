@@ -134,7 +134,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-08T00:54:56.644Z",
-  "notes": "The tracker's QDE page lists only the Diamond plan and calls EUR 25.95 the cheapest, while the vendor page has five plans from EUR 3.95; the vendor is right and the tracker's QDE coverage is incomplete, so the vendor figure is recorded here and the tracker row is kept in evidence. Currency: the pages print a euro sign and it is written EUR throughout this record because the file is ASCII-only.",
+  "notes": "QDE KVM VPS pricing starts at EUR 3.95 monthly. The operating company is Hizakura B.V. Network port allocations feature shared 10 Gbps uplinks.",
   "extras": {
     "facets": {
       "class": null,

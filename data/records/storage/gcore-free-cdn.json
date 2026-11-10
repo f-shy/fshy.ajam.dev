@@ -5,7 +5,7 @@
   "url": "https://gcore.com/cdn",
   "category": "cdn",
   "free_tier": {
-    "stated": "1 TB/month included traffic and 1 billion requests on the free PAYG plan at €0/month. Verified against Gcore's own pricing payload: 'Included FREE Traffic 1 TB/Month', 'Traffic overage (per GB) €0.01', 'Requests over 1B (per 1M) €0.75'. No trial period — it is a standing free plan.",
+    "stated": "1 TB/month included traffic and 1 billion requests on the free PAYG plan at €0/month. Verified against Gcore's own pricing payload: 'Included FREE Traffic 1 TB/Month', 'Traffic overage (per GB) €0.01', 'Requests over 1B (per 1M) €0.75'. No trial period. It is a standing free plan.",
     "unit": "TB",
     "metered_on": "unstated",
     "source_url": "https://gcore.com/pricing/edge-network",
@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://gcore.com/pricing/edge-network",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://gcore.com/pricing/edge-network",
     "notes": "not stated"
   },
@@ -33,7 +33,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "Standard CDN pull-zone config; origin can be any URL. No card needed for the CDN free plan (confirmed: 'CDN (Free) … Free plan has no trial period, but has a 1 TB traffic limit' with no card condition listed).",
-  "chaining": "Each email-only account carries the same monthly allowance, and cycling the origin across 10 accounts yields ~330 GB/day in total. Gcore's own object storage is too expensive (€0.04/GiB = €40/TB) to be the origin.",
+  "chaining": "Free plan includes 1 TB per month (~33 GB per day) across 210+ edge locations without credit card verification. Multiple email-only accounts each receive the standard monthly bandwidth allowance. Storage at rest costs €0.04 per GiB.",
   "limits": [],
   "limits_note": "per-object-cap: none published. The binding limit is the 1 TB/month traffic counter plus 1B requests. Gcore blocks Gcore storage if a plan payment fails, which can cascade into CDN suspension.",
   "identity_cost": {
@@ -64,7 +64,7 @@
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-21T00:00:00.000Z",
   "price_per_tb_month": "$0 for the first 1 TB/mo; $10/TB beyond (€0.01/GB). Object storage €0.04/GiB/mo ≈ €40/TB ≈ $46/TB — not a viable origin.",
-  "notes": "1 TB/month included traffic and 1 billion requests on the free PAYG plan at €0/month. Verified against Gcore's own pricing payload: 'Included FREE Traffic 1 TB/Month', 'Traffic overage (per GB) €0.01', 'Requests over 1B (per 1M) €0.75'. No trial period — it is a standing free plan.",
+  "notes": "1 TB/month included traffic and 1 billion requests on the free PAYG plan at €0/month. Verified against Gcore's own pricing payload: 'Included FREE Traffic 1 TB/Month', 'Traffic overage (per GB) €0.01', 'Requests over 1B (per 1M) €0.75'. No trial period. It is a standing free plan.",
   "extras": {
     "price_verbatim": "$0 for the first 1 TB/mo; $10/TB beyond (€0.01/GB). Object storage €0.04/GiB/mo ≈ €40/TB ≈ $46/TB — not a viable origin."
   },

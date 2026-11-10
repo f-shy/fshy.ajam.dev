@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://landing.pcloud.com/lifetime-cloud-storage",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://landing.pcloud.com/lifetime-cloud-storage",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "TRAP-SHAPED but escapable. Verbatim from support: 'Every pCloud plan includes a specified amount of shared link traffic that resets on a monthly basis (regardless of whether you have a monthly, annual, or Lifetime subscription) ... pCloud Premium Plus (2 TB): 4 TB per month ... pCloud Ultra (10 TB): 20 TB per month'. Blog confirms the ratio is 2x storage: 'As of September, 2026, it is double the amount of your paid storage'. CRITICAL EXEMPTION: this cap applies only to public shared links — API, WebDAV and app downloads are not counted, per pCloud's own link-traffic explainer.",
+    "terms": "TRAP-SHAPED but escapable. Verbatim from support: 'Every pCloud plan includes a specified amount of shared link traffic that resets on a monthly basis (regardless of whether you have a monthly, annual, or Lifetime subscription) .. pCloud Premium Plus (2 TB): 4 TB per month .. pCloud Ultra (10 TB): 20 TB per month'. Blog confirms the ratio is 2x storage: 'As of September, 2026, it is double the amount of your paid storage'. CRITICAL EXEMPTION: this cap applies only to public shared links. API, WebDAV and app downloads are not counted, per pCloud's own link-traffic explainer.",
     "metered": true,
     "free_allowance": "4 TB per month"
   },

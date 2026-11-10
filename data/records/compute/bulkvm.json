@@ -37,7 +37,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated on the page read: KVM with root access and full provisioning at checkout; the page names no API, S3 endpoint or client, so the 2 TB is block storage inside the VM rather than object storage",
-  "chaining": null,
+  "chaining": "2 TB of ZFS HDD for USD 5/month with 10 TB of transfer is the cheapest cold tier in this slice: it can hold a large share of the 20 TB dataset in one VM, but the 1 GB of RAM means a rebuild or scrub of that pool is slow and the 10 TB allowance caps a hot-served mirror.",
   "limits": [
     {
       "kind": "volume-quota",

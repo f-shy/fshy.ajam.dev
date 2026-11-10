@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html",
     "notes": "not stated"
   },
@@ -33,7 +33,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "AWS CLI `publish-layer-version` / `get-layer-version`; SDKs. Immutability is structural: a layer version is immutable once published, so every write is a new version. No rclone backend.",
-  "chaining": "300 GB unzipped per region across functions + layers, non-increasable, is the only aggregate — so the whole region is a 300 GB bucket with a private API in front. 250 MB per layer, 5 layers per function, 50 MB per uploaded zip means the 250 MB ceiling can only be reached via S3-referenced uploads.",
+  "chaining": "Aggregate limit is 300 GB unzipped per region across functions and layers. Limits enforce 250 MB per layer, 5 layers per function, and 50 MB per uploaded zip archive. The 250 MB ceiling requires S3-referenced uploads.",
   "limits": [],
   "limits_note": "50 MB zipped via API/console; 250 MB unzipped total including layers and custom runtimes; 5 layers per function; 512 MB to 10,240 MB /tmp (ephemeral, per execution environment, dies with the environment); 300 GB regional code storage. Layers are immutable and versioned.",
   "identity_cost": {
@@ -41,7 +41,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Very durable while the function exists; deleting a function version or layer version removes the code. No silent expiry, but no public read path either — the 300 GB is real and effectively unreachable without building your own proxy.",
+  "reliability_note": "Very durable while the function exists; deleting a function version or layer version removes the code. No silent expiry, but no public read path either. The 300 GB is real and effectively unreachable without building your own proxy.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

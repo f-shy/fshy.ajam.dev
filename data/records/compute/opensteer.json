@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://opensteer.com/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: https://opensteer.com/pricing prices browser runtime and computer runtime at USD 0.20 an hour and lists no data-transfer allowance or price",
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "a web sign-in and a downloadable app; no REST API, CLI or SSH page was read",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -43,7 +43,7 @@
       "source": "https://opensteer.com/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": "'no credit card needed to start', quoted from the pricing page read 2026-10-22",

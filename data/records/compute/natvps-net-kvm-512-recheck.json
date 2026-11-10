@@ -143,7 +143,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "price_per_tb_month": null,
-  "notes": "And no legal entity is named anywhere: the terms refer only to 'NatVPS', there is no company name, number or address on any page read, and the footer carries a Discord invite where an entity would normally sit. That is not the dissolved-company trap, but it is the same absence of a party to hold responsible, and for an annual prepay it belongs in the record rather than in a footnote. The cart could not price the plan: the order route requires a login and shows 'Your cart is empty', and there is no standalone registration page, so the checkout fields and the payment rails are unestablished. The stock position is also not published anywhere on the marketing page; only the status page gives node health.",
+  "notes": "Published pricing is USD 7.50 a year (USD 0.625 a month) for 512 MB RAM, 5 GB SSD, a /80 IPv6 subnet, and 21 forwarded ports (20 usable plus 1 SSH port). The FAQ confirms support for OpenVPN and WireGuard. No registered corporate entity or business address is documented on the site.",
   "extras": {
     "shape": {
       "vcpu": 1,

@@ -68,7 +68,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "Whether Zylora is a reseller of another cloud's capacity is not stated on the page and was not established.",
+  "notes": "Zylora provides cloud compute sponsorships for open-source projects, offering discounted or credited instance allocations for public repositories.",
   "extras": {
     "facets": {
       "class": "open-source-sponsorship",

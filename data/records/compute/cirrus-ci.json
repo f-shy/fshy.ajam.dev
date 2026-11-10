@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "None.",
+  "chaining": "None. This is the row that stops the subsequent evaluation from spending a wave on it.",
   "limits": [
     {
       "kind": "request-rate",

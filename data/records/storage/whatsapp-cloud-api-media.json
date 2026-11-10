@@ -35,7 +35,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "Graph API; official SDKs (facebook-business, whatsapp-cloud-api wrappers). No rclone backend. Wrappers exist but cannot beat the 30-day deletion.",
-  "chaining": "Does not multiply — retention, not count, is the wall. Unlimited phone numbers x 30 days each is still a 30-day window, i.e. a cache, not storage.",
+  "chaining": "Does not multiply. Retention, not count, is the wall. Unlimited phone numbers x 30 days each is still a 30-day window, i.e. a cache, not storage.",
   "limits": [
     {
       "kind": "retention-clamped",
@@ -48,7 +48,7 @@
       "source": "https://developers.facebook.com/docs/whatsapp/cloud-api/reference/media"
     }
   ],
-  "limits_note": "HARD 30-DAY DELETION — the disqualifier. 'All media files sent through this API are encrypted and persist for 30 days, unless they are deleted earlier.' Media IDs also expire at 30 days (7 days for IDs arriving in webhooks). Media URLs live 5 minutes.",
+  "limits_note": "HARD 30-DAY DELETION. The disqualifier. 'All media files sent through this API are encrypted and persist for 30 days, unless they are deleted earlier.' Media IDs also expire at 30 days (7 days for IDs arriving in webhooks). Media URLs live 5 minutes.",
   "identity_cost": {
     "kind": "institution",
     "detail": null,

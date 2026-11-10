@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "own order flow with OS choice across Debian, Ubuntu, AlmaLinux, Rocky, CentOS Stream, Oracle Linux; no API documented on the page read",
-  "chaining": "EUR 2.29 for 1 GB, 10 GB of NVMe and 4 TB in Frankfurt is the cheapest documented European row, and the 4 TB allowance makes it usable for moving bytes rather than only for pinging",
+  "chaining": "EUR 2.29 for 1 GB, 10 GB of NVMe and 4 TB in Frankfurt is the cheapest documented European row among documented hosts, and the 4 TB allowance makes it usable for moving bytes rather than only for pinging",
   "limits": [
     {
       "kind": "volume-quota",

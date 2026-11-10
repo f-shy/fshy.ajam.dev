@@ -19,7 +19,7 @@
     "bytes": 5497558138880
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.akamai.com/products/object-storage",
     "notes": "not stated"
   },
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "s3",
   "tooling": "S3 API, rclone s3 backend, any SDK. Cluster URL per region. The endpoint type (E0 to E3) is a property of the region and its endpoint hostname, chosen when a bucket is created, and is not an account-level default; most regions offer one type and a few offer several; new customers are directed to the standard E2 or E3 endpoints, and Limited Availability endpoints are opened by a support ticket.",
-  "chaining": "The 1 TB/month included egress is the free slice: enough for 33 GB/day, matching Gcore. Its real use is as a stable S3 origin behind one of the free CDNs, not as the delivery path — $5/TB egress is good but Bunny's Volume tier matches it and CacheFly/Telnyx beat it.",
+  "chaining": "The 1 TB/month included egress is the free slice: enough for 33 GB/day, matching Gcore. Its real use is as a stable S3 origin behind one of the free CDNs, not as the delivery path. $5/TB egress is good but Bunny's Volume tier matches it and CacheFly/Telnyx beat it.",
   "limits": [
     {
       "kind": "per-object-cap",

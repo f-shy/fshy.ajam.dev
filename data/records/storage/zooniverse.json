@@ -5,7 +5,7 @@
   "url": "https://www.zooniverse.org",
   "category": "citizen-science classification platform",
   "free_tier": {
-    "stated": "Stores contributor classifications, not contributor uploads — and the upload side is capped at 10,000 subjects per user. Zooniverse Help, Lab Policies, verbatim: 'there is a limit of 10,000 subject uploads per user. Please contact us if you'd like to upload more.'",
+    "stated": "Stores contributor classifications, not contributor uploads. And the upload side is capped at 10,000 subjects per user. Zooniverse Help, Lab Policies, verbatim: 'there is a limit of 10,000 subject uploads per user. Please contact us if you'd like to upload more.'.",
     "unit": "mixed",
     "metered_on": "stored-bytes",
     "source_url": "https://help.zooniverse.org/getting-started/lab-policies/",
@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://help.zooniverse.org/getting-started/lab-policies/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://help.zooniverse.org/getting-started/lab-policies/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "free read, but only per-subject image URLs — no bulk export endpoint without project-owner credentials",
+    "terms": "Free read, but only per-subject image URLs. No bulk export endpoint without project-owner credentials.",
     "metered": false
   },
   "interface": [
@@ -42,7 +42,7 @@
   "limits_note": "10,000 subjects/user; every project passes a two-stage review and a one-week beta before launch; media must be licensed and rights-clear",
   "identity_cost": {
     "kind": "email",
-    "detail": "email for a volunteer account ('Only your name and email are captured'), but publishing a project is `write-gated` — internal review + beta test + launch scheduling, typically weeks.",
+    "detail": "Email for a volunteer account ('Only your name and email are captured'), but publishing a project is `write-gated`. Internal review + beta test + launch scheduling, typically weeks.",
     "country": null
   },
   "reliability_note": "Dead as a storage target. It is a volunteer-compute platform: the storage is incidental to the classification task and cannot be addressed as a bucket.",
@@ -72,7 +72,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Stores contributor classifications, not contributor uploads — and the upload side is capped at 10,000 subjects per user. Zooniverse Help, Lab Policies, verbatim: 'there is a limit of 10,000 subject uploads per user. Please contact us if you'd like to upload more.'",
+  "notes": "Stores contributor classifications, not contributor uploads. And the upload side is capped at 10,000 subjects per user. Zooniverse Help, Lab Policies, verbatim: 'there is a limit of 10,000 subject uploads per user. Please contact us if you'd like to upload more.'.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

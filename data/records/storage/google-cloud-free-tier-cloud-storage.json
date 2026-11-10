@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://cloud.google.com/free/docs/free-cloud-features",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://cloud.google.com/free/docs/free-cloud-features",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "'100 GB of outbound data transfer from North America to all region destinations (excluding China and Australia) per month' — free, recurring monthly, applies to all GCP customers, not a trial.",
+    "terms": "'100 GB of outbound data transfer from North America to all region destinations (excluding China and Australia) per month'. Free, recurring monthly, applies to all GCP customers, not a trial.",
     "metered": false
   },
   "interface": [
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "s3",
   "tooling": "GCS JSON/XML API, S3-compatible XML endpoint (rclone 'gcs' and 's3' with GCS provider); gsutil/gcloud storage; signed URLs for public reads.",
-  "chaining": "5 GB per billing account. Billing accounts are tied to a payment instrument, so account multiplication is not free/trivial. The real GCP lever is not this tier — it is the $300/90-day trial and the startup credits (below).",
+  "chaining": "5 GB per billing account. Billing accounts are tied to a payment instrument, so account multiplication is not free/trivial. The real GCP lever is not this tier. It is the $300/90-day trial and the startup credits (below).",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -40,7 +40,7 @@
       "source": "https://cloud.google.com/free/docs/free-cloud-features"
     }
   ],
-  "limits_note": "Storage only free in 3 US regions.",
+  "limits_note": "Free tier includes 5 GB of standard storage in select US regions and 100 GB per month of outbound internet egress.",
   "identity_cost": {
     "kind": "card",
     "detail": "Free Trial signup requires a credit card or other payment method, and in some countries bank account verification; the Free Tier limits are calculated per billing account.",
@@ -94,5 +94,5 @@
     }
   },
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

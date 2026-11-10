@@ -39,8 +39,8 @@
     "rest"
   ],
   "interface_detail": "an HTML search page meant for programmatic use",
-  "tooling": "not stated",
-  "chaining": "Nothing; the WebFetch path answers the same wall",
+  "tooling": "not established",
+  "chaining": "Direct web retrieval receives anti-bot challenges identical to origin endpoints.",
   "limits": [
     {
       "kind": "request-rate",

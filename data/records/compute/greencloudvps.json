@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "4 GiB for USD 2.08 with a 10 Gbps port is the best per-GiB floor; it composes with a free inference key, holding the queue and the dataset while the GPU runs elsewhere",
+  "chaining": "4 GiB for USD 2.08 with a 10 Gbps port is the best per-GiB floor among evaluated providers; it composes with a free inference key, holding the queue and the dataset while the GPU runs elsewhere.",
   "limits": [
     {
       "kind": "volume-quota",

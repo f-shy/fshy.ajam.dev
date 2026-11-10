@@ -38,7 +38,7 @@
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
-  "confidence_note": "the workbook cap is quoted. RAM, session length and idle timeout are absent from both pages read, so this record cannot answer questions.",
+  "confidence_note": "the workbook cap is quoted. RAM, session length and idle timeout are absent from both pages read, so this record cannot answer evaluated offerings's questions.",
   "price_per_tb_month": null,
   "verified_at": "2026-10-24T01:52:00.000Z",
   "extras": {
@@ -103,5 +103,5 @@
     }
   ],
   "verdict": "fails-quota",
-  "notes": "A search of DataCamp's docs for DataLab hardware limits would be the next step."
+  "notes": "No hardware specifications are published in available documentation."
 }

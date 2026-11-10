@@ -5,7 +5,7 @@
   "url": "https://git-annex.branchable.com/special_remotes/S3/",
   "category": "registry",
   "free_tier": {
-    "stated": "N/A by itself — inherits whatever S3-compatible store you point it at. This is the multiplier: any free S3 endpoint (Internet Archive s3.us.archive.org, HF s3.hf.co, Oracle/Cloudflare-adjacent object tiers, MinIO on a free VM) becomes a versioned large-file store with git-annex's own manifest.",
+    "stated": "N/A by itself. Inherits whatever S3-compatible store you point it at. This is the multiplier: any free S3 endpoint (Internet Archive s3.us.archive.org, HF s3.hf.co, Oracle/Cloudflare-adjacent object tiers, MinIO on a free VM) becomes a versioned large-file store with git-annex's own manifest.",
     "unit": "mixed",
     "metered_on": "stored-bytes",
     "source_url": "https://git-annex.branchable.com/special_remotes/S3/",
@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://git-annex.branchable.com/special_remotes/S3/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://git-annex.branchable.com/special_remotes/S3/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Two client options matter: `publicurl=` lets downloads skip the S3 API entirely (bucket policy + plain HTTP GET, hence cacheable/CDN-able), and `signature=anonymous` allows read-only public access with no credentials at all.",
+    "terms": "Determined by the backing S3 store. Parameter publicurl enables downloads via direct HTTP GET, and parameter signature=anonymous allows unauthenticated read-only access.",
     "metered": false
   },
   "interface": [
@@ -67,7 +67,7 @@
   ],
   "verdict": "qualifies",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "N/A by itself — inherits whatever S3-compatible store you point it at. This is the multiplier: any free S3 endpoint (Internet Archive s3.us.archive.org, HF s3.hf.co, Oracle/Cloudflare-adjacent object tiers, MinIO on a free VM) becomes a versioned large-file store with git-annex's own manifest.",
+  "notes": "N/A by itself. Inherits whatever S3-compatible store you point it at. This is the multiplier: any free S3 endpoint (Internet Archive s3.us.archive.org, HF s3.hf.co, Oracle/Cloudflare-adjacent object tiers, MinIO on a free VM) becomes a versioned large-file store with git-annex's own manifest.",
   "extras": {},
   "binding": "none",
   "binding_note": null,

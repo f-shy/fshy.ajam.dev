@@ -87,7 +87,7 @@
     "unit": "hours",
     "metered_on": "wall-clock",
     "source_url": "https://posit.cloud/plans",
-    "notes": "The only provider that publishes a monthly compute-hour counter.",
+    "notes": "The only provider among documented hosts that publishes a monthly compute-hour counter.",
     "read_on": "2026-10-24"
   },
   "evidence": [
@@ -113,5 +113,5 @@
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "notes": "1 GB RAM is the smallest shape. The 1-hour execution cap rules it out for anything long, and 25 hours a month is the tightest published allowance after Binder."
+  "notes": "1 GB RAM is the smallest shape among documented hosts. The 1-hour execution cap rules it out for anything long, and 25 hours a month is the tightest published allowance after Binder."
 }

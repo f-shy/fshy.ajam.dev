@@ -63,7 +63,7 @@
   "verified_at": "2026-10-21T00:00:00.000Z",
   "binding": "per-object-cap",
   "binding_note": "61 GB is 12% of a 500 GB threshold, and the only protocol it offers is a promotion. Either number alone closes it.",
-  "notes": "One forum post is the whole evidence base, which is why the rung is `reported` and the record has no quota URL of its own.",
+  "notes": "Documentation is derived from forum reports, placing confidence at reported without a dedicated vendor pricing URL. Storage is limited to 61 GB with seasonal WebDAV access.",
   "extras": {
     "access_mode": "registration-gated",
     "evidence_quality": "one forum post",

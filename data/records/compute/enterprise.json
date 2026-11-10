@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "This is the chain was looking for and it fails at the last step: e-Residency gives a non-resident a 100 percent-owned Estonian company without travel, the company clears the incorporation test, and then the substance rule asks for Estonian payroll, tax or R&D presence, which is the same relocation cost Hub71 charges in a different currency. The EUR 75,000 to EUR 350,000 development grant has no published closure and is the larger target once substance exists.",
+  "chaining": "This is the chain evaluated providers was looking for and it fails at the last step: e-Residency gives a non-resident a 100 percent-owned Estonian company without travel, the company clears the incorporation test, and then the substance rule asks for Estonian payroll, tax or R&D presence, which is the same relocation cost Hub71 charges in a different currency. The EUR 75,000 to EUR 350,000 development grant has no published closure and is the larger target once substance exists.",
   "limits": [
     {
       "kind": "write-gated",

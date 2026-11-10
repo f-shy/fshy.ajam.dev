@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://support.scribd.com/hc/en-us/articles/210134586-Troubleshooting-uploads-and-conversions",
     "notes": "not stated"
   },
@@ -31,7 +31,7 @@
     "rclone"
   ],
   "interface_detail": "wrapper-only",
-  "tooling": "No working public API — the official client github.com/scribd/rscribd was archived in Oct 2019; community libs (JSCRIBD, rscribd) are dead against the current site. No rclone backend.",
+  "tooling": "No working public API. The official client github.com/scribd/rscribd was archived in Oct 2019; community libs (JSCRIBD, rscribd) are dead against the current site. No rclone backend.",
   "chaining": "100 MB/record x unlimited records is the right shape, but the chain needs a browser-driven uploader and the download side is paywalled, so it can store but not serve.",
   "limits": [
     {

@@ -5,7 +5,7 @@
   "url": "https://dataverse.no",
   "category": "academic repository / Dataverse 6.11",
   "free_tier": {
-    "stated": "No quota defined at root — 2,311 datasets, 32 collections.",
+    "stated": "No quota defined at root. 2,311 datasets, 32 collections.",
     "unit": "unlimited",
     "metered_on": "unstated",
     "source_url": "https://dataverse.no/api/dataverses/root/storage/quota?showInherited=true",
@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://dataverse.no/api/dataverses/root/storage/quota?showInherited=true",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://dataverse.no/api/dataverses/root/storage/quota?showInherited=true",
     "notes": "not stated"
   },
@@ -71,7 +71,7 @@
   ],
   "verdict": "fails-identity",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "No quota defined at root — 2,311 datasets, 32 collections.",
+  "notes": "No quota defined at root. 2,311 datasets, 32 collections.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

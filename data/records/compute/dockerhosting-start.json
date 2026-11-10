@@ -41,7 +41,7 @@
   "binding_note": "one shared core is the binding resource; the 15 GB disk is the second.",
   "identity_cost": {
     "kind": "card",
-    "detail": null,
+    "detail": "the order page was not opened on 2026-10-24, so card acceptance, debit acceptance and any hold are unverified.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",

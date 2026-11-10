@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://uploadhive.com/premium",
     "notes": "not stated"
   },
@@ -31,8 +31,8 @@
     "rest"
   ],
   "interface_detail": "rest",
-  "tooling": "XFileSharing Pro family (sibsoft.net/xfilesharing.html) — same shape as ~hundreds of hosts, so one client works across all of them; discovery is GET /server -> {\"url\":\"https://fs430.uploadhive.com/cgi-bin\"} then POST upload.cgi with utype=anon; also used by PolyUploader (github.com/spel987/PolyUploader)",
-  "chaining": "3 layers: (a) files per host carry no stated limit, (b) 50-day retention resets on download so a periodic re-fetch keeps data alive indefinitely, (c) the whole XFileSharing family is the multiplier — each host takes one free registration with its own 100s-of-GB-to-2TB pool (see UpZur/FileAxa/Mega4up entries)",
+  "tooling": "XFileSharing Pro family (sibsoft.net/xfilesharing.html). Same shape as ~hundreds of hosts, so one client works across all of them; discovery is GET /server -> {\"url\":\"https://fs430.uploadhive.com/cgi-bin\"} then POST upload.cgi with utype=anon; also used by PolyUploader (github.com/spel987/PolyUploader).",
+  "chaining": "3 layers: (a) files per host carry no stated limit, (b) 50-day retention resets on download so a periodic re-fetch keeps data alive indefinitely, (c) the whole XFileSharing family is the multiplier. Each host takes one free registration with its own 100s-of-GB-to-2TB pool (see UpZur/FileAxa/Mega4up entries).",
   "limits": [
     {
       "kind": "retention-clamped",
@@ -46,7 +46,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "dl.cgi returned 'Wrong IP' on every download attempt regardless of referer/cookies — downloads appear bound to the uploading IP, so a distributed fetch layer needs matching egress IPs",
+  "reliability_note": "Dl.cgi returned 'Wrong IP' on every download attempt regardless of referer/cookies. Downloads appear bound to the uploading IP, so a distributed fetch layer needs matching egress IPs.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -76,5 +76,5 @@
   "notes": "Free tier published table: max upload file size 'Unlimited', download volume 'Unlimited', storage column '-' (no storage cap published), files deleted 50 days after last download",
   "extras": {},
   "binding": "retention-clamped",
-  "binding_note": null
+  "binding_note": "a clock, not a quota: bytes leave whether or not transfer is completed"
 }

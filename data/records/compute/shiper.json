@@ -5,7 +5,7 @@
   "url": "https://shiper.app/",
   "category": "platform host",
   "free_tier": {
-    "stated": "Free Hobby plan, quoted: 'USD 0 /mo - Automatic Builds and Deployments - Included SSL - 1 Concurrent Build - 1 Self-Hosted Instance - Included Resources - 0.25 vCPU - 256' MB. Builder is 'USD 5 /mo' with 'Custom Domains', 'Up to 3 Self-Hosted Instances', '0.5 vCPU - 512' MB. Scale is 'USD 20 /mo' with '2 vCPU - 1500' MB. A promotional route exists: 'Get the Builder Plan for just USD 1/month ... Simply join our Discord and share what you're building'.",
+    "stated": "Free Hobby plan, quoted: 'USD 0 /mo - Automatic Builds and Deployments - Included SSL - 1 Concurrent Build - 1 Self-Hosted Instance - Included Resources - 0.25 vCPU - 256' MB. Builder is 'USD 5 /mo' with 'Custom Domains', 'Up to 3 Self-Hosted Instances', '0.5 vCPU - 512' MB. Scale is 'USD 20 /mo' with '2 vCPU - 1500' MB. A promotional route exists: 'Get the Builder Plan for just USD 1/month... Simply join our Discord and share what you're building'.",
     "unit": "unlimited",
     "metered_on": "wall-clock",
     "source_url": "https://shiper.app/",

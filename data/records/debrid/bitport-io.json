@@ -37,7 +37,7 @@
   ],
   "interface_detail": "HTTPS download links per file from the web UI; the free plan is explicitly HTTP-only. No public API is documented on the pages read.",
   "tooling": "browser; FTP and RSS are paid-plan features ('RSS downloader' is listed from the Small plan up). No SDK.",
-  "chaining": "one of the few torrent-to-cloud services that advertises torrent and magnet only, so it drops into a stack as a pure fetch hop; 75 GB for $5 is the cheapest per-GB paid tier read after TorBox.",
+  "chaining": "one of the few torrent-to-cloud services that advertises torrent and magnet only, so it drops into a stack as a pure fetch hop; 75 GB for $5 is the cheapest per-GB paid tier read among debrid providers after TorBox.",
   "limits": [
     {
       "kind": "volume-quota",

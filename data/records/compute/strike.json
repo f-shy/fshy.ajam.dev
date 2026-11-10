@@ -106,7 +106,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-07T11:15:41.615Z",
-  "notes": "The vendor card states the annual price and the tracker states the monthly equivalent, so the two agree on the plan. The vendor's own no-KYC claim is recorded in the evidence rather than in identity_cost, because the signup page itself was not fetched and the field therefore stays at the email floor. The card states neither. Rendering and provenance: currency symbols are written out (EUR, GBP, RUB, VND), diacritics in place names are folded to ASCII, and a price the page splits across two lines is joined as value/period; the tracker page stated 'Database update: 7 hours ago' when it was read on 2026-10-22.",
+  "notes": "The vendor card states the annual price and the tracker states the monthly equivalent, so the two agree on the plan. The vendor's own no-KYC claim is recorded in the evidence rather than in identity_cost, because the signup page itself was not fetched and the field therefore stays at the email floor. Unverified: whether EUR 25.00/year renews at the same rate, and whether the 1 TB is enforced or shaped; the card states neither. Rendering and provenance: currency symbols are written out (EUR, GBP, RUB, VND), diacritics in place names are folded to ASCII, and a price the page splits across two lines is joined as value/period; the tracker page stated 'Database update: 7 hours ago' when it was read on 2026-10-22.",
   "extras": {
     "facets": {
       "class": null,

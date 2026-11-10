@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.pixeltable.com/pricing",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.pixeltable.com/pricing",
     "notes": "not stated"
   },
@@ -35,7 +35,7 @@
   "tooling": "Python-native: `pxt.create_dir`, `pxt.create_table`, insert of images/video/audio/documents; the SDK is the client. Open-source core, so self-hosting is possible. No S3/WebDAV surface on the cloud tier.",
   "chaining": "Per ORGANIZATION, so org multiplication is the only route, and the docs frame 50 GB as a hard cap designed to stop exactly that. 10 TiB would need 205 orgs.",
   "limits": [],
-  "limits_note": "50 GB hard per org, 10 GB per database, 1 vCPU / 2 GB per database/service on free. The word 'hard limit' means there is no overage path at all — uploads fail rather than bill.",
+  "limits_note": "50 GB hard per org, 10 GB per database, 1 vCPU / 2 GB per database/service on free. The word 'hard limit' means there is no overage path at all. Uploads fail rather than bill.",
   "identity_cost": {
     "kind": "email",
     "detail": "email.",

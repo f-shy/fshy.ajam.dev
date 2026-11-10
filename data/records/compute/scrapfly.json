@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://scrapfly.io/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: https://scrapfly.io/pricing states credits per request and no egress allowance or overage price",
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "HTTP API (cURL, OpenAPI spec) on every product; SDKs for Python, TypeScript, Go, Rust and Scrapy; the Cloud Browser API gives CDP access (CDP is not a term of the interface vocabulary)",
   "tooling": "Python, TypeScript, Go, Rust and Scrapy SDKs; OpenAPI spec; MCP server; Playwright, Puppeteer or CDP clients drive the Cloud Browser",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -53,7 +53,7 @@
       "source": "https://scrapfly.io/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": "'free credits, no card' at scrapfly.io/register, quoted from the pricing page read 2026-10-22",

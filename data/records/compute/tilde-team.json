@@ -68,7 +68,7 @@
   ],
   "verdict": "dead",
   "verified_at": "2026-10-24T01:56:00.000Z",
-  "notes": null,
+  "notes": "Tilde.team public access Unix system has suspended new public shell account registrations while maintenance is underway.",
   "extras": {
     "facets": {
       "class": "pubnix-shell",

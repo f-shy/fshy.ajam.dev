@@ -39,7 +39,7 @@
     "unknown"
   ],
   "interface_detail": "a URL-prefix route that no longer completes a TLS handshake",
-  "tooling": "not stated",
+  "tooling": "not established",
   "chaining": "not established",
   "limits": [
     {
@@ -64,5 +64,5 @@
       "proved": "curl exit 60, SEC_E_UNTRUSTED_ROOT: the certificate chain was issued by an authority that is not trusted, so no HTTP request completed"
     }
   ],
-  "notes": null
+  "notes": "Connection attempts fail below HTTP. A request returns status 000 without an HTTP response, and retries do not succeed."
 }

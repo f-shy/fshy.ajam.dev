@@ -39,7 +39,7 @@
     "rest"
   ],
   "interface_detail": "REST Task, Search, Extract, Responses, Monitor and Find All APIs",
-  "tooling": "not stated",
+  "tooling": "not established",
   "chaining": "not established",
   "limits": [
     {

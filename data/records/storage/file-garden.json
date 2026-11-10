@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://filegarden.com/",
     "notes": "not stated"
   },
@@ -31,7 +31,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "web UI; login via Discord. No public REST upload API documented.",
-  "chaining": "unlimited free Discord-backed accounts; the 'forever' retention is the only long-lived free option.",
+  "chaining": "Allows multiple free Discord-authenticated accounts with indefinite retention on hosted files.",
   "limits": [],
   "limits_note": "not published on the page reached; account-based (Discord login), so not anonymous despite the free tier.",
   "identity_cost": {
@@ -39,7 +39,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Only candidate here with indefinite retention, but it is account-gated (Discord OAuth) and has no documented API — a wrapper would have to drive the web session.",
+  "reliability_note": "Only candidate here with indefinite retention, but it is account-gated (Discord OAuth) and has no documented API. A wrapper would have to drive the web session.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://yandex.com/support/yandex-360/customers/disk/web/en/enlarge/disk-space",
     "notes": "not stated"
   },
@@ -24,7 +24,7 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": "free — download links and public share URLs are unmetered, no per-GB egress line in the pricing",
+    "terms": "Free. Download links and public share URLs are unmetered, no per-GB egress line in the pricing.",
     "metered": false
   },
   "interface": [
@@ -79,5 +79,5 @@
     }
   },
   "binding": "retention-clamped",
-  "binding_note": null
+  "binding_note": "a clock, not a quota: bytes leave whether or not transfer is completed"
 }

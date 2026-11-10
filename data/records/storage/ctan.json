@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.ctan.org/upload",
     "notes": "not stated"
   },
@@ -50,7 +50,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Read path is excellent (global mirrors, 200 on beamer.zip).",
+  "reliability_note": "Write access requires web form submission with editorial review, lacking programmatic upload endpoints. Read access is supported via global HTTP mirror networks.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

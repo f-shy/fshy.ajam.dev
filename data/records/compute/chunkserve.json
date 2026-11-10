@@ -115,7 +115,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-07T11:15:30.075Z",
-  "notes": "The vendor page's cheapest plan is both cheaper and smaller than the tracker's cheapest row, so the recorded offer is the vendor's and the tracked row stays in evidence. The site links a Polish CEIDG business-register entry and a policy PDF at chunkserve.com/policy.pdf.",
+  "notes": "The vendor page's cheapest plan is both cheaper and smaller than the tracker's cheapest row, so the recorded offer is the vendor's and the tracked row stays in evidence. The site links a Polish CEIDG business-register entry and a policy PDF at chunkserve.com/policy.pdf. verification criteria: whether the tracked EUR 1.49 HDD plan at 10 Gbps is still orderable, since it is a materially different offer from anything on the offers page.",
   "extras": {
     "facets": {
       "class": null,

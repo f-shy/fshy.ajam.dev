@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://support.socrata.com/hc/en-us/articles/10552522485015-Community-Created-Content",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://support.socrata.com/hc/en-us/articles/10552522485015-Community-Created-Content",
     "notes": "not stated"
   },
@@ -31,15 +31,15 @@
   ],
   "interface_detail": "Data & Insights web/SDK (SODA). Views only.",
   "tooling": "n/a for storage.",
-  "chaining": "none — a community asset is a query/saved view, not an object.",
+  "chaining": "None. A community asset is a query/saved view, not an object.",
   "limits": [],
-  "limits_note": "write-gated AND no-capacity: 'A community user is limited to creating two assets per day per site', and the asset types are 'filtered views and visualizations (charts, graphs, maps, etc)'.",
+  "limits_note": "Write-gated and restricted in capacity. Terms state: 'A community user is limited to creating two assets per day per site', and allowed asset types are filtered views and visualizations (charts, graphs, maps). Does not support raw bulk binary storage.",
   "identity_cost": {
     "kind": "email",
     "detail": "email",
     "country": null
   },
-  "reliability_note": "none needed — it cannot store files, so it cannot fail on retention or egress.",
+  "reliability_note": "None needed. It cannot store files, so it cannot fail on retention or egress.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

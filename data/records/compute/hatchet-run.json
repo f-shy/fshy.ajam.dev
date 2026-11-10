@@ -5,7 +5,7 @@
   "url": "https://hatchet.run",
   "category": "platform host",
   "free_tier": {
-    "stated": "no credit card, and the first 100,000 runs are free; the orchestration runs on a user's own workers, so the free unit is runs against a control plane",
+    "stated": "no credit card, and the first 100,000 runs are free; the orchestration runs on the user's own workers, so the free unit is runs against a control plane.",
     "unit": "objects",
     "metered_on": "request-count",
     "source_url": "https://hatchet.run",
@@ -21,10 +21,10 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://hatchet.run",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
-    "terms": "not stated",
+    "terms": "not published",
     "metered": false,
     "free_allowance": null,
     "price_per_tb": null,
@@ -33,9 +33,9 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
+  "interface_detail": "Access interface not documented in published terms.",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -44,11 +44,11 @@
     },
     {
       "kind": "write-gated",
-      "value": "workers run on a user's own platform, so the control plane is free but the compute is not",
+      "value": "workers run on the user's own platform, so the control plane is free but the compute is not.",
       "source": "https://hatchet.run"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": "'No credit card required', quoted from hatchet.run read 2026-10-22",
@@ -56,7 +56,7 @@
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
-  "confidence_note": "the site was read on 2026-10-22 and states the free allowance and that workers run on a user's own infrastructure. The unit is a run count against a queue, not machine time",
+  "confidence_note": "the site was read on 2026-10-22 and states the free allowance and that workers run on the user's own infrastructure. The unit is a run count against a queue, not machine time.",
   "evidence": [
     {
       "url": "https://hatchet.run",

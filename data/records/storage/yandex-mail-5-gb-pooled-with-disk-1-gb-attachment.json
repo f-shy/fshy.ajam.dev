@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://yandex.com/support/yandex-360/customers/disk/web/en/enlarge/disk-space",
     "notes": "not stated"
   },
@@ -40,13 +40,13 @@
       "source": "https://yandex.com/support/yandex-360/customers/disk/web/en/enlarge/disk-space"
     }
   ],
-  "limits_note": "per-object-cap 1 GB attachment (docs) but SMTP SIZE says 51 MiB — the 1 GB path is a Disk-upload link, not an SMTP attachment, so again link-vs-storage. Pool is 5 GB shared with Disk. Hard retention decay ladder documented: full -> attach >25 MB blocked; 44 days -> cannot send/read; 90 days -> Disk may be cleared, files unrecoverable.",
+  "limits_note": "Per-object-cap 1 GB attachment (docs) but SMTP SIZE says 51 MiB. The 1 GB path is a Disk-upload link, not an SMTP attachment, so again link-vs-storage. Pool is 5 GB shared with Disk. Hard retention decay ladder documented: full -> attach >25 MB blocked; 44 days -> cannot send/read; 90 days -> Disk may be cleared, files unrecoverable.",
   "identity_cost": {
     "kind": "email",
     "detail": null,
     "country": null
   },
-  "reliability_note": "The most explicit data-loss ladder of any provider here — 90 days over quota and Disk is wiped. Never use as primary copy.",
+  "reliability_note": "The most explicit data-loss ladder of any provider here. 90 days over quota and Disk is wiped. Never use as primary copy.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

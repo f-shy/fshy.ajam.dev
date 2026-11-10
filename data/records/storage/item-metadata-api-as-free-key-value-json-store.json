@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://archive.org/developers/metadata.html",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://archive.org/developers/metadata.html",
     "notes": "not stated"
   },
@@ -31,7 +31,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "ia metadata -m / Python MDAPI; auth via the same IAS3 keys (Authorization: LOW)",
-  "chaining": "Side-car index for the 20TiB: one small JSON doc per item holding checksums, shard maps, source URLs — solves IAS3's 'cannot list all my items' problem without running your own database.",
+  "chaining": "Side-car index for the 20TiB: one small JSON doc per item holding checksums, shard maps, source URLs. Solves IAS3's 'cannot list all my items' problem without running your own database.",
   "limits": [
     {
       "kind": "request-rate",

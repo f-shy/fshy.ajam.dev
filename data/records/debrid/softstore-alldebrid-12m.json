@@ -37,7 +37,7 @@
   ],
   "interface_detail": "The buyer gets AllDebrid account details and uses AllDebrid's own panel and API. The seller ships no client.",
   "tooling": "AllDebrid's API works because the credential is a real AllDebrid account. The seller names JDownloader, MEGAsync, MiPony and IDM as the intended clients.",
-  "chaining": "A 12-month resold credential is the longest single payment, which makes the seller's survival part of the product. It chains with Stremio and torrent add-ons like any AllDebrid account.",
+  "chaining": "A 12-month resold credential is the longest single payment among debrid providers, which makes the seller's survival part of the product. It chains with Stremio and torrent add-ons like any AllDebrid account.",
   "limits": [
     {
       "kind": "per-ip-shaping",

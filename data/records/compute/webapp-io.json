@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://webapp.io",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "Bandwidth allowance per plan: Starter (free) 10 GB, Pro 100 GB, Team 1 TB (the pricing page states a different Team figure), Scale custom; no overage price is published, limits beyond these go to sales",
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "HTTP API and webhooks (https://docs.webapp.io/api-docs/setup.md), GitHub, GitLab and BitBucket integrations, a Layerfile in the repository, and a debugging terminal",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "write-gated",
@@ -48,7 +48,7 @@
       "source": "https://webapp.io"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

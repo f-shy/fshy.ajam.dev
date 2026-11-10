@@ -5,7 +5,7 @@
   "url": "https://git-annex.branchable.com/special_remotes/git-lfs/",
   "category": "registry",
   "free_tier": {
-    "stated": "N/A — a protocol adapter. Turns ANY git-lfs server (GitHub, GitLab, Bitbucket, a self-hosted Gitea) into an annex special remote, so the LFS host's quota applies but annex adds hash-verified partial clone and `whereis` across mirrors.",
+    "stated": "N/A. A protocol adapter. Turns ANY git-lfs server (GitHub, GitLab, Bitbucket, a self-hosted Gitea) into an annex special remote, so the LFS host's quota applies but annex adds hash-verified partial clone and `whereis` across mirrors.",
     "unit": "mixed",
     "metered_on": "unstated",
     "source_url": "https://git-annex.branchable.com/special_remotes/git-lfs/",
@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://git-annex.branchable.com/special_remotes/git-lfs/",
     "notes": "not stated"
   },
@@ -23,7 +23,7 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": null,
+    "terms": "Determined by the underlying Git LFS host.",
     "metered": false
   },
   "interface": [
@@ -56,7 +56,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "N/A — a protocol adapter. Turns ANY git-lfs server (GitHub, GitLab, Bitbucket, a self-hosted Gitea) into an annex special remote, so the LFS host's quota applies but annex adds hash-verified partial clone and `whereis` across mirrors.",
+  "notes": "N/A. A protocol adapter. Turns ANY git-lfs server (GitHub, GitLab, Bitbucket, a self-hosted Gitea) into an annex special remote, so the LFS host's quota applies but annex adds hash-verified partial clone and `whereis` across mirrors.",
   "extras": {},
   "binding": "none",
   "binding_note": null,

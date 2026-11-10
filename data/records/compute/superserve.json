@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://superserve.ai/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: the pricing page lists compute, memory and retained-storage rates only and says estimates exclude network charges; no transfer allowance or per-GB price is stated",
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "REST API, the `@superserve/cli` CLI and a TypeScript SDK; no SSH found in the docs read",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -44,7 +44,7 @@
       "source": "https://superserve.ai/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

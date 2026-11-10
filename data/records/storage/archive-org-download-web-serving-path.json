@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://archive.org/developers/items.html",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://archive.org/developers/items.html",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Free / unmetered. Docs: 'high performance downloads are achieved via the archive web infrastructure' — i.e. GET https://archive.org/download/<item>/<file>, which 302s to an iaNNNNNN.us.archive.org datanode. BitTorrent webseeds supplement it.",
+    "terms": "Free / unmetered. Docs: 'high performance downloads are achieved via the archive web infrastructure'. I.e. GET https://archive.org/download/<item>/<file>, which 302s to an iaNNNNNN.us.archive.org datanode. BitTorrent webseeds supplement it.",
     "metered": false,
     "source_url": "https://archive.org/download/<item>/<file>"
   },
@@ -34,7 +34,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "plain HTTPS GET with Range (measured: 206 + accept-ranges: bytes); ia CLI download w/ --checksum resume; rclone 'internetarchive' reads back through the same front end",
-  "chaining": "Parallelise across items — different items can be pinned to different iaNNNNNN datanodes, so aggregate throughput scales with item count rather than with connections to one item.",
+  "chaining": "Parallelising across items distributes traffic across different iaNNNNNN datanodes, scaling aggregate throughput with item count rather than single-item connections. Fronting with Cloudflare caching (replay responses carry cache-control: max-age=1800) shields origin nodes from repeated requests.",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -53,7 +53,7 @@
     "detail": "no credential is needed to read: an anonymous GET of archive.org/download/<identifier>/<filename> redirects once to a datanode and serves the file. Uploading needs an Internet Archive account whose form asks an email address, a screen name and a password, and asks no phone number",
     "country": null
   },
-  "reliability_note": "Throughput is the binding constraint, not quota: measured 1.19 MB/s on one 90s stream and 1.66 MB/s aggregate across 8 parallel range requests to one datanode from one IP (~145 GB/day) — against a local link calibrated at 27.6 MB/s, so this is server-side shaping, not a user.",
+  "reliability_note": "Throughput is shaped server-side: measurements showed 1.19 MB/s on a single stream and 1.66 MB/s aggregate across 8 parallel range requests to a single datanode (~145 GB per day). Local link speed measured at 27.6 MB/s.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -118,5 +118,5 @@
   "notes": "Serving is unmetered and free; no per-file download cap and no egress fee. Practical ceiling is throughput, not quota.",
   "extras": {},
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

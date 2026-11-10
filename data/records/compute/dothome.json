@@ -85,7 +85,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-11-04T05:43:13.247Z",
-  "notes": "Korea's most durable free allowance, running since the company's founding and still advertised as lifetime. Settling it needs a signup attempt. The paid sibling, at KRW 500 a month, is the cheapest route found to attach an owned domain to a free host.",
+  "notes": "Korea's most durable free allowance, running since the company's founding and still advertised as lifetime. The one thing not established is whether member signup demands a Korean mobile number: the free-hosting manual documents only email verification and a reCAPTCHA, and no identity step appears in that flow, but Korean sites often add a real-name step at member level and on 2026-11-04 did not open the signup form. Settling it needs a signup attempt. The paid sibling, at KRW 500 a month, is the cheapest route found among evaluated providers to attach an owned domain to a free host.",
   "extras": {
     "facets": {
       "class": "regional",

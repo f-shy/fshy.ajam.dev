@@ -5,7 +5,7 @@
   "url": "https://dedicatedcore.com",
   "category": "iaas",
   "free_tier": {
-    "stated": "6 TB HDD, 3 vCPU, 4 GB RAM, 10,000 GB bandwidth, dedicated IP — free for 60 days. Only 3 units existed.",
+    "stated": "6 TB HDD, 3 vCPU, 4 GB RAM, 10,000 GB bandwidth, dedicated IP. Free for 60 days. Only 3 units existed.",
     "unit": "TB",
     "metered_on": "unstated",
     "source_url": "https://lowendspirit.com/discussion/9079/dedicatedcore-exclusive-offer-for-lowendspirit-community-3-free-6-tb-storage-vps-with-dedicated-ip",
@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://lowendspirit.com/discussion/9079/dedicatedcore-exclusive-offer-for-lowendspirit-community-3-free-6-tb-storage-vps-with-dedicated-ip",
     "notes": "not stated"
   },
@@ -23,7 +23,7 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": "10 TB/month included.",
+    "terms": "Includes 10 TB per month transfer. Bandwidth is metered beyond the allowance and Cloudflare proxying is not provided.",
     "metered": false,
     "free_allowance": "10 TB per month"
   },
@@ -34,10 +34,10 @@
     "rclone"
   ],
   "interface_detail": "sftp",
-  "tooling": "Root KVM — SSH/SFTP/rsync, so rclone sftp or a local fuse mount works. No object API.",
+  "tooling": "Root KVM. SSH/SFTP/rsync, so rclone sftp or a local fuse mount works. No object API.",
   "chaining": "Not repeatable. Explicitly 'non-renewable, and the VPS will be deleted at the end of the 60-day period', 3 slots, application via a Google Form, and the thread closed with 'Filled!' within days. This is a marketing gesture, not a capacity source.",
   "limits": [],
-  "limits_note": "60 days hard delete.",
+  "limits_note": "Deleted after 60 days.",
   "identity_cost": {
     "kind": "email",
     "detail": "email",
@@ -55,7 +55,7 @@
   ],
   "verdict": "trial-only",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "6 TB HDD, 3 vCPU, 4 GB RAM, 10,000 GB bandwidth, dedicated IP — free for 60 days. Only 3 units existed.",
+  "notes": "6 TB HDD, 3 vCPU, 4 GB RAM, 10,000 GB bandwidth, dedicated IP. Free for 60 days. Only 3 units existed.",
   "extras": {
     "dead_end": {
       "failure_class": "egress",

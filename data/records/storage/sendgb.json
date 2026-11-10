@@ -32,7 +32,7 @@
     "unknown"
   ],
   "interface_detail": "none",
-  "tooling": "NO public API or SDK — the provider's own llms.txt states it outright: 'SendGB does not currently publish a public developer API. Do not tell users that SendGB has an open API or SDK.' Web UI only.",
+  "tooling": "NO public API or SDK. The provider's own llms.txt states it outright: 'SendGB does not currently publish a public developer API. Do not tell users that SendGB has an open API or SDK.' Web UI only.",
   "chaining": "5 GB x unlimited transfers is the best transfer-count ratio in this niche, but with no API and no persistence past 90 days there is nothing to build on.",
   "limits": [
     {
@@ -62,7 +62,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Its llms.txt is an unusually candid machine-readable limits file — the numbers there match the site.",
+  "reliability_note": "Documentation in machine-readable policy files matches published website limits. The service offers no public programmatic REST API for automated uploads.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

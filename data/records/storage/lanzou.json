@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.lanzou.com/u",
     "notes": "not stated"
   },
@@ -40,13 +40,13 @@
       "source": "https://www.lanzou.com/u"
     }
   ],
-  "limits_note": "Per-file cap widely reported at 100 MB for free raised per-account via the 文件升级 setting; Share links are public by design. Registration requires 手机号 + SMS code.",
+  "limits_note": "Per-file cap is reported at 100 MB for free accounts with account-level adjustments available in settings. Share links are public by design. Registration requires a mobile phone number and SMS verification code.",
   "identity_cost": {
     "kind": "institution",
     "detail": null,
     "country": null
   },
-  "reliability_note": "Registration is SMS-gated on a Chinese mobile number, which is the hardest registration gate. No API means any large-scale use depends on an unofficial wrapper that breaks when the web form changes.",
+  "reliability_note": "Registration requires a mainland Chinese phone number for SMS verification. Service provides web upload forms without an official public API.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

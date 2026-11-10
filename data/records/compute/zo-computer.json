@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://www.zo.computer/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: https://www.zo.computer/pricing lists disk, CPU, memory, services and domains per plan and no egress allowance or overage price",
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "public API and a tool reference, a desktop app, and the agent chat in the browser; no SSH or CLI stated on the pages read",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "retention-clamped",
@@ -53,7 +53,7 @@
       "source": "https://www.zo.computer/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

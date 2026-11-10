@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://hosting.cafe24.com/?controller=new_product_page&page=quick",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -41,9 +41,9 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": null,
+  "reliability_note": "The marginal HDD expansion rate is ₩16,000 per month per 4 TB (₩4,000/TB, approximately $3.02/TB). It is an add-on to a dedicated server starting at ₩90,000 per month ($67.87).",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "https://hosting.cafe24.com/?controller=new_product_page&page=quick",
@@ -72,7 +72,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-10-30T18:09:47.044Z",
-  "notes": null,
+  "notes": "The marginal HDD expansion rate is ₩16,000 per month per 4 TB (₩4,000/TB, approximately $3.02/TB). It is an add-on to a dedicated server starting at ₩90,000 per month ($67.87).",
   "extras": {
     "dead_end": {
       "failure_class": "paid",

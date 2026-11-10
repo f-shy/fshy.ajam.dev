@@ -5,7 +5,7 @@
   "url": "https://wisemodel.cn/DeepSeek/DeepSeek-V3.git/info/refs?service=git-upload-pack",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "none reachable: Reads are Chinese-market and mostly login-gated for the interesting parts: /models -> 200, but every model detail page returned 504 through the reader (2 attempts), the git LFS ref",
+    "stated": "none reachable: Public model catalog index returns HTTP 200, but individual model detail pages and Git LFS endpoints returned HTTP 504 gateway timeout on 2026-10-21. Model downloads require authentication.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://wisemodel.cn/DeepSeek/DeepSeek-V3.git/info/refs?service=git-upload-pack",
@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://wisemodel.cn/DeepSeek/DeepSeek-V3.git/info/refs?service=git-upload-pack",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -41,9 +41,9 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Reads are Chinese-market and mostly login-gated for the interesting parts: /models -> 200, but every model detail page returned 504 through the reader (2 attempts), the git LFS ref",
+  "reliability_note": "Public model catalog index returns HTTP 200, but individual model detail pages and Git LFS endpoints returned HTTP 504 gateway timeout on 2026-10-21. Model downloads require authentication.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "https://wisemodel.cn/DeepSeek/DeepSeek-V3.git/info/refs?service=git-upload-pack",
@@ -53,7 +53,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Reads are Chinese-market and mostly login-gated for the interesting parts: /models -> 200, but every model detail page returned 504 through the reader (2 attempts), the git LFS ref",
+  "notes": "Public model catalog index returns HTTP 200, but individual model detail pages and Git LFS endpoints returned HTTP 504 gateway timeout on 2026-10-21. Model downloads require authentication.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

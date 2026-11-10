@@ -5,7 +5,7 @@
   "url": "https://rubygems.org",
   "category": "registry",
   "free_tier": {
-    "stated": "Per-gem size is exposed per version via the API; large gems (e.g. binaries) do get 413'd in practice.",
+    "stated": "No documented per-gem size limit and no documented total quota. Per-gem size is exposed per version via the API; large gems (e.g. binaries) do get 413'd in practice.",
     "unit": "mixed",
     "metered_on": "unstated",
     "source_url": "https://guides.rubygems.org/rubygems-org-rate-limits/",
@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://guides.rubygems.org/rubygems-org-rate-limits/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "Version strings and gem names are permanent.",
+    "stated": "Published version strings and gem package names are permanent.",
     "source_url": "https://guides.rubygems.org/rubygems-org-rate-limits/",
     "notes": "not stated"
   },
@@ -32,15 +32,15 @@
   ],
   "interface_detail": "rest",
   "tooling": "POST /api/v1/gems with the .gem body (gem push); GET /downloads/<name>-<ver>.gem or /gems/<name>-<ver>.gem. First-class clients (gem push, bundler). Rate-limit config is public in the repo (rack_attack.rb: PUSH_LIMIT = 400 per 60 minutes).",
-  "chaining": "400 pushes/hour is the most generous publish rate in the entire niche — 9,600 gems/day, i.e. ~2-9 TB/day if each gem were at a hypothetical 250 MB. If the undocumented size limit is anywhere near npm's, RubyGems becomes the highest-throughput package-registry store found. Confirm the size cap before relying on it.",
+  "chaining": "400 pushes/hour is the most generous publish rate in the entire niche. 9,600 gems/day, i.e. ~2-9 TB/day if each gem were at a hypothetical 250 MB. If the undocumented size limit is anywhere near npm's, RubyGems becomes the highest-throughput package-registry store found. Confirm the size cap before relying on it.",
   "limits": [],
-  "limits_note": "400 push requests/hour/IP; 300/5min and 600/25h on failed pushes; 10 yanks/10min. Version strings and gem names are permanent.",
+  "limits_note": "Rate limits allow 400 push requests per hour per IP address, with failed pushes capped at 300 per 5 minutes and 600 per 25 hours. Package deletions allow 10 yanks per 10 minutes. No published per-gem byte cap in documentation or policy terms. Version strings and gem names are permanent.",
   "identity_cost": {
     "kind": "institution",
     "detail": null,
     "country": null
   },
-  "reliability_note": "The unknown size cap is the risk — the one public 413 report (qtbindings) shows a hard limit exists and is enforced at the proxy, and it is not documented anywhere, so you discover it by probing. Rate limits are the best in class and clearly documented.",
+  "reliability_note": "The unknown size cap is the risk. The one public 413 report (qtbindings) shows a hard limit exists and is enforced at the proxy, and it is not documented anywhere, so you discover it by probing. Rate limits are the best in class and clearly documented.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -72,7 +72,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Per-gem size is exposed per version via the API; large gems (e.g. binaries) do get 413'd in practice.",
+  "notes": "No documented per-gem size limit and no documented total quota. Per-gem size is exposed per version via the API; large gems (e.g. binaries) do get 413'd in practice.",
   "extras": {},
   "binding": "none",
   "binding_note": null

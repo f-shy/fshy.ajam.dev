@@ -5,7 +5,7 @@
   "url": "https://alternativeto.net/news/2025/11/guilded-to-shut-down-on-december-19-2025-as-focus-shifts-to-roblox-communities/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "none reachable: Actually dead. Roblox announced shutdown and Guilded went dark on 19 December 2025. Its old 500 MB per-file free limit was the most generous of any chat platform and is now irrelevant — do…",
+    "stated": "None reachable: Actually dead. Roblox announced shutdown and Guilded went dark on 19 December 2025. Its old 500 MB per-file free limit was the most generous of any chat platform and is now irrelevant. Do n.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://alternativeto.net/news/2025/11/guilded-to-shut-down-on-december-19-2025-as-focus-shifts-to-roblox-communities/",
@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://alternativeto.net/news/2025/11/guilded-to-shut-down-on-december-19-2025-as-focus-shifts-to-roblox-communities/",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -41,9 +41,9 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Actually dead. Roblox announced shutdown and Guilded went dark on 19 December 2025. Its old 500 MB per-file free limit was the most generous of any chat platform and is now irrelevant — do…",
+  "reliability_note": "Actually dead. Roblox announced shutdown and Guilded went dark on 19 December 2025. Its old 500 MB per-file free limit was the most generous of any chat platform and is now irrelevant. Do n.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "https://alternativeto.net/news/2025/11/guilded-to-shut-down-on-december-19-2025-as-focus-shifts-to-roblox-communities/",
@@ -58,7 +58,7 @@
   ],
   "verdict": "dead",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Actually dead. Roblox announced shutdown and Guilded went dark on 19 December 2025. Its old 500 MB per-file free limit was the most generous of any chat platform and is now irrelevant — do…",
+  "notes": "Actually dead. Roblox announced shutdown and Guilded went dark on 19 December 2025. Its old 500 MB per-file free limit was the most generous of any chat platform and is now irrelevant. Do n.",
   "extras": {
     "dead_end": {
       "failure_class": "dead-service",

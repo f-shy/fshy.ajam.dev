@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://developer.box.com/guides/getting-started/free-developer-plan",
     "notes": "not stated"
   },
@@ -57,7 +57,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": null,
+  "reliability_note": "REST API with 250 MB per-file upload cap and fair-use bandwidth limits on free developer accounts.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

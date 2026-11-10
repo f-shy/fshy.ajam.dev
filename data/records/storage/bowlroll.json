@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://bowlroll.net/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://bowlroll.net/",
     "notes": "not stated"
   },
@@ -31,7 +31,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "Web only; no documented API.",
-  "chaining": "Unknown — cannot chain what cannot be measured.",
+  "chaining": "Unknown. Cannot chain what cannot be measured.",
   "limits": [],
   "limits_note": "Unverified: /user/rule returns HTTP 422 and /faq is empty through the reader. The site is alive but in a donations-or-die state.",
   "identity_cost": {
@@ -39,7 +39,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Long-running Japanese MMD/UTAU asset host now publicly fundraising for survival. Alive today, structurally fragile — a strong candidate to be gone by the next round.",
+  "reliability_note": "Long-running Japanese MMD/UTAU asset host now publicly fundraising for survival. Alive today, structurally fragile. A strong candidate to be gone by the next round.",
   "confidence": "inferred",
   "confidence_note": null,
   "evidence": [

@@ -16,7 +16,7 @@
     "stated": "about 30 MB per file (reported by one forum user on 2 Nov 2024)",
     "bytes": null,
     "source_url": "https://steamcommunity.com/groups/SteamClientBeta/discussions/3/1760230157504631620/",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "chat uploads count against the cap for about 60 days and then drop off (user-reported)",
@@ -31,7 +31,7 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
+  "interface_detail": "not documented",
   "tooling": "files are pasted or uploaded in the Steam client chat window; a public link and an API: unverified: not stated in the captured threads",
   "chaining": "not recorded",
   "limits": [

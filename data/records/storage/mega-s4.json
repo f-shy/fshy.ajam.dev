@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://mega.io/objectstorage",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://mega.io/objectstorage",
     "notes": "not stated"
   },
   "egress": {
-    "terms": null,
+    "terms": "Vendor terms state: '5x free egress, no API charges and no minimum storage period.' Documentation specifies that MEGA S4 allows up to 5x the average monthly stored data as free egress.",
     "metered": false,
     "free_allowance": "100 TB per month"
   },
@@ -32,7 +32,7 @@
     "rclone",
     "cli"
   ],
-  "interface_detail": "S3-compatible (SigV4). Endpoint probed live: https://s3.eu-amsterdam-1.megas4.com/ returns HTTP 400 with {Code:InvalidRequest, Message:'Please use AWS Signature Version 4 for authentication'} — a real, correctly-implemented S3 endpoint, not a marketing page.",
+  "interface_detail": "S3-compatible (SigV4). Endpoint probed live: https://s3.eu-amsterdam-1.megas4.com/ returns HTTP 400 with {Code:InvalidRequest, Message:'Please use AWS Signature Version 4 for authentication'}. A real, correctly-implemented S3 endpoint, not a marketing page.",
   "tooling": "rclone (first-party guide), AWS CLI, Synology Hyper Backup, TrueNAS, Duplicacy, MSP360, Cyberduck, Terraform",
   "chaining": "Native S3 -> any S3 client; first-party Cloudflare CDN guide documented at help.mega.io/megas4/setup-guides/cloudflare-setup-guide-for-mega-s4",
   "limits": [],

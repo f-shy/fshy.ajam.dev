@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://selectel.ru/services/cloud/storage/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://selectel.ru/services/cloud/storage/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "METERED at ₽1.96/GB on every class, plus paid requests — Ice requests are the most expensive in the set at ₽361 per 1 M GET/HEAD and ₽3,009 per 1 M PUT (`serverdelo.ru` table, prices verified 2026-10-03). This is the trap: the cheapest storage line in Russia pairs with the most expensive retrieval. Selectel's OWN promotional tariff does waive it — «не платите за исходящий трафик и запросы весь год» — but only at ₽2/GB storage plus a ₽10,000/month platform fee, i.e. you prepay ₽120,000/yr to buy out the egress.",
+    "terms": "METERED at ₽1.96/GB on every class, plus paid requests. Ice requests are the most expensive in the set at ₽361 per 1 M GET/HEAD and ₽3,009 per 1 M PUT (`serverdelo.ru` table, prices verified 2026-10-03). This is the trap: the cheapest storage line in Russia pairs with the most expensive retrieval. Selectel's OWN promotional tariff does waive it. «не платите за исходящий трафик и запросы весь год». But only at ₽2/GB storage plus a ₽10,000/month platform fee, i.e. you prepay ₽120,000/yr to buy out the egress.",
     "metered": true
   },
   "interface": [
@@ -33,9 +33,9 @@
   ],
   "interface_detail": "s3 + swift",
   "tooling": "S3-compatible with IAM, S3 endpoint live (`https://s3.ru-7.storage.selcloud.ru/` -> 403 for anonymous list, expected). rclone `s3`, aws-cli, Terraform.",
-  "chaining": "Volume ladder is shallow (₽1.35 → ₽1.31 from 10 TB to 50 TB, a 3 % step) — no meaningful economy of scale.",
+  "chaining": "Volume ladder is shallow (₽1.35 → ₽1.31 from 10 TB to 50 TB, a 3 % step). No meaningful economy of scale.",
   "limits": [],
-  "limits_note": "Ice has a minimum storage duration and retrieval billing, so short-lived objects cost double. Requests are billed per million and Ice's GET rate of ₽361/M makes any small-object workload (a 20 TiB corpus of 1 MB shards = 20 M GETs) cost $87 in requests per full pass on top of storage.",
+  "limits_note": "Ice storage enforces minimum storage durations and retrieval fees. Operations are billed per million requests, with GET operations priced at 361 RUB per million. Outbound egress is billed at 1.96 RUB per gigabyte (~$24.31 per terabyte).",
   "identity_cost": {
     "kind": "card",
     "detail": "card",

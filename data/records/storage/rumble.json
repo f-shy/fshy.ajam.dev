@@ -19,12 +19,12 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://rumble.support/help/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Free — Rumble serves its own CDN, no egress billing.",
+    "terms": "Free. Rumble serves its own CDN, no egress billing.",
     "metered": false
   },
   "interface": [
@@ -45,13 +45,13 @@
       "source": "https://rumble.support/help/"
     }
   ],
-  "limits_note": "15 GB/file is mid-tier. Upload is web-form only — this is the automation blocker, since yt-dlp solves retrieval but nothing solves programmatic upload.",
+  "limits_note": "15 GB/file is mid-tier. Upload is web-form only. This is the automation blocker, since yt-dlp solves retrieval but nothing solves programmatic upload.",
   "identity_cost": {
     "kind": "email",
     "detail": null,
     "country": null
   },
-  "reliability_note": "rumble.com/faq returned 404/504/410 on three fetch attempts from this network.",
+  "reliability_note": "Direct FAQ documentation was unreachable during testing on 2026-10-21. The 15 GB maximum video upload figure is reported in third-party platform documentation.",
   "confidence": "inferred",
   "confidence_note": null,
   "evidence": [

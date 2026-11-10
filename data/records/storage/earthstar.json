@@ -5,7 +5,7 @@
   "url": "https://earthstar-project.org/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "none reachable: A specification plus JS library for local-first apps; explicitly self-hosted and serverless. 'Always self-hosted. Servers optional.' There is no provider, so no free quota to obtain — it is",
+    "stated": "None reachable: A specification plus JS library for local-first apps; explicitly self-hosted and serverless. 'Always self-hosted. Servers optional.' There is no provider, so no free quota to obtain. It is.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://earthstar-project.org/",
@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://earthstar-project.org/",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -41,9 +41,9 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "A specification plus JS library for local-first apps; explicitly self-hosted and serverless. 'Always self-hosted. Servers optional.' There is no provider, so no free quota to obtain — it is",
+  "reliability_note": "A specification plus JS library for local-first apps; explicitly self-hosted and serverless. 'Always self-hosted. Servers optional.' There is no provider, so no free quota to obtain. It is.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "https://earthstar-project.org/",
@@ -53,7 +53,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "A specification plus JS library for local-first apps; explicitly self-hosted and serverless. 'Always self-hosted. Servers optional.' There is no provider, so no free quota to obtain — it is",
+  "notes": "A specification plus JS library for local-first apps; explicitly self-hosted and serverless. 'Always self-hosted. Servers optional.' There is no provider, so no free quota to obtain. It is.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

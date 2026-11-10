@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "Three terms a year rather than one, so a rejected applicant can re-apply in the next term, which is the highest retry rate.",
+  "chaining": "Three terms a year rather than one, so a rejected applicant can re-apply in the next term, which is the highest retry rate among evaluated providers.",
   "limits": [
     {
       "kind": "write-gated",

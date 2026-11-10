@@ -39,8 +39,8 @@
     "rest"
   ],
   "interface_detail": "REST, API key from the dashboard; Python and JavaScript SDKs",
-  "tooling": "not stated",
-  "chaining": "The 1,000 a month is small against a crawl, and extract bills the same pool",
+  "tooling": "not established",
+  "chaining": "Keyed search leg. The 1,000 requests monthly allowance is limited for large crawls, and the extract endpoint consumes from the same credit pool.",
   "limits": [
     {
       "kind": "request-rate",

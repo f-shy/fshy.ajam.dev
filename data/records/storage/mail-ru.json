@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://help.mail.ru/cloud/faq/space/size/",
     "notes": "not stated"
   },
@@ -42,7 +42,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Mail.ru also revoked the free permanent 100 GB it gave its 2013 beta cohort, with file deletion after a 3-month grace period — a direct precedent for 'free tier that was real and then was taken away'.",
+  "reliability_note": "Mail.ru also revoked the free permanent 100 GB it gave its 2013 beta cohort, with file deletion after a 3-month grace period. A direct precedent for 'free tier that was real and then was taken away'.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

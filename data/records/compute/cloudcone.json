@@ -37,7 +37,7 @@
   ],
   "interface_detail": "REST API and SSH, per the CloudCone API page: \"CloudCone REST API allows you to access most of the features available at app.cloudcone.com\", and per the VPS page: \"Use the recovery mode to gain direct access via SSH.\"",
   "tooling": "language bindings, per the CloudCone API page: \"We have language bindings in some programming languages.\"",
-  "chaining": "This is the reason any free or cheap host needs a second copy elsewhere: the composition that survives an incident is two providers plus an object store, not one provider plus its own snapshots.",
+  "chaining": "This is the reason any free or cheap host among evaluated providers needs a second copy elsewhere: the composition that survives an incident is two providers plus an object store, not one provider plus its own snapshots.",
   "limits": [],
   "limits_note": "What fails is durability: a hypervisor-level compromise destroyed guest disks across several nodes and the vendor confirmed non-recovery, so a snapshot kept on the same provider is not a backup.",
   "binding": "none",

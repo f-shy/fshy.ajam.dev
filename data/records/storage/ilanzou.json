@@ -34,7 +34,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "OpenList driver `ilanzou` (reverse-engineered, explicitly unmaintained: '本接口是基于历史产物的逆向接口，项目组不会主动进行维护'); qaiu/netdisk-fast-download `iz` parser; HeriHeriCloud treats the Lanzou family as its storage substrate.",
-  "chaining": "2 TB per verified account, expiring in 12 months — so treat as '2 TB renewable annually per identity', not a permanent tier. 10 GB/file is the classic-Lanzou escape (classic caps at 100 MB).",
+  "chaining": "2 TB per verified account, expiring in 12 months. So treat as '2 TB renewable annually per identity', not a permanent tier. 10 GB/file is the classic-Lanzou escape (classic caps at 100 MB).",
   "limits": [
     {
       "kind": "retention-clamped",
@@ -53,7 +53,7 @@
     "detail": "country-phone or email (绑定手机或邮箱 unlocks the 2 TB).",
     "country": null
   },
-  "reliability_note": "Two-tier product (classic vs 优享) with repeated policy narrowing — IT之家 reported APK sharing moved behind the ¥9/mo paywall. Unmaintained OpenList driver means the API can rot.",
+  "reliability_note": "Two-tier product (classic vs 优享) with repeated policy narrowing. IT之家 reported APK sharing moved behind the ¥9/mo paywall. Unmaintained OpenList driver means the API can rot.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

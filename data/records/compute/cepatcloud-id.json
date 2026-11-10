@@ -92,7 +92,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-11-04T05:43:09.217Z",
-  "notes": "Two users reporting silence in 2025 is the strongest signal that this is a queued or dormant programme rather than a working one. The one recorded is the better-evidenced.",
+  "notes": "The live site answered 530 at automated retrieval, DNS failed at the probe, and the crawl returned no pages, so the specification here rests on the archived capture plus the terms page, which automated retrieval did read live. That makes the shape documented-from-archive and the operational status unverified. Two users reporting silence in 2025 is the strongest signal that this is a queued or dormant programme rather than a working one. Classified as qualifies-with-caveat rather than dead because the terms page still served and the vendor still publishes a paid line. The one recorded is the better-evidenced.",
   "extras": {
     "facets": {
       "class": "regional-vps",

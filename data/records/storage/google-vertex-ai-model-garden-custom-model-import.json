@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.cloud.google.com/vertex-ai/docs/model-registry/import-model",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.cloud.google.com/vertex-ai/docs/model-registry/import-model",
     "notes": "not stated"
   },
@@ -30,8 +30,8 @@
     "rest"
   ],
   "interface_detail": "rest",
-  "tooling": "aiplatform.Model.upload(...) from the Python SDK — clean, but it uploads a pointer plus artifacts already in GCS.",
-  "chaining": "None for storage.",
+  "tooling": "Aiplatform.Model.upload(..) from the Python SDK. Clean, but it uploads a pointer plus artifacts already in GCS.",
+  "chaining": "Storage relies on underlying Google Cloud Storage buckets, where the standard free tier provides 5 GB.",
   "limits": [],
   "limits_note": "fails-quota. The Model Garden catalogue is a curated list of first- and third-party models; you cannot deposit bytes into it as a member of the public.",
   "identity_cost": {

@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "A V100 32 GB is the only free card found that can hold a 13B model unquantised, and as a chain element it is the training half and never the serving half.",
+  "chaining": "A V100 32 GB is the only free card found among evaluated offerings that can hold a 13B model unquantised, and as a chain element it is the training half and never the serving half.",
   "limits": [
     {
       "kind": "volume-quota",
@@ -220,7 +220,7 @@
   ],
   "verdict": "fails-identity",
   "verified_at": "2026-11-06T18:49:42.138Z",
-  "notes": "The daily figure is 2.6, 3 to 4 or 8 hours depending on the poster, which is the signature of a shifting allocation; the range is recorded rather than a point.",
+  "notes": "A V100 at 32 GB a day for years is a real perpetual allowance and notable even though the door is shut, because the number is what makes the door worth naming. The daily figure is 2.6, 3 to 4 or 8 hours depending on the poster, which is the signature of a shifting allocation; the range is recorded rather than a point.",
   "extras": {
     "facets": {
       "class": "free-gpu-notebook",

@@ -5,7 +5,7 @@
   "url": "https://www.impossiblecloud.com/pricing",
   "category": "cloud-drive",
   "free_tier": {
-    "stated": "No free tier — '5 TB Cloud Storage Free for 30 Days' trial, then '€7.99 per TB/month' pay-as-you-go. Reserved capacity starts at 25 TB and is partners-only.",
+    "stated": "No free tier. '5 TB Cloud Storage Free for 30 Days' trial, then '€7.99 per TB/month' pay-as-you-go. Reserved capacity starts at 25 TB and is partners-only.",
     "unit": "TB",
     "metered_on": "stored-bytes",
     "source_url": "https://www.impossiblecloud.com/free-trial",
@@ -13,18 +13,18 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.impossiblecloud.com/free-trial",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "No free tier — '5 TB Cloud Storage Free for 30 Days' trial, then '€7.99 per TB/month' pay-as-you-go",
+    "stated": "No free tier. '5 TB Cloud Storage Free for 30 Days' trial, then '€7.99 per TB/month' pay-as-you-go.",
     "days": 30,
     "source_url": "https://www.impossiblecloud.com/free-trial",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "'Free egress and API calls' — 0 € egress, 0 € API fees, on paid plans.",
+    "terms": "'Free egress and API calls'. 0 € egress, 0 € API fees, on paid plans.",
     "metered": false
   },
   "interface": [
@@ -63,7 +63,7 @@
   ],
   "verdict": "trial-only",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "No free tier — '5 TB Cloud Storage Free for 30 Days' trial, then '€7.99 per TB/month' pay-as-you-go. Reserved capacity starts at 25 TB and is partners-only.",
+  "notes": "No free tier. '5 TB Cloud Storage Free for 30 Days' trial, then '€7.99 per TB/month' pay-as-you-go. Reserved capacity starts at 25 TB and is partners-only.",
   "extras": {
     "dead_end": {
       "failure_class": "paid",
@@ -73,5 +73,5 @@
     }
   },
   "binding": "retention-clamped",
-  "binding_note": null
+  "binding_note": "a clock, not a quota: bytes leave whether or not transfer is completed"
 }

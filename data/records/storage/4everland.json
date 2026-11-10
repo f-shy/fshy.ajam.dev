@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.4everland.org/get-started/billing-and-pricing/pricing-model.md",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.4everland.org/get-started/billing-and-pricing/pricing-model.md",
     "notes": "not stated"
   },
@@ -31,7 +31,7 @@
     "s3-compatible"
   ],
   "interface_detail": "s3",
-  "tooling": "'Bucket API - S3 Compatible ... fully compatible with the Amazon S3 Cloud Storage service' — AWS SDKs for Go/Java/JS/.NET/PHP/Python/Ruby all documented.",
+  "tooling": "'Bucket API - S3 Compatible .. fully compatible with the Amazon S3 Cloud Storage service'. AWS SDKs for Go/Java/JS/.NET/PHP/Python/Ruby all documented.",
   "chaining": "6 GB/month resets monthly, and the free package is 'Unconditional' for Standard but requires 'on-chain identity registration and account activation'. Unlimited accounts x 6 GB with monthly reset means chained accounts can hold a rolling 6 GB each, not accumulate.",
   "limits": [
     {
@@ -46,7 +46,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": null,
+  "reliability_note": "Egress allowance is 10 GB per month with paid overage at $0.1 per GB.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -78,5 +78,5 @@
     }
   },
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

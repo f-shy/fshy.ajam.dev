@@ -29,7 +29,7 @@
   ],
   "interface_detail": "Zeabur CLI (npx zeabur, token login for CI), GitHub deploys and the dashboard; the plan comparison lists API Keys as a quota but no API reference was read",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "retention-clamped",
@@ -47,7 +47,7 @@
       "source": "https://zeabur.com/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": "'No credit card required — just sign up and start deploying'",

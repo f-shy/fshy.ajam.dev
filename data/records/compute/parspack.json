@@ -67,7 +67,7 @@
   "verdict": "paid-only",
   "verified_at": "2026-10-24T02:05:00.000Z",
   "price_per_tb_month": null,
-  "notes": "The toman is quoted at roughly a tenth of the rial, and Iran runs an official rate and a market rate that differ by an order of magnitude. Converting with either without reading it today would invent a number, so m24h_usd is null. This is the one row where the price is known in local currency and deliberately not converted.",
+  "notes": "The toman is quoted at roughly a tenth of the rial, and Iran runs an official rate and a market rate that differ by an order of magnitude. Converting with either without reading it today would invent a number, so m24h_usd is null. This is the one row in this category where the price is known in local currency and deliberately not converted.",
   "extras": {
     "shape": {
       "vcpu": 1,

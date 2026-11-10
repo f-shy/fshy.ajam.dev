@@ -51,7 +51,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Models can also be disabled.",
+  "reliability_note": "Commercial 3D asset hosting platform with restrictive monthly upload count quotas and small per-file upload caps. Models may be unlisted or disabled by platform moderators.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

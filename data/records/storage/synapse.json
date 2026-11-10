@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.synapse.org/synapse-docs/uploading-and-organizing-data",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
     "oci"
   ],
   "interface_detail": "rest",
-  "tooling": "Python/Java/R clients (`synapseclient`), REST API, and a built-in Docker registry. Also supports custom storage locations (your own S3/GCS) — which makes it a metadata layer over someone else's bucket rather than storage itself.",
+  "tooling": "Python/Java/R clients (`synapseclient`), REST API, and a built-in Docker registry. Also supports custom storage locations (your own S3/GCS). Which makes it a metadata layer over someone else's bucket rather than storage itself.",
   "chaining": "Unlimited projects per certified user. The interesting chain is the inverse: point Synapse at a custom S3/GCS location and you get a free DOI-style sharing and permissions layer over any bucket you already have.",
   "limits": [
     {
@@ -77,5 +77,5 @@
   "notes": "No clear public storage cap found. Platform is free SaaS on S3; documented pain point is a '1GB per day' quota on modelState (compute artifacts), not on file storage.",
   "extras": {},
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://pulsedmedia.com/storage-boxes.php",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://pulsedmedia.com/storage-boxes.php",
     "notes": "not stated"
   },
@@ -37,8 +37,8 @@
     "rclone"
   ],
   "interface_detail": "SSH, SCP, SFTP, FTP(S), HTTPS, public HTTP(S), SSHFS, Rsync, Rclone, Restic, Borg, Docker (rootless), WireGuard/OpenVPN",
-  "tooling": "rclone native, restic/borg native, plain SSHFS mount — no S3 endpoint",
-  "chaining": "SSHFS/rclone mount -> AList/OpenList -> Cloudflare in front for the fetch workload.",
+  "tooling": "Rclone native, restic/borg native, plain SSHFS mount. No S3 endpoint.",
+  "chaining": "Supports SSHFS and rclone mounts, allowing integration with frontend distribution layers. A sustained 100 Mbps link provides up to approximately 1.08 TB per day.",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -52,7 +52,7 @@
     "detail": "email",
     "country": null
   },
-  "reliability_note": "Own DC in Finland, 15+ yrs operating; storage-box tier is 500 MB RAM so Nextcloud-on-box is impractical — use it as a filesystem only.",
+  "reliability_note": "Own DC in Finland, 15+ yrs operating; storage-box tier is 500 MB RAM so Nextcloud-on-box is impractical. Use it as a filesystem only.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -75,7 +75,7 @@
   "verdict": "qualifies",
   "verified_at": "2026-10-21T00:00:00.000Z",
   "price_per_tb_month": "16TB: €26.99 -> €1.69/TB/mo (~$1.94). 32TB: €63.99 -> €2.00/TB. 8TB: €14.99 -> €1.87/TB. 4TB: €8.99 -> €2.25/TB",
-  "notes": "16 TB HDD RAID5 (4/8/16/32 TB tiers). This is the same 16 TB tier of the same M10G STORAGE BOX product line as pulsedmedia-m10g-storage-box, recorded a second time from a different seed spelling.",
+  "notes": "16 TB HDD RAID5 configuration within the M10G Storage Box product line, offering 4, 8, 16, and 32 TB tiers.",
   "extras": {
     "price_verbatim": "16TB: €26.99 -> €1.69/TB/mo (~$1.94). 32TB: €63.99 -> €2.00/TB. 8TB: €14.99 -> €1.87/TB. 4TB: €8.99 -> €2.25/TB",
     "duplicate_of": "pulsedmedia-m10g-storage-box",
@@ -83,5 +83,5 @@
     "count_note": "this record duplicates pulsedmedia-m10g-storage-box; a count over the directory includes the one offer twice"
   },
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

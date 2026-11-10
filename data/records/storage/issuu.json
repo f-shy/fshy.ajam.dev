@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://help.issuu.com/hc/en-us/articles/16000719341595-Changes-to-free-Basic-plan-Limitation-on-the-amount-of-published-documents",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://help.issuu.com/hc/en-us/articles/16000719341595-Changes-to-free-Basic-plan-Limitation-on-the-amount-of-published-documents",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Reader-facing views are free and CDN-served, but documents beyond the 5 allowance stay hosted yet become \"inaccessible to readers\" — so serving capacity is not proportional to stored bytes.",
+    "terms": "Reader-facing views are free and CDN-served, but documents beyond the 5 allowance stay hosted yet become \"inaccessible to readers\". So serving capacity is not proportional to stored bytes.",
     "metered": true
   },
   "interface": [

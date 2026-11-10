@@ -24,7 +24,7 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Free download from app.circleci.com; artifacts are 'protected with your CircleCI account for private projects' — public-project artifacts are reachable, private are not.",
+    "terms": "Free download from app.circleci.com; artifacts are 'protected with your CircleCI account for private projects'. Public-project artifacts are reachable, private are not.",
     "metered": false
   },
   "interface": [
@@ -134,5 +134,5 @@
     }
   },
   "binding": "retention-clamped",
-  "binding_note": null
+  "binding_note": "a clock, not a quota: bytes leave whether or not transfer is completed"
 }

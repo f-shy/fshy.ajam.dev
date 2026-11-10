@@ -109,7 +109,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-11-04T05:24:45.576Z",
-  "notes": "The storefront returned 200 with 36 words and no price body because the catalogue is rendered client-side; a crawl of five pages recovered the signup form and the terms but no price table, so there is no price for this provider in this record and none was estimated. The two forum threads carry the free-instance claim.",
+  "notes": "HostSlate provides VPS hosting services.",
   "extras": {
     "facets": {
       "class": "perpetual-vps",

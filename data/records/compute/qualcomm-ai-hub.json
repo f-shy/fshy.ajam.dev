@@ -36,7 +36,7 @@
   ],
   "interface_detail": "CLI: the `qai-hub` command line tool, documented at workbench.aihub.qualcomm.com/docs/hub/cli.html, plus a Python client and API documented at docs/hub/api.html.",
   "tooling": "the `qai-hub` Python client, installed with `pip3 install qai-hub`, which also provides the `qai-hub` command line tool.",
-  "chaining": "Together they cover model work and application work without owning a phone.",
+  "chaining": "It chains with the Qualcomm Device Cloud record already in documented records: AI Hub gives the compile and profile loop on hosted silicon, Device Cloud gives an interactive session with SSH port forwarding on a Snapdragon X Elite machine. Together they cover model work and application work without owning a phone.",
   "limits": [],
   "limits_note": "Qualcomm publishes no request rate, job count, queue depth or model size ceiling beyond a note that models above 2 GB may fail to compile, so the constraint that fails first cannot be named from the documentation.",
   "binding": "none",

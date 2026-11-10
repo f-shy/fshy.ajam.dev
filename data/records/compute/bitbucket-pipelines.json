@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://www.atlassian.com/software/bitbucket/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: https://www.atlassian.com/software/bitbucket/pricing and https://support.atlassian.com/bitbucket-cloud/docs/limitations-of-bitbucket-pipelines/ state no data-transfer allowance or overage price",
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "Bitbucket REST API (OpenAPI spec published) and Git",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",

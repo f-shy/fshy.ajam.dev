@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.tencentcloud.com/document/product/436/6240",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.tencentcloud.com/document/product/436/6240",
     "notes": "not stated"
   },
@@ -31,10 +31,10 @@
     "rclone"
   ],
   "interface_detail": "s3",
-  "tooling": "COS XML/S3-compatible API — rclone 's3' provider 'Tencent Cloud Object Storage (COS)'; COSCLI; SDKs. Public-read buckets and pre-signed URLs supported.",
+  "tooling": "COS XML/S3-compatible API. Rclone 's3' provider 'Tencent Cloud Object Storage (COS)'; COSCLI; SDKs. Public-read buckets and pre-signed URLs supported.",
   "chaining": "One free package per new account; 50 GB x 6 months. Account multiplication requires separate verified identities.",
   "limits": [],
-  "limits_note": "50 GB, 6 months, storage only. Egress and requests are never free — 'user downloaded 10 GB ... 0.1 x 10 = 1 USD' in the vendor's own billing example.",
+  "limits_note": "50 GB, 6 months, storage only. Egress and requests are never free. 'user downloaded 10 GB .. 0.1 x 10 = 1 USD' in the vendor's own billing example.",
   "identity_cost": {
     "kind": "card",
     "detail": "inferred from the category 'iaas'; the source record states no identity cost, so this is a class assumption, not evidence",

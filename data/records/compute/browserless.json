@@ -47,7 +47,7 @@
     "notes": "1,000 units at up to 30 s each is 8.3 browser hours a month, and the 2-minute session cap forces a new connection per 2 minutes. Paid plans are Prototyping USD 25, Starter USD 140 and a USD 350 tier above those"
   },
   "retention": {
-    "stated": null,
+    "stated": "not stated in catalogue documentation.",
     "days": null
   },
   "egress": {

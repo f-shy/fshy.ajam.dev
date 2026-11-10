@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.github.com/en/repositories/creating-and-managing-repositories/repository-limits",
     "notes": "not stated"
   },
@@ -34,8 +34,8 @@
     "rclone"
   ],
   "interface_detail": "git",
-  "tooling": "git clone/push against gist.github.com/<id>.git, gh gist create, REST POST /gists, github.com/bharatcj/git-unlimited-storage (S3-shaped shim over a repo, MIT, 0 stars), rclone backend 'gist' does NOT exist — use plain git plus a CDN in front.",
-  "chaining": "unlimited gists x unlimited free GitHub accounts, each gist 100 MiB/file x as many files as the push allows. Practical unit is 'one gist repo per dataset shard'.",
+  "tooling": "Git clone/push against gist.github.com/<id>.git, gh gist create, REST POST /gists, github.com/bharatcj/git-unlimited-storage (S3-shaped shim over a repo, MIT, 0 stars), rclone backend 'gist' does NOT exist. Use plain git plus a CDN in front.",
+  "chaining": "Supports multiple gists per GitHub account, with each gist allowing files up to 100 MiB up to git push limits. Sharding partitions datasets across individual gist repositories.",
   "limits": [
     {
       "kind": "per-object-cap",

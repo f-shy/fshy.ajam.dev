@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://ultra.cc/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://ultra.cc/",
     "notes": "not stated"
   },
@@ -42,7 +42,7 @@
     "detail": "email",
     "country": null
   },
-  "reliability_note": "NL/CA/SG. Prices seen on the live page are higher than the 2026-08 comparison article's figures (Nickel €38.95 vs €31.95 cited) — treat aggregator prices as stale.",
+  "reliability_note": "NL/CA/SG. Prices seen on the live page are higher than the 2026-08 comparison article's figures (Nickel €38.95 vs €31.95 cited). Treat aggregator prices as stale.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

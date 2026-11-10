@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://open-science-cloud.ec.europa.eu/about/access-policy",
     "notes": "not stated"
   },
@@ -40,7 +40,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Credits are not top-up-able ('additional ones will not be provided to you') and do not carry over — a storage-heavy month silently stops you until the next quarter.",
+  "reliability_note": "Credits are not top-up-able ('additional ones will not be provided to you') and do not carry over. A storage-heavy month silently stops you until the next quarter.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

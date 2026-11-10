@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "Proxmox and Ceph platform; Linux and Windows images with a plan comparison table, no API mentioned on the page read",
-  "chaining": "the only entry that publishes a per-TB overage price, so it is the one that can absorb a burst rather than being cut off at the allowance",
+  "chaining": "the only entry among documented hosts that publishes a per-TB overage price, so it is the one that can absorb a burst rather than being cut off at the allowance",
   "limits": [
     {
       "kind": "volume-quota",
@@ -80,7 +80,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-07T06:08:39.722Z",
-  "notes": "The tracker's NKr39.50 is the introductory rate; the list price on the vendor page is NOK 79 and both are recorded rather than averaged. Norwegian-language page, and the quotes above are transliterated from it without accents in the evidence line. The offer is priced in NOK and no conversion is made.",
+  "notes": "The tracker's NKr39.50 is the introductory rate; the list price on the vendor page is NOK 79 and both are recorded rather than averaged. Norwegian-language page, and the quotes above are transliterated from it without accents in the evidence line. The offer is priced in NOK and no conversion is made. Unverified: whether the introductory rate renews at NOK 79 after three months, which the table implies and the page does not say.",
   "extras": {
     "facets": {
       "class": null,

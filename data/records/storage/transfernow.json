@@ -32,7 +32,7 @@
     "rest"
   ],
   "interface_detail": "rest",
-  "tooling": "REST API + SDK exist (https://www.transfernow.net/en/discover/transfernow-api-sdk) — multipart, notifications, but behind a paid/14-day-trial plan.",
+  "tooling": "REST API + SDK exist (https://www.transfernow.net/en/discover/transfernow-api-sdk). Multipart, notifications, but behind a paid/14-day-trial plan.",
   "chaining": "5 GB x unlimited free 7-day transfers. Not storage: the free row literally says 'No storage'.",
   "limits": [
     {
@@ -52,7 +52,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Clean, honest pricing page — the free tier is a transfer service only. No free path to durability.",
+  "reliability_note": "Clean, honest pricing page. The free tier is a transfer service only. No free path to durability.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

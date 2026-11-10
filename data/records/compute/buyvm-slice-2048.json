@@ -68,7 +68,7 @@
   "verdict": "paid-only",
   "verified_at": "2026-10-24T01:56:00.000Z",
   "price_per_tb_month": null,
-  "notes": "USD 7.00 for 2 GiB is well over the line, and the row is recorded because BuyVM's unmetered traffic is the cheapest genuinely unmetered bandwidth. The slice that fits the budget is SLICE 1024 at USD 3.50 for 1 GiB, which is too small to rank. USD 24.00 a year for SLICE 512 is the cheapest annual figure seen anywhere.",
+  "notes": "USD 7.00 for 2 GiB is well over the line, and the row is documented because BuyVM's unmetered traffic is the cheapest genuinely unmetered bandwidth in evaluated offerings. The slice that fits the budget is SLICE 1024 at USD 3.50 for 1 GiB, which is too small to rank. USD 24.00 a year for SLICE 512 is the cheapest annual figure seen anywhere on 2026-10-24.",
   "extras": {
     "shape": {
       "vcpu": 1,

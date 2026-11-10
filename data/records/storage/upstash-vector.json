@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://upstash.com/pricing/vector",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://upstash.com/pricing/vector",
     "notes": "not stated"
   },
@@ -45,7 +45,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Stable managed service; queries are semantically searched rather than key-addressed, so it is a poor fit for blob retrieval anyway — you would use a 1-dimension vector as a pure key-value hack, which still hits the 1 GB cap.",
+  "reliability_note": "Stable managed service; queries are semantically searched rather than key-addressed, so it is a poor fit for blob retrieval anyway. You would use a 1-dimension vector as a pure key-value hack, which still hits the 1 GB cap.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

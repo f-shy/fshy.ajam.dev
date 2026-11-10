@@ -5,7 +5,7 @@
   "url": "https://repository.cern/api/records?q=files.size:[1000000000",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "none reachable: CERN institutional repository — submissions are internal. Also holds no large files: querying files.size >= 1GB returned 0 records out of 73,837, so even as a read source it offers nothing…",
+    "stated": "None reachable: CERN institutional repository. Submissions are internal. Also holds no large files: querying files.size >= 1GB returned 0 records out of 73,837, so even as a read source it offers nothing f.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://repository.cern/api/records?q=files.size:[1000000000",
@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://repository.cern/api/records?q=files.size:[1000000000",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -41,9 +41,9 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "CERN institutional repository — submissions are internal. Also holds no large files: querying files.size >= 1GB returned 0 records out of 73,837, so even as a read source it offers nothing…",
+  "reliability_note": "CERN institutional repository. Submissions are internal. Also holds no large files: querying files.size >= 1GB returned 0 records out of 73,837, so even as a read source it offers nothing f.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "https://repository.cern/api/records?q=files.size:[1000000000",
@@ -63,7 +63,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "CERN institutional repository — submissions are internal. Also holds no large files: querying files.size >= 1GB returned 0 records out of 73,837, so even as a read source it offers nothing…",
+  "notes": "CERN institutional repository. Submissions are internal. Also holds no large files: querying files.size >= 1GB returned 0 records out of 73,837, so even as a read source it offers nothing f.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

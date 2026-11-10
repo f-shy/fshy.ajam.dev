@@ -39,7 +39,7 @@
     "rest"
   ],
   "interface_detail": "was a REST API with a subscription key",
-  "tooling": "not stated",
+  "tooling": "not established",
   "chaining": "not established",
   "limits": [
     {
@@ -64,5 +64,5 @@
       "proved": "Bing Search APIs retired on 2025-08-11; every existing instance is decommissioned completely, the product is no longer available and new customer signup is closed"
     }
   ],
-  "notes": "Any list that still carries a Bing Web Search free tier is out of date, and the replacement is Grounding with Bing inside Azure AI Agents, which is a different product with a different price."
+  "notes": "Retired on 2025-08-11. Any listing that still carries a Bing Web Search free tier is out of date. The replacement is Grounding with Bing inside Azure AI Agents, which is a separate product with distinct pricing."
 }

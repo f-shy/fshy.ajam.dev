@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://sandbox0.ai/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "Network ingress is free and network egress is free for now (the page marks egress as temporary); no allowance in bytes and no overage price is published.",
@@ -37,7 +37,7 @@
   ],
   "interface_detail": "HTTP API at /api/v1/sandboxes, open-source SDKs, the s0 CLI, and SSH to a sandbox",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -50,7 +50,7 @@
       "source": "https://sandbox0.ai/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": "'No credit card required', quoted from the pricing page read 2026-10-22",

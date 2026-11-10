@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://www.ovhcloud.com/en/public-cloud/prices/",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -32,7 +32,7 @@
     "s3-compatible"
   ],
   "interface_detail": "S3-compatible API, reachable only from the Paris 3-AZ region (EU-WEST-PAR)",
-  "tooling": "not recorded",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,

@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://whatbox.ca/plans",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://whatbox.ca/plans",
     "notes": "not stated"
   },
@@ -48,7 +48,7 @@
     "detail": "email",
     "country": null
   },
-  "reliability_note": "Running since 2008; SG/NL/US locations.",
+  "reliability_note": "Operating since 2008 in Singapore, Netherlands, and United States locations. Marketing describes unmetered inbound downloads, while outbound upload traffic is metered.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -71,5 +71,5 @@
     "price_verbatim": "21.7TB: $64 -> $2.95/TB/mo. 15.8TB: $50 -> $3.16/TB. 9.9TB: $36 -> $3.64/TB. 3.9TB: $15 -> $3.85/TB"
   },
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

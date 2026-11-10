@@ -5,7 +5,7 @@
   "url": "https://api.gofile.my/getServer",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "none reachable: Markets 'Free unlimited storage with no file size restrictions', but its TLS certificate expired 2026-09-30 and its upload API host does not answer — and it is a different operator from…",
+    "stated": "None reachable: Markets 'Free unlimited storage with no file size restrictions', but its TLS certificate expired 2026-09-30 and its upload API host does not answer. And it is a different operator from gofi.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://api.gofile.my/getServer",
@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://api.gofile.my/getServer",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -41,9 +41,9 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Markets 'Free unlimited storage with no file size restrictions', but its TLS certificate expired 2026-09-30 and its upload API host does not answer — and it is a different operator from…",
+  "reliability_note": "Markets 'Free unlimited storage with no file size restrictions', but its TLS certificate expired 2026-09-30 and its upload API host does not answer. And it is a different operator from gofi.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "https://api.gofile.my/getServer",
@@ -58,7 +58,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Markets 'Free unlimited storage with no file size restrictions', but its TLS certificate expired 2026-09-30 and its upload API host does not answer — and it is a different operator from…",
+  "notes": "Markets 'Free unlimited storage with no file size restrictions', but its TLS certificate expired 2026-09-30 and its upload API host does not answer. And it is a different operator from gofi.",
   "extras": {
     "dead_end": {
       "failure_class": "retention",

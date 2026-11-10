@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated on the page read; no panel, API or client is documented on the pages that answered",
-  "chaining": "2 cores and 2 GB for USD 3.30 is one of the better core-per-dollar rows, but the 1 TB counter and the single IPv4 without IPv6 keep it to a scheduler or a small service rather than a crawler egress point",
+  "chaining": "2 cores and 2 GB for USD 3.30 is one of the better core-per-dollar rows among evaluated providers, but the 1 TB counter and the single IPv4 without IPv6 keep it to a scheduler or a small service rather than a crawler egress point.",
   "limits": [
     {
       "kind": "volume-quota",
@@ -150,7 +150,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-07T11:15:27.360Z",
-  "notes": "Three vendor paths were tried and none published a price: https://aspirehosting.net/ (200, marketing and testimonials), /vps (200, feature copy only) and /vps-hosting (404). The number stays third-party at confidence reported.",
+  "notes": "Three vendor paths were tried and none published a price: https://aspirehosting.net/ (200, marketing and testimonials), /vps (200, feature copy only) and /vps-hosting (404). The number stays third-party at confidence reported. The homepage advertises a 26 percent discount on production servers but the extraction carried no code, so no discounted price is asserted. verification criteria: the checkout price for Cloud_Standard_Miami_2GB and whether the 26 percent code applies to it.",
   "extras": {
     "facets": {
       "class": null,

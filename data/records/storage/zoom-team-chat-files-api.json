@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://developers.zoom.us/docs/team-chat/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://developers.zoom.us/docs/team-chat/",
     "notes": "not stated"
   },
@@ -34,7 +34,7 @@
   "tooling": "Zoom REST API v2 (/chat/users/{userId}/messages, /files). No rclone backend; no third-party bulk client found.",
   "chaining": "Cannot be assessed without the retention number. Free Zoom accounts have historically capped chat file retention and total cloud storage, so assume no.",
   "limits": [],
-  "limits_note": "not escalated further within the per-URL budget.",
+  "limits_note": "Unverified. Documentation endpoint returned an empty response on 2026-10-21.",
   "identity_cost": {
     "kind": "email",
     "detail": null,

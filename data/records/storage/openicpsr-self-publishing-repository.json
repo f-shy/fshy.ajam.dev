@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.openicpsr.org/openicpsr/faqs",
     "notes": "not stated"
   },
@@ -33,7 +33,7 @@
     "rclone"
   ],
   "interface_detail": "rest",
-  "tooling": "Web upload plus 'Import From Zip' bulk extractor (1,000 files/folders per zip), versioning with a new DOI per version, and the underlying ICPSR deposit pipeline. No public rclone backend; automation is a scripted HTTP/form loop rather than a documented S3-style API — this is the weak point versus RepOD.",
+  "tooling": "Web upload plus 'Import From Zip' bulk extractor (1,000 files/folders per zip), versioning with a new DOI per version, and the underlying ICPSR deposit pipeline. No public rclone backend; automation is a scripted HTTP/form loop rather than a documented S3-style API. This is the weak point versus RepOD.",
   "chaining": "Unlimited deposits x 30 GB each. 17 deposits = 510 GB; no account-level aggregate is published, and requests above 30 GB go to ICPSR Acquisitions for approval rather than being refused outright.",
   "limits": [
     {

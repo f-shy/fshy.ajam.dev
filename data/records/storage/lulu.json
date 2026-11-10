@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://help.lulu.com/en/support/solutions/articles/64000255480-publishing-the-basics",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://help.lulu.com/en/support/solutions/articles/64000255480-publishing-the-basics",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "No public download path for the source file — Lulu hosts it for print production, not for retrieval.",
+    "terms": "No public download path for the source file. Lulu hosts it for print production, not for retrieval.",
     "metered": false
   },
   "interface": [
@@ -31,7 +31,7 @@
   ],
   "interface_detail": "Web upload only.",
   "tooling": "Web; no API for file ingest.",
-  "chaining": "Unbounded ingest but no retrieval path at all — this is the pure 'upload-open / read-gated' trap. Counts for nothing as storage.",
+  "chaining": "Accepts book manuscript uploads without digital download or programmatic retrieval paths.",
   "limits": [],
   "limits_note": "no stated cap; PDF only for print interiors, EPUB/PDF for ebooks; retail partners reject >100 MB.",
   "identity_cost": {

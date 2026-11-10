@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.codeberg.org/getting-started/faq/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.codeberg.org/getting-started/faq/",
     "notes": "not stated"
   },
@@ -51,7 +51,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Codeberg explicitly reviews and can deny 'unreasonable' resource usage — this is a community forge with active human moderation of storage, which is a different reliability class from a commercial CDN.",
+  "reliability_note": "Codeberg explicitly reviews and can deny 'unreasonable' resource usage. This is a community forge with active human moderation of storage, which is a different reliability class from a commercial CDN.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

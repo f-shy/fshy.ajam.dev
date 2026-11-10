@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://opencolorado.org/blog/opencolorado-is-hosting-data/",
     "notes": "not stated"
   },
@@ -40,7 +40,7 @@
       "source": "https://opencolorado.org/blog/opencolorado-is-hosting-data/"
     }
   ],
-  "limits_note": "per-object-cap 50 MB — chunk-sized, not object-sized. Even if the instance were reachable, 50 MB/file and a 100 GB shared pool would need ~10,000 objects and would blow the pool.",
+  "limits_note": "Per-object-cap 50 MB. Chunk-sized, not object-sized. Even if the instance were reachable, 50 MB/file and a 100 GB shared pool would need ~10,000 objects and would blow the pool.",
   "identity_cost": {
     "kind": "email",
     "detail": "email",

@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://docs.magalu.cloud/docs/storage/object-storage/additional-explanations/price",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -41,9 +41,9 @@
     "detail": "activation has four steps: document data for the invoice, a billing address, a credit card validated by a random charge of BRL 5.00 to 9.99 that is refunded, and entering that amount from the card statement; the credit is released only after the first card validates",
     "country": null
   },
-  "reliability_note": null,
+  "reliability_note": "Storage pricing is R$0.10/GiB per month (approximately $20.39/TB/month) and egress is R$0.10/GiB, creating a 1:1 storage to egress cost ratio.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "https://docs.magalu.cloud/docs/storage/object-storage/additional-explanations/price",
@@ -144,7 +144,7 @@
   ],
   "verdict": "fails-egress",
   "verified_at": "2026-11-03T01:28:35.784Z",
-  "notes": null,
+  "notes": "Storage pricing is R$0.10/GiB per month (approximately $20.39/TB/month) and egress is R$0.10/GiB, creating a 1:1 storage to egress cost ratio.",
   "extras": {
     "dead_end": {
       "failure_class": "egress",

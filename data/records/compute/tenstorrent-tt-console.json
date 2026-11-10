@@ -79,7 +79,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-11-04T05:24:22.992Z",
-  "notes": "Two open questions, stated rather than filled: whether the console costs nothing at all, and what it caps. The console terms say 'Certain Cloud Services and Models may be designated as fee-free or otherwise available without triggering a payment for a limited time or based on usage limits', which describes a fee-free tier without naming it.",
+  "notes": "Two open questions, stated rather than filled: whether the console costs nothing at all, and what it caps. The console terms say 'Certain Cloud Services and Models may be designated as fee-free or otherwise available without triggering a payment for a limited time or based on usage limits', which describes a fee-free tier without naming it. A signup attempt is the only route and verification holds no account.",
   "extras": {
     "facets": {
       "class": "hardware-vendor-programme",

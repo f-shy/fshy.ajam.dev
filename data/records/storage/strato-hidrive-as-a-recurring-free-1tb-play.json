@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://lowendtalk.com/discussion/214190/strato-hidrive-1tb-12-months-for-free",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -43,7 +43,7 @@
   },
   "reliability_note": "The February Valentine's promo is real and recurs annually, but it has already been consumed and it is a one-shot trial, not a channel. The 2026 window opened ~Feb 3 and closed 2026-02-15…",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "https://lowendtalk.com/discussion/214190/strato-hidrive-1tb-12-months-for-free",

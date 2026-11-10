@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.github.com/en/actions/reference/workflows-and-actions/dependency-caching",
     "notes": "not stated"
   },
@@ -24,7 +24,7 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Not a serving path — caches are only reachable from inside a workflow run.",
+    "terms": "Not a serving path. Caches are only reachable from inside a workflow run.",
     "metered": false
   },
   "interface": [
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "actions/cache, /repos/{o}/{r}/actions/caches REST.",
-  "chaining": "10 GB x unlimited repos, but every entry self-destructs — multiplication does not help against a 7-day TTL.",
+  "chaining": "10 GB x unlimited repos, but every entry self-destructs. Multiplication does not help against a 7-day TTL.",
   "limits": [],
   "limits_note": "10 GB/repo; entries unaccessed for over 7 days are removed; 200 uploads/min, 1500 downloads/min, 400 deletes/min per repo.",
   "identity_cost": {
@@ -40,7 +40,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Explicitly a cache with eviction: 'GitHub will save the new cache but will begin evicting caches until the total size is less than the repository limit' — i.e. data loss by design.",
+  "reliability_note": "Explicitly a cache with eviction: 'GitHub will save the new cache but will begin evicting caches until the total size is less than the repository limit'. I.e. data loss by design.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

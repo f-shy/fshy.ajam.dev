@@ -117,7 +117,7 @@
   "verdict": "qualifies",
   "verified_at": "2026-11-02T02:17:41.060Z",
   "price_per_tb_month": null,
-  "notes": "The 4 Mbit/s port is the worst bandwidth on any qualifying row and the reason the price is low. The yearly prepay price is not on the page read, so the annual figure is unverified. Whether a debit card passes the 'physical bank card' test is not stated.",
+  "notes": "The 4 Mbit/s port is the worst bandwidth on any qualifying row among evaluated providers and the reason the price is low. The yearly prepay price is not on the page read, so the annual figure is unverified. Whether a debit card passes the 'physical bank card' test is not stated.",
   "extras": {
     "shape": {
       "vcpu": 1,

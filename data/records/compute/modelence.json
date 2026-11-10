@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://modelence.com",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: https://modelence.com/pricing defines cloud usage as resource cost billed by the hour and lists no data-transfer allowance or price",
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "web dashboard at cloud.modelence.com with a repository connection, plus a modelence.config.json file in the repository that a coding agent writes; a CLI run through npx (`npx modelence@latest deploy`, `setup` and `dev`) opens the browser for sign-in; no REST API or SSH was found on the pages read",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "write-gated",
@@ -43,7 +43,7 @@
       "source": "https://modelence.com"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,
@@ -51,7 +51,7 @@
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
-  "confidence_note": "the site was read on 2026-10-22 and states a free hobby tier without a number.",
+  "confidence_note": "The underlying platform is AWS.",
   "evidence": [
     {
       "url": "https://modelence.com",

@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://surfsky.io/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "Paid plans include shared proxy traffic each month: 5 GB on Starter, 15 GB on Base, 50 GB on Advanced; premium proxy traffic is billed per GB from the usage credit. No shared-traffic allowance is stated for the free tier.",
@@ -33,9 +33,9 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
+  "interface_detail": "Access interface not documented in published terms.",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -48,7 +48,7 @@
       "source": "https://surfsky.io/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": "'Get free credit when you sign up. No card needed.', quoted from surfsky.io/pricing read 2026-10-22",

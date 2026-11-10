@@ -5,7 +5,7 @@
   "url": "https://release.com/pricing",
   "category": "dev environment",
   "free_tier": {
-    "stated": "not stated",
+    "stated": "no free tier published",
     "unit": "none",
     "metered_on": "wall-clock",
     "source_url": "https://release.com/pricing",
@@ -22,10 +22,10 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://release.com/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
-    "terms": "not stated",
+    "terms": "not published",
     "metered": false,
     "free_allowance": null,
     "price_per_tb": null,
@@ -34,17 +34,17 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
+  "interface_detail": "Access interface not documented in published terms.",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "write-gated",
-      "value": "no free plan: the page lists enterprise plans only, and the environments deploy into a user's own cloud account",
+      "value": "no free plan: the page lists enterprise plans only, and the environments deploy into self-hosted cloud account",
       "source": "https://release.com/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,
@@ -52,7 +52,7 @@
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
-  "confidence_note": "the pricing page was read on 2026-10-22 and lists enterprise features with no free plan, which confirms paid-only. The compute runs in a user's own cloud account",
+  "confidence_note": "the pricing page was read on 2026-10-22 and lists enterprise features with no free plan, which confirms paid-only. The compute runs in self-hosted cloud account",
   "evidence": [
     {
       "url": "https://release.com/pricing",

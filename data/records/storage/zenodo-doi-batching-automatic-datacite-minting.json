@@ -10,7 +10,7 @@
     "metered_on": "object-count",
     "source_url": "https://developers.zenodo.org/",
     "read_on": "2026-10-21",
-    "notes": null
+    "notes": "Documents the Digital Object Identifier assignment mechanism for multi-part dataset partitioning."
   },
   "per_object_cap": {
     "stated": "One DOI per record, and the deposition response carries a reserved DOI already set through prereserve_doi, so a batch job gets a citable handle without a separate call",
@@ -76,7 +76,7 @@
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-21T00:00:00.000Z",
   "price_per_tb_month": null,
-  "notes": "The quota, the API and the 30-day window belong to the parent finding and are not restated as new facts here",
+  "notes": "Zenodo dataset publishing assigns unique DOIs via DataCite. Individual datasets are capped at 50 GB per deposition, and automated DOI minting enables programmatic dataset sharding across multiple depositions.",
   "extras": {
     "parent_finding": "Zenodo's public deposit path at 50 GB per record times unlimited records",
     "sibling_record": "storage/zenodo-anonymous-download-throughput covers the measured read path",

@@ -99,7 +99,7 @@
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "notes": "A free shell that is real and permanent-ish, and far too small to be a machine. The 20 MB home would not hold a Python virtualenv.",
+  "notes": "A free shell that is real and permanent-ish, and far too small to be a machine. The 20 MB home would not hold a Python virtualenv. Unverified: one signup attempt reading the prompt, which this category did not do because it creates an account.",
   "extras": {
     "shape": {
       "vcpu": null,
@@ -160,6 +160,6 @@
     "note": null
   },
   "binding": "volume-quota",
-  "binding_note": "20 MB of home is the smallest quota by an order of magnitude, and the free level withholds the compilers and the outbound ssh that a workload would need.",
+  "binding_note": "20 MB of home is the smallest quota among documented hosts by an order of magnitude, and the free level withholds the compilers and the outbound ssh that a workload would need.",
   "tier": "USERS (free)"
 }

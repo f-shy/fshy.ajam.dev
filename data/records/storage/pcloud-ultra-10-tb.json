@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.pcloud.com/de/cloud-storage-pricing-plans.html?period=month",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.pcloud.com/de/cloud-storage-pricing-plans.html?period=month",
     "notes": "not stated"
   },
@@ -79,5 +79,5 @@
     "price_verbatim": "$2.999/TB/mo at 10 TB annual ($359.88/12). Monthly billing: $2.999/TB. Lifetime: €1499 one-time / 10 TB; at a 3-year horizon that is €4.16/TB/mo, at 5 years €2.50/TB/mo."
   },
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

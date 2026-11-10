@@ -186,7 +186,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-11-04T06:00:44.691Z",
-  "notes": "The legacy 100 GB bandwidth and 125k invocation figures do not appear on this page. Netlify functions are request-scoped like Vercel's, so it is not an always-on row either.",
+  "notes": "Confirms documented records row; the legacy 100 GB bandwidth and 125k invocation figures do not appear on this page. Netlify functions are request-scoped like Vercel's, so it is not an always-on row either.",
   "extras": {
     "facets": {
       "class": "perpetual-allowance",

@@ -28,7 +28,7 @@
   ],
   "interface_detail": "Azure CLI extension, Azure portal or ARM templates, per the Container Apps overview: \"Use the Azure CLI extension, Azure portal or ARM templates\"",
   "tooling": "the Azure CLI extension, per the Container Apps overview: \"Use the Azure CLI extension, Azure portal or ARM templates\"",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "volume-quota",
@@ -46,7 +46,7 @@
       "source": "https://azure.microsoft.com/en-us/pricing/details/container-apps/"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "card",
     "detail": "an Azure subscription with a card; the free grant is a monthly allowance on a paid subscription",

@@ -34,7 +34,7 @@
   ],
   "interface_detail": "web + desktop; no S3/WebDAV",
   "tooling": "official clients, Gmail/Outlook plugins; no rclone backend",
-  "chaining": "3 GB x unlimited accounts, but 500 MB per-file cap and 2 devices make bulk ingest painful; the encryption is client-side, so a custom client would have to reimplement Tresorit's crypto — not viable.",
+  "chaining": "3 GB x unlimited accounts, but 500 MB per-file cap and 2 devices make bulk ingest painful; the encryption is client-side, so a custom client would have to reimplement Tresorit's crypto. Not viable.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -48,7 +48,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Data is E2E encrypted with keys Tresorit does not hold — losing credentials loses data; free tier has no recovery path beyond the local copy.",
+  "reliability_note": "Data is E2E encrypted with keys Tresorit does not hold. Losing credentials loses data; free tier has no recovery path beyond the local copy.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

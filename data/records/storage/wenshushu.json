@@ -19,12 +19,12 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.wenshushu.cn/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Unmetered and unshaped — the entire product pitch is '永不限速', confirmed by the homepage title and by PanHunt's '永不限速' row.",
+    "terms": "Unmetered and unshaped. The entire product pitch is '永不限速', confirmed by the homepage title and by PanHunt's '永不限速' row.",
     "metered": false
   },
   "interface": [
@@ -32,8 +32,8 @@
     "webdav"
   ],
   "interface_detail": "rest",
-  "tooling": "qaiu/netdisk-fast-download `ws` parser (302 direct link); dtpoi/Netdisk-to-VRChat-Direct-link resolves 文叔叔 links via Edge Functions. No mount, no WebDAV — download-only.",
-  "chaining": "40 GB per account x N phone/email accounts. The interesting object is the 5 GB/file ceiling with zero speed shaping — usable as a serving layer, not as bulk cold storage.",
+  "tooling": "Qaiu/netdisk-fast-download `ws` parser (302 direct link); dtpoi/Netdisk-to-VRChat-Direct-link resolves 文叔叔 links via Edge Functions. No mount, no WebDAV. Download-only.",
+  "chaining": "40 GB per account x N phone/email accounts. The interesting object is the 5 GB/file ceiling with zero speed shaping. Usable as a serving layer, not as bulk cold storage.",
   "limits": [
     {
       "kind": "per-object-cap",

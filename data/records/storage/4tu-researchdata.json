@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://data.4tu.nl/info/en/use/publish-cite/upload-your-data-in-our-data-repository",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://data.4tu.nl/info/en/use/publish-cite/upload-your-data-in-our-data-repository",
     "notes": "not stated"
   },
@@ -33,13 +33,13 @@
   "tooling": "REST",
   "chaining": "none at the scale",
   "limits": [],
-  "limits_note": null,
+  "limits_note": "Strict quota enforced with paid per-gigabyte pricing.",
   "identity_cost": {
     "kind": "email",
-    "detail": "email — explicitly open: 'Anyone from science, engineering and design can use 4TU.ResearchData to upload and publish their research data and software' and 'I am not affiliated with one of the 4TU's, can I deposit my data? Anyone ... can upload'. The identity gate is genuinely zero; the quota gate is what kills it.",
+    "detail": "Email. Explicitly open: 'Anyone from science, engineering and design can use 4TU.ResearchData to upload and publish their research data and software' and 'I am not affiliated with one of the 4TU's, can I deposit my data? Anyone .. can upload'. The identity gate is genuinely zero; the quota gate is what kills it.",
     "country": null
   },
-  "reliability_note": "pricing is per-GB one-off, so cost scales linearly with volume — no bulk escape.",
+  "reliability_note": "Pricing is per-GB one-off, so cost scales linearly with volume. No bulk escape.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

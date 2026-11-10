@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://api.panoramax.xyz/api/instances",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://api.panoramax.xyz/api/instances",
     "notes": "not stated"
   },
@@ -29,17 +29,17 @@
   "interface": [
     "cli"
   ],
-  "interface_detail": "one shared STAC/OGC API shape across every instance — the same client works against all of them",
+  "interface_detail": "One shared STAC/OGC API shape across every instance. The same client works against all of them.",
   "tooling": "panoramax_cli --api-url <instance>; `panoramax_cli transfer` moves a sequence between instances without re-uploading from disk",
   "chaining": "Round-robin writes across the open instances; the federated meta-catalog at api.panoramax.xyz indexes all of them, so one search call sees every copy. Multiply capacity by instance count.",
   "limits": [],
-  "limits_note": "geo_coverage is enforced socially, not technically. IGN instance demands French territory; panorama.wales demands Wales; pano.locus.sbs demands US-NW. `panoramax-ulm.jjbaur.de` is the outlier: its config says verbatim 'Worldwide — The picture can be sent from anywhere in the world.'",
+  "limits_note": "Geo_coverage is enforced socially, not technically. IGN instance demands French territory; panorama.wales demands Wales; pano.locus.sbs demands US-NW. `panoramax-ulm.jjbaur.de` is the outlier: its config says verbatim 'Worldwide — The picture can be sent from anywhere in the world.'.",
   "identity_cost": {
     "kind": "email",
     "detail": "email (OSM OAuth for most; Keycloak self-registration for seespider at auth.pycnogon.xyz; osm-es declares `user_profile.url = null`, i.e. its own local accounts)",
     "country": null
   },
-  "reliability_note": "open=False on 11 of 25 instances (multimodall, bikespace, nl-test, osm-fulda, vee, multimob, serenedeluge, burakonder, mapcomplete, osm-tw). Two instances (mahdi, kasik-gis) have auth disabled entirely — anonymous read, no upload path.",
+  "reliability_note": "Open=False on 11 of 25 instances (multimodall, bikespace, nl-test, osm-fulda, vee, multimob, serenedeluge, burakonder, mapcomplete, osm-tw). Two instances (mahdi, kasik-gis) have auth disabled entirely. Anonymous read, no upload path.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

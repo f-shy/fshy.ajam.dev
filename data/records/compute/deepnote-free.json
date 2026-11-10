@@ -137,5 +137,5 @@
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "notes": "The free tier is genuinely unlimited on the Basic machine, which makes it the best free interactive notebook for a long CPU session. It fails question because a run ends with the tab. No idle timeout is published."
+  "notes": "The free tier is genuinely unlimited on the Basic machine, which makes it the best free interactive notebook for a long CPU session. It fails evaluated providers's question because a run ends with the tab. No idle timeout is published."
 }

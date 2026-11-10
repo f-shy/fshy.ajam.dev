@@ -5,7 +5,7 @@
   "url": "https://datos.gob.es/",
   "category": "gov-ckan-portal",
   "free_tier": {
-    "stated": "Not machine-readable from here — CKAN action API returns 403 behind the WAF; the public catalogue is harvested from ministry and regional nodes.",
+    "stated": "Not machine-readable from here. CKAN action API returns 403 behind the WAF; the public catalogue is harvested from ministry and regional nodes.",
     "unit": "mixed",
     "metered_on": "unstated",
     "source_url": "https://datos.gob.es/",
@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://datos.gob.es/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://datos.gob.es/",
     "notes": "not stated"
   },
@@ -56,7 +56,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Not machine-readable from here — CKAN action API returns 403 behind the WAF; the public catalogue is harvested from ministry and regional nodes.",
+  "notes": "Not machine-readable from here. CKAN action API returns 403 behind the WAF; the public catalogue is harvested from ministry and regional nodes.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

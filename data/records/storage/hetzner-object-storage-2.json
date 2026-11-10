@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://docs.aeroftp.app/providers/hetzner-storage-box",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -34,7 +34,7 @@
     "s3-compatible"
   ],
   "interface_detail": "S3-compatible API at the fsn1, nbg1 and hel1 your-objectstorage.com endpoints",
-  "tooling": "not recorded",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -43,7 +43,7 @@
     "detail": "before an order is processed the account may have to be verified with a copy of a valid government-issued ID (ID card or passport) or with an advance payment from the holder's own credit card; registrants are asked not to use a free email address or a VPN service",
     "country": null
   },
-  "reliability_note": "The guide that surfaced it states the comparison directly.",
+  "reliability_note": "Pricing is €6.49/TB with 1 TB traffic included, compared to €3.20/TB with unmetered traffic on the Storage Box product.",
   "confidence": "documented",
   "confidence_note": "the price, the included quota and the locations are quoted from the first-party product page, the egress rules and endpoints from the first-party documentation, and the verification gate from the first-party fraud prevention FAQ",
   "evidence": [
@@ -97,7 +97,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-10-30T18:30:36.688Z",
-  "notes": "The guide that surfaced it states the comparison directly.",
+  "notes": "Pricing is €6.49/TB with 1 TB traffic included, compared to €3.20/TB with unmetered traffic on the Storage Box product.",
   "extras": {
     "dead_end": {
       "failure_class": "paid",

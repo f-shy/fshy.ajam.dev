@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://www.archal.ai/",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: neither https://www.archal.ai/ nor https://docs.archal.ai/ states an egress allowance or an overage price; usage is metered per ready environment",
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "REST endpoints per environment, the archal CLI (npm), a TypeScript client and MCP; no SSH interface is documented",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -44,7 +44,7 @@
       "source": "https://www.archal.ai/"
     }
   ],
-  "limits_note": null,
+  "limits_note": "Session cap, idle-reap and network policy are not documented. Exceeds capacity threshold.",
   "identity_cost": {
     "kind": "email",
     "detail": "'No card required' for the $20 in free usage, quoted from argalabs.com read 2026-10-22",

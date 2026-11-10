@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "The hackathon is the only entry point that asks for neither a company nor a fee: it feeds a qualified path into the accelerator, and the accelerator feeds the SAR 150,000 GAIA grant, so the three form a ladder an individual can start on tonight. It breaks at the ten-week in-person residency, which needs a Riyadh presence for the full programme.",
+  "chaining": "The hackathon is the only entry point among documented hosts that asks for neither a company nor a fee: it feeds a qualified path into the accelerator, and the accelerator feeds the SAR 150,000 GAIA grant, so the three form a ladder an individual can start on tonight. It breaks at the ten-week in-person residency, which needs a Riyadh presence for the full programme.",
   "limits": [
     {
       "kind": "write-gated",

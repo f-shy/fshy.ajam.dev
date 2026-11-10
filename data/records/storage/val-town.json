@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.val.town/std/blob/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.val.town/std/blob/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Vals serve HTTP by default with no transfer meter — the serving side is genuinely free.",
+    "terms": "Vals serve HTTP by default with no transfer meter. The serving side is genuinely free.",
     "metered": false
   },
   "interface": [
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "`std/blob` TypeScript API (scoped blobs on S3, global blobs on Cloudflare R2); vals themselves are HTTP endpoints at `<val>.web.val.run`.",
-  "chaining": "Val creation is capped at 2,500 vals on Free with a 10 MB account-wide blob pool — the pool is per account, not per val, so it does not multiply.",
+  "chaining": "Val creation is capped at 2,500 vals on Free with a 10 MB account-wide blob pool. The pool is per account, not per val, so it does not multiply.",
   "limits": [],
   "limits_note": "10 MB total blob storage on Free; 1 min execution timeout; 100,000 runs/day; 80,000 character per-file source limit.",
   "identity_cost": {

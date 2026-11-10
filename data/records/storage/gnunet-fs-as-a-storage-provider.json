@@ -5,7 +5,7 @@
   "url": "https://docs.gnunet.org/master/users/configuration.html",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "none reachable: Files are addressed by hash onto a DHT with no hosting guarantee — retrievability requires live peers holding the blocks, and the local QUOTA setting governs only your own datastore.…",
+    "stated": "None reachable: Files are addressed by hash onto a DHT with no hosting guarantee. Retrievability requires live peers holding the blocks, and the local QUOTA setting governs only your own datastore. docs.gn.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.gnunet.org/master/users/configuration.html",
@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://docs.gnunet.org/master/users/configuration.html",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -41,9 +41,9 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Files are addressed by hash onto a DHT with no hosting guarantee — retrievability requires live peers holding the blocks, and the local QUOTA setting governs only your own datastore.…",
+  "reliability_note": "Files are addressed by hash onto a DHT with no hosting guarantee. Retrievability requires live peers holding the blocks, and the local QUOTA setting governs only your own datastore. docs.gn.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "https://docs.gnunet.org/master/users/configuration.html",
@@ -58,7 +58,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Files are addressed by hash onto a DHT with no hosting guarantee — retrievability requires live peers holding the blocks, and the local QUOTA setting governs only your own datastore.…",
+  "notes": "Files are addressed by hash onto a DHT with no hosting guarantee. Retrievability requires live peers holding the blocks, and the local QUOTA setting governs only your own datastore. docs.gn.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

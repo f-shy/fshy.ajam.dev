@@ -5,7 +5,7 @@
   "url": "https://www.hyrex.io",
   "category": "platform host",
   "free_tier": {
-    "stated": "not stated",
+    "stated": "no free tier published",
     "unit": "none",
     "metered_on": "wall-clock",
     "source_url": "https://www.hyrex.io",
@@ -22,10 +22,10 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://www.hyrex.io",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
-    "terms": "not stated",
+    "terms": "not published",
     "metered": false,
     "free_allowance": null,
     "price_per_tb": null,
@@ -34,9 +34,9 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
+  "interface_detail": "Access interface not documented in published terms.",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "write-gated",
@@ -44,7 +44,7 @@
       "source": "https://www.hyrex.io"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

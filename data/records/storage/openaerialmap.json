@@ -19,12 +19,12 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://github.com/hotosm/openaerialmap/discussions/258",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "free — and note the two-tier model: providers who already have cloud storage can 'Register a catalog', in which case OAM stores only metadata and links out ('Indexing uses none of your bandwidth and gives OAM no rights over the imagery')",
+    "terms": "Free. And note the two-tier model: providers who already have cloud storage can 'Register a catalog', in which case OAM stores only metadata and links out ('Indexing uses none of your bandwidth and gives OAM no rights over the imagery').",
     "metered": false
   },
   "interface": [
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "uploader web app at upload.imagery.hotosm.org; STAC API at api.imagery.hotosm.org/stac; eoAPI (raster/vector/stac) behind it",
   "tooling": "stactools-hotosm; STAC client; no CLI uploader yet",
-  "chaining": "Output is a COG + STAC item, i.e. cloud-native GeoTIFF — directly readable with GDAL/rio-tiler and range-friendly. But the payload must be an orthomosaic with georeferencing.",
+  "chaining": "Output is a COG + STAC item, i.e. cloud-native GeoTIFF. Directly readable with GDAL/rio-tiler and range-friendly. But the payload must be an orthomosaic with georeferencing.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -43,10 +43,10 @@
   "limits_note": "geospatial raster only (GeoTIFF/COG orthomosaics); target 100 GB/file with resumable S3 multipart; account needed for API access and upload",
   "identity_cost": {
     "kind": "email",
-    "detail": "email — sign in with a Google account (documented third-party walkthrough: 'Sign in using your google account'), no affiliation or review",
+    "detail": "Email. Sign in with a Google account (documented third-party walkthrough: 'Sign in using your google account'), no affiliation or review.",
     "country": null
   },
-  "reliability_note": null,
+  "reliability_note": "The uploader has undergone rewrites for large file support. No public API upload endpoints were responsive during testing on 2026-10-21.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

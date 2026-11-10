@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.hetzner.com/storage/storage-box/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.hetzner.com/storage/storage-box/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Unlimited on all four tiers — the matrix row 'Traffic | Unlimited' spans 1/5/10/20 TB. Same fair-use caveat as BX41.",
+    "terms": "Unlimited on all four tiers. The matrix row 'Traffic | Unlimited' spans 1/5/10/20 TB. Same fair-use caveat as BX41.",
     "metered": false
   },
   "interface": [
@@ -120,5 +120,5 @@
     "price_verbatim": "1 TB €3.20/TB · 5 TB €2.18/TB · 10 TB €2.08/TB · 20 TB €2.03/TB (all excl. VAT, no setup, hourly-billed)"
   },
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

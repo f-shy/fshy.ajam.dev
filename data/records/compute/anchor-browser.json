@@ -22,10 +22,10 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://anchorbrowser.io/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
-    "terms": "not stated",
+    "terms": "not published",
     "metered": false,
     "free_allowance": null,
     "price_per_tb": null,
@@ -34,9 +34,9 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
+  "interface_detail": "Access interface not documented in published terms.",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -54,7 +54,7 @@
       "source": "https://anchorbrowser.io/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": "The keyless route is closed ('Agent Access is temporarily unavailable. Create an API key in the dashboard.'). The sign-up form answers a login wall at https://app.anchorbrowser.io/, so a card and a phone at sign-up are not published; the pricing page lists a Free plan and states no card requirement (https://docs.anchorbrowser.io/pricing). Country: not published at https://anchorbrowser.io/pricing.",

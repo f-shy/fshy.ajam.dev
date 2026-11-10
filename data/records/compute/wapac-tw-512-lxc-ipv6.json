@@ -32,7 +32,7 @@
   ],
   "interface_detail": "LXC container in New Taipei, Taiwan on an HINET ISP line, with a dedicated IPv6 address and 20 NAT IPv4 ports",
   "tooling": "any SSH client; the vendor's WHMCS client area",
-  "chaining": "a Taiwan ISP-line address with a real IPv6 and 20 IPv4 ports at USD 1.00 a month, which is the only Taiwan HINET row, and it is sold out",
+  "chaining": "a Taiwan ISP-line address with a real IPv6 and 20 IPv4 ports at USD 1.00 a month, which is the only Taiwan HINET row among documented hosts, and it is sold out",
   "limits": [
     {
       "kind": "volume-quota",
@@ -46,7 +46,7 @@
     }
   ],
   "binding": "volume-quota",
-  "binding_note": "500 GB counted in both directions is the tightest traffic term of any row, so a busy WireGuard endpoint or a package mirror would hit it first; the port budget of 20 is generous by comparison.",
+  "binding_note": "500 GB counted in both directions is the tightest traffic term of any row among documented hosts, so a busy WireGuard endpoint or a package mirror would hit it first; the port budget of 20 is generous by comparison.",
   "identity_cost": {
     "kind": "card",
     "detail": "no separate registration form: the page states '要注册账户，请 购买我们的产品' (to register an account, buy our product), so the account is created at checkout and the checkout fields could not be read without placing an order. Payment rails and any authorisation hold are therefore unestablished. No national ID requirement is published anywhere read.",

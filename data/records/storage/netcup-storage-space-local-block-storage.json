@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.netcup.com/en/server/storage-space",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.netcup.com/en/server/storage-space",
     "notes": "not stated"
   },
@@ -34,13 +34,13 @@
   "tooling": "mount -t nfs; rclone can front it",
   "chaining": "NFS target behind a netcup VPS",
   "limits": [],
-  "limits_note": "Requires an existing netcup vServer/root server. No traffic statistics — you must self-meter or you get frozen mid-month. Upgrades impossible in place (different hardware): you must book a new Storage Space and NFS-copy across.",
+  "limits_note": "Requires an existing netcup vServer/root server. No traffic statistics. You must self-meter or you get frozen mid-month. Upgrades impossible in place (different hardware): you must book a new Storage Space and NFS-copy across.",
   "identity_cost": {
     "kind": "email",
     "detail": "email",
     "country": null
   },
-  "reliability_note": "NetApp-backed and redundant, which is why the €/GB is high.",
+  "reliability_note": "NetApp-backed redundant block storage with high per-gigabyte cost. Exceeding contracted storage space freezes writes and access rather than billing overage.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

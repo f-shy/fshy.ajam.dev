@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://dagger.io",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "Cloud usage pricing bills pipeline outputs (pushed container images and container egress) at 10 cents per GB for new work and 2 cents per GB for repeat work; no free allowance is stated; plans are Starter USD 20 a month and Scale USD 200 a month, billed at the higher of plan price or usage",
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "the dagger CLI, with modules and SDKs in Go, Python, TypeScript, Java, PHP, Elixir and Rust; engine selectable as cloud, local container, tcp, tls, ssh or kube-pod; no SDK term in the interface vocabulary",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "write-gated",
@@ -43,7 +43,7 @@
       "source": "https://dagger.io"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://archive.materialscloud.org/information",
     "notes": "not stated"
   },
@@ -51,7 +51,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "EPFL-hosted and stable, but moderation is substantive (refereeable-quality requirement) and rate-policed — the opposite of an anonymous dump. Data survives; throughput is editorially throttled.",
+  "reliability_note": "EPFL-hosted and stable, but moderation is substantive (refereeable-quality requirement) and rate-policed. The opposite of an anonymous dump. Data survives; throughput is editorially throttled.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

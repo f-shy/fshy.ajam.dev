@@ -37,7 +37,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "KVM with full root, VirtFusion control panel with ISO mount and rDNS; SSH and the panel, no vendor API documented on the page read",
-  "chaining": "55 GB of SSD and 3 TB a month on a 10 Gbps port at USD 3.00 is the cheapest per-gigabyte front end; it is a good crawler edge or a build node that pushes bulk bytes to a storage host",
+  "chaining": "55 GB of SSD and 3 TB a month on a 10 Gbps port at USD 3.00 is the cheapest per-gigabyte front end among evaluated providers; it is a good crawler edge or a build node that pushes bulk bytes to a storage host.",
   "limits": [
     {
       "kind": "volume-quota",
@@ -53,7 +53,7 @@
     "detail": "not stated",
     "country": null
   },
-  "reliability_note": "no reliability event observed; the vendor advertises 5 Gbps of network-level DDoS protection included",
+  "reliability_note": "no reliability event observed; the vendor advertises 5 Gbps of network-level DDoS protection included.",
   "confidence": "documented",
   "evidence": [
     {
@@ -95,7 +95,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-07T14:17:06.321Z",
-  "notes": "The 60-day money-back guarantee is a refund of money already paid, not a free tier, so free_tier_kind stays none and the verdict stays paid-only.",
+  "notes": "The 60-day money-back guarantee is a refund of money already paid, not a free tier, so free_tier_kind stays none and the verdict stays paid-only; the vendor's own phrasing calls it 'effectively' a free trial, which is why it is recorded here rather than dropped. verification criteria: a probe of the order form for setup fees, and the knowledge base for what the 3 TB counts.",
   "extras": {
     "facets": {
       "class": "price-floor",

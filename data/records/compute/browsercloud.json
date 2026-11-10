@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://browsercloud.io/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "no egress allowance published at https://browsercloud.io/pricing; proxy traffic is metered in credits per MB",
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "HTTP API (page scrape, PDF, screenshot, custom scripts); Puppeteer and Playwright over a remote browser connection; Browser Use, n8n, Make and Zapier integrations",
   "tooling": "Puppeteer and Playwright clients, HTTP API, and Go, PHP and Python framework guides",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -48,7 +48,7 @@
       "source": "https://browsercloud.io/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": "email: signing up retains an email address and a password and nothing else ('The only information we retain, as a part of signing up, is your email address and password.'). A card is not required at sign-up: the register form at https://browsercloud.io/user/register/ asks for an email address, a password and its repeat, and a card is handled by Paddle ('Payment information is transmitted via encrypted connection to Paddle.'). A phone is not required: the privacy statement names only an email address and a password for signing up. Country: not published at https://www.browsercloud.io/privacy.",

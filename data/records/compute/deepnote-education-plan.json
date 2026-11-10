@@ -38,9 +38,9 @@
   "tooling": "not stated",
   "chaining": "A free 2 vCPU notebook is a real development surface for analysis work, but it duplicates what Google Colab's free tier gives without any enrollment, so it adds no capacity that is not already reachable.",
   "limits": [],
-  "limits_note": "No rate, retention or volume term binds above the scale.",
+  "limits_note": "The primary constraint is machine hardware specification: 2 vCPU and 5 GB RAM on basic instances.",
   "binding": "none",
-  "binding_note": "No rate, retention or volume term binds above the scale.",
+  "binding_note": "The primary constraint is machine hardware specification: 2 vCPU and 5 GB RAM on basic instances.",
   "identity_cost": {
     "kind": "institution",
     "detail": "a school email address connected to the account: the edu page states the plan is '100% free for students, teachers, and researchers who connect their accounts to school email addresses'. Whether any further enrollment document is checked is not stated, and no card, hold, debit or prepaid term is stated.",

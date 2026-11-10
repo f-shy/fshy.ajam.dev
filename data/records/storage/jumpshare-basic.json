@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.jumpshare.com/pricing",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.jumpshare.com/pricing",
     "notes": "not stated"
   },
@@ -33,7 +33,7 @@
   ],
   "interface_detail": "web + desktop app; no S3/WebDAV",
   "tooling": "official desktop app; no rclone backend",
-  "chaining": "25 uploads x unlimited accounts — count-metered rather than byte-metered, which is unusual, but 25 objects per identity is not a storage model.",
+  "chaining": "25 uploads x unlimited accounts. Count-metered rather than byte-metered, which is unusual, but 25 objects per identity is not a storage model.",
   "limits": [],
   "limits_note": "pull-count/request-rate: 25 uploads total on Basic, 60 s recording; retention not stated.",
   "identity_cost": {

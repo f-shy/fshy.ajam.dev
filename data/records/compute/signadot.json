@@ -5,7 +5,7 @@
   "url": "https://www.signadot.com/",
   "category": "dev environment",
   "free_tier": {
-    "stated": "ephemeral environments that share a user's own cluster, so hundreds fit on one; the changed code joins an existing environment rather than standing up a copy",
+    "stated": "ephemeral environments that share self-hosted cluster, so hundreds fit on one; the changed code joins an existing environment rather than standing up a copy",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.signadot.com/",
@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://www.signadot.com/",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: https://www.signadot.com/pricing and https://www.signadot.com/ state no egress allowance or overage price; billing is by sandboxes, test invocations and concurrent devboxes",
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "Signadot CLI and API (the dashboard and API are hosted by the vendor; the operator runs in the user's Kubernetes cluster), plus an MCP server shipped with the CLI",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -45,11 +45,11 @@
     },
     {
       "kind": "write-gated",
-      "value": "the product is a control plane over a user's own cluster, so there is no hosted compute",
+      "value": "the product is a control plane over self-hosted cluster, so there is no hosted compute",
       "source": "https://www.signadot.com/"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

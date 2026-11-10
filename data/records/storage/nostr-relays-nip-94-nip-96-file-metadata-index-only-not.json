@@ -24,7 +24,7 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": "n/a — relay never serves the file.",
+    "terms": "N/a. Relay never serves the file.",
     "metered": false
   },
   "interface": [
@@ -40,7 +40,7 @@
       "source": "https://raw.githubusercontent.com/nostr-protocol/nips/master/94.md"
     }
   ],
-  "limits_note": null,
+  "limits_note": "per-object-cap: Bounded by relay event size limits (~64 KB typical). Base64 encoding overhead leaves approximately 48 KB of payload data per event.",
   "identity_cost": {
     "kind": "email",
     "detail": null,

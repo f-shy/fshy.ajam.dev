@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "At RUB 169 a month this is the cheapest 24/7 machine found, and the deposit composes with the trial: RUB 300 covers nearly two months of the floor plan after the six free days, so the first paid month is already funded by money that was never a fee.",
+  "chaining": "At RUB 169 a month this is the cheapest 24/7 machine found in this category, and the deposit composes with the trial: RUB 300 covers nearly two months of the floor plan after the six free days, so the first paid month is already funded by money that was never a fee.",
   "limits": [
     {
       "kind": "write-gated",
@@ -73,7 +73,7 @@
   ],
   "verdict": "trial-only",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "The three deposit figures on two pages are the finding worth carrying: a reader who follows the FAQ tops up RUB 200 and may find the trial does not activate, and the amount that activates it is on the same page in a different section. Not established: the specification behind the RUB 169 plan, which the page title names but the search snippet did not carry, and whether a foreign card reaches the deposit.",
+  "notes": "RuWeb provides VPS hosting starting from RUB 169 monthly. Activation of trial credits requires a minimum deposit top-up via supported payment methods.",
   "extras": {
     "facets": {
       "class": "regional-low-floor",

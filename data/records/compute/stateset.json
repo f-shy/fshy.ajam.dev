@@ -31,7 +31,7 @@
   ],
   "interface_detail": "REST API (api.sandbox.stateset.app), Node.js SDK and Python SDK; no CLI or SSH found in the docs read",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "retention-clamped",
@@ -39,7 +39,7 @@
       "source": "https://sandbox.stateset.app/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "card",
     "detail": "The Hobby plan is USD 0 plus usage, which normally needs a card on file to meter beyond the included hours; no card, hold or debit statement was read on the pricing page. Unverified.",

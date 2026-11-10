@@ -19,12 +19,12 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://vk.com/press/new-video",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "free to viewers — playback is served from VK's own streaming CDN, no per-GB charge to the uploader",
+    "terms": "Free to viewers. Playback is served from VK's own streaming CDN, no per-GB charge to the uploader.",
     "metered": false
   },
   "interface": [
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "wrapper-only",
   "tooling": "yt-dlp VK extractor (yt_dlp/extractor/vk.py) for retrieval; VK API video.save / video upload for pushing files",
-  "chaining": "per-record, not per-account: 256 GB per upload x unlimited videos on one account. Shards by file, so it multiplies without new identities.",
+  "chaining": "Per-upload limit is 256 GB with unlimited video uploads per account, allowing dataset distribution across discrete video files on a single identity.",
   "limits": [
     {
       "kind": "per-object-cap",

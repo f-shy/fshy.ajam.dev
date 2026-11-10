@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://dev.epicgames.com/docs/epic-online-services/player-and-game-data/player-data-storage-interface/player-data-storage-overview",
     "notes": "not stated"
   },
@@ -41,7 +41,7 @@
       "source": "https://dev.epicgames.com/docs/epic-online-services/player-and-game-data/player-data-storage-interface/player-data-storage-overview"
     }
   ],
-  "limits_note": "per-object-cap: 200 MB per file and 64-character filename limit; request-rate: ~1,000 read or write requests per minute per user, then EOS_PlayerDataStorage_UserThrottled; per-object-cap: 1,000 files per user. Retention: none stated — files persist until explicitly deleted; no expiry found. Data is encrypted at rest with a client-side key EOS never stores, so losing the key loses the bytes.",
+  "limits_note": "Per-object-cap: 200 MB per file and 64-character filename limit; request-rate: ~1,000 read or write requests per minute per user, then EOS_PlayerDataStorage_UserThrottled; per-object-cap: 1,000 files per user. Retention: none stated. Files persist until explicitly deleted; no expiry found. Data is encrypted at rest with a client-side key EOS never stores, so losing the key loses the bytes.",
   "identity_cost": {
     "kind": "anonymous",
     "detail": null,

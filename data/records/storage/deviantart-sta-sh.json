@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.deviantartsupport.com/kb/en/article/what-is-stash-3391708",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.deviantartsupport.com/kb/en/article/what-is-stash-3391708",
     "notes": "not stated"
   },
@@ -30,8 +30,8 @@
     "rest"
   ],
   "interface_detail": "rest",
-  "tooling": "DeviantArt published API (OAuth2, /api/v1/... stash endpoints); mostly stale since the 2020 ownership change — wrapper risk is high",
-  "chaining": "2 GB x unlimited free accounts. 500 GB = 250 accounts — repeatable but tedious; the 200 MB per-file cap is the more useful dimension for mixed data",
+  "tooling": "DeviantArt published API (OAuth2, /api/v1/.. stash endpoints); mostly stale since the 2020 ownership change. Wrapper risk is high.",
+  "chaining": "2 GB x unlimited free accounts. 500 GB = 250 accounts. Repeatable but tedious; the 200 MB per-file cap is the more useful dimension for mixed data.",
   "limits": [],
   "limits_note": "2 GB total free (hard cap, not per-file); non-image files 200 MB (1 GB Core); video submissions Core-only; Sta.sh items are private until published",
   "identity_cost": {

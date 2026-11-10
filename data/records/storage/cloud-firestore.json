@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://firebase.google.com/docs/firestore/quotas",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://firebase.google.com/docs/firestore/quotas",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Metered — 10 GiB/month outbound free, then GCP rates. 10 GiB/month = ~340 MB/day, 1,500x short of 500 GB/day.",
+    "terms": "Metered. 10 GiB/month outbound free, then GCP rates. 10 GiB/month = ~340 MB/day, 1,500x short of 500 GB/day.",
     "metered": true,
     "free_allowance": "10 GiB per month"
   },

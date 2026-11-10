@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://turso.tech/pricing",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://turso.tech/pricing",
     "notes": "not stated"
   },
@@ -32,9 +32,9 @@
   ],
   "interface_detail": "rest",
   "tooling": "Turso CLI + HTTP API (`/v2/pipeline`), libSQL clients (JS/Python/Rust/Go), `turso db shell`, embedded replicas",
-  "chaining": "100 databases is a unit multiplier for ORGANIZATION, but the 5 GB storage is an ACCOUNT-level pot, not per database — 100 DBs x 50 MB each rather than 100 x 5 GB. Second axis: each org/account. Multiply accounts (GitHub OAuth is one click) — N accounts x 5 GB.",
+  "chaining": "100 databases is a unit multiplier for ORGANIZATION, but the 5 GB storage is an ACCOUNT-level pot, not per database. 100 DBs x 50 MB each rather than 100 x 5 GB. Second axis: each org/account. Multiply accounts (GitHub OAuth is one click). N accounts x 5 GB.",
   "limits": [],
-  "limits_note": "5 GB is a hard total across all 100 DBs — this is the key trap: the big number is database COUNT, not storage. Exceeding rows-read returns `BLOCKED`. 3 GB sync cap for embedded replicas.",
+  "limits_note": "5 GB is a hard total across all 100 DBs. This is the key trap: the big number is database COUNT, not storage. Exceeding rows-read returns `BLOCKED`. 3 GB sync cap for embedded replicas.",
   "identity_cost": {
     "kind": "email",
     "detail": null,

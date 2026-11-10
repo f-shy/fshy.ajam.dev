@@ -5,7 +5,7 @@
   "url": "https://giga-watasu.jp",
   "category": "anonymous-dump",
   "free_tier": {
-    "stated": "333 GB per file, no registration. Registered free members additionally get 111-day retention, send history and a receive folder — all free. No total-storage figure because there is no account-level bucket.",
+    "stated": "333 GB per file, no registration. Registered free members additionally get 111-day retention, send history and a receive folder. All free. No total-storage figure because there is no account-level bucket.",
     "unit": "GB",
     "metered_on": "stored-bytes",
     "source_url": "https://giga-watasu.jp/",
@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "Registered free members additionally get 111-day retention, send history and a receive folder — all free",
+    "stated": "Registered free members additionally get 111-day retention, send history and a receive folder. All free.",
     "days": 111,
     "source_url": "https://giga-watasu.jp/",
     "notes": "not stated"
@@ -75,7 +75,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "333 GB per file, no registration. Registered free members additionally get 111-day retention, send history and a receive folder — all free. No total-storage figure because there is no account-level bucket.",
+  "notes": "333 GB per file, no registration. Registered free members additionally get 111-day retention, send history and a receive folder. All free. No total-storage figure because there is no account-level bucket.",
   "extras": {},
   "binding": "per-object-cap",
   "binding_note": null

@@ -19,12 +19,12 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.github.com/en/billing/concepts/product-billing/git-lfs",
     "notes": "not stated"
   },
   "egress": {
-    "terms": null,
+    "terms": "Free tier includes 10 GiB per month bandwidth, with additional bandwidth metered at standard rates.",
     "metered": true,
     "free_allowance": "10 GiB per month"
   },
@@ -34,7 +34,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "git-lfs client, batch API at /info/lfs/objects/batch (probed: 200).",
-  "chaining": "10 GiB x unlimited accounts is the only path, and each account needs a payment method to go beyond — without one, LFS is disabled until the next month.",
+  "chaining": "10 GiB x unlimited accounts is the only path, and each account needs a payment method to go beyond. Without one, LFS is disabled until the next month.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -48,7 +48,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Exceeding free bandwidth without a payment method disables Git LFS entirely until the next month — a hard stop, not a throttle.",
+  "reliability_note": "Exceeding free bandwidth without a payment method disables Git LFS entirely until the next month. A hard stop, not a throttle.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

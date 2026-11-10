@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.sanity.io/pricing",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.sanity.io/pricing",
     "notes": "not stated"
   },
@@ -33,9 +33,9 @@
   ],
   "interface_detail": "rest",
   "tooling": "sanity CLI (`sanity dataset create`, `sanity assets upload`), @sanity/client HTTP API; assets land on cdn.sanity.io with stable public URLs",
-  "chaining": "Account has NO cap on project count ('no maximum limit on the number of projects you can have in a Sanity account' — Sanity's own answers page). Each project = 2 datasets x 100 GB assets. N projects x 200 GB. Multiply the account layer again with separate Google/GitHub logins. This is the single best multiplier.",
+  "chaining": "Accounts have no published maximum limit on project count. Each project provides 2 datasets with 100 GB asset storage (200 GB total per project). Additional accounts can be created via standard third-party login providers.",
   "limits": [],
-  "limits_note": "2 datasets per project; 10k documents/project; 100 GB assets and 100 GB bandwidth are HARD caps (Free allows no overage — asset API is blocked at quota); 20 user seats.",
+  "limits_note": "Free tier allows 2 datasets and 10,000 documents per project, with 20 user seats. Hard limits enforce 100 GB asset storage and 100 GB monthly bandwidth, blocking asset API access once quota is reached.",
   "identity_cost": {
     "kind": "institution",
     "detail": null,

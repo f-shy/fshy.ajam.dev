@@ -5,7 +5,7 @@
   "url": "https://www.ncloud.com/main/creditEvent",
   "category": "cloud VM",
   "free_tier": {
-    "stated": "KRW 100,000 of signup credit, valid 3 months, usable on any NAVER Cloud Platform service except free-tier and marketplace products, granted after a payment method is registered. A separate 1-year free Micro Server exists but the page states ' , ' (offered only if the country of residence is Korea).",
+    "stated": "KRW 100,000 of signup credit, valid 3 months, usable on any NAVER Cloud Platform service except free-tier and marketplace products, granted after a payment method is registered. A separate 1-year free Micro Server exists but the page states ', ' (offered only if the country of residence is Korea).",
     "unit": "none",
     "metered_on": "wall-clock",
     "source_url": "https://www.ncloud.com/main/creditEvent",

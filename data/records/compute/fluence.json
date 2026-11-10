@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "At USD 2.54 per month for 2 vCPU and 2 GB this is the cheapest persistent small VM found, which composes with a free control plane and the free inference lanes for model calls.",
+  "chaining": "At USD 2.54 per month for 2 vCPU and 2 GB this is the cheapest persistent small VM found among evaluated providers, which composes with a free control plane and the free inference lanes for model calls.",
   "limits": [
     {
       "kind": "volume-quota",

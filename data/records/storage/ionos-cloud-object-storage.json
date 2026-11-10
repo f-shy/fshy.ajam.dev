@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://cloud.ionos.com/storage/object-storage",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://cloud.ionos.com/storage/object-storage",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "NOT free, and this is the trap. Verbatim from the price list: \"Outgoing public traffic | For the first 2 TB (<= 2 TB) | Free / The next 8 TB (> 2 TB <= 10 TB) | $0.036/GB / The next 40 TB (> 10 TB <= 50 TB) | $0.030/GB\". All reads, writes (\"Data Storage (write)\") and requests are free — only egress is metered. Outgoing traffic from user-owned buckets is always charged as regular public traffic.",
+    "terms": "NOT free, and this is the trap. Verbatim from the price list: \"Outgoing public traffic | For the first 2 TB (<= 2 TB) | Free / The next 8 TB (> 2 TB <= 10 TB) | $0.036/GB / The next 40 TB (> 10 TB <= 50 TB) | $0.030/GB\". All reads, writes (\"Data Storage (write)\") and requests are free. Only egress is metered. Outgoing traffic from user-owned buckets is always charged as regular public traffic.",
     "metered": true
   },
   "interface": [
@@ -35,7 +35,7 @@
   "tooling": "AWS CLI, rclone, S3 SDKs",
   "chaining": "Only viable behind Cloudflare, which converts the $36/TB egress into CF's free egress.",
   "limits": [],
-  "limits_note": "`per-object`/class limits not the issue — the tiered egress ladder is. Above 150 TB it drops to $0.018/GB but never reaches zero.",
+  "limits_note": "`per-object`/class limits not the issue. The tiered egress ladder is. Above 150 TB it drops to $0.018/GB but never reaches zero.",
   "identity_cost": {
     "kind": "card",
     "detail": "card",

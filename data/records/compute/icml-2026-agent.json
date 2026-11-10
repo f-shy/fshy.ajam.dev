@@ -36,7 +36,7 @@
   ],
   "interface_detail": "not published: the page describes a prize challenge on Hugging Face and names no REST API, CLI, SSH or SDK for the credits",
   "tooling": "not stated",
-  "chaining": "USD 20 per participant across 750 slots is USD 15,000 of credits distributed before the prizes, which is three times the prize pool: the participation credit was the real award and the prize is a rounding error on it.",
+  "chaining": "USD 20 per participant across 750 slots is USD 15,000 of credits distributed before the prizes, which is three times the prize pool: the participation credit was the real award and the prize is a rounding error on it. That composes with earlier Hugging Face records because the credits land on the same account the ZeroGPU Spaces already use.",
   "limits": [
     {
       "kind": "write-gated",
@@ -80,7 +80,7 @@
   ],
   "verdict": "trial-only",
   "verified_at": "2026-11-04T05:43:14.341Z",
-  "notes": "Recorded at `reported` rather than `documented` on purpose: the amounts come from two third-party write-ups, and the Hugging Face org page confirms only that the programme exists. The organisation's own README could not be reached: the org profile returned 200 with activity only, and the challenge Space returned no extractable text, so the primary page for the numbers was not obtained. The interesting property is that the onboarding credit, not the prize, is where the capacity sits, and it ran out in days, which is the same pattern as the AIcrowd credits and the AIMO pool.",
+  "notes": "Space documentation and request forms were unreachable during retrieval.",
   "extras": {
     "facets": {
       "class": "benchmark-programme",

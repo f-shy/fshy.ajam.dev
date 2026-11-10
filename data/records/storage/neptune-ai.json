@@ -5,7 +5,7 @@
   "url": "https://neptune.ai",
   "category": "mlops-artifacts",
   "free_tier": {
-    "stated": "No storage allowance published, and the pricing page contained no GB figure at all — the metered dimensions are experiment/run counts and seats. Artifact storage is not offered as a free pool.",
+    "stated": "No storage allowance published. Pricing documentation specifies experiment counts, run counts, and user seats without storage capacity figures. Artifact storage is not provided as a free resource pool.",
     "unit": "GB",
     "metered_on": "stored-bytes",
     "source_url": "https://neptune.ai/pricing",
@@ -18,7 +18,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://neptune.ai/pricing",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "neptune Python client (run[...] logging, artifact tracking). Mature but narrower than W&B; no S3-compatible surface.",
-  "chaining": "None — no free byte allowance to multiply.",
+  "chaining": "None. No free byte allowance to multiply.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -58,7 +58,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "No storage allowance published, and the pricing page contained no GB figure at all — the metered dimensions are experiment/run counts and seats. Artifact storage is not offered as a free pool.",
+  "notes": "No storage allowance published. Pricing documentation specifies experiment counts, run counts, and user seats without storage capacity figures. Artifact storage is not provided as a free resource pool.",
   "extras": {
     "dead_end": {
       "failure_class": "egress",

@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://pulsedmedia.com/storage-boxes.php",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://pulsedmedia.com/storage-boxes.php",
     "notes": "not stated"
   },
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "sftp",
   "tooling": "SSH, SCP, SFTP, FTP(S), HTTPS. Docker rootless means you can run rclone or a WebDAV server inside it.",
-  "chaining": "The free box is explicitly one-per-customer with a newsletter signup as the price ('Signing up for FREE Seedbox you enroll to marketing newsletter maximum twice per month'; 'Only 1 Seedbox per user!'). Not stackable — the provider says outright that the guardrails exist because 'a free seedbox is catnip for spammers and ratio-cheaters', which in plain terms means the free box attracts users who take more than it is meant for.",
+  "chaining": "The free box is explicitly one-per-customer with a newsletter signup as the price ('Signing up for FREE Seedbox you enroll to marketing newsletter maximum twice per month'; 'Only 1 Seedbox per user!'). Not stackable. The provider says outright that the guardrails exist because 'a free seedbox is catnip for spammers and ratio-cheaters', which in plain terms means the free box attracts users who take more than it is meant for.",
   "limits": [
     {
       "kind": "per-ip-shaping",

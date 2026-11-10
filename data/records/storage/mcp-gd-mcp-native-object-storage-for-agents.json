@@ -19,12 +19,12 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://mcp.gd/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "10 GB/month traffic on free — a hard egress meter, which is the real binding cap.",
+    "terms": "10 GB/month traffic on free. A hard egress meter, which is the real binding cap.",
     "metered": false,
     "free_allowance": "10 GB per month"
   },

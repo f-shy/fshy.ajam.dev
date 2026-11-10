@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://support.atlassian.com/organization-administration/docs/how-many-instances-of-a-product-does-my-organization-need/",
     "notes": "not stated"
   },
@@ -41,13 +41,13 @@
       "source": "https://support.atlassian.com/organization-administration/docs/how-many-instances-of-a-product-does-my-organization-need/"
     }
   ],
-  "limits_note": "per-object-cap: attachment default 100 MB, admin-configurable upward ('Enter your preferred maximum size (in bytes)'). Quota is per-site, not per-org. request-rate: Atlassian Cloud REST rate limits apply. Retention: Free sites are DEACTIVATED after a period of inactivity (logging in and viewing a page counts as activity) — this is the real hazard, not eviction. Over-quota does not delete data, it restricts editing/creating.",
+  "limits_note": "Per-object-cap: attachment default 100 MB, admin-configurable upward ('Enter your preferred maximum size (in bytes)'). Quota is per-site, not per-org. request-rate: Atlassian Cloud REST rate limits apply. Retention: Free sites are DEACTIVATED after a period of inactivity (logging in and viewing a page counts as activity). This is the real hazard, not eviction. Over-quota does not delete data, it restricts editing/creating.",
   "identity_cost": {
     "kind": "email",
     "detail": null,
     "country": null
   },
-  "reliability_note": "Nothing is deleted at quota — writes are blocked until you upgrade or free space. But a Free site that goes untouched is deactivated, so a storage-only site needs a periodic login to stay alive.",
+  "reliability_note": "Nothing is deleted at quota. Writes are blocked until you upgrade or free space. But a Free site that goes untouched is deactivated, so a storage-only site needs a periodic login to stay alive.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

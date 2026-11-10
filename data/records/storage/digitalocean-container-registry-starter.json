@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.digitalocean.com/products/container-registry/details/pricing/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.digitalocean.com/products/container-registry/details/pricing/",
     "notes": "not stated"
   },
@@ -30,7 +30,7 @@
     "oci"
   ],
   "interface_detail": "oci",
-  "tooling": "doctl registry, docker. Private only — pulls require a DO API token.",
+  "tooling": "Doctl registry, docker. Private only. Pulls require a DO API token.",
   "chaining": "1 registry, 1 repository, 500 MiB. Not worth chaining; a second account buys 500 MiB more.",
   "limits": [],
   "limits_note": "1 registry, 1 repository, 500 MiB prorated; 100 GB max image, 20 GB max per layer; untagged images count toward quota; storage overage 'Not Available' on Starter (hard stop).",

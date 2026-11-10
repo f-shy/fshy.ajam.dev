@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://v2.sherpa.ac.uk/cgi/search/repository/advanced?software%5B%5D=Invenio&format=json",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -43,7 +43,7 @@
   },
   "reliability_note": "Jisc now blocks automated access at the edge. Returns a 'Jisc - Error 403 / Web page blocked' HTML page regardless of query parameters, including format=json. Not usable as a registry…",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "https://v2.sherpa.ac.uk/cgi/search/repository/advanced?software%5B%5D=Invenio&format=json",

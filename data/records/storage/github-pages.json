@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "git",
   "tooling": "git push to a pages branch, or actions/deploy-pages; any static generator. No special client needed.",
-  "chaining": "one site per account ('You can only create one user or organization site for each account'), so multiplication is accounts x 1 GB — hundreds of accounts for a TB. Poor.",
+  "chaining": "One site per account ('You can only create one user or organization site for each account'), so multiplication is accounts x 1 GB. Hundreds of accounts for a TB. Poor.",
   "limits": [],
   "limits_note": "1 GB published, 100 GB/month bandwidth, 10-minute deploy timeout, 10 builds/hour (not applicable with a custom Actions workflow).",
   "identity_cost": {

@@ -40,17 +40,17 @@
     "rest"
   ],
   "interface_detail": "REST Web Search API and a hosted MCP server; the keyless route is MCP only",
-  "tooling": "not stated",
+  "tooling": "not established",
   "chaining": "The one anonymous search leg a reader can use before registering anywhere",
   "limits": [
     {
       "kind": "request-rate",
-      "value": "100 queries a day keyless through MCP; USD 5 per 1,000 calls on the paid path",
+      "value": "Express tier is keyless and metered on an unknown budget",
       "source": "https://you.com/pricing"
     },
     {
       "kind": "request-rate",
-      "value": "USD 100 credit with a 60-day expiry",
+      "value": "USD 100 credit with a 60-day expiry.",
       "source": "https://you.com/pricing"
     }
   ],

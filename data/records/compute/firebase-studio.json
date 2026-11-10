@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "Nothing new. The migration targets named by Google, AI Studio and Antigravity, were not evaluated and are the obvious next check for an always-on free development environment from Google.",
+  "chaining": "Nothing new. The migration targets named by Google, AI Studio and Antigravity, were not evaluated among evaluated offerings and are the obvious next check for an always-on free development environment from Google.",
   "limits": [],
   "limits_note": "New accounts cannot create a workspace at all since 2026-06-22, so the 3-free-workspace quota is closed; existing workspaces keep running until 2027-03-22.",
   "binding": "none",
@@ -67,7 +67,7 @@
   ],
   "verdict": "dead",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "This is the most commonly recommended free cloud IDE that no longer accepts users, and listicles written before June 2026 still describe three free Nix-based workspaces. Apps already deployed to Firebase keep running after the sunset, which is a different product.",
+  "notes": "This is the most commonly recommended free cloud IDE that no longer accepts users, and listicles written before June 2026 still describe three free Nix-based workspaces. Classified as dead with the two dates, because a reader needs to know both that it is closing and that it is already closed to them. Apps already deployed to Firebase keep running after the sunset, which is a different product.",
   "extras": {
     "facets": {
       "class": "inverse-dead",

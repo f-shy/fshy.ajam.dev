@@ -5,7 +5,7 @@
   "url": "https://lindat.cz",
   "category": "academic",
   "free_tier": {
-    "stated": "Deposit is free with no published byte ceiling ('It is free and safe'); the only stated object limit is operational — CLARIN-family DSpace instances handle files above 2 GB by special arrangement rather than refusing them. Individual deposited corpora routinely run to tens of GB.",
+    "stated": "Deposit is free with no published byte ceiling ('It is free and safe'); the only stated object limit is operational. CLARIN-family DSpace instances handle files above 2 GB by special arrangement rather than refusing them. Individual deposited corpora routinely run to tens of GB.",
     "unit": "GB",
     "metered_on": "unstated",
     "source_url": "https://lindat.cz/faq-repository",
@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://lindat.cz/faq-repository",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://lindat.cz/faq-repository",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Free. Public items download without login; licence-gated items need an account and an e-signed licence. No metering, no egress pricing — this is a national research-infrastructure node.",
+    "terms": "Free. Public items download without login; licence-gated items need an account and an e-signed licence. No metering, no egress pricing. This is a national research-infrastructure node.",
     "metered": false
   },
   "interface": [
@@ -67,7 +67,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Deposit is free with no published byte ceiling ('It is free and safe'); the only stated object limit is operational — CLARIN-family DSpace instances handle files above 2 GB by special arrangement rather than refusing them. Individual deposited corpora routinely run to tens of GB.",
+  "notes": "Deposit is free with no published byte ceiling ('It is free and safe'); the only stated object limit is operational. CLARIN-family DSpace instances handle files above 2 GB by special arrangement rather than refusing them. Individual deposited corpora routinely run to tens of GB.",
   "extras": {},
   "binding": "write-gated",
   "binding_note": null

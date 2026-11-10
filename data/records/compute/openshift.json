@@ -22,7 +22,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://www.redhat.com/en/technologies/cloud-computing/openshift/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: https://www.redhat.com/en/technologies/cloud-computing/openshift/pricing read 2026-11-04 prints no egress allowance or overage price",
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "CLI: the OpenShift CLI (`oc`) documented in the OpenShift Container Platform CLI reference, installed by binary download or RPM.",
   "tooling": "the OpenShift CLI, `oc`, to create applications and manage projects from a terminal.",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "write-gated",
@@ -49,7 +49,7 @@
       "source": "https://www.redhat.com/en/technologies/cloud-computing/openshift/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

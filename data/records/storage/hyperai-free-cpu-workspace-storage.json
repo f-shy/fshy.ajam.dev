@@ -5,7 +5,7 @@
   "url": "https://hyper.ai",
   "category": "iaas",
   "free_tier": {
-    "stated": "Free tier storage is 'Free 20 GB + Extra 50 GB, totaling 70 GB' — but the 70 GB is explicitly a Pro benefit ('Upgrade to HyperAI Pro, Unlock More Benefits ... 3.5× more storage: Free 20 GB + Extra 50 GB, totaling 70 GB'). So free is 20 GB, and 70 GB costs $4.99/month.",
+    "stated": "Free tier storage is 'Free 20 GB + Extra 50 GB, totaling 70 GB'. But the 70 GB is explicitly a Pro benefit ('Upgrade to HyperAI Pro, Unlock More Benefits .. 3.5× more storage: Free 20 GB + Extra 50 GB, totaling 70 GB'). So free is 20 GB, and 70 GB costs $4.99/month.",
     "unit": "GB",
     "metered_on": "stored-bytes",
     "source_url": "https://hyper.ai/pricing",
@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://hyper.ai/pricing",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://hyper.ai/pricing",
     "notes": "not stated"
   },
@@ -53,7 +53,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Free tier storage is 'Free 20 GB + Extra 50 GB, totaling 70 GB' — but the 70 GB is explicitly a Pro benefit ('Upgrade to HyperAI Pro, Unlock More Benefits ... 3.5× more storage: Free 20 GB + Extra 50 GB, totaling 70 GB'). So free is 20 GB, and 70 GB costs $4.99/month.",
+  "notes": "Free tier storage is 'Free 20 GB + Extra 50 GB, totaling 70 GB'. But the 70 GB is explicitly a Pro benefit ('Upgrade to HyperAI Pro, Unlock More Benefits .. 3.5× more storage: Free 20 GB + Extra 50 GB, totaling 70 GB'). So free is 20 GB, and 70 GB costs $4.99/month.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

@@ -5,7 +5,7 @@
   "url": "https://lowendtalk.com/discussion/207701/scam-alert-hosting-vds-com",
   "category": "cloud VM",
   "free_tier": {
-    "stated": "A Russian-market VPS seller that accepts ordinary registration and payment from anyone and then, once the order is placed, requires phone verification with a Russian mobile number only, a condition not stated during signup. The buyer in the report could not verify, received no server, and was refused a refund. This is the clearest case of identity as the binding constraint: the quota was available, the payment cleared, and the door closed at verification.",
+    "stated": "A Russian-market VPS seller that accepts ordinary registration and payment from anyone and then, once the order is placed, requires phone verification with a Russian mobile number only, a condition not stated during signup. The buyer in the report could not verify, received no server, and was refused a refund. This is the clearest case in evaluated offerings of identity as the binding constraint: the quota was available, the payment cleared, and the door closed at verification.",
     "unit": "none",
     "metered_on": "wall-clock",
     "source_url": "https://lowendtalk.com/discussion/207701/scam-alert-hosting-vds-com",
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": null,
+  "chaining": "It composes with nothing: the value of the record is that it marks a provider where a foreign buyer loses the payment rather than the order, so the subsequent evaluation does not spend a card authorisation to find out.",
   "limits": [
     {
       "kind": "write-gated",

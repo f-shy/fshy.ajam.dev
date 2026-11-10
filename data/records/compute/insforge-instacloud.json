@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://www.instacloud.com/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "egress is priced at USD 0.05 per GB as a usage cost; no free egress allowance is listed on the pricing page",
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "the insta CLI (interactive login or an API token) and the InstaCloud REST API authenticated with an insta_ token",
   "tooling": "the insta CLI, which a coding agent can also drive",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -54,7 +54,7 @@
       "source": "https://www.instacloud.com/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

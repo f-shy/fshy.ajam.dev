@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://wiki.nycmesh.net/books/1-introduction/page/frequently-asked-questions",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://wiki.nycmesh.net/books/1-introduction/page/frequently-asked-questions",
     "notes": "not stated"
   },
@@ -33,7 +33,7 @@
   "tooling": "standard Linux/nginx/S3 behind your own router",
   "chaining": "member-hosted services are a stated goal - 'we allow for fast uploads as well as downloads, so members of our community can host content and services rather than only consume them'",
   "limits": [],
-  "limits_note": "Cost is $240 equipment + $50 install leader ($290), or $110 + $50 subsidised ($160), plus a monthly donation. Also geographically bounded to NYC.",
+  "limits_note": "Cost is $240 equipment plus $50 install ($290 total), or $110 plus $50 subsidized ($160 total), plus a voluntary monthly donation. Community ISP network providing symmetric bandwidth and routable IP in the New York City metropolitan area without hosted storage.",
   "identity_cost": {
     "kind": "email",
     "detail": "email",

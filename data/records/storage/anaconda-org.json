@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://forum.anaconda.com/t/anaconda-packages-storage-size-limits/92903",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://forum.anaconda.com/t/anaconda-packages-storage-size-limits/92903",
     "notes": "not stated"
   },
@@ -31,7 +31,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "anaconda-client (`anaconda upload`, `anaconda copy`, `anaconda remove`); REST at api.anaconda.org; conda itself is the client for download. Public channel listing is anonymous JSON.",
-  "chaining": "Multiply by free orgs/accounts: 3 GB personal, 10 GB default cap, 50 GB Team. Even chained aggressively this is the smallest unit in the field — 10 TiB would need ~340 personal accounts at 3 GB. Not worth the operational cost against npm's 200 MB x unlimited.",
+  "chaining": "Multiply by free orgs/accounts: 3 GB personal, 10 GB default cap, 50 GB Team. Even chained aggressively this is the smallest unit in the field. 10 TiB would need ~340 personal accounts at 3 GB. Not worth the operational cost against npm's 200 MB x unlimited.",
   "limits": [],
   "limits_note": "3 GB personal free / 10 GB default hard limit / 50 GB Team. Per-package size not separately capped. Free accounts are public-only. Package versions can be removed but not edited.",
   "identity_cost": {

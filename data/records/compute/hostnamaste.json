@@ -80,7 +80,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-07T06:08:33.037Z",
-  "notes": "The tracker and the vendor disagree on the floor: the tracker sells an OpenVZ_256 row at USD 2.00 a month, and the vendor's own OpenVZ page says plans start at USD 3.49 and lists no 256 MB plan. A record that led with USD 2.00 would have quoted a plan nobody could order from the page read.",
+  "notes": "The tracker and the vendor disagree on the floor: the tracker sells an OpenVZ_256 row at USD 2.00 a month, and the vendor's own OpenVZ page says plans start at USD 3.49 and lists no 256 MB plan. A record that led with USD 2.00 would have quoted a plan nobody could order from the page read. verification criteria: a read of the vendor's order form to confirm the 256 MB plan is withdrawn rather than filed under another product page, and the post-quota behaviour once 1 TB is spent.",
   "extras": {
     "facets": {
       "class": null,

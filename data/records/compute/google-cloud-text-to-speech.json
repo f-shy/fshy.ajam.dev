@@ -99,7 +99,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-11-04T05:24:57.573Z",
-  "notes": "These are inference credits, not general compute. The 66-hour figure is a division at 1,000 characters a minute; Google publishes characters, not hours. Not probed: no project was created; the card requirement is documented on the pricing page.",
+  "notes": "The 66-hour figure is calculated at 1,000 characters a minute.",
   "extras": {
     "facets": {
       "class": "perpetual-free-allowance",

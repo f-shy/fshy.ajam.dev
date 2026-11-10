@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://vercel.com/changelog/hobby-projects-now-retain-fewer-deployments-to-free-up-storage",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "Deployment Retention defaults for Hobby are now 30 days for ALL four states — canceled, errored, pre-production, production (Pro gets 180 days preview / 1 year production)",
+    "stated": "Deployment Retention defaults for Hobby are now 30 days for ALL four states. Canceled, errored, pre-production, production (Pro gets 180 days preview / 1 year production).",
     "days": 30,
     "source_url": "https://vercel.com/changelog/hobby-projects-now-retain-fewer-deployments-to-free-up-storage",
     "notes": "not stated"
@@ -34,8 +34,8 @@
     "cli"
   ],
   "interface_detail": "rest",
-  "tooling": "`vercel deploy` CLI / Git integration / REST Deployments API. No object-level API at all — you cannot address a file inside a deployment except by URL. No rclone backend and no possible wrapper, because there is no list/put primitive.",
-  "chaining": "None useful. 10 GB is a hard pool shared by every project on the team, and going over it 'can block you from deploying until you free some up'. 200 projects on Hobby but one shared 10 GB — the multiplier actively works against you here.",
+  "tooling": "`vercel deploy` CLI / Git integration / REST Deployments API. No object-level API at all. You cannot address a file inside a deployment except by URL. No rclone backend and no possible wrapper, because there is no list/put primitive.",
+  "chaining": "None useful. 10 GB is a hard pool shared by every project on the team, and going over it 'can block you from deploying until you free some up'. 200 projects on Hobby but one shared 10 GB. The multiplier actively works against you here.",
   "limits": [
     {
       "kind": "retention-clamped",
@@ -53,7 +53,7 @@
       "source": "https://vercel.com/changelog/hobby-projects-now-retain-fewer-deployments-to-free-up-storage"
     }
   ],
-  "limits_note": "THE TTL IS THE STORY, and it tightened twice in 2026. Deployment Retention defaults for Hobby are now 30 days for ALL four states — canceled, errored, pre-production, production (Pro gets 180 days preview / 1 year production). The Sept 16, 2026 changelog cut it further: 'Each Hobby project now keeps its 3 most recent production deployments, plus its 3 most recent deployments of any type, regardless of age. Preview deployments no longer get their own protection.' Deletion runs within 48 hours of eligibility, then a recovery window, then permanent removal. CLI source upload is capped at 100 MB per deploy (Hobby), 15,000 files.",
+  "limits_note": "THE TTL IS THE STORY, and it tightened twice in 2026. Deployment Retention defaults for Hobby are now 30 days for ALL four states. Canceled, errored, pre-production, production (Pro gets 180 days preview / 1 year production). The Sept 16, 2026 changelog cut it further: 'Each Hobby project now keeps its 3 most recent production deployments, plus its 3 most recent deployments of any type, regardless of age. Preview deployments no longer get their own protection.' Deletion runs within 48 hours of eligibility, then a recovery window, then permanent removal. CLI source upload is capped at 100 MB per deploy (Hobby), 15,000 files.",
   "identity_cost": {
     "kind": "email",
     "detail": null,
@@ -91,5 +91,5 @@
     }
   },
   "binding": "retention-clamped",
-  "binding_note": null
+  "binding_note": "a clock, not a quota: bytes leave whether or not transfer is completed"
 }

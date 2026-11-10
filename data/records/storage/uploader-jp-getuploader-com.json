@@ -32,7 +32,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "Per-uploader web forms with no API. Community-maintained link lists exist (w.atwiki.jp/vbmaker, uploaders.jp).",
-  "chaining": "10 uploaders x 1 GB inside one account; multiple accounts would be needed to pass 500 GB, and 100 MB per file is the hard wall — this cannot hold bulk data of any kind.",
+  "chaining": "10 uploaders x 1 GB inside one account; multiple accounts would be needed to pass 500 GB, and 100 MB per file is the hard wall. This cannot hold bulk data of any kind.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -51,7 +51,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Genuinely old and genuinely alive — a sample uploader showed files posted the previous day in Sept 2026, while the official site's own copy still says 2017. Default configuration makes every upload publicly listable and search-indexable.",
+  "reliability_note": "Genuinely old and genuinely alive. A sample uploader showed files posted the previous day in Sept 2026, while the official site's own copy still says 2017. Default configuration makes every upload publicly listable and search-indexable.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

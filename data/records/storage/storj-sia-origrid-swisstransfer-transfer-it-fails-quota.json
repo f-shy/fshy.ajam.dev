@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": null,
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -43,7 +43,7 @@
   },
   "reliability_note": "Storj has no free tier left, only a 30-day trial ('Free for 30 days', '25GB free storage for 30 days', 'No credit card required'). Sia's hosted product is 50 GB on the $0 plan. Origrid allows 25 GB per file with no account, and 50 GB per file with 50 GB of storage on a free account.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": null,

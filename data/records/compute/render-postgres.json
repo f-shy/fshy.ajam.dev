@@ -18,12 +18,12 @@
       "source": "https://render.com/docs/free"
     }
   ],
-  "limits_note": "it is kept because the 30-day clock is the same kind of limit",
+  "limits_note": "A 30-day expiration limit applies to free PostgreSQL database instances.",
   "reliability_note": "no reliability event recorded",
   "confidence": "reported",
   "verified_at": "2026-10-22T04:24:35.000Z",
   "price_per_tb_month": null,
-  "notes": null,
+  "notes": "Render PostgreSQL database service carries a 30-day inactivity limit on free tier instances.",
   "slug": "render-postgres",
   "provider": "Render Postgres (free)",
   "url": "https://render.com/docs/free",

@@ -10,7 +10,7 @@
     "metered_on": "wall-clock",
     "source_url": "https://www.daytona.io/pricing",
     "read_on": "2026-10-22",
-    "notes": "The free GPU allowance is therefore zero"
+    "notes": "The free credit balance is defined on the billing page as not available for GPU sandboxes on 2026-10-24. The free GPU allowance is therefore zero."
   },
   "per_object_cap": {
     "stated": "not applicable",
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "The USD 200 credit is not spendable: the vendor's billing page defines the free credit balance as 'not available for GPU sandboxes', quoted in daytona.json (read 2026-10-24), and free/credit-ranking.md prices the same credit as 'sandbox compute, no GPU'. The preemptible rates below are the product, and the no-card property belongs to the signup rather than to the GPU.",
+  "chaining": "The USD 200 credit is not spendable among evaluated providers: the vendor's billing page defines the free credit balance as 'not available for GPU sandboxes', quoted in daytona.json (read 2026-10-24), and free/credit-ranking.md prices the same credit as 'sandbox compute, no GPU'. The preemptible rates below are the product, and the no-card property belongs to the signup rather than to the GPU.",
   "limits": [
     {
       "kind": "retention-clamped",

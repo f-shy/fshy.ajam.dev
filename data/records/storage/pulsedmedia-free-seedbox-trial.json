@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://pulsedmedia.com/free-seedbox.php",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "Retention: 30-day trial only — the binding clause",
+    "stated": "Retention: 30-day trial only. The binding clause.",
     "days": 30,
     "source_url": "https://pulsedmedia.com/free-seedbox.php",
     "notes": "not stated"
@@ -33,7 +33,7 @@
     "rclone"
   ],
   "interface_detail": "sftp",
-  "tooling": "rTorrent + ruTorrent/Deluge/qBittorrent web UI, SSH, SFTP, Docker rootless, Jellyfin media stack, WireGuard/OpenVPN. SFTP is the storage transport — usable by rclone's `sftp` backend.",
+  "tooling": "RTorrent + ruTorrent/Deluge/qBittorrent web UI, SSH, SFTP, Docker rootless, Jellyfin media stack, WireGuard/OpenVPN. SFTP is the storage transport. Usable by rclone's `sftp` backend.",
   "chaining": "Real but weak: 50 GiB x N accounts, and each trial is 30 days, so the chain has to be re-established monthly. Not a storage tier; a way to test throughput before buying the EUR 1.99/mo 230 GiB plan.",
   "limits": [
     {
@@ -42,7 +42,7 @@
       "source": "https://pulsedmedia.com/free-seedbox.php"
     }
   ],
-  "limits_note": "per-object-cap: none stated. Request-rate: n/a (SSH). Retention: 30-day trial only — the binding clause. Traffic: 200 GiB/month.",
+  "limits_note": "Per-object-cap: none stated. Request-rate: n/a (SSH). Retention: 30-day trial only. The binding clause. Traffic: 200 GiB/month.",
   "identity_cost": {
     "kind": "card",
     "detail": "inferred from the category 'iaas'; the source record states no identity cost, so this is a class assumption, not evidence",
@@ -70,5 +70,5 @@
     }
   },
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

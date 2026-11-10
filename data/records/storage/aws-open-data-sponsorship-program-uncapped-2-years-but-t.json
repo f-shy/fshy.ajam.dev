@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://aws.amazon.com/opendata/open-data-sponsorship-program/terms/",
     "notes": "not stated"
   },
@@ -24,7 +24,7 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Fully covered, including cross-region data fees - the only candidate with genuinely uncapped free egress at any volume.",
+    "terms": "Fully covered, including cross-region data transfer fees, providing uncapped free egress.",
     "metered": false
   },
   "interface": [

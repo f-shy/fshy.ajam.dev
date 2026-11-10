@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://freemach.rowe.sh/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://freemach.rowe.sh/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "1 TB per VM at 1 Gbps — metered and small.",
+    "terms": "1 TB per VM at 1 Gbps. Metered and small.",
     "metered": true
   },
   "interface": [
@@ -32,7 +32,7 @@
     "ssh"
   ],
   "interface_detail": "sftp",
-  "tooling": "KVM root — SSH/SFTP/rsync.",
+  "tooling": "KVM root. SSH/SFTP/rsync.",
   "chaining": "Hard-gated on community standing, not on payment: 'LES/HT/LET account must be at least 3 months old at time of application', 'Must pass a FraudRecord check (Do not use a proxy to submit the application)'. That check is a risk-scoring screen. A second account would need an aged forum identity and a clean risk-scoring record, which is the actual scarce resource.",
   "limits": [],
   "limits_note": "120 GB max disk per VM, 1 TB transfer. Currently 0 slots: 'EU1 (AlphaVPS, Bulgaria): 10/10 VMs Allocated (0 slots free) … US1 (VirMach, New York): 10/10 VMs Allocated (0 slots free)'.",

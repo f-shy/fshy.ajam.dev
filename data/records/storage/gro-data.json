@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://data.goettingen-research-online.de/api/dataverses/1/storage/quota?showInherited=true",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://data.goettingen-research-online.de/api/dataverses/1/storage/quota?showInherited=true",
     "notes": "not stated"
   },
@@ -36,10 +36,10 @@
   "limits_note": "no quota, no file-count limit exposed",
   "identity_cost": {
     "kind": "institution",
-    "detail": "institution — 'You can use your existing MPI or university email address to log in via Single Sign-On'. Explicitly an email-domain gate, and an SSO one at that, so a gmail address cannot pass.",
+    "detail": "Institution. 'You can use your existing MPI or university email address to log in via Single Sign-On'. Explicitly an email-domain gate, and an SSO one at that, so a gmail address cannot pass.",
     "country": null
   },
-  "reliability_note": "front-end HTML frequently times out; the API is responsive — probe the API.",
+  "reliability_note": "Web front-end HTML endpoints frequently time out. The underlying REST API responds normally.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

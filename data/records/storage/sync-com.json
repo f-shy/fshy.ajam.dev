@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.sync.com/free-cloud-storage/",
     "notes": "not stated"
   },
@@ -34,7 +34,7 @@
   ],
   "interface_detail": "web + desktop clients; no S3/WebDAV on free",
   "tooling": "official desktop/mobile clients only; no rclone backend",
-  "chaining": "5 GB x unlimited accounts with referral bonuses — the classic multiplier, but there is no programmatic path, so each 5 GB account costs a human signup.",
+  "chaining": "5 GB x unlimited accounts with referral bonuses. The classic multiplier, but there is no programmatic path, so each 5 GB account costs a human signup.",
   "limits": [],
   "limits_note": "5 GB storage; pull-count 3 share links; 5 devices; 30-day version history and deleted-file recovery on free.",
   "identity_cost": {

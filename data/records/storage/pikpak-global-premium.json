@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://mypikpak.com/drive/payment",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://mypikpak.com/drive/payment",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "HARD METERED, and worse for programmatic use. Verbatim from help centre: base quotas are 'Cloud Download: 40 TB per month. Downstream: 4 TB per month, including playback, previews, and downloads. Upload: 1 TB per month.' And 'Connected Apps share a combined transfer quota limit equal to 25% of your monthly Transfer Quota, across all three traffic dimensions.' So rclone/WebDAV/CLI — the only programmatic paths — get 25% of 4 TB = 1 TB/month downstream.",
+    "terms": "HARD METERED, and worse for programmatic use. Verbatim from help centre: base quotas are 'Cloud Download: 40 TB per month. Downstream: 4 TB per month, including playback, previews, and downloads. Upload: 1 TB per month.' And 'Connected Apps share a combined transfer quota limit equal to 25% of your monthly Transfer Quota, across all three traffic dimensions.' So rclone/WebDAV/CLI. The only programmatic paths. Get 25% of 4 TB = 1 TB/month downstream.",
     "metered": true,
     "free_allowance": "40 TB per month"
   },
@@ -92,5 +92,5 @@
     "price_verbatim": "$0.833/TB/mo at 10 TB ($99.99/yr Global Premium). Usable programmatic egress is 1 TB/month (25% × 4 TB downstream). Effective cost per TB actually retrievable per month is fine, but the ceiling makes it unusable for serving or bulk restore. Reject on egress, not on price."
   },
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

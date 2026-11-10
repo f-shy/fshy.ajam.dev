@@ -37,7 +37,7 @@
   ],
   "interface_detail": "REST API, per the MotherDuck REST API page: \"REST API reference for managing MotherDuck resources\"",
   "tooling": "the provider documents its own \"MotherDuck CLI\", per the interfaces page",
-  "chaining": "DuckDB over 10 GB of managed Parquet is the cheapest analytical layer found, and a local DuckDB client connects to it with the same SQL, so a query developed on the free tier runs unchanged anywhere.",
+  "chaining": "DuckDB over 10 GB of managed Parquet is the cheapest analytical layer found among evaluated providers, and a local DuckDB client connects to it with the same SQL, so a query developed on the free tier runs unchanged anywhere.",
   "limits": [
     {
       "kind": "volume-quota",

@@ -5,7 +5,7 @@
   "url": "https://catbox.moe",
   "category": "anonymous-dump",
   "free_tier": {
-    "stated": "200 MB per file on catbox.moe, no total quota — anonymous or free account. Anonymous files live until 2 years of inactivity; files tied to an account are permanent. Litterbox (sister service) takes 1 GB but expires in 1h-3d by choice.",
+    "stated": "200 MB per file on catbox.moe, no total quota. Anonymous or free account. Anonymous files live until 2 years of inactivity; files tied to an account are permanent. Litterbox (sister service) takes 1 GB but expires in 1h-3d by choice.",
     "unit": "GB",
     "metered_on": "unstated",
     "source_url": "https://catbox.moe/nojs/",
@@ -34,7 +34,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "https://catbox.moe/user/api.php multipart (reqtype=fileupload, fileToUpload=@f) returns a bare URL. Official ShareX config, Chrome and Firefox extensions; many community Python/Node/Go/Rust libs. No rclone backend, no account API for listing.",
-  "chaining": "unlimited anonymous uploads x 200 MB; with a free account the retention flips from '2 years idle' to permanent, which is the only path to archive semantics.",
+  "chaining": "Allows unlimited anonymous uploads at 200 MB per file. Free registered accounts provide permanent retention rather than 2-year idle expiration.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -53,7 +53,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Uploads return a valid files.catbox.moe URL, but every download returned HTTP 200 with Content-Length: 0 — both text and binary, repeated across several files and minutes, incl. Accept-Ranges present but empty bodies. Upload accepted does not mean bytes are retrievable here.",
+  "reliability_note": "Uploads return a valid files.catbox.moe URL, but download testing on 2026-10-21 returned HTTP 200 with Content-Length: 0 and empty bodies across multiple files, despite Accept-Ranges headers.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -75,7 +75,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "200 MB per file on catbox.moe, no total quota — anonymous or free account. Anonymous files live until 2 years of inactivity; files tied to an account are permanent. Litterbox (sister service) takes 1 GB but expires in 1h-3d by choice.",
+  "notes": "200 MB per file on catbox.moe, no total quota. Anonymous or free account. Anonymous files live until 2 years of inactivity; files tied to an account are permanent. Litterbox (sister service) takes 1 GB but expires in 1h-3d by choice.",
   "extras": {},
   "binding": "per-object-cap",
   "binding_note": null

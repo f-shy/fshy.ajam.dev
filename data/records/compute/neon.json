@@ -28,7 +28,7 @@
   "confidence": "reported",
   "verified_at": "2026-10-22T00:00:00.000Z",
   "price_per_tb_month": null,
-  "notes": "Fails-quota treated 100 CU-hours as an account ceiling. The quota is per project and the plan is permanent, so the aggregate is 100 CU-hours per project. The suspension on exhaustion is persistent until the next billing period.",
+  "notes": "Neon Serverless Postgres provides a free tier with 100 Compute Unit (CU) hours per project per month. A continuous always-on database consuming 1 CU consumes 730 hours monthly, exhausting the 100 CU-hour monthly allowance in approximately four days. Compute automatically pauses when idle.",
   "slug": "neon",
   "provider": "Neon",
   "url": "https://neon.com/pricing",

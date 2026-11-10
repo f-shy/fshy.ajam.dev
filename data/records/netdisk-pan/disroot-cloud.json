@@ -101,7 +101,7 @@
   "price_per_tb_month": "EUR 110/year for 60 GB, which is EUR 152/TB/year and therefore irrelevant",
   "binding": "write-gated",
   "binding_note": "The quota closes it at 60 GB, but the gate that matters more is that capacity above 2 GB is a human decision rather than a purchase, so no plan can be built on a number that arrives by review.",
-  "confidence_note": "What would raise it is a re-read of the extra-storage form and a WebDAV PROPFIND against a live account.",
+  "confidence_note": "Confidence is reported: documentation is dated to research on 2026-10-21. Raising confidence to documented or measured requires re-reading the storage expansion form and executing live WebDAV PROPFIND requests against an active account.",
   "notes": null,
   "extras": {
     "access_mode": "registration-gated",

@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://frontproxy.com/pricing/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://frontproxy.com/pricing/",
     "notes": "not stated"
   },
@@ -31,7 +31,7 @@
   ],
   "interface_detail": "HTTP(S) proxy, rotating and sticky sessions, 195+ countries",
   "tooling": "curl -x, any HTTP client",
-  "chaining": "the speed cap IS the meter: 25 Mbps = 270 GB/day, 400 Mbps = 4.3 TB/day.",
+  "chaining": "Transfer volume is governed by port speed caps: 25 Mbps yields up to 270 GB per day, while 400 Mbps supports up to 4.3 TB per day.",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -74,5 +74,5 @@
     "price_verbatim": "$0.058/GB = $59/TB (egress)"
   },
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

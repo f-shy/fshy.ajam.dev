@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://help.ko-fi.com/hc/en-us/articles/360009712917-Ko-fi-Shop-Sell-digital-physical-products",
     "notes": "not stated"
   },
@@ -46,7 +46,7 @@
     "detail": "email",
     "country": null
   },
-  "reliability_note": "Third-party summaries disagree wildly on the free per-file number (100 MB vs 2 GB vs 10 MB) — the help-centre figure quoted here is the vendor's own.",
+  "reliability_note": "Third-party summaries disagree wildly on the free per-file number (100 MB vs 2 GB vs 10 MB). The help-centre figure quoted here is the vendor's own.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

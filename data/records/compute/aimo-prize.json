@@ -36,7 +36,7 @@
   ],
   "interface_detail": "unverified: the announcement documents no REST API, CLI or SSH access; the compute is reached through Kaggle notebooks attached to the competition",
   "tooling": "not stated",
-  "chaining": "The only programme that hands a solo entrant a datacentre: a Kaggler who wins an extra prize received three nodes of eight H200s for a month, which is 24 H200s for roughly 730 hours, or about 17,520 H200-hours per team, over 168 H200s across seven teams.",
+  "chaining": "The only programme among evaluated providers that hands a solo entrant a datacentre: a Kaggler who wins an extra prize received three nodes of eight H200s for a month, which is 24 H200s for roughly 730 hours, or about 17,520 H200-hours per team, over 168 H200s across seven teams. It composes with Kaggle because the pool, the notebook and the leaderboard are one account, and with earlier Kaggle record because that free weekly GPU quota is the practice rig for the same competition.",
   "limits": [
     {
       "kind": "write-gated",
@@ -85,7 +85,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-11-04T02:23:48.984Z",
-  "notes": "AIMO3 itself closed (winners announced 2026-06-24), so the H100 pool is not claimable today; the reason the record stays is the structure, which recurs, and the Proof Pilot, which is the largest compute award to individuals found anywhere. The gate worth naming is that the 168 H200s went to seven people selected by an organiser, four of them by an Extra Prize and one by a notebook vote, so the route in is visible contribution rather than an application. Two explanations for why a national institute supplies the hardware were considered: research collaboration (NII's LLMC group), and the fields-model agenda of fully open checkpoints. Both pages support the first and the second is stated as the pilot's design.",
+  "notes": "Future program phases depend on upcoming official announcements.",
   "extras": {
     "facets": {
       "class": "prize",

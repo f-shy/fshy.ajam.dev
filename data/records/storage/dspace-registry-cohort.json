@@ -5,7 +5,7 @@
   "url": "http://academico.ehu.eus",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "none reachable: Every sampled site from page 1 of the official registry failed /server/api/info — they are DSpace 6 or earlier with no REST API, or the host is gone. The registry is a museum, not an…",
+    "stated": "None reachable: Every sampled site from page 1 of the official registry failed /server/api/info. They are DSpace 6 or earlier with no REST API, or the host is gone. The registry is a museum, not an invento.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "http://academico.ehu.eus",
@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "http://academico.ehu.eus",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -41,9 +41,9 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Every sampled site from page 1 of the official registry failed /server/api/info — they are DSpace 6 or earlier with no REST API, or the host is gone. The registry is a museum, not an…",
+  "reliability_note": "Every sampled site from page 1 of the official registry failed /server/api/info. They are DSpace 6 or earlier with no REST API, or the host is gone. The registry is a museum, not an invento.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "http://academico.ehu.eus",
@@ -63,7 +63,7 @@
   ],
   "verdict": "dead",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Every sampled site from page 1 of the official registry failed /server/api/info — they are DSpace 6 or earlier with no REST API, or the host is gone. The registry is a museum, not an…",
+  "notes": "Every sampled site from page 1 of the official registry failed /server/api/info. They are DSpace 6 or earlier with no REST API, or the host is gone. The registry is a museum, not an invento.",
   "extras": {
     "dead_end": {
       "failure_class": "dead-service",

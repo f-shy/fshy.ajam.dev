@@ -5,7 +5,7 @@
   "url": "https://cloudsmith.com",
   "category": "registry",
   "free_tier": {
-    "stated": "At least 50 GB of artifact data + 200 GB of package delivery per month, free, pooled across ALL open-source repositories in one org — 'You get at least 50GB of artifact data + 200GB of package delivery for free, across all open-source repositories.' Available on the $0 Core plan, no special plan needed.",
+    "stated": "At least 50 GB of artifact data + 200 GB of package delivery per month, free, pooled across ALL open-source repositories in one org. 'You get at least 50GB of artifact data + 200GB of package delivery for free, across all open-source repositories.' Available on the $0 Core plan, no special plan needed.",
     "unit": "GB",
     "metered_on": "unstated",
     "source_url": "https://docs.cloudsmith.com/open-source-hosting-policy",
@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.cloudsmith.com/open-source-hosting-policy",
     "notes": "not stated"
   },
@@ -34,7 +34,7 @@
   ],
   "interface_detail": "rest (Cloudsmith REST API + CLI), plus every native package client: apt/yum/npm/pypi/nuget/helm/docker/raw; public broadcast URLs on dl.cloudsmith.io",
   "tooling": "cloudsmith-cli (`cloudsmith push raw OWNER/REPO FILE`), REST API v1, Terraform provider, officially documented; anonymous pulls need no token (probe below).",
-  "chaining": "Usage is pooled per org, not per repo — so the multiplier is orgs, not repos: unlimited free signups × 50 GB + 200 GB/mo. OSS status is granted automatically at repo creation ('We don't require advance permission to create open-source repositories'), with post-hoc checks; sponsorship raises the allowance for large projects.",
+  "chaining": "Usage is pooled per org, not per repo. So the multiplier is orgs, not repos: unlimited free signups × 50 GB + 200 GB/mo. OSS status is granted automatically at repo creation ('We don't require advance permission to create open-source repositories'), with post-hoc checks; sponsorship raises the allowance for large projects.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -48,7 +48,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Real hosted CDN with a real CLI/API; the risk is administrative, not technical — OSS repos that fail the eligibility rules (minor fork) get suspended, and the free Core plan cannot pay overage so it hard-stops at the cap.",
+  "reliability_note": "Real hosted CDN with a real CLI/API; the risk is administrative, not technical. OSS repos that fail the eligibility rules (minor fork) get suspended, and the free Core plan cannot pay overage so it hard-stops at the cap.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -75,7 +75,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "At least 50 GB of artifact data + 200 GB of package delivery per month, free, pooled across ALL open-source repositories in one org — 'You get at least 50GB of artifact data + 200GB of package delivery for free, across all open-source repositories.' Available on the $0 Core plan, no special plan needed.",
+  "notes": "At least 50 GB of artifact data + 200 GB of package delivery per month, free, pooled across ALL open-source repositories in one org. 'You get at least 50GB of artifact data + 200GB of package delivery for free, across all open-source repositories.' Available on the $0 Core plan, no special plan needed.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

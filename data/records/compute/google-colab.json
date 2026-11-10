@@ -108,7 +108,7 @@
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "notes": null,
+  "notes": "RAM, GPU class, and idle timeout specifications are not published in vendor documentation.",
   "extras": {
     "shape": {
       "vcpu": null,

@@ -5,7 +5,7 @@
   "url": "https://www.zendesk.com",
   "category": "paas",
   "free_tier": {
-    "stated": "'Each article has no limit on overall storage or total number of attached files.' Per-file 20 MB. But account-level file storage is separately capped at 10 GB base + 2 GB/agent (Team) — the article-level 'no limit' sits inside that account bucket.",
+    "stated": "'Each article has no limit on overall storage or total number of attached files.' Per-file 20 MB. But account-level file storage is separately capped at 10 GB base + 2 GB/agent (Team). The article-level 'no limit' sits inside that account bucket.",
     "unit": "GB",
     "metered_on": "stored-bytes",
     "source_url": "https://support.zendesk.com/hc/en-us/articles/4408884048794-What-are-the-attachment-limits-and-supported-file-types-in-my-help-center",
@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://support.zendesk.com/hc/en-us/articles/4408884048794-What-are-the-attachment-limits-and-supported-file-types-in-my-help-center",
     "notes": "not stated"
   },
@@ -41,13 +41,13 @@
       "source": "https://support.zendesk.com/hc/en-us/articles/4408884048794-What-are-the-attachment-limits-and-supported-file-types-in-my-help-center"
     }
   ],
-  "limits_note": "per-object-cap: 20 MB per file/image in articles (2 MB for community images). Quota: account file storage 10 GB base + 2 GB/agent. request-rate: Guide API is rate limited; an unauthenticated write probe `POST /api/v2/help_center/articles.json` returned 403 (good — no open write). Retention: archived tickets still count toward storage.",
+  "limits_note": "Per-object-cap: 20 MB per file/image in articles (2 MB for community images). Quota: account file storage 10 GB base + 2 GB/agent. request-rate: Guide API is rate limited; an unauthenticated write probe `POST /api/v2/help_center/articles.json` returned 403 (good. No open write). Retention: archived tickets still count toward storage.",
   "identity_cost": {
     "kind": "institution",
     "detail": null,
     "country": null
   },
-  "reliability_note": "The read path is the cleanest in this whole niche — public, ranged, unauthenticated, no expiry — but Zendesk has no free plan (14-day trial), so it cannot be a free-storage answer, only a pattern to copy.",
+  "reliability_note": "The read path is the cleanest in this whole niche. Public, ranged, unauthenticated, no expiry. But Zendesk has no free plan (14-day trial), so it cannot be a free-storage answer, only a pattern to copy.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -74,7 +74,7 @@
   ],
   "verdict": "trial-only",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "'Each article has no limit on overall storage or total number of attached files.' Per-file 20 MB. But account-level file storage is separately capped at 10 GB base + 2 GB/agent (Team) — the article-level 'no limit' sits inside that account bucket.",
+  "notes": "'Each article has no limit on overall storage or total number of attached files.' Per-file 20 MB. But account-level file storage is separately capped at 10 GB base + 2 GB/agent (Team). The article-level 'no limit' sits inside that account bucket.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

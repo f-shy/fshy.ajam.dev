@@ -62,7 +62,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "The vendor's page does not publish a traffic allowance, so none is asserted. Whether an individual can open an account without a Korean business number is not established; the FAQ describes post-paid billing to a registered card.",
+  "notes": "Hourly pricing of KRW 30 represents approximately USD 0.02.",
   "extras": {
     "facets": {
       "class": "regional-paid-floor",

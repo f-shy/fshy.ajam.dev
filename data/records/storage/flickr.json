@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.flickrhelp.com/hc/en-us/articles/13690320471060-Free-account-limits-and-enforcement",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.flickrhelp.com/hc/en-us/articles/13690320471060-Free-account-limits-and-enforcement",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "Flickr API (OAuth1), flickr-sync; no native rclone backend; ShareX and Lightroom publish plugins.",
-  "chaining": "Unlimited free accounts x 1,000 items. This is a per-record cap, not a byte cap — but 1,000 items x 200 MB max = ~200 GB/account at absolute best, and item 1,001 is deleted.",
+  "chaining": "Unlimited free accounts x 1,000 items. This is a per-record cap, not a byte cap. But 1,000 items x 200 MB max = ~200 GB/account at absolute best, and item 1,001 is deleted.",
   "limits": [
     {
       "kind": "volume-quota",

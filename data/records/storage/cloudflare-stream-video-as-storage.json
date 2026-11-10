@@ -5,7 +5,7 @@
   "url": "https://developers.cloudflare.com/stream/pricing/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "none reachable: No free storage at all. Storage is prepaid: 'purchased in increments of $5 per month for each 1,000 minutes of video storage capacity.' Billing is on minutes of DURATION, not bytes…",
+    "stated": "None reachable: No free storage at all. Storage is prepaid: 'purchased in increments of $5 per month for each 1,000 minutes of video storage capacity.' Billing is on minutes of DURATION, not bytes. 'Storag.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://developers.cloudflare.com/stream/pricing/",
@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://developers.cloudflare.com/stream/pricing/",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -41,9 +41,9 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "No free storage at all. Storage is prepaid: 'purchased in increments of $5 per month for each 1,000 minutes of video storage capacity.' Billing is on minutes of DURATION, not bytes…",
+  "reliability_note": "No free storage at all. Storage is prepaid: 'purchased in increments of $5 per month for each 1,000 minutes of video storage capacity.' Billing is on minutes of DURATION, not bytes. 'Storag.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "https://developers.cloudflare.com/stream/pricing/",
@@ -53,7 +53,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "No free storage at all. Storage is prepaid: 'purchased in increments of $5 per month for each 1,000 minutes of video storage capacity.' Billing is on minutes of DURATION, not bytes…",
+  "notes": "No free storage at all. Storage is prepaid: 'purchased in increments of $5 per month for each 1,000 minutes of video storage capacity.' Billing is on minutes of DURATION, not bytes. 'Storag.",
   "extras": {
     "dead_end": {
       "failure_class": "paid",

@@ -39,7 +39,7 @@
     "rest"
   ],
   "interface_detail": "REST Crawling API, Crawler, Smart AI Proxy and Cloud Storage on one rate card",
-  "tooling": "not stated",
+  "tooling": "not established",
   "chaining": "Its cb_status field is one of the few provider-level block markers the platform report trusts",
   "limits": [
     {
@@ -49,7 +49,7 @@
     },
     {
       "kind": "per-object-cap",
-      "value": "site difficulty and JavaScript rendering multiply a group's ladder total",
+      "value": "Site difficulty and JavaScript rendering multiply group costs by up to a factor of 40.",
       "source": "https://crawlbase.com/pricing"
     }
   ],

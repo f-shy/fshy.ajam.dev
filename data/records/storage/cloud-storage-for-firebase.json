@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://firebase.google.com/pricing",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://firebase.google.com/pricing",
     "notes": "not stated"
   },
@@ -33,7 +33,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "Firebase Storage SDK / GCS JSON+XML API (rclone 'gs'/'gcs'); buckets are ordinary GCS buckets so rclone works.",
-  "chaining": "5 GB x N Firebase projects — each project needs a billing account on Blaze, which defeats the purpose since Blaze is a metered surface.",
+  "chaining": "5 GB x N Firebase projects. Each project needs a billing account on Blaze, which defeats the purpose since Blaze is a metered surface.",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -47,7 +47,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Requires attaching a credit card (Blaze). No free path at all since the Sept 2024 change — this is the clearest 'free that is not free' in the Google stack.",
+  "reliability_note": "Requires attaching a credit card (Blaze). No free path at all since the Sept 2024 change. This is the clearest 'free that is not free' in the Google stack.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -74,5 +74,5 @@
     }
   },
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

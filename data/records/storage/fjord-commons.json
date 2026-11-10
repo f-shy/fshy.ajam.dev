@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://fjord.sh/commons",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://fjord.sh/commons",
     "notes": "not stated"
   },
@@ -33,7 +33,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "Forgejo API, git over HTTPS and SSH, webhooks. Git LFS explicitly NOT enabled (removes one storage pool).",
-  "chaining": "5 GB x unlimited free accounts.",
+  "chaining": "Provides 5 GB storage per registered account, requiring independent Fjord user registrations for each allocation.",
   "limits": [],
   "limits_note": "25 repos/account; 5 GB; LFS disabled; CI 2000 minutes/month pooled across ALL of Commons, 20 min/job; CI on public repos only.",
   "identity_cost": {

@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": null,
+  "chaining": "Cash with no equity and no spending restriction, so it composes with every compute record in earlier readings: USD 300,000 at Lambda's documented on-demand rate of USD 3.99 per H100 GPU-hour (compute/lambda) is about 75,000 H100-hours. It is the largest live, entity-agnostic award found among evaluated providers and the only one whose deadline falls after on 2026-10-22.",
   "limits": [
     {
       "kind": "write-gated",
@@ -68,7 +68,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "The strongest live find, and the one caveat is a real gap rather than a guess: no page read states whether an individual may apply, while all three anchor projects are organizations (Tiles Privacy Technologies, Family Intelligence Inc., the Distributed AI Research Institute). The technical premise of the cohort also matters: it funds work that uses less compute, not work that needs more.",
+  "notes": "Eligibility terms address builders, while distribution of USD 300,000 grants typically involves a registered entity.",
   "extras": {
     "facets": {
       "class": "grant",

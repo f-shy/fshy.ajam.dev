@@ -16,7 +16,7 @@
     "stated": "Files must be 100MB or less",
     "bytes": null,
     "source_url": "https://support.academia.edu/hc/en-us/articles/360043383793-How-to-upload-a-document-to-Academia",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,7 +31,7 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
+  "interface_detail": "not documented",
   "tooling": "unverified: whether an upload API exists; the documented path is the browser upload flow, which includes a CAPTCHA step",
   "chaining": "not recorded",
   "limits": [

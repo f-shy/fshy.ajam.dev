@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.interserver.net/storage/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.interserver.net/storage/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "'Transfer 20 TB' per month on the 20 TB plan (1:1 with storage). Verbatim plan row: 'Space 20TB — Transfer 20TB — $42/month'.",
+    "terms": "'Transfer 20 TB' per month on the 20 TB plan (1:1 ratio with storage capacity). The plan provides Space 20TB and Transfer 20TB for $42 per month.",
     "metered": true
   },
   "interface": [
@@ -45,7 +45,7 @@
     "detail": "card",
     "country": null
   },
-  "reliability_note": "Transfer cap at 1:1 is the binding constraint — a 20 TB restore consumes the entire month's allowance. Fine for backup-in, poor for serving.",
+  "reliability_note": "Transfer cap at 1:1 is the binding constraint. A 20 TB restore consumes the entire month's allowance. Fine for backup-in, poor for serving.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

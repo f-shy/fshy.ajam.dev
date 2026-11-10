@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://servarica.com/storage/0-5-4tb/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://servarica.com/storage/0-5-4tb/",
     "notes": "not stated"
   },
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "sftp, rsync, nfs, rest (self-hosted)",
   "tooling": "rclone SFTP, any backup tool, Xen/KVM root",
-  "chaining": "Root VPS; AList/MinIO installable. The 250 Mbps unlimited option is the single most valuable egress term found — it is genuinely uncapped, just bandwidth-shaped.",
+  "chaining": "Root virtual private server supporting AList or MinIO installation. The 250 Mbps unmetered network option provides continuous throughput without monthly byte quotas.",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -82,5 +82,5 @@
     "price_verbatim": "$2.00-2.50/TB/mo. At 5 TB: Killer Whale 3.5 TB ($8.50) + Polar Bear 2 TB ($5) = $13.50/mo for 5.5 TB = $2.45/TB. At 20 TB: 2x Mammoth 8 TB ($40) + Penguin 4 TB ($11.11) = $51.11/mo for 20 TB = $2.56/TB; annual billing on the Mammoths drops it to $2.49/TB. Cheapest per-TB is Polar Bear at $2.00/TB on annual ($48/yr). Caveat: out of stock across the entire storage catalogue."
   },
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

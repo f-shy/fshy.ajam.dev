@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://agentrelay.com",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: the home page and the getting-started page state no egress allowance or price, and the /pricing path was not found",
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "agent-relay CLI run through npx (Node.js 22 or later); no REST API, SSH or SDK read; no pricing page was found at /pricing",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -43,7 +43,7 @@
       "source": "https://agentrelay.com"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://hosthatch.com/products",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://hosthatch.com/products",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Metered with throttle-on-exceed, no published per-TB overage price. Ratios are 2.5x storage: 1 TB plan = 2.5 TB, 2 TB = 5 TB, 5 TB = 12.5 TB, 10 TB = 25 TB. Exceeding it is throttling, not billing — a holder of the 2 TB Hong Kong plan reports '2.5 TB (throttled to about 5 Mbps after limit from my experience)' (LET thread 217891). APAC bandwidth is a separate, smaller pool: a HostHatch rep confirmed on LET that 'the actual limit is 3TB per month for Singapore' while the site quoted 7.5 TB (thread 194949).",
+    "terms": "Metered with throttle-on-exceed, no published per-TB overage price. Ratios are 2.5x storage: 1 TB plan = 2.5 TB, 2 TB = 5 TB, 5 TB = 12.5 TB, 10 TB = 25 TB. Exceeding it is throttling, not billing. A holder of the 2 TB Hong Kong plan reports '2.5 TB (throttled to about 5 Mbps after limit from my experience)' (LET thread 217891). APAC bandwidth is a separate, smaller pool: a HostHatch rep confirmed on LET that 'the actual limit is 3TB per month for Singapore' while the site quoted 7.5 TB (thread 194949).",
     "metered": true,
     "free_allowance": "3TB per month"
   },
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "sftp, rsync, rest (self-hosted)",
   "tooling": "rclone SFTP, Borg/Restic, root KVM",
-  "chaining": "Root KVM. Note the array is RAID-50 on some nodes — HostHatch itself conceded on LET that 'RAID 50 comes with an inherently higher risk as compared to RAID 10' (thread 188952).",
+  "chaining": "Root KVM. Note the array is RAID-50 on some nodes. HostHatch itself conceded on LET that 'RAID 50 comes with an inherently higher risk as compared to RAID 10' (thread 188952).",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -82,5 +82,5 @@
     "price_verbatim": "$3.80/TB/mo at 10 TB ($38/mo, 25 TB included). At 5 TB: $20/mo = $4.00/TB (12.5 TB included). At 20 TB: two 10 TB VMs = $76/mo = $3.80/TB. Pricing is linear — no volume break — so the 10 TB rung is the only sensible buy."
   },
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

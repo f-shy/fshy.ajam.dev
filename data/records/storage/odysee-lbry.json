@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://help.odysee.tv/category-uploading/category-fileuploads/fileselection/",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "yt-dlp `lbry` extractor (verified present). Odysee JSON-RPC at api.na-backend.odysee.com (`resolve`, `claim_search`). LBRY Desktop hosts blobs locally under lbrynet/blob.",
-  "chaining": "Unlimited claims per channel x unlimited channels x unlimited accounts. Because the object is a plain blob, there is no video-duration ceiling to fight — the only cap is 16 GB/file, so capacity = unlimited files x 16 GB.",
+  "chaining": "Unlimited claims per channel x unlimited channels x unlimited accounts. Because the object is a plain blob, there is no video-duration ceiling to fight. The only cap is 16 GB/file, so capacity = unlimited files x 16 GB.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -46,7 +46,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "This is the only candidate here that stores the original bytes, but the platform is visibly decaying in 2026 — community 'collapse watch' posts and a Sept 2026 outage report; LBRY Inc. wound down. Treat as a live archive with a short expected half-life.",
+  "reliability_note": "This is the only candidate here that stores the original bytes, but the platform is visibly decaying in 2026. Community 'collapse watch' posts and a Sept 2026 outage report; LBRY Inc. wound down. Treat as a live archive with a short expected half-life.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

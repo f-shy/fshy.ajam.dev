@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.mediatrack.cn/pricing",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
     "webdav-proxy"
   ],
   "interface_detail": "rest",
-  "tooling": "OpenList driver `mediatrack` (access_token + project_id, order_by/order_desc) — a working mount over the video-collaboration API.",
+  "tooling": "OpenList driver `mediatrack` (access_token + project_id, order_by/order_desc). A working mount over the video-collaboration API.",
   "chaining": "10 GB per account, team-based, so projects multiply but storage is billed per team. 1 GB/file.",
   "limits": [
     {

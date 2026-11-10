@@ -5,7 +5,7 @@
   "url": "https://pq.hosting/en",
   "category": "cloud VM",
   "free_tier": {
-    "stated": "No server is sold at this domain. pq.hosting now serves a ranked directory of other hosting providers: the English page title is 'Global Hosting Catalog - Compare VPS, Dedicated Servers & Hosting Providers' and every ranked entry ends in an outbound link of the form https://pq.hosting/go.php?id=<n>. GET /vps resolves to /vps-vds, a 2026 top-20 VPS provider ranking. The sitemap has no order, cart, login or account path: it lists the homepage, 6 language homes, /companies, /choose-vps, /choose-dedicated, /contacts, /continents, /help, /dc and 9 pages under /tools (8 network tools plus a russia-block-check).",
+    "stated": "No server is sold at this domain. pq.hosting now serves a ranked directory of other hosting providers: the English page title is 'Global Hosting Catalog - Compare VPS, Dedicated Servers & Hosting Providers' and every ranked entry ends in an outbound link of the form https://pq.hosting/go.php?id=<n>. GET /vps resolves to /vps-vds, a 2026 top-20 VPS provider ranking. The legacy sales paths are gone: /promo, /providers and /en/1-euro-vps each returned the site's own 404 template, and a search result still shows /en/1-euro-vps as the 5.77 EUR plan page, which that snippet describes with plan cards (snippet only: the live page is 404, so no plan card was read from the vendor verification). The sitemap has no order, cart, login or account path: it lists the homepage, 6 language homes, /companies, /choose-vps, /choose-dedicated, /contacts, /continents, /help, /dc and 9 pages under /tools (8 network tools plus a russia-block-check).",
     "unit": "none",
     "metered_on": "wall-clock",
     "source_url": "https://pq.hosting/en",

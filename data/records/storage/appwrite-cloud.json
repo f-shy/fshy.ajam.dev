@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://appwrite.io/pricing",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://appwrite.io/pricing",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "5 GB bandwidth/month on Free — 2.5x the storage, so it is a real wall but not as lopsided as Supabase.",
+    "terms": "5 GB bandwidth/month on Free. 2.5x the storage, so it is a real wall but not as lopsided as Supabase.",
     "metered": false
   },
   "interface": [

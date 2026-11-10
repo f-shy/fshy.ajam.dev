@@ -5,7 +5,7 @@
   "url": "https://runs-on.com/pricing/",
   "category": "platform host",
   "free_tier": {
-    "stated": "a free licence for non-commercial, open-source and non-profit use in exchange for a public link back; commercial licences run from EUR 300 to EUR 1,800 a year, and the AWS instances bill for a user at spot prices with no markup",
+    "stated": "A free licence is provided for non-commercial open-source use in exchange for a public link back. Commercial licences cost EUR 300 to EUR 1,800 annually, with AWS compute instances billed directly at spot rates with no markup.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://runs-on.com/pricing/",
@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://runs-on.com/pricing/",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published by RunsOn: https://runs-on.com/pricing/ read 2026-11-04 states the control plane, S3 cache bucket and data transfer run in the user's AWS region and bill to the user's AWS account, with no egress to a third party",
@@ -33,9 +33,9 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
+  "interface_detail": "Access interface not documented in published terms.",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "write-gated",
@@ -49,11 +49,11 @@
     },
     {
       "kind": "per-object-cap",
-      "value": "instances bill to a user's own AWS account at spot prices with no markup",
+      "value": "instances bill to self-hosted AWS account at spot prices with no markup",
       "source": "https://runs-on.com/pricing/"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,
@@ -61,7 +61,7 @@
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
-  "confidence_note": "the pricing page was read on 2026-10-22 and states the free licence's terms and the commercial ladder. The compute is a user's own AWS bill, so the free half is a licence rather than capacity, and the licence has a condition",
+  "confidence_note": "the pricing page was read on 2026-10-22 and states the free licence's terms and the commercial ladder. The compute is self-hosted AWS bill, so the free half is a licence rather than capacity, and the licence has a condition",
   "evidence": [
     {
       "url": "https://runs-on.com/pricing/",

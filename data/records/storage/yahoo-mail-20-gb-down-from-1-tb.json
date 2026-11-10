@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://es-us.ayuda.yahoo.com/kb/new-yahoo-mail/SLN37064.html",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "IMAP probe-verified: `imap.mail.yahoo.com:993` -> `* OK Welcome! IMAP Server up and ready` / `* CAPABILITY IMAP4rev1 ... APPENDLIMIT=41697280`. That APPENDLIMIT is a live, machine-readable per-message byte cap.",
-  "chaining": null,
+  "chaining": "Mailbox allowance is 20 GB per account across independently registered email accounts.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -40,13 +40,13 @@
       "source": "https://es-us.ayuda.yahoo.com/kb/new-yahoo-mail/SLN37064.html"
     }
   ],
-  "limits_note": "per-object-cap 41,697,280 bytes (39.77 MiB) advertised as `APPENDLIMIT` — the cleanest, most honest per-message cap of any provider here because it is protocol-advertised rather than buried in docs. SMTP agrees: `250-SIZE 41697280`.",
+  "limits_note": "Per-object-cap 41,697,280 bytes (39.77 MiB) advertised as `APPENDLIMIT`. The cleanest, most honest per-message cap of any provider here because it is protocol-advertised rather than buried in docs. SMTP agrees: `250-SIZE 41697280`.",
   "identity_cost": {
     "kind": "email",
     "detail": null,
     "country": null
   },
-  "reliability_note": "Quota was cut 1 TB -> 20 GB (Aug 2025) and again to 15 GB for UK/EU from 2026-05 — a provider actively shrinking, which makes it a poor archive target structurally.",
+  "reliability_note": "Quota was cut 1 TB -> 20 GB (Aug 2025) and again to 15 GB for UK/EU from 2026-05. A provider actively shrinking, which makes it a poor archive target structurally.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

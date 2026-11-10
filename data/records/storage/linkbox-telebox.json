@@ -5,7 +5,7 @@
   "url": "https://www.linkbox.to",
   "category": "cloud-drive",
   "free_tier": {
-    "stated": "5 GB on plain signup",
+    "stated": "5 GB on plain signup; 10 TB granted via 'Special Account Authentication' with an edu/gov email.",
     "unit": "GB",
     "metered_on": "unstated",
     "source_url": "https://en.anonyviet.com/instructions-for-getting-10tb-of-storage-on-linkbox-to/",
@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://en.anonyviet.com/instructions-for-getting-10tb-of-storage-on-linkbox-to/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://en.anonyviet.com/instructions-for-getting-10tb-of-storage-on-linkbox-to/",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "rclone backend 'linkbox' (Tier 5, since v1.65; since v1.74 needs API token and email/password because listing/downloading moved to account auth)",
-  "chaining": "if the edu/gov verification path still works, one verified identity yields 10 TB — that is 2000x the base tier, i.e. the largest single-account multiplier in this niche; otherwise 5 GB x unlimited accounts",
+  "chaining": "If the edu/gov verification path still works, one verified identity yields 10 TB. That is 2000x the base tier, i.e. the largest single-account multiplier in this niche; otherwise 5 GB x unlimited accounts.",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -68,8 +68,8 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "5 GB on plain signup",
+  "notes": "5 GB on plain signup; 10 TB granted via 'Special Account Authentication' with an edu/gov email.",
   "extras": {},
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

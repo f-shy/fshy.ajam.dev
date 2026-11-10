@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "4 GB, unlimited traffic and an included daily backup for USD 4.54 is the cheapest combination of memory and egress with a backup, and the backup removes the need for a second host just to hold a copy",
+  "chaining": "4 GB, unlimited traffic and an included daily backup for USD 4.54 is the cheapest combination of memory and egress with a backup among documented hosts, and the backup removes the need for a second host just to hold a copy",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -73,7 +73,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "ADDS a product line to an existing provider: compute/ovhcloud covers OVH Public Cloud (b2-7 at USD 31.19) and records no VPS row at all, so the whole VPS 2027 ladder is new.",
+  "notes": "ADDS a product line to an existing provider: compute/ovhcloud covers OVH Public Cloud (b2-7 at USD 31.19) and records no VPS row at all, so the whole VPS 2027 ladder is new. 'Starting at' is not a monthly rate and the configurator was not read, so the term behind 4.54 is unknown. Unverified: the configurator's monthly price for VPS-1, and whether the daily backup survives a machine rebuild.",
   "extras": {
     "facets": {
       "class": "price-floor",

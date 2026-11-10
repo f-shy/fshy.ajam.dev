@@ -16,7 +16,7 @@
     "stated": "5 GB per transfer on the free service",
     "bytes": null,
     "source_url": "https://www.sendgb.com/llms.txt",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "retention depends on file size; smaller files can stay available up to 90 days",
@@ -31,7 +31,7 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
+  "interface_detail": "not documented",
   "tooling": "browser upload; the vendor states it publishes no public developer API (a tooling gap, not a capacity limit)",
   "chaining": "not recorded",
   "limits": [

@@ -33,7 +33,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "curl -F 'files[]=@x' 'https://uguu.se/upload?output=text'",
-  "chaining": "none — per-file, no accounts. N x 128 MiB.",
+  "chaining": "None. Per-file, no accounts. N x 128 MiB.",
   "limits": [
     {
       "kind": "per-object-cap",

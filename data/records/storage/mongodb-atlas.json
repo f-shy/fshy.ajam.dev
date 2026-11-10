@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.mongodb.com/docs/atlas/reference/free-shared-limitations/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.mongodb.com/docs/atlas/reference/free-shared-limitations/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Data transfer out is not the metered axis on M0 — there is no published egress allowance or overage for Free clusters; the limits that bite are 500 connections and 100 ops/sec. Effectively unmetered for read volume, which makes M0 unusual in this class.",
+    "terms": "Data transfer out is not the metered axis on M0. There is no published egress allowance or overage for Free clusters; the limits that bite are 500 connections and 100 ops/sec. Effectively unmetered for read volume, which makes M0 unusual in this class.",
     "metered": false
   },
   "interface": [
@@ -33,7 +33,7 @@
   "tooling": "Standard MongoDB drivers (pymongo, motor), `mongosh`, Atlas Data API (HTTPS), `mongodump`/`mongorestore`; GridFS for files >16 MB via pymongo's gridfs",
   "chaining": "250 projects per user x 1 free cluster each x 512 MB = ~128 GB per Atlas account, and 250 organizations per user gives another axis. GridFS chunks (255 KB default) mean no practical per-object cap beyond the 512 MB total.",
   "limits": [],
-  "limits_note": "512 MB total is tiny per unit — the whole value is the 250x multiplier. 100 ops/sec, 500 connections, no sharding, no configurable storage. Cluster creation is heavily rate-limited in practice (one free cluster per project, project creation itself throttled).",
+  "limits_note": "512 MB total is tiny per unit. The whole value is the 250x multiplier. 100 ops/sec, 500 connections, no sharding, no configurable storage. Cluster creation is heavily rate-limited in practice (one free cluster per project, project creation itself throttled).",
   "identity_cost": {
     "kind": "email",
     "detail": null,

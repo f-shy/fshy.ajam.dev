@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://wiki.crust.network/docs/en/build101",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://wiki.crust.network/docs/en/build101",
     "notes": "not stated"
   },
@@ -33,7 +33,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "IPFS HTTP API-compatible authenticated gateway; also a standard IPFS Pinning Service endpoint usable cross-chain. rclone can read IPFS via the gateway; writes need the W3Auth signature flow.",
-  "chaining": "Quota is granted per Discord/on-chain identity and the order is an on-chain transaction, so chaining means many funded Crust accounts — closer to a staking scheme than a free tier.",
+  "chaining": "Quota is granted per Discord/on-chain identity and the order is an on-chain transaction, so chaining means many funded Crust accounts. Closer to a staking scheme than a free tier.",
   "limits": [],
   "limits_note": "per-object-cap: not stated. retention: 'The default storage time for a single transaction(order) is 6 months'; extension requires prepaying into a pool. request-rate: unknown. Signature gate is the practical binding constraint.",
   "identity_cost": {

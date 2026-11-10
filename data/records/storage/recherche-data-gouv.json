@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://recherche.data.gouv.fr/en/guide/recommendations-on-large-datasets",
     "notes": "not stated"
   },
@@ -47,7 +47,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Instance is healthy and live (Dataverse 6.0 at probe). The eligibility rule is an institutional gate, not a technical one — the API and storage behave normally for anyone who can authenticate.",
+  "reliability_note": "Instance is healthy and live (Dataverse 6.0 at probe). The eligibility rule is an institutional gate, not a technical one. The API and storage behave normally for anyone who can authenticate.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

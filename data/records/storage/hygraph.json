@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://hygraph.com/pricing",
     "notes": "not stated"
   },
@@ -33,7 +33,7 @@
   ],
   "interface_detail": "graphql",
   "tooling": "GraphQL Management API + REST asset upload endpoint, `@hygraph/management-sdk`, asset CDN URLs are public and transformable",
-  "chaining": "Bandwidth (100 GB/mo) becomes the binding meter. Projects per account not published; the Hobby plan is per-project.",
+  "chaining": "Asset storage is unmetered in total capacity with a 50 MB file size cap. Bandwidth is limited to 100 GB per month on the Hobby plan.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -41,7 +41,7 @@
       "source": "https://hygraph.com/pricing"
     }
   ],
-  "limits_note": "50 MB per asset (Free/Hobby; 200 MB on Growth). 100 GB/month traffic. 2 locales, 3 seats, 10 components — content-model limits, not storage limits. 'Unlimited' is bounded in practice by the 100 GB traffic meter, not by bytes stored.",
+  "limits_note": "50 MB per asset (Free/Hobby; 200 MB on Growth). 100 GB/month traffic. 2 locales, 3 seats, 10 components. Content-model limits, not storage limits. 'Unlimited' is bounded in practice by the 100 GB traffic meter, not by bytes stored.",
   "identity_cost": {
     "kind": "email",
     "detail": null,

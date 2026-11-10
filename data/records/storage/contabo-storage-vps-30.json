@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://contabo.com/en-us/pricing/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://contabo.com/en-us/pricing/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "'Unlimited Traffic*'. The asterisk resolves to: 'Incoming traffic is unlimited and unmetered. No extra charges apply. To ensure fair network performance for all customers, traffic usage must align with typical server workloads. If usage is exceptionally high or disruptive, Contabo reserves the right to throttle servers at its own discretion.' Port is 600 Mbit on this tier. No published egress overage rate — throttling, not billing, is the enforcement.",
+    "terms": "'Unlimited Traffic*'. The asterisk resolves to: 'Incoming traffic is unlimited and unmetered. No extra charges apply. To ensure fair network performance for all customers, traffic usage must align with typical server workloads. If usage is exceptionally high or disruptive, Contabo reserves the right to throttle servers at its own discretion.' Port is 600 Mbit on this tier. No published egress overage rate. Throttling, not billing, is the enforcement.",
     "metered": false
   },
   "interface": [
@@ -45,7 +45,7 @@
     "detail": "card",
     "country": null
   },
-  "reliability_note": "Contabo's storage VPS line is poor €/TB — it is a compute VPS with a big SSD attached, not a storage product. Widely discussed on LET as a value play for compute, not for bulk bytes.",
+  "reliability_note": "Contabo's storage VPS line is poor €/TB. It is a compute VPS with a big SSD attached, not a storage product. Widely discussed on LET as a value play for compute, not for bulk bytes.",
   "confidence": "documented",
   "confidence_note": "the verdict rests on the vendor pricing page, read on 2026-11-03: it lists Storage VPS 30 with 1 TB SSD as a priced product (14 EUR, 16.8 USD), Storage VPS 50 with 1.4 TB SSD as the largest Storage VPS plan, and the throttle clause on traffic",
   "evidence": [

@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.alibabacloud.com/help/en/acr/product-overview/billing-description",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.alibabacloud.com/help/en/acr/product-overview/billing-description",
     "notes": "not stated"
   },
@@ -31,7 +31,7 @@
   ],
   "interface_detail": "oci",
   "tooling": "oras / docker push; the registry is a façade over OSS.",
-  "chaining": "None — it inherits OSS pricing, which is metered.",
+  "chaining": "None. It inherits OSS pricing, which is metered.",
   "limits": [],
   "limits_note": "Metered storage + metered egress.",
   "identity_cost": {

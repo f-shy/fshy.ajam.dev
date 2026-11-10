@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://spice.ai/pricing",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://spice.ai/pricing",
     "notes": "not stated"
   },
@@ -31,7 +31,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "A SQL query endpoint over the Spice runtime, and a Data Connector model that federates to external sources. Self-hosting gives full control but on your own hardware.",
-  "chaining": "None for capacity — the free tier is software, so the bytes land wherever you point it (S3, GCS, local). It is a query layer, and a useful one, but it multiplies nothing.",
+  "chaining": "None for capacity. The free tier is software, so the bytes land wherever you point it (S3, GCS, local). It is a query layer, and a useful one, but it multiplies nothing.",
   "limits": [],
   "limits_note": "fails-quota: no free hosted bytes at all. Per-app request rate limits exist on Cloud per the management API docs.",
   "identity_cost": {
@@ -39,7 +39,7 @@
     "detail": "email",
     "country": null
   },
-  "reliability_note": "Not a storage provider.",
+  "reliability_note": "Service provides analytical data infrastructure and query endpoints rather than general raw object storage.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

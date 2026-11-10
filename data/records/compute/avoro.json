@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated on the page read; the vendor runs its own AS58212 network and documents DDoS protection and a prepaid model, with no API named on the page",
-  "chaining": "2 GB and 20 GB of NVMe in Frankfurt for EUR 4.07 excluding VAT, with data stored three times on separate servers, is the strongest redundancy claim at the price; 10 TB is enough for a crawler at moderate rate",
+  "chaining": "2 GB and 20 GB of NVMe in Frankfurt for EUR 4.07 excluding VAT, with data stored three times on separate servers, is the strongest redundancy claim among evaluated providers at the price; 10 TB is enough for a crawler at moderate rate.",
   "limits": [
     {
       "kind": "volume-quota",

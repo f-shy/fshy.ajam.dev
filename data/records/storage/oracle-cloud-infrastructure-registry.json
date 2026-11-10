@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.oracle.com/europe/cloud/cloud-native/container-registry/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.oracle.com/europe/cloud/cloud-native/container-registry/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": null,
+    "terms": "Free up to 10 TB per month on every tenancy. Terms state: 'Public internet egress | 10 TB/month free. Oracle charges significantly less for data egress over the public internet in all global regions. Customers are not charged for the first 10 TB of data egress per month.'",
     "metered": false,
     "free_allowance": "10 TB per month"
   },
@@ -33,7 +33,7 @@
   ],
   "interface_detail": "oci",
   "tooling": "docker/skopeo/ORAS. Auth via IAM auth token ('create an Auth Token via your user settings and login with the Docker CLI').",
-  "chaining": "The 20 GB Always Free OSS is small, but egress is 10 TB/month per tenancy and repos can be made public so pulls need no auth: 'if a user has the complete path to the image, they can pull it, with no authentication needed.' Multiple Always Free tenancies are limited — 'One Oracle Cloud Free Trial or Always Free account is permitted per person' — so this scales by tenancy policy, not by unlimited accounts.",
+  "chaining": "The 20 GB Always Free OSS is small, but egress is 10 TB/month per tenancy and repos can be made public so pulls need no auth: 'if a user has the complete path to the image, they can pull it, with no authentication needed.' Multiple Always Free tenancies are limited. 'One Oracle Cloud Free Trial or Always Free account is permitted per person'. So this scales by tenancy policy, not by unlimited accounts.",
   "limits": [],
   "limits_note": "500 repos/region, 500 images/repo; public repos pullable anonymously if the path is known; auto-cleanup retention policies available; storage beyond 20 GB Always Free is billed at Object Storage Standard rates.",
   "identity_cost": {

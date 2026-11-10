@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.seedr.cc/help/pricing/",
     "notes": "not stated"
   },
@@ -43,7 +43,7 @@
     "detail": "Free tier is 2GB ('Free: 2GB'). Paid tiers start at Lite $3.95/mo for 10 GB; the FAQ lists 'Credit/debit cards (Visa, Mastercard, Amex)' as payment methods for paid plans. What a free sign-up asks for: unverified: behind a sign-up.",
     "country": null
   },
-  "reliability_note": "Quota is intentionally hidden, which is itself the finding — you cannot size a workload against an unpublished number.",
+  "reliability_note": "Quota is intentionally hidden, which is itself the finding. You cannot size a workload against an unpublished number.",
   "confidence": "reported",
   "confidence_note": "The FAQ page was read on 2026-11-04 and states the free quota ('Free: 2GB') and retention ('Both free and paid accounts keep files indefinitely.'); the free sign-up requirements stay unverified: behind a sign-up.",
   "evidence": [

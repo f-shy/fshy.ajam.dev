@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.docker.com/docker-hub/usage/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": null,
+    "stated": "Pull count 100 per 6 hours anonymous or 200 per 6 hours authenticated per IP. Large download throughput requires few, large blobs rather than many small ones.",
     "source_url": "https://docs.docker.com/docker-hub/usage/",
     "notes": "not stated"
   },
@@ -39,7 +39,7 @@
       "source": "https://docs.docker.com/docker-hub/usage/"
     }
   ],
-  "limits_note": "No published per-layer size cap, but the Docker distribution S3 driver historically broke above 10GB per layer (distribution/distribution#2814), so shard at ~5GB. The excess-use rate limit returns plain 429 in the order of thousands of req/min per IP.",
+  "limits_note": "Pull count is 100 per 6 hours anonymous or 200 per 6 hours authenticated per IP. No published per-layer size cap, but Docker distribution S3 drivers historically faced issues above 10 GB per layer, recommending shards around 5 GB. Excess request limits return HTTP 429.",
   "identity_cost": {
     "kind": "anonymous",
     "detail": null,
@@ -80,5 +80,5 @@
   "notes": "Unlimited public repositories on the free Personal plan; NO documented storage cap on public repositories. Docker's own limits table lists only pull-rate and repository counts, with no storage row. Docker's Feb 2025 policy post says storage-based billing is 'indefinitely delayed' with a promised six-month notice.",
   "extras": {},
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

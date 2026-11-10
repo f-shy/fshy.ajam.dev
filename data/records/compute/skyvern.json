@@ -21,10 +21,10 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://www.skyvern.com/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
-    "terms": "not stated",
+    "terms": "not published",
     "metered": false,
     "free_allowance": null,
     "price_per_tb": null,
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "REST API, Python and TypeScript SDKs, a CLI and an MCP server, per the vendor docs home",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -44,7 +44,7 @@
       "source": "https://www.skyvern.com/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "card",
     "detail": "a credit card, entered when the account is created: 'You add a card to start, and nothing is charged until day 14.' and 'When you sign up, pick the plan you want after the trial, Hobby ($29/month) or Pro ($149/month), and add a card.' The account itself is an email address, per the Profile row 'Your name, email addresses and connected accounts'. The phone requirement is not published on https://www.skyvern.com/pricing. Country: not published on https://www.skyvern.com/pricing.",

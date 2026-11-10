@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://my.hostbrr.com/order/forms/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://my.hostbrr.com/order/forms/",
     "notes": "not stated"
   },
@@ -36,7 +36,7 @@
   "tooling": "rclone SFTP/WebDAV, DirectAdmin Storagebox",
   "chaining": "Falkenstein DE. The HDD block is a separate attachable volume, so it grows with a slider at checkout.",
   "limits": [],
-  "limits_note": "per-object-cap: none. Block storage is 'NVMe cached HDD ... RAID6'. Not for latency-sensitive work — the provider says so explicitly.",
+  "limits_note": "Per-object-cap: none. Block storage is 'NVMe cached HDD .. RAID6'. Not for latency-sensitive work. The provider says so explicitly.",
   "identity_cost": {
     "kind": "card",
     "detail": "card",

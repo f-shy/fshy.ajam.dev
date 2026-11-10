@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://developers.kakao.com/docs/latest/en/kakaotalk-channel/common",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://developers.kakao.com/docs/latest/en/kakaotalk-channel/common",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "N/A — there is no Kakao-hosted media to egress. The direction is the opposite of what this project needs: Kakao asks YOU for a public URL.",
+    "terms": "N/A. There is no Kakao-hosted media to egress. The direction is the opposite of what this project needs: Kakao asks YOU for a public URL.",
     "metered": false
   },
   "interface": [
@@ -31,7 +31,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "kakao-business SDKs / raw REST; channel management APIs. Nothing that stores blobs.",
-  "chaining": "Not chainable — it is a message-delivery API, not an object store. Being a URL consumer rather than a URL producer makes it structurally useless here.",
+  "chaining": "Not chainable. It is a message-delivery API, not an object store. Being a URL consumer rather than a URL producer makes it structurally useless here.",
   "limits": [],
   "limits_note": "Image is passed as a URL reference with Kakao's own size/format constraints on the linked asset; no upload endpoint, no media_id, no retention to speak of.",
   "identity_cost": {
@@ -39,7 +39,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "No data-vanishing risk because no data is stored. Also no storage — an anti-candidate.",
+  "reliability_note": "No data-vanishing risk because no data is stored. Also no storage. An anti-candidate.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

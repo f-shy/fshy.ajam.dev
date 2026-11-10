@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "KVM with custom ISO, a billing portal, and payment in BTC, Lightning, XMR, TRC and BCH through a self-hosted processor, plus Visa, Mastercard and SEPA",
-  "chaining": "the only host that states no KYC and takes Monero, so it is the identity-cheapest small box here; 512 MiB and 1 TiB suit a relay or a Tor bridge",
+  "chaining": "the only host among documented hosts that states no KYC and takes Monero, so it is the identity-cheapest small box here; 512 MiB and 1 TiB suit a relay or a Tor bridge",
   "limits": [
     {
       "kind": "volume-quota",

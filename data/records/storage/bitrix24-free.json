@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.bitrix24.com/prices/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "Retention: 'inactive Free accounts may be deleted after 40 days' — this is a documented data-loss clause and the binding constraint.",
+    "stated": "Retention: 'inactive Free accounts may be deleted after 40 days'. This is a documented data-loss clause and the binding constraint.",
     "days": 40,
     "source_url": "https://www.bitrix24.com/prices/",
     "notes": "not stated"
@@ -34,7 +34,7 @@
   ],
   "interface_detail": "webdav",
   "tooling": "Bitrix24 Drive mounts as a WebDAV network drive (documented for Windows/macOS); REST API also exposes disk.* methods. Third-party mounts exist (rclone via WebDAV, or OS-native WebDAV).",
-  "chaining": "5 GB x unlimited free portals, each with unlimited users. 100 portals = 500 GB. WebDAV means a plain `rclone copy` per portal — the most scriptable of the free-workspace KBs.",
+  "chaining": "5 GB x unlimited free portals, each with unlimited users. 100 portals = 500 GB. WebDAV means a plain `rclone copy` per portal. The most scriptable of the free-workspace KBs.",
   "limits": [
     {
       "kind": "retention-clamped",
@@ -47,7 +47,7 @@
       "source": "https://www.bitrix24.com/prices/"
     }
   ],
-  "limits_note": "per-object-cap: not published on the pricing page (Drive-specific cap unverified). Quota is per-portal, shared across Drive + CRM files + email attachments + call recordings — a mixed bucket. Retention: 'inactive Free accounts may be deleted after 40 days' — this is a documented data-loss clause and the binding constraint.",
+  "limits_note": "Per-object-cap: not published on the pricing page (Drive-specific cap unverified). Quota is per-portal, shared across Drive + CRM files + email attachments + call recordings. A mixed bucket. Retention: 'inactive Free accounts may be deleted after 40 days'. This is a documented data-loss clause and the binding constraint.",
   "identity_cost": {
     "kind": "email",
     "detail": null,
@@ -78,5 +78,5 @@
   "notes": "Free plan: '5 GB storage' with 'Unlimited users - no team size limits'. Portals are free and self-service.",
   "extras": {},
   "binding": "retention-clamped",
-  "binding_note": null
+  "binding_note": "a clock, not a quota: bytes leave whether or not transfer is completed"
 }

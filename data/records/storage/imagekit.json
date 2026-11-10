@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://imagekit.io/plans/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://imagekit.io/plans/",
     "notes": "not stated"
   },
@@ -34,7 +34,7 @@
   "tooling": "REST upload API, URL-based transformations, media-library endpoints, SDKs for JS/Python/PHP.",
   "chaining": "Unlimited free accounts x 3 GB. Fixed limit, not a soft cap.",
   "limits": [],
-  "limits_note": "3 GB DAM storage is a fixed limit (their word), 20 GB/mo bandwidth. Originals are stored and served via the original/raw path; transformations are separate derivatives, so byte fidelity is good — volume is what fails.",
+  "limits_note": "3 GB DAM storage is a fixed limit (their word), 20 GB/mo bandwidth. Originals are stored and served via the original/raw path; transformations are separate derivatives, so byte fidelity is good. Volume is what fails.",
   "identity_cost": {
     "kind": "email",
     "detail": null,

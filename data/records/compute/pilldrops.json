@@ -34,7 +34,7 @@
   ],
   "interface_detail": "Python SDK, MCP server, templates, and a Telegram bridge on the paid plans. The product is an agent-running machine, not a shell you SSH into.",
   "tooling": "The vendor's SDK and MCP; a Telegram bridge for the paid tiers. No SSH or generic compute interface was documented on the page read.",
-  "chaining": "The USD 3 Personal plan buys 30 workstation hours a month of a 2 vCPU / 4 GB machine, which is the cheapest way found to keep a small always-warm environment for an agent - but it is 30 hours, not 730, and the metered rate beyond that is USD 0.1656 an hour.",
+  "chaining": "The USD 3 Personal plan buys 30 workstation hours a month of a 2 vCPU / 4 GB machine, which is the cheapest way documented to keep a small always-warm environment for an agent - but it is 30 hours, not 730, and the metered rate beyond that is USD 0.1656 an hour.",
   "limits": [
     {
       "kind": "retention-clamped",

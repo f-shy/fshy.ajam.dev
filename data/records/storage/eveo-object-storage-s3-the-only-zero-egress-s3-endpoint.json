@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.eveo.com.br/object-storage-s3/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.eveo.com.br/object-storage-s3/",
     "notes": "not stated"
   },
@@ -31,10 +31,10 @@
     "rclone"
   ],
   "interface_detail": "s3",
-  "tooling": "S3-compatible with SigV4 presigned URLs — so it can sit behind Cloudflare the same way as any S3 store. rclone `s3`, restic, Veeam. Two-region replication inside Brazil, Tier III datacentres.",
+  "tooling": "S3-compatible with SigV4 presigned URLs. So it can sit behind Cloudflare the same way as any S3 store. rclone `s3`, restic, Veeam. Two-region replication inside Brazil, Tier III datacentres.",
   "chaining": "Pure per-GB, so 5 TB and 20 TB cost the same per TB. No bucket cap below 5 PB.",
   "limits": [],
-  "limits_note": "Brazil-only geography — the same intercontinental-latency objection as Rollin Host for the hot set, though as an archive tier it is fine. The R$0.05/GB figure is the advertised rate and no volume staircase is published, so there may be no discount at 20 TB; ask. Enterprise sales motion («Simule seu Storage», «Solicite uma proposta») rather than self-serve checkout.",
+  "limits_note": "Brazil-only geography. The same intercontinental-latency objection as Rollin Host for the hot set, though as an archive tier it is fine. The R$0.05/GB figure is the advertised rate and no volume staircase is published, so there may be no discount at 20 TB; ask. Enterprise sales motion («Simule seu Storage», «Solicite uma proposta») rather than self-serve checkout.",
   "identity_cost": {
     "kind": "card",
     "detail": "card",

@@ -52,7 +52,7 @@
     "detail": "not stated",
     "country": null
   },
-  "reliability_note": "no reliability event observed; no uptime guarantee was stated on the page read",
+  "reliability_note": "no reliability event observed; no uptime guarantee was stated on the page read.",
   "confidence": "documented",
   "evidence": [
     {

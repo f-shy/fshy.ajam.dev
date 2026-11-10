@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://imageshack.com/faq",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://imageshack.com/faq",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "REST upload API plus ShareX/legacy clients, account-level API key. Historically the most-scripted image host (imageshack.us API since 2005).",
-  "chaining": "Unlimited free accounts x unmetered storage, but each throttled to 10 GB/mo egress — so shard accounts per serving shard if egress is the constraint.",
+  "chaining": "Unlimited free accounts x unmetered storage, but each throttled to 10 GB/mo egress. So shard accounts per serving shard if egress is the constraint.",
   "limits": [],
   "limits_note": "25 MB per image hard. 'Each image you upload must be no more than 25 megabytes in size.'",
   "identity_cost": {

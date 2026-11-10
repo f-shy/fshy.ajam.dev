@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://deluxhost.net/en/storage",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://deluxhost.net/en/storage",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "'Unlimited Traffic, fair usage' on every storage plan.",
+    "terms": "'Unlimited Traffic, fair usage' on every storage plan. The Fair Use Policy states: 'DeluxHost does not apply hard caps or automatic blocks to the monthly traffic of its Services' and calculates combined inbound and outbound traffic during the calendar month. Indicative thresholds on German documentation cite 20 TB to 30 TB per month per storage service.",
     "metered": false,
     "free_allowance": "30 TB per month",
     "source_url": "https://deluxhost.net/en/legal/fair-use-policy"
@@ -40,13 +40,13 @@
   "tooling": "rclone SFTP, any backup tool, root KVM",
   "chaining": "Root KVM so MinIO or AList installs and can sit behind Cloudflare. RAID-5 is a single-parity array, weaker than AlphaVPS RAID-60 or ServaRica RAIDZ2.",
   "limits": [],
-  "limits_note": "per-object-cap: none. RAID-5 single parity — one drive failure tolerated per array, and the provider itself says in its LET threads 'Designed for backups, archives' and not 'a replacement for dedicated or enterprise servers'. Promo discount is 10% for 6 months on STORAGE-3 upward; STORAGE-1/-2 are already at list.",
+  "limits_note": "Per-object-cap: none. RAID-5 single parity. One drive failure tolerated per array, and the provider itself says in its LET threads 'Designed for backups, archives' and not 'a replacement for dedicated or enterprise servers'. Promo discount is 10% for 6 months on STORAGE-3 upward; STORAGE-1/-2 are already at list.",
   "identity_cost": {
     "kind": "card",
     "detail": "card",
     "country": null
   },
-  "reliability_note": "Small NL provider. Its own LET offer threads say 'Extremely limited stock' and it has run repeated waves of renewal price adjustments on its promo VPS lines ('DeluxHost = same quality with a deluxe price increase on first renewal', LET thread 213784). The storage line is explicitly excluded from that practice — 'Monthly pricing does not increase on renewal' — but the operator's history of repricing promo tiers is the single biggest caveat here.",
+  "reliability_note": "Small NL provider. Its own LET offer threads say 'Extremely limited stock' and it has run repeated waves of renewal price adjustments on its promo VPS lines ('DeluxHost = same quality with a deluxe price increase on first renewal', LET thread 213784). The storage line is explicitly excluded from that practice. 'Monthly pricing does not increase on renewal'. But the operator's history of repricing promo tiers is the single biggest caveat here.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

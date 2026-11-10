@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://openpond.ai/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: the pricing page meters sandbox compute per second and durable storage per GiB-month and states no egress allowance or price",
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "CLI (npx openpond), desktop app, web, TUI and Slack or Microsoft Teams; no sandbox REST reference read",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -48,7 +48,7 @@
       "source": "https://openpond.ai/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

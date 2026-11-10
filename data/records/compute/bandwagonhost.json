@@ -49,7 +49,7 @@
   "binding_note": "One terabyte a month is the term that binds, and the plan is annual, so an overrun is corrected only at renewal. The plan is unmanaged: the vendor states self-managed KVM, so a broken image is the buyer's problem and there is no managed support tier at this price.",
   "identity_cost": {
     "kind": "institution",
-    "detail": "Not established. The provider is US-registered and sells in USD, and the front page states no verification requirement.",
+    "detail": "Not established on 2026-10-22. The provider is US-registered and sells in USD, and the front page states no verification requirement.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",

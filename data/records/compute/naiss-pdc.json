@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "The out-of-Sweden exception is the only explicit statement found anywhere that a person based abroad can hold a Swedish allocation, and it still requires a Swedish group.",
+  "chaining": "The out-of-Sweden exception is the only explicit statement found anywhere in documented allocations that a person based abroad can hold a Swedish allocation, and it still requires a Swedish group.",
   "limits": [
     {
       "kind": "write-gated",
@@ -68,7 +68,7 @@
   ],
   "verdict": "fails-identity",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "The condition is a Swedish research group or supervisor, so the door is a collaboration rather than an application. PDC publishes no size for the small test allocation, so the field is null.",
+  "notes": "Documentation specifies that researchers based outside Sweden can receive compute allocations when affiliated with a Swedish research group or supervisor. Small test allocation sizes are not published.",
   "extras": {
     "facets": {
       "class": "national-hpc",

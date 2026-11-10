@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "This is the cleanest chain: THB 100,000 buys the Thai company registration and the two-year visa that the Google credit requires, so the package converts a visa problem into a procurement problem. It composes with Google's own startup tiers because the credit lands on a billing account the founder controls, and it breaks if the 600,000 baht balance cannot be shown, which is roughly USD 18,000 parked in a bank.",
+  "chaining": "This is the cleanest chain among documented hosts: THB 100,000 buys the Thai company registration and the two-year visa that the Google credit requires, so the package converts a visa problem into a procurement problem. It composes with Google's own startup tiers because the credit lands on a billing account the founder controls, and it breaks if the 600,000 baht balance cannot be shown, which is roughly USD 18,000 parked in a bank.",
   "limits": [
     {
       "kind": "write-gated",

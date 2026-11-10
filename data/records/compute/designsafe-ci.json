@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "The purchased route is the composition worth noting: USD 0.50 per node-hour buys a TACC node of 48 to 64 cores, so roughly USD 0.008 to USD 0.01 per core-hour with no affiliation and no review, which is the cheapest way out of the identity gate found and does not depend on the NSF eligibility categories at all.",
+  "chaining": "The purchased route is the composition worth noting: USD 0.50 per node-hour buys a TACC node of 48 to 64 cores, so roughly USD 0.008 to USD 0.01 per core-hour with no affiliation and no review, which is the cheapest way out of the identity gate found among evaluated providers and does not depend on the NSF eligibility categories at all.",
   "limits": [
     {
       "kind": "write-gated",

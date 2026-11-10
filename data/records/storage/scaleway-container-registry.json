@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.scaleway.com/en/pricing/containers/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.scaleway.com/en/pricing/containers/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "The registry's own table only covers Scaleway-to-Scaleway traffic: 'Public images | Free up to 75GB | Inter-regional: free - Intra-regional: free', where 'Inter-regional traffic: AMS ↔ PAR, WAW ↔ PAR, or AMS ↔ WAW' and 'Intra-regional traffic: PAR ↔ PAR ...'. EXTERNAL internet egress is simply not mentioned anywhere on the registry FAQ or the containers pricing page — that silence is the finding, not a free grant. Scaleway's account-wide bandwidth meter elsewhere reads 'Egress fees* | 75 GB free every month, then €0.01/GB', with 'Egress fees include external outgoing data transfer and inter-region data transfers'. So the '75 GB free' headline is an Object Storage/everything-else allowance; applying it to registry pulls is an inference, not a quote. Treat registry internet egress as metered-at-€0.01/GB beyond 75 GB/month — cheap, still a per-GB meter, therefore a fail.",
+    "terms": "The registry's own table only covers Scaleway-to-Scaleway traffic: 'Public images | Free up to 75GB | Inter-regional: free - Intra-regional: free', where 'Inter-regional traffic: AMS ↔ PAR, WAW ↔ PAR, or AMS ↔ WAW' and 'Intra-regional traffic: PAR ↔ PAR ..'. EXTERNAL internet egress is simply not mentioned anywhere on the registry FAQ or the containers pricing page. That silence is the finding, not a free grant. Scaleway's account-wide bandwidth meter elsewhere reads 'Egress fees* | 75 GB free every month, then €0.01/GB', with 'Egress fees include external outgoing data transfer and inter-region data transfers'. So the '75 GB free' headline is an Object Storage/everything-else allowance; applying it to registry pulls is an inference, not a quote. Treat registry internet egress as metered-at-€0.01/GB beyond 75 GB/month. Cheap, still a per-GB meter, therefore a fail.",
     "metered": true,
     "free_allowance": "75 GB per month"
   },

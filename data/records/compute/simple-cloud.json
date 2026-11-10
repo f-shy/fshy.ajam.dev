@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated on the page read",
-  "chaining": "RUB 216 for 512 MB is the lowest monthly floor and needs no hourly commitment, which makes it the cheapest place to keep a tiny always-on poller that must not be reaped",
+  "chaining": "RUB 216 for 512 MB is the lowest monthly floor among documented hosts and needs no hourly commitment, which makes it the cheapest place to keep a tiny always-on poller that must not be reaped",
   "limits": [
     {
       "kind": "volume-quota",

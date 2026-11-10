@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://ipt.gbif.org/manual/en/ipt/latest/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://ipt.gbif.org/manual/en/ipt/latest/",
     "notes": "not stated"
   },
@@ -33,7 +33,7 @@
   "tooling": "IPT web UI plus its REST resource endpoints; publishing to GBIF mints a DOI. VertNet (vertebrates), VLIZ/EurOBIS (marine, 20+ IPT instances), BioFresh (freshwater) are the listed centres.",
   "chaining": "Per dataset within a centre's IPT; multiple datasets are allowed, but reviewers police relevance, so this does not shard.",
   "limits": [],
-  "limits_note": "Scope-locked: occurrence/checklist/sampling-event data in Darwin Core. Account is by email to the centre or [address removed]. No stated byte cap, so it is unquantifiable rather than large.",
+  "limits_note": "Scope restricted to occurrence, checklist, and sampling-event data in Darwin Core format. Registration is coordinated by contacting the data centre or GBIF helpdesk. No explicit byte cap is stated in published documentation.",
   "identity_cost": {
     "kind": "email",
     "detail": "email",

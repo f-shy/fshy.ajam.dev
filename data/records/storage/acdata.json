@@ -5,7 +5,7 @@
   "url": "https://ac-data.info",
   "category": "anonymous-dump",
   "free_tier": {
-    "stated": "Two products on one site. Transfer: 'ファイル容量を無制限（1ファイル 250ギガ）、ファイル保存期限最大65日、完全無料' — unlimited total, 250 GB per file, up to 65 days. Separate cloud-drive product: 10 GB free, 30 GB if you hold premium on IllustratorAC/PhotoAC/SilhouetteAC.",
+    "stated": "Two products on one site. Transfer: 'ファイル容量を無制限（1ファイル 250ギガ）、ファイル保存期限最大65日、完全無料'. Unlimited total, 250 GB per file, up to 65 days. Separate cloud-drive product: 10 GB free, 30 GB if you hold premium on IllustratorAC/PhotoAC/SilhouetteAC.",
     "unit": "GB",
     "metered_on": "unstated",
     "source_url": "https://ac-data.info/",
@@ -34,7 +34,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "Web upload form only; no API and no rclone backend.",
-  "chaining": "Account-less transfer so 250 GB x unlimited objects, 65 days max — a re-upload loop.",
+  "chaining": "Account-less transfer allows 250 GB across unlimited objects with 65 days maximum retention in a re-upload cycle. The separate 10 GB cloud drive provides persistent storage.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -58,7 +58,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Run by the AC illustration-workspace group, so it is a marketing surface for their paid art subscriptions rather than a storage business — historically stable, and the '10 GB free cloud' add-on is recent.",
+  "reliability_note": "Run by the AC illustration-workspace group, so it is a marketing surface for their paid art subscriptions rather than a storage business. Historically stable, and the '10 GB free cloud' add-on is recent.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -80,7 +80,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Two products on one site. Transfer: 'ファイル容量を無制限（1ファイル 250ギガ）、ファイル保存期限最大65日、完全無料' — unlimited total, 250 GB per file, up to 65 days. Separate cloud-drive product: 10 GB free, 30 GB if you hold premium on IllustratorAC/PhotoAC/SilhouetteAC.",
+  "notes": "Two products on one site. Transfer: 'ファイル容量を無制限（1ファイル 250ギガ）、ファイル保存期限最大65日、完全無料'. Unlimited total, 250 GB per file, up to 65 days. Separate cloud-drive product: 10 GB free, 30 GB if you hold premium on IllustratorAC/PhotoAC/SilhouetteAC.",
   "extras": {},
   "binding": "per-object-cap",
   "binding_note": null

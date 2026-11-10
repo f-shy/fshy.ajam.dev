@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "What breaks: FLUX's API has no free lane, and the licence tiers are per-domain commercial deals rather than per-person.",
+  "chaining": "The open-weights license does not meter per image, composing with external rented GPU capacity.",
   "limits": [
     {
       "kind": "volume-quota",

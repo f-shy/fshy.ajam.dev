@@ -36,7 +36,7 @@
   ],
   "interface_detail": "REST API at api.gladia.io (POST /v2/pre-recorded starts a job), plus WebSockets for live transcription and the official SDKs, documented.",
   "tooling": "Official SDKs: JavaScript/TypeScript (npm @gladiaio/sdk) and Python (pip gladiaio-sdk); the REST API is used directly otherwise; live transcription uses WebSockets.",
-  "chaining": "312 hours of async transcription for free is the cheapest per-hour speech-to-text lane found, and it composes with a free object store for the audio and a free runner for the upload loop. What breaks: the one-year clock, and the 73-hour real-time figure, which is a quarter of the async allowance because real-time bills the connection rather than the audio.",
+  "chaining": "312 hours of async transcription for free is the cheapest per-hour speech-to-text lane found among evaluated offerings, and it composes with a free object store for the audio and a free runner for the upload loop. What breaks: the one-year clock, and the 73-hour real-time figure, which is a quarter of the async allowance because real-time bills the connection rather than the audio.",
   "limits": [
     {
       "kind": "retention-clamped",

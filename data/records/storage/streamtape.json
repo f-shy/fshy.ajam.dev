@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://streamtape.com/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://streamtape.com/",
     "notes": "not stated"
   },
@@ -33,7 +33,7 @@
   "tooling": "Documented API at https://streamtape.com/api with account info, download ticket, get download link, file info and upload endpoints. Widely integrated into upload bots.",
   "chaining": "Free accounts x unlimited storage x unlimited files. Video-only in practice (it is a streaming host); the useful play is media/checkpoint shards, not raw datasets.",
   "limits": [],
-  "limits_note": "Video formats only; files are encoded/re-encoded on ingest (lossy for anything not already a video). 'Active files' only are kept — inactive files are purged. Downloads require a generated ticket.",
+  "limits_note": "Video formats only; files are encoded/re-encoded on ingest (lossy for anything not already a video). 'Active files' only are kept. Inactive files are purged. Downloads require a generated ticket.",
   "identity_cost": {
     "kind": "email",
     "detail": null,

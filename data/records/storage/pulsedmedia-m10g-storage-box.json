@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://pulsedmedia.com/storage-boxes.php",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://pulsedmedia.com/storage-boxes.php",
     "notes": "not stated"
   },
@@ -47,13 +47,13 @@
       "source": "https://pulsedmedia.com/storage-boxes.php"
     }
   ],
-  "limits_note": "CPU/IO fair-use (0.5-1 core, standard IO priority). RAID5 survives one drive. 25% burst quota above allocation; bonus disk grows with account age. Live fleet stats published (median 25.7 users/server, 37.1 ms disk response, 24.1% disks busy) — unusually honest disclosure.",
+  "limits_note": "CPU/IO fair-use (0.5-1 core, standard IO priority). RAID5 survives one drive. 25% burst quota above allocation; bonus disk grows with account age. Live fleet stats published (median 25.7 users/server, 37.1 ms disk response, 24.1% disks busy). Unusually honest disclosure.",
   "identity_cost": {
     "kind": "email",
     "detail": "email",
     "country": null
   },
-  "reliability_note": "Finnish own hardware (Helsinki Lauttasaari, Kerava). V-series is RAID0 — pick M-series. Not a hyperscaler; a one-shop provider.",
+  "reliability_note": "Finnish own hardware (Helsinki Lauttasaari, Kerava). V-series is RAID0. Pick M-series. Not a hyperscaler; a one-shop provider.",
   "confidence": "documented",
   "confidence_note": "The page states the number in the record; the claim is documented, not measured.",
   "evidence": [

@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://ayaya.beauty/",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "curl -F 'file=@x' https://ayaya.beauty/upload -> JSON; ShareX/Chatterino configs and linked source code published",
-  "chaining": "none — no accounts. N x 1 GiB, 14-day expiry.",
+  "chaining": "None. No accounts. N x 1 GiB, 14-day expiry.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -51,7 +51,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Small operator, but the byte path is clean and the API is documented + open source. Two URL shapes, only one serves bytes — easy to get wrong.",
+  "reliability_note": "Small operator, but the byte path is clean and the API is documented + open source. Two URL shapes, only one serves bytes. Easy to get wrong.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
