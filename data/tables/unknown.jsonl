@@ -1821,7 +1821,6 @@
 {"class":"defaulted","path":"$.identity_cost.detail","rid":"compute/aws-ec2-mac","rule":"T30406167"}
 {"class":"defaulted","path":"$.identity_cost.detail","rid":"compute/azure-dev-box","rule":"T30406167"}
 {"class":"defaulted","path":"$.identity_cost.detail","rid":"compute/bitrise","rule":"T30406167"}
-{"class":"defaulted","path":"$.identity_cost.detail","rid":"compute/blacksmith","rule":"T30406167"}
 {"class":"defaulted","path":"$.identity_cost.detail","rid":"compute/buildjet","rule":"T30406167"}
 {"class":"defaulted","path":"$.identity_cost.detail","rid":"compute/butter","rule":"T30406167"}
 {"class":"defaulted","path":"$.identity_cost.detail","rid":"compute/caution","rule":"T30406167"}
@@ -1984,7 +1983,6 @@
 {"class":"defaulted","path":"$.identity_cost.detail","rid":"compute/voltage-park","rule":"T30406167"}
 {"class":"defaulted","path":"$.identity_cost.detail","rid":"compute/vultr-gpu","rule":"T30406167"}
 {"class":"defaulted","path":"$.identity_cost.detail","rid":"compute/vultr-windows","rule":"T30406167"}
-{"class":"defaulted","path":"$.identity_cost.detail","rid":"compute/warpbuild","rule":"T30406167"}
 {"class":"defaulted","path":"$.identity_cost.detail","rid":"compute/wasmer","rule":"T30406167"}
 {"class":"defaulted","path":"$.identity_cost.detail","rid":"compute/webapp-io","rule":"T30406167"}
 {"class":"defaulted","path":"$.identity_cost.detail","rid":"compute/windows-365-agents","rule":"T30406167"}
@@ -2168,6 +2166,7 @@
 {"class":"egress-unknown","path":"$.egress.metered","rid":"ci-cd-runners/actuated","rule":"S-EGRESS"}
 {"class":"egress-unknown","path":"$.egress.metered","rid":"ci-cd-runners/appcircle-starter","rule":"S-EGRESS"}
 {"class":"egress-unknown","path":"$.egress.metered","rid":"ci-cd-runners/cloudflare-pages-builds","rule":"S-EGRESS"}
+{"class":"egress-unknown","path":"$.egress.metered","rid":"ci-cd-runners/compiler-dev","rule":"S-EGRESS"}
 {"class":"egress-unknown","path":"$.egress.metered","rid":"ci-cd-runners/dev-ramps-free","rule":"S-EGRESS"}
 {"class":"egress-unknown","path":"$.egress.metered","rid":"ci-cd-runners/nixci","rule":"S-EGRESS"}
 {"class":"egress-unknown","path":"$.egress.metered","rid":"coding-subs/lovable","rule":"S-EGRESS"}
@@ -3477,7 +3476,6 @@
 {"class":"identity-defaulted","path":"$.identity_cost.kind","rid":"compute/vpsdime","rule":"S-IDENT"}
 {"class":"identity-defaulted","path":"$.identity_cost.kind","rid":"compute/vultr-gpu","rule":"S-IDENT"}
 {"class":"identity-defaulted","path":"$.identity_cost.kind","rid":"compute/vultr-windows","rule":"S-IDENT"}
-{"class":"identity-defaulted","path":"$.identity_cost.kind","rid":"compute/warpbuild","rule":"S-IDENT"}
 {"class":"identity-defaulted","path":"$.identity_cost.kind","rid":"compute/wasmer","rule":"S-IDENT"}
 {"class":"identity-defaulted","path":"$.identity_cost.kind","rid":"compute/webapp-io","rule":"S-IDENT"}
 {"class":"identity-defaulted","path":"$.identity_cost.kind","rid":"compute/webhorizon","rule":"S-IDENT"}
@@ -6989,7 +6987,6 @@
 {"class":"none-observed","path":"$.reliability_note","rid":"compute/bizfly-cloud","rule":"T4cde0ada"}
 {"class":"none-observed","path":"$.reliability_note","rid":"compute/black-forest-labs","rule":"T4cde0ada"}
 {"class":"none-observed","path":"$.reliability_note","rid":"compute/blackbox-ai","rule":"T4cde0ada"}
-{"class":"none-observed","path":"$.reliability_note","rid":"compute/blacksmith","rule":"T9085f7a7"}
 {"class":"none-observed","path":"$.reliability_note","rid":"compute/blinkenshell","rule":"T4cde0ada"}
 {"class":"none-observed","path":"$.reliability_note","rid":"compute/bluevps","rule":"T4cde0ada"}
 {"class":"none-observed","path":"$.reliability_note","rid":"compute/bndes-garagem","rule":"T4cde0ada"}
@@ -17680,7 +17677,6 @@
 {"class":"partly-held","path":"$.confidence_note","rid":"compute/krova-cube","rule":"N17-held"}
 {"class":"partly-held","path":"$.confidence_note","rid":"debrid/pikpak-free-download","rule":"N17-held"}
 {"class":"partly-held","path":"$.confidence_note","rid":"egress/get-real-ip","rule":"N17-held"}
-{"class":"partly-held","path":"$.confidence_note","rid":"inference/llm7","rule":"N4-held"}
 {"class":"partly-held","path":"$.confidence_note","rid":"storage/icedrive","rule":"L1-held"}
 {"class":"partly-held","path":"$.confidence_note","rid":"storage/xirsys-free","rule":"L1-held"}
 {"class":"partly-held","path":"$.evidence[0].proved","rid":"compute/cloud-studio","rule":"N17-held"}
@@ -20929,7 +20925,6 @@
 {"class":"process","path":"$.free_tier.notes","rid":"compute/aws-ec2-windows","rule":"T2ea8fd0e"}
 {"class":"process","path":"$.free_tier.notes","rid":"compute/azure-dev-box","rule":"T2ea8fd0e"}
 {"class":"process","path":"$.free_tier.notes","rid":"compute/azure-foundry-agents","rule":"T2ea8fd0e"}
-{"class":"process","path":"$.free_tier.notes","rid":"compute/blacksmith","rule":"T2ea8fd0e"}
 {"class":"process","path":"$.free_tier.notes","rid":"compute/buildjet","rule":"T2ea8fd0e"}
 {"class":"process","path":"$.free_tier.notes","rid":"compute/butter","rule":"T2ea8fd0e"}
 {"class":"process","path":"$.free_tier.notes","rid":"compute/caution","rule":"T2ea8fd0e"}
@@ -23751,7 +23746,6 @@
 {"class":"process","path":"$.limits_note","rid":"compute/baponi","rule":"Tdf78e3ad"}
 {"class":"process","path":"$.limits_note","rid":"compute/baseten","rule":"Tdf78e3ad"}
 {"class":"process","path":"$.limits_note","rid":"compute/bitrise","rule":"Tdf78e3ad"}
-{"class":"process","path":"$.limits_note","rid":"compute/blacksmith","rule":"Tdf78e3ad"}
 {"class":"process","path":"$.limits_note","rid":"compute/boxd","rule":"Tdf78e3ad"}
 {"class":"process","path":"$.limits_note","rid":"compute/boxes-dev","rule":"Tdf78e3ad"}
 {"class":"process","path":"$.limits_note","rid":"compute/bright-data-browser","rule":"Tc59aa638"}
@@ -23790,7 +23784,6 @@
 {"class":"process","path":"$.limits_note","rid":"compute/declaw","rule":"Tdf78e3ad"}
 {"class":"process","path":"$.limits_note","rid":"compute/dedalus-labs","rule":"Tdf78e3ad"}
 {"class":"process","path":"$.limits_note","rid":"compute/deno-sandbox","rule":"Tdf78e3ad"}
-{"class":"process","path":"$.limits_note","rid":"compute/depot","rule":"Tdf78e3ad"}
 {"class":"process","path":"$.limits_note","rid":"compute/dexto","rule":"Tc36d2515"}
 {"class":"process","path":"$.limits_note","rid":"compute/digitalocean","rule":"Tdf78e3ad"}
 {"class":"process","path":"$.limits_note","rid":"compute/docker-cloud-sandboxes","rule":"Tdf78e3ad"}
@@ -23972,7 +23965,6 @@
 {"class":"process","path":"$.limits_note","rid":"compute/vertex-computer-use","rule":"Tdf78e3ad"}
 {"class":"process","path":"$.limits_note","rid":"compute/vibrant-labs","rule":"Tc36d2515"}
 {"class":"process","path":"$.limits_note","rid":"compute/vultr-windows","rule":"Tdf78e3ad"}
-{"class":"process","path":"$.limits_note","rid":"compute/warpbuild","rule":"Tdf78e3ad"}
 {"class":"process","path":"$.limits_note","rid":"compute/wasmer","rule":"Tdf78e3ad"}
 {"class":"process","path":"$.limits_note","rid":"compute/webapp-io","rule":"Tc36d2515"}
 {"class":"process","path":"$.limits_note","rid":"compute/webcontainers","rule":"Tc36d2515"}

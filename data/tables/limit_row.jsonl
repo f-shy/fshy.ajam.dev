@@ -50,6 +50,7 @@
 {"is_binding":0,"kind":"per-ip-shaping","ord":0,"rid":"egress/port-buddy","source":"https://portbuddy.dev/install","value":"no byte number: the vendor states transfer is unmetered with no caps and no overage charges, and its terms name 'high-traffic production workloads beyond your subscription limits' as abuse of the infrastructure"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":0,"rid":"egress/riseup-vpn","source":"https://riseup.net/en/vpn","value":"21 gateways, each a shared exit used by many users; the vendor asks for donations because capacity is funded by users ('approximately $60 USD per person per year')"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":0,"rid":"egress/route64-org","source":"https://route64.org/en/tos","value":"designed for up to 200 Mbit/s; throttle at any time"}
+{"is_binding":0,"kind":"per-ip-shaping","ord":0,"rid":"egress/srv-us","source":"probe:https://h3pkbwcm6vf3gysn3lt26bpomq.srv.us/","value":"about 31-43 kB/s on the anonymous tier; a 4 MiB transfer does not complete in 60-80 s"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":0,"rid":"egress/tahio-tunnelbroker","source":"https://tb.tahio.eu/","value":"50 Mbit/s up and down, kernel-shaped, per tunnel"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":0,"rid":"egress/trust-zone","source":"https://trust.zone/portforwarding","value":"shared exit addresses on the plans; a dedicated static IP is a paid add-on and is required for port forwarding"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":0,"rid":"egress/tunnel-ip","source":"https://tunnel-ip.com/","value":"10 Gbps port per tunnel, no byte allowance published"}
@@ -236,6 +237,7 @@
 {"is_binding":0,"kind":"per-ip-shaping","ord":1,"rid":"egress/infinity-filter","source":"https://www.infinity-filter.com/pricing/","value":"the free plan is sized at 20 players online"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":1,"rid":"egress/kainode-vps-pro","source":"https://lowendbox.com/blog/cheap-vps-in-singapore-30-off-with-this-sweet-kainode-discount-code/","value":"100Mbps Port"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":1,"rid":"egress/khanwebhost-nl-256mb-nat","source":"https://khanwebhost.com/cart.php?gid=45","value":"NAT IPv4 with 20 usable ports"}
+{"is_binding":0,"kind":"per-ip-shaping","ord":1,"rid":"egress/localtunnel","source":"probe:https://eleven-ways-accept.loca.lt/","value":"about 20-22 kB/s on the public instance, with multi-second stalls"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":1,"rid":"egress/luyouxia","source":"https://www.luyouxia.com/price","value":"1 Mbps on the trial edition"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":1,"rid":"egress/microlxc-tiny","source":"https://microlxc.net/","value":"NAT IPv4 with 20 ports"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":1,"rid":"egress/mysterium-vpn","source":"https://www.mysteriumvpn.com/residential-vpn","value":"exits are home connections of independent node operators ('Our 7,500+ residential IPs come from independent node operators who explicitly agreed to take part'), so speed and availability depend on the node chosen"}
@@ -458,6 +460,7 @@
 {"is_binding":0,"kind":"per-object-cap","ord":1,"rid":"ci-cd-runners/codeberg-ci","source":"https://docs.codeberg.org/ci/","value":"linux/amd64 is the sole build target; there is no Docker daemon in the hosted runners"}
 {"is_binding":0,"kind":"per-object-cap","ord":1,"rid":"ci-cd-runners/garnix","source":"https://garnix.io/blog/october-1-release-notes/","value":"former cap: 2 hours per build, 30 minutes without output"}
 {"is_binding":0,"kind":"per-object-cap","ord":1,"rid":"ci-cd-runners/github-actions-private","source":"https://docs.github.com/en/actions/reference/limits","value":"6 hours per job; 500 MB of artifact storage shared with Packages on Free"}
+{"is_binding":0,"kind":"per-object-cap","ord":1,"rid":"ci-cd-runners/runners-io","source":"https://www.runners.io/pricing","value":"state that is kept is USD 0.50 a GB-month"}
 {"is_binding":0,"kind":"per-object-cap","ord":1,"rid":"ci-cd-runners/sourcehut-builds","source":"https://man.sr.ht/builds.sr.ht/manifest.md","value":"1 GiB per artifact file"}
 {"is_binding":0,"kind":"per-object-cap","ord":1,"rid":"ci-cd-runners/vercel-ci","source":"https://vercel.com/docs/ci/configuration","value":"2 CPUs and 4 GB of memory per task by default, up to 32 CPUs and 64 GB; install step 4 CPUs and 8 GB"}
 {"is_binding":0,"kind":"per-object-cap","ord":1,"rid":"coding-subs/v0-free","source":"https://v0.app/docs/llms.txt","value":"5 MB per chat attachment and 10 MB per ZIP upload on Free"}
@@ -487,6 +490,7 @@
 {"is_binding":0,"kind":"per-object-cap","ord":1,"rid":"compute/daytona-windows","source":"https://www.daytona.io/pricing","value":"the first 5 GiB of storage per sandbox is free, then $0.000108 a GiB-hour"}
 {"is_binding":0,"kind":"per-object-cap","ord":1,"rid":"compute/dedalus-labs","source":"https://www.dedaluslabs.ai/pricing","value":"4 vCPU, 16 GiB of RAM and 10 GiB of storage per machine on the free plan"}
 {"is_binding":0,"kind":"per-object-cap","ord":1,"rid":"compute/dedirock-promo-vps-special-ny","source":"https://billing.dedirock.com/index.php/store/promo-vp/promo-vps-special-ny","value":"30 GB SSD"}
+{"is_binding":0,"kind":"per-object-cap","ord":1,"rid":"compute/depot","source":"https://depot.dev/pricing","value":"25 GB of cache and registry storage on the Developer plan, then USD 0.20 a GB-month"}
 {"is_binding":0,"kind":"per-object-cap","ord":1,"rid":"compute/ellipsis","source":"https://www.ellipsis.dev/pricing","value":"support packages run from $5,000 to $15,000 a month and are optional"}
 {"is_binding":0,"kind":"per-object-cap","ord":1,"rid":"compute/eqvps-nat-nano","source":"https://eqvps.com/en/nat","value":"15 GB of NVMe on Nano"}
 {"is_binding":0,"kind":"per-object-cap","ord":1,"rid":"compute/gcp-compute","source":"https://cloud.google.com/products/compute/pricing/general-purpose","value":"30 GB-months of standard persistent disk; 1 GB a month of North American outbound transfer"}
@@ -531,6 +535,7 @@
 {"is_binding":0,"kind":"per-object-cap","ord":1,"rid":"compute/together-code-sandbox","source":"https://www.together.ai/pricing","value":"dedicated capacity is reserved in throughput units, where tokens a minute depends on the model"}
 {"is_binding":0,"kind":"per-object-cap","ord":1,"rid":"compute/ucloud","source":"https://astraflow.ucloud.cn/docs/agent-sandbox","value":"a Volume is independent of a sandbox and can mount into several, in beta"}
 {"is_binding":0,"kind":"per-object-cap","ord":1,"rid":"compute/upstash-box","source":"https://upstash.com/pricing/box","value":"largest size is Large: 8 vCPU / 16 GB / 20 GB disk"}
+{"is_binding":0,"kind":"per-object-cap","ord":1,"rid":"compute/warpbuild","source":"https://www.warpbuild.com/pricing","value":"cache storage is USD 0.20 a GB-month; SAML SSO is USD 250 a month"}
 {"is_binding":0,"kind":"per-object-cap","ord":1,"rid":"compute/windows-365","source":"https://www.microsoft.com/en-us/windows-365/business/compare-plans-pricing","value":"shapes run from 2 vCPU, 8 GB and 128 GB to 8 vCPU, 32 GB and 256 GB"}
 {"is_binding":0,"kind":"per-object-cap","ord":1,"rid":"compute/zhipu","source":"https://docs.bigmodel.cn/cn/managed-agents/overview.md","value":"Memory mounts into several sessions and its changes are audited"}
 {"is_binding":0,"kind":"per-object-cap","ord":1,"rid":"compute/zo-computer","source":"https://www.zo.computer/pricing","value":"100 GB of cloud storage on the free trial, with 1 unit held"}
@@ -652,6 +657,7 @@
 {"is_binding":0,"kind":"per-object-cap","ord":2,"rid":"ci-cd-runners/semaphore-cloud","source":"https://docs.semaphore.io/reference/pipeline-yaml","value":"1 hour per pipeline by default, at most 24 hours (1,440 minutes)"}
 {"is_binding":0,"kind":"per-object-cap","ord":2,"rid":"compute/aws-ec2","source":"https://aws.amazon.com/ec2/pricing/on-demand/","value":"a public IPv4 address is charged whether the instance is in use or idle"}
 {"is_binding":0,"kind":"per-object-cap","ord":2,"rid":"compute/azure-app-service-f1","source":"https://azure.microsoft.com/en-us/pricing/details/app-service/linux/","value":"1 GB RAM and 1.00 GB of storage"}
+{"is_binding":0,"kind":"per-object-cap","ord":2,"rid":"compute/blacksmith","source":"https://www.blacksmith.sh/pricing","value":"Docker layer caching and sticky disks add USD 0.50 a GB-month; a static IP adds USD 100 an IP a month"}
 {"is_binding":0,"kind":"per-object-cap","ord":2,"rid":"compute/browserbase","source":"https://www.browserbase.com/pricing","value":"1 browser hour and 1,000 fetch calls a month on Free"}
 {"is_binding":0,"kind":"per-object-cap","ord":2,"rid":"compute/browserless","source":"https://www.browserless.io/pricing","value":"consumer-connection proxy is 6 units per MB and datacenter 2 units per MB, drawn from the same 1,000-unit pool"}
 {"is_binding":0,"kind":"per-object-cap","ord":2,"rid":"compute/buildkite-hosted","source":"https://buildkite.com/pricing","value":"250,000 test executions a month on Free"}
@@ -660,7 +666,6 @@
 {"is_binding":0,"kind":"per-object-cap","ord":2,"rid":"compute/datapasa","source":"https://datapasa.com/en/pricing","value":"16 GB of SSD on VPS-1; 32 GB on VPS-2"}
 {"is_binding":0,"kind":"per-object-cap","ord":2,"rid":"compute/declaw","source":"https://docs.declaw.ai/platform/billing","value":"the two grants are one-time: $100 for sandbox compute and $200 for guardrails, never refilled"}
 {"is_binding":0,"kind":"per-object-cap","ord":2,"rid":"compute/deno-sandbox","source":"https://deno.com/deploy/pricing","value":"volume storage is per plan and is the only sandbox resource that differs by plan"}
-{"is_binding":0,"kind":"per-object-cap","ord":2,"rid":"compute/depot","source":"https://depot.dev/pricing","value":"25 GB of cache and registry storage included in the trial"}
 {"is_binding":0,"kind":"per-object-cap","ord":2,"rid":"compute/docker-cloud-sandboxes","source":"https://www.docker.com/blog/introducing-cloud-sandboxes-start-on-your-laptop-finish-in-the-cloud/","value":"the page states no disk cap per sandbox; it says hosting public images and Kits is free"}
 {"is_binding":0,"kind":"per-object-cap","ord":2,"rid":"compute/freestyle","source":"https://www.freestyle.sh/pricing","value":"4 vCPU, 8 GiB and 32 GiB disk per VM on Free"}
 {"is_binding":0,"kind":"per-object-cap","ord":2,"rid":"compute/google-cloud-free-tier","source":"https://docs.cloud.google.com/free/docs/free-cloud-features","value":"30 GB-months of standard persistent disk; 1 GB of RAM, custom up to 2 GB"}
@@ -697,7 +702,6 @@
 {"is_binding":0,"kind":"per-object-cap","ord":2,"rid":"compute/ubicloud","source":"https://www.ubicloud.com/docs/about/pricing","value":"runners include dedicated CPU, memory, local block storage and a public IPv4"}
 {"is_binding":0,"kind":"per-object-cap","ord":2,"rid":"compute/use-computer","source":"https://use.computer/","value":"two VMs per Mac, with warm boots under a second"}
 {"is_binding":0,"kind":"per-object-cap","ord":2,"rid":"compute/volcengine-agentkit","source":"https://docs.volcengine.com/docs/agentkit/limits?lang=zh","value":"agent runtime: imported image up to 10 G, request payload up to 16 MB, synchronous request timeout 30 minutes, 20 runtimes per account per region and 20 instances per runtime"}
-{"is_binding":0,"kind":"per-object-cap","ord":2,"rid":"compute/warpbuild","source":"https://www.warpbuild.com/pricing","value":"snapshot storage is $0.025 an hour per snapshot; caching is free"}
 {"is_binding":0,"kind":"per-object-cap","ord":2,"rid":"compute/windows-365-agents","source":"https://learn.microsoft.com/en-us/windows-365/agents/pricing-paygo-always-available","value":"usage is the total time spent running, billed per Cloud PC"}
 {"is_binding":0,"kind":"per-object-cap","ord":2,"rid":"compute/xcode-cloud","source":"https://developer.apple.com/xcode-cloud/","value":"a workflow is configured in Xcode and runs against an app target, so it is a build of self-hosted code"}
 {"is_binding":0,"kind":"per-object-cap","ord":2,"rid":"compute/yepcode","source":"https://yepcode.io/pricing/","value":"5 storage files at 5 MB each and 5 MB of local disk on Free"}
@@ -751,6 +755,7 @@
 {"is_binding":0,"kind":"per-object-cap","ord":2,"rid":"dev-services/pusher-beams","source":"https://pusher.com/docs/beams/reference/publish-api/","value":"10 KiB request body on a publish to interests; 200 KiB on a publish to users"}
 {"is_binding":0,"kind":"per-object-cap","ord":2,"rid":"domains-dns/zerossl","source":"https://zerossl.com/documentation/acme/","value":"at most 6 labels below the public suffix per name, counting a wildcard asterisk"}
 {"is_binding":0,"kind":"per-object-cap","ord":2,"rid":"egress/cloudflare-quick-tunnel","source":"probe","value":"no proxy body cap: a 400 MiB POST body was accepted"}
+{"is_binding":0,"kind":"per-object-cap","ord":2,"rid":"egress/tunnl-gg","source":"probe:https://amber-mountain-1194d880.tunnl.gg/","value":"about 2.37 MiB (2,486,272 bytes) per request on the free anonymous tier"}
 {"is_binding":0,"kind":"per-object-cap","ord":2,"rid":"email/mailo","source":"https://www.mailo.com/mailo/en/terms-of-use.php","value":"50 MB of attachments per message on Premium"}
 {"is_binding":0,"kind":"per-object-cap","ord":2,"rid":"inference/google-cloud-translation","source":"https://cloud.google.com/translate/quotas","value":"30K code points per request on Advanced; 100K bytes on Basic; 5K characters recommended"}
 {"is_binding":0,"kind":"per-object-cap","ord":2,"rid":"storage/backblaze-b2","source":"https://www.backblaze.com/docs/cloud-storage-large-files","value":"10 TB per large file (parts of 5 MB to 5 GB); 5 GB per single-request file"}
@@ -779,6 +784,7 @@
 {"is_binding":0,"kind":"per-object-cap","ord":3,"rid":"dev-services/mixpanel","source":"https://docs.mixpanel.com/reference/import-events","value":"2000 events and 10MB uncompressed per import request"}
 {"is_binding":0,"kind":"per-object-cap","ord":3,"rid":"dev-services/sentry-education","source":"https://www.sentry.help/en/articles/13965033-how-is-my-plan-changing-august-27-2025","value":"Spans are limited to 20KB on the education plan, a Team plan change that a help article applies to it"}
 {"is_binding":0,"kind":"per-object-cap","ord":3,"rid":"dev-services/stytch","source":"https://stytch.com/docs/api-reference/consumer/api/resources/metadata","value":"a metadata object holds at most 20 top-level keys and 4KB"}
+{"is_binding":0,"kind":"per-object-cap","ord":3,"rid":"egress/serveo","source":"probe:https://cc2e2fd2b49711e2-104-28-207-178.serveousercontent.com/","value":"a large transfer is cut at about 2.4-2.5 MiB after about 10 s on the anonymous tier"}
 {"is_binding":0,"kind":"per-object-cap","ord":3,"rid":"email/fastmail","source":"https://www.fastmail.help/hc/en-us/articles/1500000277382-Account-limits","value":"70 MB per message"}
 {"is_binding":0,"kind":"per-object-cap","ord":3,"rid":"email/tuta","source":"https://tuta.com/pricing","value":"25 MB attachments"}
 {"is_binding":0,"kind":"per-object-cap","ord":3,"rid":"inference/netlify-ai-gateway","source":"https://docs.netlify.com/build/ai-gateway/overview/","value":"the input prompt context window is limited to 200k tokens"}
@@ -845,6 +851,7 @@
 {"is_binding":0,"kind":"pull-count","ord":5,"rid":"debrid/debrid-link","source":"https://notes.debridmediamanager.com/providers/debridlink/","value":"20 active slots reported by a third-party client; not published by the vendor"}
 {"is_binding":0,"kind":"pull-count","ord":5,"rid":"debrid/torbox-free","source":"https://support.torbox.app/en/articles/9836418-account-restrictions","value":"one download added per 24 hours; one active at a time"}
 {"is_binding":0,"kind":"pull-count","ord":9,"rid":"debrid/debrid-link","source":"https://notes.debridmediamanager.com/providers/debridlink/","value":"20 active slots; adding beyond that is refused (third-party client gates on this)"}
+{"is_binding":0,"kind":"request-rate","ord":0,"rid":"ci-cd-runners/compiler-dev","source":"https://compiler.dev/pricing","value":"200 free minutes over 14 days, up to 8 concurrent jobs, Linux only"}
 {"is_binding":0,"kind":"request-rate","ord":0,"rid":"coding-subs/amp-hobby","source":"https://ampcode.com/docs/orbs","value":"orb spawn pacing: a burst of 20 metered orbs per user, then one new orb every five minutes; later orb starts wait instead of failing"}
 {"is_binding":0,"kind":"request-rate","ord":0,"rid":"coding-subs/stepfun-step-plan","source":"https://platform.stepfun.ai/docs/en/step-plan/overview.md","value":"no time-window or request-frequency limit; the page states Step Plan is not subject to the platform's tiered RPM and TPM limits, and usage is governed by the monthly Credit allowance of the subscribed tier"}
 {"is_binding":0,"kind":"request-rate","ord":0,"rid":"compute/ainclave","source":"https://www.ainclave.com/pricing","value":"billing is the wall clock from a session becoming ready to its stopping; idle time inside a running session is billed as if busy"}
@@ -859,7 +866,7 @@
 {"is_binding":0,"kind":"request-rate","ord":0,"rid":"compute/azure-container-apps-sandboxes","source":"https://learn.microsoft.com/en-us/azure/container-apps/sandboxes-overview","value":"sandbox compute bills per second through the Container Apps meters"}
 {"is_binding":0,"kind":"request-rate","ord":0,"rid":"compute/azure-vm","source":"https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/","value":"billed per full minute running"}
 {"is_binding":0,"kind":"request-rate","ord":0,"rid":"compute/bitbucket-pipelines","source":"https://www.atlassian.com/software/bitbucket/pricing","value":"50 build minutes a month on Free, shared by all users of the workspace; a step on a 2x runner consumes minutes at twice the rate"}
-{"is_binding":0,"kind":"request-rate","ord":0,"rid":"compute/blacksmith","source":"https://www.blacksmith.sh/pricing","value":"the page renders testimonials rather than a plan table, so the monthly credit figure is not established here"}
+{"is_binding":0,"kind":"request-rate","ord":0,"rid":"compute/blacksmith","source":"https://www.blacksmith.sh/pricing","value":"3,000 free minutes a month"}
 {"is_binding":0,"kind":"request-rate","ord":0,"rid":"compute/browserless","source":"https://www.browserless.io/pricing","value":"2 concurrent browsers on Free, 10 on Prototyping, 40 on Starter"}
 {"is_binding":0,"kind":"request-rate","ord":0,"rid":"compute/capy","source":"https://capy.ai","value":"$1 for the first 7 days, then $20 a month with $20 of credits"}
 {"is_binding":0,"kind":"request-rate","ord":0,"rid":"compute/celesto","source":"https://celesto.ai/pricing","value":"$5 of runtime credit, one time, on the Micro size"}
@@ -869,7 +876,7 @@
 {"is_binding":0,"kind":"request-rate","ord":0,"rid":"compute/cloudbrowser","source":"https://cloudbrowser.ai/","value":"250 browser hours a month on the $25 tier"}
 {"is_binding":0,"kind":"request-rate","ord":0,"rid":"compute/coder","source":"https://coder.com/pricing","value":"up to 5 active Coder Agents on Community, unlimited on AI Premium"}
 {"is_binding":0,"kind":"request-rate","ord":0,"rid":"compute/codesandbox-sdk","source":null,"value":"Build allows 10 concurrent VMs"}
-{"is_binding":0,"kind":"request-rate","ord":0,"rid":"compute/depot","source":"https://depot.dev/pricing","value":"2,000 sandbox minutes and 2,000 GitHub Actions minutes inside a 7-day trial"}
+{"is_binding":0,"kind":"request-rate","ord":0,"rid":"compute/depot","source":"https://depot.dev/pricing","value":"2,000 GitHub Actions minutes a month on the USD 20 Developer plan, then USD 0.006 a minute for the base 2 vCPU Linux runner"}
 {"is_binding":0,"kind":"request-rate","ord":0,"rid":"compute/dexto","source":"https://www.dexto.ai/docs/models/","value":"the free path is a set of $0.00-per-token models; paid models run from $0.05 to $5.00 an input million tokens"}
 {"is_binding":0,"kind":"request-rate","ord":0,"rid":"compute/e2e-networks","source":"https://www.e2enetworks.com/pricing","value":"per-minute GPU billing; the trial account's limits are not published"}
 {"is_binding":0,"kind":"request-rate","ord":0,"rid":"compute/exoscale","source":"https://www.exoscale.com/pricing/","value":"billed by the second with a flat rate across zones and no commitment"}
@@ -1065,6 +1072,7 @@
 {"is_binding":0,"kind":"request-rate","ord":1,"rid":"ci-cd-runners/cirrus-ci","source":"https://cirrus-ci.org/faq/","value":"50 credits a month, equal to 10,000 Linux CPU-minutes"}
 {"is_binding":0,"kind":"request-rate","ord":1,"rid":"ci-cd-runners/cloudflare-pages-builds","source":"https://developers.cloudflare.com/pages/platform/limits/","value":"1 build at a time per account on Free; 5 on Pro; 20 on Business"}
 {"is_binding":0,"kind":"request-rate","ord":1,"rid":"ci-cd-runners/cloudflare-workers-builds","source":"https://developers.cloudflare.com/workers/ci-cd/builds/limits-and-pricing/","value":"3,000 build minutes a month on Free; 6,000 on Paid, then USD 0.005 per minute"}
+{"is_binding":0,"kind":"request-rate","ord":1,"rid":"ci-cd-runners/compiler-dev","source":"https://compiler.dev/pricing","value":"USD 0.001 a core-minute on Basic, USD 0.00175 on Pro and USD 0.043 on Turbo"}
 {"is_binding":0,"kind":"request-rate","ord":1,"rid":"ci-cd-runners/github-actions-public","source":"https://docs.github.com/en/actions/reference/limits","value":"20 concurrent jobs on GitHub Free (Pro 40, Team 60, Enterprise 500); 5 concurrent macOS"}
 {"is_binding":0,"kind":"request-rate","ord":1,"rid":"ci-cd-runners/github-packages","source":"https://docs.github.com/en/billing/concepts/product-billing/github-packages","value":"1 GB of transfer a month for private packages"}
 {"is_binding":0,"kind":"request-rate","ord":1,"rid":"coding-subs/cerebras-code","source":"https://web.archive.org/web/20260422081637/https://support.cerebras.net/articles/9996007307-cerebras-code-faq","value":"Pro 50 requests and 1,000,000 tokens a minute, Max 120 requests and 1,500,000 tokens a minute; requests per second are 10% of requests per minute (FAQ as archived on 2026-04-22; the live FAQ URL answers 404)"}
@@ -1074,6 +1082,7 @@
 {"is_binding":0,"kind":"request-rate","ord":1,"rid":"compute/aws-cloudshell","source":"https://aws.amazon.com/cloudshell/","value":"no inbound SSH endpoint is published"}
 {"is_binding":0,"kind":"request-rate","ord":1,"rid":"compute/azure-cloud-shell","source":"https://learn.microsoft.com/en-us/azure/cloud-shell/overview","value":"no inbound SSH endpoint is published"}
 {"is_binding":0,"kind":"request-rate","ord":1,"rid":"compute/azure-container-apps","source":"https://azure.microsoft.com/en-us/pricing/details/container-apps/","value":"2 million requests a month per subscription"}
+{"is_binding":0,"kind":"request-rate","ord":1,"rid":"compute/blacksmith","source":"https://www.blacksmith.sh/pricing","value":"33% cheaper than GitHub per-minute pricing; the page prints no per-minute price"}
 {"is_binding":0,"kind":"request-rate","ord":1,"rid":"compute/blinkenshell","source":"https://blinkenshell.org/","value":"128 MB memory limit per free account"}
 {"is_binding":0,"kind":"request-rate","ord":1,"rid":"compute/browser-linux-emulators","source":"https://linuxontab.com/","value":"the guest runs on the browser's own memory, so the machine's RAM is the ceiling"}
 {"is_binding":0,"kind":"request-rate","ord":1,"rid":"compute/browser-use","source":"https://browser-use.com/pricing","value":"a USD 100 top-up runs 50 browsers in parallel"}
@@ -1231,6 +1240,7 @@
 {"is_binding":0,"kind":"request-rate","ord":1,"rid":"egress/google-cloud-run","source":"https://cloud.google.com/run/pricing","value":"2 million requests per month free"}
 {"is_binding":0,"kind":"request-rate","ord":1,"rid":"egress/ignyte-solutions","source":"https://ignyte.solutions/","value":"10 IPv4 addresses maximum on Standard, at USD 3 each"}
 {"is_binding":0,"kind":"request-rate","ord":1,"rid":"egress/instatunnel","source":"https://instatunnel.my/pricing","value":"3 simultaneous tunnels and 24-hour sessions on free"}
+{"is_binding":0,"kind":"request-rate","ord":1,"rid":"egress/liveapps","source":"probe:https://warped-wiry-wool.liveapps.dev/","value":"a 30-second relay timeout returns a 504 for a transfer that has not finished"}
 {"is_binding":0,"kind":"request-rate","ord":1,"rid":"egress/microsoft-dev-tunnels","source":"https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits","value":"1500 HTTP requests per minute per port"}
 {"is_binding":0,"kind":"request-rate","ord":1,"rid":"egress/natp2p","source":"https://natp2p.cn/","value":"P2P requires both ends in the same room"}
 {"is_binding":0,"kind":"request-rate","ord":1,"rid":"egress/ngrok-free","source":"https://ngrok.com/docs/pricing-limits/free-plan-limits","value":"4,000 HTTP requests per minute and 100 TCP connections per minute, separate from the monthly quotas"}
@@ -1238,6 +1248,7 @@
 {"is_binding":0,"kind":"request-rate","ord":1,"rid":"egress/novanode-ip-tunnel","source":"https://novanode.eu/tunnel","value":"one active WireGuard peer per tunnel; single endpoint, no SLA"}
 {"is_binding":0,"kind":"request-rate","ord":1,"rid":"egress/obscura","source":"https://obscura.com/pricing","value":"5 simultaneous connection slots per account; each WireGuard config holds 1 slot even when idle"}
 {"is_binding":0,"kind":"request-rate","ord":1,"rid":"egress/opentunnel-wireguard-singapore","source":"https://opentunnel.net/wireguard-server-102/","value":"'daily account limit 50'"}
+{"is_binding":0,"kind":"request-rate","ord":1,"rid":"egress/rustunnel","source":"https://www.rustunnel.com/pricing","value":"2 concurrent tunnels on the free Hobby plan"}
 {"is_binding":0,"kind":"request-rate","ord":1,"rid":"egress/trust-zone","source":"https://trust.zone/prices","value":"3 simultaneous connections on the 1-year plan and 1-month plan, 5 on the 2-year plan, 1 on the trial"}
 {"is_binding":0,"kind":"request-rate","ord":1,"rid":"egress/tunnels-io","source":"https://tunnels.io/pricing","value":"1024 requests per second"}
 {"is_binding":0,"kind":"request-rate","ord":1,"rid":"egress/vpn-ac","source":"https://vpn.ac/faq","value":"6 simultaneous connections with OpenVPN or IPsec plus 6 with WireGuard (12 in total); the trial allows 3"}
@@ -1387,6 +1398,7 @@
 {"is_binding":0,"kind":"request-rate","ord":2,"rid":"domains-dns/desec","source":"https://desec.readthedocs.io/en/latest/rate-limits.html","value":"dynDNS updates: 2 per 2 minutes per domain"}
 {"is_binding":0,"kind":"request-rate","ord":2,"rid":"domains-dns/isroot","source":"https://docs.isroot.in/limits","value":"after a successful registration the user waits one hour before creating another subdomain"}
 {"is_binding":0,"kind":"request-rate","ord":2,"rid":"egress/cpolar","source":"https://www.cpolar.com/pricing","value":"1 online process and 4 tunnels on the free plan"}
+{"is_binding":0,"kind":"request-rate","ord":2,"rid":"egress/cruma","source":"https://cruma.io/pricing","value":"past the cap visitors get an HTTP 429 page"}
 {"is_binding":0,"kind":"request-rate","ord":2,"rid":"egress/natapp","source":"https://natapp.cn/","value":"random port is reassigned at intervals"}
 {"is_binding":0,"kind":"request-rate","ord":2,"rid":"egress/zrok-hosted","source":"https://github.com/openziti/zrok/commit/5a052ee86b84ac9c94ce37804c573f1199f44ec4","value":"7500 requests per 300 s per share, from any number of addresses"}
 {"is_binding":0,"kind":"request-rate","ord":2,"rid":"inference/contextual-ai-rerank","source":"https://docs.contextual.ai/api-reference/rerank/rerank.md","value":"unverified: no requests-per-minute figure for the standalone rerank endpoint was found on the pages read"}
@@ -1622,6 +1634,7 @@
 {"is_binding":0,"kind":"retention-clamped","ord":1,"rid":"egress/6project-org","source":"https://6project.org/policies","value":"prefixes are issued with annual validity and must be renewed before expiry, with only a short grace period"}
 {"is_binding":0,"kind":"retention-clamped","ord":1,"rid":"egress/amazon-web-services-free-tier","source":"https://aws.amazon.com/free/","value":"the Free plan account closes 6 months after creation or when credits run out"}
 {"is_binding":0,"kind":"retention-clamped","ord":1,"rid":"egress/aws-free-tier","source":"https://aws.amazon.com/free/","value":"the account closes 6 months after it opens or when the credits run out, whichever comes first"}
+{"is_binding":0,"kind":"retention-clamped","ord":1,"rid":"egress/cruma","source":"https://cruma.io/pricing","value":"a 3-hour session window on the anonymous tier"}
 {"is_binding":0,"kind":"retention-clamped","ord":1,"rid":"egress/hide-me","source":"https://hide.me/en/help/what-is-upnp-port-forwarding-and-how-can-i-enable-it/","value":"the mapping is UPnP-negotiated by the application rather than reserved by the account, so it is not addressable across a reconnect: Once the application maps a port, it can be contacted from the public Internet as though it is running on the router"}
 {"is_binding":0,"kind":"retention-clamped","ord":1,"rid":"egress/libp2p-circuit-relay-v2","source":"https://github.com/libp2p/js-libp2p/blob/master/packages/transport-circuit-relay-v2/src/constants.ts","value":"2 minutes per relayed connection by default"}
 {"is_binding":0,"kind":"retention-clamped","ord":1,"rid":"egress/localtonet","source":"https://localtonet.com/","value":"30 min tunnel timeout on the free plan"}
@@ -2387,6 +2400,7 @@
 {"is_binding":0,"kind":"write-gated","ord":2,"rid":"dev-services/launchdarkly","source":"https://launchdarkly.com/docs/home/account/calculating-billing.md","value":"usage that keeps exceeding the Developer entitlements converts the plan to read-only mode"}
 {"is_binding":0,"kind":"write-gated","ord":2,"rid":"domains-dns/dynu-free","source":"https://www.dynu.com/FAQ/Dynamic-DNS-Service","value":"several record types are member-only, among them CAA on a third-level Dynu name and on the user's own domain; A, AAAA, CNAME, MX, SRV, TXT and PTR are free"}
 {"is_binding":0,"kind":"write-gated","ord":2,"rid":"domains-dns/google-trust-services","source":"https://docs.cloud.google.com/certificate-manager/docs/public-ca-tutorial","value":"an EAB secret is valid 7 days and registers one ACME account only"}
+{"is_binding":0,"kind":"write-gated","ord":2,"rid":"egress/rustunnel","source":"https://www.rustunnel.com/pricing","value":"random subdomains only on the free plan; custom subdomains need Pay-as-you-go or self-hosting"}
 {"is_binding":0,"kind":"write-gated","ord":2,"rid":"egress/sunny-ngrok","source":"https://www.ngrok.cc/","value":"fixed TCP ports are a paid feature"}
 {"is_binding":0,"kind":"write-gated","ord":2,"rid":"email/brevo","source":"https://help.brevo.com/hc/en-us/articles/115000188150-Troubleshooting-Issues-with-Brevo-SMTP","value":"transactional sending over SMTP or the API needs a separate activation by the vendor, requested by a support ticket from the account, before the first send; the time it takes is unverified: behind a sign-up"}
 {"is_binding":0,"kind":"write-gated","ord":2,"rid":"email/buttondown","source":"https://docs.buttondown.com/account-review","value":"every new account is reviewed before it can send, most reviews within one to three business days"}
@@ -2762,6 +2776,7 @@
 {"is_binding":1,"kind":"per-ip-shaping","ord":1,"rid":"debrid/uafile","source":"https://www.uafile.com/","value":"one new upload per 3 minutes and one new download per 5 minutes per IP"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":1,"rid":"debrid/ufile-io","source":"https://ufile.io/pricing","value":"download speed 1 MB/s on Free; unlimited on Pro and Business"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":1,"rid":"egress/alibaba-anti-ddos-proxy","source":"https://www.alibabacloud.com/product/ddos/pricing","value":"clean bandwidth is sold in steps: 100 Mbps / 3000 QPS on the entry plan"}
+{"is_binding":1,"kind":"per-ip-shaping","ord":1,"rid":"egress/localhost-run","source":"probe:https://709bf77787aa29.lhr.life/","value":"about 6-8 kB/s on the anonymous tier; a 4 MiB transfer does not complete"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":1,"rid":"egress/mikrus-frog","source":"https://vps.qd.je/tag-nat-vps.html","value":"shared 1 Gbps per a third-party listing"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":1,"rid":"egress/pinggy-free","source":"probe","value":"measured 4,847,616 of 10,485,760 bytes in 180 s, about 26.9 KiB/s, which caps a full month at about 69.8 GB (0.063 TiB)"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":1,"rid":"egress/serveo","source":"https://serveo.net/docs","value":"anonymous raw TCP: one random port for 10 minutes, two connections, 256 KiB/s cap; with a key: 30 minutes, five connections, 1 MiB/s"}
@@ -2794,6 +2809,7 @@
 {"is_binding":1,"kind":"per-ip-shaping","ord":2,"rid":"debrid/real-debrid","source":"https://github.com/debridmediamanager/awesome-debrid/discussions/7","value":"one public address at a time; the vendor FAQ says 'You can use your account from any public IP address, but you can't use your account from more than one public IP address at the same time'. This is the account-sharing rule, a different constraint from the class rule and enforced a different way"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":2,"rid":"debrid/uploadhaven","source":"https://uploadhaven.com/","value":"free downloads are shaped and gated; Pro removes the gate and the shaping, with no byte number published"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":2,"rid":"debrid/webtor-io","source":"https://webtor.io/","value":"free downloads run at an unstated bandwidth tier below Premium; the only number on the page is the card-gated 50 Mbps trial"}
+{"is_binding":1,"kind":"per-ip-shaping","ord":2,"rid":"egress/pinggy-free","source":"probe:https://hdiom-104-28-207-178.free.pinggy.net/","value":"about 50 kB/s on the free tier; a 4 MiB transfer does not complete"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":2,"rid":"egress/serveo","source":"https://serveo.net/docs/wireguard","value":"public TCP and UDP forwarding are paid-only"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":2,"rid":"storage/google-drive-shared-drives-written-by-service-accounts","source":"https://developers.google.com/workspace/drive/api/guides/about-shareddrives","value":"1 TB/day"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":2,"rid":"storage/youtube-with-dct-fountain-coded-payload","source":"https://support.google.com/youtube/answer/71673","value":"47 Mbps"}
@@ -3354,6 +3370,8 @@
 {"is_binding":1,"kind":"request-rate","ord":0,"rid":"ci-cd-runners/github-actions-private","source":"https://docs.github.com/en/billing/concepts/product-billing/github-actions","value":"USD 12 of included compute usage a month on Free, or 2,000 minutes on a standard Linux 2-core runner at USD 0.006 a minute; it resets at the start of each billing cycle, and usage is blocked once it is consumed when no payment method is on file"}
 {"is_binding":1,"kind":"request-rate","ord":0,"rid":"ci-cd-runners/gitlab-ci","source":"https://docs.gitlab.com/ci/pipelines/compute_minutes/","value":"400 compute minutes a month on Free; a job consumes duration divided by 60 times the cost factor"}
 {"is_binding":1,"kind":"request-rate","ord":0,"rid":"ci-cd-runners/harness-ci-free","source":"https://developer.harness.io/continuous-integration/troubleshooting-and-resources/ci-subscription-mgmt","value":"2,000 credits a month on Free, unused credits expire; Linux xsmall (2 cores, 7 GB) 1 credit a minute, Linux small (4 cores, 15 GB) 2 credits a minute"}
+{"is_binding":1,"kind":"request-rate","ord":0,"rid":"ci-cd-runners/runnerhut","source":"https://runnerhut.com/pricing","value":"3,000 Linux minutes a month on the free plan"}
+{"is_binding":1,"kind":"request-rate","ord":0,"rid":"ci-cd-runners/runners-io","source":"https://www.runners.io/pricing","value":"3,000 run-minutes a month included, then USD 0.0040 a run-minute"}
 {"is_binding":1,"kind":"request-rate","ord":0,"rid":"ci-cd-runners/semaphore-cloud","source":"https://semaphore.io/pricing","value":"USD 15 of credit a month: about 2,000 minutes on f1-standard-2 (2 vCPU, 8 GB RAM, 45 GB disk) at USD 0.0075 a minute; USD 15 / USD 0.003 = 5,000 minutes on r1-standard-2 (ARM, 2 vCPU, 4 GB RAM)"}
 {"is_binding":1,"kind":"request-rate","ord":0,"rid":"coding-subs/abacus-chatllm","source":"https://abacus.ai/pricing","value":"Basic: 20,000 credits a month and 3 AI Agent conversations a month. Pro: 30,000 credits a month with unrestricted Agent and CLI use"}
 {"is_binding":1,"kind":"request-rate","ord":0,"rid":"coding-subs/alibaba-cloud-model-studio-coding-plan","source":"https://www.alibabacloud.com/help/en/model-studio/coding-plan","value":"up to 6,000 requests per 5 hours, as a rolling window: usage from 5 hours earlier is released each minute"}
@@ -3573,7 +3591,7 @@
 {"is_binding":1,"kind":"request-rate","ord":0,"rid":"compute/verda","source":"https://verda.com/pricing","value":"priced per GPU-hour on multi-node clusters, with no commitment and no minimum"}
 {"is_binding":1,"kind":"request-rate","ord":0,"rid":"compute/voltage-park","source":"https://www.voltagepark.com/pricing","value":"HGX H100 capacity from 1 to 1,016 GPUs for bursts, or 32 to 8,000+ in one configuration on a contract"}
 {"is_binding":1,"kind":"request-rate","ord":0,"rid":"compute/vultr-windows","source":"https://docs.vultr.com/support/platform/billing/is-a-windows-license-included-in-the-monthly-price","value":"a Windows licence fee is added to the Compute plan's base monthly price"}
-{"is_binding":1,"kind":"request-rate","ord":0,"rid":"compute/warpbuild","source":"https://www.warpbuild.com/pricing","value":"$0.003 to $0.004 a minute for 2 vCPU and 8 GB, $0.064 for 32 vCPU and 128 GB"}
+{"is_binding":1,"kind":"request-rate","ord":0,"rid":"compute/warpbuild","source":"https://www.warpbuild.com/pricing","value":"USD 0.004 a minute for a hosted 2 vCPU / 8 GB Linux x86 runner, USD 0.008 for 4 vCPU / 16 GB, and USD 0.002 a minute for BYOC"}
 {"is_binding":1,"kind":"request-rate","ord":0,"rid":"compute/wasmer","source":"https://wasmer.io/pricing","value":"6 compute hours on Free"}
 {"is_binding":1,"kind":"request-rate","ord":0,"rid":"compute/windmill-cloud","source":"https://www.windmill.dev/docs/getting_started/how_to_use_windmill","value":"1,000 executions a month on the Community plan"}
 {"is_binding":1,"kind":"request-rate","ord":0,"rid":"compute/windows-365","source":"https://www.microsoft.com/en-us/windows-365/business/compare-plans-pricing","value":"a monthly auto-renewing subscription per Cloud PC; the trial is a separate term"}
@@ -3864,6 +3882,7 @@
 {"is_binding":1,"kind":"request-rate","ord":1,"rid":"ci-cd-runners/circleci-free","source":"https://circleci.com/pricing/","value":"30x concurrency on Free, and 5 active users"}
 {"is_binding":1,"kind":"request-rate","ord":1,"rid":"ci-cd-runners/gitlab-ci","source":"https://docs.gitlab.com/ci/pipelines/compute_minutes/","value":"cost factor 1 for small Linux, 2 for medium, 3 for large, 6 for xlarge, 12 for 2xlarge, 6 for macOS M1"}
 {"is_binding":1,"kind":"request-rate","ord":1,"rid":"ci-cd-runners/harness-ci-free","source":"https://developer.harness.io/harness-platform/use-harness-platform/pipelines/pipeline-settings","value":"2 concurrent pipeline executions per account on the Free plan, not editable; 2 concurrent steps or stages within one execution"}
+{"is_binding":1,"kind":"request-rate","ord":1,"rid":"ci-cd-runners/runnerhut","source":"https://runnerhut.com/pricing","value":"USD 0.0040 a minute for the 2 vCPU Linux x64 runner, USD 0.0032 for ARM64, USD 0.0900 for an L4 GPU runner"}
 {"is_binding":1,"kind":"request-rate","ord":1,"rid":"ci-cd-runners/semaphore-cloud","source":"https://semaphore.io/pricing","value":"20 concurrent jobs by default; higher limits on request"}
 {"is_binding":1,"kind":"request-rate","ord":1,"rid":"coding-subs/alibaba-cloud-model-studio-coding-plan","source":"https://www.alibabacloud.com/help/en/model-studio/coding-plan","value":"up to 45,000 requests per week, reset every Monday at 00:00:00 UTC+08:00"}
 {"is_binding":1,"kind":"request-rate","ord":1,"rid":"coding-subs/alibaba-cloud-model-studio-coding-plan-china","source":"https://help.aliyun.com/en/model-studio/coding-plan","value":"up to 45,000 requests per week, reset every Monday at 00:00:00 UTC+08:00"}
@@ -3893,7 +3912,6 @@
 {"is_binding":1,"kind":"request-rate","ord":1,"rid":"compute/tinyfish","source":"https://www.tinyfish.ai/pricing","value":"Fetch is capped at 150 URLs a minute and 1,000 a day on the free path"}
 {"is_binding":1,"kind":"request-rate","ord":1,"rid":"compute/together-gpu","source":"https://www.together.ai/pricing","value":"inference bills per million input and output tokens, from $0.00 to $15.00 an output MTok"}
 {"is_binding":1,"kind":"request-rate","ord":1,"rid":"compute/ubicloud","source":"https://www.ubicloud.com/docs/about/pricing","value":"premium runners fall back to standard ones when capacity is full, with no extra wait"}
-{"is_binding":1,"kind":"request-rate","ord":1,"rid":"compute/warpbuild","source":"https://www.warpbuild.com/pricing","value":"no hard concurrency limit: each builder profile is shared across jobs"}
 {"is_binding":1,"kind":"request-rate","ord":1,"rid":"compute/yepcode","source":"https://yepcode.io/pricing/","value":"a single execution is capped at 30 seconds on Free, 1 hour on the paid tier"}
 {"is_binding":1,"kind":"request-rate","ord":1,"rid":"crawler-scraper/anchor-browser","source":"https://docs.anchorbrowser.io/advanced/web-unlocker","value":"2,000 requests a minute per API key by default on Web Unlocker, a route outside the plan's concurrent-browser limit; higher limits are available on request"}
 {"is_binding":1,"kind":"request-rate","ord":1,"rid":"crawler-scraper/arquivo","source":"https://github.com/arquivo/pwa-technologies/wiki/APIs","value":"an IP address over any of these limits is blocked permanently; a 429 answer means slow down"}
@@ -4004,6 +4022,8 @@
 {"is_binding":1,"kind":"request-rate","ord":1,"rid":"storage/mapillary","source":"https://blog.mapillary.com/update/2024/07/08/expanding-public-street-level-imagery-access.html","value":"50,000 requests/DAY"}
 {"is_binding":1,"kind":"request-rate","ord":2,"rid":"ci-cd-runners/github-actions-private","source":"https://docs.github.com/en/actions/reference/limits","value":"20 concurrent jobs on Free"}
 {"is_binding":1,"kind":"request-rate","ord":2,"rid":"ci-cd-runners/harness-ci-free","source":"https://developer.harness.io/continuous-integration/troubleshooting-and-resources/ci-subscription-mgmt","value":"Harness Cloud concurrent stages on Free: Linux 20, Windows 1, macOS 1"}
+{"is_binding":1,"kind":"request-rate","ord":2,"rid":"ci-cd-runners/runnerhut","source":"https://runnerhut.com/pricing","value":"per-second billing with a one-minute minimum, so a 20-second job is billed as a full minute"}
+{"is_binding":1,"kind":"request-rate","ord":2,"rid":"ci-cd-runners/runners-io","source":"https://www.runners.io/pricing","value":"a priority label costs twice the run-minutes and twice the rate of the same label"}
 {"is_binding":1,"kind":"request-rate","ord":2,"rid":"coding-subs/alibaba-cloud-model-studio-coding-plan","source":"https://www.alibabacloud.com/help/en/model-studio/coding-plan","value":"up to 90,000 requests per month, reset at 00:00:00 UTC+08:00 on the subscription renewal date"}
 {"is_binding":1,"kind":"request-rate","ord":2,"rid":"coding-subs/alibaba-cloud-model-studio-coding-plan-china","source":"https://help.aliyun.com/en/model-studio/coding-plan","value":"up to 90,000 requests per month, reset at 00:00:00 UTC+08:00 on the subscription renewal date"}
 {"is_binding":1,"kind":"request-rate","ord":2,"rid":"coding-subs/factory","source":"https://docs.factory.com/pricing/individuals.md","value":"after Standard Usage runs out the Droid Core open-weight pool has its own separate rate limits; Standard Usage does not roll over month to month, while purchased Extra Usage does"}
@@ -4013,6 +4033,7 @@
 {"is_binding":1,"kind":"request-rate","ord":2,"rid":"compute/firecrawl","source":"https://docs.firecrawl.dev/billing","value":"Free plan: 10 requests a minute on /scrape, /map and /search and 2 requests a minute on /crawl, /agent and /interact; 2 concurrent browsers"}
 {"is_binding":1,"kind":"request-rate","ord":2,"rid":"compute/huggingface-jobs","source":"https://huggingface.co/docs/hub/en/jobs-pricing","value":"a monthly spending limit can be set per organisation or resource group"}
 {"is_binding":1,"kind":"request-rate","ord":2,"rid":"compute/rivet","source":"https://rivet.dev/pricing/","value":"active execution bills per vCPU-second plus $0.0000029 a GiB-second of state storage"}
+{"is_binding":1,"kind":"request-rate","ord":2,"rid":"compute/warpbuild","source":"https://www.warpbuild.com/pricing","value":"no free allowance is published; the FAQ only names a free usage or credit limit that a payment method ends"}
 {"is_binding":1,"kind":"request-rate","ord":2,"rid":"crawler-scraper/commoncrawl","source":"https://commoncrawl.org/faq","value":"the CDXJ API on index.commoncrawl.org is heavily rate limited; an IP address that sends too many requests may be blocked, and a blocked IP address should wait 24 hours"}
 {"is_binding":1,"kind":"request-rate","ord":2,"rid":"crawler-scraper/crawl4ai","source":"https://crawl4ai.com/","value":"1,000 credits a month on the free plan: a page costs 0.5 credit at the base price, 1 credit in a real browser and 2 on a hard site, so the month holds 2,000, 1,000 or 500 pages"}
 {"is_binding":1,"kind":"request-rate","ord":2,"rid":"crawler-scraper/firecrawl","source":"https://www.firecrawl.dev/pricing","value":"Hobby USD 19 a month on monthly billing, USD 16 billed annually, for 2,500 searches or 5,000 pages. Standard USD 83 a month for 50,000 or 100,000, quoted on annual billing."}
@@ -4183,7 +4204,9 @@
 {"is_binding":1,"kind":"retention-clamped","ord":0,"rid":"domains-dns/no-ip-free","source":"https://www.noip.com/support/knowledgebase/confirm-my-hostname-free-account-support-question-day","value":"confirm every 30 days: active 23 days, 7-day confirmation window, 14-day redemption, then deletion"}
 {"is_binding":1,"kind":"retention-clamped","ord":0,"rid":"egress/azirevpn","source":"https://blog.azirevpn.com/port-forwarding/","value":"a granted port carries an expiry and can be extended: Done, you will see the port you have been granted and when the port will expire. The API takes expires_in, and PUT updates the port."}
 {"is_binding":1,"kind":"retention-clamped","ord":0,"rid":"egress/cloudflare-quick-tunnel","source":"probe","value":"hostname lifetime equals process lifetime; a restart invalidates every URL"}
+{"is_binding":1,"kind":"retention-clamped","ord":0,"rid":"egress/liveapps","source":"probe:https://warped-wiry-wool.liveapps.dev/","value":"the public URL expires after about an hour"}
 {"is_binding":1,"kind":"retention-clamped","ord":0,"rid":"egress/mudcat","source":"https://www.mudcat.io/","value":"Access Domain TTL: valid for 8.00 hours for TCP and UDP tunnels"}
+{"is_binding":1,"kind":"retention-clamped","ord":0,"rid":"egress/nport","source":"probe:https://user-8740.nport.link/","value":"a 4-hour session cap"}
 {"is_binding":1,"kind":"retention-clamped","ord":0,"rid":"egress/opentunnel-wireguard-singapore","source":"https://opentunnel.net/wireguard-server-102/","value":"'Active: 7 Days'"}
 {"is_binding":1,"kind":"retention-clamped","ord":0,"rid":"egress/perfect-privacy","source":"https://www.perfect-privacy.com/en/manuals/windows_vpnmanager_doc","value":"forwarded ports expire after seven days unless auto-renew is on: Please note that port forwarding expires after seven days. If you enable Auto Renew Port Forwarding, ports will be automatically renewed after seven days."}
 {"is_binding":1,"kind":"retention-clamped","ord":0,"rid":"egress/private-internet-access","source":"https://github.com/pia-foss/manual-connections","value":"a bound port is deleted if the bind is not renewed: Call /bindPort every 15 minutes, or the port will be deleted. The port signature is valid for two months: All ports currently expire after 2 months."}
@@ -4255,7 +4278,6 @@
 {"is_binding":1,"kind":"retention-clamped","ord":1,"rid":"compute/celesto","source":"https://celesto.ai/pricing","value":"the credit is valid for 30 days; a top-up does not end the trial, it just adds a balance"}
 {"is_binding":1,"kind":"retention-clamped","ord":1,"rid":"compute/cloudbrowser","source":"https://cloudbrowser.ai/","value":"the free period is 7 days on Basic and ends regardless of usage"}
 {"is_binding":1,"kind":"retention-clamped","ord":1,"rid":"compute/codesandbox-sdk","source":"https://docs.together.ai/docs/together-code-sandbox-legacy","value":"the published rates are labelled legacy"}
-{"is_binding":1,"kind":"retention-clamped","ord":1,"rid":"compute/depot","source":"https://depot.dev/pricing","value":"the included block ends with the 7-day trial; after that usage bills per second"}
 {"is_binding":1,"kind":"retention-clamped","ord":1,"rid":"compute/e2b","source":"https://e2b.dev/pricing","value":"1 hour maximum continuous runtime per sandbox on Hobby"}
 {"is_binding":1,"kind":"retention-clamped","ord":1,"rid":"compute/euserv","source":"https://forum.euserv.com/index.php?topic=10932.0","value":"a 1-month contract with manual renewal and an emailed verification PIN; a missed renewal takes the server down"}
 {"is_binding":1,"kind":"retention-clamped","ord":1,"rid":"compute/euserv-vs2-free","source":"https://forum.euserv.com/index.php?topic=10932.0","value":"a 1-month contract with manual renewal and an emailed verification PIN; a missed renewal takes the server down"}
@@ -4309,6 +4331,8 @@
 {"is_binding":1,"kind":"retention-clamped","ord":1,"rid":"storage/mintfile","source":"https://mintfile.com/","value":"Retention max 100 days"}
 {"is_binding":1,"kind":"retention-clamped","ord":1,"rid":"storage/sendgb-unlimited-transfers","source":"https://www.sendgb.com/llms.txt","value":"up to 90 days, depending on file size"}
 {"is_binding":1,"kind":"retention-clamped","ord":1,"rid":"storage/upstash","source":"https://upstash.com/pricing/redis","value":"delete at 3 days"}
+{"is_binding":1,"kind":"retention-clamped","ord":2,"rid":"ci-cd-runners/compiler-dev","source":"https://compiler.dev/pricing","value":"the free window is 14 days; prepaid credit never expires and unused credit is refunded on request"}
+{"is_binding":1,"kind":"retention-clamped","ord":2,"rid":"compute/depot","source":"https://depot.dev/pricing","value":"the free window is a 7-day trial; the monthly allowance needs the USD 20 plan"}
 {"is_binding":1,"kind":"retention-clamped","ord":2,"rid":"compute/huggingface-spaces","source":"https://huggingface.co/docs/hub/en/spaces-overview","value":"a Space on free hardware sleeps after a period of inactivity"}
 {"is_binding":1,"kind":"retention-clamped","ord":2,"rid":"compute/instabox","source":"https://instabox.sh/changelog","value":"accounts created before 2026-10-20 keep five free machines only until 2026-12-01"}
 {"is_binding":1,"kind":"retention-clamped","ord":2,"rid":"compute/oracle-cloud","source":"https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm","value":"an instance idle over a 7-day window may be reclaimed: p95 CPU below 20%, network below 20%, memory below 20% on A1"}
@@ -4959,6 +4983,7 @@
 {"is_binding":1,"kind":"volume-quota","ord":0,"rid":"egress/cloudpub","source":"https://cloudpub.ru/plans","value":"250 GB traffic per month"}
 {"is_binding":1,"kind":"volume-quota","ord":0,"rid":"egress/cloudserver-linux-kvm-1gb","source":"https://www.cloudserver.net/linux-vps/","value":"5 TB monthly bandwidth; overage action not published"}
 {"is_binding":1,"kind":"volume-quota","ord":0,"rid":"egress/cosmic-guard","source":"https://cosmicguard.com/pricing/","value":"USD 0.02 per GB transmit on the server plan"}
+{"is_binding":1,"kind":"volume-quota","ord":0,"rid":"egress/cruma","source":"https://cruma.io/pricing","value":"1 GiB per session on the anonymous tier"}
 {"is_binding":1,"kind":"volume-quota","ord":0,"rid":"egress/dedirock-promo-vps-saver-monthly","source":"https://dedirock.com/promo/","value":"1 TB bandwidth on Promo VPS Saver; overage rule not published"}
 {"is_binding":1,"kind":"volume-quota","ord":0,"rid":"egress/dedirock-yearly-promo-vps-saver","source":"https://dedirock.com/KVMSuperSale/","value":"1 TB bandwidth, period not stated"}
 {"is_binding":1,"kind":"volume-quota","ord":0,"rid":"egress/deno-deploy","source":"https://deno.com/deploy/pricing","value":"20 GiB egress per month"}
@@ -5038,7 +5063,7 @@
 {"is_binding":1,"kind":"volume-quota","ord":0,"rid":"egress/rdpserverss-free-ipv6","source":"https://rdpserverss.com/free-ipv6-vps/","value":"1 TB of transfer on the root-access plan"}
 {"is_binding":1,"kind":"volume-quota","ord":0,"rid":"egress/render","source":"https://render.com/docs/outbound-bandwidth","value":"5 GB per month on Hobby; $0.15/GB above"}
 {"is_binding":1,"kind":"volume-quota","ord":0,"rid":"egress/rocket-internet-ipv4","source":"https://rocketinternet.com/ipv4-solutions/","value":"unpublished"}
-{"is_binding":1,"kind":"volume-quota","ord":0,"rid":"egress/rustunnel","source":"https://www.rustunnel.com/","value":"no free byte allowance published; the managed cloud is metered and billed from USD 3/month"}
+{"is_binding":1,"kind":"volume-quota","ord":0,"rid":"egress/rustunnel","source":"https://www.rustunnel.com/pricing","value":"1 GB of bandwidth a month on the free Hobby plan"}
 {"is_binding":1,"kind":"volume-quota","ord":0,"rid":"egress/sakurafrp","source":"https://www.natfrp.com/","value":"5 GiB per month"}
 {"is_binding":1,"kind":"volume-quota","ord":0,"rid":"egress/serververse-network-transit","source":"https://docs.serververs.com/labs/ip-transit/begin","value":"unpublished"}
 {"is_binding":1,"kind":"volume-quota","ord":0,"rid":"egress/servitro-1-server","source":"https://servitro.com/faq","value":"1 TB a month, then 625 Kbps until the next month"}

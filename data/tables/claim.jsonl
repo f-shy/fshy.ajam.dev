@@ -870,6 +870,8 @@
 {"currency":"USD","fx_date":null,"kind":"price","num":1.96,"parse":"ok","path":"$.extras.m10h_usd","per":"month","rid":"compute/agent37","unit":"10 hours a day","usd":1.96}
 {"currency":"USD","fx_date":null,"kind":"price","num":10.0,"parse":"ok","path":"$.extras.m10h_usd","per":"month","rid":"compute/racknerd-8gb-annual-special","unit":"10 hours a day","usd":10.0}
 {"currency":"USD","fx_date":null,"kind":"price","num":10.0,"parse":"ok","path":"$.extras.m24h_usd","per":"month","rid":"compute/racknerd-8gb-annual-special","unit":null,"usd":10.0}
+{"currency":"USD","fx_date":null,"kind":"price","num":10.0,"parse":"ok","path":"$.extras.monthly_usd","per":"month","rid":"coding-subs/abacus-chatllm","unit":null,"usd":10.0}
+{"currency":"USD","fx_date":null,"kind":"price","num":10.0,"parse":"ok","path":"$.extras.monthly_usd","per":"month","rid":"coding-subs/charm-hyper","unit":null,"usd":10.0}
 {"currency":"USD","fx_date":null,"kind":"price","num":10.0,"parse":"ok","path":"$.extras.price_on_page","per":"month","rid":"compute/virtury","unit":null,"usd":10.0}
 {"currency":"USD","fx_date":null,"kind":"price","num":10.0,"parse":"ok","path":"$.extras.renewal_usd","per":"month","rid":"compute/racknerd-8gb-annual-special","unit":null,"usd":10.0}
 {"currency":"USD","fx_date":null,"kind":"price","num":10.0,"parse":"ok","path":"$.price_per_tb_month","per":"month","rid":"debrid/torbox-pro","unit":null,"usd":10.0}
@@ -884,6 +886,7 @@
 {"currency":"USD","fx_date":null,"kind":"price","num":10.8,"parse":"ok","path":"$.extras.m10h_usd","per":"month","rid":"compute/boat","unit":"10 hours a day","usd":10.8}
 {"currency":"USD","fx_date":null,"kind":"price","num":10.8,"parse":"ok","path":"$.extras.m10h_usd","per":"month","rid":"compute/linode","unit":"10 hours a day","usd":10.8}
 {"currency":"USD","fx_date":null,"kind":"price","num":10.99,"parse":"ok","path":"$.extras.monthly_usd","per":"month","rid":"compute/rabisu-windows","unit":null,"usd":10.99}
+{"currency":"USD","fx_date":null,"kind":"price","num":100.0,"parse":"ok","path":"$.extras.monthly_usd","per":"month","rid":"coding-subs/augment-code-business","unit":null,"usd":100.0}
 {"currency":"USD","fx_date":null,"kind":"price","num":100.0,"parse":"ok","path":"$.price_per_tb_month","per":null,"rid":"egress/akamai-cloud-linode","unit":"credit","usd":100.0}
 {"currency":"USD","fx_date":null,"kind":"price","num":100.0,"parse":"ok","path":"$.price_per_tb_month","per":null,"rid":"egress/aws-free-tier","unit":"credit","usd":100.0}
 {"currency":"USD","fx_date":null,"kind":"price","num":100.0,"parse":"ok","path":"$.price_per_tb_month","per":null,"rid":"egress/azure-for-students","unit":"credit","usd":100.0}
@@ -954,9 +957,12 @@
 {"currency":"USD","fx_date":null,"kind":"price","num":1600.0,"parse":"ok","path":"$.price_per_tb_month","per":"month","rid":"ip-proxy/ipye-isp-network-bundle","unit":null,"usd":1600.0}
 {"currency":"USD","fx_date":null,"kind":"price","num":17.4,"parse":"ok","path":"$.extras.m10h_usd","per":"month","rid":"compute/mitos","unit":"10 hours a day","usd":17.4}
 {"currency":"USD","fx_date":null,"kind":"price","num":17.96,"parse":"partial","path":"$.price_per_tb_month","per":"year","rid":"egress/hostsailor-minisailor","unit":"TB","usd":17.96}
+{"currency":"USD","fx_date":null,"kind":"price","num":18.0,"parse":"ok","path":"$.extras.monthly_usd","per":"month","rid":"coding-subs/warp-build","unit":null,"usd":18.0}
+{"currency":"USD","fx_date":null,"kind":"price","num":18.0,"parse":"ok","path":"$.extras.monthly_usd","per":"month","rid":"coding-subs/zai-glm-coding-plan","unit":null,"usd":18.0}
 {"currency":"USD","fx_date":null,"kind":"price","num":18.0,"parse":"ok","path":"$.price_per_tb_month","per":"month","rid":"egress/aws-global-accelerator","unit":null,"usd":18.0}
 {"currency":"USD","fx_date":null,"kind":"price","num":18.43,"parse":"ok","path":"$.extras.m24h_usd","per":"month","rid":"compute/ovhcloud","unit":null,"usd":18.43}
 {"currency":"USD","fx_date":null,"kind":"price","num":18.67,"parse":"ok","path":"$.extras.m24h_usd","per":"month","rid":"compute/scaleway","unit":null,"usd":18.67}
+{"currency":"USD","fx_date":null,"kind":"price","num":180.0,"parse":"ok","path":"$.extras.monthly_usd","per":"month","rid":"coding-subs/warp-max","unit":null,"usd":180.0}
 {"currency":"USD","fx_date":null,"kind":"price","num":182.99,"parse":"ok","path":"$.extras.monthly_usd","per":"month","rid":"compute/hostwinds-windows","unit":null,"usd":182.99}
 {"currency":"USD","fx_date":null,"kind":"price","num":182.99,"parse":"ok","path":"$.extras.renewal_usd","per":"month","rid":"compute/hostwinds-windows","unit":null,"usd":182.99}
 {"currency":"USD","fx_date":null,"kind":"price","num":19.0,"parse":"ok","path":"$.extras.m10h_usd","per":"month","rid":"compute/lightpanda","unit":"10 hours a day","usd":19.0}
@@ -1033,6 +1039,10 @@
 {"currency":"USD","fx_date":null,"kind":"price","num":2.99,"parse":"ok","path":"$.price_per_tb_month","per":null,"rid":"debrid/leechall-io","unit":null,"usd":2.99}
 {"currency":"USD","fx_date":null,"kind":"price","num":20.0,"parse":"ok","path":"$.extras.m24h_usd","per":"month","rid":"compute/vultr","unit":null,"usd":20.0}
 {"currency":"USD","fx_date":null,"kind":"price","num":20.0,"parse":"ok","path":"$.extras.m24h_usd","per":"month","rid":"compute/zipbox","unit":null,"usd":20.0}
+{"currency":"USD","fx_date":null,"kind":"price","num":20.0,"parse":"ok","path":"$.extras.monthly_usd","per":"month","rid":"coding-subs/amp-individual","unit":null,"usd":20.0}
+{"currency":"USD","fx_date":null,"kind":"price","num":20.0,"parse":"ok","path":"$.extras.monthly_usd","per":"month","rid":"coding-subs/augment-code-standard","unit":null,"usd":20.0}
+{"currency":"USD","fx_date":null,"kind":"price","num":20.0,"parse":"ok","path":"$.extras.monthly_usd","per":"month","rid":"coding-subs/factory","unit":null,"usd":20.0}
+{"currency":"USD","fx_date":null,"kind":"price","num":20.0,"parse":"ok","path":"$.extras.monthly_usd","per":"month","rid":"coding-subs/qwencloud-token-plan-team-edition","unit":null,"usd":20.0}
 {"currency":"USD","fx_date":null,"kind":"price","num":20.0,"parse":"ok","path":"$.extras.monthly_usd","per":"month","rid":"compute/boat","unit":null,"usd":20.0}
 {"currency":"USD","fx_date":null,"kind":"price","num":20.0,"parse":"ok","path":"$.extras.price_on_page","per":"month","rid":"compute/boat","unit":null,"usd":20.0}
 {"currency":"USD","fx_date":null,"kind":"price","num":20.0,"parse":"ok","path":"$.price_per_tb_month","per":null,"rid":"debrid/maximumusenet","unit":"1000 GB","usd":20.0}
@@ -1130,6 +1140,7 @@
 {"currency":"USD","fx_date":null,"kind":"price","num":30.0,"parse":"ok","path":"$.extras.m10h_usd","per":"month","rid":"compute/steel","unit":"10 hours a day","usd":30.0}
 {"currency":"USD","fx_date":null,"kind":"price","num":30.0,"parse":"ok","path":"$.extras.m24h_usd","per":"month","rid":"compute/hyperbrowser","unit":null,"usd":30.0}
 {"currency":"USD","fx_date":null,"kind":"price","num":30.0,"parse":"ok","path":"$.extras.m24h_usd","per":"month","rid":"compute/kernel","unit":null,"usd":30.0}
+{"currency":"USD","fx_date":null,"kind":"price","num":30.0,"parse":"ok","path":"$.extras.monthly_usd","per":"month","rid":"coding-subs/v0-plus","unit":null,"usd":30.0}
 {"currency":"USD","fx_date":null,"kind":"price","num":30.0,"parse":"ok","path":"$.extras.monthly_usd","per":"month","rid":"compute/kimsufi-windows","unit":null,"usd":30.0}
 {"currency":"USD","fx_date":null,"kind":"price","num":30.22,"parse":"ok","path":"$.extras.m24h_usd","per":"month","rid":"compute/blaxel","unit":null,"usd":30.22}
 {"currency":"USD","fx_date":null,"kind":"price","num":30.54,"parse":"ok","path":"$.price_per_tb_month","per":null,"rid":"debrid/dropgalaxy","unit":"TiB","usd":30.54}
@@ -1294,6 +1305,7 @@
 {"currency":"USD","fx_date":null,"kind":"price","num":5.99,"parse":"ok","path":"$.extras.price_on_page","per":"month","rid":"compute/privatebyte","unit":null,"usd":5.99}
 {"currency":"USD","fx_date":null,"kind":"price","num":5.99,"parse":"ok","path":"$.extras.renewal_usd","per":"month","rid":"compute/lumadock-vps-s1","unit":null,"usd":5.99}
 {"currency":"USD","fx_date":null,"kind":"price","num":5.99,"parse":"ok","path":"$.price_per_tb_month","per":null,"rid":"debrid/frugal-usenet","unit":null,"usd":5.99}
+{"currency":"USD","fx_date":null,"kind":"price","num":50.0,"parse":"ok","path":"$.extras.monthly_usd","per":"month","rid":"coding-subs/alibaba-cloud-model-studio-coding-plan","unit":null,"usd":50.0}
 {"currency":"USD","fx_date":null,"kind":"price","num":500.0,"parse":"ok","path":"$.price_per_tb_month","per":"month","rid":"debrid/soax","unit":null,"usd":500.0}
 {"currency":"USD","fx_date":null,"kind":"price","num":500.0,"parse":"ok","path":"$.price_per_tb_month","per":null,"rid":"debrid/telegram-debridmasterbot","unit":null,"usd":500.0}
 {"currency":"USD","fx_date":null,"kind":"price","num":51.18,"parse":"ok","path":"$.extras.m10h_usd","per":"month","rid":"compute/pilldrops","unit":"10 hours a day","usd":51.18}
@@ -1309,6 +1321,7 @@
 {"currency":"USD","fx_date":null,"kind":"price","num":6.0,"parse":"ok","path":"$.extras.m10h_usd","per":"month","rid":"compute/ionos-vps-s-plus","unit":"10 hours a day","usd":6.0}
 {"currency":"USD","fx_date":null,"kind":"price","num":6.0,"parse":"ok","path":"$.extras.m24h_usd","per":"month","rid":"compute/digitalocean-droplet-1gb","unit":null,"usd":6.0}
 {"currency":"USD","fx_date":null,"kind":"price","num":6.0,"parse":"ok","path":"$.extras.m24h_usd","per":"month","rid":"compute/ionos-vps-s-plus","unit":null,"usd":6.0}
+{"currency":"USD","fx_date":null,"kind":"price","num":6.0,"parse":"ok","path":"$.extras.monthly_usd","per":"month","rid":"coding-subs/qwencloud-token-plan-personal-edition","unit":null,"usd":6.0}
 {"currency":"USD","fx_date":null,"kind":"price","num":6.0,"parse":"ok","path":"$.extras.monthly_usd","per":"month","rid":"compute/advin","unit":null,"usd":6.0}
 {"currency":"USD","fx_date":null,"kind":"price","num":6.0,"parse":"ok","path":"$.extras.price_on_page","per":"month","rid":"compute/advin","unit":null,"usd":6.0}
 {"currency":"USD","fx_date":null,"kind":"price","num":6.0,"parse":"ok","path":"$.extras.price_on_page","per":"month","rid":"compute/terabix","unit":null,"usd":6.0}
@@ -1347,6 +1360,7 @@
 {"currency":"USD","fx_date":null,"kind":"price","num":6.95,"parse":"ok","path":"$.price_per_tb_month","per":null,"rid":"debrid/fastusenet","unit":null,"usd":6.95}
 {"currency":"USD","fx_date":null,"kind":"price","num":6.97,"parse":"ok","path":"$.price_per_tb_month","per":"month","rid":"egress/oeck-vpn","unit":null,"usd":6.97}
 {"currency":"USD","fx_date":null,"kind":"price","num":6.97,"parse":"ok","path":"$.price_per_tb_month","per":"month","rid":"ip-proxy/oeck-vpn","unit":null,"usd":6.97}
+{"currency":"USD","fx_date":null,"kind":"price","num":6.99,"parse":"ok","path":"$.extras.monthly_usd","per":"month","rid":"coding-subs/stepfun-step-plan","unit":null,"usd":6.99}
 {"currency":"USD","fx_date":null,"kind":"price","num":6.99,"parse":"ok","path":"$.extras.price_on_page","per":"month","rid":"compute/host-c","unit":null,"usd":6.99}
 {"currency":"USD","fx_date":null,"kind":"price","num":6.99,"parse":"ok","path":"$.extras.price_on_page","per":"month","rid":"compute/is-hosting","unit":null,"usd":6.99}
 {"currency":"USD","fx_date":null,"kind":"price","num":60.0,"parse":"ok","path":"$.price_per_tb_month","per":"year","rid":"egress/riseup-vpn","unit":null,"usd":60.0}
@@ -1363,6 +1377,7 @@
 {"currency":"USD","fx_date":null,"kind":"price","num":7.0,"parse":"ok","path":"$.extras.m24h_usd","per":"month","rid":"compute/unsandbox","unit":null,"usd":7.0}
 {"currency":"USD","fx_date":null,"kind":"price","num":7.0,"parse":"ok","path":"$.extras.renewal_usd","per":"month","rid":"compute/buyvm-slice-2048","unit":null,"usd":7.0}
 {"currency":"USD","fx_date":null,"kind":"price","num":7.1,"parse":"ok","path":"$.extras.price_on_page","per":"month","rid":"compute/vps1","unit":null,"usd":7.1}
+{"currency":"USD","fx_date":null,"kind":"price","num":7.33,"parse":"ok","path":"$.extras.monthly_usd","per":"month","rid":"coding-subs/kimi","unit":null,"usd":7.33}
 {"currency":"USD","fx_date":null,"kind":"price","num":7.5,"parse":"ok","path":"$.price_per_tb_month","per":null,"rid":"debrid/usenetexpress","unit":null,"usd":7.5}
 {"currency":"USD","fx_date":null,"kind":"price","num":7.68,"parse":"ok","path":"$.extras.m10h_usd","per":"month","rid":"compute/ovhcloud","unit":"10 hours a day","usd":7.68}
 {"currency":"USD","fx_date":null,"kind":"price","num":7.71,"parse":"ok","path":"$.extras.m24h_usd","per":"month","rid":"compute/lightnode-tokyo","unit":null,"usd":7.71}
@@ -1809,6 +1824,7 @@
 {"currency":null,"fx_date":null,"kind":"free-quota","num":1.0,"parse":"ok","path":"$.free_tier.stated","per":null,"rid":"dev-services/pubnub","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":1.0,"parse":"ok","path":"$.free_tier.stated","per":null,"rid":"egress/aquatis-hrkvm-8","unit":"TB","usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":1.0,"parse":"ok","path":"$.free_tier.stated","per":null,"rid":"egress/cloudserver-linux-kvm-1gb","unit":"GB","usd":null}
+{"currency":null,"fx_date":null,"kind":"free-quota","num":1.0,"parse":"ok","path":"$.free_tier.stated","per":null,"rid":"egress/cruma","unit":"GiB","usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":1.0,"parse":"ok","path":"$.free_tier.stated","per":null,"rid":"egress/dedirock-promo-vps-saver-monthly","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":1.0,"parse":"ok","path":"$.free_tier.stated","per":null,"rid":"egress/digitalocean-app-platform","unit":"GiB","usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":1.0,"parse":"ok","path":"$.free_tier.stated","per":null,"rid":"egress/freevps-org-charity-donor","unit":"GB","usd":null}
@@ -1826,6 +1842,7 @@
 {"currency":null,"fx_date":null,"kind":"free-quota","num":1.0,"parse":"ok","path":"$.free_tier.stated","per":null,"rid":"egress/ouiheberg-linux-vps-01g","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":1.0,"parse":"ok","path":"$.free_tier.stated","per":null,"rid":"egress/packetriot","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":1.0,"parse":"ok","path":"$.free_tier.stated","per":null,"rid":"egress/racknerd-kvm-1gb","unit":"GB","usd":null}
+{"currency":null,"fx_date":null,"kind":"free-quota","num":1.0,"parse":"ok","path":"$.free_tier.stated","per":null,"rid":"egress/rustunnel","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":1.0,"parse":"ok","path":"$.free_tier.stated","per":null,"rid":"egress/servitro-1-server","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":1.0,"parse":"ok","path":"$.free_tier.stated","per":null,"rid":"egress/siliconkiwi-kiwi-go","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":1.0,"parse":"ok","path":"$.free_tier.stated","per":null,"rid":"egress/softshellweb-lxc-ipv6-only-la","unit":"GB","usd":null}
@@ -3983,11 +4000,14 @@
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/buildkite-free","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/cirrus-ci","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/codeberg-ci","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/compiler-dev","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/dev-ramps-free","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/drone-ci","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/forgejo-gitea-actions","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/ghcr","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/nixci","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/runnerhut","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/runners-io","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/semaphore-cloud","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/sourcehut-builds","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/travis-ci","unit":null,"usd":null}
@@ -5379,7 +5399,9 @@
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"egress/kubesail","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"egress/lanemu-p2pvpn","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"egress/lantunnel","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"egress/letstunnel","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"egress/libp2p-circuit-relay-v2","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"egress/liveapps","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"egress/livecycle","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"egress/localhost-run","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"egress/localport","unit":null,"usd":null}
@@ -5421,6 +5443,7 @@
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"egress/northflank","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"egress/nostr-vpn","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"egress/novanode-ip-tunnel","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"egress/nport","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"egress/nps-enhanced","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"egress/nymvpn","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"egress/obscura","unit":null,"usd":null}
@@ -5478,7 +5501,6 @@
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"egress/rocket-internet-ipv4","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"egress/route48-org","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"egress/route64-org","unit":null,"usd":null}
-{"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"egress/rustunnel","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"egress/sakura-internet-vps","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"egress/scaleway-instances","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"egress/selfhosted-gateway","unit":null,"usd":null}
@@ -6670,6 +6692,7 @@
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"compute/deluxhost","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"compute/deluxhost-x-0-ipv6","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"compute/denvr","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"compute/depot","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"compute/deta-space","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"compute/digirdp","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"compute/digitalcloud","unit":null,"usd":null}
@@ -7584,6 +7607,7 @@
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/nymvpn","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/obscura","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/oeck-vpn","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/optimistix-tunnel","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/ouiheberg-linux-vps-01g","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/ovhcloud-public-cloud","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/ovhcloud-vps","unit":null,"usd":null}
@@ -7603,7 +7627,6 @@
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/racknerd-kvm-1gb","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/rarecloud-custom-kvm-vps","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/route48-org","unit":null,"usd":null}
-{"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/rustunnel","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/scaleway-instances","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/serverhost-kvm-2gb","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/serververse-network-transit","unit":null,"usd":null}
@@ -8025,6 +8048,7 @@
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/cloudflare-workers-builds","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/codeberg-ci","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/codeberg-forgejo-actions","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/compiler-dev","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/dev-ramps-free","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/forgejo-gitea-actions","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/ghcr","unit":null,"usd":null}
@@ -8034,6 +8058,8 @@
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/gitlab-ci","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/gitlab-container-registry","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/harness-ci-free","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/runnerhut","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/runners-io","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/semaphore-cloud","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/vercel-ci","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"coding-subs/antigravity","unit":null,"usd":null}
@@ -9232,6 +9258,7 @@
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/cloudflare-warp","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/cloudpub","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/cpolar","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/cruma","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/defguard","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/defined-networking","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/deno-deploy","unit":null,"usd":null}
@@ -9273,6 +9300,7 @@
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/iroh-shared-relay","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/karabro-tunnelbroker-se","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/koyeb","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/liveapps","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/localcan","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/localhost-run","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/localtonet","unit":null,"usd":null}
@@ -9303,12 +9331,12 @@
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/ngrok-operator-zufardhiyaulhaq","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/nodemesh","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/northflank","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/nport","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/openfrp","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/openport-io","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/opentunnel-wireguard-singapore","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/openworld-free-ipv6","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/openziti","unit":null,"usd":null}
-{"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/optimistix-tunnel","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/oracle-always-free","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/oray-peanut-hull","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/ouicu","unit":null,"usd":null}
@@ -9332,6 +9360,7 @@
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/residential-proxy-trial","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/riseup-vpn","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/route64-org","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/rustunnel","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/sakura-internet-vps","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/sakurafrp","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"egress/serveo","unit":null,"usd":null}
@@ -10461,6 +10490,7 @@
 {"currency":null,"fx_date":null,"kind":"limit:per-ip-shaping","num":200.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"debrid/feemoo","unit":"KB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-ip-shaping","num":200.0,"parse":"ok","path":"$.limits[1].value","per":null,"rid":"storage/opendrive","unit":"KB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-ip-shaping","num":215.0,"parse":"ok","path":"$.limits[1].value","per":null,"rid":"storage/zenodo-anonymous-download-throughput","unit":"KB","usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:per-ip-shaping","num":22.0,"parse":"ok","path":"$.limits[1].value","per":null,"rid":"egress/localtunnel","unit":"kB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-ip-shaping","num":24.0,"parse":"ok","path":"$.limits[16].value","per":null,"rid":"debrid/alldebrid","unit":"hours","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-ip-shaping","num":24.0,"parse":"ok","path":"$.limits[1].value","per":null,"rid":"debrid/filesmonster","unit":"hours","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-ip-shaping","num":24.0,"parse":"ok","path":"$.limits[1].value","per":null,"rid":"egress/virmach-ryzen-512mb","unit":"hours","usd":null}
@@ -10489,6 +10519,7 @@
 {"currency":null,"fx_date":null,"kind":"limit:per-ip-shaping","num":4.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"storage/hi168-s3-compatible-object-storage","unit":"MB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-ip-shaping","num":4.0,"parse":"ok","path":"$.limits[1].value","per":null,"rid":"compute/hostinger-vps","unit":"TB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-ip-shaping","num":400.0,"parse":"ok","path":"$.limits[1].value","per":null,"rid":"netdisk-pan/uc-drive","unit":"KB","usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:per-ip-shaping","num":43.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"egress/srv-us","unit":"kB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-ip-shaping","num":430.0,"parse":"ok","path":"$.limits[1].value","per":null,"rid":"storage/ena-webin","unit":"KB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-ip-shaping","num":45.0,"parse":"ok","path":"$.limits[0].value","per":"month","rid":"ip-proxy/ippeak-dual-ntt","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-ip-shaping","num":45.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"storage/ena-webin","unit":"KB","usd":null}
@@ -10508,6 +10539,7 @@
 {"currency":null,"fx_date":null,"kind":"limit:per-ip-shaping","num":50.0,"parse":"ok","path":"$.limits[0].value","per":"day","rid":"storage/hosthatch-storage-vm","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-ip-shaping","num":50.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"storage/dropmefiles","unit":"Gb","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-ip-shaping","num":50.0,"parse":"ok","path":"$.limits[2].value","per":null,"rid":"debrid/alfafile","unit":"KB","usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:per-ip-shaping","num":50.0,"parse":"ok","path":"$.limits[2].value","per":null,"rid":"egress/pinggy-free","unit":"kB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-ip-shaping","num":50.0,"parse":"ok","path":"$.limits[2].value","per":null,"rid":"ip-proxy/oxylabs-isp-proxies","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-ip-shaping","num":500.0,"parse":"ok","path":"$.limits[0].value","per":"day","rid":"storage/box","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-ip-shaping","num":500.0,"parse":"ok","path":"$.limits[0].value","per":"day","rid":"storage/google-cloud-free-tier-cloud-storage","unit":"GB","usd":null}
@@ -10534,6 +10566,7 @@
 {"currency":null,"fx_date":null,"kind":"limit:per-ip-shaping","num":750.0,"parse":"ok","path":"$.limits[0].value","per":"day","rid":"storage/git-annex-rclone-special-remote","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-ip-shaping","num":750.0,"parse":"ok","path":"$.limits[1].value","per":"day","rid":"storage/google-drive-shared-drives-written-by-service-accounts","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-ip-shaping","num":8.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"debrid/seed-st-mini","unit":"MB","usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:per-ip-shaping","num":8.0,"parse":"ok","path":"$.limits[1].value","per":null,"rid":"egress/localhost-run","unit":"kB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-ip-shaping","num":9.7,"parse":"ok","path":"$.limits[0].value","per":"month","rid":"compute/cstserver","unit":"TB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-ip-shaping","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"compute/62yun","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-ip-shaping","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"compute/62yun-promo-vds","unit":null,"usd":null}
@@ -11400,9 +11433,11 @@
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":2.0,"parse":"ok","path":"$.limits[2].value","per":null,"rid":"storage/clarin-si-dspace-repository","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":2.0,"parse":"ok","path":"$.limits[2].value","per":null,"rid":"storage/smash-free-web-tier","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":2.0,"parse":"ok","path":"$.limits[2].value","per":null,"rid":"storage/telegram-mtproto-user-account-unlimited-channels-as-the","unit":"GB","usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":2.37,"parse":"ok","path":"$.limits[2].value","per":null,"rid":"egress/tunnl-gg","unit":"MiB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":2.5,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"storage/harvard-dataverse","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":2.5,"parse":"ok","path":"$.limits[1].value","per":null,"rid":"storage/harvard-dataverse-repository-per-collection-quota","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":2.5,"parse":"ok","path":"$.limits[1].value","per":null,"rid":"storage/timvisee-send-instances","unit":"GiB","usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":2.5,"parse":"ok","path":"$.limits[3].value","per":null,"rid":"egress/serveo","unit":"MiB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":2.56,"parse":"ok","path":"$.limits[2].value","per":null,"rid":"compute/microlxc-tiny","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":20.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"ci-cd-runners/cloudflare-workers-builds","unit":"minutes","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":20.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"debrid/bowfile","unit":"GB","usd":null}
@@ -11478,12 +11513,12 @@
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":25.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"storage/origrid","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":25.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"storage/puter-user-pays-cloud-storage","unit":"MB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":25.0,"parse":"ok","path":"$.limits[1].value","per":null,"rid":"compute/cloudflare-sandbox","unit":"GiB","usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":25.0,"parse":"ok","path":"$.limits[1].value","per":null,"rid":"compute/depot","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":25.0,"parse":"ok","path":"$.limits[1].value","per":null,"rid":"compute/hostbrr-value-2gb","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":25.0,"parse":"ok","path":"$.limits[1].value","per":null,"rid":"compute/nodus-compute","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":25.0,"parse":"ok","path":"$.limits[1].value","per":null,"rid":"databases-kv/dynamodb","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":25.0,"parse":"ok","path":"$.limits[1].value","per":null,"rid":"databases-kv/tidb-cloud-starter","unit":"GiB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":25.0,"parse":"ok","path":"$.limits[1].value","per":null,"rid":"email/zoho-mail","unit":"MB","usd":null}
-{"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":25.0,"parse":"ok","path":"$.limits[2].value","per":null,"rid":"compute/depot","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":25.0,"parse":"ok","path":"$.limits[2].value","per":null,"rid":"databases-kv/cloudflare-kv","unit":"MiB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":25.0,"parse":"ok","path":"$.limits[2].value","per":null,"rid":"storage/storage-to","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":25.0,"parse":"ok","path":"$.limits[3].value","per":null,"rid":"email/tuta","unit":"MB","usd":null}
@@ -11853,6 +11888,7 @@
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"storage/privatebin-public-instance-network","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"storage/strato-hidrive-1-tb-for-12-months-at-0","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"ci-cd-runners/codeberg-ci","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"ci-cd-runners/runners-io","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"compute/amika","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"compute/aws-agentcore","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"compute/buddy","unit":null,"usd":null}
@@ -11879,6 +11915,7 @@
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"compute/smol-machines","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"compute/together-code-sandbox","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"compute/ucloud","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"compute/warpbuild","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"compute/zhipu","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"crawler-scraper/crawl4ai","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"crawler-scraper/crawlbase","unit":null,"usd":null}
@@ -11932,6 +11969,7 @@
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"storage/oxen-ai","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"ci-cd-runners/cirrus-ci","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"compute/aws-ec2","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"compute/blacksmith","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"compute/browserbase","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"compute/browserless","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"compute/buildkite-hosted","unit":null,"usd":null}
@@ -11954,7 +11992,6 @@
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"compute/tensordock","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"compute/ubicloud","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"compute/use-computer","unit":null,"usd":null}
-{"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"compute/warpbuild","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"compute/windows-365-agents","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"compute/xcode-cloud","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"crawler-scraper/apify","unit":null,"usd":null}
@@ -12266,9 +12303,9 @@
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":200.0,"parse":"ok","path":"$.limits[1].value","per":"minute","rid":"inference/mathpix-ocr-api","unit":"requests","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":200.0,"parse":"ok","path":"$.limits[4].value","per":"minute","rid":"data-apis/wikidata","unit":"requests","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":2000.0,"parse":"ok","path":"$.limits[0].value","per":"month","rid":"ci-cd-runners/harness-ci-free","unit":"credits","usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:request-rate","num":2000.0,"parse":"ok","path":"$.limits[0].value","per":"month","rid":"compute/depot","unit":"build minutes","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":2000.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"ci-cd-runners/github-actions-private","unit":"minutes","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":2000.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"ci-cd-runners/semaphore-cloud","unit":"minutes","usd":null}
-{"currency":null,"fx_date":null,"kind":"limit:request-rate","num":2000.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"compute/depot","unit":"build minutes","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":2000.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"inference/weaviate-embeddings","unit":"requests","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":2000.0,"parse":"ok","path":"$.limits[1].value","per":"minute","rid":"crawler-scraper/anchor-browser","unit":"requests","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":2000.0,"parse":"ok","path":"$.limits[1].value","per":"minute","rid":"crawler-scraper/cfai","unit":"requests","usd":null}
@@ -12485,8 +12522,11 @@
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":90000.0,"parse":"ok","path":"$.limits[2].value","per":"month","rid":"coding-subs/alibaba-cloud-model-studio-coding-plan","unit":"requests","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":90000.0,"parse":"ok","path":"$.limits[2].value","per":"month","rid":"coding-subs/alibaba-cloud-model-studio-coding-plan-china","unit":"requests","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"ci-cd-runners/appcircle-starter","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"ci-cd-runners/compiler-dev","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"ci-cd-runners/dev-ramps-free","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"ci-cd-runners/gitlab-ci","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"ci-cd-runners/runnerhut","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"ci-cd-runners/runners-io","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"coding-subs/amp-hobby","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"coding-subs/antigravity","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"coding-subs/baidu-comate","unit":null,"usd":null}
@@ -13013,9 +13053,11 @@
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"ci-cd-runners/buildkite-free","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"ci-cd-runners/circleci-free","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"ci-cd-runners/cloudflare-pages-builds","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"ci-cd-runners/compiler-dev","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"ci-cd-runners/github-actions-public","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"ci-cd-runners/gitlab-ci","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"ci-cd-runners/harness-ci-free","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"ci-cd-runners/runnerhut","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"ci-cd-runners/semaphore-cloud","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"coding-subs/baidu-comate","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"coding-subs/codebuddy","unit":null,"usd":null}
@@ -13028,6 +13070,7 @@
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"compute/aws-cloudshell","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"compute/azure-cloud-shell","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"compute/azure-container-apps","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"compute/blacksmith","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"compute/browser-linux-emulators","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"compute/browser-use","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"compute/browseract","unit":null,"usd":null}
@@ -13070,7 +13113,6 @@
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"compute/trigger-dev","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"compute/ubicloud","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"compute/vast-ai","unit":null,"usd":null}
-{"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"compute/warpbuild","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"compute/webapp-io","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"crawler-scraper/apify","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"crawler-scraper/arquivo","unit":null,"usd":null}
@@ -13208,6 +13250,7 @@
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"egress/google-cloud-run","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"egress/ignyte-solutions","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"egress/instatunnel","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"egress/liveapps","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"egress/microsoft-dev-tunnels","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"egress/natp2p","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"egress/ngrok-free","unit":null,"usd":null}
@@ -13215,6 +13258,7 @@
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"egress/novanode-ip-tunnel","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"egress/obscura","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"egress/opentunnel-wireguard-singapore","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"egress/rustunnel","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"egress/trust-zone","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"egress/vpn-ac","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"egress/vpspioneer-cloud-vps-s","unit":null,"usd":null}
@@ -13285,6 +13329,8 @@
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"ci-cd-runners/cloudflare-workers-builds","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"ci-cd-runners/github-actions-private","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"ci-cd-runners/harness-ci-free","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"ci-cd-runners/runnerhut","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"ci-cd-runners/runners-io","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"coding-subs/bolt-pro","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"coding-subs/charm-hyper","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"coding-subs/factory","unit":null,"usd":null}
@@ -13303,6 +13349,7 @@
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"compute/serv00","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"compute/solari","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"compute/tencent-cubesandbox","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"compute/warpbuild","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"compute/zo-computer","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"crawler-scraper/firecrawl","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"crawler-scraper/octoparse","unit":null,"usd":null}
@@ -13342,6 +13389,7 @@
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"dev-services/val-town","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"domains-dns/isroot","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"egress/cpolar","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"egress/cruma","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"egress/natapp","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"email/resend","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:request-rate","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"email/smtp2go","unit":null,"usd":null}
@@ -13597,6 +13645,8 @@
 {"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"domains-dns/no-ip-free","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"egress/azirevpn","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"egress/cloudflare-quick-tunnel","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"egress/liveapps","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"egress/nport","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"egress/opentunnel-wireguard-singapore","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"egress/perfect-privacy","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"egress/taiwanfrp","unit":null,"usd":null}
@@ -13704,7 +13754,6 @@
 {"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"compute/ctrl-c-club","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"compute/datalix","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"compute/declaw","unit":null,"usd":null}
-{"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"compute/depot","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"compute/docker-cloud-sandboxes","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"compute/dreamify-ai","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"compute/e2e-networks","unit":null,"usd":null}
@@ -13823,6 +13872,7 @@
 {"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"egress/6project-org","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"egress/amazon-web-services-free-tier","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"egress/aws-free-tier","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"egress/cruma","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"egress/hide-me","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"egress/localtonet","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"egress/openport-io","unit":null,"usd":null}
@@ -13874,6 +13924,7 @@
 {"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"storage/zenodo-doi-batching-automatic-datacite-minting","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"storage/zenodo-restricted-access-records-and-secret-links","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[21].value","per":null,"rid":"debrid/torbox-free","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"ci-cd-runners/compiler-dev","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"ci-cd-runners/github-actions-public","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"ci-cd-runners/nixci","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"ci-cd-runners/sourcehut-builds","unit":null,"usd":null}
@@ -13881,6 +13932,7 @@
 {"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"compute/alwaysdata","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"compute/azure-container-apps","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"compute/dedalus-labs","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"compute/depot","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"compute/grafana-cloud","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"compute/huggingface-spaces","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:retention-clamped","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"compute/hyperstack","unit":null,"usd":null}
@@ -14124,6 +14176,7 @@
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":1.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"debrid/thaipremiumaccount-com","unit":"TB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":1.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"egress/aquatis-hrkvm-8","unit":"TB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":1.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"egress/cloudnium-ipv6-1","unit":"TB","usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":1.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"egress/cruma","unit":"GiB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":1.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"egress/dedirock-promo-vps-saver-monthly","unit":"TB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":1.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"egress/dedirock-yearly-promo-vps-saver","unit":"TB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":1.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"egress/digitalocean-app-platform","unit":"GiB","usd":null}
@@ -14137,6 +14190,7 @@
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":1.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"egress/packetriot","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":1.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"egress/rarecloud-custom-kvm-vps","unit":"TB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":1.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"egress/rdpserverss-free-ipv6","unit":"TB","usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":1.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"egress/rustunnel","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":1.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"egress/waiwang-men","unit":"TB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":1.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"egress/webdock-vps-essential","unit":"TB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":1.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"inference/stability-ai","unit":"credit","usd":null}
@@ -15178,7 +15232,6 @@
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"egress/path-net","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"egress/railway","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"egress/rocket-internet-ipv4","unit":null,"usd":null}
-{"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"egress/rustunnel","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"egress/scaleway-instances","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"egress/serververse-network-transit","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"egress/sevalla","unit":null,"usd":null}
@@ -16193,6 +16246,7 @@
 {"currency":null,"fx_date":null,"kind":"limit:write-gated","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"domains-dns/google-trust-services","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:write-gated","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"domains-dns/is-a-dev","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:write-gated","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"egress/oray-peanut-hull","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:write-gated","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"egress/rustunnel","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:write-gated","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"egress/sunny-ngrok","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:write-gated","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"email/brevo","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:write-gated","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"email/buttondown","unit":null,"usd":null}
