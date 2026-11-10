@@ -19,7 +19,7 @@ so its failed check holds no other update.
 
 | stage | command | input | output | who runs it |
 | --- | --- | --- | --- | --- |
-| export | `python publish/export.py --source ../f-research` | one commit of the research repository | `data/` | a merge session only |
+| export | `python publish/export.py --source ../raw` | one commit of the research repository | `data/` | a merge session only |
 | build | `python publish/build.py --site site/dist` | `data/` only | `.tmp/fshy/public.db`, `.tmp/fshy/worker.db`, `site/dist/` | anyone; CI; the deploy |
 
 **Export.** It publishes a commit, not a working tree.
@@ -189,7 +189,7 @@ The first publish after that pull request merges gives `data/` of the new versio
 | variable | default | what it sets |
 | --- | --- | --- |
 | `FSHY_ORIGIN` | `https://fshy.ajam.dev` | every absolute link: `llms.txt`, the Markdown pages, the sitemap, `robots.txt`, the feed and the MCP command |
-| `FSHY_REPO` | `https://github.com/Azathothas/fshy.ajam.dev` | the report link of each record, the about page and `llms.txt` |
+| `FSHY_REPO` | `https://github.com/f-shy/fshy.ajam.dev` | the report link of each record, the about page and `llms.txt` |
 
 ## Exit codes
 
